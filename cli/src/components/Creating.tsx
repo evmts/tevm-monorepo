@@ -1,7 +1,7 @@
 import { relative } from 'node:path'
 import { Box, Text } from 'ink'
 import Spinner from 'ink-spinner'
-import React from 'react'
+
 import type { Store } from '../state/Store.js'
 import Table from './Table.js'
 

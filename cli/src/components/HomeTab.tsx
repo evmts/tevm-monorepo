@@ -1,6 +1,5 @@
 import { PREFUNDED_ACCOUNTS, PREFUNDED_PRIVATE_KEYS } from '@tevm/utils'
 import { Box, Text } from 'ink'
-import React from 'react'
 
 type HomeTabProps = {
 	host: string

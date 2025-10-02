@@ -1,8 +1,8 @@
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { encodeFunctionData, parseEther } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { dealHandler } from '../anvil/index.js'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { traceCallHandler } from './traceCallHandler.js'
 
 const SENDER_ADDRESS = `0x${'1'.repeat(40)}` as const

@@ -1,8 +1,8 @@
 import { SimpleContract } from '@tevm/contract'
 import { SimpleContract as SimpleContractUtils } from '@tevm/test-utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { MemoryClient } from './MemoryClient.js'
 import { createMemoryClient } from './createMemoryClient.js'
+import type { MemoryClient } from './MemoryClient.js'
 import { tevmContract } from './tevmContract.js'
 
 let client: MemoryClient

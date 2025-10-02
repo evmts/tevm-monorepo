@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { type TevmBlockTag, isTevmBlockTag } from './isTevmBlockTag.js'
+import { isTevmBlockTag, type TevmBlockTag } from './isTevmBlockTag.js'
 
 describe(isTevmBlockTag.name, () => {
 	it('should return true for valid block tags', () => {

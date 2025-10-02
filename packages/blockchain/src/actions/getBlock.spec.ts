@@ -45,7 +45,7 @@ describe(getBlock.name, async () => {
 			common: optimism.copy(),
 			fork: {
 				transport: transports.optimism,
-				blockTag: 141658503n,
+				blockTag: 141866019n,
 			},
 		})
 		await chain.ready()

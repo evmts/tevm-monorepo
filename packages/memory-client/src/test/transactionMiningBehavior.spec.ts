@@ -1,8 +1,8 @@
 import { ErrorContract } from '@tevm/contract'
 import { encodeFunctionData, parseUnits } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { MemoryClient } from '../MemoryClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
+import type { MemoryClient } from '../MemoryClient.js'
 
 let client: MemoryClient<any, any>
 

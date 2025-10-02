@@ -1,6 +1,5 @@
 import { InvalidRequestError, RevertError } from '@tevm/errors'
-import { encodeDeployData } from '@tevm/utils'
-import { decodeErrorResult, isHex } from '@tevm/utils'
+import { decodeErrorResult, encodeDeployData, isHex } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 

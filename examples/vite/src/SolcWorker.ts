@@ -1,4 +1,4 @@
-import { type SolcOutput, createSolc, solcCompile } from '@tevm/solc'
+import { createSolc, type SolcOutput, solcCompile } from '@tevm/solc'
 import { z } from 'zod'
 
 export type MessageResult = {

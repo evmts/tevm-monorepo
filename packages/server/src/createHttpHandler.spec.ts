@@ -60,7 +60,7 @@ describe('createHttpHandler', () => {
 			common: optimism,
 			fork: {
 				transport: transports.optimism,
-				blockTag: 141658503n,
+				blockTag: 141866019n,
 			},
 		})
 
@@ -79,7 +79,7 @@ describe('createHttpHandler', () => {
 			common: optimism,
 			fork: {
 				transport: transports.optimism,
-				blockTag: 141658503n,
+				blockTag: 141866019n,
 			},
 		})
 

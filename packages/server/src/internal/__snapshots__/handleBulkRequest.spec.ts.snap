@@ -20,7 +20,7 @@ exports[`handleBulkRequest > should handle errors and return error responses 2`]
   "id": 2,
   "jsonrpc": "2.0",
   "method": "eth_blockNumber",
-  "result": "0x8718987",
+  "result": "0x874b423",
 }
 `;
 
@@ -34,7 +34,7 @@ exports[`handleBulkRequest > should handle requests without IDs 1`] = `
   {
     "jsonrpc": "2.0",
     "method": "eth_blockNumber",
-    "result": "0x8718987",
+    "result": "0x874b423",
   },
 ]
 `;
@@ -51,7 +51,7 @@ exports[`handleBulkRequest > should handle valid requests and return responses 1
     "id": 2,
     "jsonrpc": "2.0",
     "method": "eth_blockNumber",
-    "result": "0x8718987",
+    "result": "0x874b423",
   },
 ]
 `;

@@ -23,9 +23,69 @@ Version: 1.1.0.next-73],
 
 exports[`callHandler > should handle error during VM cloning 1`] = `
 [
+  [InvalidBlockError: Invalid input: expected "latest"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid input: expected "earliest"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid input: expected "pending"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid input: expected "safe"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid input: expected "finalized"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid input: expected bigint, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBlockError: Invalid input: expected number, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
   [InvalidBlockError: value must be a hex string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected "latest"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected "earliest"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected "pending"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected "safe"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected "finalized"
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected bigint, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: Invalid input: expected number, received string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
+Version: 1.1.0.next-73],
+  [InvalidBytecodeError: value must be a hex string
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
 Version: 1.1.0.next-73],
 ]
 `;
@@ -81,11 +141,11 @@ Version: 1.1.0.next-73],
 
 exports[`callHandler > should handle unexpected errors during param conversion 1`] = `
 [
-  [InvalidGasPrice: Number must be greater than or equal to 0
+  [InvalidGasPrice: Too small: expected bigint to be >=0
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],
-  [InvalidGasPrice: Number must be greater than or equal to 0
+  [InvalidGasPrice: Too small: expected bigint to be >=0
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
 Version: 1.1.0.next-73],

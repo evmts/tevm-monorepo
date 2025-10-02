@@ -1,8 +1,8 @@
 import { mainnet } from '@tevm/common'
 import { SimpleContract, transports } from '@tevm/test-utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
+import type { MemoryClient } from '../../MemoryClient.js'
 
 let mc: MemoryClient<any, any>
 
@@ -24,7 +24,7 @@ beforeEach(async () => {
 
 describe('getFeeHistory', () => {
 	it.todo('should work', async () => {
-		const blockTag = 23449343n
+		const blockTag = 23483670n
 		const mainnetClient = createMemoryClient({
 			common: mainnet,
 			fork: {

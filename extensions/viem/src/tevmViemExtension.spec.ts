@@ -1,10 +1,10 @@
-import { type Server, createServer } from 'node:http'
+import { createServer, type Server } from 'node:http'
 import type { CallParams } from '@tevm/actions'
 import { optimism } from '@tevm/common'
-import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
+import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
 import { transports } from '@tevm/test-utils'
-import { http, type PublicClient, createPublicClient, encodeFunctionData, numberToHex } from 'viem'
+import { createPublicClient, encodeFunctionData, http, numberToHex, type PublicClient } from 'viem'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { tevmViemExtension } from './tevmViemExtension.js'
 

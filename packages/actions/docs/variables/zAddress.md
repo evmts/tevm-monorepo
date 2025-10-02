@@ -6,8 +6,8 @@
 
 # Variable: zAddress
 
-> `const` **zAddress**: `ZodEffects`\<`ZodString`, `` `0x${string}` ``, `string`\>
+> `const` **zAddress**: `ZodPipe`\<`ZodString`, `ZodTransform`\<`string`, `string`\>\>
 
-Defined in: [packages/actions/src/internal/zod/zAddress.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zAddress.js#L6)
+Defined in: [packages/actions/src/internal/zod/zAddress.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zAddress.js#L8)
 
 Zod validator for a valid ethereum address

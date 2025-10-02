@@ -1,11 +1,11 @@
 import { createAddress } from '@tevm/address'
 import { transports } from '@tevm/test-utils'
 import {
+	createAccount,
+	createAddressFromString,
 	EthjsAccount,
 	EthjsAddress,
 	type Hex,
-	createAccount,
-	createAddressFromString,
 	hexToBigInt,
 	hexToBytes,
 	toBytes,
@@ -184,7 +184,7 @@ describe('getContractStorage forking', () => {
 		const testState = createBaseState({
 			fork: {
 				transport: transports.optimism,
-				blockTag: 141658503n,
+				blockTag: 141866019n,
 			},
 		})
 

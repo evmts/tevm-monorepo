@@ -1,4 +1,4 @@
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { type Hex, hexToBytes } from '@tevm/utils'
 import { http, parseEther } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
@@ -89,7 +89,7 @@ describe(mineHandler.name, () => {
 	it('should throw an error for invalid params', async () => {
 		const client = createTevmNode()
 		await expect(mineHandler(client)({ interval: 'invalid' as any })).rejects.toThrowErrorMatchingInlineSnapshot(`
-			[InternalError: Expected number, received string
+			[InternalError: Invalid input: expected number, received string
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/invalidnonceerror/
 			Version: 1.1.0.next-73

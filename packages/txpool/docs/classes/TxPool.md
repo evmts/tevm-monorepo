@@ -26,6 +26,8 @@ Defined in: [TxPool.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 **`Experimental`**
 
+Create new tx pool
+
 #### Parameters
 
 ##### options
@@ -172,6 +174,12 @@ Defined in: [TxPool.ts:357](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 **`Experimental`**
 
+Adds a tx to the pool.
+
+If there is a tx in the pool with the same address and
+nonce it will be replaced by the new tx, if it has a sufficient gas bump.
+This also verifies certain constraints, if these are not met, tx will not be added to the pool.
+
 #### Parameters
 
 ##### tx
@@ -202,6 +210,12 @@ Defined in: [TxPool.ts:303](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 **`Experimental`**
 
+Adds a tx to the pool without validating it.
+
+If there is a tx in the pool with the same address and
+nonce it will be replaced by the new tx, if it has a sufficient gas bump.
+This also verifies certain constraints, if these are not met, tx will not be added to the pool.
+
 #### Parameters
 
 ##### tx
@@ -224,6 +238,8 @@ Defined in: [TxPool.ts:482](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 **`Experimental`**
 
+Regular tx pool cleanup
+
 #### Returns
 
 `void`
@@ -238,6 +254,8 @@ Defined in: [TxPool.ts:800](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 **`Experimental`**
 
+Clears the pool of all transactions.
+
 #### Returns
 
 `Promise`\<`void`\>
@@ -251,6 +269,8 @@ Defined in: [TxPool.ts:800](https://github.com/evmts/tevm-monorepo/blob/main/pac
 Defined in: [TxPool.ts:787](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L787)
 
 **`Experimental`**
+
+Close pool
 
 #### Returns
 
@@ -354,6 +374,8 @@ Defined in: [TxPool.ts:573](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 **`Experimental`**
 
+Get all pending transactions in the pool
+
 #### Returns
 
 `Promise`\<(`TypedTransaction` \| `ImpersonatedTx`)[]\>
@@ -369,6 +391,8 @@ Array of transactions
 Defined in: [TxPool.ts:586](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L586)
 
 **`Experimental`**
+
+Get transaction status
 
 #### Parameters
 
@@ -408,6 +432,8 @@ Defined in: [TxPool.ts:616](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 **`Experimental`**
 
+Register an event handler
+
 #### Parameters
 
 ##### event
@@ -436,6 +462,8 @@ Defined in: [TxPool.ts:640](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 **`Experimental`**
 
+Handle block being added to the chain
+
 #### Parameters
 
 ##### block
@@ -457,6 +485,8 @@ The block that was added
 Defined in: [TxPool.ts:649](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L649)
 
 **`Experimental`**
+
+Handle chain reorganization
 
 #### Parameters
 
@@ -486,6 +516,8 @@ Defined in: [TxPool.ts:164](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 **`Experimental`**
 
+Open pool
+
 #### Returns
 
 `boolean`
@@ -499,6 +531,8 @@ Defined in: [TxPool.ts:164](https://github.com/evmts/tevm-monorepo/blob/main/pac
 Defined in: [TxPool.ts:414](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L414)
 
 **`Experimental`**
+
+Removes the given tx from the pool
 
 #### Parameters
 
@@ -522,6 +556,8 @@ Defined in: [TxPool.ts:469](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 **`Experimental`**
 
+Remove txs included in the latest blocks from the tx pool
+
 #### Parameters
 
 ##### newBlocks
@@ -542,6 +578,8 @@ Defined in: [TxPool.ts:176](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 **`Experimental`**
 
+Start tx processing
+
 #### Returns
 
 `boolean`
@@ -556,6 +594,8 @@ Defined in: [TxPool.ts:776](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 **`Experimental`**
 
+Stop pool execution
+
 #### Returns
 
 `boolean`
@@ -569,6 +609,19 @@ Defined in: [TxPool.ts:776](https://github.com/evmts/tevm-monorepo/blob/main/pac
 Defined in: [TxPool.ts:683](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L683)
 
 **`Experimental`**
+
+Returns eligible txs to be mined sorted by price in such a way that the
+nonce orderings within a single account are maintained.
+
+Note, this is not as trivial as it seems from the first look as there are three
+different criteria that need to be taken into account (price, nonce, account
+match), which cannot be done with any plain sorting method, as certain items
+cannot be compared without context.
+
+This method first sorts the separates the list of transactions into individual
+sender accounts and sorts them by nonce. After the account nonce ordering is
+satisfied, the results are merged back together by price, always comparing only
+the head transaction from each account. This is done via a heap to keep it fast.
 
 #### Parameters
 

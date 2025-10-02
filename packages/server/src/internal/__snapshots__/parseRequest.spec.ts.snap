@@ -1,22 +1,14 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`parseRequest > should return InvalidJsonError for invalid JSON 1`] = `
-"Expected ',' or '}' after property value in JSON at position 57 (line 1 column 58)
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidjsonerror/
-Details: Expected ',' or '}' after property value in JSON at position 57 (line 1 column 58)
-Version: 1.1.0.next-73"
-`;
-
 exports[`parseRequest > should return InvalidRequestError for invalid JSON-RPC request 1`] = `
-"{"_errors":[],"method":{"_errors":["Required"]}}
+"{"errors":[],"properties":{"method":{"errors":["Invalid input: expected string, received undefined"]}}}
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
 Version: 1.1.0.next-73"
 `;
 
 exports[`parseRequest > should return InvalidRequestError for invalid bulk JSON-RPC request 1`] = `
-"{"1":{"_errors":[],"method":{"_errors":["Required"]}},"_errors":[]}
+"{"errors":[],"items":[null,{"errors":[],"properties":{"method":{"errors":["Invalid input: expected string, received undefined"]}}}]}
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
 Version: 1.1.0.next-73"

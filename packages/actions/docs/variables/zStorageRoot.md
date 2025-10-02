@@ -6,7 +6,7 @@
 
 # Variable: zStorageRoot
 
-> `const` **zStorageRoot**: `ZodEffects`\<`ZodString`, `string`, `string`\>
+> `const` **zStorageRoot**: `ZodPipe`\<`ZodString`, `ZodTransform`\<`string`, `string`\>\>
 
 Defined in: [packages/actions/src/internal/zod/zStorageRoot.js:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/internal/zod/zStorageRoot.js#L8)
 

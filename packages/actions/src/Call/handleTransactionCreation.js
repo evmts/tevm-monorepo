@@ -16,7 +16,7 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 	/**
 	 * @type {import('@tevm/utils').Hex | undefined}
 	 */
-	let txHash = undefined
+	let txHash
 	/**
 	 * @type {Array<import('./TevmCallError.js').TevmCallError>}
 	 */

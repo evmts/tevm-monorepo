@@ -8,7 +8,7 @@
 
 > **validateBaseCallParams**(`action`): `ValidateBaseCallParamsError`[]
 
-Defined in: [packages/actions/src/BaseCall/validateBaseCallParams.js:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/validateBaseCallParams.js#L32)
+Defined in: [packages/actions/src/BaseCall/validateBaseCallParams.js:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/BaseCall/validateBaseCallParams.js#L33)
 
 **`Internal`**
 

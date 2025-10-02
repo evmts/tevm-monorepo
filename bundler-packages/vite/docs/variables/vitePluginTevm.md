@@ -6,7 +6,7 @@
 
 # Variable: vitePluginTevm()
 
-> `const` **vitePluginTevm**: (`options?`) => `Plugin`
+> `const` **vitePluginTevm**: (`options?`) => `Plugin$1`
 
 Defined in: [bundler-packages/vite/src/vitePluginTevm.js:54](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/vite/src/vitePluginTevm.js#L54)
 
@@ -28,7 +28,7 @@ in a type-safe way directly in your Vite-powered applications.
 
 ## Returns
 
-`Plugin`
+`Plugin$1`
 
 A Vite plugin that handles Solidity imports
 

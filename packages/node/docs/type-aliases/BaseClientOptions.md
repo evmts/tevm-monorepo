@@ -4,7 +4,7 @@
 
 [@tevm/node](../globals.md) / BaseClientOptions
 
-# Type Alias: ~~BaseClientOptions~~
+# ~~Type Alias: BaseClientOptions~~
 
 > **BaseClientOptions** = [`TevmNodeOptions`](TevmNodeOptions.md)
 

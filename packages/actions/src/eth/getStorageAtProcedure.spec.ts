@@ -1,4 +1,4 @@
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { SimpleContract } from '@tevm/test-utils'
 import { type Address, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'

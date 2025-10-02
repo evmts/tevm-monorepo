@@ -4,7 +4,7 @@
 
 [@tevm/client-types](../globals.md) / TevmClient
 
-# Type Alias: ~~TevmClient~~
+# ~~Type Alias: TevmClient~~
 
 > **TevmClient** = `object`
 

@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import { access } from 'node:fs/promises'
 import { Effect } from 'effect'
-import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest'
 import type { FileAccessObject, Logger } from '../types.js'
 import { resolveEffect } from './resolvePromise.js'
 

@@ -1,8 +1,8 @@
 import { optimism } from '@tevm/common'
 import { hexToBytes, toHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { ReceiptsManager } from './ReceiptManager.js'
 import { createMapDb } from './createMapDb.js'
+import { ReceiptsManager } from './ReceiptManager.js'
 
 // Mock the getBlock function
 vi.mock('@tevm/blockchain', () => ({

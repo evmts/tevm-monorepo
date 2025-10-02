@@ -45,13 +45,13 @@ await client.addChain({ chain: optimism })
 
 #### batch?
 
-\{ `multicall?`: `boolean` \| \{ `batchSize?`: `number`; `wait?`: `number`; \}; \}
+\{ `multicall?`: `boolean` \| \{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}; \}
 
 Flags for batch settings.
 
 #### batch.multicall?
 
-`boolean` \| \{ `batchSize?`: `number`; `wait?`: `number`; \}
+`boolean` \| \{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}
 
 Toggle to enable `eth_call` multicall aggregation.
 
@@ -395,6 +395,12 @@ const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
 // 10000000n
 ```
 
+#### experimental_blockTag?
+
+`BlockTag`
+
+Default block tag to use for RPC requests.
+
 #### extend
 
 \<`client`\>(`fn`) => `Client`\<`TevmTransport`, `undefined` \| `Chain`, `undefined` \| `Account`, \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\], \{ \[K in string \| number \| symbol\]: client\[K\] \} & `TevmActions` & `PublicActions`\<`TevmTransport`, `undefined` \| `Chain`, `undefined` \| `Account`\> & `WalletActions`\<`undefined` \| `Chain`, `undefined` \| `Account`\> & `TestActions`\>
@@ -587,7 +593,7 @@ Use `getCode` instead.
 
 #### getCallsStatus
 
-(`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{[`key`: `string`]: `any`; \} \| \{[`key`: `string`]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
+(`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
 
 Returns the status of a call batch that was sent via `sendCalls`.
 
@@ -1721,7 +1727,7 @@ await client.revert({ id: '0x…' })
 
 #### sendCalls
 
-\<`calls`, `chainOverride`\>(`parameters`) => `Promise`\<\{ `capabilities?`: \{[`key`: `string`]: `any`; \}; `id`: `string`; \}\>
+\<`calls`, `chainOverride`\>(`parameters`) => `Promise`\<\{ `capabilities?`: \{\[`key`: `string`\]: `any`; \}; `id`: `string`; \}\>
 
 Requests the connected wallet to send a batch of calls.
 
@@ -2940,6 +2946,14 @@ const uninstalled = await client.uninstallFilter({ filter })
 // true
 ```
 
+#### verifyHash
+
+(`args`) => `Promise`\<`boolean`\>
+
+Verify that a hash was signed by the provided address.
+
+- Docs [https://viem.sh/docs/actions/public/verifyHash](https://viem.sh/docs/actions/public/verifyHash)
+
 #### verifyMessage
 
 (`args`) => `Promise`\<`boolean`\>
@@ -2970,7 +2984,7 @@ Verify that typed data was signed by the provided address.
 
 #### waitForCallsStatus
 
-(`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{[`key`: `string`]: `any`; \} \| \{[`key`: `string`]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
+(`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
 
 Waits for the status & receipts of a call bundle that was sent via `sendCalls`.
 

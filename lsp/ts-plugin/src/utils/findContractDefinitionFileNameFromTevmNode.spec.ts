@@ -1,5 +1,5 @@
 import ts from 'typescript/lib/tsserverlibrary.js'
-import { type MockedFunction, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, type MockedFunction, vi } from 'vitest'
 import { findContractDefinitionFileNameFromTevmNode } from './findContractDefinitionFileNameFromTevmNode.js'
 import { findNode } from './findNode.js'
 

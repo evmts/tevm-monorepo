@@ -1,4 +1,3 @@
-import React from 'react'
 import type { SetAccountParams, SetAccountResult } from '@tevm/actions'
 import { option } from 'pastel'
 import { z } from 'zod'

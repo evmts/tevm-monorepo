@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [state](../README.md) / getAppliedKey
 
-# Variable: ~~getAppliedKey~~
+# ~~Variable: getAppliedKey~~
 
 > `const` **getAppliedKey**: [`StateAction`](../type-aliases/StateAction.md)\<`"getAppliedKey"`\>
 

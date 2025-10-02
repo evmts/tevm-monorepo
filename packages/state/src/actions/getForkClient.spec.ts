@@ -1,7 +1,7 @@
 import { http } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
-import { NoForkError, getForkClient } from './getForkClient.js'
+import { getForkClient, NoForkError } from './getForkClient.js'
 
 describe(getForkClient.name, () => {
 	it('should return a fork client with transport function', () => {

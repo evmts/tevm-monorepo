@@ -1,4 +1,4 @@
-import { http, createMemoryClient } from 'tevm'
+import { createMemoryClient, http } from 'tevm'
 
 const memoryClient = await createMemoryClient({
 	fork: {

@@ -4,8 +4,8 @@ import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 import { createStateManager } from '@tevm/state'
 import { createAddressFromString } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
-import { Evm } from './Evm.js'
 import { createEvm } from './createEvm.js'
+import { Evm } from './Evm.js'
 
 describe(createEvm.name, () => {
 	it('wraps ethereumjs EVM', async () => {

@@ -10,7 +10,7 @@ describe('blockToJsonRpcBlock', async () => {
 	const vm = await client.getVm()
 	const [block] = await getBlockFromRpc(
 		vm.blockchain,
-		{ blockTag: 141658503n, transport: transports.optimism },
+		{ blockTag: 141866019n, transport: transports.optimism },
 		vm.common,
 	)
 

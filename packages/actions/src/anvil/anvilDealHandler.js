@@ -2,9 +2,9 @@ import { ERC20 } from '@tevm/contract'
 import { numberToHex } from '@tevm/utils'
 import { encodeFunctionData, hexToBigInt } from 'viem'
 import { contractHandler } from '../Contract/contractHandler.js'
-import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { ethCreateAccessListProcedure } from '../eth/ethCreateAccessListProcedure.js'
 import { getStorageAtHandler } from '../eth/getStorageAtHandler.js'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { anvilSetStorageAtJsonRpcProcedure } from './anvilSetStorageAtProcedure.js'
 
 /**

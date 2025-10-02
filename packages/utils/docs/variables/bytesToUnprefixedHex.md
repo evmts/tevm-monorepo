@@ -4,7 +4,7 @@
 
 [@tevm/utils](../globals.md) / bytesToUnprefixedHex
 
-# Variable: ~~bytesToUnprefixedHex~~
+# ~~Variable: bytesToUnprefixedHex~~
 
 > `const` **bytesToUnprefixedHex**: *typeof* `_bytesToUnprefixedHex`
 

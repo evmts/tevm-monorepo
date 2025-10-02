@@ -65,14 +65,14 @@
 		"@tevm/bundler-cache": "workspace:^",
 		"@tevm/config": "workspace:^",
 		"@tevm/solc": "workspace:^",
-		"effect": "3.15.4",
+		"effect": "3.18.1",
 		"solc": "0.8.30"
 	},
 	"devDependencies": {
 		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"bun-types": "^1.2.14"
+		"bun-types": "^1.2.23"
 	},
 	"publishConfig": {
 		"access": "public"

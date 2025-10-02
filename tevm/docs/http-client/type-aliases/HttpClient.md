@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [http-client](../README.md) / HttpClient
 
-# Type Alias: ~~HttpClient~~
+# ~~Type Alias: HttpClient~~
 
 > **HttpClient** = [`TevmClient`](../../index/type-aliases/TevmClient.md) & `object`
 

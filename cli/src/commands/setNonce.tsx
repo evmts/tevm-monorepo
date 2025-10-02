@@ -1,4 +1,3 @@
-import React from 'react'
 import { option } from 'pastel'
 import { z } from 'zod'
 import CliAction from '../components/CliAction.js'

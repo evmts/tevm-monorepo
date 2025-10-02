@@ -4,7 +4,7 @@
 
 [@tevm/viem](../globals.md) / ViemTevmClientDecorator
 
-# Type Alias: ~~ViemTevmClientDecorator()~~
+# ~~Type Alias: ViemTevmClientDecorator()~~
 
 > **ViemTevmClientDecorator** = (`client`) => [`ViemTevmClient`](ViemTevmClient.md)
 

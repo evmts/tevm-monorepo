@@ -10,12 +10,20 @@ Version: 1.1.0.next-73]
 exports[`validateCallParams > createTransaction and stateOverrideSet 1`] = `
 [InvalidParams: [
   {
-    "code": "custom",
-    "message": "Invalid Address 0x1234",
+    "code": "invalid_key",
+    "origin": "record",
+    "issues": [
+      {
+        "code": "custom",
+        "message": "Invalid Address 0x1234",
+        "path": []
+      }
+    ],
     "path": [
       "stateOverrideSet",
       "0x1234"
-    ]
+    ],
+    "message": "Invalid key in record"
   }
 ]
 

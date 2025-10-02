@@ -3,7 +3,7 @@ import { bundler } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
 import { defaultConfig, loadConfig } from '@tevm/config'
 import { catchTag, logWarning, map } from 'effect/Effect'
-import { type Mock, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, type Mock, vi } from 'vitest'
 import { file } from './bunFile.js'
 import { bunFileAccesObject } from './bunFileAccessObject.js'
 

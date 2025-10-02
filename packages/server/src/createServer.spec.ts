@@ -1,4 +1,4 @@
-import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
+import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
 import supertest from 'supertest'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createServer as createHttpServer } from './createServer.js'

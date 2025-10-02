@@ -2,8 +2,8 @@ import { prefundedAccounts } from '@tevm/node'
 import { SimpleContract } from '@tevm/test-utils'
 import type { Address } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
+import type { MemoryClient } from '../../MemoryClient.js'
 
 let mc: MemoryClient<any, any>
 

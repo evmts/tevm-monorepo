@@ -1,10 +1,10 @@
 import { optimism } from '@tevm/common'
-import { ERC20, createContract } from '@tevm/contract'
+import { createContract, ERC20 } from '@tevm/contract'
 import { transports } from '@tevm/test-utils'
 import { encodeDeployData, toHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { TevmProvider } from './TevmProvider.js'
 import { Interface } from './contract/index.js'
+import { TevmProvider } from './TevmProvider.js'
 
 describe(TevmProvider.name, () => {
 	let provider: TevmProvider

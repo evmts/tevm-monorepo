@@ -2,9 +2,9 @@ import { EvmError, type ExecResult } from '@tevm/evm'
 import {
 	type Abi,
 	type AbiParametersToPrimitiveTypes,
+	decodeFunctionData,
 	type ExtractAbiFunction,
 	type ExtractAbiFunctionNames,
-	decodeFunctionData,
 	encodeFunctionResult,
 	hexToBytes,
 } from '@tevm/utils'

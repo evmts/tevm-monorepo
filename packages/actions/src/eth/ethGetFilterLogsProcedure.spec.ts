@@ -1,13 +1,13 @@
 import { createAddress, createContractAddress } from '@tevm/address'
 import { SimpleContract } from '@tevm/contract'
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import {
-	PREFUNDED_ACCOUNTS,
 	encodeDeployData,
 	encodeFunctionData,
 	isHex,
 	keccak256,
 	numberToHex,
+	PREFUNDED_ACCOUNTS,
 	stringToHex,
 } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'

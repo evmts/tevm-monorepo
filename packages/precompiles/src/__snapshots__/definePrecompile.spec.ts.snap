@@ -49,7 +49,7 @@ exports[`defineCall > should correctly process logs 2`] = `
 Expected length (params): 1
 Given length (values): 2
 
-Version: viem@2.30.6",
+Version: viem@2.37.9",
   },
   "executionGasUsed": 0n,
   "returnValue": Uint8Array [],

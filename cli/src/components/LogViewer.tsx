@@ -1,5 +1,5 @@
 import { Box, Text, useInput } from 'ink'
-import React from 'react'
+
 import { useLogStore } from '../stores/logStore.js'
 
 type LogViewerProps = {

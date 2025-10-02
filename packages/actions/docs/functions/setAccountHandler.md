@@ -8,7 +8,7 @@
 
 > **setAccountHandler**(`client`, `options?`): [`SetAccountHandler`](../type-aliases/SetAccountHandler.md)
 
-Defined in: [packages/actions/src/SetAccount/setAccountHandler.js:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/setAccountHandler.js#L71)
+Defined in: [packages/actions/src/SetAccount/setAccountHandler.js:70](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/setAccountHandler.js#L70)
 
 Creates a handler for setting account state in the Ethereum Virtual Machine
 

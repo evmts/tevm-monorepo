@@ -38,6 +38,7 @@ export function isViemAction(actionName) {
  */
 export const loadViemClient = async (rpcUrl) => {
 	try {
+		// biome-ignore lint/suspicious/noAsyncPromiseExecutor: we're keeping this here
 		return await new Promise(async (resolve) => {
 			try {
 				// Using dynamic import with safety checks

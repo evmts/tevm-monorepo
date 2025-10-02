@@ -1,5 +1,5 @@
 import { Text } from 'ink'
-import React from 'react'
+
 import { SelectInput } from './SelectInput.js'
 import { Step } from './Step.js'
 

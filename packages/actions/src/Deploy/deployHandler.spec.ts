@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { InvalidRequestError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
-import { type Hex, bytesToHex, parseAbi } from '@tevm/utils'
+import { bytesToHex, type Hex, parseAbi } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'

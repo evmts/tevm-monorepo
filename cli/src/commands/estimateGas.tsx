@@ -1,4 +1,3 @@
-import React from 'react'
 import { option } from 'pastel'
 import { isAddress } from 'viem'
 import { z } from 'zod'

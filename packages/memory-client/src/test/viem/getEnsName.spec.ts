@@ -11,7 +11,7 @@ describe('getEnsName', async () => {
 			common: Object.assign({ kzg }, mainnet),
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 23449343n,
+				blockTag: 23483670n,
 			},
 		})
 		expect(await mainnetClient.getEnsName({ address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045' })).toBe(

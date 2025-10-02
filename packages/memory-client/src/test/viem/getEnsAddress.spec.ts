@@ -2,8 +2,8 @@ import { mainnet } from '@tevm/common'
 import { SimpleContract, transports } from '@tevm/test-utils'
 import { loadKZG } from 'kzg-wasm'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
+import type { MemoryClient } from '../../MemoryClient.js'
 
 let mc: MemoryClient<any, any>
 
@@ -30,7 +30,7 @@ describe('getEnsAddress', async () => {
 			common: Object.assign({ kzg }, mainnet),
 			fork: {
 				transport: transports.mainnet,
-				blockTag: 23449343n,
+				blockTag: 23483670n,
 			},
 		})
 		expect(await mainnetClient.getEnsAddress({ name: 'vitalik.eth' })).toBe(

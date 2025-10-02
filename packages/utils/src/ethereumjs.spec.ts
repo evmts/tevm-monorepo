@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import {
-	EthjsAccount,
-	EthjsAddress,
-	TypeOutput,
 	bytesToUnprefixedHex,
 	bytesToUtf8,
 	concatBytes,
+	EthjsAccount,
+	EthjsAddress,
 	equalsBytes,
 	randomBytes,
 	setLengthLeft,
+	TypeOutput,
 	toType,
 } from './ethereumjs.js'
 

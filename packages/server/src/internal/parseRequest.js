@@ -1,5 +1,5 @@
 import { InvalidRequestError } from '@tevm/errors'
-import { z } from 'zod'
+import { treeifyError, z } from 'zod'
 import { InvalidJsonError } from '../errors/InvalidJsonError.js'
 
 const zJsonRpcRequest = z.object({
@@ -28,9 +28,18 @@ export const parseRequest = (body) => {
 		const err = /** @type {Error} */ (e)
 		return new InvalidJsonError(err.message, { cause: err })
 	}
-	const parsedRequest = Array.isArray(raw) ? zBulkRequest.safeParse(raw) : zJsonRpcRequest.safeParse(raw)
-	if (!parsedRequest.success) {
-		return new InvalidRequestError(JSON.stringify(parsedRequest.error.format()))
+
+	if (Array.isArray(raw)) {
+		const parsedRequest = zBulkRequest.safeParse(raw)
+		if (!parsedRequest.success) {
+			return new InvalidRequestError(JSON.stringify(treeifyError(parsedRequest.error)))
+		}
+		return parsedRequest.data
+	} else {
+		const parsedRequest = zJsonRpcRequest.safeParse(raw)
+		if (!parsedRequest.success) {
+			return new InvalidRequestError(JSON.stringify(treeifyError(parsedRequest.error)))
+		}
+		return parsedRequest.data
 	}
-	return parsedRequest.data
 }

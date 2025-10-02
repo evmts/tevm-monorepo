@@ -20,7 +20,7 @@ import type {
 	LegacyTransaction,
 } from '@tevm/tx'
 import { BlobEIP4844Transaction, Capability, isBlobEIP4844Tx } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, type Hex, equalsBytes, hexToBytes } from '@tevm/utils'
+import { EthjsAccount, EthjsAddress, equalsBytes, type Hex, hexToBytes } from '@tevm/utils'
 import type { BaseVm } from '../BaseVm.js'
 import type { AfterTxEvent, RunTxOpts, RunTxResult } from '../utils/index.js'
 import { KECCAK256_NULL } from './constants.js'

@@ -1,5 +1,7 @@
 import {
+	decodeUnknownEither,
 	Literal,
+	optional,
 	Record,
 	Array as SArray,
 	Boolean as SBoolean,
@@ -7,8 +9,6 @@ import {
 	Struct,
 	Undefined,
 	Union,
-	decodeUnknownEither,
-	optional,
 } from '@effect/schema/Schema'
 import { formatErrorSync } from '@effect/schema/TreeFormatter'
 import { pipe } from 'effect'

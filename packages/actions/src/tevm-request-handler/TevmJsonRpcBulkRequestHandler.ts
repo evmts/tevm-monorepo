@@ -1,4 +1,3 @@
-import type { TevmJsonRpcRequest } from '../TevmJsonRpcRequest.js'
 import type { AnvilJsonRpcRequest } from '../anvil/index.js'
 import type { DebugJsonRpcRequest } from '../debug/DebugJsonRpcRequest.js'
 import type {
@@ -10,6 +9,7 @@ import type {
 	EthGetStorageAtJsonRpcResponse,
 	EthJsonRpcRequest,
 } from '../eth/index.js'
+import type { TevmJsonRpcRequest } from '../TevmJsonRpcRequest.js'
 import type { JsonRpcReturnTypeFromMethod } from './JsonRpcReturnTypeFromMethod.js'
 
 /**

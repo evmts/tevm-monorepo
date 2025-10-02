@@ -1,7 +1,7 @@
 import { FeeMarket1559Tx } from '@ethereumjs/tx'
 import { InternalError, InvalidGasLimitError } from '@tevm/errors'
 import { createAddressFromString } from '@tevm/utils'
-import { type MockedFunction, afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, type MockedFunction, vi } from 'vitest'
 import { createImpersonatedTx } from './createImpersonatedTx.js'
 
 vi.mock('@ethereumjs/tx', async () => {

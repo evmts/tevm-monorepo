@@ -1,6 +1,6 @@
 import { Text } from 'ink'
 import TextInput from 'ink-text-input'
-import React from 'react'
+
 import { Step } from './Step.js'
 
 type InputStep = {

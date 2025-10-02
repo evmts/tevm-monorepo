@@ -4,7 +4,7 @@
 
 [tevm](../../modules.md) / [http-client](../README.md) / HttpClientOptions
 
-# Type Alias: ~~HttpClientOptions~~
+# ~~Type Alias: HttpClientOptions~~
 
 > **HttpClientOptions** = `object`
 

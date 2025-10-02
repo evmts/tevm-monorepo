@@ -7,7 +7,7 @@ import type { ResolvedCompilerConfig } from '@tevm/config'
 import type { Node } from 'solidity-ast/node.js'
 import { findAll } from 'solidity-ast/utils.js'
 import typescript from 'typescript/lib/tsserverlibrary.js'
-import { type Mock, afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, type Mock, vi } from 'vitest'
 import { convertSolcAstToTsDefinitionInfo, findContractDefinitionFileNameFromTevmNode, findNode } from '../utils'
 import { getDefinitionServiceDecorator } from './getDefinitionAtPosition.js'
 

@@ -4,7 +4,7 @@
 
 [@tevm/http-client](../globals.md) / HttpClientOptions
 
-# Type Alias: ~~HttpClientOptions~~
+# ~~Type Alias: HttpClientOptions~~
 
 > **HttpClientOptions** = `object`
 

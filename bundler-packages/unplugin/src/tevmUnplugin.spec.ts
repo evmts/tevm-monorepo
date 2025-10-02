@@ -5,7 +5,7 @@ import { loadConfig } from '@tevm/config'
 import { createSolc } from '@tevm/solc'
 import { succeed } from 'effect/Effect'
 import type { UnpluginBuildContext, UnpluginContext } from 'unplugin'
-import { type Mock, type MockedFunction, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, type Mock, type MockedFunction, vi } from 'vitest'
 import { tevmUnplugin } from './index.js'
 
 vi.mock('module', async () => ({

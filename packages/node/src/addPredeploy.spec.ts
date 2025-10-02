@@ -1,8 +1,8 @@
 import { createAccount, createAddressFromString, hexToBytes, keccak256 } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import type { TevmNode } from './TevmNode.js'
 import { addPredeploy } from './addPredeploy.js'
 import { createTevmNode } from './createTevmNode.js'
+import type { TevmNode } from './TevmNode.js'
 
 describe('addPredeploy', () => {
 	let client: TevmNode

@@ -1,10 +1,10 @@
-import { http, createWalletClient } from 'viem'
+import { createWalletClient, http } from 'viem'
 import { describe, expect, it } from 'vitest'
+import { tevmViemExtensionOptimistic } from './tevmViemExtensionOptimistic.js'
 // We don't need this import anymore
 // import type { ViemTevmOptimisticClient } from './ViemTevmOptimisticClient.js'
 import type { ViemTevmOptimisticClientDecorator } from './ViemTevmOptimisticClientDecorator.js'
 import type { ViemTevmOptimisticExtension } from './ViemTevmOptimisticExtension.js'
-import { tevmViemExtensionOptimistic } from './tevmViemExtensionOptimistic.js'
 
 describe('ViemTevmOptimisticClient', () => {
 	it('should correctly type a client with tevmViemExtensionOptimistic', () => {

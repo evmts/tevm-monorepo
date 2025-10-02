@@ -1,6 +1,6 @@
 import BigText from 'ink-big-text'
 import Gradient from 'ink-gradient'
-import React from 'react'
+
 import { useCounter } from '../hooks/useCounter.js'
 
 const titleText = 'Tevm Create'

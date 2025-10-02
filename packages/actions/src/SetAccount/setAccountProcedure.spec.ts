@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { ERC20 } from '@tevm/contract'
 import { InvalidAddressError } from '@tevm/errors'
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { bytesToHex, keccak256, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { SetAccountJsonRpcRequest } from './SetAccountJsonRpcRequest.js'

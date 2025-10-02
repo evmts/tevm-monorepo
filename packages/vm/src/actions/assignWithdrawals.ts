@@ -1,5 +1,5 @@
 import { Block } from '@tevm/block'
-import { Withdrawal, parseGwei } from '@tevm/utils'
+import { parseGwei, Withdrawal } from '@tevm/utils'
 
 import type { BaseVm } from '../BaseVm.js'
 import { rewardAccount } from './rewardAccount.js'

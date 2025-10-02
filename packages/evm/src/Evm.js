@@ -1,4 +1,4 @@
-import { EVM, createEVM, getActivePrecompiles } from '@ethereumjs/evm'
+import { createEVM, EVM, getActivePrecompiles } from '@ethereumjs/evm'
 import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 
 /**

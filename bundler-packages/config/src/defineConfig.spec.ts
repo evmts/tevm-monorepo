@@ -1,6 +1,6 @@
 import { execSync } from 'node:child_process'
 import { flip, runSync } from 'effect/Effect'
-import { type MockedFunction, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, type MockedFunction, vi } from 'vitest'
 import { DefineConfigError } from './defineConfig.js'
 import { type CompilerConfig, defaultConfig, defineConfig } from './index.js'
 

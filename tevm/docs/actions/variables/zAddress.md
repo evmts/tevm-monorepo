@@ -6,7 +6,7 @@
 
 # Variable: zAddress
 
-> `const` **zAddress**: `ZodEffects`
+> `const` **zAddress**: `z.ZodPipe`\<`z.ZodString`, `z.ZodTransform`\<`string`, `string`\>\>
 
 Defined in: packages/actions/types/internal/zod/zAddress.d.ts:4
 

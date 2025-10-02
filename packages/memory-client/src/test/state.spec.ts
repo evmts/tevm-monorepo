@@ -1,4 +1,4 @@
-import { type Hex, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
+import { bytesToHex, type Hex, hexToBytes, parseEther } from '@tevm/utils'
 import { http } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
