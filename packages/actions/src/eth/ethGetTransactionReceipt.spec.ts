@@ -573,9 +573,9 @@ describe('ethGetTransactionReceiptHandler', () => {
 			const handler = ethGetTransactionReceiptHandler(client)
 			const receipt = await handler({ hash: '0x0000000000000000000000000000000000000000000000000000000000000678' })
 
-			// Should return receipt with to as '0x' and contractAddress set
+			// Should return receipt with to as null and contractAddress set
 			expect(receipt).toBeDefined()
-			expect(receipt.to).toBe('0x')
+			expect(receipt.to).toBeNull()
 			expect(receipt.contractAddress).toBe('0xnewcontract')
 		})
 	})
