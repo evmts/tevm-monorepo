@@ -64,6 +64,8 @@
 	},
 	"dependencies": {
 		"@tevm/config": "workspace:^",
+		"@tevm/logger": "workspace:^",
+		"@tevm/utils": "workspace:^",
 		"@tevm/resolutions": "workspace:^",
 		"@tevm/solc": "workspace:^",
 		"@types/node": "^24.6.1",

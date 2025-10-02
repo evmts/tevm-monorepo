@@ -6,11 +6,12 @@ import { CompilerOutputError } from './errors.js'
  *
  * @param {{[sourcePath: string]: string}} sources - The source code to compile
  * @param {import('@tevm/solc').Solc} solc - Solc instance
- * @param {import('../../types.js').ValidatedCompileBaseOptions} options
- * @param {import('../../types.js').Logger} [logger] - The logger
- * @returns {import('../../types.js').CompileContractsResult}
+ * @param {import('./ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions} options
+ * @param {import('@tevm/logger').Logger} logger - The logger
+ * @returns {import('./CompileContractsResult.js').CompileContractsResult}
+ * @throws {CompilerOutputError} If the source or contract output is not found in the solc output
  */
-export const compileContracts = (sources, solc, options, logger = console) => {
+export const compileContracts = (sources, solc, options, logger) => {
 	/** @type {import('@tevm/solc').SolcSettings} */
 	const settings = Object.assign(
 		{
@@ -44,7 +45,7 @@ export const compileContracts = (sources, solc, options, logger = console) => {
 		`Compiling ${Object.keys(sources).length} sources with solc input: ${JSON.stringify(solcInput, null, 2)}`,
 	)
 	const solcOutput = solcCompile(solc, solcInput)
-	/** @type {import('../../types.js').CompileContractsResult} */
+	/** @type {import('./CompileContractsResult.js').CompileContractsResult} */
 	const result = { compilationResult: {} }
 
 	if (solcOutput.errors) {
@@ -62,7 +63,7 @@ export const compileContracts = (sources, solc, options, logger = console) => {
 
 	// Process each source file
 	Object.keys(sources).forEach((sourcePath) => {
-		/** @type {import('../../types.js').CompiledSource} */
+		/** @type {import('./CompiledSource.js').CompiledSource} */
 		const output = { ast: undefined, id: 0, contract: {} }
 
 		const solcAstOutput = solcOutput.sources[sourcePath]

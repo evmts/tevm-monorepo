@@ -1,5 +1,7 @@
+import { createLogger } from '@tevm/logger'
 import { ASTReader, ASTWriter, DefaultASTWriterMapping, PrettyFormatter } from 'solc-typed-ast'
-import { AstParseError } from './errors.js'
+import { defaults } from './internal/defaults.js'
+import { AstParseError } from './internal/errors.js'
 
 /**
  * Convert AST to Solidity source code
@@ -10,12 +12,12 @@ import { AstParseError } from './errors.js'
  * Solc AST output will be parsed into universal AST format using ASTReader. Note that the format changed
  * in 0.8.0, which the ASTReader will figure out and handle correctly.
  *
- * @param {import('solc-typed-ast').ASTNode | import('../../types.js').SolcAst} source - The AST source unit to convert
- * @param {import('../../types.js').ValidatedCompileBaseOptions} options
- * @param {import('../../types.js').Logger} [logger] - The logger
- * @returns {import('../../types.js').GenerateContractsFromAstResult} Mapping of source path to Solidity source code
+ * @param {import('solc-typed-ast').ASTNode | import('@tevm/solc').SolcAst} source - The AST source unit to convert
+ * @param {import('./internal/ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions} options
+ * @returns {import('./ExtractContractsFromAstResult.js').ExtractContractsFromAstResult} Mapping of source path to Solidity source code
  */
-export const generateContractsFromAst = (source, options, logger = console) => {
+export const extractContractsFromAst = (source, options) => {
+	const logger = createLogger({ name: '@tevm/compiler', level: options?.loggingLevel ?? defaults.loggingLevel })
 	const formatter = new PrettyFormatter(4, 0)
 	const writer = new ASTWriter(DefaultASTWriterMapping, formatter, options.solcVersion)
 	logger.debug(`Converting AST node to Solidity source code with solc version: ${options.solcVersion}`)
@@ -87,7 +89,7 @@ export const generateContractsFromAst = (source, options, logger = console) => {
 					throw err
 				}
 			},
-			/** @type {import('../../types.js').GenerateContractsFromAstResult} */ ({}),
+			/** @type {import('./ExtractContractsFromAstResult.js').ExtractContractsFromAstResult} */ ({}),
 		)
 	}
 }

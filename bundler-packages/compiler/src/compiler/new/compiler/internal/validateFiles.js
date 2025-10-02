@@ -4,14 +4,12 @@ import { FileValidationError } from './errors.js'
  * Validate file paths and ensure they match the language requirements
  *
  * @param {string[]} filePaths - Array of file paths to validate
- * @param {import('@tevm/solc').SolcLanguage} [language] - Optional language to validate against
- * @param {import('../../types.js').Logger} [logger] - The logger
+ * @param {import('@tevm/solc').SolcLanguage | undefined} language - Optional language to validate against
+ * @param {import('@tevm/logger').Logger} logger - The logger
  * @returns {string[]} The validated file paths
- * @throws {FileValidationError} If file paths are invalid
- * @throws {MixedFileExtensionsError} If files have different extensions
- * @throws {InvalidExtensionForLanguageError} If extensions don't match the language
+ * @throws {FileValidationError} If file paths are invalid, if they have no extension or have different extensions and if the language and extension don't match
  */
-export const validateFiles = (filePaths, language, logger = console) => {
+export const validateFiles = (filePaths, language, logger) => {
 	if (!Array.isArray(filePaths)) {
 		const err = new FileValidationError('File paths must be an array', {
 			meta: { code: 'invalid_array', filePaths },
