@@ -3,7 +3,8 @@ import type { Abi } from 'abitype'
 
 type HexNumber = `0x${string}`
 
-type SolcAst = any
+// TODO: type this
+export type SolcAst = any
 
 // Required: Source code language. Currently supported are "Solidity", "Yul" and "SolidityAST" (experimental).
 export type SolcLanguage = 'Solidity' | 'Yul' | 'SolidityAST'
@@ -14,8 +15,7 @@ export type SolcInputSource = {
 	// Optional: keccak256 hash of the source file
 	// It is used to verify the retrieved content if imported via URLs.
 	keccak256?: HexNumber
-} & // TODO: make sure that fix is correct (ast OR content or urls)
-(
+} & ( // TODO: make sure that fix is correct (ast OR content or urls)
 	| {
 			// If language is set to "SolidityAST", an AST needs to be supplied under the "ast" key.
 			// Note that importing ASTs is experimental and in particular that:

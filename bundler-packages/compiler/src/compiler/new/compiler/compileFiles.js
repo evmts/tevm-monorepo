@@ -1,11 +1,13 @@
 import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
+import { createLogger } from '@tevm/logger'
+import { extractContractsFromAst } from './extractContractsFromAst.js'
 import { compileContracts } from './internal/compileContracts.js'
+import { defaults } from './internal/defaults.js'
 import { FileReadError } from './internal/errors.js'
-import { generateContractsFromAst } from './internal/generateContractsFromAst.js'
 import { getSolc } from './internal/getSolc.js'
+import { validateBaseOptions } from './internal/validateBaseOptions.js'
 import { validateFiles } from './internal/validateFiles.js'
-import { validateSource } from './internal/validateSource.js'
 
 /**
  * Compile source files from the filesystem
@@ -18,9 +20,8 @@ import { validateSource } from './internal/validateSource.js'
  * All files in a single compilation must be the same language/extension.
  *
  * @param {string[]} filePaths - Array of file paths to compile
- * @param {import('../types.js').CompileBaseOptions} [options]
- * @param {import('../types.js').Logger} [logger] - The logger
- * @returns {Promise<import('../types.js').CompileFilesResult>}
+ * @param {import('./CompileBaseOptions.js').CompileBaseOptions} [options]
+ * @returns {Promise<import('./CompileFilesResult.js').CompileFilesResult>}
  * @example
  * // Compile Solidity files
  * const result = await compileFiles([
@@ -34,7 +35,8 @@ import { validateSource } from './internal/validateSource.js'
  *   './ast/Contract.json'
  * ], { language: 'SolidityAST' })
  */
-export const compileFiles = async (filePaths, options, logger = console) => {
+export const compileFiles = async (filePaths, options) => {
+	const logger = createLogger({ name: '@tevm/compiler', level: options?.loggingLevel ?? defaults.loggingLevel })
 	const validatedPaths = validateFiles(filePaths, options?.language, logger)
 	logger.debug(`Preparing to compile ${validatedPaths.length} files`)
 
@@ -64,7 +66,7 @@ export const compileFiles = async (filePaths, options, logger = console) => {
 	// We can roughly concatenate as the only usage of the source is for static analysis of the pragma statements
 	// AST input doesn't undergo any validation as the AST reader will do it appropriately
 	const validationSource = Object.values(sourcesContent).join('\n')
-	const validatedOptions = validateSource(validationSource, options ?? {}, logger)
+	const validatedOptions = validateBaseOptions(validationSource, options ?? {}, logger)
 	const solc = await getSolc(validatedOptions.solcVersion, logger)
 
 	if (validatedOptions.language === 'SolidityAST') {
@@ -77,7 +79,7 @@ export const compileFiles = async (filePaths, options, logger = console) => {
 		// as it will correctly map code and compilation output to original source file locations
 		/** @type {{[filePath: string]: string}} */
 		const generatedSources = Object.values(sourcesContent).reduce((acc, ast) => {
-			return { ...acc, ...generateContractsFromAst(ast, validatedOptions, logger) }
+			return { ...acc, ...extractContractsFromAst(ast, validatedOptions) }
 		}, {})
 
 		return compileContracts(generatedSources, solc, validatedOptions, logger)

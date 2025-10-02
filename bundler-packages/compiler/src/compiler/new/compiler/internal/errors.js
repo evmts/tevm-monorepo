@@ -294,7 +294,7 @@ export class CompilerOutputError extends Error {
  * import { AstParseError } from './errors.js'
  *
  * try {
- *   const result = generateContractsFromAst(ast, options)
+ *   const result = extractContractsFromAst(ast, options)
  * } catch (error) {
  *   if (error instanceof AstParseError) {
  *     console.log('Code:', error.meta?.code)
@@ -315,6 +315,58 @@ export class AstParseError extends Error {
 
 		this.name = 'AstParseError'
 		this._tag = 'AstParseError'
+		this.meta = args.meta
+	}
+}
+
+/**
+ * Parameters for constructing a ShadowValidationError.
+ * @typedef {Object} ShadowValidationErrorParameters
+ * @property {string} [docsBaseUrl] - Base URL for the documentation.
+ * @property {string} [docsPath] - Path to the documentation.
+ * @property {string} [docsSlug] - Slug for the documentation.
+ * @property {string[]} [metaMessages] - Additional meta messages.
+ * @property {Error|unknown} [cause] - The cause of the error.
+ * @property {string} [details] - Details of the error.
+ * @property {{ code: 'missing_inject_options', providedPath?: string | undefined, providedName?: string | undefined }} [meta] - Error metadata with specific code.
+ */
+
+/**
+ * Represents errors when validating shadow compilation options.
+ *
+ * Error codes:
+ * - `missing_inject_options`: AST source requires both injectIntoContractPath and injectIntoContractName
+ *
+ * When compiling from AST (language: 'SolidityAST'), both path and name are required
+ * to identify where to inject the shadow contract.
+ *
+ * @example
+ * ```javascript
+ * import { ShadowValidationError } from './errors.js'
+ *
+ * try {
+ *   validateShadowOptions(options, 'SolidityAST', logger)
+ * } catch (error) {
+ *   if (error instanceof ShadowValidationError) {
+ *     console.log('Code:', error.meta?.code)
+ *     console.log('Provided path:', error.meta?.providedPath)
+ *     console.log('Provided name:', error.meta?.providedName)
+ *   }
+ * }
+ * ```
+ */
+export class ShadowValidationError extends Error {
+	/**
+	 * Constructs a ShadowValidationError.
+	 *
+	 * @param {string} message - Human-readable error message.
+	 * @param {ShadowValidationErrorParameters} [args={}] - Additional parameters for the error.
+	 */
+	constructor(message, args = {}) {
+		super(message, { cause: args.cause })
+
+		this.name = 'ShadowValidationError'
+		this._tag = 'ShadowValidationError'
 		this.meta = args.meta
 	}
 }

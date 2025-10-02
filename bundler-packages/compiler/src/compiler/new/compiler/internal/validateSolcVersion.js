@@ -1,17 +1,18 @@
 import { releases } from '@tevm/solc'
 import { defaults } from './defaults.js'
-import { extractCompatibleSolcVersions } from './extractCompatibleSolcVersions.js'
 import { VersionResolutionError } from './errors.js'
+import { extractCompatibleSolcVersions } from './extractCompatibleSolcVersions.js'
 
 /**
  * Validates the solc version against the source code, provided and default versions
  * @template TLanguage extends import('@tevm/solc').SolcLanguage
- * @param {TLanguage extends 'SolidityAST' ? import('../../types.js').SolcAst | import('solc-typed-ast').ASTNode : string} source - The source code to validate
- * @param {import('../../types.js').CompileBaseOptions} options - The compilation options
- * @param {import('../../types.js').Logger} [logger] - The logger
+ * @param {TLanguage extends 'SolidityAST' ? import('@tevm/solc').SolcAst | import('solc-typed-ast').ASTNode : string} source - The source code to validate
+ * @param {import('../CompileBaseOptions.js').CompileBaseOptions} options - The compilation options
+ * @param {import('@tevm/logger').Logger} logger - The logger
  * @returns {keyof import('@tevm/solc').Releases} The validated solc version
+ * @throws {VersionResolutionError} If the provided version is not compatible with the source code or if no compatible version is found
  */
-export const validateSolcVersion = (source, options, logger = console) => {
+export const validateSolcVersion = (source, options, logger) => {
 	// AST or Yul need either the provided version or the default version, we have no way to validate or guess
 	if (options.language === 'SolidityAST' || options.language === 'Yul') {
 		if (!options.solcVersion) {
@@ -59,13 +60,16 @@ export const validateSolcVersion = (source, options, logger = console) => {
 
 	if (options.solcVersion && !compatibleVersions.includes(options.solcVersion)) {
 		if (options.throwOnVersionMismatch) {
-			const err = new VersionResolutionError(`Provided solc version ${options.solcVersion} is not compatible with the source code`, {
-				meta: {
-					code: 'version_mismatch',
-					providedVersion: options.solcVersion,
-					compatibleVersions,
+			const err = new VersionResolutionError(
+				`Provided solc version ${options.solcVersion} is not compatible with the source code`,
+				{
+					meta: {
+						code: 'version_mismatch',
+						providedVersion: options.solcVersion,
+						compatibleVersions,
+					},
 				},
-			})
+			)
 			logger.error(`${err.message}; compatible versions: ${compatibleVersions.join(', ')}`)
 			throw err
 		}
