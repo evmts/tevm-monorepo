@@ -138,7 +138,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 		effectiveGasPrice: effectiveGasPrice,
 		from: tx.getSenderAddress().toString(),
 		gasUsed: totalGasSpent,
-		to: tx.to?.toString() ?? '0x',
+		to: tx.to?.toString() ?? null,
 		transactionHash: bytesToHex(tx.hash()),
 		transactionIndex: txIndex,
 		contractAddress: createdAddress?.toString() ?? null,
