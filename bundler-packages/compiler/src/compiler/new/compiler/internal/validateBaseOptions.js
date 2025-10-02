@@ -6,12 +6,12 @@ import { validateSolcVersion } from './validateSolcVersion.js'
  *
  * We purposely don't validate AST (e.g. valid json) to let the AST reader validate and throw the appropriate errors
  * @template TLanguage extends import('@tevm/solc').SolcLanguage
- * @param {TLanguage extends 'SolidityAST' ? import('../../types.js').SolcAst | import('solc-typed-ast').ASTNode : string} source - The source code to validate
- * @param {import('../../types.js').CompileBaseOptions} options - The compilation options
- * @param {import('../../types.js').Logger} [logger] - The logger
- * @returns {import('../../types.js').ValidatedCompileBaseOptions} The validated source code
+ * @param {TLanguage extends 'SolidityAST' ? import('@tevm/solc').SolcAst | import('solc-typed-ast').ASTNode : string} source - The source code to validate
+ * @param {import('../CompileBaseOptions.js').CompileBaseOptions} options - The compilation options
+ * @param {import('@tevm/logger').Logger} logger - The logger
+ * @returns {import('./ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions} The validated source code
  */
-export const validateSource = (source, options, logger = console) => {
+export const validateBaseOptions = (source, options, logger) => {
 	// Set required settings in case they are left undefined (language, output and latest stable hardfork)
 	const language = options.language ?? defaults.language
 	if (!options.language) {
@@ -38,5 +38,6 @@ export const validateSource = (source, options, logger = console) => {
 		hardfork,
 		compilationOutput,
 		solcVersion,
+		loggingLevel: options.loggingLevel ?? defaults.loggingLevel,
 	}
 }

@@ -2,6 +2,7 @@ export { createSolc, releases, solcCompile } from './solc.js'
 export type {
 	Releases,
 	Solc,
+	SolcAst,
 	SolcBytecodeOutput,
 	SolcContractOutput,
 	SolcDebugSettings,
