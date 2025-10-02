@@ -1,8 +1,8 @@
 /**
  * Merge constructor options with overrides to get the solc options
- * @param {import('../../types.js').CompileBaseOptions} options - Constructor options
- * @param {import('../../types.js').CompileBaseOptions} overrides - Option overrides
- * @returns {import('../../types.js').CompileBaseOptions} The merged compilation options
+ * @param {import('../CompileBaseOptions.js').CompileBaseOptions} options - Constructor options
+ * @param {import('../CompileBaseOptions.js').CompileBaseOptions} overrides - Option overrides
+ * @returns {import('../CompileBaseOptions.js').CompileBaseOptions} The merged compilation options
  */
 export const mergeOptions = (options, overrides) => {
 	return Object.assign(

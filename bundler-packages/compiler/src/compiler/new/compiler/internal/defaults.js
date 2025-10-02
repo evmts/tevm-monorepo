@@ -5,7 +5,7 @@ if (!latestSolcVersion) throw new Error('No Solc versions found')
 
 /**
  * Default compilation options
- * @type {import('../../types.js').ValidatedCompileBaseOptions}
+ * @type {import('./ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions & { anonymousSourcePath: string, loggingLevel: import('@tevm/logger').LogOptions['level'] }}
  */
 export const defaults = {
 	language: 'Solidity',
@@ -13,4 +13,6 @@ export const defaults = {
 	hardfork: 'cancun',
 	solcVersion: latestSolcVersion,
 	throwOnVersionMismatch: true,
+	anonymousSourcePath: '<anonymous>',
+	loggingLevel: 'warn',
 }

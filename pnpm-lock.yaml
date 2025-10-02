@@ -294,12 +294,18 @@ importers:
       '@tevm/config':
         specifier: workspace:^
         version: link:../config
+      '@tevm/logger':
+        specifier: workspace:^
+        version: link:../../packages/logger
       '@tevm/resolutions':
         specifier: workspace:^
         version: link:../resolutions
       '@tevm/solc':
         specifier: workspace:^
         version: link:../solc
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
       '@types/node':
         specifier: ^25.9.0
         version: 25.9.0
