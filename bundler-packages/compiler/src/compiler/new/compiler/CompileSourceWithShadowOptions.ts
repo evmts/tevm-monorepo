@@ -41,7 +41,13 @@ export interface CompileSourceWithShadowOptions<TSourceLanguage extends SolcLang
 	 * - 'insertAtBeginning': insert the body of the shadow method at the beginning of the existing one's body
 	 * - 'insertAtEnd': insert the body of the shadow method at the end of the existing one's body
 	 *
+	 * TODO: anything other than 'safe' or 'replace' is a bit tricky:
+	 * - 'safe': we simply compile the source with the injected shadow code and if there is a conflict the compilation will error
+	 * - 'replace': we simply mark the source functions as virtual and tell the consumer to mark the function as override if it will conflict and needs to replace
+	 * - 'insertAtBeginning'/'insertAtEnd': this is more tricky because we need to compile shadow code inside (or inheriting from) the target contract if we want the shadow code
+	 * to be able to access its code, but in such case the insertion code will completely replace the existing code and might erase some code that will make compilation fail
+	 *
 	 * default: 'safe'
 	 */
-	shadowMergeStrategy?: 'safe' | 'replace' | 'insertAtBeginning' | 'insertAtEnd' | undefined
+	shadowMergeStrategy?: 'safe' | 'replace' /* | 'insertAtBeginning' | 'insertAtEnd' */ | undefined
 }
