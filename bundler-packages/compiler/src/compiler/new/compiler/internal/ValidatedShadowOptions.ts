@@ -2,7 +2,7 @@ import type { CompileSourceWithShadowOptions } from '../CompileSourceWithShadowO
 
 export type ValidatedShadowOptions = RequiredNonNullable<
 	CompileSourceWithShadowOptions,
-	'sourceLanguage' | 'shadowLanguage' | 'injectIntoContractPath'
+	'sourceLanguage' | 'shadowLanguage' | 'injectIntoContractPath' | 'injectIntoContractName' | 'shadowMergeStrategy'
 >
 
 type RequiredNonNullable<T, K extends keyof T> = Omit<T, K> & {
