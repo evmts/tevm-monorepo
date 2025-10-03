@@ -4,92 +4,61 @@ import { defaults } from './internal/defaults.js'
 import { AstParseError } from './internal/errors.js'
 
 /**
- * Convert AST to Solidity source code
+ * Convert an AST to Solidity source code
  *
- * This function handles both raw Solidity compiler AST output (i.e. likely solc output)
- * and pre-parsed universal AST nodes (i.e. likely solc-typed-ast output).
- *
- * Solc AST output will be parsed into universal AST format using ASTReader. Note that the format changed
- * in 0.8.0, which the ASTReader will figure out and handle correctly.
- *
- * @param {import('solc-typed-ast').ASTNode | import('@tevm/solc').SolcAst} source - The AST source unit to convert
+ * @param {import('./AstInput.js').AstInput} ast - The AST to convert
  * @param {import('./internal/ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions} options
- * @returns {import('./ExtractContractsFromAstResult.js').ExtractContractsFromAstResult} Mapping of source path to Solidity source code
+ * @returns {string} Solidity source code
  */
-export const extractContractsFromAst = (source, options) => {
+export const extractContractsFromAst = (ast, options) => {
 	const logger = createLogger({ name: '@tevm/compiler', level: options?.loggingLevel ?? defaults.loggingLevel })
 	const formatter = new PrettyFormatter(4, 0)
 	const writer = new ASTWriter(DefaultASTWriterMapping, formatter, options.solcVersion)
-	logger.debug(`Converting AST node to Solidity source code with solc version: ${options.solcVersion}`)
+	logger.debug(`Converting AST to Solidity source code with solc version: ${options.solcVersion}`)
 
-	// If the AST is already an universal AST tree, we don't need to parse it (it probably comes from solc-typed-ast)
-	// Otherwise it comes from the solc compilation output and we need to parse the json
-	if (typeof source === 'object' && source.nodeType === 'SourceUnit') {
-		logger.debug(`AST is already a SourceUnit`)
-		try {
-			return { [source.absolutePath]: writer.write(source) }
-		} catch (error) {
-			const err = new AstParseError(`Failed to parse AST into Solidity code`, {
-				cause: error,
-				meta: {
-					code: 'parse_failed',
-					sourcePath: source.absolutePath,
-				},
-			})
-			logger.error(err.message)
-			throw err
-		}
-	} else {
-		logger.debug(`Parsing AST from a compilation output into SourceUnit(s)`)
-		// Parse raw AST into typed nodes
-		const reader = new ASTReader()
-		/** @type {import('solc-typed-ast').SourceUnit[]} */
-		let sourceUnits
-		try {
-			sourceUnits = reader.read(source)
-		} catch (error) {
-			const err = new AstParseError(`Failed to parse Solc AST into universal AST`, {
-				cause: error,
-				meta: {
-					code: 'parse_failed',
-					sourcePath: source.absolutePath,
-				},
-			})
-			logger.error(err.message)
-			throw err
-		}
-
-		if (sourceUnits.length === 0) {
-			const err = new AstParseError(`Parsed Solc AST contains no SourceUnits`, {
-				meta: {
-					code: 'empty_ast',
-					sourceUnitsCount: sourceUnits?.length ?? 0,
-				},
-			})
-			logger.error(err.message)
-			throw err
-		}
-
-		// Multiple units here means that it contained imports compiled alongside
-		logger.debug(`Parsed ${sourceUnits.length} SourceUnit(s) from AST`)
-		return sourceUnits.reduce(
-			(acc, sourceUnit) => {
-				try {
-					acc[sourceUnit.absolutePath] = writer.write(sourceUnit)
-					return acc
-				} catch (error) {
-					const err = new AstParseError(`Failed to parse universal AST into Solidity code`, {
-						cause: error,
-						meta: {
-							code: 'parse_failed',
-							sourcePath: sourceUnit.absolutePath,
-						},
-					})
-					logger.error(err.message)
-					throw err
-				}
+	// Parse AST into a source unit
+	const reader = new ASTReader()
+	/** @type {import('solc-typed-ast').SourceUnit | undefined} */
+	let sourceUnit
+	try {
+		logger.debug(`Parsing Solc compilation output into an AST node tree`)
+		sourceUnit = reader.read({ sources: { [ast.absolutePath]: ast } })[0]
+	} catch (error) {
+		const err = new AstParseError(`Failed to parse AST into a source unit`, {
+			cause: error,
+			meta: {
+				code: 'parse_failed',
+				sources: ast.absolutePath,
 			},
-			/** @type {import('./ExtractContractsFromAstResult.js').ExtractContractsFromAstResult} */ ({}),
-		)
+		})
+		logger.error(err.message)
+		throw err
+	}
+
+	// This should never happen
+	if (!sourceUnit) {
+		const err = new AstParseError(`Parsed AST contains no sources`, {
+			meta: {
+				code: 'empty_ast',
+				sources: ast.absolutePath,
+			},
+		})
+		logger.error(err.message)
+		throw err
+	}
+	logger.debug(`Parsed source unit from AST`)
+
+	try {
+		return writer.write(sourceUnit)
+	} catch (error) {
+		const err = new AstParseError(`Failed to parse source unit into Solidity code`, {
+			cause: error,
+			meta: {
+				code: 'parse_failed',
+				sources: ast.absolutePath,
+			},
+		})
+		logger.error(err.message)
+		throw err
 	}
 }

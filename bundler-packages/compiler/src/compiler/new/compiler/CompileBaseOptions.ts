@@ -12,7 +12,10 @@ import type {
 import type { CompilationOutputOption } from './CompilationOutputOption.js'
 
 // All of the below options can be overridden on a per-compilation basis
-export interface CompileBaseOptions<TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[]> {
+export interface CompileBaseOptions<
+	TLanguage extends SolcLanguage = SolcLanguage,
+	TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
+> {
 	// Solc settings
 	/**
 	 * EVM version
@@ -72,7 +75,7 @@ export interface CompileBaseOptions<TCompilationOutput extends CompilationOutput
 	 * default: Solidity
 	 * @see {@link SolcLanguage}
 	 */
-	language?: SolcLanguage | undefined
+	language?: TLanguage | undefined
 	/**
 	 * Solc version
 	 *
@@ -83,12 +86,18 @@ export interface CompileBaseOptions<TCompilationOutput extends CompilationOutput
 	 */
 	solcVersion?: keyof Releases | undefined
 	/**
-	 * Whether to throw on version mismatc, i.e. if the provided version is
+	 * Whether to throw on version mismatch, i.e. if the provided version is
 	 * not listed as a compatible version for the provided sources
 	 *
 	 * default: true
 	 */
 	throwOnVersionMismatch?: boolean | undefined
+	/**
+	 * Whether to throw on a compilation error, i.e. if the compilation returns at least one error
+	 *
+	 * default: false
+	 */
+	throwOnCompilationError?: boolean | undefined
 	/**
 	 * Whether to cache the compilation results
 	 *
@@ -107,4 +116,15 @@ export interface CompileBaseOptions<TCompilationOutput extends CompilationOutput
 	 * Pino logger
 	 */
 	loggingLevel?: LogOptions['level'] | undefined
+
+	// TODO: implement
+	/**
+	 * Expose all internal and private functions (change their visibility to public)
+	 */
+	exposeInternalFunctions?: boolean | undefined
+	// TODO: implement
+	/**
+	 * Expose all internal and private variables (change their visibility to public)
+	 */
+	exposeInternalVariables?: boolean | undefined
 }
