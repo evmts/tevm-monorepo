@@ -20,11 +20,27 @@ export const compileSource = async (source, options) => {
 	const validatedOptions = validateBaseOptions(source, options ?? {}, logger)
 	const solc = await getSolc(validatedOptions.solcVersion, logger)
 
+	// TODO: we can just compile the ast directly
 	const soliditySourceCode =
 		validatedOptions.language === 'SolidityAST'
 			? extractContractsFromAst(/** @type {import('./AstInput.js').AstInput} */ (source), validatedOptions)
 			: /** @type {string} */ (source)
 
+	return compileSourceInternal(solc, soliditySourceCode, validatedOptions, logger)
+}
+
+/**
+ * Compile a single source code string or AST
+ *
+ * @template {import('@tevm/solc').SolcLanguage} TLanguage
+ * @template {import('./CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
+ * @param {import('@tevm/solc').Solc} solc
+ * @param {string} soliditySourceCode
+ * @param {import('./internal/ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions<TLanguage, TCompilationOutput>} validatedOptions
+ * @param {import('@tevm/logger').Logger} logger
+ * @returns {Promise<import('./CompileSourceResult.js').CompileSourceResult<TCompilationOutput>>}
+ */
+export const compileSourceInternal = async (solc, soliditySourceCode, validatedOptions, logger) => {
 	// We compile contracts with an anonymous source file path that will be stripped out from the result
 	const { compilationResult, ...output } = compileContracts(
 		{ [defaults.injectIntoContractPath]: soliditySourceCode },

@@ -5,8 +5,8 @@ import type { CompilationOutputOption } from './compiler/CompilationOutputOption
 import type { CompileBaseOptions } from './compiler/CompileBaseOptions.js'
 import type { CompileFilesResult } from './compiler/CompileFilesResult.js'
 import type { CompileSourceResult } from './compiler/CompileSourceResult.js'
+import type { CompileSourceWithShadowOptions } from './compiler/CompileSourceWithShadowOptions.js'
 import type { FetchVerifiedContractResult } from './whatsabi/FetchVerifiedContractResult.js'
-import type { FetchVerifiedContractsResult } from './whatsabi/FetchVerifiedContractsResult.js'
 import type { WhatsabiBaseOptions } from './whatsabi/WhatsabiBaseOptions.js'
 
 export interface CreateCompilerResult {
@@ -18,6 +18,15 @@ export interface CreateCompilerResult {
 	>(
 		source: TLanguage extends 'SolidityAST' ? AstInput : string,
 		options: CompileBaseOptions<TLanguage, TCompilationOutput>,
+	) => Promise<CompileSourceResult<TCompilationOutput>>
+
+	compileSourceWithShadow: <
+		TLanguage extends SolcLanguage = SolcLanguage,
+		TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
+	>(
+		source: TLanguage extends 'SolidityAST' ? AstInput : string,
+		shadow: string,
+		options: CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>,
 	) => Promise<CompileSourceResult<TCompilationOutput>>
 
 	// Compile files
@@ -40,8 +49,6 @@ export interface CreateCompilerResult {
 
 	// Fetch verified contract from various providers using whatsabi & return the same api as the compiler
 	fetchVerifiedContract: (address: Address, options: WhatsabiBaseOptions) => Promise<FetchVerifiedContractResult>
-	// TODO: is this useful? maybe we can so some batching here
-	fetchVerifiedContracts: (addresses: Address[], options: WhatsabiBaseOptions) => Promise<FetchVerifiedContractsResult>
 
 	// Load a solc version (this can be used to lazily load solc, otherwise it's loaded on first compilation)
 	loadSolcVersion: (version: keyof Releases | keyof Releases[]) => Promise<this>

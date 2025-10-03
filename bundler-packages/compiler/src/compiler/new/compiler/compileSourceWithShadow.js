@@ -1,10 +1,11 @@
 import { createLogger } from '@tevm/logger'
+import { compileSourceInternal } from './compileSource.js'
 import { extractContractsFromAst } from './extractContractsFromAst.js'
 import { compileContracts } from './internal/compileContracts.js'
-import { createShadowContract } from './internal/createShadowContract.js'
 import { defaults } from './internal/defaults.js'
-import { NotSupportedError } from './internal/errors.js'
+import { CompilerOutputError } from './internal/errors.js'
 import { getSolc } from './internal/getSolc.js'
+import { instrumentAst } from './internal/instrumentAst.js'
 import { validateBaseOptions } from './internal/validateBaseOptions.js'
 import { validateShadowOptions } from './internal/validateShadowOptions.js'
 
@@ -16,6 +17,9 @@ import { validateShadowOptions } from './internal/validateShadowOptions.js'
  *
  * TODO: explain roughly the steps here
  *
+ * TODO: this is 3 compilations which is too much (1. compile source to instrument it 2. compile source AND shadow together to be able to inject shadow ast into source ast 3. compile the new shadowed contract to return)
+ * Easy way to avoid one compilation is to directly return after step 2, shadowed contract would be actually the shadow contract that inherits from the target contract
+ *
  * Note: if the compiled source doesn't result in exactly one source file and no source path is provided this will throw an error as we cannot guess where to inject the shadow code.
  * The same exact limitation applies if there are multiple contracts in the file and no contract name is provided.
  * We cannot try to guess as it might accidentally compile with an incorrect mapping and result in inconsistencies that would be awful to debug.
@@ -26,10 +30,10 @@ import { validateShadowOptions } from './internal/validateShadowOptions.js'
  * - if using a Solidity/Yul source that includes multiple contracts, provide the contract's name (there is no file path here)
  * - if using a Solidity/Yul source that includes a single contract: you can safely omit the path and name (or provide the name for validation)
  * @template TSourceLanguage extends import('@tevm/solc').SolcLanguage
- * @param {TSourceLanguage extends 'SolidityAST' ? import('solc-typed-ast').ASTNode | import('@tevm/solc').SolcOutput : string} source - The main source code or AST to compile
+ * @param {TSourceLanguage extends 'SolidityAST' ? import('./AstInput.js').AstInput : string} source - The main source code or AST to compile
  * @param {string} shadow - The shadow code to merge into the source
  * @param {Omit<import('./CompileBaseOptions.js').CompileBaseOptions, 'language'> & import('./CompileSourceWithShadowOptions.js').CompileSourceWithShadowOptions} [options]
- * @returns {Promise<import('./CompileSourceWithShadowResult.js').CompileSourceWithShadowResult>}
+ * @returns {Promise<import('./CompileSourceResult.js').CompileSourceResult>}
  * @example
  * const result = await compileSourceWithShadow(
  *   'contract Main { uint256 private value; }', // main source with a private variable
@@ -43,53 +47,86 @@ export const compileSourceWithShadow = async (source, shadow, options) => {
 		options ?? {}
 	const validatedOptions = validateBaseOptions(source, { ...baseOptions, language: sourceLanguage }, logger)
 
-	// First step is to get the source AST in order to instrument it
-	const sourceAst = validatedOptions.language === 'SolidityAST' ? source : undefined
+	const solc = await getSolc(validatedOptions.solcVersion, logger)
+
+	// First step is to get the source AST in order to instrument it (make internal stuff public, mark functions as virtual, etc.)
+	let astSource =
+		validatedOptions.language === 'SolidityAST' ? /** @type {import('./AstInput.js').AstInput} */ (source) : undefined
 	// If the source is a string (single file containing one or multiple contracts) we need to compile it
-	if (!sourceAst) {
-		const soliditySources = { [defaults.injectIntoContractPath]: source }
+	if (!astSource) {
 		// TODO: comment this, see 4th solution in comment below
-		const solc = await getSolc(validatedOptions.solcVersion, logger)
-		const { compilationResult, errors } = compileContracts(
-			soliditySources,
+		const { compilationResult } = compileContracts(
+			{ [defaults.injectIntoContractPath]: /** @type {string} */ (source) },
 			solc,
-			{ ...validatedOptions, compilationOutput: ['ast'] },
+			{ ...validatedOptions, compilationOutput: ['ast'], throwOnCompilationError: true },
 			logger,
 		)
-		if (errors?.some((error) => error.severity === 'error')) {
-			// TODO: actual error handling
-			throw new Error('Compilation errors')
+		astSource = compilationResult[defaults.injectIntoContractPath]?.ast
+		// This should not happen, otherwise a compilation error would have been thrown
+		if (!astSource) {
+			const err = new CompilerOutputError('Source output not found', {
+				meta: { code: 'missing_source_output' },
+			})
+			logger.error(err.message)
+			throw err
 		}
-		sourceAst = compilationResult.
 	}
 
 	const validatedShadowOptions = validateShadowOptions(
+		[astSource],
 		{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
-		compilationResult,
 		validatedOptions.language,
+		false, // don't validate path as we're using a single source
 		logger,
 	)
+	const astSourceNode = /** @type {import('solc-typed-ast').SourceUnit} */ (validatedShadowOptions.astSourceNodes[0])
 
+	const soliditySourceCode =
+		validatedOptions.language === 'SolidityAST'
+			? extractContractsFromAst(astSource, validatedOptions)
+			: /** @type {string} */ (source)
+
+	// Get the precise location of the last child in the source contract
+	const lastChildNodeInfo = astSourceNode.vContracts.find(
+		(contract) => contract.name === validatedShadowOptions.injectIntoContractName,
+	)?.lastChild?.sourceInfo
+	if (!lastChildNodeInfo) {
+		const err = new CompilerOutputError('Source contract does not contain any children', {
+			meta: { code: 'missing_source_output' },
+		})
+		logger.error(err.message)
+		throw err
+	}
+	const lastChildNodeEnd = lastChildNodeInfo.offset + lastChildNodeInfo.length
+
+	if (validatedShadowOptions.shadowMergeStrategy === 'safe') {
+		const shadowedSoliditySource = `${soliditySourceCode.slice(0, lastChildNodeEnd)}\n\n${shadow}\n\n${soliditySourceCode.slice(lastChildNodeEnd)}`
+		return compileSourceInternal(solc, shadowedSoliditySource, validatedOptions, logger)
+	}
+
+	// shadowMergeStrategy = 'replace'
 	// TODO: what we explained below in 4. & comment
-	const instrumentedSource = instrumentSource(compilationResult, validatedShadowOptions, logger)
+	const instrumentedSourceAst = instrumentAst(
+		astSourceNode,
+		{
+			markFunctionsAsVirtual: true,
+			contractFilter: validatedShadowOptions.injectIntoContractName,
+		},
+		logger,
+	)
+	const instrumentedSoliditySource = extractContractsFromAst(instrumentedSourceAst, validatedOptions)
+	// TODO: we absolutely can't do that, we need to map original code <-> instrumented code locations like scribble does
+	const shadowedSoliditySource = `${instrumentedSoliditySource.slice(0, lastChildNodeEnd)}\n\n${shadow}\n\n${instrumentedSoliditySource.slice(lastChildNodeEnd)}`
+	return compileSourceInternal(solc, shadowedSoliditySource, validatedOptions, logger)
+
 	// Wrap the shadow body into a temporary contract that inherits from the target contract so it can be compiled to
 	// get an AST we can manipulate for correctly actually merging into the contract directly
 	// Otherwise, we couldn't compile the shadow body on its own and access the target contract nodes
-	const shadowSource = createShadowContract(
-		shadow,
-		validatedShadowOptions.injectIntoContractPath,
-		validatedShadowOptions.injectIntoContractName,
-	)
-	const { compilationResult: instrumentedCompilationResult, errors: instrumentedErrors } = compileContracts(
-		{ ...soliditySources, ...shadowSource },
-		solc,
-		validatedOptions,
-		logger,
-	)
-	if (instrumentedErrors?.some((error) => error.severity === 'error')) {
-		// TODO: actual error handling
-		throw new Error('Compilation errors')
-	}
+	// const shadowSource = createShadowContract(
+	// 	shadow,
+	// 	validatedShadowOptions.injectIntoContractPath,
+	// 	validatedShadowOptions.injectIntoContractName,
+	// )
 
 	// There are multiple ways to inject the shadow contract into the target contract:
 	// 1. Use regex to retrieve the end of the contract and inject shadow code in there
@@ -109,7 +146,7 @@ export const compileSourceWithShadow = async (source, shadow, options) => {
 	// 4?. or maybe:
 	// - compile the source ast
 	//   - make all private stuff public
-	//   - mark all functions as override
+	//   - mark all functions as virtual
 	//   - note/warn that we can only inject in a contract, no library (can't inherit)
 	//   - TODO: we can mark all source functions as virtual BUT we'll need to mark shadow functions IF the collide as override, but how to know
 	//   -> best way here probably is to
