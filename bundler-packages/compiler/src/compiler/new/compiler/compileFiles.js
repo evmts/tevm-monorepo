@@ -19,9 +19,12 @@ import { validateFiles } from './internal/validateFiles.js'
  *
  * All files in a single compilation must be the same language/extension.
  *
- * @param {string[]} filePaths - Array of file paths to compile
- * @param {import('./CompileBaseOptions.js').CompileBaseOptions} [options]
- * @returns {Promise<import('./CompileFilesResult.js').CompileFilesResult>}
+ * @template {import('@tevm/solc').SolcLanguage} TLanguage
+ * @template {import('./CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
+ * @template {string[]} TFilePaths
+ * @param {TFilePaths} filePaths - Array of file paths to compile
+ * @param {import('./CompileBaseOptions.js').CompileBaseOptions<TLanguage, TCompilationOutput>} [options]
+ * @returns {Promise<import('./CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>>}
  * @example
  * // Compile Solidity files
  * const result = await compileFiles([
@@ -40,15 +43,16 @@ export const compileFiles = async (filePaths, options) => {
 	const validatedPaths = validateFiles(filePaths, options?.language, logger)
 	logger.debug(`Preparing to compile ${validatedPaths.length} files`)
 
-	/** @type {{[filePath: string]: string}} */
-	const sourcesContent = {}
+	/** @type {{[filePath: string]: string | object}} */
+	const sources = {}
 	for (const filePath of validatedPaths) {
 		const absolutePath = resolve(filePath)
 		logger.debug(`Reading file: ${absolutePath}`)
 
+		/** @type {string} */
+		let content
 		try {
-			const content = await readFile(absolutePath, 'utf-8')
-			sourcesContent[filePath] = content
+			content = await readFile(absolutePath, 'utf-8')
 		} catch (error) {
 			const err = new FileReadError(`Failed to read file ${filePath}`, {
 				cause: error,
@@ -61,30 +65,45 @@ export const compileFiles = async (filePaths, options) => {
 			logger.error(err.message)
 			throw err
 		}
+
+		if (options?.language === 'SolidityAST') {
+			try {
+				sources[filePath] = JSON.parse(content)
+			} catch (error) {
+				const err = new FileReadError(`Failed to parse JSON file ${filePath}`, {
+					cause: error,
+					meta: { code: 'json_parse_failed', filePath, absolutePath },
+				})
+				logger.error(err.message)
+				throw err
+			}
+		}
 	}
 
-	// We can roughly concatenate as the only usage of the source is for static analysis of the pragma statements
-	// AST input doesn't undergo any validation as the AST reader will do it appropriately
-	const validationSource = Object.values(sourcesContent).join('\n')
-	const validatedOptions = validateBaseOptions(validationSource, options ?? {}, logger)
+	const validatedOptions = validateBaseOptions(
+		// We can simply aggregate the sources regardless of path as this will be used for validating the solc version for compiling the entire set
+		/** @type {import('./internal/validateBaseOptions.js').Source<TLanguage>} */ (Object.values(sources)),
+		options ?? {},
+		logger,
+	)
 	const solc = await getSolc(validatedOptions.solcVersion, logger)
 
 	if (validatedOptions.language === 'SolidityAST') {
 		logger.debug(`Compiling ${filePaths.length} AST files`)
-		// The way we map the output here might be confusing, as we don't map the original AST file path to the output. Rationale is:
-		// 1. In the other case (passing Solidity or Yul files), we can map source file -> ast and contract outputs
-		// 2. An AST on the other hand can contain multiple contracts _from multiple files_
-		// 3. Meaning that each AST file could output source code for multiple original files, which is why mapping an AST source file
-		// to a set of contracts from different files does not make sense. Whereas mapping the original source files to the compilation output is more useful,
-		// as it will correctly map code and compilation output to original source file locations
-		/** @type {{[filePath: string]: string}} */
-		const generatedSources = Object.values(sourcesContent).reduce((acc, ast) => {
-			return { ...acc, ...extractContractsFromAst(ast, validatedOptions) }
-		}, {})
+		const soliditySources = Object.fromEntries(
+			Object.entries(sources).map(([filePath, ast]) => [
+				filePath,
+				extractContractsFromAst(/** @type {import('./AstInput.js').AstInput} */ (ast), validatedOptions),
+			]),
+		)
 
-		return compileContracts(generatedSources, solc, validatedOptions, logger)
+		return /** @type {import('./CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>} */ (
+			compileContracts(soliditySources, solc, validatedOptions, logger)
+		)
 	}
 
 	logger.debug(`Compiling ${filePaths.length} files`)
-	return compileContracts(sourcesContent, solc, validatedOptions, logger)
+	return /** @type {import('./CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>} */ (
+		compileContracts(/** @type {{[filePath: string]: string}} */ (sources), solc, validatedOptions, logger)
+	)
 }

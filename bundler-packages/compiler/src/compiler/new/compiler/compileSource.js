@@ -2,28 +2,48 @@ import { createLogger } from '@tevm/logger'
 import { extractContractsFromAst } from './extractContractsFromAst.js'
 import { compileContracts } from './internal/compileContracts.js'
 import { defaults } from './internal/defaults.js'
+import { CompilerOutputError } from './internal/errors.js'
 import { getSolc } from './internal/getSolc.js'
 import { validateBaseOptions } from './internal/validateBaseOptions.js'
 
 /**
- * Compile a single source code string
+ * Compile a single source code string or AST
  *
- * @template TLanguage extends import('@tevm/solc').SolcLanguage
- * @param {TLanguage extends 'SolidityAST' ? import('solc-typed-ast').ASTNode | import('@tevm/solc').SolcAst : string} source - The source code to compile
- * @param {import('./CompileBaseOptions.js').CompileBaseOptions} [options]
- * @returns {Promise<import('./CompileSourceResult.js').CompileSourceResult>}
+ * @template {import('@tevm/solc').SolcLanguage} TLanguage
+ * @template {import('./CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
+ * @param {TLanguage extends 'SolidityAST' ? import('./AstInput.js').AstInput : string} source - The source code to compile
+ * @param {import('./CompileBaseOptions.js').CompileBaseOptions<TLanguage, TCompilationOutput>} [options]
+ * @returns {Promise<import('./CompileSourceResult.js').CompileSourceResult<TCompilationOutput>>}
  */
 export const compileSource = async (source, options) => {
 	const logger = createLogger({ name: '@tevm/compiler', level: options?.loggingLevel ?? defaults.loggingLevel })
 	const validatedOptions = validateBaseOptions(source, options ?? {}, logger)
 	const solc = await getSolc(validatedOptions.solcVersion, logger)
 
-	if (validatedOptions.language === 'SolidityAST') {
-		const soliditySourceCode = extractContractsFromAst(source, validatedOptions)
-		// AST might generate multiple source files
-		return compileContracts(soliditySourceCode, solc, validatedOptions, logger)
+	const soliditySourceCode =
+		validatedOptions.language === 'SolidityAST'
+			? extractContractsFromAst(/** @type {import('./AstInput.js').AstInput} */ (source), validatedOptions)
+			: /** @type {string} */ (source)
+
+	// We compile contracts with an anonymous source file path that will be stripped out from the result
+	const { compilationResult, ...output } = compileContracts(
+		{ [defaults.injectIntoContractPath]: soliditySourceCode },
+		solc,
+		validatedOptions,
+		logger,
+	)
+	const sourceCompilationResult = compilationResult[defaults.injectIntoContractPath]
+	// This should never happen as any compilation error will still produce the output, just possibly with empty fields at the contract level
+	if (!sourceCompilationResult) {
+		const err = new CompilerOutputError('Source output not found', {
+			meta: { code: 'missing_source_output' },
+		})
+		logger.error(err.message)
+		throw err
 	}
 
-	// With a direct source code though this corresponds to a single source file so we add an "anonymous" source file path
-	return compileContracts({ [defaults.anonymousSourcePath]: source }, solc, validatedOptions, logger)
+	return {
+		...output,
+		compilationResult: sourceCompilationResult,
+	}
 }

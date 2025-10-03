@@ -1,10 +1,11 @@
-// generated from docs at https://docs.soliditylang.org/en/v0.8.20/using-the-compiler.html
+// generated & refined from docs at https://docs.soliditylang.org/en/v0.8.20/using-the-compiler.html
 import type { Abi } from 'abitype'
+import type { SourceUnit } from 'solidity-ast'
 
 type HexNumber = `0x${string}`
 
-// TODO: type this
-export type SolcAst = any
+// TODO: check how correct this is, it might be incorrect for <0.8.0 solidity (nodeType changed)
+export type SolcAst = SourceUnit
 
 // Required: Source code language. Currently supported are "Solidity", "Yul" and "SolidityAST" (experimental).
 export type SolcLanguage = 'Solidity' | 'Yul' | 'SolidityAST'
@@ -15,18 +16,16 @@ export type SolcInputSource = {
 	// Optional: keccak256 hash of the source file
 	// It is used to verify the retrieved content if imported via URLs.
 	keccak256?: HexNumber
-} & ( // TODO: make sure that fix is correct (ast OR content or urls)
-	| {
-			// If language is set to "SolidityAST", an AST needs to be supplied under the "ast" key.
-			// Note that importing ASTs is experimental and in particular that:
-			// - importing invalid ASTs can produce undefined results and
-			// - no proper error reporting is available on invalid ASTs.
-			// Furthermore, note that the AST import only consumes the fields of the AST as
-			// produced by the compiler in "stopAfter": "parsing" mode and then re-performs
-			// analysis, so any analysis-based annotations of the AST are ignored upon import.
-			// formatted as the json ast requested with the ``ast`` output selection.
-			ast?: SolcAst
-	  }
+	// If language is set to "SolidityAST", an AST needs to be supplied under the "ast" key.
+	// Note that importing ASTs is experimental and in particular that:
+	// - importing invalid ASTs can produce undefined results and
+	// - no proper error reporting is available on invalid ASTs.
+	// Furthermore, note that the AST import only consumes the fields of the AST as
+	// produced by the compiler in "stopAfter": "parsing" mode and then re-performs
+	// analysis, so any analysis-based annotations of the AST are ignored upon import.
+	// formatted as the json ast requested with the ``ast`` output selection.
+	ast?: SolcAst
+} & (
 	| {
 			// Required (unless "content" is used, see below): URL(s) to the source file.
 			// URL(s) should be imported in this order and the result checked against the
@@ -409,7 +408,7 @@ export type SolcSourceEntry = {
 	id: number
 
 	// The AST object
-	ast: any
+	ast: SolcAst
 }
 
 export type SolcContractOutput = {
@@ -641,7 +640,7 @@ export type SolcFunctionDebugData = {
 
 export type SolcGeneratedSource = {
 	// Yul AST
-	ast: any
+	ast: SolcAst
 
 	// Source file in its text form (may contain comments)
 	contents: string

@@ -220,15 +220,14 @@ export class FileReadError extends Error {
  * @property {string[]} [metaMessages] - Additional meta messages.
  * @property {Error|unknown} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
- * @property {{ code: 'source_output_not_found' | 'contract_output_not_found', sourcePath?: string, availableSources?: string[] }} [meta] - Error metadata with specific code.
+ * @property {{ code: 'compilation_errors' | 'missing_source_output', errors?: import('@tevm/solc').SolcErrorEntry[] }} [meta] - Error metadata with specific code.
  */
 
 /**
  * Represents errors when compiler output doesn't contain expected data.
  *
  * Error codes:
- * - `source_output_not_found`: Solc output missing source-level data (AST, etc.)
- * - `contract_output_not_found`: Solc output missing contract-level data (bytecode, ABI, etc.)
+ * - `compilation_errors`: Compilation errors occurred
  *
  * This typically indicates:
  * - Mismatch between input sources and output structure
@@ -275,7 +274,7 @@ export class CompilerOutputError extends Error {
  * @property {string[]} [metaMessages] - Additional meta messages.
  * @property {Error|unknown} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
- * @property {{ code: 'parse_failed' | 'empty_ast', sourceUnitsCount?: number, sourcePath?: string }} [meta] - Error metadata with specific code.
+ * @property {{ code: 'parse_failed' | 'empty_ast' | 'invalid_ast_source', sources?: string }} [meta] - Error metadata with specific code.
  */
 
 /**
@@ -283,6 +282,8 @@ export class CompilerOutputError extends Error {
  *
  * Error codes:
  * - `parse_failed`: ASTReader failed to parse AST into SourceUnits
+ * - `empty_ast`: ASTReader parsed an AST with no sources
+ * - `invalid_ast_source`: AST source is not a valid SourceUnit
  *
  * This can happen when:
  * - AST structure is malformed or corrupted
@@ -294,7 +295,7 @@ export class CompilerOutputError extends Error {
  * import { AstParseError } from './errors.js'
  *
  * try {
- *   const result = extractContractsFromAst(ast, options)
+ *   const result = extractContractsFromSolcOutput(ast, options)
  * } catch (error) {
  *   if (error instanceof AstParseError) {
  *     console.log('Code:', error.meta?.code)
@@ -328,14 +329,19 @@ export class AstParseError extends Error {
  * @property {string[]} [metaMessages] - Additional meta messages.
  * @property {Error|unknown} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
- * @property {{ code: 'missing_inject_options', providedPath?: string | undefined, providedName?: string | undefined }} [meta] - Error metadata with specific code.
+ * @property {{ code: 'invalid_shadow_language' | 'missing_inject_path' | 'missing_inject_name' | 'missing_contract_files' | 'missing_contracts' | 'invalid_inject_path', providedPath?: string | undefined, providedName?: string | undefined, sourceFilePaths?: string[], sourceContractNames?: string[] }} [meta] - Error metadata with specific code.
  */
 
 /**
  * Represents errors when validating shadow compilation options.
  *
  * Error codes:
- * - `missing_inject_options`: AST source requires both injectIntoContractPath and injectIntoContractName
+ * - `invalid_shadow_language`: Shadow language must be Solidity or Yul
+ * - `missing_inject_path`: AST source requires injectIntoContractPath when there are multiple contract files
+ * - `missing_inject_name`: AST source requires injectIntoContractName when there are multiple contract files
+ * - `missing_contract_files`: Source compilation resulted in no contract files
+ * - `missing_contracts`: Source compilation resulted in no contracts
+ * - `invalid_inject_path`: injectIntoContractPath is not a valid contract file
  *
  * When compiling from AST (language: 'SolidityAST'), both path and name are required
  * to identify where to inject the shadow contract.
@@ -367,6 +373,62 @@ export class ShadowValidationError extends Error {
 
 		this.name = 'ShadowValidationError'
 		this._tag = 'ShadowValidationError'
+		this.meta = args.meta
+	}
+}
+
+/**
+ * Parameters for constructing a NotSupportedError.
+ * @typedef {Object} NotSupportedErrorParameters
+ * @property {string} [docsBaseUrl] - Base URL for the documentation.
+ * @property {string} [docsPath] - Path to the documentation.
+ * @property {string} [docsSlug] - Slug for the documentation.
+ * @property {string[]} [metaMessages] - Additional meta messages.
+ * @property {Error|unknown} [cause] - The cause of the error.
+ * @property {string} [details] - Details of the error.
+ * @property {{ code: string }} [meta] - Error metadata with specific code.
+ */
+
+/**
+ * Represents errors when a feature or operation is not supported.
+ *
+ * Common use cases:
+ * - Unsupported language combinations (e.g., Yul shadow compilation)
+ * - Unsupported compiler features
+ * - Platform-specific limitations
+ *
+ * @example
+ * ```javascript
+ * import { NotSupportedError } from './errors.js'
+ *
+ * try {
+ *   if (sourceLanguage === 'Yul') {
+ *     throw new NotSupportedError(
+ *       'Shadow compilation not supported for Yul',
+ *       {
+ *         meta: { code: 'yul_not_supported' }
+ *       }
+ *     )
+ *   }
+ * } catch (error) {
+ *   if (error instanceof NotSupportedError) {
+ *     console.log('Code:', error.meta?.code)
+ *   }
+ * }
+ * ```
+ */
+export class NotSupportedError extends Error {
+	/**
+	 * Constructs a NotSupportedError.
+	 *
+	 * @param {string} message - Human-readable error message.
+	 * @param {NotSupportedErrorParameters} [args={}] - Additional parameters for the error.
+	 */
+	constructor(message, args = {}) {
+		super(message, { cause: args.cause })
+
+		this.name = 'NotSupportedError'
+		this._tag = 'NotSupportedError'
 		this.meta = args.meta
 	}
 }
