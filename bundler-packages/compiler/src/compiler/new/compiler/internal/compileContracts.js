@@ -4,11 +4,13 @@ import { CompilerOutputError } from './errors.js'
 /**
  * Compile Solidity or Yul code
  *
+ * @template {import('@tevm/solc').SolcLanguage} TLanguage
+ * @template {import('../CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
  * @param {{[sourcePath: string]: string}} sources - The source code to compile
  * @param {import('@tevm/solc').Solc} solc - Solc instance
- * @param {import('./ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions} options
+ * @param {import('./ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions<TLanguage, TCompilationOutput>} options
  * @param {import('@tevm/logger').Logger} logger - The logger
- * @returns {import('./CompileContractsResult.js').CompileContractsResult}
+ * @returns {import('./CompileContractsResult.js').CompileContractsResult<TCompilationOutput>}
  * @throws {CompilerOutputError} If the source or contract output is not found in the solc output
  */
 export const compileContracts = (sources, solc, options, logger) => {
@@ -59,49 +61,35 @@ export const compileContracts = (sources, solc, options, logger) => {
 				logger.debug(`[${i}] Compilation info: ${error.message}`)
 			}
 		})
+
+		if (options.throwOnCompilationError) {
+			throw new CompilerOutputError(`Compilation errors occurred`, {
+				meta: {
+					code: 'compilation_errors',
+					errors: solcOutput.errors,
+				},
+			})
+		}
 	}
 
 	// Process each source file
 	Object.keys(sources).forEach((sourcePath) => {
-		/** @type {import('./CompiledSource.js').CompiledSource} */
-		const output = { ast: undefined, id: 0, contract: {} }
+		/** @type {import('./CompiledSource.js').CompiledSource<TCompilationOutput>} */
+		const output = {}
 
 		const solcAstOutput = solcOutput.sources[sourcePath]
 		const solcContractOutput = solcOutput.contracts[sourcePath]
 
-		if (options.compilationOutput.includes('ast')) {
-			if (!solcAstOutput) {
-				const err = new CompilerOutputError(`Source output not found for ${sourcePath}`, {
-					meta: {
-						code: 'source_output_not_found',
-						sourcePath,
-						availableSources: Object.keys(solcOutput.sources),
-					},
-				})
-				logger.error(err.message)
-				throw err
-			}
-			output.ast = solcAstOutput
+		if (options.compilationOutput.includes('ast') && solcAstOutput) {
+			// @ts-expect-error - TODO: this will be fixed when we correctly type the compilation output from input selection
+			output.ast = solcAstOutput.ast
 			output.id = solcAstOutput.id
 		}
 
-		// If anything else that the ast is requested and we don't have contract output, this is a problem
-		if (options.compilationOutput.filter((o) => o !== 'ast').length === 0) return
-
-		if (!solcContractOutput) {
-			const err = new CompilerOutputError(`Contract output not found for ${sourcePath}`, {
-				meta: {
-					code: 'contract_output_not_found',
-					sourcePath,
-					availableSources: Object.keys(solcOutput.contracts),
-				},
-			})
-			logger.error(err.message)
-			throw err
-		}
-
-		for (const [contractName, contractOutput] of Object.entries(solcContractOutput)) {
-			output.contract[contractName] = contractOutput
+		if (options.compilationOutput.filter((o) => o !== 'ast').length > 0 && solcContractOutput) {
+			for (const [contractName, contractOutput] of Object.entries(solcContractOutput)) {
+				output.contract[contractName] = contractOutput
+			}
 		}
 
 		result.compilationResult[/** @type {keyof typeof result.compilationResult} */ (sourcePath)] = output

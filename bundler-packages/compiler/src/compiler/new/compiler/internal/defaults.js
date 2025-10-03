@@ -5,7 +5,7 @@ if (!latestSolcVersion) throw new Error('No Solc versions found')
 
 /**
  * Default compilation options
- * @type {import('./ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions & { anonymousSourcePath: string, loggingLevel: import('@tevm/logger').LogOptions['level'] }}
+ * @type {import('./ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions & Omit<import('./ValidatedShadowOptions.js').ValidatedShadowOptions, 'sourceLanguage' | 'shadowLanguage' | 'injectIntoContractName'> & { loggingLevel: import('@tevm/logger').LogOptions['level'] }}
  */
 export const defaults = {
 	language: 'Solidity',
@@ -13,6 +13,8 @@ export const defaults = {
 	hardfork: 'cancun',
 	solcVersion: latestSolcVersion,
 	throwOnVersionMismatch: true,
-	anonymousSourcePath: '<anonymous>',
+	throwOnCompilationError: false,
+	injectIntoContractPath: '<anonymous>',
+	shadowMergeStrategy: 'safe',
 	loggingLevel: 'warn',
 }

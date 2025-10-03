@@ -3,12 +3,13 @@ import { extractSpecifiersFromSource, getCompilerVersionsBySpecifiers } from 'so
 
 /**
  * Extracts the compatible solc versions from the source Solidity code
- * @param {string} source - The inline Solidity source
+ * @param {string | string[]} sourceOrSpecifiers - The inline Solidity source or direct specifiers
  * @param {import('@tevm/logger').Logger} logger - The logger
  * @returns {(keyof import('@tevm/solc').Releases)[]} The compatible compiler versions
  */
-export const extractCompatibleSolcVersions = (source, logger) => {
-	const specifiers = extractSpecifiersFromSource(source)
+export const extractCompatibleSolcVersions = (sourceOrSpecifiers, logger) => {
+	const specifiers =
+		typeof sourceOrSpecifiers === 'string' ? extractSpecifiersFromSource(sourceOrSpecifiers) : sourceOrSpecifiers
 	if (specifiers.length === 0) {
 		logger.warn('Could not extract Solidity version from pragma statements in the source code')
 	}

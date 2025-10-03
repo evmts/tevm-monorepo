@@ -1,11 +1,10 @@
-import type { Releases, SolcAst, SolcLanguage } from '@tevm/solc'
+import type { Releases, SolcLanguage, SolcOutput } from '@tevm/solc'
 import type { Address } from '@tevm/utils'
-import type { ASTNode } from 'solc-typed-ast'
+import type { AstInput } from './compiler/AstInput.js'
 import type { CompilationOutputOption } from './compiler/CompilationOutputOption.js'
 import type { CompileBaseOptions } from './compiler/CompileBaseOptions.js'
 import type { CompileFilesResult } from './compiler/CompileFilesResult.js'
 import type { CompileSourceResult } from './compiler/CompileSourceResult.js'
-import type { ExtractContractsFromAstResult } from './compiler/ExtractContractsFromAstResult.js'
 import type { FetchVerifiedContractResult } from './whatsabi/FetchVerifiedContractResult.js'
 import type { FetchVerifiedContractsResult } from './whatsabi/FetchVerifiedContractsResult.js'
 import type { WhatsabiBaseOptions } from './whatsabi/WhatsabiBaseOptions.js'
@@ -17,21 +16,27 @@ export interface CreateCompilerResult {
 		TLanguage extends SolcLanguage = SolcLanguage,
 		TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
 	>(
-		source: TLanguage extends 'SolidityAST' ? ASTNode | SolcAst : string,
-		options: CompileBaseOptions<TCompilationOutput>,
+		source: TLanguage extends 'SolidityAST' ? AstInput : string,
+		options: CompileBaseOptions<TLanguage, TCompilationOutput>,
 	) => Promise<CompileSourceResult<TCompilationOutput>>
 
 	// Compile files
 	compileFiles: <
-		TSourcePaths extends string[] = string[],
+		TLanguage extends SolcLanguage = SolcLanguage,
 		TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
+		TSourcePaths extends string[] = string[],
 	>(
 		files: TSourcePaths,
-		options: CompileBaseOptions<TCompilationOutput>,
+		options: CompileBaseOptions<TLanguage, TCompilationOutput>,
 	) => Promise<CompileFilesResult<TCompilationOutput, TSourcePaths>>
 
-	// Construct Solidity source code from ASTs
-	extractContractsFromAst: (ast: ASTNode | SolcAst, options: CompileBaseOptions) => ExtractContractsFromAstResult
+	// Construct Solidity source code from Solc output
+	extractContractsFromSolcOutput: (
+		solcOutput: SolcOutput,
+		options: CompileBaseOptions,
+	) => { [sourcePath: string]: string }
+	// Construct Solidity source code from a single AST
+	extractContractsFromAst: (ast: AstInput, options: CompileBaseOptions) => string
 
 	// Fetch verified contract from various providers using whatsabi & return the same api as the compiler
 	fetchVerifiedContract: (address: Address, options: WhatsabiBaseOptions) => Promise<FetchVerifiedContractResult>

@@ -4,7 +4,7 @@ import type { CompiledSource } from './CompiledSource.js'
 
 /**
  * Result of compiling Solidity source code
- * - input: Map of file paths to source code (same as ExtractContractsFromAstResult)
+ * - input: Map of file paths to source code (same as ExtractContractsFromSolcOutputResult)
  * - output: Nested structure with both per-file ASTs and per-contract artifacts
  *
  * @example
@@ -30,6 +30,6 @@ export interface CompileContractsResult<
 	TSourcePaths extends string[] = string[],
 > extends CompileBaseResult {
 	compilationResult: {
-		[sourcePath in TSourcePaths & string]: CompiledSource<TCompilationOutput>
+		[sourcePath in TSourcePaths[number] & string]: CompiledSource<TCompilationOutput>
 	}
 }
