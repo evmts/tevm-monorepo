@@ -1100,7 +1100,7 @@ importers:
         specifier: workspace:^
         version: link:../../packages/client-types
       '@tevm/common':
-        specifier: workspace:1.0.0-next.146
+        specifier: workspace:1.0.0-next.148
         version: link:../../packages/common
       '@tevm/contract':
         specifier: workspace:^
@@ -1705,7 +1705,7 @@ importers:
   packages/http-client:
     dependencies:
       '@tevm/address':
-        specifier: workspace:1.0.0-next.146
+        specifier: workspace:1.0.0-next.148
         version: link:../address
       '@tevm/contract':
         specifier: workspace:^
@@ -7737,6 +7737,7 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
+    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 

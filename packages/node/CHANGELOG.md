@@ -1,5 +1,28 @@
 # @tevm/client
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- c337f69: Internal release
+- Updated dependencies [c337f69]
+  - @tevm/sync-storage-persister@1.0.0-next.148
+  - @tevm/receipt-manager@1.0.0-next.148
+  - @tevm/precompiles@1.0.0-next.148
+  - @tevm/blockchain@1.0.0-next.148
+  - @tevm/predeploys@1.0.0-next.148
+  - @tevm/address@1.0.0-next.148
+  - @tevm/jsonrpc@1.0.0-next.148
+  - @tevm/common@1.0.0-next.148
+  - @tevm/logger@1.0.0-next.148
+  - @tevm/txpool@1.0.0-next.148
+  - @tevm/block@1.0.0-next.148
+  - @tevm/state@1.0.0-next.148
+  - @tevm/utils@1.0.0-next.148
+  - @tevm/evm@1.0.0-next.148
+  - @tevm/tx@1.0.0-next.148
+  - @tevm/vm@1.0.0-next.148
+
 ## 1.0.0-next.147
 
 ### Patch Changes
@@ -168,7 +191,6 @@
 ### Minor Changes
 
 - edbfc70: Added event handlers to tevmCall family of actions that enable real-time introspection of EVM execution. This powerful new feature allows developers to:
-
   1. Monitor EVM execution step-by-step:
 
   ```ts
@@ -218,7 +240,6 @@
   ```
 
   This implementation includes:
-
   - Memory-safe event cleanup to prevent leaks
   - Support across all tevmCall variants (tevmCall, tevmContract, tevmDeploy)
   - Full TypeScript type safety
@@ -845,7 +866,6 @@
 ### Patch Changes
 
 - [#1186](https://github.com/evmts/tevm-monorepo/pull/1186) [`7765446`](https://github.com/evmts/tevm-monorepo/commit/7765446beec1391a00f3d3dd8d015d5205e0371a) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved files around to colocate code better. Some packages are disappearing
-
   - Tevm/Zod is now part of Tevm/actions
   - Tevm/actions-types moved to Tevm/actions
   - Tevm/procedures-types moved to Tevm/procedures
@@ -1449,7 +1469,6 @@
 - [#882](https://github.com/evmts/tevm-monorepo/pull/882) [`47d7399f4e5cab5bd2e09cd08fe359bcfb7d6a8d`](https://github.com/evmts/tevm-monorepo/commit/47d7399f4e5cab5bd2e09cd08fe359bcfb7d6a8d) Thanks [@roninjin10](https://github.com/roninjin10)! - Added ethCall support to all clients
 
 - [#865](https://github.com/evmts/tevm-monorepo/pull/865) [`1056dbdf11533d1bcb402ff506194b381b1dd70c`](https://github.com/evmts/tevm-monorepo/commit/1056dbdf11533d1bcb402ff506194b381b1dd70c) Thanks [@roninjin10](https://github.com/roninjin10)! - Added more options to TevmMemoryRouterOptions including
-
   - hardfork to set hardfork
   - eips to set custom eips
   - profiler options to turn profiler on or off

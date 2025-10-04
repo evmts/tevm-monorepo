@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/config",
-	"version": "1.0.0-next.146",
+	"version": "1.0.0-next.148",
 	"private": false,
 	"description": "Manages config for tevm",
 	"keywords": [

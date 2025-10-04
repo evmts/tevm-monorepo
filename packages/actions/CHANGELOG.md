@@ -1,5 +1,42 @@
 # @tevm/contract
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- 826c7fa: - **New Features**
+  - Improved error messages for contract call failures by decoding and displaying detailed revert reasons, including custom errors and panic codes.
+  - Added a comprehensive revert reason decoder to provide clearer explanations for contract execution failures.
+  - Error responses now include more context and human-readable explanations when contract execution fails.
+  - **Enhancements**
+    - Contract factories now handle ABI errors and events more precisely, resulting in more accurate contract interaction and event filtering.
+    - Error handling across contract calls and actions is more robust, with raw revert data included for advanced debugging.
+    - Expanded test coverage for revert scenarios, ensuring reliable error decoding in various contract call contexts.
+
+- 9e0e1cd: - Improved error responses to include additional raw data for better context when call procedures fail, and allow viem `writeContract` to decode contract reverts.
+  - Enhanced transaction receipt responses by converting numeric status values to hexadecimal strings for consistency.
+  - Updated error code for specific Ethereum errors to align with standard codes (3 for revert).
+- c337f69: Internal release
+- 05fa934: Fixed bug with eth_getBytecode being called with block tag
+- Updated dependencies [826c7fa]
+- Updated dependencies [9e0e1cd]
+- Updated dependencies [c337f69]
+  - @tevm/contract@1.0.0-next.148
+  - @tevm/errors@1.0.0-next.148
+  - @tevm/receipt-manager@1.0.0-next.148
+  - @tevm/blockchain@1.0.0-next.148
+  - @tevm/address@1.0.0-next.148
+  - @tevm/jsonrpc@1.0.0-next.148
+  - @tevm/common@1.0.0-next.148
+  - @tevm/txpool@1.0.0-next.148
+  - @tevm/block@1.0.0-next.148
+  - @tevm/state@1.0.0-next.148
+  - @tevm/utils@1.0.0-next.148
+  - @tevm/node@1.0.0-next.148
+  - @tevm/evm@1.0.0-next.148
+  - @tevm/tx@1.0.0-next.148
+  - @tevm/vm@1.0.0-next.148
+
 ## 1.0.0-next.147
 
 ### Patch Changes
@@ -99,7 +136,6 @@
 - 2e20a42: feat(actions): Deprecate `createTransaction` parameter and add `addToMempool` and `addToBlockchain` parameters.
 
   This change makes the API more intuitive when working with transactions:
-
   - Added `addToMempool`: Add the transaction to mempool (requires manual mining later)
   - Added `addToBlockchain`: Add the transaction to mempool and automatically mine it
   - Deprecated `createTransaction`: Still works but shows warning, use `addToMempool` instead
@@ -149,7 +185,6 @@
 ### Minor Changes
 
 - 5c1da73: Add event handlers to TevmMine similar to TevmCall. This enables real-time monitoring of mining operations with:
-
   - `onBlock`: Monitor each newly mined block
   - `onReceipt`: Monitor transaction receipts generated during mining
   - `onLog`: Monitor logs emitted by transactions
@@ -208,7 +243,6 @@
 ### Minor Changes
 
 - edbfc70: Added event handlers to tevmCall family of actions that enable real-time introspection of EVM execution. This powerful new feature allows developers to:
-
   1. Monitor EVM execution step-by-step:
 
   ```ts
@@ -258,7 +292,6 @@
   ```
 
   This implementation includes:
-
   - Memory-safe event cleanup to prevent leaks
   - Support across all tevmCall variants (tevmCall, tevmContract, tevmDeploy)
   - Full TypeScript type safety
@@ -946,7 +979,6 @@
 ### Patch Changes
 
 - [#1186](https://github.com/evmts/tevm-monorepo/pull/1186) [`7765446`](https://github.com/evmts/tevm-monorepo/commit/7765446beec1391a00f3d3dd8d015d5205e0371a) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved files around to colocate code better. Some packages are disappearing
-
   - Tevm/Zod is now part of Tevm/actions
   - Tevm/actions-types moved to Tevm/actions
   - Tevm/procedures-types moved to Tevm/procedures

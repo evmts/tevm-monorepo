@@ -1,5 +1,14 @@
 # @tevm/whatsabi
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- c337f69: Internal release
+- Updated dependencies [c337f69]
+  - @tevm/config@1.0.0-next.148
+  - @tevm/utils@1.0.0-next.148
+
 ## 1.0.0-next.146
 
 ### Patch Changes

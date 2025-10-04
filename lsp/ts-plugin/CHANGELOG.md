@@ -1,5 +1,14 @@
 # @tevm/ts-plugin
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- c337f69: Internal release
+- Updated dependencies [c337f69]
+  - @tevm/bundler-cache@1.0.0-next.148
+  - @tevm/base-bundler@1.0.0-next.148
+
 ## 1.0.0-next.146
 
 ### Patch Changes
@@ -186,7 +195,6 @@
 ### Patch Changes
 
 - [#1186](https://github.com/evmts/tevm-monorepo/pull/1186) [`7765446`](https://github.com/evmts/tevm-monorepo/commit/7765446beec1391a00f3d3dd8d015d5205e0371a) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved files around to colocate code better. Some packages are disappearing
-
   - Tevm/Zod is now part of Tevm/actions
   - Tevm/actions-types moved to Tevm/actions
   - Tevm/procedures-types moved to Tevm/procedures
@@ -604,7 +612,6 @@
   ```
 
   Here you can see we import a contract directly from EthersMintExample.sol and use it with ethers.js
-
   - The svelte example is powered by `@tevm/vite-plugin` and `@tevm/ts-plugin`
   - This svelte example is using js with jsdoc which is now newly enabled
   - This is the first example app using the `@tevm/ethers` package which brings typesafe ethers.js contracts to the table
@@ -692,7 +699,6 @@
 ### Minor Changes
 
 - [#283](https://github.com/evmts/tevm-monorepo/pull/283) [`05a8efe`](https://github.com/evmts/tevm-monorepo/commit/05a8efede4acad157e3820bdba24d92f598699e5) Thanks [@roninjin10](https://github.com/roninjin10)! - Updated config schema to support etherscan
-
   - Solc version is now listed under `compiler.solcVersion` instead of `solc`
   - Foundry projects are now listed under `compiler.foundryProject` instead of `forge`
   - Local contracts are now specified under `localContracts.contracts` instead of `deployments`

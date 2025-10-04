@@ -1,5 +1,18 @@
 # @tevm/base
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- c337f69: Internal release
+- Updated dependencies [c337f69]
+  - @tevm/bundler-cache@1.0.0-next.148
+  - @tevm/compiler@1.0.0-next.148
+  - @tevm/runtime@1.0.0-next.148
+  - @tevm/config@1.0.0-next.148
+  - @tevm/solc@1.0.0-next.148
+  - @tevm/tsupconfig@1.0.0-next.148
+
 ## 1.0.0-next.146
 
 ### Patch Changes
@@ -263,7 +276,6 @@
 ### Patch Changes
 
 - [#1186](https://github.com/evmts/tevm-monorepo/pull/1186) [`7765446`](https://github.com/evmts/tevm-monorepo/commit/7765446beec1391a00f3d3dd8d015d5205e0371a) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved files around to colocate code better. Some packages are disappearing
-
   - Tevm/Zod is now part of Tevm/actions
   - Tevm/actions-types moved to Tevm/actions
   - Tevm/procedures-types moved to Tevm/procedures
@@ -402,7 +414,6 @@
 ### Patch Changes
 
 - [#862](https://github.com/evmts/tevm-monorepo/pull/862) [`f217fa4dc2f730cc109940ef36872229ae9f26d3`](https://github.com/evmts/tevm-monorepo/commit/f217fa4dc2f730cc109940ef36872229ae9f26d3) Thanks [@roninjin10](https://github.com/roninjin10)! - - Renamed MemoryTevm MemoryClient
-
   - Renamed TevmClient HttpClient
   - Replaced @tevm/actions-types package with @tevm/actions-types, @tevm/client-types, and @tevm/procedures-types packages
   - Moved errors to @tevm/errors

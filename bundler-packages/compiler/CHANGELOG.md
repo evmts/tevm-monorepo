@@ -1,5 +1,15 @@
 # @tevm/contract
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- c337f69: Internal release
+- Updated dependencies [c337f69]
+  - @tevm/resolutions@1.0.0-next.148
+  - @tevm/config@1.0.0-next.148
+  - @tevm/solc@1.0.0-next.148
+
 ## 1.0.0-next.146
 
 ### Patch Changes
@@ -180,7 +190,6 @@
 ### Patch Changes
 
 - [#1186](https://github.com/evmts/tevm-monorepo/pull/1186) [`7765446`](https://github.com/evmts/tevm-monorepo/commit/7765446beec1391a00f3d3dd8d015d5205e0371a) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved files around to colocate code better. Some packages are disappearing
-
   - Tevm/Zod is now part of Tevm/actions
   - Tevm/actions-types moved to Tevm/actions
   - Tevm/procedures-types moved to Tevm/procedures
@@ -454,7 +463,6 @@
   ### Impact
 
   By taking in a file-access-object instead of using `fs` we can implement important features.
-
   - the ability to use virtual files in the typescript lsp before the user saves the file.
   - the ability to use more peformant bun file read methods
 
@@ -523,7 +531,6 @@
 - [#436](https://github.com/evmts/tevm-monorepo/pull/436) [`e1903df`](https://github.com/evmts/tevm-monorepo/commit/e1903df625c54b2447ce2bc2318f4c74f9a02bb5) Thanks [@roninjin10](https://github.com/roninjin10)! - Internal change: Made usage of solc typesafe
 
   This change adds new solc types to the [solc](https://github.com/ethereum/solc-bin) peer dependency used by Tevm. This is used by @tevm/base to
-
   - includes type for SolcInputSources and outputsources
 
   ![image](https://github.com/evmts/tevm-monorepo/assets/35039927/1ee13b76-98ab-4f62-9266-6e4a972de223)
@@ -585,7 +592,6 @@
   Previously the version of all tevm-plugins were hardcoded to 0.0.0. Now they will correctly show the correct version.
 
 - [#416](https://github.com/evmts/tevm-monorepo/pull/416) [`fc28f54`](https://github.com/evmts/tevm-monorepo/commit/fc28f545635a23a76e4acce0ff48d0902eed484c) Thanks [@roninjin10](https://github.com/roninjin10)! - Fixed another stack too deep bug from a recursive function in bundler
-
   - A previous fix fixed a stack too deep error but another one was discovered.
   - Fixed via refactoring a recursive internal function to iterative.
   - This bug affected projects importing solidity that imports other solidity deep enough to make the stack too deep

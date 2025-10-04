@@ -1,5 +1,14 @@
 # tevm-run
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- c337f69: Internal release
+- Updated dependencies [c337f69]
+  - @tevm/bun-plugin@1.0.0-next.148
+  - tevm@1.0.0-next.148
+
 ## 1.0.0-next.147
 
 ### Patch Changes

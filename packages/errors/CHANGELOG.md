@@ -1,5 +1,23 @@
 # @tevm/errors
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- 826c7fa: - **New Features**
+  - Improved error messages for contract call failures by decoding and displaying detailed revert reasons, including custom errors and panic codes.
+  - Added a comprehensive revert reason decoder to provide clearer explanations for contract execution failures.
+  - Error responses now include more context and human-readable explanations when contract execution fails.
+  - **Enhancements**
+    - Contract factories now handle ABI errors and events more precisely, resulting in more accurate contract interaction and event filtering.
+    - Error handling across contract calls and actions is more robust, with raw revert data included for advanced debugging.
+    - Expanded test coverage for revert scenarios, ensuring reliable error decoding in various contract call contexts.
+
+- 9e0e1cd: - Improved error responses to include additional raw data for better context when call procedures fail, and allow viem `writeContract` to decode contract reverts.
+  - Enhanced transaction receipt responses by converting numeric status values to hexadecimal strings for consistency.
+  - Updated error code for specific Ethereum errors to align with standard codes (3 for revert).
+- c337f69: Internal release
+
 ## 1.0.0-next.146
 
 ### Patch Changes
@@ -118,7 +136,6 @@
 ### Patch Changes
 
 - [#1186](https://github.com/evmts/tevm-monorepo/pull/1186) [`7765446`](https://github.com/evmts/tevm-monorepo/commit/7765446beec1391a00f3d3dd8d015d5205e0371a) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved files around to colocate code better. Some packages are disappearing
-
   - Tevm/Zod is now part of Tevm/actions
   - Tevm/actions-types moved to Tevm/actions
   - Tevm/procedures-types moved to Tevm/procedures

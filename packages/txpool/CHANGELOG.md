@@ -1,5 +1,20 @@
 # @tevm/state
 
+## 1.0.0-next.148
+
+### Patch Changes
+
+- c337f69: Internal release
+- Updated dependencies [c337f69]
+  - @tevm/blockchain@1.0.0-next.148
+  - @tevm/common@1.0.0-next.148
+  - @tevm/block@1.0.0-next.148
+  - @tevm/state@1.0.0-next.148
+  - @tevm/utils@1.0.0-next.148
+  - @tevm/evm@1.0.0-next.148
+  - @tevm/tx@1.0.0-next.148
+  - @tevm/vm@1.0.0-next.148
+
 ## 1.0.0-next.147
 
 ### Patch Changes
@@ -517,7 +532,6 @@
 ### Patch Changes
 
 - [#1186](https://github.com/evmts/tevm-monorepo/pull/1186) [`7765446`](https://github.com/evmts/tevm-monorepo/commit/7765446beec1391a00f3d3dd8d015d5205e0371a) Thanks [@roninjin10](https://github.com/roninjin10)! - Moved files around to colocate code better. Some packages are disappearing
-
   - Tevm/Zod is now part of Tevm/actions
   - Tevm/actions-types moved to Tevm/actions
   - Tevm/procedures-types moved to Tevm/procedures
