@@ -63,7 +63,7 @@ console.log(HelloWorld.abi);
 console.log(HelloWorld.bytecode);
 ```
 
-3. Initialize a [Tevm memory client](./packages/memory-client/docs/functions/createMemoryClient.md) and execute your Script using the [`tevm.script`](./packages/actions/docs/type-aliases/ScriptHandler.md) action
+3. Initialize a [Tevm memory client](../packages/memory-client/docs/functions/createMemoryClient.md) and execute your Script using the [`EthGetTransactionReceiptHandler`](../packages/actions/docs/type-aliases/EthGetTransactionReceiptHandler.md) action
 
 ```typescript
 import { HelloWorld } from "./HelloWorld.sol";
