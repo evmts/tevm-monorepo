@@ -278,4 +278,46 @@ describe('createTevmNode', () => {
 			expect(result.execResult.executionGasUsed).toBe(9999n)
 		})
 	})
+
+	describe('Fork with custom chain ID', () => {
+		it('should override chain ID when provided in fork options', async () => {
+			const customChainId = 999
+			const client = createTevmNode({
+				fork: {
+					transport: transports.optimism,
+					chainId: customChainId,
+				},
+			})
+			await client.ready()
+			const vm = await client.getVm()
+			expect(vm.common.id).toBe(customChainId)
+		})
+
+		it('should use auto-detected chain ID when not provided in fork options', async () => {
+			const client = createTevmNode({
+				fork: {
+					transport: transports.optimism,
+				},
+			})
+			await client.ready()
+			const vm = await client.getVm()
+			// Optimism chain ID should be 10
+			expect(vm.common.id).toBe(10)
+		})
+
+		it('should prioritize fork chainId over common chainId when both are provided', async () => {
+			const customCommon = createCommon({ ...mainnet, id: 1, hardfork: 'prague', eips: [], loggingLevel: 'warn' })
+			const customChainId = 999
+			const client = createTevmNode({
+				common: customCommon,
+				fork: {
+					transport: transports.optimism,
+					chainId: customChainId,
+				},
+			})
+			await client.ready()
+			const vm = await client.getVm()
+			expect(vm.common.id).toBe(customChainId)
+		})
+	})
 })

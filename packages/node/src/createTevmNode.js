@@ -90,13 +90,21 @@ export const createTevmNode = (options = {}) => {
 	}
 
 	const chainIdPromise = (async () => {
+		// Fork chainId override takes highest priority
+		if (transport && options.fork?.chainId !== undefined) {
+			logger.debug({ chainId: options.fork.chainId }, 'Using overridden chainId from fork options')
+			return options.fork.chainId
+		}
+		// Then use common chainId if provided
 		if (options?.common) {
 			return options?.common.id
 		}
+		// Then auto-detect from transport
 		if (transport) {
 			const id = await getChainId(transport)
 			return id
 		}
+		// Finally fallback to default
 		return DEFAULT_CHAIN_ID
 	})().then((chainId) => {
 		logger.debug({ chainId }, 'Creating client with chainId')
