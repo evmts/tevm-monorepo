@@ -39,7 +39,7 @@ And all bundlers
 
 ## Usage
 
-See [docs](./docs/functions/bundler.md)
+See [docs](./docs/bundler/functions/bundler.md)
 
 ## License 📄
 
