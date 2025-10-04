@@ -91,3 +91,9 @@ jobs:
         id: build-rust
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
         run: pnpm build:rust:app
+
+      - name: Validate Cargo workspace
+        id: validate-cargo
+        if: success()
+        run: cargo check --workspace --quiet
+        working-directory: .
