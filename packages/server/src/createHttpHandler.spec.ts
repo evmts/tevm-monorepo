@@ -166,4 +166,63 @@ describe('createHttpHandler', () => {
 		expect(res.body.error).toBeDefined()
 		expect(res.body.error).toMatchSnapshot()
 	})
+
+	it('should not serialize Promise objects in eth_getBlockByNumber response', async () => {
+		const tevm = createMemoryClient({
+			common: optimism,
+			fork: {
+				transport: transports.optimism,
+				blockTag: 'latest',
+			},
+		})
+
+		const server = require('node:http').createServer(createHttpHandler(tevm))
+
+		// First get the latest block number
+		const blockNumberReq = {
+			jsonrpc: '2.0',
+			method: 'eth_blockNumber',
+			params: [],
+			id: 1,
+		} as const
+
+		const blockNumberRes = await supertest(server)
+			.post('/')
+			.send(blockNumberReq)
+			.expect(200)
+			.expect('Content-Type', /json/)
+
+		expect(blockNumberRes.body.result).toMatch(/^0x/)
+
+		// Now get the block details using that block number
+		const getBlockReq = {
+			jsonrpc: '2.0',
+			method: 'eth_getBlockByNumber',
+			params: [blockNumberRes.body.result, false],
+			id: 2,
+		} as const
+
+		const res = await supertest(server).post('/').send(getBlockReq).expect(200).expect('Content-Type', /json/)
+
+		expect(res.body.error).toBeUndefined()
+		expect(res.body.result).toBeDefined()
+		
+		// The bug was that result contained a Promise object which serializes to {}
+		expect(res.body.result).not.toEqual({})
+		expect(typeof res.body.result).toBe('object')
+		expect(res.body.result).not.toBeInstanceOf(Promise)
+		
+		// Verify the response has the expected block properties
+		expect(res.body.result).toHaveProperty('number')
+		expect(res.body.result).toHaveProperty('hash')
+		expect(res.body.result).toHaveProperty('parentHash')
+		expect(res.body.result).toHaveProperty('transactions')
+		expect(res.body.result.number).toMatch(/^0x/)
+		expect(res.body.result.hash).toMatch(/^0x/)
+		
+		// Verify basic response structure
+		expect(res.body.method).toBe('eth_getBlockByNumber')
+		expect(res.body.id).toBe(2)
+		expect(res.body.jsonrpc).toBe('2.0')
+	})
 })
