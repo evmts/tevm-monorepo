@@ -32,7 +32,7 @@ jobs:
       - name: Remove pre.json
         run: bun run changeset pre exit
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: Exit prerelease mode
           # Commit these changes to the branch workflow is running against
