@@ -1,7 +1,7 @@
 import { Address, createAddress } from '@tevm/address'
 import { AdvancedContract, ErrorContract } from '@tevm/contract'
 import { createTevmNode } from '@tevm/node'
-import { PREFUNDED_ACCOUNTS, encodeDeployData, encodeFunctionData, hexToBytes } from '@tevm/utils'
+import { encodeDeployData, encodeFunctionData, hexToBytes, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { assert, beforeEach, describe, expect, it } from 'vitest'
 import { deployHandler } from '../Deploy/deployHandler.js'
 import { runCallWithCallTrace } from './runCallWithCallTrace.js'
