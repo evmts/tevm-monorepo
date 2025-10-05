@@ -4,6 +4,7 @@ import type { Address, Client } from 'viem'
 export { toChangeBalance } from './toChangeBalance.js'
 export { toChangeBalances } from './toChangeBalances.js'
 export { toChangeTokenBalance } from './toChangeTokenBalance.js'
+export { toChangeTokenBalances } from './toChangeTokenBalances.js'
 export type { BalanceChange, HandleTransactionResult } from './types.js'
 
 import type { ContainsAddress } from '../../common/types.js'
@@ -33,6 +34,8 @@ export interface BalanceMatchers {
 
 	/**
 	 * Checks if a transaction changes multiple accounts' balances by the expected amounts.
+	 *
+	 * When using .not, it will pass if at least one of the specified balance changes is different than expected, and fail only if all of them are the same.
 	 *
 	 * @param client - The client or node to use for balance queries
 	 * @param balanceChanges - Array of expected balance changes
@@ -79,5 +82,38 @@ export interface BalanceMatchers {
 		tokenContract: Address | ContainsAddress,
 		account: Address | ContainsAddress,
 		expectedChange: bigint | number | string,
+	): Promise<void>
+
+	/**
+	 * Checks if a transaction changes multiple accounts' token balances by the expected amounts.
+	 *
+	 * When using .not, it will pass if at least one of the specified token balance changes is different than expected, and fail only if all of them are the same.
+	 *
+	 * @param client - The client or node to use for balance queries
+	 * @param tokenContract - The token contract address or object with address
+	 * @param balanceChanges - Array of expected token balance changes
+	 *
+	 * @example
+	 * ```typescript
+	 * // Check multiple token balance changes
+	 * await expect(txHash).toChangeTokenBalances(client, '0xTokenAddress...', [
+	 *   { account: '0x123...', amount: -100n }, // sender loses 100 tokens
+	 *   { account: '0x456...', amount: 100n },  // recipient gains 100 tokens
+	 * ])
+	 * ```
+	 *
+	 * @example
+	 * ```typescript
+	 * // Use account objects
+	 * await expect(txHash).toChangeTokenBalances(client, tokenContract, [
+	 *   { account: { address: '0x123...', ... }, amount: -100n }, // sender loses 100 tokens
+	 *   { account: { address: '0x456...', ... }, amount: 100n },  // recipient gains 100 tokens
+	 * ])
+	 * ```
+	 */
+	toChangeTokenBalances(
+		client: Client | TevmNode,
+		tokenContract: Address | ContainsAddress,
+		balanceChanges: BalanceChange[],
 	): Promise<void>
 }
