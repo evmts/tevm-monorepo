@@ -65,6 +65,12 @@ export type EthHashrateJsonRpcResponse = JsonRpcResponse<'eth_hashrate', Hex, st
  */
 export type EthGasPriceJsonRpcResponse = JsonRpcResponse<'eth_gasPrice', Hex, string | number>
 
+// eth_maxPriorityFeePerGas
+/**
+ * JSON-RPC response for `eth_maxPriorityFeePerGas` procedure
+ */
+export type EthMaxPriorityFeePerGasJsonRpcResponse = JsonRpcResponse<'eth_maxPriorityFeePerGas', Hex, string | number>
+
 // eth_getBalance
 /**
  * JSON-RPC response for `eth_getBalance` procedure

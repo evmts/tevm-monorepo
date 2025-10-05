@@ -90,6 +90,11 @@ export type EthHashrateParams = EmptyParams
  * Based on the JSON-RPC request for `eth_gasPrice` procedure
  */
 export type EthGasPriceParams = EmptyParams
+// eth_maxPriorityFeePerGas
+/**
+ * Based on the JSON-RPC request for `eth_maxPriorityFeePerGas` procedure
+ */
+export type EthMaxPriorityFeePerGasParams = EmptyParams
 // eth_getBalance
 /**
  *Based on the  JSON-RPC request for `eth_getBalance` procedure
@@ -317,6 +322,7 @@ export type EthParams =
 	| EthEstimateGasParams
 	| EthHashrateParams
 	| EthGasPriceParams
+	| EthMaxPriorityFeePerGasParams
 	| EthGetBalanceParams
 	| EthGetBlockByHashParams
 	| EthGetBlockByNumberParams

@@ -8,6 +8,7 @@ import type {
 	EthCreateAccessListJsonRpcRequest,
 	EthEstimateGasJsonRpcRequest,
 	EthGasPriceJsonRpcRequest,
+	EthMaxPriorityFeePerGasJsonRpcRequest,
 	EthGetBalanceJsonRpcRequest,
 	EthGetBlockByHashJsonRpcRequest,
 	EthGetBlockByNumberJsonRpcRequest,
@@ -50,6 +51,7 @@ import type {
 	EthCreateAccessListJsonRpcResponse,
 	EthEstimateGasJsonRpcResponse,
 	EthGasPriceJsonRpcResponse,
+	EthMaxPriorityFeePerGasJsonRpcResponse,
 	EthGetBalanceJsonRpcResponse,
 	EthGetBlockByHashJsonRpcResponse,
 	EthGetBlockByNumberJsonRpcResponse,
@@ -107,6 +109,8 @@ export type EthEstimateGasJsonRpcProcedure = (
 export type EthHashrateJsonRpcProcedure = (request: EthHashrateJsonRpcRequest) => Promise<EthHashrateJsonRpcResponse>
 // eth_gasPrice
 export type EthGasPriceJsonRpcProcedure = (request: EthGasPriceJsonRpcRequest) => Promise<EthGasPriceJsonRpcResponse>
+// eth_maxPriorityFeePerGas
+export type EthMaxPriorityFeePerGasJsonRpcProcedure = (request: EthMaxPriorityFeePerGasJsonRpcRequest) => Promise<EthMaxPriorityFeePerGasJsonRpcResponse>
 // eth_getBalance
 export type EthGetBalanceJsonRpcProcedure = (
 	request: EthGetBalanceJsonRpcRequest,

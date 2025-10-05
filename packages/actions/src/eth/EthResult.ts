@@ -53,6 +53,12 @@ export type EthHashrateResult = Hex
  */
 export type EthGasPriceResult = bigint
 
+// eth_maxPriorityFeePerGas
+/**
+ * JSON-RPC response for `eth_maxPriorityFeePerGas` procedure
+ */
+export type EthMaxPriorityFeePerGasResult = bigint
+
 // eth_getBalance
 /**
  * JSON-RPC response for `eth_getBalance` procedure

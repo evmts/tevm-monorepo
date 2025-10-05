@@ -6,6 +6,7 @@ import type {
 	EthCoinbaseParams,
 	EthEstimateGasParams,
 	EthGasPriceParams,
+	EthMaxPriorityFeePerGasParams,
 	EthGetBalanceParams,
 	EthGetBlockByHashParams,
 	EthGetBlockByNumberParams,
@@ -46,6 +47,7 @@ import type {
 	EthCoinbaseResult,
 	EthEstimateGasResult,
 	EthGasPriceResult,
+	EthMaxPriorityFeePerGasResult,
 	EthGetBalanceResult,
 	EthGetBlockByHashResult,
 	EthGetBlockByNumberResult,
@@ -95,6 +97,8 @@ export type EthEstimateGasHandler = (request: EthEstimateGasParams) => Promise<E
 export type EthHashrateHandler = (request?: EthHashrateParams) => Promise<EthHashrateResult>
 // eth_gasPrice
 export type EthGasPriceHandler = (request?: EthGasPriceParams) => Promise<EthGasPriceResult>
+// eth_maxPriorityFeePerGas
+export type EthMaxPriorityFeePerGasHandler = (request?: EthMaxPriorityFeePerGasParams) => Promise<EthMaxPriorityFeePerGasResult>
 // eth_getBalance
 export type EthGetBalanceHandler = (request: EthGetBalanceParams) => Promise<EthGetBalanceResult>
 // eth_getBlockByHash
