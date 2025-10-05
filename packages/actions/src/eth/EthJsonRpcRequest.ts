@@ -310,6 +310,14 @@ export type EthCreateAccessListJsonRpcRequest = JsonRpcRequest<
 	'eth_createAccessList',
 	readonly [tx: JsonRpcTransaction, tag?: BlockTag | Hex]
 >
+// eth_feeHistory
+/**
+ * JSON-RPC request for `eth_feeHistory` procedure
+ */
+export type EthFeeHistoryJsonRpcRequest = JsonRpcRequest<
+	'eth_feeHistory',
+	readonly [blockCount: Hex, newestBlock: BlockTag | Hex, rewardPercentiles?: readonly number[]]
+>
 
 export type EthJsonRpcRequest =
 	| EthAccountsJsonRpcRequest
@@ -353,3 +361,4 @@ export type EthJsonRpcRequest =
 	| EthNewPendingTransactionFilterJsonRpcRequest
 	| EthUninstallFilterJsonRpcRequest
 	| EthCreateAccessListJsonRpcRequest
+	| EthFeeHistoryJsonRpcRequest

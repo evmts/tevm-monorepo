@@ -306,6 +306,25 @@ export type EthNewPendingTransactionFilterParams = EmptyParams
  * Based on the JSON-RPC request for `eth_uninstallFilter` procedure
  */
 export type EthUninstallFilterParams = { readonly filterId: Hex }
+// eth_feeHistory
+/**
+ * Based on the JSON-RPC request for `eth_feeHistory` procedure
+ */
+export type EthFeeHistoryParams = {
+	/**
+	 * Number of blocks in the requested range. Between 1 and 1024 blocks can be requested in a single query.
+	 * Less than requested may be returned if not all blocks are available.
+	 */
+	readonly blockCount: Hex
+	/**
+	 * Highest number block of the requested range, or the string "latest", "earliest" or "pending".
+	 */
+	readonly newestBlock: BlockParam
+	/**
+	 * A monotonically increasing list of percentile values to sample from each block's effective priority fees per gas in ascending order, weighted by gas used.
+	 */
+	readonly rewardPercentiles?: readonly number[]
+}
 
 export type EthParams =
 	| EthAccountsParams
@@ -347,3 +366,4 @@ export type EthParams =
 	| EthNewBlockFilterParams
 	| EthNewPendingTransactionFilterParams
 	| EthUninstallFilterParams
+	| EthFeeHistoryParams

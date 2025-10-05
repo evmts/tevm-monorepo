@@ -6,6 +6,7 @@ import type {
 	EthChainIdJsonRpcRequest,
 	EthCoinbaseJsonRpcRequest,
 	EthCreateAccessListJsonRpcRequest,
+	EthFeeHistoryJsonRpcRequest,
 	EthEstimateGasJsonRpcRequest,
 	EthGasPriceJsonRpcRequest,
 	EthGetBalanceJsonRpcRequest,
@@ -81,6 +82,7 @@ import type {
 	EthSignTransactionJsonRpcResponse,
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
+	EthFeeHistoryJsonRpcResponse,
 } from './EthJsonRpcResponse.js'
 
 // eth_accounts
@@ -219,3 +221,7 @@ export type EthUninstallFilterJsonRpcProcedure = (
 export type EthCreateAccessListJsonRpcProcedure = (
 	request: EthCreateAccessListJsonRpcRequest,
 ) => Promise<EthCreateAccessListJsonRpcResponse>
+// eth_feeHistory
+export type EthFeeHistoryJsonRpcProcedure = (
+	request: EthFeeHistoryJsonRpcRequest,
+) => Promise<EthFeeHistoryJsonRpcResponse>

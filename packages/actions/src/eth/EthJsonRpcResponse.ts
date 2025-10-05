@@ -345,3 +345,26 @@ export type EthCreateAccessListJsonRpcResponse = JsonRpcResponse<
 	},
 	string | number
 >
+
+// eth_feeHistory
+/**
+ * JSON-RPC response for `eth_feeHistory` procedure
+ */
+export type EthFeeHistoryJsonRpcResponse = JsonRpcResponse<
+	'eth_feeHistory',
+	{
+		/**
+		 * Base fee per gas for each block in the range, plus one additional value for the next block
+		 */
+		baseFeePerGas: Hex[]
+		/**
+		 * Ratio of gas used to gas limit for each block in the range
+		 */
+		gasUsedRatio: number[]
+		/**
+		 * Priority fee percentiles for each block (only if rewardPercentiles was provided)
+		 */
+		reward?: Hex[][]
+	},
+	string | number
+>
