@@ -60,7 +60,7 @@ import { traceCallHandler } from './traceCallHandler.js'
  */
 export const debugTraceTransactionJsonRpcProcedure = (client) => {
 	/**
-	 * @template {'callTracer' | 'prestateTracer'} TTracer
+	 * @template {'callTracer' | 'prestateTracer' | '4byteTracer'} TTracer
 	 * @template {boolean} TDiffMode
 	 * @param {import('./DebugJsonRpcRequest.js').DebugTraceTransactionJsonRpcRequest<TTracer, TDiffMode>} request
 	 * @returns {Promise<import('./DebugJsonRpcResponse.js').DebugTraceTransactionJsonRpcResponse<TTracer, TDiffMode>>}

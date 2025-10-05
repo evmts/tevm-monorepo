@@ -7,12 +7,16 @@ import type { ExactlyOne } from '../utils/ExactlyOne.js'
  * Config params for trace calls
  */
 export type TraceParams<
-	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | undefined =
+		| 'callTracer'
+		| 'prestateTracer'
+		| '4byteTracer'
+		| undefined,
 	TDiffMode extends boolean = boolean,
 > = {
 	/**
 	 * The type of tracer
-	 * Supported tracers: callTracer, prestateTracer
+	 * Supported tracers: callTracer, prestateTracer, 4byteTracer
 	 */
 	readonly tracer?: TTracer
 	/**
@@ -53,7 +57,11 @@ export type TraceParams<
  * Params taken by `debug_traceTransaction` handler
  */
 export type DebugTraceTransactionParams<
-	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | undefined =
+		| 'callTracer'
+		| 'prestateTracer'
+		| '4byteTracer'
+		| undefined,
 	TDiffMode extends boolean = boolean,
 	TTTThrowOnError extends boolean = boolean,
 > = BaseParams<TTTThrowOnError> &
@@ -69,7 +77,11 @@ export type DebugTraceTransactionParams<
  * Params taken by `debug_traceCall` handler
  */
 export type DebugTraceCallParams<
-	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | undefined =
+		| 'callTracer'
+		| 'prestateTracer'
+		| '4byteTracer'
+		| undefined,
 	TDiffMode extends boolean = boolean,
 > = TraceParams<TTracer, TDiffMode> & EthCallParams
 
@@ -77,7 +89,11 @@ export type DebugTraceCallParams<
  * Params taken by `debug_traceBlock` handler
  */
 export type DebugTraceBlockParams<
-	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | undefined =
+		| 'callTracer'
+		| 'prestateTracer'
+		| '4byteTracer'
+		| undefined,
 	TDiffMode extends boolean = boolean,
 > = TraceParams<TTracer, TDiffMode> &
 	ExactlyOne<

@@ -16,7 +16,7 @@ Config params for trace calls
 
 ### TTracer
 
-`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `undefined`
+`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `undefined`
 
 ### TDiffMode
 
@@ -47,7 +47,7 @@ A duration string of decimal numbers that overrides the default timeout of 5 sec
 Defined in: packages/actions/types/debug/DebugParams.d.ts:13
 
 The type of tracer
-Supported tracers: callTracer, prestateTracer
+Supported tracers: callTracer, prestateTracer, 4byteTracer
 
 ***
 
