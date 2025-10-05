@@ -1,10 +1,11 @@
+import type { TevmNode } from '@tevm/node'
+import type { Address, Client } from 'viem'
+
 export { toChangeBalance } from './toChangeBalance.js'
 export { toChangeBalances } from './toChangeBalances.js'
 export type { BalanceChange, HandleTransactionResult } from './types.js'
-import type { TevmNode } from '@tevm/node'
-import type { Address, Client } from 'viem'
+
 import type { ContainsAddress } from '../../common/types.js'
-import type { BalanceChange } from './types.js'
 
 export interface BalanceMatchers {
 	/**
