@@ -1,30 +1,37 @@
-import type { TevmNode } from '@tevm/node'
-import type { Address, Client } from 'viem'
-
 export { toChangeBalance } from './toChangeBalance.js'
 export { toChangeBalances } from './toChangeBalances.js'
 export { toChangeTokenBalance } from './toChangeTokenBalance.js'
 export { toChangeTokenBalances } from './toChangeTokenBalances.js'
 export type { BalanceChange, HandleTransactionResult } from './types.js'
 
+import type { TevmNode } from '@tevm/node'
+import type { Address, Client } from 'viem'
 import type { ContainsAddress } from '../../common/types.js'
+import type { BalanceChange } from './types.js'
 
 export interface BalanceMatchers {
 	/**
-	 * Checks if a transaction changes an account's balance by the expected amount.
+	 * Asserts that a transaction changes an account's ETH balance by the expected amount.
 	 *
 	 * @param client - The client or node to use for balance queries
 	 * @param account - The account address or object with address
-	 * @param expectedChange - The expected balance change (can be negative)
+	 * @param expectedChange - The expected balance change in wei (negative for decrease)
 	 *
 	 * @example
 	 * ```typescript
-	 * // Check that a transaction increases balance by 100 wei
+	 * // Account gains 100 wei
 	 * await expect(txHash).toChangeBalance(client, '0x123...', 100n)
 	 *
-	 * // Check that a transaction decreases balance by 50 wei
-	 * await expect(txPromise).toChangeBalance(client, account, -50n)
+	 * // Account loses 50 wei
+	 * await expect(txHash).toChangeBalance(client, account, -50n)
+	 *
+	 * // Works with transaction promises
+	 * await expect(client.sendTransaction(tx))
+	 *   .toChangeBalance(client, sender, -1000n)
 	 * ```
+	 *
+	 * @see {@link toChangeBalances} to test multiple accounts
+	 * @see {@link toChangeTokenBalance} to test ERC20 token balances
 	 */
 	toChangeBalance(
 		client: Client | TevmNode,
@@ -33,49 +40,62 @@ export interface BalanceMatchers {
 	): Promise<void>
 
 	/**
-	 * Checks if a transaction changes multiple accounts' balances by the expected amounts.
+	 * Asserts that a transaction changes multiple accounts' ETH balances by the expected amounts.
 	 *
-	 * When using .not, it will pass if at least one of the specified balance changes is different than expected, and fail only if all of them are the same.
+	 * When using .not, it will pass if at least one balance change differs from expected.
 	 *
 	 * @param client - The client or node to use for balance queries
 	 * @param balanceChanges - Array of expected balance changes
 	 *
 	 * @example
 	 * ```typescript
-	 * // Check multiple balance changes
+	 * // Test a simple transfer
 	 * await expect(txHash).toChangeBalances(client, [
-	 *   { account: '0x123...', amount: -100n }, // sender loses 100
-	 *   { account: '0x456...', amount: 100n },  // recipient gains 100
+	 *   { account: sender, amount: -100n },    // sender loses 100 wei
+	 *   { account: recipient, amount: 100n },  // recipient gains 100 wei
+	 * ])
+	 *
+	 * // Test contract deployment (deployer pays gas)
+	 * await expect(deployTx).toChangeBalances(client, [
+	 *   { account: deployer, amount: -gasUsed },
+	 *   { account: contractAddress, amount: 0n },
 	 * ])
 	 * ```
 	 *
-	 * @example
-	 * ```typescript
-	 * // Use an account object
-	 * await expect(txHash).toChangeBalances(client, [
-	 *   { account: { address: '0x123...', ... }, amount: -100n }, // sender loses 100
-	 *   { account: { address: '0x456...', ... }, amount: 100n },  // recipient gains 100
-	 * ])
-	 * ```
+	 * @see {@link toChangeBalance} to test a single account
+	 * @see {@link toChangeTokenBalances} to test multiple ERC20 balances
 	 */
 	toChangeBalances(client: Client | TevmNode, balanceChanges: BalanceChange[]): Promise<void>
 
 	/**
-	 * Checks if a transaction changes an account's token balance by the expected amount.
+	 * Asserts that a transaction changes an account's ERC20 token balance by the expected amount.
 	 *
 	 * @param client - The client or node to use for balance queries
-	 * @param tokenContract - The token contract address or object with address
+	 * @param tokenContract - The ERC20 token contract address or object with address
 	 * @param account - The account address or object with address
-	 * @param expectedChange - The expected balance change (can be negative)
+	 * @param expectedChange - The expected token balance change (negative for decrease)
 	 *
 	 * @example
 	 * ```typescript
-	 * // Check that a transaction increases token balance by 100 tokens
-	 * await expect(txHash).toChangeTokenBalance(client, '0xTokenAddress...', '0x123...', 100n)
+	 * // Account gains 100 tokens
+	 * await expect(txHash).toChangeTokenBalance(
+	 *   client,
+	 *   '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
+	 *   '0x123...',
+	 *   100n
+	 * )
 	 *
-	 * // Check that a transaction decreases token balance by 50 tokens
-	 * await expect(txPromise).toChangeTokenBalance(client, tokenContract, account, -50n)
+	 * // Using contract object
+	 * await expect(txHash).toChangeTokenBalance(
+	 *   client,
+	 *   tokenContract,
+	 *   account,
+	 *   -50_000000n // 50 USDC (6 decimals)
+	 * )
 	 * ```
+	 *
+	 * @see {@link toChangeTokenBalances} to test multiple accounts
+	 * @see {@link toChangeBalance} to test ETH balances
 	 */
 	toChangeTokenBalance(
 		client: Client | TevmNode,
@@ -85,31 +105,35 @@ export interface BalanceMatchers {
 	): Promise<void>
 
 	/**
-	 * Checks if a transaction changes multiple accounts' token balances by the expected amounts.
+	 * Asserts that a transaction changes multiple accounts' ERC20 token balances by the expected amounts.
 	 *
-	 * When using .not, it will pass if at least one of the specified token balance changes is different than expected, and fail only if all of them are the same.
+	 * When using .not, it will pass if at least one token balance change differs from expected.
 	 *
 	 * @param client - The client or node to use for balance queries
-	 * @param tokenContract - The token contract address or object with address
+	 * @param tokenContract - The ERC20 token contract address or object with address
 	 * @param balanceChanges - Array of expected token balance changes
 	 *
 	 * @example
 	 * ```typescript
-	 * // Check multiple token balance changes
-	 * await expect(txHash).toChangeTokenBalances(client, '0xTokenAddress...', [
-	 *   { account: '0x123...', amount: -100n }, // sender loses 100 tokens
-	 *   { account: '0x456...', amount: 100n },  // recipient gains 100 tokens
+	 * // Test a token transfer
+	 * await expect(txHash).toChangeTokenBalances(
+	 *   client,
+	 *   '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
+	 *   [
+	 *     { account: sender, amount: -1000000n },    // -1 USDC
+	 *     { account: recipient, amount: 1000000n },  // +1 USDC
+	 *   ]
+	 * )
+	 *
+	 * // Test token minting
+	 * await expect(mintTx).toChangeTokenBalances(client, tokenContract, [
+	 *   { account: mintRecipient, amount: 1000n },
+	 *   { account: treasury, amount: 50n }, // 5% mint fee
 	 * ])
 	 * ```
 	 *
-	 * @example
-	 * ```typescript
-	 * // Use account objects
-	 * await expect(txHash).toChangeTokenBalances(client, tokenContract, [
-	 *   { account: { address: '0x123...', ... }, amount: -100n }, // sender loses 100 tokens
-	 *   { account: { address: '0x456...', ... }, amount: 100n },  // recipient gains 100 tokens
-	 * ])
-	 * ```
+	 * @see {@link toChangeTokenBalance} to test a single account
+	 * @see {@link toChangeBalances} to test multiple ETH balances
 	 */
 	toChangeTokenBalances(
 		client: Client | TevmNode,
