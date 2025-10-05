@@ -1,4 +1,4 @@
-import { type PrestateTraceResult, debugTraceTransactionJsonRpcProcedure } from '@tevm/actions'
+import { debugTraceTransactionJsonRpcProcedure, type PrestateTraceResult } from '@tevm/actions'
 import { type TevmNode } from '@tevm/node'
 import { type Address, type Client } from 'viem'
 import { handleTransaction } from '../../common/handleTransaction.js'

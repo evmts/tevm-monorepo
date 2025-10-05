@@ -575,7 +575,7 @@ describe('ethGetTransactionReceiptHandler', () => {
 
 			// Should return receipt with to as null and contractAddress set
 			expect(receipt).toBeDefined()
-			expect(receipt.to).toEqualHex('0x')
+			expect(receipt.to).toBeNull()
 			expect(receipt.contractAddress).toBe('0xnewcontract')
 		})
 	})

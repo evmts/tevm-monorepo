@@ -1,6 +1,5 @@
 import { contractHandler, dealHandler, deployHandler, ethGetTransactionReceiptHandler } from '@tevm/actions'
-import { ERC20 } from '@tevm/contract'
-import { ErrorContract } from '@tevm/contract'
+import { ERC20, ErrorContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'
 import { createTevmNode } from '@tevm/node'
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
