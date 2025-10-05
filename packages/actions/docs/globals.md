@@ -396,6 +396,7 @@
 - [ExecuteCallResult](type-aliases/ExecuteCallResult.md)
 - [FilterLog](type-aliases/FilterLog.md)
 - [FilterParams](type-aliases/FilterParams.md)
+- [FourbyteTraceResult](type-aliases/FourbyteTraceResult.md)
 - [GetAccountHandler](type-aliases/GetAccountHandler.md)
 - [GetAccountJsonRpcProcedure](type-aliases/GetAccountJsonRpcProcedure.md)
 - [GetAccountJsonRpcRequest](type-aliases/GetAccountJsonRpcRequest.md)

@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/debug/DebugHandler.ts:6](https://github.com/ev
 
 ### TTracer
 
-`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` = `"callTracer"` \| `"prestateTracer"`
+`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` = `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"`
 
 ### TDiffMode
 
