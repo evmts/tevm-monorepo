@@ -166,6 +166,37 @@ await expect(transaction)
 
 **Limitation**: Cannot use `.not` before `withErrorArgs`/`withErrorNamedArgs`.
 
+### Contract Call Matchers
+
+#### `toCallContractFunction(client, contract, functionName)`
+Tests if a transaction called a specific contract function.
+```typescript
+await expect(txHash)
+  .toCallContractFunction(client, contract, 'transfer')
+
+// Alternative: use function signature or selector
+await expect(txHash)
+  .toCallContractFunction(client, 'transfer(address,uint256)')
+await expect(txHash)
+  .toCallContractFunction(client, '0xa9059cbb')
+```
+
+#### `withFunctionArgs(...args)` / `withFunctionNamedArgs(args)`
+Chain with `toCallContractFunction` to test function call arguments.
+```typescript
+// Positional arguments
+await expect(txHash)
+  .toCallContractFunction(client, contract, 'transfer')
+  .withFunctionArgs(recipient, 100n)
+
+// Named arguments (partial matching supported)
+await expect(txHash)
+  .toCallContractFunction(client, contract, 'transfer')
+  .withFunctionNamedArgs({ to: recipient, value: 100n })
+```
+
+**Limitation**: Cannot use `.not` before `withFunctionArgs`/`withFunctionNamedArgs`.
+
 ### State Matchers
 
 #### `toBeInitializedAccount(client)`
@@ -246,6 +277,11 @@ it('ERC20 transfer with all matchers', async () => {
       to: recipient,
       value: 1000n
     })
+
+  // Test function call
+  await expect(txHash)
+    .toCallContractFunction(client, token, 'transfer')
+    .withFunctionArgs(recipient, 1000n)
 
   // Test transaction hash format
   expect(txHash).toBeHex({ size: 32 })
