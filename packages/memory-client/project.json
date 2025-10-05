@@ -1,5 +1,5 @@
 {
 	"name": "@tevm/memory-client",
-	"_comment": "Exclude @tevm/test-matchers from dependency graph when building to break the circular dependency as @tevm/test-matchers uses @tevm/memory-client. Here @tevm/test-matchers is only used in test files",
-	"implicitDependencies": ["!@tevm/test-matchers"]
+	"_comment": "Exclude @tevm/test-matchers and @tevm/test-utils from dependency graph when building to break the circular dependency as test-utils -> contract -> test-matchers -> node -> blockchain -> test-utils. Here these are only used in test files",
+	"implicitDependencies": ["!@tevm/test-matchers", "!@tevm/test-utils"]
 }
