@@ -14,6 +14,7 @@
 
 ## Variables
 
+- [AdvancedContract](variables/AdvancedContract.md)
 - [ERC20](variables/ERC20.md)
 - [ERC721](variables/ERC721.md)
 - [ErrorContract](variables/ErrorContract.md)

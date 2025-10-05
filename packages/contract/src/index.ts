@@ -4,12 +4,8 @@ export type { CreateContractParams } from './CreateContractParams.js'
 export {
 	AdvancedContract,
 	ERC20,
-	ERC20,
-	ERC721,
 	ERC721,
 	ErrorContract,
-	ErrorContract,
-	SimpleContract,
 	SimpleContract,
 } from './contract-lib/index.js'
 // export { eventsFactory } from './event/eventFactory.js'
