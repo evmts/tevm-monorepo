@@ -1,7 +1,13 @@
 export type { Contract } from './Contract.js'
 export type { CreateContractFn } from './CreateContractFn.js'
 export type { CreateContractParams } from './CreateContractParams.js'
-export { ERC20, ERC721, ErrorContract, SimpleContract } from './contract-lib/index.js'
+export {
+	AdvancedContract,
+	ERC20,
+	ERC721,
+	ErrorContract,
+	SimpleContract,
+} from './contract-lib/index.js'
 // export { eventsFactory } from './event/eventFactory.js'
 // export { readFactory } from './read/readFactory.js'
 // export { writeFactory } from './write/writeFactory.js'

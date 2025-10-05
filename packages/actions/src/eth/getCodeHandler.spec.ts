@@ -35,7 +35,7 @@ describe(getCodeHandler.name, () => {
 			address: nonExistentAddress,
 		})
 
-		expect(code).toBe('0x')
+		expect(code).toEqualHex('0x')
 	})
 
 	it('should handle "pending" block tag', async () => {
@@ -46,7 +46,7 @@ describe(getCodeHandler.name, () => {
 			blockTag: 'pending',
 		})
 
-		expect(code).toBe('0x')
+		expect(code).toEqualHex('0x')
 	})
 
 	it('should throw UnknownBlockError for non-existent block', async () => {
@@ -69,7 +69,7 @@ describe(getCodeHandler.name, () => {
 			blockTag: blockNumber as any,
 		})
 
-		expect(code).toBe('0x')
+		expect(code).toEqualHex('0x')
 	})
 
 	it('should handle latest block tag', async () => {
@@ -80,7 +80,7 @@ describe(getCodeHandler.name, () => {
 			blockTag: 'latest',
 		})
 
-		expect(code).toBe('0x')
+		expect(code).toEqualHex('0x')
 	})
 
 	it('should return correct code after contract deployment', async () => {

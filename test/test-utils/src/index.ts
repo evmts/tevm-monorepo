@@ -1,3 +1,4 @@
+export { AdvancedContract } from './AdvancedContract.s.sol.js'
 export { BlockReader } from './BlockReader.s.sol.js'
 export { ErrorContract } from './ErrorContract.s.sol.js'
 export { getAlchemyUrl } from './getAlchemyUrl.js'

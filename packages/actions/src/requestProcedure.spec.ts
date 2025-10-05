@@ -89,7 +89,7 @@ describe('requestProcedure', () => {
 			).stateManager.getAccount(createAddress(ERC20_ADDRESS))) as EthjsAccount
 			expect(account?.balance).toBe(420n)
 			expect(account?.nonce).toBe(69n)
-			expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20.deployedBytecode))
+			expect(bytesToHex(account.codeHash)).toEqualHex(keccak256(ERC20.deployedBytecode))
 		})
 		it('should handle account throwing an unexpected error', async () => {
 			const vm = await client.getVm()

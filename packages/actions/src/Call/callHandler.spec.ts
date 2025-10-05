@@ -15,7 +15,6 @@ import {
 } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { optimismNode } from '../../vitest.setup.js'
-import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { callHandler } from './callHandler.js'
@@ -36,12 +35,8 @@ describe('callHandler', () => {
 				})
 			).errors,
 		).toBeUndefined()
-		expect(
-			await getAccountHandler(client)({
-				address: ERC20_ADDRESS,
-			}),
-		).toMatchObject({
-			address: ERC20_ADDRESS,
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(ERC20_ADDRESS).toHaveState(client, {
 			deployedBytecode: ERC20_BYTECODE,
 		})
 
@@ -133,13 +128,8 @@ describe('callHandler', () => {
 			totalGasSpent: 21000n,
 		})
 		await mineHandler(client)()
-		expect(
-			(
-				await getAccountHandler(client)({
-					address: to,
-				})
-			).balance,
-		).toEqual(420n)
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(to).toHaveState(client, { balance: 420n })
 	})
 
 	it('should be able to send value with addToBlockchain', async () => {
@@ -159,13 +149,8 @@ describe('callHandler', () => {
 			amountSpent: 147000n,
 			totalGasSpent: 21000n,
 		})
-		expect(
-			(
-				await getAccountHandler(client)({
-					address: to,
-				})
-			).balance,
-		).toEqual(420n)
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(to).toHaveState(client, { balance: 420n })
 	})
 
 	it('should be able to send value with deprecated createTransaction', async () => {
@@ -196,13 +181,8 @@ describe('callHandler', () => {
 		)
 
 		await mineHandler(client)()
-		expect(
-			(
-				await getAccountHandler(client)({
-					address: to,
-				})
-			).balance,
-		).toEqual(420n)
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(to).toHaveState(client, { balance: 420n })
 	})
 
 	it('should not mine existing transactions when using addToBlockchain', async () => {
@@ -244,34 +224,25 @@ describe('callHandler', () => {
 			value: 200n,
 		})
 
-		expect(
-			(
-				await getAccountHandler(client)({
-					address: to2,
-				})
-			).balance,
-		).toEqual(200n)
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(to2).toHaveState(client, { balance: 200n })
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(to1).toHaveState(client, { balance: 0n })
 
-		// First account should NOT be updated because addToBlockchain only mines its own transaction
-		expect(
-			(
-				await getAccountHandler(client)({
-					address: to1,
-				})
-			).balance,
-		).toEqual(0n) // Not mined yet
+		// check nonces were updated correctly
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(createAddress(1234).toString()).toHaveState(client, { nonce: 0n })
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(createAddress(4321).toString()).toHaveState(client, { nonce: 1n })
 
 		// Now mine everything
 		await mineHandler(client)()
 
 		// First balance should now be updated after mining
-		expect(
-			(
-				await getAccountHandler(client)({
-					address: to1,
-				})
-			).balance,
-		).toEqual(100n) // Now mined
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(to1).toHaveState(client, { balance: 100n })
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(to2).toHaveState(client, { balance: 200n })
 	})
 	it('should handle errors returned during contract call', async () => {
 		const client = createTevmNode()
@@ -368,21 +339,11 @@ describe('callHandler', () => {
 		])
 		await mineHandler(client)()
 		// the value should be sent
-		expect(
-			(
-				await getAccountHandler(client)({
-					address: to,
-				})
-			).balance,
-		).toEqual(1n + 2n + 3n)
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(to).toHaveState(client, { balance: 1n + 2n + 3n })
 		// nonce should be increased by 3
-		expect(
-			(
-				await getAccountHandler(client)({
-					address: from.toString() as Address,
-				})
-			).nonce,
-		).toEqual(69n + 3n)
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(from.toString()).toHaveState(client, { nonce: 69n + 3n })
 	})
 
 	it.todo('should return error when deploying contract with insufficient balance', async () => {
@@ -489,7 +450,7 @@ describe('callHandler', () => {
 			}),
 			to,
 		})
-		expect(result.rawData).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
+		expect(result.rawData).toEqualHex('0x0000000000000000000000000000000000000000000000000000000000000000')
 		expect(result.executionGasUsed).toBeGreaterThan(0n)
 		expect(result.errors).toBeUndefined()
 	})
@@ -556,7 +517,7 @@ describe('callHandler', () => {
 			}),
 			to,
 		})
-		expect(result.rawData).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
+		expect(result.rawData).toEqualHex('0x0000000000000000000000000000000000000000000000000000000000000000')
 		expect(result.executionGasUsed).toBeGreaterThan(0n)
 		expect(result.errors).toBeUndefined()
 	})

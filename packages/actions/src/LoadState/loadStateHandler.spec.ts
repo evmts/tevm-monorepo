@@ -46,7 +46,7 @@ test('should load state into the state manager', async () => {
 
 	const storedValue = await stateManager.getStorage(address, hexToBytes(hashedStorageKey))
 
-	expect(bytesToHex(storedValue)).toBe(storageValue)
+	expect(bytesToHex(storedValue)).toEqualHex(storageValue)
 
 	expect(await dumpStateHandler(client)()).toEqual({
 		state: {

@@ -55,7 +55,7 @@
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
 		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
+		"lint:package": "bunx publint --strict && pnpm pack --pack-destination /tmp && attw /tmp/tevm-state-*.tgz && rm /tmp/tevm-state-*.tgz",
 		"package:up": "pnpm up --latest",
 		"test": "vitest --watch",
 		"test:coverage": "vitest --coverage --run",
@@ -74,6 +74,7 @@
 		"ethereum-cryptography": "^3.2.0"
 	},
 	"devDependencies": {
+		"@tevm/test-matchers": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

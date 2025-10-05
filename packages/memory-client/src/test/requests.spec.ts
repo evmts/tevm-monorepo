@@ -1,4 +1,4 @@
-import type { CallJsonRpcRequest } from '@tevm/actions'
+import type { CallJsonRpcRequest, CallJsonRpcResponse } from '@tevm/actions'
 import { createAddress } from '@tevm/address'
 import { ERC20 } from '@tevm/contract'
 import {
@@ -11,15 +11,13 @@ import {
 	parseAbi,
 	toHex,
 } from '@tevm/utils'
-import { describe, expect, it } from 'vitest'
+import { assert, describe, expect, it } from 'vitest'
 import { optimismClient } from '../../vitest.setup.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 
 describe('Tevm.request', async () => {
-	const tevm = createMemoryClient()
-
 	it('should execute a script request', async () => {
 		const req = {
 			params: [
@@ -32,7 +30,8 @@ describe('Tevm.request', async () => {
 			method: 'tevm_call',
 			id: 1,
 		} as const satisfies CallJsonRpcRequest
-		const res = await tevm.transport.tevm.request(req)
+		const res = (await optimismClient.tevm.transport.tevm.request(req)) as CallJsonRpcResponse['result']
+		assert(res, 'res is undefined')
 		expect(
 			decodeFunctionResult({
 				abi: ERC20.abi,
@@ -40,7 +39,7 @@ describe('Tevm.request', async () => {
 				functionName: 'balanceOf',
 			}) satisfies bigint,
 		).toBe(0n)
-		expect(res.executionGasUsed).toBe('0xb23')
+		expect(res.executionGasUsed).toEqualHex('0xb23')
 		expect(res.logs).toEqual([])
 	})
 
@@ -63,7 +62,6 @@ describe('Tevm.request', async () => {
 	})
 
 	it('should execute a contractCall request via using tevm_call', { timeout: 90_000 }, async () => {
-		const tevm = optimismClient
 		const req = {
 			params: [
 				{
@@ -75,7 +73,8 @@ describe('Tevm.request', async () => {
 			method: 'tevm_call',
 			id: 1,
 		} as const satisfies CallJsonRpcRequest
-		const res = await tevm.transport.tevm.request(req)
+		const res = (await optimismClient.tevm.transport.tevm.request(req)) as CallJsonRpcResponse['result']
+		assert(res, 'res is undefined')
 		expect(
 			decodeFunctionResult({
 				data: res.rawData,
@@ -88,7 +87,6 @@ describe('Tevm.request', async () => {
 	})
 
 	it('should execute a call request', async () => {
-		const tevm = createMemoryClient()
 		const balance = 0x11111111n
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 		const address2 = '0x2f420000000000000000000000000000000000ff'
@@ -97,7 +95,7 @@ describe('Tevm.request', async () => {
 			balance,
 		})
 		const transferAmount = 0x420n
-		const res = await tevm.transport.tevm.request({
+		const res = (await tevm.transport.tevm.request({
 			params: [
 				{
 					caller: address1,
@@ -111,21 +109,23 @@ describe('Tevm.request', async () => {
 			jsonrpc: '2.0',
 			method: 'tevm_call',
 			id: 1,
-		})
+		})) as CallJsonRpcResponse['result']
+		assert(res, 'res is undefined')
 		expect(res.rawData).toEqual('0x')
-		await tevm.tevmMine()
-		expect((await (await tevm.transport.tevm.getVm()).stateManager.getAccount(createAddress(address2)))?.balance).toBe(
-			transferAmount,
-		)
-		expect((await (await tevm.transport.tevm.getVm()).stateManager.getAccount(createAddress(address1)))?.balance).toBe(
-			286183069n,
-		)
+		await optimismClient.tevm.tevmMine()
+		expect(
+			(await (await optimismClient.tevm.transport.tevm.getVm()).stateManager.getAccount(createAddress(address2)))
+				?.balance,
+		).toBe(transferAmount)
+		expect(
+			(await (await optimismClient.tevm.transport.tevm.getVm()).stateManager.getAccount(createAddress(address1)))
+				?.balance,
+		).toBe(286183069n)
 	})
 
 	it('Should execute a putAccount request', async () => {
-		const tevm = createMemoryClient()
 		const balance = 0x11111111n
-		const res = await tevm.transport.tevm.request({
+		const res = (await optimismClient.tevm.transport.tevm.request({
 			method: 'tevm_setAccount',
 			params: [
 				{
@@ -134,9 +134,9 @@ describe('Tevm.request', async () => {
 					code: ERC20.deployedBytecode,
 				},
 			],
-		})
+		})) as CallJsonRpcResponse['result']
 		expect(res).not.toHaveProperty('error')
-		const account = await (await tevm.transport.tevm.getVm()).stateManager.getAccount(
+		const account = await (await optimismClient.tevm.transport.tevm.getVm()).stateManager.getAccount(
 			createAddress('0xff420000000000000000000000000000000000ff'),
 		)
 		expect(account?.balance).toEqual(balance)
@@ -152,9 +152,8 @@ describe('Tevm.request', async () => {
 			'function set(uint256 x)',
 		])
 		const initialValue = 420n
-		const tevm = createMemoryClient()
 		// TODO this type is fucked atm
-		const deployResult = await tevm.tevmDeploy({
+		const deployResult = await optimismClient.tevm.tevmDeploy({
 			abi: simpleConstructorAbi,
 			bytecode: simpleConstructorBytecode,
 			args: [initialValue],
@@ -172,8 +171,8 @@ describe('Tevm.request', async () => {
 			selfdestruct: new Set(),
 			txHash: '0x2a872fc2c05d90cbbdfbed7a5c831533dc1d02c1be4ab374b7d9c66e9ccec0e8',
 		})
-		const mineResult = await tevm.tevmMine()
-		const vm = await tevm.transport.tevm.getVm()
+		const mineResult = await optimismClient.tevm.tevmMine()
+		const vm = await optimismClient.tevm.transport.tevm.getVm()
 		expect(mineResult.errors).toBeUndefined()
 		expect(mineResult.blockHashes).toHaveLength(1)
 
@@ -187,7 +186,7 @@ describe('Tevm.request', async () => {
 		// expect((await vm.stateManager.getAccount(EthjsAddress.fromString(deployResult.createdAddress as Hex)))?.isContract()).toBe(true)
 		expect(
 			(
-				await tevm.tevmContract({
+				await optimismClient.tevm.tevmContract({
 					abi: simpleConstructorAbi,
 					functionName: 'get',
 					to: deployResult.createdAddress as Hex,
@@ -198,10 +197,9 @@ describe('Tevm.request', async () => {
 
 	// repoing a reported bug
 	it('Should be able to create a contract using these foundry artifacts', { timeout: 15_000 }, async () => {
-		const tevm = optimismClient
 		// const account = await memoryClient.tevmGetAccount({ address: '0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c' })
 		// expect(account).toBeUndefined()
-		const res = await tevm.tevmCall({
+		const res = await optimismClient.tevm.tevmCall({
 			from: '0xef987cde72bc6a9e351d2460214d75f095b1b862',
 			data: '0x608060405234801561001057600080fd5b5060405161012938038061012983398101604081905261002f91610037565b600055610050565b60006020828403121561004957600080fd5b5051919050565b60cb8061005e6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c806301339c211460375780638c59507c14603f575b600080fd5b603d6059565b005b604760005481565b60405190815260200160405180910390f35b7f7c84ba1c5769a0155145414f13e03f1d0d6a3a7e5d4f6d45262df4d9d48c32cd600054604051608b91815260200190565b60405180910390a156fea2646970667358221220dea4bdd87c9ec514fbd0563f520e4a0e34d2930f1a35ff63b903349d337010fe64736f6c634300081300330000000000000000000000000000000000000000000000000000000000000002',
 			value: 0n,
@@ -210,13 +208,13 @@ describe('Tevm.request', async () => {
 		})
 
 		expect(res.errors).toBeUndefined()
-		expect(res.createdAddress).toEqual('0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c')
+		expect(res.createdAddress).toEqualAddress('0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c')
 	})
 
 	it('Should get the same account in forked or not forked mode', async () => {
 		const forkedClient = optimismClient
 		const nonForkedClient = createMemoryClient()
-		const forkedAccount = await forkedClient.tevmGetAccount({
+		const forkedAccount = await forkedClient.tevm.tevmGetAccount({
 			address: '0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c',
 			throwOnFail: false,
 		})

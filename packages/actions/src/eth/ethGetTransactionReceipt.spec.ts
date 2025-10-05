@@ -363,7 +363,7 @@ describe('ethGetTransactionReceiptHandler', () => {
 			expect(receipt.blobGasPrice).toBe(10n)
 			expect(receipt.blobGasUsed).toBe(20n)
 			expect(receipt.contractAddress).toBe('0xcreated')
-			expect(receipt.root).toBe('0x070809')
+			expect(receipt.root).toEqualHex('0x070809')
 			// Comparing bytesToHex result directly
 			expect(receipt.status).toBeDefined()
 		})

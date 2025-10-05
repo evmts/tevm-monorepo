@@ -50,6 +50,7 @@ describe('handleAutomining', () => {
 		)
 
 		const txHash = '0x123456789abcdef'
+		expect(txHash).toBeHex()
 		const result = await handleAutomining(client, txHash)
 
 		// Should log the mining process

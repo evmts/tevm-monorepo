@@ -46,7 +46,7 @@ export const toEmit = async <
 	}
 
 	// Contract + event name case
-	if (!eventName) throw new Error('You need to provide an event name as a second argument')
+	if (!eventName) throw new Error('You need to provide an event name as a third argument')
 	const contract = contractOrEventIdentifier
 	const eventAbi = contract.abi.find((item): item is AbiEvent => item.type === 'event' && item.name === eventName)
 

@@ -14,7 +14,7 @@ describe('cloneVmWithBfockTag', () => {
 			throw vmClone
 		}
 		expect(vmClone).toBeDefined()
-		expect(await vmClone.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
+		expect(bytesToHex(await vmClone.stateManager.getStateRoot())).toEqualHex(bytesToHex(block.header.stateRoot))
 	})
 
 	it('should fork and cache the block if state root is not available', async () => {
@@ -31,7 +31,7 @@ describe('cloneVmWithBfockTag', () => {
 			throw vmClone
 		}
 		expect(vmClone).toBeDefined()
-		expect(await vmClone.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
+		expect(bytesToHex(await vmClone.stateManager.getStateRoot())).toEqualHex(bytesToHex(block.header.stateRoot))
 	})
 
 	it('should handle errors during forking', async () => {
@@ -84,12 +84,14 @@ describe('cloneVmWithBfockTag', () => {
 			throw vmClone
 		}
 		expect(vmClone).toBeDefined()
-		expect(await vmClone.stateManager.getStateRoot()).toBeDefined()
+		expect(bytesToHex(await vmClone.stateManager.getStateRoot())).toBeHex()
 		// we expect the returned vm to look like it actually forked the requested block
 		expect(vmClone.stateManager._baseState.options.fork).toEqual({
 			transport: optimismNode.forkTransport as any,
 			blockTag: forkParentBlock.header.number,
 		})
-		expect(vmClone.blockchain.blocksByTag.get('forked')?.header.hash()).toEqual(forkParentBlock.header.hash())
+		expect(bytesToHex(vmClone.blockchain.blocksByTag.get('forked')?.header.hash() as any)).toEqualHex(
+			bytesToHex(forkParentBlock.header.hash()),
+		)
 	})
 })

@@ -1,0 +1,5 @@
+{
+	"name": "@tevm/blockchain",
+	"_comment": "Exclude @tevm/test-matchers and @tevm/test-utils from dependency graph when building to break the circular dependency as @tevm/test-matchers uses @tevm/blockchain and test-utils -> contract -> test-matchers -> node -> blockchain. Here these are only used in test files",
+	"implicitDependencies": ["!@tevm/test-matchers", "!@tevm/test-utils"]
+}

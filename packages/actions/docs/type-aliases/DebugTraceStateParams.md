@@ -8,7 +8,7 @@
 
 > **DebugTraceStateParams**\<`TStateFilters`\> = `object`
 
-Defined in: [packages/actions/src/debug/DebugParams.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L145)
+Defined in: [packages/actions/src/debug/DebugParams.ts:161](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L161)
 
 Params taken by `debug_traceState` handler
 
@@ -24,7 +24,7 @@ Params taken by `debug_traceState` handler
 
 > `readonly` `optional` **filters**: `TStateFilters`
 
-Defined in: [packages/actions/src/debug/DebugParams.ts:151](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L151)
+Defined in: [packages/actions/src/debug/DebugParams.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L167)
 
 Filters to apply to the state
 
@@ -34,6 +34,6 @@ Filters to apply to the state
 
 > `readonly` `optional` **timeout**: `string`
 
-Defined in: [packages/actions/src/debug/DebugParams.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L155)
+Defined in: [packages/actions/src/debug/DebugParams.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L171)
 
 Timeout for the state trace
