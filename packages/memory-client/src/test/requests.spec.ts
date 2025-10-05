@@ -1,4 +1,4 @@
-import type { CallJsonRpcRequest } from '@tevm/actions'
+import type { CallJsonRpcRequest, CallJsonRpcResponse } from '@tevm/actions'
 import { createAddress } from '@tevm/address'
 import { optimism } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
@@ -13,7 +13,7 @@ import {
 	parseAbi,
 	toHex,
 } from '@tevm/utils'
-import { describe, expect, it } from 'vitest'
+import { assert, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
@@ -21,7 +21,7 @@ const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
 const forkConfig = {
 	transport: transports.optimism,
 	blockTag: 'latest',
-}
+} as const
 
 describe('Tevm.request', async () => {
 	const tevm = createMemoryClient()
@@ -38,7 +38,8 @@ describe('Tevm.request', async () => {
 			method: 'tevm_call',
 			id: 1,
 		} as const satisfies CallJsonRpcRequest
-		const res = await tevm.transport.tevm.request(req)
+		const res = (await tevm.transport.tevm.request(req)) as CallJsonRpcResponse['result']
+		assert(res, 'res is undefined')
 		expect(
 			decodeFunctionResult({
 				abi: ERC20.abi,
@@ -46,7 +47,7 @@ describe('Tevm.request', async () => {
 				functionName: 'balanceOf',
 			}) satisfies bigint,
 		).toBe(0n)
-		expect(res.executionGasUsed).toBe('0xb23')
+		expect(res.executionGasUsed).toEqualHex('0xb23')
 		expect(res.logs).toEqual([])
 	})
 
@@ -87,7 +88,8 @@ describe('Tevm.request', async () => {
 			method: 'tevm_call',
 			id: 1,
 		} as const satisfies CallJsonRpcRequest
-		const res = await tevm.transport.tevm.request(req)
+		const res = (await tevm.transport.tevm.request(req)) as CallJsonRpcResponse['result']
+		assert(res, 'res is undefined')
 		expect(
 			decodeFunctionResult({
 				data: res.rawData,
@@ -109,7 +111,7 @@ describe('Tevm.request', async () => {
 			balance,
 		})
 		const transferAmount = 0x420n
-		const res = await tevm.transport.tevm.request({
+		const res = (await tevm.transport.tevm.request({
 			params: [
 				{
 					caller: address1,
@@ -123,7 +125,8 @@ describe('Tevm.request', async () => {
 			jsonrpc: '2.0',
 			method: 'tevm_call',
 			id: 1,
-		})
+		})) as CallJsonRpcResponse['result']
+		assert(res, 'res is undefined')
 		expect(res.rawData).toEqual('0x')
 		await tevm.tevmMine()
 		expect((await (await tevm.transport.tevm.getVm()).stateManager.getAccount(createAddress(address2)))?.balance).toBe(
@@ -137,7 +140,7 @@ describe('Tevm.request', async () => {
 	it('Should execute a putAccount request', async () => {
 		const tevm = createMemoryClient()
 		const balance = 0x11111111n
-		const res = await tevm.transport.tevm.request({
+		const res = (await tevm.transport.tevm.request({
 			method: 'tevm_setAccount',
 			params: [
 				{
@@ -146,7 +149,7 @@ describe('Tevm.request', async () => {
 					code: ERC20.deployedBytecode,
 				},
 			],
-		})
+		})) as CallJsonRpcResponse['result']
 		expect(res).not.toHaveProperty('error')
 		const account = await (await tevm.transport.tevm.getVm()).stateManager.getAccount(
 			createAddress('0xff420000000000000000000000000000000000ff'),
@@ -222,7 +225,7 @@ describe('Tevm.request', async () => {
 		})
 
 		expect(res.errors).toBeUndefined()
-		expect(res.createdAddress).toEqual('0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c')
+		expect(res.createdAddress).toEqualAddress('0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c')
 	})
 
 	it('Should get the same account in forked or not forked mode', async () => {
