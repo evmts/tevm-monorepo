@@ -94,7 +94,7 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 			const txPool = await client.transport.tevm.getTxPool()
 			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_ACCOUNTS[0].address))
 			expect(pooledTxs).toHaveLength(1)
-			expect(bytesToHex(pooledTxs[0].tx.hash())).toBe(txHash)
+			expect(pooledTxs[0] && bytesToHex(pooledTxs[0].tx.hash())).toBe(txHash)
 		})
 	})
 

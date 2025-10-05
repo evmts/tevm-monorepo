@@ -83,7 +83,8 @@
 		"@tevm/vm": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/decorators": "workspace:^",
+		"@tevm/decorators": "latest",
+		"@tevm/test-matchers": "latest",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",

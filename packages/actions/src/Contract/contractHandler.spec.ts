@@ -1,11 +1,9 @@
 import { createAddress } from '@tevm/address'
-import { optimism } from '@tevm/common'
 import { InvalidGasPriceError } from '@tevm/errors'
-import { createTevmNode } from '@tevm/node'
-import { TestERC20, transports } from '@tevm/test-utils'
+import { createTevmNode, type TevmNode } from '@tevm/node'
+import { createCachedOptimismNode, TestERC20 } from '@tevm/test-utils'
 import { encodeFunctionData, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
-import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { contractHandler } from './contractHandler.js'
 
@@ -25,12 +23,8 @@ describe('contractHandler', () => {
 				})
 			).errors,
 		).toBeUndefined()
-		expect(
-			await getAccountHandler(client)({
-				address: ERC20_ADDRESS,
-			}),
-		).toMatchObject({
-			address: ERC20_ADDRESS,
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(ERC20_ADDRESS).toHaveState(client, {
 			deployedBytecode: ERC20_BYTECODE,
 		})
 
@@ -196,20 +190,14 @@ describe('contractHandler', () => {
 	})
 
 	it('should return op stack info if forking', async () => {
-		const client = createTevmNode({
-			fork: {
-				transport: transports.optimism,
-				blockTag: 'latest',
-			},
-			common: optimism,
-		})
+		const node = createCachedOptimismNode() as unknown as TevmNode
 		const to = `0x${'33'.repeat(20)}` as const
-		const { errors } = await setAccountHandler(client)({
+		const { errors } = await setAccountHandler(node)({
 			address: to,
 			deployedBytecode: ERC20_BYTECODE,
 		})
 		expect(errors).toBeUndefined()
-		const result = await contractHandler(client)({
+		const result = await contractHandler(node)({
 			throwOnFail: false,
 			createTransaction: true,
 			abi: ERC20_ABI,
@@ -334,21 +322,15 @@ describe('contractHandler', () => {
 	})
 
 	it('should handle op stack info if forking', async () => {
-		const client = createTevmNode({
-			fork: {
-				transport: transports.optimism,
-				blockTag: 'latest',
-			},
-			common: optimism,
-		})
+		const node = createCachedOptimismNode() as unknown as TevmNode
 		const to = `0x${'33'.repeat(20)}` as const
-		const { errors } = await setAccountHandler(client)({
+		const { errors } = await setAccountHandler(node)({
 			address: to,
 			deployedBytecode: ERC20_BYTECODE,
 			throwOnFail: false,
 		})
 		expect(errors).toBeUndefined()
-		const result = await contractHandler(client)({
+		const result = await contractHandler(node)({
 			throwOnFail: false,
 			createTransaction: true,
 			abi: ERC20_ABI,

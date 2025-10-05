@@ -23,7 +23,7 @@ describe('getAccount', () => {
 		})
 		expect(account?.balance).toBe(420n)
 		expect(account?.nonce).toBe(69n)
-		expect(account.deployedBytecode).toBe(contract.deployedBytecode)
+		expect(account.deployedBytecode).toEqualHex(contract.deployedBytecode)
 	})
 
 	it('should validate params', async () => {
@@ -46,7 +46,7 @@ describe('getAccount', () => {
 		expect(account?.errors?.[0]?.code).toBe(AccountNotFoundError.code)
 		expect(account?.balance).toBe(0n)
 		expect(account?.nonce).toBe(0n)
-		expect(account?.deployedBytecode).toBe('0x')
+		expect(account?.deployedBytecode).toEqualHex('0x')
 		expect(account?.isContract).toBe(false)
 		expect(account?.isEmpty).toBe(true)
 	})
@@ -59,7 +59,7 @@ describe('getAccount', () => {
 		expect(account?.errors?.[0]).toBeInstanceOf(InvalidAddressError)
 		expect(account?.balance).toBe(0n)
 		expect(account?.nonce).toBe(0n)
-		expect(account?.deployedBytecode).toBe('0x')
+		expect(account?.deployedBytecode).toEqualHex('0x')
 		expect(account?.isContract).toBe(false)
 		expect(account?.isEmpty).toBe(true)
 	})
@@ -83,7 +83,7 @@ describe('getAccount', () => {
 		})
 		expect(account?.storage).toBeDefined()
 		Object.entries(state).forEach(([key, value]) => {
-			expect(account?.storage?.[key as any]).toBe(value)
+			expect(account?.storage?.[key as any]).toEqualHex(value)
 		})
 		expect(account?.storage).toMatchSnapshot()
 	})

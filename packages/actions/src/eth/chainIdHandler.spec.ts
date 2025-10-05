@@ -1,4 +1,4 @@
-import { mainnet, sepolia } from '@tevm/common'
+import { mainnet, optimism, sepolia } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
@@ -9,11 +9,7 @@ const hasRpcEnvVars = Boolean(process.env['TEVM_RPC_URLS_OPTIMISM'])
 
 describe(chainIdHandler.name, () => {
 	it('should return the chain id', async () => {
-		if (!hasRpcEnvVars) {
-			console.log('Skipping: TEVM_RPC_URLS_OPTIMISM not set')
-			return
-		}
-		expect(await chainIdHandler(createTevmNode({ fork: { transport: transports.optimism } }))({})).toBe(10n)
+		expect(await chainIdHandler(createTevmNode({ common: optimism }))({})).toBe(10n)
 	})
 
 	it('should return ethereum mainnet chain id when configured', async () => {

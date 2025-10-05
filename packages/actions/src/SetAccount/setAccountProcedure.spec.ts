@@ -36,7 +36,7 @@ describe('setAccountProcedure', () => {
 
 		if (!account) throw new Error('Account not found')
 
-		expect(bytesToHex(account.codeHash)).toBe(keccak256(ERC20.deployedBytecode))
+		expect(bytesToHex(account.codeHash)).toEqualHex(keccak256(ERC20.deployedBytecode))
 		expect(account.balance).toBe(420n)
 		expect(account.nonce).toBe(69n)
 	})
@@ -84,7 +84,7 @@ describe('setAccountProcedure', () => {
 
 		expect(account.balance).toBe(0n)
 		expect(account.nonce).toBe(0n)
-		expect(bytesToHex(account.codeHash)).toBe(keccak256(new Uint8Array()))
+		expect(bytesToHex(account.codeHash)).toEqualHex(keccak256(new Uint8Array()))
 	})
 
 	it('should return an error when stateManager fails', async () => {

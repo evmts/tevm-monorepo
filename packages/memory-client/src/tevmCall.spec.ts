@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
 import type { TevmTransport } from './TevmTransport.js'
 import { tevmCall } from './tevmCall.js'
+import { tevmGetAccount } from './tevmGetAccount.js'
 import { tevmMine } from './tevmMine.js'
 import { tevmSetAccount } from './tevmSetAccount.js'
 
@@ -32,7 +33,7 @@ describe('tevmCall', () => {
 			data: '0x',
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toBe('0x')
+		expect(result.rawData).toEqualHex('0x')
 	})
 
 	it('should execute a call with a specific from address', async () => {
@@ -43,7 +44,7 @@ describe('tevmCall', () => {
 			from: fromAddress,
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toBe('0x')
+		expect(result.rawData).toEqualHex('0x')
 	})
 
 	it('should handle call with deprecated createTransaction option', async () => {
@@ -53,7 +54,18 @@ describe('tevmCall', () => {
 			createTransaction: true,
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toBe('0x')
+		expect(result.rawData).toEqualHex('0x')
+		await tevmMine(client)
+	})
+
+	it('should handle call with addToBlockchain option', async () => {
+		const result = await tevmCall(client, {
+			to: '0x0000000000000000000000000000000000000000',
+			data: '0x',
+			addToBlockchain: true,
+		})
+		expect(result).toBeDefined()
+		expect(result.rawData).toEqualHex('0x')
 		await tevmMine(client)
 	})
 
@@ -64,31 +76,22 @@ describe('tevmCall', () => {
 			addToMempool: true,
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toBe('0x')
-		expect(result.txHash).toBeDefined()
-		// Transaction should be in mempool but not mined yet
+		expect(result.rawData).toEqualHex('0x')
+		expect(result.txHash).toBeHex()
 		await tevmMine(client)
 	})
 
-	it('should handle call with addToBlockchain option', async () => {
+	it('should handle call with value transfer using addToBlockchain', async () => {
 		const toAddress = '0x1000000000000000000000000000000000000000'
 
-		// First create the account with zero balance
-		await client.request({
-			method: 'tevm_setAccount',
-			params: [{ address: toAddress, balance: 0n }],
+		await tevmSetAccount(client, {
+			address: toAddress,
+			balance: 0n,
 		})
 
-		// Verify account has zero balance before test
-		const getAccount = await client.request({
-			method: 'tevm_getAccount',
-			params: [{ address: toAddress }],
-		})
-		// Convert hex to bigint if needed (API returns hex string)
-		const initialBalance = typeof getAccount.balance === 'string' ? BigInt(getAccount.balance) : getAccount.balance
-		expect(initialBalance).toBe(0n)
+		const initialAccount = await tevmGetAccount(client, { address: toAddress })
+		expect(initialAccount.balance).toBe(0n)
 
-		// Send value with addToBlockchain
 		const result = await tevmCall(client, {
 			to: toAddress,
 			data: '0x',
@@ -99,20 +102,10 @@ describe('tevmCall', () => {
 		expect(result.rawData).toBe('0x')
 		expect(result.txHash).toBeDefined()
 
-		await client.request({
-			method: 'tevm_mine',
-			params: [],
-		})
+		await tevmMine(client)
 
-		// Transaction should be mined automatically - check balance updated
-		const getAccountAfter = await client.request({
-			method: 'tevm_getAccount',
-			params: [{ address: toAddress }],
-		})
-		// Convert hex to bigint if needed (API returns hex string)
-		const finalBalance =
-			typeof getAccountAfter.balance === 'string' ? BigInt(getAccountAfter.balance) : getAccountAfter.balance
-		expect(finalBalance).toBe(100n)
+		const finalAccount = await tevmGetAccount(client, { address: toAddress })
+		expect(finalAccount.balance).toBe(100n)
 	})
 
 	it('should handle errors gracefully', async () => {
@@ -134,51 +127,37 @@ describe('tevmCall', () => {
 			skipBalance: true,
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toBe('0x')
+		expect(result.rawData).toEqualHex('0x')
 	})
 
-	it('should execute call to contract with function data and return decoded results', async () => {
-		// First set a value in the contract
+	it('should execute call to contract with function data and return results', async () => {
 		const setValue = 42n
 
-		// Encode the data for the 'set' function
 		const setData = encodeFunctionData({
 			abi: SimpleContract.abi,
 			functionName: 'set',
 			args: [setValue],
 		})
 
-		// Call set function
 		await tevmCall(client, {
 			to: contractAddress,
 			data: setData,
-			createTransaction: true,
+			addToBlockchain: true,
 		})
 
 		await tevmMine(client)
 
-		// Now encode the data for the 'get' function
 		const getData = encodeFunctionData({
 			abi: SimpleContract.abi,
 			functionName: 'get',
 		})
 
-		// Call get function
 		const result = await tevmCall(client, {
 			to: contractAddress,
 			data: getData,
 		})
 
-		// Verify we get the expected value
 		expect(result).toBeDefined()
-
-		// The SimpleContract.get() function returns a number as rawData
-		// Log it to check data structure
-		// Decode the hex result (rawData field)
-		const rawDataHex = result.rawData
-
-		// Verify the result contains the expected data
-		// The rawData should contain the encoded value we set (42)
-		expect(rawDataHex.toLowerCase()).toContain('2a') // 42 in hex is 0x2a
+		expect(result.rawData.toLowerCase()).toContain('2a')
 	})
 })

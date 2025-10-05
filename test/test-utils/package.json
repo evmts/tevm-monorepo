@@ -77,6 +77,7 @@
 		"@ponder/utils": "^0.2.13",
 		"@tevm/contract": "workspace:^",
 		"@tevm/esbuild-plugin": "workspace:^",
+		"@tevm/test-node": "latest",
 		"@tevm/ts-plugin": "workspace:^"
 	},
 	"peerDependencies": {

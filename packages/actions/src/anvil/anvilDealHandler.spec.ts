@@ -1,17 +1,16 @@
 import { createAddress } from '@tevm/address'
-import { mainnet } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
-import { createTevmNode } from '@tevm/node'
-import { TestERC20, transports } from '@tevm/test-utils'
+import { type TevmNode } from '@tevm/node'
+import { createCachedMainnetNode, TestERC20 } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
-import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { dealHandler } from './anvilDealHandler.js'
 
+const node = createCachedMainnetNode() as unknown as TevmNode
+
 describe('anvilDealHandler', () => {
 	it('should deal ETH when no erc20 address is provided', async () => {
-		const node = createTevmNode()
 		const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const amount = 1000000000000000000n // 1 ETH
 
@@ -20,15 +19,11 @@ describe('anvilDealHandler', () => {
 			amount,
 		})
 
-		const accountState = await getAccountHandler(node)({
-			address: account,
-		})
-
-		expect(accountState.balance).toEqual(amount)
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(account).toHaveState(node, { balance: amount })
 	})
 
 	it('should deal ERC20 tokens by finding and updating the correct storage slot', async () => {
-		const node = createTevmNode()
 		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
 		const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const amount = 1000000n // 1 token with 6 decimals
@@ -59,7 +54,6 @@ describe('anvilDealHandler', () => {
 
 	it('should return an error if no valid storage slot is found', async () => {
 		// For this test, we'll use a contract that doesn't follow the ERC20 standard
-		const node = createTevmNode()
 		const invalidErc20 = '0x1111111111111111111111111111111111111111'
 		const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const amount = 1000000n
@@ -86,13 +80,6 @@ describe('anvilDealHandler', () => {
 		const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const amount = BigInt(1000000)
 		const token = '0xE95A203B1a91a908F9B9CE46459d101078c2c3cb' // PROXY
-
-		const node = createTevmNode({
-			common: mainnet,
-			fork: {
-				transport: transports.mainnet,
-			},
-		})
 
 		// Deal tokens to the account
 		await dealHandler(node)({

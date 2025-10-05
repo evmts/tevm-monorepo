@@ -1,3 +1,4 @@
+import type { CallJsonRpcResponse } from '@tevm/actions'
 import { EthjsAddress, hexToBytes } from '@tevm/utils'
 import { toHex } from 'viem'
 import { describe, expect, it } from 'vitest'
@@ -18,7 +19,7 @@ describe('Mining modes', () => {
 			balance,
 		})
 		const transferAmount = 0x420n
-		const res = await tevm.transport.tevm.request({
+		const res = (await tevm.transport.tevm.request({
 			jsonrpc: '2.0',
 			method: 'tevm_call',
 			params: [
@@ -32,8 +33,8 @@ describe('Mining modes', () => {
 				},
 			],
 			id: 1,
-		})
-		expect(res.rawData).toEqual('0x')
+		})) as CallJsonRpcResponse['result']
+		expect(res?.rawData).toEqual('0x')
 
 		// should be no tx in mempool
 		const txPool = await tevm.transport.tevm.getTxPool()

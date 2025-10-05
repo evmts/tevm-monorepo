@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { UnknownBlockError } from '@tevm/errors'
-import { createTevmNode } from '@tevm/node'
-import { SimpleContract, transports } from '@tevm/test-utils'
+import { createTevmNode, type TevmNode } from '@tevm/node'
+import { createCachedMainnetNode, createCachedOptimismNode, SimpleContract } from '@tevm/test-utils'
 import { numberToHex } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
@@ -34,7 +34,7 @@ describe(getCodeHandler.name, () => {
 			address: nonExistentAddress,
 		})
 
-		expect(code).toBe('0x')
+		expect(code).toEqualHex('0x')
 	})
 
 	it('should handle "pending" block tag', async () => {
@@ -45,7 +45,7 @@ describe(getCodeHandler.name, () => {
 			blockTag: 'pending',
 		})
 
-		expect(code).toBe('0x')
+		expect(code).toEqualHex('0x')
 	})
 
 	it('should throw UnknownBlockError for non-existent block', async () => {
@@ -68,7 +68,7 @@ describe(getCodeHandler.name, () => {
 			blockTag: blockNumber as any,
 		})
 
-		expect(code).toBe('0x')
+		expect(code).toEqualHex('0x')
 	})
 
 	it('should handle latest block tag', async () => {
@@ -79,7 +79,7 @@ describe(getCodeHandler.name, () => {
 			blockTag: 'latest',
 		})
 
-		expect(code).toBe('0x')
+		expect(code).toEqualHex('0x')
 	})
 
 	it('should return correct code after contract deployment', async () => {
@@ -146,12 +146,8 @@ describe(getCodeHandler.name, () => {
 
 describe('Forking tests', () => {
 	it('should fetch code from mainnet fork when block is not in local state', async () => {
-		const forkedClient = createTevmNode({
-			fork: {
-				transport: transports.mainnet,
-			},
-		})
-		const forkedHandler = getCodeHandler(forkedClient)
+		const node = createCachedMainnetNode() as unknown as TevmNode
+		const forkedHandler = getCodeHandler(node)
 
 		// Use a known contract address from mainnet
 		const uniswapV2Router = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D'
@@ -162,12 +158,8 @@ describe('Forking tests', () => {
 	})
 
 	it('should fetch code from Optimism fork', async () => {
-		const forkedClient = createTevmNode({
-			fork: {
-				transport: transports.optimism,
-			},
-		})
-		const forkedHandler = getCodeHandler(forkedClient)
+		const node = createCachedOptimismNode() as unknown as TevmNode
+		const forkedHandler = getCodeHandler(node)
 
 		// Use a known contract address from Optimism
 		const optimismBridgeAddress = '0x4200000000000000000000000000000000000010'
