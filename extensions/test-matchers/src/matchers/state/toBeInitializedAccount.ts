@@ -1,5 +1,5 @@
 import { getAccountHandler } from '@tevm/actions'
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { type Address, type Client, isAddress } from 'viem'
 import type { ContainsAddress } from '../../common/types.js'
 
