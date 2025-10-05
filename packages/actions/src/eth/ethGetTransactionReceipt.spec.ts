@@ -363,7 +363,7 @@ describe('ethGetTransactionReceiptHandler', () => {
 			expect(receipt.blobGasPrice).toBe(10n)
 			expect(receipt.blobGasUsed).toBe(20n)
 			expect(receipt.contractAddress).toBe('0xcreated')
-			expect(receipt.root).toBe('0x070809')
+			expect(receipt.root).toEqualHex('0x070809')
 			// Comparing bytesToHex result directly
 			expect(receipt.status).toBeDefined()
 		})
@@ -575,7 +575,7 @@ describe('ethGetTransactionReceiptHandler', () => {
 
 			// Should return receipt with to as null and contractAddress set
 			expect(receipt).toBeDefined()
-			expect(receipt.to).toBeNull()
+			expect(receipt.to).toEqualHex('0x')
 			expect(receipt.contractAddress).toBe('0xnewcontract')
 		})
 	})

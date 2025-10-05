@@ -87,13 +87,14 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 					createTransaction: true,
 				})
 				expect(mintErrors).toBeUndefined()
-				expect(txHash?.startsWith('0x')).toBe(true)
+				expect(txHash).toBeHex()
 				expect(executionGasUsed).toBe(46495n)
 
 				const { blockHashes, errors } = await client.tevmMine()
 
 				expect(errors).toBeUndefined()
 				expect(blockHashes).toHaveLength(1)
+				expect(blockHashes?.[0]).toBeHex()
 
 				const rm = await client.transport.tevm.getReceiptsManager()
 				const vm = await client.transport.tevm.getVm()
@@ -101,7 +102,7 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 				const block = await vm.blockchain.getBlock(hexToBytes(blockHashes?.[0] as Hex))
 				expect(block).toBe(await vm.blockchain.getCanonicalHeadBlock())
 
-				expect(bytesToHex(block.transactions[0]?.hash() as Uint8Array)).toBe(txHash as Hex)
+				expect(bytesToHex(block.transactions[0]?.hash() as Uint8Array)).toEqualHex(txHash)
 				expect(await rm.getReceiptByTxHash(block.transactions[0]?.hash() as Uint8Array)).toBeDefined()
 
 				const { data: balanceNotIncluded, errors: contractErrors2 } = await client.tevmContract({
