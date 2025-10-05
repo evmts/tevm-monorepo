@@ -8,6 +8,7 @@ export { toChangeTokenBalances } from './toChangeTokenBalances.js'
 export type { BalanceChange, HandleTransactionResult } from './types.js'
 
 import type { ContainsAddress } from '../../common/types.js'
+import type { BalanceChange } from './types.js'
 
 export interface BalanceMatchers {
 	/**

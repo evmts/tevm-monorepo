@@ -7,4 +7,5 @@
 		"types": ["bun-types", "@tevm/test-matchers"]
 	},
 	"include": ["src"],
+	"exclude": ["src/**/*.spec.ts", "src/**/test/**/*"]
 }

@@ -63,10 +63,10 @@ const getDiffMethodsFromPrestateTrace = async (node: TevmNode, txHash: Hex) => {
 		getBalanceChange: (address: Address) => getBalanceChange(prestateTrace, address.toLowerCase() as Address),
 		getTokenBalanceChange: (tokenAddress: Address, address: Address) =>
 			getTokenBalanceChange(
+				node,
 				tokenAddress.toLowerCase() as Address,
 				address.toLowerCase() as Address,
 				prestateTrace,
-				node,
 			),
 	}
 }

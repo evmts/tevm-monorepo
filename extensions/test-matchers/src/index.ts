@@ -3,6 +3,7 @@ import { registerChainableMatchers } from './chainable/chainable.js'
 import type {
 	ContainsAddress,
 	ContainsContractAbi,
+	ContainsContractAddressAndOptionalAbi,
 	ContainsTransactionAny,
 	ContainsTransactionLogs,
 } from './common/types.js'
@@ -14,6 +15,7 @@ import {
 	toChangeTokenBalance,
 	toChangeTokenBalances,
 } from './matchers/balance/index.js'
+import { type ContractMatchers, chainableContractMatchers } from './matchers/contract/index.js'
 import {
 	chainableErrorMatchers,
 	type ErrorMatchers,
@@ -42,6 +44,7 @@ export type {
 	ContainsTransactionLogs,
 	ContainsAddress,
 	ContainsTransactionAny,
+	ContainsContractAddressAndOptionalAbi,
 }
 
 expect.extend({
@@ -65,11 +68,18 @@ registerChainableMatchers(chainableErrorMatchers)
 registerChainableMatchers(chainableContractMatchers)
 
 declare module 'vitest' {
-	interface Assertion<T = any> extends UtilsMatchers, EmitMatchers, ErrorMatchers, StateMatchers, BalanceMatchers {}
+	interface Assertion<T = any>
+		extends UtilsMatchers,
+			EmitMatchers,
+			ErrorMatchers,
+			StateMatchers,
+			BalanceMatchers,
+			ContractMatchers {}
 	interface AsymmetricMatchersContaining
 		extends UtilsMatchers,
 			EmitMatchers,
 			ErrorMatchers,
 			StateMatchers,
-			BalanceMatchers {}
+			BalanceMatchers,
+			ContractMatchers {}
 }
