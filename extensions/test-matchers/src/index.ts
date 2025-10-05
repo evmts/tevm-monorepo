@@ -13,7 +13,7 @@ import {
 	toBeRevertedWithString,
 } from './matchers/errors/index.js'
 import { chainableEventMatchers, type EmitMatchers } from './matchers/events/index.js'
-import { type StateMatchers, toBeInitializedAccount } from './matchers/state/index.js'
+import { type StateMatchers, toBeInitializedAccount, toHaveState } from './matchers/state/index.js'
 import {
 	type EqualHexOptions,
 	type IsAddressOptions,
@@ -43,6 +43,7 @@ expect.extend({
 	toBeReverted,
 	toBeRevertedWithString,
 	toBeInitializedAccount,
+	toHaveState,
 })
 
 registerChainableMatchers(chainableEventMatchers)
