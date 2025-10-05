@@ -1139,6 +1139,9 @@ importers:
       '@tevm/errors':
         specifier: workspace:^
         version: link:../../packages/errors
+      '@tevm/node':
+        specifier: workspace:^
+        version: link:../../packages/node
       '@tevm/utils':
         specifier: workspace:^
         version: link:../../packages/utils
