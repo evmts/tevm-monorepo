@@ -15,7 +15,6 @@ export { GENESIS_STATE, prefundedAccounts } from './GENESIS_STATE.js'
 export type { Hardfork } from './Hardfork.js'
 export type {
 	AutoMining,
-	IntervalMining,
 	ManualMining,
 	MiningConfig,
 } from './MiningConfig.js'
