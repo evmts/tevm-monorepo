@@ -1,8 +1,10 @@
-import { type PrestateTraceResult, debugTraceTransactionJsonRpcProcedure } from '@tevm/actions'
-import { type TevmNode, createTevmNode } from '@tevm/node'
+import { debugTraceTransactionJsonRpcProcedure, type PrestateTraceResult } from '@tevm/actions'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { type Address, type Client, type Hex, isHex } from 'viem'
 import { waitForTransactionReceipt } from 'viem/actions'
 import type { ContainsTransactionAny } from '../../common/types.js'
+import { getBalanceChange } from './getBalanceChange.js'
+import { getTokenBalanceChange } from './getTokenBalanceChange.js'
 import type { HandleTransactionResult } from './types.js'
 
 /**
@@ -44,10 +46,7 @@ export const handleTransaction = async (
 	}
 
 	// Now we can replay the transaction with a prestate tracer to figure out the balance changes
-	const { getBalanceChange } = await getDiffMethodsFromPrestateTrace(node, txHash)
-	return {
-		getBalanceChange,
-	}
+	return await getDiffMethodsFromPrestateTrace(node, txHash)
 }
 
 const getDiffMethodsFromPrestateTrace = async (node: TevmNode, txHash: Hex) => {
@@ -61,12 +60,13 @@ const getDiffMethodsFromPrestateTrace = async (node: TevmNode, txHash: Hex) => {
 	const prestateTrace = res.result as PrestateTraceResult<true>
 
 	return {
-		getBalanceChange: (address: Address) => {
-			const pre = prestateTrace.pre[address.toLowerCase() as Address]
-			const post = prestateTrace.post[address.toLowerCase() as Address]
-			if (!pre || !post) return 0n
-
-			return BigInt(post.balance ?? 0n) - BigInt(pre.balance ?? 0n)
-		},
+		getBalanceChange: (address: Address) => getBalanceChange(prestateTrace, address.toLowerCase() as Address),
+		getTokenBalanceChange: (tokenAddress: Address, address: Address) =>
+			getTokenBalanceChange(
+				tokenAddress.toLowerCase() as Address,
+				address.toLowerCase() as Address,
+				prestateTrace,
+				node,
+			),
 	}
 }

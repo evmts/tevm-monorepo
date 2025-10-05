@@ -9,6 +9,10 @@ export interface HandleTransactionResult {
 	 * Function to get balance change for a specific address
 	 */
 	getBalanceChange: (address: Address) => bigint
+	/**
+	 * Function to get token balance change for a specific token and address
+	 */
+	getTokenBalanceChange: (tokenAddress: Address, address: Address) => Promise<bigint>
 }
 
 /**
