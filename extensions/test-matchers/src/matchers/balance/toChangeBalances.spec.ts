@@ -423,7 +423,6 @@ describe('toChangeBalances', () => {
 				expect(error.message).toBe(
 					'Expected transaction to change balances by the specified amounts, but none of them passed',
 				)
-
 				expect(error.actual).toMatchObject([
 					{
 						account: sender,
