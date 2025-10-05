@@ -8,6 +8,7 @@ import type { FilterLog } from '../common/FilterLog.js'
 import type { Address, Hex } from '../common/index.js'
 import type { TransactionReceiptResult } from '../common/TransactionReceiptResult.js'
 import type { TransactionResult } from '../common/TransactionResult.js'
+import type { EthSimulateV2Result } from './EthSimulateV2Result.js'
 
 // eth_account
 export type EthAccountsResult = Array<Address>
@@ -251,3 +252,9 @@ export type EthNewPendingTransactionFilterResult = Hex
  * JSON-RPC response for `eth_uninstallFilter` procedure
  */
 export type EthUninstallFilterResult = boolean
+
+// eth_simulateV2
+/**
+ * JSON-RPC response for `eth_simulateV2` procedure
+ */
+export type EthSimulateV2Result = import('./EthSimulateV2Result.js').EthSimulateV2Result

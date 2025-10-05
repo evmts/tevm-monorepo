@@ -35,6 +35,7 @@ import type {
 	EthSendTransactionParams,
 	EthSignParams,
 	EthSignTransactionParams,
+	EthSimulateV2Params,
 	EthSyncingParams,
 	EthUninstallFilterParams,
 } from './EthParams.js'
@@ -75,6 +76,7 @@ import type {
 	EthSendTransactionResult,
 	EthSignResult,
 	EthSignTransactionResult,
+	EthSimulateV2Result,
 	EthSyncingResult,
 	EthUninstallFilterResult,
 } from './EthResult.js'
@@ -181,3 +183,5 @@ export type EthNewPendingTransactionFilterHandler = (
 ) => Promise<EthNewPendingTransactionFilterResult>
 // eth_uninstallFilter
 export type EthUninstallFilterHandler = (request: EthUninstallFilterParams) => Promise<EthUninstallFilterResult>
+// eth_simulateV2
+export type EthSimulateV2Handler = (request: EthSimulateV2Params) => Promise<EthSimulateV2Result>

@@ -8,6 +8,7 @@ import type {
 	Hex,
 	StateOverrideSet,
 } from '../common/index.js'
+import type { EthSimulateV2Params } from './EthSimulateV2Params.js'
 
 // eth_accounts
 /**
@@ -347,3 +348,4 @@ export type EthParams =
 	| EthNewBlockFilterParams
 	| EthNewPendingTransactionFilterParams
 	| EthUninstallFilterParams
+	| EthSimulateV2Params
