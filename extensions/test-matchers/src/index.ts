@@ -62,6 +62,7 @@ expect.extend({
 
 registerChainableMatchers(chainableEventMatchers)
 registerChainableMatchers(chainableErrorMatchers)
+registerChainableMatchers(chainableContractMatchers)
 
 declare module 'vitest' {
 	interface Assertion<T = any> extends UtilsMatchers, EmitMatchers, ErrorMatchers, StateMatchers, BalanceMatchers {}
