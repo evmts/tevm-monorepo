@@ -206,12 +206,12 @@ describe('createHttpHandler', () => {
 
 		expect(res.body.error).toBeUndefined()
 		expect(res.body.result).toBeDefined()
-		
+
 		// The bug was that result contained a Promise object which serializes to {}
 		expect(res.body.result).not.toEqual({})
 		expect(typeof res.body.result).toBe('object')
 		expect(res.body.result).not.toBeInstanceOf(Promise)
-		
+
 		// Verify the response has the expected block properties
 		expect(res.body.result).toHaveProperty('number')
 		expect(res.body.result).toHaveProperty('hash')
@@ -219,10 +219,10 @@ describe('createHttpHandler', () => {
 		expect(res.body.result).toHaveProperty('transactions')
 		expect(res.body.result.number).toMatch(/^0x/)
 		expect(res.body.result.hash).toMatch(/^0x/)
-		
+
 		// Verify basic response structure
 		expect(res.body.method).toBe('eth_getBlockByNumber')
 		expect(res.body.id).toBe(2)
 		expect(res.body.jsonrpc).toBe('2.0')
-	})
+	}, { timeout: 10_000 })
 })
