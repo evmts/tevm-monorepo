@@ -1,6 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { hexToBytes } from '@tevm/utils'
 import { runCallWithCallTrace } from '../internal/runCallWithCallTrace.js'
+import { runCallWithMuxTrace } from '../internal/runCallWithMuxTrace.js'
 import { runCallWithPrestateTrace } from '../internal/runCallWithPrestateTrace.js'
 import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 
@@ -13,10 +14,11 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 export const traceCallHandler =
 	(client) =>
 	/**
-	 * @template {'callTracer' | 'prestateTracer'} TTracer
+	 * @template {'callTracer' | 'prestateTracer' | 'muxTracer'} TTracer
 	 * @template {boolean} TDiffMode
-	 * @param {import('./DebugParams.js').DebugTraceCallParams<TTracer, TDiffMode>} params
-	 * @returns {Promise<import('./DebugResult.js').DebugTraceCallResult<TTracer, TDiffMode>>}
+	 * @template {import('../common/MuxTraceResult.js').MuxTracerConfig} TMuxConfig
+	 * @param {import('./DebugParams.js').DebugTraceCallParams<TTracer, TDiffMode, TMuxConfig>} params
+	 * @returns {Promise<import('./DebugResult.js').DebugTraceCallResult<TTracer, TDiffMode, TMuxConfig>>}
 	 */
 	(params) => {
 		const { logger, getVm } = client
@@ -49,6 +51,15 @@ export const traceCallHandler =
 			return getVm()
 				.then((vm) => vm.deepCopy())
 				.then((vm) => runCallWithCallTrace(vm, logger, callParams))
+				.then((res) => /** @type {any} */ (res.trace))
+		}
+		if (params.tracer === 'muxTracer') {
+			const muxConfig = params.tracerConfig || {}
+			logger.debug({ muxConfig }, 'traceCallHandler: using muxTracer')
+
+			return getVm()
+				.then((vm) => vm.deepCopy())
+				.then((vm) => runCallWithMuxTrace({ ...client, getVm: () => Promise.resolve(vm) }, callParams, muxConfig))
 				.then((res) => /** @type {any} */ (res.trace))
 		}
 		return getVm()

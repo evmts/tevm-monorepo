@@ -6,7 +6,7 @@ import type { Filter, TevmNode } from '@tevm/node'
 import type { StateRoots, TevmState } from '@tevm/state'
 import type { TxPool } from '@tevm/txpool'
 import type { Address } from '@tevm/utils'
-import type { CallTraceResult, Hex, PrestateTraceResult, TraceResult } from '../common/index.js'
+import type { CallTraceResult, Hex, MuxTracerConfig, MuxTraceResult, PrestateTraceResult, TraceResult } from '../common/index.js'
 import type { GetPath } from '../utils/GetPath.js'
 import type { UnionToIntersection } from '../utils/UnionToIntersection.js'
 import type { DebugTraceStateFilter } from './DebugParams.js'
@@ -15,25 +15,31 @@ import type { DebugTraceStateFilter } from './DebugParams.js'
  * Result from `debug_traceTransaction`
  */
 export type DebugTraceTransactionResult<
-	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
+	TTracer extends 'callTracer' | 'prestateTracer' | 'muxTracer' | undefined = 'callTracer' | 'prestateTracer' | 'muxTracer' | undefined,
 	TDiffMode extends boolean = boolean,
+	TMuxConfig extends MuxTracerConfig = MuxTracerConfig,
 > = TTracer extends 'callTracer'
 	? CallTraceResult
 	: TTracer extends 'prestateTracer'
 		? PrestateTraceResult<TDiffMode>
-		: TraceResult
+		: TTracer extends 'muxTracer'
+			? MuxTraceResult<TMuxConfig>
+			: TraceResult
 
 /**
  * Result from `debug_traceCall`
  */
 export type DebugTraceCallResult<
-	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
+	TTracer extends 'callTracer' | 'prestateTracer' | 'muxTracer' | undefined = 'callTracer' | 'prestateTracer' | 'muxTracer' | undefined,
 	TDiffMode extends boolean = boolean,
+	TMuxConfig extends MuxTracerConfig = MuxTracerConfig,
 > = TTracer extends 'callTracer'
 	? CallTraceResult
 	: TTracer extends 'prestateTracer'
 		? PrestateTraceResult<TDiffMode>
-		: TraceResult
+		: TTracer extends 'muxTracer'
+			? MuxTraceResult<TMuxConfig>
+			: TraceResult
 
 /**
  * Result from `debug_traceBlock`.
@@ -41,8 +47,9 @@ export type DebugTraceCallResult<
  * Returns an array of transaction traces
  */
 export type DebugTraceBlockResult<
-	TTracer extends 'callTracer' | 'prestateTracer' | undefined = 'callTracer' | 'prestateTracer' | undefined,
+	TTracer extends 'callTracer' | 'prestateTracer' | 'muxTracer' | undefined = 'callTracer' | 'prestateTracer' | 'muxTracer' | undefined,
 	TDiffMode extends boolean = boolean,
+	TMuxConfig extends MuxTracerConfig = MuxTracerConfig,
 > = Array<{
 	/**
 	 * Transaction hash
@@ -55,7 +62,7 @@ export type DebugTraceBlockResult<
 	/**
 	 * Trace result for this transaction
 	 */
-	result: DebugTraceTransactionResult<TTracer, TDiffMode>
+	result: DebugTraceTransactionResult<TTracer, TDiffMode, TMuxConfig>
 }>
 
 /**
