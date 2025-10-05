@@ -18,6 +18,7 @@ import { debugTraceBlockJsonRpcProcedure } from './debug/debugTraceBlockProcedur
 import { debugTraceCallJsonRpcProcedure } from './debug/debugTraceCallProcedure.js'
 import { debugTraceStateJsonRpcProcedure } from './debug/debugTraceStateProcedure.js'
 import { debugTraceTransactionJsonRpcProcedure } from './debug/debugTraceTransactionProcedure.js'
+import { evmSetNextBlockTimestampProcedure } from './evm/evmSetNextBlockTimestampProcedure.js'
 import { blockNumberProcedure } from './eth/blockNumberProcedure.js'
 import { chainIdHandler } from './eth/chainIdHandler.js'
 import { chainIdProcedure } from './eth/chainIdProcedure.js'
@@ -191,6 +192,10 @@ export const createHandlers = (client) => {
 		debug_traceState: debugTraceStateJsonRpcProcedure(client),
 	}
 
+	const evmHandlers = {
+		evm_setNextBlockTimestamp: evmSetNextBlockTimestampProcedure(client),
+	}
+
 	const allHandlers = {
 		...tevmHandlers,
 		...ethHandlers,
@@ -199,6 +204,7 @@ export const createHandlers = (client) => {
 		...ganacheHandlers,
 		...hardhatHandlers,
 		...debugHandlers,
+		...evmHandlers,
 	}
 
 	return allHandlers

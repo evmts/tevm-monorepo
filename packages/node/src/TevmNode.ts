@@ -102,6 +102,14 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 */
 	readonly removeFilter: (id: Hex) => void
 	/**
+	 * Sets the timestamp for the next block to be mined
+	 */
+	readonly setNextBlockTimestamp: (timestamp: bigint | undefined) => void
+	/**
+	 * Gets the timestamp override for the next block, if set
+	 */
+	readonly getNextBlockTimestamp: () => bigint | undefined
+	/**
 	 * Returns status of the client
 	 * - INITIALIZING: The client is initializing
 	 * - READY: The client is ready to be used

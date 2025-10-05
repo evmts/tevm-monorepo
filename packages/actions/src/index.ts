@@ -7,6 +7,7 @@ export * from './Deploy/index.js'
 export * from './DumpState/index.js'
 export * from './debug/index.js'
 export * from './eth/index.js'
+export * from './evm/index.js'
 export * from './GetAccount/index.js'
 // need this in procedures types atm and avoiding wasting time refactoring to ship faster
 export * from './internal/forkAndCacheBlock.js'

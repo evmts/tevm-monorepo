@@ -10,8 +10,15 @@ beforeEach(async () => {
 })
 
 describe('setNextBlockTimestamp', () => {
-	it.todo('should work as expected', async () => {
-		await mc.setNextBlockTimestamp({ timestamp: 420n })
-		expect(undefined).toBeUndefined()
+	it('should work as expected', async () => {
+		const timestamp = 1640995200n // Unix timestamp for 2022-01-01 00:00:00 UTC
+		await mc.setNextBlockTimestamp({ timestamp })
+		
+		// Mine a block to verify the timestamp was set
+		await mc.mine({ blocks: 1 })
+		
+		// Get the latest block and verify its timestamp
+		const block = await mc.getBlock({ blockTag: 'latest' })
+		expect(block.timestamp).toBe(timestamp)
 	})
 })

@@ -46,6 +46,24 @@ export const createTevmNode = (options = {}) => {
 		impersonatedAccount = address
 	}
 
+	/**
+	 * @type {bigint | undefined}
+	 */
+	let nextBlockTimestamp
+	/**
+	 * @param {bigint | undefined} timestamp
+	 * @returns {void}
+	 */
+	const setNextBlockTimestamp = (timestamp) => {
+		nextBlockTimestamp = timestamp
+	}
+	/**
+	 * @returns {bigint | undefined}
+	 */
+	const getNextBlockTimestamp = () => {
+		return nextBlockTimestamp
+	}
+
 	const loggingLevel = options.loggingLevel ?? 'warn'
 	const logger = createLogger({
 		name: 'TevmClient',
@@ -378,6 +396,8 @@ export const createTevmNode = (options = {}) => {
 			removeFilter: (filterId) => {
 				newFilters.delete(filterId)
 			},
+			setNextBlockTimestamp: baseClient.setNextBlockTimestamp,
+			getNextBlockTimestamp: baseClient.getNextBlockTimestamp,
 			status: 'READY',
 		}
 		return copiedClient
@@ -424,6 +444,8 @@ export const createTevmNode = (options = {}) => {
 		removeFilter: (filterId) => {
 			filters.delete(filterId)
 		},
+		setNextBlockTimestamp,
+		getNextBlockTimestamp,
 		status: 'INITIALIZING',
 		deepCopy: () => deepCopy(baseClient)(),
 		debug: async () => {
