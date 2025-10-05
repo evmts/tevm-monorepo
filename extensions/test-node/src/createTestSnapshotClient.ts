@@ -1,10 +1,10 @@
 import type { AddressInfo } from 'node:net'
 import type { Common } from '@tevm/common'
-import { type TevmRpcSchema, createMemoryClient } from '@tevm/memory-client'
+import { createMemoryClient, type TevmRpcSchema } from '@tevm/memory-client'
 import { createServer } from '@tevm/server'
 import type { Account, Address, Chain, RpcSchema } from 'viem'
-import { SnapshotManager } from './snapshot/SnapshotManager.js'
 import { createCachedTransport } from './snapshot/createCachedTransport.js'
+import { SnapshotManager } from './snapshot/SnapshotManager.js'
 import type { TestSnapshotClient, TestSnapshotClientOptions } from './types.js'
 
 /**

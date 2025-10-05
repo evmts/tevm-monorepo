@@ -12,6 +12,6 @@ describe('eth_supportedEntryPoints', () => {
 			})
 			await client.saveSnapshots()
 			assertMethodCached('eth_supportedEntryPoints')
-		} catch (error) {}
+		} catch (_error) {}
 	})
 })

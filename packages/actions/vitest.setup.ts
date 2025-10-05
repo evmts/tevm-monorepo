@@ -1,7 +1,7 @@
+import { mainnet, optimism } from '@tevm/common'
+import { createTestSnapshotNode } from '@tevm/test-node'
 import { transports } from '@tevm/test-utils'
 import { afterAll } from 'vitest'
-import { createTestSnapshotNode } from '@tevm/test-node'
-import { mainnet, optimism } from '@tevm/common'
 
 export const mainnetNode = createTestSnapshotNode({
 	fork: {

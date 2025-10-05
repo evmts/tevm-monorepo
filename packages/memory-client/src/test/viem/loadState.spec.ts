@@ -1,5 +1,6 @@
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 import { transports } from '@tevm/test-utils'
 import { createClient, parseEther } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -9,7 +10,6 @@ import type { MemoryClient } from '../../MemoryClient.js'
 import { tevmDumpState } from '../../tevmDumpState.js'
 import { tevmLoadState } from '../../tevmLoadState.js'
 import { tevmSetAccount } from '../../tevmSetAccount.js'
-import { createTestSnapshotTransport } from '@tevm/test-node'
 
 let mc: MemoryClient
 const testAddress = `0x${'69'.repeat(20)}` as const
@@ -18,7 +18,7 @@ const cachedTransport = createTestSnapshotTransport({
 	transport: transports.optimism,
 	test: {
 		autosave: 'onRequest',
-	}
+	},
 })
 
 beforeEach(async () => {

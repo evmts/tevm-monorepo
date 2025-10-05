@@ -7,7 +7,7 @@ describe('eth_newPendingTransactionFilter', () => {
 		// This method might not be implemented
 		try {
 			await client.transport.tevm.forkTransport?.request({ method: 'eth_newPendingTransactionFilter' })
-		} catch (error) {}
+		} catch (_error) {}
 
 		await client.saveSnapshots()
 		assertMethodNotCached('eth_newPendingTransactionFilter')

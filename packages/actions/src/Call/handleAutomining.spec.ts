@@ -1,9 +1,9 @@
 import { type TevmNode } from '@tevm/node'
+import { createTestSnapshotNode } from '@tevm/test-node'
 import { transports } from '@tevm/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { handleAutomining } from './handleAutomining.js'
-import { createTestSnapshotNode } from '@tevm/test-node'
 
 // Mock mineHandler module
 vi.mock('../Mine/mineHandler.js', () => ({
@@ -23,7 +23,7 @@ describe('handleAutomining', () => {
 			miningConfig: { type: 'auto' }, // Default to auto mining
 			test: {
 				autosave: 'onRequest',
-			}
+			},
 		})
 
 		// Add debug logger if not present
@@ -168,7 +168,7 @@ describe('handleAutomining', () => {
 			miningConfig: { type: 'gas', limit: BigInt(1000000) },
 			test: {
 				autosave: 'onRequest',
-			}
+			},
 		})
 
 		// Add debug logger if not present
@@ -226,7 +226,7 @@ describe('handleAutomining', () => {
 			miningConfig: { type: 'manual' },
 			test: {
 				autosave: 'onRequest',
-			}
+			},
 		})
 
 		// Add debug logger if not present
@@ -270,7 +270,7 @@ describe('handleAutomining', () => {
 			miningConfig: { type: 'auto' },
 			test: {
 				autosave: 'onRequest',
-			}
+			},
 		})
 
 		// Setup debug logger
@@ -310,7 +310,7 @@ describe('handleAutomining', () => {
 			miningConfig: { type: 'auto' },
 			test: {
 				autosave: 'onRequest',
-			}
+			},
 		})
 
 		// Add debug logger if not present

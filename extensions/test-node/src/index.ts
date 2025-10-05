@@ -5,11 +5,11 @@ export { createTestSnapshotTransport } from './createTestSnapshotTransport.js'
 
 // Re-export types for convenience
 export type {
+	TestOptions,
 	TestSnapshotClient,
 	TestSnapshotClientOptions,
 	TestSnapshotNode,
 	TestSnapshotNodeOptions,
 	TestSnapshotTransport,
 	TestSnapshotTransportOptions,
-	TestOptions,
 } from './types.js'

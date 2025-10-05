@@ -3,9 +3,9 @@ import {
 	type EIP1193Parameters,
 	type EIP1474Methods,
 	type Hex,
+	isHex,
 	type RpcBlockIdentifier,
 	type RpcTransactionRequest,
-	isHex,
 } from 'viem'
 
 // only cache if block number is fixed (hex or earliest) and not a tag

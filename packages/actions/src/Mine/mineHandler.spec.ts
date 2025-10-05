@@ -2,11 +2,11 @@ import { createTevmNode, type TevmNode } from '@tevm/node'
 import { type Hex, hexToBytes } from '@tevm/utils'
 import { parseEther } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
+import { optimismNode } from '../../vitest.setup.js'
 import type { CallResult } from '../Call/CallResult.js'
 import { callHandler } from '../Call/callHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { mineHandler } from './mineHandler.js'
-import { optimismNode } from '../../vitest.setup.js'
 
 const getBlockNumber = (client: TevmNode) => {
 	return client

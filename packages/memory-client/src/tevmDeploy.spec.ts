@@ -1,6 +1,7 @@
 import { mineHandler } from '@tevm/actions'
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 import { transports } from '@tevm/test-utils'
 import { type Address, type Client, createClient } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -9,14 +10,13 @@ import type { TevmTransport } from './TevmTransport.js'
 import { tevmContract } from './tevmContract.js'
 import { tevmDeploy } from './tevmDeploy.js'
 import { tevmMine } from './tevmMine.js'
-import { createTestSnapshotTransport } from '@tevm/test-node'
 
 let client: Client<TevmTransport>
 const cachedTransport = createTestSnapshotTransport({
 	transport: transports.optimism,
 	test: {
 		autosave: 'onRequest',
-	}
+	},
 })
 
 beforeEach(async () => {

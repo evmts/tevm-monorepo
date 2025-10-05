@@ -1,8 +1,7 @@
 import { bytesToHex, type Hex, hexToBytes, parseEther } from '@tevm/utils'
-import { http } from 'viem'
 import { describe, expect, it } from 'vitest'
-import { createMemoryClient } from '../createMemoryClient.js'
 import { optimismClient } from '../../vitest.setup.js'
+import { createMemoryClient } from '../createMemoryClient.js'
 
 // test case from minimal repro here : https://github.com/0xpolarzero/tevm-minimal-repro/blob/main/constants.ts
 

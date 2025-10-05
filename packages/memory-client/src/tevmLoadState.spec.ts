@@ -1,4 +1,5 @@
 import { optimism } from '@tevm/common'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 import { transports } from '@tevm/test-utils'
 import { type Client, createClient, parseEther } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -8,7 +9,6 @@ import { tevmDumpState } from './tevmDumpState.js'
 import { tevmGetAccount } from './tevmGetAccount.js'
 import { tevmLoadState } from './tevmLoadState.js'
 import { tevmSetAccount } from './tevmSetAccount.js'
-import { createTestSnapshotTransport } from '@tevm/test-node'
 
 let client: Client<TevmTransport>
 const testAddress = `0x${'69'.repeat(20)}` as const
@@ -16,7 +16,7 @@ const cachedTransport = createTestSnapshotTransport({
 	transport: transports.optimism,
 	test: {
 		autosave: 'onRequest',
-	}
+	},
 })
 
 beforeEach(async () => {

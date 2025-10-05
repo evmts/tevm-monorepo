@@ -4,10 +4,10 @@ import { createTevmNode } from '@tevm/node'
 import { SimpleContract } from '@tevm/test-utils'
 import { numberToHex } from 'viem'
 import { describe, expect, it } from 'vitest'
+import { mainnetNode, optimismNode } from '../../vitest.setup.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getCodeHandler } from './getCodeHandler.js'
-import { mainnetNode, optimismNode } from '../../vitest.setup.js'
 
 const contract = SimpleContract.withAddress(createAddress(420420).toString())
 

@@ -1,4 +1,4 @@
-import { type ExactPartial, type Hex, type RpcTransactionRequest, bytesToHex } from 'viem'
+import { bytesToHex, type ExactPartial, type Hex, type RpcTransactionRequest } from 'viem'
 import { normalizeHex } from './normalizeHex.js'
 
 export const normalizeTx = (tx: ExactPartial<RpcTransactionRequest> & { chainId?: Hex | undefined }) => [

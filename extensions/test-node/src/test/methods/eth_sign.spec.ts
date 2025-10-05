@@ -13,6 +13,6 @@ describe('eth_sign', () => {
 			})
 			await client.saveSnapshots()
 			assertMethodCached('eth_sign')
-		} catch (error) {}
+		} catch (_error) {}
 	})
 })

@@ -1,11 +1,11 @@
 import { optimism } from '@tevm/common'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 import { transports } from '@tevm/test-utils'
 import { type Client, createClient, parseEther } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
 import type { TevmTransport } from './TevmTransport.js'
 import { tevmGetAccount } from './tevmGetAccount.js'
-import { createTestSnapshotTransport } from '@tevm/test-node'
 
 let client: Client<TevmTransport>
 const prefundedAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
@@ -15,7 +15,7 @@ beforeEach(async () => {
 		transport: transports.optimism,
 		test: {
 			autosave: 'onRequest',
-		}
+		},
 	})
 	client = createClient({
 		transport: createTevmTransport({

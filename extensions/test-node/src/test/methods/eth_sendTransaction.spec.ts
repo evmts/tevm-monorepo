@@ -17,7 +17,7 @@ describe('eth_sendTransaction', () => {
 					},
 				],
 			})
-		} catch (error) {}
+		} catch (_error) {}
 
 		await client.saveSnapshots()
 		assertMethodNotCached('eth_sendTransaction')

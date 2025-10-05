@@ -10,6 +10,6 @@ describe('eth_coinbase', () => {
 			await client.transport.tevm.forkTransport?.request({ method: 'eth_coinbase' })
 			await client.saveSnapshots()
 			assertMethodCached('eth_coinbase')
-		} catch (error) {}
+		} catch (_error) {}
 	})
 })

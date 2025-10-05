@@ -2,8 +2,8 @@ import { ForkError, InternalError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
 import { bytesToHex } from 'viem'
 import { describe, expect, it } from 'vitest'
-import { cloneVmWithBlockTag } from './cloneVmWithBlock.js'
 import { optimismNode } from '../../vitest.setup.js'
+import { cloneVmWithBlockTag } from './cloneVmWithBlock.js'
 
 describe('cloneVmWithBfockTag', () => {
 	it('should clone the VM and set the state root successfully', async () => {

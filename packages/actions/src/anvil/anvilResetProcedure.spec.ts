@@ -3,9 +3,9 @@ import { Block } from '@tevm/block'
 import { createTevmNode } from '@tevm/node'
 import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
+import { mainnetNode } from '../../vitest.setup.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { anvilResetJsonRpcProcedure } from './anvilResetProcedure.js'
-import { mainnetNode } from '../../vitest.setup.js'
 
 describe('anvilResetJsonRpcProcedure', () => {
 	it('should reset the blockchain and state manager', async () => {

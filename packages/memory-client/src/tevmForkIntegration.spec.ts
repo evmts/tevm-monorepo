@@ -1,4 +1,5 @@
 import { optimism } from '@tevm/common'
+import { createTestSnapshotTransport } from '@tevm/test-node'
 import { transports } from '@tevm/test-utils'
 import { type Address, createClient, parseEther } from 'viem'
 import { getBalance, getBlockNumber, getCode, sendTransaction } from 'viem/actions'
@@ -6,7 +7,6 @@ import { describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmMine } from './tevmMine.js'
 import { tevmSetAccount } from './tevmSetAccount.js'
-import { createTestSnapshotTransport } from '@tevm/test-node'
 
 describe('Tevm Forking Integration', () => {
 	const testAddress = '0x1234567890123456789012345678901234567890' as Address
@@ -16,7 +16,7 @@ describe('Tevm Forking Integration', () => {
 		transport: transports.optimism,
 		test: {
 			autosave: 'onRequest',
-		}
+		},
 	})
 
 	it('should allow forking from an existing network', async () => {

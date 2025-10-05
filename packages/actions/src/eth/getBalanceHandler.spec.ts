@@ -4,10 +4,10 @@ import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
 import { type Address, bytesToHex, type Hex, hexToBigInt, parseEther } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { mainnetNode } from '../../vitest.setup.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getBalanceHandler } from './getBalanceHandler.js'
-import { mainnetNode } from '../../vitest.setup.js'
 
 describe(getBalanceHandler.name, () => {
 	let baseClient: ReturnType<typeof createTevmNode>

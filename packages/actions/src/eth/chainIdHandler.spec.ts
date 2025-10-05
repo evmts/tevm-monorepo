@@ -1,8 +1,8 @@
 import { mainnet, sepolia } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
 import { describe, expect, it } from 'vitest'
-import { chainIdHandler } from './chainIdHandler.js'
 import { optimismNode } from '../../vitest.setup.js'
+import { chainIdHandler } from './chainIdHandler.js'
 
 describe(chainIdHandler.name, () => {
 	it('should return the chain id', async () => {

@@ -1,9 +1,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { http } from 'viem'
-import { assert, afterEach, describe, expect, it } from 'vitest'
-import { SnapshotManager } from './SnapshotManager.js'
+import { afterEach, assert, describe, expect, it } from 'vitest'
 import { createCachedTransport } from './createCachedTransport.js'
+import { SnapshotManager } from './SnapshotManager.js'
 
 describe('createCachedTransport', () => {
 	const testCacheDir = path.join(process.cwd(), '.test-create-cached-transport')

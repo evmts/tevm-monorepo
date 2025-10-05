@@ -1,9 +1,9 @@
 import { InternalError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
+import { createTestSnapshotNode } from '@tevm/test-node'
 import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { forkAndCacheBlock } from './forkAndCacheBlock.js'
-import { createTestSnapshotNode } from '@tevm/test-node'
 
 describe('forkAndCacheBlock', () => {
 	it('should throw an error if forkTransport is not provided', async () => {
@@ -19,7 +19,7 @@ describe('forkAndCacheBlock', () => {
 			miningConfig: { type: 'manual' },
 			test: {
 				autosave: 'onRequest',
-			}
+			},
 		})
 		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
@@ -36,7 +36,7 @@ describe('forkAndCacheBlock', () => {
 			miningConfig: { type: 'manual' },
 			test: {
 				autosave: 'onRequest',
-			}
+			},
 		})
 		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
@@ -52,7 +52,7 @@ describe('forkAndCacheBlock', () => {
 			miningConfig: { type: 'manual' },
 			test: {
 				autosave: 'onRequest',
-			}
+			},
 		})
 		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 

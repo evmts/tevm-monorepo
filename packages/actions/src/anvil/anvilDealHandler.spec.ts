@@ -3,10 +3,10 @@ import { ERC20 } from '@tevm/contract'
 import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
+import { mainnetNode } from '../../vitest.setup.js'
 import { contractHandler } from '../Contract/contractHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { dealHandler } from './anvilDealHandler.js'
-import { mainnetNode } from '../../vitest.setup.js'
 
 describe('anvilDealHandler', () => {
 	it('should deal ETH when no erc20 address is provided', async () => {
