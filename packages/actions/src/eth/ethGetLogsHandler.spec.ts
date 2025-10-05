@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
-import { createTevmNode } from '@tevm/node'
-import { SimpleContract, transports } from '@tevm/test-utils'
+import { createTevmNode, type TevmNode } from '@tevm/node'
+import { createCachedOptimismNode, SimpleContract } from '@tevm/test-utils'
 import {
 	type Address,
 	encodeDeployData,
@@ -234,13 +234,8 @@ describe(ethGetLogsHandler.name, () => {
 	})
 
 	it('should work for past blocks in forked mode', { timeout: 20_000 }, async () => {
-		const client = createTevmNode({
-			fork: {
-				transport: transports.optimism,
-				blockTag: 141866019n,
-			},
-		})
-		const logs = await ethGetLogsHandler(client)({
+		const node = createCachedOptimismNode() as unknown as TevmNode
+		const logs = await ethGetLogsHandler(node)({
 			filterParams: {
 				address: '0xdC6fF44d5d932Cbd77B52E5612Ba0529DC6226F1',
 				fromBlock: 125985142n,

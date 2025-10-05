@@ -1,5 +1,5 @@
-import { createTevmNode } from '@tevm/node'
-import { transports } from '@tevm/test-utils'
+import { type TevmNode } from '@tevm/node'
+import { createCachedOptimismNode } from '@tevm/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { handleAutomining } from './handleAutomining.js'
@@ -10,17 +10,14 @@ vi.mock('../Mine/mineHandler.js', () => ({
 }))
 
 describe('handleAutomining', () => {
-	let client: ReturnType<typeof createTevmNode>
+	let client: TevmNode
 
 	beforeEach(() => {
 		// Reset mocks
 		vi.resetAllMocks()
 
 		// Create a default client
-		client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'auto' }, // Default to auto mining
-		})
+		client = createCachedOptimismNode({ miningConfig: { type: 'auto' } }) as unknown as TevmNode
 
 		// Add debug logger if not present
 		if (!client.logger.debug) {
@@ -46,6 +43,7 @@ describe('handleAutomining', () => {
 		)
 
 		const txHash = '0x123456789abcdef'
+		expect(txHash).toBeHex()
 		const result = await handleAutomining(client, txHash)
 
 		// Should log the mining process
@@ -158,10 +156,9 @@ describe('handleAutomining', () => {
 
 	it('should mine transaction if isGasMining is true', async () => {
 		// Create client with gas mining configuration
-		client = createTevmNode({
-			fork: { transport: transports.optimism },
+		client = createCachedOptimismNode({
 			miningConfig: { type: 'gas', limit: BigInt(1000000) },
-		})
+		}) as unknown as TevmNode
 
 		// Add debug logger if not present
 		if (!client.logger.debug) {
@@ -213,10 +210,9 @@ describe('handleAutomining', () => {
 
 	it('should not mine transaction if isGasMining is true but mining type is not gas', async () => {
 		// Create client with manual mining
-		client = createTevmNode({
-			fork: { transport: transports.optimism },
+		client = createCachedOptimismNode({
 			miningConfig: { type: 'manual' },
-		})
+		}) as unknown as TevmNode
 
 		// Add debug logger if not present
 		if (!client.logger.debug) {
@@ -254,10 +250,9 @@ describe('handleAutomining', () => {
 
 	it('should handle mining errors without throwing', async () => {
 		// Create client with auto mining
-		client = createTevmNode({
-			fork: { transport: transports.optimism },
+		client = createCachedOptimismNode({
 			miningConfig: { type: 'auto' },
-		})
+		}) as unknown as TevmNode
 
 		// Setup debug logger
 		client.logger.debug = vi.fn()
@@ -291,10 +286,9 @@ describe('handleAutomining', () => {
 
 	it('should handle multiple errors in result', async () => {
 		// Create client with auto mining
-		client = createTevmNode({
-			fork: { transport: transports.optimism },
+		client = createCachedOptimismNode({
 			miningConfig: { type: 'auto' },
-		})
+		}) as unknown as TevmNode
 
 		// Add debug logger if not present
 		if (!client.logger.debug) {

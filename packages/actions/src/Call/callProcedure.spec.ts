@@ -119,7 +119,10 @@ describe('callProcedure', () => {
 			data: response.result?.rawData as Hex,
 			functionName: 'getBlockInfo',
 		})
-		expect(decodedResult).toEqual([1000n, 1234567890n, '0x1000000000000000000000000000000000000000', 1n])
+		expect(decodedResult[0]).toBe(1000n)
+		expect(decodedResult[1]).toBe(1234567890n)
+		expect(decodedResult[2]).toEqualAddress('0x1000000000000000000000000000000000000000')
+		expect(decodedResult[3]).toBe(1n)
 	})
 
 	it('should handle a call with tracing enabled', async () => {

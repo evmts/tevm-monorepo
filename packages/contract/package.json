@@ -72,6 +72,7 @@
 		"@evmts/core": "1.0.0-next.12",
 		"@evmts/ts-plugin": "1.0.0-next.18",
 		"@evmts/vite-plugin": "1.0.0-next.19",
+		"@tevm/test-matchers": "latest",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

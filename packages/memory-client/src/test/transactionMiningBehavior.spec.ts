@@ -1,6 +1,6 @@
 import { ErrorContract } from '@tevm/contract'
 import { encodeFunctionData, parseUnits } from 'viem'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { assert, beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 import type { MemoryClient } from '../MemoryClient.js'
 
@@ -234,7 +234,7 @@ describe('Block Number Increment', () => {
 					...ErrorContract.deploy(),
 					addToBlockchain: true,
 				})
-				expect(createdAddress).toBeDefined()
+				assert(createdAddress, 'createdAddress is undefined')
 
 				const initialBlockNumber = await client.getBlockNumber({ cacheTime: 0 })
 
@@ -305,7 +305,7 @@ describe('Block Number Increment', () => {
 					...ErrorContract.deploy(),
 					addToBlockchain: true,
 				})
-				expect(createdAddress).toBeDefined()
+				assert(createdAddress, 'createdAddress is undefined')
 
 				const initialBlockNumber = await client.getBlockNumber({ cacheTime: 0 })
 

@@ -4,7 +4,6 @@ import * as ethHandler from './ethGetLogsHandler.js'
 import { ethGetLogsProcedure } from './ethGetLogsProcedure.js'
 
 describe('ethGetLogsProcedure', () => {
-	// @ts-expect-error - Not type-exact for testing purposes
 	const mockLog = {
 		address: '0x1234567890123456789012345678901234567890',
 		topics: ['0x1234', '0x5678'],

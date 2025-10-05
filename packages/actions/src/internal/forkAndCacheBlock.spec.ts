@@ -1,6 +1,6 @@
 import { InternalError } from '@tevm/errors'
-import { createTevmNode } from '@tevm/node'
-import { transports } from '@tevm/test-utils'
+import { createTevmNode, type TevmNode } from '@tevm/node'
+import { createCachedOptimismNode } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { forkAndCacheBlock } from './forkAndCacheBlock.js'
 
@@ -13,10 +13,7 @@ describe('forkAndCacheBlock', () => {
 	})
 
 	it('should fork a block and save the state root without executing block transactions', async () => {
-		const client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'manual' },
-		})
+		const client = createCachedOptimismNode() as unknown as TevmNode
 		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
 		const vm = await forkAndCacheBlock(client, block, false)
@@ -27,10 +24,7 @@ describe('forkAndCacheBlock', () => {
 
 	// TODO this test broke for no reason
 	it.todo('should fork a block, execute transactions, and save the state root', { timeout: 30_000 }, async () => {
-		const client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'manual' },
-		})
+		const client = createCachedOptimismNode() as unknown as TevmNode
 		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
 		const vm = await forkAndCacheBlock(client, block, true)
@@ -40,10 +34,7 @@ describe('forkAndCacheBlock', () => {
 	})
 
 	it('should process block transactions', { timeout: 30_000 }, async () => {
-		const client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'manual' },
-		})
+		const client = createCachedOptimismNode() as unknown as TevmNode
 		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
 		const vm = await forkAndCacheBlock(client, block, false)

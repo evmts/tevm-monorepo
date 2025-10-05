@@ -1452,8 +1452,11 @@ importers:
         version: 4.1.11
     devDependencies:
       '@tevm/decorators':
-        specifier: workspace:^
-        version: link:../decorators
+        specifier: latest
+        version: 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/test-matchers':
+        specifier: latest
+        version: 1.0.0-next.149(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -1544,6 +1547,9 @@ importers:
         specifier: ^2.37.9
         version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
+      '@tevm/test-matchers':
+        specifier: latest
+        version: 1.0.0-next.149(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -1613,6 +1619,9 @@ importers:
       '@evmts/vite-plugin':
         specifier: 1.0.0-next.19
         version: 1.0.0-next.19(bufferutil@4.0.9)(esbuild@0.19.5)(fast-check@3.23.2)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+      '@tevm/test-matchers':
+        specifier: latest
+        version: 1.0.0-next.149(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(yaml@2.8.1)(zod@3.25.76)
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
@@ -1828,6 +1837,9 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
     devDependencies:
+      '@tevm/test-matchers':
+        specifier: latest
+        version: 1.0.0-next.149(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -1927,8 +1939,8 @@ importers:
         specifier: workspace:^
         version: link:../../bundler-packages/bun
       '@tevm/node':
-        specifier: workspace:^
-        version: link:../node
+        specifier: latest
+        version: 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
       '@tevm/ts-plugin':
         specifier: workspace:^
         version: link:../../lsp/ts-plugin
@@ -2356,6 +2368,9 @@ importers:
       '@tevm/esbuild-plugin':
         specifier: workspace:^
         version: link:../../bundler-packages/esbuild
+      '@tevm/test-node':
+        specifier: latest
+        version: 1.0.0-next.149(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)
       '@tevm/ts-plugin':
         specifier: workspace:^
         version: link:../../lsp/ts-plugin
@@ -6348,6 +6363,163 @@ packages:
         optional: true
       '@types/react-dom':
         optional: true
+
+  '@tevm/actions@1.0.0-next.149':
+    resolution: {integrity: sha512-cFM2HVYg/rXykL83QFGqIU6Eg7M1d0/O67f2tbrakQAJOpMRzW3lwEDjpuRp154t4aPwrmGDOzQCI3DAH94tng==}
+    peerDependencies:
+      viem: ^2.37.9
+      zod: ^4.1.11
+
+  '@tevm/address@1.0.0-next.148':
+    resolution: {integrity: sha512-yBPMy8DbveoM/+lyvYtS+Pjdehi3la9Ppxtt7+YMwDkmZZlcx53Ws1qByIaaiDjFsq0ZhWHGSagOfpUS3kRjDg==}
+    peerDependencies:
+      viem: ^2.37.9
+
+  '@tevm/base-bundler@1.0.0-next.149':
+    resolution: {integrity: sha512-HwGX3C7ehWkJCJnRtgBvGProdurGskiCADPzagBjPLcF4a19lp4u/Ti8yiDyQrJ4tV3b8OPIjLviiBT3ZvA0MQ==}
+
+  '@tevm/block@1.0.0-next.148':
+    resolution: {integrity: sha512-HQbwKIaoWzXGdAfSR7SyhMHP+0Dx6ObRL4ealAU7zpfd3PqQIB4Ga7hIDDxox0YYkaNmFvJKKq3jjKdplk7FrQ==}
+
+  '@tevm/blockchain@1.0.0-next.148':
+    resolution: {integrity: sha512-y7evKF2TVtYNCjM3744R6eVQyeoyhdo4J4eOH4IdMpR4YIfoa1QueJ7vNftvzp0BHhjMRoz8WXdTZrUwsh9lYw==}
+    peerDependencies:
+      viem: ^2.37.9
+
+  '@tevm/bundler-cache@1.0.0-next.148':
+    resolution: {integrity: sha512-5T89klJ4waDPBh5n2TInmZM1K53Dc+NWjQAJDguWGdqkaUZF4Z2eBlL+mBDJcxLQIUWktRBhBRzqj2/A3+n0VQ==}
+
+  '@tevm/common@1.0.0-next.148':
+    resolution: {integrity: sha512-JFi0FJRsSjR8lEeS5U2CYM8u5HZh0mijZADjHjh89yohfV4SATolHJ5wdKGkoa4Y4HGA+qXs62BX7HsgKFj/TA==}
+    peerDependencies:
+      viem: ^2.37.9
+
+  '@tevm/compiler@1.0.0-next.148':
+    resolution: {integrity: sha512-bi5+2FBccxi3og+S6lkhxy5KGntNTK28fsOzoT4OxfdfXfTrpzPfqgLTayCT874PsGJPqjlvfF1YE0Tu0EfcHw==}
+
+  '@tevm/config@1.0.0-next.148':
+    resolution: {integrity: sha512-/ztk5eQqmExLYvf9ZGnQJS4NQEBzq6hkVYjmFmQLyainDL5meWrnmr/5nUuneu74fczAhPkHB3AKUzcqqmx/aQ==}
+
+  '@tevm/contract@1.0.0-next.149':
+    resolution: {integrity: sha512-mMkiO4cg5XggXW+ihsw5L5IW3KuImOZgNE756VTAEN8jexpSXR+XyCTADyxSZKdDFsrKkaqHtRwo559bTDE1IA==}
+
+  '@tevm/decorators@1.0.0-next.148':
+    resolution: {integrity: sha512-gopWEBlub28wBDZ0XZb3O5bFtblh+lBNE/Srf1hSvr2sYrt6xTLXf098vnJMQbCZAV/nRlTRjZg1kKlXVCa9+A==}
+    peerDependencies:
+      viem: ^2.37.9
+
+  '@tevm/effect@1.0.0-next.148':
+    resolution: {integrity: sha512-/QpAXSdM75IBtAd5ju4LP+8IddyoDz03i7WDHcQUNPP4wzQ2Db+pEeiSLErFJd5qQr9EeerhCQpNKy4kQapfgw==}
+
+  '@tevm/errors@1.0.0-next.148':
+    resolution: {integrity: sha512-/VspnlMGtHPtT6AYJX2xSBLK+kohNvC3gX872q13YH7/XtiVmrJVlsa6zrpD1Uw4Ln567yoLfGYI2SelYkFY3w==}
+    peerDependencies:
+      viem: ^2.37.9
+
+  '@tevm/esbuild-plugin@1.0.0-next.148':
+    resolution: {integrity: sha512-qLa2LE/ncqpYSZWGjCjdMSUtW33MevCoA5qsCKMMiauDUBCkTn+4XuL+ysBcyAOIQbtsTx82Q0Qg8sw2Qy4hVg==}
+
+  '@tevm/evm@1.0.0-next.148':
+    resolution: {integrity: sha512-r92OtsI3oE996AZw1xpbgbpwZYZYAtLAs3CzuQXTz2PjpW2jNFbrcN3VCQz3/f1rzCO7dOXRfqQfYbO60mROaA==}
+
+  '@tevm/jsonrpc@1.0.0-next.148':
+    resolution: {integrity: sha512-e+Sln2MzdjvdgRpbu5iGui8YNbUo/riPMu+BSu5feCnVurEtCo0RYZ6ineOK1j2pKSIan3d9aAHqvwFlGJIsbQ==}
+    peerDependencies:
+      viem: ^2.37.9
+
+  '@tevm/logger@1.0.0-next.148':
+    resolution: {integrity: sha512-B8o0V9tW6IwQffN4b8cC8SUk9bWv6AEcupgsqh5o19YyWjZKbZX/Dp3eVyv0h9FD3IsZYl70Fef3Bx7iUrVLAg==}
+
+  '@tevm/memory-client@1.0.0-next.148':
+    resolution: {integrity: sha512-4aMYnKMJtGXdmZDAuNpoYuu+InK1QOZ6eIGMzzkcgwOHyOSSzaq3eMbyHLQ4hDYxgQPDbSRHYmy5l8ltymce8A==}
+    peerDependencies:
+      viem: ^2.37.9
+
+  '@tevm/node@1.0.0-next.148':
+    resolution: {integrity: sha512-xzMjuUgzTlGzryJfoNqlfqAWJHDgHlNJSj4zuHiK/24dJXWN0Gs3jsHln4bASZJhn+1IPT/qSNfifrwBeNZ9ug==}
+    peerDependencies:
+      viem: ^2.37.9
+
+  '@tevm/precompiles@1.0.0-next.148':
+    resolution: {integrity: sha512-uteo0jtWqNe5B1PJUPX5vMfk4PvLKJo+hDcHnB1/XOAmnq4eawA6czbcDZC/gRZbZzE8Gjb3tT2+MD8oBUJEIw==}
+
+  '@tevm/predeploys@1.0.0-next.148':
+    resolution: {integrity: sha512-h95fBhVIsADvbkVIkZ8kWxXnmmhPc6bCTtgL224or3OjFvrJIjV6OfiNR6thmmRQiZmybApg0qpbyeA9jNRmvw==}
+
+  '@tevm/receipt-manager@1.0.0-next.148':
+    resolution: {integrity: sha512-81ScweBmdzZET8HZ0CIWnzof7t4T0TMrEkrO1syARIpcKuvuhsoyIrkCEFmUbU7T/TxAeHGMFVep7skT1me2ZA==}
+
+  '@tevm/resolutions@1.0.0-next.148':
+    resolution: {integrity: sha512-IWrhb/kicpx/AMCX/HGP10sYSbWGqBDjMsP3jSG/csnYGVnK+D2ekQLxXxSd6Axgw3VkUFgY9qYw7rSg9k9Mjw==}
+
+  '@tevm/rlp@1.0.0-next.148':
+    resolution: {integrity: sha512-XvOmCi0rAPG3nKkXkkE2SIGA/KD7nezGz67bRlLMcCrxovZ0uSKAivPrEw6uI3sKZ2IqBCYUDmJedlpttm9U6A==}
+
+  '@tevm/runtime@1.0.0-next.148':
+    resolution: {integrity: sha512-Xq9VEF1vJCVxYkZb8xcQPi05f45qIxXfV9P0K0adlrX66nYwJLB0EZraqVxgT4SjgCzHEEl1/l2jVlkLoa5EYw==}
+
+  '@tevm/server@1.0.0-next.148':
+    resolution: {integrity: sha512-cdDpFT/Ci+jQFkuor7yQKUVh0m6S/j9631RLZGaBGN034J9d3tM98F0f2/NI+60Fqa/2JFB5ytl6TFJApyF/MQ==}
+
+  '@tevm/solc@1.0.0-next.148':
+    resolution: {integrity: sha512-GhE+cQKo/xvwMFMqIryaQfp4UyncJOEefc3dzNHCB7F27pqiPcYvdsx+t7CK6SK/ahdRcG7eSQ+/3f9VYKulXA==}
+
+  '@tevm/state@1.0.0-next.148':
+    resolution: {integrity: sha512-by8U3/fAGKf8HTdRAANePMwGdzDLb+Kz5shH0+p5Qd4BOef70/7Cwy/HovwF4gAFA59GsAQrE51ZSPIWJzfqwg==}
+    peerDependencies:
+      viem: ^2.37.9
+
+  '@tevm/sync-storage-persister@1.0.0-next.148':
+    resolution: {integrity: sha512-UHqWFKpHKDzRcb09J8Qo49z2x0wTl4YSCKkwz1pUNpRrOjuiqcVywh/Q+3iwvWC88gxSWsrIG7kQz1Iave6v/Q==}
+
+  '@tevm/test-matchers@1.0.0-next.149':
+    resolution: {integrity: sha512-d1UZOHmJcLV4f6Ko/abmayQ6cuCctEjtX0kdkiZR9pwWrBcTA156hzG9QZiishDDs0H551zkwMBiDMhl/oY/rQ==}
+    peerDependencies:
+      viem: ^2.37.9
+
+  '@tevm/test-node@1.0.0-next.149':
+    resolution: {integrity: sha512-Cg0jTscuR2ogE2PyGMGubyk8d4RGaL+fUZxoAdzcwNaZEvkY6mykPjl7k+cDqOurAjBQq7TbHlbkQAhAAnTfnA==}
+    peerDependencies:
+      viem: ^2.37.9
+
+  '@tevm/test-utils@1.0.0-next.148':
+    resolution: {integrity: sha512-K86d7NO12S3Us5TD92nma5jbvQK/ovwX1uu3CUsBBy+WS25Dz0FC9Lw4+5aI/EM198FP4CfdCe7O9Qt6Pk8tsw==}
+    peerDependencies:
+      viem: ^2.37.9
+
+  '@tevm/trie@1.0.0-next.148':
+    resolution: {integrity: sha512-mHQPPDOvZQUze7g+FFC0jiPy/qcVDLvADpDdVfkiAWlZ2DJiNfq8MOxLikDUv8SGosgKMyMwuBbSbNrNVdAPHw==}
+
+  '@tevm/ts-plugin@1.0.0-next.148':
+    resolution: {integrity: sha512-uKl3loZHLzkFwjBiJc57S7npxlTExqEg8C6wCzZ7gcCCBuwu7cHe5+QU1R90MMamclV+jsgqVNEL33CkGcIWsw==}
+    hasBin: true
+    peerDependencies:
+      typescript: '>=5.0.0'
+
+  '@tevm/tsconfig@1.0.0-next.142':
+    resolution: {integrity: sha512-wSs3HmnIsToNzT3j/p+AYW3KTQ3PvWhLKHvTQh1FpbWG4FiwG4dNO46BsoWAGsr59CLjn/+YUcbt5xFbaMVoUQ==}
+
+  '@tevm/tsupconfig@1.0.0-next.148':
+    resolution: {integrity: sha512-kJblIsgZl7REGfpvm1gQN3aTue0nC4jQ5Orh0D4Wmos2OnTwR3+QHkvINnCzOdFDveqcF/LlrRgZb2FkgSKOzg==}
+
+  '@tevm/tx@1.0.0-next.148':
+    resolution: {integrity: sha512-omQMr5cOVVFulrc2jFJHdlLm9Dck1uRGOHtrJO+BGHo9NaMu6vE+rhfOkUiBpGSUvxdVtgyp9eoFehnvu1MNYw==}
+
+  '@tevm/txpool@1.0.0-next.148':
+    resolution: {integrity: sha512-/RJ/4eJ4fl4VUk9GaCqOuNem0OyF6kkePAh/n2BjDH6KiEwQ54Wn3xknJZwZKHYHYJBzZGE0VtDGlSl86PPtnA==}
+
+  '@tevm/unplugin@1.0.0-next.148':
+    resolution: {integrity: sha512-VoLvZuUXX4Rv/HK2j50qEso9Wjv3Bp6lbhLX+CeGdNDlEYwA2Ovw5D7D7tjAhcxQEk1FuouJ4WzMPMqByXmFYw==}
+
+  '@tevm/utils@1.0.0-next.148':
+    resolution: {integrity: sha512-J5uXzviEo8e2Mhp+Rpapi5fT/DO5EwNsqtJCvZKbeCWcROpTwfWR7CqEFWuU7MYf05T1sWtaqWudP7Tf/KQN7w==}
+    peerDependencies:
+      viem: ^2.37.9
+
+  '@tevm/vm@1.0.0-next.148':
+    resolution: {integrity: sha512-OHca31KH6soIlOaN2RyFqh9iX2QuuMdPf38W7Wlt3tBssujrq6Xwi9Mv5qXiK8BfM/ysTjoTREXv5nPNnE4Xvg==}
+    peerDependencies:
+      viem: ^2.37.9
 
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
@@ -18119,6 +18291,12 @@ snapshots:
 
   '@polka/url@1.0.0-next.29': {}
 
+  '@ponder/utils@0.2.13(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))':
+    dependencies:
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+    optionalDependencies:
+      typescript: 5.9.3
+
   '@ponder/utils@0.2.13(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))':
     dependencies:
       viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
@@ -20094,6 +20272,882 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.16
       '@types/react-dom': 19.1.9(@types/react@19.1.16)
+
+  '@tevm/actions@1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@tevm/address': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/block': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/blockchain': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/contract': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/evm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/jsonrpc': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/node': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/receipt-manager': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/state': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/tx': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/txpool': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/vm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+      zod: 3.25.76
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+
+  '@tevm/actions@1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@tevm/address': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/block': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/blockchain': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/contract': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/evm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/jsonrpc': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/node': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/receipt-manager': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/state': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/tx': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/txpool': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/vm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+      zod: 4.1.11
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+
+  '@tevm/address@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/address@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/base-bundler@1.0.0-next.149':
+    dependencies:
+      '@tevm/bundler-cache': 1.0.0-next.148
+      '@tevm/compiler': 1.0.0-next.148
+      '@tevm/config': 1.0.0-next.148
+      '@tevm/runtime': 1.0.0-next.148
+      '@tevm/solc': 1.0.0-next.148
+      '@tevm/tsconfig': 1.0.0-next.142
+      '@tevm/tsupconfig': 1.0.0-next.148
+      '@types/node': 24.6.1
+      effect: 3.18.1
+      solc: 0.8.30
+      solidity-ast: 0.4.61
+    transitivePeerDependencies:
+      - debug
+
+  '@tevm/block@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/rlp': 1.0.0-next.148
+      '@tevm/trie': 1.0.0-next.148
+      '@tevm/tx': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/block@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/rlp': 1.0.0-next.148
+      '@tevm/trie': 1.0.0-next.148
+      '@tevm/tx': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/blockchain@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@ethereumjs/blockchain': 10.0.0
+      '@tevm/block': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/jsonrpc': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/logger': 1.0.0-next.148
+      '@tevm/trie': 1.0.0-next.148
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/blockchain@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@ethereumjs/blockchain': 10.0.0
+      '@tevm/block': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/jsonrpc': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/logger': 1.0.0-next.148
+      '@tevm/trie': 1.0.0-next.148
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/bundler-cache@1.0.0-next.148':
+    dependencies:
+      '@tevm/compiler': 1.0.0-next.148
+      '@tevm/tsconfig': 1.0.0-next.142
+      '@tevm/tsupconfig': 1.0.0-next.148
+      '@types/node': 24.6.1
+
+  '@tevm/common@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@ethereumjs/common': 10.0.0
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/logger': 1.0.0-next.148
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/common@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@ethereumjs/common': 10.0.0
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/logger': 1.0.0-next.148
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/compiler@1.0.0-next.148':
+    dependencies:
+      '@tevm/config': 1.0.0-next.148
+      '@tevm/resolutions': 1.0.0-next.148
+      '@tevm/solc': 1.0.0-next.148
+      '@types/node': 24.6.1
+      effect: 3.18.1
+      resolve: 1.22.10
+      solidity-ast: 0.4.61
+
+  '@tevm/config@1.0.0-next.148':
+    dependencies:
+      '@effect/schema': 0.75.5(effect@3.18.1)
+      '@tevm/effect': 1.0.0-next.148
+      '@types/node': 24.6.1
+      effect: 3.18.1
+      zod: 4.1.11
+
+  '@tevm/contract@1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/contract@1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/decorators@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@tevm/actions': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/node': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/effect@1.0.0-next.148':
+    dependencies:
+      effect: 3.18.1
+      jsonc-parser: 3.3.1
+      resolve: 1.22.10
+
+  '@tevm/errors@1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))':
+    dependencies:
+      '@ethereumjs/evm': 10.0.0
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+    transitivePeerDependencies:
+      - supports-color
+
+  '@tevm/errors@1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))':
+    dependencies:
+      '@ethereumjs/evm': 10.0.0
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+    transitivePeerDependencies:
+      - supports-color
+
+  '@tevm/esbuild-plugin@1.0.0-next.148':
+    dependencies:
+      '@tevm/unplugin': 1.0.0-next.148
+    transitivePeerDependencies:
+      - debug
+
+  '@tevm/evm@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@ethereumjs/evm': 10.0.0
+      '@tevm/blockchain': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/logger': 1.0.0-next.148
+      '@tevm/predeploys': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/state': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/evm@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@ethereumjs/evm': 10.0.0
+      '@tevm/blockchain': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/logger': 1.0.0-next.148
+      '@tevm/predeploys': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/state': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/jsonrpc@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))':
+    dependencies:
+      '@ponder/utils': 0.2.13(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+    transitivePeerDependencies:
+      - typescript
+
+  '@tevm/jsonrpc@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))':
+    dependencies:
+      '@ponder/utils': 0.2.13(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+    transitivePeerDependencies:
+      - typescript
+
+  '@tevm/logger@1.0.0-next.148':
+    dependencies:
+      pino: 9.12.0
+
+  '@tevm/memory-client@1.0.0-next.148(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)':
+    dependencies:
+      '@tevm/actions': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/address': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/contract': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/decorators': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/evm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/node': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/predeploys': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      kzg-wasm: 0.5.0
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
+    transitivePeerDependencies:
+      - '@edge-runtime/vm'
+      - '@types/debug'
+      - '@types/node'
+      - '@vitest/browser'
+      - '@vitest/ui'
+      - debug
+      - happy-dom
+      - jiti
+      - jsdom
+      - less
+      - lightningcss
+      - msw
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - yaml
+      - zod
+
+  '@tevm/node@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@tevm/address': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/block': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/blockchain': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/evm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/jsonrpc': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/logger': 1.0.0-next.148
+      '@tevm/precompiles': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/predeploys': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/receipt-manager': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/state': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/sync-storage-persister': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/tx': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/txpool': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/vm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/node@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@tevm/address': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/block': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/blockchain': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/evm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/jsonrpc': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/logger': 1.0.0-next.148
+      '@tevm/precompiles': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/predeploys': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/receipt-manager': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/state': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/sync-storage-persister': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/tx': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/txpool': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/vm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/precompiles@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@noble/curves': 2.0.1
+      '@tevm/address': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/contract': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/evm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/precompiles@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@noble/curves': 2.0.1
+      '@tevm/address': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/contract': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/evm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/predeploys@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@tevm/address': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/contract': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/predeploys@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@tevm/address': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/contract': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/receipt-manager@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@tevm/block': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/blockchain': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/rlp': 1.0.0-next.148
+      '@tevm/tx': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/receipt-manager@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@tevm/block': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/blockchain': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/rlp': 1.0.0-next.148
+      '@tevm/tx': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/resolutions@1.0.0-next.148':
+    dependencies:
+      '@tevm/tsconfig': 1.0.0-next.142
+      '@tevm/tsupconfig': 1.0.0-next.148
+      '@types/node': 24.6.1
+      effect: 3.18.1
+      resolve: 1.22.10
+
+  '@tevm/rlp@1.0.0-next.148':
+    dependencies:
+      '@ethereumjs/rlp': 10.0.0
+
+  '@tevm/runtime@1.0.0-next.148':
+    dependencies:
+      '@tevm/tsconfig': 1.0.0-next.142
+      '@tevm/tsupconfig': 1.0.0-next.148
+      effect: 3.18.1
+
+  '@tevm/server@1.0.0-next.148(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)':
+    dependencies:
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/decorators': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/jsonrpc': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/memory-client': 1.0.0-next.148(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      zod: 4.1.11
+    transitivePeerDependencies:
+      - '@edge-runtime/vm'
+      - '@types/debug'
+      - '@types/node'
+      - '@vitest/browser'
+      - '@vitest/ui'
+      - debug
+      - happy-dom
+      - jiti
+      - jsdom
+      - less
+      - lightningcss
+      - msw
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - viem
+      - yaml
+
+  '@tevm/solc@1.0.0-next.148':
+    dependencies:
+      '@tevm/tsconfig': 1.0.0-next.142
+      '@tevm/tsupconfig': 1.0.0-next.148
+
+  '@tevm/state@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@ethereumjs/statemanager': 10.0.0
+      '@tevm/address': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/logger': 1.0.0-next.148
+      '@tevm/rlp': 1.0.0-next.148
+      '@tevm/test-utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      ethereum-cryptography: 3.2.0
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/state@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@ethereumjs/statemanager': 10.0.0
+      '@tevm/address': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/logger': 1.0.0-next.148
+      '@tevm/rlp': 1.0.0-next.148
+      '@tevm/test-utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      ethereum-cryptography: 3.2.0
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/sync-storage-persister@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@tevm/state': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/sync-storage-persister@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@tevm/state': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/test-matchers@1.0.0-next.149(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(yaml@2.8.1)(zod@3.25.76)':
+    dependencies:
+      '@tevm/actions': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/contract': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/node': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      abitype: 1.1.1(typescript@5.9.3)(zod@3.25.76)
+      ox: 0.9.8(typescript@5.9.3)(zod@3.25.76)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
+    transitivePeerDependencies:
+      - '@edge-runtime/vm'
+      - '@types/debug'
+      - '@types/node'
+      - '@vitest/browser'
+      - '@vitest/ui'
+      - debug
+      - happy-dom
+      - jiti
+      - jsdom
+      - less
+      - lightningcss
+      - msw
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - yaml
+      - zod
+
+  '@tevm/test-matchers@1.0.0-next.149(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)':
+    dependencies:
+      '@tevm/actions': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/contract': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/node': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      abitype: 1.1.1(typescript@5.9.3)(zod@4.1.11)
+      ox: 0.9.8(typescript@5.9.3)(zod@4.1.11)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
+    transitivePeerDependencies:
+      - '@edge-runtime/vm'
+      - '@types/debug'
+      - '@types/node'
+      - '@vitest/browser'
+      - '@vitest/ui'
+      - debug
+      - happy-dom
+      - jiti
+      - jsdom
+      - less
+      - lightningcss
+      - msw
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - yaml
+      - zod
+
+  '@tevm/test-node@1.0.0-next.149(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)':
+    dependencies:
+      '@tevm/actions': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/memory-client': 1.0.0-next.148(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)
+      '@tevm/node': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/server': 1.0.0-next.148(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
+    transitivePeerDependencies:
+      - '@edge-runtime/vm'
+      - '@types/debug'
+      - '@types/node'
+      - '@vitest/browser'
+      - '@vitest/ui'
+      - debug
+      - happy-dom
+      - jiti
+      - jsdom
+      - less
+      - lightningcss
+      - msw
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - yaml
+      - zod
+
+  '@tevm/test-utils@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@openzeppelin/contracts': 5.4.0
+      '@ponder/utils': 0.2.13(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/contract': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/esbuild-plugin': 1.0.0-next.148
+      '@tevm/ts-plugin': 1.0.0-next.148(typescript@5.9.3)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/test-utils@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@openzeppelin/contracts': 5.4.0
+      '@ponder/utils': 0.2.13(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/contract': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/esbuild-plugin': 1.0.0-next.148
+      '@tevm/ts-plugin': 1.0.0-next.148(typescript@5.9.3)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/trie@1.0.0-next.148':
+    dependencies:
+      '@ethereumjs/trie': 6.2.1
+    transitivePeerDependencies:
+      - supports-color
+
+  '@tevm/ts-plugin@1.0.0-next.148(typescript@5.9.3)':
+    dependencies:
+      '@tevm/base-bundler': 1.0.0-next.149
+      '@tevm/bundler-cache': 1.0.0-next.148
+      '@types/minimatch': 6.0.0
+      effect: 3.18.1
+      glob: 11.0.3
+      minimatch: 10.0.3
+      solc: 0.8.30
+      solidity-ast: 0.4.61
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - debug
+
+  '@tevm/tsconfig@1.0.0-next.142': {}
+
+  '@tevm/tsupconfig@1.0.0-next.148':
+    dependencies:
+      '@tevm/tsconfig': 1.0.0-next.142
+      '@types/node': 24.6.1
+
+  '@tevm/tx@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@ethereumjs/tx': 10.0.0
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/tx@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@ethereumjs/tx': 10.0.0
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/txpool@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@tevm/block': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/blockchain': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/evm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/state': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/tx': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/vm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      qheap: 1.4.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/txpool@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@tevm/block': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/blockchain': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/evm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/state': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/tx': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/vm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      qheap: 1.4.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - viem
+      - zod
+
+  '@tevm/unplugin@1.0.0-next.148':
+    dependencies:
+      '@tevm/base-bundler': 1.0.0-next.149
+      '@tevm/bundler-cache': 1.0.0-next.148
+      '@tevm/config': 1.0.0-next.148
+      '@tevm/solc': 1.0.0-next.148
+      effect: 3.18.1
+      solc: 0.8.30
+      unplugin: 2.3.10
+      zod: 4.1.11
+    transitivePeerDependencies:
+      - debug
+
+  '@tevm/utils@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@ethereumjs/evm': 10.0.0
+      '@ethereumjs/util': 10.0.0
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      abitype: 1.1.1(typescript@5.9.3)(zod@3.25.76)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/utils@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@ethereumjs/evm': 10.0.0
+      '@ethereumjs/util': 10.0.0
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      abitype: 1.1.1(typescript@5.9.3)(zod@4.1.11)
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/vm@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)':
+    dependencies:
+      '@ethereumjs/vm': 10.0.0
+      '@tevm/block': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/blockchain': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@tevm/evm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/rlp': 1.0.0-next.148
+      '@tevm/state': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/trie': 1.0.0-next.148
+      '@tevm/tx': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))(zod@3.25.76)
+      eventemitter3: 5.0.1
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - zod
+
+  '@tevm/vm@1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)':
+    dependencies:
+      '@ethereumjs/vm': 10.0.0
+      '@tevm/block': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/blockchain': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/common': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/errors': 1.0.0-next.148(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/evm': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/rlp': 1.0.0-next.148
+      '@tevm/state': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/trie': 1.0.0-next.148
+      '@tevm/tx': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      '@tevm/utils': 1.0.0-next.148(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
+      eventemitter3: 5.0.1
+      viem: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+      - typescript
+      - zod
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 
@@ -28206,6 +29260,21 @@ snapshots:
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
       abitype: 1.1.1(typescript@5.9.3)(zod@4.1.11)
+      eventemitter3: 5.0.1
+    optionalDependencies:
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - zod
+
+  ox@0.9.8(typescript@5.9.3)(zod@3.25.76):
+    dependencies:
+      '@adraffy/ens-normalize': 1.11.1
+      '@noble/ciphers': 1.3.0
+      '@noble/curves': 1.9.1
+      '@noble/hashes': 1.8.0
+      '@scure/bip32': 1.7.0
+      '@scure/bip39': 1.6.0
+      abitype: 1.1.1(typescript@5.9.3)(zod@3.25.76)
       eventemitter3: 5.0.1
     optionalDependencies:
       typescript: 5.9.3

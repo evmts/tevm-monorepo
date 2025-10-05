@@ -1,6 +1,6 @@
 import { type Address, createClient, parseEther } from 'viem'
 import { getBalance, getCode, getStorageAt, getTransactionCount } from 'viem/actions'
-import { describe, expect, it } from 'vitest'
+import { assert, describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmGetAccount } from './tevmGetAccount.js'
 import { tevmSetAccount } from './tevmSetAccount.js'
@@ -153,6 +153,7 @@ describe('Tevm Account Management', () => {
 		for (let i = 0; i < addresses.length; i++) {
 			const addr = addresses[i] as `0x${string}`
 			const balance = balances[i]
+			assert(balance, 'balance is undefined')
 			await tevmSetAccount(client, {
 				address: addr,
 				balance,

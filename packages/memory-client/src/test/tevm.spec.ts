@@ -1,6 +1,5 @@
-import { optimism } from '@tevm/common'
 import { ERC20, SimpleContract } from '@tevm/contract'
-import { transports } from '@tevm/test-utils'
+import { createCachedOptimismTransport } from '@tevm/test-utils'
 import { EthjsAddress, hexToBytes } from '@tevm/utils'
 import { encodeDeployData, testActions } from 'viem'
 import { describe, expect, it } from 'vitest'
@@ -232,8 +231,9 @@ describe('Tevm should create a local vm in JavaScript', () => {
 	describe('client.contract', () => {
 		it('should fork a network and then execute a contract call', async () => {
 			const tevm = createMemoryClient({
-				fork: { transport: transports.optimism, blockTag: 'latest' },
-				common: optimism,
+				fork: {
+					transport: createCachedOptimismTransport(),
+				},
 			})
 			const res = await tevm.tevmContract({
 				to: contractAddress,
@@ -241,18 +241,41 @@ describe('Tevm should create a local vm in JavaScript', () => {
 					contractAddress,
 				}),
 			})
-			// TODO: we can not do that when we can use fixed block tags without proof out of window
-			expect(res.amountSpent).toBeGreaterThan(0n)
-			expect(res.l1BaseFee).toBeGreaterThan(0n)
-			expect(res.l1Fee).toBeGreaterThan(0n)
-			expect(res.l1BlobFee).toBeGreaterThan(0n)
-			expect(res.l1GasUsed).toBeGreaterThan(0n)
-			res.amountSpent = 0n
-			res.l1BaseFee = 0n
-			res.l1Fee = 0n
-			res.l1BlobFee = 0n
-			res.l1GasUsed = 0n
-			expect(res).toMatchSnapshot()
+			expect(res).toEqual({
+				// The amount of ether used by this transaction. Does not include l1 fees.
+				amountSpent: 264077861n,
+				// The amount of gas used by the transaction execution
+				executionGasUsed: 2447n,
+				// Latest known L1 base fee known by the l2 chain.
+				// Only included when an op-stack common is passed to `createMemoryClient`
+				l1BaseFee: 2629456069n,
+				// Current blob base fee known by the l2 chain
+				l1BlobFee: 1n,
+				// L1 fee that should be paid for the tx Only included when an op-stack
+				// // common is provided
+				l1Fee: 21990667097n,
+				// Amount of L1 gas used to publish the transaction. Only included when an
+				// // op-stack common is provided
+				l1GasUsed: 1600n,
+				// Map of addresses which were created (used in EIP 6780) Note the addresses
+				// are not actually created til the tx is mined
+				createdAddresses: new Set(),
+				// The decoded data based on the contract ABI
+				data: 1n,
+				// amount of gas left
+				gas: 39976121n,
+				// Logs emitted by the contract call
+				logs: [],
+				// The return value of the contract call
+				rawData: '0x0000000000000000000000000000000000000000000000000000000000000001',
+				// A set of accounts to selfdestruct
+				selfdestruct: new Set(),
+				// The amount of gas used in this transaction, which is paid for.
+				// This contains the gas units that have been used on execution,
+				// plus the upfront cost, which consists of calldata cost, intrinsic
+				// cost and optionally the access list costs Does not include l1 fees
+				totalGasSpent: 23879n,
+			})
 		})
 	})
 

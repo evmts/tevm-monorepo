@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { NoForkUrlSetError } from '@tevm/errors'
-import { createTevmNode } from '@tevm/node'
-import { transports } from '@tevm/test-utils'
+import { createTevmNode, type TevmNode } from '@tevm/node'
+import { createCachedMainnetNode, transports } from '@tevm/test-utils'
 import { type Address, bytesToHex, type Hex, hexToBigInt, parseEther } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
@@ -73,12 +73,8 @@ describe(getBalanceHandler.name, () => {
 
 	// This test assumes you have a way to set up a forked client
 	it('should fetch balance from fork when block is not in local state with blockTag latest', async () => {
-		const forkedClient = createTevmNode({
-			fork: {
-				transport: transports.mainnet,
-			},
-		})
-		const forkedHandler = getBalanceHandler(forkedClient)
+		const node = createCachedMainnetNode() as unknown as TevmNode
+		const forkedHandler = getBalanceHandler(node)
 
 		// Use a known address from mainnet with a stable balance
 		const vitalikAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
@@ -88,12 +84,8 @@ describe(getBalanceHandler.name, () => {
 	})
 
 	it('should fetch balance from fork when block is not in local state with block number', async () => {
-		const forkedClient = createTevmNode({
-			fork: {
-				transport: transports.mainnet,
-			},
-		})
-		const forkedHandler = getBalanceHandler(forkedClient)
+		const node = createCachedMainnetNode() as unknown as TevmNode
+		const forkedHandler = getBalanceHandler(node)
 
 		const latestBlockNumber = (await transports.mainnet.request({
 			jsonrpc: '2.0',
@@ -109,12 +101,8 @@ describe(getBalanceHandler.name, () => {
 	})
 
 	it('should fetch balance from fork when block is not in local state with block hash', async () => {
-		const forkedClient = createTevmNode({
-			fork: {
-				transport: transports.mainnet,
-			},
-		})
-		const forkedHandler = getBalanceHandler(forkedClient)
+		const node = createCachedMainnetNode() as unknown as TevmNode
+		const forkedHandler = getBalanceHandler(node)
 
 		const latestBlockNumber = (await transports.mainnet.request({
 			jsonrpc: '2.0',
