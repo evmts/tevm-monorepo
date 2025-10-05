@@ -1,4 +1,4 @@
-import { type PrestateTraceResult, anvilSetStorageAtJsonRpcProcedure, contractHandler } from '@tevm/actions'
+import { anvilSetStorageAtJsonRpcProcedure, contractHandler, type PrestateTraceResult } from '@tevm/actions'
 import { ERC20 } from '@tevm/contract'
 import type { TevmNode } from '@tevm/node'
 import { isEqual } from 'ox/Hex'
@@ -64,7 +64,7 @@ export const getTokenBalanceChange = async (
 
 				const previousBalance = hexToBigInt(preSlotValue)
 				return currentBalance - previousBalance
-			} catch (error) {
+			} catch (_) {
 				// If there's an error, we'll try the next slot
 			} finally {
 				// Always restore the original value
