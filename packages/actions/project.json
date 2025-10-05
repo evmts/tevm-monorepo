@@ -1,7 +1,7 @@
 {
 	"name": "@tevm/actions",
 	"_comment": "Exclude @tevm/decorators from dependency graph when building to break the circular dependency as @tevm/decorators uses @tevm/actions. Here @tevm/decorators is only used in a test file",
-	"implicitDependencies": ["!@tevm/decorators", "!@tevm/test-matchers"],
+	"implicitDependencies": ["!@tevm/decorators", "!@tevm/test-matchers", "!@tevm/test-node"],
 	"targets": {
 		"build:dist": {
 			"dependsOn": [
