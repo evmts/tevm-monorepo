@@ -1,6 +1,21 @@
 import { expect } from 'vitest'
 import { registerChainableMatchers } from './chainable/chainable.js'
-import { type ContainsContractAbi, type ContainsTransactionLogs } from './common/types.js'
+import type {
+	ContainsAddress,
+	ContainsContractAbi,
+	ContainsContractAddressAndOptionalAbi,
+	ContainsTransactionAny,
+	ContainsTransactionLogs,
+} from './common/types.js'
+import {
+	type BalanceChange,
+	type BalanceMatchers,
+	toChangeBalance,
+	toChangeBalances,
+	toChangeTokenBalance,
+	toChangeTokenBalances,
+} from './matchers/balance/index.js'
+import { type ContractMatchers, chainableContractMatchers } from './matchers/contract/index.js'
 import {
 	chainableErrorMatchers,
 	type ErrorMatchers,
@@ -8,6 +23,7 @@ import {
 	toBeRevertedWithString,
 } from './matchers/errors/index.js'
 import { chainableEventMatchers, type EmitMatchers } from './matchers/events/index.js'
+import { type StateMatchers, toBeInitializedAccount, toHaveState, toHaveStorageAt } from './matchers/state/index.js'
 import {
 	type EqualHexOptions,
 	type IsAddressOptions,
@@ -19,7 +35,17 @@ import {
 	type UtilsMatchers,
 } from './matchers/utils/index.js'
 
-export type { IsAddressOptions, IsHexOptions, EqualHexOptions, ContainsContractAbi, ContainsTransactionLogs }
+export type {
+	BalanceChange,
+	IsAddressOptions,
+	IsHexOptions,
+	EqualHexOptions,
+	ContainsContractAbi,
+	ContainsTransactionLogs,
+	ContainsAddress,
+	ContainsTransactionAny,
+	ContainsContractAddressAndOptionalAbi,
+}
 
 expect.extend({
 	toBeAddress,
@@ -28,13 +54,33 @@ expect.extend({
 	toEqualHex,
 	toBeReverted,
 	toBeRevertedWithString,
+	toBeInitializedAccount,
+	toHaveState,
+	toHaveStorageAt,
+	toChangeBalance,
+	toChangeBalances,
+	toChangeTokenBalance,
+	toChangeTokenBalances,
 })
 
 registerChainableMatchers(chainableEventMatchers)
 registerChainableMatchers(chainableErrorMatchers)
+registerChainableMatchers(chainableContractMatchers)
 
 declare module 'vitest' {
 	// biome-ignore lint/correctness/noUnusedVariables: we need to match exactly the base vitest Assertion type
-	interface Assertion<T = any> extends UtilsMatchers, EmitMatchers, ErrorMatchers {}
-	interface AsymmetricMatchersContaining extends UtilsMatchers, EmitMatchers, ErrorMatchers {}
+	interface Assertion<T = any>
+		extends UtilsMatchers,
+			EmitMatchers,
+			ErrorMatchers,
+			StateMatchers,
+			BalanceMatchers,
+			ContractMatchers {}
+	interface AsymmetricMatchersContaining
+		extends UtilsMatchers,
+			EmitMatchers,
+			ErrorMatchers,
+			StateMatchers,
+			BalanceMatchers,
+			ContractMatchers {}
 }

@@ -58,7 +58,7 @@
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
-		"generate:docs": "typedoc",
+		"generate:docs": "bun run typedoc",
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
 		"lint:deps": "bunx depcheck",
@@ -71,7 +71,9 @@
 	},
 	"dependencies": {
 		"@tevm/actions": "workspace:^",
+		"@tevm/contract": "workspace:^",
 		"@tevm/errors": "workspace:^",
+		"@tevm/node": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"abitype": "^1.1.1",
 		"ox": "^0.9.8",
@@ -80,7 +82,6 @@
 	},
 	"devDependencies": {
 		"@tevm/common": "workspace:^",
-		"@tevm/contract": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"

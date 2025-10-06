@@ -49,3 +49,6 @@ Thumbs.db
 
 # My personal files
 .zshrc
+
+# Don't ignore .tevm
+!.tevm

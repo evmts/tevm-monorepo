@@ -4,62 +4,18 @@
 
 [@tevm/test-node](../globals.md) / TestSnapshotClient
 
-# Type Alias: TestSnapshotClient
+# Type Alias: TestSnapshotClient\<TCommon, TAccountOrAddress\>
 
-> **TestSnapshotClient** = `object`
+> **TestSnapshotClient**\<`TCommon`, `TAccountOrAddress`\> = `MemoryClient`\<`TCommon`, `TAccountOrAddress`\> & `TestSnapshotBaseClient`
 
-Defined in: [index.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/index.ts#L6)
+Defined in: [extensions/test-node/src/types.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L64)
 
-## Properties
+## Type Parameters
 
-### server
+### TCommon
 
-> **server**: `HttpServer`
+`TCommon` *extends* `Common` & `Chain` = `Common` & `Chain`
 
-Defined in: [index.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/index.ts#L8)
+### TAccountOrAddress
 
-***
-
-### start()
-
-> **start**: () => `Promise`\<`void`\>
-
-Defined in: [index.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/index.ts#L10)
-
-#### Returns
-
-`Promise`\<`void`\>
-
-***
-
-### stop()
-
-> **stop**: () => `Promise`\<`void`\>
-
-Defined in: [index.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/index.ts#L11)
-
-#### Returns
-
-`Promise`\<`void`\>
-
-***
-
-### tevm
-
-> **tevm**: `MemoryClient`
-
-Defined in: [index.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/index.ts#L7)
-
-## Accessors
-
-### rpcUrl
-
-#### Get Signature
-
-> **get** **rpcUrl**(): `string`
-
-Defined in: [index.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/index.ts#L9)
-
-##### Returns
-
-`string`
+`TAccountOrAddress` *extends* `Account` \| `Address` \| `undefined` = `undefined`
