@@ -1,5 +1,11 @@
 # @tevm/base
 
+## 1.0.0-next.149
+
+### Patch Changes
+
+- f9977b5: Extend test-matchers, add test-node package & improve 4byte tracer
+
 ## 1.0.0-next.148
 
 ### Patch Changes

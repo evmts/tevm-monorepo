@@ -1,5 +1,15 @@
 # @tevm/contract
 
+## 1.0.0-next.149
+
+### Patch Changes
+
+- f9977b5: Extend test-matchers, add test-node package & improve 4byte tracer
+- Updated dependencies [f9977b5]
+  - @tevm/base-bundler@1.0.0-next.149
+  - @tevm/contract@1.0.0-next.149
+  - @tevm/actions@1.0.0-next.149
+
 ## 1.0.0-next.148
 
 ### Patch Changes
