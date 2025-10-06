@@ -8,7 +8,7 @@
 
 > **DebugTraceBlockResult**\<`TTracer`, `TDiffMode`\> = `object`[]
 
-Defined in: [packages/actions/src/debug/DebugResult.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L43)
+Defined in: [packages/actions/src/debug/DebugResult.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L55)
 
 Result from `debug_traceBlock`.
 
@@ -18,7 +18,7 @@ Returns an array of transaction traces
 
 ### TTracer
 
-`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `undefined`
+`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `undefined`
 
 ### TDiffMode
 

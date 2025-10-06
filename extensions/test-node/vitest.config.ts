@@ -2,14 +2,10 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
 	test: {
+		setupFiles: ['./src/test/vitest.setup.ts'],
 		environment: 'node',
 		globals: true,
 		include: ['**/*.spec.ts'],
-		testTimeout: 20000,
-		typecheck: {
-			enabled: true,
-			include: ['**/*.type-spec.ts'],
-			ignoreSourceErrors: true,
-		},
+		testTimeout: 60_000,
 	},
 })

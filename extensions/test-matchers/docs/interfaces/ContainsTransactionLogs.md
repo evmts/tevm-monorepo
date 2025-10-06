@@ -6,7 +6,7 @@
 
 # Interface: ContainsTransactionLogs
 
-Defined in: [extensions/test-matchers/src/common/types.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/common/types.ts#L11)
+Defined in: [extensions/test-matchers/src/common/types.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/common/types.ts#L17)
 
 ## Properties
 
@@ -14,4 +14,4 @@ Defined in: [extensions/test-matchers/src/common/types.ts:11](https://github.com
 
 > **logs**: `Log`[]
 
-Defined in: [extensions/test-matchers/src/common/types.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/common/types.ts#L12)
+Defined in: [extensions/test-matchers/src/common/types.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/common/types.ts#L18)

@@ -1136,9 +1136,15 @@ importers:
       '@tevm/actions':
         specifier: workspace:^
         version: link:../../packages/actions
+      '@tevm/contract':
+        specifier: workspace:^
+        version: link:../../packages/contract
       '@tevm/errors':
         specifier: workspace:^
         version: link:../../packages/errors
+      '@tevm/node':
+        specifier: workspace:^
+        version: link:../../packages/node
       '@tevm/utils':
         specifier: workspace:^
         version: link:../../packages/utils
@@ -1158,9 +1164,6 @@ importers:
       '@tevm/common':
         specifier: workspace:^
         version: link:../../packages/common
-      '@tevm/contract':
-        specifier: workspace:^
-        version: link:../../packages/contract
       '@tevm/memory-client':
         specifier: workspace:^
         version: link:../../packages/memory-client
@@ -1173,9 +1176,15 @@ importers:
 
   extensions/test-node:
     dependencies:
+      '@tevm/actions':
+        specifier: workspace:^
+        version: link:../../packages/actions
       '@tevm/memory-client':
         specifier: workspace:^
         version: link:../../packages/memory-client
+      '@tevm/node':
+        specifier: workspace:^
+        version: link:../../packages/node
       '@tevm/server':
         specifier: workspace:^
         version: link:../../packages/server
@@ -1186,12 +1195,21 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
     devDependencies:
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../../packages/common
+      '@tevm/test-utils':
+        specifier: workspace:^
+        version: link:../../test/test-utils
       '@tevm/tsconfig':
         specifier: workspace:^
         version: link:../../configs/tsconfig
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
 
   extensions/viem:
     dependencies:
@@ -7737,7 +7755,6 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
-    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 

@@ -1,0 +1,27 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`runCallWithCallTrace > should execute a contract call with call tracing 1`] = `
+{
+  "calls": [
+    {
+      "calls": [],
+      "from": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "gas": 16517164n,
+      "gasUsed": 4536n,
+      "input": "0xc6888fa10000000000000000000000000000000000000000000000000000000000000002",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000004",
+      "to": "0xa16e02e87b7454126e5e10d957a927a7f5b5d2be",
+      "type": "CALL",
+      "value": 0n,
+    },
+  ],
+  "from": "0x0000000000000000000000000000000000000000",
+  "gas": 16784800n,
+  "gasUsed": 11700n,
+  "input": "0x575f45050000000000000000000000000000000000000000000000000000000000000002",
+  "output": "0x0000000000000000000000000000000000000000000000000000000000000004",
+  "to": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "type": "CALL",
+  "value": 0n,
+}
+`;

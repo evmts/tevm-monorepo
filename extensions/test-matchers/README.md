@@ -24,572 +24,292 @@ export default defineConfig({
 })
 ```
 
-If your `tsconfig.json` includes a `compilerOptions.types` array, add `@tevm/test-matchers` to it.
+If your `tsconfig.json` includes a `compilerOptions.types` array, add `@tevm/test-matchers` to it. Otherwise, types will be extended by default.
 
 ## Available Matchers
 
-### `toBeAddress(opts?)`
+### Basic Matchers
 
-Asserts that a value is a valid Ethereum address with optional checksum validation.
-
+#### `toBeAddress(opts?)`
+Validates Ethereum addresses. Default requires EIP-55 checksum.
 ```typescript
-// ✅ Passes - checksummed addresses (default behavior)
-expect('0x742d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b').toBeAddress()
-expect('0x0000000000000000000000000000000000000000').toBeAddress()
-
-// ✅ Passes - any case when strict: false
-expect('0x742d35cc5db4c8e9f8d4dc1ef70c4c7c8e5b7a6b').toBeAddress({ strict: false })
-
-// ❌ Fails - incorrect checksum (default strict: true)
-expect('0x742d35cc5db4c8e9f8d4dc1ef70c4c7c8e5b7a6b').toBeAddress()
-
-// ❌ Fails - invalid format
-expect('0x123').toBeAddress() // too short
-expect('invalid').toBeAddress() // not hex
-expect(123).toBeAddress() // not string
-
-// Options
-expect(address).toBeAddress({ strict: true })  // enforce EIP-55 checksum (default)
-expect(address).toBeAddress({ strict: false }) // accept any case
+expect('0x742d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b').toBeAddress() // checksummed
+expect('0x742d35cc5db4c8e9f8d4dc1ef70c4c7c8e5b7a6b').toBeAddress({ strict: false }) // any case
 ```
 
-### `toBeHex(opts?)`
-
-Asserts that a value is valid hex with optional strict mode and size validation.
-
+#### `toBeHex(opts?)`
+Validates hex strings with optional size verification.
 ```typescript
-// ✅ Passes - basic hex validation
 expect('0x1234abcd').toBeHex()
-expect('0x').toBeHex()
-expect('0xABCDEF').toBeHex()
-
-// ✅ Passes - size validation
-expect('0x1234').toBeHex({ size: 2 }) // exactly 2 bytes (4 hex chars)
-expect('0x').toBeHex({ size: 0 }) // empty hex
-
-// ✅ Passes - non-strict mode
-expect('0x1234').toBeHex({ strict: false })
-
-// ❌ Fails - missing 0x prefix
-expect('1234').toBeHex() // missing 0x prefix
-
-// ❌ Fails - invalid hex characters
-expect('0xghij').toBeHex() // invalid hex characters
-
-// ❌ Fails - wrong size
-expect('0x123').toBeHex({ size: 2 }) // wrong size (1.5 bytes instead of 2)
-
-// Options
-expect(hex).toBeHex({ strict: true })           // strict hex validation (default)
-expect(hex).toBeHex({ strict: false })          // only check for 0x prefix
-expect(hex).toBeHex({ size: 32 })             // exactly 32 bytes (64 hex chars)
-expect(hex).toBeHex({ strict: true, size: 4 }) // both strict and size
+expect('0xa9059cbb').toBeHex({ size: 4 }) // function selector (4 bytes)
+expect(txHash).toBeHex({ size: 32 }) // transaction hash (32 bytes)
 ```
 
-### `toEqualAddress(expected)`
-
-Asserts that two addresses are equal (case-insensitive comparison using viem's `isAddressEqual`).
-
+#### `toEqualAddress(expected)`
+Case-insensitive address comparison.
 ```typescript
-// ✅ Passes - same address different cases
 expect('0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC').toEqualAddress('0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac')
-expect('0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed').toEqualAddress('0x5AAEB6053F3E94C9B9A09F33669435E7EF1BEAED')
-
-// ❌ Fails - different addresses
-expect('0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC').toEqualAddress('0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed')
-
-// Works with .not
-expect('0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC').not.toEqualAddress('0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed')
 ```
 
-### `toEqualHex(expected, opts?)`
-
-Asserts that two hex strings are equal by comparing their byte values. By default, normalizes hex strings before comparison.
-
+#### `toEqualHex(expected, opts?)`
+Hex comparison with normalization by default (trims leading zeros).
 ```typescript
-// ✅ Passes - same hex different cases
-expect('0x1234abcd').toEqualHex('0x1234ABCD')
-expect('0xdeadbeef').toEqualHex('0xDEADBEEF')
-
-// ✅ Passes - normalized comparison (default behavior)
-expect('0x0').toEqualHex('0x00')        // leading zeros trimmed
-expect('0x000123').toEqualHex('0x123')  // leading zeros trimmed
-expect('0x0000').toEqualHex('0x0')      // both normalize to same value
-
-// ❌ Fails - different hex values
-expect('0x1234abcd').toEqualHex('0x1234abce')
-
-// Exact comparison (no normalization)
-expect('0x00123').toEqualHex('0x00123', { exact: true })  // ✅ passes
-expect('0x00123').toEqualHex('0x123', { exact: true })    // ❌ fails
-
-// Options
-expect(hex1).toEqualHex(hex2)                    // normalized comparison (default)
-expect(hex1).toEqualHex(hex2, { exact: false }) // normalized comparison
-expect(hex1).toEqualHex(hex2, { exact: true })  // exact string comparison
-
-// Works with .not
-expect('0x1234abcd').not.toEqualHex('0x1234abce')
+expect('0x000123').toEqualHex('0x123') // normalized (default)
+expect('0x000123').toEqualHex('0x000123', { exact: true }) // exact match
 ```
 
-## Event Matchers
+### Balance Matchers
 
-### `toEmit(contract, eventName)`
-
-Asserts that a transaction emitted a specific event from a contract.
-
+#### `toChangeBalance(client, account, expectedChange)`
+Tests ETH balance changes for a single account. Use `toChangeBalances` for multiple accounts.
 ```typescript
-import { expect, test } from 'vitest'
-import '@tevm/test-matchers'
-
-// Contract with typed ABI
-const contract = {
-  abi: [
-    {
-      type: 'event',
-      name: 'Transfer',
-      inputs: [
-        { name: 'from', type: 'address', indexed: true },
-        { name: 'to', type: 'address', indexed: true },
-        { name: 'value', type: 'uint256', indexed: false }
-      ]
-    }
-  ],
-  address: '0x742d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b'
-}
-
-test('contract event emission', async () => {
-  // ✅ Passes - event was emitted
-  await expect(contract.write.transfer('0x123...', 100n))
-    .toEmit(contract, 'Transfer')
-
-  // ❌ Fails - event was not emitted
-  await expect(contract.read.balanceOf('0x123...'))
-    .toEmit(contract, 'Transfer')
-
-  // Works with .not
-  await expect(contract.read.balanceOf('0x123...'))
-    .not.toEmit(contract, 'Transfer')
-})
+await expect(txHash).toChangeBalance(client, '0x123...', 100n) // gained 100 wei
+await expect(txHash).toChangeBalance(client, account, -50n) // lost 50 wei
 ```
 
-### `toEmit(eventSignature)` and `toEmit(eventSelector)`
-
-Alternative ways to specify events using signature strings or hex selectors.
-
+#### `toChangeBalances(client, balanceChanges)`
+Tests ETH balance changes for multiple accounts in a single transaction.
 ```typescript
-test('event emission with signature', async () => {
-  // Using event signature string
-  await expect(contract.write.transfer('0x123...', 100n))
-    .toEmit('Transfer(address,address,uint256)')
-
-  // Using event selector (hex)
-  await expect(contract.write.transfer('0x123...', 100n))
-    .toEmit('0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef')
-})
+await expect(txHash).toChangeBalances(client, [
+  { account: sender, amount: -100n },   // sender loses 100
+  { account: recipient, amount: 100n }, // recipient gains 100
+])
 ```
 
-### `withEventArgs(...expectedArgs)`
-
-Chains with `toEmit` to assert specific event arguments in positional order.
-
+#### `toChangeTokenBalance(client, token, account, expectedChange)`
+Tests ERC20 token balance changes. Use `toChangeTokenBalances` for multiple accounts.
 ```typescript
-test('event with specific arguments', async () => {
-  const fromAddr = '0x742d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b'
-  const toAddr = '0x123d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b'
-  const amount = 100n
-
-  // ✅ Passes - exact argument match
-  await expect(contract.write.transfer(toAddr, amount))
-    .toEmit(contract, 'Transfer')
-    .withEventArgs(fromAddr, toAddr, amount)
-
-  // ❌ Fails - wrong arguments
-  await expect(contract.write.transfer(toAddr, amount))
-    .toEmit(contract, 'Transfer')
-    .withEventArgs(fromAddr, toAddr, 200n) // wrong amount
-
-  // Works with event signatures too
-  await expect(contract.write.transfer(toAddr, amount))
-    .toEmit('Transfer(address,address,uint256)')
-    .withEventArgs(fromAddr, toAddr, amount)
-})
+await expect(txHash).toChangeTokenBalance(client, tokenAddress, '0x123...', 100n)
+await expect(txHash).toChangeTokenBalance(client, tokenContract, account, -50n)
 ```
 
-### `withEventNamedArgs(expectedArgs)`
-
-Chains with `toEmit` to assert specific event arguments by name. Supports partial matching.
-
+#### `toChangeTokenBalances(client, token, balanceChanges)`
+Tests token balance changes for multiple accounts.
 ```typescript
-test('event with named arguments', async () => {
-  const toAddr = '0x123d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b'
-  const amount = 100n
-
-  // ✅ Passes - partial named argument match
-  await expect(contract.write.transfer(toAddr, amount))
-    .toEmit(contract, 'Transfer')
-    .withEventNamedArgs({
-      to: toAddr,
-      value: amount
-    })
-
-  // ✅ Passes - can check just one argument
-  await expect(contract.write.transfer(toAddr, amount))
-    .toEmit(contract, 'Transfer')
-    .withEventNamedArgs({ value: amount })
-
-  // ✅ Passes - empty object matches any event
-  await expect(contract.write.transfer(toAddr, amount))
-    .toEmit(contract, 'Transfer')
-    .withEventNamedArgs({})
-
-  // ❌ Fails - wrong named arguments
-  await expect(contract.write.transfer(toAddr, amount))
-    .toEmit(contract, 'Transfer')
-    .withEventNamedArgs({ value: 200n })
-
-  // ❌ Fails - invalid argument name
-  await expect(contract.write.transfer(toAddr, amount))
-    .toEmit(contract, 'Transfer')
-    .withEventNamedArgs({ invalidArg: 100n })
-})
+await expect(txHash).toChangeTokenBalances(client, tokenAddress, [
+  { account: sender, amount: -100n },
+  { account: recipient, amount: 100n },
+])
 ```
 
-### Event Matcher Limitations
+### Event Matchers
 
-**Important:** Due to how Chai's `.not` property works, you cannot use `.not` directly before `withEventArgs` or `withEventNamedArgs`. Meaning that you _can_ test that an event was not emitted, but you _cannot_ test that an event was emitted but not with certain arguments.
-
+#### `toEmit(contract, eventName)`
+Tests if a transaction emitted a specific event.
 ```typescript
-// ❌ Does NOT work - .not breaks the chain
-await expect(transaction)
+await expect(contract.write.transfer('0x123...', 100n))
   .toEmit(contract, 'Transfer')
-  .not.withEventArgs(100n) // This will fail with an error
 
-// ✅ Works - use .not before toEmit
+// Alternative: use signature or selector
 await expect(transaction)
-  .not.toEmit(contract, 'Transfer') // Event should not be emitted at all
+  .toEmit('Transfer(address,address,uint256)')
+  .toEmit('0xddf252ad...') // event selector
+```
 
-// ✅ Alternative - assert the positive case
-await expect(transaction)
+#### `withEventArgs(...args)` / `withEventNamedArgs(args)`
+Chain with `toEmit` to test event arguments.
+```typescript
+// Positional arguments
+await expect(contract.write.transfer(to, 100n))
   .toEmit(contract, 'Transfer')
-  .withEventArgs(200n) // Assert it has different args instead
+  .withEventArgs(from, to, 100n)
+
+// Named arguments (partial matching supported)
+await expect(contract.write.transfer(to, 100n))
+  .toEmit(contract, 'Transfer')
+  .withEventNamedArgs({ value: 100n })
 ```
 
-## Error Matchers
+**Limitation**: Cannot use `.not` before `withEventArgs`/`withEventNamedArgs`.
 
-### `toBeReverted(client?)`
+### Error Matchers
 
-Asserts that a transaction reverted for any reason (string revert, custom error, or panic).
-
+#### `toBeReverted(client?)`
+Tests if a transaction reverted for any reason.
 ```typescript
-import { expect, test } from 'vitest'
-import '@tevm/test-matchers'
-
-test('basic revert detection', async () => {
-  // ✅ Passes - transaction reverted (any reason)
-  await expect(writeContract(client, contract.write.transferBeyondBalance()))
-    .toBeReverted(client)
-
-  // ❌ Fails - transaction succeeded
-  await expect(writeContract(client, contract.write.transfer('0x123...', 10n)))
-    .toBeReverted(client)
-
-  // Works with .not
-  await expect(writeContract(client, contract.write.transfer('0x123...', 10n)))
-    .not.toBeReverted(client)
-
-  // Client parameter is optional for some transaction types
-  await expect(someTevmCall())
-    .toBeReverted()
-})
+await expect(writeContract(client, contract.write.failingFunction()))
+  .toBeReverted(client)
 ```
 
-### `toBeRevertedWithString(client, expectedString)`
-
-Asserts that a transaction reverted with a specific revert string (e.g., `revert("message")`).
-
+#### `toBeRevertedWithString(client, message)`
+Tests for specific revert string messages.
 ```typescript
-test('string revert detection', async () => {
-  // ✅ Passes - transaction reverted with exact string
-  await expect(writeContract(client, contract.write.requirePositiveAmount(-1)))
-    .toBeRevertedWithString(client, 'Amount must be positive')
-
-  // ❌ Fails - transaction reverted with different string
-  await expect(writeContract(client, contract.write.requirePositiveAmount(-1)))
-    .toBeRevertedWithString(client, 'Invalid amount')
-
-  // ❌ Fails - transaction reverted with custom error (not string)
-  await expect(writeContract(client, contract.write.transferBeyondBalance()))
-    .toBeRevertedWithString(client, 'Amount must be positive')
-
-  // Works with .not
-  await expect(writeContract(client, contract.write.transfer('0x123...', 10n)))
-    .not.toBeRevertedWithString(client, 'Amount must be positive')
-})
-
-### `toBeRevertedWithError(client, contract, errorName)`
-
-Asserts that a transaction reverted with a specific custom error from a contract.
-
-```typescript
-import { expect, test } from 'vitest'
-import '@tevm/test-matchers'
-
-// Contract with custom error in ABI
-const contract = {
-  abi: [
-    {
-      type: 'error',
-      name: 'InsufficientBalance',
-      inputs: [
-        { name: 'available', type: 'uint256' },
-        { name: 'required', type: 'uint256' }
-      ]
-    }
-  ],
-  address: '0x742d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b'
-}
-
-test('contract custom error detection', async () => {
-  // ✅ Passes - transaction reverted with specific error
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-
-  // ❌ Fails - transaction succeeded
-  await expect(writeContract(client, contract.write.transfer('0x123...', 10n)))
-    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-
-  // ❌ Fails - wrong error
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, contract, 'Unauthorized')
-
-  // Works with .not
-  await expect(writeContract(client, contract.write.transfer('0x123...', 10n)))
-    .not.toBeRevertedWithError(client, contract, 'InsufficientBalance')
-})
+await expect(writeContract(client, contract.write.requirePositive(-1)))
+  .toBeRevertedWithString(client, 'Amount must be positive')
 ```
 
-### `toBeRevertedWithError(client, errorSignature)` and `toBeRevertedWithError(client, errorSelector)`
-
-Alternative ways to specify errors using signature strings or hex selectors.
-
+#### `toBeRevertedWithError(client, contract, errorName)`
+Tests for custom contract errors. Use `toBeRevertedWithString` for `revert()` messages.
 ```typescript
-test('error detection with signature', async () => {
-  // Using error signature string
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, 'InsufficientBalance(uint256,uint256)')
+await expect(writeContract(client, contract.write.transfer(to, 1000n)))
+  .toBeRevertedWithError(client, contract, 'InsufficientBalance')
 
-  // Using error selector (hex)
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, '0x356680b7') // InsufficientBalance selector
-})
+// Alternative: use signature or selector
+await expect(transaction)
+  .toBeRevertedWithError(client, 'InsufficientBalance(uint256,uint256)')
+  .toBeRevertedWithError(client, '0x356680b7') // error selector
 ```
 
-### `withErrorArgs(...expectedArgs)`
-
-Chains with `toBeRevertedWithError` to assert specific error arguments in positional order.
-
+#### `withErrorArgs(...args)` / `withErrorNamedArgs(args)`
+Chain with `toBeRevertedWithError` to test error arguments.
 ```typescript
-test('error with specific arguments', async () => {
-  // ✅ Passes - exact argument match
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-    .withErrorArgs(50n, 1000n) // available: 50, required: 1000
-
-  // ❌ Fails - wrong arguments
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-    .withErrorArgs(100n, 1000n) // wrong available amount
-
-  // Works with error signatures too
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, 'InsufficientBalance(uint256,uint256)')
-    .withErrorArgs(50n, 1000n)
-})
-```
-
-### `withErrorNamedArgs(expectedArgs)`
-
-Chains with `toBeRevertedWithError` to assert specific error arguments by name. Supports partial matching.
-
-```typescript
-test('error with named arguments', async () => {
-  // ✅ Passes - partial named argument match
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-    .withErrorNamedArgs({
-      available: 50n,
-      required: 1000n
-    })
-
-  // ✅ Passes - can check just one argument
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-    .withErrorNamedArgs({ required: 1000n })
-
-  // ✅ Passes - empty object matches any error
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-    .withErrorNamedArgs({})
-
-  // ❌ Fails - wrong named arguments
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-    .withErrorNamedArgs({ available: 100n })
-
-  // ❌ Fails - invalid argument name
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-    .withErrorNamedArgs({ invalidArg: 50n })
-})
-```
-
-### Error Matcher Limitations
-
-**Important:** Similar to event matchers, you cannot use `.not` directly before `withErrorArgs` or `withErrorNamedArgs`. You can test that a transaction did not revert with a specific error, but you cannot test that it reverted with an error but not with certain arguments.
-
-```typescript
-// ❌ Does NOT work - .not breaks the chain
+// Positional arguments
 await expect(transaction)
   .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-  .not.withErrorArgs(50n, 1000n) // This will fail
+  .withErrorArgs(50n, 1000n) // available: 50, required: 1000
 
-// ✅ Works - use .not before toBeRevertedWithError
-await expect(transaction)
-  .not.toBeRevertedWithError(client, contract, 'InsufficientBalance')
-
-// ✅ Alternative - assert the positive case with different args
+// Named arguments (partial matching supported)
 await expect(transaction)
   .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-  .withErrorArgs(100n, 1000n) // Assert it has different args
+  .withErrorNamedArgs({ required: 1000n })
+```
+
+**Limitation**: Cannot use `.not` before `withErrorArgs`/`withErrorNamedArgs`.
+
+### Contract Call Matchers
+
+#### `toCallContractFunction(client, contract, functionName)`
+Tests if a transaction called a specific contract function.
+```typescript
+await expect(txHash)
+  .toCallContractFunction(client, contract, 'transfer')
+
+// Alternative: use function signature or selector
+await expect(txHash)
+  .toCallContractFunction(client, 'transfer(address,uint256)')
+await expect(txHash)
+  .toCallContractFunction(client, '0xa9059cbb')
+```
+
+#### `withFunctionArgs(...args)` / `withFunctionNamedArgs(args)`
+Chain with `toCallContractFunction` to test function call arguments.
+```typescript
+// Positional arguments
+await expect(txHash)
+  .toCallContractFunction(client, contract, 'transfer')
+  .withFunctionArgs(recipient, 100n)
+
+// Named arguments (partial matching supported)
+await expect(txHash)
+  .toCallContractFunction(client, contract, 'transfer')
+  .withFunctionNamedArgs({ to: recipient, value: 100n })
+```
+
+**Limitation**: Cannot use `.not` before `withFunctionArgs`/`withFunctionNamedArgs`.
+
+### State Matchers
+
+#### `toBeInitializedAccount(client)`
+Tests if an address contains deployed contract code.
+```typescript
+await expect('0x742d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b')
+  .toBeInitializedAccount(client)
+```
+
+#### `toHaveState(client, expectedState)`
+Tests account state properties (balance, nonce, code, storage).
+```typescript
+await expect('0x742d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b')
+  .toHaveState(client, {
+    balance: 1000n,
+    nonce: 5n,
+    code: '0x6080...',
+    storage: { '0x0': '0x1' }
+  })
+```
+
+#### `toHaveStorageAt(client, expectedStorage)`
+Tests contract storage values at specific slots.
+```typescript
+// Single slot
+await expect(contractAddress)
+  .toHaveStorageAt(client, { slot: '0x0', value: '0x1' })
+
+// Multiple slots
+await expect(contractAddress)
+  .toHaveStorageAt(client, [
+    { slot: '0x0', value: '0x1' },
+    { slot: '0x1', value: '0x2' }
+  ])
 ```
 
 ## TypeScript Support
 
 All matchers include full TypeScript support with proper type definitions. The matchers will be available on the `expect` object after importing.
 
-## Examples
+## Complete Example
 
 ```typescript
-import '@tevm/test-matchers'
-import { expect, test } from 'vitest'
+import { expect, it } from 'vitest'
+import { createMemoryClient } from 'tevm'
+import { writeContract } from 'viem/actions'
 
-test('TEVM result validation', () => {
-  const result = {
-    to: '0x742d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b',
-    data: '0x1234abcd'
-  }
+it('ERC20 transfer with all matchers', async () => {
+  const client = createMemoryClient()
+  const token = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48' // USDC
+  const sender = '0x742d35Cc6274c36e1019e41D77d0A4aa7D7dE01e'
+  const recipient = '0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed'
 
-  expect(result.to).toBeAddress() // validates checksum by default
-  expect(result.data).toBeHex()
+  // Validate addresses
+  expect(sender).toBeAddress()
+  expect(recipient).toEqualAddress('0x5aAeb6053f3e94c9b9a09f33669435e7ef1beaed')
+
+  // Execute transfer
+  const txHash = await writeContract(client, {
+    address: token,
+    abi: erc20Abi,
+    functionName: 'transfer',
+    args: [recipient, 1000n],
+    account: sender,
+  })
+
+  // Test balance changes
+  await expect(txHash).toChangeTokenBalances(client, token, [
+    { account: sender, amount: -1000n },
+    { account: recipient, amount: 1000n },
+  ])
+
+  // Test event emission
+  await expect(txHash)
+    .toEmit(token, 'Transfer')
+    .withEventNamedArgs({
+      from: sender,
+      to: recipient,
+      value: 1000n
+    })
+
+  // Test function call
+  await expect(txHash)
+    .toCallContractFunction(client, token, 'transfer')
+    .withFunctionArgs(recipient, 1000n)
+
+  // Test transaction hash format
+  expect(txHash).toBeHex({ size: 32 })
 })
 
-test('Transaction comparison', () => {
-  const tx1 = {
-    to: '0xa5cc3c03994DB5b0d9A5eEdD10CabaB0813678AC',
-    data: '0x1234abcd'
-  }
+it('Failed transfer with custom error', async () => {
+  const client = createMemoryClient()
 
-  const tx2 = {
-    to: '0xa5cc3c03994db5b0d9a5eedd10cabab0813678ac', // different case
-    data: '0x1234ABCD' // different case
-  }
-
-  // These should be equal despite case differences
-  expect(tx1.to).toEqualAddress(tx2.to)
-  expect(tx1.data).toEqualHex(tx2.data)
-})
-
-test('Hex comparison with normalization', () => {
-  // Default behavior normalizes leading zeros
-  expect('0x000123').toEqualHex('0x123')     // ✅ passes (normalized)
-  expect('0x0').toEqualHex('0x00')           // ✅ passes (normalized)
-
-  // Exact comparison preserves leading zeros
-  expect('0x000123').toEqualHex('0x123', { exact: true })  // ❌ fails
-  expect('0x000123').toEqualHex('0x000123', { exact: true }) // ✅ passes
-})
-
-test('Transaction hash validation', () => {
-  const txHash = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
-  expect(txHash).toBeHex({ size: 32 }) // 32 bytes for transaction hash
-
-  // Compare with different case
-  const sameHashDifferentCase = '0x1234567890ABCDEF1234567890ABCDEF1234567890ABCDEF1234567890ABCDEF'
-  expect(txHash).toEqualHex(sameHashDifferentCase)
-})
-
-test('Function selector validation', () => {
-  const selector = '0xa9059cbb' // transfer(address,uint256)
-  expect(selector).toBeHex({ size: 4 }) // 4 bytes for function selector
-
-  // Compare with different case
-  expect(selector).toEqualHex('0xA9059CBB')
-})
-
-test('Address validation with different strictness', () => {
-  const checksummed = '0x742d35Cc5dB4c8E9f8D4Dc1Ef70c4c7c8E5b7A6b'
-  const lowercase = '0x742d35cc5db4c8e9f8d4dc1ef70c4c7c8e5b7a6b'
-
-  expect(checksummed).toBeAddress() // passes (correct checksum)
-  expect(lowercase).not.toBeAddress() // fails (incorrect checksum)
-  expect(lowercase).toBeAddress({ strict: false }) // passes (any case allowed)
-
-  // But they should be equal as addresses
-  expect(checksummed).toEqualAddress(lowercase) // passes (same address)
-})
-
-test('Event testing examples', async () => {
-  const client = // ... your TEVM client
-
-  // Basic event testing
-  await expect(client.tevmContract(contract.write.transfer('0x123...', 100n)))
-    .toEmit(contract, 'Transfer')
-
-  // Event with specific arguments
-  await expect(client.tevmContract(contract.write.transfer('0x123...', 100n)))
-    .toEmit(contract, 'Transfer')
-    .withEventArgs('0x742d35Cc...', '0x123...', 100n)
-
-  // Event with named arguments (partial matching)
-  await expect(client.tevmContract(contract.write.transfer('0x123...', 100n)))
-    .toEmit(contract, 'Transfer')
-    .withEventNamedArgs({ value: 100n })
-
-  // Using event signatures instead of contracts
-  await expect(transaction)
-    .toEmit('Transfer(address,address,uint256)')
-    .withEventArgs(fromAddr, toAddr, amount)
-})
-
-test('Error testing examples', async () => {
-  const client = // ... your TEVM client
-
-  // Basic revert testing (any reason)
-  await expect(writeContract(client, contract.write.failingFunction()))
-    .toBeReverted(client)
-
-  // String revert testing
-  await expect(writeContract(client, contract.write.requirePositiveAmount(-1)))
-    .toBeRevertedWithString(client, 'Amount must be positive')
-
-  // Custom error testing
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-
-  // Error with specific arguments
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-    .withErrorArgs(50n, 1000n)
-
-  // Error with named arguments (partial matching)
-  await expect(writeContract(client, contract.write.transfer('0x123...', 1000n)))
-    .toBeRevertedWithError(client, contract, 'InsufficientBalance')
-    .withErrorNamedArgs({ required: 1000n })
-
-  // Using error signatures instead of contracts
-  await expect(transaction)
-    .toBeRevertedWithError(client, 'InsufficientBalance(uint256,uint256)')
-    .withErrorArgs(50n, 1000n)
+  // This should fail with InsufficientBalance error
+  await expect(
+    writeContract(client, {
+      address: token,
+      abi: erc20Abi,
+      functionName: 'transfer',
+      args: [recipient, 1000000n], // more than balance
+      account: sender,
+    })
+  )
+    .toBeRevertedWithError(client, token, 'InsufficientBalance')
+    .withErrorNamedArgs({ required: 1000000n })
 })
 ```
+
+## Gotchas & Best Practices
+
+1. **Balance Changes**: When testing multiple balance changes with `.not`, i.e. `not.toChangeBalances` or `not.toChangeTokenBalances`, the assertion will pass as long as at least one of the specified changes is not met.
+2. **Event Testing**: Use `withEventNamedArgs` for partial matching when you only care about specific arguments.
+3. **Error Testing**: Use `toBeRevertedWithString` for `revert("message")` or `require(false, "message")` and `toBeRevertedWithError` for custom errors.
+4. **Address Comparison**: Use `toEqualAddress` for case-insensitive comparison, `toBeAddress` for validation.
+5. **Hex Comparison**: Default behavior normalizes (trims leading zeros). Use `{ exact: true }` for strict comparison.
+6. **Chainable Limitations**: Cannot use `.not` before `withEventArgs`, `withEventNamedArgs`, `withErrorArgs`, or `withErrorNamedArgs`.
