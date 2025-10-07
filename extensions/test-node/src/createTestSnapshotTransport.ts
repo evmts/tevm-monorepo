@@ -14,14 +14,15 @@ import type { TestSnapshotTransport, TestSnapshotTransportOptions } from './type
  * import { http } from 'viem'
  *
  * const transport = createTestSnapshotTransport({
- *   transport: http('https://mainnet.optimism.io')(),
- *   test: { cacheDir: '.tevm/test-snapshots' }
+ *   transport: http('https://mainnet.optimism.io')()
  * })
  *
  * // Use the transport in your tests
  * await transport.server.start()
  * const block = await transport.request({ method: 'eth_getBlockByNumber', params: [123n, false] })
  * await transport.server.stop()
+ * // Snapshots automatically saved to __rpc_snapshots__/<testFileName>.snap.json
+ * // e.g., __rpc_snapshots__/myTest.spec.ts.snap.json
  * ```
  */
 export const createTestSnapshotTransport = <

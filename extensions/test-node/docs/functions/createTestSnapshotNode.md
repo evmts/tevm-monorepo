@@ -8,7 +8,7 @@
 
 > **createTestSnapshotNode**(`options`): [`TestSnapshotNode`](../type-aliases/TestSnapshotNode.md)
 
-Defined in: [extensions/test-node/src/createTestSnapshotNode.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/createTestSnapshotNode.ts#L33)
+Defined in: [extensions/test-node/src/createTestSnapshotNode.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/createTestSnapshotNode.ts#L34)
 
 Creates a test snapshot node that automatically caches RPC responses
 
@@ -34,8 +34,7 @@ import { blockNumberProcedure } from '@tevm/actions'
 import { http } from 'viem'
 
 const node = createTestSnapshotNode({
-  fork: { transport: http('https://mainnet.optimism.io')() },
-  test: { cacheDir: '.tevm/test-snapshots' }
+  fork: { transport: http('https://mainnet.optimism.io')() }
 })
 
 // Use the node in your tests
@@ -47,4 +46,6 @@ const block = await blockNumberProcedure(node)({
   params: [],
 })
 await node.server.stop()
+// Snapshots automatically saved to __rpc_snapshots__/<testFileName>.snap.json
+// e.g., __rpc_snapshots__/myTest.spec.ts.snap.json
 ```

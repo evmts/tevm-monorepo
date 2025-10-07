@@ -8,7 +8,7 @@
 
 > **TestSnapshotClient**\<`TCommon`, `TAccountOrAddress`\> = `MemoryClient`\<`TCommon`, `TAccountOrAddress`\> & `TestSnapshotBaseClient`
 
-Defined in: [extensions/test-node/src/types.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L64)
+Defined in: [extensions/test-node/src/types.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L85)
 
 ## Type Parameters
 

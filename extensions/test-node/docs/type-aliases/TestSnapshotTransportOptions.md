@@ -8,7 +8,7 @@
 
 > **TestSnapshotTransportOptions**\<`TTransportType`, `TRpcAttributes`, `TEip1193RequestFn`\> = `object`
 
-Defined in: [extensions/test-node/src/types.ts:75](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L75)
+Defined in: [extensions/test-node/src/types.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L96)
 
 ## Type Parameters
 
@@ -30,7 +30,7 @@ Defined in: [extensions/test-node/src/types.ts:75](https://github.com/evmts/tevm
 
 > `optional` **test**: [`TestOptions`](TestOptions.md)
 
-Defined in: [extensions/test-node/src/types.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L81)
+Defined in: [extensions/test-node/src/types.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L102)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [extensions/test-node/src/types.ts:81](https://github.com/evmts/tevm
 
 > **transport**: `Transport`\<`TTransportType`, `TRpcAttributes`, `TEip1193RequestFn`\> \| \{ `request`: `TEip1193RequestFn`; \}
 
-Defined in: [extensions/test-node/src/types.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L80)
+Defined in: [extensions/test-node/src/types.ts:101](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L101)

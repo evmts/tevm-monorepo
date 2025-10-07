@@ -19,14 +19,16 @@ import type { TestSnapshotClient, TestSnapshotClientOptions } from './types.js'
  * import { http } from 'viem'
  *
  * const client = createTestSnapshotClient({
- *   fork: { transport: http('https://mainnet.optimism.io')() },
- *   test: { cacheDir: '.tevm/test-snapshots' }
+ *   fork: { transport: http('https://mainnet.optimism.io')() }
+ *   test: { resolveSnapshotPath: 'vitest' } // default
  * })
  *
  * // Use the client in your tests
  * await client.server.start()
  * const block = await client.getBlock({ blockNumber: 123n })
  * await client.server.stop()
+ * // Snapshots automatically saved to __rpc_snapshots__/<testFileName>.snap.json
+ * // e.g., __rpc_snapshots__/myTest.spec.ts.snap.json
  * ```
  */
 export const createTestSnapshotClient = <
@@ -43,10 +45,10 @@ export const createTestSnapshotClient = <
 	}
 
 	// Create snapshot manager
-	const snapshotManager = new SnapshotManager(options.test?.cacheDir)
+	const snapshotManager = new SnapshotManager(options.test?.resolveSnapshotPath)
 
 	// Create TEVM client with cached transport
-	const autosave = options.test?.autosave ?? 'onStop'
+	const autosave = options.test?.autosave ?? 'onRequest'
 	const client = createMemoryClient({
 		...options,
 		fork: {
@@ -84,7 +86,7 @@ export const createTestSnapshotClient = <
 				})
 			},
 			stop: async () => {
-				await snapshotManager.save()
+				if (autosave === 'onStop') await snapshotManager.save()
 				if (!serverStarted) return
 
 				await new Promise<void>((resolve, reject) => {

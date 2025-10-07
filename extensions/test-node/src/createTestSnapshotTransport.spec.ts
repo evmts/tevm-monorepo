@@ -9,18 +9,17 @@ import { BLOCK_NUMBER } from './test/constants.js'
 import { assertMethodCached, assertMethodNotCached } from './test/snapshot-utils.js'
 
 describe('createTestSnapshotTransport', () => {
-	const testCacheDir = path.join(process.cwd(), '.test-test-snapshot-transport')
-
 	afterEach(async () => {
-		if (fs.existsSync(testCacheDir)) {
-			fs.rmSync(testCacheDir, { recursive: true, force: true })
+		// Clean up snapshot directory next to this test
+		const snapshotDir = path.join(__dirname, '__rpc_snapshots__')
+		if (fs.existsSync(snapshotDir)) {
+			fs.rmSync(snapshotDir, { recursive: true, force: true })
 		}
 	})
 
 	it('should create a transport with all required methods', async () => {
 		const transport = createTestSnapshotTransport({
 			transport: http('https://mainnet.optimism.io')({}),
-			test: { cacheDir: testCacheDir },
 		})
 
 		expect(transport).toHaveProperty('server')
@@ -35,7 +34,6 @@ describe('createTestSnapshotTransport', () => {
 	it('should start and stop server correctly', async () => {
 		const { server } = createTestSnapshotTransport({
 			transport: transports.mainnet,
-			test: { cacheDir: testCacheDir },
 		})
 
 		// Initially no rpcUrl
@@ -60,7 +58,6 @@ describe('createTestSnapshotTransport', () => {
 	it('should cache RPC requests', async () => {
 		const transport = createTestSnapshotTransport({
 			transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
-			test: { cacheDir: testCacheDir },
 		})
 
 		// Make a cacheable request
@@ -78,13 +75,12 @@ describe('createTestSnapshotTransport', () => {
 		await transport.saveSnapshots()
 
 		// Check snapshots were created
-		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDir)
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
 	})
 
 	it('should not cache non-cacheable requests', async () => {
 		const transport = createTestSnapshotTransport({
 			transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
-			test: { cacheDir: testCacheDir },
 		})
 
 		// Make a non-cacheable request (blockNumber is not cached)
@@ -96,13 +92,12 @@ describe('createTestSnapshotTransport', () => {
 		await transport.saveSnapshots()
 
 		// Check no snapshots were created for this
-		assertMethodNotCached('eth_blockNumber', undefined, testCacheDir)
+		assertMethodNotCached('eth_blockNumber')
 	})
 
 	it('should save snapshots on stop', async () => {
 		const transport = createTestSnapshotTransport({
 			transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
-			test: { cacheDir: testCacheDir },
 		})
 
 		await transport.request({
@@ -115,21 +110,13 @@ describe('createTestSnapshotTransport', () => {
 		await transport.server.stop()
 
 		// Should still have saved snapshots
-		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDir)
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
 	})
 
 	it('should save snapshots immediately when autosave is onRequest', async () => {
-		const testCacheDirOnRequest = path.join(process.cwd(), '.test-autosave-on-request')
-
-		// Clean up from any previous runs
-		if (fs.existsSync(testCacheDirOnRequest)) {
-			fs.rmSync(testCacheDirOnRequest, { recursive: true, force: true })
-		}
-
 		const transport = createTestSnapshotTransport({
 			transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
 			test: {
-				cacheDir: testCacheDirOnRequest,
 				autosave: 'onRequest',
 			},
 		})
@@ -144,11 +131,7 @@ describe('createTestSnapshotTransport', () => {
 			params: [numberToHex(BigInt(BLOCK_NUMBER) - 1n), false],
 		})
 		// Check snapshots were saved immediately (without calling save() or stop())
-		assertMethodCached(
-			'eth_getBlockByNumber',
-			(params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 1n),
-			testCacheDirOnRequest,
-		)
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 1n))
 
 		// Make another cacheable request - should add to existing snapshots
 		await transport.request({
@@ -157,32 +140,15 @@ describe('createTestSnapshotTransport', () => {
 			id: 1,
 			params: [numberToHex(BigInt(BLOCK_NUMBER) - 2n), false],
 		})
-		assertMethodCached(
-			'eth_getBlockByNumber',
-			(params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 2n),
-			testCacheDirOnRequest,
-		)
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 2n))
 
 		await transport.server.stop()
-
-		// Clean up
-		if (fs.existsSync(testCacheDirOnRequest)) {
-			fs.rmSync(testCacheDirOnRequest, { recursive: true, force: true })
-		}
 	})
 
 	it('should not save snapshots immediately when autosave is onStop (default)', async () => {
-		const testCacheDirOnStop = path.join(process.cwd(), '.test-autosave-on-stop')
-
-		// Clean up from any previous runs
-		if (fs.existsSync(testCacheDirOnStop)) {
-			fs.rmSync(testCacheDirOnStop, { recursive: true, force: true })
-		}
-
 		const transport = createTestSnapshotTransport({
 			transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
 			test: {
-				cacheDir: testCacheDirOnStop,
 				autosave: 'onStop', // explicit, but this is the default
 			},
 		})
@@ -198,17 +164,12 @@ describe('createTestSnapshotTransport', () => {
 		})
 
 		// Check snapshots were NOT saved immediately
-		assertMethodNotCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDirOnStop)
+		assertMethodNotCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
 
 		await transport.server.stop()
 
 		// Check snapshots were saved on stop
-		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDirOnStop)
-
-		// Clean up
-		if (fs.existsSync(testCacheDirOnStop)) {
-			fs.rmSync(testCacheDirOnStop, { recursive: true, force: true })
-		}
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
 	})
 
 	it('should work as a transport in a memory client', async () => {
@@ -216,7 +177,7 @@ describe('createTestSnapshotTransport', () => {
 			fork: {
 				transport: createTestSnapshotTransport({
 					transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
-					test: { cacheDir: testCacheDir, autosave: 'onRequest' },
+					test: { autosave: 'onRequest' },
 				}),
 			},
 		})
@@ -224,6 +185,6 @@ describe('createTestSnapshotTransport', () => {
 		const block = await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
 		expect(block?.number).toBe(BigInt(BLOCK_NUMBER))
 
-		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDir)
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
 	})
 })

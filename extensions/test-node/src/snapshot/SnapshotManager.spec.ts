@@ -4,12 +4,13 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { SnapshotManager } from './SnapshotManager.js'
 
 describe('SnapshotManager', () => {
-	const testCacheDir = path.join(process.cwd(), '.test-snapshot-manager')
-	const manager = new SnapshotManager(testCacheDir)
+	const manager = new SnapshotManager()
 
 	afterEach(async () => {
-		if (fs.existsSync(testCacheDir)) {
-			fs.rmSync(testCacheDir, { recursive: true, force: true })
+		// Clean up snapshot directory next to this test
+		const snapshotDir = path.join(__dirname, '__rpc_snapshots__')
+		if (fs.existsSync(snapshotDir)) {
+			fs.rmSync(snapshotDir, { recursive: true, force: true })
 		}
 	})
 
@@ -44,13 +45,13 @@ describe('SnapshotManager', () => {
 		// Create a snapshot file manually
 		const testData = { 'existing-key': { result: '0x456' } }
 		// @ts-expect-error - accessing private property for testing
-		const snapshotDir = manager.snapshotDir
+		const snapshotPath = manager.snapshotPath
+		const snapshotDir = path.dirname(snapshotPath)
 		fs.mkdirSync(snapshotDir, { recursive: true })
-		// @ts-expect-error - accessing private property for testing
-		fs.writeFileSync(manager.snapshotPath, JSON.stringify(testData, null, 2))
+		fs.writeFileSync(snapshotPath, JSON.stringify(testData, null, 2))
 
 		// Create new manager to load from disk
-		const newManager = new SnapshotManager(testCacheDir)
+		const newManager = new SnapshotManager()
 
 		expect(newManager.has('existing-key')).toBe(true)
 		expect(newManager.get('existing-key')).toEqual({ result: '0x456' })
@@ -72,7 +73,7 @@ describe('SnapshotManager', () => {
 		await manager.save()
 
 		// Verify all saved
-		const newManager = new SnapshotManager(testCacheDir)
+		const newManager = new SnapshotManager()
 
 		expect(newManager.get('key1')).toEqual(data1)
 		expect(newManager.get('key2')).toEqual(data2)
@@ -82,13 +83,13 @@ describe('SnapshotManager', () => {
 	it('should throw on invalid snapshot file', async () => {
 		// Create corrupt file
 		// @ts-expect-error - accessing private property for testing
-		const snapshotDir = manager.snapshotDir
+		const snapshotPath = manager.snapshotPath
+		const snapshotDir = path.dirname(snapshotPath)
 		fs.mkdirSync(snapshotDir, { recursive: true })
-		// @ts-expect-error - accessing private property for testing
-		fs.writeFileSync(manager.snapshotPath, 'invalid json content')
+		fs.writeFileSync(snapshotPath, 'invalid json content')
 
 		// Should throw on invalid snapshot file
-		expect(() => new SnapshotManager(testCacheDir)).toThrow('"invalid json content" is not valid JSON')
+		expect(() => new SnapshotManager()).toThrow('"invalid json content" is not valid JSON')
 	})
 
 	it('should reload snapshots from disk when checking cache', async () => {
@@ -97,7 +98,7 @@ describe('SnapshotManager', () => {
 		await manager.save()
 
 		// Create new manager to simulate different process
-		const newManager = new SnapshotManager(testCacheDir)
+		const newManager = new SnapshotManager()
 
 		expect(newManager.get('reload-test')).toEqual(testData)
 	})

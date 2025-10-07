@@ -10,11 +10,11 @@ import { BLOCK_NUMBER } from './test/constants.js'
 import { assertMethodCached, assertMethodNotCached } from './test/snapshot-utils.js'
 
 describe('createTestSnapshotNode', () => {
-	const testCacheDir = path.join(process.cwd(), '.test-test-snapshot-node')
-
 	afterEach(async () => {
-		if (fs.existsSync(testCacheDir)) {
-			fs.rmSync(testCacheDir, { recursive: true, force: true })
+		// Clean up snapshot directory next to this test
+		const snapshotDir = path.join(__dirname, '__rpc_snapshots__')
+		if (fs.existsSync(snapshotDir)) {
+			fs.rmSync(snapshotDir, { recursive: true, force: true })
 		}
 	})
 
@@ -38,7 +38,6 @@ describe('createTestSnapshotNode', () => {
 			fork: {
 				transport: http('https://mainnet.optimism.io')({}),
 			},
-			test: { cacheDir: testCacheDir },
 		})
 
 		expect(client).toHaveProperty('server')
@@ -55,7 +54,6 @@ describe('createTestSnapshotNode', () => {
 				transport: transports.mainnet,
 			},
 			common: mainnet,
-			test: { cacheDir: testCacheDir },
 		})
 
 		// Initially no rpcUrl
@@ -83,7 +81,6 @@ describe('createTestSnapshotNode', () => {
 				transport: transports.mainnet,
 			},
 			common: mainnet,
-			test: { cacheDir: testCacheDir },
 		})
 
 		// Make a cacheable request
@@ -100,7 +97,7 @@ describe('createTestSnapshotNode', () => {
 		await client.saveSnapshots()
 
 		// Check snapshots were created
-		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDir)
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
 	})
 
 	it('should not cache non-cacheable requests', async () => {
@@ -109,7 +106,6 @@ describe('createTestSnapshotNode', () => {
 				transport: transports.mainnet,
 			},
 			common: mainnet,
-			test: { cacheDir: testCacheDir },
 		})
 
 		// Make a non-cacheable request (blockNumber is not cached)
@@ -122,7 +118,7 @@ describe('createTestSnapshotNode', () => {
 		await client.saveSnapshots()
 
 		// Check no snapshots were created for this
-		assertMethodNotCached('eth_blockNumber', undefined, testCacheDir)
+		assertMethodNotCached('eth_blockNumber')
 	})
 
 	it('should save snapshots on stop', async () => {
@@ -131,7 +127,6 @@ describe('createTestSnapshotNode', () => {
 				transport: transports.mainnet,
 			},
 			common: mainnet,
-			test: { cacheDir: testCacheDir },
 		})
 
 		await ethGetBlockByNumberJsonRpcProcedure(client)({
@@ -143,24 +138,16 @@ describe('createTestSnapshotNode', () => {
 		await client.server.stop()
 
 		// Should still have saved snapshots
-		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDir)
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
 	})
 
 	it('should save snapshots immediately when autosave is onRequest', async () => {
-		const testCacheDirOnRequest = path.join(process.cwd(), '.test-autosave-on-request')
-
-		// Clean up from any previous runs
-		if (fs.existsSync(testCacheDirOnRequest)) {
-			fs.rmSync(testCacheDirOnRequest, { recursive: true, force: true })
-		}
-
 		const client = createTestSnapshotNode({
 			fork: {
 				transport: transports.mainnet,
 			},
 			common: mainnet,
 			test: {
-				cacheDir: testCacheDirOnRequest,
 				autosave: 'onRequest',
 			},
 		})
@@ -175,11 +162,7 @@ describe('createTestSnapshotNode', () => {
 			params: [numberToHex(BigInt(BLOCK_NUMBER) - 1n), false],
 		})
 		// Check snapshots were saved immediately (without calling save() or stop())
-		assertMethodCached(
-			'eth_getBlockByNumber',
-			(params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 1n),
-			testCacheDirOnRequest,
-		)
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 1n))
 
 		// Make another cacheable request - should add to existing snapshots
 		await ethGetBlockByNumberJsonRpcProcedure(client)({
@@ -188,35 +171,18 @@ describe('createTestSnapshotNode', () => {
 			id: 1,
 			params: [numberToHex(BigInt(BLOCK_NUMBER) - 2n), false],
 		})
-		assertMethodCached(
-			'eth_getBlockByNumber',
-			(params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 2n),
-			testCacheDirOnRequest,
-		)
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 2n))
 
 		await client.server.stop()
-
-		// Clean up
-		if (fs.existsSync(testCacheDirOnRequest)) {
-			fs.rmSync(testCacheDirOnRequest, { recursive: true, force: true })
-		}
 	})
 
 	it('should not save snapshots immediately when autosave is onStop (default)', async () => {
-		const testCacheDirOnStop = path.join(process.cwd(), '.test-autosave-on-stop')
-
-		// Clean up from any previous runs
-		if (fs.existsSync(testCacheDirOnStop)) {
-			fs.rmSync(testCacheDirOnStop, { recursive: true, force: true })
-		}
-
 		const client = createTestSnapshotNode({
 			fork: {
 				transport: transports.mainnet,
 			},
 			common: mainnet,
 			test: {
-				cacheDir: testCacheDirOnStop,
 				autosave: 'onStop', // explicit, but this is the default
 			},
 		})
@@ -232,16 +198,11 @@ describe('createTestSnapshotNode', () => {
 		})
 
 		// Check snapshots were NOT saved immediately
-		assertMethodNotCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDirOnStop)
+		assertMethodNotCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
 
 		await client.server.stop()
 
 		// Check snapshots were saved on stop
-		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER, testCacheDirOnStop)
-
-		// Clean up
-		if (fs.existsSync(testCacheDirOnStop)) {
-			fs.rmSync(testCacheDirOnStop, { recursive: true, force: true })
-		}
+		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
 	})
 })
