@@ -72,8 +72,8 @@
 		"package:up": "pnpm up --latest",
 		"test": "vitest --watch",
 		"test:cleanup": "rm -rf __snapshots__",
-		"test:coverage": "vitest --coverage --run",
-		"test:run": "vitest run",
+		"test:coverage": "vitest --coverage --run && bun test src/internal/resolve*TestSnapshotPath.spec.ts",
+		"test:run": "vitest run && bun test src/internal/resolve*TestSnapshotPath.spec.ts",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {

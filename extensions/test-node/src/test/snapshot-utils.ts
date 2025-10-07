@@ -1,20 +1,15 @@
 import fs from 'node:fs'
 import type { EIP1193Parameters, EIP1193RequestFn, EIP1474Methods } from 'viem'
 import { assert } from 'vitest'
-import { resolveVitestTestFilePath } from '../internal/resolveVitestTestFilePath.js'
+import { resolveVitestTestSnapshotPath } from '../internal/resolveVitestTestSnapshotPath.js'
 
 /**
  * Get snapshot entries from the JSON snapshot format
  */
 export const getSnapshotEntries = (): Record<string, any> => {
-	const { snapshotPath } = resolveVitestTestFilePath()
-
-	if (!fs.existsSync(snapshotPath)) {
-		return {}
-	}
-
-	const content = fs.readFileSync(snapshotPath, 'utf-8')
-	return JSON.parse(content)
+	const snapshotPath = resolveVitestTestSnapshotPath()
+	if (!fs.existsSync(snapshotPath)) return {}
+	return JSON.parse(fs.readFileSync(snapshotPath, 'utf-8'))
 }
 
 /**

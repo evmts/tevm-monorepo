@@ -1,12 +1,13 @@
 import fs from 'node:fs'
 import fsPromises from 'node:fs/promises'
 import path from 'node:path'
-import { resolveVitestTestFilePath } from '../internal/resolveVitestTestFilePath.js'
+import { resolveBunTestSnapshotPath } from '../internal/resolveBunTestSnapshotPath.js'
+import { resolveVitestTestSnapshotPath } from '../internal/resolveVitestTestSnapshotPath.js'
 import type { TestOptions } from '../types.js'
 
 /**
  * Manages reading and writing of snapshot files for test caching
- * Places snapshots in __rpc_snapshots__/ subdirectory next to test files using vitest's test context
+ * Places snapshots in __rpc_snapshots__/ subdirectory next to test files using vitest or Bun test context
  */
 export class SnapshotManager {
 	private snapshots: Map<string, any> = new Map()
@@ -19,20 +20,28 @@ export class SnapshotManager {
 
 	/**
 	 * Resolve the snapshot file path
-	 * Snapshots are placed in __rpc_snapshots__/ subdirectory next to test files (vitest mode)
+	 * Snapshots are placed in __rpc_snapshots__/ subdirectory next to test files (vitest/bun mode)
 	 * or at custom location (function mode)
 	 */
 	private resolveSnapshotPath(resolver?: TestOptions['resolveSnapshotPath']): string {
-		if (resolver === undefined || resolver === 'vitest') {
-			const { snapshotPath } = resolveVitestTestFilePath()
-			return snapshotPath
-		}
-
-		if (typeof resolver === 'function') {
+		if (resolver === 'vitest') {
+			return resolveVitestTestSnapshotPath()
+		} else if (resolver === 'bun') {
+			return resolveBunTestSnapshotPath()
+		} else if (typeof resolver === 'function') {
 			return resolver()
 		}
 
-		throw new Error(`Invalid resolveSnapshotPath: ${typeof resolver}`)
+		// Try to detect test runner when no resolver is provided
+		try {
+			return resolveVitestTestSnapshotPath()
+		} catch {}
+		try {
+			return resolveBunTestSnapshotPath()
+		} catch {}
+		throw new Error(
+			'Unable to resolve test file path. @tevm/test-node requires running within a vitest or bun test context, or provide a custom resolveSnapshotPath function.',
+		)
 	}
 
 	/**

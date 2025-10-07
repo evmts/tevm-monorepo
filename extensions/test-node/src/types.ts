@@ -10,15 +10,15 @@ export type TestOptions = {
 	/**
 	 * Controls how snapshot file paths are resolved.
 	 *
-	 * - 'vitest' (default): Automatically resolve using vitest's test context,
+	 * - 'vitest' (default): Automatically resolve using test runner's context (vitest or Bun),
 	 *   snapshots saved in __rpc_snapshots__ subdirectory next to test file
 	 * - Function: Custom resolver that returns the full absolute path to the snapshot file.
-	 *   Use this when not running in vitest context or need custom snapshot locations.
+	 *   Use this when not running in a supported test context or need custom snapshot locations.
 	 *
 	 * @default 'vitest'
 	 * @example
 	 * ```typescript
-	 * // Snapshots in __rpc_snapshots__/ subdirectory (default behavior, requires vitest)
+	 * // Snapshots in __rpc_snapshots__/ subdirectory (default, auto-detects vitest or Bun)
 	 * test: { resolveSnapshotPath: 'vitest' }
 	 *
 	 * // Or simply omit it (same as above)
@@ -30,7 +30,7 @@ export type TestOptions = {
 	 * }
 	 * ```
 	 */
-	resolveSnapshotPath?: 'vitest' | (() => string)
+	resolveSnapshotPath?: 'vitest' | 'bun' | (() => string)
 	/**
 	 * Controls when snapshots are automatically saved to disk.
 	 *
