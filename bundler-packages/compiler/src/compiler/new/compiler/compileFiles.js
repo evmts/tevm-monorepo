@@ -93,7 +93,7 @@ export const compileFiles = async (filePaths, options) => {
 		const soliditySources = Object.fromEntries(
 			Object.entries(sources).map(([filePath, ast]) => [
 				filePath,
-				extractContractsFromAst(/** @type {import('./AstInput.js').AstInput} */ (ast), validatedOptions),
+				extractContractsFromAst(/** @type {import('./AstInput.js').AstInput} */ (ast), validatedOptions).source,
 			]),
 		)
 

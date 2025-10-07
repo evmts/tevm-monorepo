@@ -3,7 +3,7 @@ import { compileSourceInternal } from './compileSource.js'
 import { extractContractsFromAst } from './extractContractsFromAst.js'
 import { compileContracts } from './internal/compileContracts.js'
 import { defaults } from './internal/defaults.js'
-import { CompilerOutputError } from './internal/errors.js'
+import { AstParseError, CompilerOutputError } from './internal/errors.js'
 import { getSolc } from './internal/getSolc.js'
 import { instrumentAst } from './internal/instrumentAst.js'
 import { validateBaseOptions } from './internal/validateBaseOptions.js'
@@ -82,29 +82,31 @@ export const compileSourceWithShadow = async (source, shadow, options) => {
 
 	const soliditySourceCode =
 		validatedOptions.language === 'SolidityAST'
-			? extractContractsFromAst(astSource, validatedOptions)
+			? extractContractsFromAst(astSource, validatedOptions).source
 			: /** @type {string} */ (source)
 
-	// Get the precise location of the last child in the source contract
-	const lastChildNodeInfo = astSourceNode.vContracts.find(
+	// Get the target contract's last child node to know where to inject the shadow code
+	const lastChildNode = astSourceNode.vContracts.find(
 		(contract) => contract.name === validatedShadowOptions.injectIntoContractName,
-	)?.lastChild?.sourceInfo
-	if (!lastChildNodeInfo) {
-		const err = new CompilerOutputError('Source contract does not contain any children', {
-			meta: { code: 'missing_source_output' },
+	)?.lastChild
+
+	if (!lastChildNode) {
+		const err = new AstParseError('Source contract does not contain any children', {
+			meta: { code: 'invalid_source_ast' },
 		})
 		logger.error(err.message)
 		throw err
 	}
-	const lastChildNodeEnd = lastChildNodeInfo.offset + lastChildNodeInfo.length
 
 	if (validatedShadowOptions.shadowMergeStrategy === 'safe') {
+		// Here the contract is unmodified so we can inject into the original source locations
+		const lastChildNodeEnd = lastChildNode.sourceInfo.offset + lastChildNode.sourceInfo.length
 		const shadowedSoliditySource = `${soliditySourceCode.slice(0, lastChildNodeEnd)}\n\n${shadow}\n\n${soliditySourceCode.slice(lastChildNodeEnd)}`
 		return compileSourceInternal(solc, shadowedSoliditySource, validatedOptions, logger)
 	}
 
 	// shadowMergeStrategy = 'replace'
-	// Instrument the source AST to make internal stuff public, mark functions as virtual, etc, so we can correctly inject shadow code
+	// Instrument the source AST to make functions overrideable by shadow methods
 	const instrumentedSourceAst = instrumentAst(
 		astSourceNode,
 		{
@@ -113,8 +115,24 @@ export const compileSourceWithShadow = async (source, shadow, options) => {
 		},
 		logger,
 	)
-	const instrumentedSoliditySource = extractContractsFromAst(instrumentedSourceAst, validatedOptions)
-	// TODO: we absolutely can't do that, we need to map original code <-> instrumented code locations like scribble does
+
+	const { source: instrumentedSoliditySource, sourceMap: instrumentedMap } = extractContractsFromAst(
+		instrumentedSourceAst,
+		{ ...validatedOptions, withSourceMap: true },
+	)
+
+	// Look up the lastChild node in the instrumented map to get its new location
+	const instrumentedLocation = instrumentedMap.get(lastChildNode)
+	if (!instrumentedLocation) {
+		const err = new AstParseError('Failed to locate injection point in instrumented code', {
+			meta: { code: 'invalid_instrumented_ast' },
+		})
+		logger.error(err.message)
+		throw err
+	}
+
+	// Now we can safely inject shadow code at the correct location
+	const lastChildNodeEnd = instrumentedLocation[0] + instrumentedLocation[1]
 	const shadowedSoliditySource = `${instrumentedSoliditySource.slice(0, lastChildNodeEnd)}\n\n${shadow}\n\n${instrumentedSoliditySource.slice(lastChildNodeEnd)}`
 	return compileSourceInternal(solc, shadowedSoliditySource, validatedOptions, logger)
 
