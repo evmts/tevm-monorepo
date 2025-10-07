@@ -274,7 +274,7 @@ export class CompilerOutputError extends Error {
  * @property {string[]} [metaMessages] - Additional meta messages.
  * @property {Error|unknown} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
- * @property {{ code: 'parse_failed' | 'empty_ast' | 'invalid_ast_source', sources?: string }} [meta] - Error metadata with specific code.
+ * @property {{ code: 'parse_failed' | 'empty_ast' | 'invalid_source_ast' | 'invalid_instrumented_ast', sources?: string }} [meta] - Error metadata with specific code.
  */
 
 /**
@@ -284,6 +284,7 @@ export class CompilerOutputError extends Error {
  * - `parse_failed`: ASTReader failed to parse AST into SourceUnits
  * - `empty_ast`: ASTReader parsed an AST with no sources
  * - `invalid_ast_source`: AST source is not a valid SourceUnit
+ * - `invalid_instrumented_ast`: Instrumented AST is not a valid SourceUnit
  *
  * This can happen when:
  * - AST structure is malformed or corrupted
