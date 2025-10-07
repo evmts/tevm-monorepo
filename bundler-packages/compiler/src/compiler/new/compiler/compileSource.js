@@ -38,9 +38,9 @@ export const compileSource = async (source, options) => {
  * @param {string} soliditySourceCode
  * @param {import('./internal/ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions<TLanguage, TCompilationOutput>} validatedOptions
  * @param {import('@tevm/logger').Logger} logger
- * @returns {Promise<import('./CompileSourceResult.js').CompileSourceResult<TCompilationOutput>>}
+ * @returns {import('./CompileSourceResult.js').CompileSourceResult<TCompilationOutput>}
  */
-export const compileSourceInternal = async (solc, soliditySourceCode, validatedOptions, logger) => {
+export const compileSourceInternal = (solc, soliditySourceCode, validatedOptions, logger) => {
 	// We compile contracts with an anonymous source file path that will be stripped out from the result
 	const { compilationResult, ...output } = compileContracts(
 		{ [defaults.injectIntoContractPath]: soliditySourceCode },

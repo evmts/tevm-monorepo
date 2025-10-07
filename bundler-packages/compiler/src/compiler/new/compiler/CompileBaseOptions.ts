@@ -86,8 +86,6 @@ export interface CompileBaseOptions<
 	/**
 	 * Solc version
 	 *
-	 * Note: this can be used to set a compiler-level version and overriden on a per-compilation basis
-	 *
 	 * If not provided, it will extract all the pragmas and use the most recent compatible version using solc-typed-ast
 	 * @see {@link Releases}
 	 */

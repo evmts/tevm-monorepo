@@ -18,11 +18,11 @@ import { validateSolcVersion } from './validateSolcVersion.js'
  * @template {import('@tevm/solc').SolcLanguage} TLanguage
  * @template {import('../CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
  * @param {Source<TLanguage>} source - The source code to validate
- * @param {import('../CompileBaseOptions.js').CompileBaseOptions<TLanguage>} options - The compilation options
+ * @param {import('../CompileBaseOptions.js').CompileBaseOptions<TLanguage> | undefined} options - The compilation options
  * @param {import('@tevm/logger').Logger} logger - The logger
  * @returns {import('./ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions<TLanguage, TCompilationOutput>} The validated source code
  */
-export const validateBaseOptions = (source, options, logger) => {
+export const validateBaseOptions = (source, options = {}, logger) => {
 	// Set required settings in case they are left undefined (language, output and latest stable hardfork)
 	const language = /** @type {TLanguage} */ (options.language ?? defaults.language)
 	if (!options.language) {

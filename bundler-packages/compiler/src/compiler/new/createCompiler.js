@@ -1,8 +1,17 @@
-import { compileFiles } from './compiler/compileFiles.js'
-import { compileSource } from './compiler/compileSource.js'
-import { compileSourceWithShadow } from './compiler/compileSourceWithShadow.js'
+import { createLogger } from '@tevm/logger'
+import { compileFilesInternal } from './compiler/compileFiles.js'
+import { compileFilesWithShadowInternal } from './compiler/compileFilesWithShadow.js'
+import { compileSourceInternal } from './compiler/compileSource.js'
+import { compileSourceWithShadowInternal } from './compiler/compileSourceWithShadow.js'
 import { extractContractsFromAst } from './compiler/extractContractsFromAst.js'
 import { extractContractsFromSolcOutput } from './compiler/extractContractsFromSolcOutput.js'
+import { defaults } from './compiler/internal/defaults.js'
+import { SolcError } from './compiler/internal/errors.js'
+import { getSolc } from './compiler/internal/getSolc.js'
+import { mergeOptions } from './compiler/internal/mergeOptions.js'
+import { readSourceFiles } from './compiler/internal/readSourceFiles.js'
+import { readSourceFilesSync } from './compiler/internal/readSourceFilesSync.js'
+import { validateBaseOptions } from './compiler/internal/validateBaseOptions.js'
 
 /**
  * Creates a stateful compiler instance with pre-configured defaults.
@@ -38,6 +47,23 @@ import { extractContractsFromSolcOutput } from './compiler/extractContractsFromS
  * })
  */
 export const createCompiler = (options) => {
+	const logger = createLogger({ name: '@tevm/compiler', level: options?.loggingLevel ?? defaults.loggingLevel })
+	/** @type {import('@tevm/solc').Solc | undefined} */
+	let _solcInstance
+
+	/**
+	 * @returns {import('@tevm/solc').Solc}
+	 */
+	const requireSolcLoaded = () => {
+		if (_solcInstance) return _solcInstance
+
+		const err = new SolcError('No version of solc loaded, call loadSolc before any compilation', {
+			meta: { code: 'not_loaded' },
+		})
+		logger.error(err.message)
+		throw err
+	}
+
 	/**
 	 * Compiles Solidity source code or a parsed AST into contracts.
 	 *
@@ -54,12 +80,19 @@ export const createCompiler = (options) => {
 	 * @template {import('@tevm/solc').SolcLanguage} TLanguage
 	 * @template {import('./compiler/CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
 	 * @param {TLanguage extends 'SolidityAST' ? import('./compiler/AstInput.js').AstInput : string} source - Source code string or AST object
-	 * @param {import('./compiler/CompileBaseOptions.js').CompileBaseOptions<TLanguage, TCompilationOutput>} compileOptions - Options for this compilation (merged with factory defaults)
-	 * @returns {Promise<import('./compiler/CompileSourceResult.js').CompileSourceResult<TCompilationOutput>>}
+	 * @param {Omit<import('./compiler/CompileBaseOptions.js').CompileBaseOptions<TLanguage, TCompilationOutput>, 'solcVersion'>} compileOptions - Options for this compilation (merged with factory defaults)
+	 * @returns {import('./compiler/CompileSourceResult.js').CompileSourceResult<TCompilationOutput>}
 	 */
-	const compileSourceFn = async (source, compileOptions) => {
-		// TODO: merge options with factory defaults
-		// TODO: call compileSource
+	const compileSourceFn = (source, compileOptions) => {
+		const solc = requireSolcLoaded()
+		const validatedOptions = validateBaseOptions(source, mergeOptions(options, compileOptions), logger)
+		// TODO: we can just compile the ast directly
+		const soliditySourceCode =
+			validatedOptions.language === 'SolidityAST'
+				? extractContractsFromAst(/** @type {import('./compiler/AstInput.js').AstInput} */ (source), validatedOptions)
+						.source
+				: /** @type {string} */ (source)
+		return compileSourceInternal(solc, soliditySourceCode, validatedOptions, logger)
 	}
 
 	/**
@@ -84,12 +117,26 @@ export const createCompiler = (options) => {
 	 * @template {import('./compiler/CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
 	 * @param {TLanguage extends 'SolidityAST' ? import('./compiler/AstInput.js').AstInput : string} source - Source code or AST to augment
 	 * @param {string} shadow - Shadow code to inject (Solidity or Yul)
-	 * @param {import('./compiler/CompileBaseOptions.js').CompileBaseOptions<TLanguage, TCompilationOutput> & import('./compiler/CompileSourceWithShadowOptions.js').CompileSourceWithShadowOptions<TLanguage>} compileOptions - Compilation and injection options
-	 * @returns {Promise<import('./compiler/CompileSourceResult.js').CompileSourceResult<TCompilationOutput>>}
+	 * @param {Omit<import('./compiler/CompileBaseOptions.js').CompileBaseOptions<TLanguage, TCompilationOutput>, 'language' | 'solcVersion'> & import('./compiler/CompileSourceWithShadowOptions.js').CompileSourceWithShadowOptions<TLanguage>} [compileOptions]
+	 * @returns {import('./compiler/CompileSourceResult.js').CompileSourceResult<TCompilationOutput>}
 	 */
-	const compileSourceWithShadowFn = async (source, shadow, compileOptions) => {
-		// TODO: merge options with factory defaults
-		// TODO: call compileSourceWithShadow
+	const compileSourceWithShadowFn = (source, shadow, compileOptions) => {
+		const solc = requireSolcLoaded()
+		const { sourceLanguage, shadowLanguage, injectIntoContractPath, injectIntoContractName, ...baseOptions } =
+			compileOptions ?? {}
+		const validatedOptions = validateBaseOptions(
+			source,
+			{ ...mergeOptions(options, baseOptions), language: sourceLanguage },
+			logger,
+		)
+		return compileSourceWithShadowInternal(
+			solc,
+			source,
+			shadow,
+			validatedOptions,
+			{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
+			logger,
+		)
 	}
 
 	/**
@@ -111,12 +158,113 @@ export const createCompiler = (options) => {
 	 * @template {import('./compiler/CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
 	 * @template {string[]} TSourcePaths
 	 * @param {TSourcePaths} files - Array of file paths to compile
-	 * @param {import('./compiler/CompileBaseOptions.js').CompileBaseOptions<TLanguage, TCompilationOutput>} compileOptions - Compilation options
+	 * @param {Omit<import('./compiler/CompileBaseOptions.js').CompileBaseOptions<TLanguage, TCompilationOutput>, 'solcVersion'>} compileOptions - Compilation options
 	 * @returns {Promise<import('./compiler/CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TSourcePaths>>}
 	 */
 	const compileFilesFn = async (files, compileOptions) => {
-		// TODO: merge options with factory defaults
-		// TODO: call compileFiles
+		const solc = requireSolcLoaded()
+		const mergedOptions = mergeOptions(options, compileOptions)
+		const sources = await readSourceFiles(files, mergedOptions?.language, logger)
+		const validatedOptions = validateBaseOptions(Object.values(sources), mergedOptions, logger)
+		return compileFilesInternal(solc, sources, validatedOptions, logger)
+	}
+
+	/**
+	 * Compiles multiple source files from the filesystem (sync).
+	 *
+	 * All files in a single compilation must use the same language/extension:
+	 * - .sol files (Solidity)
+	 * - .yul files (Yul)
+	 * - .json files (SolidityAST)
+	 *
+	 * Returns a map keyed by original file paths, allowing you to correlate
+	 * compilation results back to source files.
+	 *
+	 * Testing options:
+	 * - `exposeInternalFunctions`: Changes visibility of internal/private functions to public
+	 * - `exposeInternalVariables`: Changes visibility of internal/private state variables to public
+	 *
+	 * @template {import('@tevm/solc').SolcLanguage} TLanguage
+	 * @template {import('./compiler/CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
+	 * @template {string[]} TSourcePaths
+	 * @param {TSourcePaths} files - Array of file paths to compile
+	 * @param {Omit<import('./compiler/CompileBaseOptions.js').CompileBaseOptions<TLanguage, TCompilationOutput>, 'solcVersion'>} compileOptions - Compilation options
+	 * @returns {import('./compiler/CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TSourcePaths>}
+	 */
+	const compileFilesSyncFn = (files, compileOptions) => {
+		const solc = requireSolcLoaded()
+		const mergedOptions = mergeOptions(options, compileOptions)
+		const sources = readSourceFilesSync(files, mergedOptions?.language, logger)
+		const validatedOptions = validateBaseOptions(Object.values(sources), mergedOptions, logger)
+		return compileFilesInternal(solc, sources, validatedOptions, logger)
+	}
+
+	/**
+	 * Compiles multiple source files from the filesystem with shadow code injection.
+	 *
+	 * Similar to compileFilesWithShadow but with shadow code injection into a target contract.
+	 * You MUST specify injectIntoContractPath to identify which file contains the target contract.
+	 *
+	 * @template {import('@tevm/solc').SolcLanguage} TLanguage
+	 * @template {import('./compiler/CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
+	 * @template {string[]} TFilePaths
+	 * @param {TFilePaths} filePaths - Array of file paths to compile
+	 * @param {string} shadow - Shadow code to inject
+	 * @param {Omit<import('./compiler/CompileBaseOptions.js').CompileBaseOptions<TLanguage, TCompilationOutput>, 'solcVersion'> & import('./compiler/CompileSourceWithShadowOptions.js').CompileSourceWithShadowOptions<TLanguage>} compileOptions - Compilation and injection options
+	 * @returns {Promise<import('./compiler/CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>>}
+	 */
+	const compileFilesWithShadowFn = async (filePaths, shadow, compileOptions) => {
+		const solc = requireSolcLoaded()
+		const { sourceLanguage, shadowLanguage, injectIntoContractPath, injectIntoContractName, ...baseOptions } =
+			compileOptions ?? {}
+		const sources = await readSourceFiles(filePaths, sourceLanguage, logger)
+		const validatedOptions = validateBaseOptions(
+			/** @type {import('./compiler/internal/validateBaseOptions.js').Source<TLanguage>} */ (Object.values(sources)),
+			{ ...mergeOptions(options, baseOptions), language: sourceLanguage },
+			logger,
+		)
+		return compileFilesWithShadowInternal(
+			solc,
+			sources,
+			shadow,
+			validatedOptions,
+			{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
+			logger,
+		)
+	}
+
+	/**
+	 * Compiles multiple source files from the filesystem with shadow code injection (sync).
+	 *
+	 * Similar to compileFilesWithShadow but with shadow code injection into a target contract.
+	 * You MUST specify injectIntoContractPath to identify which file contains the target contract.
+	 *
+	 * @template {import('@tevm/solc').SolcLanguage} TLanguage
+	 * @template {import('./compiler/CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
+	 * @template {string[]} TFilePaths
+	 * @param {TFilePaths} filePaths - Array of file paths to compile
+	 * @param {string} shadow - Shadow code to inject
+	 * @param {Omit<import('./compiler/CompileBaseOptions.js').CompileBaseOptions<TLanguage, TCompilationOutput>, 'solcVersion'> & import('./compiler/CompileSourceWithShadowOptions.js').CompileSourceWithShadowOptions<TLanguage>} compileOptions - Compilation and injection options
+	 * @returns {import('./compiler/CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>}
+	 */
+	const compileFilesWithShadowSyncFn = (filePaths, shadow, compileOptions) => {
+		const solc = requireSolcLoaded()
+		const { sourceLanguage, shadowLanguage, injectIntoContractPath, injectIntoContractName, ...baseOptions } =
+			compileOptions ?? {}
+		const sources = readSourceFilesSync(filePaths, sourceLanguage, logger)
+		const validatedOptions = validateBaseOptions(
+			/** @type {import('./compiler/internal/validateBaseOptions.js').Source<TLanguage>} */ (Object.values(sources)),
+			{ ...mergeOptions(options, baseOptions), language: sourceLanguage },
+			logger,
+		)
+		return compileFilesWithShadowInternal(
+			solc,
+			sources,
+			shadow,
+			validatedOptions,
+			{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
+			logger,
+		)
 	}
 
 	/**
@@ -150,8 +298,7 @@ export const createCompiler = (options) => {
 	 * const instrumentedResult = await compiler.compileSource(sourceUnits[0], { language: 'SolidityAST', compilationOutput: ['evm.bytecode'] })
 	 */
 	const extractContractsFromSolcOutputFn = (solcOutput, compileOptions) => {
-		// TODO: merge options with factory defaults
-		// TODO: call extractContractsFromSolcOutput
+		return extractContractsFromSolcOutput(solcOutput, mergeOptions(options, compileOptions))
 	}
 
 	/**
@@ -167,8 +314,16 @@ export const createCompiler = (options) => {
 	 * @returns {string} Regenerated Solidity source code
 	 */
 	const extractContractsFromAstFn = (ast, compileOptions) => {
-		// TODO: merge options with factory defaults
-		// TODO: call extractContractsFromAst
+		const validatedOptions = validateBaseOptions(
+			ast,
+			{
+				...mergeOptions(options, compileOptions),
+				language: 'SolidityAST',
+			},
+			logger,
+		)
+		const { source } = extractContractsFromAst(ast, { ...validatedOptions, withSourceMap: false })
+		return source
 	}
 
 	/**
@@ -181,62 +336,48 @@ export const createCompiler = (options) => {
 	 *
 	 * Requires API keys for block explorers to be configured in options.
 	 *
-	 * @param {import('@tevm/utils').Address} address - On-chain contract address
-	 * @param {import('./whatsabi/WhatsabiBaseOptions.js').WhatsabiBaseOptions} whatsabiOptions - Chain config and API keys
-	 * @returns {Promise<import('./whatsabi/FetchVerifiedContractResult.js').FetchVerifiedContractResult>}
+	 * @param {import('@tevm/utils').Address} _address - On-chain contract address
+	 * @param {import('./whatsabi/WhatsabiBaseOptions.js').WhatsabiBaseOptions} _whatsabiOptions - Chain config and API keys
+	 * @returns {Promise<void>}
 	 */
-	const fetchVerifiedContractFn = async (address, whatsabiOptions) => {
-		// TODO: merge options with factory defaults
+	const fetchVerifiedContractFn = async (_address, _whatsabiOptions) => {
 		// TODO: implement whatsabi integration
 	}
 
 	/**
-	 * Pre-loads a specific solc compiler version into the cache.
+	 * Loads a specific solc compiler version into the cache (or latest if no version is provided).
 	 *
-	 * Solc binaries are downloaded on-demand by default, which can cause delays
-	 * during the first compilation. Use this to:
-	 * - Warm up the cache at application startup
-	 * - Download multiple versions in parallel
-	 * - Fail fast if a version is unavailable
+	 * Solc binaries are only downloaded when using this function, which should be done
+	 * before any compilation. Only `extractContractsFromSolcOutput` and `extractContractsFromAst`
+	 * can be used without solc.
 	 *
-	 * The downloaded compiler is cached for all subsequent compilations.
-	 *
-	 * @param {keyof import('@tevm/solc').Releases | keyof import('@tevm/solc').Releases[]} version - Solc version to load (e.g., '0.8.17')
-	 * @returns {Promise<import('./CreateCompilerResult.js').CreateCompilerResult>} This compiler instance for chaining
+	 * @param {keyof import('@tevm/solc').Releases} [version] - Solc version to load (e.g., '0.8.17')
+	 * @returns {Promise<void>}
 	 */
-	const loadSolcVersionFn = async (version) => {
-		// TODO: implement solc version loading
-		return compiler
+	const loadSolcFn = async (version) => {
+		_solcInstance = await getSolc(version ?? defaults.solcVersion, logger)
 	}
 
 	/**
-	 * Clears the downloaded solc compiler cache.
+	 * Clears the compiled contracts cache.
 	 *
-	 * Removes all cached solc binaries from disk. Use when:
-	 * - Updating to newer compiler versions
-	 * - Freeing disk space
-	 * - Troubleshooting corrupted downloads
-	 * - Running tests that need clean state
-	 *
-	 * Compilers will be re-downloaded on next use.
-	 *
-	 * @returns {Promise<import('./CreateCompilerResult.js').CreateCompilerResult>} This compiler instance for chaining
+	 * @returns {Promise<void>}
 	 */
 	const clearCacheFn = async () => {
 		// TODO: implement cache clearing
-		return compiler
 	}
 
-	const compiler = {
+	return {
 		compileSource: compileSourceFn,
 		compileSourceWithShadow: compileSourceWithShadowFn,
 		compileFiles: compileFilesFn,
+		compileFilesSync: compileFilesSyncFn,
+		compileFilesWithShadow: compileFilesWithShadowFn,
+		compileFilesWithShadowSync: compileFilesWithShadowSyncFn,
 		extractContractsFromSolcOutput: extractContractsFromSolcOutputFn,
 		extractContractsFromAst: extractContractsFromAstFn,
 		fetchVerifiedContract: fetchVerifiedContractFn,
-		loadSolcVersion: loadSolcVersionFn,
+		loadSolc: loadSolcFn,
 		clearCache: clearCacheFn,
 	}
-
-	return compiler
 }

@@ -32,11 +32,12 @@ import { validateShadowOptions } from './internal/validateShadowOptions.js'
  * - if using an AST source that might result in multiple contracts in the target file, provide the target contract's name
  * - if using a Solidity/Yul source that includes multiple contracts, provide the contract's name (there is no file path here)
  * - if using a Solidity/Yul source that includes a single contract: you can safely omit the path and name (or provide the name for validation)
- * @template TSourceLanguage extends import('@tevm/solc').SolcLanguage
+ * @template {import('@tevm/solc').SolcLanguage} TSourceLanguage
+ * @template {import('./CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
  * @param {TSourceLanguage extends 'SolidityAST' ? import('./AstInput.js').AstInput : string} source - The main source code or AST to compile
  * @param {string} shadow - The shadow code to merge into the source
- * @param {Omit<import('./CompileBaseOptions.js').CompileBaseOptions, 'language'> & import('./CompileSourceWithShadowOptions.js').CompileSourceWithShadowOptions} [options]
- * @returns {Promise<import('./CompileSourceResult.js').CompileSourceResult>}
+ * @param {Omit<import('./CompileBaseOptions.js').CompileBaseOptions<TSourceLanguage, TCompilationOutput>, 'language'> & import('./CompileSourceWithShadowOptions.js').CompileSourceWithShadowOptions<TSourceLanguage>} [options]
+ * @returns {Promise<import('./CompileSourceResult.js').CompileSourceResult<TCompilationOutput>>}
  * @example
  * const result = await compileSourceWithShadow(
  *   'contract Main { uint256 private value; }', // main source with a private variable
@@ -52,9 +53,9 @@ export const compileSourceWithShadow = async (source, shadow, options) => {
 	const solc = await getSolc(validatedOptions.solcVersion, logger)
 
 	return compileSourceWithShadowInternal(
+		solc,
 		source,
 		shadow,
-		solc,
 		validatedOptions,
 		{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
 		logger,
@@ -69,22 +70,15 @@ export const compileSourceWithShadow = async (source, shadow, options) => {
  *
  * @template {import('@tevm/solc').SolcLanguage} TLanguage
  * @template {import('./CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
+ * @param {import('@tevm/solc').Solc} solc - Solc instance
  * @param {TLanguage extends 'SolidityAST' ? import('./AstInput.js').AstInput : string} source - The source code or AST
  * @param {string} shadow - The shadow code to inject
- * @param {import('@tevm/solc').Solc} solc - Solc instance
  * @param {import('./internal/ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions<TLanguage, TCompilationOutput>} validatedOptions - Validated compilation options
  * @param {Pick<import('./CompileSourceWithShadowOptions.js').CompileSourceWithShadowOptions, 'shadowLanguage' | 'injectIntoContractPath' | 'injectIntoContractName'>} shadowOptions - Shadow-specific options
  * @param {import('@tevm/logger').Logger} logger - Logger instance
- * @returns {Promise<import('./CompileSourceResult.js').CompileSourceResult<TCompilationOutput>>}
+ * @returns {import('./CompileSourceResult.js').CompileSourceResult<TCompilationOutput>}
  */
-export const compileSourceWithShadowInternal = async (
-	source,
-	shadow,
-	solc,
-	validatedOptions,
-	shadowOptions,
-	logger,
-) => {
+export const compileSourceWithShadowInternal = (solc, source, shadow, validatedOptions, shadowOptions, logger) => {
 	let astSource =
 		validatedOptions.language === 'SolidityAST' ? /** @type {import('./AstInput.js').AstInput} */ (source) : undefined
 	// If the source is a string (single file containing one or multiple contracts) we need to compile it

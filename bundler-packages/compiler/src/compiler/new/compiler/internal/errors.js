@@ -64,7 +64,7 @@ export class VersionResolutionError extends Error {
  * @property {string[]} [metaMessages] - Additional meta messages.
  * @property {Error|unknown} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
- * @property {{ code: 'instantiation_failed', version?: string }} [meta] - Error metadata with specific code.
+ * @property {{ code: 'instantiation_failed' | 'not_loaded', version?: string }} [meta] - Error metadata with specific code.
  */
 
 /**
@@ -72,6 +72,7 @@ export class VersionResolutionError extends Error {
  *
  * Error codes:
  * - `instantiation_failed`: Failed to create solc instance for the requested version
+ * - `not_loaded`: Solc instance not loaded yet
  *
  * Common causes:
  * - Network issues preventing download of solc binary
