@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/test-node",
-	"version": "1.0.0-next.149",
+	"version": "1.0.0-next.150",
 	"private": false,
 	"description": "Vite test utils for snapshotting JSON-RPC requests using a Tevm server.",
 	"keywords": [
