@@ -23,7 +23,7 @@ export const compileSource = async (source, options) => {
 	// TODO: we can just compile the ast directly
 	const soliditySourceCode =
 		validatedOptions.language === 'SolidityAST'
-			? extractContractsFromAst(/** @type {import('./AstInput.js').AstInput} */ (source), validatedOptions)
+			? extractContractsFromAst(/** @type {import('./AstInput.js').AstInput} */ (source), validatedOptions).source
 			: /** @type {string} */ (source)
 
 	return compileSourceInternal(solc, soliditySourceCode, validatedOptions, logger)

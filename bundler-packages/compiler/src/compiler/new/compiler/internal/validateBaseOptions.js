@@ -46,7 +46,7 @@ export const validateBaseOptions = (source, options, logger) => {
 				('name' in source && source.name === 'SourceUnit'))
 		if (!isValidAstSource) {
 			const err = new AstParseError(`Invalid AST source, expected a SourceUnit`, {
-				meta: { code: 'invalid_ast_source' },
+				meta: { code: 'invalid_source_ast' },
 			})
 			logger.error(err.message)
 			throw err
