@@ -9,16 +9,19 @@ import { instrumentAst } from './internal/instrumentAst.js'
 import { validateBaseOptions } from './internal/validateBaseOptions.js'
 import { validateShadowOptions } from './internal/validateShadowOptions.js'
 
-// TODO: we need a parallel compileFilesWithShadow just like compileSource/compileFiles
 /**
  * Compile a source with injected shadow code
  *
  * This function allows merging shadow contract code into the main source before compilation.
  *
- * TODO: explain roughly the steps here
- *
- * TODO: this is 3 compilations which is too much (1. compile source to instrument it 2. compile source AND shadow together to be able to inject shadow ast into source ast 3. compile the new shadowed contract to return)
- * Easy way to avoid one compilation is to directly return after step 2, shadowed contract would be actually the shadow contract that inherits from the target contract
+ * Steps:
+ * 1. Get/compile source AST
+ * 2. Validate shadow options & find target contract
+ * 3. Find injection point (last child node of target contract)
+ * 4. Inject shadow code:
+ *    - Safe mode: inject at original source location
+ *    - Replace mode: instrument AST (mark functions virtual) → inject at instrumented location
+ * 5. Compile the shadowed source
  *
  * Note: if the compiled source doesn't result in exactly one source file and no source path is provided this will throw an error as we cannot guess where to inject the shadow code.
  * The same exact limitation applies if there are multiple contracts in the file and no contract name is provided.
@@ -46,10 +49,42 @@ export const compileSourceWithShadow = async (source, shadow, options) => {
 	const { sourceLanguage, shadowLanguage, injectIntoContractPath, injectIntoContractName, ...baseOptions } =
 		options ?? {}
 	const validatedOptions = validateBaseOptions(source, { ...baseOptions, language: sourceLanguage }, logger)
-
 	const solc = await getSolc(validatedOptions.solcVersion, logger)
 
-	// First step is to get the source AST in order to instrument it (make internal stuff public, mark functions as virtual, etc.)
+	return compileSourceWithShadowInternal(
+		source,
+		shadow,
+		solc,
+		validatedOptions,
+		{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
+		logger,
+	)
+}
+
+/**
+ * Internal compilation function for source with shadow code injection
+ *
+ * This function handles the core shadow injection logic, accepting pre-validated options.
+ * Used by both compileSourceWithShadow and potentially by compiler instances.
+ *
+ * @template {import('@tevm/solc').SolcLanguage} TLanguage
+ * @template {import('./CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
+ * @param {TLanguage extends 'SolidityAST' ? import('./AstInput.js').AstInput : string} source - The source code or AST
+ * @param {string} shadow - The shadow code to inject
+ * @param {import('@tevm/solc').Solc} solc - Solc instance
+ * @param {import('./internal/ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions<TLanguage, TCompilationOutput>} validatedOptions - Validated compilation options
+ * @param {Pick<import('./CompileSourceWithShadowOptions.js').CompileSourceWithShadowOptions, 'shadowLanguage' | 'injectIntoContractPath' | 'injectIntoContractName'>} shadowOptions - Shadow-specific options
+ * @param {import('@tevm/logger').Logger} logger - Logger instance
+ * @returns {Promise<import('./CompileSourceResult.js').CompileSourceResult<TCompilationOutput>>}
+ */
+export const compileSourceWithShadowInternal = async (
+	source,
+	shadow,
+	solc,
+	validatedOptions,
+	shadowOptions,
+	logger,
+) => {
 	let astSource =
 		validatedOptions.language === 'SolidityAST' ? /** @type {import('./AstInput.js').AstInput} */ (source) : undefined
 	// If the source is a string (single file containing one or multiple contracts) we need to compile it
@@ -73,7 +108,7 @@ export const compileSourceWithShadow = async (source, shadow, options) => {
 
 	const validatedShadowOptions = validateShadowOptions(
 		[astSource],
-		{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
+		shadowOptions,
 		validatedOptions.language,
 		false, // don't validate path as we're using a single source
 		logger,

@@ -1,13 +1,10 @@
-import { readFile } from 'node:fs/promises'
-import { resolve } from 'node:path'
 import { createLogger } from '@tevm/logger'
 import { extractContractsFromAst } from './extractContractsFromAst.js'
 import { compileContracts } from './internal/compileContracts.js'
 import { defaults } from './internal/defaults.js'
-import { FileReadError } from './internal/errors.js'
 import { getSolc } from './internal/getSolc.js'
+import { readSourceFiles } from './internal/readSourceFiles.js'
 import { validateBaseOptions } from './internal/validateBaseOptions.js'
-import { validateFiles } from './internal/validateFiles.js'
 
 /**
  * Compile source files from the filesystem
@@ -40,46 +37,7 @@ import { validateFiles } from './internal/validateFiles.js'
  */
 export const compileFiles = async (filePaths, options) => {
 	const logger = createLogger({ name: '@tevm/compiler', level: options?.loggingLevel ?? defaults.loggingLevel })
-	const validatedPaths = validateFiles(filePaths, options?.language, logger)
-	logger.debug(`Preparing to compile ${validatedPaths.length} files`)
-
-	/** @type {{[filePath: string]: string | object}} */
-	const sources = {}
-	for (const filePath of validatedPaths) {
-		const absolutePath = resolve(filePath)
-		logger.debug(`Reading file: ${absolutePath}`)
-
-		/** @type {string} */
-		let content
-		try {
-			content = await readFile(absolutePath, 'utf-8')
-		} catch (error) {
-			const err = new FileReadError(`Failed to read file ${filePath}`, {
-				cause: error,
-				meta: {
-					code: 'read_failed',
-					filePath,
-					absolutePath,
-				},
-			})
-			logger.error(err.message)
-			throw err
-		}
-
-		if (options?.language === 'SolidityAST') {
-			try {
-				sources[filePath] = JSON.parse(content)
-			} catch (error) {
-				const err = new FileReadError(`Failed to parse JSON file ${filePath}`, {
-					cause: error,
-					meta: { code: 'json_parse_failed', filePath, absolutePath },
-				})
-				logger.error(err.message)
-				throw err
-			}
-		}
-	}
-
+	const sources = await readSourceFiles(filePaths, options?.language, logger)
 	const validatedOptions = validateBaseOptions(
 		// We can simply aggregate the sources regardless of path as this will be used for validating the solc version for compiling the entire set
 		/** @type {import('./internal/validateBaseOptions.js').Source<TLanguage>} */ (Object.values(sources)),
@@ -88,22 +46,43 @@ export const compileFiles = async (filePaths, options) => {
 	)
 	const solc = await getSolc(validatedOptions.solcVersion, logger)
 
-	if (validatedOptions.language === 'SolidityAST') {
-		logger.debug(`Compiling ${filePaths.length} AST files`)
-		const soliditySources = Object.fromEntries(
-			Object.entries(sources).map(([filePath, ast]) => [
-				filePath,
-				extractContractsFromAst(/** @type {import('./AstInput.js').AstInput} */ (ast), validatedOptions).source,
-			]),
-		)
+	return compileFilesInternal(sources, solc, validatedOptions, logger)
+}
 
-		return /** @type {import('./CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>} */ (
-			compileContracts(soliditySources, solc, validatedOptions, logger)
-		)
+/**
+ * Internal compilation function that accepts pre-loaded sources and validated options
+ *
+ * This function handles mixed source types (string and AST), converting AST to Solidity as needed.
+ *
+ * @template {import('@tevm/solc').SolcLanguage} TLanguage
+ * @template {import('./CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
+ * @template {string[]} TFilePaths
+ * @param {{[filePath: string]: string | import('./AstInput.js').AstInput}} sources - Sources to compile (mixed types allowed)
+ * @param {import('@tevm/solc').Solc} solc - Solc instance
+ * @param {import('./internal/ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions<TLanguage, TCompilationOutput>} validatedOptions - Validated compilation options
+ * @param {import('@tevm/logger').Logger} logger - Logger instance
+ * @returns {Promise<import('./CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>>}
+ */
+export const compileFilesInternal = async (sources, solc, validatedOptions, logger) => {
+	// Convert all sources to Solidity strings, handling mixed types
+	/** @type {{[filePath: string]: string}} */
+	const soliditySources = {}
+
+	for (const [filePath, source] of Object.entries(sources)) {
+		if (typeof source === 'string') {
+			// Already a Solidity/Yul string
+			soliditySources[filePath] = source
+		} else {
+			// It's an AST, convert to Solidity
+			soliditySources[filePath] = extractContractsFromAst(
+				/** @type {import('./AstInput.js').AstInput} */ (source),
+				validatedOptions,
+			).source
+		}
 	}
 
-	logger.debug(`Compiling ${filePaths.length} files`)
+	logger.debug(`Compiling ${Object.keys(soliditySources).length} files`)
 	return /** @type {import('./CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>} */ (
-		compileContracts(/** @type {{[filePath: string]: string}} */ (sources), solc, validatedOptions, logger)
+		compileContracts(soliditySources, solc, validatedOptions, logger)
 	)
 }
