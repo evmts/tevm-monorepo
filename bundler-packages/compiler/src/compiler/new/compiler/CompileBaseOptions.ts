@@ -55,14 +55,21 @@ export interface CompileBaseOptions<
 	 * @see {@link SolcMetadataSettings}
 	 */
 	metadata?: SolcMetadataSettings | undefined
-	// TODO: check the current state of these experimental options
+
+	/**
+	 * Optional experimental model checker settings
+	 *
+	 * @see {@link SolcModelChecker}
+	 */
 	modelChecker?: SolcModelChecker | undefined
 
 	/**
 	 * Remappings to apply in order to the source code of compiled contracts
 	 */
 	remappings?: SolcRemapping | undefined
-	// TODO: figure out how this works
+	/**
+	 * Link placeholder addresses to library addresses
+	 */
 	libraries?: Record<string, Record<string, string>> | undefined
 
 	// Additional compiler settings
