@@ -41,12 +41,12 @@ export const compileFiles = async (filePaths, options) => {
 	const validatedOptions = validateBaseOptions(
 		// We can simply aggregate the sources regardless of path as this will be used for validating the solc version for compiling the entire set
 		/** @type {import('./internal/validateBaseOptions.js').Source<TLanguage>} */ (Object.values(sources)),
-		options ?? {},
+		options,
 		logger,
 	)
 	const solc = await getSolc(validatedOptions.solcVersion, logger)
 
-	return compileFilesInternal(sources, solc, validatedOptions, logger)
+	return compileFilesInternal(solc, sources, validatedOptions, logger)
 }
 
 /**
@@ -57,13 +57,13 @@ export const compileFiles = async (filePaths, options) => {
  * @template {import('@tevm/solc').SolcLanguage} TLanguage
  * @template {import('./CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
  * @template {string[]} TFilePaths
- * @param {{[filePath: string]: string | import('./AstInput.js').AstInput}} sources - Sources to compile (mixed types allowed)
  * @param {import('@tevm/solc').Solc} solc - Solc instance
+ * @param {{[filePath: string]: string | import('./AstInput.js').AstInput}} sources - Sources to compile (mixed types allowed)
  * @param {import('./internal/ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions<TLanguage, TCompilationOutput>} validatedOptions - Validated compilation options
  * @param {import('@tevm/logger').Logger} logger - Logger instance
- * @returns {Promise<import('./CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>>}
+ * @returns {import('./CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>}
  */
-export const compileFilesInternal = async (sources, solc, validatedOptions, logger) => {
+export const compileFilesInternal = (solc, sources, validatedOptions, logger) => {
 	// Convert all sources to Solidity strings, handling mixed types
 	/** @type {{[filePath: string]: string}} */
 	const soliditySources = {}

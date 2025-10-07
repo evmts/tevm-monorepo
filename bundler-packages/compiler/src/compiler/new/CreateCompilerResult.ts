@@ -6,19 +6,16 @@ import type { CompileBaseOptions } from './compiler/CompileBaseOptions.js'
 import type { CompileFilesResult } from './compiler/CompileFilesResult.js'
 import type { CompileSourceResult } from './compiler/CompileSourceResult.js'
 import type { CompileSourceWithShadowOptions } from './compiler/CompileSourceWithShadowOptions.js'
-import type { FetchVerifiedContractResult } from './whatsabi/FetchVerifiedContractResult.js'
 import type { WhatsabiBaseOptions } from './whatsabi/WhatsabiBaseOptions.js'
 
 export interface CreateCompilerResult {
-	// Compile source code directly
-	// Pass base options to override constructor options during this compilation
 	compileSource: <
 		TLanguage extends SolcLanguage = SolcLanguage,
 		TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
 	>(
 		source: TLanguage extends 'SolidityAST' ? AstInput : string,
 		options: CompileBaseOptions<TLanguage, TCompilationOutput>,
-	) => Promise<CompileSourceResult<TCompilationOutput>>
+	) => CompileSourceResult<TCompilationOutput>
 
 	compileSourceWithShadow: <
 		TLanguage extends SolcLanguage = SolcLanguage,
@@ -27,9 +24,8 @@ export interface CreateCompilerResult {
 		source: TLanguage extends 'SolidityAST' ? AstInput : string,
 		shadow: string,
 		options: CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>,
-	) => Promise<CompileSourceResult<TCompilationOutput>>
+	) => CompileSourceResult<TCompilationOutput>
 
-	// Compile files
 	compileFiles: <
 		TLanguage extends SolcLanguage = SolcLanguage,
 		TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
@@ -38,6 +34,35 @@ export interface CreateCompilerResult {
 		files: TSourcePaths,
 		options: CompileBaseOptions<TLanguage, TCompilationOutput>,
 	) => Promise<CompileFilesResult<TCompilationOutput, TSourcePaths>>
+
+	compileFilesSync: <
+		TLanguage extends SolcLanguage = SolcLanguage,
+		TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
+		TSourcePaths extends string[] = string[],
+	>(
+		files: TSourcePaths,
+		options: CompileBaseOptions<TLanguage, TCompilationOutput>,
+	) => CompileFilesResult<TCompilationOutput, TSourcePaths>
+
+	compileFilesWithShadow: <
+		TLanguage extends SolcLanguage = SolcLanguage,
+		TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
+		TSourcePaths extends string[] = string[],
+	>(
+		files: TSourcePaths,
+		shadow: string,
+		options: CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>,
+	) => Promise<CompileFilesResult<TCompilationOutput, TSourcePaths>>
+
+	compileFilesWithShadowSync: <
+		TLanguage extends SolcLanguage = SolcLanguage,
+		TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
+		TSourcePaths extends string[] = string[],
+	>(
+		files: TSourcePaths,
+		shadow: string,
+		options: CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>,
+	) => CompileFilesResult<TCompilationOutput, TSourcePaths>
 
 	// Construct Solidity source code from Solc output
 	extractContractsFromSolcOutput: (
@@ -48,10 +73,10 @@ export interface CreateCompilerResult {
 	extractContractsFromAst: (ast: AstInput, options: CompileBaseOptions) => string
 
 	// Fetch verified contract from various providers using whatsabi & return the same api as the compiler
-	fetchVerifiedContract: (address: Address, options: WhatsabiBaseOptions) => Promise<FetchVerifiedContractResult>
+	fetchVerifiedContract: (address: Address, options: WhatsabiBaseOptions) => Promise<void>
 
-	// Load a solc version (this can be used to lazily load solc, otherwise it's loaded on first compilation)
-	loadSolcVersion: (version: keyof Releases | keyof Releases[]) => Promise<this>
+	// Load a solc version; this must be done before any compilation (no input means latest version)
+	loadSolc: (version: keyof Releases) => Promise<void>
 
-	clearCache: () => Promise<this>
+	clearCache: () => Promise<void>
 }

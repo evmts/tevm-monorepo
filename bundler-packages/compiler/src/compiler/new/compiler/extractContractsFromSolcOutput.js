@@ -7,7 +7,7 @@ import { AstParseError } from './internal/errors.js'
  * Convert a Solc compilation output to Solidity source code (source file -> code)
  *
  * @param {import('@tevm/solc').SolcOutput} solcOutput - The Solc compilation output to convert
- * @param {import('./internal/ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions} options
+ * @param {import('./CompileBaseOptions.js').CompileBaseOptions} options
  * @returns {{ [sourcePath: string]: string }} Mapping of source path to Solidity source code
  * @example
  * {
@@ -18,7 +18,7 @@ import { AstParseError } from './internal/errors.js'
 export const extractContractsFromSolcOutput = (solcOutput, options) => {
 	const logger = createLogger({ name: '@tevm/compiler', level: options?.loggingLevel ?? defaults.loggingLevel })
 	const formatter = new PrettyFormatter(4, 0)
-	const writer = new ASTWriter(DefaultASTWriterMapping, formatter, options.solcVersion)
+	const writer = new ASTWriter(DefaultASTWriterMapping, formatter, options.solcVersion ?? defaults.solcVersion)
 	logger.debug(`Converting Solc compilation output to Solidity source code with solc version: ${options.solcVersion}`)
 
 	// Parse raw AST into typed nodes
