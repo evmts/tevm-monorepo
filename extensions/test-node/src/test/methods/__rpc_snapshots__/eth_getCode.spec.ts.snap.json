@@ -1,4 +1,5 @@
 {
+  "[null,\"eth_getCode\",\"0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266\",\"0x15b9a22\"]": "0xef0100b6785b782571980b3ddb5d40659f4861ff15aa02",
   "[\"2.0\",\"eth_getBlockByNumber\",\"0x15b9a23\",true]": {
     "baseFeePerGas": "0x117030d08",
     "blobGasUsed": "0x120000",

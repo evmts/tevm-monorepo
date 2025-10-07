@@ -1,4 +1,5 @@
 {
+  "[null,\"eth_estimateGas\",\"0x\",\"0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae\",\"0x70997970c51812dc3a010c7d01b50e0d17dc79c8\",\"0x15b9a22\",null]": "0x695f",
   "[\"2.0\",\"eth_getBlockByNumber\",\"0x15b9a23\",true]": {
     "baseFeePerGas": "0x117030d08",
     "blobGasUsed": "0x120000",

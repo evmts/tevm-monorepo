@@ -5277,28 +5277,9 @@
     ],
     "withdrawalsRoot": "0x1f366e19f9aca32cf4050600877cdb07bf64c0be3a1a78609b67c41b422627d8"
   },
-  "[null,\"eth_feeHistory\",\"0x1\",\"0x15b9a22\",[1,2,3]]": {
-    "oldestBlock": "0x15b9a22",
-    "reward": [
-      [
-        "0x11f1c",
-        "0x11f1c",
-        "0x11f1c"
-      ]
-    ],
-    "baseFeePerGas": [
-      "0x11c2bcbd9",
-      "0x117030d08"
-    ],
-    "gasUsedRatio": [
-      0.42737948581068114
-    ],
-    "baseFeePerBlobGas": [
-      "0x1",
-      "0x1"
-    ],
-    "blobGasUsedRatio": [
-      0
-    ]
-  }
+  "[null,\"eth_supportedEntryPoints\"]": [
+    "0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789",
+    "0x0000000071727De22E5E9d8BAf0edAc6f37da032",
+    "0x4337084D9E255Ff0702461CF8895CE9E3b5Ff108"
+  ]
 }

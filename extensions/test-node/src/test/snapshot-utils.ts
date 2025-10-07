@@ -1,17 +1,13 @@
 import fs from 'node:fs'
-import path from 'node:path'
 import type { EIP1193Parameters, EIP1193RequestFn, EIP1474Methods } from 'viem'
 import { assert } from 'vitest'
-import { getCurrentTestFile } from '../internal/getCurrentTestFile.js'
-import { SnapshotManager } from '../snapshot/SnapshotManager.js'
+import { resolveVitestTestFilePath } from '../internal/resolveVitestTestFilePath.js'
 
 /**
- * Get snapshot entries from the new JSON snapshot format
+ * Get snapshot entries from the JSON snapshot format
  */
-export const getSnapshotEntries = (cacheDir?: string): Record<string, any> => {
-	const testFileName = getCurrentTestFile()
-	const baseDir = cacheDir ?? SnapshotManager.defaultCacheDir
-	const snapshotPath = path.join(baseDir, testFileName, 'snapshots.json')
+export const getSnapshotEntries = (): Record<string, any> => {
+	const { snapshotPath } = resolveVitestTestFilePath()
 
 	if (!fs.existsSync(snapshotPath)) {
 		return {}
@@ -40,9 +36,8 @@ export const createMockTransport = (responses: Record<string, any> = {}): { requ
 const isMethodCached = <TMethod extends EIP1193Parameters<EIP1474Methods>['method']>(
 	method: TMethod,
 	withParams?: (params: any) => boolean,
-	cacheDir?: string,
 ): boolean => {
-	const entries = getSnapshotEntries(cacheDir)
+	const entries = getSnapshotEntries()
 	return Object.keys(entries).some((key) => {
 		try {
 			const parsedKey = JSON.parse(key)
@@ -68,9 +63,8 @@ const isMethodCached = <TMethod extends EIP1193Parameters<EIP1474Methods>['metho
 export const assertMethodCached = <TMethod extends EIP1193Parameters<EIP1474Methods>['method']>(
 	method: TMethod,
 	withParams?: (params: any) => boolean,
-	cacheDir?: string,
 ) => {
-	const cached = isMethodCached(method, withParams, cacheDir)
+	const cached = isMethodCached(method, withParams)
 	assert(cached, `${method} should be cached`)
 }
 
@@ -80,8 +74,7 @@ export const assertMethodCached = <TMethod extends EIP1193Parameters<EIP1474Meth
 export const assertMethodNotCached = <TMethod extends EIP1193Parameters<EIP1474Methods>['method']>(
 	method: TMethod,
 	withParams?: (params: any) => boolean,
-	cacheDir?: string,
 ) => {
-	const cached = isMethodCached(method, withParams, cacheDir)
+	const cached = isMethodCached(method, withParams)
 	assert(!cached, `${method} should NOT be cached`)
 }

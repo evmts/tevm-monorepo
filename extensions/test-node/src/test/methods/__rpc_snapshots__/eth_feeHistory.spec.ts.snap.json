@@ -1,4 +1,28 @@
 {
+  "[null,\"eth_feeHistory\",\"0x1\",\"0x15b9a22\",[1,2,3]]": {
+    "oldestBlock": "0x15b9a22",
+    "reward": [
+      [
+        "0x11f1c",
+        "0x11f1c",
+        "0x11f1c"
+      ]
+    ],
+    "baseFeePerGas": [
+      "0x11c2bcbd9",
+      "0x117030d08"
+    ],
+    "gasUsedRatio": [
+      0.42737948581068114
+    ],
+    "baseFeePerBlobGas": [
+      "0x1",
+      "0x1"
+    ],
+    "blobGasUsedRatio": [
+      0
+    ]
+  },
   "[\"2.0\",\"eth_getBlockByNumber\",\"0x15b9a23\",true]": {
     "baseFeePerGas": "0x117030d08",
     "blobGasUsed": "0x120000",
@@ -5276,6 +5300,5 @@
       }
     ],
     "withdrawalsRoot": "0x1f366e19f9aca32cf4050600877cdb07bf64c0be3a1a78609b67c41b422627d8"
-  },
-  "[null,\"eth_estimateGas\",\"0x\",\"0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae\",\"0x70997970c51812dc3a010c7d01b50e0d17dc79c8\",\"0x15b9a22\",null]": "0x695f"
+  }
 }

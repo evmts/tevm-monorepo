@@ -4,25 +4,46 @@ import type { MemoryClient, MemoryClientOptions, TevmRpcSchema } from '@tevm/mem
 import type { TevmNode, TevmNodeOptions } from '@tevm/node'
 import type { Account, Address, Chain, EIP1193RequestFn, RpcSchema, Transport } from 'viem'
 
-export type SnapshotAutosaveMode = 'onStop' | 'onRequest'
+export type SnapshotAutosaveMode = 'onStop' | 'onRequest' | 'onSave'
 
 export type TestOptions = {
 	/**
-	 * The directory to store snapshot files.
-	 * @default '.tevm/test-snapshots/<test-file-name>'
+	 * Controls how snapshot file paths are resolved.
+	 *
+	 * - 'vitest' (default): Automatically resolve using vitest's test context,
+	 *   snapshots saved in __rpc_snapshots__ subdirectory next to test file
+	 * - Function: Custom resolver that returns the full absolute path to the snapshot file.
+	 *   Use this when not running in vitest context or need custom snapshot locations.
+	 *
+	 * @default 'vitest'
+	 * @example
+	 * ```typescript
+	 * // Snapshots in __rpc_snapshots__/ subdirectory (default behavior, requires vitest)
+	 * test: { resolveSnapshotPath: 'vitest' }
+	 *
+	 * // Or simply omit it (same as above)
+	 * test: {}
+	 *
+	 * // Custom path - returns full path including filename
+	 * test: {
+	 *   resolveSnapshotPath: () => '/custom/path/to/my-snapshots.json'
+	 * }
+	 * ```
 	 */
-	cacheDir?: string
+	resolveSnapshotPath?: 'vitest' | (() => string)
 	/**
 	 * Controls when snapshots are automatically saved to disk.
 	 *
-	 * - 'onStop' (default): Save snapshots only when stopping the server
-	 * - 'onRequest': Save snapshots after each request is cached
+	 * - 'onRequest' (default): Save snapshots after each request is cached
+	 * - 'onStop': Save snapshots only when stopping the server
+	 * - 'onSave': Save only when manually calling saveSnapshots()
 	 *
-	 * Using 'onRequest' provides real-time snapshot persistence but may impact performance
-	 * with frequent I/O operations. Use 'onStop' for better performance when you only
-	 * need snapshots persisted at the end of your test run (or whenever you call `stop()` or `save()`).
+	 * Using 'onRequest' provides real-time snapshot persistence, ensuring data is written
+	 * immediately. Use 'onStop' for better performance when you only need snapshots
+	 * persisted at the end of your test run. Use 'onSave' for complete manual control
+	 * over when snapshots are written to disk.
 	 *
-	 * @default 'onStop'
+	 * @default 'onRequest'
 	 */
 	autosave?: SnapshotAutosaveMode
 }

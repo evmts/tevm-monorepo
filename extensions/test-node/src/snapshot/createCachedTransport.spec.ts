@@ -7,8 +7,9 @@ import { SnapshotManager } from './SnapshotManager.js'
 
 describe('createCachedTransport', () => {
 	const testCacheDir = path.join(process.cwd(), '.test-create-cached-transport')
+	const testSnapshotPath = path.join(testCacheDir, 'test.snap.json')
 	const optimismTransport = http('https://mainnet.optimism.io')({})
-	const snapshotManager = new SnapshotManager(testCacheDir)
+	const snapshotManager = new SnapshotManager(() => testSnapshotPath)
 
 	afterEach(() => {
 		if (fs.existsSync(testCacheDir)) {
@@ -136,7 +137,7 @@ describe('createCachedTransport', () => {
 		await snapshotManager.save()
 
 		// Create new snapshot manager and transport
-		const newSnapshotManager = new SnapshotManager(testCacheDir)
+		const newSnapshotManager = new SnapshotManager(() => testSnapshotPath)
 		const newCachedTransport = createCachedTransport(optimismTransport, newSnapshotManager, 'onStop')
 
 		const cachedResult = await newCachedTransport.request({

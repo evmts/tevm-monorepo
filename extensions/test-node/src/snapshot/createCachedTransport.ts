@@ -40,6 +40,7 @@ export const createCachedTransport = <
 			// Otherwise fetch and cache the response
 			const response = await request(params, options)
 			snapshotManager.set(cacheKey, response)
+
 			if (autosave === 'onRequest') await snapshotManager.save()
 
 			return response

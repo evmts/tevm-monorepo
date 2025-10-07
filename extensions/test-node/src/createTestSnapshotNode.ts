@@ -15,8 +15,7 @@ import type { TestSnapshotNode, TestSnapshotNodeOptions } from './types.js'
  * import { http } from 'viem'
  *
  * const node = createTestSnapshotNode({
- *   fork: { transport: http('https://mainnet.optimism.io')() },
- *   test: { cacheDir: '.tevm/test-snapshots' }
+ *   fork: { transport: http('https://mainnet.optimism.io')() }
  * })
  *
  * // Use the node in your tests
@@ -28,6 +27,8 @@ import type { TestSnapshotNode, TestSnapshotNodeOptions } from './types.js'
  *   params: [],
  * })
  * await node.server.stop()
+ * // Snapshots automatically saved to __rpc_snapshots__/<testFileName>.snap.json
+ * // e.g., __rpc_snapshots__/myTest.spec.ts.snap.json
  * ```
  */
 export const createTestSnapshotNode = (options: TestSnapshotNodeOptions): TestSnapshotNode => {

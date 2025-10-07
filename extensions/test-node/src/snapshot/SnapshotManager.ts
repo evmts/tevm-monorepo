@@ -1,31 +1,42 @@
 import fs from 'node:fs'
 import fsPromises from 'node:fs/promises'
 import path from 'node:path'
-import { getCurrentTestFile } from '../internal/getCurrentTestFile.js'
+import { resolveVitestTestFilePath } from '../internal/resolveVitestTestFilePath.js'
+import type { TestOptions } from '../types.js'
 
 /**
  * Manages reading and writing of snapshot files for test caching
- * Uses a format similar to Vitest snapshots
+ * Places snapshots in __rpc_snapshots__/ subdirectory next to test files using vitest's test context
  */
 export class SnapshotManager {
-	static defaultCacheDir = path.join(process.cwd(), '.tevm', 'test-snapshots')
-	private snapshotDir: string
-	private testFile: string
 	private snapshots: Map<string, any> = new Map()
 	private snapshotPath: string
 
-	constructor(cacheDir?: string) {
-		this.testFile = getCurrentTestFile()
-		const baseDir = cacheDir ?? SnapshotManager.defaultCacheDir
-		this.snapshotDir = path.join(baseDir, this.testFile)
-		this.snapshotPath = path.join(this.snapshotDir, 'snapshots.json')
-
+	constructor(resolveSnapshotPath?: TestOptions['resolveSnapshotPath']) {
+		this.snapshotPath = this.resolveSnapshotPath(resolveSnapshotPath)
 		this.load()
 	}
 
 	/**
+	 * Resolve the snapshot file path
+	 * Snapshots are placed in __rpc_snapshots__/ subdirectory next to test files (vitest mode)
+	 * or at custom location (function mode)
+	 */
+	private resolveSnapshotPath(resolver?: TestOptions['resolveSnapshotPath']): string {
+		if (resolver === undefined || resolver === 'vitest') {
+			const { snapshotPath } = resolveVitestTestFilePath()
+			return snapshotPath
+		}
+
+		if (typeof resolver === 'function') {
+			return resolver()
+		}
+
+		throw new Error(`Invalid resolveSnapshotPath: ${typeof resolver}`)
+	}
+
+	/**
 	 * Initialize the snapshot manager by loading existing snapshots
-	 * If the directory doesn't exist, it will be created lazily on first save
 	 */
 	private load(): this {
 		if (fs.existsSync(this.snapshotPath)) {
@@ -64,8 +75,10 @@ export class SnapshotManager {
 	 * Write all snapshots to disk
 	 */
 	async save(): Promise<void> {
-		if (this.snapshots.size === 0) return // don't save if no snapshots
-		await fsPromises.mkdir(this.snapshotDir, { recursive: true })
+		if (this.snapshots.size === 0) return
+
+		const dir = path.dirname(this.snapshotPath)
+		await fsPromises.mkdir(dir, { recursive: true })
 
 		const data = Object.fromEntries(this.snapshots)
 		const content = JSON.stringify(data, null, 2)

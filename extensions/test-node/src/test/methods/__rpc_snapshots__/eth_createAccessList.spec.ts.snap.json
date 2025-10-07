@@ -1,4 +1,13 @@
 {
+  "[null,\"eth_createAccessList\",\"0x\",\"0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae\",\"0x70997970c51812dc3a010c7d01b50e0d17dc79c8\",\"0x15b9a22\"]": {
+    "accessList": [
+      {
+        "address": "0xa8204582fe8f915b7f423b1450b654fc98ff921d",
+        "storageKeys": []
+      }
+    ],
+    "gasUsed": "0x67a3"
+  },
   "[\"2.0\",\"eth_getBlockByNumber\",\"0x15b9a23\",true]": {
     "baseFeePerGas": "0x117030d08",
     "blobGasUsed": "0x120000",
@@ -5276,6 +5285,5 @@
       }
     ],
     "withdrawalsRoot": "0x1f366e19f9aca32cf4050600877cdb07bf64c0be3a1a78609b67c41b422627d8"
-  },
-  "[null,\"eth_getTransactionCount\",\"0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266\",\"0x15b9a22\"]": "0x9a0"
+  }
 }

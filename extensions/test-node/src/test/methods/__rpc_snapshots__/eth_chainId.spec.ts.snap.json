@@ -5277,5 +5277,5 @@
     ],
     "withdrawalsRoot": "0x1f366e19f9aca32cf4050600877cdb07bf64c0be3a1a78609b67c41b422627d8"
   },
-  "[null,\"eth_getCode\",\"0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266\",\"0x15b9a22\"]": "0xef0100b6785b782571980b3ddb5d40659f4861ff15aa02"
+  "[null,\"eth_chainId\"]": "0x1"
 }
