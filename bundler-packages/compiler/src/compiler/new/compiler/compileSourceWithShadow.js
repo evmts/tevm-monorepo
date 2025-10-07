@@ -54,7 +54,6 @@ export const compileSourceWithShadow = async (source, shadow, options) => {
 		validatedOptions.language === 'SolidityAST' ? /** @type {import('./AstInput.js').AstInput} */ (source) : undefined
 	// If the source is a string (single file containing one or multiple contracts) we need to compile it
 	if (!astSource) {
-		// TODO: comment this, see 4th solution in comment below
 		const { compilationResult } = compileContracts(
 			{ [defaults.injectIntoContractPath]: /** @type {string} */ (source) },
 			solc,
@@ -105,7 +104,7 @@ export const compileSourceWithShadow = async (source, shadow, options) => {
 	}
 
 	// shadowMergeStrategy = 'replace'
-	// TODO: what we explained below in 4. & comment
+	// Instrument the source AST to make internal stuff public, mark functions as virtual, etc, so we can correctly inject shadow code
 	const instrumentedSourceAst = instrumentAst(
 		astSourceNode,
 		{
@@ -148,56 +147,9 @@ export const compileSourceWithShadow = async (source, shadow, options) => {
 	//   - make all private stuff public
 	//   - mark all functions as virtual
 	//   - note/warn that we can only inject in a contract, no library (can't inherit)
-	//   - TODO: we can mark all source functions as virtual BUT we'll need to mark shadow functions IF the collide as override, but how to know
-	//   -> best way here probably is to
-	//     - tell in documentation to add override if using any other strategy than safe
-	//     - if there is a collision AND strategy is not safe log a warning 'did you forget to add an override on a shadow function that needs a special merging strategy'
-	//   - ...?
-	//   - get the source code back from this
+	//   - tell in documentation to add override if using any other strategy than safe
+	//   - if there is a collision AND strategy is not safe log a warning 'did you forget to add an override on a shadow function that needs a special merging strategy'
 	// - compile the new instrumentated source with shadow stuff so it wont error and we'll correctly get
 	//   - the target normal ast we had originally into which we'll actually inject using
 	//   - the shadow related stuff (any new ids?) that we can add/replace/insert whatever it is into the above
-	// TODO: new
-	// 1. Compile the sources
-	// 2. Validate (including the contract name now that we know it)
-	// 3. Insert shadow code at the end of the contract
-	//  // Get the last child node
-	//  const allChildren = targetContract.children;
-	//  const lastChild = allChildren[allChildren.length - 1];
-
-	//  // Parse the src property: "startIndex:length:fileIndex"
-	//  const [startStr, lengthStr] = lastChild.src.split(':');
-	//  const start = parseInt(startStr, 10);
-	//  const length = parseInt(lengthStr, 10);
-	//  const endPosition = start + length;
-
-	//  // Inject after the last child (still inside the contract)
-	//  const originalSource = /* read original file */;
-	//  const modifiedSource =
-	// 		 originalSource.slice(0, endPosition) +
-	// 		 '\n\n' + shadowCodeString + '\n' +
-	// 		 originalSource.slice(endPosition);
-	// 4. Compile everything...
-
-	// const solc = await getSolc(validatedOptions.solcVersion, logger)
-	// Here we compile the shadow contract alongside the sources with the target as a base contract inherited
-	// by the shadow wrapper
-	// This way, the shadow code can access and use any function or variable internal to this
-	// const { compilationResult } = compileContracts(
-	// 	{ ...soliditySources, ...shadowSource },
-	// 	solc,
-	// 	validatedOptions,
-	// 	logger,
-	// )
-	// const contract = compilationResult[validatedShadowOptions.injectIntoContractPath]
-
-	// 1. Compile source to ast if needed
-	// 2. Check if there are multiple contract files & error if no source path provided initially
-	// 3. Check if there are multiple contracts & error if no contract name provided initially
-	// 4. TODO: how do we compile the ast of the shadow method(s) as it's not a full contract?
-	// 5. Merge ASTs
-	// 6. Generate Solidity source from merged AST
-	// 7. Compile the merged source
-	// 8. We should try to understand some possible errors to provide a friendly error message,
-	// e.g. if using a variable that does not exist (how can we detect error kinds, see in solc docs) add a hint "did you want to inject a new state variable?"
 }
