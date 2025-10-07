@@ -10,10 +10,17 @@ export const mergeOptions = (options, overrides) => {
 			// Compiler-specific options (not as per SolcSettings)
 			language: overrides.language ?? options.language,
 			solcVersion: overrides.solcVersion ?? options.solcVersion,
+			throwOnVersionMismatch: overrides.throwOnVersionMismatch ?? options.throwOnVersionMismatch,
+			throwOnCompilationError: overrides.throwOnCompilationError ?? options.throwOnCompilationError,
+			cacheEnabled: overrides.cacheEnabled ?? options.cacheEnabled,
+			loggingLevel: overrides.loggingLevel ?? options.loggingLevel,
+			exposeInternalFunctions: overrides.exposeInternalFunctions ?? options.exposeInternalFunctions,
+			exposeInternalVariables: overrides.exposeInternalVariables ?? options.exposeInternalVariables,
 			// solc settings
 			outputSelection: overrides.compilationOutput ?? options.compilationOutput,
 			evmVersion: overrides.hardfork ?? options.hardfork,
 		},
+		overrides.cacheDirectory && { cacheDirectory: overrides.cacheDirectory },
 		(overrides.optimizer || options.optimizer) && {
 			optimizer: Object.assign(
 				{},
