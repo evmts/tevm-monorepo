@@ -8,7 +8,7 @@
 
 > **createTestSnapshotTransport**\<`TTransportType`, `TRpcAttributes`, `TEip1193RequestFn`\>(`options`): [`TestSnapshotTransport`](../type-aliases/TestSnapshotTransport.md)\<`TEip1193RequestFn`\>
 
-Defined in: [extensions/test-node/src/createTestSnapshotTransport.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/createTestSnapshotTransport.ts#L27)
+Defined in: [extensions/test-node/src/createTestSnapshotTransport.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/createTestSnapshotTransport.ts#L28)
 
 Creates a test snapshot transport that automatically caches RPC responses
 
@@ -47,12 +47,13 @@ import { createTestSnapshotTransport } from '@tevm/test-node'
 import { http } from 'viem'
 
 const transport = createTestSnapshotTransport({
-  transport: http('https://mainnet.optimism.io')(),
-  test: { cacheDir: '.tevm/test-snapshots' }
+  transport: http('https://mainnet.optimism.io')()
 })
 
 // Use the transport in your tests
 await transport.server.start()
 const block = await transport.request({ method: 'eth_getBlockByNumber', params: [123n, false] })
 await transport.server.stop()
+// Snapshots automatically saved to __rpc_snapshots__/<testFileName>.snap.json
+// e.g., __rpc_snapshots__/myTest.spec.ts.snap.json
 ```

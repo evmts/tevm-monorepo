@@ -74,7 +74,8 @@
 			"!**/tevm",
 			"!**/fixtures",
 			"!**/tevm.json",
-			"!**/fixtures/*"
+			"!**/fixtures/*",
+			"!**/__rpc_snapshots__"
 		]
 	},
 	"formatter": {

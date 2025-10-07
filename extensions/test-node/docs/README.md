@@ -8,11 +8,11 @@ A utility package for testing applications with Tevm. It provides a simple way t
 
 ## Features
 
--   **Auto-managed Test Server**: Zero-config test server that automatically starts/stops per test file
--   **JSON-RPC Snapshotting**: Automatically caches JSON-RPC requests to disk. Subsequent test runs are served from the cache, making them orders of magnitude faster and immune to network flakiness
--   **Forking Support**: Test against a fork of any EVM-compatible network
--   **Seamless Vitest Integration**: Designed to work perfectly with Vitest's lifecycle hooks
--   **One Snapshot Per Test File**: Clean organization with snapshots stored in `__snapshots__/[testFileName]/`
+- **Auto-managed Test Server**: Zero-config test server that automatically starts/stops per test file
+- **JSON-RPC Snapshotting**: Automatically caches JSON-RPC requests to disk. Subsequent test runs are served from the cache, making them orders of magnitude faster and immune to network flakiness
+- **Forking Support**: Test against a fork of any EVM-compatible network
+- **Seamless Vitest Integration**: Designed to work perfectly with Vitest's lifecycle hooks
+- **Automatic Snapshot Placement**: Snapshots stored in `__rpc_snapshots__/<testFileName>.snap.json` next to test files
 
 ## Installation
 
@@ -21,119 +21,252 @@ pnpm add -D @tevm/test-node vitest
 npm install -D @tevm/test-node vitest
 ```
 
-## Usage
-
-### 1. Configure in vitest.setup.ts
+## Quick Start
 
 ```typescript
-import { mainnet } from '@tevm/common'
+import { createTestSnapshotClient } from '@tevm/test-node'
 import { http } from 'viem'
-import { afterAll, beforeAll } from 'vitest'
-import { createTestSnapshotClient } from '@tevm/test-node'
-
-// Configure once globally
-export const client = createTestSnapshotClient({
-  fork: {
-    transport: http('https://mainnet.optimism.io'),
-    blockTag: 123456n
-  },
-  common: mainnet,
-  test: {
-    cacheDir: '.tevm/test-snapshots' // default
-  }
-})
-
-// If you would like to run a Tevm server in the background
-beforeAll(async () => {
-  await client.server.start()
-})
-
-afterAll(async () => {
-  await client.server.stop()
-})
-```
-
-Or without running the server and with autosave on each request:
-
-```typescript
-import { createTestSnapshotClient } from '@tevm/test-node'
 
 const client = createTestSnapshotClient({
   fork: {
-    transport: http('https://mainnet.optimism.io'),
-    blockTag: 123456n
-  },
-  common: mainnet,
-  test: {
-    // This will save snapshots after every request
-    // default is 'onStop', which saves when stopping the server
-    autosave: 'onRequest'
+    transport: http('https://mainnet.optimism.io')
   }
 })
+
+// Use in tests
+await client.getBlock({ blockNumber: 123456n })
+// Snapshots automatically saved to __rpc_snapshots__/yourTest.spec.ts.snap.json
 ```
-
-### 2. Use in tests
-
-```typescript
-import { it } from 'vitest'
-import { client } from './vitest.setup.js'
-
-it('should cache RPC requests', async () => {
-  await client.getBlock({ blockNumber: 123456n })
-})
-```
-
-Snapshots are automatically saved to `.tevm/test-snapshots/[testFileName]/snapshots.json` after all tests (or after calling `client.saveSnapshots()`) and reused on subsequent runs.
 
 ## API Reference
 
 ### `createTestSnapshotClient(options)`
 
-Create a memory client with snapshotting capabilities.
+Creates a memory client with automatic RPC response snapshotting.
 
-- `options`: Configuration for the underlying `@tevm/memory-client`
-- `options.test.cacheDir?`: Directory for snapshots (default: `.tevm/test-snapshots`)
-- `options.test.autosave?`: Whether to save snapshots after each request (default: `'onStop'`)
+**Options:**
+- `fork.transport` (required): Viem transport to fork from
+- `fork.blockTag?`: Block number to fork from
+- `common?`: Chain configuration
+- `test.resolveSnapshotPath?`: How to resolve snapshot paths (default: `'vitest'`)
+  - `'vitest'`: Automatic resolution using vitest context (places in `__rpc_snapshots__/` subdirectory)
+  - `() => string`: Custom function returning full absolute path to snapshot file
+- `test.autosave?`: When to save snapshots (default: `'onRequest'`)
+  - `'onRequest'`: Save after each cached request
+  - `'onStop'`: Save when stopping the server
+  - `'onSave'`: Save only when manually calling `saveSnapshots()`
 
-Returns a client with the following properties:
-- `...`: The `MemoryClient` properties
-- `server`: HTTP server instance with the following properties:
-  - `http`: The HTTP server
-  - `rpcUrl`: URL of the running server
-  - `start()`: Start the server
-  - `stop()`: Stop the server and save snapshots to disk
-- `saveSnapshots()`: Save snapshots to disk
+**Returns:**
+- All `MemoryClient` properties
+- `server.http`: HTTP server instance
+- `server.rpcUrl`: URL of running server
+- `server.start()`: Start the server
+- `server.stop()`: Stop the server (auto-saves if autosave is `'onStop'`)
+- `saveSnapshots()`: Manually save snapshots
+
+**Example:**
+```typescript
+const client = createTestSnapshotClient({
+  fork: {
+    transport: http('https://mainnet.optimism.io'),
+    blockTag: 123456n
+  }
+})
+
+await client.server.start()
+const block = await client.getBlock({ blockNumber: 123456n })
+await client.server.stop()
+```
 
 ### `createTestSnapshotNode(options)`
 
-Create a Tevm node with snapshotting capabilities.
+Creates a Tevm node with automatic RPC response snapshotting.
 
-- `options`: Configuration for the underlying `@tevm/node`
-- `options.test.cacheDir?`: Directory for snapshots (default: `.tevm/test-snapshots`)
-- `options.test.autosave?`: Whether to save snapshots after each request (default: `'onStop'`)
+**Options:**
+- Same as `createTestSnapshotClient`, but accepts `TevmNodeOptions`
 
-Returns a node with the following properties:
-- `...`: The `Node` properties
-- `server`: HTTP server instance with the following properties:
-  - `http`: The HTTP server
-  - `rpcUrl`: URL of the running server
-  - `start()`: Start the server
-  - `stop()`: Stop the server and save snapshots to disk
-- `saveSnapshots()`: Save snapshots to disk
+**Returns:**
+- All `TevmNode` properties
+- `server`: Server instance (same as `createTestSnapshotClient`)
+- `saveSnapshots()`: Manually save snapshots
+
+**Example:**
+```typescript
+import { blockNumberProcedure } from '@tevm/actions'
+
+const node = createTestSnapshotNode({
+  fork: { transport: http('https://mainnet.optimism.io') }
+})
+
+const result = await blockNumberProcedure(node)({
+  jsonrpc: '2.0',
+  method: 'eth_blockNumber',
+  id: 1,
+  params: []
+})
+```
 
 ### `createTestSnapshotTransport(options)`
 
-Create a transport with snapshotting capabilities.
+Creates a transport with automatic RPC response snapshotting.
 
-- `options.transport`: A viem Transport or an object with a `request` method
-- `options.test.cacheDir?`: Directory for snapshots (default: `.tevm/test-snapshots`)
-- `options.test.autosave?`: Whether to save snapshots after each request (default: `'onStop'`)
+**Options:**
+- `transport` (required): Viem transport to wrap
+- `test.autosave?`: When to save snapshots (default: `'onRequest'`)
 
-Returns a transport with the following properties:
-- `request`: The EIP-1193 request function
-- `server`: HTTP server instance with the following properties:
-  - `http`: The HTTP server
-  - `rpcUrl`: URL of the running server
-  - `start()`: Start the server
-  - `stop()`: Stop the server and save snapshots to disk
-- `saveSnapshots()`: Save snapshots to disk
+**Returns:**
+- `request`: EIP-1193 request function
+- `server`: Server instance (same as `createTestSnapshotClient`)
+- `saveSnapshots()`: Manually save snapshots
+
+**Example:**
+```typescript
+const transport = createTestSnapshotTransport({
+  transport: http('https://mainnet.optimism.io')
+})
+
+const result = await transport.request({
+  method: 'eth_getBlockByNumber',
+  params: ['0x123', false]
+})
+```
+
+## Autosave Modes
+
+### `'onRequest'` (default)
+Saves snapshots immediately after each cached request. Provides real-time persistence.
+
+```typescript
+const client = createTestSnapshotClient({
+  fork: { transport: http('https://mainnet.optimism.io') },
+  test: { autosave: 'onRequest' } // default, can be omitted
+})
+```
+
+### `'onStop'`
+Saves snapshots only when `server.stop()` is called. Better performance for batch operations.
+
+```typescript
+const client = createTestSnapshotClient({
+  fork: { transport: http('https://mainnet.optimism.io') },
+  test: { autosave: 'onStop' }
+})
+
+// No snapshots saved during these calls
+await client.getBlock({ blockNumber: 1n })
+await client.getBlock({ blockNumber: 2n })
+
+// All snapshots saved here
+await client.server.stop()
+```
+
+### `'onSave'`
+No automatic saving. Complete manual control via `saveSnapshots()`.
+
+```typescript
+const client = createTestSnapshotClient({
+  fork: { transport: http('https://mainnet.optimism.io') },
+  test: { autosave: 'onSave' }
+})
+
+await client.getBlock({ blockNumber: 1n })
+await client.server.stop() // Does not save
+
+// Manually trigger save
+await client.saveSnapshots() // Now saved
+```
+
+## Snapshot Location
+
+Snapshots are automatically placed in a `__rpc_snapshots__` subdirectory next to your test file:
+
+```
+src/
+├── myTest.spec.ts
+└── __rpc_snapshots__/
+    └── myTest.spec.ts.snap.json
+```
+
+No configuration needed - snapshot paths are resolved automatically using Vitest's test context.
+
+## Examples
+
+### Global Setup
+
+```typescript
+// vitest.setup.ts
+import { createTestSnapshotClient } from '@tevm/test-node'
+import { http } from 'viem'
+import { afterAll, beforeAll } from 'vitest'
+
+export const client = createTestSnapshotClient({
+  fork: {
+    transport: http('https://mainnet.optimism.io'),
+    blockTag: 123456n
+  }
+})
+
+beforeAll(() => client.server.start())
+afterAll(() => client.server.stop())
+```
+
+```typescript
+// myTest.spec.ts
+import { client } from './vitest.setup'
+
+it('fetches block', async () => {
+  const block = await client.getBlock({ blockNumber: 123456n })
+  expect(block.number).toBe(123456n)
+})
+```
+
+### Per-Test Client
+
+```typescript
+import { createTestSnapshotClient } from '@tevm/test-node'
+import { http } from 'viem'
+
+it('works with local client', async () => {
+  const client = createTestSnapshotClient({
+    fork: { transport: http('https://mainnet.optimism.io') }
+  })
+
+  const block = await client.getBlock({ blockNumber: 1n })
+  expect(block.number).toBe(1n)
+})
+```
+
+### Using with Viem Client
+
+```typescript
+import { createMemoryClient } from '@tevm/memory-client'
+import { createTestSnapshotTransport } from '@tevm/test-node'
+import { http } from 'viem'
+
+const transport = createTestSnapshotTransport({
+  transport: http('https://mainnet.optimism.io')
+})
+
+const client = createMemoryClient({
+  fork: { transport }
+})
+
+const block = await client.getBlock({ blockNumber: 1n })
+```
+
+### Custom Snapshot Path
+
+```typescript
+import { createTestSnapshotClient } from '@tevm/test-node'
+import { http } from 'viem'
+import path from 'node:path'
+
+const client = createTestSnapshotClient({
+  fork: { transport: http('https://mainnet.optimism.io') },
+  test: {
+    resolveSnapshotPath: () => path.join(process.cwd(), 'custom-snapshots', 'my-test.snap.json')
+  }
+})
+
+// Snapshots saved to custom-snapshots/my-test.snap.json
+```

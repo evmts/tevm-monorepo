@@ -8,7 +8,7 @@
 
 > **createTestSnapshotClient**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>(`options`): [`TestSnapshotClient`](../type-aliases/TestSnapshotClient.md)\<`TCommon`, `TAccountOrAddress`\>
 
-Defined in: [extensions/test-node/src/createTestSnapshotClient.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/createTestSnapshotClient.ts#L32)
+Defined in: [extensions/test-node/src/createTestSnapshotClient.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/createTestSnapshotClient.ts#L34)
 
 Creates a test snapshot client that automatically caches RPC responses
 
@@ -47,12 +47,14 @@ import { createTestSnapshotClient } from '@tevm/test-node'
 import { http } from 'viem'
 
 const client = createTestSnapshotClient({
-  fork: { transport: http('https://mainnet.optimism.io')() },
-  test: { cacheDir: '.tevm/test-snapshots' }
+  fork: { transport: http('https://mainnet.optimism.io')() }
+  test: { resolveSnapshotPath: 'vitest' } // default
 })
 
 // Use the client in your tests
 await client.server.start()
 const block = await client.getBlock({ blockNumber: 123n })
 await client.server.stop()
+// Snapshots automatically saved to __rpc_snapshots__/<testFileName>.snap.json
+// e.g., __rpc_snapshots__/myTest.spec.ts.snap.json
 ```

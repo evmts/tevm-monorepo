@@ -8,7 +8,7 @@
 
 > **TestSnapshotTransport**\<`TEip1193RequestFn`\> = `object` & `TestSnapshotBaseClient`
 
-Defined in: [extensions/test-node/src/types.ts:84](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L84)
+Defined in: [extensions/test-node/src/types.ts:105](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L105)
 
 ## Type Declaration
 
