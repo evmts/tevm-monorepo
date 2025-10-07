@@ -1,4 +1,4 @@
-import type { CompileBaseOptions } from './CompileBaseOptions.js'
+import type { CompileBaseOptions } from '../compiler/CompileBaseOptions.js'
 
 // TODO: this and all these types are in whatsabi directly
 export interface WhatsabiBaseOptions extends CompileBaseOptions {

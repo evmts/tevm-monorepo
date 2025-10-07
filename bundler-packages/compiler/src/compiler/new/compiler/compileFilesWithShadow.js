@@ -61,9 +61,9 @@ export const compileFilesWithShadow = async (filePaths, shadow, options) => {
 	const solc = await getSolc(validatedOptions.solcVersion, logger)
 
 	return compileFilesWithShadowInternal(
+		solc,
 		sources,
 		shadow,
-		solc,
 		validatedOptions,
 		{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
 		logger,
@@ -79,22 +79,15 @@ export const compileFilesWithShadow = async (filePaths, shadow, options) => {
  * @template {import('@tevm/solc').SolcLanguage} TLanguage
  * @template {import('./CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
  * @template {string[]} TFilePaths
+ * @param {import('@tevm/solc').Solc} solc - Solc instance
  * @param {{[filePath: string]: string | import('./AstInput.js').AstInput}} sources - Pre-loaded sources
  * @param {string} shadow - The shadow code to inject
- * @param {import('@tevm/solc').Solc} solc - Solc instance
  * @param {import('./internal/ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions<TLanguage, TCompilationOutput>} validatedOptions - Validated compilation options
  * @param {Pick<import('./CompileSourceWithShadowOptions.js').CompileSourceWithShadowOptions, 'shadowLanguage' | 'injectIntoContractPath' | 'injectIntoContractName'>} shadowOptions - Shadow-specific options
  * @param {import('@tevm/logger').Logger} logger - Logger instance
- * @returns {Promise<import('./CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>>}
+ * @returns {import('./CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>}
  */
-export const compileFilesWithShadowInternal = async (
-	sources,
-	shadow,
-	solc,
-	validatedOptions,
-	shadowOptions,
-	logger,
-) => {
+export const compileFilesWithShadowInternal = (solc, sources, shadow, validatedOptions, shadowOptions, logger) => {
 	// Get ASTs for all sources (compile if needed)
 	let astSources =
 		validatedOptions.language === 'SolidityAST'
@@ -194,8 +187,8 @@ export const compileFilesWithShadowInternal = async (
 
 	logger.debug(`Compiling ${Object.keys(sources).length} files with shadow code injected`)
 	return compileFilesInternal(
-		{ ...sources, [validatedShadowOptions.injectIntoContractPath]: shadowedTargetSource },
 		solc,
+		{ ...sources, [validatedShadowOptions.injectIntoContractPath]: shadowedTargetSource },
 		validatedOptions,
 		logger,
 	)
