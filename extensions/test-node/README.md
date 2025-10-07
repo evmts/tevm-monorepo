@@ -34,6 +34,51 @@ await client.getBlock({ blockNumber: 123456n })
 // Snapshots automatically saved to __rpc_snapshots__/yourTest.spec.ts.snap.json
 ```
 
+### With Viem Client
+
+```typescript
+import { createTestSnapshotTransport } from '@tevm/test-node'
+import { createTevmTransport } from '@tevm/memory-client'
+import { createClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const cachedTransport = createTestSnapshotTransport({
+  transport: http('https://mainnet.optimism.io')
+})
+
+const client = createClient({
+  chain: mainnet,
+  transport: createTevmTransport({
+		fork: { transport: cachedTransport },
+	})
+})
+
+await client.getBlock({ blockNumber: 123456n })
+// Snapshots cached automatically
+```
+
+### As Standalone Server
+
+```typescript
+import { createTestSnapshotClient } from '@tevm/test-node'
+import { createClient, http } from 'viem'
+
+const client = createTestSnapshotClient({
+  fork: { transport: http('https://mainnet.optimism.io') }
+})
+
+// Start HTTP server
+await client.server.start()
+console.log(client.server.rpcUrl)  // http://localhost:8545
+
+// Connect other clients to the server (these will hit the server directly and not be cached)
+const otherClient = createClient({
+  transport: http(client.server.rpcUrl)
+})
+
+await client.server.stop()
+```
+
 ## API Reference
 
 ### `createTestSnapshotClient(options)`
