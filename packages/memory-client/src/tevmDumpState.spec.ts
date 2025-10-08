@@ -12,7 +12,7 @@ const cachedTransport = createCachedOptimismTransport()
 beforeEach(async () => {
 	client = createClient({
 		transport: createTevmTransport({
-			fork: { transport: cachedTransport },
+			fork: { transport: cachedTransport, blockTag: 142153711n },
 		}),
 		chain: optimism,
 	})

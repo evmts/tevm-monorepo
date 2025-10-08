@@ -75,9 +75,10 @@
 		"@latticexyz/world": "^2.2.21",
 		"@openzeppelin/contracts": "5.4.0",
 		"@ponder/utils": "^0.2.13",
+		"@tevm/common": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/esbuild-plugin": "workspace:^",
-		"@tevm/test-node": "latest",
+		"@tevm/test-node": "npm:@tevm/test-node@1.0.0-next.150",
 		"@tevm/ts-plugin": "workspace:^"
 	},
 	"peerDependencies": {

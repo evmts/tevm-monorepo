@@ -6,6 +6,7 @@ export default defineConfig({
 		include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
 		environment: 'node',
 		setupFiles: ['@tevm/test-matchers'],
+		testTimeout: 60000,
 		coverage: {
 			include: ['src/**/*.js'],
 			provider: 'v8',

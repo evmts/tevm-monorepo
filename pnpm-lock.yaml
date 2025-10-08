@@ -2399,6 +2399,9 @@ importers:
       '@ponder/utils':
         specifier: ^0.2.13
         version: 0.2.13(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../../packages/common
       '@tevm/contract':
         specifier: workspace:^
         version: link:../../packages/contract
@@ -2406,8 +2409,8 @@ importers:
         specifier: workspace:^
         version: link:../../bundler-packages/esbuild
       '@tevm/test-node':
-        specifier: latest
-        version: 1.0.0-next.149(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)
+        specifier: npm:@tevm/test-node@1.0.0-next.150
+        version: 1.0.0-next.150(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)
       '@tevm/ts-plugin':
         specifier: workspace:^
         version: link:../../lsp/ts-plugin
@@ -6514,8 +6517,8 @@ packages:
     peerDependencies:
       viem: ^2.37.9
 
-  '@tevm/test-node@1.0.0-next.149':
-    resolution: {integrity: sha512-Cg0jTscuR2ogE2PyGMGubyk8d4RGaL+fUZxoAdzcwNaZEvkY6mykPjl7k+cDqOurAjBQq7TbHlbkQAhAAnTfnA==}
+  '@tevm/test-node@1.0.0-next.150':
+    resolution: {integrity: sha512-ugABgKPB5f2xUxOZ9EkoiCFmwiKwvJV2nNy/yeqBm589IM3u0p0SK0ySOiWuEGbAspxDG+eh7mo3Qo/JfB09VQ==}
     peerDependencies:
       viem: ^2.37.9
 
@@ -20972,7 +20975,7 @@ snapshots:
       - yaml
       - zod
 
-  '@tevm/test-node@1.0.0-next.149(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)':
+  '@tevm/test-node@1.0.0-next.150(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)':
     dependencies:
       '@tevm/actions': 1.0.0-next.149(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(zod@4.1.11)
       '@tevm/memory-client': 1.0.0-next.148(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(typescript@5.9.3)(viem@2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))(yaml@2.8.1)(zod@4.1.11)

@@ -14,6 +14,7 @@ beforeEach(async () => {
 		common: mainnet,
 		fork: {
 			transport: cachedTransport,
+			blockTag: 23531308n,
 		},
 	})
 	await client.extend(testActions({ mode: 'anvil' })).mine({ blocks: 1 })

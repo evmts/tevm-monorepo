@@ -16,7 +16,7 @@ describe('getEnsResolver', async () => {
 			},
 		})
 		expect(await mainnetClient.getEnsResolver({ name: 'vitalik.eth' })).toBe(
-			'0x4976fb03C32e5B8cfe2b6cCB31c09Ba78EBaBa41',
+			'0x231b0Ee14048e9dCcD1d247744d114a4EB5E8E63',
 		)
 	})
 })
