@@ -74,7 +74,8 @@
 		"@evmts/vite-plugin": "1.0.0-next.19",
 		"@tevm/test-matchers": "latest",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^",
+		"zod": "^4.1.11"
 	},
 	"publishConfig": {
 		"access": "public"
