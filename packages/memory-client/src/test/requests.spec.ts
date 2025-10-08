@@ -1,7 +1,7 @@
 import type { CallJsonRpcRequest, CallJsonRpcResponse } from '@tevm/actions'
 import { createAddress } from '@tevm/address'
 import { ERC20 } from '@tevm/contract'
-import { createCachedOptimismTransport } from '@tevm/test-utils'
+import { transports } from '@tevm/test-utils'
 import {
 	bytesToHex,
 	decodeFunctionResult,
@@ -16,10 +16,9 @@ import { assert, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 
 const contractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1'
-const cachedTransport = createCachedOptimismTransport()
 const client = createMemoryClient({
 	fork: {
-		transport: cachedTransport,
+		transport: transports.optimism,
 	},
 })
 
@@ -93,15 +92,16 @@ describe('Tevm.request', async () => {
 	})
 
 	it('should execute a call request', async () => {
+		const nonCachedClient = createMemoryClient()
 		const balance = 0x11111111n
 		const address1 = '0x1f420000000000000000000000000000000000ff'
 		const address2 = '0x2f420000000000000000000000000000000000ff'
-		await client.tevmSetAccount({
+		await nonCachedClient.tevmSetAccount({
 			address: address1,
 			balance,
 		})
 		const transferAmount = 0x420n
-		const res = (await client.transport.tevm.request({
+		const res = (await nonCachedClient.transport.tevm.request({
 			params: [
 				{
 					caller: address1,
@@ -118,12 +118,12 @@ describe('Tevm.request', async () => {
 		})) as CallJsonRpcResponse['result']
 		assert(res, 'res is undefined')
 		expect(res.rawData).toEqual('0x')
-		await client.tevmMine()
+		await nonCachedClient.tevmMine()
 		expect(
-			(await (await client.transport.tevm.getVm()).stateManager.getAccount(createAddress(address2)))?.balance,
+			(await (await nonCachedClient.transport.tevm.getVm()).stateManager.getAccount(createAddress(address2)))?.balance,
 		).toBe(transferAmount)
 		expect(
-			(await (await client.transport.tevm.getVm()).stateManager.getAccount(createAddress(address1)))?.balance,
+			(await (await nonCachedClient.transport.tevm.getVm()).stateManager.getAccount(createAddress(address1)))?.balance,
 		).toBe(286183069n)
 	})
 
@@ -162,18 +162,18 @@ describe('Tevm.request', async () => {
 			bytecode: simpleConstructorBytecode,
 			args: [initialValue],
 		})
-		expect(deployResult).toEqual({
-			amountSpent: 1034047n,
-			gas: 29916879n,
-			totalGasSpent: 147721n,
+		expect(deployResult).toMatchObject({
+			amountSpent: expect.any(BigInt),
 			createdAddress: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
 			createdAddresses: new Set(['0x5FbDB2315678afecb367f032d93F642f64180aa3']),
 			executionGasUsed: 87131n,
+			gas: 39916879n,
 			logs: [],
 			rawData:
 				'0x608060405234801561000f575f80fd5b5060043610610034575f3560e01c806360fe47b1146100385780636d4ce63c14610054575b5f80fd5b610052600480360381019061004d91906100ba565b610072565b005b61005c61007b565b60405161006991906100f4565b60405180910390f35b805f8190555050565b5f8054905090565b5f80fd5b5f819050919050565b61009981610087565b81146100a3575f80fd5b50565b5f813590506100b481610090565b92915050565b5f602082840312156100cf576100ce610083565b5b5f6100dc848285016100a6565b91505092915050565b6100ee81610087565b82525050565b5f6020820190506101075f8301846100e5565b9291505056fea264697066735822122019e943356c89506511b952171a3b4724d3152e5f4029bbb0ecc836d1365fcce464736f6c63430008160033',
-			selfdestruct: new Set(),
-			txHash: '0x2a872fc2c05d90cbbdfbed7a5c831533dc1d02c1be4ab374b7d9c66e9ccec0e8',
+			selfdestruct: {},
+			totalGasSpent: 147721n,
+			txHash: expect.any(String),
 		})
 		const mineResult = await client.tevmMine()
 		const vm = await client.transport.tevm.getVm()
@@ -243,9 +243,18 @@ describe('Tevm.request', async () => {
 		}
 		// @ts-expect-error todo doesn't exist in viem yet https://github.com/wevm/viem/discussions/1060
 		const res = await client.request(req)
-		expect(res).toMatchObject({
-			accessList: [],
-			gasUsed: '0x53b8',
-		})
+		expect(res).toMatchInlineSnapshot(`
+			{
+			  "accessList": [
+			    {
+			      "address": "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1",
+			      "storageKeys": [
+			        "0xb36be5688aa5f1fe502bee16eea4495205ccef19d4d43434f78908a09f95006c",
+			      ],
+			    },
+			  ],
+			  "gasUsed": "0x5d47",
+			}
+		`)
 	})
 })

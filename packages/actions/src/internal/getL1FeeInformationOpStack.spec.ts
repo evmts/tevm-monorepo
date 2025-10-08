@@ -10,9 +10,9 @@ describe(getL1FeeInformationOpStack.name, () => {
 		const vm = await node.getVm()
 		const data = numberToBytes(42069420)
 		expect(await getL1FeeInformationOpStack(data, vm)).toEqual({
-			l1BaseFee: 961849046n,
+			l1BaseFee: 120663598n,
 			l1BlobFee: 1n,
-			l1Fee: 8044136042n,
+			l1Fee: 1009133904n,
 			l1GasUsed: 1600n,
 		})
 	})

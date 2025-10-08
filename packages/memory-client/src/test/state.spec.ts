@@ -45,6 +45,7 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 		const forkClient = createMemoryClient({
 			fork: {
 				transport: cachedTransport,
+				blockTag: 142153711n,
 			},
 		})
 

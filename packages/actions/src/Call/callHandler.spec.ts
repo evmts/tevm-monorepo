@@ -663,7 +663,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle opstack throwing unexpectedly', async () => {
-		const client = createCachedOptimismNode({
+		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
 				blockTag: 'latest',
@@ -677,7 +677,7 @@ describe('callHandler', () => {
 					},
 				},
 			},
-		}) as unknown as TevmNode
+		})
 		const originalWarn = client.logger.warn
 		const mockWarn = vi.fn()
 		client.logger.warn = mockWarn
@@ -716,7 +716,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle vm cloning throwing unexpectedly', async () => {
-		const client = createCachedOptimismNode({
+		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
 				blockTag: 'latest',
@@ -757,7 +757,7 @@ describe('callHandler', () => {
 	})
 
 	it('should handle being unable to get options', async () => {
-		const client = createCachedOptimismNode({
+		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
 				blockTag: 'latest',

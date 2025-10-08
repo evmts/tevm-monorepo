@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { Block } from '@tevm/block'
-import { type TevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { createCachedMainnetNode } from '@tevm/test-utils'
 import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
@@ -10,7 +10,7 @@ import { anvilResetJsonRpcProcedure } from './anvilResetProcedure.js'
 describe('anvilResetJsonRpcProcedure', () => {
 	it('should reset the blockchain and state manager', async () => {
 		// Create a real TevmNode client
-		const client = createCachedMainnetNode() as unknown as TevmNode
+		const client = createTevmNode()
 		const resetProcedure = anvilResetJsonRpcProcedure(client)
 
 		// Get VM and add some blocks and modify the state

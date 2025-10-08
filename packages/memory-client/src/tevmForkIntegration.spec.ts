@@ -19,6 +19,7 @@ describe('Tevm Forking Integration', () => {
 			transport: createTevmTransport({
 				fork: {
 					transport: cachedTransport,
+					blockTag: 142153711n,
 				},
 			}),
 			chain: optimism,
@@ -42,6 +43,7 @@ describe('Tevm Forking Integration', () => {
 			transport: createTevmTransport({
 				fork: {
 					transport: cachedTransport,
+					blockTag: 142153711n,
 				},
 			}),
 			chain: optimism,
@@ -72,6 +74,7 @@ describe('Tevm Forking Integration', () => {
 			transport: createTevmTransport({
 				fork: {
 					transport: cachedTransport,
+					blockTag: 142153711n,
 				},
 			}),
 			chain: optimism,
@@ -111,6 +114,7 @@ describe('Tevm Forking Integration', () => {
 			transport: createTevmTransport({
 				fork: {
 					transport: transports.optimism,
+					blockTag: 142153711n,
 				},
 			}),
 			chain: optimism,

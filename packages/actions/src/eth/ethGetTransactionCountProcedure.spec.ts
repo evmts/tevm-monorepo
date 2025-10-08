@@ -2,7 +2,7 @@ import { createAddress } from '@tevm/address'
 import { createTevmNode, type TevmNode } from '@tevm/node'
 import { createCachedMainnetNode } from '@tevm/test-utils'
 import { type Hex, PREFUNDED_ACCOUNTS } from '@tevm/utils'
-import { bytesToHex, custom, numberToHex, parseEther } from 'viem'
+import { custom, numberToHex, parseEther } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
 import type { BlockTag } from '../common/BlockTag.js'
@@ -67,48 +67,25 @@ describe(ethGetTransactionCountProcedure.name, () => {
   "id": 1,
   "jsonrpc": "2.0",
   "method": "eth_getTransactionCount",
-  "result": "0xa836d8",
+  "result": "0xb74811",
 }
 `)
 	})
 
 	it('should work with block hash', async () => {
-		// Get the block and its hash
-		const vm = await node.getVm()
-		const block = await vm.blockchain.getBlock(21996939n)
-		const blockHash = bytesToHex(block.hash())
-
-		// Mock the blockchain.getBlock method to handle the block hash request properly
-		const originalGetBlock = vm.blockchain.getBlock
-		vm.blockchain.getBlock = vi.fn(async (blockId) => {
-			if (typeof blockId === 'object' && blockId instanceof Uint8Array) {
-				// Check if this is our hash that we're looking for
-				if (bytesToHex(blockId) === blockHash) {
-					return block
-				}
-			}
-			// Otherwise fall back to the original implementation
-			return originalGetBlock.call(vm.blockchain, blockId)
+		const result = await ethGetTransactionCountProcedure(node)({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'eth_getTransactionCount',
+			params: [address, '0xa72e1a56125701149dc4d3c9b4d3d096dd8367bc93fdbffb737e3f37b0e275c6'],
 		})
 
-		try {
-			const result = await ethGetTransactionCountProcedure(node)({
-				jsonrpc: '2.0',
-				id: 1,
-				method: 'eth_getTransactionCount',
-				params: [address, blockHash],
-			})
-
-			expect(result).toMatchObject({
-				id: 1,
-				jsonrpc: '2.0',
-				method: 'eth_getTransactionCount',
-				result: expect.any(String),
-			})
-		} finally {
-			// Restore original method
-			vm.blockchain.getBlock = originalGetBlock
-		}
+		expect(result).toMatchObject({
+			id: 1,
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionCount',
+			result: expect.any(String),
+		})
 	})
 
 	it('should work with other valid tags', async () => {
