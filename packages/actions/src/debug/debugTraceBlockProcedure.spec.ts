@@ -135,6 +135,7 @@ describe('debugTraceBlockJsonRpcProcedure', () => {
 	// - next fix is to get forked block transactions to be signed
 	// - last fix will be `eth_getProof` support (should be automatically fixed when implemented)
 	it.skip('should trace a forked block', async () => {
+		// @ts-expect-error - Monorepo type issue
 		const client = createTevmNode().extend(requestEip1193())
 
 		const { createdAddress } = await deployHandler(client)({ addToBlockchain: true, ...SimpleContract.deploy(1n) })

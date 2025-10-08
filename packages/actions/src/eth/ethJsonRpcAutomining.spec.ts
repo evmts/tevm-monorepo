@@ -4,7 +4,7 @@ import { createTevmNode } from '@tevm/node'
 import { TransactionFactory } from '@tevm/tx'
 import {
 	bytesToHex,
-	Hex,
+	type Hex,
 	hexToBytes,
 	numberToHex,
 	PREFUNDED_ACCOUNTS,
@@ -148,7 +148,7 @@ describe('JSON-RPC Automining Integration Tests', () => {
 			const txPool = await client.getTxPool()
 			const pooledTxs = await txPool.getBySenderAddress(createAddress(PREFUNDED_ACCOUNTS[0].address))
 			expect(pooledTxs).toHaveLength(1)
-			expect(bytesToHex(pooledTxs[0].tx.hash())).toBe(sendResult.result)
+			expect(pooledTxs[0] && bytesToHex(pooledTxs[0].tx.hash())).toBe(sendResult.result)
 		})
 	})
 

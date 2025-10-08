@@ -1,6 +1,6 @@
 import { mainnet } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { transports } from '@tevm/test-utils'
+import { createCachedMainnetTransport } from '@tevm/test-utils'
 import { type Address, testActions } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
@@ -9,10 +9,12 @@ import type { MemoryClient } from '../MemoryClient.js'
 let client: MemoryClient
 
 beforeEach(async () => {
+	const cachedTransport = createCachedMainnetTransport()
 	client = createMemoryClient({
 		common: mainnet,
 		fork: {
-			transport: transports.mainnet,
+			transport: cachedTransport,
+			blockTag: 23531308n,
 		},
 	})
 	await client.extend(testActions({ mode: 'anvil' })).mine({ blocks: 1 })

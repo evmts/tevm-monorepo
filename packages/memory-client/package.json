@@ -47,7 +47,7 @@
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/memory-client",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --noEmitOnError false --emitDeclarationOnly --declaration --skipLibCheck",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -55,7 +55,7 @@
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
 		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
+		"lint:package": "bunx publint --strict && pnpm pack --pack-destination /tmp && attw /tmp/tevm-memory-client-*.tgz && rm /tmp/tevm-memory-client-*.tgz",
 		"package:up": "pnpm up --latest",
 		"test": "vitest --watch",
 		"test:coverage": "vitest --coverage --run",
@@ -77,6 +77,7 @@
 		"vitest": "^3.2.4"
 	},
 	"devDependencies": {
+		"@tevm/test-matchers": "latest",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",

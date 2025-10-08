@@ -5,7 +5,6 @@ import { parseEther } from '@tevm/utils'
 import { encodeFunctionData } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
-import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { ethSendTransactionHandler } from './ethSendTransactionHandler.js'
@@ -33,8 +32,8 @@ describe('ethSendTransactionHandler', () => {
 
 		await mineHandler(client)()
 
-		const toAccount = await getAccountHandler(client)({ address: to.toString() })
-		expect(toAccount.balance).toBe(value)
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(to.toString()).toHaveState(client, { balance: value })
 	})
 
 	it('should handle contract interaction', async () => {

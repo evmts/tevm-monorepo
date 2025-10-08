@@ -1,19 +1,14 @@
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { createClient, type Hex, parseEther } from 'viem'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { createClient, numberToHex, parseEther } from 'viem'
+import { assert, beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
 import { createTevmTransport } from '../../createTevmTransport.js'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { tevmDumpState } from '../../tevmDumpState.js'
 
 let mc: MemoryClient
-let _deployTxHash: Hex
-let c = {
-	simpleContract: SimpleContract.withAddress(`0x${'00'.repeat(20)}`),
-}
 
-// Test addresses
 const testAccount1 = `0x${'11'.repeat(20)}` as const
 const testAccount2 = `0x${'22'.repeat(20)}` as const
 
@@ -21,35 +16,32 @@ beforeEach(async () => {
 	mc = createMemoryClient()
 	await mc.tevmReady()
 
-	// Set up test accounts with known state
 	await mc.tevmSetAccount({
 		address: testAccount1,
 		balance: parseEther('10'),
 		nonce: 5n,
 	})
-
-	const deployResult = await mc.tevmDeploy({
-		bytecode: SimpleContract.bytecode,
-		abi: SimpleContract.abi,
-		args: [420n],
-	})
-	if (!deployResult.createdAddress) {
-		throw new Error('contract never deployed')
-	}
-	c = {
-		simpleContract: SimpleContract.withAddress(deployResult.createdAddress),
-	}
-	if (!deployResult.txHash) {
-		throw new Error('txHash not found')
-	}
-	_deployTxHash = deployResult.txHash
-	await mc.tevmMine()
 })
 
-// FIXME: These tests need more work to properly handle storage keys
-describe.skip('dumpState', () => {
+describe('dumpState', () => {
 	it('should dump the current state with account data', async () => {
-		// Use the standard client approach to match the existing implementation
+		const stateDump = await mc.tevmDumpState()
+
+		expect(stateDump).toBeDefined()
+		expect(stateDump.state).toBeDefined()
+		expect(typeof stateDump.state).toBe('object')
+
+		const accountAddresses = Object.keys(stateDump.state)
+		expect(accountAddresses.length).toBeGreaterThan(0)
+		assert(accountAddresses[0], 'accountAddresses is empty')
+
+		const firstAccount = stateDump.state[accountAddresses[0]]
+		expect(firstAccount).toHaveProperty('balance')
+		expect(firstAccount).toHaveProperty('nonce')
+		expect(firstAccount).toHaveProperty('storage')
+	})
+
+	it('should work with a standard viem client', async () => {
 		const client = createClient({
 			transport: createTevmTransport({}),
 			chain: optimism,
@@ -57,197 +49,130 @@ describe.skip('dumpState', () => {
 
 		const stateDump = await tevmDumpState(client)
 
-		// Basic structure checks
-		expect(stateDump).toBeDefined()
-		expect(stateDump.state).toBeDefined()
-		expect(typeof stateDump.state).toBe('object')
-
-		// There should be some accounts in the state
-		const accountAddresses = Object.keys(stateDump.state)
-		expect(accountAddresses.length).toBeGreaterThan(0)
-
-		// Check that account has expected properties
-		const firstAccount = stateDump.state[accountAddresses[0]]
-		expect(firstAccount).toHaveProperty('balance')
-		expect(firstAccount).toHaveProperty('nonce')
-		expect(firstAccount).toHaveProperty('storage')
-	})
-
-	it('should work with a memory client', async () => {
-		// Use the memory client
-		const stateDump = await mc.tevmDumpState()
-
-		// Basic structure checks
 		expect(stateDump).toBeDefined()
 		expect(stateDump.state).toBeDefined()
 	})
 
 	it('should include deployed contract code in the dump', async () => {
-		// Get contract address
-		const contractAddress = c.simpleContract.address
+		const contractAddress = `0x${'66'.repeat(20)}` as const
 
-		// Call contract to ensure it has valid state
-		await c.simpleContract.write.set(999n)
-		await mc.tevmMine()
+		await mc.tevmSetAccount({
+			address: contractAddress,
+			deployedBytecode: SimpleContract.deployedBytecode,
+			balance: 0n,
+		})
 
-		// Dump state
 		const stateDump = await mc.tevmDumpState()
 
-		// Check if contract is in dumped state
-		expect(stateDump.state[contractAddress.toLowerCase()]).toBeDefined()
-
-		// Contract should have code
 		const contractDump = stateDump.state[contractAddress.toLowerCase()]
-		expect(contractDump.code).toBeDefined()
-		expect(contractDump.code.length).toBeGreaterThan(2) // More than just '0x'
-
-		// Contract should have storage reflecting the value we set
-		expect(contractDump.storage).toBeDefined()
-
-		// Read back the value to confirm it matches what we set
-		const value = await c.simpleContract.read.get()
-		expect(value).toBe(999n)
+		assert(contractDump, 'contractDump is undefined')
+		expect(contractDump).toBeDefined()
+		expect(contractDump.deployedBytecode).toBe(SimpleContract.deployedBytecode)
+		expect(contractDump.balance).toBe(numberToHex(0n))
 	})
 
-	it('should accurately dump custom account state', async () => {
-		// Set a specific account with known values
+	it('should accurately dump custom account state with storage', async () => {
 		const customAddress = `0x${'33'.repeat(20)}` as const
 		const customBalance = parseEther('123.456')
 		const customNonce = 42n
-		const customStorageValue = '0x1234567890abcdef'
+		const customStorageValue = '0x1234567890abcdef0000000000000000000000000000000000000000000000'
 		const customStorageKey = '0x0000000000000000000000000000000000000000000000000000000000000001'
 
 		await mc.tevmSetAccount({
 			address: customAddress,
 			balance: customBalance,
 			nonce: customNonce,
-			storage: {
+			state: {
 				[customStorageKey]: customStorageValue,
 			},
 		})
 
-		// Dump state
 		const stateDump = await mc.tevmDumpState()
 
-		// Check the custom account is in the dump with correct values
 		const customAccountDump = stateDump.state[customAddress.toLowerCase()]
-		expect(customAccountDump).toBeDefined()
-		expect(customAccountDump.balance).toBe(customBalance)
-		expect(customAccountDump.nonce).toBe(customNonce)
-
-		// Check storage value
+		assert(customAccountDump, 'customAccountDump is undefined')
+		expect(customAccountDump.balance).toBe(numberToHex(customBalance))
+		expect(customAccountDump.nonce).toBe(numberToHex(customNonce))
 		expect(customAccountDump.storage).toBeDefined()
+		assert(customAccountDump.storage, 'storage is undefined')
 		expect(customAccountDump.storage[customStorageKey]).toBe(customStorageValue)
 	})
 
-	it('should handle empty accounts correctly', async () => {
-		// Create an account with minimal state
-		const emptyAddress = `0x${'44'.repeat(20)}` as const
+	it('should handle minimal accounts correctly', async () => {
+		const minimalAddress = `0x${'44'.repeat(20)}` as const
 
-		// Set account with just minimal balance
 		await mc.tevmSetAccount({
-			address: emptyAddress,
+			address: minimalAddress,
 			balance: 1n,
 		})
 
-		// Dump state
 		const stateDump = await mc.tevmDumpState()
 
-		// Check the empty account is in the dump
-		const emptyAccountDump = stateDump.state[emptyAddress.toLowerCase()]
-		expect(emptyAccountDump).toBeDefined()
-		expect(emptyAccountDump.balance).toBe(1n)
-		expect(emptyAccountDump.nonce).toBe(0n)
-		expect(emptyAccountDump.storage).toEqual({})
-		expect(emptyAccountDump.code === undefined || emptyAccountDump.code === '0x').toBe(true)
+		const accountDump = stateDump.state[minimalAddress.toLowerCase()]
+		assert(accountDump, 'accountDump is undefined')
+		expect(accountDump.balance).toBe(numberToHex(1n))
+		expect(accountDump.nonce).toBe(numberToHex(0n))
+		expect(accountDump.storage).toEqual({})
+		expect(accountDump.deployedBytecode === undefined || accountDump.deployedBytecode === '0x').toBe(true)
 	})
 
-	it('should handle multiple clients with different states', async () => {
-		// Create a second client with different state
+	it('should handle multiple clients with isolated states', async () => {
 		const secondClient = createMemoryClient()
 		await secondClient.tevmReady()
 
-		// Set unique state in second client
 		const uniqueAddress = `0x${'55'.repeat(20)}` as const
 		await secondClient.tevmSetAccount({
 			address: uniqueAddress,
 			balance: parseEther('777'),
 		})
 
-		// Dump state from both clients
 		const firstClientDump = await mc.tevmDumpState()
 		const secondClientDump = await secondClient.tevmDumpState()
 
-		// First client dump should have testAccount1
 		expect(firstClientDump.state[testAccount1.toLowerCase()]).toBeDefined()
-
-		// Second client dump should have uniqueAddress
 		expect(secondClientDump.state[uniqueAddress.toLowerCase()]).toBeDefined()
-
-		// First client dump should NOT have uniqueAddress
 		expect(firstClientDump.state[uniqueAddress.toLowerCase()]).toBeUndefined()
-
-		// Second client dump should NOT have testAccount1 (unless it's a default account)
-		const hasTestAccount1 = secondClientDump.state[testAccount1.toLowerCase()] !== undefined
-		if (hasTestAccount1) {
-			// If it exists, balance should not match what we set in the first client
-			expect(secondClientDump.state[testAccount1.toLowerCase()].balance).not.toBe(parseEther('10'))
-		}
 	})
 
-	it('should correctly capture changes to contract storage', async () => {
-		// Set an initial value
-		await c.simpleContract.write.set(111n)
-		await mc.tevmMine()
-
-		// Dump state
+	it('should capture account state changes', async () => {
 		const initialDump = await mc.tevmDumpState()
+		const initialAccount = initialDump.state[testAccount1.toLowerCase()]
+		assert(initialAccount, 'initialAccount is undefined')
+		expect(initialAccount.balance).toBe(numberToHex(parseEther('10')))
+		expect(initialAccount.nonce).toBe(numberToHex(5n))
 
-		// Change the contract state
-		await c.simpleContract.write.set(222n)
-		await mc.tevmMine()
+		await mc.tevmSetAccount({
+			address: testAccount1,
+			balance: parseEther('20'),
+			nonce: 10n,
+		})
 
-		// Dump state again
 		const updatedDump = await mc.tevmDumpState()
-
-		// Contract storage should be different between dumps
-		const contractAddress = c.simpleContract.address.toLowerCase()
-
-		// Verify contract exists in both dumps
-		expect(initialDump.state[contractAddress]).toBeDefined()
-		expect(updatedDump.state[contractAddress]).toBeDefined()
-
-		// Check the contract's storage
-		const initialStorage = initialDump.state[contractAddress].storage
-		const updatedStorage = updatedDump.state[contractAddress].storage
-
-		// The storage objects should not be equal
-		expect(initialStorage).not.toEqual(updatedStorage)
+		const updatedAccount = updatedDump.state[testAccount1.toLowerCase()]
+		assert(updatedAccount, 'updatedAccount is undefined')
+		expect(updatedAccount.balance).toBe(numberToHex(parseEther('20')))
+		expect(updatedAccount.nonce).toBe(numberToHex(10n))
 	})
 
-	it('should dump the state correctly after a transaction', async () => {
-		// Get the original balance of testAccount1
-		const originalBalance = await mc.getBalance({ address: testAccount1 })
-
-		// Send a transaction from testAccount1
-		await mc.impersonateAccount({ address: testAccount1 })
-		await mc.sendTransaction({
-			from: testAccount1,
-			to: testAccount2,
-			value: parseEther('1'),
+	it('should dump state with multiple accounts', async () => {
+		await mc.tevmSetAccount({
+			address: testAccount2,
+			balance: parseEther('5'),
+			nonce: 3n,
 		})
-		await mc.tevmMine()
 
-		// Get the new balance
-		const newBalance = await mc.getBalance({ address: testAccount1 })
-		expect(newBalance).toBeLessThan(originalBalance)
-
-		// Dump state
 		const stateDump = await mc.tevmDumpState()
 
-		// Check the account in the dump has the updated balance
-		const account1Dump = stateDump.state[testAccount1.toLowerCase()]
-		expect(account1Dump).toBeDefined()
-		expect(account1Dump.balance).toBe(newBalance)
+		const account1 = stateDump.state[testAccount1.toLowerCase()]
+		const account2 = stateDump.state[testAccount2.toLowerCase()]
+
+		assert(account1, 'account1 is undefined')
+		assert(account2, 'account2 is undefined')
+
+		expect(account1.balance).toBe(numberToHex(parseEther('10')))
+		expect(account1.nonce).toBe(numberToHex(5n))
+
+		expect(account2.balance).toBe(numberToHex(parseEther('5')))
+		expect(account2.nonce).toBe(numberToHex(3n))
 	})
 })

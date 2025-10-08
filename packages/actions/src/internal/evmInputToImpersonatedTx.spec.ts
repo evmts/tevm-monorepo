@@ -1,18 +1,17 @@
 import { createAddress } from '@tevm/address'
-import { createTevmNode } from '@tevm/node'
-import { transports } from '@tevm/test-utils'
+import type { TevmNode } from '@tevm/node'
+import { createCachedOptimismNode } from '@tevm/test-utils'
 import { type Address } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
 
+const client = createCachedOptimismNode({
+	miningConfig: { type: 'manual' },
+}) as unknown as TevmNode
+
 describe('evmInputToImpersonatedTx', () => {
 	it('should create an impersonated transaction with the correct parameters', async () => {
-		const client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'manual' },
-		})
-
 		const evmInput = {
 			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
@@ -28,11 +27,6 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it.skip('should create an impersonated transaction with the correct nonce', async () => {
-		const client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'manual' },
-		})
-
 		const evmInput = {
 			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
@@ -55,11 +49,6 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should create an impersonated transaction with the correct gas parameters', async () => {
-		const client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'manual' },
-		})
-
 		const evmInput = {
 			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
@@ -83,11 +72,6 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should allow setting custom maxFeePerGas and maxPriorityFeePerGas', async () => {
-		const client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'manual' },
-		})
-
 		const evmInput = {
 			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
@@ -104,11 +88,6 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should create an impersonated transaction with a default sender if origin and caller are not provided', async () => {
-		const client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'manual' },
-		})
-
 		const evmInput = {
 			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
@@ -122,11 +101,6 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it.skip('should use caller when origin is not provided', async () => {
-		const client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'manual' },
-		})
-
 		const evmInput = {
 			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
@@ -139,11 +113,6 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should prioritize origin over caller when both are provided', async () => {
-		const client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'manual' },
-		})
-
 		const evmInput = {
 			to: createAddress(`0x${'12'.repeat(20)}`),
 			data: new Uint8Array([0x12, 0x34]),
@@ -158,11 +127,6 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it.skip('should handle undefined optional fields', async () => {
-		const client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'manual' },
-		})
-
 		const evmInput = {
 			origin: createAddress(`0x${'34'.repeat(20)}`),
 			// to, data, and value are intentionally omitted
@@ -175,11 +139,6 @@ describe('evmInputToImpersonatedTx', () => {
 	})
 
 	it('should respect zero values for maxFeePerGas and maxPriorityFeePerGas', async () => {
-		const client = createTevmNode({
-			fork: { transport: transports.optimism },
-			miningConfig: { type: 'manual' },
-		})
-
 		const evmInput = {
 			to: createAddress(`0x${'12'.repeat(20)}`),
 			origin: createAddress(`0x${'34'.repeat(20)}`),
