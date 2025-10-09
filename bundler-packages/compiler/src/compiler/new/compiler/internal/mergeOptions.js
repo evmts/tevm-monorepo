@@ -17,8 +17,8 @@ export const mergeOptions = (options = {}, overrides = {}) => {
 			exposeInternalFunctions: overrides.exposeInternalFunctions ?? options.exposeInternalFunctions,
 			exposeInternalVariables: overrides.exposeInternalVariables ?? options.exposeInternalVariables,
 			// solc settings
-			outputSelection: overrides.compilationOutput ?? options.compilationOutput,
-			evmVersion: overrides.hardfork ?? options.hardfork,
+			compilationOutput: overrides.compilationOutput ?? options.compilationOutput,
+			hardfork: overrides.hardfork ?? options.hardfork,
 		},
 		overrides.cacheDirectory && { cacheDirectory: overrides.cacheDirectory },
 		(overrides.optimizer || options.optimizer) && {

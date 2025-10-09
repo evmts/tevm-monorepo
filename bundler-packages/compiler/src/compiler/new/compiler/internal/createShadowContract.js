@@ -17,12 +17,12 @@ export const createShadowContract = (shadowBody, sourceContractPath, sourceContr
 
 	// source ERC20.sol -> __TevmShadow_ERC20__.sol
 	const shadowContractName = `__TevmShadow_${sourceContractName}__`
-	const shadowContractPath = path.join(sourceDirectory, `${shadowContractName}.${extension}`)
+	const shadowContractPath = path.join(sourceDirectory, `${shadowContractName}${extension}`)
 
 	return {
 		[shadowContractPath]: `
 // GENERATED: Shadow contract for generating AST
-import { ${sourceContractName} } from "./${sourceContractFileName}.${extension}";
+import { ${sourceContractName} } from "./${sourceContractFileName}${extension}";
 
 contract ${shadowContractName} is ${sourceContractName} {
   ${shadowBody}

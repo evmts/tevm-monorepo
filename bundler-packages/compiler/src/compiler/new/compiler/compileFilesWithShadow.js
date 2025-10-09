@@ -1,7 +1,7 @@
 import { createLogger } from '@tevm/logger'
 import { compileFilesInternal } from './compileFiles.js'
 import { compileSourceWithShadow } from './compileSourceWithShadow.js'
-import { extractContractsFromAst } from './extractContractsFromAst.js'
+import { extractContractsFromAstNodes } from './extractContractsFromAstNodes.js'
 import { compileContracts } from './internal/compileContracts.js'
 import { defaults } from './internal/defaults.js'
 import { AstParseError, CompilerOutputError } from './internal/errors.js'
@@ -10,6 +10,7 @@ import { instrumentAst } from './internal/instrumentAst.js'
 import { readSourceFiles } from './internal/readSourceFiles.js'
 import { validateBaseOptions } from './internal/validateBaseOptions.js'
 import { validateShadowOptions } from './internal/validateShadowOptions.js'
+import { solcSourcesToAstNodes } from './solcSourcesToAstNodes.js'
 
 /**
  * Compile source files from the filesystem with injected shadow code
@@ -28,7 +29,7 @@ import { validateShadowOptions } from './internal/validateShadowOptions.js'
  * with multiple files. If there are multiple contracts in that file, you must also provide injectIntoContractName.
  *
  * @template {import('@tevm/solc').SolcLanguage} TLanguage
- * @template {import('./CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
+ * @template {import('./CompilationOutputOption.js').CompilationOutputOption[] | undefined} TCompilationOutput
  * @template {string[]} TFilePaths
  * @param {TFilePaths} filePaths - Array of file paths to compile
  * @param {string} shadow - The shadow code to merge into the target contract
@@ -46,6 +47,7 @@ import { validateShadowOptions } from './internal/validateShadowOptions.js'
  *     injectIntoContractName: 'Token'
  *   }
  * )
+ * @see {@link compileSourceWithShadow}
  */
 export const compileFilesWithShadow = async (filePaths, shadow, options) => {
 	const logger = createLogger({ name: '@tevm/compiler', level: options?.loggingLevel ?? defaults.loggingLevel })
@@ -62,7 +64,7 @@ export const compileFilesWithShadow = async (filePaths, shadow, options) => {
 
 	return compileFilesWithShadowInternal(
 		solc,
-		sources,
+		/** @type {{[filePath: string]: string | import('@tevm/solc').SolcAst}} */ (sources),
 		shadow,
 		validatedOptions,
 		{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
@@ -77,10 +79,10 @@ export const compileFilesWithShadow = async (filePaths, shadow, options) => {
  * Used by both compileFilesWithShadow and potentially by compiler instances.
  *
  * @template {import('@tevm/solc').SolcLanguage} TLanguage
- * @template {import('./CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
+ * @template {import('./CompilationOutputOption.js').CompilationOutputOption[] | undefined} TCompilationOutput
  * @template {string[]} TFilePaths
  * @param {import('@tevm/solc').Solc} solc - Solc instance
- * @param {{[filePath: string]: string | import('./AstInput.js').AstInput}} sources - Pre-loaded sources
+ * @param {{[filePath: string]: TLanguage extends 'SolidityAST' ? import('@tevm/solc').SolcAst : string}} sources - Pre-loaded sources
  * @param {string} shadow - The shadow code to inject
  * @param {import('./internal/ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions<TLanguage, TCompilationOutput>} validatedOptions - Validated compilation options
  * @param {Pick<import('./CompileSourceWithShadowOptions.js').CompileSourceWithShadowOptions, 'shadowLanguage' | 'injectIntoContractPath' | 'injectIntoContractName'>} shadowOptions - Shadow-specific options
@@ -91,12 +93,13 @@ export const compileFilesWithShadowInternal = (solc, sources, shadow, validatedO
 	// Get ASTs for all sources (compile if needed)
 	let astSources =
 		validatedOptions.language === 'SolidityAST'
-			? /** @type {{[filePath: string]: import('./AstInput.js').AstInput}} */ (sources)
+			? /** @type {{[filePath: string]: import('@tevm/solc').SolcAst}} */ (sources)
 			: undefined
+
 	if (!astSources) {
 		const { compilationResult } = compileContracts(
-			/** @type {{[filePath: string]: string}} */ (sources),
 			solc,
+			sources,
 			{ ...validatedOptions, compilationOutput: ['ast'], throwOnCompilationError: true },
 			logger,
 		)
@@ -109,23 +112,24 @@ export const compileFilesWithShadowInternal = (solc, sources, shadow, validatedO
 					logger.error(err.message)
 					throw err
 				}
-				return [filePath, /** @type {import('@tevm/solc').SolcAst} */ (result.ast)]
+				return [filePath, result.ast]
 			}),
 		)
 	}
 
-	// Validate shadow options and determine target contract
+	const astSourceNodes = solcSourcesToAstNodes(
+		Object.fromEntries(Object.entries(astSources).map(([filePath, ast]) => [filePath, { ast, id: ast.id }])),
+		logger,
+	)
 	const validatedShadowOptions = validateShadowOptions(
-		Object.values(astSources),
+		astSourceNodes,
 		shadowOptions,
 		validatedOptions.language,
 		true, // validate path since we have multiple files
 		logger,
 	)
 	const targetAstSourceNode = /** @type {import('solc-typed-ast').SourceUnit} */ (
-		validatedShadowOptions.astSourceNodes.find(
-			(node) => node.absolutePath === validatedShadowOptions.injectIntoContractPath,
-		)
+		astSourceNodes.find((node) => node.absolutePath === validatedShadowOptions.injectIntoContractPath)
 	)
 
 	// Get the target contract's last child node to know where to inject the shadow code
@@ -140,56 +144,77 @@ export const compileFilesWithShadowInternal = (solc, sources, shadow, validatedO
 		throw err
 	}
 
-	// Get the original source code for the target file
-	const targetSourceCode =
-		validatedOptions.language === 'SolidityAST'
-			? extractContractsFromAst(targetAstSourceNode, validatedOptions).source
-			: /** @type {string} */ (sources[validatedShadowOptions.injectIntoContractPath])
-
 	// Inject shadow code based on merge strategy
-	/** @type {string} */
-	let shadowedTargetSource
 	if (validatedShadowOptions.shadowMergeStrategy === 'safe') {
-		// Safe mode: inject directly at the original source location
+		// We need to extract Solidity code from all sources to compile back together after injecting the shadow code
+		const { sources: soliditySources } =
+			validatedOptions.language === 'SolidityAST'
+				? extractContractsFromAstNodes(astSourceNodes, validatedOptions)
+				: { sources: /** @type {{[filePath: string]: string}} */ (sources) }
+		// Get the original source code for the target file
+		const targetSourceCode = /** @type {string} */ (soliditySources[validatedShadowOptions.injectIntoContractPath])
+
+		// Here the contract is unmodified so we can inject into the original source locations
 		const lastChildNodeEnd = lastChildNode.sourceInfo.offset + lastChildNode.sourceInfo.length
-		shadowedTargetSource = `${targetSourceCode.slice(0, lastChildNodeEnd)}\n\n${shadow}\n\n${targetSourceCode.slice(lastChildNodeEnd)}`
-	} else {
-		// shadowMergeStrategy = 'replace'
-		// Replace mode: instrument the AST to make functions overrideable by shadow methods
-		const instrumentedTargetAst = instrumentAst(
-			targetAstSourceNode,
-			{
-				markFunctionsAsVirtual: true,
-				contractFilter: validatedShadowOptions.injectIntoContractName,
-			},
+		const shadowedSolidityTarget = `${targetSourceCode.slice(0, lastChildNodeEnd)}\n\n${shadow}\n\n${targetSourceCode.slice(lastChildNodeEnd)}`
+
+		logger.debug(`Compiling source with shadow code injected in safe mode`)
+		return compileFilesInternal(
+			solc,
+			{ ...soliditySources, [validatedShadowOptions.injectIntoContractPath]: shadowedSolidityTarget },
+			{ ...validatedOptions, language: 'Solidity' },
 			logger,
 		)
-
-		const { source: instrumentedSoliditySource, sourceMap: instrumentedMap } = extractContractsFromAst(
-			instrumentedTargetAst,
-			{ ...validatedOptions, withSourceMap: true },
-		)
-
-		// Look up the lastChild node in the instrumented map to get its new location
-		const instrumentedLocation = instrumentedMap.get(lastChildNode)
-		if (!instrumentedLocation) {
-			const err = new AstParseError('Failed to locate injection point in instrumented code', {
-				meta: { code: 'invalid_instrumented_ast' },
-			})
-			logger.error(err.message)
-			throw err
-		}
-
-		// Inject shadow code at the correct location in the instrumented source
-		const lastChildNodeEnd = instrumentedLocation[0] + instrumentedLocation[1]
-		shadowedTargetSource = `${instrumentedSoliditySource.slice(0, lastChildNodeEnd)}\n\n${shadow}\n\n${instrumentedSoliditySource.slice(lastChildNodeEnd)}`
 	}
 
-	logger.debug(`Compiling ${Object.keys(sources).length} files with shadow code injected`)
+	// shadowMergeStrategy = 'replace'
+	// Replace mode: instrument the AST to make functions overrideable by shadow methods
+	const instrumentedTargetAst = instrumentAst(
+		targetAstSourceNode,
+		{
+			markFunctionsAsVirtual: true,
+			contractFilter: validatedShadowOptions.injectIntoContractName,
+		},
+		logger,
+	)
+
+	// Extract Solidity from source nodes with the target node replaced with its instrumented AST
+	const { sources: soliditySources, sourceMaps } = extractContractsFromAstNodes(
+		[...astSourceNodes.filter((node) => node.absolutePath !== targetAstSourceNode.absolutePath), instrumentedTargetAst],
+		{
+			...validatedOptions,
+			withSourceMap: true,
+		},
+	)
+	const instrumentedSolidityTarget = /** @type {string} */ (
+		soliditySources[validatedShadowOptions.injectIntoContractPath]
+	)
+	const instrumentedMap = sourceMaps[validatedShadowOptions.injectIntoContractPath]
+	if (!instrumentedSolidityTarget || !instrumentedMap) {
+		const err = new CompilerOutputError('Source output for target file not found', {
+			meta: { code: 'missing_source_output' },
+		})
+		logger.error(err.message)
+		throw err
+	}
+
+	// Look up the lastChild node in the instrumented map to get its new location
+	const instrumentedLocation = instrumentedMap.get(lastChildNode)
+	if (!instrumentedLocation) {
+		const err = new AstParseError('Failed to locate injection point in instrumented code', {
+			meta: { code: 'invalid_instrumented_ast' },
+		})
+		logger.error(err.message)
+		throw err
+	}
+
+	// Now we can safely inject shadow code at the correct location
+	const lastChildNodeEnd = instrumentedLocation[0] + instrumentedLocation[1]
+	const shadowedSolidityTarget = `${instrumentedSolidityTarget.slice(0, lastChildNodeEnd)}\n\n${shadow}\n\n${instrumentedSolidityTarget.slice(lastChildNodeEnd)}`
 	return compileFilesInternal(
 		solc,
-		{ ...sources, [validatedShadowOptions.injectIntoContractPath]: shadowedTargetSource },
-		validatedOptions,
+		{ ...soliditySources, [validatedShadowOptions.injectIntoContractPath]: shadowedSolidityTarget },
+		{ ...validatedOptions, language: 'Solidity' },
 		logger,
 	)
 }

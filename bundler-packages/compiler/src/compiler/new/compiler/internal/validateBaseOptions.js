@@ -4,11 +4,7 @@ import { validateSolcVersion } from './validateSolcVersion.js'
 
 /**
  * @template {import('@tevm/solc').SolcLanguage} TLanguage
- * @typedef {TLanguage extends 'SolidityAST' ? import('../AstInput.js').AstInput | import('../AstInput.js').AstInput[] | object | object[] : string | string[]} Source
- */
-/**
- * @template {import('@tevm/solc').SolcLanguage} TLanguage
- * @typedef {TLanguage extends 'SolidityAST' ? import('../AstInput.js').AstInput | import('../AstInput.js').AstInput[] : string | string[]} ValidatedSource
+ * @typedef {TLanguage extends 'SolidityAST' ? import('@tevm/solc').SolcAst | import('@tevm/solc').SolcAst[] : string | string[]} ValidatedSource
  */
 
 /**
@@ -16,9 +12,9 @@ import { validateSolcVersion } from './validateSolcVersion.js'
  *
  * We purposely don't validate AST (e.g. valid json) to let the AST reader validate and throw the appropriate errors
  * @template {import('@tevm/solc').SolcLanguage} TLanguage
- * @template {import('../CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
- * @param {Source<TLanguage>} source - The source code to validate
- * @param {import('../CompileBaseOptions.js').CompileBaseOptions<TLanguage> | undefined} options - The compilation options
+ * @template {import('../CompilationOutputOption.js').CompilationOutputOption[] | undefined} TCompilationOutput
+ * @param {object | object[] | string | string[]} source - The source code to validate
+ * @param {import('../CompileBaseOptions.js').CompileBaseOptions<TLanguage, TCompilationOutput> | undefined} options - The compilation options
  * @param {import('@tevm/logger').Logger} logger - The logger
  * @returns {import('./ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions<TLanguage, TCompilationOutput>} The validated source code
  */
@@ -32,7 +28,7 @@ export const validateBaseOptions = (source, options = {}, logger) => {
 	if (!options.hardfork) {
 		logger.debug(`No hardfork provided, using default: ${hardfork}`)
 	}
-	const compilationOutput = /** @type {TCompilationOutput} */ (options.compilationOutput ?? defaults.compilationOutput)
+	const compilationOutput = options.compilationOutput ?? defaults.compilationOutput
 	if (!options.compilationOutput) {
 		logger.debug(`No compilation output selection, using default fields: ${compilationOutput}`)
 	}
@@ -63,7 +59,7 @@ export const validateBaseOptions = (source, options = {}, logger) => {
 		...options,
 		language,
 		hardfork,
-		compilationOutput,
+		compilationOutput: /** @type {any} */ (compilationOutput),
 		solcVersion,
 		throwOnVersionMismatch: options.throwOnVersionMismatch ?? defaults.throwOnVersionMismatch,
 		throwOnCompilationError: options.throwOnCompilationError ?? defaults.throwOnCompilationError,

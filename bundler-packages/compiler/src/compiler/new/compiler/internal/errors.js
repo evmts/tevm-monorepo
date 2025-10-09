@@ -240,7 +240,7 @@ export class FileReadError extends Error {
  * import { CompilerOutputError } from './errors.js'
  *
  * try {
- *   const result = compileContracts(sources, solc, options)
+ *   const result = compileContracts(solc, sources, options)
  * } catch (error) {
  *   if (error instanceof CompilerOutputError) {
  *     console.log('Code:', error.meta?.code)
@@ -275,7 +275,7 @@ export class CompilerOutputError extends Error {
  * @property {string[]} [metaMessages] - Additional meta messages.
  * @property {Error|unknown} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
- * @property {{ code: 'parse_failed' | 'empty_ast' | 'invalid_source_ast' | 'invalid_instrumented_ast', sources?: string }} [meta] - Error metadata with specific code.
+ * @property {{ code: 'parse_failed' | 'empty_ast' | 'invalid_source_ast' | 'invalid_instrumented_ast', sources?: string[] }} [meta] - Error metadata with specific code.
  */
 
 /**
@@ -331,7 +331,7 @@ export class AstParseError extends Error {
  * @property {string[]} [metaMessages] - Additional meta messages.
  * @property {Error|unknown} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
- * @property {{ code: 'invalid_shadow_language' | 'missing_inject_path' | 'missing_inject_name' | 'missing_contract_files' | 'missing_contracts' | 'invalid_inject_path', providedPath?: string | undefined, providedName?: string | undefined, sourceFilePaths?: string[], sourceContractNames?: string[] }} [meta] - Error metadata with specific code.
+ * @property {{ code: 'invalid_shadow_language' | 'missing_inject_path' | 'missing_inject_name' | 'missing_contract_files' | 'missing_contracts' | 'invalid_inject_path' | 'contract_not_found' | 'ambiguous_contract_name', providedPath?: string | undefined, providedName?: string | undefined, sourceFilePaths?: string[], sourceContractNames?: string[], searchedFiles?: string[], matchingFiles?: string[], availableNames?: string[] }} [meta] - Error metadata with specific code.
  */
 
 /**
