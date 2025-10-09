@@ -14,7 +14,7 @@ import type { CompilationOutputOption } from './CompilationOutputOption.js'
 // All of the below options can be overridden on a per-compilation basis
 export interface CompileBaseOptions<
 	TLanguage extends SolcLanguage = SolcLanguage,
-	TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
+	TCompilationOutput extends CompilationOutputOption[] | undefined = CompilationOutputOption[] | undefined,
 > {
 	// Solc settings
 	/**

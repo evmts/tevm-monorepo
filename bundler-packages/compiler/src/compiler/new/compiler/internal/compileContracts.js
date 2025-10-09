@@ -5,15 +5,15 @@ import { CompilerOutputError } from './errors.js'
  * Compile Solidity or Yul code
  *
  * @template {import('@tevm/solc').SolcLanguage} TLanguage
- * @template {import('../CompilationOutputOption.js').CompilationOutputOption[]} TCompilationOutput
- * @param {{[sourcePath: string]: string}} sources - The source code to compile
+ * @template {import('../CompilationOutputOption.js').CompilationOutputOption[] | undefined} TCompilationOutput
  * @param {import('@tevm/solc').Solc} solc - Solc instance
+ * @param {{[sourcePath: string]: TLanguage extends 'SolidityAST' ? import('@tevm/solc').SolcAst : string}} sources - The source code to compile
  * @param {import('./ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions<TLanguage, TCompilationOutput>} options
  * @param {import('@tevm/logger').Logger} logger - The logger
  * @returns {import('./CompileContractsResult.js').CompileContractsResult<TCompilationOutput>}
  * @throws {CompilerOutputError} If the source or contract output is not found in the solc output
  */
-export const compileContracts = (sources, solc, options, logger) => {
+export const compileContracts = (solc, sources, options, logger) => {
 	/** @type {import('@tevm/solc').SolcSettings} */
 	const settings = Object.assign(
 		{
@@ -38,14 +38,19 @@ export const compileContracts = (sources, solc, options, logger) => {
 	const solcInput = {
 		language: options.language,
 		sources: Object.fromEntries(
-			Object.entries(sources).map(([sourcePath, sourceCode]) => [sourcePath, { content: sourceCode }]),
+			Object.entries(sources).map(([sourcePath, sourceCode]) => [
+				sourcePath,
+				{
+					...(options.language === 'SolidityAST'
+						? { ast: /** @type {import('@tevm/solc').SolcAst} */ (sourceCode) }
+						: { content: /** @type {string} */ (sourceCode) }),
+				},
+			]),
 		),
 		settings,
 	}
 
-	logger.debug(
-		`Compiling ${Object.keys(sources).length} sources with solc input: ${JSON.stringify(solcInput, null, 2)}`,
-	)
+	logger.debug(`Compiling ${Object.keys(sources).length} sources`)
 	const solcOutput = solcCompile(solc, solcInput)
 	/** @type {import('./CompileContractsResult.js').CompileContractsResult} */
 	const result = { compilationResult: {} }
@@ -74,11 +79,10 @@ export const compileContracts = (sources, solc, options, logger) => {
 
 	// Process each source file
 	Object.keys(sources).forEach((sourcePath) => {
-		/** @type {import('./CompiledSource.js').CompiledSource<TCompilationOutput>} */
-		const output = {}
+		const output = /** @type {import('./CompiledSource.js').CompiledSource<TCompilationOutput>} */ ({ contract: {} })
 
-		const solcAstOutput = solcOutput.sources[sourcePath]
-		const solcContractOutput = solcOutput.contracts[sourcePath]
+		const solcAstOutput = solcOutput.sources?.[sourcePath]
+		const solcContractOutput = solcOutput.contracts?.[sourcePath]
 
 		if (options.compilationOutput.includes('ast') && solcAstOutput) {
 			// @ts-expect-error - TODO: this will be fixed when we correctly type the compilation output from input selection
@@ -95,8 +99,6 @@ export const compileContracts = (sources, solc, options, logger) => {
 		result.compilationResult[/** @type {keyof typeof result.compilationResult} */ (sourcePath)] = output
 	})
 
-	logger.debug(
-		`Compiled ${Object.keys(result.compilationResult).length} sources with compilation result: ${JSON.stringify(result.compilationResult, null, 2)}`,
-	)
+	logger.debug(`Compiled ${Object.keys(result.compilationResult).length} sources`)
 	return result
 }

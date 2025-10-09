@@ -4,11 +4,13 @@ import type { CompileBaseOptions } from '../CompileBaseOptions.js'
 
 export type ValidatedCompileBaseOptions<
 	TLanguage extends SolcLanguage = SolcLanguage,
-	TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
+	TCompilationOutput extends CompilationOutputOption[] | undefined = CompilationOutputOption[] | undefined,
 > = RequiredNonNullable<
 	CompileBaseOptions<TLanguage, TCompilationOutput>,
-	'language' | 'compilationOutput' | 'hardfork' | 'solcVersion' | 'throwOnVersionMismatch' | 'throwOnCompilationError'
->
+	'compilationOutput' | 'hardfork' | 'solcVersion' | 'throwOnVersionMismatch' | 'throwOnCompilationError'
+> & {
+	language: TLanguage
+}
 
 type RequiredNonNullable<T, K extends keyof T> = Omit<T, K> & {
 	[P in K]-?: NonNullable<T[P]>

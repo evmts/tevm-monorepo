@@ -3,7 +3,7 @@ import { compileFilesInternal } from './compiler/compileFiles.js'
 import { compileFilesWithShadowInternal } from './compiler/compileFilesWithShadow.js'
 import { compileSourceInternal } from './compiler/compileSource.js'
 import { compileSourceWithShadowInternal } from './compiler/compileSourceWithShadow.js'
-import { extractContractsFromAst } from './compiler/extractContractsFromAst.js'
+import { extractContractsFromAstNodes } from './compiler/extractContractsFromAstNodes.js'
 import { extractContractsFromSolcOutput } from './compiler/extractContractsFromSolcOutput.js'
 import { defaults } from './compiler/internal/defaults.js'
 import { SolcError } from './compiler/internal/errors.js'
@@ -12,6 +12,16 @@ import { mergeOptions } from './compiler/internal/mergeOptions.js'
 import { readSourceFiles } from './compiler/internal/readSourceFiles.js'
 import { readSourceFilesSync } from './compiler/internal/readSourceFilesSync.js'
 import { validateBaseOptions } from './compiler/internal/validateBaseOptions.js'
+import { solcSourcesToAstNodes } from './compiler/solcSourcesToAstNodes.js'
+
+// TODO: reexport solc-typed-ast useful types, e.g. ASTNode, SourceUnit, FunctionVisibility, StateVariableVisibility, etc. for ast manipulation
+// TODO: we likely need a compileSources and compileSourcesWithShadow to use mapped sources (e.g. from a whatsabi output)
+
+// TODO: return missing fields + contract (from @tevm/contract) in output
+
+// TODO: bundler;
+// from what I understand anything we do with the compiler here the bundler can do and provide a typed API locally
+// i.e. using imported contract(s) as source, and writing direct solidity as shadow code, which is exactly the purpose of the "sol``" API
 
 /**
  * Creates a stateful compiler instance with pre-configured defaults.
@@ -47,9 +57,9 @@ import { validateBaseOptions } from './compiler/internal/validateBaseOptions.js'
  * })
  */
 export const createCompiler = (options) => {
-	const logger = createLogger({ name: '@tevm/compiler', level: options?.loggingLevel ?? defaults.loggingLevel })
-	/** @type {import('@tevm/solc').Solc | undefined} */
-	let _solcInstance
+	const logger =
+		options?.logger ?? createLogger({ name: '@tevm/compiler', level: options?.loggingLevel ?? defaults.loggingLevel })
+	let _solcInstance = options?.solc
 
 	/**
 	 * @returns {import('@tevm/solc').Solc}
@@ -68,13 +78,7 @@ export const createCompiler = (options) => {
 		compileSource: (source, compileOptions) => {
 			const solc = requireSolcLoaded()
 			const validatedOptions = validateBaseOptions(source, mergeOptions(options, compileOptions), logger)
-			// TODO: we can just compile the ast directly
-			const soliditySourceCode =
-				validatedOptions.language === 'SolidityAST'
-					? extractContractsFromAst(/** @type {import('./compiler/AstInput.js').AstInput} */ (source), validatedOptions)
-							.source
-					: /** @type {string} */ (source)
-			return compileSourceInternal(solc, soliditySourceCode, validatedOptions, logger)
+			return compileSourceInternal(solc, source, validatedOptions, logger)
 		},
 
 		compileSourceWithShadow: (source, shadow, compileOptions) => {
@@ -101,7 +105,7 @@ export const createCompiler = (options) => {
 			const mergedOptions = mergeOptions(options, compileOptions)
 			const sources = await readSourceFiles(files, mergedOptions?.language, logger)
 			const validatedOptions = validateBaseOptions(Object.values(sources), mergedOptions, logger)
-			return compileFilesInternal(solc, sources, validatedOptions, logger)
+			return compileFilesInternal(solc, /** @type {any} */ (sources), validatedOptions, logger)
 		},
 
 		compileFilesSync: (files, compileOptions) => {
@@ -124,7 +128,7 @@ export const createCompiler = (options) => {
 			)
 			return compileFilesWithShadowInternal(
 				solc,
-				sources,
+				/** @type {any} */ (sources),
 				shadow,
 				validatedOptions,
 				{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
@@ -156,20 +160,19 @@ export const createCompiler = (options) => {
 			return extractContractsFromSolcOutput(solcOutput, mergeOptions(options, compileOptions))
 		},
 
-		extractContractsFromAst: (ast, compileOptions) => {
-			const validatedOptions = validateBaseOptions(
-				ast,
-				{
-					...mergeOptions(options, compileOptions),
-					language: 'SolidityAST',
-				},
-				logger,
-			)
-			const { source } = extractContractsFromAst(ast, { ...validatedOptions, withSourceMap: false })
-			return source
+		extractContractsFromAstNodes: (sourceUnits, compileOptions) => {
+			return extractContractsFromAstNodes(sourceUnits, {
+				...compileOptions,
+				...mergeOptions(options, compileOptions),
+				language: 'SolidityAST',
+			})
 		},
 
-		fetchVerifiedContract: async (_address, _whatsabiOptions) => {
+		solcSourcesToAstNodes: (sources) => {
+			return solcSourcesToAstNodes(sources, logger)
+		},
+
+		fetchVerifiedSource: async (_address, _whatsabiOptions) => {
 			// TODO: implement whatsabi integration
 		},
 
