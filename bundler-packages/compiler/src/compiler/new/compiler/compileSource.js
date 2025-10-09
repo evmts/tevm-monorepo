@@ -41,7 +41,7 @@ export const compileSourceInternal = (solc, source, validatedOptions, logger) =>
 		validatedOptions,
 		logger,
 	)
-	const sourceCompilationResult = compilationResult[defaults.injectIntoContractPath]
+	const sourceCompilationResult = Object.values(compilationResult)[0]
 	// This should never happen as any compilation error will still produce the output, just possibly with empty fields at the contract level
 	if (!sourceCompilationResult) {
 		const err = new CompilerOutputError('Source output not found', {

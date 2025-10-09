@@ -5,6 +5,7 @@ import type { CompilationOutputOption } from './compiler/CompilationOutputOption
 import type { CompileBaseOptions } from './compiler/CompileBaseOptions.js'
 import type { CompileFilesResult } from './compiler/CompileFilesResult.js'
 import type { CompileSourceResult } from './compiler/CompileSourceResult.js'
+import type { CompileSourcesResult } from './compiler/CompileSourcesResult.js'
 import type { CompileSourceWithShadowOptions } from './compiler/CompileSourceWithShadowOptions.js'
 import type { WhatsabiBaseOptions } from './whatsabi/WhatsabiBaseOptions.js'
 
@@ -33,6 +34,31 @@ export interface CreateCompilerResult {
 		source: TLanguage extends 'SolidityAST' ? SolcAst : string,
 		options?: CompileBaseOptions<TLanguage, TCompilationOutput> | undefined,
 	) => CompileSourceResult<TCompilationOutput>
+
+	/**
+	 * Compiles multiple sources with arbitrary paths.
+	 *
+	 * Unlike compileFiles, the paths do not need to correspond to filesystem paths.
+	 * This is useful for:
+	 * - Compiling sources from memory or network
+	 * - Working with virtual file systems
+	 * - Processing sources from whatsabi or other tools
+	 *
+	 * All sources must be the same language (Solidity, Yul, or SolidityAST).
+	 *
+	 * Returns a map keyed by the source paths you provide.
+	 *
+	 * @param sources - Mapping of source paths to source code/AST
+	 * @param options - Compilation options
+	 * @returns Compilation results keyed by source path
+	 */
+	compileSources: <
+		TLanguage extends SolcLanguage = SolcLanguage,
+		TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
+	>(
+		sources: Record<string, TLanguage extends 'SolidityAST' ? SolcAst : string>,
+		options?: CompileBaseOptions<TLanguage, TCompilationOutput> | undefined,
+	) => CompileSourcesResult<TCompilationOutput>
 
 	/**
 	 * Compiles source with shadow code injection for instrumentation or testing.
@@ -67,6 +93,35 @@ export interface CreateCompilerResult {
 			| (CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>)
 			| undefined,
 	) => CompileSourceResult<TCompilationOutput>
+
+	/**
+	 * Compiles multiple sources with shadow code injection.
+	 *
+	 * Similar to {@link compileSources} but with shadow code injection into a target contract.
+	 * All sources are compiled together, and the shadow code is injected into the specified target contract.
+	 *
+	 * When compiling multiple sources, you typically MUST specify injectIntoContractPath to identify
+	 * which source contains the target contract. If there are multiple contracts in that source,
+	 * you must also specify injectIntoContractName.
+	 *
+	 * For single-source cases, these options may be inferred automatically.
+	 *
+	 * @param sources - Mapping of source paths to source code/AST
+	 * @param shadow - Shadow code to inject
+	 * @param options - Compilation and injection options
+	 * @returns Compilation results with injected shadow code
+	 */
+	compileSourcesWithShadow: <
+		TLanguage extends SolcLanguage = SolcLanguage,
+		TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
+		TSourcePaths extends string[] = string[],
+	>(
+		sources: Record<string, TLanguage extends 'SolidityAST' ? SolcAst : string>,
+		shadow: string,
+		options?:
+			| (CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>)
+			| undefined,
+	) => CompileSourcesResult<TCompilationOutput, TSourcePaths>
 
 	/**
 	 * Compiles multiple source files from the filesystem.
