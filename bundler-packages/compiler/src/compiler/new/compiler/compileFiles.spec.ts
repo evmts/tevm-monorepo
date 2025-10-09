@@ -1,11 +1,9 @@
-import { createLogger } from '@tevm/logger'
 import type { Solc, SolcInputDescription, SolcOutput } from '@tevm/solc'
 import { solcCompile } from '@tevm/solc'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ComprehensiveContract, SimpleContract, SimpleYul } from '../fixtures/index.js'
-import { compileFiles, compileFilesInternal } from './compileFiles.js'
+import { compileFiles } from './compileFiles.js'
 import { readSourceFiles } from './internal/readSourceFiles.js'
-import type { ValidatedCompileBaseOptions } from './internal/ValidatedCompileBaseOptions.js'
 
 vi.mock('@tevm/solc', async () => {
 	const actual = await vi.importActual<typeof import('@tevm/solc')>('@tevm/solc')
@@ -44,8 +42,10 @@ vi.mock('@tevm/solc', async () => {
 				}
 				// Check SimpleYul
 				else if ('content' in sourceContent && sourceContent.content === SimpleYul.source) {
-					if (!SimpleYul.solcOutput.contracts?.['SimpleYul.yul']) throw new Error('SimpleYul.solcOutput.contracts not found')
-					if (!SimpleYul.solcOutput.sources?.['SimpleYul.yul']) throw new Error('SimpleYul.solcOutput.sources not found')
+					if (!SimpleYul.solcOutput.contracts?.['SimpleYul.yul'])
+						throw new Error('SimpleYul.solcOutput.contracts not found')
+					if (!SimpleYul.solcOutput.sources?.['SimpleYul.yul'])
+						throw new Error('SimpleYul.solcOutput.sources not found')
 					result.contracts![sourcePath] = SimpleYul.solcOutput.contracts['SimpleYul.yul']
 					result.sources![sourcePath] = SimpleYul.solcOutput.sources['SimpleYul.yul']
 				}
@@ -80,23 +80,10 @@ vi.mock('./internal/readSourceFiles.js', () => ({
  * - Contract compilation details (compileContracts.spec.ts)
  */
 describe('compileFiles', () => {
-	let mockLogger: ReturnType<typeof createLogger>
-	let mockSolc: Solc
 	let mockSolcCompile: ReturnType<typeof vi.fn>
 	let mockReadSourceFiles: ReturnType<typeof vi.fn>
 
 	beforeEach(() => {
-		mockLogger = {
-			debug: vi.fn(),
-			info: vi.fn(),
-			warn: vi.fn(),
-			error: vi.fn(),
-		} as unknown as ReturnType<typeof createLogger>
-
-		mockSolc = {
-			compile: vi.fn(),
-		} as unknown as Solc
-
 		mockSolcCompile = solcCompile as unknown as ReturnType<typeof vi.fn>
 		mockSolcCompile.mockClear()
 
@@ -121,7 +108,11 @@ describe('compileFiles', () => {
 			expect(result.compilationResult['./contracts/SimpleContract.sol']?.contract).toBeDefined()
 			expect(result.compilationResult['./contracts/SimpleContract.sol']?.contract['SimpleContract']).toBeDefined()
 
-			expect(mockReadSourceFiles).toHaveBeenCalledWith(['./contracts/SimpleContract.sol'], 'Solidity', expect.anything())
+			expect(mockReadSourceFiles).toHaveBeenCalledWith(
+				['./contracts/SimpleContract.sol'],
+				'Solidity',
+				expect.anything(),
+			)
 			expect(mockSolcCompile).toHaveBeenCalledOnce()
 		})
 
@@ -131,13 +122,10 @@ describe('compileFiles', () => {
 				'./contracts/ComprehensiveContract.sol': ComprehensiveContract.source,
 			})
 
-			const result = await compileFiles(
-				['./contracts/SimpleContract.sol', './contracts/ComprehensiveContract.sol'],
-				{
-					language: 'Solidity',
-					solcVersion: '0.8.20',
-				},
-			)
+			const result = await compileFiles(['./contracts/SimpleContract.sol', './contracts/ComprehensiveContract.sol'], {
+				language: 'Solidity',
+				solcVersion: '0.8.20',
+			})
 
 			expect(result).toBeDefined()
 			expect(result.compilationResult).toBeDefined()
@@ -160,77 +148,6 @@ describe('compileFiles', () => {
 			expect(result.compilationResult['./contracts/SimpleYul.yul']).toBeDefined()
 			expect(result.compilationResult['./contracts/SimpleYul.yul']?.contract['SimpleYul']).toBeDefined()
 			expect(result.compilationResult['./contracts/SimpleYul.yul']?.ast?.nodeType).toBe('YulObject')
-		})
-	})
-
-	describe('compileFilesInternal', () => {
-		it('should compile pre-loaded sources directly', () => {
-			const sources = {
-				'SimpleContract.sol': SimpleContract.source,
-			}
-
-			const options: ValidatedCompileBaseOptions = {
-				language: 'Solidity',
-				hardfork: 'cancun',
-				compilationOutput: ['abi', 'evm.bytecode'],
-				solcVersion: '0.8.20',
-				throwOnVersionMismatch: true,
-				throwOnCompilationError: false,
-			}
-
-			const result = compileFilesInternal(mockSolc, sources, options, mockLogger)
-
-			expect(result).toBeDefined()
-			expect(result.compilationResult['SimpleContract.sol']).toBeDefined()
-			expect(mockSolcCompile).toHaveBeenCalledWith(
-				expect.anything(),
-				expect.objectContaining({
-					sources: {
-						'SimpleContract.sol': { content: SimpleContract.source },
-					},
-				}),
-			)
-		})
-
-		it('should compile multiple pre-loaded sources', () => {
-			const sources = {
-				'SimpleContract.sol': SimpleContract.source,
-				'ComprehensiveContract.sol': ComprehensiveContract.source,
-			}
-
-			const options: ValidatedCompileBaseOptions = {
-				language: 'Solidity',
-				hardfork: 'cancun',
-				compilationOutput: ['abi'],
-				solcVersion: '0.8.20',
-				throwOnVersionMismatch: true,
-				throwOnCompilationError: false,
-			}
-
-			const result = compileFilesInternal(mockSolc, sources, options, mockLogger)
-
-			expect(result).toBeDefined()
-			expect(Object.keys(result.compilationResult).length).toBe(2)
-			expect(mockLogger.debug).toHaveBeenCalledWith('Compiling 2 files')
-		})
-
-		it('should handle empty sources object', () => {
-			const sources = {}
-
-			const options: ValidatedCompileBaseOptions = {
-				language: 'Solidity',
-				hardfork: 'cancun',
-				compilationOutput: ['abi'],
-				solcVersion: '0.8.20',
-				throwOnVersionMismatch: true,
-				throwOnCompilationError: false,
-			}
-
-			const result = compileFilesInternal(mockSolc, sources, options, mockLogger)
-
-			expect(result).toBeDefined()
-			expect(result.compilationResult).toEqual({})
-			expect(mockLogger.debug).toHaveBeenCalledWith('Compiling 0 files')
 		})
 	})
 

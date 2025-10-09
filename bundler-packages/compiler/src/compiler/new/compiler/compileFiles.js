@@ -45,33 +45,14 @@ export const compileFiles = async (filePaths, options) => {
 	)
 	const solc = await getSolc(validatedOptions.solcVersion, logger)
 
-	return compileFilesInternal(
-		solc,
-		/** @type {{[filePath: string]: TLanguage extends 'SolidityAST' ? import('@tevm/solc').SolcAst : string}} */ (
-			sources
-		),
-		validatedOptions,
-		logger,
-	)
-}
-
-/**
- * Internal compilation function that accepts pre-loaded sources and validated options
- *
- * This function handles mixed source types (string and AST), converting AST to Solidity as needed.
- *
- * @template {import('@tevm/solc').SolcLanguage} TLanguage
- * @template {import('./CompilationOutputOption.js').CompilationOutputOption[] | undefined} TCompilationOutput
- * @template {string[]} TFilePaths
- * @param {import('@tevm/solc').Solc} solc - Solc instance
- * @param {{[filePath: string]: TLanguage extends 'SolidityAST' ? import('@tevm/solc').SolcAst : string}} sources - Sources to compile (mixed types allowed)
- * @param {import('./internal/ValidatedCompileBaseOptions.js').ValidatedCompileBaseOptions<TLanguage, TCompilationOutput>} validatedOptions - Validated compilation options
- * @param {import('@tevm/logger').Logger} logger - Logger instance
- * @returns {import('./CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>}
- */
-export const compileFilesInternal = (solc, sources, validatedOptions, logger) => {
-	logger.debug(`Compiling ${Object.keys(sources).length} files`)
 	return /** @type {import('./CompileFilesResult.js').CompileFilesResult<TCompilationOutput, TFilePaths>} */ (
-		compileContracts(solc, sources, validatedOptions, logger)
+		compileContracts(
+			solc,
+			/** @type {{[filePath: string]: TLanguage extends 'SolidityAST' ? import('@tevm/solc').SolcAst : string}} */ (
+				sources
+			),
+			validatedOptions,
+			logger,
+		)
 	)
 }

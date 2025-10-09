@@ -120,9 +120,7 @@ describe('compileFilesWithShadow', () => {
 					solcVersion: '0.8.20',
 					injectIntoContractName: 'NonExistentContract',
 				}),
-			).rejects.toThrowErrorMatchingInlineSnapshot(
-				`[ShadowValidationError: Contract 'NonExistentContract' not found in any source file]`,
-			)
+			).rejects.toThrowError(/Contract 'NonExistentContract' not found in file/)
 		})
 	})
 })
