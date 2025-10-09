@@ -50,7 +50,7 @@ export type Logger = {
 export type { ModuleInfo, SolcInputDescription, SolcOutput, SolcContractOutput }
 
 export type CompiledContracts<TIncludeAsts extends boolean = boolean> = {
-	artifacts: SolcOutput['contracts'][string] | undefined
+	artifacts: SolcOutput['contracts'] extends Record<string, infer U> ? U | undefined : never
 	modules: Record<string, ModuleInfo>
 	asts: TIncludeAsts extends true ? Record<string, Node> : undefined
 	solcInput?: SolcInputDescription

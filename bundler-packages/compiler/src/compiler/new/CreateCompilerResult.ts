@@ -1,6 +1,6 @@
-import type { Releases, SolcLanguage, SolcOutput } from '@tevm/solc'
+import type { Releases, SolcAst, SolcLanguage, SolcOutput, SolcSourceEntry } from '@tevm/solc'
 import type { Address } from '@tevm/utils'
-import type { AstInput } from './compiler/AstInput.js'
+import type { ASTNode, SourceUnit } from 'solc-typed-ast'
 import type { CompilationOutputOption } from './compiler/CompilationOutputOption.js'
 import type { CompileBaseOptions } from './compiler/CompileBaseOptions.js'
 import type { CompileFilesResult } from './compiler/CompileFilesResult.js'
@@ -30,8 +30,8 @@ export interface CreateCompilerResult {
 		TLanguage extends SolcLanguage = SolcLanguage,
 		TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
 	>(
-		source: TLanguage extends 'SolidityAST' ? AstInput : string,
-		options: CompileBaseOptions<TLanguage, TCompilationOutput>,
+		source: TLanguage extends 'SolidityAST' ? SolcAst : string,
+		options?: CompileBaseOptions<TLanguage, TCompilationOutput> | undefined,
 	) => CompileSourceResult<TCompilationOutput>
 
 	/**
@@ -61,9 +61,11 @@ export interface CreateCompilerResult {
 		TLanguage extends SolcLanguage = SolcLanguage,
 		TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
 	>(
-		source: TLanguage extends 'SolidityAST' ? AstInput : string,
+		source: TLanguage extends 'SolidityAST' ? SolcAst : string,
 		shadow: string,
-		options: CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>,
+		options?:
+			| (CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>)
+			| undefined,
 	) => CompileSourceResult<TCompilationOutput>
 
 	/**
@@ -91,7 +93,7 @@ export interface CreateCompilerResult {
 		TSourcePaths extends string[] = string[],
 	>(
 		files: TSourcePaths,
-		options: CompileBaseOptions<TLanguage, TCompilationOutput>,
+		options?: CompileBaseOptions<TLanguage, TCompilationOutput> | undefined,
 	) => Promise<CompileFilesResult<TCompilationOutput, TSourcePaths>>
 
 	/**
@@ -119,7 +121,7 @@ export interface CreateCompilerResult {
 		TSourcePaths extends string[] = string[],
 	>(
 		files: TSourcePaths,
-		options: CompileBaseOptions<TLanguage, TCompilationOutput>,
+		options?: CompileBaseOptions<TLanguage, TCompilationOutput> | undefined,
 	) => CompileFilesResult<TCompilationOutput, TSourcePaths>
 
 	/**
@@ -140,7 +142,9 @@ export interface CreateCompilerResult {
 	>(
 		files: TSourcePaths,
 		shadow: string,
-		options: CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>,
+		options?:
+			| (CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>)
+			| undefined,
 	) => Promise<CompileFilesResult<TCompilationOutput, TSourcePaths>>
 
 	/**
@@ -161,7 +165,9 @@ export interface CreateCompilerResult {
 	>(
 		files: TSourcePaths,
 		shadow: string,
-		options: CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>,
+		options?:
+			| (CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>)
+			| undefined,
 	) => CompileFilesResult<TCompilationOutput, TSourcePaths>
 
 	/**
@@ -195,22 +201,57 @@ export interface CreateCompilerResult {
 	 */
 	extractContractsFromSolcOutput: (
 		solcOutput: SolcOutput,
-		options: CompileBaseOptions,
+		options?: CompileBaseOptions | undefined,
 	) => { [sourcePath: string]: string }
 
 	/**
-	 * Extracts Solidity source code from a single parsed AST.
+	 * Convert SourceUnit AST nodes to Solidity source code
 	 *
-	 * Simplified version of extractContractsFromSolcOutput for single-AST workflows.
-	 * Converts an AST object (SourceUnit) back to compilable Solidity source code.
+	 * @param sourceUnits - Array of source units (from solcSourcesToAstNodes)
+	 * @param options - Configuration options
+	 * @returns Object containing sources mapping and optional source maps
+	 * @example
+	 * import { extractContractsFromAstNodes } from './extractContractsFromAstNodes.js'
+	 * import { solcSourcesToAstNodes } from './internal/solcSourcesToAstNodes.js'
+	 * import { createLogger } from '@tevm/logger'
 	 *
-	 * The AST must be a valid SourceUnit node (nodeType: "SourceUnit").
+	 * const logger = createLogger({ name: '@tevm/compiler' })
+	 * const sourceUnits = solcSourcesToAstNodes(solcOutput.sources, logger)
 	 *
-	 * @param ast - Parsed AST to convert
-	 * @param options - Options controlling source generation
-	 * @returns Regenerated Solidity source code
+	 * // Manipulate the AST source units...
+	 *
+	 * // Without source maps
+	 * const { sources } = extractContractsFromAstNodes(sourceUnits, {
+	 *   solcVersion: '0.8.20'
+	 * })
+	 *
+	 * // With source maps
+	 * const { sources, sourceMaps } = extractContractsFromAstNodes(sourceUnits, {
+	 *   solcVersion: '0.8.20',
+	 *   withSourceMap: true
+	 * })
 	 */
-	extractContractsFromAst: (ast: AstInput, options: CompileBaseOptions) => string
+	extractContractsFromAstNodes: <TWithSourceMap extends boolean = false>(
+		sourceUnits: SourceUnit[],
+		options?: (CompileBaseOptions & { withSourceMap?: TWithSourceMap }) | undefined,
+	) => {
+		sources: { [sourcePath: string]: string }
+		sourceMaps: TWithSourceMap extends true ? { [sourcePath: string]: Map<ASTNode, [number, number]> } : undefined
+	}
+
+	/**
+	 * Parse sources object from SolcOutput['sources'] into typed AST SourceUnit nodes
+	 *
+	 * @param sources - The sources object from SolcOutput.sources
+	 * @returns Array of all source units from compilation
+	 * @example
+	 * import { solcSourcesToAstNodes } from './solcSourcesToAstNodes.js'
+	 *
+	 * const sources = solcOutput.sources
+	 * const sourceUnits = solcSourcesToAstNodes(sources)
+	 * // Returns array of all SourceUnits with cross-references intact
+	 */
+	solcSourcesToAstNodes: (sources: { [sourceFile: string]: SolcSourceEntry }) => SourceUnit[]
 
 	/**
 	 * Fetches verified source code for a deployed contract from block explorers.
@@ -225,7 +266,7 @@ export interface CreateCompilerResult {
 	 * @param address - On-chain contract address
 	 * @param options - Chain config and API keys
 	 */
-	fetchVerifiedContract: (address: Address, options: WhatsabiBaseOptions) => Promise<void>
+	fetchVerifiedSource: (address: Address, options: WhatsabiBaseOptions) => Promise<void>
 
 	/**
 	 * Loads a specific solc compiler version into the cache (or latest if no version is provided).

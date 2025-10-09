@@ -9,13 +9,13 @@ import { validateFiles } from './validateFiles.js'
  * @param {string[]} filePaths - Array of file paths to read
  * @param {import('@tevm/solc').SolcLanguage | undefined} language - Language to determine parsing strategy
  * @param {import('@tevm/logger').Logger} logger - Logger instance
- * @returns {Promise<{[filePath: string]: string | import('../AstInput.js').AstInput}>} Sources keyed by file path
+ * @returns {Promise<{[filePath: string]: string | object}>} Sources keyed by file path
  */
 export const readSourceFiles = async (filePaths, language, logger) => {
 	const validatedPaths = validateFiles(filePaths, language, logger)
 	logger.debug(`Preparing to read ${validatedPaths.length} files`)
 
-	/** @type {{[filePath: string]: string | import('../AstInput.js').AstInput}} */
+	/** @type {{[filePath: string]: string | import('@tevm/solc').SolcAst}} */
 	const sources = {}
 
 	for (const filePath of validatedPaths) {

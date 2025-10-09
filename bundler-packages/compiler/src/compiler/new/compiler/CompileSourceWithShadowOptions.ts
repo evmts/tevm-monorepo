@@ -16,11 +16,9 @@ export interface CompileSourceWithShadowOptions<TSourceLanguage extends SolcLang
 	/**
 	 * Path of the contract to inject the shadow method(s) into
 	 *
-	 * This is irrelevant if not using an AST source (which is the only source that can result in multiple contracts files)
-	 *
 	 * If the source compilation results in exactly one file, this can be omitted, otherwise it's mandatory
 	 */
-	injectIntoContractPath?: TSourceLanguage extends 'SolidityAST' ? string | undefined : never
+	injectIntoContractPath?: string | undefined
 	/**
 	 * Name of the contract to inject the shadow method(s) into
 	 *

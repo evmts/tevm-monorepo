@@ -12,20 +12,22 @@ export type SolcLanguage = 'Solidity' | 'Yul' | 'SolidityAST'
 
 // The keys here are the "global" names of the source files,
 // imports can use other files via remappings (see below).
-export type SolcInputSource = {
+export type SolcInputSource<T extends SolcLanguage = SolcLanguage> = {
 	// Optional: keccak256 hash of the source file
 	// It is used to verify the retrieved content if imported via URLs.
 	keccak256?: HexNumber
-	// If language is set to "SolidityAST", an AST needs to be supplied under the "ast" key.
-	// Note that importing ASTs is experimental and in particular that:
-	// - importing invalid ASTs can produce undefined results and
-	// - no proper error reporting is available on invalid ASTs.
-	// Furthermore, note that the AST import only consumes the fields of the AST as
-	// produced by the compiler in "stopAfter": "parsing" mode and then re-performs
-	// analysis, so any analysis-based annotations of the AST are ignored upon import.
-	// formatted as the json ast requested with the ``ast`` output selection.
-	ast?: SolcAst
 } & (
+	| {
+			// If language is set to "SolidityAST", an AST needs to be supplied under the "ast" key.
+			// Note that importing ASTs is experimental and in particular that:
+			// - importing invalid ASTs can produce undefined results and
+			// - no proper error reporting is available on invalid ASTs.
+			// Furthermore, note that the AST import only consumes the fields of the AST as
+			// produced by the compiler in "stopAfter": "parsing" mode and then re-performs
+			// analysis, so any analysis-based annotations of the AST are ignored upon import.
+			// formatted as the json ast requested with the ``ast`` output selection.
+			ast: T extends 'SolidityAST' ? SolcAst : never
+	  }
 	| {
 			// Required (unless "content" is used, see below): URL(s) to the source file.
 			// URL(s) should be imported in this order and the result checked against the
@@ -45,7 +47,7 @@ export type SolcInputSource = {
 			urls: string[]
 	  }
 	| {
-			content: string
+			content: T extends 'SolidityAST' ? never : string
 	  }
 )
 
@@ -335,16 +337,16 @@ export type SolcInputSourcesDestructibleSettings = {
 	content: string
 }
 
-export type SolcInputSources = {
-	[globalName: string]: SolcInputSource & {
+export type SolcInputSources<T extends SolcLanguage = SolcLanguage> = {
+	[globalName: string]: SolcInputSource<T> & {
 		destructible?: SolcInputSourcesDestructibleSettings
 	}
 }
 
-export type SolcInputDescription = {
-	language: SolcLanguage
+export type SolcInputDescription<T extends SolcLanguage = SolcLanguage> = {
+	language: T
 	// Required: A dictionary of source files. The key of each entry is either a file name or a global identifier followed by ":" and a file name.
-	sources: SolcInputSources
+	sources: SolcInputSources<T>
 	settings?: SolcSettings
 }
 
@@ -360,7 +362,8 @@ export type SolcOutput = {
 
 	// This contains the contract-level outputs.
 	// It can be limited/filtered by the outputSelection settings.
-	contracts: {
+	// TODO: output here has a completely different format when compiling Yul code
+	contracts?: {
 		[sourceFile: string]: {
 			[contractName: string]: SolcContractOutput
 		}
@@ -909,7 +912,7 @@ export interface Solc {
 	license: string
 	lowlevel: LowLevelConfig
 	features: FeaturesConfig
-	compile: (input: SolcInputDescription) => SolcOutput
+	compile: <T extends SolcLanguage = SolcLanguage>(input: SolcInputDescription<T>) => SolcOutput
 	loadRemoteVersion: (versionString: string, callback: (err: Error | null, solc?: Solc) => void) => void
 	setupMethods: (soljson: any) => void
 }

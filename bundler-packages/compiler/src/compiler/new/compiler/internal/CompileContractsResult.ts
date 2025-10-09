@@ -26,7 +26,7 @@ import type { CompiledSource } from './CompiledSource.js'
  * }
  */
 export interface CompileContractsResult<
-	TCompilationOutput extends CompilationOutputOption[] = CompilationOutputOption[],
+	TCompilationOutput extends CompilationOutputOption[] | undefined = CompilationOutputOption[] | undefined,
 	TSourcePaths extends string[] = string[],
 > extends CompileBaseResult {
 	compilationResult: {
