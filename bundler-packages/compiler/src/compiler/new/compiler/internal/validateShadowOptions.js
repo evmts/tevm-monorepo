@@ -4,16 +4,17 @@ import { NotSupportedError, ShadowValidationError } from './errors.js'
 /**
  * Verify that shadow options are consistent with the source language and return defaults if acceptable in this case
  *
- * When using compileWithShadowSource, we pass only a single source so we don't need to validate the path of the target
+ * Path validation is automatically determined based on the source units:
+ * - Single source with `<anonymous>` path → skip path validation (from compileSourceWithShadow)
+ * - Multiple sources OR real file paths → validate path (from compileSources/compileFiles)
  *
  * @param {import('solc-typed-ast').SourceUnit[]} astSourceNodes - The source units of the compiled source(s)
  * @param {import('../CompileSourceWithShadowOptions.js').CompileSourceWithShadowOptions} options - The options to validate
  * @param {import('@tevm/solc').SolcLanguage} sourceLanguage - The language of the source code
- * @param {boolean} validatePath - Whether to validate the path of the target
  * @param {import('@tevm/logger').Logger} logger - The logger
  * @returns {import('./ValidatedShadowOptions.js').ValidatedShadowOptions} The validated options
  */
-export const validateShadowOptions = (astSourceNodes, options, sourceLanguage, validatePath, logger) => {
+export const validateShadowOptions = (astSourceNodes, options, sourceLanguage, logger) => {
 	if (options.sourceLanguage === 'Yul') {
 		const err = new NotSupportedError('Yul is not supported yet', {
 			meta: { code: 'yul_not_supported' },
@@ -32,9 +33,11 @@ export const validateShadowOptions = (astSourceNodes, options, sourceLanguage, v
 
 	const { injectIntoContractPath, injectIntoContractName } = resolveContractLocation(
 		astSourceNodes,
-		options.injectIntoContractPath,
+		// For single source without explicit path, use AST's absolutePath
+		astSourceNodes.length === 1 && !options.injectIntoContractPath
+			? astSourceNodes[0]?.absolutePath
+			: options.injectIntoContractPath,
 		options.injectIntoContractName,
-		validatePath,
 		logger,
 	)
 
@@ -58,11 +61,10 @@ export const validateShadowOptions = (astSourceNodes, options, sourceLanguage, v
  * @param {import('solc-typed-ast').SourceUnit[]} astSources - The compiled sources ast
  * @param {string | undefined} injectIntoContractPath - The contract path to inject the shadow code into
  * @param {string | undefined} injectIntoContractName - The contract name to inject the shadow code into
- * @param {boolean} validatePath - Whether to validate the path of the target
  * @param {import('@tevm/logger').Logger} logger - The logger
  * @returns {{injectIntoContractPath: string, injectIntoContractName: string}} The resolved path and name
  */
-const resolveContractLocation = (astSources, injectIntoContractPath, injectIntoContractName, validatePath, logger) => {
+const resolveContractLocation = (astSources, injectIntoContractPath, injectIntoContractName, logger) => {
 	/**
 	 * @param {string} code
 	 * @param {string} message
@@ -77,38 +79,6 @@ const resolveContractLocation = (astSources, injectIntoContractPath, injectIntoC
 	if (astSources.length === 0)
 		failToResolve('missing_contract_files', 'Source compilation resulted in no contract files')
 
-	// Single source case: resolve name only, use default path
-	if (!validatePath) {
-		const ast = /** @type {import('solc-typed-ast').SourceUnit} */ (astSources[0])
-		const contractNames = ast.vContracts.map((c) => c.name)
-		if (contractNames.length === 0) failToResolve('missing_contracts', 'Source compilation resulted in no contracts')
-
-		/** @type {string} */
-		let resolvedName
-		if (injectIntoContractName) {
-			if (!contractNames.includes(injectIntoContractName)) {
-				failToResolve('invalid_inject_path', `Contract '${injectIntoContractName}' not found in source`, {
-					providedName: injectIntoContractName,
-					sourceContractNames: contractNames,
-				})
-			}
-			resolvedName = injectIntoContractName
-		} else {
-			if (contractNames.length > 1) {
-				failToResolve(
-					'missing_inject_name',
-					'injectIntoContractName is required when using AST source with multiple contracts in the target file',
-					{ sourceContractNames: contractNames },
-				)
-			}
-			resolvedName = /** @type {string} */ (contractNames[0])
-		}
-
-		logger.debug(`Using contract ${resolvedName} to inject shadow code`)
-		return { injectIntoContractPath: defaults.injectIntoContractPath, injectIntoContractName: resolvedName }
-	}
-
-	// Multiple sources case: resolve both path and name
 	const contractPaths = astSources.map((ast) => ast.absolutePath)
 
 	// Resolve path: search by name, use provided, or default to first

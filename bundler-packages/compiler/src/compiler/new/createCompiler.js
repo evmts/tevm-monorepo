@@ -1,10 +1,10 @@
 import { createLogger } from '@tevm/logger'
-import { compileFilesInternal } from './compiler/compileFiles.js'
-import { compileFilesWithShadowInternal } from './compiler/compileFilesWithShadow.js'
 import { compileSourceInternal } from './compiler/compileSource.js'
+import { compileSourcesWithShadowInternal } from './compiler/compileSourcesWithShadow.js'
 import { compileSourceWithShadowInternal } from './compiler/compileSourceWithShadow.js'
 import { extractContractsFromAstNodes } from './compiler/extractContractsFromAstNodes.js'
 import { extractContractsFromSolcOutput } from './compiler/extractContractsFromSolcOutput.js'
+import { compileContracts } from './compiler/internal/compileContracts.js'
 import { defaults } from './compiler/internal/defaults.js'
 import { SolcError } from './compiler/internal/errors.js'
 import { getSolc } from './compiler/internal/getSolc.js'
@@ -15,7 +15,6 @@ import { validateBaseOptions } from './compiler/internal/validateBaseOptions.js'
 import { solcSourcesToAstNodes } from './compiler/solcSourcesToAstNodes.js'
 
 // TODO: reexport solc-typed-ast useful types, e.g. ASTNode, SourceUnit, FunctionVisibility, StateVariableVisibility, etc. for ast manipulation
-// TODO: we likely need a compileSources and compileSourcesWithShadow to use mapped sources (e.g. from a whatsabi output)
 
 // TODO: return missing fields + contract (from @tevm/contract) in output
 
@@ -81,6 +80,16 @@ export const createCompiler = (options) => {
 			return compileSourceInternal(solc, source, validatedOptions, logger)
 		},
 
+		compileSources: (sources, compileOptions) => {
+			const solc = requireSolcLoaded()
+			const validatedOptions = validateBaseOptions(
+				Object.values(sources),
+				mergeOptions(options, compileOptions),
+				logger,
+			)
+			return compileContracts(solc, sources, validatedOptions, logger)
+		},
+
 		compileSourceWithShadow: (source, shadow, compileOptions) => {
 			const solc = requireSolcLoaded()
 			const { sourceLanguage, shadowLanguage, injectIntoContractPath, injectIntoContractName, ...baseOptions } =
@@ -100,12 +109,31 @@ export const createCompiler = (options) => {
 			)
 		},
 
+		compileSourcesWithShadow: (sources, shadow, compileOptions) => {
+			const solc = requireSolcLoaded()
+			const { sourceLanguage, shadowLanguage, injectIntoContractPath, injectIntoContractName, ...baseOptions } =
+				compileOptions ?? {}
+			const validatedOptions = validateBaseOptions(
+				Object.values(sources),
+				{ ...mergeOptions(options, baseOptions), language: sourceLanguage },
+				logger,
+			)
+			return compileSourcesWithShadowInternal(
+				solc,
+				sources,
+				shadow,
+				validatedOptions,
+				{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
+				logger,
+			)
+		},
+
 		compileFiles: async (files, compileOptions) => {
 			const solc = requireSolcLoaded()
 			const mergedOptions = mergeOptions(options, compileOptions)
 			const sources = await readSourceFiles(files, mergedOptions?.language, logger)
 			const validatedOptions = validateBaseOptions(Object.values(sources), mergedOptions, logger)
-			return compileFilesInternal(solc, /** @type {any} */ (sources), validatedOptions, logger)
+			return /** @type {any} */ (compileContracts(solc, /** @type {any} */ (sources), validatedOptions, logger))
 		},
 
 		compileFilesSync: (files, compileOptions) => {
@@ -113,7 +141,7 @@ export const createCompiler = (options) => {
 			const mergedOptions = mergeOptions(options, compileOptions)
 			const sources = readSourceFilesSync(files, mergedOptions?.language, logger)
 			const validatedOptions = validateBaseOptions(Object.values(sources), mergedOptions, logger)
-			return compileFilesInternal(solc, sources, validatedOptions, logger)
+			return /** @type {any} */ (compileContracts(solc, /** @type {any} */ (sources), validatedOptions, logger))
 		},
 
 		compileFilesWithShadow: async (filePaths, shadow, compileOptions) => {
@@ -126,13 +154,15 @@ export const createCompiler = (options) => {
 				{ ...mergeOptions(options, baseOptions), language: sourceLanguage },
 				logger,
 			)
-			return compileFilesWithShadowInternal(
-				solc,
-				/** @type {any} */ (sources),
-				shadow,
-				validatedOptions,
-				{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
-				logger,
+			return /** @type {any} */ (
+				compileSourcesWithShadowInternal(
+					solc,
+					/** @type {any} */ (sources),
+					shadow,
+					validatedOptions,
+					{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
+					logger,
+				)
 			)
 		},
 
@@ -146,13 +176,15 @@ export const createCompiler = (options) => {
 				{ ...mergeOptions(options, baseOptions), language: sourceLanguage },
 				logger,
 			)
-			return compileFilesWithShadowInternal(
-				solc,
-				sources,
-				shadow,
-				validatedOptions,
-				{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
-				logger,
+			return /** @type {any} */ (
+				compileSourcesWithShadowInternal(
+					solc,
+					sources,
+					shadow,
+					validatedOptions,
+					{ shadowLanguage, injectIntoContractPath, injectIntoContractName },
+					logger,
+				)
 			)
 		},
 

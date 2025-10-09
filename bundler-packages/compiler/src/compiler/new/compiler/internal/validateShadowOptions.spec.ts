@@ -34,11 +34,17 @@ describe('validateShadowOptions', () => {
 	})
 
 	describe('successful validation', () => {
-		it('should validate options with single contract file and no path validation', () => {
-			const astSources = [comprehensiveUnit]
+		it('should validate options with single anonymous source (no path validation)', () => {
+			// Create a mock source unit with <anonymous> path (like from compileSourceWithShadow)
+			// We need to preserve vContracts which is a getter on the SourceUnit class
+			const anonymousUnit = {
+				absolutePath: '<anonymous>',
+				vContracts: comprehensiveUnit.vContracts,
+			} as SourceUnit
+			const astSources = [anonymousUnit]
 			const options: CompileSourceWithShadowOptions = {}
 
-			const result = validateShadowOptions(astSources, options, 'Solidity', false, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(result.sourceLanguage).toBe('Solidity')
 			expect(result.shadowLanguage).toBe('Solidity')
@@ -47,16 +53,15 @@ describe('validateShadowOptions', () => {
 			expect(result.shadowMergeStrategy).toBe('safe')
 		})
 
-		it('should validate options with single contract file and path validation', () => {
+		it('should validate options with single contract file (with path validation)', () => {
 			const astSources = [comprehensiveUnit]
 			const options: CompileSourceWithShadowOptions = {}
 
-			const result = validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(result.injectIntoContractPath).toBe('ComprehensiveContract.sol')
 			expect(result.injectIntoContractName).toBe('ComprehensiveContract')
-			expect(mockLogger.warn).toHaveBeenCalledWith('No injectIntoContractPath provided; using the first contract file')
-			expect(mockLogger.debug).toHaveBeenCalledWith(
+				expect(mockLogger.debug).toHaveBeenCalledWith(
 				'Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code',
 			)
 		})
@@ -71,7 +76,7 @@ describe('validateShadowOptions', () => {
 				shadowMergeStrategy: 'replace',
 			}
 
-			const result = validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(result.sourceLanguage).toBe('Solidity')
 			expect(result.shadowLanguage).toBe('Yul')
@@ -87,7 +92,7 @@ describe('validateShadowOptions', () => {
 				injectIntoContractName: 'ExtendedContract',
 			}
 
-			const result = validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(result.injectIntoContractPath).toBe('InheritedContract.sol')
 			expect(result.injectIntoContractName).toBe('ExtendedContract')
@@ -99,7 +104,7 @@ describe('validateShadowOptions', () => {
 				injectIntoContractName: 'WrapperContract',
 			}
 
-			const result = validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(result.injectIntoContractPath).toBe('InheritedContract.sol')
 			expect(result.injectIntoContractName).toBe('WrapperContract')
@@ -111,12 +116,14 @@ describe('validateShadowOptions', () => {
 				injectIntoContractName: 'ExtendedContract',
 			}
 
-			const result = validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(result.injectIntoContractPath).toBe('InheritedContract.sol')
 			expect(result.injectIntoContractName).toBe('ExtendedContract')
 			expect(mockLogger.debug).toHaveBeenCalledWith("Found contract 'ExtendedContract' in InheritedContract.sol")
-			expect(mockLogger.debug).toHaveBeenCalledWith('Using contract ExtendedContract in InheritedContract.sol to inject shadow code')
+			expect(mockLogger.debug).toHaveBeenCalledWith(
+				'Using contract ExtendedContract in InheritedContract.sol to inject shadow code',
+			)
 		})
 
 		it('should validate options with Yul shadow language', () => {
@@ -125,7 +132,7 @@ describe('validateShadowOptions', () => {
 				shadowLanguage: 'Yul',
 			}
 
-			const result = validateShadowOptions(astSources, options, 'Solidity', false, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(result.shadowLanguage).toBe('Yul')
 		})
@@ -136,7 +143,7 @@ describe('validateShadowOptions', () => {
 				shadowMergeStrategy: 'safe',
 			}
 
-			const result = validateShadowOptions(astSources, options, 'Solidity', false, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(result.shadowMergeStrategy).toBe('safe')
 			expect(mockLogger.debug).not.toHaveBeenCalledWith(expect.stringContaining('No shadowMergeStrategy provided'))
@@ -148,7 +155,7 @@ describe('validateShadowOptions', () => {
 				shadowMergeStrategy: 'replace',
 			}
 
-			const result = validateShadowOptions(astSources, options, 'Solidity', false, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(result.shadowMergeStrategy).toBe('replace')
 		})
@@ -157,7 +164,7 @@ describe('validateShadowOptions', () => {
 			const astSources = [comprehensiveUnit]
 			const options: CompileSourceWithShadowOptions = {}
 
-			validateShadowOptions(astSources, options, 'Solidity', false, mockLogger)
+			validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(mockLogger.debug).toHaveBeenCalledWith(
 				'No shadowMergeStrategy provided; using default "safe", which will throw an error if a shadow function name conflicts with an existing one',
@@ -174,11 +181,11 @@ describe('validateShadowOptions', () => {
 				}
 
 				expect(() => {
-					validateShadowOptions(astSources, options, 'Yul', false, mockLogger)
+					validateShadowOptions(astSources, options, 'Yul', mockLogger)
 				}).toThrow(NotSupportedError)
 
 				try {
-					validateShadowOptions(astSources, options, 'Yul', false, mockLogger)
+					validateShadowOptions(astSources, options, 'Yul', mockLogger)
 				} catch (error) {
 					expect(error).toBeInstanceOf(NotSupportedError)
 					expect((error as NotSupportedError).message).toBe('Yul is not supported yet')
@@ -196,11 +203,11 @@ describe('validateShadowOptions', () => {
 				}
 
 				expect(() => {
-					validateShadowOptions(astSources, options, 'Solidity', false, mockLogger)
+					validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 				}).toThrow(ShadowValidationError)
 
 				try {
-					validateShadowOptions(astSources, options, 'Solidity', false, mockLogger)
+					validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 				} catch (error) {
 					expect(error).toBeInstanceOf(ShadowValidationError)
 					expect((error as ShadowValidationError).message).toBe(
@@ -218,11 +225,11 @@ describe('validateShadowOptions', () => {
 				const options: CompileSourceWithShadowOptions = {}
 
 				expect(() => {
-					validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+					validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 				}).toThrow(ShadowValidationError)
 
 				try {
-					validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+					validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 				} catch (error) {
 					expect(error).toBeInstanceOf(ShadowValidationError)
 					expect((error as ShadowValidationError).message).toBe('Source compilation resulted in no contract files')
@@ -237,11 +244,11 @@ describe('validateShadowOptions', () => {
 				const options: CompileSourceWithShadowOptions = {}
 
 				expect(() => {
-					validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+					validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 				}).toThrow(ShadowValidationError)
 
 				try {
-					validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+					validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 				} catch (error) {
 					expect(error).toBeInstanceOf(ShadowValidationError)
 					expect((error as ShadowValidationError).message).toBe(
@@ -264,11 +271,11 @@ describe('validateShadowOptions', () => {
 				}
 
 				expect(() => {
-					validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+					validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 				}).toThrow(ShadowValidationError)
 
 				try {
-					validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+					validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 				} catch (error) {
 					expect(error).toBeInstanceOf(ShadowValidationError)
 					expect((error as ShadowValidationError).message).toBe(
@@ -294,11 +301,11 @@ describe('validateShadowOptions', () => {
 				const options: CompileSourceWithShadowOptions = {}
 
 				expect(() => {
-					validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+					validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 				}).toThrow(ShadowValidationError)
 
 				try {
-					validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+					validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 				} catch (error) {
 					expect(error).toBeInstanceOf(ShadowValidationError)
 					expect((error as ShadowValidationError).message).toBe('Source compilation resulted in no contracts')
@@ -317,11 +324,11 @@ describe('validateShadowOptions', () => {
 				const options: CompileSourceWithShadowOptions = {}
 
 				expect(() => {
-					validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+					validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 				}).toThrow(ShadowValidationError)
 
 				try {
-					validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+					validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 				} catch (error) {
 					expect(error).toBeInstanceOf(ShadowValidationError)
 					expect((error as ShadowValidationError).message).toBe(
@@ -337,24 +344,13 @@ describe('validateShadowOptions', () => {
 	})
 
 	describe('edge cases', () => {
-		it('should not validate path when validatePath is false', () => {
-			const astSources = [comprehensiveUnit, inheritedContractUnit]
-			const options: CompileSourceWithShadowOptions = {}
-
-			// Should not throw even with multiple files and no injectIntoContractPath
-			const result = validateShadowOptions(astSources, options, 'Solidity', false, mockLogger)
-
-			expect(result.injectIntoContractPath).toBe('<anonymous>')
-			expect(mockLogger.warn).not.toHaveBeenCalled()
-		})
-
 		it('should handle single contract file with explicit path matching', () => {
 			const astSources = [comprehensiveUnit]
 			const options: CompileSourceWithShadowOptions = {
 				injectIntoContractPath: 'ComprehensiveContract.sol' as any,
 			}
 
-			const result = validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(result.injectIntoContractPath).toBe('ComprehensiveContract.sol')
 			expect(mockLogger.debug).toHaveBeenCalledWith(
@@ -368,11 +364,15 @@ describe('validateShadowOptions', () => {
 				injectIntoContractName: 'ComprehensiveContract',
 			}
 
-			const result = validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(result.injectIntoContractName).toBe('ComprehensiveContract')
-			expect(mockLogger.debug).toHaveBeenCalledWith("Found contract 'ComprehensiveContract' in ComprehensiveContract.sol")
-			expect(mockLogger.debug).toHaveBeenCalledWith('Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code')
+			expect(mockLogger.debug).toHaveBeenCalledWith(
+				"Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code",
+			)
+			expect(mockLogger.debug).toHaveBeenCalledWith(
+				'Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code',
+			)
 		})
 
 		it('should use defaults for undefined options', () => {
@@ -382,7 +382,7 @@ describe('validateShadowOptions', () => {
 				shadowMergeStrategy: undefined,
 			}
 
-			const result = validateShadowOptions(astSources, options, 'Solidity', false, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(result.shadowLanguage).toBe('Solidity')
 			expect(result.shadowMergeStrategy).toBe('safe')
@@ -395,7 +395,7 @@ describe('validateShadowOptions', () => {
 				shadowLanguage: 'Solidity',
 			}
 
-			const result = validateShadowOptions(astSources, options, 'SolidityAST', false, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'SolidityAST', mockLogger)
 
 			expect(result.sourceLanguage).toBe('SolidityAST')
 			expect(result.shadowLanguage).toBe('Solidity')
@@ -405,7 +405,7 @@ describe('validateShadowOptions', () => {
 			const astSources = [comprehensiveUnit]
 			const options: CompileSourceWithShadowOptions = {}
 
-			const result = validateShadowOptions(astSources, options, 'SolidityAST', false, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'SolidityAST', mockLogger)
 
 			expect(result.sourceLanguage).toBe('SolidityAST')
 		})
@@ -418,7 +418,7 @@ describe('validateShadowOptions', () => {
 				injectIntoContractPath: 'ComprehensiveContract.sol' as any,
 			}
 
-			validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+			validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(mockLogger.debug).toHaveBeenCalledWith(
 				'Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code',
@@ -431,20 +431,23 @@ describe('validateShadowOptions', () => {
 				injectIntoContractName: 'ComprehensiveContract',
 			}
 
-			validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+			validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
-			expect(mockLogger.debug).toHaveBeenCalledWith("Found contract 'ComprehensiveContract' in ComprehensiveContract.sol")
-			expect(mockLogger.debug).toHaveBeenCalledWith('Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code')
+			expect(mockLogger.debug).toHaveBeenCalledWith(
+				"Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code",
+			)
+			expect(mockLogger.debug).toHaveBeenCalledWith(
+				'Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code',
+			)
 		})
 
 		it('should log warning when no injectIntoContractPath provided for single file', () => {
 			const astSources = [comprehensiveUnit]
 			const options: CompileSourceWithShadowOptions = {}
 
-			validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+			validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
-			expect(mockLogger.warn).toHaveBeenCalledWith('No injectIntoContractPath provided; using the first contract file')
-		})
+			})
 
 		it('should log error before throwing NotSupportedError', () => {
 			const astSources = [comprehensiveUnit]
@@ -453,7 +456,7 @@ describe('validateShadowOptions', () => {
 			}
 
 			try {
-				validateShadowOptions(astSources, options, 'Yul', false, mockLogger)
+				validateShadowOptions(astSources, options, 'Yul', mockLogger)
 			} catch {
 				expect(mockLogger.error).toHaveBeenCalledWith('Yul is not supported yet')
 			}
@@ -466,7 +469,7 @@ describe('validateShadowOptions', () => {
 			}
 
 			try {
-				validateShadowOptions(astSources, options, 'Solidity', false, mockLogger)
+				validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 			} catch {
 				expect(mockLogger.error).toHaveBeenCalledWith('Shadow language cannot be AST - must be Solidity or Yul')
 			}
@@ -483,7 +486,7 @@ describe('validateShadowOptions', () => {
 				shadowMergeStrategy: 'replace',
 			}
 
-			const result = validateShadowOptions(astSources, options, 'Solidity', true, mockLogger)
+			const result = validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(result).toHaveProperty('sourceLanguage')
 			expect(result).toHaveProperty('shadowLanguage')
