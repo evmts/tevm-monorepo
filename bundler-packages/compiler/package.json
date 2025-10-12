@@ -64,16 +64,12 @@
 	},
 	"dependencies": {
 		"@tevm/config": "workspace:^",
-		"@tevm/logger": "workspace:^",
-		"@tevm/utils": "workspace:^",
 		"@tevm/resolutions": "workspace:^",
 		"@tevm/solc": "workspace:^",
 		"@types/node": "^24.6.1",
-		"abitype": "^1.1.1",
 		"effect": "3.18.1",
 		"resolve": "^1.22.10",
-		"solidity-ast": "^0.4.61",
-		"solc-typed-ast": "^18.2.5"
+		"solidity-ast": "^0.4.61"
 	},
 	"devDependencies": {
 		"@openzeppelin/contracts": "5.4.0",
