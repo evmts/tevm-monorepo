@@ -248,6 +248,40 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  bundler-packages/requirejs:
+    dependencies:
+      '@tevm/base-bundler':
+        specifier: workspace:^
+        version: link:../base-bundler
+      '@tevm/bundler-cache':
+        specifier: workspace:^
+        version: link:../bundler-cache
+      '@tevm/config':
+        specifier: workspace:^
+        version: link:../config
+      '@tevm/solc':
+        specifier: workspace:^
+        version: link:../solc
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+      solc:
+        specifier: 0.8.30
+        version: 0.8.30
+    devDependencies:
+      '@tevm/contract':
+        specifier: workspace:^
+        version: link:../../packages/contract
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
+
   bundler-packages/resolutions:
     dependencies:
       '@tevm/tsconfig':
@@ -6602,9 +6636,6 @@ packages:
 
   '@types/node@20.19.19':
     resolution: {integrity: sha512-pb1Uqj5WJP7wrcbLU7Ru4QtA0+3kAXrkutGiD26wUKzSMgNNaPARTUDQmElUXp64kh3cWdou3Q0C7qwwxqSFmg==}
-
-  '@types/node@22.18.8':
-    resolution: {integrity: sha512-pAZSHMiagDR7cARo/cch1f3rXy0AEXwsVsVH09FcyeJVAzCnGgmYis7P3JidtTUjyadhTeSo8TgRPswstghDaw==}
 
   '@types/node@22.7.5':
     resolution: {integrity: sha512-jML7s2NAzMWc//QSJ1a3prpk78cOPchGvXJsC3C6R6PSMoooztvRVQEz89gmBTBY1SPMaqo5teB4uNHPdetShQ==}
@@ -13410,6 +13441,7 @@ packages:
   sitemap@8.0.0:
     resolution: {integrity: sha512-+AbdxhM9kJsHtruUF39bwS/B0Fytw6Fr1o4ZAIAEqA6cke2xcoO2GleBw9Zw7nRzILVEgz7zBM5GiTJjie1G9A==}
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+    deprecated: 'SECURITY: Multiple vulnerabilities fixed in 8.0.1 (XML injection, path traversal, command injection, protocol injection). Upgrade immediately: npm install sitemap@8.0.1'
     hasBin: true
 
   skin-tone@2.0.0:
@@ -20390,10 +20422,6 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
-  '@types/node@22.18.8':
-    dependencies:
-      undici-types: 6.21.0
-
   '@types/node@22.7.5':
     dependencies:
       undici-types: 6.19.8
@@ -20484,7 +20512,7 @@ snapshots:
 
   '@types/ws@8.5.14':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.6.1
 
   '@typescript-eslint/eslint-plugin@8.45.0(@typescript-eslint/parser@8.45.0(eslint@9.36.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.36.0(jiti@2.6.1))(typescript@5.9.3)':
     dependencies:
@@ -22861,7 +22889,7 @@ snapshots:
 
   bun-types@1.2.5:
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.6.1
       '@types/ws': 8.5.14
 
   bun@1.2.5:
