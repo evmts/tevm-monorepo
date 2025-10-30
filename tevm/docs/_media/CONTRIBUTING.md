@@ -162,6 +162,8 @@ Note `bun test` will run bun instead of [vitest](https://vitest.dev) resulting i
 
 ## Fixtures
 
+**Note**: Fixtures are located in individual packages such as `bundler-packages/config/src/fixtures/`, `bundler-packages/resolutions/src/fixtures/`, `bundler-packages/compiler/src/fixtures/`, and `lsp/ts-plugin/src/fixtures/`. The instructions below apply when working within those packages.
+
 Fixtures in [src/fixtures](./src/fixtures/) exist both for the vitest tests and also can be loaded in watch mode.
 
 The best way to debug a bug or implement a new feature is to first add a new fixture to use in test or dev server
