@@ -14,10 +14,10 @@ npm i pnpm@9 --global && pnpm --version
 npm i bun --global && bun --version
 ```
 
-or run bun update if already installed
+or run bun upgrade if already installed
 
 ```bash
-bun update
+bun upgrade
 ```
 
 3. Install Rust if working with Rust code
