@@ -26,6 +26,7 @@ import type { TevmRpcSchema } from './TevmRpcSchema.js'
  *   fork: {
  *     transport: http("https://mainnet.optimism.io")({}),
  *     blockTag: '0xa6a63cd70fbbe396321ca6fe79e1b6735760c03538208b50d7e3a5dac5226435',
+ *     chainId: 1337, // Optional: Override chain ID to avoid wallet confusion
  *   },
  *   // Chain configuration
  *   common: optimism,
@@ -67,6 +68,7 @@ import type { TevmRpcSchema } from './TevmRpcSchema.js'
  * @property {Object} [fork] - The configuration for forking a network.
  * @property {Function} [fork.transport] - The transport function for connecting to the fork source network.
  * @property {string|number|bigint} [fork.blockTag] - The specific block tag to fork from (can be number, hash, or named tag like 'latest').
+ * @property {number} [fork.chainId] - Optional chain ID override to avoid wallet confusion when forking chains with the same ID.
  * @property {Object} [miningConfig] - Configuration for how blocks are mined.
  * @property {'manual'|'auto'|'interval'} [miningConfig.type] - The mining mode (manual requires calling mine(), auto mines after each tx, interval mines on a timer).
  * @property {number} [miningConfig.interval] - For interval mining, how often to mine blocks in milliseconds.
