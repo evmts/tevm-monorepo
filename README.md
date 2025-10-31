@@ -33,6 +33,8 @@
 
 ---
 
+## Note: we are near the end of a large rewrite to zig. It is expected we get a new stable version of Tevm in November
+
 ## 🚀 The EVM for TypeScript, JavaScript, and the Modern Web
 
 Tevm puts an Ethereum node anywhere JavaScript runs—Node, browser, serverless, edge, or desktop. Instantly fork mainnet, simulate complex contracts, and run full-stack devnets, all with TypeScript-first safety and blazing speed.
