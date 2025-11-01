@@ -14,10 +14,10 @@ npm i pnpm@9 --global && pnpm --version
 npm i bun --global && bun --version
 ```
 
-or run bun update if already installed
+or run bun upgrade if already installed
 
 ```bash
-bun update
+bun upgrade
 ```
 
 3. Install Rust if working with Rust code
@@ -161,6 +161,8 @@ bun run test
 Note `bun test` will run bun instead of [vitest](https://vitest.dev) resulting in errors
 
 ## Fixtures
+
+**Note**: Fixtures are located in individual packages such as `bundler-packages/config/src/fixtures/`, `bundler-packages/resolutions/src/fixtures/`, `bundler-packages/compiler/src/fixtures/`, and `lsp/ts-plugin/src/fixtures/`. The instructions below apply when working within those packages.
 
 Fixtures in [src/fixtures](./src/fixtures/) exist both for the vitest tests and also can be loaded in watch mode.
 
