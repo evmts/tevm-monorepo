@@ -1,5 +1,5 @@
 import { optimism } from '@tevm/common'
-import { transports } from '@tevm/test-utils'
+import { createCachedOptimismTransport } from '@tevm/test-utils'
 import { type Client, createClient, parseEther } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
@@ -10,9 +10,10 @@ let client: Client<TevmTransport>
 const prefundedAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 
 beforeEach(async () => {
+	const cachedTransport = createCachedOptimismTransport()
 	client = createClient({
 		transport: createTevmTransport({
-			fork: { transport: transports.optimism },
+			fork: { transport: cachedTransport, blockTag: 142153711n },
 		}),
 		chain: optimism,
 	})

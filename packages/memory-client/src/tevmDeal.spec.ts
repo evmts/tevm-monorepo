@@ -3,7 +3,7 @@ import { mainnet } from '@tevm/common'
 import { TestERC20, transports } from '@tevm/test-utils'
 import { erc20Abi } from 'viem'
 import { describe, expect, it } from 'vitest'
-import { createMemoryClient } from './createMemoryClient'
+import { createMemoryClient } from './createMemoryClient.js'
 
 describe('tevmDeal', () => {
 	it('should deal native ETH to an account', async () => {

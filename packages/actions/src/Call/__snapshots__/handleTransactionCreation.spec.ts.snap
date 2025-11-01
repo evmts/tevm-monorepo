@@ -9,5 +9,3 @@ exports[`handleTransactionCreation > should handle createTransaction having erro
   },
 ]
 `;
-
-exports[`handleTransactionCreation > should handle transaction creation 1`] = `"0x1a3e54004085fad191398087b59e055926584d1493696257aff39dd04d5a8fff"`;

@@ -1,4 +1,4 @@
-import { EvmErrorMessage } from '@tevm/evm'
+import { EvmError } from '@tevm/evm'
 import { hexToBigInt } from '@tevm/utils'
 import { describe, expect, test } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
@@ -26,7 +26,7 @@ https://github.com/ethereumjs/ethereumjs-monorepo/blob/a0ef459e26f6a843d67bb2142
 			skipBalance: true,
 			throwOnFail: false,
 		})
-		expect(res.errors?.[0]?.name).toBe(EvmErrorMessage.CODESIZE_EXCEEDS_MAXIMUM)
+		expect(res.errors?.[0]?.name).toBe(EvmError.errorMessages.CODESIZE_EXCEEDS_MAXIMUM)
 	})
 
 	test.todo('Should deploy large files if allowUnlimitedContractSize option is true', async () => {

@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import { rm } from 'node:fs/promises'
 import path from 'node:path'
 import { createMemoryClient } from '@tevm/memory-client'
 import { transports } from '@tevm/test-utils'
@@ -10,11 +10,7 @@ import { assertMethodCached, assertMethodNotCached } from './test/snapshot-utils
 
 describe('createTestSnapshotTransport', () => {
 	afterEach(async () => {
-		// Clean up snapshot directory next to this test
-		const snapshotDir = path.join(__dirname, '__rpc_snapshots__')
-		if (fs.existsSync(snapshotDir)) {
-			fs.rmSync(snapshotDir, { recursive: true, force: true })
-		}
+		await rm(path.join(__dirname, '__rpc_snapshots__', `${path.basename(__filename)}.snap.json`), { force: true })
 	})
 
 	it('should create a transport with all required methods', async () => {

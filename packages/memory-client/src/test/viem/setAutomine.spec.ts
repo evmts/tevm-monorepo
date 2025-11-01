@@ -46,7 +46,6 @@ describe('automine', () => {
 		// Get the current automine status through direct request
 		const result = await mc.request({
 			method: 'anvil_getAutomine',
-			params: [],
 		})
 
 		// We expect a boolean response indicating whether automine is enabled

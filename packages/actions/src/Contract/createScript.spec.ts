@@ -18,17 +18,17 @@ describe('createScript', () => {
 	it('should create a script with valid deployedBytecode', async () => {
 		const result = await createScript(client, undefined, validDeployedBytecode)
 		expect(result.errors).toBeUndefined()
-		expect(getAddress(result.address as any)).toBeDefined()
+		expect(getAddress(result.address as any)).toBeAddress()
 		const account = await getAccountHandler(client)({ address: result.address as any })
-		expect(account.deployedBytecode).toBe(validDeployedBytecode)
+		expect(account.deployedBytecode).toEqualHex(validDeployedBytecode)
 	})
 
 	it('should create a script with valid code', async () => {
 		const result = await createScript(client, validCode)
 		expect(result.errors).toBeUndefined()
-		expect(getAddress(result.address as any)).toBeDefined()
+		expect(getAddress(result.address as any)).toBeAddress()
 		const account = await getAccountHandler(client)({ address: result.address as any })
-		expect(account.deployedBytecode).toBe(validDeployedBytecode)
+		expect(account.deployedBytecode).toEqualHex(validDeployedBytecode)
 	})
 
 	it('should return an error for invalid bytecode', async () => {
@@ -79,9 +79,9 @@ describe('createScript', () => {
 		await vm.blockchain.putBlock(newBlock)
 		const result = await createScript(client, validCode)
 		expect(result.errors).toBeUndefined()
-		expect(getAddress(result.address as any)).toBeDefined()
+		expect(getAddress(result.address as any)).toBeAddress()
 		const account = await getAccountHandler(client)({ address: result.address as any })
-		expect(account.deployedBytecode).toBe(validDeployedBytecode)
+		expect(account.deployedBytecode).toEqualHex(validDeployedBytecode)
 	})
 
 	it('should handle vm errors', async () => {

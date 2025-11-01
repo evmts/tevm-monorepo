@@ -5,7 +5,6 @@ import { createTevmNode } from '@tevm/node'
 import { TransactionFactory } from '@tevm/tx'
 import { bytesToHex, hexToBytes, PREFUNDED_PRIVATE_KEYS, PREFUNDED_PUBLIC_KEYS, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
-import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { ethSendRawTransactionHandler } from './ethSendRawTransactionHandler.js'
@@ -44,8 +43,8 @@ describe('ethSendRawTransactionHandler', () => {
 		expect(await txPool.getBySenderAddress(createAddress(PREFUNDED_PUBLIC_KEYS[0]))).toHaveLength(1)
 
 		await mineHandler(client)()
-		const accountState = await getAccountHandler(client)({ address: to.toString() })
-		expect(accountState.balance).toBe(value)
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(to.toString()).toHaveState(client, { balance: value })
 	})
 
 	it.todo('should handle a legacy transaction', async () => {
