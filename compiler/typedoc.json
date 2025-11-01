@@ -1,0 +1,13 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"out": "./docs",
+	"entryPoints": [
+		"./src/resolveArtifacts.js",
+		"./src/resolveArtifactsSync.js",
+		"./src/solc.js",
+		"./src/solcTypes.js",
+		"./src/types.ts"
+	],
+	"plugin": ["typedoc-plugin-markdown"],
+	"gitRevision": "main"
+}
