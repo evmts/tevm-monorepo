@@ -1,4 +1,6 @@
 import { MethodNotSupportedError } from '@tevm/errors'
+import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
+import { testAccounts } from './eth/utils/testAccounts.js'
 import { anvilDealJsonRpcProcedure } from './anvil/anvilDealProcedure.js'
 import { anvilDropTransactionJsonRpcProcedure } from './anvil/anvilDropTransactionProcedure.js'
 import { anvilDumpStateJsonRpcProcedure } from './anvil/anvilDumpStateProcedure.js'
@@ -93,6 +95,7 @@ export const createHandlers = (client) => {
 	}
 
 	const ethHandlers = {
+		eth_accounts: ethAccountsProcedure(testAccounts),
 		eth_blockNumber: blockNumberProcedure(client),
 		eth_chainId: chainIdProcedure(client),
 		eth_call: ethCallProcedure(client),
