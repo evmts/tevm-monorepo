@@ -40,6 +40,7 @@ import type {
 	EthSignParams,
 	EthSignTransactionParams,
 	EthSimulateV1Params,
+	EthSimulateV2Params,
 	EthSubscribeParams,
 	EthSyncingParams,
 	EthUninstallFilterParams,
@@ -87,6 +88,7 @@ import type {
 	EthSignResult,
 	EthSignTransactionResult,
 	EthSimulateV1Result,
+	EthSimulateV2Result,
 	EthSubscribeResult,
 	EthSyncingResult,
 	EthUninstallFilterResult,
@@ -211,3 +213,5 @@ export type EthUnsubscribeHandler = (request: EthUnsubscribeParams) => Promise<E
 export type EthGetProofHandler = (request: EthGetProofParams) => Promise<EthGetProofResult>
 // eth_simulateV1
 export type EthSimulateV1Handler = (request: EthSimulateV1Params) => Promise<EthSimulateV1Result>
+// eth_simulateV2
+export type EthSimulateV2Handler = (request: EthSimulateV2Params) => Promise<EthSimulateV2Result>

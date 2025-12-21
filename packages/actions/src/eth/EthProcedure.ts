@@ -42,6 +42,7 @@ import type {
 	EthSignJsonRpcRequest,
 	EthSignTransactionJsonRpcRequest,
 	EthSimulateV1JsonRpcRequest,
+	EthSimulateV2JsonRpcRequest,
 	EthSubscribeJsonRpcRequest,
 	EthSyncingJsonRpcRequest,
 	EthUninstallFilterJsonRpcRequest,
@@ -91,6 +92,7 @@ import type {
 	EthSignJsonRpcResponse,
 	EthSignTransactionJsonRpcResponse,
 	EthSimulateV1JsonRpcResponse,
+	EthSimulateV2JsonRpcResponse,
 	EthSubscribeJsonRpcResponse,
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
@@ -257,3 +259,7 @@ export type EthGetProofJsonRpcProcedure = (request: EthGetProofJsonRpcRequest) =
 export type EthSimulateV1JsonRpcProcedure = (
 	request: EthSimulateV1JsonRpcRequest,
 ) => Promise<EthSimulateV1JsonRpcResponse>
+// eth_simulateV2
+export type EthSimulateV2JsonRpcProcedure = (
+	request: EthSimulateV2JsonRpcRequest,
+) => Promise<EthSimulateV2JsonRpcResponse>

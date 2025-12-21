@@ -473,6 +473,80 @@ export type EthSimulateV1Params = {
 	readonly blockTag?: BlockParam
 }
 
+// eth_simulateV2
+/**
+ * Parameters for a single simulated call within a block (V2)
+ * Extends V1 with additional tracing and gas estimation options
+ */
+export type EthSimulateV2Call = EthSimulateV1Call & {
+	/**
+	 * Whether to estimate gas for this call.
+	 * When true, the call will be executed to estimate gas.
+	 */
+	readonly estimateGas?: boolean
+}
+
+/**
+ * A block of calls to simulate with optional block and state overrides (V2)
+ * Extends V1 with additional tracing options
+ */
+export type EthSimulateV2BlockStateCall = {
+	/**
+	 * Block header fields to override for this simulated block
+	 */
+	readonly blockOverrides?: BlockOverrideSet
+	/**
+	 * State to override before executing this block's calls
+	 */
+	readonly stateOverrides?: StateOverrideSet
+	/**
+	 * Calls to simulate in this block
+	 */
+	readonly calls: readonly EthSimulateV2Call[]
+}
+
+/**
+ * Based on the JSON-RPC request for `eth_simulateV2` procedure
+ * Extends V1 with additional features:
+ * - Contract creation detection (emits events for deployed contracts)
+ * - Stack traces for debugging
+ * - Dynamic gas estimation
+ * - Enhanced tracing options
+ */
+export type EthSimulateV2Params = {
+	/**
+	 * Array of block state calls to simulate. Each block can have its own
+	 * state overrides and multiple calls.
+	 */
+	readonly blockStateCalls: readonly EthSimulateV2BlockStateCall[]
+	/**
+	 * Whether to trace ETH transfers (adds Transfer logs for native ETH)
+	 */
+	readonly traceTransfers?: boolean
+	/**
+	 * Whether to validate transactions (check signatures, nonces, etc.)
+	 */
+	readonly validation?: boolean
+	/**
+	 * Whether to return full transaction objects in the response
+	 */
+	readonly returnFullTransactions?: boolean
+	/**
+	 * The block number or tag to execute the simulation against
+	 */
+	readonly blockTag?: BlockParam
+	/**
+	 * Whether to include contract creation events in the logs.
+	 * V2 feature: emits a synthetic log when contracts are deployed.
+	 */
+	readonly includeContractCreationEvents?: boolean
+	/**
+	 * Whether to include call traces in the response.
+	 * V2 feature: provides detailed execution traces for debugging.
+	 */
+	readonly includeCallTraces?: boolean
+}
+
 export type EthParams =
 	| EthAccountsParams
 	| EthAccountsParams
@@ -520,3 +594,4 @@ export type EthParams =
 	| EthUnsubscribeParams
 	| EthGetProofParams
 	| EthSimulateV1Params
+	| EthSimulateV2Params
