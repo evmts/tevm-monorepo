@@ -51,14 +51,33 @@ export const ethNewFilterHandler = (tevmNode) => {
 
 		const id = generateRandomId()
 		/**
-		 * @param {import('@tevm/node').Filter['logs'][number]} log
+		 * The newLog event emits raw EthjsLog which is a tuple: [address, topics, data]
+		 * @param {import('@tevm/utils').EthjsLog} rawLog
 		 */
-		const listener = (log) => {
+		const listener = (rawLog) => {
 			const filter = tevmNode.getFilters().get(id)
 			if (!filter) {
 				return
 			}
-			filter.logs.push(log)
+			// EthjsLog is a tuple [address, topics, data]
+			const [addressBytes, topicsBytes, dataBytes] = rawLog
+			/** @type {import('@tevm/node').Filter['logs'][number]} */
+			const formattedLog = {
+				topics: /** @type {[import('@tevm/utils').Hex, ...Array<import('@tevm/utils').Hex>]}*/ (
+					topicsBytes.map((topic) => bytesToHex(topic))
+				),
+				address: bytesToHex(addressBytes),
+				data: bytesToHex(dataBytes),
+				// Note: These fields are not available from the raw log event
+				// They should be populated when the log is retrieved via eth_getFilterChanges
+				blockNumber: 0n,
+				transactionHash: '0x',
+				logIndex: 0n,
+				blockHash: '0x',
+				transactionIndex: 0n,
+				removed: false,
+			}
+			filter.logs.push(formattedLog)
 		}
 		tevmNode.on('newLog', listener)
 		// populate with past blocks

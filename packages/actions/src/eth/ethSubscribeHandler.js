@@ -1,4 +1,5 @@
 import { InvalidParamsError } from '@tevm/errors'
+import { bytesToHex } from '@tevm/utils'
 import { isArray } from '../utils/isArray.js'
 import { generateRandomId } from './utils/generateRandomId.js'
 
@@ -84,20 +85,26 @@ export const ethSubscribeHandler = (tevmNode) => {
 				const { filterParams } = logsParams
 
 				/**
-				 * @param {import('@tevm/node').Filter['logs'][number]} log
+				 * The newLog event emits raw EthjsLog which is a tuple: [address, topics, data]
+				 * @param {import('@tevm/utils').EthjsLog} rawLog
 				 */
-				const listener = (log) => {
+				const listener = (rawLog) => {
 					const filter = tevmNode.getFilters().get(id)
 					if (!filter) {
 						tevmNode.logger.debug({ id }, 'ethSubscribeHandler: Filter not found for logs')
 						return
 					}
 
+					// EthjsLog is a tuple [address, topics, data]
+					const [addressBytes, topicsBytes, dataBytes] = rawLog
+					const logAddress = bytesToHex(addressBytes)
+					const logTopics = topicsBytes.map((t) => bytesToHex(t))
+
 					// Apply address filter if specified
 					if (filterParams?.address) {
 						const addresses = isArray(filterParams.address) ? filterParams.address : [filterParams.address]
 						const normalizedAddresses = addresses.map((addr) => addr.toLowerCase())
-						if (!normalizedAddresses.includes(log.address.toLowerCase())) {
+						if (!normalizedAddresses.includes(logAddress.toLowerCase())) {
 							return
 						}
 					}
@@ -108,22 +115,38 @@ export const ethSubscribeHandler = (tevmNode) => {
 							if (topicFilter === null || topicFilter === undefined) {
 								return true
 							}
-							if (!log.topics[index]) {
+							if (!logTopics[index]) {
 								return false
 							}
 							if (isArray(topicFilter)) {
-								return topicFilter.some((topic) => topic.toLowerCase() === log.topics[index]?.toLowerCase())
+								return topicFilter.some((topic) => topic.toLowerCase() === logTopics[index]?.toLowerCase())
 							}
-							return topicFilter.toLowerCase() === log.topics[index]?.toLowerCase()
+							return topicFilter.toLowerCase() === logTopics[index]?.toLowerCase()
 						})
 						if (!topicsMatch) {
 							return
 						}
 					}
 
-					filter.logs.push(log)
+					// Convert raw log to the expected format for Filter['logs']
+					/** @type {import('@tevm/node').Filter['logs'][number]} */
+					const formattedLog = {
+						address: logAddress,
+						topics: /** @type {[import('@tevm/utils').Hex, ...Array<import('@tevm/utils').Hex>]} */ (logTopics),
+						data: bytesToHex(dataBytes),
+						// Note: These fields are not available from the raw log event
+						// They should be populated when the log is retrieved via eth_getFilterChanges
+						blockNumber: 0n,
+						transactionHash: '0x',
+						logIndex: 0n,
+						blockHash: '0x',
+						transactionIndex: 0n,
+						removed: false,
+					}
+
+					filter.logs.push(formattedLog)
 					tevmNode.logger.debug(
-						{ id, logAddress: log.address, topics: log.topics },
+						{ id, logAddress, topics: logTopics },
 						'ethSubscribeHandler: Added log to subscription',
 					)
 				}
