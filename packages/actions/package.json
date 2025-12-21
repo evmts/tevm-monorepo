@@ -75,6 +75,7 @@
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/node": "workspace:^",
 		"@tevm/receipt-manager": "workspace:^",
+		"@tevm/rlp": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/tx": "workspace:^",
 		"@tevm/txpool": "workspace:^",
