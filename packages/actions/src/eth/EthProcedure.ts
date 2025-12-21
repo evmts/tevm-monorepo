@@ -7,16 +7,19 @@ import type {
 	EthCoinbaseJsonRpcRequest,
 	EthCreateAccessListJsonRpcRequest,
 	EthEstimateGasJsonRpcRequest,
+	EthFeeHistoryJsonRpcRequest,
 	EthGasPriceJsonRpcRequest,
 	EthGetBalanceJsonRpcRequest,
 	EthGetBlockByHashJsonRpcRequest,
 	EthGetBlockByNumberJsonRpcRequest,
+	EthGetBlockReceiptsJsonRpcRequest,
 	EthGetBlockTransactionCountByHashJsonRpcRequest,
 	EthGetBlockTransactionCountByNumberJsonRpcRequest,
 	EthGetCodeJsonRpcRequest,
 	EthGetFilterChangesJsonRpcRequest,
 	EthGetFilterLogsJsonRpcRequest,
 	EthGetLogsJsonRpcRequest,
+	EthGetProofJsonRpcRequest,
 	EthGetStorageAtJsonRpcRequest,
 	EthGetTransactionByBlockHashAndIndexJsonRpcRequest,
 	EthGetTransactionByBlockNumberAndIndexJsonRpcRequest,
@@ -28,7 +31,6 @@ import type {
 	EthGetUncleCountByBlockHashJsonRpcRequest,
 	EthGetUncleCountByBlockNumberJsonRpcRequest,
 	EthHashrateJsonRpcRequest,
-	EthFeeHistoryJsonRpcRequest,
 	EthMaxPriorityFeePerGasJsonRpcRequest,
 	EthMiningJsonRpcRequest,
 	EthNewBlockFilterJsonRpcRequest,
@@ -39,10 +41,11 @@ import type {
 	EthSendTransactionJsonRpcRequest,
 	EthSignJsonRpcRequest,
 	EthSignTransactionJsonRpcRequest,
+	EthSimulateV1JsonRpcRequest,
+	EthSubscribeJsonRpcRequest,
 	EthSyncingJsonRpcRequest,
 	EthUninstallFilterJsonRpcRequest,
-	EthGetProofJsonRpcRequest,
-	EthSimulateV1JsonRpcRequest,
+	EthUnsubscribeJsonRpcRequest,
 } from './EthJsonRpcRequest.js'
 import type {
 	EthAccountsJsonRpcResponse,
@@ -53,16 +56,19 @@ import type {
 	EthCoinbaseJsonRpcResponse,
 	EthCreateAccessListJsonRpcResponse,
 	EthEstimateGasJsonRpcResponse,
+	EthFeeHistoryJsonRpcResponse,
 	EthGasPriceJsonRpcResponse,
 	EthGetBalanceJsonRpcResponse,
 	EthGetBlockByHashJsonRpcResponse,
 	EthGetBlockByNumberJsonRpcResponse,
+	EthGetBlockReceiptsJsonRpcResponse,
 	EthGetBlockTransactionCountByHashJsonRpcResponse,
 	EthGetBlockTransactionCountByNumberJsonRpcResponse,
 	EthGetCodeJsonRpcResponse,
 	EthGetFilterChangesJsonRpcResponse,
 	EthGetFilterLogsJsonRpcResponse,
 	EthGetLogsJsonRpcResponse,
+	EthGetProofJsonRpcResponse,
 	EthGetStorageAtJsonRpcResponse,
 	EthGetTransactionByBlockHashAndIndexJsonRpcResponse,
 	EthGetTransactionByBlockNumberAndIndexJsonRpcResponse,
@@ -74,7 +80,6 @@ import type {
 	EthGetUncleCountByBlockHashJsonRpcResponse,
 	EthGetUncleCountByBlockNumberJsonRpcResponse,
 	EthHashrateJsonRpcResponse,
-	EthFeeHistoryJsonRpcResponse,
 	EthMaxPriorityFeePerGasJsonRpcResponse,
 	EthMiningJsonRpcResponse,
 	EthNewBlockFilterJsonRpcResponse,
@@ -85,10 +90,11 @@ import type {
 	EthSendTransactionJsonRpcResponse,
 	EthSignJsonRpcResponse,
 	EthSignTransactionJsonRpcResponse,
+	EthSimulateV1JsonRpcResponse,
+	EthSubscribeJsonRpcResponse,
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
-	EthGetProofJsonRpcResponse,
-	EthSimulateV1JsonRpcResponse,
+	EthUnsubscribeJsonRpcResponse,
 } from './EthJsonRpcResponse.js'
 
 // eth_accounts
@@ -187,6 +193,10 @@ export type EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure = (
 export type EthGetTransactionReceiptJsonRpcProcedure = (
 	request: EthGetTransactionReceiptJsonRpcRequest,
 ) => Promise<EthGetTransactionReceiptJsonRpcResponse>
+// eth_getBlockReceipts
+export type EthGetBlockReceiptsJsonRpcProcedure = (
+	request: EthGetBlockReceiptsJsonRpcRequest,
+) => Promise<EthGetBlockReceiptsJsonRpcResponse>
 // eth_getUncleByBlockHashAndIndex
 export type EthGetUncleByBlockHashAndIndexJsonRpcProcedure = (
 	request: EthGetUncleByBlockHashAndIndexJsonRpcRequest,
@@ -231,14 +241,18 @@ export type EthNewPendingTransactionFilterJsonRpcProcedure = (
 export type EthUninstallFilterJsonRpcProcedure = (
 	request: EthUninstallFilterJsonRpcRequest,
 ) => Promise<EthUninstallFilterJsonRpcResponse>
+// eth_subscribe
+export type EthSubscribeJsonRpcProcedure = (request: EthSubscribeJsonRpcRequest) => Promise<EthSubscribeJsonRpcResponse>
+// eth_unsubscribe
+export type EthUnsubscribeJsonRpcProcedure = (
+	request: EthUnsubscribeJsonRpcRequest,
+) => Promise<EthUnsubscribeJsonRpcResponse>
 // eth_createAccessList
 export type EthCreateAccessListJsonRpcProcedure = (
 	request: EthCreateAccessListJsonRpcRequest,
 ) => Promise<EthCreateAccessListJsonRpcResponse>
 // eth_getProof
-export type EthGetProofJsonRpcProcedure = (
-	request: EthGetProofJsonRpcRequest,
-) => Promise<EthGetProofJsonRpcResponse>
+export type EthGetProofJsonRpcProcedure = (request: EthGetProofJsonRpcRequest) => Promise<EthGetProofJsonRpcResponse>
 // eth_simulateV1
 export type EthSimulateV1JsonRpcProcedure = (
 	request: EthSimulateV1JsonRpcRequest,

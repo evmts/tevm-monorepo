@@ -12,12 +12,14 @@ import type {
 	EthGetBalanceJsonRpcResponse,
 	EthGetBlockByHashJsonRpcResponse,
 	EthGetBlockByNumberJsonRpcResponse,
+	EthGetBlockReceiptsJsonRpcResponse,
 	EthGetBlockTransactionCountByHashJsonRpcResponse,
 	EthGetBlockTransactionCountByNumberJsonRpcResponse,
 	EthGetCodeJsonRpcResponse,
 	EthGetFilterChangesJsonRpcResponse,
 	EthGetFilterLogsJsonRpcResponse,
 	EthGetLogsJsonRpcResponse,
+	EthGetProofJsonRpcResponse,
 	EthGetStorageAtJsonRpcResponse,
 	EthGetTransactionByBlockHashAndIndexJsonRpcResponse,
 	EthGetTransactionByBlockNumberAndIndexJsonRpcResponse,
@@ -39,10 +41,11 @@ import type {
 	EthSendTransactionJsonRpcResponse,
 	EthSignJsonRpcResponse,
 	EthSignTransactionJsonRpcResponse,
+	EthSimulateV1JsonRpcResponse,
+	EthSubscribeJsonRpcResponse,
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
-	EthGetProofJsonRpcResponse,
-	EthSimulateV1JsonRpcResponse,
+	EthUnsubscribeJsonRpcResponse,
 } from '../eth/index.js'
 
 /**
@@ -93,4 +96,7 @@ export type EthReturnType = {
 	eth_createAccessList: EthCreateAccessListJsonRpcResponse
 	eth_getProof: EthGetProofJsonRpcResponse
 	eth_simulateV1: EthSimulateV1JsonRpcResponse
+	eth_getBlockReceipts: EthGetBlockReceiptsJsonRpcResponse
+	eth_subscribe: EthSubscribeJsonRpcResponse
+	eth_unsubscribe: EthUnsubscribeJsonRpcResponse
 }

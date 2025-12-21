@@ -83,6 +83,16 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 */
 	readonly setImpersonatedAccount: (address: Address | undefined) => void
 	/**
+	 * Gets whether auto-impersonation is enabled.
+	 * When enabled, all transaction senders are automatically impersonated.
+	 */
+	readonly getAutoImpersonate: () => boolean
+	/**
+	 * Sets whether to automatically impersonate all transaction senders.
+	 * When enabled, all transactions will have their sender automatically impersonated.
+	 */
+	readonly setAutoImpersonate: (enabled: boolean) => void
+	/**
 	 * Gets the timestamp to use for the next block
 	 * If undefined, the current time will be used
 	 */
@@ -105,6 +115,30 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 * Pass undefined to clear the override and use parent block's gas limit.
 	 */
 	readonly setNextBlockGasLimit: (gasLimit: bigint | undefined) => void
+	/**
+	 * Gets the base fee per gas to use for the next block
+	 * If undefined, the base fee will be calculated from the parent block
+	 */
+	readonly getNextBlockBaseFeePerGas: () => bigint | undefined
+	/**
+	 * Sets the base fee per gas for the next block (EIP-1559).
+	 * This only affects the immediate next block, then is cleared.
+	 * This is used by the anvil_setNextBlockBaseFeePerGas RPC method.
+	 * Pass undefined to clear the override.
+	 */
+	readonly setNextBlockBaseFeePerGas: (baseFeePerGas: bigint | undefined) => void
+	/**
+	 * Gets the minimum gas price for transactions
+	 * If undefined, no minimum gas price is enforced
+	 */
+	readonly getMinGasPrice: () => bigint | undefined
+	/**
+	 * Sets the minimum gas price for transactions.
+	 * Transactions with a gas price below this value will be rejected.
+	 * This is used by the anvil_setMinGasPrice RPC method.
+	 * Pass undefined to clear the minimum.
+	 */
+	readonly setMinGasPrice: (minGasPrice: bigint | undefined) => void
 	/**
 	 * Gets the automatic timestamp interval added between blocks
 	 * If undefined, no automatic interval is applied

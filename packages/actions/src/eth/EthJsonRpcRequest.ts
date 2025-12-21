@@ -227,6 +227,14 @@ export type EthGetTransactionByBlockNumberAndIndexJsonRpcRequest = JsonRpcReques
  * JSON-RPC request for `eth_getTransactionReceipt` procedure
  */
 export type EthGetTransactionReceiptJsonRpcRequest = JsonRpcRequest<'eth_getTransactionReceipt', readonly [txHash: Hex]>
+// eth_getBlockReceipts
+/**
+ * JSON-RPC request for `eth_getBlockReceipts` procedure
+ */
+export type EthGetBlockReceiptsJsonRpcRequest = JsonRpcRequest<
+	'eth_getBlockReceipts',
+	readonly [blockId: BlockTag | Hex]
+>
 // eth_getUncleByBlockHashAndIndex
 /**
  * JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
@@ -315,6 +323,22 @@ export type EthNewPendingTransactionFilterJsonRpcRequest = JsonRpcRequest<
  * JSON-RPC request for `eth_uninstallFilter` procedure
  */
 export type EthUninstallFilterJsonRpcRequest = JsonRpcRequest<'eth_uninstallFilter', readonly [filterId: Hex]>
+// eth_subscribe
+/**
+ * JSON-RPC request for `eth_subscribe` procedure
+ */
+export type EthSubscribeJsonRpcRequest = JsonRpcRequest<
+	'eth_subscribe',
+	readonly [
+		subscriptionType: 'newHeads' | 'logs' | 'newPendingTransactions' | 'syncing',
+		filterParams?: SerializeToJson<{ address?: Address | Address[]; topics?: (Hex | Hex[] | null)[] }>,
+	]
+>
+// eth_unsubscribe
+/**
+ * JSON-RPC request for `eth_unsubscribe` procedure
+ */
+export type EthUnsubscribeJsonRpcRequest = JsonRpcRequest<'eth_unsubscribe', readonly [subscriptionId: Hex]>
 // eth_createAccessList
 /**
  * JSON-RPC request for `eth_createAccessList` procedure
@@ -417,6 +441,7 @@ export type EthJsonRpcRequest =
 	| EthGetTransactionByBlockHashAndIndexJsonRpcRequest
 	| EthGetTransactionByBlockNumberAndIndexJsonRpcRequest
 	| EthGetTransactionReceiptJsonRpcRequest
+	| EthGetBlockReceiptsJsonRpcRequest
 	| EthGetUncleByBlockHashAndIndexJsonRpcRequest
 	| EthGetUncleByBlockNumberAndIndexJsonRpcRequest
 	| EthMiningJsonRpcRequest
@@ -430,6 +455,8 @@ export type EthJsonRpcRequest =
 	| EthNewBlockFilterJsonRpcRequest
 	| EthNewPendingTransactionFilterJsonRpcRequest
 	| EthUninstallFilterJsonRpcRequest
+	| EthSubscribeJsonRpcRequest
+	| EthUnsubscribeJsonRpcRequest
 	| EthCreateAccessListJsonRpcRequest
 	| EthGetProofJsonRpcRequest
 	| EthSimulateV1JsonRpcRequest

@@ -89,6 +89,14 @@ export const mineHandler =
 				const overrideGasLimit = client.getNextBlockGasLimit()
 				const gasLimit = overrideGasLimit ?? parentBlock.header.gasLimit
 
+				// Get the base fee override if set (only for the first block)
+				const overrideBaseFee = count === 0 ? client.getNextBlockBaseFeePerGas() : undefined
+				const baseFeePerGas = overrideBaseFee ?? parentBlock.header.calcNextBaseFee()
+				// Clear the base fee override after using it
+				if (count === 0 && overrideBaseFee !== undefined) {
+					client.setNextBlockBaseFeePerGas(undefined)
+				}
+
 				const blockBuilder = await vm.buildBlock({
 					parentBlock,
 					headerData: {
@@ -98,7 +106,7 @@ export const mineHandler =
 						// difficulty: undefined,
 						// coinbase,
 						gasLimit,
-						baseFeePerGas: parentBlock.header.calcNextBaseFee(),
+						baseFeePerGas,
 					},
 					blockOpts: {
 						// Proof of authority not currently supported
@@ -123,7 +131,7 @@ export const mineHandler =
 								})(),
 							]
 						: await pool.txsByPriceAndNonce({
-								baseFee: parentBlock.header.calcNextBaseFee(),
+								baseFee: baseFeePerGas,
 							})
 
 				let index = 0

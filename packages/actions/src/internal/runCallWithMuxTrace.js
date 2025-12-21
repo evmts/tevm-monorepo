@@ -283,7 +283,9 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 	if (enabledTracers.includes('default')) {
 		vm.evm.events?.on('step', async (step, next) => {
 			/** @type {import('../common/Hex.js').Hex[]} */
-			const stackItems = step.stack.map((item) => /** @type {import('../common/Hex.js').Hex} */ (`0x${item.toString(16).padStart(64, '0')}`))
+			const stackItems = step.stack.map(
+				(item) => /** @type {import('../common/Hex.js').Hex} */ (`0x${item.toString(16).padStart(64, '0')}`),
+			)
 
 			structLogs.push({
 				pc: step.pc,

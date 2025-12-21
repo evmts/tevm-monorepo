@@ -46,8 +46,15 @@ export const serializeTraceResult = (traceResult) => {
 		for (const [tracerName, tracerResult] of Object.entries(muxResult)) {
 			if (tracerResult === undefined) continue
 
-			if (tracerName === 'default' && tracerResult && typeof tracerResult === 'object' && 'structLogs' in tracerResult) {
-				serializedMux[tracerName] = serializeDefaultTrace(/** @type {import('../common/TraceResult.js').TraceResult} */ (tracerResult))
+			if (
+				tracerName === 'default' &&
+				tracerResult &&
+				typeof tracerResult === 'object' &&
+				'structLogs' in tracerResult
+			) {
+				serializedMux[tracerName] = serializeDefaultTrace(
+					/** @type {import('../common/TraceResult.js').TraceResult} */ (tracerResult),
+				)
 			} else {
 				serializedMux[tracerName] = tracerResult
 			}

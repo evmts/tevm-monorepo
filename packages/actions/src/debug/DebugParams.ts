@@ -131,6 +131,44 @@ export type DebugTraceBlockParams<
 	>
 
 /**
+ * Params taken by `debug_traceBlockByNumber` handler
+ */
+export type DebugTraceBlockByNumberParams<
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | 'muxTracer' | undefined =
+		| 'callTracer'
+		| 'prestateTracer'
+		| '4byteTracer'
+		| 'flatCallTracer'
+		| 'muxTracer'
+		| undefined,
+	TDiffMode extends boolean = boolean,
+> = TraceParams<TTracer, TDiffMode> & {
+	/**
+	 * Block number to trace (can be a hex string, number, bigint, or block tag like 'latest')
+	 */
+	readonly blockNumber: Hex | Uint8Array | number | bigint | BlockTag
+}
+
+/**
+ * Params taken by `debug_traceBlockByHash` handler
+ */
+export type DebugTraceBlockByHashParams<
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | 'muxTracer' | undefined =
+		| 'callTracer'
+		| 'prestateTracer'
+		| '4byteTracer'
+		| 'flatCallTracer'
+		| 'muxTracer'
+		| undefined,
+	TDiffMode extends boolean = boolean,
+> = TraceParams<TTracer, TDiffMode> & {
+	/**
+	 * Block hash to trace
+	 */
+	readonly blockHash: Hex | Uint8Array
+}
+
+/**
  * State filters
  */
 export const debugTraceStateFilters = [
@@ -181,3 +219,175 @@ export type DebugTraceStateParams<
 	 */
 	readonly timeout?: string
 }
+
+/**
+ * Params taken by `debug_dumpBlock` handler
+ */
+export type DebugDumpBlockParams = {
+	/**
+	 * Block number, block hash, or block tag to dump state for
+	 */
+	readonly blockTag: Hex | Uint8Array | number | bigint | BlockTag
+}
+
+/**
+ * Params taken by `debug_getModifiedAccountsByNumber` handler
+ */
+export type DebugGetModifiedAccountsByNumberParams = {
+	/**
+	 * Starting block number
+	 */
+	readonly startBlockNumber: Hex | Uint8Array | number | bigint
+	/**
+	 * Ending block number (optional, defaults to startBlockNumber + 1)
+	 */
+	readonly endBlockNumber?: Hex | Uint8Array | number | bigint
+}
+
+/**
+ * Params taken by `debug_getModifiedAccountsByHash` handler
+ */
+export type DebugGetModifiedAccountsByHashParams = {
+	/**
+	 * Starting block hash
+	 */
+	readonly startBlockHash: Hex | Uint8Array
+	/**
+	 * Ending block hash (optional)
+	 */
+	readonly endBlockHash?: Hex | Uint8Array
+}
+
+/**
+ * Params taken by `debug_storageRangeAt` handler
+ */
+export type DebugStorageRangeAtParams = {
+	/**
+	 * Block number, block hash, or block tag
+	 */
+	readonly blockTag: Hex | Uint8Array | number | bigint | BlockTag
+	/**
+	 * Transaction index in the block (0-indexed)
+	 */
+	readonly txIndex: number
+	/**
+	 * Contract address to get storage for
+	 */
+	readonly address: Hex
+	/**
+	 * Storage key to start from (hex string)
+	 */
+	readonly startKey: Hex
+	/**
+	 * Maximum number of storage entries to return
+	 */
+	readonly maxResult: number
+}
+
+/**
+ * Params taken by `debug_intermediateRoots` handler
+ */
+export type DebugIntermediateRootsParams = {
+	/**
+	 * Block number, hash, or tag to get intermediate roots for
+	 */
+	readonly block: Hex | Uint8Array | number | bigint | BlockTag
+}
+
+/**
+ * Params taken by `debug_preimage` handler
+ */
+export type DebugPreimageParams = {
+	/**
+	 * The SHA3 hash to get the preimage for
+	 */
+	readonly hash: Hex
+}
+
+/**
+ * Params taken by `debug_traceChain` handler
+ */
+export type DebugTraceChainParams<
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | 'muxTracer' | undefined =
+		| 'callTracer'
+		| 'prestateTracer'
+		| '4byteTracer'
+		| 'flatCallTracer'
+		| 'muxTracer'
+		| undefined,
+	TDiffMode extends boolean = boolean,
+> = {
+	/**
+	 * Starting block number, hash, or tag
+	 */
+	readonly startBlock: Hex | Uint8Array | number | bigint | BlockTag
+	/**
+	 * Ending block number, hash, or tag
+	 */
+	readonly endBlock: Hex | Uint8Array | number | bigint | BlockTag
+	/**
+	 * Trace configuration options
+	 */
+	readonly traceConfig?: TraceParams<TTracer, TDiffMode>
+}
+
+/**
+ * Params taken by `debug_getRawBlock` handler
+ */
+export type DebugGetRawBlockParams = ExactlyOne<
+	{
+		/**
+		 * Block number to get raw block for
+		 */
+		readonly blockNumber: Hex | Uint8Array | number | bigint
+		/**
+		 * Block tag to get raw block for
+		 */
+		readonly blockTag: BlockTag
+	},
+	'blockNumber' | 'blockTag'
+>
+
+/**
+ * Params taken by `debug_getRawHeader` handler
+ */
+export type DebugGetRawHeaderParams = ExactlyOne<
+	{
+		/**
+		 * Block number to get raw header for
+		 */
+		readonly blockNumber: Hex | Uint8Array | number | bigint
+		/**
+		 * Block tag to get raw header for
+		 */
+		readonly blockTag: BlockTag
+	},
+	'blockNumber' | 'blockTag'
+>
+
+/**
+ * Params taken by `debug_getRawTransaction` handler
+ */
+export type DebugGetRawTransactionParams = {
+	/**
+	 * The transaction hash
+	 */
+	readonly hash: Hex
+}
+
+/**
+ * Params taken by `debug_getRawReceipts` handler
+ */
+export type DebugGetRawReceiptsParams = ExactlyOne<
+	{
+		/**
+		 * Block number to get raw receipts for
+		 */
+		readonly blockNumber: Hex | Uint8Array | number | bigint
+		/**
+		 * Block tag to get raw receipts for
+		 */
+		readonly blockTag: BlockTag
+	},
+	'blockNumber' | 'blockTag'
+>

@@ -47,6 +47,23 @@ export const createTevmNode = (options = {}) => {
 	}
 
 	/**
+	 * @type {boolean}
+	 */
+	let autoImpersonate = false
+	/**
+	 * Gets whether auto-impersonation is enabled
+	 * @returns {boolean}
+	 */
+	const getAutoImpersonate = () => autoImpersonate
+	/**
+	 * Sets whether to automatically impersonate all transaction senders
+	 * @param {boolean} enabled
+	 */
+	const setAutoImpersonate = (enabled) => {
+		autoImpersonate = enabled
+	}
+
+	/**
 	 * Timestamp to use for the next block (if set)
 	 * @type {bigint | undefined}
 	 */
@@ -81,6 +98,42 @@ export const createTevmNode = (options = {}) => {
 	 * @returns {bigint | undefined}
 	 */
 	const getNextBlockGasLimit = () => nextBlockGasLimit
+
+	/**
+	 * Base fee per gas to use for the next block (if set)
+	 * @type {bigint | undefined}
+	 */
+	let nextBlockBaseFeePerGas
+	/**
+	 * Sets the base fee per gas for the next block (EIP-1559)
+	 * @param {bigint | undefined} baseFeePerGas
+	 */
+	const setNextBlockBaseFeePerGas = (baseFeePerGas) => {
+		nextBlockBaseFeePerGas = baseFeePerGas
+	}
+	/**
+	 * Gets the base fee per gas set for the next block
+	 * @returns {bigint | undefined}
+	 */
+	const getNextBlockBaseFeePerGas = () => nextBlockBaseFeePerGas
+
+	/**
+	 * Minimum gas price for transactions
+	 * @type {bigint | undefined}
+	 */
+	let minGasPrice
+	/**
+	 * Sets the minimum gas price for transactions
+	 * @param {bigint | undefined} price
+	 */
+	const setMinGasPrice = (price) => {
+		minGasPrice = price
+	}
+	/**
+	 * Gets the minimum gas price for transactions
+	 * @returns {bigint | undefined}
+	 */
+	const getMinGasPrice = () => minGasPrice
 
 	/**
 	 * Timestamp interval to automatically add between blocks (if set)
@@ -462,6 +515,28 @@ export const createTevmNode = (options = {}) => {
 			copiedNextBlockGasLimit = gasLimit
 		}
 		/**
+		 * Base fee per gas to use for the next block (if set)
+		 * @type {bigint | undefined}
+		 */
+		let _copiedNextBlockBaseFeePerGas = baseClient.getNextBlockBaseFeePerGas()
+		/**
+		 * @param {bigint | undefined} baseFeePerGas
+		 */
+		const _setCopiedNextBlockBaseFeePerGas = (baseFeePerGas) => {
+			_copiedNextBlockBaseFeePerGas = baseFeePerGas
+		}
+		/**
+		 * Minimum gas price for transactions
+		 * @type {bigint | undefined}
+		 */
+		let _copiedMinGasPrice = baseClient.getMinGasPrice()
+		/**
+		 * @param {bigint | undefined} price
+		 */
+		const _setCopiedMinGasPrice = (price) => {
+			_copiedMinGasPrice = price
+		}
+		/**
 		 * Timestamp interval to automatically add between blocks (if set)
 		 * @type {bigint | undefined}
 		 */
@@ -550,6 +625,10 @@ export const createTevmNode = (options = {}) => {
 			setNextBlockTimestamp: setCopiedNextBlockTimestamp,
 			getNextBlockGasLimit: () => copiedNextBlockGasLimit,
 			setNextBlockGasLimit: setCopiedNextBlockGasLimit,
+			getNextBlockBaseFeePerGas: () => copiedNextBlockBaseFeePerGas,
+			setNextBlockBaseFeePerGas: setCopiedNextBlockBaseFeePerGas,
+			getMinGasPrice: () => copiedMinGasPrice,
+			setMinGasPrice: setCopiedMinGasPrice,
 			getBlockTimestampInterval: () => copiedBlockTimestampInterval,
 			setBlockTimestampInterval: setCopiedBlockTimestampInterval,
 			getSnapshots: getCopiedSnapshots,
@@ -601,10 +680,16 @@ export const createTevmNode = (options = {}) => {
 			return impersonatedAccount
 		},
 		setImpersonatedAccount,
+		getAutoImpersonate,
+		setAutoImpersonate,
 		getNextBlockTimestamp,
 		setNextBlockTimestamp,
 		getNextBlockGasLimit,
 		setNextBlockGasLimit,
+		getNextBlockBaseFeePerGas,
+		setNextBlockBaseFeePerGas,
+		getMinGasPrice,
+		setMinGasPrice,
 		getBlockTimestampInterval,
 		setBlockTimestampInterval,
 		getSnapshots,

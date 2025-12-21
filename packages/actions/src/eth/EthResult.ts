@@ -187,6 +187,13 @@ export type EthGetTransactionByBlockNumberAndIndexResult = TransactionResult
  */
 export type EthGetTransactionReceiptResult = TransactionReceiptResult | null
 
+// eth_getBlockReceipts
+/**
+ * JSON-RPC response for `eth_getBlockReceipts` procedure
+ * Returns an array of all transaction receipts for the specified block
+ */
+export type EthGetBlockReceiptsResult = TransactionReceiptResult[] | null
+
 // eth_getUncleByBlockHashAndIndex
 /**
  * JSON-RPC response for `eth_getUncleByBlockHashAndIndex` procedure
@@ -284,6 +291,20 @@ export type EthNewPendingTransactionFilterResult = Hex
  * JSON-RPC response for `eth_uninstallFilter` procedure
  */
 export type EthUninstallFilterResult = boolean
+
+// eth_subscribe
+/**
+ * JSON-RPC response for `eth_subscribe` procedure
+ * Returns a subscription ID
+ */
+export type EthSubscribeResult = Hex
+
+// eth_unsubscribe
+/**
+ * JSON-RPC response for `eth_unsubscribe` procedure
+ * Returns true if the subscription was successfully cancelled, false otherwise
+ */
+export type EthUnsubscribeResult = boolean
 
 // eth_getProof
 /**

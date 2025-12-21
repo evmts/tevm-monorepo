@@ -248,6 +248,16 @@ export type EthGetTransactionReceiptJsonRpcResponse = JsonRpcResponse<
 	string | number
 >
 
+// eth_getBlockReceipts
+/**
+ * JSON-RPC response for `eth_getBlockReceipts` procedure
+ */
+export type EthGetBlockReceiptsJsonRpcResponse = JsonRpcResponse<
+	'eth_getBlockReceipts',
+	SerializeToJson<TransactionReceiptResult>[] | null,
+	string | number
+>
+
 // eth_getUncleByBlockHashAndIndex
 /**
  * JSON-RPC response for `eth_getUncleByBlockHashAndIndex` procedure
@@ -366,6 +376,18 @@ export type EthNewPendingTransactionFilterJsonRpcResponse = JsonRpcResponse<
  * JSON-RPC response for `eth_uninstallFilter` procedure
  */
 export type EthUninstallFilterJsonRpcResponse = JsonRpcResponse<'eth_uninstallFilter', boolean, string | number>
+
+// eth_subscribe
+/**
+ * JSON-RPC response for `eth_subscribe` procedure
+ */
+export type EthSubscribeJsonRpcResponse = JsonRpcResponse<'eth_subscribe', Hex, string | number>
+
+// eth_unsubscribe
+/**
+ * JSON-RPC response for `eth_unsubscribe` procedure
+ */
+export type EthUnsubscribeJsonRpcResponse = JsonRpcResponse<'eth_unsubscribe', boolean, string | number>
 
 // eth_createAccessList
 /**

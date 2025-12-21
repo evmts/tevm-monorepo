@@ -3,7 +3,13 @@ import { describe, expect, it } from 'vitest'
 import { ethFeeHistoryProcedure } from './ethFeeHistoryProcedure.js'
 
 describe(ethFeeHistoryProcedure.name, () => {
-	const createMockBlock = (number: bigint, baseFeePerGas = parseGwei('1'), gasUsed = 15000000n, gasLimit = 30000000n, transactions: any[] = []) => ({
+	const createMockBlock = (
+		number: bigint,
+		baseFeePerGas = parseGwei('1'),
+		gasUsed = 15000000n,
+		gasLimit = 30000000n,
+		transactions: any[] = [],
+	) => ({
 		header: {
 			number,
 			baseFeePerGas,

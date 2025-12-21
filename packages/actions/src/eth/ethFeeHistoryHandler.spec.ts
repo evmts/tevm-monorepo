@@ -3,7 +3,13 @@ import { describe, expect, it } from 'vitest'
 import { ethFeeHistoryHandler } from './ethFeeHistoryHandler.js'
 
 describe(ethFeeHistoryHandler.name, () => {
-	const createMockBlock = (number: bigint, baseFeePerGas = parseGwei('1'), gasUsed = 15000000n, gasLimit = 30000000n, transactions: any[] = []) => ({
+	const createMockBlock = (
+		number: bigint,
+		baseFeePerGas = parseGwei('1'),
+		gasUsed = 15000000n,
+		gasLimit = 30000000n,
+		transactions: any[] = [],
+	) => ({
 		header: {
 			number,
 			baseFeePerGas,
@@ -114,9 +120,7 @@ describe(ethFeeHistoryHandler.name, () => {
 
 	it('should calculate gas used ratio correctly', async () => {
 		// Create a block with 50% gas usage
-		const blocks = new Map([
-			[10n, createMockBlock(10n, parseGwei('1'), 15000000n, 30000000n)],
-		])
+		const blocks = new Map([[10n, createMockBlock(10n, parseGwei('1'), 15000000n, 30000000n)]])
 		const mockVm = createMockVm(10n, blocks)
 
 		const result = await ethFeeHistoryHandler({
@@ -130,9 +134,7 @@ describe(ethFeeHistoryHandler.name, () => {
 	})
 
 	it('should return empty rewards for blocks with no transactions', async () => {
-		const blocks = new Map([
-			[10n, createMockBlock(10n, parseGwei('1'), 0n, 30000000n, [])],
-		])
+		const blocks = new Map([[10n, createMockBlock(10n, parseGwei('1'), 0n, 30000000n, [])]])
 		const mockVm = createMockVm(10n, blocks)
 
 		const result = await ethFeeHistoryHandler({

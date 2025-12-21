@@ -5,16 +5,19 @@ import type {
 	EthChainIdParams,
 	EthCoinbaseParams,
 	EthEstimateGasParams,
+	EthFeeHistoryParams,
 	EthGasPriceParams,
 	EthGetBalanceParams,
 	EthGetBlockByHashParams,
 	EthGetBlockByNumberParams,
+	EthGetBlockReceiptsParams,
 	EthGetBlockTransactionCountByHashParams,
 	EthGetBlockTransactionCountByNumberParams,
 	EthGetCodeParams,
 	EthGetFilterChangesParams,
 	EthGetFilterLogsParams,
 	EthGetLogsParams,
+	EthGetProofParams,
 	EthGetStorageAtParams,
 	EthGetTransactionByBlockHashAndIndexParams,
 	EthGetTransactionByBlockNumberAndIndexParams,
@@ -26,7 +29,6 @@ import type {
 	EthGetUncleCountByBlockHashParams,
 	EthGetUncleCountByBlockNumberParams,
 	EthHashrateParams,
-	EthFeeHistoryParams,
 	EthMaxPriorityFeePerGasParams,
 	EthMiningParams,
 	EthNewBlockFilterParams,
@@ -37,10 +39,11 @@ import type {
 	EthSendTransactionParams,
 	EthSignParams,
 	EthSignTransactionParams,
+	EthSimulateV1Params,
+	EthSubscribeParams,
 	EthSyncingParams,
 	EthUninstallFilterParams,
-	EthGetProofParams,
-	EthSimulateV1Params,
+	EthUnsubscribeParams,
 } from './EthParams.js'
 import type {
 	EthAccountsResult,
@@ -49,16 +52,19 @@ import type {
 	EthChainIdResult,
 	EthCoinbaseResult,
 	EthEstimateGasResult,
+	EthFeeHistoryResult,
 	EthGasPriceResult,
 	EthGetBalanceResult,
 	EthGetBlockByHashResult,
 	EthGetBlockByNumberResult,
+	EthGetBlockReceiptsResult,
 	EthGetBlockTransactionCountByHashResult,
 	EthGetBlockTransactionCountByNumberResult,
 	EthGetCodeResult,
 	EthGetFilterChangesResult,
 	EthGetFilterLogsResult,
 	EthGetLogsResult,
+	EthGetProofResult,
 	EthGetStorageAtResult,
 	EthGetTransactionByBlockHashAndIndexResult,
 	EthGetTransactionByBlockNumberAndIndexResult,
@@ -70,7 +76,6 @@ import type {
 	EthGetUncleCountByBlockHashResult,
 	EthGetUncleCountByBlockNumberResult,
 	EthHashrateResult,
-	EthFeeHistoryResult,
 	EthMaxPriorityFeePerGasResult,
 	EthMiningResult,
 	EthNewBlockFilterResult,
@@ -81,10 +86,11 @@ import type {
 	EthSendTransactionResult,
 	EthSignResult,
 	EthSignTransactionResult,
+	EthSimulateV1Result,
+	EthSubscribeResult,
 	EthSyncingResult,
 	EthUninstallFilterResult,
-	EthGetProofResult,
-	EthSimulateV1Result,
+	EthUnsubscribeResult,
 } from './EthResult.js'
 
 // eth_accounts
@@ -161,6 +167,8 @@ export type EthGetTransactionByBlockNumberAndIndexHandler = (
 export type EthGetTransactionReceiptHandler = (
 	request: EthGetTransactionReceiptParams,
 ) => Promise<EthGetTransactionReceiptResult>
+// eth_getBlockReceipts
+export type EthGetBlockReceiptsHandler = (request: EthGetBlockReceiptsParams) => Promise<EthGetBlockReceiptsResult>
 // eth_getUncleByBlockHashAndIndex
 export type EthGetUncleByBlockHashAndIndexHandler = (
 	request: EthGetUncleByBlockHashAndIndexParams,
@@ -195,6 +203,10 @@ export type EthNewPendingTransactionFilterHandler = (
 ) => Promise<EthNewPendingTransactionFilterResult>
 // eth_uninstallFilter
 export type EthUninstallFilterHandler = (request: EthUninstallFilterParams) => Promise<EthUninstallFilterResult>
+// eth_subscribe
+export type EthSubscribeHandler = (request: EthSubscribeParams) => Promise<EthSubscribeResult>
+// eth_unsubscribe
+export type EthUnsubscribeHandler = (request: EthUnsubscribeParams) => Promise<EthUnsubscribeResult>
 // eth_getProof
 export type EthGetProofHandler = (request: EthGetProofParams) => Promise<EthGetProofResult>
 // eth_simulateV1

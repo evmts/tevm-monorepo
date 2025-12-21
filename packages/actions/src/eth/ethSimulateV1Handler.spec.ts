@@ -1,8 +1,7 @@
 import { createTevmNode } from '@tevm/node'
 import { describe, expect, it } from 'vitest'
-import { ethSimulateV1Handler } from './ethSimulateV1Handler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
-import { encodeDeployData, encodeFunctionData, parseAbi } from '@tevm/utils'
+import { ethSimulateV1Handler } from './ethSimulateV1Handler.js'
 
 describe('ethSimulateV1Handler', () => {
 	it('should simulate a simple call', async () => {
@@ -132,8 +131,7 @@ describe('ethSimulateV1Handler', () => {
 		const contractAddress = '0xabcdef0123456789012345678901234567890123' as const
 
 		// Simple storage contract bytecode that returns the value at storage slot 0
-		const bytecode =
-			'0x6080604052348015600f57600080fd5b506000548060005260206000f3' as const
+		const bytecode = '0x6080604052348015600f57600080fd5b506000548060005260206000f3' as const
 
 		const result = await handler({
 			blockStateCalls: [

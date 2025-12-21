@@ -220,6 +220,13 @@ export type EthGetTransactionByBlockNumberAndIndexParams = {
  * Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
  */
 export type EthGetTransactionReceiptParams = { readonly hash: Hex }
+// eth_getBlockReceipts
+/**
+ * Based on the JSON-RPC request for `eth_getBlockReceipts` procedure
+ */
+export type EthGetBlockReceiptsParams =
+	| { readonly blockHash: Hex; readonly blockTag?: never }
+	| { readonly blockTag: BlockParam; readonly blockHash?: never }
 // eth_getUncleByBlockHashAndIndex
 /**
  * Based on the JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
@@ -349,6 +356,34 @@ export type EthGetProofParams = {
 	readonly blockTag?: BlockParam
 }
 
+// eth_subscribe
+/**
+ * Based on the JSON-RPC request for `eth_subscribe` procedure
+ */
+export type EthSubscribeParams = {
+	/**
+	 * The subscription type to subscribe to
+	 */
+	readonly subscriptionType: 'newHeads' | 'logs' | 'newPendingTransactions' | 'syncing'
+	/**
+	 * Optional filter parameters for logs subscriptions
+	 */
+	readonly filterParams?: {
+		readonly address?: Address | readonly Address[]
+		readonly topics?: readonly (Hex | readonly Hex[] | null)[]
+	}
+}
+// eth_unsubscribe
+/**
+ * Based on the JSON-RPC request for `eth_unsubscribe` procedure
+ */
+export type EthUnsubscribeParams = {
+	/**
+	 * The subscription ID to unsubscribe from
+	 */
+	readonly subscriptionId: Hex
+}
+
 // eth_simulateV1
 /**
  * Parameters for a single simulated call within a block
@@ -467,6 +502,7 @@ export type EthParams =
 	| EthGetTransactionByBlockHashAndIndexParams
 	| EthGetTransactionByBlockNumberAndIndexParams
 	| EthGetTransactionReceiptParams
+	| EthGetBlockReceiptsParams
 	| EthGetUncleByBlockHashAndIndexParams
 	| EthGetUncleByBlockNumberAndIndexParams
 	| EthMiningParams
@@ -480,5 +516,7 @@ export type EthParams =
 	| EthNewBlockFilterParams
 	| EthNewPendingTransactionFilterParams
 	| EthUninstallFilterParams
+	| EthSubscribeParams
+	| EthUnsubscribeParams
 	| EthGetProofParams
 	| EthSimulateV1Params

@@ -41,11 +41,7 @@ describe(ethGetProofProcedure.name, () => {
 			jsonrpc: '2.0',
 			method: 'eth_getProof',
 			id: 42,
-			params: [
-				wethAddress,
-				['0x0000000000000000000000000000000000000000000000000000000000000000'],
-				'latest',
-			],
+			params: [wethAddress, ['0x0000000000000000000000000000000000000000000000000000000000000000'], 'latest'],
 		})
 
 		expect(response.jsonrpc).toBe('2.0')
@@ -100,11 +96,7 @@ describe(ethGetProofProcedure.name, () => {
 		const response = await procedure({
 			jsonrpc: '2.0',
 			method: 'eth_getProof',
-			params: [
-				'0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-				[],
-				'latest',
-			],
+			params: ['0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', [], 'latest'],
 		} as any)
 
 		expect(response.jsonrpc).toBe('2.0')
@@ -124,11 +116,7 @@ describe(ethGetProofProcedure.name, () => {
 			jsonrpc: '2.0',
 			method: 'eth_getProof',
 			id: 1,
-			params: [
-				'0x4200000000000000000000000000000000000010',
-				[],
-				'latest',
-			],
+			params: ['0x4200000000000000000000000000000000000010', [], 'latest'],
 		})
 
 		expect('result' in response).toBe(true)
