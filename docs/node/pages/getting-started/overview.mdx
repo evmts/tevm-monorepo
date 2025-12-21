@@ -72,7 +72,7 @@ You can fork an existing chain similar to Anvil and Hardhat.
 ```typescript
 import { createMemoryClient } from "tevm";
 import { http } from "viem"; // http is available in tevm package as well for convenience
-import { mainnet } from "tevm/chains";
+import { mainnet } from "tevm/common";
 
 const forkClient = createMemoryClient({
   fork: {
@@ -103,7 +103,7 @@ This powerful client will not only fork an existing chain but it will also liste
 ```typescript
 import { createMemoryClient } from "tevm";
 import { http } from "viem";
-import { mainnet } from "tevm/chains";
+import { mainnet } from "tevm/common";
 
 const forkClient = createMemoryClient({
   fork: {

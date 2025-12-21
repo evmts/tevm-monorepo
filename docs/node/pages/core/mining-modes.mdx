@@ -320,7 +320,7 @@ await manualNode.mine() // Now the transaction is mined // [!code focus]
 
 ```typescript [Real-world Simulation] filename="real-world-simulation.ts"
 import { createTevmNode, http } from "tevm";
-import { mainnet } from "tevm/chains";
+import { mainnet } from "tevm/common";
 
 // Create a node that simulates mainnet conditions
 const node = createTevmNode({

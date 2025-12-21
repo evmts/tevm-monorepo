@@ -148,7 +148,7 @@ npm install tevm viem@latest
 
 ```typescript
 import { createMemoryClient, http } from "tevm";
-import { optimism } from "tevm/chains";
+import { optimism } from "tevm/common";
 import { parseAbi } from "viem";
 
 // Fork Optimism mainnet
