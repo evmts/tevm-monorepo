@@ -49,12 +49,13 @@ export const createTestSnapshotClient = <
 
 	// Create TEVM client with cached transport
 	const autosave = options.test?.autosave ?? 'onRequest'
+	const passthroughMethods = options.test?.passthroughMethods
 	const client = createMemoryClient({
 		...options,
 		fork: {
 			...options.fork,
 			// Create a transport with a request function that handles caching
-			transport: createCachedTransport(forkTransport, snapshotManager, autosave),
+			transport: createCachedTransport(forkTransport, snapshotManager, autosave, passthroughMethods),
 		},
 	})
 	// @ts-expect-error - TODO: fix this, likely in some change we made to yParity inconsistent with view we didn't detect before

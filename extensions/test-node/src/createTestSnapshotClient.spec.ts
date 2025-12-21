@@ -209,4 +209,113 @@ describe('createTestSnapshotClient', () => {
 		// Now should be saved
 		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
 	})
+
+	describe('passthroughMethods', () => {
+		it('should bypass cache for methods in passthrough array', async () => {
+			const client = createTestSnapshotClient({
+				fork: {
+					transport: transports.mainnet,
+				},
+				common: mainnet,
+				test: {
+					passthroughMethods: ['eth_getBlockByNumber'],
+				},
+			})
+
+			// Make a request that would normally be cached
+			const block = await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
+			expect(block).toBeDefined()
+			expect(block.number).toBe(BigInt(BLOCK_NUMBER))
+
+			// Save snapshots
+			await client.saveSnapshots()
+
+			// Should NOT be cached because it's in passthrough list
+			assertMethodNotCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
+		})
+
+		it('should bypass cache for methods matching passthrough filter function', async () => {
+			const client = createTestSnapshotClient({
+				fork: {
+					transport: transports.mainnet,
+				},
+				common: mainnet,
+				test: {
+					// Bypass all eth_getBlock* methods
+					passthroughMethods: (method) => method.startsWith('eth_getBlock'),
+				},
+			})
+
+			// Make requests that would normally be cached
+			await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
+			await client.saveSnapshots()
+
+			// Should NOT be cached because of filter function
+			assertMethodNotCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
+		})
+
+		it('should still cache methods not in passthrough list', async () => {
+			const client = createTestSnapshotClient({
+				fork: {
+					transport: transports.mainnet,
+				},
+				common: mainnet,
+				test: {
+					// Only bypass eth_blockNumber, not eth_getBlockByNumber
+					passthroughMethods: ['eth_blockNumber'],
+				},
+			})
+
+			// Make a request that is not in passthrough list
+			const block = await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
+			expect(block).toBeDefined()
+
+			await client.saveSnapshots()
+
+			// Should be cached because it's not in passthrough list
+			assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
+		})
+
+		it('should work with empty passthrough array', async () => {
+			const client = createTestSnapshotClient({
+				fork: {
+					transport: transports.mainnet,
+				},
+				common: mainnet,
+				test: {
+					passthroughMethods: [],
+				},
+			})
+
+			// Make a cacheable request
+			const block = await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
+			expect(block).toBeDefined()
+
+			await client.saveSnapshots()
+
+			// Should still be cached when passthrough array is empty
+			assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
+		})
+
+		it('should work with filter function that always returns false', async () => {
+			const client = createTestSnapshotClient({
+				fork: {
+					transport: transports.mainnet,
+				},
+				common: mainnet,
+				test: {
+					passthroughMethods: () => false,
+				},
+			})
+
+			// Make a cacheable request
+			const block = await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
+			expect(block).toBeDefined()
+
+			await client.saveSnapshots()
+
+			// Should still be cached when filter always returns false
+			assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
+		})
+	})
 })
