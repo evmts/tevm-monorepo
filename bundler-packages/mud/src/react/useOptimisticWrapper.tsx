@@ -1,6 +1,6 @@
 import type { StoreConfig } from '@latticexyz/stash/internal'
 import { SyncProvider } from '@latticexyz/store-sync/react'
-import React, { createContext, useContext, useEffect, type ReactNode } from 'react'
+import React, { createContext, type ReactNode, useContext, useEffect } from 'react'
 import type { Client } from 'viem'
 import {
 	type CreateOptimisticHandlerOptions,

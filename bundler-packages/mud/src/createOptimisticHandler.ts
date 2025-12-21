@@ -3,6 +3,8 @@ import {
 	type GetRecordResult,
 	type GetRecordsArgs,
 	type GetRecordsResult,
+	getRecord,
+	getRecords,
 	type Key,
 	type MutableState,
 	type Stash,
@@ -10,31 +12,29 @@ import {
 	type StoreConfig,
 	type StoreSubscribers,
 	type StoreUpdatesSubscriber,
+	subscribeStash,
 	type TableRecord,
 	type TableSubscribers,
 	type Unsubscribe,
-	getRecord,
-	getRecords,
-	subscribeStash,
 } from '@latticexyz/stash/internal'
 import { storeEventsAbi } from '@latticexyz/store'
-import type { SyncAdapter } from '@latticexyz/store-sync'
 import { type Table } from '@latticexyz/store/internal'
+import type { SyncAdapter } from '@latticexyz/store-sync'
 import { createCommon } from '@tevm/common'
 import { createLogger } from '@tevm/logger'
-import { type MemoryClient, createMemoryClient } from '@tevm/memory-client'
+import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
 import { type Address, createAddressFromString } from '@tevm/utils'
-import { type Client, type Hex, bytesToHex, parseEventLogs } from 'viem'
+import { bytesToHex, type Client, type Hex, parseEventLogs } from 'viem'
 import { getTransaction } from 'viem/actions'
 import { mudStoreGetStorageAtOverride } from './internal/decorators/mudStoreGetStorageAtOverride.js'
 import { mudStoreWriteRequestOverride } from './internal/decorators/mudStoreWriteRequestOverride.js'
 import { ethjsLogToAbiLog } from './internal/ethjsLogToAbiLog.js'
-import { type PendingStashUpdate, applyStashUpdates, notifyStashSubscribers } from './internal/mud/applyUpdates.js'
+import { applyStashUpdates, notifyStashSubscribers, type PendingStashUpdate } from './internal/mud/applyUpdates.js'
 import { createStorageAdapter } from './internal/mud/createStorageAdapter.js'
 import { createSyncAdapter } from './internal/mud/createSyncAdapter.js'
 import { stateUpdateCoordinator } from './internal/stateUpdateCoordinator.js'
 import { matchOptimisticTxCounterpart } from './internal/txIdentifier.js'
-import { type TxStatusSubscriber, subscribeTxStatus } from './subscribeTx.js'
+import { subscribeTxStatus, type TxStatusSubscriber } from './subscribeTx.js'
 import type { SessionClient } from './types.js'
 
 export type CreateOptimisticHandlerOptions<TConfig extends StoreConfig = StoreConfig> = {

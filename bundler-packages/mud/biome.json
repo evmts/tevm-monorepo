@@ -1,39 +1,6 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-	"organizeImports": {
-		"enabled": true
-	},
-	"files": {
-		"ignore": [
-			".nx",
-			"node_modules",
-			"package.json",
-			"**/package.json",
-			"**/coverage",
-			"**/node_modules",
-			"**/dist",
-			"**/types",
-			"**/artifacts",
-			"**/lib",
-			"**/fixtures",
-			"**/.next",
-			"**/.vitepress/cache",
-			"**/.vitepress/dist",
-			"scaffold-tevm",
-			"docs/**/*",
-			"tevm/**/*",
-			"bundler/**/*",
-			".vscode",
-			".changeset",
-			".devcontainer",
-			"examples/svelte-ethers/.svelte-kit",
-			"examples/next",
-			"bundler-packages/cli",
-			"experimental/viem-effect",
-			"bundler-packages/config/src/fixtures",
-			"bundler-packages/cli/fixtures"
-		]
-	},
+	"extends": ["../../biome.json"],
 	"formatter": {
 		"enabled": true,
 		"formatWithErrors": false,
@@ -54,7 +21,6 @@
 			},
 			"complexity": {
 				"noForEach": "off",
-				"noBannedTypes": "off",
 				"useLiteralKeys": "off"
 			},
 			"suspicious": {

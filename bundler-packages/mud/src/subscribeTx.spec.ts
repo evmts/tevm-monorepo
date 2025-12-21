@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { type TxStatus, type TxStatusSubscriber, notifyTxStatus, subscribeTxStatus } from './subscribeTx.js'
+import { notifyTxStatus, subscribeTxStatus, type TxStatus, type TxStatusSubscriber } from './subscribeTx.js'
 
 describe('subscribeTx', () => {
 	let subscribers: Set<TxStatusSubscriber>

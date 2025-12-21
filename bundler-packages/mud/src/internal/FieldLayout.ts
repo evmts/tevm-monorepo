@@ -1,25 +1,24 @@
-import { type TableRecord } from '@latticexyz/stash/internal'
-import { type Hex } from '@tevm/utils'
-import { bytesToHex, concatHex, encodePacked, hexToBigInt, hexToBytes, keccak256, numberToHex, pad, toHex } from 'viem'
-
 import { type Table } from '@latticexyz/config'
 import {
-	type SchemaToPrimitives,
 	encodeKey,
 	encodeValueArgs,
 	getKeySchema,
 	getSchemaTypes,
 	getValueSchema,
+	type SchemaToPrimitives,
 } from '@latticexyz/protocol-parser/internal' // Assuming internal exports are usable
 import {
 	type DynamicAbiType,
-	type StaticAbiType,
-	type StaticAbiTypeToPrimitiveType,
 	isDynamicAbiType,
 	isStaticAbiType,
+	type StaticAbiType,
+	type StaticAbiTypeToPrimitiveType,
 	staticAbiTypeToByteLength,
 	staticAbiTypeToDefaultValue,
 } from '@latticexyz/schema-type/internal'
+import { type TableRecord } from '@latticexyz/stash/internal'
+import { type Hex } from '@tevm/utils'
+import { bytesToHex, concatHex, encodePacked, hexToBigInt, hexToBytes, keccak256, numberToHex, pad, toHex } from 'viem'
 
 // Unified slot info types
 type StaticSlotInfo = {

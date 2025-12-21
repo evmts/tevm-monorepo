@@ -1,4 +1,4 @@
-import { type GetRecordArgs, type Key, type TableRecord, getRecord } from '@latticexyz/stash/internal'
+import { type GetRecordArgs, getRecord, type Key, type TableRecord } from '@latticexyz/stash/internal'
 import type { Table } from '@latticexyz/store/internal'
 import { useOptimisticState } from './useOptimisticState.js'
 import { useOptimisticWrapper } from './useOptimisticWrapper.js'

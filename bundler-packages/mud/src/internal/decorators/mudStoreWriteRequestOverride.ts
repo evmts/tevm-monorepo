@@ -3,7 +3,7 @@ import type { MemoryClient } from '@tevm/memory-client'
 import { type Address, createAddressFromString } from '@tevm/utils'
 import { type Client, concatHex, encodeFunctionData } from 'viem'
 import { waitForTransactionReceipt } from 'viem/actions'
-import { type TxStatusSubscriber, notifyTxStatus } from '../../subscribeTx.js'
+import { notifyTxStatus, type TxStatusSubscriber } from '../../subscribeTx.js'
 import type { SessionClient } from '../../types.js'
 import { generateTxIdentifier } from '../txIdentifier.js'
 
@@ -13,7 +13,11 @@ export const mudStoreWriteRequestOverride =
 		memoryClient,
 		storeAddress,
 		txStatusSubscribers,
-	}: { memoryClient: MemoryClient; storeAddress: Address; txStatusSubscribers: Set<TxStatusSubscriber> }) => {
+	}: {
+		memoryClient: MemoryClient
+		storeAddress: Address
+		txStatusSubscribers: Set<TxStatusSubscriber>
+	}) => {
 		// Only methods we can intercept on the entrykit session client are writeContract and signUserOperation
 		if (client.type === 'bundlerClient' && 'writeContract' in client) {
 			overrideSessionClient(client, logger)({ memoryClient, storeAddress, txStatusSubscribers })
@@ -29,7 +33,11 @@ const overrideSessionClient =
 		memoryClient,
 		storeAddress,
 		txStatusSubscribers,
-	}: { memoryClient: MemoryClient; storeAddress: Address; txStatusSubscribers: Set<TxStatusSubscriber> }) => {
+	}: {
+		memoryClient: MemoryClient
+		storeAddress: Address
+		txStatusSubscribers: Set<TxStatusSubscriber>
+	}) => {
 		const publicClient = client.client
 		const originalWriteContract = client.writeContract.bind(client)
 

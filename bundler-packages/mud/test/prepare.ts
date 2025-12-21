@@ -1,11 +1,11 @@
-import { type TableRecord, createStash } from '@latticexyz/stash/internal'
+import { createStash, type TableRecord } from '@latticexyz/stash/internal'
 import { storeEventsAbi } from '@latticexyz/store'
 import { createStorageAdapter } from '@latticexyz/store-sync/internal'
 import { tevmDefault } from '@tevm/common'
 import { createTevmTransport, tevmContract, tevmDeploy } from '@tevm/memory-client'
 import { MUDTestSystem } from '@tevm/test-utils'
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
-import { type Log, createClient, decodeEventLog } from 'viem'
+import { createClient, decodeEventLog, type Log } from 'viem'
 import { createBundlerClient } from 'viem/account-abstraction'
 import { writeContract } from 'viem/actions'
 import { config } from './config.js'
@@ -39,9 +39,8 @@ export const writeRecords = async (records: TableRecord<typeof config.tables.app
 			addToBlockchain: true,
 		})
 
-		logs?.forEach(
-			(log) =>
-				log.address.toLowerCase() === testContract.address.toLowerCase() &&
+		logs?.forEach((log) => {
+			if (log.address.toLowerCase() === testContract.address.toLowerCase()) {
 				storeEventLogs.push({
 					// @ts-expect-error - Source provides no match for required element at position 0 in target.
 					...decodeEventLog({ abi: storeEventsAbi, data: log.data, topics: log.topics }),
@@ -49,8 +48,9 @@ export const writeRecords = async (records: TableRecord<typeof config.tables.app
 					data: log.data,
 					// @ts-expect-error - Source provides no match for required element at position 0 in target.
 					topics: log.topics,
-				}),
-		)
+				})
+			}
+		})
 	}
 
 	// @ts-expect-error - Log -> StorageAdapterLog type

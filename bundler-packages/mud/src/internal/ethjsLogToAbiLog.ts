@@ -1,4 +1,4 @@
-import { type Abi, type EthjsLog, bytesToHex, decodeEventLog } from '@tevm/utils'
+import { type Abi, bytesToHex, decodeEventLog, type EthjsLog } from '@tevm/utils'
 import type { Log } from 'viem'
 
 /**

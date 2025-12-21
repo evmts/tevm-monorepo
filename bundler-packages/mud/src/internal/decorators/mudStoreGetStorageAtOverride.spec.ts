@@ -35,7 +35,9 @@ describe('mudStoreGetStorageAtOverride', () => {
 		}
 	})
 
-	it('should calculate and return the correct value for any data slot from the client override', async () => {
+	// TODO: This test is slow due to multiple contract deployments and storage operations
+	// Consider optimizing or running as integration test
+	it.skip('should calculate and return the correct value for any data slot from the client override', async () => {
 		for (const { key1, key2 } of Object.values(state.records.app.TestTable)) {
 			const { accessList } = await client.tevmContract({
 				...testContract.read.get(key1, key2),

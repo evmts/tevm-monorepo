@@ -1,4 +1,4 @@
-export * from './useOptimisticWrapper.js'
+export { type UseOptimisticRecordResult, useOptimisticRecord } from './useOptimisticRecord.js'
+export { type UseOptimisticRecordsResult, useOptimisticRecords } from './useOptimisticRecords.js'
 export { useOptimisticState } from './useOptimisticState.js'
-export { useOptimisticRecord, type UseOptimisticRecordResult } from './useOptimisticRecord.js'
-export { useOptimisticRecords, type UseOptimisticRecordsResult } from './useOptimisticRecords.js'
+export * from './useOptimisticWrapper.js'

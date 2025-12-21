@@ -1,8 +1,13 @@
 import { type Table } from '@latticexyz/config'
 import { schemaAbiTypeToDefaultValue } from '@latticexyz/schema-type/internal'
-import { type Key, type Stash, type TableRecord, type TableUpdates } from '@latticexyz/stash/internal'
-import { encodeKey } from '@latticexyz/stash/internal'
-import { registerTable } from '@latticexyz/stash/internal'
+import {
+	encodeKey,
+	type Key,
+	registerTable,
+	type Stash,
+	type TableRecord,
+	type TableUpdates,
+} from '@latticexyz/stash/internal'
 
 export type PendingStashUpdate<table extends Table = Table> = {
 	table: table
@@ -71,7 +76,9 @@ export function notifyStashSubscribers({ stash, updates: _updates }: ApplyUpdate
 	// Notify table subscribers
 	for (const [namespaceLabel, namespaceUpdates] of Object.entries(pendingUpdates)) {
 		for (const [tableLabel, tableUpdates] of Object.entries(namespaceUpdates)) {
-			stash._.tableSubscribers[namespaceLabel]?.[tableLabel]?.forEach((subscriber) => subscriber(tableUpdates))
+			stash._.tableSubscribers[namespaceLabel]?.[tableLabel]?.forEach((subscriber) => {
+				subscriber(tableUpdates)
+			})
 		}
 	}
 
@@ -79,7 +86,9 @@ export function notifyStashSubscribers({ stash, updates: _updates }: ApplyUpdate
 	const updates = Object.values(pendingUpdates)
 		.map((namespaceUpdates) => Object.values(namespaceUpdates))
 		.flat(2)
-	stash._.storeSubscribers.forEach((subscriber) => subscriber({ type: 'records', updates }))
+	stash._.storeSubscribers.forEach((subscriber) => {
+		subscriber({ type: 'records', updates })
+	})
 }
 
 function getUpdatedRecords(stash: Stash, update: PendingStashUpdate) {

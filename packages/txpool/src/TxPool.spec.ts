@@ -10,10 +10,10 @@ import {
 	LegacyTransaction,
 	type TypedTransaction,
 } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, bytesToHex, hexToBytes, parseEther } from '@tevm/utils'
-import { type Vm, createVm } from '@tevm/vm'
+import { bytesToHex, EthjsAccount, EthjsAddress, hexToBytes, parseEther } from '@tevm/utils'
+import { createVm, type Vm } from '@tevm/vm'
 import { assert, beforeEach, describe, expect, it, vi } from 'vitest'
-import { PREFUNDED_PRIVATE_KEYS, bytesToUnprefixedHex } from '../../utils/dist/index.cjs'
+import { bytesToUnprefixedHex, PREFUNDED_PRIVATE_KEYS } from '../../utils/dist/index.cjs'
 import { TxPool } from './TxPool.js'
 
 describe(TxPool.name, () => {

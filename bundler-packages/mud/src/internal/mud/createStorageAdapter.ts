@@ -8,9 +8,9 @@ import {
 	getSchemaTypes,
 	getValueSchema,
 } from '@latticexyz/protocol-parser/internal'
-import { type PendingStashUpdate, type Stash, type TableRecord, getRecord } from '@latticexyz/stash/internal'
-import { type StorageAdapterBlock, emptyValueArgs } from '@latticexyz/store-sync'
-import { type Hex, concatHex, size } from 'viem'
+import { getRecord, type PendingStashUpdate, type Stash, type TableRecord } from '@latticexyz/stash/internal'
+import { emptyValueArgs, type StorageAdapterBlock } from '@latticexyz/store-sync'
+import { concatHex, type Hex, size } from 'viem'
 
 export type CreateStorageAdapter = {
 	stash: Stash

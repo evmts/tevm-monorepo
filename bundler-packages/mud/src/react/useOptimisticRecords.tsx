@@ -1,4 +1,4 @@
-import { type GetRecordsArgs, type TableRecord, getRecords } from '@latticexyz/stash/internal'
+import { type GetRecordsArgs, getRecords, type TableRecord } from '@latticexyz/stash/internal'
 import type { Table } from '@latticexyz/store/internal'
 import { deepEqual } from '../internal/utils/deepEqual.js'
 import { useOptimisticState } from './useOptimisticState.js'

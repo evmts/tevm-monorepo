@@ -1,5 +1,5 @@
 import { type Table } from '@latticexyz/config'
-import { type State, getRecords } from '@latticexyz/stash/internal'
+import { getRecords, type State } from '@latticexyz/stash/internal'
 import type { Logger } from '@tevm/logger'
 import type { Address, Hex } from '@tevm/utils'
 import { type EIP1193RequestFn } from 'viem'
