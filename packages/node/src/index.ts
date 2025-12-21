@@ -10,7 +10,7 @@ export {
 	ProviderRpcError,
 } from './EIP1193EventEmitterTypes.js'
 export type { Extension } from './Extension.js'
-export type { Filter, FilterType } from './Filter.js'
+export type { Filter, FilterLog, FilterType } from './Filter.js'
 export { GENESIS_STATE, prefundedAccounts } from './GENESIS_STATE.js'
 export type { Hardfork } from './Hardfork.js'
 export type {

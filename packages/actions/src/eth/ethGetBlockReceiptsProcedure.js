@@ -64,12 +64,9 @@ export const ethGetBlockReceiptsJsonRpcProcedure = (client) => async (req) => {
 	const handler = ethGetBlockReceiptsHandler(client)
 	const res = await handler(params)
 
-	/**
-	 * @type {import('./EthJsonRpcResponse.js').EthGetBlockReceiptsJsonRpcResponse}
-	 */
-	const out = {
+	const out = /** @type {import('./EthJsonRpcResponse.js').EthGetBlockReceiptsJsonRpcResponse} */ ({
 		jsonrpc: '2.0',
-		...(req.id ? { id: req.id } : {}),
+		...(req.id !== undefined ? { id: req.id } : {}),
 		method: req.method,
 		result: res?.map((receipt) => ({
 			blockHash: receipt.blockHash,
@@ -99,6 +96,6 @@ export const ethGetBlockReceiptsJsonRpcProcedure = (client) => async (req) => {
 			...(receipt.blobGasUsed !== undefined ? { blobGasUsed: numberToHex(receipt.blobGasUsed) } : {}),
 			...(receipt.blobGasPrice !== undefined ? { blobGasPrice: numberToHex(receipt.blobGasPrice) } : {}),
 		})),
-	}
+	})
 	return out
 }

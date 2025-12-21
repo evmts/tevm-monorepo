@@ -41,10 +41,10 @@ export const ethSubscribeJsonRpcProcedure = (tevmNode) => {
 					params = { subscriptionType: 'newHeads' }
 					break
 				case 'logs':
-					params = {
+					params = /** @type {import('./EthSubscribeParams.js').EthSubscribeLogsParams} */ ({
 						subscriptionType: 'logs',
-						filterParams: filterParams,
-					}
+						...(filterParams !== undefined ? { filterParams } : {}),
+					})
 					break
 				case 'newPendingTransactions':
 					params = { subscriptionType: 'newPendingTransactions' }

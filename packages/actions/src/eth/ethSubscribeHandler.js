@@ -129,7 +129,7 @@ export const ethSubscribeHandler = (tevmNode) => {
 					}
 
 					// Convert raw log to the expected format for Filter['logs']
-					/** @type {import('@tevm/node').Filter['logs'][number]} */
+					/** @type {import('@tevm/node').FilterLog} */
 					const formattedLog = {
 						address: logAddress,
 						topics: /** @type {[import('@tevm/utils').Hex, ...Array<import('@tevm/utils').Hex>]} */ (logTopics),

@@ -6,8 +6,7 @@
 import type { Block } from '@tevm/block'
 import type { TxReceipt } from '@tevm/receipt-manager'
 import type { ImpersonatedTx, TypedTransaction } from '@tevm/tx'
-import type { Address } from '@tevm/utils'
-import type { GetFilterLogsReturnType } from 'viem'
+import type { Address, EthjsLog } from '@tevm/utils'
 
 export type ProviderConnectInfo = {
 	chainId: string
@@ -40,7 +39,7 @@ export type EIP1193EventMap = {
 	newPendingTransaction(tx: TypedTransaction | ImpersonatedTx): void
 	newReceipt(receipt: TxReceipt): void
 	newBlock(block: Block): void
-	newLog(log: GetFilterLogsReturnType[number]): void
+	newLog(log: EthjsLog): void
 }
 
 export type EIP1193Events = {

@@ -61,7 +61,7 @@ export const ethNewFilterHandler = (tevmNode) => {
 			}
 			// EthjsLog is a tuple [address, topics, data]
 			const [addressBytes, topicsBytes, dataBytes] = rawLog
-			/** @type {import('@tevm/node').Filter['logs'][number]} */
+			/** @type {import('@tevm/node').FilterLog} */
 			const formattedLog = {
 				topics: /** @type {[import('@tevm/utils').Hex, ...Array<import('@tevm/utils').Hex>]}*/ (
 					topicsBytes.map((topic) => bytesToHex(topic))
@@ -94,7 +94,7 @@ export const ethNewFilterHandler = (tevmNode) => {
 			created: Date.now(),
 			logs: pastLogs.map((log) => {
 				const [address, topics, data] = log.log
-				return {
+				return /** @type {import('@tevm/node').FilterLog} */ ({
 					topics: /** @type {[import('@tevm/utils').Hex, ...Array<import('@tevm/utils').Hex>]}*/ (
 						topics.map((topic) => bytesToHex(topic))
 					),
@@ -103,10 +103,10 @@ export const ethNewFilterHandler = (tevmNode) => {
 					blockNumber: log.block.header.number,
 					transactionHash: bytesToHex(log.tx.hash()),
 					removed: false,
-					logIndex: log.logIndex,
+					logIndex: BigInt(log.logIndex),
 					blockHash: bytesToHex(log.block.hash()),
-					transactionIndex: log.txIndex,
-				}
+					transactionIndex: BigInt(log.txIndex),
+				})
 			}),
 			tx: [],
 			blocks: [],
