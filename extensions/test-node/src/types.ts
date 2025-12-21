@@ -6,6 +6,13 @@ import type { Account, Address, Chain, EIP1193RequestFn, RpcSchema, Transport } 
 
 export type SnapshotAutosaveMode = 'onStop' | 'onRequest' | 'onSave'
 
+/**
+ * Function that determines if a method should bypass the cache
+ * @param method - The RPC method name
+ * @returns true if the method should bypass the cache (passthrough), false otherwise
+ */
+export type PassthroughMethodsFilter = (method: string) => boolean
+
 export type TestOptions = {
 	/**
 	 * Controls how snapshot file paths are resolved.
@@ -46,6 +53,36 @@ export type TestOptions = {
 	 * @default 'onRequest'
 	 */
 	autosave?: SnapshotAutosaveMode
+	/**
+	 * Methods that should always bypass the cache (passthrough).
+	 * These methods will be forwarded directly to the fork transport without caching.
+	 *
+	 * Can be specified as:
+	 * - An array of method names (e.g., ['eth_blockNumber', 'eth_gasPrice'])
+	 * - A filter function that receives the method name and returns true to bypass cache
+	 *
+	 * Use this when you need certain RPC calls to always hit the remote provider,
+	 * for example when testing against live data or debugging caching issues.
+	 *
+	 * @example
+	 * ```typescript
+	 * // Array of method names
+	 * test: {
+	 *   passthroughMethods: ['eth_blockNumber', 'eth_gasPrice']
+	 * }
+	 *
+	 * // Filter function for all debug_* methods
+	 * test: {
+	 *   passthroughMethods: (method) => method.startsWith('debug_')
+	 * }
+	 *
+	 * // Combine with existing caching - only bypass specific methods
+	 * test: {
+	 *   passthroughMethods: ['eth_getLogs', 'eth_call']
+	 * }
+	 * ```
+	 */
+	passthroughMethods?: string[] | PassthroughMethodsFilter
 }
 
 type TestSnapshotBaseClient = {
