@@ -6,12 +6,14 @@ import type {
 	AnvilDropAllTransactionsJsonRpcResponse,
 	AnvilDropTransactionJsonRpcResponse,
 	AnvilDumpStateJsonRpcResponse,
+	AnvilEnableTracesJsonRpcResponse,
 	AnvilGetAutomineJsonRpcResponse,
 	AnvilGetIntervalMiningJsonRpcResponse,
 	AnvilImpersonateAccountJsonRpcResponse,
 	AnvilIncreaseTimeJsonRpcResponse,
 	AnvilLoadStateJsonRpcResponse,
 	AnvilMetadataJsonRpcResponse,
+	AnvilMineDetailedJsonRpcResponse,
 	AnvilMineJsonRpcResponse,
 	AnvilNodeInfoJsonRpcResponse,
 	AnvilRemoveBlockTimestampIntervalJsonRpcResponse,
@@ -81,4 +83,6 @@ export type AnvilReturnType = {
 	anvil_setTime: AnvilSetTimeJsonRpcResponse
 	anvil_setBlockTimestampInterval: AnvilSetBlockTimestampIntervalJsonRpcResponse
 	anvil_removeBlockTimestampInterval: AnvilRemoveBlockTimestampIntervalJsonRpcResponse
+	anvil_enableTraces: AnvilEnableTracesJsonRpcResponse
+	anvil_mineDetailed: AnvilMineDetailedJsonRpcResponse
 }
