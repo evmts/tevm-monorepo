@@ -284,3 +284,57 @@ export type EthNewPendingTransactionFilterResult = Hex
  * JSON-RPC response for `eth_uninstallFilter` procedure
  */
 export type EthUninstallFilterResult = boolean
+
+// eth_getProof
+/**
+ * Storage proof for a single storage slot
+ */
+export type StorageProof = {
+	/**
+	 * The key of the storage slot
+	 */
+	key: Hex
+	/**
+	 * The value of the storage slot
+	 */
+	value: Hex
+	/**
+	 * The merkle proof for this storage slot
+	 */
+	proof: Hex[]
+}
+
+/**
+ * JSON-RPC response for `eth_getProof` procedure (EIP-1186)
+ * Returns the account and storage values of the specified account including the Merkle-proof.
+ */
+export type EthGetProofResult = {
+	/**
+	 * The address of the account
+	 */
+	address: Address
+	/**
+	 * The account proof (array of RLP-serialized merkle trie nodes)
+	 */
+	accountProof: Hex[]
+	/**
+	 * The balance of the account
+	 */
+	balance: Hex
+	/**
+	 * The code hash of the account
+	 */
+	codeHash: Hex
+	/**
+	 * The nonce of the account
+	 */
+	nonce: Hex
+	/**
+	 * The storage hash (root of the storage trie)
+	 */
+	storageHash: Hex
+	/**
+	 * Array of storage proofs for the requested keys
+	 */
+	storageProof: StorageProof[]
+}

@@ -39,6 +39,7 @@ import type {
 	EthSignTransactionParams,
 	EthSyncingParams,
 	EthUninstallFilterParams,
+	EthGetProofParams,
 } from './EthParams.js'
 import type {
 	EthAccountsResult,
@@ -81,6 +82,7 @@ import type {
 	EthSignTransactionResult,
 	EthSyncingResult,
 	EthUninstallFilterResult,
+	EthGetProofResult,
 } from './EthResult.js'
 
 // eth_accounts
@@ -191,3 +193,5 @@ export type EthNewPendingTransactionFilterHandler = (
 ) => Promise<EthNewPendingTransactionFilterResult>
 // eth_uninstallFilter
 export type EthUninstallFilterHandler = (request: EthUninstallFilterParams) => Promise<EthUninstallFilterResult>
+// eth_getProof
+export type EthGetProofHandler = (request: EthGetProofParams) => Promise<EthGetProofResult>

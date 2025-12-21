@@ -51,6 +51,7 @@ import { getBalanceProcedure } from './eth/getBalanceProcedure.js'
 import { getCodeProcedure } from './eth/getCodeProcedure.js'
 import { getStorageAtProcedure } from './eth/getStorageAtProcedure.js'
 import { ethFeeHistoryProcedure } from './eth/ethFeeHistoryProcedure.js'
+import { ethGetProofProcedure } from './eth/ethGetProofProcedure.js'
 import { maxPriorityFeePerGasProcedure } from './eth/maxPriorityFeePerGasProcedure.js'
 import { testAccounts } from './eth/utils/testAccounts.js'
 import { getAccountProcedure } from './GetAccount/getAccountProcedure.js'
@@ -154,6 +155,7 @@ export const createHandlers = (client) => {
 		eth_getFilterChanges: ethGetFilterChangesProcedure(client),
 		eth_newPendingTransactionFilter: ethNewPendingTransactionFilterProcedure(client),
 		eth_blobBaseFee: ethBlobBaseFeeJsonRpcProcedure(client),
+		eth_getProof: ethGetProofProcedure(client),
 	}
 
 	const anvilHandlers = {

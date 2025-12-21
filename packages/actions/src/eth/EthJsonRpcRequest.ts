@@ -323,6 +323,14 @@ export type EthCreateAccessListJsonRpcRequest = JsonRpcRequest<
 	'eth_createAccessList',
 	readonly [tx: JsonRpcTransaction, tag?: BlockTag | Hex]
 >
+// eth_getProof
+/**
+ * JSON-RPC request for `eth_getProof` procedure (EIP-1186)
+ */
+export type EthGetProofJsonRpcRequest = JsonRpcRequest<
+	'eth_getProof',
+	readonly [address: Address, storageKeys: readonly Hex[], tag: BlockTag | Hex]
+>
 
 export type EthJsonRpcRequest =
 	| EthAccountsJsonRpcRequest
@@ -368,3 +376,4 @@ export type EthJsonRpcRequest =
 	| EthNewPendingTransactionFilterJsonRpcRequest
 	| EthUninstallFilterJsonRpcRequest
 	| EthCreateAccessListJsonRpcRequest
+	| EthGetProofJsonRpcRequest

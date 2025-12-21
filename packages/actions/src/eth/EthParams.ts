@@ -330,6 +330,24 @@ export type EthNewPendingTransactionFilterParams = EmptyParams
  * Based on the JSON-RPC request for `eth_uninstallFilter` procedure
  */
 export type EthUninstallFilterParams = { readonly filterId: Hex }
+// eth_getProof
+/**
+ * Based on the JSON-RPC request for `eth_getProof` procedure (EIP-1186)
+ */
+export type EthGetProofParams = {
+	/**
+	 * The address of the account to get the proof for
+	 */
+	readonly address: Address
+	/**
+	 * An array of storage keys to get proofs for
+	 */
+	readonly storageKeys: readonly Hex[]
+	/**
+	 * The block tag or block number to get the proof at
+	 */
+	readonly blockTag?: BlockParam
+}
 
 export type EthParams =
 	| EthAccountsParams
@@ -373,3 +391,4 @@ export type EthParams =
 	| EthNewBlockFilterParams
 	| EthNewPendingTransactionFilterParams
 	| EthUninstallFilterParams
+	| EthGetProofParams

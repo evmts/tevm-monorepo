@@ -382,3 +382,46 @@ export type EthCreateAccessListJsonRpcResponse = JsonRpcResponse<
 	},
 	string | number
 >
+
+// eth_getProof
+/**
+ * JSON-RPC response for `eth_getProof` procedure (EIP-1186)
+ */
+export type EthGetProofJsonRpcResponse = JsonRpcResponse<
+	'eth_getProof',
+	{
+		/**
+		 * The address of the account
+		 */
+		address: Address
+		/**
+		 * The account proof (array of RLP-serialized merkle trie nodes)
+		 */
+		accountProof: Hex[]
+		/**
+		 * The balance of the account as hex
+		 */
+		balance: Hex
+		/**
+		 * The code hash of the account
+		 */
+		codeHash: Hex
+		/**
+		 * The nonce of the account as hex
+		 */
+		nonce: Hex
+		/**
+		 * The storage hash (root of the storage trie)
+		 */
+		storageHash: Hex
+		/**
+		 * Array of storage proofs for the requested keys
+		 */
+		storageProof: Array<{
+			key: Hex
+			value: Hex
+			proof: Hex[]
+		}>
+	},
+	string | number
+>
