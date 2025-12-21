@@ -18,9 +18,23 @@ import type {
 	AccessListItem,
 	FeeMarketEIP1559Transaction,
 	LegacyTransaction,
+	EOACodeEIP7702Transaction,
 } from '@tevm/tx'
 import { BlobEIP4844Transaction, Capability, isBlobEIP4844Tx } from '@tevm/tx'
-import { EthjsAccount, EthjsAddress, equalsBytes, type Hex, hexToBytes } from '@tevm/utils'
+import {
+	EthjsAccount,
+	EthjsAddress,
+	equalsBytes,
+	type Hex,
+	hexToBytes,
+	bytesToBigInt,
+	concatBytes,
+	eoaCode7702RecoverAuthority,
+	BIGINT_0,
+	BIGINT_1,
+	MAX_UINT64,
+	SECP256K1_ORDER_DIV_2,
+} from '@tevm/utils'
 import type { BaseVm } from '../BaseVm.js'
 import type { AfterTxEvent, RunTxOpts, RunTxResult } from '../utils/index.js'
 import { KECCAK256_NULL } from './constants.js'
@@ -29,6 +43,9 @@ import { generateTxReceipt } from './generateTxResult.js'
 import { txLogsBloom } from './txLogsBloom.js'
 import { validateRunTx } from './validateRunTx.js'
 import { warmAddresses2929 } from './warmAddresses2929.js'
+
+// EIP-7702 flag: if contract code starts with these 3 bytes, it is a 7702-delegated EOA
+const DELEGATION_7702_FLAG = new Uint8Array([0xef, 0x01, 0x00])
 
 export type RunTx = (opts: RunTxOpts) => Promise<RunTxResult>
 
@@ -136,13 +153,29 @@ const _runTx =
 		}
 		const { nonce, balance } = fromAccount
 		// EIP-3607: Reject transactions from senders with deployed code
+		// EIP-7702: Allow 7702-delegated EOAs to send transactions
 		if (vm.common.ethjsCommon.isActivatedEIP(3607) && !equalsBytes(fromAccount.codeHash, KECCAK256_NULL)) {
-			const msg = errorMsg(
-				'invalid sender address, address is not EOA (EIP-3607). When EIP-3607 is disabled this check is skipped',
-				block,
-				tx,
-			)
-			throw new InvalidTransactionError(msg)
+			const isActive7702 = vm.common.ethjsCommon.isActivatedEIP(7702)
+			if (isActive7702) {
+				const code = await vm.stateManager.getCode(caller)
+				// If the EOA is 7702-delegated, sending txs from this EOA is fine
+				if (!equalsBytes(code.slice(0, 3), DELEGATION_7702_FLAG)) {
+					// Trying to send TX from account with code (which is not 7702-delegated)
+					const msg = errorMsg(
+						'invalid sender address, address is not EOA (EIP-3607)',
+						block,
+						tx,
+					)
+					throw new InvalidTransactionError(msg)
+				}
+			} else {
+				const msg = errorMsg(
+					'invalid sender address, address is not EOA (EIP-3607). When EIP-3607 is disabled this check is skipped',
+					block,
+					tx,
+				)
+				throw new InvalidTransactionError(msg)
+			}
 		}
 
 		// Check balance against upfront tx cost
@@ -266,6 +299,93 @@ const _runTx =
 		}
 		await vm.evm.journal.putAccount(caller, fromAccount)
 
+		// EIP-7702: Process authorization list for EOA code transactions
+		let gasRefund = BIGINT_0
+		if (tx.supports(Capability.EIP7702EOACode)) {
+			// Add contract code for authority tuples provided by EIP 7702 tx
+			const castedTx = tx as EOACodeEIP7702Transaction
+			const authorizationList = castedTx.authorizationList
+			for (let i = 0; i < authorizationList.length; i++) {
+				// Authority tuple validation
+				const authTuple = authorizationList[i]
+				if (!authTuple) continue
+				const authChainId = authTuple[0]
+				const authChainIdBN = bytesToBigInt(authChainId)
+				if (authChainIdBN !== BIGINT_0 && authChainIdBN !== BigInt(vm.common.ethjsCommon.chainId())) {
+					// Chain id does not match, continue
+					continue
+				}
+				// Address to take code from
+				const delegateAddress = authTuple[1]
+				const authNonce = authTuple[2]
+				if (bytesToBigInt(authNonce) >= MAX_UINT64) {
+					// authority nonce >= 2^64 - 1. Bumping this nonce by one will not make this fit in an uint64.
+					continue
+				}
+				const authS = authTuple[5]
+				if (bytesToBigInt(authS) > SECP256K1_ORDER_DIV_2) {
+					// Malleability protection to avoid "flipping" a valid signature to get
+					// another valid signature (which yields the same account on `ecrecover`)
+					continue
+				}
+				const yParity = bytesToBigInt(authTuple[3])
+				if (yParity > BIGINT_1) {
+					continue
+				}
+				// Address to set code to (recover authority from signature)
+				let authority: EthjsAddress
+				try {
+					authority = eoaCode7702RecoverAuthority(authTuple)
+				} catch {
+					// Invalid signature, continue
+					continue
+				}
+
+				const accountMaybeUndefined = await vm.stateManager.getAccount(authority)
+				const accountExists = accountMaybeUndefined !== undefined
+				const account = accountMaybeUndefined ?? new EthjsAccount()
+
+				// Add authority address to warm addresses
+				vm.evm.journal.addAlwaysWarmAddress(authority.toString())
+
+				if (account.isContract()) {
+					const code = await vm.stateManager.getCode(authority)
+					if (!equalsBytes(code.slice(0, 3), DELEGATION_7702_FLAG)) {
+						// Account is a "normal" contract
+						continue
+					}
+				}
+
+				// Nonce check
+				if (caller.toString() === authority.toString()) {
+					if (account.nonce + BIGINT_1 !== bytesToBigInt(authNonce)) {
+						// Edge case: caller is the authority, so is self-signing the delegation
+						// In this case, we "virtually" bump the account nonce by one
+						continue
+					}
+				} else if (account.nonce !== bytesToBigInt(authNonce)) {
+					continue
+				}
+
+				if (accountExists) {
+					const refund =
+						BigInt(vm.common.ethjsCommon.param('perEmptyAccountCost')) -
+						BigInt(vm.common.ethjsCommon.param('perAuthBaseGas'))
+					gasRefund += refund
+				}
+				account.nonce++
+				await vm.evm.journal.putAccount(authority, account)
+
+				if (equalsBytes(delegateAddress, new Uint8Array(20))) {
+					// Special case: If delegated to the zero address, clear the delegation of authority
+					await vm.stateManager.putCode(authority, new Uint8Array())
+				} else {
+					const addressCode = concatBytes(DELEGATION_7702_FLAG, delegateAddress)
+					await vm.stateManager.putCode(authority, addressCode)
+				}
+			}
+		}
+
 		/*
 		 * Execute message
 		 */
@@ -297,16 +417,14 @@ const _runTx =
 			results.blobGasUsed = totalblobGas
 		}
 
-		// Process any gas refund
-		let gasRefund = results.execResult.gasRefund ?? 0n
+		// Process any gas refund (including EIP-7702 refund accumulated above)
+		gasRefund += results.execResult.gasRefund ?? BIGINT_0
 		results.gasRefund = gasRefund
 		const maxRefundQuotient = BigInt(vm.common.ethjsCommon.param('maxRefundQuotient'))
-		if (gasRefund !== 0n) {
+		if (gasRefund !== BIGINT_0) {
 			const maxRefund = results.totalGasSpent / maxRefundQuotient
 			gasRefund = gasRefund < maxRefund ? gasRefund : maxRefund
 			results.totalGasSpent -= gasRefund
-		} else {
-			// TODO warn that no gas is used
 		}
 		results.amountSpent = results.totalGasSpent * gasPrice
 
