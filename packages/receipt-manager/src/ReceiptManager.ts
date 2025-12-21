@@ -430,9 +430,9 @@ export class ReceiptsManager {
 							// If a value is specified then it must match
 							if (!equalsBytes(topic, l.log[1][i] as Uint8Array)) return false
 						}
-						return true
 					}
-					return false
+					// All topic conditions passed, accept the log
+					return true
 				})
 			}
 			returnedLogs.push(...logs)
