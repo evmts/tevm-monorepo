@@ -186,4 +186,236 @@ describe('ethGetTransactionReceiptJsonRpcProcedure', () => {
 		expect(response.result).toHaveProperty('blobGasUsed', '0x1e240')
 		expect(response.result).toHaveProperty('blobGasPrice', '0x1ed2')
 	})
+
+	it('should properly format all receipt fields', async () => {
+		const client = createTevmNode()
+		const to = `0x${'69'.repeat(20)}` as const
+
+		// Send a transaction
+		const callResult = await callHandler(client)({
+			createTransaction: true,
+			to,
+			value: 420n,
+			skipBalance: true,
+		})
+
+		await mineHandler(client)({})
+
+		const request = {
+			id: 1,
+			method: 'eth_getTransactionReceipt',
+			params: [callResult.txHash as Hex],
+			jsonrpc: '2.0',
+		} as const
+
+		const procedure = ethGetTransactionReceiptJsonRpcProcedure(client)
+		const response = await procedure(request)
+
+		// Verify all fields are properly formatted as hex strings
+		expect(response.result?.blockNumber).toMatch(/^0x[0-9a-fA-F]+$/)
+		expect(response.result?.transactionIndex).toMatch(/^0x[0-9a-fA-F]+$/)
+		expect(response.result?.cumulativeGasUsed).toMatch(/^0x[0-9a-fA-F]+$/)
+		expect(response.result?.gasUsed).toMatch(/^0x[0-9a-fA-F]+$/)
+		expect(response.result?.effectiveGasPrice).toMatch(/^0x[0-9a-fA-F]+$/)
+
+		// Verify logs are properly formatted
+		if (response.result?.logs && response.result.logs.length > 0) {
+			for (const log of response.result.logs) {
+				expect(log.blockNumber).toMatch(/^0x[0-9a-fA-F]+$/)
+				expect(log.logIndex).toMatch(/^0x[0-9a-fA-F]+$/)
+				expect(log.transactionIndex).toMatch(/^0x[0-9a-fA-F]+$/)
+				expect(log.removed).toBe(false)
+			}
+		}
+	})
+
+	it('should handle receipt with contract address', async () => {
+		const client = createTevmNode()
+
+		// Send a transaction that creates a contract (no 'to' address)
+		const callResult = await callHandler(client)({
+			createTransaction: true,
+			// No 'to' means contract creation
+			data: '0x6080604052348015600f57600080fd5b50603e80601d6000396000f3fe6080604052600080fdfea2646970667358221220',
+			skipBalance: true,
+		})
+
+		await mineHandler(client)({})
+
+		const request = {
+			id: 1,
+			method: 'eth_getTransactionReceipt',
+			params: [callResult.txHash as Hex],
+			jsonrpc: '2.0',
+		} as const
+
+		const procedure = ethGetTransactionReceiptJsonRpcProcedure(client)
+		const response = await procedure(request)
+
+		// Verify contractAddress is set for contract creation
+		expect(response.result?.contractAddress).toBeDefined()
+		if (response.result?.contractAddress) {
+			expect(response.result.contractAddress).toMatch(/^0x[0-9a-fA-F]{40}$/)
+		}
+		expect(response.result?.to).toBeNull()
+	})
+
+	it('should handle status field correctly', async () => {
+		const client = createTevmNode()
+		const to = `0x${'69'.repeat(20)}` as const
+
+		// Send a successful transaction
+		const callResult = await callHandler(client)({
+			createTransaction: true,
+			to,
+			value: 420n,
+			skipBalance: true,
+		})
+
+		await mineHandler(client)({})
+
+		const request = {
+			id: 1,
+			method: 'eth_getTransactionReceipt',
+			params: [callResult.txHash as Hex],
+			jsonrpc: '2.0',
+		} as const
+
+		const procedure = ethGetTransactionReceiptJsonRpcProcedure(client)
+		const response = await procedure(request)
+
+		// Success should have status '0x1'
+		expect(response.result?.status).toBe('0x1')
+	})
+
+	it('should handle root field correctly', async () => {
+		const client = createTevmNode()
+		const to = `0x${'69'.repeat(20)}` as const
+
+		// Send a transaction
+		const callResult = await callHandler(client)({
+			createTransaction: true,
+			to,
+			value: 420n,
+			skipBalance: true,
+		})
+
+		await mineHandler(client)({})
+
+		const request = {
+			id: 1,
+			method: 'eth_getTransactionReceipt',
+			params: [callResult.txHash as Hex],
+			jsonrpc: '2.0',
+		} as const
+
+		const procedure = ethGetTransactionReceiptJsonRpcProcedure(client)
+		const response = await procedure(request)
+
+		// Root field should exist (might be '0x' or a hash)
+		expect(response.result?.root).toBeDefined()
+		expect(typeof response.result?.root).toBe('string')
+	})
+
+	it('should properly handle empty params error case', async () => {
+		const client = createTevmNode()
+		const procedure = ethGetTransactionReceiptJsonRpcProcedure(client)
+
+		const request = {
+			id: 1,
+			method: 'eth_getTransactionReceipt',
+			params: [],
+			jsonrpc: '2.0',
+		} as const
+
+		const response = await procedure(request)
+
+		expect(response).toMatchObject({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'eth_getTransactionReceipt',
+			error: {
+				code: -32602,
+				message: 'Invalid params',
+			},
+		})
+	})
+
+	it('should handle request with undefined txHash parameter', async () => {
+		const client = createTevmNode()
+		const procedure = ethGetTransactionReceiptJsonRpcProcedure(client)
+
+		const request = {
+			id: 1,
+			method: 'eth_getTransactionReceipt',
+			params: [undefined as any],
+			jsonrpc: '2.0',
+		} as const
+
+		const response = await procedure(request)
+
+		expect(response).toMatchObject({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'eth_getTransactionReceipt',
+			error: {
+				code: -32602,
+				message: 'Invalid params',
+			},
+		})
+	})
+
+	it('should handle requests with numeric id', async () => {
+		const client = createTevmNode()
+		const to = `0x${'69'.repeat(20)}` as const
+
+		const callResult = await callHandler(client)({
+			createTransaction: true,
+			to,
+			value: 420n,
+			skipBalance: true,
+		})
+
+		await mineHandler(client)({})
+
+		const request = {
+			id: 999,
+			method: 'eth_getTransactionReceipt',
+			params: [callResult.txHash as Hex],
+			jsonrpc: '2.0',
+		} as const
+
+		const procedure = ethGetTransactionReceiptJsonRpcProcedure(client)
+		const response = await procedure(request)
+
+		expect(response.id).toBe(999)
+		expect(response.result?.transactionHash).toEqual(callResult.txHash)
+	})
+
+	it('should handle requests with string id', async () => {
+		const client = createTevmNode()
+		const to = `0x${'69'.repeat(20)}` as const
+
+		const callResult = await callHandler(client)({
+			createTransaction: true,
+			to,
+			value: 420n,
+			skipBalance: true,
+		})
+
+		await mineHandler(client)({})
+
+		const request = {
+			id: 'test-id-123',
+			method: 'eth_getTransactionReceipt',
+			params: [callResult.txHash as Hex],
+			jsonrpc: '2.0',
+		} as const
+
+		const procedure = ethGetTransactionReceiptJsonRpcProcedure(client)
+		const response = await procedure(request)
+
+		expect(response.id).toBe('test-id-123')
+		expect(response.result?.transactionHash).toEqual(callResult.txHash)
+	})
 })

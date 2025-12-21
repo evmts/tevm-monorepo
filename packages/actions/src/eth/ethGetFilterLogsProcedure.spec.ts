@@ -179,4 +179,175 @@ describe(ethGetFilterLogsProcedure.name, () => {
 			)
 		})
 	})
+
+	it('should return error when filter not found', async () => {
+		const { error, result } = await ethGetFilterLogsProcedure(client)({
+			jsonrpc: '2.0',
+			method: 'eth_getFilterLogs',
+			id: 1,
+			params: ['0xnonexistentfilter'],
+		})
+
+		expect(result).toBeUndefined()
+		expect(error).toEqual({
+			code: -32602,
+			message: 'Filter not found',
+		})
+	})
+
+	it('should handle request with ID field', async () => {
+		const { result: filterId } = await ethNewFilterJsonRpcProcedure(client)({
+			jsonrpc: '2.0',
+			method: 'eth_newFilter',
+			params: [{}],
+		})
+		if (!filterId) throw new Error('Expected filter')
+
+		const response = await ethGetFilterLogsProcedure(client)({
+			jsonrpc: '2.0',
+			method: 'eth_getFilterLogs',
+			id: 42,
+			params: [filterId],
+		})
+
+		expect(response.id).toBe(42)
+		expect(response.method).toBe('eth_getFilterLogs')
+		expect(response.jsonrpc).toBe('2.0')
+	})
+
+	it('should handle request without ID field', async () => {
+		const { result: filterId } = await ethNewFilterJsonRpcProcedure(client)({
+			jsonrpc: '2.0',
+			method: 'eth_newFilter',
+			params: [{}],
+		})
+		if (!filterId) throw new Error('Expected filter')
+
+		const response = await ethGetFilterLogsProcedure(client)({
+			jsonrpc: '2.0',
+			method: 'eth_getFilterLogs',
+			params: [filterId],
+		})
+
+		expect(response.id).toBeUndefined()
+		expect(response.method).toBe('eth_getFilterLogs')
+		expect(response.jsonrpc).toBe('2.0')
+	})
+
+	it('should return empty array when no logs match filter criteria', async () => {
+		// Create filter for a non-existent contract address
+		const { result: filterId } = await ethNewFilterJsonRpcProcedure(client)({
+			jsonrpc: '2.0',
+			method: 'eth_newFilter',
+			params: [
+				{
+					address: '0x0000000000000000000000000000000000000999',
+					fromBlock: 'latest',
+					toBlock: 'latest',
+				},
+			],
+		})
+		if (!filterId) throw new Error('Expected filter')
+
+		const { result, error } = await ethGetFilterLogsProcedure(client)({
+			jsonrpc: '2.0',
+			method: 'eth_getFilterLogs',
+			params: [filterId],
+		})
+
+		expect(error).toBeUndefined()
+		expect(result).toEqual([])
+	})
+
+	it('should filter logs by specific topic', async () => {
+		const topic1 = keccak256(stringToHex('ValueSet(uint256)'))
+
+		const { result: filterId } = await ethNewFilterJsonRpcProcedure(client)({
+			jsonrpc: '2.0',
+			method: 'eth_newFilter',
+			params: [
+				{
+					address: contract.address,
+					topics: [topic1],
+				},
+			],
+		})
+		if (!filterId) throw new Error('Expected filter')
+
+		// Emit an event
+		expect(
+			(
+				await callProcedure(client)({
+					method: 'tevm_call',
+					jsonrpc: '2.0',
+					params: [
+						{
+							to: contract.address,
+							data: encodeFunctionData(contract.write.set(100n)),
+							createTransaction: true,
+						},
+					],
+				})
+			).error,
+		).toBeUndefined()
+		expect((await doMine()).error).toBeUndefined()
+
+		const { result, error } = await ethGetFilterLogsProcedure(client)({
+			jsonrpc: '2.0',
+			method: 'eth_getFilterLogs',
+			params: [filterId],
+		})
+
+		expect(error).toBeUndefined()
+		expect(result).toHaveLength(1)
+		expect(result?.[0]?.topics[0]).toBe(topic1)
+	})
+
+	it('should include all log fields in response', async () => {
+		const { result: filterId } = await ethNewFilterJsonRpcProcedure(client)({
+			jsonrpc: '2.0',
+			method: 'eth_newFilter',
+			params: [{ address: contract.address }],
+		})
+		if (!filterId) throw new Error('Expected filter')
+
+		expect(
+			(
+				await callProcedure(client)({
+					method: 'tevm_call',
+					jsonrpc: '2.0',
+					params: [
+						{
+							to: contract.address,
+							data: encodeFunctionData(contract.write.set(999n)),
+							createTransaction: true,
+						},
+					],
+				})
+			).error,
+		).toBeUndefined()
+		expect((await doMine()).error).toBeUndefined()
+
+		const { result } = await ethGetFilterLogsProcedure(client)({
+			jsonrpc: '2.0',
+			method: 'eth_getFilterLogs',
+			params: [filterId],
+		})
+
+		expect(result).toHaveLength(1)
+		const log = result?.[0]
+		expect(log).toHaveProperty('address')
+		expect(log).toHaveProperty('topics')
+		expect(log).toHaveProperty('data')
+		expect(log).toHaveProperty('blockNumber')
+		expect(log).toHaveProperty('transactionHash')
+		expect(log).toHaveProperty('transactionIndex')
+		expect(log).toHaveProperty('blockHash')
+		expect(log).toHaveProperty('logIndex')
+		expect(log).toHaveProperty('removed')
+		expect(isHex(log?.address ?? '')).toBe(true)
+		expect(isHex(log?.data ?? '')).toBe(true)
+		expect(isHex(log?.blockNumber ?? '')).toBe(true)
+		expect(isHex(log?.transactionHash ?? '')).toBe(true)
+	})
 })
