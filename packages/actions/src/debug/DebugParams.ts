@@ -1,5 +1,5 @@
 import type { BaseParams } from '../common/BaseParams.js'
-import type { BlockTag, Hex } from '../common/index.js'
+import type { BlockTag, Hex, MuxTracerConfiguration } from '../common/index.js'
 import type { EthCallParams } from '../eth/EthParams.js'
 import type { ExactlyOne } from '../utils/ExactlyOne.js'
 
@@ -7,17 +7,18 @@ import type { ExactlyOne } from '../utils/ExactlyOne.js'
  * Config params for trace calls
  */
 export type TraceParams<
-	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | undefined =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | 'muxTracer' | undefined =
 		| 'callTracer'
 		| 'prestateTracer'
 		| '4byteTracer'
 		| 'flatCallTracer'
+		| 'muxTracer'
 		| undefined,
 	TDiffMode extends boolean = boolean,
 > = {
 	/**
 	 * The type of tracer
-	 * Supported tracers: callTracer, prestateTracer, 4byteTracer, flatCallTracer
+	 * Supported tracers: callTracer, prestateTracer, 4byteTracer, flatCallTracer, muxTracer
 	 */
 	readonly tracer?: TTracer
 	/**
@@ -26,31 +27,34 @@ export type TraceParams<
 	 */
 	readonly timeout?: string
 	/**
-	 * object to specify configurations for the tracer
+	 * object to specify configurations for the tracer.
+	 * For muxTracer, this specifies which tracers to run and their individual configs.
 	 */
-	readonly tracerConfig?: {
-		/**
-		 * boolean Setting this to true will only trace the main (top-level) call and none of the sub-calls. This avoids extra processing for each call frame if only the top-level call info are required (useful for getting revertReason).
-		 */
-		// readonly onlyTopCall?: boolean
-		/**
-		 * boolean Setting this to true will disable storage capture. This avoids extra processing for each call frame if storage is not required.
-		 */
-		// readonly disableStorage?: boolean
-		/**
-		 *
-		 */
-		// readonly enableMemory?: boolean
-		/**
-		 * boolean Setting this to true will disable stack capture. This avoids extra processing for each call frame if stack is not required.
-		 */
-		// readonly disableStack?: boolean
-		/**
-		 * When using the prestateTracer, setting this to true will make the tracer return only the state difference between before and after execution.
-		 * Default is false which returns the full state of all touched accounts.
-		 */
-		readonly diffMode?: TTracer extends 'prestateTracer' ? TDiffMode : never
-	}
+	readonly tracerConfig?: TTracer extends 'muxTracer'
+		? MuxTracerConfiguration<TDiffMode>
+		: {
+				/**
+				 * boolean Setting this to true will only trace the main (top-level) call and none of the sub-calls. This avoids extra processing for each call frame if only the top-level call info are required (useful for getting revertReason).
+				 */
+				// readonly onlyTopCall?: boolean
+				/**
+				 * boolean Setting this to true will disable storage capture. This avoids extra processing for each call frame if storage is not required.
+				 */
+				// readonly disableStorage?: boolean
+				/**
+				 *
+				 */
+				// readonly enableMemory?: boolean
+				/**
+				 * boolean Setting this to true will disable stack capture. This avoids extra processing for each call frame if stack is not required.
+				 */
+				// readonly disableStack?: boolean
+				/**
+				 * When using the prestateTracer, setting this to true will make the tracer return only the state difference between before and after execution.
+				 * Default is false which returns the full state of all touched accounts.
+				 */
+				readonly diffMode?: TTracer extends 'prestateTracer' ? TDiffMode : never
+			}
 }
 
 // debug_traceTransaction
@@ -58,11 +62,12 @@ export type TraceParams<
  * Params taken by `debug_traceTransaction` handler
  */
 export type DebugTraceTransactionParams<
-	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | undefined =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | 'muxTracer' | undefined =
 		| 'callTracer'
 		| 'prestateTracer'
 		| '4byteTracer'
 		| 'flatCallTracer'
+		| 'muxTracer'
 		| undefined,
 	TDiffMode extends boolean = boolean,
 	TTTThrowOnError extends boolean = boolean,
@@ -79,11 +84,12 @@ export type DebugTraceTransactionParams<
  * Params taken by `debug_traceCall` handler
  */
 export type DebugTraceCallParams<
-	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | undefined =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | 'muxTracer' | undefined =
 		| 'callTracer'
 		| 'prestateTracer'
 		| '4byteTracer'
 		| 'flatCallTracer'
+		| 'muxTracer'
 		| undefined,
 	TDiffMode extends boolean = boolean,
 > = TraceParams<TTracer, TDiffMode> & EthCallParams
@@ -92,11 +98,12 @@ export type DebugTraceCallParams<
  * Params taken by `debug_traceBlock` handler
  */
 export type DebugTraceBlockParams<
-	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | undefined =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | 'muxTracer' | undefined =
 		| 'callTracer'
 		| 'prestateTracer'
 		| '4byteTracer'
 		| 'flatCallTracer'
+		| 'muxTracer'
 		| undefined,
 	TDiffMode extends boolean = boolean,
 > = TraceParams<TTracer, TDiffMode> &

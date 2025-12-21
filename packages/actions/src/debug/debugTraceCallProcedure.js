@@ -9,7 +9,7 @@ import { traceCallHandler } from './traceCallHandler.js'
  */
 export const debugTraceCallJsonRpcProcedure = (client) => {
 	/**
-	 * @template {'callTracer' | 'prestateTracer' | '4byteTracer' | undefined} TTracer
+	 * @template {'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | 'muxTracer' | undefined} TTracer
 	 * @template {boolean} TDiffMode
 	 * @param {import('./DebugJsonRpcRequest.js').DebugTraceCallJsonRpcRequest<TTracer, TDiffMode>} request
 	 * @returns {Promise<import('./DebugJsonRpcResponse.js').DebugTraceCallJsonRpcResponse<TTracer, TDiffMode>>}

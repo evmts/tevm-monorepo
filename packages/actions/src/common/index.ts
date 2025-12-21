@@ -21,6 +21,13 @@ export type {
 } from './FlatCallTraceResult.js'
 export type { FourbyteTraceResult } from './FourbyteTraceResult.js'
 export type { Hex } from './Hex.js'
+export type {
+	MuxTraceResult,
+	MuxTracerType,
+	MuxTracerConfig,
+	MuxTracerConfiguration,
+	TracerResultMap,
+} from './MuxTraceResult.js'
 export type { Log } from './Log.js'
 export type { NetworkConfig } from './NetworkConfig.js'
 export type { PrestateTraceResult } from './PrestateTraceResult.js'

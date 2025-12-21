@@ -103,4 +103,84 @@ describe('traceCallHandler', async () => {
 		expect(result[0]).toHaveProperty('action')
 		expect(result[0]).toHaveProperty('result')
 	})
+
+	it('should execute a contract call with muxTracer combining callTracer and 4byteTracer', async () => {
+		const result = await traceCallHandler(client)({
+			tracer: 'muxTracer',
+			tracerConfig: {
+				callTracer: {},
+				'4byteTracer': {},
+			},
+			data: encodeFunctionData(AdvancedContract.write.callMathHelper(2n)),
+			to: contractAddress,
+			from: PREFUNDED_ACCOUNTS[0].address,
+			gas: 16784800n,
+		})
+
+		// muxTracer should return an object with results for each enabled tracer
+		expect(result).toHaveProperty('callTracer')
+		expect(result).toHaveProperty('4byteTracer')
+
+		// Validate callTracer result structure
+		expect(result.callTracer).toHaveProperty('type')
+		expect(result.callTracer).toHaveProperty('from')
+		expect(result.callTracer).toHaveProperty('to')
+		expect(result.callTracer).toHaveProperty('input')
+		expect(result.callTracer).toHaveProperty('output')
+		expect(result.callTracer).toHaveProperty('gas')
+		expect(result.callTracer).toHaveProperty('gasUsed')
+
+		// Validate 4byteTracer result structure (should be an object with selector-size keys)
+		expect(typeof result['4byteTracer']).toBe('object')
+	})
+
+	it('should execute a contract call with muxTracer combining flatCallTracer and default', async () => {
+		const result = await traceCallHandler(client)({
+			tracer: 'muxTracer',
+			tracerConfig: {
+				flatCallTracer: {},
+				default: {},
+			},
+			data: encodeFunctionData(AdvancedContract.write.setNumber(2n)),
+			to: contractAddress,
+			from: PREFUNDED_ACCOUNTS[0].address,
+			gas: 16784800n,
+		})
+
+		// muxTracer should return an object with results for each enabled tracer
+		expect(result).toHaveProperty('flatCallTracer')
+		expect(result).toHaveProperty('default')
+
+		// Validate flatCallTracer result is an array
+		expect(Array.isArray(result.flatCallTracer)).toBe(true)
+
+		// Validate default tracer result structure (structLogs)
+		expect(result.default).toHaveProperty('gas')
+		expect(result.default).toHaveProperty('failed')
+		expect(result.default).toHaveProperty('returnValue')
+		expect(result.default).toHaveProperty('structLogs')
+		expect(Array.isArray(result.default.structLogs)).toBe(true)
+	})
+
+	it('should execute muxTracer with all tracers enabled', async () => {
+		const result = await traceCallHandler(client)({
+			tracer: 'muxTracer',
+			tracerConfig: {
+				callTracer: {},
+				'4byteTracer': {},
+				flatCallTracer: {},
+				default: {},
+			},
+			data: encodeFunctionData(AdvancedContract.write.callMathHelper(2n)),
+			to: contractAddress,
+			from: PREFUNDED_ACCOUNTS[0].address,
+			gas: 16784800n,
+		})
+
+		// All tracers should be present in the result
+		expect(result).toHaveProperty('callTracer')
+		expect(result).toHaveProperty('4byteTracer')
+		expect(result).toHaveProperty('flatCallTracer')
+		expect(result).toHaveProperty('default')
+	})
 })

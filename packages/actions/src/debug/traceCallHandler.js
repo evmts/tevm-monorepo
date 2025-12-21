@@ -3,6 +3,7 @@ import { hexToBytes } from '@tevm/utils'
 import { runCallWithCallTrace } from '../internal/runCallWithCallTrace.js'
 import { runCallWithFlatCallTrace } from '../internal/runCallWithFlatCallTrace.js'
 import { runCallWithFourbyteTrace } from '../internal/runCallWithFourbyteTrace.js'
+import { runCallWithMuxTrace } from '../internal/runCallWithMuxTrace.js'
 import { runCallWithPrestateTrace } from '../internal/runCallWithPrestateTrace.js'
 import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 
@@ -15,7 +16,7 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 export const traceCallHandler =
 	(client) =>
 	/**
-	 * @template {'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer'} TTracer
+	 * @template {'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | 'muxTracer'} TTracer
 	 * @template {boolean} TDiffMode
 	 * @param {import('./DebugParams.js').DebugTraceCallParams<TTracer, TDiffMode>} params
 	 * @returns {Promise<import('./DebugResult.js').DebugTraceCallResult<TTracer, TDiffMode>>}
@@ -39,7 +40,8 @@ export const traceCallHandler =
 		}
 
 		if (params.tracer === 'prestateTracer') {
-			const diffMode = params.tracerConfig?.diffMode === true
+			const tracerConfig = /** @type {{diffMode?: boolean} | undefined} */ (params.tracerConfig)
+			const diffMode = tracerConfig?.diffMode === true
 			logger.debug({ diffMode }, 'traceCallHandler: using prestateTracer')
 
 			return getVm()
@@ -65,6 +67,16 @@ export const traceCallHandler =
 			return getVm()
 				.then((vm) => vm.deepCopy())
 				.then((vm) => runCallWithFlatCallTrace(vm, logger, callParams))
+				.then((res) => /** @type {any} */ (res.trace))
+		}
+		if (params.tracer === 'muxTracer') {
+			logger.debug('traceCallHandler: using muxTracer')
+			const tracerConfig = /** @type {import('../common/MuxTraceResult.js').MuxTracerConfiguration} */ (
+				params.tracerConfig ?? {}
+			)
+			return getVm()
+				.then((vm) => vm.deepCopy())
+				.then((vm) => runCallWithMuxTrace(vm, logger, callParams, tracerConfig))
 				.then((res) => /** @type {any} */ (res.trace))
 		}
 		return getVm()

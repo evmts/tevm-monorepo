@@ -11,6 +11,7 @@ import type {
 	FlatCallTraceResult,
 	FourbyteTraceResult,
 	Hex,
+	MuxTraceResult,
 	PrestateTraceResult,
 	TraceResult,
 } from '../common/index.js'
@@ -22,11 +23,12 @@ import type { DebugTraceStateFilter } from './DebugParams.js'
  * Result from `debug_traceTransaction`
  */
 export type DebugTraceTransactionResult<
-	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | undefined =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | 'muxTracer' | undefined =
 		| 'callTracer'
 		| 'prestateTracer'
 		| '4byteTracer'
 		| 'flatCallTracer'
+		| 'muxTracer'
 		| undefined,
 	TDiffMode extends boolean = boolean,
 > = TTracer extends 'callTracer'
@@ -37,17 +39,20 @@ export type DebugTraceTransactionResult<
 			? FourbyteTraceResult
 			: TTracer extends 'flatCallTracer'
 				? FlatCallTraceResult
-				: TraceResult
+				: TTracer extends 'muxTracer'
+					? MuxTraceResult
+					: TraceResult
 
 /**
  * Result from `debug_traceCall`
  */
 export type DebugTraceCallResult<
-	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | undefined =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | 'muxTracer' | undefined =
 		| 'callTracer'
 		| 'prestateTracer'
 		| '4byteTracer'
 		| 'flatCallTracer'
+		| 'muxTracer'
 		| undefined,
 	TDiffMode extends boolean = boolean,
 > = TTracer extends 'callTracer'
@@ -58,7 +63,9 @@ export type DebugTraceCallResult<
 			? FourbyteTraceResult
 			: TTracer extends 'flatCallTracer'
 				? FlatCallTraceResult
-				: TraceResult
+				: TTracer extends 'muxTracer'
+					? MuxTraceResult
+					: TraceResult
 
 /**
  * Result from `debug_traceBlock`.
@@ -66,11 +73,12 @@ export type DebugTraceCallResult<
  * Returns an array of transaction traces
  */
 export type DebugTraceBlockResult<
-	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | undefined =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | 'muxTracer' | undefined =
 		| 'callTracer'
 		| 'prestateTracer'
 		| '4byteTracer'
 		| 'flatCallTracer'
+		| 'muxTracer'
 		| undefined,
 	TDiffMode extends boolean = boolean,
 > = Array<{
