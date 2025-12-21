@@ -21,7 +21,7 @@ export const anvilSetChainIdJsonRpcProcedure = (client) => {
 			}
 		}
 		const err = new MethodNotSupportedError(
-			'UnsupportedMethodError: tevm_contract is not supported. Encode the contract arguments and use tevm_call instead.',
+			'anvil_setChainId is not supported. Chain ID is set at node creation time and cannot be changed at runtime.',
 		)
 		client.logger.error(err)
 		return /**@type any*/ ({

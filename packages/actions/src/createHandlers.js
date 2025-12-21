@@ -21,6 +21,7 @@ import { anvilSetAutomineJsonRpcProcedure } from './anvil/anvilSetAutomineProced
 import { anvilSetBalanceJsonRpcProcedure } from './anvil/anvilSetBalanceProcedure.js'
 import { anvilSetBlockGasLimitJsonRpcProcedure } from './anvil/anvilSetBlockGasLimitProcedure.js'
 import { anvilSetBlockTimestampIntervalJsonRpcProcedure } from './anvil/anvilSetBlockTimestampIntervalProcedure.js'
+import { anvilSetChainIdJsonRpcProcedure } from './anvil/anvilSetChainIdProcedure.js'
 import { anvilSetCodeJsonRpcProcedure } from './anvil/anvilSetCodeProcedure.js'
 import { anvilSetCoinbaseJsonRpcProcedure } from './anvil/anvilSetCoinbaseProcedure.js'
 import { anvilSetErc20AllowanceJsonRpcProcedure } from './anvil/anvilSetErc20AllowanceProcedure.js'
@@ -254,7 +255,7 @@ export const createHandlers = (client) => {
 		anvil_setBalance: anvilSetBalanceJsonRpcProcedure(client),
 		anvil_setBlockGasLimit: anvilSetBlockGasLimitJsonRpcProcedure(client),
 		anvil_setBlockTimestampInterval: anvilSetBlockTimestampIntervalJsonRpcProcedure(client),
-		anvil_setChainId: chainIdHandler(client),
+		anvil_setChainId: anvilSetChainIdJsonRpcProcedure(client),
 		anvil_setCode: anvilSetCodeJsonRpcProcedure(client),
 		anvil_setCoinbase: anvilSetCoinbaseJsonRpcProcedure(client),
 		anvil_setErc20Allowance: anvilSetErc20AllowanceJsonRpcProcedure(client),
