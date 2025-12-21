@@ -5,6 +5,7 @@ export { createTestSnapshotTransport } from './createTestSnapshotTransport.js'
 
 // Re-export types for convenience
 export type {
+	PassthroughConfig,
 	TestOptions,
 	TestSnapshotClient,
 	TestSnapshotClientOptions,

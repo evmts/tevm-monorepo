@@ -18,9 +18,27 @@ import type { TestSnapshotClient, TestSnapshotClientOptions } from './types.js'
  * import { createTestSnapshotClient } from '@tevm/test-node'
  * import { http } from 'viem'
  *
+ * // Basic usage with caching
  * const client = createTestSnapshotClient({
- *   fork: { transport: http('https://mainnet.optimism.io')() }
+ *   fork: { transport: http('https://mainnet.optimism.io')() },
  *   test: { resolveSnapshotPath: 'vitest' } // default
+ * })
+ *
+ * // Advanced usage with passthrough configuration
+ * const clientWithPassthrough = createTestSnapshotClient({
+ *   fork: { transport: http('https://mainnet.optimism.io')() },
+ *   test: {
+ *     resolveSnapshotPath: 'vitest',
+ *     passthrough: {
+ *       // Real-time oracle data testing
+ *       methodUrls: {
+ *         'eth_call': 'https://oracle-node.chainlink.com'
+ *       },
+ *       // Live state validation
+ *       nonCachedMethods: ['eth_blockNumber', 'eth_gasPrice'],
+ *       defaultUrl: 'https://live-validator.ethereum.org'
+ *     }
+ *   }
  * })
  *
  * // Use the client in your tests
@@ -49,12 +67,13 @@ export const createTestSnapshotClient = <
 
 	// Create TEVM client with cached transport
 	const autosave = options.test?.autosave ?? 'onRequest'
+	const passthroughConfig = options.test?.passthrough
 	const client = createMemoryClient({
 		...options,
 		fork: {
 			...options.fork,
-			// Create a transport with a request function that handles caching
-			transport: createCachedTransport(forkTransport, snapshotManager, autosave),
+			// Create a transport with a request function that handles caching and passthrough routing
+			transport: createCachedTransport(forkTransport, snapshotManager, autosave, passthroughConfig),
 		},
 	})
 	// @ts-expect-error - TODO: fix this, likely in some change we made to yParity inconsistent with view we didn't detect before
