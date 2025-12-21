@@ -125,6 +125,64 @@ describe('createTevmNode', () => {
 		expect(vm.common.id).toBe(999)
 	})
 
+	describe('fork.chainId override', () => {
+		// These tests need RPC access - skip if env vars not set
+		const hasRpcEnvVars = Boolean(process.env['TEVM_RPC_URLS_OPTIMISM'])
+
+		it('Uses fork.chainId when provided instead of fetching from RPC', async () => {
+			if (!hasRpcEnvVars) {
+				console.log('Skipping: TEVM_RPC_URLS_OPTIMISM not set')
+				return
+			}
+			const client = createTevmNode({
+				fork: {
+					transport: transports.optimism,
+					chainId: 1337, // Override Optimism's chain ID (10)
+				},
+			})
+			await client.ready()
+			const vm = await client.getVm()
+			// Should use the override chain ID, not Optimism's 10
+			expect(vm.common.id).toBe(1337)
+		})
+
+		it('fork.chainId takes priority over common.id', async () => {
+			if (!hasRpcEnvVars) {
+				console.log('Skipping: TEVM_RPC_URLS_OPTIMISM not set')
+				return
+			}
+			const customCommon = createCommon({ ...mainnet, id: 999, hardfork: 'prague', eips: [], loggingLevel: 'warn' })
+			const client = createTevmNode({
+				common: customCommon,
+				fork: {
+					transport: transports.optimism,
+					chainId: 1337, // This should take priority
+				},
+			})
+			await client.ready()
+			const vm = await client.getVm()
+			// fork.chainId should take priority over common.id
+			expect(vm.common.id).toBe(1337)
+		})
+
+		it('Uses auto-detected chain ID when fork.chainId is not provided', async () => {
+			if (!hasRpcEnvVars) {
+				console.log('Skipping: TEVM_RPC_URLS_OPTIMISM not set')
+				return
+			}
+			const client = createTevmNode({
+				fork: {
+					transport: transports.optimism,
+					// No chainId override
+				},
+			})
+			await client.ready()
+			const vm = await client.getVm()
+			// Should use Optimism's chain ID (10)
+			expect(vm.common.id).toBe(10)
+		})
+	})
+
 	it('Persists state with custom persister', async () => {
 		const persister = {
 			persistTevmState: vi.fn(),

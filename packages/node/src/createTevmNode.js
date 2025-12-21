@@ -266,6 +266,15 @@ export const createTevmNode = (options = {}) => {
 	}
 
 	const chainIdPromise = (async () => {
+		// Priority order:
+		// 1. fork.chainId (highest priority - allows overriding for wallet compatibility)
+		// 2. common.id (user-provided common configuration)
+		// 3. auto-detected from RPC (when forking)
+		// 4. DEFAULT_CHAIN_ID (fallback)
+		if (options?.fork?.chainId !== undefined) {
+			logger.debug({ chainId: options.fork.chainId }, 'Using fork chainId override')
+			return options.fork.chainId
+		}
 		if (options?.common) {
 			return options?.common.id
 		}
@@ -559,23 +568,23 @@ export const createTevmNode = (options = {}) => {
 		 * Base fee per gas to use for the next block (if set)
 		 * @type {bigint | undefined}
 		 */
-		let _copiedNextBlockBaseFeePerGas = baseClient.getNextBlockBaseFeePerGas()
+		let copiedNextBlockBaseFeePerGas = baseClient.getNextBlockBaseFeePerGas()
 		/**
 		 * @param {bigint | undefined} baseFeePerGas
 		 */
-		const _setCopiedNextBlockBaseFeePerGas = (baseFeePerGas) => {
-			_copiedNextBlockBaseFeePerGas = baseFeePerGas
+		const setCopiedNextBlockBaseFeePerGas = (baseFeePerGas) => {
+			copiedNextBlockBaseFeePerGas = baseFeePerGas
 		}
 		/**
 		 * Minimum gas price for transactions
 		 * @type {bigint | undefined}
 		 */
-		let _copiedMinGasPrice = baseClient.getMinGasPrice()
+		let copiedMinGasPrice = baseClient.getMinGasPrice()
 		/**
 		 * @param {bigint | undefined} price
 		 */
-		const _setCopiedMinGasPrice = (price) => {
-			_copiedMinGasPrice = price
+		const setCopiedMinGasPrice = (price) => {
+			copiedMinGasPrice = price
 		}
 		/**
 		 * Timestamp interval to automatically add between blocks (if set)
