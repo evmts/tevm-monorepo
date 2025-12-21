@@ -71,9 +71,10 @@ export const mineHandler =
 
 				// Use nextBlockTimestamp if set (only for the first block), otherwise use current time
 				const overrideTimestamp = count === 0 ? client.getNextBlockTimestamp() : undefined
-				let timestamp = overrideTimestamp !== undefined
-					? Number(overrideTimestamp)
-					: Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
+				let timestamp =
+					overrideTimestamp !== undefined
+						? Number(overrideTimestamp)
+						: Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
 				timestamp = count === 0 ? timestamp : timestamp + interval
 				// Clear the override after using it
 				if (count === 0 && overrideTimestamp !== undefined) {

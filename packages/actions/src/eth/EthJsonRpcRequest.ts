@@ -104,6 +104,14 @@ export type EthGasPriceJsonRpcRequest = JsonRpcRequest<'eth_gasPrice', readonly 
  * JSON-RPC request for `eth_maxPriorityFeePerGas` procedure
  */
 export type EthMaxPriorityFeePerGasJsonRpcRequest = JsonRpcRequest<'eth_maxPriorityFeePerGas', readonly []>
+// eth_feeHistory
+/**
+ * JSON-RPC request for `eth_feeHistory` procedure
+ */
+export type EthFeeHistoryJsonRpcRequest = JsonRpcRequest<
+	'eth_feeHistory',
+	readonly [blockCount: Hex, newestBlock: BlockTag | Hex, rewardPercentiles?: readonly number[]]
+>
 // eth_getBalance
 /**
  * JSON-RPC request for `eth_getBalance` procedure
@@ -328,6 +336,7 @@ export type EthJsonRpcRequest =
 	| EthHashrateJsonRpcRequest
 	| EthGasPriceJsonRpcRequest
 	| EthMaxPriorityFeePerGasJsonRpcRequest
+	| EthFeeHistoryJsonRpcRequest
 	| EthGetBalanceJsonRpcRequest
 	| EthGetBlockByHashJsonRpcRequest
 	| EthGetBlockByNumberJsonRpcRequest

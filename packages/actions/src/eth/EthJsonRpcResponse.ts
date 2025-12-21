@@ -71,6 +71,37 @@ export type EthGasPriceJsonRpcResponse = JsonRpcResponse<'eth_gasPrice', Hex, st
  */
 export type EthMaxPriorityFeePerGasJsonRpcResponse = JsonRpcResponse<'eth_maxPriorityFeePerGas', Hex, string | number>
 
+// eth_feeHistory
+/**
+ * JSON-RPC response for `eth_feeHistory` procedure
+ */
+export type EthFeeHistoryJsonRpcResponse = JsonRpcResponse<
+	'eth_feeHistory',
+	{
+		/**
+		 * Lowest number block of the returned range as hex
+		 */
+		oldestBlock: Hex
+		/**
+		 * An array of block base fees per gas. This includes the next block after
+		 * the newest of the returned range, because this value can be derived from
+		 * the newest block. Zeroes are returned for pre-EIP-1559 blocks.
+		 */
+		baseFeePerGas: Hex[]
+		/**
+		 * An array of block gas used ratios. These are calculated as the ratio
+		 * of gasUsed and gasLimit.
+		 */
+		gasUsedRatio: number[]
+		/**
+		 * An array of effective priority fee per gas data points from a single
+		 * block. All zeroes are returned if the block is empty.
+		 */
+		reward?: Hex[][]
+	},
+	string | number
+>
+
 // eth_getBalance
 /**
  * JSON-RPC response for `eth_getBalance` procedure

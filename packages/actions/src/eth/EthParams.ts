@@ -95,6 +95,25 @@ export type EthGasPriceParams = EmptyParams
  * Based on the JSON-RPC request for `eth_maxPriorityFeePerGas` procedure
  */
 export type EthMaxPriorityFeePerGasParams = EmptyParams
+// eth_feeHistory
+/**
+ * Based on the JSON-RPC request for `eth_feeHistory` procedure
+ */
+export type EthFeeHistoryParams = {
+	/**
+	 * Number of blocks in the requested range. Between 1 and 1024 blocks can be requested in a single query.
+	 */
+	readonly blockCount: bigint
+	/**
+	 * Highest block number of the requested range as a block tag or block number.
+	 */
+	readonly newestBlock: BlockParam
+	/**
+	 * A monotonically increasing list of percentile values to sample from each block's
+	 * effective priority fees per gas in ascending order, weighted by gas used.
+	 */
+	readonly rewardPercentiles?: readonly number[]
+}
 // eth_getBalance
 /**
  *Based on the  JSON-RPC request for `eth_getBalance` procedure
@@ -323,6 +342,7 @@ export type EthParams =
 	| EthHashrateParams
 	| EthGasPriceParams
 	| EthMaxPriorityFeePerGasParams
+	| EthFeeHistoryParams
 	| EthGetBalanceParams
 	| EthGetBlockByHashParams
 	| EthGetBlockByNumberParams

@@ -50,6 +50,7 @@ import { gasPriceProcedure } from './eth/gasPriceProcedure.js'
 import { getBalanceProcedure } from './eth/getBalanceProcedure.js'
 import { getCodeProcedure } from './eth/getCodeProcedure.js'
 import { getStorageAtProcedure } from './eth/getStorageAtProcedure.js'
+import { ethFeeHistoryProcedure } from './eth/ethFeeHistoryProcedure.js'
 import { maxPriorityFeePerGasProcedure } from './eth/maxPriorityFeePerGasProcedure.js'
 import { testAccounts } from './eth/utils/testAccounts.js'
 import { getAccountProcedure } from './GetAccount/getAccountProcedure.js'
@@ -105,6 +106,7 @@ export const createHandlers = (client) => {
 		eth_getStorageAt: getStorageAtProcedure(client),
 		eth_gasPrice: gasPriceProcedure(client),
 		eth_maxPriorityFeePerGas: maxPriorityFeePerGasProcedure(client),
+		eth_feeHistory: ethFeeHistoryProcedure(client),
 		eth_getBalance: getBalanceProcedure(client),
 		eth_coinbase: ethCoinbaseJsonRpcProcedure(client),
 		eth_mining:
