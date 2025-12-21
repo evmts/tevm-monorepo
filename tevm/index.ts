@@ -172,7 +172,6 @@ export {
     type AutoMining,
     type ManualMining,
     type MiningConfig,
-    type IntervalMining,
     type EIP1193Events,
     type Filter,
     type FilterType,

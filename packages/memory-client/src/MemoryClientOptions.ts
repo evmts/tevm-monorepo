@@ -68,8 +68,7 @@ import type { TevmRpcSchema } from './TevmRpcSchema.js'
  * @property {Function} [fork.transport] - The transport function for connecting to the fork source network.
  * @property {string|number|bigint} [fork.blockTag] - The specific block tag to fork from (can be number, hash, or named tag like 'latest').
  * @property {Object} [miningConfig] - Configuration for how blocks are mined.
- * @property {'manual'|'auto'|'interval'} [miningConfig.type] - The mining mode (manual requires calling mine(), auto mines after each tx, interval mines on a timer).
- * @property {number} [miningConfig.interval] - For interval mining, how often to mine blocks in milliseconds.
+ * @property {'manual'|'auto'} [miningConfig.type] - The mining mode (manual requires calling mine(), auto mines after each tx).
  * @property {import('@tevm/utils').SyncStoragePersister} [persister] - Handler for persisting and restoring state.
  * @property {boolean} [allowUnlimitedContractSize] - Whether to remove the EIP-170 contract size limit (default: false).
  * @property {'error'|'warn'|'info'|'debug'|'trace'} [loggingLevel] - Controls logging verbosity (default: 'info').

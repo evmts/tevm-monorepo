@@ -49,10 +49,8 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 			})
 			txHash = 'txHash' in txRes ? txRes.txHash : undefined
 
-			const isGasMining = client.miningConfig.type === 'gas'
-
 			if (shouldAddToChain && txHash) {
-				const autoMiningResult = await handleAutomining(client, txHash, isGasMining, false)
+				const autoMiningResult = await handleAutomining(client, txHash, false, false)
 
 				if (autoMiningResult?.errors) {
 					errors.push(.../** @type {any} */ (autoMiningResult.errors))

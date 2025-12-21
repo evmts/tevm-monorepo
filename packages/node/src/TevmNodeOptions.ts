@@ -30,7 +30,6 @@ export type TevmNodeOptions<TCommon extends Common = Common> = StateOptions & {
 	/**
 	 * The configuration for mining. Defaults to 'auto'
 	 * - 'auto' will mine a block on every transaction
-	 * - 'interval' will mine a block every `interval` milliseconds
 	 * - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 	 */
 	readonly miningConfig?: MiningConfig

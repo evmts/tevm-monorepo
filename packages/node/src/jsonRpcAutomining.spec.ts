@@ -141,10 +141,6 @@ describe('Tevm Node JSON-RPC Automining Integration Tests', () => {
 			// Test manual mining
 			const manualNode = createTevmNode({ miningConfig: { type: 'manual' } })
 			expect(manualNode.miningConfig).toEqual({ type: 'manual' })
-
-			// Test interval mining
-			const intervalNode = createTevmNode({ miningConfig: { type: 'interval', interval: 1000 } })
-			expect(intervalNode.miningConfig).toEqual({ type: 'interval', interval: 1000 })
 		})
 	})
 })

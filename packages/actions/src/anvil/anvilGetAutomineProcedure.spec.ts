@@ -20,7 +20,7 @@ describe('anvilGetAutomineJsonRpcProcedure', () => {
 	})
 
 	it('should return false when automine is disabled', async () => {
-		const node = createTevmNode({ miningConfig: { type: 'interval', interval: 1000 } })
+		const node = createTevmNode({ miningConfig: { type: 'manual' } })
 		const procedure = anvilGetAutomineJsonRpcProcedure(node)
 
 		const result = await procedure({

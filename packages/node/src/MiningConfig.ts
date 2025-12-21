@@ -1,20 +1,4 @@
 /**
- * Mining configuration that creates blocks at fixed time intervals.
- * @example
- * ```typescript
- * import { IntervalMining } from '@tevm/node'
- *
- * const value: IntervalMining = {
- *   type: 'interval',
- *   interval: 5000 // Mine blocks every 5 seconds
- * }
- * ```
- */
-export type IntervalMining = {
-	type: 'interval'
-	interval: number
-}
-/**
  * Mining configuration where blocks are only created when explicitly requested.
  * Transactions remain in the mempool until manually mined.
  * @example
@@ -48,23 +32,6 @@ export type AutoMining = {
 	type: 'auto'
 }
 /**
- * Mining configuration that mines blocks when accumulated gas usage exceeds a threshold.
- * Useful for simulating realistic block filling behavior.
- * @example
- * ```typescript
- * import { GasMining } from '@tevm/node'
- *
- * const value: GasMining = {
- *   type: 'gas',
- *   limit: 15000000n // Mine when gas used exceeds 15M
- * }
- * ```
- */
-export type GasMining = {
-	type: 'gas'
-	limit: BigInt
-}
-/**
  * Configuration options for controlling block mining behavior.
  * Union of all mining strategy types.
  * @example
@@ -74,8 +41,7 @@ export type GasMining = {
  *
  * // Choose one of the mining strategies
  * const miningConfig: MiningConfig = {
- *   type: 'interval',
- *   interval: 2000 // Mine every 2 seconds
+ *   type: 'auto' // Mine automatically after each transaction
  * }
  *
  * const client = createMemoryClient({
@@ -83,4 +49,4 @@ export type GasMining = {
  * })
  * ```
  */
-export type MiningConfig = IntervalMining | ManualMining | AutoMining | GasMining
+export type MiningConfig = ManualMining | AutoMining
