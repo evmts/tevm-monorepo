@@ -15,7 +15,7 @@ export type TevmNodeOptions<TCommon extends Common = Common> = StateOptions & {
 	 * Highly recomended you always set this in fork mode as it will speed up client creation via not having to fetch the chain info
 	 * @example
 	 * ```
-	 * import { optimism } from 'tevm/chains'
+	 * import { optimism } from 'tevm/common'
 	 * import { createMemoryClient } from 'tevm'}
 	 *
 	 * const client = createMemoryClient({ chain: optimism })

@@ -31,7 +31,7 @@ Highly recomended you always set this in fork mode as it will speed up client cr
 #### Example
 
 ```
-import { optimism } from 'tevm/chains'
+import { optimism } from 'tevm/common'
 import { createMemoryClient } from 'tevm'}
 
 const client = createMemoryClient({ chain: optimism })

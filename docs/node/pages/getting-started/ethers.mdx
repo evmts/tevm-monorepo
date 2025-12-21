@@ -40,7 +40,7 @@ Set up your Tevm client and enable the EIP-1193 interface:
 
 ```ts
 import { createMemoryClient, http } from "tevm";
-import { optimism } from "tevm/chains";
+import { optimism } from "tevm/common";
 import { requestEip1193 } from "tevm/decorators";
 
 // Create a client (optionally forking from a network)
@@ -98,7 +98,7 @@ The following example demonstrates how to use ethers.js with Tevm to interact wi
 
 ```ts showLineNumbers {3,12-13,27-28,47-48,66} filename="ethers-with-tevm.ts"
 import { createMemoryClient, http, parseAbi } from "tevm";
-import { optimism } from "tevm/chains";
+import { optimism } from "tevm/common";
 import { requestEip1193 } from "tevm/decorators"; // [!code focus]
 import { BrowserProvider, Wallet, Contract, formatEther } from "ethers";
 import { parseUnits } from "ethers/utils";
@@ -274,7 +274,7 @@ Interact with an existing contract using ethers.js:
 
 ```ts
 import { createMemoryClient, http, parseAbi } from "tevm";
-import { mainnet } from "tevm/chains";
+import { mainnet } from "tevm/common";
 import { requestEip1193 } from "tevm/decorators";
 import {
   BrowserProvider,
