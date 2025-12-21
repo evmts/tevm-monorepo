@@ -1,32 +1,46 @@
 import type {
+	AnvilAddBalanceParams,
+	AnvilDealErc20Params,
 	AnvilDealParams,
 	AnvilDropTransactionParams,
 	AnvilDumpStateParams,
 	AnvilGetAutomineParams,
 	AnvilImpersonateAccountParams,
 	AnvilLoadStateParams,
+	AnvilMetadataParams,
 	AnvilMineParams,
+	AnvilNodeInfoParams,
 	AnvilResetParams,
 	AnvilSetBalanceParams,
 	AnvilSetChainIdParams,
 	AnvilSetCodeParams,
+	AnvilSetErc20AllowanceParams,
+	AnvilSetLoggingEnabledParams,
 	AnvilSetNonceParams,
+	AnvilSetRpcUrlParams,
 	AnvilSetStorageAtParams,
 	AnvilStopImpersonatingAccountParams,
 } from './AnvilParams.js'
 import type {
+	AnvilAddBalanceResult,
+	AnvilDealErc20Result,
 	AnvilDealResult,
 	AnvilDropTransactionResult,
 	AnvilDumpStateResult,
 	AnvilGetAutomineResult,
 	AnvilImpersonateAccountResult,
 	AnvilLoadStateResult,
+	AnvilMetadataResult,
 	AnvilMineResult,
+	AnvilNodeInfoResult,
 	AnvilResetResult,
 	AnvilSetBalanceResult,
 	AnvilSetChainIdResult,
 	AnvilSetCodeResult,
+	AnvilSetErc20AllowanceResult,
+	AnvilSetLoggingEnabledResult,
 	AnvilSetNonceResult,
+	AnvilSetRpcUrlResult,
 	AnvilSetStorageAtResult,
 	AnvilStopImpersonatingAccountResult,
 } from './AnvilResult.js'
@@ -68,3 +82,21 @@ export type AnvilDumpStateHandler = (params: AnvilDumpStateParams) => Promise<An
 export type AnvilLoadStateHandler = (params: AnvilLoadStateParams) => Promise<AnvilLoadStateResult>
 // anvil_deal
 export type AnvilDealHandler = (params: AnvilDealParams) => Promise<AnvilDealResult>
+// anvil_dealErc20
+export type AnvilDealErc20Handler = (params: AnvilDealErc20Params) => Promise<AnvilDealErc20Result>
+// anvil_setErc20Allowance
+export type AnvilSetErc20AllowanceHandler = (
+	params: AnvilSetErc20AllowanceParams,
+) => Promise<AnvilSetErc20AllowanceResult>
+// anvil_nodeInfo
+export type AnvilNodeInfoHandler = (params: AnvilNodeInfoParams) => Promise<AnvilNodeInfoResult>
+// anvil_metadata
+export type AnvilMetadataHandler = (params: AnvilMetadataParams) => Promise<AnvilMetadataResult>
+// anvil_setRpcUrl
+export type AnvilSetRpcUrlHandler = (params: AnvilSetRpcUrlParams) => Promise<AnvilSetRpcUrlResult>
+// anvil_setLoggingEnabled
+export type AnvilSetLoggingEnabledHandler = (
+	params: AnvilSetLoggingEnabledParams,
+) => Promise<AnvilSetLoggingEnabledResult>
+// anvil_addBalance
+export type AnvilAddBalanceHandler = (params: AnvilAddBalanceParams) => Promise<AnvilAddBalanceResult>

@@ -1,21 +1,45 @@
 import { MethodNotSupportedError } from '@tevm/errors'
+import { anvilAutoImpersonateAccountJsonRpcProcedure } from './anvil/anvilAutoImpersonateAccountProcedure.js'
+import { anvilDealErc20JsonRpcProcedure } from './anvil/anvilDealErc20Procedure.js'
 import { anvilDealJsonRpcProcedure } from './anvil/anvilDealProcedure.js'
+import { anvilDropAllTransactionsJsonRpcProcedure } from './anvil/anvilDropAllTransactionsProcedure.js'
 import { anvilDropTransactionJsonRpcProcedure } from './anvil/anvilDropTransactionProcedure.js'
 import { anvilDumpStateJsonRpcProcedure } from './anvil/anvilDumpStateProcedure.js'
 import { anvilGetAutomineJsonRpcProcedure } from './anvil/anvilGetAutomineProcedure.js'
+import { anvilGetIntervalMiningJsonRpcProcedure } from './anvil/anvilGetIntervalMiningProcedure.js'
 import { anvilImpersonateAccountJsonRpcProcedure } from './anvil/anvilImpersonateAccountProcedure.js'
 import { anvilLoadStateJsonRpcProcedure } from './anvil/anvilLoadStateProcedure.js'
+import { anvilRemovePoolTransactionsJsonRpcProcedure } from './anvil/anvilRemovePoolTransactionsProcedure.js'
 import { anvilResetJsonRpcProcedure } from './anvil/anvilResetProcedure.js'
+import { anvilRevertJsonRpcProcedure } from './anvil/anvilRevertProcedure.js'
+import { anvilSetAutomineJsonRpcProcedure } from './anvil/anvilSetAutomineProcedure.js'
 import { anvilSetBalanceJsonRpcProcedure } from './anvil/anvilSetBalanceProcedure.js'
+import { anvilSetBlockGasLimitJsonRpcProcedure } from './anvil/anvilSetBlockGasLimitProcedure.js'
 import { anvilSetCodeJsonRpcProcedure } from './anvil/anvilSetCodeProcedure.js'
 import { anvilSetCoinbaseJsonRpcProcedure } from './anvil/anvilSetCoinbaseProcedure.js'
+import { anvilSetErc20AllowanceJsonRpcProcedure } from './anvil/anvilSetErc20AllowanceProcedure.js'
+import { anvilSetIntervalMiningJsonRpcProcedure } from './anvil/anvilSetIntervalMiningProcedure.js'
+import { anvilSetMinGasPriceJsonRpcProcedure } from './anvil/anvilSetMinGasPriceProcedure.js'
+import { anvilSetNextBlockBaseFeePerGasJsonRpcProcedure } from './anvil/anvilSetNextBlockBaseFeePerGasProcedure.js'
 import { anvilSetNonceJsonRpcProcedure } from './anvil/anvilSetNonceProcedure.js'
 import { anvilSetStorageAtJsonRpcProcedure } from './anvil/anvilSetStorageAtProcedure.js'
+import { anvilSnapshotJsonRpcProcedure } from './anvil/anvilSnapshotProcedure.js'
 import { anvilStopImpersonatingAccountJsonRpcProcedure } from './anvil/anvilStopImpersonatingAccountProcedure.js'
 import { callProcedure } from './Call/callProcedure.js'
 import { dumpStateProcedure } from './DumpState/dumpStateProcedure.js'
+import { debugDumpBlockJsonRpcProcedure } from './debug/debugDumpBlockProcedure.js'
+import { debugGetModifiedAccountsByHashJsonRpcProcedure } from './debug/debugGetModifiedAccountsByHashProcedure.js'
+import { debugGetModifiedAccountsByNumberJsonRpcProcedure } from './debug/debugGetModifiedAccountsByNumberProcedure.js'
+import { debugGetRawBlockJsonRpcProcedure } from './debug/debugGetRawBlockProcedure.js'
+import { debugGetRawHeaderJsonRpcProcedure } from './debug/debugGetRawHeaderProcedure.js'
+import { debugGetRawReceiptsJsonRpcProcedure } from './debug/debugGetRawReceiptsProcedure.js'
+import { debugGetRawTransactionJsonRpcProcedure } from './debug/debugGetRawTransactionProcedure.js'
+import { debugStorageRangeAtJsonRpcProcedure } from './debug/debugStorageRangeAtProcedure.js'
+import { debugTraceBlockByHashJsonRpcProcedure } from './debug/debugTraceBlockByHashProcedure.js'
+import { debugTraceBlockByNumberJsonRpcProcedure } from './debug/debugTraceBlockByNumberProcedure.js'
 import { debugTraceBlockJsonRpcProcedure } from './debug/debugTraceBlockProcedure.js'
 import { debugTraceCallJsonRpcProcedure } from './debug/debugTraceCallProcedure.js'
+import { debugTraceChainJsonRpcProcedure } from './debug/debugTraceChainProcedure.js'
 import { debugTraceStateJsonRpcProcedure } from './debug/debugTraceStateProcedure.js'
 import { debugTraceTransactionJsonRpcProcedure } from './debug/debugTraceTransactionProcedure.js'
 import { blockNumberProcedure } from './eth/blockNumberProcedure.js'
@@ -30,6 +54,7 @@ import { ethEstimateGasJsonRpcProcedure } from './eth/ethEstimateGasProcedure.js
 import { ethFeeHistoryProcedure } from './eth/ethFeeHistoryProcedure.js'
 import { ethGetBlockByHashJsonRpcProcedure } from './eth/ethGetBlockByHashProcedure.js'
 import { ethGetBlockByNumberJsonRpcProcedure } from './eth/ethGetBlockByNumberProcedure.js'
+import { ethGetBlockReceiptsJsonRpcProcedure } from './eth/ethGetBlockReceiptsProcedure.js'
 import { ethGetBlockTransactionCountByHashJsonRpcProcedure } from './eth/ethGetBlockTransactionCountByHashProcedure.js'
 import { ethGetBlockTransactionCountByNumberJsonRpcProcedure } from './eth/ethGetBlockTransactionCountByNumberProcedure.js'
 import { ethGetFilterChangesProcedure } from './eth/ethGetFilterChangesProcedure.js'
@@ -139,6 +164,7 @@ export const createHandlers = (client) => {
 		eth_sendRawTransaction: ethSendRawTransactionJsonRpcProcedure(client),
 		eth_estimateGas: ethEstimateGasJsonRpcProcedure(client),
 		eth_getTransactionReceipt: ethGetTransactionReceiptJsonRpcProcedure(client),
+		eth_getBlockReceipts: ethGetBlockReceiptsJsonRpcProcedure(client),
 		eth_getLogs: ethGetLogsProcedure(client),
 		eth_getBlockByHash: ethGetBlockByHashJsonRpcProcedure(client),
 		eth_getBlockByNumber: ethGetBlockByNumberJsonRpcProcedure(client),
@@ -153,6 +179,8 @@ export const createHandlers = (client) => {
 		eth_getFilterLogs: ethGetFilterLogsProcedure(client),
 		eth_newBlockFilter: ethNewBlockFilterProcedure(client),
 		eth_uninstallFilter: ethUninstallFilterJsonRpcProcedure(client),
+		eth_subscribe: ethSubscribeJsonRpcProcedure(client),
+		eth_unsubscribe: ethUnsubscribeJsonRpcProcedure(client),
 		eth_getFilterChanges: ethGetFilterChangesProcedure(client),
 		eth_newPendingTransactionFilter: ethNewPendingTransactionFilterProcedure(client),
 		eth_blobBaseFee: ethBlobBaseFeeJsonRpcProcedure(client),
@@ -189,36 +217,40 @@ export const createHandlers = (client) => {
 		}
 
 	const anvilHandlers = {
+		anvil_addBalance: anvilAddBalanceJsonRpcProcedure(client),
+		anvil_autoImpersonateAccount: anvilAutoImpersonateAccountJsonRpcProcedure(client),
 		anvil_deal: anvilDealJsonRpcProcedure(client),
-		anvil_setCode: anvilSetCodeJsonRpcProcedure(client),
-		anvil_setBalance: anvilSetBalanceJsonRpcProcedure(client),
-		anvil_setNonce: anvilSetNonceJsonRpcProcedure(client),
-		anvil_setChainId: chainIdHandler(client),
-		anvil_getAutomine: anvilGetAutomineJsonRpcProcedure(client),
-		anvil_setCoinbase: anvilSetCoinbaseJsonRpcProcedure(client),
-		anvil_mine: mineProcedure(client),
-		anvil_reset: anvilResetJsonRpcProcedure(client),
+		anvil_dealErc20: anvilDealErc20JsonRpcProcedure(client),
+		anvil_dropAllTransactions: anvilDropAllTransactionsJsonRpcProcedure(client),
 		anvil_dropTransaction: anvilDropTransactionJsonRpcProcedure(client),
 		anvil_dumpState: anvilDumpStateJsonRpcProcedure(client),
-		anvil_loadState: anvilLoadStateJsonRpcProcedure(client),
-		anvil_setStorageAt: anvilSetStorageAtJsonRpcProcedure(client),
+		anvil_getAutomine: anvilGetAutomineJsonRpcProcedure(client),
+		anvil_getIntervalMining: anvilGetIntervalMiningJsonRpcProcedure(client),
 		anvil_impersonateAccount: anvilImpersonateAccountJsonRpcProcedure(client),
-		anvil_stopImpersonatingAccount: anvilStopImpersonatingAccountJsonRpcProcedure(client),
 		anvil_increaseTime: createIncreaseTimeHandler('anvil_increaseTime'),
-		/**
-		 * Sets the block gas limit for the next block
-		 * @param {any} request
-		 */
-		anvil_setBlockGasLimit: (request) => {
-			const gasLimit = BigInt(request.params[0])
-			client.setNextBlockGasLimit(gasLimit)
-			return {
-				method: request.method,
-				result: null,
-				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
-			}
-		},
+		anvil_loadState: anvilLoadStateJsonRpcProcedure(client),
+		anvil_metadata: anvilMetadataJsonRpcProcedure(client),
+		anvil_mine: mineProcedure(client),
+		anvil_nodeInfo: anvilNodeInfoJsonRpcProcedure(client),
+		anvil_removePoolTransactions: anvilRemovePoolTransactionsJsonRpcProcedure(client),
+		anvil_reset: anvilResetJsonRpcProcedure(client),
+		anvil_revert: anvilRevertJsonRpcProcedure(client),
+		anvil_setAutomine: anvilSetAutomineJsonRpcProcedure(client),
+		anvil_setBalance: anvilSetBalanceJsonRpcProcedure(client),
+		anvil_setBlockGasLimit: anvilSetBlockGasLimitJsonRpcProcedure(client),
+		anvil_setChainId: chainIdHandler(client),
+		anvil_setCode: anvilSetCodeJsonRpcProcedure(client),
+		anvil_setCoinbase: anvilSetCoinbaseJsonRpcProcedure(client),
+		anvil_setErc20Allowance: anvilSetErc20AllowanceJsonRpcProcedure(client),
+		anvil_setIntervalMining: anvilSetIntervalMiningJsonRpcProcedure(client),
+		anvil_setLoggingEnabled: anvilSetLoggingEnabledJsonRpcProcedure(client),
+		anvil_setMinGasPrice: anvilSetMinGasPriceJsonRpcProcedure(client),
+		anvil_setNextBlockBaseFeePerGas: anvilSetNextBlockBaseFeePerGasJsonRpcProcedure(client),
+		anvil_setNonce: anvilSetNonceJsonRpcProcedure(client),
+		anvil_setRpcUrl: anvilSetRpcUrlJsonRpcProcedure(client),
+		anvil_setStorageAt: anvilSetStorageAtJsonRpcProcedure(client),
+		anvil_snapshot: anvilSnapshotJsonRpcProcedure(client),
+		anvil_stopImpersonatingAccount: anvilStopImpersonatingAccountJsonRpcProcedure(client),
 	}
 	const tevmAnvilHandlers = Object.fromEntries(
 		Object.entries(anvilHandlers).map(([key, value]) => {
@@ -238,11 +270,22 @@ export const createHandlers = (client) => {
 
 	const debugHandlers = {
 		debug_traceBlock: debugTraceBlockJsonRpcProcedure(client),
-		debug_traceBlockByHash: debugTraceBlockJsonRpcProcedure(client),
-		debug_traceBlockByNumber: debugTraceBlockJsonRpcProcedure(client),
+		debug_traceBlockByHash: debugTraceBlockByHashJsonRpcProcedure(client),
+		debug_traceBlockByNumber: debugTraceBlockByNumberJsonRpcProcedure(client),
 		debug_traceCall: debugTraceCallJsonRpcProcedure(client),
 		debug_traceTransaction: debugTraceTransactionJsonRpcProcedure(client),
+		debug_traceChain: debugTraceChainJsonRpcProcedure(client),
 		debug_traceState: debugTraceStateJsonRpcProcedure(client),
+		debug_dumpBlock: debugDumpBlockJsonRpcProcedure(client),
+		debug_getModifiedAccountsByNumber: debugGetModifiedAccountsByNumberJsonRpcProcedure(client),
+		debug_getModifiedAccountsByHash: debugGetModifiedAccountsByHashJsonRpcProcedure(client),
+		debug_intermediateRoots: debugIntermediateRootsJsonRpcProcedure(client),
+		debug_preimage: debugPreimageJsonRpcProcedure(client),
+		debug_storageRangeAt: debugStorageRangeAtJsonRpcProcedure(client),
+		debug_getRawBlock: debugGetRawBlockJsonRpcProcedure(client),
+		debug_getRawHeader: debugGetRawHeaderJsonRpcProcedure(client),
+		debug_getRawTransaction: debugGetRawTransactionJsonRpcProcedure(client),
+		debug_getRawReceipts: debugGetRawReceiptsJsonRpcProcedure(client),
 	}
 
 	const evmHandlers = {

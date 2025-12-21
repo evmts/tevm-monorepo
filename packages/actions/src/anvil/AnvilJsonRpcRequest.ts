@@ -6,6 +6,7 @@ import type {
 	AnvilDropTransactionParams,
 	AnvilDumpStateParams,
 	AnvilGetAutomineParams,
+	AnvilGetIntervalMiningParams,
 	AnvilLoadStateParams,
 } from './index.js'
 
@@ -25,9 +26,11 @@ export type AnvilStopImpersonatingAccountJsonRpcRequest = JsonRpcRequest<
 // anvil_autoImpersonateAccount
 /**
  * JSON-RPC request for `anvil_autoImpersonateAccount` method
- * Not included atm because tevm_call supports it and i was getting methodNotFound errors trying it in anvil
  */
-// export type AnvilAutoImpersonateAccountJsonRpcRequest = JsonRpcRequest<
+export type AnvilAutoImpersonateAccountJsonRpcRequest = JsonRpcRequest<
+	'anvil_autoImpersonateAccount',
+	readonly [boolean]
+>
 // anvil_getAutomine
 /**
  * JSON-RPC request for `anvil_getAutomine` method
@@ -35,6 +38,24 @@ export type AnvilStopImpersonatingAccountJsonRpcRequest = JsonRpcRequest<
 export type AnvilGetAutomineJsonRpcRequest = JsonRpcRequest<
 	'anvil_getAutomine',
 	[SerializeToJson<AnvilGetAutomineParams>]
+>
+// anvil_setAutomine
+/**
+ * JSON-RPC request for `anvil_setAutomine` method
+ */
+export type AnvilSetAutomineJsonRpcRequest = JsonRpcRequest<'anvil_setAutomine', readonly [boolean]>
+// anvil_setIntervalMining
+/**
+ * JSON-RPC request for `anvil_setIntervalMining` method
+ */
+export type AnvilSetIntervalMiningJsonRpcRequest = JsonRpcRequest<'anvil_setIntervalMining', readonly [number]>
+// anvil_getIntervalMining
+/**
+ * JSON-RPC request for `anvil_getIntervalMining` method
+ */
+export type AnvilGetIntervalMiningJsonRpcRequest = JsonRpcRequest<
+	'anvil_getIntervalMining',
+	[SerializeToJson<AnvilGetIntervalMiningParams>]
 >
 // anvil_setCoinbase
 /**
@@ -117,11 +138,147 @@ export type AnvilLoadStateJsonRpcRequest = JsonRpcRequest<
  * JSON-RPC request for `anvil_deal` method
  */
 export type AnvilDealJsonRpcRequest = JsonRpcRequest<'anvil_deal', [SerializeToJson<AnvilDealParams>]>
+// anvil_dealErc20
+/**
+ * JSON-RPC request for `anvil_dealErc20` method
+ */
+export type AnvilDealErc20JsonRpcRequest = JsonRpcRequest<
+	'anvil_dealErc20',
+	readonly [
+		{
+			erc20: Address
+			account: Address
+			amount: Hex
+		},
+	]
+>
+// anvil_setErc20Allowance
+/**
+ * JSON-RPC request for `anvil_setErc20Allowance` method
+ */
+export type AnvilSetErc20AllowanceJsonRpcRequest = JsonRpcRequest<
+	'anvil_setErc20Allowance',
+	readonly [
+		{
+			erc20: Address
+			owner: Address
+			spender: Address
+			amount: Hex
+		},
+	]
+>
+// anvil_dropAllTransactions
+/**
+ * JSON-RPC request for `anvil_dropAllTransactions` method
+ */
+export type AnvilDropAllTransactionsJsonRpcRequest = JsonRpcRequest<'anvil_dropAllTransactions', readonly []>
+// anvil_removePoolTransactions
+/**
+ * JSON-RPC request for `anvil_removePoolTransactions` method
+ */
+export type AnvilRemovePoolTransactionsJsonRpcRequest = JsonRpcRequest<
+	'anvil_removePoolTransactions',
+	readonly [Address]
+>
+// anvil_nodeInfo
+/**
+ * JSON-RPC request for `anvil_nodeInfo` method
+ */
+export type AnvilNodeInfoJsonRpcRequest = JsonRpcRequest<'anvil_nodeInfo', []>
+// anvil_metadata
+/**
+ * JSON-RPC request for `anvil_metadata` method
+ */
+export type AnvilMetadataJsonRpcRequest = JsonRpcRequest<'anvil_metadata', []>
+// anvil_setRpcUrl
+/**
+ * JSON-RPC request for `anvil_setRpcUrl` method
+ */
+export type AnvilSetRpcUrlJsonRpcRequest = JsonRpcRequest<'anvil_setRpcUrl', readonly [url: string]>
+// anvil_setLoggingEnabled
+/**
+ * JSON-RPC request for `anvil_setLoggingEnabled` method
+ */
+export type AnvilSetLoggingEnabledJsonRpcRequest = JsonRpcRequest<
+	'anvil_setLoggingEnabled',
+	readonly [enabled: boolean]
+>
+// anvil_addBalance
+/**
+ * JSON-RPC request for `anvil_addBalance` method
+ */
+export type AnvilAddBalanceJsonRpcRequest = JsonRpcRequest<'anvil_addBalance', readonly [address: Address, amount: Hex]>
+// anvil_setBlockGasLimit
+/**
+ * JSON-RPC request for `anvil_setBlockGasLimit` method
+ */
+export type AnvilSetBlockGasLimitJsonRpcRequest = JsonRpcRequest<'anvil_setBlockGasLimit', readonly [gasLimit: Hex]>
+// anvil_setNextBlockBaseFeePerGas
+/**
+ * JSON-RPC request for `anvil_setNextBlockBaseFeePerGas` method
+ */
+export type AnvilSetNextBlockBaseFeePerGasJsonRpcRequest = JsonRpcRequest<
+	'anvil_setNextBlockBaseFeePerGas',
+	readonly [baseFeePerGas: Hex]
+>
+// anvil_setMinGasPrice
+/**
+ * JSON-RPC request for `anvil_setMinGasPrice` method
+ */
+export type AnvilSetMinGasPriceJsonRpcRequest = JsonRpcRequest<'anvil_setMinGasPrice', readonly [minGasPrice: Hex]>
+// anvil_snapshot
+/**
+ * JSON-RPC request for `anvil_snapshot` method
+ */
+export type AnvilSnapshotJsonRpcRequest = JsonRpcRequest<'anvil_snapshot', readonly []>
+// anvil_revert
+/**
+ * JSON-RPC request for `anvil_revert` method
+ */
+export type AnvilRevertJsonRpcRequest = JsonRpcRequest<'anvil_revert', readonly [snapshotId: Hex]>
+// anvil_increaseTime
+/**
+ * JSON-RPC request for `anvil_increaseTime` method
+ */
+export type AnvilIncreaseTimeJsonRpcRequest = JsonRpcRequest<'anvil_increaseTime', readonly [seconds: Hex]>
+// anvil_setNextBlockTimestamp
+/**
+ * JSON-RPC request for `anvil_setNextBlockTimestamp` method
+ */
+export type AnvilSetNextBlockTimestampJsonRpcRequest = JsonRpcRequest<
+	'anvil_setNextBlockTimestamp',
+	readonly [timestamp: Hex]
+>
+// anvil_setTime
+/**
+ * JSON-RPC request for `anvil_setTime` method
+ */
+export type AnvilSetTimeJsonRpcRequest = JsonRpcRequest<'anvil_setTime', readonly [timestamp: Hex]>
+// anvil_setBlockTimestampInterval
+/**
+ * JSON-RPC request for `anvil_setBlockTimestampInterval` method
+ */
+export type AnvilSetBlockTimestampIntervalJsonRpcRequest = JsonRpcRequest<
+	'anvil_setBlockTimestampInterval',
+	readonly [interval: Hex]
+>
+// anvil_removeBlockTimestampInterval
+/**
+ * JSON-RPC request for `anvil_removeBlockTimestampInterval` method
+ */
+export type AnvilRemoveBlockTimestampIntervalJsonRpcRequest = JsonRpcRequest<
+	'anvil_removeBlockTimestampInterval',
+	readonly []
+>
 
 export type AnvilJsonRpcRequest =
 	| AnvilImpersonateAccountJsonRpcRequest
 	| AnvilStopImpersonatingAccountJsonRpcRequest
+	| AnvilAutoImpersonateAccountJsonRpcRequest
 	| AnvilGetAutomineJsonRpcRequest
+	| AnvilSetAutomineJsonRpcRequest
+	| AnvilSetIntervalMiningJsonRpcRequest
+	| AnvilGetIntervalMiningJsonRpcRequest
 	| AnvilMineJsonRpcRequest
 	| AnvilResetJsonRpcRequest
 	| AnvilDropTransactionJsonRpcRequest
@@ -134,3 +291,22 @@ export type AnvilJsonRpcRequest =
 	| AnvilLoadStateJsonRpcRequest
 	| AnvilSetCoinbaseJsonRpcRequest
 	| AnvilDealJsonRpcRequest
+	| AnvilDealErc20JsonRpcRequest
+	| AnvilSetErc20AllowanceJsonRpcRequest
+	| AnvilDropAllTransactionsJsonRpcRequest
+	| AnvilRemovePoolTransactionsJsonRpcRequest
+	| AnvilNodeInfoJsonRpcRequest
+	| AnvilMetadataJsonRpcRequest
+	| AnvilSetRpcUrlJsonRpcRequest
+	| AnvilSetLoggingEnabledJsonRpcRequest
+	| AnvilAddBalanceJsonRpcRequest
+	| AnvilSetBlockGasLimitJsonRpcRequest
+	| AnvilSetNextBlockBaseFeePerGasJsonRpcRequest
+	| AnvilSetMinGasPriceJsonRpcRequest
+	| AnvilSnapshotJsonRpcRequest
+	| AnvilRevertJsonRpcRequest
+	| AnvilIncreaseTimeJsonRpcRequest
+	| AnvilSetNextBlockTimestampJsonRpcRequest
+	| AnvilSetTimeJsonRpcRequest
+	| AnvilSetBlockTimestampIntervalJsonRpcRequest
+	| AnvilRemoveBlockTimestampIntervalJsonRpcRequest
