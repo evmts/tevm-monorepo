@@ -120,7 +120,7 @@ export const debugIntermediateRootsJsonRpcProcedure = (client) => {
 
 			// Get the state root after this transaction
 			const stateRoot = vmClone.stateManager._baseState.getCurrentStateRoot()
-			intermediateRoots.push(bytesToHex(stateRoot))
+			intermediateRoots.push(typeof stateRoot === 'string' ? stateRoot : bytesToHex(stateRoot))
 		}
 
 		return {

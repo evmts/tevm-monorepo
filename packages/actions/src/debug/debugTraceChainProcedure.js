@@ -59,7 +59,9 @@ export const debugTraceChainJsonRpcProcedure = (client) => {
 	 */
 	return async (request) => {
 		const [startBlockParam, endBlockParam, options = {}] = request.params
-		const { tracer, timeout, tracerConfig } = options
+		const tracer = 'tracer' in options ? options.tracer : undefined
+		const timeout = 'timeout' in options ? options.timeout : undefined
+		const tracerConfig = 'tracerConfig' in options ? options.tracerConfig : undefined
 
 		if (timeout !== undefined) {
 			client.logger.warn('Warning: timeout is currently not fully respected in debug_traceChain')

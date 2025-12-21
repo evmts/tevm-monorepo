@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`debugTraceBlockByHashJsonRpcProcedure > should trace transactions in a block by hash and return the expected result 1`] = `
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "debug_traceBlockByHash",
+  "result": [],
+}
+`;
+
+exports[`debugTraceBlockByHashJsonRpcProcedure > should trace transactions with callTracer 1`] = `
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "debug_traceBlockByHash",
+  "result": [],
+}
+`;
+
+exports[`debugTraceBlockByHashJsonRpcProcedure > should trace transactions with prestateTracer 1`] = `
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "debug_traceBlockByHash",
+  "result": [],
+}
+`;
+
+exports[`debugTraceBlockByHashJsonRpcProcedure > should trace transactions with prestateTracer 2`] = `
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "debug_traceBlockByHash",
+  "result": [],
+}
+`;

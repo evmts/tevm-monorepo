@@ -29,7 +29,7 @@ export const anvilDealErc20JsonRpcProcedure = (client) => async (request) => {
 		amount: hexToBigInt(amount),
 	})
 
-	if ('errors' in result && result.errors) {
+	if (result && 'errors' in result && result.errors) {
 		/**
 		 * @type {import('./AnvilJsonRpcResponse.js').AnvilDealErc20JsonRpcResponse}
 		 */

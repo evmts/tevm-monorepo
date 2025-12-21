@@ -65,7 +65,7 @@ export type AnvilNodeInfoResult = {
 	/** The hardfork */
 	hardfork: string
 	/** The mining configuration */
-	miningMode: 'auto' | 'manual'
+	miningMode: 'auto' | 'manual' | 'interval'
 }
 // anvil_metadata
 export type AnvilMetadataResult = {

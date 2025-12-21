@@ -26,6 +26,7 @@ export const debugDumpBlockHandler = (client) => async (params) => {
 	const { blockTag } = params
 
 	// Normalize blockTag to bigint or tag string
+	/** @type {import('@tevm/utils').BlockTag | bigint} */
 	let normalizedBlockTag
 	if (typeof blockTag === 'string') {
 		if (
@@ -82,23 +83,29 @@ export const debugDumpBlockHandler = (client) => async (params) => {
 	const accounts = {}
 
 	for (const [address, account] of Object.entries(state)) {
-		accounts[/** @type {import('@tevm/utils').Hex} */ (address)] = {
+		const accountState = /** @type {import('./DebugResult.js').DebugDumpBlockAccountState} */ ({
 			balance: numberToHex(account.balance),
 			nonce: numberToHex(account.nonce),
 			codeHash: account.codeHash,
 			root: account.storageRoot,
-			...(account.deployedBytecode ? { code: account.deployedBytecode } : {}),
-			...(account.storage && Object.keys(account.storage).length > 0
-				? {
-						storage: Object.fromEntries(
-							Object.entries(account.storage).map(([key, value]) => [
-								/** @type {import('@tevm/utils').Hex} */ (`0x${key}`),
-								value,
-							]),
-						),
-					}
-				: {}),
+		})
+
+		if (account.deployedBytecode) {
+			accountState.code = account.deployedBytecode
 		}
+
+		if (account.storage && Object.keys(account.storage).length > 0) {
+			accountState.storage = /** @type {Record<import('@tevm/utils').Hex, import('@tevm/utils').Hex>} */ (
+				Object.fromEntries(
+					Object.entries(account.storage).map(([key, value]) => [
+						/** @type {import('@tevm/utils').Hex} */ (key.startsWith('0x') ? key : `0x${key}`),
+						/** @type {import('@tevm/utils').Hex} */ (value),
+					]),
+				)
+			)
+		}
+
+		accounts[/** @type {import('@tevm/utils').Hex} */ (address)] = accountState
 	}
 
 	return {

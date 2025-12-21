@@ -61,7 +61,7 @@ export const debugTraceBlockByHashJsonRpcProcedure = (client) => {
 		const [blockHashParam, tracerOptions = {}] = request.params
 
 		client.logger.debug(
-			{ blockHash: blockHashParam, tracer: tracerOptions.tracer },
+			{ blockHash: blockHashParam, tracer: 'tracer' in tracerOptions ? tracerOptions.tracer : undefined },
 			'debug_traceBlockByHash: executing with params',
 		)
 
@@ -80,9 +80,9 @@ export const debugTraceBlockByHashJsonRpcProcedure = (client) => {
 		})
 
 		// Return the result with the original method name
-		return {
+		return /** @type {any} */ ({
 			...result,
 			method: request.method,
-		}
+		})
 	}
 }

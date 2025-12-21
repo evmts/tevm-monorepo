@@ -21,7 +21,7 @@ describe('anvilMineDetailedJsonRpcProcedure', () => {
 		expect(result.id).toBe(1)
 		expect(result).toHaveProperty('result')
 
-		// @ts-ignore
+		// @ts-expect-error
 		const blocks = result.result?.blocks
 		expect(blocks).toBeDefined()
 		expect(Array.isArray(blocks)).toBe(true)
@@ -51,7 +51,7 @@ describe('anvilMineDetailedJsonRpcProcedure', () => {
 		})
 
 		expect(result).toHaveProperty('result')
-		// @ts-ignore
+		// @ts-expect-error
 		const blocks = result.result?.blocks
 		expect(blocks.length).toBe(3)
 
@@ -77,7 +77,7 @@ describe('anvilMineDetailedJsonRpcProcedure', () => {
 		})
 
 		expect(result).toHaveProperty('result')
-		// @ts-ignore
+		// @ts-expect-error
 		const blocks = result.result?.blocks
 		expect(blocks.length).toBe(1) // Default blockCount is 1
 	})
@@ -97,7 +97,7 @@ describe('anvilMineDetailedJsonRpcProcedure', () => {
 		})
 
 		expect(result).toHaveProperty('error')
-		// @ts-ignore
+		// @ts-expect-error
 		expect(result.error.message).toBe('Mining is already in progress')
 	})
 

@@ -145,10 +145,7 @@ export const ethSubscribeHandler = (tevmNode) => {
 					}
 
 					filter.logs.push(formattedLog)
-					tevmNode.logger.debug(
-						{ id, logAddress, topics: logTopics },
-						'ethSubscribeHandler: Added log to subscription',
-					)
+					tevmNode.logger.debug({ id, logAddress, topics: logTopics }, 'ethSubscribeHandler: Added log to subscription')
 				}
 
 				tevmNode.on('newLog', listener)

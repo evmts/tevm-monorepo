@@ -24,39 +24,41 @@ import { debugGetModifiedAccountsByNumberHandler } from './debugGetModifiedAccou
  * ```
  */
 export const debugGetModifiedAccountsByNumberJsonRpcProcedure = (client) => {
-	return async (request) => {
-		const { startBlockNumber, endBlockNumber } = request.params[0]
+	return /** @type {import('./DebugProcedure.js').DebugGetModifiedAccountsByNumberProcedure} */ (
+		async (request) => {
+			const { startBlockNumber, endBlockNumber } = request.params[0]
 
-		client.logger.debug(
-			{ startBlockNumber, endBlockNumber },
-			'debugGetModifiedAccountsByNumberJsonRpcProcedure: processing request',
-		)
+			client.logger.debug(
+				{ startBlockNumber, endBlockNumber },
+				'debugGetModifiedAccountsByNumberJsonRpcProcedure: processing request',
+			)
 
-		try {
-			const result = await debugGetModifiedAccountsByNumberHandler(client)({
-				startBlockNumber,
-				...(endBlockNumber !== undefined ? { endBlockNumber } : {}),
-			})
+			try {
+				const result = await debugGetModifiedAccountsByNumberHandler(client)({
+					startBlockNumber,
+					...(endBlockNumber !== undefined ? { endBlockNumber } : {}),
+				})
 
-			return {
-				method: request.method,
-				result,
-				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
-			}
-		} catch (error) {
-			const err = /** @type {Error} */ (error)
-			client.logger.error({ error: err }, 'debugGetModifiedAccountsByNumberJsonRpcProcedure: error occurred')
+				return {
+					method: request.method,
+					result,
+					jsonrpc: '2.0',
+					...(request.id ? { id: request.id } : {}),
+				}
+			} catch (error) {
+				const err = /** @type {Error} */ (error)
+				client.logger.error({ error: err }, 'debugGetModifiedAccountsByNumberJsonRpcProcedure: error occurred')
 
-			return {
-				method: request.method,
-				error: {
-					code: -32000,
-					message: err.message,
-				},
-				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				return {
+					method: request.method,
+					error: {
+						code: /** @type {string} */ ('-32000'),
+						message: err.message,
+					},
+					jsonrpc: '2.0',
+					...(request.id ? { id: request.id } : {}),
+				}
 			}
 		}
-	}
+	)
 }

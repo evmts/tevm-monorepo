@@ -93,8 +93,8 @@ export const debugGetModifiedAccountsByHashHandler = (client) => async (params) 
 
 	// Check all accounts in end state
 	for (const address of Object.keys(endState)) {
-		const startAccount = startState[address]
-		const endAccount = endState[address]
+		const startAccount = /** @type {any} */ (startState)[address]
+		const endAccount = /** @type {any} */ (endState)[address]
 
 		// Account is modified if:
 		// 1. It didn't exist in start state
@@ -116,7 +116,7 @@ export const debugGetModifiedAccountsByHashHandler = (client) => async (params) 
 
 	// Check for deleted accounts
 	for (const address of Object.keys(startState)) {
-		if (!endState[address]) {
+		if (!(/** @type {any} */ (endState)[address])) {
 			modifiedAddresses.add(/** @type {import('@tevm/utils').Hex} */ (address))
 		}
 	}

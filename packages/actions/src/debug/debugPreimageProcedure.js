@@ -63,8 +63,10 @@ export const debugPreimageJsonRpcProcedure = (client) => {
 			let preimage = null
 
 			// Check if the state manager has a preimage method
+			// @ts-expect-error - getPreimage is not a standard StateManager method but may exist on custom implementations
 			if (typeof vm.stateManager.getPreimage === 'function') {
 				try {
+					// @ts-expect-error - getPreimage is not a standard StateManager method but may exist on custom implementations
 					const preimageBytes = await vm.stateManager.getPreimage(hashBytes)
 					if (preimageBytes) {
 						preimage = `0x${Buffer.from(preimageBytes).toString('hex')}`
@@ -80,7 +82,7 @@ export const debugPreimageJsonRpcProcedure = (client) => {
 			return {
 				jsonrpc: '2.0',
 				method: request.method,
-				result: preimage,
+				result: /** @type {any} */ (preimage),
 				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		} catch (err) {

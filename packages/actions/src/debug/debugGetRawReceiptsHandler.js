@@ -32,7 +32,10 @@ export const debugGetRawReceiptsHandler =
 		// Get the block by number or tag
 		const block = await (async () => {
 			if (params.blockNumber !== undefined) {
-				const blockNum = typeof params.blockNumber === 'bigint' ? params.blockNumber : hexToBigInt(params.blockNumber)
+				const blockNum =
+					typeof params.blockNumber === 'bigint'
+						? params.blockNumber
+						: hexToBigInt(/** @type {import('@tevm/utils').Hex} */ (params.blockNumber))
 				logger.debug({ blockNum }, 'debugGetRawReceiptsHandler: fetching block by number')
 				return vm.blockchain.getBlock(blockNum)
 			}

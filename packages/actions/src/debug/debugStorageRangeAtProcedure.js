@@ -57,7 +57,7 @@ export const debugStorageRangeAtJsonRpcProcedure = (client) => {
 			return {
 				method: request.method,
 				error: {
-					code: -32000,
+					code: /** @type {string} */ ('-32000'),
 					message: err.message,
 				},
 				jsonrpc: '2.0',

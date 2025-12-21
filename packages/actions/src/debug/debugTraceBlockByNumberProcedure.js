@@ -60,15 +60,15 @@ export const debugTraceBlockByNumberJsonRpcProcedure = (client) => {
 		const [blockNumberParam, tracerOptions = {}] = request.params
 
 		client.logger.debug(
-			{ blockNumber: blockNumberParam, tracer: tracerOptions.tracer },
+			{ blockNumber: blockNumberParam, tracer: 'tracer' in tracerOptions ? tracerOptions.tracer : undefined },
 			'debug_traceBlockByNumber: executing with params',
 		)
 
 		// Construct parameters in the format expected by debug_traceBlock
-		const debugTraceBlockParams = {
+		const debugTraceBlockParams = /** @type {any} */ ({
 			blockNumber: blockNumberParam,
 			...tracerOptions,
-		}
+		})
 
 		// Delegate to the main debug_traceBlock procedure
 		const result = await debugTraceBlock({
@@ -79,9 +79,9 @@ export const debugTraceBlockByNumberJsonRpcProcedure = (client) => {
 		})
 
 		// Return the result with the original method name
-		return {
+		return /** @type {any} */ ({
 			...result,
 			method: request.method,
-		}
+		})
 	}
 }

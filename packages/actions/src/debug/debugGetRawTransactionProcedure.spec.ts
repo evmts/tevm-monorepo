@@ -1,8 +1,8 @@
 import { SimpleContract } from '@tevm/contract'
 import { createTevmNode, type TevmNode } from '@tevm/node'
 import { assert, beforeEach, describe, expect, it } from 'vitest'
-import { deployHandler } from '../Deploy/deployHandler.js'
 import { contractHandler } from '../Contract/contractHandler.js'
+import { deployHandler } from '../Deploy/deployHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { debugGetRawTransactionJsonRpcProcedure } from './debugGetRawTransactionProcedure.js'
 
@@ -36,7 +36,7 @@ describe('debugGetRawTransactionJsonRpcProcedure', () => {
 
 	it('should return error for non-existent transaction', async () => {
 		const procedure = debugGetRawTransactionJsonRpcProcedure(node)
-		const fakeTxHash = '0x' + '1'.repeat(64)
+		const fakeTxHash = `0x${'1'.repeat(64)}`
 
 		const response = await procedure({
 			jsonrpc: '2.0',

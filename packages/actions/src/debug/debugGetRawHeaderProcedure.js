@@ -31,9 +31,10 @@ export const debugGetRawHeaderJsonRpcProcedure = (client) => {
 		const blockNumberOrTag = request.params[0] ?? 'latest'
 
 		// Parse the parameter as either a block number or tag
-		const params = blockNumberOrTag.startsWith('0x')
-			? { blockNumber: hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (blockNumberOrTag)) }
-			: { blockTag: /** @type {import('@tevm/utils').BlockTag}*/ (blockNumberOrTag) }
+		const params =
+			typeof blockNumberOrTag === 'string' && blockNumberOrTag.startsWith('0x')
+				? { blockNumber: hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (blockNumberOrTag)) }
+				: { blockTag: /** @type {import('@tevm/utils').BlockTag}*/ (blockNumberOrTag) }
 
 		try {
 			const result = await debugGetRawHeaderHandler(client)(params)
@@ -51,7 +52,7 @@ export const debugGetRawHeaderJsonRpcProcedure = (client) => {
 				jsonrpc: '2.0',
 				...(request.id ? { id: request.id } : {}),
 				error: {
-					code: -32603,
+					code: /** @type {string} */ ('-32603'),
 					message: error instanceof Error ? error.message : 'Internal error',
 				},
 			}

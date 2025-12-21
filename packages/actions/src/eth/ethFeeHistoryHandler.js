@@ -65,9 +65,7 @@ export const ethFeeHistoryHandler = (client) => {
 				gasUsedRatio: feeHistoryResult.gasUsedRatio,
 			}
 			if (feeHistoryResult.reward !== undefined) {
-				forkResult.reward = feeHistoryResult.reward.map((blockRewards) =>
-					blockRewards.map((hex) => hexToBigInt(hex)),
-				)
+				forkResult.reward = feeHistoryResult.reward.map((blockRewards) => blockRewards.map((hex) => hexToBigInt(hex)))
 			}
 			return forkResult
 		}
@@ -85,7 +83,12 @@ export const ethFeeHistoryHandler = (client) => {
 				return hexToBigInt(/** @type {import('@tevm/utils').Hex} */ (newestBlock))
 			}
 			// Handle block tags
-			if (newestBlock === 'latest' || newestBlock === 'pending' || newestBlock === 'safe' || newestBlock === 'finalized') {
+			if (
+				newestBlock === 'latest' ||
+				newestBlock === 'pending' ||
+				newestBlock === 'safe' ||
+				newestBlock === 'finalized'
+			) {
 				return currentBlockNumber
 			}
 			if (newestBlock === 'earliest') {
@@ -96,9 +99,8 @@ export const ethFeeHistoryHandler = (client) => {
 
 		// Calculate the oldest block in the range (constrained by genesis)
 		const blockCountNum = Number(blockCount)
-		const oldestBlock = newestBlockNumber >= BigInt(blockCountNum - 1)
-			? newestBlockNumber - BigInt(blockCountNum - 1)
-			: 0n
+		const oldestBlock =
+			newestBlockNumber >= BigInt(blockCountNum - 1) ? newestBlockNumber - BigInt(blockCountNum - 1) : 0n
 
 		const actualBlockCount = Number(newestBlockNumber - oldestBlock) + 1
 
@@ -138,9 +140,7 @@ export const ethFeeHistoryHandler = (client) => {
 								// EIP-1559 transaction
 								const maxPriorityFee = tx.maxPriorityFeePerGas
 								const maxFee = /** @type {bigint} */ ('maxFeePerGas' in tx ? tx.maxFeePerGas : 0n)
-								const effectivePriorityFee = maxFee - baseFee > maxPriorityFee
-									? maxPriorityFee
-									: maxFee - baseFee
+								const effectivePriorityFee = maxFee - baseFee > maxPriorityFee ? maxPriorityFee : maxFee - baseFee
 								return effectivePriorityFee > 0n ? effectivePriorityFee : 0n
 							}
 							// Legacy transaction - effective priority fee is gasPrice - baseFee

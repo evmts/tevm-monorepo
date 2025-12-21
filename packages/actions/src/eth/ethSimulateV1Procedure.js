@@ -43,9 +43,7 @@ export const ethSimulateV1Procedure = (client) => {
 								...(block.blockOverrides.number !== undefined
 									? { number: hexToBigInt(block.blockOverrides.number) }
 									: {}),
-								...(block.blockOverrides.time !== undefined
-									? { time: hexToBigInt(block.blockOverrides.time) }
-									: {}),
+								...(block.blockOverrides.time !== undefined ? { time: hexToBigInt(block.blockOverrides.time) } : {}),
 								...(block.blockOverrides.gasLimit !== undefined
 									? { gasLimit: hexToBigInt(block.blockOverrides.gasLimit) }
 									: {}),
@@ -109,9 +107,7 @@ export const ethSimulateV1Procedure = (client) => {
 				blockStateCalls: convertBlockStateCalls(opts.blockStateCalls),
 				...(opts.traceTransfers !== undefined ? { traceTransfers: opts.traceTransfers } : {}),
 				...(opts.validation !== undefined ? { validation: opts.validation } : {}),
-				...(opts.returnFullTransactions !== undefined
-					? { returnFullTransactions: opts.returnFullTransactions }
-					: {}),
+				...(opts.returnFullTransactions !== undefined ? { returnFullTransactions: opts.returnFullTransactions } : {}),
 				...(blockTagParam !== undefined ? { blockTag: blockTagParam } : {}),
 			})
 
@@ -122,9 +118,7 @@ export const ethSimulateV1Procedure = (client) => {
 				timestamp: numberToHex(blockResult.timestamp),
 				gasLimit: numberToHex(blockResult.gasLimit),
 				gasUsed: numberToHex(blockResult.gasUsed),
-				...(blockResult.baseFeePerGas !== undefined
-					? { baseFeePerGas: numberToHex(blockResult.baseFeePerGas) }
-					: {}),
+				...(blockResult.baseFeePerGas !== undefined ? { baseFeePerGas: numberToHex(blockResult.baseFeePerGas) } : {}),
 				calls: blockResult.calls.map((callResult) => {
 					/** @type {import('./EthJsonRpcResponse.js').JsonRpcSimulateCallResult} */
 					const callRes = {

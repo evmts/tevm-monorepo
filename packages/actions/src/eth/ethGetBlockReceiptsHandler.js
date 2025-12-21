@@ -47,7 +47,6 @@ const uintEquals = (a, b) => {
  * ```
  */
 export const ethGetBlockReceiptsHandler = (client) => async (params) => {
-	const _receiptsManager = await client.getReceiptsManager()
 	const vm = await client.getVm().then((vm) => vm.deepCopy())
 
 	// Determine block identifier and retrieve block
@@ -112,10 +111,10 @@ export const ethGetBlockReceiptsHandler = (client) => async (params) => {
 				transactionIndex: BigInt(r.transactionIndex),
 				contractAddress: r.contractAddress,
 				logsBloom: r.logsBloom,
-				blobGasUsed: r.blobGasUsed ? BigInt(r.blobGasUsed) : undefined,
-				blobGasPrice: r.blobGasPrice ? BigInt(r.blobGasPrice) : undefined,
-				root: r.root,
-				status: r.status,
+				...(r.blobGasUsed !== undefined && r.blobGasUsed !== null ? { blobGasUsed: BigInt(r.blobGasUsed) } : {}),
+				...(r.blobGasPrice !== undefined && r.blobGasPrice !== null ? { blobGasPrice: BigInt(r.blobGasPrice) } : {}),
+				...(r.root !== undefined && r.root !== null ? { root: r.root } : {}),
+				...(r.status !== undefined && r.status !== null ? { status: r.status } : {}),
 				logs: r.logs.map(
 					/**
 					 * @param {any} log
@@ -205,9 +204,10 @@ export const ethGetBlockReceiptsHandler = (client) => async (params) => {
 					/** @type {any} */ (tx).maxFeePerGas - (block.header.baseFeePerGas ?? 0n)
 					? /** @type {any} */ (tx).maxPriorityFeePerGas + (block.header.baseFeePerGas ?? 0n)
 					: /** @type {any} */ (tx).maxFeePerGas
-				: /** @type {any} */ (tx.gasPrice ?? 0n)
+				: /** @type {any} */ (tx?.gasPrice ?? 0n)
 
-		receipts.push({
+		/** @type {import('./EthResult.js').EthGetTransactionReceiptResult} */
+		const receiptResult = {
 			blockHash: bytesToHex(block.hash()),
 			blockNumber: block.header.number,
 			cumulativeGasUsed: receipt.cumulativeBlockGasUsed,
@@ -219,18 +219,18 @@ export const ethGetBlockReceiptsHandler = (client) => async (params) => {
 			transactionIndex: BigInt(txIndex),
 			contractAddress: createdAddress?.toString() ?? null,
 			logsBloom: bytesToHex(receipt.bitvector),
-			blobGasUsed: blobGasUsed !== undefined ? blobGasUsed : undefined,
-			blobGasPrice: blobGasPrice !== undefined ? blobGasPrice : undefined,
-			root:
-				/** @type {any} */ (receipt).stateRoot instanceof Uint8Array
-					? bytesToHex(/** @type {any} */ (receipt).stateRoot)
-					: undefined,
-			status:
-				/** @type {any} */ (receipt).status instanceof Uint8Array
-					? numberToHex(/** @type {any} */ (receipt).status[0])
+			...(blobGasUsed !== undefined ? { blobGasUsed } : {}),
+			...(blobGasPrice !== undefined ? { blobGasPrice } : {}),
+			.../** @type {any} */ (
+				receipt.stateRoot instanceof Uint8Array ? { root: bytesToHex(/** @type {any} */ (receipt).stateRoot) } : {}
+			),
+			.../** @type {any} */ (
+				receipt.status instanceof Uint8Array
+					? { status: numberToHex(/** @type {any} */ (receipt).status[0]) }
 					: typeof (/** @type {any} */ (receipt).status) === 'number'
-						? numberToHex(/** @type {any} */ (receipt).status)
-						: undefined,
+						? { status: numberToHex(/** @type {any} */ (receipt).status) }
+						: {}
+			),
 			logs: receipt.logs.map((log, i) => ({
 				address: bytesToHex(log[0]),
 				blockHash: bytesToHex(block.hash()),
@@ -242,7 +242,9 @@ export const ethGetBlockReceiptsHandler = (client) => async (params) => {
 				transactionIndex: BigInt(txIndex),
 				transactionHash: bytesToHex(tx.hash()),
 			})),
-		})
+		}
+
+		receipts.push(receiptResult)
 
 		cumulativeLogIndex += receipt.logs.length
 	}

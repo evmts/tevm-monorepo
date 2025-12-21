@@ -37,9 +37,10 @@ export const ethFeeHistoryProcedure = (client) => {
 
 		// Convert block tag/number
 		/** @type {import('@tevm/utils').BlockTag | bigint} */
-		const newestBlockParam = newestBlock.startsWith('0x') && newestBlock.length > 10
-			? hexToBigInt(/** @type {import('@tevm/utils').Hex} */ (newestBlock))
-			: /** @type {import('@tevm/utils').BlockTag} */ (newestBlock)
+		const newestBlockParam =
+			newestBlock.startsWith('0x') && newestBlock.length > 10
+				? hexToBigInt(/** @type {import('@tevm/utils').Hex} */ (newestBlock))
+				: /** @type {import('@tevm/utils').BlockTag} */ (newestBlock)
 
 		try {
 			const result = await handler({
@@ -55,9 +56,7 @@ export const ethFeeHistoryProcedure = (client) => {
 				gasUsedRatio: result.gasUsedRatio,
 			}
 			if (result.reward !== undefined) {
-				jsonRpcResult.reward = result.reward.map((blockRewards) =>
-					blockRewards.map((r) => numberToHex(r)),
-				)
+				jsonRpcResult.reward = result.reward.map((blockRewards) => blockRewards.map((r) => numberToHex(r)))
 			}
 
 			return /** @type {import('./EthJsonRpcResponse.js').EthFeeHistoryJsonRpcResponse}*/ ({

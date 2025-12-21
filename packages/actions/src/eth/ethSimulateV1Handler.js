@@ -89,7 +89,7 @@ export const ethSimulateV1Handler = (client) => {
 			const parentTimestamp = baseBlock.header.timestamp + BigInt(blockIndex) * 12n
 
 			// Build block header with overrides
-			const timestamp = blockOverrides?.time ?? (parentTimestamp + 12n)
+			const timestamp = blockOverrides?.time ?? parentTimestamp + 12n
 			const gasLimit = blockOverrides?.gasLimit ?? baseBlock.header.gasLimit
 			const baseFeePerGas = blockOverrides?.baseFee ?? baseBlock.header.baseFeePerGas ?? 0n
 
@@ -141,9 +141,7 @@ export const ethSimulateV1Handler = (client) => {
 					callResult.error = {
 						code: -32000,
 						message: result.execResult.exceptionError.error,
-						...(result.execResult.returnValue
-							? { data: bytesToHex(result.execResult.returnValue) }
-							: {}),
+						...(result.execResult.returnValue ? { data: bytesToHex(result.execResult.returnValue) } : {}),
 					}
 				}
 
@@ -151,9 +149,7 @@ export const ethSimulateV1Handler = (client) => {
 			}
 
 			// Build a pseudo block hash (in a real impl this would be computed properly)
-			const blockHash = keccak256(
-				new TextEncoder().encode(`block-${blockNumber.toString()}-${timestamp.toString()}`),
-			)
+			const blockHash = keccak256(new TextEncoder().encode(`block-${blockNumber.toString()}-${timestamp.toString()}`))
 
 			/** @type {import('./EthResult.js').EthSimulateV1BlockResult} */
 			const blockResult = {

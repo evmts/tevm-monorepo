@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`debugTraceBlockByNumberJsonRpcProcedure > should trace transactions in a block by number and return the expected result 1`] = `
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "debug_traceBlockByNumber",
+  "result": [],
+}
+`;
+
+exports[`debugTraceBlockByNumberJsonRpcProcedure > should trace transactions with callTracer 1`] = `
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "debug_traceBlockByNumber",
+  "result": [],
+}
+`;
+
+exports[`debugTraceBlockByNumberJsonRpcProcedure > should trace transactions with prestateTracer 1`] = `
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "debug_traceBlockByNumber",
+  "result": [],
+}
+`;
+
+exports[`debugTraceBlockByNumberJsonRpcProcedure > should trace transactions with prestateTracer 2`] = `
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "debug_traceBlockByNumber",
+  "result": [],
+}
+`;
+
+exports[`debugTraceBlockByNumberJsonRpcProcedure > should work with "latest" block tag 1`] = `
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "debug_traceBlockByNumber",
+  "result": [],
+}
+`;
