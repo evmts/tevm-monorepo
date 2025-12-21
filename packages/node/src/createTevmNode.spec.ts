@@ -72,7 +72,7 @@ describe('createTevmNode', () => {
 		expect(logger.warn).toBeInstanceOf(Function)
 		expect(forkTransport).toBeUndefined()
 		expect(await getTxPool().then((pool) => pool.pool)).toEqual(new Map())
-		expect(miningConfig).toEqual({ type: 'manual' })
+		expect(miningConfig).toEqual({ type: 'auto' })
 		expect(await getReceiptsManager().then((manager) => manager.getReceipts)).toBeInstanceOf(Function)
 	})
 

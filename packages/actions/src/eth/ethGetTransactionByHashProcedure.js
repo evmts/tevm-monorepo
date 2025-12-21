@@ -36,28 +36,25 @@ export const ethGetTransactionByHashJsonRpcProcedure = (client) => {
 			}
 		}
 		if (!receipt) {
+			// Per Ethereum JSON-RPC spec, return null when transaction is not found
+			// (e.g., pending transaction not yet mined, or non-existent transaction)
 			return {
 				...(request.id ? { id: request.id } : {}),
 				method: request.method,
-				jsonrpc: request.jsonrpc,
-				error: {
-					code: -32602,
-					message: 'Transaction not found',
-				},
+				jsonrpc: '2.0',
+				result: null,
 			}
 		}
 		const [_receipt, blockHash, txIndex] = receipt
 		const block = await vm.blockchain.getBlock(blockHash)
 		const tx = block.transactions[txIndex]
 		if (!tx) {
+			// Per Ethereum JSON-RPC spec, return null when transaction is not found
 			return {
 				...(request.id ? { id: request.id } : {}),
 				method: request.method,
-				jsonrpc: request.jsonrpc,
-				error: {
-					code: -32602,
-					message: 'Transaction not found',
-				},
+				jsonrpc: '2.0',
+				result: null,
 			}
 		}
 		return {

@@ -265,7 +265,7 @@ export class ReceiptsManager {
 	async saveReceipts(block: Block, receipts: TxReceipt[]) {
 		const encoded = this.rlp(RlpConvert.Encode, RlpType.Receipts, receipts)
 		await this.mapDb.put('Receipts', block.hash(), encoded)
-		void this.updateIndex(IndexOperation.Save, IndexType.TxHash, block)
+		await this.updateIndex(IndexOperation.Save, IndexType.TxHash, block)
 	}
 
 	/**
@@ -281,7 +281,7 @@ export class ReceiptsManager {
 	 */
 	async deleteReceipts(block: Block) {
 		await this.mapDb.delete('Receipts', block.hash())
-		void this.updateIndex(IndexOperation.Delete, IndexType.TxHash, block)
+		await this.updateIndex(IndexOperation.Delete, IndexType.TxHash, block)
 	}
 
 	/**

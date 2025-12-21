@@ -526,7 +526,7 @@ export const createTevmNode = (options = {}) => {
 			await readyPromise
 			return vmPromise
 		},
-		miningConfig: options.miningConfig ?? { type: 'manual' },
+		miningConfig: options.miningConfig ?? { type: 'auto' },
 		mode: transport ? 'fork' : 'normal',
 		...(transport
 			? {

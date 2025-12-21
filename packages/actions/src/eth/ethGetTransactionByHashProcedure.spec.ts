@@ -91,7 +91,7 @@ describe('ethGetTransactionByHashJsonRpcProcedure', () => {
 		})
 	})
 
-	it('should handle when transaction not found locally and no fork transport', async () => {
+	it('should return null when transaction not found locally and no fork transport', async () => {
 		// Setup - transaction not found locally
 		mockReceiptsManager.getReceiptByTxHash.mockResolvedValue(null)
 
@@ -105,15 +105,13 @@ describe('ethGetTransactionByHashJsonRpcProcedure', () => {
 		const procedure = ethGetTransactionByHashJsonRpcProcedure(mockClient)
 		const response = await procedure(request)
 
-		// Verify response is an error
+		// Per Ethereum JSON-RPC spec, return null when transaction is not found
+		// (transaction may be pending, not yet mined, or non-existent)
 		expect(response).toEqual({
 			jsonrpc: '2.0',
 			method: 'eth_getTransactionByHash',
 			id: 1,
-			error: {
-				code: -32602,
-				message: 'Transaction not found',
-			},
+			result: null,
 		})
 	})
 
@@ -199,8 +197,8 @@ describe('ethGetTransactionByHashJsonRpcProcedure', () => {
 		})
 	})
 
-	it('should handle when receipt found but tx not in block', async () => {
-		// Setup - receipt found but tx not in block
+	it('should return null when receipt found but tx not in block', async () => {
+		// Setup - receipt found but tx not in block (edge case, shouldn't happen normally)
 		mockReceiptsManager.getReceiptByTxHash.mockResolvedValue([{}, '0xblockHash', 1])
 		mockBlock.transactions = [mockTx] // Only has index 0, not index 1
 
@@ -214,15 +212,12 @@ describe('ethGetTransactionByHashJsonRpcProcedure', () => {
 		const procedure = ethGetTransactionByHashJsonRpcProcedure(mockClient)
 		const response = await procedure(request)
 
-		// Verify response is an error
+		// Per Ethereum JSON-RPC spec, return null when transaction is not found
 		expect(response).toEqual({
 			jsonrpc: '2.0',
 			method: 'eth_getTransactionByHash',
 			id: 1,
-			error: {
-				code: -32602,
-				message: 'Transaction not found',
-			},
+			result: null,
 		})
 	})
 
