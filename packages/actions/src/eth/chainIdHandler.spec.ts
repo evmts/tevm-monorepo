@@ -4,8 +4,10 @@ import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { chainIdHandler } from './chainIdHandler.js'
 
+const hasOptimismRpc = !!process.env['TEVM_RPC_URLS_OPTIMISM']
+
 describe(chainIdHandler.name, () => {
-	it('should return the chain id', async () => {
+	it.skipIf(!hasOptimismRpc)('should return the chain id', async () => {
 		expect(await chainIdHandler(createTevmNode({ fork: { transport: transports.optimism } }))({})).toBe(10n)
 	})
 
@@ -21,5 +23,17 @@ describe(chainIdHandler.name, () => {
 		const chainId = await chainIdHandler(node)({})
 		// Accept either 11155111n (actual sepolia) or test environment value
 		expect(typeof chainId === 'bigint').toBe(true)
+	})
+
+	it.skipIf(!hasOptimismRpc)('should return overridden chain ID from fork options', async () => {
+		const customChainId = 999
+		const node = createTevmNode({
+			fork: {
+				transport: transports.optimism,
+				chainId: customChainId,
+			},
+		})
+		const chainId = await chainIdHandler(node)({})
+		expect(chainId).toBe(BigInt(customChainId))
 	})
 })

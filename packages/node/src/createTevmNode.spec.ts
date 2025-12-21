@@ -9,8 +9,10 @@ import { bytesToHex, createAccount, createAddressFromString, type Hex, hexToByte
 import { describe, expect, it, vi } from 'vitest'
 import { createTevmNode } from './createTevmNode.js'
 
+const hasOptimismRpc = !!process.env['TEVM_RPC_URLS_OPTIMISM']
+
 describe('createTevmNode with State Persister', () => {
-	it('Restores state correctly from persister', async () => {
+	it.skipIf(!hasOptimismRpc)('Restores state correctly from persister', async () => {
 		const storage = new Map()
 
 		const persister = createSyncStoragePersister({
@@ -99,7 +101,7 @@ describe('createTevmNode', () => {
 		expect(client.getFilters().has(createAddress(1).toString())).toBe(false)
 	})
 
-	it('Handles fork mode with provided transport', async () => {
+	it.skipIf(!hasOptimismRpc)('Handles fork mode with provided transport', async () => {
 		const forkClient = createTevmNode({
 			fork: { transport: transports.optimism },
 		})
@@ -197,7 +199,7 @@ describe('createTevmNode', () => {
 		expect(bytesToHex(code)).toBe(predeploy.contract.deployedBytecode)
 	})
 
-	it('Fetches latest block number for fork block tag "latest"', async () => {
+	it.skipIf(!hasOptimismRpc)('Fetches latest block number for fork block tag "latest"', async () => {
 		const client = createTevmNode({
 			fork: { transport: transports.optimism, blockTag: 'latest' },
 		})
@@ -276,6 +278,48 @@ describe('createTevmNode', () => {
 			// Verify the mock precompile was used instead of the default
 			expect(result.execResult.returnValue).toEqual(new Uint8Array(32).fill(0xff))
 			expect(result.execResult.executionGasUsed).toBe(9999n)
+		})
+	})
+
+	describe('Fork with custom chain ID', () => {
+		it.skipIf(!hasOptimismRpc)('should override chain ID when provided in fork options', async () => {
+			const customChainId = 999
+			const client = createTevmNode({
+				fork: {
+					transport: transports.optimism,
+					chainId: customChainId,
+				},
+			})
+			await client.ready()
+			const vm = await client.getVm()
+			expect(vm.common.id).toBe(customChainId)
+		})
+
+		it.skipIf(!hasOptimismRpc)('should use auto-detected chain ID when not provided in fork options', async () => {
+			const client = createTevmNode({
+				fork: {
+					transport: transports.optimism,
+				},
+			})
+			await client.ready()
+			const vm = await client.getVm()
+			// Optimism chain ID should be 10
+			expect(vm.common.id).toBe(10)
+		})
+
+		it.skipIf(!hasOptimismRpc)('should prioritize fork chainId over common chainId when both are provided', async () => {
+			const customCommon = createCommon({ ...mainnet, id: 1, hardfork: 'prague', eips: [], loggingLevel: 'warn' })
+			const customChainId = 999
+			const client = createTevmNode({
+				common: customCommon,
+				fork: {
+					transport: transports.optimism,
+					chainId: customChainId,
+				},
+			})
+			await client.ready()
+			const vm = await client.getVm()
+			expect(vm.common.id).toBe(customChainId)
 		})
 	})
 })

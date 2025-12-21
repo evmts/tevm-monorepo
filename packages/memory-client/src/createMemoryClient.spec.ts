@@ -6,6 +6,8 @@ import { parseEther } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from './createMemoryClient.js'
 
+const hasOptimismRpc = !!process.env['TEVM_RPC_URLS_OPTIMISM']
+
 describe('createMemoryClient', () => {
 	it('should create a MemoryClient with default configuration', () => {
 		const client = createMemoryClient()
@@ -59,7 +61,7 @@ describe('createMemoryClient', () => {
 		expect(client.setBalance).toBeDefined()
 	})
 
-	it('should create a MemoryClient that can fork from another network', async () => {
+	it.skipIf(!hasOptimismRpc)('should create a MemoryClient that can fork from another network', async () => {
 		const client = createMemoryClient({
 			fork: {
 				transport: transports.optimism,
@@ -74,6 +76,33 @@ describe('createMemoryClient', () => {
 		// Check that we can interact with the forked network
 		const blockNumber = await client.getBlockNumber()
 		expect(blockNumber).toBeGreaterThan(0n)
+	})
+
+	it.skipIf(!hasOptimismRpc)('should use custom chain ID when forking with chainId override', async () => {
+		const customChainId = 999
+		const client = createMemoryClient({
+			fork: {
+				transport: transports.optimism,
+				chainId: customChainId,
+			},
+		})
+
+		await client.tevmReady()
+		const chainId = await client.getChainId()
+		expect(chainId).toBe(customChainId)
+	})
+
+	it.skipIf(!hasOptimismRpc)('should use auto-detected chain ID when forking without chainId override', async () => {
+		const client = createMemoryClient({
+			fork: {
+				transport: transports.optimism,
+			},
+		})
+
+		await client.tevmReady()
+		const chainId = await client.getChainId()
+		// Optimism chain ID should be 10
+		expect(chainId).toBe(10)
 	})
 
 	it('should auto-mine transactions when miningMode is set to auto', async () => {
