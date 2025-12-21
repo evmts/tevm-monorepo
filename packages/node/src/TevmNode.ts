@@ -93,6 +93,17 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 */
 	readonly setAutoImpersonate: (enabled: boolean) => void
 	/**
+	 * Gets whether automatic tracing is enabled.
+	 * When enabled, all transactions include traces in their responses.
+	 */
+	readonly getTracesEnabled: () => boolean
+	/**
+	 * Sets whether to automatically collect traces for all transactions.
+	 * When enabled, all executed transactions include traces in their responses.
+	 * Note: This has performance and memory overhead.
+	 */
+	readonly setTracesEnabled: (enabled: boolean) => void
+	/**
 	 * Gets the timestamp to use for the next block
 	 * If undefined, the current time will be used
 	 */

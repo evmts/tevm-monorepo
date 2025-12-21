@@ -355,3 +355,17 @@ export type AnvilRemoveBlockTimestampIntervalJsonRpcResponse = JsonRpcResponse<
 	SerializeToJson<AnvilRemoveBlockTimestampIntervalResult>,
 	AnvilError
 >
+// anvil_enableTraces
+/**
+ * JSON-RPC response for `anvil_enableTraces` procedure
+ */
+export type AnvilEnableTracesJsonRpcResponse = JsonRpcResponse<'anvil_enableTraces', null, AnvilError>
+// anvil_mineDetailed
+/**
+ * JSON-RPC response for `anvil_mineDetailed` procedure
+ */
+export type AnvilMineDetailedJsonRpcResponse = JsonRpcResponse<
+	'anvil_mineDetailed',
+	import('./AnvilResult.js').AnvilMineDetailedResult,
+	AnvilError
+>

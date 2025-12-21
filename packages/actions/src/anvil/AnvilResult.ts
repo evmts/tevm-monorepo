@@ -109,3 +109,44 @@ export type AnvilSetTimeResult = Hex
 export type AnvilSetBlockTimestampIntervalResult = null
 // anvil_removeBlockTimestampInterval
 export type AnvilRemoveBlockTimestampIntervalResult = boolean
+// anvil_enableTraces
+export type AnvilEnableTracesResult = null
+// anvil_mineDetailed
+export type AnvilMineDetailedResult = {
+	/** Array of mined blocks with detailed information */
+	blocks: Array<{
+		/** Block number */
+		number: Hex
+		/** Block hash */
+		hash: Hex
+		/** Block timestamp */
+		timestamp: Hex
+		/** Gas used in the block */
+		gasUsed: Hex
+		/** Gas limit of the block */
+		gasLimit: Hex
+		/** Transactions included in the block with traces */
+		transactions: Array<{
+			/** Transaction hash */
+			hash: Hex
+			/** Transaction sender */
+			from: Hex
+			/** Transaction recipient (if not contract creation) */
+			to?: Hex
+			/** Gas used by the transaction */
+			gasUsed: Hex
+			/** Whether the transaction succeeded */
+			status: '0x0' | '0x1'
+			/** Contract address if this was a contract creation */
+			contractAddress?: Hex
+			/** Transaction trace (if tracing enabled) */
+			trace?: import('../common/TraceResult.js').TraceResult
+			/** Transaction logs */
+			logs: Array<{
+				address: Hex
+				topics: Hex[]
+				data: Hex
+			}>
+		}>
+	}>
+}

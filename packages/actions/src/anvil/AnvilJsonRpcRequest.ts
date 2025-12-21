@@ -270,6 +270,19 @@ export type AnvilRemoveBlockTimestampIntervalJsonRpcRequest = JsonRpcRequest<
 	'anvil_removeBlockTimestampInterval',
 	readonly []
 >
+// anvil_enableTraces
+/**
+ * JSON-RPC request for `anvil_enableTraces` method
+ */
+export type AnvilEnableTracesJsonRpcRequest = JsonRpcRequest<'anvil_enableTraces', readonly [enabled?: boolean]>
+// anvil_mineDetailed
+/**
+ * JSON-RPC request for `anvil_mineDetailed` method
+ */
+export type AnvilMineDetailedJsonRpcRequest = JsonRpcRequest<
+	'anvil_mineDetailed',
+	readonly [blockCount?: Hex, interval?: Hex]
+>
 
 export type AnvilJsonRpcRequest =
 	| AnvilImpersonateAccountJsonRpcRequest
@@ -310,3 +323,5 @@ export type AnvilJsonRpcRequest =
 	| AnvilSetTimeJsonRpcRequest
 	| AnvilSetBlockTimestampIntervalJsonRpcRequest
 	| AnvilRemoveBlockTimestampIntervalJsonRpcRequest
+	| AnvilEnableTracesJsonRpcRequest
+	| AnvilMineDetailedJsonRpcRequest

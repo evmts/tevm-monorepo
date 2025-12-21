@@ -6,12 +6,14 @@ import { anvilDealJsonRpcProcedure } from './anvil/anvilDealProcedure.js'
 import { anvilDropAllTransactionsJsonRpcProcedure } from './anvil/anvilDropAllTransactionsProcedure.js'
 import { anvilDropTransactionJsonRpcProcedure } from './anvil/anvilDropTransactionProcedure.js'
 import { anvilDumpStateJsonRpcProcedure } from './anvil/anvilDumpStateProcedure.js'
+import { anvilEnableTracesJsonRpcProcedure } from './anvil/anvilEnableTracesProcedure.js'
 import { anvilGetAutomineJsonRpcProcedure } from './anvil/anvilGetAutomineProcedure.js'
 import { anvilGetIntervalMiningJsonRpcProcedure } from './anvil/anvilGetIntervalMiningProcedure.js'
 import { anvilImpersonateAccountJsonRpcProcedure } from './anvil/anvilImpersonateAccountProcedure.js'
 import { anvilIncreaseTimeJsonRpcProcedure } from './anvil/anvilIncreaseTimeProcedure.js'
 import { anvilLoadStateJsonRpcProcedure } from './anvil/anvilLoadStateProcedure.js'
 import { anvilMetadataJsonRpcProcedure } from './anvil/anvilMetadataProcedure.js'
+import { anvilMineDetailedJsonRpcProcedure } from './anvil/anvilMineDetailedProcedure.js'
 import { anvilNodeInfoJsonRpcProcedure } from './anvil/anvilNodeInfoProcedure.js'
 import { anvilRemoveBlockTimestampIntervalJsonRpcProcedure } from './anvil/anvilRemoveBlockTimestampIntervalProcedure.js'
 import { anvilRemovePoolTransactionsJsonRpcProcedure } from './anvil/anvilRemovePoolTransactionsProcedure.js'
@@ -239,6 +241,7 @@ export const createHandlers = (client) => {
 		anvil_dropAllTransactions: anvilDropAllTransactionsJsonRpcProcedure(client),
 		anvil_dropTransaction: anvilDropTransactionJsonRpcProcedure(client),
 		anvil_dumpState: anvilDumpStateJsonRpcProcedure(client),
+		anvil_enableTraces: anvilEnableTracesJsonRpcProcedure(client),
 		anvil_getAutomine: anvilGetAutomineJsonRpcProcedure(client),
 		anvil_getIntervalMining: anvilGetIntervalMiningJsonRpcProcedure(client),
 		anvil_impersonateAccount: anvilImpersonateAccountJsonRpcProcedure(client),
@@ -246,6 +249,7 @@ export const createHandlers = (client) => {
 		anvil_loadState: anvilLoadStateJsonRpcProcedure(client),
 		anvil_metadata: anvilMetadataJsonRpcProcedure(client),
 		anvil_mine: mineProcedure(client),
+		anvil_mineDetailed: anvilMineDetailedJsonRpcProcedure(client),
 		anvil_nodeInfo: anvilNodeInfoJsonRpcProcedure(client),
 		anvil_removeBlockTimestampInterval: anvilRemoveBlockTimestampIntervalJsonRpcProcedure(client),
 		anvil_removePoolTransactions: anvilRemovePoolTransactionsJsonRpcProcedure(client),

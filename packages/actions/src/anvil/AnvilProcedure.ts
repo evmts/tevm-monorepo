@@ -6,12 +6,14 @@ import type {
 	AnvilDropAllTransactionsJsonRpcRequest,
 	AnvilDropTransactionJsonRpcRequest,
 	AnvilDumpStateJsonRpcRequest,
+	AnvilEnableTracesJsonRpcRequest,
 	AnvilGetAutomineJsonRpcRequest,
 	AnvilGetIntervalMiningJsonRpcRequest,
 	AnvilImpersonateAccountJsonRpcRequest,
 	AnvilIncreaseTimeJsonRpcRequest,
 	AnvilLoadStateJsonRpcRequest,
 	AnvilMetadataJsonRpcRequest,
+	AnvilMineDetailedJsonRpcRequest,
 	AnvilMineJsonRpcRequest,
 	AnvilNodeInfoJsonRpcRequest,
 	AnvilRemoveBlockTimestampIntervalJsonRpcRequest,
@@ -46,12 +48,14 @@ import type {
 	AnvilDropAllTransactionsJsonRpcResponse,
 	AnvilDropTransactionJsonRpcResponse,
 	AnvilDumpStateJsonRpcResponse,
+	AnvilEnableTracesJsonRpcResponse,
 	AnvilGetAutomineJsonRpcResponse,
 	AnvilGetIntervalMiningJsonRpcResponse,
 	AnvilImpersonateAccountJsonRpcResponse,
 	AnvilIncreaseTimeJsonRpcResponse,
 	AnvilLoadStateJsonRpcResponse,
 	AnvilMetadataJsonRpcResponse,
+	AnvilMineDetailedJsonRpcResponse,
 	AnvilMineJsonRpcResponse,
 	AnvilNodeInfoJsonRpcResponse,
 	AnvilRemoveBlockTimestampIntervalJsonRpcResponse,
@@ -315,6 +319,20 @@ export type AnvilSetBlockTimestampIntervalProcedure = (
 export type AnvilRemoveBlockTimestampIntervalProcedure = (
 	request: AnvilRemoveBlockTimestampIntervalJsonRpcRequest,
 ) => Promise<AnvilRemoveBlockTimestampIntervalJsonRpcResponse>
+// anvil_enableTraces
+/**
+ * JSON-RPC procedure for `anvil_enableTraces`
+ */
+export type AnvilEnableTracesProcedure = (
+	request: AnvilEnableTracesJsonRpcRequest,
+) => Promise<AnvilEnableTracesJsonRpcResponse>
+// anvil_mineDetailed
+/**
+ * JSON-RPC procedure for `anvil_mineDetailed`
+ */
+export type AnvilMineDetailedProcedure = (
+	request: AnvilMineDetailedJsonRpcRequest,
+) => Promise<AnvilMineDetailedJsonRpcResponse>
 
 export type AnvilProcedure =
 	| AnvilSetCoinbaseProcedure
@@ -355,3 +373,5 @@ export type AnvilProcedure =
 	| AnvilSetTimeProcedure
 	| AnvilSetBlockTimestampIntervalProcedure
 	| AnvilRemoveBlockTimestampIntervalProcedure
+	| AnvilEnableTracesProcedure
+	| AnvilMineDetailedProcedure

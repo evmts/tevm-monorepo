@@ -64,6 +64,23 @@ export const createTevmNode = (options = {}) => {
 	}
 
 	/**
+	 * @type {boolean}
+	 */
+	let tracesEnabled = false
+	/**
+	 * Gets whether automatic tracing is enabled
+	 * @returns {boolean}
+	 */
+	const getTracesEnabled = () => tracesEnabled
+	/**
+	 * Sets whether to automatically collect traces for all transactions
+	 * @param {boolean} enabled
+	 */
+	const setTracesEnabled = (enabled) => {
+		tracesEnabled = enabled
+	}
+
+	/**
 	 * Timestamp to use for the next block (if set)
 	 * @type {bigint | undefined}
 	 */
@@ -493,6 +510,30 @@ export const createTevmNode = (options = {}) => {
 			impersonatedAccount = address && getAddress(address)
 		}
 		/**
+		 * Auto impersonate state copied from parent
+		 * @type {boolean}
+		 */
+		let copiedAutoImpersonate = baseClient.getAutoImpersonate()
+		const getCopiedAutoImpersonate = () => copiedAutoImpersonate
+		/**
+		 * @param {boolean} enabled
+		 */
+		const setCopiedAutoImpersonate = (enabled) => {
+			copiedAutoImpersonate = enabled
+		}
+		/**
+		 * Traces enabled state copied from parent
+		 * @type {boolean}
+		 */
+		let copiedTracesEnabled = baseClient.getTracesEnabled()
+		const getCopiedTracesEnabled = () => copiedTracesEnabled
+		/**
+		 * @param {boolean} enabled
+		 */
+		const setCopiedTracesEnabled = (enabled) => {
+			copiedTracesEnabled = enabled
+		}
+		/**
 		 * Timestamp to use for the next block (if set)
 		 * @type {bigint | undefined}
 		 */
@@ -621,6 +662,10 @@ export const createTevmNode = (options = {}) => {
 				return impersonatedAccount
 			},
 			setImpersonatedAccount,
+			getAutoImpersonate: getCopiedAutoImpersonate,
+			setAutoImpersonate: setCopiedAutoImpersonate,
+			getTracesEnabled: getCopiedTracesEnabled,
+			setTracesEnabled: setCopiedTracesEnabled,
 			getNextBlockTimestamp: () => copiedNextBlockTimestamp,
 			setNextBlockTimestamp: setCopiedNextBlockTimestamp,
 			getNextBlockGasLimit: () => copiedNextBlockGasLimit,
@@ -682,6 +727,8 @@ export const createTevmNode = (options = {}) => {
 		setImpersonatedAccount,
 		getAutoImpersonate,
 		setAutoImpersonate,
+		getTracesEnabled,
+		setTracesEnabled,
 		getNextBlockTimestamp,
 		setNextBlockTimestamp,
 		getNextBlockGasLimit,
