@@ -69,8 +69,16 @@ export const mineHandler =
 			for (let count = 0; count < blockCount; count++) {
 				const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
 
-				let timestamp = Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
+				// Use nextBlockTimestamp if set (only for the first block), otherwise use current time
+				const overrideTimestamp = count === 0 ? client.getNextBlockTimestamp() : undefined
+				let timestamp = overrideTimestamp !== undefined
+					? Number(overrideTimestamp)
+					: Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
 				timestamp = count === 0 ? timestamp : timestamp + interval
+				// Clear the override after using it
+				if (count === 0 && overrideTimestamp !== undefined) {
+					client.setNextBlockTimestamp(undefined)
+				}
 
 				const blockBuilder = await vm.buildBlock({
 					parentBlock,

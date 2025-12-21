@@ -46,6 +46,24 @@ export const createTevmNode = (options = {}) => {
 		impersonatedAccount = address
 	}
 
+	/**
+	 * Timestamp to use for the next block (if set)
+	 * @type {bigint | undefined}
+	 */
+	let nextBlockTimestamp
+	/**
+	 * Sets the timestamp for the next block
+	 * @param {bigint | undefined} timestamp
+	 */
+	const setNextBlockTimestamp = (timestamp) => {
+		nextBlockTimestamp = timestamp
+	}
+	/**
+	 * Gets the timestamp set for the next block
+	 * @returns {bigint | undefined}
+	 */
+	const getNextBlockTimestamp = () => nextBlockTimestamp
+
 	const loggingLevel = options.loggingLevel ?? 'warn'
 	const logger = createLogger({
 		name: 'TevmClient',
@@ -333,6 +351,17 @@ export const createTevmNode = (options = {}) => {
 		const setImpersonatedAccount = (address) => {
 			impersonatedAccount = address && getAddress(address)
 		}
+		/**
+		 * Timestamp to use for the next block (if set)
+		 * @type {bigint | undefined}
+		 */
+		let copiedNextBlockTimestamp = baseClient.getNextBlockTimestamp()
+		/**
+		 * @param {bigint | undefined} timestamp
+		 */
+		const setCopiedNextBlockTimestamp = (timestamp) => {
+			copiedNextBlockTimestamp = timestamp
+		}
 		await readyPromise
 		const oldVm = await vmPromise
 		const vm = await oldVm.deepCopy()
@@ -372,6 +401,8 @@ export const createTevmNode = (options = {}) => {
 				return impersonatedAccount
 			},
 			setImpersonatedAccount,
+			getNextBlockTimestamp: () => copiedNextBlockTimestamp,
+			setNextBlockTimestamp: setCopiedNextBlockTimestamp,
 			setFilter: (filter) => {
 				newFilters.set(filter.id, filter)
 			},
@@ -417,6 +448,8 @@ export const createTevmNode = (options = {}) => {
 			return impersonatedAccount
 		},
 		setImpersonatedAccount,
+		getNextBlockTimestamp,
+		setNextBlockTimestamp,
 		getFilters: () => filters,
 		setFilter: (filter) => {
 			filters.set(filter.id, filter)

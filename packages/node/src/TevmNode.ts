@@ -83,6 +83,17 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 */
 	readonly setImpersonatedAccount: (address: Address | undefined) => void
 	/**
+	 * Gets the timestamp to use for the next block
+	 * If undefined, the current time will be used
+	 */
+	readonly getNextBlockTimestamp: () => bigint | undefined
+	/**
+	 * Sets the timestamp for the next block.
+	 * This is used by the anvil/evm_setNextBlockTimestamp RPC method.
+	 * Pass undefined to clear the override and use current time.
+	 */
+	readonly setNextBlockTimestamp: (timestamp: bigint | undefined) => void
+	/**
 	 * Extends the base client with additional functionality. This enables optimal code splitting
 	 * and extensibility
 	 */

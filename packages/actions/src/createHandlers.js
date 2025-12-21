@@ -191,6 +191,22 @@ export const createHandlers = (client) => {
 		debug_traceState: debugTraceStateJsonRpcProcedure(client),
 	}
 
+	const evmHandlers = {
+		/**
+		 * @param {any} request
+		 */
+		evm_setNextBlockTimestamp: (request) => {
+			const timestamp = BigInt(request.params[0])
+			client.setNextBlockTimestamp(timestamp)
+			return {
+				method: request.method,
+				result: null,
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
+		},
+	}
+
 	const allHandlers = {
 		...tevmHandlers,
 		...ethHandlers,
@@ -199,6 +215,7 @@ export const createHandlers = (client) => {
 		...ganacheHandlers,
 		...hardhatHandlers,
 		...debugHandlers,
+		...evmHandlers,
 	}
 
 	return allHandlers
