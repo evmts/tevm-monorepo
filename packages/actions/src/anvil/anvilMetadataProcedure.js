@@ -42,8 +42,8 @@ export const anvilMetadataJsonRpcProcedure = (client) => {
 			let forkUrl
 
 			// Extract the fork URL if available
-			if (typeof client.forkTransport.url === 'string') {
-				forkUrl = client.forkTransport.url
+			if ('url' in client.forkTransport && typeof (/** @type {any} */ (client.forkTransport).url) === 'string') {
+				forkUrl = /** @type {any} */ (client.forkTransport).url
 			}
 
 			if (forkUrl) {

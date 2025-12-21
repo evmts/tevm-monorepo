@@ -1,4 +1,3 @@
-import { InternalError, MisconfiguredClientError, UnreachableCodeError } from '@tevm/errors'
 import { bytesToHex, hexToBytes, numberToHex } from '@tevm/utils'
 
 /**
@@ -38,7 +37,7 @@ export const anvilMineDetailedJsonRpcProcedure = (client) => {
 					jsonrpc: '2.0',
 					method: request.method,
 					error: {
-						code: -32000,
+						code: /** @type {const} */ ('-32000'),
 						message: 'Mining is already in progress',
 					},
 					...(request.id !== undefined ? { id: request.id } : {}),
@@ -54,7 +53,7 @@ export const anvilMineDetailedJsonRpcProcedure = (client) => {
 					jsonrpc: '2.0',
 					method: request.method,
 					error: {
-						code: -32000,
+						code: /** @type {const} */ ('-32000'),
 						message: 'Syncing not currently implemented',
 					},
 					...(request.id !== undefined ? { id: request.id } : {}),
@@ -65,7 +64,7 @@ export const anvilMineDetailedJsonRpcProcedure = (client) => {
 					jsonrpc: '2.0',
 					method: request.method,
 					error: {
-						code: -32000,
+						code: /** @type {const} */ ('-32000'),
 						message: 'Client is stopped',
 					},
 					...(request.id !== undefined ? { id: request.id } : {}),
@@ -80,7 +79,7 @@ export const anvilMineDetailedJsonRpcProcedure = (client) => {
 					jsonrpc: '2.0',
 					method: request.method,
 					error: {
-						code: -32000,
+						code: /** @type {const} */ ('-32000'),
 						message: 'Unexpected client status',
 					},
 					...(request.id !== undefined ? { id: request.id } : {}),
@@ -204,9 +203,7 @@ export const anvilMineDetailedJsonRpcProcedure = (client) => {
 						hash: /** @type {import('@tevm/utils').Hex} */ (bytesToHex(tx.hash())),
 						from: /** @type {import('@tevm/utils').Hex} */ (bytesToHex(tx.getSenderAddress().bytes)),
 						...(tx.to ? { to: /** @type {import('@tevm/utils').Hex} */ (bytesToHex(tx.to.bytes)) } : {}),
-						gasUsed: /** @type {import('@tevm/utils').Hex} */ (
-							numberToHex(receiptAny.cumulativeBlockGasUsed ?? 0n)
-						),
+						gasUsed: /** @type {import('@tevm/utils').Hex} */ (numberToHex(receiptAny.cumulativeBlockGasUsed ?? 0n)),
 						status: /** @type {'0x0' | '0x1'} */ (status),
 						...(result.createdAddress
 							? { contractAddress: /** @type {import('@tevm/utils').Hex} */ (bytesToHex(result.createdAddress.bytes)) }
@@ -230,7 +227,7 @@ export const anvilMineDetailedJsonRpcProcedure = (client) => {
 						jsonrpc: '2.0',
 						method: request.method,
 						error: {
-							code: -32000,
+							code: /** @type {const} */ ('-32000'),
 							message: 'State root not found in mineHandler',
 						},
 						...(request.id !== undefined ? { id: request.id } : {}),
@@ -258,7 +255,7 @@ export const anvilMineDetailedJsonRpcProcedure = (client) => {
 				jsonrpc: '2.0',
 				method: request.method,
 				error: {
-					code: -32000,
+					code: /** @type {const} */ ('-32000'),
 					message: /** @type {Error} */ (e).message,
 				},
 				...(request.id !== undefined ? { id: request.id } : {}),

@@ -150,6 +150,6 @@ describe('anvilAddBalanceProcedure', () => {
 		})
 
 		expect(result.error).toBeDefined()
-		expect(result.error?.code).toBe(-32000)
+		expect(result.error?.code).toBe('-32000')
 	})
 })

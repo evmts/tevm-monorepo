@@ -29,28 +29,28 @@ export const anvilAddBalanceJsonRpcProcedure = (client) => {
 		const address = request.params[0]
 		const amount = request.params[1]
 
-		const result = await anvilAddBalanceHandler(client)({
-			address,
-			amount,
-		})
+		try {
+			await anvilAddBalanceHandler(client)({
+				address,
+				amount,
+			})
 
-		if (result.errors) {
+			return {
+				jsonrpc: '2.0',
+				method: request.method,
+				result: null,
+				...(request.id !== undefined ? { id: request.id } : {}),
+			}
+		} catch (error) {
 			return {
 				jsonrpc: '2.0',
 				method: request.method,
 				error: /** @type {any}*/ ({
-					code: -32000,
-					message: result.errors[0]?.message ?? 'Unknown error adding balance',
+					code: '-32000',
+					message: error instanceof Error ? error.message : 'Unknown error adding balance',
 				}),
 				...(request.id !== undefined ? { id: request.id } : {}),
 			}
-		}
-
-		return {
-			jsonrpc: '2.0',
-			method: request.method,
-			result: null,
-			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

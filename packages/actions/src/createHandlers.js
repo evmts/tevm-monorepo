@@ -58,7 +58,6 @@ import { debugTraceChainJsonRpcProcedure } from './debug/debugTraceChainProcedur
 import { debugTraceStateJsonRpcProcedure } from './debug/debugTraceStateProcedure.js'
 import { debugTraceTransactionJsonRpcProcedure } from './debug/debugTraceTransactionProcedure.js'
 import { blockNumberProcedure } from './eth/blockNumberProcedure.js'
-import { chainIdHandler } from './eth/chainIdHandler.js'
 import { chainIdProcedure } from './eth/chainIdProcedure.js'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethBlobBaseFeeJsonRpcProcedure } from './eth/ethBlobBaseFeeProcedure.js'

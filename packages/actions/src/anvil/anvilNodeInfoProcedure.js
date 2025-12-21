@@ -40,10 +40,15 @@ export const anvilNodeInfoJsonRpcProcedure = (client) => {
 		let forkUrl
 		if (client.forkTransport) {
 			// Check if the transport has a url property (common pattern)
-			if (typeof client.forkTransport.url === 'string') {
-				forkUrl = client.forkTransport.url
+			if ('url' in client.forkTransport && typeof (/** @type {any} */ (client.forkTransport).url) === 'string') {
+				forkUrl = /** @type {any} */ (client.forkTransport).url
 			}
 		}
+
+		// Normalize mining mode - 'interval' mining is treated as 'auto' for API compatibility
+		const miningType = client.miningConfig.type
+		/** @type {'auto' | 'manual'} */
+		const miningMode = miningType === 'manual' ? 'manual' : 'auto'
 
 		/** @type {import('./AnvilResult.js').AnvilNodeInfoResult} */
 		const nodeInfo = {
@@ -52,7 +57,7 @@ export const anvilNodeInfoJsonRpcProcedure = (client) => {
 			...(forkUrl ? { forkUrl } : {}),
 			chainId,
 			hardfork,
-			miningMode: client.miningConfig.type,
+			miningMode,
 		}
 
 		return {

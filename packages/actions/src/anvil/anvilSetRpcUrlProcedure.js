@@ -38,7 +38,7 @@ export const anvilSetRpcUrlJsonRpcProcedure = (client) => {
 				jsonrpc: '2.0',
 				method: request.method,
 				error: {
-					code: -32602,
+					code: /** @type {const} */ ('-32602'),
 					message: 'Cannot set RPC URL on a non-forked node. Create the node with fork configuration.',
 				},
 				...(request.id ? { id: request.id } : {}),
@@ -52,15 +52,16 @@ export const anvilSetRpcUrlJsonRpcProcedure = (client) => {
 		// 2. Provide a way to update the StateManager's fork configuration
 		//
 		// For now, we log a warning and update the url property if it exists
+		const oldUrl = 'url' in client.forkTransport ? /** @type {any} */ (client.forkTransport).url : undefined
 		client.logger.warn(
-			{ oldUrl: client.forkTransport.url, newUrl },
+			{ oldUrl, newUrl },
 			'anvil_setRpcUrl has limited support. The fork URL cannot be fully changed without recreating the node.',
 		)
 
 		// If the transport has a mutable url property, update it
-		if ('url' in client.forkTransport && typeof client.forkTransport.url === 'string') {
+		if ('url' in client.forkTransport && typeof (/** @type {any} */ (client.forkTransport).url) === 'string') {
 			// This is a best-effort attempt, but it may not affect existing cached state
-			// @ts-expect-error - We know url exists from the check above
+			/** @type {any} */
 			client.forkTransport.url = newUrl
 		}
 

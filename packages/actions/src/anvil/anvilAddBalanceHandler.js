@@ -8,6 +8,7 @@ import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
  *
  * @param {import('@tevm/node').TevmNode} node
  * @returns {import('./AnvilHandler.js').AnvilAddBalanceHandler}
+ * @throws {Error} if setting the balance fails
  * @example
  * ```typescript
  * import { createTevmNode } from '@tevm/node'
@@ -23,37 +24,36 @@ import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
  * })
  * ```
  */
-export const anvilAddBalanceHandler =
-	(node) =>
-	async ({ address, amount }) => {
-		try {
-			// Get current balance
-			const currentBalance = await getBalanceHandler(node)({
-				address,
-				blockTag: 'latest',
-			})
+export const anvilAddBalanceHandler = (node) => {
+	/**
+	 * @type {import('./AnvilHandler.js').AnvilAddBalanceHandler}
+	 */
+	const handler = async ({ address, amount }) => {
+		// Get current balance
+		const currentBalance = await getBalanceHandler(node)({
+			address,
+			blockTag: 'latest',
+		})
 
-			// Convert amount to bigint if it's a hex string
-			const amountBigInt = typeof amount === 'bigint' ? amount : BigInt(amount)
+		// Convert amount to bigint if it's a hex string
+		const amountBigInt = typeof amount === 'bigint' ? amount : BigInt(/** @type {`0x${string}`} */ (amount))
 
-			// Calculate new balance
-			const newBalance = currentBalance + amountBigInt
+		// Calculate new balance
+		const newBalance = currentBalance + amountBigInt
 
-			// Set the new balance
-			const result = await setAccountHandler(node)({
-				address,
-				balance: newBalance,
-			})
+		// Set the new balance
+		const result = await setAccountHandler(node)({
+			address,
+			balance: newBalance,
+		})
 
-			// Return empty result or errors
-			return result.errors ? { errors: result.errors } : {}
-		} catch (error) {
-			return {
-				errors: [
-					{
-						message: error instanceof Error ? error.message : String(error),
-					},
-				],
-			}
+		// Throw if there were errors
+		if (result.errors && result.errors.length > 0) {
+			throw result.errors[0]
 		}
+
+		// Return null on success per the AnvilAddBalanceResult type
+		return null
 	}
+	return handler
+}

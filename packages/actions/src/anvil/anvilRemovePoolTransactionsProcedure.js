@@ -1,4 +1,4 @@
-import { getAddress, hexToBytes } from '@tevm/utils'
+import { createAddressFromString, getAddress } from '@tevm/utils'
 
 /**
  * Request handler for anvil_removePoolTransactions JSON-RPC requests.
@@ -21,13 +21,9 @@ export const anvilRemovePoolTransactionsJsonRpcProcedure = (client) => {
 		const address = getAddress(request.params[0])
 		const txPool = await client.getTxPool()
 
-		// Get all transactions from this address
-		const addressBytes = hexToBytes(address)
-		const txs = await txPool.getBySenderAddress({
-			toString: () => address,
-			toBytes: () => addressBytes,
-			equals: (/** @type {any} */ other) => address.toLowerCase() === other.toString().toLowerCase(),
-		})
+		// Get all transactions from this address using EthjsAddress
+		const ethjsAddress = createAddressFromString(address)
+		const txs = await txPool.getBySenderAddress(ethjsAddress)
 
 		// Remove each transaction
 		for (const txObj of txs) {

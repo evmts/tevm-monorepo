@@ -36,7 +36,7 @@ export const anvilSnapshotJsonRpcProcedure = (client) => {
 			const response = {
 				jsonrpc: '2.0',
 				method: request.method,
-				result: snapshotId,
+				result: /** @type {`0x${string}`} */ (snapshotId),
 				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 			return response
@@ -51,7 +51,7 @@ export const anvilSnapshotJsonRpcProcedure = (client) => {
 				...(request.id !== undefined ? { id: request.id } : {}),
 				error: {
 					// TODO use @tevm/errors
-					code: /** @type {any} */ (-32603),
+					code: /** @type {const} */ ('-32603'),
 					message: e instanceof Error ? e.message : 'Unknown error',
 				},
 			}
