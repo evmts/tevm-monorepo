@@ -26,6 +26,7 @@ import type {
 	EthGetUncleCountByBlockHashParams,
 	EthGetUncleCountByBlockNumberParams,
 	EthHashrateParams,
+	EthMaxPriorityFeePerGasParams,
 	EthMiningParams,
 	EthNewBlockFilterParams,
 	EthNewFilterParams,
@@ -66,6 +67,7 @@ import type {
 	EthGetUncleCountByBlockHashResult,
 	EthGetUncleCountByBlockNumberResult,
 	EthHashrateResult,
+	EthMaxPriorityFeePerGasResult,
 	EthMiningResult,
 	EthNewBlockFilterResult,
 	EthNewFilterResult,
@@ -95,6 +97,10 @@ export type EthEstimateGasHandler = (request: EthEstimateGasParams) => Promise<E
 export type EthHashrateHandler = (request?: EthHashrateParams) => Promise<EthHashrateResult>
 // eth_gasPrice
 export type EthGasPriceHandler = (request?: EthGasPriceParams) => Promise<EthGasPriceResult>
+// eth_maxPriorityFeePerGas
+export type EthMaxPriorityFeePerGasHandler = (
+	request?: EthMaxPriorityFeePerGasParams,
+) => Promise<EthMaxPriorityFeePerGasResult>
 // eth_getBalance
 export type EthGetBalanceHandler = (request: EthGetBalanceParams) => Promise<EthGetBalanceResult>
 // eth_getBlockByHash

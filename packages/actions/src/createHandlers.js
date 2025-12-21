@@ -1,6 +1,4 @@
 import { MethodNotSupportedError } from '@tevm/errors'
-import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
-import { testAccounts } from './eth/utils/testAccounts.js'
 import { anvilDealJsonRpcProcedure } from './anvil/anvilDealProcedure.js'
 import { anvilDropTransactionJsonRpcProcedure } from './anvil/anvilDropTransactionProcedure.js'
 import { anvilDumpStateJsonRpcProcedure } from './anvil/anvilDumpStateProcedure.js'
@@ -23,6 +21,7 @@ import { debugTraceTransactionJsonRpcProcedure } from './debug/debugTraceTransac
 import { blockNumberProcedure } from './eth/blockNumberProcedure.js'
 import { chainIdHandler } from './eth/chainIdHandler.js'
 import { chainIdProcedure } from './eth/chainIdProcedure.js'
+import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethBlobBaseFeeJsonRpcProcedure } from './eth/ethBlobBaseFeeProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
 import { ethCoinbaseJsonRpcProcedure } from './eth/ethCoinbaseProcedure.js'
@@ -51,6 +50,8 @@ import { gasPriceProcedure } from './eth/gasPriceProcedure.js'
 import { getBalanceProcedure } from './eth/getBalanceProcedure.js'
 import { getCodeProcedure } from './eth/getCodeProcedure.js'
 import { getStorageAtProcedure } from './eth/getStorageAtProcedure.js'
+import { maxPriorityFeePerGasProcedure } from './eth/maxPriorityFeePerGasProcedure.js'
+import { testAccounts } from './eth/utils/testAccounts.js'
 import { getAccountProcedure } from './GetAccount/getAccountProcedure.js'
 import { loadStateProcedure } from './LoadState/loadStateProcedure.js'
 import { mineProcedure } from './Mine/mineProcedure.js'
@@ -103,6 +104,7 @@ export const createHandlers = (client) => {
 		eth_getCode: getCodeProcedure(client),
 		eth_getStorageAt: getStorageAtProcedure(client),
 		eth_gasPrice: gasPriceProcedure(client),
+		eth_maxPriorityFeePerGas: maxPriorityFeePerGasProcedure(client),
 		eth_getBalance: getBalanceProcedure(client),
 		eth_coinbase: ethCoinbaseJsonRpcProcedure(client),
 		eth_mining:

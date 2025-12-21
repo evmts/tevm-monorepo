@@ -28,6 +28,7 @@ import type {
 	EthGetUncleCountByBlockHashJsonRpcRequest,
 	EthGetUncleCountByBlockNumberJsonRpcRequest,
 	EthHashrateJsonRpcRequest,
+	EthMaxPriorityFeePerGasJsonRpcRequest,
 	EthMiningJsonRpcRequest,
 	EthNewBlockFilterJsonRpcRequest,
 	EthNewFilterJsonRpcRequest,
@@ -70,6 +71,7 @@ import type {
 	EthGetUncleCountByBlockHashJsonRpcResponse,
 	EthGetUncleCountByBlockNumberJsonRpcResponse,
 	EthHashrateJsonRpcResponse,
+	EthMaxPriorityFeePerGasJsonRpcResponse,
 	EthMiningJsonRpcResponse,
 	EthNewBlockFilterJsonRpcResponse,
 	EthNewFilterJsonRpcResponse,
@@ -107,6 +109,10 @@ export type EthEstimateGasJsonRpcProcedure = (
 export type EthHashrateJsonRpcProcedure = (request: EthHashrateJsonRpcRequest) => Promise<EthHashrateJsonRpcResponse>
 // eth_gasPrice
 export type EthGasPriceJsonRpcProcedure = (request: EthGasPriceJsonRpcRequest) => Promise<EthGasPriceJsonRpcResponse>
+// eth_maxPriorityFeePerGas
+export type EthMaxPriorityFeePerGasJsonRpcProcedure = (
+	request: EthMaxPriorityFeePerGasJsonRpcRequest,
+) => Promise<EthMaxPriorityFeePerGasJsonRpcResponse>
 // eth_getBalance
 export type EthGetBalanceJsonRpcProcedure = (
 	request: EthGetBalanceJsonRpcRequest,

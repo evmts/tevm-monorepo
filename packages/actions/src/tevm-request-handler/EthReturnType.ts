@@ -28,6 +28,7 @@ import type {
 	EthGetUncleCountByBlockHashJsonRpcResponse,
 	EthGetUncleCountByBlockNumberJsonRpcResponse,
 	EthHashrateJsonRpcResponse,
+	EthMaxPriorityFeePerGasJsonRpcResponse,
 	EthMiningJsonRpcResponse,
 	EthNewBlockFilterJsonRpcResponse,
 	EthNewFilterJsonRpcResponse,
@@ -47,6 +48,7 @@ import type {
 export type EthReturnType = {
 	eth_call: EthCallJsonRpcResponse
 	eth_gasPrice: EthGasPriceJsonRpcResponse
+	eth_maxPriorityFeePerGas: EthMaxPriorityFeePerGasJsonRpcResponse
 	eth_sign: EthSignJsonRpcResponse
 	eth_newBlockFilter: EthNewBlockFilterJsonRpcResponse
 	eth_mining: EthMiningJsonRpcResponse
