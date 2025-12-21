@@ -68,6 +68,20 @@ export {
 	toType,
 	ValueEncoding,
 	Withdrawal,
+	// EIP-7702 EOA Code authorization utilities
+	eoaCode7702RecoverAuthority,
+	eoaCode7702SignAuthorization,
+	eoaCode7702AuthorizationMessageToSign,
+	eoaCode7702AuthorizationHashedMessageToSign,
+	eoaCode7702AuthorizationListBytesItemToJSON,
+	eoaCode7702AuthorizationListJSONItemToBytes,
+	isEOACode7702AuthorizationList,
+	EOA_CODE_7702_AUTHORITY_SIGNING_MAGIC,
+	// Additional constants needed for EIP-7702 validation
+	MAX_UINT64,
+	SECP256K1_ORDER_DIV_2,
+	BIGINT_0,
+	BIGINT_1,
 } from './ethereumjs.js'
 export type { MemoryDb } from './MemoryDb.js'
 export * from './prefundedAccounts.js'
