@@ -425,3 +425,39 @@ export type EthGetProofJsonRpcResponse = JsonRpcResponse<
 	},
 	string | number
 >
+
+// eth_simulateV1
+/**
+ * JSON-RPC response call result for eth_simulateV1
+ */
+export type JsonRpcSimulateCallResult = {
+	returnData: Hex
+	logs: Array<SerializeToJson<FilterLog>>
+	gasUsed: Hex
+	status: Hex
+	error?: {
+		code: number
+		message: string
+		data?: Hex
+	}
+}
+/**
+ * JSON-RPC response block result for eth_simulateV1
+ */
+export type JsonRpcSimulateBlockResult = {
+	number: Hex
+	hash: Hex
+	timestamp: Hex
+	gasLimit: Hex
+	gasUsed: Hex
+	baseFeePerGas?: Hex
+	calls: JsonRpcSimulateCallResult[]
+}
+/**
+ * JSON-RPC response for `eth_simulateV1` procedure
+ */
+export type EthSimulateV1JsonRpcResponse = JsonRpcResponse<
+	'eth_simulateV1',
+	JsonRpcSimulateBlockResult[],
+	string | number
+>

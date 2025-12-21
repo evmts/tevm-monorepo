@@ -349,6 +349,95 @@ export type EthGetProofParams = {
 	readonly blockTag?: BlockParam
 }
 
+// eth_simulateV1
+/**
+ * Parameters for a single simulated call within a block
+ */
+export type EthSimulateV1Call = {
+	/**
+	 * The address from which the transaction is sent
+	 */
+	readonly from?: Address
+	/**
+	 * The address to which the transaction is addressed
+	 */
+	readonly to?: Address
+	/**
+	 * The integer of gas provided for the transaction execution
+	 */
+	readonly gas?: bigint
+	/**
+	 * The integer of gasPrice used for each paid gas
+	 */
+	readonly gasPrice?: bigint
+	/**
+	 * The max fee per gas (EIP-1559)
+	 */
+	readonly maxFeePerGas?: bigint
+	/**
+	 * The max priority fee per gas (EIP-1559)
+	 */
+	readonly maxPriorityFeePerGas?: bigint
+	/**
+	 * The integer of value sent with this transaction
+	 */
+	readonly value?: bigint
+	/**
+	 * The hash of the method signature and encoded parameters
+	 */
+	readonly data?: Hex
+	/**
+	 * The nonce of the transaction
+	 */
+	readonly nonce?: bigint
+}
+
+/**
+ * A block of calls to simulate with optional block and state overrides
+ */
+export type EthSimulateV1BlockStateCall = {
+	/**
+	 * Block header fields to override for this simulated block
+	 */
+	readonly blockOverrides?: BlockOverrideSet
+	/**
+	 * State to override before executing this block's calls
+	 */
+	readonly stateOverrides?: StateOverrideSet
+	/**
+	 * Calls to simulate in this block
+	 */
+	readonly calls: readonly EthSimulateV1Call[]
+}
+
+/**
+ * Based on the JSON-RPC request for `eth_simulateV1` procedure
+ * Allows simulation of multiple transactions across multiple blocks with state overrides
+ */
+export type EthSimulateV1Params = {
+	/**
+	 * Array of block state calls to simulate. Each block can have its own
+	 * state overrides and multiple calls.
+	 */
+	readonly blockStateCalls: readonly EthSimulateV1BlockStateCall[]
+	/**
+	 * Whether to trace ETH transfers
+	 */
+	readonly traceTransfers?: boolean
+	/**
+	 * Whether to validate transactions (check signatures, nonces, etc.)
+	 */
+	readonly validation?: boolean
+	/**
+	 * Whether to return full transaction objects in the response
+	 */
+	readonly returnFullTransactions?: boolean
+	/**
+	 * The block number or tag to execute the simulation against
+	 */
+	readonly blockTag?: BlockParam
+}
+
 export type EthParams =
 	| EthAccountsParams
 	| EthAccountsParams
@@ -392,3 +481,4 @@ export type EthParams =
 	| EthNewPendingTransactionFilterParams
 	| EthUninstallFilterParams
 	| EthGetProofParams
+	| EthSimulateV1Params

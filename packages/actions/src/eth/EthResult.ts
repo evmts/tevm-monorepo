@@ -338,3 +338,88 @@ export type EthGetProofResult = {
 	 */
 	storageProof: StorageProof[]
 }
+
+// eth_simulateV1
+/**
+ * Error information for a simulated call
+ */
+export type SimulateCallError = {
+	/**
+	 * Error code
+	 */
+	code: number
+	/**
+	 * Error message
+	 */
+	message: string
+	/**
+	 * Optional data (e.g., revert reason)
+	 */
+	data?: Hex
+}
+
+/**
+ * Result of a single simulated call
+ */
+export type EthSimulateV1CallResult = {
+	/**
+	 * The return data from the call
+	 */
+	returnData: Hex
+	/**
+	 * Logs emitted during the call execution
+	 */
+	logs: FilterLog[]
+	/**
+	 * Gas used by the call
+	 */
+	gasUsed: bigint
+	/**
+	 * Status of the call (1 = success, 0 = failure)
+	 */
+	status: bigint
+	/**
+	 * Error information if the call failed
+	 */
+	error?: SimulateCallError
+}
+
+/**
+ * Result of a simulated block containing multiple call results
+ */
+export type EthSimulateV1BlockResult = {
+	/**
+	 * The block number
+	 */
+	number: bigint
+	/**
+	 * The block hash
+	 */
+	hash: Hex
+	/**
+	 * The timestamp of the block
+	 */
+	timestamp: bigint
+	/**
+	 * The gas limit of the block
+	 */
+	gasLimit: bigint
+	/**
+	 * The gas used in the block
+	 */
+	gasUsed: bigint
+	/**
+	 * The base fee per gas for the block
+	 */
+	baseFeePerGas?: bigint
+	/**
+	 * Results of the simulated calls in this block
+	 */
+	calls: EthSimulateV1CallResult[]
+}
+
+/**
+ * JSON-RPC response for `eth_simulateV1` procedure
+ * Returns an array of block results, each containing call results
+ */
+export type EthSimulateV1Result = EthSimulateV1BlockResult[]

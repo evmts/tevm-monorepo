@@ -42,6 +42,7 @@ import type {
 	EthSyncingJsonRpcRequest,
 	EthUninstallFilterJsonRpcRequest,
 	EthGetProofJsonRpcRequest,
+	EthSimulateV1JsonRpcRequest,
 } from './EthJsonRpcRequest.js'
 import type {
 	EthAccountsJsonRpcResponse,
@@ -87,6 +88,7 @@ import type {
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
 	EthGetProofJsonRpcResponse,
+	EthSimulateV1JsonRpcResponse,
 } from './EthJsonRpcResponse.js'
 
 // eth_accounts
@@ -237,3 +239,7 @@ export type EthCreateAccessListJsonRpcProcedure = (
 export type EthGetProofJsonRpcProcedure = (
 	request: EthGetProofJsonRpcRequest,
 ) => Promise<EthGetProofJsonRpcResponse>
+// eth_simulateV1
+export type EthSimulateV1JsonRpcProcedure = (
+	request: EthSimulateV1JsonRpcRequest,
+) => Promise<EthSimulateV1JsonRpcResponse>

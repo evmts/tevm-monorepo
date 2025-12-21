@@ -331,6 +331,61 @@ export type EthGetProofJsonRpcRequest = JsonRpcRequest<
 	'eth_getProof',
 	readonly [address: Address, storageKeys: readonly Hex[], tag: BlockTag | Hex]
 >
+// eth_simulateV1
+/**
+ * JSON-RPC transaction for simulateV1
+ */
+export type JsonRpcSimulateTransaction = JsonRpcTransaction & {
+	maxFeePerGas?: Hex
+	maxPriorityFeePerGas?: Hex
+}
+/**
+ * State override for simulateV1
+ */
+export type JsonRpcStateOverride = {
+	[address: Address]: {
+		balance?: Hex
+		nonce?: Hex
+		code?: Hex
+		state?: Record<Hex, Hex>
+		stateDiff?: Record<Hex, Hex>
+	}
+}
+/**
+ * Block override for simulateV1
+ */
+export type JsonRpcBlockOverride = {
+	number?: Hex
+	time?: Hex
+	gasLimit?: Hex
+	feeRecipient?: Address
+	prevRandao?: Hex
+	baseFeePerGas?: Hex
+	blobBaseFee?: Hex
+}
+/**
+ * A block of calls for simulateV1
+ */
+export type JsonRpcBlockStateCall = {
+	blockOverrides?: JsonRpcBlockOverride
+	stateOverrides?: JsonRpcStateOverride
+	calls?: JsonRpcSimulateTransaction[]
+}
+/**
+ * JSON-RPC request for `eth_simulateV1` procedure
+ */
+export type EthSimulateV1JsonRpcRequest = JsonRpcRequest<
+	'eth_simulateV1',
+	readonly [
+		opts: {
+			blockStateCalls: JsonRpcBlockStateCall[]
+			traceTransfers?: boolean
+			validation?: boolean
+			returnFullTransactions?: boolean
+		},
+		blockTag?: BlockTag | Hex,
+	]
+>
 
 export type EthJsonRpcRequest =
 	| EthAccountsJsonRpcRequest
@@ -377,3 +432,4 @@ export type EthJsonRpcRequest =
 	| EthUninstallFilterJsonRpcRequest
 	| EthCreateAccessListJsonRpcRequest
 	| EthGetProofJsonRpcRequest
+	| EthSimulateV1JsonRpcRequest
