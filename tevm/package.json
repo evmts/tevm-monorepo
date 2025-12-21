@@ -55,6 +55,16 @@
         "default": "./common/index.cjs"
       }
     },
+    "./chains": {
+      "import": {
+        "types": "./chains/index.d.ts",
+        "default": "./chains/index.js"
+      },
+      "require": {
+        "types": "./chains/index.d.cts",
+        "default": "./chains/index.cjs"
+      }
+    },
     "./contract": {
       "import": {
         "types": "./contract/index.d.ts",
@@ -373,6 +383,7 @@
     "receipt-manager",
     "contract",
     "common",
+    "chains",
     "tx",
     "vm",
     "txpool",
