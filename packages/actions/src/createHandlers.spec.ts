@@ -231,4 +231,91 @@ describe('createHandlers', () => {
 			expect(newBlock.header.timestamp).toBe(initialTimestamp + 7200n)
 		})
 	})
+
+	describe('evm_setBlockGasLimit', () => {
+		it('should set the block gas limit for subsequent blocks', async () => {
+			const vm = await client.getVm()
+			const initialBlock = await vm.blockchain.getCanonicalHeadBlock()
+			const initialGasLimit = initialBlock.header.gasLimit
+
+			// Set a new gas limit
+			const newGasLimit = 15_000_000n
+			const res = await handlers.evm_setBlockGasLimit({
+				jsonrpc: '2.0',
+				method: 'evm_setBlockGasLimit',
+				id: 1,
+				params: [newGasLimit],
+			})
+
+			expect(res.result).toBeNull()
+			expect(res.jsonrpc).toBe('2.0')
+			expect(res.method).toBe('evm_setBlockGasLimit')
+			expect(res.id).toBe(1)
+
+			// Mine a block to apply the gas limit
+			await handlers.anvil_mine({
+				jsonrpc: '2.0',
+				method: 'anvil_mine',
+				id: 2,
+				params: ['0x1', '0x0'],
+			})
+
+			// Verify the new block has the updated gas limit
+			const newBlock = await vm.blockchain.getCanonicalHeadBlock()
+			expect(newBlock.header.gasLimit).toBe(newGasLimit)
+			expect(newBlock.header.gasLimit).not.toBe(initialGasLimit)
+		})
+
+		it('should persist gas limit across multiple blocks', async () => {
+			const vm = await client.getVm()
+
+			// Set a specific gas limit
+			const newGasLimit = 10_000_000n
+			await handlers.evm_setBlockGasLimit({
+				jsonrpc: '2.0',
+				method: 'evm_setBlockGasLimit',
+				id: 1,
+				params: [newGasLimit],
+			})
+
+			// Mine 3 blocks
+			await handlers.anvil_mine({
+				jsonrpc: '2.0',
+				method: 'anvil_mine',
+				id: 2,
+				params: ['0x3', '0x0'],
+			})
+
+			// Check all blocks have the same gas limit
+			const latestBlock = await vm.blockchain.getCanonicalHeadBlock()
+			expect(latestBlock.header.gasLimit).toBe(newGasLimit)
+		})
+	})
+
+	describe('anvil_setBlockGasLimit', () => {
+		it('should work the same as evm_setBlockGasLimit', async () => {
+			const vm = await client.getVm()
+
+			const newGasLimit = 20_000_000n
+			const res = await handlers.anvil_setBlockGasLimit({
+				jsonrpc: '2.0',
+				method: 'anvil_setBlockGasLimit',
+				id: 1,
+				params: [newGasLimit],
+			})
+
+			expect(res.result).toBeNull()
+			expect(res.method).toBe('anvil_setBlockGasLimit')
+
+			await handlers.anvil_mine({
+				jsonrpc: '2.0',
+				method: 'anvil_mine',
+				id: 2,
+				params: ['0x1', '0x0'],
+			})
+
+			const newBlock = await vm.blockchain.getCanonicalHeadBlock()
+			expect(newBlock.header.gasLimit).toBe(newGasLimit)
+		})
+	})
 })

@@ -65,6 +65,42 @@ export const createTevmNode = (options = {}) => {
 	const getNextBlockTimestamp = () => nextBlockTimestamp
 
 	/**
+	 * Gas limit to use for the next block (if set)
+	 * @type {bigint | undefined}
+	 */
+	let nextBlockGasLimit
+	/**
+	 * Sets the gas limit for the next block
+	 * @param {bigint | undefined} gasLimit
+	 */
+	const setNextBlockGasLimit = (gasLimit) => {
+		nextBlockGasLimit = gasLimit
+	}
+	/**
+	 * Gets the gas limit set for the next block
+	 * @returns {bigint | undefined}
+	 */
+	const getNextBlockGasLimit = () => nextBlockGasLimit
+
+	/**
+	 * Timestamp interval to automatically add between blocks (if set)
+	 * @type {bigint | undefined}
+	 */
+	let blockTimestampInterval
+	/**
+	 * Sets the timestamp interval to automatically add between blocks
+	 * @param {bigint | undefined} interval
+	 */
+	const setBlockTimestampInterval = (interval) => {
+		blockTimestampInterval = interval
+	}
+	/**
+	 * Gets the timestamp interval set for automatic increments
+	 * @returns {bigint | undefined}
+	 */
+	const getBlockTimestampInterval = () => blockTimestampInterval
+
+	/**
 	 * Snapshot storage for evm_snapshot/evm_revert
 	 * Maps snapshot ID (hex string) to { stateRoot, state }
 	 * @type {Map<string, { stateRoot: string, state: import('@tevm/state').TevmState }>}
@@ -415,6 +451,28 @@ export const createTevmNode = (options = {}) => {
 			copiedNextBlockTimestamp = timestamp
 		}
 		/**
+		 * Gas limit to use for the next block (if set)
+		 * @type {bigint | undefined}
+		 */
+		let copiedNextBlockGasLimit = baseClient.getNextBlockGasLimit()
+		/**
+		 * @param {bigint | undefined} gasLimit
+		 */
+		const setCopiedNextBlockGasLimit = (gasLimit) => {
+			copiedNextBlockGasLimit = gasLimit
+		}
+		/**
+		 * Timestamp interval to automatically add between blocks (if set)
+		 * @type {bigint | undefined}
+		 */
+		let copiedBlockTimestampInterval = baseClient.getBlockTimestampInterval()
+		/**
+		 * @param {bigint | undefined} interval
+		 */
+		const setCopiedBlockTimestampInterval = (interval) => {
+			copiedBlockTimestampInterval = interval
+		}
+		/**
 		 * Copy snapshots from the parent client
 		 * @type {Map<string, { stateRoot: string, state: import('@tevm/state').TevmState }>}
 		 */
@@ -490,6 +548,10 @@ export const createTevmNode = (options = {}) => {
 			setImpersonatedAccount,
 			getNextBlockTimestamp: () => copiedNextBlockTimestamp,
 			setNextBlockTimestamp: setCopiedNextBlockTimestamp,
+			getNextBlockGasLimit: () => copiedNextBlockGasLimit,
+			setNextBlockGasLimit: setCopiedNextBlockGasLimit,
+			getBlockTimestampInterval: () => copiedBlockTimestampInterval,
+			setBlockTimestampInterval: setCopiedBlockTimestampInterval,
 			getSnapshots: getCopiedSnapshots,
 			addSnapshot: addCopiedSnapshot,
 			getSnapshot: getCopiedSnapshot,
@@ -541,6 +603,10 @@ export const createTevmNode = (options = {}) => {
 		setImpersonatedAccount,
 		getNextBlockTimestamp,
 		setNextBlockTimestamp,
+		getNextBlockGasLimit,
+		setNextBlockGasLimit,
+		getBlockTimestampInterval,
+		setBlockTimestampInterval,
 		getSnapshots,
 		addSnapshot,
 		getSnapshot,

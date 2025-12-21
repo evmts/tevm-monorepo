@@ -205,6 +205,20 @@ export const createHandlers = (client) => {
 		anvil_impersonateAccount: anvilImpersonateAccountJsonRpcProcedure(client),
 		anvil_stopImpersonatingAccount: anvilStopImpersonatingAccountJsonRpcProcedure(client),
 		anvil_increaseTime: createIncreaseTimeHandler('anvil_increaseTime'),
+		/**
+		 * Sets the block gas limit for the next block
+		 * @param {any} request
+		 */
+		anvil_setBlockGasLimit: (request) => {
+			const gasLimit = BigInt(request.params[0])
+			client.setNextBlockGasLimit(gasLimit)
+			return {
+				method: request.method,
+				result: null,
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
+		},
 	}
 	const tevmAnvilHandlers = Object.fromEntries(
 		Object.entries(anvilHandlers).map(([key, value]) => {
@@ -246,6 +260,20 @@ export const createHandlers = (client) => {
 			}
 		},
 		evm_increaseTime: createIncreaseTimeHandler('evm_increaseTime'),
+		/**
+		 * Sets the block gas limit for the next block
+		 * @param {any} request
+		 */
+		evm_setBlockGasLimit: (request) => {
+			const gasLimit = BigInt(request.params[0])
+			client.setNextBlockGasLimit(gasLimit)
+			return {
+				method: request.method,
+				result: null,
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
+		},
 		/**
 		 * Creates a snapshot of the current state
 		 * @param {any} request

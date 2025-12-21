@@ -71,15 +71,23 @@ export const mineHandler =
 
 				// Use nextBlockTimestamp if set (only for the first block), otherwise use current time
 				const overrideTimestamp = count === 0 ? client.getNextBlockTimestamp() : undefined
+				// Get the automatic interval if set
+				const automaticInterval = client.getBlockTimestampInterval()
 				let timestamp =
 					overrideTimestamp !== undefined
 						? Number(overrideTimestamp)
 						: Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
-				timestamp = count === 0 ? timestamp : timestamp + interval
-				// Clear the override after using it
+				// Apply interval (prefer automatic interval over manual interval parameter)
+				const intervalToUse = automaticInterval !== undefined ? Number(automaticInterval) : interval
+				timestamp = count === 0 ? timestamp : timestamp + intervalToUse
+				// Clear the timestamp override after using it
 				if (count === 0 && overrideTimestamp !== undefined) {
 					client.setNextBlockTimestamp(undefined)
 				}
+
+				// Get the gas limit override if set (persists across blocks, unlike timestamp)
+				const overrideGasLimit = client.getNextBlockGasLimit()
+				const gasLimit = overrideGasLimit ?? parentBlock.header.gasLimit
 
 				const blockBuilder = await vm.buildBlock({
 					parentBlock,
@@ -89,7 +97,7 @@ export const mineHandler =
 						// The following 2 are currently not supported
 						// difficulty: undefined,
 						// coinbase,
-						gasLimit: parentBlock.header.gasLimit,
+						gasLimit,
 						baseFeePerGas: parentBlock.header.calcNextBaseFee(),
 					},
 					blockOpts: {

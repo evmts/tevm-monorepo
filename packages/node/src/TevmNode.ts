@@ -25,10 +25,10 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	/**
 	 * The configuration for mining. Defaults to 'auto'
 	 * - 'auto' will mine a block on every transaction
-	 * - 'interval' will mine a block every `interval` milliseconds
+	 * - 'interval' will mine a block every `interval` seconds
 	 * - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 	 */
-	readonly miningConfig: MiningConfig
+	miningConfig: MiningConfig
 	/**
 	 * Client to make json rpc requests to a forked node
 	 * @example
@@ -93,6 +93,29 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 * Pass undefined to clear the override and use current time.
 	 */
 	readonly setNextBlockTimestamp: (timestamp: bigint | undefined) => void
+	/**
+	 * Gets the gas limit to use for subsequent blocks
+	 * If undefined, the parent block's gas limit will be used
+	 */
+	readonly getNextBlockGasLimit: () => bigint | undefined
+	/**
+	 * Sets the gas limit for subsequent blocks.
+	 * Unlike setNextBlockTimestamp, this persists across blocks.
+	 * This is used by the anvil/evm_setBlockGasLimit RPC method.
+	 * Pass undefined to clear the override and use parent block's gas limit.
+	 */
+	readonly setNextBlockGasLimit: (gasLimit: bigint | undefined) => void
+	/**
+	 * Gets the automatic timestamp interval added between blocks
+	 * If undefined, no automatic interval is applied
+	 */
+	readonly getBlockTimestampInterval: () => bigint | undefined
+	/**
+	 * Sets the automatic timestamp interval to add between blocks.
+	 * This is used by the anvil_setBlockTimestampInterval RPC method.
+	 * Pass undefined to clear the interval.
+	 */
+	readonly setBlockTimestampInterval: (interval: bigint | undefined) => void
 	/**
 	 * Gets all stored snapshots for evm_snapshot/evm_revert
 	 */
