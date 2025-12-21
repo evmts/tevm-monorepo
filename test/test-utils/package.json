@@ -78,7 +78,6 @@
 		"@tevm/common": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/esbuild-plugin": "workspace:^",
-		"@tevm/test-node": "npm:@tevm/test-node@1.0.0-next.150",
 		"@tevm/ts-plugin": "workspace:^"
 	},
 	"peerDependencies": {

@@ -1,7 +1,8 @@
 import { createAddress } from '@tevm/address'
 import { Block } from '@tevm/block'
+import { mainnet } from '@tevm/common'
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { createCachedMainnetNode } from '@tevm/test-utils'
+import { transports } from '@tevm/test-utils'
 import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
@@ -63,7 +64,7 @@ describe('anvilResetJsonRpcProcedure', () => {
 	})
 
 	it('should reset a forked blockchain', async () => {
-		const client = createCachedMainnetNode() as unknown as TevmNode
+		const client = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
 		// Skip this test due to external RPC dependency issues
 		try {
 			await client.ready()

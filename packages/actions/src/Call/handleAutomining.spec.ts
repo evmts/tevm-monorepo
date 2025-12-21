@@ -1,5 +1,6 @@
-import { type TevmNode } from '@tevm/node'
-import { createCachedOptimismNode } from '@tevm/test-utils'
+import { optimism } from '@tevm/common'
+import { createTevmNode, type TevmNode } from '@tevm/node'
+import { transports } from '@tevm/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { handleAutomining } from './handleAutomining.js'
@@ -17,7 +18,7 @@ describe('handleAutomining', () => {
 		vi.resetAllMocks()
 
 		// Create a default client
-		client = createCachedOptimismNode({ miningConfig: { type: 'auto' } }) as unknown as TevmNode
+		client = createTevmNode({ common: optimism, fork: { transport: transports.optimism }, miningConfig: { type: 'auto' } }) as unknown as TevmNode
 
 		// Add debug logger if not present
 		if (!client.logger.debug) {
@@ -156,7 +157,9 @@ describe('handleAutomining', () => {
 
 	it('should mine transaction if isGasMining is true', async () => {
 		// Create client with gas mining configuration
-		client = createCachedOptimismNode({
+		client = createTevmNode({
+			common: optimism,
+			fork: { transport: transports.optimism },
 			miningConfig: { type: 'gas', limit: BigInt(1000000) },
 		}) as unknown as TevmNode
 
@@ -210,7 +213,9 @@ describe('handleAutomining', () => {
 
 	it('should not mine transaction if isGasMining is true but mining type is not gas', async () => {
 		// Create client with manual mining
-		client = createCachedOptimismNode({
+		client = createTevmNode({
+			common: optimism,
+			fork: { transport: transports.optimism },
 			miningConfig: { type: 'manual' },
 		}) as unknown as TevmNode
 
@@ -250,7 +255,9 @@ describe('handleAutomining', () => {
 
 	it('should handle mining errors without throwing', async () => {
 		// Create client with auto mining
-		client = createCachedOptimismNode({
+		client = createTevmNode({
+			common: optimism,
+			fork: { transport: transports.optimism },
 			miningConfig: { type: 'auto' },
 		}) as unknown as TevmNode
 
@@ -286,7 +293,9 @@ describe('handleAutomining', () => {
 
 	it('should handle multiple errors in result', async () => {
 		// Create client with auto mining
-		client = createCachedOptimismNode({
+		client = createTevmNode({
+			common: optimism,
+			fork: { transport: transports.optimism },
 			miningConfig: { type: 'auto' },
 		}) as unknown as TevmNode
 

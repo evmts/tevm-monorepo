@@ -1,6 +1,8 @@
 import { createAddress } from '@tevm/address'
 import { getBlockFromRpc } from '@tevm/blockchain'
-import { createCachedOptimismNode } from '@tevm/test-utils'
+import { optimism } from '@tevm/common'
+import { createTevmNode } from '@tevm/node'
+import { transports } from '@tevm/test-utils'
 import { FeeMarketEIP1559Transaction } from '@tevm/tx'
 import { describe, expect, it } from 'vitest'
 import { txToJsonRpcTx } from './txToJsonRpcTx.js'
@@ -20,7 +22,7 @@ describe(txToJsonRpcTx.name, () => {
 			gasLimit: 100n,
 			maxPriorityFeePerGas: 100n,
 		})
-		const client = createCachedOptimismNode()
+		const client = createTevmNode({ common: optimism, fork: { transport: transports.optimism } })
 		const transport = client.forkTransport
 		if (!transport) throw new Error('Transport is not defined')
 		const vm = await client.getVm()

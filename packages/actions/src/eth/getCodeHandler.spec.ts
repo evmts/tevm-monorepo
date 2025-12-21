@@ -1,7 +1,8 @@
 import { createAddress } from '@tevm/address'
+import { mainnet, optimism } from '@tevm/common'
 import { UnknownBlockError } from '@tevm/errors'
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { createCachedMainnetNode, createCachedOptimismNode, SimpleContract } from '@tevm/test-utils'
+import { SimpleContract, transports } from '@tevm/test-utils'
 import { numberToHex } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
@@ -146,7 +147,7 @@ describe(getCodeHandler.name, () => {
 
 describe('Forking tests', () => {
 	it('should fetch code from mainnet fork when block is not in local state', async () => {
-		const node = createCachedMainnetNode() as unknown as TevmNode
+		const node = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
 		const forkedHandler = getCodeHandler(node)
 
 		// Use a known contract address from mainnet
@@ -158,7 +159,7 @@ describe('Forking tests', () => {
 	})
 
 	it('should fetch code from Optimism fork', async () => {
-		const node = createCachedOptimismNode() as unknown as TevmNode
+		const node = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
 		const forkedHandler = getCodeHandler(node)
 
 		// Use a known contract address from Optimism

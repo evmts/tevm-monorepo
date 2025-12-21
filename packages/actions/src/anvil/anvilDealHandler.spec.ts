@@ -1,7 +1,8 @@
 import { createAddress } from '@tevm/address'
+import { mainnet } from '@tevm/common'
 import { ERC20 } from '@tevm/contract'
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { createCachedMainnetNode, TestERC20 } from '@tevm/test-utils'
+import { TestERC20, transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
@@ -82,7 +83,7 @@ describe('anvilDealHandler', () => {
 	})
 
 	it('should deal a Proxy token to an account', async () => {
-		const node = createCachedMainnetNode() as unknown as TevmNode
+		const node = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
 		const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const amount = BigInt(1000000)
 		const token = '0xE95A203B1a91a908F9B9CE46459d101078c2c3cb' // PROXY

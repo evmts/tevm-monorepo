@@ -1,6 +1,7 @@
 import { createAddress } from '@tevm/address'
+import { mainnet } from '@tevm/common'
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { createCachedMainnetNode } from '@tevm/test-utils'
+import { transports } from '@tevm/test-utils'
 import { type Hex, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { custom, numberToHex, parseEther } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
@@ -11,7 +12,7 @@ import { requestProcedure } from '../requestProcedure.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { ethGetTransactionCountProcedure } from './ethGetTransactionCountProcedure.js'
 
-const node = createCachedMainnetNode() as unknown as TevmNode
+const node = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
 const address = '0xb5d85CBf7cB3EE0D56b3bB207D5Fc4B82f43F511' as const
 
 describe(ethGetTransactionCountProcedure.name, () => {

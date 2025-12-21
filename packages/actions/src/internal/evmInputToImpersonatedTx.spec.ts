@@ -1,12 +1,15 @@
 import { createAddress } from '@tevm/address'
-import type { TevmNode } from '@tevm/node'
-import { createCachedOptimismNode } from '@tevm/test-utils'
+import { optimism } from '@tevm/common'
+import { createTevmNode, type TevmNode } from '@tevm/node'
+import { transports } from '@tevm/test-utils'
 import { type Address } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
 
-const client = createCachedOptimismNode({
+const client = createTevmNode({
+	common: optimism,
+	fork: { transport: transports.optimism },
 	miningConfig: { type: 'manual' },
 }) as unknown as TevmNode
 

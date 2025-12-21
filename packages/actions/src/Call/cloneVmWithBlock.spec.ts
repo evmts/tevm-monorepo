@@ -1,11 +1,12 @@
+import { optimism } from '@tevm/common'
 import { ForkError, InternalError } from '@tevm/errors'
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { createCachedOptimismNode } from '@tevm/test-utils'
+import { transports } from '@tevm/test-utils'
 import { bytesToHex } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { cloneVmWithBlockTag } from './cloneVmWithBlock.js'
 
-const node = createCachedOptimismNode() as unknown as TevmNode
+const node = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
 
 describe('cloneVmWithBfockTag', () => {
 	it('should clone the VM and set the state root successfully', async () => {

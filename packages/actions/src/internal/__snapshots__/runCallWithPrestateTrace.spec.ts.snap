@@ -16,9 +16,9 @@ exports[`runCallWithPrestateTrace > should trace a contract call with prestate t
   },
   "pre": {
     "0x0000000000000000000000000000000000000000": {
-      "balance": "0x3635c9adc5dea00000",
+      "balance": "0x3635c9adc5de9ad006",
       "code": "0x",
-      "nonce": 0,
+      "nonce": 2,
       "storage": {},
     },
     "0x1111111111111111111111111111111111111111": {
@@ -43,9 +43,9 @@ exports[`runCallWithPrestateTrace > should trace a contract call with prestate t
 exports[`runCallWithPrestateTrace > should trace a contract call with prestate tracer in normal mode 1`] = `
 {
   "0x0000000000000000000000000000000000000000": {
-    "balance": "0x3635c9adc5dea00000",
+    "balance": "0x3635c9adc5de9ad006",
     "code": "0x",
-    "nonce": 0,
+    "nonce": 2,
     "storage": {},
   },
   "0x1111111111111111111111111111111111111111": {

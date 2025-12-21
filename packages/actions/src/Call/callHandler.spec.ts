@@ -2,7 +2,7 @@ import { createAddress, createContractAddress } from '@tevm/address'
 import { optimism } from '@tevm/common'
 import { InvalidGasPriceError, MisconfiguredClientError } from '@tevm/errors'
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { createCachedOptimismNode, SimpleContract, TestERC20, transports } from '@tevm/test-utils'
+import { SimpleContract, TestERC20, transports } from '@tevm/test-utils'
 import {
 	type Address,
 	decodeFunctionResult,
@@ -634,7 +634,10 @@ describe('callHandler', () => {
 	})
 
 	it('should return op stack info if forking', async () => {
-		const node = createCachedOptimismNode() as unknown as TevmNode
+		const node = createTevmNode({
+			common: optimism,
+			fork: { transport: transports.optimism },
+		})
 		const to = `0x${'33'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(node)({
 			address: to,

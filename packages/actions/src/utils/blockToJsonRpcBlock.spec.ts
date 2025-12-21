@@ -1,10 +1,12 @@
 import { getBlockFromRpc } from '@tevm/blockchain'
-import { createCachedOptimismNode } from '@tevm/test-utils'
+import { optimism } from '@tevm/common'
+import { createTevmNode } from '@tevm/node'
+import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { blockToJsonRpcBlock } from './blockToJsonRpcBlock.js'
 
 describe('blockToJsonRpcBlock', async () => {
-	const client = createCachedOptimismNode()
+	const client = createTevmNode({ common: optimism, fork: { transport: transports.optimism } })
 	const transport = client.forkTransport
 	if (!transport) throw new Error('Transport is not defined')
 	const vm = await client.getVm()

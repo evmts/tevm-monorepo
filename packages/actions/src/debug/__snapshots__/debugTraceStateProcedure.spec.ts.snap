@@ -21,7 +21,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace state related to specifi
       "filters": Map {},
       "impersonatedAccount": undefined,
       "miningConfig": {
-        "type": "manual",
+        "type": "auto",
       },
       "mode": "normal",
       "status": "READY",
@@ -3999,28 +3999,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
 
 exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 5`] = `
 {
-  "hash": "090094e705db512a9723f73dcab5dc924b5a55571fec5706c8633c460c84bd57",
-  "tx": {
-    "accessList": [],
-    "chainId": "0x384",
-    "data": "0x60fe47b1000000000000000000000000000000000000000000000000000000000000002a",
-    "gasLimit": "0x7762",
-    "maxFeePerGas": "0x7",
-    "maxPriorityFeePerGas": "0x0",
-    "nonce": "0x1",
-    "r": undefined,
-    "s": undefined,
-    "to": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
-    "type": "0x2",
-    "v": undefined,
-    "value": "0x0",
-    "yParity": undefined,
-  },
-}
-`;
-
-exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 6`] = `
-{
   "balance": 1000000000000000000000n,
   "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "nonce": 0n,
@@ -4029,7 +4007,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
 }
 `;
 
-exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 7`] = `
+exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 6`] = `
 {
   "balance": 999999999999998882387n,
   "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -4039,7 +4017,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
 }
 `;
 
-exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 8`] = `
+exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 7`] = `
 {
   "balance": 0n,
   "codeHash": "0xc832aa8616e87d0a857dd93588b32cacc51deb4920b7c784b52afcbc1f97bdc5",
@@ -4052,7 +4030,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
 }
 `;
 
-exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 9`] = `
+exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 8`] = `
 {
   "common": {
     "consensus": {
@@ -5583,12 +5561,12 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
 }
 `;
 
-exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 10`] = `
+exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 9`] = `
 {
   "filters": Map {},
   "impersonatedAccount": undefined,
   "miningConfig": {
-    "type": "manual",
+    "type": "auto",
   },
   "mode": "normal",
   "status": "READY",
