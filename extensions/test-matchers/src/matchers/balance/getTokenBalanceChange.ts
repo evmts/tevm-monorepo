@@ -26,7 +26,7 @@ export const getTokenBalanceChange = async (
 
 	if (currentBalanceResponse.errors || currentBalanceResponse.data === undefined) {
 		throw new Error(
-			`Failed to get initial balance for token ${tokenAddress} and address ${address} when trying to find the balanceOf slot. Could not retrieve the balance change.\n\n${JSON.stringify(currentBalanceResponse, null, 2)}`,
+			`Failed to get initial balance for token ${tokenAddress} and address ${address} when trying to find the balanceOf slot. Could not retrieve the balance change.\n\n${JSON.stringify(currentBalanceResponse, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2)}`,
 		)
 	}
 
