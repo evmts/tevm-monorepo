@@ -6,7 +6,14 @@ import type { Filter, TevmNode } from '@tevm/node'
 import type { StateRoots, TevmState } from '@tevm/state'
 import type { TxPool } from '@tevm/txpool'
 import type { Address } from '@tevm/utils'
-import type { CallTraceResult, FourbyteTraceResult, Hex, PrestateTraceResult, TraceResult } from '../common/index.js'
+import type {
+	CallTraceResult,
+	FlatCallTraceResult,
+	FourbyteTraceResult,
+	Hex,
+	PrestateTraceResult,
+	TraceResult,
+} from '../common/index.js'
 import type { GetPath } from '../utils/GetPath.js'
 import type { UnionToIntersection } from '../utils/UnionToIntersection.js'
 import type { DebugTraceStateFilter } from './DebugParams.js'
@@ -15,10 +22,11 @@ import type { DebugTraceStateFilter } from './DebugParams.js'
  * Result from `debug_traceTransaction`
  */
 export type DebugTraceTransactionResult<
-	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | undefined =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | undefined =
 		| 'callTracer'
 		| 'prestateTracer'
 		| '4byteTracer'
+		| 'flatCallTracer'
 		| undefined,
 	TDiffMode extends boolean = boolean,
 > = TTracer extends 'callTracer'
@@ -27,16 +35,19 @@ export type DebugTraceTransactionResult<
 		? PrestateTraceResult<TDiffMode>
 		: TTracer extends '4byteTracer'
 			? FourbyteTraceResult
-			: TraceResult
+			: TTracer extends 'flatCallTracer'
+				? FlatCallTraceResult
+				: TraceResult
 
 /**
  * Result from `debug_traceCall`
  */
 export type DebugTraceCallResult<
-	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | undefined =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | undefined =
 		| 'callTracer'
 		| 'prestateTracer'
 		| '4byteTracer'
+		| 'flatCallTracer'
 		| undefined,
 	TDiffMode extends boolean = boolean,
 > = TTracer extends 'callTracer'
@@ -45,7 +56,9 @@ export type DebugTraceCallResult<
 		? PrestateTraceResult<TDiffMode>
 		: TTracer extends '4byteTracer'
 			? FourbyteTraceResult
-			: TraceResult
+			: TTracer extends 'flatCallTracer'
+				? FlatCallTraceResult
+				: TraceResult
 
 /**
  * Result from `debug_traceBlock`.
@@ -53,10 +66,11 @@ export type DebugTraceCallResult<
  * Returns an array of transaction traces
  */
 export type DebugTraceBlockResult<
-	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | undefined =
+	TTracer extends 'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | undefined =
 		| 'callTracer'
 		| 'prestateTracer'
 		| '4byteTracer'
+		| 'flatCallTracer'
 		| undefined,
 	TDiffMode extends boolean = boolean,
 > = Array<{

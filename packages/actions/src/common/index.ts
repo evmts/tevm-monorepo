@@ -11,6 +11,14 @@ export type { CallTraceResult } from './CallTraceResult.js'
 export type { EmptyParams } from './EmptyParams.js'
 export type { FilterLog } from './FilterLog.js'
 export type { FilterParams } from './FilterParams.js'
+export type {
+	FlatCallTraceResult,
+	FlatTraceEntry,
+	FlatCallAction,
+	FlatCreateAction,
+	FlatCallResult,
+	FlatCreateResult,
+} from './FlatCallTraceResult.js'
 export type { FourbyteTraceResult } from './FourbyteTraceResult.js'
 export type { Hex } from './Hex.js'
 export type { Log } from './Log.js'

@@ -1,6 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { hexToBytes } from '@tevm/utils'
 import { runCallWithCallTrace } from '../internal/runCallWithCallTrace.js'
+import { runCallWithFlatCallTrace } from '../internal/runCallWithFlatCallTrace.js'
 import { runCallWithFourbyteTrace } from '../internal/runCallWithFourbyteTrace.js'
 import { runCallWithPrestateTrace } from '../internal/runCallWithPrestateTrace.js'
 import { runCallWithTrace } from '../internal/runCallWithTrace.js'
@@ -14,7 +15,7 @@ import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 export const traceCallHandler =
 	(client) =>
 	/**
-	 * @template {'callTracer' | 'prestateTracer' | '4byteTracer'} TTracer
+	 * @template {'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer'} TTracer
 	 * @template {boolean} TDiffMode
 	 * @param {import('./DebugParams.js').DebugTraceCallParams<TTracer, TDiffMode>} params
 	 * @returns {Promise<import('./DebugResult.js').DebugTraceCallResult<TTracer, TDiffMode>>}
@@ -57,6 +58,13 @@ export const traceCallHandler =
 			return getVm()
 				.then((vm) => vm.deepCopy())
 				.then((vm) => runCallWithFourbyteTrace(vm, logger, callParams))
+				.then((res) => /** @type {any} */ (res.trace))
+		}
+		if (params.tracer === 'flatCallTracer') {
+			logger.debug('traceCallHandler: using flatCallTracer')
+			return getVm()
+				.then((vm) => vm.deepCopy())
+				.then((vm) => runCallWithFlatCallTrace(vm, logger, callParams))
 				.then((res) => /** @type {any} */ (res.trace))
 		}
 		return getVm()

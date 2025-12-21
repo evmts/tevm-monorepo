@@ -1,7 +1,7 @@
 import { numberToHex } from '@tevm/utils'
 
 /**
- * @template {'callTracer' | 'prestateTracer' | '4byteTracer' | undefined} TTracer
+ * @template {'callTracer' | 'prestateTracer' | '4byteTracer' | 'flatCallTracer' | undefined} TTracer
  * @template {boolean} TDiffMode
  * @template {import('../debug/DebugResult.js').DebugTraceCallResult<TTracer, TDiffMode>} TTraceResult
  * @param {TTraceResult} traceResult

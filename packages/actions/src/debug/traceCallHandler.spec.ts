@@ -84,4 +84,23 @@ describe('traceCallHandler', async () => {
 			}),
 		).toMatchSnapshot()
 	})
+
+	it('should execute a contract call with flatCallTracer', async () => {
+		const result = await traceCallHandler(client)({
+			tracer: 'flatCallTracer',
+			data: encodeFunctionData(AdvancedContract.write.callMathHelper(2n)),
+			to: contractAddress,
+			from: PREFUNDED_ACCOUNTS[0].address,
+			gas: 16784800n,
+		})
+		// flatCallTracer returns a flat array of traces
+		expect(Array.isArray(result)).toBe(true)
+		expect(result.length).toBeGreaterThan(0)
+		// First element should have traceAddress []
+		expect(result[0]).toHaveProperty('traceAddress')
+		expect(result[0].traceAddress).toEqual([])
+		expect(result[0]).toHaveProperty('type')
+		expect(result[0]).toHaveProperty('action')
+		expect(result[0]).toHaveProperty('result')
+	})
 })
