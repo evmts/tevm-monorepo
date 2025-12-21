@@ -1,113 +1,72 @@
-<task>
-    <objective>
-      Continue triaging and fixing GitHub issues from the tevm-monorepo, prioritizing low-hanging fruit.
-    </objective>
+# Latest Handoff - Triage Session
 
-    <previous_session_summary>
-      <completed>
-        <iteration>13</iteration>
-        <issues_fixed>
-        None this session
-        </issues_fixed>
-        <git_status>Clean, on main branch</git_status>
-      </completed>
+**Last Updated:** 2025-12-20 20:58:00
 
-      <lessons_learned>
-        <lesson>These aren't my changes. Let me check if these might be from auto-save or another process. Let me restore those files and only commit my actual changes:</lesson>
-        <lesson>Now let me commit the changes:</lesson>
-        <lesson>I've successfully implemented issue #2033 - the `anvil_enableTraces` and `anvil_mineDetailed` methods. Here's a summary of what was done:
+## Current State
 
-## Summary - Triage Iteration 13
+- **Branch:** main
+- **Git Status:** Clean
+- **Last Commit:** 0b08aeee8 - ✅ test(actions): add tests for debug_getRaw* procedures
 
-### Completed Work
+## Recent Work (Iteration 14)
 
-**Fixed</lesson>
-      </lessons_learned>
+1. **Updated tracking issue #2036** with comprehensive status showing most JSON-RPC methods are now implemented
+2. **Added 18 new tests** for debug_getRawHeader, debug_getRawReceipts, and debug_getRawTransaction procedures
 
-      <environment_notes>
-        <note>Some tests fail due to missing `forge` command (Foundry not installed) - expected</note>
-        <note>Some tests fail due to missing RPC env vars (TEVM_RPC_URLS_MAINNET, TEVM_RPC_URLS_OPTIMISM) - expected</note>
-        <note>If nx is slow, run `pnpm nx reset` to fix</note>
-      </environment_notes>
-    </previous_session_summary>
+## Open Issues by Priority
 
-    <open_issues>
-      <issue number="2036" title="🎯 JSON-RPC Feature Parity: Anvil & Ethereum Compatibility Tracking" created="2025-12-21" labels="none">
-        <preview>**Description:** This is a tracking issue for achieving full JSON-RPC feature parity with Anvil and standard Ethereum clients.  ## Current Status  Tevm currently supports: - **43 eth_ methods** (core ...</preview>
-      </issue>
-      <issue number="2024" title="Implement `anvil_reorg` method for chain reorganization simulation" created="2025-12-21" labels="none">
-        <preview>**Description:** Implement method to simulate blockchain reorganizations.  **Context:** Chain reorgs are important edge cases that applications need to handle. This method allows testing reorg handlin...</preview>
-      </issue>
-      <issue number="2023" title="Implement blob-related methods (`anvil_getBlobByHash`, `anvil_getBlobsByTransactionHash`, etc.)" created="2025-12-21" labels="none">
-        <preview>**Description:** Implement EIP-4844 blob data retrieval methods.  **Context:** With the Dencun upgrade, blobs are an important part of Ethereum's data availability layer. These methods allow retrievin...</preview>
-      </issue>
-      <issue number="1966" title="🐞bug(vm): Missing support for EIP-7702" created="2025-09-12" labels="none">
-        <preview>TEVM does not currently support EIP-7702 transactions. Support can be added by incorporating the relevant implementation from EthereumJS.  Alternatively, an upcoming migration from EthereumJS to Guill...</preview>
-      </issue>
-      <issue number="1946" title="Implement `eth_simulateV2`" created="2025-07-05" labels="none">
-        <preview>**Description:** Implement the `eth_simulateV1` JSON-RPC method for transaction simulation with state overrides.  **Context:** This method allows simulation of multiple transactions with custom state ...</preview>
-      </issue>
-      <issue number="1941" title="extensions/test-node - custom passthrough" created="2025-07-05" labels="none">
-        <preview>Add some optional option to test snapshot clients in `extensions/test-node` to pass custom passthrough (non-cached) urls....</preview>
-      </issue>
-      <issue number="1931" title="Implement "erc7562Tracer" tracer" created="2025-07-02" labels="enhancement">
-        <preview>Implement "erc7562Tracer" tracer for `debug_trace<Call | Transaction | Block>` methods.  References: - [geth:tracers/native/erc7562.go](https://github.com/ethereum/go-ethereum/blob/6eb212b2455b5dfc608...</preview>
-      </issue>
-      <issue number="1747" title="Feature: @tevm/test-matchers" created="2025-05-29" labels="enhancement">
-        <preview>Custom Vitest matchers for Tevm and EVM-related testing in TypeScript.  > [!NOTE] > This is a tracking issue for the implementation of the `@tevm/test-matchers` package.  ## Implemented Matchers  - [x...</preview>
-      </issue>
-      <issue number="1595" title="Feature Request: Change forked chain ID" created="2025-03-26" labels="none">
-        <preview>When forking a chain and serving it, ideally it would possible to configure an overridden Common such that the chain ID is different.   This is useful because a same chain ID will confuse legacy walle...</preview>
-      </issue>
-      <issue number="1591" title="Deno install hang" created="2025-03-26" labels="none">
-        <preview>Seems like Deno 2 cannot install tevm.  Repro:  - `deno init` - `deno run main.ts` - confirm this works - `deno add npm:tevm`  Deno will start installing. At first, progress will be fast, but over tim...</preview>
-      </issue>
-      <issue number="1385" title="Inline sol" created="2024-08-18" labels="none">
-        <preview>## Description  Inline solidity will make doing things like deployless calls super ergonomic  ## Example  ```typescript import { sol } from 'tevm'  const {abi, deployedBytecode} = sol` write...</preview>
-      </issue>
-      <issue number="1350" title="Add network import support" created="2024-07-30" labels="enhancement, bundler">
-        <preview>import ContractFromNetwork from 'eth://1/0x2075839265882294016583920184730500021227  * \[ \] Add tevm/whatsabi package * \[ \] Refactor compiler to be async by default and read from cache * \[ \] Upda...</preview>
-      </issue>
-    </open_issues>
+### Ready to Work On
+| Issue | Title | Complexity |
+|-------|-------|------------|
+| - | Look for more test coverage gaps | Low |
 
-    <key_code_locations>
-      <location path="packages/actions/src/createHandlers.js" purpose="RPC handler mapping"/>
-      <location path="packages/actions/src/eth/" purpose="eth_* procedure implementations"/>
-      <location path="packages/actions/src/anvil/" purpose="anvil_* procedure implementations"/>
-      <location path="packages/node/src/createTevmNode.js" purpose="TevmNode creation"/>
-      <location path="packages/node/src/TevmNode.ts" purpose="TevmNode type definitions"/>
-      <location path="packages/memory-client/src/test/viem/" purpose="Integration tests"/>
-    </key_code_locations>
+### Requires Investigation
+| Issue | Title | Notes |
+|-------|-------|-------|
+| #1591 | Deno install hang | Needs Deno environment |
+| #1946 | eth_simulateV2 | V1 implemented, V2 branch exists |
 
-    <commands>
-      <command name="build" cmd="pnpm nx run-many --targets=build:dist,build:types"/>
-      <command name="test_single" cmd="pnpm vitest run path/to/file.spec.ts"/>
-      <command name="fetch_issue" cmd="gh issue view NUMBER"/>
-    </commands>
+### Complex Features (Future)
+| Issue | Title | Notes |
+|-------|-------|-------|
+| #2023 | Blob methods | Requires blob infrastructure |
+| #2024 | anvil_reorg | Chain reorg simulation |
+| #1931 | erc7562Tracer | Complex tracer implementation |
+| #1385 | Inline sol | Major feature |
+| #1350 | Network import | Major feature |
 
-    <workflow>
-      <phase name="select">Fetch and analyze most tractable open issue</phase>
-      <phase name="investigate">Search codebase, check for existing tests</phase>
-      <phase name="implement">Make changes, build, test</phase>
-      <phase name="resolve">Commit with "Fixes #N", push, comment on issue</phase>
-      <phase name="continue">Select next issue or prepare handoff</phase>
-    </workflow>
+### Blocked
+| Issue | Title | Reason |
+|-------|-------|--------|
+| #1966 | EIP-7702 | Awaiting Guillotine migration |
 
-    <constraints>
-      <constraint>Never push broken code</constraint>
-      <constraint>Use emoji conventional commits</constraint>
-      <constraint>Include "Fixes #NUMBER" to auto-close</constraint>
-      <constraint>Add Co-Authored-By: Claude Opus 4.5</constraint>
-    </constraints>
+### Assigned to Others
+| Issue | Title | Assignee |
+|-------|-------|----------|
+| #1747 | test-matchers | 0xpolarzero |
+| #1595 | Fork chain ID | Has existing branch |
 
-    <git_status>
-      <branch>main</branch>
-      <recent_commits>
-3c5218289 ✨ feat(actions): implement anvil_enableTraces and anvil_mineDetailed methods
-dd086f7cd 📝 docs: Triage iteration 12 report
-9ef02c0f9 🐛 fix(actions): fix anvil_setChainId error message and handler wiring
-d75ed0e3f ✨ feat(actions): wire up missing time manipulation JSON-RPC methods
-7442f7ceb 📝 docs: Triage iteration 11 report
-      </recent_commits>
-    </git_status>
-  </task>
+## Key Insights
+
+1. **JSON-RPC feature parity is largely achieved** - Most methods from tracking issue #2036 are implemented
+2. **Test coverage can be improved** - Found 3 missing debug procedure tests this iteration
+3. **Remaining work is mostly complex features** - Blobs, reorg, EIP-7702, etc.
+
+## Suggested Next Steps
+
+1. Search for more missing test coverage in other namespaces (anvil, eth)
+2. Consider investigation of eth_simulateV2 branch
+3. Review if #2036 tracking issue can be closed or simplified
+
+## Commands Quick Reference
+
+```bash
+# Run tests for actions package
+pnpm vitest run packages/actions/src/...
+
+# Check for missing test files
+ls packages/actions/src/*/\*.js | sed 's/.js$//' | while read f; do [ ! -f "${f}.spec.ts" ] && echo "Missing: ${f}.spec.ts"; done
+
+# View issue
+gh issue view NUMBER
+```
