@@ -68,6 +68,7 @@
 	"devDependencies": {
 		"abitype": "^1.1.1",
 		"solc": "0.8.30",
+		"solidity-ast": "^0.4.61",
 		"vitest": "^3.2.4"
 	},
 	"publishConfig": {
