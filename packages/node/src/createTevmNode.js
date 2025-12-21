@@ -64,6 +64,58 @@ export const createTevmNode = (options = {}) => {
 	 */
 	const getNextBlockTimestamp = () => nextBlockTimestamp
 
+	/**
+	 * Snapshot storage for evm_snapshot/evm_revert
+	 * Maps snapshot ID (hex string) to { stateRoot, state }
+	 * @type {Map<string, { stateRoot: string, state: import('@tevm/state').TevmState }>}
+	 */
+	const snapshots = new Map()
+	/**
+	 * Counter for generating snapshot IDs
+	 * @type {number}
+	 */
+	let snapshotIdCounter = 1
+
+	/**
+	 * Gets all stored snapshots
+	 * @returns {Map<string, { stateRoot: string, state: import('@tevm/state').TevmState }>}
+	 */
+	const getSnapshots = () => snapshots
+
+	/**
+	 * Adds a new snapshot and returns its ID
+	 * @param {string} stateRoot
+	 * @param {import('@tevm/state').TevmState} state
+	 * @returns {string} - The snapshot ID in hex format (e.g., "0x1")
+	 */
+	const addSnapshot = (stateRoot, state) => {
+		const id = `0x${snapshotIdCounter.toString(16)}`
+		snapshots.set(id, { stateRoot, state })
+		snapshotIdCounter++
+		return id
+	}
+
+	/**
+	 * Gets a snapshot by ID
+	 * @param {string} snapshotId
+	 * @returns {{ stateRoot: string, state: import('@tevm/state').TevmState } | undefined}
+	 */
+	const getSnapshot = (snapshotId) => snapshots.get(snapshotId)
+
+	/**
+	 * Deletes snapshots with IDs greater than or equal to the given ID
+	 * This is needed because reverting invalidates all subsequent snapshots
+	 * @param {string} snapshotId
+	 */
+	const deleteSnapshotsFrom = (snapshotId) => {
+		const targetNum = parseInt(snapshotId, 16)
+		for (const [id] of snapshots) {
+			if (parseInt(id, 16) >= targetNum) {
+				snapshots.delete(id)
+			}
+		}
+	}
+
 	const loggingLevel = options.loggingLevel ?? 'warn'
 	const logger = createLogger({
 		name: 'TevmClient',
@@ -362,6 +414,41 @@ export const createTevmNode = (options = {}) => {
 		const setCopiedNextBlockTimestamp = (timestamp) => {
 			copiedNextBlockTimestamp = timestamp
 		}
+		/**
+		 * Copy snapshots from the parent client
+		 * @type {Map<string, { stateRoot: string, state: import('@tevm/state').TevmState }>}
+		 */
+		const copiedSnapshots = new Map(baseClient.getSnapshots())
+		let copiedSnapshotIdCounter = copiedSnapshots.size + 1
+
+		const getCopiedSnapshots = () => copiedSnapshots
+		/**
+		 * @param {string} stateRoot
+		 * @param {import('@tevm/state').TevmState} state
+		 * @returns {string}
+		 */
+		const addCopiedSnapshot = (stateRoot, state) => {
+			const id = `0x${copiedSnapshotIdCounter.toString(16)}`
+			copiedSnapshots.set(id, { stateRoot, state })
+			copiedSnapshotIdCounter++
+			return id
+		}
+		/**
+		 * @param {string} snapshotId
+		 * @returns {{ stateRoot: string, state: import('@tevm/state').TevmState } | undefined}
+		 */
+		const getCopiedSnapshot = (snapshotId) => copiedSnapshots.get(snapshotId)
+		/**
+		 * @param {string} snapshotId
+		 */
+		const deleteCopiedSnapshotsFrom = (snapshotId) => {
+			const targetNum = parseInt(snapshotId, 16)
+			for (const [id] of copiedSnapshots) {
+				if (parseInt(id, 16) >= targetNum) {
+					copiedSnapshots.delete(id)
+				}
+			}
+		}
 		await readyPromise
 		const oldVm = await vmPromise
 		const vm = await oldVm.deepCopy()
@@ -403,6 +490,10 @@ export const createTevmNode = (options = {}) => {
 			setImpersonatedAccount,
 			getNextBlockTimestamp: () => copiedNextBlockTimestamp,
 			setNextBlockTimestamp: setCopiedNextBlockTimestamp,
+			getSnapshots: getCopiedSnapshots,
+			addSnapshot: addCopiedSnapshot,
+			getSnapshot: getCopiedSnapshot,
+			deleteSnapshotsFrom: deleteCopiedSnapshotsFrom,
 			setFilter: (filter) => {
 				newFilters.set(filter.id, filter)
 			},
@@ -450,6 +541,10 @@ export const createTevmNode = (options = {}) => {
 		setImpersonatedAccount,
 		getNextBlockTimestamp,
 		setNextBlockTimestamp,
+		getSnapshots,
+		addSnapshot,
+		getSnapshot,
+		deleteSnapshotsFrom,
 		getFilters: () => filters,
 		setFilter: (filter) => {
 			filters.set(filter.id, filter)

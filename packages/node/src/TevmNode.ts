@@ -94,6 +94,25 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 */
 	readonly setNextBlockTimestamp: (timestamp: bigint | undefined) => void
 	/**
+	 * Gets all stored snapshots for evm_snapshot/evm_revert
+	 */
+	readonly getSnapshots: () => Map<string, { stateRoot: string; state: TevmState }>
+	/**
+	 * Adds a new snapshot and returns its ID (hex string like "0x1")
+	 * Used by evm_snapshot RPC method
+	 */
+	readonly addSnapshot: (stateRoot: string, state: TevmState) => string
+	/**
+	 * Gets a snapshot by ID
+	 * Used by evm_revert RPC method
+	 */
+	readonly getSnapshot: (snapshotId: string) => { stateRoot: string; state: TevmState } | undefined
+	/**
+	 * Deletes snapshots with IDs greater than or equal to the given ID
+	 * This is needed because reverting invalidates all subsequent snapshots
+	 */
+	readonly deleteSnapshotsFrom: (snapshotId: string) => void
+	/**
 	 * Extends the base client with additional functionality. This enables optimal code splitting
 	 * and extensibility
 	 */

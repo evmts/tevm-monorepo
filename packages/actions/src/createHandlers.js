@@ -208,6 +208,68 @@ export const createHandlers = (client) => {
 				...(request.id ? { id: request.id } : {}),
 			}
 		},
+		/**
+		 * Creates a snapshot of the current state
+		 * @param {any} request
+		 * @returns {Promise<{method: string, result: string, jsonrpc: '2.0', id?: any}>}
+		 */
+		evm_snapshot: async (request) => {
+			const vm = await client.getVm()
+			const stateRoot = vm.stateManager._baseState.getCurrentStateRoot()
+			const state = await vm.stateManager.dumpCanonicalGenesis()
+			const snapshotId = client.addSnapshot(stateRoot, state)
+			return {
+				method: request.method,
+				result: snapshotId,
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
+		},
+		/**
+		 * Reverts to a previous snapshot
+		 * @param {any} request
+		 * @returns {Promise<{method: string, result: boolean, jsonrpc: '2.0', id?: any}>}
+		 */
+		evm_revert: async (request) => {
+			const snapshotId = request.params[0]
+			const snapshot = client.getSnapshot(snapshotId)
+			if (!snapshot) {
+				return {
+					method: request.method,
+					result: false,
+					jsonrpc: '2.0',
+					...(request.id ? { id: request.id } : {}),
+				}
+			}
+			try {
+				const vm = await client.getVm()
+				// Save the state root with its associated state
+				vm.stateManager.saveStateRoot(
+					/** @type {any} */ (Uint8Array.from(Buffer.from(snapshot.stateRoot.slice(2), 'hex'))),
+					snapshot.state,
+				)
+				// Set the state root to revert to that state
+				await vm.stateManager.setStateRoot(
+					/** @type {any} */ (Uint8Array.from(Buffer.from(snapshot.stateRoot.slice(2), 'hex'))),
+				)
+				// Delete all snapshots from this ID onwards (they are now invalid)
+				client.deleteSnapshotsFrom(snapshotId)
+				return {
+					method: request.method,
+					result: true,
+					jsonrpc: '2.0',
+					...(request.id ? { id: request.id } : {}),
+				}
+			} catch (e) {
+				client.logger.error(e, 'evm_revert failed')
+				return {
+					method: request.method,
+					result: false,
+					jsonrpc: '2.0',
+					...(request.id ? { id: request.id } : {}),
+				}
+			}
+		},
 	}
 
 	const allHandlers = {
