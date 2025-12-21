@@ -130,15 +130,6 @@ exports[`callHandler > should handle insufficient balance error 1`] = `
 ]
 `;
 
-exports[`callHandler > should handle mining failing 1`] = `
-[
-  [MisconfiguredClientError: Syncing not currently implemented
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73],
-]
-`;
-
 exports[`callHandler > should handle unexpected errors during param conversion 1`] = `
 [
   [InvalidGasPrice: Too small: expected bigint to be >=0

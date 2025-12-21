@@ -1,6 +1,6 @@
 import { optimism } from '@tevm/common'
 import { ERC20, SimpleContract } from '@tevm/contract'
-import { transports } from '@tevm/test-utils'
+import { createCachedOptimismTransport } from '@tevm/test-utils'
 import { EthjsAddress, hexToBytes } from '@tevm/utils'
 import { encodeDeployData, testActions } from 'viem'
 import { describe, expect, it } from 'vitest'
@@ -232,7 +232,10 @@ describe('Tevm should create a local vm in JavaScript', () => {
 	describe('client.contract', () => {
 		it('should fork a network and then execute a contract call', async () => {
 			const tevm = createMemoryClient({
-				fork: { transport: transports.optimism, blockTag: 'latest' },
+				fork: {
+					transport: createCachedOptimismTransport(),
+					blockTag: 142153711n,
+				},
 				common: optimism,
 			})
 			const res = await tevm.tevmContract({
@@ -241,18 +244,23 @@ describe('Tevm should create a local vm in JavaScript', () => {
 					contractAddress,
 				}),
 			})
-			// TODO: we can not do that when we can use fixed block tags without proof out of window
-			expect(res.amountSpent).toBeGreaterThan(0n)
-			expect(res.l1BaseFee).toBeGreaterThan(0n)
-			expect(res.l1Fee).toBeGreaterThan(0n)
-			expect(res.l1BlobFee).toBeGreaterThan(0n)
-			expect(res.l1GasUsed).toBeGreaterThan(0n)
-			res.amountSpent = 0n
-			res.l1BaseFee = 0n
-			res.l1Fee = 0n
-			res.l1BlobFee = 0n
-			res.l1GasUsed = 0n
-			expect(res).toMatchSnapshot()
+			expect(res).toMatchInlineSnapshot(`
+				{
+				  "amountSpent": 9050141n,
+				  "createdAddresses": Set {},
+				  "data": 1n,
+				  "executionGasUsed": 2447n,
+				  "gas": 39976121n,
+				  "l1BaseFee": 120663598n,
+				  "l1BlobFee": 1n,
+				  "l1Fee": 1009133904n,
+				  "l1GasUsed": 1600n,
+				  "logs": [],
+				  "rawData": "0x0000000000000000000000000000000000000000000000000000000000000001",
+				  "selfdestruct": Set {},
+				  "totalGasSpent": 23879n,
+				}
+			`)
 		})
 	})
 

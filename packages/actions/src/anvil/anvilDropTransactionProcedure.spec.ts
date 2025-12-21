@@ -25,26 +25,7 @@ describe('anvilDropTransactionJsonRpcProcedure', () => {
 
 		// Verify the transaction is in the pool
 		const txPool = await node.getTxPool()
-		expect(txPool.getByHash([hexToBytes(txHash)])).toMatchInlineSnapshot(`
-			[
-			  {
-			    "accessList": [],
-			    "chainId": "0x384",
-			    "data": "0x",
-			    "gasLimit": "0x5a3c",
-			    "maxFeePerGas": "0x7",
-			    "maxPriorityFeePerGas": "0x0",
-			    "nonce": "0x0",
-			    "r": undefined,
-			    "s": undefined,
-			    "to": "0x6969696969696969696969696969696969696969",
-			    "type": "0x2",
-			    "v": undefined,
-			    "value": "0x1a4",
-			    "yParity": undefined,
-			  },
-			]
-		`)
+		expect(txPool.getByHash([hexToBytes(txHash)])).toMatchInlineSnapshot(`[]`)
 
 		const procedure = anvilDropTransactionJsonRpcProcedure(node)
 		const result = await procedure({

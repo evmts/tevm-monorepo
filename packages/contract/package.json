@@ -57,7 +57,7 @@
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
 		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
+		"lint:package": "bunx publint --strict && pnpm pack --pack-destination /tmp && attw /tmp/tevm-contract-*.tgz && rm /tmp/tevm-contract-*.tgz",
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",
 		"test:run": "vitest run",
@@ -72,8 +72,10 @@
 		"@evmts/core": "1.0.0-next.12",
 		"@evmts/ts-plugin": "1.0.0-next.18",
 		"@evmts/vite-plugin": "1.0.0-next.19",
+		"@tevm/test-matchers": "latest",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^",
+		"zod": "^4.1.11"
 	},
 	"publishConfig": {
 		"access": "public"

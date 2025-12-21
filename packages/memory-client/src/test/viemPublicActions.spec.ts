@@ -6,6 +6,8 @@ describe('viemPublicActions', () => {
 		/**
 		 * If this type breaks it means viem added new apis and we should add tests
 		 */
+		// TODO: support verifyHash
+		// @ts-expect-error verifyHash not supported
 		const isSupported: Record<keyof PublicActions, boolean> = {
 			call: true,
 			createAccessList: true,

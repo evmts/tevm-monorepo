@@ -1,5 +1,5 @@
 import { optimism } from '@tevm/common'
-import { transports } from '@tevm/test-utils'
+import { createCachedOptimismTransport } from '@tevm/test-utils'
 import { type Address, createClient, parseEther } from 'viem'
 import { getBalance, getBlockNumber, getCode, sendTransaction } from 'viem/actions'
 import { describe, expect, it } from 'vitest'
@@ -11,17 +11,18 @@ describe('Tevm Forking Integration', () => {
 	const testAddress = '0x1234567890123456789012345678901234567890' as Address
 	const daiContractAddress = '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1' as Address // DAI on Optimism
 
-	it('should allow forking from an existing network', async () => {
-		// Create a client with a fork configuration
-		const client = createClient({
-			transport: createTevmTransport({
-				fork: {
-					transport: transports.optimism,
-				},
-			}),
-			chain: optimism,
-		})
+	const cachedTransport = createCachedOptimismTransport()
+	const client = createClient({
+		transport: createTevmTransport({
+			fork: {
+				transport: cachedTransport,
+				blockTag: 142153711n,
+			},
+		}),
+		chain: optimism,
+	})
 
+	it('should allow forking from an existing network', async () => {
 		// Check that we can access block info from the forked network
 		const blockNumber = await getBlockNumber(client)
 		expect(blockNumber).toBeGreaterThan(0n)
@@ -35,16 +36,6 @@ describe('Tevm Forking Integration', () => {
 	})
 
 	it('should allow local state modifications while preserving fork state', async () => {
-		// Create a client with a fork configuration
-		const client = createClient({
-			transport: createTevmTransport({
-				fork: {
-					transport: transports.optimism,
-				},
-			}),
-			chain: optimism,
-		})
-
 		// Original balance on the fork
 		const originalBalance = await getBalance(client, { address: testAddress })
 
@@ -65,16 +56,6 @@ describe('Tevm Forking Integration', () => {
 	})
 
 	it('should handle transaction processing on a forked network', async () => {
-		// Create a client with a fork configuration
-		const client = createClient({
-			transport: createTevmTransport({
-				fork: {
-					transport: transports.optimism,
-				},
-			}),
-			chain: optimism,
-		})
-
 		// Setup a funded account to send transactions
 		const senderAddress = '0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef' as Address
 		await tevmSetAccount(client, {
@@ -104,16 +85,6 @@ describe('Tevm Forking Integration', () => {
 	})
 
 	it('should handle chain configuration when forking', async () => {
-		// Create a client with optimism chain configuration
-		const optimismClient = createClient({
-			transport: createTevmTransport({
-				fork: {
-					transport: transports.optimism,
-				},
-			}),
-			chain: optimism,
-		})
-
 		// Verify the chain by checking the chain object passed in
 		expect(optimism.id).toBe(10) // Optimism mainnet ID
 
@@ -122,7 +93,7 @@ describe('Tevm Forking Integration', () => {
 		expect(typeof optimism.name).toBe('string')
 
 		// Check a fork-specific operation to verify it's connected to the right chain
-		const blockNumber = await getBlockNumber(optimismClient)
+		const blockNumber = await getBlockNumber(client)
 		expect(blockNumber).toBeGreaterThan(0n)
 	})
 })

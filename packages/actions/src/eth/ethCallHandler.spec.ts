@@ -314,7 +314,7 @@ describe('callHandler', () => {
 				to: ERC20_ADDRESS,
 				gas: 16784800n,
 			}),
-		).toEqual('0x0000000000000000000000000000000000000000000000000000000000000000')
+		).toEqualHex('0x0000000000000000000000000000000000000000000000000000000000000000')
 	})
 
 	it('should not modify state', async () => {
@@ -327,7 +327,7 @@ describe('callHandler', () => {
 				to,
 				value: 420n,
 			}),
-		).toEqual('0x')
+		).toEqualHex('0x')
 		expect((await vm.evm.stateManager.getAccount(createAddress(to)))?.balance).not.toEqual(420n)
 	})
 })

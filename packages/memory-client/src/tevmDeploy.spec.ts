@@ -1,7 +1,7 @@
 import { mineHandler } from '@tevm/actions'
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { transports } from '@tevm/test-utils'
+import { createCachedOptimismTransport } from '@tevm/test-utils'
 import { type Address, type Client, createClient } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
@@ -11,11 +11,12 @@ import { tevmDeploy } from './tevmDeploy.js'
 import { tevmMine } from './tevmMine.js'
 
 let client: Client<TevmTransport>
+const cachedTransport = createCachedOptimismTransport()
 
 beforeEach(async () => {
 	client = createClient({
 		transport: createTevmTransport({
-			fork: { transport: transports.optimism },
+			fork: { transport: cachedTransport, blockTag: 142153711n },
 		}),
 		chain: optimism,
 	})
@@ -31,7 +32,7 @@ describe('tevmDeploy', () => {
 		})
 
 		// Verify the contract's deployment address
-		expect(deployResult.createdAddress).toBeDefined()
+		expect(deployResult.createdAddress).toBeAddress()
 
 		// Mine a block to include the deployment transaction
 		await mineHandler(client.transport.tevm)({ blockCount: 1 })
@@ -62,7 +63,7 @@ describe('tevmDeploy', () => {
 			args: [42n], // Constructor argument
 		})
 
-		expect(deployResult.txHash).toBeDefined()
+		expect(deployResult.txHash).toBeHex()
 	})
 
 	it('should deploy a contract with createTransaction set to true', async () => {
@@ -73,7 +74,7 @@ describe('tevmDeploy', () => {
 			createTransaction: true,
 		})
 
-		expect(deployResult.createdAddress).toBeDefined()
+		expect(deployResult.createdAddress).toBeAddress()
 		await tevmMine(client, { blockCount: 1 })
 	})
 
@@ -86,7 +87,7 @@ describe('tevmDeploy', () => {
 			from: senderAddress,
 		})
 
-		expect(deployResult.createdAddress).toBeDefined()
+		expect(deployResult.createdAddress).toBeAddress()
 		await tevmMine(client, { blockCount: 1 })
 	})
 })

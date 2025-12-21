@@ -1,19 +1,22 @@
 import { contractHandler, deployHandler } from '@tevm/actions'
 import { AdvancedContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'
-import { createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import type { Address } from 'viem'
 import { toFunctionSelector } from 'viem'
 import { assert, beforeEach, describe, expect, it } from 'vitest'
 
-const node = createTevmNode()
 const sender = PREFUNDED_ACCOUNTS[0]
 
 describe('toCallContractFunction', () => {
 	let contract: ReturnType<typeof AdvancedContract.withAddress>
+	let node: TevmNode
 
 	beforeEach(async () => {
+		// Create a fresh node for each test to avoid mining conflicts
+		node = createTevmNode()
+
 		// Deploy AdvancedContract using deployHandler
 		const { createdAddress: contractAddress } = await deployHandler(node)({
 			...AdvancedContract.deploy(42n, true, 'test', sender.address),

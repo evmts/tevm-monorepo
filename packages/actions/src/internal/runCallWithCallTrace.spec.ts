@@ -139,7 +139,6 @@ describe('runCallWithCallTrace', () => {
 		}
 
 		const result = await runCallWithCallTrace(vm, client.logger, params)
-		console.log(result.trace)
 		expect(result.trace).toMatchObject({
 			type: 'CALL',
 			from: createAddress(0).toString(),

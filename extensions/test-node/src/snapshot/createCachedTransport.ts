@@ -5,6 +5,9 @@ import { isCachedJsonRpcMethod } from '../internal/isCachedJsonRpcMethod.js'
 import type { SnapshotAutosaveMode } from '../types.js'
 import type { SnapshotManager } from './SnapshotManager.js'
 
+// TODO: there is an issue where when using in tests createMemoryClient caches transports, so it might reuse a cached transport when creating a client with a non-cached transport (or the opposite)
+// which will either ignore caching or might recreate cache entries on every run (e.g. when creating a memory client with 'latest' blocktag that reuses a cached transport)
+
 /**
  * Creates a cached transport that wraps the original transport
  * and caches responses based on the request type

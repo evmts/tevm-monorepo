@@ -1,5 +1,5 @@
+import { createCachedOptimismTransport } from '@tevm/test-utils'
 import { bytesToHex, type Hex, hexToBytes, parseEther } from '@tevm/utils'
-import { http } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 
@@ -39,11 +39,13 @@ const MOCKERC20_ABI = [
 ] as const
 
 describe('Testing tevm state managers with mix of createTransaction: true and false', () => {
-	describe('SHould be able to run some calls using createTransaction: true and then run a createTransaction: false', async () => {
+	describe('Should be able to run some calls using createTransaction: true and then run a createTransaction: false', async () => {
 		// Create client
+		const cachedTransport = createCachedOptimismTransport()
 		const forkClient = createMemoryClient({
 			fork: {
-				transport: http('https://mainnet.optimism.io')({}),
+				transport: cachedTransport,
+				blockTag: 142153711n,
 			},
 		})
 
@@ -87,13 +89,14 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 					createTransaction: true,
 				})
 				expect(mintErrors).toBeUndefined()
-				expect(txHash?.startsWith('0x')).toBe(true)
+				expect(txHash).toBeHex()
 				expect(executionGasUsed).toBe(46495n)
 
 				const { blockHashes, errors } = await client.tevmMine()
 
 				expect(errors).toBeUndefined()
 				expect(blockHashes).toHaveLength(1)
+				expect(blockHashes?.[0]).toBeHex()
 
 				const rm = await client.transport.tevm.getReceiptsManager()
 				const vm = await client.transport.tevm.getVm()
@@ -101,7 +104,7 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 				const block = await vm.blockchain.getBlock(hexToBytes(blockHashes?.[0] as Hex))
 				expect(block).toBe(await vm.blockchain.getCanonicalHeadBlock())
 
-				expect(bytesToHex(block.transactions[0]?.hash() as Uint8Array)).toBe(txHash as Hex)
+				expect(bytesToHex(block.transactions[0]?.hash() as Uint8Array)).toEqualHex(txHash)
 				expect(await rm.getReceiptByTxHash(block.transactions[0]?.hash() as Uint8Array)).toBeDefined()
 
 				const { data: balanceNotIncluded, errors: contractErrors2 } = await client.tevmContract({

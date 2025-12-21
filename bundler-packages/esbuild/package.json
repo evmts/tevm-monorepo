@@ -53,7 +53,7 @@
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
 		"lint:deps": "bunx depcheck",
-		"lint:package": "bunx publint --strict && attw --pack",
+		"lint:package": "bunx publint --strict && pnpm pack --pack-destination /tmp && attw /tmp/tevm-esbuild-plugin-*.tgz && rm /tmp/tevm-esbuild-plugin-*.tgz",
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",
 		"test:run": "vitest run",

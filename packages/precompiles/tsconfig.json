@@ -1,6 +1,7 @@
 {
 	"extends": "@tevm/tsconfig/base.json",
 	"compilerOptions": {
+		"rootDir": "src",
 		"plugins": [
 			{
 				"name": "@tevm/ts-plugin"
@@ -10,5 +11,5 @@
 		"skipLibCheck": true,
 		"types": ["bun-types"]
 	},
-	"include": ["src", "test"]
+	"include": ["src"]
 }

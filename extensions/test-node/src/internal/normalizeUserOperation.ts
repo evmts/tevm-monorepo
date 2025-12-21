@@ -1,6 +1,32 @@
 import { type RpcUserOperation } from 'viem'
 import { normalizeHex } from './normalizeHex.js'
 
+/**
+ * Normalizes an ERC-4337 user operation to a consistent array of lowercase hex strings
+ * for cache key generation. Supports both v0.6 and v0.7+ user operation formats,
+ * including EIP-7702 authorization fields.
+ *
+ * @param userOp - The user operation to normalize (supports v0.6 and v0.7+ formats)
+ * @returns An array of normalized hex strings representing the user operation fields
+ *
+ * @example
+ * ```typescript
+ * import { normalizeUserOperation } from '@tevm/test-node'
+ *
+ * // v0.7 format
+ * const cacheKey = normalizeUserOperation({
+ *   sender: '0xABC...',
+ *   nonce: '0x1',
+ *   callData: '0xDEF...',
+ *   callGasLimit: '0x5000',
+ *   verificationGasLimit: '0x10000',
+ *   preVerificationGas: '0x1000',
+ *   maxFeePerGas: '0x100',
+ *   maxPriorityFeePerGas: '0x10',
+ *   signature: '0x...'
+ * })
+ * ```
+ */
 export const normalizeUserOperation = (userOp: RpcUserOperation) => [
 	// Authorization handling (SignedAuthorization)
 	...(userOp.authorization

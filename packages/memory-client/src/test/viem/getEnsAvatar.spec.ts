@@ -1,30 +1,14 @@
 import { mainnet } from '@tevm/common'
-import { SimpleContract, transports } from '@tevm/test-utils'
+import { /* createCachedMainnetTransport, */ transports } from '@tevm/test-utils'
 import { loadKZG } from 'kzg-wasm'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
-let mc = createMemoryClient()
-
-beforeEach(async () => {
-	mc = createMemoryClient()
-	const deployResult = await mc.tevmDeploy({
-		bytecode: SimpleContract.bytecode,
-		abi: SimpleContract.abi,
-		args: [420n],
-	})
-	if (!deployResult.createdAddress) {
-		throw new Error('contract never deployed')
-	}
-	if (!deployResult.txHash) {
-		throw new Error('txHash not found')
-	}
-	await mc.tevmMine()
-})
-
 describe('getEnsAvatar', async () => {
-	it.todo('should work', { timeout: 40_000 }, async () => {
+	it('should work', { timeout: 40_000 }, async () => {
 		const kzg = await loadKZG()
+		// TODO: we can't use a cached transport here otherwise some other test will reuse it because of createMemoryClient cache, see TODO issue in extensions/test-node/src/snapshot/createCachedTransport.ts
+		// const cachedTransport = createCachedMainnetTransport()
 		const mainnetClient = createMemoryClient({
 			common: Object.assign({ kzg }, mainnet),
 			fork: {

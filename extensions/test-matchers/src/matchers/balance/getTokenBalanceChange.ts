@@ -18,10 +18,12 @@ export const getTokenBalanceChange = async (
 	address: Address,
 	prestateTrace: PrestateTraceResult<true>,
 ): Promise<bigint> => {
-	// Get the current balance
+	// Get the current balance - explicitly disable transaction creation for read operations
+	// to prevent auto-mining conflicts
 	const currentBalanceResponse = await contractHandler(node)({
 		...ERC20.withAddress(tokenAddress).read.balanceOf(address),
 		throwOnFail: false,
+		createTransaction: false,
 	})
 
 	if (currentBalanceResponse.errors || currentBalanceResponse.data === undefined) {
@@ -52,8 +54,11 @@ export const getTokenBalanceChange = async (
 					jsonrpc: '2.0',
 				})
 
-				// Check if the balance changed
-				const nextBalanceResponse = await contractHandler(node)(ERC20.withAddress(tokenAddress).read.balanceOf(address))
+				// Check if the balance changed - explicitly disable transaction creation for read operations
+				const nextBalanceResponse = await contractHandler(node)({
+					...ERC20.withAddress(tokenAddress).read.balanceOf(address),
+					createTransaction: false,
+				})
 
 				// If balance didn't change, that's not the slot we're looking for
 				if (nextBalanceResponse.data === undefined || nextBalanceResponse.data === currentBalance) continue

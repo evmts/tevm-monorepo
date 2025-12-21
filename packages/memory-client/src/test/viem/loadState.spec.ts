@@ -1,6 +1,6 @@
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { transports } from '@tevm/test-utils'
+import { createCachedOptimismTransport } from '@tevm/test-utils'
 import { createClient, parseEther } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
@@ -13,6 +13,7 @@ import { tevmSetAccount } from '../../tevmSetAccount.js'
 let mc: MemoryClient
 const testAddress = `0x${'69'.repeat(20)}` as const
 const testAddress2 = `0x${'42'.repeat(20)}` as const
+const cachedTransport = createCachedOptimismTransport()
 
 beforeEach(async () => {
 	mc = createMemoryClient()
@@ -53,7 +54,7 @@ describe.skip('loadState', () => {
 		// Create a standard client
 		const client = createClient({
 			transport: createTevmTransport({
-				fork: { transport: transports.optimism },
+				fork: { transport: cachedTransport },
 			}),
 			chain: optimism,
 		})
@@ -97,11 +98,11 @@ describe.skip('loadState', () => {
 		const contract = SimpleContract.withAddress(contractAddress)
 
 		// Set a value in the contract
-		await contract.write.setValue([456n])
+		await contract.write.set(456n)
 		await mc.tevmMine()
 
 		// Verify the value is set
-		const valueInOriginal = await contract.read.getValue()
+		const valueInOriginal = await contract.read.get()
 		expect(valueInOriginal).toBe(456n)
 
 		// Dump the state
@@ -118,16 +119,16 @@ describe.skip('loadState', () => {
 		const contractInNewClient = SimpleContract.withAddress(contractAddress)
 
 		// Read the value from the contract in the new client
-		const valueInNewClient = await contractInNewClient.read.getValue()
+		const valueInNewClient = await contractInNewClient.read.get()
 
 		// Value should be the same as original
 		expect(valueInNewClient).toBe(456n)
 
 		// Make sure we can call the contract methods in the new client
-		await contractInNewClient.write.setValue([789n])
+		await contractInNewClient.write.set(789n)
 		await newClient.tevmMine()
 
-		const updatedValue = await contractInNewClient.read.getValue()
+		const updatedValue = await contractInNewClient.read.get()
 		expect(updatedValue).toBe(789n)
 	})
 
@@ -139,7 +140,7 @@ describe.skip('loadState', () => {
 		await mc.tevmSetAccount({
 			address: testAddress,
 			balance: parseEther('10'),
-			storage: {
+			state: {
 				[storageKey]: storageValue,
 			},
 		})
@@ -266,7 +267,7 @@ describe.skip('loadState', () => {
 		// Create a new client with a fork
 		const forkedClient = createMemoryClient({
 			fork: {
-				transport: transports.optimism,
+				transport: cachedTransport,
 			},
 		})
 		await forkedClient.tevmReady()
@@ -303,7 +304,7 @@ describe.skip('loadState', () => {
 		// Get contract and set some values
 		const contractAddress = deployResult.createdAddress
 		const contract = SimpleContract.withAddress(contractAddress)
-		await contract.write.setValue([123456n])
+		await contract.write.set(123456n)
 		await mc.tevmMine()
 
 		// Set some account state too
@@ -325,7 +326,7 @@ describe.skip('loadState', () => {
 
 		// Verify contract is accessible and has correct state
 		const contractInClient2 = SimpleContract.withAddress(contractAddress)
-		const value = await contractInClient2.read.getValue()
+		const value = await contractInClient2.read.get()
 		expect(value).toBe(123456n)
 
 		// Verify account state was transferred
@@ -334,15 +335,15 @@ describe.skip('loadState', () => {
 		expect(account.nonce).toBe(42n)
 
 		// Make changes in client 2
-		await contractInClient2.write.setValue([8888n])
+		await contractInClient2.write.set(8888n)
 		await client2.tevmMine()
 
 		// Verify changes in client 2
-		const newValue = await contractInClient2.read.getValue()
+		const newValue = await contractInClient2.read.get()
 		expect(newValue).toBe(8888n)
 
 		// But client 1 should be unchanged
-		const originalValue = await contract.read.getValue()
+		const originalValue = await contract.read.get()
 		expect(originalValue).toBe(123456n)
 
 		// Essentially, client2 is now a "fork" of client1

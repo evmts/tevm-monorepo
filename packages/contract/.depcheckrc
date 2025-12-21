@@ -1,5 +1,6 @@
 ignores: [
   "@evmts/core",
-  "@evmts/ts-plugin"
+  "@evmts/ts-plugin",
+  "zod"
 ]
 skip-missing: true

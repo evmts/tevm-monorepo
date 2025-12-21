@@ -1,12 +1,13 @@
+import { optimism } from '@tevm/common'
 import { createTevmNode, type TevmNode } from '@tevm/node'
+import { transports } from '@tevm/test-utils'
 import { type Hex, hexToBytes } from '@tevm/utils'
-import { http, parseEther } from 'viem'
+import { parseEther } from 'viem'
 import { describe, expect, it, vi } from 'vitest'
 import type { CallResult } from '../Call/CallResult.js'
 import { callHandler } from '../Call/callHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { mineHandler } from './mineHandler.js'
-import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 
 const getBlockNumber = (client: TevmNode) => {
 	return client
@@ -24,11 +25,11 @@ describe(mineHandler.name, () => {
 	})
 
 	it('should work in forked mode too', { timeout: 20_000 }, async () => {
-		const client = createTevmNode({ fork: { transport: http('https://mainnet.optimism.io')({}) } })
-		const bn = await getBlockNumber(client)
+		const node = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
+		const bn = await getBlockNumber(node)
 		expect(bn).toBeGreaterThan(119504797n)
-		await mineHandler(client)({})
-		expect(await getBlockNumber(client)).toBe(bn + 1n)
+		await mineHandler(node)({})
+		expect(await getBlockNumber(node)).toBe(bn + 1n)
 	})
 
 	it('can be passed blockCount and interval props', async () => {

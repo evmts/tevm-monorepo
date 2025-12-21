@@ -3,7 +3,6 @@ import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
 import { encodeFunctionData, hexToBytes } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { runCallWithTrace } from './runCallWithTrace.js'
 
@@ -29,12 +28,8 @@ describe('runCallWithTrace', () => {
 			).errors,
 		).toBeUndefined()
 
-		expect(
-			await getAccountHandler(client)({
-				address: ERC20_ADDRESS,
-			}),
-		).toMatchObject({
-			address: ERC20_ADDRESS,
+		// @ts-expect-error: Monorepo type conflict: TevmNode from source (/src) conflicts with the matcher's type from compiled output (/dist).
+		await expect(ERC20_ADDRESS).toHaveState(client, {
 			deployedBytecode: ERC20_BYTECODE,
 		})
 

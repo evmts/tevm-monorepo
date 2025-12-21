@@ -219,9 +219,7 @@ export class BlockBuilder {
 		{
 			skipBalance,
 			skipNonce,
-		skipBalance,
-		skipNonce,
-		skipHardForkValidation,
+			skipHardForkValidation,
 		}: Pick<RunTxOpts, 'skipBalance' | 'skipNonce' | 'skipHardForkValidation'> = {},
 	) {
 		let _tx = tx

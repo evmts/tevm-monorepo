@@ -81,7 +81,7 @@ describe('getStorageAtHandler', () => {
 			blockTag: 'latest',
 		})
 
-		expect(result).toBe('0x00')
+		expect(result).toEqualHex('0x00')
 	})
 
 	it('should handle errors from getContractStorage', async () => {
