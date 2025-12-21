@@ -27,6 +27,7 @@ import { ethCallProcedure } from './eth/ethCallProcedure.js'
 import { ethCoinbaseJsonRpcProcedure } from './eth/ethCoinbaseProcedure.js'
 import { ethCreateAccessListProcedure } from './eth/ethCreateAccessListProcedure.js'
 import { ethEstimateGasJsonRpcProcedure } from './eth/ethEstimateGasProcedure.js'
+import { ethFeeHistoryProcedure } from './eth/ethFeeHistoryProcedure.js'
 import { ethGetBlockByHashJsonRpcProcedure } from './eth/ethGetBlockByHashProcedure.js'
 import { ethGetBlockByNumberJsonRpcProcedure } from './eth/ethGetBlockByNumberProcedure.js'
 import { ethGetBlockTransactionCountByHashJsonRpcProcedure } from './eth/ethGetBlockTransactionCountByHashProcedure.js'
@@ -34,6 +35,7 @@ import { ethGetBlockTransactionCountByNumberJsonRpcProcedure } from './eth/ethGe
 import { ethGetFilterChangesProcedure } from './eth/ethGetFilterChangesProcedure.js'
 import { ethGetFilterLogsProcedure } from './eth/ethGetFilterLogsProcedure.js'
 import { ethGetLogsProcedure } from './eth/ethGetLogsProcedure.js'
+import { ethGetProofProcedure } from './eth/ethGetProofProcedure.js'
 import { ethGetTransactionByBlockHashAndIndexJsonRpcProcedure } from './eth/ethGetTransactionByBlockHashAndIndexProcedure.js'
 import { ethGetTransactionByBlockNumberAndIndexJsonRpcProcedure } from './eth/ethGetTransactionByBlockNumberAndIndexProcedure.js'
 import { ethGetTransactionByHashJsonRpcProcedure } from './eth/ethGetTransactionByHashProcedure.js'
@@ -45,14 +47,12 @@ import { ethNewPendingTransactionFilterProcedure } from './eth/ethNewPendingTran
 import { ethProtocolVersionJsonRpcProcedure } from './eth/ethProtocolVersionProcedure.js'
 import { ethSendRawTransactionJsonRpcProcedure } from './eth/ethSendRawTransactionProcedure.js'
 import { ethSendTransactionJsonRpcProcedure } from './eth/ethSendTransactionProcedure.js'
+import { ethSimulateV1Procedure } from './eth/ethSimulateV1Procedure.js'
 import { ethUninstallFilterJsonRpcProcedure } from './eth/ethUninstallFilterProcedure.js'
 import { gasPriceProcedure } from './eth/gasPriceProcedure.js'
 import { getBalanceProcedure } from './eth/getBalanceProcedure.js'
 import { getCodeProcedure } from './eth/getCodeProcedure.js'
 import { getStorageAtProcedure } from './eth/getStorageAtProcedure.js'
-import { ethFeeHistoryProcedure } from './eth/ethFeeHistoryProcedure.js'
-import { ethGetProofProcedure } from './eth/ethGetProofProcedure.js'
-import { ethSimulateV1Procedure } from './eth/ethSimulateV1Procedure.js'
 import { maxPriorityFeePerGasProcedure } from './eth/maxPriorityFeePerGasProcedure.js'
 import { testAccounts } from './eth/utils/testAccounts.js'
 import { getAccountProcedure } from './GetAccount/getAccountProcedure.js'
@@ -160,6 +160,34 @@ export const createHandlers = (client) => {
 		eth_simulateV1: ethSimulateV1Procedure(client),
 	}
 
+	/**
+	 * Creates the anvil_increaseTime handler
+	 * This is a factory function to share the implementation with evm_increaseTime
+	 * @param {string} methodName
+	 */
+	const createIncreaseTimeHandler =
+		(methodName) =>
+		/**
+		 * Jump forward in time by the given amount of time, in seconds.
+		 * @param {any} request
+		 * @returns {Promise<{method: string, result: string, jsonrpc: '2.0', id?: any}>}
+		 */
+		async (request) => {
+			const seconds = BigInt(request.params[0])
+			const vm = await client.getVm()
+			const latestBlock = await vm.blockchain.getCanonicalHeadBlock()
+			const currentTimestamp = latestBlock.header.timestamp
+			const newTimestamp = currentTimestamp + seconds
+			client.setNextBlockTimestamp(newTimestamp)
+			return {
+				method: methodName,
+				// Return the number of seconds increased (as hex, matching ganache behavior)
+				result: `0x${seconds.toString(16)}`,
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
+		}
+
 	const anvilHandlers = {
 		anvil_deal: anvilDealJsonRpcProcedure(client),
 		anvil_setCode: anvilSetCodeJsonRpcProcedure(client),
@@ -176,6 +204,7 @@ export const createHandlers = (client) => {
 		anvil_setStorageAt: anvilSetStorageAtJsonRpcProcedure(client),
 		anvil_impersonateAccount: anvilImpersonateAccountJsonRpcProcedure(client),
 		anvil_stopImpersonatingAccount: anvilStopImpersonatingAccountJsonRpcProcedure(client),
+		anvil_increaseTime: createIncreaseTimeHandler('anvil_increaseTime'),
 	}
 	const tevmAnvilHandlers = Object.fromEntries(
 		Object.entries(anvilHandlers).map(([key, value]) => {
@@ -216,6 +245,7 @@ export const createHandlers = (client) => {
 				...(request.id ? { id: request.id } : {}),
 			}
 		},
+		evm_increaseTime: createIncreaseTimeHandler('evm_increaseTime'),
 		/**
 		 * Creates a snapshot of the current state
 		 * @param {any} request

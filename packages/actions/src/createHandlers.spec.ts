@@ -140,4 +140,95 @@ describe('createHandlers', () => {
 		})
 		expect(res).toMatchSnapshot()
 	})
+
+	describe('evm_increaseTime', () => {
+		it('should increase block timestamp by the specified amount', async () => {
+			// Get the current block to know the initial timestamp
+			const vm = await client.getVm()
+			const initialBlock = await vm.blockchain.getCanonicalHeadBlock()
+			const initialTimestamp = initialBlock.header.timestamp
+
+			// Increase time by 3600 seconds (1 hour)
+			const res = await handlers.evm_increaseTime({
+				jsonrpc: '2.0',
+				method: 'evm_increaseTime',
+				id: 1,
+				params: [3600],
+			})
+
+			// Result should be the seconds increased as hex
+			expect(res.result).toBe('0xe10')
+			expect(res.jsonrpc).toBe('2.0')
+			expect(res.method).toBe('evm_increaseTime')
+			expect(res.id).toBe(1)
+
+			// Mine a block to apply the new timestamp
+			await handlers.anvil_mine({
+				jsonrpc: '2.0',
+				method: 'anvil_mine',
+				id: 2,
+				params: ['0x1', '0x0'],
+			})
+
+			// Verify the block has the increased timestamp
+			const newBlock = await vm.blockchain.getCanonicalHeadBlock()
+			expect(newBlock.header.timestamp).toBe(initialTimestamp + 3600n)
+		})
+
+		it('should handle large time increments', async () => {
+			const vm = await client.getVm()
+			const initialBlock = await vm.blockchain.getCanonicalHeadBlock()
+			const initialTimestamp = initialBlock.header.timestamp
+
+			// Increase by 1 year (31536000 seconds)
+			const oneYear = 31536000
+			const res = await handlers.evm_increaseTime({
+				jsonrpc: '2.0',
+				method: 'evm_increaseTime',
+				id: 1,
+				params: [oneYear],
+			})
+
+			expect(res.result).toBe(`0x${oneYear.toString(16)}`)
+
+			// Mine and verify
+			await handlers.anvil_mine({
+				jsonrpc: '2.0',
+				method: 'anvil_mine',
+				id: 2,
+				params: ['0x1', '0x0'],
+			})
+
+			const newBlock = await vm.blockchain.getCanonicalHeadBlock()
+			expect(newBlock.header.timestamp).toBe(initialTimestamp + BigInt(oneYear))
+		})
+	})
+
+	describe('anvil_increaseTime', () => {
+		it('should work the same as evm_increaseTime', async () => {
+			const vm = await client.getVm()
+			const initialBlock = await vm.blockchain.getCanonicalHeadBlock()
+			const initialTimestamp = initialBlock.header.timestamp
+
+			const res = await handlers.anvil_increaseTime({
+				jsonrpc: '2.0',
+				method: 'anvil_increaseTime',
+				id: 1,
+				params: [7200], // 2 hours
+			})
+
+			expect(res.result).toBe('0x1c20') // 7200 in hex
+			expect(res.method).toBe('anvil_increaseTime')
+
+			await handlers.anvil_mine({
+				jsonrpc: '2.0',
+				method: 'anvil_mine',
+				id: 2,
+				params: ['0x1', '0x0'],
+			})
+
+			const newBlock = await vm.blockchain.getCanonicalHeadBlock()
+			expect(newBlock.header.timestamp).toBe(initialTimestamp + 7200n)
+		})
+	})
 })
