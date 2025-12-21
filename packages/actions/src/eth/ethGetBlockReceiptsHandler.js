@@ -198,13 +198,14 @@ export const ethGetBlockReceiptsHandler = (client) => async (params) => {
 		const { blobGasPrice, blobGasUsed } = /** @type {any} */ (receipt)
 
 		// Calculate effective gas price
+		/** @type {any} */
+		const txAny = tx
 		const effectiveGasPrice =
-			/** @type {any} */ (tx).maxPriorityFeePerGas !== undefined && /** @type {any} */ (tx).maxFeePerGas !== undefined
-				? /** @type {any} */ (tx).maxPriorityFeePerGas <
-					/** @type {any} */ (tx).maxFeePerGas - (block.header.baseFeePerGas ?? 0n)
-					? /** @type {any} */ (tx).maxPriorityFeePerGas + (block.header.baseFeePerGas ?? 0n)
-					: /** @type {any} */ (tx).maxFeePerGas
-				: /** @type {any} */ (tx?.gasPrice ?? 0n)
+			txAny.maxPriorityFeePerGas !== undefined && txAny.maxFeePerGas !== undefined
+				? txAny.maxPriorityFeePerGas < txAny.maxFeePerGas - (block.header.baseFeePerGas ?? 0n)
+					? txAny.maxPriorityFeePerGas + (block.header.baseFeePerGas ?? 0n)
+					: txAny.maxFeePerGas
+				: (txAny?.gasPrice ?? 0n)
 
 		/** @type {import('./EthResult.js').EthGetTransactionReceiptResult} */
 		const receiptResult = {
@@ -221,16 +222,14 @@ export const ethGetBlockReceiptsHandler = (client) => async (params) => {
 			logsBloom: bytesToHex(receipt.bitvector),
 			...(blobGasUsed !== undefined ? { blobGasUsed } : {}),
 			...(blobGasPrice !== undefined ? { blobGasPrice } : {}),
-			.../** @type {any} */ (
-				receipt.stateRoot instanceof Uint8Array ? { root: bytesToHex(/** @type {any} */ (receipt).stateRoot) } : {}
-			),
-			.../** @type {any} */ (
-				receipt.status instanceof Uint8Array
-					? { status: numberToHex(/** @type {any} */ (receipt).status[0]) }
-					: typeof (/** @type {any} */ (receipt).status) === 'number'
-						? { status: numberToHex(/** @type {any} */ (receipt).status) }
-						: {}
-			),
+			...(/** @type {any} */ (receipt).stateRoot instanceof Uint8Array
+				? { root: bytesToHex(/** @type {any} */ (receipt).stateRoot) }
+				: {}),
+			...(/** @type {any} */ (receipt).status instanceof Uint8Array
+				? { status: numberToHex(/** @type {any} */ (receipt).status[0]) }
+				: typeof /** @type {any} */ (receipt).status === 'number'
+					? { status: numberToHex(/** @type {any} */ (receipt).status) }
+					: {}),
 			logs: receipt.logs.map((log, i) => ({
 				address: bytesToHex(log[0]),
 				blockHash: bytesToHex(block.hash()),
