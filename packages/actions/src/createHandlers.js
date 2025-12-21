@@ -9,15 +9,18 @@ import { anvilDumpStateJsonRpcProcedure } from './anvil/anvilDumpStateProcedure.
 import { anvilGetAutomineJsonRpcProcedure } from './anvil/anvilGetAutomineProcedure.js'
 import { anvilGetIntervalMiningJsonRpcProcedure } from './anvil/anvilGetIntervalMiningProcedure.js'
 import { anvilImpersonateAccountJsonRpcProcedure } from './anvil/anvilImpersonateAccountProcedure.js'
+import { anvilIncreaseTimeJsonRpcProcedure } from './anvil/anvilIncreaseTimeProcedure.js'
 import { anvilLoadStateJsonRpcProcedure } from './anvil/anvilLoadStateProcedure.js'
 import { anvilMetadataJsonRpcProcedure } from './anvil/anvilMetadataProcedure.js'
 import { anvilNodeInfoJsonRpcProcedure } from './anvil/anvilNodeInfoProcedure.js'
+import { anvilRemoveBlockTimestampIntervalJsonRpcProcedure } from './anvil/anvilRemoveBlockTimestampIntervalProcedure.js'
 import { anvilRemovePoolTransactionsJsonRpcProcedure } from './anvil/anvilRemovePoolTransactionsProcedure.js'
 import { anvilResetJsonRpcProcedure } from './anvil/anvilResetProcedure.js'
 import { anvilRevertJsonRpcProcedure } from './anvil/anvilRevertProcedure.js'
 import { anvilSetAutomineJsonRpcProcedure } from './anvil/anvilSetAutomineProcedure.js'
 import { anvilSetBalanceJsonRpcProcedure } from './anvil/anvilSetBalanceProcedure.js'
 import { anvilSetBlockGasLimitJsonRpcProcedure } from './anvil/anvilSetBlockGasLimitProcedure.js'
+import { anvilSetBlockTimestampIntervalJsonRpcProcedure } from './anvil/anvilSetBlockTimestampIntervalProcedure.js'
 import { anvilSetCodeJsonRpcProcedure } from './anvil/anvilSetCodeProcedure.js'
 import { anvilSetCoinbaseJsonRpcProcedure } from './anvil/anvilSetCoinbaseProcedure.js'
 import { anvilSetErc20AllowanceJsonRpcProcedure } from './anvil/anvilSetErc20AllowanceProcedure.js'
@@ -25,9 +28,11 @@ import { anvilSetIntervalMiningJsonRpcProcedure } from './anvil/anvilSetInterval
 import { anvilSetLoggingEnabledJsonRpcProcedure } from './anvil/anvilSetLoggingEnabledProcedure.js'
 import { anvilSetMinGasPriceJsonRpcProcedure } from './anvil/anvilSetMinGasPriceProcedure.js'
 import { anvilSetNextBlockBaseFeePerGasJsonRpcProcedure } from './anvil/anvilSetNextBlockBaseFeePerGasProcedure.js'
+import { anvilSetNextBlockTimestampJsonRpcProcedure } from './anvil/anvilSetNextBlockTimestampProcedure.js'
 import { anvilSetNonceJsonRpcProcedure } from './anvil/anvilSetNonceProcedure.js'
 import { anvilSetRpcUrlJsonRpcProcedure } from './anvil/anvilSetRpcUrlProcedure.js'
 import { anvilSetStorageAtJsonRpcProcedure } from './anvil/anvilSetStorageAtProcedure.js'
+import { anvilSetTimeJsonRpcProcedure } from './anvil/anvilSetTimeProcedure.js'
 import { anvilSnapshotJsonRpcProcedure } from './anvil/anvilSnapshotProcedure.js'
 import { anvilStopImpersonatingAccountJsonRpcProcedure } from './anvil/anvilStopImpersonatingAccountProcedure.js'
 import { callProcedure } from './Call/callProcedure.js'
@@ -236,17 +241,19 @@ export const createHandlers = (client) => {
 		anvil_getAutomine: anvilGetAutomineJsonRpcProcedure(client),
 		anvil_getIntervalMining: anvilGetIntervalMiningJsonRpcProcedure(client),
 		anvil_impersonateAccount: anvilImpersonateAccountJsonRpcProcedure(client),
-		anvil_increaseTime: createIncreaseTimeHandler('anvil_increaseTime'),
+		anvil_increaseTime: anvilIncreaseTimeJsonRpcProcedure(client),
 		anvil_loadState: anvilLoadStateJsonRpcProcedure(client),
 		anvil_metadata: anvilMetadataJsonRpcProcedure(client),
 		anvil_mine: mineProcedure(client),
 		anvil_nodeInfo: anvilNodeInfoJsonRpcProcedure(client),
+		anvil_removeBlockTimestampInterval: anvilRemoveBlockTimestampIntervalJsonRpcProcedure(client),
 		anvil_removePoolTransactions: anvilRemovePoolTransactionsJsonRpcProcedure(client),
 		anvil_reset: anvilResetJsonRpcProcedure(client),
 		anvil_revert: anvilRevertJsonRpcProcedure(client),
 		anvil_setAutomine: anvilSetAutomineJsonRpcProcedure(client),
 		anvil_setBalance: anvilSetBalanceJsonRpcProcedure(client),
 		anvil_setBlockGasLimit: anvilSetBlockGasLimitJsonRpcProcedure(client),
+		anvil_setBlockTimestampInterval: anvilSetBlockTimestampIntervalJsonRpcProcedure(client),
 		anvil_setChainId: chainIdHandler(client),
 		anvil_setCode: anvilSetCodeJsonRpcProcedure(client),
 		anvil_setCoinbase: anvilSetCoinbaseJsonRpcProcedure(client),
@@ -255,9 +262,11 @@ export const createHandlers = (client) => {
 		anvil_setLoggingEnabled: anvilSetLoggingEnabledJsonRpcProcedure(client),
 		anvil_setMinGasPrice: anvilSetMinGasPriceJsonRpcProcedure(client),
 		anvil_setNextBlockBaseFeePerGas: anvilSetNextBlockBaseFeePerGasJsonRpcProcedure(client),
+		anvil_setNextBlockTimestamp: anvilSetNextBlockTimestampJsonRpcProcedure(client),
 		anvil_setNonce: anvilSetNonceJsonRpcProcedure(client),
 		anvil_setRpcUrl: anvilSetRpcUrlJsonRpcProcedure(client),
 		anvil_setStorageAt: anvilSetStorageAtJsonRpcProcedure(client),
+		anvil_setTime: anvilSetTimeJsonRpcProcedure(client),
 		anvil_snapshot: anvilSnapshotJsonRpcProcedure(client),
 		anvil_stopImpersonatingAccount: anvilStopImpersonatingAccountJsonRpcProcedure(client),
 	}

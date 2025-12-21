@@ -14,13 +14,13 @@
  * // response.result will be null
  * ```
  */
-export const anvilSetBlockTimestampIntervalJsonRpcProcedure = (client) => (request) => {
+export const anvilSetBlockTimestampIntervalJsonRpcProcedure = (client) => async (request) => {
 	const interval = BigInt(request.params[0])
 	client.setBlockTimestampInterval(interval)
 	return {
 		method: request.method,
 		result: null,
-		jsonrpc: '2.0',
+		jsonrpc: /** @type {const} */ ('2.0'),
 		...(request.id ? { id: request.id } : {}),
 	}
 }

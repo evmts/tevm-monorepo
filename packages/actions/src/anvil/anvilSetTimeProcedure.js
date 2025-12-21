@@ -15,13 +15,13 @@
  * // response.result will be the new timestamp
  * ```
  */
-export const anvilSetTimeJsonRpcProcedure = (client) => (request) => {
+export const anvilSetTimeJsonRpcProcedure = (client) => async (request) => {
 	const timestamp = BigInt(request.params[0])
 	client.setNextBlockTimestamp(timestamp)
 	return {
 		method: request.method,
-		result: `0x${timestamp.toString(16)}`,
-		jsonrpc: '2.0',
+		result: /** @type {`0x${string}`} */ (`0x${timestamp.toString(16)}`),
+		jsonrpc: /** @type {const} */ ('2.0'),
 		...(request.id ? { id: request.id } : {}),
 	}
 }

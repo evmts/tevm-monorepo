@@ -14,12 +14,12 @@
  * // response.result will be true
  * ```
  */
-export const anvilRemoveBlockTimestampIntervalJsonRpcProcedure = (client) => (request) => {
+export const anvilRemoveBlockTimestampIntervalJsonRpcProcedure = (client) => async (request) => {
 	client.setBlockTimestampInterval(undefined)
 	return {
 		method: request.method,
 		result: true,
-		jsonrpc: '2.0',
+		jsonrpc: /** @type {const} */ ('2.0'),
 		...(request.id ? { id: request.id } : {}),
 	}
 }

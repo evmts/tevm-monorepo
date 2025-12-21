@@ -14,13 +14,13 @@
  * // response.result will be null
  * ```
  */
-export const anvilSetNextBlockTimestampJsonRpcProcedure = (client) => (request) => {
+export const anvilSetNextBlockTimestampJsonRpcProcedure = (client) => async (request) => {
 	const timestamp = BigInt(request.params[0])
 	client.setNextBlockTimestamp(timestamp)
 	return {
 		method: request.method,
 		result: null,
-		jsonrpc: '2.0',
+		jsonrpc: /** @type {const} */ ('2.0'),
 		...(request.id ? { id: request.id } : {}),
 	}
 }
