@@ -70,6 +70,9 @@
 		"access": "public"
 	},
 	"dependencies": {
+		"@latticexyz/schema-type": "^2.2.21",
+		"@latticexyz/store": "^2.2.21",
+		"@latticexyz/world": "^2.2.21",
 		"@openzeppelin/contracts": "5.4.0",
 		"@ponder/utils": "^0.2.13",
 		"@tevm/contract": "workspace:^",

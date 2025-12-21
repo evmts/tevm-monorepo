@@ -1,0 +1,11 @@
+{
+	"extends": "@tevm/tsconfig/base.json",
+	"compilerOptions": {
+		"outDir": "types",
+		"skipLibCheck": true,
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"jsx": "react-jsx"
+	},
+	"include": ["src", "src/**/*.json", "package.json"]
+}

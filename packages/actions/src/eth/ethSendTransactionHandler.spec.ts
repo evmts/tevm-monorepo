@@ -217,7 +217,8 @@ describe('ethSendTransactionHandler', () => {
 		})
 
 		// Simple contract bytecode
-		const bytecode = '0x6080604052348015600f57600080fd5b50603e80601d6000396000f3fe6080604052600080fdfea2646970667358221220'
+		const bytecode =
+			'0x6080604052348015600f57600080fd5b50603e80601d6000396000f3fe6080604052600080fdfea2646970667358221220'
 
 		const result = await handler({
 			from: from.toString(),

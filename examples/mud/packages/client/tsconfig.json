@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["vite/client", "vite-plugin-mud/env"],
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@tevm/mud/react": ["../../../../bundler-packages/mud/src/react/index.ts"],
+      "@tevm/mud": ["../../../../bundler-packages/mud/src/index.ts"]
+    }
+  },
+  "include": ["src"]
+}
