@@ -8,7 +8,14 @@ import {
 	type RpcTransactionRequest,
 } from 'viem'
 
-// only cache if block number is fixed (hex or earliest) and not a tag
+/**
+ * Checks if a block tag is static (deterministic) and therefore safe to cache.
+ * Static tags include: block hashes, hex block numbers, and 'earliest'.
+ * Dynamic tags like 'latest', 'pending', 'safe', 'finalized' should not be cached.
+ *
+ * @param param - The block tag to check
+ * @returns true if the block tag is static and cacheable
+ */
 const isStaticBlockTag = (param: BlockTag | Hex | RpcBlockIdentifier | undefined) =>
 	param &&
 	((typeof param === 'object' && 'blockHash' in param && param.blockHash !== undefined) ||
@@ -16,8 +23,14 @@ const isStaticBlockTag = (param: BlockTag | Hex | RpcBlockIdentifier | undefined
 		isHex(param) ||
 		param === 'earliest')
 
-// only cache if dynamic params (that are computed on the fly if not provided) are provided so we don't cache
-// apparently similar txs that in fact should produce a different output
+/**
+ * Checks if a transaction has all required static parameters that would make
+ * the response deterministic. Required fields are: nonce, gas, and either
+ * gasPrice (legacy) or maxFeePerGas + maxPriorityFeePerGas (EIP-1559).
+ *
+ * @param tx - The transaction request to check
+ * @returns true if all required static parameters are provided
+ */
 const isStaticTxParams = (tx: RpcTransactionRequest) => {
 	const isLegacy = tx.gasPrice !== undefined
 	const isEip1559 = tx.maxFeePerGas !== undefined && tx.maxPriorityFeePerGas !== undefined
@@ -25,8 +38,29 @@ const isStaticTxParams = (tx: RpcTransactionRequest) => {
 	return tx.nonce !== undefined && tx.gas !== undefined && (isLegacy || isEip1559)
 }
 
-// This only tells polly if this should be cached or not.
-// Actually caching/retrieving from cache depending on the parameters is done separately.
+/**
+ * Determines if a JSON-RPC method call should be cached based on the method
+ * and its parameters. Methods that return deterministic results for static
+ * block tags are cacheable, while methods with side effects or dynamic results
+ * are not cached.
+ *
+ * @param request - The EIP-1193 request with method and params
+ * @returns true if the method call should be cached
+ *
+ * @example
+ * ```typescript
+ * import { isCachedJsonRpcMethod } from '@tevm/test-node'
+ *
+ * // Cacheable - static block number
+ * isCachedJsonRpcMethod({ method: 'eth_getBalance', params: ['0x...', '0x123'] }) // true
+ *
+ * // Not cacheable - dynamic block tag
+ * isCachedJsonRpcMethod({ method: 'eth_getBalance', params: ['0x...', 'latest'] }) // false
+ *
+ * // Never cacheable - has side effects
+ * isCachedJsonRpcMethod({ method: 'eth_sendTransaction', params: [{}] }) // false
+ * ```
+ */
 export const isCachedJsonRpcMethod = ({ method, params }: EIP1193Parameters<EIP1474Methods>) => {
 	switch (method) {
 		case 'eth_accounts':

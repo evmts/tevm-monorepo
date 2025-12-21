@@ -1,6 +1,27 @@
 import { bytesToHex, type ExactPartial, type Hex, type RpcTransactionRequest } from 'viem'
 import { normalizeHex } from './normalizeHex.js'
 
+/**
+ * Normalizes a transaction request to a consistent array of lowercase hex strings
+ * for cache key generation. Extracts all relevant fields from the transaction and
+ * normalizes them to ensure cache hits regardless of case differences.
+ *
+ * @param tx - The transaction request to normalize, including optional chainId
+ * @returns An array of normalized hex strings representing the transaction fields
+ *
+ * @example
+ * ```typescript
+ * import { normalizeTx } from '@tevm/test-node'
+ *
+ * const cacheKey = normalizeTx({
+ *   from: '0xABC...',
+ *   to: '0xDEF...',
+ *   value: '0x1234',
+ *   chainId: '0x1'
+ * })
+ * // Returns: ['0xabc...', '0xdef...', '0x1234', '0x1']
+ * ```
+ */
 export const normalizeTx = (tx: ExactPartial<RpcTransactionRequest> & { chainId?: Hex | undefined }) => [
 	...(tx.accessList?.map(({ address, storageKeys }) => [normalizeHex(address), ...storageKeys.map(normalizeHex)]) ??
 		[]),

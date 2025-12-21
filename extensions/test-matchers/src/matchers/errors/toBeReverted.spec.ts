@@ -157,7 +157,9 @@ describe('toBeReverted', () => {
 				expect(error.message).toContain(
 					'Expected transaction to be or not be reverted, but a different error was thrown',
 				)
-				expect(error.cause.name).toContain('TransactionReceiptNotFoundError')
+				// The error type can be either TransactionReceiptNotFoundError or TransactionRejectedRpcError
+				// depending on how the nonce validation happens
+				expect(['TransactionReceiptNotFoundError', 'TransactionRejectedRpcError']).toContain(error.cause.name)
 			}
 		})
 

@@ -7,21 +7,24 @@ import {
 } from '@tevm/actions'
 import { ErrorContract, SimpleContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'
-import { createTevmNode } from '@tevm/node'
+import { createTevmNode, type TevmNode } from '@tevm/node'
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import type { Address } from 'viem'
 import { parseEther } from 'viem'
 import { assert, beforeEach, describe, expect, it } from 'vitest'
 
-const node = createTevmNode()
 const sender = PREFUNDED_ACCOUNTS[1]
 const recipient = PREFUNDED_ACCOUNTS[2]
 const amount = parseEther('1')
 
 describe('toChangeBalance', () => {
 	let gasCost: bigint
+	let node: TevmNode
 
 	beforeEach(async () => {
+		// Create a fresh node for each test to avoid mining conflicts
+		node = createTevmNode()
+
 		const res = await callHandler(node)({
 			from: sender.address,
 			to: recipient.address,
@@ -53,18 +56,16 @@ describe('toChangeBalance', () => {
 			assert(simpleContractAddress, 'simpleContractAddress is undefined')
 			const simpleContract = SimpleContract.withAddress(simpleContractAddress)
 
-			const { amountSpent } = await contractHandler(node)({
+			// Execute the call and use its actual amountSpent for the assertion
+			const result = await contractHandler(node)({
 				...simpleContract.write.set(42n),
 				from: sender.address,
+				addToBlockchain: true,
 			})
+			const actualGasCost = result.amountSpent ?? 0n
 
-			await expect(
-				contractHandler(node)({
-					...simpleContract.write.set(42n),
-					from: sender.address,
-					addToBlockchain: true,
-				}),
-			).toChangeBalance(node, sender, -(amountSpent ?? 0n))
+			// Verify balance changed by actual gas cost spent
+			await expect(result).toChangeBalance(node, sender, -actualGasCost)
 		})
 
 		it('should work with a promise that resolves to a call result', async () => {
