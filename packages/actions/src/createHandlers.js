@@ -87,6 +87,7 @@ import { ethProtocolVersionJsonRpcProcedure } from './eth/ethProtocolVersionProc
 import { ethSendRawTransactionJsonRpcProcedure } from './eth/ethSendRawTransactionProcedure.js'
 import { ethSendTransactionJsonRpcProcedure } from './eth/ethSendTransactionProcedure.js'
 import { ethSimulateV1Procedure } from './eth/ethSimulateV1Procedure.js'
+import { ethSimulateV2Procedure } from './eth/ethSimulateV2Procedure.js'
 import { ethSubscribeJsonRpcProcedure } from './eth/ethSubscribeProcedure.js'
 import { ethUninstallFilterJsonRpcProcedure } from './eth/ethUninstallFilterProcedure.js'
 import { ethUnsubscribeJsonRpcProcedure } from './eth/ethUnsubscribeProcedure.js'
@@ -202,6 +203,7 @@ export const createHandlers = (client) => {
 		eth_blobBaseFee: ethBlobBaseFeeJsonRpcProcedure(client),
 		eth_getProof: ethGetProofProcedure(client),
 		eth_simulateV1: ethSimulateV1Procedure(client),
+		eth_simulateV2: ethSimulateV2Procedure(client),
 	}
 
 	/**

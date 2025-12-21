@@ -444,3 +444,169 @@ export type EthSimulateV1BlockResult = {
  * Returns an array of block results, each containing call results
  */
 export type EthSimulateV1Result = EthSimulateV1BlockResult[]
+
+// eth_simulateV2
+/**
+ * A single call trace step for V2 debugging
+ */
+export type CallTraceStep = {
+	/**
+	 * The opcode executed
+	 */
+	op: string
+	/**
+	 * The program counter
+	 */
+	pc: number
+	/**
+	 * The gas remaining
+	 */
+	gas: bigint
+	/**
+	 * The gas cost of this operation
+	 */
+	gasCost: bigint
+	/**
+	 * The current depth of the call stack
+	 */
+	depth: number
+	/**
+	 * The stack contents (top items)
+	 */
+	stack?: Hex[]
+	/**
+	 * The memory contents (if requested)
+	 */
+	memory?: Hex
+}
+
+/**
+ * A contract creation event for V2
+ */
+export type ContractCreationEvent = {
+	/**
+	 * The address of the newly created contract
+	 */
+	address: Address
+	/**
+	 * The address of the creator
+	 */
+	creator: Address
+	/**
+	 * The code deployed to the contract
+	 */
+	code: Hex
+}
+
+/**
+ * Call trace for V2 debugging
+ */
+export type CallTrace = {
+	/**
+	 * The type of call (CALL, DELEGATECALL, STATICCALL, CREATE, CREATE2)
+	 */
+	type: string
+	/**
+	 * The sender address
+	 */
+	from: Address
+	/**
+	 * The recipient address (or created contract address)
+	 */
+	to?: Address
+	/**
+	 * The value transferred
+	 */
+	value?: bigint
+	/**
+	 * The gas provided
+	 */
+	gas: bigint
+	/**
+	 * The gas used
+	 */
+	gasUsed: bigint
+	/**
+	 * The input data
+	 */
+	input: Hex
+	/**
+	 * The output/return data
+	 */
+	output: Hex
+	/**
+	 * Error message if the call failed
+	 */
+	error?: string
+	/**
+	 * Sub-calls made during this call
+	 */
+	calls?: CallTrace[]
+}
+
+/**
+ * Result of a single simulated call (V2)
+ * Extends V1 with additional debugging information
+ */
+export type EthSimulateV2CallResult = EthSimulateV1CallResult & {
+	/**
+	 * Contract creation events if a contract was deployed
+	 * V2 feature: provides visibility into contract deployments
+	 */
+	contractCreated?: ContractCreationEvent
+	/**
+	 * Estimated gas if gas estimation was requested
+	 * V2 feature: accurate gas estimation
+	 */
+	estimatedGas?: bigint
+	/**
+	 * Call trace for debugging
+	 * V2 feature: detailed execution trace
+	 */
+	trace?: CallTrace
+}
+
+/**
+ * Result of a simulated block containing multiple call results (V2)
+ * Extends V1 with streamlined output
+ */
+export type EthSimulateV2BlockResult = {
+	/**
+	 * The block number
+	 */
+	number: bigint
+	/**
+	 * The block hash
+	 */
+	hash: Hex
+	/**
+	 * The timestamp of the block
+	 */
+	timestamp: bigint
+	/**
+	 * The gas limit of the block
+	 */
+	gasLimit: bigint
+	/**
+	 * The gas used in the block
+	 */
+	gasUsed: bigint
+	/**
+	 * The base fee per gas for the block
+	 */
+	baseFeePerGas?: bigint
+	/**
+	 * The fee recipient (coinbase)
+	 */
+	feeRecipient?: Address
+	/**
+	 * Results of the simulated calls in this block
+	 */
+	calls: EthSimulateV2CallResult[]
+}
+
+/**
+ * JSON-RPC response for `eth_simulateV2` procedure
+ * Returns an array of block results with enhanced debugging information
+ */
+export type EthSimulateV2Result = EthSimulateV2BlockResult[]

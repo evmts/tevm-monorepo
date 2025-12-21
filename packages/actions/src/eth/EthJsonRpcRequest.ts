@@ -411,6 +411,42 @@ export type EthSimulateV1JsonRpcRequest = JsonRpcRequest<
 	]
 >
 
+// eth_simulateV2
+/**
+ * JSON-RPC transaction for simulateV2 (extends V1 with estimateGas option)
+ */
+export type JsonRpcSimulateV2Transaction = JsonRpcSimulateTransaction & {
+	estimateGas?: boolean
+}
+/**
+ * A block of calls for simulateV2 (uses V2 transactions)
+ */
+export type JsonRpcBlockStateCallV2 = {
+	blockOverrides?: JsonRpcBlockOverride
+	stateOverrides?: JsonRpcStateOverride
+	calls?: JsonRpcSimulateV2Transaction[]
+}
+/**
+ * JSON-RPC request for `eth_simulateV2` procedure
+ * Extends V1 with additional options for contract creation detection and call tracing
+ */
+export type EthSimulateV2JsonRpcRequest = JsonRpcRequest<
+	'eth_simulateV2',
+	readonly [
+		opts: {
+			blockStateCalls: JsonRpcBlockStateCallV2[]
+			traceTransfers?: boolean
+			validation?: boolean
+			returnFullTransactions?: boolean
+			/** V2: Include contract creation events in logs */
+			includeContractCreationEvents?: boolean
+			/** V2: Include call traces for debugging */
+			includeCallTraces?: boolean
+		},
+		blockTag?: BlockTag | Hex,
+	]
+>
+
 export type EthJsonRpcRequest =
 	| EthAccountsJsonRpcRequest
 	| EthAccountsJsonRpcRequest
@@ -460,3 +496,4 @@ export type EthJsonRpcRequest =
 	| EthCreateAccessListJsonRpcRequest
 	| EthGetProofJsonRpcRequest
 	| EthSimulateV1JsonRpcRequest
+	| EthSimulateV2JsonRpcRequest

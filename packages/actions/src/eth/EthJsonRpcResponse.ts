@@ -483,3 +483,77 @@ export type EthSimulateV1JsonRpcResponse = JsonRpcResponse<
 	JsonRpcSimulateBlockResult[],
 	string | number
 >
+
+// eth_simulateV2
+/**
+ * JSON-RPC contract creation event for eth_simulateV2
+ */
+export type JsonRpcContractCreationEvent = {
+	/** The address of the newly created contract */
+	address: Address
+	/** The address of the creator */
+	creator: Address
+	/** The code deployed to the contract */
+	code: Hex
+}
+
+/**
+ * JSON-RPC call trace for eth_simulateV2
+ */
+export type JsonRpcCallTrace = {
+	/** Call type (CALL, DELEGATECALL, STATICCALL, CREATE, CREATE2) */
+	type: string
+	/** Sender address */
+	from: Address
+	/** Recipient or created contract address */
+	to?: Address
+	/** Value transferred */
+	value?: Hex
+	/** Gas provided */
+	gas: Hex
+	/** Gas used */
+	gasUsed: Hex
+	/** Input data */
+	input: Hex
+	/** Output data */
+	output: Hex
+	/** Error message if call failed */
+	error?: string
+	/** Sub-calls */
+	calls?: JsonRpcCallTrace[]
+}
+
+/**
+ * JSON-RPC response call result for eth_simulateV2 (extends V1)
+ */
+export type JsonRpcSimulateV2CallResult = JsonRpcSimulateCallResult & {
+	/** Contract creation event if a contract was deployed */
+	contractCreated?: JsonRpcContractCreationEvent
+	/** Estimated gas if gas estimation was requested */
+	estimatedGas?: Hex
+	/** Call trace for debugging */
+	trace?: JsonRpcCallTrace
+}
+
+/**
+ * JSON-RPC response block result for eth_simulateV2 (extends V1)
+ */
+export type JsonRpcSimulateV2BlockResult = {
+	number: Hex
+	hash: Hex
+	timestamp: Hex
+	gasLimit: Hex
+	gasUsed: Hex
+	baseFeePerGas?: Hex
+	feeRecipient?: Address
+	calls: JsonRpcSimulateV2CallResult[]
+}
+
+/**
+ * JSON-RPC response for `eth_simulateV2` procedure
+ */
+export type EthSimulateV2JsonRpcResponse = JsonRpcResponse<
+	'eth_simulateV2',
+	JsonRpcSimulateV2BlockResult[],
+	string | number
+>
