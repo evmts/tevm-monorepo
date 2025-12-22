@@ -121,6 +121,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 				state: localState,
 				tableSubscribers: {},
 				storeSubscribers: new Set(),
+				derivedTables: {},
 			},
 		} satisfies Stash
 
@@ -165,6 +166,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 				state: internalState,
 				tableSubscribers: {},
 				storeSubscribers: new Set(),
+				derivedTables: {},
 			},
 		} satisfies Stash
 
@@ -212,6 +214,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 					state: optimisticState,
 					tableSubscribers: optimisticTableSubscribers,
 					storeSubscribers: optimisticStoreSubscribers,
+					derivedTables: {},
 				},
 			} satisfies Stash
 
