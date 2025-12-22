@@ -45,7 +45,7 @@ describe('getStorageAtProcedure', () => {
 					if (req.method !== 'eth_getStorageAt') {
 						throw new Error('Invalid method')
 					}
-					return numberToHex(420, { size: 2 }) as any
+					return numberToHex(420, { size: 32 }) as any
 				},
 			},
 		} as any)(request)
@@ -54,7 +54,7 @@ describe('getStorageAtProcedure', () => {
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_getStorageAt')
 		expect(response.id).toBe(request.id as any)
-		expect(response.result).toBe(numberToHex(420, { size: 2 }))
+		expect(response.result).toBe(numberToHex(420, { size: 32 }))
 	})
 
 	it('should handle requests without an id', async () => {
@@ -71,7 +71,7 @@ describe('getStorageAtProcedure', () => {
 					if (req.method !== 'eth_getStorageAt') {
 						throw new Error('Invalid method')
 					}
-					return numberToHex(420, { size: 2 }) as any
+					return numberToHex(420, { size: 32 }) as any
 				},
 			},
 		} as any)(request)
@@ -80,6 +80,6 @@ describe('getStorageAtProcedure', () => {
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_getStorageAt')
 		expect(response.id).toBeUndefined()
-		expect(response.result).toBe(numberToHex(420, { size: 2 }))
+		expect(response.result).toBe(numberToHex(420, { size: 32 }))
 	})
 })

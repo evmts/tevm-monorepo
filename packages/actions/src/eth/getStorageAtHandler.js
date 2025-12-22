@@ -21,6 +21,7 @@ export const getStorageAtHandler = (client) => async (params) => {
 	if (tag === 'latest') {
 		return bytesToHex(
 			await vm.stateManager.getStorage(createAddress(params.address), hexToBytes(params.position, { size: 32 })),
+			{ size: 32 }
 		)
 	}
 	const block = await vm.blockchain.getBlockByTag(tag)
