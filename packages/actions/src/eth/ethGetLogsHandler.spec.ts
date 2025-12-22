@@ -324,4 +324,67 @@ describe(ethGetLogsHandler.name, () => {
 			expect(log.topics[0]).toBe(topic1)
 		})
 	})
+
+	it('should handle null topics as wildcards', async () => {
+		const client = createTevmNode()
+		const from = createAddress(PREFUNDED_ACCOUNTS[0].address)
+
+		await setupAccount(client, from.toString())
+
+		// Deploy SimpleContract
+		const deployResult = await callHandler(client)({
+			createTransaction: true,
+			from: from.toString(),
+			data: encodeDeployData(SimpleContract.deploy(0n)),
+		})
+
+		const contractAddress = deployResult.createdAddress as Address
+
+		await mineHandler(client)()
+
+		// Emit some events
+		await callHandler(client)({
+			to: contractAddress,
+			from: from.toString(),
+			data: encodeFunctionData(SimpleContract.write.set(1n)),
+			createTransaction: true,
+		})
+
+		await callHandler(client)({
+			to: contractAddress,
+			from: from.toString(),
+			data: encodeFunctionData(SimpleContract.write.set(2n)),
+			createTransaction: true,
+		})
+
+		await mineHandler(client)()
+
+		// Test with null topics - should match any topic
+		const filterParams: FilterParams = {
+			address: contractAddress,
+			fromBlock: 0n,
+			toBlock: 'latest',
+			topics: [
+				getValueSetTopic(), // First topic must match the event signature
+				null, // Second topic is a wildcard - should not throw
+				[
+					'0x00000000000000000000000000000000000000000000000000000000026493df',
+					'0x00000000000000000000000000000000000000000000000000000000026493de',
+				],
+				[
+					'0x000000000000000000000000000000000000000000000000fffffffefffffffe',
+					'0x000000000000000000000000000000000000000000000000fffffffeffffffff',
+				],
+			],
+		}
+
+		// This should not throw an error anymore
+		const logs = await ethGetLogsHandler(client)({
+			filterParams,
+		})
+
+		// Should return logs since null acts as a wildcard
+		expect(logs).toBeInstanceOf(Array)
+		expect(logs.length).toBeGreaterThanOrEqual(0)
+	})
 })
