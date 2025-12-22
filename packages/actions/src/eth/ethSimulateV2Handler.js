@@ -141,8 +141,8 @@ export const ethSimulateV2Handler = (client) => {
 					trace = {
 						type: isContractCreation ? 'CREATE' : 'CALL',
 						from: /** @type {import('@tevm/utils').Address} */ (call.from ?? '0x0000000000000000000000000000000000000000'),
-						to: call.to,
-						value: call.value,
+						...(call.to !== undefined ? { to: call.to } : {}),
+						...(call.value !== undefined ? { value: call.value } : {}),
 						gas: call.gas ?? gasLimit,
 						gasUsed: 0n,
 						input: call.data ?? '0x',

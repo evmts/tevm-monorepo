@@ -222,12 +222,12 @@ export const ethGetBlockReceiptsHandler = (client) => async (params) => {
 			logsBloom: bytesToHex(receipt.bitvector),
 			...(blobGasUsed !== undefined ? { blobGasUsed } : {}),
 			...(blobGasPrice !== undefined ? { blobGasPrice } : {}),
-			.../** @type {any} */ ((receipt).stateRoot instanceof Uint8Array
+			...(/** @type {any} */ (receipt).stateRoot instanceof Uint8Array
 				? { root: bytesToHex(/** @type {any} */ (receipt).stateRoot) }
 				: {}),
-			.../** @type {any} */ ((receipt).status instanceof Uint8Array
+			...(/** @type {any} */ (receipt).status instanceof Uint8Array
 				? { status: numberToHex(/** @type {any} */ (receipt).status[0]) }
-				: typeof (/** @type {any} */ (receipt).status) === 'number'
+				: typeof /** @type {any} */ (receipt).status === 'number'
 					? { status: numberToHex(/** @type {any} */ (receipt).status) }
 					: {}),
 			logs: receipt.logs.map((log, i) => ({
