@@ -4,5 +4,6 @@
 		"skipLibCheck": true,
 		"types": ["bun-types"]
 	},
-	"include": ["src/*.js", "src/*.ts"]
+	"include": ["src/*.js", "src/*.ts"],
+	"exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
 }
