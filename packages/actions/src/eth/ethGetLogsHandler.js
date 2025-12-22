@@ -121,7 +121,10 @@ export const ethGetLogsHandler = (client) => async (params) => {
 		params.filterParams.address !== undefined ? [createAddress(params.filterParams.address).bytes] : [],
 		// params.filterParams.topics?.map((topic) => hexToBytes(topic)),
 
-		params.filterParams.topics?.map((topic) => (isArray(topic) ? topic.map(hexToBytes) : hexToBytes(topic))),
+		params.filterParams.topics?.map((topic) => {
+			if (topic === null) return null
+			return isArray(topic) ? topic.map(hexToBytes) : hexToBytes(topic)
+		}),
 	)
 	logs.push(
 		...cachedLogs.map(({ log, block, tx, txIndex, logIndex }) => ({
