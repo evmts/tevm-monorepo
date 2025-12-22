@@ -42,6 +42,7 @@ import type {
 	EthSignJsonRpcResponse,
 	EthSignTransactionJsonRpcResponse,
 	EthSimulateV1JsonRpcResponse,
+	EthSimulateV2JsonRpcResponse,
 	EthSubscribeJsonRpcResponse,
 	EthSyncingJsonRpcResponse,
 	EthUninstallFilterJsonRpcResponse,
@@ -96,6 +97,7 @@ export type EthReturnType = {
 	eth_createAccessList: EthCreateAccessListJsonRpcResponse
 	eth_getProof: EthGetProofJsonRpcResponse
 	eth_simulateV1: EthSimulateV1JsonRpcResponse
+	eth_simulateV2: EthSimulateV2JsonRpcResponse
 	eth_getBlockReceipts: EthGetBlockReceiptsJsonRpcResponse
 	eth_subscribe: EthSubscribeJsonRpcResponse
 	eth_unsubscribe: EthUnsubscribeJsonRpcResponse

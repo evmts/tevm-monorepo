@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
 import { SimpleContract } from '@tevm/test-utils'
-import { encodeFunctionData, PREFUNDED_ACCOUNTS } from '@tevm/utils'
+import { encodeFunctionData, type Hex, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
 import { deployHandler } from '../Deploy/deployHandler.js'
@@ -85,7 +85,7 @@ describe('ethUnsubscribeHandler', () => {
 			from,
 		})
 
-		const contractAddress = deployResult.createdAddress
+		const contractAddress = deployResult.createdAddress!
 		expect(contractAddress).toBeDefined()
 
 		await mineHandler(client)()
@@ -246,7 +246,7 @@ describe('ethUnsubscribeHandler', () => {
 		const subscribe = ethSubscribeHandler(client)
 		const unsubscribe = ethUnsubscribeHandler(client)
 
-		const subscriptions: string[] = []
+		const subscriptions: Hex[] = []
 
 		// Create multiple subscriptions rapidly
 		for (let i = 0; i < 10; i++) {
@@ -353,7 +353,7 @@ describe('ethUnsubscribeHandler', () => {
 		const client = createTevmNode()
 		const unsubscribe = ethUnsubscribeHandler(client)
 
-		const result = await unsubscribe({ subscriptionId: '' })
+		const result = await unsubscribe({ subscriptionId: '' as Hex })
 		expect(result).toBe(false)
 	})
 
@@ -361,7 +361,7 @@ describe('ethUnsubscribeHandler', () => {
 		const client = createTevmNode()
 		const unsubscribe = ethUnsubscribeHandler(client)
 
-		const result = await unsubscribe({ subscriptionId: 'not-a-valid-id' })
+		const result = await unsubscribe({ subscriptionId: 'not-a-valid-id' as Hex })
 		expect(result).toBe(false)
 	})
 })
