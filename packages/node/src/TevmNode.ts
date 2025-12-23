@@ -30,6 +30,22 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 */
 	miningConfig: MiningConfig
 	/**
+	 * Updates the mining configuration and handles any necessary state changes.
+	 * This method properly starts/stops interval mining as needed.
+	 * @param {MiningConfig} config - The new mining configuration
+	 * @example
+	 * ```ts
+	 * const client = createTevmNode()
+	 * 
+	 * // Switch to interval mining
+	 * client.setMiningConfig({ type: 'interval', blockTime: 5 })
+	 * 
+	 * // Switch to manual mining
+	 * client.setMiningConfig({ type: 'manual' })
+	 * ```
+	 */
+	readonly setMiningConfig: (config: MiningConfig) => void
+	/**
 	 * Client to make json rpc requests to a forked node
 	 * @example
 	 * ```ts
@@ -233,5 +249,21 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 		chainId: number
 		receipts: Awaited<ReturnType<ReceiptsManager['getLogs']>>
 	}>
+	/**
+	 * Closes the client and stops any running interval mining.
+	 * This should be called when the client is no longer needed to prevent resource leaks.
+	 * @example
+	 * ```ts
+	 * const client = createTevmNode({
+	 *   miningConfig: { type: 'interval', blockTime: 5 }
+	 * })
+	 * 
+	 * // Use the client...
+	 * 
+	 * // Clean up when done
+	 * client.close()
+	 * ```
+	 */
+	readonly close: () => void
 } & EIP1193EventEmitter &
 	TExtended
