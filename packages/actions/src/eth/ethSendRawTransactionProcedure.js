@@ -65,6 +65,8 @@ export const ethSendRawTransactionJsonRpcProcedure = (client) => {
 				}
 			}
 		}
+		// For interval mining, transactions are automatically processed by the interval timer
+		// No additional action needed here - transactions stay in mempool until next interval
 
 		return {
 			method: request.method,
