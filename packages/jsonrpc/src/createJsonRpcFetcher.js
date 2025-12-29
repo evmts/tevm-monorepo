@@ -4,7 +4,7 @@
  * Returns the entire JSON-RPC response rather than throwing and only returning result
  * Used currently as an adapter to avoid refactoring existing code
  * @see https://ethereum.org/en/developers/docs/apis/json-rpc/
- * @param {{request: import('viem').EIP1193RequestFn}} client
+ * @param {{request: import('@tevm/voltaire/provider').EIP1193RequestFn}} client
  * @returns {import("./JsonRpcClient.js").JsonRpcClient} the `result` field from the JSON-RPC response
  * @example
  * ```typescript

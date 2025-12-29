@@ -2,7 +2,7 @@ import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToBigInt } from '@tevm/utils'
 
 /**
- * @param {{request: import('viem').EIP1193RequestFn} | import('viem').Transport} client
+ * @param {{request: import('@tevm/voltaire/provider').EIP1193RequestFn} | import('@tevm/voltaire/provider').EIP1193Provider} client
  */
 export const getBlockNumber = async (client) => {
 	const transport = typeof client === 'function' ? client({}) : client
