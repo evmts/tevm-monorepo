@@ -1,11 +1,10 @@
-import { VM } from '@ethereumjs/vm'
 import { type Chain } from '@tevm/blockchain'
 import { type Common } from '@tevm/common'
 import { type EvmType } from '@tevm/evm'
 import { type StateManager } from '@tevm/state'
 
 /**
- * Options for instantiating a {@link VM}.
+ * Options for instantiating a VM.
  */
 export interface VmOpts {
 	/**

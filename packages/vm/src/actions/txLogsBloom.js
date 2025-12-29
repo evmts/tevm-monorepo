@@ -1,4 +1,4 @@
-import { Bloom } from '@ethereumjs/vm'
+import { Bloom } from '@tevm/utils'
 
 /**
  * @internal

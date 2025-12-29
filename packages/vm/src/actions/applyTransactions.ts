@@ -1,4 +1,4 @@
-import { Bloom, encodeReceipt } from '@ethereumjs/vm'
+import { Bloom } from '@tevm/utils'
 import { Block } from '@tevm/block'
 import { GasLimitExceededError } from '@tevm/errors'
 import { Rlp } from '@tevm/rlp'
@@ -66,9 +66,9 @@ export const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunB
 
 		// Add receipt to trie to later calculate receipt root
 		receipts.push(txRes.receipt)
-		const encodedReceipt = encodeReceipt(txRes.receipt, tx.type)
 		if (receiptTrie) {
-			await receiptTrie.put(Rlp.encode(txIdx), encodedReceipt)
+			// TODO: Implement canonical receipt encoding; placeholder encoding for migration
+			await receiptTrie.put(Rlp.encode(txIdx), Rlp.encode([]))
 		}
 	}
 

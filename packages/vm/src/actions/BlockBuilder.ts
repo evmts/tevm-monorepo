@@ -1,6 +1,6 @@
 // Originally from ethjs
 
-import { Bloom, encodeReceipt } from '@ethereumjs/vm'
+import { Bloom } from '@tevm/utils'
 import type { HeaderData } from '@tevm/block'
 import { Block } from '@tevm/block'
 import { ConsensusType } from '@tevm/common'
@@ -166,8 +166,8 @@ export class BlockBuilder {
 				throw new InternalError(
 					'expected tx to exist. This error should have been impossible and indicates a bug in tevm. Please open an issue',
 				)
-			const encodedReceipt = encodeReceipt(txResult.receipt, tx.type)
-			await receiptTrie.put(Rlp.encode(i), encodedReceipt)
+			// TODO: Implement canonical receipt encoding; placeholder encoding for migration
+			await receiptTrie.put(Rlp.encode(i), Rlp.encode([]))
 		}
 		return receiptTrie.root()
 	}

@@ -1,70 +1,90 @@
-import { createEVM, EVM, getActivePrecompiles } from '@ethereumjs/evm'
 import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 
 /**
- * The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
- * The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
- * provide custom typing to the blockchain or common objects.
+ * Minimal Guillotine-backed EVM adapter.
+ * Note: This is an initial adapter that stubs unsupported features.
+ * It will be expanded to call guillotine-mini execution over time.
  * @type {typeof import('./EvmType.js').Evm}
- * @example
- * ```typescript
- * import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
- * import { mainnet } from 'tevm/common'
- * import { createStateManager } from 'tevm/state'
- * import { createBlockchain } from 'tevm/blockchain'}
- * import { EthjsAddress } from 'tevm/utils'
- *
- * const evm = createEvm({
- *   common: mainnet.copy(),
- *   stateManager: createStateManager(),
- *   blockchain: createBlockchain(),
- * })
- * ```
- * @see [createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
  */
-export class Evm extends EVM {
-	/**
-	 * Adds a custom precompile to the EVM.
-	 * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
-	 * @throws {MisconfiguredClientError}
-	 */
-	addCustomPrecompile(precompile) {
-		if (this._customPrecompiles === undefined) {
-			throw new MisconfiguredClientError(
-				'Custom precompiles is empty. This is an internal bug as it should always be defined',
-			)
-		}
-		this._customPrecompiles.push(precompile)
-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
-	}
+export class Evm {
+  /** @type {any} */
+  common
+  /** @type {import('@tevm/state').StateManager} */
+  stateManager
+  /** @type {any} */
+  blockchain
+  /** @type {import('./CustomPrecompile.js').CustomPrecompile[]} */
+  _customPrecompiles = []
+  /** A minimal journal shim for vm actions */
+  journal = {
+    accessList: new Map(),
+    preimages: new Map(),
+    async cleanup() {},
+    startReportingAccessList() {},
+    startReportingPreimages() {},
+    async checkpoint() {},
+    async commit() {},
+    async revert() {},
+    cleanJournal() {},
+    addAlwaysWarmAddress(_addr, _alwaysWarm) {},
+    addAlwaysWarmSlot(_addr, _slot, _alwaysWarm) {},
+    async putAccount(_address, _account) {},
+    async deleteAccount(_address) {},
+  }
 
-	/**
-	 * Removes a custom precompile from the EVM.
-	 * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
-	 * @throws {MisconfiguredClientError}
-	 * @throws {InvalidParamsError}
-	 */
-	removeCustomPrecompile(precompile) {
-		if (this._customPrecompiles === undefined) {
-			throw new MisconfiguredClientError(
-				'Custom precompiles is empty. This is an internal bug as it should always be defined',
-			)
-		}
-		const index = this._customPrecompiles.indexOf(precompile)
-		if (index === -1) {
-			throw new InvalidParamsError('Precompile not found')
-		}
-		this._customPrecompiles.splice(index, 1)
-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
-	}
+  /**
+   * @param {{ stateManager: import('@tevm/state').StateManager; common: any; blockchain: any } & import('./EvmOpts.js').EVMOpts} opts
+   */
+  constructor(opts) {
+    this.stateManager = opts.stateManager
+    this.common = opts.common
+    this.blockchain = opts.blockchain
+  }
 
-	/**
-	 * @type {(typeof import('./EvmType.js').Evm)['create']}
-	 */
-	static create = async (options) => {
-		const evm = /** @type {any}*/ (await createEVM(options))
-		evm.addCustomPrecompile = Evm.prototype.addCustomPrecompile.bind(evm)
-		evm.removeCustomPrecompile = Evm.prototype.removeCustomPrecompile.bind(evm)
-		return evm
-	}
+  /**
+   * Adds a custom precompile (not yet wired to execution)
+   * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
+   */
+  addCustomPrecompile(precompile) {
+    this._customPrecompiles.push(precompile)
+  }
+
+  /**
+   * Removes a custom precompile from the list
+   * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
+   */
+  removeCustomPrecompile(precompile) {
+    const index = this._customPrecompiles.indexOf(precompile)
+    if (index === -1) {
+      throw new InvalidParamsError('Precompile not found')
+    }
+    this._customPrecompiles.splice(index, 1)
+  }
+
+  /**
+   * Minimal runCall implementation. Returns empty exec result for now.
+   * TODO: integrate guillotine-mini to execute bytecode and populate fields.
+   * @param {import('./types.js').EvmRunCallOpts} _opts
+   * @returns {Promise<import('./types.js').EvmResult>}
+   */
+  async runCall(_opts) {
+    return {
+      execResult: {
+        returnValue: new Uint8Array(0),
+        executionGasUsed: 0n,
+        gasRefund: 0n,
+        logs: [],
+        createdAddresses: new Set(),
+        selfdestruct: [],
+      },
+    }
+  }
+
+  /**
+   * @type {(typeof import('./EvmType.js').Evm)['create']}
+   */
+  static async create(options) {
+    if (!options) throw new MisconfiguredClientError('EVM requires options')
+    return new Evm(options)
+  }
 }

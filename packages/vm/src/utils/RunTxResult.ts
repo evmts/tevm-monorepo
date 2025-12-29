@@ -1,4 +1,4 @@
-import type { Bloom } from '@ethereumjs/vm'
+import type { Bloom } from '@tevm/utils'
 import type { EvmResult } from '@tevm/evm'
 import type { AccessList } from '@tevm/tx'
 import type { Hex } from '@tevm/utils'
