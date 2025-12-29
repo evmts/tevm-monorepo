@@ -27,7 +27,11 @@ Open Work:
 - Replace `@ethereumjs/*` types in `@tevm/utils`, `@tevm/vm`, and related packages.
 - Update decorators to remove viem references (retry/backoff, schemas) and use Voltaire equivalents.
 
+Recent Changes:
+- Introduced a minimal `@tevm/evm` Guillotine adapter (stubbed runCall, journal shim). This removes direct `@ethereumjs/evm` usage in the package.
+- Swapped VM’s Bloom to `@tevm/utils` and stubbed receipt encoding during transition (no `@ethereumjs/vm` dependency for those parts).
+- Removed `viem` usage from `@tevm/decorators` request path by adding a local retry helper and narrowing EIP-1193 types.
+
 Rationale:
 - Align execution and provider stacks with the Tevm native projects.
 - Drop heavy dependencies and tailor APIs to Tevm’s needs.
-
