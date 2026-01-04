@@ -6,14 +6,11 @@ import type { CallResult } from '../Call/CallResult.js'
  *
  * @example
  * ```typescript
- * import { createClient } from 'viem'
- * import { deployHandler } from 'tevm/actions'
+ * import { createMemoryClient, tevmDeploy } from 'tevm'
+ * import { optimism } from 'tevm/common'
+ * import type { DeployResult } from 'tevm/actions'
  *
- * const client = createClient({
- *   transport: createTevmTransport({
- *     fork: { transport: http('https://mainnet.optimism.io')({}) }
- *   })
- * })
+ * const client = createMemoryClient({ common: optimism })
  *
  * const deployParams = {
  *   bytecode: '0x6000366000...',
@@ -26,9 +23,9 @@ import type { CallResult } from '../Call/CallResult.js'
  *   from: '0xYourAccountAddress',
  *   gas: 1000000n,
  *   createTransaction: true
- * }
+ * } as const
  *
- * const result: DeployResult = await deployHandler(client)(deployParams)
+ * const result: DeployResult = await tevmDeploy(client, deployParams)
  * console.log('Deployed contract address:', result.createdAddress)
  * console.log('Gas used:', result.executionGasUsed)
  * ```

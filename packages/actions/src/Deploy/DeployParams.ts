@@ -12,14 +12,10 @@ import type { Hex } from '../common/index.js'
  *
  * @example
  * ```typescript
- * import { createClient } from 'viem'
- * import { deployHandler } from 'tevm/actions'
+ * import { createMemoryClient, tevmDeploy } from 'tevm'
+ * import { optimism } from 'tevm/common'
  *
- * const client = createClient({
- *   transport: createTevmTransport({
- *     fork: { transport: http('https://mainnet.optimism.io')({}) }
- *   })
- * })
+ * const client = createMemoryClient({ common: optimism })
  *
  * const deployParams = {
  *   bytecode: '0x6000366000...',
@@ -33,9 +29,9 @@ import type { Hex } from '../common/index.js'
  *   from: '0xYourAccountAddress',
  *   gas: 1000000n,
  *   createTransaction: true
- * }
+ * } as const
  *
- * const result = await deployHandler(client)(deployParams)
+ * const result = await tevmDeploy(client, deployParams)
  * console.log('Deployed contract address:', result.createdAddress)
  * ```
  *
