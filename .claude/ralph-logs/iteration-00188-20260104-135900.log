@@ -1,0 +1,50 @@
+# Ralph Migration Log - Iteration 188
+## Date: 2026-01-04 13:59:00
+
+## Summary
+Consolidated duplicate `ContractEventName` type definitions to use a single implementation from `contract-types.ts`.
+
+## Changes Made
+
+### packages/utils/src/provider-types.ts
+- Added import for `ContractEventName` from `contract-types.js`
+- Changed `ContractEventName` type to re-export from `contract-types.ts` instead of having a duplicate implementation
+
+Before:
+```typescript
+export type ContractEventName<TAbi extends Abi | readonly unknown[] = Abi> = TAbi extends Abi
+	? {
+			[K in keyof TAbi]: TAbi[K] extends { type: 'event'; name: infer TName }
+				? TName
+				: never
+		}[number]
+	: string
+```
+
+After:
+```typescript
+import type { ContractEventName as ContractEventNameFromContract } from './contract-types.js'
+
+export type ContractEventName<TAbi extends Abi | readonly unknown[] = Abi> = ContractEventNameFromContract<TAbi>
+```
+
+## Tests Verified
+- All 25 @tevm/utils test files pass ✅
+- 551 tests passed, 1 skipped
+
+## Rationale
+The `ContractEventName` type was defined in two places:
+1. `contract-types.ts` - Uses `ExtractAbiEventNames` from abitype (more robust implementation)
+2. `provider-types.ts` - Had a simpler manual implementation
+
+By consolidating to use the abitype-based implementation, we:
+- Reduce code duplication
+- Ensure consistency across the codebase
+- Leverage the well-tested abitype implementation
+
+## Migration Progress Update
+This is a code quality improvement rather than a viem/ethereumjs migration step, but it helps maintain clean architecture as we migrate types.
+
+## Next Steps
+- Continue looking for other duplicate types or code patterns that can be consolidated
+- Look for any remaining viem type imports that could be migrated to native implementations

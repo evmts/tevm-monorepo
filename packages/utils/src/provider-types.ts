@@ -9,6 +9,7 @@
 
 import type { Abi } from './abitype.js'
 import type { Address, Hex } from './abitype.js'
+import type { ContractEventName as ContractEventNameFromContract } from './contract-types.js'
 
 /**
  * EIP-1193 request function type.
@@ -183,16 +184,11 @@ export type PublicClient<
  * Contract event name type.
  *
  * Extracts the event names from an ABI type.
+ * Re-exported from contract-types.js for backward compatibility.
  *
  * @template TAbi - The ABI type
  */
-export type ContractEventName<TAbi extends Abi | readonly unknown[] = Abi> = TAbi extends Abi
-	? {
-			[K in keyof TAbi]: TAbi[K] extends { type: 'event'; name: infer TName }
-				? TName
-				: never
-		}[number]
-	: string
+export type ContractEventName<TAbi extends Abi | readonly unknown[] = Abi> = ContractEventNameFromContract<TAbi>
 
 /**
  * Contract event args type.
