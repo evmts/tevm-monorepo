@@ -1,4 +1,4 @@
-import { bytesToHex } from 'viem'
+import { bytesToHex } from '@tevm/utils'
 
 /**
  * Dumps the RLP-encoded storage values for an `account` specified by `address`.
