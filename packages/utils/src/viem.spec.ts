@@ -7,6 +7,7 @@ import {
 	bytesToBool,
 	bytesToHex,
 	bytesToNumber,
+	concatHex,
 	formatAbi,
 	formatEther,
 	formatGwei,
@@ -1353,6 +1354,36 @@ describe('native implementations (migrated from viem)', () => {
 		it('should compute approve(address,uint256) selector', () => {
 			// approve(address,uint256) selector is 0x095ea7b3
 			expect(toFunctionSelector('approve(address,uint256)')).toBe('0x095ea7b3')
+		})
+	})
+
+	describe('concatHex', () => {
+		it('should concatenate multiple hex strings', () => {
+			expect(concatHex(['0x12', '0x34', '0x56'])).toBe('0x123456')
+			expect(concatHex(['0xdead', '0xbeef'])).toBe('0xdeadbeef')
+		})
+
+		it('should handle empty array', () => {
+			expect(concatHex([])).toBe('0x')
+		})
+
+		it('should handle single hex string', () => {
+			expect(concatHex(['0x1234'])).toBe('0x1234')
+		})
+
+		it('should handle empty hex strings', () => {
+			expect(concatHex(['0x'])).toBe('0x')
+			expect(concatHex(['0x', '0x'])).toBe('0x')
+			expect(concatHex(['0x12', '0x', '0x34'])).toBe('0x1234')
+		})
+
+		it('should handle longer hex strings', () => {
+			expect(concatHex(['0xdeadbeef', '0xcafebabe', '0x12345678'])).toBe('0xdeadbeefcafebabe12345678')
+		})
+
+		it('should preserve leading zeros', () => {
+			expect(concatHex(['0x00', '0x01'])).toBe('0x0001')
+			expect(concatHex(['0x0000', '0xff'])).toBe('0x0000ff')
 		})
 	})
 

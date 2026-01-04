@@ -1483,8 +1483,32 @@ export function toEventSelector(signature) {
 	return keccak256(stringToHex(normalizedSig))
 }
 
+/**
+ * Concatenate multiple hex strings into a single hex string.
+ * Native implementation that matches viem's concatHex API.
+ * @param {readonly import('viem').Hex[]} hexValues - Array of hex strings to concatenate
+ * @returns {import('viem').Hex} The concatenated hex string
+ * @example
+ * ```javascript
+ * import { concatHex } from '@tevm/utils'
+ * concatHex(['0x12', '0x34', '0x56']) // '0x123456'
+ * concatHex(['0xdead', '0xbeef']) // '0xdeadbeef'
+ * concatHex(['0x']) // '0x'
+ * ```
+ */
+export function concatHex(hexValues) {
+	// Convert each hex string to bytes, concatenate, then convert back to hex
+	const allBytes = []
+	for (const hex of hexValues) {
+		const bytes = hexToBytes(hex)
+		for (let i = 0; i < bytes.length; i++) {
+			allBytes.push(bytes[i])
+		}
+	}
+	return bytesToHex(new Uint8Array(allBytes))
+}
+
 export {
-	concatHex,
 	decodeAbiParameters,
 	decodeErrorResult,
 	decodeEventLog,
