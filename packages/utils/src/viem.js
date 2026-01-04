@@ -2041,12 +2041,13 @@ export {
 // Event encoding/decoding - native implementation using @tevm/voltaire
 export { decodeEventLog, encodeEventTopics } from './abiEventEncoding.js'
 
+// Error encoding/decoding - native implementation using @tevm/voltaire
+export { decodeErrorResult, encodeErrorResult } from './abiErrorEncoding.js'
+
 // ABI encoding/decoding functions from viem/utils (complex functions not yet migrated)
-// TODO(voltaire): Migrate these remaining functions to @tevm/voltaire
+// TODO(voltaire): Migrate encodeDeployData to @tevm/voltaire
 export {
-	decodeErrorResult,
 	encodeDeployData,
-	encodeErrorResult,
 } from 'viem/utils'
 
 // Contract error handling utilities - native implementation replacing viem
