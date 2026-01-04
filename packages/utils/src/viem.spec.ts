@@ -815,6 +815,65 @@ describe('native implementations (migrated from viem)', () => {
 		})
 	})
 
+	describe('getAddress', () => {
+		it('should checksum a lowercase address', () => {
+			// Vitalik's address in lowercase
+			const result = getAddress('0xd8da6bf26964af9d7eed9e03e53415d37aa96045')
+			expect(result).toBe('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045')
+		})
+
+		it('should checksum an uppercase address', () => {
+			const result = getAddress('0xD8DA6BF26964AF9D7EED9E03E53415D37AA96045')
+			expect(result).toBe('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045')
+		})
+
+		it('should return same result for already checksummed address', () => {
+			const checksummed = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+			expect(getAddress(checksummed)).toBe(checksummed)
+		})
+
+		it('should checksum the zero address', () => {
+			const result = getAddress('0x0000000000000000000000000000000000000000')
+			// Zero address stays all lowercase (no letters to uppercase)
+			expect(result).toBe('0x0000000000000000000000000000000000000000')
+		})
+
+		it('should checksum all-F address', () => {
+			const result = getAddress('0xffffffffffffffffffffffffffffffffffffffff')
+			// Known checksum for all-F address
+			expect(result).toBe('0xFFfFfFffFFfffFFfFFfFFFFFffFFFffffFfFFFfF')
+		})
+
+		it('should checksum another known address', () => {
+			// Another well-known address (ERC20 interface ID example)
+			const result = getAddress('0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed')
+			expect(result).toBe('0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed')
+		})
+
+		it('should throw on invalid address (too short)', () => {
+			expect(() => getAddress('0x1234')).toThrow('Invalid address')
+		})
+
+		it('should throw on invalid address (too long)', () => {
+			expect(() => getAddress('0x12345678901234567890123456789012345678901')).toThrow('Invalid address')
+		})
+
+		it('should throw on invalid address (no 0x prefix)', () => {
+			expect(() => getAddress('d8da6bf26964af9d7eed9e03e53415d37aa96045')).toThrow('Invalid address')
+		})
+
+		it('should throw on invalid address (invalid characters)', () => {
+			expect(() => getAddress('0xd8da6bf26964af9d7eed9e03e53415d37aa9604g')).toThrow('Invalid address')
+		})
+
+		it('should produce consistent results', () => {
+			const address = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045'
+			const result1 = getAddress(address)
+			const result2 = getAddress(address)
+			expect(result1).toBe(result2)
+		})
+	})
+
 	describe('keccak256', () => {
 		it('should hash bytes correctly', () => {
 			const hash = keccak256(new Uint8Array([1, 2, 3]))

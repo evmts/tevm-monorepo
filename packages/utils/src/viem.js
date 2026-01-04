@@ -678,6 +678,58 @@ export function keccak256(value, to = 'hex') {
 	return to === 'bytes' ? hash : bytesToHex(hash)
 }
 
+/**
+ * Convert an Ethereum address to its checksummed version (EIP-55).
+ * Native implementation that matches viem's getAddress API.
+ * Uses keccak256 to compute the checksum based on the address characters.
+ * @param {string} address - The address to checksum (must be a valid 40-char hex address)
+ * @returns {import('viem').Address} The checksummed address
+ * @throws {Error} If the address is invalid
+ * @example
+ * ```javascript
+ * import { getAddress } from '@tevm/utils'
+ * // Convert any address to checksummed format
+ * getAddress('0xd8da6bf26964af9d7eed9e03e53415d37aa96045')
+ * // '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+ *
+ * // Already checksummed addresses pass through
+ * getAddress('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045')
+ * // '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+ *
+ * // Uppercase addresses get proper checksum
+ * getAddress('0xD8DA6BF26964AF9D7EED9E03E53415D37AA96045')
+ * // '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+ * ```
+ */
+export function getAddress(address) {
+	// Validate the address format
+	if (!isAddress(address)) {
+		throw new Error(`Invalid address: ${address}`)
+	}
+
+	// Get the lowercase address without 0x prefix
+	const lowercaseAddress = address.slice(2).toLowerCase()
+
+	// Hash the lowercase address (as UTF-8 bytes, not hex)
+	// keccak256 with default 'hex' output returns string starting with '0x'
+	const hashHex = /** @type {string} */ (keccak256(stringToHex(lowercaseAddress))).slice(2)
+
+	// Build checksummed address using EIP-55 algorithm
+	let checksummed = '0x'
+	for (let i = 0; i < 40; i++) {
+		const char = lowercaseAddress[i]
+		// If the character is a letter (a-f) and the corresponding nibble in hash >= 8, uppercase it
+		const hashNibble = parseInt(hashHex[i], 16)
+		if (char >= 'a' && char <= 'f' && hashNibble >= 8) {
+			checksummed += char.toUpperCase()
+		} else {
+			checksummed += char
+		}
+	}
+
+	return /** @type {import('viem').Address} */ (checksummed)
+}
+
 export {
 	decodeAbiParameters,
 	decodeErrorResult,
@@ -695,7 +747,6 @@ export {
 	fromBytes,
 	fromHex,
 	fromRlp,
-	getAddress,
 	serializeTransaction,
 	toBytes,
 	toHex,
