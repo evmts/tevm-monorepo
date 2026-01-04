@@ -29,6 +29,7 @@ import {
 	parseAbi,
 	parseEther,
 	parseGwei,
+	serializeTransaction,
 	stringToHex,
 	toBytes,
 	toEventSelector,
@@ -1540,7 +1541,6 @@ describe('native implementations (migrated from viem)', () => {
 		})
 
 		it('should throw on unsupported type', () => {
-			// @ts-expect-error - testing invalid type
 			expect(() => encodePacked(['tuple'], [[1n]])).toThrow('Unsupported packed type: tuple')
 		})
 
@@ -1554,6 +1554,226 @@ describe('native implementations (migrated from viem)', () => {
 			const bytes = new Uint8Array([0x12, 0x34, 0x56, 0x78])
 			const result = encodePacked(['bytes4'], [bytes])
 			expect(result).toBe('0x12345678')
+		})
+	})
+
+	describe('serializeTransaction', () => {
+		describe('EIP-1559 transactions', () => {
+			it('should serialize a basic EIP-1559 transaction', () => {
+				const result = serializeTransaction({
+					type: 'eip1559',
+					chainId: 1,
+					nonce: 0,
+					maxPriorityFeePerGas: 1000000000n,
+					maxFeePerGas: 2000000000n,
+					gas: 21000n,
+					to: '0x742d35cc6634c0532925a3b844bc9e7595f251e3',
+					value: 1000000000000000000n,
+					data: '0x',
+				})
+				// Should start with 0x02 (type 2 = EIP-1559)
+				expect(result.startsWith('0x02')).toBe(true)
+			})
+
+			it('should serialize EIP-1559 with access list', () => {
+				const result = serializeTransaction({
+					type: 'eip1559',
+					chainId: 1,
+					nonce: 0,
+					maxPriorityFeePerGas: 1000000000n,
+					maxFeePerGas: 2000000000n,
+					gas: 21000n,
+					to: '0x742d35cc6634c0532925a3b844bc9e7595f251e3',
+					value: 0n,
+					data: '0x',
+					accessList: [
+						{
+							address: '0x1234567890123456789012345678901234567890',
+							storageKeys: ['0x0000000000000000000000000000000000000000000000000000000000000001'],
+						},
+					],
+				})
+				expect(result.startsWith('0x02')).toBe(true)
+				// Verify it's longer than without access list
+				expect(result.length).toBeGreaterThan(100)
+			})
+
+			it('should serialize EIP-1559 with no data', () => {
+				const result = serializeTransaction({
+					type: 'eip1559',
+					chainId: 10, // Optimism
+					data: '0x',
+				})
+				expect(result.startsWith('0x02')).toBe(true)
+			})
+
+			it('should serialize EIP-1559 with only chainId and data (common OP stack usage)', () => {
+				// This is how getL1FeeInformationOpStack uses it
+				const result = serializeTransaction({
+					chainId: 10,
+					data: '0x1234567890',
+					type: 'eip1559',
+				})
+				expect(result.startsWith('0x02')).toBe(true)
+				// Should contain the data
+				expect(result.includes('1234567890')).toBe(true)
+			})
+		})
+
+		describe('EIP-2930 transactions', () => {
+			it('should serialize a basic EIP-2930 transaction', () => {
+				const result = serializeTransaction({
+					type: 'eip2930',
+					chainId: 1,
+					nonce: 0,
+					gasPrice: 20000000000n,
+					gas: 21000n,
+					to: '0x742d35cc6634c0532925a3b844bc9e7595f251e3',
+					value: 1000000000000000000n,
+					data: '0x',
+				})
+				// Should start with 0x01 (type 1 = EIP-2930)
+				expect(result.startsWith('0x01')).toBe(true)
+			})
+
+			it('should serialize EIP-2930 with access list', () => {
+				const result = serializeTransaction({
+					type: 'eip2930',
+					chainId: 1,
+					nonce: 0,
+					gasPrice: 20000000000n,
+					gas: 21000n,
+					to: '0x742d35cc6634c0532925a3b844bc9e7595f251e3',
+					value: 0n,
+					accessList: [
+						{
+							address: '0x1234567890123456789012345678901234567890',
+							storageKeys: [],
+						},
+					],
+				})
+				expect(result.startsWith('0x01')).toBe(true)
+			})
+		})
+
+		describe('Legacy transactions', () => {
+			it('should serialize a basic legacy transaction with chainId', () => {
+				const result = serializeTransaction({
+					chainId: 1,
+					nonce: 0,
+					gasPrice: 20000000000n,
+					gas: 21000n,
+					to: '0x742d35cc6634c0532925a3b844bc9e7595f251e3',
+					value: 1000000000000000000n,
+				})
+				// Legacy transactions don't have a type prefix
+				expect(result.startsWith('0xf8') || result.startsWith('0xe')).toBe(true)
+			})
+
+			it('should serialize a legacy transaction without chainId', () => {
+				const result = serializeTransaction({
+					nonce: 0,
+					gasPrice: 20000000000n,
+					gas: 21000n,
+					to: '0x742d35cc6634c0532925a3b844bc9e7595f251e3',
+					value: 1000000000000000000n,
+				})
+				expect(result.startsWith('0xe') || result.startsWith('0xf')).toBe(true)
+			})
+
+			it('should serialize a contract deployment (no to address)', () => {
+				const result = serializeTransaction({
+					chainId: 1,
+					nonce: 0,
+					gasPrice: 20000000000n,
+					gas: 100000n,
+					data: '0x6080604052',
+				})
+				// Legacy transactions without type prefix start with RLP list marker
+				// 0xc0-0xf7 for short lists, 0xf8-0xff for long lists
+				const firstByte = parseInt(result.slice(2, 4), 16)
+				expect(firstByte >= 0xc0).toBe(true)
+			})
+		})
+
+		describe('with signatures', () => {
+			it('should serialize signed EIP-1559 transaction', () => {
+				const result = serializeTransaction(
+					{
+						type: 'eip1559',
+						chainId: 1,
+						nonce: 0,
+						maxPriorityFeePerGas: 1000000000n,
+						maxFeePerGas: 2000000000n,
+						gas: 21000n,
+						to: '0x742d35cc6634c0532925a3b844bc9e7595f251e3',
+						value: 1000000000000000000n,
+					},
+					{
+						r: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdefn,
+						s: 0xfedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321n,
+						yParity: 0,
+					},
+				)
+				expect(result.startsWith('0x02')).toBe(true)
+				// Signed transaction should be longer
+				expect(result.length).toBeGreaterThan(150)
+			})
+
+			it('should serialize signed legacy transaction', () => {
+				const result = serializeTransaction(
+					{
+						chainId: 1,
+						nonce: 0,
+						gasPrice: 20000000000n,
+						gas: 21000n,
+						to: '0x742d35cc6634c0532925a3b844bc9e7595f251e3',
+						value: 1000000000000000000n,
+					},
+					{
+						r: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdefn,
+						s: 0xfedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321n,
+						v: 37n, // chainId 1 with EIP-155: v = chainId * 2 + 35 + yParity
+					},
+				)
+				expect(result.startsWith('0xf8') || result.startsWith('0xf9')).toBe(true)
+			})
+		})
+
+		describe('edge cases', () => {
+			it('should handle zero values', () => {
+				const result = serializeTransaction({
+					type: 'eip1559',
+					chainId: 1,
+					nonce: 0,
+					maxPriorityFeePerGas: 0n,
+					maxFeePerGas: 0n,
+					gas: 0n,
+					value: 0n,
+				})
+				expect(result.startsWith('0x02')).toBe(true)
+			})
+
+			it('should handle large values', () => {
+				const result = serializeTransaction({
+					type: 'eip1559',
+					chainId: 1,
+					nonce: 999999,
+					maxPriorityFeePerGas: 999999999999999999n,
+					maxFeePerGas: 999999999999999999n,
+					gas: 30000000n,
+					value: 115792089237316195423570985008687907853269984665640564039457584007913129639935n, // max uint256
+				})
+				expect(result.startsWith('0x02')).toBe(true)
+			})
+
+			it('should handle undefined optional fields', () => {
+				const result = serializeTransaction({
+					type: 'eip1559',
+					chainId: 1,
+				})
+				expect(result.startsWith('0x02')).toBe(true)
+			})
 		})
 	})
 })

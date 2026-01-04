@@ -1498,11 +1498,12 @@ export function toEventSelector(signature) {
  */
 export function concatHex(hexValues) {
 	// Convert each hex string to bytes, concatenate, then convert back to hex
+	/** @type {number[]} */
 	const allBytes = []
 	for (const hex of hexValues) {
 		const bytes = hexToBytes(hex)
 		for (let i = 0; i < bytes.length; i++) {
-			allBytes.push(bytes[i])
+			allBytes.push(/** @type {number} */ (bytes[i]))
 		}
 	}
 	return bytesToHex(new Uint8Array(allBytes))
@@ -1673,6 +1674,358 @@ export function encodePacked(types, values) {
 	return bytesToHex(result)
 }
 
+/**
+ * @typedef {Object} TransactionSerializableBase
+ * @property {number} [chainId] - Chain ID
+ * @property {bigint | number} [nonce] - Transaction nonce
+ * @property {bigint | number} [gas] - Gas limit
+ * @property {import('viem').Address} [to] - Recipient address
+ * @property {bigint | number} [value] - Value in wei
+ * @property {import('viem').Hex} [data] - Transaction data
+ */
+
+/**
+ * @typedef {TransactionSerializableBase & {
+ *   type?: 'legacy',
+ *   gasPrice?: bigint | number
+ * }} TransactionSerializableLegacy
+ */
+
+/**
+ * @typedef {{ address: import('viem').Address, storageKeys?: import('viem').Hex[] }} AccessListItem
+ */
+
+/**
+ * @typedef {TransactionSerializableBase & {
+ *   type: 'eip2930',
+ *   gasPrice?: bigint | number,
+ *   accessList?: AccessListItem[]
+ * }} TransactionSerializableEIP2930
+ */
+
+/**
+ * @typedef {TransactionSerializableBase & {
+ *   type: 'eip1559',
+ *   maxFeePerGas?: bigint | number,
+ *   maxPriorityFeePerGas?: bigint | number,
+ *   accessList?: AccessListItem[]
+ * }} TransactionSerializableEIP1559
+ */
+
+/**
+ * @typedef {TransactionSerializableLegacy | TransactionSerializableEIP2930 | TransactionSerializableEIP1559} TransactionSerializable
+ */
+
+/**
+ * @typedef {Object} Signature
+ * @property {bigint} r - Signature r value
+ * @property {bigint} s - Signature s value
+ * @property {bigint | number} [v] - Recovery ID for legacy transactions
+ * @property {number} [yParity] - Parity for EIP-2718 transactions
+ */
+
+/**
+ * Convert a bigint to minimal-length RLP bytes (no leading zeros, but 0 encodes to empty bytes).
+ * @param {bigint | number | undefined} value - Value to convert
+ * @returns {Uint8Array} Minimal bytes representation
+ */
+function bigintToRlpBytes(value) {
+	if (value === undefined || value === 0n || value === 0) {
+		return new Uint8Array(0)
+	}
+	const bigValue = typeof value === 'number' ? BigInt(value) : value
+	// Convert to hex without leading zeros, then to bytes
+	const hex = bigValue.toString(16)
+	const paddedHex = hex.length % 2 === 0 ? hex : `0${hex}`
+	const bytes = new Uint8Array(paddedHex.length / 2)
+	for (let i = 0; i < paddedHex.length; i += 2) {
+		bytes[i / 2] = parseInt(paddedHex.slice(i, i + 2), 16)
+	}
+	return bytes
+}
+
+/**
+ * Convert a hex string to bytes for RLP, handling empty/zero cases.
+ * @param {import('viem').Hex | undefined} hex - Hex string
+ * @returns {Uint8Array} Bytes
+ */
+function hexToRlpBytesForTx(hex) {
+	if (!hex || hex === '0x' || hex === '0x0') {
+		return new Uint8Array(0)
+	}
+	// Remove 0x prefix and handle odd length
+	let hexDigits = hex.slice(2)
+	if (hexDigits.length % 2 !== 0) {
+		hexDigits = '0' + hexDigits
+	}
+	const bytes = new Uint8Array(hexDigits.length / 2)
+	for (let i = 0; i < hexDigits.length; i += 2) {
+		bytes[i / 2] = parseInt(hexDigits.slice(i, i + 2), 16)
+	}
+	return bytes
+}
+
+/**
+ * Convert an address to 20 bytes for RLP.
+ * @param {import('viem').Address | undefined} address - Address
+ * @returns {Uint8Array} 20-byte address or empty for null/undefined
+ */
+function addressToRlpBytes(address) {
+	if (!address || address === '0x') {
+		return new Uint8Array(0)
+	}
+	return hexToRlpBytesForTx(/** @type {import('viem').Hex} */ (address.toLowerCase()))
+}
+
+/**
+ * RLP encode bytes (string in RLP terms).
+ * @param {Uint8Array} bytes - Bytes to encode
+ * @returns {Uint8Array} RLP-encoded bytes
+ */
+function rlpEncodeBytesTx(bytes) {
+	if (bytes.length === 1 && bytes[0] !== undefined && bytes[0] < 0x80) {
+		return bytes
+	}
+	const prefix = rlpEncodeLengthTx(bytes.length, 0x80)
+	const result = new Uint8Array(prefix.length + bytes.length)
+	result.set(prefix, 0)
+	result.set(bytes, prefix.length)
+	return result
+}
+
+/**
+ * Encode length prefix for RLP.
+ * @param {number} length - Length to encode
+ * @param {number} offset - Base offset (0x80 for strings, 0xc0 for lists)
+ * @returns {Uint8Array} Length prefix bytes
+ */
+function rlpEncodeLengthTx(length, offset) {
+	if (length < 56) {
+		return new Uint8Array([offset + length])
+	}
+	const lengthBytes = []
+	let temp = length
+	while (temp > 0) {
+		lengthBytes.unshift(temp & 0xff)
+		temp = Math.floor(temp / 256)
+	}
+	const result = new Uint8Array(1 + lengthBytes.length)
+	result[0] = offset + 55 + lengthBytes.length
+	for (let i = 0; i < lengthBytes.length; i++) {
+		result[1 + i] = /** @type {number} */ (lengthBytes[i])
+	}
+	return result
+}
+
+/**
+ * RLP encode a list of already-encoded items.
+ * @param {Uint8Array[]} items - Pre-encoded items
+ * @returns {Uint8Array} RLP-encoded list
+ */
+function rlpEncodeListTx(items) {
+	let totalLength = 0
+	for (const item of items) {
+		totalLength += item.length
+	}
+	const prefix = rlpEncodeLengthTx(totalLength, 0xc0)
+	const result = new Uint8Array(prefix.length + totalLength)
+	result.set(prefix, 0)
+	let offset = prefix.length
+	for (const item of items) {
+		result.set(item, offset)
+		offset += item.length
+	}
+	return result
+}
+
+/**
+ * Encode access list for EIP-2930/EIP-1559 transactions.
+ * @param {AccessListItem[] | undefined} accessList - Access list
+ * @returns {Uint8Array} RLP-encoded access list
+ */
+function encodeAccessList(accessList) {
+	if (!accessList || accessList.length === 0) {
+		// Empty list: 0xc0
+		return new Uint8Array([0xc0])
+	}
+
+	const encodedItems = []
+	for (const item of accessList) {
+		// Each item is [address, [storageKeys...]]
+		const addressBytes = rlpEncodeBytesTx(addressToRlpBytes(item.address))
+
+		// Encode storage keys as a list
+		const storageKeyItems = []
+		if (item.storageKeys && item.storageKeys.length > 0) {
+			for (const key of item.storageKeys) {
+				storageKeyItems.push(rlpEncodeBytesTx(hexToRlpBytesForTx(key)))
+			}
+		}
+		const storageKeysList = rlpEncodeListTx(storageKeyItems)
+
+		// Combine address and storage keys into a list
+		const itemList = rlpEncodeListTx([addressBytes, storageKeysList])
+		encodedItems.push(itemList)
+	}
+
+	return rlpEncodeListTx(encodedItems)
+}
+
+/**
+ * Serialize a legacy transaction.
+ * @param {TransactionSerializableLegacy} tx - Transaction
+ * @param {Signature} [signature] - Optional signature
+ * @returns {import('viem').Hex} Serialized transaction
+ */
+function serializeLegacyTransaction(tx, signature) {
+	// Legacy: [nonce, gasPrice, gasLimit, to, value, data, v, r, s]
+	// Unsigned (EIP-155): [nonce, gasPrice, gasLimit, to, value, data, chainId, 0, 0]
+	const items = [
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.nonce)),
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.gasPrice)),
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.gas)),
+		rlpEncodeBytesTx(addressToRlpBytes(tx.to)),
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.value)),
+		rlpEncodeBytesTx(hexToRlpBytesForTx(tx.data)),
+	]
+
+	if (signature) {
+		// Signed transaction
+		const v = signature.v !== undefined ? BigInt(signature.v) :
+			(signature.yParity !== undefined ? BigInt(signature.yParity) + (tx.chainId ? BigInt(tx.chainId) * 2n + 35n : 27n) : 27n)
+		items.push(rlpEncodeBytesTx(bigintToRlpBytes(v)))
+		items.push(rlpEncodeBytesTx(bigintToRlpBytes(signature.r)))
+		items.push(rlpEncodeBytesTx(bigintToRlpBytes(signature.s)))
+	} else if (tx.chainId !== undefined) {
+		// Unsigned EIP-155 transaction
+		items.push(rlpEncodeBytesTx(bigintToRlpBytes(tx.chainId)))
+		items.push(rlpEncodeBytesTx(new Uint8Array(0)))
+		items.push(rlpEncodeBytesTx(new Uint8Array(0)))
+	}
+
+	const encoded = rlpEncodeListTx(items)
+	return bytesToHex(encoded)
+}
+
+/**
+ * Serialize an EIP-2930 transaction.
+ * @param {TransactionSerializableEIP2930} tx - Transaction
+ * @param {Signature} [signature] - Optional signature
+ * @returns {import('viem').Hex} Serialized transaction
+ */
+function serializeEIP2930Transaction(tx, signature) {
+	// EIP-2930: 0x01 || rlp([chainId, nonce, gasPrice, gasLimit, to, value, data, accessList, signatureYParity, signatureR, signatureS])
+	const items = [
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.chainId)),
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.nonce)),
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.gasPrice)),
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.gas)),
+		rlpEncodeBytesTx(addressToRlpBytes(tx.to)),
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.value)),
+		rlpEncodeBytesTx(hexToRlpBytesForTx(tx.data)),
+		encodeAccessList(tx.accessList),
+	]
+
+	if (signature) {
+		const yParity = signature.yParity ?? (signature.v !== undefined ? Number(signature.v) % 2 : 0)
+		items.push(rlpEncodeBytesTx(bigintToRlpBytes(yParity)))
+		items.push(rlpEncodeBytesTx(bigintToRlpBytes(signature.r)))
+		items.push(rlpEncodeBytesTx(bigintToRlpBytes(signature.s)))
+	}
+
+	const rlpEncoded = rlpEncodeListTx(items)
+	// Prepend type byte (0x01)
+	const result = new Uint8Array(1 + rlpEncoded.length)
+	result[0] = 0x01
+	result.set(rlpEncoded, 1)
+	return bytesToHex(result)
+}
+
+/**
+ * Serialize an EIP-1559 transaction.
+ * @param {TransactionSerializableEIP1559} tx - Transaction
+ * @param {Signature} [signature] - Optional signature
+ * @returns {import('viem').Hex} Serialized transaction
+ */
+function serializeEIP1559Transaction(tx, signature) {
+	// EIP-1559: 0x02 || rlp([chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data, accessList, signatureYParity, signatureR, signatureS])
+	const items = [
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.chainId)),
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.nonce)),
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.maxPriorityFeePerGas)),
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.maxFeePerGas)),
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.gas)),
+		rlpEncodeBytesTx(addressToRlpBytes(tx.to)),
+		rlpEncodeBytesTx(bigintToRlpBytes(tx.value)),
+		rlpEncodeBytesTx(hexToRlpBytesForTx(tx.data)),
+		encodeAccessList(tx.accessList),
+	]
+
+	if (signature) {
+		const yParity = signature.yParity ?? (signature.v !== undefined ? Number(signature.v) % 2 : 0)
+		items.push(rlpEncodeBytesTx(bigintToRlpBytes(yParity)))
+		items.push(rlpEncodeBytesTx(bigintToRlpBytes(signature.r)))
+		items.push(rlpEncodeBytesTx(bigintToRlpBytes(signature.s)))
+	}
+
+	const rlpEncoded = rlpEncodeListTx(items)
+	// Prepend type byte (0x02)
+	const result = new Uint8Array(1 + rlpEncoded.length)
+	result[0] = 0x02
+	result.set(rlpEncoded, 1)
+	return bytesToHex(result)
+}
+
+/**
+ * Serialize a transaction object into its RLP-encoded form.
+ * Native implementation that matches viem's serializeTransaction API.
+ * Supports Legacy, EIP-2930, and EIP-1559 transaction types.
+ * @param {TransactionSerializable} transaction - The transaction to serialize
+ * @param {Signature} [signature] - Optional signature to include
+ * @returns {import('viem').Hex} The serialized transaction as a hex string
+ * @example
+ * ```javascript
+ * import { serializeTransaction } from '@tevm/utils'
+ *
+ * // Serialize an EIP-1559 transaction
+ * const serialized = serializeTransaction({
+ *   chainId: 1,
+ *   nonce: 0,
+ *   maxPriorityFeePerGas: 1000000000n,
+ *   maxFeePerGas: 2000000000n,
+ *   gas: 21000n,
+ *   to: '0x742d35Cc6634C0532925a3b844Bc9e7595f251e3',
+ *   value: 1000000000000000000n,
+ *   data: '0x',
+ *   type: 'eip1559'
+ * })
+ *
+ * // Serialize a legacy transaction
+ * const legacySerialized = serializeTransaction({
+ *   chainId: 1,
+ *   nonce: 0,
+ *   gasPrice: 20000000000n,
+ *   gas: 21000n,
+ *   to: '0x742d35Cc6634C0532925a3b844Bc9e7595f251e3',
+ *   value: 1000000000000000000n,
+ * })
+ * ```
+ */
+export function serializeTransaction(transaction, signature) {
+	const type = transaction.type
+
+	if (type === 'eip1559') {
+		return serializeEIP1559Transaction(/** @type {TransactionSerializableEIP1559} */ (transaction), signature)
+	}
+
+	if (type === 'eip2930') {
+		return serializeEIP2930Transaction(/** @type {TransactionSerializableEIP2930} */ (transaction), signature)
+	}
+
+	// Default to legacy
+	return serializeLegacyTransaction(/** @type {TransactionSerializableLegacy} */ (transaction), signature)
+}
+
 export {
 	decodeAbiParameters,
 	decodeErrorResult,
@@ -1685,7 +2038,6 @@ export {
 	encodeEventTopics,
 	encodeFunctionData,
 	encodeFunctionResult,
-	serializeTransaction,
 } from 'viem/utils'
 
 // Contract error handling utilities re-exported from viem
