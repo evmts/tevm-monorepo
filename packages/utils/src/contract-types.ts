@@ -195,3 +195,41 @@ export type ContractFunctionReturnType<
 					: TTypes
 			: never
 	: unknown
+
+/**
+ * Extracts the constructor argument types from a contract ABI.
+ *
+ * This is a native replacement for viem's ContractConstructorArgs type.
+ * It extracts the input parameter types for the constructor from an ABI.
+ *
+ * @template TAbi - The contract ABI type
+ *
+ * @example
+ * ```typescript
+ * import { ContractConstructorArgs } from '@tevm/utils'
+ *
+ * const abi = [
+ *   {
+ *     type: 'constructor',
+ *     inputs: [
+ *       { name: 'owner', type: 'address' },
+ *       { name: 'initialSupply', type: 'uint256' }
+ *     ]
+ *   }
+ * ] as const
+ *
+ * type ConstructorArgs = ContractConstructorArgs<typeof abi>
+ * // Result: readonly [`0x${string}`, bigint]
+ * ```
+ */
+export type ContractConstructorArgs<TAbi extends Abi | readonly unknown[] = Abi> = AbiParametersToPrimitiveTypes<
+	Extract<
+		(TAbi extends Abi ? TAbi : Abi)[number],
+		{ type: 'constructor' }
+	>['inputs'],
+	'inputs'
+> extends infer TArgs
+	? [TArgs] extends [never]
+		? readonly unknown[]
+		: TArgs
+	: readonly unknown[]
