@@ -1,5 +1,5 @@
 import { tevmDefault } from '@tevm/common'
-import { hexToBytes } from 'viem'
+import { hexToBytes } from '@tevm/utils'
 import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'
 import { prepareTransactionRequest, signTransaction } from 'viem/actions'
 import { beforeEach, describe, expect, it } from 'vitest'
