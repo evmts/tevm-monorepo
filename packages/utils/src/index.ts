@@ -268,3 +268,5 @@ export type {
 	SerializeToJson,
 	SetToHex,
 } from './SerializeToJson.js'
+// Native utility types (migrated from viem)
+export type { Prettify } from './utility-types.js'
