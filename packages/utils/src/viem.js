@@ -373,6 +373,28 @@ export function stringToHex(value, opts) {
 	return bytesToHex(bytes)
 }
 
+/**
+ * Convert a hex string to a UTF-8 string.
+ * Native implementation that matches viem's hexToString API.
+ * Uses TextDecoder for UTF-8 decoding.
+ * @param {import('viem').Hex} hex - The hex string to convert (must start with '0x')
+ * @param {Object} [opts] - Options
+ * @param {number} [opts.size] - Expected size in bytes (not currently used, included for API compatibility)
+ * @returns {string} The decoded string (e.g., 'hello' from '0x68656c6c6f')
+ * @example
+ * ```javascript
+ * import { hexToString } from '@tevm/utils'
+ * hexToString('0x68656c6c6f') // 'hello'
+ * hexToString('0x') // ''
+ * hexToString('0xf09f988a') // '😊'
+ * ```
+ */
+export function hexToString(hex, opts) {
+	const bytes = hexToBytes(hex)
+	const decoder = new TextDecoder('utf-8')
+	return decoder.decode(bytes)
+}
+
 export {
 	bytesToBigInt,
 	bytesToBigint,
@@ -396,7 +418,6 @@ export {
 	fromHex,
 	fromRlp,
 	getAddress,
-	hexToString,
 	isAddress,
 	keccak256,
 	parseEther,

@@ -11,6 +11,7 @@ import {
 	hexToBool,
 	hexToBytes,
 	hexToNumber,
+	hexToString,
 	isAddress,
 	isBytes,
 	isHex,
@@ -397,6 +398,62 @@ describe('native implementations (migrated from viem)', () => {
 		it('should throw when string exceeds specified size', () => {
 			expect(() => stringToHex('hello', { size: 3 })).toThrow('exceeds 3 byte size')
 			expect(() => stringToHex('hello world', { size: 5 })).toThrow('exceeds 5 byte size')
+		})
+	})
+
+	describe('hexToString', () => {
+		it('should convert basic hex to ASCII strings', () => {
+			expect(hexToString('0x68656c6c6f')).toBe('hello')
+			expect(hexToString('0x48656c6c6f')).toBe('Hello')
+			expect(hexToString('0x313233')).toBe('123')
+		})
+
+		it('should convert empty hex to empty string', () => {
+			expect(hexToString('0x')).toBe('')
+		})
+
+		it('should handle single character hex', () => {
+			expect(hexToString('0x61')).toBe('a')
+			expect(hexToString('0x5a')).toBe('Z')
+			expect(hexToString('0x30')).toBe('0')
+		})
+
+		it('should handle Unicode/UTF-8 characters', () => {
+			// Euro sign (€) is 3 bytes in UTF-8
+			expect(hexToString('0xe282ac')).toBe('€')
+			// Japanese character (日) is 3 bytes in UTF-8
+			expect(hexToString('0xe697a5')).toBe('日')
+			// Emoji (😀) is 4 bytes in UTF-8
+			expect(hexToString('0xf09f9880')).toBe('😀')
+			// Check mark (✓) is 3 bytes in UTF-8
+			expect(hexToString('0xe29c93')).toBe('✓')
+			// Smiling face emoji (😊) is 4 bytes in UTF-8
+			expect(hexToString('0xf09f988a')).toBe('😊')
+		})
+
+		it('should handle longer strings', () => {
+			expect(hexToString('0x48656c6c6f2c20576f726c6421')).toBe('Hello, World!')
+		})
+
+		it('should handle null bytes', () => {
+			// Null byte
+			expect(hexToString('0x00')).toBe('\0')
+			// String with embedded null
+			expect(hexToString('0x3100')).toBe('1\0')
+			// Null followed by '1' (0x31)
+			expect(hexToString('0x0031')).toBe('\x001')
+		})
+
+		it('should be inverse of stringToHex', () => {
+			const testStrings = ['hello', '', 'Hello, World!', '€', '日本語', '😀🎉', '123', 'a']
+			for (const str of testStrings) {
+				expect(hexToString(stringToHex(str))).toBe(str)
+			}
+		})
+
+		it('should throw on invalid hex', () => {
+			expect(() => hexToString('invalid' as `0x${string}`)).toThrow()
+			expect(() => hexToString('hello' as `0x${string}`)).toThrow()
 		})
 	})
 })
