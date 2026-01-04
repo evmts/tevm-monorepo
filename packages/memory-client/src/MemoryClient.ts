@@ -1,6 +1,5 @@
-import type { Address } from '@tevm/utils'
+import type { Address, Prettify } from '@tevm/utils'
 import type { Account, Chain, Client, PublicActions, TestActions, WalletActions } from 'viem'
-import type { Prettify } from 'viem/chains'
 import type { TevmActions } from './TevmActions.js'
 import type { TevmRpcSchema } from './TevmRpcSchema.js'
 import type { TevmTransport } from './TevmTransport.js'
