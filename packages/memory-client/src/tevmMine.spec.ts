@@ -1,5 +1,6 @@
 import { SimpleContract } from '@tevm/contract'
-import { type Address, type Client, createClient } from 'viem'
+import type { Address } from '@tevm/utils'
+import { type Client, createClient } from 'viem'
 import { getBlock, getBlockNumber } from 'viem/actions'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
