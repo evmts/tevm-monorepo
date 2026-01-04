@@ -269,4 +269,49 @@ describe('native implementations (migrated from viem)', () => {
 			expect(bytesToBool(new Uint8Array([]))).toBe(false)
 		})
 	})
+
+	describe('isHex', () => {
+		it('should return true for valid hex strings', () => {
+			expect(isHex('0x')).toBe(true)
+			expect(isHex('0x0')).toBe(true)
+			expect(isHex('0x1234')).toBe(true)
+			expect(isHex('0xabcdef')).toBe(true)
+			expect(isHex('0xABCDEF')).toBe(true)
+			expect(isHex('0x1234567890abcdef')).toBe(true)
+		})
+
+		it('should return false for invalid hex strings', () => {
+			expect(isHex('0xgg')).toBe(false)
+			expect(isHex('0xzz')).toBe(false)
+			expect(isHex('0x123g')).toBe(false)
+		})
+
+		it('should return false for strings without 0x prefix', () => {
+			expect(isHex('1234')).toBe(false)
+			expect(isHex('hello')).toBe(false)
+			expect(isHex('abcdef')).toBe(false)
+		})
+
+		it('should return false for non-string values', () => {
+			expect(isHex(123)).toBe(false)
+			expect(isHex(null)).toBe(false)
+			expect(isHex(undefined)).toBe(false)
+			expect(isHex({})).toBe(false)
+			expect(isHex([])).toBe(false)
+			expect(isHex(true)).toBe(false)
+		})
+
+		it('should handle strict mode (default: true)', () => {
+			// With strict: true (default), validates hex characters
+			expect(isHex('0xgg', { strict: true })).toBe(false)
+			expect(isHex('0x1234', { strict: true })).toBe(true)
+		})
+
+		it('should handle non-strict mode', () => {
+			// With strict: false, only checks for 0x prefix
+			expect(isHex('0xgg', { strict: false })).toBe(true)
+			expect(isHex('0x1234', { strict: false })).toBe(true)
+			expect(isHex('hello', { strict: false })).toBe(false)
+		})
+	})
 })

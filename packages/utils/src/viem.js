@@ -278,6 +278,39 @@ export function bytesToBool(bytes) {
 	return false
 }
 
+/**
+ * Regex pattern for validating hex strings.
+ * Matches '0x' followed by zero or more hex digits (0-9, a-f, A-F).
+ * @type {RegExp}
+ */
+const hexPattern = /^0x[0-9a-fA-F]*$/
+
+/**
+ * Check if a value is a valid hex string.
+ * Native implementation that matches viem's isHex API.
+ * @param {unknown} value - The value to check
+ * @param {Object} [opts] - Options
+ * @param {boolean} [opts.strict=true] - If true, validates hex characters. If false, only checks for '0x' prefix.
+ * @returns {value is import('viem').Hex} True if the value is a valid hex string
+ * @example
+ * ```javascript
+ * import { isHex } from '@tevm/utils'
+ * isHex('0x1234') // true
+ * isHex('0xgg') // false (invalid hex characters)
+ * isHex('hello') // false (no 0x prefix)
+ * isHex('0xgg', { strict: false }) // true (only checks prefix)
+ * ```
+ */
+export function isHex(value, { strict = true } = {}) {
+	if (!value) {
+		return false
+	}
+	if (typeof value !== 'string') {
+		return false
+	}
+	return strict ? hexPattern.test(value) : value.startsWith('0x')
+}
+
 export {
 	bytesToBigInt,
 	bytesToBigint,
@@ -304,7 +337,6 @@ export {
 	hexToString,
 	isAddress,
 	isBytes,
-	isHex,
 	keccak256,
 	parseEther,
 	parseGwei,
