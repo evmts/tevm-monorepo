@@ -145,7 +145,11 @@ export {
 	toRlp,
 	getContractError,
 	RawContractError,
+	createPublicClient,
+	createTransport,
 } from './viem.js'
+// Re-export viem types for fork client compatibility
+export type { EIP1193RequestFn, Transport, PublicClient } from 'viem'
 // GenesisState is now in @ethereumjs/common, but we need the account-based GenesisState
 // which seems to have been removed. Let's define it here for backward compatibility.
 export type GenesisState = Record<string, string | Record<string, any>>

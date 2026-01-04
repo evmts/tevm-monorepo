@@ -1422,3 +1422,25 @@ export {
 
 // Contract error handling utilities re-exported from viem
 export { getContractError, RawContractError } from 'viem'
+
+// Transport and client creation functions re-exported from viem
+// These are used for fork client creation in state package
+export {
+	createPublicClient,
+	createTransport,
+} from 'viem'
+
+/**
+ * Re-export viem's EIP1193RequestFn type for fork transport compatibility.
+ * @typedef {import('viem').EIP1193RequestFn} EIP1193RequestFn
+ */
+
+/**
+ * Re-export viem's Transport type for fork transport compatibility.
+ * @typedef {import('viem').Transport} Transport
+ */
+
+/**
+ * Re-export viem's PublicClient type for fork client compatibility.
+ * @typedef {import('viem').PublicClient} PublicClient
+ */

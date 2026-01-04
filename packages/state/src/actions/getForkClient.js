@@ -1,4 +1,4 @@
-import { createPublicClient, createTransport } from 'viem'
+import { createPublicClient, createTransport } from '@tevm/utils'
 
 export class NoForkError extends Error {
 	/**
@@ -15,7 +15,7 @@ export class NoForkError extends Error {
 /**
  * Creates a viem public client for the fork
  * @param {import('../BaseState.js').BaseState} baseState
- * @returns {import('viem').PublicClient}
+ * @returns {import('@tevm/utils').PublicClient}
  */
 export const getForkClient = ({ options: { fork } }) => {
 	if (!fork) {

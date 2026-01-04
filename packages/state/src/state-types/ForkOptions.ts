@@ -1,5 +1,4 @@
-import { type BlockTag } from '@tevm/utils'
-import { type EIP1193RequestFn, type Transport } from 'viem'
+import { type BlockTag, type EIP1193RequestFn, type Transport } from '@tevm/utils'
 
 /**
  * Configuration options for forking from an existing blockchain network.
