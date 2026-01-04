@@ -2,7 +2,7 @@
 // This provides a viem-compatible account object using voltaire crypto primitives
 // Use specific exports to avoid FFI dependencies from the main bundle
 
-import { Secp256k1 } from '@tevm/voltaire/Secp256k1'
+import { Secp256k1, PrivateKey } from '@tevm/voltaire/Secp256k1'
 import { Keccak256 } from '@tevm/voltaire/Keccak256'
 import { Hash } from '@tevm/voltaire/Hash'
 import { hexToBytes, bytesToHex } from './viem.js'
@@ -23,14 +23,15 @@ import { privateKeyToAddress } from './privateKeyToAddress.js'
 /**
  * Sign a hash with a private key using voltaire's Secp256k1
  * @param {Uint8Array} hash - 32-byte hash to sign
- * @param {Uint8Array} privateKeyBytes - 32-byte private key
+ * @param {Uint8Array} privateKeyTyped - 32-byte private key (as voltaire typed key)
  * @returns {import('./hex-types.js').Hex} Signature as hex (65 bytes: r + s + v)
  */
-function signHash(hash, privateKeyBytes) {
+function signHash(hash, privateKeyTyped) {
 	// Use voltaire's Secp256k1.sign which properly computes recovery ID
 	// and returns { r, s, v } with Ethereum-compatible v (27 or 28)
 	const hashTyped = Hash.from(hash)
-	const sig = Secp256k1.sign(hashTyped, privateKeyBytes)
+	// @ts-ignore - privateKeyTyped is already a PrivateKeyType from PrivateKey.fromBytes
+	const sig = Secp256k1.sign(hashTyped, privateKeyTyped)
 
 	// Build 65-byte result: r + s + v
 	const result = new Uint8Array(65)
@@ -69,12 +70,15 @@ export function nativePrivateKeyToAccount(privateKey) {
 		throw new Error(`Private key must be 32 bytes, got ${privateKeyBytes.length} bytes`)
 	}
 
+	// Convert to voltaire's typed PrivateKey for proper type safety
+	const privateKeyTyped = PrivateKey.fromBytes(privateKeyBytes)
+
 	// Derive address using existing implementation
 	const address = privateKeyToAddress(privateKey)
 
 	// Derive public key (uncompressed, with 0x04 prefix) using voltaire
 	// Secp256k1.derivePublicKey returns 64 bytes without prefix, so we add it back
-	const publicKeyNoPrefix = Secp256k1.derivePublicKey(privateKeyBytes)
+	const publicKeyNoPrefix = Secp256k1.derivePublicKey(privateKeyTyped)
 	const publicKeyPoint = new Uint8Array(65)
 	publicKeyPoint[0] = 0x04
 	publicKeyPoint.set(publicKeyNoPrefix, 1)
@@ -91,7 +95,7 @@ export function nativePrivateKeyToAccount(privateKey) {
 		if (hashBytes.length !== 32) {
 			throw new Error(`Hash must be 32 bytes, got ${hashBytes.length} bytes`)
 		}
-		return signHash(hashBytes, privateKeyBytes)
+		return signHash(hashBytes, privateKeyTyped)
 	}
 
 	/**
@@ -117,15 +121,15 @@ export function nativePrivateKeyToAccount(privateKey) {
 		combined.set(msgBytes, prefix.length)
 		const messageHash = Keccak256.hash(combined)
 
-		return signHash(messageHash, privateKeyBytes)
+		return signHash(messageHash, privateKeyTyped)
 	}
 
 	/**
 	 * Sign a transaction
-	 * @param {any} transaction - The transaction to sign
+	 * @param {any} _transaction - The transaction to sign (unused - not yet implemented)
 	 * @returns {Promise<any>}
 	 */
-	async function signTransaction(transaction) {
+	async function signTransaction(_transaction) {
 		// Transaction signing is complex and requires proper RLP encoding
 		// For now, throw not implemented - users should use viem for tx signing
 		throw new Error('signTransaction not yet implemented - use viem/accounts for transaction signing')
@@ -133,14 +137,14 @@ export function nativePrivateKeyToAccount(privateKey) {
 
 	/**
 	 * Sign typed data (EIP-712)
-	 * @param {Object} parameters
-	 * @param {any} [parameters.domain] - The domain
-	 * @param {any} parameters.types - The types
-	 * @param {string} parameters.primaryType - The primary type
-	 * @param {any} parameters.message - The message to sign
+	 * @param {Object} _parameters - Typed data parameters (unused - not yet implemented)
+	 * @param {any} [_parameters.domain] - The domain
+	 * @param {any} _parameters.types - The types
+	 * @param {string} _parameters.primaryType - The primary type
+	 * @param {any} _parameters.message - The message to sign
 	 * @returns {Promise<import('./hex-types.js').Hex>}
 	 */
-	async function signTypedData({ domain, types, primaryType, message }) {
+	async function signTypedData(_parameters) {
 		// EIP-712 signing requires proper domain separator and struct hashing
 		// For now, throw not implemented - users should use viem for typed data signing
 		throw new Error('signTypedData not yet implemented - use viem/accounts for typed data signing')

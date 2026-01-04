@@ -1,5 +1,5 @@
-import { secp256k1 } from '@noble/curves/secp256k1.js'
-import { concatBytes } from './concatBytes.js'
+import { recoverPublicKeyFromHash } from '@tevm/voltaire/Secp256k1'
+import { Hash } from '@tevm/voltaire/Hash'
 import { setLengthLeft } from './setLengthLeft.js'
 
 const BIGINT_0 = 0n
@@ -54,17 +54,25 @@ function isValidSigRecovery(recovery) {
  * ```
  */
 export const ecrecover = function (msgHash, v, r, s, chainId) {
-	const signature = concatBytes(setLengthLeft(r, 32), setLengthLeft(s, 32))
 	const recovery = calculateSigRecovery(v, chainId)
 	if (!isValidSigRecovery(recovery)) {
 		throw new Error('Invalid signature v value')
 	}
-	// Use noble-curves Signature.recoverPublicKey method
-	// Note: The standalone secp256k1.recoverPublicKey(sig65, msgHash) gives WRONG results
-	// The Signature.recoverPublicKey(msgHash) method is correct
-	const sigObj = secp256k1.Signature.fromBytes(signature).addRecoveryBit(Number(recovery))
-	const pubKeyPoint = sigObj.recoverPublicKey(msgHash)
-	// toBytes(false) returns uncompressed public key (65 bytes with 0x04 prefix)
-	// Return 64 bytes without the 0x04 prefix
-	return pubKeyPoint.toBytes(false).slice(1)
+
+	// Use voltaire's recoverPublicKeyFromHash for cleaner implementation
+	// The function expects r and s as 32-byte Uint8Arrays
+	const rPadded = setLengthLeft(r, 32)
+	const sPadded = setLengthLeft(s, 32)
+
+	// Convert recovery to v format expected by voltaire (0, 1, 27, or 28)
+	// voltaire handles both formats internally
+	const vNum = Number(recovery)
+
+	// Convert msgHash to voltaire's Hash type for proper type compatibility
+	const hashTyped = Hash.from(msgHash)
+
+	return recoverPublicKeyFromHash(
+		{ r: rPadded, s: sPadded, v: vNum },
+		hashTyped
+	)
 }

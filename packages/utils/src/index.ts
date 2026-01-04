@@ -181,6 +181,7 @@ export {
 	isHex,
 	keccak256,
 	mnemonicToAccount,
+	nativePrivateKeyToAccount,
 	privateKeyToAccount,
 	privateKeyToAddress,
 	generatePrivateKey,

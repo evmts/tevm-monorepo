@@ -28,6 +28,9 @@ export { mnemonicToAccount, privateKeyToAccount } from 'viem/accounts'
 // Native privateKeyToAddress implementation using @tevm/voltaire
 export { privateKeyToAddress } from './privateKeyToAddress.js'
 
+// Native privateKeyToAccount implementation using @tevm/voltaire (viem-compatible)
+export { nativePrivateKeyToAccount } from './nativePrivateKeyToAccount.js'
+
 // Native generatePrivateKey implementation
 export { generatePrivateKey } from './generatePrivateKey.js'
 import { hash as keccak256Hash } from '@tevm/voltaire/Keccak256'
