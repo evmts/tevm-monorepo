@@ -576,4 +576,60 @@ describe('native implementations (migrated from viem)', () => {
 			expect(bytesToBigint(new Uint8Array([0xff]), { signed: true })).toBe(-1n)
 		})
 	})
+
+	describe('isAddress', () => {
+		it('should return true for valid lowercase addresses', () => {
+			expect(isAddress('0x1234567890123456789012345678901234567890')).toBe(true)
+			expect(isAddress('0xd8da6bf26964af9d7eed9e03e53415d37aa96045')).toBe(true)
+			expect(isAddress('0x0000000000000000000000000000000000000000')).toBe(true)
+			expect(isAddress('0xffffffffffffffffffffffffffffffffffffffff')).toBe(true)
+		})
+
+		it('should return true for valid uppercase addresses', () => {
+			expect(isAddress('0xD8DA6BF26964AF9D7EED9E03E53415D37AA96045')).toBe(true)
+			expect(isAddress('0xABCDEF1234567890ABCDEF1234567890ABCDEF12')).toBe(true)
+		})
+
+		it('should return true for valid checksummed (mixed case) addresses', () => {
+			expect(isAddress('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045')).toBe(true)
+			expect(isAddress('0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed')).toBe(true)
+		})
+
+		it('should return false for addresses that are too short', () => {
+			expect(isAddress('0x123456789012345678901234567890123456789')).toBe(false) // 39 chars
+			expect(isAddress('0x1234')).toBe(false)
+			expect(isAddress('0x')).toBe(false)
+		})
+
+		it('should return false for addresses that are too long', () => {
+			expect(isAddress('0x12345678901234567890123456789012345678901')).toBe(false) // 41 chars
+			expect(isAddress('0x1234567890123456789012345678901234567890123456')).toBe(false)
+		})
+
+		it('should return false for strings without 0x prefix', () => {
+			expect(isAddress('1234567890123456789012345678901234567890')).toBe(false)
+			expect(isAddress('d8da6bf26964af9d7eed9e03e53415d37aa96045')).toBe(false)
+		})
+
+		it('should return false for strings with invalid hex characters', () => {
+			expect(isAddress('0xg234567890123456789012345678901234567890')).toBe(false)
+			expect(isAddress('0x123456789012345678901234567890123456789z')).toBe(false)
+			expect(isAddress('0x!234567890123456789012345678901234567890')).toBe(false)
+		})
+
+		it('should return false for non-string values', () => {
+			expect(isAddress(123)).toBe(false)
+			expect(isAddress(null)).toBe(false)
+			expect(isAddress(undefined)).toBe(false)
+			expect(isAddress({})).toBe(false)
+			expect(isAddress([])).toBe(false)
+			expect(isAddress(true)).toBe(false)
+		})
+
+		it('should return false for empty or falsy values', () => {
+			expect(isAddress('')).toBe(false)
+			expect(isAddress(0)).toBe(false)
+			expect(isAddress(false)).toBe(false)
+		})
+	})
 })

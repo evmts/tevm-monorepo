@@ -448,6 +448,42 @@ export function bytesToBigInt(bytes, opts) {
  */
 export const bytesToBigint = bytesToBigInt
 
+/**
+ * Regex pattern for validating Ethereum addresses.
+ * Matches '0x' followed by exactly 40 hex digits (case-insensitive).
+ * @type {RegExp}
+ */
+const addressPattern = /^0x[0-9a-fA-F]{40}$/
+
+/**
+ * Check if a value is a valid Ethereum address.
+ * Native implementation that matches viem's isAddress API.
+ * Validates that the value is a 40-character hex string prefixed with '0x'.
+ * Does NOT validate checksum - any valid hex address is accepted.
+ * @param {unknown} address - The value to check
+ * @param {Object} [opts] - Options (included for API compatibility)
+ * @param {boolean} [opts.strict] - Not used in this implementation (checksum validation not implemented)
+ * @returns {address is import('viem').Address} True if the value is a valid Ethereum address
+ * @example
+ * ```javascript
+ * import { isAddress } from '@tevm/utils'
+ * isAddress('0x1234567890123456789012345678901234567890') // true
+ * isAddress('0xd8da6bf26964af9d7eed9e03e53415d37aa96045') // true (vitalik.eth)
+ * isAddress('0x123') // false (too short)
+ * isAddress('hello') // false (no 0x prefix)
+ * isAddress(null) // false
+ * ```
+ */
+export function isAddress(address, opts) {
+	if (!address) {
+		return false
+	}
+	if (typeof address !== 'string') {
+		return false
+	}
+	return addressPattern.test(address)
+}
+
 export {
 	decodeAbiParameters,
 	decodeErrorResult,
@@ -468,7 +504,6 @@ export {
 	fromHex,
 	fromRlp,
 	getAddress,
-	isAddress,
 	keccak256,
 	parseEther,
 	parseGwei,
