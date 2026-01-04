@@ -35,6 +35,42 @@ const hexCharToValue = {
 }
 
 /**
+ * Convert hex string to BigInt.
+ * Native implementation that matches viem's hexToBigInt API.
+ * @param {import('viem').Hex} hex - The hex string to convert (must start with '0x')
+ * @param {Object} [opts] - Options
+ * @param {boolean} [opts.signed] - Whether to treat as signed integer
+ * @returns {bigint} The BigInt value
+ * @example
+ * ```javascript
+ * import { hexToBigInt } from '@tevm/utils'
+ * const hex = '0x1234'
+ * const value = hexToBigInt(hex) // 4660n
+ * ```
+ */
+export function hexToBigInt(hex, opts) {
+	if (typeof hex !== 'string' || !hex.startsWith('0x')) {
+		throw new Error(`Invalid hex value: ${hex}`)
+	}
+	const hexDigits = hex.slice(2)
+	// Handle empty hex string '0x' or '0x0'
+	if (hexDigits.length === 0 || hexDigits === '0') {
+		return 0n
+	}
+	// For signed integers (two's complement)
+	if (opts?.signed) {
+		const size = Math.ceil(hexDigits.length / 2)
+		const value = BigInt(hex)
+		const maxPositive = (1n << (BigInt(size) * 8n - 1n)) - 1n
+		if (value > maxPositive) {
+			return value - (1n << (BigInt(size) * 8n))
+		}
+		return value
+	}
+	return BigInt(hex)
+}
+
+/**
  * Convert hex string to bytes.
  * Native implementation that matches viem's hexToBytes API.
  * @param {import('viem').Hex} hex - The hex string to convert (must start with '0x')
@@ -96,7 +132,6 @@ export {
 	fromHex,
 	fromRlp,
 	getAddress,
-	hexToBigInt,
 	hexToBool,
 	hexToNumber,
 	hexToString,
