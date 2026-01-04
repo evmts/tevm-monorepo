@@ -1,5 +1,5 @@
 import { optimism } from '@tevm/common'
-import { bytesToHex } from 'viem'
+import { bytesToHex } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
 import { getMockBlocks } from '../test/getBlocks.js'
