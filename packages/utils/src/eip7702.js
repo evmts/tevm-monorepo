@@ -11,7 +11,7 @@
  */
 
 import { hash as keccak256 } from '@tevm/voltaire/Keccak256'
-import { secp256k1 } from '@noble/curves/secp256k1.js'
+import { signHash as secp256k1SignHash, derivePublicKey, recoverPublicKey as secp256k1RecoverPublicKey } from '@tevm/voltaire/Secp256k1'
 import { ecrecover } from './ecrecover.js'
 import { Address } from './address.js'
 import { concatBytes } from './concatBytes.js'
@@ -253,74 +253,80 @@ export function eoaCode7702SignAuthorization(input, privateKey, ecSign) {
 		? input
 		: unsignedAuthorizationListToBytes(input)
 
-	// Get expected public key from private key (compressed, 33 bytes)
-	const expectedPubKey = secp256k1.getPublicKey(privateKey, true)
-	const expectedPubKeyHex = bytesToHex(expectedPubKey).slice(2)
-
-	// Sign the message
-	const secp256k1Sign = ecSign ?? secp256k1.sign
-	const signedResult = secp256k1Sign(msgHash, privateKey)
-
-	// Handle both old-style object result and new-style Uint8Array result
-	if (signedResult instanceof Uint8Array) {
-		// noble-curves v2: check if it's 64-byte (compact) or 65-byte (recovered)
-		if (signedResult.length === 65) {
-			// Already has recovery byte at position 0
-			const recoveryValue = signedResult[0]
-			const sigObj = secp256k1.Signature.fromBytes(signedResult.slice(1))
+	// Sign the message using voltaire's signHash which returns { r, s, v }
+	// v is 27 or 28 in Ethereum convention, yParity is v - 27
+	if (ecSign) {
+		// Custom signing function provided (legacy support)
+		const signedResult = ecSign(msgHash, privateKey)
+		if (signedResult instanceof Uint8Array) {
+			// Legacy format: 65-byte signature with recovery byte at position 0
+			if (signedResult.length === 65) {
+				const recoveryValue = signedResult[0]
+				const r = signedResult.slice(1, 33)
+				const s = signedResult.slice(33, 65)
+				return [
+					chainId,
+					address,
+					nonce,
+					bigIntToUnpaddedBytes(BigInt(recoveryValue)),
+					unpadBytes(r),
+					unpadBytes(s),
+				]
+			}
+			// 64-byte compact signature - need to determine recovery value
+			// Get expected public key from private key for comparison
+			const expectedPubKey = derivePublicKey(privateKey)
+			const expectedPubKeyHex = bytesToHex(expectedPubKey).slice(2)
+			const r = signedResult.slice(0, 32)
+			const s = signedResult.slice(32, 64)
+			let recoveryValue = 0
+			for (let rec = 0; rec <= 1; rec++) {
+				try {
+					const vValue = rec + 27
+					const recoveredPubKey = secp256k1RecoverPublicKey({ r: setLengthLeft(r, 32), s: setLengthLeft(s, 32), v: vValue }, msgHash)
+					const recoveredHex = bytesToHex(recoveredPubKey).slice(2)
+					if (recoveredHex === expectedPubKeyHex) {
+						recoveryValue = rec
+						break
+					}
+				} catch {
+					// Try next recovery value
+				}
+			}
 			return [
 				chainId,
 				address,
 				nonce,
 				bigIntToUnpaddedBytes(BigInt(recoveryValue)),
-				bigIntToUnpaddedBytes(sigObj.r),
-				bigIntToUnpaddedBytes(sigObj.s),
+				unpadBytes(r),
+				unpadBytes(s),
+			]
+		} else {
+			// Object with { recovery, r, s }
+			return [
+				chainId,
+				address,
+				nonce,
+				bigIntToUnpaddedBytes(BigInt(signedResult.recovery)),
+				bigIntToUnpaddedBytes(signedResult.r),
+				bigIntToUnpaddedBytes(signedResult.s),
 			]
 		}
-
-		// 64-byte compact signature - need to find recovery value
-		const sigObj = secp256k1.Signature.fromBytes(signedResult)
-
-		// For noble-curves v2, we need to sign with { format: 'recovered' } to get recovery
-		// But since we already have a 64-byte sig, try both recovery values
-		// Use secp256k1.recoverPublicKey(sig65, msgHash) for noble-curves generated signatures
-		let recoveryValue = 0
-		for (let rec = 0; rec <= 1; rec++) {
-			try {
-				// Build 65-byte signature with recovery byte at start
-				const sig65 = new Uint8Array(65)
-				sig65[0] = rec
-				sig65.set(signedResult, 1)
-				const recoveredCompressed = secp256k1.recoverPublicKey(sig65, msgHash)
-				const recoveredHex = bytesToHex(recoveredCompressed).slice(2)
-				if (recoveredHex === expectedPubKeyHex) {
-					recoveryValue = rec
-					break
-				}
-			} catch {
-				// Try next recovery value
-			}
-		}
-
-		return [
-			chainId,
-			address,
-			nonce,
-			bigIntToUnpaddedBytes(BigInt(recoveryValue)),
-			bigIntToUnpaddedBytes(sigObj.r),
-			bigIntToUnpaddedBytes(sigObj.s),
-		]
-	} else {
-		// Old-style object with { recovery, r, s }
-		return [
-			chainId,
-			address,
-			nonce,
-			bigIntToUnpaddedBytes(BigInt(signedResult.recovery)),
-			bigIntToUnpaddedBytes(signedResult.r),
-			bigIntToUnpaddedBytes(signedResult.s),
-		]
 	}
+
+	// Use voltaire's signHash which returns { r, s, v } with v as 27 or 28
+	const signature = secp256k1SignHash(msgHash, privateKey)
+	// yParity is v - 27 (0 or 1)
+	const yParity = signature.v - 27
+
+	return [
+		chainId,
+		address,
+		nonce,
+		bigIntToUnpaddedBytes(BigInt(yParity)),
+		unpadBytes(signature.r),
+		unpadBytes(signature.s),
+	]
 }
 
 /**
@@ -364,17 +370,15 @@ export function eoaCode7702RecoverAuthority(input) {
 	const [chainId, address, nonce, yParity, r, s] = inputBytes
 	const msgHash = eoaCode7702AuthorizationHashedMessageToSign([chainId, address, nonce])
 
-	// Build 65-byte signature for secp256k1.recoverPublicKey
-	// This is needed because signatures from noble-curves sign() require this format
+	// Convert yParity (0 or 1) to v (27 or 28) for voltaire's recoverPublicKey
 	const recoveryByte = yParity.length === 0 ? 0 : yParity[0]
-	const sig65 = new Uint8Array(65)
-	sig65[0] = recoveryByte
-	sig65.set(setLengthLeft(r, 32), 1)
-	sig65.set(setLengthLeft(s, 32), 33)
+	const v = recoveryByte + 27
 
-	const recoveredCompressed = secp256k1.recoverPublicKey(sig65, msgHash)
-	const point = secp256k1.Point.fromBytes(recoveredCompressed)
-	const pubKey = point.toBytes(false).slice(1) // Uncompressed without 0x04 prefix
+	// Use voltaire's recoverPublicKey which takes { r, s, v } and returns 64-byte uncompressed public key
+	const pubKey = secp256k1RecoverPublicKey(
+		{ r: setLengthLeft(r, 32), s: setLengthLeft(s, 32), v },
+		msgHash
+	)
 
 	return new Address(publicToAddress(pubKey))
 }
