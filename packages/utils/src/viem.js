@@ -30,7 +30,7 @@ export { privateKeyToAddress } from './privateKeyToAddress.js'
 
 // Native generatePrivateKey implementation
 export { generatePrivateKey } from './generatePrivateKey.js'
-import { keccak_256 } from '@noble/hashes/sha3.js'
+import { hash as keccak256Hash } from '@tevm/voltaire/Keccak256'
 
 /**
  * Convert bytes to hex string.
@@ -804,8 +804,8 @@ export function parseUnits(value, decimals) {
 export function keccak256(value, to = 'hex') {
 	// Convert hex string to bytes if needed
 	const bytes = typeof value === 'string' ? hexToBytes(value) : value
-	// Hash using noble/hashes
-	const hash = keccak_256(bytes)
+	// Hash using @tevm/voltaire
+	const hash = keccak256Hash(bytes)
 	// Return in requested format
 	return /** @type {import('./hex-types.js').Hex} */ (to === 'bytes' ? hash : bytesToHex(hash))
 }
