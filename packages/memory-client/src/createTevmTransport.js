@@ -1,7 +1,7 @@
 import { createCommon } from '@tevm/common'
 import { requestEip1193, tevmSend } from '@tevm/decorators'
 import { createTevmNode } from '@tevm/node'
-import { createTransport } from 'viem'
+import { createTransport } from '@tevm/utils'
 
 /**
  * Creates a custom TEVM Transport for viem clients, integrating an in-memory Ethereum Virtual Machine.
