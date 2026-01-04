@@ -13,7 +13,7 @@ import type { TevmState } from './TevmState.js'
  * @example
  * ```typescript
  * import { StateOptions } from '@tevm/state'
- * import { http } from 'viem'
+ * import { http } from '@tevm/utils'
  *
  * const value: StateOptions = {
  *   fork: {

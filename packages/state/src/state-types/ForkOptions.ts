@@ -6,7 +6,7 @@ import { type BlockTag, type EIP1193RequestFn, type Transport } from '@tevm/util
  * @example
  * ```typescript
  * import { ForkOptions } from '@tevm/state'
- * import { http } from 'viem'
+ * import { http } from '@tevm/utils'
  *
  * const value: ForkOptions = {
  *   transport: http('https://mainnet.infura.io/v3/your-api-key'),
@@ -17,7 +17,7 @@ import { type BlockTag, type EIP1193RequestFn, type Transport } from '@tevm/util
  * ```typescript
  * // Override chain ID to avoid wallet confusion when forking
  * import { ForkOptions } from '@tevm/state'
- * import { http } from 'viem'
+ * import { http } from '@tevm/utils'
  *
  * const value: ForkOptions = {
  *   transport: http('https://mainnet.optimism.io'),
