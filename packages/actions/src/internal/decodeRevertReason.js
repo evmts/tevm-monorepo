@@ -1,4 +1,4 @@
-import { decodeAbiParameters, hexToString, toFunctionSelector } from 'viem'
+import { decodeAbiParameters, hexToString, toFunctionSelector } from '@tevm/utils'
 
 /**
  * Decodes basic revert data similar to Anvil's approach

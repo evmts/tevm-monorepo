@@ -29,6 +29,8 @@ import {
 	parseGwei,
 	stringToHex,
 	toBytes,
+	toEventSelector,
+	toFunctionSelector,
 	toHex,
 } from './viem.js'
 
@@ -1312,6 +1314,81 @@ describe('native implementations (migrated from viem)', () => {
 			expect(log.topics).toEqual(['0xabc123'])
 			expect(log.data).toBe('0xdeadbeef')
 			expect(log.removed).toBe(true)
+		})
+	})
+
+	describe('toFunctionSelector', () => {
+		it('should compute function selector for simple signature', () => {
+			// transfer(address,uint256) selector is 0xa9059cbb
+			expect(toFunctionSelector('transfer(address,uint256)')).toBe('0xa9059cbb')
+		})
+
+		it('should compute Error(string) selector', () => {
+			// Error(string) selector is 0x08c379a0
+			expect(toFunctionSelector('Error(string)')).toBe('0x08c379a0')
+		})
+
+		it('should compute Panic(uint256) selector', () => {
+			// Panic(uint256) selector is 0x4e487b71
+			expect(toFunctionSelector('Panic(uint256)')).toBe('0x4e487b71')
+		})
+
+		it('should handle "function " prefix', () => {
+			// Should strip "function " prefix before hashing
+			expect(toFunctionSelector('function transfer(address,uint256)')).toBe('0xa9059cbb')
+			expect(toFunctionSelector('function approve(address,uint256)')).toBe(toFunctionSelector('approve(address,uint256)'))
+		})
+
+		it('should handle whitespace in signature', () => {
+			// Whitespace should be removed
+			expect(toFunctionSelector('transfer (address, uint256)')).toBe(toFunctionSelector('transfer(address,uint256)'))
+		})
+
+		it('should return 4 bytes (10 hex chars including 0x)', () => {
+			const selector = toFunctionSelector('anyFunction()')
+			expect(selector.length).toBe(10)
+			expect(selector.startsWith('0x')).toBe(true)
+		})
+
+		it('should compute approve(address,uint256) selector', () => {
+			// approve(address,uint256) selector is 0x095ea7b3
+			expect(toFunctionSelector('approve(address,uint256)')).toBe('0x095ea7b3')
+		})
+	})
+
+	describe('toEventSelector', () => {
+		it('should compute event selector for Transfer', () => {
+			// Transfer(address,address,uint256) selector
+			expect(toEventSelector('Transfer(address,address,uint256)')).toBe(
+				'0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
+			)
+		})
+
+		it('should compute event selector for Approval', () => {
+			// Approval(address,address,uint256) selector
+			expect(toEventSelector('Approval(address,address,uint256)')).toBe(
+				'0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925',
+			)
+		})
+
+		it('should handle "event " prefix', () => {
+			// Should strip "event " prefix before hashing
+			expect(toEventSelector('event Transfer(address,address,uint256)')).toBe(
+				toEventSelector('Transfer(address,address,uint256)'),
+			)
+		})
+
+		it('should return 32 bytes (66 hex chars including 0x)', () => {
+			const selector = toEventSelector('AnyEvent()')
+			expect(selector.length).toBe(66)
+			expect(selector.startsWith('0x')).toBe(true)
+		})
+
+		it('should handle whitespace in signature', () => {
+			// Whitespace should be removed
+			expect(toEventSelector('Transfer (address, address, uint256)')).toBe(
+				toEventSelector('Transfer(address,address,uint256)'),
+			)
 		})
 	})
 })

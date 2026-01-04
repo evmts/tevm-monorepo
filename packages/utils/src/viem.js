@@ -1338,6 +1338,72 @@ export function formatLog(log, { args, eventName } = {}) {
 	})
 }
 
+/**
+ * Extract the canonical function signature from a string.
+ * Removes 'function ' or 'event ' prefix if present.
+ * @param {string} signature - The function/event signature (e.g., 'function transfer(address,uint256)' or 'transfer(address,uint256)')
+ * @returns {string} The canonical signature (e.g., 'transfer(address,uint256)')
+ */
+function normalizeSignature(signature) {
+	// Remove 'function ' prefix if present
+	if (signature.startsWith('function ')) {
+		return signature.slice(9).replace(/\s+/g, '')
+	}
+	// Remove 'event ' prefix if present
+	if (signature.startsWith('event ')) {
+		return signature.slice(6).replace(/\s+/g, '')
+	}
+	// Remove any whitespace
+	return signature.replace(/\s+/g, '')
+}
+
+/**
+ * Get the 4-byte function selector for a function signature.
+ * Native implementation that matches viem's toFunctionSelector API.
+ * The selector is the first 4 bytes of the keccak256 hash of the function signature.
+ * @param {string} signature - The function signature (e.g., 'transfer(address,uint256)' or 'function transfer(address,uint256)')
+ * @returns {import('viem').Hex} The 4-byte function selector (e.g., '0xa9059cbb')
+ * @example
+ * ```javascript
+ * import { toFunctionSelector } from '@tevm/utils'
+ * // Standard function signature
+ * toFunctionSelector('transfer(address,uint256)') // '0xa9059cbb'
+ * // With 'function' prefix (also supported)
+ * toFunctionSelector('function transfer(address,uint256)') // '0xa9059cbb'
+ * // Error selectors
+ * toFunctionSelector('Error(string)') // '0x08c379a0'
+ * toFunctionSelector('Panic(uint256)') // '0x4e487b71'
+ * ```
+ */
+export function toFunctionSelector(signature) {
+	const normalizedSig = normalizeSignature(signature)
+	const hash = keccak256(stringToHex(normalizedSig))
+	// Return first 4 bytes (8 hex chars + '0x' prefix = 10 chars)
+	return /** @type {import('viem').Hex} */ (hash.slice(0, 10))
+}
+
+/**
+ * Get the 32-byte event selector (topic0) for an event signature.
+ * Native implementation that matches viem's toEventSelector API.
+ * The selector is the full keccak256 hash of the event signature.
+ * @param {string} signature - The event signature (e.g., 'Transfer(address,address,uint256)' or 'event Transfer(address,address,uint256)')
+ * @returns {import('viem').Hex} The 32-byte event selector (topic0)
+ * @example
+ * ```javascript
+ * import { toEventSelector } from '@tevm/utils'
+ * // Standard event signature
+ * toEventSelector('Transfer(address,address,uint256)')
+ * // '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+ * // With 'event' prefix (also supported)
+ * toEventSelector('event Transfer(address,address,uint256)')
+ * // '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+ * ```
+ */
+export function toEventSelector(signature) {
+	const normalizedSig = normalizeSignature(signature)
+	return keccak256(stringToHex(normalizedSig))
+}
+
 export {
 	decodeAbiParameters,
 	decodeErrorResult,

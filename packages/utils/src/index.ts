@@ -139,6 +139,8 @@ export {
 	serializeTransaction,
 	stringToHex,
 	toBytes,
+	toEventSelector,
+	toFunctionSelector,
 	toHex,
 	toRlp,
 } from './viem.js'
