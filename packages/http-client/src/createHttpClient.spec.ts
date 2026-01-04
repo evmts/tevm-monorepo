@@ -4,7 +4,7 @@ import type { TevmClient } from '@tevm/client-types'
 import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
 import { createHttpHandler } from '@tevm/server'
 import { transports } from '@tevm/test-utils'
-import { bytesToHex, keccak256 } from 'viem'
+import { bytesToHex, keccak256 } from '@tevm/utils'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createHttpClient } from './createHttpClient.js'
 

@@ -1,6 +1,5 @@
 import { InvalidAddressError } from '@tevm/errors'
-import { EthjsAddress, hexToBytes } from '@tevm/utils'
-import { numberToBytes } from 'viem'
+import { EthjsAddress, hexToBytes, numberToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { Address } from './Address.js'
 import { createAddress } from './createAddress.js'
