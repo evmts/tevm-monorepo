@@ -3,15 +3,19 @@
 // Migration status (using @tevm/voltaire):
 // ✅ COMPLETED: ABI encoding/decoding (encodeAbiParameters, decodeAbiParameters, encodeFunctionData, etc.)
 // ✅ COMPLETED: All utility functions (hex conversions, RLP, keccak256, etc.)
-// 🔄 REMAINING: parseAbi/formatAbi (from abitype - complex human-readable ABI parser)
+// ✅ COMPLETED: formatAbi (native implementation)
+// 🔄 REMAINING: parseAbi (from abitype - complex human-readable ABI parser)
 // 🔄 REMAINING: mnemonicToAccount/privateKeyToAccount (viem account objects with signing methods)
 // 🔄 REMAINING: Transport/client functions for forking (createPublicClient, http, etc.)
 //
 // Note: abitype and viem/accounts are kept as they provide complex functionality
 // that would require significant effort to replicate without clear benefit.
 
-// ABI parsing/formatting from abitype (human-readable ABI <-> JSON ABI)
-export { formatAbi, parseAbi } from 'abitype'
+// ABI formatting - native implementation
+export { formatAbi } from './formatAbi.js'
+
+// ABI parsing from abitype (human-readable ABI -> JSON ABI)
+export { parseAbi } from 'abitype'
 
 // Account creation from viem (HD wallet derivation, signing methods)
 export { mnemonicToAccount, privateKeyToAccount } from 'viem/accounts'
