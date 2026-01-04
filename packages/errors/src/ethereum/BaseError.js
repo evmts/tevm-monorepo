@@ -11,7 +11,7 @@ const getVersion = () => '1.1.0.next-73'
  * @property {string} [docsPath] - Path to the documentation.
  * @property {string} [docsSlug] - Slug for the documentation.
  * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {BaseError|Error|import('@ethereumjs/evm').EVMError|unknown} [cause] - The cause of the error.
+ * @property {BaseError|Error|import('./EVMError.js').EVMError|unknown} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
  */
 

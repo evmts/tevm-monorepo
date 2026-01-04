@@ -7,7 +7,7 @@ import { BaseError } from './BaseError.js'
  * @property {string} [docsPath] - Path to the documentation.
  * @property {string} [docsSlug] - Slug for the documentation.
  * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {import('@ethereumjs/evm').EVMError|BaseError|Error} [cause] - The cause of the error.
+ * @property {import('./EVMError.js').EVMError|BaseError|Error} [cause] - The cause of the error.
  * @property {string} [details] - Details of the error.
  * @property {object} [meta] - Optional object containing additional information about the error.
  * @property {import('viem').Hex} [raw] - The raw data of the revert.

@@ -1,0 +1,67 @@
+# Ralph Migration Log - Iteration 162
+## Date: 2026-01-04 11:39:00
+
+## Summary
+Removed @ethereumjs/evm dependency from @tevm/errors by creating a native EVMError class.
+
+## Changes Made
+
+### 1. Created native EVMError class (packages/errors/src/ethereum/EVMError.js)
+Created a new file with:
+- `EVMErrorTypeString` constant ('EVMError')
+- `EVMErrorMessage` object with all EVM error message mappings
+- `EVMError` class with static `errorMessages` property for compatibility with @ethereumjs/evm API
+
+Error messages include:
+- OUT_OF_GAS, CODESTORE_OUT_OF_GAS, CODESIZE_EXCEEDS_MAXIMUM
+- STACK_UNDERFLOW, STACK_OVERFLOW, INVALID_JUMP, INVALID_OPCODE
+- OUT_OF_RANGE, REVERT, STATIC_STATE_CHANGE, INTERNAL_ERROR
+- CREATE_COLLISION, STOP, REFUND_EXHAUSTED, VALUE_OVERFLOW
+- INSUFFICIENT_BALANCE, INVALID_BYTECODE_RESULT, INITCODE_SIZE_VIOLATION
+- INVALID_INPUT_LENGTH, INVALID_EOF_FORMAT
+- BLS12_381_* errors, BN254_FP_NOT_IN_FIELD
+- INVALID_COMMITMENT, INVALID_INPUTS, INVALID_PROOF
+- AUTHCALL_UNSET, INVALID_RETURNSUB, INVALID_JUMPSUB, INVALID_BEGINSUB
+
+### 2. Updated 28 error files to use native EVMError
+All files in `packages/errors/src/ethereum/ethereumjs/` updated:
+- Changed `import { EVMError } from '@ethereumjs/evm'` to `import { EVMError } from '../EVMError.js'`
+- Updated JSDoc type annotations from `import('@ethereumjs/evm').EVMError` to `import('../EVMError.js').EVMError`
+
+### 3. Fixed type imports in other error directories
+- `packages/errors/src/client/` - Updated to `import('../ethereum/EVMError.js').EVMError`
+- `packages/errors/src/common/` - Updated to `import('../ethereum/EVMError.js').EVMError`
+- `packages/errors/src/data/` - Updated to `import('../ethereum/EVMError.js').EVMError`
+- `packages/errors/src/defensive/` - Updated to `import('../ethereum/EVMError.js').EVMError`
+- `packages/errors/src/ethereum/` - Updated to `import('./EVMError.js').EVMError`
+
+### 4. Exported EVMError from package
+- Added exports to `packages/errors/src/ethereum/index.ts`
+- Added exports to `packages/errors/src/index.ts` (EVMError, EVMErrorMessage, EVMErrorTypeString)
+
+### 5. Removed @ethereumjs/evm dependency
+- Removed `"@ethereumjs/evm": "^10.0.0"` from `packages/errors/package.json`
+- Ran `pnpm install` to update lockfile
+- Rebuilt dist with `pnpm nx run @tevm/errors:build:dist`
+
+## Test Results
+- @tevm/errors: 92 tests passed, 3 skipped (9 test files)
+- @tevm/actions createHandlers.spec.ts: 15 tests passed
+
+## Impact
+- Eliminates direct dependency on @ethereumjs/evm from @tevm/errors package
+- Reduces bundle size and simplifies dependency tree
+- Native implementation is API-compatible with @ethereumjs/evm EVMError
+
+## Files Modified
+1. `packages/errors/src/ethereum/EVMError.js` (NEW)
+2. `packages/errors/src/ethereum/index.ts`
+3. `packages/errors/src/index.ts`
+4. `packages/errors/package.json`
+5. 28 error files in `packages/errors/src/ethereum/ethereumjs/`
+6. 9 error files in other `packages/errors/src/` directories
+
+## Next Steps
+1. Continue migration by checking for remaining ethereumjs imports
+2. Consider migrating @tevm/common from @ethereumjs/common
+3. Consider migrating @tevm/blockchain from @ethereumjs/blockchain
