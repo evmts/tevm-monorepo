@@ -31,6 +31,12 @@ export { privateKeyToAddress } from './privateKeyToAddress.js'
 // Native privateKeyToAccount implementation using @tevm/voltaire (viem-compatible)
 export { nativePrivateKeyToAccount } from './nativePrivateKeyToAccount.js'
 
+// Native mnemonicToAccount implementation using @scure/bip39, @scure/bip32, and @tevm/voltaire (viem-compatible)
+export { nativeMnemonicToAccount } from './nativeMnemonicToAccount.js'
+
+// Native HD account (source: 'hd') - compatible with viem's HDAccount type
+export { nativeHdAccount } from './nativeHdAccount.js'
+
 // Native generatePrivateKey implementation
 export { generatePrivateKey } from './generatePrivateKey.js'
 import { hash as keccak256Hash } from '@tevm/voltaire/Keccak256'

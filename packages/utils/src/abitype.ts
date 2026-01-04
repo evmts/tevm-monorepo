@@ -29,3 +29,14 @@ export type {
 	Account,
 	HDAccount,
 } from 'viem'
+// Native account types (can be used instead of viem's Account/HDAccount)
+export type {
+	LocalAccount,
+	NativeAccount,
+	NativeHDAccount,
+	NativeMnemonicAccount,
+	NativePrivateKeyAccount,
+	SignMessageParameters,
+	SignParameters,
+	SignTypedDataParameters,
+} from './account-types.js'

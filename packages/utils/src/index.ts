@@ -59,7 +59,15 @@ export type {
 	GetEventArgs,
 	HDAccount,
 	Hex,
+	LocalAccount,
+	NativeAccount,
+	NativeHDAccount,
+	NativeMnemonicAccount,
+	NativePrivateKeyAccount,
 	ParseAbi,
+	SignMessageParameters,
+	SignParameters,
+	SignTypedDataParameters,
 } from './abitype.js'
 export { Bloom } from './Bloom.js'
 export type { CreateMemoryDbFn } from './CreateMemoryDbFn.js'
@@ -182,6 +190,8 @@ export {
 	keccak256,
 	mnemonicToAccount,
 	nativePrivateKeyToAccount,
+	nativeHdAccount,
+	nativeMnemonicToAccount,
 	privateKeyToAccount,
 	privateKeyToAddress,
 	generatePrivateKey,

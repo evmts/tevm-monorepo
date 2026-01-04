@@ -8,7 +8,7 @@ import { MissingAccountError } from './ethSignHandler.js'
  * current chain ID from the node.
  *
  * @param {object} options - Configuration options for the handler
- * @param {ReadonlyArray<import('@tevm/utils').HDAccount>} options.accounts - Array of HD accounts that can be used for signing
+ * @param {ReadonlyArray<import('@tevm/utils').HDAccount | import('@tevm/utils').NativeHDAccount>} options.accounts - Array of HD accounts that can be used for signing
  * @param {() => Promise<number>} options.getChainId - Function to retrieve the current chain ID
  * @returns {import('./EthHandler.js').EthSignTransactionHandler} A handler function for eth_signTransaction requests
  * @throws {MissingAccountError} If the requested account (from address) is not found in the provided accounts list
