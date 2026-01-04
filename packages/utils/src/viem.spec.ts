@@ -10,6 +10,8 @@ import {
 	formatAbi,
 	formatEther,
 	formatGwei,
+	fromBytes,
+	fromHex,
 	getAddress,
 	hexToBigInt,
 	hexToBool,
@@ -111,8 +113,9 @@ describe('native implementations (migrated from viem)', () => {
 		})
 
 		it('should throw on invalid hex', () => {
+			// @ts-expect-error - testing invalid input
 			expect(() => hexToBytes('invalid')).toThrow()
-			expect(() => hexToBytes('0xgg')).toThrow()
+			expect(() => hexToBytes('0xgg' as `0x${string}`)).toThrow()
 		})
 	})
 
@@ -923,6 +926,267 @@ describe('native implementations (migrated from viem)', () => {
 			const hash1 = keccak256(new Uint8Array([1]))
 			const hash2 = keccak256(new Uint8Array([2]))
 			expect(hash1).not.toBe(hash2)
+		})
+	})
+
+	describe('toHex (polymorphic)', () => {
+		it('should convert Uint8Array to hex', () => {
+			expect(toHex(new Uint8Array([1, 164]))).toBe('0x01a4')
+			expect(toHex(new Uint8Array([]))).toBe('0x')
+			expect(toHex(new Uint8Array([0, 0, 1]))).toBe('0x000001')
+		})
+
+		it('should convert Uint8Array with size padding', () => {
+			expect(toHex(new Uint8Array([1, 164]), { size: 4 })).toBe('0x000001a4')
+			expect(toHex(new Uint8Array([255]), { size: 2 })).toBe('0x00ff')
+		})
+
+		it('should throw when Uint8Array exceeds size', () => {
+			expect(() => toHex(new Uint8Array([1, 2, 3]), { size: 2 })).toThrow('exceeds')
+		})
+
+		it('should convert boolean to hex', () => {
+			expect(toHex(true)).toBe('0x1')
+			expect(toHex(false)).toBe('0x0')
+			expect(toHex(true, { size: 32 })).toBe(
+				'0x0000000000000000000000000000000000000000000000000000000000000001',
+			)
+		})
+
+		it('should convert number to hex', () => {
+			expect(toHex(420)).toBe('0x1a4')
+			expect(toHex(255)).toBe('0xff')
+			expect(toHex(0)).toBe('0x0')
+		})
+
+		it('should convert bigint to hex', () => {
+			expect(toHex(420n)).toBe('0x1a4')
+			expect(toHex(1000000000000000000n)).toBe('0xde0b6b3a7640000')
+		})
+
+		it('should convert number/bigint with size padding', () => {
+			expect(toHex(420n, { size: 4 })).toBe('0x000001a4')
+			expect(toHex(255, { size: 2 })).toBe('0x00ff')
+		})
+
+		it('should convert string to hex (UTF-8)', () => {
+			expect(toHex('hello')).toBe('0x68656c6c6f')
+			expect(toHex('')).toBe('0x')
+			expect(toHex('abc')).toBe('0x616263')
+		})
+
+		it('should convert string with size padding', () => {
+			expect(toHex('hello', { size: 8 })).toBe('0x68656c6c6f000000')
+		})
+
+		it('should throw on unsupported type', () => {
+			// @ts-expect-error - testing invalid input
+			expect(() => toHex(null)).toThrow('Cannot convert')
+			// @ts-expect-error - testing invalid input
+			expect(() => toHex(undefined)).toThrow('Cannot convert')
+		})
+	})
+
+	describe('fromHex (polymorphic)', () => {
+		it('should convert hex to bytes', () => {
+			const result = fromHex('0x01a4', 'bytes')
+			expect(result).toBeInstanceOf(Uint8Array)
+			expect(result).toEqual(new Uint8Array([1, 164]))
+		})
+
+		it('should convert hex to number', () => {
+			expect(fromHex('0x1a4', 'number')).toBe(420)
+			expect(fromHex('0xff', 'number')).toBe(255)
+			expect(fromHex('0x0', 'number')).toBe(0)
+		})
+
+		it('should convert hex to bigint', () => {
+			expect(fromHex('0x1a4', 'bigint')).toBe(420n)
+			expect(fromHex('0xde0b6b3a7640000', 'bigint')).toBe(1000000000000000000n)
+		})
+
+		it('should convert hex to boolean', () => {
+			expect(fromHex('0x1', 'boolean')).toBe(true)
+			expect(fromHex('0x0', 'boolean')).toBe(false)
+			expect(fromHex('0x01', 'boolean')).toBe(true)
+			expect(fromHex('0x00', 'boolean')).toBe(false)
+		})
+
+		it('should convert hex to string (UTF-8)', () => {
+			expect(fromHex('0x68656c6c6f', 'string')).toBe('hello')
+			expect(fromHex('0x', 'string')).toBe('')
+		})
+
+		it('should accept options object', () => {
+			expect(fromHex('0xff', { to: 'number' })).toBe(255)
+			expect(fromHex('0x1a4', { to: 'bigint' })).toBe(420n)
+		})
+
+		it('should handle signed option', () => {
+			// Signed number conversion
+			expect(fromHex('0xff', { to: 'number', signed: true } as any)).toBe(-1)
+			expect(fromHex('0xfe', { to: 'bigint', signed: true } as any)).toBe(-2n)
+		})
+
+		it('should throw on unknown conversion target', () => {
+			// @ts-expect-error - testing invalid input
+			expect(() => fromHex('0xff', 'invalid')).toThrow('Unknown conversion target')
+		})
+	})
+
+	describe('toBytes (polymorphic)', () => {
+		it('should convert boolean to bytes', () => {
+			expect(toBytes(true)).toEqual(new Uint8Array([1]))
+			expect(toBytes(false)).toEqual(new Uint8Array([0]))
+		})
+
+		it('should convert boolean with size padding', () => {
+			expect(toBytes(true, { size: 4 })).toEqual(new Uint8Array([0, 0, 0, 1]))
+			expect(toBytes(false, { size: 4 })).toEqual(new Uint8Array([0, 0, 0, 0]))
+		})
+
+		it('should convert number to bytes', () => {
+			expect(toBytes(420)).toEqual(new Uint8Array([1, 164]))
+			expect(toBytes(255)).toEqual(new Uint8Array([255]))
+			expect(toBytes(0)).toEqual(new Uint8Array([0]))
+		})
+
+		it('should convert bigint to bytes', () => {
+			expect(toBytes(420n)).toEqual(new Uint8Array([1, 164]))
+			expect(toBytes(0n)).toEqual(new Uint8Array([0]))
+		})
+
+		it('should convert number/bigint with size padding', () => {
+			expect(toBytes(420n, { size: 4 })).toEqual(new Uint8Array([0, 0, 1, 164]))
+			expect(toBytes(1, { size: 32 })).toEqual(
+				new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]),
+			)
+		})
+
+		it('should convert hex string to bytes', () => {
+			expect(toBytes('0x01a4')).toEqual(new Uint8Array([1, 164]))
+			expect(toBytes('0x')).toEqual(new Uint8Array([]))
+			expect(toBytes('0xff')).toEqual(new Uint8Array([255]))
+		})
+
+		it('should convert hex string with size padding', () => {
+			expect(toBytes('0xff', { size: 4 })).toEqual(new Uint8Array([0, 0, 0, 255]))
+		})
+
+		it('should throw when hex exceeds size', () => {
+			expect(() => toBytes('0x010203', { size: 2 })).toThrow('exceeds')
+		})
+
+		it('should convert regular string to bytes (UTF-8)', () => {
+			expect(toBytes('hello')).toEqual(new Uint8Array([104, 101, 108, 108, 111]))
+			expect(toBytes('abc')).toEqual(new Uint8Array([97, 98, 99]))
+		})
+
+		it('should convert string with size padding (right-padded)', () => {
+			expect(toBytes('hi', { size: 4 })).toEqual(new Uint8Array([104, 105, 0, 0]))
+		})
+
+		it('should throw when string exceeds size', () => {
+			expect(() => toBytes('hello', { size: 3 })).toThrow('exceeds')
+		})
+
+		it('should throw on unsupported type', () => {
+			// @ts-expect-error - testing invalid input
+			expect(() => toBytes(null)).toThrow('Cannot convert')
+		})
+	})
+
+	describe('fromBytes (polymorphic)', () => {
+		it('should convert bytes to hex', () => {
+			expect(fromBytes(new Uint8Array([1, 164]), 'hex')).toBe('0x01a4')
+			expect(fromBytes(new Uint8Array([]), 'hex')).toBe('0x')
+		})
+
+		it('should convert bytes to number', () => {
+			expect(fromBytes(new Uint8Array([1, 164]), 'number')).toBe(420)
+			expect(fromBytes(new Uint8Array([255]), 'number')).toBe(255)
+		})
+
+		it('should convert bytes to bigint', () => {
+			expect(fromBytes(new Uint8Array([1, 164]), 'bigint')).toBe(420n)
+		})
+
+		it('should convert bytes to boolean', () => {
+			expect(fromBytes(new Uint8Array([1]), 'boolean')).toBe(true)
+			expect(fromBytes(new Uint8Array([0]), 'boolean')).toBe(false)
+			expect(fromBytes(new Uint8Array([0, 0, 0, 1]), 'boolean')).toBe(true)
+			expect(fromBytes(new Uint8Array([0, 0, 0, 0]), 'boolean')).toBe(false)
+		})
+
+		it('should convert bytes to string (UTF-8)', () => {
+			expect(fromBytes(new Uint8Array([104, 101, 108, 108, 111]), 'string')).toBe('hello')
+			expect(fromBytes(new Uint8Array([]), 'string')).toBe('')
+		})
+
+		it('should accept options object', () => {
+			expect(fromBytes(new Uint8Array([1, 164]), { to: 'number' })).toBe(420)
+			expect(fromBytes(new Uint8Array([1, 164]), { to: 'hex' })).toBe('0x01a4')
+		})
+
+		it('should throw on unknown conversion target', () => {
+			// @ts-expect-error - testing invalid input
+			expect(() => fromBytes(new Uint8Array([1]), 'invalid')).toThrow('Unknown conversion target')
+		})
+	})
+
+	describe('polymorphic functions roundtrip', () => {
+		it('toHex/fromHex roundtrip for bytes', () => {
+			const original = new Uint8Array([1, 2, 3, 4, 5])
+			const hex = toHex(original)
+			const result = fromHex(hex, 'bytes')
+			expect(result).toEqual(original)
+		})
+
+		it('toHex/fromHex roundtrip for number', () => {
+			const original = 12345
+			const hex = toHex(original)
+			const result = fromHex(hex, 'number')
+			expect(result).toBe(original)
+		})
+
+		it('toHex/fromHex roundtrip for bigint', () => {
+			const original = 12345678901234567890n
+			const hex = toHex(original)
+			const result = fromHex(hex, 'bigint')
+			expect(result).toBe(original)
+		})
+
+		it('toHex/fromHex roundtrip for boolean', () => {
+			expect(fromHex(toHex(true), 'boolean')).toBe(true)
+			expect(fromHex(toHex(false), 'boolean')).toBe(false)
+		})
+
+		it('toHex/fromHex roundtrip for string', () => {
+			const original = 'hello world'
+			const hex = toHex(original)
+			const result = fromHex(hex, 'string')
+			expect(result).toBe(original)
+		})
+
+		it('toBytes/fromBytes roundtrip for hex', () => {
+			const original = '0xdeadbeef'
+			const bytes = toBytes(original)
+			const result = fromBytes(bytes, 'hex')
+			expect(result).toBe(original)
+		})
+
+		it('toBytes/fromBytes roundtrip for number', () => {
+			const original = 420
+			const bytes = toBytes(original)
+			const result = fromBytes(bytes, 'number')
+			expect(result).toBe(original)
+		})
+
+		it('toBytes/fromBytes roundtrip for string', () => {
+			const original = 'test string'
+			const bytes = toBytes(original)
+			const result = fromBytes(bytes, 'string')
+			expect(result).toBe(original)
 		})
 	})
 })

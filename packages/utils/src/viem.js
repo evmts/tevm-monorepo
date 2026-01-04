@@ -19,7 +19,7 @@ import { keccak_256 } from '@noble/hashes/sha3.js'
 export function bytesToHex(bytes) {
 	let hex = '0x'
 	for (let i = 0; i < bytes.length; i++) {
-		const byte = bytes[i]
+		const byte = /** @type {number} */ (bytes[i])
 		hex += byte.toString(16).padStart(2, '0')
 	}
 	return /** @type {import('viem').Hex} */ (hex)
@@ -97,8 +97,10 @@ export function hexToBytes(hex) {
 	const paddedHex = hexDigits.length % 2 === 0 ? hexDigits : `0${hexDigits}`
 	const bytes = new Uint8Array(paddedHex.length / 2)
 	for (let i = 0; i < paddedHex.length; i += 2) {
-		const high = hexCharToValue[paddedHex[i]]
-		const low = hexCharToValue[paddedHex[i + 1]]
+		const highChar = /** @type {string} */ (paddedHex[i])
+		const lowChar = /** @type {string} */ (paddedHex[i + 1])
+		const high = hexCharToValue[highChar]
+		const low = hexCharToValue[lowChar]
 		if (high === undefined || low === undefined) {
 			throw new Error(`Invalid hex character in: ${hex}`)
 		}
@@ -390,7 +392,7 @@ export function stringToHex(value, opts) {
  * hexToString('0xf09f988a') // '😊'
  * ```
  */
-export function hexToString(hex, opts) {
+export function hexToString(hex, _opts = undefined) {
 	const bytes = hexToBytes(hex)
 	const decoder = new TextDecoder('utf-8')
 	return decoder.decode(bytes)
@@ -475,7 +477,7 @@ const addressPattern = /^0x[0-9a-fA-F]{40}$/
  * isAddress(null) // false
  * ```
  */
-export function isAddress(address, opts) {
+export function isAddress(address, _opts = undefined) {
 	if (!address) {
 		return false
 	}
@@ -657,7 +659,7 @@ export function parseGwei(gwei) {
  * Uses @noble/hashes for the underlying implementation (same as voltaire).
  * @param {Uint8Array | import('viem').Hex} value - The value to hash (bytes or hex string)
  * @param {'bytes' | 'hex'} [to='hex'] - Output format: 'hex' returns Hex string, 'bytes' returns Uint8Array
- * @returns {import('viem').Hex | Uint8Array} The Keccak-256 hash
+ * @returns {import('viem').Hex} The Keccak-256 hash (returns Hex by default, Uint8Array if to='bytes')
  * @example
  * ```javascript
  * import { keccak256 } from '@tevm/utils'
@@ -675,7 +677,7 @@ export function keccak256(value, to = 'hex') {
 	// Hash using noble/hashes
 	const hash = keccak_256(bytes)
 	// Return in requested format
-	return to === 'bytes' ? hash : bytesToHex(hash)
+	return /** @type {import('viem').Hex} */ (to === 'bytes' ? hash : bytesToHex(hash))
 }
 
 /**
@@ -717,9 +719,9 @@ export function getAddress(address) {
 	// Build checksummed address using EIP-55 algorithm
 	let checksummed = '0x'
 	for (let i = 0; i < 40; i++) {
-		const char = lowercaseAddress[i]
+		const char = /** @type {string} */ (lowercaseAddress[i])
 		// If the character is a letter (a-f) and the corresponding nibble in hash >= 8, uppercase it
-		const hashNibble = parseInt(hashHex[i], 16)
+		const hashNibble = parseInt(/** @type {string} */ (hashHex[i]), 16)
 		if (char >= 'a' && char <= 'f' && hashNibble >= 8) {
 			checksummed += char.toUpperCase()
 		} else {
@@ -728,6 +730,223 @@ export function getAddress(address) {
 	}
 
 	return /** @type {import('viem').Address} */ (checksummed)
+}
+
+/**
+ * Polymorphic function to convert various types to hex string.
+ * Native implementation that matches viem's toHex API.
+ * @param {string | number | bigint | boolean | Uint8Array} value - The value to convert
+ * @param {Object} [opts] - Options
+ * @param {number} [opts.size] - Size in bytes for padding
+ * @returns {import('viem').Hex} The hex string (e.g., '0x1234')
+ * @example
+ * ```javascript
+ * import { toHex } from '@tevm/utils'
+ * // Convert bytes
+ * toHex(new Uint8Array([1, 164])) // '0x01a4'
+ * // Convert number/bigint
+ * toHex(420n) // '0x1a4'
+ * toHex(420) // '0x1a4'
+ * // Convert boolean
+ * toHex(true) // '0x1'
+ * // Convert string (UTF-8 encode)
+ * toHex('hello') // '0x68656c6c6f'
+ * // With size padding
+ * toHex(420n, { size: 4 }) // '0x000001a4'
+ * ```
+ */
+export function toHex(value, opts) {
+	// Handle Uint8Array
+	if (value instanceof Uint8Array) {
+		if (opts?.size) {
+			// Pad to specified size
+			if (value.length > opts.size) {
+				throw new Error(`Bytes value of length ${value.length} exceeds ${opts.size} byte size`)
+			}
+			const paddedBytes = new Uint8Array(opts.size)
+			paddedBytes.set(value, opts.size - value.length)
+			return bytesToHex(paddedBytes)
+		}
+		return bytesToHex(value)
+	}
+
+	// Handle boolean
+	if (typeof value === 'boolean') {
+		return boolToHex(value, opts)
+	}
+
+	// Handle number/bigint
+	if (typeof value === 'number' || typeof value === 'bigint') {
+		return numberToHex(value, opts)
+	}
+
+	// Handle string (UTF-8 encode)
+	if (typeof value === 'string') {
+		return stringToHex(value, opts)
+	}
+
+	throw new Error(`Cannot convert value of type ${typeof value} to hex`)
+}
+
+/**
+ * Polymorphic function to convert hex to various types.
+ * Native implementation that matches viem's fromHex API.
+ * @template {'string' | 'number' | 'bigint' | 'boolean' | 'bytes'} TTo
+ * @param {import('viem').Hex} hex - The hex string to convert (must start with '0x')
+ * @param {TTo | { to: TTo; size?: number }} toOrOpts - Output type or options with output type
+ * @returns {TTo extends 'string' ? string : TTo extends 'number' ? number : TTo extends 'bigint' ? bigint : TTo extends 'boolean' ? boolean : Uint8Array} The converted value
+ * @example
+ * ```javascript
+ * import { fromHex } from '@tevm/utils'
+ * // To bytes
+ * fromHex('0x01a4', 'bytes') // Uint8Array([1, 164])
+ * // To number
+ * fromHex('0x1a4', 'number') // 420
+ * // To bigint
+ * fromHex('0x1a4', 'bigint') // 420n
+ * // To boolean
+ * fromHex('0x1', 'boolean') // true
+ * fromHex('0x0', 'boolean') // false
+ * // To string (UTF-8 decode)
+ * fromHex('0x68656c6c6f', 'string') // 'hello'
+ * // With options object
+ * fromHex('0xff', { to: 'number', size: 1 }) // 255
+ * ```
+ */
+export function fromHex(hex, toOrOpts) {
+	const to = typeof toOrOpts === 'string' ? toOrOpts : toOrOpts.to
+	const optsObj = typeof toOrOpts === 'string' ? undefined : toOrOpts
+	// Extract signed option for number/bigint conversions
+	const signedOpts = optsObj && 'signed' in optsObj ? { signed: /** @type {any} */ (optsObj).signed } : undefined
+
+	switch (to) {
+		case 'bytes':
+			return /** @type {any} */ (hexToBytes(hex))
+		case 'number':
+			return /** @type {any} */ (hexToNumber(hex, signedOpts))
+		case 'bigint':
+			return /** @type {any} */ (hexToBigInt(hex, signedOpts))
+		case 'boolean':
+			return /** @type {any} */ (hexToBool(hex))
+		case 'string':
+			return /** @type {any} */ (hexToString(hex))
+		default:
+			throw new Error(`Unknown conversion target: ${to}`)
+	}
+}
+
+/**
+ * Polymorphic function to convert various types to bytes (Uint8Array).
+ * Native implementation that matches viem's toBytes API.
+ * @param {string | number | bigint | boolean | import('viem').Hex} value - The value to convert
+ * @param {Object} [opts] - Options
+ * @param {number} [opts.size] - Size in bytes for padding
+ * @returns {Uint8Array} The byte array
+ * @example
+ * ```javascript
+ * import { toBytes } from '@tevm/utils'
+ * // Convert hex string
+ * toBytes('0x01a4') // Uint8Array([1, 164])
+ * // Convert number/bigint
+ * toBytes(420n) // Uint8Array([1, 164])
+ * toBytes(420) // Uint8Array([1, 164])
+ * // Convert boolean
+ * toBytes(true) // Uint8Array([1])
+ * // Convert string (UTF-8 encode if not hex)
+ * toBytes('hello') // Uint8Array([104, 101, 108, 108, 111])
+ * // With size padding
+ * toBytes(420n, { size: 4 }) // Uint8Array([0, 0, 1, 164])
+ * ```
+ */
+export function toBytes(value, opts) {
+	// Handle boolean
+	if (typeof value === 'boolean') {
+		return boolToBytes(value, opts)
+	}
+
+	// Handle number/bigint
+	if (typeof value === 'number' || typeof value === 'bigint') {
+		const hex = numberToHex(value, opts)
+		return hexToBytes(hex)
+	}
+
+	// Handle string (could be hex or UTF-8 string)
+	if (typeof value === 'string') {
+		// If it starts with 0x, treat as hex
+		if (value.startsWith('0x')) {
+			const bytes = hexToBytes(/** @type {import('viem').Hex} */ (value))
+			// Handle size padding for hex input
+			if (opts?.size) {
+				if (bytes.length > opts.size) {
+					throw new Error(`Hex value of length ${bytes.length} exceeds ${opts.size} byte size`)
+				}
+				const paddedBytes = new Uint8Array(opts.size)
+				paddedBytes.set(bytes, opts.size - bytes.length)
+				return paddedBytes
+			}
+			return bytes
+		}
+		// Otherwise treat as UTF-8 string
+		const encoder = new TextEncoder()
+		const bytes = encoder.encode(value)
+		if (opts?.size) {
+			if (bytes.length > opts.size) {
+				throw new Error(`String "${value}" (${bytes.length} bytes) exceeds ${opts.size} byte size`)
+			}
+			// Note: string padding is on the right (null bytes), unlike numbers
+			const paddedBytes = new Uint8Array(opts.size)
+			paddedBytes.set(bytes)
+			return paddedBytes
+		}
+		return bytes
+	}
+
+	throw new Error(`Cannot convert value of type ${typeof value} to bytes`)
+}
+
+/**
+ * Polymorphic function to convert bytes to various types.
+ * Native implementation that matches viem's fromBytes API.
+ * @template {'string' | 'number' | 'bigint' | 'boolean' | 'hex'} TTo
+ * @param {Uint8Array} bytes - The bytes to convert
+ * @param {TTo | { to: TTo; size?: number }} toOrOpts - Output type or options with output type
+ * @returns {TTo extends 'string' ? string : TTo extends 'number' ? number : TTo extends 'bigint' ? bigint : TTo extends 'boolean' ? boolean : import('viem').Hex} The converted value
+ * @example
+ * ```javascript
+ * import { fromBytes } from '@tevm/utils'
+ * // To hex
+ * fromBytes(new Uint8Array([1, 164]), 'hex') // '0x01a4'
+ * // To number
+ * fromBytes(new Uint8Array([1, 164]), 'number') // 420
+ * // To bigint
+ * fromBytes(new Uint8Array([1, 164]), 'bigint') // 420n
+ * // To boolean
+ * fromBytes(new Uint8Array([1]), 'boolean') // true
+ * fromBytes(new Uint8Array([0]), 'boolean') // false
+ * // To string (UTF-8 decode)
+ * fromBytes(new Uint8Array([104, 101, 108, 108, 111]), 'string') // 'hello'
+ * ```
+ */
+export function fromBytes(bytes, toOrOpts) {
+	const to = typeof toOrOpts === 'string' ? toOrOpts : toOrOpts.to
+	const opts = typeof toOrOpts === 'string' ? undefined : toOrOpts
+
+	switch (to) {
+		case 'hex':
+			return /** @type {any} */ (bytesToHex(bytes))
+		case 'number':
+			return /** @type {any} */ (bytesToNumber(bytes, opts))
+		case 'bigint':
+			return /** @type {any} */ (bytesToBigInt(bytes, opts))
+		case 'boolean':
+			return /** @type {any} */ (bytesToBool(bytes))
+		case 'string': {
+			const decoder = new TextDecoder('utf-8')
+			return /** @type {any} */ (decoder.decode(bytes))
+		}
+		default:
+			throw new Error(`Unknown conversion target: ${to}`)
+	}
 }
 
 export {
@@ -744,11 +963,7 @@ export {
 	encodeFunctionResult,
 	encodePacked,
 	formatLog,
-	fromBytes,
-	fromHex,
 	fromRlp,
 	serializeTransaction,
-	toBytes,
-	toHex,
 	toRlp,
 } from 'viem/utils'
