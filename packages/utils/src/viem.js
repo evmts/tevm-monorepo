@@ -395,10 +395,31 @@ export function hexToString(hex, opts) {
 	return decoder.decode(bytes)
 }
 
+/**
+ * Convert bytes to a number.
+ * Native implementation that matches viem's bytesToNumber API.
+ * @param {Uint8Array} bytes - The bytes to convert
+ * @param {Object} [opts] - Options
+ * @param {boolean} [opts.signed] - Whether to treat as signed integer (two's complement)
+ * @param {number} [opts.size] - Expected size in bytes (for validation/padding)
+ * @returns {number} The number value
+ * @throws {Error} If the value exceeds safe integer range
+ * @example
+ * ```javascript
+ * import { bytesToNumber } from '@tevm/utils'
+ * bytesToNumber(new Uint8Array([1, 164])) // 420
+ * bytesToNumber(new Uint8Array([0xff]), { signed: true }) // -1
+ * ```
+ */
+export function bytesToNumber(bytes, opts) {
+	// Use bytesToHex then hexToNumber for consistency
+	const hex = bytesToHex(bytes)
+	return hexToNumber(hex, opts)
+}
+
 export {
 	bytesToBigInt,
 	bytesToBigint,
-	bytesToNumber,
 	decodeAbiParameters,
 	decodeErrorResult,
 	decodeEventLog,

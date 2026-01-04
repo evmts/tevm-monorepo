@@ -4,6 +4,7 @@ import {
 	boolToHex,
 	bytesToBool,
 	bytesToHex,
+	bytesToNumber,
 	formatAbi,
 	formatEther,
 	getAddress,
@@ -454,6 +455,58 @@ describe('native implementations (migrated from viem)', () => {
 		it('should throw on invalid hex', () => {
 			expect(() => hexToString('invalid' as `0x${string}`)).toThrow()
 			expect(() => hexToString('hello' as `0x${string}`)).toThrow()
+		})
+	})
+
+	describe('bytesToNumber', () => {
+		it('should convert basic bytes to number', () => {
+			expect(bytesToNumber(new Uint8Array([1, 164]))).toBe(420)
+			expect(bytesToNumber(new Uint8Array([255]))).toBe(255)
+			expect(bytesToNumber(new Uint8Array([1, 0]))).toBe(256)
+		})
+
+		it('should handle empty bytes as zero', () => {
+			expect(bytesToNumber(new Uint8Array([]))).toBe(0)
+		})
+
+		it('should handle single byte values', () => {
+			expect(bytesToNumber(new Uint8Array([0]))).toBe(0)
+			expect(bytesToNumber(new Uint8Array([1]))).toBe(1)
+			expect(bytesToNumber(new Uint8Array([127]))).toBe(127)
+			expect(bytesToNumber(new Uint8Array([128]))).toBe(128)
+			expect(bytesToNumber(new Uint8Array([255]))).toBe(255)
+		})
+
+		it('should handle multi-byte values', () => {
+			expect(bytesToNumber(new Uint8Array([0, 1]))).toBe(1)
+			expect(bytesToNumber(new Uint8Array([0xff, 0xff]))).toBe(65535)
+			expect(bytesToNumber(new Uint8Array([1, 0, 0]))).toBe(65536)
+		})
+
+		it('should handle signed integers (two\'s complement)', () => {
+			// 0xff as signed 8-bit is -1
+			expect(bytesToNumber(new Uint8Array([0xff]), { signed: true })).toBe(-1)
+			// 0x80 as signed 8-bit is -128
+			expect(bytesToNumber(new Uint8Array([0x80]), { signed: true })).toBe(-128)
+			// 0x7f as signed 8-bit is 127 (positive)
+			expect(bytesToNumber(new Uint8Array([0x7f]), { signed: true })).toBe(127)
+			// 0xffff as signed 16-bit is -1
+			expect(bytesToNumber(new Uint8Array([0xff, 0xff]), { signed: true })).toBe(-1)
+		})
+
+		it('should throw on values exceeding safe integer range', () => {
+			// 9007199254740993 (MAX_SAFE_INTEGER + 1) = 0x20000000000001
+			const largeBytes = new Uint8Array([0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01])
+			expect(() => bytesToNumber(largeBytes)).toThrow('outside safe integer range')
+		})
+
+		it('should be inverse of numberToHex + hexToBytes', () => {
+			const testValues = [0, 1, 255, 256, 65535, 1000000]
+			for (const value of testValues) {
+				const hex = numberToHex(value)
+				const bytes = hexToBytes(hex)
+				expect(bytesToNumber(bytes)).toBe(value)
+			}
 		})
 	})
 })
