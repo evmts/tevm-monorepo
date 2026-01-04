@@ -339,6 +339,40 @@ export function isBytes(value) {
 	return /** @type {any} */ (value).BYTES_PER_ELEMENT === 1 && /** @type {any} */ (value).constructor.name === 'Uint8Array'
 }
 
+/**
+ * Convert a string to hex encoding.
+ * Native implementation that matches viem's stringToHex API.
+ * Uses TextEncoder for UTF-8 encoding.
+ * @param {string} value - The string to convert
+ * @param {Object} [opts] - Options
+ * @param {number} [opts.size] - Size in bytes for padding (pads with null bytes on the right)
+ * @returns {import('viem').Hex} The hex string (e.g., '0x68656c6c6f' for 'hello')
+ * @example
+ * ```javascript
+ * import { stringToHex } from '@tevm/utils'
+ * stringToHex('hello') // '0x68656c6c6f'
+ * stringToHex('') // '0x'
+ * stringToHex('hello', { size: 8 }) // '0x68656c6c6f000000' (padded to 8 bytes)
+ * ```
+ */
+export function stringToHex(value, opts) {
+	const encoder = new TextEncoder()
+	const bytes = encoder.encode(value)
+
+	// If size is specified, we need to handle padding
+	if (opts?.size) {
+		if (bytes.length > opts.size) {
+			throw new Error(`String "${value}" (${bytes.length} bytes) exceeds ${opts.size} byte size`)
+		}
+		// Create padded array
+		const paddedBytes = new Uint8Array(opts.size)
+		paddedBytes.set(bytes)
+		return bytesToHex(paddedBytes)
+	}
+
+	return bytesToHex(bytes)
+}
+
 export {
 	bytesToBigInt,
 	bytesToBigint,
@@ -368,7 +402,6 @@ export {
 	parseEther,
 	parseGwei,
 	serializeTransaction,
-	stringToHex,
 	toBytes,
 	toHex,
 	toRlp,

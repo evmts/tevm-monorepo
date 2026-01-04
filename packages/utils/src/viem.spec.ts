@@ -358,4 +358,45 @@ describe('native implementations (migrated from viem)', () => {
 			expect(isBytes({ 0: 1, 1: 2, length: 2 })).toBe(false)
 		})
 	})
+
+	describe('stringToHex', () => {
+		it('should convert basic ASCII strings', () => {
+			expect(stringToHex('hello')).toBe('0x68656c6c6f')
+			expect(stringToHex('Hello')).toBe('0x48656c6c6f')
+			expect(stringToHex('123')).toBe('0x313233')
+		})
+
+		it('should convert empty string to 0x', () => {
+			expect(stringToHex('')).toBe('0x')
+		})
+
+		it('should handle single characters', () => {
+			expect(stringToHex('a')).toBe('0x61')
+			expect(stringToHex('Z')).toBe('0x5a')
+			expect(stringToHex('0')).toBe('0x30')
+		})
+
+		it('should handle Unicode/UTF-8 characters', () => {
+			// Euro sign (€) is 3 bytes in UTF-8: 0xe2 0x82 0xac
+			expect(stringToHex('€')).toBe('0xe282ac')
+			// Japanese character (日) is 3 bytes in UTF-8
+			expect(stringToHex('日')).toBe('0xe697a5')
+			// Emoji (😀) is 4 bytes in UTF-8
+			expect(stringToHex('😀')).toBe('0xf09f9880')
+		})
+
+		it('should pad to specified size', () => {
+			// 'hello' is 5 bytes, pad to 8 bytes with null bytes
+			expect(stringToHex('hello', { size: 8 })).toBe('0x68656c6c6f000000')
+			// 'hi' is 2 bytes, pad to 4 bytes
+			expect(stringToHex('hi', { size: 4 })).toBe('0x68690000')
+			// empty string padded to 4 bytes
+			expect(stringToHex('', { size: 4 })).toBe('0x00000000')
+		})
+
+		it('should throw when string exceeds specified size', () => {
+			expect(() => stringToHex('hello', { size: 3 })).toThrow('exceeds 3 byte size')
+			expect(() => stringToHex('hello world', { size: 5 })).toThrow('exceeds 5 byte size')
+		})
+	})
 })
