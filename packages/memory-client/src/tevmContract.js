@@ -21,7 +21,8 @@ import { contractHandler } from '@tevm/actions'
  * @example
  * ```typescript
  * import { tevmContract } from 'tevm/actions'
- * import { createClient, http, parseAbi } from 'viem'
+ * import { createClient } from 'viem'
+ * import { http, parseAbi } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  *

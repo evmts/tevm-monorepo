@@ -25,7 +25,8 @@ import { createTransport } from '@tevm/utils'
  *
  * @example
  * ```typescript
- * import { createClient, http } from 'viem'
+ * import { createClient } from 'viem'
+ * import { http } from '@tevm/utils'
  * import { createTevmTransport } from 'tevm'
  * import { optimism } from 'tevm/common'
  *
