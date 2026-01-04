@@ -118,6 +118,7 @@ export {
 	KECCAK256_RLP_ARRAY,
 	KECCAK256_NULL,
 	KECCAK256_RLP_BYTES,
+	KECCAK256_RLP_ARRAY_BYTES,
 	KECCAK256_NULL_BYTES,
 } from './constants.js'
 // Native implementations (migrated from @ethereumjs/util)

@@ -102,6 +102,18 @@ export const KECCAK256_RLP_BYTES = new Uint8Array([
 ])
 
 /**
+ * Keccak-256 hash of RLP([[]]) as bytes (empty uncles hash).
+ * This is the keccak256 of RLP encoding an empty array of arrays.
+ * @type {Uint8Array}
+ */
+export const KECCAK256_RLP_ARRAY_BYTES = new Uint8Array([
+	29, 204, 77, 232, 222, 199, 93, 122,
+	171, 133, 181, 103, 182, 204, 212, 26,
+	211, 18, 69, 27, 148, 138, 116, 19,
+	240, 161, 66, 253, 64, 212, 147, 71
+])
+
+/**
  * Keccak-256 hash of empty bytes as bytes (empty code hash).
  * @type {Uint8Array}
  */

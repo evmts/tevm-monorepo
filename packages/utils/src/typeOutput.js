@@ -85,7 +85,16 @@ export function toType(input, outputType) {
 	}
 
 	// Handle Uint8Array directly since toBytes doesn't support it
-	const output = input instanceof Uint8Array ? input : toBytes(input)
+	// Also handle Address objects which have a .bytes property
+	let output
+	if (input instanceof Uint8Array) {
+		output = input
+	} else if (typeof input === 'object' && input !== null && input.bytes instanceof Uint8Array) {
+		// Handle Address-like objects with .bytes property
+		output = input.bytes
+	} else {
+		output = toBytes(input)
+	}
 
 	switch (outputType) {
 		case TypeOutput.Uint8Array:
