@@ -101,6 +101,7 @@ export {
 	bytesToBool,
 	bytesToHex,
 	bytesToNumber,
+	concatHex,
 	decodeAbiParameters,
 	decodeErrorResult,
 	decodeEventLog,

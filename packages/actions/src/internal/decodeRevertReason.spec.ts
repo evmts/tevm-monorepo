@@ -1,4 +1,4 @@
-import { concatHex, encodeAbiParameters } from 'viem'
+import { concatHex, encodeAbiParameters } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { decodeRevertReason } from './decodeRevertReason.js'
 

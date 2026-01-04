@@ -1405,6 +1405,7 @@ export function toEventSelector(signature) {
 }
 
 export {
+	concatHex,
 	decodeAbiParameters,
 	decodeErrorResult,
 	decodeEventLog,
