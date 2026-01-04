@@ -1,17 +1,17 @@
 import { describe, expect, it } from 'vitest'
 import {
-	bytesToUnprefixedHex,
-	bytesToUtf8,
 	EthjsAccount,
 	EthjsAddress,
 	randomBytes,
-	setLengthLeft,
 	TypeOutput,
 	toType,
 } from './ethereumjs.js'
-// concatBytes and equalsBytes are now native implementations using @tevm/voltaire
+// Native implementations (migrated from @ethereumjs/util)
+import { bytesToUnprefixedHex } from './bytesToUnprefixedHex.js'
+import { bytesToUtf8 } from './bytesToUtf8.js'
 import { concatBytes } from './concatBytes.js'
 import { equalsBytes } from './equalsBytes.js'
+import { setLengthLeft } from './setLengthLeft.js'
 
 describe('ethereumjs re-exports', () => {
 	it('should properly export EthjsAddress', () => {

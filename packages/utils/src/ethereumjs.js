@@ -1,8 +1,8 @@
 export {
 	Account as EthjsAccount,
 	Address as EthjsAddress,
-	bytesToUnprefixedHex,
-	bytesToUtf8,
+	// bytesToUnprefixedHex - migrated to native implementation in bytesToUnprefixedHex.js
+	// bytesToUtf8 - migrated to native implementation in bytesToUtf8.js
 	// concatBytes - migrated to native implementation in concatBytes.js
 	createAccount,
 	// AsyncEventEmitter was also removed
@@ -19,7 +19,7 @@ export {
 	// ecsign was removed in newer versions of @ethereumjs/util
 	// zeros was also removed
 	randomBytes,
-	setLengthLeft,
+	// setLengthLeft - migrated to native implementation in setLengthLeft.js
 	TypeOutput,
 	toType,
 	ValueEncoding,

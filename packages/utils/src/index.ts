@@ -43,8 +43,6 @@ export { Bloom } from './Bloom.js'
 export type { CreateMemoryDbFn } from './CreateMemoryDbFn.js'
 export { createMemoryDb } from './createMemoryDb.js'
 export {
-	bytesToUnprefixedHex,
-	bytesToUtf8,
 	createAccount,
 	createAddressFromString,
 	createWithdrawal,
@@ -61,7 +59,6 @@ export {
 	KECCAK256_RLP_ARRAY,
 	KeyEncoding,
 	randomBytes,
-	setLengthLeft,
 	TypeOutput,
 	toType,
 	ValueEncoding,
@@ -81,9 +78,12 @@ export {
 	BIGINT_0,
 	BIGINT_1,
 } from './ethereumjs.js'
-// Native implementations using @tevm/voltaire (migrated from @ethereumjs/util)
+// Native implementations (migrated from @ethereumjs/util)
+export { bytesToUnprefixedHex } from './bytesToUnprefixedHex.js'
+export { bytesToUtf8 } from './bytesToUtf8.js'
 export { concatBytes } from './concatBytes.js'
 export { equalsBytes } from './equalsBytes.js'
+export { setLengthLeft } from './setLengthLeft.js'
 export type { MemoryDb } from './MemoryDb.js'
 export * from './prefundedAccounts.js'
 export {
