@@ -2,8 +2,30 @@ import { Block, blockFromRpc } from '@tevm/block'
 import { InvalidBlockError, UnknownBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { numberToHex } from '@tevm/utils'
-import { withRetry } from 'viem'
 import { customTxTypes } from './CUSTOM_Tx_TYPES.js'
+
+/**
+ * Minimal retry helper to replace viem.withRetry during migration
+ * @template T
+ * @param {() => Promise<T>} fn - Function to retry
+ * @param {{ retryCount?: number, delay?: (params: { count: number, error: Error }) => number }} [options] - Retry options
+ * @returns {Promise<T>}
+ */
+async function withRetry(fn, options) {
+	const max = options?.retryCount ?? 3
+	const delayFn = options?.delay ?? (() => 100)
+	let count = 0
+	for (;;) {
+		try {
+			return await fn()
+		} catch (error) {
+			count++
+			if (count > max) throw error
+			const delay = delayFn({ count, error: /** @type {Error} */ (error) })
+			await new Promise((r) => setTimeout(r, delay))
+		}
+	}
+}
 import { isTevmBlockTag } from './isTevmBlockTag.js'
 import { warnOnce } from './warnOnce.js'
 
