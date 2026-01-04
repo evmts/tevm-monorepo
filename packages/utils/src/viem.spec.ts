@@ -814,4 +814,56 @@ describe('native implementations (migrated from viem)', () => {
 			expect(parseGwei('.01')).toBe(10000000n)
 		})
 	})
+
+	describe('keccak256', () => {
+		it('should hash bytes correctly', () => {
+			const hash = keccak256(new Uint8Array([1, 2, 3]))
+			expect(hash).toMatch(/^0x[0-9a-f]{64}$/)
+			// Known keccak256([1,2,3]) hash
+			expect(hash).toBe('0xf1885eda54b7a053318cd41e2093220dab15d65381b1157a3633a83bfd5c9239')
+		})
+
+		it('should hash hex string correctly', () => {
+			const hash = keccak256('0x010203')
+			// Should be same as hashing bytes [1, 2, 3]
+			expect(hash).toBe('0xf1885eda54b7a053318cd41e2093220dab15d65381b1157a3633a83bfd5c9239')
+		})
+
+		it('should hash empty bytes', () => {
+			const hash = keccak256(new Uint8Array([]))
+			// Known keccak256 of empty input
+			expect(hash).toBe('0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470')
+		})
+
+		it('should hash empty hex string', () => {
+			const hash = keccak256('0x')
+			expect(hash).toBe('0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470')
+		})
+
+		it('should return bytes when to="bytes"', () => {
+			const hash = keccak256(new Uint8Array([1, 2, 3]), 'bytes')
+			expect(hash).toBeInstanceOf(Uint8Array)
+			expect(hash.length).toBe(32)
+		})
+
+		it('should hash "hello" correctly', () => {
+			// "hello" as hex is 0x68656c6c6f
+			const hash = keccak256('0x68656c6c6f')
+			// Known keccak256 of "hello"
+			expect(hash).toBe('0x1c8aff950685c2ed4bc3174f3472287b56d9517b9c948127319a09a7a36deac8')
+		})
+
+		it('should produce consistent results for same input', () => {
+			const input = new Uint8Array([0xde, 0xad, 0xbe, 0xef])
+			const hash1 = keccak256(input)
+			const hash2 = keccak256(input)
+			expect(hash1).toBe(hash2)
+		})
+
+		it('should produce different results for different inputs', () => {
+			const hash1 = keccak256(new Uint8Array([1]))
+			const hash2 = keccak256(new Uint8Array([2]))
+			expect(hash1).not.toBe(hash2)
+		})
+	})
 })

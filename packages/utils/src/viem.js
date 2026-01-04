@@ -2,6 +2,7 @@
 // Migration note: bytesToHex and hexToBytes now use native implementations instead of viem (following voltaire pattern)
 export { formatAbi, parseAbi } from 'abitype'
 export { mnemonicToAccount } from 'viem/accounts'
+import { keccak_256 } from '@noble/hashes/sha3.js'
 
 /**
  * Convert bytes to hex string.
@@ -650,6 +651,33 @@ export function parseGwei(gwei) {
 	return isNegative ? -result : result
 }
 
+/**
+ * Compute Keccak-256 hash.
+ * Native implementation that matches viem's keccak256 API.
+ * Uses @noble/hashes for the underlying implementation (same as voltaire).
+ * @param {Uint8Array | import('viem').Hex} value - The value to hash (bytes or hex string)
+ * @param {'bytes' | 'hex'} [to='hex'] - Output format: 'hex' returns Hex string, 'bytes' returns Uint8Array
+ * @returns {import('viem').Hex | Uint8Array} The Keccak-256 hash
+ * @example
+ * ```javascript
+ * import { keccak256 } from '@tevm/utils'
+ * // Hash bytes
+ * keccak256(new Uint8Array([1, 2, 3])) // '0x...' (64 hex chars)
+ * // Hash hex string
+ * keccak256('0x010203') // '0x...' (64 hex chars)
+ * // Get bytes output
+ * keccak256('0x010203', 'bytes') // Uint8Array(32)
+ * ```
+ */
+export function keccak256(value, to = 'hex') {
+	// Convert hex string to bytes if needed
+	const bytes = typeof value === 'string' ? hexToBytes(value) : value
+	// Hash using noble/hashes
+	const hash = keccak_256(bytes)
+	// Return in requested format
+	return to === 'bytes' ? hash : bytesToHex(hash)
+}
+
 export {
 	decodeAbiParameters,
 	decodeErrorResult,
@@ -668,7 +696,6 @@ export {
 	fromHex,
 	fromRlp,
 	getAddress,
-	keccak256,
 	serializeTransaction,
 	toBytes,
 	toHex,
