@@ -10,6 +10,7 @@ import {
 	formatAbi,
 	formatEther,
 	formatGwei,
+	formatLog,
 	fromBytes,
 	fromHex,
 	getAddress,
@@ -1187,6 +1188,130 @@ describe('native implementations (migrated from viem)', () => {
 			const bytes = toBytes(original)
 			const result = fromBytes(bytes, 'string')
 			expect(result).toBe(original)
+		})
+	})
+
+	describe('formatLog', () => {
+		it('should format a complete RPC log', () => {
+			const rpcLog = {
+				address: '0x1234567890123456789012345678901234567890',
+				blockHash: '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890',
+				blockNumber: '0x1a4',
+				data: '0x1234',
+				logIndex: '0x5',
+				transactionHash: '0x9876543210987654321098765432109876543210987654321098765432109876',
+				transactionIndex: '0x2',
+				topics: ['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'],
+				removed: false,
+			}
+
+			const log = formatLog(rpcLog)
+
+			expect(log.address).toBe('0x1234567890123456789012345678901234567890')
+			expect(log.blockHash).toBe('0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890')
+			expect(log.blockNumber).toBe(420n)
+			expect(log.data).toBe('0x1234')
+			expect(log.logIndex).toBe(5)
+			expect(log.transactionHash).toBe('0x9876543210987654321098765432109876543210987654321098765432109876')
+			expect(log.transactionIndex).toBe(2)
+			expect(log.topics).toEqual(['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'])
+			expect(log.removed).toBe(false)
+		})
+
+		it('should handle null/undefined values for pending logs', () => {
+			const rpcLog = {
+				address: '0x1234567890123456789012345678901234567890',
+				// No blockHash, blockNumber, logIndex, transactionHash, transactionIndex
+				data: '0x',
+				topics: [],
+			}
+
+			const log = formatLog(rpcLog)
+
+			expect(log.address).toBe('0x1234567890123456789012345678901234567890')
+			expect(log.blockHash).toBe(null)
+			expect(log.blockNumber).toBe(null)
+			expect(log.logIndex).toBe(null)
+			expect(log.transactionHash).toBe(null)
+			expect(log.transactionIndex).toBe(null)
+		})
+
+		it('should include args and eventName when eventName is provided', () => {
+			const rpcLog = {
+				address: '0x1234567890123456789012345678901234567890',
+				blockHash: '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890',
+				blockNumber: '0x1',
+				logIndex: '0x0',
+				transactionHash: '0x9876543210987654321098765432109876543210987654321098765432109876',
+				transactionIndex: '0x0',
+				topics: [],
+			}
+
+			const args = { from: '0x1111111111111111111111111111111111111111', to: '0x2222222222222222222222222222222222222222', value: 1000n }
+			const log = formatLog(rpcLog, { args, eventName: 'Transfer' })
+
+			expect(log.eventName).toBe('Transfer')
+			expect(log.args).toEqual(args)
+		})
+
+		it('should NOT include args when eventName is not provided', () => {
+			const rpcLog = {
+				address: '0x1234567890123456789012345678901234567890',
+				blockHash: '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890',
+				blockNumber: '0x1',
+				logIndex: '0x0',
+				transactionHash: '0x9876543210987654321098765432109876543210987654321098765432109876',
+				transactionIndex: '0x0',
+				topics: [],
+			}
+
+			const args = { some: 'data' }
+			const log = formatLog(rpcLog, { args })
+
+			// Without eventName, args should NOT be included
+			expect(log.eventName).toBeUndefined()
+			expect(log.args).toBeUndefined()
+		})
+
+		it('should handle hex string zero values correctly', () => {
+			const rpcLog = {
+				address: '0x0000000000000000000000000000000000000000',
+				blockHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+				blockNumber: '0x0',
+				logIndex: '0x0',
+				transactionHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+				transactionIndex: '0x0',
+				topics: [],
+			}
+
+			const log = formatLog(rpcLog)
+
+			// Zero values are still truthy strings, so they should be converted (not null)
+			expect(log.blockHash).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
+			expect(log.blockNumber).toBe(0n)
+			expect(log.logIndex).toBe(0)
+			expect(log.transactionHash).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
+			expect(log.transactionIndex).toBe(0)
+		})
+
+		it('should preserve all original properties via spread', () => {
+			const rpcLog = {
+				address: '0x1234567890123456789012345678901234567890',
+				blockHash: '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890',
+				blockNumber: '0x1',
+				logIndex: '0x0',
+				transactionHash: '0x9876543210987654321098765432109876543210987654321098765432109876',
+				transactionIndex: '0x0',
+				topics: ['0xabc123'],
+				data: '0xdeadbeef',
+				removed: true,
+			}
+
+			const log = formatLog(rpcLog)
+
+			expect(log.topics).toEqual(['0xabc123'])
+			expect(log.data).toBe('0xdeadbeef')
+			expect(log.removed).toBe(true)
 		})
 	})
 })

@@ -1247,6 +1247,74 @@ export function fromRlp(value, to = /** @type {TTo} */ ('hex')) {
 	return /** @type {any} */ (toHexOutput(result.value))
 }
 
+/**
+ * @typedef {Object} RpcLog
+ * @property {string} [address] - Contract address
+ * @property {string} [blockHash] - Block hash
+ * @property {string} [blockNumber] - Block number as hex
+ * @property {string} [data] - Log data
+ * @property {string} [logIndex] - Log index as hex
+ * @property {string} [transactionHash] - Transaction hash
+ * @property {string} [transactionIndex] - Transaction index as hex
+ * @property {string[]} [topics] - Log topics
+ * @property {boolean} [removed] - Whether log was removed
+ */
+
+/**
+ * @typedef {Object} Log
+ * @property {string} [address] - Contract address
+ * @property {string | null} blockHash - Block hash or null if pending
+ * @property {bigint | null} blockNumber - Block number or null if pending
+ * @property {string} [data] - Log data
+ * @property {number | null} logIndex - Log index or null if pending
+ * @property {string | null} transactionHash - Transaction hash or null if pending
+ * @property {number | null} transactionIndex - Transaction index or null if pending
+ * @property {string[]} [topics] - Log topics
+ * @property {boolean} [removed] - Whether log was removed
+ * @property {unknown} [args] - Decoded event args (when eventName is provided)
+ * @property {string} [eventName] - Event name (when provided)
+ */
+
+/**
+ * Format a raw RPC log object into a structured Log object.
+ * Native implementation that matches viem's formatLog API.
+ * Converts hex string numbers to native JavaScript types (bigint, number).
+ * @param {Partial<RpcLog>} log - The raw RPC log object
+ * @param {Object} [opts] - Options
+ * @param {unknown} [opts.args] - Decoded event arguments
+ * @param {string} [opts.eventName] - Event name for the log
+ * @returns {Log} The formatted log object
+ * @example
+ * ```javascript
+ * import { formatLog } from '@tevm/utils'
+ * const rpcLog = {
+ *   address: '0x...',
+ *   blockHash: '0x...',
+ *   blockNumber: '0x1a4',
+ *   logIndex: '0x0',
+ *   transactionHash: '0x...',
+ *   transactionIndex: '0x1',
+ *   topics: ['0x...'],
+ *   data: '0x...'
+ * }
+ * const log = formatLog(rpcLog)
+ * // { address: '0x...', blockHash: '0x...', blockNumber: 420n, logIndex: 0, ... }
+ * ```
+ */
+export function formatLog(log, { args, eventName } = {}) {
+	return /** @type {Log} */ ({
+		...log,
+		blockHash: log.blockHash ? log.blockHash : null,
+		blockNumber: log.blockNumber ? BigInt(log.blockNumber) : null,
+		logIndex: log.logIndex ? Number(log.logIndex) : null,
+		transactionHash: log.transactionHash ? log.transactionHash : null,
+		transactionIndex: log.transactionIndex
+			? Number(log.transactionIndex)
+			: null,
+		...(eventName ? { args, eventName } : {}),
+	})
+}
+
 export {
 	decodeAbiParameters,
 	decodeErrorResult,
@@ -1260,6 +1328,5 @@ export {
 	encodeFunctionData,
 	encodeFunctionResult,
 	encodePacked,
-	formatLog,
 	serializeTransaction,
 } from 'viem/utils'
