@@ -311,6 +311,34 @@ export function isHex(value, { strict = true } = {}) {
 	return strict ? hexPattern.test(value) : value.startsWith('0x')
 }
 
+/**
+ * Check if a value is a valid bytes array (Uint8Array).
+ * Native implementation that matches viem's isBytes API.
+ * Uses defensive checks for cross-realm compatibility (objects from iframes, etc.).
+ * @param {unknown} value - The value to check
+ * @returns {value is Uint8Array} True if the value is a Uint8Array
+ * @example
+ * ```javascript
+ * import { isBytes } from '@tevm/utils'
+ * isBytes(new Uint8Array([1, 2, 3])) // true
+ * isBytes([1, 2, 3]) // false (regular array)
+ * isBytes('0x1234') // false (hex string)
+ * isBytes(null) // false
+ * ```
+ */
+export function isBytes(value) {
+	if (!value) {
+		return false
+	}
+	if (typeof value !== 'object') {
+		return false
+	}
+	if (!('BYTES_PER_ELEMENT' in value)) {
+		return false
+	}
+	return /** @type {any} */ (value).BYTES_PER_ELEMENT === 1 && /** @type {any} */ (value).constructor.name === 'Uint8Array'
+}
+
 export {
 	bytesToBigInt,
 	bytesToBigint,
@@ -336,7 +364,6 @@ export {
 	getAddress,
 	hexToString,
 	isAddress,
-	isBytes,
 	keccak256,
 	parseEther,
 	parseGwei,

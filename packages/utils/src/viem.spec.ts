@@ -12,6 +12,7 @@ import {
 	hexToBytes,
 	hexToNumber,
 	isAddress,
+	isBytes,
 	isHex,
 	keccak256,
 	numberToHex,
@@ -312,6 +313,49 @@ describe('native implementations (migrated from viem)', () => {
 			expect(isHex('0xgg', { strict: false })).toBe(true)
 			expect(isHex('0x1234', { strict: false })).toBe(true)
 			expect(isHex('hello', { strict: false })).toBe(false)
+		})
+	})
+
+	describe('isBytes', () => {
+		it('should return true for valid Uint8Array', () => {
+			expect(isBytes(new Uint8Array([]))).toBe(true)
+			expect(isBytes(new Uint8Array([0]))).toBe(true)
+			expect(isBytes(new Uint8Array([1, 2, 3]))).toBe(true)
+			expect(isBytes(new Uint8Array([255, 128, 0]))).toBe(true)
+		})
+
+		it('should return false for regular arrays', () => {
+			expect(isBytes([1, 2, 3])).toBe(false)
+			expect(isBytes([])).toBe(false)
+			expect(isBytes([255])).toBe(false)
+		})
+
+		it('should return false for other typed arrays', () => {
+			expect(isBytes(new Uint16Array([1, 2]))).toBe(false)
+			expect(isBytes(new Uint32Array([1]))).toBe(false)
+			expect(isBytes(new Int8Array([1]))).toBe(false)
+			expect(isBytes(new Float32Array([1.0]))).toBe(false)
+		})
+
+		it('should return false for falsy values', () => {
+			expect(isBytes(null)).toBe(false)
+			expect(isBytes(undefined)).toBe(false)
+			expect(isBytes(0)).toBe(false)
+			expect(isBytes('')).toBe(false)
+			expect(isBytes(false)).toBe(false)
+		})
+
+		it('should return false for non-object values', () => {
+			expect(isBytes('0x1234')).toBe(false)
+			expect(isBytes(123)).toBe(false)
+			expect(isBytes(true)).toBe(false)
+			expect(isBytes(Symbol('test'))).toBe(false)
+		})
+
+		it('should return false for objects without BYTES_PER_ELEMENT', () => {
+			expect(isBytes({})).toBe(false)
+			expect(isBytes({ length: 3 })).toBe(false)
+			expect(isBytes({ 0: 1, 1: 2, length: 2 })).toBe(false)
 		})
 	})
 })
