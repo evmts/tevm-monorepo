@@ -1,6 +1,6 @@
 import type { AccountCache, StorageCache } from '@ethereumjs/statemanager'
 import type { LogOptions } from '@tevm/logger'
-import type { Hex } from 'viem'
+import type { Hex } from '@tevm/utils'
 import type { BaseState } from '../BaseState.js'
 import type { ContractCache } from '../ContractCache.js'
 import type { ForkOptions } from './ForkOptions.js'

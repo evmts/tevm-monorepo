@@ -1,5 +1,5 @@
 import type { StorageDump } from '@tevm/common'
-import type { Hex } from 'viem'
+import type { Hex } from '@tevm/utils'
 
 /**
  * A serializable representation of Ethereum state with hex string values.

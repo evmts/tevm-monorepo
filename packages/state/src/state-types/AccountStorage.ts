@@ -1,5 +1,5 @@
 import type { StorageDump } from '@tevm/common'
-import type { Hex } from 'viem'
+import type { Hex } from '@tevm/utils'
 
 /**
  * Represents an Ethereum account storage with native bigint values.
