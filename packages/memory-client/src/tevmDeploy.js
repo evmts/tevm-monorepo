@@ -27,7 +27,8 @@ import { deployHandler } from '@tevm/actions'
  * @example
  * ```typescript
  * import { tevmDeploy } from 'tevm/actions'
- * import { createClient, http, parseAbi } from 'viem'
+ * import { createClient } from 'viem'
+ * import { http, parseAbi } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  *
@@ -84,7 +85,8 @@ import { deployHandler } from '@tevm/actions'
  * ```typescript
  * // Using with direct Solidity imports via TEVM bundler
  * import { tevmDeploy } from 'tevm/actions'
- * import { createClient, http } from 'viem'
+ * import { createClient } from 'viem'
+ * import { http } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  * import { MyToken } from './MyToken.sol' // Direct Solidity import
