@@ -1,4 +1,4 @@
-import type { AbiFunction } from 'abitype'
+import type { AbiFunction } from '@tevm/utils'
 import { expect, test } from 'vitest'
 import { zContractParams } from './zContractParams.js'
 
