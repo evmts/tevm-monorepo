@@ -1510,6 +1510,7 @@ export {
 	createTransport,
 	custom,
 	http,
+	webSocket,
 } from 'viem'
 
 /**

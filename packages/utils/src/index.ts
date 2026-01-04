@@ -153,6 +153,7 @@ export {
 	createTransport,
 	custom,
 	http,
+	webSocket,
 } from './viem.js'
 // Re-export viem types for fork client compatibility
 export type { EIP1193RequestFn, Transport, PublicClient } from 'viem'
