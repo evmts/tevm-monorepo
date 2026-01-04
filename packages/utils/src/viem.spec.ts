@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest'
 import {
 	boolToBytes,
 	boolToHex,
+	bytesToBigInt,
+	bytesToBigint,
 	bytesToBool,
 	bytesToHex,
 	bytesToNumber,
@@ -507,6 +509,71 @@ describe('native implementations (migrated from viem)', () => {
 				const bytes = hexToBytes(hex)
 				expect(bytesToNumber(bytes)).toBe(value)
 			}
+		})
+	})
+
+	describe('bytesToBigInt', () => {
+		it('should convert basic bytes to BigInt', () => {
+			expect(bytesToBigInt(new Uint8Array([1, 164]))).toBe(420n)
+			expect(bytesToBigInt(new Uint8Array([255]))).toBe(255n)
+			expect(bytesToBigInt(new Uint8Array([1, 0]))).toBe(256n)
+		})
+
+		it('should handle empty bytes as zero', () => {
+			expect(bytesToBigInt(new Uint8Array([]))).toBe(0n)
+		})
+
+		it('should handle single byte values', () => {
+			expect(bytesToBigInt(new Uint8Array([0]))).toBe(0n)
+			expect(bytesToBigInt(new Uint8Array([1]))).toBe(1n)
+			expect(bytesToBigInt(new Uint8Array([127]))).toBe(127n)
+			expect(bytesToBigInt(new Uint8Array([128]))).toBe(128n)
+			expect(bytesToBigInt(new Uint8Array([255]))).toBe(255n)
+		})
+
+		it('should handle multi-byte values', () => {
+			expect(bytesToBigInt(new Uint8Array([0, 1]))).toBe(1n)
+			expect(bytesToBigInt(new Uint8Array([0xff, 0xff]))).toBe(65535n)
+			expect(bytesToBigInt(new Uint8Array([1, 0, 0]))).toBe(65536n)
+		})
+
+		it('should handle large values that exceed safe integer range', () => {
+			// 9007199254740993 (MAX_SAFE_INTEGER + 1) = 0x20000000000001
+			const largeBytes = new Uint8Array([0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01])
+			expect(bytesToBigInt(largeBytes)).toBe(9007199254740993n)
+
+			// Very large value: 0xffffffffffffffff = 18446744073709551615
+			const maxUint64 = new Uint8Array([0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff])
+			expect(bytesToBigInt(maxUint64)).toBe(18446744073709551615n)
+		})
+
+		it('should handle signed integers (two\'s complement)', () => {
+			// 0xff as signed 8-bit is -1
+			expect(bytesToBigInt(new Uint8Array([0xff]), { signed: true })).toBe(-1n)
+			// 0x80 as signed 8-bit is -128
+			expect(bytesToBigInt(new Uint8Array([0x80]), { signed: true })).toBe(-128n)
+			// 0x7f as signed 8-bit is 127 (positive)
+			expect(bytesToBigInt(new Uint8Array([0x7f]), { signed: true })).toBe(127n)
+			// 0xffff as signed 16-bit is -1
+			expect(bytesToBigInt(new Uint8Array([0xff, 0xff]), { signed: true })).toBe(-1n)
+		})
+
+		it('should be inverse of hexToBigInt + hexToBytes for bigints', () => {
+			const testValues = [0n, 1n, 255n, 256n, 65535n, 1000000000000000000n]
+			for (const value of testValues) {
+				const hex = `0x${value.toString(16)}` as `0x${string}`
+				const bytes = hexToBytes(hex)
+				expect(bytesToBigInt(bytes)).toBe(value)
+			}
+		})
+
+		it('should have bytesToBigint alias that works identically', () => {
+			// Test that the alias points to the same function
+			expect(bytesToBigint).toBe(bytesToBigInt)
+
+			// Test it works the same way
+			expect(bytesToBigint(new Uint8Array([1, 164]))).toBe(420n)
+			expect(bytesToBigint(new Uint8Array([0xff]), { signed: true })).toBe(-1n)
 		})
 	})
 })

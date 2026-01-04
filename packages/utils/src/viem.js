@@ -417,9 +417,38 @@ export function bytesToNumber(bytes, opts) {
 	return hexToNumber(hex, opts)
 }
 
+/**
+ * Convert bytes to BigInt.
+ * Native implementation that matches viem's bytesToBigInt API.
+ * @param {Uint8Array} bytes - The bytes to convert
+ * @param {Object} [opts] - Options
+ * @param {boolean} [opts.signed] - Whether to treat as signed integer (two's complement)
+ * @param {number} [opts.size] - Expected size in bytes (for validation/padding)
+ * @returns {bigint} The BigInt value
+ * @example
+ * ```javascript
+ * import { bytesToBigInt } from '@tevm/utils'
+ * bytesToBigInt(new Uint8Array([1, 164])) // 420n
+ * bytesToBigInt(new Uint8Array([0xff]), { signed: true }) // -1n
+ * ```
+ */
+export function bytesToBigInt(bytes, opts) {
+	// Use bytesToHex then hexToBigInt for consistency
+	const hex = bytesToHex(bytes)
+	return hexToBigInt(hex, opts)
+}
+
+/**
+ * Alias for bytesToBigInt (viem exports both).
+ * @param {Uint8Array} bytes - The bytes to convert
+ * @param {Object} [opts] - Options
+ * @param {boolean} [opts.signed] - Whether to treat as signed integer (two's complement)
+ * @param {number} [opts.size] - Expected size in bytes (for validation/padding)
+ * @returns {bigint} The BigInt value
+ */
+export const bytesToBigint = bytesToBigInt
+
 export {
-	bytesToBigInt,
-	bytesToBigint,
 	decodeAbiParameters,
 	decodeErrorResult,
 	decodeEventLog,
