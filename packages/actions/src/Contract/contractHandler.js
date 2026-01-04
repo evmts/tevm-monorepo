@@ -1,7 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { DecodeFunctionDataError, InvalidRequestError, RevertError } from '@tevm/errors'
-import { decodeFunctionResult, encodeFunctionData, isHex } from '@tevm/utils'
-import { getContractError, RawContractError } from 'viem'
+import { decodeFunctionResult, encodeFunctionData, getContractError, isHex, RawContractError } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateContractParams } from './validateContractParams.js'

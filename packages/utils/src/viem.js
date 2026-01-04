@@ -1419,3 +1419,6 @@ export {
 	encodePacked,
 	serializeTransaction,
 } from 'viem/utils'
+
+// Contract error handling utilities re-exported from viem
+export { getContractError, RawContractError } from 'viem'

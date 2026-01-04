@@ -143,6 +143,8 @@ export {
 	toFunctionSelector,
 	toHex,
 	toRlp,
+	getContractError,
+	RawContractError,
 } from './viem.js'
 // GenesisState is now in @ethereumjs/common, but we need the account-based GenesisState
 // which seems to have been removed. Let's define it here for backward compatibility.
