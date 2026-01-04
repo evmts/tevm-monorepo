@@ -949,6 +949,304 @@ export function fromBytes(bytes, toOrOpts) {
 	}
 }
 
+/**
+ * Encode a length as RLP length bytes.
+ * @param {number} length - The length to encode
+ * @param {number} offset - The base offset (0x80 for strings, 0xc0 for lists)
+ * @returns {Uint8Array} The RLP length prefix bytes
+ */
+function encodeLength(length, offset) {
+	if (length < 56) {
+		return new Uint8Array([offset + length])
+	}
+	// Encode length as minimal big-endian bytes
+	const lengthBytes = []
+	let temp = length
+	while (temp > 0) {
+		lengthBytes.unshift(temp & 0xff)
+		temp = Math.floor(temp / 256)
+	}
+	const lengthOfLength = lengthBytes.length
+	const result = new Uint8Array(1 + lengthOfLength)
+	result[0] = offset + 55 + lengthOfLength
+	for (let i = 0; i < lengthOfLength; i++) {
+		result[1 + i] = /** @type {number} */ (lengthBytes[i])
+	}
+	return result
+}
+
+/**
+ * RLP encode a single byte array (string in RLP terminology).
+ * @param {Uint8Array} bytes - The bytes to encode
+ * @returns {Uint8Array} RLP encoded bytes
+ */
+function rlpEncodeBytes(bytes) {
+	// Single byte [0x00, 0x7f] is its own encoding
+	if (bytes.length === 1 && bytes[0] !== undefined && bytes[0] < 0x80) {
+		return bytes
+	}
+	// Otherwise prepend length prefix
+	const prefix = encodeLength(bytes.length, 0x80)
+	const result = new Uint8Array(prefix.length + bytes.length)
+	result.set(prefix, 0)
+	result.set(bytes, prefix.length)
+	return result
+}
+
+/**
+ * RLP encode a list of items.
+ * @param {Array<Uint8Array | Array<any>>} items - The items to encode (already RLP-encoded)
+ * @returns {Uint8Array} RLP encoded list
+ */
+function rlpEncodeList(items) {
+	// First, RLP-encode each item and calculate total payload length
+	const encodedItems = items.map(item => {
+		if (item instanceof Uint8Array) {
+			return rlpEncodeBytes(item)
+		}
+		if (Array.isArray(item)) {
+			return rlpEncodeList(item)
+		}
+		throw new Error(`Cannot RLP encode value of type ${typeof item}`)
+	})
+
+	// Calculate total payload length
+	let totalLength = 0
+	for (const encoded of encodedItems) {
+		totalLength += encoded.length
+	}
+
+	// Prepend list prefix
+	const prefix = encodeLength(totalLength, 0xc0)
+	const result = new Uint8Array(prefix.length + totalLength)
+	result.set(prefix, 0)
+
+	// Copy all encoded items
+	let offset = prefix.length
+	for (const encoded of encodedItems) {
+		result.set(encoded, offset)
+		offset += encoded.length
+	}
+
+	return result
+}
+
+/**
+ * Convert a hex string to bytes for RLP encoding.
+ * @param {string} hex - The hex string (with 0x prefix)
+ * @returns {Uint8Array} The bytes
+ */
+function hexToRlpBytes(hex) {
+	if (typeof hex !== 'string' || !hex.startsWith('0x')) {
+		throw new Error(`Invalid hex value: ${hex}`)
+	}
+	const hexDigits = hex.slice(2)
+	// Handle empty hex '0x' - this should encode as empty bytes
+	if (hexDigits.length === 0) {
+		return new Uint8Array(0)
+	}
+	// Pad odd-length hex strings
+	const paddedHex = hexDigits.length % 2 === 0 ? hexDigits : `0${hexDigits}`
+	const bytes = new Uint8Array(paddedHex.length / 2)
+	for (let i = 0; i < paddedHex.length; i += 2) {
+		bytes[i / 2] = parseInt(paddedHex.slice(i, i + 2), 16)
+	}
+	return bytes
+}
+
+/**
+ * RLP encode a value (polymorphic).
+ * Accepts hex strings, byte arrays, or arrays of either.
+ * Native implementation that matches viem's toRlp API.
+ * @param {import('viem').Hex | Uint8Array | Array<import('viem').Hex | Uint8Array | Array<any>>} value - The value to encode
+ * @param {'hex' | 'bytes'} [to='hex'] - Output format
+ * @returns {import('viem').Hex | Uint8Array} The RLP encoded value
+ * @example
+ * ```javascript
+ * import { toRlp } from '@tevm/utils'
+ * // Encode hex string
+ * toRlp('0x123456789') // '0x850123456789'
+ * // Encode list
+ * toRlp(['0x7f', '0x7f', '0x8081e8']) // '0xc67f7f838081e8'
+ * // Encode bytes
+ * toRlp(new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9])) // '0x89010203040506070809'
+ * // Get bytes output
+ * toRlp('0x123456789', 'bytes') // Uint8Array [133, 1, 35, 69, 103, 137]
+ * ```
+ */
+export function toRlp(value, to = 'hex') {
+	/** @type {Uint8Array} */
+	let encoded
+
+	if (value instanceof Uint8Array) {
+		encoded = rlpEncodeBytes(value)
+	} else if (typeof value === 'string') {
+		// Hex string
+		const bytes = hexToRlpBytes(value)
+		encoded = rlpEncodeBytes(bytes)
+	} else if (Array.isArray(value)) {
+		// List - convert hex strings to bytes first
+		const items = value.map(item => {
+			if (typeof item === 'string') {
+				return hexToRlpBytes(item)
+			}
+			return item
+		})
+		encoded = rlpEncodeList(items)
+	} else {
+		throw new Error(`Cannot RLP encode value of type ${typeof value}`)
+	}
+
+	if (to === 'bytes') {
+		return encoded
+	}
+
+	// Convert to hex
+	return bytesToHex(encoded)
+}
+
+/**
+ * Decode a single RLP item from bytes.
+ * @param {Uint8Array} bytes - The RLP-encoded bytes
+ * @param {number} offset - Starting offset
+ * @returns {{ value: Uint8Array | Array<any>, consumed: number }} Decoded value and bytes consumed
+ */
+function rlpDecodeItem(bytes, offset) {
+	if (offset >= bytes.length) {
+		throw new Error('RLP: Input too short')
+	}
+
+	const prefix = /** @type {number} */ (bytes[offset])
+
+	// Single byte [0x00, 0x7f]
+	if (prefix < 0x80) {
+		return { value: bytes.slice(offset, offset + 1), consumed: 1 }
+	}
+
+	// Short string [0x80, 0xb7]
+	if (prefix <= 0xb7) {
+		const length = prefix - 0x80
+		if (offset + 1 + length > bytes.length) {
+			throw new Error('RLP: Input too short for string')
+		}
+		return { value: bytes.slice(offset + 1, offset + 1 + length), consumed: 1 + length }
+	}
+
+	// Long string [0xb8, 0xbf]
+	if (prefix <= 0xbf) {
+		const lengthOfLength = prefix - 0xb7
+		if (offset + 1 + lengthOfLength > bytes.length) {
+			throw new Error('RLP: Input too short for string length')
+		}
+		let length = 0
+		for (let i = 0; i < lengthOfLength; i++) {
+			length = length * 256 + /** @type {number} */ (bytes[offset + 1 + i])
+		}
+		if (offset + 1 + lengthOfLength + length > bytes.length) {
+			throw new Error('RLP: Input too short for string')
+		}
+		return {
+			value: bytes.slice(offset + 1 + lengthOfLength, offset + 1 + lengthOfLength + length),
+			consumed: 1 + lengthOfLength + length
+		}
+	}
+
+	// Short list [0xc0, 0xf7]
+	if (prefix <= 0xf7) {
+		const length = prefix - 0xc0
+		if (offset + 1 + length > bytes.length) {
+			throw new Error('RLP: Input too short for list')
+		}
+		const items = []
+		let itemOffset = offset + 1
+		const endOffset = offset + 1 + length
+		while (itemOffset < endOffset) {
+			const result = rlpDecodeItem(bytes, itemOffset)
+			items.push(result.value)
+			itemOffset += result.consumed
+		}
+		return { value: items, consumed: 1 + length }
+	}
+
+	// Long list [0xf8, 0xff]
+	const lengthOfLength = prefix - 0xf7
+	if (offset + 1 + lengthOfLength > bytes.length) {
+		throw new Error('RLP: Input too short for list length')
+	}
+	let length = 0
+	for (let i = 0; i < lengthOfLength; i++) {
+		length = length * 256 + /** @type {number} */ (bytes[offset + 1 + i])
+	}
+	if (offset + 1 + lengthOfLength + length > bytes.length) {
+		throw new Error('RLP: Input too short for list')
+	}
+	const items = []
+	let itemOffset = offset + 1 + lengthOfLength
+	const endOffset = offset + 1 + lengthOfLength + length
+	while (itemOffset < endOffset) {
+		const result = rlpDecodeItem(bytes, itemOffset)
+		items.push(result.value)
+		itemOffset += result.consumed
+	}
+	return { value: items, consumed: 1 + lengthOfLength + length }
+}
+
+/**
+ * Convert decoded RLP value to hex format.
+ * @param {Uint8Array | Array<any>} value - The decoded value
+ * @returns {import('viem').Hex | Array<any>} The hex-formatted value
+ */
+function toHexOutput(value) {
+	if (value instanceof Uint8Array) {
+		return bytesToHex(value)
+	}
+	if (Array.isArray(value)) {
+		return value.map(item => toHexOutput(item))
+	}
+	return value
+}
+
+/**
+ * RLP decode a value.
+ * Native implementation that matches viem's fromRlp API.
+ * @template {'hex' | 'bytes'} TTo
+ * @param {import('viem').Hex | Uint8Array} value - The RLP-encoded value
+ * @param {TTo} [to='hex'] - Output format
+ * @returns {TTo extends 'bytes' ? Uint8Array | Array<any> : import('viem').Hex | Array<any>} The decoded value
+ * @example
+ * ```javascript
+ * import { fromRlp } from '@tevm/utils'
+ * // Decode hex string
+ * fromRlp('0x850123456789', 'hex') // '0x123456789'
+ * // Decode list
+ * fromRlp('0xc67f7f838081e8', 'hex') // ['0x7f', '0x7f', '0x8081e8']
+ * // Get bytes output
+ * fromRlp('0x89010203040506070809', 'bytes') // Uint8Array [1, 2, 3, 4, 5, 6, 7, 8, 9]
+ * ```
+ */
+export function fromRlp(value, to = /** @type {TTo} */ ('hex')) {
+	// Convert hex to bytes if needed
+	const bytes = typeof value === 'string' ? hexToRlpBytes(value) : value
+
+	if (bytes.length === 0) {
+		throw new Error('RLP: Cannot decode empty input')
+	}
+
+	const result = rlpDecodeItem(bytes, 0)
+
+	// Verify all bytes were consumed
+	if (result.consumed !== bytes.length) {
+		throw new Error(`RLP: Extra data after decoded value`)
+	}
+
+	if (to === 'bytes') {
+		return /** @type {any} */ (result.value)
+	}
+
+	// Convert to hex output
+	return /** @type {any} */ (toHexOutput(result.value))
+}
+
 export {
 	decodeAbiParameters,
 	decodeErrorResult,
@@ -963,7 +1261,5 @@ export {
 	encodeFunctionResult,
 	encodePacked,
 	formatLog,
-	fromRlp,
 	serializeTransaction,
-	toRlp,
 } from 'viem/utils'
