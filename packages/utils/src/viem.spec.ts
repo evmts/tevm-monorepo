@@ -78,3 +78,66 @@ describe('viem re-exports', () => {
 		expect(ether).toBe('1')
 	})
 })
+
+describe('native implementations (migrated from viem)', () => {
+	describe('bytesToHex', () => {
+		it('should convert empty bytes to 0x', () => {
+			expect(bytesToHex(new Uint8Array([]))).toBe('0x')
+		})
+
+		it('should convert single byte', () => {
+			expect(bytesToHex(new Uint8Array([0]))).toBe('0x00')
+			expect(bytesToHex(new Uint8Array([255]))).toBe('0xff')
+		})
+	})
+
+	describe('hexToBytes', () => {
+		it('should convert empty hex to empty array', () => {
+			expect(hexToBytes('0x')).toEqual(new Uint8Array([]))
+		})
+
+		it('should handle odd-length hex', () => {
+			expect(hexToBytes('0xf')).toEqual(new Uint8Array([0x0f]))
+		})
+
+		it('should throw on invalid hex', () => {
+			expect(() => hexToBytes('invalid')).toThrow()
+			expect(() => hexToBytes('0xgg')).toThrow()
+		})
+	})
+
+	describe('hexToBigInt', () => {
+		it('should handle empty hex', () => {
+			expect(hexToBigInt('0x')).toBe(0n)
+			expect(hexToBigInt('0x0')).toBe(0n)
+		})
+
+		it('should handle signed integers', () => {
+			// 0xff as signed 8-bit is -1
+			expect(hexToBigInt('0xff', { signed: true })).toBe(-1n)
+			// 0x80 as signed 8-bit is -128
+			expect(hexToBigInt('0x80', { signed: true })).toBe(-128n)
+			// 0x7f as signed 8-bit is 127 (positive)
+			expect(hexToBigInt('0x7f', { signed: true })).toBe(127n)
+		})
+
+		it('should throw on invalid hex', () => {
+			expect(() => hexToBigInt('invalid' as `0x${string}`)).toThrow()
+		})
+	})
+
+	describe('hexToNumber', () => {
+		it('should handle zero', () => {
+			expect(hexToNumber('0x0')).toBe(0)
+		})
+
+		it('should handle signed integers', () => {
+			expect(hexToNumber('0xff', { signed: true })).toBe(-1)
+		})
+
+		it('should throw on unsafe integers', () => {
+			// MAX_SAFE_INTEGER + 1 = 9007199254740992 = 0x20000000000000
+			expect(() => hexToNumber('0x20000000000000')).toThrow('outside safe integer range')
+		})
+	})
+})

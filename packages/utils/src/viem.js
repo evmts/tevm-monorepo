@@ -106,6 +106,30 @@ export function hexToBytes(hex) {
 	return bytes
 }
 
+/**
+ * Convert hex string to number.
+ * Native implementation that matches viem's hexToNumber API.
+ * @param {import('viem').Hex} hex - The hex string to convert (must start with '0x')
+ * @param {Object} [opts] - Options
+ * @param {boolean} [opts.signed] - Whether to treat as signed integer
+ * @returns {number} The number value
+ * @throws {Error} If the hex string is invalid or the value is too large for a safe integer
+ * @example
+ * ```javascript
+ * import { hexToNumber } from '@tevm/utils'
+ * const hex = '0xff'
+ * const value = hexToNumber(hex) // 255
+ * ```
+ */
+export function hexToNumber(hex, opts) {
+	const bigIntValue = hexToBigInt(hex, opts)
+	// Check for safe integer range
+	if (bigIntValue > BigInt(Number.MAX_SAFE_INTEGER) || bigIntValue < BigInt(Number.MIN_SAFE_INTEGER)) {
+		throw new Error(`Value ${bigIntValue} is outside safe integer range`)
+	}
+	return Number(bigIntValue)
+}
+
 export {
 	boolToBytes,
 	boolToHex,
@@ -133,7 +157,6 @@ export {
 	fromRlp,
 	getAddress,
 	hexToBool,
-	hexToNumber,
 	hexToString,
 	isAddress,
 	isBytes,
