@@ -1,5 +1,5 @@
 import type { Address } from './abitype.js'
-import { mnemonicToAccount } from 'viem/accounts'
+import { mnemonicToAccount } from './viem.js'
 import { describe, expect, it } from 'vitest'
 import {
 	PREFUNDED_ACCOUNTS,

@@ -20,6 +20,11 @@ export { parseAbi } from 'abitype'
 // Account creation from viem (HD wallet derivation, signing methods)
 export { mnemonicToAccount, privateKeyToAccount } from 'viem/accounts'
 
+/**
+ * Re-export viem's PrivateKeyAccount type for account management.
+ * @typedef {import('viem/accounts').PrivateKeyAccount} PrivateKeyAccount
+ */
+
 // Native privateKeyToAddress implementation using @tevm/voltaire
 export { privateKeyToAddress } from './privateKeyToAddress.js'
 
