@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { hexToBytes } from 'viem'
+import { hexToBytes } from '@tevm/utils'
 
 /**
  * Prefetches storage for all storage slots in the access list

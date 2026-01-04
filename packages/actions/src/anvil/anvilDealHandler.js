@@ -1,6 +1,5 @@
 import { ERC20 } from '@tevm/contract'
-import { numberToHex } from '@tevm/utils'
-import { encodeFunctionData, hexToBigInt } from 'viem'
+import { encodeFunctionData, hexToBigInt, numberToHex } from '@tevm/utils'
 import { contractHandler } from '../Contract/contractHandler.js'
 import { ethCreateAccessListProcedure } from '../eth/ethCreateAccessListProcedure.js'
 import { getStorageAtHandler } from '../eth/getStorageAtHandler.js'

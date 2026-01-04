@@ -1,6 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { bytesToHex, hexToBytes, parseAbi, serializeTransaction } from '@tevm/utils'
-import { decodeFunctionResult, encodeFunctionData } from 'viem'
+import { bytesToHex, decodeFunctionResult, encodeFunctionData, hexToBytes, parseAbi, serializeTransaction } from '@tevm/utils'
 
 const abi = parseAbi([
 	'function getL1GasUsed(bytes memory _data) public view returns (uint256)',

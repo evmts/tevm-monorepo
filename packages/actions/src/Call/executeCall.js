@@ -1,5 +1,5 @@
 import { runTx } from '@tevm/vm'
-import { bytesToHex } from 'viem'
+import { bytesToHex } from '@tevm/utils'
 import { evmInputToImpersonatedTx } from '../internal/evmInputToImpersonatedTx.js'
 import { runCallWithTrace } from '../internal/runCallWithTrace.js'
 import { setupPrefetchProxy } from '../internal/setupPrefetchProxy.js'
