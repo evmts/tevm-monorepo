@@ -1,5 +1,5 @@
 import { createTevmNode } from '@tevm/node'
-import { parseEther } from 'viem'
+import { parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { getBalanceHandler } from '../eth/getBalanceHandler.js'
 import { anvilAddBalanceHandler } from './anvilAddBalanceHandler.js'
