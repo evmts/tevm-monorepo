@@ -1,7 +1,7 @@
 // All these are needed to use tevm and there is no reason to reinvent the wheel on these viem utils
 // Migration note: bytesToHex and hexToBytes now use native implementations instead of viem (following voltaire pattern)
 export { formatAbi, parseAbi } from 'abitype'
-export { mnemonicToAccount } from 'viem/accounts'
+export { mnemonicToAccount, privateKeyToAccount } from 'viem/accounts'
 import { keccak_256 } from '@noble/hashes/sha3.js'
 
 /**
@@ -396,6 +396,35 @@ export function hexToString(hex, _opts = undefined) {
 	const bytes = hexToBytes(hex)
 	const decoder = new TextDecoder('utf-8')
 	return decoder.decode(bytes)
+}
+
+/**
+ * Convert a UTF-8 string to bytes (Uint8Array).
+ * Native implementation that matches viem's stringToBytes API.
+ * @param {string} value - The string to convert
+ * @param {Object} [opts] - Options
+ * @param {number} [opts.size] - Size in bytes for padding
+ * @returns {Uint8Array} The byte array
+ * @example
+ * ```javascript
+ * import { stringToBytes } from '@tevm/utils'
+ * stringToBytes('hello') // Uint8Array([104, 101, 108, 108, 111])
+ * stringToBytes('') // Uint8Array([])
+ * stringToBytes('hello', { size: 8 }) // Uint8Array([104, 101, 108, 108, 111, 0, 0, 0])
+ * ```
+ */
+export function stringToBytes(value, opts) {
+	const encoder = new TextEncoder()
+	const bytes = encoder.encode(value)
+	if (opts?.size) {
+		if (bytes.length > opts.size) {
+			throw new Error(`String "${value}" (${bytes.length} bytes) exceeds ${opts.size} byte size`)
+		}
+		const paddedBytes = new Uint8Array(opts.size)
+		paddedBytes.set(bytes)
+		return paddedBytes
+	}
+	return bytes
 }
 
 /**
@@ -1429,6 +1458,8 @@ export { getContractError, RawContractError } from 'viem'
 export {
 	createPublicClient,
 	createTransport,
+	custom,
+	http,
 } from 'viem'
 
 /**

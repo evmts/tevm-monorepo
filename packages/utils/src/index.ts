@@ -132,12 +132,14 @@ export {
 	isHex,
 	keccak256,
 	mnemonicToAccount,
+	privateKeyToAccount,
 	numberToBytes,
 	numberToHex,
 	parseAbi,
 	parseEther,
 	parseGwei,
 	serializeTransaction,
+	stringToBytes,
 	stringToHex,
 	toBytes,
 	toEventSelector,
@@ -148,6 +150,8 @@ export {
 	RawContractError,
 	createPublicClient,
 	createTransport,
+	custom,
+	http,
 } from './viem.js'
 // Re-export viem types for fork client compatibility
 export type { EIP1193RequestFn, Transport, PublicClient } from 'viem'

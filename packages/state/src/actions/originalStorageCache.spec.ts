@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { numberToBytes } from 'viem'
+import { numberToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { originalStorageCache } from './originalStorageCache.js'

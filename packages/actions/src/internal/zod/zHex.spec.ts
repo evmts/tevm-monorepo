@@ -1,4 +1,4 @@
-import type { Hex } from 'viem'
+import type { Hex } from '@tevm/utils'
 import { describe, expect, test } from 'vitest'
 import type { z } from 'zod'
 import { zHex } from './zHex.js'
