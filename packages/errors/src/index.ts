@@ -199,6 +199,8 @@ export {
 } from './input/index.js'
 export * from './requestErrors.js'
 export * from './rpcErrorToMessage.js'
+export * from './rpcErrors.js'
+export * from './contractErrors.js'
 export {
 	DecodeFunctionDataError,
 	EncodeFunctionReturnDataError,

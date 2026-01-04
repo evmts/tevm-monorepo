@@ -1,5 +1,6 @@
 // All these are needed to use tevm and there is no reason to reinvent the wheel on these viem utils
 // Migration note: bytesToHex and hexToBytes now use native implementations instead of viem (following voltaire pattern)
+// TODO(voltaire): ABI encoding/decoding functions are candidates for @tevm/voltaire migration once it's fully integrated
 export { formatAbi, parseAbi } from 'abitype'
 export { mnemonicToAccount, privateKeyToAccount } from 'viem/accounts'
 import { keccak_256 } from '@noble/hashes/sha3.js'
@@ -2026,6 +2027,8 @@ export function serializeTransaction(transaction, signature) {
 	return serializeLegacyTransaction(/** @type {TransactionSerializableLegacy} */ (transaction), signature)
 }
 
+// ABI encoding/decoding functions from viem/utils
+// TODO(voltaire): Migrate these to @tevm/voltaire once it's fully integrated and buildable
 export {
 	decodeAbiParameters,
 	decodeErrorResult,
@@ -2040,8 +2043,13 @@ export {
 	encodeFunctionResult,
 } from 'viem/utils'
 
-// Contract error handling utilities re-exported from viem
-export { getContractError, RawContractError } from 'viem'
+// Contract error handling utilities - native implementation replacing viem
+export { getContractError, RawContractError } from './getContractError.js'
+export {
+	ContractFunctionExecutionError,
+	ContractFunctionRevertedError,
+	ContractFunctionZeroDataError,
+} from '@tevm/errors'
 
 // Transport and client creation functions re-exported from viem
 // These are used for fork client creation in state package
