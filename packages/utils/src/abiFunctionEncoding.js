@@ -78,7 +78,8 @@ export function encodeFunctionData({ abi, functionName, args }) {
  * ```
  */
 export function decodeFunctionData({ abi, data }) {
-	const result = decodeFunction(/** @type {any} */ (abi), data)
+	// Cast data to HexType since voltaire's decodeFunction expects HexType | Uint8Array
+	const result = decodeFunction(/** @type {any} */ (abi), /** @type {any} */ (data))
 	return {
 		functionName: result.name,
 		args: result.params,
