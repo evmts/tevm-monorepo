@@ -3,8 +3,7 @@
 // Copied from viem commit a098c98231d47ccac9bda1a944880b034020a1b5
 // We copy it here for easier developer experience internally and also
 // to lock in these types independent of viem potentially making changes
-import type { Address, Hex } from '@tevm/utils'
-import type { Quantity, RpcTransaction as Transaction, RpcTransactionRequest as TransactionRequest } from 'viem'
+import type { Address, Hex, Quantity, RpcTransaction as Transaction, RpcTransactionRequest as TransactionRequest } from '@tevm/utils'
 import type { Hash } from './misc.js'
 
 export type TestRpcSchema<TMode extends string> = [
