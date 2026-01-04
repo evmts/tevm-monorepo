@@ -1508,6 +1508,171 @@ export function concatHex(hexValues) {
 	return bytesToHex(new Uint8Array(allBytes))
 }
 
+/**
+ * Encode a value for packed ABI encoding.
+ * @param {string} type - The solidity type
+ * @param {unknown} value - The value to encode
+ * @returns {Uint8Array} The packed encoded bytes
+ */
+function encodePackedValue(type, value) {
+	// Handle arrays first (before checking for uint/int which might match array element types)
+	if (type.endsWith('[]')) {
+		const elementType = type.slice(0, -2)
+		const array = /** @type {unknown[]} */ (value)
+		const parts = []
+		for (const item of array) {
+			parts.push(encodePackedValue(elementType, item))
+		}
+		const totalLength = parts.reduce((sum, part) => sum + part.length, 0)
+		const result = new Uint8Array(totalLength)
+		let offset = 0
+		for (const part of parts) {
+			result.set(part, offset)
+			offset += part.length
+		}
+		return result
+	}
+
+	// Fixed arrays
+	const fixedArrayMatch = type.match(/^(.+)\[(\d+)\]$/)
+	if (fixedArrayMatch?.[1] && fixedArrayMatch[2]) {
+		const elementType = fixedArrayMatch[1]
+		const length = parseInt(fixedArrayMatch[2])
+		const array = /** @type {unknown[]} */ (value)
+		if (array.length !== length) {
+			throw new Error(`Invalid ${type} length: expected ${length}, got ${array.length}`)
+		}
+		const parts = []
+		for (const item of array) {
+			parts.push(encodePackedValue(elementType, item))
+		}
+		const totalLength = parts.reduce((sum, part) => sum + part.length, 0)
+		const result = new Uint8Array(totalLength)
+		let offset = 0
+		for (const part of parts) {
+			result.set(part, offset)
+			offset += part.length
+		}
+		return result
+	}
+
+	// Address - 20 bytes
+	if (type === 'address') {
+		const addr = /** @type {string} */ (value)
+		return hexToBytes(/** @type {import('viem').Hex} */ (addr))
+	}
+
+	// Bool - 1 byte
+	if (type === 'bool') {
+		return new Uint8Array([value ? 1 : 0])
+	}
+
+	// String - UTF-8 bytes, no length prefix
+	if (type === 'string') {
+		return new TextEncoder().encode(/** @type {string} */ (value))
+	}
+
+	// Dynamic bytes - raw bytes, no length prefix
+	if (type === 'bytes') {
+		if (typeof value === 'string') {
+			return hexToBytes(/** @type {import('viem').Hex} */ (value))
+		}
+		return /** @type {Uint8Array} */ (value)
+	}
+
+	// Fixed bytes (bytes1-bytes32)
+	if (type.startsWith('bytes') && type.length > 5) {
+		const size = parseInt(type.slice(5))
+		if (size >= 1 && size <= 32) {
+			const bytes = typeof value === 'string'
+				? hexToBytes(/** @type {import('viem').Hex} */ (value))
+				: /** @type {Uint8Array} */ (value)
+			if (bytes.length !== size) {
+				throw new Error(`Invalid ${type} length: expected ${size}, got ${bytes.length}`)
+			}
+			return bytes
+		}
+	}
+
+	// Uint types
+	if (type.startsWith('uint')) {
+		const bits = type === 'uint' ? 256 : parseInt(type.slice(4))
+		const bytes = bits / 8
+		const bigintValue = typeof value === 'number' ? BigInt(value) : /** @type {bigint} */ (value)
+		const result = new Uint8Array(bytes)
+		let v = bigintValue
+		for (let i = bytes - 1; i >= 0; i--) {
+			result[i] = Number(v & 0xffn)
+			v >>= 8n
+		}
+		return result
+	}
+
+	// Int types (two's complement)
+	if (type.startsWith('int')) {
+		const bits = type === 'int' ? 256 : parseInt(type.slice(3))
+		const bytes = bits / 8
+		const bigintValue = typeof value === 'number' ? BigInt(value) : /** @type {bigint} */ (value)
+		// Convert to two's complement if negative
+		const unsigned = bigintValue < 0n ? (1n << BigInt(bits)) + bigintValue : bigintValue
+		const result = new Uint8Array(bytes)
+		let v = unsigned
+		for (let i = bytes - 1; i >= 0; i--) {
+			result[i] = Number(v & 0xffn)
+			v >>= 8n
+		}
+		return result
+	}
+
+	throw new Error(`Unsupported packed type: ${type}`)
+}
+
+/**
+ * ABI encodePacked - compact encoding without padding.
+ * Native implementation that matches viem's encodePacked API.
+ * Used for hash computations where standard ABI encoding would waste space.
+ * @param {readonly string[]} types - Array of Solidity type strings
+ * @param {readonly unknown[]} values - Array of values to encode
+ * @returns {import('viem').Hex} The packed encoded data as a hex string
+ * @example
+ * ```javascript
+ * import { encodePacked } from '@tevm/utils'
+ * // Encode address and uint256 (common for creating signatures)
+ * encodePacked(['address', 'uint256'], ['0x742d35cc6634c0532925a3b844bc9e7595f251e3', 100n])
+ * // => '0x742d35cc6634c0532925a3b844bc9e7595f251e30000000000000000000000000000000000000000000000000000000000000064'
+ *
+ * // Encode for EIP-191 signing
+ * encodePacked(['string', 'bytes32'], ['hello', '0x1234...'])
+ *
+ * // Encode multiple types
+ * encodePacked(['uint8', 'uint16', 'uint32'], [1, 256, 65536])
+ * ```
+ */
+export function encodePacked(types, values) {
+	if (types.length !== values.length) {
+		throw new Error(`Type/value count mismatch: ${types.length} types, ${values.length} values`)
+	}
+
+	const parts = []
+	for (let i = 0; i < types.length; i++) {
+		const type = types[i]
+		const value = values[i]
+		if (!type) continue
+		parts.push(encodePackedValue(type, value))
+	}
+
+	// Concatenate all parts
+	const totalLength = parts.reduce((sum, part) => sum + part.length, 0)
+	const result = new Uint8Array(totalLength)
+	let offset = 0
+	for (const part of parts) {
+		result.set(part, offset)
+		offset += part.length
+	}
+
+	return bytesToHex(result)
+}
+
 export {
 	decodeAbiParameters,
 	decodeErrorResult,
@@ -1520,7 +1685,6 @@ export {
 	encodeEventTopics,
 	encodeFunctionData,
 	encodeFunctionResult,
-	encodePacked,
 	serializeTransaction,
 } from 'viem/utils'
 

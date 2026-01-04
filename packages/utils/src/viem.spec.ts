@@ -8,6 +8,7 @@ import {
 	bytesToHex,
 	bytesToNumber,
 	concatHex,
+	encodePacked,
 	formatAbi,
 	formatEther,
 	formatGwei,
@@ -1420,6 +1421,139 @@ describe('native implementations (migrated from viem)', () => {
 			expect(toEventSelector('Transfer (address, address, uint256)')).toBe(
 				toEventSelector('Transfer(address,address,uint256)'),
 			)
+		})
+	})
+
+	describe('encodePacked', () => {
+		it('should encode uint8 values', () => {
+			expect(encodePacked(['uint8'], [42n])).toBe('0x2a')
+			expect(encodePacked(['uint8'], [0n])).toBe('0x00')
+			expect(encodePacked(['uint8'], [255n])).toBe('0xff')
+		})
+
+		it('should encode uint16 values', () => {
+			expect(encodePacked(['uint16'], [0x1234n])).toBe('0x1234')
+		})
+
+		it('should encode uint32 values', () => {
+			expect(encodePacked(['uint32'], [0x12345678n])).toBe('0x12345678')
+		})
+
+		it('should encode uint256 values', () => {
+			const result = encodePacked(['uint256'], [100n])
+			// uint256 is 32 bytes = 64 hex chars + '0x' prefix
+			expect(result.length).toBe(66)
+			expect(result).toBe('0x0000000000000000000000000000000000000000000000000000000000000064')
+		})
+
+		it('should encode int8 positive values', () => {
+			expect(encodePacked(['int8'], [42n])).toBe('0x2a')
+		})
+
+		it('should encode int8 negative values', () => {
+			expect(encodePacked(['int8'], [-1n])).toBe('0xff')
+			expect(encodePacked(['int8'], [-128n])).toBe('0x80')
+		})
+
+		it('should encode int16 negative values', () => {
+			expect(encodePacked(['int16'], [-1n])).toBe('0xffff')
+		})
+
+		it('should encode address values', () => {
+			const addr = '0x742d35cc6634c0532925a3b844bc9e7595f251e3'
+			const result = encodePacked(['address'], [addr])
+			// address is 20 bytes
+			expect(result.length).toBe(42)
+			expect(result).toBe(addr.toLowerCase())
+		})
+
+		it('should encode bool values', () => {
+			expect(encodePacked(['bool'], [true])).toBe('0x01')
+			expect(encodePacked(['bool'], [false])).toBe('0x00')
+		})
+
+		it('should encode string values', () => {
+			expect(encodePacked(['string'], ['hello'])).toBe('0x68656c6c6f')
+			expect(encodePacked(['string'], [''])).toBe('0x')
+		})
+
+		it('should encode bytes values', () => {
+			expect(encodePacked(['bytes'], ['0x123456'])).toBe('0x123456')
+			expect(encodePacked(['bytes'], ['0x'])).toBe('0x')
+		})
+
+		it('should encode fixed bytes values', () => {
+			expect(encodePacked(['bytes1'], ['0x42'])).toBe('0x42')
+			expect(encodePacked(['bytes4'], ['0x12345678'])).toBe('0x12345678')
+		})
+
+		it('should encode multiple types', () => {
+			const addr = '0x742d35cc6634c0532925a3b844bc9e7595f251e3'
+			const result = encodePacked(['address', 'uint256'], [addr, 100n])
+			// 20 bytes address + 32 bytes uint256 = 52 bytes = 104 hex chars
+			expect(result.length).toBe(106)
+			expect(result.startsWith(addr.toLowerCase())).toBe(true)
+		})
+
+		it('should encode dynamic arrays', () => {
+			const result = encodePacked(['uint8[]'], [[0x12n, 0x34n, 0x56n]])
+			expect(result).toBe('0x123456')
+		})
+
+		it('should encode fixed arrays', () => {
+			const result = encodePacked(['uint256[3]'], [[1n, 2n, 3n]])
+			// 3 * 32 bytes = 96 bytes = 192 hex chars
+			expect(result.length).toBe(194)
+		})
+
+		it('should throw on type/value count mismatch', () => {
+			expect(() => encodePacked(['uint256', 'address'], [42n])).toThrow('Type/value count mismatch')
+		})
+
+		it('should throw on invalid fixed bytes length', () => {
+			expect(() => encodePacked(['bytes4'], ['0x12'])).toThrow('Invalid bytes4 length')
+		})
+
+		it('should throw on invalid fixed array length', () => {
+			expect(() => encodePacked(['uint256[3]'], [[1n, 2n]])).toThrow('Invalid uint256[3] length')
+		})
+
+		it('should handle empty types/values', () => {
+			expect(encodePacked([], [])).toBe('0x')
+		})
+
+		it('should handle address arrays', () => {
+			const addr1 = '0x742d35cc6634c0532925a3b844bc9e7595f251e3'
+			const addr2 = '0x1234567890123456789012345678901234567890'
+			const result = encodePacked(['address[]'], [[addr1, addr2]])
+			// 2 * 20 bytes = 40 bytes = 80 hex chars
+			expect(result.length).toBe(82)
+		})
+
+		it('should work with mixed types for signature verification', () => {
+			// Common use case: creating message hash for signature verification
+			const addr = '0x742d35cc6634c0532925a3b844bc9e7595f251e3'
+			const nonce = 1n
+			const result = encodePacked(['address', 'uint256'], [addr, nonce])
+			expect(result.startsWith('0x')).toBe(true)
+			expect(result.length).toBe(106) // 20 + 32 bytes = 52 bytes = 104 hex chars + 0x
+		})
+
+		it('should throw on unsupported type', () => {
+			// @ts-expect-error - testing invalid type
+			expect(() => encodePacked(['tuple'], [[1n]])).toThrow('Unsupported packed type: tuple')
+		})
+
+		it('should handle bytes as Uint8Array', () => {
+			const bytes = new Uint8Array([0x12, 0x34, 0x56])
+			const result = encodePacked(['bytes'], [bytes])
+			expect(result).toBe('0x123456')
+		})
+
+		it('should handle fixed bytes as Uint8Array', () => {
+			const bytes = new Uint8Array([0x12, 0x34, 0x56, 0x78])
+			const result = encodePacked(['bytes4'], [bytes])
+			expect(result).toBe('0x12345678')
 		})
 	})
 })
