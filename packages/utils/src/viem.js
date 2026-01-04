@@ -1,7 +1,19 @@
-// All these are needed to use tevm and there is no reason to reinvent the wheel on these viem utils
-// Migration note: bytesToHex and hexToBytes now use native implementations instead of viem (following voltaire pattern)
-// TODO(voltaire): ABI encoding/decoding functions are candidates for @tevm/voltaire migration once it's fully integrated
+// @tevm/utils - Native implementations with minimal viem dependencies
+//
+// Migration status (using @tevm/voltaire):
+// ✅ COMPLETED: ABI encoding/decoding (encodeAbiParameters, decodeAbiParameters, encodeFunctionData, etc.)
+// ✅ COMPLETED: All utility functions (hex conversions, RLP, keccak256, etc.)
+// 🔄 REMAINING: parseAbi/formatAbi (from abitype - complex human-readable ABI parser)
+// 🔄 REMAINING: mnemonicToAccount/privateKeyToAccount (viem account objects with signing methods)
+// 🔄 REMAINING: Transport/client functions for forking (createPublicClient, http, etc.)
+//
+// Note: abitype and viem/accounts are kept as they provide complex functionality
+// that would require significant effort to replicate without clear benefit.
+
+// ABI parsing/formatting from abitype (human-readable ABI <-> JSON ABI)
 export { formatAbi, parseAbi } from 'abitype'
+
+// Account creation from viem (HD wallet derivation, signing methods)
 export { mnemonicToAccount, privateKeyToAccount } from 'viem/accounts'
 import { keccak_256 } from '@noble/hashes/sha3.js'
 
