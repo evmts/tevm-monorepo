@@ -2038,14 +2038,15 @@ export {
 	encodeFunctionResult,
 } from './abiFunctionEncoding.js'
 
+// Event encoding/decoding - native implementation using @tevm/voltaire
+export { decodeEventLog, encodeEventTopics } from './abiEventEncoding.js'
+
 // ABI encoding/decoding functions from viem/utils (complex functions not yet migrated)
 // TODO(voltaire): Migrate these remaining functions to @tevm/voltaire
 export {
 	decodeErrorResult,
-	decodeEventLog,
 	encodeDeployData,
 	encodeErrorResult,
-	encodeEventTopics,
 } from 'viem/utils'
 
 // Contract error handling utilities - native implementation replacing viem
