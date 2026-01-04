@@ -152,6 +152,7 @@ export {
 	createPublicClient,
 	createTransport,
 	custom,
+	defineChain,
 	http,
 	webSocket,
 } from './viem.js'
