@@ -1,0 +1,60 @@
+# Ralph Migration Log - Iteration 164
+## Date: 2026-01-04 12:00:00
+
+## Summary
+1. Committed previous iteration's cache migration work
+2. Migrated ethereum-cryptography imports to @tevm/utils
+3. Removed ethereum-cryptography as a dependency from @tevm/state
+
+## Changes Made
+
+### 1. Committed iteration 163 changes
+Committed the AccountCache and StorageCache native implementations:
+- Native AccountCache class with checkpoint/revert/commit support
+- Native StorageCache class with LRU and ORDERED_MAP support
+- Removed @ethereumjs/statemanager dependency from @tevm/state
+
+### 2. Migrated ethereum-cryptography imports
+Replaced `import { hexToBytes } from 'ethereum-cryptography/utils'` with `@tevm/utils`:
+- packages/state/src/actions/getStateRoot.js
+- packages/state/src/actions/putContractCode.spec.ts
+- packages/state/src/actions/hasStateRoot.spec.ts
+- packages/state/src/actions/setStateRoot.spec.ts
+
+### 3. Removed ethereum-cryptography dependency
+- Removed from packages/state/package.json
+
+### 4. Assessed remaining dependencies
+
+#### Remaining @ethereumjs dependencies:
+1. **@tevm/common** - Uses @ethereumjs/common for chain configurations and consensus types
+2. **@tevm/blockchain** - Uses @ethereumjs/blockchain for CasperConsensus, BlockchainEvent types
+3. **@tevm/trie** - Uses @ethereumjs/trie for Merkle Patricia Trie
+4. **@tevm/tx** - Uses @ethereumjs/tx for FeeMarket1559Tx and transaction types
+
+#### Already migrated:
+- ✅ @tevm/state - No more @ethereumjs imports, no ethereum-cryptography
+- ✅ @tevm/errors - Native EVMError implementation
+- ✅ @tevm/utils - Native cache implementations (AccountCache, StorageCache)
+- ✅ @tevm/evm - Minimal stub (ready for guillotine-mini integration)
+- ✅ @tevm/actions - No @ethereumjs imports
+
+## Test Results
+- 48 non-fork state tests pass (100%)
+- Fork-dependent tests require RPC environment variables (TEVM_RPC_URLS_MAINNET)
+
+## Impact
+- @tevm/state dependencies reduced to only workspace packages + viem peer dep
+- Smaller bundle size, fewer transitive dependencies
+
+## Commits
+```
+a32c1a1c9 ⚡ refactor(state): create native AccountCache and StorageCache, removing @ethereumjs/statemanager
+47a391b7b ⚡ refactor(state): migrate ethereum-cryptography imports to @tevm/utils
+```
+
+## Next Steps (prioritized)
+1. **High value**: Create native chain configs to reduce @ethereumjs/common dependency
+2. **Medium value**: Consider native Merkle Patricia Trie to replace @ethereumjs/trie
+3. **Lower priority**: Transaction types (FeeMarket1559Tx) - complex with signing logic
+4. **Future**: Integrate guillotine-mini for EVM execution

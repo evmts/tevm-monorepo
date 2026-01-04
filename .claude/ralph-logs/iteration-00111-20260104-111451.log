@@ -1,0 +1,17 @@
+## Summary
+
+I successfully fixed multiple test failures in the `@tevm/actions` package's `createHandlers.spec.ts`. All 15 tests now pass.
+
+### Key fixes made:
+
+1. **`journal.putAccount` and `deleteAccount` in Evm class** - These were no-op stubs. I implemented them to properly delegate to the stateManager. This fixed the "cannot putContractStorage on non existing account" error.
+
+2. **Added `precompiles` Map to Evm class** - The `warmAddresses2929` function was calling `.entries()` on `vm.evm.precompiles` which was undefined. Added an empty Map to satisfy this interface.
+
+3. **Fixed `withdrawalsRoot` default in BlockHeader** - The default was using `KECCAK256_RLP` (hex string, 66 chars) instead of `KECCAK256_RLP_BYTES` (32 bytes). This caused the "withdrawalsRoot must be 32 bytes, received 66 bytes" error.
+
+4. **Added setters to Account class** - The Account class was immutable with only getters. Added setters for `nonce` and `balance` to allow `runTx.ts` to modify account balances during transaction execution.
+
+5. **Fixed `maxRefundQuotient` param configuration** - Added EIP 1 and EIP 3529 params with `maxRefundQuotient` values, and added EIP 3529 to the default EIPs list. This fixed the "Missing parameter value for maxRefundQuotient" error.
+
+6. **Fixed `setAccountHandler` race condition** - Changed from parallel `Promise.allSettled` to sequential awaiting of `putAccount` before adding storage operations.
