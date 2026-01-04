@@ -1,4 +1,5 @@
-import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
+import { AccountCache, StorageCache } from '@ethereumjs/statemanager'
+import { CacheType } from '@tevm/utils'
 import { createAddress } from '@tevm/address'
 import { InternalError } from '@tevm/errors'
 import { createAccount, hexToBytes, isHex } from '@tevm/utils'
