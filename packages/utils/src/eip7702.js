@@ -10,7 +10,7 @@
  * @see https://eips.ethereum.org/EIPS/eip-7702
  */
 
-import { keccak_256 } from '@noble/hashes/sha3.js'
+import { hash as keccak256 } from '@tevm/voltaire/Keccak256'
 import { secp256k1 } from '@noble/curves/secp256k1.js'
 import { ecrecover } from './ecrecover.js'
 import { Address } from './address.js'
@@ -214,7 +214,7 @@ export function eoaCode7702AuthorizationMessageToSign(input) {
  * ```
  */
 export function eoaCode7702AuthorizationHashedMessageToSign(input) {
-	return keccak_256(eoaCode7702AuthorizationMessageToSign(input))
+	return keccak256(eoaCode7702AuthorizationMessageToSign(input))
 }
 
 /**
@@ -333,7 +333,7 @@ function publicToAddress(pubKey) {
 		throw new Error('Expected pubKey to be of length 64')
 	}
 	// Only take the lower 160bits of the hash
-	return keccak_256(pubKey).subarray(-20)
+	return keccak256(pubKey).subarray(-20)
 }
 
 /**
