@@ -187,12 +187,100 @@ export function numberToHex(value, opts) {
 	return /** @type {import('viem').Hex} */ (`0x${bigIntValue.toString(16)}`)
 }
 
+/**
+ * Convert boolean to hex string.
+ * Native implementation that matches viem's boolToHex API.
+ * @param {boolean} value - The boolean value to convert
+ * @param {Object} [opts] - Options
+ * @param {number} [opts.size] - Size in bytes for padding (e.g., 32 for ABI encoding)
+ * @returns {import('viem').Hex} The hex string ('0x1' for true, '0x0' for false)
+ * @example
+ * ```javascript
+ * import { boolToHex } from '@tevm/utils'
+ * boolToHex(true) // '0x1'
+ * boolToHex(false) // '0x0'
+ * boolToHex(true, { size: 32 }) // '0x0000...0001' (64 chars)
+ * ```
+ */
+export function boolToHex(value, opts) {
+	const hex = value ? '1' : '0'
+	if (opts?.size) {
+		return /** @type {import('viem').Hex} */ (`0x${hex.padStart(opts.size * 2, '0')}`)
+	}
+	return /** @type {import('viem').Hex} */ (`0x${hex}`)
+}
+
+/**
+ * Convert hex string to boolean.
+ * Native implementation that matches viem's hexToBool API.
+ * @param {import('viem').Hex} hex - The hex string to convert (must be '0x0', '0x00', '0x1', '0x01', etc.)
+ * @returns {boolean} The boolean value
+ * @example
+ * ```javascript
+ * import { hexToBool } from '@tevm/utils'
+ * hexToBool('0x1') // true
+ * hexToBool('0x0') // false
+ * hexToBool('0x01') // true
+ * hexToBool('0x00') // false
+ * ```
+ */
+export function hexToBool(hex) {
+	if (typeof hex !== 'string' || !hex.startsWith('0x')) {
+		throw new Error(`Invalid hex value: ${hex}`)
+	}
+	const value = hexToBigInt(hex)
+	return value !== 0n
+}
+
+/**
+ * Convert boolean to bytes.
+ * Native implementation that matches viem's boolToBytes API.
+ * @param {boolean} value - The boolean value to convert
+ * @param {Object} [opts] - Options
+ * @param {number} [opts.size] - Size in bytes for padding
+ * @returns {Uint8Array} The byte array (Uint8Array([1]) for true, Uint8Array([0]) for false)
+ * @example
+ * ```javascript
+ * import { boolToBytes } from '@tevm/utils'
+ * boolToBytes(true) // Uint8Array([1])
+ * boolToBytes(false) // Uint8Array([0])
+ * boolToBytes(true, { size: 4 }) // Uint8Array([0, 0, 0, 1])
+ * ```
+ */
+export function boolToBytes(value, opts) {
+	const size = opts?.size ?? 1
+	const bytes = new Uint8Array(size)
+	if (value) {
+		bytes[size - 1] = 1
+	}
+	return bytes
+}
+
+/**
+ * Convert bytes to boolean.
+ * Native implementation that matches viem's bytesToBool API.
+ * @param {Uint8Array} bytes - The bytes to convert
+ * @returns {boolean} The boolean value (true if any byte is non-zero, false otherwise)
+ * @example
+ * ```javascript
+ * import { bytesToBool } from '@tevm/utils'
+ * bytesToBool(new Uint8Array([1])) // true
+ * bytesToBool(new Uint8Array([0])) // false
+ * bytesToBool(new Uint8Array([0, 0, 0, 1])) // true
+ * ```
+ */
+export function bytesToBool(bytes) {
+	for (let i = 0; i < bytes.length; i++) {
+		if (bytes[i] !== 0) {
+			return true
+		}
+	}
+	return false
+}
+
 export {
-	boolToBytes,
-	boolToHex,
 	bytesToBigInt,
 	bytesToBigint,
-	bytesToBool,
 	bytesToNumber,
 	decodeAbiParameters,
 	decodeErrorResult,
@@ -213,7 +301,6 @@ export {
 	fromHex,
 	fromRlp,
 	getAddress,
-	hexToBool,
 	hexToString,
 	isAddress,
 	isBytes,

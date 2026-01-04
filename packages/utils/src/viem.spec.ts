@@ -1,11 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import {
+	boolToBytes,
 	boolToHex,
+	bytesToBool,
 	bytesToHex,
 	formatAbi,
 	formatEther,
 	getAddress,
 	hexToBigInt,
+	hexToBool,
 	hexToBytes,
 	hexToNumber,
 	isAddress,
@@ -190,6 +193,80 @@ describe('native implementations (migrated from viem)', () => {
 
 		it('should require size for signed encoding', () => {
 			expect(() => numberToHex(-1, { signed: true })).toThrow('Size is required')
+		})
+	})
+
+	describe('boolToHex', () => {
+		it('should convert true to 0x1', () => {
+			expect(boolToHex(true)).toBe('0x1')
+		})
+
+		it('should convert false to 0x0', () => {
+			expect(boolToHex(false)).toBe('0x0')
+		})
+
+		it('should pad to specified size', () => {
+			expect(boolToHex(true, { size: 1 })).toBe('0x01')
+			expect(boolToHex(true, { size: 4 })).toBe('0x00000001')
+			expect(boolToHex(true, { size: 32 })).toBe('0x' + '0'.repeat(63) + '1')
+			expect(boolToHex(false, { size: 4 })).toBe('0x00000000')
+		})
+	})
+
+	describe('hexToBool', () => {
+		it('should convert 0x1 to true', () => {
+			expect(hexToBool('0x1')).toBe(true)
+		})
+
+		it('should convert 0x0 to false', () => {
+			expect(hexToBool('0x0')).toBe(false)
+		})
+
+		it('should handle padded hex', () => {
+			expect(hexToBool('0x01')).toBe(true)
+			expect(hexToBool('0x00')).toBe(false)
+			expect(hexToBool('0x0000000000000000000000000000000000000000000000000000000000000001')).toBe(true)
+			expect(hexToBool('0x0000000000000000000000000000000000000000000000000000000000000000')).toBe(false)
+		})
+
+		it('should throw on invalid hex', () => {
+			expect(() => hexToBool('invalid' as `0x${string}`)).toThrow()
+		})
+	})
+
+	describe('boolToBytes', () => {
+		it('should convert true to Uint8Array([1])', () => {
+			expect(boolToBytes(true)).toEqual(new Uint8Array([1]))
+		})
+
+		it('should convert false to Uint8Array([0])', () => {
+			expect(boolToBytes(false)).toEqual(new Uint8Array([0]))
+		})
+
+		it('should pad to specified size', () => {
+			expect(boolToBytes(true, { size: 1 })).toEqual(new Uint8Array([1]))
+			expect(boolToBytes(true, { size: 4 })).toEqual(new Uint8Array([0, 0, 0, 1]))
+			expect(boolToBytes(false, { size: 4 })).toEqual(new Uint8Array([0, 0, 0, 0]))
+		})
+	})
+
+	describe('bytesToBool', () => {
+		it('should convert Uint8Array([1]) to true', () => {
+			expect(bytesToBool(new Uint8Array([1]))).toBe(true)
+		})
+
+		it('should convert Uint8Array([0]) to false', () => {
+			expect(bytesToBool(new Uint8Array([0]))).toBe(false)
+		})
+
+		it('should handle padded bytes', () => {
+			expect(bytesToBool(new Uint8Array([0, 0, 0, 1]))).toBe(true)
+			expect(bytesToBool(new Uint8Array([0, 0, 0, 0]))).toBe(false)
+			expect(bytesToBool(new Uint8Array([0, 1, 0, 0]))).toBe(true)
+		})
+
+		it('should handle empty array as false', () => {
+			expect(bytesToBool(new Uint8Array([]))).toBe(false)
 		})
 	})
 })
