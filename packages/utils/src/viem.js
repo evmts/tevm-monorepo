@@ -567,6 +567,89 @@ export function parseEther(ether) {
 	return isNegative ? -result : result
 }
 
+/**
+ * Number of wei per gwei (10^9).
+ * @type {bigint}
+ */
+const WEI_PER_GWEI = 1000000000n
+
+/**
+ * Format wei value as gwei string.
+ * Native implementation that matches viem's formatGwei API.
+ * @param {bigint | number} wei - The wei value to format
+ * @returns {string} The formatted gwei value (e.g., '1.5' for 1.5 gwei)
+ * @example
+ * ```javascript
+ * import { formatGwei } from '@tevm/utils'
+ * formatGwei(1000000000n) // '1'
+ * formatGwei(1500000000n) // '1.5'
+ * formatGwei(100000000n) // '0.1'
+ * formatGwei(1n) // '0.000000001'
+ * ```
+ */
+export function formatGwei(wei) {
+	const value = typeof wei === 'bigint' ? wei : BigInt(wei)
+	const isNegative = value < 0n
+	const absValue = isNegative ? -value : value
+
+	const integerPart = absValue / WEI_PER_GWEI
+	const remainder = absValue % WEI_PER_GWEI
+
+	if (remainder === 0n) {
+		return isNegative ? `-${integerPart.toString()}` : integerPart.toString()
+	}
+
+	// Format fractional part with 9 decimals, then trim trailing zeros
+	const fractionalStr = remainder.toString().padStart(9, '0').replace(/0+$/, '')
+	const result = `${integerPart}.${fractionalStr}`
+	return isNegative ? `-${result}` : result
+}
+
+/**
+ * Parse gwei string to wei value.
+ * Native implementation that matches viem's parseGwei API.
+ * @param {string} gwei - The gwei value to parse (e.g., '1.5')
+ * @returns {bigint} The wei value (e.g., 1500000000n)
+ * @example
+ * ```javascript
+ * import { parseGwei } from '@tevm/utils'
+ * parseGwei('1') // 1000000000n
+ * parseGwei('0.1') // 100000000n
+ * parseGwei('1.5') // 1500000000n
+ * parseGwei('-1') // -1000000000n
+ * ```
+ */
+export function parseGwei(gwei) {
+	// Handle negative values
+	const isNegative = gwei.startsWith('-')
+	const absGwei = isNegative ? gwei.slice(1) : gwei
+
+	// Split into integer and fractional parts
+	const parts = absGwei.split('.')
+
+	if (parts.length > 2) {
+		throw new Error(`Invalid gwei value: ${gwei}`)
+	}
+
+	const integerPart = parts[0] || '0'
+	let fractionalPart = parts[1] || ''
+
+	// Truncate or pad fractional part to 9 decimals
+	if (fractionalPart.length > 9) {
+		// Truncate (viem rounds toward zero)
+		fractionalPart = fractionalPart.slice(0, 9)
+	} else {
+		fractionalPart = fractionalPart.padEnd(9, '0')
+	}
+
+	// Combine: integer * 10^9 + fractional
+	const integerWei = BigInt(integerPart) * WEI_PER_GWEI
+	const fractionalWei = BigInt(fractionalPart)
+	const result = integerWei + fractionalWei
+
+	return isNegative ? -result : result
+}
+
 export {
 	decodeAbiParameters,
 	decodeErrorResult,
@@ -580,14 +663,12 @@ export {
 	encodeFunctionData,
 	encodeFunctionResult,
 	encodePacked,
-	formatGwei,
 	formatLog,
 	fromBytes,
 	fromHex,
 	fromRlp,
 	getAddress,
 	keccak256,
-	parseGwei,
 	serializeTransaction,
 	toBytes,
 	toHex,

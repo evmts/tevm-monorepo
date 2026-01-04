@@ -9,6 +9,7 @@ import {
 	bytesToNumber,
 	formatAbi,
 	formatEther,
+	formatGwei,
 	getAddress,
 	hexToBigInt,
 	hexToBool,
@@ -22,6 +23,7 @@ import {
 	numberToHex,
 	parseAbi,
 	parseEther,
+	parseGwei,
 	stringToHex,
 	toBytes,
 	toHex,
@@ -720,6 +722,96 @@ describe('native implementations (migrated from viem)', () => {
 			// While unusual, this tests the `parts[0] || '0'` branch
 			expect(parseEther('.5')).toBe(500000000000000000n)
 			expect(parseEther('.01')).toBe(10000000000000000n)
+		})
+	})
+
+	describe('formatGwei', () => {
+		it('should format 1 gwei correctly', () => {
+			expect(formatGwei(1000000000n)).toBe('1')
+		})
+
+		it('should format decimal values correctly', () => {
+			expect(formatGwei(1500000000n)).toBe('1.5')
+			expect(formatGwei(100000000n)).toBe('0.1')
+			expect(formatGwei(10000000n)).toBe('0.01')
+		})
+
+		it('should format zero correctly', () => {
+			expect(formatGwei(0n)).toBe('0')
+		})
+
+		it('should format 1 wei correctly', () => {
+			expect(formatGwei(1n)).toBe('0.000000001')
+		})
+
+		it('should format large values correctly', () => {
+			expect(formatGwei(123456789012345678901n)).toBe('123456789012.345678901')
+		})
+
+		it('should handle number input', () => {
+			expect(formatGwei(1000000000)).toBe('1')
+		})
+
+		it('should handle negative values', () => {
+			expect(formatGwei(-1000000000n)).toBe('-1')
+			expect(formatGwei(-1500000000n)).toBe('-1.5')
+		})
+
+		it('should trim trailing zeros', () => {
+			expect(formatGwei(1000000000n)).toBe('1')
+			expect(formatGwei(1100000000n)).toBe('1.1')
+			expect(formatGwei(1010000000n)).toBe('1.01')
+		})
+	})
+
+	describe('parseGwei', () => {
+		it('should parse 1 gwei correctly', () => {
+			expect(parseGwei('1')).toBe(1000000000n)
+		})
+
+		it('should parse decimal values correctly', () => {
+			expect(parseGwei('0.1')).toBe(100000000n)
+			expect(parseGwei('0.01')).toBe(10000000n)
+			expect(parseGwei('1.5')).toBe(1500000000n)
+		})
+
+		it('should parse zero correctly', () => {
+			expect(parseGwei('0')).toBe(0n)
+		})
+
+		it('should parse smallest wei value correctly', () => {
+			expect(parseGwei('0.000000001')).toBe(1n)
+		})
+
+		it('should parse large values correctly', () => {
+			expect(parseGwei('1234567890.123456789')).toBe(1234567890123456789n)
+		})
+
+		it('should handle negative values', () => {
+			expect(parseGwei('-1')).toBe(-1000000000n)
+			expect(parseGwei('-0.5')).toBe(-500000000n)
+		})
+
+		it('should truncate excess decimals (more than 9)', () => {
+			// 10 decimal places should truncate to 9
+			expect(parseGwei('0.1234567899')).toBe(123456789n)
+		})
+
+		it('should throw on invalid gwei value with multiple decimal points', () => {
+			expect(() => parseGwei('1.2.3')).toThrow('Invalid gwei value')
+		})
+
+		it('should be inverse of formatGwei', () => {
+			const testValues = ['1', '0.1', '0.01', '123.456', '0.000000001']
+			for (const value of testValues) {
+				expect(formatGwei(parseGwei(value))).toBe(value)
+			}
+		})
+
+		it('should handle edge case with no integer part (.5 format)', () => {
+			// While unusual, this tests the `parts[0] || '0'` branch
+			expect(parseGwei('.5')).toBe(500000000n)
+			expect(parseGwei('.01')).toBe(10000000n)
 		})
 	})
 })
