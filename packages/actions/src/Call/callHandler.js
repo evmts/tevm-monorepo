@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { numberToBytes } from 'viem'
+import { numberToBytes } from '@tevm/utils'
 import { createScript } from '../Contract/createScript.js'
 import { getL1FeeInformationOpStack } from '../internal/getL1FeeInformationOpStack.js'
 import { getPendingClient } from '../internal/getPendingClient.js'

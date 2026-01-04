@@ -421,6 +421,29 @@ export function bytesToNumber(bytes, opts) {
 }
 
 /**
+ * Convert a number to bytes (Uint8Array).
+ * Native implementation that matches viem's numberToBytes API.
+ * @param {number | bigint} value - The number or bigint to convert
+ * @param {Object} [opts] - Options
+ * @param {boolean} [opts.signed] - Whether to encode as signed integer (two's complement)
+ * @param {number} [opts.size] - Size in bytes for padding/signed encoding
+ * @returns {Uint8Array} The byte array
+ * @example
+ * ```javascript
+ * import { numberToBytes } from '@tevm/utils'
+ * numberToBytes(420) // Uint8Array([1, 164])
+ * numberToBytes(0) // Uint8Array([0])
+ * numberToBytes(420, { size: 4 }) // Uint8Array([0, 0, 1, 164])
+ * numberToBytes(-1, { signed: true, size: 1 }) // Uint8Array([255])
+ * ```
+ */
+export function numberToBytes(value, opts) {
+	// Convert number to hex first, then hex to bytes
+	const hex = numberToHex(value, opts)
+	return hexToBytes(hex)
+}
+
+/**
  * Convert bytes to BigInt.
  * Native implementation that matches viem's bytesToBigInt API.
  * @param {Uint8Array} bytes - The bytes to convert

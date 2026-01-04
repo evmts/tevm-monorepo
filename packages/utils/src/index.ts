@@ -131,6 +131,7 @@ export {
 	isHex,
 	keccak256,
 	mnemonicToAccount,
+	numberToBytes,
 	numberToHex,
 	parseAbi,
 	parseEther,
