@@ -1,4 +1,5 @@
-import { AccountCache, CacheType } from '@ethereumjs/statemanager'
+import { AccountCache } from '@ethereumjs/statemanager'
+import { CacheType } from '@tevm/utils'
 import { createAddress } from '@tevm/address'
 import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'

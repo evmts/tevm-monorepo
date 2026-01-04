@@ -1,0 +1,35 @@
+# Ralph Migration Iteration
+
+**Date**: 2026-01-04
+**Files migrated**: 3 files
+
+## Changes Made
+
+1. **packages/utils/src/viem.js**
+   - Added `defineChain` export from viem
+   - Committed: abae039a0
+
+2. **packages/utils/src/index.ts**
+   - Added `defineChain` to the exports list
+   - Committed: abae039a0
+
+3. **packages/common/src/presets/tevmDefault.js**
+   - Replaced `import { defineChain } from 'viem'`
+   - With `import { defineChain } from '@tevm/utils'`
+   - Committed: abae039a0
+
+## Tests
+- TypeScript checks passed for both @tevm/utils and @tevm/common
+- All @tevm/common tests passed with 100% coverage
+
+## Status
+- Committed: abae039a0
+
+## Remaining viem imports in packages/common:
+- `import { optimism as _optimism, foundry } from 'viem/chains'` - chain definitions (viem-specific)
+  These cannot be easily migrated as they are viem chain presets that include formatters, serializers, etc.
+
+## Notes
+- The common package now uses @tevm/utils for defineChain
+- Chain presets from viem/chains are still needed for chain configuration data (optimism, foundry)
+- The next priority should be other core packages with viem imports

@@ -1,0 +1,67 @@
+## Migration Iteration 12 Complete
+
+**Target**: `bytesToBigInt` function in `@tevm/utils`
+
+**Changes**:
+1. Added native `bytesToBigInt` implementation using `bytesToHex` + `hexToBigInt`
+2. Added `bytesToBigint` alias (viem exports both variants)
+3. Removed `bytesToBigInt`/`bytesToBigint` from viem/utils re-exports
+4. Added 8 comprehensive test cases
+
+**Results**:
+- All 82 tests in viem.spec.ts pass (up from 74)
+- All 132 tests in @tevm/utils pass
+- 100% code coverage maintained
+
+**Commit**: `c70eb6a77`
+
+**Remaining viem imports**: 28 functions still need migration (down from 30)
+
+**Next candidates for migration**:
+- `isAddress` (validation function)
+- `getAddress` (checksum conversion)
+- `keccak256` (hash function - may need voltaire integration)
+
+## Details
+
+1. Modified `packages/utils/src/viem.js`:
+   - Added native `bytesToBigInt` function that delegates to bytesToHex + hexToBigInt
+   - Supports signed integers via two's complement (uses existing hexToBigInt signed logic)
+   - Handles large values beyond JavaScript's safe integer range
+   - Added `bytesToBigint` as alias for API compatibility
+   - Removed bytesToBigInt/bytesToBigint from viem/utils re-export block
+
+2. Modified `packages/utils/src/viem.spec.ts`:
+   - Added bytesToBigInt and bytesToBigint to imports
+   - Added 8 new tests for bytesToBigInt:
+     - Basic bytes to BigInt (3 assertions)
+     - Empty bytes as zero (1 assertion)
+     - Single byte values (5 assertions)
+     - Multi-byte values (3 assertions)
+     - Large values that exceed safe integer range (2 assertions)
+     - Signed integers - two's complement (4 assertions)
+     - Inverse of hexToBigInt + hexToBytes (6 test values)
+     - bytesToBigint alias works identically (2 assertions)
+
+## Tests Passed
+- packages/utils/src/viem.spec.ts (82 tests, up from 74)
+- All 132 tests in @tevm/utils pass (132 + 1 skipped)
+- 100% code coverage maintained
+
+## Remaining viem imports in @tevm/utils/src/viem.js (28 remaining):
+- decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+- encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics
+- encodeFunctionData, encodeFunctionResult, encodePacked
+- formatEther, formatGwei, formatLog
+- fromBytes, fromHex, fromRlp
+- getAddress
+- isAddress, keccak256
+- parseEther, parseGwei, serializeTransaction
+- toBytes, toHex, toRlp
+- mnemonicToAccount (from viem/accounts)
+
+## Next Steps
+Possible next targets (simple conversions):
+- isAddress (validation function - regex based)
+- getAddress (checksum conversion - requires keccak256)
+- formatEther/parseEther (simple decimal conversion)

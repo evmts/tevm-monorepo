@@ -1,0 +1,18 @@
+## Summary - Iteration 141
+
+Successfully migrated JSDoc type references in `packages/utils/src/viem.js`:
+
+**Changes made:**
+- Replaced 46 occurrences of `import('viem').Hex` → `import('./hex-types.js').Hex`
+- Replaced 6 occurrences of `import('viem').Address` → `import('./address-types.js').Address`
+
+**Results:**
+- Build successful (tsup dts generation)
+- All 253 tests pass
+
+**Remaining viem dependencies in viem.js:**
+- Complex types for forking: `Transport`, `PublicClient`, `EIP1193RequestFn`
+- Account creation: `mnemonicToAccount`, `privateKeyToAccount` 
+- Transport/client creation: `createPublicClient`, `createTransport`, `custom`, `defineChain`, `http`, `webSocket`
+
+These remaining dependencies are needed for forking functionality and HD wallet operations - complex features that would require significant effort to replace.

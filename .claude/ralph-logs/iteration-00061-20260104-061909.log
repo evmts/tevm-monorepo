@@ -1,0 +1,23 @@
+## Summary
+
+I attempted to migrate `encodeAbiParameters` and `decodeAbiParameters` from viem to native implementations using @tevm/voltaire. 
+
+**Findings:**
+- The core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) are already free of direct viem imports
+- @tevm/utils still has viem dependencies for:
+  1. Account functions (mnemonicToAccount, privateKeyToAccount)
+  2. ABI encoding/decoding functions
+  3. Transport/client functions for forking
+
+**Blocker:**
+Voltaire has a build issue - the `src/jsonrpc/index.ts` file references `./types/index.js` which doesn't exist, preventing the package from building. This blocks the ABI migration.
+
+**Status:**
+- Created an implementation that would work once voltaire builds
+- Reverted all changes since voltaire can't be used as a dependency currently
+- All tests pass after revert
+- Documented the blocker in the iteration log
+
+**Next Steps:**
+1. Fix voltaire's build issue (missing `./types/index.js` in jsonrpc module)
+2. Once fixed, the ABI migration can proceed with the approach I prototyped

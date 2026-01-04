@@ -114,6 +114,7 @@ describe('formatAbi', () => {
 			{
 				type: 'constructor' as const,
 				inputs: [{ type: 'string', name: 'name' }],
+				stateMutability: 'nonpayable' as const,
 			},
 		]
 		const result = formatAbi(abi)
@@ -121,13 +122,13 @@ describe('formatAbi', () => {
 	})
 
 	it('should format receive ABI items', () => {
-		const abi = [{ type: 'receive' as const }]
+		const abi = [{ type: 'receive' as const, stateMutability: 'payable' as const }]
 		const result = formatAbi(abi)
 		expect(result).toEqual(['receive() external payable'])
 	})
 
 	it('should format fallback ABI items', () => {
-		const abi = [{ type: 'fallback' as const }]
+		const abi = [{ type: 'fallback' as const, stateMutability: 'nonpayable' as const }]
 		const result = formatAbi(abi)
 		expect(result).toEqual(['fallback() external'])
 	})

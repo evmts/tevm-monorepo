@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import {
-	EthjsAccount,
-	EthjsAddress,
-	randomBytes,
-	TypeOutput,
-	toType,
-} from './ethereumjs.js'
+// EthjsAccount is now exported from the native account-class.js implementation
+import { Account as EthjsAccount } from './account-class.js'
+// EthjsAddress is now exported from the native address.js implementation
+import { Address as EthjsAddress } from './address.js'
+// Native randomBytes implementation (migrated from @ethereumjs/util)
+import { randomBytes } from './randomBytes.js'
+// Native TypeOutput and toType implementation (migrated from @ethereumjs/util)
+import { TypeOutput, toType } from './typeOutput.js'
 // Native implementations (migrated from @ethereumjs/util)
 import { bytesToUnprefixedHex } from './bytesToUnprefixedHex.js'
 import { bytesToUtf8 } from './bytesToUtf8.js'

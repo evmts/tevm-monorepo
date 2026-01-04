@@ -1,0 +1,46 @@
+# Ralph Migration Iteration - Session Summary
+
+**Date**: 2026-01-04
+**Files migrated**: 8 files
+
+## Summary
+
+Completed migration of all viem imports from JSDoc examples in packages/actions/src. 
+The `packages/actions/src` directory now has **ZERO** viem imports in its source files.
+
+## Files Changed
+
+1. `packages/actions/src/Call/CallResult.ts` - Updated JSDoc to use createMemoryClient
+2. `packages/actions/src/Contract/ContractResult.ts` - Updated JSDoc to use createMemoryClient and tevmContract
+3. `packages/actions/src/Contract/TevmContractError.ts` - Updated JSDoc to use createMemoryClient and tevmContract
+4. `packages/actions/src/Contract/ContractParams.ts` - Updated JSDoc to use createMemoryClient and tevmContract
+5. `packages/actions/src/Deploy/DeployParams.ts` - Updated JSDoc to use createMemoryClient and tevmDeploy
+6. `packages/actions/src/Deploy/DeployResult.ts` - Updated JSDoc to use createMemoryClient and tevmDeploy
+7. `packages/actions/src/Deploy/DeployHandlerType.ts` - Updated JSDoc to use createMemoryClient and tevmDeploy
+8. `packages/actions/src/SetAccount/setAccountHandler.js` - Changed parseEther import from 'viem' to '@tevm/utils'
+
+## Commits
+
+1. `⚡ refactor(actions): update CallResult.ts JSDoc example to use createMemoryClient`
+2. `⚡ refactor(actions): update ContractResult.ts JSDoc example to use createMemoryClient`
+3. `⚡ refactor(actions): update TevmContractError.ts JSDoc example to use createMemoryClient`
+4. `⚡ refactor(actions): update ContractParams.ts JSDoc example to use createMemoryClient`
+5. `⚡ refactor(actions): update Deploy*.ts JSDoc examples to use createMemoryClient`
+6. `⚡ refactor(actions): update setAccountHandler.js JSDoc to use @tevm/utils`
+
+## Milestone Achieved
+
+**packages/actions/src is now viem-free!**
+
+## Next Steps for Future Iterations
+
+The remaining viem imports are in:
+- packages/decorators/ (types and dist)
+- packages/memory-client/ (extensive viem usage - core integration)
+- packages/precompiles/
+- packages/jsonrpc/
+- packages/contract/
+
+Priority should be:
+1. packages/memory-client - this is where viem integration happens most
+2. packages/decorators - types for RPC schemas

@@ -1,0 +1,20 @@
+## Iteration 50 Complete
+
+Successfully migrated JSON-RPC schema files in the decorators package from viem to @tevm/utils:
+
+### Changes Made:
+1. **Added RPC type re-exports to @tevm/utils** (`packages/utils/src/index.ts`)
+   - `Quantity`, `RpcBlock`, `RpcBlockIdentifier`, `RpcBlockNumber`, `RpcFeeHistory`, `RpcLog`, `RpcProof`, `RpcStateOverride`, `RpcTransaction`, `RpcTransactionReceipt`, `RpcTransactionRequest`, `RpcUncle`
+
+2. **Migrated 3 files in decorators package:**
+   - `JsonRpcSchemaPublic.ts` - consolidated 14 RPC type imports
+   - `JsonRpcSchemaTest.ts` - consolidated 3 RPC type imports  
+   - `JsonRpcSchemaWallet.ts` - consolidated 4 RPC type imports
+
+### Verification:
+- All 17 decorators tests pass
+- No type errors in modified files
+- Commit: `c4edcc5ae`
+
+### Remaining viem imports: ~200
+Most remaining imports are in memory-client and test files.

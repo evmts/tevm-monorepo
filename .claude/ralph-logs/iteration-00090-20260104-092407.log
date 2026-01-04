@@ -1,0 +1,25 @@
+## Summary - Iteration 135 Complete
+
+I successfully created native provider types to eliminate direct viem type imports from `@tevm/utils/src/index.ts`:
+
+### Changes Made:
+1. **Created `/packages/utils/src/provider-types.ts`** with native implementations of:
+   - `EIP1193RequestFn` - Generic request function type
+   - `TransportConfig` - Transport configuration type
+   - `Transport` - Transport factory type  
+   - `PublicClient` - Public client interface
+   - `ContractEventName` - Event name extraction type
+   - `ContractEventArgs` - Event argument types
+   - `EncodeEventTopicsParameters` - Event encoding parameters
+
+2. **Updated `/packages/utils/src/index.ts`** to export from native types instead of viem
+
+### Results:
+- ✅ All 540 tests pass
+- ✅ Dist build successful
+- ✅ Zero direct viem type imports in index.ts
+
+### Remaining viem usage in @tevm/utils:
+- `viem.js` - Runtime re-exports (transport factories, encoding functions)
+- `abitype.ts` - Complex ABI type utilities
+- `prefundedAccounts.ts` - Account generation with `privateKeyToAccount`

@@ -1,0 +1,17 @@
+## Iteration 132 Complete
+
+I successfully migrated the `Hex` type from viem to a native implementation in `@tevm/utils`.
+
+### Changes Made:
+1. **Created** `packages/utils/src/hex-types.ts` - Native Hex type definition (`\`0x${string}\``)
+2. **Updated** `packages/utils/src/abitype.ts` - Now imports Hex from native implementation instead of viem
+
+### Test Results:
+- ✅ All 540 tests pass in @tevm/utils
+- ✅ All 29 tests pass in @tevm/contract
+
+### Remaining viem type imports in abitype.ts:
+- `Account`, `HDAccount` - Complex types with signing methods
+- `ContractConstructorArgs`, `ContractFunctionName` - Complex generic types
+- `CreateEventFilterParameters`, `Filter`, `GetEventArgs` - Complex filter types
+- `DecodeFunctionResultReturnType`, `EncodeDeployDataParameters`, `EncodeFunctionDataParameters` - Complex parameter types

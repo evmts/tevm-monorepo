@@ -2,7 +2,7 @@ import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToNumber } from '@tevm/utils'
 
 /**
- * @param {{request: import('viem').EIP1193RequestFn} | import('viem').Transport} client
+ * @param {{request: import('@tevm/utils').EIP1193RequestFn} | import('@tevm/utils').Transport} client
  */
 export const getChainId = async (client) => {
 	const transport = typeof client === 'function' ? client({}) : client

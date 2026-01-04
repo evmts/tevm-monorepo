@@ -1,0 +1,24 @@
+## Summary - Iteration 125 Complete
+
+Successfully migrated `Withdrawal` class and `createWithdrawal` function from `@ethereumjs/util` to native implementations in `@tevm/utils`.
+
+### Changes Made:
+1. **New file `packages/utils/src/withdrawal.js`** - Native implementation with:
+   - `Withdrawal` class with `raw()`, `toJSON()`, `toValue()` methods
+   - `createWithdrawal(withdrawalData)` factory function
+   - `createWithdrawalFromBytesArray(withdrawalArray)` for RLP decoding
+
+2. **New file `packages/utils/src/withdrawal.spec.ts`** - 17 tests covering all functionality
+
+3. **Updated `packages/utils/src/ethereumjs.js`** - Marked exports as migrated
+
+4. **Updated `packages/utils/src/index.ts`** - Updated exports to use native implementation
+
+### Test Results:
+- `withdrawal.spec.ts`: 17 tests passed
+- All @tevm/utils tests: 465 passed, 1 skipped
+
+### Remaining @ethereumjs/util exports:
+- `EthjsAccount`, `EthjsAddress` - Core account/address classes
+- `createAccount`, `createAddressFromString` - Factory functions  
+- EIP-7702 utilities - Authorization utilities

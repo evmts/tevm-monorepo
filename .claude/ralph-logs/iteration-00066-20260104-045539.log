@@ -1,0 +1,32 @@
+# Ralph Migration Iteration
+
+**Date**: 2026-01-04
+**Target**: Multiple memory-client test files
+**Change**: Migrated viem type/utility imports to @tevm/utils
+
+## Summary
+Migrated the following files:
+- tevmMiningModes.spec.ts: Address, parseEther -> @tevm/utils (committed separately)
+- tevmAccountManagement.spec.ts: Address, parseEther -> @tevm/utils  
+- tevmForkIntegration.spec.ts: Address, parseEther -> @tevm/utils
+- tevmContractIntegration.spec.ts: Address, encodeFunctionData, parseEther -> @tevm/utils
+- tevmDeploy.spec.ts: Address type -> @tevm/utils
+- tevmMine.spec.ts: Address type -> @tevm/utils
+
+viem-specific APIs (createClient, Client type, testActions, walletActions, etc.) remain from viem.
+
+## Tests
+- TypeScript check passed: `npx tsc --noEmit -p packages/memory-client/tsconfig.json`
+
+## Status
+- Committed: 1fa1dc9f5 (tevmMiningModes.spec.ts)
+- Committed: f26b38e56 (5 other files)
+
+**Remaining viem imports in memory-client (type imports only still possible to migrate):**
+- Test files now mostly use viem for client APIs only
+- TevmTransport.ts has ClientConfig, TransportConfig types from viem
+- MemoryClient types use Client, Account, Chain etc from viem
+
+**Notes:**
+- @tevm/utils exports: Address, Hex, parseEther, encodeFunctionData, and more utilities
+- viem-specific client/transport functionality must stay from viem

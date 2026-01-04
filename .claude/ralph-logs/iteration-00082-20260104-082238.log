@@ -1,0 +1,24 @@
+Migration iteration 127 complete. Here's a summary:
+
+## Migration Iteration 127 - Native Account Class Implementation
+
+### Completed
+- Created native `Account` class in `packages/utils/src/account-class.js`
+- Implements all ethereumjs Account methods: `raw()`, `serialize()`, `serializeWithPartialInfo()`, `isContract()`, `isEmpty()`
+- Created `createAccount()` factory function
+- Added necessary constants: `KECCAK256_NULL`, `KECCAK256_RLP_BYTES`, `KECCAK256_NULL_BYTES`
+- 29 new tests in `account-class.spec.ts` - all passing
+- All 518 tests in @tevm/utils package pass
+
+### Remaining in @ethereumjs/util
+Only EIP-7702 EOA code authorization utilities remain:
+- `eoaCode7702RecoverAuthority`
+- `eoaCode7702SignAuthorization`
+- `eoaCode7702AuthorizationMessageToSign`
+- `eoaCode7702AuthorizationHashedMessageToSign`
+- `eoaCode7702AuthorizationListBytesItemToJSON`
+- `eoaCode7702AuthorizationListJSONItemToBytes`
+- `isEOACode7702AuthorizationList`
+- `EOA_CODE_7702_AUTHORITY_SIGNING_MAGIC`
+
+These are more complex cryptographic utilities for EIP-7702 account abstraction. The core Account/Address/Withdrawal utilities are now fully native implementations.

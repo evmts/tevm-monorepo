@@ -1,0 +1,90 @@
+# Ralph Migration Iteration 117 - Native setLengthLeft/bytesToUnprefixedHex/bytesToUtf8 Implementation
+
+## Summary
+
+Migrated `setLengthLeft`, `bytesToUnprefixedHex`, and `bytesToUtf8` from `@ethereumjs/util` to native implementations in `@tevm/utils`. These are now zero-dependency pure JavaScript functions.
+
+## Changes Made
+
+### New Files
+1. `packages/utils/src/setLengthLeft.js` - Native implementation of setLengthLeft
+2. `packages/utils/src/bytesToUnprefixedHex.js` - Native implementation of bytesToUnprefixedHex
+3. `packages/utils/src/bytesToUtf8.js` - Native implementation of bytesToUtf8
+
+### Modified Files
+1. `packages/utils/src/ethereumjs.js` - Removed `setLengthLeft`, `bytesToUnprefixedHex`, and `bytesToUtf8` from @ethereumjs/util exports
+2. `packages/utils/src/index.ts` - Added exports from new native implementations
+3. `packages/utils/src/ethereumjs.spec.ts` - Updated imports to use new native implementations
+
+## Implementation Details
+
+### setLengthLeft
+```javascript
+export const setLengthLeft = (bytes, length) => {
+    if (bytes.length >= length) {
+        return bytes
+    }
+    const result = new Uint8Array(length)
+    result.set(bytes, length - bytes.length)
+    return result
+}
+```
+
+### bytesToUnprefixedHex
+```javascript
+export const bytesToUnprefixedHex = (bytes) => {
+    let hex = ''
+    for (let i = 0; i < bytes.length; i++) {
+        const byte = bytes[i]
+        hex += (byte < 16 ? '0' : '') + byte.toString(16)
+    }
+    return hex
+}
+```
+
+### bytesToUtf8
+```javascript
+export const bytesToUtf8 = (bytes) => {
+    return new TextDecoder('utf-8').decode(bytes)
+}
+```
+
+## Tests Passed
+
+- `packages/utils/src/ethereumjs.spec.ts` - 9 passed, 1 skipped
+- All @tevm/utils tests - 380 passed, 1 skipped
+
+## Manual Verification
+
+```
+bytesToUnprefixedHex: deadbeef
+bytesToUtf8: Hello
+setLengthLeft: Uint8Array(5) [ 0, 0, 1, 2, 3 ]
+```
+
+## Impact
+
+Reduced dependency on `@ethereumjs/util` by 3 more functions. The native implementations are:
+- `setLengthLeft` - Left-pads a Uint8Array with zeros
+- `bytesToUnprefixedHex` - Converts bytes to hex string without 0x prefix
+- `bytesToUtf8` - Converts bytes to UTF-8 string using TextDecoder
+
+## Remaining @ethereumjs/util exports in ethereumjs.js
+
+The following still need migration (in rough order of complexity):
+- `EthjsAccount`, `EthjsAddress` - Core account/address classes
+- `createAccount`, `createAddressFromString` - Factory functions
+- `createWithdrawal`, `Withdrawal` - Withdrawal handling
+- `ecrecover` - Signature recovery (requires crypto)
+- `randomBytes` - Random bytes (requires crypto)
+- `fetchFromProvider`, `getProvider` - Network utilities
+- `KECCAK256_RLP`, `KECCAK256_RLP_ARRAY` - Constants
+- `KeyEncoding`, `ValueEncoding`, `TypeOutput`, `toType` - Encoding types
+- `GWEI_TO_WEI`, `MAX_UINT64`, `SECP256K1_ORDER_DIV_2`, `BIGINT_0`, `BIGINT_1` - Constants
+- EIP-7702 utilities - Complex authorization utilities
+
+## Next Steps
+
+Continue migrating utilities from `@ethereumjs/util`. Good next targets:
+- Constants like `GWEI_TO_WEI`, `BIGINT_0`, `BIGINT_1` - trivial
+- `TypeOutput`, `toType` - type conversion utilities

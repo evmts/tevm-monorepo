@@ -1,0 +1,43 @@
+Migration iteration 24 completed successfully.
+
+## Summary
+
+**Migrated in this iteration:**
+- Implemented native `toFunctionSelector` function in @tevm/utils
+- Implemented native `toEventSelector` function in @tevm/utils
+- Updated 2 files in @tevm/actions package to import from @tevm/utils instead of viem
+
+**Files changed:**
+- packages/utils/src/viem.js: Added native `toFunctionSelector` and `toEventSelector` implementations
+- packages/utils/src/index.ts: Added `toFunctionSelector` and `toEventSelector` exports
+- packages/utils/src/viem.spec.ts: Added 12 comprehensive tests for the new selector functions
+- packages/actions/src/internal/decodeRevertReason.js: Changed imports from 'viem' to '@tevm/utils'
+- packages/actions/src/internal/runCallWithFourbyteTrace.spec.ts: Changed `toFunctionSelector` import from 'viem' to '@tevm/utils'
+
+**Results:**
+- 209 viem.spec.ts tests pass (12 new tests added)
+- 22 decodeRevertReason.spec.ts tests pass
+- Native implementations match viem exactly (verified with direct comparison tests)
+- Build succeeds
+- Commit: `f09ec4fca`
+
+**Remaining direct viem imports in @tevm/actions production code (2 files):**
+1. `contractHandler.js`: getContractError, RawContractError (viem error utilities)
+2. `ethGetLogsHandler.js`: InternalRpcError (viem error type)
+
+**Remaining viem imports in @tevm/utils (13):**
+- ABI functions (12): decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult, encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics, encodeFunctionData, encodeFunctionResult, encodePacked
+- serializeTransaction
+- mnemonicToAccount (from viem/accounts)
+
+**Next candidates:**
+- Consider if viem error utilities (getContractError, RawContractError, InternalRpcError) need migration or can remain as-is
+- Focus on other packages (decorators, memory-client, etc.) for consolidation
+
+## Technical Notes
+
+- `toFunctionSelector` implementation: Takes signature (strips "function " prefix if present), removes whitespace, hashes with keccak256, returns first 4 bytes (10 hex chars)
+- `toEventSelector` implementation: Same as toFunctionSelector but returns full 32-byte hash
+- Both functions support signatures with or without "function "/"event " prefix for flexibility
+- The `normalizeSignature` helper function handles prefix stripping and whitespace removal
+

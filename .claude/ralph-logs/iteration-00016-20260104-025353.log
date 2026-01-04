@@ -1,0 +1,70 @@
+## Migration Iteration 16 Complete
+
+**Target**: `keccak256` function in `@tevm/utils`
+
+**Changes**:
+1. Added `@noble/hashes` dependency (^2.0.1) to @tevm/utils
+2. Implemented native `keccak256` function using `@noble/hashes/sha3.js`
+3. Supports both Uint8Array and Hex string input (matching viem's API)
+4. Supports both 'hex' (default) and 'bytes' output formats
+5. Removed `keccak256` from viem/utils re-exports
+6. Added 8 comprehensive tests with known hash vectors
+
+**Results**:
+- All 135 tests in viem.spec.ts pass (up from 127)
+- All 185 tests in @tevm/utils pass (up from 177)
+
+**Commit**: `1dbab1cde`
+
+**Remaining viem imports**: 21 functions still need migration (down from 22)
+
+**Next candidates for migration**:
+- `getAddress` (checksum conversion - NOW POSSIBLE since we have keccak256!)
+- ABI encode/decode functions (more complex, may need voltaire integration)
+- `toBytes`/`toHex`/`fromBytes`/`fromHex` (polymorphic conversion functions)
+- `formatLog` (log formatting utility)
+- RLP functions (`toRlp`, `fromRlp`)
+
+## Details
+
+1. Modified `packages/utils/package.json`:
+   - Added `@noble/hashes` dependency (^2.0.1)
+
+2. Modified `packages/utils/src/viem.js`:
+   - Added import: `import { keccak_256 } from '@noble/hashes/sha3.js'`
+   - Added `keccak256` function:
+     - Accepts `Uint8Array | Hex` input
+     - Optional second parameter `to` for output format ('hex' or 'bytes')
+     - Uses existing `hexToBytes` for hex string conversion
+     - Uses existing `bytesToHex` for output conversion
+   - Removed keccak256 from viem/utils re-export block
+
+3. Modified `packages/utils/src/viem.spec.ts`:
+   - Added 8 tests for keccak256:
+     - Hash bytes correctly (with known hash vector)
+     - Hash hex string correctly
+     - Hash empty bytes
+     - Hash empty hex string
+     - Return bytes when to="bytes"
+     - Hash "hello" correctly (known vector)
+     - Produce consistent results for same input
+     - Produce different results for different inputs
+
+## Tests Passed
+- packages/utils/src/viem.spec.ts (135 tests, up from 127)
+- All 185 tests in @tevm/utils pass
+
+## Remaining viem imports in @tevm/utils/src/viem.js (21 remaining):
+- decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+- encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics
+- encodeFunctionData, encodeFunctionResult, encodePacked
+- formatLog
+- fromBytes, fromHex, fromRlp
+- getAddress
+- serializeTransaction
+- toBytes, toHex, toRlp
+- mnemonicToAccount (from viem/accounts)
+
+## Next Steps
+With keccak256 now implemented, `getAddress` (checksum conversion) can be implemented next!
+The getAddress function uses keccak256 to compute the checksum of an Ethereum address.

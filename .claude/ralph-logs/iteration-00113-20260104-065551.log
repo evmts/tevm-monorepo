@@ -1,0 +1,99 @@
+# Ralph Migration Iteration 113 - Migration Status Assessment (NO CHANGES)
+
+## Assessment
+
+This iteration performed a comprehensive assessment of the remaining viem/ethereumjs dependencies in the tevm monorepo.
+
+## Migration Status Summary
+
+### @tevm/utils - LARGELY COMPLETE
+
+**Completed migrations (using @tevm/voltaire):**
+- `encodeAbiParameters`, `decodeAbiParameters` ✅
+- `encodeFunctionData`, `decodeFunctionData` ✅
+- `decodeFunctionResult`, `encodeFunctionResult` ✅
+- `decodeEventLog`, `encodeEventTopics` ✅
+- `decodeErrorResult`, `encodeErrorResult` ✅
+- `encodeDeployData` ✅
+- All utility functions (hex conversions, RLP, keccak256, etc.) ✅
+
+**Remaining viem dependencies in @tevm/utils:**
+1. `formatAbi`, `parseAbi` from `abitype` (line 4)
+   - Note: abitype is a separate library, not viem
+   - Voltaire has `Abi.Item.format` but no human-readable ABI parser
+   - Implementing parseAbi would require significant effort
+   
+2. `mnemonicToAccount`, `privateKeyToAccount` from `viem/accounts` (line 5)
+   - Complex account objects with signing methods
+   - Voltaire HAS the primitives: `HDWallet`, `Bip39`, `Secp256k1.sign`, `Address.fromPrivateKey`
+   - BUT: viem's account objects integrate with viem's transaction/message signing types
+   - Migration would require implementing viem-compatible Account interface
+   
+3. Transport/client functions from `viem` (lines 2060-2067)
+   - `createPublicClient`, `createTransport`, `custom`, `defineChain`, `http`, `webSocket`
+   - Used for fork client creation in state package
+   - Deep integration with viem's architecture
+
+### @tevm/common - Chain Definitions
+- Uses `viem/chains` for chain presets
+- Data-only exports, would need maintained separately
+- Not practical to migrate
+
+### @tevm/memory-client - Viem Integration Package
+- Uses viem's `createClient`, `publicActions`, `testActions`, `walletActions`
+- This is intentionally a viem integration layer
+- NOT meant to be migrated
+
+### @tevm/state - ethereumjs Dependencies
+- Uses `@ethereumjs/statemanager` for `AccountCache`, `StorageCache`, `CacheType`
+- These are cache implementations specific to ethereumjs
+- Migration target for guillotine-mini in future
+
+## Potential Next Steps (in order of feasibility)
+
+1. **Implement native parseAbi** (MEDIUM EFFORT)
+   - Create ABI human-readable string parser using voltaire
+   - Would remove abitype dependency
+   
+2. **Create simplified privateKeyToAddress** (LOW-MEDIUM EFFORT)
+   - Not full account, just address derivation
+   - Already have primitives in voltaire
+   - But would break API compatibility for PREFUNDED_ACCOUNTS
+
+3. **Begin guillotine-mini integration** (HIGH EFFORT)
+   - Replace ethereumjs/statemanager caches
+   - Requires significant architectural work
+
+## Conclusion
+
+The @tevm/utils ABI encoding/decoding migration is complete. The remaining viem dependencies are either:
+- External libraries (abitype)
+- Deep viem integrations (accounts, transports, memory-client)
+- Outside core scope (chain definitions)
+
+Future iterations should focus on:
+1. Documenting completed migrations
+2. Considering if parseAbi implementation is worth the effort
+3. Planning guillotine-mini integration strategy
+
+No code changes made in this iteration.
+
+## Update - Documentation Change Made
+
+After the initial assessment, I made a small documentation-only change:
+
+### Changes Made
+
+Updated `/packages/utils/src/viem.js` header comments:
+- Replaced outdated TODO comment with comprehensive migration status
+- Documented completed migrations (ABI encoding/decoding, utilities)
+- Documented remaining dependencies with explanations
+- Cleaned up file header for better maintainability
+
+### Commit
+
+`📝 docs(utils): update viem.js header with migration status documentation` (f3a06d62a)
+
+### Tests
+
+All 366 tests pass (1 skipped). Coverage errors are pre-existing.

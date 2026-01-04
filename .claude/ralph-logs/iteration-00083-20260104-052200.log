@@ -1,0 +1,41 @@
+# Ralph Migration Iteration
+
+**Date**: 2026-01-04
+**Files migrated**: 1 file
+
+## Summary
+
+Updated JSDoc @example blocks in packages/actions/src/Call/CallParams.ts to replace viem's `createClient` with tevm's `createMemoryClient`.
+
+## Files Changed
+
+1. `packages/actions/src/Call/CallParams.ts` - Changed 5 occurrences of:
+   - `import { createClient } from 'viem'` → `import { createMemoryClient, tevmCall } from 'tevm'`
+   - `createClient({ transport: createTevmTransport({}), chain: optimism })` → `createMemoryClient({ common: optimism })`
+
+## Commit
+
+`⚡ refactor(actions): update CallParams.ts JSDoc examples to use createMemoryClient`
+
+## Notes
+
+- These changes are documentation updates (JSDoc examples) only
+- Using `createMemoryClient` from tevm is the correct pattern (matches other files like BaseCallParams.ts)
+- Pre-existing type errors in `@tevm/address` and `@tevm/block` packages are unrelated to this change
+
+## Remaining viem Imports in Core Packages
+
+### packages/actions/src (after this iteration)
+- ContractResult.ts - 1 occurrence
+- TevmContractError.ts - 1 occurrence
+- ContractParams.ts - 1 occurrence
+- DeployParams.ts - 1 occurrence
+- DeployResult.ts - 1 occurrence
+- DeployHandlerType.ts - 1 occurrence
+- setAccountHandler.js - 1 occurrence (parseEther)
+- CallResult.ts - 1 occurrence
+
+## Next Steps
+
+- Continue updating JSDoc examples in packages/actions/src
+- Consider updating ContractParams.ts, DeployParams.ts, etc.

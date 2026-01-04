@@ -1,0 +1,55 @@
+# Ralph Migration Iteration - Native Contract Error Classes
+
+## Target
+
+Replace viem's contract error classes and getContractError function with native implementations.
+
+## Changes Made
+
+1. Created `packages/errors/src/contractErrors.js` with 4 new error classes:
+   - **RawContractError**: Error with raw contract data (code: 3)
+   - **ContractFunctionZeroDataError**: For when contracts return "0x"
+   - **ContractFunctionRevertedError**: Handles reverts with Error(string) and Panic decoding
+   - **ContractFunctionExecutionError**: Wraps errors with contract call context
+
+2. Created `packages/utils/src/getContractError.js`:
+   - Native implementation of getContractError function
+   - Handles RawContractError, BaseError with walk(), and plain errors
+   - Creates appropriate cause errors based on error type and data
+
+3. Updated `packages/errors/src/index.ts`:
+   - Added exports for rpcErrors.js and contractErrors.js
+
+4. Updated `packages/utils/src/viem.js`:
+   - Changed import from 'viem' to './getContractError.js'
+   - Added exports for new contract error classes from @tevm/errors
+
+5. Updated `packages/utils/src/index.ts`:
+   - Added exports for ContractFunctionExecutionError, ContractFunctionRevertedError, ContractFunctionZeroDataError
+
+## Test Results
+
+- All error package tests pass
+- Contract error classes work correctly (verified via Node.js test)
+- getContractError function works correctly
+- Build succeeds for both @tevm/errors and @tevm/utils (dist and types)
+
+## Commit
+
+`c9fe123b3` - ⚡ refactor(errors): implement native contract error classes to replace viem imports
+
+## Migration Status
+
+**Two more viem imports removed from @tevm/utils/src/viem.js!**
+
+Remaining viem dependencies in @tevm/utils/src/viem.js:
+1. Line 4: `mnemonicToAccount, privateKeyToAccount` from 'viem/accounts'
+2. Lines 2033-2044: ABI encoding/decoding from 'viem/utils' (decodeAbiParameters, etc.)
+3. Lines 2054-2060: Transport/client functions from 'viem' (createPublicClient, http, etc.)
+
+## Next Steps
+
+The remaining targets for viem removal from @tevm/utils are:
+- Account functions (mnemonicToAccount, privateKeyToAccount) - likely need @tevm/voltaire
+- ABI encoding/decoding functions - blocked by voltaire build issues
+- Transport/client functions - needed for fork support

@@ -1,0 +1,69 @@
+## Migration Iteration 13 Complete
+
+**Target**: `isAddress` function in `@tevm/utils`
+
+**Changes**:
+1. Added native `isAddress` implementation using regex pattern `/^0x[0-9a-fA-F]{40}$/`
+2. Validates 0x prefix followed by exactly 40 hex characters (case-insensitive)
+3. Removed `isAddress` from viem/utils re-exports
+4. Added 9 comprehensive test cases
+
+**Results**:
+- All 91 tests in viem.spec.ts pass (up from 82)
+- All 141 tests in @tevm/utils pass (up from 132)
+- 100% code coverage maintained
+
+**Commit**: `e5e4eaf46`
+
+**Remaining viem imports**: 26 functions still need migration (down from 27)
+
+**Next candidates for migration**:
+- `formatEther`/`parseEther` (simple decimal conversion)
+- `formatGwei`/`parseGwei` (similar pattern to ether functions)
+- `getAddress` (checksum conversion - requires keccak256)
+
+## Details
+
+1. Modified `packages/utils/src/viem.js`:
+   - Added `addressPattern` regex constant for address validation
+   - Added native `isAddress` function that validates:
+     - Non-null/undefined values
+     - String type
+     - Matches 0x + 40 hex character pattern
+   - Added API compatibility with `opts` parameter (strict mode not implemented but accepted)
+   - Removed isAddress from viem/utils re-export block
+
+2. Modified `packages/utils/src/viem.spec.ts`:
+   - Added 9 new tests for isAddress:
+     - Valid lowercase addresses (4 assertions)
+     - Valid uppercase addresses (2 assertions)
+     - Valid checksummed (mixed case) addresses (2 assertions)
+     - Addresses too short (3 assertions)
+     - Addresses too long (2 assertions)
+     - Strings without 0x prefix (2 assertions)
+     - Invalid hex characters (3 assertions)
+     - Non-string values (6 assertions)
+     - Empty or falsy values (3 assertions)
+
+## Tests Passed
+- packages/utils/src/viem.spec.ts (91 tests, up from 82)
+- All 141 tests in @tevm/utils pass (141 + 1 skipped)
+- 100% code coverage maintained
+
+## Remaining viem imports in @tevm/utils/src/viem.js (26 remaining):
+- decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+- encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics
+- encodeFunctionData, encodeFunctionResult, encodePacked
+- formatEther, formatGwei, formatLog
+- fromBytes, fromHex, fromRlp
+- getAddress
+- keccak256
+- parseEther, parseGwei, serializeTransaction
+- toBytes, toHex, toRlp
+- mnemonicToAccount (from viem/accounts)
+
+## Next Steps
+Possible next targets (simple conversions):
+- formatEther/parseEther (simple decimal conversion - 10^18)
+- formatGwei/parseGwei (simple decimal conversion - 10^9)
+- getAddress (checksum conversion - requires keccak256 which is still from viem)

@@ -1,0 +1,19 @@
+## Summary
+
+I completed iteration 158 of the Ralph migration. The key fix was in `packages/state/src/utils/accountHelpers.js:18-54`.
+
+### What was done:
+1. **Identified the bug**: The `fromRlpSerializedAccount` function was passing raw `Uint8Array` values from RLP decoding for `nonce` and `balance` fields, but the `createAccount` function expects `bigint` values.
+
+2. **Applied the fix**: Added a `bytesToBigInt` helper function and updated `fromRlpSerializedAccount` to properly convert RLP-decoded bytes to bigint.
+
+3. **Results**: 
+   - Before: 42 tests failing in @tevm/state
+   - After: 32 tests failing (10 tests now passing)
+   - All setStateRoot, saveStateRoot, getStateRoot, createBaseState, and ContractCache tests now pass
+
+4. **Committed the change** with a descriptive commit message
+
+### Remaining test failures are due to:
+- Tests using short addresses like `'0x1'` (native Address implementation is stricter)
+- Fork RPC tests failing due to missing environment variables

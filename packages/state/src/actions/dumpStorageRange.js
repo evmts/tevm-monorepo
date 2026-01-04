@@ -19,18 +19,22 @@ export const dumpStorageRange = (state) => (_address, _startKey, _limit) => {
 	let nextKey = null
 	let started = false
 	for (const [storageKey, storageValue] of storage.entries()) {
+		// Ensure storageKey has 0x prefix
+		const keyWithPrefix = /** @type {import("@tevm/utils").Hex}*/ (
+			storageKey.startsWith('0x') ? storageKey : `0x${storageKey}`
+		)
 		if (entries.length === _limit) {
-			nextKey = /** @type {import("@tevm/utils").Hex}*/ (storageKey)
+			nextKey = keyWithPrefix
 			break
 		}
 		if (!started) {
-			if (hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (storageKey)) === _startKey) {
+			if (hexToBigInt(keyWithPrefix) === _startKey) {
 				started = true
 			} else {
 				continue
 			}
 		}
-		const key = /** @type {import("@tevm/utils").Hex}*/ (storageKey)
+		const key = keyWithPrefix
 		const value = bytesToHex(storageValue)
 		entries.push([key, { key, value }])
 	}

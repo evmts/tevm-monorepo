@@ -16,7 +16,7 @@
 export const bytesToUnprefixedHex = (bytes) => {
 	let hex = ''
 	for (let i = 0; i < bytes.length; i++) {
-		const byte = bytes[i]
+		const byte = /** @type {number} */ (bytes[i])
 		hex += (byte < 16 ? '0' : '') + byte.toString(16)
 	}
 	return hex

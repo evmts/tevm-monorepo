@@ -1,0 +1,48 @@
+# Ralph Migration Log - Iteration 3
+Date: 2026-01-04
+
+## Migration Target
+- Package: @tevm/utils
+- Function: hexToBigInt
+- From: viem/utils
+- To: native implementation (following voltaire pattern)
+
+## Changes Made
+1. Modified `packages/utils/src/viem.js`:
+   - Removed `hexToBigInt` from viem/utils import list
+   - Added native `hexToBigInt` function implementation
+   - Implementation supports:
+     - Basic hex to BigInt conversion via `BigInt(hex)`
+     - Signed integer conversion with two's complement
+     - Edge cases (empty hex '0x', '0x0')
+
+## Tests Passed
+- packages/utils/src/viem.spec.ts (8 tests)
+- All 58 tests in @tevm/utils pass
+
+## Notes
+- Following same pattern as iterations 1 and 2 (native implementation)
+- Existing test `expect(hexToBigInt('0x1234')).toBe(4660n)` passed
+- Implementation includes signed integer support for completeness
+
+## Remaining viem imports in @tevm/utils/src/viem.js (41 remaining):
+- boolToBytes, boolToHex, bytesToBigInt, bytesToBigint, bytesToBool, bytesToNumber
+- decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+- encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics
+- encodeFunctionData, encodeFunctionResult, encodePacked
+- formatEther, formatGwei, formatLog
+- fromBytes, fromHex, fromRlp
+- getAddress, hexToBool, hexToNumber, hexToString
+- isAddress, isBytes, isHex, keccak256
+- numberToHex, parseEther, parseGwei, serializeTransaction, stringToHex
+- toBytes, toHex, toRlp
+- mnemonicToAccount (from viem/accounts)
+
+## Next Steps
+Possible next targets (simple conversions):
+- hexToNumber (similar to hexToBigInt but returns number)
+- numberToHex (inverse of hexToNumber)
+- boolToHex, hexToBool (very simple boolean conversions)
+
+## Commit
+996532942 - ⚡ refactor(utils): replace viem hexToBigInt with native implementation

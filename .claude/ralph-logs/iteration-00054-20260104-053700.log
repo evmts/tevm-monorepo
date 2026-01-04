@@ -1,0 +1,72 @@
+# Ralph Migration Iteration 54
+
+**Date**: 2026-01-04
+**File migrated**: packages/utils/src/viem.js
+
+## Summary
+
+Implemented native `encodePacked` function to replace the viem/utils import. This continues the incremental migration away from viem dependencies.
+
+## Changes Made
+
+1. Added a native `encodePacked` function that:
+   - Supports all uint types (uint8-uint256)
+   - Supports all int types with two's complement encoding (int8-int256)
+   - Supports address (20 bytes, no padding)
+   - Supports bool (1 byte)
+   - Supports string (UTF-8 encoded, no length prefix)
+   - Supports bytes (raw bytes, no length prefix)
+   - Supports fixed bytes1-bytes32
+   - Supports dynamic arrays (uint8[], address[], etc.)
+   - Supports fixed-size arrays (uint256[3], etc.)
+   - Matches viem's API exactly
+
+2. Removed `encodePacked` from the viem/utils import list
+
+3. Added comprehensive tests for the new `encodePacked` function:
+   - uint8/uint16/uint32/uint256 encoding
+   - int8/int16 positive and negative values (two's complement)
+   - address encoding
+   - bool encoding
+   - string encoding
+   - bytes and fixed bytes encoding
+   - multiple types encoding
+   - dynamic and fixed arrays
+   - error handling (type/value mismatch, invalid lengths, unsupported types)
+   - Uint8Array input support
+
+## Tests
+
+All 239 tests in the utils package pass, including 22 new tests for encodePacked.
+
+## Commit
+
+`⚡ refactor(utils): implement native encodePacked to replace viem/utils import`
+
+## Progress
+
+The remaining viem/utils imports are:
+- decodeAbiParameters
+- decodeErrorResult
+- decodeEventLog
+- decodeFunctionData
+- decodeFunctionResult
+- encodeAbiParameters
+- encodeDeployData
+- encodeErrorResult
+- encodeEventTopics
+- encodeFunctionData
+- encodeFunctionResult
+- serializeTransaction
+
+These are complex ABI encoding/decoding functions that will require more work to migrate.
+
+The direct viem exports remaining are:
+- getContractError, RawContractError (error handling)
+- createPublicClient, createTransport, custom, defineChain, http, webSocket (transport/client)
+
+## Next Steps
+
+The ABI encoding/decoding functions are the largest remaining viem/utils dependencies.
+Consider migrating `serializeTransaction` next as it's used for transaction signing
+and has a clear specification.

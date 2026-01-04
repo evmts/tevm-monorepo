@@ -1,0 +1,14 @@
+All 68 tests pass across the 5 migrated files. 
+
+## Summary
+
+Successfully migrated **28 viem JSDoc type references** to local types across 5 files in `packages/utils/src/`:
+
+1. **eip7702.js** - Migrated 9 `import('viem').Hex` → `import('./hex-types.js').Hex`
+2. **abiDeployEncoding.js** - Migrated 1 Abi to abitype, 3 Hex to local types
+3. **abiEventEncoding.js** - Migrated 2 Abi, 2 ContractEventName, 4 Hex to local types
+4. **abiErrorEncoding.js** - Migrated 2 Abi, 3 Hex to local types  
+5. **formatAbi.js** - Migrated 2 `import('viem').AbiItem` → `import('abitype').Abi[number]`
+
+**Remaining viem imports** in utils (excluding intentional re-exports in viem.js):
+- `abiFunctionEncoding.js` has 3 complex derived types (`ContractFunctionArgs`, `ContractFunctionReturnType`) that would require significant work to implement locally

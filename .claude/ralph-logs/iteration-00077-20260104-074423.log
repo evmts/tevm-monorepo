@@ -1,0 +1,21 @@
+## Summary
+
+Successfully migrated `ecrecover` from `@ethereumjs/util` to a native implementation using `@noble/curves/secp256k1.js`.
+
+### Changes Made:
+1. Created `packages/utils/src/ecrecover.js` - Native implementation using @noble/curves v2 API
+2. Created `packages/utils/src/ecrecover.spec.ts` - 7 comprehensive tests
+3. Added `@noble/curves` ^2.0.1 as a dependency to `@tevm/utils`
+4. Updated `ethereumjs.js` to mark ecrecover as migrated
+5. Updated `signature.js` to import from native implementation
+6. Updated `index.ts` to export from the native module
+
+### Key Implementation Details:
+- Uses `secp256k1.Signature.fromBytes(signature, 'compact')` (v2 API)
+- Supports v values 0, 1, 27, 28 for both EIP-1559 and legacy transactions
+- Handles EIP-155 chain ID for replay protection
+- Returns 64-byte uncompressed public key (without prefix)
+
+### Tests:
+- All 438 utils tests pass (437 passed + 1 skipped)
+- Verified compatibility with original ethereumjs implementation

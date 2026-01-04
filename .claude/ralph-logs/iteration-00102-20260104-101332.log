@@ -1,0 +1,15 @@
+## Migration Complete - Iteration 151
+
+Successfully migrated all viem JSDoc imports from `@tevm/actions` package JS files:
+
+**Files Changed:**
+1. `packages/actions/src/internal/decodeRevertReason.js` - 4 `Hex` type references
+2. `packages/actions/src/eth/getCodeHandler.js` - 1 `Hex` type reference
+
+**Result:**
+- All `import('viem').Hex` → `import('@tevm/utils').Hex`
+- Verified with grep: zero viem JSDoc imports remain in `packages/actions/src/**/*.js`
+
+**Cumulative Progress:**
+- `packages/utils/src/*.js` - COMPLETE 
+- `packages/actions/src/**/*.js` - COMPLETE

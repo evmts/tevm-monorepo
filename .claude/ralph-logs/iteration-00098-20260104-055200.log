@@ -1,0 +1,48 @@
+# Ralph Migration Iteration - Update memory-client JSDoc Examples
+
+## Assessment
+
+Previous iterations updated JSDoc examples in tevmDeploy.js. Continuing to update remaining memory-client JSDoc examples to use @tevm/utils instead of viem for migrated utilities.
+
+## Target
+
+Updated 9 JSDoc example files in packages/memory-client/src/ to split viem imports:
+- Keep `createClient` from viem (core viem function)
+- Use `http`, `parseEther`, `parseAbi`, `numberToHex` from @tevm/utils (migrated utilities)
+
+## Changes
+
+### Files Updated:
+1. **tevmDumpState.js** (line 32): `http, parseEther` → @tevm/utils
+2. **tevmSetAccount.js** (lines 28, 62): `http, parseEther` and `numberToHex` → @tevm/utils
+3. **tevmCall.js** (line 26): `http` → @tevm/utils
+4. **tevmGetAccount.js** (line 34): `http` → @tevm/utils
+5. **tevmMine.js** (line 33): `http, parseEther` → @tevm/utils
+6. **tevmLoadState.js** (line 35): `http` → @tevm/utils
+7. **tevmViemActions.js** (line 28): `http` → @tevm/utils
+8. **tevmContract.js** (line 24): `http, parseAbi` → @tevm/utils
+9. **createTevmTransport.js** (line 28): `http` → @tevm/utils
+
+## Test Results
+
+- Changes are JSDoc comment updates only (no runtime code)
+- Pre-existing test failures in memory-client package (unrelated to changes)
+- Error: "storageRoot must have a length of 32" in @tevm/state package
+
+## Commit
+
+`⚡ refactor(memory-client): update JSDoc examples to use @tevm/utils`
+
+## Next Steps
+
+Continue with other packages that have viem imports in JSDoc:
+- packages/actions
+- packages/decorators
+- packages/node
+- packages/contract
+
+## Remaining viem Imports in memory-client
+
+After this iteration, memory-client still imports from viem:
+- `createClient` (core viem function, should stay)
+- `publicActions, testActions, walletActions` (viem decorators, should stay)

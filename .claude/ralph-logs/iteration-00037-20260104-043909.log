@@ -1,0 +1,13 @@
+Migration iteration complete. 
+
+**Summary:**
+- Migrated 6 test files in `packages/memory-client/src/test/viem/`
+- Replaced `encodeFunctionData`, `bytesToHex`, and `parseGwei` imports from viem with @tevm/utils
+- Commit: `72de30fb4`
+- Types check passes
+
+**Remaining viem imports:** ~197 (down from 203)
+
+The main remaining viem imports in test files are:
+- `testActions` and `walletActions` - viem client extensions not yet exported from @tevm/utils
+- Various type imports (`Address`, `Hex`, `TestActions`, etc.)

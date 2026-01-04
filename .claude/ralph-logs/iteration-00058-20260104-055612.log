@@ -1,0 +1,31 @@
+All @tevm/utils tests pass with my changes (303 passed, 1 skipped). My changes are safe - I only added TODO comments documenting the future migration path.
+
+Let me summarize what was accomplished in this iteration:
+
+## Summary
+
+In this Ralph migration iteration, I:
+
+1. **Investigated** migrating ABI encoding/decoding functions from viem/utils to native @tevm/voltaire implementations
+
+2. **Implemented** native wrappers for:
+   - `decodeAbiParameters`
+   - `encodeAbiParameters`
+   - `encodeFunctionData`
+   - `decodeFunctionResult`
+   - `decodeFunctionData`
+
+3. **Discovered a blocker**: @tevm/voltaire build is broken due to a missing `./types/index.js` in the jsonrpc module
+
+4. **Reverted** the native implementations and added TODO comments for future migration
+
+5. **Verified** migration status:
+   - **Core packages (actions, vm, evm, state, node, common, blockchain, precompiles, jsonrpc, http-client) are viem-free!**
+   - Remaining viem dependencies are confined to:
+     - @tevm/utils (intentional re-export layer)
+     - @tevm/errors (RPC error classes)
+     - @tevm/memory-client (intentional viem integration)
+
+6. **Tests pass**: @tevm/utils: 303 passed, 1 skipped
+
+The migration is progressing well - the core packages no longer have direct viem imports. The next step is to fix voltaire's build, then the ABI functions can be migrated.

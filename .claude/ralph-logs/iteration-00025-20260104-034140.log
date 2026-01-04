@@ -1,0 +1,41 @@
+Migration iteration 25 completed successfully.
+
+## Summary
+
+**Migrated in this iteration:**
+- Changed `InternalRpcError` import in ethGetLogsHandler.js from 'viem' to '@tevm/errors'
+
+**Files changed:**
+- packages/actions/src/eth/ethGetLogsHandler.js: Changed `InternalRpcError` import from 'viem' to '@tevm/errors'
+
+**Results:**
+- Build succeeds
+- Test failures are pre-existing issues with storageRoot validation (unrelated to this change)
+- Commit: `fb2370539`
+
+**Remaining direct viem imports in @tevm/actions production code (1 file):**
+1. `contractHandler.js`: getContractError, RawContractError (viem error utilities for parsing contract errors)
+   - These are complex viem utilities that decode contract revert reasons
+   - Would require significant effort to replicate or migrate
+
+**Remaining viem imports in @tevm/utils (in abitype.ts - type-only):**
+- Types: Account, BlockNumber, BlockTag, ContractConstructorArgs, ContractFunctionName, CreateEventFilterParameters, DecodeFunctionResultReturnType, EncodeDeployDataParameters, EncodeFunctionDataParameters, Filter, GetEventArgs, HDAccount, Hex
+
+**Remaining viem re-exports in @tevm/errors (requestErrors.ts):**
+- InternalRpcError (now used indirectly via @tevm/errors)
+- InvalidInputRpcError, InvalidParamsRpcError, InvalidRequestRpcError
+- JsonRpcVersionUnsupportedError, LimitExceededRpcError, MethodNotFoundRpcError
+- MethodNotSupportedRpcError, ParseRpcError, ProviderDisconnectedError
+- ResourceNotFoundRpcError, ResourceUnavailableRpcError, TimeoutError
+- UnknownRpcError, UnsupportedProviderMethodError, UserRejectedRequestError
+
+**Next candidates:**
+- The last remaining direct viem import in @tevm/actions is `contractHandler.js` with `getContractError` and `RawContractError`
+- These are complex utilities that decode contract errors and would require significant effort to replicate
+- Consider focusing on other packages (decorators, memory-client) or implementing native error utilities in @tevm/errors
+
+## Technical Notes
+
+- @tevm/errors already re-exports many viem RPC error classes
+- This migration consolidates the import to go through @tevm/errors instead of directly from viem
+- This is a stepping stone - eventually these could be replaced with native implementations

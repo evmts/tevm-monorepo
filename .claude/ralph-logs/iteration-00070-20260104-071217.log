@@ -1,0 +1,28 @@
+The migration is complete. Let me provide a summary:
+
+## Migration Complete - Iteration 116
+
+Successfully migrated `concatBytes` and `equalsBytes` from `@ethereumjs/util` to native implementations in `@tevm/utils`.
+
+### Changes:
+1. **New files created:**
+   - `packages/utils/src/concatBytes.js` - Native implementation
+   - `packages/utils/src/equalsBytes.js` - Native implementation
+
+2. **Files modified:**
+   - `packages/utils/src/ethereumjs.js` - Removed these functions from @ethereumjs/util exports
+   - `packages/utils/src/index.ts` - Added exports from new implementations
+   - `packages/utils/src/ethereumjs.spec.ts` - Updated test imports
+
+### Why native instead of voltaire?
+Initially attempted to import from `@tevm/voltaire`, but:
+- Voltaire doesn't export deep paths
+- The main voltaire import loads native FFI bindings that require platform-specific builds
+
+Since these are simple pure-JS functions (no crypto), native implementations are cleaner and have zero dependencies.
+
+### Tests passing:
+- All @tevm/utils tests (380 passed)
+- Downstream packages using these functions (address, receipt-manager) also pass
+
+### Commit: `9989a905f`

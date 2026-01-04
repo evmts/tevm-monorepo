@@ -14,7 +14,7 @@ import * as Hex from '@tevm/voltaire/Hex'
  * @template {readonly import('abitype').AbiParameter[]} TParams
  * @param {TParams} params - Array of ABI parameter definitions
  * @param {import('abitype').AbiParametersToPrimitiveTypes<TParams>} values - Array of values to encode
- * @returns {import('viem').Hex} The ABI-encoded hex string
+ * @returns {import('./hex-types.js').Hex} The ABI-encoded hex string
  * @example
  * ```javascript
  * import { encodeAbiParameters } from '@tevm/utils'
@@ -40,7 +40,7 @@ export function encodeAbiParameters(params, values) {
 		/** @type {any} */ (params),
 		/** @type {any} */ (values),
 	)
-	return /** @type {import('viem').Hex} */ (Hex.fromBytes(encoded))
+	return /** @type {import('./hex-types.js').Hex} */ (Hex.fromBytes(encoded))
 }
 
 /**
@@ -49,7 +49,7 @@ export function encodeAbiParameters(params, values) {
  *
  * @template {readonly import('abitype').AbiParameter[]} TParams
  * @param {TParams} params - Array of ABI parameter definitions
- * @param {import('viem').Hex} data - The ABI-encoded hex string to decode
+ * @param {import('./hex-types.js').Hex} data - The ABI-encoded hex string to decode
  * @returns {import('abitype').AbiParametersToPrimitiveTypes<TParams>} The decoded values
  * @example
  * ```javascript

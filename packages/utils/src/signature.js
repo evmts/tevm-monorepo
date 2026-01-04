@@ -1,4 +1,4 @@
-import { ecrecover } from './ethereumjs.js'
+import { ecrecover } from './ecrecover.js'
 import { getAddress, keccak256, toBytes, toHex } from './viem.js'
 
 /**

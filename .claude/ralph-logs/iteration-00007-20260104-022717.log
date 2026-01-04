@@ -1,0 +1,54 @@
+# Ralph Migration Log - Iteration 7
+Date: 2026-01-04
+
+## Migration Target
+- Package: @tevm/utils
+- Function: isHex
+- From: viem/utils
+- To: native implementation
+
+## Changes Made
+1. Modified `packages/utils/src/viem.js`:
+   - Added `hexPattern` regex constant for hex validation
+   - Added native `isHex` function:
+     - Validates hex strings with strict mode (default)
+     - Non-strict mode only checks for '0x' prefix
+     - Returns false for non-string values (null, undefined, numbers, etc.)
+     - Returns false for empty/falsy values
+   - Removed isHex from viem/utils import
+
+2. Modified `packages/utils/src/viem.spec.ts`:
+   - Added 6 new tests for isHex:
+     - Valid hex strings test (6 assertions)
+     - Invalid hex characters test (3 assertions)
+     - Missing 0x prefix test (3 assertions)
+     - Non-string values test (6 assertions)
+     - Strict mode test (2 assertions)
+     - Non-strict mode test (3 assertions)
+
+## Tests Passed
+- packages/utils/src/viem.spec.ts (47 tests, up from 41)
+- All 98 tests in @tevm/utils pass (97 + 1 skipped)
+- 100% code coverage maintained
+
+## Remaining viem imports in @tevm/utils/src/viem.js (34 remaining):
+- bytesToBigInt, bytesToBigint, bytesToNumber
+- decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+- encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics
+- encodeFunctionData, encodeFunctionResult, encodePacked
+- formatEther, formatGwei, formatLog
+- fromBytes, fromHex, fromRlp
+- getAddress, hexToString
+- isAddress, isBytes, keccak256
+- parseEther, parseGwei, serializeTransaction, stringToHex
+- toBytes, toHex, toRlp
+- mnemonicToAccount (from viem/accounts)
+
+## Next Steps
+Possible next targets (simple conversions):
+- isBytes (validation function similar to isHex)
+- stringToHex, hexToString (string conversions)
+- bytesToNumber (number conversion, similar to existing patterns)
+
+## Commit
+ec7517e1d - ⚡ refactor(utils): replace viem isHex with native implementation

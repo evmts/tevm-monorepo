@@ -1,0 +1,32 @@
+## Migration Iteration 45 Complete
+
+**Successfully migrated 6 test files from viem to @tevm/utils:**
+
+### Files migrated:
+1. `packages/state/src/actions/getStateRoot.spec.ts`: bytesToHex
+2. `packages/state/src/actions/dumpStorageRange.spec.ts`: hexToBigInt, hexToBytes, numberToBytes, Hex type
+3. `packages/state/src/actions/dumpCannonicalGenesis.spec.ts`: hexToBytes, numberToBytes
+4. `packages/blockchain/src/actions/delBlock.spec.ts`: bytesToHex
+5. `packages/blockchain/src/utils/warnOnce.spec.ts`: bytesToHex
+6. `packages/blockchain/src/utils/getBlockFromRpc.spec.ts`: bytesToHex (kept `custom` from viem - transport creator)
+
+**Commit created:**
+- `acd475b50`: 6 test files migrated
+
+**Tests verified:**
+- getStateRoot.spec.ts: 4/4 passed ✅
+- dumpCannonicalGenesis.spec.ts: 4/4 passed ✅
+
+**Pre-existing issues (not from this migration):**
+- dumpStorageRange.spec.ts: 2 tests fail due to hexToBigInt requiring 0x prefix but storage keys don't have it
+- blockchain tests (delBlock, warnOnce, getBlockFromRpc): Fail due to missing RPC URLs (TEVM_RPC_URLS_MAINNET, TEVM_RPC_URLS_OPTIMISM)
+
+**Viem import count:**
+- Before: 228
+- After: 223
+- Migrated: 5 imports
+
+**Remaining targets for future iterations:**
+- More test files in @tevm/memory-client with parseEther, encodeFunctionData
+- @tevm/blockchain source files (withRetry needs to be added to utils or kept from viem)
+- @tevm/common: defineChain + viem/chains (complex - uses viem chain types)

@@ -1,0 +1,63 @@
+# Ralph Migration Iteration 108 - ABI Encoding Migration (SUCCESS)
+
+## Target
+
+Replace viem's `encodeAbiParameters` and `decodeAbiParameters` with native implementations using @tevm/voltaire.
+
+## Assessment
+
+Previous iteration (#107) was blocked by voltaire build issues - the jsonrpc module was trying to export `./types/index.js` which didn't exist.
+
+## Changes Made
+
+### 1. Fixed voltaire jsonrpc types export
+- Changed `export * as types from "./types/index.js"` to `export * as types from "./base-types.js"`
+- The `types/` directory is gitignored in voltaire (generated during build), so creating a file there was not a persistent fix
+- `base-types.js` already has the same type definitions needed
+
+### 2. Created native ABI encoding module
+- Created `packages/utils/src/abiEncoding.js` with:
+  - `encodeAbiParameters(params, values)` - wraps voltaire's `encodeParameters`, returns Hex
+  - `decodeAbiParameters(params, data)` - wraps voltaire's `decodeParameters`, takes Hex
+- Uses `@tevm/voltaire/Abi` and `@tevm/voltaire/Hex` package exports
+
+### 3. Added comprehensive tests
+- Created `packages/utils/src/abiEncoding.spec.ts` with 16 tests covering:
+  - uint256, string, address, bool, bytes32 encoding
+  - Array encoding (uint256[])
+  - Multi-parameter encoding
+  - Decode tests for all above types
+  - Roundtrip tests for simple and complex types
+
+### 4. Updated package dependencies
+- Added `@tevm/voltaire: workspace:^` to `packages/utils/package.json` dependencies
+
+### 5. Updated viem.js exports
+- Changed to export `encodeAbiParameters` and `decodeAbiParameters` from `./abiEncoding.js` instead of `viem/utils`
+- Remaining viem ABI functions (decodeErrorResult, decodeFunctionData, etc.) still come from viem
+
+## Tests
+
+All 319 tests in @tevm/utils pass (1 skipped):
+- 16 new abiEncoding tests
+- 303 existing tests continue to pass
+
+## Commits
+
+1. `fix(jsonrpc): fix missing types/index.js export by redirecting to base-types.js` (voltaire)
+2. `⚡ refactor(utils): implement native ABI encoding/decoding using @tevm/voltaire` (tevm)
+
+## Migration Status Summary
+
+**Remaining viem imports in @tevm/utils:**
+
+1. `viem/accounts`: `mnemonicToAccount`, `privateKeyToAccount` - Complex wallet APIs
+2. `viem/utils`:
+   - ~~encodeAbiParameters, decodeAbiParameters~~ ✅ MIGRATED
+   - decodeErrorResult, decodeFunctionData, decodeFunctionResult (complex ABI with selectors)
+   - encodeDeployData, encodeErrorResult, encodeEventTopics, encodeFunctionData, encodeFunctionResult
+3. `viem`: Transport/client functions (createPublicClient, http, etc.) - Needed for forking
+
+**Next targets:**
+- `encodeFunctionData` / `decodeFunctionData` - use voltaire's Abi.Function.encodeParams/decodeParams
+- `encodeEventTopics` / `decodeEventLog` - use voltaire's Abi.Event functions

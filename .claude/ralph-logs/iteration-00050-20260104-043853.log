@@ -1,0 +1,51 @@
+## Migration Iteration 50 Complete
+
+**Successfully migrated JSON-RPC schema types from viem to @tevm/utils:**
+
+### New additions to @tevm/utils:
+Re-exported RPC types from viem for centralized dependency management:
+- `Quantity`
+- `RpcBlock`
+- `RpcBlockIdentifier`
+- `RpcBlockNumber`
+- `RpcFeeHistory`
+- `RpcLog`
+- `RpcProof`
+- `RpcStateOverride`
+- `RpcTransaction`
+- `RpcTransactionReceipt`
+- `RpcTransactionRequest`
+- `RpcUncle`
+
+### Files migrated:
+
+**packages/decorators/src/eip1193 (3 files):**
+- JsonRpcSchemaPublic.ts: Consolidated all RPC type imports from @tevm/utils
+- JsonRpcSchemaTest.ts: Consolidated all RPC type imports from @tevm/utils
+- JsonRpcSchemaWallet.ts: Consolidated all RPC type imports from @tevm/utils
+
+**packages/utils/src (1 file):**
+- index.ts: Added RPC type re-exports from viem
+
+### Commit created:
+- `c4edcc5ae`: refactor(decorators): replace viem imports with @tevm/utils in JSON-RPC schema files
+
+### Verification:
+- All 17 decorators tests pass
+- No type errors in the modified files
+- Types build successfully
+
+### Strategy note:
+These types are still re-exported FROM viem via @tevm/utils. This is an intermediate
+step that centralizes viem dependencies. The decorators package now imports from
+@tevm/utils only, which will make future migration to voltaire types easier.
+
+### Remaining viem imports:
+~200 remaining across packages, mostly in:
+- memory-client (test files and source using viem clients)
+- jsonrpc (http, webSocket exports)
+- Other test files
+
+**Next targets:**
+- Continue migrating test files in memory-client
+- Consider migrating jsonrpc package transport exports

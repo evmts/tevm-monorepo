@@ -1,0 +1,49 @@
+Migration iteration 26-33 (batch) completed successfully.
+
+## Summary
+
+**Migrated in these iterations (8 files):**
+1. `Eip1193RequestProvider.spec.ts`: Changed `Hex` type import from 'viem' to '@tevm/utils'
+2. `miningModes.spec.ts`: Changed `toHex` import from 'viem' to '@tevm/utils'
+3. `getStorageAt.spec.ts`: Changed `numberToHex` import from 'viem' to '@tevm/utils'
+4. `getProof.spec.ts`: Changed `numberToHex` import from 'viem' to '@tevm/utils'
+5. `sendRawTransaction.spec.ts`: Changed `hexToBytes` import from 'viem' to '@tevm/utils'
+6. `getBlock.spec.ts`: Changed `bytesToHex` import from 'viem' to '@tevm/utils'
+7. `getTransaction.spec.ts`: Changed `bytesToHex` and `Hex` imports from 'viem' to '@tevm/utils'
+8. `getTransactionReceipt.spec.ts`: Changed `Hex` type import from 'viem' to '@tevm/utils'
+
+**Results:**
+- Started with 261 viem imports, now at 253 (reduced by 8)
+- All changes are type-only or utility function imports
+- Pre-existing test failures (storageRoot validation) not related to changes
+
+**Commits:**
+- 414483374: decorators Hex import
+- 774fc392a: memory-client toHex import  
+- d21afe399: memory-client numberToHex (getStorageAt)
+- 2b48b380d: memory-client numberToHex (getProof)
+- a17178142: memory-client hexToBytes
+- 6d26c187f: memory-client bytesToHex (getBlock)
+- 61494aae0: memory-client bytesToHex + Hex (getTransaction)
+- 45566731d: memory-client Hex (getTransactionReceipt)
+
+**Remaining simple utility imports to migrate:**
+- Several more test files with bytesToHex, numberToHex imports from viem
+- waitForTransactionReceipt.spec.ts: bytesToHex, encodeFunctionData, testActions
+- dumpState.spec.ts: createClient, numberToHex, parseEther
+- readContract.spec.ts: encodeDeployData, encodeFunctionData, numberToHex
+- setStorageAt.spec.ts: numberToHex, TestActions, testActions
+
+**More complex imports (viem functionality not yet in @tevm/utils):**
+- `testActions`, `walletActions` from viem - test utilities
+- `createClient` from viem - client creation
+- `parseEther` from viem - Ether parsing
+- `encodeFunctionData`, `encodeDeployData` from viem - ABI encoding (though some available in @tevm/utils)
+
+## Technical Notes
+
+- @tevm/utils provides native implementations of:
+  - toHex, bytesToHex, hexToBytes, numberToHex
+  - Hex type
+- All migrated imports were in test files, reducing viem dependency footprint
+- Pre-existing test failures exist with storageRoot validation (ethereumjs issue)

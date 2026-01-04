@@ -1,0 +1,49 @@
+Migration iteration 22 completed successfully.
+
+## Summary
+
+**Migrated in this iteration:**
+- 12 files in @tevm/actions package updated to import from @tevm/utils instead of directly from viem
+
+**Files changed:**
+- Call/executeCall.js: bytesToHex
+- anvil/anvilDealErc20Handler.js: encodeFunctionData, hexToBigInt
+- anvil/anvilDealErc20Procedure.js: hexToBigInt
+- anvil/anvilDealHandler.js: encodeFunctionData, hexToBigInt
+- anvil/anvilDealProcedure.js: hexToBigInt
+- anvil/anvilResetProcedure.js: bytesToHex
+- anvil/anvilSetErc20AllowanceHandler.js: encodeFunctionData, hexToBigInt
+- anvil/anvilSetErc20AllowanceProcedure.js: hexToBigInt
+- eth/ethProtocolVersionProcedure.js: stringToHex
+- internal/getL1FeeInformationOpStack.js: decodeFunctionResult, encodeFunctionData
+- internal/prefetchStorageFromAccessList.js: hexToBytes
+- eth/ethProtocolVersionProcedure.spec.ts: Updated mock from 'viem' to '@tevm/utils'
+
+**Results:**
+- 197 viem.spec.ts tests pass
+- Build succeeds
+- Commit: `140585240`
+
+**Remaining direct viem imports in @tevm/actions (4 files):**
+1. `contractHandler.js`: getContractError, RawContractError (viem error utilities)
+2. `decodeRevertReason.js`: decodeAbiParameters, hexToString, toFunctionSelector (toFunctionSelector not yet native)
+3. `callHandler.js`: numberToBytes (not yet native in @tevm/utils)
+4. `ethGetLogsHandler.js`: InternalRpcError (viem error type)
+
+**Remaining viem imports in @tevm/utils (13):**
+- ABI functions (12): decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult, encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics, encodeFunctionData, encodeFunctionResult, encodePacked
+- serializeTransaction
+- mnemonicToAccount (from viem/accounts)
+
+**Next candidates:**
+- Implement `numberToBytes` natively (simple conversion: number -> hex -> bytes)
+- Implement `toFunctionSelector` natively (first 4 bytes of keccak256 of function signature)
+- Consider if viem error utilities need migration or can remain as-is
+
+## Technical Notes
+
+- This iteration focused on consolidating imports through @tevm/utils rather than implementing new native functions
+- The pattern reduces the number of direct viem imports scattered across the codebase
+- Makes future migrations easier by having a single place to swap implementations
+- Functions like `bytesToHex`, `hexToBytes`, `hexToBigInt`, `stringToHex` are already native in @tevm/utils
+- Functions like `encodeFunctionData`, `decodeFunctionResult` are still re-exported from viem but through @tevm/utils

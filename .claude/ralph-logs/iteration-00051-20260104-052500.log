@@ -1,0 +1,38 @@
+# Ralph Migration Iteration 51
+
+**Date**: 2026-01-04
+**File migrated**: packages/contract/src/Contract.ts
+
+## Summary
+
+Migrated JSDoc examples in Contract.ts to use createMemoryClient instead of viem imports.
+
+## Changes Made
+
+1. Updated the "Using with other libraries" example in the Contract type JSDoc:
+   - Changed `import { createPublicClient, http } from 'viem'` to `import { createMemoryClient } from 'tevm'`
+   - Removed `import { mainnet } from 'viem/chains'`
+   - Simplified client creation from `createPublicClient({ chain: mainnet, transport: http() })` to `createMemoryClient()`
+
+2. Updated the `withCode` method JSDoc example:
+   - Changed `import { createPublicClient, http } from 'viem'` to `import { createMemoryClient } from 'tevm'`
+   - Removed `import { mainnet } from 'viem/chains'`
+   - Simplified client creation
+
+## Tests
+
+All 29 contract package tests pass.
+
+## Commit
+
+`⚡ refactor(contract): update Contract.ts JSDoc examples to use createMemoryClient`
+
+## Progress
+
+- **packages/contract/src/Contract.ts** is now viem-free
+
+## Remaining viem imports in packages
+
+The main remaining areas with viem imports:
+- packages/memory-client/src - viem integration layer (intentional)
+- packages/decorators - types (may need to stay for viem compatibility)

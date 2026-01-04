@@ -1,4 +1,5 @@
-import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
+import { AccountCache, StorageCache } from '@ethereumjs/statemanager'
+import { CacheType } from '@tevm/utils'
 import { InternalError } from '@tevm/errors'
 import { describe, expect, it } from 'vitest'
 import { ContractCache } from './ContractCache.js'

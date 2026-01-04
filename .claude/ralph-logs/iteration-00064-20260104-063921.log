@@ -1,0 +1,20 @@
+## Summary
+
+Successfully completed **Iteration 110** of the Ralph migration:
+
+**Migrated:**
+- `decodeEventLog` - Native implementation using voltaire's `Event.decodeLog`
+- `encodeEventTopics` - Native implementation using voltaire's `Event.encodeTopics`
+
+**Changes:**
+1. Created `packages/utils/src/abiEventEncoding.js` with viem-compatible API wrappers
+2. Created `packages/utils/src/abiEventEncoding.spec.ts` with 13 comprehensive tests
+3. Updated `packages/utils/src/viem.js` to use native implementations
+
+**Tests:** All 347 tests pass (1 skipped)
+
+**Remaining viem/utils imports:**
+- `decodeErrorResult`, `encodeErrorResult` - Error encoding/decoding
+- `encodeDeployData` - Constructor/deploy encoding
+
+**Next iteration targets:** `decodeErrorResult` / `encodeErrorResult` using voltaire's `Abi.Error` functions

@@ -1,0 +1,21 @@
+## Summary
+
+Successfully completed Ralph migration iteration 136:
+
+**Created a native `privateKeyToAddress` function** that uses @tevm/voltaire's `Address.fromPrivateKey`:
+
+### New Files:
+- `packages/utils/src/privateKeyToAddress.js` - Native implementation
+- `packages/utils/src/privateKeyToAddress.spec.ts` - 5 comprehensive tests
+
+### Modified Files:
+- `packages/utils/src/viem.js` - Added export
+- `packages/utils/src/index.ts` - Added to public API  
+- `packages/utils/src/prefundedAccounts.spec.ts` - Now uses native function instead of viem
+
+### Test Results:
+- All 545 tests pass
+- New function achieves 100% code coverage
+
+### Key Technical Detail:
+Imported from `@tevm/voltaire/Address` subpath export instead of the main entry point to avoid native binding issues that occur when importing from `@tevm/voltaire` directly.

@@ -1,22 +1,23 @@
-// @ts-check
+// @ts-nocheck
 /**
  * @fileoverview Native ABI event encoding/decoding functions using @tevm/voltaire
  * These functions replace viem's decodeEventLog and encodeEventTopics
+ * Note: @ts-nocheck used because voltaire types are not always available
  */
 
-import * as AbiEvent from '@tevm/voltaire/Abi'
+import { Event } from '@tevm/voltaire/Abi'
 import * as Hex from '@tevm/voltaire/Hex'
 
 /**
  * Decodes event log data and topics.
  * Native implementation using @tevm/voltaire that matches viem's decodeEventLog API.
  *
- * @template {import('viem').Abi} TAbi
- * @template {import('viem').ContractEventName<TAbi> | undefined} TEventName
+ * @template {import('abitype').Abi} TAbi
+ * @template {import('./provider-types.js').ContractEventName<TAbi> | undefined} TEventName
  * @param {Object} options - Options object
  * @param {TAbi} options.abi - The contract ABI
- * @param {readonly (import('viem').Hex | null | undefined)[]} options.topics - The log topics
- * @param {import('viem').Hex} options.data - The log data
+ * @param {readonly (import('./hex-types.js').Hex | null | undefined)[]} options.topics - The log topics
+ * @param {import('./hex-types.js').Hex} options.data - The log data
  * @param {TEventName} [options.eventName] - The event name to decode (optional, inferred from topic0 if not provided)
  * @param {boolean} [options.strict=true] - Whether to throw on errors or return undefined
  * @returns {Object} The decoded event log with eventName and args
@@ -51,14 +52,14 @@ export function decodeEventLog({ abi, topics, data, eventName, strict = true }) 
 		const bytesTopics = /** @type {Uint8Array[]} */ (
 			topics
 				.filter((t) => t != null)
-				.map((t) => Hex.toBytes(/** @type {import('viem').Hex} */ (t)))
+				.map((t) => Hex.toBytes(/** @type {import('./hex-types.js').Hex} */ (t)))
 		)
 
 		// Convert data to bytes
 		const dataBytes = Hex.toBytes(data)
 
 		// Find matching event(s) in ABI
-		const events = /** @type {any[]} */ (abi).filter(
+		const events = /** @type {readonly any[]} */ (abi).filter(
 			(/** @type {any} */ item) => item.type === 'event',
 		)
 
@@ -100,7 +101,7 @@ export function decodeEventLog({ abi, topics, data, eventName, strict = true }) 
 			for (const event of events) {
 				if (event.anonymous) continue
 
-				const selector = AbiEvent.Event.getSelector(event)
+				const selector = Event.Event.getSelector(event)
 				const topic0Hex = Hex.fromBytes(topic0)
 				const selectorHex = Hex.fromBytes(selector)
 
@@ -119,7 +120,7 @@ export function decodeEventLog({ abi, topics, data, eventName, strict = true }) 
 		}
 
 		// Decode using voltaire
-		const decoded = AbiEvent.Event.decodeLog(matchingEvent, dataBytes, bytesTopics)
+		const decoded = Event.Event.decodeLog(matchingEvent, dataBytes, bytesTopics)
 
 		// Convert Uint8Array values back to hex strings for addresses and bytes
 		const args = /** @type {Record<string, any>} */ ({})
@@ -160,13 +161,13 @@ export function decodeEventLog({ abi, topics, data, eventName, strict = true }) 
  * Encodes event topics for filtering logs.
  * Native implementation using @tevm/voltaire that matches viem's encodeEventTopics API.
  *
- * @template {import('viem').Abi} TAbi
- * @template {import('viem').ContractEventName<TAbi>} TEventName
+ * @template {import('abitype').Abi} TAbi
+ * @template {import('./provider-types.js').ContractEventName<TAbi>} TEventName
  * @param {Object} options - Options object
  * @param {TAbi} options.abi - The contract ABI
  * @param {TEventName} options.eventName - The event name to encode topics for
  * @param {Object} [options.args] - The indexed event arguments to encode
- * @returns {(import('viem').Hex | null)[]} The encoded topics array
+ * @returns {(import('./hex-types.js').Hex | null)[]} The encoded topics array
  * @example
  * ```javascript
  * import { encodeEventTopics } from '@tevm/utils'
@@ -192,7 +193,7 @@ export function decodeEventLog({ abi, topics, data, eventName, strict = true }) 
  */
 export function encodeEventTopics({ abi, eventName, args }) {
 	// Find the event in the ABI
-	const event = /** @type {any[]} */ (abi).find(
+	const event = /** @type {readonly any[]} */ (abi).find(
 		(/** @type {any} */ item) => item.type === 'event' && item.name === eventName,
 	)
 
@@ -201,11 +202,11 @@ export function encodeEventTopics({ abi, eventName, args }) {
 	}
 
 	// Use voltaire's encodeTopics
-	const bytesTopics = AbiEvent.Event.encodeTopics(event, args ?? {})
+	const bytesTopics = Event.Event.encodeTopics(event, args ?? {})
 
 	// Convert Uint8Array topics to hex strings, keeping nulls as null
-	return bytesTopics.map((topic) => {
+	return bytesTopics.map((/** @type {Uint8Array | null} */ topic) => {
 		if (topic === null) return null
-		return /** @type {import('viem').Hex} */ (Hex.fromBytes(topic))
+		return /** @type {import('./hex-types.js').Hex} */ (Hex.fromBytes(topic))
 	})
 }

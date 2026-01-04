@@ -1,4 +1,4 @@
-import type { DB, DBObject } from '@ethereumjs/util'
+import type { DB, DBObject } from './db-types.js'
 
 export type MemoryDb<
 	TKey extends string | number | Uint8Array = Uint8Array,

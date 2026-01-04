@@ -1,0 +1,58 @@
+# Ralph Migration Log - Iteration 6
+Date: 2026-01-04
+
+## Migration Target
+- Package: @tevm/utils
+- Functions: boolToHex, hexToBool, boolToBytes, bytesToBool
+- From: viem/utils
+- To: native implementations
+
+## Changes Made
+1. Modified `packages/utils/src/viem.js`:
+   - Added native `boolToHex` function:
+     - Converts true to '0x1', false to '0x0'
+     - Supports size padding (e.g., size: 32 for ABI encoding)
+   - Added native `hexToBool` function:
+     - Uses hexToBigInt internally for robust parsing
+     - Returns false for 0n, true for any other value
+   - Added native `boolToBytes` function:
+     - Converts true to Uint8Array([1]), false to Uint8Array([0])
+     - Supports size padding (puts 1 in last byte position)
+   - Added native `bytesToBool` function:
+     - Returns true if any byte is non-zero
+     - Returns false for all-zero arrays or empty arrays
+   - Removed boolToHex, hexToBool, boolToBytes, bytesToBool from viem/utils import
+
+2. Modified `packages/utils/src/viem.spec.ts`:
+   - Added 14 new tests for boolean conversion functions:
+     - boolToHex: 3 tests (true, false, size padding)
+     - hexToBool: 4 tests (basic true/false, padded hex, invalid input)
+     - boolToBytes: 3 tests (true, false, size padding)
+     - bytesToBool: 4 tests (basic, padded bytes, empty array)
+
+## Tests Passed
+- packages/utils/src/viem.spec.ts (41 tests, up from 27)
+- All 92 tests in @tevm/utils pass (91 + 1 skipped)
+- 100% code coverage maintained
+
+## Remaining viem imports in @tevm/utils/src/viem.js (35 remaining):
+- bytesToBigInt, bytesToBigint, bytesToNumber
+- decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+- encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics
+- encodeFunctionData, encodeFunctionResult, encodePacked
+- formatEther, formatGwei, formatLog
+- fromBytes, fromHex, fromRlp
+- getAddress, hexToString
+- isAddress, isBytes, isHex, keccak256
+- parseEther, parseGwei, serializeTransaction, stringToHex
+- toBytes, toHex, toRlp
+- mnemonicToAccount (from viem/accounts)
+
+## Next Steps
+Possible next targets (simple conversions):
+- isHex (validation function)
+- stringToHex, hexToString (string conversions)
+- bytesToNumber (number conversion)
+
+## Commit
+117ada7cb - ⚡ refactor(utils): replace viem boolToHex, hexToBool, boolToBytes, bytesToBool with native implementations

@@ -1,0 +1,72 @@
+# Ralph Migration Log - Iteration 152
+## Date: 2026-01-04 10:17:00
+
+## Summary
+Migrated the remaining viem JSDoc imports from packages/state and packages/node JS files.
+
+## Changes Made
+
+### Modified: packages/state/src/createBaseState.js
+- Line 10: Changed `import('viem').Hex` to `import('@tevm/utils').Hex`
+
+### Modified: packages/node/src/getChainId.js
+- Line 5: Changed `import('viem').EIP1193RequestFn` to `import('@tevm/utils').EIP1193RequestFn`
+- Line 5: Changed `import('viem').Transport` to `import('@tevm/utils').Transport`
+
+## Rationale
+Both `Hex`, `EIP1193RequestFn`, and `Transport` types are already exported from @tevm/utils. By changing these JSDoc imports to use @tevm/utils instead of viem, we remove the dependency on viem for type information in these core packages.
+
+## Test Results
+- `packages/state/src/createBaseState.spec.ts` - 4 tests passed
+- `packages/node/src/getChainId.spec.ts` - 2/3 tests passed (1 failed due to missing env vars, pre-existing issue)
+- Pre-existing TypeScript errors in both packages are unrelated to these changes
+
+## Verification
+```
+grep -r "import('viem')" packages/vm packages/evm packages/state packages/node --include="*.js"
+# No matches found - all core packages' JS files now have zero viem JSDoc imports
+```
+
+## Migration Status - Core Packages JS Files
+
+### Fully Migrated (no viem JSDoc imports):
+- packages/utils/src/*.js - COMPLETE
+- packages/actions/src/**/*.js - COMPLETE
+- packages/state/src/*.js - COMPLETE (this iteration)
+- packages/node/src/*.js - COMPLETE (this iteration)
+- packages/vm/src/*.js - Already clean (no viem imports found)
+- packages/evm/src/*.js - Already clean (no viem imports found)
+
+## Total viem JSDoc Imports Migrated This Session
+- **3 JSDoc type references** migrated from viem to @tevm/utils:
+  - 1 Hex reference in createBaseState.js
+  - 2 references (EIP1193RequestFn, Transport) in getChainId.js
+
+## Cumulative Migration Progress (All Sessions)
+- packages/utils/src/*.js - COMPLETE (31 JSDoc imports migrated)
+- packages/actions/src/**/*.js - COMPLETE (5 JSDoc imports migrated)
+- packages/state/src/*.js - COMPLETE (1 JSDoc import migrated - this session)
+- packages/node/src/*.js - COMPLETE (2 JSDoc imports migrated - this session)
+- packages/vm/src/*.js - Already clean
+- packages/evm/src/*.js - Already clean
+
+## Additional Findings
+
+After thorough verification:
+- `packages/actions/dist/index.js` has 3 viem imports - this is a BUILD OUTPUT (will be regenerated)
+- `packages/utils/src/viem.js` has 3 viem imports - this is INTENTIONAL (re-export module)
+
+The `viem.js` file is specifically designed to re-export viem types through @tevm/utils, so those imports are correct and should remain.
+
+## Final Status
+
+**ALL core packages' source JS files are now fully migrated from viem JSDoc imports!**
+
+Only exceptions:
+- Build outputs in `dist/` folders (will regenerate correctly)
+- `packages/utils/src/viem.js` which intentionally re-exports viem types
+
+## Next Steps
+1. Consider migrating TS source files in other packages (e.g., memory-client, bundler)
+2. Look at runtime viem imports that could be replaced with voltaire equivalents
+3. Consider migrating viem function calls (not just type imports)

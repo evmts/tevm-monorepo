@@ -11,12 +11,12 @@ import * as Hex from '@tevm/voltaire/Hex'
  * Encodes deploy data (bytecode + constructor parameters).
  * Native implementation using @tevm/voltaire that matches viem's encodeDeployData API.
  *
- * @template {import('viem').Abi} TAbi
+ * @template {import('abitype').Abi} TAbi
  * @param {Object} options - Options object
  * @param {TAbi} options.abi - The contract ABI
- * @param {import('viem').Hex} options.bytecode - The contract bytecode
+ * @param {import('./hex-types.js').Hex} options.bytecode - The contract bytecode
  * @param {readonly unknown[]} [options.args] - The constructor arguments
- * @returns {import('viem').Hex} The encoded deploy data (bytecode + ABI-encoded constructor args)
+ * @returns {import('./hex-types.js').Hex} The encoded deploy data (bytecode + ABI-encoded constructor args)
  * @example
  * ```javascript
  * import { encodeDeployData } from '@tevm/utils'
@@ -49,7 +49,7 @@ export function encodeDeployData({ abi, bytecode, args }) {
 	}
 
 	// Find the constructor in the ABI
-	const constructor = /** @type {any[]} */ (abi).find(
+	const constructor = /** @type {readonly any[]} */ (abi).find(
 		(/** @type {any} */ item) => item.type === 'constructor',
 	)
 
@@ -64,5 +64,5 @@ export function encodeDeployData({ abi, bytecode, args }) {
 	const encodedParamsHex = /** @type {string} */ (Hex.fromBytes(encodedParams))
 
 	// Concatenate bytecode + encoded params (remove '0x' from params)
-	return /** @type {import('viem').Hex} */ (bytecode + encodedParamsHex.slice(2))
+	return /** @type {import('./hex-types.js').Hex} */ (bytecode + encodedParamsHex.slice(2))
 }

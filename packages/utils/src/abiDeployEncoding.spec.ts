@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { encodeDeployData } from './abiDeployEncoding.js'
-import type { Abi, Hex } from 'viem'
+import type { Abi, Hex } from './abitype.js'
 
 describe('encodeDeployData', () => {
 	const bytecode: Hex = '0x608060405234801561001057600080fd5b50'

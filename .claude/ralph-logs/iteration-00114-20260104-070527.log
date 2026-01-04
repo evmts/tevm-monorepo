@@ -1,0 +1,56 @@
+# Ralph Migration Iteration 114 - Native formatAbi Implementation
+
+## Summary
+
+Implemented a native `formatAbi` function to replace the dependency on `abitype` for formatting JSON ABI to human-readable strings.
+
+## Changes Made
+
+### New Files
+1. `/packages/utils/src/formatAbi.js` - Native implementation of formatAbi
+2. `/packages/utils/src/formatAbi.spec.ts` - Comprehensive test suite (14 tests)
+
+### Modified Files
+1. `/packages/utils/src/viem.js` - Updated exports to use native formatAbi instead of abitype
+
+## Implementation Details
+
+The native `formatAbi` function handles all ABI item types:
+- **function**: Includes inputs, outputs, and state mutability (view, pure, payable)
+- **event**: Includes inputs with `indexed` keyword support
+- **error**: Includes error name and inputs
+- **constructor**: Includes inputs
+- **receive**: Outputs `receive() external payable`
+- **fallback**: Outputs `fallback() external`
+
+### Key Formatting Rules
+- State mutability is included for `view`, `pure`, and `payable` (not `nonpayable` which is the default)
+- Event parameters include `indexed` keyword when applicable
+- Output matches abitype's formatAbi exactly for compatibility
+
+## Tests
+
+- **14 new tests** in formatAbi.spec.ts covering all ABI item types
+- All **381 @tevm/utils tests** pass
+- All **29 @tevm/contract tests** pass (these use formatAbi)
+
+## Migration Status Update
+
+```
+✅ COMPLETED: ABI encoding/decoding (encodeAbiParameters, decodeAbiParameters, encodeFunctionData, etc.)
+✅ COMPLETED: All utility functions (hex conversions, RLP, keccak256, etc.)
+✅ COMPLETED: formatAbi (native implementation) <- NEW
+🔄 REMAINING: parseAbi (from abitype - complex human-readable ABI parser)
+🔄 REMAINING: mnemonicToAccount/privateKeyToAccount (viem account objects)
+🔄 REMAINING: Transport/client functions for forking (createPublicClient, http, etc.)
+```
+
+## Commit
+
+`⚡ refactor(utils): implement native formatAbi replacing abitype dependency` (70b0f38c5)
+
+## Notes
+
+- The abitype dependency is still required for `parseAbi` (parsing human-readable ABI to JSON)
+- Implementing `parseAbi` would be significantly more complex as it requires a full parser for the human-readable ABI format
+- This change reduces runtime code from abitype but doesn't remove the dependency entirely

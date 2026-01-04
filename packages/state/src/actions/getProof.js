@@ -6,7 +6,7 @@ import { getForkClient } from './getForkClient.js'
 /**
  * Get an EIP-1186 proof from the provider
  * @param {import('../BaseState.js').BaseState} baseState
- * @returns {(address: import('@tevm/utils').EthjsAddress, storageSlots?: Uint8Array[]) => Promise<import('@ethereumjs/statemanager').Proof>}
+ * @returns {(address: import('@tevm/utils').EthjsAddress, storageSlots?: Uint8Array[]) => Promise<import('@tevm/utils').Proof>}
  */
 export const getProof =
 	(baseState) =>

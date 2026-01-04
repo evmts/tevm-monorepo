@@ -1,0 +1,16 @@
+## Summary
+
+I completed a migration iteration that updated 2 TypeScript JSDoc example files in `packages/memory-client/src/`:
+
+**Changes:**
+- **TevmContractType.ts** - Split `import { createClient, http } from 'viem'` into:
+  - `import { createClient } from 'viem'` (core viem function)
+  - `import { http } from '@tevm/utils'` (migrated utility)
+
+- **TevmRpcSchema.ts** - Same split applied
+
+**Commit:** `0340e8c8a` - `⚡ refactor(memory-client): update JSDoc examples to use @tevm/utils for http`
+
+**Test Results:** Pre-existing type errors in @tevm/block and @tevm/address packages (unrelated to documentation changes).
+
+**Migration Status:** The core runtime packages (actions, vm, evm, state, node) no longer have direct viem imports. The remaining viem usage is intentional for the viem integration layer (memory-client) and for complex functionality that hasn't been migrated to voltaire yet (ABI encoding/decoding, error handling, transport/client creation).

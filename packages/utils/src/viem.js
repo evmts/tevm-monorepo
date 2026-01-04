@@ -19,13 +19,19 @@ export { parseAbi } from 'abitype'
 
 // Account creation from viem (HD wallet derivation, signing methods)
 export { mnemonicToAccount, privateKeyToAccount } from 'viem/accounts'
+
+// Native privateKeyToAddress implementation using @tevm/voltaire
+export { privateKeyToAddress } from './privateKeyToAddress.js'
+
+// Native generatePrivateKey implementation
+export { generatePrivateKey } from './generatePrivateKey.js'
 import { keccak_256 } from '@noble/hashes/sha3.js'
 
 /**
  * Convert bytes to hex string.
  * Native implementation that matches viem's bytesToHex API.
  * @param {Uint8Array} bytes - The bytes to convert
- * @returns {import('viem').Hex} The hex string (e.g., '0x1234')
+ * @returns {import('./hex-types.js').Hex} The hex string (e.g., '0x1234')
  * @example
  * ```javascript
  * import { bytesToHex } from '@tevm/utils'
@@ -39,7 +45,7 @@ export function bytesToHex(bytes) {
 		const byte = /** @type {number} */ (bytes[i])
 		hex += byte.toString(16).padStart(2, '0')
 	}
-	return /** @type {import('viem').Hex} */ (hex)
+	return /** @type {import('./hex-types.js').Hex} */ (hex)
 }
 
 /**
@@ -55,7 +61,7 @@ const hexCharToValue = {
 /**
  * Convert hex string to BigInt.
  * Native implementation that matches viem's hexToBigInt API.
- * @param {import('viem').Hex} hex - The hex string to convert (must start with '0x')
+ * @param {import('./hex-types.js').Hex} hex - The hex string to convert (must start with '0x')
  * @param {Object} [opts] - Options
  * @param {boolean} [opts.signed] - Whether to treat as signed integer
  * @returns {bigint} The BigInt value
@@ -91,7 +97,7 @@ export function hexToBigInt(hex, opts) {
 /**
  * Convert hex string to bytes.
  * Native implementation that matches viem's hexToBytes API.
- * @param {import('viem').Hex} hex - The hex string to convert (must start with '0x')
+ * @param {import('./hex-types.js').Hex} hex - The hex string to convert (must start with '0x')
  * @returns {Uint8Array} The byte array
  * @throws {Error} If the hex string is invalid
  * @example
@@ -129,7 +135,7 @@ export function hexToBytes(hex) {
 /**
  * Convert hex string to number.
  * Native implementation that matches viem's hexToNumber API.
- * @param {import('viem').Hex} hex - The hex string to convert (must start with '0x')
+ * @param {import('./hex-types.js').Hex} hex - The hex string to convert (must start with '0x')
  * @param {Object} [opts] - Options
  * @param {boolean} [opts.signed] - Whether to treat as signed integer
  * @returns {number} The number value
@@ -157,7 +163,7 @@ export function hexToNumber(hex, opts) {
  * @param {Object} [opts] - Options
  * @param {boolean} [opts.signed] - Whether to encode as signed integer
  * @param {number} [opts.size] - Size in bytes (for padding/signed encoding)
- * @returns {import('viem').Hex} The hex string (e.g., '0xff')
+ * @returns {import('./hex-types.js').Hex} The hex string (e.g., '0xff')
  * @example
  * ```javascript
  * import { numberToHex } from '@tevm/utils'
@@ -185,7 +191,7 @@ export function numberToHex(value, opts) {
 		if (bigIntValue < 0n) {
 			encoded = (1n << (BigInt(size) * 8n)) + bigIntValue
 		}
-		return /** @type {import('viem').Hex} */ (`0x${encoded.toString(16).padStart(size * 2, '0')}`)
+		return /** @type {import('./hex-types.js').Hex} */ (`0x${encoded.toString(16).padStart(size * 2, '0')}`)
 	}
 
 	// For unsigned, ensure non-negative
@@ -200,11 +206,11 @@ export function numberToHex(value, opts) {
 		if (hex.length > expectedLength) {
 			throw new Error(`Value ${bigIntValue} exceeds ${opts.size} byte size`)
 		}
-		return /** @type {import('viem').Hex} */ (`0x${hex.padStart(expectedLength, '0')}`)
+		return /** @type {import('./hex-types.js').Hex} */ (`0x${hex.padStart(expectedLength, '0')}`)
 	}
 
 	// Default: no padding, just convert
-	return /** @type {import('viem').Hex} */ (`0x${bigIntValue.toString(16)}`)
+	return /** @type {import('./hex-types.js').Hex} */ (`0x${bigIntValue.toString(16)}`)
 }
 
 /**
@@ -213,7 +219,7 @@ export function numberToHex(value, opts) {
  * @param {boolean} value - The boolean value to convert
  * @param {Object} [opts] - Options
  * @param {number} [opts.size] - Size in bytes for padding (e.g., 32 for ABI encoding)
- * @returns {import('viem').Hex} The hex string ('0x1' for true, '0x0' for false)
+ * @returns {import('./hex-types.js').Hex} The hex string ('0x1' for true, '0x0' for false)
  * @example
  * ```javascript
  * import { boolToHex } from '@tevm/utils'
@@ -225,15 +231,15 @@ export function numberToHex(value, opts) {
 export function boolToHex(value, opts) {
 	const hex = value ? '1' : '0'
 	if (opts?.size) {
-		return /** @type {import('viem').Hex} */ (`0x${hex.padStart(opts.size * 2, '0')}`)
+		return /** @type {import('./hex-types.js').Hex} */ (`0x${hex.padStart(opts.size * 2, '0')}`)
 	}
-	return /** @type {import('viem').Hex} */ (`0x${hex}`)
+	return /** @type {import('./hex-types.js').Hex} */ (`0x${hex}`)
 }
 
 /**
  * Convert hex string to boolean.
  * Native implementation that matches viem's hexToBool API.
- * @param {import('viem').Hex} hex - The hex string to convert (must be '0x0', '0x00', '0x1', '0x01', etc.)
+ * @param {import('./hex-types.js').Hex} hex - The hex string to convert (must be '0x0', '0x00', '0x1', '0x01', etc.)
  * @returns {boolean} The boolean value
  * @example
  * ```javascript
@@ -311,7 +317,7 @@ const hexPattern = /^0x[0-9a-fA-F]*$/
  * @param {unknown} value - The value to check
  * @param {Object} [opts] - Options
  * @param {boolean} [opts.strict=true] - If true, validates hex characters. If false, only checks for '0x' prefix.
- * @returns {value is import('viem').Hex} True if the value is a valid hex string
+ * @returns {value is import('./hex-types.js').Hex} True if the value is a valid hex string
  * @example
  * ```javascript
  * import { isHex } from '@tevm/utils'
@@ -366,7 +372,7 @@ export function isBytes(value) {
  * @param {string} value - The string to convert
  * @param {Object} [opts] - Options
  * @param {number} [opts.size] - Size in bytes for padding (pads with null bytes on the right)
- * @returns {import('viem').Hex} The hex string (e.g., '0x68656c6c6f' for 'hello')
+ * @returns {import('./hex-types.js').Hex} The hex string (e.g., '0x68656c6c6f' for 'hello')
  * @example
  * ```javascript
  * import { stringToHex } from '@tevm/utils'
@@ -397,7 +403,7 @@ export function stringToHex(value, opts) {
  * Convert a hex string to a UTF-8 string.
  * Native implementation that matches viem's hexToString API.
  * Uses TextDecoder for UTF-8 decoding.
- * @param {import('viem').Hex} hex - The hex string to convert (must start with '0x')
+ * @param {import('./hex-types.js').Hex} hex - The hex string to convert (must start with '0x')
  * @param {Object} [opts] - Options
  * @param {number} [opts.size] - Expected size in bytes (not currently used, included for API compatibility)
  * @returns {string} The decoded string (e.g., 'hello' from '0x68656c6c6f')
@@ -535,7 +541,7 @@ const addressPattern = /^0x[0-9a-fA-F]{40}$/
  * @param {unknown} address - The value to check
  * @param {Object} [opts] - Options (included for API compatibility)
  * @param {boolean} [opts.strict] - Not used in this implementation (checksum validation not implemented)
- * @returns {address is import('viem').Address} True if the value is a valid Ethereum address
+ * @returns {address is import('./address-types.js').Address} True if the value is a valid Ethereum address
  * @example
  * ```javascript
  * import { isAddress } from '@tevm/utils'
@@ -776,9 +782,9 @@ export function parseUnits(value, decimals) {
  * Compute Keccak-256 hash.
  * Native implementation that matches viem's keccak256 API.
  * Uses @noble/hashes for the underlying implementation (same as voltaire).
- * @param {Uint8Array | import('viem').Hex} value - The value to hash (bytes or hex string)
+ * @param {Uint8Array | import('./hex-types.js').Hex} value - The value to hash (bytes or hex string)
  * @param {'bytes' | 'hex'} [to='hex'] - Output format: 'hex' returns Hex string, 'bytes' returns Uint8Array
- * @returns {import('viem').Hex} The Keccak-256 hash (returns Hex by default, Uint8Array if to='bytes')
+ * @returns {import('./hex-types.js').Hex} The Keccak-256 hash (returns Hex by default, Uint8Array if to='bytes')
  * @example
  * ```javascript
  * import { keccak256 } from '@tevm/utils'
@@ -796,7 +802,7 @@ export function keccak256(value, to = 'hex') {
 	// Hash using noble/hashes
 	const hash = keccak_256(bytes)
 	// Return in requested format
-	return /** @type {import('viem').Hex} */ (to === 'bytes' ? hash : bytesToHex(hash))
+	return /** @type {import('./hex-types.js').Hex} */ (to === 'bytes' ? hash : bytesToHex(hash))
 }
 
 /**
@@ -804,7 +810,7 @@ export function keccak256(value, to = 'hex') {
  * Native implementation that matches viem's getAddress API.
  * Uses keccak256 to compute the checksum based on the address characters.
  * @param {string} address - The address to checksum (must be a valid 40-char hex address)
- * @returns {import('viem').Address} The checksummed address
+ * @returns {import('./address-types.js').Address} The checksummed address
  * @throws {Error} If the address is invalid
  * @example
  * ```javascript
@@ -848,7 +854,7 @@ export function getAddress(address) {
 		}
 	}
 
-	return /** @type {import('viem').Address} */ (checksummed)
+	return /** @type {import('./address-types.js').Address} */ (checksummed)
 }
 
 /**
@@ -857,7 +863,7 @@ export function getAddress(address) {
  * @param {string | number | bigint | boolean | Uint8Array} value - The value to convert
  * @param {Object} [opts] - Options
  * @param {number} [opts.size] - Size in bytes for padding
- * @returns {import('viem').Hex} The hex string (e.g., '0x1234')
+ * @returns {import('./hex-types.js').Hex} The hex string (e.g., '0x1234')
  * @example
  * ```javascript
  * import { toHex } from '@tevm/utils'
@@ -911,7 +917,7 @@ export function toHex(value, opts) {
  * Polymorphic function to convert hex to various types.
  * Native implementation that matches viem's fromHex API.
  * @template {'string' | 'number' | 'bigint' | 'boolean' | 'bytes'} TTo
- * @param {import('viem').Hex} hex - The hex string to convert (must start with '0x')
+ * @param {import('./hex-types.js').Hex} hex - The hex string to convert (must start with '0x')
  * @param {TTo | { to: TTo; size?: number }} toOrOpts - Output type or options with output type
  * @returns {TTo extends 'string' ? string : TTo extends 'number' ? number : TTo extends 'bigint' ? bigint : TTo extends 'boolean' ? boolean : Uint8Array} The converted value
  * @example
@@ -957,7 +963,7 @@ export function fromHex(hex, toOrOpts) {
 /**
  * Polymorphic function to convert various types to bytes (Uint8Array).
  * Native implementation that matches viem's toBytes API.
- * @param {string | number | bigint | boolean | import('viem').Hex} value - The value to convert
+ * @param {string | number | bigint | boolean | import('./hex-types.js').Hex} value - The value to convert
  * @param {Object} [opts] - Options
  * @param {number} [opts.size] - Size in bytes for padding
  * @returns {Uint8Array} The byte array
@@ -993,7 +999,7 @@ export function toBytes(value, opts) {
 	if (typeof value === 'string') {
 		// If it starts with 0x, treat as hex
 		if (value.startsWith('0x')) {
-			const bytes = hexToBytes(/** @type {import('viem').Hex} */ (value))
+			const bytes = hexToBytes(/** @type {import('./hex-types.js').Hex} */ (value))
 			// Handle size padding for hex input
 			if (opts?.size) {
 				if (bytes.length > opts.size) {
@@ -1029,7 +1035,7 @@ export function toBytes(value, opts) {
  * @template {'string' | 'number' | 'bigint' | 'boolean' | 'hex'} TTo
  * @param {Uint8Array} bytes - The bytes to convert
  * @param {TTo | { to: TTo; size?: number }} toOrOpts - Output type or options with output type
- * @returns {TTo extends 'string' ? string : TTo extends 'number' ? number : TTo extends 'bigint' ? bigint : TTo extends 'boolean' ? boolean : import('viem').Hex} The converted value
+ * @returns {TTo extends 'string' ? string : TTo extends 'number' ? number : TTo extends 'bigint' ? bigint : TTo extends 'boolean' ? boolean : import('./hex-types.js').Hex} The converted value
  * @example
  * ```javascript
  * import { fromBytes } from '@tevm/utils'
@@ -1177,9 +1183,9 @@ function hexToRlpBytes(hex) {
  * RLP encode a value (polymorphic).
  * Accepts hex strings, byte arrays, or arrays of either.
  * Native implementation that matches viem's toRlp API.
- * @param {import('viem').Hex | Uint8Array | Array<import('viem').Hex | Uint8Array | Array<any>>} value - The value to encode
+ * @param {import('./hex-types.js').Hex | Uint8Array | Array<import('./hex-types.js').Hex | Uint8Array | Array<any>>} value - The value to encode
  * @param {'hex' | 'bytes'} [to='hex'] - Output format
- * @returns {import('viem').Hex | Uint8Array} The RLP encoded value
+ * @returns {import('./hex-types.js').Hex | Uint8Array} The RLP encoded value
  * @example
  * ```javascript
  * import { toRlp } from '@tevm/utils'
@@ -1313,7 +1319,7 @@ function rlpDecodeItem(bytes, offset) {
 /**
  * Convert decoded RLP value to hex format.
  * @param {Uint8Array | Array<any>} value - The decoded value
- * @returns {import('viem').Hex | Array<any>} The hex-formatted value
+ * @returns {import('./hex-types.js').Hex | Array<any>} The hex-formatted value
  */
 function toHexOutput(value) {
 	if (value instanceof Uint8Array) {
@@ -1329,9 +1335,9 @@ function toHexOutput(value) {
  * RLP decode a value.
  * Native implementation that matches viem's fromRlp API.
  * @template {'hex' | 'bytes'} TTo
- * @param {import('viem').Hex | Uint8Array} value - The RLP-encoded value
+ * @param {import('./hex-types.js').Hex | Uint8Array} value - The RLP-encoded value
  * @param {TTo} [to='hex'] - Output format
- * @returns {TTo extends 'bytes' ? Uint8Array | Array<any> : import('viem').Hex | Array<any>} The decoded value
+ * @returns {TTo extends 'bytes' ? Uint8Array | Array<any> : import('./hex-types.js').Hex | Array<any>} The decoded value
  * @example
  * ```javascript
  * import { fromRlp } from '@tevm/utils'
@@ -1458,7 +1464,7 @@ function normalizeSignature(signature) {
  * Native implementation that matches viem's toFunctionSelector API.
  * The selector is the first 4 bytes of the keccak256 hash of the function signature.
  * @param {string} signature - The function signature (e.g., 'transfer(address,uint256)' or 'function transfer(address,uint256)')
- * @returns {import('viem').Hex} The 4-byte function selector (e.g., '0xa9059cbb')
+ * @returns {import('./hex-types.js').Hex} The 4-byte function selector (e.g., '0xa9059cbb')
  * @example
  * ```javascript
  * import { toFunctionSelector } from '@tevm/utils'
@@ -1475,7 +1481,7 @@ export function toFunctionSelector(signature) {
 	const normalizedSig = normalizeSignature(signature)
 	const hash = keccak256(stringToHex(normalizedSig))
 	// Return first 4 bytes (8 hex chars + '0x' prefix = 10 chars)
-	return /** @type {import('viem').Hex} */ (hash.slice(0, 10))
+	return /** @type {import('./hex-types.js').Hex} */ (hash.slice(0, 10))
 }
 
 /**
@@ -1483,7 +1489,7 @@ export function toFunctionSelector(signature) {
  * Native implementation that matches viem's toEventSelector API.
  * The selector is the full keccak256 hash of the event signature.
  * @param {string} signature - The event signature (e.g., 'Transfer(address,address,uint256)' or 'event Transfer(address,address,uint256)')
- * @returns {import('viem').Hex} The 32-byte event selector (topic0)
+ * @returns {import('./hex-types.js').Hex} The 32-byte event selector (topic0)
  * @example
  * ```javascript
  * import { toEventSelector } from '@tevm/utils'
@@ -1503,8 +1509,8 @@ export function toEventSelector(signature) {
 /**
  * Concatenate multiple hex strings into a single hex string.
  * Native implementation that matches viem's concatHex API.
- * @param {readonly import('viem').Hex[]} hexValues - Array of hex strings to concatenate
- * @returns {import('viem').Hex} The concatenated hex string
+ * @param {readonly import('./hex-types.js').Hex[]} hexValues - Array of hex strings to concatenate
+ * @returns {import('./hex-types.js').Hex} The concatenated hex string
  * @example
  * ```javascript
  * import { concatHex } from '@tevm/utils'
@@ -1577,7 +1583,7 @@ function encodePackedValue(type, value) {
 	// Address - 20 bytes
 	if (type === 'address') {
 		const addr = /** @type {string} */ (value)
-		return hexToBytes(/** @type {import('viem').Hex} */ (addr))
+		return hexToBytes(/** @type {import('./hex-types.js').Hex} */ (addr))
 	}
 
 	// Bool - 1 byte
@@ -1593,7 +1599,7 @@ function encodePackedValue(type, value) {
 	// Dynamic bytes - raw bytes, no length prefix
 	if (type === 'bytes') {
 		if (typeof value === 'string') {
-			return hexToBytes(/** @type {import('viem').Hex} */ (value))
+			return hexToBytes(/** @type {import('./hex-types.js').Hex} */ (value))
 		}
 		return /** @type {Uint8Array} */ (value)
 	}
@@ -1603,7 +1609,7 @@ function encodePackedValue(type, value) {
 		const size = parseInt(type.slice(5))
 		if (size >= 1 && size <= 32) {
 			const bytes = typeof value === 'string'
-				? hexToBytes(/** @type {import('viem').Hex} */ (value))
+				? hexToBytes(/** @type {import('./hex-types.js').Hex} */ (value))
 				: /** @type {Uint8Array} */ (value)
 			if (bytes.length !== size) {
 				throw new Error(`Invalid ${type} length: expected ${size}, got ${bytes.length}`)
@@ -1651,7 +1657,7 @@ function encodePackedValue(type, value) {
  * Used for hash computations where standard ABI encoding would waste space.
  * @param {readonly string[]} types - Array of Solidity type strings
  * @param {readonly unknown[]} values - Array of values to encode
- * @returns {import('viem').Hex} The packed encoded data as a hex string
+ * @returns {import('./hex-types.js').Hex} The packed encoded data as a hex string
  * @example
  * ```javascript
  * import { encodePacked } from '@tevm/utils'
@@ -1696,9 +1702,9 @@ export function encodePacked(types, values) {
  * @property {number} [chainId] - Chain ID
  * @property {bigint | number} [nonce] - Transaction nonce
  * @property {bigint | number} [gas] - Gas limit
- * @property {import('viem').Address} [to] - Recipient address
+ * @property {import('./address-types.js').Address} [to] - Recipient address
  * @property {bigint | number} [value] - Value in wei
- * @property {import('viem').Hex} [data] - Transaction data
+ * @property {import('./hex-types.js').Hex} [data] - Transaction data
  */
 
 /**
@@ -1709,7 +1715,7 @@ export function encodePacked(types, values) {
  */
 
 /**
- * @typedef {{ address: import('viem').Address, storageKeys?: import('viem').Hex[] }} AccessListItem
+ * @typedef {{ address: import('./address-types.js').Address, storageKeys?: import('./hex-types.js').Hex[] }} AccessListItem
  */
 
 /**
@@ -1763,7 +1769,7 @@ function bigintToRlpBytes(value) {
 
 /**
  * Convert a hex string to bytes for RLP, handling empty/zero cases.
- * @param {import('viem').Hex | undefined} hex - Hex string
+ * @param {import('./hex-types.js').Hex | undefined} hex - Hex string
  * @returns {Uint8Array} Bytes
  */
 function hexToRlpBytesForTx(hex) {
@@ -1784,14 +1790,14 @@ function hexToRlpBytesForTx(hex) {
 
 /**
  * Convert an address to 20 bytes for RLP.
- * @param {import('viem').Address | undefined} address - Address
+ * @param {import('./address-types.js').Address | undefined} address - Address
  * @returns {Uint8Array} 20-byte address or empty for null/undefined
  */
 function addressToRlpBytes(address) {
 	if (!address || address === '0x') {
 		return new Uint8Array(0)
 	}
-	return hexToRlpBytesForTx(/** @type {import('viem').Hex} */ (address.toLowerCase()))
+	return hexToRlpBytesForTx(/** @type {import('./hex-types.js').Hex} */ (address.toLowerCase()))
 }
 
 /**
@@ -1892,7 +1898,7 @@ function encodeAccessList(accessList) {
  * Serialize a legacy transaction.
  * @param {TransactionSerializableLegacy} tx - Transaction
  * @param {Signature} [signature] - Optional signature
- * @returns {import('viem').Hex} Serialized transaction
+ * @returns {import('./hex-types.js').Hex} Serialized transaction
  */
 function serializeLegacyTransaction(tx, signature) {
 	// Legacy: [nonce, gasPrice, gasLimit, to, value, data, v, r, s]
@@ -1928,7 +1934,7 @@ function serializeLegacyTransaction(tx, signature) {
  * Serialize an EIP-2930 transaction.
  * @param {TransactionSerializableEIP2930} tx - Transaction
  * @param {Signature} [signature] - Optional signature
- * @returns {import('viem').Hex} Serialized transaction
+ * @returns {import('./hex-types.js').Hex} Serialized transaction
  */
 function serializeEIP2930Transaction(tx, signature) {
 	// EIP-2930: 0x01 || rlp([chainId, nonce, gasPrice, gasLimit, to, value, data, accessList, signatureYParity, signatureR, signatureS])
@@ -1962,7 +1968,7 @@ function serializeEIP2930Transaction(tx, signature) {
  * Serialize an EIP-1559 transaction.
  * @param {TransactionSerializableEIP1559} tx - Transaction
  * @param {Signature} [signature] - Optional signature
- * @returns {import('viem').Hex} Serialized transaction
+ * @returns {import('./hex-types.js').Hex} Serialized transaction
  */
 function serializeEIP1559Transaction(tx, signature) {
 	// EIP-1559: 0x02 || rlp([chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data, accessList, signatureYParity, signatureR, signatureS])
@@ -1999,7 +2005,7 @@ function serializeEIP1559Transaction(tx, signature) {
  * Supports Legacy, EIP-2930, and EIP-1559 transaction types.
  * @param {TransactionSerializable} transaction - The transaction to serialize
  * @param {Signature} [signature] - Optional signature to include
- * @returns {import('viem').Hex} The serialized transaction as a hex string
+ * @returns {import('./hex-types.js').Hex} The serialized transaction as a hex string
  * @example
  * ```javascript
  * import { serializeTransaction } from '@tevm/utils'

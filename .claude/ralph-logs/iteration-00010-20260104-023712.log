@@ -1,0 +1,62 @@
+Migration iteration 10 complete. Here's the summary:
+
+## Migration Iteration 10 Complete
+
+**Target**: `hexToString` function in `@tevm/utils`
+
+**Changes**:
+1. Added native `hexToString` implementation using TextDecoder for UTF-8 decoding
+2. Removed `hexToString` from viem/utils re-exports
+3. Added 8 comprehensive test cases
+
+**Results**:
+- All 67 tests in viem.spec.ts pass
+- All 118 tests in @tevm/utils pass (117 + 1 skipped)
+- 100% code coverage maintained
+
+**Remaining viem imports**: 31 functions still need migration (down from 32)
+
+**Commit**: `7ee86e516` - ⚡ refactor(utils): replace viem hexToString with native implementation
+
+## Implementation Details
+
+1. Modified `packages/utils/src/viem.js`:
+   - Added native `hexToString` function using TextDecoder
+   - Supports UTF-8 decoding (handles Unicode, emojis, multi-byte characters)
+   - Includes optional `size` parameter for API compatibility
+   - Removed hexToString from viem/utils re-export block
+
+2. Modified `packages/utils/src/viem.spec.ts`:
+   - Added 8 new tests for hexToString:
+     - Basic ASCII strings test (3 assertions)
+     - Empty hex test (1 assertion)
+     - Single characters test (3 assertions)
+     - Unicode/UTF-8 characters test (5 assertions)
+     - Longer strings test (1 assertion)
+     - Null bytes test (3 assertions)
+     - Inverse of stringToHex test (8 test strings)
+     - Invalid hex error test (2 assertions)
+
+## Tests Passed
+- packages/utils/src/viem.spec.ts (67 tests, up from 59)
+- All 118 tests in @tevm/utils pass (117 + 1 skipped)
+- 100% code coverage maintained
+
+## Remaining viem imports in @tevm/utils/src/viem.js (31 remaining):
+- bytesToBigInt, bytesToBigint, bytesToNumber
+- decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+- encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics
+- encodeFunctionData, encodeFunctionResult, encodePacked
+- formatEther, formatGwei, formatLog
+- fromBytes, fromHex, fromRlp
+- getAddress
+- isAddress, keccak256
+- parseEther, parseGwei, serializeTransaction
+- toBytes, toHex, toRlp
+- mnemonicToAccount (from viem/accounts)
+
+## Next Steps
+Possible next targets (simple conversions):
+- bytesToNumber (complement to hexToNumber)
+- isAddress (validation function)
+- getAddress (checksum conversion)

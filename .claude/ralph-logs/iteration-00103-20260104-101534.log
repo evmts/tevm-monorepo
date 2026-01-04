@@ -1,0 +1,23 @@
+I've completed iteration 152 of the Ralph migration. Here's a summary:
+
+## Iteration 152 Summary
+
+**Changes Made:**
+1. `packages/state/src/createBaseState.js` - Changed `import('viem').Hex` to `import('@tevm/utils').Hex`
+2. `packages/node/src/getChainId.js` - Changed viem imports to @tevm/utils for `EIP1193RequestFn` and `Transport`
+
+**Results:**
+- Tests pass (createBaseState: 4/4, getChainId: 2/3 - the failure is a pre-existing env var issue)
+- **ALL core packages' source JS files are now fully migrated from viem JSDoc imports**
+
+**Core packages status:**
+- `packages/utils/src/*.js` - COMPLETE
+- `packages/actions/src/**/*.js` - COMPLETE  
+- `packages/state/src/*.js` - COMPLETE
+- `packages/node/src/*.js` - COMPLETE
+- `packages/vm/src/*.js` - Already clean
+- `packages/evm/src/*.js` - Already clean
+
+The remaining viem references are in:
+- Build outputs (`dist/` folders) - will regenerate correctly
+- `packages/utils/src/viem.js` - intentionally re-exports viem types

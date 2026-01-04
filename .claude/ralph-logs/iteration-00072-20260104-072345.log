@@ -1,0 +1,24 @@
+Successfully completed iteration 118. Here's the summary:
+
+## Migration Iteration 118 Complete
+
+**Migrated:** 5 Ethereum constants from `@ethereumjs/util` to native implementations
+
+### Constants migrated:
+- `GWEI_TO_WEI` (1000000000n)
+- `BIGINT_0` (0n)
+- `BIGINT_1` (1n)  
+- `MAX_UINT64` (2^64 - 1)
+- `SECP256K1_ORDER_DIV_2` (half of secp256k1 curve order)
+
+### Files changed:
+- **New:** `packages/utils/src/constants.js` - Native constant implementations
+- **New:** `packages/utils/src/constants.spec.ts` - Test file (100% coverage)
+- **Modified:** `packages/utils/src/ethereumjs.js` - Removed 5 constants from exports
+- **Modified:** `packages/utils/src/index.ts` - Added exports from constants.js
+
+### Test results:
+- All 385 tests pass in @tevm/utils
+- `constants.js` has 100% test coverage
+
+The codebase now has 5 fewer dependencies on `@ethereumjs/util`. These trivial constants were easy wins that continue the incremental migration progress.

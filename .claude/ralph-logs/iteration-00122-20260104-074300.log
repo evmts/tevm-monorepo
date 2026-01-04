@@ -1,0 +1,67 @@
+# Ralph Migration Iteration 122 - Native randomBytes Implementation
+
+## Summary
+
+Migrated `randomBytes` function from `@ethereumjs/util` to a native implementation in `@tevm/utils`. This function generates cryptographically secure random bytes using the Web Crypto API or Node.js crypto module.
+
+## Changes Made
+
+### New Files
+1. `packages/utils/src/randomBytes.js` - Native implementation using Web Crypto API / Node.js crypto
+2. `packages/utils/src/randomBytes.spec.ts` - 7 tests covering behavior and edge cases
+
+### Modified Files
+1. `packages/utils/src/ethereumjs.js` - Marked randomBytes as migrated (commented out)
+2. `packages/utils/src/ethereumjs.spec.ts` - Updated import to use native implementation
+3. `packages/utils/src/index.ts` - Updated exports to source randomBytes from randomBytes.js
+
+## Implementation Details
+
+The native implementation:
+- Uses `globalThis.crypto.getRandomValues()` (Web Crypto API) as the primary method
+- Falls back to Node.js `require('crypto').randomBytes()` for older Node.js environments
+- Throws descriptive errors for invalid length parameters
+- Throws if no crypto implementation is available
+
+```javascript
+export const randomBytes = (length) => {
+	if (typeof length !== 'number' || length < 0 || !Number.isInteger(length)) {
+		throw new Error('randomBytes: length must be a non-negative integer')
+	}
+	// Try Web Crypto API first (works in browsers, Deno, Bun, and modern Node.js)
+	if (typeof globalThis !== 'undefined' && globalThis.crypto && typeof globalThis.crypto.getRandomValues === 'function') {
+		return globalThis.crypto.getRandomValues(new Uint8Array(length))
+	}
+	// Fallback for Node.js environments without Web Crypto API
+	// ...
+}
+```
+
+## Tests Passed
+
+- `packages/utils/src/randomBytes.spec.ts` - 7 passed
+- `packages/utils/src/ethereumjs.spec.ts` - 10 passed (1 skipped for zeros which was removed)
+- All @tevm/utils tests - 430 passed, 1 skipped (431 total)
+
+## Impact
+
+Reduced dependency on `@ethereumjs/util` by removing the `randomBytes` export:
+- Now using native browser/Node.js crypto APIs directly
+- No external dependencies required for random byte generation
+- Works in all modern JavaScript environments
+
+## Remaining @ethereumjs/util exports in ethereumjs.js
+
+The following still need migration:
+- `EthjsAccount`, `EthjsAddress` - Core account/address classes
+- `createAccount`, `createAddressFromString` - Factory functions
+- `createWithdrawal`, `Withdrawal` - Withdrawal handling
+- `ecrecover` - Signature recovery (requires secp256k1)
+- `fetchFromProvider`, `getProvider` - Network utilities
+- EIP-7702 utilities - Complex authorization utilities
+
+## Next Steps
+
+Good next targets:
+- `fetchFromProvider`, `getProvider` - Network utilities (may be straightforward fetch wrappers)
+- `ecrecover` - Can potentially use @noble/secp256k1 directly

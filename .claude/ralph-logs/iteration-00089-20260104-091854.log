@@ -1,0 +1,25 @@
+## Summary
+
+Successfully completed iteration 134 of the viem migration. I created a comprehensive native `rpc-types.ts` file that replaces viem's RPC type exports with equivalent native definitions.
+
+### What was done:
+1. **Created `packages/utils/src/rpc-types.ts`** - A comprehensive file with 25+ native type definitions for JSON-RPC schemas including:
+   - Basic types: `Quantity`, `Index`, `Status`, `TransactionType`
+   - Block types: `RpcBlock`, `RpcBlockNumber`, `RpcBlockIdentifier`, `RpcUncle`
+   - Transaction types: `RpcTransaction`, `RpcTransactionRequest`, `RpcTransactionReceipt`
+   - EIP support: `RpcAccessList`, `RpcAuthorization`, `RpcWithdrawal`
+   - State types: `RpcStateOverride`, `RpcAccountStateOverride`, `RpcStateMapping`
+   - Misc: `RpcLog`, `RpcProof`, `RpcFeeHistory`
+
+2. **Updated `packages/utils/src/index.ts`** - Changed RPC type exports from `'viem'` to native `'./rpc-types.js'`
+
+### Test Results:
+- ✅ 540 tests pass in @tevm/utils
+- ✅ 17 tests pass in @tevm/decorators  
+- ✅ 29 tests pass in @tevm/contract
+
+### Remaining viem dependencies in @tevm/utils:
+- **Types**: `EIP1193RequestFn`, `Transport`, `PublicClient`, `EncodeEventTopicsParameters`
+- **Runtime (forking)**: `createPublicClient`, `createTransport`, `custom`, `defineChain`, `http`, `webSocket`
+- **Runtime (accounts)**: `mnemonicToAccount`, `privateKeyToAccount`
+- **Abitype**: `parseAbi`

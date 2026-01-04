@@ -1,0 +1,44 @@
+Migration iteration 38 completed successfully.
+
+## Summary
+
+**Migrated in this iteration:**
+
+1. **@tevm/address package (2 files):**
+   - `createAddress.js`: numberToBytes from viem → @tevm/utils
+   - `createContractAddress.js`: numberToBytes from viem → @tevm/utils
+
+2. **@tevm/state package (5 files):**
+   - `state-types/AccountStorage.ts`: Hex type from viem → @tevm/utils
+   - `state-types/SerializableTevmState.ts`: Hex type from viem → @tevm/utils
+   - `state-types/ParameterizedAccountStorage.ts`: Hex type from viem → @tevm/utils
+   - `state-types/StateOptions.ts`: Hex type from viem → @tevm/utils
+   - `StateManager.ts`: Address type from viem → @tevm/utils
+
+**Commits:**
+- 67bc1a68a: @tevm/address numberToBytes migrations (2 files)
+- 593325523: @tevm/state Hex/Address type imports (5 files)
+
+**Build verification:**
+- @tevm/address:build:dist ✅
+- @tevm/address tests: 16/16 passed ✅
+- @tevm/state:build:dist ✅
+
+**Pre-existing issues (not from this migration):**
+- @tevm/address:build:types fails due to keccak256 type signature issue (returns Hex instead of Uint8Array when 'bytes' passed)
+- This affects multiple files: create2ContractAddress.js, createContractAddress.js, createAddress.js
+
+**Viem import count:**
+- Before: 243
+- After: 235
+- Migrated: 8 imports
+
+**Remaining viem imports that could be migrated:**
+- @tevm/blockchain: withRetry (need to implement in utils or keep viem)
+- @tevm/common: defineChain + viem/chains presets (complex - uses viem chain types)
+- @tevm/state: createPublicClient, createTransport (viem core - cannot migrate)
+- @tevm/state/ForkOptions.ts: EIP1193RequestFn, Transport types (need voltaire equivalents)
+
+**Next targets:**
+- Consider adding withRetry to @tevm/utils
+- Migrate more type imports in other packages

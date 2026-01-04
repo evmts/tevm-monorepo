@@ -1,0 +1,48 @@
+# Ralph Migration Iteration - Update tevmDeploy.js JSDoc
+
+## Assessment
+
+Reviewed current migration status. Previous iterations have:
+- Implemented native utility functions (bytesToHex, hexToBytes, serializeTransaction, concatHex, encodePacked, etc.)
+- Updated many JSDoc examples across the codebase
+- The main remaining viem dependencies are:
+  - ABI encoding/decoding functions (decodeAbiParameters, encodeAbiParameters, etc.)
+  - Transport/client functions (createPublicClient, createTransport, http, etc.)
+  - Error handling (getContractError, RawContractError)
+
+## Target
+
+Updated JSDoc examples in `packages/memory-client/src/tevmDeploy.js` to use `@tevm/utils` instead of `viem` for utilities that have been migrated.
+
+## Changes
+
+1. Line 30: Changed `import { createClient, http, parseAbi } from 'viem'` to split imports:
+   - `import { createClient } from 'viem'`
+   - `import { http, parseAbi } from '@tevm/utils'`
+
+2. Line 87-88: Changed `import { createClient, http } from 'viem'` to split imports:
+   - `import { createClient } from 'viem'`
+   - `import { http } from '@tevm/utils'`
+
+## Test Results
+
+- The changes are JSDoc comment updates only, not runtime code
+- Pre-existing test failures in memory-client package (unrelated to this change)
+- Pre-existing type errors in @tevm/address and @tevm/block packages (unrelated)
+
+## Commit
+
+`⚡ refactor(memory-client): update tevmDeploy.js JSDoc examples to use @tevm/utils`
+
+## Next Steps
+
+Continue updating other JSDoc examples in memory-client that still reference viem for migrated utilities:
+- tevmDumpState.js
+- tevmSetAccount.js  
+- tevmCall.js
+- tevmGetAccount.js
+- tevmViemActions.js
+- createTevmTransport.js
+- tevmLoadState.js
+- tevmMine.js
+- tevmContract.js

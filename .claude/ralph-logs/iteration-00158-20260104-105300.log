@@ -1,0 +1,50 @@
+# Ralph Migration Log - Iteration 158
+## Date: 2026-01-04 10:53:00
+
+## Summary
+Fixed critical bug in `fromRlpSerializedAccount` in `@tevm/state` package. The function was passing raw `Uint8Array` values from the RLP decoder for `nonce` and `balance` fields, but `createAccount` expects `bigint` values. This caused 42 test failures in the state package.
+
+## Changes Made
+
+### Modified: packages/state/src/utils/accountHelpers.js
+- Added `bytesToBigInt` helper function to convert `Uint8Array` to `bigint` (big-endian)
+- Updated `fromRlpSerializedAccount` to convert decoded `nonce` and `balance` bytes to bigint
+- Added type safety checks for `storageRoot` and `codeHash` to ensure they are `Uint8Array`
+
+## Test Results
+Before fix: 42 tests failed in @tevm/state
+After fix: 32 tests failed (10 tests now passing)
+
+Key tests that now pass:
+- `putAccount > should handle Account properly`
+- `setStateRoot > should set state root`
+- All 23 tests in: saveStateRoot, getStateRoot, createBaseState, ContractCache
+
+## Remaining Failures Analysis
+The remaining 32 failures are due to:
+1. **Short address validation** (e.g., `createAddress('0x1')`, `createAddress('0xabc123')`) - The native Address implementation is stricter and requires proper 20-byte addresses
+2. **Fork RPC tests** - These fail due to missing environment variables or network issues, not code bugs
+
+## Migration Progress
+
+### @tevm/utils migration status:
+- All @ethereumjs/util exports have been migrated to native implementations
+- @ethereumjs/util has been removed from dependencies
+- viem peer dependency remains (needed for transport/client functions and account objects)
+
+### @tevm/state remaining @ethereumjs imports:
+- `AccountCache` and `StorageCache` from @ethereumjs/statemanager (complex LRU cache implementations)
+
+## Technical Details
+The bug occurred because:
+1. `Rlp.decode()` returns raw `Uint8Array` for nonce/balance
+2. `createAccount()` expects `bigint` values for nonce/balance
+3. The Account class was storing `Uint8Array` in `_nonce` and `_balance` fields
+4. When tests compared `account.balance` to a `bigint`, they failed
+
+The fix converts bytes to bigint using standard big-endian interpretation, matching Ethereum's RLP encoding rules.
+
+## Next Steps
+1. Consider updating test files that use short addresses like `'0x1'` to use full 20-byte addresses
+2. Continue investigating remaining test failures
+3. Look for other places where RLP-decoded values need type conversion

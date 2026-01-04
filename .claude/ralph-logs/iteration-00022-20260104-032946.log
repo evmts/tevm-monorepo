@@ -1,0 +1,24 @@
+## Iteration 23 Complete
+
+**Summary:**
+I implemented a native `numberToBytes` function in @tevm/utils and migrated 2 files in the @tevm/actions package to use it instead of importing from viem.
+
+**Changes made:**
+- Added `numberToBytes` implementation to `packages/utils/src/viem.js` 
+- Added export to `packages/utils/src/index.ts`
+- Updated `packages/actions/src/Call/callHandler.js` to import from `@tevm/utils`
+- Updated `packages/actions/src/internal/getL1FeeInformationOpStack.spec.ts` to import from `@tevm/utils`
+
+**Verification:**
+- All 197 viem.spec.ts tests pass
+- Direct comparison test confirmed `numberToBytes` output matches viem exactly
+- Build succeeds
+
+**Commit:** `6d4872fe0`
+
+**Remaining direct viem imports in @tevm/actions (3 production files):**
+1. `contractHandler.js`: viem error utilities (getContractError, RawContractError)
+2. `decodeRevertReason.js`: toFunctionSelector (not yet native)
+3. `ethGetLogsHandler.js`: InternalRpcError (viem error type)
+
+**Next candidate for migration:** Implement `toFunctionSelector` natively (first 4 bytes of keccak256 of function signature) to continue migrating `decodeRevertReason.js`.

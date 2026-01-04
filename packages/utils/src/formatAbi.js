@@ -25,7 +25,7 @@ function formatParameter(param) {
 
 /**
  * Format a single ABI item to a human-readable string
- * @param {import('viem').AbiItem} item - The ABI item to format
+ * @param {import('abitype').Abi[number]} item - The ABI item to format
  * @returns {string} The formatted string
  */
 function formatAbiItem(item) {
@@ -73,7 +73,7 @@ function formatAbiItem(item) {
 
 		default:
 			// For any unknown types, just return the type
-			return item.type
+			return /** @type {any} */ (item).type
 	}
 }
 
@@ -81,7 +81,7 @@ function formatAbiItem(item) {
  * Format an ABI to an array of human-readable strings.
  * Native implementation that matches abitype's formatAbi API.
  *
- * @template {readonly import('viem').AbiItem[]} TAbi
+ * @template {readonly import('abitype').Abi[number][]} TAbi
  * @param {TAbi} abi - The ABI to format
  * @returns {string[]} Array of human-readable ABI strings
  * @example

@@ -1,0 +1,22 @@
+## Migration Iteration 12 Complete
+
+**Target**: `bytesToBigInt` function in `@tevm/utils`
+
+**Changes made**:
+1. Added native `bytesToBigInt` implementation using `bytesToHex` + `hexToBigInt`
+2. Added `bytesToBigint` alias (viem exports both variants)
+3. Removed `bytesToBigInt`/`bytesToBigint` from viem/utils re-exports
+4. Added 8 comprehensive test cases
+
+**Results**:
+- All 82 tests in viem.spec.ts pass (up from 74)
+- All 132 tests in @tevm/utils pass
+- 100% code coverage maintained
+- Commit: `c70eb6a77`
+
+**Remaining viem imports**: 28 functions (down from 30)
+
+**Next candidates**:
+- `isAddress` - validation function (regex-based)
+- `getAddress` - checksum conversion (requires keccak256)
+- `formatEther`/`parseEther` - simple decimal conversions

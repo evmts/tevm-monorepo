@@ -1,0 +1,33 @@
+## Migration Iteration 48 Complete
+
+**Successfully migrated state package fork client imports from viem to @tevm/utils:**
+
+### Changes made:
+1. `packages/utils/src/viem.js`: Added re-exports for:
+   - `createPublicClient` and `createTransport` functions from viem
+   - Added JSDoc typedefs for `EIP1193RequestFn`, `Transport`, and `PublicClient`
+
+2. `packages/utils/src/index.ts`: Added exports for:
+   - `createPublicClient` and `createTransport` (functions)
+   - `EIP1193RequestFn`, `Transport`, `PublicClient` (types from viem)
+
+3. `packages/state/src/state-types/ForkOptions.ts`: 
+   - Replaced `import { type EIP1193RequestFn, type Transport } from 'viem'`
+   - With single import from `@tevm/utils` combining BlockTag, EIP1193RequestFn, Transport
+
+4. `packages/state/src/actions/getForkClient.js`:
+   - Replaced `import { createPublicClient, createTransport } from 'viem'`
+   - With `import { createPublicClient, createTransport } from '@tevm/utils'`
+   - Updated JSDoc return type from `import('viem').PublicClient` to `import('@tevm/utils').PublicClient`
+
+**Note:** Required rebuilding @tevm/utils dist for tests to pass (vitest uses dist/ version).
+
+**Commit created:**
+- `98760b6cb`: refactor(state): replace viem imports with @tevm/utils for fork client
+
+**Remaining viem imports in state package:**
+- Only JSDoc example comments referencing `import { http } from 'viem'` remain (user-facing documentation)
+
+**Next targets:**
+- Continue with other packages that still have viem imports
+- Focus on remaining core packages: @tevm/actions, @tevm/vm, @tevm/evm, @tevm/node

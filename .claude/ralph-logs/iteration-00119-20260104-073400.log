@@ -1,0 +1,73 @@
+# Ralph Migration Iteration 119 - Native TypeOutput and toType Implementation
+
+## Summary
+
+Migrated `TypeOutput` enum and `toType` function from `@ethereumjs/util` to native implementations in `@tevm/utils`. These are now zero-dependency pure JavaScript implementations.
+
+## Changes Made
+
+### New Files
+1. `packages/utils/src/typeOutput.js` - Native implementation of TypeOutput enum and toType function
+2. `packages/utils/src/typeOutput.spec.ts` - Comprehensive test file (25 tests)
+
+### Modified Files
+1. `packages/utils/src/ethereumjs.js` - Removed TypeOutput and toType from @ethereumjs/util exports
+2. `packages/utils/src/index.ts` - Added exports from new typeOutput.js file
+3. `packages/utils/src/ethereumjs.spec.ts` - Updated imports to use new typeOutput.js
+
+## Implementation Details
+
+### TypeOutput enum
+```javascript
+export const TypeOutput = {
+  Number: 0,
+  BigInt: 1,
+  Uint8Array: 2,
+  PrefixedHexString: 3,
+}
+```
+
+### toType function
+Key features:
+- Converts hex strings, numbers, bigints, and Uint8Arrays to specified output format
+- Handles null/undefined gracefully (returns them as-is)
+- Validates hex string format (must have 0x prefix)
+- Validates number range for safe integer conversion
+- Handles Uint8Array input directly (added check for `instanceof Uint8Array`)
+
+## Tests Passed
+
+- `packages/utils/src/typeOutput.spec.ts` - 25 passed
+- All @tevm/utils tests - 410 passed, 1 skipped
+
+## Impact
+
+Reduced dependency on `@ethereumjs/util` by removing 2 more exports:
+- `TypeOutput` - Enum for specifying output type conversions
+- `toType` - Utility function for type conversions between Ethereum data formats
+
+These are commonly used throughout the codebase for converting between hex strings, bigints, numbers, and Uint8Arrays.
+
+## Remaining @ethereumjs/util exports in ethereumjs.js
+
+The following still need migration (in rough order of complexity):
+- `EthjsAccount`, `EthjsAddress` - Core account/address classes
+- `createAccount`, `createAddressFromString` - Factory functions
+- `createWithdrawal`, `Withdrawal` - Withdrawal handling
+- `ecrecover` - Signature recovery (requires crypto)
+- `randomBytes` - Random bytes (requires crypto)
+- `fetchFromProvider`, `getProvider` - Network utilities
+- `KECCAK256_RLP`, `KECCAK256_RLP_ARRAY` - Constants (need keccak256)
+- `KeyEncoding`, `ValueEncoding` - Encoding types
+- EIP-7702 utilities - Complex authorization utilities
+
+## Notes
+
+- The VM tests have pre-existing failures (EAGAIN system error) unrelated to this migration
+- Coverage threshold failure is a pre-existing issue in the utils package
+
+## Next Steps
+
+Continue migrating utilities from `@ethereumjs/util`. Good next targets:
+- `KeyEncoding`, `ValueEncoding` - Simple type exports
+- `KECCAK256_RLP`, `KECCAK256_RLP_ARRAY` - Constants (need to compute keccak256 of empty RLP)

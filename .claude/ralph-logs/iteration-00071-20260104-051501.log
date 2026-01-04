@@ -1,0 +1,48 @@
+# Ralph Migration Iteration
+
+**Date**: 2026-01-04
+**Files migrated**: 0 files (discovery iteration)
+
+## Investigation Summary
+
+Attempted to migrate RPC error classes from viem to @tevm/utils, but discovered a circular dependency:
+- @tevm/utils depends on @tevm/errors (for DefensiveNullCheckError, UnreachableCodeError, etc.)
+- Cannot have @tevm/errors depend on @tevm/utils (would create circular dep)
+
+## Circular Dependency Analysis
+
+The following files in @tevm/utils import from @tevm/errors:
+- `createMemoryDb.js` - imports UnreachableCodeError
+- `invariant.ts` - imports DefensiveNullCheckError
+- `Bloom.ts` - imports DefensiveNullCheckError, InvalidBytesSizeError
+
+This means RPC error classes must stay in @tevm/errors with direct viem imports.
+
+## Analysis of Remaining viem Imports
+
+Core packages with viem imports:
+1. **packages/errors/src/requestErrors.ts** - RPC error classes (must stay as-is due to circular dep)
+2. **packages/memory-client/** - Client creation functions (publicActions, testActions, walletActions, createClient) - fundamental viem client integration, cannot be abstracted
+3. **packages/utils/src/viem.js** - Already re-exports many viem utilities through native implementations
+
+## Key Findings
+
+1. Most remaining viem imports are either:
+   - Type-only imports (can't be easily migrated)
+   - JSDoc examples (documentation, should reference viem for user familiarity)
+   - Fundamental viem client functionality (createClient, actions) that cannot be abstracted
+   - Test file imports (acceptable to use viem directly in tests)
+
+2. The migration strategy needs to focus on:
+   - Core utility functions (already done - bytesToHex, hexToBytes, etc. are native in @tevm/utils)
+   - Transport/client creation functions for forking (defineChain, http, webSocket - already in @tevm/utils)
+
+3. Memory-client package is intentionally viem-compatible and will retain viem imports.
+
+## Status
+- No commits (research/discovery iteration)
+
+## Next Steps
+- Consider whether to break the circular dependency by moving some error classes
+- Or accept that @tevm/errors will retain direct viem dependency for RPC errors
+- Focus on other migration targets (e.g., ethereumjs dependencies)

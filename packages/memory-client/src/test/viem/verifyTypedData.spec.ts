@@ -1,5 +1,6 @@
 import { SimpleContract } from '@tevm/test-utils'
-import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'
+import { generatePrivateKey } from '@tevm/utils'
+import { privateKeyToAccount } from 'viem/accounts'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
 import type { MemoryClient } from '../../MemoryClient.js'

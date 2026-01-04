@@ -1,0 +1,23 @@
+I've completed one iteration. Here's a summary:
+
+## Iteration Summary
+
+**Task**: Updated JSDoc examples in `tevmDeploy.js` to use `@tevm/utils` instead of `viem`
+
+**Changes**:
+- Split viem imports to keep `createClient` from viem (it's the viem client builder)
+- Moved `http` and `parseAbi` imports to `@tevm/utils` (these have been migrated)
+
+**Commit**: `0a79c2e16 ⚡ refactor(memory-client): update tevmDeploy.js JSDoc examples to use @tevm/utils`
+
+**Status**: 
+- Pre-existing test failures in memory-client (unrelated to this change)
+- Pre-existing type errors in @tevm/address and @tevm/block packages (unrelated)
+
+**Migration Progress**:
+- 77 viem imports remaining in packages (down from many more)
+- Remaining major viem dependencies:
+  1. ABI encoding/decoding functions (complex to implement natively)
+  2. Transport/client functions (createPublicClient, createTransport, http, etc.)
+  3. Error handling (getContractError, RawContractError)
+  4. More JSDoc examples to update

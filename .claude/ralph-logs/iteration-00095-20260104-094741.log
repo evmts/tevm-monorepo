@@ -1,0 +1,15 @@
+## Migration Iteration 140 Complete
+
+Successfully migrated one more viem type away from the core packages:
+
+**Changes made:**
+1. **packages/actions/src/tevm-request-handler/EIP1193.ts**: Changed from importing `Filter` from `@tevm/utils` (which re-exports from viem) to using the local `FilterParams` type from `../common/FilterParams.js`
+
+2. **packages/utils/src/abitype.ts**: Removed `Filter` from the viem type re-exports
+
+3. **packages/utils/src/index.ts**: Removed `Filter` from the re-exported types
+
+**Remaining viem type imports in `@tevm/utils/abitype.ts`:**
+- Account, ContractConstructorArgs, ContractFunctionName, CreateEventFilterParameters, DecodeFunctionResultReturnType, EncodeDeployDataParameters, EncodeFunctionDataParameters, GetEventArgs, HDAccount
+
+The migration is progressing incrementally. Each iteration removes one more viem dependency while ensuring backward compatibility and passing tests.

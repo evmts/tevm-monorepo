@@ -1,0 +1,42 @@
+Migration iteration 23 completed successfully.
+
+## Summary
+
+**Migrated in this iteration:**
+- Implemented native `numberToBytes` function in @tevm/utils
+- Updated 2 files in @tevm/actions package to import from @tevm/utils instead of viem
+
+**Files changed:**
+- packages/utils/src/viem.js: Added native `numberToBytes` implementation
+- packages/utils/src/index.ts: Added `numberToBytes` export
+- packages/actions/src/Call/callHandler.js: Changed `numberToBytes` import from 'viem' to '@tevm/utils'
+- packages/actions/src/internal/getL1FeeInformationOpStack.spec.ts: Changed `numberToBytes` import from 'viem' to '@tevm/utils'
+
+**Results:**
+- 197 viem.spec.ts tests pass
+- Native `numberToBytes` matches viem implementation exactly (verified with direct comparison tests)
+- Build succeeds
+- Commit: `6d4872fe0`
+
+**Remaining direct viem imports in @tevm/actions production code (3 files):**
+1. `contractHandler.js`: getContractError, RawContractError (viem error utilities)
+2. `decodeRevertReason.js`: toFunctionSelector (not yet native in @tevm/utils)
+3. `ethGetLogsHandler.js`: InternalRpcError (viem error type)
+
+Note: decodeAbiParameters and hexToString in decodeRevertReason.js are already available natively in @tevm/utils
+
+**Remaining viem imports in @tevm/utils (13):**
+- ABI functions (12): decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult, encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics, encodeFunctionData, encodeFunctionResult, encodePacked
+- serializeTransaction
+- mnemonicToAccount (from viem/accounts)
+
+**Next candidates:**
+- Implement `toFunctionSelector` natively (first 4 bytes of keccak256 of function signature)
+- Update `decodeRevertReason.js` to use native implementations where available
+- Consider if viem error utilities (getContractError, RawContractError, InternalRpcError) need migration or can remain as-is
+
+## Technical Notes
+
+- `numberToBytes` implementation uses the existing `numberToHex` then `hexToBytes` for consistency
+- Verified output matches viem exactly for values: 420, 0, 42069420, and 420 with size:4 padding
+- The callHandler.spec.ts failures are pre-existing issues with storageRoot length validation (unrelated to this migration)

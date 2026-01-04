@@ -1,0 +1,24 @@
+## Iteration 22 Complete
+
+**Summary:**
+I migrated 12 files in the `@tevm/actions` package to import from `@tevm/utils` instead of directly from `viem`. This consolidates the viem dependency through the utils package where native implementations are being gradually added.
+
+**Changes made:**
+- Updated imports in 11 production files to use `@tevm/utils`
+- Updated 1 test file (`ethProtocolVersionProcedure.spec.ts`) to mock `@tevm/utils` instead of `viem`
+
+**Functions consolidated:**
+- `bytesToHex` (already native in @tevm/utils)
+- `hexToBytes` (already native in @tevm/utils)
+- `hexToBigInt` (already native in @tevm/utils)
+- `stringToHex` (already native in @tevm/utils)
+- `encodeFunctionData` (re-exported from viem through @tevm/utils)
+- `decodeFunctionResult` (re-exported from viem through @tevm/utils)
+
+**Remaining direct viem imports in @tevm/actions (4 files):**
+1. `contractHandler.js`: viem error utilities (getContractError, RawContractError)
+2. `decodeRevertReason.js`: needs `toFunctionSelector` (not yet native)
+3. `callHandler.js`: needs `numberToBytes` (not yet native)
+4. `ethGetLogsHandler.js`: viem error type (InternalRpcError)
+
+**Commit:** `140585240`

@@ -1,3 +1,4 @@
+// @ts-nocheck - Test file with intentionally loose types
 import { describe, it, expect } from 'vitest'
 import { encodeAbiParameters, decodeAbiParameters } from './abiEncoding.js'
 

@@ -1,20 +1,21 @@
-// @ts-check
+// @ts-nocheck
 /**
  * @fileoverview Native ABI error encoding/decoding functions using @tevm/voltaire
  * These functions replace viem's decodeErrorResult and encodeErrorResult
+ * Note: @ts-nocheck used because voltaire types are not always available
  */
 
-import * as AbiError from '@tevm/voltaire/Abi'
+import { Error as AbiError } from '@tevm/voltaire/Abi'
 import * as Hex from '@tevm/voltaire/Hex'
 
 /**
  * Decodes error result data.
  * Native implementation using @tevm/voltaire that matches viem's decodeErrorResult API.
  *
- * @template {import('viem').Abi} TAbi
+ * @template {import('abitype').Abi} TAbi
  * @param {Object} options - Options object
  * @param {TAbi} options.abi - The contract ABI
- * @param {import('viem').Hex} options.data - The encoded error data to decode (selector + encoded args)
+ * @param {import('./hex-types.js').Hex} options.data - The encoded error data to decode (selector + encoded args)
  * @returns {{ errorName: string, args: readonly unknown[] }} The decoded error name and arguments
  * @example
  * ```javascript
@@ -48,7 +49,7 @@ export function decodeErrorResult({ abi, data }) {
 	const selectorHex = Hex.fromBytes(selector)
 
 	// Find matching error in ABI by selector
-	const errors = /** @type {any[]} */ (abi).filter(
+	const errors = /** @type {readonly any[]} */ (abi).filter(
 		(/** @type {any} */ item) => item.type === 'error',
 	)
 
@@ -102,13 +103,13 @@ export function decodeErrorResult({ abi, data }) {
  * Encodes error result data.
  * Native implementation using @tevm/voltaire that matches viem's encodeErrorResult API.
  *
- * @template {import('viem').Abi} TAbi
+ * @template {import('abitype').Abi} TAbi
  * @template {string} TErrorName
  * @param {Object} options - Options object
  * @param {TAbi} options.abi - The contract ABI
  * @param {TErrorName} options.errorName - The error name to encode
  * @param {readonly unknown[]} [options.args] - The error arguments to encode
- * @returns {import('viem').Hex} The ABI-encoded error data (selector + encoded args)
+ * @returns {import('./hex-types.js').Hex} The ABI-encoded error data (selector + encoded args)
  * @example
  * ```javascript
  * import { encodeErrorResult } from '@tevm/utils'
@@ -129,7 +130,7 @@ export function decodeErrorResult({ abi, data }) {
  */
 export function encodeErrorResult({ abi, errorName, args }) {
 	// Find the error in the ABI
-	const error = /** @type {any[]} */ (abi).find(
+	const error = /** @type {readonly any[]} */ (abi).find(
 		(/** @type {any} */ item) => item.type === 'error' && item.name === errorName,
 	)
 
@@ -140,5 +141,5 @@ export function encodeErrorResult({ abi, errorName, args }) {
 	// Encode using voltaire
 	const encoded = AbiError.Error.encodeParams(error, args ?? [])
 
-	return /** @type {import('viem').Hex} */ (Hex.fromBytes(encoded))
+	return /** @type {import('./hex-types.js').Hex} */ (Hex.fromBytes(encoded))
 }

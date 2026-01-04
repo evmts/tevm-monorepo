@@ -1,0 +1,114 @@
+# Ralph Migration Iteration 127 - Native Account Class Implementation
+
+## Summary
+
+Migrated `Account` class (exported as `EthjsAccount`) and `createAccount` function from `@ethereumjs/util` to native implementations in `@tevm/utils`. These are core Ethereum account handling utilities used for representing account state (nonce, balance, storageRoot, codeHash).
+
+## Changes Made
+
+### New Files
+1. `packages/utils/src/account-class.js` - Native implementations:
+   - `Account` class with getters for `nonce`, `balance`, `storageRoot`, `codeHash`, `codeSize`, `version`
+   - Methods: `raw()`, `serialize()`, `serializeWithPartialInfo()`, `isContract()`, `isEmpty()`
+   - `createAccount(accountData)` - Factory function accepting optional account data
+
+2. `packages/utils/src/account-class.spec.ts` - 29 tests covering:
+   - Account constructor with default and custom values
+   - Negative nonce/balance validation
+   - `isEmpty()` method for empty account detection
+   - `isContract()` method for contract detection
+   - `raw()` method returning array of Uint8Arrays
+   - `serialize()` method for RLP encoding
+   - `serializeWithPartialInfo()` for Verkle partial account encoding
+   - `createAccount` factory function with all properties
+   - Compatibility tests with ethereumjs Account
+
+### Modified Files
+1. `packages/utils/src/constants.js` - Added new constants:
+   - `KECCAK256_NULL` - Hex string for empty code hash
+   - `KECCAK256_RLP_BYTES` - Byte array for empty storage root
+   - `KECCAK256_NULL_BYTES` - Byte array for empty code hash
+
+2. `packages/utils/src/ethereumjs.js` - Marked as migrated:
+   - `// Account - migrated to native implementation in account-class.js (EthjsAccount)`
+   - `// createAccount - migrated to native implementation in account-class.js`
+
+3. `packages/utils/src/index.ts` - Updated exports:
+   - Removed `EthjsAccount` and `createAccount` from ethereumjs.js exports
+   - Added: `export { Account as EthjsAccount, createAccount } from './account-class.js'`
+   - Added new constants: `KECCAK256_NULL`, `KECCAK256_RLP_BYTES`, `KECCAK256_NULL_BYTES`
+
+4. `packages/utils/src/ethereumjs.spec.ts` - Updated import:
+   - Changed `EthjsAccount` import from ethereumjs.js to account-class.js
+
+## Implementation Details
+
+### Account class
+```javascript
+export class Account {
+	constructor(nonce, balance, storageRoot, codeHash, codeSize, version) {
+		this._nonce = nonce ?? BIGINT_0
+		this._balance = balance ?? BIGINT_0
+		this._storageRoot = storageRoot ?? KECCAK256_RLP_BYTES
+		this._codeHash = codeHash ?? KECCAK256_NULL_BYTES
+		this._codeSize = codeSize
+		this._version = version ?? 0
+		this._validate()
+	}
+
+	get nonce() { return this._nonce }
+	get balance() { return this._balance }
+	get storageRoot() { return this._storageRoot }
+	get codeHash() { return this._codeHash }
+	get codeSize() { return this._codeSize }
+	get version() { return this._version }
+
+	raw() { return [bigIntToBytes(nonce), bigIntToBytes(balance), storageRoot, codeHash] }
+	serialize() { return toRlp(this.raw(), 'bytes') }
+	isContract() { return !equalsBytes(this._codeHash, KECCAK256_NULL_BYTES) }
+	isEmpty() { return this._nonce === 0n && this._balance === 0n }
+}
+```
+
+### createAccount
+```javascript
+export function createAccount(accountData) {
+	return new Account(
+		accountData?.nonce,
+		accountData?.balance,
+		accountData?.storageRoot,
+		accountData?.codeHash,
+		accountData?.codeSize,
+		accountData?.version
+	)
+}
+```
+
+## Test Results
+
+- `packages/utils/src/account-class.spec.ts` - 29 passed
+- `packages/utils/src/ethereumjs.spec.ts` - All tests pass with updated import
+- All @tevm/utils tests - 518 passed, 1 skipped
+
+## Impact
+
+Reduced dependency on `@ethereumjs/util` by removing two more exports:
+- `Account` class (exported as `EthjsAccount`) - Core account state handling
+- `createAccount` - Factory function for creating accounts
+
+## Remaining @ethereumjs/util exports in ethereumjs.js
+
+The following still need migration:
+- EIP-7702 utilities - Complex authorization utilities for account abstraction:
+  - `eoaCode7702RecoverAuthority`
+  - `eoaCode7702SignAuthorization`
+  - `eoaCode7702AuthorizationMessageToSign`
+  - `eoaCode7702AuthorizationHashedMessageToSign`
+  - `eoaCode7702AuthorizationListBytesItemToJSON`
+  - `eoaCode7702AuthorizationListJSONItemToBytes`
+  - `isEOACode7702AuthorizationList`
+  - `EOA_CODE_7702_AUTHORITY_SIGNING_MAGIC`
+
+## Next Steps
+
+The only remaining exports from `@ethereumjs/util` are the EIP-7702 EOA code authorization utilities. These are more complex and involve cryptographic signing and recovery operations. They could be migrated using our existing `ecrecover` and signature utilities.

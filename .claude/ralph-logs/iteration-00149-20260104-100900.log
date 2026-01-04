@@ -1,0 +1,52 @@
+# Ralph Migration Log - Iteration 149
+## Date: 2026-01-04 10:09:00
+
+## Summary
+Migrated JSDoc type imports in `formatAbi.js` from viem.AbiItem to abitype.Abi[number].
+
+## Changes Made
+
+### Modified: packages/utils/src/formatAbi.js
+- Changed `import('viem').AbiItem` to `import('abitype').Abi[number]` on line 28 (formatAbiItem param)
+- Changed `import('viem').AbiItem[]` to `import('abitype').Abi[number][]` on line 84 (template constraint)
+
+## Rationale
+The formatAbi.js file formats ABI items to human-readable strings. By using `Abi[number]` from abitype:
+1. We use the element type of the Abi array (equivalent to AbiItem)
+2. This is a cleaner way to reference the type since abitype doesn't export AbiItem directly
+3. viem's AbiItem is just a re-export from abitype anyway
+
+## Test Results
+- formatAbi.spec.ts: 14 tests passed
+
+## Summary of Today's Session
+
+### Files Completely Migrated (no viem JSDoc imports):
+1. eip7702.js - 9 Hex references migrated
+2. abiDeployEncoding.js - 4 references migrated (1 Abi, 3 Hex)
+3. abiEventEncoding.js - 8 references migrated (2 Abi, 2 ContractEventName, 4 Hex)
+4. abiErrorEncoding.js - 5 references migrated (2 Abi, 3 Hex)
+5. formatAbi.js - 2 AbiItem references migrated
+
+### Files with Remaining viem JSDoc imports:
+1. **abiFunctionEncoding.js** - 3 references to complex types:
+   - `ContractFunctionArgs` (line 19)
+   - `ContractFunctionReturnType` (lines 98, 147)
+   These are complex derived types that would require significant work to implement locally.
+
+2. **viem.js** - Intentional re-exports of viem types:
+   - Transport, PublicClient, EIP1193RequestFn, etc.
+   These are meant to be viem exports and don't need migration.
+
+## Total viem JSDoc Imports Migrated This Session
+- **28 JSDoc type references** migrated from viem to local types:
+  - 9 from eip7702.js
+  - 4 from abiDeployEncoding.js
+  - 8 from abiEventEncoding.js
+  - 5 from abiErrorEncoding.js
+  - 2 from formatAbi.js
+
+## Next Steps for Future Sessions
+1. Consider implementing ContractFunctionArgs locally in contract-types.ts
+2. Consider implementing ContractFunctionReturnType locally
+3. These are complex conditional types that depend on ABI type inference

@@ -1,0 +1,70 @@
+# Ralph Migration Iteration 107 - Voltaire ABI Migration Attempt (BLOCKED)
+
+## Target
+
+Replace viem's `encodeAbiParameters` and `decodeAbiParameters` with native implementations using @tevm/voltaire.
+
+## Assessment
+
+### Remaining viem imports in @tevm/utils:
+1. `mnemonicToAccount, privateKeyToAccount` from 'viem/accounts' - Complex account API
+2. ABI functions from 'viem/utils':
+   - decodeAbiParameters, encodeAbiParameters (TARGET)
+   - decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+   - encodeDeployData, encodeErrorResult, encodeEventTopics, encodeFunctionData, encodeFunctionResult
+3. Transport/client functions from 'viem' - Needed for forking
+
+### Voltaire Capabilities
+
+Voltaire has excellent ABI support with:
+- `Abi.encodeParameters(params, values)` → Uint8Array
+- `Abi.decodeParameters(params, data)` → decoded values
+- Full support for tuples, arrays, dynamic types
+
+## Implementation Attempt
+
+Created `packages/utils/src/abiEncoding.js` with:
+- `encodeAbiParameters(params, values)` - wraps Abi.encodeParameters, returns Hex
+- `decodeAbiParameters(params, data)` - wraps Abi.decodeParameters, takes Hex
+
+## BLOCKER: Voltaire Build Failed
+
+When attempting to build voltaire:
+```
+pnpm build:dist
+```
+
+Error:
+```
+Could not resolve "./types/index.js"
+src/jsonrpc/index.ts:25:23: ERROR: Could not resolve "./types/index.js"
+```
+
+Voltaire has missing file references that prevent it from building.
+
+## Changes Reverted
+
+All changes to @tevm/utils were reverted:
+- Removed `abiEncoding.js`
+- Restored original `viem.js` with viem imports
+- Removed `@tevm/voltaire` from package.json dependencies
+
+## Tests Verified
+
+After reverting, all 303 tests in @tevm/utils pass.
+
+## Next Steps
+
+1. **Fix voltaire build** - The jsonrpc module has a broken import to `./types/index.js`
+2. Once voltaire builds, the ABI migration can proceed with:
+   - `encodeAbiParameters` / `decodeAbiParameters` (simple param encoding)
+   - Then move to function/error/event encoding which require more complex wrappers
+
+## Migration Status Summary
+
+Core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) are viem-free.
+
+@tevm/utils remaining viem dependencies:
+- Account functions (viem/accounts) - Complex, needs voltaire wallet support
+- ABI encoding (viem/utils) - **BLOCKED by voltaire build issues**
+- Transport/client (viem) - Needed for fork functionality

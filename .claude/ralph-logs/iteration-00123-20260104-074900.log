@@ -1,0 +1,80 @@
+# Ralph Migration Iteration 123 - Native ecrecover Implementation
+
+## Summary
+
+Migrated `ecrecover` function from `@ethereumjs/util` to a native implementation in `@tevm/utils`. This function performs ECDSA public key recovery from a signature using the secp256k1 curve.
+
+## Changes Made
+
+### New Files
+1. `packages/utils/src/ecrecover.js` - Native implementation using @noble/curves secp256k1
+2. `packages/utils/src/ecrecover.spec.ts` - 7 tests covering behavior, EIP-155, and compatibility
+
+### Modified Files
+1. `packages/utils/package.json` - Added `@noble/curves` ^2.0.1 dependency
+2. `packages/utils/src/ethereumjs.js` - Marked ecrecover as migrated (commented out)
+3. `packages/utils/src/signature.js` - Updated import to use native implementation
+4. `packages/utils/src/index.ts` - Updated exports to source ecrecover from ecrecover.js
+
+## Implementation Details
+
+The native implementation uses `@noble/curves/secp256k1.js` v2 API:
+
+```javascript
+import { secp256k1 } from '@noble/curves/secp256k1.js'
+
+export const ecrecover = function (msgHash, v, r, s, chainId) {
+	const signature = concatBytes(setLengthLeft(r, 32), setLengthLeft(s, 32))
+	const recovery = calculateSigRecovery(v, chainId)
+	if (!isValidSigRecovery(recovery)) {
+		throw new Error('Invalid signature v value')
+	}
+	// Use the v2 API: fromBytes with 'compact' format, then addRecoveryBit
+	const sig = secp256k1.Signature.fromBytes(signature, 'compact').addRecoveryBit(Number(recovery))
+	const senderPubKey = sig.recoverPublicKey(msgHash)
+	// toBytes(false) returns uncompressed public key (65 bytes with 0x04 prefix)
+	return senderPubKey.toBytes(false).slice(1)
+}
+```
+
+Key features:
+- Handles v values 0, 1, 27, 28 (EIP-1559 and legacy)
+- Supports EIP-155 chain ID for replay protection
+- Uses native @noble/curves library (no @ethereumjs/util dependency)
+- Returns 64-byte uncompressed public key (without 0x04 prefix)
+
+## Note on @noble/curves v2
+
+The API changed significantly from v1 to v2:
+- `fromCompact(bytes)` → `fromBytes(bytes, 'compact')`
+- `toRawBytes(false)` → `toBytes(false)`
+
+## Tests Passed
+
+- `packages/utils/src/ecrecover.spec.ts` - 7 passed
+- `packages/utils/src/signature.spec.ts` - 23 passed
+- `packages/utils/src/ethereumjs.spec.ts` - 10 passed (1 skipped)
+- All @tevm/utils tests - 437 passed, 1 skipped (438 total)
+
+## Impact
+
+Reduced dependency on `@ethereumjs/util` by removing the `ecrecover` export:
+- Now using @noble/curves directly for secp256k1 operations
+- Added @noble/curves as a direct dependency
+- Works in all modern JavaScript environments
+
+## Remaining @ethereumjs/util exports in ethereumjs.js
+
+The following still need migration:
+- `EthjsAccount`, `EthjsAddress` - Core account/address classes
+- `createAccount`, `createAddressFromString` - Factory functions
+- `createWithdrawal`, `Withdrawal` - Withdrawal handling
+- `fetchFromProvider`, `getProvider` - Network utilities
+- EIP-7702 utilities - Complex authorization utilities
+
+## Next Steps
+
+Good next targets:
+- `fetchFromProvider`, `getProvider` - Simple fetch wrappers (no actual usage in codebase)
+- `createAddressFromString` - May be replaceable with viem's getAddress
+- EIP-7702 utilities - Complex but important for modern EVM support

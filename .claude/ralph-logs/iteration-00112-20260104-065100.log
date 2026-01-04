@@ -1,0 +1,81 @@
+# Ralph Migration Iteration 112 - Deploy Data Encoding Migration (SUCCESS)
+
+## Target
+
+Replace viem's `encodeDeployData` with native implementation using @tevm/voltaire.
+
+## Assessment
+
+Previous iteration (#111) migrated error encoding/decoding. The log indicated the next target was `encodeDeployData`.
+
+## Changes Made
+
+### 1. Created abiDeployEncoding.js (packages/utils)
+New file with native implementation:
+- `encodeDeployData({abi, bytecode, args})` - Encodes deployment data
+  - Returns bytecode unchanged if no args provided
+  - Finds constructor in ABI
+  - Uses voltaire's `encodeParameters` to encode constructor args
+  - Concatenates bytecode + encoded params
+  - Returns hex string matching viem's API
+
+### 2. Added comprehensive test suite
+- Created `abiDeployEncoding.spec.ts` with 7 tests covering:
+  - No args (returns bytecode unchanged)
+  - Empty args array (returns bytecode unchanged)
+  - uint256 constructor arg
+  - address constructor arg
+  - string constructor arg (dynamic type)
+  - Multiple constructor args
+  - Error handling when constructor not found but args provided
+
+### 3. Updated viem.js exports
+Changed from:
+```js
+// ABI encoding/decoding functions from viem/utils (complex functions not yet migrated)
+// TODO(voltaire): Migrate encodeDeployData to @tevm/voltaire
+export {
+	encodeDeployData,
+} from 'viem/utils'
+```
+To:
+```js
+// Deploy data encoding - native implementation using @tevm/voltaire
+export { encodeDeployData } from './abiDeployEncoding.js'
+```
+
+## Tests
+
+All 366 tests in @tevm/utils pass (1 skipped):
+- 7 new abiDeployEncoding tests
+- 359 existing tests continue to pass
+
+Integration tests also pass (verified via node --input-type=module).
+
+## Commits
+
+1. `⚡ refactor(utils): implement native encodeDeployData using @tevm/voltaire` (e64881cc8)
+
+## Migration Status Summary
+
+**Remaining viem imports in @tevm/utils viem.js:**
+
+1. `viem/accounts`: `mnemonicToAccount`, `privateKeyToAccount` - Complex wallet APIs (HD derivation, signing)
+2. `abitype`: `formatAbi`, `parseAbi` - ABI parsing/formatting (not viem per se)
+3. `viem`: Transport/client functions - Used for forking infrastructure:
+   - `createPublicClient`, `http`, `webSocket`, `custom`
+   - `defineChain`, `createTransport`
+
+**Completed migrations:**
+- ~~encodeAbiParameters, decodeAbiParameters~~ ✅ MIGRATED
+- ~~encodeFunctionData, decodeFunctionData~~ ✅ MIGRATED
+- ~~decodeFunctionResult, encodeFunctionResult~~ ✅ MIGRATED
+- ~~decodeEventLog, encodeEventTopics~~ ✅ MIGRATED
+- ~~decodeErrorResult, encodeErrorResult~~ ✅ MIGRATED
+- ~~encodeDeployData~~ ✅ MIGRATED (this iteration)
+
+**Next targets:**
+- `mnemonicToAccount`, `privateKeyToAccount` - These are complex wallet functions. Would need to implement HD key derivation and account creation.
+- Transport/client functions - These are deeply integrated with viem's architecture for forking support.
+
+Note: The remaining viem dependencies are more complex and fundamental to viem's architecture. Further migration may require significant architectural changes or implementing cryptographic primitives.

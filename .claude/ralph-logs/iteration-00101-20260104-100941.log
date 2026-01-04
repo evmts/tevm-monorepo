@@ -1,0 +1,19 @@
+## Summary
+
+**Iteration 150 complete.** I implemented native `ContractFunctionArgs` and `ContractFunctionReturnType` types in `contract-types.ts`, which were the last remaining viem JSDoc imports in `abiFunctionEncoding.js`.
+
+### Changes made:
+1. **contract-types.ts**: Added complex conditional types with helper utilities for:
+   - `ContractFunctionArgs` - extracts function input parameter types from ABI
+   - `ContractFunctionReturnType` - extracts function return types from ABI
+   - Helper types for handling function overloads (`IsUnion`, `UnionToTuple`, `ExtractAbiFunctionForArgs`)
+
+2. **abiFunctionEncoding.js**: Migrated 3 JSDoc imports from `import('viem')` to `import('./contract-types.js')`
+
+3. **abitype.ts** & **index.ts**: Added the new types to public exports
+
+### Test Results:
+- 15 tests passed in `abiFunctionEncoding.spec.ts`
+
+### Migration Status:
+All JS files in `packages/utils/src/` are now fully migrated from viem JSDoc imports (31 total references removed). The only remaining viem references in that directory are intentional re-exports in `viem.js` for types like `Transport`, `PublicClient`, etc.

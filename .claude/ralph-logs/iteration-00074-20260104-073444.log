@@ -1,0 +1,19 @@
+## Summary
+
+Successfully completed iteration 120 of the migration:
+
+**Migrated:** `KeyEncoding` and `ValueEncoding` enums from `@ethereumjs/util` to native implementations
+
+**New files:**
+- `packages/utils/src/encoding.js` - Native enum implementations
+- `packages/utils/src/encoding.spec.ts` - 8 tests
+
+**Changes:**
+- Removed `KeyEncoding` and `ValueEncoding` from `ethereumjs.js` exports
+- Added new exports from `encoding.js` in `index.ts`
+
+**Test results:** All 418 tests pass (1 skipped)
+
+These simple enums define encoding types for database operations:
+- `KeyEncoding`: String, Bytes (view), Number
+- `ValueEncoding`: String, Bytes (view), JSON
