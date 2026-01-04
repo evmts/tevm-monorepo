@@ -1,4 +1,4 @@
-import { numberToHex } from 'viem'
+import { numberToHex } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { serializeTraceResult } from './serializeTraceResult.js'
 

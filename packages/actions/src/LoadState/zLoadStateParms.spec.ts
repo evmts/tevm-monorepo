@@ -1,4 +1,4 @@
-import { stringToHex } from 'viem'
+import { stringToHex } from '@tevm/utils'
 import { expect, test } from 'vitest'
 import type { z } from 'zod'
 import type { LoadStateParams } from './LoadStateParams.js'
