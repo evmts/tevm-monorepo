@@ -15,8 +15,16 @@ export class Evm {
   blockchain
   /** @type {import('./CustomPrecompile.js').CustomPrecompile[]} */
   _customPrecompiles = []
+  /**
+   * Map of precompile addresses (without 0x) to precompile functions
+   * Used by warmAddresses2929 to add precompiles to warm addresses
+   * @type {Map<string, any>}
+   */
+  precompiles = new Map()
   /** A minimal journal shim for vm actions */
   journal = {
+    /** @type {Evm} */
+    _evm: /** @type {any} */ (null),
     accessList: new Map(),
     preimages: new Map(),
     async cleanup() {},
@@ -28,8 +36,19 @@ export class Evm {
     cleanJournal() {},
     addAlwaysWarmAddress(_addr, _alwaysWarm) {},
     addAlwaysWarmSlot(_addr, _slot, _alwaysWarm) {},
-    async putAccount(_address, _account) {},
-    async deleteAccount(_address) {},
+    /**
+     * @param {import('@tevm/utils').EthjsAddress} address
+     * @param {import('@tevm/utils').EthjsAccount} account
+     */
+    async putAccount(address, account) {
+      await this._evm.stateManager.putAccount(address, account)
+    },
+    /**
+     * @param {import('@tevm/utils').EthjsAddress} address
+     */
+    async deleteAccount(address) {
+      await this._evm.stateManager.deleteAccount(address)
+    },
   }
 
   /**
@@ -39,6 +58,8 @@ export class Evm {
     this.stateManager = opts.stateManager
     this.common = opts.common
     this.blockchain = opts.blockchain
+    // Set reference so journal methods can access the stateManager
+    this.journal._evm = this
   }
 
   /**

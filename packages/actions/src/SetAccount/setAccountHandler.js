@@ -119,7 +119,8 @@ export const setAccountHandler =
 				accountData.codeHash = codeHash
 			}
 
-			promises.push(vm.stateManager.putAccount(address, createAccount(accountData)))
+			// putAccount must complete before putStorage since storage requires account to exist
+			await vm.stateManager.putAccount(address, createAccount(accountData))
 			if (params.deployedBytecode) {
 				promises.push(vm.stateManager.putCode(address, hexToBytes(params.deployedBytecode)))
 			}

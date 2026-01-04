@@ -77,13 +77,21 @@ export const createCommon = ({
 			Mainnet,
 			{
 				hardfork,
-				eips: [...eipsArray, 1559, 4895, 4844, 4788, 2935],
+				eips: [...eipsArray, 1, 1559, 3529, 4895, 4844, 4788, 2935],
 				customCrypto: finalCustomCrypto,
 				params: {
+					// EIP-1 (chainstart) - base gas parameters
+					1: {
+						maxRefundQuotient: 2, // Default value, overridden by EIP-3529
+					},
 					1559: {
 						elasticityMultiplier: 2,
 						baseFeeMaxChangeDenominator: 8,
 						initialBaseFee: 1000000000,
+					},
+					// EIP-3529 (London) - changed maxRefundQuotient from 2 to 5
+					3529: {
+						maxRefundQuotient: 5,
 					},
 					4844: {
 						targetBlobGasPerBlock: 393216,
@@ -99,9 +107,6 @@ export const createCommon = ({
 						historicalRootsLength: 8191,
 						historyStorageAddress: '0x0aae40965e6800cd9b1f4b05ff21581047e3f91e',
 						historyServeWindow: 8192,
-					},
-					gasConfig: {
-						maxRefundQuotient: 5,
 					},
 				},
 			},

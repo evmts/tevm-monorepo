@@ -139,11 +139,27 @@ export class Account {
 	}
 
 	/**
+	 * Set the account nonce.
+	 * @param {bigint} value - The new nonce value
+	 */
+	set nonce(value) {
+		this._nonce = value
+	}
+
+	/**
 	 * Get the account balance.
 	 * @returns {bigint} The account balance in wei
 	 */
 	get balance() {
 		return this._balance
+	}
+
+	/**
+	 * Set the account balance.
+	 * @param {bigint} value - The new balance value
+	 */
+	set balance(value) {
+		this._balance = value
 	}
 
 	/**

@@ -199,17 +199,18 @@ export class BlockHeader {
 		}
 
 		// Hardfork defaults which couldn't be paired with earlier defaults
+		// IMPORTANT: Use bytes versions of KECCAK256_RLP, not hex strings
 		const hardforkDefaults = {
 			baseFeePerGas: this.common.ethjsCommon.isActivatedEIP(1559)
 				? number === this.common.ethjsCommon.hardforkBlock('london')
 					? this.common.ethjsCommon.param('initialBaseFee')
 					: 7n
 				: undefined,
-			withdrawalsRoot: this.common.ethjsCommon.isActivatedEIP(4895) ? KECCAK256_RLP : undefined,
+			withdrawalsRoot: this.common.ethjsCommon.isActivatedEIP(4895) ? KECCAK256_RLP_BYTES : undefined,
 			blobGasUsed: this.common.ethjsCommon.isActivatedEIP(4844) ? 0n : undefined,
 			excessBlobGas: this.common.ethjsCommon.isActivatedEIP(4844) ? 0n : undefined,
 			parentBeaconBlockRoot: this.common.ethjsCommon.isActivatedEIP(4788) ? zeros(32) : undefined,
-			requestsRoot: this.common.ethjsCommon.isActivatedEIP(7685) ? KECCAK256_RLP : undefined,
+			requestsRoot: this.common.ethjsCommon.isActivatedEIP(7685) ? KECCAK256_RLP_BYTES : undefined,
 		}
 
 		const baseFeePerGas = safeToType(headerData.baseFeePerGas, 1) ?? hardforkDefaults.baseFeePerGas
