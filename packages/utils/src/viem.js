@@ -484,6 +484,89 @@ export function isAddress(address, opts) {
 	return addressPattern.test(address)
 }
 
+/**
+ * Number of decimals for ether (10^18).
+ * @type {bigint}
+ */
+const WEI_PER_ETHER = 1000000000000000000n
+
+/**
+ * Format wei value as ether string.
+ * Native implementation that matches viem's formatEther API.
+ * @param {bigint | number} wei - The wei value to format
+ * @returns {string} The formatted ether value (e.g., '1.5' for 1.5 ETH)
+ * @example
+ * ```javascript
+ * import { formatEther } from '@tevm/utils'
+ * formatEther(1000000000000000000n) // '1'
+ * formatEther(1500000000000000000n) // '1.5'
+ * formatEther(100000000000000000n) // '0.1'
+ * formatEther(1n) // '0.000000000000000001'
+ * ```
+ */
+export function formatEther(wei) {
+	const value = typeof wei === 'bigint' ? wei : BigInt(wei)
+	const isNegative = value < 0n
+	const absValue = isNegative ? -value : value
+
+	const integerPart = absValue / WEI_PER_ETHER
+	const remainder = absValue % WEI_PER_ETHER
+
+	if (remainder === 0n) {
+		return isNegative ? `-${integerPart.toString()}` : integerPart.toString()
+	}
+
+	// Format fractional part with 18 decimals, then trim trailing zeros
+	const fractionalStr = remainder.toString().padStart(18, '0').replace(/0+$/, '')
+	const result = `${integerPart}.${fractionalStr}`
+	return isNegative ? `-${result}` : result
+}
+
+/**
+ * Parse ether string to wei value.
+ * Native implementation that matches viem's parseEther API.
+ * @param {string} ether - The ether value to parse (e.g., '1.5')
+ * @returns {bigint} The wei value (e.g., 1500000000000000000n)
+ * @example
+ * ```javascript
+ * import { parseEther } from '@tevm/utils'
+ * parseEther('1') // 1000000000000000000n
+ * parseEther('0.1') // 100000000000000000n
+ * parseEther('1.5') // 1500000000000000000n
+ * parseEther('-1') // -1000000000000000000n
+ * ```
+ */
+export function parseEther(ether) {
+	// Handle negative values
+	const isNegative = ether.startsWith('-')
+	const absEther = isNegative ? ether.slice(1) : ether
+
+	// Split into integer and fractional parts
+	const parts = absEther.split('.')
+
+	if (parts.length > 2) {
+		throw new Error(`Invalid ether value: ${ether}`)
+	}
+
+	const integerPart = parts[0] || '0'
+	let fractionalPart = parts[1] || ''
+
+	// Truncate or pad fractional part to 18 decimals
+	if (fractionalPart.length > 18) {
+		// Truncate (viem rounds toward zero)
+		fractionalPart = fractionalPart.slice(0, 18)
+	} else {
+		fractionalPart = fractionalPart.padEnd(18, '0')
+	}
+
+	// Combine: integer * 10^18 + fractional
+	const integerWei = BigInt(integerPart) * WEI_PER_ETHER
+	const fractionalWei = BigInt(fractionalPart)
+	const result = integerWei + fractionalWei
+
+	return isNegative ? -result : result
+}
+
 export {
 	decodeAbiParameters,
 	decodeErrorResult,
@@ -497,7 +580,6 @@ export {
 	encodeFunctionData,
 	encodeFunctionResult,
 	encodePacked,
-	formatEther,
 	formatGwei,
 	formatLog,
 	fromBytes,
@@ -505,7 +587,6 @@ export {
 	fromRlp,
 	getAddress,
 	keccak256,
-	parseEther,
 	parseGwei,
 	serializeTransaction,
 	toBytes,
