@@ -10,11 +10,11 @@ export const dumpStorageRange = (state) => (_address, _startKey, _limit) => {
 		throw new InvalidParamsError(`No storage found at address ${getAddress(_address.toString())}`)
 	}
 	/**
-	 * @type {Array<[import("viem").Hex, {key: import("@tevm/utils").Hex, value: import('@tevm/utils').Hex}]>}
+	 * @type {Array<[import("@tevm/utils").Hex, {key: import("@tevm/utils").Hex, value: import('@tevm/utils').Hex}]>}
 	 */
 	const entries = []
 	/**
-	 * @type {import("viem").Hex | null}
+	 * @type {import("@tevm/utils").Hex | null}
 	 */
 	let nextKey = null
 	let started = false

@@ -16,7 +16,7 @@ import { runTx } from './runTx.js'
  * side-effect free (it doesn't modify the block nor the state).
  */
 export const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunBlockOpts) => {
-	const bloom = new Bloom(undefined, vm.common.ethjsCommon)
+	const bloom = new Bloom()
 	// the total amount of gas used processing these transactions
 	let gasUsed = 0n
 

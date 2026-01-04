@@ -1,7 +1,21 @@
-import { type BlockchainEvent, type Consensus, type OnBlock } from '@ethereumjs/blockchain'
 import type { Block, BlockHeader } from '@tevm/block'
 import type { AsyncEventEmitter, BlockTag, Hex } from '@tevm/utils'
 import type { BaseChain } from './BaseChain.js'
+import type { Consensus } from './Consensus.js'
+
+/**
+ * Callback function called for each block during iteration.
+ * Native type replacing @ethereumjs/blockchain OnBlock.
+ */
+export type OnBlock = (block: Block, reorg: boolean) => Promise<void> | void
+
+/**
+ * Events emitted by the blockchain.
+ * Native type replacing @ethereumjs/blockchain BlockchainEvent.
+ */
+export type BlockchainEvent = {
+	deletedCanonicalBlocks: (data: Block[], resolve?: (result?: any) => void) => void
+}
 
 /**
 VM:

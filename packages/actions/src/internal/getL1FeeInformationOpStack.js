@@ -15,7 +15,7 @@ const abi = parseAbi([
  */
 export const getL1FeeInformationOpStack = async (data, vm) => {
 	/**
-	 * @type {typeof import('viem/chains').optimism}
+	 * @type {import('@tevm/common').Common}
 	 */
 	const opstackChain = /** @type {any}*/ (vm.common)
 	const serializedTx = serializeTransaction({

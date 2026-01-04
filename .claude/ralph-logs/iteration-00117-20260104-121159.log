@@ -1,0 +1,22 @@
+## Iteration 167 Summary
+
+This was an **assessment iteration** to identify the next migration target after the @tevm/common native types work in iterations 165-166.
+
+### Key Findings:
+
+1. **Core packages are already clean** - @tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, and @tevm/node have no direct viem or ethereumjs imports in their source files.
+
+2. **Chain preset migration blocked** - The 200+ chain presets in @tevm/common use `viem/chains`, but `@tevm/chains` (generated from DefiLlama) lacks Ethereum mainnet and other major chains, making migration impossible.
+
+3. **Remaining ethereumjs dependencies**:
+   - `@ethereumjs/common`: Still needed for `createCustomCommon` and `Mainnet` hardfork configs
+   - `@ethereumjs/tx`: Used in packages/tx
+   - `@ethereumjs/blockchain`: Used in packages/blockchain
+   - `@ethereumjs/trie`: Used in packages/trie
+
+4. **Viem dependency intentional** - The `viem/chains` Chain type is deeply integrated and provides compatibility with the viem ecosystem. The `@tevm/chains` package would need significant enhancement to replace it.
+
+### Next Steps:
+- Consider enhancing `@tevm/chains` to include major chains (mainnet, optimism, arbitrum)
+- Or document viem dependency as intentional for ecosystem compatibility
+- Future iterations could focus on `@ethereumjs/tx` migration

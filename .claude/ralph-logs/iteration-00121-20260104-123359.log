@@ -1,0 +1,21 @@
+## Summary
+
+I completed **Iteration 171** of the Ralph migration, focusing on the `@tevm/blockchain` package:
+
+### Changes Made
+
+1. **`packages/blockchain/src/utils/getBlockFromRpc.js`**:
+   - Changed `import('viem').EIP1193RequestFn` → `import('@tevm/utils').EIP1193RequestFn`
+   - Changed `import('viem').BlockTag` → `import('@tevm/utils').BlockTag`  
+   - Changed `import('viem').Hex` → `import('@tevm/utils').Hex`
+   - Changed `import('viem').RpcBlock<...>` → `import('@tevm/utils').RpcBlock<true>`
+
+2. **`packages/blockchain/src/utils/warnOnce.js`**:
+   - Changed `import('viem').RpcBlock` → `import('@tevm/utils').RpcTransaction`
+   - **Bug fix**: The original type was incorrect - the function receives transactions, not blocks
+
+### Notes
+- There's a type-level incompatibility between `@tevm/utils.EIP1193RequestFn` and viem's version due to different type signatures
+- At runtime, both are compatible - this is just a TypeScript type difference
+- Pre-existing type errors exist in `@tevm/errors` package (unrelated to this migration)
+- Tests pass/skip as expected (some need RPC URLs to be configured)

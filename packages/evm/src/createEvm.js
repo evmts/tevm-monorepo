@@ -53,5 +53,15 @@ export const createEvm = async ({
 		profiler: profiler ?? false,
 		loggingLevel: loggingLevel ?? 'warn',
 	})
+	// Set DEBUG flag when trace logging is enabled
+	if (loggingLevel === 'trace') {
+		evm.DEBUG = true
+	}
+	// Add custom precompiles if provided
+	if (customPrecompiles) {
+		for (const precompile of customPrecompiles) {
+			evm.addCustomPrecompile(precompile)
+		}
+	}
 	return evm
 }

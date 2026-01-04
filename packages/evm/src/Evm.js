@@ -16,11 +16,16 @@ export class Evm {
   /** @type {import('./CustomPrecompile.js').CustomPrecompile[]} */
   _customPrecompiles = []
   /**
-   * Map of precompile addresses (without 0x) to precompile functions
+   * Map of precompile addresses (unprefixed hex) to precompile functions
    * Used by warmAddresses2929 to add precompiles to warm addresses
    * @type {Map<string, any>}
    */
   precompiles = new Map()
+  /**
+   * DEBUG flag set when trace logging is enabled
+   * @type {boolean}
+   */
+  DEBUG = false
   /** A minimal journal shim for vm actions */
   journal = {
     /** @type {Evm} */
@@ -63,11 +68,27 @@ export class Evm {
   }
 
   /**
+   * Get precompile function by address
+   * @param {import('@tevm/utils').EthjsAddress} address
+   * @returns {any | undefined}
+   */
+  getPrecompile(address) {
+    const addressHex = address.toString().slice(2).toLowerCase()
+    return this.precompiles.get(addressHex)
+  }
+
+  /**
    * Adds a custom precompile (not yet wired to execution)
    * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
    */
   addCustomPrecompile(precompile) {
+    if (!this._customPrecompiles) {
+      throw new MisconfiguredClientError('_customPrecompiles is not initialized')
+    }
     this._customPrecompiles.push(precompile)
+    // Also add to the precompiles map for getPrecompile lookups
+    const addressHex = precompile.address.toString().slice(2).toLowerCase()
+    this.precompiles.set(addressHex, precompile.function)
   }
 
   /**
@@ -75,11 +96,17 @@ export class Evm {
    * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
    */
   removeCustomPrecompile(precompile) {
+    if (!this._customPrecompiles) {
+      throw new MisconfiguredClientError('_customPrecompiles is not initialized')
+    }
     const index = this._customPrecompiles.indexOf(precompile)
     if (index === -1) {
       throw new InvalidParamsError('Precompile not found')
     }
     this._customPrecompiles.splice(index, 1)
+    // Also remove from the precompiles map
+    const addressHex = precompile.address.toString().slice(2).toLowerCase()
+    this.precompiles.delete(addressHex)
   }
 
   /**

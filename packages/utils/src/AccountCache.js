@@ -118,12 +118,12 @@ export class AccountCache {
 
 	/**
 	 * Puts account to cache under its address.
-	 * @param {import('./EthjsAddress.js').EthjsAddress} address - Address of account
+	 * @param {import('./address.js').Address} address - Address of account
 	 * @param {import('./account-class.js').Account | undefined} account - Account or undefined if account doesn't exist
-	 * @param {boolean} [couldBePartialAccount] - Whether this could be a partial account (for fork mode)
+	 * @param {boolean} [_couldBePartialAccount] - Whether this could be a partial account (for fork mode). Currently unused but kept for API compatibility.
 	 * @returns {void}
 	 */
-	put(address, account, couldBePartialAccount = false) {
+	put(address, account, _couldBePartialAccount = false) {
 		const addressHex = bytesToUnprefixedHex(address.bytes)
 
 		this._saveCachePreState(addressHex)
@@ -143,7 +143,7 @@ export class AccountCache {
 
 	/**
 	 * Returns the queried account or undefined if account doesn't exist
-	 * @param {import('./EthjsAddress.js').EthjsAddress} address - Address of account
+	 * @param {import('./address.js').Address} address - Address of account
 	 * @returns {AccountCacheElement | undefined}
 	 */
 	get(address) {
@@ -160,7 +160,7 @@ export class AccountCache {
 
 	/**
 	 * Marks address as deleted in cache.
-	 * @param {import('./EthjsAddress.js').EthjsAddress} address - Address
+	 * @param {import('./address.js').Address} address - Address
 	 * @returns {void}
 	 */
 	del(address) {

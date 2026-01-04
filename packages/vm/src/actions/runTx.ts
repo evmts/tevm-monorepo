@@ -407,7 +407,7 @@ const _runTx =
 		 * Parse results
 		 */
 		// Generate the bloom for the tx
-		results.bloom = txLogsBloom(results.execResult.logs, vm.common)
+		results.bloom = txLogsBloom(results.execResult.logs)
 
 		// Calculate the total gas used
 		results.totalGasSpent = results.execResult.executionGasUsed + txBaseFee

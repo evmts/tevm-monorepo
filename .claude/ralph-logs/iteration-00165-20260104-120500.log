@@ -1,0 +1,85 @@
+# Ralph Migration Log - Iteration 165
+## Date: 2026-01-04 12:05:00
+
+## Summary
+Created native type definitions in @tevm/common to replace exports from @ethereumjs/common.
+This is an incremental step toward removing @ethereumjs/common dependency.
+
+## Changes Made
+
+### 1. Created native ConsensusType enum
+- File: `packages/common/src/ConsensusType.ts`
+- Values: ProofOfStake ('pos'), ProofOfWork ('pow'), ProofOfAuthority ('poa')
+
+### 2. Created native ConsensusAlgorithm enum
+- File: `packages/common/src/ConsensusAlgorithm.ts`
+- Values: Ethash ('ethash'), Clique ('clique'), Casper ('casper')
+
+### 3. Created native AccountFields type
+- File: `packages/common/src/AccountFields.ts`
+- Fields: nonce, balance, storageRoot, codeHash, codeSize
+
+### 4. Created native CliqueConfig type
+- File: `packages/common/src/CliqueConfig.ts`
+- Fields: period, epoch
+
+### 5. Created native CustomCrypto/KZG/VerkleCrypto types
+- File: `packages/common/src/CustomCrypto.ts`
+- Compatible with both Uint8Array and string formats for MockKzg compatibility
+
+### 6. Created native StorageDump type
+- File: `packages/common/src/StorageDump.ts`
+- Simple mapping interface for debug_storageAt
+
+### 7. Created native StorageRange type
+- File: `packages/common/src/StorageRange.ts`
+- For debug_storageRangeAt RPC method
+
+### 8. Created native EvmStateManagerInterface
+- File: `packages/common/src/EvmStateManagerInterface.ts`
+- Also includes AccountInterface and AddressInterface
+- Compatible with @tevm/state StateManager
+
+### 9. Updated index.ts exports
+- Native types exported from local files
+- CustomCrypto still re-exported from @ethereumjs/common for createCommon compatibility
+- Native CustomCrypto available as NativeCustomCrypto for future migration
+
+## Test Results
+- 18 common package tests pass (1 skipped - known)
+- 7 createStateManager tests pass
+- Type checking passes
+
+## Remaining @ethereumjs/common Dependencies
+Still used internally:
+1. `Common` class (for ethjsCommon instance)
+2. `createCustomCommon` (factory function)
+3. `Mainnet` preset
+4. `CustomCrypto` type (for createCommon options compatibility)
+
+These require creating native chain configurations to fully remove.
+
+## Impact
+- 8 new native type files created
+- Reduced surface area of @ethereumjs/common exports
+- Lays groundwork for full migration
+
+## Files Created
+- packages/common/src/ConsensusType.ts
+- packages/common/src/ConsensusAlgorithm.ts
+- packages/common/src/AccountFields.ts
+- packages/common/src/CliqueConfig.ts
+- packages/common/src/CustomCrypto.ts
+- packages/common/src/StorageDump.ts
+- packages/common/src/StorageRange.ts
+- packages/common/src/EvmStateManagerInterface.ts
+
+## Files Modified
+- packages/common/src/index.ts (updated exports)
+- packages/common/src/CommonOptions.ts (kept @ethereumjs/common CustomCrypto for compatibility)
+
+## Next Steps (prioritized)
+1. Create native chain preset types (to replace Mainnet import)
+2. Create native Common class implementation
+3. Create native createCommon implementation
+4. Remove remaining @ethereumjs/common dependency

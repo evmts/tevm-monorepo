@@ -1,0 +1,97 @@
+# Ralph Migration Log - Iteration 167
+## Date: 2026-01-04 12:17:37
+
+## Summary
+Assessment iteration - investigated next migration targets and identified blockers.
+
+## Current Migration Status
+
+### Completed Migrations
+1. **@tevm/common native types**: ConsensusType, ConsensusAlgorithm, AccountFields, CliqueConfig, CustomCrypto, KZG, VerkleCrypto, StorageDump, StorageRange, EvmStateManagerInterface
+2. **@tevm/utils Bloom class**: Already a native implementation (doesn't import from @ethereumjs/vm)
+3. **@tevm/state**: Migrated AccountCache and StorageCache to native implementations
+4. **@tevm/evm**: Created native EVMError
+
+### Blocked Migrations
+
+#### 1. viem/chains Chain type → @tevm/chains
+**Status**: BLOCKED
+**Reason**: `@tevm/chains` is generated from DefiLlama chainlist and lacks major chains including Ethereum mainnet (chainId 1).
+
+The @tevm/chains package:
+- Has only 163 chains
+- Missing Ethereum mainnet, Optimism, Arbitrum, and other major chains
+- Uses a different interface than viem's Chain type (lacks formatters, fees, serializers)
+
+**Files affected**:
+- packages/common/src/Common.ts (uses viem Chain type)
+- packages/common/src/CommonOptions.ts (uses viem Chain type)
+- 200+ preset files in packages/common/src/presets/
+
+#### 2. @ethereumjs/common → native implementation
+**Status**: PARTIALLY COMPLETE
+**Remaining**:
+- `createCustomCommon` function in createCommon.js
+- `Mainnet` preset (hardfork configuration data)
+- `Common` class instance type
+
+**Challenge**: The ethereumjs Common provides:
+- Hardfork configuration (block numbers, EIP activations)
+- EIP parameter values
+- Chain-specific parameters
+
+Creating a native replacement requires implementing the entire hardfork/EIP parameter system.
+
+## Voltaire Integration Status
+Checked voltaire primitives for Chain support:
+- voltaire/primitives/Chain exists but re-exports from @tevm/chains
+- voltaire/primitives/BloomFilter is a generic bloom filter (not Ethereum-specific)
+- voltaire provides Address, Hex, Uint, Transaction, RLP, ABI, keccak256 etc.
+
+## Core Packages Status
+Checked viem/@ethereumjs imports in core packages:
+- **@tevm/actions**: No direct viem/ethereumjs imports in source
+- **@tevm/vm**: No direct viem/ethereumjs imports in source
+- **@tevm/evm**: No direct viem/ethereumjs imports in source
+- **@tevm/state**: No direct viem/ethereumjs imports in source
+- **@tevm/node**: No direct viem/ethereumjs imports in source
+
+These packages have already been migrated to use @tevm/utils for their primitives.
+
+## Remaining Dependencies (in source files)
+1. **packages/common/src**: @ethereumjs/common (createCustomCommon, Mainnet), viem/chains (Chain type)
+2. **packages/tx/src**: @ethereumjs/tx (transaction types)
+3. **packages/blockchain/src**: @ethereumjs/blockchain (Consensus types)
+4. **packages/trie/src**: @ethereumjs/trie (Trie implementation)
+5. **packages/memory-client/src**: viem (Client, publicActions, testActions, etc.)
+
+## Recommendations for Future Iterations
+
+### Short-term (low effort, high impact)
+1. None identified - most low-hanging fruit already migrated
+
+### Medium-term (requires voltaire/chains enhancement)
+1. Add major chains (mainnet, optimism, arbitrum, etc.) to @tevm/chains
+2. Add viem-compatible Chain type properties to @tevm/chains
+
+### Long-term (significant effort)
+1. Create native hardfork configuration system (replace @ethereumjs/common)
+2. Create native transaction types (replace @ethereumjs/tx)
+3. Create native trie implementation (replace @ethereumjs/trie)
+
+## Files Examined
+- packages/common/src/createCommon.js
+- packages/common/src/Common.ts
+- packages/common/src/CommonOptions.ts
+- packages/common/src/presets/mainnet.js
+- packages/utils/src/Bloom.ts
+- packages/utils/src/abitype.ts
+- lib/voltaire/src/primitives/index.ts
+- lib/voltaire/src/primitives/Chain/ChainType.ts
+- lib/voltaire/src/primitives/BloomFilter/index.ts
+- @tevm/chains package (via node_modules)
+
+## Next Steps
+1. Consider enhancing @tevm/chains to include major chains
+2. Or document the viem dependency as intentional for chain compatibility
+3. Focus on @ethereumjs/tx migration as next target

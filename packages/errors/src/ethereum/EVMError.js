@@ -11,7 +11,6 @@ export const EVMErrorTypeString = 'EVMError'
 
 /**
  * Mapping of EVM error types to their human-readable messages
- * @type {Record<string, string>}
  */
 export const EVMErrorMessage = /** @type {const} */ ({
 	OUT_OF_GAS: 'out of gas',

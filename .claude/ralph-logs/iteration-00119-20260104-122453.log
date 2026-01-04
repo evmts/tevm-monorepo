@@ -1,0 +1,18 @@
+## Summary
+
+I completed iteration 169 of the Ralph migration. Here's what was done:
+
+### Changes Made
+1. **packages/vm/src/actions/txLogsBloom.js** - Removed the unused `common` parameter from the function signature and updated the Bloom constructor call
+2. **packages/vm/src/actions/applyTransactions.ts** - Removed unused second argument from Bloom constructor
+3. **packages/vm/src/actions/runTx.ts** - Updated call to `txLogsBloom()` to not pass the unused `common` argument
+
+### Context
+The `Bloom` class in `@tevm/utils` only accepts an optional `bitvector` parameter, but these files were passing a second argument (`common` or `ethjsCommon`) that was completely ignored. This was dead code leftover from the ethereumjs migration.
+
+### Test Results
+- No new failures introduced
+- Pre-existing failures are due to missing RPC environment variables and unrelated snapshot mismatches
+
+### Migration Log
+Written to: `.claude/ralph-logs/iteration-00169-20260104-123011.log`

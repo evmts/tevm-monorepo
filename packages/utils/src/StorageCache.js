@@ -107,14 +107,14 @@ export class StorageCache {
 		// Only save if not already saved at this checkpoint level
 		if (!addressDiff.has(keyHex)) {
 			// Get current value (may be undefined if not in cache)
-			const currentVal = this.get({ bytes: hexToBytes(addressHex) }, hexToBytes(keyHex))
+			const currentVal = this._getByHex(addressHex, keyHex)
 			addressDiff.set(keyHex, currentVal)
 		}
 	}
 
 	/**
 	 * Puts storage value to cache under address_key cache key.
-	 * @param {import('./EthjsAddress.js').EthjsAddress} address - Account address
+	 * @param {import('./address.js').Address} address - Account address
 	 * @param {Uint8Array} key - Storage key
 	 * @param {Uint8Array} value - RLP-encoded storage value
 	 * @returns {void}
@@ -147,7 +147,7 @@ export class StorageCache {
 	 * Returns the queried slot as the RLP encoded storage value
 	 * hexToBytes('0x80'): slot is known to be empty
 	 * undefined: slot is not in cache
-	 * @param {import('./EthjsAddress.js').EthjsAddress} address - Address of account
+	 * @param {import('./address.js').Address} address - Address of account
 	 * @param {Uint8Array} key - Storage key
 	 * @returns {Uint8Array | undefined} Storage value or undefined
 	 */
@@ -157,26 +157,16 @@ export class StorageCache {
 
 		this._stats.reads++
 
-		let storageMap
-		if (this._lruCache) {
-			storageMap = this._lruCache.get(addressHex)
-		} else if (this._orderedMapCache) {
-			storageMap = this._orderedMapCache.get(addressHex)
+		const value = this._getByHex(addressHex, keyHex)
+		if (value !== undefined) {
+			this._stats.hits++
 		}
-
-		if (storageMap) {
-			const value = storageMap.get(keyHex)
-			if (value !== undefined) {
-				this._stats.hits++
-				return value
-			}
-		}
-		return undefined
+		return value
 	}
 
 	/**
 	 * Marks storage key for address as deleted in cache.
-	 * @param {import('./EthjsAddress.js').EthjsAddress} address - Address
+	 * @param {import('./address.js').Address} address - Address
 	 * @param {Uint8Array} key - Storage key
 	 * @returns {void}
 	 */
@@ -202,7 +192,7 @@ export class StorageCache {
 
 	/**
 	 * Deletes all storage slots for address from the cache
-	 * @param {import('./EthjsAddress.js').EthjsAddress} address - Address
+	 * @param {import('./address.js').Address} address - Address
 	 * @returns {void}
 	 */
 	clearStorage(address) {
@@ -381,7 +371,7 @@ export class StorageCache {
 
 	/**
 	 * Dumps the RLP-encoded storage values for an account specified by address.
-	 * @param {import('./EthjsAddress.js').EthjsAddress} address - The address of the account
+	 * @param {import('./address.js').Address} address - The address of the account
 	 * @returns {StorageCacheMap | undefined} - The storage values or undefined
 	 */
 	dump(address) {
@@ -394,18 +384,4 @@ export class StorageCache {
 		}
 		return undefined
 	}
-}
-
-/**
- * Helper to convert hex string to bytes
- * @param {string} hex
- * @returns {Uint8Array}
- */
-function hexToBytes(hex) {
-	const cleanHex = hex.startsWith('0x') ? hex.slice(2) : hex
-	const bytes = new Uint8Array(cleanHex.length / 2)
-	for (let i = 0; i < bytes.length; i++) {
-		bytes[i] = parseInt(cleanHex.substr(i * 2, 2), 16)
-	}
-	return bytes
 }

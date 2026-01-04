@@ -64,6 +64,8 @@ export const createCommon = ({
 		const eipsArray = Array.isArray(eips) ? eips : []
 
 		// Create Common instance using createCustomCommon
+		// Type assertion needed because our native CustomCrypto interface is more flexible
+		// than ethereumjs's (supports both string and Uint8Array for KZG methods)
 		const finalCustomCrypto =
 			customCrypto && Object.keys(customCrypto).length > 0
 				? { kzg: createMockKzg(), ...customCrypto }
@@ -78,7 +80,7 @@ export const createCommon = ({
 			{
 				hardfork,
 				eips: [...eipsArray, 1, 1559, 3529, 4895, 4844, 4788, 2935],
-				customCrypto: finalCustomCrypto,
+				customCrypto: /** @type {import('@ethereumjs/common').CustomCrypto} */ (/** @type {unknown} */ (finalCustomCrypto)),
 				params: {
 					// EIP-1 (chainstart) - base gas parameters
 					1: {

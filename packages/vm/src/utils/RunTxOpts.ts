@@ -7,12 +7,12 @@ import type { TypedTransaction } from '@tevm/tx'
  */
 export interface RunTxOpts {
 	/**
-	 * The `@ethereumjs/block` the `tx` belongs to.
+	 * The {@link Block} the `tx` belongs to.
 	 * If omitted, a default blank block will be used.
 	 */
 	block?: Block
 	/**
-	 * An `@ethereumjs/tx` to run
+	 * A {@link TypedTransaction} to run
 	 */
 	tx: TypedTransaction
 	/**

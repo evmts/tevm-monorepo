@@ -89,16 +89,15 @@ export function toType(input, outputType) {
 	let output
 	if (input instanceof Uint8Array) {
 		output = input
-	} else if (typeof input === 'object' && input !== null && input.bytes instanceof Uint8Array) {
+	} else if (typeof input === 'object' && input !== null && /** @type {any} */ (input).bytes instanceof Uint8Array) {
 		// Handle Address-like objects with .bytes property
-		output = input.bytes
+		output = /** @type {any} */ (input).bytes
 	} else {
 		output = toBytes(input)
 	}
 
 	switch (outputType) {
 		case TypeOutput.Uint8Array:
-			// @ts-expect-error - handled by overloads
 			return output
 		case TypeOutput.BigInt:
 			// @ts-expect-error - handled by overloads

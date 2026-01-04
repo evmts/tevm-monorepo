@@ -1,0 +1,17 @@
+## Iteration 173 Complete
+
+**Summary**: Removed all `@ethereumjs` JSDoc references from the `@tevm/vm` package source files.
+
+**Changes Made**:
+- Updated `packages/vm/src/VmOpts.ts` - replaced `@ethereumjs/evm` with `{@link EvmType}`
+- Updated `packages/vm/src/utils/VMOpts.ts` - replaced `@ethereumjs/evm` with `{@link Evm}`
+- Updated `packages/vm/src/utils/RunBlockOpts.ts` - replaced `@ethereumjs/block` with `{@link Block}`
+- Updated `packages/vm/src/utils/RunTxOpts.ts` - replaced `@ethereumjs/block` and `@ethereumjs/tx` with proper `{@link}` tags
+
+**Verification**: 
+```
+grep -rn "@ethereumjs" packages/vm/src/ --include="*.ts"
+# No output - all references removed
+```
+
+**Status**: The core packages (actions, vm, state, evm, node, blockchain) are now free of viem imports in their source files. The vm package is now also free of @ethereumjs JSDoc references. The main remaining ethereumjs dependency is `@ethereumjs/common` which is used in `createCommon.js` - this will require creating a native Common implementation, which is a larger undertaking.

@@ -32,16 +32,16 @@ import { warnOnce } from './warnOnce.js'
 /**
  * @param {import('../BaseChain.js').BaseChain} baseChain
  * @param {object} params
- * @param {{request: import('viem').EIP1193RequestFn}} params.transport
- * @param {bigint | import('viem').BlockTag | import('viem').Hex} [params.blockTag]
+ * @param {{request: import('@tevm/utils').EIP1193RequestFn}} params.transport
+ * @param {bigint | import('@tevm/utils').BlockTag | import('@tevm/utils').Hex} [params.blockTag]
  * @param {import('@tevm/common').Common} common
  */
 export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest' }, common) => {
 	const doWarning = warnOnce(baseChain)
 	const fetcher = createJsonRpcFetcher(transport)
 	/**
-	 * @param {import('viem').RpcBlock<import('viem').BlockTag, true>} rpcBlock
-	 * @returns {[Block, import('viem').RpcBlock<import('viem').BlockTag, true>]}
+	 * @param {import('@tevm/utils').RpcBlock<true>} rpcBlock
+	 * @returns {[Block, import('@tevm/utils').RpcBlock<true>]}
 	 */
 	const asEthjsBlock = (rpcBlock) => {
 		return [
@@ -79,7 +79,7 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 			// TODO handle errors from fetch better
 			if (typeof blockTag === 'bigint') {
 				const { result, error } =
-					/** @type {{result: import('viem').RpcBlock<'latest', true>, error: {code: number | string, message: string}}}*/ (
+					/** @type {{result: import('@tevm/utils').RpcBlock<true>, error: {code: number | string, message: string}}}*/ (
 						await fetcher.request({
 							jsonrpc: '2.0',
 							id: 1,

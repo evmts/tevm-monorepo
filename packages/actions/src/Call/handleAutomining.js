@@ -4,7 +4,7 @@ import { mineHandler } from '../Mine/mineHandler.js'
  * @internal
  * Runs the mining logic if the client is set to automine
  * @param {import("@tevm/node").TevmNode} client
- * @param {import("viem").Hex} [txHash]
+ * @param {import("@tevm/utils").Hex} [txHash]
  * @param {boolean} [_reserved] Reserved parameter for backwards compatibility
  * @param {boolean} [mineAllTx] Whether to mine all transactions in the pool
  * @returns {Promise<{blockHashes?: undefined, errors?: import('../Mine/TevmMineError.js').TevmMineError[]} | undefined>} undefined if noop, errors if automining fails, blockHashes if automining succeeds
