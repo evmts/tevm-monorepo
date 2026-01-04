@@ -1,5 +1,5 @@
 import { SimpleContract } from '@tevm/contract'
-import { type Address, parseEther } from 'viem'
+import { type Address, parseEther } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from './createMemoryClient.js'
 import type { MemoryClient } from './MemoryClient.js'
