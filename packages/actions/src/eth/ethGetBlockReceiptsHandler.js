@@ -200,12 +200,12 @@ export const ethGetBlockReceiptsHandler = (client) => async (params) => {
 		// Calculate effective gas price
 		/** @type {any} */
 		const txAny = tx
-		const effectiveGasPrice =
-			txAny.maxPriorityFeePerGas !== undefined && txAny.maxFeePerGas !== undefined
+		const effectiveGasPrice = txAny.maxFeePerGas ?
+			(txAny.maxPriorityFeePerGas !== undefined && txAny.maxFeePerGas !== undefined
 				? txAny.maxPriorityFeePerGas < txAny.maxFeePerGas - (block.header.baseFeePerGas ?? 0n)
 					? txAny.maxPriorityFeePerGas + (block.header.baseFeePerGas ?? 0n)
 					: txAny.maxFeePerGas
-				: (txAny?.gasPrice ?? 0n)
+				: (txAny?.gasPrice ?? 0n)) : txAny.gasPrice;
 
 		/** @type {import('./EthResult.js').EthGetTransactionReceiptResult} */
 		const receiptResult = {
