@@ -28,7 +28,7 @@ import { validateSetAccountParams } from './validateSetAccountParams.js'
  * ```javascript
  * import { createTevmNode } from '@tevm/node'
  * import { setAccountHandler } from '@tevm/actions'
- * import { parseEther } from 'viem'
+ * import { parseEther } from '@tevm/utils'
  *
  * const node = createTevmNode()
  * const handler = setAccountHandler(node)
