@@ -1,4 +1,4 @@
-import { bytesToHex } from 'viem'
+import { bytesToHex } from '@tevm/utils'
 import { generateCanonicalGenesis } from './generateCannonicalGenesis.js'
 
 /**
