@@ -1,6 +1,7 @@
 import { optimism } from '@tevm/common'
 import { createCachedOptimismTransport } from '@tevm/test-utils'
-import { type Client, createClient, parseEther } from 'viem'
+import { parseEther } from '@tevm/utils'
+import { type Client, createClient } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
 import type { TevmTransport } from './TevmTransport.js'
