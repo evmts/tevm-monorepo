@@ -44,15 +44,11 @@ import type { WriteActionCreator } from './write/WriteActionCreator.js'
  * ```
  *
  * @example
- * Using with other libraries:
+ * Using with a memory client:
  * ```typescript
- * import { createPublicClient, http } from 'viem'
- * import { mainnet } from 'viem/chains'
+ * import { createMemoryClient } from 'tevm'
  *
- * const client = createPublicClient({
- *   chain: mainnet,
- *   transport: http()
- * })
+ * const client = createMemoryClient()
  *
  * const balance = await client.readContract(
  *   MyContract.read.balanceOf('0xabcdef...')
@@ -179,13 +175,9 @@ export type Contract<
 	 * @returns {Contract} A new contract instance with updated code
 	 * @example
 	 * ```typescript
-	 * import { createPublicClient, http } from 'viem'
-	 * import { mainnet } from 'viem/chains'
+	 * import { createMemoryClient } from 'tevm'
 	 *
-	 * const client = createPublicClient({
-	 *   chain: mainnet,
-	 *   transport: http()
-	 * })
+	 * const client = createMemoryClient()
 	 *
 	 * const ADDRESS = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
 	 * const UpdatedContract = Contract.withCode('0x60806040...')
