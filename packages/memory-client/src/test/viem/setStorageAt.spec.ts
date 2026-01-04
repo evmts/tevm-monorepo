@@ -1,4 +1,5 @@
-import { numberToHex, type TestActions, testActions } from 'viem'
+import { numberToHex } from '@tevm/utils'
+import { type TestActions, testActions } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
 import type { MemoryClient } from '../../MemoryClient.js'
