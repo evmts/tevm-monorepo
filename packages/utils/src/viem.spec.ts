@@ -140,4 +140,56 @@ describe('native implementations (migrated from viem)', () => {
 			expect(() => hexToNumber('0x20000000000000')).toThrow('outside safe integer range')
 		})
 	})
+
+	describe('numberToHex', () => {
+		it('should convert basic numbers', () => {
+			expect(numberToHex(0)).toBe('0x0')
+			expect(numberToHex(255)).toBe('0xff')
+			expect(numberToHex(256)).toBe('0x100')
+			expect(numberToHex(4660)).toBe('0x1234')
+		})
+
+		it('should convert bigints', () => {
+			expect(numberToHex(255n)).toBe('0xff')
+			expect(numberToHex(1000000000000000000n)).toBe('0xde0b6b3a7640000')
+		})
+
+		it('should pad to specified size', () => {
+			expect(numberToHex(255, { size: 1 })).toBe('0xff')
+			expect(numberToHex(255, { size: 2 })).toBe('0x00ff')
+			expect(numberToHex(1, { size: 4 })).toBe('0x00000001')
+			expect(numberToHex(0, { size: 32 })).toBe('0x' + '0'.repeat(64))
+		})
+
+		it('should throw when value exceeds size', () => {
+			expect(() => numberToHex(256, { size: 1 })).toThrow('exceeds 1 byte size')
+			expect(() => numberToHex(65536, { size: 2 })).toThrow('exceeds 2 byte size')
+		})
+
+		it('should throw on negative unsigned', () => {
+			expect(() => numberToHex(-1)).toThrow('Negative value')
+		})
+
+		it('should handle signed encoding', () => {
+			// -1 as signed 1-byte = 0xff
+			expect(numberToHex(-1, { signed: true, size: 1 })).toBe('0xff')
+			// -128 as signed 1-byte = 0x80
+			expect(numberToHex(-128, { signed: true, size: 1 })).toBe('0x80')
+			// 127 as signed 1-byte = 0x7f
+			expect(numberToHex(127, { signed: true, size: 1 })).toBe('0x7f')
+			// -1 as signed 2-byte = 0xffff
+			expect(numberToHex(-1, { signed: true, size: 2 })).toBe('0xffff')
+		})
+
+		it('should throw when signed value out of range', () => {
+			// 128 is out of range for signed 1-byte (max 127)
+			expect(() => numberToHex(128, { signed: true, size: 1 })).toThrow('out of range')
+			// -129 is out of range for signed 1-byte (min -128)
+			expect(() => numberToHex(-129, { signed: true, size: 1 })).toThrow('out of range')
+		})
+
+		it('should require size for signed encoding', () => {
+			expect(() => numberToHex(-1, { signed: true })).toThrow('Size is required')
+		})
+	})
 })

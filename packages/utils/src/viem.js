@@ -130,6 +130,63 @@ export function hexToNumber(hex, opts) {
 	return Number(bigIntValue)
 }
 
+/**
+ * Convert number to hex string.
+ * Native implementation that matches viem's numberToHex API.
+ * @param {number | bigint} value - The number or bigint to convert
+ * @param {Object} [opts] - Options
+ * @param {boolean} [opts.signed] - Whether to encode as signed integer
+ * @param {number} [opts.size] - Size in bytes (for padding/signed encoding)
+ * @returns {import('viem').Hex} The hex string (e.g., '0xff')
+ * @example
+ * ```javascript
+ * import { numberToHex } from '@tevm/utils'
+ * const value = 255
+ * const hex = numberToHex(value) // '0xff'
+ * const padded = numberToHex(255, { size: 2 }) // '0x00ff'
+ * ```
+ */
+export function numberToHex(value, opts) {
+	const bigIntValue = typeof value === 'bigint' ? value : BigInt(value)
+
+	// Handle signed encoding
+	if (opts?.signed) {
+		const size = opts.size
+		if (size === undefined) {
+			throw new Error('Size is required for signed encoding')
+		}
+		const maxValue = (1n << (BigInt(size) * 8n - 1n)) - 1n
+		const minValue = -(1n << (BigInt(size) * 8n - 1n))
+		if (bigIntValue > maxValue || bigIntValue < minValue) {
+			throw new Error(`Value ${bigIntValue} is out of range for ${size} byte signed integer`)
+		}
+		// Two's complement for negative numbers
+		let encoded = bigIntValue
+		if (bigIntValue < 0n) {
+			encoded = (1n << (BigInt(size) * 8n)) + bigIntValue
+		}
+		return /** @type {import('viem').Hex} */ (`0x${encoded.toString(16).padStart(size * 2, '0')}`)
+	}
+
+	// For unsigned, ensure non-negative
+	if (bigIntValue < 0n) {
+		throw new Error(`Negative value ${bigIntValue} cannot be encoded as unsigned hex`)
+	}
+
+	// Handle size padding
+	if (opts?.size) {
+		const hex = bigIntValue.toString(16)
+		const expectedLength = opts.size * 2
+		if (hex.length > expectedLength) {
+			throw new Error(`Value ${bigIntValue} exceeds ${opts.size} byte size`)
+		}
+		return /** @type {import('viem').Hex} */ (`0x${hex.padStart(expectedLength, '0')}`)
+	}
+
+	// Default: no padding, just convert
+	return /** @type {import('viem').Hex} */ (`0x${bigIntValue.toString(16)}`)
+}
+
 export {
 	boolToBytes,
 	boolToHex,
@@ -162,7 +219,6 @@ export {
 	isBytes,
 	isHex,
 	keccak256,
-	numberToHex,
 	parseEther,
 	parseGwei,
 	serializeTransaction,
