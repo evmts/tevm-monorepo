@@ -45,14 +45,12 @@ export { createMemoryDb } from './createMemoryDb.js'
 export {
 	bytesToUnprefixedHex,
 	bytesToUtf8,
-	concatBytes,
 	createAccount,
 	createAddressFromString,
 	createWithdrawal,
 	EthjsAccount,
 	EthjsAddress,
 	ecrecover,
-	equalsBytes,
 	fetchFromProvider,
 	// ecsign was removed in newer versions
 	// zeros was also removed
@@ -83,6 +81,9 @@ export {
 	BIGINT_0,
 	BIGINT_1,
 } from './ethereumjs.js'
+// Native implementations using @tevm/voltaire (migrated from @ethereumjs/util)
+export { concatBytes } from './concatBytes.js'
+export { equalsBytes } from './equalsBytes.js'
 export type { MemoryDb } from './MemoryDb.js'
 export * from './prefundedAccounts.js'
 export {

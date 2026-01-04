@@ -2,15 +2,16 @@ import { describe, expect, it } from 'vitest'
 import {
 	bytesToUnprefixedHex,
 	bytesToUtf8,
-	concatBytes,
 	EthjsAccount,
 	EthjsAddress,
-	equalsBytes,
 	randomBytes,
 	setLengthLeft,
 	TypeOutput,
 	toType,
 } from './ethereumjs.js'
+// concatBytes and equalsBytes are now native implementations using @tevm/voltaire
+import { concatBytes } from './concatBytes.js'
+import { equalsBytes } from './equalsBytes.js'
 
 describe('ethereumjs re-exports', () => {
 	it('should properly export EthjsAddress', () => {

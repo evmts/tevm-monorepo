@@ -3,13 +3,13 @@ export {
 	Address as EthjsAddress,
 	bytesToUnprefixedHex,
 	bytesToUtf8,
-	concatBytes,
+	// concatBytes - migrated to native implementation in concatBytes.js
 	createAccount,
 	// AsyncEventEmitter was also removed
 	createAddressFromString,
 	createWithdrawal,
 	ecrecover,
-	equalsBytes,
+	// equalsBytes - migrated to native implementation in equalsBytes.js
 	fetchFromProvider,
 	GWEI_TO_WEI,
 	getProvider,
