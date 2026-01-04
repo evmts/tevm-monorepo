@@ -706,6 +706,56 @@ export function parseGwei(gwei) {
 }
 
 /**
+ * Parse a string value with the given number of decimals into a bigint.
+ * Native implementation that matches viem's parseUnits API.
+ * @param {string} value - The value to parse (e.g., '1.5')
+ * @param {number} decimals - The number of decimals (e.g., 18 for ether, 6 for USDC)
+ * @returns {bigint} The parsed value as bigint (e.g., 1500000n for parseUnits('1.5', 6))
+ * @example
+ * ```javascript
+ * import { parseUnits } from '@tevm/utils'
+ * parseUnits('1', 18) // 1000000000000000000n (1 ether)
+ * parseUnits('1.5', 6) // 1500000n (1.5 USDC)
+ * parseUnits('0.1', 18) // 100000000000000000n
+ * parseUnits('100', 6) // 100000000n
+ * parseUnits('-1', 18) // -1000000000000000000n
+ * ```
+ */
+export function parseUnits(value, decimals) {
+	// Handle negative values
+	const isNegative = value.startsWith('-')
+	const absValue = isNegative ? value.slice(1) : value
+
+	// Split into integer and fractional parts
+	const parts = absValue.split('.')
+
+	if (parts.length > 2) {
+		throw new Error(`Invalid value: ${value}`)
+	}
+
+	const integerPart = parts[0] || '0'
+	let fractionalPart = parts[1] || ''
+
+	// Truncate or pad fractional part to specified decimals
+	if (fractionalPart.length > decimals) {
+		// Truncate (viem rounds toward zero)
+		fractionalPart = fractionalPart.slice(0, decimals)
+	} else {
+		fractionalPart = fractionalPart.padEnd(decimals, '0')
+	}
+
+	// Calculate multiplier: 10^decimals
+	const multiplier = 10n ** BigInt(decimals)
+
+	// Combine: integer * multiplier + fractional
+	const integerAmount = BigInt(integerPart) * multiplier
+	const fractionalAmount = fractionalPart.length > 0 ? BigInt(fractionalPart) : 0n
+	const result = integerAmount + fractionalAmount
+
+	return isNegative ? -result : result
+}
+
+/**
  * Compute Keccak-256 hash.
  * Native implementation that matches viem's keccak256 API.
  * Uses @noble/hashes for the underlying implementation (same as voltaire).

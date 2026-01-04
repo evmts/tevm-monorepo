@@ -138,6 +138,7 @@ export {
 	parseAbi,
 	parseEther,
 	parseGwei,
+	parseUnits,
 	serializeTransaction,
 	stringToBytes,
 	stringToHex,
