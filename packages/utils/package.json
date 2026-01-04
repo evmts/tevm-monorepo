@@ -67,6 +67,7 @@
 		"@ethereumjs/util": "^10.0.0",
 		"@noble/hashes": "^2.0.1",
 		"@tevm/errors": "workspace:^",
+		"@tevm/voltaire": "workspace:^",
 		"abitype": "^1.1.1"
 	},
 	"devDependencies": {

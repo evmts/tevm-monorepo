@@ -2027,15 +2027,16 @@ export function serializeTransaction(transaction, signature) {
 	return serializeLegacyTransaction(/** @type {TransactionSerializableLegacy} */ (transaction), signature)
 }
 
-// ABI encoding/decoding functions from viem/utils
-// TODO(voltaire): Migrate these to @tevm/voltaire once it's fully integrated and buildable
+// ABI encoding/decoding - native implementation using @tevm/voltaire
+export { encodeAbiParameters, decodeAbiParameters } from './abiEncoding.js'
+
+// ABI encoding/decoding functions from viem/utils (complex functions not yet migrated)
+// TODO(voltaire): Migrate these remaining functions to @tevm/voltaire
 export {
-	decodeAbiParameters,
 	decodeErrorResult,
 	decodeEventLog,
 	decodeFunctionData,
 	decodeFunctionResult,
-	encodeAbiParameters,
 	encodeDeployData,
 	encodeErrorResult,
 	encodeEventTopics,
