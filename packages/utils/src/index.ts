@@ -5,6 +5,9 @@ export type { Proof, StorageProof } from './proof-types.js'
 // Native Cache types (migrated from @ethereumjs/statemanager)
 export { CacheType } from './cache-types.js'
 export type { CacheType as CacheTypeValue, CacheOpts, CachesStateManagerOpts } from './cache-types.js'
+// Native AccountCache and StorageCache implementations (migrated from @ethereumjs/statemanager)
+export { AccountCache } from './AccountCache.js'
+export { StorageCache } from './StorageCache.js'
 // Native DB types (migrated from @ethereumjs/util)
 export type {
 	DB as Db,

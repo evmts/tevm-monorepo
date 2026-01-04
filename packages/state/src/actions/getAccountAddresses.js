@@ -8,18 +8,16 @@ export const getAccountAddresses = (baseState) => () => {
 	 * @type {Set<import('@tevm/utils').Address>}
 	 */
 	const accountAddresses = new Set()
-	//Tevm initializes stateManager account cache with an ordered map cache
-	baseState.caches.accounts._orderedMapCache?.forEach((e) => {
-		accountAddresses.add(getAddress(e[0].startsWith('0x') ? e[0] : `0x${e[0]}`))
-	})
 	const { _lruCache, _orderedMapCache } = baseState.caches.accounts
+	// Handle LRU cache
 	if (_lruCache !== undefined) {
-		for (const address of _lruCache.rkeys()) {
+		for (const address of _lruCache.keys()) {
 			accountAddresses.add(getAddress(address.startsWith('0x') ? address : `0x${address}`))
 		}
 	}
+	// Handle ordered map cache (native Map uses .forEach((value, key)))
 	if (_orderedMapCache !== undefined) {
-		_orderedMapCache.forEach(([address]) => {
+		_orderedMapCache.forEach((_value, address) => {
 			accountAddresses.add(getAddress(address.startsWith('0x') ? address : `0x${address}`))
 		})
 	}

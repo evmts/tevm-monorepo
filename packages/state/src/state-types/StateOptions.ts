@@ -1,4 +1,4 @@
-import type { AccountCache, StorageCache } from '@ethereumjs/statemanager'
+import type { AccountCache, StorageCache } from '@tevm/utils'
 import type { LogOptions } from '@tevm/logger'
 import type { Hex } from '@tevm/utils'
 import type { BaseState } from '../BaseState.js'

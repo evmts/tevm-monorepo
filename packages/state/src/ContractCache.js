@@ -1,5 +1,4 @@
-import { StorageCache } from '@ethereumjs/statemanager'
-import { CacheType, bytesToUnprefixedHex } from '@tevm/utils'
+import { StorageCache, CacheType, bytesToUnprefixedHex } from '@tevm/utils'
 
 const oneBytes = Uint8Array.from([1])
 
@@ -68,9 +67,17 @@ export class ContractCache {
 	 * @returns {boolean} if the cache has the key
 	 */
 	has(address) {
-		const storageMap = this.storageCache._orderedMapCache?.getElementByKey(bytesToUnprefixedHex(address.bytes))
-		const hasOrderedMapCache = storageMap?.has(bytesToUnprefixedHex(oneBytes)) ?? false
-		const hasLruCache = this.storageCache._lruCache?.has(bytesToUnprefixedHex(address.bytes))
+		const addressHex = bytesToUnprefixedHex(address.bytes)
+		const keyHex = bytesToUnprefixedHex(oneBytes)
+
+		// Check ordered map cache (native Map uses .get())
+		const orderedStorageMap = this.storageCache._orderedMapCache?.get(addressHex)
+		const hasOrderedMapCache = orderedStorageMap?.has(keyHex) ?? false
+
+		// Check LRU cache
+		const lruStorageMap = this.storageCache._lruCache?.get(addressHex)
+		const hasLruCache = lruStorageMap?.has(keyHex) ?? false
+
 		return Boolean(hasOrderedMapCache || hasLruCache)
 	}
 
