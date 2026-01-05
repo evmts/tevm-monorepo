@@ -232,4 +232,82 @@ describe('abiEventEncoding', () => {
 			expect((decoded as any)?.args.value).toBe(1000n)
 		})
 	})
+
+	describe('events with bytes indexed parameters', () => {
+		const bytesEvent = {
+			type: 'event',
+			name: 'BytesEvent',
+			inputs: [
+				{ type: 'bytes32', name: 'dataHash', indexed: true },
+				{ type: 'uint256', name: 'value', indexed: false },
+			],
+		} as const
+
+		const bytesAbi = [bytesEvent]
+
+		it('encodes bytes32 indexed parameter', () => {
+			const topics = encodeEventTopics({
+				abi: bytesAbi,
+				eventName: 'BytesEvent',
+				args: {
+					dataHash: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+				},
+			})
+
+			expect(topics.length).toBe(2)
+			// bytes32 should be encoded directly without hashing
+			expect(topics[1]).toBe('0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef')
+		})
+
+		it('decodes bytes32 indexed parameter from log', () => {
+			// First get the selector for BytesEvent(bytes32,uint256)
+			const topics = encodeEventTopics({
+				abi: bytesAbi,
+				eventName: 'BytesEvent',
+			})
+
+			const result = decodeEventLog({
+				abi: bytesAbi,
+				topics: [
+					topics[0] as `0x${string}`,
+					'0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+				],
+				data: '0x00000000000000000000000000000000000000000000000000000000000003e8',
+			})
+
+			expect((result as any)?.eventName).toBe('BytesEvent')
+			expect((result as any)?.args.value).toBe(1000n)
+		})
+	})
+
+	describe('non-strict error handling', () => {
+		it('returns undefined when decoding fails in non-strict mode', () => {
+			const result = decodeEventLog({
+				abi: erc20Abi,
+				topics: [
+					'0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
+				],
+				// Provide malformed data that causes decoding error
+				data: '0x', // Empty data when Transfer expects a uint256
+				strict: false,
+			})
+
+			// Should return undefined instead of throwing
+			expect(result).toBeUndefined()
+		})
+
+		it('throws when decoding fails in strict mode', () => {
+			expect(() =>
+				decodeEventLog({
+					abi: erc20Abi,
+					topics: [
+						'0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
+					],
+					// Provide malformed data
+					data: '0x',
+					strict: true,
+				}),
+			).toThrow()
+		})
+	})
 })
