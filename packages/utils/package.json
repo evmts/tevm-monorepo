@@ -63,14 +63,16 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@noble/curves": "^2.0.1",
-		"@noble/hashes": "^2.0.1",
+		"@scure/bip32": "^1.6.0",
+		"@scure/bip39": "^1.5.0",
 		"@tevm/errors": "workspace:^",
 		"@tevm/voltaire": "workspace:^",
 		"abitype": "^1.1.1",
 		"lru-cache": "^11.0.0"
 	},
 	"devDependencies": {
+		"@noble/curves": "^2.0.1",
+		"@noble/hashes": "^2.0.1",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
