@@ -1,4 +1,4 @@
-import { decodeFunctionResult, encodeFunctionData, hexToBigInt, numberToHex } from 'viem'
+import { decodeFunctionResult, encodeFunctionData, hexToBigInt, numberToHex } from '@tevm/utils'
 import { testAccounts } from './testAccounts.js'
 
 /**
