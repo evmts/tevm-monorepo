@@ -1,0 +1,57 @@
+# Ralph Migration Log - Iteration 727
+## Date: 2026-01-05
+
+## Task: Add Client and ClientConfig types to @tevm/utils
+
+## Summary
+
+Added `Client` and `ClientConfig` types to `@tevm/utils/provider-types.ts` to support future migrations of viem type imports.
+
+## Changes Made
+
+### packages/utils/src/provider-types.ts
+Added two new types:
+1. **ClientConfig** - Configuration options for creating a viem-compatible client
+   - Generic parameters: `TTransport`, `TChain`, `TAccountOrAddress`, `TRpcSchema`
+   - Properties: `account`, `batch`, `cacheTime`, `chain`, `key`, `name`, `pollingInterval`, `rpcSchema`, `transport`, `type`
+
+2. **Client** - A viem-compatible client interface for making JSON-RPC requests
+   - Generic parameters: `TTransport`, `TChain`, `TAccount`, `TRpcSchema`
+   - Properties: `account`, `batch`, `cacheTime`, `chain`, `key`, `name`, `pollingInterval`, `request`, `transport`, `type`, `uid`, `extend`
+
+### packages/utils/src/index.ts
+Added exports for `ClientConfig` and `Client` from `./provider-types.js`
+
+## Attempted but Reverted
+
+Tried to migrate `packages/memory-client/src/MemoryClientOptions.ts` and `CreateMemoryClientFn.ts` to use `@tevm/utils` types instead of viem, but encountered type compatibility issues:
+
+- The `Account` type in `@tevm/utils` is simpler than viem's full `Account` type
+- viem's `Account` includes complex type-level transformations for `signTypedData` (TypedData generic constraints)
+- The `MemoryClient` still depends on viem's Client internally, so Account types need to match exactly
+
+These files need to keep their viem imports until:
+1. We create fully viem-compatible `Account` type with all the complex TypedData generics
+2. Or we migrate the entire MemoryClient away from viem's Client
+
+## Build Status
+
+- @tevm/utils:build:types - PASS
+- @tevm/memory-client:build:types - PASS
+
+## Notes
+
+1. The new `Client` and `ClientConfig` types can be used in:
+   - New code that doesn't need full viem type compatibility
+   - Tests and internal utilities
+   - Documentation and type references
+
+2. For exact viem compatibility in public APIs (like MemoryClient), we need to:
+   - Either keep using viem's types
+   - Or implement more complex type-level features (TypedData generics, etc.)
+
+3. Key blocker: viem's Account type has complex methods like `signTypedData` with intricate TypedDataDefinition generic constraints. Our simplified types don't satisfy these constraints.
+
+## Impact
+
+Added 2 new types to @tevm/utils that provide viem-compatible interfaces without direct viem import requirement. These types will be useful for new code and internal utilities.

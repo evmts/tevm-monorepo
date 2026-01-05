@@ -33,16 +33,22 @@ export type { WithdrawalData, JsonRpcWithdrawal } from './withdrawal.js'
 export type {
 	Abi,
 	AbiConstructor,
+	AbiError,
 	AbiEvent,
+	AbiEventParameter,
 	AbiFunction,
 	AbiItemType,
+	AbiParameter,
 	AbiParametersToPrimitiveTypes,
+	AbiParameterToPrimitiveType,
 	AbiStateMutability,
 	Account,
 	Address,
 	BlockNumber,
 	BlockTag,
 	ContractConstructorArgs,
+	ContractErrorArgs,
+	ContractErrorName,
 	ContractFunctionArgs,
 	ContractFunctionName,
 	ContractFunctionReturnType,
@@ -50,6 +56,7 @@ export type {
 	DecodeFunctionResultReturnType,
 	EncodeDeployDataParameters,
 	EncodeFunctionDataParameters,
+	ExtractAbiError,
 	ExtractAbiEvent,
 	ExtractAbiEventNames,
 	ExtractAbiEvents,
@@ -59,6 +66,8 @@ export type {
 	GetEventArgs,
 	HDAccount,
 	Hex,
+	IsAddressOptions,
+	JsonRpcAccount,
 	LocalAccount,
 	NativeAccount,
 	NativeHDAccount,
@@ -68,6 +77,7 @@ export type {
 	SignMessageParameters,
 	SignParameters,
 	SignTypedDataParameters,
+	SmartAccount,
 } from './abitype.js'
 export { Bloom } from './Bloom.js'
 export type { CreateMemoryDbFn } from './CreateMemoryDbFn.js'
@@ -108,6 +118,28 @@ export {
 } from './eip7702.js'
 // Native Account implementation (migrated from @ethereumjs/util)
 export { Account as EthjsAccount, createAccount } from './account-class.js'
+/**
+ * Data for initializing an Account
+ */
+export type AccountData = {
+	nonce?: bigint
+	balance?: bigint
+	storageRoot?: Uint8Array
+	codeHash?: Uint8Array
+	codeSize?: number
+	version?: number
+}
+/**
+ * Interface for Account objects used by the state manager
+ */
+export type AccountInterface = {
+	nonce: bigint
+	balance: bigint
+	storageRoot: Uint8Array
+	codeHash: Uint8Array
+	codeSize?: number | undefined
+	isContract(): boolean
+}
 // Native Address implementation (migrated from @ethereumjs/util)
 export { Address as EthjsAddress, createAddressFromString, createZeroAddress, createAddressFromBigInt } from './address.js'
 // Native Withdrawal implementation (migrated from @ethereumjs/util)
@@ -188,6 +220,7 @@ export {
 	hexToNumber,
 	hexToString,
 	isAddress,
+	isAddressEqual,
 	isBytes,
 	isHex,
 	keccak256,
@@ -219,6 +252,7 @@ export {
 	toFunctionSelector,
 	toHex,
 	toRlp,
+	trim,
 	getContractError,
 	RawContractError,
 	ContractFunctionExecutionError,
@@ -231,6 +265,11 @@ export {
 	http,
 	webSocket,
 } from './viem.js'
+// Native size function - get byte size of hex/bytes values
+export { size } from './size.js'
+// Native pad function - pad hex/bytes to target size
+export { pad, padHex, padBytes, SizeExceedsPaddingSizeError } from './pad.js'
+export type { PadOptions } from './pad.js'
 // Native fork RPC client - provides viem-compatible API without viem dependency
 export { createForkRpcClient } from './createForkRpcClient.js'
 export type { ForkRpcClient, ProofResult, StorageProofEntry } from './fork-rpc-types.js'
@@ -238,12 +277,36 @@ export type { ForkRpcClient, ProofResult, StorageProofEntry } from './fork-rpc-t
 export { nativeHttp } from './nativeHttp.js'
 // Native WebSocket transport - provides viem-compatible webSocket() API without viem dependency
 export { nativeWebSocket } from './nativeWebSocket.js'
+// Native custom transport - provides viem-compatible custom() API without viem dependency
+export { nativeCustom } from './nativeCustom.js'
+// Native defineChain - provides viem-compatible defineChain() API without viem dependency
+export { nativeDefineChain } from './nativeDefineChain.js'
+// Convert @tevm/chains format to viem-compatible Chain format
+export { tevmChainToViemChain } from './tevmChainToViemChain.js'
+// Chain types for native chain definitions (migrated from viem)
+export type {
+	Chain,
+	ChainBlockExplorer,
+	ChainContract,
+	ChainFees,
+	ChainFormatter,
+	ChainFormatters,
+	ChainNativeCurrency,
+	ChainRpcUrls,
+	ChainSerializers,
+	SimpleChain,
+} from './chain-types.js'
 // Native provider types for fork client compatibility (migrated from viem)
 export type {
 	EIP1193RequestFn,
+	EIP1193Parameters,
+	EIP1474Methods,
 	Transport,
 	TransportConfig,
 	PublicClient,
+	RpcSchema,
+	ClientConfig,
+	Client,
 } from './provider-types.js'
 // Native RPC types for JSON-RPC schema definitions (migrated from viem)
 export type {
@@ -251,6 +314,7 @@ export type {
 	Quantity,
 	Status,
 	TransactionType,
+	TransactionReceipt,
 	RpcBlock,
 	RpcBlockIdentifier,
 	RpcBlockNumber,
@@ -297,4 +361,11 @@ export type {
 	SetToHex,
 } from './SerializeToJson.js'
 // Native utility types (migrated from viem)
-export type { Prettify } from './utility-types.js'
+export type { ExactPartial, Prettify } from './utility-types.js'
+// Native Log types (migrated from viem)
+export type { Log, Hash, LogTopic } from './log-types.js'
+// Native parseEventLogs function (migrated from viem)
+export { parseEventLogs } from './parseEventLogs.js'
+export type { ParseEventLogsParameters, ParseEventLogsReturnType } from './parseEventLogs.js'
+// Native Account Abstraction types (EIP-4337) - migrated from viem
+export type { RpcUserOperation, SignedAuthorization } from './account-abstraction-types.js'
