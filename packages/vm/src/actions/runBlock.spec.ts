@@ -1,5 +1,5 @@
 // @ts-nocheck - Disable type checking for this test file
-import { describe, expect, it, mock } from 'bun:test'
+import { describe, expect, it, mock } from 'vitest'
 import { Block } from '@tevm/block'
 import type { BaseVm } from '../BaseVm.js'
 import type { RunBlockOpts } from '../utils/index.js'

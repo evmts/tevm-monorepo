@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test'
+import { describe, expect, it } from 'vitest'
 import { createChain } from '@tevm/blockchain'
 import { createCommon, optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
