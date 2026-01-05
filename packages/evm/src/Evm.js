@@ -74,6 +74,73 @@ export class Evm {
    * @type {boolean}
    */
   DEBUG = false
+  /**
+   * Allow unlimited contract size flag
+   * @type {boolean}
+   */
+  allowUnlimitedContractSize = false
+  /**
+   * Events emitter stub for tracing compatibility.
+   * Note: guillotine-mini doesn't emit EVM events during execution yet.
+   * These are stub implementations that store listeners but don't emit events.
+   * @type {{ on: (event: string, listener: (...args: any[]) => void) => void, off: (event: string, listener: (...args: any[]) => void) => void, emit: (event: string, ...args: any[]) => boolean, once: (event: string, listener: (...args: any[]) => void) => void, _listeners: Map<string, Set<(...args: any[]) => void>> }}
+   */
+  events = {
+    /** @type {Map<string, Set<(...args: any[]) => void>>} */
+    _listeners: new Map(),
+    /**
+     * @param {string} event
+     * @param {(...args: any[]) => void} listener
+     */
+    on(event, listener) {
+      if (!this._listeners.has(event)) {
+        this._listeners.set(event, new Set())
+      }
+      this._listeners.get(event)?.add(listener)
+    },
+    /**
+     * @param {string} event
+     * @param {(...args: any[]) => void} listener
+     */
+    off(event, listener) {
+      this._listeners.get(event)?.delete(listener)
+    },
+    /**
+     * @param {string} event
+     * @param {...any} args
+     * @returns {boolean}
+     */
+    emit(event, ...args) {
+      const listeners = this._listeners.get(event)
+      if (!listeners || listeners.size === 0) return false
+      for (const listener of listeners) {
+        listener(...args)
+      }
+      return true
+    },
+    /**
+     * @param {string} event
+     * @param {(...args: any[]) => void} listener
+     */
+    once(event, listener) {
+      const wrapper = (/** @type {any[]} */ ...args) => {
+        this.off(event, wrapper)
+        listener(...args)
+      }
+      this.on(event, wrapper)
+    },
+    /**
+     * Remove all listeners for an event or all events.
+     * @param {string} [event] - Optional event name. If not provided, clears all listeners.
+     */
+    removeAllListeners(event) {
+      if (event) {
+        this._listeners.delete(event)
+      } else {
+        this._listeners.clear()
+      }
+    },
+  }
   /** A minimal journal shim for vm actions */
   journal = {
     /** @type {Evm} */
@@ -378,6 +445,33 @@ export class Evm {
         selfdestruct: [],
       },
     }
+  }
+
+  /**
+   * Create a shallow copy of the EVM instance.
+   * The copy shares the same stateManager and blockchain references.
+   * @returns {Evm}
+   */
+  shallowCopy() {
+    const copy = new Evm({
+      stateManager: this.stateManager,
+      common: this.common,
+      blockchain: this.blockchain,
+    })
+    copy._customPrecompiles = [...this._customPrecompiles]
+    copy.precompiles = new Map(this.precompiles)
+    copy.DEBUG = this.DEBUG
+    copy.allowUnlimitedContractSize = this.allowUnlimitedContractSize
+    return copy
+  }
+
+  /**
+   * Get active opcodes for the current hardfork.
+   * Returns an empty map as guillotine-mini handles opcodes internally.
+   * @returns {Map<number, any>}
+   */
+  getActiveOpcodes() {
+    return new Map()
   }
 
   /**
