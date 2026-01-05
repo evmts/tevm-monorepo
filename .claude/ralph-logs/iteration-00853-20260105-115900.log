@@ -1,0 +1,62 @@
+# Ralph Migration Log - Iteration 853
+## Date: 2026-01-05
+
+## Task: Add test coverage for CasperConsensus class
+
+## Summary
+
+Added comprehensive test suite for the `CasperConsensus` class in the @tevm/blockchain package. This class implements Casper (Proof-of-Stake) consensus logic for the blockchain.
+
+## Changes Made
+
+### New files:
+- `packages/blockchain/src/CasperConsensus.spec.ts` - 14 tests
+
+### Test coverage:
+
+**Constructor (1 test):**
+- Verifies algorithm property is set to ConsensusAlgorithm.Casper
+
+**genesisInit (2 tests):**
+- No-op that resolves successfully with undefined
+- Handles being called with a block argument
+
+**setup (2 tests):**
+- No-op that resolves successfully with undefined
+- Handles being called with options object
+
+**validateConsensus (2 tests):**
+- No-op that resolves successfully with undefined
+- Handles being called with a block
+
+**validateDifficulty (5 tests):**
+- Accepts difficulty of 0n (valid for PoS)
+- Throws InternalError for non-zero difficulty
+- Includes header errorStr in error message when available
+- Includes block number and hash when errorStr not available
+- Handles missing hash function gracefully (shows "unknown")
+
+**newBlock (2 tests):**
+- No-op that resolves successfully
+- Handles being called with all arguments (block, ancestor, ancient headers)
+
+## Technical Notes
+
+CasperConsensus is a consensus implementation for Proof-of-Stake chains:
+1. Most methods are no-ops since PoS consensus validation happens at the consensus layer
+2. `validateDifficulty` is the main validation - PoS blocks must have difficulty 0
+3. Provides proper error messages with block info for debugging
+
+## Test Results
+
+All tests passing:
+- CasperConsensus.spec.ts: 14 tests (3ms)
+
+## Status: COMPLETE
+
+## Next Steps
+
+Continue with migration work:
+1. Look for other untested utility classes in blockchain package
+2. Consider adding tests for CUSTOM_Tx_TYPES.js (simple constant array)
+3. Continue voltaire migration where possible
