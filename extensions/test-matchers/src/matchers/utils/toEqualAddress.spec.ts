@@ -1,4 +1,4 @@
-import type { Hex } from 'viem'
+import type { Hex } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 
 describe('toEqualAddress', () => {
