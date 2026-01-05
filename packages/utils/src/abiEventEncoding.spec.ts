@@ -309,5 +309,76 @@ describe('abiEventEncoding', () => {
 				}),
 			).toThrow()
 		})
+
+		it('returns undefined for no events in ABI in non-strict mode', () => {
+			const emptyAbi: any[] = []
+			const result = decodeEventLog({
+				abi: emptyAbi,
+				topics: [
+					'0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
+				],
+				data: '0x',
+				strict: false,
+			})
+
+			expect(result).toBeUndefined()
+		})
+
+		it('returns undefined when no matching event for topic0 in non-strict mode', () => {
+			// Create a different event that doesn't match the Transfer selector
+			const otherEvent = {
+				type: 'event',
+				name: 'Other',
+				inputs: [
+					{ type: 'uint256', name: 'val', indexed: false },
+				],
+			} as const
+			const result = decodeEventLog({
+				abi: [otherEvent],
+				topics: [
+					'0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef',
+				],
+				data: '0x00000000000000000000000000000000000000000000000000000000000003e8',
+				strict: false,
+			})
+
+			expect(result).toBeUndefined()
+		})
+	})
+
+	describe('event type value handling', () => {
+		it('handles event with uint256 array in data', () => {
+			const arrayEvent = {
+				type: 'event',
+				name: 'ArrayEvent',
+				inputs: [
+					{ type: 'uint256[]', name: 'values', indexed: false },
+				],
+			} as const
+
+			// Get the event selector first
+			const topics = encodeEventTopics({
+				abi: [arrayEvent],
+				eventName: 'ArrayEvent',
+			})
+
+			// Encode an array [1, 2, 3] - offset to array data, then length, then values
+			const data =
+				'0x' +
+				'0000000000000000000000000000000000000000000000000000000000000020' + // offset to array
+				'0000000000000000000000000000000000000000000000000000000000000003' + // array length
+				'0000000000000000000000000000000000000000000000000000000000000001' + // 1
+				'0000000000000000000000000000000000000000000000000000000000000002' + // 2
+				'0000000000000000000000000000000000000000000000000000000000000003'   // 3
+
+			const result = decodeEventLog({
+				abi: [arrayEvent],
+				topics: [topics[0] as `0x${string}`],
+				data,
+			})
+
+			expect((result as any)?.eventName).toBe('ArrayEvent')
+			expect((result as any)?.args.values).toBeDefined()
+		})
 	})
 })
