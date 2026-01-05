@@ -88,7 +88,7 @@ describe('ecrecover', () => {
 	it('should produce a verifiable public key', async () => {
 		// Test that the recovered public key matches the expected public key
 		// from a known private key
-		const { secp256k1 } = await import('@noble/curves/secp256k1.js')
+		const Secp256k1 = await import('@tevm/voltaire/Secp256k1')
 
 		// Private key: 0x3c9229289a6125f7fdf1885a77bb12c37a8d3b4962d936f7e3084dece32a3ca1
 		// This is the test key used in signature.spec.ts
@@ -97,8 +97,9 @@ describe('ecrecover', () => {
 		// Message hash for "Hello world" with EIP-191 prefix
 		const msgHash = hexToBytes('0x8144a6fa26be252b86456491fbcd43c1de7e022241845ffea1c3df066f7cfede')
 
-		// Get the expected public key from the private key
-		const expectedPubKey = secp256k1.getPublicKey(privateKey, false).slice(1) // Remove 0x04 prefix
+		// Get the expected public key from the private key using voltaire
+		// derivePublicKey returns 64 bytes (uncompressed without 0x04 prefix)
+		const expectedPubKey = Secp256k1.derivePublicKey(privateKey)
 
 		// Signature produced by viem for this message/key
 		const v = 27n
