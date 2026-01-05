@@ -57,9 +57,9 @@
 		"lint:deps": "bunx depcheck",
 		"lint:package": "bunx publint --strict && pnpm pack --pack-destination /tmp && attw /tmp/tevm-vm-*.tgz && rm /tmp/tevm-vm-*.tgz",
 		"package:up": "pnpm up --latest",
-		"test": "bun test --watch",
-		"test:coverage": "bun test --coverage",
-		"test:run": "bun test",
+		"test": "vitest --watch",
+		"test:coverage": "vitest --coverage --run",
+		"test:run": "vitest --run",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
