@@ -1,10 +1,9 @@
 import { tevmDefault } from '@tevm/common'
 import { type Contract, ErrorContract } from '@tevm/contract'
 import { createTevmTransport, tevmDeploy } from '@tevm/memory-client'
-import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
+import { type Address, type Hex, keccak256, PREFUNDED_ACCOUNTS, toHex } from '@tevm/utils'
 import { AbiItem } from 'ox'
-import type { Address, Hex } from 'viem'
-import { createClient, keccak256, toHex } from 'viem'
+import { createClient } from 'viem'
 import { writeContract } from 'viem/actions'
 import { assert, beforeAll, describe, expect, it } from 'vitest'
 
