@@ -1738,6 +1738,64 @@ describe('native implementations (migrated from viem)', () => {
 				)
 				expect(result.startsWith('0xf8') || result.startsWith('0xf9')).toBe(true)
 			})
+
+			it('should serialize signed legacy transaction with yParity (no v)', () => {
+				const result = serializeTransaction(
+					{
+						chainId: 1,
+						nonce: 0,
+						gasPrice: 20000000000n,
+						gas: 21000n,
+						to: '0x742d35cc6634c0532925a3b844bc9e7595f251e3',
+						value: 1000000000000000000n,
+					},
+					{
+						r: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdefn,
+						s: 0xfedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321n,
+						yParity: 0, // Use yParity instead of v
+					},
+				)
+				expect(result.startsWith('0xf8') || result.startsWith('0xf9')).toBe(true)
+			})
+
+			it('should serialize signed legacy transaction without chainId using yParity', () => {
+				const result = serializeTransaction(
+					{
+						nonce: 0,
+						gasPrice: 20000000000n,
+						gas: 21000n,
+						to: '0x742d35cc6634c0532925a3b844bc9e7595f251e3',
+						value: 1000000000000000000n,
+					},
+					{
+						r: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdefn,
+						s: 0xfedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321n,
+						yParity: 1, // yParity with no chainId -> v = 27 + yParity = 28
+					},
+				)
+				expect(result.startsWith('0xf8') || result.startsWith('0xf9')).toBe(true)
+			})
+
+			it('should serialize signed EIP-2930 transaction with v (fallback to v % 2)', () => {
+				const result = serializeTransaction(
+					{
+						type: 'eip2930',
+						chainId: 1,
+						nonce: 0,
+						gasPrice: 20000000000n,
+						gas: 21000n,
+						to: '0x742d35cc6634c0532925a3b844bc9e7595f251e3',
+						value: 1000000000000000000n,
+						accessList: [],
+					},
+					{
+						r: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdefn,
+						s: 0xfedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321n,
+						v: 28n, // Use v instead of yParity - will compute yParity as v % 2 = 0
+					},
+				)
+				expect(result.startsWith('0x01')).toBe(true)
+			})
 		})
 
 		describe('edge cases', () => {
@@ -1773,6 +1831,24 @@ describe('native implementations (migrated from viem)', () => {
 					chainId: 1,
 				})
 				expect(result.startsWith('0x02')).toBe(true)
+			})
+
+			it('should handle odd-length hex data', () => {
+				// Test with odd-length hex data (3 nibbles = 1.5 bytes, which needs padding)
+				const result = serializeTransaction({
+					type: 'eip1559',
+					chainId: 1,
+					nonce: 0,
+					maxPriorityFeePerGas: 1000000000n,
+					maxFeePerGas: 2000000000n,
+					gas: 21000n,
+					to: '0x742d35cc6634c0532925a3b844bc9e7595f251e3',
+					value: 0n,
+					data: '0x123', // Odd-length hex - 3 nibbles, needs to be padded to 0x0123
+				})
+				expect(result.startsWith('0x02')).toBe(true)
+				// The serialized result should contain the padded data
+				expect(result.length).toBeGreaterThan(50)
 			})
 		})
 	})
