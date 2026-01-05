@@ -1,5 +1,6 @@
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { type Client, type Hex, isHex } from 'viem'
+import { type Hex, isHex } from '@tevm/utils'
+import type { Client } from 'viem'
 import { waitForTransactionReceipt } from 'viem/actions'
 import type { ContainsTransactionAny } from './types.js'
 
@@ -23,7 +24,7 @@ export const handleTransaction = async (
 ): Promise<HandleTransactionResult> => {
 	const res = tx instanceof Promise ? await tx : tx
 
-	const node = 'request' in client ? createTevmNode({ fork: { transport: client } }) : client
+	const node = 'request' in client ? createTevmNode({ fork: { transport: client as any } }) : client
 
 	const txHash =
 		// If it's a transaction receipt

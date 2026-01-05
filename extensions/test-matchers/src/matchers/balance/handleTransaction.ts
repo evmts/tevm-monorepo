@@ -1,6 +1,7 @@
 import { debugTraceTransactionJsonRpcProcedure, type PrestateTraceResult } from '@tevm/actions'
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { type Address, type Client, type Hex, isHex } from 'viem'
+import { type Address, type Hex, isHex } from '@tevm/utils'
+import type { Client } from 'viem'
 import { waitForTransactionReceipt } from 'viem/actions'
 import type { ContainsTransactionAny } from '../../common/types.js'
 import { getBalanceChange } from './getBalanceChange.js'
@@ -20,7 +21,7 @@ export const handleTransaction = async (
 	const { client } = opts
 	const res = tx instanceof Promise ? await tx : tx
 
-	const node = 'request' in client ? createTevmNode({ fork: { transport: client } }) : client
+	const node = 'request' in client ? createTevmNode({ fork: { transport: client as any } }) : client
 
 	const txHash =
 		// If it's a transaction receipt

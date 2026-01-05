@@ -1,0 +1,37 @@
+# Ralph Migration Log - Iteration 392
+## Date: 2026-01-05 04:45
+
+## Changes Made
+
+### Migrated viem imports to @tevm/utils in test-matchers extension
+
+Replaced `Address`, `Hex`, `isHex`, and `isAddress` imports from viem with @tevm/utils in 5 files:
+
+1. **extensions/test-matchers/src/common/handleTransaction.ts**
+   - Changed `{ type Client, type Hex, isHex } from 'viem'`
+   - To `{ type Hex, isHex } from '@tevm/utils'` and `type { Client } from 'viem'`
+
+2. **extensions/test-matchers/src/matchers/balance/handleTransaction.ts**
+   - Changed `{ type Address, type Client, type Hex, isHex } from 'viem'`
+   - To `{ type Address, type Hex, isHex } from '@tevm/utils'` and `type { Client } from 'viem'`
+
+3. **extensions/test-matchers/src/matchers/state/toBeInitializedAccount.ts**
+   - Changed `{ type Address, type Client, isAddress } from 'viem'`
+   - To `{ type Address, isAddress } from '@tevm/utils'` and `type { Client } from 'viem'`
+
+4. **extensions/test-matchers/src/matchers/state/toHaveState.ts**
+   - Changed `{ type Address, type Client, type Hex, isAddress } from 'viem'`
+   - To `{ type Address, type Hex, isAddress } from '@tevm/utils'` and `type { Client } from 'viem'`
+
+5. **extensions/test-matchers/src/matchers/state/toHaveStorageAt.ts**
+   - Changed `{ type Address, type Client, type Hex, isAddress } from 'viem'`
+   - To `{ type Address, type Hex, isAddress } from '@tevm/utils'` and `type { Client } from 'viem'`
+
+## Notes
+- The `Client` type from viem is still needed as it's a viem-specific type for the client interface
+- `waitForTransactionReceipt` from 'viem/actions' is also still needed
+- These primitive types (Address, Hex, isAddress, isHex) are available in @tevm/utils
+- Pre-existing type errors in toBeRevertedWithString.spec.ts are unrelated to these changes
+
+## Rationale
+These changes reduce viem dependency in test-matchers by using @tevm/utils for primitive Ethereum types.
