@@ -1,5 +1,6 @@
 import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 import { EthjsAccount, keccak256, toRlp, numberToBytes, createAddressFromString } from '@tevm/utils'
+import { EvmError, EVMErrorMessage } from './EvmError.js'
 import {
   loadGuillotineWasm,
   createGuillotineEvm,
@@ -259,7 +260,7 @@ export class Evm {
                   logs: [],
                   createdAddresses: new Set([createdAddress.toString()]),
                   selfdestruct: [],
-                  ...(result.success ? {} : { exceptionError: { error: 'ExecutionReverted' } }),
+                  ...(result.success ? {} : { exceptionError: new EvmError(EVMErrorMessage.REVERT) }),
                 },
               }
             } finally {
@@ -352,7 +353,7 @@ export class Evm {
                     logs: [],
                     createdAddresses: new Set(),
                     selfdestruct: [],
-                    ...(result.success ? {} : { exceptionError: { error: 'ExecutionReverted' } }),
+                    ...(result.success ? {} : { exceptionError: new EvmError(EVMErrorMessage.REVERT) }),
                   },
                 }
               } finally {

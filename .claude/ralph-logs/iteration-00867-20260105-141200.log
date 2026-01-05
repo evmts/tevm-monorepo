@@ -1,0 +1,55 @@
+# Ralph Migration Log - Iteration 867
+## Date: 2026-01-05
+
+## Task: Fix EvmError handling to properly convert revert errors to EvmRevertError
+
+## Summary
+
+Fixed the error handling flow to properly convert guillotine-mini EVM revert errors into the correct `EvmRevertError` class.
+
+## Problem
+
+When guillotine-mini execution fails with a revert, the error was being converted to `InternalEvmError` instead of `EvmRevertError`. This caused tests to fail:
+- Expected: `result.errors?.[0]?.name === 'Revert'`
+- Received: `result.errors?.[0]?.name === 'InternalEvmError'`
+
+The issues were:
+
+1. **Wrong error string**: The Evm.js adapter was returning `{ error: 'ExecutionReverted' }` as a plain object instead of using the `EvmError` class with the correct error string `'revert'`.
+
+2. **Cross-module instanceof issues**: The `handleRunTxError` function used `instanceof EvmError` to check if an error is an EvmError. However, when the `EvmError` is created in `Evm.js` (importing from `./EvmError.js`) and checked in `handleEvmError.js` (importing from `@tevm/evm`), the `instanceof` check can fail across module boundaries.
+
+## Changes Made
+
+### Files Modified
+
+1. `packages/evm/src/Evm.js`
+   - Added import for `EvmError` and `EVMErrorMessage` from `./EvmError.js`
+   - Changed `exceptionError` from plain objects to proper `EvmError` instances:
+     - `{ error: 'ExecutionReverted' }` → `new EvmError(EVMErrorMessage.REVERT)`
+   - This ensures `error: 'revert'` and `errorType: 'EVMError'` are set correctly
+
+2. `packages/actions/src/Call/handleEvmError.js`
+   - Added import for `EVMErrorTypeString` from `@tevm/evm`
+   - Added `isEvmError()` duck-typing function that checks:
+     - `e instanceof EvmError` OR
+     - Object has `error` and `errorType` properties AND `errorType === 'EVMError'`
+   - Changed `e instanceof EvmError` check to `isEvmError(e)` for cross-module compatibility
+
+3. `packages/actions/src/Contract/__snapshots__/contractHandler.spec.ts.snap`
+   - Updated snapshots to reflect the new error format
+
+## Verification
+
+After changes:
+- `handleRunTxError` now receives `EvmError { error: 'revert', errorType: 'EVMError' }`
+- `isEvmError(e)` correctly returns `true`
+- Error is properly converted to `EvmRevertError` with `name: 'Revert'`
+- The "should handle contract revert errors" test passes
+
+## Technical Notes
+
+- The duck-typing approach (`isEvmError`) is more robust than pure `instanceof` checks because it works regardless of which module instance created the error object.
+- This pattern is common in JavaScript when dealing with errors that may come from different bundle chunks or module instances.
+
+## Status: COMPLETE
