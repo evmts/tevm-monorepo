@@ -1,0 +1,28 @@
+# Ralph Migration Log - Iteration 396
+## Date: 2026-01-05 04:43
+
+## Changes Made
+
+### Migrated viem type imports to @tevm/utils in test-node spec file
+
+1. **extensions/test-node/src/internal/normalizeBlockTag.spec.ts**
+   - Changed `import type { BlockTag, Hex, RpcBlockIdentifier } from 'viem'`
+   - To `import type { BlockTag, Hex, RpcBlockIdentifier } from '@tevm/utils'`
+
+## Test Results
+
+- `normalizeBlockTag.spec.ts` - 20 tests passed
+
+## Notes
+
+- Type-only imports: BlockTag, Hex, RpcBlockIdentifier
+- All three types available in @tevm/utils
+
+## Next Steps
+
+- Continue migrating other test files with similar type-only imports
+- Target: normalizeTx.spec.ts, normalizeUserOperation.spec.ts
+
+## Rationale
+
+Small incremental migration of type imports from viem to @tevm/utils in test files.

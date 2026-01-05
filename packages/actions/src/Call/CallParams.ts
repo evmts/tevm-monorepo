@@ -7,14 +7,10 @@ import type { Hex } from '../common/index.js'
  *
  * @example
  * ```typescript
- * import { createClient } from 'viem'
- * import { createTevmTransport, tevmCall } from 'tevm'
+ * import { createMemoryClient, tevmCall } from 'tevm'
  * import { optimism } from 'tevm/common'
  *
- * const client = createClient({
- *   transport: createTevmTransport({}),
- *   chain: optimism,
- * })
+ * const client = createMemoryClient({ common: optimism })
  *
  * const callParams = {
  *   data: '0x...',
@@ -34,14 +30,10 @@ export type CallParams<TThrowOnFail extends boolean = boolean> = BaseCallParams<
 	 *
 	 * @example
 	 * ```typescript
-	 * import { createClient } from 'viem'
-	 * import { createTevmTransport, tevmCall } from 'tevm'
+	 * import { createMemoryClient, tevmCall } from 'tevm'
 	 * import { optimism } from 'tevm/common'
 	 *
-	 * const client = createClient({
-	 *   transport: createTevmTransport({}),
-	 *   chain: optimism,
-	 * })
+	 * const client = createMemoryClient({ common: optimism })
 	 *
 	 * const callParams = {
 	 *   data: '0x...',
@@ -65,14 +57,10 @@ export type CallParams<TThrowOnFail extends boolean = boolean> = BaseCallParams<
 	 *
 	 * @example
 	 * ```typescript
-	 * import { createClient } from 'viem'
-	 * import { createTevmTransport, tevmCall, encodeDeployData } from 'tevm'
+	 * import { createMemoryClient, tevmCall, encodeDeployData } from 'tevm'
 	 * import { optimism } from 'tevm/common'
 	 *
-	 * const client = createClient({
-	 *   transport: createTevmTransport({}),
-	 *   chain: optimism,
-	 * })
+	 * const client = createMemoryClient({ common: optimism })
 	 *
 	 * const callParams = {
 	 *   createTransaction: true,
@@ -90,15 +78,11 @@ export type CallParams<TThrowOnFail extends boolean = boolean> = BaseCallParams<
 	 *
 	 * @example
 	 * ```typescript
-	 * import { createClient } from 'viem'
-	 * import { createTevmTransport, tevmContract } from 'tevm'
+	 * import { createMemoryClient, tevmContract } from 'tevm'
 	 * import { optimism } from 'tevm/common'
 	 * import { SimpleContract } from 'tevm/contracts'
 	 *
-	 * const client = createClient({
-	 *   transport: createTevmTransport({}),
-	 *   chain: optimism,
-	 * })
+	 * const client = createMemoryClient({ common: optimism })
 	 *
 	 * const script = SimpleContract.script({ constructorArgs: [420n] })
 	 *
@@ -111,14 +95,10 @@ export type CallParams<TThrowOnFail extends boolean = boolean> = BaseCallParams<
 	 *
 	 * @example
 	 * ```typescript
-	 * import { createClient } from 'viem'
-	 * import { createTevmTransport, tevmCall } from 'tevm'
+	 * import { createMemoryClient, tevmCall } from 'tevm'
 	 * import { optimism } from 'tevm/common'
 	 *
-	 * const client = createClient({
-	 *   transport: createTevmTransport({}),
-	 *   chain: optimism,
-	 * })
+	 * const client = createMemoryClient({ common: optimism })
 	 *
 	 * const callParams = {
 	 *   data: '0x...',

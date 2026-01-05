@@ -1,0 +1,35 @@
+## Summary
+
+I've completed a thorough verification of the migration status. Here's what I found:
+
+### Migration Status: Excellent
+
+**All core crypto operations are now using @tevm/voltaire:**
+- Keccak256, Secp256k1, EIP712, P256, Address, Hash, Hex, Abi encoding
+
+**Tests verified passing:**
+- Bloom: 6/6
+- Signature: 31/31  
+- EIP7702: 22/22
+- nativePrivateKeyToAccount: 18/18
+
+### Remaining Dependencies (Intentional)
+
+1. **viem** - Only kept for:
+   - Memory-client compatibility layer (Client types)
+   - Fork transport functions (http, webSocket, createPublicClient)
+   - Deprecated account exports (native alternatives exist)
+
+2. **@ethereumjs** - Deep integrations:
+   - common (EVM hardfork configuration)
+   - tx (impersonated transactions)
+   - trie (Merkle Patricia Trie)
+
+3. **@scure/bip39, @scure/bip32** - Blocked by voltaire FFI issue
+
+### Next Steps for Future Iterations
+1. Monitor voltaire for HDWallet FFI fix
+2. Consider @ethereumjs/common migration when voltaire Chain support matures
+3. Eventually remove deprecated viem account re-exports
+
+The migration is essentially complete for the targeted scope. No code changes were needed this iteration.

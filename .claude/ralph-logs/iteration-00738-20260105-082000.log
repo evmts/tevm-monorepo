@@ -1,0 +1,73 @@
+# Ralph Migration Log - Iteration 738
+## Date: 2026-01-05
+
+## Task: Add DecodeErrorResultReturnType to @tevm/utils and migrate test-matchers
+
+## Summary
+
+Added native `DecodeErrorResultReturnType` type to `@tevm/utils` and updated `extensions/test-matchers` to use it instead of importing from viem.
+
+## Changes Made
+
+### packages/utils/src/contract-types.ts
+- Added `AbiItem` helper type as `Abi[number]` (internal)
+- Added `IsNarrowable` helper type (internal) - checks if a type is narrowable/specific vs wide
+- Added `DecodeErrorResultReturnType` type with full JSDoc documentation
+  - Provides the return type when decoding error output from a reverted contract call
+  - When ABI is narrow (specific), returns a union of possible error structures
+  - When ABI is wide (generic `Abi`), returns a generic error structure
+
+### packages/utils/src/abitype.ts
+- Added `DecodeErrorResultReturnType` to error types exports
+
+### packages/utils/src/index.ts
+- Added `DecodeErrorResultReturnType` to the main exports
+
+### extensions/test-matchers/src/matchers/errors/types.ts
+- Migrated `DecodeErrorResultReturnType` import from `viem` to `@tevm/utils`
+
+### extensions/test-matchers/src/matchers/errors/handleTransaction.ts
+- Migrated `DecodeErrorResultReturnType`, `Hex`, `Client` type imports from `viem` to `@tevm/utils`
+- Migrated `decodeAbiParameters`, `isHex` function imports from `viem` to `@tevm/utils`
+- Remaining viem imports: `ContractFunctionRevertedError`, `TransactionReceipt`, `BaseError as ViemBaseError`, and viem/actions
+
+## Type Definition
+
+```typescript
+export type DecodeErrorResultReturnType<
+    TAbi extends Abi | readonly unknown[] = Abi,
+    TErrorName extends ContractErrorName<TAbi> = ContractErrorName<TAbi>
+> = IsNarrowable<TAbi, Abi> extends true
+    ? UnionEvaluate<{
+            [K in TErrorName]: {
+                abiItem: TAbi extends Abi ? Abi extends TAbi ? AbiItem : ExtractAbiError<TAbi, K> : AbiItem
+                args: ContractErrorArgs<TAbi, K>
+                errorName: K
+            }
+        }[TErrorName]>
+    : {
+            abiItem: AbiItem
+            args: readonly unknown[] | undefined
+            errorName: string
+        }
+```
+
+## Impact
+
+- Reduced 1 viem type import in test-matchers/errors/types.ts
+- Reduced 4 viem imports (3 types + 2 functions) in test-matchers/errors/handleTransaction.ts
+- @tevm/utils now provides `DecodeErrorResultReturnType` for use across the codebase
+- Pre-existing `Client` type incompatibilities remain (documented in iteration 735)
+
+## Build Status
+
+- @tevm/utils:build:types ✓ SUCCESS
+- test-matchers/src/matchers/errors/types.ts compiles without errors
+- Pre-existing type errors in test-matchers related to Client type incompatibility (not related to this change)
+
+## Notes
+
+1. The `DecodeErrorResultReturnType` implementation follows the same pattern as viem's implementation
+2. It leverages existing types in @tevm/utils: `ContractErrorName`, `ContractErrorArgs`, `ExtractAbiError`, `UnionEvaluate`
+3. `AbiItem` was defined locally as `Abi[number]` since abitype doesn't export it directly
+4. The handleTransaction.ts file still needs some viem imports for error classes and viem/actions - these require more substantial work to migrate

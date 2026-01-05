@@ -7,7 +7,7 @@ import { InvalidBlockError } from '@tevm/errors'
 export const getIteratorHead =
 	(baseChain) =>
 	(name = 'vm') => {
-		const head = baseChain.blocksByTag.get(/** @type {import('viem').BlockTag}*/ (name))
+		const head = baseChain.blocksByTag.get(/** @type {import('@tevm/utils').BlockTag}*/ (name))
 		if (!head) {
 			return Promise.reject(
 				new InvalidBlockError(

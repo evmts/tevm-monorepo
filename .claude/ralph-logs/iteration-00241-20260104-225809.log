@@ -1,0 +1,22 @@
+## Summary
+
+I made significant progress on fixing type errors across multiple packages:
+
+**Fixed Packages (types now build successfully):**
+- `@tevm/precompiles` - Fixed `selfdestruct` type conversion and typo in `exceptionError`
+- `@tevm/vm` - Fixed `Bloom` constructor args, `EthjsAddress` wrapping for withdrawals, and `rewardAccount` return type
+- `@tevm/node` - Fixed `EIP1193RequestFn` generic type argument
+- `@tevm/evm` - Added `allowUnlimitedContractSize`, `events`, `PrecompileInput`, and `InterpreterStep` types
+
+**Key Changes:**
+1. `defineCall.ts`: Convert `Set<Address>` to `string[]` array with `[...selfdestruct]`
+2. `BlockBuilder.ts`: Fixed `Bloom()` constructor call and withdrawal address wrapping
+3. `EvmType.ts`: Added missing properties (`allowUnlimitedContractSize`, `events` emitter)
+4. `types.ts`: Added `PrecompileInput` and `InterpreterStep` types
+5. `TevmNode.ts`: Fixed `EIP1193RequestFn<RpcSchema>` generic
+
+**Still Blocking:**
+- `@tevm/actions:build:types` - Has many remaining type errors (missing `origin`, `createdAddress`, `shallowCopy`, `getActiveOpcodes`, `isEmpty` properties)
+- `@tevm/decorators:build:types` - Blocked by actions
+
+The tests for the precompiles package pass after updating the snapshot to match the new `args` object format.

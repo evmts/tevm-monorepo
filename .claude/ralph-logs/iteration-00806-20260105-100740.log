@@ -1,0 +1,26 @@
+# Ralph Migration Log - Iteration 768
+## Date: 2026-01-05
+
+## Task: Improve test coverage for abiErrorEncoding.js
+
+## Summary
+
+Added tests for decodeErrorResult with bytes types (bytes32 and dynamic bytes).
+
+## Changes Made
+
+### Modified files:
+- `packages/utils/src/abiErrorEncoding.spec.ts` - Added 2 new error types and 2 new tests
+
+### Changes:
+1. Added InvalidData error with bytes32 input
+2. Added InvalidBytes error with bytes input
+3. Added roundtrip test for bytes32
+4. Added roundtrip test for dynamic bytes
+
+## Coverage Improvement
+
+- Overall coverage: 95.26% → 95.31%
+- abiErrorEncoding.js: 94.57% → 97.67%
+
+## Status: COMPLETE

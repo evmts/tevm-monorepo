@@ -1,0 +1,99 @@
+# Ralph Migration Log - Iteration 304
+## Date: 2026-01-04 23:49
+
+## Summary
+Verification iteration confirming all core packages remain migrated and all native implementations are working.
+
+## Actions Taken
+1. Verified no viem/ethereumjs imports in core packages:
+   - @tevm/actions - clean
+   - @tevm/evm - clean
+   - @tevm/state - clean
+   - @tevm/vm - clean
+   - @tevm/node - clean
+   - @tevm/block - clean
+   - @tevm/blockchain - clean
+   - @tevm/precompiles - clean
+   - @tevm/decorators - clean
+   - @tevm/jsonrpc - clean
+
+2. Verified new nativeWebSocket transport (added since last iteration):
+   - nativeWebSocket.js - uses @tevm/voltaire/provider WebSocketProvider
+   - nativeWebSocket.spec.ts - 11 tests all passing
+   - Exported in @tevm/utils index.ts
+
+3. Ran comprehensive test suite:
+   - signature.spec.ts: 31 tests passed
+   - eip7702.spec.ts: 22 tests passed
+   - guillotineWasm.spec.ts: 38 tests passed (1 skipped)
+   - nativeWebSocket.spec.ts: 11 tests passed
+   - nativePrivateKeyToAccount.spec.ts: 18 tests passed
+   - nativeMnemonicToAccount.spec.ts: 17 tests passed
+   - nativeDefineChain.spec.ts: 11 tests passed
+   - nativeCustom.spec.ts: 11 tests passed
+   - nativeHttp.spec.ts: 6 tests passed
+   - createForkRpcClient.spec.ts: 9 tests passed
+   - definePrecompile.spec.ts: 3 tests passed
+
+## Test Summary
+All 177+ tests verified passing across core migration-related test files.
+
+## Migration Status (Complete)
+
+### Fully Migrated Packages
+All core packages have been successfully migrated to use @tevm/voltaire and guillotine-mini:
+- @tevm/actions - All utilities via @tevm/utils (voltaire-powered)
+- @tevm/evm - Guillotine WASM integration
+- @tevm/state - No viem/ethereumjs imports
+- @tevm/vm - No viem/ethereumjs imports
+- @tevm/node - No viem/ethereumjs imports
+- @tevm/utils - Native implementations using @tevm/voltaire
+- @tevm/precompiles - P256 verify via @tevm/voltaire/P256
+- @tevm/blockchain - Uses @tevm/utils helpers
+- @tevm/block - Uses @tevm/utils, @tevm/tx, @tevm/common
+- @tevm/decorators - No viem/ethereumjs imports
+- @tevm/jsonrpc - No viem/ethereumjs imports
+
+### Native Transport Implementations (All Complete)
+- nativeHttp() - HTTP transport via @tevm/voltaire/provider HttpProvider
+- nativeWebSocket() - WebSocket transport via @tevm/voltaire/provider WebSocketProvider
+- nativeCustom() - Custom EIP-1193 provider wrapper
+
+### Voltaire Integrations Active
+- Keccak256 hashing (viem.js keccak256 function)
+- ABI encoding/decoding (Abi module)
+- P256 signature verification (precompiles)
+- Secp256k1 operations (signature, eip7702, account creation)
+- EIP-712 typed data signing
+- HTTP/WebSocket/Custom providers (native transports)
+- Address utilities
+- Hash utilities
+- Chain definition utilities
+- HD wallet derivation (BIP-32/BIP-39)
+
+### Intentional Dependencies (architectural)
+- @tevm/common - @ethereumjs/common for chain configuration
+- @tevm/tx - @ethereumjs/tx for transaction classes
+- @tevm/trie - @ethereumjs/trie for merkle patricia trie
+- @tevm/memory-client - viem for user-facing API compatibility
+
+### viem.js Re-exports (in @tevm/utils)
+The @tevm/utils package intentionally re-exports certain viem utilities for:
+- API compatibility (users expect viem types)
+- Gradual migration path (allows deprecation over time)
+
+## Files Modified
+None - verification only
+
+## Notes
+- Core package migration is COMPLETE
+- All native implementations have comprehensive tests
+- Voltaire provides core crypto primitives across the codebase
+- nativeWebSocket added as third native transport option
+- Remaining ethereumjs dependencies are architectural (tx, common, trie)
+
+## Next Steps for Future Iterations
+1. Monitor for any new viem imports added during development
+2. Consider migrating ethereumjs dependencies when voltaire supports them
+3. Maintain test coverage for all native implementations
+4. Potential: Add type exports for native implementations

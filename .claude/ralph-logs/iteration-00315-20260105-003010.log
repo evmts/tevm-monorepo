@@ -1,0 +1,121 @@
+# Ralph Migration Log - Iteration 315
+## Date: 2026-01-05 00:30
+
+## Summary
+Added `tevmChainToViemChain` utility function to convert @tevm/chains format to viem-compatible Chain format. This enables native chain definitions without viem dependency, providing a path forward for migrating @tevm/common chain presets.
+
+## Actions Taken
+1. Verified latest migration logs (iterations 313-314)
+2. Ran comprehensive test suite - all tests passing:
+   - guillotineWasm.spec.ts: 38 passed, 1 skipped (known storage bug)
+   - signature.spec.ts: 31 tests passed
+   - nativePrivateKeyToAccount.spec.ts: 18 tests passed
+   - createForkRpcClient.spec.ts: 9 tests passed
+   - getForkClient.spec.ts: 3 tests passed
+   - definePrecompile.spec.ts: 3 tests passed
+   - Bloom.spec.ts: 6 tests passed
+   - eip7702.spec.ts: 22 tests passed
+
+3. Assessed remaining viem imports:
+   - @tevm/utils/src/viem.js: deprecated re-exports (intentional for backward compat)
+   - Native implementations reference viem in JSDoc comments for API docs
+   - @tevm/common: 336 imports from viem/chains (chain presets)
+   - @tevm/memory-client: viem integration (intentional for viem client compatibility)
+
+4. Assessed remaining @ethereumjs imports:
+   - @tevm/tx: Uses @ethereumjs/tx for FeeMarket1559Tx (ImpersonatedTx proxy)
+   - @tevm/common: Uses @ethereumjs/common for createCustomCommon
+   - @tevm/trie: Re-exports from @ethereumjs/trie
+
+5. Explored potential migration paths:
+   - Discovered @tevm/chains package: Native chain data from DefiLlama
+   - Voltaire already uses @tevm/chains for Chain primitives
+   - @tevm/common could potentially migrate from viem/chains to @tevm/chains
+   - Note: @tevm/chains doesn't include major chains like mainnet (1), Optimism (10), etc.
+
+6. **Created `tevmChainToViemChain` utility function**:
+   - Converts @tevm/chains simple format to viem-compatible Chain format
+   - Handles HTTP and WebSocket RPC URLs
+   - Handles multiple block explorers
+   - Handles testnet flag
+   - Provides default native currency if missing
+   - Added comprehensive test suite (7 tests passing)
+   - Exported from @tevm/utils
+
+## Test Summary
+- Total verified: 147+ tests passing across verified packages
+- tevmChainToViemChain.spec.ts: 7 tests passed
+- nativeDefineChain.spec.ts: 11 tests passed
+- All native implementations working correctly
+- No test regressions detected
+
+## Migration Status (Stable)
+
+### Core Packages - COMPLETE
+All core packages have ZERO direct viem imports:
+- @tevm/actions, @tevm/evm, @tevm/state, @tevm/vm, @tevm/node
+- @tevm/block, @tevm/blockchain, @tevm/precompiles
+- @tevm/decorators, @tevm/jsonrpc, @tevm/procedures
+- @tevm/rlp, @tevm/utils (native implementations)
+
+### Native Implementations - VERIFIED WORKING
+All utility functions are now native implementations using voltaire:
+- keccak256, bytesToHex, hexToBytes, toBytes, toHex
+- toRlp, fromRlp (RLP encoding/decoding)
+- getAddress, isAddress, checksumAddress
+- serializeTransaction (native)
+- All ABI encoding/decoding via voltaire
+- ecrecover using voltaire Secp256k1
+- EIP-712 using voltaire EIP712
+- nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount
+- nativeHttp, nativeCustom, nativeWebSocket, nativeDefineChain
+- createForkRpcClient (native alternative to createPublicClient for RPC)
+- Chain types (Chain, ChainBlockExplorer, ChainContract, etc.)
+- **NEW**: tevmChainToViemChain (converts @tevm/chains to viem format)
+
+### Intentional Dependencies (Kept for API Compatibility)
+- viem in @tevm/memory-client - User-facing viem client compatibility
+- viem re-exports in @tevm/utils - Backward compatibility (deprecated)
+- viem/chains in @tevm/common - Chain presets (336 imports)
+- @ethereumjs/common - Chain configuration
+- @ethereumjs/tx - Transaction classes (for ImpersonatedTx)
+- @ethereumjs/trie - Merkle Patricia Trie
+
+### Guillotine-mini Integration Status
+- WASM loader working
+- EVM creation/destruction working
+- Basic opcode execution working
+- Storage operations working during execution
+- Pre-execution storage setting has known bug (skipped test)
+
+### Next Steps (Future Iterations)
+1. **Chain Presets Migration**: Migrate @tevm/common from viem/chains to native definitions
+   - tevmChainToViemChain provides the conversion utility
+   - However, @tevm/chains doesn't include major chains (mainnet, optimism, etc.)
+   - May need to extend @tevm/chains or create native definitions manually for key chains
+   - Would eliminate 336 viem/chains imports from @tevm/common
+
+2. **Transaction Migration**: Migrate @tevm/tx to voltaire Transaction
+   - Would eliminate @ethereumjs/tx dependency
+   - Complex due to ImpersonatedTx proxy pattern wrapping FeeMarket1559Tx
+   - voltaire has full transaction support for all types
+
+3. **Remove deprecated viem re-exports** (breaking change for consumers):
+   - mnemonicToAccount, privateKeyToAccount
+   - http, webSocket, custom, defineChain
+   - createPublicClient, createTransport
+
+4. **Guillotine-mini Storage Bug**: Fix evm_set_storage WASM bug
+
+## Files Modified
+- packages/utils/src/tevmChainToViemChain.js - NEW: Chain format converter
+- packages/utils/src/tevmChainToViemChain.spec.ts - NEW: Tests for converter
+- packages/utils/src/index.ts - Added export for tevmChainToViemChain
+
+## Notes
+- Migration remains stable and complete for core packages
+- All native implementations tested and verified working
+- 147+ tests passing across verified packages
+- tevmChainToViemChain enables future migration of chain presets
+- @tevm/chains lacks major chains (chainId 1, 10, etc.) - uses DefiLlama data
+- Chain presets migration is complex due to missing chains in @tevm/chains

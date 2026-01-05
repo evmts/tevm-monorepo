@@ -1,0 +1,28 @@
+## Migration Summary - Iteration 119
+
+Successfully migrated `TypeOutput` and `toType` from `@ethereumjs/util` to native JavaScript implementations in `@tevm/utils`.
+
+### Changes Made:
+1. **New file**: `packages/utils/src/typeOutput.js` - Native implementation
+2. **New file**: `packages/utils/src/typeOutput.spec.ts` - 25 comprehensive tests
+3. **Updated**: `packages/utils/src/ethereumjs.js` - Removed exports from @ethereumjs/util
+4. **Updated**: `packages/utils/src/index.ts` - Added new exports
+5. **Updated**: `packages/utils/src/ethereumjs.spec.ts` - Fixed imports
+
+### Key Implementation Details:
+- `TypeOutput` enum with 4 output types: Number, BigInt, Uint8Array, PrefixedHexString
+- `toType` function that handles conversions between hex strings, numbers, bigints, and Uint8Arrays
+- Added special handling for `Uint8Array` input since the native `toBytes` function doesn't support it directly
+
+### Test Results:
+- All 410 @tevm/utils tests pass
+- 25 new tests for typeOutput.js all pass
+
+### Remaining @ethereumjs/util Exports:
+- Core classes: `EthjsAccount`, `EthjsAddress`
+- Factory functions: `createAccount`, `createAddressFromString`, `createWithdrawal`
+- Crypto: `ecrecover`, `randomBytes`
+- Network: `fetchFromProvider`, `getProvider`
+- Constants: `KECCAK256_RLP`, `KECCAK256_RLP_ARRAY`
+- Types: `KeyEncoding`, `ValueEncoding`
+- EIP-7702 utilities

@@ -1,0 +1,53 @@
+# Ralph Migration Iteration 131 - Implement native BlockNumber and BlockTag types
+
+## Summary
+
+Migrated BlockNumber and BlockTag types from viem to native implementations in @tevm/utils. These are simple type aliases that don't require any complex viem functionality.
+
+## Changes Made
+
+### New Files
+
+1. `packages/utils/src/block-types.ts` - Native block type definitions:
+   - `BlockNumber<TQuantity = bigint>` - A generic type for block numbers
+   - `BlockTag` - Union type of named block identifiers: 'latest' | 'earliest' | 'pending' | 'safe' | 'finalized'
+   - Includes JSDoc documentation with examples
+
+### Modified Files
+
+1. `packages/utils/src/abitype.ts` - Updated to use native types:
+   - Changed `BlockNumber, BlockTag` imports from viem
+   - Now exports from local `./block-types.js`
+   - Added comment documenting the migration
+
+## Impact
+
+### Types Migrated
+- `BlockNumber<TQuantity = bigint>` - Simple generic type alias
+- `BlockTag` - Simple union type of string literals
+
+### Remaining viem type imports in abitype.ts
+- `Account` - Complex type with signing methods
+- `ContractConstructorArgs` - Complex generic type
+- `ContractFunctionName` - Complex generic type
+- `CreateEventFilterParameters` - Complex parameterized type
+- `DecodeFunctionResultReturnType` - Complex generic type
+- `EncodeDeployDataParameters` - Complex parameterized type
+- `EncodeFunctionDataParameters` - Complex parameterized type
+- `Filter` - Complex filter type
+- `GetEventArgs` - Complex generic type
+- `HDAccount` - Complex type with signing methods
+- `Hex` - Could potentially be migrated next
+
+## Test Results
+
+- All 540 tests pass in @tevm/utils
+- All 29 tests pass in @tevm/contract
+- All 17 tests pass in @tevm/decorators
+- Type check passes for the new types
+
+## Next Steps
+
+1. Consider migrating `Hex` type to native implementation
+2. Continue reducing viem imports in other files
+3. Investigate if any of the remaining complex types can be simplified

@@ -1,4 +1,4 @@
-import { hexToBigInt } from 'viem'
+import { hexToBigInt } from '@tevm/utils'
 import { setErc20AllowanceHandler } from './anvilSetErc20AllowanceHandler.js'
 
 /**

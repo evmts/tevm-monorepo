@@ -1,0 +1,38 @@
+# Ralph Migration Log - Iteration 374
+## Date: 2026-01-05 03:16
+
+## Summary
+Migrated 5 SKALE chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **skaleEuropaTestnet.js** (id: 1444673419) - SKALE Europa Testnet with sFUEL native currency, multicall3 contract, WebSocket support, testnet: true
+2. **skaleExorde.js** (id: 2139927552) - Exorde Network on SKALE with sFUEL native currency, WebSocket support
+3. **skaleHumanProtocol.js** (id: 1273227453) - SKALE Human Protocol with sFUEL native currency, WebSocket support
+4. **skaleNebula.js** (id: 1482601649) - SKALE Nebula Hub gaming chain with sFUEL native currency, multicall3 contract, WebSocket support
+5. **skaleNebulaTestnet.js** (id: 37084624) - SKALE Nebula Testnet with sFUEL native currency, multicall3 contract, WebSocket support, testnet: true
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Previously migrated**: ~286 (from iteration 373)
+- **Migrated this session**: 5
+- **Total migrated**: ~291
+- **Remaining**: 53 (~15% remaining, excluding generator script)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- All SKALE chains use sFUEL as their native currency (gas token, free to use)
+- All SKALE chains have WebSocket RPC support in addition to HTTP
+- SKALE Nebula Hub and Europa have multicall3 deployed
+- Testnet chains include testnet: true flag
+
+## Next Steps
+Continue migrating remaining SKALE chain presets (skaleRazor, skaleTitan, skaleTitanTestnet) then move to other chains.
+53 files remain (~15% remaining).

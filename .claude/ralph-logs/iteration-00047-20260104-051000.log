@@ -1,0 +1,28 @@
+## Migration Iteration 47 Complete
+
+**Successfully migrated contractHandler.js from viem to @tevm/utils:**
+
+### Changes made:
+1. `packages/utils/src/viem.js`: Added re-exports for getContractError and RawContractError from viem
+2. `packages/utils/src/index.ts`: Added getContractError and RawContractError to the exports
+3. `packages/actions/src/Contract/contractHandler.js`: Updated import to use @tevm/utils instead of viem
+
+**Commit created:**
+- `01fcd5393`: refactor(actions): replace viem getContractError/RawContractError with @tevm/utils
+
+**Pre-existing issues (not from this migration):**
+- contractHandler tests fail due to "storageRoot must have a length of 32" in generateCannonicalGenesis.js
+- This is a known pre-existing issue in the state manager, not related to viem migration
+- TypeScript errors in actions package are also pre-existing (Property 'blockchain' does not exist, etc.)
+
+**Viem import analysis in core packages:**
+- `packages/actions/src/Contract/contractHandler.js`: Now uses @tevm/utils (MIGRATED)
+- Remaining in JSDoc examples (documentation, not actual imports):
+  - ContractResult.ts, TevmContractError.ts, ContractParams.ts, DeployParams.ts, DeployResult.ts, DeployHandlerType.ts, setAccountHandler.js, CallParams.ts, CallResult.ts
+- Remaining actual imports in state package:
+  - ForkOptions.ts: `import { type EIP1193RequestFn, type Transport } from 'viem'`
+  - getForkClient.js: `import { createPublicClient, createTransport } from 'viem'`
+
+**Next targets:**
+- Migrate state package imports (ForkOptions.ts, getForkClient.js) - these require EIP1193RequestFn, Transport, createPublicClient, createTransport
+- These are core viem types for JSON-RPC communication that may need equivalents in voltaire

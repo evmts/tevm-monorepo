@@ -1,0 +1,28 @@
+# Ralph Migration Log - Iteration 764
+## Date: 2026-01-05
+
+## Task: Improve test coverage for abiEventEncoding
+
+## Summary
+
+Added tests to cover previously uncovered branches in `abiEventEncoding.js`:
+1. Events with bytes32 indexed parameters
+2. Non-strict error handling (returning undefined instead of throwing)
+
+## Changes Made
+
+### Modified files:
+- `packages/utils/src/abiEventEncoding.spec.ts` - Added 4 new tests
+
+### Tests added:
+1. `encodes bytes32 indexed parameter` - Tests encoding bytes32 as indexed topic
+2. `decodes bytes32 indexed parameter from log` - Tests decoding bytes32 from log
+3. `returns undefined when decoding fails in non-strict mode` - Tests error catch branch
+4. `throws when decoding fails in strict mode` - Tests strict mode error handling
+
+## Coverage Improvement
+
+- Overall coverage: 94.42% → 94.51%
+- abiEventEncoding.js: 86.52% → 90.15%
+
+## Status: COMPLETE

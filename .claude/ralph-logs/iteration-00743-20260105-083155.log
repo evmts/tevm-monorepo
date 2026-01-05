@@ -1,0 +1,62 @@
+# Ralph Migration Log - Iteration 743
+## Date: 2026-01-05
+
+## Task: Investigate viem migration status in core and bundler packages
+
+## Summary
+
+Investigated the current status of viem migration across the codebase. Attempted to migrate Chain, Client, Transport types in bundler-packages/mud/src/types.ts but discovered this is blocked by deep viem integration.
+
+## Investigation Findings
+
+### Core packages (actions, vm, evm, state, node)
+All core packages have successfully migrated away from direct viem imports in non-spec files. No remaining viem imports found.
+
+### bundler-packages/mud remaining viem imports (non-spec files)
+1. `types.ts` - Chain, Client, Transport, WriteContractParameters, WriteContractReturnType from viem + BundlerClient, SmartAccount from viem/account-abstraction
+2. `createOptimisticHandler.ts` - getTransaction from viem/actions
+3. `mudStoreWriteRequestOverride.ts` - waitForTransactionReceipt from viem/actions
+
+### memory-client remaining viem imports (non-spec files)
+1. `CreateMemoryClientFn.ts` - Account, Chain, RpcSchema from viem
+2. `MemoryClient.ts` - Account, Chain, Client, PublicActions, TestActions, WalletActions from viem
+3. `MemoryClientOptions.ts` - Account, Chain, ClientConfig, RpcSchema, Transport from viem
+4. `TevmContractType.ts` - Client from viem
+5. `TevmRpcSchema.ts` - (jsdoc only)
+6. `TevmTransport.ts` - Chain, ClientConfig, TransportConfig from viem
+
+### Blockers
+
+1. **bundler-packages/mud**: Uses BundlerClient and SmartAccount from viem/account-abstraction - these are complex types tied to viem's 4337 account abstraction implementation. Also uses WriteContractParameters and WriteContractReturnType which are complex contract interaction types. Cannot migrate without implementing native versions of these.
+
+2. **memory-client**: The TevmTransport type references viem's EIP1193RequestFn through @tevm/decorators, but there's a type incompatibility between the EIP1193RequestFn in @tevm/decorators (complex, with RpcSchema support) and the one in @tevm/utils/provider-types (simpler). This causes type mismatches when trying to use @tevm/utils types.
+
+3. **viem/actions functions**: Functions like waitForTransactionReceipt, getTransaction, estimateGas, getTransactionReceipt are runtime dependencies that need native implementations, not just type migrations.
+
+## Changes Made
+
+None committed - discovered blockers during investigation.
+
+## Remaining viem imports summary
+
+### Blocked migrations (requires new native implementations):
+- viem/account-abstraction (BundlerClient, SmartAccount)
+- viem/actions functions (waitForTransactionReceipt, getTransaction, etc.)
+- Complex parameter types (WriteContractParameters, WriteContractReturnType)
+
+### Potentially migratable (type-only, but has compatibility issues):
+- memory-client types need EIP1193RequestFn compatibility fix first
+
+### Spec files (lower priority):
+- `repro-2008.spec.ts` - createPublicClient, createWalletClient, custom, defineChain
+- `watchContractEvent.spec.ts` - WatchContractEventOnLogsParameter
+
+## Recommendations
+
+1. **Fix EIP1193RequestFn compatibility**: Align the EIP1193RequestFn type in @tevm/utils/provider-types.ts with @tevm/decorators to enable memory-client type migrations.
+
+2. **Implement native waitForTransactionReceipt**: This is used in multiple places (test-matchers, mud) and would unlock further migrations.
+
+3. **Consider keeping viem as peer dependency for memory-client**: The memory-client package intentionally provides viem compatibility. Full removal may not be the goal.
+
+4. **Document final migration scope**: Some packages (bundler-packages/mud, bundler-packages/whatsabi) may always need viem for specific features like account abstraction.

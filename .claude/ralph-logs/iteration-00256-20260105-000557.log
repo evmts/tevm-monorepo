@@ -1,0 +1,20 @@
+## Iteration 310 Summary
+
+The migration is stable. Key findings:
+
+**Core packages (COMPLETE)**: All 5 core packages (`@tevm/actions`, `@tevm/evm`, `@tevm/state`, `@tevm/vm`, `@tevm/node`) plus supporting packages have ZERO direct viem imports.
+
+**Tests verified passing**:
+- `nativePrivateKeyToAccount.spec.ts`: 18 tests
+- `guillotineWasm.spec.ts`: 38 tests (1 skipped - known bug)
+- `signature.spec.ts`: 31 tests
+
+**Remaining intentional dependencies**:
+1. **@tevm/memory-client**: viem client compatibility (intentional)
+2. **@tevm/utils/viem.js**: 
+   - Native implementations for most functions
+   - `abitype` for parseAbi/formatAbi (type-level transformations)
+   - Deprecated viem account re-exports (native alternatives exist)
+   - Transport functions for forking
+
+**Next significant migration target**: `@tevm/tx` could be migrated from `@ethereumjs/tx` to voltaire's Transaction module, but this is a substantial change requiring careful planning and testing.

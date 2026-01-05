@@ -1,0 +1,38 @@
+# Ralph Migration Log - Iteration 391
+## Date: 2026-01-05 04:24
+
+## Changes Made
+
+### Replaced Buffer.from hex conversion with native hexToBytes
+
+Migrated 4 files to use native `hexToBytes` from @tevm/utils instead of `Buffer.from(hex.slice(2), 'hex')`:
+
+1. **packages/actions/src/anvil/anvilRevertProcedure.js**
+   - Added `import { hexToBytes } from '@tevm/utils'`
+   - Replaced `Uint8Array.from(Buffer.from(snapshot.stateRoot.slice(2), 'hex'))` with `hexToBytes(snapshot.stateRoot)`
+
+2. **packages/actions/src/createHandlers.js**
+   - Added `import { hexToBytes } from '@tevm/utils'`
+   - Replaced same Buffer.from pattern with hexToBytes
+
+3. **packages/actions/src/debug/debugGetModifiedAccountsByHashHandler.js**
+   - Added `hexToBytes` to existing imports
+   - Replaced `Buffer.from(bh.slice(2), 'hex')` with `hexToBytes(bh)` in normalizeBlockHash
+
+4. **packages/actions/src/debug/debugPreimageProcedure.js**
+   - Added `bytesToHex` to existing imports
+   - Replaced `Buffer.from(preimageBytes).toString('hex')` with `bytesToHex(preimageBytes)`
+
+### Build Status
+- ✅ @tevm/actions:build:types passes
+
+### Test Status
+- Some tests have unrelated failures (RPC connectivity issues with fork transport)
+- Core functionality tests pass
+- hexToBytes tests pass
+
+## Rationale
+These changes:
+1. Remove direct Buffer usage in favor of native utilities
+2. Maintain consistency with the voltaire migration strategy
+3. Keep the codebase more portable (Buffer is Node.js specific)

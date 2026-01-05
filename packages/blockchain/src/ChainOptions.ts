@@ -1,7 +1,7 @@
 import type { Block } from '@tevm/block'
 import type { Common } from '@tevm/common'
 import { type LogOptions } from '@tevm/logger'
-import type { BlockTag, EIP1193RequestFn } from 'viem'
+import type { BlockTag, EIP1193RequestFn } from '@tevm/utils'
 
 /**
  * Options passed into `createChain` to initialize a Chain object

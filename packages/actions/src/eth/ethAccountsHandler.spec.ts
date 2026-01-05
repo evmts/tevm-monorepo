@@ -1,4 +1,4 @@
-import { privateKeyToAccount } from 'viem/accounts'
+import { privateKeyToAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { ethAccountsHandler } from './ethAccountsHandler.js'
 import { testAccounts } from './utils/testAccounts.js'

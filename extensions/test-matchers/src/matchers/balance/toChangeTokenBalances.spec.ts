@@ -1,9 +1,7 @@
 import { contractHandler, dealHandler, deployHandler, ethGetTransactionReceiptHandler } from '@tevm/actions'
 import { ERC20 } from '@tevm/contract'
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
-import type { Address } from 'viem'
-import { parseEther } from 'viem'
+import { type Address, parseEther, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 const sender = PREFUNDED_ACCOUNTS[1]

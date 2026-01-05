@@ -1,0 +1,21 @@
+Migration iteration complete. Here's a summary:
+
+## Migration Iteration #70 Summary
+
+**Changes made:**
+1. Added `defineChain` export to `@tevm/utils` (both viem.js and index.ts)
+2. Updated `packages/common/src/presets/tevmDefault.js` to import `defineChain` from `@tevm/utils` instead of directly from `viem`
+
+**Commit:** abae039a0
+
+**Tests:** All TypeScript checks and @tevm/common tests passed with 100% coverage
+
+**Remaining viem imports in common package:**
+- `viem/chains` imports (optimism, foundry) - These are chain configuration presets that are viem-specific and cannot be easily migrated since they contain chain-specific formatters, serializers, and configuration data.
+
+**Next migration opportunities:**
+- The remaining actual viem imports in core packages are mainly:
+  - JSDoc examples (not actual runtime imports)
+  - Documentation files 
+  - `viem/chains` imports for chain presets
+  - Various test files with viem-specific client types

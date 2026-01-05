@@ -1,0 +1,46 @@
+# Ralph Migration Log - Iteration 343
+## Date: 2026-01-05 01:52
+
+## Summary
+Continued chain preset migration session. Migrated 14 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **berachainTestnetbArtio.js** (id: 80084) - Berachain bArtio
+2. **bitTorrent.js** (id: 199) - BitTorrent
+3. **bitTorrentTestnet.js** (id: 1028) - BitTorrent Chain Testnet
+4. **bitkub.js** (id: 96) - KUB Mainnet
+5. **bitkubTestnet.js** (id: 25925) - Bitkub Testnet
+6. **blastSepolia.js** (id: 168587773) - Blast Sepolia
+7. **bob.js** (id: 60808) - BOB
+8. **bobSepolia.js** (id: 808813) - BOB Sepolia
+9. **boba.js** (id: 288) - Boba Network
+10. **bobaSepolia.js** (id: 28882) - Boba Sepolia
+11. **botanixTestnet.js** (id: 3636) - Botanix Testnet
+12. **bronos.js** (id: 1039) - Bronos
+13. **bronosTestnet.js** (id: 1038) - Bronos Testnet
+14. **bscTestnet.js** (id: 97) - BNB Smart Chain Testnet
+15. **btr.js** (id: 200901) - Bitlayer
+16. **btrTestnet.js** (id: 200810) - Bitlayer Testnet
+17. **bxn.js** (id: 4999) - BlackFort Exchange Network
+18. **bxnTestnet.js** (id: 4777) - BlackFort Exchange Network Testnet
+19. **canto.js** (id: 7700) - Canto
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Migrated previously**: ~70
+- **Migrated this session**: 19
+- **Total migrated**: ~89
+- **Remaining**: 250
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Next Steps
+Continue migrating remaining chain presets. 250 remain.

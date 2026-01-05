@@ -7,7 +7,8 @@ import type { PublicRpcSchema, TestRpcSchema } from 'viem'
  * It includes public, test, and TEVM-specific methods.
  * @example
  * ```typescript
- * import { createClient, http } from 'viem'
+ * import { createClient } from 'viem'
+ * import { http } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  *

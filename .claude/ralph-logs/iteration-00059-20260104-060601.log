@@ -1,0 +1,21 @@
+Now only 5 viem imports remain in `@tevm/utils` (which is the intentional re-export layer). The core packages are viem-free except for:
+- Type re-exports from `abitype.ts` and `index.ts` (type-only imports)
+- Value re-exports from `viem.js` (transport/client functions and contract error utilities)
+
+**Summary of this iteration:**
+
+✅ Successfully migrated `@tevm/errors` to use native RPC error classes instead of viem imports
+
+**Changes:**
+1. Created `packages/errors/src/rpcErrors.js` with 16 native RPC error classes
+2. Updated `packages/errors/src/requestErrors.ts` to import from native implementation
+3. Updated test snapshots
+
+**Results:**
+- All 92 tests pass in @tevm/errors
+- Build succeeds
+- Commit: `771317739`
+
+**Remaining viem dependencies:**
+- @tevm/utils: Type and value re-exports (intentional API surface)
+- @tevm/memory-client: Viem integration layer (intentional)

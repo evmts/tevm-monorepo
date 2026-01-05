@@ -1,0 +1,29 @@
+Migration iteration 21 completed successfully.
+
+## Summary
+
+**Migrated in this iteration:**
+- `formatLog` - RPC log object formatter that converts hex strings to native types
+
+**Results:**
+- 197 viem.spec.ts tests pass (6 new tests added)
+- Types build successfully
+- Commit: `0f9e19184`
+
+**Remaining viem imports: 13** (down from 14)
+- ABI functions (12): decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult, encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics, encodeFunctionData, encodeFunctionResult, encodePacked
+- `serializeTransaction` - Transaction serialization
+- `mnemonicToAccount` - From viem/accounts
+
+**Next candidates:**
+- `serializeTransaction` - Transaction serialization (complex, may require voltaire Transaction module)
+- ABI functions - Most complex, may need voltaire ABI module
+- `mnemonicToAccount` - Uses @scure/bip39 (may be simpler than ABI functions)
+
+## Technical Notes
+
+- formatLog is a simple formatter that converts RPC log objects to structured Log objects
+- Key conversions: blockNumber (hex → bigint), logIndex (hex → number), transactionIndex (hex → number)
+- Handles null/undefined values for pending logs
+- Conditionally includes args/eventName only when eventName is provided
+- Using plain `string` types instead of viem's branded Hex/Address types for flexibility

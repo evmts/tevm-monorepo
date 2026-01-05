@@ -1,0 +1,15 @@
+## Summary
+
+I've completed iteration 195 of the Ralph migration. Here's what I found:
+
+### Key Findings
+
+1. **Core migration is complete** - The main packages (`@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, `@tevm/node`) have no direct viem imports.
+
+2. **Voltaire has account primitives** - The `PrivateKeySignerImpl` class in voltaire provides signing capabilities (`signMessage`, `signTransaction`, `signTypedData`), but creating a 100% viem-compatible `privateKeyToAccount` replacement would require additional work.
+
+3. **Remaining viem dependencies are intentional**:
+   - `@tevm/memory-client` and `@tevm/decorators` exist specifically for viem integration
+   - Account creation functions (`privateKeyToAccount`, `mnemonicToAccount`) in `@tevm/utils` would need significant work to replace while maintaining exact viem API compatibility
+
+The migration log has been written to `.claude/ralph-logs/iteration-00195-20260104-142346.log`.

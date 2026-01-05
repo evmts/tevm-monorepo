@@ -1,0 +1,23 @@
+## Summary
+
+In this iteration (197), I:
+
+1. **Created `nativePrivateKeyToAccount`** - A native implementation that provides a viem-compatible account interface using `@noble/curves` and `@noble/hashes` directly, without depending on viem for signing operations.
+
+2. **Discovered a critical compatibility issue** - During testing, found that `@noble/curves` v2.x (used by @tevm/utils) has a different API than v1.x (used by viem). The `sign()` function returns raw bytes in v2.x but returns a Signature object with recovery info in v1.x. This means signatures produced by our native implementation are valid ECDSA signatures but don't match viem's exactly.
+
+3. **Created comprehensive tests** - 14 tests all pass, covering:
+   - Correct address derivation (matches viem exactly)
+   - Public key format matching viem
+   - Message signing functionality
+   - Consistent deterministic signatures
+
+4. **Documented the findings** - The iteration log captures the @noble/curves version compatibility issue for future reference.
+
+**Key files created:**
+- `packages/utils/src/nativePrivateKeyToAccount.js`
+- `packages/utils/src/nativePrivateKeyToAccount.spec.ts`
+- `.claude/ralph-logs/iteration-00197-20260104-144404.log`
+
+**Key modification:**
+- `lib/voltaire/package.json` - Added `./signers` export

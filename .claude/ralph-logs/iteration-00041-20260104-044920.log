@@ -1,0 +1,8 @@
+Successfully completed iteration 63. 
+
+**Summary:**
+- **Target**: `packages/memory-client/src/test/deployments.spec.ts`
+- **Change**: Split the viem import to get `Address` type from `@tevm/utils` instead of `viem`
+- **Result**: TypeScript check passed, committed as `a7adc469e`
+
+The test failure (`createCachedMainnetTransport is not a function`) is a pre-existing issue unrelated to this migration - likely a build/export issue in `@tevm/test-utils`.

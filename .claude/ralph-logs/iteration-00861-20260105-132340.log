@@ -1,0 +1,80 @@
+# Ralph Migration Log - Iteration 861
+## Date: 2026-01-05
+
+## Task: Documentation improvements and migration status assessment
+
+## Summary
+
+This iteration focused on assessing the current migration status across core packages and improving JSDoc documentation for the EVM utility functions.
+
+## Migration Status Assessment
+
+### Core Packages Status
+
+1. **@tevm/evm** - Largely migrated
+   - Uses guillotine-mini WASM for bytecode execution
+   - Native `EvmError` class (migrated from @ethereumjs/evm)
+   - Standalone utility functions (`hexToAddress`, `u256ToBytes`, `bytesToU256`)
+   - No direct viem or @ethereumjs dependencies in source
+
+2. **@tevm/vm** - Clean
+   - No direct viem or @ethereumjs imports in source files
+
+3. **@tevm/actions** - Clean
+   - No direct viem or @ethereumjs imports
+
+4. **@tevm/blockchain** - Clean
+   - No direct viem or @ethereumjs imports
+
+5. **@tevm/state** - Uses @tevm/utils
+   - Depends on `EthjsAccount` and `EthjsAddress` from @tevm/utils
+   - The @tevm/utils package re-exports native implementations
+
+6. **@tevm/utils** - Hybrid state
+   - Re-exports from viem for backward compatibility
+   - Has native implementations using @tevm/voltaire (nativeHttp, nativeWebSocket, nativeCustom, nativeDefineChain)
+   - `EthjsAccount` already migrated to native in account-class.js
+
+### Voltaire Integration
+
+@tevm/voltaire provides comprehensive primitives:
+- Address (with fromHex, from, toBytes, etc.)
+- Uint/Uint256 (with toBytes, fromBytes, arithmetic operations)
+- Hex (with toBytes, fromBytes, validation)
+- Bytes32 (for storage keys)
+- Transaction, RLP, ABI encoding/decoding
+- Provider implementations (HttpProvider, WebSocketProvider)
+
+The native implementations in @tevm/utils already use voltaire's `HttpProvider` for the `nativeHttp` transport.
+
+## Changes Made
+
+### Files Modified
+
+1. `packages/evm/src/guillotineWasm.js`
+   - Enhanced JSDoc for `hexToAddress` function with examples
+   - Enhanced JSDoc for `u256ToBytes` function with examples
+   - Enhanced JSDoc for `bytesToU256` function with examples
+
+## Observations
+
+1. The core packages are already fairly clean of direct viem/ethereumjs dependencies
+2. Most remaining viem usage is in:
+   - @tevm/memory-client (expected - provides viem integration layer)
+   - @tevm/utils (for re-exports and backward compatibility)
+3. The utility functions in guillotineWasm.js are similar to voltaire's Uint.toBytes/fromBytes but kept standalone to minimize dependencies in the EVM package
+
+## Next Steps for Future Iterations
+
+1. Consider adding voltaire's Address type to the EVM types.ts to replace `any` types
+2. Explore migrating more @tevm/utils functions to use voltaire internally
+3. Add tests for edge cases in hexToAddress, u256ToBytes, bytesToU256
+4. Document the relationship between voltaire primitives and tevm utility functions
+
+## Test Results
+
+```
+guillotineWasm tests: 38 passed | 1 skipped (39)
+```
+
+## Status: COMPLETE

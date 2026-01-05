@@ -1,6 +1,7 @@
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { createClient, numberToHex, parseEther } from 'viem'
+import { numberToHex, parseEther } from '@tevm/utils'
+import { createClient } from 'viem'
 import { assert, beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
 import { createTevmTransport } from '../../createTevmTransport.js'

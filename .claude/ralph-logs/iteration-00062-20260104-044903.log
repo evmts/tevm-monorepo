@@ -1,0 +1,26 @@
+# Ralph Migration Iteration
+
+**Date**: 2026-01-04
+**Target**: packages/memory-client/src/test/viem/getTransactionConfirmations.spec.ts
+**Change**: Replaced viem `Hex` type import with @tevm/utils
+
+## Summary
+- Changed `import type { Hex } from 'viem'` to `import type { Hex } from '@tevm/utils'`
+- Simple type import migration - no functional changes
+
+## Tests
+- TypeScript check passed: `npx tsc --noEmit -p packages/memory-client/tsconfig.json`
+- Test failure is from pre-existing state module issue (`storageRoot must have a length of 32`) - not related to this migration
+
+## Status
+- Committed: c339b12d7
+
+**Remaining viem imports in core packages:**
+- ~193 remaining across packages
+- Many are viem-specific client APIs (testActions, walletActions, createClient, etc.)
+- Type imports like Hex, Address can be migrated to @tevm/utils
+- Some viem-specific types like WatchContractEventOnLogsParameter need to stay
+
+**Next targets:**
+- Continue migrating simple type imports (Hex, Address, etc.) from viem to @tevm/utils
+- Look for more test files with utility function imports only

@@ -1,0 +1,11 @@
+Successfully migrated 5 more chain presets from viem/chains to nativeDefineChain:
+
+1. **shardeumSphinx.js** (id: 8082) - Shardeum Sphinx testnet
+2. **shibarium.js** (id: 109) - Shibarium mainnet with multicall3 contract
+3. **shibariumTestnet.js** (id: 157) - Puppynet Shibarium testnet with multicall3 contract  
+4. **shimmer.js** (id: 148) - Shimmer mainnet
+5. **skaleBlockBrawlers.js** (id: 391845894) - SKALE Block Brawlers with WebSocket support
+
+**Tests pass**: 10 passed, 1 skipped
+
+**Progress**: 63 presets remaining (~18%), down from 68.

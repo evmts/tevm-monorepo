@@ -1,0 +1,11 @@
+Successfully completed iteration 117. 
+
+## Summary
+
+Migrated 3 utility functions from `@ethereumjs/util` to native implementations in `@tevm/utils`:
+
+1. **`setLengthLeft`** - Left-pads a Uint8Array with zeros to a specified length
+2. **`bytesToUnprefixedHex`** - Converts bytes to a hex string without the 0x prefix
+3. **`bytesToUtf8`** - Converts bytes to a UTF-8 string using TextDecoder
+
+All 380 @tevm/utils tests pass. These native implementations are zero-dependency pure JavaScript functions, reducing reliance on `@ethereumjs/util` by 3 more functions (in addition to `concatBytes` and `equalsBytes` from iteration 116).

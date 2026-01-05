@@ -1,0 +1,123 @@
+# Ralph Migration Log - Iteration 235
+## Date: 2026-01-04 17:55:30
+
+## Summary
+Status assessment and analysis of remaining migration opportunities. The core migration is complete - all runtime crypto functions in core packages have been migrated to voltaire. Remaining viem usage is intentional for backward compatibility or required for specific features.
+
+## Current Migration Status
+
+### Core Packages - Source Files (Complete)
+- ✅ actions/src: No viem imports
+- ✅ vm/src: No viem imports
+- ✅ evm/src: No viem imports (minimal guillotine adapter in progress)
+- ✅ state/src: No viem imports
+- ✅ node/src: No viem imports
+- ✅ block/src: No viem imports
+- ✅ tx/src: No viem imports
+- ✅ jsonrpc/src: No viem imports
+- ✅ client-types/src: No viem imports
+
+### Utils Package Status
+- ✅ keccak256 - uses @tevm/voltaire/Keccak256
+- ✅ secp256k1 signing - uses @tevm/voltaire/Secp256k1
+- ✅ nativePrivateKeyToAccount - uses voltaire for signing
+- ✅ nativeMnemonicToAccount - uses voltaire for signing
+- ✅ nativeHdAccount - uses voltaire for signing
+- ✅ prefundedAccounts - uses nativePrivateKeyToAccount
+- ✅ Bloom filter - uses native keccak256
+- ✅ ecrecover - uses @tevm/voltaire/Secp256k1
+
+### Intentional Remaining viem Usage
+1. **utils/src/viem.js** (Transport/Client functions)
+   - Required for RPC communication with external nodes (forking)
+   - Cannot be replaced without implementing custom HTTP/WebSocket transport
+
+2. **utils/src/abitype.ts** (Type re-exports)
+   - `Account`, `HDAccount` marked @deprecated
+   - Native alternatives exist: NativePrivateKeyAccount, NativeHDAccount
+   - Kept for backward compatibility
+
+3. **memory-client/src/** (Client API)
+   - The memory-client IS a viem-compatible client
+   - Uses viem's Client type, actions, etc. by design
+   - This is intentional, not a migration target
+
+4. **common/src/presets/*.js** (Chain definitions)
+   - Auto-generated chain configurations from viem/chains
+   - Low value migration - chain configs are just data
+
+### Remaining @scure Usage (Not Migratable)
+- `@scure/bip39` - Mnemonic validation and seed generation
+- `@scure/bip32` - HD key derivation (HDKey)
+- Voltaire's HDWallet module wraps these libraries with FFI
+- The FFI version is async, @scure is sync
+- Cannot migrate without breaking API changes
+
+### Test File Status
+- Utils tests: 28 files, 607 tests, all passing
+- Test files intentionally use viem for compatibility testing
+- This is appropriate - testing native vs viem implementations
+
+## Analysis
+
+### Migration Complete
+The core cryptographic functions have been successfully migrated:
+1. keccak256 hashing → voltaire/Keccak256
+2. secp256k1 signing → voltaire/Secp256k1
+3. ecrecover → voltaire/Secp256k1.recoverPublicKey
+4. signature verification → native implementations
+
+### Not Worth Migrating
+1. **HD Wallet (@scure/bip32, @scure/bip39)**
+   - Voltaire wraps same libraries with async FFI
+   - Would break sync API
+   - No real dependency reduction
+
+2. **Chain Presets (viem/chains)**
+   - Just data objects (chainId, name, rpcUrls)
+   - Auto-generated, low maintenance
+   - Would require building chain registry
+
+3. **Transport (viem client)**
+   - Would require building HTTP/WebSocket transport
+   - Significant effort for minimal benefit
+   - Fork functionality depends on it
+
+## Recommendations
+
+### Phase 1 Complete ✓
+Core crypto migration is done. All signing, hashing, and verification use voltaire.
+
+### Phase 2: Guillotine EVM Integration (Future)
+- The Evm.js adapter is minimal (handles value transfers only)
+- Full bytecode execution requires guillotine-mini integration
+- This is the next major migration target
+
+### Phase 3: Optional Future Work
+- Native chain registry (replace viem/chains)
+- Native HTTP transport (replace viem transport)
+- These provide limited benefit and are lower priority
+
+## Test Results
+```
+Utils Package: 28 files, 607 tests passed, 1 skipped
+EVM Package: 1 file, 14 tests passed
+Block Package: 1 file, 2 tests passed
+Signature tests: 31 tests passed
+```
+
+## Remaining ethereumjs Dependencies
+The following ethereumjs packages are still in use:
+- `@ethereumjs/common` - Chain configuration
+- `@ethereumjs/trie` - Merkle Patricia Trie
+- `@ethereumjs/tx` - Transaction types
+
+These require guillotine-mini integration to replace (Phase 2 work).
+
+## Conclusion
+The voltaire migration for cryptographic primitives is complete. Remaining viem usage is either:
+1. Intentional for API compatibility (memory-client)
+2. Required for features (forking/transport)
+3. Low-value to migrate (chain presets)
+
+The next logical step is guillotine-mini EVM integration for full bytecode execution.

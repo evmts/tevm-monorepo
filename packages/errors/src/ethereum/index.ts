@@ -1,4 +1,5 @@
 export { AccountLockedError, type AccountLockedErrorParameters } from './AccountLockedError.js'
+export { EVMError, EVMErrorMessage, EVMErrorTypeString } from './EVMError.js'
 export { AccountNotFoundError } from './AccountNotFoundError.js'
 export { BaseError, type BaseErrorParameters } from './BaseError.js'
 export { BlobGasLimitExceededError, type BlobGasLimitExceededErrorParameters } from './BlobGasLimitExceededError.js'

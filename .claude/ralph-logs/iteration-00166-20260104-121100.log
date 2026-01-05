@@ -1,0 +1,51 @@
+# Ralph Migration Log - Iteration 166
+## Date: 2026-01-04 12:11:00
+
+## Summary
+Migrated CommonOptions.ts to use native CustomCrypto type instead of @ethereumjs/common.
+This removes one more import from @ethereumjs/common in the public API.
+
+## Changes Made
+
+### 1. Updated CommonOptions.ts
+- Changed import from `@ethereumjs/common` to local `./CustomCrypto.js`
+- Public API now uses native CustomCrypto type
+
+### 2. Updated index.ts exports
+- Removed re-export of CustomCrypto from @ethereumjs/common
+- Now exports CustomCrypto, KZG, and VerkleCrypto directly from native file
+- Removed NativeCustomCrypto and NativeKZG aliases (no longer needed)
+
+### 3. Updated createCommon.js
+- Added type assertion comment explaining the need for casting
+- Used double cast through `unknown` to satisfy TypeScript's strict type checking
+- The native CustomCrypto interface is more flexible (supports both string and Uint8Array for KZG methods) than ethereumjs's strict string-only interface
+
+## Test Results
+- 18 common package tests pass (1 skipped - known)
+- Type checking passes
+
+## Remaining @ethereumjs/common Dependencies
+Still used internally in `createCommon.js`:
+1. `createCustomCommon` function - for creating the ethjsCommon instance
+2. `Mainnet` preset - base chain configuration with hardfork data
+3. `CustomCrypto` type - used only for type assertion at ethereumjs boundary
+
+These require more significant work to replace:
+- Need to implement full hardfork/EIP parameter system
+- Need to implement chain configuration data structure
+
+## Impact
+- Public API now uses native CustomCrypto type
+- Reduced surface area of @ethereumjs/common exports
+- Users importing CustomCrypto from @tevm/common now get the native type
+
+## Files Modified
+- packages/common/src/CommonOptions.ts (changed import)
+- packages/common/src/index.ts (updated exports)
+- packages/common/src/createCommon.js (added type assertion with comment)
+
+## Next Steps (prioritized)
+1. Create native Mainnet chain preset to replace @ethereumjs/common Mainnet
+2. Create native createCustomCommon replacement
+3. Remove remaining @ethereumjs/common dependency from createCommon.js

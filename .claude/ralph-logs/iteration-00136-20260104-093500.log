@@ -1,0 +1,88 @@
+# Ralph Migration Log - Iteration 136
+## Date: 2026-01-04 09:35:00
+
+## Summary
+Created native `privateKeyToAddress` function using @tevm/voltaire's Address.fromPrivateKey, eliminating need for viem's privateKeyToAddress in test code.
+
+## Changes Made
+
+### New File: packages/utils/src/privateKeyToAddress.js
+Created a native implementation that:
+- Takes a hex-encoded private key string (e.g., '0x...')
+- Uses voltaire's Address.fromPrivateKey to derive the address
+- Returns a checksummed Ethereum address
+- Matches viem's privateKeyToAddress API
+
+Key implementation details:
+- Imports `Address` from `@tevm/voltaire/Address` (direct subpath export) to avoid pulling in native-only crypto modules
+- Uses the existing native `hexToBytes` function from viem.js
+- Validates private key is exactly 32 bytes
+
+### New File: packages/utils/src/privateKeyToAddress.spec.ts
+Comprehensive test suite with 5 tests:
+1. Derives correct address from first prefunded private key
+2. Validates all 10 prefunded account addresses match
+3. Confirms output is checksummed (mixed case)
+4. Throws error for invalid private key length
+5. Throws error for non-hex strings
+
+### Modified: packages/utils/src/viem.js
+Added export for the new native function:
+```javascript
+// Native privateKeyToAddress implementation using @tevm/voltaire
+export { privateKeyToAddress } from './privateKeyToAddress.js'
+```
+
+### Modified: packages/utils/src/index.ts
+Added `privateKeyToAddress` to the public exports list.
+
+### Modified: packages/utils/src/prefundedAccounts.spec.ts
+Changed import from:
+```typescript
+import { mnemonicToAccount, privateKeyToAddress } from 'viem/accounts'
+```
+To:
+```typescript
+import { mnemonicToAccount } from 'viem/accounts'
+import { privateKeyToAddress } from './privateKeyToAddress.js'
+```
+
+## Test Results
+- All 545 tests pass in @tevm/utils
+- New privateKeyToAddress.spec.ts: 5 tests passing
+- prefundedAccounts.spec.ts: 1 test passing (now using native privateKeyToAddress)
+
+## Migration Impact
+
+### Viem Import Reduction
+One fewer import from 'viem/accounts' in the test file:
+- Before: `{ mnemonicToAccount, privateKeyToAddress }` from 'viem/accounts'
+- After: `{ mnemonicToAccount }` from 'viem/accounts'
+
+### Public API Addition
+New exported function `privateKeyToAddress` available from @tevm/utils.
+
+## Technical Details
+
+### Why Import from '@tevm/voltaire/Address' Instead of '@tevm/voltaire'
+The main voltaire entry point (`@tevm/voltaire`) imports native bindings that don't work in all environments. By importing directly from the subpath `@tevm/voltaire/Address`, we get the pure JS/WASM implementations that work universally.
+
+### Voltaire's Address.fromPrivateKey
+Uses:
+- @noble/curves/secp256k1 for public key derivation (pure JS)
+- keccak256 from voltaire (WASM-based)
+- toChecksummed for EIP-55 checksumming
+
+## Remaining viem/accounts Imports
+
+### In production code (viem.js)
+- `mnemonicToAccount` - HD wallet derivation with signing methods
+- `privateKeyToAccount` - Private key signer with full account object
+
+### In test code
+- `mnemonicToAccount` - Used in prefundedAccounts.spec.ts for verification
+
+## Next Steps
+1. Consider implementing native `mnemonicToAddress` using voltaire's HDWallet
+2. The full `mnemonicToAccount`/`privateKeyToAccount` functions are more complex as they return account objects with signing methods - these may remain as viem re-exports for compatibility
+3. Continue migrating other viem imports in other packages

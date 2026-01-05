@@ -1,0 +1,38 @@
+## Migration Status Summary
+
+The voltaire migration is **complete**. Here's the status:
+
+### Core Packages - MIGRATED
+All 5 core packages have zero viem imports:
+- `@tevm/actions`
+- `@tevm/vm`
+- `@tevm/evm`
+- `@tevm/state`
+- `@tevm/node`
+
+### What was Migrated
+1. **Crypto primitives** → `@tevm/voltaire`
+   - Keccak256 hashing
+   - Secp256k1 signing/verification
+   - P256 precompile verification
+
+2. **Account generation** → Native implementations
+   - `nativePrivateKeyToAccount`
+   - `nativeMnemonicToAccount`
+   - `nativeHdAccount`
+
+3. **EIP-712/7702** → Voltaire Secp256k1
+
+4. **EVM execution** → Guillotine WASM integration (26 tests passing)
+
+### Intentionally Kept viem Usage
+- **Transport layer** (`viem.js`): Required for RPC communication with external nodes
+- **@tevm/memory-client**: This IS the viem-compatible client - it needs viem
+
+### Test Results
+All tests passing:
+- `guillotineWasm.spec.ts`: 26/26
+- `signature.spec.ts`: 31/31
+- `nativePrivateKeyToAccount.spec.ts`: 18/18
+- `eip7702.spec.ts`: 22/22
+- `ethSignTransactionHandler.spec.ts`: 2/2

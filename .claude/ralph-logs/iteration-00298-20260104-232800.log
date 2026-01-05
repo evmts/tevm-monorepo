@@ -1,0 +1,82 @@
+# Ralph Migration Log - Iteration 298
+## Date: 2026-01-04 23:28
+
+## Summary
+Comprehensive status assessment of voltaire/ethereumjs migration. Core packages are now free of direct viem/ethereumjs imports. Remaining ethereumjs dependencies are in low-level packages that integrate with ethereumjs EVM.
+
+## Tests Run
+- packages/utils/src/*.spec.ts - 655 tests passed, 1 skipped
+- packages/evm/src/*.spec.ts - 55 tests passed, 1 skipped (56 total)
+
+## Migration Status
+
+### Fully Migrated (no direct viem/ethereumjs imports)
+- @tevm/actions - Uses @tevm/utils only
+- @tevm/evm - No viem/ethereumjs imports
+- @tevm/state - No viem/ethereumjs imports
+- @tevm/vm - No viem/ethereumjs imports
+- @tevm/node - No viem/ethereumjs imports
+- @tevm/utils - Native implementations using @tevm/voltaire:
+  - ABI encoding/decoding via @tevm/voltaire/Abi
+  - Hex/bytes conversions via @tevm/voltaire/Hex
+  - Signature operations via @tevm/voltaire/Secp256k1
+  - Keccak256 hashing via @tevm/voltaire/Keccak256
+  - EIP712 typed data via @tevm/voltaire/EIP712
+  - nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount
+  - nativeHttp, nativeWebSocket, nativeCustom transports via @tevm/voltaire/provider
+  - nativeDefineChain for chain definitions
+  - createForkRpcClient for RPC adapters
+- @tevm/precompiles - P256 verify via @tevm/voltaire/P256
+- @tevm/blockchain - getBlockFromRpc uses @tevm/utils helpers
+
+### Remaining Ethereumjs Dependencies
+These packages still use ethereumjs as they need to integrate with the ethereumjs EVM internals:
+
+1. **@tevm/common** (3 imports)
+   - Uses @ethereumjs/common for chain configuration
+   - Required because ethereumjs EVM expects ethereumjs Common instances
+   - Voltaire has Chain/Hardfork primitives but migration blocked by EVM compatibility
+
+2. **@tevm/tx** (4 imports)
+   - Re-exports @ethereumjs/tx transaction classes
+   - createImpersonatedTx wraps FeeMarket1559Tx
+   - Voltaire has Transaction primitives (plain objects, not classes)
+   - Migration blocked: ethereumjs EVM uses ethereumjs tx classes
+
+3. **@tevm/trie** (1 import)
+   - Re-exports @ethereumjs/trie
+   - Used for merkle patricia trie operations
+   - Migration would require implementing trie in voltaire
+
+### Voltaire Capabilities Available
+Voltaire already has primitives for future migration:
+- **Transaction**: EIP1559, EIP2930, EIP4844, EIP7702, Legacy with serialize/deserialize
+- **Chain**: Comprehensive chain metadata for 30+ chains
+- **Hardfork**: All hardforks with feature detection (hasEIP1559, hasEIP4844, etc.)
+- **RLP**: Encoding/decoding
+- **Trie**: Implementation exists in primitives (trie.zig)
+
+### Migration Blockers
+The remaining ethereumjs dependencies are architectural:
+1. Ethereumjs EVM expects ethereumjs Common and TX classes
+2. Migrating would require either:
+   - Adapting voltaire types to match ethereumjs interfaces
+   - Replacing ethereumjs EVM entirely with guillotine-mini
+3. guillotine-mini is not yet fully integrated as the EVM execution engine
+
+### Recommended Next Steps
+1. **Short term**: Keep ethereumjs integration for EVM execution
+2. **Medium term**: Expand guillotine-mini WASM integration for EVM execution
+3. **Long term**: Once guillotine-mini can replace ethereumjs EVM, migrate @tevm/common and @tevm/tx to use voltaire primitives
+
+## Files Modified
+None - assessment only
+
+## Build Status
+All builds passing (cached from previous iterations)
+
+## Notes
+- User-facing packages (memory-client) should continue using viem for API compatibility
+- The migration has successfully removed viem/ethereumjs from the hot path
+- Remaining dependencies are in infrastructure/integration layers
+- 655 utils tests + 55 evm tests all passing

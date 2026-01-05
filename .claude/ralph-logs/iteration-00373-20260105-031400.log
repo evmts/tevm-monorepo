@@ -1,0 +1,38 @@
+# Ralph Migration Log - Iteration 373
+## Date: 2026-01-05 03:14
+
+## Summary
+Migrated 5 SKALE chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **skaleCalypso.js** (id: 1564830818) - SKALE Calypso Hub mainnet with sFUEL native currency, multicall3 contract, WebSocket support
+2. **skaleCalypsoTestnet.js** (id: 974399131) - SKALE Calypso Testnet with sFUEL native currency, multicall3 contract, WebSocket support
+3. **skaleCryptoBlades.js** (id: 1026062157) - SKALE CryptoBlades gaming chain with sFUEL native currency, WebSocket support
+4. **skaleCryptoColosseum.js** (id: 1032942172) - SKALE Crypto Colosseum gaming chain with sFUEL native currency, WebSocket support
+5. **skaleEuropa.js** (id: 2046399126) - SKALE Europa Liquidity Hub mainnet with sFUEL native currency, multicall3 contract, WebSocket support
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Previously migrated**: ~281 (from iteration 372)
+- **Migrated this session**: 5
+- **Total migrated**: ~286
+- **Remaining**: 58 (~17% remaining, excluding generator script)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- All SKALE chains use sFUEL as their native currency (gas token)
+- All SKALE chains have WebSocket RPC support in addition to HTTP
+- SKALE is a multi-chain network focused on gaming and DeFi
+- Most SKALE chains have multicall3 deployed
+
+## Next Steps
+Continue migrating remaining SKALE chain presets. 58 remain (~17% remaining).
+Next chains to migrate: skaleEuropaTestnet, skaleExorde, skaleHumanProtocol, skaleNebula, skaleNebulaTestnet...

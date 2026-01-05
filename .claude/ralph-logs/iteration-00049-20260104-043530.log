@@ -1,0 +1,49 @@
+## Migration Iteration 49 Complete
+
+**Successfully migrated 15 test files from viem to @tevm/utils:**
+
+### New additions to @tevm/utils:
+1. `stringToBytes` - Native implementation matching viem's API for UTF-8 string to bytes conversion
+2. `privateKeyToAccount` - Re-exported from viem/accounts
+3. `custom` - Transport function re-exported from viem
+4. `http` - Transport function re-exported from viem
+
+### Test files migrated:
+
+**packages/actions (12 files):**
+- internal/zod/zStorageRoot.spec.ts: `Hex` type
+- internal/zod/zHex.spec.ts: `Hex` type  
+- internal/zod/zBytecode.spec.ts: `Hex` type
+- internal/runCallWithFourbyteTrace.spec.ts: `EncodeFunctionDataParameters`, `Hex` types
+- Call/callHandlerResult.spec.ts: `stringToBytes`
+- Call/handleTransactionCreation.spec.ts: `encodeFunctionData`
+- eth/ethAccountsHandler.spec.ts: `privateKeyToAccount`
+- eth/ethGetTransactionREceiptProcedure.spec.ts: `Hex` type
+- eth/ethGetBlockReceiptsProcedure.spec.ts: `Hex` type
+- eth/ethGetTransactionCountProcedure.spec.ts: `custom`
+- eth/ethSendTransactionHandler.spec.ts: `encodeFunctionData`
+- eth/ethCreateAccessListProcedure.spec.ts: `encodeFunctionData`
+
+**packages/state (2 files):**
+- actions/getForkClient.spec.ts: `http`
+- actions/originalStorageCache.spec.ts: `numberToBytes`
+
+**packages/node (1 file):**
+- statePersister.spec.ts: `hexToBytes`
+
+### Commits created:
+- `9a3cbdfce`: refactor(actions): replace viem imports in decodeRevertReason.spec.ts with @tevm/utils
+- `5b37dc585`: refactor(tests): replace viem imports with @tevm/utils in test files
+
+### Verification:
+All tests that were passing before continue to pass. Pre-existing failures
+related to genesis storageRoot issue are unrelated to the viem migration.
+
+### Remaining viem imports:
+Most remaining viem imports are in JSDoc comments for documentation purposes.
+Need to audit remaining actual imports in core packages and other test files.
+
+**Next targets:**
+- Continue auditing for remaining viem imports in core packages
+- Focus on non-test source files if any remain
+- Consider migrating more packages outside of core (bundlers, etc.)

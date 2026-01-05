@@ -1,0 +1,80 @@
+# Ralph Migration Log - Iteration 295
+## Date: 2026-01-04 23:06
+
+## Summary
+Fixed multiple type issues blocking the type builds for @tevm/precompiles, @tevm/vm, @tevm/node, and added missing types to @tevm/evm. Continued from iteration 294.
+
+## Changes Made
+
+### 1. Fixed defineCall.ts (`packages/precompiles/src/defineCall.ts`)
+- Fixed typo: `exeptionError` -> `exceptionError`
+- Fixed `selfdestruct` type: Convert `Set<Address>` to array with `[...selfdestruct]` for `ExecResult` compatibility
+
+### 2. Fixed definePrecompile.spec.ts (`packages/precompiles/src/definePrecompile.spec.ts`)
+- Fixed test `logs` args format: Changed from array `[20n, 30n]` to object `{ newValue: 20n }` matching the event signature
+- Added `as const` assertions for eventName and address
+
+### 3. Fixed assignWithdrawals.ts (`packages/vm/src/actions/assignWithdrawals.ts`)
+- Wrapped `address` from Withdrawal in `new EthjsAddress(address)` since Withdrawal.address is `Uint8Array` but `rewardAccount` expects `EthjsAddress`
+
+### 4. Fixed BlockBuilder.ts (`packages/vm/src/actions/BlockBuilder.ts`)
+- Fixed `new Bloom()` call - removed second argument (`this.vm.common.ethjsCommon`) since Bloom constructor only takes optional bitvector
+- Fixed unused variable `txResult` -> `_txResult` in receiptTrie loop
+- Wrapped withdrawal `address` in `new EthjsAddress(address)` in `processWithdrawals`
+
+### 5. Fixed rewardAccount.ts (`packages/vm/src/actions/rewardAccount.ts`)
+- Changed return type from `Promise<EthjsAccount>` to `Promise<AccountInterface>`
+- Added cast `as EthjsAccount` when calling `journal.putAccount`
+
+### 6. Added allowUnlimitedContractSize to Evm type (`packages/evm/src/EvmType.ts`)
+- Added `allowUnlimitedContractSize: boolean` property to fix deepCopy.js type error
+
+### 7. Added events to Evm type (`packages/evm/src/EvmType.ts`)
+- Added `events` property with `on`, `off`, `emit`, `once` methods for tracing functionality
+
+### 8. Fixed TevmNode.ts (`packages/node/src/TevmNode.ts`)
+- Fixed `EIP1193RequestFn` generic type argument - added `RpcSchema` import and usage
+
+### 9. Added missing EVM types (`packages/evm/src/types.ts` and `packages/evm/src/index.ts`)
+- Added `PrecompileInput` type
+- Added `InterpreterStep` type
+- Exported both from index.ts
+
+## Build Status
+- `@tevm/precompiles:build:types` - SUCCESS
+- `@tevm/vm:build:types` - SUCCESS
+- `@tevm/node:build:types` - SUCCESS
+- `@tevm/evm:build:types` - SUCCESS
+- `@tevm/actions:build:types` - STILL FAILING (many type issues remain)
+- `@tevm/decorators:build:types` - BLOCKED by actions
+
+## Tests Run
+- `packages/precompiles/src/definePrecompile.spec.ts` - PASSED (snapshot updated)
+
+## Remaining Issues in @tevm/actions
+The actions package has many type errors related to:
+1. Missing `origin` property on `EvmRunCallOpts`
+2. Missing `createdAddress` property on `RunTxResult` and `EvmResult`
+3. Missing `shallowCopy` and `getActiveOpcodes` methods on `Evm`
+4. Missing `isEmpty` method on `AccountInterface`
+5. Various implicit `any` type parameters
+6. Type incompatibilities with `exactOptionalPropertyTypes: true`
+
+## Next Steps
+1. Add missing properties to `EvmRunCallOpts` type (origin)
+2. Add `createdAddress` to `RunTxResult` and `EvmResult`
+3. Add `shallowCopy` and `getActiveOpcodes` to `Evm` type
+4. Add `isEmpty` to `AccountInterface`
+5. Fix remaining implicit any types in trace functions
+
+## Files Modified
+- packages/precompiles/src/defineCall.ts
+- packages/precompiles/src/definePrecompile.spec.ts
+- packages/precompiles/src/__snapshots__/definePrecompile.spec.ts.snap
+- packages/vm/src/actions/assignWithdrawals.ts
+- packages/vm/src/actions/BlockBuilder.ts
+- packages/vm/src/actions/rewardAccount.ts
+- packages/evm/src/EvmType.ts
+- packages/evm/src/types.ts
+- packages/evm/src/index.ts
+- packages/node/src/TevmNode.ts

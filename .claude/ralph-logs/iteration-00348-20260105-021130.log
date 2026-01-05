@@ -1,0 +1,45 @@
+# Ralph Migration Log - Iteration 348
+## Date: 2026-01-05 02:11
+
+## Summary
+Migrated 9 chain presets from viem/chains to nativeDefineChain in this session.
+
+## Chains Migrated This Session
+
+1. **foundry.js** (id: 31337) - Foundry (local development)
+2. **fraxtal.js** (id: 252) - Fraxtal
+3. **fraxtalTestnet.js** (id: 2522) - Fraxtal Testnet
+4. **funkiMainnet.js** (id: 33979) - Funki
+5. **funkiSepolia.js** (id: 3397901) - Funki Sepolia Sandbox
+6. **fuse.js** (id: 122) - Fuse
+7. **fuseSparknet.js** (id: 123) - Fuse Sparknet
+8. **gnosisChiado.js** (id: 10200) - Gnosis Chiado
+9. **gobi.js** (id: 1663) - Horizen Gobi Testnet
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~145 (from iteration 347)
+- **Migrated this session**: 9
+- **Total migrated**: ~154
+- **Remaining**: 190 (including generator file)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Foundry: Local development chain with WebSocket support
+- Fraxtal chains: Use 'frxETH' (Frax Ether) as native currency
+- Funki chains: Standard ETH as native currency
+- Fuse/FuseSparknet: Use 'FUSE' and 'SPARK' as native currencies respectively
+- Gnosis Chiado: Testnet using 'xDAI' as native currency with WebSocket support
+- Gobi: Horizen testnet using 'tZEN' as native currency
+
+## Next Steps
+Continue migrating remaining chain presets. ~190 remain (~57% remaining).
+Next chains to migrate: goerli, gravity, ham, haqqMainnet, haqqTestedge2...

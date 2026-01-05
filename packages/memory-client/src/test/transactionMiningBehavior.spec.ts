@@ -1,5 +1,5 @@
 import { ErrorContract } from '@tevm/contract'
-import { encodeFunctionData, parseUnits } from 'viem'
+import { encodeFunctionData, parseUnits } from '@tevm/utils'
 import { assert, beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 import type { MemoryClient } from '../MemoryClient.js'

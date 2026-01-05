@@ -1,0 +1,48 @@
+# Ralph Migration Log - Iteration 140
+## Date: 2026-01-04 09:52:24
+
+## Summary
+Migrated EIP1193.ts to use local FilterParams type instead of viem's Filter type, and removed Filter from viem re-exports in abitype.ts.
+
+## Changes Made
+
+### Modified: packages/actions/src/tevm-request-handler/EIP1193.ts
+- Removed: `import type { Filter } from '@tevm/utils'`
+- Added: `import type { FilterParams } from '../common/FilterParams.js'`
+- Changed: `export type EventListener = (filter?: Filter) => void`
+- To: `export type EventListener = (filter?: FilterParams) => void`
+
+### Modified: packages/utils/src/abitype.ts
+- Removed `Filter` from the viem type re-exports
+
+### Modified: packages/utils/src/index.ts
+- Removed `Filter` from the re-exported types
+
+## Rationale
+The viem `Filter` type is a complex generic type with many parameters that is only used once in the codebase - as an optional parameter to `EventListener`. The local `FilterParams` type (already existing in packages/actions/src/common/FilterParams.ts) provides the same functionality with a simpler interface.
+
+## Test Results
+- TypeScript compilation: No new errors related to these changes
+- Pre-existing type errors in voltaire and test files remain (unrelated to Filter migration)
+- No runtime test failures caused by this change
+
+## Migration Impact
+
+### Direct viem type imports remaining in @tevm/utils/abitype.ts:
+1. Account - Complex wallet account type
+2. ContractConstructorArgs - ABI type utility
+3. ContractFunctionName - ABI type utility
+4. CreateEventFilterParameters - Event filter parameters
+5. DecodeFunctionResultReturnType - ABI decoding utility
+6. EncodeDeployDataParameters - ABI encoding utility
+7. EncodeFunctionDataParameters - ABI encoding utility
+8. GetEventArgs - Event argument extraction utility
+9. HDAccount - HD wallet account type
+
+### Viem types removed this iteration:
+- Filter (replaced with local FilterParams)
+
+## Next Steps
+1. Look for more opportunities to replace viem types with local equivalents
+2. Consider implementing native Account/HDAccount types if needed
+3. Continue reducing direct viem dependencies in core packages

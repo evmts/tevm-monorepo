@@ -1,0 +1,38 @@
+# Ralph Migration Log - Iteration 364
+## Date: 2026-01-05 02:52
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **palm.js** (id: 11297108109) - Palm mainnet with PALM native currency, multicall3 contract, WebSocket support
+2. **palmTestnet.js** (id: 11297108099) - Palm Testnet with PALM native currency, same contracts as mainnet, testnet flag set
+3. **pgn.js** (id: 424) - Public Goods Network mainnet with ETH native currency, L2 contracts including l2OutputOracle, portal, l1StandardBridge (sourceId: 1 for mainnet)
+4. **pgnTestnet.js** (id: 58008) - PGN Testnet (Sepolia-based) with ETH native currency, L2 contracts (sourceId: 11155111 for Sepolia)
+5. **phoenix.js** (id: 13381) - Phoenix Blockchain with PHX native currency, multicall3 contract
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: 335 (excluding generator script)
+- **Previously migrated**: ~236 (from iteration 363)
+- **Migrated this session**: 5
+- **Total migrated**: ~241
+- **Remaining**: 104 (~31% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable), sourceId (if applicable)
+
+## Notes
+- palm/palmTestnet: Both use mainnet RPC URLs even for testnet (as per viem config)
+- pgn/pgnTestnet: L2 chains with OP Stack style contracts keyed by chain ID
+- phoenix: Simple chain with PHX token
+
+## Next Steps
+Continue migrating remaining chain presets. 104 remain (~31% remaining).
+Next chains to migrate: plinga, plumeTestnet, polygon, polygonAmoy, polygonMumbai...

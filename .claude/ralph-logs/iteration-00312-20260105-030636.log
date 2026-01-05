@@ -1,0 +1,9 @@
+Successfully migrated 5 more chain presets from viem/chains to nativeDefineChain:
+
+1. **scrollSepolia** (id: 534351) - Scroll L2 Sepolia testnet
+2. **sei** (id: 1329) - Sei Network mainnet with WebSocket support
+3. **seiDevnet** (id: 713715) - Sei development network
+4. **seiTestnet** (id: 1328) - Sei testnet with WebSocket support  
+5. **shapeSepolia** (id: 11011) - Shape OP Stack L2 testnet
+
+**Progress**: 68 chain presets remain (~20% left to migrate). Tests pass.

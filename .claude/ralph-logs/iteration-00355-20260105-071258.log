@@ -1,0 +1,23 @@
+## Summary - Iteration 729
+
+I successfully completed one migration task in this iteration:
+
+### What was done:
+1. **Created `erc20Abi` constant** in `@tevm/utils` (`packages/utils/src/erc20Abi.js`)
+   - Native implementation of the standard ERC-20 ABI with full JSDoc documentation
+   - Includes all standard ERC-20 events (Approval, Transfer) and functions (allowance, approve, balanceOf, decimals, name, symbol, totalSupply, transfer, transferFrom)
+   - Uses TypeScript's `as const` pattern for type-safe literal types
+
+2. **Added export** in `packages/utils/src/index.ts`
+
+3. **Migrated `tevmDeal.spec.ts`** from `import { erc20Abi } from 'viem'` to `import { erc20Abi } from '@tevm/utils'`
+
+### Test Results:
+- `@tevm/utils:build:types`: PASS
+- Tests using the new `erc20Abi`: PASS
+
+### Migration Status:
+The core packages (`@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, `@tevm/node`) appear to be already free of direct viem imports in their source files. The remaining viem dependencies are concentrated in:
+- `@tevm/memory-client` - needs viem for Client/Transport types
+- `@tevm/utils` - re-exports some viem functions for backward compatibility
+- `extensions/test-matchers` - uses viem types for complex type utilities

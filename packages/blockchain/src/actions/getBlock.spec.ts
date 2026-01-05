@@ -1,7 +1,7 @@
 import { optimism } from '@tevm/common'
 import { InvalidBlockError, UnknownBlockError } from '@tevm/errors'
 import { transports } from '@tevm/test-utils'
-import { hexToBytes } from 'viem'
+import { hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
 import { getMockBlocks } from '../test/getBlocks.js'

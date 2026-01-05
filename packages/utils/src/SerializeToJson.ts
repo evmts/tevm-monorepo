@@ -1,4 +1,3 @@
-// TODO there is a duplicate implementation in tevm/actions
 import type { Hex } from './abitype.js'
 
 /**
@@ -13,6 +12,7 @@ export type JsonSerializable =
 	| JsonSerializableArray
 	| JsonSerializableObject
 	| JsonSerializableSet
+	| (Error & { code: number | string })
 
 /**
  * A type that represents a JSON-serializable array.
@@ -39,10 +39,11 @@ export type SetToHex<T> = T extends Set<any> ? Hex : T
 
 /**
  * A helper type that converts a widened JSON-serializable value to a JSON-serializable value.
- * It replaces bigint with hex strings and sets with arrays.
+ * It replaces bigint with hex strings, sets with arrays, and errors with {code, message} objects.
  */
-export type SerializeToJson<T> =
-	T extends JsonSerializableSet<infer S>
+export type SerializeToJson<T> = T extends Error & { code: infer TCode }
+	? { code: TCode; message: T['message'] }
+	: T extends JsonSerializableSet<infer S>
 		? ReadonlyArray<S>
 		: T extends JsonSerializableObject
 			? { [P in keyof T]: SerializeToJson<T[P]> }

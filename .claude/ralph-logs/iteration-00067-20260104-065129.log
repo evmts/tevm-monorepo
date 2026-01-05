@@ -1,0 +1,28 @@
+## Summary
+
+This iteration (113) performed a comprehensive assessment of the remaining viem/ethereumjs dependencies in the tevm monorepo:
+
+### Key Findings
+
+**@tevm/utils - Migration Largely Complete:**
+- All ABI encoding/decoding functions are now native (using @tevm/voltaire)
+- All utility functions (hex conversions, RLP, keccak256, etc.) are native
+
+**Remaining Dependencies:**
+1. `parseAbi`/`formatAbi` from abitype - Complex human-readable ABI parser (not viem)
+2. `mnemonicToAccount`/`privateKeyToAccount` from viem/accounts - Complex account objects with signing
+3. Transport/client functions for forking - Deep viem integration
+
+### Changes Made
+- Updated the header documentation in `packages/utils/src/viem.js` to accurately reflect migration status
+- Committed: `📝 docs(utils): update viem.js header with migration status documentation` (f3a06d62a)
+
+### Recommendation for Future Iterations
+The core ABI encoding/decoding migration is complete. The remaining viem dependencies are either:
+- External libraries (abitype)
+- Complex functionality that would require significant effort to replicate
+- Intentional viem integrations (memory-client)
+
+Future work could focus on:
+1. guillotine-mini integration for state management
+2. Investigating if parseAbi migration is worth the effort

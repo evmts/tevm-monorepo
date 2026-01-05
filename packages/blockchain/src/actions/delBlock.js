@@ -1,5 +1,5 @@
 import { InvalidBlockError } from '@tevm/errors'
-import { bytesToHex } from 'viem'
+import { bytesToHex } from '@tevm/utils'
 import { getBlock } from './getBlock.js'
 import { getCanonicalHeadBlock } from './getCanonicalHeadBlock.js'
 

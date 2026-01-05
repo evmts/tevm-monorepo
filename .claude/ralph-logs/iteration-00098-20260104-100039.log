@@ -1,0 +1,16 @@
+## Iteration 143 Complete
+
+I've successfully migrated JSDoc type imports in two files:
+
+1. **`privateKeyToAddress.js`**:
+   - `@param {import('viem').Hex}` → `@param {import('./hex-types.js').Hex}`
+   - `@returns {import('viem').Address}` → `@returns {import('./address-types.js').Address}`
+
+2. **`generatePrivateKey.js`**:
+   - `@returns {import('viem').Hex}` → `@returns {import('./hex-types.js').Hex}`
+
+**Tests**: 11 tests passed (5 in privateKeyToAddress.spec.ts, 6 in generatePrivateKey.spec.ts)
+
+**Types**: Build succeeded (123.07 KB)
+
+This is a small, incremental change that reduces viem coupling without changing any runtime behavior. The native types (`Hex`, `Address`) are already defined in the utils package and are functionally identical to viem's types.

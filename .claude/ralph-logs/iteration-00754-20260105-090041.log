@@ -1,0 +1,69 @@
+# Ralph Migration Log - Iteration 754
+## Date: 2026-01-05
+
+## Task: Migrate handleTransaction.ts from viem BaseError to duck-typed approach
+
+## Summary
+
+Successfully removed the viem dependency from `@tevm/test-matchers` by replacing `instanceof` checks for viem's `BaseError` with a duck-typed approach.
+
+## Changes Made
+
+1. **Removed viem import:**
+   ```typescript
+   // Before:
+   import { BaseError as ViemBaseError } from 'viem'
+
+   // After: (removed entirely)
+   ```
+
+2. **Added duck-typing helper function:**
+   ```typescript
+   /**
+    * Type guard to check if an error is a BaseError-like object (from tevm or viem).
+    * Uses duck typing to check for the `walk` method which is present in both implementations.
+    */
+   const isBaseErrorLike = (error: unknown): error is BaseError => {
+     return (
+       error instanceof Error &&
+       typeof (error as BaseError).walk === 'function' &&
+       'message' in error
+     )
+   }
+   ```
+
+3. **Updated three locations using `ViemBaseError`:**
+   - `parseError()` - revert detection
+   - `isRevertError()` - inner helper function
+   - `extractRevertData()` - error walking logic
+
+## Verification
+
+- TypeScript compilation: ✅ No errors in handleTransaction.ts
+- Tests: Pre-existing failures due to gas limit issues (unrelated to this change)
+- No viem imports remain in extensions/test-matchers/src
+
+## Why Duck Typing Works
+
+Both viem's `BaseError` and tevm's `BaseError` have:
+- `walk(fn?)` method for traversing error chains
+- `message` property
+- Standard Error properties
+
+By checking for the `walk` method, we can handle errors from both libraries without importing either.
+
+## Packages Now Viem-Free
+
+- extensions/test-matchers ✅ (newly migrated)
+- All core packages (actions, vm, evm, state, node, block, blockchain)
+- @tevm/decorators (native implementations)
+- @tevm/client-types
+- @tevm/precompiles
+
+## Remaining Viem Dependencies (Intentional)
+
+- @tevm/memory-client - Viem integration layer
+- @tevm/utils - Re-exports with native alternatives available
+- extensions/viem - Viem extension
+- bundler-packages/mud - MUD integration
+- bundler-packages/whatsabi - ABI resolution

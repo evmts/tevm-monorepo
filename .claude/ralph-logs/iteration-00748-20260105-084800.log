@@ -1,0 +1,46 @@
+# Ralph Migration Log - Iteration 748
+## Date: 2026-01-05
+
+## Task: Migrate toBeRevertedWithError.spec.ts from viem/actions to client methods
+
+## Summary
+
+Successfully migrated extensions/test-matchers/src/matchers/errors/toBeRevertedWithError.spec.ts to use client methods directly instead of importing from viem/actions.
+
+## File Modified
+
+### extensions/test-matchers/src/matchers/errors/toBeRevertedWithError.spec.ts
+
+**Removed:**
+```typescript
+import { writeContract } from 'viem/actions'
+```
+
+**Changed all function calls from:**
+- `writeContract(client, {...})` → `client.writeContract({...})`
+
+## Changes Made
+
+1. Line 6: Removed viem/actions import
+2. All ~35 instances of `writeContract(client, ...)` → `client.writeContract(...)`
+
+## Test Results
+
+Tests fail due to pre-existing gas limit infrastructure issue (not related to this migration):
+```
+InternalError: tx gas limit 94952 is lower than the minimum gas limit of 190466
+```
+
+This is the same issue noted in iterations 745-746 and is not caused by the migration.
+
+## Migration Progress
+
+**MILESTONE ACHIEVED**: All `viem/actions` imports have been removed from test-matchers spec files!
+
+Files migrated in iterations 745-748:
+- toBeReverted.spec.ts ✅
+- toBeRevertedWithString.spec.ts ✅
+- toBeRevertedWithError.spec.ts ✅
+
+Next targets:
+- Continue searching for other viem imports in the codebase

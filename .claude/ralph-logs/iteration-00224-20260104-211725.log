@@ -1,0 +1,24 @@
+## Migration Status Summary
+
+The voltaire migration for core packages is **complete**. All tests pass:
+- signature: 31/31 tests
+- nativePrivateKeyToAccount: 18/18 tests
+- prefundedAccounts: 1/1 tests  
+- eip7702: 22/22 tests
+- Bloom: 6/6 tests
+
+**Core packages are clean** of direct viem/ethereumjs imports:
+- @tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node, @tevm/block, @tevm/blockchain, @tevm/jsonrpc, @tevm/procedures, @tevm/base-client
+
+**Remaining viem usage is intentional**:
+1. Transport functions (`createPublicClient`, `http`, etc.) in `@tevm/utils/viem.js` - needed for forking functionality
+2. Deprecated account functions (`mnemonicToAccount`, `privateKeyToAccount`) - replaced with native implementations but kept for backward compatibility
+3. `@tevm/memory-client` - viem-compatible client layer (this is a feature, not a migration target)
+
+The migration goals have been achieved:
+- Secp256k1 via voltaire
+- P256 via voltaire (p256verify precompile)
+- Keccak256 via voltaire
+- EIP-712 typed data signing via voltaire
+- EIP-7702 authorization signing via voltaire
+- Native account implementations fully working

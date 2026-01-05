@@ -1,0 +1,74 @@
+# Ralph Migration Log - Iteration 202
+## Date: 2026-01-04 15:00:29
+
+## Summary
+Migrated `p256verify.precompile.ts` from `@noble/curves/nist.js` to use `@tevm/voltaire/P256`.
+
+## Changes Made
+
+### 1. Updated imports
+Changed from:
+```typescript
+import { p256 } from '@noble/curves/nist.js'
+```
+
+To:
+```typescript
+import { verify as p256Verify } from '@tevm/voltaire/P256'
+```
+
+### 2. Updated signature verification call
+The voltaire API is different from noble-curves:
+- noble-curves: `p256.verify(signature, msgHash, publicKey, { prehash: false })` with 64-byte compact signature and 65-byte public key (with 0x04 prefix)
+- voltaire: `p256Verify({ r, s }, msgHash, publicKey)` with `{r, s}` object and 64-byte public key (without prefix)
+
+Changed from:
+```typescript
+// Construct the signature as a 64-byte compact (r, s) format
+const signature = new Uint8Array(64)
+signature.set(r, 0)
+signature.set(s, 32)
+
+// Construct the public key as a 65-byte uncompressed key (0x04 || x || y)
+const publicKey = new Uint8Array(65)
+publicKey[0] = 0x04
+publicKey.set(x, 1)
+publicKey.set(y, 33)
+
+const isValid = p256.verify(signature, msgHash, publicKey, { prehash: false })
+```
+
+To:
+```typescript
+// Construct the public key as a 64-byte uncompressed key (x || y)
+// voltaire's P256.verify expects 64 bytes without the 0x04 prefix
+const publicKey = new Uint8Array(64)
+publicKey.set(x, 0)
+publicKey.set(y, 32)
+
+// Verify the signature using voltaire's P256 implementation
+// voltaire's verify takes { r, s } object and 64-byte public key
+const isValid = p256Verify({ r, s }, msgHash, publicKey)
+```
+
+## Test Results
+All 4 p256verify precompile tests pass:
+- returns 0 for invalid input length
+- returns 0 for invalid signature
+- returns 1 for valid signature
+- handles edge cases correctly
+
+## Files Modified
+1. `packages/precompiles/src/p256verify.precompile.ts`
+   - Changed p256 import from `@noble/curves/nist.js` to `@tevm/voltaire/P256`
+   - Updated verification call to use voltaire's API with `{r, s}` signature object
+   - Removed 0x04 prefix from public key construction (voltaire expects 64-byte key)
+
+## Remaining @noble/curves Usage
+After this change, the remaining noble-curves imports are:
+1. `packages/utils/src/eip7702.js` - uses `@noble/curves/secp256k1.js` (requires more complex refactoring due to low-level API usage)
+
+## Next Steps
+1. Consider migrating eip7702.js to voltaire's Secp256k1 API (requires refactoring signing logic)
+2. Continue looking for other simple migration targets
+3. Rebuild dist files to update bundled code

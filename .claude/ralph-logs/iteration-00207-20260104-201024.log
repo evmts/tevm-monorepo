@@ -1,0 +1,12 @@
+## Summary
+
+This iteration attempted to migrate `nativeHdAccount.js` from `@scure/bip39` and `@scure/bip32` to `@tevm/voltaire`'s Bip39 and HDWallet modules. However, the migration was **blocked** due to a build issue in voltaire:
+
+**The Problem**: Voltaire's bundled `dist/crypto/HDWallet/index.js` has `ffi-napi` and `ref-napi` imported at the top level, even though the source code uses dynamic imports (`await import('./ffi.js')`). This causes any import of `@tevm/voltaire/HDWallet` to fail in Node.js environments without native builds available.
+
+**Resolution**: Reverted the changes. `nativeHdAccount.js` continues to use `@scure/bip39` and `@scure/bip32` directly, which works correctly. All 13 tests pass.
+
+**Next Steps**: The voltaire build configuration needs to be fixed to either:
+1. Keep dynamic imports as dynamic in the bundle
+2. Externalize `ffi-napi` and `ref-napi`
+3. Create separate entry points for FFI vs pure-JS code

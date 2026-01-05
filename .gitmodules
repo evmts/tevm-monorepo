@@ -7,3 +7,9 @@
 [submodule "lib/helios"]
 	path = lib/helios
 	url = git@github.com:evmts/helios.git
+[submodule "lib/guillotine-mini"]
+	path = lib/guillotine-mini
+	url = https://github.com/evmts/guillotine-mini
+[submodule "lib/voltaire"]
+	path = lib/voltaire
+	url = https://github.com/evmts/voltaire

@@ -1,0 +1,11 @@
+Successfully migrated 5 more chain presets in iteration 355:
+
+1. **lineaGoerli.js** (id: 59140) - Linea Goerli Testnet with webSocket and multicall3
+2. **lineaSepolia.js** (id: 59141) - Linea Sepolia Testnet with ENS contracts
+3. **lineaTestnet.js** (id: 59140) - Linea Goerli Testnet alias
+4. **lisk.js** (id: 1135) - Lisk mainnet with OP Stack L2 contracts
+5. **liskSepolia.js** (id: 4202) - Lisk Sepolia testnet with OP Stack L2 contracts
+
+**Progress**: 196 of ~335 presets migrated (~56% complete), 148 remaining
+
+All tests pass (10 passed, 1 skipped).

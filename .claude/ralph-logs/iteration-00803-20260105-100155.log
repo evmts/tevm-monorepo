@@ -1,0 +1,30 @@
+# Ralph Migration Log - Iteration 765
+## Date: 2026-01-05
+
+## Task: Improve test coverage for nativePrivateKeyToAccount signTypedData
+
+## Summary
+
+Added tests for signTypedData function to cover various EIP-712 typed data value types:
+1. Address values as hex strings
+2. bytes32 values as hex strings
+3. uint values as numbers (converted to bigint)
+4. Nested struct types
+
+## Changes Made
+
+### Modified files:
+- `packages/utils/src/nativePrivateKeyToAccount.spec.ts` - Added 4 new tests
+
+### Tests added:
+1. `should handle address values that are already objects`
+2. `should handle bytes32 values as hex strings`
+3. `should handle uint values as numbers`
+4. `should handle nested struct types`
+
+## Coverage Improvement
+
+- Overall coverage: 94.51% → 94.62%
+- nativePrivateKeyToAccount.js: 91.48% → 94.32%
+
+## Status: COMPLETE

@@ -1,0 +1,84 @@
+# Ralph Migration Log - Iteration 309
+## Date: 2026-01-05 00:05
+
+## Summary
+Status verification and guillotine-mini WASM integration review.
+
+## Actions Taken
+1. Reviewed previous iteration (308) - core migration confirmed complete
+2. Verified core packages have ZERO direct viem imports:
+   - @tevm/actions - CLEAN
+   - @tevm/evm - CLEAN
+   - @tevm/state - CLEAN
+   - @tevm/vm - CLEAN
+   - @tevm/node - CLEAN
+
+3. Reviewed guillotine-mini WASM integration in @tevm/evm:
+   - guillotineWasm.js provides full WASM loader and wrapper
+   - Supports: evm_create, evm_destroy, evm_execute, SSTORE, SLOAD, etc.
+   - 38 tests passing, 1 skipped (known evm_set_storage bug)
+   - Comprehensive opcode coverage: arithmetic, bitwise, control flow, memory, storage
+
+4. Tested native implementations:
+   - nativePrivateKeyToAccount.spec.ts: 18 tests passing
+   - guillotineWasm.spec.ts: 38 tests passing
+
+5. Identified future migration opportunity - @tevm/tx package:
+   - Currently re-exports @ethereumjs/tx
+   - Voltaire has complete Transaction support:
+     - Legacy, EIP-2930, EIP-1559, EIP-4844, EIP-7702
+     - serialize, deserialize, hash, sign, verify, getSender
+     - Access lists, authorization lists, blob transactions
+   - Migration would be significant but valuable for removing @ethereumjs/tx dependency
+
+## Test Summary
+- guillotineWasm.spec.ts: 38 passed, 1 skipped
+- nativePrivateKeyToAccount.spec.ts: 18 passed
+- Total: 56 tests verified passing
+
+## Migration Status (Stable)
+
+### Core Packages - COMPLETE
+All core packages have ZERO direct viem imports:
+- @tevm/actions, @tevm/evm, @tevm/state, @tevm/vm, @tevm/node
+- @tevm/block, @tevm/blockchain, @tevm/precompiles
+- @tevm/decorators, @tevm/jsonrpc, @tevm/procedures
+- @tevm/rlp, @tevm/utils (native implementations)
+
+### Intentional Dependencies (Kept for API Compatibility)
+- viem in @tevm/memory-client - User-facing viem client compatibility
+- viem re-exports in @tevm/utils - Backward compatibility (native alternatives available)
+- @ethereumjs/common - Chain configuration
+- @ethereumjs/tx - Transaction classes (voltaire has alternatives)
+- @ethereumjs/trie - Merkle Patricia Trie
+
+### Guillotine-mini Integration Status
+- WASM loader working (packages/evm/src/guillotineWasm.js)
+- EVM creation and destruction working
+- Basic opcode execution working (arithmetic, bitwise, control flow)
+- Storage operations (SSTORE/SLOAD) working during execution
+- Pre-execution storage setting has known bug (skipped test)
+- Hardfork selection working (Cancun, Prague)
+
+### Next Steps (Future Iterations)
+1. **Transaction Migration**: Migrate @tevm/tx from @ethereumjs/tx to voltaire Transaction
+   - Voltaire has comprehensive Transaction module
+   - Would eliminate @ethereumjs/tx dependency
+   - Significant change requiring careful testing
+
+2. **Guillotine-mini Storage Bug**: Fix evm_set_storage WASM bug
+   - Currently fails with "null function or function signature mismatch"
+   - Workaround: use SSTORE during execution instead of pre-population
+
+3. **Block/Header Migration**: Voltaire has Block, BlockHeader, BlockBody primitives
+   - Could potentially replace @ethereumjs/block dependency
+   - Requires API alignment work
+
+## Files Modified
+None - verification and testing only
+
+## Notes
+- Migration remains stable and complete for core packages
+- Guillotine-mini WASM integration is functional for basic EVM execution
+- Native implementations (account, transport, fork client) all tested and working
+- Focus has shifted from viem removal to optional ethereumjs removal via voltaire

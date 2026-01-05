@@ -1,0 +1,53 @@
+# Ralph Migration Iteration
+
+**Date**: 2026-01-04
+**Files migrated**: 4 files
+
+## Changes Made
+
+1. **packages/memory-client/src/test/tevm.spec.ts**
+   - `encodeDeployData` moved from viem to @tevm/utils
+   - Committed: fb0f96e96
+
+2. **packages/memory-client/src/createTevmTransport.js**
+   - `createTransport` moved from viem to @tevm/utils
+   - Committed: f424e0716
+
+3. **packages/http-client/src/createHttpClient.js**
+   - `createPublicClient, http` moved from viem to @tevm/utils
+   - Committed: 481a66d5f
+
+4. **packages/blockchain/src/ChainOptions.ts**
+   - `BlockTag, EIP1193RequestFn` types moved from viem to @tevm/utils
+   - Committed: a89132ac5
+
+## Notes
+- All TypeScript checks passed
+- Test failures in tevm.spec.ts are pre-existing (storageRoot validation issue)
+- `defineChain` in common/presets/tevmDefault.js not migrated - needs to be added to @tevm/utils first
+- memory-client type files still have viem imports (Client, Account, Chain, etc.) - these are viem-specific client types
+
+## Remaining viem imports (actual imports, not JSDoc):
+- memory-client type files (MemoryClient.ts, CreateMemoryClientFn.ts, etc.) - viem client types
+- common/presets/tevmDefault.js - defineChain, viem/chains
+- Various test files - testActions, walletActions (viem-specific)
+
+## Additional changes in this iteration
+
+5. **packages/address/src/createAddress.spec.ts**
+   - `numberToBytes` moved from viem to @tevm/utils
+   - Committed: 3ef129807
+
+6. **packages/address/src/createContractAddress.spec.ts**
+   - `numberToBytes` moved from viem to @tevm/utils
+   - Committed: 3ef129807
+
+7. **packages/blockchain/src/utils/getBlockFromRpc.spec.ts**
+   - `custom` moved from viem to @tevm/utils
+   - Committed: 3ef129807
+
+8. **packages/http-client/src/createHttpClient.spec.ts**
+   - `bytesToHex, keccak256` moved from viem to @tevm/utils
+   - Committed: 3ef129807
+
+**Note**: There are pre-existing TypeScript errors in the address package unrelated to these changes (type signature mismatches for hexToBytes, keccak256).

@@ -1,6 +1,5 @@
 import { InvalidAddressError, UnreachableCodeError } from '@tevm/errors'
-import { EthjsAddress, hexToBytes } from '@tevm/utils'
-import { numberToBytes } from 'viem'
+import { EthjsAddress, hexToBytes, numberToBytes } from '@tevm/utils'
 import { Address } from './Address.js'
 
 /**
@@ -80,7 +79,7 @@ export const createAddress = (address) => {
 			return new Address(numberToBytes(address, { size: 20 }))
 		}
 		if (typeof address === 'string' && address.startsWith('0x')) {
-			return new Address(hexToBytes(/** @type {import('viem').Hex}*/ (address), { size: 20 }))
+			return new Address(hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (address), { size: 20 }))
 		}
 		if (typeof address === 'string') {
 			return new Address(hexToBytes(`0x${address}`, { size: 20 }))

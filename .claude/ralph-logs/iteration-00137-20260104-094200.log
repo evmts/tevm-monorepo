@@ -1,0 +1,93 @@
+# Ralph Migration Log - Iteration 137
+## Date: 2026-01-04 09:42:00
+
+## Summary
+Created native `generatePrivateKey` function using the existing native `randomBytes` implementation, eliminating the need for viem's `generatePrivateKey` in client code.
+
+## Changes Made
+
+### New File: packages/utils/src/generatePrivateKey.js
+Created a native implementation that:
+- Uses the existing native `randomBytes(32)` to generate 32 cryptographically secure random bytes
+- Converts to hex using the native `bytesToHex` function
+- Returns a hex-encoded 32-byte private key (e.g., '0x...' with 66 total characters)
+- Matches viem's generatePrivateKey API exactly
+
+Key implementation details:
+- Uses `randomBytes` from `./randomBytes.js` (native implementation using Web Crypto API)
+- Uses `bytesToHex` from `./viem.js` (native implementation)
+- No external dependencies required
+
+### New File: packages/utils/src/generatePrivateKey.spec.ts
+Comprehensive test suite with 6 tests:
+1. Generates a valid hex string starting with 0x
+2. Generates a key of correct length (66 chars = 0x + 64 hex)
+3. Generates different keys on each call (cryptographically random)
+4. Generates valid hex characters (passes hex pattern regex)
+5. Generates 32 bytes when converted to bytes
+6. Generates keys with high entropy (all bytes should vary)
+
+### Modified: packages/utils/src/viem.js
+Added export for the new native function:
+```javascript
+// Native generatePrivateKey implementation
+export { generatePrivateKey } from './generatePrivateKey.js'
+```
+
+### Modified: packages/utils/src/index.ts
+Added `generatePrivateKey` to the public exports list alongside `privateKeyToAddress`.
+
+## Test Results
+- All 6 tests pass in generatePrivateKey.spec.ts
+- All 7 tests pass in randomBytes.spec.ts
+- Total: 13 tests passing
+
+## Migration Impact
+
+### New Public API
+New exported function `generatePrivateKey` available from @tevm/utils:
+```javascript
+import { generatePrivateKey } from '@tevm/utils'
+const privateKey = generatePrivateKey() // '0x...' (66 chars)
+```
+
+### Viem Import Availability
+Test files can now import `generatePrivateKey` from `@tevm/utils` instead of `viem/accounts`:
+- Before: `import { generatePrivateKey } from 'viem/accounts'`
+- After: `import { generatePrivateKey } from '@tevm/utils'`
+
+Note: The full migration of test files was deferred due to a pre-existing unrelated test failure in memory-client tests.
+
+## Technical Details
+
+### Implementation
+The implementation is straightforward and leverages existing native functions:
+```javascript
+import { randomBytes } from './randomBytes.js'
+import { bytesToHex } from './viem.js'
+
+export const generatePrivateKey = () => {
+  const bytes = randomBytes(32)
+  return bytesToHex(bytes)
+}
+```
+
+### Why This Works
+- `randomBytes` uses Web Crypto API (`crypto.getRandomValues`) which provides cryptographically secure random bytes
+- `bytesToHex` converts to hex string with '0x' prefix
+- 32 bytes = 256 bits = standard Ethereum private key size
+
+## Remaining viem/accounts Imports
+
+### In production code (viem.js)
+- `mnemonicToAccount` - HD wallet derivation with signing methods
+- `privateKeyToAccount` - Private key signer with full account object
+
+### In test code
+- `generatePrivateKey` - Can now be replaced with @tevm/utils version
+- `privateKeyToAccount` - Needed for account objects with signing methods
+
+## Next Steps
+1. Migrate test files to use `generatePrivateKey` from @tevm/utils (once pre-existing test issues are resolved)
+2. Consider implementing `mnemonicToAddress` using voltaire's HDWallet
+3. The full `mnemonicToAccount`/`privateKeyToAccount` functions return account objects with signing methods - these may remain as viem re-exports for compatibility

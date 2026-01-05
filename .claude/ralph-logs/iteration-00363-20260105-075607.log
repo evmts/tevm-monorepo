@@ -1,0 +1,25 @@
+## Summary - Iteration 738
+
+I've completed a focused migration task:
+
+### What was done:
+1. **Added `DecodeErrorResultReturnType` type to `@tevm/utils`** - This is a native implementation that replaces viem's type of the same name. It provides type-safe decoding of error results from reverted contract calls.
+
+2. **Updated test-matchers to use the native type** - Migrated:
+   - `extensions/test-matchers/src/matchers/errors/types.ts`: Now imports `DecodeErrorResultReturnType` from `@tevm/utils` instead of viem
+   - `extensions/test-matchers/src/matchers/errors/handleTransaction.ts`: Migrated `DecodeErrorResultReturnType`, `Hex`, `Client` types and `decodeAbiParameters`, `isHex` functions from viem to `@tevm/utils`
+
+### Files changed:
+- `packages/utils/src/contract-types.ts` - Added the new type
+- `packages/utils/src/abitype.ts` - Exported the new type  
+- `packages/utils/src/index.ts` - Added to main exports
+- `extensions/test-matchers/src/matchers/errors/types.ts` - Updated imports
+- `extensions/test-matchers/src/matchers/errors/handleTransaction.ts` - Updated imports
+
+### Build verification:
+- `@tevm/utils:build:types` succeeded
+- The types.ts file compiles without errors
+
+### Notes:
+- Pre-existing `Client` type incompatibilities between viem and @tevm/utils remain (documented in iteration 735)
+- The handleTransaction.ts still requires some viem imports for error classes (`ContractFunctionRevertedError`, `BaseError as ViemBaseError`) and viem/actions - these require more substantial work to migrate

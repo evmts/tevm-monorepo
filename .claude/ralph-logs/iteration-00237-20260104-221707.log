@@ -1,0 +1,19 @@
+## Summary - Iteration 291
+
+I created a native `nativeCustom()` transport function that wraps any EIP-1193 provider (like `window.ethereum`, WalletConnect, etc.). This completes the trio of native transports:
+
+1. **`nativeHttp()`** - for JSON-RPC over HTTP
+2. **`nativeWebSocket()`** - for JSON-RPC over WebSocket with subscriptions  
+3. **`nativeCustom()`** - for wrapping any EIP-1193 provider
+
+### Changes made:
+- Created `packages/utils/src/nativeCustom.js` with viem-compatible API
+- Created `packages/utils/src/nativeCustom.spec.ts` with 11 tests (all passing)
+- Added export to `packages/utils/src/index.ts`
+- Created iteration log
+
+### Key features:
+- Compatible with viem's `custom()` transport API
+- Intelligent retry logic that handles transient errors with exponential backoff
+- Does NOT retry on user rejection (code 4001), invalid params (-32602), or other permanent failures
+- Configurable: key, name, retryCount, retryDelay

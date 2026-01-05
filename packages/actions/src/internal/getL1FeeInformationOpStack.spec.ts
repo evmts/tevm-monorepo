@@ -1,7 +1,7 @@
 import { optimism } from '@tevm/common'
 import { createTevmNode, type TevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
-import { numberToBytes } from 'viem'
+import { numberToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { getL1FeeInformationOpStack } from './getL1FeeInformationOpStack.js'
 

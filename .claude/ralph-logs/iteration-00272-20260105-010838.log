@@ -1,0 +1,10 @@
+Successfully migrated bsc.js (BNB Smart Chain) preset from viem/chains to nativeDefineChain. 
+
+**Summary - Iteration 327:**
+- Migrated `packages/common/src/presets/bsc.js` to use `nativeDefineChain` from `@tevm/utils` instead of importing from `viem/chains`
+- Tests pass: 10 passed, 1 skipped
+- Commit: `156fbd412`
+
+**Migration progress:**
+- 8 high-priority presets migrated (mainnet, optimism, sepolia, arbitrum, base, polygon, avalanche, bsc)
+- 327 preset files still importing from viem/chains

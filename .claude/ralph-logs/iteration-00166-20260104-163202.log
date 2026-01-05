@@ -1,0 +1,25 @@
+## Summary
+
+Successfully completed **Iteration 219** of the Ralph migration agent.
+
+### Changes Made:
+1. **Added 3 new native EIP-712 functions to `@tevm/utils`**:
+   - `hashTypedData()` - Hash typed data according to EIP-712 spec
+   - `signTypedData()` - Sign typed data with a private key
+   - `verifyTypedData()` - Verify typed data signatures
+
+2. **Implementation details**:
+   - Uses `@tevm/voltaire/EIP712` and `@tevm/voltaire/Address` for native crypto
+   - Added `convertMessageValue()` helper to recursively convert addresses, bytes, and integers to voltaire-compatible types
+   - Properly filters out `EIP712Domain` type since voltaire handles it internally
+
+3. **Exported new functions** from `packages/utils/src/index.ts`
+
+4. **Added comprehensive tests** - 7 new tests covering all three functions
+
+### Test Results:
+All 31 tests pass (24 existing + 7 new EIP-712 tests).
+
+### Migration Status:
+- Core packages (`@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, `@tevm/node`) remain clean of direct viem imports
+- The new EIP-712 functions provide native alternatives to viem's `hashTypedData`, `signTypedData`, and `verifyTypedData`

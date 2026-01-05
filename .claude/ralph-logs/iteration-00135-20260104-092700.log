@@ -1,0 +1,82 @@
+# Ralph Migration Log - Iteration 135
+## Date: 2026-01-04 09:27:00
+
+## Summary
+Created native provider types (`EIP1193RequestFn`, `Transport`, `PublicClient`, `EncodeEventTopicsParameters`) to replace viem type imports in @tevm/utils/src/index.ts.
+
+## Changes Made
+
+### New File: packages/utils/src/provider-types.ts
+Created a comprehensive provider types file with the following types:
+- `EIP1193RequestFn<TRpcSchema>` - Generic EIP-1193 request function type
+- `TransportConfig<TType, TEip1193RequestFn>` - Transport configuration object
+- `Transport<TType, TRpcAttributes, TEip1193RequestFn>` - Transport factory type
+- `PublicClient<TTransport, TChain>` - Public client interface
+- `ContractEventName<TAbi>` - Extracts event names from ABI
+- `ContractEventArgs<TAbi, TEventName>` - Extracts event argument types
+- `EncodeEventTopicsParameters<TAbi, TEventName>` - Parameters for encoding event topics
+
+### Modified: packages/utils/src/index.ts
+Changed the provider type exports from viem to native types:
+
+**Before:**
+```typescript
+export type { EIP1193RequestFn, Transport, PublicClient } from 'viem'
+export type { EncodeEventTopicsParameters } from 'viem/utils'
+```
+
+**After:**
+```typescript
+// Native provider types for fork client compatibility (migrated from viem)
+export type {
+    EIP1193RequestFn,
+    Transport,
+    TransportConfig,
+    PublicClient,
+} from './provider-types.js'
+
+// Native EncodeEventTopicsParameters type (migrated from viem/utils)
+export type { EncodeEventTopicsParameters, ContractEventName, ContractEventArgs } from './provider-types.js'
+```
+
+## Test Results
+- All 540 tests pass in @tevm/utils
+- dist build successful
+
+## Migration Impact
+
+### Before
+The @tevm/utils index.ts had 2 direct viem type imports:
+1. `EIP1193RequestFn, Transport, PublicClient` from `'viem'`
+2. `EncodeEventTopicsParameters` from `'viem/utils'`
+
+### After
+No direct viem imports in index.ts - all provider types now come from native implementation.
+
+## Remaining viem imports in @tevm/utils
+
+### Runtime code (viem.js)
+- Transport factories: `createPublicClient`, `createTransport`, `custom`, `defineChain`, `http`, `webSocket`
+- Account functions: `mnemonicToAccount`, `privateKeyToAccount`
+- ABI/encoding functions: Core viem encoding/decoding utilities
+
+### Type imports (abitype.ts)
+- ABI types: `Abi`, `AbiEvent`, `AbiFunction`, `ExtractAbiEvent`, etc.
+- These are complex conditional types that work with viem's type system
+
+### Other files
+- `prefundedAccounts.ts` - Uses `privateKeyToAccount` for account generation
+- Test files - Use viem types directly (not production code)
+
+## Notes
+- The native provider types are designed to be API-compatible with viem's types
+- Types include JSDoc documentation for better developer experience
+- The `PublicClient` type provides a comprehensive interface matching viem's public client API
+- `EIP1193RequestFn` template parameter is kept for viem compatibility, though currently returns `unknown`
+
+## Next Steps
+1. The remaining viem runtime re-exports in `viem.js` provide essential functionality:
+   - Transport factories are fundamental for forking functionality
+   - Account functions provide complex cryptographic operations
+2. The `abitype.ts` types are complex type utilities that would require significant work to replicate
+3. Consider migrating transport functions if voltaire provides equivalents

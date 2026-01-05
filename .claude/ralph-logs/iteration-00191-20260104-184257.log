@@ -1,0 +1,20 @@
+All evm tests pass too. Let me summarize what was done in this iteration:
+
+## Summary
+
+I completed two bug fixes as part of the ongoing voltaire migration:
+
+### 1. Fixed EvmError export from @tevm/evm
+- Created a native `EvmError.js` in `packages/evm/src/` that provides the same interface as `@ethereumjs/evm`'s `EVMError` class
+- This removes a runtime dependency on `@ethereumjs/evm` for error handling in precompiles
+
+### 2. Fixed encodeFunctionResult for void functions  
+- The `encodeFunctionResult` function in `packages/utils/src/abiFunctionEncoding.js` didn't handle functions with no outputs (like `function set(uint256)` which returns nothing)
+- Added a check to return `'0x'` for functions with empty outputs array
+
+### Tests Passing
+- `packages/precompiles/src/` - 16 tests
+- `packages/utils/src/abiFunctionEncoding.spec.ts` - 15 tests  
+- `packages/evm/src/` - 38 tests
+
+The migration to voltaire is now more complete with native EvmError handling and proper void function support in ABI encoding.

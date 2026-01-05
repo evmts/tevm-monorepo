@@ -1,0 +1,40 @@
+# Ralph Migration Log - Iteration 318
+## Date: 2026-01-05 00:51
+
+## Summary
+Migrated tevmDefault.js from viem/chains dependency to native implementations. This removes viem/chains from the core tevm default chain preset.
+
+## Actions Taken
+1. Updated `packages/common/src/presets/tevmDefault.js`:
+   - Replaced `import { defineChain } from '@tevm/utils'` with `import { nativeDefineChain } from '@tevm/utils'`
+   - Removed `import { optimism as _optimism, foundry } from 'viem/chains'`
+   - Created native `foundryRpcUrls` object inline (identical to viem/chains foundry.rpcUrls)
+   - Created native `ethNativeCurrency` object inline (identical to viem/chains optimism.nativeCurrency)
+   - Used `nativeDefineChain()` instead of viem's `defineChain()`
+   - Removed dependencies on optimism.fees, optimism.formatters, optimism.serializers (optional features)
+
+## Files Modified
+1. `packages/common/src/presets/tevmDefault.js`
+   - Before: imported defineChain from @tevm/utils, optimism and foundry from viem/chains
+   - After: imports only nativeDefineChain from @tevm/utils, uses inline native definitions
+
+## Tests Verified
+- createCommon.spec.ts: 18 passed, 1 skipped
+- createTevmTransport.spec.ts: 6 passed
+- jsonRpcAutomining.spec.ts: 5 passed
+- Types build successfully with `pnpm nx run @tevm/common:build:types`
+
+## Impact
+- **Reduced viem/chains usage**: tevmDefault.js no longer imports from viem/chains
+- **Backwards compatible**: The chain configuration remains functionally identical
+- **Removed optional features**: fees, formatters, and serializers from optimism were omitted as they are optional
+  - If needed, these can be added back as native implementations in the future
+
+## Remaining viem/chains Imports
+- 337 other preset files (mainnet.js, optimism.js, etc.) still import from viem/chains
+- tevmDefault.js was special because it's the default chain and frequently used
+
+## Next Steps
+1. Create a generator script to produce native chain presets for commonly used chains
+2. Consider if we need native implementations of formatters/serializers for specific chains
+3. Continue migrating other high-priority presets (mainnet, optimism, sepolia)

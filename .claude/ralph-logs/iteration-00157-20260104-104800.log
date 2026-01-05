@@ -1,0 +1,47 @@
+# Ralph Migration Log - Iteration 157
+## Date: 2026-01-04 10:48:00
+
+## Summary
+Updated 3 spec test files in `@tevm/state` to import `CacheType` from `@tevm/utils` instead of `@ethereumjs/statemanager`. This continues the incremental migration by ensuring test files use the native implementation.
+
+## Changes Made
+
+### Modified: packages/state/src/ContractCache.spec.ts
+- Before: `import { CacheType, StorageCache } from '@ethereumjs/statemanager'`
+- After: `import { StorageCache } from '@ethereumjs/statemanager'` + `import { CacheType } from '@tevm/utils'`
+
+### Modified: packages/state/src/createBaseState.spec.ts
+- Before: `import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'`
+- After: `import { AccountCache, StorageCache } from '@ethereumjs/statemanager'` + `import { CacheType } from '@tevm/utils'`
+
+### Modified: packages/state/src/actions/getAccountAddresses.spec.ts
+- Before: `import { AccountCache, CacheType } from '@ethereumjs/statemanager'`
+- After: `import { AccountCache } from '@ethereumjs/statemanager'` + `import { CacheType } from '@tevm/utils'`
+
+## Test Results
+All 24 tests in the 3 modified files pass:
+- ContractCache.spec.ts: 13 tests passed
+- createBaseState.spec.ts: 4 tests passed
+- getAccountAddresses.spec.ts: 7 tests passed
+
+## Migration Progress
+
+### CacheType usage in @tevm/state:
+- Implementation files: Already using `@tevm/utils` (ContractCache.js, createBaseState.js, shallowCopy.js)
+- Test files: Now updated to use `@tevm/utils` (this iteration)
+- Exports: Already exporting from `@tevm/utils` via index.js
+
+### Remaining @ethereumjs/statemanager imports in @tevm/state:
+- `AccountCache` - Still needed from @ethereumjs/statemanager (complex class implementation)
+- `StorageCache` - Still needed from @ethereumjs/statemanager (complex class implementation)
+
+These remain because AccountCache and StorageCache are complex class implementations with LRU caching and checkpoint/revert functionality. Migrating them would require implementing equivalent native cache classes.
+
+## Next Steps
+1. Consider if native cache implementations are worth building
+2. Continue migrating other packages that have simpler @ethereumjs imports
+3. Look for more low-hanging fruit in other packages
+
+## Notes
+- Some existing state tests are failing (unrelated to these changes) - appears to be issues with account serialization/balance handling from other ongoing migration work
+- The failing tests were already failing before this iteration's changes

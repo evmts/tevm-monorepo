@@ -1,0 +1,19 @@
+## Summary
+
+In this iteration, I made two key changes:
+
+### 1. Migrated `encodeFunctionData` import
+- **File**: `packages/memory-client/src/tevmCall.spec.ts`
+- Changed from importing `encodeFunctionData` from 'viem' to '@tevm/utils'
+
+### 2. Fixed critical Bloom.or() bug
+- **File**: `packages/utils/src/Bloom.ts`
+- **Bug**: The loop `for (let i = 0; i <= BYTE_SIZE; i++)` was accessing index 256 on a 256-element array (valid indices are 0-255)
+- **Fix**: Changed to `for (let i = 0; i < BYTE_SIZE; i++)`
+- **Impact**: This was causing `DefensiveNullCheckError: a is not defined` in many memory-client tests
+
+### 3. Updated Bloom test
+- **File**: `packages/utils/src/Bloom.spec.ts`
+- Replaced a test that relied on the bug with a proper test that verifies `Bloom.or()` correctly combines two bloom filters
+
+This unblocks many tests that were failing due to the Bloom bug. The remaining test failures are pre-existing issues unrelated to the migration.

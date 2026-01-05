@@ -1,0 +1,27 @@
+## Summary
+
+I completed Ralph Migration Iteration 108 successfully. Here's what was done:
+
+### Key Achievements
+
+1. **Fixed voltaire build issue**: The `jsonrpc/index.ts` was exporting from a non-existent `./types/index.js`. Changed it to export from `./base-types.js` which has the same type definitions.
+
+2. **Implemented native ABI encoding/decoding**: Created `packages/utils/src/abiEncoding.js` with:
+   - `encodeAbiParameters(params, values)` → Returns Hex string
+   - `decodeAbiParameters(params, data)` → Returns decoded values
+   
+   These wrap voltaire's `encodeParameters` and `decodeParameters` from the Abi module.
+
+3. **Added comprehensive tests**: 16 tests covering all major ABI types (uint256, string, address, bool, bytes32, arrays) with encode, decode, and roundtrip scenarios.
+
+4. **All tests pass**: 319 tests in @tevm/utils pass (plus 16 new ones).
+
+### viem Imports Reduced
+
+Before: 13 ABI functions from `viem/utils`
+After: 11 ABI functions from `viem/utils` (2 migrated: `encodeAbiParameters`, `decodeAbiParameters`)
+
+### Commits Made
+
+1. `fix(jsonrpc): fix missing types/index.js export by redirecting to base-types.js` (in voltaire submodule)
+2. `⚡ refactor(utils): implement native ABI encoding/decoding using @tevm/voltaire` (in tevm)

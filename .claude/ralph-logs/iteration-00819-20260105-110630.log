@@ -1,0 +1,48 @@
+# Ralph Migration Log - Iteration 819
+## Date: 2026-01-05
+
+## Task: Add test coverage for erc20Abi constant
+
+## Summary
+
+Added comprehensive test suite for the `erc20Abi` constant in `@tevm/utils`. This native ERC-20 ABI implementation provides viem compatibility without requiring viem as a dependency.
+
+## Changes Made
+
+### New files:
+- `packages/utils/src/erc20Abi.spec.ts` - 14 tests
+
+### Test coverage:
+
+**Events:**
+- Approval event (3 indexed inputs: owner, spender, value)
+- Transfer event (3 indexed inputs: from, to, value)
+
+**View functions (6 total):**
+- allowance(owner, spender) -> uint256
+- balanceOf(account) -> uint256
+- decimals() -> uint8
+- name() -> string
+- symbol() -> string
+- totalSupply() -> uint256
+
+**Nonpayable functions (3 total):**
+- approve(spender, amount) -> bool
+- transfer(recipient, amount) -> bool
+- transferFrom(sender, recipient, amount) -> bool
+
+**Structure tests:**
+- Total ABI length (11 items)
+- Function count by stateMutability
+- Const assertion verification
+
+## Test Results
+
+All 14 tests passing:
+- erc20Abi.spec.ts: 14 tests ✓
+
+## Migration Status
+
+This was the last utility file without a spec test. All core JS files in @tevm/utils now have test coverage.
+
+## Status: COMPLETE

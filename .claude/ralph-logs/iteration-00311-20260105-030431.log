@@ -1,0 +1,9 @@
+Successfully migrated 5 chain presets:
+
+1. **saigon.js** (id: 2021) - Saigon Testnet (Ronin testnet) with RON native currency
+2. **sapphire.js** (id: 23294) - Oasis Sapphire mainnet with ROSE native currency
+3. **sapphireTestnet.js** (id: 23295) - Oasis Sapphire Testnet with TEST native currency
+4. **satoshiVM.js** (id: 3109) - SatoshiVM Alpha Mainnet (Bitcoin L2)
+5. **satoshiVMTestnet.js** (id: 3110) - SatoshiVM Testnet
+
+**Progress**: 73 chain presets remaining (~21% left to migrate, excluding the generator script).

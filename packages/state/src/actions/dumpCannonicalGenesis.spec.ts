@@ -1,7 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { SimpleContract } from '@tevm/test-utils'
-import { createAccount } from '@tevm/utils'
-import { hexToBytes, numberToBytes } from 'viem'
+import { createAccount, hexToBytes, numberToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'

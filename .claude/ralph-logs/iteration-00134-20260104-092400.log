@@ -1,0 +1,95 @@
+# Ralph Migration Log - Iteration 134
+## Date: 2026-01-04 09:24:00
+
+## Summary
+Created native RPC type definitions to replace viem's RPC types export. This removes another set of viem type imports from @tevm/utils.
+
+## Changes Made
+
+### New File: packages/utils/src/rpc-types.ts
+Created a comprehensive native RPC types file with the following types:
+- `Index` - JSON-RPC index type (hex encoded)
+- `Quantity` - JSON-RPC quantity type (hex encoded bigint)
+- `Status` - Transaction receipt status ('0x0' | '0x1')
+- `TransactionType` - Transaction type ('0x0' to '0x4')
+- `RpcBlockNumber` - Block number reference
+- `RpcBlockIdentifier` - Block identifier (number or hash)
+- `RpcAuthorization` / `RpcAuthorizationList` - EIP-7702 authorization types
+- `RpcAccessListItem` / `RpcAccessList` - EIP-2930/1559 access list types
+- `RpcLog` - JSON-RPC log object
+- `RpcUncle` - Uncle/ommer block header
+- `RpcTransaction` - Generic transaction object (supports all tx types)
+- `RpcBlock` - Generic block object
+- `RpcWithdrawal` - Post-Shanghai withdrawal object
+- `RpcTransactionReceipt` - Transaction receipt object
+- `RpcTransactionRequest` - Transaction request object
+- `RpcStateMapping` - Storage slot mapping
+- `RpcAccountStateOverride` - Account state override for eth_call
+- `RpcStateOverride` - Full state override mapping
+- `RpcFeeHistory` - Fee history from eth_feeHistory
+- `RpcStorageProof` - Storage proof entry
+- `RpcProof` - Account proof from eth_getProof
+
+### Modified: packages/utils/src/index.ts
+Changed the RPC type exports from `'viem'` to `'./rpc-types.js'`:
+- Added new exports: `Index`, `Status`, `TransactionType`, `RpcAccessList`, `RpcAccessListItem`, `RpcAuthorization`, `RpcAuthorizationList`, `RpcStorageProof`, `RpcStateMapping`, `RpcAccountStateOverride`, `RpcWithdrawal`
+
+## Test Results
+- All 540 tests pass in @tevm/utils
+- All 17 tests pass in @tevm/decorators
+- All 29 tests pass in @tevm/contract
+
+## Migration Impact
+
+### Before
+```typescript
+export type {
+    Quantity,
+    RpcBlock,
+    RpcBlockIdentifier,
+    // ... etc
+} from 'viem'
+```
+
+### After
+```typescript
+export type {
+    Quantity,
+    RpcBlock,
+    RpcBlockIdentifier,
+    // ... plus additional types
+} from './rpc-types.js'
+```
+
+## Remaining viem imports in @tevm/utils
+
+### Types (index.ts)
+- `EIP1193RequestFn` - Used for fork client request functions
+- `Transport` - Used for fork transport definitions
+- `PublicClient` - Used for fork client compatibility
+- `EncodeEventTopicsParameters` - Used for event encoding
+
+### Runtime exports (viem.js)
+- `createPublicClient` - Creates public client for fork operations
+- `createTransport` - Creates custom transport
+- `custom` - Custom transport factory
+- `defineChain` - Chain definition helper
+- `http` - HTTP transport
+- `webSocket` - WebSocket transport
+
+### Runtime exports (viem.js) - Account functions
+- `mnemonicToAccount` - HD wallet derivation
+- `privateKeyToAccount` - Private key account creation
+
+### Abitype imports (abitype.ts)
+- `parseAbi` - Human-readable ABI parser (complex implementation)
+
+## Next Steps
+1. Consider creating native types for `EIP1193RequestFn`, `Transport`, `PublicClient` if feasible
+2. The transport/client functions are fundamental for forking and likely need to stay
+3. Account creation functions (mnemonicToAccount, privateKeyToAccount) provide complex signing functionality
+
+## Notes
+- The native RPC types are more comprehensive than viem's exports, including all transaction types (legacy through EIP-7702)
+- All types are documented with JSDoc for better developer experience
+- The types are designed to be backward compatible with existing code using viem's RPC types

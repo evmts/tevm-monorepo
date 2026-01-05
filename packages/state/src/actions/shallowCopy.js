@@ -1,4 +1,4 @@
-import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
+import { AccountCache, StorageCache, CacheType } from '@tevm/utils'
 import { ContractCache } from '../ContractCache.js'
 import { createBaseState } from '../createBaseState.js'
 

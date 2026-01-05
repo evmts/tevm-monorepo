@@ -63,6 +63,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@tevm/voltaire": "workspace:^",
 		"@tevm/address": "workspace:^",
 		"@tevm/block": "workspace:^",
 		"@tevm/blockchain": "workspace:^",
@@ -85,9 +86,7 @@
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
-	"peerDependencies": {
-		"viem": "^2.37.9"
-	},
+	"peerDependencies": {},
 	"publishConfig": {
 		"access": "public"
 	}

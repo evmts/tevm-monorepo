@@ -1,0 +1,58 @@
+# Ralph Migration Log - Iteration 413
+## Date: 2026-01-05 05:28
+
+## Task: Add native RpcUserOperation type and migrate @tevm/test-node
+
+## Changes Made
+
+### 1. New File: packages/utils/src/account-abstraction-types.ts
+Created native EIP-4337 Account Abstraction types:
+- `RpcUserOperation` - Comprehensive type supporting both v0.6 and v0.7+ formats
+- `SignedAuthorization` - EIP-7702 signed authorization type
+- `RpcAuthorization` - EIP-7702 RPC authorization type
+
+The types include all fields used in the codebase:
+- Common fields: sender, nonce, callData, callGasLimit, verificationGasLimit, etc.
+- v0.6 fields: initCode, paymasterAndData
+- v0.7+ fields: factory, factoryData, paymaster, paymasterData, paymasterPostOpGasLimit, paymasterVerificationGasLimit
+- EIP-7702 authorization fields
+
+### 2. Updated: packages/utils/src/index.ts
+Added exports for the new account abstraction types:
+- `RpcUserOperation`
+- `SignedAuthorization`
+
+### 3. Updated: extensions/test-node/src/internal/normalizeUserOperation.ts
+- Migrated `RpcUserOperation` import from `'viem'` to `'@tevm/utils'`
+
+### 4. Updated: extensions/test-node/src/internal/normalizeUserOperation.spec.ts
+- Migrated `RpcUserOperation` import from `'viem'` to `'@tevm/utils'`
+
+## Technical Notes
+
+### Type Design Choices
+Our `RpcUserOperation` type:
+1. Uses all-optional fields to support both v0.6 and v0.7+ user operations in a single type
+2. Matches the RPC serialization format where numeric values are hex strings
+3. Includes EIP-7702 authorization extension fields
+
+This approach differs from viem's complex `OneOf` union type but provides equivalent functionality for our use case.
+
+## Test Results
+- normalizeUserOperation.spec.ts: 11 tests passed
+- @tevm/utils: Type checks pass
+
+## Files Changed
+1. packages/utils/src/account-abstraction-types.ts (new)
+2. packages/utils/src/index.ts (modified)
+3. extensions/test-node/src/internal/normalizeUserOperation.ts (modified)
+4. extensions/test-node/src/internal/normalizeUserOperation.spec.ts (modified)
+
+## Status
+Migration of RpcUserOperation type: COMPLETED
+
+## Remaining viem imports in extensions/test-node
+After this iteration, extensions/test-node still has these viem imports:
+- types.ts: Account, Address, Chain, EIP1193RequestFn, RpcSchema, Transport
+- createTestSnapshotClient.ts: Account, Address, Chain, RpcSchema
+- other internal files with EIP1193RequestFn, EIP1193Parameters, EIP1474Methods (already in @tevm/utils)

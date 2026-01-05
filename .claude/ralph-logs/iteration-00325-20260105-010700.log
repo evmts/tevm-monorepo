@@ -1,0 +1,43 @@
+# Ralph Migration Log - Iteration 325
+## Date: 2026-01-05 01:07
+
+## Summary
+Migrated polygon.js preset from viem/chains dependency to nativeDefineChain. Polygon is one of the most widely used EVM chains, making this a high-priority migration.
+
+## Actions Taken
+1. Updated `packages/common/src/presets/polygon.js`:
+   - Replaced `import { polygon as _polygon } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+   - Created native chain definition inline with all properties:
+     - id: 137
+     - name: 'Polygon'
+     - nativeCurrency: { name: 'POL', symbol: 'POL', decimals: 18 }
+     - rpcUrls: { default: { http: ['https://polygon-rpc.com'] } }
+     - blockExplorers: { default: { name: 'PolygonScan', url: 'https://polygonscan.com', apiUrl: '...' } }
+     - contracts: multicall3
+
+## Files Modified
+1. `packages/common/src/presets/polygon.js`
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped
+
+## Impact
+- **Removed viem/chains dependency**: polygon.js no longer imports from viem/chains
+- **Backwards compatible**: The chain configuration remains functionally identical
+- **High-priority chain migrated**: Polygon is one of the most popular EVM chains
+
+## Migrated Presets So Far
+1. mainnet.js (iteration 320)
+2. optimism.js (iteration 321)
+3. sepolia.js (iteration 322)
+4. arbitrum.js (iteration 323)
+5. base.js (iteration 324)
+6. polygon.js (iteration 325) <- this iteration
+
+## Remaining viem/chains Imports
+- Still 328 preset files importing from viem/chains
+- Next high-priority preset to migrate: avalanche.js or zksync.js
+
+## Next Steps
+1. Continue migrating high-priority chain presets (avalanche, zksync, bnb)
+2. Consider creating a batch migration script for remaining presets

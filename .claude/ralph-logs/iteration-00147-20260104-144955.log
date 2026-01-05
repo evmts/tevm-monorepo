@@ -1,0 +1,12 @@
+Successfully completed iteration 199. I migrated `ecrecover.js` to use `@tevm/voltaire/Secp256k1`'s `recoverPublicKeyFromHash` function instead of directly importing from `@noble/curves/secp256k1.js`.
+
+**Summary of changes:**
+- Replaced `import { secp256k1 } from '@noble/curves/secp256k1.js'` with `import { recoverPublicKeyFromHash } from '@tevm/voltaire/Secp256k1'`
+- Removed unused `concatBytes` import
+- Simplified the implementation to use voltaire's `recoverPublicKeyFromHash({r, s, v}, hash)` API
+- All 7 tests pass
+
+**Remaining `@noble/*` imports in `packages/utils/src/`:**
+- `viem.js:33` - `keccak_256` from `@noble/hashes/sha3.js`  
+- `eip7702.js:13` - `keccak_256` from `@noble/hashes/sha3.js`
+- `eip7702.js:14` - `secp256k1` from `@noble/curves/secp256k1.js`

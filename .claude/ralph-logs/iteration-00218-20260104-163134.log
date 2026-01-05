@@ -1,0 +1,76 @@
+# Ralph Migration Log - Iteration 218
+## Date: 2026-01-04 16:31:34
+
+## Summary
+Migrated `keccak256` and `toHex` imports from `viem` to native `@tevm/utils` implementations in `nativeMnemonicToAccount.spec.ts`.
+
+## Changes Made
+
+### Updated nativeMnemonicToAccount.spec.ts
+File: `packages/utils/src/nativeMnemonicToAccount.spec.ts`
+
+**Before:**
+```typescript
+import { keccak256, toHex, recoverAddress, verifyMessage, verifyTypedData } from 'viem'
+```
+
+**After:**
+```typescript
+// Using viem for verification to test compatibility with viem's expected behavior
+import { recoverAddress, verifyMessage, verifyTypedData } from 'viem'
+// Native implementations for test utilities
+import { keccak256, toHex } from './viem.js'
+```
+
+## Migration Decisions
+
+### Why keep viem for verification functions:
+- `verifyMessage`, `verifyTypedData`, `recoverAddress` are used to verify that our native account implementations produce signatures compatible with viem
+- Our native `recoverAddress` has an API difference (doesn't handle BigInt for v parameter)
+- Our native `verifyMessage` doesn't handle raw message objects the same way viem does
+- Keeping viem for verification ensures we're testing actual compatibility, not just self-consistency
+
+### Successfully migrated to native:
+- `keccak256` - Native implementation using voltaire
+- `toHex` - Native implementation
+
+## Test Results
+- `nativeMnemonicToAccount.spec.ts` - 17 tests pass
+
+## Current Migration Status
+
+### Core Packages - Clean of Direct Viem Imports:
+- `@tevm/actions` - No direct viem imports
+- `@tevm/vm` - No direct viem imports
+- `@tevm/evm` - No direct viem imports
+- `@tevm/state` - No direct viem imports
+- `@tevm/node` - No direct viem imports
+
+### Remaining Viem Imports in Test Files:
+1. `nativeMnemonicToAccount.spec.ts`: `mnemonicToAccount` (viem/accounts), `verifyMessage`, `verifyTypedData`, `recoverAddress` (viem) - intentional for compatibility testing
+2. `nativeHdAccount.spec.ts`: `mnemonicToAccount` (viem/accounts) - intentional for compatibility testing
+3. `tevmDeal.spec.ts`: `erc20Abi` (viem) - standard ABI for forked mainnet testing
+
+### Remaining Viem Re-exports in utils/viem.js (for backwards compatibility):
+1. Account functions:
+   - `mnemonicToAccount` from viem/accounts
+   - `privateKeyToAccount` from viem/accounts
+
+2. Transport/client functions (needed for forking):
+   - `createPublicClient`, `createTransport`, `custom`, `defineChain`, `http`, `webSocket`
+
+3. ABI parsing:
+   - `parseAbi` from abitype
+
+## Notes
+- The core migration is essentially complete for utility functions
+- Remaining viem imports are either:
+  1. Intentional for compatibility testing
+  2. Re-exports for backwards compatibility
+  3. Complex functionality that would require significant effort to replicate
+
+## Next Steps
+1. Consider adding native `verifyTypedData` implementation
+2. Consider enhancing native `recoverAddress` to handle BigInt v parameter
+3. Consider adding native `erc20Abi` constant export
+4. Look for other test files that could use more native utilities

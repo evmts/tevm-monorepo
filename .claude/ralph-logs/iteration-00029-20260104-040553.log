@@ -1,0 +1,25 @@
+## Migration Iteration 38 Complete
+
+**Successfully migrated 8 viem imports in this iteration:**
+
+### @tevm/address (2 files)
+- `createAddress.js`: `numberToBytes` from viem → @tevm/utils
+- `createContractAddress.js`: `numberToBytes` from viem → @tevm/utils
+
+### @tevm/state (5 files)
+- `state-types/AccountStorage.ts`: `Hex` type
+- `state-types/SerializableTevmState.ts`: `Hex` type  
+- `state-types/ParameterizedAccountStorage.ts`: `Hex` type
+- `state-types/StateOptions.ts`: `Hex` type
+- `StateManager.ts`: `Address` type
+
+**Commits created:**
+- `67bc1a68a`: @tevm/address numberToBytes migrations
+- `593325523`: @tevm/state type imports
+
+**Viem import count reduced:** 243 → 235 (8 imports migrated)
+
+**Remaining notable viem dependencies:**
+- `withRetry` in @tevm/blockchain (utility function)
+- `defineChain` + chain presets in @tevm/common (viem-specific chain types)
+- `createPublicClient`, `createTransport` in @tevm/state (viem core - cannot migrate)

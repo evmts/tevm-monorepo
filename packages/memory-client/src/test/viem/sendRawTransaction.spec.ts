@@ -1,6 +1,6 @@
 import { tevmDefault } from '@tevm/common'
-import { hexToBytes } from 'viem'
-import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'
+import { generatePrivateKey, hexToBytes } from '@tevm/utils'
+import { privateKeyToAccount } from 'viem/accounts'
 import { prepareTransactionRequest, signTransaction } from 'viem/actions'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'

@@ -1,0 +1,54 @@
+# Ralph Migration Log - Iteration 221
+## Date: 2026-01-04 16:45:00
+
+## Summary
+Added deprecation notices to viem type re-exports and account function exports. This marks these as deprecated in favor of native implementations.
+
+## Changes Made
+
+### 1. Updated abitype.ts
+- Added `@deprecated` JSDoc comment to `Account` and `HDAccount` type exports from viem
+- Directs users to use native alternatives: `LocalAccount`, `NativePrivateKeyAccount`, `NativeHDAccount`
+
+### 2. Updated viem.js
+- Added `@deprecated` JSDoc comment to `mnemonicToAccount` and `privateKeyToAccount` exports from viem/accounts
+- Provides migration example in the deprecation notice
+- Updated header migration status to reflect:
+  - ✅ COMPLETED: Native account implementations (nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount)
+  - 🔄 DEPRECATED: viem account functions (use native versions instead)
+
+## Test Results
+- All 607 utils tests pass
+- No breaking changes - deprecation notices are informational only
+
+## Migration Status Summary
+
+### Fully Migrated (no viem/ethereumjs imports):
+- `@tevm/actions`
+- `@tevm/vm`
+- `@tevm/evm`
+- `@tevm/state`
+- `@tevm/node`
+- `@tevm/jsonrpc`
+- `@tevm/block`
+- `@tevm/tx` (except FeeMarket1559Tx)
+- `@tevm/receipt-manager`
+
+### Deprecated (native alternatives available):
+- `mnemonicToAccount` → `nativeMnemonicToAccount`
+- `privateKeyToAccount` → `nativePrivateKeyToAccount`
+- `Account` type → `LocalAccount`/`NativePrivateKeyAccount`
+- `HDAccount` type → `NativeHDAccount`
+
+### Remaining viem dependencies (necessary for functionality):
+1. Transport/client functions (`createPublicClient`, `http`, `webSocket`, etc.) - required for RPC communication
+2. `parseAbi` from abitype - human-readable ABI parsing
+
+### Remaining ethereumjs dependencies:
+1. `@ethereumjs/common` in createCommon.js - core EVM configuration
+2. `@ethereumjs/tx` (FeeMarket1559Tx) in createImpersonatedTx.js - transaction creation
+
+## Next Steps
+1. Consider creating native transport implementation for basic HTTP/WebSocket RPC
+2. Monitor for voltaire updates that might provide parseAbi functionality
+3. Long-term: evaluate native EVM common/tx implementations

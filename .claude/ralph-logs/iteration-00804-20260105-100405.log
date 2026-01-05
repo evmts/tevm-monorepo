@@ -1,0 +1,26 @@
+# Ralph Migration Log - Iteration 766
+## Date: 2026-01-05
+
+## Task: Improve test coverage for eip7702 legacy signature formats
+
+## Summary
+
+Added tests for legacy custom signing function formats in EIP-7702:
+1. 65-byte signature format (recovery byte at position 0)
+2. 64-byte compact signature format (r || s)
+
+## Changes Made
+
+### Modified files:
+- `packages/utils/src/eip7702.spec.ts` - Added 2 new tests
+
+### Tests added:
+1. `should handle custom signing function returning 65-byte Uint8Array`
+2. `should handle custom signing function returning 64-byte Uint8Array`
+
+## Coverage Improvement
+
+- Overall coverage: 94.62% → 95.15%
+- eip7702.js: 88.66% → 98.52%
+
+## Status: COMPLETE

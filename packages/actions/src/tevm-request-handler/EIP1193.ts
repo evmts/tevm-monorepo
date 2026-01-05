@@ -1,5 +1,5 @@
-import type { Filter } from '@tevm/utils'
 import type { AnvilJsonRpcRequest } from '../anvil/AnvilJsonRpcRequest.js'
+import type { FilterParams } from '../common/FilterParams.js'
 import type { TransactionParams } from '../common/TransactionParams.js'
 import type { DebugJsonRpcRequest } from '../debug/DebugJsonRpcRequest.js'
 import type { EthJsonRpcRequest } from '../eth/EthJsonRpcRequest.js'
@@ -74,7 +74,7 @@ export type PendingTxListener = (tx: TransactionParams) => void
 export type PendingTxRevertedListener = (tx: TransactionParams) => void
 export type PendingTxConfirmedListener = (tx: TransactionParams) => void
 export type ErrorListener = (error: ProviderRpcError) => void
-export type EventListener = (filter?: Filter) => void
+export type EventListener = (filter?: FilterParams) => void
 export type AcountUpdatedListener = (account?: GetAccountResult) => void
 export type DebugListener = (message: string) => void
 

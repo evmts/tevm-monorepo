@@ -1,0 +1,11 @@
+Migration iteration 139 complete. 
+
+**Summary:**
+- Migrated `abiDeployEncoding.spec.ts` to import `Abi` and `Hex` from local `./abitype.js` instead of `viem`
+- Migrated `prefundedAccounts.spec.ts` to import `Address` from local `./abitype.js` instead of `abitype`
+- All tests pass (8 tests total across both files)
+
+**Remaining viem imports in @tevm/utils:**
+1. `viem.js` - intentional re-exports (this is expected)
+2. `abitype.ts` - still imports some complex types from viem (Account, ContractConstructorArgs, etc.)
+3. `prefundedAccounts.spec.ts` - uses `mnemonicToAccount` from viem/accounts (complex HD wallet function)

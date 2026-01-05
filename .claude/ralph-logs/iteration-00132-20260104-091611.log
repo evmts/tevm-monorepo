@@ -1,0 +1,58 @@
+# Ralph Migration Iteration 132 - Migrate Hex type from viem to native
+
+## Summary
+
+Migrated the `Hex` type from viem to a native implementation in @tevm/utils. This is a simple type alias (`\`0x${string}\``) that doesn't require any complex viem functionality.
+
+## Changes Made
+
+### New Files
+
+1. `packages/utils/src/hex-types.ts` - Native Hex type definition:
+   - `Hex = \`0x${string}\`` - Simple template literal type matching viem's definition
+   - Includes JSDoc documentation with examples
+   - Note: This is an unbranded type for maximum compatibility with existing code
+
+### Modified Files
+
+1. `packages/utils/src/abitype.ts` - Updated to use native Hex type:
+   - Added `export type { Hex } from './hex-types.js'`
+   - Removed `Hex` from the viem imports block
+   - Added comment documenting the migration
+
+## Design Decision
+
+I chose to create a simple unbranded `Hex = \`0x${string}\`` type rather than using voltaire's branded `HexType = \`0x${string}\` & { readonly [brand]: "Hex" }` because:
+
+1. **Backward compatibility**: Viem's Hex is unbranded, so existing code expects unbranded strings
+2. **No casting required**: Using the branded voltaire type would require casting everywhere
+3. **Progressive migration**: The simple type can be used now; branding can be added later if needed
+
+## Impact
+
+### Types Migrated
+- `Hex` - Simple template literal type for hex strings
+
+### Remaining viem type imports in abitype.ts
+- `Account` - Complex type with signing methods
+- `ContractConstructorArgs` - Complex generic type
+- `ContractFunctionName` - Complex generic type
+- `CreateEventFilterParameters` - Complex parameterized type
+- `DecodeFunctionResultReturnType` - Complex generic type
+- `EncodeDeployDataParameters` - Complex parameterized type
+- `EncodeFunctionDataParameters` - Complex parameterized type
+- `Filter` - Complex filter type
+- `GetEventArgs` - Complex generic type
+- `HDAccount` - Complex type with signing methods
+
+## Test Results
+
+- All 540 tests pass in @tevm/utils
+- All 29 tests pass in @tevm/contract
+- TypeScript compilation shows only pre-existing voltaire errors (unrelated to this change)
+
+## Next Steps
+
+1. Consider migrating `Address` type from abitype to native implementation
+2. Continue reducing viem imports in other files
+3. Target more complex types that can be simplified (e.g., Filter types)

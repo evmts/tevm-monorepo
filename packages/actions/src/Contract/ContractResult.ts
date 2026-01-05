@@ -14,13 +14,13 @@ import type { TevmContractError } from './TevmContractError.js'
  *
  * @example
  * ```typescript
- * import { createClient } from 'viem'
- * import { contractHandler } from 'tevm/actions'
- * import { Abi } from 'viem/utils'
+ * import { createMemoryClient, tevmContract } from 'tevm'
+ * import { optimism } from 'tevm/common'
+ * import type { Abi } from 'tevm/actions'
  *
- * const client = createClient({ transport: http('https://mainnet.optimism.io')({}) })
+ * const client = createMemoryClient({ common: optimism })
  *
- * const params: ContractParams<Abi, 'myFunction'> = {
+ * const params = {
  *   abi: [...], // ABI array
  *   functionName: 'myFunction',
  *   args: [arg1, arg2],
@@ -29,10 +29,9 @@ import type { TevmContractError } from './TevmContractError.js'
  *   gas: 1000000n,
  *   gasPrice: 1n,
  *   skipBalance: true,
- * }
+ * } as const
  *
- * const contractCall = contractHandler(client)
- * const result: ContractResult<Abi, 'myFunction'> = await contractCall(params)
+ * const result = await tevmContract(client, params)
  *
  * if (result.errors) {
  *   console.error('Contract call failed:', result.errors)

@@ -1,0 +1,61 @@
+# Ralph Migration Log - Iteration 199
+## Date: 2026-01-04 14:52:00
+
+## Summary
+Migrated `ecrecover.js` to use `@tevm/voltaire/Secp256k1` module instead of direct `@noble/curves` import.
+
+## Changes Made
+
+### 1. Updated ecrecover.js imports
+Changed from:
+```javascript
+import { secp256k1 } from '@noble/curves/secp256k1.js'
+import { concatBytes } from './concatBytes.js'
+```
+
+To:
+```javascript
+import { recoverPublicKeyFromHash } from '@tevm/voltaire/Secp256k1'
+```
+
+### 2. Simplified implementation
+The old implementation manually:
+- Created a compact signature from r and s using `concatBytes`
+- Used `secp256k1.Signature.fromBytes()` to parse the signature
+- Called `addRecoveryBit()` and `recoverPublicKey()`
+- Sliced the 0x04 prefix from the result
+
+The new implementation:
+- Uses voltaire's `recoverPublicKeyFromHash()` which handles all this internally
+- Still uses `setLengthLeft` for padding r and s to 32 bytes
+- The recovery calculation and validation logic remains unchanged
+
+### 3. Removed unused import
+- Removed `concatBytes` import since voltaire accepts `{r, s, v}` object directly
+
+## Test Results
+All 7 ecrecover tests pass:
+- should recover the public key from a valid signature
+- should recover public key with v=0 (EIP-1559 style)
+- should recover public key with v=1 (EIP-1559 style)
+- should throw on invalid v value
+- should handle EIP-155 chain ID signature recovery
+- should produce consistent results with same inputs
+- should produce a verifiable public key
+
+## Files Modified
+1. `packages/utils/src/ecrecover.js`
+   - Changed import from `@noble/curves/secp256k1.js` to `@tevm/voltaire/Secp256k1`
+   - Simplified ecrecover function to use `recoverPublicKeyFromHash`
+   - Removed unused `concatBytes` import
+
+## Benefits
+- Consolidates dependency on voltaire's Secp256k1 module
+- Simpler, more readable implementation
+- Same functionality with cleaner API
+- Better error messages from voltaire's error types
+
+## Next Steps
+1. Migrate `eip7702.js` which still uses `@noble/curves/secp256k1.js` and `@noble/hashes/sha3.js`
+2. Migrate `viem.js` which still has a `keccak_256` import from `@noble/hashes/sha3.js`
+3. Continue reducing direct noble-curves/noble-hashes usage across the codebase

@@ -1,0 +1,20 @@
+I've completed this iteration. Here's a summary:
+
+## Iteration 317 Summary
+
+**Goal:** Migrate @tevm/common type definitions to use native Chain type instead of viem/chains
+
+**Changes Made:**
+1. **`packages/common/src/CommonOptions.ts`** - Changed import from `viem/chains` to `@tevm/utils`
+2. **`packages/common/src/Common.ts`** - Changed import from `viem/chains` to `@tevm/utils`  
+3. **`packages/utils/src/tevmChainToViemChain.js`** - Fixed type errors by defining TevmChain types inline instead of importing from `@tevm/chains`
+
+**Results:**
+- Types build successfully
+- All tests pass (17 tests across 2 test files)
+- Removed 2 viem/chains type imports from @tevm/common core types
+
+**Remaining viem/chains Imports:** 337 (all in the preset files like mainnet.js, optimism.js, etc.)
+
+**Next Steps:**
+The preset files still import from `viem/chains` to get runtime chain data. The next logical step would be to update the generator script to use `@tevm/chains` + `tevmChainToViemChain` instead, which would eliminate the remaining 337 viem/chains imports from @tevm/common.

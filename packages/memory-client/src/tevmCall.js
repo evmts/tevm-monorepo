@@ -23,7 +23,8 @@ import { callHandler } from '@tevm/actions'
  *
  * @example
  * ```typescript
- * import { createClient, http } from 'viem'
+ * import { createClient } from 'viem'
+ * import { http } from '@tevm/utils'
  * import { tevmCall } from 'tevm/actions'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'

@@ -1,0 +1,31 @@
+The migration work for this iteration is complete. Here's a summary:
+
+## Summary
+
+### Key Findings
+
+The viem migration for core packages is essentially **complete**. The remaining viem imports fall into these categories:
+
+1. **Intentional API compatibility** (packages/memory-client, extensions/viem, test-matchers)
+   - These packages are designed to work with viem clients
+   - `Client` type imports are by design
+
+2. **Deprecated re-exports** (packages/utils/src/viem.js)
+   - Transport functions (`http`, `createPublicClient`, etc.) marked deprecated
+   - `mnemonicToAccount`, `privateKeyToAccount` - deprecated in favor of native implementations
+
+3. **Documentation/JSDoc examples**
+   - Examples in native implementations showing viem comparison
+
+### Migration Blockers Identified
+
+1. **TransactionReceipt type mismatch**: @tevm/utils exports `RpcTransactionReceipt` (hex strings) while viem's `TransactionReceipt` has decoded values (bigint)
+
+2. **EIP1193RequestFn type incompatibility**: viem's version has specific method/params unions, @tevm/utils has a simpler generic version
+
+3. **DecodeErrorResultReturnType** not exported from @tevm/utils
+
+### Next Steps (if needed)
+- Add type-compatible versions of `TransactionReceipt` with decoded values
+- Export `DecodeErrorResultReturnType` equivalent
+- Ensure EIP1193RequestFn type compatibility between packages

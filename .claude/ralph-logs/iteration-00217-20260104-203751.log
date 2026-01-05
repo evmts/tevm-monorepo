@@ -1,0 +1,13 @@
+The migration iteration is complete. Here's a summary of what was accomplished:
+
+## Summary
+
+Fixed type errors in `packages/utils/src/signature.js` related to voltaire TypedData and Domain types. The issues were:
+
+1. **Namespace vs Type conflict**: `@tevm/voltaire` exports `TypedData` as both a namespace (from primitives) and a type (from EIP712). Used `Parameters<typeof EIP712.hashTypedData>[0]` to infer the correct type.
+
+2. **Branded type for salt**: The `domain.salt` property requires `HashType` (a branded type), but we were passing raw `Uint8Array`. Added `VoltaireHash.from()` to convert.
+
+3. **exactOptionalPropertyTypes**: TypeScript's strict optional property checking was failing because we were setting properties to `undefined`. Changed to conditional property assignment.
+
+All tests pass (88 tests across 4 spec files) and the build is successful.

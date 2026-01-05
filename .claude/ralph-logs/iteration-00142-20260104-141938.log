@@ -1,0 +1,11 @@
+## Iteration 194 Complete
+
+**Summary:** The core migration is complete! I verified that all core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) have zero direct viem imports.
+
+**Remaining viem dependencies** are intentionally kept in @tevm/utils for:
+1. Fork client transport functions (`createPublicClient`, `http`, etc.)
+2. Account creation (`privateKeyToAccount`, `mnemonicToAccount`)
+3. ABI parsing (`parseAbi` from abitype)
+4. Type utilities (`Account`, `HDAccount` types)
+
+These serve specific purposes and would require significant effort to replace with minimal benefit. The migration goals have been achieved.

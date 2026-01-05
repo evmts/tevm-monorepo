@@ -1,0 +1,45 @@
+# Ralph Migration Log - Iteration 751
+## Date: 2026-01-05
+
+## Task: Summary of viem/actions migration progress and analysis
+
+## Summary
+
+Analyzed the remaining viem/actions imports to determine what can and cannot be migrated.
+
+## Current State
+
+### Successfully Migrated in Recent Iterations (746-750):
+1. extensions/test-matchers/src/matchers/errors/toBeReverted.spec.ts ✅
+2. extensions/test-matchers/src/matchers/errors/toBeRevertedWithString.spec.ts ✅
+3. extensions/test-matchers/src/matchers/errors/toBeRevertedWithError.spec.ts ✅
+4. packages/memory-client/src/test/viem/sendRawTransaction.spec.ts ✅
+
+### Cannot Be Migrated (Use basic createClient from viem):
+These files use `createClient({ transport: createTevmTransport() })` which creates a basic viem Client without actions attached. The `action(client)` pattern is the correct way to use viem actions with these clients:
+
+1. packages/memory-client/src/tevmMine.spec.ts
+2. packages/memory-client/src/tevmContractIntegration.spec.ts
+3. packages/memory-client/src/tevmForkIntegration.spec.ts
+4. packages/memory-client/src/tevmAccountManagement.spec.ts
+
+### Cannot Be Migrated (Viem extension that needs to work with any client):
+These files are viem extensions designed to work with any viem client type:
+
+1. extensions/viem/src/tevmViemExtensionOptimistic.js - Uses `waitForTransactionReceipt(client, ...)` because client may not have actions attached
+2. extensions/viem/src/tevmViemExtensionOptimistic.spec.ts - Mocks viem/actions for testing
+
+## Key Insight
+
+There are two patterns for using viem actions:
+1. **Functional pattern**: `action(client, params)` - Works with any viem Client
+2. **Method pattern**: `client.action(params)` - Only works if client was extended with `publicActions`/`walletActions`/`testActions`
+
+Files using `createClient` (basic viem) → Use functional pattern (correct, cannot migrate)
+Files using `createMemoryClient` → Use method pattern (can be migrated)
+
+## Next Steps
+
+Look for other migration targets:
+- Check for remaining viem primitive imports that could use @tevm/utils
+- Look at @tevm/voltaire integration opportunities

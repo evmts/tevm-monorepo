@@ -1,0 +1,60 @@
+# Ralph Migration Log - Iteration 816
+## Date: 2026-01-05
+
+## Task: Add test coverage for fromRlp function in viem.js
+
+## Summary
+
+Added comprehensive tests for the `fromRlp` function in viem.js (lines 1436-1457), covering:
+- Hex string output (default mode)
+- Bytes output mode
+- Uint8Array input handling
+- Error cases
+- Long strings and lists (56+ bytes)
+
+This also covers the internal `toHexOutput` helper function (lines 1408-1416).
+
+## Changes Made
+
+### Modified files:
+- `packages/utils/src/viem.spec.ts` - Added fromRlp import and 14 new tests
+
+### Test additions:
+
+1. Hex output (default):
+   - Should decode a single byte value
+   - Should decode a short string
+   - Should decode empty string
+   - Should decode a short list
+   - Should decode nested list
+   - Should decode empty list
+
+2. Bytes output:
+   - Should decode a single byte value as bytes
+   - Should decode a short string as bytes
+   - Should decode a list as bytes arrays
+
+3. Uint8Array input:
+   - Should accept Uint8Array input
+   - Should accept Uint8Array and return bytes
+
+4. Error cases:
+   - Should throw for empty input
+   - Should throw for extra data after decoded value
+
+5. Long strings and lists:
+   - Should decode a long string (56+ bytes)
+   - Should decode a long list
+
+## Coverage Improvement
+
+- viem.js: 87.17% → 91.83% (statement)
+- viem.js: 96.26% → 94.24% (branch - minor fluctuation)
+- viem.js: 78.94% → 85.96% (function)
+- viem.js: 87.17% → 91.83% (line)
+
+## Remaining uncovered lines:
+- Lines 1384, 1390-1391: Long list error paths (input too short for list)
+- Lines 1415-1416: toHexOutput fallback for non-array, non-Uint8Array values
+
+## Status: COMPLETE

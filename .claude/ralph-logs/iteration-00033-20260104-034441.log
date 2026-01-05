@@ -1,0 +1,29 @@
+Migration iteration 26 completed successfully.
+
+## Summary
+
+**Migrated in this iteration:**
+- Changed `Hex` type import in Eip1193RequestProvider.spec.ts from 'viem' to '@tevm/utils'
+
+**Files changed:**
+- packages/decorators/src/request/Eip1193RequestProvider.spec.ts: Changed `Hex` type import from 'viem' to '@tevm/utils'
+
+**Results:**
+- Test passes
+- Commit: 414483374
+
+**Remaining viem imports in @tevm/decorators source files:**
+1. `JsonRpcSchemaPublic.ts`: RpcBlock, RpcBlockIdentifier, RpcBlockNumber, RpcFeeHistory, RpcLog, RpcProof, Quantity, RpcStateOverride, RpcTransaction, RpcTransactionReceipt, RpcTransactionRequest, RpcUncle (complex RPC wire format types)
+2. `JsonRpcSchemaTest.ts`: Quantity, RpcTransaction, RpcTransactionRequest
+3. `JsonRpcSchemaWallet.ts`: RpcBlockNumber, Quantity, RpcTransactionRequest
+
+**Next candidates:**
+- The remaining viem imports in decorators are complex RPC wire format types
+- These types would need to be defined in voltaire or @tevm/utils before migration
+- Consider looking at other packages for simpler migration targets
+
+## Technical Notes
+
+- @tevm/utils already exports the `Hex` type (originally from viem but now consolidated)
+- This change is purely a type import change in a test file
+- No runtime changes, just consolidating type imports

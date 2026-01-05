@@ -1,0 +1,40 @@
+# Ralph Migration Log - Iteration 353
+## Date: 2026-01-05 02:24
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **kcc.js** (id: 321) - KCC Mainnet with KCS native currency, includes multicall3 contract
+2. **klaytn.js** (id: 8217) - Klaytn mainnet with KLAY native currency, includes multicall3 contract
+3. **klaytnBaobab.js** (id: 1001) - Klaytn Baobab Testnet with KLAY native currency, includes multicall3 contract
+4. **koi.js** (id: 701) - Koi Network (Darwinia) with KRING native currency, includes multicall3 and webSocket URLs
+5. **kroma.js** (id: 255) - Kroma with ETH native currency, includes multicall3 and blockExplorer apiUrl
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~181 (from iteration 352)
+- **Migrated this session**: 5
+- **Total migrated**: ~186
+- **Remaining**: 158 (~47% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- KCC: KuCoin Community Chain, uses KCS native currency
+- Klaytn: Korean blockchain, uses KLAY native currency
+- Klaytn Baobab: Klaytn testnet network
+- Koi: Darwinia testnet, uses KRING and has webSocket support
+- Kroma: Optimistic rollup on Ethereum, uses ETH
+
+## Next Steps
+Continue migrating remaining chain presets. 158 remain (~47% remaining).
+Next chains to migrate: kromaSepolia, l3x, l3xTestnet, lightlinkPegasus, lightlinkPhoenix...

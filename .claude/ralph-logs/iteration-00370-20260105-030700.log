@@ -1,0 +1,37 @@
+# Ralph Migration Log - Iteration 370
+## Date: 2026-01-05 03:07
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **saigon.js** (id: 2021) - Saigon Testnet (Ronin testnet) with RON native currency, multicall3 contract, testnet flag
+2. **sapphire.js** (id: 23294) - Oasis Sapphire mainnet with ROSE native currency, WebSocket support, multicall3 contract
+3. **sapphireTestnet.js** (id: 23295) - Oasis Sapphire Testnet with TEST native currency, WebSocket support, testnet flag
+4. **satoshiVM.js** (id: 3109) - SatoshiVM Alpha Mainnet (Bitcoin L2) with BTC native currency, apiUrl in block explorer
+5. **satoshiVMTestnet.js** (id: 3110) - SatoshiVM Testnet with BTC native currency, apiUrl in block explorer, testnet flag
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Previously migrated**: ~266 (from iteration 369)
+- **Migrated this session**: 5
+- **Total migrated**: ~271
+- **Remaining**: 73 (~21% remaining, excluding generator script)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Saigon is a Ronin testnet, designed for the gaming ecosystem
+- Oasis Sapphire is the confidential EVM paratime of Oasis Network
+- SatoshiVM is a Bitcoin ZK-Rollup L2 solution
+
+## Next Steps
+Continue migrating remaining chain presets. 73 remain (~21% remaining).
+Next chains to migrate: scrollSepolia, sei, seiDevnet, seiTestnet, shapeSepolia...

@@ -1,0 +1,9 @@
+Successfully migrated 5 chain presets in iteration 358:
+
+1. **merlin.js** (id: 4200) - Bitcoin L2 with BTC native currency
+2. **metachain.js** (id: 571) - MetaChain Mainnet with MTC, includes multicall3
+3. **metachainIstanbul.js** (id: 1453) - MetaChain Istanbul testnet with MTC, includes multicall3
+4. **metalL2.js** (id: 1750) - Metal L2 (OP Stack) with ETH, WebSocket support
+5. **meter.js** (id: 82) - Meter with MTR native currency
+
+**Progress**: 133 chain presets remaining (~40% left to migrate). All tests pass.

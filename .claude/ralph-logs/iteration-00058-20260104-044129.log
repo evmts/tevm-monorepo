@@ -1,0 +1,32 @@
+## Migration Iteration 51 Complete
+
+**Successfully migrated 6 memory-client test files from viem to @tevm/utils:**
+
+### Files migrated:
+
+**packages/memory-client/src/test/viem (6 files):**
+- estimateGas.spec.ts: `encodeFunctionData` from viem → @tevm/utils
+- getContractEvents.spec.ts: `encodeFunctionData` from viem → @tevm/utils
+- getGasPrice.spec.ts: `parseGwei` from viem → @tevm/utils
+- waitForTransactionReceipt.spec.ts: `bytesToHex, encodeFunctionData` from viem → @tevm/utils (kept `testActions` from viem)
+- watchEvent.spec.ts: `encodeFunctionData` from viem → @tevm/utils
+- watchPendingTransactions.spec.ts: `encodeFunctionData` from viem → @tevm/utils
+
+### Commit created:
+- `72de30fb4`: refactor(memory-client): replace viem imports with @tevm/utils in test files
+
+### Verification:
+- Types check passes (tsc --noEmit)
+- Note: Some tests fail due to pre-existing state module issue (`storageRoot must have a length of 32`) - not caused by this migration
+
+### Strategy note:
+These utilities (encodeFunctionData, bytesToHex, parseGwei) are already re-exported from @tevm/utils.
+The `testActions` function is kept from viem as it's not yet available in @tevm/utils - this is a viem-specific client extension.
+
+### Remaining viem imports in memory-client test files:
+- testActions, walletActions (viem client extensions - not yet in @tevm/utils)
+- Various type imports (Address, Hex, TestActions, etc.)
+
+**Next targets:**
+- Continue migrating other memory-client test files
+- Consider adding testActions/walletActions to @tevm/utils exports

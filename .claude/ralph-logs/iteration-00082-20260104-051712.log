@@ -1,0 +1,41 @@
+# Ralph Migration Iteration
+
+**Date**: 2026-01-04
+**Files migrated**: 2 files
+
+## Summary
+
+Updated JSDoc @example blocks in packages/state/src to replace viem imports with @tevm/utils.
+
+## Files Changed
+
+1. `packages/state/src/state-types/ForkOptions.ts` - Changed `import { http } from 'viem'` to `import { http } from '@tevm/utils'` in two @example blocks
+2. `packages/state/src/state-types/StateOptions.ts` - Changed `import { http } from 'viem'` to `import { http } from '@tevm/utils'` in one @example block
+
+## Commit
+
+`⚡ refactor(state): update JSDoc examples to use @tevm/utils instead of viem`
+
+## Notes
+
+- These changes are purely documentation updates (JSDoc examples)
+- The `http` function is now available through `@tevm/utils` via re-export from viem
+- Pre-existing type errors in `@tevm/address` package are unrelated to this change (keccak256 signature mismatch)
+
+## Remaining viem Imports in Core Packages
+
+### packages/actions/src (9 files)
+Most are JSDoc @example blocks with `import { createClient } from 'viem'`
+
+### packages/state/src (0 files after this iteration)
+✅ All migrated
+
+### packages/utils/src (3 files)
+- `index.ts` - Re-exports from viem (intentional)
+- `viem.js` - Wrapper implementations (intentional)  
+- `abitype.ts` - Type re-exports (intentional)
+
+## Next Steps
+
+- Continue updating JSDoc examples in packages/actions/src
+- Focus on CallParams.ts, ContractParams.ts, etc.

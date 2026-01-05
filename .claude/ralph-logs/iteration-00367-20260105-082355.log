@@ -1,0 +1,14 @@
+## Summary
+
+Successfully completed iteration 742 of the viem → @tevm/utils migration:
+
+**Change made:** Migrated `Client` type import in `bundler-packages/mud/src/internal/decorators/mudStoreWriteRequestOverride.ts` from `viem` to `@tevm/utils`.
+
+**Result:**
+- File no longer imports `Client` from viem
+- No new type errors introduced in the modified file
+- Pre-existing type errors in spec files remain unchanged
+
+**Remaining viem imports in mud package (non-spec files):**
+1. `types.ts` - Multiple complex types from viem
+2. `mudStoreWriteRequestOverride.ts` - `waitForTransactionReceipt` function from `viem/actions`

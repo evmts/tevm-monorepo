@@ -1,0 +1,22 @@
+## Migration Status Summary
+
+**Iteration 262** - Status assessment complete.
+
+### Key Findings:
+
+1. **Core packages are fully migrated** - No viem/ethereumjs imports in `@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, or `@tevm/node`
+
+2. **Tests all passing**:
+   - signature.spec.ts: 31 passed
+   - guillotineWasm.spec.ts: 26 passed
+   - nativePrivateKeyToAccount.spec.ts: 18 passed
+   - nativeMnemonicToAccount.spec.ts: 17 passed
+
+3. **Remaining dependencies are intentionally retained**:
+   - Transport functions (`createPublicClient`, `http`, etc.) - required for forking
+   - `@ethereumjs/tx`, `@ethereumjs/common`, `@ethereumjs/trie` - required for VM compatibility
+   - `@scure/bip39`, `@scure/bip32` - optimal as-is (voltaire wraps these same libraries)
+
+4. **Blocked migration (low priority)**: Voltaire's Bip39/HDWallet modules wrap the same `@scure` libraries, so there's no benefit to migrating. The FFI bundling issue still exists but is not blocking anything useful.
+
+The migration has reached a stable, complete state. All actionable migrations have been completed.

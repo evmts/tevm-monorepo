@@ -1,0 +1,60 @@
+Migration iteration 9 complete. Here's the summary:
+
+## Migration Iteration 9 Complete
+
+**Target**: `stringToHex` function in `@tevm/utils`
+
+**Changes**:
+1. Added native `stringToHex` implementation using TextEncoder for UTF-8 encoding
+2. Removed `stringToHex` from viem/utils re-exports
+3. Added 6 comprehensive test cases (18 total assertions)
+
+**Results**:
+- All 59 tests in viem.spec.ts pass
+- All 110 tests in @tevm/utils pass (109 + 1 skipped)
+- 100% code coverage maintained
+
+**Remaining viem imports**: 32 functions still need migration
+
+**Commit**: `4986783d5` - ⚡ refactor(utils): replace viem stringToHex with native implementation
+
+## Implementation Details
+
+1. Modified `packages/utils/src/viem.js`:
+   - Added native `stringToHex` function using TextEncoder
+   - Supports UTF-8 encoding (handles Unicode, emojis, etc.)
+   - Supports optional `size` parameter for padding with null bytes
+   - Removed stringToHex from viem/utils re-export block
+
+2. Modified `packages/utils/src/viem.spec.ts`:
+   - Added 6 new tests for stringToHex:
+     - Basic ASCII strings test (3 assertions)
+     - Empty string test (1 assertion)
+     - Single characters test (3 assertions)
+     - Unicode/UTF-8 characters test (3 assertions)
+     - Size padding test (3 assertions)
+     - Size exceed error test (2 assertions)
+
+## Tests Passed
+- packages/utils/src/viem.spec.ts (59 tests, up from 53)
+- All 110 tests in @tevm/utils pass (109 + 1 skipped)
+- 100% code coverage maintained
+
+## Remaining viem imports in @tevm/utils/src/viem.js (32 remaining):
+- bytesToBigInt, bytesToBigint, bytesToNumber
+- decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+- encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics
+- encodeFunctionData, encodeFunctionResult, encodePacked
+- formatEther, formatGwei, formatLog
+- fromBytes, fromHex, fromRlp
+- getAddress, hexToString
+- isAddress, keccak256
+- parseEther, parseGwei, serializeTransaction
+- toBytes, toHex, toRlp
+- mnemonicToAccount (from viem/accounts)
+
+## Next Steps
+Possible next targets (simple conversions):
+- hexToString (complement to stringToHex)
+- bytesToNumber (number conversion)
+- isAddress (validation function)

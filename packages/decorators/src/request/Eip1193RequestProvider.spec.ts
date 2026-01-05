@@ -1,4 +1,4 @@
-import type { Hex } from 'viem'
+import type { Hex } from '@tevm/utils'
 import { describe, it, vi } from 'vitest'
 import type { Eip1193RequestProvider } from './Eip1193RequestProvider.js'
 

@@ -1,0 +1,9 @@
+Successfully migrated `gnosis.js` preset to use `nativeDefineChain` instead of `viem/chains`. 
+
+**Summary of iteration 328:**
+- Migrated `packages/common/src/presets/gnosis.js` from `viem/chains` to `@tevm/utils` nativeDefineChain
+- Gnosis Chain (ID: 100) is a popular Ethereum sidechain with xDAI native currency
+- All tests pass (10 passed, 1 skipped)
+- Committed the change
+
+This is the 9th preset migrated in this migration effort. Hundreds of presets still remain, but the high-priority chains (mainnet, optimism, base, arbitrum, polygon, avalanche, bsc, gnosis) are now migrated.

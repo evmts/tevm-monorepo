@@ -1,0 +1,33 @@
+# Ralph Migration Log - Iteration 749
+## Date: 2026-01-05
+
+## Task: Attempted migration of tevmMine.spec.ts from viem/actions
+
+## Summary
+
+Attempted to migrate packages/memory-client/src/tevmMine.spec.ts from viem/actions to client methods, but **reverted** because this file uses `createClient` (raw viem client) not `createMemoryClient` (with all actions attached).
+
+## Analysis
+
+The file creates a client using:
+```typescript
+client = createClient({
+  transport: createTevmTransport(),
+})
+```
+
+This is a basic viem `Client` type without the public/wallet/test actions attached. The pattern of importing from `viem/actions` and calling `getBlock(client)` is actually the correct way to use actions with basic clients.
+
+## Decision
+
+**No migration possible** for files using basic `createClient`. The viem/actions imports are the appropriate pattern for these tests.
+
+Files that CAN be migrated:
+- Files using `createMemoryClient` which extends the client with all actions
+
+Files that CANNOT be easily migrated without refactoring:
+- Files using basic `createClient` from viem (these must use `action(client)` pattern)
+
+## Next Steps
+
+Look for files using `createMemoryClient` pattern which are migratable.

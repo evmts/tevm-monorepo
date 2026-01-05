@@ -1,0 +1,12 @@
+Migration iteration 374 complete. 
+
+**Summary:**
+- Migrated 5 SKALE chain presets from `viem/chains` to `nativeDefineChain`:
+  - skaleEuropaTestnet (id: 1444673419)
+  - skaleExorde (id: 2139927552)
+  - skaleHumanProtocol (id: 1273227453)
+  - skaleNebula (id: 1482601649)
+  - skaleNebulaTestnet (id: 37084624)
+
+- All tests pass (10 passed, 1 skipped)
+- **53 files remaining** (~15% of chain presets left to migrate)

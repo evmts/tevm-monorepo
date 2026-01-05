@@ -1,0 +1,62 @@
+# Ralph Migration Log - Iteration 285
+## Date: 2026-01-04 21:44
+
+## Summary
+Status assessment and verification of voltaire migration completeness. All core packages are viem-free and tests pass.
+
+## Current Status
+
+### Core Packages (viem-free):
+- ✅ @tevm/actions - No viem imports
+- ✅ @tevm/vm - No viem imports
+- ✅ @tevm/evm - No viem imports (guillotine WASM integrated)
+- ✅ @tevm/state - No viem imports
+- ✅ @tevm/node - No viem imports
+- ✅ @tevm/block - No viem imports
+- ✅ @tevm/jsonrpc - No viem imports
+- ✅ @tevm/precompiles - No viem imports (uses voltaire for P256)
+
+### @tevm/utils Status:
+- ✅ Noble packages moved to devDependencies (only used in tests for verification)
+- ✅ Native account implementations complete (nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount)
+- ✅ Native crypto functions using @tevm/voltaire
+- ✅ Native ABI encoding/decoding
+- 🔄 Deprecated viem account exports still present (mnemonicToAccount, privateKeyToAccount from viem/accounts)
+- 🔄 Transport functions from viem still needed (createPublicClient, http, etc.) for forking
+
+### Remaining Viem Dependencies in @tevm/utils:
+1. `mnemonicToAccount, privateKeyToAccount` from 'viem/accounts' - DEPRECATED, native replacements exist
+2. `createPublicClient, createTransport, custom, defineChain, http, webSocket` from 'viem' - Required for RPC transport
+
+### @scure Dependencies:
+- @scure/bip39 and @scure/bip32 are used for mnemonic/HD key derivation
+- These are intentional, focused dependencies (voltaire doesn't have BIP39/32)
+
+### @ethereumjs Dependencies Remaining:
+1. `@ethereumjs/common` in @tevm/common - Chain configuration
+2. `@ethereumjs/tx` in @tevm/tx - Transaction types
+
+### Voltaire Transaction Module
+Voltaire has a comprehensive Transaction module that could potentially replace @ethereumjs/tx:
+- EIP1559, EIP2930, EIP4844, EIP7702, Legacy transaction types
+- Serialization/deserialization
+- Signing and verification
+- Type detection and guards
+
+This is a larger migration that would require:
+- Creating adapter types for @tevm/tx interface
+- Migrating ImpersonatedTx to use voltaire Transaction
+- Updating all downstream consumers
+
+## Test Results
+- @tevm/utils: 607 tests passed (1 skipped)
+
+## Conclusion
+
+The voltaire migration is substantially complete for the core execution packages. The remaining work involves:
+1. Removing deprecated viem account exports (breaking change for users)
+2. Large-scale @ethereumjs/tx replacement with voltaire Transaction
+3. Transport layer migration (requires significant work)
+4. @ethereumjs/common migration (chain configuration)
+
+The migration has achieved its primary goal: core packages no longer depend directly on viem or ethereumjs for cryptographic operations.

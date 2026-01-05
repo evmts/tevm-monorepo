@@ -1,0 +1,77 @@
+# Ralph Migration Iteration 129 - Remove @ethereumjs/util from @tevm/utils
+
+## Summary
+
+Completed the full migration away from `@ethereumjs/util` in the `@tevm/utils` package by creating native type definitions and removing the dependency from package.json.
+
+## Changes Made
+
+### New Files
+
+1. `packages/utils/src/db-types.ts` - Native database type definitions:
+   - `DBObject` - Database object type for JSON value storage
+   - `BatchDBOp` - Batch operation type for database operations
+   - `KeyEncoding` - Key encoding options (String, Bytes, Number)
+   - `ValueEncoding` - Value encoding options (String, Bytes, JSON)
+   - `EncodingOpts` - Encoding options for DB operations
+   - `PutBatch` - Put batch operation interface
+   - `DelBatch` - Delete batch operation interface
+   - `DB` - Database interface for key-value storage
+
+2. `packages/utils/src/common-types.ts` - Native common type definitions:
+   - `PrefixedHexString` - Prefixed hexadecimal string type (`0x${string}`)
+   - `BigIntLike` - Input type that can be converted to BigInt
+   - `TransformableToBytes` - Interface for objects that can convert to bytes
+   - `BytesLike` - Input type that can be converted to bytes
+   - `AddressLike` - Input type that can be converted to an Address
+   - `NestedUint8Array` - Nested Uint8Array type for RLP encoding
+   - `isNestedUint8Array()` - Type guard for NestedUint8Array
+   - `NumericString` - Numeric string type
+
+### Modified Files
+
+1. `packages/utils/src/index.ts` - Updated to use native types:
+   - Changed imports from `@ethereumjs/util` to `./db-types.js` and `./common-types.js`
+   - Added exports for new types: `PutBatch`, `DelBatch`, `PrefixedHexString`, `TransformableToBytes`, `NestedUint8Array`, `NumericString`
+   - Added export for `isNestedUint8Array` function
+
+2. `packages/utils/src/CreateMemoryDbFn.ts` - Updated DBObject import:
+   - Changed from `@ethereumjs/util` to `./db-types.js`
+
+3. `packages/utils/src/MemoryDb.ts` - Updated DB and DBObject imports:
+   - Changed from `@ethereumjs/util` to `./db-types.js`
+
+4. `packages/utils/package.json` - Removed `@ethereumjs/util` dependency:
+   - Removed `"@ethereumjs/util": "^10.0.0"` from dependencies
+
+5. `packages/utils/src/randomBytes.spec.ts` - Updated test:
+   - Removed test that imported from `@ethereumjs/util` (which is no longer available)
+   - Replaced with equivalent native test that doesn't require external dependency
+
+## Impact
+
+### Major Achievement
+- **@ethereumjs/util is now COMPLETELY removed from @tevm/utils**
+- The package no longer depends on @ethereumjs/util at all
+- All type exports are now native implementations
+
+### Remaining Dependencies
+- `@ethereumjs/evm` - Still needed for `EthjsLog` type export
+- This is a separate migration target for future iterations
+
+## Test Results
+
+- All 540 tests pass (1 skipped)
+- Build succeeds with both ESM and CJS outputs
+
+## Next Steps
+
+1. Migrate other packages that depend on `@ethereumjs/util`:
+   - `@tevm/state` (uses AccountCache, CacheType, StorageCache from @ethereumjs/statemanager)
+   - Various error packages (use EVMError from @ethereumjs/evm)
+
+2. Consider removing the remaining `@ethereumjs/evm` dependency by:
+   - Creating a native `EthjsLog` type
+   - Or keeping it if only used for type compatibility
+
+3. Continue migrating core packages to use voltaire primitives

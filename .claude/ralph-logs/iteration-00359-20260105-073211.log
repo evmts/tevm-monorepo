@@ -1,0 +1,8 @@
+Successfully completed iteration 733. I migrated `TevmRpcSchema.ts` from using viem's `PublicRpcSchema` and `TestRpcSchema` types to using the equivalent types from `@tevm/utils`.
+
+**Summary:**
+- Changed import from `'viem'` to `'@tevm/utils'` for `PublicRpcSchema` and `TestRpcSchema`
+- Removed the generic parameter from `TestRpcSchema<'anvil' | 'ganache' | 'hardhat'>` since our @tevm/utils version includes all methods unconditionally
+- Build types succeeded
+
+The migration continues to reduce viem dependencies in the memory-client package. Next targets would be the other type files like `TevmTransport.ts`, `TevmContractType.ts`, `CreateMemoryClientFn.ts`, `MemoryClient.ts`, and `MemoryClientOptions.ts`.

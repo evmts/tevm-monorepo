@@ -1,0 +1,72 @@
+# Ralph Migration Log - Iteration 183
+## Date: 2026-01-04 13:36:56
+
+## Summary
+Consolidated viem/accounts imports in @tevm/utils package - moved prefundedAccounts.ts and prefundedAccounts.spec.ts to import from local viem.js instead of directly from viem/accounts.
+
+## Changes Made
+
+### 1. Added PrivateKeyAccount type export to viem.js
+Added JSDoc typedef to re-export `PrivateKeyAccount` type from viem/accounts, keeping all viem/accounts imports centralized in viem.js:
+
+```javascript
+/**
+ * Re-export viem's PrivateKeyAccount type for account management.
+ * @typedef {import('viem/accounts').PrivateKeyAccount} PrivateKeyAccount
+ */
+```
+
+### 2. Updated prefundedAccounts.ts
+Changed import from direct viem/accounts to local viem.js:
+```typescript
+// Before
+import { type PrivateKeyAccount, privateKeyToAccount } from 'viem/accounts'
+
+// After
+import { type PrivateKeyAccount, privateKeyToAccount } from './viem.js'
+```
+
+### 3. Updated prefundedAccounts.spec.ts
+Changed import from direct viem/accounts to local viem.js:
+```typescript
+// Before
+import { mnemonicToAccount } from 'viem/accounts'
+
+// After
+import { mnemonicToAccount } from './viem.js'
+```
+
+## Tests Verified
+- `packages/utils/src/prefundedAccounts.spec.ts` - 1 passed
+
+## Migration Progress
+
+### viem/accounts imports in @tevm/utils:
+- Now only viem.js imports directly from viem/accounts
+- prefundedAccounts.ts uses centralized viem.js export
+- prefundedAccounts.spec.ts uses centralized viem.js export
+
+### Direct viem imports remaining in @tevm/utils (viem.js only):
+1. `mnemonicToAccount, privateKeyToAccount` from 'viem/accounts'
+2. `createPublicClient, createTransport, custom, defineChain, http, webSocket` from 'viem'
+3. `parseAbi` from 'abitype'
+
+### Types from abitype.ts still imported from viem:
+- Account (complex type with signing methods)
+- HDAccount (complex type with HD derivation methods)
+
+## Why This Matters
+Centralizing all viem imports to go through viem.js means:
+1. Easier to track all remaining viem dependencies
+2. Simpler to migrate in future - only need to change one file
+3. Better encapsulation of external dependencies
+
+## Files Changed
+- packages/utils/src/viem.js (added PrivateKeyAccount typedef)
+- packages/utils/src/prefundedAccounts.ts (changed import source)
+- packages/utils/src/prefundedAccounts.spec.ts (changed import source)
+
+## Next Steps
+1. Look for other packages with direct viem/accounts imports to consolidate
+2. Continue migrating types where possible
+3. Consider if any of the transport/client functions can be natively implemented

@@ -1,0 +1,60 @@
+# Ralph Migration Log - Iteration 156
+## Date: 2026-01-04 10:44:44
+
+## Summary
+Migrated `@tevm/rlp` package from `@ethereumjs/rlp` to use `@tevm/voltaire/Rlp`, removing the @ethereumjs/rlp dependency.
+
+## Changes Made
+
+### Modified: packages/rlp/src/Rlp.ts
+- Replaced simple re-export `export { RLP as Rlp } from '@ethereumjs/rlp'`
+- Created native implementation wrapper around voltaire's RLP:
+  - `encode()` function - handles Input types (string, number, bigint, Uint8Array, arrays, null/undefined)
+  - `decode()` function - handles RLP-encoded bytes with ethereumjs-compatible behavior
+  - Returns `Uint8Array | NestedUint8Array` to match ethereumjs API
+  - Special handling for empty input (returns empty Uint8Array instead of throwing)
+- Added TypeScript types: `Input` and `NestedUint8Array`
+
+### Modified: packages/rlp/package.json
+- Replaced `"@ethereumjs/rlp": "^10.0.0"` dependency
+- Added `"@tevm/voltaire": "workspace:^"` dependency
+
+## Implementation Details
+The voltaire RLP has a different API than ethereumjs:
+- voltaire returns `{ data: BrandedRlp, remainder: Uint8Array }` from decode
+- ethereumjs returns `Uint8Array | NestedUint8Array` directly
+
+The wrapper:
+1. Uses `@tevm/voltaire/Rlp` subpath import to avoid loading native FFI modules
+2. Calls `VoltaireRlp.decode()` then `VoltaireRlp.toRaw()` to convert branded types to raw values
+3. Handles empty input by returning empty Uint8Array (ethereumjs compatibility)
+4. Uses try/catch to handle decode errors gracefully
+
+## Test Results
+- `packages/rlp/src/Rlp.spec.ts` - 1 passed (existing test)
+- `@tevm/block` - 2 passed (uses RLP)
+- `@tevm/receipt-manager` - 34 passed (uses RLP extensively)
+
+## Migration Progress
+
+### @ethereumjs/rlp dependency:
+- Before: Used directly in @tevm/rlp
+- After: Removed, replaced with @tevm/voltaire/Rlp
+
+### Remaining @ethereumjs dependencies in core packages:
+- `@ethereumjs/statemanager` - AccountCache, StorageCache (complex implementations)
+- `@ethereumjs/tx` - Transaction types
+- `@ethereumjs/blockchain` - CasperConsensus
+- `@ethereumjs/common` - Common, CustomCrypto
+- `@ethereumjs/vm` - Bloom
+- `@ethereumjs/trie` - Trie, genesisStateRoot
+
+## Next Steps
+1. The RLP migration is complete
+2. Consider migrating other packages that have simpler interfaces
+3. AccountCache/StorageCache in @tevm/statemanager remain complex to replace
+
+## Notes
+- Used subpath import `@tevm/voltaire/Rlp` to avoid native module issues
+- The voltaire package has native FFI dependencies that can cause issues when imported from main entry
+- Subpath imports work correctly and load only the JavaScript RLP implementation

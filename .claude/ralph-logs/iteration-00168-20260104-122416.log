@@ -1,0 +1,64 @@
+# Ralph Migration Log - Iteration 168
+## Date: 2026-01-04 12:24:16
+
+## Summary
+Successfully migrated @tevm/blockchain to use native CasperConsensus, Consensus interface, and related types, removing @ethereumjs/blockchain dependency from the source code.
+
+## Changes Made
+
+### 1. Created Native Consensus Interface
+**File**: `packages/blockchain/src/Consensus.ts`
+- Defined `ConsensusOptions` interface for consensus initialization
+- Defined `Consensus` interface matching @ethereumjs/blockchain's Consensus
+- Methods: `genesisInit`, `setup`, `validateConsensus`, `validateDifficulty`, `newBlock`
+
+### 2. Created Native CasperConsensus Class
+**File**: `packages/blockchain/src/CasperConsensus.js`
+- Implements Consensus interface
+- Uses `ConsensusAlgorithm.Casper` from `@tevm/common`
+- Validates PoS blocks have difficulty 0
+- All other methods are no-ops (validation handled by consensus layer)
+
+### 3. Updated createChain.js
+**File**: `packages/blockchain/src/createChain.js`
+- Changed import from `@ethereumjs/blockchain` to local `./CasperConsensus.js`
+- Updated JSDoc type annotations to use native types
+
+### 4. Updated Chain.ts
+**File**: `packages/blockchain/src/Chain.ts`
+- Removed `@ethereumjs/blockchain` import
+- Added local `OnBlock` type definition
+- Added local `BlockchainEvent` type definition
+- Using native `Consensus` type from local module
+
+### 5. Updated index.ts Exports
+**File**: `packages/blockchain/src/index.ts`
+- Added export for `CasperConsensus`
+- Added export for `Consensus`, `ConsensusOptions` types
+- Added export for `BlockchainEvent`, `OnBlock` types
+
+## Test Results
+- Core tests pass (17/36)
+- Failed tests are due to missing RPC environment variables (TEVM_RPC_URLS_MAINNET, TEVM_RPC_URLS_OPTIMISM)
+- Not related to the migration changes
+
+## Dependencies Removed
+- `@ethereumjs/blockchain` is no longer directly imported in `packages/blockchain/src`
+
+## Remaining @ethereumjs Dependencies
+Based on grep analysis:
+1. `@tevm/tx`: Re-exports transaction classes from @ethereumjs/tx (BLOCKED - needs class-based approach)
+2. `@tevm/common`: Uses createCustomCommon, Mainnet from @ethereumjs/common (BLOCKED - hardfork config)
+3. `@tevm/trie`: Re-exports Trie and genesisStateRoot from @ethereumjs/trie (BLOCKED - needs trie impl)
+
+## Files Changed
+- packages/blockchain/src/Chain.ts (modified)
+- packages/blockchain/src/createChain.js (modified)
+- packages/blockchain/src/index.ts (modified)
+- packages/blockchain/src/CasperConsensus.js (new)
+- packages/blockchain/src/Consensus.ts (new)
+
+## Next Steps
+1. Consider creating tests specifically for CasperConsensus validateDifficulty
+2. Continue with other package migrations when voltaire provides necessary features
+3. Focus on remaining @ethereumjs dependencies in other packages

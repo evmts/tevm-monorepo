@@ -1,0 +1,16 @@
+I've successfully migrated 9 chain presets from `viem/chains` to `nativeDefineChain`:
+
+**Chains migrated this session:**
+1. **foundry.js** (id: 31337) - Foundry local development chain
+2. **fraxtal.js** (id: 252) - Fraxtal mainnet
+3. **fraxtalTestnet.js** (id: 2522) - Fraxtal Testnet
+4. **funkiMainnet.js** (id: 33979) - Funki mainnet
+5. **funkiSepolia.js** (id: 3397901) - Funki Sepolia Sandbox
+6. **fuse.js** (id: 122) - Fuse mainnet
+7. **fuseSparknet.js** (id: 123) - Fuse Sparknet testnet
+8. **gnosisChiado.js** (id: 10200) - Gnosis Chiado testnet
+9. **gobi.js** (id: 1663) - Horizen Gobi Testnet
+
+**Tests:** All createCommon tests pass (10 passed, 1 skipped)
+
+**Progress:** ~154 presets migrated, ~190 remaining (~57% remaining)

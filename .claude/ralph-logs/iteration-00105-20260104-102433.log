@@ -1,0 +1,21 @@
+Now let me summarize the changes and the current status:
+
+## Iteration 154 Complete
+
+I created native `Proof` and `StorageProof` types in `@tevm/utils` and migrated the state package to use them instead of importing from `@ethereumjs/statemanager`.
+
+### Changes Made:
+1. **Created** `packages/utils/src/proof-types.ts` - Native EIP-1186 proof types
+2. **Updated** `packages/utils/src/index.ts` - Added exports for `Proof` and `StorageProof`
+3. **Updated** `packages/state/src/StateManager.ts` - Uses native `Proof` type
+4. **Updated** `packages/state/src/actions/getProof.js` - Updated JSDoc to reference native type
+
+### Migration Status:
+The core packages (actions, vm, evm, node) are now free of `@ethereumjs/statemanager` Proof imports. 
+
+The remaining `@ethereumjs/statemanager` dependencies in the state package are:
+- `AccountCache` class (5 files)
+- `StorageCache` class (5 files)  
+- `CacheType` enum (4 files)
+
+These are complex implementations with LRU caching, ordered maps, and checkpoint/revert/commit functionality that would require substantial work to replace natively.

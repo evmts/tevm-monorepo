@@ -1,0 +1,42 @@
+Migration iteration 37 completed successfully.
+
+## Summary
+
+**Migrated in this iteration:**
+
+1. **@tevm/blockchain package (4 files):**
+   - `actions/setIteratorHead.js`: bytesToHex from viem → @tevm/utils
+   - `actions/putBlock.js`: bytesToHex from viem → @tevm/utils
+   - `actions/delBlock.js`: bytesToHex from viem → @tevm/utils
+   - `createBaseChain.js`: hexToBytes from viem → @tevm/utils
+
+2. **@tevm/common package (1 file):**
+   - `createMockKzg.js`: Simplified to use keccak256() directly (returns hex by default), removed bytesToHex import
+
+3. **@tevm/jsonrpc package (1 file - fix):**
+   - `createJsonRpcFetcher.js`: Reverted @tevm/voltaire/provider import back to viem (voltaire types not built yet)
+
+**Commits:**
+- 2793be4b1: blockchain package viem→@tevm/utils migrations
+- ccec7f620: common package simplification
+- 22a3c8a87: jsonrpc fix (revert broken voltaire import)
+
+**Build verification:**
+- @tevm/blockchain:build:dist ✅
+- @tevm/common:build:types ✅
+- @tevm/jsonrpc:build:types ✅
+
+**Pre-existing issues discovered:**
+- @tevm/block:build:types fails with keccak256 type signature issue (line 347)
+- Blockchain tests fail due to RPC transport configuration issues (unrelated to migrations)
+
+**Remaining viem imports in core packages:**
+- @tevm/actions: getContractError, RawContractError (complex error utilities)
+- @tevm/state: createPublicClient, createTransport (viem core - cannot migrate)
+- @tevm/address: numberToBytes (2 files)
+- @tevm/blockchain: withRetry in getBlockFromRpc.js
+- @tevm/common: defineChain in tevmDefault.js
+
+**Next targets:**
+- @tevm/address numberToBytes migrations
+- @tevm/blockchain withRetry (may need alternative or keep viem)

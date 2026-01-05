@@ -1,0 +1,94 @@
+# Ralph Migration Log - Iteration 311
+## Date: 2026-01-05 00:13
+
+## Summary
+Comprehensive test verification confirming migration stability across all native implementations.
+
+## Actions Taken
+1. Reviewed previous iteration (310) - confirmed stable migration state
+2. Ran comprehensive test suites:
+   - @tevm/utils: 655 tests passed, 1 skipped
+   - @tevm/evm (createEvm.spec.ts): 17 tests passed
+   - @tevm/evm (guillotineWasm.spec.ts): 38 tests passed, 1 skipped
+   - @tevm/memory-client (tevmCall.spec.ts): 8 tests passed, 1 skipped
+
+3. Verified all native implementations are working:
+   - nativePrivateKeyToAccount: 18 tests passed
+   - nativeMnemonicToAccount: 17 tests passed
+   - nativeHdAccount: 13 tests passed
+   - nativeHttp: 6 tests passed
+   - nativeCustom: 11 tests passed
+   - nativeDefineChain: 11 tests passed
+   - nativeWebSocket: 11 tests passed
+   - signature.js: 31 tests passed
+   - ecrecover.js: 7 tests passed
+   - All ABI encoding tests: 50+ tests passed
+
+4. Analyzed remaining work:
+   - Fork tests require TEVM_RPC_URLS_OPTIMISM/MAINNET env vars
+   - @tevm/tx still uses @ethereumjs/tx (voltaire has Transaction alternative)
+   - viem re-exports marked deprecated with migration guide
+
+## Test Summary
+- @tevm/utils: 655 passed, 1 skipped
+- @tevm/evm (createEvm): 17 passed
+- @tevm/evm (guillotine): 38 passed, 1 skipped
+- @tevm/memory-client (tevmCall): 8 passed, 1 skipped
+- Total verified: 718+ tests passing
+
+## Migration Status (Stable)
+
+### Core Packages - COMPLETE
+All core packages have ZERO direct viem imports:
+- @tevm/actions, @tevm/evm, @tevm/state, @tevm/vm, @tevm/node
+- @tevm/block, @tevm/blockchain, @tevm/precompiles
+- @tevm/decorators, @tevm/jsonrpc, @tevm/procedures
+- @tevm/rlp, @tevm/utils (native implementations)
+
+### Native Implementations Verified Working
+All utility functions are now native implementations using voltaire:
+- keccak256, bytesToHex, hexToBytes, toBytes, toHex
+- toRlp, fromRlp (RLP encoding/decoding)
+- getAddress, isAddress, checksumAddress
+- serializeTransaction (native)
+- All ABI encoding/decoding via voltaire
+- ecrecover using voltaire Secp256k1
+- EIP-712 using voltaire EIP712
+- nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount
+- nativeHttp, nativeCustom, nativeWebSocket, nativeDefineChain
+- createForkRpcClient (native alternative to createPublicClient for RPC)
+
+### Intentional Dependencies (Kept for API Compatibility)
+- viem in @tevm/memory-client - User-facing viem client compatibility
+- viem re-exports in @tevm/utils - Backward compatibility (deprecated)
+- @ethereumjs/common - Chain configuration
+- @ethereumjs/tx - Transaction classes (voltaire has alternatives)
+- @ethereumjs/trie - Merkle Patricia Trie
+
+### Guillotine-mini Integration Status
+- WASM loader working
+- EVM creation/destruction working
+- Basic opcode execution working
+- Storage operations working during execution
+- Pre-execution storage setting has known bug (skipped test)
+
+### Next Steps (Future Iterations)
+1. **Transaction Migration**: Migrate @tevm/tx to voltaire Transaction
+   - Would eliminate @ethereumjs/tx dependency
+   - Significant change requiring careful testing
+
+2. **Remove deprecated viem re-exports** (breaking change for consumers):
+   - mnemonicToAccount, privateKeyToAccount
+   - http, webSocket, custom, defineChain
+   - createPublicClient, createTransport
+
+3. **Guillotine-mini Storage Bug**: Fix evm_set_storage WASM bug
+
+## Files Modified
+None - verification and testing only
+
+## Notes
+- Migration remains stable and complete for core packages
+- All native implementations tested and verified working
+- 718+ tests passing across all native implementations
+- Focus has shifted from viem removal to optional ethereumjs removal via voltaire

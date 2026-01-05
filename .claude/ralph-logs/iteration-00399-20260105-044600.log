@@ -1,0 +1,27 @@
+# Ralph Migration Log - Iteration 399
+## Date: 2026-01-05 04:46
+
+## Changes Made
+
+### Migrated viem imports to @tevm/utils in test-node spec files
+
+1. **extensions/test-node/src/test/methods/eth_newFilter.spec.ts**
+   - Changed `import { type Hex, numberToHex } from 'viem'`
+   - To `import { type Hex, numberToHex } from '@tevm/utils'`
+
+2. **extensions/test-node/src/test/methods/eth_sendRawTransaction.spec.ts**
+   - Changed `import { PREFUNDED_ACCOUNTS } from '@tevm/utils'` + `import type { Hex } from 'viem'`
+   - To `import { type Hex, PREFUNDED_ACCOUNTS } from '@tevm/utils'`
+
+## Notes
+
+- Hex type, numberToHex function, and PREFUNDED_ACCOUNTS are all available in @tevm/utils
+- Consolidated imports to single @tevm/utils import in eth_sendRawTransaction.spec.ts
+
+## Next Steps
+
+- Continue migrating remaining test files in extensions/test-node
+
+## Rationale
+
+Small incremental migration of type and function imports from viem to @tevm/utils.

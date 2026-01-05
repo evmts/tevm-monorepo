@@ -1,0 +1,32 @@
+# Ralph Migration Log - Iteration 340
+## Date: 2026-01-05 01:43
+
+## Summary
+Continued chain preset migration session. Migrated 5 more chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **vechain.js** (id: 100009) - Vechain
+2. **wanchain.js** (id: 888) - Wanchain
+3. **wanchainTestnet.js** (id: 999) - Wanchain Testnet
+4. **wemix.js** (id: 1111) - WEMIX
+5. **wemixTestnet.js** (id: 1112) - WEMIX Testnet
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Migrated previously**: ~60
+- **Migrated this session**: 5
+- **Total migrated**: ~65
+- **Remaining**: ~275
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (multicall3), testnet
+
+## Next Steps
+Continue migrating remaining chain presets. ~275 remain.

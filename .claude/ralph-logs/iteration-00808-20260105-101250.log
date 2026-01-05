@@ -1,0 +1,37 @@
+# Ralph Migration Log - Iteration 808
+## Date: 2026-01-05
+
+## Task: Improve test coverage for abiEventEncoding.js
+
+## Summary
+
+Added tests to improve coverage of abiEventEncoding.js, specifically targeting:
+- Non-strict mode handling when no events in ABI (line 70)
+- Non-strict mode handling when no matching event for topic0 (line 118)
+- Array type value handling in decoded event data
+
+## Changes Made
+
+### Modified files:
+- `packages/utils/src/abiEventEncoding.spec.ts` - Added 3 new tests
+
+### Test additions:
+1. `returns undefined for no events in ABI in non-strict mode` - Tests empty ABI case
+2. `returns undefined when no matching event for topic0 in non-strict mode` - Tests mismatched selector case
+3. `handles event with uint256 array in data` - Tests array type event decoding
+
+## Coverage Improvement
+
+- abiEventEncoding.js: 90.15% → 93.26%
+- Branch coverage: 77.77% → 80.48%
+- Overall coverage: 95.46% → 95.54%
+
+## Remaining uncovered lines in abiEventEncoding.js:
+- Lines 135-136: Address type Uint8Array to hex conversion in decoded values
+- Lines 141-142: Pass-through for Uint8Array values that are not address/bytes types
+
+These lines handle edge cases where voltaire returns Uint8Array for certain types.
+The current implementation may not hit these branches because voltaire returns
+native types directly in most cases.
+
+## Status: COMPLETE

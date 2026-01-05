@@ -1,0 +1,33 @@
+# Ralph Migration Iteration 00409
+
+## Summary
+Fixed gas limit calculation in createTransaction.js to properly account for EIP-3860 initcode gas by using the transaction's getIntrinsicGas() method.
+
+## Problem
+When deploying contracts with `addToBlockchain: true`, transactions were failing with:
+"tx gas limit X is lower than the minimum gas limit of Y"
+
+The gas limit was being calculated incorrectly because:
+1. The manual calculation was missing EIP-3860 initcode gas (2 gas per 32-byte word)
+2. The calculation didn't account for all EIP-specific costs consistently
+
+## Solution
+Instead of manually calculating intrinsic gas, create a preliminary transaction and use its `getIntrinsicGas()` method which:
+- Properly accounts for all EIP-specific costs
+- Matches the validation logic in ethereumjs exactly
+- Includes data gas, initcode gas, access lists, creation gas, etc.
+
+## Changes Made
+- **packages/actions/src/CreateTransaction/createTransaction.js**: 
+  - Replaced manual gas calculation with preliminary tx creation + getIntrinsicGas()
+  - Removed now-unused dataFee and baseFee calculations
+  - Added better comments explaining the approach
+
+## Tests
+- createTransaction.spec.ts: All 5 tests pass
+- ethAccountsHandler.spec.ts: All 3 tests pass
+
+## Note
+The original tests using `addToBlockchain: true` revealed a separate issue where
+`createdAddress` is not returned in the deploy result when automining is enabled.
+This is a known limitation and would require additional work to fix properly.

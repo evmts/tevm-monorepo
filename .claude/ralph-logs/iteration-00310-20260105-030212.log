@@ -1,0 +1,13 @@
+## Iteration 369 Complete
+
+**Summary:** Migrated 5 chain presets from viem/chains to nativeDefineChain:
+
+1. **rootPorcini.js** (id: 7672) - The Root Network Porcini testnet
+2. **rootstock.js** (id: 30) - Rootstock Mainnet (Bitcoin L2)
+3. **rootstockTestnet.js** (id: 31) - Rootstock Testnet
+4. **rss3.js** (id: 12553) - RSS3 VSL Mainnet
+5. **rss3Sepolia.js** (id: 2331) - RSS3 VSL Sepolia Testnet
+
+**Tests:** All passing (10 passed, 1 skipped)
+
+**Progress:** ~266 migrated, 78 remaining (~23% left)

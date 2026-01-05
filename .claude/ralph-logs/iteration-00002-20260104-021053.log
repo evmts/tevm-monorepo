@@ -1,0 +1,50 @@
+# Ralph Migration Log - Iteration 2
+Date: 2026-01-04
+
+## Migration Target
+- Package: @tevm/utils
+- Function: hexToBytes
+- From: viem/utils
+- To: native implementation (following voltaire pattern)
+
+## Changes Made
+1. Modified `packages/utils/src/viem.js`:
+   - Removed `hexToBytes` from viem/utils import list
+   - Added `hexCharToValue` lookup table for efficient hex character parsing
+   - Added native `hexToBytes` function implementation
+   - Implementation matches viem's API exactly including:
+     - Empty hex '0x' -> empty Uint8Array
+     - Odd-length hex padding (viem allows this)
+     - Error throwing for invalid hex
+
+## Tests Passed
+- packages/utils/src/viem.spec.ts (8 tests)
+- All 58 tests in @tevm/utils pass
+
+## Notes
+- Following same pattern as iteration 1 (native implementation vs voltaire import)
+- Voltaire package still needs dist build before it can be directly imported
+- bytesToHex and hexToBytes are now both native implementations
+- This complements the bytesToHex migration from iteration 1
+
+## Remaining viem imports in @tevm/utils/src/viem.js (42 remaining):
+- boolToBytes, boolToHex, bytesToBigInt, bytesToBigint, bytesToBool, bytesToNumber
+- decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+- encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics
+- encodeFunctionData, encodeFunctionResult, encodePacked
+- formatEther, formatGwei, formatLog
+- fromBytes, fromHex, fromRlp
+- getAddress, hexToBigInt, hexToBool, hexToNumber, hexToString
+- isAddress, isBytes, isHex, keccak256
+- numberToHex, parseEther, parseGwei, serializeTransaction, stringToHex
+- toBytes, toHex, toRlp
+- mnemonicToAccount (from viem/accounts)
+
+## Next Steps
+Possible next targets (simple conversions):
+- hexToBigInt, hexToNumber (conversions from hex)
+- numberToHex, boolToHex, stringToHex (conversions to hex)
+- isHex (validation - need to check for '0x' edge case compatibility)
+
+## Commit
+5d25efd20 - ⚡ refactor(utils): replace viem hexToBytes with native implementation

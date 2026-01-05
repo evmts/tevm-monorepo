@@ -1,5 +1,5 @@
 export { loadBalance, rateLimit } from '@ponder/utils'
-export { http, webSocket } from 'viem'
+export { http, webSocket } from '@tevm/utils'
 export { createJsonRpcFetcher } from './createJsonRpcFetcher.js'
 export type { HeadersInit } from './HeadersInit.js'
 export type { JsonRpcClient } from './JsonRpcClient.js'

@@ -1,0 +1,79 @@
+# Ralph Migration Log - Iteration 153
+## Date: 2026-01-04 10:21:00
+
+## Summary
+Assessment and status review. Previous iterations have successfully migrated all viem JSDoc type imports from core packages' JS source files.
+
+## Current Migration Status
+
+### @tevm/utils Package
+- **COMPLETE**: All utility functions (hex conversions, RLP, keccak256, etc.)
+- **COMPLETE**: ABI encoding/decoding (native implementations)
+- **COMPLETE**: formatAbi (native implementation)
+- **COMPLETE**: @ethereumjs/util exports (all migrated to native implementations)
+- **REMAINING**:
+  - `parseAbi` from abitype (complex human-readable ABI parser)
+  - `mnemonicToAccount`, `privateKeyToAccount` from viem/accounts (signing methods)
+  - Transport/client functions: `createPublicClient`, `createTransport`, `custom`, `defineChain`, `http`, `webSocket` (for forking)
+
+### Core Packages (packages/actions, packages/vm, packages/evm, packages/state, packages/node)
+- **COMPLETE**: All JS source files have zero viem JSDoc imports
+- **REMAINING**: @ethereumjs/statemanager imports in packages/state (AccountCache, StorageCache, CacheType)
+- **REMAINING**: Bloom import from @ethereumjs/vm in packages/vm
+
+## Test Results
+- `packages/utils/src/ethereumjs.spec.ts` - 9 passed, 1 skipped
+- `packages/utils/src/viem.spec.ts` - 253 tests passed
+- `packages/utils/src/abiEncoding.spec.ts` - 16 tests passed
+- `packages/utils/src/abiDeployEncoding.spec.ts` - 7 tests passed
+
+## Notes
+- The ethereumjs.js file is now empty - all exports have been migrated
+- The @ethereumjs/util dependency has already been removed from packages/utils/package.json
+- viem remains in dependencies for transport functions (needed for forking)
+
+## Next Potential Tasks
+1. **Migrate StateManager caches** - Would require implementing AccountCache, StorageCache, CacheType equivalents
+2. **Migrate Bloom filter** - Create native BloomFilter implementation compatible with ethereumjs
+3. **Explore guillotine-mini integration** - The voltaire EVM (lib/voltaire/src/evm/) has instruction handlers
+
+## Voltaire EVM Status
+The lib/voltaire/src/evm/ directory contains:
+- Frame handling
+- Host interface
+- Instruction handlers for all opcode categories (arithmetic, bitwise, block, comparison, context, control, keccak, log, memory, stack, storage, system)
+- Precompiles
+
+This suggests voltaire is approaching EVM-complete and could potentially replace @ethereumjs/evm.
+
+## Changes Made This Iteration
+
+### Modified: packages/vm/src/utils/ApplyBlockResult.ts
+- Line 1: Changed `import type { Bloom } from '@ethereumjs/vm'` to `import type { Bloom } from '@tevm/utils'`
+
+## Rationale
+The Bloom class in @tevm/utils is compatible with the ethereumjs Bloom for type purposes:
+- Both have `bitvector: Uint8Array` property
+- Both have same methods: `add`, `check`, `multiCheck`, `or`
+
+The ethereumjs Bloom has an additional `keccakFunction` property and accepts an optional `Common` parameter in the constructor, but these are not used in the type interface - only the methods and bitvector property are needed.
+
+## Test Results
+- `packages/utils/src/Bloom.spec.ts` - 6 tests passed
+
+## Pre-existing Issues Found
+- @tevm/utils has pre-existing TypeScript build errors related to voltaire Hex module and test files
+- These are unrelated to the Bloom migration
+
+## Migration Progress
+
+### @ethereumjs/vm imports in packages/vm:
+- Before: 1 import (ApplyBlockResult.ts)
+- After: 0 imports
+
+### Remaining ethereumjs imports in core packages:
+- packages/state: @ethereumjs/statemanager (AccountCache, StorageCache, CacheType) - 8 files
+- packages/vm: None remaining!
+
+## Summary
+Successfully migrated the last @ethereumjs/vm import in the packages/vm package. The vm package now has zero ethereumjs imports in its source files.

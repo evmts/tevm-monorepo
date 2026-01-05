@@ -1,0 +1,25 @@
+# Ralph Migration Iteration
+
+**Date**: 2026-01-04
+**Target**: packages/blockchain/src/actions/getBlock.spec.ts, packages/blockchain/src/actions/putBlock.spec.ts
+**Change**: Replaced viem hex utility imports with @tevm/utils
+
+## Summary
+- Replaced `hexToBytes` import from 'viem' with '@tevm/utils' in getBlock.spec.ts
+- Replaced `bytesToHex` import from 'viem' with '@tevm/utils' in putBlock.spec.ts
+- Both are simple utility function replacements - @tevm/utils re-exports these from viem
+
+## Tests
+- TypeScript check passed: `npx tsc --noEmit -p packages/blockchain/tsconfig.json`
+- Test run requires TEVM_RPC_URLS_MAINNET/OPTIMISM env vars (pre-existing requirement)
+
+## Status
+- Committed: 9b3b6a4d3
+
+**Remaining viem imports in blockchain package:**
+- packages/blockchain/src/ChainOptions.ts: `import type { BlockTag, EIP1193RequestFn } from 'viem'`
+- packages/blockchain/src/utils/getBlockFromRpc.spec.ts: `import { custom } from 'viem'`
+
+**Next targets:**
+- ChainOptions.ts has type imports - need to check if @tevm/utils exports BlockTag and EIP1193RequestFn
+- getBlockFromRpc.spec.ts uses viem's `custom` transport - this is viem-specific functionality

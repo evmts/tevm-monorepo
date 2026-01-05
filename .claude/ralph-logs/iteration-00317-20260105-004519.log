@@ -1,0 +1,61 @@
+# Ralph Migration Log - Iteration 317
+## Date: 2026-01-05 00:45
+
+## Summary
+Migrated @tevm/common types to use native Chain type from @tevm/utils instead of viem/chains.
+
+## Actions Taken
+1. Reviewed previous iteration log (316) - core packages stable, next step was chain presets migration
+2. Updated `CommonOptions.ts` to import `Chain` from `@tevm/utils` instead of `viem/chains`
+3. Updated `Common.ts` to import `Chain` from `@tevm/utils` instead of `viem/chains`
+4. Fixed type errors in `tevmChainToViemChain.js`:
+   - Replaced external `@tevm/chains` type import with inline JSDoc typedef
+   - Added explicit type casts to fix "possibly undefined" errors for explorers
+5. Built types successfully with `pnpm nx run @tevm/common:build:types`
+6. Ran tests - all passing:
+   - createCommon.spec.ts: 10 passed, 1 skipped
+   - tevmChainToViemChain.spec.ts: 7 passed
+
+## Files Modified
+1. `packages/common/src/CommonOptions.ts`
+   - Changed `import type { Chain as ViemChain } from 'viem/chains'`
+   - To `import type { Chain as NativeChain } from '@tevm/utils'`
+   - Changed `CommonOptions = ViemChain &` to `CommonOptions = NativeChain &`
+
+2. `packages/common/src/Common.ts`
+   - Changed `import { type Chain as ViemChain } from 'viem/chains'`
+   - To `import type { Chain as NativeChain, Prettify } from '@tevm/utils'`
+   - Changed `Common = Prettify<ViemChain &` to `Common = Prettify<NativeChain &`
+
+3. `packages/utils/src/tevmChainToViemChain.js`
+   - Replaced `@typedef {import('@tevm/chains').Chain} TevmChain` with inline type definitions
+   - Added explicit type casts for explorer array access
+
+## viem/chains Imports Remaining in @tevm/common
+Before this iteration: 339 imports
+After this iteration: 337 imports (removed 2 type imports from Common.ts and CommonOptions.ts)
+
+The preset files (mainnet.js, optimism.js, etc.) still import from viem/chains for the actual chain data.
+This iteration was a prerequisite step - updating the type definitions to use our native Chain type.
+
+## Migration Status Update
+
+### Type Definitions - Now Native
+- `Common` type now extends `NativeChain` from `@tevm/utils`
+- `CommonOptions` type now extends `NativeChain` from `@tevm/utils`
+- These are type-compatible with viem's Chain type
+
+### Chain Presets - Still Using viem/chains
+The 337 preset files in `packages/common/src/presets/` still import runtime chain data from viem/chains.
+Next step: Update the generator script to use `@tevm/chains` + `tevmChainToViemChain` for presets.
+
+### Test Results
+- createCommon.spec.ts: 10 passed, 1 skipped
+- tevmChainToViemChain.spec.ts: 7 passed
+- Types build successfully
+
+## Notes
+- The native `Chain` type from `@tevm/utils/chain-types.ts` is structurally compatible with viem's Chain type
+- This change is backwards compatible - consumers can still pass viem chains to createCommon
+- The preset migration (next step) is a larger change affecting 337+ files
+- The generator script (`__GENERATE_CHAIN_PRESETS__.js`) will need to be updated to use native chain data

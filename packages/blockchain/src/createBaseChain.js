@@ -1,7 +1,7 @@
 import { createBlock } from '@tevm/block'
 import { createLogger } from '@tevm/logger'
 import { EMPTY_STATE_ROOT } from '@tevm/trie'
-import { hexToBytes } from 'viem'
+import { hexToBytes } from '@tevm/utils'
 import { putBlock } from './actions/putBlock.js'
 import { getBlockFromRpc } from './utils/getBlockFromRpc.js'
 

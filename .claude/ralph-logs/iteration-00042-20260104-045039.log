@@ -1,0 +1,12 @@
+Done! I completed iteration 64 of the migration:
+
+**Summary:**
+- Migrated 2 files in `packages/blockchain/src/actions/`:
+  - `getBlock.spec.ts`: Replaced `hexToBytes` import from `'viem'` with `'@tevm/utils'`
+  - `putBlock.spec.ts`: Replaced `bytesToHex` import from `'viem'` with `'@tevm/utils'`
+
+**Commit:** `9b3b6a4d3`
+
+**Remaining viem imports in blockchain package:**
+- `ChainOptions.ts`: Type imports (`BlockTag`, `EIP1193RequestFn`) - need to check if @tevm/utils exports these
+- `getBlockFromRpc.spec.ts`: Uses viem's `custom` transport function - this is viem-specific functionality that likely needs to stay

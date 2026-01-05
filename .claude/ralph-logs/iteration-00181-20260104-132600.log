@@ -1,0 +1,54 @@
+# Ralph Migration Log - Iteration 181
+## Date: 2026-01-04 13:26:00
+
+## Summary
+Migrated `DecodeFunctionResultReturnType` type from viem to native implementation in @tevm/utils.
+
+## Changes Made
+
+### 1. Added native DecodeFunctionResultReturnType type in `packages/utils/src/contract-types.ts`
+Added a new type that wraps `ContractFunctionReturnType` with appropriate defaults:
+- `DecodeFunctionResultReturnType<TAbi, TFunctionName, TArgs>`: Native replacement for viem's type
+  - Takes an ABI, function name (optional), and args (optional)
+  - Returns the decoded return type for a contract function call
+  - Uses `ContractFunctionReturnType` internally with `AbiStateMutability` default
+  - Handles function overloads via the TArgs parameter
+
+### 2. Updated `packages/utils/src/abitype.ts`
+- Moved `DecodeFunctionResultReturnType` from viem import to native contract-types.js import
+- Reduced viem type imports from 5 to 4
+
+## Tests Verified
+- `packages/contract/src/*.spec.ts` - 14 passed (createContract tests)
+- `packages/evm/src/createEvm.spec.ts` - 14 passed
+- `packages/state/src/createBaseState.spec.ts` - 4 passed
+- `packages/actions/src/Contract/validateContractParams.spec.ts` - 10 passed
+- `packages/actions/src/Contract/zContractParams.spec.ts` - 3 passed
+- Type checking passes for contract-types.ts
+
+## Migration Progress
+
+### viem types still imported from abitype.ts (4 remaining):
+- Account (complex type with signing methods)
+- CreateEventFilterParameters (complex event filtering)
+- GetEventArgs (event argument extraction)
+- HDAccount (complex type with HD derivation methods)
+
+### Native contract types now complete:
+- ContractFunctionName ✅
+- ContractFunctionArgs ✅
+- ContractFunctionReturnType ✅
+- ContractConstructorArgs ✅
+- EncodeFunctionDataParameters ✅
+- EncodeDeployDataParameters ✅
+- DecodeFunctionResultReturnType ✅ (NEW)
+
+## Next Steps
+1. Complex types (Account, HDAccount) require viem's signing infrastructure - may not be migratable
+2. `CreateEventFilterParameters` and `GetEventArgs` may be harder due to event complexity
+3. Continue reducing viem surface area where possible
+4. Consider looking at other packages for viem imports to migrate
+
+## Files Changed
+- packages/utils/src/contract-types.ts (added DecodeFunctionResultReturnType type)
+- packages/utils/src/abitype.ts (updated imports)

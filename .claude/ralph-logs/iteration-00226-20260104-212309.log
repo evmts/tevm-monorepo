@@ -1,0 +1,11 @@
+## Iteration 280 Complete
+
+Added two new guillotine-mini WASM integration tests:
+
+1. **Cross-execution storage persistence test** - Confirms that storage values set via `SSTORE` in one execution persist and can be read via `SLOAD` in subsequent executions within the same EVM instance. This validates guillotine-mini's state model.
+
+2. **Unconditional JUMP test** - Verifies `JUMP` and `JUMPDEST` opcodes work correctly in guillotine-mini.
+
+**Test Results**: 28/29 passed (1 skipped - known `evm_set_storage` WASM bug)
+
+**Key Finding**: Storage state correctly persists across multiple `executeGuillotine()` calls on the same EVM instance, which is important for future integration work.

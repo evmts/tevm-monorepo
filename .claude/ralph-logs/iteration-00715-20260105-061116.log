@@ -1,0 +1,57 @@
+# Ralph Migration Log - Iteration 423
+## Date: 2026-01-05
+
+## Task: Migrate runtime viem functions in @tevm/viem extension
+
+## Changes Made
+
+### extensions/viem/src/tevmViemExtension.js
+Migrated 4 runtime functions from viem to @tevm/utils:
+- `decodeFunctionResult`
+- `encodeFunctionData`
+- `hexToBigInt`
+- `numberToHex`
+
+Before:
+```javascript
+import { decodeFunctionResult, encodeFunctionData, hexToBigInt, numberToHex } from 'viem'
+```
+
+After:
+```javascript
+import { decodeFunctionResult, encodeFunctionData, hexToBigInt, numberToHex } from '@tevm/utils'
+```
+
+## Attempted Changes (Reverted)
+
+### extensions/viem/src/OptimisticResult.ts
+Attempted to migrate `Chain` and `ContractFunctionName` from viem to @tevm/utils, but this caused
+type incompatibility issues with `WaitForTransactionReceiptReturnType` which uses viem's Chain type.
+The @tevm/utils Chain type and viem's Chain type have different EIP1193RequestFn schemas.
+
+### extensions/viem/src/ViemTevmOptimisticClientDecorator.ts
+Attempted to migrate `Account`, `Chain`, `Transport` but reverted due to above incompatibility.
+
+### extensions/viem/src/ViemTevmOptimisticClient.ts
+Attempted to migrate `Account`, `Chain`, `ContractFunctionArgs`, `ContractFunctionName` but reverted.
+
+## Key Finding
+The viem `Chain` type is deeply integrated with viem's type system via the EIP1193RequestFn schema.
+When using viem-specific types like `WaitForTransactionReceiptReturnType`, `WriteContractParameters`, etc.,
+the Chain type must come from viem to maintain type compatibility.
+
+This is expected - the @tevm/viem extension is specifically designed to integrate with viem,
+so it needs to use viem's Chain type for compatibility with viem's API.
+
+## Build Status
+- @tevm/viem:build:types - SUCCESS
+
+## Migration Summary for @tevm/viem
+- Migrated: runtime utility functions (decodeFunctionResult, encodeFunctionData, hexToBigInt, numberToHex)
+- Kept as viem: Chain, Account, Transport, ContractFunctionName, ContractFunctionArgs (API compatibility)
+- Kept as viem: WriteContractParameters, WaitForTransactionReceiptReturnType, etc. (viem-specific types)
+
+## Next Steps
+1. The @tevm/viem extension intentionally uses viem types for API compatibility
+2. Focus on other packages or extensions for further migration
+3. Document which packages have intentional viem dependencies

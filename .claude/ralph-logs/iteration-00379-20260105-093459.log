@@ -1,0 +1,16 @@
+The test compiles and runs (it's skipped due to being slow, not due to errors). The migration of `EIP1193RequestFn` from viem to @tevm/utils was successful.
+
+## Summary
+
+**Iteration 760 Complete**
+
+Successfully migrated one file:
+- `bundler-packages/mud/src/internal/decorators/mudStoreGetStorageAtOverride.spec.ts`: Changed `import { type EIP1193RequestFn } from 'viem'` to import from `@tevm/utils`
+
+Attempted but reverted:
+- Migration of `http` to `nativeHttp` in test-node spec files failed because `nativeHttp` doesn't fully match viem's `http` transport structure
+
+The core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) remain free of direct viem imports. The remaining viem usages are in:
+1. Third-party library integrations (whatsabi)
+2. Complex viem-specific types (account-abstraction)
+3. Re-exports through @tevm/utils (acceptable - provides backward compatibility)

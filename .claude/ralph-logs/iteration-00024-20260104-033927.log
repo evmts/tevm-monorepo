@@ -1,0 +1,15 @@
+Migration iteration 25 completed successfully.
+
+## Summary
+
+**Changed:** `ethGetLogsHandler.js` now imports `InternalRpcError` from `@tevm/errors` instead of directly from `viem`.
+
+**Commit:** `fb2370539`
+
+**Remaining viem imports in @tevm/actions production code:**
+- `contractHandler.js`: `getContractError`, `RawContractError` - These are complex viem utilities for decoding contract revert errors. Migrating these would require significant effort.
+
+**Status:**
+- Build succeeds
+- Test failures are pre-existing issues with storageRoot validation (unrelated to this change)
+- The @tevm/actions package now has only 1 file with direct viem runtime imports (down from 2)

@@ -1,0 +1,47 @@
+# Ralph Migration Log - Iteration 347
+## Date: 2026-01-05 02:09
+
+## Summary
+Migrated 9 chain presets from viem/chains to nativeDefineChain in this session.
+
+## Chains Migrated This Session
+
+### First batch (5 chains):
+1. **flare.js** (id: 14) - Flare Mainnet
+2. **flareTestnet.js** (id: 114) - Flare Testnet Coston2
+3. **flowMainnet.js** (id: 747) - Flow EVM Mainnet
+4. **flowPreviewnet.js** (id: 646) - Flow EVM Previewnet
+5. **flowTestnet.js** (id: 545) - Flow EVM Testnet
+
+### Second batch (4 chains):
+6. **fluence.js** (id: 9999999) - Fluence
+7. **fluenceStage.js** (id: 123420000220) - Fluence Stage
+8. **fluenceTestnet.js** (id: 52164803) - Fluence Testnet
+9. **forma.js** (id: 984122) - Forma
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~136 (from iteration 346)
+- **Migrated this session**: 9
+- **Total migrated**: ~145
+- **Remaining**: 199 (including generator file)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Flare/Flare Testnet: Uses 'FLR' and 'C2FLR' as native currency symbols
+- Flow chains: All use 'FLOW' as native currency symbol
+- Fluence chains: Uses 'FLT' and 'tFLT' as native currency symbols
+- Forma: Uses 'TIA' (Celestia token) as native currency symbol
+- All Fluence chains have WebSocket support
+
+## Next Steps
+Continue migrating remaining chain presets. ~199 remain (~58% remaining).
+Next chains to migrate: foundry, fraxtal, fraxtalTestnet, funkiMainnet, funkiSepolia...

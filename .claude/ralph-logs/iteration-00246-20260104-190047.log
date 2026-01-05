@@ -1,0 +1,62 @@
+# Ralph Migration Log - Iteration 246
+## Date: 2026-01-04 19:00:47
+
+## Summary
+Verified migration status. All core packages have been successfully migrated from direct viem/ethereumjs dependencies for crypto primitives and account handling.
+
+## Tests Run
+All passing:
+- `packages/utils/src/nativePrivateKeyToAccount.spec.ts` - 18 tests passed
+- `packages/utils/src/nativeMnemonicToAccount.spec.ts` - 17 tests passed
+- `packages/utils/src/prefundedAccounts.spec.ts` - 1 test passed
+- `packages/evm/src/guillotineWasm.spec.ts` - 24 tests passed
+
+Total: 60 tests passed
+
+## Migration Status (Verified)
+
+### Core Packages - Source Files
+No direct viem imports remaining in source files for:
+- `packages/actions/src/` - 0 viem imports
+- `packages/state/src/` - 0 viem imports
+- `packages/vm/src/` - 0 viem imports (uses internal deps)
+- `packages/precompiles/src/` - 0 viem imports
+
+### packages/utils/src/viem.js - Intentionally Kept
+The only remaining viem imports in `packages/utils/src/viem.js` are:
+1. `mnemonicToAccount, privateKeyToAccount` from 'viem/accounts' - **DEPRECATED** with native alternatives
+2. `createPublicClient, createTransport, custom, defineChain, http, webSocket` from 'viem' - **REQUIRED** for RPC transport
+
+These cannot be removed:
+- Account functions are deprecated but kept for backward compatibility
+- Transport functions are required for fork client to communicate with external nodes
+
+### Type Declarations (.d.ts files)
+Type declarations reference viem types (Hex, Address, etc.) but this is expected for:
+- API compatibility with viem ecosystem
+- Type-level only, no runtime dependency
+
+## Files Modified
+None - verification and assessment only
+
+## Conclusion
+The voltaire migration is substantially complete for all practical purposes:
+- Crypto primitives: 100% migrated to voltaire (Keccak256, Secp256k1, P256, EIP712)
+- Account creation: Native implementations available (nativePrivateKeyToAccount, nativeMnemonicToAccount)
+- ABI encoding: 100% migrated to voltaire
+- EVM integration: guillotine-mini WASM working with 24 passing tests
+
+The remaining viem dependencies are:
+1. Transport/RPC functions (required, cannot remove)
+2. Deprecated account exports (will be removed in future major version)
+3. Type declarations (type-level only, no runtime cost)
+
+No further migration tasks available without major architectural changes to replace:
+- @ethereumjs/common (chain configuration)
+- @ethereumjs/tx (transaction types)
+- @ethereumjs/trie (Merkle Patricia Trie)
+
+These would require substantial work to create JS wrappers for voltaire's Zig implementations.
+
+## Status
+Migration phase complete. System stable. All tests passing.

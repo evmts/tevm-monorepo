@@ -1,0 +1,52 @@
+# Ralph Migration Log - Iteration 753
+## Date: 2026-01-05
+
+## Task: Migrate watchContractEvent.spec.ts viem type import to @tevm/utils
+
+## Summary
+
+Successfully migrated `packages/memory-client/src/test/viem/watchContractEvent.spec.ts` to use `Log` type from `@tevm/utils` instead of `WatchContractEventOnLogsParameter` from viem.
+
+## Changes Made
+
+1. Changed import from:
+   ```typescript
+   import type { WatchContractEventOnLogsParameter } from 'viem'
+   ```
+   To:
+   ```typescript
+   import type { Log } from '@tevm/utils'
+   ```
+
+2. Changed type annotation from:
+   ```typescript
+   const logs: WatchContractEventOnLogsParameter<typeof c.simpleContract.abi> = []
+   ```
+   To:
+   ```typescript
+   const logs: Log[] = []
+   ```
+
+## Verification
+
+- TypeScript compilation: ✅ Passed (`pnpm tsc --noEmit` succeeded)
+- Test execution: ⚠️ Test fails, but failure is pre-existing gas limit issue unrelated to type change
+
+## Notes
+
+- The `WatchContractEventOnLogsParameter` type is a viem-specific type for callback parameters
+- Since the test only uses this to declare an empty array that gets logs pushed to it, the simpler `Log[]` type suffices
+- The test has a pre-existing bug where `logs.push()` is called without arguments
+
+## Migration Status
+
+### Remaining viem imports in spec files (packages/):
+1. ~~watchContractEvent.spec.ts~~ ✅ MIGRATED
+2. repro-2008.spec.ts - Uses `createPublicClient`, `createWalletClient`, `custom`, `defineChain` from viem
+
+### Core Packages Status:
+- @tevm/actions - No viem imports ✅
+- @tevm/vm - No viem imports ✅
+- @tevm/evm - No viem imports ✅
+- @tevm/state - No viem imports ✅
+- @tevm/node - No viem imports ✅

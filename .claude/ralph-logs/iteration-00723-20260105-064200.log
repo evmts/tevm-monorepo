@@ -1,0 +1,96 @@
+# Ralph Migration Log - Iteration 723
+## Date: 2026-01-05
+
+## Task: Migrate FieldLayout.spec.ts and mudStoreGetStorageAtOverride.spec.ts
+
+## Completed Migrations
+
+### 1. bundler-packages/mud/src/internal/FieldLayout.spec.ts
+- Migrated: `concatHex`, `Hex`, `hexToBigInt`, `keccak256`, `numberToHex` from viem to @tevm/utils
+- Tests: All 8 tests pass ✅
+
+### 2. bundler-packages/mud/src/internal/decorators/mudStoreGetStorageAtOverride.spec.ts
+- Migrated: `Address`, `pad` from viem to @tevm/utils
+- Kept `EIP1193RequestFn` from viem (type incompatibility)
+- Tests: Skipped (by design)
+
+## Attempted but Reverted
+
+### mudStoreGetStorageAtOverride.ts (source file)
+- Tried migrating `EIP1193RequestFn` from viem to @tevm/utils
+- Failed: Type incompatibility between viem's narrowly-typed EIP1193RequestFn and @tevm/utils generic version
+- viem's version has specific method/params unions while @tevm/utils has generic TMethod
+- Reverted to keep viem import for this type
+
+## Key Findings
+1. **EIP1193RequestFn type incompatibility**: viem has stricter type unions for all supported methods, @tevm/utils has a generic version. These are not interchangeable without type assertions.
+
+2. Successfully migrated utility functions:
+   - `concatHex` ✅
+   - `hexToBigInt` ✅
+   - `keccak256` ✅
+   - `numberToHex` ✅
+   - `pad` ✅
+   - `Address` type ✅
+   - `Hex` type ✅
+
+## Remaining viem imports in mud package
+- `Client` type (intentional - viem client compatibility)
+- `EIP1193RequestFn` type (type incompatibility)
+- `createClient` in tests (intentional - testing with viem)
+- `Chain`, `Transport`, `WriteContractParameters`, `WriteContractReturnType` in types.ts
+
+## Summary
+Made progress migrating simple utility function/type imports. EIP1193RequestFn type incompatibility is a known limitation documented in iteration 722.
+
+## Extended Analysis
+
+After detailed analysis of remaining viem imports:
+
+### Source Files Analysis
+| Location | Import | Status |
+|----------|--------|--------|
+| packages/utils/src/viem.js | createPublicClient, createTransport, etc. | Deprecated re-exports |
+| bundler-packages/mud/src/*.ts | Client, EIP1193RequestFn | Type compatibility issues |
+| bundler-packages/whatsabi/src/*.js | createClient, http, getCode | Intentional - RPC client |
+| extensions/test-matchers/src/*.ts | Client type | Intentional - viem Client API |
+
+### Dist Files (will be regenerated on build)
+- packages/utils/dist/index.js
+- extensions/test-node/dist/index.js  
+- extensions/test-matchers/dist/index.js
+- bundler-packages/whatsabi/dist/index.js
+
+### Conclusion
+All remaining viem imports are either:
+1. **Intentional** - using viem Client/RPC functionality
+2. **Deprecated re-exports** - packages/utils/src/viem.js
+3. **Type incompatibilities** - EIP1193RequestFn, DecodeErrorResultReturnType
+4. **Build artifacts** - dist/ files
+
+No more easy migration targets found. The migration is effectively complete for core packages.
+
+## Guillotine-mini Status
+
+Found existing work on guillotine-mini integration in `packages/evm/src/guillotineWasm.js`:
+- JavaScript wrapper for guillotine-mini WASM is scaffolded
+- WASM binary build pending (dependency issues in lib/guillotine-mini)
+- Currently excluded from test coverage (vitest.config.ts)
+- Requires `zig build wasm` in lib/guillotine-mini to build WASM binary
+
+The EVM migration to guillotine-mini is a separate, larger effort that requires:
+1. Successfully building the WASM binary
+2. Integration testing with the JS wrapper
+3. Replacing @ethereumjs/evm calls with guillotine WASM calls
+
+## Final Status
+
+### Completed This Iteration
+1. ✅ Migrated `bundler-packages/mud/src/internal/FieldLayout.spec.ts` - viem primitives to @tevm/utils
+2. ✅ Partial migration of `mudStoreGetStorageAtOverride.spec.ts` - Address, pad to @tevm/utils
+
+### Migration Progress Summary
+- **Core packages (@tevm/*)**: Complete ✅
+- **Extensions**: Mostly complete (remaining: viem Client type for API compatibility)
+- **Bundler packages**: Partial (EIP1193RequestFn type incompatibility blocks some)
+- **Guillotine-mini integration**: Scaffolded, pending WASM build

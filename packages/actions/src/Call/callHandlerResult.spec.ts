@@ -1,7 +1,6 @@
 import type { EthjsLog } from '@tevm/utils'
-import { bytesToHex, getAddress, toHex } from '@tevm/utils'
+import { bytesToHex, getAddress, stringToBytes, toHex } from '@tevm/utils'
 import type { RunTxResult } from '@tevm/vm'
-import { stringToBytes } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { callHandlerResult } from './callHandlerResult.js'
 

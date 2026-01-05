@@ -1,0 +1,28 @@
+# Ralph Migration Iteration
+
+**Date**: 2026-01-04
+**Target**: packages/memory-client/src/test/deployments.spec.ts
+**Change**: Replaced viem `Address` type import with @tevm/utils
+
+## Summary
+- Split import: `import { type Address, testActions } from 'viem'`
+- Now: `import type { Address } from '@tevm/utils'` + `import { testActions } from 'viem'`
+- testActions is viem-specific functionality, so it stays from viem
+- Simple type import migration - no functional changes
+
+## Tests
+- TypeScript check passed: `npx tsc --noEmit -p packages/memory-client/tsconfig.json`
+- Test failure is from pre-existing issue (createCachedMainnetTransport not a function) - not related to this migration
+
+## Status
+- Committed: a7adc469e
+
+**Remaining viem imports in core packages:**
+- ~193 remaining across packages
+- Many are viem-specific client APIs (testActions, walletActions, createClient, etc.)
+- Type imports like Hex, Address can be migrated to @tevm/utils
+- Some viem-specific functionality needs to stay
+
+**Next targets:**
+- Continue migrating simple type imports (Hex, Address, etc.) from viem to @tevm/utils
+- Look for more test files with utility type imports only

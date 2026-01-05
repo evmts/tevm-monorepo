@@ -1,5 +1,5 @@
 import { InternalError } from '@tevm/errors'
-import { bytesToHex, hexToBytes } from 'viem'
+import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { getAccount } from './getAccount.js'
 import { getForkBlockTag } from './getForkBlockTag.js'
 import { getForkClient } from './getForkClient.js'

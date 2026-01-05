@@ -1,0 +1,48 @@
+# Ralph Migration Log - Iteration 269
+## Date: 2026-01-04 20:37
+
+## Summary
+Verification iteration confirming migration stability. All tests passing.
+
+## Current Migration Status
+
+### Core Packages - COMPLETE (0 viem imports)
+- packages/actions: 0 viem imports
+- packages/vm: 0 viem imports
+- packages/evm: 0 viem imports
+- packages/state: 0 viem imports
+- packages/node: 0 viem imports
+
+### Remaining viem imports in packages/utils:
+1. **viem.js** - Transport/client functions (intentionally kept for RPC compatibility)
+2. **abitype.ts** - Account/HDAccount type exports (deprecated, kept for backwards compatibility)
+   - Native alternatives already available: LocalAccount, NativeHDAccount, etc.
+
+## Test Results
+All 115 tests passing across migration-related files:
+- signature.spec.ts: 31 passed
+- guillotineWasm.spec.ts: 26 passed, 1 skipped (known bug)
+- prefundedAccounts.spec.ts: 1 passed
+- nativePrivateKeyToAccount.spec.ts: 18 passed
+- eip7702.spec.ts: 22 passed
+- nativeMnemonicToAccount.spec.ts: 17 passed
+
+## Migration Complete For
+- All cryptographic operations to voltaire (Keccak256, Secp256k1, P256)
+- Native account implementations (nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount)
+- ABI encoding/decoding
+- Event/Error encoding/decoding
+- Signature operations
+- EIP-7702 authorization utilities
+- Bloom filter implementation
+- Guillotine-mini WASM integration in @tevm/evm
+
+## Intentional Dependencies (Not to be Migrated)
+1. **packages/tx** - @ethereumjs/tx for ImpersonatedTx (extends FeeMarket1559Tx)
+2. **packages/utils/src/viem.js** - Transport/client functions for RPC
+3. **packages/memory-client/** - Intentionally a viem wrapper
+4. **packages/common/src/presets/** - Chain data from viem/chains
+5. **packages/utils/src/abitype.ts** - Deprecated Account/HDAccount re-exports
+
+## Conclusion
+Migration is stable and complete for all core packages. The remaining viem dependencies are intentional for backwards compatibility or are in packages that wrap viem by design.

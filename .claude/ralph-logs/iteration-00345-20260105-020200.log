@@ -1,0 +1,58 @@
+# Ralph Migration Log - Iteration 345
+## Date: 2026-01-05 02:02
+
+## Summary
+Migrated 19 chain presets from viem/chains to nativeDefineChain in this session.
+
+## Chains Migrated This Session
+
+### First batch:
+1. **cyber.js** (id: 7560) - Cyber
+2. **curtis.js** (id: 33111) - Curtis
+3. **crossbell.js** (id: 3737) - Crossbell
+4. **cronoszkEVMTestnet.js** (id: 282) - Cronos zkEVM Testnet
+
+### Second batch:
+5. **darwinia.js** (id: 46) - Darwinia Network
+6. **dchain.js** (id: 2716446429837000) - Dchain (OP Stack)
+7. **dchainTestnet.js** (id: 2713017997578000) - Dchain Testnet (OP Stack)
+8. **defichainEvm.js** (id: 1130) - DeFiChain EVM Mainnet
+9. **defichainEvmTestnet.js** (id: 1131) - DeFiChain EVM Testnet
+
+### Third batch:
+10. **degen.js** (id: 666666666) - Degen
+11. **dfk.js** (id: 53935) - DFK Chain
+12. **dodochainTestnet.js** (id: 53457) - DODOchain Testnet
+13. **dogechain.js** (id: 2000) - Dogechain
+14. **dreyerxMainnet.js** (id: 23451) - DreyerX Mainnet
+
+### Fourth batch:
+15. **dreyerxTestnet.js** (id: 23452) - DreyerX Testnet
+16. **edgeless.js** (id: 2026) - Edgeless Network
+17. **edgelessTestnet.js** (id: 202) - Edgeless Testnet
+18. **edgeware.js** (id: 2021) - Edgeware EdgeEVM Mainnet
+19. **edgewareTestnet.js** (id: 2022) - Beresheet BereEVM Testnet
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~99
+- **Migrated this session**: 19
+- **Total migrated**: ~118
+- **Remaining**: ~221 (including generator file)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- OP Stack chains (dchain, dchainTestnet) include the standard OP Stack predeploy contracts
+- cyberTestnet was already migrated in a prior session
+
+## Next Steps
+Continue migrating remaining chain presets. ~221 remain (~66% remaining).
+Next chains to migrate: ekta, ektaTestnet, eon, eos, eosTestnet, etherlink...

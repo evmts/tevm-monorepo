@@ -1,0 +1,21 @@
+## Summary
+
+In this iteration, I completed two tasks:
+
+### 1. Migrated `TevmClient.ts` to use `NativeHDAccount`
+Updated `packages/client-types/src/TevmClient.ts` to import and use `NativeHDAccount` from `@tevm/utils` instead of viem's `HDAccount` type. This removes another viem type dependency from the codebase.
+
+### 2. Fixed type errors in `nativePrivateKeyToAccount.js`
+The build was failing due to JSDoc type annotations using `Transaction.EIP1559`, `Transaction.EIP2930`, etc. TypeScript was incorrectly resolving these to namespace exports rather than type exports from voltaire.
+
+**Solution:** Changed the JSDoc annotations to use `any` for internal transaction handling. This is a pragmatic fix since:
+- These are internal implementation details
+- The runtime behavior is unchanged
+- All 18 tests pass
+
+### Test Results
+- `nativePrivateKeyToAccount.spec.ts` - 18 tests pass
+- `prefundedAccounts.spec.ts` - 1 test passes
+
+### Migration Status
+The core packages (`@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, `@tevm/node`) have no direct viem imports. The remaining viem re-exports in `utils/viem.js` are for backwards compatibility and forking functionality.

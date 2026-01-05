@@ -1,5 +1,5 @@
 import type { EvmStateManagerInterface } from '@tevm/common'
-import type { Address } from 'viem'
+import type { Address, Proof } from '@tevm/utils'
 import type { BaseState } from './BaseState.js'
 import type { TevmState } from './state-types/index.js'
 
@@ -72,5 +72,5 @@ export interface StateManager extends EvmStateManagerInterface {
 	getProof(
 		address: import('@tevm/utils').EthjsAddress,
 		storageSlots?: Uint8Array[],
-	): Promise<import('@ethereumjs/statemanager').Proof>
+	): Promise<Proof>
 }

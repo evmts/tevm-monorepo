@@ -1,0 +1,60 @@
+# Ralph Migration Log - Iteration 731
+## Date: 2026-01-05
+
+## Task: Add PublicActions type and migrate viemPublicActions.spec.ts and viemTestActions.spec.ts
+
+## Summary
+
+Added a comprehensive `PublicActions` type to `@tevm/utils/provider-types.ts` (compatible with viem's PublicActions), then migrated 2 spec files to use @tevm/utils instead of viem.
+
+## Changes Made
+
+### New type added in packages/utils/src/provider-types.ts:
+- `PublicActions` - A comprehensive interface for public client actions (read-only blockchain operations). Includes methods for:
+  - Message calls (call, createAccessList)
+  - Filters (createBlockFilter, createContractEventFilter, createEventFilter, createPendingTransactionFilter)
+  - Gas estimation (estimateContractGas, estimateFeesPerGas, estimateGas, estimateMaxPriorityFeePerGas)
+  - Balance/state queries (getBalance, getBytecode, getCode, getStorageAt)
+  - Block queries (getBlock, getBlockNumber, getBlockTransactionCount, getBlobBaseFee)
+  - ENS queries (getEnsAddress, getEnsAvatar, getEnsName, getEnsResolver, getEnsText)
+  - Transaction queries (getTransaction, getTransactionConfirmations, getTransactionCount, getTransactionReceipt)
+  - Contract interaction (readContract, simulateContract, multicall)
+  - Verification (verifyMessage, verifySiweMessage, verifyTypedData)
+  - Watchers (watchBlockNumber, watchBlocks, watchContractEvent, watchEvent, watchPendingTransactions)
+  - And more (getChainId, getGasPrice, getFeeHistory, getLogs, getProof, etc.)
+
+### packages/utils/src/index.ts:
+- Added export for `PublicActions` type
+
+### Files migrated (viem -> @tevm/utils):
+
+1. `packages/memory-client/src/test/viemTestActions.spec.ts`
+   - `import { type TestActions } from 'viem'` -> `import { type TestActions } from '@tevm/utils'`
+
+2. `packages/memory-client/src/test/viemPublicActions.spec.ts`
+   - `import { type PublicActions } from 'viem'` -> `import { type PublicActions } from '@tevm/utils'`
+
+## Test Results
+
+- `@tevm/utils:build:types` - PASS
+- `viemTestActions.spec.ts`: 1 test PASS
+- `viemPublicActions.spec.ts`: 1 test PASS
+
+## Remaining viem imports (approx 32)
+
+Most remaining imports are in:
+- `packages/memory-client/src/` - createMemoryClient.js, createClient.js, etc.
+- `packages/memory-client/src/test/viem/watchContractEvent.spec.ts` - WatchContractEventOnLogsParameter
+- `packages/utils/src/viem.js` - re-exports from viem
+
+## Notes
+
+1. Core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) are now fully migrated from viem!
+2. The remaining viem imports are mostly in memory-client which integrates with viem's client system.
+3. The `PublicActions` type uses `unknown` for complex types that would need more detailed typing in the future.
+
+## Impact
+
+- Added 1 new type to @tevm/utils (PublicActions)
+- Migrated 2 viem imports to use @tevm/utils
+- PublicActions and TestActions types can be reused across the codebase for typing client methods

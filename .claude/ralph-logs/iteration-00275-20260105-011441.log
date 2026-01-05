@@ -1,0 +1,8 @@
+Successfully migrated fantom.js from viem/chains to nativeDefineChain. 
+
+**Iteration 330 Complete:**
+- Migrated `packages/common/src/presets/fantom.js` to use `nativeDefineChain` from `@tevm/utils` instead of importing from `viem/chains`
+- Tests pass (10 passed, 1 skipped)
+- Fantom Opera chain (ID 250) now uses native chain definition with FTM currency, FTMScan block explorer, and multicall3 contract
+
+This is the 11th preset migrated. Remaining priority presets: celo.js, moonbeam.js.

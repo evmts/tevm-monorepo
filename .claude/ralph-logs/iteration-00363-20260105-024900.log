@@ -1,0 +1,40 @@
+# Ralph Migration Log - Iteration 363
+## Date: 2026-01-05 02:49
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **oortMainnetDev.js** (id: 9700) - OORT MainnetDev with OORT native currency
+2. **opBNB.js** (id: 204) - opBNB mainnet with BNB native currency, extensive L2 contracts including gasPriceOracle, l1Block, multicall3, portal, bridges
+3. **opBNBTestnet.js** (id: 5611) - opBNB Testnet with tBNB native currency, L2 contracts, testnet flag set
+4. **optimismGoerli.js** (id: 420) - Optimism Goerli testnet with Goerli Ether, L2 contracts, deprecated testnet
+5. **otimDevnet.js** (id: 41144114) - Otim Devnet with ETH native currency, has batchInvoker contract
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: 335 (excluding generator script)
+- **Previously migrated**: ~231 (from iteration 362)
+- **Migrated this session**: 5
+- **Total migrated**: ~236
+- **Remaining**: 108 (~32% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable), sourceId (if applicable)
+
+## Notes
+- oortMainnetDev: Simple chain with OORT token
+- opBNB: BNB's optimistic rollup with extensive L2 contracts, sourceId 56 (BSC mainnet)
+- opBNBTestnet: Similar to opBNB but testnet, sourceId 97 (BSC testnet)
+- optimismGoerli: Deprecated Optimism testnet (Goerli-based), sourceId 5
+- otimDevnet: Has unique batchInvoker contract, uses HTTP (not HTTPS) for RPC
+
+## Next Steps
+Continue migrating remaining chain presets. 108 remain (~32% remaining).
+Next chains to migrate: palm, palmTestnet, pgn, pgnTestnet, phoenix...

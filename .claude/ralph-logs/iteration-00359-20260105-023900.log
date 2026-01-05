@@ -1,0 +1,39 @@
+# Ralph Migration Log - Iteration 359
+## Date: 2026-01-05 02:39
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **meterTestnet.js** (id: 83) - Meter Testnet with MTR native currency
+2. **metis.js** (id: 1088) - Metis mainnet with METIS native currency, multicall3 support, multiple RPC endpoints including WebSocket
+3. **metisGoerli.js** (id: 599) - Metis Goerli testnet with METIS native currency, multicall3 support
+4. **mev.js** (id: 7518) - MEVerse Chain Mainnet with MEV native currency, multicall3 support
+5. **mevTestnet.js** (id: 4759) - MEVerse Chain Testnet with MEV native currency, multicall3 support
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~211 (from iteration 358)
+- **Migrated this session**: 5
+- **Total migrated**: ~216
+- **Remaining**: 128 (~38% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Meter Testnet: Uses MTR as native currency, pairs with meter.js mainnet
+- Metis: Layer 2 solution with multiple RPC endpoints and WebSocket support
+- Metis Goerli: Testnet with apiUrl for block explorer
+- MEVerse: Both mainnet and testnet have MEV as native currency with high blockCreated numbers for multicall3
+
+## Next Steps
+Continue migrating remaining chain presets. 128 remain (~38% remaining).
+Next chains to migrate: mintSepoliaTestnet, modeTestnet, moonbaseAlpha, moonbeamDev, moonbeam...

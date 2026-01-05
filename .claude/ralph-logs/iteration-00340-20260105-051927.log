@@ -1,0 +1,20 @@
+## Summary
+
+I've completed iteration 412 of the migration. Here's what was done:
+
+### New Function Added to @tevm/utils
+- **`parseEventLogs`**: Parses event logs from transaction receipts, matching viem's API
+  - Supports filtering by `eventName` 
+  - Supports filtering by `args` (indexed parameters with array support for multiple matches)
+  - Supports `strict` mode (default: true) that throws on errors
+
+### Migration Completed
+- **`bundler-packages/mud/src/createOptimisticHandler.ts`**: Migrated `parseEventLogs` import from `'viem'` to `'@tevm/utils'`
+
+### Remaining viem imports in createOptimisticHandler.ts
+- `type Client` - Complex viem type
+- `getTransaction` from 'viem/actions'
+
+### Test Results
+- All @tevm/utils tests pass (662 passed)
+- @tevm/mud: 41 tests pass, 6 failures (pre-existing issues with error message formatting, not caused by this migration)

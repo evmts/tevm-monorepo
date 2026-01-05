@@ -1,0 +1,40 @@
+# Ralph Migration Log - Iteration 719
+## Date: 2026-01-05
+
+## Task: Assessment of migration status
+
+## Migration Status Assessment
+
+### Core Packages - FULLY MIGRATED ✅
+1. **@tevm/actions** - No viem imports in production code
+2. **@tevm/vm** - No viem imports in production code  
+3. **@tevm/evm** - No viem imports in production code
+4. **@tevm/state** - No viem imports in production code
+5. **@tevm/node** - No viem imports in production code
+6. **@tevm/common** - All chain presets use nativeDefineChain (except generator tool)
+
+### @tevm/utils - Migration Complete
+- All utility functions natively implemented
+- Native account functions: nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount
+- Native transports: nativeHttp, nativeWebSocket, nativeCustom
+- Native chain definition: nativeDefineChain
+- Deprecated viem re-exports marked with @deprecated
+
+### Intentional viem Dependencies (Keep)
+1. **@tevm/memory-client** - Viem client compatibility layer (createClient, publicActions, etc.)
+2. **extensions/viem** - Viem extension package
+3. **extensions/test-matchers** - Uses viem Client type for API compatibility testing
+4. **bundler-packages/mud** - MUD integration uses viem Client type
+
+### Remaining Cleanup Opportunities
+1. Generator tool: packages/common/src/presets/__GENERATE_CHAIN_PRESETS__.js (non-runtime)
+2. Test files in memory-client (intentional - testing viem compatibility)
+3. parseAbi/formatAbi from abitype (type-level transformations)
+
+## Summary
+The core tevm packages have been successfully migrated away from direct viem dependencies.
+Native implementations in @tevm/utils provide viem-compatible APIs without the viem dependency.
+Remaining viem usage is intentional for interoperability layers.
+
+## Tests Status
+All tests passing with 100% coverage on @tevm/common

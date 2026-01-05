@@ -1,0 +1,24 @@
+# Ralph Migration Log - Iteration 767
+## Date: 2026-01-05
+
+## Task: Improve test coverage for signature.js
+
+## Summary
+
+Added tests for signTypedData function to cover typed data with different value types.
+
+## Changes Made
+
+### Modified files:
+- `packages/utils/src/signature.spec.ts` - Added 2 new tests
+
+### Tests added:
+1. `should handle bytes32 values in typed data`
+2. `should handle uint values as numbers in typed data`
+
+## Coverage Improvement
+
+- Overall coverage: 95.15% → 95.26%
+- signature.js: 95.69% → 97.6%
+
+## Status: COMPLETE

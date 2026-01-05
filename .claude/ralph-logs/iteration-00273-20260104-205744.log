@@ -1,0 +1,54 @@
+# Ralph Migration Log - Iteration 273
+## Date: 2026-01-04 20:57
+
+## Summary
+Migrated privateKeyToAddress.js to use voltaire's Hex.toBytes instead of viem's hexToBytes.
+
+## Assessment Results
+
+### Attempted Migration (Blocked)
+Attempted to migrate nativeMnemonicToAccount.js from @scure/bip39 and @scure/bip32 to @tevm/voltaire's Bip39 and HDWallet modules. However, this migration was blocked because:
+
+1. Voltaire's HDWallet module has optional FFI dependencies (ffi-napi, ref-napi)
+2. The FFI module fails to load in the test environment due to missing native builds for darwin/arm64
+3. Even though the FFI imports are dynamic (async), importing the HDWallet namespace still fails
+4. The original @scure libraries work fine and are already stable
+
+### Successful Migration
+Instead, migrated privateKeyToAddress.js to use more voltaire imports:
+
+**Before:**
+```javascript
+import { Address } from '@tevm/voltaire/Address'
+import { hexToBytes } from './viem.js'
+```
+
+**After:**
+```javascript
+import { Address } from '@tevm/voltaire/Address'
+import { Hex } from '@tevm/voltaire/Hex'
+```
+
+Changed `hexToBytes(privateKey)` to `Hex.toBytes(privateKey)`.
+
+## Changes Made
+- `/packages/utils/src/privateKeyToAddress.js`:
+  - Replaced `import { hexToBytes } from './viem.js'` with `import { Hex } from '@tevm/voltaire/Hex'`
+  - Changed `hexToBytes(privateKey)` to `Hex.toBytes(privateKey)`
+
+## Test Results
+- nativePrivateKeyToAccount.spec.ts: 18/18 passed
+- signature.spec.ts: 31/31 passed
+- @tevm/utils:build:types: SUCCESS
+
+## Remaining viem dependencies in @tevm/utils
+1. **Transport/client functions** (viem.js lines 2136-2143) - Required for forking
+2. **Deprecated account exports** (viem/accounts) - Backward compatibility
+3. **Deprecated type exports** (abitype.ts) - Backward compatibility
+
+## Blockers Discovered
+- Voltaire's Bip39 and HDWallet modules have FFI dependencies that block usage in Node.js test environments
+- The original @scure/bip39 and @scure/bip32 are already the underlying libraries voltaire wraps
+
+## Migration Status
+Core packages remain viem-free for core functionality. The remaining viem usage is intentional (transport for forking) or deprecated exports for backward compatibility.

@@ -1,0 +1,21 @@
+## Migration Iteration 59 Complete
+
+**Successfully added `parseUnits` to @tevm/utils and migrated 3 test files:**
+
+### New additions to @tevm/utils:
+- `parseUnits(value, decimals)`: Native implementation that parses a string value with the given number of decimals into a bigint
+
+### Files migrated:
+1. **readContract.spec.ts**: `encodeDeployData, encodeFunctionData, numberToHex` from viem → @tevm/utils
+2. **stopImpersonatingAccount.spec.ts**: `getAddress` from viem → @tevm/utils (kept testActions from viem)
+3. **transactionMiningBehavior.spec.ts**: `encodeFunctionData, parseUnits` from viem → @tevm/utils
+
+### Commit:
+`7de8f18dc`: refactor(utils/memory-client): add parseUnits and migrate more test files
+
+### Verification:
+- Types check passes for both utils and memory-client packages
+- Tests have pre-existing state module issue (not caused by migration)
+
+### Remaining:
+~195 viem imports remaining across packages. The viem client APIs (testActions, walletActions, createClient) will remain from viem for now as they're viem-specific functionality.

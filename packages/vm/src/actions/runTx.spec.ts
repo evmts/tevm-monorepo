@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { EventEmitter } from 'node:events'
 
 // Increase max listeners globally to prevent warnings

@@ -1,4 +1,4 @@
-import { defineChain } from 'viem'
+import { defineChain } from '@tevm/utils'
 import { optimism as _optimism, foundry } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 

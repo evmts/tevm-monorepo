@@ -1,0 +1,16 @@
+Let me check the current status of migrations by looking at what was accomplished in this session:
+
+**Summary of this session (iterations 747-752):**
+
+1. **Iteration 747**: Successfully migrated `toBeRevertedWithString.spec.ts` from `viem/actions` to client methods
+2. **Iteration 748**: Successfully migrated `toBeRevertedWithError.spec.ts` from `viem/actions` to client methods
+3. **Iteration 749**: Attempted `tevmMine.spec.ts` but reverted - uses basic `createClient` which requires functional pattern
+4. **Iteration 750**: Successfully migrated `sendRawTransaction.spec.ts` from `viem/actions` to client methods
+5. **Iteration 751**: Analyzed remaining viem imports and documented which can/cannot be migrated
+6. **Iteration 752**: Attempted MemoryClient.ts type migration but reverted - simplified types not compatible
+
+**Key findings:**
+- Core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) have no viem imports
+- Files using `createMemoryClient` can be migrated from `viem/actions` to client methods
+- Files using basic `createClient` from viem cannot be migrated (functional pattern is correct)
+- Type imports from viem in memory-client cannot be migrated (need full generic types)

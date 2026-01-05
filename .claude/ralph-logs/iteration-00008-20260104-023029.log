@@ -1,0 +1,56 @@
+Migration iteration 8 complete. Here's the summary:
+
+## Migration Iteration 8 Complete
+
+**Target**: `isBytes` function in `@tevm/utils`
+
+**Changes**:
+1. Added native `isBytes` implementation with cross-realm compatibility checks
+2. Removed `isBytes` from viem/utils re-exports
+3. Added 6 comprehensive test cases (23 total assertions)
+
+**Results**:
+- All 53 tests in viem.spec.ts pass
+- All 104 tests in @tevm/utils pass (103 + 1 skipped)
+- 100% code coverage maintained
+
+**Remaining viem imports**: 33 functions still need migration
+
+**Commit**: `0b90c0210` - ⚡ refactor(utils): replace viem isBytes with native implementation
+es from viem/utils import
+
+2. Modified `packages/utils/src/viem.spec.ts`:
+   - Added 6 new tests for isBytes:
+     - Valid Uint8Array test (4 assertions)
+     - Regular arrays test (3 assertions)
+     - Other typed arrays test (4 assertions)
+     - Falsy values test (5 assertions)
+     - Non-object values test (4 assertions)
+     - Objects without BYTES_PER_ELEMENT test (3 assertions)
+
+## Tests Passed
+- packages/utils/src/viem.spec.ts (53 tests, up from 47)
+- All 104 tests in @tevm/utils pass (103 + 1 skipped)
+- 100% code coverage maintained
+
+## Remaining viem imports in @tevm/utils/src/viem.js (33 remaining):
+- bytesToBigInt, bytesToBigint, bytesToNumber
+- decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+- encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics
+- encodeFunctionData, encodeFunctionResult, encodePacked
+- formatEther, formatGwei, formatLog
+- fromBytes, fromHex, fromRlp
+- getAddress, hexToString
+- isAddress, keccak256
+- parseEther, parseGwei, serializeTransaction, stringToHex
+- toBytes, toHex, toRlp
+- mnemonicToAccount (from viem/accounts)
+
+## Next Steps
+Possible next targets (simple conversions):
+- stringToHex, hexToString (string conversions)
+- bytesToNumber (number conversion)
+- isAddress (validation function)
+
+## Commit
+0b90c0210 - ⚡ refactor(utils): replace viem isBytes with native implementation

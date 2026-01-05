@@ -1,0 +1,18 @@
+I've completed an assessment iteration. The migration to voltaire for core packages is complete:
+
+**Status:**
+- Core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) have no direct viem imports
+- Remaining viem/abitype dependencies in @tevm/utils are intentional:
+  - Fork client functions (`createPublicClient`, `http`, `webSocket`, etc.)
+  - Account creation (`mnemonicToAccount`, `privateKeyToAccount`)
+  - ABI parsing (`parseAbi`)
+  - Type utilities from abitype
+
+**Why these remain:**
+1. Fork functionality requires viem's PublicClient interface
+2. Account objects need viem's specific type shape for downstream compatibility
+3. Type-level ABI utilities are sophisticated TypeScript constructs
+
+**Voltaire has equivalent primitives** (HDWallet, PrivateKeySignerImpl, HttpProvider) but they don't match viem's API shapes, which would require significant refactoring across the codebase.
+
+The migration goals have been achieved - the core packages are clean and native implementations exist for all utility functions. The remaining dependencies are architectural decisions rather than migration blockers.

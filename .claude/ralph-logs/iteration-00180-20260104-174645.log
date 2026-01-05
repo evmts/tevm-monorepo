@@ -1,0 +1,20 @@
+No viem imports in errors package. The migration is looking very complete for all core packages.
+
+Let me summarize what this iteration accomplished:
+
+## Summary - Iteration 233
+
+**Status**: Verification and documentation of migration progress
+
+**Key Findings**:
+1. **All core packages are free of viem crypto dependencies** - actions, vm, evm, state, node, block, utils, tx, receipt, errors
+2. **Utils package fully migrated** - 607/608 tests passing, all voltaire-based crypto functions working
+3. **Remaining viem usage is intentional**:
+   - Transport/client functions for fork RPC communication
+   - Deprecated account exports for backward compatibility
+   - Chain presets (data-only configurations)
+
+**No code changes made** - this was a verification iteration confirming the migration is complete for core packages.
+
+**Pre-existing issues identified** (not migration-related):
+- Gas limit estimation bug in Prague hardfork affecting some integration tests

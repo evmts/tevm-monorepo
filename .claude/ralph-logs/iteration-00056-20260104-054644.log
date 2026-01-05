@@ -1,0 +1,20 @@
+## Summary
+
+I completed a migration iteration that updated 9 JSDoc example files in the `packages/memory-client/src/` directory:
+
+**Changes:**
+- **tevmDumpState.js** - Updated `http, parseEther` imports
+- **tevmSetAccount.js** - Updated `http, parseEther, numberToHex` imports  
+- **tevmCall.js** - Updated `http` import
+- **tevmGetAccount.js** - Updated `http` import
+- **tevmMine.js** - Updated `http, parseEther` imports
+- **tevmLoadState.js** - Updated `http` import
+- **tevmViemActions.js** - Updated `http` import
+- **tevmContract.js** - Updated `http, parseAbi` imports
+- **createTevmTransport.js** - Updated `http` import
+
+All changes split viem imports to use migrated utilities from `@tevm/utils` while keeping `createClient` from viem (which is the core viem client creation function).
+
+**Test Results:** Pre-existing test failures unrelated to these documentation changes (storageRoot validation error in @tevm/state package).
+
+**Committed:** `26a303f25` - `⚡ refactor(memory-client): update JSDoc examples to use @tevm/utils`

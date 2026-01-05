@@ -1,0 +1,37 @@
+# Ralph Migration Log - Iteration 371
+## Date: 2026-01-05 03:09
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **scrollSepolia.js** (id: 534351) - Scroll Sepolia testnet with ETH native currency, multicall3 contract, testnet flag
+2. **sei.js** (id: 1329) - Sei Network mainnet with SEI native currency, WebSocket support, multicall3 contract
+3. **seiDevnet.js** (id: 713715) - Sei Devnet with SEI native currency, testnet flag
+4. **seiTestnet.js** (id: 1328) - Sei Testnet with SEI native currency, WebSocket support, testnet flag
+5. **shapeSepolia.js** (id: 11011) - Shape Sepolia Testnet (OP Stack L2) with ETH native currency, multicall3 contract, sourceId for L1 reference
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Previously migrated**: ~271 (from iteration 370)
+- **Migrated this session**: 5
+- **Total migrated**: ~276
+- **Remaining**: 68 (~20% remaining, excluding generator script)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Scroll Sepolia uses Blockscout as explorer
+- Sei is a high-performance Layer 1 blockchain with parallel EVM execution
+- Shape is an OP Stack L2 built by the Mento team, includes sourceId pointing to Sepolia (11155111)
+
+## Next Steps
+Continue migrating remaining chain presets. 68 remain (~20% remaining).
+Next chains to migrate: shardeumSphinx, shibarium, shibariumTestnet, shimmer, skaleBlockBrawlers...

@@ -1,0 +1,81 @@
+# Ralph Migration Log - Iteration 279
+## Date: 2026-01-04 21:21
+
+## Summary
+Migration verification pass - confirming all tests pass and documenting current status.
+
+## Test Results
+- guillotineWasm.spec.ts: 26/27 passed (1 skipped - known evm_set_storage WASM bug)
+- nativePrivateKeyToAccount.spec.ts: 18/18 passed
+- nativeMnemonicToAccount.spec.ts: 17/17 passed
+- prefundedAccounts.spec.ts: 1/1 passed
+
+## Migration Status Summary
+
+### COMPLETED - Core Package Migration
+All core packages are free of direct viem/ethereumjs imports:
+- @tevm/actions: CLEAN
+- @tevm/vm: CLEAN
+- @tevm/evm: CLEAN
+- @tevm/state: CLEAN
+- @tevm/node: CLEAN
+- @tevm/block: CLEAN
+- @tevm/blockchain: CLEAN
+- @tevm/jsonrpc: CLEAN
+- @tevm/procedures: CLEAN
+- @tevm/base-client: CLEAN
+
+### COMPLETED - Voltaire Integration
+- Secp256k1 cryptography via @tevm/voltaire
+- P256 cryptography via @tevm/voltaire (p256verify precompile)
+- Keccak256 hashing via @tevm/voltaire
+- EIP-712 typed data signing via @tevm/voltaire
+- EIP-7702 authorization signing via @tevm/voltaire
+
+### COMPLETED - Native Account Implementations
+- nativePrivateKeyToAccount: Full viem-compatible privateKeyToAccount replacement
+- nativeMnemonicToAccount: Full viem-compatible mnemonicToAccount replacement
+- nativeHdAccount: HD account source type ('hd') for wallet integration
+- PREFUNDED_ACCOUNTS: Using native implementations (tested)
+
+### COMPLETED - Guillotine-mini WASM
+- WASM binary exists: packages/evm/src/guillotine_mini.wasm (456KB)
+- Core execution tests passing
+- Known bug: evm_set_storage has WASM memory allocation issue
+- SSTORE/SLOAD during execution works correctly
+
+### INTENTIONAL - Remaining Viem Dependencies
+1. **@tevm/utils/viem.js**:
+   - Transport functions for RPC forking: createPublicClient, http, webSocket, etc.
+   - parseAbi from abitype (complex human-readable ABI parser)
+   - Deprecated re-exports (mnemonicToAccount, privateKeyToAccount) - marked for removal
+
+2. **@tevm/utils/abitype.ts**:
+   - Type re-exports: Account, HDAccount (for backward compatibility)
+
+3. **@tevm/memory-client**:
+   - Intentional viem-compatible client layer (by design)
+
+### REMAINING - EthereumJS Dependencies (Lower Priority)
+These are deeper infrastructure dependencies:
+- @tevm/common: @ethereumjs/common (chain configuration)
+- @tevm/tx: @ethereumjs/tx (transaction types)
+- @tevm/trie: @ethereumjs/trie (Merkle Patricia Trie)
+
+## Next Steps
+1. Consider adding more guillotine-mini WASM integration tests
+2. Fix evm_set_storage WASM bug when resources permit
+3. Document native account usage in main docs
+4. Plan eventual removal of deprecated viem re-exports (breaking change)
+
+## Additional Tests Verified This Session
+- ethAccountsHandler.spec.ts: 3/3 passed (uses nativePrivateKeyToAccount)
+- ethSignTransactionHandler.spec.ts: 2/2 passed
+- signature.spec.ts: 31/31 passed (uses voltaire EIP712)
+- eip7702.spec.ts: 22/22 passed (uses voltaire Secp256k1)
+
+## Notes
+- Migration of core packages is essentially complete
+- New code should use native implementations (nativePrivateKeyToAccount, etc.)
+- viem remains as peer dependency for utils package due to transport functions
+- All cryptographic operations now use @tevm/voltaire

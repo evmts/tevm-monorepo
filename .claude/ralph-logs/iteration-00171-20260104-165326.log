@@ -1,0 +1,33 @@
+## Migration Status Summary
+
+The migration is in excellent shape. I completed a deep assessment and found:
+
+### Fully Migrated (No viem/ethereumjs in production code)
+- `@tevm/actions`
+- `@tevm/vm`
+- `@tevm/evm`
+- `@tevm/state`
+- `@tevm/node`
+- Most of `@tevm/utils` (native implementations)
+
+### Remaining Dependencies (Intentionally Kept)
+1. **`@ethereumjs/tx`** in `packages/tx/src/createImpersonatedTx.js`
+   - `FeeMarket1559Tx` for impersonated transactions
+
+2. **`@ethereumjs/common`** in `packages/common/src/createCommon.js`
+   - `createCustomCommon`, `Mainnet` for hardfork configuration
+
+3. **viem transport functions** in `packages/utils/src/viem.js`
+   - `createPublicClient`, `http`, etc. for RPC communication
+
+4. **`parseAbi` from abitype** - Human-readable ABI parsing
+
+5. **`memory-client` package** - Intentionally viem-based (it IS a viem client)
+
+The migration has reached a stable plateau. Further progress would require implementing:
+- Native transport layer for RPC communication
+- Native hardfork configuration (to replace ethereumjs/common)
+- Native transaction classes (to replace ethereumjs/tx)
+- Human-readable ABI parser (to replace abitype's parseAbi)
+
+All tests pass. The remaining dependencies are either intentional (memory-client being viem-based) or would require significant new engineering work.

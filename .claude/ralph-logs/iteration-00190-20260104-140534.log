@@ -1,0 +1,107 @@
+# Ralph Migration Log - Iteration 190
+## Date: 2026-01-04 14:05:34
+
+## Summary
+This iteration verified the migration status and confirmed that all core packages are now free
+of direct viem imports. The migration of types from viem to native implementations is complete
+for the target packages.
+
+## Verification Performed
+
+### Core Packages with viem Completely Removed:
+- @tevm/actions - No direct viem imports
+- @tevm/vm - No direct viem imports
+- @tevm/evm - No direct viem imports
+- @tevm/state - No direct viem imports
+- @tevm/node - No direct viem imports
+- @tevm/contract - No direct viem imports
+- @tevm/block - No direct viem imports
+- @tevm/tx - No direct viem imports
+- @tevm/txpool - No direct viem imports
+- @tevm/address - No direct viem imports
+
+### Tests Verified:
+- viem.spec.ts: 253 tests passed
+- abiEncoding.spec.ts: 16 tests passed
+- createHandlers.spec.ts: 15 tests passed
+
+## Remaining viem Dependencies (Intentional)
+
+### In @tevm/utils (viem.js):
+1. **Account creation from viem/accounts:**
+   - `mnemonicToAccount` - HD wallet derivation with signing methods
+   - `privateKeyToAccount` - Creates account objects with signing methods
+
+2. **Transport/client functions from viem:**
+   - `createPublicClient` - For fork client creation
+   - `createTransport` - For custom transport creation
+   - `custom` - Custom transport factory
+   - `defineChain` - Chain definition utility
+   - `http` - HTTP transport factory
+   - `webSocket` - WebSocket transport factory
+
+These are intentionally kept because:
+- Account objects from viem provide complex signing functionality
+- Transport functions are needed for forking from live chains
+- Native implementations would require significant effort without clear benefit
+
+### In @tevm/utils (abitype.ts):
+- `Account` and `HDAccount` types from viem - for type compatibility
+
+### In @tevm/memory-client:
+- Various viem imports for high-level viem compatibility layer (intentional)
+
+## Native Types Successfully Migrated:
+- ContractFunctionName
+- ContractFunctionArgs
+- ContractFunctionReturnType
+- ContractConstructorArgs
+- EncodeFunctionDataParameters
+- EncodeDeployDataParameters
+- DecodeFunctionResultReturnType
+- GetEventArgs
+- CreateEventFilterParameters
+- ContractEventName
+- ContractEventArgs
+- EncodeEventTopicsParameters
+- Prettify
+- EIP1193RequestFn
+- Transport
+- TransportConfig
+- PublicClient
+
+## @tevm/voltaire Integration Status:
+Voltaire provides comprehensive primitives including:
+- Address, Hash, Hex
+- Uint (8/16/32/64/128/256), Int (8/16/32/64/128/256)
+- Wei, Gwei, Ether (Denomination)
+- RLP encoding/decoding
+- ABI encoding/decoding
+- Transaction types
+- Block types
+- Event/Log types
+- And many more...
+
+The @tevm/utils package uses voltaire for:
+- Keccak256 hashing (via abiEncoding.js, etc.)
+- Address operations
+- Hex/bytes conversions
+
+## Next Steps
+1. Monitor for any regressions
+2. Consider if any viem/accounts functionality can be natively implemented
+3. Look for opportunities to use more voltaire primitives directly
+4. Continue monitoring test coverage
+
+## Commits Made This Iteration
+
+### Consolidate SerializeToJson types (NEW)
+- Added Error handling support to @tevm/utils SerializeToJson type
+- Updated @tevm/actions to re-export SerializeToJson types from @tevm/utils
+- Eliminates duplicate type implementations between packages
+- Commit: `⚡ refactor(utils): consolidate SerializeToJson types from actions to utils`
+
+## Conclusion
+The core migration is complete. The remaining viem dependencies are intentional for
+interoperability with the broader Ethereum ecosystem. The project now uses native
+type implementations for all core contract and event types.

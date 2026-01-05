@@ -1,0 +1,37 @@
+# Ralph Migration Log - Iteration 141
+## Date: 2026-01-04 09:55:00
+
+## Summary
+Migrated JSDoc type references in viem.js from viem types to local types, reducing direct viem type dependencies.
+
+## Changes Made
+
+### Modified: packages/utils/src/viem.js
+- Replaced 46 occurrences of `import('viem').Hex` with `import('./hex-types.js').Hex`
+- Replaced 6 occurrences of `import('viem').Address` with `import('./address-types.js').Address`
+
+## Rationale
+The native `Hex` and `Address` types (defined in hex-types.ts and address-types.ts) are equivalent to viem's types but are local to the package. By updating JSDoc references to use these local types, we:
+1. Reduce direct coupling to viem in type annotations
+2. Make the migration path clearer by using our own type definitions
+3. Maintain full compatibility since the types have the same structure (`0x${string}`)
+
+## Test Results
+- TypeScript compilation: Build succeeded (tsup dts generation)
+- Tests: 253 tests passed in packages/utils/src/viem.spec.ts
+- Pre-existing voltaire type errors remain (unrelated to this change)
+
+## Remaining viem type imports in viem.js
+The following `import('viem').*` references remain (complex types needed for forking):
+1. `import('viem').EIP1193RequestFn` - Request function type for EIP-1193 providers
+2. `import('viem').Transport` - Transport type for viem clients
+3. `import('viem').PublicClient` - Public client type for forking
+
+## Direct viem exports still in viem.js
+1. `mnemonicToAccount, privateKeyToAccount` from 'viem/accounts' - HD wallet/signing
+2. `createPublicClient, createTransport, custom, defineChain, http, webSocket` from 'viem' - Forking infrastructure
+
+## Next Steps
+1. Consider creating local type aliases for Transport, PublicClient, EIP1193RequestFn
+2. Look at other files in utils package for similar migration opportunities
+3. Continue reducing viem dependencies in other packages

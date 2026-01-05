@@ -1,0 +1,30 @@
+# Ralph Migration Log - Iteration 398
+## Date: 2026-01-05 04:45
+
+## Changes Made
+
+### Migrated viem imports to @tevm/utils in eth_getLogs.spec.ts
+
+1. **extensions/test-node/src/test/methods/eth_getLogs.spec.ts**
+   - Changed `import { type Hex, numberToHex } from 'viem'`
+   - To `import { type Hex, numberToHex } from '@tevm/utils'`
+
+## Test Results
+
+- Test passes structurally (import works correctly)
+- One test fails due to missing RPC URL environment vars (TEVM_RPC_URLS_MAINNET not set)
+- TypeScript compilation shows pre-existing type errors unrelated to migration
+
+## Notes
+
+- Both Hex type and numberToHex function are available in @tevm/utils
+- Test failure is environmental, not related to the migration
+
+## Next Steps
+
+- Continue migrating eth_newFilter.spec.ts
+- Continue migrating eth_sendRawTransaction.spec.ts
+
+## Rationale
+
+Small incremental migration of type and function imports from viem to @tevm/utils.

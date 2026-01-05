@@ -1,0 +1,42 @@
+Migration iteration 35 completed successfully.
+
+## Summary
+
+**Migrated in this iteration (5 files):**
+1. `test/viem/dumpState.spec.ts`: Changed `numberToHex`, `parseEther` imports from 'viem' to '@tevm/utils'
+2. `test/viem/loadState.spec.ts`: Changed `parseEther` import from 'viem' to '@tevm/utils'
+3. `test/viem/setStorageAt.spec.ts`: Changed `numberToHex` import from 'viem' to '@tevm/utils'
+4. `tevmSetAccount.spec.ts`: Changed `bytesToHex`, `hexToBytes` imports from 'viem' to '@tevm/utils'
+5. `tevmGetAccount.spec.ts`: Changed `parseEther` import from 'viem' to '@tevm/utils'
+6. `tevmLoadState.spec.ts`: Changed `parseEther` import from 'viem' to '@tevm/utils'
+
+**Results:**
+- memory-client package: 75 viem imports remaining (down from ~80+)
+- All changes are utility function imports
+- Pre-existing test failures (storageRoot validation) not related to changes
+
+**Commits:**
+- 69fdea389: dumpState.spec.ts numberToHex + parseEther
+- 68bbe17fd: loadState.spec.ts parseEther
+- d4247d222: setStorageAt.spec.ts numberToHex
+- 06ecb701c: tevmSetAccount.spec.ts bytesToHex + hexToBytes
+- 710b4a10e: tevmGetAccount.spec.ts parseEther
+- 6ce2bbfcd: tevmLoadState.spec.ts parseEther
+
+**Remaining viem imports in memory-client that can be migrated:**
+- `bytesToHex` in test files
+- `parseEther` in remaining test files
+- More `numberToHex` usages
+
+**Complex imports that must stay from viem:**
+- `createClient` - core viem client factory
+- `testActions`, `walletActions`, `publicActions` - viem action extensions
+- `TestActions`, `WatchContractEventOnLogsParameter` - viem types
+- `encodeFunctionData`, `encodeDeployData` - ABI encoding (not in @tevm/utils yet)
+- `Chain`, `ClientConfig`, `TransportConfig` - viem config types
+
+## Technical Notes
+
+- The storageRoot validation errors are a pre-existing ethereumjs issue, not related to the migrations
+- @tevm/utils provides native implementations of all common utility functions
+- Memory-client package is highly dependent on viem core functionality for client creation

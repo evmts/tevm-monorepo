@@ -1,0 +1,61 @@
+# Ralph Migration Log - Iteration 828
+## Date: 2026-01-05
+
+## Task: Add test coverage for zBaseParams and zMineParams zod schemas
+
+## Summary
+
+Added comprehensive test suites for two zod validation schemas in the actions package:
+- `zBaseParams.js` - Base parameters shared across actions (9 tests)
+- `zMineParams.js` - Mine action parameters (19 tests)
+
+## Changes Made
+
+### New files:
+1. `packages/actions/src/BaseCall/zBaseParams.spec.ts` - 9 tests
+2. `packages/actions/src/Mine/zMineParams.spec.ts` - 19 tests
+
+### Test coverage:
+
+**zBaseParams.spec.ts (9 tests):**
+
+Valid inputs (3 tests):
+- Accept empty object
+- Accept throwOnFail: true
+- Accept throwOnFail: false
+
+Invalid inputs (4 tests):
+- Reject non-boolean throwOnFail
+- Reject number throwOnFail
+- Reject null
+- Reject undefined
+
+Schema properties (2 tests):
+- Has a description
+- Has throwOnFail field description
+
+**zMineParams.spec.ts (19 tests):**
+
+Valid inputs (11 tests):
+- Accept empty object
+- Accept blockCount (positive, zero, large)
+- Accept interval (positive, zero)
+- Accept onBlock callback
+- Accept onReceipt callback
+- Accept onLog callback
+- Accept all parameters together
+- Inherit throwOnFail from zBaseParams
+
+Invalid inputs (8 tests):
+- Reject negative/non-integer blockCount
+- Reject negative/non-integer interval
+- Reject non-function callbacks (onBlock, onReceipt, onLog)
+- Reject null
+
+## Test Results
+
+All 28 tests passing:
+- zBaseParams.spec.ts: 9 tests ✓
+- zMineParams.spec.ts: 19 tests ✓
+
+## Status: COMPLETE

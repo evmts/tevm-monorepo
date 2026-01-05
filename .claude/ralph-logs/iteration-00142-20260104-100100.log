@@ -1,0 +1,57 @@
+# Ralph Migration Log - Iteration 142
+## Date: 2026-01-04 10:01:00
+
+## Summary
+Created native `ContractFunctionName` type replacing viem's implementation, reducing viem type dependencies in the core utils package.
+
+## Changes Made
+
+### Created: packages/utils/src/contract-types.ts
+- Implemented native `ContractFunctionName<TAbi, TMutability>` type
+- Uses abitype's `ExtractAbiFunctionNames` as the underlying implementation
+- Fully compatible with viem's ContractFunctionName API
+
+### Modified: packages/utils/src/abitype.ts
+- Added export for `AbiStateMutability` from abitype
+- Added export for native `ContractFunctionName` from `./contract-types.js`
+- Removed `ContractFunctionName` from viem imports
+
+### Modified: packages/utils/src/index.ts
+- Added `AbiStateMutability` to exports from abitype.js
+
+### Modified: packages/utils/src/abiFunctionEncoding.js
+- Updated JSDoc imports to use local types:
+  - `import('./abitype.js').Abi` instead of `import('viem').Abi`
+  - `import('./contract-types.js').ContractFunctionName` instead of `import('viem').ContractFunctionName`
+  - `import('./hex-types.js').Hex` instead of `import('viem').Hex`
+  - `import('./abitype.js').AbiStateMutability` instead of `import('viem').AbiStateMutability`
+
+## Rationale
+The `ContractFunctionName` type extracts function names from an ABI, optionally filtered by state mutability. By implementing this locally using abitype's `ExtractAbiFunctionNames`, we:
+1. Reduce direct coupling to viem's type system
+2. Maintain full type compatibility (the types are identical)
+3. Continue the migration path toward pure voltaire/local implementations
+
+## Test Results
+- TypeScript types: Build succeeded (tsup dts generation: 123.06 KB)
+- Tests: abiFunctionEncoding.spec.ts - 15 tests passed
+- Tests: abiEncoding.spec.ts - 16 tests passed
+- Pre-existing voltaire type errors remain (unrelated to this change)
+
+## Remaining viem types in abitype.ts
+1. `Account` - Account type with signing methods
+2. `ContractConstructorArgs` - Constructor argument types
+3. `CreateEventFilterParameters` - Event filter parameters
+4. `DecodeFunctionResultReturnType` - Function result type inference
+5. `EncodeDeployDataParameters` - Deploy data parameters
+6. `EncodeFunctionDataParameters` - Function encoding parameters
+7. `GetEventArgs` - Event argument extraction
+8. `HDAccount` - HD wallet account type
+
+## Note
+`ContractFunctionArgs` and `ContractFunctionReturnType` are still imported from viem in JSDoc annotations. These are more complex types that infer argument and return types from ABIs. Creating native versions would require implementing abitype's `AbiParametersToPrimitiveTypes` machinery.
+
+## Next Steps
+1. Consider creating native `ContractFunctionArgs` type (medium complexity)
+2. Continue migrating other viem type dependencies
+3. Look at other packages for similar migration opportunities

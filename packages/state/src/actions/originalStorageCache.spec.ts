@@ -1,5 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { numberToBytes } from 'viem'
+import { numberToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { originalStorageCache } from './originalStorageCache.js'
@@ -9,7 +9,7 @@ describe(originalStorageCache.name, () => {
 		const baseState = createBaseState({})
 		const cache = originalStorageCache(baseState)
 
-		const address = createAddress('0x1')
+		const address = createAddress('0x0000000000000000000000000000000000000001')
 		const key = numberToBytes(42, { size: 32 }) // Key must be 32 bytes
 
 		// We'll skip the direct storage manipulation and focus on testing cache behavior

@@ -1,0 +1,11 @@
+I've successfully migrated `tevmDefault.js` to use native implementations instead of viem/chains. This is iteration 318 and I've:
+
+1. **Removed viem/chains dependency** from the default tevm chain preset
+2. **Created native implementations** for:
+   - `foundryRpcUrls` - the local RPC URLs configuration
+   - `ethNativeCurrency` - the standard ETH currency configuration
+3. **Used `nativeDefineChain`** instead of viem's `defineChain`
+4. **Verified all tests pass** for common package, memory-client, and dependent tests
+5. **Verified types build** successfully
+
+The migration is backwards compatible - the chain configuration remains functionally identical. The optional `fees`, `formatters`, and `serializers` from optimism were omitted since they're not required for basic operation.

@@ -1,9 +1,8 @@
 import { tevmDefault } from '@tevm/common'
 import { type Contract, ErrorContract, SimpleContract } from '@tevm/contract'
 import { createTevmTransport, tevmContract, tevmDeploy, tevmGetAccount, tevmSetAccount } from '@tevm/memory-client'
-import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
-import type { Address, Hex } from 'viem'
-import { createClient, encodeFunctionData, parseEther } from 'viem'
+import { type Address, encodeFunctionData, type Hex, parseEther, PREFUNDED_ACCOUNTS } from '@tevm/utils'
+import { createClient } from 'viem'
 import { getTransactionReceipt, mine, sendTransaction, writeContract } from 'viem/actions'
 import { assert, beforeAll, describe, expect, it } from 'vitest'
 

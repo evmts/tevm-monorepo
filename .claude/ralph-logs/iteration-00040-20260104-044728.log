@@ -1,0 +1,9 @@
+Migration iteration complete. 
+
+**Summary:**
+- Migrated `packages/memory-client/src/test/viem/getTransactionConfirmations.spec.ts`
+- Changed `import type { Hex } from 'viem'` to `import type { Hex } from '@tevm/utils'`
+- Type check passed
+- Committed as `c339b12d7`
+
+The test failure is a pre-existing issue in the state module unrelated to this migration (same issue noted in previous iteration logs).

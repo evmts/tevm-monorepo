@@ -1,4 +1,4 @@
-import { decodeAbiParameters, hexToString, toFunctionSelector } from 'viem'
+import { decodeAbiParameters, hexToString, toFunctionSelector } from '@tevm/utils'
 
 /**
  * Decodes basic revert data similar to Anvil's approach
@@ -9,11 +9,11 @@ import { decodeAbiParameters, hexToString, toFunctionSelector } from 'viem'
 // https://github.com/wevm/ox/discussions/83
 export const decodeRevertReason = (data) => {
 	if (!data || data === '0x') return 'execution reverted'
-	/** @type {import('viem').Hex} */
+	/** @type {import('@tevm/utils').Hex} */
 	const hexData =
 		typeof data === 'string' && data.startsWith('0x')
-			? /** @type {import('viem').Hex} */ (data)
-			: /** @type {import('viem').Hex} */ (`0x${data}`)
+			? /** @type {import('@tevm/utils').Hex} */ (data)
+			: /** @type {import('@tevm/utils').Hex} */ (`0x${data}`)
 
 	// Handle short or malformed data early
 	const cleanHex = hexData.slice(2)
@@ -61,7 +61,7 @@ export const decodeRevertReason = (data) => {
 	if (cleanHex.length > 8) {
 		// More than just a 4-byte selector
 		const selector = hexData.slice(0, 10)
-		const errorData = /** @type {import('viem').Hex} */ (`0x${hexData.slice(10)}`)
+		const errorData = /** @type {import('@tevm/utils').Hex} */ (`0x${hexData.slice(10)}`)
 
 		// Try UTF-8 first, fallback to hex
 		try {

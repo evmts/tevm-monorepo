@@ -1,0 +1,32 @@
+# Ralph Migration Log - Iteration 341
+## Date: 2026-01-05 01:45
+
+## Summary
+Continued chain preset migration session. Migrated 5 more chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **bevmMainnet.js** (id: 11501) - BEVM Mainnet
+2. **shimmerTestnet.js** (id: 1073) - Shimmer Testnet
+3. **bscGreenfield.js** (id: 1017) - BNB Greenfield Chain
+4. **fantomSonicTestnet.js** (id: 64240) - Fantom Sonic Open Testnet
+5. **cyberTestnet.js** (id: 111557560) - Cyber Testnet
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Migrated previously**: ~65
+- **Migrated this session**: 5
+- **Total migrated**: ~70
+- **Remaining**: ~271
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Next Steps
+Continue migrating remaining chain presets. ~271 remain.

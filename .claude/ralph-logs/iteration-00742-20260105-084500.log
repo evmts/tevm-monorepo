@@ -1,0 +1,56 @@
+# Ralph Migration Log - Iteration 742
+## Date: 2026-01-05
+
+## Task: Migrate Client type import from viem to @tevm/utils in mudStoreWriteRequestOverride.ts
+
+## Summary
+
+Successfully migrated `Client` type import in bundler-packages/mud/src/internal/decorators/mudStoreWriteRequestOverride.ts from viem to @tevm/utils.
+
+## Changes Made
+
+### bundler-packages/mud/src/internal/decorators/mudStoreWriteRequestOverride.ts
+- Moved `Client` type import from `viem` to `@tevm/utils`
+- Consolidated with existing @tevm/utils imports (Address, createAddressFromString, concatHex, encodeFunctionData)
+- Before:
+  ```typescript
+  import { type Address, createAddressFromString, concatHex, encodeFunctionData } from '@tevm/utils'
+  import { type Client } from 'viem'
+  ```
+- After:
+  ```typescript
+  import { type Address, type Client, createAddressFromString, concatHex, encodeFunctionData } from '@tevm/utils'
+  ```
+
+## Remaining viem imports
+
+The file still has one viem import:
+```typescript
+import { waitForTransactionReceipt } from 'viem/actions'
+```
+
+This is a function import (not a type), which will require a more involved migration strategy since we'd need to either:
+1. Add `waitForTransactionReceipt` to @tevm/utils
+2. Implement it natively in voltaire
+
+## Type Check Results
+
+- No new type errors introduced in `mudStoreWriteRequestOverride.ts`
+- Pre-existing type errors remain in `createOptimisticHandler.spec.ts` (related to Client/SessionClient type mismatches)
+- Pre-existing type error in `createOptimisticHandler.ts:239` (unrelated to this change)
+
+## Remaining viem imports in bundler-packages/mud (non-spec files)
+
+1. `types.ts` - `Chain, Client, Transport, WriteContractParameters, WriteContractReturnType` from viem
+2. `mudStoreWriteRequestOverride.ts` - `waitForTransactionReceipt` from viem/actions (function, not type)
+
+## Impact
+
+- Removed 1 viem type import
+- The @tevm/utils Client type is compatible with viem's Client type
+- No breaking changes introduced
+
+## Notes
+
+1. The viem/actions function imports will need a different migration strategy
+2. The `types.ts` file has complex viem types (WriteContractParameters, WriteContractReturnType) that may be harder to migrate

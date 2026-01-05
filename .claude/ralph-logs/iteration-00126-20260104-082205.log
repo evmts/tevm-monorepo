@@ -1,0 +1,95 @@
+# Ralph Migration Iteration 126 - Native Address Class Implementation
+
+## Summary
+
+Migrated `Address` class and `createAddressFromString` function from `@ethereumjs/util` to native implementations in `@tevm/utils`. These are core Ethereum address handling utilities used throughout the codebase.
+
+## Changes Made
+
+### New Files
+1. `packages/utils/src/address.js` - Native implementations:
+   - `Address` class with `equals()`, `isZero()`, `isPrecompileOrSystemAddress()`, `toString()`, `toBytes()` methods
+   - `createZeroAddress()` - Factory for zero address
+   - `createAddressFromString(str)` - Factory from hex string
+   - `createAddressFromBigInt(value)` - Factory from bigint
+
+2. `packages/utils/src/address.spec.ts` - 24 tests covering:
+   - Address constructor with valid/invalid bytes
+   - `equals()` method for address comparison
+   - `isZero()` method for zero address detection
+   - `isPrecompileOrSystemAddress()` for EIP-1352 range detection
+   - `toString()` and `toBytes()` methods
+   - All factory functions with edge cases
+   - Compatibility with ethereumjs API
+
+### Modified Files
+1. `packages/utils/src/ethereumjs.js` - Marked as migrated:
+   - `// Address - migrated to native implementation in address.js (EthjsAddress)`
+   - `// createAddressFromString - migrated to native implementation in address.js`
+
+2. `packages/utils/src/index.ts` - Updated exports:
+   - Removed `EthjsAddress` and `createAddressFromString` from ethereumjs.js exports
+   - Added new export: `export { Address as EthjsAddress, createAddressFromString, createZeroAddress, createAddressFromBigInt } from './address.js'`
+
+3. `packages/utils/src/ethereumjs.spec.ts` - Updated import:
+   - Changed `EthjsAddress` import from ethereumjs.js to address.js
+
+## Implementation Details
+
+### Address class
+```javascript
+export class Address {
+	constructor(bytes) {
+		if (bytes.length !== 20) throw new Error('Invalid address length')
+		this.bytes = bytes
+	}
+	equals(address) { return equalsBytes(this.bytes, address.bytes) }
+	isZero() { return this.equals(new Address(new Uint8Array(20))) }
+	isPrecompileOrSystemAddress() { /* checks 0x0 to 0xffff range */ }
+	toString() { return bytesToHex(this.bytes) }
+	toBytes() { return new Uint8Array(this.bytes) }
+}
+```
+
+### createAddressFromString
+```javascript
+export function createAddressFromString(str) {
+	if (!isValidAddress(str)) throw new Error(`Invalid address input=${str}`)
+	return new Address(hexToBytes(str))
+}
+```
+
+### createAddressFromBigInt
+```javascript
+export function createAddressFromBigInt(value) {
+	const bytes = bigIntToBytes(value)
+	if (bytes.length > 20) throw new Error(`Invalid address, too long: ${bytes.length}`)
+	return new Address(setLengthLeft(bytes, 20))
+}
+```
+
+## Test Results
+
+- `packages/utils/src/address.spec.ts` - 24 passed
+- `packages/utils/src/ethereumjs.spec.ts` - All tests pass with updated import
+- All @tevm/utils tests - 489 passed, 1 skipped
+
+## Impact
+
+Reduced dependency on `@ethereumjs/util` by removing two more exports:
+- `Address` class (exported as `EthjsAddress`) - Core address handling
+- `createAddressFromString` - Factory function for addresses
+- Also added `createZeroAddress` and `createAddressFromBigInt` utilities
+
+## Remaining @ethereumjs/util exports in ethereumjs.js
+
+The following still need migration:
+- `EthjsAccount` - Core Account class
+- `createAccount` - Account factory function
+- EIP-7702 utilities - Complex authorization utilities for account abstraction
+
+## Next Steps
+
+Good next targets:
+1. `EthjsAccount` and `createAccount` - Core account handling
+2. EIP-7702 utilities - More complex but important for modern EVM support

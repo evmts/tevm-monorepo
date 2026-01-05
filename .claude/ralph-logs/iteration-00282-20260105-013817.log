@@ -1,0 +1,8 @@
+Successfully migrated 5 chain presets:
+1. **beam.js** (id: 4337) - Beam
+2. **beamTestnet.js** (id: 13337) - Beam Testnet
+3. **bearNetworkChainMainnet.js** (id: 641230) - Bear Network Chain Mainnet
+4. **bearNetworkChainTestnet.js** (id: 751230) - Bear Network Chain Testnet
+5. **berachainTestnet.js** (id: 80085) - Berachain Artio
+
+All tests passing. ~280 chain presets remaining to migrate from viem/chains to nativeDefineChain.

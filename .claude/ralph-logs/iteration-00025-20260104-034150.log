@@ -1,0 +1,21 @@
+## Migration Session Summary
+
+Successfully migrated **8 files** from `viem` to `@tevm/utils` imports:
+
+| File | Imports Changed |
+|------|----------------|
+| `Eip1193RequestProvider.spec.ts` | `Hex` type |
+| `miningModes.spec.ts` | `toHex` |
+| `getStorageAt.spec.ts` | `numberToHex` |
+| `getProof.spec.ts` | `numberToHex` |
+| `sendRawTransaction.spec.ts` | `hexToBytes` |
+| `getBlock.spec.ts` | `bytesToHex` |
+| `getTransaction.spec.ts` | `bytesToHex`, `Hex` |
+| `getTransactionReceipt.spec.ts` | `Hex` |
+
+**Progress:**
+- Started: 261 viem imports
+- Current: 253 viem imports  
+- Reduced by: 8 imports
+
+All changes were simple utility function and type migrations that are already available in `@tevm/utils`. Pre-existing test failures (storageRoot validation) are unrelated to these changes.

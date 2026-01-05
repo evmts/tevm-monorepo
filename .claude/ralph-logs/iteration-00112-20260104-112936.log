@@ -1,0 +1,31 @@
+The changes have been committed. Let me provide a summary of what was accomplished in this iteration:
+
+## Iteration 162 Summary
+
+**Migration Goal Achieved**: Removed `@ethereumjs/evm` dependency from `@tevm/errors` package.
+
+### Changes Made:
+
+1. **Created native EVMError class** (`packages/errors/src/ethereum/EVMError.js`)
+   - Full API compatibility with `@ethereumjs/evm` EVMError
+   - `EVMError.errorMessages` static property with all EVM error message mappings
+   - `EVMErrorTypeString` and `EVMErrorMessage` exports
+
+2. **Updated 37 error files** to use native EVMError instead of `@ethereumjs/evm`
+   - All imports now point to the native `EVMError.js`
+   - JSDoc type annotations updated
+
+3. **Removed dependency** from `packages/errors/package.json`
+
+4. **Exported new types** from package index
+
+### Test Results:
+- @tevm/errors: 92 tests passed ✓
+- @tevm/actions createHandlers.spec.ts: 15 tests passed ✓
+
+### Migration Progress Notes:
+- The EVM stub in `packages/evm/src/Evm.js` is still returning empty results (causing many @tevm/actions tests to fail with `executionGasUsed: 0n`)
+- This is because guillotine-mini integration is not complete - the `runCall` method returns hardcoded empty results
+- Remaining ethereumjs dependencies to migrate:
+  - `@ethereumjs/blockchain` in @tevm/blockchain
+  - `@ethereumjs/common` in @tevm/common

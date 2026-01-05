@@ -1,0 +1,48 @@
+# Ralph Migration Log - Iteration 225
+## Date: 2026-01-04 17:06:32
+
+## Summary
+Attempted to migrate nativeMnemonicToAccount.js and nativeHdAccount.js from @scure/bip39 and @scure/bip32 to @tevm/voltaire's Bip39 and HDWallet modules. The migration was reverted due to voltaire's HDWallet dist containing FFI dependencies (ffi-napi, ref-napi) that cause runtime errors.
+
+## Assessment
+Reviewed voltaire's Bip39 and HDWallet implementations:
+- Bip39: Works correctly, just wraps @scure/bip39 with better error handling
+- HDWallet: Source code is pure JS wrapping @scure/bip32, but the dist bundle incorrectly includes FFI code from an optional native implementation
+
+## Attempted Changes
+
+### Files Modified (then reverted):
+1. `packages/utils/src/nativeMnemonicToAccount.js` - Changed imports from @scure/bip39, @scure/bip32 to @tevm/voltaire/Bip39, @tevm/voltaire/HDWallet
+2. `packages/utils/src/nativeHdAccount.js` - Same changes
+
+### Why Reverted
+The voltaire HDWallet dist file (`lib/voltaire/dist/crypto/HDWallet/index.js`) contains:
+```javascript
+import ffi from 'ffi-napi';
+import ref from 'ref-napi';
+```
+
+These native FFI bindings aren't compiled for the current platform (darwin/arm64), causing tests to fail with:
+```
+Error: No native build was found for platform=darwin arch=arm64 runtime=node abi=127 uv=1 armv=8 libc=glibc node=22.4.1
+```
+
+## Verification
+After reverting, nativeMnemonicToAccount tests pass: 17/17 tests passing
+
+## Blocker Identified
+The voltaire build process incorrectly bundles FFI code into HDWallet even though the source code doesn't need it. The ffi.js file exists for optional native acceleration but shouldn't be included in the standard dist.
+
+## Recommendations for Future
+1. **Fix voltaire's build process** - Exclude FFI code from HDWallet dist, or make it conditional
+2. **Alternative approach** - Keep using @scure/bip39 and @scure/bip32 directly since voltaire is just a thin wrapper anyway
+3. **Migration priority** - Focus on other migration opportunities that don't have FFI issues
+
+## Current Migration Status
+- Core packages: Fully migrated from viem in production source
+- Crypto: Secp256k1, EIP712, Keccak256 use voltaire (no FFI issues)
+- HD Wallet: Still uses @scure/bip39 and @scure/bip32 directly (blocked by FFI issue)
+- Transport/RPC: Intentionally uses viem for forking functionality
+
+## No Code Changes Committed
+This iteration resulted in no net changes - changes were reverted due to the FFI issue.

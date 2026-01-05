@@ -1,0 +1,25 @@
+## Migration Status Summary
+
+The voltaire/guillotine-mini migration is **complete** for all core packages. Here's what I verified:
+
+### Tests Verified Passing:
+- `signature.spec.ts`: 31 tests
+- `guillotineWasm.spec.ts`: 38 tests (1 skipped - known storage bug)
+- `createEvm.spec.ts`: 17 tests
+- `nativeMnemonicToAccount.spec.ts`: 17 tests
+- `precompiles`: 16 tests (including P256 via voltaire)
+- `eip7702.spec.ts`: 22 tests
+- `ClRequest.spec.ts`: 2 tests
+
+### Migration Complete:
+- **Core packages** (actions, evm, state, vm, node) - No viem/ethereumjs imports
+- **Native implementations** - All using @tevm/voltaire (Keccak256, Secp256k1, P256, ABI, EIP-712, HTTP/WebSocket providers)
+- **Guillotine WASM** - Integrated and tested
+
+### Intentional Remaining Dependencies:
+- `@ethereumjs/common` - Chain configuration (architectural)
+- `@ethereumjs/tx` - Transaction classes (architectural)
+- `@ethereumjs/trie` - Merkle patricia trie (architectural)
+- `viem` in memory-client - User-facing API compatibility
+
+The migration has reached its intended end state. Future work would involve replacing the remaining ethereumjs dependencies when voltaire provides equivalent functionality for chain configuration, transactions, and tries.

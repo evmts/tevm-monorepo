@@ -1,0 +1,54 @@
+# Ralph Migration Log - Iteration 154
+## Date: 2026-01-04 10:29:00
+
+## Summary
+Created native `Proof` and `StorageProof` types to replace `@ethereumjs/statemanager` Proof imports.
+
+## Changes Made
+
+### Created: packages/utils/src/proof-types.ts
+New file containing native EIP-1186 proof types:
+- `StorageProof` - Storage proof for a single storage slot
+- `Proof` - EIP-1186 account and storage proof
+
+These types exactly match the structure of `@ethereumjs/statemanager`'s Proof types but use our native `PrefixedHexString` type.
+
+### Modified: packages/utils/src/index.ts
+- Added exports for new `Proof` and `StorageProof` types
+
+### Modified: packages/state/src/StateManager.ts
+- Imported `Proof` from `@tevm/utils` instead of inline import from `@ethereumjs/statemanager`
+- Updated `getProof` method return type to use native `Proof`
+
+### Modified: packages/state/src/actions/getProof.js
+- Updated JSDoc return type from `Promise<import('@ethereumjs/statemanager').Proof>` to `Promise<import('@tevm/utils').Proof>`
+
+## Migration Progress
+
+### @ethereumjs/statemanager imports in packages/state:
+- Before: 10 files with imports
+- After: 8 files with imports (removed Proof type import from 2 files)
+
+### Remaining @ethereumjs/statemanager imports:
+- `AccountCache` class - 5 files (ContractCache.js, createBaseState.js, shallowCopy.js, generateCannonicalGenesis.js, index files)
+- `StorageCache` class - 5 files (same as above)
+- `CacheType` enum - 4 files (ContractCache.js, createBaseState.js, shallowCopy.js, generateCannonicalGenesis.js)
+- State type files still import AccountCache/StorageCache for type definitions
+
+## Test Results
+- `packages/state/src/actions/getProof.spec.ts` - 1 passed (throws error test), 1 skipped (requires RPC env vars)
+
+## Pre-existing Issues
+- State package has many pre-existing TypeScript errors related to Address/Account type incompatibilities between native tevm types and ethereumjs types
+- These are unrelated to this migration
+
+## Next Steps
+The remaining `@ethereumjs/statemanager` imports are for complex cache classes (AccountCache, StorageCache) and CacheType enum. These would require:
+1. Implementing native LRU cache classes with checkpoint/revert/commit functionality
+2. Implementing native OrderedMap cache alternative
+3. Creating native CacheType enum (simple)
+
+The cache implementations are substantial pieces of work requiring:
+- LRU cache functionality (could use a lightweight npm package)
+- Ordered map functionality (could use js-sdsl or implement simply)
+- Checkpoint/revert/commit state management

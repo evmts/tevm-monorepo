@@ -1,0 +1,62 @@
+# Ralph Migration Iteration 121 - Native KECCAK256_RLP and KECCAK256_RLP_ARRAY Constants
+
+## Summary
+
+Migrated `KECCAK256_RLP` and `KECCAK256_RLP_ARRAY` constants from `@ethereumjs/util` to native implementations in `@tevm/utils`. These are pre-computed keccak256 hashes of RLP encoded empty values, used extensively in Ethereum for empty trie roots and empty uncles hashes.
+
+## Changes Made
+
+### Modified Files
+1. `packages/utils/src/constants.js` - Added KECCAK256_RLP and KECCAK256_RLP_ARRAY constants
+2. `packages/utils/src/constants.spec.ts` - Added 5 new tests for the KECCAK256 constants
+3. `packages/utils/src/ethereumjs.js` - Marked KECCAK256_RLP and KECCAK256_RLP_ARRAY as migrated
+4. `packages/utils/src/index.ts` - Updated exports to source constants from constants.js instead of ethereumjs.js
+
+## Implementation Details
+
+### KECCAK256_RLP
+```javascript
+// keccak256(RLP(Uint8Array(0))) = keccak256([0x80])
+export const KECCAK256_RLP = '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
+```
+
+Used as the empty trie root hash in Ethereum (empty transactions trie, empty receipts trie, empty storage root, etc.)
+
+### KECCAK256_RLP_ARRAY
+```javascript
+// keccak256(RLP([])) = keccak256([0xc0])
+export const KECCAK256_RLP_ARRAY = '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347'
+```
+
+Used as the empty uncles hash in Ethereum block headers.
+
+## Tests Passed
+
+- `packages/utils/src/constants.spec.ts` - 10 passed (5 existing + 5 new)
+- `packages/vm/src/actions/genTxTrie.spec.ts` - 1 passed (uses KECCAK256_RLP)
+- All @tevm/utils tests - 423 passed, 1 skipped (424 total)
+
+## Impact
+
+Reduced dependency on `@ethereumjs/util` by removing 2 more exports:
+- `KECCAK256_RLP` - Pre-computed keccak256 hash of RLP encoded empty string
+- `KECCAK256_RLP_ARRAY` - Pre-computed keccak256 hash of RLP encoded empty array
+
+These constants are now exported as hex string literals rather than Uint8Array, which is more efficient for the common use case of comparison operations.
+
+## Remaining @ethereumjs/util exports in ethereumjs.js
+
+The following still need migration (in rough order of complexity):
+- `EthjsAccount`, `EthjsAddress` - Core account/address classes
+- `createAccount`, `createAddressFromString` - Factory functions
+- `createWithdrawal`, `Withdrawal` - Withdrawal handling
+- `ecrecover` - Signature recovery (requires crypto)
+- `randomBytes` - Random bytes (requires crypto)
+- `fetchFromProvider`, `getProvider` - Network utilities
+- EIP-7702 utilities - Complex authorization utilities
+
+## Next Steps
+
+Good next targets:
+- `randomBytes` - Simple crypto utility (can use crypto.getRandomValues)
+- `fetchFromProvider`, `getProvider` - Network utilities (may be straightforward)

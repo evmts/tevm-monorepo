@@ -1,0 +1,22 @@
+## Summary
+
+I completed **Iteration 142** of the Ralph migration, creating a native `ContractFunctionName` type to replace viem's implementation.
+
+### Changes Made:
+1. **Created `packages/utils/src/contract-types.ts`** - Native `ContractFunctionName<TAbi, TMutability>` type using abitype's `ExtractAbiFunctionNames`
+
+2. **Updated `packages/utils/src/abitype.ts`**:
+   - Added `AbiStateMutability` export from abitype
+   - Replaced viem's `ContractFunctionName` with native implementation
+
+3. **Updated `packages/utils/src/index.ts`** - Added `AbiStateMutability` to exports
+
+4. **Updated `packages/utils/src/abiFunctionEncoding.js`** - Updated JSDoc imports to use local types instead of viem imports
+
+### Test Results:
+- Build: DTS generation successful (123.06 KB)
+- Tests: All 31 tests passed (15 abiFunctionEncoding + 16 abiEncoding)
+
+### Migration Progress:
+The remaining viem types in `abitype.ts` are:
+- `Account`, `ContractConstructorArgs`, `CreateEventFilterParameters`, `DecodeFunctionResultReturnType`, `EncodeDeployDataParameters`, `EncodeFunctionDataParameters`, `GetEventArgs`, `HDAccount`

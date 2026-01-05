@@ -1,6 +1,7 @@
 import { getAccountHandler } from '@tevm/actions'
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { type Address, type Client, type Hex, isAddress } from 'viem'
+import { type Address, type Hex, isAddress } from '@tevm/utils'
+import type { Client } from 'viem'
 import type { ContainsAddress } from '../../common/types.js'
 import type { ExpectedState } from './types.js'
 
@@ -12,7 +13,7 @@ export const toHaveState = async (
 	const address = typeof received === 'string' ? received : received.address
 	if (!isAddress(address)) throw new Error(`Invalid address: ${address}`)
 
-	const node = 'request' in client ? createTevmNode({ fork: { transport: client } }) : client
+	const node = 'request' in client ? createTevmNode({ fork: { transport: client as any } }) : client
 	const account = await getAccountHandler(node, { throwOnFail: false })({ address, returnStorage: true })
 
 	if (account.errors) throw new Error(account.errors[0]?.message ?? 'Could not retrieve account')

@@ -37,7 +37,24 @@ import {
 	StopError,
 	ValueOverflowError,
 } from '@tevm/errors'
-import { EvmError } from '@tevm/evm'
+import { EvmError, EVMErrorTypeString } from '@tevm/evm'
+
+/**
+ * Check if an object is an EvmError (duck typing for cross-module compatibility)
+ * @param {unknown} e
+ * @returns {e is EvmError}
+ */
+const isEvmError = (e) => {
+	if (e instanceof EvmError) return true
+	// Duck type check for EvmError-like objects from different module instances
+	return (
+		typeof e === 'object' &&
+		e !== null &&
+		'error' in e &&
+		'errorType' in e &&
+		/** @type {any} */ (e).errorType === EVMErrorTypeString
+	)
+}
 
 /**
  * @internal
@@ -127,10 +144,10 @@ export const handleRunTxError = (e) => {
 		}
 		return new InternalEvmError(e.message, { cause: /** @type {any}*/ (e) })
 	}
-	if (!(e instanceof EvmError)) {
+	if (!isEvmError(e)) {
 		return new InternalEvmError('Unknown error', { cause: /** @type {any}*/ (e) })
 	}
-	const ErrorConstructor = evmErrors.find((error) => 'EVMErrorMessage' in error && error.EVMErrorMessage === e.error)
+	const ErrorConstructor = evmErrors.find((error) => 'EVMErrorMessage' in error && error.EVMErrorMessage === /** @type {EvmError} */ (e).error)
 	if (!ErrorConstructor) {
 		return new InternalEvmError(`Unknown error: ${e.error}`, { cause: e })
 	}

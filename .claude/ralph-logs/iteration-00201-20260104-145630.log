@@ -1,0 +1,59 @@
+# Ralph Migration Log - Iteration 201
+## Date: 2026-01-04 14:56:30
+
+## Summary
+Migrated `keccak_256` import in `viem.js` from `@noble/hashes/sha3.js` to use `hash` from `@tevm/voltaire/Keccak256`.
+
+## Changes Made
+
+### 1. Updated viem.js imports
+Changed from:
+```javascript
+import { keccak_256 } from '@noble/hashes/sha3.js'
+```
+
+To:
+```javascript
+import { hash as keccak256Hash } from '@tevm/voltaire/Keccak256'
+```
+
+### 2. Updated function usage
+The `keccak256` function on line 804 was updated:
+
+Changed from:
+```javascript
+// Hash using noble/hashes
+const hash = keccak_256(bytes)
+```
+
+To:
+```javascript
+// Hash using @tevm/voltaire
+const hash = keccak256Hash(bytes)
+```
+
+## Test Results
+All 253 viem.spec.ts tests pass, including all 8 keccak256-specific tests:
+- should hash bytes correctly
+- should hash hex string correctly
+- should hash empty bytes
+- should hash empty hex string
+- should return bytes when to="bytes"
+- should hash "hello" correctly
+- should produce consistent results for same input
+- should produce different results for different inputs
+
+## Files Modified
+1. `packages/utils/src/viem.js`
+   - Changed keccak import from `@noble/hashes/sha3.js` to `@tevm/voltaire/Keccak256`
+   - Renamed local function from `keccak_256` to `keccak256Hash` for clarity
+
+## Remaining @noble/hashes Usage in @tevm/utils
+With this change, the `@noble/hashes/sha3.js` import in viem.js has been migrated. However, there may still be other noble-hashes usages in the codebase. The utils package now has two keccak migrations completed:
+1. eip7702.js (iteration 200)
+2. viem.js (this iteration)
+
+## Next Steps
+1. Search for remaining noble-hashes imports in other packages
+2. Continue migrating secp256k1 usage (more complex, requires voltaire API alignment)
+3. Look for other simple hash migrations in the codebase

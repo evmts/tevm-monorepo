@@ -1,0 +1,20 @@
+Migration iteration complete. Here's a summary:
+
+## Migration Summary
+
+**This iteration:**
+- Added `webSocket` export to `@tevm/utils` from viem
+- Migrated `packages/jsonrpc/src/index.ts` from direct viem imports to `@tevm/utils`
+- Added `@tevm/utils` as a dependency to `@tevm/jsonrpc`
+
+**Commit:** `4efb2f4fb`
+
+**Tests:** All 7 tests passed for `@tevm/jsonrpc`
+
+**Remaining viem imports in core packages:**
+1. `packages/errors/src/requestErrors.ts` - RPC error classes (viem-specific, would need re-implementation)
+2. `packages/common/src/presets/tevmDefault.js` - `defineChain`, `viem/chains` (chain definitions)
+3. `packages/utils/src/prefundedAccounts.ts` - Internal to `@tevm/utils` (necessary viem dependency)
+4. Various memory-client files - viem client types (viem-specific client extensions)
+
+The core packages (`@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, `@tevm/node`) have no direct viem imports in their source code - they use `@tevm/utils` as the abstraction layer.

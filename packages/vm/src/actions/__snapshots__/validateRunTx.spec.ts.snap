@@ -1,47 +1,62 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`validateRunTx should throw MisconfiguredClientError if no preMerge hardfork is found 1`] = `[MisconfiguredClientError: no preMerge hardfork found -> block number=0 hash=0x262a8ccb4cc9e4943360ed14f1266920bd1c50d21fb59559a5b86334c167679a hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73]`;
-
-exports[`validateRunTx should throw BlockGasLimitExceededError if tx gas limit exceeds block gas limit 1`] = `[_BlockGasLimitExceededError: tx has a higher gas limit than the block -> block number=0 hash=0x1f45a694fc46961550b257edefe76f963680fac09b3955ab0aa8c61583c87b90 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+exports[`validateRunTx > should throw BlockGasLimitExceededError if tx gas limit exceeds block gas limit 1`] = `
+[BlockGasLimitExceeded: tx has a higher gas limit than the block -> block number=0 hash=0x1f45a694fc46961550b257edefe76f963680fac09b3955ab0aa8c61583c87b90 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/blockgaslimitexceedederror/
-Version: 1.1.0.next-73]`;
+Version: 1.1.0.next-73]
+`;
 
-exports[`validateRunTx should throw EipNotEnabledError if EIP 2930 is not activated for Access List transaction 1`] = `[EipNotEnabledError: Cannot run transaction: EIP 2930 is not activated. -> block number=0 hash=0x4f3d139a80e0ebb8a4a67165405bb0b27187a5be1ab7084163cd4d79a1910eac hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/eipnotenablederror/
-Version: 1.1.0.next-73]`;
-
-exports[`validateRunTx should throw EipNotEnabledError if EIP 1559 is not activated for Fee Market transaction 1`] = `[EipNotEnabledError: Cannot run transaction: EIP 1559 is not activated. -> block number=0 hash=0x4f3d139a80e0ebb8a4a67165405bb0b27187a5be1ab7084163cd4d79a1910eac hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0xd927b750e60fd928bdd343ee0b9883acf2d01b84cf076e361419884c03d56c55 nonce=0 value=0 signed=true hf=prague maxFeePerGas=10 maxPriorityFeePerGas=1)
+exports[`validateRunTx > should throw EipNotEnabledError if EIP 1559 is not activated for Fee Market transaction 1`] = `
+[EipNotEnabledError: Cannot run transaction: EIP 1559 is not activated. -> block number=0 hash=0x4f3d139a80e0ebb8a4a67165405bb0b27187a5be1ab7084163cd4d79a1910eac hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0xd927b750e60fd928bdd343ee0b9883acf2d01b84cf076e361419884c03d56c55 nonce=0 value=0 signed=true hf=prague maxFeePerGas=10 maxPriorityFeePerGas=1)
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/eipnotenablederror/
-Version: 1.1.0.next-73]`;
+Version: 1.1.0.next-73]
+`;
 
-exports[`validateRunTx should validate options successfully with no block 1`] = `0n`;
+exports[`validateRunTx > should throw EipNotEnabledError if EIP 2930 is not activated for Access List transaction 1`] = `
+[EipNotEnabledError: Cannot run transaction: EIP 2930 is not activated. -> block number=0 hash=0x4f3d139a80e0ebb8a4a67165405bb0b27187a5be1ab7084163cd4d79a1910eac hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
 
-exports[`validateRunTx should validate options successfully with no block 2`] = `[Function: hash]`;
+Docs: https://tevm.sh/reference/tevm/errors/classes/eipnotenablederror/
+Version: 1.1.0.next-73]
+`;
 
-exports[`validateRunTx should validate options successfully with no block 3`] = `
+exports[`validateRunTx > should throw MisconfiguredClientError if no preMerge hardfork is found 1`] = `
+[MisconfiguredClientError: no preMerge hardfork found -> block number=0 hash=0x262a8ccb4cc9e4943360ed14f1266920bd1c50d21fb59559a5b86334c167679a hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`validateRunTx > should throw if hardfork doesn not match 1`] = `
+[MisconfiguredClientError: block has a different hardfork than the vm -> block number=0 hash=0x262a8ccb4cc9e4943360ed14f1266920bd1c50d21fb59559a5b86334c167679a hf=shanghai baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=shanghai maxFeePerGas=8 maxPriorityFeePerGas=1)
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73]
+`;
+
+exports[`validateRunTx > should validate options successfully with no block 1`] = `0n`;
+
+exports[`validateRunTx > should validate options successfully with no block 2`] = `[Function]`;
+
+exports[`validateRunTx > should validate options successfully with no block 3`] = `
 {
   "preserveJournal": false,
   "tx": {
- "type": "0x2",
- "nonce": "0x0",
- "gasLimit": "0x5248",
- "value": "0x0",
- "data": "0x",
- "chainId": "0x1",
- "maxPriorityFeePerGas": "0x1",
- "maxFeePerGas": "0x8",
- "accessList": []
-},
+    "accessList": [],
+    "chainId": "0x1",
+    "data": "0x",
+    "gasLimit": "0x5248",
+    "maxFeePerGas": "0x8",
+    "maxPriorityFeePerGas": "0x1",
+    "nonce": "0x0",
+    "r": undefined,
+    "s": undefined,
+    "to": undefined,
+    "type": "0x2",
+    "v": undefined,
+    "value": "0x0",
+    "yParity": undefined,
+  },
 }
 `;
-
-exports[`validateRunTx should throw if hardfork doesn not match 1`] = `[MisconfiguredClientError: block has a different hardfork than the vm -> block number=0 hash=0x262a8ccb4cc9e4943360ed14f1266920bd1c50d21fb59559a5b86334c167679a hf=shanghai baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=shanghai maxFeePerGas=8 maxPriorityFeePerGas=1)
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73]`;

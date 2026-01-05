@@ -1,0 +1,49 @@
+# Ralph Migration Log - Iteration 151
+## Date: 2026-01-04 10:15:00
+
+## Summary
+Migrated all viem JSDoc imports from packages/actions/src/**/*.js files. This completes the migration of the @tevm/actions package's JS files from viem dependencies.
+
+## Changes Made
+
+### Modified: packages/actions/src/internal/decodeRevertReason.js
+- Line 12: Changed `import('viem').Hex` to `import('@tevm/utils').Hex`
+- Line 15: Changed `import('viem').Hex` to `import('@tevm/utils').Hex`
+- Line 16: Changed `import('viem').Hex` to `import('@tevm/utils').Hex`
+- Line 64: Changed `import('viem').Hex` to `import('@tevm/utils').Hex`
+
+### Modified: packages/actions/src/eth/getCodeHandler.js
+- Line 36: Changed `import('viem').Hex | undefined` to `import('@tevm/utils').Hex | undefined`
+
+## Rationale
+The `Hex` type in viem is a simple branded string type `0x${string}` which is already exported from @tevm/utils. By changing the JSDoc imports to use @tevm/utils instead of viem, we remove the dependency on viem for type information in these files.
+
+## Test Results
+- Type checking shows no new errors related to these changes
+- Pre-existing TypeScript error in decodeRevertReason.js (line 46, 'code' possibly undefined) is unrelated
+- Full test suite could not be run due to @tevm/utils build issues, but verified via grep that no viem imports remain
+
+## Migration Status - packages/actions/src/**/*.js Files
+
+### Fully Migrated (no viem JSDoc imports):
+- All .js files in packages/actions/src/ now have zero viem JSDoc imports
+
+### Verification:
+```
+grep -r "import('viem')" packages/actions/src --include="*.js"
+# No matches found
+```
+
+## Total viem JSDoc Imports Migrated This Session
+- **5 JSDoc type references** migrated from viem to @tevm/utils:
+  - 4 Hex references in decodeRevertReason.js
+  - 1 Hex reference in getCodeHandler.js
+
+## Cumulative Migration Progress
+- packages/utils/src/*.js - COMPLETE (31 JSDoc imports migrated)
+- packages/actions/src/**/*.js - COMPLETE (5 JSDoc imports migrated)
+
+## Next Steps
+1. Check other core packages (vm, evm, state, node) for viem JSDoc imports
+2. Look at .ts files that may have viem imports
+3. Consider migrating runtime imports (not just JSDoc type imports)

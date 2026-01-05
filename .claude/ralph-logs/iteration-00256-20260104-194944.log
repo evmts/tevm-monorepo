@@ -1,0 +1,87 @@
+# Ralph Migration Log - Iteration 256
+## Date: 2026-01-04 19:49:44
+
+## Summary
+Assessment iteration - verified migration state and identified next steps.
+
+## Current State Analysis
+
+### Core Packages Status (CLEAN - no viem/ethereumjs imports)
+- `@tevm/actions` - 0 viem imports, 0 ethereumjs imports
+- `@tevm/vm` - 0 viem imports, 0 ethereumjs imports
+- `@tevm/evm` - 0 viem imports, 0 ethereumjs imports
+- `@tevm/state` - 0 viem imports, 0 ethereumjs imports
+- `@tevm/node` - 0 viem imports, 0 ethereumjs imports
+
+### Migration Complete (from voltaire)
+1. **Keccak256** - All usages use `@tevm/voltaire/Keccak256`
+2. **Secp256k1** - Signing, recovery, public key derivation
+3. **P256** - p256verify precompile
+4. **ABI Encoding** - All encode/decode functions native
+5. **Account Creation** - nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount
+6. **Signature Operations** - ecrecover, hashMessage, hashTypedData, signMessage, signTypedData
+7. **EIP-7702** - Authorization signing and verification
+8. **Utility Functions** - All hex/bytes conversions, RLP, serialization
+9. **Prefunded Accounts** - Using nativePrivateKeyToAccount
+10. **Guillotine-Mini WASM** - EVM bytecode execution integrated (26 tests passing)
+
+### Remaining Dependencies (Intentional)
+
+#### @ethereumjs Dependencies (2 packages)
+1. **@tevm/tx** (`createImpersonatedTx.js`)
+   - Uses `FeeMarket1559Tx` from `@ethereumjs/tx`
+   - Required because tx object needs methods: hash(), isSigned(), getSenderAddress(), getHashedMessageToSign()
+   - Proxy wrapper already overrides these but underlying tx is still ethereumjs
+
+2. **@tevm/common** (`createCommon.js`)
+   - Uses `createCustomCommon`, `Mainnet` from `@ethereumjs/common`
+   - Required for chain configuration and hardfork settings
+
+3. **@tevm/trie**
+   - Re-exports `Trie`, `genesisStateRoot` from `@ethereumjs/trie`
+   - Used for Merkle Patricia Trie state management
+
+#### Viem Dependencies (Intentional)
+1. **Transport/Client Functions** in `@tevm/utils/viem.js`
+   - `createPublicClient`, `http`, `webSocket`, `createTransport`, `custom`, `defineChain`
+   - Required for fork functionality and RPC communication
+
+2. **Chain Presets** in `@tevm/common/presets/`
+   - 200+ chain definitions from `viem/chains`
+   - Provides chain metadata (chainId, name, etc.)
+
+3. **Test Utilities** in various test files
+   - `testActions` from viem for compatibility testing
+   - `mnemonicToAccount` for comparing native vs viem implementations
+
+### Tests Verified
+- `packages/evm/src/guillotineWasm.spec.ts` - 26 passed, 1 skipped
+- `packages/utils/src/signature.spec.ts` - 31 passed
+- `packages/utils/src/nativePrivateKeyToAccount.spec.ts` - 18 passed
+- `packages/utils/src/Bloom.spec.ts` - 6 passed
+- `packages/utils/src/eip7702.spec.ts` - 22 passed
+- `packages/utils/src/prefundedAccounts.spec.ts` - 1 passed
+
+## Next Steps Priority
+
+1. **Transaction Wrapper (High complexity)**
+   - Create voltaire-based tx class with methods matching ethereumjs interface
+   - hash(), isSigned(), getSenderAddress(), getHashedMessageToSign()
+   - Would allow removing @ethereumjs/tx dependency
+
+2. **Fork Transport Adapter (High complexity)**
+   - Bridge voltaire's EIP-1193 providers to viem's transport interface
+   - Would allow forking without viem client dependency
+
+3. **Keep Intentional Dependencies**
+   - Chain presets from viem/chains (standard data)
+   - @ethereumjs/common for chain config (complex)
+   - @ethereumjs/trie for state management (specialized)
+
+## Notes
+- Core packages are clean - migration goal achieved for main execution path
+- Remaining dependencies are at the edges (tx creation, fork transport, chain config)
+- These could be migrated but provide diminishing returns
+- All native implementations verified working correctly
+- PREFUNDED_ACCOUNTS using nativePrivateKeyToAccount (no viem dependency)
+- Migration is in a stable, well-tested state

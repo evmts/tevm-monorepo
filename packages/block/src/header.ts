@@ -12,6 +12,8 @@ import {
 	hexToBytes,
 	KECCAK256_RLP,
 	KECCAK256_RLP_ARRAY,
+	KECCAK256_RLP_ARRAY_BYTES,
+	KECCAK256_RLP_BYTES,
 	keccak256,
 	numberToHex,
 	toBytes,
@@ -151,11 +153,11 @@ export class BlockHeader {
 
 		const defaults = {
 			parentHash: zeros(32),
-			uncleHash: KECCAK256_RLP_ARRAY,
+			uncleHash: KECCAK256_RLP_ARRAY_BYTES,
 			coinbase: createZeroAddress(),
 			stateRoot: zeros(32),
-			transactionsTrie: KECCAK256_RLP,
-			receiptTrie: KECCAK256_RLP,
+			transactionsTrie: KECCAK256_RLP_BYTES,
+			receiptTrie: KECCAK256_RLP_BYTES,
 			logsBloom: zeros(256),
 			difficulty: 0n,
 			number: 0n,
@@ -197,17 +199,18 @@ export class BlockHeader {
 		}
 
 		// Hardfork defaults which couldn't be paired with earlier defaults
+		// IMPORTANT: Use bytes versions of KECCAK256_RLP, not hex strings
 		const hardforkDefaults = {
 			baseFeePerGas: this.common.ethjsCommon.isActivatedEIP(1559)
 				? number === this.common.ethjsCommon.hardforkBlock('london')
 					? this.common.ethjsCommon.param('initialBaseFee')
 					: 7n
 				: undefined,
-			withdrawalsRoot: this.common.ethjsCommon.isActivatedEIP(4895) ? KECCAK256_RLP : undefined,
+			withdrawalsRoot: this.common.ethjsCommon.isActivatedEIP(4895) ? KECCAK256_RLP_BYTES : undefined,
 			blobGasUsed: this.common.ethjsCommon.isActivatedEIP(4844) ? 0n : undefined,
 			excessBlobGas: this.common.ethjsCommon.isActivatedEIP(4844) ? 0n : undefined,
 			parentBeaconBlockRoot: this.common.ethjsCommon.isActivatedEIP(4788) ? zeros(32) : undefined,
-			requestsRoot: this.common.ethjsCommon.isActivatedEIP(7685) ? KECCAK256_RLP : undefined,
+			requestsRoot: this.common.ethjsCommon.isActivatedEIP(7685) ? KECCAK256_RLP_BYTES : undefined,
 		}
 
 		const baseFeePerGas = safeToType(headerData.baseFeePerGas, 1) ?? hardforkDefaults.baseFeePerGas
@@ -436,8 +439,8 @@ export class BlockHeader {
 			let error = false
 			let errorMsg = ''
 
-			if (!equalsBytes(uncleHash, KECCAK256_RLP_ARRAY)) {
-				errorMsg += `, uncleHash: ${bytesToHex(uncleHash)} (expected: ${bytesToHex(KECCAK256_RLP_ARRAY)})`
+			if (!equalsBytes(uncleHash, KECCAK256_RLP_ARRAY_BYTES)) {
+				errorMsg += `, uncleHash: ${bytesToHex(uncleHash)} (expected: ${KECCAK256_RLP_ARRAY})`
 				error = true
 			}
 			if (number !== 0n) {
@@ -698,7 +701,7 @@ export class BlockHeader {
 
 		if (this.common.ethjsCommon.gteHardfork('byzantium') === true) {
 			// max((2 if len(parent.uncles) else 1) - ((timestamp - parent.timestamp) // 9), -99) (EIP100)
-			const uncleAddend = equalsBytes(parentBlockHeader.uncleHash, KECCAK256_RLP_ARRAY) ? 1 : 2
+			const uncleAddend = equalsBytes(parentBlockHeader.uncleHash, KECCAK256_RLP_ARRAY_BYTES) ? 1 : 2
 			let a = BigInt(uncleAddend) - (blockTs - parentTs) / BigInt(9)
 			const cutoff = BigInt(-99)
 			// MAX(cutoff, a)

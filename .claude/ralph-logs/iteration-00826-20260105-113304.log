@@ -1,0 +1,59 @@
+# Ralph Migration Log - Iteration 826
+## Date: 2026-01-05
+
+## Task: Add test coverage for zod validation schemas in @tevm/actions
+
+## Summary
+
+Added comprehensive test suites for two zod validation schemas in the actions package:
+- `zBlockParam.js` - Block parameter validation (20 tests)
+- `zBlockOverrideSet.js` - Block override set validation (18 tests)
+
+## Changes Made
+
+### New files:
+1. `packages/actions/src/internal/zod/zBlockParam.spec.ts` - 20 tests
+2. `packages/actions/src/internal/zod/zBlockOverrideSet.spec.ts` - 18 tests
+
+### Test coverage:
+
+**zBlockParam.spec.ts (20 tests):**
+
+String block tags (5 tests):
+- Accept "latest", "earliest", "pending", "safe", "finalized"
+
+Bigint block numbers (3 tests):
+- Accept bigint 0, positive bigints, large bigints
+
+Number block numbers (2 tests):
+- Transform number 0 to bigint
+- Transform positive numbers to bigint
+
+Hex block numbers (4 tests):
+- Accept 0x0, hex numbers, uppercase hex, mixed case hex
+
+Invalid values (6 tests):
+- Reject invalid strings, empty strings, null, undefined, objects, arrays
+
+**zBlockOverrideSet.spec.ts (18 tests):**
+
+Valid inputs (8 tests):
+- Accept empty object
+- Accept individual overrides: number, time, gasLimit, coinbase, baseFee, blobBaseFee
+- Accept all overrides together
+- Accept zero values
+
+Invalid inputs (10 tests):
+- Reject negative values for all numeric fields
+- Reject invalid coinbase address
+- Reject unknown properties (strict object)
+- Reject null
+- Reject non-bigint number values
+
+## Test Results
+
+All 38 tests passing:
+- zBlockParam.spec.ts: 20 tests ✓
+- zBlockOverrideSet.spec.ts: 18 tests ✓
+
+## Status: COMPLETE

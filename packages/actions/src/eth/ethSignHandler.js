@@ -12,7 +12,7 @@ export class MissingAccountError extends Error {
 }
 
 /**
- * @param {{accounts: ReadonlyArray<import('@tevm/utils').HDAccount>}} params
+ * @param {{accounts: ReadonlyArray<import('@tevm/utils').HDAccount | import('@tevm/utils').NativeHDAccount>}} params
  * @returns {import('./EthHandler.js').EthSignHandler}
  */
 export const ethSignHandler = ({ accounts }) => {

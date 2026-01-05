@@ -9,10 +9,13 @@ import { putAccount } from './putAccount.js'
  * @type {import("../state-types/index.js").StateAction<'modifyAccountFields'>}
  */
 export const modifyAccountFields = (baseState) => async (address, accountFields) => {
-	const account = (await getAccount(baseState)(address)) ?? createAccount({})
-	account.nonce = accountFields.nonce ?? account.nonce
-	account.balance = accountFields.balance ?? account.balance
-	account.storageRoot = accountFields.storageRoot ?? account.storageRoot
-	account.codeHash = accountFields.codeHash ?? account.codeHash
-	await putAccount(baseState)(address, account)
+	const existingAccount = await getAccount(baseState)(address)
+	// Create a new account with modified fields (Account is immutable)
+	const newAccount = createAccount({
+		nonce: accountFields.nonce ?? existingAccount?.nonce ?? 0n,
+		balance: accountFields.balance ?? existingAccount?.balance ?? 0n,
+		storageRoot: accountFields.storageRoot ?? existingAccount?.storageRoot,
+		codeHash: accountFields.codeHash ?? existingAccount?.codeHash,
+	})
+	await putAccount(baseState)(address, newAccount)
 }

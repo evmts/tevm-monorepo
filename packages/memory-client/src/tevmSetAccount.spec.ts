@@ -1,5 +1,6 @@
-import { createAddressFromString, type Hex, numberToHex } from '@tevm/utils'
-import { bytesToHex, type Client, createClient, hexToBytes } from 'viem'
+import { bytesToHex, createAddressFromString, type Hex, hexToBytes, numberToHex } from '@tevm/utils'
+import type { Client } from '@tevm/utils'
+import { createClient } from './createClient.js'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
 import type { TevmTransport } from './TevmTransport.js'

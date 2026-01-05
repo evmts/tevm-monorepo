@@ -1,0 +1,32 @@
+## Migration Iteration 46 Complete
+
+**Successfully migrated 5 test files from viem to @tevm/utils:**
+
+### Files migrated:
+1. `packages/actions/src/Mine/mineHandler.spec.ts`: parseEther
+2. `packages/actions/src/Call/executeCall.spec.ts`: parseEther
+3. `packages/actions/src/anvil/anvilAddBalanceHandler.spec.ts`: parseEther
+4. `packages/actions/src/anvil/anvilAddBalanceProcedure.spec.ts`: parseEther  
+5. `packages/actions/src/eth/ethGetTransactionCountProcedure.spec.ts`: parseEther, numberToHex
+
+**Commit created:**
+- `530cfeee9`: 5 test files migrated
+
+**Pre-existing issues (not from this migration):**
+- mineHandler tests fail due to "storageRoot must have a length of 32" in generateCannonicalGenesis.js
+- This is a known issue in the state manager, not related to viem migration
+
+**Viem import count:**
+- Before: 487
+- After: 483
+- Migrated: 4 imports (5 files, net 4 because ethGetTransactionCountProcedure.spec.ts still has `custom` from viem)
+
+**Remaining @tevm/actions source files with viem imports:**
+- Contract/ContractParams.ts (Abi from viem/utils)
+- Deploy/*.ts (Abi type references)
+- Contract/contractHandler.js (Abi type)
+- CallParams.ts (5 occurrences in JSDoc examples)
+
+**Next targets:**
+- More test files in @tevm/actions (callHandlerResult.spec.ts, handleTransactionCreation.spec.ts, etc.)
+- Source files with Abi type imports (may need to check if Abi is exported from @tevm/utils)

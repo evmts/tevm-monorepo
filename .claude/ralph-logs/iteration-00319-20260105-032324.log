@@ -1,0 +1,7 @@
+Done! Migrated 3 more chain presets from viem/chains to nativeDefineChain:
+
+1. **storyTestnet.js** (id: 1513) - Story Testnet with IP native currency
+2. **stratis.js** (id: 105105) - Stratis Mainnet with STRAX native currency  
+3. **syscoin.js** (id: 57) - Syscoin Mainnet with SYS native currency, WebSocket support, and multicall3 contract
+
+**Progress:** 303 migrated, 41 remaining (~12% left).

@@ -1,0 +1,52 @@
+# Ralph Migration Iteration - Update TypeScript JSDoc Examples
+
+## Assessment
+
+Previous iterations updated JSDoc examples in JS files. This iteration targets remaining TypeScript files with viem imports in JSDoc examples.
+
+## Target
+
+Updated JSDoc examples in 2 TypeScript files in packages/memory-client/src/:
+- TevmContractType.ts
+- TevmRpcSchema.ts
+
+Both files had `import { createClient, http } from 'viem'` in their JSDoc examples.
+
+## Changes
+
+### Files Updated:
+1. **TevmContractType.ts** (line 21): Split `createClient, http` import:
+   - `import { createClient } from 'viem'`
+   - `import { http } from '@tevm/utils'`
+
+2. **TevmRpcSchema.ts** (line 10): Split `createClient, http` import:
+   - `import { createClient } from 'viem'`
+   - `import { http } from '@tevm/utils'`
+
+## Test Results
+
+- Changes are JSDoc comment updates only (no runtime code)
+- Pre-existing type errors in @tevm/block and @tevm/address packages (unrelated to changes)
+
+## Commit
+
+`0340e8c8a` - `⚡ refactor(memory-client): update JSDoc examples to use @tevm/utils for http`
+
+## Next Steps
+
+Continue migration efforts:
+- Look for more JSDoc examples in other packages (actions, decorators, node, contract)
+- Consider implementing native ABI encoding/decoding wrappers using voltaire's Abi module
+- The remaining viem dependencies are:
+  - ABI encoding/decoding functions from 'viem/utils'
+  - Error handling from 'viem' (getContractError, RawContractError)
+  - Transport/client functions for fork support
+  - Account creation functions from 'viem/accounts'
+
+## Migration Status Summary
+
+The core runtime packages (actions, vm, evm, state, node) no longer have direct viem imports.
+The remaining viem usage is:
+1. memory-client - Intentional viem integration layer
+2. utils - Re-exports from viem for ABI, transport, errors
+3. errors - RPC error types from viem

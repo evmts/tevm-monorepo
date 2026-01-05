@@ -1,0 +1,18 @@
+I've completed iteration 190 of the Ralph migration. Here's a summary:
+
+## Iteration 190 Summary
+
+**Verified Migration Status:**
+- All core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node, @tevm/contract, @tevm/block, @tevm/tx, @tevm/txpool, @tevm/address) have no direct viem imports
+- Tests passing: viem.spec.ts (253 tests), abiEncoding.spec.ts (16 tests), createHandlers.spec.ts (15 tests)
+
+**Commit Made:**
+- **Consolidated SerializeToJson types** - Eliminated duplicate implementation by having @tevm/actions re-export from @tevm/utils
+  - Added Error handling support (`Error & { code: number | string }`) to @tevm/utils version
+  - Reduced code duplication between packages
+
+**Remaining viem Dependencies (Intentional):**
+1. Account creation (`mnemonicToAccount`, `privateKeyToAccount`) - for HD wallets and signing
+2. Transport functions (`createPublicClient`, `http`, `webSocket`, etc.) - for forking
+
+The core type migration from viem is complete. The remaining dependencies are intentionally kept for ecosystem interoperability.

@@ -1,0 +1,88 @@
+# Ralph Migration Iteration 125 - Native Withdrawal and createWithdrawal Implementation
+
+## Summary
+
+Migrated `Withdrawal` class and `createWithdrawal` function from `@ethereumjs/util` to native implementations in `@tevm/utils`. These are EIP-4895 withdrawal utilities for processing validator withdrawals from the consensus layer.
+
+## Changes Made
+
+### New Files
+1. `packages/utils/src/withdrawal.js` - Native implementations:
+   - `Withdrawal` class with `raw()`, `toJSON()`, `toValue()` methods
+   - `createWithdrawal(withdrawalData)` - Factory function
+   - `createWithdrawalFromBytesArray(withdrawalArray)` - Factory from RLP bytes
+
+2. `packages/utils/src/withdrawal.spec.ts` - 17 tests covering:
+   - Withdrawal constructor
+   - `raw()` method for RLP encoding
+   - `toJSON()` method for JSON-RPC format
+   - `toValue()` method
+   - `createWithdrawal` with bigint, hex string, and number inputs
+   - `createWithdrawalFromBytesArray` for RLP decoding
+   - Round-trip conversions
+
+### Modified Files
+1. `packages/utils/src/ethereumjs.js` - Marked as migrated:
+   - `// createWithdrawal - migrated to native implementation in withdrawal.js`
+   - `// Withdrawal - migrated to native implementation in withdrawal.js`
+
+2. `packages/utils/src/index.ts` - Updated exports:
+   - Removed `Withdrawal` and `createWithdrawal` from ethereumjs.js export block
+   - Added new exports from withdrawal.js
+   - Also exports `WithdrawalData` and `JsonRpcWithdrawal` types from withdrawal.js
+   - Added `createWithdrawalFromBytesArray` as a bonus export
+
+## Implementation Details
+
+### Withdrawal class
+```javascript
+export class Withdrawal {
+	constructor(index, validatorIndex, address, amount) { ... }
+	raw() { return [indexBytes, validatorIndexBytes, addressBytes, amountBytes] }
+	toJSON() { return { index, validatorIndex, address, amount } as hex strings }
+	toValue() { return { index, validatorIndex, address, amount } }
+}
+```
+
+### createWithdrawal
+Accepts flexible `WithdrawalData` with:
+- `BigIntLike` values (string, number, bigint, Uint8Array)
+- String or Uint8Array address
+
+Uses existing `toType()` utility for type conversion.
+
+### createWithdrawalFromBytesArray
+For decoding RLP-decoded withdrawal arrays:
+```javascript
+export function createWithdrawalFromBytesArray(withdrawalArray) {
+	const [index, validatorIndex, address, amount] = withdrawalArray
+	return createWithdrawal({ index, validatorIndex, address, amount })
+}
+```
+
+## Test Results
+
+- `packages/utils/src/withdrawal.spec.ts` - 17 passed
+- All @tevm/utils tests - 465 passed, 1 skipped
+- Block package tests continue to pass
+
+## Impact
+
+Reduced dependency on `@ethereumjs/util` by removing two more exports:
+- `Withdrawal` class - used in block processing, VM withdrawals, RLP encoding
+- `createWithdrawal` - factory function for creating Withdrawal objects
+- Also provides `createWithdrawalFromBytesArray` for RLP decoding
+
+## Remaining @ethereumjs/util exports in ethereumjs.js
+
+The following still need migration:
+- `EthjsAccount`, `EthjsAddress` - Core account/address classes
+- `createAccount`, `createAddressFromString` - Factory functions
+- EIP-7702 utilities - Complex authorization utilities
+
+## Next Steps
+
+Good next targets:
+- `createAddressFromString` - May be replaceable with viem's getAddress
+- `createAccount` - Account factory function
+- EIP-7702 utilities - More complex but important for modern EVM support

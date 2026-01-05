@@ -2,7 +2,7 @@ import { optimism } from '@tevm/common'
 import { ForkError, InternalError } from '@tevm/errors'
 import { createTevmNode, type TevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
-import { bytesToHex } from 'viem'
+import { bytesToHex } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { cloneVmWithBlockTag } from './cloneVmWithBlock.js'
 

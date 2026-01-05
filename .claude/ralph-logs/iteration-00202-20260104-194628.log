@@ -1,0 +1,31 @@
+Migration iteration 256 complete. Here's a summary:
+
+## Migration Status Summary
+
+**Core packages are clean** - The main migration goal has been achieved:
+- `@tevm/actions` - No viem/ethereumjs imports
+- `@tevm/vm` - No viem/ethereumjs imports
+- `@tevm/evm` - No viem/ethereumjs imports
+- `@tevm/state` - No viem/ethereumjs imports
+- `@tevm/node` - No viem/ethereumjs imports
+
+**Completed migrations using @tevm/voltaire:**
+1. Keccak256 hashing
+2. Secp256k1 signing/recovery
+3. P256 precompile
+4. ABI encoding/decoding
+5. Native account creation (nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount)
+6. Signature operations (ecrecover, hashMessage, signMessage, signTypedData)
+7. EIP-7702 authorization
+8. Utility functions (hex/bytes conversions, RLP, serialization)
+9. Prefunded test accounts
+10. Guillotine-Mini WASM EVM execution (26 tests passing)
+
+**Remaining dependencies (intentional):**
+- `@ethereumjs/tx` in @tevm/tx - used for `FeeMarket1559Tx` class with transaction methods
+- `@ethereumjs/common` in @tevm/common - chain configuration
+- `@ethereumjs/trie` in @tevm/trie - Merkle Patricia Trie
+- `viem/chains` in @tevm/common - chain preset metadata
+- viem transport functions - required for fork functionality
+
+All 104+ tests verified passing. The migration is in a stable state with the core execution path fully native.

@@ -1,5 +1,4 @@
-import { bytesToHex } from '@tevm/utils'
-import { hexToBytes } from 'viem'
+import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { getForkBlockTag } from './getForkBlockTag.js'
 import { getForkClient } from './getForkClient.js'
 

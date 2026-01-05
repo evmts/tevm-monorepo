@@ -451,7 +451,7 @@ export const createTevmNode = (options = {}) => {
 		return new ReceiptsManager(createMapDb({ cache: new Map() }), vm.blockchain)
 	})
 	/**
-	 * @type {Map<import('viem').Hex, import('./Filter.js').Filter>}
+	 * @type {Map<import('@tevm/utils').Hex, import('./Filter.js').Filter>}
 	 */
 	const filters = new Map()
 
@@ -640,7 +640,7 @@ export const createTevmNode = (options = {}) => {
 		const oldTxPool = await txPoolPromise
 		const txPool = oldTxPool.deepCopy({ vm })
 		/**
-		 * @type {Map<import('viem').Hex, import('./Filter.js').Filter>}
+		 * @type {Map<import('@tevm/utils').Hex, import('./Filter.js').Filter>}
 		 */
 		const newFilters = new Map(filters)
 		// don't copy registered events because that would be confusing

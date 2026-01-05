@@ -1,0 +1,103 @@
+# Ralph Migration Log - Iteration 263
+## Date: 2026-01-04 20:22:30
+
+## Summary
+Verification iteration - confirmed all previously migrated functionality is stable. Analyzed potential transport migration but determined it's not actionable at this time.
+
+## Actions Taken
+1. Verified previous migration status from iteration 262
+2. Ran comprehensive test suite on migrated components:
+   - signature.spec.ts: 31 passed
+   - guillotineWasm.spec.ts: 26 passed, 1 skipped
+   - nativePrivateKeyToAccount.spec.ts: 18 passed
+   - nativeMnemonicToAccount.spec.ts: 17 passed
+   - Bloom.spec.ts: 6 passed
+   - eip7702.spec.ts: 22 passed
+   - prefundedAccounts.spec.ts: 1 passed
+
+3. Verified core packages remain clean of viem/ethereumjs imports:
+   - `@tevm/state/src/` - Clean (no direct viem imports)
+   - `@tevm/evm/src/` - Clean (no ethereumjs imports)
+
+4. Analyzed potential transport migration from viem to voltaire:
+   - Voltaire has HttpProvider and WebSocketProvider (EIP-1193 compliant)
+   - However, viem's PublicClient provides typed convenience methods (getProof, getStorageAt, getBytecode)
+   - These are used extensively in state package's forking logic
+   - Migrating would require adding typed methods to voltaire's providers
+   - **Decision**: Not actionable - significant architectural work with low ROI
+
+## Test Failures Analyzed
+- `createMemoryClient.spec.ts` fork test failed due to missing `TEVM_RPC_URLS_OPTIMISM` env var
+- This is expected per CLAUDE.md - not a regression from migration work
+
+## Remaining viem imports (intentionally retained)
+
+### @tevm/utils/viem.js - Transport/Client functions (line 2143)
+```javascript
+export {
+  createPublicClient,
+  createTransport,
+  custom,
+  defineChain,
+  http,
+  webSocket,
+} from 'viem'
+```
+**Reason**: Required for RPC communication in forking scenarios. Voltaire's providers don't have typed convenience methods.
+
+### @tevm/utils/viem.js - Deprecated account exports (line 29)
+```javascript
+export { mnemonicToAccount, privateKeyToAccount } from 'viem/accounts'
+```
+**Reason**: Backward compatibility - native alternatives exist (`nativePrivateKeyToAccount`, `nativeMnemonicToAccount`).
+
+### memory-client package
+**Reason**: Intentionally a viem wrapper - provides viem PublicClient/TestClient/WalletClient interface.
+
+## Transport Migration Analysis
+
+### Current Architecture
+- `getForkClient.js` creates viem PublicClient from transport
+- Used by `getAccountFromProvider.js`, `getProof.js`, `getContractCode.js`, `getContractStorage.js`
+- These files use typed client methods: `client.getProof()`, `client.getStorageAt()`, `client.getBytecode()`
+
+### Voltaire's Provider Capabilities
+- `HttpProvider`: Raw EIP-1193 `request({ method, params })` only
+- `WebSocketProvider`: Same + event subscriptions
+- No typed convenience methods like viem's PublicClient
+
+### Migration Requirements (if pursued)
+1. Create typed wrapper for voltaire providers OR
+2. Add typed methods to voltaire's Provider implementations
+3. Refactor all fork client usages in state package
+
+### Assessment
+- **Effort**: High (significant architectural changes)
+- **Benefit**: Low (viem transport layer is stable, well-tested)
+- **Risk**: Medium (breaking changes to fork behavior)
+- **Recommendation**: Not actionable at this time
+
+## Migration Status Summary
+
+### Complete
+- All core packages (actions, vm, evm, state, node) free of direct viem/ethereumjs
+- Native cryptography using @tevm/voltaire (Keccak256, Secp256k1, P256)
+- Native account implementations (nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount)
+- Native ABI encoding/decoding
+- Native signature operations
+- Guillotine-Mini WASM integration
+
+### Intentionally Retained (No Action Required)
+1. **Transport/client functions** - Required for RPC/forking, voltaire lacks typed methods
+2. **memory-client viem dependency** - Package is intentionally a viem wrapper
+3. **@ethereumjs/tx, @ethereumjs/common, @ethereumjs/trie** - Required for VM compatibility
+4. **Deprecated viem exports** - Backward compatibility (scheduled for removal in next major)
+5. **@scure/bip39, @scure/bip32** - Optimal implementation (voltaire wraps these anyway)
+
+## Conclusion
+The migration has reached a stable, complete state. All actionable migrations have been completed. The remaining viem dependency in transport/forking is architecturally significant and would require voltaire to add typed provider methods before it could be migrated.
+
+## Metrics
+- Total viem imports remaining in packages/: ~134 (mostly in dist/, types/, and intentionally retained)
+- Core source files with viem imports: 2 (@tevm/utils/viem.js, @tevm/utils/abitype.ts)
+- Tests passing: All 121 tests across migration-related files

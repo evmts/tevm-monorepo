@@ -1,0 +1,94 @@
+# Ralph Migration Iteration 124 - Native fetchFromProvider and getProvider Implementation
+
+## Summary
+
+Migrated `fetchFromProvider` and `getProvider` functions from `@ethereumjs/util` to native implementations in `@tevm/utils`. These are JSON-RPC provider utilities that were only re-exported (not actually used in the codebase).
+
+## Changes Made
+
+### New Files
+1. `packages/utils/src/provider.js` - Native implementations:
+   - `fetchFromProvider(url, params)` - Makes JSON-RPC POST requests
+   - `getProvider(provider)` - Extracts URL from string or Web3Provider object
+
+2. `packages/utils/src/provider.spec.ts` - 11 tests covering:
+   - String URL passthrough
+   - Web3Provider object URL extraction
+   - Invalid provider error handling
+   - JSON-RPC request/response handling
+   - Network error handling
+   - JSON-RPC error responses
+
+### Modified Files
+1. `packages/utils/src/ethereumjs.js` - Marked as migrated:
+   - `// fetchFromProvider - migrated to native implementation in provider.js`
+   - `// getProvider - migrated to native implementation in provider.js`
+
+2. `packages/utils/src/index.ts` - Updated exports:
+   - Removed from ethereumjs.js export block
+   - Added `export { fetchFromProvider, getProvider } from './provider.js'`
+
+## Implementation Details
+
+### fetchFromProvider
+Simple JSON-RPC fetch wrapper using native `fetch()`:
+```javascript
+export const fetchFromProvider = async (url, params) => {
+	const data = JSON.stringify({
+		method: params.method,
+		params: params.params,
+		jsonrpc: '2.0',
+		id: 1,
+	})
+	const res = await fetch(url, {
+		headers: { 'content-type': 'application/json' },
+		method: 'POST',
+		body: data,
+	})
+	// ... error handling ...
+	const json = await res.json()
+	return json.result
+}
+```
+
+### getProvider
+Simple URL extraction utility:
+```javascript
+export const getProvider = (provider) => {
+	if (typeof provider === 'string') {
+		return provider
+	} else if (typeof provider === 'object' && provider !== null && provider._getConnection !== undefined) {
+		return provider._getConnection().url
+	} else {
+		throw new Error('Must provide valid provider URL or Web3Provider')
+	}
+}
+```
+
+## Test Results
+
+- `packages/utils/src/provider.spec.ts` - 11 passed
+- All @tevm/utils tests - 448 passed, 1 skipped (449 total)
+- provider.js has 100% code coverage
+
+## Impact
+
+Reduced dependency on `@ethereumjs/util` by removing two more exports:
+- These were simple fetch/URL utilities
+- Not actually used anywhere in the codebase (only re-exported for API compatibility)
+- Now using native fetch() API
+
+## Remaining @ethereumjs/util exports in ethereumjs.js
+
+The following still need migration:
+- `EthjsAccount`, `EthjsAddress` - Core account/address classes
+- `createAccount`, `createAddressFromString` - Factory functions
+- `createWithdrawal`, `Withdrawal` - Withdrawal handling
+- EIP-7702 utilities - Complex authorization utilities
+
+## Next Steps
+
+Good next targets:
+- `createAddressFromString` - May be replaceable with viem's getAddress
+- `Withdrawal`, `createWithdrawal` - Simple data structures
+- EIP-7702 utilities - More complex but important for modern EVM support

@@ -1,0 +1,64 @@
+# Ralph Migration Log - Iteration 384
+## Date: 2026-01-05 03:42
+
+## Summary
+COMPLETED ALL CHAIN PRESET MIGRATIONS! Migrated final 20 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+### Batch 1:
+1. **xdc.js** (id: 50) - XDC Network with XDC native currency, XDCScan explorer, multicall3 contract
+2. **xdcTestnet.js** (id: 51) - Apothem Network with TXDC native currency, XDCScan testnet explorer, multicall3 contract
+3. **xrSepolia.js** (id: 2730) - XR Sepolia with tXR native currency, Blockscout explorer, testnet flag
+4. **yooldoVerse.js** (id: 50005) - Yooldo Verse with OAS native currency, Yooldo Verse Explorer
+
+### Batch 2:
+5. **yooldoVerseTestnet.js** (id: 50006) - Yooldo Verse Testnet with OAS native currency, testnet flag
+6. **zetachain.js** (id: 7000) - ZetaChain with ZETA native currency, ZetaScan explorer, multicall3 contract
+7. **zetachainAthensTestnet.js** (id: 7001) - ZetaChain Athens Testnet with aZETA native currency, multicall3 contract
+8. **zhejiang.js** (id: 1337803) - Zhejiang testnet with ZhejETH native currency, Beaconchain explorer
+
+### Batch 3:
+9. **zilliqa.js** (id: 32769) - Zilliqa mainnet with ZIL native currency, Ethernal explorer
+10. **zilliqaTestnet.js** (id: 33101) - Zilliqa Testnet with ZIL native currency
+11. **zircuitTestnet.js** (id: 48899) - Zircuit Testnet with ETH native currency, multicall3 contract, multiple RPC endpoints
+12. **zkFair.js** (id: 42766) - ZKFair Mainnet with USDC native currency, multicall3 contract
+13. **zkFairTestnet.js** (id: 43851) - ZKFair Testnet with USDC native currency
+
+### Batch 4:
+14. **zkLinkNova.js** (id: 810180) - zkLink Nova with ETH native currency
+15. **zkLinkNovaSepoliaTestnet.js** (id: 810181) - zkLink Nova Sepolia Testnet with ETH native currency
+16. **zksyncInMemoryNode.js** (id: 260) - ZKsync InMemory Node for local development, no block explorer
+17. **zksyncLocalNode.js** (id: 270) - ZKsync CLI Local Node for local development, no block explorer
+18. **zksyncSepoliaTestnet.js** (id: 300) - ZKsync Sepolia Testnet with ETH native currency, multicall3 contract, WebSocket support
+19. **zoraSepolia.js** (id: 999999999) - Zora Sepolia with ETH native currency, multicall3 contract, WebSocket support
+20. **zoraTestnet.js** (id: 999) - Zora Goerli Testnet with ETH native currency, multicall3 contract, WebSocket support
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress - CHAIN PRESETS COMPLETE!
+- **Previously migrated**: ~323 (from iteration 383)
+- **Migrated this session**: 20
+- **Total chain presets migrated**: 343 (all chain presets!)
+- **Remaining chain presets**: 0 (excluding generator script which needs viem/chains as source)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- __GENERATE_CHAIN_PRESETS__.js is intentionally left unchanged - it needs viem/chains as the source data for generating preset files
+- Some chains like Zora have WebSocket RPC support
+- ZKFair uses USDC as native currency (unusual - ERC20 as gas token)
+- Local development nodes (zksyncInMemoryNode, zksyncLocalNode) have no block explorers
+
+## MILESTONE ACHIEVED
+All chain preset files in packages/common/src/presets/*.js have been migrated from viem/chains imports to nativeDefineChain!
+
+## Next Steps
+Chain presets migration is complete. Consider:
+1. Migrate other viem imports in @tevm/common package
+2. Migrate viem imports in other core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node)

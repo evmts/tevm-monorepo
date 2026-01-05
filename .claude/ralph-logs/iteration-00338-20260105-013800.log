@@ -1,0 +1,32 @@
+# Ralph Migration Log - Iteration 338
+## Date: 2026-01-05 01:38
+
+## Summary
+Continued chain preset migration session. Migrated 5 more chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **avalancheFuji.js** (id: 43113) - Avalanche Fuji Testnet
+2. **b3.js** (id: 8333) - B3
+3. **b3Sepolia.js** (id: 1993) - B3 Sepolia Testnet
+4. **bahamut.js** (id: 5165) - Bahamut
+5. **baseGoerli.js** (id: 84531) - Base Goerli Testnet
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Migrated previously**: ~50
+- **Migrated this session**: 5
+- **Total migrated**: ~55
+- **Remaining**: ~285
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (multicall3), testnet
+
+## Next Steps
+Continue migrating remaining chain presets. ~285 remain.

@@ -1,0 +1,64 @@
+# Ralph Migration Log - Iteration 173
+## Date: 2026-01-04 13:00:00
+
+## Summary
+Removed all @ethereumjs JSDoc references from the vm package source files, replacing them with proper {@link} tags to tevm's native types.
+
+## Changes Made
+
+### 1. Updated VmOpts.ts (main)
+**File**: `packages/vm/src/VmOpts.ts`
+- Changed `@ethereumjs/evm` reference to `{@link EvmType}` in JSDoc comment
+
+### 2. Updated VMOpts.ts (utils)
+**File**: `packages/vm/src/utils/VMOpts.ts`
+- Changed `@ethereumjs/evm` reference to `{@link Evm}` in JSDoc comment
+
+### 3. Updated RunBlockOpts.ts
+**File**: `packages/vm/src/utils/RunBlockOpts.ts`
+- Changed `The @ethereumjs/block to process` to `The {@link Block} to process`
+
+### 4. Updated RunTxOpts.ts
+**File**: `packages/vm/src/utils/RunTxOpts.ts`
+- Changed `The @ethereumjs/block the tx belongs to` to `The {@link Block} the tx belongs to`
+- Changed `An @ethereumjs/tx to run` to `A {@link TypedTransaction} to run`
+
+## Verification
+```bash
+grep -rn "@ethereumjs" packages/vm/src/ --include="*.ts"
+# No output - all @ethereumjs references removed from vm package src
+```
+
+## Impact
+- The @tevm/vm package source files are now completely free of @ethereumjs references
+- JSDoc links now properly reference tevm's native types: Block, TypedTransaction, Evm, EvmType
+- This improves documentation consistency as we migrate away from ethereumjs
+
+## Files Changed
+- packages/vm/src/VmOpts.ts (modified)
+- packages/vm/src/utils/VMOpts.ts (modified)
+- packages/vm/src/utils/RunBlockOpts.ts (modified)
+- packages/vm/src/utils/RunTxOpts.ts (modified)
+
+## Status of Core Packages
+### viem imports removed from:
+- ✅ @tevm/actions (src/)
+- ✅ @tevm/vm (src/)
+- ✅ @tevm/state (src/)
+- ✅ @tevm/evm (src/)
+- ✅ @tevm/node (src/)
+- ✅ @tevm/blockchain (src/)
+- ✅ @tevm/common (src/ - only createCustomCommon usage remains)
+
+### @ethereumjs references removed from:
+- ✅ @tevm/vm (src/) - NOW COMPLETE
+- ✅ @tevm/blockchain (src/ - only documentation comments remain)
+
+### Remaining @ethereumjs usage:
+- @tevm/common: createCustomCommon, Mainnet imports from @ethereumjs/common
+- This is a deeper refactor that requires creating native Common implementation
+
+## Next Steps
+1. Continue monitoring for other @ethereumjs/tx, @ethereumjs/block references in other packages
+2. The major remaining work is creating native Common implementation to replace @ethereumjs/common
+3. Consider prioritizing lower-hanging fruit in other packages first

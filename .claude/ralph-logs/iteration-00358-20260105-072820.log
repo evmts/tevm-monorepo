@@ -1,0 +1,13 @@
+## Summary
+
+In this iteration (732), I added three new types to `@tevm/utils/provider-types.ts` that are required for the ongoing viem migration:
+
+1. **WalletActions** - Interface for wallet client write operations (sendTransaction, signMessage, writeContract, etc.)
+
+2. **PublicRpcSchema** - Tuple type defining standard public Ethereum JSON-RPC methods (eth_blockNumber, eth_call, eth_getBalance, etc.)
+
+3. **TestRpcSchema** - Tuple type defining test/development JSON-RPC methods (anvil_* and evm_* methods)
+
+All three types were exported from `packages/utils/src/index.ts` and the types build passes successfully.
+
+These types are prerequisites for migrating the memory-client package's type files (`TevmRpcSchema.ts`, `MemoryClient.ts`, etc.) from viem to @tevm/utils. The memory-client package still has several files importing from viem, but they're interconnected and will need to be migrated together in a future iteration.

@@ -1,0 +1,15 @@
+I've completed all chain preset migrations from `viem/chains` to `nativeDefineChain`. In this session, I migrated:
+
+**Iteration 383** - 5 chains: x1Testnet, xLayer, xLayerTestnet, xai, xaiTestnet
+
+**Iteration 384** - 20 chains (final batch): 
+- xdc, xdcTestnet, xrSepolia, yooldoVerse
+- yooldoVerseTestnet, zetachain, zetachainAthensTestnet, zhejiang
+- zilliqa, zilliqaTestnet, zircuitTestnet, zkFair, zkFairTestnet
+- zkLinkNova, zkLinkNovaSepoliaTestnet, zksyncInMemoryNode, zksyncLocalNode, zksyncSepoliaTestnet, zoraSepolia, zoraTestnet
+
+**Total: 25 chains migrated in this session**
+
+All tests pass. The only remaining file with `from 'viem/chains'` is `__GENERATE_CHAIN_PRESETS__.js` which is the generator script that intentionally needs viem/chains as its source data.
+
+**Milestone achieved**: All 343+ chain preset files in `packages/common/src/presets/` have been successfully migrated from viem/chains imports to use the new `nativeDefineChain` function from `@tevm/utils`.

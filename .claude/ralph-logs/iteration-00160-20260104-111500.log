@@ -1,0 +1,84 @@
+# Ralph Migration Log - Iteration 160
+## Date: 2026-01-04 11:15:00
+
+## Summary
+Fixed critical errors in block creation that were blocking most @tevm/actions tests.
+
+## Changes Made
+
+### 1. Fixed toType to handle Address-like objects (packages/utils/src/typeOutput.js)
+The `toType` function was failing when passed an `Address` object because it has a `.bytes` property but is not a `Uint8Array` itself. Added handling for objects with `.bytes` property:
+
+```js
+if (typeof input === 'object' && input !== null && input.bytes instanceof Uint8Array) {
+    output = input.bytes
+}
+```
+
+### 2. Added KECCAK256_RLP_ARRAY_BYTES constant (packages/utils/src/constants.js)
+Added the bytes version of the KECCAK256_RLP_ARRAY constant for use in comparisons and defaults:
+
+```js
+export const KECCAK256_RLP_ARRAY_BYTES = new Uint8Array([
+    29, 204, 77, 232, 222, 199, 93, 122,
+    171, 133, 181, 103, 182, 204, 212, 26,
+    211, 18, 69, 27, 148, 138, 116, 19,
+    240, 161, 66, 253, 64, 212, 147, 71
+])
+```
+
+### 3. Fixed block header defaults and validation (packages/block/src/header.ts)
+The block header was using hex string constants (`KECCAK256_RLP`, `KECCAK256_RLP_ARRAY`) where bytes were expected:
+
+**Before:**
+```ts
+const defaults = {
+    uncleHash: KECCAK256_RLP_ARRAY,       // hex string!
+    transactionsTrie: KECCAK256_RLP,       // hex string!
+    receiptTrie: KECCAK256_RLP,            // hex string!
+}
+```
+
+**After:**
+```ts
+const defaults = {
+    uncleHash: KECCAK256_RLP_ARRAY_BYTES,  // bytes!
+    transactionsTrie: KECCAK256_RLP_BYTES,  // bytes!
+    receiptTrie: KECCAK256_RLP_BYTES,       // bytes!
+}
+```
+
+Also fixed PoS validation that was comparing bytes with hex strings:
+```ts
+// Before: equalsBytes(uncleHash, KECCAK256_RLP_ARRAY)
+// After:
+equalsBytes(uncleHash, KECCAK256_RLP_ARRAY_BYTES)
+```
+
+## Test Results
+- createHandlers.spec.ts: From 15 failures to 9 failures (6 tests now passing!)
+- The remaining failures are actual logic issues, not type conversion errors
+
+## Root Cause Analysis
+The native migration removed viem's flexible type handling. When viem's `toBytes` is called with a hex string like `'0x1dcc...'`, it properly converts it to bytes. But when passed to `equalsBytes` comparing with another hex string, it was creating garbage output (treating each hex digit as a byte).
+
+The fix ensures that:
+1. All default values in block headers are actual `Uint8Array` bytes, not hex strings
+2. All comparisons use bytes vs bytes
+3. `toType` can handle Address objects properly
+
+## Files Modified
+1. `packages/utils/src/typeOutput.js` - Handle Address objects
+2. `packages/utils/src/constants.js` - Add KECCAK256_RLP_ARRAY_BYTES
+3. `packages/utils/src/index.ts` - Export new constant
+4. `packages/block/src/header.ts` - Use bytes constants throughout
+
+## Migration Progress
+- @tevm/state: 121/141 tests passing (86%)
+- @tevm/utils: 551/551 tests passing (100%)
+- @tevm/actions: Significant progress, blocks now creating properly
+
+## Next Steps
+1. Continue investigating remaining test failures in @tevm/actions
+2. Run full test suite on @tevm/actions to see overall progress
+3. Consider if other packages have similar issues with hex string vs bytes constants

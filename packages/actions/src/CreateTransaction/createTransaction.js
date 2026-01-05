@@ -45,30 +45,29 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 		const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
 		const priorityFee = 0n
 
-		const dataFee = (() => {
-			let out = 0n
-			for (const entry of evmInput.data ?? []) {
-				// 4 gas for zero bytes, 16 gas for non-zero bytes (standard EIP-2028 costs)
-				out += entry === 0 ? 4n : 16n
-			}
-			return out
-		})()
-
-		const baseFee = (() => {
-			let out = dataFee
-			// Base transaction cost is 21000 gas
-			const txFee = 21000n
-			out += txFee
-			const isCreation = (evmInput.to?.bytes.length ?? 0) === 0
-			if (vm.common.ethjsCommon.gteHardfork('homestead') && isCreation) {
-				// Contract creation cost is 32000 gas
-				const txCreationFee = 32000n
-				out += txCreationFee
-			}
-			return out
-		})()
-
-		const minimumGasLimit = baseFee + evmOutput.execResult.executionGasUsed
+		// Create a preliminary tx to get its actual intrinsic gas
+		// This accounts for all EIP-specific costs (data gas, initcode gas, access lists, etc.)
+		// Using the tx's getIntrinsicGas() method ensures we match ethereumjs validation exactly
+		const preliminaryTx = createImpersonatedTx(
+			{
+				impersonatedAddress: evmInput.origin ?? evmInput.caller ?? createAddress(`0x${'00'.repeat(20)}`),
+				nonce: 0n, // Nonce doesn't affect intrinsic gas
+				gasLimit: 30000000n, // Use high limit for preliminary tx
+				maxFeePerGas: 1n,
+				maxPriorityFeePerGas: 0n,
+				...(evmInput.to !== undefined ? { to: evmInput.to } : {}),
+				...(evmInput.data !== undefined ? { data: evmInput.data } : {}),
+				...(evmInput.value !== undefined ? { value: evmInput.value } : {}),
+				gasPrice: null,
+			},
+			{
+				allowUnlimitedInitCodeSize: false,
+				common: vm.common.ethjsCommon,
+				freeze: false,
+			},
+		)
+		const txIntrinsicGas = preliminaryTx.getIntrinsicGas()
+		const minimumGasLimit = txIntrinsicGas + evmOutput.execResult.executionGasUsed
 		const gasLimitWithExecutionBuffer = evmInput.gasLimit ?? (minimumGasLimit * 11n) / 10n
 
 		if (gasLimitWithExecutionBuffer < minimumGasLimit) {

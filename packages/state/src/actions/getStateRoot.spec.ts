@@ -1,4 +1,4 @@
-import { bytesToHex } from 'viem'
+import { bytesToHex } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getStateRoot } from './getStateRoot.js'

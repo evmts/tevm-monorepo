@@ -1,0 +1,9 @@
+Successfully completed iteration 360. Migrated 5 chain presets from viem/chains to nativeDefineChain:
+
+1. **mintSepoliaTestnet.js** - Mint Sepolia Testnet
+2. **modeTestnet.js** - Mode Testnet (with full OP Stack L2 contracts)
+3. **moonbaseAlpha.js** - Moonbase Alpha testnet
+4. **moonbeamDev.js** - Moonbeam Development Node
+5. **moonriver.js** - Moonriver mainnet
+
+Tests pass (10 passed, 1 skipped). 123 chain presets remain to migrate (~37% remaining).

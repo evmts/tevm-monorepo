@@ -1,0 +1,79 @@
+# Ralph Migration Log - Iteration 187
+## Date: 2026-01-04 13:54:20
+
+## Summary
+Migrated `Prettify` type imports from `viem/chains` to `@tevm/utils` in two source files.
+
+## Changes Made
+
+### 1. packages/memory-client/src/MemoryClient.ts
+Changed import from:
+```typescript
+import type { Address } from '@tevm/utils'
+import type { Account, Chain, Client, PublicActions, TestActions, WalletActions } from 'viem'
+import type { Prettify } from 'viem/chains'
+```
+To:
+```typescript
+import type { Address, Prettify } from '@tevm/utils'
+import type { Account, Chain, Client, PublicActions, TestActions, WalletActions } from 'viem'
+```
+
+### 2. packages/common/src/Common.ts
+Changed import from:
+```typescript
+import { type Common as EthjsCommon } from '@ethereumjs/common'
+import { type Prettify, type Chain as ViemChain } from 'viem/chains'
+```
+To:
+```typescript
+import { type Common as EthjsCommon } from '@ethereumjs/common'
+import type { Prettify } from '@tevm/utils'
+import { type Chain as ViemChain } from 'viem/chains'
+```
+
+## Tests Verified
+- `packages/common/src/createCommon.spec.ts` - 10 passed, 1 skipped ✅
+- `packages/memory-client/src/createMemoryClient.spec.ts` - Tests ran (failures are pre-existing infrastructure issues unrelated to Prettify migration)
+
+## Type Check Results
+Type errors found in `packages/state/dist/index.js` and `packages/memory-client/src/createMemoryClient.js` are pre-existing and not related to the Prettify migration.
+
+## Notes
+- The `types/` directories still show old imports because types haven't been rebuilt
+- The source files are correctly migrated and this is the source of truth
+- The `Prettify` utility type was already added to `@tevm/utils` in iteration 186
+
+## Migration Progress Update
+
+### Prettify type migration complete:
+- ✅ packages/common/src/Common.ts - now uses @tevm/utils
+- ✅ packages/memory-client/src/MemoryClient.ts - now uses @tevm/utils
+
+### Remaining viem/chains imports:
+- packages/common/src/CommonOptions.ts - uses `Chain as ViemChain` type (intentional - viem chain interop)
+- packages/common/src/presets/*.js - imports chain definitions (intentional - chain presets)
+
+### Packages completely free of direct viem imports (excluding intentional integrations):
+- @tevm/actions ✅
+- @tevm/vm ✅
+- @tevm/evm ✅
+- @tevm/state ✅
+- @tevm/node ✅
+- @tevm/jsonrpc ✅
+- @tevm/address ✅
+- @tevm/contract ✅
+- @tevm/precompiles ✅
+- @tevm/decorators ✅
+- @tevm/client-types ✅
+- @tevm/txpool ✅
+- @tevm/tx ✅
+- @tevm/block ✅
+- @tevm/receipt-manager ✅
+- @tevm/common (Prettify migrated, Chain type retained for viem interop) ✅
+- @tevm/memory-client (Prettify migrated, viem client interop retained) ✅
+
+## Next Steps
+1. Consider creating a native Chain type if full viem/chains independence is desired
+2. The chain presets in @tevm/common could be migrated if native chain definitions are created
+3. Continue monitoring for other migration opportunities

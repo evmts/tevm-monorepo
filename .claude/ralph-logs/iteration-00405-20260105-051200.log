@@ -1,0 +1,46 @@
+# Ralph Migration Log - Iteration 405
+## Date: 2026-01-05 05:12
+
+## Summary
+
+Added `Log`, `Hash`, and `LogTopic` types to `@tevm/utils` and migrated `bundler-packages/mud/src/internal/ethjsLogToAbiLog.ts` from viem to @tevm/utils.
+
+## New Types Added to @tevm/utils
+
+### packages/utils/src/log-types.ts (new file)
+- `Hash` - Type alias for `Hex`, representing a 32-byte hash
+- `LogTopic` - Union type `Hex | Hex[] | null` for log topics
+- `Log<TQuantity, TIndex, TPending>` - Decoded event log object with:
+  - `address`, `blockHash`, `blockNumber`, `data`, `logIndex`
+  - `transactionHash`, `transactionIndex`, `removed`, `topics`
+  - Optional `eventName` and `args` for decoded events
+  - Compatible with viem's Log type (matching topics tuple signature)
+
+### packages/utils/src/index.ts
+- Exported `Log`, `Hash`, `LogTopic` from `log-types.js`
+
+## Files Migrated
+
+1. **bundler-packages/mud/src/internal/ethjsLogToAbiLog.ts**
+   - Changed: `import type { Log } from 'viem'` -> `import { ..., type Log } from '@tevm/utils'`
+
+## Test Results
+
+- Typecheck passes for both @tevm/utils and @tevm/mud
+- Pre-existing test failures in ethjsLogToAbiLog.spec.ts (error message format changed) - not related to migration
+
+## Remaining viem Imports in @tevm/mud (6 files)
+
+Files still using viem:
+1. src/createOptimisticHandler.ts - `bytesToHex, Client, Hex, parseEventLogs`
+2. src/internal/mud/createStorageAdapter.ts - `concatHex, Hex, size`
+3. src/internal/decorators/mudStoreGetStorageAtOverride.ts - `EIP1193RequestFn`
+4. src/internal/decorators/mudStoreWriteRequestOverride.ts - `Client, concatHex, encodeFunctionData`
+5. src/internal/FieldLayout.ts - Various hex utilities
+6. src/types.ts - viem client types
+
+## Impact
+
+- Added native Log type to @tevm/utils compatible with viem's Log type
+- Reduced viem imports in @tevm/mud by 1 file
+- ethjsLogToAbiLog.ts now uses @tevm/utils exclusively

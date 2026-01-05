@@ -1,0 +1,52 @@
+# Ralph Migration Log - Iteration 346
+## Date: 2026-01-05 02:06
+
+## Summary
+Migrated 14 chain presets from viem/chains to nativeDefineChain in this session.
+
+## Chains Migrated This Session
+
+### First batch (5 chains):
+1. **ekta.js** (id: 1994) - Ekta
+2. **ektaTestnet.js** (id: 1004) - Ekta Testnet
+3. **eon.js** (id: 7332) - Horizen EON
+4. **eos.js** (id: 17777) - EOS EVM
+5. **eosTestnet.js** (id: 15557) - EOS EVM Testnet
+
+### Second batch (4 chains):
+6. **etherlink.js** (id: 42793) - Etherlink
+7. **etherlinkTestnet.js** (id: 128123) - Etherlink Testnet
+8. **evmos.js** (id: 9001) - Evmos
+9. **evmosTestnet.js** (id: 9000) - Evmos Testnet
+
+### Third batch (5 chains):
+10. **fantomTestnet.js** (id: 4002) - Fantom Testnet
+11. **fibo.js** (id: 12306) - Fibo Chain
+12. **filecoin.js** (id: 314) - Filecoin Mainnet
+13. **filecoinCalibration.js** (id: 314159) - Filecoin Calibration
+14. **filecoinHyperspace.js** (id: 3141) - Filecoin Hyperspace
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~118 (from iteration 345)
+- **Migrated this session**: 14
+- **Total migrated**: ~132
+- **Remaining**: 208 (including generator file)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Chains with multicall3 contracts: eos, eosTestnet, etherlink, fantomTestnet, filecoin
+- Filecoin-related chains use 'FIL' or 'tFIL' as their native currency symbol
+- Etherlink uses 'XTZ' (Tez) as native currency
+
+## Next Steps
+Continue migrating remaining chain presets. ~208 remain (~61% remaining).
+Next chains to migrate: flare, flareTestnet, flowMainnet, flowPreviewnet, flowTestnet...

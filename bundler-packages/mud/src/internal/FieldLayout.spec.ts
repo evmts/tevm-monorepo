@@ -6,7 +6,7 @@ import {
 	getValueSchema,
 } from '@latticexyz/protocol-parser/internal'
 import { type TableRecord } from '@latticexyz/stash/internal'
-import { concatHex, type Hex, hexToBigInt, keccak256, numberToHex } from 'viem'
+import { concatHex, type Hex, hexToBigInt, keccak256, numberToHex } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { config } from '../../test/config.js'
 import { state } from '../../test/state.js'

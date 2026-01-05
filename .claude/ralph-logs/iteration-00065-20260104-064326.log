@@ -1,0 +1,17 @@
+## Summary - Iteration 111 Complete
+
+Successfully migrated `decodeErrorResult` and `encodeErrorResult` from viem to native @tevm/voltaire implementations.
+
+### Changes Made:
+1. **Created `abiErrorEncoding.js`** - Native implementations using voltaire's `Error.decodeParams` and `Error.encodeParams`
+2. **Created `abiErrorEncoding.spec.ts`** - 12 comprehensive tests covering all edge cases
+3. **Updated `viem.js`** - Now exports from native implementation instead of viem/utils
+
+### Test Results:
+- All 360 tests in @tevm/utils pass (1 skipped)
+- 12 new tests for error encoding
+
+### Remaining viem imports in viem.js:
+- `encodeDeployData` - The final ABI encoding function to migrate (use voltaire's Constructor functions)
+- `mnemonicToAccount`, `privateKeyToAccount` - Complex wallet APIs (lower priority)
+- Transport/client functions (`createPublicClient`, `http`, etc.) - Needed for forking (not migration targets)

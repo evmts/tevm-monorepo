@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
-import { encodeFunctionData } from 'viem'
+import { encodeFunctionData } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import * as CreateTransactionModule from '../CreateTransaction/createTransaction.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'

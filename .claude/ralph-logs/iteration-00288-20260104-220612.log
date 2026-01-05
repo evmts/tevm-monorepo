@@ -1,0 +1,46 @@
+# Ralph Migration Log - Iteration 288
+## Date: 2026-01-04 22:06
+
+## Summary
+Migrated `@tevm/state` fork client from viem's `createPublicClient` to the native `createForkRpcClient` adapter created in iteration 287.
+
+## Changes Made
+
+### Modified Files:
+1. `packages/state/src/actions/getForkClient.js`
+   - Changed import from `createPublicClient, createTransport` to `createForkRpcClient`
+   - Simplified implementation to extract request function and pass to `createForkRpcClient`
+   - Updated JSDoc return type from `PublicClient` to `ForkRpcClient`
+
+2. `packages/state/src/actions/getForkClient.spec.ts`
+   - Updated assertions to check for ForkRpcClient methods (getBytecode, getStorageAt, getProof)
+   - Removed viem-specific `client.transport.type` assertions
+
+3. `packages/utils/src/fork-rpc-types.ts`
+   - Added `address` field to `ProofResult` type (was missing from eth_getProof response)
+
+4. `packages/utils/src/createForkRpcClient.js`
+   - Added `address` field to ProofResult JSDoc typedef
+   - Added `address` to the returned proof result object
+
+5. `packages/utils/src/createForkRpcClient.spec.ts`
+   - Updated mock responses and expectations to include `address` field in getProof tests
+
+## Test Results
+- getForkClient.spec.ts: 3 tests passed
+- createForkRpcClient.spec.ts: 9 tests passed
+
+Note: Some tests in getContractCode, getContractStorage, getProof, and getAccountFromProvider
+failed because they require TEVM_RPC_URLS_MAINNET and TEVM_RPC_URLS_OPTIMISM environment
+variables to be set for live RPC tests. These failures are not caused by this migration.
+
+## Impact
+This change removes viem's `createPublicClient` and `createTransport` from the state package's
+runtime dependency path. The state package now uses the native `createForkRpcClient` adapter
+which works directly with EIP-1193 request functions.
+
+## Next Steps
+1. Consider removing `createPublicClient` and `createTransport` exports from @tevm/utils if
+   they're no longer needed elsewhere
+2. Verify forking functionality works end-to-end with a real fork test
+3. Continue migration of other viem dependencies in core packages

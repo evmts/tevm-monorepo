@@ -1,0 +1,90 @@
+# Ralph Migration Log - Iteration 260
+## Date: 2026-01-04 20:09:50
+
+## Summary
+Verification and status assessment iteration - confirmed migration stability.
+
+## Actions Taken
+1. Reviewed iteration 259 log for context
+2. Verified core packages have no viem/ethereumjs imports:
+   - `@tevm/actions` - Clean
+   - `@tevm/vm` - Clean
+   - `@tevm/evm` - Clean
+   - `@tevm/state` - Clean
+   - `@tevm/node` - Clean
+3. Ran test suites:
+   - `@tevm/utils` - All 607 tests passed (28 test files)
+   - `@tevm/evm/guillotineWasm` - 26 passed, 1 skipped
+   - `@tevm/actions/ethSignTransactionHandler` - 2 passed
+   - `@tevm/utils/signature` - 31 passed
+
+## Remaining viem imports (intentionally retained)
+
+### @tevm/utils/viem.js - Transport/Client functions (lines 2136-2143)
+```javascript
+export {
+  createPublicClient,
+  createTransport,
+  custom,
+  defineChain,
+  http,
+  webSocket,
+} from 'viem'
+```
+**Reason**: Required for RPC communication in forking scenarios.
+
+### @tevm/utils/viem.js - Deprecated account exports (line 29)
+```javascript
+export { mnemonicToAccount, privateKeyToAccount } from 'viem/accounts'
+```
+**Reason**: Backward compatibility - native alternatives exist:
+- `nativePrivateKeyToAccount`
+- `nativeMnemonicToAccount`
+
+### @tevm/utils/abitype.ts - Deprecated type exports (line 32)
+```javascript
+export type { Account, HDAccount } from 'viem'
+```
+**Reason**: Backward compatibility - native alternatives exist:
+- `NativePrivateKeyAccount`
+- `NativeHDAccount`
+
+### @tevm/tx - @ethereumjs/tx dependency
+**Reason**: Required for VM compatibility with ethereumjs execution layer.
+
+## Migration Status
+
+### Complete
+- All core packages (actions, vm, evm, state, node) free of viem/ethereumjs
+- Native cryptography using @tevm/voltaire:
+  - Keccak256
+  - Secp256k1
+  - P256 (for precompiles)
+- Native account implementations
+- Native ABI encoding/decoding
+- Native signature operations
+- Guillotine-Mini WASM integration
+
+### Intentionally Retained
+1. **Transport/client functions** - Required for RPC/forking
+2. **@ethereumjs/tx** - Required for VM compatibility
+3. **Deprecated exports** - Backward compatibility (scheduled for removal in next major)
+
+## Test Verification
+All critical tests passing:
+- utils: 607 passed, 1 skipped
+- signature: 31 passed
+- guillotineWasm: 26 passed, 1 skipped
+- ethSignTransactionHandler: 2 passed
+
+## Conclusion
+Migration remains stable and comprehensive. No new work identified. Core packages are fully migrated. Remaining dependencies are:
+1. Intentional for functionality
+2. Deprecated with native alternatives available
+3. Required for ethereumjs VM compatibility
+
+## Next Steps (Future Iterations)
+- Consider removing deprecated viem account exports in next major version
+- Investigate potential transport abstraction using voltaire's jsonrpc module
+- Monitor for opportunities to reduce memory-client viem dependency
+- Keep voltaire and guillotine-mini updated

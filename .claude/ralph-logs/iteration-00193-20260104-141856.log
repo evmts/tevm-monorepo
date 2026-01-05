@@ -1,0 +1,112 @@
+# Ralph Migration Log - Iteration 193
+## Date: 2026-01-04 14:18:56
+
+## Summary
+Assessment and documentation iteration. Verified that core migration is complete.
+
+## Assessment
+
+### Core Packages Status (Migration Targets) - ALL CLEAN
+
+1. **@tevm/actions** - No direct viem imports
+2. **@tevm/vm** - No direct viem imports
+3. **@tevm/evm** - No direct viem imports
+4. **@tevm/state** - No direct viem imports (uses @tevm/utils)
+5. **@tevm/node** - No direct viem imports
+
+### Remaining Viem/Abitype Dependencies in @tevm/utils
+
+#### viem.js (line 18, 21, 2087-2094)
+```javascript
+export { parseAbi } from 'abitype'
+export { mnemonicToAccount, privateKeyToAccount } from 'viem/accounts'
+export { createPublicClient, createTransport, custom, defineChain, http, webSocket } from 'viem'
+```
+
+**Why kept:**
+- `parseAbi`: Complex human-readable ABI parser from abitype
+- `mnemonicToAccount/privateKeyToAccount`: Creates viem Account objects with signing methods
+- Transport functions: Used for fork client creation in @tevm/state
+
+#### abitype.ts (lines 1-16, 28-31)
+```typescript
+// ABI types from abitype
+export type { Abi, AbiConstructor, AbiEvent, AbiFunction, ... } from 'abitype'
+// Account types from viem
+export type { Account, HDAccount } from 'viem'
+```
+
+**Why kept:**
+- ABI types: Complex type-level utilities for TypeScript type inference
+- Account types: Used in deprecated `WalletTevmClient` type
+
+### Voltaire Capabilities Assessment
+
+Voltaire has:
+- `HDWallet` module with `mnemonicToSeed`, `derivePath`, `deriveEthereum`, etc.
+- `PrivateKeySignerImpl` with `signMessage`, `signTransaction`, `signTypedData`
+- `HttpProvider` and `WebSocketProvider` (EIP-1193 compliant)
+
+**Migration blockers:**
+1. Viem's `privateKeyToAccount` returns an `Account` object that is deeply integrated with viem's ecosystem (has specific type shape, methods)
+2. Viem's `createPublicClient` returns a client with many convenience methods (`getBalance`, `getCode`, `getStorageAt`, etc.)
+3. The type-level utilities from abitype are complex TypeScript constructs
+
+### Usage of Remaining Dependencies
+
+`getForkClient.js` in @tevm/state:
+```javascript
+import { createPublicClient, createTransport } from '@tevm/utils'
+return createPublicClient({
+  name: 'TevmStateManagerForkClient',
+  transport: () => createTransport({...})
+})
+```
+
+This is used for forking functionality - fetching state from remote RPC.
+
+`prefundedAccounts.ts` in @tevm/utils:
+```typescript
+const PREFUNDED_ACCOUNTS = [
+  privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[0]),
+  // ... 9 more
+]
+```
+
+These provide the standard Anvil/Hardhat/Ganache test accounts.
+
+### Memory-Client Package (Intentionally Uses Viem)
+
+The @tevm/memory-client package is the viem integration layer and intentionally uses viem:
+- Creates viem clients with Tevm transport
+- Provides viem-compatible actions (publicActions, testActions, walletActions)
+
+This is NOT a migration target - it's the bridge between Tevm and viem.
+
+## Conclusion
+
+The migration is effectively complete for the stated goals:
+- Core packages are viem-free
+- Remaining dependencies are:
+  1. Fork functionality (createPublicClient, transports)
+  2. Account creation (privateKeyToAccount, mnemonicToAccount)
+  3. Type utilities (abitype types)
+  4. Human-readable ABI parsing (parseAbi)
+
+These remaining dependencies would require significant effort to replace with minimal benefit.
+
+## Recommendations
+
+1. **Document architecture**: The remaining viem dependencies serve specific purposes and should be documented in ARCHITECTURE.md
+2. **Future consideration**: If Voltaire adds a viem-compatible Account wrapper or a PublicClient-like interface, those could be migration targets
+3. **Focus elsewhere**: The core migration goal is achieved; development effort is better spent on other priorities
+
+## Files Reviewed
+- packages/utils/src/viem.js
+- packages/utils/src/abitype.ts
+- packages/state/src/actions/getForkClient.js
+- packages/utils/src/prefundedAccounts.ts
+- packages/client-types/src/TevmClient.ts
+- lib/voltaire/src/crypto/signers/private-key-signer.ts
+- lib/voltaire/src/crypto/HDWallet/HDWallet.js
+- lib/voltaire/src/provider/index.ts

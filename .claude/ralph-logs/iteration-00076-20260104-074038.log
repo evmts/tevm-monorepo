@@ -1,0 +1,29 @@
+## Summary
+
+Successfully migrated `randomBytes` from `@ethereumjs/util` to a native implementation in iteration 122.
+
+### Changes Made:
+1. **Created `packages/utils/src/randomBytes.js`** - Native implementation using:
+   - `globalThis.crypto.getRandomValues()` (Web Crypto API) as primary method
+   - Falls back to Node.js `crypto.randomBytes()` for older environments
+   - Includes input validation (must be non-negative integer)
+
+2. **Created `packages/utils/src/randomBytes.spec.ts`** - 7 tests covering:
+   - Various lengths (0, 16, 32, 64)
+   - Error handling for negative/non-integer values
+   - Randomness verification (different on each call)
+   - Compatibility with @ethereumjs/util behavior
+
+3. **Updated exports** - `randomBytes` now exported from native implementation instead of ethereumjs.js
+
+### Test Results:
+- All 430 @tevm/utils tests pass
+- 7 new randomBytes tests all pass
+
+### Remaining @ethereumjs/util dependencies:
+- `EthjsAccount`, `EthjsAddress` - Core classes
+- `createAccount`, `createAddressFromString` - Factory functions
+- `createWithdrawal`, `Withdrawal` - Withdrawal handling
+- `ecrecover` - Signature recovery
+- `fetchFromProvider`, `getProvider` - Network utilities
+- EIP-7702 utilities

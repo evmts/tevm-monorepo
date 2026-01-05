@@ -1,0 +1,85 @@
+# Ralph Migration Log - Iteration 255
+## Date: 2026-01-04 19:44:45
+
+## Summary
+Verified all recent migrations are working correctly. All tests passing.
+
+## Tests Verified
+- `packages/utils/src/` - 607 passed, 1 skipped
+- `packages/utils/src/prefundedAccounts.spec.ts` - 1 passed
+- `packages/utils/src/nativePrivateKeyToAccount.spec.ts` - 18 passed
+- `packages/utils/src/nativeMnemonicToAccount.spec.ts` - 17 passed
+- `packages/utils/src/signature.spec.ts` - 31 passed
+- `packages/evm/src/guillotineWasm.spec.ts` - 26 passed, 1 skipped
+- `packages/actions/src/eth/ethAccountsHandler.spec.ts` - 3 passed
+- `packages/actions/src/eth/ethSignTransactionHandler.spec.ts` - 2 passed
+- `packages/block/` - 2 passed
+
+## Current Migration State
+
+### Completed Migrations (Verified Working)
+1. **Keccak256**: All usages migrated to `@tevm/voltaire/Keccak256`
+2. **Secp256k1**: Signing, recovery, public key derivation
+3. **P256**: p256verify precompile
+4. **ABI Encoding**: All encode/decode functions native
+5. **Account Creation**: nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount
+6. **Signature Operations**: ecrecover, hashMessage, hashTypedData, signMessage, signTypedData
+7. **EIP-7702**: Authorization signing and verification
+8. **Utility Functions**: All hex/bytes conversions, RLP, serialization
+9. **Prefunded Accounts**: Using nativePrivateKeyToAccount
+10. **Guillotine-Mini WASM**: EVM bytecode execution integrated
+
+### Remaining Dependencies (Intentionally Kept)
+
+#### Viem Dependencies
+These are kept because they're needed for fork/client functionality:
+1. `createPublicClient`, `http`, `webSocket` - RPC client for fork transport
+2. `createTransport`, `custom`, `defineChain` - Transport utilities
+3. `mnemonicToAccount`, `privateKeyToAccount` - Deprecated (native versions exist)
+4. `parseAbi` from `abitype` - Complex human-readable ABI parser
+
+#### Ethereumjs Dependencies
+1. **@ethereumjs/tx** - `FeeMarket1559Tx` in createImpersonatedTx.js
+   - Voltaire has EIP1559 type but as plain object, not class with methods
+   - Would need to implement hash(), getHashedMessageToSign(), etc.
+
+2. **@ethereumjs/common** - Chain configuration
+   - `createCustomCommon`, `Mainnet` for chain config
+   - Would need chain spec handling implementation
+
+3. **@ethereumjs/trie** - Merkle Patricia Trie
+   - Re-exported for state management
+
+## Analysis
+
+### Voltaire Provider Module
+Examined voltaire's provider module which has:
+- `HttpProvider` - EIP-1193 compliant HTTP transport
+- `WebSocketProvider` - EIP-1193 compliant WebSocket transport
+- `InMemoryProvider` - Local EVM execution
+
+These are EIP-1193 providers (single `request()` method), which is different from viem's transport system used for client creation. Migrating fork functionality would require:
+1. Adapting tevm's forking to use EIP-1193 providers instead of viem transports
+2. OR implementing viem-compatible transport wrappers
+
+### Migration Complexity Assessment
+| Target | Complexity | Impact | Notes |
+|--------|------------|--------|-------|
+| createImpersonatedTx | High | Medium | Needs tx class with methods |
+| Fork transports | High | High | Different provider model |
+| @ethereumjs/common | Medium | Medium | Chain spec implementation |
+| @ethereumjs/trie | Low | Low | Re-export only |
+| parseAbi | High | Low | Complex parser needed |
+
+## Recommendations for Next Steps
+
+1. **Consider transaction wrapper**: Create a voltaire-based transaction wrapper that provides the methods needed by createImpersonatedTx (hash, getHashedMessageToSign, isSigned, getSenderAddress)
+
+2. **Fork transport adapter**: Investigate creating an adapter that bridges voltaire's EIP-1193 providers to viem's transport interface
+
+3. **Documentation**: Current migration is stable and well-tested. Consider documenting the migration status in package READMEs.
+
+## Notes
+- All 40+ modified files are tested and working
+- No regressions detected in test suites
+- Migration is in a stable state for the core functionality

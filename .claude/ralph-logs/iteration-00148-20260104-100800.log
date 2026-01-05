@@ -1,0 +1,30 @@
+# Ralph Migration Log - Iteration 148
+## Date: 2026-01-04 10:08:00
+
+## Summary
+Migrated JSDoc type imports in `abiErrorEncoding.js` from viem to local types.
+
+## Changes Made
+
+### Modified: packages/utils/src/abiErrorEncoding.js
+- Changed 2 `import('viem').Abi` to `import('abitype').Abi` (lines 15, 106)
+- Changed 3 `import('viem').Hex` to `import('./hex-types.js').Hex` (lines 18, 112, 144)
+
+## Rationale
+The abiErrorEncoding.js file uses voltaire for the actual encoding/decoding but was referencing viem types in JSDoc annotations. By pointing to local types:
+1. `Abi` from abitype (same source as viem uses)
+2. `Hex` from hex-types.js (local branded type)
+3. All 5 viem references have been migrated
+
+## Test Results
+- abiErrorEncoding.spec.ts: 12 tests passed
+
+## Remaining viem JSDoc imports in utils/src/
+After this change, the following files still have `import('viem')` JSDoc references:
+1. abiFunctionEncoding.js - ContractFunctionArgs, ContractFunctionReturnType (3 references)
+2. formatAbi.js - AbiItem (2 references)
+3. viem.js - Transport, PublicClient, EIP1193RequestFn (intentional re-exports)
+
+## Next Steps
+1. Continue migrating JSDoc imports in abiFunctionEncoding.js
+2. Then move to formatAbi.js

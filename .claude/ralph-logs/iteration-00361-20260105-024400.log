@@ -1,0 +1,38 @@
+# Ralph Migration Log - Iteration 361
+## Date: 2026-01-05 02:44
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **morphHolesky.js** (id: 2810) - Morph Holesky L2 testnet with ETH native currency, WebSocket support
+2. **morphSepolia.js** (id: 2710) - Morph Sepolia testnet with ETH native currency
+3. **nautilus.js** (id: 22222) - Nautilus Mainnet with ZBC native currency (9 decimals)
+4. **neonDevnet.js** (id: 245022926) - Neon EVM DevNet (Solana) with NEON native currency, multicall3 support
+5. **neonMainnet.js** (id: 245022934) - Neon EVM MainNet with NEON native currency, multicall3 support
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: 335 (excluding generator script)
+- **Previously migrated**: ~221 (from iteration 360)
+- **Migrated this session**: 5
+- **Total migrated**: ~226
+- **Remaining**: 118 (~35% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Morph Holesky: Has WebSocket RPC support in addition to HTTP
+- Nautilus: Uses ZBC token with 9 decimals (non-standard)
+- Neon EVM: Solana-based EVM chains with NEON token, both have multicall3 contracts
+
+## Next Steps
+Continue migrating remaining chain presets. 118 remain (~35% remaining).
+Next chains to migrate: nexi, nexilix, oasys, oasisTestnet, okc...

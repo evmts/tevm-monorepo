@@ -1,0 +1,110 @@
+# Ralph Migration Log - Iteration 292
+## Date: 2026-01-04 22:26
+
+## Summary
+Created native `nativeDefineChain()` function that provides a viem-compatible API for defining custom EVM chains without requiring viem as a dependency. Also added comprehensive chain types (`Chain`, `ChainBlockExplorer`, `ChainContract`, etc.).
+
+## Changes Made
+
+### New Files:
+1. `packages/utils/src/chain-types.ts`
+   - Native chain types compatible with viem's Chain type
+   - Includes: Chain, ChainBlockExplorer, ChainContract, ChainNativeCurrency, ChainRpcUrls
+   - Includes: ChainFormatter, ChainFormatters, ChainSerializers, ChainFees
+   - SimpleChain type for basic use cases
+   - Full JSDoc documentation
+
+2. `packages/utils/src/nativeDefineChain.js`
+   - Native implementation of viem's defineChain() function
+   - Type-safe identity function that validates chain configuration
+   - Multiple working examples in JSDoc (Ethereum mainnet, L2 chains, testnets)
+   - Compatible with TEVM memory client and viem clients
+
+3. `packages/utils/src/nativeDefineChain.spec.ts`
+   - 11 comprehensive tests covering:
+     - Basic chain definition
+     - Block explorers
+     - Contracts (multicall3, ENS)
+     - WebSocket RPC URLs
+     - Testnets
+     - L2 chains with sourceId
+     - Block time
+     - ENS TLDs
+     - Custom data
+     - Object reference preservation
+     - Type compatibility with viem Chain
+
+### Modified Files:
+1. `packages/utils/src/index.ts`
+   - Added export for `nativeDefineChain` function
+   - Added type exports for all chain types
+
+2. `packages/utils/src/viem.js`
+   - Updated deprecation notice to include nativeDefineChain()
+   - Added nativeWebSocket() and nativeCustom() to deprecation notice
+
+## Test Results
+- nativeDefineChain.spec.ts: 11 tests passed
+- build:types: successful
+
+## Migration Path
+Users can now migrate from viem's defineChain() to nativeDefineChain():
+
+```javascript
+// Before:
+import { defineChain } from 'viem'
+const myChain = defineChain({
+  id: 1,
+  name: 'Ethereum',
+  // ...
+})
+
+// After:
+import { nativeDefineChain } from '@tevm/utils'
+const myChain = nativeDefineChain({
+  id: 1,
+  name: 'Ethereum',
+  // ...
+})
+
+// Use with TEVM memory client:
+import { createMemoryClient } from '@tevm/memory-client'
+import { nativeHttp, nativeDefineChain } from '@tevm/utils'
+
+const myChain = nativeDefineChain({
+  id: 123456789,
+  name: 'My Chain',
+  nativeCurrency: { name: 'MyCoin', symbol: 'MYC', decimals: 18 },
+  rpcUrls: {
+    default: { http: ['https://rpc.mychain.com'] },
+  },
+})
+
+const client = createMemoryClient({
+  common: myChain,
+  fork: {
+    transport: nativeHttp(myChain.rpcUrls.default.http[0]),
+  },
+})
+```
+
+## Impact
+This completes the native chain definition capability:
+- `nativeHttp()` - HTTP transport
+- `nativeWebSocket()` - WebSocket transport
+- `nativeCustom()` - Custom/EIP-1193 transport
+- `nativeDefineChain()` - Chain configuration
+
+Users can now define custom chains and create transports entirely without viem.
+
+## Technical Notes
+- The Chain type is structurally compatible with viem's Chain type
+- nativeDefineChain is an identity function (returns exactly what you pass)
+- Provides full type safety via TypeScript/JSDoc
+- Supports all chain configuration options including formatters, serializers, fees
+
+## Next Steps
+1. Consider adding pre-defined chain configurations (mainnet, optimism, etc.)
+2. Continue removing deprecated viem exports as migration progresses
+3. Consider creating native versions of remaining viem utilities (createPublicClient)
+4. Update documentation to recommend native functions over viem re-exports

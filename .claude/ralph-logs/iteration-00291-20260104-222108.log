@@ -1,0 +1,80 @@
+# Ralph Migration Log - Iteration 291
+## Date: 2026-01-04 22:21
+
+## Summary
+Created native `nativeCustom()` transport function that wraps any EIP-1193 provider. This completes the trio of native transports (http, webSocket, custom) that provide viem-compatible APIs without requiring viem as a dependency.
+
+## Changes Made
+
+### New Files:
+1. `packages/utils/src/nativeCustom.js`
+   - Native custom transport wrapping any EIP-1193 provider
+   - Compatible with viem's custom() transport API
+   - Supports configuration options: key, name, retryCount, retryDelay
+   - Includes intelligent retry logic that:
+     - Retries on transient errors with exponential backoff
+     - Does NOT retry on user rejection (code 4001) or invalid params (code -32602)
+     - Does NOT retry on other EIP-1193/JSON-RPC errors that indicate permanent failures
+   - Returns a factory function that creates EIP-1193 compliant request function
+
+2. `packages/utils/src/nativeCustom.spec.ts`
+   - 11 tests covering transport creation, configuration, and retry behavior
+   - Tests: create transport, custom config, request forwarding, params handling
+   - Tests: error handling for missing provider/request method
+   - Tests: retry logic for transient errors, non-retry on permanent errors, retry exhaustion
+
+### Modified Files:
+1. `packages/utils/src/index.ts`
+   - Added export for `nativeCustom` function
+
+## Test Results
+- nativeCustom.spec.ts: 11 tests passed
+- build:types: successful
+
+## Migration Path
+Users can now migrate from viem's custom() to nativeCustom():
+
+```javascript
+// Before:
+import { custom } from 'viem'
+const transport = custom(window.ethereum)
+
+// After:
+import { nativeCustom } from '@tevm/utils'
+const transport = nativeCustom(window.ethereum)
+
+// With configuration:
+const transport = nativeCustom(window.ethereum, {
+  key: 'metamask',
+  name: 'MetaMask',
+  retryCount: 5,
+  retryDelay: 200
+})
+
+// Use with TEVM memory client:
+import { createMemoryClient } from '@tevm/memory-client'
+const client = createMemoryClient({
+  fork: {
+    transport: nativeCustom(window.ethereum)
+  }
+})
+```
+
+## Impact
+This completes the native transport suite:
+- `nativeHttp()` - for JSON-RPC over HTTP
+- `nativeWebSocket()` - for JSON-RPC over WebSocket with subscriptions
+- `nativeCustom()` - for wrapping any EIP-1193 provider (browser wallets, WalletConnect, etc.)
+
+Users can now use any of these transports without depending on viem for transport/client functionality.
+
+## Technical Notes
+- Retry logic uses exponential backoff with configurable base delay
+- EIP-1193 error codes 4001, 4100, 4200, 4900, 4901 are not retried (user rejection, unauthorized, unsupported, disconnected)
+- JSON-RPC error codes -32600, -32601, -32602, -32700 are not retried (invalid request/method/params, parse error)
+
+## Next Steps
+1. Consider updating JSDoc examples in memory-client to show native transport usage
+2. Consider creating native versions of other viem utilities (defineChain, createPublicClient)
+3. Update documentation to recommend native transports over viem re-exports
+4. Continue removing deprecated viem exports as migration progresses

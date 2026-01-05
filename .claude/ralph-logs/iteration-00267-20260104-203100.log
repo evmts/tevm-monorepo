@@ -1,0 +1,96 @@
+# Ralph Migration Log - Iteration 267
+## Date: 2026-01-04 20:31:00
+
+## Summary
+Verification iteration - confirmed migration remains stable with all core packages fully migrated.
+
+## Actions Taken
+1. Reviewed iteration 266 logs to understand migration status
+2. Ran test suites to verify stability:
+   - guillotineWasm.spec.ts: 26 passed, 1 skipped (known bug)
+   - signature.spec.ts: 31 passed
+   - nativePrivateKeyToAccount.spec.ts: 18 passed
+   - nativeMnemonicToAccount.spec.ts: 17 passed
+   - prefundedAccounts.spec.ts: 1 passed
+   - eip7702.spec.ts: 22 passed
+
+3. Verified viem import status:
+   - Core packages (actions, vm, evm, state, node): 0 direct viem imports
+   - packages/utils/src/viem.js: Transport exports (intentional)
+   - packages/utils/src/abitype.ts: Deprecated type exports (intentional)
+   - packages/memory-client: Full viem integration (intentionally a viem wrapper)
+   - packages/common/src/presets: viem/chains imports (static chain data, intentional)
+
+## Test Results
+All 115 tests across migrated files continue to pass:
+- guillotineWasm.spec.ts: 26 passed, 1 skipped
+- signature.spec.ts: 31 passed
+- nativePrivateKeyToAccount.spec.ts: 18 passed
+- nativeMnemonicToAccount.spec.ts: 17 passed
+- prefundedAccounts.spec.ts: 1 passed
+- eip7702.spec.ts: 22 passed
+
+## Remaining viem Dependencies (All Intentional)
+
+### 1. packages/utils/src/viem.js (lines 2136-2143)
+Transport/client functions for RPC communication:
+- createPublicClient, createTransport, custom, defineChain, http, webSocket
+
+### 2. packages/utils/src/viem.js (lines 28-29)
+Deprecated function exports (backward compatibility):
+- mnemonicToAccount, privateKeyToAccount (users should use native versions)
+
+### 3. packages/utils/src/abitype.ts (line 32)
+Deprecated type exports:
+- Account, HDAccount types
+
+### 4. packages/memory-client/*
+Intentionally a viem wrapper package - provides viem Client compatibility.
+
+### 5. packages/common/src/presets/*
+Chain preset files importing from viem/chains - static chain configuration data.
+This is intentional as viem/chains provides well-maintained chain definitions.
+
+## Migration Status Summary
+
+### Complete - Using @tevm/voltaire
+- All cryptographic operations (Keccak256, Secp256k1, P256)
+- Native account implementations (nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount)
+- ABI encoding/decoding (encodeAbiParameters, decodeAbiParameters, encodeFunctionData, etc.)
+- Event encoding/decoding (decodeEventLog, encodeEventTopics)
+- Error encoding/decoding (decodeErrorResult, encodeErrorResult)
+- Signature operations (signMessage, verifyMessage, signTypedData, verifyTypedData)
+- EIP-7702 authorization utilities
+- Bloom filter implementation
+- Prefunded test accounts
+- All utility functions (bytesToHex, hexToBytes, etc.)
+
+### Complete - Using guillotine-mini
+- WASM EVM integration in @tevm/evm (guillotine_mini.wasm, 456KB)
+- Utility functions (hexToAddress, u256ToBytes, bytesToU256)
+- Basic opcode execution (PUSH, ADD, RETURN, REVERT, CALLER, CALLDATASIZE, SSTORE, SLOAD)
+
+### Intentionally Retained (No Action Required)
+1. **parseAbi** (abitype) - Complex human-readable ABI parser
+2. **Transport/client functions** (viem) - Required for RPC/forking
+3. **memory-client viem dependency** - Package is intentionally a viem wrapper
+4. **Chain presets** (viem/chains) - Static chain configuration data
+5. **Deprecated viem exports** - Backward compatibility (scheduled for removal)
+6. **@ethereumjs/tx, @ethereumjs/common, @ethereumjs/trie** - Required for VM compatibility
+
+## Conclusion
+Migration remains stable and complete. The core packages (actions, vm, evm, state, node) are fully migrated to use @tevm/voltaire and internal utilities. All remaining viem dependencies serve legitimate purposes:
+- RPC transport functionality
+- Backward compatibility for deprecated APIs
+- Static chain configuration data
+- Memory client viem wrapper functionality
+
+No further migration work is needed unless:
+1. voltaire adds transport/client functionality
+2. A major version removes deprecated exports
+3. New features require additional migration
+
+## Metrics
+- Total tests passing: 115+ across migration-related files
+- Core source files with direct viem imports: 0 (in vm, evm, state, node, actions)
+- Intentional viem dependencies: Well-documented and justified

@@ -1,0 +1,36 @@
+**Migration Iteration 37 Summary:**
+
+## Completed
+
+Successfully migrated **5 files** across 2 packages:
+
+### @tevm/blockchain (4 files)
+- `actions/setIteratorHead.js`: `bytesToHex` from viem → @tevm/utils
+- `actions/putBlock.js`: `bytesToHex` from viem → @tevm/utils  
+- `actions/delBlock.js`: `bytesToHex` from viem → @tevm/utils
+- `createBaseChain.js`: `hexToBytes` from viem → @tevm/utils
+
+### @tevm/common (1 file)
+- `createMockKzg.js`: Simplified to use `keccak256()` directly (returns hex by default), removed `bytesToHex` import
+
+### Fixes
+- `@tevm/jsonrpc/createJsonRpcFetcher.js`: Reverted broken `@tevm/voltaire/provider` import back to viem
+
+## Commits Created
+- `2793be4b1`: blockchain package migrations
+- `ccec7f620`: common package simplification  
+- `22a3c8a87`: jsonrpc fix
+
+## Blockers Discovered
+1. **@tevm/utils keccak256 type issue**: `keccak256(value, 'bytes')` returns `Hex` type instead of `Uint8Array`. This blocks migrations in:
+   - `@tevm/address` (createContractAddress.js)
+   - `@tevm/block` (block.ts line 347)
+
+2. **@tevm/voltaire/provider types not built**: Previous migration broke `@tevm/jsonrpc`
+
+## Remaining viem imports in core packages (7)
+- @tevm/actions: `getContractError`, `RawContractError` (complex error utilities)
+- @tevm/address: `numberToBytes` (2 files - blocked by keccak256 type issue)
+- @tevm/blockchain: `withRetry` 
+- @tevm/common: `defineChain`
+- @tevm/state: `createPublicClient`, `createTransport` (viem core - cannot migrate)

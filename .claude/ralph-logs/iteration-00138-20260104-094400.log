@@ -1,0 +1,48 @@
+# Ralph Migration Log - Iteration 138
+## Date: 2026-01-04 09:44:00
+
+## Summary
+Migrated 4 test files in memory-client package to use `generatePrivateKey` from `@tevm/utils` instead of `viem/accounts`.
+
+## Changes Made
+
+### Modified: packages/memory-client/src/test/viem/sendRawTransaction.spec.ts
+- Changed: `import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'`
+- To: `import { generatePrivateKey, hexToBytes } from '@tevm/utils'` and `import { privateKeyToAccount } from 'viem/accounts'`
+
+### Modified: packages/memory-client/src/test/viem/verifyMessage.spec.ts
+- Changed: `import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'`
+- To: `import { generatePrivateKey } from '@tevm/utils'` and `import { privateKeyToAccount } from 'viem/accounts'`
+
+### Modified: packages/memory-client/src/test/viem/verifySiweMessage.spec.ts
+- Changed: `import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'`
+- To: `import { generatePrivateKey } from '@tevm/utils'` and `import { privateKeyToAccount } from 'viem/accounts'`
+
+### Modified: packages/memory-client/src/test/viem/verifyTypedData.spec.ts
+- Changed: `import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'`
+- To: `import { generatePrivateKey } from '@tevm/utils'` and `import { privateKeyToAccount } from 'viem/accounts'`
+
+## Test Results
+- generatePrivateKey.spec.ts: All 6 tests pass
+- TypeScript check for memory-client: No errors
+- memory-client tests: Still have pre-existing issue with `toBytes` function (unrelated to this migration)
+
+## Migration Impact
+
+### Viem Imports Reduced
+4 test files now import `generatePrivateKey` from `@tevm/utils` instead of `viem/accounts`.
+
+The `privateKeyToAccount` import from `viem/accounts` is still needed because:
+- It returns a full account object with signing methods (signMessage, signTypedData, etc.)
+- These signing methods are used in the tests
+
+## Remaining viem/accounts Imports in memory-client
+
+After this migration, the remaining `viem/accounts` imports are:
+- `privateKeyToAccount` - Still needed for account objects with signing methods
+- `mnemonicToAccount` (if any) - Still needed for HD wallet functionality
+
+## Next Steps
+1. Continue looking for other `generatePrivateKey` imports from viem across the codebase
+2. Consider adding `privateKeyToAccount` wrapper in @tevm/utils (would need secp256k1 signing)
+3. Fix the pre-existing toBytes issue in block/utils.ts

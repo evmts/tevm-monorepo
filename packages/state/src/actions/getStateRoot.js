@@ -1,4 +1,4 @@
-import { hexToBytes } from 'ethereum-cryptography/utils'
+import { hexToBytes } from '@tevm/utils'
 
 /**
  * Gets the current state root

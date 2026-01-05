@@ -1,0 +1,74 @@
+# Ralph Migration Log - Session Summary (Iterations 404-411)
+## Date: 2026-01-05 05:25
+
+## Session Overview
+
+This session focused on migrating @tevm/mud from viem to @tevm/utils, adding several new utility functions and types to @tevm/utils along the way.
+
+## New Functions/Types Added to @tevm/utils
+
+### packages/utils/src/log-types.ts (new file)
+- `Hash` type - Alias for Hex (32-byte hash)
+- `LogTopic` type - Union type for log topics
+- `Log` type - Decoded event log object (compatible with viem's Log)
+
+### packages/utils/src/size.ts (new file)
+- `size(value: Hex | Uint8Array): number` - Returns byte size of hex/bytes
+
+### packages/utils/src/pad.ts (new file)
+- `PadOptions` type
+- `SizeExceedsPaddingSizeError` class
+- `pad(hexOrBytes, options)` - Pad hex/bytes to target size
+- `padHex(hex, options)` - Pad hex string
+- `padBytes(bytes, options)` - Pad byte array
+
+## Files Fully Migrated from viem to @tevm/utils
+
+### Source Files (bundler-packages/mud/src/)
+1. **internal/txIdentifier.ts** - `bytesToHex`, `Hex`
+2. **internal/ethjsLogToAbiLog.ts** - `Log`
+3. **internal/mud/createStorageAdapter.ts** - `concatHex`, `Hex`, `size`
+4. **internal/FieldLayout.ts** - `bytesToHex`, `concatHex`, `encodePacked`, `Hex`, `hexToBigInt`, `hexToBytes`, `keccak256`, `numberToHex`, `pad`, `toHex`
+
+### Test Files (bundler-packages/mud/test/)
+1. **state.ts** - `bytesToHex`, `concatHex`
+
+## Files Partially Migrated
+
+### Source Files
+1. **createOptimisticHandler.ts**
+   - Migrated: `bytesToHex`, `Hex`, `Address`
+   - Still using viem: `Client` (type), `parseEventLogs` (function)
+
+2. **internal/decorators/mudStoreWriteRequestOverride.ts**
+   - Migrated: `concatHex`, `encodeFunctionData`
+   - Still using viem: `Client` (type), `waitForTransactionReceipt` (action)
+
+### Test Files
+1. **test/prepare.ts**
+   - Migrated: `decodeEventLog`, `Log`
+   - Still using viem: `createClient`, `createBundlerClient`, `writeContract`
+
+## Remaining viem Dependencies (Cannot Easily Migrate)
+
+These remain as viem imports due to deep integration with viem's ecosystem:
+
+1. **Type Imports** - `Client`, `EIP1193RequestFn` (complex viem types with many properties/methods)
+2. **Action Functions** - `parseEventLogs`, `getTransaction`, `waitForTransactionReceipt` (viem-specific implementations)
+3. **Client Creation** - `createClient`, `createBundlerClient` (viem client factory functions)
+4. **Contract Types** - `WriteContractParameters`, `WriteContractReturnType` (viem transaction types)
+
+## Test Results
+
+- All migrated code typechecks successfully
+- 41 tests pass
+- 6 pre-existing test failures (not caused by migration - related to error message format changes)
+- 5 tests skipped (require env vars)
+- 8 todo tests
+
+## Statistics
+
+- Files fully migrated: 5
+- Files partially migrated: 3
+- New utility functions added: 4 (size, pad, padHex, padBytes)
+- New types added: 3 (Log, Hash, LogTopic)

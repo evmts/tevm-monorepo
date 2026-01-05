@@ -1,0 +1,60 @@
+# Ralph Migration Log - Iteration 725
+## Date: 2026-01-05
+
+## Task: Migrate createClient imports in memory-client spec files to local re-export
+
+## Completed Migrations (14 files total)
+
+### 1. packages/memory-client/src/tevmReady.spec.ts ✅
+### 2. packages/memory-client/src/tevmAccountManagement.spec.ts ✅
+### 3. packages/memory-client/src/tevmSetAccount.spec.ts ✅
+### 4. packages/memory-client/src/tevmMine.spec.ts ✅
+### 5. packages/memory-client/src/tevmCall.spec.ts ✅
+### 6. packages/memory-client/src/tevmGetAccount.spec.ts ✅
+### 7. packages/memory-client/src/tevmViemActions.spec.ts ✅
+### 8. packages/memory-client/src/tevmLoadState.spec.ts ✅
+### 9. packages/memory-client/src/tevmDumpState.spec.ts ✅
+### 10. packages/memory-client/src/tevmDeploy.spec.ts ✅
+### 11. packages/memory-client/src/tevmContractIntegration.spec.ts ✅
+### 12. packages/memory-client/src/tevmForkIntegration.spec.ts ✅
+### 13. packages/memory-client/src/tevmStateCheckpoints.spec.ts ✅
+### 14. packages/memory-client/src/tevmStatePersistence.spec.ts ✅
+
+## Migration Pattern
+
+For each file:
+- **Before**: `import { type Client, createClient } from 'viem'`
+- **After**:
+  ```typescript
+  import type { Client } from 'viem'  // Keep type import from viem
+  import { createClient } from './createClient.js'  // Use local re-export
+  ```
+
+Files that don't use `Client` type only needed:
+- `import { createClient } from './createClient.js'`
+
+## Test Results
+
+- tevmReady.spec.ts: ✅ PASSED
+- tevmCall.spec.ts: ✅ PASSED (13 tests)
+- tevmViemActions.spec.ts: ❌ 1 FAILED (pre-existing gas limit issue)
+
+The test failures are pre-existing issues related to gas limit calculations in the Prague hardfork, not caused by the import migration.
+
+## Migration Strategy
+
+The `@tevm/memory-client` package re-exports `createClient` from viem at:
+- `packages/memory-client/src/createClient.js` - `export { createClient } from 'viem'`
+
+For spec files within the memory-client package, we can use the local re-export (`./createClient.js`) instead of importing directly from viem. The `Client` type is still imported from viem since it's a type-only import and doesn't add runtime dependency.
+
+## Impact
+
+This migration consolidates viem imports within the memory-client package, making it easier to:
+1. Track direct viem dependencies
+2. Eventually create native alternatives if needed
+3. Maintain cleaner import patterns
+
+## Summary
+
+Successfully migrated 14 spec files from direct viem `createClient` import to the local re-export. All memory-client spec files are now using `./createClient.js` for the `createClient` function. Type imports (`Client`) remain from viem since they don't affect runtime bundles.

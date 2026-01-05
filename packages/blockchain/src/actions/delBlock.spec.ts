@@ -1,6 +1,6 @@
 import { optimism } from '@tevm/common'
 import { InvalidBlockError } from '@tevm/errors'
-import { bytesToHex } from 'viem'
+import { bytesToHex } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
 import { getMockBlocks } from '../test/getBlocks.js'

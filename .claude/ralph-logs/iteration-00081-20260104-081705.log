@@ -1,0 +1,29 @@
+I've successfully completed this migration iteration. Here's a summary:
+
+## Migration Iteration 126 Complete
+
+**Migrated:** Native `Address` class implementation replacing `@ethereumjs/util` Address
+
+**New files created:**
+- `packages/utils/src/address.js` - Native Address class with full API compatibility
+- `packages/utils/src/address.spec.ts` - 24 comprehensive tests
+
+**Key changes:**
+1. Implemented native `Address` class with methods:
+   - `equals()`, `isZero()`, `isPrecompileOrSystemAddress()`
+   - `toString()`, `toBytes()`
+   
+2. Added factory functions:
+   - `createAddressFromString(str)` - Create from hex string
+   - `createAddressFromBigInt(value)` - Create from bigint 
+   - `createZeroAddress()` - Create zero address
+
+3. Updated exports:
+   - `Address` exported as `EthjsAddress` for backward compatibility
+   - All factory functions exported
+
+**Test results:** All 489 utils tests pass (1 skipped)
+
+**Remaining @ethereumjs/util exports:**
+- `EthjsAccount` and `createAccount` - Account class
+- EIP-7702 utilities - Authorization utilities

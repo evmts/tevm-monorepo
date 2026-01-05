@@ -1,0 +1,49 @@
+# Ralph Migration Log - Iteration 760
+## Date: 2026-01-05
+
+## Task: Migrate EIP1193RequestFn type import from viem to @tevm/utils
+
+## Summary
+
+Successfully migrated the EIP1193RequestFn type import in mudStoreGetStorageAtOverride.spec.ts from viem to @tevm/utils.
+
+## Changes Made
+
+### bundler-packages/mud/src/internal/decorators/mudStoreGetStorageAtOverride.spec.ts
+- Changed: `import { type EIP1193RequestFn } from 'viem'` -> imported from `@tevm/utils`
+- Combined with existing @tevm/utils import: `import { type Address, type EIP1193RequestFn, pad } from '@tevm/utils'`
+- Test compiles and passes (1 skipped test due to being slow)
+
+## Current Migration Status
+
+### Files still using viem in bundler-packages:
+1. **bundler-packages/mud/src/types.ts** - Uses viem account-abstraction types (BundlerClient, SmartAccount) and WriteContractParameters/WriteContractReturnType - these are complex viem-specific types that don't have native equivalents yet
+2. **bundler-packages/whatsabi/src/resolveContractUri.js** - Uses createClient, http from viem and getCode from viem/actions - whatsabi library expects viem Client
+3. **bundler-packages/whatsabi/src/loadAbi.js** - Has JSDoc type annotation referencing viem.Client - needed by whatsabi library
+
+### Packages fully migrated from viem:
+- @tevm/actions (core)
+- @tevm/vm (core) 
+- @tevm/evm (core)
+- @tevm/state (core)
+- @tevm/node (core)
+- @tevm/common (mostly - just generator script uses viem)
+- extensions/test-node (source files)
+- extensions/test-matchers (source files)
+
+## Notes
+
+The remaining viem usages are in edge cases:
+1. Account abstraction types (complex viem-specific)
+2. Third-party library (whatsabi) compatibility
+3. Re-exports for backward compatibility
+
+These cannot be easily migrated without either:
+- Creating native equivalents for viem's account-abstraction types
+- Modifying third-party library interfaces
+
+## Next Steps
+
+1. Consider creating native WriteContractParameters/WriteContractReturnType types if needed
+2. The whatsabi integration may need to keep viem dependency for library compatibility
+3. Focus on ensuring core packages remain viem-free

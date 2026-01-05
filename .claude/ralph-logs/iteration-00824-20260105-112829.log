@@ -1,0 +1,51 @@
+# Ralph Migration Log - Iteration 824
+## Date: 2026-01-05
+
+## Task: Add test coverage for txLogsBloom.js
+
+## Summary
+
+Added comprehensive test suite for `txLogsBloom` in `@tevm/vm`. This internal function creates a bloom filter from transaction logs, adding both addresses and topics to the filter.
+
+## Changes Made
+
+### New files:
+- `packages/vm/src/actions/txLogsBloom.spec.ts` - 9 tests
+
+### Test coverage:
+
+**Empty/undefined logs:**
+- Returns empty bloom filter when logs is undefined
+- Returns empty bloom filter when logs is an empty array
+
+**Address handling:**
+- Adds address to bloom filter
+
+**Topic handling:**
+- Adds topics to bloom filter
+- Handles logs with no topics
+- Handles logs with many topics (4 topics)
+
+**Multiple logs:**
+- Handles multiple logs correctly
+- Accumulates bloom bits across multiple logs
+
+**Verification:**
+- Not contain elements that were not added (verifies bloom filter is not empty when elements are added)
+
+## Technical Notes
+
+The `txLogsBloom` function:
+- Takes an array of logs in the format `[[address, [topic1, topic2, ...]], ...]`
+- Creates a new Bloom filter (256-byte bitvector)
+- Adds each address and topic to the bloom filter
+- Returns the populated Bloom object
+
+The Bloom class uses keccak256 hashing and sets 3 bits in a 2048-bit (256-byte) filter for each element added.
+
+## Test Results
+
+All 9 tests passing:
+- txLogsBloom.spec.ts: 9 tests ✓
+
+## Status: COMPLETE

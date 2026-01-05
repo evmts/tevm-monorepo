@@ -1,0 +1,108 @@
+# Ralph Migration Log - Iteration 262
+## Date: 2026-01-04 20:18:38
+
+## Summary
+Status assessment iteration - confirmed migration is stable and comprehensive. All tests passing.
+
+## Actions Taken
+1. Reviewed previous iteration logs (261, 260) to understand migration status
+2. Confirmed core packages remain free of viem/ethereumjs imports:
+   - `@tevm/actions` - Clean
+   - `@tevm/vm` - Clean
+   - `@tevm/evm` - Clean
+   - `@tevm/state` - Clean
+   - `@tevm/node` - Clean
+3. Verified voltaire's Bip39 and HDWallet modules still wrap `@scure/bip39` and `@scure/bip32`
+   - No benefit to migrating from `@scure` to voltaire for these - same underlying implementation
+4. Confirmed the FFI bundling issue in voltaire's dist still exists
+5. Verified tests pass:
+   - signature.spec.ts: 31 passed
+   - guillotineWasm.spec.ts: 26 passed, 1 skipped
+   - nativePrivateKeyToAccount.spec.ts: 18 passed
+   - nativeMnemonicToAccount.spec.ts: 17 passed
+
+## Remaining viem imports (all intentionally retained)
+
+### @tevm/utils/viem.js - Transport/Client functions (line 2143)
+```javascript
+export {
+  createPublicClient,
+  createTransport,
+  custom,
+  defineChain,
+  http,
+  webSocket,
+} from 'viem'
+```
+**Reason**: Required for RPC communication in forking scenarios.
+
+### @tevm/utils/viem.js - Deprecated account exports (line 29)
+```javascript
+export { mnemonicToAccount, privateKeyToAccount } from 'viem/accounts'
+```
+**Reason**: Backward compatibility - native alternatives exist (`nativePrivateKeyToAccount`, `nativeMnemonicToAccount`).
+
+### @tevm/utils/abitype.ts - Deprecated type exports (line 32)
+```javascript
+export type { Account, HDAccount } from 'viem'
+```
+**Reason**: Backward compatibility - native alternatives exist (`NativePrivateKeyAccount`, `NativeHDAccount`).
+
+### @tevm/tx - @ethereumjs/tx dependency
+**Reason**: Required for VM compatibility with ethereumjs execution layer.
+
+### @tevm/common - @ethereumjs/common dependency
+**Reason**: Required for chain configuration.
+
+### @tevm/trie - @ethereumjs/trie dependency
+**Reason**: Required for Merkle Patricia Trie functionality.
+
+## Blocked Migrations
+
+### nativeHdAccount.js and nativeMnemonicToAccount.js - `@scure` → voltaire
+**Status**: Blocked - voltaire's Bip39/HDWallet modules just wrap `@scure` anyway
+**Root cause**: Voltaire's bundled output has FFI imports at top level:
+```javascript
+import ffi from 'ffi-napi';
+import ref from 'ref-napi';
+```
+**Impact**: None - current implementation using `@scure` directly is optimal
+
+## Investigation: Potential Transport Migration
+Voltaire has HttpProvider and WebSocketProvider implementations that could theoretically replace viem's transport functions. However:
+- This would require significant architectural changes to the forking system
+- Memory-client is specifically designed to be a viem wrapper
+- The benefit-to-effort ratio is low
+
+## Migration Status Summary
+
+### Complete
+- All core packages (actions, vm, evm, state, node) free of viem/ethereumjs
+- Native cryptography using @tevm/voltaire:
+  - Keccak256
+  - Secp256k1
+  - P256 (for precompiles)
+- Native account implementations (nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount)
+- Native ABI encoding/decoding
+- Native signature operations
+- Guillotine-Mini WASM integration
+
+### Intentionally Retained (No Action Required)
+1. **Transport/client functions** - Required for RPC/forking
+2. **@ethereumjs/tx, @ethereumjs/common, @ethereumjs/trie** - Required for VM compatibility
+3. **Deprecated viem exports** - Backward compatibility (scheduled for removal in next major)
+4. **@scure/bip39, @scure/bip32** - Optimal implementation (voltaire wraps these anyway)
+
+### Not Applicable
+- **memory-client viem dependency** - Package is intentionally a viem wrapper
+
+## Conclusion
+The migration has reached a stable, complete state. All actionable migrations have been completed. Remaining dependencies are either:
+1. Architecturally required (transport, ethereumjs VM compatibility)
+2. Deprecated with native alternatives available
+3. Optimal as-is (voltaire wraps the same libraries)
+
+## Next Steps (Future Considerations)
+1. Remove deprecated viem account exports in next major version
+2. Consider transport abstraction if/when voltaire's provider module matures
+3. Continue monitoring for any new migration opportunities

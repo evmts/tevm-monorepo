@@ -1,0 +1,41 @@
+# Ralph Migration Log - Iteration 283
+## Date: 2026-01-04 21:38
+
+## Summary
+Moved @noble/curves and @noble/hashes from production dependencies to devDependencies in @tevm/utils package since they are only used in test files.
+
+## Changes Made
+Modified `packages/utils/package.json`:
+- Moved `@noble/curves` and `@noble/hashes` from dependencies to devDependencies
+
+## Rationale
+1. Analyzed usage of @noble packages across @tevm/utils:
+   - `@noble/curves` is only imported in `ecrecover.spec.ts` (line 91) for test verification
+   - `@noble/hashes` is only mentioned in a comment in `viem.js` (line 826)
+   - No production code imports these packages
+
+2. Verified that crypto functionality is now provided by @tevm/voltaire:
+   - `ecrecover.js` uses `@tevm/voltaire/Secp256k1` and `@tevm/voltaire/Hash`
+   - `nativePrivateKeyToAccount.js` uses voltaire's `Secp256k1`, `Keccak256`, `Hash`, and `EIP712`
+   - `signature.js` uses voltaire's `EIP712`, `Address`, and `Hash`
+   - `eip7702.js` uses voltaire's `Secp256k1`
+   - `privateKeyToAddress.js` uses voltaire's `Secp256k1` and `Keccak256`
+
+3. Dependencies kept in production:
+   - `@scure/bip32` and `@scure/bip39` - needed for HD wallet and mnemonic account generation
+   - `@tevm/voltaire` - provides all crypto primitives
+   - `abitype` - for ABI type parsing
+   - `lru-cache` - for caching
+
+## Test Results
+- All 607 tests passed (1 skipped)
+- Tests run fresh after `pnpm nx reset` to verify no caching issues
+
+## Impact
+- Reduces production bundle size by removing unused dependencies
+- Clarifies that @noble packages are only for test verification
+- Confirms voltaire has fully replaced noble for production crypto operations
+
+## Next Steps
+- Continue monitoring for any remaining viem/ethereumjs dependencies that can be migrated
+- Consider if @scure packages can eventually be replaced with voltaire HD wallet implementation

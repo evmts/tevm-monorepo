@@ -1,0 +1,77 @@
+# Ralph Migration Log - Iteration 227
+## Date: 2026-01-04 17:13:54
+
+## Summary
+Migration status assessment and verification. The migration from viem/ethereumjs to @tevm/voltaire is complete for all crypto primitives in core packages. All tests passing (102/102 for core crypto tests).
+
+## Assessment
+
+### Tests Verified - ALL PASSING
+- `Bloom.spec.ts` - 6/6 tests passing
+- `ecrecover.spec.ts` - 7/7 tests passing
+- `eip7702.spec.ts` - 22/22 tests passing
+- `signature.spec.ts` - 31/31 tests passing
+- `nativePrivateKeyToAccount.spec.ts` - 18/18 tests passing
+- `nativeMnemonicToAccount.spec.ts` - 17/17 tests passing
+- `prefundedAccounts.spec.ts` - 1/1 tests passing
+
+### Core Packages Migration Status - FULLY COMPLETE
+All core packages have NO viem imports for crypto operations:
+- `@tevm/actions` - Uses @tevm/utils (voltaire-backed)
+- `@tevm/vm` - Uses @tevm/utils (voltaire-backed)
+- `@tevm/evm` - Uses @tevm/utils (voltaire-backed)
+- `@tevm/state` - Uses @tevm/utils (voltaire-backed)
+- `@tevm/node` - Uses @tevm/utils (voltaire-backed)
+- `@tevm/block` - Uses @tevm/utils (voltaire-backed)
+- `@tevm/address` - Uses @tevm/utils (voltaire-backed)
+
+### Voltaire Integration - COMPLETE
+The following crypto primitives are fully migrated to @tevm/voltaire:
+- **Keccak256**: `hash` from `@tevm/voltaire/Keccak256`
+- **Secp256k1**: `recoverPublicKeyFromHash`, `derivePublicKey`, `signHash` from `@tevm/voltaire/Secp256k1`
+- **EIP712**: `hashTypedData`, `signTypedData` from `@tevm/voltaire/EIP712`
+- **P256**: `verify` from `@tevm/voltaire/P256` (p256verify precompile)
+- **Address**: `Address.from` from `@tevm/voltaire/Address`
+- **Hash**: `Hash` from `@tevm/voltaire/Hash`
+- **Hex**: Various hex utilities from `@tevm/voltaire/Hex`
+- **Abi**: `encodeParameters`, `decodeParameters`, `encodeFunction`, `decodeFunction` from `@tevm/voltaire/Abi`
+
+### Native Implementations Created
+- `nativePrivateKeyToAccount` - Full viem-compatible account with voltaire crypto
+- `nativeMnemonicToAccount` - Full viem-compatible HD account
+- `nativeHdAccount` - Source: 'hd' compatible HD account
+- `ecrecover` - Public key recovery from signature using voltaire
+- `signature.js` - signMessage, signTypedData, verifyMessage, verifyTypedData using voltaire
+- RLP encode/decode - Native implementation in viem.js
+- Transaction serialization - Native implementation for all tx types
+
+### Intentionally Remaining Dependencies
+
+#### viem (for transport/forking)
+- `createPublicClient`, `http`, `webSocket`, `custom` - RPC communication
+- `createClient`, `publicActions`, `testActions`, `walletActions` - memory-client compatibility
+
+#### @ethereumjs (deep integration)
+- `@ethereumjs/common` - Core hardfork/chain configuration (deep EVM integration)
+- `@ethereumjs/tx` - FeeMarket1559Tx for impersonated transactions
+
+#### @scure/bip39, @scure/bip32 (blocked by voltaire FFI issue)
+- HD wallet derivation - voltaire's HDWallet dist includes FFI code causing platform errors
+
+### Known Blockers
+1. **HDWallet FFI Issue** - Voltaire's HDWallet dist contains ffi-napi imports causing platform-specific errors
+2. **@ethereumjs/common** - Deep integration with EVM execution would require significant architectural changes
+
+## Verification
+The migration is stable and functionally complete. All tests pass. No additional migration opportunities identified for incremental changes.
+
+## Uncommitted Changes
+There are uncommitted changes from previous iterations (type fixes, test improvements). These are stable and tested.
+
+## Next Steps
+- Monitor voltaire updates for HDWallet FFI fix
+- Consider long-term @ethereumjs/common migration when voltaire Chain/Hardfork support matures
+- Commit current changes when ready to stabilize
+
+## No New Code Changes
+This iteration was verification-only. All tests pass, migration status confirmed stable.

@@ -1,0 +1,27 @@
+## Summary - Iteration 292
+
+I created a native `nativeDefineChain()` function that provides a viem-compatible API for defining custom EVM chains. This continues the migration effort to remove viem dependencies.
+
+### New Files Created:
+1. **`packages/utils/src/chain-types.ts`** - Chain type definitions (Chain, ChainBlockExplorer, ChainContract, etc.)
+2. **`packages/utils/src/nativeDefineChain.js`** - Native defineChain function with full JSDoc
+3. **`packages/utils/src/nativeDefineChain.spec.ts`** - 11 tests covering all chain features
+
+### Modified Files:
+1. **`packages/utils/src/index.ts`** - Added exports for nativeDefineChain and chain types
+2. **`packages/utils/src/viem.js`** - Updated deprecation notices
+
+### Test Results:
+- All 11 tests pass
+- Types build successfully
+
+### Migration Path:
+```javascript
+// Before:
+import { defineChain } from 'viem'
+
+// After:
+import { nativeDefineChain } from '@tevm/utils'
+```
+
+This completes the native chain configuration capability alongside `nativeHttp()`, `nativeWebSocket()`, and `nativeCustom()`.

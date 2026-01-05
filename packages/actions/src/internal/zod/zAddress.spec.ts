@@ -1,4 +1,4 @@
-import type { Address } from 'abitype'
+import type { Address } from '@tevm/utils'
 import { describe, expect, test } from 'vitest'
 import type { z } from 'zod'
 import { zAddress } from './zAddress.js'

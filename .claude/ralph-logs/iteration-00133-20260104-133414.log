@@ -1,0 +1,31 @@
+Two migrations complete this iteration. Let me summarize what was accomplished:
+
+## Iteration 183-184 Summary
+
+### Completed Migrations:
+
+1. **Iteration 183: Consolidated viem/accounts imports in @tevm/utils**
+   - Added `PrivateKeyAccount` type export to viem.js
+   - Updated prefundedAccounts.ts to import from local viem.js
+   - Updated prefundedAccounts.spec.ts to import from local viem.js
+   - Result: All viem/accounts imports now centralized in viem.js
+
+2. **Iteration 184: Migrated abitype imports in @tevm/actions**
+   - Updated 3 test files to import types from @tevm/utils instead of abitype
+   - Result: @tevm/actions has no direct abitype imports
+
+### Current Migration Status:
+
+**@tevm/utils (centralized dependency hub):**
+- viem.js: Contains all viem and abitype runtime imports
+- abitype.ts: Contains all type re-exports from abitype/viem
+
+**Remaining viem dependencies (in viem.js only):**
+- `mnemonicToAccount, privateKeyToAccount` from 'viem/accounts'
+- `createPublicClient, createTransport, custom, defineChain, http, webSocket` from 'viem'
+- `parseAbi` from 'abitype'
+
+**Remaining viem type dependencies (in abitype.ts only):**
+- `Account, HDAccount` from 'viem' (complex types with signing methods)
+
+The migration is progressing well - external dependencies are now more centralized through @tevm/utils, making future migrations easier to manage.

@@ -1,0 +1,91 @@
+# Ralph Migration Log - Iteration 755
+## Date: 2026-01-05
+
+## Task: Comprehensive assessment of viem/ethereumjs migration status
+
+## Summary
+
+Conducted a thorough audit of the current migration status. The core packages are essentially viem-free, and @tevm/voltaire is being actively used in multiple packages.
+
+## Migration Status
+
+### Packages Fully Migrated (No viem imports in src):
+- packages/actions ✅
+- packages/vm ✅
+- packages/evm ✅
+- packages/state ✅
+- packages/node ✅
+- packages/block ✅
+- packages/blockchain ✅
+- packages/precompiles ✅ (uses @tevm/voltaire/P256)
+- packages/decorators ✅
+- packages/client-types ✅
+- packages/rlp ✅ (uses @tevm/voltaire/Rlp)
+- extensions/test-matchers ✅
+- extensions/test-node ✅
+
+### Voltaire Integration Status:
+- @tevm/rlp - Uses @tevm/voltaire/Rlp ✅
+- @tevm/utils - Uses @tevm/voltaire/Keccak256 ✅
+- @tevm/utils - Uses @tevm/voltaire/Abi for encodeAbiParameters/decodeAbiParameters ✅
+- @tevm/precompiles - Uses @tevm/voltaire/P256 for p256verify ✅
+- @tevm/utils - serializeTransaction is NATIVE (no viem) ✅
+- @tevm/utils - nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount ✅
+
+### Packages with Intentional viem Dependencies:
+- packages/memory-client - Viem client integration layer
+- packages/utils - Re-exports viem utilities alongside native alternatives:
+  - viem/accounts: mnemonicToAccount, privateKeyToAccount (NATIVE ALTERNATIVES EXIST)
+  - viem: createPublicClient, createTransport, custom, defineChain, http, webSocket (NATIVE ALTERNATIVES EXIST for http, webSocket, custom, defineChain)
+- extensions/viem - Viem extension (by design)
+- bundler-packages/mud - MUD framework integration
+- bundler-packages/whatsabi - ABI resolution
+
+### Remaining @ethereumjs Dependencies:
+- packages/tx - Uses @ethereumjs/tx for:
+  - FeeMarket1559Tx (EIP-1559 transactions)
+  - AccessList2930Tx, Blob4844Tx, LegacyTx
+  - TransactionFactory, type guards
+  - EOACode7702Tx (EIP-7702)
+- packages/common - Uses @ethereumjs/common for chain configuration
+
+## Native Functions Available in @tevm/utils:
+- nativeHttp - HTTP transport
+- nativeWebSocket - WebSocket transport
+- nativeCustom - Custom transport
+- nativeDefineChain - Chain definition
+- nativePrivateKeyToAccount - Account from private key
+- nativeMnemonicToAccount - Account from mnemonic
+- nativeHdAccount - HD account
+- serializeTransaction - Transaction serialization (EIP-1559, EIP-2930, Legacy)
+- encodeAbiParameters, decodeAbiParameters - ABI encoding via voltaire
+- All hex/bytes conversion utilities - NATIVE
+
+## Metrics
+
+- Files using @tevm/utils: 771+
+- Core packages with viem imports: 0
+- Extensions with viem imports (non-intentional): 0
+- Packages using @tevm/voltaire: 4 (rlp, utils, precompiles, abiEncoding)
+
+## Next Steps
+
+1. **@tevm/tx Migration** (Major):
+   - Replace @ethereumjs/tx with voltaire Transaction primitives
+   - ImpersonatedTx needs: constructor, hash(), getHashedMessageToSign(), isSigned(), getSenderAddress()
+   - Voltaire has TransactionEIP1559 with hash, serialize, getSender, etc.
+
+2. **@tevm/common Migration** (Major):
+   - Replace @ethereumjs/common with voltaire Chain primitives
+   - Voltaire has Chain module
+
+3. **Promote Native Alternatives**:
+   - Consider deprecating viem re-exports in favor of native alternatives
+   - Update documentation to recommend native functions
+
+## Blockers
+
+The @ethereumjs/tx migration is significant because:
+1. The tx package re-exports many types and classes from ethereumjs
+2. Other parts of the codebase may depend on the exact ethereumjs interface
+3. Voltaire's Transaction API is data-first (functional) vs ethereumjs class-based approach

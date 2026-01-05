@@ -1,4 +1,4 @@
-import { AccountCache, CacheType } from '@ethereumjs/statemanager'
+import { AccountCache, CacheType } from '@tevm/utils'
 import { createAddress } from '@tevm/address'
 import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
@@ -153,16 +153,15 @@ describe(getAccountAddresses.name, () => {
 		expect(state.caches.accounts._orderedMapCache).toBeDefined()
 
 		// Mock the forEach method of _orderedMapCache to test both prefixed and unprefixed addresses
-		// This tests both branches of the condition in lines 13 and 23
+		// Native Map.forEach((value, key) => ...) - key is the second argument
 		const originalForEach = state.caches.accounts._orderedMapCache?.forEach
 
 		// Mock the forEach method to inject our test values
 		if (state.caches.accounts._orderedMapCache) {
-			state.caches.accounts._orderedMapCache.forEach = (callback) => {
-				// @ts-expect-error
-				callback(['0x0000000000000000000000000000000000000003'])
-				// @ts-expect-error
-				callback(['0000000000000000000000000000000000000004'])
+			state.caches.accounts._orderedMapCache.forEach = (callback: (value: unknown, key: string) => void) => {
+				// Native Map.forEach passes (value, key)
+				callback({}, '0x0000000000000000000000000000000000000003')
+				callback({}, '0000000000000000000000000000000000000004')
 			}
 		}
 

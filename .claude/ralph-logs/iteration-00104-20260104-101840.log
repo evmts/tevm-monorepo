@@ -1,0 +1,21 @@
+## Summary
+
+I completed **Iteration 153** of the Ralph migration. 
+
+### Key Accomplishment
+- **Migrated Bloom import**: Changed `packages/vm/src/utils/ApplyBlockResult.ts` to import `Bloom` from `@tevm/utils` instead of `@ethereumjs/vm`
+
+This removes the last `@ethereumjs/vm` import from the packages/vm source files.
+
+### Current Migration Status
+- **packages/utils** - Core utilities migrated, only transport functions remain from viem
+- **packages/actions** - No viem/ethereumjs imports in source
+- **packages/vm** - Now has zero ethereumjs imports
+- **packages/evm** - Clean (no direct viem/ethereumjs imports found earlier)
+- **packages/node** - Clean
+- **packages/state** - Still uses @ethereumjs/statemanager (AccountCache, StorageCache, CacheType)
+
+### Next Steps for Future Iterations
+1. Migrate @ethereumjs/statemanager dependencies (complex - would need to implement cache classes)
+2. Consider if voltaire EVM is ready to replace @ethereumjs/evm
+3. Look at remaining viem transport functions for forking

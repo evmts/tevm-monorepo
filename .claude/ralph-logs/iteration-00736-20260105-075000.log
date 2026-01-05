@@ -1,0 +1,39 @@
+# Ralph Migration Log - Iteration 736
+## Date: 2026-01-05
+
+## Task: Migrate http import to nativeHttp in test file
+
+## Summary
+
+Successfully migrated one test file from using deprecated viem `http` transport to native `nativeHttp` implementation.
+
+## Changes Made
+
+### packages/state/src/actions/getForkClient.spec.ts
+- Changed `import { http } from '@tevm/utils'` to `import { nativeHttp } from '@tevm/utils'`
+- Changed `http('https://example.com')` to `nativeHttp('https://example.com')`
+
+## Test Results
+
+All 3 tests pass:
+- ✓ should return a fork client with transport function
+- ✓ should return a fork client with transport object
+- ✓ should error if no fork config
+
+## Impact
+
+- Removed 1 usage of deprecated viem re-export
+- Uses native @tevm/voltaire-based http transport implementation
+- No external viem dependency for this transport
+
+## Files Not Migrated
+
+### packages/http-client/src/createHttpClient.js
+- This file is already marked as @deprecated
+- Uses both `createPublicClient` and `http` from viem
+- `createPublicClient` doesn't have a native equivalent in @tevm/utils yet
+- Recommend leaving as-is since the whole file is deprecated
+
+## Notes
+
+The `nativeHttp` function is a drop-in replacement for viem's `http` transport that uses `@tevm/voltaire/provider`'s HttpProvider internally. It provides the same API but without the viem dependency.

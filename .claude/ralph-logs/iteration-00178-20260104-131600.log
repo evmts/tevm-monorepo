@@ -1,0 +1,48 @@
+# Ralph Migration Log - Iteration 178
+## Date: 2026-01-04 13:16:00
+
+## Summary
+Migrated `ContractConstructorArgs` type from viem to native implementation in @tevm/utils.
+
+## Changes Made
+
+### 1. Created native ContractConstructorArgs type in `packages/utils/src/contract-types.ts`
+Added a new type that extracts constructor argument types from a contract ABI:
+- Uses abitype's `AbiParametersToPrimitiveTypes` to convert ABI inputs to primitive types
+- Extracts the constructor from the ABI using `Extract<...>`
+- Falls back to `readonly unknown[]` when no constructor is found
+
+### 2. Updated `packages/utils/src/abitype.ts`
+- Moved `ContractConstructorArgs` from viem import to native contract-types.js import
+- Reduced viem type imports by one
+
+## Tests Verified
+- `packages/common/src/createCommon.spec.ts` - 10 passed, 1 skipped
+- `packages/state/src/createBaseState.spec.ts` - 4 passed
+- `packages/evm/src/createEvm.spec.ts` - 14 passed
+
+## Migration Progress
+
+### viem types still imported from abitype.ts:
+- Account (complex type with signing methods)
+- CreateEventFilterParameters
+- DecodeFunctionResultReturnType
+- EncodeDeployDataParameters
+- EncodeFunctionDataParameters
+- GetEventArgs
+- HDAccount (complex type with HD derivation methods)
+
+### Native contract types now complete:
+- ContractFunctionName ✅
+- ContractFunctionArgs ✅
+- ContractFunctionReturnType ✅
+- ContractConstructorArgs ✅ (NEW)
+
+## Next Steps
+1. Consider migrating more simple types (EncodeFunctionDataParameters, EncodeDeployDataParameters)
+2. Complex types (Account, HDAccount) require viem's signing infrastructure
+3. Continue reducing viem surface area where possible
+
+## Files Changed
+- packages/utils/src/contract-types.ts (added ContractConstructorArgs type)
+- packages/utils/src/abitype.ts (updated imports)

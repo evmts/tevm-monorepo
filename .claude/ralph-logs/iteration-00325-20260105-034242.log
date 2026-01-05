@@ -1,0 +1,23 @@
+The migration is in excellent shape. Here's a summary:
+
+## Migration Status Summary
+
+**Completed:**
+- Chain presets: 343/343 migrated from viem/chains to nativeDefineChain
+- Core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node): No direct viem imports
+- @tevm/utils: Extensive voltaire integration for crypto operations
+- Guillotine WASM integration: Functional with 38 passing tests
+
+**Remaining (intentional):**
+- memory-client: Uses viem by design (viem client wrapper)
+- Transport utilities for forking (http, webSocket, custom, createPublicClient)
+- Test comparison files for validating native implementations
+- @ethereumjs/common, @ethereumjs/tx, @ethereumjs/trie (larger migration targets)
+
+**Test Health:**
+- packages/utils: 662 tests pass
+- packages/common: 18 tests pass
+- packages/precompiles: 16 tests pass
+- packages/evm guillotine: 38 tests pass
+
+The voltaire migration for primitives is largely complete. The next major frontier would be integrating guillotine-mini as the actual EVM execution engine, which is a more significant architectural change.

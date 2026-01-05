@@ -1,0 +1,19 @@
+The migration assessment is complete. Here's the summary:
+
+## Migration Status Summary
+
+**Core packages are now free of direct viem/ethereumjs runtime imports:**
+- @tevm/actions, @tevm/evm, @tevm/state, @tevm/vm, @tevm/node - all clean
+
+**Remaining ethereumjs dependencies** (3 packages):
+1. **@tevm/common** - Uses @ethereumjs/common (needed for ethereumjs EVM integration)
+2. **@tevm/tx** - Re-exports @ethereumjs/tx classes (used by ethereumjs EVM)
+3. **@tevm/trie** - Re-exports @ethereumjs/trie
+
+**Why they remain:** The ethereumjs EVM expects ethereumjs Common and Transaction class instances. Migrating these would require either adapting voltaire types to match ethereumjs interfaces or replacing the ethereumjs EVM entirely with guillotine-mini.
+
+**Tests passing:** 655 utils tests, 55 evm tests
+
+**Next steps for deeper migration:**
+1. Continue expanding guillotine-mini WASM integration
+2. Once guillotine-mini can fully replace ethereumjs EVM, migrate @tevm/common and @tevm/tx to use voltaire primitives

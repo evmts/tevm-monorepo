@@ -1,0 +1,79 @@
+# Ralph Migration Log - Iteration 212
+## Date: 2026-01-04 15:49:30
+
+## Summary
+Migrated `prefundedAccounts.ts` in @tevm/utils to use the native `nativePrivateKeyToAccount` implementation instead of viem's `privateKeyToAccount`, eliminating another runtime dependency on viem.
+
+## Changes Made
+
+### 1. Updated prefundedAccounts.ts
+File: `packages/utils/src/prefundedAccounts.ts`
+
+**Before:**
+```typescript
+import { type PrivateKeyAccount, privateKeyToAccount } from './viem.js'
+
+export const PREFUNDED_ACCOUNTS: [
+    PrivateKeyAccount,
+    ...
+] = [
+    privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[0]),
+    ...
+]
+```
+
+**After:**
+```typescript
+import { nativePrivateKeyToAccount } from './nativePrivateKeyToAccount.js'
+import type { NativePrivateKeyAccount } from './account-types.js'
+
+export const PREFUNDED_ACCOUNTS: [
+    NativePrivateKeyAccount,
+    ...
+] = [
+    nativePrivateKeyToAccount(PREFUNDED_PRIVATE_KEYS[0]),
+    ...
+]
+```
+
+The change:
+- Removed import of `privateKeyToAccount` from viem
+- Uses native `nativePrivateKeyToAccount` which uses @tevm/voltaire for secp256k1 operations
+- Updated type from `PrivateKeyAccount` (viem) to `NativePrivateKeyAccount` (native)
+- All 10 prefunded accounts now use the native implementation
+
+## Test Results
+- prefundedAccounts.spec.ts - 1 test passes
+
+The test verifies that:
+- All 10 prefunded account addresses match expected values
+- Addresses derived from private keys match those from mnemonic
+- `PREFUNDED_ACCOUNTS[i].address` matches expected public key
+
+## Migration Progress
+
+### Viem Imports Eliminated This Session:
+- `privateKeyToAccount` from `viem/accounts` (via `prefundedAccounts.ts`) -> Native via `nativePrivateKeyToAccount`
+
+### Remaining Viem Re-exports in utils/viem.js:
+1. Account functions (re-exports for backwards compatibility):
+   - `mnemonicToAccount` from viem/accounts
+   - `privateKeyToAccount` from viem/accounts
+
+2. Transport/client functions (needed for forking):
+   - `createPublicClient`, `createTransport`, `custom`, `defineChain`, `http`, `webSocket`
+
+### Internal Usage Now Native:
+- `PREFUNDED_ACCOUNTS` - uses nativePrivateKeyToAccount
+- `testAccounts` in @tevm/actions - uses nativeHdAccount
+- `signMessage` in signature.js - uses nativePrivateKeyToAccount
+
+### Native Implementations Available:
+- `nativePrivateKeyToAccount` - Full signing support using voltaire
+- `nativeMnemonicToAccount` - Full HD derivation + signing (source: 'mnemonic')
+- `nativeHdAccount` - Full HD derivation + signing (source: 'hd')
+
+## Next Steps
+1. Look for other internal uses of `mnemonicToAccount`/`privateKeyToAccount` that could be migrated
+2. Consider deprecating the viem re-exports in favor of native implementations
+3. Continue monitoring core packages for any remaining direct viem imports

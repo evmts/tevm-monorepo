@@ -1,0 +1,38 @@
+# Ralph Migration Log - Iteration 144
+## Date: 2026-01-04 10:04:00
+
+## Summary
+Migrated JSDoc type imports in `abiEncoding.js` from viem Hex type to native local type.
+
+## Changes Made
+
+### Modified: packages/utils/src/abiEncoding.js
+- Changed `@returns {import('viem').Hex}` to `@returns {import('./hex-types.js').Hex}` on line 17
+- Changed `@type {import('viem').Hex}` to `@type {import('./hex-types.js').Hex}` on line 43 (return cast)
+- Changed `@param {import('viem').Hex}` to `@param {import('./hex-types.js').Hex}` on line 52
+
+## Rationale
+The abiEncoding.js file already uses @tevm/voltaire for the actual ABI encoding/decoding but was referencing viem's Hex type in JSDoc annotations. By pointing to our local hex-types.js instead:
+1. We reduce direct coupling to viem's type system
+2. The types are functionally identical (both are branded `0x${string}` types)
+3. This follows the pattern established in previous migrations
+
+## Test Results
+- abiEncoding.spec.ts: 16 tests passed
+- TypeScript types: Build succeeded (tsup dts generation: 2.85 KB)
+
+## Remaining viem JSDoc imports in utils/src/
+After this change, the following files still have `import('viem')` JSDoc references:
+1. eip7702.js - Hex (6 references for chainId, address, nonce, yParity, r, s fields)
+2. abiDeployEncoding.js - Abi, Hex (4 references)
+3. abiEventEncoding.js - Abi, ContractEventName, Hex (8 references)
+4. abiErrorEncoding.js - Abi, Hex (5 references)
+5. abiFunctionEncoding.js - ContractFunctionArgs, ContractFunctionReturnType (3 references)
+6. formatAbi.js - AbiItem (2 references)
+7. viem.js - Transport, PublicClient, EIP1193RequestFn (3 references - these are intentional as they re-export viem types)
+
+## Next Steps
+1. Continue migrating JSDoc imports in eip7702.js - it has 6 Hex references that can be changed
+2. Then move to abiDeployEncoding.js, abiEventEncoding.js, abiErrorEncoding.js
+3. abiFunctionEncoding.js uses ContractFunctionArgs/ReturnType which may not have local equivalents yet
+4. formatAbi.js uses AbiItem which is from abitype, not viem - may need to check if local type exists

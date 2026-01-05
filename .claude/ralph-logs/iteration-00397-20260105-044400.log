@@ -1,0 +1,32 @@
+# Ralph Migration Log - Iteration 397
+## Date: 2026-01-05 04:44
+
+## Changes Made
+
+### Migrated viem type imports to @tevm/utils in normalizeTx.spec.ts
+
+1. **extensions/test-node/src/internal/normalizeTx.spec.ts**
+   - Changed `import { type ExactPartial, type Hex, type RpcTransactionRequest } from 'viem'`
+   - To `import type { ExactPartial } from 'viem'` + `import type { Hex, RpcTransactionRequest } from '@tevm/utils'`
+   - Note: ExactPartial is a viem-specific utility type, not available in @tevm/utils
+
+## Test Results
+
+- `normalizeTx.spec.ts` - 13 tests passed
+
+## Notes
+
+- Hex and RpcTransactionRequest are available in @tevm/utils
+- ExactPartial remains from viem (utility type)
+
+## Blockers Identified
+
+- `ExactPartial` not available in @tevm/utils (viem utility type)
+
+## Next Steps
+
+- Continue migrating normalizeUserOperation.spec.ts and other test files
+
+## Rationale
+
+Small incremental migration of type imports from viem to @tevm/utils.

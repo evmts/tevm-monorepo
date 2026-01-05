@@ -35,13 +35,7 @@ describe('logToEthjsLog', () => {
 		} as const
 
 		expect(() => logToEthjsLog(abi, log as any)).toThrowErrorMatchingInlineSnapshot(
-			`
-			[AbiEventNotFoundError: Event "NonExistentEvent" not found on ABI.
-			Make sure you are using the correct ABI and that the event exists on it.
-
-			Docs: https://viem.sh/docs/contract/encodeEventTopics
-			Version: viem@2.37.9]
-		`,
+			`[Error: Event "NonExistentEvent" not found in ABI]`,
 		)
 	})
 

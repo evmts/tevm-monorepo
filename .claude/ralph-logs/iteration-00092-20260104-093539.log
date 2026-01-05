@@ -1,0 +1,25 @@
+## Iteration 137 Complete
+
+I created a native `generatePrivateKey` function in @tevm/utils that:
+
+1. **New file: `packages/utils/src/generatePrivateKey.js`** - Uses the native `randomBytes(32)` and `bytesToHex` functions to generate cryptographically secure private keys, matching viem's API exactly
+
+2. **New file: `packages/utils/src/generatePrivateKey.spec.ts`** - 6 comprehensive tests verifying:
+   - Valid hex format with '0x' prefix
+   - Correct length (66 chars)
+   - Cryptographic randomness
+   - Valid hex characters
+   - Correct byte length (32)
+   - High entropy
+
+3. **Updated exports** in `viem.js` and `index.ts`
+
+4. **All tests pass** (13 tests total including randomBytes)
+
+### Migration Impact
+- New public API: `import { generatePrivateKey } from '@tevm/utils'`
+- Test files can now use native implementation instead of `viem/accounts`
+- Zero new external dependencies (uses existing native `randomBytes`)
+
+### Note
+The test file migration was deferred because the memory-client tests have a pre-existing unrelated failure that needs to be fixed separately.

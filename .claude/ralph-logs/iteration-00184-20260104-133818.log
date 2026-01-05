@@ -1,0 +1,67 @@
+# Ralph Migration Log - Iteration 184
+## Date: 2026-01-04 13:38:18
+
+## Summary
+Migrated direct abitype imports in @tevm/actions test files to use @tevm/utils instead.
+
+## Changes Made
+
+### 1. Updated zContractParams.spec.ts
+```typescript
+// Before
+import type { AbiFunction } from 'abitype'
+
+// After
+import type { AbiFunction } from '@tevm/utils'
+```
+
+### 2. Updated zAddress.spec.ts
+```typescript
+// Before
+import type { Address } from 'abitype'
+
+// After
+import type { Address } from '@tevm/utils'
+```
+
+### 3. Updated zAbi.spec.ts
+```typescript
+// Before
+import type { Abi } from 'abitype'
+
+// After
+import type { Abi } from '@tevm/utils'
+```
+
+## Tests Verified
+- `packages/actions/src/Contract/zContractParams.spec.ts` - 1 passed
+- `packages/actions/src/internal/zod/zAddress.spec.ts` - 4 passed
+- `packages/actions/src/internal/zod/zAbi.spec.ts` - 1 passed
+
+## Migration Progress
+
+### @tevm/actions package:
+- Now has NO direct abitype imports
+- All types come through @tevm/utils
+
+### Direct abitype imports remaining in workspace:
+- `packages/utils/src/viem.js` - parseAbi
+- `packages/utils/src/abitype.ts` - core type exports
+- `packages/utils/src/contract-types.ts` - type infrastructure
+- `packages/decorators/src/eip1193/*.ts` - commented out imports
+
+## Why This Matters
+Centralizing type imports through @tevm/utils:
+1. Reduces direct external dependencies in consuming packages
+2. Makes the dependency tree cleaner
+3. Provides a single point of control for type definitions
+
+## Files Changed
+- packages/actions/src/Contract/zContractParams.spec.ts
+- packages/actions/src/internal/zod/zAddress.spec.ts
+- packages/actions/src/internal/zod/zAbi.spec.ts
+
+## Next Steps
+1. Continue looking for other packages with direct abitype imports
+2. Consider if decorators package should be migrated (commented imports suggest intentional)
+3. Focus on utils package to further reduce viem dependency surface

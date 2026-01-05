@@ -1,0 +1,40 @@
+# Ralph Migration Log - Iteration 143
+## Date: 2026-01-04 10:02:00
+
+## Summary
+Migrated JSDoc type imports in `privateKeyToAddress.js` and `generatePrivateKey.js` from viem types to native local types, reducing direct viem type dependencies.
+
+## Changes Made
+
+### Modified: packages/utils/src/privateKeyToAddress.js
+- Changed `@param {import('viem').Hex}` to `@param {import('./hex-types.js').Hex}`
+- Changed `@returns {import('viem').Address}` to `@returns {import('./address-types.js').Address}`
+- Updated inline type cast from `import('viem').Address` to `import('./address-types.js').Address`
+
+### Modified: packages/utils/src/generatePrivateKey.js
+- Changed `@returns {import('viem').Hex}` to `@returns {import('./hex-types.js').Hex}`
+
+## Rationale
+These files already use native implementations via @tevm/voltaire but were still referencing viem types in their JSDoc annotations. By pointing to our local type files instead:
+1. We reduce direct coupling to viem's type system
+2. The types are functionally identical (Hex and Address are both branded string types)
+3. This follows the pattern established in previous migrations
+
+## Test Results
+- privateKeyToAddress.spec.ts: 5 tests passed
+- generatePrivateKey.spec.ts: 6 tests passed
+- TypeScript types: Build succeeded (tsup dts generation: 123.07 KB)
+
+## Remaining viem JSDoc imports in utils/src/
+After this change, the following files still have `import('viem')` JSDoc references:
+1. viem.js - Transport, PublicClient, EIP1193RequestFn (transport/client types)
+2. abiFunctionEncoding.js - ContractFunctionArgs, ContractFunctionReturnType
+3. abiErrorEncoding.js - Abi, Hex
+4. abiEventEncoding.js - Abi, ContractEventName, Hex
+5. abiDeployEncoding.js - Abi, Hex
+6. formatAbi.js - AbiItem
+
+## Next Steps
+1. Continue migrating JSDoc imports in other utils files (abiErrorEncoding.js, formatAbi.js, etc.)
+2. These are safe changes as they only update type references without changing runtime behavior
+3. Focus on files that use types we already have native versions for (Hex, Abi, Address)

@@ -1,4 +1,4 @@
-import { hexToBytes } from 'ethereum-cryptography/utils'
+import { hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { hasStateRoot } from './hasStateRoot.js'

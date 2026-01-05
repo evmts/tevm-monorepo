@@ -1,0 +1,24 @@
+Migration iteration 35 complete. Here's the summary:
+
+## Iteration 35 Summary
+
+**Migrated 6 files in memory-client:**
+1. `test/viem/dumpState.spec.ts` - `numberToHex`, `parseEther`
+2. `test/viem/loadState.spec.ts` - `parseEther`
+3. `test/viem/setStorageAt.spec.ts` - `numberToHex`
+4. `tevmSetAccount.spec.ts` - `bytesToHex`, `hexToBytes`
+5. `tevmGetAccount.spec.ts` - `parseEther`
+6. `tevmLoadState.spec.ts` - `parseEther`
+
+**6 commits made:**
+- `69fdea389` - dumpState.spec.ts
+- `68bbe17fd` - loadState.spec.ts
+- `d4247d222` - setStorageAt.spec.ts
+- `06ecb701c` - tevmSetAccount.spec.ts
+- `710b4a10e` - tevmGetAccount.spec.ts
+- `6ce2bbfcd` - tevmLoadState.spec.ts
+
+**Status:** 75 viem imports remaining in memory-client (reduced from ~80+). The remaining imports are primarily:
+- Core viem client APIs (`createClient`, `testActions`, `walletActions`)
+- Viem types (`Client`, `Chain`, `TestActions`)
+- ABI encoding functions not yet in @tevm/utils (`encodeFunctionData`, `encodeDeployData`)

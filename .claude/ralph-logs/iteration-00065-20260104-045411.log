@@ -1,0 +1,27 @@
+# Ralph Migration Iteration
+
+**Date**: 2026-01-04
+**Target**: packages/memory-client/src/tevmMiningModes.spec.ts
+**Change**: Replaced viem imports with @tevm/utils
+
+## Summary
+- Replaced `import { type Address, parseEther } from 'viem'` with `@tevm/utils`
+- Both Address type and parseEther function are exported from @tevm/utils
+- Simple migration - no functional changes
+
+## Tests
+- TypeScript check passed: `npx tsc --noEmit -p packages/memory-client/tsconfig.json`
+
+## Status
+- Committed: 1fa1dc9f5
+
+**Remaining viem imports in memory-client test files with Address type:**
+- tevmContractIntegration.spec.ts: Address + createClient, encodeFunctionData, parseEther
+- tevmDeploy.spec.ts: Address + Client, createClient
+- tevmAccountManagement.spec.ts: Address + createClient, parseEther
+- tevmMine.spec.ts: Address + Client, createClient
+- tevmForkIntegration.spec.ts: Address + createClient, parseEther
+
+**Next targets:**
+- Look for more test files with only type imports
+- Continue splitting viem imports where some items can be migrated

@@ -1,0 +1,37 @@
+# Ralph Migration Log - Iteration 366
+## Date: 2026-01-05 02:57
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **polygonZkEvm.js** (id: 1101) - Polygon zkEVM mainnet with ETH native currency, multicall3 contract
+2. **polygonZkEvmCardona.js** (id: 2442) - Polygon zkEVM Cardona testnet with ETH native currency, multicall3 contract, apiUrl in block explorer
+3. **polygonZkEvmTestnet.js** (id: 1442) - Polygon zkEVM Testnet with ETH native currency, multicall3 contract, dual block explorers (Blockscout + PolygonScan)
+4. **pulsechain.js** (id: 369) - PulseChain mainnet with PLS native currency, WebSocket support, ensRegistry + multicall3 contracts
+5. **pulsechainV4.js** (id: 943) - PulseChain V4 testnet with v4PLS native currency, WebSocket support, ensRegistry + multicall3 contracts
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Previously migrated**: ~246 (from iteration 365)
+- **Migrated this session**: 5
+- **Total migrated**: ~251
+- **Remaining**: 93 (~27% remaining, excluding generator script)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- PulseChain chains use their own native token (PLS/v4PLS) rather than ETH
+- PulseChain has ensRegistry support
+- polygonZkEvmTestnet has two block explorers (blockscout and default PolygonScan)
+
+## Next Steps
+Continue migrating remaining chain presets. 93 remain (~27% remaining).
+Next chains to migrate: qMainnet, qTestnet, real, redbellyTestnet, redstone...

@@ -1,0 +1,35 @@
+My changes are there. Let me summarize what was accomplished in this iteration:
+
+## Migration Iteration 737 Summary
+
+### Completed Tasks
+
+1. **Updated JSDoc examples in @tevm/test-node extension** to use `nativeHttp` from `@tevm/utils` instead of deprecated viem `http`:
+   - `extensions/test-node/src/createTestSnapshotTransport.ts`
+   - `extensions/test-node/src/createTestSnapshotClient.ts`
+   - `extensions/test-node/src/createTestSnapshotNode.ts`
+
+### Assessment of Migration Status
+
+**Core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node)**:
+- ✅ Zero viem imports in source files (non-test)
+- ✅ All tests migrated away from viem imports
+
+**@tevm/utils**:
+- Still has viem re-exports for backward compatibility (`http`, `webSocket`, `custom`, `createPublicClient`, etc.)
+- Has native implementations (`nativeHttp`, `nativeWebSocket`, `nativeCustom`) as drop-in replacements
+
+**@tevm/memory-client**:
+- Requires viem's Client/Account types for full viem API compatibility
+- This is intentional - memory-client is designed to be viem-compatible
+
+**Extensions**:
+- `test-node` source files already migrated to use @tevm/utils types
+- `test-matchers` and `viem` extensions use viem actions and Client for their functionality
+- These are designed to work with viem and will continue to depend on it
+
+### Notes
+
+The migration of core packages is essentially complete. The remaining viem dependencies are:
+1. **Intentional backward compatibility** in @tevm/utils re-exports
+2. **Viem-compatible extensions** (memory-client, viem extension, test-matchers) that are designed to integrate with viem's ecosystem

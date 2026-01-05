@@ -1,0 +1,19 @@
+Successfully improved test coverage for `nativePrivateKeyToAccount.js`:
+
+**Summary of changes:**
+- Added 7 new tests to `nativePrivateKeyToAccount.spec.ts`
+- Coverage for `nativePrivateKeyToAccount.js` improved from 94.32% to 98.22%
+- Overall coverage improved from 95.31% to 95.46%
+- Branch coverage improved from 90.83% to 91.39%
+
+**Tests added:**
+1. Invalid hash length error path
+2. Raw hex message signing
+3. Invalid message format error
+4. Array types in EIP-712 typed data
+5. Bytes as Uint8Array (non-string)
+6. Bigint values pass-through
+7. Boolean type handling
+8. Invalid private key length error
+
+**Note:** The fixed-size array test was removed because voltaire doesn't yet support `bytes32[2]` types in EIP-712.

@@ -1,0 +1,14 @@
+Migration iteration 211 completed successfully.
+
+## Summary
+
+I migrated the `signMessage` function in `packages/utils/src/signature.js` from using viem's `signMessage` to the native `nativePrivateKeyToAccount` implementation:
+
+**Changes:**
+- Replaced dynamic import of `viem/accounts` with local `nativePrivateKeyToAccount`
+- The native implementation uses `@tevm/voltaire` for secp256k1 signing
+
+**Test Results:**
+- All 23 tests in `signature.spec.ts` pass
+
+This eliminates another runtime viem dependency. The signature utilities (`signMessage`, `recoverPublicKey`, `recoverAddress`, `verifyMessage`, etc.) now use the native voltaire-based cryptographic primitives instead of viem.

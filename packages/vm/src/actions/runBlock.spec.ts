@@ -1,5 +1,5 @@
 // @ts-nocheck - Disable type checking for this test file
-import { describe, expect, it, mock } from 'bun:test'
+import { describe, expect, it, vi } from 'vitest'
 import { Block } from '@tevm/block'
 import type { BaseVm } from '../BaseVm.js'
 import type { RunBlockOpts } from '../utils/index.js'
@@ -23,24 +23,24 @@ const mockApplyBlockResult = {
 }
 
 // Mock the applyBlock dependency
-mock('./applyBlock.js', {
-	applyBlock: mock().mockImplementation(() => {
+vi.mock('./applyBlock.js', () => ({
+	applyBlock: vi.fn().mockImplementation(() => {
 		return () => Promise.resolve(mockApplyBlockResult)
 	}),
-})
+}))
 
 describe('runBlock', () => {
 	it.skip('should emit events and execute a block', async () => {
 		// Create mocks
-		const setStateRootMock = mock().mockResolvedValue(undefined)
-		const getStateRootMock = mock().mockResolvedValue(new Uint8Array(32).fill(1))
-		const checkpointMock = mock().mockResolvedValue(undefined)
-		const commitMock = mock().mockResolvedValue(undefined)
-		const revertMock = mock().mockResolvedValue(undefined)
-		const emitSpy = mock()
-		const hardforkIsActiveOnBlockMock = mock().mockReturnValue(false)
-		const isActivatedEIPMock = mock().mockReturnValue(false)
-		const readyMock = mock().mockResolvedValue(undefined)
+		const setStateRootMock = vi.fn().mockResolvedValue(undefined)
+		const getStateRootMock = vi.fn().mockResolvedValue(new Uint8Array(32).fill(1))
+		const checkpointMock = vi.fn().mockResolvedValue(undefined)
+		const commitMock = vi.fn().mockResolvedValue(undefined)
+		const revertMock = vi.fn().mockResolvedValue(undefined)
+		const emitSpy = vi.fn()
+		const hardforkIsActiveOnBlockMock = vi.fn().mockReturnValue(false)
+		const isActivatedEIPMock = vi.fn().mockReturnValue(false)
+		const readyMock = vi.fn().mockResolvedValue(undefined)
 
 		const stateManager = {
 			setStateRoot: setStateRootMock,
@@ -75,7 +75,7 @@ describe('runBlock', () => {
 			stateManager,
 			evm,
 			blockchain: {
-				validateHeader: mock().mockResolvedValue(undefined),
+				validateHeader: vi.fn().mockResolvedValue(undefined),
 			},
 			_emit: emitSpy,
 			common: {
@@ -119,27 +119,27 @@ describe('runBlock', () => {
 		const customStateRoot = new Uint8Array(32).fill(5)
 
 		const stateManager = {
-			setStateRoot: mock().mockResolvedValue(undefined),
-			getStateRoot: mock().mockResolvedValue(customStateRoot),
+			setStateRoot: vi.fn().mockResolvedValue(undefined),
+			getStateRoot: vi.fn().mockResolvedValue(customStateRoot),
 		}
 
 		const journal = {
-			checkpoint: mock().mockResolvedValue(undefined),
-			commit: mock().mockResolvedValue(undefined),
-			revert: mock().mockResolvedValue(undefined),
+			checkpoint: vi.fn().mockResolvedValue(undefined),
+			commit: vi.fn().mockResolvedValue(undefined),
+			revert: vi.fn().mockResolvedValue(undefined),
 		}
 
 		const vm = {
 			stateManager,
 			evm: { journal },
-			_emit: mock(),
+			_emit: vi.fn(),
 			common: {
 				ethjsCommon: {
-					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
-					isActivatedEIP: mock().mockReturnValue(false),
+					hardforkIsActiveOnBlock: vi.fn().mockReturnValue(false),
+					isActivatedEIP: vi.fn().mockReturnValue(false),
 				},
 			},
-			ready: mock().mockResolvedValue(undefined),
+			ready: vi.fn().mockResolvedValue(undefined),
 		} as unknown as BaseVm
 
 		const block = {
@@ -165,21 +165,13 @@ describe('runBlock', () => {
 	})
 
 	it('should revert on error and rethrow', async () => {
-		// Create a separate mock for applyBlock that throws
-		const mockApplyBlockError = new Error('Apply block failed')
-		mock('./applyBlock.js', {
-			applyBlock: mock().mockImplementation(() => {
-				return () => Promise.reject(mockApplyBlockError)
-			}),
-		})
-
 		const stateManager = {
-			setStateRoot: mock().mockResolvedValue(undefined),
-			getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
+			setStateRoot: vi.fn().mockResolvedValue(undefined),
+			getStateRoot: vi.fn().mockResolvedValue(new Uint8Array(32)),
 		}
 
-		const journalRevert = mock().mockResolvedValue(undefined)
-		const journalCheckpoint = mock().mockResolvedValue(undefined)
+		const journalRevert = vi.fn().mockResolvedValue(undefined)
+		const journalCheckpoint = vi.fn().mockResolvedValue(undefined)
 
 		const journal = {
 			checkpoint: journalCheckpoint,
@@ -189,14 +181,14 @@ describe('runBlock', () => {
 		const vm = {
 			stateManager,
 			evm: { journal },
-			_emit: mock(),
+			_emit: vi.fn(),
 			common: {
 				ethjsCommon: {
-					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
-					isActivatedEIP: mock().mockReturnValue(false),
+					hardforkIsActiveOnBlock: vi.fn().mockReturnValue(false),
+					isActivatedEIP: vi.fn().mockReturnValue(false),
 				},
 			},
-			ready: mock().mockResolvedValue(undefined),
+			ready: vi.fn().mockResolvedValue(undefined),
 		} as unknown as BaseVm
 
 		const block = {
@@ -225,39 +217,39 @@ describe('runBlock', () => {
 
 	it.skip('should handle skipBlockValidation option', async () => {
 		// Reset the mock
-		const validationMock = mock().mockImplementation((options: any) => {
+		const validationMock = vi.fn().mockImplementation((options: any) => {
 			// Check if skipBlockValidation was passed correctly
 			expect(options.skipBlockValidation).toBe(true)
 			return mockApplyBlockResult
 		})
 
-		mock('./applyBlock.js', {
-			applyBlock: mock().mockImplementation(() => {
+		vi.mock('./applyBlock.js', () => ({
+			applyBlock: vi.fn().mockImplementation(() => {
 				return () => Promise.resolve(validationMock)
 			}),
-		})
+		}))
 
 		const stateManager = {
-			setStateRoot: mock().mockResolvedValue(undefined),
-			getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
+			setStateRoot: vi.fn().mockResolvedValue(undefined),
+			getStateRoot: vi.fn().mockResolvedValue(new Uint8Array(32)),
 		}
 
 		const journal = {
-			checkpoint: mock().mockResolvedValue(undefined),
-			commit: mock().mockResolvedValue(undefined),
+			checkpoint: vi.fn().mockResolvedValue(undefined),
+			commit: vi.fn().mockResolvedValue(undefined),
 		}
 
 		const vm = {
 			stateManager,
 			evm: { journal },
-			_emit: mock(),
+			_emit: vi.fn(),
 			common: {
 				ethjsCommon: {
-					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
-					isActivatedEIP: mock().mockReturnValue(false),
+					hardforkIsActiveOnBlock: vi.fn().mockReturnValue(false),
+					isActivatedEIP: vi.fn().mockReturnValue(false),
 				},
 			},
-			ready: mock().mockResolvedValue(undefined),
+			ready: vi.fn().mockResolvedValue(undefined),
 		} as unknown as BaseVm
 
 		const block = {

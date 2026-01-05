@@ -1,0 +1,19 @@
+This iteration is complete. Here's a summary:
+
+## Migration Summary - Iteration 401
+
+**Added to `@tevm/utils`:**
+- `EIP1193Parameters` type - JSON-RPC request parameter type
+- `EIP1474Methods` type - All standard Ethereum JSON-RPC method definitions (50+ methods)
+
+**Migrated 12 files from viem to @tevm/utils:**
+- 4 files in `internal/` (isCachedJsonRpcMethod, ethMethodToCacheKey + specs)
+- 4 files in `snapshot/` and root (createCachedTransport, createTestSnapshotTransport + specs)
+- 4 test files (snapshot-utils, eth_simulateV1.spec, createTestSnapshotNode.spec, createTestSnapshotClient.spec)
+
+**Test Results:** 97 tests passed
+
+**Remaining viem imports in test-node:** 6 files still need:
+- `RpcUserOperation` type
+- `ExactPartial` utility type
+- Viem client types (`Account`, `Chain`, `RpcSchema`)

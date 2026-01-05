@@ -126,7 +126,7 @@ describe(getContractCode.name, () => {
 				transport: transports.optimism,
 			},
 		})
-		const testAddress = createAddress('0xbeef12345678901234567890123456789012')
+		const testAddress = createAddress('0xbeef123456789012345678901234567890123456')
 
 		// Setup the contracts.has mock to return true
 		vi.spyOn(state.caches.contracts, 'has').mockReturnValue(true)

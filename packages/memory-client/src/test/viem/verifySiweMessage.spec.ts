@@ -1,6 +1,7 @@
 import { tevmDefault } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'
+import { generatePrivateKey } from '@tevm/utils'
+import { privateKeyToAccount } from 'viem/accounts'
 import { createSiweMessage } from 'viem/siwe'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
