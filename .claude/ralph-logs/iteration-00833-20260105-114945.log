@@ -1,0 +1,68 @@
+# Ralph Migration Log - Iteration 833
+## Date: 2026-01-05
+
+## Task: Add test coverage for EvmError class
+
+## Summary
+
+Added comprehensive test suite for the `EvmError` class and related exports in the evm package. This class is a native implementation migrated from @ethereumjs/evm, providing EVM execution error handling without ethereumjs dependencies.
+
+## Changes Made
+
+### New files:
+- `packages/evm/src/EvmError.spec.ts` - 41 tests
+
+### Test coverage:
+
+**EVMErrorTypeString (1 test):**
+- Verifies the type string is 'EVMError'
+
+**EVMErrorMessage (28 tests):**
+- Tests all 28 standard error message constants:
+  - OUT_OF_GAS, CODESTORE_OUT_OF_GAS, CODESIZE_EXCEEDS_MAXIMUM
+  - STACK_UNDERFLOW, STACK_OVERFLOW
+  - INVALID_JUMP, INVALID_OPCODE, OUT_OF_RANGE
+  - REVERT, STATIC_STATE_CHANGE, INTERNAL_ERROR
+  - CREATE_COLLISION, STOP, REFUND_EXHAUSTED
+  - VALUE_OVERFLOW, INSUFFICIENT_BALANCE
+  - INVALID_BYTECODE_RESULT, INITCODE_SIZE_VIOLATION
+  - INVALID_INPUT_LENGTH, INVALID_EOF_FORMAT
+  - BLS_12_381_* errors (4 variants)
+  - BN254_FP_NOT_IN_FIELD
+  - INVALID_COMMITMENT, INVALID_INPUTS, INVALID_PROOF (KZG errors)
+
+**EvmError class (12 tests):**
+- Constructor:
+  - Creates error with given message
+  - Sets errorType to EVMErrorTypeString
+  - Accepts any string as error message
+- Static errorMessages:
+  - References EVMErrorMessage correctly
+  - Provides access to all standard messages
+- Error types:
+  - OUT_OF_GAS, STACK_OVERFLOW, INVALID_OPCODE, STATIC_STATE_CHANGE, INSUFFICIENT_BALANCE
+- Instance properties:
+  - Error property accessibility
+  - ErrorType property accessibility
+
+## Technical Notes
+
+The EvmError class provides a simple error wrapper matching the @ethereumjs/evm interface:
+- `error` property holds the error message string
+- `errorType` property is always 'EVMError'
+- Static `errorMessages` reference allows access to all standard messages
+- Used throughout the EVM execution stack for consistent error handling
+
+## Test Results
+
+All tests passing:
+- EvmError.spec.ts: 41 tests (3ms)
+
+## Status: COMPLETE
+
+## Next Steps
+
+Continue voltaire migration work:
+1. Look for more untested code in evm and other packages
+2. Continue replacing viem/ethereumjs imports with native implementations
+3. Explore guillotine-mini integration opportunities
