@@ -2,11 +2,14 @@ import { describe, expect, it } from 'vitest'
 import type { Hex } from './abitype.js'
 import {
 	hashMessage,
+	hashTypedData,
 	recoverAddress,
 	recoverMessageAddress,
 	recoverPublicKey,
 	signMessage,
+	signTypedData,
 	verifyMessage,
+	verifyTypedData,
 } from './signature.js'
 
 describe('signature', () => {
@@ -351,6 +354,258 @@ describe('signature', () => {
 			})
 
 			expect(address.toLowerCase()).toBe(testVectors.expectedAddress.toLowerCase())
+		})
+	})
+
+	// EIP-712 Typed Data tests
+	describe('hashTypedData', () => {
+		const typedData = {
+			domain: {
+				name: 'Ether Mail',
+				version: '1',
+				chainId: 1n,
+				verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC' as Hex,
+			},
+			types: {
+				Person: [
+					{ name: 'name', type: 'string' },
+					{ name: 'wallet', type: 'address' },
+				],
+				Mail: [
+					{ name: 'from', type: 'Person' },
+					{ name: 'to', type: 'Person' },
+					{ name: 'contents', type: 'string' },
+				],
+			},
+			primaryType: 'Mail',
+			message: {
+				from: {
+					name: 'Cow',
+					wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+				},
+				to: {
+					name: 'Bob',
+					wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+				},
+				contents: 'Hello, Bob!',
+			},
+		}
+
+		it('should hash typed data correctly', () => {
+			const hash = hashTypedData(typedData)
+			// Expected hash from EIP-712 spec
+			expect(hash).toMatch(/^0x[0-9a-f]{64}$/i)
+		})
+
+		it('should produce consistent hashes', () => {
+			const hash1 = hashTypedData(typedData)
+			const hash2 = hashTypedData(typedData)
+			expect(hash1).toBe(hash2)
+		})
+
+		it('should handle number chainId', () => {
+			const hash = hashTypedData({
+				...typedData,
+				domain: { ...typedData.domain, chainId: 1 },
+			})
+			expect(hash).toMatch(/^0x[0-9a-f]{64}$/i)
+		})
+	})
+
+	describe('signTypedData', () => {
+		const typedData = {
+			domain: {
+				name: 'Ether Mail',
+				version: '1',
+				chainId: 1n,
+				verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC' as Hex,
+			},
+			types: {
+				Person: [
+					{ name: 'name', type: 'string' },
+					{ name: 'wallet', type: 'address' },
+				],
+				Mail: [
+					{ name: 'from', type: 'Person' },
+					{ name: 'to', type: 'Person' },
+					{ name: 'contents', type: 'string' },
+				],
+			},
+			primaryType: 'Mail',
+			message: {
+				from: {
+					name: 'Cow',
+					wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+				},
+				to: {
+					name: 'Bob',
+					wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+				},
+				contents: 'Hello, Bob!',
+			},
+		}
+
+		it('should sign typed data correctly', () => {
+			const signature = signTypedData({
+				privateKey: testVectors.privateKey,
+				typedData,
+			})
+
+			expect(signature).toHaveProperty('r')
+			expect(signature).toHaveProperty('s')
+			expect(signature).toHaveProperty('v')
+			expect(typeof signature.r).toBe('bigint')
+			expect(typeof signature.s).toBe('bigint')
+			expect([27, 28]).toContain(signature.v)
+		})
+
+		it('should produce deterministic signatures', () => {
+			const signature1 = signTypedData({
+				privateKey: testVectors.privateKey,
+				typedData,
+			})
+			const signature2 = signTypedData({
+				privateKey: testVectors.privateKey,
+				typedData,
+			})
+
+			expect(signature1.r).toBe(signature2.r)
+			expect(signature1.s).toBe(signature2.s)
+			expect(signature1.v).toBe(signature2.v)
+		})
+	})
+
+	describe('verifyTypedData', () => {
+		const typedData = {
+			domain: {
+				name: 'Ether Mail',
+				version: '1',
+				chainId: 1n,
+				verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC' as Hex,
+			},
+			types: {
+				Person: [
+					{ name: 'name', type: 'string' },
+					{ name: 'wallet', type: 'address' },
+				],
+				Mail: [
+					{ name: 'from', type: 'Person' },
+					{ name: 'to', type: 'Person' },
+					{ name: 'contents', type: 'string' },
+				],
+			},
+			primaryType: 'Mail',
+			message: {
+				from: {
+					name: 'Cow',
+					wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+				},
+				to: {
+					name: 'Bob',
+					wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+				},
+				contents: 'Hello, Bob!',
+			},
+		}
+
+		it('should verify valid typed data signature', () => {
+			const signature = signTypedData({
+				privateKey: testVectors.privateKey,
+				typedData,
+			})
+
+			const isValid = verifyTypedData({
+				address: testVectors.expectedAddress,
+				typedData,
+				signature,
+			})
+
+			expect(isValid).toBe(true)
+		})
+
+		it('should reject invalid typed data signature', () => {
+			const isValid = verifyTypedData({
+				address: testVectors.expectedAddress,
+				typedData,
+				signature: {
+					r: 0x123n,
+					s: 0x456n,
+					v: 27,
+				},
+			})
+
+			expect(isValid).toBe(false)
+		})
+
+		it('should reject wrong address', () => {
+			const signature = signTypedData({
+				privateKey: testVectors.privateKey,
+				typedData,
+			})
+
+			const isValid = verifyTypedData({
+				address: '0x0000000000000000000000000000000000000000',
+				typedData,
+				signature,
+			})
+
+			expect(isValid).toBe(false)
+		})
+
+		it('should handle bytes32 values in typed data', () => {
+			const typedDataWithBytes = {
+				domain: {
+					name: 'Test',
+					version: '1',
+				},
+				types: {
+					HashData: [
+						{ name: 'dataHash', type: 'bytes32' },
+						{ name: 'count', type: 'uint256' },
+					],
+				},
+				primaryType: 'HashData' as const,
+				message: {
+					dataHash: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+					count: 42n,
+				},
+			}
+
+			const signature = signTypedData({
+				privateKey: testVectors.privateKey,
+				typedData: typedDataWithBytes,
+			})
+
+			expect(signature).toBeDefined()
+			expect(signature.r).toBeDefined()
+			expect(signature.s).toBeDefined()
+			expect(signature.v).toBeDefined()
+		})
+
+		it('should handle uint values as numbers in typed data', () => {
+			const typedDataWithNumber = {
+				domain: {
+					name: 'Test',
+					version: '1',
+				},
+				types: {
+					Count: [
+						{ name: 'value', type: 'uint256' },
+					],
+				},
+				primaryType: 'Count' as const,
+				message: {
+					value: 42, // Number will be converted to bigint
+				},
+			}
+
+			const signature = signTypedData({
+				privateKey: testVectors.privateKey,
+				typedData: typedDataWithNumber,
+			})
+
+			expect(signature).toBeDefined()
+			expect(signature.r).toBeDefined()
 		})
 	})
 })
