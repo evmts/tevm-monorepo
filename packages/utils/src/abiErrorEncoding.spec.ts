@@ -21,6 +21,16 @@ describe('abiErrorEncoding', () => {
 			name: 'EmptyError',
 			inputs: [],
 		},
+		{
+			type: 'error' as const,
+			name: 'InvalidData',
+			inputs: [{ type: 'bytes32' as const, name: 'dataHash' }],
+		},
+		{
+			type: 'error' as const,
+			name: 'InvalidBytes',
+			inputs: [{ type: 'bytes' as const, name: 'data' }],
+		},
 	] as const
 
 	describe('encodeErrorResult', () => {
@@ -183,6 +193,40 @@ describe('abiErrorEncoding', () => {
 
 			expect(decoded.errorName).toBe('Unauthorized')
 			expect(decoded.args[0]).toBe(address)
+		})
+
+		it('should roundtrip encode and decode InvalidData (bytes32)', () => {
+			const dataHash = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
+			const encoded = encodeErrorResult({
+				abi: testAbi,
+				errorName: 'InvalidData',
+				args: [dataHash],
+			})
+
+			const decoded = decodeErrorResult({
+				abi: testAbi,
+				data: encoded,
+			})
+
+			expect(decoded.errorName).toBe('InvalidData')
+			expect((decoded.args[0] as string).toLowerCase()).toBe(dataHash.toLowerCase())
+		})
+
+		it('should roundtrip encode and decode InvalidBytes (dynamic bytes)', () => {
+			const bytesData = '0xdeadbeef'
+			const encoded = encodeErrorResult({
+				abi: testAbi,
+				errorName: 'InvalidBytes',
+				args: [bytesData],
+			})
+
+			const decoded = decodeErrorResult({
+				abi: testAbi,
+				data: encoded,
+			})
+
+			expect(decoded.errorName).toBe('InvalidBytes')
+			expect((decoded.args[0] as string).toLowerCase()).toBe(bytesData.toLowerCase())
 		})
 	})
 })
