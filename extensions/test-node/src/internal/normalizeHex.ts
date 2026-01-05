@@ -1,4 +1,4 @@
-import type { Hex } from 'viem'
+import type { Hex } from '@tevm/utils'
 
 /**
  * Normalizes a hex string to lowercase for consistent cache key generation.

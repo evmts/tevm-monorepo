@@ -51,7 +51,7 @@ export type RpcBlockNumber = Quantity
  */
 export type RpcBlockIdentifier =
 	| { blockNumber: Quantity }
-	| { blockHash: Hex; requireCanonical?: boolean }
+	| { blockHash: Hex; requireCanonical?: boolean | undefined }
 
 /**
  * JSON-RPC authorization for EIP-7702 transactions.
