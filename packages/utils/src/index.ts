@@ -144,11 +144,14 @@ export type { MemoryDb } from './MemoryDb.js'
 export * from './prefundedAccounts.js'
 export {
 	hashMessage,
+	hashTypedData,
 	recoverAddress,
 	recoverMessageAddress,
 	recoverPublicKey,
 	signMessage,
+	signTypedData,
 	verifyMessage,
+	verifyTypedData,
 } from './signature.js'
 export {
 	boolToBytes,
@@ -188,13 +191,20 @@ export {
 	isBytes,
 	isHex,
 	keccak256,
-	mnemonicToAccount,
+	// Native account implementations (recommended - no viem dependency)
 	nativePrivateKeyToAccount,
 	nativeHdAccount,
 	nativeMnemonicToAccount,
-	privateKeyToAccount,
-	privateKeyToAddress,
 	generatePrivateKey,
+	privateKeyToAddress,
+	/**
+	 * @deprecated Use nativeMnemonicToAccount instead - provides identical API with no viem dependency
+	 */
+	mnemonicToAccount,
+	/**
+	 * @deprecated Use nativePrivateKeyToAccount instead - provides identical API with no viem dependency
+	 */
+	privateKeyToAccount,
 	numberToBytes,
 	numberToHex,
 	parseAbi,
@@ -221,6 +231,13 @@ export {
 	http,
 	webSocket,
 } from './viem.js'
+// Native fork RPC client - provides viem-compatible API without viem dependency
+export { createForkRpcClient } from './createForkRpcClient.js'
+export type { ForkRpcClient, ProofResult, StorageProofEntry } from './fork-rpc-types.js'
+// Native HTTP transport - provides viem-compatible http() API without viem dependency
+export { nativeHttp } from './nativeHttp.js'
+// Native WebSocket transport - provides viem-compatible webSocket() API without viem dependency
+export { nativeWebSocket } from './nativeWebSocket.js'
 // Native provider types for fork client compatibility (migrated from viem)
 export type {
 	EIP1193RequestFn,
