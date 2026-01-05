@@ -11,7 +11,7 @@ import {
 	isEOACode7702AuthorizationList,
 } from './eip7702.js'
 import { hexToBytes, bytesToHex } from './viem.js'
-import { secp256k1 } from '@noble/curves/secp256k1.js'
+import { Secp256k1 } from '@tevm/voltaire/Secp256k1'
 
 // Test private key (DO NOT USE IN PRODUCTION)
 const testPrivateKey = hexToBytes('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80')
@@ -213,11 +213,68 @@ describe('EIP-7702 utilities', () => {
 			let customSignCalled = false
 			const customSign = (msgHash: Uint8Array, privateKey: Uint8Array) => {
 				customSignCalled = true
-				return secp256k1.sign(msgHash, privateKey)
+				// Use voltaire's Secp256k1.signHash which returns { r, s, v }
+				const sig = Secp256k1.signHash(msgHash, privateKey)
+				// Convert to the format expected by eip7702: { recovery, r, s }
+				// where recovery is 0 or 1 (v - 27), and r, s are bigints
+				return {
+					recovery: sig.v - 27,
+					r: BigInt(bytesToHex(sig.r)),
+					s: BigInt(bytesToHex(sig.s)),
+				}
 			}
 
 			eoaCode7702SignAuthorization(jsonInput, testPrivateKey, customSign)
 			expect(customSignCalled).toBe(true)
+		})
+
+		it('should handle custom signing function returning 65-byte Uint8Array', () => {
+			const jsonInput = {
+				chainId: '0x01' as const,
+				address: '0x1234567890123456789012345678901234567890' as const,
+				nonce: '0x00' as const,
+			}
+
+			// Custom sign function that returns 65-byte signature (recovery byte at position 0)
+			const customSign = (msgHash: Uint8Array, privateKey: Uint8Array) => {
+				const sig = Secp256k1.signHash(msgHash, privateKey)
+				// Create 65-byte format: [recovery, r(32), s(32)]
+				const result = new Uint8Array(65)
+				result[0] = sig.v - 27 // recovery value (0 or 1)
+				result.set(sig.r, 1)
+				result.set(sig.s, 33)
+				return result
+			}
+
+			const signed = eoaCode7702SignAuthorization(jsonInput, testPrivateKey, customSign)
+			expect(signed).toHaveLength(6)
+			// Verify signature components exist
+			expect(signed[4].length).toBeGreaterThan(0) // r
+			expect(signed[5].length).toBeGreaterThan(0) // s
+		})
+
+		it('should handle custom signing function returning 64-byte Uint8Array', () => {
+			const jsonInput = {
+				chainId: '0x01' as const,
+				address: '0x1234567890123456789012345678901234567890' as const,
+				nonce: '0x00' as const,
+			}
+
+			// Custom sign function that returns 64-byte compact signature (r || s)
+			const customSign = (msgHash: Uint8Array, privateKey: Uint8Array) => {
+				const sig = Secp256k1.signHash(msgHash, privateKey)
+				// Create 64-byte compact format: [r(32), s(32)]
+				const result = new Uint8Array(64)
+				result.set(sig.r, 0)
+				result.set(sig.s, 32)
+				return result
+			}
+
+			const signed = eoaCode7702SignAuthorization(jsonInput, testPrivateKey, customSign)
+			expect(signed).toHaveLength(6)
+			// Verify signature components exist
+			expect(signed[4].length).toBeGreaterThan(0) // r
+			expect(signed[5].length).toBeGreaterThan(0) // s
 		})
 	})
 
