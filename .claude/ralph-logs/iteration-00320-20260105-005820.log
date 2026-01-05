@@ -1,0 +1,39 @@
+# Ralph Migration Log - Iteration 320
+## Date: 2026-01-05 00:58
+
+## Summary
+Migrated mainnet.js preset from viem/chains dependency to nativeDefineChain. This removes viem/chains from one of the most commonly used chain presets.
+
+## Actions Taken
+1. Updated `packages/common/src/presets/mainnet.js`:
+   - Replaced `import { mainnet as _mainnet } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+   - Created native chain definition inline with all properties:
+     - id: 1
+     - name: 'Ethereum'
+     - nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 }
+     - blockTime: 12000
+     - rpcUrls: { default: { http: ['https://eth.merkle.io'] } }
+     - blockExplorers: { default: { name: 'Etherscan', url: 'https://etherscan.io', apiUrl: '...' } }
+     - contracts: { ensUniversalResolver, multicall3 }
+   - Used nativeDefineChain() instead of viem's chain object
+
+## Files Modified
+1. `packages/common/src/presets/mainnet.js`
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped
+- Types build successfully with `pnpm nx run @tevm/common:build:types`
+
+## Impact
+- **Removed viem/chains dependency**: mainnet.js no longer imports from viem/chains
+- **Backwards compatible**: The chain configuration remains functionally identical
+- **High-priority chain migrated**: Ethereum mainnet is one of the most commonly used chains
+
+## Remaining viem/chains Imports
+- ~336 other preset files still import from viem/chains
+- Next high-priority presets to migrate: optimism.js, sepolia.js, arbitrum.js, base.js
+
+## Next Steps
+1. Continue migrating high-priority chain presets (optimism, sepolia, arbitrum, base)
+2. Consider creating a batch migration script for remaining presets
+3. The pattern is now well-established for future migrations
