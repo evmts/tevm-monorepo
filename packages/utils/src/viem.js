@@ -3,24 +3,30 @@
 // Migration status (using @tevm/voltaire):
 // ✅ COMPLETED: ABI encoding/decoding (encodeAbiParameters, decodeAbiParameters, encodeFunctionData, etc.)
 // ✅ COMPLETED: All utility functions (hex conversions, RLP, keccak256, etc.)
-// ✅ COMPLETED: formatAbi (native implementation)
-// 🔄 REMAINING: parseAbi (from abitype - complex human-readable ABI parser)
-// 🔄 REMAINING: mnemonicToAccount/privateKeyToAccount (viem account objects with signing methods)
+// ✅ COMPLETED: nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount (viem-compatible accounts)
+// 🔄 DEPRECATED: mnemonicToAccount/privateKeyToAccount (use native versions instead)
+// 🔄 REMAINING: parseAbi, formatAbi (from abitype - complex type-level transformations)
 // 🔄 REMAINING: Transport/client functions for forking (createPublicClient, http, etc.)
 //
-// Note: abitype and viem/accounts are kept as they provide complex functionality
-// that would require significant effort to replicate without clear benefit.
+// Note: Transport/client functions from viem are required for RPC communication with external nodes.
+// parseAbi and formatAbi from abitype are kept for type-safe ABI parsing/formatting.
 
-// ABI formatting - native implementation
-export { formatAbi } from './formatAbi.js'
+// ABI parsing and formatting from abitype
+// These use type-level transformations that preserve literal types
+export { parseAbi, formatAbi } from 'abitype'
 
-// ABI parsing from abitype (human-readable ABI -> JSON ABI)
-export { parseAbi } from 'abitype'
-
-// Account creation from viem (HD wallet derivation, signing methods)
+/**
+ * @deprecated Use nativeMnemonicToAccount or nativePrivateKeyToAccount instead.
+ * These native implementations provide full viem compatibility with no viem dependency.
+ * Example migration:
+ *   Before: import { mnemonicToAccount, privateKeyToAccount } from '@tevm/utils'
+ *   After:  import { nativeMnemonicToAccount, nativePrivateKeyToAccount } from '@tevm/utils'
+ * These viem re-exports will be removed in a future version.
+ */
 export { mnemonicToAccount, privateKeyToAccount } from 'viem/accounts'
 
 /**
+ * @deprecated Use NativePrivateKeyAccount from './account-types.js' instead.
  * Re-export viem's PrivateKeyAccount type for account management.
  * @typedef {import('viem/accounts').PrivateKeyAccount} PrivateKeyAccount
  */
@@ -45,19 +51,29 @@ import { hash as keccak256Hash } from '@tevm/voltaire/Keccak256'
  * Convert bytes to hex string.
  * Native implementation that matches viem's bytesToHex API.
  * @param {Uint8Array} bytes - The bytes to convert
+ * @param {Object} [opts] - Options
+ * @param {number} [opts.size] - Size in bytes (pads with leading zeros)
  * @returns {import('./hex-types.js').Hex} The hex string (e.g., '0x1234')
  * @example
  * ```javascript
  * import { bytesToHex } from '@tevm/utils'
  * const bytes = new Uint8Array([0x12, 0x34])
  * const hex = bytesToHex(bytes) // '0x1234'
+ * const padded = bytesToHex(bytes, { size: 32 }) // '0x0000...001234'
  * ```
  */
-export function bytesToHex(bytes) {
+export function bytesToHex(bytes, opts) {
 	let hex = '0x'
 	for (let i = 0; i < bytes.length; i++) {
 		const byte = /** @type {number} */ (bytes[i])
 		hex += byte.toString(16).padStart(2, '0')
+	}
+	// Pad with leading zeros if size is specified
+	if (opts?.size) {
+		const targetLength = opts.size * 2 + 2 // size in bytes * 2 hex chars per byte + '0x' prefix
+		if (hex.length < targetLength) {
+			hex = '0x' + hex.slice(2).padStart(targetLength - 2, '0')
+		}
 	}
 	return /** @type {import('./hex-types.js').Hex} */ (hex)
 }
@@ -112,6 +128,8 @@ export function hexToBigInt(hex, opts) {
  * Convert hex string to bytes.
  * Native implementation that matches viem's hexToBytes API.
  * @param {import('./hex-types.js').Hex} hex - The hex string to convert (must start with '0x')
+ * @param {Object} [opts] - Options
+ * @param {number} [opts.size] - Size in bytes (pads with leading zeros or truncates)
  * @returns {Uint8Array} The byte array
  * @throws {Error} If the hex string is invalid
  * @example
@@ -119,15 +137,19 @@ export function hexToBigInt(hex, opts) {
  * import { hexToBytes } from '@tevm/utils'
  * const hex = '0x1234'
  * const bytes = hexToBytes(hex) // Uint8Array([0x12, 0x34])
+ * const padded = hexToBytes('0x1234', { size: 4 }) // Uint8Array([0x00, 0x00, 0x12, 0x34])
  * ```
  */
-export function hexToBytes(hex) {
+export function hexToBytes(hex, opts) {
 	if (typeof hex !== 'string' || !hex.startsWith('0x')) {
 		throw new Error(`Invalid hex value: ${hex}`)
 	}
 	const hexDigits = hex.slice(2)
 	// Handle empty hex string '0x'
 	if (hexDigits.length === 0) {
+		if (opts?.size) {
+			return new Uint8Array(opts.size)
+		}
 		return new Uint8Array(0)
 	}
 	// Pad odd-length hex strings (viem allows this)
@@ -142,6 +164,19 @@ export function hexToBytes(hex) {
 			throw new Error(`Invalid hex character in: ${hex}`)
 		}
 		bytes[i / 2] = high * 16 + low
+	}
+	// Handle size option - pad or truncate
+	if (opts?.size) {
+		if (bytes.length > opts.size) {
+			// Truncate from the right (keep last size bytes)
+			return bytes.subarray(bytes.length - opts.size)
+		}
+		if (bytes.length < opts.size) {
+			// Pad with leading zeros
+			const result = new Uint8Array(opts.size)
+			result.set(bytes, opts.size - bytes.length)
+			return result
+		}
 	}
 	return bytes
 }
@@ -796,9 +831,21 @@ export function parseUnits(value, decimals) {
  * Compute Keccak-256 hash.
  * Native implementation that matches viem's keccak256 API.
  * Uses @noble/hashes for the underlying implementation (same as voltaire).
+ * @overload
+ * @param {Uint8Array | import('./hex-types.js').Hex} value - The value to hash (bytes or hex string)
+ * @param {'hex'} [to] - Output format: 'hex' returns Hex string
+ * @returns {import('./hex-types.js').Hex} The Keccak-256 hash as hex string
+ */
+/**
+ * @overload
+ * @param {Uint8Array | import('./hex-types.js').Hex} value - The value to hash (bytes or hex string)
+ * @param {'bytes'} to - Output format: 'bytes' returns Uint8Array
+ * @returns {Uint8Array} The Keccak-256 hash as bytes
+ */
+/**
  * @param {Uint8Array | import('./hex-types.js').Hex} value - The value to hash (bytes or hex string)
  * @param {'bytes' | 'hex'} [to='hex'] - Output format: 'hex' returns Hex string, 'bytes' returns Uint8Array
- * @returns {import('./hex-types.js').Hex} The Keccak-256 hash (returns Hex by default, Uint8Array if to='bytes')
+ * @returns {import('./hex-types.js').Hex | Uint8Array} The Keccak-256 hash
  * @example
  * ```javascript
  * import { keccak256 } from '@tevm/utils'
@@ -816,7 +863,7 @@ export function keccak256(value, to = 'hex') {
 	// Hash using @tevm/voltaire
 	const hash = keccak256Hash(bytes)
 	// Return in requested format
-	return /** @type {import('./hex-types.js').Hex} */ (to === 'bytes' ? hash : bytesToHex(hash))
+	return /** @type {import('./hex-types.js').Hex | Uint8Array} */ (to === 'bytes' ? hash : bytesToHex(hash))
 }
 
 /**
@@ -2091,8 +2138,21 @@ export {
 	ContractFunctionZeroDataError,
 } from '@tevm/errors'
 
-// Transport and client creation functions re-exported from viem
-// These are used for fork client creation in state package
+/**
+ * @deprecated These transport/client functions are re-exported from viem.
+ * For new code, prefer using native alternatives:
+ * - nativeHttp() instead of http() - provides identical API without viem dependency
+ * - nativeWebSocket() instead of webSocket() - provides identical API without viem dependency
+ * - nativeCustom() instead of custom() - provides identical API without viem dependency
+ * - nativeDefineChain() instead of defineChain() - provides identical API without viem dependency
+ * - createForkRpcClient() instead of createPublicClient() - for fork state management
+ *
+ * Example migration:
+ *   Before: import { http, defineChain } from '@tevm/utils'
+ *   After:  import { nativeHttp, nativeDefineChain } from '@tevm/utils'
+ *
+ * These exports will be removed in a future version.
+ */
 export {
 	createPublicClient,
 	createTransport,
@@ -2101,6 +2161,12 @@ export {
 	http,
 	webSocket,
 } from 'viem'
+
+// Native transport implementations - preferred over deprecated viem exports above
+export { nativeHttp } from './nativeHttp.js'
+export { nativeWebSocket } from './nativeWebSocket.js'
+export { nativeCustom } from './nativeCustom.js'
+export { nativeDefineChain } from './nativeDefineChain.js'
 
 /**
  * Re-export viem's EIP1193RequestFn type for fork transport compatibility.
