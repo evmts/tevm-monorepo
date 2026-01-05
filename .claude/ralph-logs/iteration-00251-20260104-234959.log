@@ -1,0 +1,17 @@
+The remaining references are just comments, not actual imports. The migration is clean.
+
+## Summary
+
+**Iteration 305 Complete**
+
+Migrated `packages/utils/src/ecrecover.spec.ts` to use `@tevm/voltaire/Secp256k1` instead of directly importing `@noble/curves/secp256k1`. 
+
+**Change made:**
+- Replaced `const { secp256k1 } = await import('@noble/curves/secp256k1.js')` with `const Secp256k1 = await import('@tevm/voltaire/Secp256k1')`
+- Replaced `secp256k1.getPublicKey(privateKey, false).slice(1)` with `Secp256k1.derivePublicKey(privateKey)`
+
+**Results:**
+- All 7 tests in ecrecover.spec.ts pass
+- Commit created: `⚡ refactor(utils): migrate ecrecover.spec.ts to use @tevm/voltaire/Secp256k1`
+
+The core package migration remains complete. All remaining @noble references in the codebase are now just documentation comments.

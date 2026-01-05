@@ -1,0 +1,8 @@
+Good progress. Migrated 9 chain presets from viem/chains to nativeDefineChain:
+- flare.js, flareTestnet.js, flowMainnet.js, flowPreviewnet.js, flowTestnet.js
+- fluence.js, fluenceStage.js, fluenceTestnet.js, forma.js
+
+**Migration Status:**
+- Total migrated: ~145 presets
+- Remaining: 199 presets (~58% remaining)
+- Tests passing

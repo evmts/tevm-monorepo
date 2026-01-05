@@ -1,0 +1,13 @@
+Successfully migrated optimism.js preset from viem/chains to nativeDefineChain.
+
+## Summary
+
+**Iteration 321 Complete**
+
+Migrated `packages/common/src/presets/optimism.js`:
+- Replaced `import { optimism as _optimism } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+- Inlined all Optimism chain configuration including L2 contracts (gasPriceOracle, l1Block, l2CrossDomainMessenger, l2Erc721Bridge, l2StandardBridge, l2ToL1MessagePasser, multicall3)
+
+**Tests verified:** createCommon.spec.ts passes (10 passed, 1 skipped), types build successfully
+
+**Progress:** 2 chain presets migrated (mainnet, optimism), ~332 remaining

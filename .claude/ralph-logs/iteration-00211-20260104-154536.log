@@ -1,0 +1,74 @@
+# Ralph Migration Log - Iteration 211
+## Date: 2026-01-04 15:45:36
+
+## Summary
+Migrated the `signMessage` function in `signature.js` from viem/accounts to the native `nativePrivateKeyToAccount` implementation, eliminating a runtime dependency on viem for signature generation.
+
+## Changes Made
+
+### 1. Updated signature.js
+File: `packages/utils/src/signature.js`
+
+**Before:**
+```javascript
+export async function signMessage({ privateKey, message }) {
+    // Import viem's signMessage function directly
+    const { signMessage: viemSignMessage } = await import('viem/accounts')
+    const signature = await viemSignMessage({ privateKey, message })
+    ...
+}
+```
+
+**After:**
+```javascript
+export async function signMessage({ privateKey, message }) {
+    // Use native implementation via nativePrivateKeyToAccount
+    const { nativePrivateKeyToAccount } = await import('./nativePrivateKeyToAccount.js')
+    const account = nativePrivateKeyToAccount(privateKey)
+    const signature = await account.signMessage({ message })
+    ...
+}
+```
+
+The change:
+- Removed dynamic import of `viem/accounts`
+- Uses native `nativePrivateKeyToAccount` which uses @tevm/voltaire for secp256k1 signing
+- Same output format maintained (r, s, v, yParity)
+
+## Test Results
+- signature.spec.ts - 23 tests pass
+
+All tests pass including:
+- recoverPublicKey tests
+- recoverAddress tests
+- hashMessage tests
+- recoverMessageAddress tests
+- verifyMessage tests
+- signMessage tests (deterministic signatures, correct format)
+- Edge case tests
+
+## Migration Progress
+
+### Viem Imports Eliminated This Session:
+- ❌ `signMessage` from `viem/accounts` (dynamic import) → ✅ Native via `nativePrivateKeyToAccount`
+
+### Remaining Viem Re-exports in utils/viem.js:
+1. Account functions (re-exports for backwards compatibility):
+   - `mnemonicToAccount` from viem/accounts
+   - `privateKeyToAccount` from viem/accounts
+
+2. Transport/client functions (needed for forking):
+   - `createPublicClient`, `createTransport`, `custom`, `defineChain`, `http`, `webSocket`
+
+### Native Implementations Now Available:
+- ✅ `nativePrivateKeyToAccount` - Full signing support using voltaire
+- ✅ `nativeMnemonicToAccount` - Full HD derivation + signing (source: 'mnemonic')
+- ✅ `nativeHdAccount` - Full HD derivation + signing (source: 'hd')
+- ✅ `signMessage` (in signature.js) - Now uses native implementation
+- ✅ `recoverPublicKey`, `recoverAddress`, `recoverMessageAddress` - Native via ecrecover.js
+- ✅ `verifyMessage` - Native using the above functions
+
+## Next Steps
+1. Look for other viem/accounts dynamic imports that could be migrated
+2. Consider if any transport/client functionality can be abstracted
+3. Continue monitoring core packages for any remaining direct viem imports

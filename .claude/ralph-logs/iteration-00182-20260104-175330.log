@@ -1,0 +1,19 @@
+The iteration is complete. Here's a summary of what I found:
+
+## Iteration 235 Summary
+
+**Status**: The core voltaire migration is complete. All cryptographic primitives (keccak256, secp256k1, ecrecover, signature verification) in the core packages have been migrated from viem/ethereumjs to @tevm/voltaire.
+
+**Test Results**:
+- Utils Package: 607 tests passed
+- EVM Package: 14 tests passed  
+- Block Package: 2 tests passed
+- Signature tests: 31 tests passed
+
+**Remaining viem/ethereumjs usage is intentional**:
+1. **memory-client** - IS a viem-compatible client by design
+2. **Transport functions** - Required for forking from remote nodes
+3. **Chain presets** - Auto-generated data from viem/chains (low value to migrate)
+4. **@scure/bip32/bip39** - HD wallet derivation (voltaire wraps same libs with async FFI)
+
+**Next Phase**: Guillotine-mini EVM integration for full bytecode execution. The current Evm.js adapter handles value transfers only - full smart contract execution requires integrating the Zig-based guillotine-mini implementation.

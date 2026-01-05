@@ -1,0 +1,18 @@
+Successfully migrated **avalanche.js** preset from viem/chains to nativeDefineChain.
+
+## Iteration 326 Summary
+
+**Migrated**: `packages/common/src/presets/avalanche.js`
+
+**Changes**:
+- Replaced `import { avalanche as _avalanche } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+- Added inline chain definition with:
+  - Chain ID: 43114
+  - Native currency: AVAX
+  - RPC URL: https://api.avax.network/ext/bc/C/rpc
+  - Block explorer: Snowtrace
+  - Multicall3 contract
+
+**Tests**: All 10 tests passed (1 skipped)
+
+**Progress**: 7 high-priority chain presets migrated, 328 remaining

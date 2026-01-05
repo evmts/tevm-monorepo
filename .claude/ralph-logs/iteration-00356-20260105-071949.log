@@ -1,0 +1,26 @@
+## Summary
+
+Successfully completed iteration 730 of the viem migration:
+
+**Added to @tevm/utils:**
+- `TestActions` type - A comprehensive interface for test client actions (mine, setBalance, impersonateAccount, snapshot, etc.) compatible with viem's TestActions
+
+**Migrated 13 spec files:**
+Changed `import type { TestActions } from 'viem'` to `import type { TestActions } from '@tevm/utils'` in:
+- increaseTime.spec.ts
+- impersonateAccount.spec.ts
+- removeBlockTimestampInterval.spec.ts
+- setBalance.spec.ts
+- setBlockTimestampInterval.spec.ts
+- setCode.spec.ts
+- setCoinbase.spec.ts
+- setNextBlockTimestamp.spec.ts
+- setNonce.spec.ts
+- setRpcUrl.spec.ts
+- setStorageAt.spec.ts
+- snapshot.spec.ts
+- stopImpersonatingAccount.spec.ts
+
+**Test Results:**
+- All migrated tests pass
+- 2 pre-existing failures unrelated to this migration (hex padding and snapshot comparison issues)

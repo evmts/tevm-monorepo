@@ -1,0 +1,21 @@
+## Summary
+
+In this iteration, I created a native `createForkRpcClient` adapter that provides viem-compatible API without requiring viem as a dependency:
+
+### New Files Created:
+1. **`packages/utils/src/createForkRpcClient.js`** - Native implementation that wraps any EIP-1193 compliant request function and provides:
+   - `getBytecode()` → eth_getCode
+   - `getStorageAt()` → eth_getStorageAt  
+   - `getProof()` → eth_getProof
+
+2. **`packages/utils/src/createForkRpcClient.spec.ts`** - 9 comprehensive tests
+
+3. **`packages/utils/src/fork-rpc-types.ts`** - TypeScript types (`ForkRpcClient`, `ProofResult`, `StorageProofEntry`)
+
+### Test Results:
+- All 9 new tests pass
+- Existing viem.spec.ts (253 tests) passes
+- Typecheck passes
+
+### Purpose:
+This is a stepping stone for migrating `@tevm/state`'s fork client from viem's `createPublicClient` to a native implementation using voltaire's HttpProvider. The next step would be to actually modify `getForkClient.js` to use this new adapter instead of viem.

@@ -1,0 +1,37 @@
+# Ralph Migration Log - Iteration 721
+## Date: 2026-01-05
+
+## Task: Add tests for native cache implementations
+
+## Changes Made
+1. Created `packages/utils/src/AccountCache.spec.ts` with 24 tests
+2. Created `packages/utils/src/StorageCache.spec.ts` with 28 tests
+
+## Test Coverage
+### AccountCache tests cover:
+- Basic operations (put, get, delete, clear, size)
+- Checkpoint/revert/commit functionality
+- Nested checkpoints
+- Flush operation
+- Stats tracking
+- Both LRU and ORDERED_MAP cache types
+- Storing undefined accounts
+
+### StorageCache tests cover:
+- Basic operations (put, get, delete, clearStorage, clear, size)
+- Checkpoint/revert/commit functionality
+- Nested checkpoints
+- Flush operation
+- Stats tracking
+- Dump operation
+- Both LRU and ORDERED_MAP cache types
+
+## Test Results
+- AccountCache: 24 tests passing
+- StorageCache: 28 tests passing
+- Total new tests: 52
+
+## Notes
+- Fixed import to use `createAddressFromString` instead of `createAddress`
+- Both cache implementations use bytesToUnprefixedHex for address/key conversion
+- Cache implementations are migrated from @ethereumjs/statemanager

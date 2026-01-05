@@ -1,0 +1,91 @@
+# Ralph Migration Log - Iteration 214
+## Date: 2026-01-04 15:58:35
+
+## Summary
+Fixed multiple type errors related to the keccak256 and hexToBytes API changes, plus updated imports to use `_BYTES` versions of constants.
+
+## Changes Made
+
+### 1. Fixed keccak256 return type with JSDoc overloads
+File: `packages/utils/src/viem.js`
+
+Added proper JSDoc overloads so `keccak256(value, 'bytes')` returns `Uint8Array` and `keccak256(value, 'hex')` returns `Hex`.
+
+### 2. Added size option to hexToBytes
+File: `packages/utils/src/viem.js`
+
+Added `opts.size` parameter to `hexToBytes()` to support padding/truncating to a specific byte size, matching viem's API.
+
+### 3. Updated block.ts to use _BYTES constants
+File: `packages/block/src/block.ts`
+
+Changed imports from `KECCAK256_RLP` and `KECCAK256_RLP_ARRAY` to `KECCAK256_RLP_BYTES` and `KECCAK256_RLP_ARRAY_BYTES` for use with `equalsBytes()`.
+
+### 4. Fixed unused import in header.ts
+File: `packages/block/src/header.ts`
+
+Removed unused `KECCAK256_RLP` import.
+
+### 5. Fixed createJsonRpcFetcher type error
+File: `packages/jsonrpc/src/createJsonRpcFetcher.js`
+
+Added type cast to fix `EIP1193RequestFn` parameter type compatibility.
+
+### 6. Fixed WithdrawalData type compatibility in block.ts
+File: `packages/block/src/block.ts`
+
+Added type cast for address conversion from `AddressLike` to withdrawal-compatible format.
+
+## Test Results
+- `@tevm/utils` viem.spec.ts - 253 tests pass
+- `@tevm/address` - 16 tests pass
+- All native account tests continue to pass
+
+## Current Migration Status
+
+### Core Packages - Clean of Direct Viem Imports:
+- `@tevm/actions` - No direct viem imports
+- `@tevm/vm` - No direct viem imports
+- `@tevm/evm` - No direct viem imports
+- `@tevm/state` - No direct viem imports
+- `@tevm/node` - No direct viem imports
+
+### Native Implementations Completed:
+1. `nativePrivateKeyToAccount.js` - Native account from private key using voltaire
+2. `nativeMnemonicToAccount.js` - Native account from mnemonic using @scure/bip39, @scure/bip32, and voltaire
+3. `nativeHdAccount.js` - Native HD account compatible with viem's HDAccount type
+4. `privateKeyToAddress.js` - Native private key to address using voltaire
+5. `generatePrivateKey.js` - Native random private key generation
+6. `signature.js` - Native signing functions using nativePrivateKeyToAccount
+7. `eip7702.js` - Native EIP-7702 implementation using voltaire Secp256k1
+8. `ecrecover.js` - Native ecrecover using voltaire Secp256k1
+9. `keccak256` - Uses voltaire Keccak256 with proper JSDoc overloads
+10. `hexToBytes` - Native implementation with size option support
+
+### Remaining Viem Re-exports (for backwards compatibility):
+1. Account functions in `utils/viem.js`:
+   - `mnemonicToAccount` from viem/accounts
+   - `privateKeyToAccount` from viem/accounts
+
+2. Transport/client functions (needed for forking):
+   - `createPublicClient`, `createTransport`, `custom`, `defineChain`, `http`, `webSocket`
+
+3. ABI parsing (complex to replace):
+   - `parseAbi` from abitype
+
+### Remaining EthereumJS Dependencies:
+1. `@tevm/tx` - Uses `@ethereumjs/tx` for FeeMarket1559Tx
+2. `@tevm/common` - Uses `@ethereumjs/common` for Common type
+3. `@tevm/trie` - Uses `@ethereumjs/trie` for Trie
+
+### Pre-existing Type Issues (not migration-related):
+- `@tevm/contract` spec files have type issues with WriteActionCreator, ReadActionCreator, and events
+
+## Notes
+The core packages are fully migrated to use native implementations where possible.
+This iteration focused on fixing type compatibility issues that emerged from the voltaire migration.
+
+## Next Steps
+1. The pre-existing type issues in @tevm/contract could be addressed separately
+2. Consider adding more tests for the hexToBytes size option
+3. Look for additional migration opportunities in utility functions

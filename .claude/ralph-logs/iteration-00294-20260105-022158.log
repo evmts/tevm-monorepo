@@ -1,0 +1,11 @@
+Successfully migrated 5 more chain presets from `viem/chains` to `nativeDefineChain`:
+
+1. **kcc.js** (id: 321) - KCC Mainnet with KCS native currency
+2. **klaytn.js** (id: 8217) - Klaytn mainnet with KLAY native currency
+3. **klaytnBaobab.js** (id: 1001) - Klaytn Baobab Testnet
+4. **koi.js** (id: 701) - Koi Network with webSocket support
+5. **kroma.js** (id: 255) - Kroma with ETH native currency
+
+**Tests pass**: createCommon.spec.ts: 10 passed, 1 skipped
+
+**Progress**: 158 presets remaining (~47% left to migrate)

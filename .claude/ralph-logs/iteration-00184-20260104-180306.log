@@ -1,0 +1,21 @@
+## Summary
+
+**Iteration 237 Complete**
+
+I investigated migrating `nativeHdAccount.js` from `@scure/bip39` and `@scure/bip32` to voltaire's `Bip39` and `HDWallet` modules.
+
+**Key Finding**: Voltaire's HDWallet module has FFI (native) dependencies bundled into the distribution, causing Node.js errors:
+```
+Error: No native build was found for platform=darwin arch=arm64 runtime=node
+```
+
+The migration was **reverted** because:
+1. Voltaire's `@tevm/voltaire/HDWallet` subpath bundles FFI code (`ffi-napi`, `ref-napi`) even though pure JS functions exist
+2. The @scure libraries that voltaire wraps are already audited and widely used
+3. No real dependency reduction since voltaire uses the same @scure libraries internally
+
+**Migration Status**:
+- Core packages (actions, vm, evm, state, node, block, jsonrpc) have no viem/ethereumjs imports in source files ✅
+- All crypto functions (keccak256, secp256k1, P256) migrated to voltaire ✅
+- HD wallet (@scure/bip39, @scure/bip32) stays as-is due to voltaire bundling issue
+- Remaining viem usage is intentional (deprecated accounts, transport for forking)

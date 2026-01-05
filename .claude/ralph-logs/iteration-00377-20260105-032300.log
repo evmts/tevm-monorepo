@@ -1,0 +1,35 @@
+# Ralph Migration Log - Iteration 377
+## Date: 2026-01-05 03:23
+
+## Summary
+Migrated 3 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **songbirdTestnet.js** (id: 16) - Songbird Testnet Coston (Flare's canary testnet) with CFLR native currency, explorer API support
+2. **sophonTestnet.js** (id: 531050104) - Sophon Testnet with SOPH native currency, WebSocket support, multicall3 contract at 0x83c04d112adedA2C6D9037bb6ecb42E7f0b108Af
+3. **spicy.js** (id: 88882) - Chiliz Spicy Testnet with CHZ native currency, multiple RPC endpoints including publicnode.com fallback, WebSocket support
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Previously migrated**: ~297 (from iteration 376)
+- **Migrated this session**: 3
+- **Total migrated**: ~300
+- **Remaining**: 44 (~13% remaining, excluding generator script)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Sophon is a ZK-Sync based chain (has custom formatters in viem) but we only need basic chain info
+- Spicy (Chiliz testnet) has good RPC redundancy with publicnode.com fallbacks
+- Songbird Testnet is "Coston" network, separate from Songbird mainnet
+
+## Next Steps
+Continue migrating remaining chain presets (storyTestnet, stratis, syscoin, etc.).
+44 files remain (~13% remaining).

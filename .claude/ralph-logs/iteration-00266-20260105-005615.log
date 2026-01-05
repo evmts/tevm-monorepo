@@ -1,0 +1,15 @@
+Successfully migrated mainnet.js to use nativeDefineChain. 
+
+## Summary - Iteration 320
+
+**Migrated**: `packages/common/src/presets/mainnet.js` from `viem/chains` to `nativeDefineChain`
+
+**Changes**:
+- Replaced `import { mainnet as _mainnet } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+- Created inline native chain definition with all properties (id, name, nativeCurrency, blockTime, rpcUrls, blockExplorers, contracts)
+
+**Verified**:
+- createCommon.spec.ts: 10 passed, 1 skipped
+- Types build successfully
+
+**Impact**: Ethereum mainnet is one of the most commonly used chains, so this is a high-value migration. About 336 other preset files still need migration, with high-priority targets being optimism.js, sepolia.js, arbitrum.js, and base.js.

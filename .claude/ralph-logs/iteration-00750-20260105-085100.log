@@ -1,0 +1,43 @@
+# Ralph Migration Log - Iteration 750
+## Date: 2026-01-05
+
+## Task: Migrate sendRawTransaction.spec.ts from viem/actions to client methods
+
+## Summary
+
+Successfully migrated packages/memory-client/src/test/viem/sendRawTransaction.spec.ts to use client methods directly instead of importing from viem/actions.
+
+## File Modified
+
+### packages/memory-client/src/test/viem/sendRawTransaction.spec.ts
+
+**Removed:**
+```typescript
+import { prepareTransactionRequest, signTransaction } from 'viem/actions'
+```
+
+**Changed function calls from:**
+- `prepareTransactionRequest(mc, {...})` → `mc.prepareTransactionRequest({...})`
+- `signTransaction(mc, {...})` → `mc.signTransaction({...})`
+
+## Test Results
+
+Test file compiles and runs successfully. The test is marked as `todo` (skipped) due to a pre-existing bug mentioned in comments.
+
+## Analysis
+
+This migration was possible because `createMemoryClient()` returns a `MemoryClient` which extends `Client` with `PublicActions`, `WalletActions`, and `TestActions`. These action methods are available directly on the client instance.
+
+Files using basic `createClient()` from viem cannot be migrated without refactoring - they correctly use the functional pattern `action(client)`.
+
+## Migration Progress
+
+Successfully migrated:
+- extensions/test-matchers/src/matchers/errors/*.spec.ts (3 files) ✅
+- packages/memory-client/src/test/viem/sendRawTransaction.spec.ts ✅
+
+Files that cannot be migrated (use basic createClient):
+- packages/memory-client/src/tevmMine.spec.ts
+- packages/memory-client/src/tevmContractIntegration.spec.ts
+- packages/memory-client/src/tevmForkIntegration.spec.ts
+- packages/memory-client/src/tevmAccountManagement.spec.ts

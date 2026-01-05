@@ -1,0 +1,17 @@
+## Summary - Iteration 186
+
+I added a native `Prettify` utility type to `@tevm/utils` in preparation for migrating imports from `viem/chains`.
+
+**Changes made:**
+1. Created `packages/utils/src/utility-types.ts` with the `Prettify<T>` type (a simple mapped type that flattens TypeScript types for better display)
+2. Added the export to `packages/utils/src/index.ts`
+
+**Migration blocked:**
+The migration of actual imports from `viem/chains` to `@tevm/utils` was blocked because:
+- TypeScript resolves `@tevm/utils` through the generated `types/` directory
+- Type generation fails due to pre-existing voltaire dist issues (strict mode TypeScript errors)
+
+**Current status:**
+- The native `Prettify` type is ready and will be available once the voltaire issues are fixed
+- Core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) remain free of direct viem imports
+- The remaining viem dependencies are intentional integrations (memory-client, common presets, centralized re-exports)

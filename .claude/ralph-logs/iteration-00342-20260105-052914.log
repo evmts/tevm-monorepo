@@ -1,0 +1,18 @@
+I've successfully completed this iteration. Let me summarize what was done:
+
+## Iteration 414 Summary
+
+**Migrated `@tevm/test-node` type imports from viem to @tevm/utils:**
+
+1. **`types.ts`**: Changed `import type { Account, Address, Chain, EIP1193RequestFn, RpcSchema, Transport } from 'viem'` to `from '@tevm/utils'`
+
+2. **`createTestSnapshotClient.ts`**: Changed `import type { Account, Address, Chain, RpcSchema } from 'viem'` to `from '@tevm/utils'`
+
+**Test Results:**
+- The `normalizeUserOperation.spec.ts` test passes (11 tests)
+- Pre-existing type incompatibilities between `@tevm/utils` and `viem` types exist (not introduced by this change)
+- The full test suite has unrelated RPC failures ("Cannot read properties of undefined (reading 'request')")
+
+**Remaining viem references:**
+- Only JSDoc documentation examples that reference `import { http } from 'viem'` in the examples remain
+- All runtime type imports have been migrated

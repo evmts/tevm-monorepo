@@ -1,0 +1,11 @@
+## Iteration 329 Complete
+
+Successfully migrated `zksync.js` preset from viem/chains to use `nativeDefineChain`:
+
+**Changes made:**
+- Replaced `import { zksync as _zksync } from 'viem/chains'` with native chain definition
+- Includes all original properties: chain ID 324, ZKsync Era name, ETH native currency, RPC URLs (HTTP + WebSocket), multiple block explorers (Etherscan + native ZKsync Explorer), contracts (multicall3, erc6492Verifier), and blockTime
+
+**Tests:** 10 passed, 1 skipped
+
+**Migration progress:** 10 chain presets now migrated (mainnet, optimism, sepolia, arbitrum, base, polygon, avalanche, bsc, gnosis, zksync)

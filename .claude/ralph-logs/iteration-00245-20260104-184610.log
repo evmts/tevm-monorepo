@@ -1,0 +1,127 @@
+# Ralph Migration Log - Iteration 245
+## Date: 2026-01-04 18:46:10
+
+## Summary
+Assessed overall migration status. Confirmed all tests passing. No new migration work needed for this iteration - the core migration from viem/ethereumjs to voltaire is substantially complete.
+
+## Tests Run
+All passing:
+- `packages/utils/src/nativePrivateKeyToAccount.spec.ts` - 18 tests passed
+- `packages/utils/src/signature.spec.ts` - 31 tests passed
+- `packages/utils/src/eip7702.spec.ts` - 22 tests passed
+- `packages/evm/src/guillotineWasm.spec.ts` - 24 tests passed
+- `packages/utils/src/Bloom.spec.ts` - 6 tests passed
+- `packages/utils/src/prefundedAccounts.spec.ts` - 1 test passed
+
+## Migration Status (Summary)
+
+### Fully Migrated to Voltaire
+1. **Crypto primitives**:
+   - Keccak256: `@tevm/voltaire/Keccak256`
+   - Secp256k1: `@tevm/voltaire/Secp256k1`
+   - P256: `@tevm/voltaire/P256`
+   - EIP712: `@tevm/voltaire/EIP712`
+   - Hash: `@tevm/voltaire/Hash`
+
+2. **ABI encoding/decoding**:
+   - Using `@tevm/voltaire/Abi` for function/event/error encoding
+   - Using `@tevm/voltaire/Hex` utilities
+
+3. **Account creation** (viem-compatible, no viem dependency):
+   - `nativePrivateKeyToAccount`
+   - `nativeMnemonicToAccount`
+   - `nativeHdAccount`
+   - `PREFUNDED_ACCOUNTS`
+
+4. **Signature/ecrecover**:
+   - Using voltaire's `recoverPublicKeyFromHash`
+   - Native signature utilities
+
+5. **Precompiles**:
+   - p256verify using voltaire/P256
+
+6. **Guillotine-mini WASM**:
+   - Integration working with 24 passing tests
+   - Covers basic opcodes: ADD, MUL, SUB, DIV, MOD, EXP, PUSH, RETURN, REVERT, CALLER, CALLDATASIZE
+
+### Intentionally Kept Dependencies
+
+1. **Viem** (for RPC/transport - cannot remove):
+   - `createPublicClient`, `http`, `webSocket`, `custom`, `defineChain`, `createTransport`
+   - Required for forking to communicate with external nodes
+   - The `memory-client` package IS the viem integration layer
+
+2. **Viem types** (deprecated but kept for compatibility):
+   - `Account`, `HDAccount` from viem (deprecated, native alternatives available)
+   - `mnemonicToAccount`, `privateKeyToAccount` from viem/accounts (deprecated)
+
+3. **@ethereumjs/common**:
+   - Chain configuration and hardfork parameters
+   - Complex to replace - provides fork rules, chain IDs, etc.
+
+4. **@ethereumjs/tx**:
+   - `FeeMarket1559Tx` used as base for ImpersonatedTx
+   - Tightly coupled with ethereumjs transaction types
+
+5. **@ethereumjs/trie**:
+   - Core Merkle Patricia Trie implementation
+   - Voltaire has Zig trie.zig but no JS wrapper yet
+
+6. **@scure/bip39, @scure/bip32**:
+   - Lightweight crypto libraries for HD wallets
+   - Not viem/ethereumjs, so not a migration target
+
+## Next Potential Steps (for future iterations)
+1. Create JS wrapper for voltaire's trie.zig (complex)
+2. Consider native EIP-1559 transaction type to replace ethereumjs/tx
+3. Consider native Common to replace ethereumjs/common
+4. Remove deprecated viem account exports (breaking change - needs deprecation period)
+
+## Files Modified
+None - assessment and verification only
+
+## Status
+The core migration to voltaire is complete for crypto primitives and account handling.
+Remaining viem/ethereumjs dependencies are intentional infrastructure that cannot easily be removed.
+All tests passing. No regressions found.
+
+---
+# UPDATED - Fixed two bugs discovered during assessment
+
+## Issues Fixed
+
+### 1. Missing EvmError export from @tevm/evm
+**Problem**: `EvmError` was exported in the types declaration (`.d.ts`) but not in the actual JavaScript runtime code.
+This caused `defineCall.ts` in precompiles to fail with "EvmError is not a constructor".
+
+**Solution**: Created native `EvmError.js` in packages/evm/src/ with:
+- `EvmError` class matching @ethereumjs/evm's interface
+- `EVMErrorMessage` object with all standard error messages
+- `EVMErrorTypeString` constant
+Exported from packages/evm/src/index.ts
+
+### 2. encodeFunctionResult failing for void functions
+**Problem**: `encodeFunctionResult` in packages/utils/src/abiFunctionEncoding.js didn't handle functions with no outputs (void functions like `set(uint256)`).
+When calling `encodeParameters` with `outputs: []` and `result: undefined`, it would fail.
+
+**Solution**: Added check for void functions in `encodeFunctionResult`:
+```javascript
+// Handle functions with no outputs (void functions)
+if (!fn.outputs || fn.outputs.length === 0) {
+  return '0x'
+}
+```
+
+## Files Modified
+1. `packages/evm/src/EvmError.js` - NEW: Native EvmError implementation
+2. `packages/evm/src/index.ts` - Updated: Export EvmError, EVMErrorMessage, EVMErrorTypeString
+3. `packages/utils/src/abiFunctionEncoding.js` - Updated: Handle void functions in encodeFunctionResult
+4. `packages/precompiles/src/definePrecompile.spec.ts` - Updated: Remove debug logging
+
+## Tests
+All tests passing:
+- `packages/precompiles/src/` - 16 tests passed
+- `packages/utils/src/abiFunctionEncoding.spec.ts` - 15 tests passed
+
+## Migration Progress
+This iteration fixed bugs that were blocking precompiles functionality. The native EvmError implementation removes a runtime dependency on @ethereumjs/evm for error handling.

@@ -1,0 +1,78 @@
+# Ralph Migration Log - Iteration 253
+## Date: 2026-01-04 19:26:00
+
+## Summary
+Fixed critical WASM memory handling bug in guillotine-mini JS wrapper and documented storage API limitations.
+
+## Changes Made
+
+### 1. Fixed executeGuillotine WASM Memory Handling
+The `executeGuillotine` function was passing JavaScript Uint8Arrays directly to WASM functions expecting memory pointers. This caused:
+- Execution appeared to succeed but was actually a no-op
+- Gas tracking returned 0 (execution didn't really happen)
+- Results were incorrect
+
+**Fix**:
+- Added `writeToWasmMemory` and `readFromWasmMemory` helper functions
+- Defined fixed memory layout for execution parameters starting at 64KB
+- Now properly writes data to WASM memory before calling WASM functions
+- Reads output data from WASM memory after execution
+
+### 2. Added Storage Helper Functions
+- `setStorage(evm, address, slot, value)` - Set storage before execution
+- `getStorage(evm, address, slot)` - Get storage value
+
+### 3. Discovered and Documented evm_set_storage Bug
+The `evm_set_storage` WASM function fails with "null function or function signature mismatch" when called before execution. This appears to be related to HashMap memory allocation in WASM. The storage HashMap needs to be "warmed up" by execution (SSTORE) before external access works.
+
+**Workaround**: Use bytecode with SSTORE to populate storage instead of direct `evm_set_storage` calls.
+
+### 4. Added New Tests
+- `should execute SSTORE and consume correct gas` - Verifies SSTORE uses ~22K gas
+- `should execute SLOAD after SSTORE in same execution` - Tests storage read-after-write
+- Skipped test documenting evm_set_storage known bug
+
+## Test Results
+All tests passing:
+- `packages/evm/src/guillotineWasm.spec.ts` - 26 tests passed, 1 skipped
+- `packages/evm/src/createEvm.spec.ts` - 17 tests passed
+
+## Technical Details
+
+### WASM Memory Layout
+```
+MEM_BASE     = 0x10000 (64KB, avoids WASM stack)
+MEM_BYTECODE = MEM_BASE + 0x0000 (up to 24KB)
+MEM_CALLER   = MEM_BASE + 0x6000 (20 bytes)
+MEM_ADDRESS  = MEM_BASE + 0x6020 (20 bytes)
+MEM_VALUE    = MEM_BASE + 0x6040 (32 bytes)
+MEM_CALLDATA = MEM_BASE + 0x6060 (up to 4KB)
+MEM_CHAIN_ID = MEM_BASE + 0x7060 (32 bytes)
+... etc
+```
+
+### Root Cause of Original Bug
+WASM functions like `evm_set_bytecode` expect memory pointer integers, not JavaScript arrays. While the JS-WASM bridge accepts arrays as parameters, it doesn't properly map them to WASM memory for the Zig code to read.
+
+## Known Limitations
+1. **evm_set_storage**: Fails before execution due to HashMap allocation issue in WASM
+2. **Storage pre-population**: Not currently supported; use SSTORE bytecode instead
+3. **Memory management**: Fixed layout means limited bytecode/calldata sizes
+
+## Current Migration State
+
+### Fully Working:
+1. **Bytecode execution**: PUSH, ADD, STOP, SSTORE, SLOAD, MSTORE, RETURN, REVERT, etc.
+2. **Gas tracking**: Accurate gas consumption reported
+3. **Storage during execution**: SSTORE/SLOAD work correctly
+4. **Context opcodes**: CALLER, CALLDATASIZE work correctly
+
+### Known Bugs:
+1. **evm_set_storage**: Crashes before execution
+2. **evm_get_storage**: May have similar issues (untested after this fix)
+
+## Next Steps
+1. Investigate evm_set_storage WASM bug (may need Zig-side fix)
+2. Wire storage callbacks for dynamic StateManager access during execution
+3. Complete output capture for RETURN data
+4. Continue migrating @ethereumjs dependencies

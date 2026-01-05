@@ -1,0 +1,28 @@
+# Ralph Migration Log - Iteration 305
+## Date: 2026-01-04 23:52
+
+## Summary
+Migrated test file to use @tevm/voltaire/Secp256k1 instead of direct @noble/curves import.
+
+## Actions Taken
+1. Identified remaining @noble/curves import in ecrecover.spec.ts
+2. Migrated to use @tevm/voltaire/Secp256k1.derivePublicKey instead of secp256k1.getPublicKey
+3. Verified all tests pass (7/7)
+
+## File Modified
+- packages/utils/src/ecrecover.spec.ts
+  - Changed: `const { secp256k1 } = await import('@noble/curves/secp256k1.js')`
+  - To: `const Secp256k1 = await import('@tevm/voltaire/Secp256k1')`
+  - Changed: `secp256k1.getPublicKey(privateKey, false).slice(1)`
+  - To: `Secp256k1.derivePublicKey(privateKey)` (already returns 64 bytes without prefix)
+
+## Test Results
+- ecrecover.spec.ts: 7 tests passed
+
+## Notes
+- This eliminates a direct @noble/curves import from test code
+- @tevm/voltaire/Secp256k1.derivePublicKey provides the same functionality
+- Voltaire internally uses @noble/curves but this centralizes the dependency
+
+## Migration Status
+Core packages remain fully migrated. This iteration cleaned up a test file dependency.

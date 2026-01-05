@@ -1,0 +1,16 @@
+## Migration Status: COMPLETE
+
+The migration to voltaire and guillotine-mini for core packages is complete. All 115 tests across migration-related files are passing.
+
+**Summary:**
+- **Core packages** (actions, vm, evm, state, node): Zero viem imports
+- **Utils**: Native implementations for all crypto operations via voltaire
+- **EVM**: Guillotine-mini WASM integration functional (26/27 tests pass, 1 known skip)
+
+**Remaining intentional dependencies:**
+- `packages/tx`: Uses @ethereumjs/tx for ImpersonatedTx (extends their tx types)
+- `packages/utils/src/viem.js`: Transport/client functions for RPC compatibility
+- `packages/memory-client`: Designed as a viem wrapper
+- `packages/common/src/presets`: Chain data from viem/chains
+
+The deprecated Account/HDAccount type re-exports in abitype.ts are kept for backwards compatibility but marked deprecated with native alternatives (LocalAccount, NativeHDAccount) already available.

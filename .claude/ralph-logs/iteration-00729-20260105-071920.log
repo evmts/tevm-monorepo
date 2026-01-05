@@ -1,0 +1,44 @@
+# Ralph Migration Log - Iteration 729
+## Date: 2026-01-05
+
+## Task: Add native erc20Abi constant to @tevm/utils and migrate tevmDeal.spec.ts
+
+## Summary
+
+Added a native `erc20Abi` constant to `@tevm/utils` that provides the standard ERC-20 ABI without requiring viem as a dependency. Then migrated `tevmDeal.spec.ts` to use this new export.
+
+## Changes Made
+
+### New file created:
+- `packages/utils/src/erc20Abi.js` - Native ERC-20 ABI constant with full JSDoc documentation
+
+The ABI includes:
+- Events: Approval, Transfer
+- Functions: allowance, approve, balanceOf, decimals, name, symbol, totalSupply, transfer, transferFrom
+
+### Files modified:
+1. `packages/utils/src/index.ts` - Added export for `erc20Abi`
+2. `packages/memory-client/src/tevmDeal.spec.ts` - Changed `import { erc20Abi } from 'viem'` to `import { erc20Abi } from '@tevm/utils'`
+
+## Test Results
+
+- `@tevm/utils:build:types`: PASS
+- `tevmDeal.spec.ts` - "should deal native ETH to an account": PASS
+- Other tests in file: SKIPPED (require missing RPC environment variables for forking)
+
+Note: One test failure (`should deal ERC20 tokens to an account`) is pre-existing and unrelated to this change - it uses `erc20.abi` from TestERC20, not our `erc20Abi`.
+
+## Impact
+
+This migration:
+1. Reduces viem dependency in spec files
+2. Provides a standard ERC-20 ABI for use across the codebase
+3. Follows the same pattern as other native implementations (nativeHttp, nativeWebSocket, etc.)
+
+## Files Still Using erc20Abi from viem
+
+None found after this change (in the spec files checked).
+
+## Notes
+
+The `erc20Abi` constant uses TypeScript's `as const` pattern to preserve the literal types, which is important for type-safe ABI encoding/decoding operations.

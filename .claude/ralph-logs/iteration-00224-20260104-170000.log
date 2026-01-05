@@ -1,0 +1,76 @@
+# Ralph Migration Log - Iteration 224
+## Date: 2026-01-04 17:00:00
+
+## Summary
+Comprehensive migration status verification. Confirmed that all core packages are fully migrated from viem and noble-curves dependencies in production source code. No code changes made - migration is in excellent shape.
+
+## Assessment Results
+
+### Core Packages Status - FULLY MIGRATED
+All of the following packages have NO viem imports in their source code:
+- `@tevm/actions` - 0 viem imports
+- `@tevm/vm` - 0 viem imports (Bloom uses @tevm/utils)
+- `@tevm/evm` - 0 viem imports
+- `@tevm/state` - 0 viem imports
+- `@tevm/node` - 0 viem imports
+- `@tevm/block` - 0 viem imports
+
+### Utils Package Status
+- Bloom class: Uses voltaire's Keccak256
+- Signature functions: Uses voltaire's EIP712 and native ecrecover
+- Native accounts: nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount implemented
+- All 607 utils tests passing
+
+### Remaining viem Dependencies (Intentional/Required)
+
+1. **memory-client package** - Uses viem's Client, PublicActions, TestActions, WalletActions types
+   - Required for viem compatibility layer
+   - Part of the public API that extends viem
+   - Types: Account, Chain, Client, PublicActions, TestActions, WalletActions
+
+2. **utils package** - Exports viem transport functions
+   - createPublicClient, createTransport, custom, defineChain, http, webSocket
+   - Required for RPC communication during forking
+
+3. **Deprecated type re-exports**
+   - Account, HDAccount from viem (marked deprecated)
+   - Native alternatives available: LocalAccount, NativePrivateKeyAccount, NativeHDAccount
+
+### Remaining ethereumjs Dependencies
+
+1. **@ethereumjs/common** in `packages/common/src/createCommon.js`
+   - Core EVM configuration and hardfork definitions
+   - Deep integration with EVM execution
+
+2. **@ethereumjs/tx** FeeMarket1559Tx in `packages/tx/src/createImpersonatedTx.js`
+   - Used for creating impersonated transactions
+   - Voltaire has Transaction.zig with EIP-1559 support but migration requires significant work
+
+3. **@ethereumjs/statemanager** in `packages/state/`
+   - AccountCache, StorageCache types
+   - Core state management functionality
+
+4. **@ethereumjs/trie** in `packages/trie/`
+   - genesisStateRoot, Trie exports
+
+5. **@ethereumjs/vm** Bloom import in generated type files
+   - Source code uses @tevm/utils Bloom
+   - Type declaration files need regeneration
+
+### Noble-curves Status
+Zero noble-curves imports remain in production code:
+- secp256k1 migrated to voltaire's Secp256k1
+- P-256 (p256verify) migrated to voltaire's P256
+
+## Verification Tests
+- Bloom tests: 6/6 passing
+- All utils tests: 607 passing
+
+## No Code Changes
+This iteration was a thorough verification session confirming the migration status is healthy.
+
+## Next Steps for Future Iterations
+1. Consider regenerating type declaration files to fix stale ethereumjs Bloom import
+2. Eventually migrate @ethereumjs/tx usage to voltaire Transaction
+3. Eventually migrate @ethereumjs/common to native chain configuration
+4. Consider removing viem from package.json where it's no longer used in source

@@ -1,0 +1,32 @@
+# Ralph Migration Log - Iteration 342
+## Date: 2026-01-05 01:48
+
+## Summary
+Continued chain preset migration session. Migrated 5 more chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **berachainTestnetbArtio.js** (id: 80084) - Berachain bArtio
+2. **bitTorrent.js** (id: 199) - BitTorrent
+3. **bitTorrentTestnet.js** (id: 1028) - BitTorrent Chain Testnet
+4. **bitkub.js** (id: 96) - KUB Mainnet
+5. **bitkubTestnet.js** (id: 25925) - Bitkub Testnet
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Migrated previously**: ~70
+- **Migrated this session**: 5
+- **Total migrated**: ~75
+- **Remaining**: ~265
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Next Steps
+Continue migrating remaining chain presets. ~265 remain.

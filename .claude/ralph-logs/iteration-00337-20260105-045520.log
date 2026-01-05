@@ -1,0 +1,16 @@
+## Iteration 402 Complete
+
+**Summary:** Added `ExactPartial` utility type to `@tevm/utils` and migrated 2 files in test-node from viem to @tevm/utils.
+
+**New types added:**
+- `ExactPartial<T>` in `packages/utils/src/utility-types.ts` - makes all properties optional and explicitly allows undefined
+
+**Files migrated:**
+1. `extensions/test-node/src/internal/normalizeTx.ts`
+2. `extensions/test-node/src/internal/normalizeTx.spec.ts`
+
+**Test results:** 13 tests passed
+
+**Remaining viem imports in test-node:**
+- `RpcUserOperation` - needed for EIP-4337 user operation normalization
+- `Account`, `Chain`, `RpcSchema` - viem client types still used in types.ts and client files

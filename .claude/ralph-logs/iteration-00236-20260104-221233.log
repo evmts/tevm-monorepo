@@ -1,0 +1,18 @@
+Successfully completed iteration 290. 
+
+## Summary
+
+Created `nativeWebSocket()` transport function in `@tevm/utils` that provides a viem-compatible `webSocket()` API using `@tevm/voltaire`'s `WebSocketProvider` internally.
+
+**New files:**
+- `packages/utils/src/nativeWebSocket.js` - Native WebSocket transport implementation
+- `packages/utils/src/nativeWebSocket.spec.ts` - 11 comprehensive tests
+
+**Key features:**
+- Full WebSocket lifecycle management (`connect()`, `disconnect()`)
+- EIP-1193 compliant `request()` method
+- Subscription support (`subscribe()`, `unsubscribe()`)  
+- Configurable reconnect behavior
+- Protocol support for WebSocket sub-protocols
+
+This complements the `nativeHttp()` transport from iteration 289, giving users native alternatives for both HTTP and WebSocket transports without requiring viem as a dependency.

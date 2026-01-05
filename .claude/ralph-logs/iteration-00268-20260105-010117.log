@@ -1,0 +1,8 @@
+Migration complete for this iteration. 
+
+**Summary:**
+- Migrated `packages/common/src/presets/sepolia.js` from `viem/chains` to use `nativeDefineChain` from `@tevm/utils`
+- Tests pass (10/10, 1 skipped)
+- Types build successfully
+
+The Sepolia testnet preset is now using the native chain definition pattern, removing another viem/chains dependency. This is a high-priority migration since Sepolia is the primary Ethereum testnet.

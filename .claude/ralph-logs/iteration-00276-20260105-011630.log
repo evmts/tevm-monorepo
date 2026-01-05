@@ -1,0 +1,29 @@
+I've successfully migrated 14 more chain presets from `viem/chains` to `nativeDefineChain` in this session. Here's a summary:
+
+## Migration Progress
+
+**Chains migrated this session (14):**
+
+**Mainnet L2s:**
+- celo.js (42220) - CELO native currency
+- moonbeam.js (1284) - GLMR native currency
+- cronos.js (25) - CRO native currency
+- blast.js (81457) - ETH native
+- linea.js (59144) - zkEVM L2
+- scroll.js (534352) - zkEVM L2
+- mantle.js (5000) - MNT native currency
+- mode.js (34443) - OP Stack
+- manta.js (169) - Manta Pacific
+- taiko.js (167000) - Based rollup
+- zora.js (7777777) - OP Stack
+
+**Testnets:**
+- arbitrumSepolia.js (421614)
+- baseSepolia.js (84532)
+- optimismSepolia.js (11155420)
+
+**Commits:** 6 commits made with verified tests
+
+**Remaining:** ~309 chain presets still using viem/chains (down from 321)
+
+The migration pattern is well-established - each preset replaces the viem/chains import with nativeDefineChain and inlines the chain configuration with id, name, nativeCurrency, rpcUrls, blockExplorers, and contracts.

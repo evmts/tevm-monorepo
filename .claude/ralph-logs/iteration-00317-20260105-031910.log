@@ -1,0 +1,7 @@
+I've successfully migrated 3 more chain presets from viem/chains to nativeDefineChain:
+
+1. **sketchpad.js** (id: 984123) - Forma Sketchpad testnet with TIA native currency and WebSocket support
+2. **soneiumMinato.js** (id: 1946) - Soneium Minato Testnet, an OP Stack L2 with full L2 contract deployment
+3. **songbird.js** (id: 19) - Songbird Canary-Network (Flare's canary network) with SGB currency
+
+All tests pass (10 passed, 1 skipped). There are now **47 files remaining** (~14% of chain presets still need migration).

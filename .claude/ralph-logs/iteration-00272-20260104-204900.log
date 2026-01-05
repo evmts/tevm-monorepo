@@ -1,0 +1,43 @@
+# Ralph Migration Log - Iteration 272
+## Date: 2026-01-04 20:49
+
+## Summary
+Assessment of migration status - core packages are fully migrated from viem.
+
+## Assessment Results
+
+### Core Packages (viem-free):
+- `@tevm/actions`: No viem imports
+- `@tevm/vm`: No viem imports
+- `@tevm/evm`: No viem imports
+- `@tevm/state`: No viem imports
+- `@tevm/node`: No viem imports
+- `@tevm/block`: No viem imports
+- `@tevm/tx`: No viem imports (has ethereumjs)
+- `@tevm/jsonrpc`: No viem imports
+
+### Remaining viem usage:
+1. `@tevm/utils/src/viem.js`:
+   - Lines 2136-2143: Transport/client functions (createPublicClient, http, etc.) - REQUIRED for fork functionality
+   - Line 29: Deprecated mnemonicToAccount/privateKeyToAccount exports (native replacements exist)
+
+2. `@tevm/utils/src/abitype.ts`:
+   - Line 32: Deprecated Account/HDAccount type exports (native replacements exist)
+
+3. `@tevm/memory-client`: Many viem imports for viem integration layer (expected, this is the viem compat layer)
+
+### Test Results
+- @tevm/utils: 607 tests passed, 1 skipped
+- signature.spec.ts: 31/31 passed
+- Build: @tevm/utils:build:types - SUCCESS
+
+## Migration Status
+The core packages have been successfully migrated from direct viem imports. The remaining viem usage is:
+1. **Intentional**: Transport/client functions needed for fork RPC communication
+2. **Deprecated**: Some type/function exports kept for backward compatibility (native alternatives exist)
+3. **Expected**: memory-client package provides viem compatibility layer
+
+## Recommendations for Future Iterations
+1. Consider removing deprecated exports in next major version
+2. Explore native RPC client implementation to replace viem transport (larger effort)
+3. Continue migrating ethereumjs dependencies in tx, trie, common packages

@@ -1,0 +1,87 @@
+# Ralph Migration Log - Iteration 209
+## Date: 2026-01-04 15:33:06
+
+## Summary
+Added `nativeMnemonicToAccount` function to @tevm/utils - a native implementation that creates viem-compatible account objects from BIP-39 mnemonic phrases without depending on viem for HD derivation.
+
+## Changes Made
+
+### 1. Created nativeMnemonicToAccount.js
+New file: `packages/utils/src/nativeMnemonicToAccount.js`
+- Implements viem-compatible account from mnemonic using pure JS libraries
+- Uses `@scure/bip39` for mnemonic validation and seed derivation
+- Uses `@scure/bip32` for HD key derivation (BIP-32/BIP-44)
+- Uses `nativePrivateKeyToAccount` for signing (which uses @tevm/voltaire)
+- Supports:
+  - Multiple account indices (accountIndex, addressIndex, changeIndex)
+  - Custom derivation paths
+  - BIP-39 passphrases
+  - All signing methods: sign, signMessage, signTransaction, signTypedData
+  - `getAccount(index)` helper for iterating through accounts
+
+### 2. Added dependencies to package.json
+Updated `packages/utils/package.json`:
+- Added `@scure/bip32: ^1.6.0`
+- Added `@scure/bip39: ^1.5.0`
+
+Note: Originally tried to use @tevm/voltaire's HDWallet and Bip39 modules, but they bundle FFI dependencies that cause issues in Node.js. The @scure libraries are pure JavaScript (same libraries used by viem internally).
+
+### 3. Created comprehensive test suite
+New file: `packages/utils/src/nativeMnemonicToAccount.spec.ts`
+- 17 tests covering:
+  - Basic functionality (address derivation, type/source properties)
+  - Viem compatibility (matching addresses for all indices)
+  - Signing (message signing, hash signing, typed data)
+  - getAccount helper
+  - Passphrase support
+  - Custom derivation paths
+
+### 4. Exported from viem.js
+Added export in `packages/utils/src/viem.js`
+
+## Test Results
+All 587 utils tests pass:
+- nativeMnemonicToAccount.spec.ts - 17 tests
+- nativePrivateKeyToAccount.spec.ts - 18 tests
+- All other tests - 552 tests (1 skipped)
+
+## API Added
+```javascript
+import { nativeMnemonicToAccount } from '@tevm/utils'
+
+// Basic usage
+const account = nativeMnemonicToAccount('test test test test test test test test test test test junk')
+console.log(account.address) // '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
+
+// With options
+const account2 = nativeMnemonicToAccount(mnemonic, {
+  accountIndex: 0,      // Account index (default: 0)
+  addressIndex: 1,      // Address index (default: 0)
+  changeIndex: 0,       // Change index (default: 0)
+  path: "m/44'/60'/0'/0/0", // Custom path (overrides above)
+  passphrase: '',       // BIP-39 passphrase (default: '')
+})
+
+// Account methods
+await account.sign({ hash })
+await account.signMessage({ message: 'Hello' })
+await account.signTransaction(tx)
+await account.signTypedData({ domain, types, primaryType, message })
+
+// Get account at different index
+const account1 = account.getAccount(1)
+```
+
+## Migration Progress
+Native account implementations now available:
+- ✅ `nativePrivateKeyToAccount` - Full signing support using voltaire
+- ✅ `nativeMnemonicToAccount` - Full HD derivation + signing (NEW!)
+
+Remaining viem account imports (intentionally kept for full compatibility):
+- `mnemonicToAccount` - For users who need full viem account compatibility
+- `privateKeyToAccount` - For users who need full viem account compatibility
+
+## Next Steps
+1. Consider adding `generateMnemonic` native function
+2. Continue migrating other packages
+3. Document the new native account functions in user-facing docs

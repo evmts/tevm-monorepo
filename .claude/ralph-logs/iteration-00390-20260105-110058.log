@@ -1,0 +1,10 @@
+I've completed three iterations in this session:
+
+1. **Iteration 819**: Added test coverage for `erc20Abi` constant (14 tests)
+2. **Iteration 820**: Added test coverage for `CacheType` constants (4 tests)
+3. **Iteration 821**: Added comprehensive test coverage for `ethSimulateV2Procedure` (19 tests)
+
+The migration progress is good - the core packages (actions, vm, evm, state, node) are already free of direct viem imports. All utility files in `@tevm/utils` now have test coverage. The remaining viem dependencies are:
+- Transport/client functions (needed for RPC forking)
+- `@tevm/memory-client` (intentional viem integration layer)
+- `parseAbi/formatAbi` from abitype (complex type-level transformations)

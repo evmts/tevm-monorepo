@@ -1,0 +1,13 @@
+**Migration Iteration 356 Complete**
+
+Migrated 5 chain presets from `viem/chains` to `nativeDefineChain`:
+
+1. **localhost.js** (id: 1337) - Local development chain
+2. **lukso.js** (id: 42) - LUKSO mainnet with LYX currency and webSocket
+3. **luksoTestnet.js** (id: 4201) - LUKSO Testnet with LYXt currency
+4. **lycan.js** (id: 721) - Lycan chain with geo-distributed RPC endpoints
+5. **lyra.js** (id: 957) - Lyra Chain with multicall3
+
+**Progress**: ~201 migrated, 143 remaining (~43% left to go)
+
+**Tests**: All passing (10 passed, 1 skipped)

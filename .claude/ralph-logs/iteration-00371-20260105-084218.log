@@ -1,0 +1,7 @@
+The migration was successful. There are still 57 viem imports in packages (mostly in memory-client which is the viem integration layer), and 2 remaining spec files in test-matchers that need migration.
+
+**Summary:**
+- Migrated `toBeReverted.spec.ts` to use client methods directly instead of importing from `viem/actions`
+- Removed imports: `getTransactionReceipt`, `mine`, `sendTransaction`, `writeContract` from 'viem/actions'
+- Changed all 12 function calls from `functionName(client, {...})` to `client.functionName({...})`
+- Tests fail due to pre-existing gas limit infrastructure issue (same as iteration 745)

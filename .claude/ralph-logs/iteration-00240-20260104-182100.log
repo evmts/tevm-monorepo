@@ -1,0 +1,82 @@
+# Ralph Migration Log - Iteration 240
+## Date: 2026-01-04 18:21:00
+
+## Summary
+Verification pass - confirmed all core packages are fully migrated from viem/ethereumjs direct imports.
+
+## Assessment
+
+### Core Packages Status (All Clean)
+Verified the following packages have NO viem or ethereumjs imports:
+- packages/actions/src: ✅ Clean (uses @tevm/utils for native implementations)
+- packages/vm/src: ✅ Clean
+- packages/evm/src: ✅ Clean
+- packages/state/src: ✅ Clean
+- packages/node/src: ✅ Clean
+- packages/block/src: ✅ Clean
+- packages/jsonrpc/src: ✅ Clean
+
+### Test Files Using Native Implementations
+- packages/actions/src/eth/ethAccountsHandler.spec.ts - Uses nativePrivateKeyToAccount
+- packages/actions/src/eth/utils/testAccounts.js - Uses nativeHdAccount
+- packages/utils/src/prefundedAccounts.spec.ts - Uses nativeMnemonicToAccount
+
+### Intentional viem Dependencies (Not Migratable)
+These are architectural dependencies required for tevm's viem integration:
+
+1. **packages/memory-client/** - This is the viem integration layer
+   - Imports createClient, publicActions, testActions, walletActions from viem
+   - Required for viem client compatibility
+   
+2. **packages/utils/src/viem.js** - Re-exports viem functions
+   - Transport functions (createPublicClient, http, webSocket, etc.) - Required for forking
+   - mnemonicToAccount/privateKeyToAccount - Deprecated, kept for backward compatibility
+   
+3. **packages/utils/src/abitype.ts** - Type definitions from abitype
+
+### Intentional ethereumjs Dependencies (Core Data Structures)
+- @ethereumjs/common - Chain configuration (no voltaire equivalent)
+- @ethereumjs/tx - ImpersonatedTx support (complex migration, low priority)
+- @ethereumjs/trie - State trie data structure (no voltaire equivalent)
+
+### Migration Complete For:
+- All cryptographic primitives → @tevm/voltaire (Keccak256, Secp256k1, P256)
+- Account implementations → native (nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount)
+- Test accounts → native implementations
+- noble-curves → removed from direct imports
+
+## Test Verification
+```
+pnpm vitest run packages/utils/src/nativeMnemonicToAccount.spec.ts 
+  packages/utils/src/nativePrivateKeyToAccount.spec.ts 
+  packages/utils/src/prefundedAccounts.spec.ts
+
+Test Files  3 passed (3)
+Tests  36 passed (36)
+
+pnpm vitest run packages/actions/src/eth/ethAccountsHandler.spec.ts
+Test Files  1 passed (1)
+Tests  3 passed (3)
+```
+
+## Blockers
+1. **guillotine-mini WASM build** - Hash mismatch in build.zig.zon dependencies
+2. **parseAbi migration** - Complex human-readable ABI parser, no voltaire equivalent
+3. **@scure/bip39, @scure/bip32** - Voltaire FFI bundling issue prevents full consolidation
+
+## Next Steps
+Phase 1 of the migration is complete. Future work:
+1. Fix guillotine-mini build.zig.zon dependency hashes
+2. Consider native parseAbi implementation (complex)
+3. Consider ImpersonatedTx migration (major restructuring required)
+4. Voltaire HDWallet FFI fix to consolidate @scure dependencies
+
+## Files Changed
+None - verification pass only
+
+## Notes
+The migration has achieved its primary goals:
+- Core packages (actions, vm, evm, state, node, block, jsonrpc) are free of viem/ethereumjs imports
+- All cryptographic operations use voltaire
+- Test infrastructure uses native account implementations
+- Remaining dependencies are intentional (viem integration, core ethereumjs data structures)

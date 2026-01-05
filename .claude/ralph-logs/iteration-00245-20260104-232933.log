@@ -1,0 +1,23 @@
+Good - the changes remain in the working directory but are not staged. The export additions (`setStorage`, `getStorage`) I made to packages/evm/src/index.ts are part of the larger in-progress migration.
+
+## Summary
+
+In this iteration (299), I:
+
+1. **Reviewed migration status**: Confirmed that all core packages (@tevm/actions, @tevm/evm, @tevm/state, @tevm/vm, @tevm/node) are now free of direct viem/ethereumjs imports
+
+2. **Added missing exports**: Added `setStorage` and `getStorage` functions to the @tevm/evm public API. These guillotine WASM functions were implemented but not exported from the package index.
+
+3. **Verified tests pass**: 
+   - 655 utils tests passing
+   - 55 evm tests passing
+   - 17 decorators tests passing
+   - Build types succeed
+
+4. **Documented the iteration**: Created iteration log at `.claude/ralph-logs/iteration-00299-20260104-233400.log`
+
+The migration is in a stable state with:
+- Core packages fully migrated to use @tevm/voltaire
+- Guillotine WASM integration complete with all functions exported
+- Remaining ethereumjs dependencies are architectural (for EVM compatibility)
+- User-facing packages (memory-client) intentionally keep viem for API compatibility

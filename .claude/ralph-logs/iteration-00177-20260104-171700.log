@@ -1,0 +1,17 @@
+The fix is complete. Here's a summary of what was accomplished:
+
+## Summary
+
+**Problem**: The `sendTransaction` function in tevm's memory client was not transferring ETH value. Transactions would complete and be mined, but only gas was deducted from the sender - the actual value (e.g., 0.1 ETH) was never transferred.
+
+**Root Cause**: During the Voltaire/Guillotine migration, the EVM was replaced with a stub implementation (`packages/evm/src/Evm.js`). The stub's `runCall` method returned empty results without actually executing any value transfers. The old `@ethereumjs/evm` implementation handled this internally.
+
+**Fix Applied** (`packages/evm/src/Evm.js:121-153`):
+- Added logic to `runCall` to credit the value to the recipient account
+- Added logic to deduct the value from the sender account
+- Handles `skipBalance: true` flag correctly - it only skips balance validation, not the actual transfer
+
+**Tests Passing**:
+- `packages/memory-client/src/createMemoryClient.spec.ts` - "should auto-mine transactions when miningMode is set to auto" - ✅ PASSED
+
+**Note**: Some other tests (particularly VM tests requiring contract execution) still fail because the EVM stub only handles simple value transfers, not full bytecode execution. This is expected during the ongoing Guillotine migration.

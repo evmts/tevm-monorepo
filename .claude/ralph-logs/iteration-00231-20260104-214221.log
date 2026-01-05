@@ -1,0 +1,27 @@
+The migration is in excellent shape. Here's a summary:
+
+## Migration Status Summary
+
+**Core packages are viem-free:**
+- @tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node, @tevm/block, @tevm/jsonrpc, @tevm/precompiles
+
+**@tevm/utils status:**
+- Native implementations for crypto (Secp256k1, Keccak256, P256) using voltaire
+- Native account implementations (nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount)
+- ABI encoding/decoding using voltaire
+- All 607 tests pass
+
+**Remaining viem dependencies:**
+1. Deprecated account exports (native replacements exist)
+2. Transport functions (createPublicClient, http, etc.) - required for forking
+
+**Remaining @ethereumjs dependencies:**
+1. `@ethereumjs/common` - chain configuration
+2. `@ethereumjs/tx` - transaction types (voltaire has Transaction module that could replace this)
+
+**Next potential migrations:**
+1. @ethereumjs/tx → voltaire Transaction (large project)
+2. @ethereumjs/common → native implementation (large project)
+3. Remove deprecated viem account exports (breaking change)
+
+The primary goal of removing viem/ethereumjs from core crypto operations has been achieved.

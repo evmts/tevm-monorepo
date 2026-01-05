@@ -1,0 +1,31 @@
+# Ralph Migration Log - Iteration 394
+## Date: 2026-01-05 04:37
+
+## Changes Made
+
+### Migrated numberToHex import to @tevm/utils in test-node test constants
+
+1. **extensions/test-node/src/test/constants.ts**
+   - Changed `import { numberToHex } from 'viem'`
+   - To `import { numberToHex } from '@tevm/utils'`
+
+## Test Results
+
+- Ran `eth_getBlockByNumber.spec.ts` to verify the import works
+- 1 test passed (uses BLOCK_NUMBER from constants.ts which uses numberToHex)
+- 1 test failed due to missing TEVM_RPC_URLS_MAINNET env var (pre-existing issue, unrelated to migration)
+
+## Notes
+
+- The constants.ts file only needed numberToHex from viem
+- This was a simple import swap since @tevm/utils re-exports numberToHex from viem
+- Multiple test files import from this constants file, so this change affects many tests
+
+## Next Steps
+
+- Continue migrating simple viem imports (numberToHex, Hex type, Address type) in test-node
+- Look at test/methods/*.spec.ts files for more migration opportunities
+
+## Rationale
+
+Small incremental migration of a utility file used by multiple tests.

@@ -1,0 +1,34 @@
+# Ralph Migration Log - Iteration 334
+## Date: 2026-01-05 01:27
+
+## Summary
+Continued chain preset migration session. Migrated 4 more chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **anvil.js** (id: 31337) - Local development chain
+2. **arbitrumNova.js** (id: 42170) - Arbitrum Nova L2
+3. **astar.js** (id: 592) - Astar Network (ASTR native currency)
+4. **aurora.js** (id: 1313161554) - Aurora NEAR EVM
+
+## Commit Made
+7355d4e06 - anvil, arbitrumNova, astar, aurora (batch)
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Migrated previously**: ~31
+- **Migrated this session**: 4
+- **Total migrated**: ~35
+- **Remaining**: ~305
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (multicall3)
+
+## Next Steps
+Continue migrating remaining chain presets. ~305 remain.

@@ -1,0 +1,15 @@
+The commit was successful. I've completed one incremental migration in this iteration:
+
+## Summary - Iteration 393
+
+**Changes Made:**
+1. **Migrated `extensions/test-node/src/internal/normalizeHex.ts`** - Changed `type { Hex } from 'viem'` to `type { Hex } from '@tevm/utils'`
+
+2. **Fixed type compatibility in `packages/utils/src/rpc-types.ts`** - Updated `RpcBlockIdentifier` to use `requireCanonical?: boolean | undefined` for `exactOptionalPropertyTypes` compatibility
+
+**Attempted but reverted:**
+- Tried to migrate `normalizeBlockTag.ts` but reverted because it's heavily integrated with viem's `EIP1193Parameters` and `EIP1474Methods` types from `ethMethodToCacheKey.ts`
+
+**Blockers discovered:**
+- Files using viem's JSON-RPC schema types (`EIP1193Parameters`, `EIP1474Methods`) are tightly coupled to viem's type system
+- The `exactOptionalPropertyTypes: true` setting creates subtle type incompatibilities between viem types and @tevm/utils types

@@ -1,0 +1,41 @@
+# Ralph Migration Log - Iteration 807
+## Date: 2026-01-05
+
+## Task: Improve test coverage for nativePrivateKeyToAccount.js
+
+## Summary
+
+Added tests to cover previously uncovered branches in the nativePrivateKeyToAccount.js file:
+- Invalid hash length error path
+- Invalid message format error path
+- Raw hex message signing
+- Various signTypedData value types (arrays, Uint8Array bytes, bool values)
+- Invalid private key length error
+
+## Changes Made
+
+### Modified files:
+- `packages/utils/src/nativePrivateKeyToAccount.spec.ts` - Added 7 new tests
+
+### Test additions:
+1. `sign > should throw for invalid hash length` - Tests error when hash is not 32 bytes
+2. `signMessage > should sign raw hex message` - Tests signing hex string in raw format
+3. `signMessage > should throw for invalid message format` - Tests error for invalid message
+4. `signTypedData with various value types > should handle array types in message` - Tests dynamic arrays
+5. `signTypedData with various value types > should handle bytes values already as Uint8Array` - Tests non-string bytes
+6. `signTypedData with various value types > should handle uint values already as bigint` - Tests bigint pass-through
+7. `signTypedData with various value types > should handle bool values` - Tests boolean type handling
+8. `error cases > should throw for invalid private key length` - Tests error for short private key
+
+Note: Removed fixed-size array test as voltaire doesn't support bytes32[2] type yet.
+
+## Coverage Improvement
+
+- nativePrivateKeyToAccount.js: 94.32% → 98.22%
+- Overall coverage: 95.31% → 95.46%
+- Branch coverage: 90.83% → 91.39%
+
+## Remaining uncovered lines in nativePrivateKeyToAccount.js:
+- Lines 211-213, 220-221: Branches in convertMessageValue for address values that are not strings
+
+## Status: COMPLETE

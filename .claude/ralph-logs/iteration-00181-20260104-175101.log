@@ -1,0 +1,25 @@
+All 607 tests pass (1 skipped). The migration was successful. Let me provide a summary:
+
+## Summary - Iteration 234
+
+Successfully migrated `packages/utils/src/nativeMnemonicToAccount.spec.ts` to use native verification functions instead of viem imports.
+
+### Changes Made:
+1. **Removed viem imports**: `recoverAddress`, `verifyMessage`, `verifyTypedData` from 'viem'
+2. **Added imports from ./index.js**: Using native implementations
+3. **Added helper functions**:
+   - `parseSignature()` - Converts hex signature to { r, s, v } format
+   - `hashRawMessage()` - Hashes raw bytes for EIP-191 verification
+
+### Test Results:
+- All 17 tests in the file pass
+- Full utils suite: 607 tests passed, 1 skipped
+
+### Remaining viem import (intentional):
+- `mnemonicToAccount` from 'viem/accounts' - Kept for compatibility verification tests (verifying our native implementation matches viem's behavior)
+
+### Migration Progress:
+The core package migration is complete. The remaining viem usage in @tevm/utils is:
+- **Intentional backward compatibility exports** (deprecated re-exports)
+- **Transport/client functions** for forking functionality
+- **Reference implementations in tests** for compatibility verification

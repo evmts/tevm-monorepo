@@ -1,0 +1,38 @@
+# Ralph Migration Log - Iteration 357
+## Date: 2026-01-05 02:35
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **mandala.js** (id: 595) - Mandala TC9 testnet with mACA native currency, Acala staging network
+2. **mantaSepoliaTestnet.js** (id: 3441006) - Manta Pacific Sepolia Testnet with ETH native currency, includes multicall3
+3. **mantaTestnet.js** (id: 3441005) - Manta Pacific Testnet with ETH native currency, includes multicall3
+4. **mantleSepoliaTestnet.js** (id: 5003) - Mantle Sepolia Testnet with MNT native currency, includes multicall3
+5. **mantleTestnet.js** (id: 5001) - Mantle Testnet with MNT native currency, includes multicall3
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~201 (from iteration 356)
+- **Migrated this session**: 5
+- **Total migrated**: ~206
+- **Remaining**: 138 (~41% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Mandala: Acala staging network with webSocket support
+- Manta chains: Layer 2 on Ethereum, both testnet variants have multicall3 deployed
+- Mantle chains: Both use MNT native currency, both have multicall3 deployed
+
+## Next Steps
+Continue migrating remaining chain presets. 138 remain (~41% remaining).
+Next chains to migrate: merlin, metachain, metachainIstanbul, metalL2, meter...

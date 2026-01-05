@@ -1,0 +1,23 @@
+Excellent! I've completed two migration tasks in this session:
+
+## Summary of Changes
+
+### Iteration 205: Removed last @noble/curves import from test suite
+- Changed `import { secp256k1 } from '@noble/curves/secp256k1.js'` to `import { Secp256k1 } from '@tevm/voltaire/Secp256k1'` in `eip7702.spec.ts`
+- Updated the custom sign function test to use voltaire's API
+
+### Iteration 206: Implemented signTypedData using voltaire EIP712
+- Added full EIP-712 typed data signing support to `nativePrivateKeyToAccount`
+- Uses voltaire's `EIP712.signTypedData()` under the hood
+- Added helper to recursively convert viem-style typed data to voltaire format
+- All 44 related tests pass
+
+**Migration Progress:**
+- No more `@noble/curves` imports in packages (all migrated to voltaire)
+- `nativePrivateKeyToAccount` now supports: `sign`, `signMessage`, `signTypedData`
+- Only `signTransaction` remains unimplemented (requires RLP encoding)
+
+**Remaining viem dependencies:**
+1. `packages/utils/src/viem.js`: `mnemonicToAccount, privateKeyToAccount` (HD wallet)
+2. `packages/utils/src/viem.js`: `createPublicClient, createTransport, custom, defineChain, http, webSocket` (fork transport)
+3. `packages/common/src/presets/*.js`: Chain definitions from `viem/chains`

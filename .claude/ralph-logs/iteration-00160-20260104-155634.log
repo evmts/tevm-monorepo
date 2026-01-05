@@ -1,0 +1,30 @@
+All tests pass. Let me summarize this iteration:
+
+## Summary
+
+This iteration (214) focused on fixing type compatibility issues that emerged from the ongoing voltaire migration. The key changes were:
+
+### Changes Made:
+1. **Fixed `keccak256` return types** - Added JSDoc overloads so TypeScript correctly infers `Uint8Array` when `to='bytes'` and `Hex` when `to='hex'`
+
+2. **Added `size` option to `hexToBytes`** - Implemented padding/truncating support to match viem's API
+
+3. **Updated `@tevm/block` to use `_BYTES` constants** - Changed from string hex constants (`KECCAK256_RLP`) to byte array constants (`KECCAK256_RLP_BYTES`) for use with `equalsBytes()`
+
+4. **Fixed type compatibility in `createJsonRpcFetcher`** - Added type cast for `EIP1193RequestFn` parameter
+
+5. **Fixed `WithdrawalData` type in `block.ts`** - Added handling for `AddressLike` to withdrawal-compatible format conversion
+
+### Test Results:
+- `@tevm/utils` viem.spec.ts - 253 tests pass
+- `@tevm/address` - 16 tests pass
+- `@tevm/block` - 2 tests pass
+- `@tevm/jsonrpc` - 7 tests pass
+- All native account tests continue to pass
+
+### Migration Status:
+The core packages (`@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, `@tevm/node`) remain clean of direct viem imports. The migration continues to progress well with native implementations using voltaire for:
+- Account creation (`nativePrivateKeyToAccount`, `nativeMnemonicToAccount`, `nativeHdAccount`)
+- Cryptographic operations (keccak256, secp256k1, ecrecover, P256)
+- EIP-7702 functionality
+- Hex/bytes conversions

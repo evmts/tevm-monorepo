@@ -1,0 +1,15 @@
+Successfully migrated `polygon.js` preset from viem/chains to use `nativeDefineChain` from `@tevm/utils`.
+
+**Summary of Iteration 325:**
+- Migrated `packages/common/src/presets/polygon.js`
+- Replaced viem/chains import with native chain definition using `nativeDefineChain`
+- Polygon chain (ID: 137) now defined inline with:
+  - Native currency: POL (formerly MATIC)
+  - RPC URL: https://polygon-rpc.com  
+  - Block explorer: PolygonScan
+  - multicall3 contract
+- Tests pass: 10 passed, 1 skipped
+
+**Migration Progress:**
+- 6 high-priority presets now migrated (mainnet, optimism, sepolia, arbitrum, base, polygon)
+- ~328 preset files remain with viem/chains imports

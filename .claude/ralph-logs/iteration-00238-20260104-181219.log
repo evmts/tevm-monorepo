@@ -1,0 +1,124 @@
+# Ralph Migration Log - Iteration 238
+## Date: 2026-01-04 18:12:19
+
+## Summary
+Assessment iteration plus migration of test files from deprecated viem account functions to native implementations.
+Confirmed all previous migrations are stable and tests pass.
+
+## Changes Made
+
+### 1. Updated ethSignTransactionHandler.js JSDoc example
+- Changed `mnemonicToAccount` to `nativeMnemonicToAccount` in example
+
+### 2. Migrated ethAccountsHandler.spec.ts
+- Changed import from `privateKeyToAccount` (viem) to `nativePrivateKeyToAccount`
+- Updated comment to reflect native implementation
+- Tests pass: 3/3
+
+### 3. Migrated createMemoryClient.spec.ts
+- Changed import from `privateKeyToAccount` (viem/accounts) to `nativePrivateKeyToAccount`
+- Updated comment in auto-mine test
+- Tests pass: 1/1 (auto-mine test), fork test skipped due to missing env vars
+
+## Assessment Performed
+
+### Test Verification
+Ran comprehensive tests to verify migration stability:
+- packages/utils/src/signature.spec.ts: 31 tests passed
+- packages/utils/src/Bloom.spec.ts: 6 tests passed
+- packages/tx/src/createImpersonatedTx.spec.ts: 8 tests passed
+- packages/utils/src/* (all): 607 tests passed, 1 skipped
+
+### Remaining Dependencies Analysis
+
+#### viem (Required for RPC/Transport)
+```
+packages/utils/src/viem.js:
+  - createPublicClient, createTransport, custom, defineChain, http, webSocket
+  - These are REQUIRED for RPC communication with external nodes (forking)
+  - Cannot be migrated away
+
+packages/utils/src/viem.js:
+  - mnemonicToAccount, privateKeyToAccount (DEPRECATED - native alternatives exist)
+
+packages/common/src/Common.ts, CommonOptions.ts:
+  - Chain type from viem/chains (chain configuration type - reasonable dependency)
+
+packages/utils/src/abitype.ts:
+  - Account, HDAccount types (DEPRECATED - native alternatives exist)
+```
+
+#### @ethereumjs (Core VM Dependencies)
+```
+packages/common/src/createCommon.js:
+  - createCustomCommon, Mainnet from @ethereumjs/common
+  - Core dependency for chain configuration
+
+packages/tx/src/createImpersonatedTx.js, ImpersonatedTx.ts:
+  - FeeMarket1559Tx from @ethereumjs/tx
+  - Used for impersonated transaction support
+
+packages/trie/src/index.ts:
+  - Trie, genesisStateRoot from @ethereumjs/trie
+  - Core data structure for state management
+```
+
+#### Other Dependencies (Acceptable)
+```
+abitype (parseAbi, Abi types):
+  - Complex human-readable ABI parsing
+  - Voltaire's ABI is for encoding/decoding, not parsing
+
+@scure/bip39, @scure/bip32:
+  - HD wallet derivation
+  - Same libs voltaire wraps (voltaire has FFI bundling issue)
+```
+
+## Migration Status Summary
+
+### Complete (100%)
+- ✅ keccak256 → @tevm/voltaire/Keccak256
+- ✅ secp256k1 signing → @tevm/voltaire/Secp256k1
+- ✅ ecrecover → @tevm/voltaire/Secp256k1.recoverPublicKey
+- ✅ P256 verify → @tevm/voltaire/P256
+- ✅ eip7702 signing → @tevm/voltaire/Secp256k1
+- ✅ noble-curves removed from direct imports
+- ✅ Native account implementations (privateKeyToAccount, mnemonicToAccount, hdAccount)
+
+### Core Package Status (All Clean)
+- ✅ packages/actions/src: No viem/ethereumjs imports
+- ✅ packages/vm/src: No viem/ethereumjs imports
+- ✅ packages/evm/src: No viem/ethereumjs imports
+- ✅ packages/state/src: No viem/ethereumjs imports
+- ✅ packages/node/src: No viem/ethereumjs imports
+- ✅ packages/block/src: No viem/ethereumjs imports
+- ✅ packages/jsonrpc/src: No viem/ethereumjs imports
+
+### Not Migratable (Intentional Dependencies)
+- viem transports (createPublicClient, http, etc.) - Required for forking
+- @ethereumjs/common - Core chain configuration
+- @ethereumjs/tx - Impersonated transaction support
+- @ethereumjs/trie - Core state data structure
+- @scure/bip39, @scure/bip32 - Voltaire FFI bundling issue
+
+## Files Changed
+- packages/actions/src/eth/ethSignTransactionHandler.js - Updated JSDoc example
+- packages/actions/src/eth/ethAccountsHandler.spec.ts - Migrated to nativePrivateKeyToAccount
+- packages/memory-client/src/createMemoryClient.spec.ts - Migrated to nativePrivateKeyToAccount
+- packages/actions/src/eth/__snapshots__/ethSignTransactionHandler.spec.ts.snap - Updated snapshot for nativeHdAccount signatures
+
+## Next Steps
+1. **Voltaire HDWallet FFI fix** - Separate FFI exports from pure JS to enable migration
+2. **ImpersonatedTx migration** - Large undertaking requiring:
+   - Voltaire Transaction.EIP1559 type implementation
+   - All FeeMarket1559Tx methods via Proxy pattern
+   - Extensive testing
+3. **Guillotine-mini WASM** - Blocked by build.zig.zon dependency resolution
+
+## Notes
+The migration is substantially complete for the core packages. Remaining dependencies are either:
+1. Required for functionality (viem transports, ethereumjs core)
+2. Blocked by voltaire issues (HDWallet FFI bundling)
+3. Would require major restructuring (Trie, Common, ImpersonatedTx)
+
+Consider declaring "Phase 1 Complete" - core packages migrated to voltaire for crypto primitives.

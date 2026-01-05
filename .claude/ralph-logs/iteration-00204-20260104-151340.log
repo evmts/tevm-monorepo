@@ -1,0 +1,47 @@
+# Ralph Migration Log - Iteration 204
+## Date: 2026-01-04 15:13:40
+
+## Summary
+Exported `nativePrivateKeyToAccount` from @tevm/utils package and fixed TypeScript type compatibility with voltaire branded types.
+
+## Changes Made
+
+### 1. Exported nativePrivateKeyToAccount from barrel files
+- Added export in `packages/utils/src/viem.js`
+- Added export in `packages/utils/src/index.ts`
+
+### 2. Fixed TypeScript type issues in ecrecover.js
+- Imported `Hash` from `@tevm/voltaire/Hash`
+- Converted `msgHash` to voltaire's `HashType` using `Hash.from()` for proper type compatibility
+
+### 3. Fixed TypeScript type issues in nativePrivateKeyToAccount.js
+- Changed import to `import { Secp256k1, PrivateKey } from '@tevm/voltaire/Secp256k1'`
+- Used `PrivateKey.fromBytes()` to convert raw bytes to voltaire's `PrivateKeyType`
+- Added `@ts-ignore` for the Secp256k1.sign call where the branded type flows through correctly at runtime but TypeScript doesn't track it through the internal function
+- Updated JSDoc parameter types to use `Uint8Array` for the internal signHash function
+- Fixed unused variable warnings by prefixing with underscore (_transaction, _parameters)
+
+## Files Modified
+1. `packages/utils/src/viem.js` - Added nativePrivateKeyToAccount export
+2. `packages/utils/src/index.ts` - Added nativePrivateKeyToAccount to exports
+3. `packages/utils/src/ecrecover.js` - Added Hash.from() for proper type conversion
+4. `packages/utils/src/nativePrivateKeyToAccount.js` - Updated imports and added type conversions
+
+## Test Results
+All 43 tests pass:
+- ecrecover.spec.ts (7 tests)
+- nativePrivateKeyToAccount.spec.ts (14 tests) 
+- eip7702.spec.ts (22 tests)
+
+Types build successfully with `pnpm nx run @tevm/utils:build:types`.
+
+## API Addition
+`nativePrivateKeyToAccount` is now exported from @tevm/utils and provides a viem-compatible account object using pure voltaire crypto primitives:
+- No dependency on viem/accounts for basic signing operations
+- signMessage and sign functions work using voltaire's Secp256k1 and Keccak256
+- signTransaction and signTypedData throw "not implemented" errors (require RLP/EIP-712)
+
+## Next Steps
+1. Consider implementing signTransaction using voltaire's RLP encoding
+2. Consider implementing signTypedData using voltaire's EIP712 module
+3. Continue migrating remaining viem imports (transport/client functions for forking)

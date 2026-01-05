@@ -1,0 +1,21 @@
+## Summary
+
+This iteration discovered that **voltaire's HDWallet module has an FFI bundling issue** that prevents migration from `@scure/bip39` and `@scure/bip32`.
+
+### What I attempted:
+1. Migrated `nativeMnemonicToAccount.js` and `nativeHdAccount.js` to use `@tevm/voltaire/Bip39` and `@tevm/voltaire/HDWallet`
+2. Tests failed due to FFI native build not being available
+
+### Root Cause:
+The voltaire dist build (`lib/voltaire/dist/crypto/HDWallet/index.js`) incorrectly bundles `ffi-napi` and `ref-napi` imports even though the source code uses pure JS implementations from `@scure/bip32`.
+
+### Resolution:
+Reverted all changes. The current implementation using `@scure/bip39` and `@scure/bip32` directly is correct and working.
+
+### Current Status:
+- **Core packages**: Fully migrated from viem in production source
+- **Crypto operations**: Using voltaire's Secp256k1, EIP712, Keccak256 (no FFI issues)
+- **HD Wallet**: Still uses @scure/bip39 and @scure/bip32 directly (blocked by voltaire FFI issue)
+- **Transport/RPC**: Intentionally uses viem for forking functionality
+
+The migration is in good shape overall. The voltaire HDWallet FFI bundling issue should be reported/fixed in the voltaire library itself before this migration can proceed.

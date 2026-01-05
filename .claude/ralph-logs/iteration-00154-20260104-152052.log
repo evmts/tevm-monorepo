@@ -1,0 +1,33 @@
+## Summary
+
+I successfully implemented `signTransaction` in `nativePrivateKeyToAccount` using voltaire's Transaction and Secp256k1 modules. This completes the native signing implementation with full transaction support.
+
+### Key Changes:
+1. **Added voltaire Transaction import** - `import * as Transaction from '@tevm/voltaire/Transaction'`
+
+2. **Implemented `convertToVoltaireTransaction`** - Converts viem-style transaction params to voltaire format:
+   - Legacy transactions (gasPrice)
+   - EIP-2930 transactions (accessList + gasPrice)
+   - EIP-1559 transactions (maxFeePerGas/maxPriorityFeePerGas)
+   - Handles address/data/accessList conversions
+
+3. **Implemented `signTransaction`** - Full transaction signing flow:
+   - Gets signing hash via `Transaction.getSigningHash()`
+   - Signs with `Secp256k1.sign()`
+   - Handles signature encoding (yParity for EIP-1559/2930, v with chainId for Legacy)
+   - Serializes with `Transaction.serialize()`
+
+4. **Updated tests** - Added 4 new tests verifying:
+   - Legacy transaction signing
+   - EIP-1559 transaction signing
+   - Contract creation transaction signing
+   - Signature consistency (deterministic)
+
+### API Status
+`nativePrivateKeyToAccount` is now feature-complete:
+- ✅ `sign(hash)` 
+- ✅ `signMessage(message)` 
+- ✅ `signTypedData(typedData)` 
+- ✅ `signTransaction(tx)` (NEW!)
+
+All 569 tests in the utils package pass.

@@ -1,0 +1,40 @@
+# Ralph Migration Log - Iteration 352
+## Date: 2026-01-05 02:22
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **kairos.js** (id: 1001) - Kairos Testnet with KAIA native currency, includes multicall3 contract
+2. **kakarotSepolia.js** (id: 1802203764) - Kakarot Sepolia with ETH native currency
+3. **karura.js** (id: 686) - Karura with KAR native currency, includes webSocket URLs
+4. **kava.js** (id: 2222) - Kava EVM with KAVA native currency, includes multicall3 contract
+5. **kavaTestnet.js** (id: 2221) - Kava EVM Testnet with KAVA native currency, includes multicall3 contract
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~176 (from iteration 351)
+- **Migrated this session**: 5
+- **Total migrated**: ~181
+- **Remaining**: 163 (~49% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Kairos: Kaia testnet, uses KAIA native currency
+- Kakarot Sepolia: zkEVM on Sepolia, uses standard ETH
+- Karura: Acala/Polkadot parachain, has webSocket URLs
+- Kava: Cosmos-based EVM chain with multicall3
+- Kava Testnet: Test network with multicall3 support
+
+## Next Steps
+Continue migrating remaining chain presets. 163 remain (~49% remaining).
+Next chains to migrate: kcc, klaytn, klaytnBaobab, koi, kroma...

@@ -1,0 +1,40 @@
+# Ralph Migration Log - Iteration 360
+## Date: 2026-01-05 02:41
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **mintSepoliaTestnet.js** (id: 1686) - Mint Sepolia Testnet with ETH native currency
+2. **modeTestnet.js** (id: 919) - Mode Testnet with ETH native currency, L2 contracts (gasPriceOracle, l1Block, l2CrossDomainMessenger, l2Erc721Bridge, l2StandardBridge, l2ToL1MessagePasser, l2OutputOracle, portal, l1StandardBridge), multicall3 support
+3. **moonbaseAlpha.js** (id: 1287) - Moonbase Alpha testnet with DEV native currency, multicall3 support, WebSocket RPC
+4. **moonbeamDev.js** (id: 1281) - Moonbeam Development Node with DEV native currency, local RPC (127.0.0.1:9944)
+5. **moonriver.js** (id: 1285) - Moonriver mainnet with MOVR native currency, multicall3 support, WebSocket RPC
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~216 (from iteration 359)
+- **Migrated this session**: 5
+- **Total migrated**: ~221
+- **Remaining**: 123 (~37% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Mint Sepolia: Simple testnet with ETH as native currency
+- Mode Testnet: OP Stack L2 testnet with full L2 contract configuration including cross-chain messaging
+- Moonbase Alpha: Polkadot parachain testnet with DEV token
+- Moonbeam Dev: Local development node for Moonbeam
+- Moonriver: Kusama parachain with MOVR token
+
+## Next Steps
+Continue migrating remaining chain presets. 123 remain (~37% remaining).
+Next chains to migrate: morphHolesky, morphSepolia, nautilus, neonDevnet, neonMainnet...

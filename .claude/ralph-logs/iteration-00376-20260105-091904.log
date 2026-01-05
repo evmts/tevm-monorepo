@@ -1,0 +1,8 @@
+Good progress. Most remaining viem imports are:
+1. Type imports in memory-client (needed for viem compatibility)
+2. JSDoc example comments 
+3. The actual viem re-exports in `utils/viem.js` and `memory-client/createClient.js`
+
+The migration is progressing well. This iteration successfully:
+1. Added `createWalletClient` to @tevm/utils exports
+2. Migrated the last spec file with direct viem imports to use @tevm/utils

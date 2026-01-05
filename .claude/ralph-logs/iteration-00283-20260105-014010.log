@@ -1,0 +1,15 @@
+Successfully completed this iteration:
+
+## Summary - Iteration 340
+
+Migrated 5 chain presets from `viem/chains` to `nativeDefineChain`:
+
+1. **vechain.js** (id: 100009) - Vechain mainnet
+2. **wanchain.js** (id: 888) - Wanchain mainnet (with multicall3)
+3. **wanchainTestnet.js** (id: 999) - Wanchain Testnet (with multicall3)
+4. **wemix.js** (id: 1111) - WEMIX mainnet
+5. **wemixTestnet.js** (id: 1112) - WEMIX Testnet
+
+All tests pass (10 passed, 1 skipped in createCommon.spec.ts).
+
+**Progress**: ~65 of ~335 chain presets migrated (~275 remaining)

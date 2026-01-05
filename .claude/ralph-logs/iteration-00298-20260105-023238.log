@@ -1,0 +1,9 @@
+Successfully migrated 5 more chain presets from `viem/chains` to `nativeDefineChain`:
+
+1. **mandala.js** (id: 595) - Mandala TC9 testnet with mACA native currency
+2. **mantaSepoliaTestnet.js** (id: 3441006) - Manta Pacific Sepolia Testnet with multicall3
+3. **mantaTestnet.js** (id: 3441005) - Manta Pacific Testnet with multicall3
+4. **mantleSepoliaTestnet.js** (id: 5003) - Mantle Sepolia Testnet with MNT currency
+5. **mantleTestnet.js** (id: 5001) - Mantle Testnet with MNT currency
+
+All tests pass (10 passed, 1 skipped). **138 chain presets remain** to be migrated (~41% remaining).

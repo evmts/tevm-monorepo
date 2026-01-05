@@ -1,0 +1,41 @@
+# Ralph Migration Log - Iteration 234
+## Date: 2026-01-04 17:52:00
+
+## Summary
+Migrated nativeMnemonicToAccount.spec.ts to use native verification functions instead of viem imports for recoverAddress, verifyMessage, and verifyTypedData.
+
+## Changes Made
+
+### File: packages/utils/src/nativeMnemonicToAccount.spec.ts
+- **Before**: Imported `recoverAddress`, `verifyMessage`, `verifyTypedData` from 'viem'
+- **After**: Imported from './index.js' (native implementations)
+
+### Added Helper Functions
+1. `parseSignature(sig: Hex)` - Converts 65-byte hex signature to { r, s, v } format
+2. `hashRawMessage(rawHex: Hex)` - Hashes raw bytes for EIP-191 message verification
+
+### Test Updates
+- Updated signature verification tests to use native implementations
+- Native `verifyMessage` and `verifyTypedData` expect signature as { r, s, v } object instead of hex string
+- All 17 tests pass
+
+## Remaining viem Imports
+- `mnemonicToAccount` from 'viem/accounts' - **Intentionally kept** for compatibility tests
+  - These tests verify that our native implementation produces the same results as viem
+  - Using viem as a reference implementation is appropriate for testing
+
+## Test Results
+```
+✓ |@tevm/utils| src/nativeMnemonicToAccount.spec.ts (17 tests) 396ms
+Test Files  1 passed (1)
+Tests  17 passed (17)
+```
+
+## Migration Status
+- **viem imports removed**: recoverAddress, verifyMessage, verifyTypedData
+- **viem imports kept (intentional)**: mnemonicToAccount (for compatibility testing)
+
+## Next Potential Targets
+1. Check for other test files using viem for verification
+2. Look for opportunities in nativePrivateKeyToAccount.spec.ts
+3. Continue migrating test files to use native implementations

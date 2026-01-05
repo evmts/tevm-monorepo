@@ -1,0 +1,46 @@
+# Ralph Migration Log - Iteration 815
+## Date: 2026-01-05
+
+## Task: Add test coverage for trim function in viem.js
+
+## Summary
+
+Added comprehensive tests for the `trim` function in viem.js (lines 1635-1689), covering all code paths for both hex string and Uint8Array inputs with left and right trim directions.
+
+## Changes Made
+
+### Modified files:
+- `packages/utils/src/viem.spec.ts` - Added trim import and 15 new tests
+
+### Test additions:
+1. Hex string - left trim (default):
+   - Should trim leading zero bytes
+   - Should preserve at least one byte if all zeros
+   - Should not trim non-zero bytes
+   - Should handle single byte
+
+2. Hex string - right trim:
+   - Should trim trailing zero bytes
+   - Should preserve at least one byte if all zeros
+   - Should not trim non-zero bytes
+
+3. Uint8Array - left trim (default):
+   - Should trim leading zero bytes
+   - Should preserve at least one byte if all zeros
+   - Should not trim non-zero leading bytes
+
+4. Uint8Array - right trim:
+   - Should trim trailing zero bytes
+   - Should preserve at least one byte if all zeros
+   - Should not trim non-zero trailing bytes
+
+## Coverage Improvement
+
+- viem.js: 88.04% → 90.53% (statement)
+- viem.js: 94.8% → 95.06% (branch)
+- viem.js: 84.21% → 85.96% (function)
+- viem.js: 88.04% → 90.53% (line)
+
+- Overall utils: 95.76% → 96.46% (statement)
+
+## Status: COMPLETE

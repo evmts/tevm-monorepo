@@ -1,0 +1,39 @@
+# Ralph Migration Log - Iteration 356
+## Date: 2026-01-05 02:32
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **localhost.js** (id: 1337) - Localhost chain with ETH native currency, simple local development configuration
+2. **lukso.js** (id: 42) - LUKSO mainnet with LYX native currency, includes multicall3 contract and webSocket
+3. **luksoTestnet.js** (id: 4201) - LUKSO Testnet with LYXt native currency, includes multicall3 contract and webSocket
+4. **lycan.js** (id: 721) - Lycan chain with LYC native currency, has multiple http and webSocket URLs across global regions
+5. **lyra.js** (id: 957) - Lyra Chain with ETH native currency, includes multicall3 contract
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~196 (from iteration 355)
+- **Migrated this session**: 5
+- **Total migrated**: ~201
+- **Remaining**: 143 (~43% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Localhost: Simple configuration with no block explorers, just local RPC
+- LUKSO networks: Both mainnet and testnet have webSocket URLs configured
+- Lycan: Has extensive geo-distributed RPC endpoints (US, EU, Asia)
+- Lyra: Uses standard multicall3 address
+
+## Next Steps
+Continue migrating remaining chain presets. 143 remain (~43% remaining).
+Next chains to migrate: mandala, mantaSepoliaTestnet, mantaTestnet, mantleSepoliaTestnet, mantleTestnet...

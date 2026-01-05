@@ -1,0 +1,74 @@
+# Ralph Migration Log - Iteration 297
+## Date: 2026-01-04 23:23
+
+## Summary
+Comprehensive status check and test verification. All core package builds successful, all utils tests passing (655 tests). Cleaned up obsolete snapshot.
+
+## Migration Status Assessment
+
+### Completed Migrations
+- @tevm/utils ABI encoding/decoding - Using @tevm/voltaire
+- @tevm/utils hex/bytes conversions - Native implementations
+- @tevm/utils signature operations - Using @tevm/voltaire/Secp256k1
+- @tevm/utils nativePrivateKeyToAccount - Using @tevm/voltaire
+- @tevm/utils nativeMnemonicToAccount - Using @scure/bip39, @scure/bip32, @tevm/voltaire
+- @tevm/utils nativeHdAccount - Using @tevm/voltaire
+- @tevm/utils nativeHttp, nativeWebSocket, nativeCustom - Using @tevm/voltaire/provider
+- @tevm/utils nativeDefineChain - Native chain definition
+- @tevm/utils createForkRpcClient - Native RPC client adapter
+- @tevm/precompiles P256 verify - Using @tevm/voltaire/P256
+- @tevm/state getForkClient - Using createForkRpcClient
+- @tevm/blockchain getBlockFromRpc - Using @tevm/utils (withRetry helper)
+- @tevm/evm guillotineWasm - WASM wrapper for guillotine-mini (38 tests passing)
+
+### Core Packages (no direct viem runtime imports)
+- @tevm/actions - Only uses @tevm/utils
+- @tevm/evm - No viem imports
+- @tevm/state - No viem imports
+- @tevm/vm - No viem imports
+- @tevm/node - No viem imports
+- @tevm/address - No viem imports (peer dep only for types)
+- @tevm/errors - No runtime viem imports (comments and type imports only)
+
+### Still Using Ethereumjs (runtime)
+- @tevm/common - Uses @ethereumjs/common
+- @tevm/tx - Uses @ethereumjs/tx
+- @tevm/trie - Uses @ethereumjs/trie
+
+### User-Facing Packages (intentionally using viem)
+- @tevm/memory-client - Uses viem client infrastructure for user API compatibility
+- Many packages have viem as peerDependency for type compatibility
+
+## Tests Run
+- packages/utils/src/*.spec.ts - 655 tests passed, 1 skipped
+- packages/evm/src/createEvm.spec.ts - 17 tests passed
+- packages/evm/src/guillotineWasm.spec.ts - 38 tests passed
+- packages/block/src/ClRequest.spec.ts - 2 tests passed
+- Native transport tests (nativeHttp, nativeCustom, nativeDefineChain, nativeWebSocket) - 39 tests passed
+
+## Files Modified
+- packages/block/src/__snapshots__/ClRequest.spec.ts.snap - Removed obsolete duplicate snapshot
+
+## Build Status
+- @tevm/actions:build:types - SUCCESS (cached)
+- @tevm/evm:build:types - SUCCESS (cached)
+- @tevm/vm:build:types - SUCCESS (cached)
+
+## Migration Progress Summary
+The core runtime packages (@tevm/actions, @tevm/evm, @tevm/state, @tevm/vm, @tevm/node) are now free of direct viem runtime imports. They use @tevm/utils which provides native implementations via @tevm/voltaire.
+
+The remaining work involves:
+1. Migrating @tevm/tx from @ethereumjs/tx to @tevm/voltaire/Transaction
+2. Migrating @tevm/common from @ethereumjs/common to native implementations
+3. Migrating @tevm/trie from @ethereumjs/trie
+
+## Next Steps
+1. Consider migrating @tevm/tx to use @tevm/voltaire/Transaction (significant undertaking)
+2. Consider migrating @tevm/common to use native chain definitions
+3. Monitor for any missing voltaire features needed for further migration
+4. Keep viem as peerDependency for type compatibility with viem-based user code
+
+## Notes
+- Voltaire has comprehensive Transaction support (EIP1559, EIP2930, EIP4844, EIP7702, Legacy)
+- User-facing packages should continue using viem for API compatibility
+- Many forking tests fail without RPC URLs - this is environment config, not migration issue

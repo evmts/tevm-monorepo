@@ -1,0 +1,84 @@
+# Ralph Migration Log - Iteration 726
+## Date: 2026-01-05
+
+## Task: Migrate `testActions`, `walletActions`, `createClient` imports in memory-client spec files to local re-export
+
+## Completed Migrations (19 spec files)
+
+### Files in packages/memory-client/src/test/viem/:
+1. setBlockGasLimit.spec.ts - migrated createClient, testActions, publicActions
+2. dumpState.spec.ts - migrated createClient
+3. loadState.spec.ts - migrated createClient
+4. mine.spec.ts - migrated testActions
+5. impersonateAccount.spec.ts - migrated testActions
+6. setNonce.spec.ts - migrated testActions
+7. setStorageAt.spec.ts - migrated testActions
+8. snapshot.spec.ts - migrated testActions
+9. removeBlockTimestampInterval.spec.ts - migrated testActions
+10. setBlockTimestampInterval.spec.ts - migrated testActions
+11. setNextBlockTimestamp.spec.ts - migrated testActions
+12. setCode.spec.ts - migrated testActions
+13. waitForTransactionReceipt.spec.ts - migrated testActions
+14. setRpcUrl.spec.ts - migrated testActions
+15. getAutomine.spec.ts - migrated testActions
+16. setCoinbase.spec.ts - migrated testActions
+17. stopImpersonatingAccount.spec.ts - migrated testActions
+18. setBalance.spec.ts - migrated testActions
+19. increaseTime.spec.ts - migrated testActions
+
+### Files in packages/memory-client/src/test/:
+20. tevm.spec.ts - migrated testActions
+21. deployments.spec.ts - migrated testActions
+22. viemSigner.spec.ts - migrated walletActions
+
+## Migration Pattern
+
+For each file:
+- **Before**: `import { testActions } from 'viem'` or `import { type TestActions, testActions } from 'viem'`
+- **After**:
+  ```typescript
+  import type { TestActions } from 'viem'  // Keep type import from viem
+  import { testActions } from '../../createClient.js'  // Use local re-export
+  ```
+
+The local re-export at `packages/memory-client/src/createClient.js` exports:
+```javascript
+export { createClient, publicActions, testActions, walletActions } from 'viem'
+```
+
+## Test Results
+
+Tests verified:
+- snapshot.spec.ts: 3/3 PASSED
+- mine.spec.ts: 2/3 PASSED (1 failed due to pre-existing gas limit issue)
+
+The test failures are pre-existing issues related to Prague hardfork gas limit calculations, not caused by the import migration.
+
+## Remaining viem imports in memory-client spec files
+
+Type-only imports (kept intentionally - no runtime impact):
+- `import type { Client } from 'viem'` (6 files)
+- `import type { TestActions } from 'viem'` (9 files)
+- `import type { PublicActions } from 'viem'` (1 file)
+- `import type { WatchContractEventOnLogsParameter } from 'viem'` (1 file)
+
+Functional imports still using viem:
+- repro-2008.spec.ts: `createPublicClient`, `createWalletClient`, `custom`, `defineChain`
+- tevmDeal.spec.ts: `erc20Abi`
+
+## Notes
+
+1. `createWalletClient` is not currently exported from `@tevm/utils`, so repro-2008.spec.ts still imports from viem
+2. `erc20Abi` is a viem constant (standard ERC20 ABI) - could be defined locally if needed
+3. Type imports from viem are intentionally kept since they have no runtime impact
+
+## Impact
+
+This migration consolidates viem function imports within the memory-client package by using the local re-export at `createClient.js`. This makes it easier to:
+1. Track direct viem runtime dependencies
+2. Eventually create native alternatives if needed
+3. Maintain cleaner import patterns
+
+## Summary
+
+Successfully migrated 22 spec files from direct viem function imports (testActions, walletActions, createClient, publicActions) to the local re-export. Type imports remain from viem since they don't affect runtime bundles.

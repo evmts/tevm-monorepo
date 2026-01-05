@@ -1,0 +1,35 @@
+# Ralph Migration Log - Iteration 763
+## Date: 2026-01-05
+
+## Task: Improve test coverage for serializeTransaction signature paths
+
+## Summary
+
+Added tests to cover previously uncovered branches in the `serializeTransaction` function in `@tevm/utils/src/viem.js`. These tests exercise different signature format paths:
+
+1. Legacy transaction with yParity (no v)
+2. Legacy transaction without chainId using yParity
+3. EIP-2930 transaction with v (fallback to v % 2)
+4. EIP-1559 transaction with odd-length hex data
+
+## Changes Made
+
+### Modified files:
+- `packages/utils/src/viem.spec.ts` - Added 4 new tests for signature and edge cases
+
+### Tests added:
+1. `should serialize signed legacy transaction with yParity (no v)` - Tests yParity path in legacy tx
+2. `should serialize signed legacy transaction without chainId using yParity` - Tests v=27+yParity path
+3. `should serialize signed EIP-2930 transaction with v (fallback to v % 2)` - Tests v to yParity conversion
+4. `should handle odd-length hex data` - Tests hexToRlpBytesForTx odd-length padding
+
+## Coverage Improvement
+
+- Overall coverage: 94.31% → 94.42%
+- viem.js coverage: 87.65% → 88.04%
+
+## Remaining Uncovered Lines
+
+Lines still uncovered in viem.js (1635-1689) are in the `trim` function for Uint8Array trimming paths that are exercised less frequently. These are defensive code paths.
+
+## Status: COMPLETE

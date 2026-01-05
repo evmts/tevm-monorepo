@@ -1,0 +1,38 @@
+# Ralph Migration Log - Iteration 354
+## Date: 2026-01-05 02:27
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **kromaSepolia.js** (id: 2358) - Kroma Sepolia testnet with Sepolia Ether native currency
+2. **l3x.js** (id: 12324) - L3X Protocol mainnet with ETH native currency, includes webSocket and blockExplorer apiUrl
+3. **l3xTestnet.js** (id: 12325) - L3X Protocol Testnet with ETH native currency, includes webSocket and blockExplorer apiUrl
+4. **lightlinkPegasus.js** (id: 1891) - LightLink Pegasus Testnet with ETH, includes multicall3 contract
+5. **lightlinkPhoenix.js** (id: 1890) - LightLink Phoenix Mainnet with ETH, includes multicall3 contract
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~186 (from iteration 353)
+- **Migrated this session**: 5
+- **Total migrated**: ~191
+- **Remaining**: ~144 (~43% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Kroma Sepolia: Testnet for Kroma optimistic rollup
+- L3X Protocol: Has both HTTP and WebSocket RPC URLs, and API URL for block explorer
+- LightLink networks: Both have multicall3 contracts at the same address with different blockCreated values
+
+## Next Steps
+Continue migrating remaining chain presets. ~144 remain (~43% remaining).
+Next chains to migrate: lineaGoerli, lineaSepolia, lineaTestnet, linea, lisk, liskSepolia...

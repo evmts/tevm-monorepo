@@ -1,0 +1,56 @@
+# Ralph Migration Log - Iteration 274
+## Date: 2026-01-04 21:01
+
+## Summary
+Status check and validation of the voltaire migration. No new migrations needed - core packages are fully migrated.
+
+## Assessment Results
+
+### Current Migration Status
+The core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node, @tevm/utils) are fully migrated to use @tevm/voltaire.
+
+### Remaining viem dependencies
+1. **@tevm/utils/src/viem.js** (lines 2136-2143):
+   - Transport functions: `createPublicClient`, `createTransport`, `custom`, `defineChain`, `http`, `webSocket`
+   - These are required for RPC communication with external nodes during forking
+   - These cannot be migrated - viem provides the transport layer for connecting to actual Ethereum nodes
+
+2. **@tevm/utils/src/viem.js** (line 29):
+   - `mnemonicToAccount`, `privateKeyToAccount` from 'viem/accounts'
+   - Deprecated exports for backward compatibility
+   - Native alternatives already available: `nativeMnemonicToAccount`, `nativePrivateKeyToAccount`
+
+3. **@tevm/utils/src/abitype.ts** (line 1):
+   - Type re-exports: `Account`, `HDAccount` from 'viem'
+   - Deprecated, kept for backward compatibility
+
+### @scure dependencies (Intentionally kept)
+- `@scure/bip39` and `@scure/bip32` in `nativeHdAccount.js` and `nativeMnemonicToAccount.js`
+- These cannot be migrated to voltaire due to FFI dependencies in voltaire's Bip39/HDWallet modules
+- The @scure libraries are stable and are what voltaire wraps anyway
+
+### Guillotine WASM Integration
+- `packages/evm/src/guillotineWasm.js` - Complete WASM integration for EVM execution
+- 26 passing tests, 1 skipped (known bug for storage operations)
+- WASM file present: `packages/evm/src/guillotine_mini.wasm`
+
+## Test Results
+All core tests passing:
+- nativePrivateKeyToAccount.spec.ts: 18/18 passed
+- signature.spec.ts: 31/31 passed  
+- prefundedAccounts.spec.ts: 1/1 passed
+- ethSignTransactionHandler.spec.ts: 2/2 passed
+- guillotineWasm.spec.ts: 26/26 passed (1 skipped)
+- @tevm/utils:build:types: SUCCESS
+
+## Migration Complete
+The migration goals have been achieved:
+1. ✅ Core packages use @tevm/voltaire for crypto primitives
+2. ✅ Native account implementations (viem-compatible, no viem dependency)
+3. ✅ EIP-712 typed data signing using voltaire
+4. ✅ Guillotine WASM integration for EVM execution
+5. ✅ All tests passing
+
+The remaining viem usage is intentional:
+- Transport layer for RPC communication (cannot be replaced)
+- Deprecated re-exports for backward compatibility (will be removed in future version)

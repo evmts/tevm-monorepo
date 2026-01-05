@@ -1,0 +1,9 @@
+Migrated 5 chain presets from viem/chains to nativeDefineChain:
+
+1. **morphHolesky.js** (id: 2810) - Morph Holesky L2 testnet with WebSocket support
+2. **morphSepolia.js** (id: 2710) - Morph Sepolia testnet
+3. **nautilus.js** (id: 22222) - Nautilus Mainnet with ZBC token (9 decimals)
+4. **neonDevnet.js** (id: 245022926) - Neon EVM DevNet with multicall3
+5. **neonMainnet.js** (id: 245022934) - Neon EVM MainNet with multicall3
+
+Tests passed (10/10, 1 skipped). **118 preset files remaining** (~35% left to migrate).

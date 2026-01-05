@@ -1,0 +1,87 @@
+# Ralph Migration Log - Iteration 251
+## Date: 2026-01-04 19:14:30
+
+## Summary
+Status verification and comprehensive test run. All voltaire migrations remain stable.
+
+## Tests Run
+All tests passing:
+- `packages/utils/src/viem.spec.ts` - 253 tests passed
+- `packages/utils/src/signature.spec.ts` - 31 tests passed
+- `packages/utils/src/ecrecover.spec.ts` - 7 tests passed
+- `packages/utils/src/eip7702.spec.ts` - 22 tests passed
+- `packages/utils/src/nativePrivateKeyToAccount.spec.ts` - 18 tests passed
+- `packages/utils/src/nativeMnemonicToAccount.spec.ts` - 17 tests passed
+- `packages/utils/src/prefundedAccounts.spec.ts` - 1 test passed
+- `packages/evm/src/guillotineWasm.spec.ts` - 24 tests passed
+- `packages/precompiles/src/p256verify.precompile.spec.ts` - 4 tests passed
+- `packages/actions/src/eth/ethAccountsHandler.spec.ts` - 3 tests passed
+- `packages/actions/src/eth/ethSignTransactionHandler.spec.ts` - 2 tests passed
+
+Total: 382 tests verified passing
+
+## Migration Status
+
+### Fully Migrated to Voltaire:
+1. **Keccak256**: All usages via `@tevm/voltaire/Keccak256`
+2. **Secp256k1**: Signing, recovery, public key derivation via `@tevm/voltaire/Secp256k1`
+3. **P256**: p256verify precompile via `@tevm/voltaire/P256`
+4. **ABI Encoding**: All functions (encodeAbiParameters, decodeAbiParameters, encodeFunctionData, etc.)
+5. **Account Creation**: nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount
+6. **Signature Operations**: ecrecover, hashMessage, hashTypedData
+7. **EIP-7702**: Authorization signing and verification
+
+### Noble Libraries: FULLY REMOVED
+- No production imports from @noble/curves
+- No production imports from @noble/hashes
+- Only documentation comments reference noble (as historical context)
+
+### Source File Analysis
+Searched for remaining viem imports in JS source (non-dist):
+- `packages/memory-client/src/createClient.js` - re-exports viem client functions (architectural)
+- `packages/memory-client/src/createMemoryClient.js` - uses viem client (architectural)
+- `packages/utils/src/viem.js` - only transport/client functions remain (architectural)
+
+### Remaining viem Dependencies (Architectural - Cannot Remove):
+1. **Transport/Client Functions** in @tevm/utils:
+   - `createPublicClient`, `http`, `webSocket`, `custom`, `defineChain`, `createTransport`
+   - Required for RPC communication with external nodes (forking)
+
+2. **Type Imports** in @tevm/memory-client:
+   - `Chain`, `Client`, `PublicActions`, `TestActions`, `WalletActions`, etc.
+   - Required for viem compatibility layer
+
+3. **Deprecated Re-exports** in @tevm/utils:
+   - `mnemonicToAccount`, `privateKeyToAccount` from viem/accounts
+   - Marked deprecated, users should use native versions
+
+### Remaining ethereumjs Dependencies (Foundational - 3 imports):
+1. `packages/tx/src/createImpersonatedTx.js` - `FeeMarket1559Tx`
+   - Wraps ethereumjs tx for impersonation feature
+   - Tightly coupled to ethereumjs tx format
+
+2. `packages/common/src/createCommon.js` - `createCustomCommon`, `Mainnet`
+   - Core chain configuration
+   - Used throughout ethereumjs VM/EVM stack
+
+### Wallet Dependencies (@scure - Keep):
+- `@scure/bip39` - Mnemonic validation and seed generation
+- `@scure/bip32` - HD key derivation
+- These are BIP-39/BIP-32 standards, not EVM cryptography
+
+## Guillotine-Mini Integration Status
+- WASM loader implemented and tested (24 tests passing)
+- WASM binary present: `packages/evm/src/guillotine_mini.wasm`
+- Evm.js adapter created with value transfer support
+- Full EVM bytecode execution integration pending
+
+## Conclusion
+Migration is mature and stable. All crypto primitives use voltaire. The remaining
+viem/ethereumjs dependencies are architectural:
+- viem: Required for RPC client functionality (forking)
+- ethereumjs: Required for transaction/common types used by VM
+
+Next major milestones would be:
+1. Replace @ethereumjs/tx with voltaire Transaction (requires adapter work)
+2. Replace @ethereumjs/common with voltaire Chain (requires VM integration changes)
+3. Wire guillotine-mini WASM for full EVM execution

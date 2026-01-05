@@ -1,0 +1,48 @@
+# Ralph Migration Log - Iteration 165
+## Date: 2026-01-04 16:26:57
+
+## Summary
+1. Migrated `encodeFunctionData` import from viem to @tevm/utils in tevmCall.spec.ts
+2. Fixed critical Bloom.or() off-by-one bug that was blocking many tests
+
+## Changes Made
+
+### 1. Import Migration: tevmCall.spec.ts
+File: `packages/memory-client/src/tevmCall.spec.ts`
+- Changed: `import { type Client, createClient, encodeFunctionData } from 'viem'`
+- To: `import { encodeFunctionData } from '@tevm/utils'` and `import { type Client, createClient } from 'viem'`
+
+### 2. Bug Fix: Bloom.or() off-by-one error
+File: `packages/utils/src/Bloom.ts`
+- **Bug**: Line 92 had `for (let i = 0; i <= BYTE_SIZE; i++)` which iterated to index 256 on a 256-element array (indices 0-255)
+- **Fix**: Changed to `for (let i = 0; i < BYTE_SIZE; i++)` to correctly iterate only valid indices
+- **Impact**: This was causing `DefensiveNullCheckError: a is not defined` in many memory-client tests
+
+### 3. Test Update: Bloom.spec.ts
+File: `packages/utils/src/Bloom.spec.ts`
+- The previous test for `DefensiveNullCheckError` relied on the bug (accessing out-of-bounds index 256)
+- Replaced with a meaningful test that verifies `Bloom.or()` correctly combines two bloom filters
+
+## Test Results
+- `@tevm/utils` Bloom.spec.ts - 6 tests pass
+- `@tevm/memory-client` tevmCall.spec.ts - 6/9 pass (3 failures unrelated to migration, different test assertions)
+
+## Migration Status
+
+### Completed in this iteration:
+- Migrated `encodeFunctionData` from viem to @tevm/utils
+- Fixed Bloom.or() bug that was blocking test execution
+
+### Pre-existing issues (not migration related):
+- Some tevmCall tests have gas estimation or value expectation issues
+- Some createMemoryClient tests have RPC-related issues
+
+## Notes
+- The Bloom bug was a significant blocker - many tests were failing with `DefensiveNullCheckError`
+- The fix unblocks test execution, though some tests have pre-existing failures unrelated to the migration
+- Core packages (actions, vm, evm, state, node) remain clean of direct viem imports
+
+## Next Steps
+1. Continue migrating viem imports in test files to @tevm/utils
+2. Investigate pre-existing test failures separately from migration work
+3. Look for more opportunities to use native voltaire implementations

@@ -1,0 +1,41 @@
+# Ralph Migration Log - Iteration 737
+## Date: 2026-01-05
+
+## Task: Update JSDoc examples in test-node to use nativeHttp
+
+## Summary
+
+Updated JSDoc documentation examples in @tevm/test-node extension to use the native `nativeHttp` transport function from `@tevm/utils` instead of the deprecated viem `http` import. This improves consistency with the migration goals.
+
+## Changes Made
+
+### extensions/test-node/src/createTestSnapshotTransport.ts
+- Updated JSDoc example: `import { http } from 'viem'` → `import { nativeHttp } from '@tevm/utils'`
+- Updated usage: `http('...')` → `nativeHttp('...')`
+
+### extensions/test-node/src/createTestSnapshotClient.ts
+- Updated JSDoc example: `import { http } from 'viem'` → `import { nativeHttp } from '@tevm/utils'`
+- Updated usage: `http('...')` → `nativeHttp('...')`
+
+### extensions/test-node/src/createTestSnapshotNode.ts
+- Updated JSDoc example: `import { http } from 'viem'` → `import { nativeHttp } from '@tevm/utils'`
+- Updated usage: `http('...')` → `nativeHttp('...')`
+
+## Impact
+
+- Documentation now reflects the native implementation
+- No functional changes - only JSDoc comment updates
+- Users following the examples will use the native transport
+
+## Migration Status Assessment
+
+- Core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) have NO viem imports in source files
+- @tevm/utils still has viem re-exports for backward compatibility (http, webSocket, custom, etc.)
+- @tevm/memory-client requires viem's Client infrastructure for full viem compatibility
+- Extensions/test-matchers use viem actions (getTransaction, etc.) that require viem Client
+
+## Notes
+
+- The @tevm/memory-client package is designed to be viem-compatible and will continue to need viem imports for the Client/Account infrastructure
+- The test-node package had pre-existing test failures unrelated to these changes
+- JSDoc examples are important for user guidance - pointing them to native implementations helps gradual adoption

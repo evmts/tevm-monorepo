@@ -1,0 +1,74 @@
+# Ralph Migration Log - Iteration 386
+## Date: 2026-01-05 03:51
+
+## Summary
+STATUS VERIFICATION - Comprehensive review of migration progress across all core packages.
+
+## Verification Results
+
+### Core Packages - NO DIRECT VIEM/ETHEREUMJS IMPORTS:
+1. **@tevm/actions** - Uses @tevm/utils only ✅
+2. **@tevm/vm** - No viem/ethereumjs imports ✅
+3. **@tevm/evm** - No viem/ethereumjs imports ✅
+4. **@tevm/state** - Uses native createForkRpcClient ✅
+5. **@tevm/node** - No viem/ethereumjs imports ✅
+6. **@tevm/block** - No direct imports ✅
+7. **@tevm/blockchain** - No direct imports ✅
+
+### Test Verification (All Passing):
+- packages/utils/src/nativeHttp.spec.ts - 6 tests ✅
+- packages/evm/src/guillotineWasm.spec.ts - 38 tests (1 skipped: known WASM bug) ✅
+- packages/precompiles/src/* - 16 tests ✅
+
+### Remaining Viem Usage (Intentional/Required):
+1. **@tevm/utils/src/viem.js** - Re-exports for:
+   - parseAbi, formatAbi from 'abitype' (type-level utilities, no runtime viem)
+   - mnemonicToAccount, privateKeyToAccount from 'viem/accounts' (DEPRECATED, native alternatives exist)
+   - Transport utilities (createPublicClient, http, etc.) for RPC forking
+
+2. **@tevm/memory-client** - Intentionally uses viem (viem client wrapper)
+
+### Native Alternatives Fully Implemented:
+- nativeHttp() - HTTP transport ✅
+- nativeWebSocket() - WebSocket transport ✅
+- nativeCustom() - Custom transport ✅
+- nativeDefineChain() - Chain definition ✅
+- nativePrivateKeyToAccount() - Account from private key ✅
+- nativeMnemonicToAccount() - Account from mnemonic ✅
+- createForkRpcClient() - Fork state management ✅
+- All ABI encoding/decoding - Using @tevm/voltaire/Abi ✅
+- All signature operations - Using @tevm/voltaire/EIP712, Secp256k1 ✅
+- P256 verification - Using @tevm/voltaire/P256 ✅
+
+### Ethereumjs Dependencies Status:
+- **@ethereumjs/tx** - Still used in @tevm/tx package for transaction types
+- **@ethereumjs/common** - Still used in @tevm/common for chain configuration
+- **@ethereumjs/trie** - Still used in @tevm/trie for Merkle Patricia Trie
+
+Note: These are wrapper packages that re-export ethereumjs functionality.
+Core tevm packages don't import directly from ethereumjs.
+
+### Guillotine-Mini WASM Integration:
+- WASM loader fully functional
+- 38 opcode tests passing
+- Known bug: evm_set_storage has WASM memory issue (SSTORE during execution works)
+- Ready for further integration with tevm's state manager
+
+## Conclusion
+Migration is in excellent shape. Core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) have no direct viem/ethereumjs imports. All functionality routes through @tevm/utils which provides native alternatives.
+
+## Additional Test Verification (This Session):
+- packages/utils/src/signature.spec.ts - 31 tests ✅
+- packages/utils/src/abiFunctionEncoding.spec.ts - 15 tests ✅
+- @tevm/utils:build:types - Build successful ✅
+
+## Chain Presets Migration Complete:
+- All 343+ chain presets migrated to nativeDefineChain
+- No production preset files import from viem/chains
+- Only __GENERATE_CHAIN_PRESETS__.js (generator script) references viem/chains
+
+## Next Steps
+1. Consider removing deprecated viem/accounts re-exports in future release
+2. Further guillotine-mini integration for actual EVM execution
+3. Fix evm_set_storage WASM bug if needed for production use
+4. Potential future work: native @ethereumjs/tx, @ethereumjs/common, @ethereumjs/trie replacements

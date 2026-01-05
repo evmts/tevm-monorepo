@@ -1,0 +1,57 @@
+# Ralph Migration Log - Iteration 333
+## Date: 2026-01-05 01:24
+
+## Summary
+Continued chain preset migration session. Migrated 14 more chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+### Mainnet L2s (5 chains):
+1. **celo.js** (id: 42220) - Mobile-first blockchain, CELO native currency
+2. **moonbeam.js** (id: 1284) - Polkadot parachain, GLMR native currency
+3. **cronos.js** (id: 25) - Crypto.com chain, CRO native currency
+4. **blast.js** (id: 81457) - L2 with native yield
+5. **linea.js** (id: 59144) - Consensys zkEVM L2
+
+### L2s Continued (6 chains):
+6. **scroll.js** (id: 534352) - Scroll zkEVM L2
+7. **mantle.js** (id: 5000) - Mantle L2 with MNT native currency
+8. **mode.js** (id: 34443) - Mode OP Stack L2
+9. **manta.js** (id: 169) - Manta Pacific Mainnet
+10. **taiko.js** (id: 167000) - Taiko based rollup L2
+11. **zora.js** (id: 7777777) - Zora OP Stack L2
+
+### Testnets (3 chains):
+12. **arbitrumSepolia.js** (id: 421614) - Arbitrum Sepolia testnet
+13. **baseSepolia.js** (id: 84532) - Base Sepolia testnet
+14. **optimismSepolia.js** (id: 11155420) - OP Sepolia testnet
+
+## Commits Made
+1. dec051a5a - celo.js
+2. bd630f629 - moonbeam.js
+3. b5f3b6ee8 - cronos, blast, linea (batch)
+4. 0170df968 - scroll, mantle, mode (batch)
+5. a037ae86a - arbitrumSepolia, baseSepolia, optimismSepolia (batch)
+6. 771ef78d8 - manta, taiko, zora (batch)
+
+## Tests Verified
+All tests pass after each migration:
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+- Manual import verification for all chains
+
+## Migration Progress
+- **Total presets**: ~335
+- **Migrated previously**: ~17
+- **Migrated this session**: 14
+- **Total migrated**: ~31
+- **Remaining**: ~309
+
+## Pattern Established
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (multicall3)
+
+## Next Steps
+1. Consider creating a batch migration script to handle remaining ~309 chain presets
+2. The pattern is well-established and mechanical - good candidate for automation

@@ -1,0 +1,28 @@
+## Summary - Iteration 306
+
+This was a verification iteration. I confirmed that:
+
+1. **All core packages are clean** - No viem or ethereumjs imports in:
+   - @tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node
+   - @tevm/block, @tevm/blockchain, @tevm/precompiles, @tevm/decorators
+   - @tevm/jsonrpc, @tevm/procedures, @tevm/errors, @tevm/rlp
+   - @tevm/http-client, @tevm/server, @tevm/effect, and more
+
+2. **@noble/curves and @noble/hashes** - Only referenced in comments/documentation
+
+3. **All tests pass**:
+   - signature.spec.ts: 31 passed
+   - guillotineWasm.spec.ts: 38 passed
+   - nativePrivateKeyToAccount.spec.ts: 18 passed
+   - nativeMnemonicToAccount.spec.ts: 17 passed
+   - eip7702.spec.ts: 22 passed
+   - definePrecompile.spec.ts: 3 passed
+   - Rlp.spec.ts: 1 passed
+
+4. **Intentional dependencies remain** (architectural):
+   - @ethereumjs/common (chain config)
+   - @ethereumjs/tx (transaction classes)
+   - @ethereumjs/trie (merkle patricia trie)
+   - viem in @tevm/memory-client (user-facing API compatibility)
+
+The core migration is **complete**. Future work could explore migrating the remaining ethereumjs dependencies using voltaire's primitives (Transaction, Trie, etc.).

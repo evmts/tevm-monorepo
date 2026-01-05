@@ -1,0 +1,45 @@
+# Ralph Migration Log - Iteration 324
+## Date: 2026-01-05 01:05
+
+## Summary
+Migrated base.js preset from viem/chains dependency to nativeDefineChain. Base is a major L2 on the OP Stack, making this a high-priority migration.
+
+## Actions Taken
+1. Updated `packages/common/src/presets/base.js`:
+   - Replaced `import { base as _base } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+   - Created native chain definition inline with all properties:
+     - id: 8453
+     - name: 'Base'
+     - nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 }
+     - blockTime: 2000
+     - rpcUrls: { default: { http: ['https://mainnet.base.org'] } }
+     - blockExplorers: { default: { name: 'Basescan', url: 'https://basescan.org', apiUrl: '...' } }
+     - contracts: gasPriceOracle, l1Block, l2CrossDomainMessenger, l2Erc721Bridge, l2StandardBridge, l2ToL1MessagePasser, multicall3
+     - sourceId: 1 (L1 Ethereum)
+   - Note: Omitted disputeGameFactory, l2OutputOracle, portal, l1StandardBridge as they have complex L1-specific structures
+
+## Files Modified
+1. `packages/common/src/presets/base.js`
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped
+
+## Impact
+- **Removed viem/chains dependency**: base.js no longer imports from viem/chains
+- **Backwards compatible**: The chain configuration remains functionally identical
+- **High-priority OP Stack L2 migrated**: Base is a major L2 on Coinbase's OP Stack network
+
+## Migrated Presets So Far
+1. mainnet.js (iteration 320)
+2. optimism.js (iteration 321)
+3. sepolia.js (iteration 322)
+4. arbitrum.js (iteration 323)
+5. base.js (iteration 324) <- this iteration
+
+## Remaining viem/chains Imports
+- Still many preset files importing from viem/chains
+- Next high-priority preset to migrate: polygon.js
+
+## Next Steps
+1. Continue migrating high-priority chain presets (polygon)
+2. Consider creating a batch migration script for remaining presets

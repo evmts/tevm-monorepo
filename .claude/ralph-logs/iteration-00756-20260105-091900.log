@@ -1,0 +1,75 @@
+# Ralph Migration Log - Iteration 756
+## Date: 2026-01-05
+
+## Task: Attempted migration of nativeHdAccount.js to use @tevm/voltaire
+
+## Summary
+
+Attempted to migrate `nativeHdAccount.js` from direct `@scure/bip39` and `@scure/bip32` imports to use `@tevm/voltaire/Bip39` and `@tevm/voltaire/HDWallet`. The migration was reverted due to FFI dependency issues.
+
+## Investigation
+
+1. Voltaire has comprehensive Bip39 and HDWallet modules:
+   - `@tevm/voltaire/Bip39`: validateMnemonic, mnemonicToSeedSync, etc.
+   - `@tevm/voltaire/HDWallet`: fromSeed, derivePath, getPrivateKey, etc.
+
+2. Both modules internally wrap `@scure/bip39` and `@scure/bip32` respectively.
+
+3. However, the HDWallet index file also imports FFI-using functions (like `mnemonicToSeed` from `./mnemonicToSeed.js` which uses `ffi-napi`).
+
+4. When importing `HDWallet` namespace, the entire module gets loaded, pulling in FFI dependencies even if we don't use those functions.
+
+## Technical Issue
+
+```
+Error: No native build was found for platform=darwin arch=arm64 runtime=node
+loaded from: /node_modules/.pnpm/ref-napi@3.0.3/node_modules/ref-napi
+```
+
+The FFI modules (`ffi-napi`, `ref-napi`) require native builds that aren't available for the test environment.
+
+## Resolution
+
+Reverted to using `@scure/bip39` and `@scure/bip32` directly, with an enhanced comment explaining:
+- Why direct @scure usage is chosen over voltaire wrappers
+- That voltaire internally uses @scure for the same functionality
+- The FFI dependency issue with voltaire's HDWallet module structure
+
+## Changes Made
+
+Updated comment in `nativeHdAccount.js`:
+```javascript
+// Native HD account implementation using @scure/bip39 and @scure/bip32
+// This provides a viem-compatible HDAccount from a mnemonic phrase
+// Uses pure JS libraries (no FFI/native dependencies)
+//
+// Note: @tevm/voltaire has Bip39 and HDWallet modules that wrap @scure,
+// but importing them pulls in FFI dependencies due to module structure.
+// Direct @scure usage avoids this and is equally correct since voltaire
+// internally uses @scure for the same functionality.
+```
+
+## Test Results
+
+All 13 tests pass:
+- nativeHdAccount > basic functionality > should create an account from a valid mnemonic ✓
+- nativeHdAccount > basic functionality > should have source set to "hd" ✓
+- nativeHdAccount > basic functionality > should have type set to "local" ✓
+- nativeHdAccount > basic functionality > should have publicKey ✓
+- nativeHdAccount > basic functionality > should throw on invalid mnemonic ✓
+- nativeHdAccount > viem compatibility > should derive the same address as viem for default options ✓
+- nativeHdAccount > viem compatibility > should derive the same address as viem for different addressIndex ✓
+- nativeHdAccount > viem compatibility > should derive the same address as viem for different accountIndex ✓
+- nativeHdAccount > signing > should sign a message with the same result as viem ✓
+- nativeHdAccount > signing > should sign a hash ✓
+- nativeHdAccount > signing > should sign typed data with same result as viem ✓
+- nativeHdAccount > getAccount helper > should get an account at a specific index ✓
+- nativeHdAccount > getAccount helper > should return different addresses for different indices ✓
+
+## Recommendations
+
+Consider refactoring voltaire's HDWallet module to separate pure JS functions from FFI-enhanced functions:
+- `@tevm/voltaire/HDWallet/js` - Pure JS implementations (fromSeed, derivePath, getPrivateKey, etc.)
+- `@tevm/voltaire/HDWallet/ffi` - FFI-accelerated versions
+
+This would allow consumers to use the pure JS version without pulling in native dependencies.

@@ -1,0 +1,16 @@
+No more Buffer.from hex patterns in core packages. The migration is complete for this iteration.
+
+## Summary
+
+In this iteration, I migrated 4 files in the `@tevm/actions` package to use native `hexToBytes` and `bytesToHex` functions from `@tevm/utils` instead of Node.js-specific `Buffer.from()` and `Buffer.toString('hex')` patterns:
+
+1. **anvilRevertProcedure.js** - Replaced `Uint8Array.from(Buffer.from(hex.slice(2), 'hex'))` with `hexToBytes(hex)`
+2. **createHandlers.js** - Same replacement for evm_revert handler
+3. **debugGetModifiedAccountsByHashHandler.js** - Replaced `Buffer.from(bh.slice(2), 'hex')` with `hexToBytes(bh)`
+4. **debugPreimageProcedure.js** - Replaced `Buffer.from(bytes).toString('hex')` with `bytesToHex(bytes)`
+
+These changes:
+- Remove direct Buffer usage (Node.js specific)
+- Use native utilities that leverage @tevm/voltaire internally
+- Maintain consistency with the voltaire migration strategy
+- The @tevm/actions build passes successfully

@@ -1,0 +1,57 @@
+# Ralph Migration Log - Iteration 179
+## Date: 2026-01-04 13:20:12
+
+## Summary
+Migrated `EncodeFunctionDataParameters` type from viem to native implementation in @tevm/utils.
+
+## Changes Made
+
+### 1. Created native EncodeFunctionDataParameters type in `packages/utils/src/contract-types.ts`
+Added two new types:
+- `GetFunctionArgs<TAbi, TFunctionName>`: Helper type that extracts the function args structure from an ABI function
+  - Returns `{ args: ... }` when the function has inputs
+  - Returns `{ args?: never }` when no inputs
+  - Returns `{ args?: readonly unknown[] }` when args cannot be parsed
+
+- `EncodeFunctionDataParameters<TAbi, TFunctionName>`: Native replacement for viem's type
+  - Provides the type signature for `encodeFunctionData` parameters
+  - Includes `abi`, `functionName`, and `args` properties
+  - Properly handles function overloads and optional function names
+
+### 2. Updated `packages/utils/src/abitype.ts`
+- Moved `EncodeFunctionDataParameters` from viem import to native contract-types.js import
+- Reduced viem type imports by one more
+
+## Tests Verified
+- `packages/common/src/createCommon.spec.ts` - 11 passed, 1 skipped
+- `packages/state/src/createBaseState.spec.ts` - 4 passed
+- `packages/evm/src/createEvm.spec.ts` - 14 passed
+- `packages/contract/src/*.spec.ts` - 29 passed (4 test files)
+- Type checking passes for contract-types.ts
+
+## Migration Progress
+
+### viem types still imported from abitype.ts (6 remaining):
+- Account (complex type with signing methods)
+- CreateEventFilterParameters (complex event filtering)
+- DecodeFunctionResultReturnType (return type decoding)
+- EncodeDeployDataParameters (constructor encoding - next target)
+- GetEventArgs (event argument extraction)
+- HDAccount (complex type with HD derivation methods)
+
+### Native contract types now complete:
+- ContractFunctionName ✅
+- ContractFunctionArgs ✅
+- ContractFunctionReturnType ✅
+- ContractConstructorArgs ✅
+- EncodeFunctionDataParameters ✅ (NEW)
+
+## Next Steps
+1. Consider migrating `EncodeDeployDataParameters` (similar to EncodeFunctionDataParameters but for constructors)
+2. Complex types (Account, HDAccount) require viem's signing infrastructure - may not be migrateable
+3. `DecodeFunctionResultReturnType` could potentially be migrated
+4. Continue reducing viem surface area where possible
+
+## Files Changed
+- packages/utils/src/contract-types.ts (added GetFunctionArgs and EncodeFunctionDataParameters types)
+- packages/utils/src/abitype.ts (updated imports)

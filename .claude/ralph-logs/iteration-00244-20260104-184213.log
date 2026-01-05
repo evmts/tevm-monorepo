@@ -1,0 +1,95 @@
+# Ralph Migration Log - Iteration 244
+## Date: 2026-01-04 18:42:13
+
+## Summary
+Assessed migration status and verified test coverage for native account implementations and guillotine WASM integration.
+
+## Tests Run
+All tests passing:
+- `packages/evm/src/guillotineWasm.spec.ts` - 24 tests passed
+- `packages/utils/src/nativePrivateKeyToAccount.spec.ts` - 18 tests passed
+- `packages/utils/src/nativeMnemonicToAccount.spec.ts` - 17 tests passed
+- `packages/utils/src/Bloom.spec.ts` - 6 tests passed
+- `packages/utils/src/prefundedAccounts.spec.ts` - 1 test passed
+
+## Migration Status Assessment
+
+### Completed Migrations
+- **Noble-curves to Voltaire**: 100% complete
+  - Keccak256: Using `@tevm/voltaire/Keccak256`
+  - Secp256k1: Using `@tevm/voltaire/Secp256k1`
+  - P256 (precompiles): Using `@tevm/voltaire/P256`
+
+- **Native Account Implementations**: 100% complete
+  - `nativePrivateKeyToAccount` - viem-compatible, no viem dependency
+  - `nativeMnemonicToAccount` - viem-compatible, no viem dependency
+  - `nativeHdAccount` - viem-compatible HD accounts
+  - `PREFUNDED_ACCOUNTS` now uses native implementations
+
+- **Guillotine-mini WASM**: Basic integration complete
+  - 24 tests covering core EVM operations
+  - Tests for ADD, MUL, SUB, DIV, MOD, EXP, PUSH, RETURN, REVERT, CALLER, CALLDATASIZE
+  - Hardfork support (Cancun, Prague)
+  - Gas tracking tests
+
+### Remaining Dependencies
+
+#### Intentionally Kept (Required for Functionality)
+1. **viem transport functions** (`packages/utils/src/viem.js`)
+   - `createPublicClient`, `http`, `webSocket`, `custom`, `defineChain`, `createTransport`
+   - Required for forking to communicate with external nodes
+
+2. **viem client** (`packages/memory-client/`)
+   - This package IS the viem integration layer
+   - Provides viem-compatible memory client
+
+3. **Deprecated but kept for backward compatibility** (`packages/utils/src/viem.js`)
+   - `mnemonicToAccount`, `privateKeyToAccount` from `viem/accounts`
+   - Native alternatives exist: `nativeMnemonicToAccount`, `nativePrivateKeyToAccount`
+   - Will be removed in future version
+
+#### EthereumJS Dependencies (Lower Priority)
+1. **@ethereumjs/common** (`packages/common/`)
+   - Used for chain configuration and hardfork parameters
+   - Complex to replace - provides fork rules, chain IDs, etc.
+
+2. **@ethereumjs/tx** (`packages/tx/`)
+   - `FeeMarket1559Tx` used as base class for ImpersonatedTx
+   - Tightly coupled with ethereumjs transaction types
+
+3. **@ethereumjs/statemanager** (types only)
+   - `AccountCache`, `StorageCache` types
+
+4. **@ethereumjs/blockchain** (types only)
+   - `Consensus`, `OnBlock`, `BlockchainEvent` types
+
+5. **@ethereumjs/trie**
+   - Core Merkle Patricia Trie implementation
+   - Would require significant effort to replace
+
+### Voltaire BloomFilter Investigation
+Investigated using `@tevm/voltaire/BloomFilter` to replace tevm's Bloom class:
+- **Finding**: Voltaire BloomFilter uses generic multiplicative hashing
+- **Issue**: Ethereum bloom filter requires specific keccak256-based algorithm
+- **Decision**: Keep current native Bloom implementation (adapted from ethereumjs/vm)
+  - Uses keccak256 from voltaire
+  - Matches Ethereum spec precisely
+
+## Next Steps (Potential Future Work)
+1. **Create Ethereum-specific bloom filter in Voltaire**
+   - Would need to use keccak256 and follow EIP bloom spec exactly
+
+2. **Investigate guillotine-mini for transaction execution**
+   - Current tests cover basic opcodes
+   - Could potentially accelerate EVM execution
+
+3. **Consider removing deprecated viem account exports**
+   - Would be breaking change
+   - Need deprecation period
+
+## Files Modified
+None - assessment and testing only
+
+## Status
+Migration to voltaire crypto primitives is complete. Core packages use native implementations.
+Remaining viem/ethereumjs dependencies are intentional (forking, viem compatibility, core types).

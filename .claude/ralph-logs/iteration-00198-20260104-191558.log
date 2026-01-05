@@ -1,0 +1,32 @@
+I've completed this iteration. Here's a summary of what was accomplished:
+
+## Iteration 252 Summary
+
+### Changes Made
+
+1. **Integrated guillotine-mini WASM into Evm.js**:
+   - Added imports for guillotine WASM functions (`loadGuillotineWasm`, `createGuillotineEvm`, `executeGuillotine`, etc.)
+   - Implemented `getWasmInstance()` helper that lazily loads WASM and handles test isolation
+   - Modified `runCall()` to execute bytecode via guillotine when:
+     - The target address has code deployed
+     - WASM is successfully loaded
+   - Falls back gracefully to stub behavior if WASM is unavailable
+
+2. **Added 3 new tests** for guillotine bytecode execution:
+   - Tests execution with deployed bytecode
+   - Tests empty result for addresses without code
+   - Tests REVERT handling
+
+### Test Results
+- **41 tests passing** (up from 38)
+  - `guillotineWasm.spec.ts`: 24 tests
+  - `createEvm.spec.ts`: 17 tests (3 new)
+
+### Known Limitations
+The RETURN opcode executes correctly but output capture isn't complete in the guillotine-mini WASM API. This is documented behavior - execution succeeds but `returnValue` may be empty. This will require work on the guillotine-mini WASM side to fix.
+
+### Next Steps
+1. Wire storage callbacks (SLOAD/SSTORE) to StateManager
+2. Complete output capture in WASM API
+3. Replace @ethereumjs/tx with voltaire Transaction
+4. Replace @ethereumjs/common with voltaire Chain

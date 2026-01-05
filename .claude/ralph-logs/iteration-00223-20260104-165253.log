@@ -1,0 +1,63 @@
+# Ralph Migration Log - Iteration 223
+## Date: 2026-01-04 16:52:53
+
+## Summary
+Assessment and status check iteration. Verified that core packages are fully migrated from viem and ethereumjs dependencies. No code changes made - migration is in a healthy state.
+
+## Assessment Results
+
+### Core Packages Status - FULLY MIGRATED
+The following packages have NO viem or ethereumjs imports in production code:
+- `@tevm/actions` - fully migrated
+- `@tevm/vm` - fully migrated
+- `@tevm/evm` - fully migrated
+- `@tevm/state` - fully migrated
+- `@tevm/node` - fully migrated
+- `@tevm/utils` - mostly migrated (see remaining items)
+
+### Remaining viem Dependencies (Intentional)
+
+1. **Transport/Client Functions** (`packages/utils/src/viem.js:2136-2143`)
+   - `createPublicClient`, `createTransport`, `custom`, `defineChain`, `http`, `webSocket`
+   - Required for RPC communication with external nodes during forking
+   - Cannot be migrated without significant effort (implementing full transport layer)
+
+2. **parseAbi from abitype** (`packages/utils/src/viem.js:19`)
+   - Human-readable ABI parser
+   - Complex functionality that would require significant development effort
+
+3. **Account/HDAccount Types** (`packages/utils/src/abitype.ts:32`)
+   - Deprecated but kept for backward compatibility
+   - Native alternatives available: `LocalAccount`, `NativePrivateKeyAccount`, `NativeHDAccount`
+
+### Remaining ethereumjs Dependencies
+
+1. **@ethereumjs/common** in `packages/common/src/createCommon.js`
+   - Core EVM configuration and hardfork definitions
+   - Deep integration with EVM execution
+
+2. **@ethereumjs/tx** FeeMarket1559Tx in `packages/tx/src/createImpersonatedTx.js`
+   - Used for creating impersonated transactions
+   - Voltaire has `TransactionEIP1559` but migration requires careful work
+
+### Native Implementations in Place
+All signature and account functions are now native:
+- `signature.js` - uses native ecrecover and @tevm/voltaire/EIP712
+- `nativePrivateKeyToAccount.js` - viem-compatible native account
+- `nativeMnemonicToAccount.js` - viem-compatible native HD account
+- `nativeHdAccount.js` - viem-compatible HD account helper
+
+### Test Status
+- All 607 utils tests pass
+- Tests use viem for verification (to ensure native implementations are viem-compatible)
+
+## No Code Changes
+This iteration focused on status assessment. The migration is in a stable state with all core functionality migrated. Remaining dependencies are either:
+1. Intentionally kept for functionality that requires RPC communication
+2. Complex to migrate (ethereumjs common/tx integration)
+
+## Next Steps for Future Iterations
+1. Consider long-term native transport implementation for basic HTTP/WebSocket RPC
+2. Continue monitoring voltaire updates for potential parseAbi equivalent
+3. Eventually migrate FeeMarket1559Tx usage to voltaire TransactionEIP1559
+4. Eventually migrate @ethereumjs/common to native chain configuration

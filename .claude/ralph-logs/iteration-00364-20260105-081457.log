@@ -1,0 +1,15 @@
+## Summary - Iteration 739
+
+Successfully migrated `ContractFunctionRevertedError` import from `viem` to `@tevm/errors` in `extensions/test-matchers/src/matchers/errors/handleTransaction.ts`.
+
+**Changes:**
+- `ContractFunctionRevertedError` now comes from `@tevm/errors` instead of `viem`
+- The @tevm/errors version has the same `data` and `raw` properties needed by the error handling code
+
+**Remaining viem imports in this file:**
+1. `BaseError as ViemBaseError` - Still needed for checking errors from viem/actions
+2. `type TransactionReceipt` - Still needed because viem's getTransactionReceipt returns viem's type
+3. `estimateGas, getTransaction, getTransactionReceipt` from `viem/actions` - These are viem client actions
+
+**Not migrated:**
+- `TransactionReceipt` type - RPC-style status (`'0x0'`/`'0x1'`) vs viem's formatted (`'success'`/`'reverted'`) makes them incompatible for this use case

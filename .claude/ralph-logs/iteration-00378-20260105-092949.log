@@ -1,0 +1,17 @@
+All 7 tests pass. The migration from `http` to `nativeHttp` is successful for the createCachedTransport.spec.ts file.
+
+## Summary
+
+I successfully migrated 2 test files in `extensions/test-node` from using the deprecated `http` import to `nativeHttp`:
+
+1. **extensions/test-node/src/snapshot/createCachedTransport.spec.ts** - All 7 tests pass with nativeHttp
+2. **extensions/test-node/src/createTestSnapshotNode.spec.ts** - The test using nativeHttp directly passes; other tests fail due to missing env vars (unrelated to migration)
+
+Key differences:
+- viem's `http()` called with `({})` returns a transport
+- nativeHttp called with `()` returns a transport (simpler API)
+
+The core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) are already fully migrated from direct viem imports. The remaining viem imports are in:
+- `@tevm/memory-client` - User-facing API that must remain viem-compatible
+- `@tevm/utils/viem.js` - Re-exports viem functions (by design, deprecated ones marked)
+- `extensions/viem/*` - Viem-specific extensions

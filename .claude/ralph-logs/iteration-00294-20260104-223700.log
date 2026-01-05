@@ -1,0 +1,85 @@
+# Ralph Migration Log - Iteration 294
+## Date: 2026-01-04 22:37
+
+## Summary
+Fixed formatAbi type preservation issue and fixed numerous type incompatibilities between `AddressInterface`/`AccountInterface` and their concrete `EthjsAddress`/`EthjsAccount` classes across the state package. Also fixed Evm type issues and began fixing precompiles package.
+
+## Changes Made
+
+### 1. Fixed formatAbi Type Preservation (`packages/utils/src/viem.js`)
+- Changed native `formatAbi` to re-export from `abitype` instead of using custom implementation
+- This preserves the type-level `FormatAbi<TAbi>` transformation that TypeScript needs
+
+### 2. Added Type Exports (`packages/utils/src/index.ts`)
+- Added `AccountData` type for account initialization data
+- Added `AccountInterface` type for state manager compatibility
+
+### 3. Fixed AccountInterface (`packages/common/src/EvmStateManagerInterface.ts`)
+- Added `isContract(): boolean` method
+- Changed `codeSize` to allow undefined: `codeSize?: number | undefined`
+
+### 4. Fixed state package type casts
+- `putAccount.js`: Changed `Address` casts to `EthjsAddress`, `Account` to `EthjsAccount`
+- `originalStorageCache.js`: Changed to `EthjsAddress` casts
+- `putContractCode.js`: Fixed address and account type casts
+- `modifyAccountFields.js`: Fixed accountData type annotation, use `@tevm/common.AccountInterface`
+- `createStateManager.js`: Fixed address cast in `getCodeSize`
+- `accountHelpers.js`: Added double cast for RLP decoded data
+- `getAccount.js`: Cast address at top of function, use throughout
+- `deleteAccount.js`: Added address cast
+
+### 5. Fixed blockchain type issue (`packages/blockchain/src/utils/getBlockFromRpc.js`)
+- Added null check before `customTxTypes.includes(tx.type)`
+
+### 6. Fixed EVM types (`packages/evm/src/`)
+- Added `customPrecompiles` to `EVMOpts` type
+- Added `PrecompileDefinition` type
+- Changed `_customPrecompiles` from `protected` to public in `EvmType.ts`
+
+### 7. Fixed precompiles types (`packages/precompiles/src/`)
+- Fixed `p256verify.precompile.ts`: Added `as any` casts for branded types
+- Fixed `defineCall.ts`: Added `keyof typeof handlers` and `(log: any)` type annotations
+
+### 8. Fixed VM types (`packages/vm/src/actions/applyDAOHardfork.ts`)
+- Cast `AccountInterface` to `EthjsAccount` for journal.putAccount calls
+
+## Build Status
+- `@tevm/utils:build:types` - SUCCESS
+- `@tevm/contract:build:types` - SUCCESS
+- `@tevm/blockchain:build:types` - SUCCESS
+- `@tevm/state:build:types` - SUCCESS
+- `@tevm/evm:build:types` - SUCCESS
+- `@tevm/vm:build:types` - STILL FAILING (selfdestruct type mismatch in precompiles)
+- `@tevm/precompiles:build:types` - STILL FAILING (ExecResult type compatibility)
+- `@tevm/decorators:build:types` - BLOCKED by above
+
+## Root Cause Analysis
+The core issue is the dichotomy between:
+1. **Interface types** (from `@tevm/common`): `AddressInterface`, `AccountInterface`
+2. **Class types** (from `@tevm/utils`): `EthjsAddress`, `EthjsAccount`
+
+With `exactOptionalPropertyTypes: true`, even small differences like `codeSize?: number` vs `codeSize?: number | undefined` cause incompatibility.
+
+## Next Steps
+1. Fix `selfdestruct` type in precompiles (Set<string> vs string[])
+2. Continue fixing remaining VM type issues
+3. Consider updating ExecResult type definition
+
+## Files Modified
+- packages/utils/src/viem.js
+- packages/utils/src/index.ts
+- packages/common/src/EvmStateManagerInterface.ts
+- packages/state/src/actions/putAccount.js
+- packages/state/src/actions/originalStorageCache.js
+- packages/state/src/actions/putContractCode.js
+- packages/state/src/actions/modifyAccountFields.js
+- packages/state/src/actions/getAccount.js
+- packages/state/src/actions/deleteAccount.js
+- packages/state/src/createStateManager.js
+- packages/state/src/utils/accountHelpers.js
+- packages/blockchain/src/utils/getBlockFromRpc.js
+- packages/evm/src/EvmOpts.ts
+- packages/evm/src/EvmType.ts
+- packages/precompiles/src/p256verify.precompile.ts
+- packages/precompiles/src/defineCall.ts
+- packages/vm/src/actions/applyDAOHardfork.ts

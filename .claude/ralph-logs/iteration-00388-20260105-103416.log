@@ -1,0 +1,11 @@
+I've successfully added error handling tests for the `fromRlp` function in `viem.js`, improving coverage from 91.83% to 92.41%. The new tests cover:
+
+1. Short string truncation error (line 1339)
+2. List with inner item past end (line 1326 - though this is defensive)
+3. Short list truncation error (line 1367) 
+4. Long string length header truncation (line 1349)
+5. Long string content truncation (line 1355)
+6. Long list length header truncation (line 1383)
+7. Long list content truncation (line 1390)
+
+The remaining uncovered lines (1326, 1415-1416) are defensive code paths that can't be triggered through normal API usage - they provide safety nets for edge cases that other checks catch first.

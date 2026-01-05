@@ -1,0 +1,68 @@
+# Ralph Migration Log - Iteration 403
+## Date: 2026-01-05 05:02
+
+## Summary
+
+Added `RpcSchema` type to `@tevm/utils` and migrated 2 files in @tevm/mud from viem to @tevm/utils.
+
+## New Types Added to @tevm/utils
+
+### packages/utils/src/provider-types.ts
+- `RpcSchema` - Type alias for `readonly unknown[]` representing an array of RPC method definitions
+  - Compatible with viem's RpcSchema type
+  - Used as a constraint for generic type parameters in client configurations
+
+### packages/utils/src/index.ts
+- Exported `RpcSchema` from `provider-types.js`
+
+## Files Migrated from viem to @tevm/utils
+
+1. **bundler-packages/mud/src/subscribeTx.ts**
+   - Changed: `import type { Hex } from 'viem'` -> `import type { Hex } from '@tevm/utils'`
+
+2. **bundler-packages/mud/src/internal/mud/createSyncAdapter.ts**
+   - Changed: `import type { Hex } from 'viem'` -> `import type { Hex } from '@tevm/utils'`
+
+## Test Results
+
+- subscribeTx.spec.ts: 10 tests passed
+- Typecheck passes for @tevm/mud
+
+## Attempted Migrations - Reverted
+
+### 1. test-node/src/types.ts (viem client types)
+Attempted to migrate `Account, Address, Chain, EIP1193RequestFn, RpcSchema, Transport` from viem to @tevm/utils.
+**Failed because**: `MemoryClientOptions` from `@tevm/memory-client` uses viem's `Account` type which has a different `signTypedData` signature than our `Account` type.
+**Conclusion**: Can't migrate test-node types until memory-client types are migrated first.
+
+### 2. mudStoreGetStorageAtOverride.ts (EIP1193RequestFn)
+Attempted to migrate `EIP1193RequestFn` from viem to @tevm/utils.
+**Failed because**: Our `EIP1193RequestFn` type is simpler (untyped) whereas viem's is fully typed with method definitions. This causes type incompatibilities when passing viem `Client` objects.
+**Conclusion**: Need to make our `EIP1193RequestFn` compatible with viem's typed version, or keep using viem's type for client-heavy code.
+
+## Key Findings
+
+1. **Simple type imports work well**: `Hex`, `Address` type-only imports can be migrated easily
+2. **Function types have compatibility issues**: `EIP1193RequestFn` from @tevm/utils isn't compatible with viem's typed version
+3. **Account type incompatibility**: Our `Account` type has different method signatures than viem's
+4. **Dependency chain matters**: Must migrate from core packages outward (memory-client before test-node)
+
+## Remaining viem Imports in @tevm/mud (8 files)
+
+Files still using viem:
+1. test/state.ts - `bytesToHex, concatHex`
+2. test/prepare.ts - `createClient, decodeEventLog, type Log`
+3. src/createOptimisticHandler.ts - `bytesToHex, Client, Hex, parseEventLogs`
+4. src/createOptimisticHandler.spec.ts - `createClient`
+5. src/internal/ethjsLogToAbiLog.ts - `type Log`
+6. src/internal/mud/createStorageAdapter.ts - `concatHex, Hex, size`
+7. src/internal/decorators/mudStoreGetStorageAtOverride.ts - `EIP1193RequestFn`
+8. src/internal/decorators/mudStoreWriteRequestOverride.ts - `Client, concatHex, encodeFunctionData`
+9. src/internal/FieldLayout.ts - Various hex utilities
+10. src/types.ts - viem client types
+
+## Impact
+
+- Reduced viem imports in @tevm/mud by 2 files
+- Added RpcSchema type to @tevm/utils for future migrations
+- All tests pass

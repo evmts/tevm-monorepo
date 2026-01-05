@@ -1,0 +1,27 @@
+## Migration Status Summary
+
+The migration assessment is complete. Here's the current state:
+
+**Core Packages (Migration Target) - CLEAN**
+- `@tevm/actions` - No viem imports
+- `@tevm/vm` - No viem imports
+- `@tevm/evm` - No viem imports
+- `@tevm/state` - No viem imports
+- `@tevm/node` - No viem imports
+
+**Intentionally Retained Dependencies:**
+
+1. **viem account functions** (`mnemonicToAccount`, `privateKeyToAccount`) - For HD wallet derivation with signing methods
+2. **viem transport functions** (`createPublicClient`, `http`, `webSocket`, etc.) - For fork client creation
+3. **viem chain presets** (336 files) - Auto-generated comprehensive chain registry
+4. **abitype** - Type-level utilities for TypeScript type inference
+
+**Native implementations complete** in `@tevm/utils`:
+- All hex/bytes conversions
+- Ether/gwei formatting/parsing
+- Keccak256, RLP encoding
+- ABI encoding/decoding
+- Private key utilities
+- And more...
+
+The migration has reached a stable state. The remaining viem/abitype dependencies are intentional and provide essential functionality (forking, type safety, chain configs).

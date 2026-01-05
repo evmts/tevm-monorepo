@@ -1,0 +1,22 @@
+I've completed iteration 727. Here's a summary:
+
+## Iteration 727 Summary
+
+**Task**: Add Client and ClientConfig types to @tevm/utils
+
+**Changes Made**:
+1. Added `ClientConfig` type to `packages/utils/src/provider-types.ts` - Configuration options for creating a viem-compatible client
+2. Added `Client` type to `packages/utils/src/provider-types.ts` - A viem-compatible client interface for making JSON-RPC requests  
+3. Exported both types in `packages/utils/src/index.ts`
+
+**Attempted but Reverted**:
+- Tried to migrate `MemoryClientOptions.ts` and `CreateMemoryClientFn.ts` to use `@tevm/utils` types instead of viem
+- Failed due to type compatibility issues - viem's `Account` type has complex TypedData generics that our simplified types don't match
+
+**Build Status**: PASS
+
+**Key Learning**: viem's type system has deep type-level programming (especially for `signTypedData` with `TypedDataDefinition` generics) that requires exact type matching. For client-facing public APIs like MemoryClient, we need to either:
+1. Keep using viem types directly
+2. Implement fully compatible types with all the TypedData generic constraints
+
+The new types can be used for internal utilities and new code that doesn't need full viem compatibility.

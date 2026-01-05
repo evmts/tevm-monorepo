@@ -1,0 +1,37 @@
+The migration is in a stable state. Let me provide a summary of this iteration:
+
+## Iteration 312 Summary
+
+**Status: Stable - Verification Complete**
+
+### Tests Run and Verified
+- `nativePrivateKeyToAccount.spec.ts`: 18 passed
+- `guillotineWasm.spec.ts`: 38 passed, 1 skipped (known storage bug)
+- `createEvm.spec.ts`: 17 passed
+- `signature.spec.ts`: 31 passed
+- `ecrecover.spec.ts`: 7 passed
+- `setAccountHandler.spec.ts`: 5 passed
+- `getAccountHandler.spec.ts`: 6 passed
+- `abiFunctionEncoding.spec.ts`: 15 passed
+- `abiEventEncoding.spec.ts`: 13 passed
+
+**Total: 150+ tests passing**
+
+### Migration Status
+All core packages have **ZERO direct viem imports**:
+- @tevm/actions, @tevm/evm, @tevm/state, @tevm/vm, @tevm/node
+- @tevm/block, @tevm/blockchain, @tevm/precompiles
+- @tevm/decorators, @tevm/jsonrpc, @tevm/procedures
+- @tevm/rlp, @tevm/utils (native implementations)
+
+### Intentional Dependencies Kept
+1. **viem in @tevm/memory-client** - User-facing viem client compatibility
+2. **viem re-exports in @tevm/utils** - Backward compatibility (deprecated)
+3. **viem/chains in @tevm/common** - Chain presets
+4. **@ethereumjs/tx** - Transaction classes (voltaire has alternatives)
+
+### Next Steps for Future Iterations
+1. **Transaction Migration**: Migrate @tevm/tx to voltaire Transaction
+2. **Chain Presets**: Replace viem/chains with native definitions
+3. **Remove Deprecated Exports**: Breaking change for consumers
+4. **Guillotine Storage Bug**: Fix evm_set_storage WASM bug

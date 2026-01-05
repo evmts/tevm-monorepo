@@ -1,0 +1,51 @@
+# Ralph Migration Log - Iteration 232
+## Date: 2026-01-04 17:44:30
+
+## Summary
+Removed unused `@noble/curves` dependency from `@tevm/precompiles` package. The p256verify precompile was already migrated to use `@tevm/voltaire/P256` in a previous iteration, making this dependency unnecessary.
+
+## Changes Made
+
+### 1. Removed @noble/curves from precompiles package.json
+- **File**: `packages/precompiles/package.json`
+- **Change**: Removed `"@noble/curves": "^2.0.1"` from dependencies
+- **Reason**: The p256verify.precompile.ts now imports from `@tevm/voltaire/P256` instead
+
+## Test Results
+
+### p256verify Tests - 4 passed
+- ✓ All p256verify precompile tests pass after dependency removal
+- The voltaire-based P256 implementation is working correctly
+
+### ecrecover Tests - 7 passed
+- ✓ All ecrecover tests pass, using voltaire Secp256k1
+
+### Pre-existing Issues (Not addressed this iteration)
+- `definePrecompile.spec.ts`: 4 failing tests related to `EvmError is not a constructor`
+- This is a pre-existing issue with how `EvmError` is exported from `@ethereumjs/evm`
+- Not related to the noble/curves migration
+
+## Migration Progress
+- **@noble/curves removed from**: precompiles package
+- **voltaire usage verified**: p256verify precompile uses `@tevm/voltaire/P256`
+
+## Investigation: @noble/curves in utils package
+- The utils package still has `@noble/curves` listed but this is appropriate because:
+  1. `ecrecover.spec.ts` uses it to verify ecrecover implementation against noble-curves
+  2. Voltaire internally wraps noble-curves for its crypto primitives
+- The test usage is valid for verification purposes
+
+## Core Package Status
+- actions: No direct viem imports ✓
+- vm: No direct viem imports ✓
+- evm: No direct viem imports ✓
+- state: No direct viem imports ✓
+- node: No direct viem imports ✓
+- block: No direct viem imports ✓
+- precompiles: No noble/curves imports ✓ (NEW)
+- utils: Production code migrated to voltaire, tests still use noble for verification
+
+## Next Steps
+1. Consider addressing the EvmError export issue in a future iteration
+2. Look for other migration opportunities in the codebase
+3. Continue monitoring test status

@@ -1,0 +1,133 @@
+# Ralph Migration Log - Iteration 420
+## Date: 2026-01-05 06:00
+
+## Task: Complete event matcher migration + fix type issues
+
+## Changes Made
+
+### Part 1: Migrated more test-matchers files
+
+#### matchers/contract/toCallContractFunction.ts
+Partially migrated - moved types from viem to @tevm/utils, but kept `Client` import:
+```typescript
+import { type Abi, type ContractFunctionName, type Hex, isHex } from '@tevm/utils'
+import type { Client } from 'viem'
+```
+
+#### matchers/errors/toBeRevertedWithError.ts
+Partially migrated - moved types from viem to @tevm/utils, but kept `Client` import:
+```typescript
+import { type Abi, type AbiError, type ContractErrorName, type Hex, isHex } from '@tevm/utils'
+import type { Client } from 'viem'
+```
+
+#### matchers/events/toEmit.ts
+Fully migrated (no Client type needed):
+```typescript
+import {
+	type Abi, type AbiEvent, type ContractEventName, type Hex,
+	decodeEventLog, encodeEventTopics, getAddress, isHex,
+} from '@tevm/utils'
+```
+
+#### matchers/events/index.ts
+Fully migrated:
+```typescript
+import type {
+	Abi, AbiEventParameter, AbiParametersToPrimitiveTypes,
+	ContractEventName, ExtractAbiEvent, Hex,
+} from '@tevm/utils'
+```
+
+### Part 2: Fixed type issues
+
+#### matchers/events/toEmit.ts
+Added type assertion for `decodeEventLog` return:
+```typescript
+const decoded = decodeEventLog({...}) as { eventName: string; args: Record<string, unknown> } | undefined
+if (!decoded) return `UnknownEvent(${log.topics[0]})`
+```
+
+#### matchers/events/withEventArgs.ts
+Same type assertion fix:
+```typescript
+const decodedLog = decodeEventLog({...}) as { eventName: string; args: Record<string, unknown> } | undefined
+if (!decodedLog) continue
+```
+
+#### matchers/events/withEventNamedArgs.ts
+Same type assertion fix.
+
+#### matchers/errors/withErrorArgs.ts
+Added ABI validation:
+```typescript
+if (!contract?.abi) throw new Error('Contract with ABI is required for error decoding')
+```
+
+#### matchers/errors/withErrorNamedArgs.ts
+Added ABI validation and fixed abiItem access:
+```typescript
+if (!contract?.abi) throw new Error('Contract with ABI is required for error decoding')
+const abiItem = 'abiItem' in decodedRevert ? decodedRevert.abiItem : undefined
+if (!abiItem || abiItem.type !== 'error') throw new Error('Could not get error ABI item')
+```
+
+## Files Changed
+1. extensions/test-matchers/src/matchers/contract/toCallContractFunction.ts
+2. extensions/test-matchers/src/matchers/errors/toBeRevertedWithError.ts
+3. extensions/test-matchers/src/matchers/events/toEmit.ts
+4. extensions/test-matchers/src/matchers/events/index.ts
+5. extensions/test-matchers/src/matchers/events/withEventArgs.ts
+6. extensions/test-matchers/src/matchers/events/withEventNamedArgs.ts
+7. extensions/test-matchers/src/matchers/errors/withErrorArgs.ts
+8. extensions/test-matchers/src/matchers/errors/withErrorNamedArgs.ts
+
+## Build Status
+- @tevm/test-matchers DTS build - SUCCESS
+- Pre-existing spec file type errors (unrelated to migration)
+
+## Migration Progress
+- Started session with 33 files having viem imports
+- Now have 21 files with viem imports (12 files migrated fully or partially)
+- All remaining 21 files use the `Client` type from viem
+
+## Session Summary
+
+### Files fully migrated (no viem imports):
+- common/types.ts
+- matchers/state/types.ts
+- matchers/utils/toBeAddress.ts
+- matchers/utils/toBeHex.ts
+- matchers/utils/index.ts
+- matchers/utils/toEqualAddress.ts
+- matchers/utils/toEqualHex.ts
+- matchers/contract/withFunctionArgs.ts
+- matchers/contract/withFunctionNamedArgs.ts
+- matchers/errors/withErrorArgs.ts
+- matchers/errors/withErrorNamedArgs.ts
+- matchers/events/types.ts
+- matchers/events/withEventArgs.ts
+- matchers/events/withEventNamedArgs.ts
+- matchers/events/toEmit.ts
+- matchers/events/index.ts
+
+### Files partially migrated (only Client from viem):
+- matchers/contract/toCallContractFunction.ts
+- matchers/errors/toBeRevertedWithError.ts
+
+### Types added to @tevm/utils:
+- `isAddressEqual` function
+- `trim` function
+- `ContractErrorName` type
+- `ContractErrorArgs` type
+- `ExtractAbiError` type
+- `AbiError` type
+- `AbiEventParameter` type
+- Fixed `isAddress` type signature
+
+## Note on `decodeEventLog` return type
+The @tevm/utils `decodeEventLog` function returns `Object` according to JSDoc, but actually returns `{ eventName: string, args: Record<string, unknown> }`. Files using this function need type assertions until the return type is properly typed.
+
+## Next Steps
+1. Consider adding a `Client` type compatibility alias to @tevm/utils
+2. Fix the `decodeEventLog` return type in @tevm/utils/src/abiEventEncoding.js

@@ -1,0 +1,47 @@
+# Ralph Migration Log - Iteration 329
+## Date: 2026-01-05 01:14
+
+## Summary
+Migrated zksync.js (ZKsync Era) preset from viem/chains dependency to nativeDefineChain. ZKsync Era is Ethereum's leading ZK rollup, known for its native account abstraction and low fees.
+
+## Actions Taken
+1. Updated `packages/common/src/presets/zksync.js`:
+   - Replaced `import { zksync as _zksync } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+   - Created native chain definition inline with all properties:
+     - id: 324
+     - name: 'ZKsync Era'
+     - nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 }
+     - rpcUrls: { default: { http: ['https://mainnet.era.zksync.io'], webSocket: ['wss://mainnet.era.zksync.io/ws'] } }
+     - blockExplorers: { default: { name: 'Etherscan', url: 'https://era.zksync.network/', apiUrl: 'https://api-era.zksync.network/api' }, native: { name: 'ZKsync Explorer', url: 'https://explorer.zksync.io/', apiUrl: 'https://block-explorer-api.mainnet.zksync.io/api' } }
+     - contracts: multicall3 (0xF9cda624FBC7e059355ce98a31693d299FACd963), erc6492Verifier (0xfB688330379976DA81eB64Fe4BF50d7401763B9C, blockCreated: 45659388)
+     - blockTime: 1000
+
+## Files Modified
+1. `packages/common/src/presets/zksync.js`
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped
+
+## Impact
+- **Removed viem/chains dependency**: zksync.js no longer imports from viem/chains
+- **Backwards compatible**: The chain configuration remains functionally identical
+- **Multiple block explorers**: Preserved both default (Etherscan) and native (ZKsync Explorer) block explorers
+
+## Migrated Presets So Far
+1. mainnet.js (iteration 320)
+2. optimism.js (iteration 321)
+3. sepolia.js (iteration 322)
+4. arbitrum.js (iteration 323)
+5. base.js (iteration 324)
+6. polygon.js (iteration 325)
+7. avalanche.js (iteration 326)
+8. bsc.js (iteration 327)
+9. gnosis.js (iteration 328)
+10. zksync.js (iteration 329) <- this iteration
+
+## Remaining Priority Presets
+- fantom.js, celo.js, moonbeam.js
+
+## Next Steps
+1. Continue migrating remaining priority chain presets (fantom, celo, moonbeam)
+2. Consider batch migration script for lower-priority testnets

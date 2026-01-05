@@ -1,0 +1,24 @@
+All tests pass. Let me provide a summary of what was accomplished in this iteration:
+
+## Summary - Iteration 315
+
+**Completed:**
+1. Verified all existing native implementations are working correctly (140+ tests passing)
+2. Explored migration paths for eliminating remaining viem/chains dependencies
+3. **Added `tevmChainToViemChain` utility function** - converts @tevm/chains simple format to viem-compatible Chain format
+
+**New Files:**
+- `packages/utils/src/tevmChainToViemChain.js` - Chain format converter
+- `packages/utils/src/tevmChainToViemChain.spec.ts` - 7 tests
+
+**Modified Files:**
+- `packages/utils/src/index.ts` - Added export for new function
+
+**Key Findings:**
+- @tevm/chains package exists with DefiLlama-sourced chain data, but doesn't include major chains like mainnet (chainId 1), Optimism (10), etc.
+- This makes migrating @tevm/common's 336 viem/chains imports more complex
+- The new `tevmChainToViemChain` utility provides infrastructure for future chain preset migration
+
+**Tests Status:**
+- 76 tests passed (1 skipped - known guillotine storage bug)
+- All native implementations working correctly

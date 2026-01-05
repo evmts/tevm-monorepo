@@ -1,0 +1,62 @@
+# Ralph Migration Log - Iteration 220
+## Date: 2026-01-04 16:41:32
+
+## Summary
+Verified migration status and confirmed core packages are free of viem imports. All 607 utils tests pass.
+
+## Assessment
+
+### Core Packages Status (No Direct viem Imports):
+- `@tevm/actions` - ✅ No viem imports
+- `@tevm/vm` - ✅ No viem imports
+- `@tevm/evm` - ✅ No viem imports
+- `@tevm/state` - ✅ No viem imports
+- `@tevm/node` - ✅ No viem imports
+- `@tevm/jsonrpc` - ✅ No viem imports
+- `@tevm/block` - ✅ No viem imports
+
+### Remaining viem Dependencies:
+
+1. **@tevm/utils** (3 files with viem imports):
+   - `viem.js` - Re-exports `mnemonicToAccount`, `privateKeyToAccount` for backward compatibility
+   - `abitype.ts` - Re-exports `Account`, `HDAccount` types from viem
+
+2. **@tevm/common** (337 files):
+   - Chain presets from `viem/chains` (mainnet, sepolia, polygon, etc.)
+   - These are complex chain configurations with RPC URLs, block explorers, etc.
+
+3. **@tevm/memory-client** (18 files):
+   - Expected - this package provides viem-compatible client wrappers
+   - Uses `Account`, `Chain`, `Client`, `PublicActions`, `WalletActions`, etc. from viem
+
+### Native Implementations Available:
+- `nativePrivateKeyToAccount` - Full native account with signing
+- `nativeMnemonicToAccount` - HD wallet derivation
+- `nativeHdAccount` - HD account compatible with viem's HDAccount
+- `NativePrivateKeyAccount`, `NativeHDAccount`, `LocalAccount` types
+- All signature functions (sign, signMessage, signTypedData, verify, recover)
+- All EIP-712 typed data functions (hashTypedData, signTypedData, verifyTypedData)
+- All ABI encoding/decoding functions
+- All hex/bytes conversion utilities
+- keccak256 from voltaire
+
+## Test Results
+- All 607 utils tests pass (28 test files)
+- All native account implementations are tested and working
+- Compatibility with viem verified in comparison tests
+
+## Migration Strategy Notes
+
+### Low Priority:
+- `Account`/`HDAccount` type exports in `abitype.ts` - These are just type re-exports for backward compatibility. Users who need viem's `Account` type should import from viem directly.
+
+### Medium Priority (Complex):
+- Chain presets in `@tevm/common` - Would require creating 337 native chain definitions
+
+### Not Applicable:
+- `@tevm/memory-client` - Intentionally viem-compatible, should keep viem imports
+
+## Next Steps
+1. Consider deprecating viem `Account`/`HDAccount` re-exports in favor of native types
+2. Look for opportunities to use native functions in more test files
+3. Consider creating native chain configuration format for `@tevm/common`

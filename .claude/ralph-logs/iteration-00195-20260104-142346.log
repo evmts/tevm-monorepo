@@ -1,0 +1,88 @@
+# Ralph Migration Log - Iteration 195
+## Date: 2026-01-04 14:23:46
+
+## Summary
+Assessment iteration. Investigated potential for creating native account functions (`privateKeyToAccount`, `mnemonicToAccount`) to replace viem/accounts dependency.
+
+## Investigation Results
+
+### Voltaire Capabilities Discovered
+Voltaire already has the building blocks for native account implementation:
+
+1. **PrivateKeySignerImpl** (`lib/voltaire/src/crypto/signers/private-key-signer.ts`)
+   - Has `address` property
+   - Has `signMessage()` method
+   - Has `signTransaction()` method
+   - Has `signTypedData()` method
+
+2. **HDWallet** (`lib/voltaire/src/crypto/HDWallet/`)
+   - `mnemonicToSeed()` for BIP-39 mnemonic conversion
+   - `derivePath()` for BIP-32 path derivation
+   - `deriveEthereum()` for Ethereum account derivation
+   - `getPrivateKey()` for extracting private keys
+
+### Interface Requirements for viem Compatibility
+
+The viem `Account`/`HDAccount` types require:
+```typescript
+interface Account {
+  address: string
+  signMessage({ message }): Promise<string>
+  signTransaction(tx): Promise<string>
+  signTypedData(data): Promise<string>
+  // Additional methods for viem compatibility
+}
+```
+
+### Challenge
+
+While voltaire has the primitives, creating a **100% viem-compatible** account interface requires:
+1. Matching viem's exact signature format (hex string with specific structure)
+2. Supporting all transaction types (legacy, EIP-2930, EIP-1559, EIP-4844, EIP-7702)
+3. Matching the exact return types and method signatures
+4. Supporting `mnemonicToAccount` with all derivation options
+
+The `PrivateKeySignerImpl` is close but not a drop-in replacement.
+
+## Package Analysis
+
+### Core Packages - MIGRATION COMPLETE ✅
+- `@tevm/actions` - No direct viem imports
+- `@tevm/vm` - No direct viem imports
+- `@tevm/evm` - No direct viem imports
+- `@tevm/state` - No direct viem imports
+- `@tevm/node` - No direct viem imports
+
+### Integration Packages - INTENTIONALLY USE VIEM
+These packages exist to provide viem-compatible interfaces:
+- `@tevm/memory-client` - Uses viem's `createClient`, `publicActions`, etc.
+- `@tevm/decorators` - Uses viem RPC types
+
+### Utility Package - REMAINING DEPENDENCIES
+`@tevm/utils`:
+- `mnemonicToAccount`, `privateKeyToAccount` from viem/accounts (wallet)
+- `createPublicClient`, `http`, etc. from viem (fork transport)
+
+## Conclusion
+
+The core migration goal is **ACHIEVED**. The remaining viem dependencies are:
+
+1. **Intentional integration points** (memory-client, decorators) - These exist specifically for viem compatibility
+2. **Complex wallet functions** (account creation) - Would require significant work to match viem's interface exactly
+3. **Fork transport** - Used for connecting to remote RPC nodes
+
+## Recommendation
+
+For future migration of account functions:
+1. Create a `@tevm/accounts` package with native implementation
+2. Provide a viem-compatible wrapper that uses voltaire's `PrivateKeySignerImpl`
+3. Gradually migrate internal usage while maintaining backward compatibility
+
+This is a **low priority** enhancement since the core migration goals are met.
+
+## Next Iteration Focus
+
+Could explore:
+1. Creating a native `privateKeyToAccount` wrapper around `PrivateKeySignerImpl`
+2. Running tests to verify current functionality remains stable
+3. Looking for other migration opportunities in test files or scripts

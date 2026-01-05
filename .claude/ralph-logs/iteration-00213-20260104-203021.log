@@ -1,0 +1,31 @@
+The migration is complete and stable. Here's the summary:
+
+## Migration Status - Iteration 267
+
+**All core packages are fully migrated** - `@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, and `@tevm/node` have zero direct viem imports.
+
+### Test Results (115+ tests passing)
+- guillotineWasm.spec.ts: 26 passed (1 skipped - known bug)
+- signature.spec.ts: 31 passed
+- nativePrivateKeyToAccount.spec.ts: 18 passed
+- nativeMnemonicToAccount.spec.ts: 17 passed
+- eip7702.spec.ts: 22 passed
+- prefundedAccounts.spec.ts: 1 passed
+
+### What's been migrated to @tevm/voltaire
+- All cryptographic operations (Keccak256, Secp256k1, P256)
+- Native account implementations (nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount)
+- ABI encoding/decoding
+- Event/Error encoding/decoding
+- Signature operations
+- EIP-7702 utilities
+- Bloom filter
+- Prefunded test accounts
+
+### Intentional viem dependencies remaining
+1. **Transport functions** - Required for RPC/forking (createPublicClient, http, etc.)
+2. **Chain presets** - Static configuration data from viem/chains
+3. **memory-client** - Intentionally a viem wrapper package
+4. **Deprecated exports** - Backward compatibility (scheduled for removal)
+
+The migration is mature and stable - no further migration work needed unless voltaire adds transport/client functionality.

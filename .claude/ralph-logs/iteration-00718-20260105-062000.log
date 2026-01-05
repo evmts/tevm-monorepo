@@ -1,0 +1,47 @@
+# Ralph Migration Log - Iteration 718
+## Date: 2026-01-05
+
+## Task: Continue migrating viem imports in test-matchers spec files
+
+## Session Summary
+
+### Commits Made
+1. `⚡ refactor(test-matchers): migrate viem primitives in spec files to @tevm/utils`
+   - 7 files: balance/*.spec.ts, contract/toCallContractFunction.spec.ts, utils/*.spec.ts
+
+2. `⚡ refactor(test-matchers): migrate more spec files from viem to @tevm/utils`
+   - 7 files: errors/*.spec.ts, events/toEmit.spec.ts, state/*.spec.ts
+
+### Total Files Migrated: 14
+
+### Types/Functions Migrated to @tevm/utils
+- Address
+- Hex
+- parseEther
+- toFunctionSelector
+- toEventSelector
+- encodeFunctionData
+- keccak256
+- toHex
+
+### Intentional viem Dependencies Remaining
+- `createClient` from 'viem' in error spec files (tests viem client compatibility)
+- `writeContract`, `getTransactionReceipt`, etc. from 'viem/actions' (viem actions testing)
+
+## Migration Status
+
+### Test Matchers Spec Files
+- 14 files migrated
+- 3 files retain intentional viem imports (createClient for API compatibility testing)
+
+### Core Packages Status
+- @tevm/actions: ✅ Fully migrated
+- @tevm/vm: ✅ Fully migrated
+- @tevm/evm: ✅ Fully migrated
+- @tevm/state: ✅ Fully migrated
+- @tevm/node: ✅ Fully migrated
+
+### Extensions Status
+- test-matchers: Spec files migrated (implementation uses Client type intentionally)
+- viem: Intentional viem dependency (viem extension package)
+- test-node: Minimal viem usage (comments/docs)

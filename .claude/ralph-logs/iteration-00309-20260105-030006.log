@@ -1,0 +1,13 @@
+I've successfully migrated 5 more chain presets from `viem/chains` to `nativeDefineChain`:
+
+1. **reyaNetwork.js** (id: 1729) - Reya Network with ETH native currency and WebSocket support
+2. **rollux.js** (id: 570) - Rollux Mainnet (Syscoin L2) with SYS native currency and multicall3 contract  
+3. **rolluxTestnet.js** (id: 57000) - Rollux Testnet with testnet flag
+4. **ronin.js** (id: 2020) - Ronin chain (Sky Mavis/Axie Infinity) with RON native currency
+5. **root.js** (id: 7668) - The Root Network with XRP native currency
+
+**Tests Verified**: All 10 createCommon tests passed.
+
+**Progress**: 
+- 83 remaining chain presets (~24% left)
+- ~261 total migrated

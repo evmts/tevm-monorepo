@@ -1,0 +1,38 @@
+# Ralph Migration Log - Iteration 372
+## Date: 2026-01-05 03:12
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **shardeumSphinx.js** (id: 8082) - Shardeum Sphinx testnet with SHM native currency
+2. **shibarium.js** (id: 109) - Shibarium mainnet with BONE native currency, multicall3 contract
+3. **shibariumTestnet.js** (id: 157) - Puppynet Shibarium testnet with BONE native currency, multicall3 contract
+4. **shimmer.js** (id: 148) - Shimmer mainnet with SMR native currency
+5. **skaleBlockBrawlers.js** (id: 391845894) - SKALE Block Brawlers with BRAWL native currency, WebSocket support
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Previously migrated**: ~276 (from iteration 371)
+- **Migrated this session**: 5
+- **Total migrated**: ~281
+- **Remaining**: 63 (~18% remaining, excluding generator script)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Shardeum is a sharded EVM-compatible blockchain
+- Shibarium is the Layer 2 blockchain for the Shiba Inu ecosystem
+- Shimmer is a testnet/staging network for IOTA's technology
+- SKALE Block Brawlers is a gaming-focused SKALE chain with WebSocket RPC support
+
+## Next Steps
+Continue migrating remaining chain presets. 63 remain (~18% remaining).
+Next chains to migrate: skaleCalypso, skaleCalypsoTestnet, skaleCryptoBlades, skaleCryptoColosseum, skaleEuropa...

@@ -1,0 +1,69 @@
+# Ralph Migration Log - Iteration 203
+## Date: 2026-01-04 15:04:19
+
+## Summary
+Migrated `packages/utils/src/eip7702.js` from `@noble/curves/secp256k1.js` to `@tevm/voltaire/Secp256k1`.
+
+## Changes Made
+
+### 1. Updated imports
+Changed from:
+```javascript
+import { secp256k1 } from '@noble/curves/secp256k1.js'
+```
+
+To:
+```javascript
+import { signHash as secp256k1SignHash, derivePublicKey, recoverPublicKey as secp256k1RecoverPublicKey } from '@tevm/voltaire/Secp256k1'
+```
+
+### 2. Updated `eoaCode7702SignAuthorization` function
+- Replaced `secp256k1.sign` with voltaire's `signHash` which returns `{r, s, v}` directly
+- Simplified the signing logic since voltaire already provides the recovery value (v)
+- Maintained backward compatibility with custom `ecSign` functions for legacy support
+- Uses `derivePublicKey` for 64-byte uncompressed public key derivation
+- Uses `secp256k1RecoverPublicKey` for public key recovery when determining recovery value
+
+### 3. Updated `eoaCode7702RecoverAuthority` function
+- Replaced noble-curves' `recoverPublicKey` + Point conversion with voltaire's `recoverPublicKey`
+- Voltaire's recoverPublicKey returns 64-byte uncompressed public key directly (no prefix)
+- Simplified from 7 lines to 4 lines of code
+
+## API Differences
+| noble-curves | voltaire |
+|-------------|----------|
+| `secp256k1.getPublicKey(privateKey, true)` (33-byte compressed) | `derivePublicKey(privateKey)` (64-byte uncompressed) |
+| `secp256k1.sign(msgHash, privateKey)` returns Uint8Array | `signHash(msgHash, privateKey)` returns `{r, s, v}` |
+| `secp256k1.recoverPublicKey(sig65, msgHash)` returns compressed | `recoverPublicKey({r, s, v}, msgHash)` returns 64-byte uncompressed |
+| `secp256k1.Point.fromBytes().toBytes(false).slice(1)` | Not needed - already 64-byte |
+
+## Test Results
+All 22 eip7702 tests pass:
+```
+✓ |@tevm/utils| src/eip7702.spec.ts (22 tests) 35ms
+```
+
+All 7 ecrecover tests pass (to ensure no regressions):
+```
+✓ |@tevm/utils| src/ecrecover.spec.ts (7 tests) 24ms
+```
+
+## Files Modified
+1. `packages/utils/src/eip7702.js`
+   - Changed secp256k1 import from `@noble/curves/secp256k1.js` to `@tevm/voltaire/Secp256k1`
+   - Updated `eoaCode7702SignAuthorization` to use voltaire's signHash
+   - Updated `eoaCode7702RecoverAuthority` to use voltaire's recoverPublicKey
+
+## Remaining @noble/curves Usage
+After this change, the remaining noble-curves imports in source files:
+- **NONE in source files** - all source files are now migrated!
+
+Remaining in test files (for verification purposes only):
+1. `packages/utils/src/eip7702.spec.ts` - uses for signing comparison tests
+2. `packages/utils/src/ecrecover.spec.ts` - uses for reference implementation comparison
+
+## Next Steps
+1. The main source files are now free of @noble/curves imports
+2. Consider migrating test files to use voltaire exclusively (lower priority)
+3. Rebuild dist files to update bundled code
+4. Consider removing @noble/curves as a dependency if no longer needed

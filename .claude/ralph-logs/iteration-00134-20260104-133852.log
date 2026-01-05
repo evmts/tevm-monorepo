@@ -1,0 +1,16 @@
+The migration is complete for this iteration. Here's a summary:
+
+## Iteration 185 Summary
+
+**Migrated:**
+- `packages/address/src/createAddress.js` - Changed `import('viem').Hex` to `import('@tevm/utils').Hex`
+- `packages/jsonrpc/src/createJsonRpcFetcher.js` - Changed `import('viem').EIP1193RequestFn` to `import('@tevm/utils').EIP1193RequestFn`
+
+**Tests Verified:** All 15 related tests pass (7 for jsonrpc, 8 for address)
+
+**Key Finding:** The `@tevm/errors` package has viem as a direct dependency (not @tevm/utils), so its viem imports were kept as-is to avoid adding unnecessary dependencies.
+
+**Current State:** Almost all core packages are now free of direct viem imports. The remaining viem dependencies are:
+- `@tevm/utils` - Centralized re-exports (by design)
+- `@tevm/memory-client` - Viem integration layer (by design)
+- `@tevm/errors` - Direct viem dependency (potential future migration target)

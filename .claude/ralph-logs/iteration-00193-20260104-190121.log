@@ -1,0 +1,15 @@
+## Summary - Iteration 247
+
+Verified the current migration status. The voltaire migration is essentially **complete**:
+
+### Key Findings:
+1. **All 97 relevant tests pass** across guillotine WASM, native accounts, ecrecover, and signature utilities
+2. **Investigated voltaire BloomFilter** - found it's not compatible with Ethereum's Keccak256-based bloom filter standard (tevm's implementation is correct)
+3. **ecrecover already migrated** - uses voltaire's `recoverPublicKeyFromHash` from `@tevm/voltaire/Secp256k1`
+
+### Remaining viem dependencies (by design):
+- **RPC transport** (`createPublicClient`, `http`, `webSocket`, etc.) - Required for fork client to communicate with external nodes
+- **Deprecated account exports** - Kept for backward compatibility; native alternatives (`nativePrivateKeyToAccount`, `nativeMnemonicToAccount`) exist
+
+### Status: Migration Complete
+No further migration work possible without major architectural changes (like replacing the entire RPC transport layer, which would be a significant undertaking beyond the current scope).

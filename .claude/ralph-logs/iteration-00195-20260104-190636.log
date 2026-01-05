@@ -1,0 +1,20 @@
+The voltaire migration is complete. Here's the summary:
+
+## Migration Status Summary
+
+### Completed Migrations
+- **Keccak256**: All uses now go through `@tevm/voltaire/Keccak256`
+- **Secp256k1**: `ecrecover`, `nativePrivateKeyToAccount`, `nativeMnemonicToAccount`, `nativeHdAccount`, and EIP-7702 all use `@tevm/voltaire/Secp256k1`
+- **P256**: `p256verify` precompile uses `@tevm/voltaire/P256`
+- **Noble libraries**: Completely removed from production code
+
+### Test Results
+All 607 utils tests pass, plus:
+- guillotineWasm: 24 tests
+- p256verify precompile: 4 tests
+
+### What Remains (Architectural)
+- **viem client layer**: Required for memory-client compatibility with viem ecosystem
+- **ethereumjs packages**: Foundational Ethereum data structures (Common, Tx, Trie)
+
+These remaining dependencies are architectural requirements, not migration candidates - they provide the viem-compatible client interface and Ethereum data structures that tevm is built on.

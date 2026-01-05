@@ -1,0 +1,64 @@
+# Ralph Migration Log - Iteration 277
+## Date: 2026-01-04 21:16
+
+## Summary
+Verification pass - confirmed voltaire migration is complete for all core packages.
+
+## Test Results (All Passing)
+- Bloom.spec.ts: 6/6 passed
+- signature.spec.ts: 31/31 passed
+- nativePrivateKeyToAccount.spec.ts: 18/18 passed
+- nativeMnemonicToAccount.spec.ts: 17/17 passed
+
+## Core Package Status
+All core packages verified clean of direct viem imports:
+- @tevm/actions: CLEAN
+- @tevm/vm: CLEAN
+- @tevm/evm: CLEAN
+- @tevm/state: CLEAN
+- @tevm/node: CLEAN
+- @tevm/block: CLEAN
+- @tevm/blockchain: CLEAN
+- @tevm/jsonrpc: CLEAN
+- @tevm/procedures: CLEAN
+- @tevm/base-client: CLEAN
+
+## Migration Verification
+Verified that PREFUNDED_ACCOUNTS now uses nativePrivateKeyToAccount:
+- packages/utils/src/prefundedAccounts.ts imports from './nativePrivateKeyToAccount.js'
+- All 10 prefunded accounts use native implementation
+
+## Remaining viem Usage (By Design)
+1. **@tevm/utils/viem.js**:
+   - parseAbi from abitype (complex human-readable ABI parser)
+   - Deprecated mnemonicToAccount/privateKeyToAccount (marked for removal)
+   - Transport/client functions for RPC forking (createPublicClient, http, etc.)
+2. **@tevm/memory-client**: Viem-compatible client layer (intentional integration)
+3. **@tevm/decorators**: Viem RPC type re-exports for compatibility
+
+## Remaining ethereumjs Dependencies (By Design)
+1. **@ethereumjs/tx**: Transaction types (LegacyTx, EIP1559Tx, etc.)
+2. **@ethereumjs/statemanager**: Cache types (AccountCache, StorageCache)
+3. **@ethereumjs/common**: Chain configurations
+4. **@ethereumjs/trie**: Merkle Patricia Trie
+5. **@ethereumjs/blockchain**: Consensus types
+
+## Type Declaration Issue Noted
+The generated type declarations (e.g., packages/vm/dist/index.d.ts) still reference
+@ethereumjs/vm for Bloom import, but this is a build artifact issue, not source.
+The source code (packages/vm/src/actions/*.js) correctly imports Bloom from @tevm/utils.
+
+## Build Issues Noted
+- @tevm/contract has test type errors (pre-existing)
+- @tevm/state exports StateManager type correctly in index.ts
+- Type resolution during build may need cache reset (pnpm nx reset)
+
+## Migration Status: COMPLETE
+All primary migration goals achieved:
+- Secp256k1 cryptography via voltaire
+- P256 cryptography via voltaire
+- Keccak256 hashing via voltaire
+- EIP-712 typed data signing via voltaire
+- EIP-7702 authorization signing via voltaire
+- Native account implementations (complete viem compatibility)
+- Bloom filter native implementation in @tevm/utils

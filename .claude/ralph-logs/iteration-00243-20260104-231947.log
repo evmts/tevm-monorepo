@@ -1,0 +1,25 @@
+This iteration is complete. Here's a summary:
+
+## Iteration 297 Summary
+
+**Status Check Complete**: The migration to `@tevm/voltaire` is progressing well.
+
+**Key Findings:**
+1. **Core packages are viem-free**: The core runtime packages (`@tevm/actions`, `@tevm/evm`, `@tevm/state`, `@tevm/vm`, `@tevm/node`) have no direct viem runtime imports. They all use `@tevm/utils` which provides native implementations via `@tevm/voltaire`.
+
+2. **Tests passing**: 
+   - 655 utils tests passing
+   - 38 guillotineWasm tests passing
+   - 17 createEvm tests passing
+   - 39 native transport tests passing
+
+3. **Remaining work**:
+   - `@tevm/tx` still uses `@ethereumjs/tx`
+   - `@tevm/common` still uses `@ethereumjs/common`
+   - `@tevm/trie` still uses `@ethereumjs/trie`
+
+4. **Cleanup done**: Removed obsolete snapshot in `ClRequest.spec.ts.snap`
+
+5. **viem as peerDep**: Many packages keep viem as a peer dependency for type compatibility with user-facing APIs, which is acceptable.
+
+The migration is in a healthy state with the core packages already migrated and comprehensive native implementations in place.

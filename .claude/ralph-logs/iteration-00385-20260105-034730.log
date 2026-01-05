@@ -1,0 +1,63 @@
+# Ralph Migration Log - Iteration 385
+## Date: 2026-01-05 03:48
+
+## Summary
+STATUS CHECK - Migration assessment and validation. Verified all tests pass.
+
+## Migration Status Assessment
+
+### Chain Presets Migration: COMPLETE (343/343)
+All chain presets in packages/common/src/presets/*.js have been migrated from viem/chains to nativeDefineChain.
+
+### Remaining Viem Imports (8 total, outside memory-client):
+1. **packages/utils/src/viem.js:26** - `mnemonicToAccount, privateKeyToAccount` from 'viem/accounts' (deprecated, native alternatives exist)
+2. **packages/utils/src/viem.js:2163** - Transport utilities (createPublicClient, createTransport, custom, defineChain, http, webSocket) - intentionally kept for forking
+3. **Test files (spec.ts)** - For comparison testing native implementations against viem
+4. **JSDoc documentation** - Examples showing migration path
+
+### Voltaire Integration Status:
+- **@tevm/utils**: Extensive use of @tevm/voltaire for:
+  - Keccak256 hashing
+  - EIP-712 typed data signing
+  - P256 verification (precompiles)
+  - ABI encoding/decoding
+  - Address conversion
+  - Signature operations
+- **@tevm/precompiles**: Uses @tevm/voltaire/P256 for p256verify
+
+### Guillotine WASM Status: FUNCTIONAL
+- WASM binary exists: lib/guillotine-mini/zig-out/bin/guillotine_mini.wasm (456KB)
+- packages/evm/src/guillotineWasm.js - WASM loader implementation complete
+- packages/evm/src/guillotineWasm.spec.ts - 38 tests pass, 1 skipped
+- Known bug: evm_set_storage has WASM memory issue, but SSTORE during execution works
+
+## Tests Verified This Session
+1. packages/utils/src/* - 662 tests passed, 1 skipped
+2. packages/common/src/* - 18 tests passed, 1 skipped
+3. packages/precompiles/src/* - 16 tests passed
+4. packages/evm/src/guillotineWasm.spec.ts - 38 tests passed, 1 skipped
+
+**Highlighted test files:**
+- abiFunctionEncoding.spec.ts - 15 tests (native ABI encoding with voltaire)
+- signature.spec.ts - 31 tests (native signature operations with voltaire)
+- p256verify.precompile.spec.ts - 4 tests (native P256 with voltaire)
+- guillotineWasm.spec.ts - 38 tests (guillotine-mini WASM integration)
+
+## Core Package Status
+- **@tevm/actions**: No direct viem imports (uses @tevm/utils)
+- **@tevm/vm**: No direct viem imports
+- **@tevm/evm**: No direct viem imports, guillotine WASM integration ready
+- **@tevm/state**: No direct viem imports
+- **@tevm/node**: No direct viem imports
+- **@tevm/common**: Only JSDoc example reference to viem/chains
+
+## Notes
+- memory-client package intentionally uses viem (it's a viem client wrapper)
+- @ethereumjs/common is still used in @tevm/common (direct dependency, not migration target)
+- Transport utilities from viem are kept for RPC forking functionality
+
+## Next Steps for Future Iterations
+1. Consider further guillotine-mini integration for actual EVM execution
+2. Fix evm_set_storage WASM bug to enable pre-execution storage setup
+3. Add more comprehensive integration tests for guillotine with tevm's state manager
+4. Explore replacing @ethereumjs/common with native implementation (larger task)

@@ -1,0 +1,15 @@
+I've completed iteration 341 of the Ralph migration. 
+
+**Summary of this iteration:**
+- Migrated 5 chain presets from `viem/chains` to `nativeDefineChain`:
+  1. `bevmMainnet.js` (id: 11501)
+  2. `shimmerTestnet.js` (id: 1073)
+  3. `bscGreenfield.js` (id: 1017)
+  4. `fantomSonicTestnet.js` (id: 64240)
+  5. `cyberTestnet.js` (id: 111557560)
+
+- All tests pass (10 passed, 1 skipped)
+- 271 chain presets remaining to migrate
+- Core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) are already free of viem imports
+
+The migration pattern replaces the viem import with inline chain configuration using `nativeDefineChain` from `@tevm/utils`, which provides the same chain definition format but without the viem dependency.

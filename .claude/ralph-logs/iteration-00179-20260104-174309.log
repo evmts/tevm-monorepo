@@ -1,0 +1,24 @@
+The iteration is complete. Let me provide a summary:
+
+## Iteration 232 Summary
+
+**Change Made**: Removed unused `@noble/curves` dependency from `@tevm/precompiles` package.
+
+**Why**: The p256verify precompile was migrated to use `@tevm/voltaire/P256` in a previous iteration, making the `@noble/curves` dependency unnecessary in the precompiles package.
+
+**Test Results**:
+- p256verify tests: 4/4 passed ✓
+- ecrecover tests: 7/7 passed ✓  
+- Core voltaire tests: 59/59 passed ✓
+- Native account tests: 35/35 passed ✓
+
+**File Modified**:
+- `packages/precompiles/package.json` - removed `"@noble/curves": "^2.0.1"` from dependencies
+
+**Pre-existing Issues Noted** (not related to this change):
+- `definePrecompile.spec.ts` has 4 failing tests due to `EvmError is not a constructor` - this is an issue with how `@ethereumjs/evm` exports the EvmError class
+
+**Migration Status**:
+- Core packages (actions, vm, evm, state, node, block) have no direct viem imports
+- Precompiles package now has no noble/curves dependency (uses voltaire/P256)
+- Utils package still has noble/curves but legitimately uses it in tests for verification

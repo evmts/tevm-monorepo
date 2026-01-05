@@ -1,0 +1,17 @@
+Successfully migrated `watchContractEvent.spec.ts` from viem to @tevm/utils.
+
+**Summary of Iteration 753:**
+- Replaced `WatchContractEventOnLogsParameter` type import from `viem` with `Log` type from `@tevm/utils`
+- Changed the type annotation from `WatchContractEventOnLogsParameter<typeof c.simpleContract.abi>` to `Log[]`
+- TypeScript compiles successfully
+- The test has a pre-existing gas limit issue unrelated to this change
+
+**Core packages migration status:**
+- @tevm/actions ✅
+- @tevm/vm ✅
+- @tevm/evm ✅
+- @tevm/state ✅
+- @tevm/node ✅
+
+**Remaining viem imports in spec files:**
+- `repro-2008.spec.ts` - Uses viem client functions (`createPublicClient`, `createWalletClient`, etc.) which are re-exported through @tevm/utils

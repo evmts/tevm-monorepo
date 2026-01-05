@@ -1,0 +1,15 @@
+## Summary
+
+In this iteration, I attempted to migrate viem type imports from memory-client package to @tevm/utils but discovered this isn't feasible:
+
+**Key Finding**: The memory-client package must keep viem type imports because:
+1. `PublicActions`, `WalletActions`, `Client` etc. are generic types with complex type parameters in viem
+2. @tevm/utils has simplified versions that don't support the full generic signature
+3. memory-client is a user-facing API that must be fully viem-compatible
+
+**Current Migration Status**:
+- Core packages (actions, vm, evm, state, node) are already free of direct viem imports
+- 8 @ethereumjs imports remain (common, trie, tx packages)
+- memory-client and extensions/viem must keep viem imports by design
+
+**Files changed**: None (all changes were reverted after discovering the incompatibility)

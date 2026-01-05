@@ -1,0 +1,7 @@
+I fixed a TypeScript build error in the zksync chain preset. The issue was that the file was using a `/** @type {const} */` cast on a function return value, which TypeScript doesn't allow. I updated it to use the same pattern as the other preset files like `mainnet.js`.
+
+**Summary of this iteration:**
+- Found and fixed a TypeScript build error in `packages/common/src/presets/zksync.js`
+- The error was: `A 'const' assertions can only be applied to references to enum members, or string, number, boolean, array, or object literals`
+- Fixed by using the spread pattern directly in `createCommon()` instead of the intermediate variable with const assertion
+- Build now succeeds and all tests pass

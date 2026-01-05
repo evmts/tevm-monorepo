@@ -1,0 +1,82 @@
+# Ralph Migration Log - Iteration 210
+## Date: 2026-01-04 15:40:18
+
+## Summary
+Added `nativeHdAccount` function to @tevm/utils and migrated `testAccounts.js` in @tevm/actions to use native HD account implementation instead of viem's `mnemonicToAccount`.
+
+## Changes Made
+
+### 1. Created account-types.ts
+New file: `packages/utils/src/account-types.ts`
+- Native TypeScript type definitions for account types
+- `LocalAccount<TSource>` - Base type for all local accounts
+- `NativePrivateKeyAccount` - Account from private key
+- `NativeMnemonicAccount` - Account from mnemonic (source: 'mnemonic')
+- `NativeHDAccount` - HD account (source: 'hd') compatible with viem's HDAccount
+- `SignParameters`, `SignMessageParameters`, `SignTypedDataParameters` - Signing parameter types
+
+### 2. Created nativeHdAccount.js
+New file: `packages/utils/src/nativeHdAccount.js`
+- Native HD account implementation using @scure/bip39, @scure/bip32, and @tevm/voltaire
+- Uses `source: 'hd'` to match viem's HDAccount type
+- Supports: accountIndex, addressIndex, changeIndex, custom path, passphrase
+- All signing methods: sign, signMessage, signTransaction, signTypedData
+- `getAccount(index)` helper for iterating through accounts
+
+### 3. Created nativeHdAccount.spec.ts
+New file: `packages/utils/src/nativeHdAccount.spec.ts`
+- 13 tests covering:
+  - Basic functionality (address derivation, source, type, publicKey)
+  - Viem compatibility (matching addresses for all indices)
+  - Signing (message, hash, typed data)
+  - getAccount helper
+
+### 4. Updated exports
+- Added `nativeHdAccount` export to `packages/utils/src/viem.js`
+- Added native account types to `packages/utils/src/abitype.ts`
+- Added exports to `packages/utils/src/index.ts`
+
+### 5. Fixed signTransaction for explicit type field
+Updated `packages/utils/src/nativePrivateKeyToAccount.js`:
+- Now handles explicit `type: 'eip2930'` and `type: 'eip1559'` fields
+- Previously only determined transaction type by presence of specific fields
+
+### 6. Migrated testAccounts.js to use native implementation
+Updated `packages/actions/src/eth/utils/testAccounts.js`:
+- Changed from `import { mnemonicToAccount } from '@tevm/utils'`
+- To `import { nativeHdAccount } from '@tevm/utils'`
+- Updated type annotation from `HDAccount` to `NativeHDAccount`
+
+### 7. Updated type annotations in signing handlers
+- `ethSignHandler.js` - Now accepts `HDAccount | NativeHDAccount`
+- `ethSignProcedure.js` - Now accepts `HDAccount | NativeHDAccount`
+- `ethSignTransactionHandler.js` - Now accepts `HDAccount | NativeHDAccount`
+
+## Test Results
+- nativeHdAccount.spec.ts - 13 tests pass
+- nativeMnemonicToAccount.spec.ts - 17 tests pass
+- nativePrivateKeyToAccount.spec.ts - 18 tests pass
+- ethAccountsHandler.spec.ts - 3 tests pass
+- ethAccountsProcedure.spec.ts - 2 tests pass
+- ethSignHandler.spec.ts - 2 tests pass
+- ethSignProcedure.spec.ts - 2 tests pass
+- ethSignTransactionHandler.spec.ts - 2 tests pass
+- ethSignTransactionProcedure.spec.ts - 3 tests pass
+
+## Migration Progress
+Native account implementations now available:
+- ✅ `nativePrivateKeyToAccount` - Full signing support using voltaire
+- ✅ `nativeMnemonicToAccount` - Full HD derivation + signing (source: 'mnemonic')
+- ✅ `nativeHdAccount` - Full HD derivation + signing (source: 'hd') - NEW!
+
+Core package migration:
+- ✅ `@tevm/actions/testAccounts.js` now uses native implementation
+
+Remaining viem account imports (kept for full compatibility):
+- `mnemonicToAccount` - For users who need viem's exact HDAccount type
+- `privateKeyToAccount` - For users who need viem's exact PrivateKeyAccount type
+
+## Next Steps
+1. Consider migrating other internal uses of mnemonicToAccount/privateKeyToAccount to native
+2. Continue migrating other packages
+3. Document migration path for users who want to switch to native implementations

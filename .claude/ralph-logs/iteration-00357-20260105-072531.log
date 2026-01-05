@@ -1,0 +1,13 @@
+Good, down to 32 from 34. 
+
+**Summary of Iteration 731:**
+
+1. **Added `PublicActions` type** to `@tevm/utils/provider-types.ts` - a comprehensive interface for public client actions compatible with viem's PublicActions
+
+2. **Migrated 2 test files:**
+   - `viemTestActions.spec.ts`: Changed `import { type TestActions } from 'viem'` to `import { type TestActions } from '@tevm/utils'`
+   - `viemPublicActions.spec.ts`: Changed `import { type PublicActions } from 'viem'` to `import { type PublicActions } from '@tevm/utils'`
+
+3. **All tests pass**
+
+4. **Progress:** 32 viem imports remaining (down from 34). Core packages are fully migrated - remaining imports are mostly in `@tevm/memory-client` which integrates with viem's client system.

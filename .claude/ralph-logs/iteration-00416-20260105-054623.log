@@ -1,0 +1,103 @@
+# Ralph Migration Log - Iteration 416
+## Date: 2026-01-05 05:46
+
+## Task: Migrate test-matchers files to use @tevm/utils + fix isAddress type signature
+
+## Changes Made
+
+### Part 1: Fix isAddress type signature in @tevm/utils
+
+The `isAddress` function had a parameter `_opts = undefined` which TypeScript inferred as only accepting `undefined`. Fixed by adding proper type cast:
+
+```javascript
+// Before
+export function isAddress(address, _opts = undefined) {
+
+// After
+export function isAddress(address, _opts = /** @type {import('./address-types.js').IsAddressOptions | undefined} */ (undefined)) {
+```
+
+### Part 2: Migrate test-matchers files
+
+#### 2.1 extensions/test-matchers/src/common/types.ts
+Changed import from:
+```typescript
+import type { Abi, AbiParameter, AbiParameterToPrimitiveType, Address, Hex, Log, TransactionReceipt } from 'viem'
+```
+To:
+```typescript
+import type { Abi, AbiParameter, AbiParameterToPrimitiveType, Address, Hex, Log, TransactionReceipt } from '@tevm/utils'
+```
+
+#### 2.2 extensions/test-matchers/src/matchers/state/types.ts
+Changed import from:
+```typescript
+import type { Hex } from 'viem'
+```
+To:
+```typescript
+import type { Hex } from '@tevm/utils'
+```
+
+#### 2.3 extensions/test-matchers/src/matchers/utils/toBeAddress.ts
+Changed import from:
+```typescript
+import { type IsAddressOptions, isAddress } from 'viem'
+```
+To:
+```typescript
+import { type IsAddressOptions, isAddress } from '@tevm/utils'
+```
+
+#### 2.4 extensions/test-matchers/src/matchers/utils/toBeHex.ts
+Changed import from:
+```typescript
+import { isHex } from 'viem'
+```
+To:
+```typescript
+import { isHex } from '@tevm/utils'
+```
+
+#### 2.5 extensions/test-matchers/src/matchers/utils/index.ts
+Changed import from:
+```typescript
+import type { IsAddressOptions } from 'viem'
+```
+To:
+```typescript
+import type { IsAddressOptions } from '@tevm/utils'
+```
+
+## Files Changed
+1. packages/utils/src/viem.js (isAddress type signature fix)
+2. extensions/test-matchers/src/common/types.ts
+3. extensions/test-matchers/src/matchers/state/types.ts
+4. extensions/test-matchers/src/matchers/utils/toBeAddress.ts
+5. extensions/test-matchers/src/matchers/utils/toBeHex.ts
+6. extensions/test-matchers/src/matchers/utils/index.ts
+
+## Build Status
+- @tevm/utils:build:types - SUCCESS
+- @tevm/test-matchers:build:types - Pre-existing failures in spec files (unrelated to migration)
+  - No errors in the migrated source files
+  - Spec file errors are about missing `account` property in WriteContractParameters
+
+## Files NOT migrated (require missing functions)
+- toEqualAddress.ts - needs `isAddressEqual` (not in @tevm/utils)
+- toEqualHex.ts - needs `trim` (not in @tevm/utils)
+
+## Remaining viem imports in test-matchers
+Files that still have viem imports:
+- common/handleTransaction.ts (needs Client type)
+- matchers/contract/*.ts (multiple complex viem types)
+- matchers/balance/*.ts (needs Client type)
+- matchers/state/*.ts (needs Client type)
+- matchers/errors/*.ts (needs Client, decodeErrorResult)
+- matchers/utils/toEqualAddress.ts (needs isAddressEqual)
+- matchers/utils/toEqualHex.ts (needs trim)
+
+## Next Steps
+1. Add `isAddressEqual` to @tevm/utils
+2. Add `trim` hex function to @tevm/utils
+3. Continue migrating remaining test-matchers files

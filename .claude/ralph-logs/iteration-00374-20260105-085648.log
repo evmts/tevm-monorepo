@@ -1,0 +1,15 @@
+The migration for this iteration is complete. I successfully:
+
+1. **Removed the viem dependency from `@tevm/test-matchers`** by replacing `instanceof` checks for viem's `BaseError` with a duck-typed approach using the `isBaseErrorLike()` helper function.
+
+2. **Key changes made:**
+   - Removed `import { BaseError as ViemBaseError } from 'viem'`
+   - Added `isBaseErrorLike()` type guard that checks for the `walk` method
+   - Updated 3 locations that were using `ViemBaseError` instanceof checks
+
+3. **Verification:**
+   - TypeScript compiles without errors in the changed file
+   - No viem imports remain in `extensions/test-matchers/src`
+   - The duck-typing approach works because both viem and tevm BaseError have the same interface (particularly the `walk` method)
+
+The `@tevm/test-matchers` package is now free of viem imports, making it one more package that can work independently of viem.

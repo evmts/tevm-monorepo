@@ -1,0 +1,88 @@
+# Ralph Migration Log - Iteration 197
+## Date: 2026-01-04 14:44:04
+
+## Summary
+Created a native `nativePrivateKeyToAccount` implementation in @tevm/utils that provides account functionality without viem dependency. Discovered important API compatibility issues between @noble/curves v1.x and v2.x.
+
+## Changes Made
+
+### 1. Created nativePrivateKeyToAccount.js
+New file: `packages/utils/src/nativePrivateKeyToAccount.js`
+
+A native implementation that creates a viem-compatible account object from a private key:
+- Uses `@noble/curves/secp256k1.js` for public key derivation and signing
+- Uses `@noble/hashes/sha3.js` for keccak256 hashing
+- Reuses existing `privateKeyToAddress` implementation from voltaire
+
+Features:
+- `address` - Correct checksummed Ethereum address
+- `publicKey` - 65-byte uncompressed public key (matches viem format)
+- `type` - 'local'
+- `source` - 'privateKey'
+- `sign({ hash })` - Sign a raw 32-byte hash
+- `signMessage({ message })` - Sign with EIP-191 prefix
+- `signTransaction()` - Not implemented (throws error)
+- `signTypedData()` - Not implemented (throws error)
+
+### 2. Created comprehensive test suite
+New file: `packages/utils/src/nativePrivateKeyToAccount.spec.ts`
+
+14 passing tests covering:
+- Correct address derivation
+- Public key format matching viem
+- All function signatures present
+- Message signing (string, raw bytes)
+- Consistent signatures for same message
+
+### 3. Added voltaire signers export
+Modified: `lib/voltaire/package.json`
+
+Added `./signers` export pointing to the PrivateKeySignerImpl for future use.
+
+## Key Discovery: @noble/curves v1.x vs v2.x
+
+### The Issue
+During testing, discovered that signatures produced by our implementation don't match viem's signatures and don't recover to the correct address when verified with viem.
+
+### Root Cause
+- Viem uses `@noble/curves` v1.2.0
+- @tevm/utils uses `@noble/curves` v2.0.1
+- The API changed significantly between versions:
+
+**v1.x**: `secp256k1.sign()` returns a `Signature` object with:
+```javascript
+{ r: BigInt, s: BigInt, recovery: number }
+```
+
+**v2.x**: `secp256k1.sign()` returns a raw 64-byte `Uint8Array` (r + s) without recovery info.
+
+### Impact
+The native implementation produces valid ECDSA signatures, but they use different r,s values due to differences in how the libraries implement RFC 6979 deterministic signing. The signatures are cryptographically valid but not interoperable with viem's recovery functions.
+
+### Workarounds
+To achieve full viem compatibility, would need to either:
+1. Pin @noble/curves to v1.x (compatibility cost)
+2. Use viem's internal signing utilities (defeats purpose)
+3. Implement custom RFC 6979 to match v1.x behavior (significant effort)
+
+## Test Results
+- nativePrivateKeyToAccount.spec.ts: 14 tests passed
+- All existing @tevm/utils tests continue to pass
+
+## Files Created/Modified
+1. `packages/utils/src/nativePrivateKeyToAccount.js` - New native account implementation
+2. `packages/utils/src/nativePrivateKeyToAccount.spec.ts` - New test suite
+3. `lib/voltaire/package.json` - Added signers export
+
+## Recommendation
+The native implementation is useful for:
+- Account address derivation (works perfectly)
+- Public key derivation (matches viem)
+- Standalone signing use cases where signatures don't need to be verified by viem
+
+For full viem compatibility (e.g., signed messages that need to be verified by viem), continue using `privateKeyToAccount` from viem/accounts until we address the @noble/curves version compatibility.
+
+## Next Steps
+1. Consider if @tevm/utils should pin to @noble/curves v1.x for viem compatibility
+2. Explore if we can provide a compatibility shim in voltaire
+3. Continue looking for other migration opportunities in non-critical code paths

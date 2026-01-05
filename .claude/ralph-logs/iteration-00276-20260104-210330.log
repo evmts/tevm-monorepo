@@ -1,0 +1,55 @@
+# Ralph Migration Log - Iteration 276
+## Date: 2026-01-04 21:03
+
+## Summary
+Full validation run - confirmed all voltaire migrations remain complete with comprehensive testing.
+
+## Test Results (All Passing)
+- guillotineWasm.spec.ts: 26/26 passed (1 skipped - known storage read bug)
+- signature.spec.ts: 31/31 passed
+- nativePrivateKeyToAccount.spec.ts: 18/18 passed
+- nativeMnemonicToAccount.spec.ts: 17/17 passed
+- eip7702.spec.ts: 22/22 passed
+
+## Core Package Status
+All core packages verified clean of direct viem crypto imports:
+- @tevm/actions: CLEAN (0 viem imports in source)
+- @tevm/vm: CLEAN (0 viem imports in source)
+- @tevm/evm: CLEAN (0 viem imports in source)
+- @tevm/state: CLEAN (0 viem imports in source)
+- @tevm/node: CLEAN (0 viem imports in source)
+- @tevm/block: CLEAN (0 viem imports in source)
+- @tevm/blockchain: CLEAN (0 viem imports in source)
+- @tevm/utils: Only intentional re-exports for backward compatibility
+
+## Remaining viem Usage (By Design)
+1. **@tevm/utils/viem.js**:
+   - parseAbi from abitype (complex human-readable ABI parser - no voltaire equivalent)
+   - Deprecated mnemonicToAccount/privateKeyToAccount (native versions exist)
+   - Transport/client functions for RPC forking (createPublicClient, http, etc.)
+2. **@tevm/memory-client**: Viem-compatible client layer (intentional - provides viem integration)
+3. **@tevm/decorators**: Viem RPC type re-exports for compatibility
+
+## keccak256 Usage Analysis
+All internal uses of keccak256 now flow through:
+1. @tevm/utils/viem.js uses @tevm/voltaire/Keccak256 directly
+2. Internal modules import from @tevm/utils
+
+This architecture maintains backward compatibility while using voltaire internally.
+
+## Next Potential Work (Future Releases)
+1. The guillotine WASM storage read bug (evm_get_storage returns 0 before execution)
+   - Workaround exists: SSTORE/SLOAD works during same execution
+   - Fix requires changes to guillotine-mini Zig code
+
+2. Remove deprecated viem account re-exports in next major version
+3. Explore native parseAbi implementation to remove abitype dependency
+
+## Migration Status: COMPLETE
+All primary migration goals achieved. Core packages use voltaire for:
+- Secp256k1 (signing, recovery)
+- P256 (precompiles)
+- Keccak256 (hashing)
+- EIP-712 typed data
+- EIP-7702 authorization signing
+- Native account implementations (privateKeyToAccount, mnemonicToAccount, hdAccount)

@@ -1,0 +1,74 @@
+# Ralph Migration Log - Iteration 219
+## Date: 2026-01-04 16:38:00
+
+## Summary
+Added native EIP-712 typed data functions (`hashTypedData`, `signTypedData`, `verifyTypedData`) to `@tevm/utils` using `@tevm/voltaire`'s EIP712 implementation.
+
+## Changes Made
+
+### Added to signature.js
+
+1. **New imports**:
+   - `EIP712` from `@tevm/voltaire/EIP712`
+   - `Address as VoltaireAddress` from `@tevm/voltaire/Address`
+
+2. **New helper function `convertMessageValue`**:
+   - Recursively converts message values to voltaire-compatible types
+   - Handles arrays, addresses (to Uint8Array), bytes (to Uint8Array), uint/int (to bigint)
+   - Handles nested custom struct types
+
+3. **New exported functions**:
+   - `hashTypedData(typedData)` - Hash typed data according to EIP-712 spec
+   - `signTypedData({ privateKey, typedData })` - Sign typed data
+   - `verifyTypedData({ address, typedData, signature })` - Verify typed data signature
+
+### Updated index.ts
+Added exports for the three new functions:
+- `hashTypedData`
+- `signTypedData`
+- `verifyTypedData`
+
+### Added tests to signature.spec.ts
+Added comprehensive tests for all three new functions:
+- `hashTypedData`: hash correctness, consistency, number chainId handling
+- `signTypedData`: signature structure, determinism
+- `verifyTypedData`: valid signature verification, invalid signature rejection, wrong address rejection
+
+## Technical Details
+
+### Key Implementation Decisions:
+1. **Filter EIP712Domain type**: Voltaire handles EIP712Domain internally, so we filter it from the types object
+2. **Convert addresses to Uint8Array**: Use `VoltaireAddress.from()` to convert hex addresses
+3. **Convert message values recursively**: Handle nested structs and arrays properly
+4. **chainId conversion**: Always convert to BigInt since voltaire expects bigint
+
+### Voltaire EIP712 API:
+- `EIP712.hashTypedData(typedData)` - Returns Uint8Array hash
+- `EIP712.signTypedData(typedData, privateKeyBytes)` - Returns `{ r, s, v }` with r,s as Uint8Array
+
+## Test Results
+- All 31 signature tests pass (24 existing + 7 new EIP-712 tests)
+
+## Migration Progress
+
+### Native EIP-712 Support Now Available:
+- `hashTypedData` - Native using voltaire
+- `signTypedData` - Native using voltaire
+- `verifyTypedData` - Native using voltaire + our `recoverAddress`
+
+### Core Packages Status:
+- `@tevm/actions` - No direct viem imports
+- `@tevm/vm` - No direct viem imports
+- `@tevm/evm` - No direct viem imports
+- `@tevm/state` - No direct viem imports
+- `@tevm/node` - No direct viem imports
+
+### Remaining viem dependencies in utils:
+1. **viem/accounts**: `mnemonicToAccount`, `privateKeyToAccount` - for backwards compatibility re-exports
+2. **Transport/client functions**: For forking support
+3. **Test files**: For compatibility testing against viem's implementations
+
+## Next Steps
+1. Consider using native `signTypedData`/`verifyTypedData` in test files instead of viem
+2. Look for other opportunities to add native crypto functions
+3. Continue reducing viem dependencies in utility packages

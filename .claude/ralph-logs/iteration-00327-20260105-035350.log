@@ -1,0 +1,23 @@
+Both dist and types built successfully. The migration status is:
+
+## Migration Status Summary (Iteration 387)
+
+**Completed Tasks:**
+1. Verified all core packages are migrated from direct viem/ethereumjs imports
+2. All core tests pass (excluding network tests that require RPC env vars)
+3. Updated @tevm/jsonrpc to export `nativeHttp` and `nativeWebSocket` alongside deprecated `http` and `webSocket`
+
+**Core Packages Migrated:**
+- @tevm/actions ✅
+- @tevm/vm ✅  
+- @tevm/evm ✅
+- @tevm/state ✅
+- @tevm/node ✅
+- @tevm/block ✅
+- @tevm/blockchain ✅
+
+**Remaining (Intentional):**
+- @tevm/memory-client - Viem client wrapper by design
+- @tevm/utils/src/viem.js - Re-exports with native alternatives available
+- @tevm/jsonrpc - Now has both deprecated and native exports
+- Wrapper packages (@tevm/common, @tevm/tx, @tevm/trie) - Intentionally wrap ethereumjs

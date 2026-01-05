@@ -1,0 +1,37 @@
+# Ralph Migration Log - Iteration 393
+## Date: 2026-01-05 04:34
+
+## Changes Made
+
+### Migrated viem imports to @tevm/utils in test-node extension
+
+1. **extensions/test-node/src/internal/normalizeHex.ts**
+   - Changed `type { Hex } from 'viem'`
+   - To `type { Hex } from '@tevm/utils'`
+
+### Updated RpcBlockIdentifier type for exactOptionalPropertyTypes compatibility
+
+2. **packages/utils/src/rpc-types.ts**
+   - Changed `requireCanonical?: boolean` to `requireCanonical?: boolean | undefined`
+   - This makes the type compatible with viem's type when `exactOptionalPropertyTypes: true`
+
+## Notes
+
+- Attempted to migrate normalizeBlockTag.ts but reverted because it's heavily integrated with viem's EIP1193Parameters and EIP1474Methods types
+- The ethMethodToCacheKey.ts file uses viem's JSON-RPC schema types extensively, making partial migration complex
+- The test-node extension has pre-existing type errors in spec files (unrelated to migration)
+
+## Next Steps
+
+- Focus on files that only import primitive types (Hex, Address) without complex viem dependencies
+- Consider migrating test-matchers extension files that were partially done in iteration 392
+- Look for opportunities in simpler packages
+
+## Blockers Discovered
+
+- Files using viem's EIP1193Parameters/EIP1474Methods are tightly coupled to viem's type system
+- Optional property handling with `exactOptionalPropertyTypes: true` creates type incompatibilities
+
+## Rationale
+
+Small incremental migration of one file reduces viem dependency while maintaining type safety.

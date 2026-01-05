@@ -1,0 +1,20 @@
+Successfully migrated 5 more chain presets. Let me summarize this iteration:
+
+## Iteration 335 Summary
+
+**Migrated 5 chain presets from viem/chains to nativeDefineChain:**
+
+1. **abstractTestnet.js** (id: 11124) - Abstract Testnet (zkSync-based)
+2. **acala.js** (id: 787) - Acala Network (ACA native currency)
+3. **ancient8.js** (id: 888888888) - Ancient8 mainnet (OP Stack)
+4. **ancient8Sepolia.js** (id: 28122024) - Ancient8 Testnet (OP Stack)
+5. **apexTestnet.js** (id: 3993) - APEX Testnet
+
+**Commit:** `864822629`
+
+**Progress:**
+- Total presets: ~335
+- Migrated so far: ~40
+- Remaining: ~300
+
+Tests passed. The migration continues - incrementally removing viem/chains dependencies from the chain presets.

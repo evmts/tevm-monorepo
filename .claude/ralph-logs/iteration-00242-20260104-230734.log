@@ -1,0 +1,29 @@
+I've completed this iteration. Here's a summary of what was accomplished:
+
+## Iteration 296 Summary
+
+Fixed all type build errors across the core packages. The main changes were:
+
+1. **EVM Types (`packages/evm/src/types.ts`)** - Added missing properties:
+   - `origin`, `salt`, `depth`, `selfdestruct`, `gasRefund` to `EvmRunCallOpts`
+   - `createdAddress` to `EvmResult`
+
+2. **EVM Type Class (`packages/evm/src/EvmType.ts`)** - Added missing methods:
+   - `shallowCopy()` and `getActiveOpcodes()`
+
+3. **AccountInterface (`packages/common/src/EvmStateManagerInterface.ts`)** - Added:
+   - `isEmpty()` method
+
+4. **Utils (`packages/utils/src/viem.js`)** - Extended `bytesToHex`:
+   - Added optional `{ size: number }` parameter for padding
+
+5. **Actions Package** - Multiple fixes:
+   - Removed unused `@ts-expect-error` directives
+   - Fixed implicit `any` types in trace callbacks
+   - Fixed null checks and type casts
+
+6. **Decorators Package** - Fixed test files:
+   - Updated tests to use typed methods from the schema
+
+**Build Status**: All core packages now build successfully:
+- @tevm/evm, @tevm/common, @tevm/vm, @tevm/node, @tevm/actions, @tevm/decorators, @tevm/memory-client

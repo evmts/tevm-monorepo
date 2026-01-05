@@ -1,0 +1,91 @@
+# Ralph Migration Log - Iteration 233
+## Date: 2026-01-04 17:49:23
+
+## Summary
+Status check and verification of migration progress. All core packages have been successfully migrated from viem crypto functions to @tevm/voltaire. Ran comprehensive test suite to verify stability.
+
+## Current State
+
+### Core Packages - Source Files (No viem imports)
+- actions/src: ✅ No viem imports
+- vm/src: ✅ No viem imports
+- evm/src: ✅ No viem imports
+- state/src: ✅ No viem imports
+- node/src: ✅ No viem imports
+- block/src: ✅ No viem imports
+
+### Utils Package Migration Status
+- ✅ keccak256 - uses @tevm/voltaire/Keccak256
+- ✅ secp256k1 signing - uses @tevm/voltaire/Secp256k1 (eip7702.js, signature.js)
+- ✅ nativePrivateKeyToAccount - uses voltaire for signing
+- ✅ nativeMnemonicToAccount - uses voltaire for signing
+- ✅ nativeHdAccount - uses voltaire for signing
+- ✅ prefundedAccounts - uses nativePrivateKeyToAccount
+- ✅ Bloom filter - uses native keccak256 (voltaire-based)
+- ✅ ecrecover - uses @tevm/voltaire/Secp256k1
+
+### Remaining viem Imports in utils/src/viem.js (Intentional)
+1. **Transport/Client functions** (lines 2137-2143):
+   - `createPublicClient`, `createTransport`, `custom`, `defineChain`, `http`, `webSocket`
+   - Required for RPC communication with external nodes (forking functionality)
+   - Cannot be replaced without implementing custom HTTP/WebSocket client
+
+2. **Account functions** (line 29):
+   - `mnemonicToAccount`, `privateKeyToAccount` from 'viem/accounts'
+   - Marked as @deprecated - native alternatives exist (nativeMnemonicToAccount, nativePrivateKeyToAccount)
+   - Kept for backward compatibility
+
+3. **Type re-exports** (abitype.ts, line 32):
+   - `Account`, `HDAccount` from 'viem'
+   - Marked as @deprecated - native alternatives exist (NativePrivateKeyAccount, NativeHDAccount)
+   - Kept for backward compatibility
+
+### Utils Package Test Results
+- 28 test files passed
+- 607 tests passed, 1 skipped
+- Duration: 1.34s
+
+### Other External Dependencies (Appropriate)
+- @scure/bip39 - HD wallet mnemonic handling
+- @scure/bip32 - HD key derivation
+- These cannot be migrated as voltaire doesn't include HD wallet functionality
+
+## Next Migration Opportunities
+
+1. **Chain Presets Migration** (Low Priority)
+   - common/src/presets/*.js files import from 'viem/chains'
+   - These are auto-generated and provide chain configurations
+   - Would require creating native chain configuration system
+   - Low value migration - chain configs are simple data objects
+
+2. **Remove Deprecated Exports** (Future)
+   - Could remove deprecated viem re-exports in a major version
+   - Would require users to migrate to native alternatives
+
+3. **Transport Implementation** (Complex)
+   - Could implement native HTTP/WebSocket transport
+   - Would remove last remaining viem runtime dependency
+   - Significant effort for minimal benefit
+
+## Test Verification
+
+### Utils Package - 100% Pass
+- 28 test files, 607 tests passed, 1 skipped
+- All voltaire-based implementations working correctly
+
+### Memory Client Tests
+- tevmCall.spec.ts: 8 passed, 1 skipped (pending guillotine EVM integration)
+- Some tests fail due to gas estimation issues in Prague hardfork (pre-existing, not migration-related)
+
+## Known Pre-existing Issues (Not Migration-Related)
+- Gas limit estimation in Prague: tx gas 67632 < minimum 88198
+- Affects tests using tevmDeploy with automining
+- Tracked from iteration 231
+
+## Conclusion
+Core migration is complete. Remaining viem usage is either:
+1. Intentional for backward compatibility (deprecated exports)
+2. Required for fork functionality (transport/client)
+3. Chain presets (data-only, low value to migrate)
+
+The codebase is in a stable state with comprehensive test coverage verifying all migrations work correctly.

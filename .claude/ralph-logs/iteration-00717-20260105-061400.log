@@ -1,0 +1,41 @@
+# Ralph Migration Log - Iteration 717
+## Date: 2026-01-05
+
+## Task: Migrate viem imports in test-matchers spec files
+
+## Files Migrated
+
+### extensions/test-matchers/src/matchers/balance/toChangeBalance.spec.ts
+- Migrated `Address` type from viem to @tevm/utils
+- Migrated `parseEther` from viem to @tevm/utils
+
+### extensions/test-matchers/src/matchers/balance/toChangeBalances.spec.ts
+- Migrated `Address` type from viem to @tevm/utils
+- Migrated `parseEther` from viem to @tevm/utils
+
+### extensions/test-matchers/src/matchers/balance/toChangeTokenBalance.spec.ts
+- Migrated `Address` type from viem to @tevm/utils
+- Migrated `parseEther` from viem to @tevm/utils
+
+### extensions/test-matchers/src/matchers/balance/toChangeTokenBalances.spec.ts
+- Migrated `Address` type from viem to @tevm/utils
+- Migrated `parseEther` from viem to @tevm/utils
+
+### extensions/test-matchers/src/matchers/contract/toCallContractFunction.spec.ts
+- Migrated `Address` type from viem to @tevm/utils
+- Migrated `toFunctionSelector` from viem to @tevm/utils
+
+### extensions/test-matchers/src/matchers/utils/toEqualHex.spec.ts
+- Migrated `Hex` type from viem to @tevm/utils
+
+### extensions/test-matchers/src/matchers/utils/toEqualAddress.spec.ts
+- Migrated `Hex` type from viem to @tevm/utils
+
+## Summary
+Migrated 7 test spec files in test-matchers extension from viem to @tevm/utils.
+Consolidated imports (Address, Hex, parseEther, toFunctionSelector) to use @tevm/utils.
+
+## Notes
+- The actual matcher implementations still use `Client` type from viem which is intentional
+  (allows users to pass either viem Client or TevmNode)
+- Spec files now use @tevm/utils for types/utilities, reducing direct viem dependencies

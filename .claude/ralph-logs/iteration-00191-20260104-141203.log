@@ -1,0 +1,100 @@
+# Ralph Migration Log - Iteration 191
+## Date: 2026-01-04 14:12:03
+
+## Summary
+This iteration assessed the current migration status and evaluated remaining opportunities for viem/ethereumjs removal. The core migration is confirmed complete for the primary target packages.
+
+## Assessment Performed
+
+### Remaining viem Dependencies (Intentional)
+
+#### 1. @tevm/utils (viem.js) - Transport Functions
+The following are intentionally kept for forking capabilities:
+- `createPublicClient` - For creating fork clients
+- `createTransport` - For custom transport creation
+- `custom` - Custom transport factory
+- `defineChain` - Chain definition utility
+- `http` - HTTP transport factory
+- `webSocket` - WebSocket transport factory
+
+#### 2. @tevm/utils (viem.js) - Account Functions
+- `mnemonicToAccount` - HD wallet derivation with signing methods
+- `privateKeyToAccount` - Creates account objects with signing methods
+
+#### 3. @tevm/utils (abitype.ts) - Account Types
+- `Account` type from viem
+- `HDAccount` type from viem
+
+These account types are used in:
+- `packages/client-types/src/TevmClient.ts` - For the `accounts` array type
+- `packages/actions/src/eth/utils/testAccounts.js` - For test account typing
+
+### Native Implementations Already in Place
+
+#### @tevm/utils (provider-types.ts)
+The following native types were created in previous iterations:
+- `EIP1193RequestFn` - Native implementation
+- `Transport` - Native implementation
+- `TransportConfig` - Native implementation
+- `PublicClient` - Native implementation
+- `ContractEventName` - Native implementation
+- `ContractEventArgs` - Native implementation
+- `EncodeEventTopicsParameters` - Native implementation
+
+### Voltaire Capabilities Evaluated
+
+#### Available for Future Migration:
+1. **HDWallet module** - Provides HD key derivation (BIP-32/44)
+   - `fromSeed`, `derivePath`, `deriveEthereum`, `deriveBitcoin`
+   - `mnemonicToSeed`, `generateMnemonic`, `validateMnemonic`
+   - Could potentially replace viem's `mnemonicToAccount`
+
+2. **PrivateKeySignerImpl** - Full signing functionality
+   - `signMessage` (EIP-191)
+   - `signTransaction` (all tx types)
+   - `signTypedData` (EIP-712)
+   - Could potentially replace viem's `privateKeyToAccount`
+
+3. **Provider Module** - EIP-1193 providers
+   - `HttpProvider`, `WebSocketProvider`, `InMemoryProvider`
+   - Could potentially replace viem transport functions
+
+### Blocking Factors for Full Account Migration
+
+The viem `Account` and `HDAccount` types include complex functionality:
+1. **Signing methods** that are expected by viem's ecosystem
+2. **Type compatibility** with viem's client functions
+3. **Integration requirements** with wallet actions
+
+While voltaire provides the building blocks (HDWallet + PrivateKeySignerImpl), creating a drop-in replacement for viem's account types would require:
+1. Matching the exact interface shape that viem expects
+2. Ensuring compatibility with all wallet actions
+3. Significant testing of account-based functionality
+
+## ethereumjs Dependencies Status
+
+The following ethereumjs packages are still in use:
+- `@ethereumjs/tx` - Transaction types (FeeMarket1559Tx, etc.)
+- `@ethereumjs/common` - Chain configuration
+- `@ethereumjs/trie` - Merkle Patricia Trie
+
+These are deeply integrated into the VM execution layer and would require significant effort to replace with guillotine-mini (which is currently a Zig EVM implementation without JavaScript bindings).
+
+## Conclusion
+
+The migration has reached a stable state:
+- All core packages are free of unnecessary viem imports
+- Native implementations exist for utility types
+- Remaining viem dependencies are intentional for:
+  - Fork client capabilities
+  - Test account creation with signing
+  - Type compatibility with viem ecosystem
+
+Future migration opportunities exist via voltaire's HDWallet and Signer modules, but would require careful consideration of backward compatibility and ecosystem integration.
+
+## Recommendations for Future Iterations
+
+1. Consider creating a `NativeAccount` type that wraps voltaire's `PrivateKeySignerImpl`
+2. Evaluate if voltaire providers can replace viem transport functions
+3. Monitor guillotine-mini for WASM bindings that could replace ethereumjs packages
+4. Document the migration status in the main README or ARCHITECTURE.md

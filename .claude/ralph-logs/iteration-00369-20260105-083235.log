@@ -1,0 +1,15 @@
+Based on my investigation, the core packages are fully migrated from viem. The remaining viem imports are either:
+
+1. **Intentional viem integrations** (memory-client, extensions/viem, utils re-exports)
+2. **Blocked by type incompatibilities** requiring deeper changes to @tevm/utils types
+3. **Blocked by runtime function dependencies** requiring native implementations
+
+The key findings are:
+- **Core package migration is complete** - packages/actions, vm, evm, state, node, block, blockchain, etc. have no viem imports
+- **memory-client intentionally uses viem** - it's designed to provide viem-compatible API
+- **Type mismatches exist** - Account's signTypedData and TransactionReceipt's status field have incompatible types between @tevm/utils and viem
+
+To proceed further, we would need to:
+1. Update the `Account` type in @tevm/utils to match viem's signTypedData generic signature
+2. Add a processed `TransactionReceipt` type that uses `'success' | 'reverted'` status format
+3. Implement native versions of viem/actions functions (getCode, estimateGas, getTransaction, getTransactionReceipt)

@@ -1,0 +1,8 @@
+**Iteration 816 Complete**
+
+Added comprehensive tests for the `fromRlp` function in viem.js:
+
+- **14 new tests** covering hex output, bytes output, Uint8Array input, error cases, and long strings/lists
+- **Coverage improved**: 87.17% → 91.83% (statement/line), 78.94% → 85.96% (function)
+
+The remaining uncovered lines are edge cases for malformed RLP data (input truncation errors) and a rarely-used fallback in the `toHexOutput` helper function.

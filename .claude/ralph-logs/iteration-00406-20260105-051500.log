@@ -1,0 +1,41 @@
+# Ralph Migration Log - Iteration 406
+## Date: 2026-01-05 05:15
+
+## Summary
+
+Added `size` function to `@tevm/utils` and migrated `bundler-packages/mud/src/internal/mud/createStorageAdapter.ts` from viem to @tevm/utils.
+
+## New Functions Added to @tevm/utils
+
+### packages/utils/src/size.ts (new file)
+- `size(value: Hex | Uint8Array): number` - Returns the size in bytes of a hex string or byte array
+  - For hex strings: `Math.ceil((value.length - 2) / 2)`
+  - For Uint8Array: `value.length`
+  - Compatible with viem's `size` function
+
+### packages/utils/src/index.ts
+- Exported `size` from `size.js`
+
+## Files Migrated
+
+1. **bundler-packages/mud/src/internal/mud/createStorageAdapter.ts**
+   - Changed: `import { concatHex, type Hex, size } from 'viem'` -> `import { concatHex, type Hex, size } from '@tevm/utils'`
+
+## Test Results
+
+- Typecheck passes for both @tevm/utils and @tevm/mud
+
+## Remaining viem Imports in @tevm/mud (5 files)
+
+Files still using viem:
+1. src/createOptimisticHandler.ts - `bytesToHex, Client, Hex, parseEventLogs`
+2. src/internal/decorators/mudStoreGetStorageAtOverride.ts - `EIP1193RequestFn`
+3. src/internal/decorators/mudStoreWriteRequestOverride.ts - `Client, concatHex, encodeFunctionData`
+4. src/internal/FieldLayout.ts - Various hex utilities
+5. src/types.ts - viem client types
+
+## Impact
+
+- Added native `size` function to @tevm/utils
+- Reduced viem imports in @tevm/mud by 1 file
+- createStorageAdapter.ts now uses @tevm/utils exclusively

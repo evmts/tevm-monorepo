@@ -1,0 +1,8 @@
+This iteration I successfully migrated the `getForkClient.spec.ts` file from using the deprecated viem `http` transport to the native `nativeHttp` implementation.
+
+**Summary:**
+- Migrated `packages/state/src/actions/getForkClient.spec.ts` to use `nativeHttp` instead of `http`
+- Test passes successfully
+- This removes one usage of the deprecated viem re-export in favor of the native voltaire-based implementation
+
+The bigger viem type migrations (Client, Account, etc.) are blocked due to deep type incompatibilities between `@tevm/utils` types and viem types that would require coordinated fixes across multiple type definitions.

@@ -1,0 +1,13 @@
+## Migration Summary - Iteration 338
+
+Successfully migrated 5 chain presets from `viem/chains` to `nativeDefineChain`:
+
+1. **avalancheFuji.js** (id: 43113) - Avalanche Fuji Testnet
+2. **b3.js** (id: 8333) - B3 mainnet
+3. **b3Sepolia.js** (id: 1993) - B3 Sepolia Testnet
+4. **bahamut.js** (id: 5165) - Bahamut (with Fasttoken native currency)
+5. **baseGoerli.js** (id: 84531) - Base Goerli Testnet
+
+**Tests**: All 10 passing (1 skipped - consistent)
+
+**Progress**: ~55 of ~335 presets migrated (~16%). Remaining: ~285 presets.

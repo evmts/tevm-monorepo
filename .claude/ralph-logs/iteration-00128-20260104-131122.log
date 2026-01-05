@@ -1,0 +1,32 @@
+## Summary - Iteration 178
+
+Successfully migrated `ContractConstructorArgs` type from viem to a native implementation:
+
+**Changes Made:**
+1. Added native `ContractConstructorArgs` type to `packages/utils/src/contract-types.ts`
+   - Uses abitype's `AbiParametersToPrimitiveTypes` to convert ABI constructor inputs to primitive types
+   - Extracts constructor from ABI using type-level extraction
+   - Falls back to `readonly unknown[]` when no constructor found
+
+2. Updated `packages/utils/src/abitype.ts` to import from native implementation instead of viem
+
+**Tests Verified:**
+- `createCommon.spec.ts` - 10 passed
+- `createBaseState.spec.ts` - 4 passed  
+- `createEvm.spec.ts` - 14 passed
+
+**Migration Progress:**
+All contract parameter types are now native implementations:
+- ✅ ContractFunctionName
+- ✅ ContractFunctionArgs
+- ✅ ContractFunctionReturnType
+- ✅ ContractConstructorArgs (NEW)
+
+Remaining viem type imports in abitype.ts:
+- Account (complex type with signing methods)
+- CreateEventFilterParameters
+- DecodeFunctionResultReturnType
+- EncodeDeployDataParameters
+- EncodeFunctionDataParameters
+- GetEventArgs
+- HDAccount (complex type with HD derivation methods)

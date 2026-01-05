@@ -1,0 +1,33 @@
+# Ralph Migration Log - Iteration 809
+## Date: 2026-01-05
+
+## Task: Improve test coverage for formatAbi.js
+
+## Summary
+
+Added tests to improve coverage of formatAbi.js, specifically targeting:
+- Unknown ABI item types (default case in switch statement)
+- Undefined inputs handling for function, event, error, and constructor types
+
+## Changes Made
+
+### Modified files:
+- `packages/utils/src/formatAbi.spec.ts` - Added 5 new tests
+
+### Test additions:
+1. `should handle unknown ABI item types by returning the type` - Tests default case
+2. `should handle function with undefined inputs` - Tests ?? fallback for functions
+3. `should handle event with undefined inputs` - Tests ?? fallback for events
+4. `should handle error with undefined inputs` - Tests ?? fallback for errors
+5. `should handle constructor with undefined inputs` - Tests ?? fallback for constructor
+
+## Coverage Improvement
+
+- formatAbi.js: 98.16% → 100% (statement)
+- formatAbi.js: 76.19% → 100% (branch)
+- formatAbi.js: 100% → 100% (function)
+- formatAbi.js: 98.16% → 100% (line)
+
+All coverage metrics now at 100% for formatAbi.js.
+
+## Status: COMPLETE

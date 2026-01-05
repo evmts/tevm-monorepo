@@ -1,0 +1,99 @@
+# Ralph Migration Log - Iteration 744
+## Date: 2026-01-05
+
+## Task: Investigate remaining viem imports and find migration opportunities
+
+## Summary
+
+Investigated the current state of viem migration across all packages. Core packages are fully migrated. Attempted type migrations in memory-client and extensions/test-matchers but encountered type incompatibilities.
+
+## Investigation Findings
+
+### Fully Migrated Packages (no viem imports in src files except spec):
+- packages/actions
+- packages/vm
+- packages/evm
+- packages/state
+- packages/node
+- packages/block
+- packages/blockchain
+- packages/common
+- packages/decorators
+- packages/errors
+- packages/jsonrpc
+- packages/precompiles
+- extensions/test-node
+
+### Packages with Remaining viem Imports (non-spec):
+
+1. **packages/memory-client** (intentional viem integration)
+   - 9 source files with viem imports
+   - Uses createClient, publicActions, testActions, walletActions from viem
+   - These are runtime dependencies and intentional viem API compatibility
+
+2. **packages/utils** (intentional viem re-exports)
+   - viem.js: re-exports createPublicClient, createTransport, custom, defineChain, http, webSocket
+   - nativeHttp.js, nativeWebSocket.js, nativeCustom.js: native implementations with viem fallback
+
+3. **bundler-packages/mud** (1 file)
+   - types.ts: BundlerClient, SmartAccount, WriteContractParameters, WriteContractReturnType from viem/account-abstraction
+   - These are complex 4337 types with no native equivalent
+
+4. **bundler-packages/whatsabi** (1 file)
+   - resolveContractUri.js: createClient, http from viem; getCode from viem/actions
+
+5. **extensions/test-matchers** (1 file)
+   - handleTransaction.ts: BaseError, TransactionReceipt from viem; estimateGas, getTransaction, getTransactionReceipt from viem/actions
+
+6. **extensions/viem** (intentional viem integration)
+   - All files are specifically for viem integration
+
+## Attempted Migrations
+
+### 1. CreateMemoryClientFn.ts - REVERTED
+- Attempted to migrate `Account`, `Chain`, `RpcSchema` from viem to @tevm/utils
+- Failed due to deep type incompatibility with `Account` type
+- viem's `Account.signTypedData` has complex generic signature not matched by @tevm/utils
+
+### 2. handleTransaction.ts - REVERTED
+- Attempted to migrate `TransactionReceipt` type from viem to @tevm/utils
+- Failed due to `status` field incompatibility:
+  - @tevm/utils: `Status = '0x0' | '0x1'` (raw RPC format)
+  - viem: `'success' | 'reverted'` (processed format)
+
+## Type Compatibility Issues Discovered
+
+### Account Type Mismatch
+The `signTypedData` method signature differs:
+- @tevm/utils: `(parameters: SignTypedDataParameters) => Promise<Hex>`
+- viem: `<typedData, primaryType>(parameters: TypedDataDefinition<...>) => Promise<Hex>`
+
+### TransactionReceipt Status Mismatch
+- @tevm/utils uses raw RPC format (`'0x0' | '0x1'`)
+- viem uses processed format (`'success' | 'reverted'`)
+
+## Conclusions
+
+1. **Core packages migration complete**: The primary goal of migrating core packages (actions, vm, evm, state, node) is achieved.
+
+2. **Intentional viem dependencies**: Some packages (memory-client, extensions/viem) are designed to provide viem integration and should keep viem dependencies.
+
+3. **Type incompatibilities block further migration**: The remaining viem imports involve either:
+   - Runtime function dependencies (getCode, estimateGas, etc.)
+   - Complex types with incompatible signatures (Account, TransactionReceipt)
+
+4. **Future work needed**: To fully migrate:
+   - Update @tevm/utils Account type to match viem's signTypedData signature
+   - Add processed TransactionReceipt type alongside raw RpcTransactionReceipt
+   - Implement native versions of viem/actions functions
+
+## Remaining viem imports summary
+
+| Package | Files | Type | Notes |
+|---------|-------|------|-------|
+| memory-client | 9 | Intentional | viem client integration |
+| utils | 4 | Intentional | viem re-exports |
+| mud | 1 | Blocked | 4337 types |
+| whatsabi | 1 | Blocked | Runtime functions |
+| test-matchers | 1 | Blocked | Type mismatch + runtime functions |
+| viem extension | 6 | Intentional | viem-specific extension |

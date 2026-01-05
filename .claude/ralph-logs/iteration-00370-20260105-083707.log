@@ -1,0 +1,18 @@
+No errors in the handleTransaction.ts source files I modified. The migration was successful.
+
+## Summary
+
+In this iteration, I successfully migrated 3 files in `extensions/test-matchers` to remove viem/actions imports:
+
+1. **extensions/test-matchers/src/common/handleTransaction.ts**
+   - Replaced `waitForTransactionReceipt` import from viem/actions with direct client method call
+
+2. **extensions/test-matchers/src/matchers/balance/handleTransaction.ts**
+   - Same pattern - replaced `waitForTransactionReceipt` with client method call
+
+3. **extensions/test-matchers/src/matchers/errors/handleTransaction.ts**
+   - Replaced `getTransactionReceipt`, `getTransaction`, and `estimateGas` imports from viem/actions with client method calls
+   - Created local type definitions to handle both viem and raw RPC formats
+   - Note: Kept `BaseError as ViemBaseError` import which is needed for viem error detection
+
+The migration uses the `PublicActions` type from `@tevm/utils` which provides the method signatures for `waitForTransactionReceipt`, `getTransactionReceipt`, `getTransaction`, and `estimateGas` that are available on clients with public actions attached.

@@ -1,0 +1,39 @@
+# Ralph Migration Log - Iteration 351
+## Date: 2026-01-05 02:19
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **iotex.js** (id: 4689) - IoTeX with IOTX native currency, includes webSocket URLs
+2. **iotexTestnet.js** (id: 4690) - IoTeX Testnet with IOTX native currency, includes webSocket URLs
+3. **jbc.js** (id: 8899) - JB Chain with JBC native currency
+4. **jbcTestnet.js** (id: 88991) - Jibchain Testnet with tJBC native currency
+5. **kaia.js** (id: 8217) - Kaia with KAIA native currency
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~171 (from iteration 350)
+- **Migrated this session**: 5
+- **Total migrated**: ~176
+- **Remaining**: ~168 (~50% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- IoTeX chains: Use 'IOTX' (IoTeX) as native currency, include webSocket URLs
+- JB Chain: Use 'JBC' as native currency
+- Jibchain Testnet: Use 'tJBC' as native currency (testnet token)
+- Kaia: Use 'KAIA' as native currency, has cross-referenced API URL to klaytnscope
+
+## Next Steps
+Continue migrating remaining chain presets. ~168 remain (~50% remaining).
+Next chains to migrate: kairos, karura, katla, kavaTestnet, kinto, klaytn...

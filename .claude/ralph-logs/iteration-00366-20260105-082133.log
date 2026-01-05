@@ -1,0 +1,19 @@
+I've completed iteration 741. Here's a summary of what was accomplished:
+
+## Iteration 741 Summary
+
+**Task:** Migrate `EIP1193RequestFn` type import from viem to @tevm/utils
+
+**File:** `bundler-packages/mud/src/internal/decorators/mudStoreGetStorageAtOverride.ts`
+
+**Changes:**
+1. Moved `EIP1193RequestFn` type import from `viem` to `@tevm/utils`
+2. Consolidated with existing `@tevm/utils` imports (`Address`, `Hex`)
+3. Removed unnecessary `@ts-expect-error` directive since the @tevm/utils type is more compatible
+
+**Result:** This file is now completely free of viem imports. The @tevm/utils `EIP1193RequestFn` type is more permissive than viem's, which allowed removal of a TypeScript workaround.
+
+**Remaining viem imports in bundler-packages/mud (non-spec files):**
+- `mudStoreWriteRequestOverride.ts` - `Client` type
+- `types.ts` - `Chain, Client, Transport, WriteContractParameters, WriteContractReturnType`
+- `createOptimisticHandler.ts` - `getTransaction` from viem/actions

@@ -1,0 +1,51 @@
+# Ralph Migration Log - Iteration 278
+## Date: 2026-01-04 21:19
+
+## Summary
+Status verification pass - confirmed migration is stable and all tests pass.
+
+## Test Results (All Passing)
+- signature.spec.ts: 31/31 passed
+- nativePrivateKeyToAccount.spec.ts: 18/18 passed
+- prefundedAccounts.spec.ts: 1/1 passed
+- eip7702.spec.ts: 22/22 passed
+- Bloom.spec.ts: 6/6 passed
+
+## Core Package Status
+All core packages verified clean of direct viem/ethereumjs imports:
+- @tevm/actions: CLEAN
+- @tevm/vm: CLEAN
+- @tevm/evm: CLEAN
+- @tevm/state: CLEAN
+- @tevm/node: CLEAN
+- @tevm/block: CLEAN
+- @tevm/blockchain: CLEAN
+- @tevm/jsonrpc: CLEAN
+- @tevm/procedures: CLEAN
+- @tevm/base-client: CLEAN
+
+## Remaining viem Usage (By Design)
+1. **@tevm/utils/viem.js**:
+   - Transport/client functions for RPC forking: createPublicClient, createTransport, custom, defineChain, http, webSocket
+   - Deprecated mnemonicToAccount/privateKeyToAccount (marked for removal, replaced with native implementations)
+   - parseAbi from abitype (complex human-readable ABI parser)
+2. **@tevm/utils/abitype.ts**:
+   - Type re-exports: Account, HDAccount (for type compatibility)
+3. **@tevm/memory-client**: Viem-compatible client layer (intentional integration)
+4. **@tevm/decorators**: Viem RPC type re-exports for compatibility
+
+## Migration Status: COMPLETE
+All primary migration goals achieved:
+- Secp256k1 cryptography via voltaire
+- P256 cryptography via voltaire (p256verify precompile)
+- Keccak256 hashing via voltaire
+- EIP-712 typed data signing via voltaire
+- EIP-7702 authorization signing via voltaire
+- Native account implementations (nativePrivateKeyToAccount, nativeMnemonicToAccount)
+- Bloom filter native implementation in @tevm/utils
+- PREFUNDED_ACCOUNTS using native implementations
+
+## Notes
+- viem remains as peer dependency for utils due to transport functions needed for forking
+- The deprecated viem account functions can be removed in a future breaking change release
+- All new code should use native implementations (nativePrivateKeyToAccount, etc.)

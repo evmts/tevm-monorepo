@@ -1,0 +1,32 @@
+The migration is in a stable, verified state. Let me provide a summary:
+
+## Ralph Migration - Iteration 314 Summary
+
+**Status: Stable - All core packages are viem-free**
+
+### Tests Verified (121+ tests passing):
+- signature.spec.ts: 31 tests
+- guillotineWasm.spec.ts: 38 tests (1 skipped - known storage bug)
+- nativeDefineChain.spec.ts: 11 tests
+- nativeHttp.spec.ts: 6 tests
+- nativeCustom.spec.ts: 11 tests
+- createForkRpcClient.spec.ts: 9 tests
+- abiFunctionEncoding.spec.ts: 15 tests
+
+### Core Packages - COMPLETE
+All core packages have ZERO direct viem imports:
+- @tevm/actions, @tevm/evm, @tevm/state, @tevm/vm, @tevm/node
+- @tevm/block, @tevm/blockchain, @tevm/precompiles
+- @tevm/decorators, @tevm/jsonrpc, @tevm/procedures
+
+### Remaining Dependencies (Intentional)
+- **viem/chains** in @tevm/common - Chain presets (hundreds of chains)
+- **@ethereumjs/tx** - Transaction classes
+- **@ethereumjs/common** - Chain configuration
+- **viem re-exports** in @tevm/utils - Backward compatibility (deprecated)
+
+### Next Steps for Future Iterations
+1. **Transaction Migration** - Replace @ethereumjs/tx with voltaire Transaction
+2. **Chain Presets Migration** - Replace viem/chains with native definitions
+3. **Remove deprecated viem re-exports** - Breaking change for consumers
+4. **Fix Guillotine-mini storage bug** - evm_set_storage WASM issue

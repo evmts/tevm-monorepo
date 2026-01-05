@@ -1,0 +1,50 @@
+# Ralph Migration Log - Iteration 412
+## Date: 2026-01-05 05:24
+
+## Task: Add parseEventLogs to @tevm/utils and migrate @tevm/mud
+
+## Changes Made
+
+### 1. New File: packages/utils/src/parseEventLogs.ts
+Created native `parseEventLogs` function that matches viem's API:
+- Parses multiple event logs from transaction receipts
+- Supports filtering by eventName
+- Supports filtering by args (indexed parameters)
+- Supports strict mode (throws on errors) and non-strict mode (skips failed logs)
+- Uses `decodeEventLog` from abiEventEncoding.js internally
+
+Types exported:
+- `ParseEventLogsParameters<TAbi, TEventName, TStrict>` - Input parameters type
+- `ParseEventLogsReturnType<TAbi, TEventName>` - Return type (array of decoded logs)
+
+### 2. Updated: packages/utils/src/index.ts
+Added exports for the new parseEventLogs function and types.
+
+### 3. Updated: bundler-packages/mud/src/createOptimisticHandler.ts
+- Migrated `parseEventLogs` import from `'viem'` to `'@tevm/utils'`
+- Added type assertion for the adapter call since our parseEventLogs returns generic `Record<string, unknown>` args while MUD expects specific typed args (tableId, keyTuple, etc.)
+
+## Technical Notes
+
+### Type Differences from viem's parseEventLogs
+Our implementation has some type differences compared to viem:
+1. **Return type args**: We return `Record<string, unknown>` while viem infers specific arg types from the ABI
+2. **Null values**: We explicitly allow `null` for blockHash, transactionHash etc. for pending blocks
+
+These differences require type assertions when passing to strongly-typed consumers like MUD's adapter.
+
+### viem imports still remaining in createOptimisticHandler.ts
+- `type Client` - Complex viem type with many properties
+- `getTransaction` from 'viem/actions' - Would need separate implementation
+
+## Test Results
+- @tevm/utils: 662 tests passed (types build successfully)
+- @tevm/mud: 41 tests passed, 6 failures (pre-existing - related to error message format differences)
+
+## Files Changed
+1. packages/utils/src/parseEventLogs.ts (new)
+2. packages/utils/src/index.ts (modified)
+3. bundler-packages/mud/src/createOptimisticHandler.ts (modified)
+
+## Status
+Migration of parseEventLogs: COMPLETED

@@ -1,0 +1,37 @@
+# Ralph Migration Log - Iteration 381
+## Date: 2026-01-05 03:33
+
+## Summary
+Migrated 4 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **telcoinTestnet.js** (id: 2017) - Telcoin Adiri Testnet with TEL native currency (decimals 18), telscan explorer at https://telscan.io, testnet flag enabled
+2. **telos.js** (id: 40) - Telos Mainnet with TLOS native currency (decimals 18), Teloscan explorer at https://www.teloscan.io/, includes multicall3 contract
+3. **telosTestnet.js** (id: 41) - Telos Testnet with TLOS native currency (decimals 18), Teloscan (testnet) explorer at https://testnet.teloscan.io/, testnet flag enabled
+4. **tenet.js** (id: 1559) - Tenet Mainnet with TENET native currency (decimals 18), TenetScan explorer at https://tenetscan.io
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Previously migrated**: ~310 (from iteration 380)
+- **Migrated this session**: 4
+- **Total migrated**: ~314
+- **Remaining**: 30 (~9% remaining, excluding generator script)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Telos mainnet has multicall3 contract
+- Tenet uses TENET as both native currency name and symbol
+- Telcoin uses TEL as native currency symbol
+- Fixed RPC URL inconsistencies in JSDoc comments for telos/telosTestnet
+
+## Next Steps
+Continue migrating remaining chain presets (thaiChain, thunderTestnet, tron, unreal, x1Testnet, etc.).
+30 files remain (~9% remaining).

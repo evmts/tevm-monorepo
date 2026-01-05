@@ -1,0 +1,76 @@
+# Ralph Migration Log - Iteration 387
+## Date: 2026-01-05 03:57
+
+## Summary
+STATUS VERIFICATION - Comprehensive test pass and migration status review.
+
+## Test Results - All Core Tests Passing:
+
+1. **@tevm/utils**
+   - nativePrivateKeyToAccount.spec.ts: 18 tests ✅
+   - signature.spec.ts: 31 tests ✅
+
+2. **@tevm/precompiles**
+   - definePrecompile.spec.ts: 3 tests ✅
+
+3. **@tevm/evm**
+   - guillotineWasm.spec.ts: 38 tests (1 skipped - known WASM evm_set_storage bug) ✅
+
+4. **@tevm/common**
+   - createCommon.spec.ts: 10 tests (1 skipped) ✅
+
+5. **@tevm/state**
+   - getForkClient.spec.ts: 3 tests ✅
+
+6. **@tevm/actions**
+   - setAccountHandler.spec.ts: 5 tests ✅
+   - callHandler.spec.ts: Some tests fail (RPC env var not set - expected for network tests)
+
+## Migration Status Summary:
+
+### Core Packages - FULLY MIGRATED:
+- @tevm/actions - No direct viem/ethereumjs imports ✅
+- @tevm/vm - No direct viem/ethereumjs imports ✅
+- @tevm/evm - No direct viem/ethereumjs imports ✅
+- @tevm/state - No direct viem/ethereumjs imports ✅
+- @tevm/node - No direct viem/ethereumjs imports ✅
+- @tevm/block - No direct viem/ethereumjs imports ✅
+- @tevm/blockchain - No direct viem/ethereumjs imports ✅
+
+### Intentional Viem Usage (95 remaining imports):
+1. **@tevm/memory-client** - Viem client wrapper (intentional, user-facing)
+2. **@tevm/utils/src/viem.js** - Re-exports for:
+   - parseAbi, formatAbi from 'abitype'
+   - DEPRECATED: mnemonicToAccount, privateKeyToAccount (native alternatives exist)
+   - Transport utilities (createPublicClient, http, etc.) for RPC forking
+
+### Wrapper Packages (Intentional EthereumJS usage):
+- @tevm/common - Wraps @ethereumjs/common
+- @tevm/tx - Wraps @ethereumjs/tx
+- @tevm/trie - Wraps @ethereumjs/trie
+
+These are intentional re-export packages, not core runtime dependencies.
+
+### Native Alternatives Available:
+- nativeHttp() - HTTP transport ✅
+- nativeWebSocket() - WebSocket transport ✅
+- nativeCustom() - Custom transport ✅
+- nativeDefineChain() - Chain definition ✅
+- nativePrivateKeyToAccount() - Account from private key ✅
+- nativeMnemonicToAccount() - Account from mnemonic ✅
+- createForkRpcClient() - Fork state management ✅
+- All 343+ chain presets migrated to nativeDefineChain ✅
+
+## Conclusion
+The migration is in excellent shape. All core packages have been migrated away from direct viem/ethereumjs imports. Remaining viem usage is intentional (memory-client wrapper, transport utilities for RPC forking).
+
+## Changes Made This Session:
+1. **@tevm/jsonrpc** - Added native transport exports
+   - Now exports `nativeHttp` and `nativeWebSocket` alongside deprecated `http` and `webSocket`
+   - Added deprecation notice to legacy viem re-exports
+   - Build and tests passing ✅
+
+## Next Potential Steps:
+1. Consider fully native transport implementation to remove final viem transport dependencies
+2. Future: native @ethereumjs/tx, @ethereumjs/common, @ethereumjs/trie replacements
+3. Complete guillotine-mini integration for actual EVM execution (currently working for basic opcodes)

@@ -1,0 +1,15 @@
+## Migration Iteration 222 Complete
+
+**Summary:** Added JSDoc `@deprecated` comments directly in `index.ts` for the viem account function exports (`mnemonicToAccount`, `privateKeyToAccount`), making the deprecation notices more visible to users of `@tevm/utils`.
+
+**Changes:**
+- Reorganized exports in `packages/utils/src/index.ts` to group native account implementations together
+- Added explicit `@deprecated` JSDoc comments pointing users to `nativeMnemonicToAccount` and `nativePrivateKeyToAccount`
+
+**Test Results:** All 607 utils tests pass.
+
+**Current Migration Status:**
+- Core packages (`@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, `@tevm/node`) are fully migrated
+- Native account implementations (`nativePrivateKeyToAccount`, `nativeMnemonicToAccount`, `nativeHdAccount`) are available and tested
+- Remaining viem dependencies are transport/client functions required for RPC communication with external nodes
+- Remaining ethereumjs dependencies are `@ethereumjs/common` and `@ethereumjs/tx` for core EVM configuration

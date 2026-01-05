@@ -1,0 +1,30 @@
+The change has been committed. Let me provide a summary of this iteration:
+
+## Summary - Iteration 283
+
+**Completed Migration Task:**
+- Moved `@noble/curves` and `@noble/hashes` from production dependencies to devDependencies in `@tevm/utils`
+
+**Rationale:**
+- These packages are only used in test files for verification purposes
+- Production crypto operations now use `@tevm/voltaire` exclusively
+- All 607 tests pass after the change
+
+**Current Migration Status:**
+The core packages (`@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, `@tevm/node`) have no direct viem or ethereumjs imports - they use `@tevm/utils` which provides:
+
+1. **Fully migrated to voltaire:**
+   - All crypto primitives (secp256k1, keccak256, ecrecover)
+   - EIP-712 typed data signing
+   - EIP-191 message signing
+   - EIP-7702 authorization
+   - Account generation (nativePrivateKeyToAccount, nativeHdAccount, nativeMnemonicToAccount)
+
+2. **Still requires viem (peer dependency):**
+   - `mnemonicToAccount, privateKeyToAccount` from 'viem/accounts' - deprecated, native versions exist
+   - `createPublicClient, createTransport, custom, defineChain, http, webSocket` - for RPC transport/forking
+   - `Account, HDAccount` types - for backward compatibility
+
+3. **Still requires other dependencies:**
+   - `@scure/bip32` and `@scure/bip39` - for HD wallet/mnemonic generation
+   - `abitype` - for ABI parsing
