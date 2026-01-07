@@ -1,0 +1,49 @@
+# Ralph Migration Log - Iteration 299
+## Date: 2026-01-04 23:34
+
+## Summary
+Added missing guillotine WASM exports (setStorage, getStorage) to @tevm/evm public API.
+
+## Changes Made
+1. **packages/evm/src/index.ts**: Added `setStorage` and `getStorage` exports from guillotineWasm.js
+   - These functions were implemented but not exported from the package
+   - They allow setting/getting EVM storage state in guillotine WASM executions
+
+## Tests Run
+- packages/evm/src/*.spec.ts - 55 passed, 1 skipped (56 total)
+- packages/decorators/src/*.spec.ts - 17 passed
+- packages/utils/src/*.spec.ts - 655 passed, 1 skipped
+
+## Build Status
+- @tevm/evm:build:types - SUCCESS (866ms)
+
+## Migration Status (unchanged from iteration 298)
+
+### Fully Migrated (no direct viem/ethereumjs imports)
+- @tevm/actions - Uses @tevm/utils only
+- @tevm/evm - No viem/ethereumjs imports, guillotine WASM integration
+- @tevm/state - No viem/ethereumjs imports
+- @tevm/vm - No viem/ethereumjs imports
+- @tevm/node - No viem/ethereumjs imports
+- @tevm/utils - Native implementations using @tevm/voltaire
+- @tevm/precompiles - P256 verify via @tevm/voltaire/P256
+- @tevm/blockchain - Uses @tevm/utils helpers
+- @tevm/decorators - No viem/ethereumjs imports
+- @tevm/jsonrpc - No viem/ethereumjs imports
+
+### Remaining Ethereumjs Dependencies (architectural)
+- @tevm/common - Uses @ethereumjs/common for chain configuration (EVM compatibility)
+- @tevm/tx - Re-exports @ethereumjs/tx (EVM uses ethereumjs tx classes)
+- @tevm/trie - Re-exports @ethereumjs/trie (merkle patricia trie operations)
+
+### Viem Dependencies (intentional)
+- @tevm/memory-client - User-facing API for viem compatibility
+- @tevm/utils/viem.js - Re-exports parseAbi/formatAbi from abitype, deprecated mnemonicToAccount/privateKeyToAccount
+
+## Files Modified
+- packages/evm/src/index.ts
+
+## Notes
+- Guillotine WASM functions now fully exported: loadGuillotineWasm, createGuillotineEvm, destroyGuillotineEvm, executeGuillotine, setStorage, getStorage, hexToAddress, u256ToBytes, bytesToU256
+- All 38 guillotine WASM tests passing
+- Ready for integration testing once guillotine-mini WASM build is stable

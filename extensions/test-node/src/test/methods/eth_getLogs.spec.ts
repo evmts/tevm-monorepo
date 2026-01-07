@@ -1,4 +1,4 @@
-import { type Hex, numberToHex } from 'viem'
+import { type Hex, numberToHex } from '@tevm/utils'
 import { describe, it } from 'vitest'
 import { BLOCK_NUMBER } from '../constants.js'
 import { assertMethodCached, assertMethodNotCached } from '../snapshot-utils.js'

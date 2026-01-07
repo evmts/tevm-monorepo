@@ -1,5 +1,5 @@
 import { createMapDb } from '@tevm/receipt-manager'
-import { bytesToHex } from 'viem'
+import { bytesToHex } from '@tevm/utils'
 
 /**
  * Request handler for anvil_reset JSON-RPC requests.

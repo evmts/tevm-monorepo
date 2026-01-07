@@ -1,4 +1,5 @@
-import { type Address, createClient, parseEther } from 'viem'
+import { type Address, parseEther } from '@tevm/utils'
+import { createClient } from './createClient.js'
 import { getBalance, getCode, getStorageAt, getTransactionCount } from 'viem/actions'
 import { assert, describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'

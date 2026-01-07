@@ -1,0 +1,13 @@
+Migration session complete. Summary:
+
+**This session migrated 14 test spec files** in the `extensions/test-matchers` package from viem to `@tevm/utils`:
+
+**Commit 1:** 7 files (balance matchers, contract matcher, utils matchers)
+- Address, Hex, parseEther, toFunctionSelector types/functions
+
+**Commit 2:** 7 files (error matchers, event matcher, state matchers)  
+- Address, Hex, parseEther, toHex, keccak256, encodeFunctionData, toEventSelector
+
+**Intentional viem dependencies remain** in 3 error spec files (`createClient`) to test viem client compatibility.
+
+**Core packages remain fully migrated** (actions, vm, evm, state, node) with no viem imports.

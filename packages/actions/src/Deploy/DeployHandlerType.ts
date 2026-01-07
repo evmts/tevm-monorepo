@@ -9,16 +9,12 @@ import type { DeployResult } from './DeployResult.js'
  *
  * @example
  * ```typescript
- * import { createClient } from 'viem'
- * import { deployHandler } from 'tevm/actions'
+ * import { createMemoryClient, tevmDeploy } from 'tevm'
+ * import { optimism } from 'tevm/common'
  *
- * const client = createClient({
- *   transport: createTevmTransport({ fork: { transport: http('https://mainnet.optimism.io')({}) } })
- * })
+ * const client = createMemoryClient({ common: optimism })
  *
- * const handler = deployHandler(client)
- *
- * const result = await handler({
+ * const result = await tevmDeploy(client, {
  *   abi: [...], // ABI array
  *   bytecode: '0x...', // Contract bytecode
  *   args: [arg1, arg2], // Constructor arguments
@@ -30,7 +26,7 @@ import type { DeployResult } from './DeployResult.js'
  *     console.log(`Executing ${step.opcode.name} at PC=${step.pc}`)
  *     next?.()
  *   }
- * })
+ * } as const)
  * console.log(result)
  * ```
  *

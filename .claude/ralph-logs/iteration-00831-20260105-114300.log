@@ -1,0 +1,66 @@
+# Ralph Migration Log - Iteration 831
+## Date: 2026-01-05
+
+## Task: Add test coverage for parseEventLogs utility function
+
+## Summary
+
+Added comprehensive test suite for the `parseEventLogs` function in the utils package. This function is a native implementation using @tevm/voltaire that matches viem's parseEventLogs API for parsing event logs from transaction receipts.
+
+## Changes Made
+
+### New files:
+- `packages/utils/src/parseEventLogs.spec.ts` - 16 tests
+
+### Test coverage:
+
+**Basic parsing (3 tests):**
+- Parse a single Transfer event log
+- Parse multiple event logs
+- Return empty array for empty logs
+
+**eventName filtering (2 tests):**
+- Filter logs by eventName
+- Return empty array when no logs match eventName
+
+**args filtering (3 tests):**
+- Filter logs by single arg value
+- Filter logs by array of arg values
+- Case-insensitive matching for address args
+
+**strict mode (1 test):**
+- Skip invalid logs in non-strict mode
+
+**Edge cases (5 tests):**
+- Skip logs without topics
+- Skip logs without data
+- Handle logs with null/undefined topic values
+- Preserve log metadata in result
+- Handle removed field defaulting to false
+
+**erc20Abi integration (2 tests):**
+- Parse Transfer events from erc20Abi
+- Parse Approval events from erc20Abi
+
+## Technical Notes
+
+The parseEventLogs function uses the native @tevm/voltaire ABI decoding internally via decodeEventLog. Tests verify:
+- Correct event topic signature matching (keccak256 hashes)
+- Proper decoding of indexed parameters from topics
+- Proper decoding of non-indexed parameters from data
+- Filter functionality by eventName and args
+- Case-insensitive address comparison for args filtering
+
+## Test Results
+
+All 16 tests passing:
+- parseEventLogs.spec.ts: 16 tests (5ms)
+
+## Status: COMPLETE
+
+## Next Steps
+
+Continue voltaire migration work:
+1. Look for more untested utility functions
+2. Continue replacing viem imports with native implementations
+3. Explore guillotine-mini integration opportunities

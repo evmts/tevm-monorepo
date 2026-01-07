@@ -1,0 +1,23 @@
+## Summary
+
+In this iteration, I added native Account types to replace the viem Account/HDAccount imports:
+
+**Changes made:**
+1. **`packages/utils/src/account-types.ts`** - Added:
+   - `JsonRpcAccount` - for externally managed accounts
+   - `SmartAccount` - for ERC-4337 smart contract wallets
+   - `Account` - union type compatible with viem's Account
+   - `HDAccount` - alias for NativeHDAccount
+
+2. **`packages/utils/src/abitype.ts`** - Removed the deprecated viem import `export type { Account, HDAccount } from 'viem'` and now exports all account types from native `account-types.js`
+
+3. **`packages/utils/src/index.ts`** - Added exports for `JsonRpcAccount` and `SmartAccount`
+
+**Results:**
+- Build successful
+- Type checking passes
+- 18 account-related tests pass
+- One more viem import removed from the codebase
+
+**Status of core packages:**
+All core packages (`@tevm/actions`, `@tevm/state`, `@tevm/evm`, `@tevm/vm`, `@tevm/node`) are now free of direct viem imports. The `@tevm/memory-client` package intentionally uses viem for viem-compatible client/actions.

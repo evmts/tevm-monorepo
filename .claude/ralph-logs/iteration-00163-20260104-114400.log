@@ -1,0 +1,95 @@
+# Ralph Migration Log - Iteration 163
+## Date: 2026-01-04 11:51:00
+
+## Summary
+Created native AccountCache and StorageCache implementations in @tevm/utils, replacing the @ethereumjs/statemanager dependency in @tevm/state.
+
+## Changes Made
+
+### 1. Created native StorageCache class (packages/utils/src/StorageCache.js)
+- Full checkpoint/revert/commit support
+- LRU and ORDERED_MAP cache type support
+- Diff cache for tracking state changes during checkpoints
+- API-compatible with @ethereumjs/statemanager StorageCache
+
+### 2. Created native AccountCache class (packages/utils/src/AccountCache.js)
+- Full checkpoint/revert/commit support
+- LRU and ORDERED_MAP cache type support
+- Diff cache for tracking account state changes
+- API-compatible with @ethereumjs/statemanager AccountCache
+
+### 3. Exported cache classes from @tevm/utils
+- Added exports to packages/utils/src/index.ts
+- Added lru-cache as dependency to @tevm/utils
+
+### 4. Updated @tevm/state to use native caches
+Files updated:
+- packages/state/src/index.js
+- packages/state/src/index.ts
+- packages/state/src/createBaseState.js
+- packages/state/src/ContractCache.js
+- packages/state/src/state-types/StateCache.ts
+- packages/state/src/state-types/StateOptions.ts
+- packages/state/src/actions/generateCannonicalGenesis.js
+- packages/state/src/actions/shallowCopy.js
+- packages/state/src/actions/getAccountAddresses.js
+
+### 5. Updated tests
+- packages/state/src/createBaseState.spec.ts
+- packages/state/src/ContractCache.spec.ts
+- packages/state/src/actions/commit.spec.ts
+- packages/state/src/actions/getAccountAddresses.spec.ts
+
+### 6. Removed @ethereumjs/statemanager dependency
+- Removed from packages/state/package.json
+
+## Technical Details
+
+### Native cache differences from @ethereumjs/statemanager:
+1. Uses native JavaScript Map instead of @js-sdsl/ordered-map for ORDERED_MAP type
+2. Simplified diff cache implementation
+3. LRU cache uses .keys() instead of .rkeys() for iteration
+
+### ContractCache.has() fix:
+The original code used `_orderedMapCache.getElementByKey()` which is from @js-sdsl OrderedMap.
+Updated to use `.get()` for native Map compatibility.
+
+### getAccountAddresses.js fix:
+- Native Map.forEach((value, key) => ...) has different signature than OrderedMap
+- Updated forEach callback to use (value, key) instead of ([key])
+- Changed from _lruCache.rkeys() to _lruCache.keys()
+
+## Test Results
+- @tevm/state: 109 tests passed (excluding RPC-dependent tests)
+- All ContractCache tests pass (13 tests)
+- All createBaseState tests pass (4 tests)
+
+## Impact
+- Eliminates @ethereumjs/statemanager dependency from @tevm/state
+- Reduces bundle size by removing @js-sdsl/ordered-map transitive dependency
+- Native implementation provides equivalent functionality
+
+## Files Modified
+1. packages/utils/src/StorageCache.js (NEW)
+2. packages/utils/src/AccountCache.js (NEW)
+3. packages/utils/src/index.ts
+4. packages/utils/package.json
+5. packages/state/src/index.js
+6. packages/state/src/index.ts
+7. packages/state/src/createBaseState.js
+8. packages/state/src/ContractCache.js
+9. packages/state/src/state-types/StateCache.ts
+10. packages/state/src/state-types/StateOptions.ts
+11. packages/state/src/actions/generateCannonicalGenesis.js
+12. packages/state/src/actions/shallowCopy.js
+13. packages/state/src/actions/getAccountAddresses.js
+14. packages/state/package.json
+15. packages/state/src/createBaseState.spec.ts
+16. packages/state/src/ContractCache.spec.ts
+17. packages/state/src/actions/commit.spec.ts
+18. packages/state/src/actions/getAccountAddresses.spec.ts
+
+## Next Steps
+1. Continue removing remaining ethereumjs dependencies from other packages
+2. Consider migrating @tevm/common from @ethereumjs/common
+3. Consider migrating @tevm/blockchain from @ethereumjs/blockchain

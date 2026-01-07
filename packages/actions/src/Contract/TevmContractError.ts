@@ -8,27 +8,25 @@ import type { TevmCallError } from '../Call/TevmCallError.js'
  *
  * @example
  * ```typescript
- * import { createClient } from 'viem'
- * import { contractHandler } from 'tevm/actions'
- * import { Abi } from 'viem/utils'
- * import { TevmContractError } from 'tevm/errors'
+ * import { createMemoryClient, tevmContract } from 'tevm'
+ * import { optimism } from 'tevm/common'
+ * import type { TevmContractError } from 'tevm/errors'
  *
- * const client = createClient({ transport: http('https://mainnet.optimism.io')({}) })
+ * const client = createMemoryClient({ common: optimism })
  *
- * try {
- *   const contractCall = contractHandler(client)
- *   const result = await contractCall({
- *     abi: [...], // ABI array
- *     functionName: 'myFunction',
- *     args: [arg1, arg2],
- *     to: '0x123...',
- *     from: '0x123...',
- *     gas: 1000000n,
- *     gasPrice: 1n,
- *     skipBalance: true,
- *   })
- * } catch (error) {
- *   const typedError = error as TevmContractError
+ * const result = await tevmContract(client, {
+ *   abi: [...], // ABI array
+ *   functionName: 'myFunction',
+ *   args: [arg1, arg2],
+ *   to: '0x123...',
+ *   from: '0x123...',
+ *   gas: 1000000n,
+ *   gasPrice: 1n,
+ *   skipBalance: true,
+ * } as const)
+ *
+ * if (result.errors) {
+ *   const typedError: TevmContractError = result.errors[0]
  *   console.error('Contract call failed with error:', typedError)
  * }
  * ```

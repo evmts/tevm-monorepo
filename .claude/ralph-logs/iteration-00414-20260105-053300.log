@@ -1,0 +1,65 @@
+# Ralph Migration Log - Iteration 414
+## Date: 2026-01-05 05:33
+
+## Task: Migrate @tevm/test-node types.ts and createTestSnapshotClient.ts from viem to @tevm/utils
+
+## Changes Made
+
+### 1. Updated: extensions/test-node/src/types.ts
+Changed import from:
+```typescript
+import type { Account, Address, Chain, EIP1193RequestFn, RpcSchema, Transport } from 'viem'
+```
+To:
+```typescript
+import type { Account, Address, Chain, EIP1193RequestFn, RpcSchema, Transport } from '@tevm/utils'
+```
+
+### 2. Updated: extensions/test-node/src/createTestSnapshotClient.ts
+Changed import from:
+```typescript
+import type { Account, Address, Chain, RpcSchema } from 'viem'
+```
+To:
+```typescript
+import type { Account, Address, Chain, RpcSchema } from '@tevm/utils'
+```
+
+## Test Results
+- normalizeUserOperation.spec.ts: 11 tests passed (tested in isolation)
+- The full @tevm/test-node test suite has pre-existing failures unrelated to this migration
+- Type errors existed before this migration due to viem/@tevm/utils type incompatibilities
+
+## Technical Notes
+
+### Type Availability in @tevm/utils
+All types used in this migration are already exported from @tevm/utils:
+- `Account` - from account-types.ts (line 41 in index.ts)
+- `Address` - from address-types.ts (line 42 in index.ts)
+- `Chain` - from chain-types.ts (line 278 in index.ts)
+- `Transport` - from provider-types.ts (line 294 in index.ts)
+- `EIP1193RequestFn` - from provider-types.ts (line 291 in index.ts)
+- `RpcSchema` - from provider-types.ts (line 297 in index.ts)
+
+### Pre-existing Type Incompatibilities
+There are pre-existing type errors in the test-node package related to differences between:
+- `@tevm/utils.Account` vs `viem.Account` (signTypedData method signature differs)
+- `@tevm/utils.EIP1193RequestFn` vs `viem.EIP1193RequestFn` (params type differs)
+- `@tevm/utils.Transport` vs `viem.Transport` (function parameter differs)
+
+These type incompatibilities existed before this migration and require broader type alignment work.
+
+## Files Changed
+1. extensions/test-node/src/types.ts (modified)
+2. extensions/test-node/src/createTestSnapshotClient.ts (modified)
+
+## Status
+Migration of viem imports in types.ts and createTestSnapshotClient.ts: COMPLETED
+
+## Remaining viem imports in extensions/test-node
+After this iteration:
+- createTestSnapshotTransport.ts: JSDoc example references 'viem' http import (documentation only)
+- createTestSnapshotClient.ts: JSDoc example references 'viem' http import (documentation only)
+- createTestSnapshotNode.ts: JSDoc example references 'viem' http import (documentation only)
+
+All runtime imports of viem types have been removed from the core type files.

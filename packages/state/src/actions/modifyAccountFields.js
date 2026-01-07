@@ -9,10 +9,23 @@ import { putAccount } from './putAccount.js'
  * @type {import("../state-types/index.js").StateAction<'modifyAccountFields'>}
  */
 export const modifyAccountFields = (baseState) => async (address, accountFields) => {
-	const account = (await getAccount(baseState)(address)) ?? createAccount({})
-	account.nonce = accountFields.nonce ?? account.nonce
-	account.balance = accountFields.balance ?? account.balance
-	account.storageRoot = accountFields.storageRoot ?? account.storageRoot
-	account.codeHash = accountFields.codeHash ?? account.codeHash
-	await putAccount(baseState)(address, account)
+	const existingAccount = await getAccount(baseState)(address)
+	// Create account data with only defined fields
+	/** @type {{nonce: bigint, balance: bigint, storageRoot?: Uint8Array, codeHash?: Uint8Array}} */
+	const accountData = {
+		nonce: accountFields.nonce ?? existingAccount?.nonce ?? 0n,
+		balance: accountFields.balance ?? existingAccount?.balance ?? 0n,
+	}
+	// Only add storageRoot if defined
+	const storageRoot = accountFields.storageRoot ?? existingAccount?.storageRoot
+	if (storageRoot !== undefined) {
+		accountData.storageRoot = storageRoot
+	}
+	// Only add codeHash if defined
+	const codeHash = accountFields.codeHash ?? existingAccount?.codeHash
+	if (codeHash !== undefined) {
+		accountData.codeHash = codeHash
+	}
+	const newAccount = createAccount(accountData)
+	await putAccount(baseState)(address, /** @type {import('@tevm/common').AccountInterface} */ (newAccount))
 }

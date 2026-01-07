@@ -1,0 +1,37 @@
+# Ralph Migration Log - Iteration 382
+## Date: 2026-01-05 03:35
+
+## Summary
+Migrated 4 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **thaiChain.js** (id: 7) - ThaiChain with TCH native currency (decimals 18), Blockscout explorer at https://exp.thaichain.org, includes multicall3 contract at 0x0DaD6130e832c21719C5CE3bae93454E16A84826 (block 4806386)
+2. **thunderTestnet.js** (id: 997) - 5ireChain Thunder Testnet with 5IRE native currency (decimals 18), 5ireChain Thunder Explorer at https://testnet.5irescan.io/, testnet flag enabled, updated JSDoc to reflect current RPC URL
+3. **tron.js** (id: 728126428) - Tron Mainnet with TRX native currency (decimals 6), Tronscan explorer at https://tronscan.org with API at https://apilist.tronscanapi.com/api
+4. **unreal.js** (id: 18233) - Unreal testnet with reETH native currency (decimals 18), Unreal Explorer at https://unreal.blockscout.com with API v2, includes multicall3 contract at 0x8b6B0e60D8CD84898Ea8b981065A12F876eA5677 (block 1745), testnet flag enabled
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Previously migrated**: ~314 (from iteration 381)
+- **Migrated this session**: 4
+- **Total migrated**: ~318
+- **Remaining**: 26 (~8% remaining, excluding generator script)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- ThaiChain has multicall3 contract
+- Tron uses 6 decimals for TRX (unusual)
+- Unreal has multicall3 contract and uses reETH as native currency
+- Fixed thunderTestnet JSDoc to reflect current RPC URL (https://rpc.testnet.5ire.network)
+
+## Next Steps
+Continue migrating remaining chain presets (x1Testnet, xLayer, xLayerTestnet, xai, xaiTestnet, etc.).
+26 files remain (~8% remaining).

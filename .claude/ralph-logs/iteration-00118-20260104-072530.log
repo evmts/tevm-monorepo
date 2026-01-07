@@ -1,0 +1,59 @@
+# Ralph Migration Iteration 118 - Native Ethereum Constants Implementation
+
+## Summary
+
+Migrated `GWEI_TO_WEI`, `BIGINT_0`, `BIGINT_1`, `MAX_UINT64`, and `SECP256K1_ORDER_DIV_2` from `@ethereumjs/util` to native implementations in `@tevm/utils`. These are now zero-dependency pure JavaScript constants.
+
+## Changes Made
+
+### New Files
+1. `packages/utils/src/constants.js` - Native implementation of Ethereum constants
+2. `packages/utils/src/constants.spec.ts` - Test file for constants (100% coverage)
+
+### Modified Files
+1. `packages/utils/src/ethereumjs.js` - Removed the 5 constants from @ethereumjs/util exports
+2. `packages/utils/src/index.ts` - Added exports from new constants.js file
+
+## Implementation Details
+
+### constants.js
+```javascript
+export const GWEI_TO_WEI = 1000000000n
+export const BIGINT_0 = 0n
+export const BIGINT_1 = 1n
+export const MAX_UINT64 = 18446744073709551615n
+export const SECP256K1_ORDER_DIV_2 = 57896044618658097711785492504343953926418782139537452191302581570759080747168n
+```
+
+## Tests Passed
+
+- `packages/utils/src/constants.spec.ts` - 5 passed
+- All @tevm/utils tests - 385 passed, 1 skipped
+- `constants.js` has 100% coverage
+
+## Impact
+
+Reduced dependency on `@ethereumjs/util` by 5 more constants. These are fundamental constants used throughout the codebase:
+- `GWEI_TO_WEI` - Conversion factor (10^9)
+- `BIGINT_0`, `BIGINT_1` - Commonly used BigInt values
+- `MAX_UINT64` - Maximum 64-bit value (2^64 - 1)
+- `SECP256K1_ORDER_DIV_2` - Half of secp256k1 curve order (for signature malleability checks)
+
+## Remaining @ethereumjs/util exports in ethereumjs.js
+
+The following still need migration (in rough order of complexity):
+- `EthjsAccount`, `EthjsAddress` - Core account/address classes
+- `createAccount`, `createAddressFromString` - Factory functions
+- `createWithdrawal`, `Withdrawal` - Withdrawal handling
+- `ecrecover` - Signature recovery (requires crypto)
+- `randomBytes` - Random bytes (requires crypto)
+- `fetchFromProvider`, `getProvider` - Network utilities
+- `KECCAK256_RLP`, `KECCAK256_RLP_ARRAY` - Constants (need keccak256)
+- `KeyEncoding`, `ValueEncoding`, `TypeOutput`, `toType` - Encoding types
+- EIP-7702 utilities - Complex authorization utilities
+
+## Next Steps
+
+Continue migrating utilities from `@ethereumjs/util`. Good next targets:
+- `TypeOutput`, `toType` - Type conversion utilities (relatively simple)
+- `KECCAK256_RLP`, `KECCAK256_RLP_ARRAY` - Constants (need to compute keccak256 of empty RLP)

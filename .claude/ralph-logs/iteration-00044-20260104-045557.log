@@ -1,0 +1,20 @@
+**Migration Session Summary:**
+
+## Commits Made (6 commits):
+1. `fb0f96e96` - tevm.spec.ts: encodeDeployData
+2. `f424e0716` - createTevmTransport.js: createTransport
+3. `481a66d5f` - createHttpClient.js: createPublicClient, http
+4. `a89132ac5` - ChainOptions.ts: BlockTag, EIP1193RequestFn
+5. `3ef129807` - 4 test files: numberToBytes, custom, bytesToHex, keccak256
+
+## Remaining viem imports (7 files):
+- **memory-client type files (6)**: These import viem-specific client types (Client, Account, Chain, PublicActions, etc.) that are fundamental to the viem client architecture. The memory-client is designed to integrate with viem, so these imports should stay.
+- **common/tevmDefault.js (1)**: Uses `defineChain` from viem - could be migrated if added to @tevm/utils.
+
+## Test file imports remaining:
+Most test files still import from viem for:
+- `createClient` - viem's client factory
+- `testActions`, `walletActions` - viem's client extension functions
+- `Client` type - viem's core type
+
+These are intentional dependencies for testing viem integration.

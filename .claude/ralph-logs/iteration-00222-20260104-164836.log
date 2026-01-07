@@ -1,0 +1,49 @@
+# Ralph Migration Log - Iteration 222
+## Date: 2026-01-04 16:48:36
+
+## Summary
+Added JSDoc deprecation comments in index.ts to make deprecated viem account functions more visible to users. Reorganized exports to group native implementations together and clearly mark deprecated alternatives.
+
+## Changes Made
+
+### 1. Updated index.ts export organization
+- Grouped native account implementations together: `nativePrivateKeyToAccount`, `nativeHdAccount`, `nativeMnemonicToAccount`, `generatePrivateKey`, `privateKeyToAddress`
+- Added `@deprecated` JSDoc comments to `mnemonicToAccount` and `privateKeyToAccount` exports
+- Deprecation comments direct users to native alternatives
+
+## Test Results
+- All 607 utils tests pass
+- No breaking changes - only documentation/organization improvements
+
+## Migration Status Summary
+
+### Fully Migrated (no viem/ethereumjs imports):
+- `@tevm/actions`
+- `@tevm/vm`
+- `@tevm/evm`
+- `@tevm/state`
+- `@tevm/node`
+- `@tevm/jsonrpc`
+- `@tevm/block`
+- `@tevm/tx` (except FeeMarket1559Tx)
+- `@tevm/receipt-manager`
+
+### Deprecated (native alternatives available):
+- `mnemonicToAccount` → `nativeMnemonicToAccount`
+- `privateKeyToAccount` → `nativePrivateKeyToAccount`
+- `Account` type → `LocalAccount`/`NativePrivateKeyAccount`
+- `HDAccount` type → `NativeHDAccount`
+
+### Remaining viem dependencies (necessary for functionality):
+1. Transport/client functions (`createPublicClient`, `http`, `webSocket`, etc.) - required for RPC communication
+2. `parseAbi` from abitype - human-readable ABI parsing
+
+### Remaining ethereumjs dependencies:
+1. `@ethereumjs/common` in createCommon.js - core EVM configuration
+2. `@ethereumjs/tx` (FeeMarket1559Tx) in createImpersonatedTx.js - transaction creation
+
+## Next Steps
+1. Consider creating native transport implementation for basic HTTP/WebSocket RPC
+2. Monitor for voltaire updates that might provide parseAbi functionality
+3. Long-term: evaluate native EVM common/tx implementations
+4. Continue improving documentation of migration paths for remaining viem exports

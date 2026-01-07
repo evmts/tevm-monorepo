@@ -1,0 +1,27 @@
+Excellent! All viem imports in the core packages (actions, state, vm, evm, node) have been migrated!
+
+## Summary
+
+**Migration Iteration 49 Complete!**
+
+Successfully migrated all remaining viem imports from test files in the core packages:
+
+### Added to @tevm/utils:
+- `stringToBytes` - Native implementation for UTF-8 string to bytes conversion
+- `privateKeyToAccount` - Re-exported from viem/accounts
+- `custom` - Transport function
+- `http` - Transport function
+
+### Test files migrated (15 files):
+- 12 files in packages/actions
+- 2 files in packages/state
+- 1 file in packages/node
+
+### Commits:
+1. `9a3cbdfce` - Migrated decodeRevertReason.spec.ts + added concatHex
+2. `5b37dc585` - Migrated remaining 14 test files
+
+### Status:
+**All viem imports in core packages (actions, state, vm, evm, node) have been successfully migrated to @tevm/utils!**
+
+The only remaining viem references in these packages are JSDoc documentation examples (like `import { createClient } from 'viem'`), which are user-facing documentation showing how to use the APIs with viem.

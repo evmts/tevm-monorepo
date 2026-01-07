@@ -1,0 +1,77 @@
+# Ralph Migration Log - Iteration 189
+## Date: 2026-01-04 14:02:30
+
+## Summary
+This iteration committed several pending changes from previous sessions and made one new improvement:
+consolidated duplicate `ContractEventName` type definitions.
+
+## Commits Made
+
+### 1. Consolidate ContractEventName type (new)
+- Changed `provider-types.ts` to re-export `ContractEventName` from `contract-types.ts`
+- Eliminated duplicate implementation
+- Commit: `⚡ refactor(utils): consolidate ContractEventName type to single implementation`
+
+### 2. Migrate encoding types from viem (existing uncommitted change)
+- Updated `abitype.ts` to import encoding types from `contract-types.ts` instead of viem
+- Types migrated: EncodeFunctionDataParameters, EncodeDeployDataParameters,
+  DecodeFunctionResultReturnType, GetEventArgs, CreateEventFilterParameters
+- Commit: `⚡ refactor(utils): migrate encoding types from viem to native implementations`
+
+### 3. Add native contract type implementations (existing uncommitted change)
+- Added 576 lines of native type implementations to `contract-types.ts`
+- Full event type support: ContractEventName, GetEventArgs, CreateEventFilterParameters
+- Full encoding support: EncodeFunctionDataParameters, EncodeDeployDataParameters
+- Helper types: Prettify, GetFunctionArgs, UnionToTuple, etc.
+- Commit: `⚡ refactor(utils): add native contract type implementations`
+
+### 4. Add native Prettify utility type (existing uncommitted change)
+- New file `utility-types.ts` with Prettify type
+- Exported from `index.ts`
+- Commit: `⚡ refactor(utils): add native Prettify utility type`
+
+## Tests Verified
+- @tevm/utils: 551 tests passed, 1 skipped ✅
+- @tevm/common: 10 tests passed, 1 skipped ✅
+- @tevm/actions: 15 tests passed (createHandlers.spec.ts) ✅
+
+## Migration Progress Update
+
+### Types now native (no longer from viem):
+- ✅ ContractFunctionName
+- ✅ ContractFunctionArgs
+- ✅ ContractFunctionReturnType
+- ✅ ContractConstructorArgs
+- ✅ EncodeFunctionDataParameters
+- ✅ EncodeDeployDataParameters
+- ✅ DecodeFunctionResultReturnType
+- ✅ GetEventArgs
+- ✅ CreateEventFilterParameters
+- ✅ ContractEventName
+- ✅ Prettify
+
+### Types still from viem (intentional for interop):
+- Account, HDAccount (from viem/accounts - complex signing methods)
+- Transport functions (createPublicClient, http, etc. - for forking)
+
+### Packages with viem completely removed from core types:
+- @tevm/actions ✅
+- @tevm/vm ✅
+- @tevm/evm ✅
+- @tevm/state ✅
+- @tevm/node ✅
+- @tevm/jsonrpc ✅
+- @tevm/address ✅
+- @tevm/contract ✅
+- @tevm/precompiles ✅
+- @tevm/decorators ✅
+- @tevm/client-types ✅
+- @tevm/txpool ✅
+- @tevm/tx ✅
+- @tevm/block ✅
+- @tevm/receipt-manager ✅
+
+## Next Steps
+1. Look for any other duplicate types that can be consolidated
+2. Consider if any viem/accounts types can be natively implemented
+3. Continue monitoring for regression issues

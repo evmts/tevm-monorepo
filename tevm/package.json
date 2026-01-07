@@ -416,7 +416,7 @@
     "publish:jsr:dry": "jsr publish --dry-run --allow-slow-types",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
+	"dependencies": {
     "@tevm/actions": "workspace:^",
     "@tevm/address": "workspace:^",
     "@tevm/base-bundler": "workspace:^",
@@ -451,7 +451,6 @@
     "@tevm/tx": "workspace:^",
     "@tevm/txpool": "workspace:^",
     "@tevm/utils": "workspace:^",
-    "@tevm/viem": "workspace:^",
     "@tevm/vite-plugin": "workspace:^",
     "@tevm/vm": "workspace:^",
     "@tevm/webpack-plugin": "workspace:^",
@@ -459,15 +458,14 @@
     "effect": "3.18.1",
     "glob": "^11.0.3",
     "solc": "^0.8.30"
-  },
+	},
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
     "@tevm/tsupconfig": "workspace:^"
   },
-  "peerDependencies": {
-    "@tevm/ts-plugin": "workspace:^",
-    "viem": "^2.37.9"
-  },
+	"peerDependencies": {
+		"@tevm/ts-plugin": "workspace:^"
+	},
   "publishConfig": {
     "access": "public"
   }

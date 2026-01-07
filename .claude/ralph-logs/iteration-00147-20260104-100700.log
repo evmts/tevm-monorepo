@@ -1,0 +1,34 @@
+# Ralph Migration Log - Iteration 147
+## Date: 2026-01-04 10:07:00
+
+## Summary
+Migrated JSDoc type imports in `abiEventEncoding.js` from viem to local types.
+
+## Changes Made
+
+### Modified: packages/utils/src/abiEventEncoding.js
+- Changed 2 `import('viem').Abi` to `import('abitype').Abi` (lines 15, 164)
+- Changed 2 `import('viem').ContractEventName` to `import('./provider-types.js').ContractEventName` (lines 16, 165)
+- Changed 4 `import('viem').Hex` to `import('./hex-types.js').Hex` (lines 19, 20, 55, 170, 210)
+
+## Rationale
+The abiEventEncoding.js file uses voltaire for the actual encoding/decoding but was referencing viem types in JSDoc annotations. By pointing to local types:
+1. `Abi` from abitype (same source as viem uses)
+2. `ContractEventName` from provider-types.js (local implementation)
+3. `Hex` from hex-types.js (local branded type)
+4. All 8 viem references have been migrated
+
+## Test Results
+- abiEventEncoding.spec.ts: 13 tests passed
+
+## Remaining viem JSDoc imports in utils/src/
+After this change, the following files still have `import('viem')` JSDoc references:
+1. abiErrorEncoding.js - Abi, Hex (5 references)
+2. abiFunctionEncoding.js - ContractFunctionArgs, ContractFunctionReturnType (3 references)
+3. formatAbi.js - AbiItem (2 references)
+4. viem.js - Transport, PublicClient, EIP1193RequestFn (intentional re-exports)
+
+## Next Steps
+1. Continue migrating JSDoc imports in abiErrorEncoding.js
+2. Then move to abiFunctionEncoding.js
+3. formatAbi.js may need to use abitype's AbiItem

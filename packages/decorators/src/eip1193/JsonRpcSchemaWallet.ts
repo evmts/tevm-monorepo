@@ -3,8 +3,7 @@
 // Copied from viem commit a098c98231d47ccac9bda1a944880b034020a1b5
 // We copy it here for easier developer experience internally and also
 // to lock in these types independent of viem potentially making changes
-import type { Address, BlockTag, Hex } from '@tevm/utils'
-import type { RpcBlockNumber as BlockNumber, Quantity, RpcTransactionRequest as TransactionRequest } from 'viem'
+import type { Address, BlockTag, Hex, Quantity, RpcBlockNumber as BlockNumber, RpcTransactionRequest as TransactionRequest } from '@tevm/utils'
 import type { AddEthereumChainParameter } from './AddEthereumChainParameter.js'
 import type { Hash } from './misc.js'
 import type { NetworkSync } from './NetworkSync.js'

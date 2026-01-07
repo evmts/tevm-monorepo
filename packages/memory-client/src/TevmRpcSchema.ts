@@ -1,5 +1,5 @@
 import { type JsonRpcSchemaTevm } from '@tevm/decorators'
-import type { PublicRpcSchema, TestRpcSchema } from 'viem'
+import type { PublicRpcSchema, TestRpcSchema } from '@tevm/utils'
 
 /**
  * The JSON-RPC schema for TEVM.
@@ -7,13 +7,14 @@ import type { PublicRpcSchema, TestRpcSchema } from 'viem'
  * It includes public, test, and TEVM-specific methods.
  * @example
  * ```typescript
- * import { createClient, http } from 'viem'
+ * import { createClient } from 'viem'
+ * import { nativeHttp } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  *
  * const client = createClient({
  *   transport: createTevmTransport({
- *     fork: { transport: http('https://mainnet.optimism.io')({}) }
+ *     fork: { transport: nativeHttp('https://mainnet.optimism.io')({}) }
  *   }),
  *   chain: optimism,
  * })
@@ -35,7 +36,7 @@ import type { PublicRpcSchema, TestRpcSchema } from 'viem'
  */
 export type TevmRpcSchema = [
 	...PublicRpcSchema,
-	...TestRpcSchema<'anvil' | 'ganache' | 'hardhat'>,
+	...TestRpcSchema,
 	JsonRpcSchemaTevm['tevm_call'],
 	JsonRpcSchemaTevm['tevm_dumpState'],
 	JsonRpcSchemaTevm['tevm_loadState'],

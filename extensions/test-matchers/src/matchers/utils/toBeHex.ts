@@ -1,4 +1,4 @@
-import { isHex } from 'viem'
+import { isHex } from '@tevm/utils'
 
 export type IsHexOptions = {
 	/**

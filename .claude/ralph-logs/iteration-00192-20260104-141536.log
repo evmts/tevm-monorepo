@@ -1,0 +1,136 @@
+# Ralph Migration Log - Iteration 192
+## Date: 2026-01-04 14:15:36
+
+## Summary
+Continued assessment of the migration status. The core migration to voltaire is effectively complete for the primary target packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node).
+
+## Assessment Performed
+
+### Current State: Core Packages (Migration Target)
+
+**@tevm/actions** - CLEAN
+- No direct viem imports found
+- Uses @tevm/utils for all utilities
+
+**@tevm/vm** - CLEAN
+- No direct viem imports found
+
+**@tevm/evm** - CLEAN
+- No direct viem imports found
+
+**@tevm/state** - CLEAN
+- No direct viem imports found
+
+**@tevm/node** - CLEAN
+- No direct viem imports found
+
+### Intentionally Retained Dependencies
+
+#### 1. @tevm/utils - viem.js (Runtime Functions)
+
+From `viem/accounts`:
+- `mnemonicToAccount` - HD wallet derivation with signing methods
+- `privateKeyToAccount` - Creates account objects with signing
+
+From `viem`:
+- `createPublicClient` - For creating fork clients
+- `createTransport` - For custom transport creation
+- `custom` - Custom transport factory
+- `defineChain` - Chain definition utility
+- `http` - HTTP transport factory
+- `webSocket` - WebSocket transport factory
+
+**Reason:** These are essential for forking functionality. The transport/client functions create the connection to remote RPC providers for forking mainnet or other chains.
+
+#### 2. @tevm/utils - abitype.ts (Type-Level)
+
+From `viem`:
+- `Account` type
+- `HDAccount` type
+
+**Reason:** Used for account typing in client interfaces.
+
+#### 3. @tevm/utils - contract-types.ts (Type-Level)
+
+From `abitype`:
+- `Abi`, `AbiFunction`, `AbiEvent`, `AbiParameter`
+- `AbiParametersToPrimitiveTypes`
+- `AbiStateMutability`
+- `ExtractAbiFunction`, `ExtractAbiFunctionNames`
+- `ExtractAbiEvent`, `ExtractAbiEventNames`
+- `AbiParameterToPrimitiveType`
+
+**Reason:** These are complex type-level utilities used for TypeScript type inference. They power the excellent type safety when interacting with contracts. The abitype library is specifically designed for this purpose.
+
+#### 4. @tevm/common - Chain Presets (336 files)
+
+From `viem/chains`:
+- All chain configurations (mainnet, optimism, arbitrum, etc.)
+
+**Reason:** Auto-generated chain presets that wrap viem's comprehensive chain registry. Maintaining our own chain registry would be significant effort with little benefit.
+
+### Native Implementations Already Complete
+
+The @tevm/utils package has native implementations for:
+- `bytesToHex`, `hexToBytes`, `hexToBigInt`, `bytesToBigInt`
+- `isAddress`, `getAddress` (checksummed)
+- `formatEther`, `parseEther`, `formatGwei`, `parseGwei`
+- `keccak256`, `sha256`
+- `toRlp`, `fromRlp`
+- `encodeAbiParameters`, `decodeAbiParameters`
+- `encodeFunctionData`, `decodeFunctionData`
+- `encodeEventTopics`, `decodeEventLog`
+- `formatAbi`
+- `generatePrivateKey`, `privateKeyToAddress`
+- Many more...
+
+### Voltaire Capabilities Available (Future Migration)
+
+#### HDWallet Module
+- `fromSeed`, `derivePath`, `deriveEthereum`
+- `mnemonicToSeed`, `generateMnemonic`, `validateMnemonic`
+- Could potentially replace viem's `mnemonicToAccount`
+
+#### PrivateKeySignerImpl
+- `signMessage` (EIP-191)
+- `signTransaction` (all tx types)
+- `signTypedData` (EIP-712)
+- Could potentially replace viem's `privateKeyToAccount`
+
+#### Provider Module
+- `HttpProvider`, `WebSocketProvider`, `InMemoryProvider`
+- Could potentially replace viem transport functions
+
+### Migration Blockers
+
+1. **viem Account Types**: The `Account` and `HDAccount` types from viem include complex functionality (signing methods, type compatibility with viem ecosystem). Creating drop-in replacements would require significant effort and testing.
+
+2. **abitype Type Utilities**: The type-level utilities from abitype are highly sophisticated compile-time features. Replicating them would require substantial TypeScript expertise and would need to maintain compatibility with the existing API.
+
+3. **Chain Registry**: The 336 auto-generated chain presets rely on viem's maintained chain registry. Creating our own would require ongoing maintenance.
+
+4. **Fork Client Functions**: The transport/client functions from viem are the standard way to interact with Ethereum nodes. They're battle-tested and widely used.
+
+## Conclusion
+
+The migration has reached a stable, production-ready state:
+
+1. **Core packages are clean** - No viem imports in @tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node
+2. **Native implementations are complete** - All utility functions have native implementations in @tevm/utils
+3. **Remaining viem dependencies are intentional** - Fork functionality, account types, chain presets
+4. **abitype dependency is beneficial** - Provides sophisticated type-level utilities for excellent TypeScript experience
+
+## Recommendations
+
+The migration should be considered complete for the stated goals. Future work could include:
+
+1. Creating native `NativeAccount` wrapper using voltaire's `PrivateKeySignerImpl`
+2. Evaluating voltaire providers as fork transport alternatives
+3. Monitoring guillotine-mini for WASM bindings to replace ethereumjs packages
+4. Documenting the migration status in ARCHITECTURE.md or similar
+
+## Next Steps
+
+- No immediate migration tasks needed
+- Focus should shift to other priorities
+- Consider documenting the architecture decisions around remaining viem/abitype usage

@@ -2,24 +2,46 @@ import { Block, blockFromRpc } from '@tevm/block'
 import { InvalidBlockError, UnknownBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { numberToHex } from '@tevm/utils'
-import { withRetry } from 'viem'
 import { customTxTypes } from './CUSTOM_Tx_TYPES.js'
+
+/**
+ * Minimal retry helper to replace viem.withRetry during migration
+ * @template T
+ * @param {() => Promise<T>} fn - Function to retry
+ * @param {{ retryCount?: number, delay?: (params: { count: number, error: Error }) => number }} [options] - Retry options
+ * @returns {Promise<T>}
+ */
+async function withRetry(fn, options) {
+	const max = options?.retryCount ?? 3
+	const delayFn = options?.delay ?? (() => 100)
+	let count = 0
+	for (;;) {
+		try {
+			return await fn()
+		} catch (error) {
+			count++
+			if (count > max) throw error
+			const delay = delayFn({ count, error: /** @type {Error} */ (error) })
+			await new Promise((r) => setTimeout(r, delay))
+		}
+	}
+}
 import { isTevmBlockTag } from './isTevmBlockTag.js'
 import { warnOnce } from './warnOnce.js'
 
 /**
  * @param {import('../BaseChain.js').BaseChain} baseChain
  * @param {object} params
- * @param {{request: import('viem').EIP1193RequestFn}} params.transport
- * @param {bigint | import('viem').BlockTag | import('viem').Hex} [params.blockTag]
+ * @param {{request: import('@tevm/utils').EIP1193RequestFn}} params.transport
+ * @param {bigint | import('@tevm/utils').BlockTag | import('@tevm/utils').Hex} [params.blockTag]
  * @param {import('@tevm/common').Common} common
  */
 export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest' }, common) => {
 	const doWarning = warnOnce(baseChain)
 	const fetcher = createJsonRpcFetcher(transport)
 	/**
-	 * @param {import('viem').RpcBlock<import('viem').BlockTag, true>} rpcBlock
-	 * @returns {[Block, import('viem').RpcBlock<import('viem').BlockTag, true>]}
+	 * @param {import('@tevm/utils').RpcBlock<true>} rpcBlock
+	 * @returns {[Block, import('@tevm/utils').RpcBlock<true>]}
 	 */
 	const asEthjsBlock = (rpcBlock) => {
 		return [
@@ -28,7 +50,7 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 					.../** @type {any}*/ (rpcBlock),
 					// filter out transactions we don't support as a hack
 					transactions: rpcBlock.transactions?.filter((tx) => {
-						if (customTxTypes.includes(tx.type)) {
+						if (tx.type && customTxTypes.includes(tx.type)) {
 							doWarning(/** @type {any}*/ (tx))
 							return false
 						}
@@ -57,7 +79,7 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 			// TODO handle errors from fetch better
 			if (typeof blockTag === 'bigint') {
 				const { result, error } =
-					/** @type {{result: import('viem').RpcBlock<'latest', true>, error: {code: number | string, message: string}}}*/ (
+					/** @type {{result: import('@tevm/utils').RpcBlock<true>, error: {code: number | string, message: string}}}*/ (
 						await fetcher.request({
 							jsonrpc: '2.0',
 							id: 1,

@@ -28,7 +28,7 @@ import { validateSetAccountParams } from './validateSetAccountParams.js'
  * ```javascript
  * import { createTevmNode } from '@tevm/node'
  * import { setAccountHandler } from '@tevm/actions'
- * import { parseEther } from 'viem'
+ * import { parseEther } from '@tevm/utils'
  *
  * const node = createTevmNode()
  * const handler = setAccountHandler(node)
@@ -119,7 +119,8 @@ export const setAccountHandler =
 				accountData.codeHash = codeHash
 			}
 
-			promises.push(vm.stateManager.putAccount(address, createAccount(accountData)))
+			// putAccount must complete before putStorage since storage requires account to exist
+			await vm.stateManager.putAccount(address, createAccount(accountData))
 			if (params.deployedBytecode) {
 				promises.push(vm.stateManager.putCode(address, hexToBytes(params.deployedBytecode)))
 			}

@@ -1,0 +1,32 @@
+# Ralph Migration Log - Iteration 812
+## Date: 2026-01-05
+
+## Task: Improve test coverage for account-class.js
+
+## Summary
+
+Added tests to improve coverage of account-class.js, specifically targeting:
+- The `set nonce` setter (lines 146-147)
+- The `set balance` setter (lines 162-163)
+
+## Changes Made
+
+### Modified files:
+- `packages/utils/src/account-class.spec.ts` - Added 4 new tests
+
+### Test additions:
+1. `should allow setting nonce` - Tests the nonce setter
+2. `should allow setting balance` - Tests the balance setter
+3. `should update isEmpty after setting nonce` - Verifies isEmpty reflects nonce changes
+4. `should update isEmpty after setting balance` - Verifies isEmpty reflects balance changes
+
+## Coverage Improvement
+
+- account-class.js: 98.46% → 100% (statement)
+- account-class.js: 97.36% → 97.5% (branch)  
+- account-class.js: 88.88% → 100% (function)
+- account-class.js: 98.46% → 100% (line)
+
+Line and function coverage now at 100% for account-class.js.
+
+## Status: COMPLETE

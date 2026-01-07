@@ -1,0 +1,50 @@
+# Ralph Migration Log - Iteration 171
+## Date: 2026-01-04 12:38:00
+
+## Summary
+Migrated JSDoc type annotations from viem imports to @tevm/utils equivalents in 2 files in the @tevm/blockchain package.
+
+## Changes Made
+
+### 1. Updated getBlockFromRpc.js
+**File**: `packages/blockchain/src/utils/getBlockFromRpc.js`
+- Changed `import('viem').EIP1193RequestFn` to `import('@tevm/utils').EIP1193RequestFn`
+- Changed `import('viem').BlockTag` to `import('@tevm/utils').BlockTag`
+- Changed `import('viem').Hex` to `import('@tevm/utils').Hex`
+- Changed `import('viem').RpcBlock<import('viem').BlockTag, true>` to `import('@tevm/utils').RpcBlock<true>`
+  - Note: @tevm/utils RpcBlock uses different type parameters - first param is `includeTransactions` boolean, not BlockTag
+
+### 2. Updated warnOnce.js
+**File**: `packages/blockchain/src/utils/warnOnce.js`
+- Changed `import('viem').RpcBlock` to `import('@tevm/utils').RpcTransaction`
+  - Fixed incorrect type annotation: the function receives a transaction (tx), not a block
+  - The original viem type was `RpcBlock` but it was actually being passed `RpcTransaction` objects
+
+## Type Compatibility Notes
+- There's a type incompatibility between `@tevm/utils.EIP1193RequestFn` and viem's version due to different type parameter signatures
+- The @tevm/utils version is simpler: `EIP1193RequestFn<TRpcSchema>`
+- Viem's version has additional type parameters for stricter typing
+- At runtime, both are compatible - this is just a type-level difference
+- The `@tevm/jsonrpc` package's `createJsonRpcFetcher` still uses viem's types internally, causing the cascade
+
+## Test Results
+- Tests are skipped due to missing RPC URL environment variables
+- Code loads without syntax errors
+- Pre-existing type errors exist in @tevm/errors package (unrelated)
+
+## Impact
+- Removes 6 direct viem type references from JSDoc annotations
+- Fixes incorrect type annotation in warnOnce.js (was RpcBlock, should have been RpcTransaction)
+- Uses @tevm/utils types which are already available and properly maintained
+- No runtime changes - only documentation/type annotation changes
+
+## Files Changed
+- packages/blockchain/src/utils/getBlockFromRpc.js (modified)
+- packages/blockchain/src/utils/warnOnce.js (modified)
+
+## Next Steps
+1. The EIP1193RequestFn type incompatibility should be addressed by either:
+   - Updating @tevm/utils EIP1193RequestFn to match viem's signature more closely
+   - Or updating @tevm/jsonrpc to use @tevm/utils types instead of viem
+2. Continue migrating other blockchain package files with viem references
+3. Look at @tevm/common presets which have ChainContract viem references

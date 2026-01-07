@@ -1,0 +1,18 @@
+## Summary
+
+This iteration was a discovery/research iteration. I investigated migrating RPC error classes from viem to @tevm/utils, but discovered a **circular dependency** that prevents this:
+
+- `@tevm/utils` depends on `@tevm/errors` (for error classes like `DefensiveNullCheckError`)
+- Cannot add `@tevm/errors` depending on `@tevm/utils` without creating a cycle
+
+**Key findings:**
+1. The RPC error classes in `packages/errors/src/requestErrors.ts` must remain as direct viem imports
+2. Memory-client package is intentionally viem-compatible and retains core viem client functionality
+3. Most remaining viem imports are either types, JSDoc examples, or fundamental viem client integration
+
+**No code changes were committed** - this was a research iteration to understand migration constraints.
+
+The previous iterations have already migrated the "low-hanging fruit" - utility functions like `defineChain`, `http`, `webSocket`, `createPublicClient`, etc. are now available through `@tevm/utils`. The remaining viem imports are either:
+- Blocked by circular dependencies
+- Fundamental viem client functionality that should not be abstracted
+- Documentation/examples

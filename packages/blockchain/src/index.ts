@@ -9,7 +9,10 @@ export {
 	shallowCopy,
 	validateHeader,
 } from './actions/index.js'
-export type { Chain } from './Chain.js'
+// Native consensus types - migrated from @ethereumjs/blockchain
+export { CasperConsensus } from './CasperConsensus.js'
+export type { Consensus, ConsensusOptions } from './Consensus.js'
+export type { BlockchainEvent, Chain, OnBlock } from './Chain.js'
 export type { ChainOptions } from './ChainOptions.js'
 export { createBaseChain } from './createBaseChain.js'
 export { createChain } from './createChain.js'

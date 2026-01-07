@@ -1,0 +1,72 @@
+# Ralph Migration Log - Iteration 735
+## Date: 2026-01-05
+
+## Task: Investigate viem type compatibility with @tevm/utils
+
+## Summary
+
+Attempted multiple type migrations from viem to @tevm/utils but discovered deep type incompatibilities.
+
+## Attempted Changes
+
+1. `packages/memory-client/src/TevmContractType.ts` - Attempted to migrate `Client` from viem to @tevm/utils
+2. `packages/memory-client/src/TevmTransport.ts` - Attempted to migrate `Chain, ClientConfig, TransportConfig` from viem to @tevm/utils
+3. `bundler-packages/mud/src/createOptimisticHandler.ts` - Attempted to migrate `Client` from viem to @tevm/utils
+4. `packages/memory-client/src/CreateMemoryClientFn.ts` - Attempted to migrate `Account, Chain, RpcSchema` from viem to @tevm/utils
+
+## Blockers Found
+
+### 1. EIP1193RequestFn Type Incompatibility
+viem's `EIP1193RequestFn` is complex with:
+- Generic RPC schema type parameters
+- Generic return type based on method
+- Uses `EIP1193Parameters` which can have `params?: unknown | readonly unknown[]`
+
+@tevm/utils simplified version uses:
+- `params?: readonly unknown[] | undefined`
+- Simpler return type signature
+
+### 2. Account Type Incompatibility
+The `Account` type from @tevm/utils has incompatible method signatures:
+- `signTypedData` parameter types differ
+- `LocalAccount<string>` from @tevm/utils not assignable to viem's Account
+
+### 3. Chain Type Differences
+Chain types have different structures between the two implementations.
+
+### 4. Cascading Effects
+Because `Client`, `Transport`, etc. all depend on `EIP1193RequestFn`, fixing one incompatibility requires fixing them all.
+
+## Root Cause Analysis
+
+The core issue is that `@tevm/utils`'s provider types are simplified versions that aren't structurally compatible with viem's complex generic types. viem uses complex conditional types and generics for type-safe RPC method calls.
+
+## Conclusion
+
+**All attempted migrations have been reverted.**
+
+The viem type migration in `memory-client` package is BLOCKED until:
+1. The `EIP1193RequestFn` type in `@tevm/utils` is made fully compatible with viem's version
+2. The `Account` type signatures are aligned
+3. Or the `memory-client` package is fully decoupled from viem
+
+## Recommendation
+
+Instead of incremental type migrations, we need a dedicated effort to:
+1. Update `@tevm/utils/src/provider-types.ts` to match viem's type signatures exactly
+2. Update `@tevm/utils/src/account-types.ts` to match viem's Account type
+3. Then migrate memory-client and other packages in one coordinated effort
+
+## Files Still Using viem Types (Cannot Migrate Yet)
+
+- packages/memory-client/src/TevmContractType.ts
+- packages/memory-client/src/TevmTransport.ts
+- packages/memory-client/src/MemoryClient.ts
+- packages/memory-client/src/CreateMemoryClientFn.ts
+- packages/memory-client/src/MemoryClientOptions.ts
+- packages/memory-client/src/createMemoryClient.js (runtime)
+- bundler-packages/mud/src/createOptimisticHandler.ts
+- bundler-packages/mud/src/internal/decorators/mudStoreWriteRequestOverride.ts
+- bundler-packages/mud/src/types.ts
+- extensions/viem/src/ViemTevmOptimisticClientDecorator.ts
+- extensions/viem/src/ViemTevmOptimisticClient.ts

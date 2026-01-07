@@ -1,4 +1,4 @@
-import { stringToHex } from 'viem'
+import { stringToHex } from '@tevm/utils'
 
 /**
  * Request handler for eth_protocolVersion JSON-RPC requests.

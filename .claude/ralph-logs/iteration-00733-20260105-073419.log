@@ -1,0 +1,42 @@
+# Ralph Migration Log - Iteration 733
+## Date: 2026-01-05
+
+## Task: Migrate TevmRpcSchema.ts from viem to @tevm/utils
+
+## Summary
+
+Successfully migrated the `TevmRpcSchema.ts` file from using viem's `PublicRpcSchema` and `TestRpcSchema` types to using the equivalent types from `@tevm/utils`.
+
+## Changes Made
+
+### packages/memory-client/src/TevmRpcSchema.ts:
+- Changed import from `import type { PublicRpcSchema, TestRpcSchema } from 'viem'` to `import type { PublicRpcSchema, TestRpcSchema } from '@tevm/utils'`
+- Removed the generic parameter from `TestRpcSchema<'anvil' | 'ganache' | 'hardhat'>` to just `TestRpcSchema` since our @tevm/utils version already includes all anvil/evm methods without needing a mode filter
+
+## Test Results
+
+- `@tevm/memory-client:build:types` - PASS (Build success in 1176ms)
+
+## Notes
+
+1. The viem version of `TestRpcSchema` uses a generic parameter to filter which mode's methods to include (anvil, ganache, hardhat)
+2. Our `@tevm/utils` version includes all methods unconditionally, which is fine since TEVM supports all modes
+3. This is a drop-in replacement that maintains backward compatibility
+
+## Remaining viem imports in memory-client
+
+After this migration, the following files still have viem imports:
+- `createClient.js` - re-exports createClient, publicActions, testActions, walletActions from viem
+- `createMemoryClient.js` - imports createClient, publicActions, testActions, walletActions from viem  
+- `TevmTransport.ts` - needs Chain, ClientConfig, TransportConfig
+- `CreateMemoryClientFn.ts` - needs Account, Chain, RpcSchema
+- `MemoryClient.ts` - needs Account, Chain, Client, PublicActions, TestActions, WalletActions
+- `MemoryClientOptions.ts` - needs Account, Chain, ClientConfig, RpcSchema, Transport
+- `TevmContractType.ts` - needs Client
+- Various spec files and JSDoc examples
+
+## Impact
+
+- Removed 1 viem import from TevmRpcSchema.ts
+- No breaking changes
+- Types remain compatible

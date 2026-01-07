@@ -1,4 +1,4 @@
-import { hexToBytes } from '@tevm/utils'
+import { hexToBytes, bytesToHex } from '@tevm/utils'
 
 /**
  * Creates a JSON-RPC procedure handler for the `debug_preimage` method
@@ -69,7 +69,7 @@ export const debugPreimageJsonRpcProcedure = (client) => {
 					// @ts-expect-error - getPreimage is not a standard StateManager method but may exist on custom implementations
 					const preimageBytes = await vm.stateManager.getPreimage(hashBytes)
 					if (preimageBytes) {
-						preimage = `0x${Buffer.from(preimageBytes).toString('hex')}`
+						preimage = bytesToHex(preimageBytes)
 					}
 				} catch (err) {
 					client.logger.debug({ err, hash }, 'debug_preimage: preimage not found')

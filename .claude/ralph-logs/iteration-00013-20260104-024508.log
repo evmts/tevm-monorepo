@@ -1,0 +1,23 @@
+## Migration Iteration 13 Complete
+
+**Target**: `isAddress` function in `@tevm/utils`
+
+**Changes**:
+1. Added native `isAddress` implementation using regex pattern
+2. Validates 0x prefix + exactly 40 hex characters (case-insensitive)
+3. Removed `isAddress` from viem/utils re-exports
+4. Added 9 comprehensive test cases
+
+**Results**:
+- All 91 tests in viem.spec.ts pass (up from 82)
+- All 141 tests in @tevm/utils pass
+- 100% code coverage maintained
+
+**Commit**: `e5e4eaf46`
+
+**Remaining viem imports**: 26 functions still need migration (down from 27)
+
+**Next candidates for migration**:
+- `formatEther`/`parseEther` (simple decimal conversion)
+- `formatGwei`/`parseGwei` (similar pattern to ether functions)
+- `getAddress` (checksum conversion - requires keccak256)

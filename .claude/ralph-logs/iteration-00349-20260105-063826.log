@@ -1,0 +1,23 @@
+## Summary
+
+In this iteration (723), I:
+
+1. **Successfully migrated** `bundler-packages/mud/src/internal/FieldLayout.spec.ts`:
+   - Replaced `concatHex`, `Hex`, `hexToBigInt`, `keccak256`, `numberToHex` imports from viem to @tevm/utils
+   - All 8 tests pass ✅
+
+2. **Partially migrated** `bundler-packages/mud/src/internal/decorators/mudStoreGetStorageAtOverride.spec.ts`:
+   - Moved `Address` and `pad` to @tevm/utils
+   - Kept `EIP1193RequestFn` from viem due to type incompatibility
+
+3. **Discovered/Confirmed blockers**:
+   - `EIP1193RequestFn` type incompatibility: viem has stricter type unions vs @tevm/utils generic version
+   - `Client` type in test-matchers/mud is intentional for viem API compatibility
+   - Remaining ethereumjs dependencies (@ethereumjs/tx, @ethereumjs/common, @ethereumjs/trie) are deep infrastructure
+
+4. **Verified guillotine-mini status**:
+   - WASM wrapper exists in `packages/evm/src/guillotineWasm.js`
+   - Pending WASM binary build from lib/guillotine-mini
+   - Separate, larger effort from viem migration
+
+The viem migration is effectively **complete for core packages**. Remaining imports are either intentional (viem Client compatibility) or blocked by type incompatibilities.

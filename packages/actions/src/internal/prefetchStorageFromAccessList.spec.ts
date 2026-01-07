@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
-import { hexToBytes } from 'viem'
+import { hexToBytes } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { prefetchStorageFromAccessList } from './prefetchStorageFromAccessList.js'
 

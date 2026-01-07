@@ -1,0 +1,23 @@
+## Iteration 175 Summary
+
+Completed an assessment iteration for the tevm migration to voltaire/guillotine-mini.
+
+**Key Findings:**
+
+1. **Migration Progress is Good**: Previous iterations successfully migrated:
+   - `@tevm/state`: Native AccountCache/StorageCache
+   - `@tevm/errors`: Native EVMError 
+   - `@tevm/common`: Native types (ConsensusAlgorithm, CustomCrypto, EvmStateManagerInterface, etc.)
+   - `@tevm/blockchain`: Native CasperConsensus
+
+2. **Tests Passing**: Core tests (createBaseState, checkpoint, revert, commit, createCommon) all pass. RPC-dependent tests fail due to missing env vars.
+
+3. **Main Blocker**: voltaire library's dist files lack JSDoc types (tsup bundling strips them), causing `@tevm/utils:build:types` to fail with implicit `any` errors.
+
+4. **Remaining Intentional Dependencies**:
+   - `viem/chains` - Chain definitions (keep)
+   - `@ethereumjs/common` - EVM config (deep integration)
+   - `@ethereumjs/evm` - Core EVM (future guillotine-mini replacement)
+   - `viem/accounts` - Account signing (needs voltaire Account abstraction)
+
+**Next Priority**: Fix voltaire's tsup config to preserve JSDoc annotations or add separate type declarations.

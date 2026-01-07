@@ -63,15 +63,13 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/statemanager": "^10.0.0",
 		"@tevm/address": "workspace:^",
 		"@tevm/common": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/logger": "workspace:^",
 		"@tevm/rlp": "workspace:^",
 		"@tevm/test-utils": "workspace:^",
-		"@tevm/utils": "workspace:^",
-		"ethereum-cryptography": "^3.2.0"
+		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

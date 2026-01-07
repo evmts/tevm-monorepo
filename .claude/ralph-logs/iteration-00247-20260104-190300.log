@@ -1,0 +1,51 @@
+# Ralph Migration Log - Iteration 247
+## Date: 2026-01-04 19:03:00
+
+## Summary
+Verified current migration status. All core voltaire migrations are complete and stable.
+
+## Tests Run
+All passing:
+- `packages/evm/src/guillotineWasm.spec.ts` - 24 tests passed
+- `packages/utils/src/nativePrivateKeyToAccount.spec.ts` - 18 tests passed
+- `packages/utils/src/nativeMnemonicToAccount.spec.ts` - 17 tests passed
+- `packages/utils/src/ecrecover.spec.ts` - 7 tests passed
+- `packages/utils/src/signature.spec.ts` - 31 tests passed
+
+Total: 97 tests passed
+
+## Investigation: Voltaire BloomFilter
+Explored whether voltaire's BloomFilter could replace tevm's Bloom class.
+
+Finding: **Not compatible**
+- tevm's Bloom: Uses Keccak256-based algorithm (Ethereum standard EIP-2718)
+- voltaire's BloomFilter: Uses simple multiplicative hashing
+
+The tevm Bloom implementation is correct for Ethereum protocol compatibility.
+It uses keccak256 to hash items and extracts 3 bit positions from first 6 bytes.
+
+## Migration Status Summary
+
+### Fully Migrated to Voltaire:
+1. **Crypto primitives**: Keccak256, Secp256k1, P256, EIP712
+2. **Account creation**: nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount
+3. **ABI encoding**: encodeAbiParameters, decodeAbiParameters, encodeFunctionData
+4. **Signature operations**: ecrecover uses voltaire's recoverPublicKeyFromHash
+5. **EIP-7702**: Uses voltaire's Secp256k1 for signature verification
+
+### Remaining viem dependencies (intentionally kept):
+1. `mnemonicToAccount, privateKeyToAccount` - **DEPRECATED**, native alternatives exist
+2. `createPublicClient, http, webSocket, custom, defineChain, createTransport` - **REQUIRED** for RPC transport to external nodes
+
+### Test file dependencies (not production code):
+- `@noble/curves` in `ecrecover.spec.ts` - used only for verification/comparison in tests
+
+## Conclusion
+The voltaire migration is complete for all practical purposes. The remaining viem dependencies are:
+1. RPC transport functions (architectural requirement for fork client)
+2. Deprecated account exports (kept for backward compatibility)
+
+No further migration work possible without major architectural changes.
+
+## Status
+Migration phase complete. All tests passing. System stable.

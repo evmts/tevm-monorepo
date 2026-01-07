@@ -5,7 +5,6 @@ export { http, loadBalance, rateLimit, webSocket } from '@tevm/jsonrpc';
 export { createAddress } from '@tevm/address';
 export { GENESIS_STATE, ProviderRpcError, createTevmNode, prefundedAccounts } from '@tevm/node';
 export * from '@tevm/memory-client';
-export { tevmTransport } from '@tevm/viem';
 export { defineCall, definePrecompile } from '@tevm/precompiles';
 export { createSyncStoragePersister } from '@tevm/sync-storage-persister';
 //# sourceMappingURL=index.js.map

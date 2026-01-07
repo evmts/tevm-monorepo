@@ -1,0 +1,39 @@
+# Ralph Migration Log - Iteration 358
+## Date: 2026-01-05 02:37
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **merlin.js** (id: 4200) - Merlin chain with BTC native currency, Bitcoin Layer 2
+2. **metachain.js** (id: 571) - MetaChain Mainnet with MTC (Metatime Coin) native currency, includes multicall3
+3. **metachainIstanbul.js** (id: 1453) - MetaChain Istanbul testnet with MTC native currency, includes multicall3
+4. **metalL2.js** (id: 1750) - Metal L2 with ETH native currency, OP Stack chain with multicall3 and WebSocket support
+5. **meter.js** (id: 82) - Meter chain with MTR native currency
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~206 (from iteration 357)
+- **Migrated this session**: 5
+- **Total migrated**: ~211
+- **Remaining**: 133 (~40% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Merlin: Bitcoin L2 chain using BTC as native currency
+- MetaChain: Both mainnet and Istanbul testnet have custom multicall3 at 0x0000...003001
+- Metal L2: OP Stack chain with standard multicall3 deployed
+- Meter: Uses its own MTR token as native currency
+
+## Next Steps
+Continue migrating remaining chain presets. 133 remain (~40% remaining).
+Next chains to migrate: meterTestnet, metis, metisGoerli, mev, mint...

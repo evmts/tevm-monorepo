@@ -1,0 +1,41 @@
+# Ralph Migration Log - Iteration 395
+## Date: 2026-01-05 04:39
+
+## Changes Made
+
+### Migrated viem type imports to @tevm/utils in test-node
+
+1. **extensions/test-node/src/internal/normalizeBlockTag.ts**
+   - Changed `import { type BlockTag, type Hex, type RpcBlockIdentifier } from 'viem'`
+   - To `import { type BlockTag, type Hex, type RpcBlockIdentifier } from '@tevm/utils'`
+
+2. **extensions/test-node/src/internal/normalizeTx.ts**
+   - Changed `import { bytesToHex, type ExactPartial, type Hex, type RpcTransactionRequest } from 'viem'`
+   - To `import { bytesToHex, type Hex, type RpcTransactionRequest } from '@tevm/utils'` + `import type { ExactPartial } from 'viem'`
+   - Note: ExactPartial not available in @tevm/utils, kept from viem
+
+## Test Results
+
+- `normalizeBlockTag.spec.ts` - 20 tests passed
+- `normalizeTx.spec.ts` - 13 tests passed
+
+## Notes
+
+- normalizeBlockTag.ts: type-only imports (BlockTag, Hex, RpcBlockIdentifier)
+- normalizeTx.ts: mixed import - bytesToHex is a runtime function, Hex/RpcTransactionRequest are types
+- ExactPartial is a viem-specific type utility, not available in @tevm/utils
+
+## Blockers Identified
+
+- `ExactPartial` not available in @tevm/utils
+- `RpcUserOperation` not available in @tevm/utils
+- `EIP1193Parameters`, `EIP1474Methods` not available in @tevm/utils
+
+## Next Steps
+
+- Look at other files with partial viem imports that can be migrated
+- Consider adding missing types to @tevm/utils if needed
+
+## Rationale
+
+Small incremental migration of type and function imports from viem to @tevm/utils.

@@ -1,7 +1,7 @@
 import { ethSignHandler } from './ethSignHandler.js'
 
 /**
- * @param {ReadonlyArray<import('@tevm/utils').HDAccount>} accounts
+ * @param {ReadonlyArray<import('@tevm/utils').HDAccount | import('@tevm/utils').NativeHDAccount>} accounts
  * @returns {import('./EthProcedure.js').EthSignJsonRpcProcedure}
  */
 export const ethSignProcedure = (accounts) => async (req) => ({

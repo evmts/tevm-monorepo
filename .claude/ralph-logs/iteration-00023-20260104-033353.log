@@ -1,0 +1,30 @@
+## Migration Iteration 24 Complete
+
+### Summary
+
+I implemented native `toFunctionSelector` and `toEventSelector` functions in @tevm/utils, removing 2 more direct viem imports from @tevm/actions.
+
+**Changes made:**
+1. **packages/utils/src/viem.js**: Added native implementations:
+   - `toFunctionSelector(signature)` - Returns first 4 bytes of keccak256 hash
+   - `toEventSelector(signature)` - Returns full 32-byte keccak256 hash
+   - `normalizeSignature(signature)` - Helper to strip "function "/"event " prefixes and whitespace
+
+2. **packages/utils/src/index.ts**: Added exports for both new functions
+
+3. **packages/utils/src/viem.spec.ts**: Added 12 comprehensive tests for the new functions
+
+4. **packages/actions/src/internal/decodeRevertReason.js**: Changed imports from 'viem' to '@tevm/utils'
+
+5. **packages/actions/src/internal/runCallWithFourbyteTrace.spec.ts**: Changed `toFunctionSelector` import from 'viem' to '@tevm/utils'
+
+**Results:**
+- 209 tests pass in viem.spec.ts (12 new)
+- 22 tests pass in decodeRevertReason.spec.ts
+- Native implementations verified to match viem exactly
+- Build succeeds
+- Commit: `f09ec4fca`
+
+**Remaining viem imports in @tevm/actions production code:**
+- `contractHandler.js`: getContractError, RawContractError (viem error utilities)
+- `ethGetLogsHandler.js`: InternalRpcError (viem error type)

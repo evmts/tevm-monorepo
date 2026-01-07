@@ -1,0 +1,73 @@
+# Ralph Migration Log - Iteration 239
+## Date: 2026-01-04 18:17:49
+
+## Summary
+Migrated prefundedAccounts.spec.ts from viem's mnemonicToAccount to native implementation.
+
+## Changes Made
+
+### 1. Migrated prefundedAccounts.spec.ts
+- Changed import from `mnemonicToAccount` (viem re-export via ./viem.js) to `nativeMnemonicToAccount`
+- Updated import path to use native implementation
+- Added comment explaining native usage
+- Tests pass: 1/1
+
+## Test Verification
+```
+pnpm vitest run packages/utils/src/prefundedAccounts.spec.ts
+✓ |@tevm/utils| src/prefundedAccounts.spec.ts (1 test) 101ms
+Test Files  1 passed (1)
+Tests  1 passed (1)
+```
+
+## Assessment
+
+### Test Files Still Using viem/accounts (Intentional)
+These files intentionally import viem for comparison testing:
+- packages/utils/src/nativeMnemonicToAccount.spec.ts - Compares native vs viem output
+- packages/utils/src/nativeHdAccount.spec.ts - Compares native vs viem output
+
+### Migration Status Summary
+
+#### Complete (100%)
+- keccak256 -> @tevm/voltaire/Keccak256
+- secp256k1 signing -> @tevm/voltaire/Secp256k1
+- ecrecover -> @tevm/voltaire/Secp256k1.recoverPublicKey
+- P256 verify -> @tevm/voltaire/P256
+- eip7702 signing -> @tevm/voltaire/Secp256k1
+- noble-curves removed from direct imports
+- Native account implementations (privateKeyToAccount, mnemonicToAccount, hdAccount)
+- Test files migrated to native implementations (except comparison tests)
+
+#### Core Package Status (All Clean)
+- packages/actions/src: No viem/ethereumjs imports
+- packages/vm/src: No viem/ethereumjs imports
+- packages/evm/src: No viem/ethereumjs imports
+- packages/state/src: No viem/ethereumjs imports
+- packages/node/src: No viem/ethereumjs imports
+- packages/block/src: No viem/ethereumjs imports
+- packages/jsonrpc/src: No viem/ethereumjs imports
+
+### Not Migratable (Intentional Dependencies)
+- viem transports (createPublicClient, http, etc.) - Required for forking
+- viem client/actions (createClient, testActions) - Required for viem integration testing
+- @ethereumjs/common - Core chain configuration
+- @ethereumjs/tx - Impersonated transaction support
+- @ethereumjs/trie - Core state data structure
+- @scure/bip39, @scure/bip32 - Voltaire FFI bundling issue
+
+## Files Changed
+- packages/utils/src/prefundedAccounts.spec.ts - Migrated to nativeMnemonicToAccount
+
+## Next Steps
+1. Consider Phase 1 complete - core packages migrated
+2. Future work: Voltaire HDWallet FFI fix to consolidate @scure dependencies
+3. Future work: Guillotine-mini WASM integration (blocked by build.zig.zon)
+4. Future work: ImpersonatedTx migration (requires major restructuring)
+
+## Notes
+The migration is now essentially complete for all practical purposes:
+- All cryptographic primitives use voltaire
+- All test files use native implementations (except comparison tests)
+- Remaining viem dependencies are for viem integration (transports, client)
+- Remaining ethereumjs dependencies are core data structures

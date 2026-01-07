@@ -1,0 +1,20 @@
+## Summary
+
+The voltaire/guillotine-mini migration is in excellent shape:
+
+**Completed Migrations:**
+- All crypto primitives (Keccak256, Secp256k1, EIP712, P256) use @tevm/voltaire
+- Native implementations created for accounts, signatures, RLP, transaction serialization
+- Core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) have no viem crypto imports
+
+**Tests Verified:**
+- 102/102 core crypto tests passing
+
+**Remaining (intentional):**
+- viem transport functions for RPC/forking (required for external node communication)
+- @ethereumjs/common for hardfork configuration (deep EVM integration)
+- @scure/bip39/bip32 for HD wallets (blocked by voltaire FFI issue)
+
+The migration has reached a stable state. No additional incremental changes are possible without:
+1. Waiting for voltaire HDWallet FFI fix
+2. Major architectural changes for @ethereumjs/common replacement

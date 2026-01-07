@@ -1,0 +1,20 @@
+## Summary - Iteration 413
+
+Successfully completed migration of `RpcUserOperation` type from viem to native @tevm/utils:
+
+**Files Created:**
+- `packages/utils/src/account-abstraction-types.ts` - New native EIP-4337 Account Abstraction types
+
+**Files Modified:**
+- `packages/utils/src/index.ts` - Added exports for RpcUserOperation and SignedAuthorization
+- `extensions/test-node/src/internal/normalizeUserOperation.ts` - Migrated from viem to @tevm/utils
+- `extensions/test-node/src/internal/normalizeUserOperation.spec.ts` - Migrated type import
+
+**Test Results:**
+- All 11 tests in normalizeUserOperation.spec.ts pass
+- @tevm/utils type checks successfully
+
+**Progress:**
+- Remaining viem imports in packages/ (excluding tests and memory-client): ~95
+- Core packages (actions, vm, evm, state, node) have 0 viem imports in src/
+- extensions/test-node still has some viem imports to migrate (EIP1193RequestFn, EIP1193Parameters, EIP1474Methods are already available in @tevm/utils)

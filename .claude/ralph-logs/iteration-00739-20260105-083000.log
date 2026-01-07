@@ -1,0 +1,41 @@
+# Ralph Migration Log - Iteration 739
+## Date: 2026-01-05
+
+## Task: Migrate ContractFunctionRevertedError import from viem to @tevm/errors
+
+## Summary
+
+Successfully migrated `ContractFunctionRevertedError` import in test-matchers/errors/handleTransaction.ts from viem to @tevm/errors. This error class already exists in @tevm/errors with compatible properties (`data` and `raw`).
+
+## Changes Made
+
+### extensions/test-matchers/src/matchers/errors/handleTransaction.ts
+- Moved `ContractFunctionRevertedError` import from `viem` to `@tevm/errors`
+- Before: `import { ContractFunctionRevertedError, type TransactionReceipt, BaseError as ViemBaseError } from 'viem'`
+- After: 
+  - `import { BaseError, ContractFunctionRevertedError, RevertError } from '@tevm/errors'`
+  - `import { BaseError as ViemBaseError, type TransactionReceipt } from 'viem'`
+
+## Why TransactionReceipt Wasn't Migrated
+
+The `TransactionReceipt` type in @tevm/utils has RPC-style status values (`'0x0'` | `'0x1'`), while viem's `TransactionReceipt` has formatted values (`'success'` | `'reverted'`). Since the code uses viem's `getTransactionReceipt` action which returns viem's type, and checks `txReceipt.status === 'success'`, we need to keep viem's type for compatibility.
+
+## Remaining viem imports in handleTransaction.ts
+
+1. `BaseError as ViemBaseError` - Needed to check errors from viem/actions
+2. `type TransactionReceipt` - Needed for viem/actions return types
+3. `estimateGas, getTransaction, getTransactionReceipt` from `viem/actions` - These are viem client actions
+
+## Impact
+
+- Reduced 1 viem error class import
+- @tevm/errors ContractFunctionRevertedError has same structure (data, raw properties)
+- Pre-existing test failures unrelated to this change (InvalidGasLimitError in test setup)
+- Pre-existing Client type incompatibilities remain
+
+## Notes
+
+1. The @tevm/errors ContractFunctionRevertedError was originally based on viem's implementation
+2. It has both `data` (decoded) and `raw` (hex) properties needed by the error extraction logic
+3. To fully migrate away from viem in this file, we would need native implementations of viem/actions functions
+4. The viem BaseError is still needed because errors from viem/actions will be viem's error types

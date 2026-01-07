@@ -1,0 +1,16 @@
+## Migration Iteration 46 Complete
+
+**Successfully migrated 5 test files from viem to @tevm/utils:**
+
+### Files migrated:
+1. `packages/actions/src/Mine/mineHandler.spec.ts`: parseEther
+2. `packages/actions/src/Call/executeCall.spec.ts`: parseEther
+3. `packages/actions/src/anvil/anvilAddBalanceHandler.spec.ts`: parseEther
+4. `packages/actions/src/anvil/anvilAddBalanceProcedure.spec.ts`: parseEther  
+5. `packages/actions/src/eth/ethGetTransactionCountProcedure.spec.ts`: parseEther, numberToHex
+
+**Commit:** `530cfeee9`
+
+**Viem import count:** 487 → 483 (4 fewer)
+
+**Note:** Test failures in mineHandler.spec.ts are pre-existing issues related to "storageRoot must have a length of 32" in the state manager, not caused by this migration.

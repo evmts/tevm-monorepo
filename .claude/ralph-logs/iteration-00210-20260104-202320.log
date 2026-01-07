@@ -1,0 +1,28 @@
+## Migration Status Report - Iteration 264
+
+The migration from viem/ethereumjs to voltaire/guillotine-mini has reached a **stable, complete state**.
+
+### All Tests Passing
+- **signature.spec.ts**: 31 passed
+- **nativePrivateKeyToAccount.spec.ts**: 18 passed
+- **nativeMnemonicToAccount.spec.ts**: 17 passed
+- **eip7702.spec.ts**: 22 passed
+- **guillotineWasm.spec.ts**: 26 passed (1 skipped - known bug)
+- **Bloom.spec.ts**: 6 passed
+- **prefundedAccounts.spec.ts**: 1 passed
+
+### Completed Migrations
+1. **Cryptography** - All using @tevm/voltaire (Keccak256, Secp256k1, P256)
+2. **Native Accounts** - nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount
+3. **ABI Operations** - Full encode/decode for parameters, functions, events, errors
+4. **Signature Operations** - signMessage, verifyMessage, signTypedData, verifyTypedData
+5. **EIP-7702** - Authorization utilities
+6. **Guillotine-Mini WASM** - EVM integration with opcode execution
+
+### Intentionally Retained
+- **Transport/client functions** from viem (createPublicClient, http, webSocket) - required for forking
+- **memory-client** - intentionally a viem wrapper
+- **@ethereumjs/* packages** - required for VM compatibility
+- **Deprecated exports** - backward compatibility (scheduled for removal)
+
+No further actionable migrations at this time. The remaining viem transport dependency would require adding typed provider methods to voltaire before migration could proceed.

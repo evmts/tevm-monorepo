@@ -1,4 +1,4 @@
-import { keccak256 } from 'viem'
+import { keccak256 } from '@tevm/utils'
 
 /**
  * @deprecated

@@ -1,0 +1,55 @@
+# Ralph Migration Log - Iteration 724
+## Date: 2026-01-05
+
+## Task: Migrate createClient imports from viem to @tevm/memory-client re-export
+
+## Completed Migrations
+
+### 1. extensions/test-matchers/src/matchers/errors/toBeReverted.spec.ts
+- **Before**: `import { createClient } from 'viem'`
+- **After**: `import { createClient, ... } from '@tevm/memory-client'`
+- Status: ✅ Migrated
+
+### 2. extensions/test-matchers/src/matchers/errors/toBeRevertedWithString.spec.ts
+- **Before**: `import { createClient } from 'viem'`
+- **After**: `import { createClient, ... } from '@tevm/memory-client'`
+- Status: ✅ Migrated
+
+### 3. extensions/test-matchers/src/matchers/errors/toBeRevertedWithError.spec.ts
+- **Before**: `import { createClient } from 'viem'`
+- **After**: `import { createClient, ... } from '@tevm/memory-client'`
+- Status: ✅ Migrated
+
+### 4. bundler-packages/mud/src/createOptimisticHandler.spec.ts
+- **Before**: `import { createClient } from 'viem'`
+- **After**: `import { createClient, createTevmTransport } from '@tevm/memory-client'`
+- Status: ✅ Migrated
+
+### 5. bundler-packages/mud/test/prepare.ts
+- **Before**: `import { createClient } from 'viem'`
+- **After**: `import { createClient, ... } from '@tevm/memory-client'`
+- Status: ✅ Migrated
+
+## Rationale
+
+The `createClient` function from viem is already re-exported from `@tevm/memory-client` at:
+- `packages/memory-client/src/createClient.js` - `export { createClient } from 'viem'`
+- `packages/memory-client/src/index.js` - re-exports from createClient.js
+
+This allows consolidating imports and reducing direct viem dependencies in spec/test files while maintaining identical functionality.
+
+## Pre-existing Issues Observed
+
+1. **Type compatibility issues**: `NativePrivateKeyAccount` from `PREFUNDED_ACCOUNTS` has type incompatibilities with viem's `Account` type for `signTypedData` method
+2. **Test runtime issues**: Some tests fail due to gas limit issues (`InvalidGasLimitError`) unrelated to import changes
+
+## Remaining viem imports in spec/test files
+
+```
+extensions/viem/src/*.spec.ts - Intentional (viem extension package)
+bundler-packages/mud/src/internal/decorators/mudStoreGetStorageAtOverride.spec.ts - EIP1193RequestFn type (incompatible)
+```
+
+## Summary
+
+Successfully migrated 5 files from direct viem `createClient` import to the @tevm/memory-client re-export. This reduces direct viem dependencies while maintaining the same functionality since @tevm/memory-client simply re-exports viem's createClient.

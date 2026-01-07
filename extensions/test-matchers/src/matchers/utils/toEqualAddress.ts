@@ -1,4 +1,4 @@
-import { getAddress, isAddress, isAddressEqual } from 'viem'
+import { getAddress, isAddress, isAddressEqual } from '@tevm/utils'
 
 /**
  * Custom Vitest matcher to assert that two addresses are equal

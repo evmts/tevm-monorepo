@@ -1,0 +1,98 @@
+# Ralph Migration Log - Iteration 293
+## Date: 2026-01-04 22:31
+
+## Summary
+Added native Account, HDAccount, JsonRpcAccount, and SmartAccount types to `account-types.ts`, replacing the deprecated viem type imports. This removes another viem dependency from the `@tevm/utils` package.
+
+## Changes Made
+
+### Modified Files:
+1. `packages/utils/src/account-types.ts`
+   - Added `JsonRpcAccount` type for externally managed accounts
+   - Added `SmartAccount` type for ERC-4337 smart contract wallets
+   - Added `Account` type as union of LocalAccount | JsonRpcAccount | SmartAccount
+   - Added `HDAccount` type as alias for NativeHDAccount
+   - Full JSDoc documentation with examples
+
+2. `packages/utils/src/abitype.ts`
+   - Removed deprecated viem imports for Account and HDAccount
+   - Now exports Account, HDAccount, JsonRpcAccount, SmartAccount from native account-types.js
+   - All 12 account-related types now exported from native source
+
+3. `packages/utils/src/index.ts`
+   - Added JsonRpcAccount and SmartAccount to exports from abitype.js
+
+## Type Definitions Added
+
+### JsonRpcAccount
+```typescript
+export type JsonRpcAccount = {
+  address: Address
+  type: 'json-rpc'
+}
+```
+
+### SmartAccount
+```typescript
+export type SmartAccount<TSource extends string = string> = {
+  address: Address
+  type: 'smart'
+  source: TSource
+}
+```
+
+### Account (union type)
+```typescript
+export type Account = LocalAccount | JsonRpcAccount | SmartAccount
+```
+
+### HDAccount
+```typescript
+export type HDAccount = NativeHDAccount
+```
+
+## Test Results
+- `pnpm nx run @tevm/utils:build:types` - SUCCESS
+- `pnpm tsc --noEmit --project packages/utils/tsconfig.json` - SUCCESS (no errors)
+- `pnpm vitest run packages/utils/src/nativePrivateKeyToAccount.spec.ts` - 18 tests passed
+
+## Migration Progress
+
+### Viem imports removed from abitype.ts:
+- ❌ `export type { Account, HDAccount } from 'viem'` - REMOVED
+- ✅ Now uses native types from `./account-types.js`
+
+### Remaining viem imports in @tevm/utils (all deprecated with native alternatives):
+1. `viem.js` line 29: `mnemonicToAccount, privateKeyToAccount` from `viem/accounts`
+2. `viem.js` lines 2149-2156: `createPublicClient, createTransport, custom, defineChain, http, webSocket`
+
+All remaining viem imports have native alternatives available:
+- `nativeMnemonicToAccount` replaces `mnemonicToAccount`
+- `nativePrivateKeyToAccount` replaces `privateKeyToAccount`
+- `nativeHttp` replaces `http`
+- `nativeWebSocket` replaces `webSocket`
+- `nativeCustom` replaces `custom`
+- `nativeDefineChain` replaces `defineChain`
+- `createForkRpcClient` replaces `createPublicClient` for fork scenarios
+
+### Core packages status (viem-free):
+- ✅ `@tevm/actions` - No viem imports
+- ✅ `@tevm/state` - No viem imports
+- ✅ `@tevm/evm` - No viem imports
+- ✅ `@tevm/vm` - No viem imports
+- ✅ `@tevm/node` - No viem imports
+
+### Packages with intentional viem usage:
+- `@tevm/memory-client` - Uses viem for Client/Actions compatibility (by design)
+
+## Impact
+- `Account` type is now defined natively and compatible with viem's Account
+- `HDAccount` type is now defined natively
+- New `JsonRpcAccount` type for provider-managed accounts
+- New `SmartAccount` type for ERC-4337 wallets
+- The deprecated viem re-export has been removed from abitype.ts
+
+## Next Steps
+1. Continue migrating usages in the codebase to use native account functions
+2. Eventually remove deprecated viem re-exports from viem.js
+3. Consider updating memory-client to use native Account type for TAccountOrAddress generic

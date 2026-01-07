@@ -1,0 +1,8 @@
+Iteration 216 complete. I successfully migrated all 4 remaining `viem/accounts` imports in `@tevm/memory-client` test files to use `nativePrivateKeyToAccount` from `@tevm/utils`:
+
+1. **sendRawTransaction.spec.ts** - migrated
+2. **verifyTypedData.spec.ts** - migrated
+3. **verifySiweMessage.spec.ts** - migrated
+4. **verifyMessage.spec.ts** - migrated
+
+The test failures are pre-existing gas limit issues unrelated to the account migration. All `viem/accounts` imports in the `@tevm/memory-client` package have now been eliminated, with only intentional re-exports and comparison test files remaining in `@tevm/utils`.

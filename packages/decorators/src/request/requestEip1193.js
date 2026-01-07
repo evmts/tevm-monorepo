@@ -1,7 +1,26 @@
 import { requestProcedure } from '@tevm/actions'
-// TODO this is too simple of a function to be using from an external library
-// Write this internally in @tevm/utils
-import { withRetry } from 'viem'
+
+/**
+ * Minimal retry helper to replace viem.withRetry during migration
+ * @template T
+ * @param {() => Promise<T>} fn
+ * @param {{ retryCount?: number, retryDelay?: number }} [options]
+ * @returns {Promise<T>}
+ */
+async function withRetry(fn, options) {
+  const max = options?.retryCount ?? 3
+  const delay = options?.retryDelay ?? 100
+  let attempt = 0
+  for (;;) {
+    try {
+      return await fn()
+    } catch (e) {
+      attempt++
+      if (attempt > max) throw e
+      await new Promise((r) => setTimeout(r, delay * attempt))
+    }
+  }
+}
 
 // TODO we want to split up these requests into seperate decorators and
 // have typescript correctly merge the schemas as they go
@@ -31,7 +50,7 @@ export const requestEip1193 = () => (client) => {
 					throw result.error
 				}
 				return /** @type {any}*/ (result.result)
-			}, options)
+			}, /** @type {any} */ (options))
 		},
 	}
 }

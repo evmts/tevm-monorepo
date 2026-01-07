@@ -1,11 +1,10 @@
-import { VM } from '@ethereumjs/vm'
 import { type Chain } from '@tevm/blockchain'
 import { type Common } from '@tevm/common'
 import { type EvmType } from '@tevm/evm'
 import { type StateManager } from '@tevm/state'
 
 /**
- * Options for instantiating a {@link VM}.
+ * Options for instantiating a VM.
  */
 export interface VmOpts {
 	/**
@@ -18,7 +17,7 @@ export interface VmOpts {
 	 * - `hardfork`: `mainnet` hardforks up to the `Paris` hardfork
 	 * - `eips`: `1559` (usage e.g. `eips: [ 1559, ]`)
 	 *
-	 * Note: check the associated `@ethereumjs/evm` instance options
+	 * Note: check the associated {@link EvmType} instance options
 	 * documentation for supported EIPs.
 	 */
 	common: Common

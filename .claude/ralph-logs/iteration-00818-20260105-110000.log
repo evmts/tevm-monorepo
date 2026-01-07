@@ -1,0 +1,75 @@
+# Ralph Migration Log - Iteration 818
+## Date: 2026-01-05
+
+## Task: Add test coverage for missing utility function specs
+
+## Summary
+
+Added comprehensive test suites for 4 utility functions in `@tevm/utils` that were missing spec files:
+
+1. **bytesToUnprefixedHex** - Converts bytes to hex string without '0x' prefix
+2. **setLengthLeft** - Left pads Uint8Array with zeros to specified length
+3. **concatBytes** - Concatenates multiple Uint8Array values
+4. **bytesToUtf8** - Converts bytes to UTF-8 string
+
+## Changes Made
+
+### New files:
+- `packages/utils/src/bytesToUnprefixedHex.spec.ts` - 8 tests
+- `packages/utils/src/setLengthLeft.spec.ts` - 7 tests
+- `packages/utils/src/concatBytes.spec.ts` - 8 tests
+- `packages/utils/src/bytesToUtf8.spec.ts` - 8 tests
+
+### Test coverage:
+
+**bytesToUnprefixedHex tests:**
+- Convert bytes to hex without prefix
+- Handle empty bytes
+- Handle single byte
+- Handle leading zeros
+- Handle byte < 16 (needs padding)
+- Handle mixed bytes
+- Handle all zeros
+- Handle all 0xff bytes
+
+**setLengthLeft tests:**
+- Left pad bytes to specified length
+- Return unchanged if equal/exceeds target
+- Handle empty bytes
+- Handle much larger padding
+- Preserve original bytes
+
+**concatBytes tests:**
+- Concatenate two arrays
+- Concatenate multiple arrays
+- Handle single/empty arrays
+- Handle no arguments
+- Preserve byte values
+- Return new array instance
+
+**bytesToUtf8 tests:**
+- Convert ASCII bytes
+- Handle empty bytes
+- Handle multi-byte UTF-8 (€, emoji, Chinese)
+- Handle mixed characters
+
+## Test Results
+
+All 31 new tests passing:
+- bytesToUnprefixedHex.spec.ts: 8 tests ✓
+- setLengthLeft.spec.ts: 7 tests ✓
+- concatBytes.spec.ts: 8 tests ✓
+- bytesToUtf8.spec.ts: 8 tests ✓
+
+## Migration Status Assessment
+
+The core packages (actions, vm, evm, state, node) are already free of direct viem imports.
+All 334 chain presets have been migrated to `nativeDefineChain`.
+Most @tevm/utils functionality has been migrated to native implementations.
+
+Remaining viem dependencies:
+- Transport/client functions (createPublicClient, http, etc.) - needed for RPC forking
+- @tevm/memory-client - intentionally uses viem as integration layer
+- parseAbi/formatAbi from abitype - complex type-level transformations
+
+## Status: COMPLETE

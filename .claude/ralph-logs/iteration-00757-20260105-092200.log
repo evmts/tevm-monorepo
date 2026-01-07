@@ -1,0 +1,60 @@
+# Ralph Migration Log - Iteration 757
+## Date: 2026-01-05
+
+## Task: Migrate repro-2008.spec.ts to use @tevm/utils instead of direct viem imports
+
+## Summary
+
+Successfully migrated the last remaining spec file with direct viem imports to use @tevm/utils instead. Added `createWalletClient` export to @tevm/utils.
+
+## Changes Made
+
+1. **packages/utils/src/viem.js**: Added `createWalletClient` to the viem re-exports
+   ```javascript
+   export {
+       createPublicClient,
+       createWalletClient,  // NEW
+       createTransport,
+       custom,
+       defineChain,
+       http,
+       webSocket,
+   } from 'viem'
+   ```
+
+2. **packages/utils/src/index.ts**: Added `createWalletClient` to the barrel exports
+   ```typescript
+   createPublicClient,
+   createWalletClient,  // NEW
+   createTransport,
+   ```
+
+3. **packages/memory-client/src/repro-2008.spec.ts**: Updated import from direct viem to @tevm/utils
+   ```typescript
+   // Before:
+   import { nativePrivateKeyToAccount } from '@tevm/utils'
+   import { createPublicClient, createWalletClient, custom, defineChain } from 'viem'
+
+   // After:
+   import { nativePrivateKeyToAccount, createPublicClient, createWalletClient, custom, defineChain } from '@tevm/utils'
+   ```
+
+## Test Results
+
+All tests pass:
+- repro-2008.spec.ts: 2 tests passed
+- utils package: 37 test files, 725 tests passed (1 skipped)
+
+## Migration Progress
+
+After this change, all spec files in core packages have been migrated away from direct viem imports.
+
+Remaining direct viem imports in packages:
+- `packages/utils/src/viem.js` - Re-exports viem functions (by design, these are the consolidated viem dependencies)
+- `packages/memory-client/src/createMemoryClient.js` - Uses viem's client creation (high-level viem features)
+- `packages/memory-client/src/createClient.js` - Re-exports from viem (for user compatibility)
+- Several JSDoc examples reference viem imports (documentation only)
+
+## Notes
+
+The viem high-level client functions (createPublicClient, createWalletClient, etc.) are intentionally kept as viem dependencies since voltaire doesn't provide equivalent high-level client abstractions. The strategy is to funnel all viem imports through @tevm/utils to make future migration easier when alternatives become available.

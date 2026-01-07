@@ -1,5 +1,11 @@
-import type { AbiError, AbiParameter, ExtractAbiError } from 'abitype'
-import { type Abi, type ContractErrorName, decodeErrorResult } from 'viem'
+import {
+	type Abi,
+	type AbiError,
+	type AbiParameter,
+	type ContractErrorName,
+	type ExtractAbiError,
+	decodeErrorResult,
+} from '@tevm/utils'
 import { assert } from 'vitest'
 import type { ChainState, MatcherResult } from '../../chainable/types.js'
 import type { AbiInputsToNamedArgs } from '../../common/types.js'
@@ -27,11 +33,14 @@ export const withErrorNamedArgs = <
 		throw new Error('withErrorNamedArgs() requires a contract with abi and error name')
 
 	const { contract, decodedRevertData, rawRevertData } = previousState
+	if (!contract?.abi) throw new Error('Contract with ABI is required for error decoding')
 	const decodedRevert =
-		decodedRevertData ?? (rawRevertData ? decodeErrorResult({ abi: contract?.abi, data: rawRevertData }) : undefined)
+		decodedRevertData ?? (rawRevertData ? decodeErrorResult({ abi: contract.abi, data: rawRevertData }) : undefined)
 	const decodedArgs = decodedRevert?.args
-	if (!decodedArgs) throw new Error('Could not decode revert data')
-	const namedArgs = (decodedRevert.abiItem as AbiError).inputs.reduce(
+	if (!decodedArgs || !decodedRevert) throw new Error('Could not decode revert data')
+	const abiItem = 'abiItem' in decodedRevert ? decodedRevert.abiItem : undefined
+	if (!abiItem || abiItem.type !== 'error') throw new Error('Could not get error ABI item')
+	const namedArgs = (abiItem as AbiError).inputs.reduce(
 		(acc, input, index) => {
 			acc[input.name ?? ''] = decodedArgs[index]
 			return acc

@@ -1,0 +1,37 @@
+# Ralph Migration Log - Iteration 365
+## Date: 2026-01-05 02:54
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **playfiAlbireo.js** (id: 1612127) - PlayFi Albireo Testnet with ETH native currency, multicall3 contract, WebSocket support
+2. **plinga.js** (id: 242) - Plinga mainnet with PLINGA native currency, multicall3 contract
+3. **plumeTestnet.js** (id: 161221135) - Plume Testnet (Legacy) with ETH native currency, Sepolia-based (sourceId: 11155111), multicall3 contract, WebSocket support
+4. **polygonAmoy.js** (id: 80002) - Polygon Amoy testnet with POL native currency, multicall3 contract
+5. **polygonMumbai.js** (id: 80001) - Polygon Mumbai testnet (deprecated) with MATIC native currency, multicall3 contract
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Previously migrated**: ~241 (from iteration 364)
+- **Migrated this session**: 5
+- **Total migrated**: ~246
+- **Remaining**: 98 (~29% remaining, excluding generator script)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable), sourceId (if applicable)
+
+## Notes
+- polygonMumbai: Uses thirdweb RPC instead of ankr (updated in viem source)
+- plumeTestnet: Labeled as "Legacy" in viem, indicates deprecated testnet
+- polygonAmoy: Uses POL token (not MATIC) as native currency
+
+## Next Steps
+Continue migrating remaining chain presets. 98 remain (~29% remaining).
+Next chains to migrate: polygonZkEvm, polygonZkEvmCardona, polygonZkEvmTestnet, pulsechain, pulsechainV4...

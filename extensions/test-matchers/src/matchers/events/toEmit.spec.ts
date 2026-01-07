@@ -1,7 +1,6 @@
 import { type Contract, SimpleContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'
-import type { Address, Hex } from 'viem'
-import { toEventSelector } from 'viem'
+import { type Address, type Hex, toEventSelector } from '@tevm/utils'
 import { assert, beforeEach, describe, expect, it } from 'vitest'
 
 const client = createMemoryClient()

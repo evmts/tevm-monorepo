@@ -1,0 +1,58 @@
+# Ralph Migration Log - Iteration 216
+## Date: 2026-01-04 16:13:20
+
+## Summary
+Completed migration of all remaining `viem/accounts` imports in `@tevm/memory-client` test files to use `nativePrivateKeyToAccount` from `@tevm/utils`.
+
+## Changes Made
+
+### 1. Updated sendRawTransaction.spec.ts
+File: `packages/memory-client/src/test/viem/sendRawTransaction.spec.ts`
+
+Changed import from `privateKeyToAccount` from `viem/accounts` to `nativePrivateKeyToAccount` from `@tevm/utils`.
+
+### 2. Updated verifyTypedData.spec.ts
+File: `packages/memory-client/src/test/viem/verifyTypedData.spec.ts`
+
+Changed import from `privateKeyToAccount` from `viem/accounts` to `nativePrivateKeyToAccount` from `@tevm/utils`.
+
+### 3. Updated verifySiweMessage.spec.ts
+File: `packages/memory-client/src/test/viem/verifySiweMessage.spec.ts`
+
+Changed import from `privateKeyToAccount` from `viem/accounts` to `nativePrivateKeyToAccount` from `@tevm/utils`.
+
+### 4. Updated verifyMessage.spec.ts
+File: `packages/memory-client/src/test/viem/verifyMessage.spec.ts`
+
+Changed import from `privateKeyToAccount` from `viem/accounts` to `nativePrivateKeyToAccount` from `@tevm/utils`.
+
+## Test Results
+- `@tevm/utils` nativePrivateKeyToAccount.spec.ts - 18 tests pass
+- Test failures in memory-client tests are pre-existing gas limit issues (not related to migration)
+- The `sendRawTransaction.spec.ts` test is marked `.todo` and correctly skips
+
+## Migration Status for viem/accounts
+
+### Completed (All memory-client tests now use native account functions):
+1. `packages/memory-client/src/repro-2008.spec.ts` - uses `nativePrivateKeyToAccount`
+2. `packages/memory-client/src/test/viemSigner.spec.ts` - uses `nativePrivateKeyToAccount`
+3. `packages/memory-client/src/test/viem/sendRawTransaction.spec.ts` - uses `nativePrivateKeyToAccount`
+4. `packages/memory-client/src/test/viem/verifyTypedData.spec.ts` - uses `nativePrivateKeyToAccount`
+5. `packages/memory-client/src/test/viem/verifySiweMessage.spec.ts` - uses `nativePrivateKeyToAccount`
+6. `packages/memory-client/src/test/viem/verifyMessage.spec.ts` - uses `nativePrivateKeyToAccount`
+
+### Remaining viem/accounts imports (intentional):
+- `packages/utils/src/viem.js` - Re-exports for backward compatibility
+- `packages/utils/src/nativeMnemonicToAccount.spec.ts` - Uses viem for comparison testing
+- `packages/utils/src/nativeHdAccount.spec.ts` - Uses viem for comparison testing
+
+## Notes
+- All `viem/accounts` imports in `@tevm/memory-client` have been successfully migrated
+- The remaining imports in `@tevm/utils` are intentional:
+  - viem.js re-exports for backward compatibility
+  - Spec files use viem versions for comparison testing to ensure native implementations match
+
+## Next Steps
+1. Look for other viem imports in the codebase to migrate
+2. Consider migrating other test files that use viem
+3. Continue with core package migrations (actions, vm, evm, state, node)

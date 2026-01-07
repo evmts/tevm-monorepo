@@ -1,0 +1,35 @@
+# Ralph Migration Log - Iteration 205
+## Date: 2026-01-04 15:17:30
+
+## Summary
+Migrated the last remaining `@noble/curves` import in the test suite to use `@tevm/voltaire/Secp256k1`.
+
+## Changes Made
+
+### 1. Replaced @noble/curves import with voltaire in eip7702.spec.ts
+- Changed import from `import { secp256k1 } from '@noble/curves/secp256k1.js'` to `import { Secp256k1 } from '@tevm/voltaire/Secp256k1'`
+- Updated the custom sign function test to use voltaire's `Secp256k1.signHash`
+- Adapted the return format from voltaire's `{ r, s, v }` to the format expected by eip7702.js: `{ recovery, r, s }` where recovery is 0 or 1 (v - 27) and r, s are bigints
+
+## Files Modified
+1. `packages/utils/src/eip7702.spec.ts` - Replaced @noble/curves import with @tevm/voltaire/Secp256k1
+
+## Test Results
+All 22 tests pass in eip7702.spec.ts.
+
+## Migration Status
+This removes the last `@noble/curves` import from the test suite in the utils package. The implementation code already uses voltaire.
+
+### Remaining viem imports in tevm core packages:
+1. `packages/utils/src/viem.js`:
+   - `mnemonicToAccount, privateKeyToAccount` from 'viem/accounts' (HD wallet/account signing)
+   - `createPublicClient, createTransport, custom, defineChain, http, webSocket` from 'viem' (fork transport)
+
+2. `packages/common/src/presets/*.js` - Chain presets import from 'viem/chains'
+
+3. `packages/memory-client/src/*` - Heavy viem integration for client/transport
+
+## Next Steps
+1. Continue migrating viem types from `packages/utils/src/abitype.ts` if voltaire provides equivalents
+2. Consider creating native chain presets to replace viem/chains imports
+3. The transport/client functions (http, webSocket, createPublicClient) are complex and may need to remain as viem dependencies for fork functionality

@@ -1,0 +1,22 @@
+## Summary
+
+Successfully completed iteration 181 of the Ralph migration. 
+
+**Changes made:**
+1. Added native `DecodeFunctionResultReturnType` type to `packages/utils/src/contract-types.ts` - this type wraps `ContractFunctionReturnType` with appropriate defaults matching viem's implementation
+2. Updated `packages/utils/src/abitype.ts` to import from native contract-types.js instead of viem
+
+**Migration progress:**
+- Reduced viem type imports in abitype.ts from 5 to 4
+- All 7 contract-related types are now native implementations:
+  - ContractFunctionName ✅
+  - ContractFunctionArgs ✅
+  - ContractFunctionReturnType ✅
+  - ContractConstructorArgs ✅
+  - EncodeFunctionDataParameters ✅
+  - EncodeDeployDataParameters ✅
+  - DecodeFunctionResultReturnType ✅ (NEW)
+
+**Remaining viem types (4):**
+- Account, HDAccount (complex signing types - likely not migratable)
+- CreateEventFilterParameters, GetEventArgs (event-related types)

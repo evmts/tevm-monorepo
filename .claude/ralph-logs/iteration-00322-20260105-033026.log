@@ -1,0 +1,8 @@
+I've successfully migrated 4 more chain presets from viem/chains to nativeDefineChain:
+
+1. **telcoinTestnet.js** - Telcoin Adiri Testnet (id: 2017)
+2. **telos.js** - Telos Mainnet (id: 40) with multicall3 contract
+3. **telosTestnet.js** - Telos Testnet (id: 41)
+4. **tenet.js** - Tenet Mainnet (id: 1559)
+
+All tests pass. 30 chain presets remain to be migrated (excluding the generator script), approximately 9% of the total.

@@ -1,7 +1,7 @@
 import { SimpleContract } from '@tevm/contract'
 import { type Hex } from '@tevm/utils'
-import { createClient } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { createClient, publicActions, testActions } from '../../createClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 import { createTevmTransport } from '../../createTevmTransport.js'
 import type { MemoryClient } from '../../MemoryClient.js'
@@ -99,9 +99,6 @@ describe('setBlockGasLimit', () => {
 	})
 
 	it('should work with traditional client API extended with test actions', async () => {
-		// Import test actions and public actions to extend the client
-		const { testActions, publicActions } = await import('viem')
-
 		// Create a client extended with test actions and public actions
 		const client = createClient({
 			transport: createTevmTransport({}),

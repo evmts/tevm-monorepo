@@ -1,5 +1,4 @@
-import { bytesToHex, createAddressFromString } from '@tevm/utils'
-import { hexToBytes } from 'ethereum-cryptography/utils'
+import { bytesToHex, createAddressFromString, hexToBytes } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getAccount } from './getAccount.js'

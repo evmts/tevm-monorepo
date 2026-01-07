@@ -1,0 +1,23 @@
+## Summary - Iteration 182 Complete
+
+Successfully migrated `GetEventArgs` and `CreateEventFilterParameters` types from viem to native implementations in `@tevm/utils`.
+
+### Changes Made:
+1. **Added ~350 lines of native event types** in `packages/utils/src/contract-types.ts`:
+   - `ContractEventName` - extracts event names from ABI
+   - `GetEventArgs` - extracts event argument types for filtering
+   - `CreateEventFilterParameters` - parameters for creating event filters
+   - Multiple helper types for event parameter handling
+
+2. **Updated `packages/utils/src/abitype.ts`**:
+   - Moved event types from viem to native imports
+   - Reduced viem type imports from 4 to 2
+
+### Migration Status:
+- **viem types remaining in abitype.ts**: `Account`, `HDAccount` (2 types - complex signing infrastructure)
+- **Native types complete**: 10 types now fully migrated from viem
+
+### Tests Verified:
+- `createContract.spec.ts` - 14 passed
+- `eventFactory.spec.ts` - 3 passed  
+- `validateContractParams.spec.ts` - 12 passed

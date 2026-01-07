@@ -1,0 +1,56 @@
+# Ralph Migration Log - Iteration 760
+## Date: 2026-01-05
+
+## Task: Migrate EIP1193RequestFn type import from viem to @tevm/utils
+
+## Summary
+
+Successfully migrated the EIP1193RequestFn type import in mudStoreGetStorageAtOverride.spec.ts from viem to @tevm/utils.
+
+## Changes Made
+
+### bundler-packages/mud/src/internal/decorators/mudStoreGetStorageAtOverride.spec.ts
+- Changed: `import { type EIP1193RequestFn } from 'viem'` -> imported from `@tevm/utils`
+- Combined with existing @tevm/utils import: `import { type Address, type EIP1193RequestFn, pad } from '@tevm/utils'`
+- Test compiles and passes (1 skipped test due to being slow)
+
+## Attempted but reverted
+
+Attempted to migrate `http` to `nativeHttp` in test-node spec files:
+- createTestSnapshotTransport.spec.ts
+- createTestSnapshotClient.spec.ts
+
+This was reverted because nativeHttp doesn't fully replicate viem's http transport behavior - the transport structure is different and causes test failures. The `http` export from @tevm/utils is still viem's http, which is acceptable for now since these files use it from @tevm/utils (not directly from viem).
+
+## Current Migration Status
+
+### Files still using viem directly:
+1. **bundler-packages/mud/src/types.ts** - Uses viem account-abstraction types (BundlerClient, SmartAccount) - complex, viem-specific
+2. **bundler-packages/whatsabi/src/resolveContractUri.js** - Uses createClient, http, getCode - whatsabi library compatibility
+3. **bundler-packages/whatsabi/src/loadAbi.js** - Has JSDoc type referencing viem.Client - whatsabi compatibility
+
+### Files using viem re-exports from @tevm/utils (acceptable):
+- extensions/test-node spec files use http from @tevm/utils
+- These don't import directly from viem
+
+### Packages fully migrated from direct viem imports:
+- @tevm/actions (core)
+- @tevm/vm (core)
+- @tevm/evm (core)
+- @tevm/state (core)
+- @tevm/node (core)
+- extensions/test-node (source files)
+- extensions/test-matchers (source files)
+
+## Notes
+
+The nativeHttp transport needs more work to be fully compatible with viem's http:
+- viem's http() returns transport with more complex structure
+- nativeHttp returns simpler EIP-1193 request function
+- Full migration would require matching viem's transport interface exactly
+
+## Next Steps
+
+1. nativeHttp needs to match viem's http transport structure for full migration
+2. Consider leaving whatsabi with viem dependency (third-party library compatibility)
+3. mud types.ts requires account-abstraction types which are viem-specific

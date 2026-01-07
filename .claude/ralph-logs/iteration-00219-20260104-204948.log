@@ -1,0 +1,17 @@
+## Summary
+
+In this iteration, I:
+
+1. **Assessed migration status**: Core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) are already viem-free. Remaining viem usage is intentional (transport for forking) or deprecated backward-compatible exports.
+
+2. **Attempted voltaire Bip39/HDWallet migration**: Tried to migrate `nativeMnemonicToAccount.js` from @scure/bip39 and @scure/bip32 to voltaire's wrappers, but this was blocked by FFI dependency issues (ref-napi/ffi-napi fail to load in the test environment).
+
+3. **Successfully migrated privateKeyToAddress.js**: Replaced `hexToBytes` import from `viem.js` with voltaire's `Hex.toBytes`, reducing internal viem dependencies by one more import.
+
+**Changes made:**
+- `packages/utils/src/privateKeyToAddress.js`: Now uses `Hex` from `@tevm/voltaire/Hex` instead of `hexToBytes` from `./viem.js`
+
+**Tests passing:**
+- nativePrivateKeyToAccount.spec.ts: 18/18 passed
+- signature.spec.ts: 31/31 passed
+- Build types: SUCCESS

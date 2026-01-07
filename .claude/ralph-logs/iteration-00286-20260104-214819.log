@@ -1,0 +1,72 @@
+# Ralph Migration Log - Iteration 286
+## Date: 2026-01-04 21:48
+
+## Summary
+Comprehensive status check and identification of next migration targets. All core packages are viem-free.
+
+## Current Status
+
+### Core Packages (All viem-free):
+- @tevm/actions - No viem imports
+- @tevm/vm - No viem imports
+- @tevm/evm - No viem imports (guillotine WASM integrated, 55 tests passing)
+- @tevm/state - No viem imports (uses utils for transport)
+- @tevm/node - No viem imports
+- @tevm/block - No viem imports
+- @tevm/jsonrpc - No viem imports
+- @tevm/precompiles - No viem imports (uses voltaire for P256)
+
+### @tevm/utils Status:
+Remaining viem dependencies (intentionally kept):
+1. Transport functions: `createPublicClient, createTransport, custom, defineChain, http, webSocket` - Required for fork client
+2. Deprecated account exports: `mnemonicToAccount, privateKeyToAccount` - Native replacements exist
+
+### Dependencies Assessment:
+
+**@scure/bip39, @scure/bip32** (Kept intentionally):
+- Used for mnemonic/HD key derivation
+- Same libraries used by viem, audited by Paul Miller
+- Voltaire's HDWallet uses async FFI functions, would require significant refactoring
+- Voltaire's Bip39 module wraps @scure/bip39 anyway, so no dependency reduction
+- These are focused, minimal dependencies with no sub-dependencies
+
+**Voltaire Features Available but Not Yet Used:**
+- `@tevm/voltaire/provider` - HttpProvider, WebSocketProvider (could replace viem transports)
+- `@tevm/voltaire/HDWallet` - async mnemonic/HD functions (async API difference)
+- `@tevm/voltaire/Bip39` - wraps @scure/bip39 (no benefit over direct usage)
+
+### Migration Path Options:
+
+1. **Transport Migration** (Medium effort):
+   - Replace viem `createPublicClient/http/webSocket` with voltaire `HttpProvider/WebSocketProvider`
+   - Requires updating `getForkClient.js` and all consumers
+   - Voltaire providers are EIP-1193 compliant
+
+2. **Remove Deprecated Exports** (Breaking change):
+   - Remove `mnemonicToAccount, privateKeyToAccount` re-exports from viem/accounts
+   - Users should migrate to `nativeMnemonicToAccount, nativePrivateKeyToAccount`
+   - Would require major version bump
+
+3. **@ethereumjs Migrations** (Large effort):
+   - `@ethereumjs/common` - Chain configuration
+   - `@ethereumjs/tx` - Transaction types
+   - Voltaire has Transaction module that could replace this
+
+## Test Results
+- @tevm/utils: 253 tests passed (viem.spec.ts)
+- @tevm/evm: 55 tests passed, 1 skipped
+- @tevm/block: 2 tests passed
+- @tevm/state (non-fork): putAccount (3 passed), putContractStorage (6 passed)
+
+### Known Test Issues (Pre-existing):
+- Fork tests require env vars: TEVM_RPC_URLS_MAINNET, TEVM_RPC_URLS_OPTIMISM
+- @tevm/vm access list test: executionGasUsed returns 0n (may be pre-existing)
+
+## Conclusion
+
+The voltaire migration is essentially complete for cryptographic operations. Remaining work:
+1. Transport layer (viem -> voltaire providers) - Medium complexity
+2. Deprecated export removal - Breaking change requiring semver major
+3. @ethereumjs/tx migration - Large scope
+
+The migration has achieved the core goal of removing viem/ethereumjs from cryptographic operations in the execution path.

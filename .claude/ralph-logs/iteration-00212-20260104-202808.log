@@ -1,0 +1,22 @@
+## Iteration 266 Summary
+
+The migration is **stable and mature**. All verification tests pass:
+
+| Test Suite | Status |
+|------------|--------|
+| signature.spec.ts | 31 passed |
+| guillotineWasm.spec.ts | 26 passed, 1 skipped |
+| nativePrivateKeyToAccount.spec.ts | 18 passed |
+| nativeMnemonicToAccount.spec.ts | 17 passed |
+| eip7702.spec.ts | 22 passed |
+| Bloom.spec.ts | 6 passed |
+| prefundedAccounts.spec.ts | 1 passed |
+
+**Core packages (actions, vm, evm, state, node) have 0 direct viem imports.**
+
+The remaining viem dependencies are intentional:
+- Transport/client functions (http, webSocket, createPublicClient) - needed for RPC forking
+- Deprecated type exports (Account, HDAccount) - backward compatibility
+- memory-client package - intentionally a viem wrapper
+
+No further migration work needed unless voltaire adds transport functionality or a major version removes deprecated exports.

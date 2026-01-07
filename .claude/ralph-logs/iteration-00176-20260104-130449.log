@@ -1,0 +1,74 @@
+# Ralph Migration Log - Iteration 176
+## Date: 2026-01-04 13:04:49
+
+## Summary
+Fixed native EVM implementation to pass all tests. Added missing `getPrecompile` method, `DEBUG` flag, and proper error handling for `_customPrecompiles`.
+
+## Context
+The native `Evm` class in `@tevm/evm` (a Guillotine-backed stub adapter) was missing several methods and properties that the existing tests expected. This iteration fixes these gaps.
+
+## Changes Made
+
+### packages/evm/src/Evm.js
+1. Added `DEBUG` property (boolean flag set when trace logging is enabled)
+2. Added `getPrecompile(address)` method - returns precompile function by address lookup from the `precompiles` Map
+3. Updated `addCustomPrecompile()` to:
+   - Throw `MisconfiguredClientError` when `_customPrecompiles` is undefined
+   - Add precompile to the `precompiles` Map for `getPrecompile` lookups
+4. Updated `removeCustomPrecompile()` to:
+   - Throw `MisconfiguredClientError` when `_customPrecompiles` is undefined
+   - Remove precompile from the `precompiles` Map
+
+### packages/evm/src/createEvm.js
+1. Set `evm.DEBUG = true` when `loggingLevel === 'trace'`
+2. Initialize custom precompiles by calling `evm.addCustomPrecompile()` for each one
+
+### packages/evm/src/EvmType.ts
+1. Added `precompiles: Map<string, any>` to type declaration
+2. Added `DEBUG: boolean` to type declaration
+3. Added `getPrecompile(address: EthjsAddress): any | undefined` method signature
+4. Added import for `EthjsAddress` from `@tevm/utils`
+
+## Tests Run
+```bash
+pnpm vitest run packages/evm/src/createEvm.spec.ts
+# Result: 14 tests passed (0 failed)
+
+pnpm vitest run packages/common/src/createCommon.spec.ts packages/state/src/createBaseState.spec.ts
+# Result: 14 passed, 1 skipped (15 total)
+```
+
+## Migration Status
+
+### Completed in This Iteration:
+- Native `Evm` class now passes all tests
+- `getPrecompile`, `addCustomPrecompile`, `removeCustomPrecompile` fully functional
+- Custom precompile initialization works via `createEvm`
+
+### Blocked:
+- voltaire type build fails with OOM error (`Worker terminated due to reaching memory limit`)
+- This blocks `@tevm/utils:build:types` and other packages that depend on voltaire types
+
+### Still Using EthereumJS:
+- `@ethereumjs/evm` - EVM core (native Evm is a stub, will be replaced by guillotine-mini)
+- `@ethereumjs/vm` - VM layer (Bloom class now native in @tevm/utils)
+- `@ethereumjs/tx` - Transaction handling
+- `@ethereumjs/common` - Chain configuration (wrapper used, native types added)
+- `@ethereumjs/trie` - Merkle Patricia Trie
+- `@ethereumjs/blockchain` - Native consensus types added
+
+### Already Migrated:
+- `@ethereumjs/statemanager` - Native AccountCache, StorageCache in @tevm/utils
+- `ethereum-cryptography` - All imports replaced with @tevm/utils wrappers
+- Bloom class - Native implementation in @tevm/utils
+- Consensus types - Native in @tevm/blockchain
+
+## Files Changed
+- packages/evm/src/Evm.js
+- packages/evm/src/createEvm.js
+- packages/evm/src/EvmType.ts
+
+## Next Steps
+1. Address voltaire type build memory issues (tsup --dts-only runs out of memory)
+2. Continue stubbing out more EVM functionality in native Evm class
+3. Eventually wire guillotine-mini WASM to native Evm for actual bytecode execution

@@ -1,5 +1,4 @@
-import { createAccount, createAddressFromString } from '@tevm/utils'
-import { hexToBytes } from 'ethereum-cryptography/utils'
+import { createAccount, createAddressFromString, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getContractCode } from './getContractCode.js'

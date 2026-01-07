@@ -1,0 +1,52 @@
+# Ralph Migration Log - Iteration 169
+## Date: 2026-01-04 12:30:11
+
+## Summary
+Cleaned up dead code - removed unused `common` parameter from Bloom constructor calls in @tevm/vm package.
+
+## Changes Made
+
+### 1. Updated txLogsBloom.js
+**File**: `packages/vm/src/actions/txLogsBloom.js`
+- Removed unused `common` parameter from function signature
+- Updated JSDoc to remove documentation for `common` param
+- Changed `new Bloom(undefined, common?.ethjsCommon)` to `new Bloom()`
+
+### 2. Updated applyTransactions.ts
+**File**: `packages/vm/src/actions/applyTransactions.ts`
+- Changed `new Bloom(undefined, vm.common.ethjsCommon)` to `new Bloom()`
+
+### 3. Updated runTx.ts
+**File**: `packages/vm/src/actions/runTx.ts`
+- Changed `txLogsBloom(results.execResult.logs, vm.common)` to `txLogsBloom(results.execResult.logs)`
+
+## Background
+The `@tevm/utils` Bloom class constructor only accepts an optional `bitvector` parameter:
+```javascript
+constructor(bitvector?: Uint8Array)
+```
+
+The second parameter (`common` or `ethjsCommon`) was being passed but completely ignored. This was likely leftover from when the code used the old @ethereumjs/vm Bloom class which may have accepted a common parameter.
+
+## Test Results
+- Pre-existing test failures due to missing RPC environment variables (TEVM_RPC_URLS_MAINNET, TEVM_RPC_URLS_OPTIMISM)
+- Pre-existing snapshot mismatches in runTx.spec.ts (unrelated to Bloom changes)
+- No new failures introduced by this change
+
+## Impact
+- Cleaner code with no dead/unused parameters
+- Slightly better performance (no longer passing unused arguments)
+- No breaking changes (this was internal code, not public API)
+
+## Discovery
+Found an additional pre-existing issue: the type definition file `packages/vm/types/actions/txLogsBloom.d.ts` imports Bloom from `@ethereumjs/vm` instead of `@tevm/utils`. This is a build artifact that should be regenerated, but indicates there may be a deeper issue in type generation.
+
+## Files Changed
+- packages/vm/src/actions/txLogsBloom.js (modified)
+- packages/vm/src/actions/applyTransactions.ts (modified)
+- packages/vm/src/actions/runTx.ts (modified)
+
+## Next Steps
+1. Consider investigating why type definitions still reference @ethereumjs/vm
+2. Continue with other migration targets in core packages
+3. Look for other dead code related to the @ethereumjs migration

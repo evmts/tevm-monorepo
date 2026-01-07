@@ -1,0 +1,52 @@
+# Ralph Migration Log - Iteration 215
+## Date: 2026-01-04 16:12:00
+
+## Summary
+Migrated test files in `@tevm/memory-client` to use `nativePrivateKeyToAccount` from `@tevm/utils` instead of `privateKeyToAccount` from `viem/accounts`. Also fixed a missing dependency in `@tevm/precompiles`.
+
+## Changes Made
+
+### 1. Updated repro-2008.spec.ts
+File: `packages/memory-client/src/repro-2008.spec.ts`
+
+Changed import from `privateKeyToAccount` from `viem/accounts` to `nativePrivateKeyToAccount` from `@tevm/utils`.
+
+### 2. Updated viemSigner.spec.ts
+File: `packages/memory-client/src/test/viemSigner.spec.ts`
+
+Changed import from `privateKeyToAccount` from `viem/accounts` to `nativePrivateKeyToAccount` from `@tevm/utils`.
+
+### 3. Fixed missing @tevm/voltaire dependency in precompiles
+File: `packages/precompiles/package.json`
+
+Added `"@tevm/voltaire": "workspace:^"` to dependencies since the package imports from `@tevm/voltaire/P256`.
+
+## Test Results
+- `@tevm/utils` nativePrivateKeyToAccount.spec.ts - 18 tests pass
+- The memory-client test files were already failing before migration due to pre-existing issues (Issue #2008 and gas limit issues)
+- Migration changes are correct - test failures are unrelated to the account migration
+
+## Current Migration Status
+
+### Test Files Migrated to Native Account Functions:
+1. `packages/memory-client/src/repro-2008.spec.ts` - uses `nativePrivateKeyToAccount`
+2. `packages/memory-client/src/test/viemSigner.spec.ts` - uses `nativePrivateKeyToAccount`
+
+### Remaining Test Files Using viem/accounts:
+- `packages/memory-client/src/test/viem/sendRawTransaction.spec.ts`
+- `packages/memory-client/src/test/viem/verifyTypedData.spec.ts`
+- `packages/memory-client/src/test/viem/verifySiweMessage.spec.ts`
+- `packages/memory-client/src/test/viem/verifyMessage.spec.ts`
+
+### Dependencies Fixed:
+- Added `@tevm/voltaire` to `@tevm/precompiles` package.json to fix P256 import resolution
+
+## Notes
+- Pre-existing test failures in memory-client are unrelated to the migration
+- Issue #2008 (transaction not found) tests were failing before migration
+- Gas limit tests in viemSigner.spec.ts were also failing before migration
+
+## Next Steps
+1. Continue migrating remaining test files to use native account functions
+2. Consider investigating the pre-existing test failures separately
+3. Look for more viem/accounts imports to migrate

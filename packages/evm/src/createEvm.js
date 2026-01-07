@@ -46,27 +46,22 @@ export const createEvm = async ({
 		customPrecompiles: customPrecompiles?.map((c) => c.address.toString()),
 	})
 	const evm = await Evm.create({
-		common: common.ethjsCommon,
+		common,
 		stateManager,
 		blockchain,
 		allowUnlimitedContractSize: allowUnlimitedContractSize ?? false,
-		allowUnlimitedInitCodeSize: false,
-		customOpcodes: [],
-		// TODO uncomment the mapping once we make the api correct
-		// Edit: nvm not letting this block a stable release maybe update it next major
-		// @warning Always pass in an empty array if no precompiles as `addPrecompile` method assumes it's there
-		customPrecompiles: customPrecompiles ?? [],
-		profiler: {
-			enabled: profiler ?? false,
-		},
+		profiler: profiler ?? false,
+		loggingLevel: loggingLevel ?? 'warn',
 	})
+	// Set DEBUG flag when trace logging is enabled
 	if (loggingLevel === 'trace') {
-		// we are hacking ethereumjs logger into working with our logger
-		const evmAny = /** @type {any} */ (evm)
-		evmAny.DEBUG = true
-		evmAny._debug = logger
+		evm.DEBUG = true
 	}
-	evm.addCustomPrecompile = evm.addCustomPrecompile?.bind(evm) ?? Evm.prototype.addCustomPrecompile.bind(evm)
-	evm.removeCustomPrecompile = evm.removeCustomPrecompile?.bind(evm) ?? Evm.prototype.removeCustomPrecompile.bind(evm)
+	// Add custom precompiles if provided
+	if (customPrecompiles) {
+		for (const precompile of customPrecompiles) {
+			evm.addCustomPrecompile(precompile)
+		}
+	}
 	return evm
 }

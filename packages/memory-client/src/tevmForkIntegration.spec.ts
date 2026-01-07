@@ -1,6 +1,7 @@
 import { optimism } from '@tevm/common'
 import { createCachedOptimismTransport } from '@tevm/test-utils'
-import { type Address, createClient, parseEther } from 'viem'
+import { type Address, parseEther } from '@tevm/utils'
+import { createClient } from './createClient.js'
 import { getBalance, getBlockNumber, getCode, sendTransaction } from 'viem/actions'
 import { describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'

@@ -12,8 +12,8 @@ import {
 	equalsBytes,
 	type Hex,
 	hexToBytes,
-	KECCAK256_RLP,
-	KECCAK256_RLP_ARRAY,
+	KECCAK256_RLP_BYTES,
+	KECCAK256_RLP_ARRAY_BYTES,
 	keccak256,
 	Withdrawal,
 } from '@tevm/utils'
@@ -226,10 +226,11 @@ export class Block {
 			?.map(([index, validatorIndex, address, amount]) => ({
 				index: index,
 				validatorIndex: validatorIndex,
-				address: address,
+				// Convert AddressLike to Uint8Array or string for WithdrawalData compatibility
+				address: typeof address === 'string' ? address : (address as { bytes?: Uint8Array }).bytes ?? address,
 				amount: amount,
 			}))
-			?.map((w) => createWithdrawal(w))
+			?.map((w) => createWithdrawal(w as any))
 
 		let requests: ClRequest[] = []
 		if (header.common.ethjsCommon.isActivatedEIP(7685)) {
@@ -466,7 +467,7 @@ export class Block {
 	async transactionsTrieIsValid(): Promise<boolean> {
 		let result: boolean
 		if (this.transactions.length === 0) {
-			result = equalsBytes(this.header.transactionsTrie, KECCAK256_RLP)
+			result = equalsBytes(this.header.transactionsTrie, KECCAK256_RLP_BYTES)
 			return result
 		}
 
@@ -484,7 +485,7 @@ export class Block {
 
 		let result: boolean
 		if (this.requests?.length === 0) {
-			result = equalsBytes(this.header.requestsRoot as Uint8Array, KECCAK256_RLP)
+			result = equalsBytes(this.header.requestsRoot as Uint8Array, KECCAK256_RLP_BYTES)
 			return result
 		}
 
@@ -669,7 +670,7 @@ export class Block {
 	 */
 	uncleHashIsValid(): boolean {
 		if (this.uncleHeaders.length === 0) {
-			return equalsBytes(KECCAK256_RLP_ARRAY, this.header.uncleHash)
+			return equalsBytes(KECCAK256_RLP_ARRAY_BYTES, this.header.uncleHash)
 		}
 		const uncles = this.uncleHeaders.map((uh) => uh.raw())
 		const raw = Rlp.encode(uncles)
@@ -687,7 +688,7 @@ export class Block {
 
 		let result: boolean
 		if (this.withdrawals?.length === 0) {
-			result = equalsBytes(this.header.withdrawalsRoot as Uint8Array, KECCAK256_RLP)
+			result = equalsBytes(this.header.withdrawalsRoot as Uint8Array, KECCAK256_RLP_BYTES)
 			return result
 		}
 

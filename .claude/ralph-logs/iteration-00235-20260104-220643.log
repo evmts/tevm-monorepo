@@ -1,0 +1,22 @@
+## Summary
+
+In this iteration (289), I created a native `nativeHttp()` transport function that provides a viem-compatible http() transport API using @tevm/voltaire's HttpProvider internally. 
+
+### Key changes:
+1. **Created `packages/utils/src/nativeHttp.js`** - Native HTTP transport implementation
+2. **Created `packages/utils/src/nativeHttp.spec.ts`** - 6 tests for the new transport
+3. **Updated `packages/utils/src/index.ts`** - Exported the new function
+4. **Updated `packages/utils/src/viem.js`** - Added deprecation notice for viem transport exports
+
+### Migration path for users:
+```javascript
+// Before:
+import { http } from 'viem'
+const transport = http('https://mainnet.optimism.io')
+
+// After:
+import { nativeHttp } from '@tevm/utils'
+const transport = nativeHttp('https://mainnet.optimism.io')
+```
+
+All tests pass and types build successfully. This continues the migration strategy of providing native alternatives before deprecating and removing viem dependencies.

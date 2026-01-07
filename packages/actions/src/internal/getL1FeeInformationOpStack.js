@@ -1,6 +1,5 @@
 import { createAddress } from '@tevm/address'
-import { bytesToHex, hexToBytes, parseAbi, serializeTransaction } from '@tevm/utils'
-import { decodeFunctionResult, encodeFunctionData } from 'viem'
+import { bytesToHex, decodeFunctionResult, encodeFunctionData, hexToBytes, parseAbi, serializeTransaction } from '@tevm/utils'
 
 const abi = parseAbi([
 	'function getL1GasUsed(bytes memory _data) public view returns (uint256)',
@@ -16,7 +15,7 @@ const abi = parseAbi([
  */
 export const getL1FeeInformationOpStack = async (data, vm) => {
 	/**
-	 * @type {typeof import('viem/chains').optimism}
+	 * @type {import('@tevm/common').Common}
 	 */
 	const opstackChain = /** @type {any}*/ (vm.common)
 	const serializedTx = serializeTransaction({
@@ -24,7 +23,9 @@ export const getL1FeeInformationOpStack = async (data, vm) => {
 		data: bytesToHex(data ?? new Uint8Array()),
 		type: 'eip1559',
 	})
-	const to = createAddress(opstackChain.contracts.gasPriceOracle.address)
+	const gasPriceOracle = /** @type {{address: string} | undefined} */ (opstackChain.contracts?.['gasPriceOracle'])
+	const gasPriceOracleAddress = gasPriceOracle?.address ?? '0x420000000000000000000000000000000000000F'
+	const to = createAddress(gasPriceOracleAddress)
 	const [l1GasUsed, l1Fee, l1BlobFee, l1BaseFee] = await Promise.all([
 		vm.evm.runCall({
 			to,

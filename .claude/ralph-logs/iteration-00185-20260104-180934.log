@@ -1,0 +1,25 @@
+Good progress has been made! The migration iteration is complete. Here's a summary:
+
+## Iteration 238 Summary
+
+### Changes Made:
+1. **Updated ethSignTransactionHandler.js JSDoc example** - Migrated from deprecated `mnemonicToAccount` to `nativeMnemonicToAccount`
+
+2. **Migrated ethAccountsHandler.spec.ts** - Changed from `privateKeyToAccount` (viem) to `nativePrivateKeyToAccount` (native)
+
+3. **Migrated createMemoryClient.spec.ts** - Changed from `privateKeyToAccount` (viem/accounts) to `nativePrivateKeyToAccount` (native)
+
+4. **Updated ethSignTransactionHandler snapshot** - Updated to reflect new signature from native account implementation
+
+### Test Results:
+- ethAccountsHandler.spec.ts: 3/3 tests passing
+- ethSignTransactionHandler.spec.ts: 2/2 tests passing
+- createMemoryClient.spec.ts: auto-mine test passing (fork test skipped due to missing env vars)
+- utils tests: 607 tests passing
+
+### Remaining Dependencies (Intentional):
+- **viem**: 6 source file imports (transport/client functions for forking + deprecated re-exports)
+- **ethereumjs**: 7 source file imports (common, tx, trie - core VM dependencies)
+
+### Migration Status:
+The core packages (actions, vm, evm, state, node, block, jsonrpc) are now fully migrated to use voltaire for cryptographic primitives. Remaining dependencies are either required for functionality (RPC transport, chain config) or would require major restructuring (Trie, ImpersonatedTx).

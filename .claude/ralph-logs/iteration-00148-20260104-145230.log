@@ -1,0 +1,11 @@
+Commit created successfully:
+
+```
+⚡ refactor(utils): migrate eip7702 keccak_256 to voltaire Keccak256
+```
+
+**Changes committed:**
+- `packages/utils/src/eip7702.js` - Replaced `keccak_256` from `@noble/hashes/sha3.js` with `hash` from `@tevm/voltaire/Keccak256`
+- `.claude/ralph-logs/iteration-00200-20260104-145430.log` - Migration log for iteration 200
+
+All 22 eip7702 tests pass with the new voltaire import.

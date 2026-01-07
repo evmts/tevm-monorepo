@@ -1,10 +1,7 @@
 import { tevmDefault } from '@tevm/common'
 import { type Contract, ErrorContract, SimpleContract } from '@tevm/contract'
-import { createTevmTransport, tevmContract, tevmDeploy, tevmGetAccount, tevmSetAccount } from '@tevm/memory-client'
-import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
-import type { Address, Hex } from 'viem'
-import { createClient, encodeFunctionData, parseEther } from 'viem'
-import { getTransactionReceipt, mine, sendTransaction, writeContract } from 'viem/actions'
+import { createClient, createTevmTransport, tevmContract, tevmDeploy, tevmGetAccount, tevmSetAccount } from '@tevm/memory-client'
+import { type Address, encodeFunctionData, type Hex, parseEther, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { assert, beforeAll, describe, expect, it } from 'vitest'
 
 const client = createClient({
@@ -35,7 +32,7 @@ describe('toBeReverted', () => {
 
 	describe('with a call to a contract that reverts', () => {
 		it('should work with writeContract', async () => {
-			await expect(writeContract(client, errorContract.write.revertWithCustomErrorMultipleParams())).toBeReverted()
+			await expect(client.writeContract(errorContract.write.revertWithCustomErrorMultipleParams())).toBeReverted()
 		})
 
 		it('should work with tevmContract and throwOnFail: true', async () => {
@@ -58,7 +55,7 @@ describe('toBeReverted', () => {
 
 		it('should work with sendTransaction with encoded data', async () => {
 			await expect(
-				sendTransaction(client, {
+				client.sendTransaction({
 					to: errorContract.address,
 					data: encodeFunctionData(errorContract.write.revertWithRequireNoMessage()),
 				}),
@@ -66,27 +63,27 @@ describe('toBeReverted', () => {
 		})
 
 		it('should work with a tx hash', async () => {
-			const txHash = await writeContract(client, {
+			const txHash = await client.writeContract({
 				...errorContract.write.revertWithRequireNoMessage(),
 				gas: BigInt(1e6),
 			})
-			await mine(client, { blocks: 1 })
+			await client.mine({ blocks: 1 })
 			await expect(txHash).toBeReverted(client)
 		})
 
 		it('should work with a tx receipt', async () => {
-			const txHash = await writeContract(client, { ...errorContract.write.revertWithStringError(), gas: BigInt(1e6) })
-			await mine(client, { blocks: 1 })
-			const txReceipt = await getTransactionReceipt(client, { hash: txHash })
+			const txHash = await client.writeContract({ ...errorContract.write.revertWithStringError(), gas: BigInt(1e6) })
+			await client.mine({ blocks: 1 })
+			const txReceipt = await client.getTransactionReceipt({ hash: txHash })
 			await expect(txReceipt).toBeReverted(client)
 		})
 
 		it('should work with a non-function call that reverts', async () => {
-			await expect(sendTransaction(client, { value: parseEther('1'), to: errorContract.address })).toBeReverted()
+			await expect(client.sendTransaction({ value: parseEther('1'), to: errorContract.address })).toBeReverted()
 		})
 
 		it('should work with panic errors', async () => {
-			await expect(writeContract(client, errorContract.write.panicWithArithmeticOverflow())).toBeReverted()
+			await expect(client.writeContract(errorContract.write.panicWithArithmeticOverflow())).toBeReverted()
 		})
 	})
 
@@ -103,7 +100,7 @@ describe('toBeReverted', () => {
 	describe('with a call to a contract that throws a different error', () => {
 		it('should fail if the contract throws an out of gas error', async () => {
 			try {
-				await expect(writeContract(client, errorContract.write.errorOutOfGas())).toBeReverted()
+				await expect(client.writeContract(errorContract.write.errorOutOfGas())).toBeReverted()
 				assert(false, 'should have thrown')
 			} catch (error: any) {
 				expect(error.message).toContain(
@@ -115,7 +112,7 @@ describe('toBeReverted', () => {
 
 		it('should fail if the contract throws an invalid opcode error', async () => {
 			try {
-				await expect(writeContract(client, errorContract.write.errorWithInvalidOpcode())).toBeReverted()
+				await expect(client.writeContract(errorContract.write.errorWithInvalidOpcode())).toBeReverted()
 				assert(false, 'should have thrown')
 			} catch (error: any) {
 				expect(error.message).toContain(
@@ -149,7 +146,7 @@ describe('toBeReverted', () => {
 		it('should fail if the transaction throws an invalid nonce error', async () => {
 			const { nonce } = await tevmGetAccount(client, { address: PREFUNDED_ACCOUNTS[0].address })
 			try {
-				await expect(writeContract(client, { ...simpleContract.write.set(1n), nonce: Number(nonce) + 1 })).toBeReverted(
+				await expect(client.writeContract({ ...simpleContract.write.set(1n), nonce: Number(nonce) + 1 })).toBeReverted(
 					client,
 				)
 				assert(false, 'should have thrown')
@@ -166,7 +163,7 @@ describe('toBeReverted', () => {
 		it('should fail if the transaction throws an insufficient gas error', async () => {
 			try {
 				await expect(
-					writeContract(client, { ...errorContract.write.revertWithCustomErrorSingleParam(), gas: 0n }),
+					client.writeContract({ ...errorContract.write.revertWithCustomErrorSingleParam(), gas: 0n }),
 				).toBeReverted(client)
 				assert(false, 'should have thrown')
 			} catch (error: any) {
@@ -185,7 +182,7 @@ describe('toBeReverted', () => {
 
 		it('should fail if the transaction reverts', async () => {
 			await expect(() =>
-				expect(writeContract(client, errorContract.write.revertWithCustomErrorSingleParam())).not.toBeReverted(client),
+				expect(client.writeContract(errorContract.write.revertWithCustomErrorSingleParam())).not.toBeReverted(client),
 			).rejects.toThrowErrorMatchingInlineSnapshot(`
 				[Error: Expected transaction not to be reverted, but it reverted with:
 

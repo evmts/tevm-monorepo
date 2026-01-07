@@ -1,0 +1,73 @@
+# Ralph Migration Log - Iteration 175
+## Date: 2026-01-04 12:57:00
+
+## Summary
+Assessment and verification iteration. Confirmed that previous migration work is stable and identified remaining migration targets.
+
+## Assessment
+
+### What's Been Done (Previous Iterations):
+1. **@tevm/state**: Migrated `ethereum-cryptography` imports to `@tevm/utils` - created native AccountCache and StorageCache
+2. **@tevm/errors**: Created native EVMError replacing `@ethereumjs/evm` dependency
+3. **@tevm/common**: Created native types (AccountFields, CliqueConfig, ConsensusAlgorithm, ConsensusType, CustomCrypto, EvmStateManagerInterface, StorageDump, StorageRange)
+4. **@tevm/blockchain**: Created native CasperConsensus and Consensus types
+
+### Current Status of Source Files:
+- **@ethereumjs/common**: Still used in `@tevm/common/src/createCommon.js` and `Common.ts` for EthereumJS integration
+- **viem/chains**: Used in all chain presets (intentional - provides chain definitions)
+- **viem/accounts**: Used in `prefundedAccounts.ts` for `privateKeyToAccount` (signer creation)
+- **@ethereumjs/blockchain**: Import removed from `createChain.js`, replaced with native CasperConsensus
+- **@ethereumjs/evm**: Still in use for EVM core functionality (deep integration)
+- **@ethereumjs/vm**: Still in use (Bloom class, etc.)
+
+### Type Build Issues:
+The `@tevm/utils:build:types` task fails due to:
+- voltaire library's dist files (`lib/voltaire/dist/primitives/Abi/index.js`) have implicit `any` types
+- This is because tsup bundling strips JSDoc type annotations
+- The voltaire source has types, but bundled output doesn't
+
+## Tests Run
+```bash
+# State tests - PASS
+pnpm vitest run packages/state/src/createBaseState.spec.ts
+# Result: 4 tests passed
+
+# Checkpoint/revert/commit tests - PASS
+pnpm vitest run packages/state/src/actions/checkpoint.spec.ts packages/state/src/actions/revert.spec.ts packages/state/src/actions/commit.spec.ts
+# Result: 11 tests passed
+
+# Common tests - PASS
+pnpm vitest run packages/common/src/createCommon.spec.ts
+# Result: 10 tests passed, 1 skipped
+
+# Blockchain tests - PARTIAL (RPC issues)
+pnpm vitest run packages/blockchain/src/createChain.spec.ts
+# Result: 5 passed, 5 failed (RPC connectivity - missing TEVM_RPC_URLS_OPTIMISM env var)
+```
+
+## Remaining Migration Work
+
+### Blocked:
+1. **voltaire dist types**: Need to fix voltaire's tsup config to preserve JSDoc annotations in bundled output
+
+### Intentional Dependencies:
+1. **viem/chains**: Chain definitions - these stay as viem provides the canonical chain data
+2. **@ethereumjs/common**: Core EVM configuration - tightly integrated with @ethereumjs/evm
+3. **@ethereumjs/evm**: Core EVM implementation - will be replaced by guillotine-mini in future
+4. **@ethereumjs/vm**: VM layer - depends on ethereumjs/evm
+
+### Could Be Migrated (Low Priority):
+1. **viem/accounts privateKeyToAccount**: Would need voltaire Account abstraction with signing methods
+
+## Files Changed
+None in this iteration (assessment only)
+
+## Status
+- Migration stable
+- Tests passing (except RPC-dependent ones which need env vars)
+- Main blocker: voltaire dist type issues
+
+## Next Steps
+1. Fix voltaire tsup config to preserve JSDoc types OR add separate type declarations
+2. Continue migration of other smaller utilities as voltaire adds more features
+3. Long-term: Replace @ethereumjs/evm with guillotine-mini

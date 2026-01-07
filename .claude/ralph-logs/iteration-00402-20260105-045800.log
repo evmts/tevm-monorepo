@@ -1,0 +1,49 @@
+# Ralph Migration Log - Iteration 402
+## Date: 2026-01-05 04:58
+
+## Summary
+
+Added `ExactPartial` utility type to `@tevm/utils` and migrated 2 files in test-node from viem to @tevm/utils.
+
+## New Types Added to @tevm/utils
+
+### packages/utils/src/utility-types.ts
+- `ExactPartial<T>` - Makes all properties of an object type optional, explicitly allowing undefined
+  - Native replacement for viem's `ExactPartial` type
+  - Definition: `{ [K in keyof T]?: T[K] | undefined }`
+
+### packages/utils/src/index.ts
+- Exported `ExactPartial` from `utility-types.js`
+
+## Files Migrated from viem to @tevm/utils
+
+1. **extensions/test-node/src/internal/normalizeTx.ts**
+   - Changed: `import type { ExactPartial } from 'viem'` → `import { ..., type ExactPartial, ... } from '@tevm/utils'`
+
+2. **extensions/test-node/src/internal/normalizeTx.spec.ts**
+   - Changed: `import type { ExactPartial } from 'viem'` → `import type { ExactPartial, ... } from '@tevm/utils'`
+
+## Test Results
+
+- normalizeTx.spec.ts: 13 tests passed
+
+## Remaining viem Imports in test-node (7 files)
+
+Types NOT yet in @tevm/utils:
+- `RpcUserOperation` (EIP-4337 user operation type)
+- `Account`, `Chain`, `RpcSchema` (viem client types)
+
+Files still using viem:
+1. internal/normalizeUserOperation.ts - `RpcUserOperation`
+2. internal/normalizeUserOperation.spec.ts - `RpcUserOperation`
+3. types.ts - viem client types (Account, Chain, RpcSchema)
+4. createTestSnapshotClient.ts - viem client types
+5. createTestSnapshotTransport.ts - http from viem (JSDoc example)
+6. createTestSnapshotClient.ts - http from viem (JSDoc example)
+7. createTestSnapshotNode.ts - http from viem (JSDoc example)
+
+## Impact
+
+- Reduced viem imports in test-node by 2 files
+- Added ExactPartial utility type to @tevm/utils core library
+- All tests pass

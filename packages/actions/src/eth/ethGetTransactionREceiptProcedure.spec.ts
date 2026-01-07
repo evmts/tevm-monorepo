@@ -1,5 +1,5 @@
 import { createTevmNode } from '@tevm/node'
-import type { Hex } from 'viem'
+import type { Hex } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'

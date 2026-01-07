@@ -22,7 +22,6 @@ import { ResourceNotFoundError } from '../ethereum/ResourceNotFoundError.js'
  * ```javascript
  * import { ForkError } from '@tevm/errors'
  * import { createMemoryClient } from '@tevm/memory-client'
- * import { http } from '@tevm/jsonrpc'
  *
  * const client = createMemoryClient({
  *   fork: {
@@ -31,7 +30,7 @@ import { ResourceNotFoundError } from '../ethereum/ResourceNotFoundError.js'
  * })
  *
  * try {
- *   await client.getBalance('0x...')
+ *   await client.getBalance({ address: '0x...' })
  * } catch (error) {
  *   if (error instanceof ForkError) {
  *     console.error('Fork error:', error.message)

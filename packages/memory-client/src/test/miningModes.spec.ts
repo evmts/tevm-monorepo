@@ -1,6 +1,5 @@
 import type { CallJsonRpcResponse } from '@tevm/actions'
-import { EthjsAddress, hexToBytes } from '@tevm/utils'
-import { toHex } from 'viem'
+import { EthjsAddress, hexToBytes, toHex } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 

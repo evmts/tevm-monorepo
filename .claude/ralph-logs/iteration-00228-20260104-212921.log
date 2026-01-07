@@ -1,0 +1,27 @@
+## Iteration 282 Complete
+
+**Summary**: Added 8 new EVM opcode tests to guillotine-mini WASM integration tests:
+
+| Test | Opcodes Tested | Description |
+|------|----------------|-------------|
+| CALLDATALOAD | `CALLDATALOAD` | Loads 32 bytes from calldata |
+| DUP1 | `DUP1` | Stack duplication |
+| SWAP1 | `SWAP1` | Stack item swapping |
+| MUL/DIV | `MUL`, `DIV` | Multiplication and division |
+| MOD | `MOD` | Modulo operation |
+| Comparison | `LT` | Less-than comparison |
+| Bitwise | `AND` | Bitwise AND operation |
+| Shift | `SHL` | Shift left (EIP-145) |
+
+**Test Results**: 38/39 passed (1 skipped for known WASM bug)
+
+**Migration Status**: Core viem migration remains complete. The guillotine-mini WASM EVM now has comprehensive test coverage for:
+- Arithmetic operations
+- Stack manipulation
+- Comparison operations  
+- Bitwise operations
+- Shift operations (EIP-145)
+- Memory operations
+- Storage operations
+- Control flow (JUMP/JUMPI)
+- Calldata access

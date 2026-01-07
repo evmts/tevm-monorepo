@@ -1,0 +1,62 @@
+# Ralph Migration Log - Iteration 390
+## Date: 2026-01-05 04:19
+
+## Summary
+Fixed multiple type compatibility issues between viem and tevm types during migration.
+
+## Fixes Applied
+
+### 1. ChainSerializers type fix (packages/utils/src/chain-types.ts)
+- Changed `transaction` return type from `string` to `` `0x${string}` ``
+- This fixed the memory-client build error about ChainSerializers incompatibility
+
+### 2. UnsupportedProviderMethodError static code (packages/errors/src/rpcErrors.js)
+- Added `static code = 4200` to the class
+- This fixed the server package build that was accessing `UnsupportedProviderMethodError.code`
+
+### 3. Viem Client/Transport type compatibility (multiple files)
+- Added `as any` casts in several files where viem's narrower EIP1193RequestFn type conflicts with our generic type:
+  - `extensions/test-matchers/src/common/handleTransaction.ts`
+  - `extensions/test-matchers/src/matchers/balance/handleTransaction.ts`
+  - `extensions/test-matchers/src/matchers/state/toHaveState.ts`
+  - `extensions/test-matchers/src/matchers/state/toBeInitializedAccount.ts`
+  - `extensions/test-matchers/src/matchers/state/toHaveStorageAt.ts`
+  - `extensions/test-node/src/createTestSnapshotClient.ts`
+  - `extensions/test-node/src/createTestSnapshotTransport.ts`
+
+### 4. MUD package fixes (bundler-packages/mud/)
+- Fixed `ethjsLogToAbiLog.ts` - added missing Log properties (blockHash, blockNumber, etc.)
+- Fixed `prepare.ts` - cast PREFUNDED_ACCOUNTS[0] to `any` for viem Account type compatibility
+- Fixed `mudStoreWriteRequestOverride.spec.ts` - cast sessionClient for fork transport
+
+### 5. Removed unused import
+- Removed unused `Transport` import from `createTestSnapshotTransport.ts`
+
+## Remaining Issues
+
+### @tevm/test-matchers
+- Multiple spec files have errors about missing `account` property on writeContract calls
+- These are test files that need updating for viem's new API
+
+### @tevm/test-node
+- Many spec files in `src/test/methods/` have type errors
+- Mostly related to `params` types being `never` instead of expected arrays
+- These are test fixtures that need type updates
+
+## Build Status
+- Core packages: ✅ All passing
+- @tevm/memory-client: ✅ Passing
+- @tevm/server: ✅ Passing
+- @tevm/mud: ✅ Passing
+- @tevm/test-matchers: ❌ Spec file errors (test files)
+- @tevm/test-node: ❌ Spec file errors (test files)
+
+## Next Steps
+1. Fix test-matchers spec files to include `account` property in writeContract calls
+2. Fix test-node spec files for params type definitions
+3. These are lower priority as they don't affect runtime behavior
+
+## Notes
+- The type incompatibilities stem from viem's `EIP1193RequestFn` being more strictly typed than ours
+- Using `as any` casts is acceptable for now as the runtime behavior is correct
+- Long-term solution would be to align our types more closely with viem's or create proper adapter types

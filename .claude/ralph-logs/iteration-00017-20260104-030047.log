@@ -1,0 +1,63 @@
+Migration iteration 17 complete.
+
+## Summary
+
+Successfully replaced viem's `getAddress` with a native EIP-55 implementation:
+
+**Changes made:**
+1. Added native `getAddress` function that implements EIP-55 checksum algorithm
+2. Uses our native `keccak256` (migrated in iteration 16) to compute the checksum
+3. Removed `getAddress` from viem/utils re-exports
+4. Added 11 comprehensive tests covering various address formats and edge cases
+
+**Results:**
+- All 196 tests pass with 100% coverage
+- Commit: `3a864fc77`
+- **Remaining viem imports: 20** (down from 21)
+
+**Next candidates for migration:**
+- `toBytes`/`fromBytes` - polymorphic conversion functions
+- `toHex`/`fromHex` - polymorphic conversion functions
+- `toRlp`/`fromRlp` - RLP encoding/decoding
+- ABI encode/decode functions (more complex)
+c conversion functions)  
+- `toRlp`/`fromRlp` (RLP encoding/decoding)
+- ABI encode/decode functions (more complex, may need voltaire integration)
+- `formatLog` (log formatting utility)
+- `serializeTransaction` (transaction serialization)
+- `mnemonicToAccount` (from viem/accounts - may want to keep for now)
+
+## Details
+
+1. Modified `packages/utils/src/viem.js`:
+   - Added `getAddress` function:
+     - Validates address with isAddress
+     - Gets lowercase address without 0x prefix
+     - Hashes lowercase address as UTF-8 string using keccak256
+     - Builds checksummed address: if char is a-f AND hash nibble >= 8, uppercase it
+   - Removed getAddress from viem/utils re-export block
+
+2. Modified `packages/utils/src/viem.spec.ts`:
+   - Added 11 tests for getAddress:
+     - Checksum lowercase address (Vitalik's address)
+     - Checksum uppercase address
+     - Already checksummed address passes through
+     - Zero address (stays all 0s/lowercase)
+     - All-F address (known checksum pattern)
+     - Another known address (ERC20 example)
+     - Invalid address errors (too short, too long, no prefix, invalid chars)
+     - Consistent results
+
+## Tests Passed
+- packages/utils/src/viem.spec.ts (146 tests)
+- All 196 tests in @tevm/utils with 100% coverage
+
+## Remaining viem imports in @tevm/utils/src/viem.js (20 remaining):
+- decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+- encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics
+- encodeFunctionData, encodeFunctionResult, encodePacked
+- formatLog
+- fromBytes, fromHex, fromRlp
+- serializeTransaction
+- toBytes, toHex, toRlp
+- mnemonicToAccount (from viem/accounts)

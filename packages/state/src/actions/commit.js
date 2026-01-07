@@ -1,4 +1,4 @@
-import { keccak256, numberToHex, toHex } from 'viem'
+import { keccak256, numberToHex, toHex } from '@tevm/utils'
 import { dumpCanonicalGenesis } from './dumpCannonicalGenesis.js'
 
 /**

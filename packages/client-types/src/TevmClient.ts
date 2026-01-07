@@ -18,7 +18,7 @@ import type {
 	TevmJsonRpcBulkRequestHandler,
 	TevmJsonRpcRequestHandler,
 } from '@tevm/actions'
-import type { HDAccount } from '@tevm/utils'
+import type { NativeHDAccount } from '@tevm/utils'
 
 /**
  * @deprecated
@@ -61,16 +61,16 @@ export type WalletTevmClient = {
 	 * Derivation path:   m/44'/60'/0'/0/
 	 */
 	accounts: [
-		HDAccount,
-		HDAccount,
-		HDAccount,
-		HDAccount,
-		HDAccount,
-		HDAccount,
-		HDAccount,
-		HDAccount,
-		HDAccount,
-		HDAccount,
+		NativeHDAccount,
+		NativeHDAccount,
+		NativeHDAccount,
+		NativeHDAccount,
+		NativeHDAccount,
+		NativeHDAccount,
+		NativeHDAccount,
+		NativeHDAccount,
+		NativeHDAccount,
+		NativeHDAccount,
 	]
 }
 

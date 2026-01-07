@@ -1,0 +1,28 @@
+Migration Phase 1 is complete. Here's a summary:
+
+## Migration Status Summary
+
+**Core packages are fully migrated** - No viem or ethereumjs imports in:
+- `@tevm/actions`
+- `@tevm/vm`
+- `@tevm/evm`
+- `@tevm/state`
+- `@tevm/node`
+- `@tevm/block`
+- `@tevm/jsonrpc`
+
+**Completed migrations:**
+- Cryptographic primitives → `@tevm/voltaire` (Keccak256, Secp256k1, P256)
+- Account implementations → native (`nativePrivateKeyToAccount`, `nativeMnemonicToAccount`, `nativeHdAccount`)
+- Test accounts → native implementations
+- `noble-curves` → removed from direct imports
+
+**Intentional remaining dependencies:**
+- `packages/memory-client` - viem integration layer (by design)
+- Transport functions in `viem.js` - required for RPC forking
+- `@ethereumjs/common`, `@ethereumjs/tx`, `@ethereumjs/trie` - core data structures with no voltaire equivalent
+
+**Blockers for future work:**
+1. Guillotine-mini WASM build has hash mismatch issues in `build.zig.zon`
+2. `parseAbi` requires complex human-readable ABI parser implementation
+3. Voltaire HDWallet FFI bundling issue prevents `@scure/bip39`, `@scure/bip32` consolidation

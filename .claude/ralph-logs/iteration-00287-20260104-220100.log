@@ -1,0 +1,63 @@
+# Ralph Migration Log - Iteration 287
+## Date: 2026-01-04 22:01
+
+## Summary
+Created native `createForkRpcClient` adapter that provides viem-compatible API (getBytecode, getStorageAt, getProof) without requiring viem as a dependency.
+
+## Changes Made
+
+### New Files:
+1. `packages/utils/src/createForkRpcClient.js` - Native fork RPC client implementation
+   - Wraps any EIP-1193 compliant `request()` function
+   - Provides `getBytecode()`, `getStorageAt()`, `getProof()` methods
+   - Compatible with voltaire's HttpProvider
+
+2. `packages/utils/src/createForkRpcClient.spec.ts` - Comprehensive test suite (9 tests)
+   - Tests all three methods (getBytecode, getStorageAt, getProof)
+   - Tests block parameter handling (blockNumber, blockTag, default)
+   - Tests response formatting and edge cases
+
+3. `packages/utils/src/fork-rpc-types.ts` - TypeScript types
+   - `ForkRpcClient` - Client interface type
+   - `ProofResult` - eth_getProof result type
+   - `StorageProofEntry` - Individual storage proof entry type
+
+### Modified Files:
+1. `packages/utils/src/index.ts` - Added exports:
+   - `createForkRpcClient` function
+   - `ForkRpcClient`, `ProofResult`, `StorageProofEntry` types
+
+## Test Results
+- createForkRpcClient.spec.ts: 9 tests passed
+- viem.spec.ts: 253 tests passed
+- Typecheck: Passed
+
+## Purpose
+
+This adapter is a stepping stone for migrating `@tevm/state` fork client from viem to voltaire.
+
+Current state fork client uses:
+```javascript
+import { createPublicClient, createTransport } from '@tevm/utils'
+// then uses client.getBytecode(), client.getStorageAt(), client.getProof()
+```
+
+With this adapter, migration path is:
+```javascript
+import { createForkRpcClient } from '@tevm/utils'
+// with voltaire HttpProvider:
+// const client = createForkRpcClient(new HttpProvider(url))
+```
+
+## Next Steps
+
+The actual migration of `@tevm/state` to use `createForkRpcClient`:
+1. Modify `getForkClient.js` to use `createForkRpcClient` instead of viem's `createPublicClient`
+2. This would allow removing `createPublicClient`, `createTransport` viem exports
+3. Test with actual forked state operations
+
+## Migration Status
+- Core packages (actions, vm, evm, state, node): viem-free for execution path
+- @tevm/utils: viem used only for transport functions (now replaceable with native adapter)
+- @tevm/memory-client: viem integration layer (expected to keep viem)
+- @ethereumjs deps: Still present in common, trie, tx packages

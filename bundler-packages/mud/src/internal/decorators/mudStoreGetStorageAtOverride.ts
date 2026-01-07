@@ -1,8 +1,7 @@
 import { type Table } from '@latticexyz/config'
 import { getRecords, type State } from '@latticexyz/stash/internal'
 import type { Logger } from '@tevm/logger'
-import type { Address, Hex } from '@tevm/utils'
-import { type EIP1193RequestFn } from 'viem'
+import type { Address, EIP1193RequestFn, Hex } from '@tevm/utils'
 import { FieldLayout } from '../FieldLayout.js'
 
 const getTablesWithRecords = async (getState: () => State, logger: Logger) => {
@@ -33,7 +32,6 @@ export const mudStoreGetStorageAtOverride =
 		}
 
 		const originalRequest = transport.request
-		// @ts-expect-error - Type 'unknown' is not assignable to type '_returnType'.
 		return async function interceptedRequest(requestArgs: any, options: any): ReturnType<EIP1193RequestFn> {
 			if (
 				requestArgs.method !== 'eth_getStorageAt' ||

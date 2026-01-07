@@ -1,0 +1,18 @@
+The migration is complete. Let me summarize what was accomplished:
+
+## Iteration 212 Summary
+
+**Migrated `prefundedAccounts.ts` from viem to native implementation**
+
+### Changes Made:
+- Updated `packages/utils/src/prefundedAccounts.ts` to use `nativePrivateKeyToAccount` instead of viem's `privateKeyToAccount`
+- Changed type from `PrivateKeyAccount` (viem) to `NativePrivateKeyAccount` (native)
+
+### Test Results:
+- `prefundedAccounts.spec.ts` - 1 test passes, verifying all 10 prefunded accounts have correct addresses
+
+### Migration Status:
+The core runtime packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node) have no direct viem imports. The remaining viem dependencies are:
+1. **Backward compatibility re-exports** in `@tevm/utils/viem.js` (`mnemonicToAccount`, `privateKeyToAccount`)
+2. **Transport/client functions** for forking (`createPublicClient`, `http`, etc.)
+3. **@tevm/memory-client** - heavily uses viem for the client layer (expected, as it's a viem integration layer)

@@ -1,9 +1,9 @@
 import { optimism } from '@tevm/common'
 import { ERC20, SimpleContract } from '@tevm/contract'
 import { createCachedOptimismTransport } from '@tevm/test-utils'
-import { EthjsAddress, hexToBytes } from '@tevm/utils'
-import { encodeDeployData, testActions } from 'viem'
+import { EthjsAddress, encodeDeployData, hexToBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
+import { testActions } from '../createClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 import { DaiContract } from './DaiContract.sol.js'
 

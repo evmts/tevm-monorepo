@@ -1,10 +1,10 @@
-import { stringToHex } from 'viem'
+import { stringToHex } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import type { EthProtocolVersionJsonRpcRequest } from './EthJsonRpcRequest.js'
 import { ethProtocolVersionJsonRpcProcedure } from './ethProtocolVersionProcedure.js'
 
-// Mock viem's stringToHex function
-vi.mock('viem', () => ({
+// Mock @tevm/utils's stringToHex function
+vi.mock('@tevm/utils', () => ({
 	stringToHex: vi.fn((str) => `0x${Buffer.from(str).toString('hex')}`),
 }))
 

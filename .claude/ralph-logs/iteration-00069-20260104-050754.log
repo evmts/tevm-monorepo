@@ -1,0 +1,40 @@
+# Ralph Migration Iteration
+
+**Date**: 2026-01-04
+**Files migrated**: 2 files + 1 package.json update
+
+## Changes Made
+
+1. **packages/utils/src/viem.js**
+   - Added `webSocket` export from viem
+   - Committed: 4efb2f4fb
+
+2. **packages/utils/src/index.ts**
+   - Added `webSocket` to the exports list
+   - Committed: 4efb2f4fb
+
+3. **packages/jsonrpc/src/index.ts**
+   - Replaced `export { http, webSocket } from 'viem'`
+   - With `export { http, webSocket } from '@tevm/utils'`
+   - Committed: 4efb2f4fb
+
+4. **packages/jsonrpc/package.json**
+   - Added `@tevm/utils` as workspace dependency
+   - Committed: 4efb2f4fb
+
+## Tests
+- TypeScript checks passed for both @tevm/utils and @tevm/jsonrpc
+- All 7 tests passed for @tevm/jsonrpc
+
+## Status
+- Committed: 4efb2f4fb
+
+## Remaining viem imports in core packages:
+- packages/errors/src/requestErrors.ts - RPC error classes (viem-specific)
+- packages/common/src/presets/tevmDefault.js - defineChain, viem/chains
+- packages/utils/src/prefundedAccounts.ts - viem/accounts (internal to @tevm/utils)
+- Various memory-client files - viem client types
+
+## Notes
+- The jsonrpc package now uses @tevm/utils instead of direct viem imports for http/webSocket
+- The webSocket transport function is now available via @tevm/utils

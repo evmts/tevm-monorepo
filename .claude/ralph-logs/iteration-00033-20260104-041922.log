@@ -1,0 +1,19 @@
+## Migration Iteration 47 Complete
+
+Successfully migrated `contractHandler.js` from viem to @tevm/utils:
+
+**Changes made:**
+1. Added `getContractError` and `RawContractError` re-exports to `@tevm/utils`
+2. Updated `packages/actions/src/Contract/contractHandler.js` to import from `@tevm/utils` instead of `viem`
+
+**Commit:** `01fcd5393` - refactor(actions): replace viem getContractError/RawContractError with @tevm/utils
+
+**Pre-existing issues (unrelated to this migration):**
+- Tests fail due to "storageRoot must have a length of 32" in state manager
+- TypeScript errors are pre-existing
+
+**Remaining viem imports in core packages:**
+- JSDoc examples (documentation only) in multiple TypeScript files
+- Actual imports in `packages/state/src/`:
+  - `ForkOptions.ts`: Type imports for `EIP1193RequestFn`, `Transport`
+  - `getForkClient.js`: `createPublicClient`, `createTransport`

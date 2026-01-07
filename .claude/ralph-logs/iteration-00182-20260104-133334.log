@@ -1,0 +1,78 @@
+# Ralph Migration Log - Iteration 182
+## Date: 2026-01-04 13:33:34
+
+## Summary
+Migrated `GetEventArgs` and `CreateEventFilterParameters` types from viem to native implementations in @tevm/utils.
+
+## Changes Made
+
+### 1. Added native event types in `packages/utils/src/contract-types.ts`
+Added comprehensive native implementations for event-related types:
+
+**New types:**
+- `ContractEventName<TAbi>`: Extracts event names from an ABI (bonus addition)
+- `GetEventArgs<TAbi, TEventName, TConfig>`: Native replacement for viem's GetEventArgs
+  - Extracts indexed input parameter types for a specific event from an ABI
+  - Supports configuration options (EnableUnion, IndexedOnly, Required)
+  - Handles named vs unnamed parameters (object vs tuple returns)
+- `CreateEventFilterParameters<TAbiEvent, TAbiEvents, TStrict, TFromBlock, TToBlock, TEventName, TArgs>`: Native replacement for viem's CreateEventFilterParameters
+  - Provides type signature for creating event filters
+  - Supports address, block range (fromBlock/toBlock), and event argument filtering
+  - Handles strict mode and multiple event/events configurations
+
+**Helper types added:**
+- `MaybeExtractEventArgsFromAbi`: Handles undefined cases for event extraction
+- `MaybeAbiEventName`: Extracts event name from AbiEvent, handling undefined
+- `FilterByPattern`: Filters array types matching a pattern
+- `HasUnnamedParameter`: Checks for empty/missing parameter names
+- `EventParameterOptions` / `DefaultEventParameterOptions`: Configuration types
+- `AbiEventParametersToPrimitiveTypes`: Complex recursive type for event parameter conversion
+- `AbiEventParameterToPrimitiveType`: Single parameter conversion
+- `LogTopic` / `LogTopicType`: Log topic type utilities
+- `ExactRequired` / `MaybeRequired`: Conditional required properties
+
+### 2. Updated `packages/utils/src/abitype.ts`
+- Moved `GetEventArgs` and `CreateEventFilterParameters` from viem import to native contract-types.js import
+- Reduced viem type imports from 4 to 2 (Account, HDAccount remain)
+
+## Tests Verified
+- `packages/contract/src/createContract.spec.ts` - 14 passed
+- `packages/contract/src/event/eventFactory.spec.ts` - 3 passed
+- `packages/actions/src/Contract/validateContractParams.spec.ts` - 12 passed
+- Type checking passes for contract-types.ts and EventActionCreator.ts
+
+## Migration Progress
+
+### viem types still imported from abitype.ts (2 remaining):
+- Account (complex type with signing methods)
+- HDAccount (complex type with HD derivation methods)
+
+### Native types now complete:
+- ContractFunctionName ✅
+- ContractFunctionArgs ✅
+- ContractFunctionReturnType ✅
+- ContractConstructorArgs ✅
+- EncodeFunctionDataParameters ✅
+- EncodeDeployDataParameters ✅
+- DecodeFunctionResultReturnType ✅
+- **GetEventArgs ✅ (NEW)**
+- **CreateEventFilterParameters ✅ (NEW)**
+- ContractEventName ✅ (NEW - bonus)
+
+## Next Steps
+1. Account and HDAccount types are complex viem types with signing infrastructure - likely won't be migrated
+2. Continue looking at other packages for viem imports to migrate
+3. Consider focusing on viem runtime function replacements in viem.js
+
+## Files Changed
+- packages/utils/src/contract-types.ts (added ~350 lines of event types)
+- packages/utils/src/abitype.ts (updated imports)
+
+## Technical Notes
+The event types required implementing several complex TypeScript patterns:
+- Recursive tuple filtering by pattern
+- Parameter name detection for unnamed parameter handling
+- Conditional type unions for object vs array returns
+- Complex generic parameter threading through nested types
+
+The implementation closely follows viem's type semantics to ensure compatibility with existing EventActionCreator usage in @tevm/contract.

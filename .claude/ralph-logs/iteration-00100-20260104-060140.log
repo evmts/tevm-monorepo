@@ -1,0 +1,77 @@
+# Ralph Migration Iteration 100 - ABI Migration Investigation
+
+## Assessment
+
+Investigated migrating ABI encoding/decoding functions from viem/utils to native @tevm/voltaire implementations.
+
+## Target
+
+ABI encoding/decoding functions in packages/utils/src/viem.js:
+- decodeAbiParameters
+- encodeAbiParameters
+- encodeFunctionData
+- decodeFunctionData
+- decodeFunctionResult
+
+## Investigation
+
+Voltaire has comprehensive ABI encoding/decoding functionality in:
+- `lib/voltaire/src/primitives/Abi/Encoding.js` - encodeParameters/decodeParameters
+- `lib/voltaire/src/primitives/Abi/function/` - encodeParams/decodeResult/getSelector
+
+However, voltaire's build is currently broken:
+```
+✘ [ERROR] Could not resolve "./types/index.js"
+    src/jsonrpc/index.ts:25:23: ERROR: Could not resolve "./types/index.js"
+```
+
+## Attempted Changes
+
+Implemented native wrappers that matched viem's API but had to revert due to voltaire import issues:
+1. Native decodeAbiParameters using voltaire's decodeParameters
+2. Native encodeAbiParameters using voltaire's encodeParameters
+3. Native encodeFunctionData using voltaire's Function.encodeParams
+4. Native decodeFunctionResult using voltaire's Function.decodeResult
+5. Native decodeFunctionData using voltaire's Function.decodeParams + getSelector
+
+## Outcome
+
+**REVERTED** - Kept viem/utils imports but added TODO comment for future migration:
+```javascript
+// TODO(voltaire): Migrate these to @tevm/voltaire once it's fully integrated and buildable
+```
+
+## Test Results
+
+- @tevm/utils tests pass: 303 passed, 1 skipped
+
+## Blocker
+
+@tevm/voltaire build is broken due to missing `./types/index.js` in jsonrpc module. Once this is fixed, the ABI functions can be migrated.
+
+## Next Steps
+
+1. Fix voltaire's build issue (missing types/index.js in jsonrpc)
+2. Once voltaire builds, implement the native ABI wrappers
+3. Consider adding @tevm/voltaire as a workspace dependency to @tevm/utils
+
+## Migration Status Summary
+
+**MILESTONE: Core packages are viem-free!**
+
+The core runtime packages (actions, vm, evm, state, node, common, blockchain, precompiles, jsonrpc, http-client) have NO direct viem imports.
+
+The remaining viem dependencies are confined to:
+
+1. **@tevm/utils** (intentional re-export layer):
+   - viem/utils - ABI encoding/decoding functions (TODO: migrate to voltaire)
+   - viem - Error handling (getContractError, RawContractError)
+   - viem - Transport/client functions for fork support
+   - viem/accounts - mnemonicToAccount, privateKeyToAccount
+
+2. **@tevm/errors** (1 import):
+   - viem - RPC error classes (InternalRpcError, InvalidInputRpcError, etc.)
+
+3. **@tevm/memory-client** (intentional viem integration):
+   - This package IS the viem integration layer and should continue using viem
+   - All JSDoc examples show how to use tevm with viem's createClient

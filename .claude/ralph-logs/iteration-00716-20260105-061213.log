@@ -1,0 +1,67 @@
+# Ralph Migration Log - Iteration 424
+## Date: 2026-01-05
+
+## Task: Migration Status Assessment
+
+## Migration Status Summary
+
+### ✅ FULLY MIGRATED - Core Packages
+- @tevm/actions: 0 viem imports
+- @tevm/vm: 0 viem imports
+- @tevm/evm: 0 viem imports  
+- @tevm/state: 0 viem imports
+- @tevm/node: 0 viem imports
+
+### 📌 INTENTIONAL viem Dependencies
+
+#### packages/memory-client
+- Designed as a viem client wrapper
+- Must use viem types (Client, PublicActions, WalletActions, etc.)
+
+#### packages/utils/src/viem.js
+- Intentional re-export layer for viem types
+- Enables downstream packages to import from @tevm/utils instead of viem
+
+#### extensions/viem
+- Viem extension - designed to integrate with viem
+- Utility functions (decodeFunctionResult, etc.) migrated to @tevm/utils
+- Type imports (Chain, Account, Transport) must stay as viem for API compatibility
+
+#### extensions/test-matchers
+- Uses `Client` type intentionally for API (`Client | TevmNode`)
+- Allows users to pass either viem Client or TevmNode
+- 21 files with Client type - all by design
+
+#### extensions/test-node
+- 3 files with viem in comments/docs only (not actual imports)
+
+#### bundler-packages/mud
+- Uses viem Client type for API compatibility
+- EIP1193RequestFn must be from viem (schema incompatibility with @tevm/utils)
+- Chain, Transport, WriteContractParameters - viem-specific types needed
+
+#### bundler-packages/whatsabi
+- Uses viem createClient and http for RPC calls
+- Intentional dependency for the whatsabi integration
+
+## Session Accomplishments
+1. Migrated `Address` type in mud/types.ts
+2. Migrated utility functions in viem extension (decodeFunctionResult, encodeFunctionData, hexToBigInt, numberToHex)
+3. Confirmed core packages are fully migrated
+4. Documented intentional viem dependencies
+
+## Key Findings
+1. **Core packages are complete** - No viem imports in actions, vm, evm, state, node
+2. **Chain type incompatibility** - @tevm/utils Chain has different EIP1193RequestFn schema than viem's Chain
+3. **API compatibility requirements** - Extensions that integrate with viem must use viem types
+
+## Migration Complete for Core Packages
+The primary goal of removing viem from core packages (actions, vm, evm, state, node) has been achieved.
+Remaining viem imports are intentional for:
+- API compatibility with viem ecosystem
+- Package-specific requirements (memory-client, viem extension)
+
+## Next Areas for Potential Work
+1. Continue chain preset migrations (ongoing)
+2. Document migration blockers/intentional dependencies
+3. Investigate if EIP1193RequestFn can be unified

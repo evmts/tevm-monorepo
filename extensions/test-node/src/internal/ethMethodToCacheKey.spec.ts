@@ -1,4 +1,4 @@
-import type { EIP1193Parameters, EIP1474Methods } from 'viem'
+import type { EIP1193Parameters, EIP1474Methods } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { ethMethodToCacheKey } from './ethMethodToCacheKey.js'
 

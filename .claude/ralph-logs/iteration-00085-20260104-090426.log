@@ -1,0 +1,28 @@
+## Summary - Iteration 130 Complete
+
+I successfully removed the `@ethereumjs/evm` dependency from `@tevm/utils` by:
+
+1. **Created native `EthjsLog` type** (`packages/utils/src/EthjsLog.ts`):
+   - Simple tuple type: `[address: Uint8Array, topics: Uint8Array[], data: Uint8Array]`
+   - Matches the original type from `@ethereumjs/evm`
+
+2. **Updated `packages/utils/src/index.ts`**:
+   - Changed from importing `Log as EthjsLog` from `@ethereumjs/evm`
+   - Now exports native `EthjsLog` from `./EthjsLog.js`
+
+3. **Removed dependency from `packages/utils/package.json`**:
+   - Removed `"@ethereumjs/evm": "^10.0.0"`
+
+4. **Updated test snapshot** (`packages/precompiles/src/logToEthjsLog.spec.ts`):
+   - Updated inline snapshot for error message format
+
+### Key Achievement
+Combined with iteration 129, **@tevm/utils now has ZERO @ethereumjs/* dependencies**. The package only depends on:
+- `@noble/curves` and `@noble/hashes` for cryptography
+- `@tevm/errors` and `@tevm/voltaire` (internal)
+- `abitype` for TypeScript ABI types
+- `viem` as a peer dependency (for fork client types)
+
+### Remaining Migration Work
+- 148 files still have `from 'viem'` imports
+- 102 files still have `from '@ethereumjs'` imports (in other packages)

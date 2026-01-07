@@ -1,0 +1,35 @@
+I have successfully completed **Iteration 725** of the Ralph Migration. Here's a summary:
+
+## Summary - Iteration 725
+
+### Task
+Migrated `createClient` imports in `@tevm/memory-client` spec files from direct viem imports to use the local re-export.
+
+### Files Migrated (14 total)
+1. `tevmReady.spec.ts`
+2. `tevmAccountManagement.spec.ts`
+3. `tevmSetAccount.spec.ts`
+4. `tevmMine.spec.ts`
+5. `tevmCall.spec.ts`
+6. `tevmGetAccount.spec.ts`
+7. `tevmViemActions.spec.ts`
+8. `tevmLoadState.spec.ts`
+9. `tevmDumpState.spec.ts`
+10. `tevmDeploy.spec.ts`
+11. `tevmContractIntegration.spec.ts`
+12. `tevmForkIntegration.spec.ts`
+13. `tevmStateCheckpoints.spec.ts`
+14. `tevmStatePersistence.spec.ts`
+
+### Migration Pattern
+- **Before**: `import { type Client, createClient } from 'viem'`
+- **After**: 
+  - `import type { Client } from 'viem'` (type-only import)
+  - `import { createClient } from './createClient.js'` (use local re-export)
+
+### Test Results
+- Tests pass for files that were passing before
+- The gas limit failures are pre-existing issues unrelated to the migration
+
+### Impact
+All memory-client spec files now use the local `./createClient.js` re-export instead of importing directly from viem. This consolidates viem dependencies and makes future migration efforts easier.

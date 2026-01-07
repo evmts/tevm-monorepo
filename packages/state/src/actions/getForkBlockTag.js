@@ -1,7 +1,7 @@
 /**
  * If this does not exist an empty `Uint8Array` is returned.
  * @param {import("../BaseState.js").BaseState} baseState
- * @returns {undefined | {blockTag: import("viem").BlockTag} | { blockNumber: bigint}}
+ * @returns {undefined | {blockTag: import("@tevm/utils").BlockTag} | { blockNumber: bigint}}
  */
 export const getForkBlockTag = ({ options: { fork } }) => {
 	if (!fork) {

@@ -1,0 +1,9 @@
+Successfully migrated 5 more chain presets from viem/chains to nativeDefineChain:
+
+1. **oortMainnetDev.js** - OORT MainnetDev (id: 9700)
+2. **opBNB.js** - opBNB mainnet (id: 204) with extensive L2 contracts
+3. **opBNBTestnet.js** - opBNB Testnet (id: 5611)
+4. **optimismGoerli.js** - Optimism Goerli (id: 420) 
+5. **otimDevnet.js** - Otim Devnet (id: 41144114)
+
+**Progress**: 108 chain presets remaining (~32% of 335 total). Tests passing.

@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import type { EIP1193Parameters, EIP1193RequestFn, EIP1474Methods } from 'viem'
+import type { EIP1193Parameters, EIP1193RequestFn, EIP1474Methods } from '@tevm/utils'
 import { assert } from 'vitest'
 import { resolveVitestTestSnapshotPath } from '../internal/resolveVitestTestSnapshotPath.js'
 

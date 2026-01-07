@@ -1,0 +1,60 @@
+# Ralph Migration Log - Iteration 261
+## Date: 2026-01-04 20:14:55
+
+## Summary
+Attempted migration of `nativeHdAccount.js` from `@scure/bip39` and `@scure/bip32` to `@tevm/voltaire` - BLOCKED and reverted due to voltaire build issue.
+
+## Actions Taken
+1. Identified `nativeHdAccount.js` as a migration candidate
+2. Found that voltaire exports `Bip39` and `HDWallet` modules with equivalent functionality
+3. Attempted migration:
+   - Changed imports from `@scure/bip39` and `@scure/bip32` to `@tevm/voltaire/Bip39` and `@tevm/voltaire/HDWallet`
+   - Updated API calls: `validateMnemonic` → `Bip39.validateMnemonic`, `HDKey.fromMasterSeed` → `HDWallet.fromSeed`, etc.
+4. Tests failed with `ref-napi` native build error
+
+## Blocker Discovered
+The voltaire bundled output (`lib/voltaire/dist/crypto/HDWallet/index.js`) has `ffi-napi` and `ref-napi` at the top level:
+
+```javascript
+import ffi from 'ffi-napi';
+import ref from 'ref-napi';
+```
+
+These should be dynamic imports (as they are in the source code), but tsup appears to have inlined them during bundling. This causes any import of `@tevm/voltaire/HDWallet` to fail in Node.js environments without native build support.
+
+## Resolution
+Reverted changes to `nativeHdAccount.js` - it continues to use:
+- `@scure/bip39` for mnemonic validation and seed derivation
+- `@scure/bip32` for HD key derivation
+
+This works correctly and passes all 13 tests.
+
+## Voltaire Build Issue
+**Problem**: The `lib/voltaire/dist/crypto/HDWallet/index.js` bundle has FFI imports at top level instead of as dynamic imports.
+
+**Root Cause**: tsup is inlining `await import('./ffi.js')` as a static import.
+
+**Fix Required**: Voltaire's build config needs to be updated to:
+1. Keep dynamic imports as dynamic in the bundle, OR
+2. Externalize `ffi-napi` and `ref-napi`, OR
+3. Use separate entry points for FFI-dependent vs pure-JS functionality
+
+## Remaining viem/ethereumjs Dependencies
+
+### Intentionally Retained (no action needed)
+1. **Transport/client functions** in `@tevm/utils/viem.js` - Required for RPC/forking
+2. **@ethereumjs/tx** - Required for VM transaction handling
+3. **@ethereumjs/common** - Required for chain configuration
+4. **@ethereumjs/trie** - Required for Merkle Patricia Trie
+5. **Deprecated exports** (`mnemonicToAccount`, `privateKeyToAccount`) - Backward compatibility
+
+### Blocked Migrations
+1. **nativeHdAccount.js** `@scure/bip39` + `@scure/bip32` → `@tevm/voltaire` - Blocked by voltaire FFI build issue
+
+## Test Results
+- `nativeHdAccount.spec.ts`: 13 passed after revert
+
+## Next Steps
+1. File issue for voltaire FFI bundling problem
+2. Once fixed, retry `nativeHdAccount.js` migration
+3. Consider migrating `nativeMnemonicToAccount.js` (has same `@scure` dependencies)

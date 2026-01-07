@@ -1,0 +1,21 @@
+The migration is in a stable and well-tested state. The remaining dependencies are:
+
+**Viem dependencies (intentionally kept):**
+- Client/transport types (`createPublicClient`, `http`, `webSocket`, etc.) - needed for fork functionality
+- `Account`, `HDAccount` types - needed for viem client compatibility in memory-client
+- `parseAbi` from abitype - complex human-readable ABI parser
+
+**Ethereumjs dependencies (complex to migrate):**
+- `@ethereumjs/tx` - Full transaction class with methods (hash, serialize, sign, etc.)
+- `@ethereumjs/common` - Chain configuration and hardfork logic
+- `@ethereumjs/trie` - Merkle Patricia Trie implementation
+
+All these remaining dependencies are either:
+1. Complex to implement (transaction class, trie)
+2. Required for core viem compatibility (client types)
+3. Used as re-exports that don't affect the core runtime
+
+The current iteration (255) confirms all tests are passing and the migration is stable. Future migration efforts should focus on:
+1. Creating a voltaire-based transaction wrapper if needed
+2. Implementing chain configuration natively
+3. Potentially using voltaire's provider module for fork transport

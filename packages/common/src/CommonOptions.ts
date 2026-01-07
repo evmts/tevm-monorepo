@@ -1,6 +1,6 @@
-import type { CustomCrypto } from '@ethereumjs/common'
 import type { LogOptions } from '@tevm/logger'
-import type { Chain as ViemChain } from 'viem/chains'
+import type { Chain as NativeChain } from '@tevm/utils'
+import type { CustomCrypto } from './CustomCrypto.js'
 import type { Hardfork } from './Hardfork.js'
 
 /**
@@ -35,7 +35,7 @@ import type { Hardfork } from './Hardfork.js'
  *
  * @see [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
  */
-export type CommonOptions = ViemChain & {
+export type CommonOptions = NativeChain & {
 	/**
 	 * Hardfork to use. Defaults to `prague`
 	 * @default 'prague'

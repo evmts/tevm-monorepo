@@ -1,0 +1,23 @@
+Now let me summarize the status and look for the next migration opportunity. The overall migration is in excellent shape:
+
+**Summary of Iteration 755-756:**
+
+1. **Comprehensive audit completed**: Core packages (actions, vm, evm, state, node, block, blockchain, precompiles, decorators, client-types, rlp, test-matchers, test-node) are fully migrated from viem imports.
+
+2. **Voltaire integration is extensive**:
+   - @tevm/rlp uses @tevm/voltaire/Rlp
+   - @tevm/utils uses voltaire for Keccak256, Abi encoding/decoding, Secp256k1, EIP712, Address, Hash, Hex, P256
+   - @tevm/precompiles uses @tevm/voltaire/P256
+   - Over 20+ imports from voltaire in utils source files
+
+3. **Remaining intentional viem dependencies**:
+   - @tevm/memory-client (viem integration layer)
+   - @tevm/utils (re-exports viem with native alternatives)
+   - extensions/viem (by design)
+   - bundler-packages/mud, whatsabi (integration layers)
+
+4. **Remaining @ethereumjs dependencies**:
+   - @tevm/tx - Uses @ethereumjs/tx for transaction types
+   - @tevm/common - Uses @ethereumjs/common for chain config
+
+5. **Attempted voltaire HDWallet migration**: Discovered FFI dependency issue in voltaire's module structure. Documented the issue and recommendation for module restructuring.

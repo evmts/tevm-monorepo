@@ -1,0 +1,58 @@
+# Ralph Iteration 161 - 2026-01-04
+
+## Summary
+Fixed multiple test failures in @tevm/actions createHandlers.spec.ts - all 15 tests now pass.
+
+## Changes Made
+
+### 1. Fixed journal.putAccount in Evm.js
+- **File**: packages/evm/src/Evm.js
+- **Issue**: journal.putAccount was a no-op stub
+- **Fix**: Implemented journal.putAccount and journal.deleteAccount to delegate to stateManager
+- Added _evm reference for journal methods to access stateManager
+
+### 2. Added precompiles Map to Evm class
+- **File**: packages/evm/src/Evm.js
+- **Issue**: warmAddresses2929 was calling vm.evm.precompiles.entries() on undefined
+- **Fix**: Added `precompiles = new Map()` field to Evm class
+
+### 3. Fixed withdrawalsRoot default in BlockHeader
+- **File**: packages/block/src/header.ts
+- **Issue**: Default withdrawalsRoot was using hex string (KECCAK256_RLP) instead of bytes
+- **Fix**: Changed to KECCAK256_RLP_BYTES for withdrawalsRoot and requestsRoot defaults
+
+### 4. Added setters to Account class
+- **File**: packages/utils/src/account-class.js
+- **Issue**: Account class was immutable with only getters
+- **Fix**: Added setters for `nonce` and `balance` properties
+
+### 5. Fixed maxRefundQuotient param configuration
+- **File**: packages/common/src/createCommon.js
+- **Issue**: param('maxRefundQuotient') returned undefined
+- **Fix**: Added EIP 1 and EIP 3529 params with maxRefundQuotient values
+- Added EIP 3529 to the default eips list
+
+### 6. Fixed setAccountHandler race condition
+- **File**: packages/actions/src/SetAccount/setAccountHandler.js
+- **Issue**: putAccount and putStorage were running in parallel via Promise.allSettled
+- **Fix**: Changed to await putAccount first before adding storage operations
+
+## Test Results
+- All 15 tests in createHandlers.spec.ts now pass:
+  - eth_chainId ✓
+  - eth_call ✓
+  - eth_getBalance ✓
+  - tevm_getAccount ✓
+  - eth_estimateGas ✓
+  - tevm_mine ✓
+  - tevm_contract ✓
+  - eth_mining ✓
+  - eth_syncing ✓
+  - evm_increaseTime (2 tests) ✓
+  - anvil_increaseTime ✓
+  - evm_setBlockGasLimit (2 tests) ✓
+  - anvil_setBlockGasLimit ✓
+
+## Next Steps
+- Run full test suite to verify no regressions
+- Continue voltaire migration in other packages

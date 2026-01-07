@@ -183,9 +183,7 @@ export {
 } from "@tevm/node";
 
 export * from "@tevm/memory-client";
-export {
-    tevmTransport,
-} from '@tevm/viem'
+// viem integration removed in favor of Voltaire provider. Breaking change.
 
 export {
     type ConstructorArgument,

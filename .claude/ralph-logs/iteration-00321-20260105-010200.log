@@ -1,0 +1,40 @@
+# Ralph Migration Log - Iteration 321
+## Date: 2026-01-05 01:02
+
+## Summary
+Migrated optimism.js preset from viem/chains dependency to nativeDefineChain. This removes viem/chains from one of the most important L2 chain presets.
+
+## Actions Taken
+1. Updated `packages/common/src/presets/optimism.js`:
+   - Replaced `import { optimism as _optimism } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+   - Created native chain definition inline with all properties:
+     - id: 10
+     - name: 'OP Mainnet'
+     - nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 }
+     - blockTime: 2000
+     - rpcUrls: { default: { http: ['https://mainnet.optimism.io'] } }
+     - blockExplorers: { default: { name: 'Optimism Explorer', url: 'https://optimistic.etherscan.io', apiUrl: '...' } }
+     - sourceId: 1
+     - contracts: gasPriceOracle, l1Block, l2CrossDomainMessenger, l2Erc721Bridge, l2StandardBridge, l2ToL1MessagePasser, multicall3
+   - Used nativeDefineChain() instead of viem's chain object
+
+## Files Modified
+1. `packages/common/src/presets/optimism.js`
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped
+- Types build successfully with `pnpm nx run @tevm/common:build:types`
+
+## Impact
+- **Removed viem/chains dependency**: optimism.js no longer imports from viem/chains
+- **Backwards compatible**: The chain configuration remains functionally identical
+- **High-priority L2 chain migrated**: Optimism is one of the most popular L2 chains
+
+## Remaining viem/chains Imports
+- ~332 other preset files still import from viem/chains (mainnet and optimism now migrated)
+- Next high-priority presets to migrate: sepolia.js, arbitrum.js, base.js
+
+## Next Steps
+1. Continue migrating high-priority chain presets (sepolia, arbitrum, base)
+2. Consider creating a batch migration script for remaining presets
+3. The pattern is now well-established for future migrations

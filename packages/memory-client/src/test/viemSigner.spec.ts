@@ -1,8 +1,8 @@
 import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { walletActions } from 'viem'
-import { privateKeyToAccount } from 'viem/accounts'
+import { nativePrivateKeyToAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
+import { walletActions } from '../createClient.js'
 import { createMemoryClient } from '../index.js'
 
 // Same accounts anvil and hardhat prefund
@@ -15,7 +15,7 @@ describe('using MemoryClient as viem signer', () => {
 	it('should be able to pass in an account and use viem wallet api to interact with tevm', async () => {
 		const walletClient = createMemoryClient({
 			common: optimism,
-			account: privateKeyToAccount(TEVM_TEST_ACCOUNTS[1]),
+			account: nativePrivateKeyToAccount(TEVM_TEST_ACCOUNTS[1]),
 		}).extend(walletActions)
 
 		const txHash = await walletClient.deployContract(SimpleContract.deploy(2n))
@@ -41,7 +41,7 @@ describe('using MemoryClient as viem signer', () => {
 	it('should be robust wrt nonces', async () => {
 		const client = createMemoryClient({
 			common: optimism,
-			account: privateKeyToAccount(TEVM_TEST_ACCOUNTS[1]),
+			account: nativePrivateKeyToAccount(TEVM_TEST_ACCOUNTS[1]),
 		}).extend(walletActions)
 
 		const deployResult = await client.tevmDeploy(SimpleContract.deploy(2n))

@@ -1,0 +1,32 @@
+# Ralph Migration Log - Iteration 337
+## Date: 2026-01-05 01:35
+
+## Summary
+Continued chain preset migration session. Migrated 5 more chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **astarZkEVM.js** (id: 3776) - Astar zkEVM
+2. **astarZkyoto.js** (id: 6038361) - Astar zkEVM Testnet zKyoto
+3. **atletaOlympia.js** (id: 2340) - Atleta Olympia
+4. **auroraTestnet.js** (id: 1313161555) - Aurora Testnet
+5. **auroria.js** (id: 205205) - Auroria Testnet
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Migrated previously**: ~45
+- **Migrated this session**: 5
+- **Total migrated**: ~50
+- **Remaining**: ~290
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (multicall3)
+
+## Next Steps
+Continue migrating remaining chain presets. ~290 remain.

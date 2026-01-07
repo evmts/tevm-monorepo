@@ -1,0 +1,37 @@
+# Ralph Migration Log - Iteration 814
+## Date: 2026-01-05
+
+## Task: Improve test coverage for signature.js
+
+## Summary
+
+Added tests to improve coverage of signature.js, specifically targeting:
+- Non-string address values (pass-through) at line 240
+- Uint8Array bytes values (pass-through) at lines 248-249
+- Dynamic array type handling at lines 224-226
+- Address array handling
+
+## Changes Made
+
+### Modified files:
+- `packages/utils/src/signature.spec.ts` - Added 6 new tests (1 skipped)
+
+### Test additions:
+1. `should handle address values that are not strings (pass-through)` - Tests non-string address
+2. `should handle bytes values as Uint8Array (pass-through)` - Tests Uint8Array bytes
+3. `should handle bytes32 values as Uint8Array (pass-through)` - Tests Uint8Array bytes32
+4. `should handle dynamic array types (e.g., uint256[])` - Tests dynamic arrays
+5. `should handle fixed-size array types` - SKIPPED: voltaire doesn't support this
+6. `should handle address array types` - Tests address[]
+
+## Coverage Improvement
+
+- signature.js: 97.6% → 99.28% (statement)
+- signature.js: 86.66% → 94.33% (branch)
+- signature.js: 100% → 100% (function)
+- signature.js: 97.6% → 99.28% (line)
+
+## Remaining uncovered:
+- Lines 231-233: Fixed-size array handling - voltaire doesn't support this yet
+
+## Status: COMPLETE

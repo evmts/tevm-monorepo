@@ -4,7 +4,7 @@
  * Returns the entire JSON-RPC response rather than throwing and only returning result
  * Used currently as an adapter to avoid refactoring existing code
  * @see https://ethereum.org/en/developers/docs/apis/json-rpc/
- * @param {{request: import('viem').EIP1193RequestFn}} client
+ * @param {{request: import('@tevm/utils').EIP1193RequestFn}} client
  * @returns {import("./JsonRpcClient.js").JsonRpcClient} the `result` field from the JSON-RPC response
  * @example
  * ```typescript
@@ -20,7 +20,7 @@ export const createJsonRpcFetcher = (client) => {
 	return {
 		request: async (request) => {
 			try {
-				const result = await client.request(request)
+				const result = await client.request(/** @type {{method: string, params?: readonly unknown[]}} */ (request))
 				return {
 					jsonrpc: '2.0',
 					result,

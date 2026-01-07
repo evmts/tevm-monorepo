@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, jest } from 'bun:test'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
@@ -34,7 +34,7 @@ describe('createBaseVm', () => {
 
 	it('should emit events correctly', async () => {
 		const baseVm = createBaseVm(opts)
-		const mockCallback = jest.fn((_, done) => done())
+		const mockCallback = vi.fn((_, done) => done())
 		baseVm.events.on('afterTx', mockCallback)
 		const expectedData = { test: 'data' }
 		await baseVm._emit('afterTx', expectedData)
@@ -43,6 +43,6 @@ describe('createBaseVm', () => {
 
 	it('should call ready functions on stateManager and blockchain', async () => {
 		const baseVm = createBaseVm(opts)
-		expect(await baseVm.ready()).toBeTrue()
+		expect(await baseVm.ready()).toBe(true)
 	})
 })

@@ -63,7 +63,7 @@ export const defineCall = <TAbi extends Abi>(
 			abi: abi,
 			data: data,
 		})
-		const handler = handlers[d.functionName]
+		const handler = handlers[d.functionName as keyof typeof handlers]
 		try {
 			const { returnValue, executionGasUsed, logs, error, blobGasUsed, selfdestruct } = await handler({
 				gasLimit: gasLimit,
@@ -71,13 +71,13 @@ export const defineCall = <TAbi extends Abi>(
 			})
 			return {
 				executionGasUsed,
-				...(error ? { exeptionError: error } : {}),
-				...(selfdestruct ? { selfdestruct } : {}),
+				...(error ? { exceptionError: error } : {}),
+				...(selfdestruct ? { selfdestruct: [...selfdestruct] } : {}),
 				...(blobGasUsed ? { blobGasUsed } : {}),
 				...(logs
 					? // This logs part of the ternary is not covered
 						{
-							logs: logs.map((logs) => logToEthjsLog(abi, logs)),
+							logs: logs.map((log: any) => logToEthjsLog(abi, log)),
 						}
 					: {}),
 				returnValue: hexToBytes(

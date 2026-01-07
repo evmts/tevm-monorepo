@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { mainnet } from '@tevm/common'
 import { TestERC20, transports } from '@tevm/test-utils'
-import { erc20Abi } from 'viem'
+import { erc20Abi } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from './createMemoryClient.js'
 

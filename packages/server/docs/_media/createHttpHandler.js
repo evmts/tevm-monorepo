@@ -24,7 +24,7 @@ import { parseRequest } from './internal/parseRequest.js'
 *
 * const tevm = createTevm({
 *   fork: {
-*     transport: http('https://mainnet.optimism.io')({})
+*     transport: nativeHttp('https://mainnet.optimism.io')({})
 *   }
 * })
 *

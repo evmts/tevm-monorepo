@@ -1,0 +1,51 @@
+# Ralph Migration Log - Iteration 825
+## Date: 2026-01-05
+
+## Task: Add test coverage for vm package utility functions
+
+## Summary
+
+Added comprehensive test suites for two internal VM utility files that were missing test coverage:
+- `errorMessage.js` - Error formatting utility
+- `constants.js` - Keccak256 constant
+
+## Changes Made
+
+### New files:
+1. `packages/vm/src/actions/errorMessage.spec.ts` - 6 tests
+2. `packages/vm/src/actions/constants.spec.ts` - 5 tests
+
+### Test coverage:
+
+**errorMessage.spec.ts (6 tests):**
+- Format error message with block and tx errorStr methods
+- Use "block" when block has no errorStr method
+- Use "tx" when tx has no errorStr method
+- Use both defaults when neither has errorStr method
+- Handle empty message
+- Handle complex error messages
+
+**constants.spec.ts (5 tests):**
+- KECCAK256_NULL should be a Uint8Array
+- KECCAK256_NULL should be 32 bytes long
+- KECCAK256_NULL should match keccak256 of empty data
+- KECCAK256_NULL should have the expected hex value
+- KECCAK256_NULL should be immutable
+
+## Technical Notes
+
+The `errorMsg` function creates annotated error messages by combining:
+- The base error message
+- Block error string (from errorStr() method or default "block")
+- Transaction error string (from errorStr() method or default "tx")
+
+The KECCAK256_NULL constant is the well-known keccak256 hash of empty data:
+`0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470`
+
+## Test Results
+
+All 11 tests passing:
+- errorMessage.spec.ts: 6 tests ✓
+- constants.spec.ts: 5 tests ✓
+
+## Status: COMPLETE

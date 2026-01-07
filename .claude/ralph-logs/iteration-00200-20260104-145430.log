@@ -1,0 +1,57 @@
+# Ralph Migration Log - Iteration 200
+## Date: 2026-01-04 14:54:30
+
+## Summary
+Migrated `keccak_256` import in `eip7702.js` from `@noble/hashes/sha3.js` to use `hash` from `@tevm/voltaire/Keccak256`.
+
+## Changes Made
+
+### 1. Updated eip7702.js imports
+Changed from:
+```javascript
+import { keccak_256 } from '@noble/hashes/sha3.js'
+```
+
+To:
+```javascript
+import { hash as keccak256 } from '@tevm/voltaire/Keccak256'
+```
+
+### 2. Updated function usages
+Two functions used `keccak_256` and were updated to use `keccak256`:
+
+1. `eoaCode7702AuthorizationHashedMessageToSign` - hashes the RLP-encoded message to sign
+2. `publicToAddress` - converts public key to Ethereum address
+
+## Test Results
+All 22 eip7702 tests pass:
+- eoaCode7702AuthorizationListBytesItemToJSON tests
+- eoaCode7702AuthorizationListJSONItemToBytes tests
+- eoaCode7702AuthorizationMessageToSign tests
+- eoaCode7702AuthorizationHashedMessageToSign tests
+- eoaCode7702SignAuthorization tests
+- eoaCode7702RecoverAuthority tests
+- Type guard function tests
+
+## Files Modified
+1. `packages/utils/src/eip7702.js`
+   - Changed keccak import from `@noble/hashes/sha3.js` to `@tevm/voltaire/Keccak256`
+   - Renamed function from `keccak_256` to `keccak256` for clarity
+
+## Remaining Work in eip7702.js
+The file still uses `secp256k1` from `@noble/curves/secp256k1.js` for:
+- `secp256k1.getPublicKey` - getting compressed public key from private key
+- `secp256k1.sign` - signing message hash
+- `secp256k1.Signature.fromBytes` - parsing compact signatures
+- `secp256k1.recoverPublicKey` - recovering public key from signature
+- `secp256k1.Point.fromBytes` - converting compressed to uncompressed public key
+
+These require more complex migration because:
+1. The signing flow handles both 64-byte and 65-byte signatures
+2. Recovery byte detection logic is intertwined with noble-curves internals
+3. Voltaire's Secp256k1 API is slightly different (returns Ethereum-style v=27/28)
+
+## Next Steps
+1. Plan migration of secp256k1 usage in eip7702.js (complex - needs voltaire API alignment)
+2. Look for simpler keccak migrations in other files
+3. Continue reducing direct noble-curves/noble-hashes usage

@@ -1,4 +1,4 @@
-import { hexToBigInt } from 'viem'
+import { hexToBigInt } from '@tevm/utils'
 import { dealHandler } from './anvilDealHandler.js'
 
 /**

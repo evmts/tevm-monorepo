@@ -1,0 +1,19 @@
+## Summary
+
+I successfully completed iteration 121 of the Ralph migration. I migrated `KECCAK256_RLP` and `KECCAK256_RLP_ARRAY` constants from `@ethereumjs/util` to native implementations in `@tevm/utils`.
+
+### Changes Made:
+1. **`packages/utils/src/constants.js`** - Added pre-computed keccak256 hash constants:
+   - `KECCAK256_RLP` = `'0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'`
+   - `KECCAK256_RLP_ARRAY` = `'0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347'`
+
+2. **`packages/utils/src/ethereumjs.js`** - Marked these exports as migrated
+
+3. **`packages/utils/src/index.ts`** - Updated exports to source from `constants.js` instead of `ethereumjs.js`
+
+4. **`packages/utils/src/constants.spec.ts`** - Added 5 comprehensive tests for the new constants
+
+### Tests Results:
+- All 10 constant tests pass
+- All 423 @tevm/utils tests pass
+- `genTxTrie.spec.ts` which uses `KECCAK256_RLP` continues to work correctly

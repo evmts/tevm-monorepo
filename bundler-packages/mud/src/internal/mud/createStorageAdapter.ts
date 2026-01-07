@@ -10,7 +10,7 @@ import {
 } from '@latticexyz/protocol-parser/internal'
 import { getRecord, type PendingStashUpdate, type Stash, type TableRecord } from '@latticexyz/stash/internal'
 import { emptyValueArgs, type StorageAdapterBlock } from '@latticexyz/store-sync'
-import { concatHex, type Hex, size } from 'viem'
+import { concatHex, type Hex, size } from '@tevm/utils'
 
 export type CreateStorageAdapter = {
 	stash: Stash

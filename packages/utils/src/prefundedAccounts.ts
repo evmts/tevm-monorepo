@@ -1,4 +1,5 @@
-import { type PrivateKeyAccount, privateKeyToAccount } from 'viem/accounts'
+import { nativePrivateKeyToAccount } from './nativePrivateKeyToAccount.js'
+import type { NativePrivateKeyAccount } from './account-types.js'
 
 export const PREFUNDED_PRIVATE_KEYS = [
 	'0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80', // 0
@@ -27,27 +28,27 @@ export const PREFUNDED_PUBLIC_KEYS = [
 ] as const
 
 export const PREFUNDED_ACCOUNTS: [
-	PrivateKeyAccount,
-	PrivateKeyAccount,
-	PrivateKeyAccount,
-	PrivateKeyAccount,
-	PrivateKeyAccount,
-	PrivateKeyAccount,
-	PrivateKeyAccount,
-	PrivateKeyAccount,
-	PrivateKeyAccount,
-	PrivateKeyAccount,
+	NativePrivateKeyAccount,
+	NativePrivateKeyAccount,
+	NativePrivateKeyAccount,
+	NativePrivateKeyAccount,
+	NativePrivateKeyAccount,
+	NativePrivateKeyAccount,
+	NativePrivateKeyAccount,
+	NativePrivateKeyAccount,
+	NativePrivateKeyAccount,
+	NativePrivateKeyAccount,
 ] = [
-	privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[0]),
-	privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[1]),
-	privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[2]),
-	privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[3]),
-	privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[4]),
-	privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[5]),
-	privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[6]),
-	privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[7]),
-	privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[8]),
-	privateKeyToAccount(PREFUNDED_PRIVATE_KEYS[9]),
+	nativePrivateKeyToAccount(PREFUNDED_PRIVATE_KEYS[0]),
+	nativePrivateKeyToAccount(PREFUNDED_PRIVATE_KEYS[1]),
+	nativePrivateKeyToAccount(PREFUNDED_PRIVATE_KEYS[2]),
+	nativePrivateKeyToAccount(PREFUNDED_PRIVATE_KEYS[3]),
+	nativePrivateKeyToAccount(PREFUNDED_PRIVATE_KEYS[4]),
+	nativePrivateKeyToAccount(PREFUNDED_PRIVATE_KEYS[5]),
+	nativePrivateKeyToAccount(PREFUNDED_PRIVATE_KEYS[6]),
+	nativePrivateKeyToAccount(PREFUNDED_PRIVATE_KEYS[7]),
+	nativePrivateKeyToAccount(PREFUNDED_PRIVATE_KEYS[8]),
+	nativePrivateKeyToAccount(PREFUNDED_PRIVATE_KEYS[9]),
 ] as const
 
 export const PREFUNDED_SEED = Object.freeze({

@@ -1,0 +1,21 @@
+I've completed iteration 319. Let me summarize what was accomplished:
+
+## Iteration 319 Summary
+
+**Task**: Added native transport exports to viem.js
+
+**Changes**:
+- Updated `packages/utils/src/viem.js` to export the native transport implementations:
+  - `nativeHttp` - native replacement for viem's `http`
+  - `nativeWebSocket` - native replacement for viem's `webSocket`
+  - `nativeCustom` - native replacement for viem's `custom`
+  - `nativeDefineChain` - native replacement for viem's `defineChain`
+
+**Tests**: All 28 tests passed for the native transport implementations
+
+**Impact**: Users can now import both the deprecated viem exports and their native replacements from the same module (`@tevm/utils`), making migration paths clearer.
+
+**Next potential tasks**:
+1. Create native implementation for `createPublicClient` (currently using createForkRpcClient)
+2. Continue migrating preset chain files (mainnet.js, optimism.js, etc.) to use `nativeDefineChain`
+3. Start removing deprecated viem exports in preparation for next major version

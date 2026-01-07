@@ -1,7 +1,6 @@
 import type { Logger } from '@tevm/logger'
 import type { MemoryClient } from '@tevm/memory-client'
-import { type Address, createAddressFromString } from '@tevm/utils'
-import { type Client, concatHex, encodeFunctionData } from 'viem'
+import { type Address, type Client, createAddressFromString, concatHex, encodeFunctionData } from '@tevm/utils'
 import { waitForTransactionReceipt } from 'viem/actions'
 import { notifyTxStatus, type TxStatusSubscriber } from '../../subscribeTx.js'
 import type { SessionClient } from '../../types.js'

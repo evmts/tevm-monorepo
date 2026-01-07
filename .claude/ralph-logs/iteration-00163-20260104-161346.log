@@ -1,0 +1,21 @@
+## Summary - Iteration 217
+
+I migrated viem utility imports to `@tevm/utils` in four memory-client test files:
+
+### Files Changed:
+1. **createMemoryClient.spec.ts** - Migrated `parseEther`
+2. **tevmStatePersistence.spec.ts** - Migrated `parseEther`, `decodeFunctionResult`, `encodeFunctionData`
+3. **tevmStateCheckpoints.spec.ts** - Migrated `parseEther`, `decodeFunctionResult`, `encodeFunctionData`
+4. **tevmViemActions.spec.ts** - Migrated `parseEther`
+
+### Key Findings:
+- Core packages (actions, vm, evm, state, node) already don't directly import from viem in production code
+- The remaining viem imports are in:
+  - `@tevm/memory-client` - Intentional (it's a viem client wrapper)
+  - `@tevm/utils` - Re-exports for backward compatibility and fork client
+  - Type-only imports for RPC compatibility
+- Pre-existing test failures are caused by:
+  - Bloom filter bug (`DefensiveNullCheckError`)
+  - Gas limit estimation issues in automining
+
+The migration is progressing well - the utility functions are now using native voltaire-backed implementations.

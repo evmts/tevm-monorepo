@@ -1,0 +1,78 @@
+# Ralph Migration Iteration 55
+
+**Date**: 2026-01-04
+**File migrated**: packages/utils/src/viem.js
+
+## Summary
+
+Implemented native `serializeTransaction` function to replace the viem/utils import. This continues the incremental migration away from viem dependencies.
+
+## Changes Made
+
+1. Added a native `serializeTransaction` function that:
+   - Supports Legacy transactions with EIP-155 replay protection
+   - Supports EIP-2930 (Type 1) transactions with access lists
+   - Supports EIP-1559 (Type 2) transactions with max fee parameters and access lists
+   - Handles both signed and unsigned transactions
+   - Matches viem's API exactly
+
+2. Removed `serializeTransaction` from the viem/utils import list
+
+3. Added helper functions:
+   - `bigintToRlpBytes` - Convert bigint to minimal RLP bytes
+   - `hexToRlpBytesForTx` - Convert hex to bytes for RLP
+   - `addressToRlpBytes` - Convert address to 20 bytes
+   - `rlpEncodeBytesTx` - RLP encode bytes
+   - `rlpEncodeLengthTx` - Encode RLP length prefix
+   - `rlpEncodeListTx` - RLP encode a list
+   - `encodeAccessList` - Encode EIP-2930 access list
+
+4. Added comprehensive tests (14 new tests):
+   - EIP-1559 basic serialization
+   - EIP-1559 with access list
+   - EIP-1559 with only chainId and data (OP stack usage)
+   - EIP-2930 basic serialization
+   - EIP-2930 with access list
+   - Legacy with chainId
+   - Legacy without chainId
+   - Contract deployment (no to address)
+   - Signed EIP-1559 transaction
+   - Signed legacy transaction
+   - Zero values handling
+   - Large values handling
+   - Undefined optional fields
+
+## Tests
+
+All 253 tests in the utils package pass, including 14 new tests for serializeTransaction.
+
+## Commit
+
+`⚡ refactor(utils): implement native serializeTransaction to replace viem/utils import`
+
+## Progress
+
+The remaining viem/utils imports are (11 total):
+- decodeAbiParameters
+- decodeErrorResult
+- decodeEventLog
+- decodeFunctionData
+- decodeFunctionResult
+- encodeAbiParameters
+- encodeDeployData
+- encodeErrorResult
+- encodeEventTopics
+- encodeFunctionData
+- encodeFunctionResult
+
+These are complex ABI encoding/decoding functions that require careful implementation.
+
+The direct viem exports remaining are:
+- getContractError, RawContractError (error handling)
+- createPublicClient, createTransport, custom, defineChain, http, webSocket (transport/client)
+
+## Next Steps
+
+The ABI encoding/decoding functions are the largest remaining viem/utils dependencies.
+These are complex and require implementing the full ABI specification.
+Consider starting with `encodeAbiParameters` as it's the foundation for many other functions.

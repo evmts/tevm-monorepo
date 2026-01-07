@@ -1,6 +1,5 @@
-import type { AccountCache, StorageCache } from '@ethereumjs/statemanager'
 import type { LogOptions } from '@tevm/logger'
-import type { Hex } from 'viem'
+import type { AccountCache, Hex, StorageCache } from '@tevm/utils'
 import type { BaseState } from '../BaseState.js'
 import type { ContractCache } from '../ContractCache.js'
 import type { ForkOptions } from './ForkOptions.js'
@@ -13,11 +12,11 @@ import type { TevmState } from './TevmState.js'
  * @example
  * ```typescript
  * import { StateOptions } from '@tevm/state'
- * import { http } from 'viem'
+ * import { nativeHttp } from '@tevm/utils'
  *
  * const value: StateOptions = {
  *   fork: {
- *     transport: http('https://mainnet.infura.io/v3/your-api-key'),
+ *     transport: nativeHttp('https://mainnet.infura.io/v3/your-api-key')({}),
  *     blockTag: 'latest'
  *   },
  *   loggingLevel: 'debug'

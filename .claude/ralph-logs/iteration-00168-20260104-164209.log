@@ -1,0 +1,21 @@
+## Summary - Iteration 221 Complete
+
+I've added deprecation notices to the remaining viem re-exports in `@tevm/utils`:
+
+### Changes:
+1. **`abitype.ts`** - Added `@deprecated` JSDoc to `Account` and `HDAccount` type exports, directing users to native alternatives (`LocalAccount`, `NativePrivateKeyAccount`, `NativeHDAccount`)
+
+2. **`viem.js`** - Added `@deprecated` JSDoc to `mnemonicToAccount` and `privateKeyToAccount` exports with migration examples:
+   ```
+   Before: import { mnemonicToAccount, privateKeyToAccount } from '@tevm/utils'
+   After:  import { nativeMnemonicToAccount, nativePrivateKeyToAccount } from '@tevm/utils'
+   ```
+
+### Test Results:
+- All 607 utils tests pass
+
+### Current Migration Status:
+- **Core packages** (actions, vm, evm, state, node, jsonrpc, block): ✅ No viem imports
+- **Account functions**: ✅ Native implementations available, viem re-exports deprecated
+- **Remaining necessary viem deps**: Transport/client functions for RPC, `parseAbi` from abitype
+- **Remaining ethereumjs deps**: `@ethereumjs/common`, `@ethereumjs/tx` (core EVM functionality)

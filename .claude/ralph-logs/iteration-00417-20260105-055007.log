@@ -1,0 +1,94 @@
+# Ralph Migration Log - Iteration 417
+## Date: 2026-01-05 05:50
+
+## Task: Add isAddressEqual and trim functions to @tevm/utils + complete test-matchers utils migration
+
+## Changes Made
+
+### Part 1: Add isAddressEqual function to @tevm/utils
+
+Added native implementation of `isAddressEqual` that matches viem's API:
+
+```javascript
+export function isAddressEqual(addressA, addressB) {
+	if (!isAddress(addressA)) {
+		throw new Error(`Invalid address: ${addressA}`)
+	}
+	if (!isAddress(addressB)) {
+		throw new Error(`Invalid address: ${addressB}`)
+	}
+	return addressA.toLowerCase() === addressB.toLowerCase()
+}
+```
+
+### Part 2: Add trim function to @tevm/utils
+
+Added native implementation of `trim` that matches viem's API:
+
+```javascript
+export function trim(value, opts) {
+	const dir = opts?.dir ?? 'left'
+	// Handles both Hex strings and Uint8Arrays
+	// Trims leading zeros (or trailing if dir='right')
+	// Always preserves at least one byte
+}
+```
+
+### Part 3: Updated @tevm/utils exports
+
+Added both functions to index.ts exports:
+- `isAddressEqual` - added near `isAddress`
+- `trim` - added near `toRlp`
+
+### Part 4: Migrated remaining test-matchers utils files
+
+#### toEqualAddress.ts
+Changed from:
+```typescript
+import { getAddress, isAddress, isAddressEqual } from 'viem'
+```
+To:
+```typescript
+import { getAddress, isAddress, isAddressEqual } from '@tevm/utils'
+```
+
+#### toEqualHex.ts
+Changed from:
+```typescript
+import { equalsBytes } from '@tevm/utils'
+import { type Hex, hexToBytes, isHex, trim } from 'viem'
+```
+To:
+```typescript
+import { type Hex, equalsBytes, hexToBytes, isHex, trim } from '@tevm/utils'
+```
+
+Also added type assertion `as Hex` for trim results since our implementation returns `Hex | Uint8Array`.
+
+## Files Changed
+1. packages/utils/src/viem.js (added isAddressEqual and trim)
+2. packages/utils/src/index.ts (added exports)
+3. extensions/test-matchers/src/matchers/utils/toEqualAddress.ts
+4. extensions/test-matchers/src/matchers/utils/toEqualHex.ts
+
+## Build Status
+- @tevm/utils:build:types - SUCCESS
+- No errors in migrated source files
+
+## Migration Progress
+
+### test-matchers/src/matchers/utils/ - FULLY MIGRATED
+- toBeAddress.ts - migrated
+- toBeHex.ts - migrated
+- toEqualAddress.ts - migrated
+- toEqualHex.ts - migrated
+- index.ts - migrated
+
+### Remaining files with viem imports (33 files)
+All remaining files use the `Client` type from viem, which is a complex generic type
+that would require significant work to replicate in @tevm/utils.
+
+## Next Steps
+1. Consider adding a `Client` type alias or compatibility type to @tevm/utils
+2. Or continue migrating files that don't require the Client type
+3. Look for files that only use simple types (Address, Hex, Abi) from viem alongside Client

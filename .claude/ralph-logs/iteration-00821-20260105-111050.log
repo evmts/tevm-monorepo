@@ -1,0 +1,49 @@
+# Ralph Migration Log - Iteration 821
+## Date: 2026-01-05
+
+## Task: Add test coverage for ethSimulateV2Procedure
+
+## Summary
+
+Added comprehensive test suite for `ethSimulateV2Procedure` in `@tevm/actions`. This JSON-RPC procedure handles the `eth_simulateV2` method, which extends V1 with additional features for contract creation detection, call tracing, and gas estimation.
+
+## Changes Made
+
+### New files:
+- `packages/actions/src/eth/ethSimulateV2Procedure.spec.ts` - 19 tests
+
+### Test coverage:
+
+**Basic functionality:**
+- Simple call simulation with JSON-RPC response
+- Request without ID field handling
+- Hex value conversion to bigint
+- Block overrides with number conversion
+- State overrides with balance
+- Multiple calls in single block
+- Multiple blocks simulation
+
+**Error handling:**
+- Insufficient balance handling
+- Error response when handler throws
+
+**V2-specific features:**
+- includeContractCreationEvents option
+- includeCallTraces option
+- estimateGas option on calls
+- blockOverrides with blobBaseFee
+- stateOverrides with state and stateDiff
+- Call trace recursive formatting
+- Contract deployment with contractCreated info
+
+**Block/call metadata:**
+- Block metadata in response (number, hash, timestamp, gasLimit, gasUsed)
+- BlockTag parameter as hex
+- BlockTag parameter as string
+
+## Test Results
+
+All 19 tests passing:
+- ethSimulateV2Procedure.spec.ts: 19 tests ✓
+
+## Status: COMPLETE

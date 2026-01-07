@@ -1,0 +1,50 @@
+# Ralph Migration Iteration 81
+Date: 2026-01-04 08:03:00
+
+## Status Check
+- Ran all @tevm/utils tests: 465 passed, 1 skipped
+
+## Migration Status in @tevm/utils
+### Already Migrated (native implementations):
+- ✅ bytesToUnprefixedHex
+- ✅ bytesToUtf8
+- ✅ concatBytes
+- ✅ equalsBytes
+- ✅ setLengthLeft
+- ✅ randomBytes
+- ✅ ecrecover
+- ✅ TypeOutput, toType
+- ✅ KeyEncoding, ValueEncoding
+- ✅ KECCAK256_RLP, KECCAK256_RLP_ARRAY, GWEI_TO_WEI, BIGINT_0, BIGINT_1, MAX_UINT64, SECP256K1_ORDER_DIV_2
+- ✅ Withdrawal, createWithdrawal
+- ✅ fetchFromProvider, getProvider
+- ✅ formatAbi (native implementation)
+- ✅ All viem utility functions (hexToBytes, bytesToHex, keccak256, etc.)
+- ✅ ABI encoding/decoding (native implementations)
+- ✅ signature functions (hashMessage, recoverAddress, etc.)
+- ✅ encodeDeployData
+- ✅ getContractError, ContractFunctionExecutionError, etc.
+
+### Still from @ethereumjs/util:
+- EthjsAccount, EthjsAddress, createAccount, createAddressFromString
+- EIP-7702 utilities (eoaCode7702*)
+
+### Still from viem:
+- mnemonicToAccount, privateKeyToAccount (viem/accounts) - used for PREFUNDED_ACCOUNTS
+- createPublicClient, createTransport, custom, defineChain, http, webSocket - transport/client creation
+- RPC types (RpcBlock, RpcTransaction, etc.) - complex typed structures
+- parseAbi from abitype
+- Various type exports in abitype.ts
+
+## Analysis
+The remaining viem and ethereumjs dependencies are:
+1. Core account/address types deeply integrated with EVM internals - hard to replace
+2. Account creation with signing methods (mnemonicToAccount) - complex API surface
+3. Transport/client creation for forking - used by state package
+4. RPC types - complex typed structures used in decorators
+
+## Next Steps
+Consider these potential migration targets:
+1. Look for simpler migration opportunities in other packages
+2. Check if any viem utility functions in tests can use @tevm/utils natives
+3. Focus on documentation and cleanup of migration comments

@@ -1,0 +1,14 @@
+## Iteration 288 Complete
+
+**Summary:** Successfully migrated `@tevm/state`'s fork client from viem's `createPublicClient` to the native `createForkRpcClient` adapter.
+
+**Changes:**
+- `packages/state/src/actions/getForkClient.js` - Now uses `createForkRpcClient` instead of viem's `createPublicClient`
+- `packages/state/src/actions/getForkClient.spec.ts` - Updated tests for new API
+- `packages/utils/src/fork-rpc-types.ts` - Added missing `address` field to `ProofResult`
+- `packages/utils/src/createForkRpcClient.js` - Added `address` to proof result
+- `packages/utils/src/createForkRpcClient.spec.ts` - Updated tests for address field
+
+**Tests:** All 12 relevant tests pass (3 in getForkClient, 9 in createForkRpcClient)
+
+**Impact:** The state package's fork client no longer depends on viem's `createPublicClient` and `createTransport`. This is a significant step in removing viem from the core execution path.

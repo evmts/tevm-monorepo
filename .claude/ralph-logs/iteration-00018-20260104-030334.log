@@ -1,0 +1,41 @@
+## Migration Iteration 18 Complete
+
+Successfully replaced 4 more viem functions with native implementations:
+
+**Functions migrated:**
+- `toHex` - Polymorphic converter for Uint8Array/number/bigint/boolean/string to hex
+- `fromHex` - Polymorphic converter from hex to bytes/number/bigint/boolean/string  
+- `toBytes` - Polymorphic converter for various types to Uint8Array
+- `fromBytes` - Polymorphic converter from Uint8Array to various types
+
+**Results:**
+- 241 tests pass with 100% coverage
+- Commit: `a1400e23a`
+- **Remaining viem imports: 16** (down from 20)
+
+**Remaining viem imports:**
+- ABI functions (12): encode/decode functions
+- RLP functions (2): `fromRlp`, `toRlp`
+- Other (2): `formatLog`, `serializeTransaction`
+- From viem/accounts (1): `mnemonicToAccount`
+
+The migration is progressing well. The next candidates for migration would be the RLP functions (`toRlp`/`fromRlp`) since voltaire may have RLP support, or we can use `@ethereumjs/rlp` which is already a dependency.
+viem.js:**
+- ABI functions (12): decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult, encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics, encodeFunctionData, encodeFunctionResult, encodePacked
+- RLP functions (2): fromRlp, toRlp
+- Other (2): formatLog, serializeTransaction
+- From viem/accounts (1): mnemonicToAccount
+
+**Next candidates for migration:**
+- toRlp/fromRlp - RLP encoding/decoding (voltaire may have this)
+- formatLog - Log formatting utility
+- serializeTransaction - Transaction serialization (complex, may need voltaire)
+- ABI encode/decode functions - Most complex, may need voltaire ABI module
+
+## Technical Notes
+
+- The polymorphic functions use runtime type checking to determine input type
+- String inputs are differentiated: 0x prefix = hex, otherwise = UTF-8
+- Size padding works differently for numbers (left-pad) vs strings (right-pad)
+- Used JSDoc type casts extensively to satisfy TypeScript strict mode
+- The keccak256 return type was simplified to always return Hex to fix type errors

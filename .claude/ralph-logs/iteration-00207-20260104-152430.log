@@ -1,0 +1,59 @@
+# Ralph Migration Log - Iteration 207
+## Date: 2026-01-04 15:24:30
+
+## Summary
+Implemented `signTransaction` in `nativePrivateKeyToAccount` using voltaire's Transaction and Secp256k1 modules, making the native account implementation feature-complete for all signing operations.
+
+## Changes Made
+
+### 1. Added Transaction import from voltaire
+- Added `import * as Transaction from '@tevm/voltaire/Transaction'`
+
+### 2. Implemented convertToVoltaireTransaction helper function
+- Converts viem-style transaction parameters to voltaire Transaction format
+- Supports all transaction types:
+  - Legacy (Type 0): Basic transactions with gasPrice
+  - EIP-2930 (Type 1): Transactions with accessList but gasPrice
+  - EIP-1559 (Type 2): Dynamic fee transactions with maxFeePerGas/maxPriorityFeePerGas
+- Handles 'to' address conversion (null for contract creation)
+- Handles data conversion from hex string to Uint8Array
+- Handles accessList conversion with storage keys
+
+### 3. Implemented signTransaction function
+- Gets signing hash using `Transaction.getSigningHash(tx)` based on transaction type
+- Signs the hash using `Secp256k1.sign(hash, privateKey)`
+- Handles signature encoding:
+  - EIP-1559/EIP-2930: yParity = v - 27 (converts 27/28 to 0/1)
+  - Legacy with chainId: v = chainId * 2 + 35 + recoveryId (EIP-155)
+  - Legacy without chainId: v = 27 or 28
+- Serializes the signed transaction using `Transaction.serialize(tx)`
+- Returns RLP-encoded signed transaction as hex string
+
+### 4. Updated tests
+- Replaced "should throw not implemented error" test with comprehensive tests
+- Added "should sign a legacy transaction" test
+- Added "should sign an EIP-1559 transaction" test
+- Added "should sign a contract creation transaction" test
+- Added "should produce consistent signatures for same transaction" test
+
+## Files Modified
+1. `packages/utils/src/nativePrivateKeyToAccount.js` - Implemented signTransaction with voltaire Transaction
+2. `packages/utils/src/nativePrivateKeyToAccount.spec.ts` - Updated tests to verify signTransaction works
+
+## Test Results
+All 569 tests pass in the utils package:
+- nativePrivateKeyToAccount.spec.ts (18 tests)
+- All other test files (551 tests)
+
+## API Status
+`nativePrivateKeyToAccount` now provides full signing support:
+- ✅ `sign(hash)` - Sign a hash directly
+- ✅ `signMessage(message)` - Sign with EIP-191 prefix
+- ✅ `signTypedData(typedData)` - Sign EIP-712 typed data
+- ✅ `signTransaction(tx)` - Sign transactions (NEW! Supports Legacy, EIP-2930, EIP-1559)
+
+## Next Steps
+1. Add EIP-7702 (Type 4) and EIP-4844 (Type 3) transaction signing support if needed
+2. Continue migrating remaining viem imports from other packages
+3. Consider adding signature verification for signed transactions
+4. The transport/client functions (http, webSocket, createPublicClient) remain as viem dependencies

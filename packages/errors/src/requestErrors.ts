@@ -1,6 +1,7 @@
 /**
  * @module requestErrors
- * @description This module exports various RPC-related errors from the 'viem' library.
+ * @description This module exports native RPC-related error classes.
+ * These follow JSON-RPC 2.0 error codes and EIP-1193/EIP-1474 specifications.
  */
 
 export {
@@ -20,7 +21,7 @@ export {
 	UnknownRpcError,
 	UnsupportedProviderMethodError,
 	UserRejectedRequestError,
-} from 'viem'
+} from './rpcErrors.js'
 
 /**
  * Represents the possible error codes for RPC errors.

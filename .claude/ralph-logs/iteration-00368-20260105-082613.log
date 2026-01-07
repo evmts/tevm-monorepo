@@ -1,0 +1,18 @@
+## Summary
+
+This iteration investigated the current viem migration status across the codebase. Key findings:
+
+**Good news:**
+- Core packages (actions, vm, evm, state, node) have no remaining viem imports in non-spec files
+
+**Blockers identified:**
+1. **bundler-packages/mud**: Requires BundlerClient, SmartAccount from viem/account-abstraction and complex types like WriteContractParameters. These are deep viem integrations that can't be easily replaced.
+
+2. **memory-client**: Has type compatibility issues between EIP1193RequestFn in @tevm/decorators vs @tevm/utils/provider-types.ts. Attempting to migrate caused cascading type errors.
+
+3. **viem/actions functions**: Runtime functions like waitForTransactionReceipt, getTransaction need native implementations, not just type migrations.
+
+**Recommendations:**
+- Fix EIP1193RequestFn compatibility to enable memory-client migrations
+- Some packages may need to keep viem as a peer dependency for specific features
+- Focus future migration efforts on fixing the EIP1193RequestFn type alignment

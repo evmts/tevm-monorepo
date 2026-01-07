@@ -1,0 +1,31 @@
+# Ralph Migration Log - Iteration 408
+## Date: 2026-01-05 05:17
+
+## Summary
+
+Migrated runtime functions `concatHex` and `encodeFunctionData` from viem to @tevm/utils in `mudStoreWriteRequestOverride.ts`.
+
+## Files Migrated
+
+1. **bundler-packages/mud/src/internal/decorators/mudStoreWriteRequestOverride.ts**
+   - Changed: Moved `concatHex`, `encodeFunctionData` imports from `viem` to `@tevm/utils`
+   - Note: Still imports `type Client` from viem (needed for viem client compatibility)
+   - Still imports `waitForTransactionReceipt` from `viem/actions` (action function, not type)
+
+## Test Results
+
+- Typecheck passes
+- Tests are skipped (todo tests requiring env vars)
+
+## Remaining viem Imports in @tevm/mud (4 files)
+
+Files still using viem (type-only or action functions):
+1. src/createOptimisticHandler.ts - `bytesToHex, Client, Hex, parseEventLogs`
+2. src/internal/decorators/mudStoreGetStorageAtOverride.ts - `EIP1193RequestFn`
+3. src/internal/decorators/mudStoreWriteRequestOverride.ts - `Client` (type), `waitForTransactionReceipt` (action)
+4. src/types.ts - viem client types
+
+## Impact
+
+- Reduced runtime viem imports in mudStoreWriteRequestOverride.ts
+- `concatHex` and `encodeFunctionData` now from @tevm/utils

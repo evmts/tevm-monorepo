@@ -1,0 +1,27 @@
+## Summary - Iteration 165
+
+I created **8 new native type definition files** in `@tevm/common` to replace exports from `@ethereumjs/common`:
+
+### New Files Created:
+1. **ConsensusType.ts** - Enum for consensus types (PoS, PoW, PoA)
+2. **ConsensusAlgorithm.ts** - Enum for consensus algorithms (Ethash, Clique, Casper)
+3. **AccountFields.ts** - Partial account fields type for state modifications
+4. **CliqueConfig.ts** - Clique PoA configuration type
+5. **CustomCrypto.ts** - Custom cryptographic primitives interface (KZG, Verkle, etc.)
+6. **StorageDump.ts** - Storage dump interface for debug RPC
+7. **StorageRange.ts** - Storage range interface for debug_storageRangeAt
+8. **EvmStateManagerInterface.ts** - Core EVM state manager interface with AccountInterface and AddressInterface
+
+### Key Details:
+- All common package tests pass (18 tests, 1 known skip)
+- State package tests continue to work correctly
+- Type checking passes without errors
+- `CustomCrypto` from `@ethereumjs/common` is still re-exported for compatibility with `createCommon`, while native types are exported as `NativeCustomCrypto` for future migration
+
+### Still Using @ethereumjs/common:
+- `Common` class (for ethjsCommon instance)
+- `createCustomCommon` factory function
+- `Mainnet` preset
+- `CustomCrypto` type (for createCommon options)
+
+These remaining usages require creating native chain configurations, which would be the next step in the migration.

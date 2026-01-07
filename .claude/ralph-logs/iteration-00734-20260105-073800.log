@@ -1,0 +1,72 @@
+# Ralph Migration Log - Iteration 734
+## Date: 2026-01-05
+
+## Task: Migrate test-matchers `Client` type imports from viem to @tevm/utils
+
+## Summary
+
+Successfully migrated 19 files in `extensions/test-matchers` from using viem's `Client` type to using the equivalent type from `@tevm/utils`.
+
+## Changes Made
+
+### extensions/test-matchers/src/matchers/state/
+- `toHaveStorageAt.ts` - Migrated `Client` import to `@tevm/utils`
+- `toHaveState.ts` - Migrated `Client` import to `@tevm/utils`
+- `toBeInitializedAccount.ts` - Migrated `Client` import to `@tevm/utils`
+- `index.ts` - Migrated `Client` import to `@tevm/utils`
+
+### extensions/test-matchers/src/matchers/balance/
+- `index.ts` - Migrated `Client` import to `@tevm/utils`
+- `toChangeBalance.ts` - Migrated `Client` import to `@tevm/utils`
+- `toChangeBalances.ts` - Migrated `Client` import to `@tevm/utils`
+- `toChangeTokenBalance.ts` - Migrated `Client` import to `@tevm/utils`
+- `toChangeTokenBalances.ts` - Migrated `Client` import to `@tevm/utils`
+- `getDiffMethodsFromPrestateTrace.ts` - Migrated `Client` import to `@tevm/utils`
+- `handleTransaction.ts` - Migrated `Client` import to `@tevm/utils`
+
+### extensions/test-matchers/src/matchers/contract/
+- `index.ts` - Migrated `Client` import to `@tevm/utils`
+- `toCallContractFunction.ts` - Migrated `Client` import to `@tevm/utils`
+- `getSelectorToCalldataMap.ts` - Migrated `Client` import to `@tevm/utils`
+
+### extensions/test-matchers/src/matchers/errors/
+- `index.ts` - Migrated `Client` import to `@tevm/utils`
+- `toBeRevertedWithError.ts` - Migrated `Client` import to `@tevm/utils`
+- `toBeRevertedWithString.ts` - Migrated `Client` import to `@tevm/utils`
+- `toBeReverted.ts` - Migrated `Client` import to `@tevm/utils`
+
+### extensions/test-matchers/src/common/
+- `handleTransaction.ts` - Migrated `Client` import to `@tevm/utils`
+
+## Files Not Migrated (Blocked)
+
+The following files still have viem imports that cannot be migrated yet due to missing types in @tevm/utils:
+
+### extensions/test-matchers/src/matchers/errors/handleTransaction.ts
+Requires these viem types that aren't yet in @tevm/utils:
+- `ContractFunctionRevertedError`
+- `DecodeErrorResultReturnType`
+- `decodeAbiParameters`
+- `TransactionReceipt`
+- `BaseError as ViemBaseError`
+- Plus viem/actions: `estimateGas`, `getTransaction`, `getTransactionReceipt`
+
+### extensions/test-matchers/src/matchers/errors/types.ts
+Requires `DecodeErrorResultReturnType` from viem
+
+### Other files with viem/actions imports
+Several files use `waitForTransactionReceipt` from `viem/actions`:
+- `extensions/test-matchers/src/common/handleTransaction.ts`
+- `extensions/test-matchers/src/matchers/balance/handleTransaction.ts`
+
+## Impact
+
+- Removed 19 direct `import type { Client } from 'viem'` statements
+- These files now use `Client` from `@tevm/utils` which is compatible
+- No breaking changes - types remain compatible with viem's Client type
+
+## Notes
+
+1. The `Client` type in `@tevm/utils` is designed to be compatible with viem's `Client` type
+2. All files cast to `any` when passing a viem Client to TEVM methods due to EIP1193RequestFn differences
+3. Some files still have `viem/actions` imports for runtime functionality (not just types)

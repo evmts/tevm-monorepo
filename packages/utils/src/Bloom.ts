@@ -89,7 +89,7 @@ export class Bloom {
 	 * @throws {never}
 	 */
 	or(bloom: Bloom) {
-		for (let i = 0; i <= BYTE_SIZE; i++) {
+		for (let i = 0; i < BYTE_SIZE; i++) {
 			const a = this.bitvector[i]
 			const b = bloom.bitvector[i]
 			if (a === undefined) {

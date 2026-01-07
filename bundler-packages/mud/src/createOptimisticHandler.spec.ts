@@ -1,5 +1,4 @@
-import { createTevmTransport } from '@tevm/memory-client'
-import { createClient } from 'viem'
+import { createClient, createTevmTransport } from '@tevm/memory-client'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { config } from '../test/config.js'
 import { prepare, sessionClient, stash, testContract } from '../test/prepare.js'

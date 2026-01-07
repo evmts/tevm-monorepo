@@ -1,0 +1,21 @@
+Successfully migrated 2 files in test-node. Let me summarize what was done:
+
+## Migration Summary - Iteration 395
+
+Migrated viem imports to @tevm/utils in 2 files in `extensions/test-node/src/internal/`:
+
+1. **normalizeBlockTag.ts** - Changed type imports (BlockTag, Hex, RpcBlockIdentifier) from `viem` to `@tevm/utils`
+   - 20 tests passed
+
+2. **normalizeTx.ts** - Changed bytesToHex function and types (Hex, RpcTransactionRequest) from `viem` to `@tevm/utils`
+   - Kept `ExactPartial` import from viem (not available in @tevm/utils)
+   - 13 tests passed
+
+### Blockers Identified
+Several viem types are not yet available in @tevm/utils:
+- `ExactPartial`
+- `RpcUserOperation`
+- `EIP1193Parameters`
+- `EIP1474Methods`
+
+These would need to be added to @tevm/utils before those files can be fully migrated.

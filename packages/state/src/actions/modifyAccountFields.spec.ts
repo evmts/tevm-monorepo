@@ -21,7 +21,7 @@ describe(modifyAccountFields.name, () => {
 
 	it('should create a new account if one does not exist', async () => {
 		const state = createBaseState({})
-		const address = createAddress('0x123')
+		const address = createAddress('0x0000000000000000000000000000000000000123')
 
 		// Verify account doesn't exist
 		const accountBefore = await getAccount(state)(address)
@@ -39,7 +39,7 @@ describe(modifyAccountFields.name, () => {
 
 	it('should modify storageRoot and codeHash when provided', async () => {
 		const state = createBaseState({})
-		const address = createAddress('0x456')
+		const address = createAddress('0x0000000000000000000000000000000000000456')
 		// StorageRoot and codeHash must be 32 bytes
 		const storageRoot = new Uint8Array(32).fill(1)
 		const codeHash = new Uint8Array(32).fill(2)
@@ -62,7 +62,7 @@ describe(modifyAccountFields.name, () => {
 
 	it('should only modify specified fields', async () => {
 		const state = createBaseState({})
-		const address = createAddress('0x789')
+		const address = createAddress('0x0000000000000000000000000000000000000789')
 		// StorageRoot and codeHash must be 32 bytes
 		const initialStorageRoot = new Uint8Array(32).fill(3)
 		const initialCodeHash = new Uint8Array(32).fill(4)
@@ -91,7 +91,7 @@ describe(modifyAccountFields.name, () => {
 
 	it('should handle explicit undefined field values', async () => {
 		const state = createBaseState({})
-		const address = createAddress('0xdef')
+		const address = createAddress('0x0000000000000000000000000000000000000def')
 
 		// Create an initial account with non-zero values
 		await putAccount(state)(
@@ -116,7 +116,7 @@ describe(modifyAccountFields.name, () => {
 
 	it('should handle undefined balance value', async () => {
 		const state = createBaseState({})
-		const address = createAddress('0xabc123')
+		const address = createAddress('0x0000000000000000000000000000000000abc123')
 
 		// Create an initial account with non-zero values
 		await putAccount(state)(

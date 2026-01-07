@@ -1,0 +1,27 @@
+Excellent! I've completed this iteration successfully. Here's a summary of what was accomplished:
+
+## Iteration 164 Summary
+
+### Commits Made:
+1. **a32c1a1c9** - Committed previous cache migration (AccountCache, StorageCache) 
+2. **47a391b7b** - Migrated ethereum-cryptography imports to @tevm/utils
+3. **22c64011a** - Added migration logs
+
+### Key Changes:
+1. **Removed ethereum-cryptography dependency** from @tevm/state package
+   - Replaced `hexToBytes` imports with `@tevm/utils` in 4 files
+   - Deleted the dependency from package.json
+
+2. **@tevm/state is now cleaner** - only depends on:
+   - Workspace packages (@tevm/address, @tevm/common, @tevm/errors, @tevm/logger, @tevm/rlp, @tevm/test-utils, @tevm/utils)
+   - viem as peer dependency
+
+### Test Results:
+- 48 state tests passing
+- No regressions introduced
+
+### Remaining Migration Work:
+- **@tevm/common** - Still wraps @ethereumjs/common
+- **@tevm/blockchain** - Still uses @ethereumjs/blockchain  
+- **@tevm/trie** - Still uses @ethereumjs/trie
+- **@tevm/tx** - Still uses @ethereumjs/tx

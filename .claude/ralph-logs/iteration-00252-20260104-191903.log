@@ -1,0 +1,59 @@
+# Ralph Migration Log - Iteration 252
+## Date: 2026-01-04 19:19:03
+
+## Summary
+Integrated guillotine-mini WASM bytecode execution into Evm.js `runCall` method.
+
+## Changes Made
+
+### 1. Enhanced Evm.js with Guillotine Integration
+- Added imports for guillotine WASM functions
+- Implemented `getWasmInstance()` helper for lazy WASM loading
+- Modified `runCall()` to execute bytecode via guillotine when:
+  - Target address has code
+  - WASM is successfully loaded
+- Falls back to stub behavior if WASM unavailable
+
+### 2. Added New Tests
+- `should execute bytecode via guillotine when code is present` - Verifies execution works
+- `should return empty result when calling address without code` - Tests EOA calls
+- `should handle REVERT in bytecode execution` - Tests revert handling
+
+## Test Results
+All 41 tests passing:
+- `packages/evm/src/guillotineWasm.spec.ts` - 24 tests passed
+- `packages/evm/src/createEvm.spec.ts` - 17 tests passed (3 new)
+
+## Known Limitations
+- RETURN opcode executes correctly but output capture isn't complete yet
+- This is a guillotine-mini WASM limitation documented in guillotineWasm.spec.ts
+- Execution succeeds but returnValue may be empty
+- Storage access not yet wired through StateManager
+
+## Current Migration State
+
+### Fully Migrated to Voltaire:
+1. **Keccak256**: All usages via `@tevm/voltaire/Keccak256`
+2. **Secp256k1**: Signing, recovery, public key derivation
+3. **P256**: p256verify precompile
+4. **ABI Encoding**: All functions migrated
+5. **Account Creation**: nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount
+6. **Signature Operations**: ecrecover, hashMessage, hashTypedData
+7. **EIP-7702**: Authorization signing and verification
+
+### Guillotine-Mini Integration:
+- **WASM loader**: Complete (guillotineWasm.js)
+- **Evm.js runCall**: Now wired to guillotine for bytecode execution
+- **Output capture**: Pending (RETURN data not yet captured)
+- **Storage callbacks**: Pending (SLOAD/SSTORE not wired to StateManager)
+
+### Remaining ethereumjs Dependencies:
+1. `packages/tx/src/createImpersonatedTx.js` - `FeeMarket1559Tx`
+2. `packages/common/src/createCommon.js` - `createCustomCommon`, `Mainnet`
+3. `packages/trie/dist/index.js` - `Trie`, `genesisStateRoot`
+
+## Next Steps
+1. **Wire storage callbacks** - Connect SLOAD/SSTORE to StateManager
+2. **Complete output capture** - Fix RETURN data retrieval in WASM API
+3. **Replace @ethereumjs/tx** - Use voltaire Transaction types
+4. **Replace @ethereumjs/common** - Use voltaire Chain primitives

@@ -1,15 +1,14 @@
-import { Bloom } from '@ethereumjs/vm'
+import { Bloom } from '@tevm/utils'
 
 /**
  * @internal
  * Creates a bloom filter from the logs.
  * @param {any[] | undefined} logs - The logs to create the bloom filter from.
- * @param {import('@tevm/common').Common} common - The common object.')}
  * @returns {Bloom}
  * @throws {never}
  */
-export function txLogsBloom(logs, common) {
-	const bloom = new Bloom(undefined, common?.ethjsCommon)
+export function txLogsBloom(logs) {
+	const bloom = new Bloom()
 	if (logs) {
 		for (let i = 0; i < logs.length; i++) {
 			const log = logs[i]

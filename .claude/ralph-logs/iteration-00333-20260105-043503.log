@@ -1,0 +1,13 @@
+All 14 tests pass. The migration summary for this session:
+
+## Summary - Iteration 394
+
+**Files migrated:**
+1. `extensions/test-node/src/test/constants.ts` - Changed `numberToHex` import from `'viem'` to `'@tevm/utils'`
+2. `extensions/test-node/src/internal/normalizeHex.spec.ts` - Changed `Hex` type import from `'viem'` to `'@tevm/utils'`
+
+**Test results:**
+- `normalizeHex.spec.ts`: 14/14 tests passed
+- `eth_getBlockByNumber.spec.ts`: 1 passed (1 failed due to missing env var, unrelated to migration)
+
+Both changes are simple import swaps where `@tevm/utils` re-exports the same primitives that viem provides. This reduces direct viem dependencies in the test-node extension.

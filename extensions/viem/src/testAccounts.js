@@ -1,12 +1,12 @@
-import { mnemonicToAccount } from 'viem/accounts'
+import { nativeHdAccount } from '@tevm/utils'
 
 const oneToTen = Array.from(Array(10).keys())
 
 export const mnemonic = 'test test test test test test test test test test test junk'
 
-// This is copy pasted from actions package
+// Using native HD account implementation from @tevm/utils (viem-compatible)
 export const testAccounts =
 	/**
-	 * @type {[import("viem").HDAccount, import("viem").HDAccount,import("viem").HDAccount, import("viem").HDAccount,import("viem").HDAccount, import("viem").HDAccount,import("viem").HDAccount, import("viem").HDAccount,import("viem").HDAccount, import("viem").HDAccount]}
+	 * @type {[import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount]}
 	 */
-	(oneToTen.map((i) => mnemonicToAccount(mnemonic, { addressIndex: i })))
+	(oneToTen.map((i) => nativeHdAccount(mnemonic, { addressIndex: i })))

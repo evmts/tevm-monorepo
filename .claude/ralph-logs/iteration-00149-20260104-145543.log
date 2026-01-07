@@ -1,0 +1,15 @@
+The migration is complete. Let me summarize what was accomplished:
+
+## Iteration 201 Summary
+
+**Completed Migration:** Migrated `keccak_256` import in `packages/utils/src/viem.js` from `@noble/hashes/sha3.js` to use `@tevm/voltaire/Keccak256`.
+
+**Changes:**
+- Changed import from `import { keccak_256 } from '@noble/hashes/sha3.js'` to `import { hash as keccak256Hash } from '@tevm/voltaire/Keccak256'`
+- Updated the `keccak256` function to use `keccak256Hash` instead of `keccak_256`
+
+**Test Results:** All 253 tests in `viem.spec.ts` pass, including 8 keccak256-specific tests.
+
+**Commit:** `f55c486c8` - `⚡ refactor(utils): migrate viem.js keccak_256 to voltaire Keccak256`
+
+This continues the pattern from iteration 200, which migrated the same import in `eip7702.js`. With these two migrations, the `@tevm/utils` package's direct usage of `@noble/hashes/sha3.js` for keccak hashing has been replaced with the voltaire equivalent.

@@ -1,0 +1,9 @@
+## Iteration 157 Complete
+
+Successfully migrated 3 spec test files in `@tevm/state` to import `CacheType` from `@tevm/utils` instead of `@ethereumjs/statemanager`:
+
+1. **ContractCache.spec.ts** - 13 tests passing
+2. **createBaseState.spec.ts** - 4 tests passing  
+3. **getAccountAddresses.spec.ts** - 7 tests passing
+
+This ensures the test files align with the implementation files that were already using the native `CacheType` from `@tevm/utils`. The `AccountCache` and `StorageCache` still need to be imported from `@ethereumjs/statemanager` as they are complex class implementations.

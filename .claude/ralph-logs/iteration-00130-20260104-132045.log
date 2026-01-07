@@ -1,0 +1,27 @@
+Successfully migrated `EncodeDeployDataParameters` from viem to a native implementation!
+
+## Summary - Iteration 180
+
+**Migrated**: `EncodeDeployDataParameters` type from viem to native implementation
+
+### Changes Made:
+1. **Added to `packages/utils/src/contract-types.ts`**:
+   - `Prettify<T>` helper type for flattening mapped types
+   - `UnionEvaluate<T>` helper for applying Prettify to union types  
+   - `EncodeDeployDataParameters<TAbi, THasConstructor, TAllArgs>` - full native implementation
+
+2. **Updated `packages/utils/src/abitype.ts`**:
+   - Moved `EncodeDeployDataParameters` from viem to native import
+
+### viem type imports remaining (5):
+- Account
+- CreateEventFilterParameters
+- DecodeFunctionResultReturnType
+- GetEventArgs
+- HDAccount
+
+### Tests Passed:
+- contract: 14 tests ✅
+- evm: 14 tests ✅
+- state: 4 tests ✅
+- common: 10 tests ✅

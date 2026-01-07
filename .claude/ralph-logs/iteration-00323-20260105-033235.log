@@ -1,0 +1,10 @@
+**Iteration 382 Complete**
+
+Migrated 4 chain presets from `viem/chains` to `nativeDefineChain`:
+
+1. **thaiChain.js** (id: 7) - ThaiChain with TCH currency, includes multicall3 contract
+2. **thunderTestnet.js** (id: 997) - 5ireChain Thunder Testnet with 5IRE currency
+3. **tron.js** (id: 728126428) - Tron Mainnet with TRX currency (6 decimals)
+4. **unreal.js** (id: 18233) - Unreal testnet with reETH currency, includes multicall3
+
+Tests passing. **26 chain presets remaining** (~8% of total presets).

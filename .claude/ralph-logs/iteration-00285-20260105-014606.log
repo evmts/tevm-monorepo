@@ -1,0 +1,24 @@
+I've completed this migration session. Here's a summary:
+
+## Migration Progress Summary
+
+**This Session:**
+- Migrated 29 chain presets from `viem/chains` to `nativeDefineChain`
+- All tests passing (10 passed, 1 skipped)
+
+**Overall Progress:**
+- ~99 chain presets migrated (~28% complete)
+- 240 chain presets remaining (~72% left)
+
+**Chains Migrated:**
+- berachainTestnetbArtio, bitTorrent, bitTorrentTestnet, bitkub, bitkubTestnet
+- blastSepolia, bob, bobSepolia, boba, bobaSepolia
+- botanixTestnet, bronos, bronosTestnet, bscTestnet, btr
+- btrTestnet, bxn, bxnTestnet, canto, celoAlfajores
+- chiliz, chips, classic, confluxESpace, confluxESpaceTestnet
+- coreDao, crab, cronosTestnet, cronoszkEVM
+
+**Pattern Applied:**
+- Replaced viem/chains imports with `@tevm/utils` nativeDefineChain
+- Inlined all chain configuration (id, name, nativeCurrency, rpcUrls, blockExplorers, contracts, testnet)
+- Preserved all existing chain metadata

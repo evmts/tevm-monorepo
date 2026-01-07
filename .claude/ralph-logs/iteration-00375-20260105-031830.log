@@ -1,0 +1,36 @@
+# Ralph Migration Log - Iteration 375
+## Date: 2026-01-05 03:18
+
+## Summary
+Migrated 3 SKALE chain presets from viem/chains to nativeDefineChain, completing all SKALE chain migrations.
+
+## Chains Migrated This Session
+
+1. **skaleRazor.js** (id: 278611351) - SKALE Razor Network with sFUEL native currency, WebSocket support, no contracts
+2. **skaleTitan.js** (id: 1350216234) - SKALE Titan Community Hub with sFUEL native currency, multicall3 contract, WebSocket support
+3. **skaleTitanTestnet.js** (id: 1020352220) - SKALE Titan Hub testnet with sFUEL native currency, multicall3 contract, WebSocket support, testnet: true
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Previously migrated**: ~291 (from iteration 374)
+- **Migrated this session**: 3
+- **Total migrated**: ~294
+- **Remaining**: 50 (~15% remaining, excluding generator script)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- All SKALE chains now fully migrated to nativeDefineChain
+- All SKALE chains use sFUEL as their native currency (gas token, free to use)
+- SKALE Titan (mainnet and testnet) have multicall3 deployed
+- SKALE Razor has no contracts defined
+
+## Next Steps
+Continue migrating remaining chain presets (songbird, soneiumMinato, etc.).
+50 files remain (~15% remaining).

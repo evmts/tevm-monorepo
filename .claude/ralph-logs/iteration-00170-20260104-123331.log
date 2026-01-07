@@ -1,0 +1,54 @@
+# Ralph Migration Log - Iteration 170
+## Date: 2026-01-04 12:33:31
+
+## Summary
+Migrated JSDoc type annotations from viem imports to @tevm/utils and @tevm/common equivalents in 4 files across @tevm/state and @tevm/actions packages.
+
+## Changes Made
+
+### 1. Updated dumpStorageRange.js
+**File**: `packages/state/src/actions/dumpStorageRange.js`
+- Changed `import("viem").Hex` to `import("@tevm/utils").Hex` in 2 places:
+  - Line 13: Array type annotation for entries
+  - Line 17: Type annotation for nextKey
+
+### 2. Updated getForkBlockTag.js
+**File**: `packages/state/src/actions/getForkBlockTag.js`
+- Changed `import("viem").BlockTag` to `import("@tevm/utils").BlockTag` in return type
+
+### 3. Updated handleAutomining.js
+**File**: `packages/actions/src/Call/handleAutomining.js`
+- Changed `import("viem").Hex` to `import("@tevm/utils").Hex` for txHash parameter
+
+### 4. Updated getL1FeeInformationOpStack.js
+**File**: `packages/actions/src/internal/getL1FeeInformationOpStack.js`
+- Changed `typeof import('viem/chains').optimism` to `import('@tevm/common').Common`
+- This is a more correct type since Common extends ViemChain anyway
+
+## Test Results
+- packages/state/src/actions/dumpStorageRange.spec.ts: 3 tests passed
+- packages/state/src/actions/getForkBlockTag.spec.ts: 4 tests passed
+- handleAutomining tests: Pre-existing failures (unrelated to type changes)
+- getL1FeeInformationOpStack tests: Pre-existing RPC config issues
+
+## Impact
+- Removes 4 direct viem type references from JSDoc annotations
+- Uses @tevm/utils types which are already available and properly maintained
+- No runtime changes - only documentation/type annotation changes
+- Helps progress toward removing viem dependency from core packages
+
+## Remaining viem References in Core Packages
+Found via grep:
+- Test files: snapshot assertions (expected, not to migrate)
+- Documentation comments (informational, may keep)
+
+## Files Changed
+- packages/state/src/actions/dumpStorageRange.js (modified)
+- packages/state/src/actions/getForkBlockTag.js (modified)
+- packages/actions/src/Call/handleAutomining.js (modified)
+- packages/actions/src/internal/getL1FeeInformationOpStack.js (modified)
+
+## Next Steps
+1. Look for more viem type references to migrate in JSDoc annotations
+2. Continue investigating getForkClient.js comment about viem public client
+3. Check EIP1193EventEmitterTypes.ts which was copied from viem

@@ -1,4 +1,4 @@
-import type { RpcUserOperation } from 'viem'
+import type { RpcUserOperation } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { normalizeUserOperation } from './normalizeUserOperation.js'
 

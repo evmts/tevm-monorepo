@@ -1,0 +1,15 @@
+## Migration Status Summary - Iteration 762
+
+**Core viem migration is COMPLETE!** All targeted core packages have been successfully migrated:
+
+### Migrated from direct viem imports:
+- `@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, `@tevm/node`
+- `@tevm/block`, `@tevm/blockchain`, `@tevm/common`, `@tevm/decorators`
+- `@tevm/errors`, `@tevm/jsonrpc`, `@tevm/precompiles`
+
+### Intentional remaining dependencies:
+- **viem**: `@tevm/memory-client`, `@tevm/utils` (re-exports), `extensions/viem`
+- **voltaire**: `@tevm/rlp` (RLP wrapper), `@tevm/precompiles` (P256), `@tevm/utils` (native implementations)
+- **ethereumjs**: `@tevm/tx`, `@tevm/common`, `@tevm/trie` (deeper integration needed)
+
+The migration from viem to `@tevm/utils` (which wraps voltaire) for the core packages is complete. Further work would involve the deeper ethereumjs migrations which require native implementations of transaction serialization, chain configuration, and Merkle Patricia Trie.

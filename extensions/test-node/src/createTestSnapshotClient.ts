@@ -2,7 +2,7 @@ import type { AddressInfo } from 'node:net'
 import type { Common } from '@tevm/common'
 import { createMemoryClient, type TevmRpcSchema } from '@tevm/memory-client'
 import { createServer } from '@tevm/server'
-import type { Account, Address, Chain, RpcSchema } from 'viem'
+import type { Account, Address, Chain, RpcSchema } from '@tevm/utils'
 import { createCachedTransport } from './snapshot/createCachedTransport.js'
 import { SnapshotManager } from './snapshot/SnapshotManager.js'
 import type { TestSnapshotClient, TestSnapshotClientOptions } from './types.js'
@@ -16,10 +16,10 @@ import type { TestSnapshotClient, TestSnapshotClientOptions } from './types.js'
  * @example
  * ```typescript
  * import { createTestSnapshotClient } from '@tevm/test-node'
- * import { http } from 'viem'
+ * import { nativeHttp } from '@tevm/utils'
  *
  * const client = createTestSnapshotClient({
- *   fork: { transport: http('https://mainnet.optimism.io')() }
+ *   fork: { transport: nativeHttp('https://mainnet.optimism.io')() }
  *   test: { resolveSnapshotPath: 'vitest' } // default
  * })
  *
@@ -54,7 +54,8 @@ export const createTestSnapshotClient = <
 		fork: {
 			...options.fork,
 			// Create a transport with a request function that handles caching
-			transport: createCachedTransport(forkTransport, snapshotManager, autosave),
+			// Cast to any to handle viem/tevm EIP1193RequestFn type mismatch
+			transport: createCachedTransport(forkTransport as any, snapshotManager, autosave) as any,
 		},
 	})
 	// @ts-expect-error - TODO: fix this, likely in some change we made to yParity inconsistent with view we didn't detect before

@@ -1,0 +1,24 @@
+# Ralph Migration Log - Iteration 720
+## Date: 2026-01-05
+
+## Task: Add tests for native getContractError implementation
+
+## Changes Made
+- Created `packages/utils/src/getContractError.spec.ts` with 11 comprehensive tests
+- Tests cover:
+  - Basic error wrapping in ContractFunctionExecutionError
+  - Preserving context (abi, functionName, address, args)
+  - RawContractError handling
+  - Execution reverted errors (codes 3, -32603, -32000)
+  - Nested data objects
+  - AbiDecodingZeroDataError -> ContractFunctionZeroDataError
+  - Error walk() method handling
+  - shortMessage vs message preference
+
+## Test Results
+- 11 tests passing
+- Improved test coverage for getContractError.js from 50% to higher
+
+## Notes
+- Fixed test to use string instead of bigint for args to avoid serialization issues
+- Fixed test expectation for walk() fallback behavior - determineCause uses originalErr

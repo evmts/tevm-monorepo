@@ -1,0 +1,46 @@
+# Ralph Migration Log - Iteration 759
+## Date: 2026-01-05
+
+## Task: Migrate test-node extension tests from http to nativeHttp
+
+## Summary
+
+Successfully migrated 2 test files from using deprecated `http` import to `nativeHttp` import in the test-node extension.
+
+## Changes Made
+
+### 1. extensions/test-node/src/snapshot/createCachedTransport.spec.ts
+- Changed: `import { http } from '@tevm/utils'` -> `import { nativeHttp } from '@tevm/utils'`
+- Changed: `http('https://mainnet.optimism.io')({})` -> `nativeHttp('https://mainnet.optimism.io')()`
+- Result: All 7 tests pass
+
+### 2. extensions/test-node/src/createTestSnapshotNode.spec.ts
+- Changed: `import { http, numberToHex } from '@tevm/utils'` -> `import { nativeHttp, numberToHex } from '@tevm/utils'`
+- Changed: `http('https://mainnet.optimism.io')({})` -> `nativeHttp('https://mainnet.optimism.io')()`
+- Result: Test "should create a client with all required methods" passes with nativeHttp
+- Note: Other tests in this file fail due to missing TEVM_RPC_URLS_MAINNET env var (unrelated to migration)
+
+## API Difference
+- viem's `http()` returns a transport when called with `({})` (empty config object)
+- native `nativeHttp()` returns a transport when called with `()` (no args needed)
+
+## Current Migration Status
+
+### Fully migrated to nativeHttp:
+- extensions/test-node/src/snapshot/createCachedTransport.spec.ts
+- extensions/test-node/src/createTestSnapshotNode.spec.ts
+
+### Still using http from @tevm/utils (need further analysis):
+- packages/memory-client - JSDoc examples only (documentation)
+- packages/http-client/src/createHttpClient.js - Uses createPublicClient().extend() which requires full viem client
+- Various other JSDoc examples in memory-client
+
+## Notes
+
+The nativeHttp transport works as a drop-in replacement for simple transport use cases. Files that use viem's full client system (createPublicClient with .extend()) cannot be migrated without adding a native createPublicClient equivalent.
+
+## Next Steps
+
+1. Consider migrating more simple http usages to nativeHttp
+2. The test-utils/transports.ts uses loadBalance/rateLimit from @ponder/utils with viem http - this is more complex and may need viem
+3. http-client package uses viem's createPublicClient - would need native implementation to migrate

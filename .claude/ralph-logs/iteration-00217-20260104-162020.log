@@ -1,0 +1,54 @@
+# Ralph Migration Log - Iteration 217
+## Date: 2026-01-04 16:20:20
+
+## Summary
+Migrated `parseEther`, `decodeFunctionResult`, and `encodeFunctionData` imports from `viem` to `@tevm/utils` in four memory-client test files.
+
+## Changes Made
+
+### 1. Updated createMemoryClient.spec.ts
+File: `packages/memory-client/src/createMemoryClient.spec.ts`
+- Changed: `import { parseEther } from 'viem'`
+- To: `import { parseEther } from '@tevm/utils'`
+
+### 2. Updated tevmStatePersistence.spec.ts
+File: `packages/memory-client/src/tevmStatePersistence.spec.ts`
+- Changed: `import { type Client, createClient, decodeFunctionResult, encodeFunctionData, parseEther } from 'viem'`
+- To: `import { decodeFunctionResult, encodeFunctionData, parseEther } from '@tevm/utils'` and `import { type Client, createClient } from 'viem'`
+
+### 3. Updated tevmStateCheckpoints.spec.ts
+File: `packages/memory-client/src/tevmStateCheckpoints.spec.ts`
+- Changed: `import { type Client, createClient, decodeFunctionResult, encodeFunctionData, parseEther } from 'viem'`
+- To: `import { decodeFunctionResult, encodeFunctionData, parseEther } from '@tevm/utils'` and `import { type Client, createClient } from 'viem'`
+
+### 4. Updated tevmViemActions.spec.ts
+File: `packages/memory-client/src/tevmViemActions.spec.ts`
+- Changed: `import { createClient, parseEther } from 'viem'`
+- To: `import { parseEther } from '@tevm/utils'` and `import { createClient } from 'viem'`
+
+## Test Results
+- `@tevm/utils` abiEncoding.spec.ts - 16 tests pass
+- Some memory-client tests have pre-existing failures (Bloom filter bug, gas limit issues) unrelated to this migration
+
+## Migration Status
+
+### Completed in this iteration:
+- Migrated `parseEther` from viem to @tevm/utils in 4 test files
+- Migrated `decodeFunctionResult` and `encodeFunctionData` from viem to @tevm/utils in 2 test files
+- All migrated imports now use native voltaire-backed implementations
+
+### Remaining viem imports in memory-client (intentional):
+- `createClient`, `publicActions`, `testActions`, `walletActions` - Required for viem client wrapper functionality
+- `type Client` - Type imports for viem integration testing
+
+## Notes
+- The viem imports that remain in memory-client are intentional - the package is specifically designed to be a viem client wrapper
+- Core packages (actions, vm, evm, state, node) already use @tevm/utils for utilities instead of viem directly
+- Pre-existing test failures are related to:
+  - Bloom filter bug (`DefensiveNullCheckError: a is not defined`)
+  - Gas limit estimation issues in automining tests
+
+## Next Steps
+1. Continue finding other test files that import utilities from viem that have native equivalents in @tevm/utils
+2. Consider fixing the Bloom filter bug to unblock more tests
+3. Look at migrating any remaining viem imports in other packages

@@ -1,0 +1,29 @@
+# Ralph Migration Iteration
+
+**Date**: 2026-01-04
+**Target**: packages/blockchain/src/utils/getBlockFromRpc.js
+**Change**: Replaced viem `withRetry` import with local implementation
+
+## Summary
+- Removed `import { withRetry } from 'viem'`
+- Added local `withRetry` function that matches viem's API
+- The local implementation supports the same options: `retryCount` and `delay` function
+
+## Tests
+- Build succeeded: `pnpm nx run @tevm/blockchain:build:dist`
+- Some tests require RPC env vars, but syntax/build is correct
+
+## Status
+- Committed: 0bc15ad8c
+
+**Remaining viem imports in core packages:**
+- @tevm/common/src/presets/tevmDefault.js: defineChain
+- @tevm/http-client/src/createHttpClient.js: createPublicClient, http
+- @tevm/utils/src/viem.js: re-exports
+- @tevm/utils/src/abitype.ts: re-exports
+- @tevm/utils/src/index.ts: type exports
+- Many type files and JSDoc comments still reference viem
+
+**Next targets:**
+- Continue migrating core packages with real viem imports
+- Consider @tevm/common/tevmDefault.js (defineChain)

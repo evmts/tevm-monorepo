@@ -1,0 +1,17 @@
+## Iteration 179 Complete
+
+I successfully migrated `EncodeFunctionDataParameters` type from viem to a native implementation in `@tevm/utils`.
+
+### Changes Made:
+1. **Added `GetFunctionArgs` helper type** in `packages/utils/src/contract-types.ts` - extracts function arguments structure from ABI
+2. **Added `EncodeFunctionDataParameters` type** in `packages/utils/src/contract-types.ts` - native replacement for viem's type
+3. **Updated `packages/utils/src/abitype.ts`** - now imports `EncodeFunctionDataParameters` from native types instead of viem
+
+### Tests Verified:
+- All core tests pass (28 passed, 1 skipped)
+- Contract tests pass (29 passed)
+- Type checking passes for the new types
+
+### Migration Progress:
+- **Native contract types complete**: `ContractFunctionName`, `ContractFunctionArgs`, `ContractFunctionReturnType`, `ContractConstructorArgs`, `EncodeFunctionDataParameters`
+- **Remaining viem types** (6): `Account`, `CreateEventFilterParameters`, `DecodeFunctionResultReturnType`, `EncodeDeployDataParameters`, `GetEventArgs`, `HDAccount`

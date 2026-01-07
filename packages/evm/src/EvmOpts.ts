@@ -1,21 +1,23 @@
-import type { EVMOpts as EthereumjsEVMOpts } from '@ethereumjs/evm'
+import type { EthjsAddress } from '@tevm/utils'
 
 /**
- * The options available to pass to the EVM. Inferred from ethereumjs/evm
- * @see https://github.com/ethereumjs/ethereumjs-monorepo/pull/3334
- * @example
- * ```typescript
- * import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
- * import { mainnet } from 'tevm/common'
- * import { createStateManager } from 'tevm/state'
- * import { createBlockchain } from 'tevm/blockchain'}
- * import { EthjsAddress } from 'tevm/utils'
- *
- * const evm: Evm = createEvm({
- *   common: mainnet.copy(),
- *   stateManager: createStateManager(),
- *   blockchain: createBlockchain(),
- * })
- * ```
+ * Custom precompile definition for EVM
  */
-export type EVMOpts = EthereumjsEVMOpts
+export type PrecompileDefinition = {
+  address: EthjsAddress
+  function: (params: { data: Uint8Array; gasLimit: bigint }) => Promise<{
+    returnValue: Uint8Array
+    executionGasUsed: bigint
+  }>
+}
+
+/**
+ * Minimal EVM options for Guillotine adapter.
+ * Extended/ignored options are accepted but may be unused.
+ */
+export type EVMOpts = {
+  allowUnlimitedContractSize?: boolean
+  profiler?: boolean
+  loggingLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal'
+  customPrecompiles?: PrecompileDefinition[]
+}

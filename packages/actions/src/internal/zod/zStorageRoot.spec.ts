@@ -1,4 +1,4 @@
-import type { Hex } from 'viem'
+import type { Hex } from '@tevm/utils'
 import { expect, test } from 'vitest'
 import type { z } from 'zod'
 import { zStorageRoot } from './zStorageRoot.js'

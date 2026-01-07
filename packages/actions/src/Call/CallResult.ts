@@ -6,15 +6,11 @@ import type { TevmCallError } from './TevmCallError.js'
  *
  * @example
  * ```typescript
- * import { createClient } from 'viem'
- * import { createTevmTransport, tevmCall } from 'tevm'
+ * import { createMemoryClient, tevmCall } from 'tevm'
  * import { optimism } from 'tevm/common'
  * import { CallResult } from 'tevm/actions'
  *
- * const client = createClient({
- *   transport: createTevmTransport({}),
- *   chain: optimism,
- * })
+ * const client = createMemoryClient({ common: optimism })
  *
  * const callParams = {
  *   data: '0x...',

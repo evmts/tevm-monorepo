@@ -1,0 +1,37 @@
+# Ralph Migration Log - Iteration 369
+## Date: 2026-01-05 03:04
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **rootPorcini.js** (id: 7672) - The Root Network Porcini testnet with XRP native currency, WebSocket support, multicall3 contract
+2. **rootstock.js** (id: 30) - Rootstock Mainnet (Bitcoin L2) with RBTC native currency, multicall3 contract
+3. **rootstockTestnet.js** (id: 31) - Rootstock Testnet with tRBTC native currency, multicall3 contract, testnet flag
+4. **rss3.js** (id: 12553) - RSS3 VSL Mainnet with RSS3 native currency, multicall3 contract, apiUrl in block explorer
+5. **rss3Sepolia.js** (id: 2331) - RSS3 VSL Sepolia Testnet with RSS3 native currency, multicall3 contract, apiUrl in block explorer, testnet flag
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Previously migrated**: ~261 (from iteration 368)
+- **Migrated this session**: 5
+- **Total migrated**: ~266
+- **Remaining**: 78 (~23% remaining, excluding generator script)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Rootstock is a Bitcoin L2 using merge-mining with RBTC (a tokenized version of Bitcoin)
+- RSS3 is the decentralized information layer, an OP Stack L2
+- Root Network testnet (Porcini) is a testnet for the XRP-native chain
+
+## Next Steps
+Continue migrating remaining chain presets. 78 remain (~23% remaining).
+Next chains to migrate: saigon, sapphire, sapphireTestnet, satoshiVM, satoshiVMTestnet...

@@ -1,0 +1,29 @@
+## Summary
+
+In this iteration (345), I migrated **19 chain presets** from `viem/chains` to `nativeDefineChain`:
+
+**Chains migrated:**
+1. cyber (7560)
+2. curtis (33111) 
+3. crossbell (3737)
+4. cronoszkEVMTestnet (282)
+5. darwinia (46)
+6. dchain (2716446429837000) - OP Stack
+7. dchainTestnet (2713017997578000) - OP Stack
+8. defichainEvm (1130)
+9. defichainEvmTestnet (1131)
+10. degen (666666666)
+11. dfk (53935)
+12. dodochainTestnet (53457)
+13. dogechain (2000)
+14. dreyerxMainnet (23451)
+15. dreyerxTestnet (23452)
+16. edgeless (2026)
+17. edgelessTestnet (202)
+18. edgeware (2021)
+19. edgewareTestnet (2022)
+
+**Progress:**
+- Total migrated so far: ~118 presets
+- Remaining: ~221 presets (~66% remaining)
+- Tests: All passing (10 passed, 1 skipped)

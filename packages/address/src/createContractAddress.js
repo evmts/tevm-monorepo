@@ -1,6 +1,5 @@
 import { InvalidAddressError } from '@tevm/errors'
-import { EthjsAddress, keccak256, toRlp } from '@tevm/utils'
-import { numberToBytes } from 'viem'
+import { EthjsAddress, keccak256, numberToBytes, toRlp } from '@tevm/utils'
 import { Address } from './Address.js'
 import { createAddress } from './createAddress.js'
 

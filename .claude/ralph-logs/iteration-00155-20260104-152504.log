@@ -1,0 +1,29 @@
+The implementation is complete. Let me provide a summary of this iteration:
+
+## Summary
+
+I've successfully added a new `nativeMnemonicToAccount` function to the @tevm/utils package. This is a viem-compatible account implementation that derives accounts from BIP-39 mnemonic phrases without depending on viem for HD derivation.
+
+### Key Implementation Details:
+
+1. **Uses pure JavaScript libraries** (no FFI/native dependencies):
+   - `@scure/bip39` for mnemonic validation and seed derivation
+   - `@scure/bip32` for BIP-32/BIP-44 HD key derivation
+   - `nativePrivateKeyToAccount` for signing (which uses @tevm/voltaire internally)
+
+2. **Full feature support**:
+   - Multiple derivation indices (accountIndex, addressIndex, changeIndex)
+   - Custom derivation paths
+   - BIP-39 passphrases
+   - All signing methods: `sign`, `signMessage`, `signTransaction`, `signTypedData`
+   - `getAccount(index)` helper for iterating through accounts
+
+3. **Tests**: 17 comprehensive tests verify viem compatibility and all signing functionality
+
+4. **Files changed**:
+   - New: `packages/utils/src/nativeMnemonicToAccount.js`
+   - New: `packages/utils/src/nativeMnemonicToAccount.spec.ts`
+   - Modified: `packages/utils/package.json` (added @scure dependencies)
+   - Modified: `packages/utils/src/viem.js` (added export)
+
+All 587 utils tests pass.

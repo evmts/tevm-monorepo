@@ -1,0 +1,17 @@
+## Summary
+
+Successfully completed migration iteration 21:
+
+**Migrated:** `formatLog` - Native implementation that converts RPC log objects to structured Log objects with proper type conversions:
+- `blockNumber`: hex string → bigint
+- `logIndex`: hex string → number  
+- `transactionIndex`: hex string → number
+- Proper null handling for pending logs
+- Conditional args/eventName inclusion
+
+**Test Results:** 197 tests pass (6 new formatLog tests added)
+
+**Remaining viem imports: 13** (down from 14)
+- 12 ABI encode/decode functions
+- `serializeTransaction`
+- `mnemonicToAccount` (from viem/accounts)

@@ -1,0 +1,129 @@
+# Ralph Migration Log - Iteration 421
+## Date: 2026-01-05 06:05
+
+## Task: Continue test-matchers migration - balance, contract, errors files
+
+## Changes Made
+
+### Part 1: Migrated balance files
+
+#### matchers/balance/getDiffMethodsFromPrestateTrace.ts
+Migrated Address type:
+```typescript
+import { type Address } from '@tevm/utils'
+import type { Client } from 'viem'
+```
+
+#### matchers/balance/toChangeBalance.ts
+Migrated Address and isAddress:
+```typescript
+import { type Address, isAddress } from '@tevm/utils'
+import type { Client } from 'viem'
+```
+
+#### matchers/balance/toChangeBalances.ts
+Migrated isAddress:
+```typescript
+import { isAddress } from '@tevm/utils'
+import type { Client } from 'viem'
+```
+
+#### matchers/balance/toChangeTokenBalance.ts
+Migrated Address and isAddress:
+```typescript
+import { type Address, isAddress } from '@tevm/utils'
+import type { Client } from 'viem'
+```
+
+#### matchers/balance/toChangeTokenBalances.ts
+Migrated Address and isAddress:
+```typescript
+import { type Address, isAddress } from '@tevm/utils'
+import type { Client } from 'viem'
+```
+
+#### matchers/balance/index.ts
+Migrated Address type:
+```typescript
+import type { Address } from '@tevm/utils'
+import type { Client } from 'viem'
+```
+
+### Part 2: Migrated contract files
+
+#### matchers/contract/getSelectorToCalldataMap.ts
+Migrated Address, getAddress, Hex, isHex:
+```typescript
+import { type Address, getAddress, type Hex, isHex } from '@tevm/utils'
+import type { Client } from 'viem'
+```
+
+#### matchers/contract/index.ts
+Migrated Abi, AbiParameter, AbiParametersToPrimitiveTypes, ContractFunctionName, ExtractAbiFunction, Hex:
+```typescript
+import type { Abi, AbiParameter, AbiParametersToPrimitiveTypes, ContractFunctionName, ExtractAbiFunction, Hex } from '@tevm/utils'
+import type { Client } from 'viem'
+```
+
+### Part 3: Migrated errors files
+
+#### matchers/errors/index.ts
+Migrated Abi, AbiParameter, AbiParametersToPrimitiveTypes, ContractErrorName, ExtractAbiError, Hex:
+```typescript
+import type { Abi, AbiParameter, AbiParametersToPrimitiveTypes, ContractErrorName, ExtractAbiError, Hex } from '@tevm/utils'
+import type { Client } from 'viem'
+```
+
+#### matchers/errors/types.ts
+Migrated Abi, ContractErrorName, Hex (kept DecodeErrorResultReturnType from viem):
+```typescript
+import type { Abi, ContractErrorName, Hex } from '@tevm/utils'
+import type { DecodeErrorResultReturnType } from 'viem'
+```
+
+## Files Changed
+1. extensions/test-matchers/src/matchers/balance/getDiffMethodsFromPrestateTrace.ts
+2. extensions/test-matchers/src/matchers/balance/toChangeBalance.ts
+3. extensions/test-matchers/src/matchers/balance/toChangeBalances.ts
+4. extensions/test-matchers/src/matchers/balance/toChangeTokenBalance.ts
+5. extensions/test-matchers/src/matchers/balance/toChangeTokenBalances.ts
+6. extensions/test-matchers/src/matchers/balance/index.ts
+7. extensions/test-matchers/src/matchers/contract/getSelectorToCalldataMap.ts
+8. extensions/test-matchers/src/matchers/contract/index.ts
+9. extensions/test-matchers/src/matchers/errors/index.ts
+10. extensions/test-matchers/src/matchers/errors/types.ts
+
+## Build Status
+- @tevm/test-matchers DTS build - SUCCESS (non-spec files)
+- Pre-existing spec file type errors (unrelated to migration)
+- Pre-existing handleTransaction.ts type error (TransactionReceipt type assertion)
+
+## Migration Progress
+- Started session with 21 files having viem imports
+- Still have 21 files with viem imports (all now only import `Client` type or essential viem runtime/types)
+
+## Remaining viem imports (by design):
+1. `Client` type (19 files) - Intentionally kept for API compatibility (`Client | TevmNode`)
+2. `DecodeErrorResultReturnType` type (1 file) - Complex viem-specific type
+3. Runtime viem imports in errors/handleTransaction.ts (1 file):
+   - ContractFunctionRevertedError, decodeAbiParameters, TransactionReceipt, BaseError
+   - estimateGas, getTransaction, getTransactionReceipt from viem/actions
+
+## Analysis
+The `Client` type imports are intentional by design. The test-matchers extension is specifically designed to work with both viem Clients and TevmNodes, allowing users to:
+- Use `Client | TevmNode` as parameter types
+- Check `'request' in client` to determine which type was passed
+- Create a TevmNode fork when a viem Client is passed
+
+This is a feature, not technical debt. The extension bridges viem and tevm ecosystems.
+
+## Session Summary
+Migrated all possible type imports from viem to @tevm/utils in test-matchers. The remaining viem imports are:
+- Client type: Kept for API design (supporting both viem and tevm clients)
+- DecodeErrorResultReturnType: Complex viem-specific type
+- Runtime viem imports: Error handling that uses viem's error types and actions
+
+## Next Steps
+1. Consider if DecodeErrorResultReturnType can be replaced with a tevm equivalent
+2. Move to other packages (e.g., bundler-packages/mud) for continued migration
+3. Or focus on core packages (@tevm/actions, @tevm/vm, @tevm/evm, @tevm/state)

@@ -1,8 +1,9 @@
 import { mainnet } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
 import { createCachedMainnetTransport } from '@tevm/test-utils'
-import { type Address, testActions } from 'viem'
+import type { Address } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { testActions } from '../createClient.js'
 import { createMemoryClient } from '../createMemoryClient.js'
 import type { MemoryClient } from '../MemoryClient.js'
 

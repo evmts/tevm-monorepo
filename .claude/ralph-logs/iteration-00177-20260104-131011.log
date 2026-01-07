@@ -1,0 +1,66 @@
+# Ralph Migration Log - Iteration 177
+## Date: 2026-01-04 13:10:11
+
+## Summary
+Verified migration stability. All core tests pass. Ready for commit.
+
+## Context
+Previous iterations (up through 176) completed significant migration work:
+- Native EVM implementation with `getPrecompile`, `DEBUG`, and custom precompile support
+- Native `AccountCache` and `StorageCache` in `@tevm/utils`
+- Native `Bloom` class in `@tevm/utils`
+- Native consensus types (`Consensus`, `CasperConsensus`) in `@tevm/blockchain`
+- Native types in `@tevm/common`: `AccountFields`, `CliqueConfig`, `ConsensusAlgorithm`, `ConsensusType`, `CustomCrypto`, `EvmStateManagerInterface`, `StorageDump`, `StorageRange`
+
+## Current Status
+
+### Import Counts:
+- `@ethereumjs/*` imports in source: 7 files (down from 37+ in types)
+- `viem` imports: 94 files (out of scope for this iteration)
+
+### Source Files Using EthereumJS (in non-generated code):
+1. `@tevm/tx` - Transaction types and creation (`FeeMarket1559Tx`, etc.)
+2. `@tevm/common` - Common chain configuration (`createCustomCommon`, `Mainnet`)
+3. `@tevm/trie` - Merkle Patricia Trie (`Trie`, `genesisStateRoot`)
+
+### Tests Run:
+```bash
+pnpm vitest run packages/evm/src/createEvm.spec.ts packages/common/src/createCommon.spec.ts packages/state/src/createBaseState.spec.ts
+# Result: 28 passed, 1 skipped (29 total) - ALL CORE TESTS PASS
+```
+
+### Note on Other Test Failures:
+Some VM tests fail due to pre-existing issues (nonce mismatch, access list tests) and are unrelated to migration work.
+Some blockchain tests fail due to missing RPC environment variables (`TEVM_RPC_URLS_MAINNET`, `TEVM_RPC_URLS_OPTIMISM`).
+
+## Migration Progress Overview
+
+### Completed Migrations:
+| Package | Original Import | Status |
+|---------|-----------------|--------|
+| @tevm/state | @ethereumjs/statemanager (AccountCache, StorageCache) | Native in @tevm/utils |
+| @tevm/utils | ethereum-cryptography | Wrapped in @tevm/utils |
+| @tevm/vm | Bloom class | Native in @tevm/utils |
+| @tevm/blockchain | Consensus types | Native in @tevm/blockchain |
+| @tevm/common | Common types | Native type files created |
+| @tevm/evm | Native Evm adapter | Stub adapter ready for guillotine-mini |
+
+### Remaining EthereumJS Dependencies (Core):
+| Package | Dependency | Notes |
+|---------|------------|-------|
+| @tevm/tx | @ethereumjs/tx | Transaction serialization/signing |
+| @tevm/common | @ethereumjs/common | Chain configurations (Mainnet, etc.) |
+| @tevm/trie | @ethereumjs/trie | Merkle Patricia Trie (fundamental) |
+| @tevm/evm | @ethereumjs/evm | Full EVM (native Evm stubs, guillotine-mini planned) |
+
+### Blockers:
+- voltaire type build fails with OOM (`Worker terminated due to reaching memory limit`)
+
+## Files Changed in This Session
+None - verification only session
+
+## Next Steps
+1. Address voltaire type build memory issues
+2. Consider migrating more types from @ethereumjs/common if voltaire supports them
+3. Continue stubbing native EVM functionality for eventual guillotine-mini integration
+4. Add native transaction types when voltaire supports transaction signing

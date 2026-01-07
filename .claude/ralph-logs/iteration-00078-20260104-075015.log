@@ -1,0 +1,19 @@
+## Migration Complete - Iteration 124
+
+Successfully migrated `fetchFromProvider` and `getProvider` from `@ethereumjs/util` to native implementations:
+
+**New files:**
+- `packages/utils/src/provider.js` - Native implementations
+- `packages/utils/src/provider.spec.ts` - 11 tests (all passing, 100% coverage)
+
+**Changes:**
+- Updated `ethereumjs.js` to mark these as migrated
+- Updated `index.ts` to export from native `provider.js`
+
+**Test results:** 448 passed, 1 skipped
+
+**Remaining @ethereumjs/util exports:**
+- `EthjsAccount`, `EthjsAddress` (core classes)
+- `createAccount`, `createAddressFromString` (factory functions)
+- `createWithdrawal`, `Withdrawal` (withdrawal handling)
+- EIP-7702 utilities (authorization functions)

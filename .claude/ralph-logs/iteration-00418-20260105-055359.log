@@ -1,0 +1,111 @@
+# Ralph Migration Log - Iteration 418
+## Date: 2026-01-05 05:53
+
+## Task: Add ContractErrorName, ExtractAbiError, AbiError types + migrate more files
+
+## Changes Made
+
+### Part 1: Add error types to @tevm/utils
+
+#### contract-types.ts
+Added new error types:
+- `ContractErrorName<TAbi>` - Extracts error names from an ABI
+- `ContractErrorArgs<TAbi, TErrorName>` - Extracts error argument types
+- Re-exported `ExtractAbiError` from abitype
+
+#### abitype.ts
+- Added `AbiError` to the abitype re-exports
+- Added `ContractErrorName`, `ContractErrorArgs`, `ExtractAbiError` exports from contract-types.js
+
+#### index.ts
+- Added exports: `AbiError`, `ContractErrorName`, `ContractErrorArgs`, `ExtractAbiError`
+
+### Part 2: Migrated test-matchers files
+
+#### withFunctionArgs.ts
+Changed from:
+```typescript
+import type { AbiParameter, AbiParametersToPrimitiveTypes, ExtractAbiFunction } from 'abitype'
+import { type Abi, type ContractFunctionName, decodeAbiParameters } from 'viem'
+```
+To:
+```typescript
+import {
+	type Abi, type AbiParameter, type AbiParametersToPrimitiveTypes,
+	type ContractFunctionName, type ExtractAbiFunction, decodeAbiParameters,
+} from '@tevm/utils'
+```
+
+#### withFunctionNamedArgs.ts
+Changed from:
+```typescript
+import type { AbiParameter, ExtractAbiFunction } from 'abitype'
+import { type Abi, type ContractFunctionName, decodeAbiParameters } from 'viem'
+```
+To:
+```typescript
+import {
+	type Abi, type AbiParameter, type ContractFunctionName,
+	type ExtractAbiFunction, decodeAbiParameters,
+} from '@tevm/utils'
+```
+
+#### withErrorArgs.ts
+Changed from:
+```typescript
+import type { AbiParameter, AbiParametersToPrimitiveTypes, ExtractAbiError } from 'abitype'
+import { type Abi, type ContractErrorName, decodeErrorResult } from 'viem'
+```
+To:
+```typescript
+import {
+	type Abi, type AbiParameter, type AbiParametersToPrimitiveTypes,
+	type ContractErrorName, type ExtractAbiError, decodeErrorResult,
+} from '@tevm/utils'
+```
+
+#### withErrorNamedArgs.ts
+Changed from:
+```typescript
+import type { AbiError, AbiParameter, ExtractAbiError } from 'abitype'
+import { type Abi, type ContractErrorName, decodeErrorResult } from 'viem'
+```
+To:
+```typescript
+import {
+	type Abi, type AbiError, type AbiParameter, type ContractErrorName,
+	type ExtractAbiError, decodeErrorResult,
+} from '@tevm/utils'
+```
+
+## Files Changed
+1. packages/utils/src/contract-types.ts (added error types)
+2. packages/utils/src/abitype.ts (added exports)
+3. packages/utils/src/index.ts (added exports)
+4. extensions/test-matchers/src/matchers/contract/withFunctionArgs.ts
+5. extensions/test-matchers/src/matchers/contract/withFunctionNamedArgs.ts
+6. extensions/test-matchers/src/matchers/errors/withErrorArgs.ts
+7. extensions/test-matchers/src/matchers/errors/withErrorNamedArgs.ts
+
+## Build Status
+- @tevm/utils:build:types - SUCCESS
+
+## Migration Progress
+- Files with viem imports in test-matchers: 29 (down from 33)
+- Most remaining files use `Client` type which requires more work to migrate
+
+## Summary of types now available in @tevm/utils
+From this iteration:
+- `ContractErrorName` - native type
+- `ContractErrorArgs` - native type
+- `ExtractAbiError` - re-exported from abitype
+- `AbiError` - re-exported from abitype
+
+Previous iterations:
+- `isAddressEqual` - native function
+- `trim` - native function
+- All other common abitype/viem types
+
+## Next Steps
+1. Continue migrating files that don't use `Client`
+2. Consider creating a `Client` compatibility type for test-matchers

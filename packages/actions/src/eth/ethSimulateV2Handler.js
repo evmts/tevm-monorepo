@@ -169,7 +169,7 @@ export const ethSimulateV2Handler = (client) => {
 				/** @type {import('../common/FilterLog.js').FilterLog[]} */
 				const logs = (result.execResult.logs ?? []).map((log, logIdx) => ({
 					address: /** @type {import('@tevm/utils').Address} */ (bytesToHex(log[0])),
-					topics: /** @type {import('@tevm/utils').Hex[]} */ (log[1].map((t) => bytesToHex(t))),
+					topics: /** @type {import('@tevm/utils').Hex[]} */ (log[1].map((/** @type {Uint8Array} */ t) => bytesToHex(t))),
 					data: bytesToHex(log[2]),
 					blockNumber,
 					transactionHash: /** @type {import('@tevm/utils').Hex} */ (`0x${'0'.repeat(64)}`),

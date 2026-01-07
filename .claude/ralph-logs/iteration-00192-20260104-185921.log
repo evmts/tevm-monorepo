@@ -1,0 +1,16 @@
+## Migration Status Summary - Iteration 246
+
+**Tests Verified**: 60 tests passing across core packages
+
+**Migration Complete For:**
+- Crypto primitives (Keccak256, Secp256k1, P256, EIP712) - using `@tevm/voltaire`
+- Account creation - native implementations available
+- ABI encoding/decoding - using `@tevm/voltaire/Abi`
+- EVM integration - guillotine-mini WASM working (24 tests)
+
+**Remaining viem Deps (Intentional):**
+1. Transport functions (`createPublicClient`, `http`, etc.) - required for RPC/forking
+2. Deprecated account exports - kept for backward compatibility
+3. Type declarations in `.d.ts` files - type-level only
+
+**No Further Migration Needed** - Core packages have no direct viem imports in source files. The migration phase is substantially complete.

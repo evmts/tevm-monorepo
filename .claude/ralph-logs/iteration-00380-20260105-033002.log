@@ -1,0 +1,36 @@
+# Ralph Migration Log - Iteration 380
+## Date: 2026-01-05 03:30
+
+## Summary
+Migrated 4 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **taikoKatla.js** (id: 167008) - Taiko Katla (Alpha-6 Testnet) with ETH native currency (decimals 18), blockscout explorer at https://explorer.katla.taiko.xyz, testnet flag enabled
+2. **taikoTestnetSepolia.js** (id: 167005) - Taiko (Alpha-3 Testnet) with ETH native currency (decimals 18), blockscout explorer at https://explorer.test.taiko.xyz, testnet flag enabled
+3. **taraxa.js** (id: 841) - Taraxa Mainnet with TARA native currency (decimals 18), Taraxa Explorer at https://explorer.mainnet.taraxa.io
+4. **taraxaTestnet.js** (id: 842) - Taraxa Testnet with TARA native currency (decimals 18), Taraxa Explorer at https://explorer.testnet.taraxa.io, testnet flag enabled
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Previously migrated**: ~306 (from iteration 379)
+- **Migrated this session**: 4
+- **Total migrated**: ~310
+- **Remaining**: 34 (~10% remaining, excluding generator script)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Taiko chains both use ETH as native currency
+- Taraxa chains use TARA as native currency
+- No multicall3 contracts on any of these chains
+
+## Next Steps
+Continue migrating remaining chain presets (telcoinTestnet, telos, telosTestnet, tenet, thaiChain, etc.).
+34 files remain (~10% remaining).

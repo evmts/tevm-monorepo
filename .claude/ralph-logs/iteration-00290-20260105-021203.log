@@ -1,0 +1,18 @@
+I've successfully migrated 12 chain presets from `viem/chains` to `nativeDefineChain` in this iteration:
+
+1. **goerli.js** (id: 5) - Goerli Ethereum testnet
+2. **gravity.js** (id: 1625) - Gravity Alpha Mainnet
+3. **ham.js** (id: 5112) - Ham chain
+4. **haqqMainnet.js** (id: 11235) - HAQQ Mainnet
+5. **haqqTestedge2.js** (id: 54211) - HAQQ Testedge 2
+6. **hardhat.js** (id: 31337) - Hardhat local dev chain
+7. **harmonyOne.js** (id: 1666600000) - Harmony One
+8. **hashkeyTestnet.js** (id: 133) - HashKey Chain Testnet
+9. **hedera.js** (id: 295) - Hedera Mainnet
+10. **hederaPreviewnet.js** (id: 297) - Hedera Previewnet
+11. **hederaTestnet.js** (id: 296) - Hedera Testnet
+12. **holesky.js** (id: 17000) - Holesky Ethereum testnet
+
+**Test Results:** All 10 tests passed (1 skipped - consistent with baseline).
+
+**Migration Progress:** ~166 presets migrated (~50% complete), ~169 remaining.

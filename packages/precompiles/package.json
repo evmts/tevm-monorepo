@@ -61,11 +61,11 @@
 		"test:run": "vitest run"
 	},
 	"dependencies": {
-		"@noble/curves": "^2.0.1",
 		"@tevm/address": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/evm": "workspace:^",
-		"@tevm/utils": "workspace:^"
+		"@tevm/utils": "workspace:^",
+		"@tevm/voltaire": "workspace:^"
 	},
 	"devDependencies": {
 		"@tevm/bun-plugin": "workspace:^",

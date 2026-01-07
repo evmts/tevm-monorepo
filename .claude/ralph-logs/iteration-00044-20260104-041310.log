@@ -1,0 +1,29 @@
+## Migration Iteration Complete
+
+**Successfully migrated 7 viem imports in @tevm/actions test files:**
+
+### Files migrated:
+1. `GetAccount/getAccountHandler.spec.ts`: numberToHex
+2. `internal/serializeTraceResult.spec.ts`: numberToHex  
+3. `LoadState/zLoadStateParms.spec.ts`: stringToHex
+4. `internal/prefetchStorageFromAccessList.spec.ts`: hexToBytes
+5. `Call/cloneVmWithBlock.spec.ts`: bytesToHex
+6. `eth/utils/parseBlockParam.spec.ts`: bytesToHex
+7. `eth/getCodeHandler.spec.ts`: numberToHex
+
+**Commit created:**
+- `a9802d57b`: @tevm/actions test file migrations (7 files)
+
+**Tests verified:**
+- serializeTraceResult.spec.ts ✅
+- zLoadStateParms.spec.ts ✅
+
+**Viem import count:** 235 → 228 (7 imports migrated)
+
+**Note:** Some tests in getAccountHandler.spec.ts fail due to pre-existing issue 
+with "storageRoot must have a length of 32" in genesis generation - not related 
+to migration.
+
+**Remaining targets for future iterations:**
+- More test files with parseEther, encodeFunctionData
+- Non-test source files with simple utility imports

@@ -36,8 +36,8 @@ describe('requestEip1193', () => {
 
 		const extended = requestEip1193()(mockClient)
 
-		const result = await extended.request({
-			method: 'test_method' as any,
+		const result = await (extended.request as any)({
+			method: 'test_method',
 			params: ['param1', 'param2'],
 		})
 
@@ -53,8 +53,8 @@ describe('requestEip1193', () => {
 
 		const extended = requestEip1193()(mockClient)
 
-		const result = await extended.request({
-			method: 'test_method' as any,
+		const result = await (extended.request as any)({
+			method: 'test_method',
 		})
 
 		expect(result).toBe('success')
@@ -69,8 +69,8 @@ describe('requestEip1193', () => {
 		const extended = requestEip1193()(mockClient)
 
 		await expect(
-			extended.request({
-				method: 'error_method' as any,
+			(extended.request as any)({
+				method: 'error_method',
 			}),
 		).rejects.toEqual({ code: -32000, message: 'Error message' })
 	})

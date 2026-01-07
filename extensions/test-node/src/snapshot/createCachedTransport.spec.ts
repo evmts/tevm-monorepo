@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { http } from 'viem'
+import { nativeHttp } from '@tevm/utils'
 import { afterEach, assert, describe, expect, it } from 'vitest'
 import { createCachedTransport } from './createCachedTransport.js'
 import { SnapshotManager } from './SnapshotManager.js'
@@ -8,7 +8,7 @@ import { SnapshotManager } from './SnapshotManager.js'
 describe('createCachedTransport', () => {
 	const testCacheDir = path.join(process.cwd(), '.test-create-cached-transport')
 	const testSnapshotPath = path.join(testCacheDir, 'test.snap.json')
-	const optimismTransport = http('https://mainnet.optimism.io')({})
+	const optimismTransport = nativeHttp('https://mainnet.optimism.io')()
 	const snapshotManager = new SnapshotManager(() => testSnapshotPath)
 
 	afterEach(() => {

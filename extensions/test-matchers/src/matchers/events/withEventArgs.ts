@@ -1,5 +1,11 @@
-import type { AbiEventParameter, AbiParametersToPrimitiveTypes, ExtractAbiEvent } from 'abitype'
-import { type Abi, type ContractEventName, decodeEventLog } from 'viem'
+import {
+	type Abi,
+	type AbiEventParameter,
+	type AbiParametersToPrimitiveTypes,
+	type ContractEventName,
+	type ExtractAbiEvent,
+	decodeEventLog,
+} from '@tevm/utils'
 import { parseChainArgs } from '../../chainable/chainable.js'
 import type { ChainState, MatcherResult } from '../../chainable/types.js'
 import type { ToEmitState } from './types.js'
@@ -39,9 +45,10 @@ export const withEventArgs = <
 			data: log.data,
 			topics: log.topics,
 			eventName: eventName,
-		})
+		}) as { eventName: string; args: Record<string, unknown> } | undefined
+		if (!decodedLog) continue
 
-		const decodedArgs = Object.values(decodedLog.args as unknown as Record<string, unknown>)
+		const decodedArgs = Object.values(decodedLog.args)
 		if (!decodedArgs.length) continue
 		actualArgsFromLogs.push(decodedArgs)
 

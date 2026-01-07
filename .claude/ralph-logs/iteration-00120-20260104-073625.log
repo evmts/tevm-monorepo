@@ -1,0 +1,66 @@
+# Ralph Migration Iteration 120 - Native KeyEncoding and ValueEncoding Enums
+
+## Summary
+
+Migrated `KeyEncoding` and `ValueEncoding` enums from `@ethereumjs/util` to native implementations in `@tevm/utils`. These are simple enum definitions used for specifying key/value encoding types in database operations.
+
+## Changes Made
+
+### New Files
+1. `packages/utils/src/encoding.js` - Native implementation of KeyEncoding and ValueEncoding enums
+2. `packages/utils/src/encoding.spec.ts` - Comprehensive test file (8 tests)
+
+### Modified Files
+1. `packages/utils/src/ethereumjs.js` - Removed KeyEncoding and ValueEncoding exports, added migration comments
+2. `packages/utils/src/index.ts` - Added exports from new encoding.js file
+
+## Implementation Details
+
+### KeyEncoding enum
+```javascript
+export const KeyEncoding = {
+  String: 'string',
+  Bytes: 'view',
+  Number: 'number',
+}
+```
+
+### ValueEncoding enum
+```javascript
+export const ValueEncoding = {
+  String: 'string',
+  Bytes: 'view',
+  JSON: 'json',
+}
+```
+
+These enums define encoding options for database operations - keys can be encoded as strings, bytes (Uint8Array views), or numbers; values can be strings, bytes, or JSON.
+
+## Tests Passed
+
+- `packages/utils/src/encoding.spec.ts` - 8 passed
+- All @tevm/utils tests - 418 passed, 1 skipped (419 total)
+
+## Impact
+
+Reduced dependency on `@ethereumjs/util` by removing 2 more exports:
+- `KeyEncoding` - Enum for specifying key encoding in database operations
+- `ValueEncoding` - Enum for specifying value encoding in database operations
+
+## Remaining @ethereumjs/util exports in ethereumjs.js
+
+The following still need migration (in rough order of complexity):
+- `EthjsAccount`, `EthjsAddress` - Core account/address classes
+- `createAccount`, `createAddressFromString` - Factory functions
+- `createWithdrawal`, `Withdrawal` - Withdrawal handling
+- `ecrecover` - Signature recovery (requires crypto)
+- `randomBytes` - Random bytes (requires crypto)
+- `fetchFromProvider`, `getProvider` - Network utilities
+- `KECCAK256_RLP`, `KECCAK256_RLP_ARRAY` - Constants (need keccak256)
+- EIP-7702 utilities - Complex authorization utilities
+
+## Next Steps
+
+Continue migrating utilities from `@ethereumjs/util`. Good next targets:
+- `KECCAK256_RLP`, `KECCAK256_RLP_ARRAY` - Constants (need to compute keccak256 of empty RLP)
+- `randomBytes` - Simple crypto utility

@@ -1,0 +1,15 @@
+## Migration Summary - Iteration 724
+
+Successfully migrated `createClient` imports from `'viem'` to `'@tevm/memory-client'` in 5 files:
+
+1. `extensions/test-matchers/src/matchers/errors/toBeReverted.spec.ts`
+2. `extensions/test-matchers/src/matchers/errors/toBeRevertedWithString.spec.ts`
+3. `extensions/test-matchers/src/matchers/errors/toBeRevertedWithError.spec.ts`
+4. `bundler-packages/mud/src/createOptimisticHandler.spec.ts`
+5. `bundler-packages/mud/test/prepare.ts`
+
+**Key insight**: `@tevm/memory-client` already re-exports `createClient` from viem, so consolidating imports there reduces direct viem dependencies while maintaining identical functionality.
+
+**Pre-existing issues observed** (not caused by these changes):
+- Type incompatibilities with `NativePrivateKeyAccount` and viem's `Account` type
+- Gas limit errors in test runtime

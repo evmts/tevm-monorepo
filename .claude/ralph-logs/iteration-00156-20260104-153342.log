@@ -1,0 +1,29 @@
+The commit was successful. Let me provide a summary of what was accomplished in this iteration:
+
+## Summary - Iteration 210
+
+Successfully completed the following migrations:
+
+### New Files Created:
+1. **`packages/utils/src/account-types.ts`** - Native TypeScript types for accounts
+   - `LocalAccount<TSource>` - Base type for all local accounts
+   - `NativePrivateKeyAccount`, `NativeMnemonicAccount`, `NativeHDAccount`
+   - Signing parameter types
+
+2. **`packages/utils/src/nativeHdAccount.js`** - Native HD account implementation
+   - Uses `source: 'hd'` to match viem's HDAccount type
+   - Full signing support using voltaire primitives
+   - Compatible with viem's `mnemonicToAccount`
+
+3. **`packages/utils/src/nativeHdAccount.spec.ts`** - Comprehensive test suite (13 tests)
+
+### Key Migrations:
+- **`packages/actions/src/eth/utils/testAccounts.js`** - Now uses `nativeHdAccount` instead of viem's `mnemonicToAccount`
+- Updated type annotations to accept both `HDAccount` and `NativeHDAccount`
+
+### Bug Fixes:
+- Fixed `signTransaction` to handle explicit `type: 'eip2930'` and `type: 'eip1559'` fields
+
+### Test Results:
+- All 48 native account tests pass
+- All 14 signing-related tests pass

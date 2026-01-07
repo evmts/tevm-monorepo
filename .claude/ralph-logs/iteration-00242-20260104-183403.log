@@ -1,0 +1,58 @@
+# Ralph Migration Log - Iteration 242
+## Date: 2026-01-04 18:34:03
+
+## Summary
+Verified migration status and test health across packages. All core voltaire migrations are working correctly.
+
+## Assessment
+
+### Migration Status
+1. **Core packages (actions, vm, evm, state, node)**: No direct viem imports remaining in non-test files
+2. **Utils package**: Uses voltaire for all crypto operations:
+   - Signature operations (secp256k1Sign, secp256k1Recover)
+   - Keccak256 hashing
+   - EIP-7702 authorization encoding
+   - ABI encoding/decoding
+   - Native account implementations (nativePrivateKeyToAccount, nativeMnemonicToAccount)
+3. **Remaining viem dependencies**:
+   - `mnemonicToAccount, privateKeyToAccount` from `viem/accounts` - deprecated, native versions available
+   - Transport functions (`createPublicClient`, `http`, etc.) - required for RPC/forking
+
+### Test Results
+- **guillotineWasm.spec.ts**: 18/18 passed
+- **signature.spec.ts**: 31/31 passed
+- **eip7702.spec.ts**: 22/22 passed
+- **nativePrivateKeyToAccount.spec.ts**: 18/18 passed
+- **nativeMnemonicToAccount.spec.ts**: 17/17 passed
+- **prefundedAccounts.spec.ts**: 1/1 passed
+- **Bloom.spec.ts**: 6/6 passed
+- **All utils tests**: 607/608 passed (1 skipped)
+
+### Known Issues (Pre-existing)
+- Some memory-client tests fail due to gas limit issues (Prague hardfork related)
+- Fork tests fail due to RPC environment issues
+- These are not related to the voltaire migration
+
+## Findings
+1. Core migration is complete for crypto operations
+2. The only remaining viem dependencies are:
+   - Transport/client functions (essential for RPC communication)
+   - Deprecated account functions (can be removed once consumers migrate)
+3. Noble-curves has been fully removed from packages
+4. Guillotine-mini WASM integration is functional
+
+## Next Steps
+1. Consider removing deprecated viem account exports (breaking change)
+2. Investigate if transport functions can eventually be replaced
+3. Continue monitoring test stability
+4. Look for opportunities in other packages
+
+## Files Examined (no changes made)
+- packages/utils/src/viem.js
+- packages/actions/src/* (various files)
+- packages/block/src/* (various files)
+- packages/evm/src/guillotineWasm.spec.ts
+
+## Status
+Migration is in a stable state. Core packages now use voltaire for crypto operations.
+All tests in @tevm/utils pass (607/608).

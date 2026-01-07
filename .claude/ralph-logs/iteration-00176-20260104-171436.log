@@ -1,0 +1,26 @@
+The migration status has been verified and documented. 
+
+## Summary
+
+**Migration Status: Complete for Core Crypto Primitives**
+
+All 102 tests pass:
+- Signature functions (31 tests)
+- EIP-7702 utilities (22 tests)
+- Native account implementations (35 tests)
+- Bloom filter (6 tests)
+- Ecrecover (7 tests)
+- Prefunded accounts (1 test)
+
+**Core packages** (`@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, `@tevm/node`, `@tevm/block`) have no direct viem imports for crypto operations - all crypto is now backed by `@tevm/voltaire`.
+
+**Remaining viem imports** are intentional:
+1. Transport/forking functions (createPublicClient, http, etc.) - required for RPC communication
+2. Memory-client viem compatibility layer
+
+**Remaining @ethereumjs imports** are deep integrations that would require significant architectural changes:
+1. `@ethereumjs/common` - Hardfork/chain configuration
+2. `@ethereumjs/tx` - Impersonated transaction types
+3. `@ethereumjs/trie` - Trie data structure
+
+The uncommitted changes are stable and ready for commit when desired.

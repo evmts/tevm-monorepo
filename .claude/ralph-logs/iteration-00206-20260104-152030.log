@@ -1,0 +1,51 @@
+# Ralph Migration Log - Iteration 206
+## Date: 2026-01-04 15:20:30
+
+## Summary
+Implemented `signTypedData` in `nativePrivateKeyToAccount` using voltaire's EIP712 module, making the native account implementation feature-complete for EIP-712 typed data signing.
+
+## Changes Made
+
+### 1. Added EIP712 and Address imports from voltaire
+- Added `import { EIP712 } from '@tevm/voltaire/EIP712'`
+- Added `import { Address as VoltaireAddress } from '@tevm/voltaire/Address'`
+
+### 2. Implemented signTypedData function
+- Converts viem-style typed data parameters to voltaire format
+- Handles domain conversion (chainId to bigint, verifyingContract to AddressType)
+- Filters out EIP712Domain type (voltaire handles it internally)
+- Returns 65-byte signature (r + s + v)
+
+### 3. Added convertMessageValue helper function
+- Recursively converts message values based on EIP-712 type definitions
+- Converts address strings to voltaire AddressType
+- Converts bytes/bytesN strings to Uint8Array
+- Converts numbers to bigints for uint/int types
+- Handles nested struct types and arrays
+
+### 4. Updated tests
+- Changed test from "should throw not implemented error" to "should sign EIP-712 typed data"
+- Added test for signature consistency (deterministic signing)
+- Tests verify 65-byte signature format with valid v value (27 or 28)
+
+## Files Modified
+1. `packages/utils/src/nativePrivateKeyToAccount.js` - Implemented signTypedData with voltaire EIP712
+2. `packages/utils/src/nativePrivateKeyToAccount.spec.ts` - Updated tests to verify signTypedData works
+
+## Test Results
+All 44 tests pass:
+- ecrecover.spec.ts (7 tests)
+- eip7702.spec.ts (22 tests)
+- nativePrivateKeyToAccount.spec.ts (15 tests)
+
+## API Status
+`nativePrivateKeyToAccount` now provides:
+- ✅ `sign(hash)` - Sign a hash directly
+- ✅ `signMessage(message)` - Sign with EIP-191 prefix
+- ✅ `signTypedData(typedData)` - Sign EIP-712 typed data (NEW!)
+- ❌ `signTransaction(tx)` - Not implemented (requires RLP encoding)
+
+## Next Steps
+1. Consider implementing `signTransaction` using voltaire's RLP and Transaction modules
+2. Continue migrating remaining viem imports from the codebase
+3. The transport/client functions (http, webSocket, createPublicClient) are complex and may need to remain as viem dependencies for fork functionality

@@ -1,0 +1,21 @@
+All 4 files now import `generatePrivateKey` from `@tevm/utils`.
+
+## Summary
+
+**Iteration 138 completed successfully.**
+
+I migrated 4 test files in `packages/memory-client` to use `generatePrivateKey` from `@tevm/utils` instead of `viem/accounts`:
+
+1. `sendRawTransaction.spec.ts`
+2. `verifyMessage.spec.ts`
+3. `verifySiweMessage.spec.ts`
+4. `verifyTypedData.spec.ts`
+
+All `generatePrivateKey` imports from `viem` have now been eliminated from the codebase. The `privateKeyToAccount` import from `viem/accounts` still remains because it provides a full account object with signing methods (signMessage, signTypedData, etc.) that the tests require.
+
+**Current Migration Status:**
+- Core packages (actions, state, vm, evm, node) have no direct viem imports
+- `@tevm/utils` still imports from viem:
+  - Transport/client functions for forking (`createPublicClient`, `http`, etc.)
+  - Account functions (`mnemonicToAccount`, `privateKeyToAccount`) for HD wallet and signing
+  - Types from abitype and viem

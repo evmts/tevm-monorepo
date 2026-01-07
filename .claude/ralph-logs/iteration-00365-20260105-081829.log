@@ -1,0 +1,8 @@
+The migration was successful - I moved the `Client` type import from viem to @tevm/utils in `bundler-packages/mud/src/createOptimisticHandler.ts`. 
+
+**Summary:**
+- Migrated `Client` type from `viem` to `@tevm/utils`
+- The file now imports `Address`, `bytesToHex`, `Client`, `createAddressFromString`, `Hex`, and `parseEventLogs` all from `@tevm/utils`
+- Only remaining viem import is `getTransaction` from `viem/actions` (a function that would need a native implementation)
+- Pre-existing TypeScript errors in the package are due to type signature differences between @tevm/utils and viem types (not a regression from this change)
+- Pre-existing test failures are due to InvalidGasLimitError in test setup (unrelated to the migration)

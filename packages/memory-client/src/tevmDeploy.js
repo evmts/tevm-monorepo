@@ -27,13 +27,14 @@ import { deployHandler } from '@tevm/actions'
  * @example
  * ```typescript
  * import { tevmDeploy } from 'tevm/actions'
- * import { createClient, http, parseAbi } from 'viem'
+ * import { createClient } from 'viem'
+ * import { nativeHttp, parseAbi } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  *
  * const client = createClient({
  *   transport: createTevmTransport({
- *     fork: { transport: http('https://mainnet.optimism.io')({}) },
+ *     fork: { transport: nativeHttp('https://mainnet.optimism.io')({}) },
  *     mining: { auto: true } // Optional: enable auto-mining for convenience
  *   }),
  *   chain: optimism,
@@ -84,14 +85,15 @@ import { deployHandler } from '@tevm/actions'
  * ```typescript
  * // Using with direct Solidity imports via TEVM bundler
  * import { tevmDeploy } from 'tevm/actions'
- * import { createClient, http } from 'viem'
+ * import { createClient } from 'viem'
+ * import { nativeHttp } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  * import { MyToken } from './MyToken.sol' // Direct Solidity import
  *
  * const client = createClient({
  *   transport: createTevmTransport({
- *     fork: { transport: http('https://mainnet.optimism.io')({}) }
+ *     fork: { transport: nativeHttp('https://mainnet.optimism.io')({}) }
  *   }),
  *   chain: optimism,
  * })

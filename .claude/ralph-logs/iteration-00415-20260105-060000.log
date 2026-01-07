@@ -1,0 +1,133 @@
+# Ralph Migration Log - Iteration 415
+## Date: 2026-01-05 06:00
+
+## Task: Add missing viem types to @tevm/utils and migrate test-matchers files
+
+## Context
+The test-matchers extension still has many viem imports that need migrating. Before we can migrate those files, we need to ensure @tevm/utils exports all the required types.
+
+## Changes Made
+
+### Part 1: Add types to @tevm/utils
+
+#### 1.1 Added AbiParameter and AbiParameterToPrimitiveType to abitype.ts
+These types from the `abitype` package were missing from our exports:
+- `AbiParameter` - Type for individual ABI parameters
+- `AbiParameterToPrimitiveType` - Utility type to convert ABI parameters to primitive types
+
+#### 1.2 Added TransactionReceipt type alias to rpc-types.ts
+Added a `TransactionReceipt` type as an alias for `RpcTransactionReceipt` for viem compatibility.
+
+#### 1.3 Added IsAddressOptions type to address-types.ts
+The `isAddress` function from viem accepts options. Added the compatible type:
+```typescript
+export type IsAddressOptions = {
+  strict?: boolean | undefined
+}
+```
+
+#### 1.4 Updated index.ts exports
+Added all new types to the barrel file exports:
+- `AbiParameter`
+- `AbiParameterToPrimitiveType`
+- `IsAddressOptions`
+- `TransactionReceipt`
+
+### Part 2: Migrate test-matchers files
+
+#### 2.1 Migrated extensions/test-matchers/src/matchers/balance/types.ts
+Changed import from:
+```typescript
+import type { Address } from 'viem'
+```
+To:
+```typescript
+import type { Address } from '@tevm/utils'
+```
+
+#### 2.2 Migrated extensions/test-matchers/src/matchers/contract/types.ts
+Changed import from:
+```typescript
+import type { AbiFunction, Hex } from 'viem'
+```
+To:
+```typescript
+import type { AbiFunction, Hex } from '@tevm/utils'
+```
+
+#### 2.3 Migrated extensions/test-matchers/src/matchers/balance/getBalanceChange.ts
+Changed import from:
+```typescript
+import type { Address } from 'viem'
+```
+To:
+```typescript
+import type { Address } from '@tevm/utils'
+```
+
+#### 2.4 Migrated extensions/test-matchers/src/matchers/balance/getTokenBalanceChange.ts
+Changed import from:
+```typescript
+import { type Address, type Hex, hexToBigInt, numberToHex } from 'viem'
+```
+To:
+```typescript
+import { type Address, type Hex, hexToBigInt, numberToHex } from '@tevm/utils'
+```
+
+## Files Changed
+1. packages/utils/src/abitype.ts
+2. packages/utils/src/rpc-types.ts
+3. packages/utils/src/address-types.ts
+4. packages/utils/src/index.ts
+5. extensions/test-matchers/src/matchers/balance/types.ts
+6. extensions/test-matchers/src/matchers/contract/types.ts
+7. extensions/test-matchers/src/matchers/balance/getBalanceChange.ts
+8. extensions/test-matchers/src/matchers/balance/getTokenBalanceChange.ts
+
+## Build Status
+✅ `pnpm nx run @tevm/utils:build:types` - SUCCESS
+⚠️ `pnpm nx run @tevm/test-matchers:build:types` - Pre-existing failures unrelated to migration
+   (Account type mismatch between @tevm/utils.NativePrivateKeyAccount and viem.Account)
+
+## Types Available in @tevm/utils for test-matchers Migration
+After this iteration, the following types needed by test-matchers are available:
+- ✅ `Abi` - from abitype
+- ✅ `AbiFunction` - from abitype
+- ✅ `AbiParameter` - from abitype (NEW)
+- ✅ `AbiParameterToPrimitiveType` - from abitype (NEW)
+- ✅ `Address` - from address-types
+- ✅ `Hex` - from hex-types
+- ✅ `Log` - from log-types
+- ✅ `TransactionReceipt` - from rpc-types (NEW alias)
+- ✅ `IsAddressOptions` - from address-types (NEW)
+- ✅ `isHex` - re-exported from viem.js
+- ✅ `isAddress` - re-exported from viem.js
+- ✅ `hexToBigInt` - re-exported from viem.js
+- ✅ `numberToHex` - re-exported from viem.js
+- ✅ `decodeAbiParameters` - re-exported from viem.js
+- ✅ `getAddress` - re-exported from viem.js
+
+Still missing for full test-matchers migration:
+- ❌ `Client` - viem's generic Client type (complex, may need to stay as viem import)
+
+## Remaining viem imports in test-matchers (non-spec files):
+After this iteration, the following source files still have viem imports:
+- common/types.ts
+- common/handleTransaction.ts
+- matchers/contract/toCallContractFunction.ts
+- matchers/contract/withFunctionArgs.ts
+- matchers/contract/withFunctionNamedArgs.ts
+- matchers/contract/index.ts
+- matchers/contract/getSelectorToCalldataMap.ts
+- matchers/balance/toChangeTokenBalance.ts
+- matchers/balance/handleTransaction.ts
+- matchers/balance/toChangeBalance.ts
+- matchers/balance/toChangeBalances.ts
+- matchers/balance/index.ts
+- matchers/balance/toChangeTokenBalances.ts
+- matchers/balance/getDiffMethodsFromPrestateTrace.ts
+- matchers/utils/toBeAddress.ts
+
+## Next Steps
+Continue migrating test-matchers files that don't require the `Client` type.

@@ -1,0 +1,113 @@
+# Ralph Migration Log - Iteration 228
+## Date: 2026-01-04 17:16:22
+
+## Summary
+Verification iteration confirming all crypto primitive migrations to @tevm/voltaire are complete and stable. All tests passing (102/102 for core crypto tests).
+
+## Test Results - ALL PASSING
+
+### Crypto Primitives (59 tests)
+- `signature.spec.ts` - 31/31 tests passing
+- `eip7702.spec.ts` - 22/22 tests passing
+- `Bloom.spec.ts` - 6/6 tests passing
+
+### Native Account Implementations (35 tests)
+- `nativePrivateKeyToAccount.spec.ts` - 18/18 tests passing
+- `nativeMnemonicToAccount.spec.ts` - 17/17 tests passing
+
+### Other Core Tests
+- `ecrecover.spec.ts` - 7/7 tests passing
+- `prefundedAccounts.spec.ts` - 1/1 tests passing
+
+**Total: 102 tests passing**
+
+## Core Package Migration Status - COMPLETE
+
+All core packages have NO direct viem imports for crypto operations:
+- `@tevm/actions` - Uses @tevm/utils (voltaire-backed)
+- `@tevm/vm` - Uses @tevm/utils (voltaire-backed)
+- `@tevm/evm` - Uses @tevm/utils (voltaire-backed)
+- `@tevm/state` - Uses @tevm/utils (voltaire-backed)
+- `@tevm/node` - Uses @tevm/utils (voltaire-backed)
+- `@tevm/block` - Uses @tevm/utils (voltaire-backed)
+- `@tevm/address` - Uses @tevm/utils (voltaire-backed)
+
+## Voltaire Integration Summary
+
+The following crypto primitives are fully migrated to @tevm/voltaire:
+
+| Primitive | Source | Status |
+|-----------|--------|--------|
+| Keccak256 | `@tevm/voltaire/Keccak256` | ✅ Complete |
+| Secp256k1 | `@tevm/voltaire/Secp256k1` | ✅ Complete |
+| EIP712 | `@tevm/voltaire/EIP712` | ✅ Complete |
+| P256 | `@tevm/voltaire/P256` | ✅ Complete |
+| Address | `@tevm/voltaire/Address` | ✅ Complete |
+| Hash | `@tevm/voltaire/Hash` | ✅ Complete |
+| Hex | `@tevm/voltaire/Hex` | ✅ Complete |
+| Abi | `@tevm/voltaire/Abi` | ✅ Complete |
+
+## Native Implementations (replacing viem re-exports)
+
+1. **nativePrivateKeyToAccount** - Full viem-compatible account implementation
+2. **nativeMnemonicToAccount** - Full viem-compatible HD account implementation
+3. **nativeHdAccount** - HD account with source: 'hd'
+4. **ecrecover** - Public key recovery from signature
+5. **signature.js** - signMessage, signTypedData, verifyMessage, verifyTypedData
+6. **viem.js** - RLP encode/decode, transaction serialization (all tx types)
+
+## Remaining viem Dependencies (Intentional)
+
+### Transport/Forking (packages/utils/src/viem.js)
+```javascript
+export {
+  createPublicClient,
+  createTransport,
+  custom,
+  defineChain,
+  http,
+  webSocket,
+} from 'viem'
+```
+These are required for RPC communication with external nodes during forking.
+
+### Memory Client (packages/memory-client)
+The memory-client package intentionally uses viem for viem compatibility layer:
+- `createClient`, `publicActions`, `testActions`, `walletActions`
+
+### Type Re-exports (packages/utils/src/abitype.ts)
+```typescript
+export type { Account, HDAccount } from 'viem'
+```
+Type-only exports for backward compatibility.
+
+## Remaining @ethereumjs Dependencies (Intentional)
+
+1. **@ethereumjs/common** - Deep EVM hardfork/chain configuration integration
+2. **@ethereumjs/tx** - FeeMarket1559Tx for impersonated transactions
+3. **@ethereumjs/trie** - Trie data structure
+
+## Known Blockers for Future Migration
+
+1. **HDWallet FFI Issue** - voltaire's HDWallet dist contains ffi-napi imports
+2. **@ethereumjs/common** - Deep integration with EVM execution
+
+## Uncommitted Changes
+
+There are uncommitted changes from previous iterations including:
+- Voltaire crypto migrations
+- Native account implementations
+- Test improvements and fixes
+- Type compatibility fixes
+
+All changes are stable and tested.
+
+## No New Code Changes
+
+This iteration was verification-only. All tests pass. Migration status confirmed stable.
+
+## Recommendations
+
+1. Consider committing the current stable changes
+2. Monitor voltaire updates for HDWallet FFI fix
+3. Long-term @ethereumjs/common migration when voltaire Chain/Hardfork support matures

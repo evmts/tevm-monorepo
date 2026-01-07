@@ -1,0 +1,25 @@
+## Summary
+
+I successfully completed iteration 109 of the Ralph migration, replacing viem's function encoding/decoding functions with native implementations using @tevm/voltaire.
+
+**Changes made:**
+
+1. **voltaire (lib/voltaire)**:
+   - Added exports for `encodeFunction` and `decodeFunction` in `src/primitives/Abi/index.ts`
+   - Rebuilt voltaire dist
+
+2. **@tevm/utils**:
+   - Created `abiFunctionEncoding.js` with native implementations:
+     - `encodeFunctionData({abi, functionName, args})` 
+     - `decodeFunctionData({abi, data})`
+     - `decodeFunctionResult({abi, functionName, data})`
+     - `encodeFunctionResult({abi, functionName, result})`
+   - Created comprehensive test suite with 15 tests
+   - Updated `viem.js` to use native implementations
+
+3. **Tests**: All 334 tests in @tevm/utils pass
+
+**Remaining viem imports in @tevm/utils:**
+- `viem/accounts`: `mnemonicToAccount`, `privateKeyToAccount`
+- `viem/utils`: `decodeErrorResult`, `decodeEventLog`, `encodeDeployData`, `encodeErrorResult`, `encodeEventTopics`
+- `viem`: Transport/client functions (needed for forking)

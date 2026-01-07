@@ -1,6 +1,6 @@
 import { encodeKey, getKeySchema, getSchemaTypes } from '@latticexyz/protocol-parser/internal'
 import type { State, TableRecord, TableRecords } from '@latticexyz/stash/internal'
-import { bytesToHex, concatHex } from 'viem'
+import { bytesToHex, concatHex } from '@tevm/utils'
 import { config } from './config.js'
 
 const randomKey = () => {

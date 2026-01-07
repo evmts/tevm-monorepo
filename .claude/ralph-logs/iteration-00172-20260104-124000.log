@@ -1,0 +1,50 @@
+# Ralph Migration Log - Iteration 172
+## Date: 2026-01-04 12:40:00
+
+## Summary
+Migrated final viem JSDoc type references from blockchain package action files, completing the viem removal from blockchain package source files.
+
+## Changes Made
+
+### 1. Updated getIteratorHead.js
+**File**: `packages/blockchain/src/actions/getIteratorHead.js`
+- Changed `import('viem').BlockTag` to `import('@tevm/utils').BlockTag`
+- This is an inline type cast for the `name` parameter
+
+### 2. Updated setIteratorHead.js
+**File**: `packages/blockchain/src/actions/setIteratorHead.js`
+- Changed `import('viem').BlockTag` to `import('@tevm/utils').BlockTag`
+- This is an inline type cast for the `tag` parameter
+
+## Type Compatibility Notes
+- `@tevm/utils.BlockTag` is defined as `'latest' | 'earliest' | 'pending' | 'safe' | 'finalized'`
+- This matches viem's BlockTag type exactly
+- The types are fully compatible at both type and runtime level
+
+## Test Results
+- Tests require RPC URL environment variables (TEVM_RPC_URLS_MAINNET, TEVM_RPC_URLS_OPTIMISM) to run
+- TypeScript compilation shows no new errors in the modified files
+- Pre-existing type errors exist in getBlockFromRpc.js (EIP1193RequestFn compatibility - noted in iteration 171)
+
+## Impact
+- Removes the last 2 viem type references from blockchain package source files
+- The blockchain package src/ directory is now completely free of viem JSDoc imports
+- Only the dist/ build artifacts contain viem references (will be updated on rebuild)
+
+## Files Changed
+- packages/blockchain/src/actions/getIteratorHead.js (modified)
+- packages/blockchain/src/actions/setIteratorHead.js (modified)
+
+## Verification
+```bash
+grep -r "import('viem')" packages/blockchain/src/ --include="*.js"
+# No output - all viem references removed from blockchain src
+```
+
+## Next Steps
+1. Rebuild blockchain package to update dist/ files: `pnpm nx run @tevm/blockchain:build:dist`
+2. Continue migration in other core packages:
+   - @tevm/common: Has ethereumjs CustomCrypto reference
+   - @tevm/actions: Check for any remaining viem references
+   - @tevm/vm: Check for any remaining viem references
+3. Address the EIP1193RequestFn type incompatibility in @tevm/utils or @tevm/jsonrpc

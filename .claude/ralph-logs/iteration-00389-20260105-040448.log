@@ -1,0 +1,38 @@
+# Ralph Migration Log - Iteration 389
+## Date: 2026-01-05 04:04
+
+## Summary
+Fixed TypeScript build error in zksync chain preset.
+
+## Issue Found
+- `pnpm nx run @tevm/common:build:types` was failing
+- Error: `src/presets/zksync.js(6,39): error TS1355: A 'const' assertions can only be applied to references to enum members, or string, number, boolean, array, or object literals.`
+- The zksync.js preset was using a pattern with `/** @type {const} */` cast on a function return value, which TypeScript doesn't allow
+
+## Fix Applied
+**File:** `packages/common/src/presets/zksync.js`
+
+Changed from:
+```javascript
+const _zksync = /** @type {const} */ (nativeDefineChain({...}))
+export const zksync = createCommon({ ..._zksync, ... })
+```
+
+To:
+```javascript
+export const zksync = createCommon({
+  ...nativeDefineChain({...}),
+  loggingLevel: 'warn',
+  eips: [],
+  hardfork: 'prague',
+})
+```
+
+This matches the pattern used in other preset files like `mainnet.js`.
+
+## Verification
+1. `pnpm nx run @tevm/common:build:types` - ✅ Build success
+2. `pnpm vitest run packages/common/src/createCommon.spec.ts` - ✅ All tests pass (10 passed, 1 skipped)
+
+## Changes Made
+- Updated zksync.js preset to use consistent pattern without invalid const assertion

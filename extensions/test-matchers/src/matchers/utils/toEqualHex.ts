@@ -1,5 +1,4 @@
-import { equalsBytes } from '@tevm/utils'
-import { type Hex, hexToBytes, isHex, trim } from 'viem'
+import { type Hex, equalsBytes, hexToBytes, isHex, trim } from '@tevm/utils'
 
 export type EqualHexOptions = {
 	/**
@@ -52,8 +51,8 @@ export function toEqualHex(received: unknown, expected: unknown, opts?: EqualHex
 		pass = normalizedReceived === normalizedExpected
 	} else {
 		// For normalized comparison, trim leading zeros and compare bytes
-		normalizedReceived = trim(received)
-		normalizedExpected = trim(expected)
+		normalizedReceived = trim(received) as Hex
+		normalizedExpected = trim(expected) as Hex
 		try {
 			const receivedBytes = hexToBytes(normalizedReceived)
 			const expectedBytes = hexToBytes(normalizedExpected)

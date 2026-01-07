@@ -1,0 +1,18 @@
+## Iteration 129 Complete
+
+Successfully completed the migration to remove `@ethereumjs/util` from `@tevm/utils`:
+
+### Changes Made:
+1. **Created `db-types.ts`** - Native database type definitions (`DB`, `DBObject`, `BatchDBOp`, `EncodingOpts`, `PutBatch`, `DelBatch`)
+2. **Created `common-types.ts`** - Native common type definitions (`AddressLike`, `BigIntLike`, `BytesLike`, `PrefixedHexString`, `TransformableToBytes`, `NestedUint8Array`, `NumericString`)
+3. **Updated `index.ts`** - Changed imports to use native types instead of `@ethereumjs/util`
+4. **Updated `CreateMemoryDbFn.ts` and `MemoryDb.ts`** - Changed to use native types
+5. **Removed `@ethereumjs/util`** from `package.json` dependencies
+6. **Fixed `randomBytes.spec.ts`** - Removed test that relied on `@ethereumjs/util`
+
+### Results:
+- **All 540 tests pass** (1 skipped)
+- **Build succeeds** for both ESM and CJS outputs
+- **@ethereumjs/util is now completely removed** from `@tevm/utils`
+
+The only remaining `@ethereumjs/*` dependency in `@tevm/utils` is `@ethereumjs/evm` which is used for the `EthjsLog` type export.

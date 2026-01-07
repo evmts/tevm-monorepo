@@ -1,6 +1,6 @@
 import { InvalidBlockError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
-import { bytesToHex } from 'viem'
+import { bytesToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { parseBlockParam } from './parseBlockParam.js'
 

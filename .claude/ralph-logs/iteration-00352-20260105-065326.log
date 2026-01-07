@@ -1,0 +1,18 @@
+## Summary
+
+In this iteration, I migrated 22 spec files in the `@tevm/memory-client` package to use local re-exports instead of direct viem imports:
+
+**Files migrated:**
+- 19 files in `packages/memory-client/src/test/viem/`
+- 3 files in `packages/memory-client/src/test/`
+
+**Migration pattern:**
+- Changed `import { testActions } from 'viem'` to `import { testActions } from '../../createClient.js'`
+- Changed `import { walletActions } from 'viem'` to `import { walletActions } from '../createClient.js'`
+- Changed `import { createClient } from 'viem'` to `import { createClient } from '../../createClient.js'`
+- Kept type-only imports like `import type { TestActions } from 'viem'` since they have no runtime impact
+
+**Remaining:**
+- Type-only imports (intentionally kept)
+- `repro-2008.spec.ts` still uses `createWalletClient` from viem (not yet re-exported)
+- `tevmDeal.spec.ts` still uses `erc20Abi` constant from viem

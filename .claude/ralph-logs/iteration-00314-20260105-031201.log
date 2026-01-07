@@ -1,0 +1,9 @@
+Successfully migrated 5 SKALE chain presets from `viem/chains` to `nativeDefineChain`:
+
+1. **skaleCalypso.js** - SKALE Calypso Hub mainnet
+2. **skaleCalypsoTestnet.js** - SKALE Calypso Testnet  
+3. **skaleCryptoBlades.js** - SKALE CryptoBlades gaming chain
+4. **skaleCryptoColosseum.js** - SKALE Crypto Colosseum gaming chain
+5. **skaleEuropa.js** - SKALE Europa Liquidity Hub
+
+**Progress**: 58 chain presets remaining (~17% of original). Tests pass.

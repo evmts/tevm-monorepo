@@ -32,7 +32,8 @@ import { loadStateHandler } from '@tevm/actions'
  * @example
  * ```typescript
  * import { tevmLoadState } from 'tevm/actions'
- * import { createClient, http } from 'viem'
+ * import { createClient } from 'viem'
+ * import { nativeHttp } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  * import fs from 'fs/promises'

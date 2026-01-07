@@ -1,0 +1,12 @@
+Good, 153 remaining. Migration completed for this iteration:
+
+**Summary - Iteration 354:**
+- Migrated 5 chain presets from `viem/chains` to `nativeDefineChain`:
+  - **kromaSepolia** (id: 2358) - Kroma Sepolia testnet
+  - **l3x** (id: 12324) - L3X Protocol mainnet with webSocket support
+  - **l3xTestnet** (id: 12325) - L3X Protocol testnet with webSocket support
+  - **lightlinkPegasus** (id: 1891) - LightLink Pegasus Testnet with multicall3
+  - **lightlinkPhoenix** (id: 1890) - LightLink Phoenix Mainnet with multicall3
+
+- Tests verified: createCommon.spec.ts passes (10 passed, 1 skipped)
+- **Remaining**: 153 chain presets still using viem/chains (~45%)

@@ -1,0 +1,23 @@
+Successfully completed iteration 761. Here's a summary:
+
+## Migration Summary - Iteration 761
+
+**Changes Made:**
+
+1. **packages/node/src/TevmNode.ts** - Migrated from @tevm/voltaire/provider to @tevm/utils:
+   - Removed: `import type { EIP1193RequestFn, RpcSchema } from '@tevm/voltaire/provider'`
+   - Added: `EIP1193RequestFn` to existing @tevm/utils import
+   - Simplified `forkTransport.request` type from `EIP1193RequestFn<RpcSchema>` to `EIP1193RequestFn`
+
+2. **packages/node/src/getBlockNumber.js** - Updated type annotations:
+   - Changed from voltaire types to @tevm/utils types
+   - Improved JSDoc documentation
+
+**Result:**
+- Successfully removed @tevm/voltaire/provider dependency from @tevm/node core types
+- Type-checking passes for the EIP1193RequestFn-related code
+- Remaining type errors are unrelated to this migration (concerning `exactOptionalPropertyTypes` and precompile types)
+
+**Next Steps:**
+- The core packages are now fully migrated from direct viem imports
+- Packages that intentionally provide viem compatibility (memory-client, extensions/viem) will keep viem dependencies

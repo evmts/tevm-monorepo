@@ -1,0 +1,8 @@
+Migration iteration 380 complete. I migrated 4 chain presets from `viem/chains` to `nativeDefineChain`:
+
+1. **taikoKatla.js** (id: 167008) - Taiko Katla (Alpha-6 Testnet)
+2. **taikoTestnetSepolia.js** (id: 167005) - Taiko (Alpha-3 Testnet)  
+3. **taraxa.js** (id: 841) - Taraxa Mainnet
+4. **taraxaTestnet.js** (id: 842) - Taraxa Testnet
+
+All tests pass. 34 chain presets remain to be migrated (~10% remaining).

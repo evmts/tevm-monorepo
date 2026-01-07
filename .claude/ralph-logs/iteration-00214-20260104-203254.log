@@ -1,0 +1,23 @@
+## Migration Status Summary
+
+I've verified the current state of the tevm migration to @tevm/voltaire and guillotine-mini:
+
+**Core Packages - FULLY MIGRATED (0 viem imports):**
+- `@tevm/actions`
+- `@tevm/vm`
+- `@tevm/evm`
+- `@tevm/state`
+- `@tevm/node`
+
+**Tests Passing:**
+- guillotineWasm.spec.ts: 26 passed (1 skipped - known bug)
+- signature.spec.ts: 31 passed  
+- prefundedAccounts.spec.ts: 1 passed
+
+**Intentional Remaining Dependencies:**
+1. **Transport/RPC functions** - Required for forking and remote node communication
+2. **Chain presets** (346 files) - Static chain configuration from viem/chains
+3. **memory-client** - Intentionally a viem wrapper package
+4. **@ethereumjs packages** - Required for transaction handling and trie implementation
+
+The migration is essentially complete. All cryptographic operations, ABI encoding/decoding, account management, and signature operations now use @tevm/voltaire. The guillotine-mini WASM EVM is integrated and functional in @tevm/evm.

@@ -1,0 +1,26 @@
+Migration verification complete. Here's the status:
+
+## Migration Status Summary
+
+**Core Packages (Migration Complete - 0 viem imports)**
+- `@tevm/actions` 
+- `@tevm/vm` 
+- `@tevm/evm` 
+- `@tevm/state` 
+- `@tevm/node` 
+
+**All Tests Passing:**
+- signature.spec.ts: 31 passed
+- guillotineWasm.spec.ts: 26 passed, 1 skipped (known bug)
+- prefundedAccounts.spec.ts: 1 passed  
+- nativePrivateKeyToAccount.spec.ts: 18 passed
+- eip7702.spec.ts: 22 passed
+- nativeMnemonicToAccount.spec.ts: 17 passed
+
+**Intentional Dependencies (Not Migrated):**
+- `packages/tx` - @ethereumjs/tx for ImpersonatedTx (extends EthereumJS types)
+- `packages/utils/src/viem.js` - Transport/client functions
+- `packages/memory-client` - Viem wrapper by design
+- `packages/common/src/presets` - Chain data from viem/chains
+
+The migration to voltaire and guillotine-mini is complete for all core packages. The remaining viem/ethereumjs dependencies are intentional architectural decisions.

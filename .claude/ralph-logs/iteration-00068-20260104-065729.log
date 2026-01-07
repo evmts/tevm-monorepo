@@ -1,0 +1,21 @@
+## Migration Iteration 114 Complete
+
+I successfully implemented a native `formatAbi` function to replace the dependency on `abitype` for ABI formatting.
+
+### Changes Made:
+1. **Created `/packages/utils/src/formatAbi.js`** - Native implementation that handles all ABI item types (function, event, error, constructor, receive, fallback)
+2. **Created `/packages/utils/src/formatAbi.spec.ts`** - 14 comprehensive tests
+3. **Updated `/packages/utils/src/viem.js`** - Changed export to use native implementation
+
+### Key Implementation Details:
+- Correctly formats state mutability (`view`, `pure`, `payable`) for functions
+- Properly includes `indexed` keyword for event parameters  
+- Output exactly matches `abitype`'s `formatAbi` for full compatibility
+
+### Test Results:
+- All 381 @tevm/utils tests pass
+- All 29 @tevm/contract tests pass
+
+### Migration Status:
+- `formatAbi` is now native
+- `parseAbi` still uses abitype (implementing a human-readable ABI parser would be significantly more complex)

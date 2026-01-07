@@ -1,5 +1,5 @@
 import { SimpleContract } from '@tevm/test-utils'
-import { encodeFunctionData } from 'viem'
+import { encodeFunctionData } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
 import type { MemoryClient } from '../../MemoryClient.js'

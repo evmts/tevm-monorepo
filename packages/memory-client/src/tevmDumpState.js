@@ -29,14 +29,15 @@ import { dumpStateHandler } from '@tevm/actions'
  * @example
  * ```typescript
  * import { tevmDumpState, tevmLoadState } from 'tevm/actions'
- * import { createClient, http, parseEther } from 'viem'
+ * import { createClient } from 'viem'
+ * import { nativeHttp, parseEther } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  * import fs from 'fs/promises'
  *
  * const client = createClient({
  *   transport: createTevmTransport({
- *     fork: { transport: http('https://mainnet.optimism.io')({}) }
+ *     fork: { transport: nativeHttp('https://mainnet.optimism.io')({}) }
  *   }),
  *   chain: optimism,
  * })

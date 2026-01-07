@@ -1,0 +1,13 @@
+## Iteration 281 Complete
+
+**Summary**: Added two JUMPI (conditional jump) tests to the guillotine-mini WASM integration:
+
+1. **JUMPI with true condition**: Tests that when condition is non-zero (1), the jump is taken and execution continues at the JUMPDEST
+2. **JUMPI with false condition**: Tests that when condition is zero (0), the jump is NOT taken and execution falls through to the next instruction
+
+**Test Results**: 30/31 passed (1 skipped - known evm_set_storage bug)
+
+**Key Finding**: JUMPI works correctly in guillotine-mini. The previous iteration's note about JUMPI failing was likely due to incorrect bytecode or stack ordering. The correct stack order is:
+- PUSH condition first
+- PUSH destination second  
+- JUMPI pops in reverse order (dest first, then condition)

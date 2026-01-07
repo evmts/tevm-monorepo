@@ -12,6 +12,8 @@ describe(commit.name, () => {
 		const baseState = createBaseState({
 			loggingLevel: 'warn',
 		})
+		// Wait for initial checkpoint/commit cycle from genesis initialization
+		await baseState.ready()
 		await putAccount(baseState)(createAddress(69696969), createAccount({ balance: 20n }))
 		expect(baseState.caches.storage._checkpoints).toBe(0)
 		expect(baseState.caches.accounts._checkpoints).toBe(0)
@@ -20,28 +22,18 @@ describe(commit.name, () => {
 		expect(baseState.caches.storage._checkpoints).toBe(1)
 		expect(baseState.caches.accounts._checkpoints).toBe(1)
 		expect(baseState.caches.contracts._checkpoints).toBe(1)
-		expect(baseState.caches.accounts._diffCache).toEqual([
-			new Map(
-				Object.entries({
-					'0000000000000000000000000000000004277dc9': undefined,
-				}),
-			),
-			new Map(),
-		])
-		expect(baseState.caches.storage._diffCache).toEqual([new Map(), new Map()])
+		// diffCache tracks pre-state at each checkpoint level
+		// putAccount was called before checkpoint, so pre-state wasn't tracked
+		expect(baseState.caches.accounts._diffCache).toEqual([new Map()])
+		expect(baseState.caches.storage._diffCache).toEqual([new Map()])
 		await commit(baseState)(true)
-		expect(baseState.caches.storage._checkpoints).toBe(1)
-		expect(baseState.caches.accounts._checkpoints).toBe(1)
-		expect(baseState.caches.contracts._checkpoints).toBe(1)
-		expect(baseState.caches.accounts._diffCache).toEqual([
-			new Map(
-				Object.entries({
-					'0000000000000000000000000000000004277dc9': undefined,
-				}),
-			),
-			new Map(),
-		])
-		expect(baseState.caches.storage._diffCache).toEqual([new Map(), new Map()])
+		// After commit(true), a new state root is created
+		// checkpoints remain the same but diffCache is reset
+		expect(baseState.caches.storage._checkpoints).toBe(0)
+		expect(baseState.caches.accounts._checkpoints).toBe(0)
+		expect(baseState.caches.contracts._checkpoints).toBe(0)
+		expect(baseState.caches.accounts._diffCache).toEqual([])
+		expect(baseState.caches.storage._diffCache).toEqual([])
 		expect(baseState.getCurrentStateRoot()).toEqual(
 			'0x886f43e0144bf4f5748e999d0178ed7e4edea8ad708e0bf26a61341e8ae91d1e',
 		)

@@ -1,0 +1,88 @@
+## Migration Iteration 15 Complete
+
+**Target**: `formatGwei` and `parseGwei` functions in `@tevm/utils`
+
+**Changes**:
+1. Added native `formatGwei` implementation for converting wei (bigint) to gwei string (10^9)
+2. Added native `parseGwei` implementation for converting gwei string to wei (bigint)
+3. Both handle negative values and edge cases (like `.5` format)
+4. Removed `formatGwei` and `parseGwei` from viem/utils re-exports
+5. Added 18 comprehensive test cases
+
+**Results**:
+- All 127 tests in viem.spec.ts pass (up from 109)
+- All 177 tests in @tevm/utils pass (up from 159)
+- 100% code coverage maintained
+
+**Commit**: `5316a03a0`
+
+**Remaining viem imports**: 22 functions still need migration (down from 24)
+
+**Next candidates for migration**:
+- `getAddress` (checksum conversion - requires keccak256)
+- `keccak256` (depends on external lib or implementation)
+- ABI encode/decode functions (more complex, may need voltaire integration)
+
+## Details
+
+1. Modified `packages/utils/src/viem.js`:
+   - Added `WEI_PER_GWEI` constant (1000000000n)
+   - Added `formatGwei` function:
+     - Handles bigint and number input
+     - Supports negative values
+     - Trims trailing zeros
+     - Returns string (e.g., '1.5' for 1.5 gwei)
+   - Added `parseGwei` function:
+     - Handles negative values with `-` prefix
+     - Handles edge cases like `.5` (no integer part)
+     - Truncates excess decimals (>9)
+     - Returns bigint
+   - Removed formatGwei and parseGwei from viem/utils re-export block
+
+2. Modified `packages/utils/src/viem.spec.ts`:
+   - Added 9 tests for formatGwei:
+     - Format 1 gwei correctly
+     - Format decimal values (0.1, 0.01, 1.5)
+     - Format zero
+     - Format 1 wei
+     - Format large values
+     - Handle number input
+     - Handle negative values
+     - Trim trailing zeros
+   - Added 10 tests for parseGwei:
+     - Parse 1 gwei correctly
+     - Parse decimal values
+     - Parse zero
+     - Parse smallest wei value (0.000000001)
+     - Parse large values
+     - Handle negative values
+     - Truncate excess decimals
+     - Throw on invalid (multiple decimal points)
+     - Be inverse of formatGwei
+     - Handle edge case with no integer part (.5)
+
+## Tests Passed
+- packages/utils/src/viem.spec.ts (127 tests, up from 109)
+- All 177 tests in @tevm/utils pass (177 + 1 skipped)
+- 100% code coverage maintained
+
+## Remaining viem imports in @tevm/utils/src/viem.js (22 remaining):
+- decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+- encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics
+- encodeFunctionData, encodeFunctionResult, encodePacked
+- formatLog
+- fromBytes, fromHex, fromRlp
+- getAddress
+- keccak256
+- serializeTransaction
+- toBytes, toHex, toRlp
+- mnemonicToAccount (from viem/accounts)
+
+## Next Steps
+Possible next targets (in order of complexity):
+1. `getAddress` (checksum conversion - requires keccak256)
+2. `keccak256` (could use @noble/hashes or voltaire)
+3. `toBytes`/`toHex`/`fromBytes`/`fromHex` (polymorphic conversion functions)
+4. `formatLog` (log formatting utility)
+5. RLP functions (`toRlp`, `fromRlp`)
+6. ABI functions (most complex, may need voltaire integration)

@@ -1,0 +1,77 @@
+# Ralph Migration Log - Iteration 185
+## Date: 2026-01-04 13:47:00
+
+## Summary
+Migrated remaining direct viem type references in packages that have @tevm/utils as a dependency.
+
+## Changes Made
+
+### 1. Updated packages/jsonrpc/src/createJsonRpcFetcher.js
+```javascript
+// Before
+@param {{request: import('viem').EIP1193RequestFn}} client
+
+// After
+@param {{request: import('@tevm/utils').EIP1193RequestFn}} client
+```
+
+### 2. Updated packages/address/src/createAddress.js
+```javascript
+// Before
+return new Address(hexToBytes(/** @type {import('viem').Hex}*/ (address), { size: 20 }))
+
+// After
+return new Address(hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (address), { size: 20 }))
+```
+
+### 3. Errors package NOT migrated (kept viem imports)
+The errors package (`packages/errors/src/ethereum/RevertError.js`) was initially migrated but reverted because:
+- @tevm/errors directly depends on viem, not @tevm/utils
+- Adding @tevm/utils as a dependency would increase the package size unnecessarily
+- The viem types are available directly from the existing viem dependency
+
+## Tests Verified
+- `packages/jsonrpc/src/createJsonRpcFetcher.spec.ts` - 7 passed
+- `packages/address/src/createAddress.spec.ts` - 8 passed
+
+## Note on Build Issues
+The build:types is currently failing due to a pre-existing issue with voltaire's dist files (TypeScript strict mode `any` type errors). This is unrelated to this migration and is an infrastructure issue that needs separate attention.
+
+## Migration Progress
+
+### Direct viem imports remaining (by design):
+- `packages/utils/src/viem.js` - Centralized viem re-exports (transport, client functions)
+- `packages/utils/src/abitype.ts` - Account and HDAccount types (complex signing objects)
+- `packages/memory-client/src/*` - Viem integration layer (intentional)
+- `packages/errors/src/ethereum/*` - Package depends directly on viem (not @tevm/utils)
+
+### Packages now completely free of direct viem imports:
+- @tevm/actions
+- @tevm/vm
+- @tevm/evm
+- @tevm/state
+- @tevm/node
+- @tevm/jsonrpc ✅ (this iteration)
+- @tevm/address ✅ (this iteration)
+- @tevm/contract
+- @tevm/precompiles
+- @tevm/decorators
+- @tevm/client-types
+- @tevm/txpool
+- @tevm/tx
+- @tevm/block
+- @tevm/receipt-manager
+
+## Why This Matters
+1. Centralizing viem dependencies through @tevm/utils reduces coupling
+2. Makes it easier to eventually replace viem types with native implementations
+3. Provides a single point of control for external type dependencies
+
+## Files Changed
+- packages/jsonrpc/src/createJsonRpcFetcher.js
+- packages/address/src/createAddress.js
+
+## Next Steps
+1. Consider adding @tevm/utils dependency to @tevm/errors to complete the migration
+2. Continue looking for other packages with direct viem imports that could be consolidated
+3. Address the voltaire TypeScript strict mode issues in dist files

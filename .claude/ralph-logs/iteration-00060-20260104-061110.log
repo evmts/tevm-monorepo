@@ -1,0 +1,28 @@
+## Summary
+
+I successfully implemented native contract error classes to replace the `getContractError` and `RawContractError` imports from viem:
+
+### Changes Made
+
+1. **Created `packages/errors/src/contractErrors.js`** with 4 new error classes:
+   - `RawContractError` - Base contract error with data property (code: 3)
+   - `ContractFunctionZeroDataError` - For when contracts return "0x"
+   - `ContractFunctionRevertedError` - Handles reverts with Error(string) and Panic decoding
+   - `ContractFunctionExecutionError` - Wraps errors with contract call context
+
+2. **Created `packages/utils/src/getContractError.js`** - Native implementation of the getContractError function that:
+   - Handles RawContractError, BaseError with walk(), and plain errors
+   - Creates appropriate cause errors based on error type and data
+
+3. **Updated exports** in both @tevm/errors and @tevm/utils packages
+
+### Viem Imports Removed
+
+- `getContractError` from 'viem'
+- `RawContractError` from 'viem'
+
+### Remaining Viem Dependencies in @tevm/utils
+
+1. `mnemonicToAccount`, `privateKeyToAccount` from 'viem/accounts'
+2. ABI encoding/decoding functions from 'viem/utils' (blocked by voltaire build issues)
+3. Transport/client functions from 'viem' (needed for fork support)

@@ -1,0 +1,25 @@
+## Summary
+
+I successfully completed **Iteration 156** of the Ralph migration:
+
+### What was done:
+1. **Migrated `@tevm/rlp`** from `@ethereumjs/rlp` to `@tevm/voltaire/Rlp`
+2. Created a compatibility wrapper in `packages/rlp/src/Rlp.ts` that:
+   - Provides the same API as @ethereumjs/rlp (`Rlp.encode()` and `Rlp.decode()`)
+   - Uses voltaire's RLP implementation internally via subpath import
+   - Handles type conversions between voltaire's branded types and raw values
+   - Maintains backward compatibility with empty input handling
+
+3. Updated `packages/rlp/package.json` to:
+   - Remove `@ethereumjs/rlp` dependency
+   - Add `@tevm/voltaire` workspace dependency
+
+### Test Results:
+- RLP package test passes
+- Block package (uses RLP): 2 tests passed
+- Receipt-manager (heavy RLP usage): 34 tests passed
+
+### Key Technical Details:
+- Used `@tevm/voltaire/Rlp` subpath import to avoid native FFI module loading issues
+- Voltaire's decode returns `{ data: BrandedRlp, remainder }` while ethereumjs returns raw values directly
+- The wrapper uses `VoltaireRlp.toRaw()` to convert branded types back to `Uint8Array | NestedUint8Array`

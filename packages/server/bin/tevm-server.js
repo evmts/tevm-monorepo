@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { base, mainnet, optimism, tevmDefault } from '@tevm/common'
-import { http } from '@tevm/jsonrpc'
+import { nativeHttp } from '@tevm/jsonrpc'
 import { createTevmTransport } from '@tevm/memory-client'
 import { PREFUNDED_ACCOUNTS, PREFUNDED_PRIVATE_KEYS } from '@tevm/utils'
 import { Command } from 'commander'
@@ -50,7 +50,7 @@ export const transport = createTevmTransport({
 	common: chain,
 	fork: {
 		blockTag: options.forkBlockNumber,
-		transport: http(options.forkUrl ?? chain.rpcUrls.default.http[0])({}),
+		transport: nativeHttp(options.forkUrl ?? chain.rpcUrls.default.http[0])({}),
 	},
 	loggingLevel: options.loggingLevel,
 })

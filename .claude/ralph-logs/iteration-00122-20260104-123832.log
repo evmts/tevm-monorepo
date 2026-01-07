@@ -1,0 +1,10 @@
+## Migration Iteration 172 Complete
+
+**Summary**: Migrated the final 2 viem JSDoc type references from the blockchain package action files:
+
+1. **getIteratorHead.js**: Changed `import('viem').BlockTag` → `import('@tevm/utils').BlockTag`
+2. **setIteratorHead.js**: Changed `import('viem').BlockTag` → `import('@tevm/utils').BlockTag`
+
+**Result**: The `packages/blockchain/src/` directory is now completely free of viem JSDoc imports. Only the `dist/` build artifacts still contain references (these will be updated on rebuild).
+
+**Tests**: Tests require RPC environment variables to run but the TypeScript compilation shows no new errors in the modified files.

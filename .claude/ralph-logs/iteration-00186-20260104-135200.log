@@ -1,0 +1,86 @@
+# Ralph Migration Log - Iteration 186
+## Date: 2026-01-04 13:52:00
+
+## Summary
+Added native `Prettify` utility type to @tevm/utils in preparation for migrating imports from viem/chains.
+
+## Changes Made
+
+### 1. Created packages/utils/src/utility-types.ts
+```typescript
+/**
+ * Utility types (native implementations)
+ */
+
+/**
+ * Flattens mapped types for better display in IDE tooltips and error messages.
+ * This is a native replacement for viem's Prettify type.
+ */
+export type Prettify<T> = {
+	[K in keyof T]: T[K]
+} & {}
+```
+
+### 2. Updated packages/utils/src/index.ts
+Added export for the new Prettify type:
+```typescript
+// Native utility types (migrated from viem)
+export type { Prettify } from './utility-types.js'
+```
+
+## Migration Attempt
+Attempted to migrate `Prettify` imports in:
+- `packages/common/src/Common.ts`
+- `packages/memory-client/src/MemoryClient.ts`
+
+However, the migration was reverted because:
+1. TypeScript resolves `@tevm/utils` through the generated `types/` directory
+2. The types haven't been rebuilt yet due to pre-existing voltaire dist issues
+3. The voltaire dist files have TypeScript strict mode errors that block type generation
+
+## Files Changed
+- packages/utils/src/utility-types.ts (NEW)
+- packages/utils/src/index.ts (updated export)
+
+## Tests Verified
+- `packages/common/src/createCommon.spec.ts` - 10 passed (verified Common.ts still works)
+
+## Blocked Issue
+The `build:types` command fails due to voltaire dist files having TypeScript errors:
+```
+lib/voltaire/dist/primitives/Abi/index.js - Parameter 'target' implicitly has an 'any' type
+lib/voltaire/dist/primitives/Hex/index.js - Parameter 'size2' implicitly has an 'any' type
+... and many more
+```
+
+This is a pre-existing infrastructure issue that blocks type generation for the entire monorepo.
+
+## Migration Progress
+
+### Viem imports by category:
+1. **Centralized re-exports** (`@tevm/utils/viem.js`) - Intentional, provides utility functions
+2. **Account/HDAccount types** (`@tevm/utils/abitype.ts`) - Complex wallet types with signing methods
+3. **Chain definitions** (`@tevm/common/presets/*`) - viem/chains imports, intentional
+4. **Prettify type** (`@tevm/common`, `@tevm/memory-client`) - Ready to migrate once types rebuild
+
+### Packages free of direct viem imports (excluding intentional integrations):
+- @tevm/actions ✅
+- @tevm/vm ✅
+- @tevm/evm ✅
+- @tevm/state ✅
+- @tevm/node ✅
+- @tevm/jsonrpc ✅
+- @tevm/address ✅
+- @tevm/contract ✅
+- @tevm/precompiles ✅
+- @tevm/decorators ✅
+- @tevm/client-types ✅
+- @tevm/txpool ✅
+- @tevm/tx ✅
+- @tevm/block ✅
+- @tevm/receipt-manager ✅
+
+## Next Steps
+1. Fix voltaire dist TypeScript strict mode issues (infrastructure task)
+2. Once types can be rebuilt, migrate Prettify imports from viem/chains to @tevm/utils
+3. Consider migrating Chain type from viem/chains to a native implementation

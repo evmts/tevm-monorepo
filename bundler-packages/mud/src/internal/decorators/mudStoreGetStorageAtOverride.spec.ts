@@ -1,7 +1,7 @@
 import { createLogger } from '@tevm/logger'
 import { createMemoryClient } from '@tevm/memory-client'
 import { MUDTestSystem } from '@tevm/test-utils'
-import { type Address, type EIP1193RequestFn, pad } from 'viem'
+import { type Address, type EIP1193RequestFn, pad } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { state } from '../../../test/state.js'
 import { mudStoreGetStorageAtOverride } from './mudStoreGetStorageAtOverride.js'

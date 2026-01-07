@@ -1,0 +1,46 @@
+# Ralph Migration Log - Iteration 407
+## Date: 2026-01-05 05:16
+
+## Summary
+
+Added `pad`, `padHex`, `padBytes`, `SizeExceedsPaddingSizeError` to `@tevm/utils` and migrated `bundler-packages/mud/src/internal/FieldLayout.ts` from viem to @tevm/utils.
+
+## New Functions Added to @tevm/utils
+
+### packages/utils/src/pad.ts (new file)
+- `PadOptions` type - Options for padding direction and size
+- `SizeExceedsPaddingSizeError` class - Error when data exceeds target size
+- `pad<T>(hexOrBytes: T, options?: PadOptions): T` - Pad hex string or bytes to target size
+- `padHex(hex: Hex, options?: PadOptions): Hex` - Pad hex string
+- `padBytes(bytes: Uint8Array, options?: PadOptions): Uint8Array` - Pad bytes
+- Compatible with viem's `pad`, `padHex`, `padBytes` functions
+
+### packages/utils/src/index.ts
+- Exported `pad`, `padHex`, `padBytes`, `SizeExceedsPaddingSizeError` from `pad.js`
+- Exported `PadOptions` type
+
+## Files Migrated
+
+1. **bundler-packages/mud/src/internal/FieldLayout.ts**
+   - Changed imports from `viem` to `@tevm/utils`:
+     - `bytesToHex`, `concatHex`, `encodePacked`, `hexToBigInt`, `hexToBytes`, `keccak256`, `numberToHex`, `pad`, `toHex`
+   - Also moved `Hex` type import to @tevm/utils
+
+## Test Results
+
+- All 8 FieldLayout tests pass
+- Typecheck passes
+
+## Remaining viem Imports in @tevm/mud (4 files)
+
+Files still using viem:
+1. src/createOptimisticHandler.ts - `bytesToHex, Client, Hex, parseEventLogs`
+2. src/internal/decorators/mudStoreGetStorageAtOverride.ts - `EIP1193RequestFn`
+3. src/internal/decorators/mudStoreWriteRequestOverride.ts - `Client, concatHex, encodeFunctionData`
+4. src/types.ts - viem client types
+
+## Impact
+
+- Added native `pad` functions to @tevm/utils (pad, padHex, padBytes)
+- Reduced viem imports in @tevm/mud by 1 file
+- FieldLayout.ts now uses @tevm/utils exclusively

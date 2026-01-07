@@ -1,4 +1,4 @@
-import { mnemonicToAccount } from '@tevm/utils'
+import { nativeHdAccount } from '@tevm/utils'
 
 const oneToTen = Array.from(Array(10).keys())
 
@@ -6,6 +6,6 @@ export const mnemonic = 'test test test test test test test test test test test 
 
 export const testAccounts =
 	/**
-	 * @type {[import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount,import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount,import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount,import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount,import("@tevm/utils").HDAccount, import("@tevm/utils").HDAccount]}
+	 * @type {[import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount,import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount,import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount,import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount,import("@tevm/utils").NativeHDAccount, import("@tevm/utils").NativeHDAccount]}
 	 */
-	(oneToTen.map((i) => mnemonicToAccount(mnemonic, { addressIndex: i })))
+	(oneToTen.map((i) => nativeHdAccount(mnemonic, { addressIndex: i })))

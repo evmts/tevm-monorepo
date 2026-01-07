@@ -1,4 +1,4 @@
-import type { Abi } from 'abitype'
+import type { Abi } from '@tevm/utils'
 import { expect, test } from 'vitest'
 import type { z } from 'zod'
 import { zAbi } from './zAbi.js'

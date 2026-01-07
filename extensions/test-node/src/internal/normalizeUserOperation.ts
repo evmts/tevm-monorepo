@@ -1,4 +1,4 @@
-import { type RpcUserOperation } from 'viem'
+import { type RpcUserOperation } from '@tevm/utils'
 import { normalizeHex } from './normalizeHex.js'
 
 /**

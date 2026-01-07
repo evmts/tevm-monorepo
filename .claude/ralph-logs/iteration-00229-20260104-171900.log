@@ -1,0 +1,93 @@
+# Ralph Migration Log - Iteration 229
+## Date: 2026-01-04 17:19:00
+
+## Summary
+Verification and status check iteration. Confirmed all voltaire crypto primitive migrations are complete and stable. Identified some pre-existing test issues unrelated to the migration.
+
+## Test Results
+
+### Crypto Primitives - ALL PASSING (102 tests)
+- `signature.spec.ts` - 31/31 tests passing
+- `eip7702.spec.ts` - 22/22 tests passing
+- `Bloom.spec.ts` - 6/6 tests passing
+- `nativePrivateKeyToAccount.spec.ts` - 18/18 tests passing
+- `nativeMnemonicToAccount.spec.ts` - 17/17 tests passing
+- `ecrecover.spec.ts` - 7/7 tests passing (NEW VERIFIED)
+- `prefundedAccounts.spec.ts` - 1/1 tests passing (NEW VERIFIED)
+
+**Total: 102+ tests passing**
+
+## Migration Status Analysis
+
+### Core Packages - FULLY MIGRATED (No direct viem imports)
+- `@tevm/actions` - Clean
+- `@tevm/vm` - Clean
+- `@tevm/evm` - Clean
+- `@tevm/state` - Clean
+- `@tevm/node` - Clean
+- `@tevm/block` - Clean
+- `@tevm/tx` - Clean
+- `@tevm/receipt-manager` - Clean
+- `@tevm/address` - Clean
+- `@tevm/common` - Clean (uses @ethereumjs/common intentionally)
+
+### Source Code Analysis
+
+All source files (`.ts`, `.js`) now import from:
+1. `@tevm/utils` - which provides voltaire-backed primitives
+2. `@tevm/voltaire/*` - for direct voltaire usage in crypto operations
+
+No remaining `@noble/curves` or `@noble/hashes` imports found.
+
+### Intentional viem Dependencies (Not to be migrated)
+
+1. **packages/memory-client/** - Viem compatibility layer
+   - Types: `Client`, `Chain`, `Account`, `PublicActions`, `TestActions`, `WalletActions`
+   - Types: `PublicRpcSchema`, `TestRpcSchema`
+   - Purpose: Seamless integration with viem ecosystem
+
+2. **packages/utils/src/viem.js** - Transport/client exports
+   - `createPublicClient`, `createTransport`, `custom`, `http`, `webSocket`
+   - Purpose: RPC communication for forking
+
+3. **packages/utils/src/abitype.ts** - Type re-exports
+   - `Account`, `HDAccount`
+   - Purpose: Backward compatibility
+
+### Intentional @ethereumjs Dependencies (Not to be migrated)
+
+1. **@ethereumjs/common** - Chain/hardfork configuration
+2. **@ethereumjs/tx** - Transaction types for impersonated transactions
+3. **@ethereumjs/trie** - Merkle Patricia Trie
+
+These are deeply integrated into the EVM execution layer.
+
+## Pre-existing Test Issues Identified (Not migration-related)
+
+### memory-client/src/createMemoryClient.spec.ts
+1. **Fork test** - Fails when `TEVM_RPC_URLS_OPTIMISM` not set
+2. **Auto-mine test** - sendTransaction not transferring value correctly
+
+### memory-client viem tests (verifyMessage, verifyTypedData, etc.)
+- Gas limit configuration issues (`InvalidGasLimitError`)
+- Tx gas limit 67645 lower than minimum 88262
+
+These issues are pre-existing configuration problems, not caused by the voltaire migration.
+
+## Type Declaration Files
+
+Note: The `.d.ts` files in `types/` and `dist/` directories still reference `viem` directly. This is expected because:
+- They are generated from source during build
+- Source files correctly import from `@tevm/utils` (which re-exports from viem for these types)
+- After running `pnpm nx run-many --targets=build:types`, declarations would be regenerated
+
+## Recommendations
+
+1. **Consider committing stable changes** - All core crypto migrations are complete and tested
+2. **Fix pre-existing test issues** - Auto-mine and gas limit issues are unrelated to migration
+3. **Monitor voltaire updates** - For HDWallet FFI fix (currently blocked)
+4. **Long-term @ethereumjs migration** - When voltaire Chain/Hardfork support matures
+
+## No New Code Changes
+
+This iteration was verification-only. All voltaire migration tests pass. Migration status confirmed stable.

@@ -1,0 +1,19 @@
+I've completed iteration 337 of the Ralph migration. Here's a summary:
+
+## Iteration 337 Summary
+
+**Migrated 5 chain presets from `viem/chains` to `nativeDefineChain`:**
+
+1. **astarZkEVM.js** (id: 3776) - Astar zkEVM
+2. **astarZkyoto.js** (id: 6038361) - Astar zkEVM Testnet zKyoto  
+3. **atletaOlympia.js** (id: 2340) - Atleta Olympia
+4. **auroraTestnet.js** (id: 1313161555) - Aurora Testnet
+5. **auroria.js** (id: 205205) - Auroria Testnet
+
+**Tests:** All 10 tests passed (1 skipped) in `createCommon.spec.ts`
+
+**Progress:**
+- Total migrated so far: ~50 chain presets
+- Remaining: ~290 chain presets
+
+The migration follows the established pattern of replacing viem/chains imports with `nativeDefineChain` from `@tevm/utils`, which allows the codebase to work without the viem dependency for chain definitions.

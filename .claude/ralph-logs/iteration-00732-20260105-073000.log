@@ -1,0 +1,65 @@
+# Ralph Migration Log - Iteration 732
+## Date: 2026-01-05
+
+## Task: Add WalletActions, PublicRpcSchema, and TestRpcSchema types to @tevm/utils
+
+## Summary
+
+Added three new types to `@tevm/utils/provider-types.ts` that are required for migrating the memory-client package from viem. These types are compatible with viem's types and will enable future migration of memory-client type files.
+
+## Changes Made
+
+### New types added in packages/utils/src/provider-types.ts:
+
+1. **WalletActions** - Interface for wallet client write operations requiring signatures
+   - `addChain` - Adds a chain to the client
+   - `deployContract` - Deploys a contract to the network
+   - `getAddresses` - Returns account addresses managed by the wallet
+   - `getPermissions` - Returns permissions granted to the wallet
+   - `prepareTransactionRequest` - Prepares transaction for signing
+   - `requestPermissions` - Requests new permissions from wallet
+   - `requestAddresses` - Requests addresses from wallet
+   - `sendTransaction` - Sends a transaction
+   - `sendRawTransaction` - Sends raw signed transaction data
+   - `signMessage` - Signs a message
+   - `signTransaction` - Signs a transaction without sending
+   - `signTypedData` - Signs typed data (EIP-712)
+   - `switchChain` - Switches to a different chain
+   - `watchAsset` - Watches for asset changes
+   - `writeContract` - Writes to a contract
+
+2. **PublicRpcSchema** - Defines standard public JSON-RPC methods for read-only operations
+   - All standard `eth_*` methods (eth_blockNumber, eth_call, eth_chainId, eth_estimateGas, eth_feeHistory, eth_gasPrice, eth_getBalance, eth_getBlockByHash, eth_getBlockByNumber, eth_getCode, eth_getFilterChanges, eth_getFilterLogs, eth_getLogs, eth_getProof, eth_getStorageAt, eth_getTransaction*, eth_maxPriorityFeePerGas, eth_newBlockFilter, eth_newFilter, eth_newPendingTransactionFilter, eth_protocolVersion, eth_sendRawTransaction, eth_uninstallFilter)
+
+3. **TestRpcSchema** - Defines JSON-RPC methods for test/development operations
+   - All Anvil methods (anvil_dropTransaction, anvil_dumpState, anvil_getAutomine, anvil_impersonateAccount, anvil_loadState, anvil_mine, anvil_reset, anvil_setAutomine, anvil_setBalance, anvil_setBlockGasLimit, anvil_setBlockTimestampInterval, anvil_setCode, anvil_setCoinbase, anvil_setIntervalMining, anvil_setLoggingEnabled, anvil_setMinGasPrice, anvil_setNextBlockBaseFeePerGas, anvil_setNextBlockTimestamp, anvil_setNonce, anvil_setRpcUrl, anvil_setStorageAt, anvil_snapshot, anvil_stopImpersonatingAccount)
+   - All EVM methods (evm_increaseTime, evm_mine, evm_revert, evm_setAutomine, evm_setBlockGasLimit, evm_setIntervalMining, evm_setNextBlockTimestamp, evm_snapshot)
+
+### packages/utils/src/index.ts:
+- Added exports for `WalletActions`, `PublicRpcSchema`, and `TestRpcSchema`
+
+## Test Results
+
+- `@tevm/utils:build:types` - PASS
+
+## Remaining viem imports in memory-client
+
+With these new types, the following files can now be migrated:
+- `TevmTransport.ts` - needs Chain, ClientConfig, TransportConfig (all available)
+- `CreateMemoryClientFn.ts` - needs Account, Chain, RpcSchema (all available)
+- `MemoryClient.ts` - needs Account, Chain, Client, PublicActions, TestActions, WalletActions (all available)
+- `MemoryClientOptions.ts` - needs Account, Chain, ClientConfig, RpcSchema, Transport (all available)
+- `TevmContractType.ts` - needs Client (available)
+- `TevmRpcSchema.ts` - needs PublicRpcSchema, TestRpcSchema (now available)
+
+## Notes
+
+1. These types are designed to be compatible with viem's types while reducing direct viem dependencies.
+2. The memory-client package still needs all its type files migrated together since they're interconnected.
+3. Some type methods use `unknown` for complex parameter/return types that would need more detailed typing in the future.
+
+## Impact
+
+- Added 3 new types to @tevm/utils
+- Enabled future migration of memory-client type files
+- No breaking changes

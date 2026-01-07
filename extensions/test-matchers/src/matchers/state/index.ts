@@ -1,5 +1,5 @@
 import type { TevmNode } from '@tevm/node'
-import type { Client } from 'viem'
+import type { Client } from '@tevm/utils'
 import { toBeInitializedAccount } from './toBeInitializedAccount.js'
 import { toHaveState } from './toHaveState.js'
 import { toHaveStorageAt } from './toHaveStorageAt.js'

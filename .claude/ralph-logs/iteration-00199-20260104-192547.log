@@ -1,0 +1,5 @@
+Gas tracking now works correctly:
+- Gas used: 22106 (correct for SSTORE to cold slot)
+- Gas remaining: 77894 (100000 - 22106)
+
+This iteration successfully fixed a critical bug in the WASM memory handling. The key insight was that WASM functions expecting memory pointers cannot accept JavaScript arrays directly - the data must be written to WASM memory first, and then memory offsets passed to the functions.

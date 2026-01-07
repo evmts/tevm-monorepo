@@ -1,0 +1,20 @@
+The migration is complete. Let me provide a summary:
+
+## Ralph Migration - Iteration 187 Complete
+
+### Changes Made
+Successfully migrated `Prettify` type imports from `viem/chains` to `@tevm/utils` in:
+1. **packages/common/src/Common.ts** - Now imports `Prettify` from `@tevm/utils`
+2. **packages/memory-client/src/MemoryClient.ts** - Now imports `Prettify` from `@tevm/utils`
+
+### Commit
+`761fefc78` - ⚡ refactor(common,memory-client): migrate Prettify type from viem/chains to @tevm/utils
+
+### Tests Verified
+- `packages/common/src/createCommon.spec.ts` - 10 passed ✅
+
+### Migration Status
+The core packages (`@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, `@tevm/node`) are already free of direct viem imports. The remaining viem imports are:
+- **Intentional viem interop** - `Account`, `Chain`, `Client` types in memory-client for viem compatibility
+- **viem utilities** - re-exported via `@tevm/utils/viem.js` for convenience
+- **Chain presets** - in `@tevm/common/presets/*` importing chain definitions from `viem/chains`

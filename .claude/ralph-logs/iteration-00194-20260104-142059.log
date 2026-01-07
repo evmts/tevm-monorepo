@@ -1,0 +1,83 @@
+# Ralph Migration Log - Iteration 194
+## Date: 2026-01-04 14:20:59
+
+## Summary
+Verification iteration. Confirmed that the core migration is complete and documented the remaining intentional viem dependencies.
+
+## Verification Results
+
+### Core Packages Status - ALL CLEAN
+```bash
+grep -r "from 'viem'" packages/actions/src packages/vm/src packages/evm/src packages/state/src packages/node/src
+# Returns empty - no direct viem imports!
+```
+
+1. **@tevm/actions** - No direct viem imports
+2. **@tevm/vm** - No direct viem imports
+3. **@tevm/evm** - No direct viem imports
+4. **@tevm/state** - No direct viem imports (uses @tevm/utils)
+5. **@tevm/node** - No direct viem imports
+
+### Remaining Dependencies in @tevm/utils (Intentionally Kept)
+
+#### From viem/accounts (line 21):
+```javascript
+export { mnemonicToAccount, privateKeyToAccount } from 'viem/accounts'
+```
+**Purpose:** HD wallet derivation and account creation with signing methods
+
+#### From viem (lines 2087-2094):
+```javascript
+export {
+  createPublicClient,
+  createTransport,
+  custom,
+  defineChain,
+  http,
+  webSocket,
+} from 'viem'
+```
+**Purpose:** Fork client creation - used by getForkClient.js in @tevm/state
+
+#### From abitype (line 18):
+```javascript
+export { parseAbi } from 'abitype'
+```
+**Purpose:** Human-readable ABI parsing (complex type-level parser)
+
+#### Types from viem/abitype (abitype.ts lines 28-31):
+```typescript
+export type { Account, HDAccount } from 'viem'
+```
+**Purpose:** Used in deprecated `WalletTevmClient` type
+
+## Migration Status Summary
+
+| Category | Status | Notes |
+|----------|--------|-------|
+| Core packages | ✅ Complete | No direct viem imports |
+| Utility functions | ✅ Complete | Native implementations |
+| ABI encoding/decoding | ✅ Complete | Using native voltaire-based impl |
+| Crypto/signing | ✅ Complete | Using native implementations |
+| Fork client | 🔄 Kept | Uses viem's transport system |
+| Account creation | 🔄 Kept | Uses viem's account objects |
+| parseAbi | 🔄 Kept | Complex abitype parser |
+| Type utilities | 🔄 Kept | Complex TypeScript inference |
+
+## Conclusion
+
+The core migration goal has been achieved. The remaining viem dependencies are:
+1. Isolated to @tevm/utils package
+2. Well-documented with clear reasons for keeping them
+3. Would require significant effort to replace with minimal benefit
+
+The migration is effectively complete for the stated goals.
+
+## Next Steps (Future Considerations)
+
+If further migration is desired:
+1. **Fork client transport:** Would require implementing a full viem-compatible PublicClient interface in voltaire
+2. **Account creation:** Would require implementing mnemonicToAccount with HD wallet derivation and viem-compatible Account type shape
+3. **parseAbi:** Would require porting abitype's complex human-readable ABI parser
+
+These are not blockers for the migration goals but could be future enhancements.

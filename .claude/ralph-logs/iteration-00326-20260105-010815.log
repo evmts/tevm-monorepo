@@ -1,0 +1,44 @@
+# Ralph Migration Log - Iteration 326
+## Date: 2026-01-05 01:08
+
+## Summary
+Migrated avalanche.js preset from viem/chains dependency to nativeDefineChain. Avalanche is one of the most widely used EVM-compatible chains, making this a high-priority migration.
+
+## Actions Taken
+1. Updated `packages/common/src/presets/avalanche.js`:
+   - Replaced `import { avalanche as _avalanche } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+   - Created native chain definition inline with all properties:
+     - id: 43114
+     - name: 'Avalanche'
+     - nativeCurrency: { name: 'Avalanche', symbol: 'AVAX', decimals: 18 }
+     - rpcUrls: { default: { http: ['https://api.avax.network/ext/bc/C/rpc'] } }
+     - blockExplorers: { default: { name: 'Snowtrace', url: 'https://snowtrace.io', apiUrl: '...' } }
+     - contracts: multicall3 (0xca11bde05977b3631167028862be2a173976ca11)
+
+## Files Modified
+1. `packages/common/src/presets/avalanche.js`
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped
+
+## Impact
+- **Removed viem/chains dependency**: avalanche.js no longer imports from viem/chains
+- **Backwards compatible**: The chain configuration remains functionally identical
+- **High-priority chain migrated**: Avalanche is one of the most popular EVM chains
+
+## Migrated Presets So Far
+1. mainnet.js (iteration 320)
+2. optimism.js (iteration 321)
+3. sepolia.js (iteration 322)
+4. arbitrum.js (iteration 323)
+5. base.js (iteration 324)
+6. polygon.js (iteration 325)
+7. avalanche.js (iteration 326) <- this iteration
+
+## Remaining viem/chains Imports
+- Still 328 preset files importing from viem/chains
+- Next high-priority preset to migrate: bsc.js (BNB Smart Chain) or zksync.js
+
+## Next Steps
+1. Continue migrating high-priority chain presets (bsc, zksync, gnosis)
+2. Consider creating a batch migration script for remaining presets

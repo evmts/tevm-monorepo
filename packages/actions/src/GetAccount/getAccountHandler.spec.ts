@@ -1,7 +1,7 @@
 import { AccountNotFoundError, InvalidAddressError } from '@tevm/errors'
 import { createTevmNode } from '@tevm/node'
 import { TestERC20 } from '@tevm/test-utils'
-import { numberToHex } from 'viem'
+import { numberToHex } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getAccountHandler } from './getAccountHandler.js'

@@ -1,5 +1,4 @@
-import type { AbiParametersToPrimitiveTypes, ExtractAbiError } from 'abitype'
-import type { Abi, AbiParameter, Client, ContractErrorName, Hex } from 'viem'
+import type { Abi, AbiParameter, AbiParametersToPrimitiveTypes, Client, ContractErrorName, ExtractAbiError, Hex } from '@tevm/utils'
 import { createChainableFromVitest } from '../../chainable/chainable.js'
 import type { ChainableAssertion } from '../../chainable/types.js'
 import type { AbiInputsToNamedArgs, ContainsContractAbi } from '../../common/types.js'

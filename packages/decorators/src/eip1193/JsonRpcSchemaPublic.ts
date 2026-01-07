@@ -4,21 +4,23 @@
 // We copy it here for easier developer experience internally and also
 // to lock in these types independent of viem potentially making changes
 // import type { Address } from 'abitype'
-import type { Address, BlockTag, Hex } from '@tevm/utils'
 import type {
+	Address,
+	BlockTag,
+	Hex,
+	Quantity,
 	RpcBlock as Block,
 	RpcBlockIdentifier as BlockIdentifier,
 	RpcBlockNumber as BlockNumber,
 	RpcFeeHistory as FeeHistory,
 	RpcLog as Log,
 	RpcProof as Proof,
-	Quantity,
 	RpcStateOverride,
 	RpcTransaction as Transaction,
 	RpcTransactionReceipt as TransactionReceipt,
 	RpcTransactionRequest as TransactionRequest,
 	RpcUncle as Uncle,
-} from 'viem'
+} from '@tevm/utils'
 import type { Hash, LogTopic } from './misc.js'
 
 /**

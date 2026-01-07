@@ -1,5 +1,8 @@
-import { ecrecover } from './ethereumjs.js'
+import { ecrecover } from './ecrecover.js'
 import { getAddress, keccak256, toBytes, toHex } from './viem.js'
+import { EIP712 } from '@tevm/voltaire/EIP712'
+import { Address as VoltaireAddress } from '@tevm/voltaire/Address'
+import { Hash as VoltaireHash } from '@tevm/voltaire/Hash'
 
 /**
  * @typedef {Object} Signature
@@ -170,6 +173,7 @@ export function verifyMessage({ address, message, signature }) {
 
 /**
  * Signs a message with a private key
+ * Uses native implementation with @tevm/voltaire instead of viem
  * @param {Object} params - The parameters
  * @param {import('./abitype.js').Hex} params.privateKey - The private key
  * @param {string} params.message - The message to sign
@@ -185,12 +189,13 @@ export function verifyMessage({ address, message, signature }) {
  * ```
  */
 export async function signMessage({ privateKey, message }) {
-	// Import viem's signMessage function directly
-	const { signMessage: viemSignMessage } = await import('viem/accounts')
-	const signature = await viemSignMessage({ privateKey, message })
+	// Use native implementation via nativePrivateKeyToAccount
+	const { nativePrivateKeyToAccount } = await import('./nativePrivateKeyToAccount.js')
+	const account = nativePrivateKeyToAccount(privateKey)
+	const signature = await account.signMessage({ message })
 
-	// Convert viem signature format to our format
-	// The last byte in viem signature is already the v value (27/28)
+	// Convert signature format (65 bytes: r + s + v)
+	// signature is a hex string like '0x' + r (64 chars) + s (64 chars) + v (2 chars)
 	const v = Number.parseInt(signature.slice(130, 132), 16)
 	const yParity = /** @type {0 | 1} */ (v - 27) // Convert v to yParity (0/1)
 
@@ -199,5 +204,261 @@ export async function signMessage({ privateKey, message }) {
 		s: BigInt(`0x${signature.slice(66, 130)}`), // Next 32 bytes as hex
 		v, // Already 27/28
 		yParity,
+	}
+}
+
+// ===========================================
+// EIP-712 Typed Data Functions (using voltaire)
+// ===========================================
+
+/**
+ * Convert message values to voltaire-compatible types recursively
+ * @param {any} value - The value to convert
+ * @param {string} type - The EIP-712 type
+ * @param {Record<string, Array<{name: string, type: string}>>} types - Type definitions
+ * @returns {any} The converted value
+ */
+function convertMessageValue(value, type, types) {
+	// Handle arrays
+	if (type.endsWith('[]')) {
+		const baseType = type.slice(0, -2)
+		return /** @type {any[]} */ (value).map((v) => convertMessageValue(v, baseType, types))
+	}
+
+	// Handle fixed-size arrays like bytes32[2]
+	const arrayMatch = type.match(/^(.+)\[(\d+)\]$/)
+	if (arrayMatch) {
+		const baseType = /** @type {string} */ (arrayMatch[1])
+		return /** @type {any[]} */ (value).map((v) => convertMessageValue(v, baseType, types))
+	}
+
+	// Handle address type - convert hex string to voltaire AddressType
+	if (type === 'address') {
+		if (typeof value === 'string') {
+			return VoltaireAddress.from(value)
+		}
+		return value
+	}
+
+	// Handle bytes type - convert hex string to Uint8Array
+	if (type === 'bytes' || type.match(/^bytes\d+$/)) {
+		if (typeof value === 'string') {
+			return toBytes(/** @type {import('./abitype.js').Hex} */ (value))
+		}
+		return value
+	}
+
+	// Handle uint/int types - ensure they're bigints
+	if (type.match(/^u?int\d*$/)) {
+		if (typeof value === 'number') {
+			return BigInt(value)
+		}
+		return value
+	}
+
+	// Handle custom struct types
+	if (types[type]) {
+		const typeProps = types[type]
+		const converted = /** @type {Record<string, any>} */ ({})
+		for (const prop of typeProps) {
+			if (value[prop.name] !== undefined) {
+				converted[prop.name] = convertMessageValue(value[prop.name], prop.type, types)
+			}
+		}
+		return converted
+	}
+
+	// Return value as-is for other types (string, bool, etc.)
+	return value
+}
+
+/**
+ * @typedef {Object} TypedDataDomain
+ * @property {string} [name] - The user-friendly name of the signing domain
+ * @property {string} [version] - The current major version of the signing domain
+ * @property {bigint | number} [chainId] - The chain ID
+ * @property {import('./abitype.js').Address} [verifyingContract] - The address of the contract that will verify the signature
+ * @property {import('./abitype.js').Hex} [salt] - A disambiguating salt for the protocol
+ */
+
+/**
+ * @typedef {Object} TypedDataParameter
+ * @property {string} name - The name of the parameter
+ * @property {string} type - The type of the parameter
+ */
+
+/**
+ * @typedef {{ [typeName: string]: readonly TypedDataParameter[] }} TypedDataTypes
+ */
+
+/**
+ * @typedef {Object} TypedData
+ * @property {TypedDataDomain} domain - The domain separator
+ * @property {{ [key: string]: TypedDataParameter[] }} types - The type definitions
+ * @property {string} primaryType - The primary type being signed
+ * @property {{ [key: string]: any }} message - The message to sign
+ */
+
+/**
+ * Hash typed data according to EIP-712 specification
+ * Uses native implementation with @tevm/voltaire
+ * @param {TypedData} typedData - The typed data to hash
+ * @returns {import('./abitype.js').Hex} The hash of the typed data
+ * @example
+ * ```js
+ * import { hashTypedData } from '@tevm/utils'
+ *
+ * const hash = hashTypedData({
+ *   domain: {
+ *     name: 'MyApp',
+ *     version: '1',
+ *     chainId: 1n,
+ *     verifyingContract: '0x...'
+ *   },
+ *   types: {
+ *     Person: [
+ *       { name: 'name', type: 'string' },
+ *       { name: 'wallet', type: 'address' }
+ *     ]
+ *   },
+ *   primaryType: 'Person',
+ *   message: { name: 'Alice', wallet: '0x...' }
+ * })
+ * ```
+ */
+export function hashTypedData(typedData) {
+	// Convert domain to voltaire-compatible format
+	// Only include properties that are defined to avoid exactOptionalPropertyTypes issues
+	/** @type {import('@tevm/voltaire/EIP712').Domain} */
+	const voltaireDomain = {}
+	if (typedData.domain.name !== undefined) voltaireDomain.name = typedData.domain.name
+	if (typedData.domain.version !== undefined) voltaireDomain.version = typedData.domain.version
+	if (typedData.domain.chainId !== undefined) voltaireDomain.chainId = BigInt(typedData.domain.chainId)
+	if (typedData.domain.verifyingContract !== undefined) voltaireDomain.verifyingContract = VoltaireAddress.from(typedData.domain.verifyingContract)
+	if (typedData.domain.salt !== undefined) voltaireDomain.salt = VoltaireHash.from(toBytes(typedData.domain.salt))
+
+	// Filter out the EIP712Domain type since voltaire handles it internally
+	const filteredTypes = /** @type {Record<string, Array<{name: string, type: string}>>} */ ({})
+	for (const [typeName, typeProperties] of Object.entries(typedData.types)) {
+		if (typeName !== 'EIP712Domain') {
+			filteredTypes[typeName] = /** @type {Array<{name: string, type: string}>} */ (typeProperties)
+		}
+	}
+
+	// Convert message values to voltaire-compatible types
+	const convertedMessage = convertMessageValue(typedData.message, typedData.primaryType, filteredTypes)
+
+	/** @type {Parameters<typeof EIP712.hashTypedData>[0]} */
+	const voltaireTypedData = {
+		domain: voltaireDomain,
+		types: filteredTypes,
+		primaryType: typedData.primaryType,
+		message: convertedMessage,
+	}
+
+	const hashBytes = EIP712.hashTypedData(voltaireTypedData)
+	return toHex(hashBytes)
+}
+
+/**
+ * Sign typed data according to EIP-712 specification
+ * Uses native implementation with @tevm/voltaire
+ * @param {Object} params - The parameters
+ * @param {import('./abitype.js').Hex} params.privateKey - The private key
+ * @param {TypedData} params.typedData - The typed data to sign
+ * @returns {Signature} The signature
+ * @example
+ * ```js
+ * import { signTypedData } from '@tevm/utils'
+ *
+ * const signature = signTypedData({
+ *   privateKey: '0x...',
+ *   typedData: {
+ *     domain: { name: 'MyApp', version: '1', chainId: 1n },
+ *     types: { Person: [{ name: 'name', type: 'string' }] },
+ *     primaryType: 'Person',
+ *     message: { name: 'Alice' }
+ *   }
+ * })
+ * ```
+ */
+export function signTypedData({ privateKey, typedData }) {
+	// Convert domain to voltaire-compatible format
+	// Only include properties that are defined to avoid exactOptionalPropertyTypes issues
+	/** @type {import('@tevm/voltaire/EIP712').Domain} */
+	const voltaireDomain = {}
+	if (typedData.domain.name !== undefined) voltaireDomain.name = typedData.domain.name
+	if (typedData.domain.version !== undefined) voltaireDomain.version = typedData.domain.version
+	if (typedData.domain.chainId !== undefined) voltaireDomain.chainId = BigInt(typedData.domain.chainId)
+	if (typedData.domain.verifyingContract !== undefined) voltaireDomain.verifyingContract = VoltaireAddress.from(typedData.domain.verifyingContract)
+	if (typedData.domain.salt !== undefined) voltaireDomain.salt = VoltaireHash.from(toBytes(typedData.domain.salt))
+
+	// Filter out the EIP712Domain type since voltaire handles it internally
+	const filteredTypes = /** @type {Record<string, Array<{name: string, type: string}>>} */ ({})
+	for (const [typeName, typeProperties] of Object.entries(typedData.types)) {
+		if (typeName !== 'EIP712Domain') {
+			filteredTypes[typeName] = /** @type {Array<{name: string, type: string}>} */ (typeProperties)
+		}
+	}
+
+	// Convert message values to voltaire-compatible types
+	const convertedMessage = convertMessageValue(typedData.message, typedData.primaryType, filteredTypes)
+
+	/** @type {Parameters<typeof EIP712.signTypedData>[0]} */
+	const voltaireTypedData = {
+		domain: voltaireDomain,
+		types: filteredTypes,
+		primaryType: typedData.primaryType,
+		message: convertedMessage,
+	}
+
+	// Convert private key to bytes
+	const privateKeyBytes = toBytes(privateKey)
+	const sig = EIP712.signTypedData(voltaireTypedData, privateKeyBytes)
+
+	// Convert to our signature format
+	const r = BigInt(toHex(sig.r))
+	const s = BigInt(toHex(sig.s))
+	const v = sig.v
+	const yParity = /** @type {0 | 1} */ (v - 27)
+
+	return { r, s, v, yParity }
+}
+
+/**
+ * Verify typed data signature according to EIP-712 specification
+ * Uses native implementation with @tevm/voltaire
+ * @param {Object} params - The parameters
+ * @param {import('./abitype.js').Address} params.address - The expected signer address
+ * @param {TypedData} params.typedData - The typed data that was signed
+ * @param {Signature} params.signature - The signature to verify
+ * @returns {boolean} Whether the signature is valid
+ * @example
+ * ```js
+ * import { verifyTypedData } from '@tevm/utils'
+ *
+ * const isValid = verifyTypedData({
+ *   address: '0x...',
+ *   typedData: {
+ *     domain: { name: 'MyApp', version: '1', chainId: 1n },
+ *     types: { Person: [{ name: 'name', type: 'string' }] },
+ *     primaryType: 'Person',
+ *     message: { name: 'Alice' }
+ *   },
+ *   signature: { r: 0x..., s: 0x..., v: 27 }
+ * })
+ * ```
+ */
+export function verifyTypedData({ address, typedData, signature }) {
+	try {
+		// Hash the typed data
+		const hash = hashTypedData(typedData)
+
+		// Recover the address from the signature using our existing recoverAddress
+		const recoveredAddress = recoverAddress({ hash, signature })
+
+		return recoveredAddress.toLowerCase() === address.toLowerCase()
+	} catch {
+		return false
 	}
 }

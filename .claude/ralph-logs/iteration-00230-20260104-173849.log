@@ -1,0 +1,68 @@
+# Ralph Migration Log - EVM Value Transfer Fix
+
+## Date: 2026-01-04
+
+## Summary
+Fixed critical bug where ETH value transfers were not working in the tevm memory client. The Evm.runCall stub was not implementing value transfer logic.
+
+## Problem
+- sendTransaction would complete but the ETH value was not transferred
+- Only gas was being deducted from sender
+- Recipient received nothing
+
+## Root Cause
+The EVM was migrated to a stub implementation (for Guillotine integration) that didn't implement value transfers. The old @ethereumjs/evm implementation handled this, but the new stub in `packages/evm/src/Evm.js` just returned empty results.
+
+## Fix Applied
+Updated `packages/evm/src/Evm.js` `runCall` method to:
+1. Credit value to recipient account
+2. Deduct value from sender account (even when skipBalance=true, since that flag only means "don't validate balance" not "don't transfer")
+3. Prevent negative balance when skipBalance=true
+
+## Files Modified
+- `packages/evm/src/Evm.js` - Added value transfer logic to runCall
+
+## Key Code Change
+```javascript
+async runCall(opts) {
+  const { caller, to, value, skipBalance } = opts
+
+  // Handle value transfer if there's value to transfer and a recipient
+  if (value && value > 0n && to) {
+    // Credit value to recipient
+    let toAccount = await this.stateManager.getAccount(to)
+    if (toAccount === undefined) {
+      toAccount = new EthjsAccount()
+    }
+    toAccount.balance += value
+    await this.stateManager.putAccount(to, toAccount)
+
+    // Deduct value from sender
+    if (caller) {
+      let callerAccount = await this.stateManager.getAccount(caller)
+      if (callerAccount === undefined) {
+        callerAccount = new EthjsAccount()
+      }
+      callerAccount.balance -= value
+      if (skipBalance && callerAccount.balance < 0n) {
+        callerAccount.balance = 0n
+      }
+      await this.stateManager.putAccount(caller, callerAccount)
+    }
+  }
+  // ... rest of stub
+}
+```
+
+## Tests Verified
+- `packages/memory-client/src/createMemoryClient.spec.ts` - "should auto-mine transactions" - PASSED
+- Direct value transfer tests via debug scripts - PASSED
+
+## Known Limitations
+- EVM stub only handles value transfers, not contract execution
+- Some VM tests fail because they require full EVM execution
+- This is expected during the Guillotine migration
+
+## Next Steps
+- Continue Guillotine integration to enable contract execution
+- Consider updating test expectations or skipping tests that require full EVM

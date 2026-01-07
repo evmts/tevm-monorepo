@@ -1,0 +1,43 @@
+# Ralph Migration Log - Iteration 322
+## Date: 2026-01-05 01:03
+
+## Summary
+Migrated sepolia.js preset from viem/chains dependency to nativeDefineChain. This removes viem/chains from the most commonly used Ethereum testnet preset.
+
+## Actions Taken
+1. Updated `packages/common/src/presets/sepolia.js`:
+   - Replaced `import { sepolia as _sepolia } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+   - Created native chain definition inline with all properties:
+     - id: 11155111
+     - name: 'Sepolia'
+     - nativeCurrency: { name: 'Sepolia Ether', symbol: 'ETH', decimals: 18 }
+     - rpcUrls: { default: { http: ['https://sepolia.drpc.org'] } }
+     - blockExplorers: { default: { name: 'Etherscan', url: 'https://sepolia.etherscan.io', apiUrl: '...' } }
+     - contracts: multicall3, ensUniversalResolver
+     - testnet: true
+   - Used nativeDefineChain() instead of viem's chain object
+
+## Files Modified
+1. `packages/common/src/presets/sepolia.js`
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped
+- Types build successfully with `pnpm nx run @tevm/common:build:types`
+
+## Impact
+- **Removed viem/chains dependency**: sepolia.js no longer imports from viem/chains
+- **Backwards compatible**: The chain configuration remains functionally identical
+- **High-priority testnet migrated**: Sepolia is the primary Ethereum testnet
+
+## Migrated Presets So Far
+1. mainnet.js (iteration 320)
+2. optimism.js (iteration 321)  
+3. sepolia.js (iteration 322) <- this iteration
+
+## Remaining viem/chains Imports
+- Still many preset files importing from viem/chains
+- Next high-priority presets to migrate: arbitrum.js, base.js, polygon.js
+
+## Next Steps
+1. Continue migrating high-priority chain presets (arbitrum, base, polygon)
+2. Consider creating a batch migration script for remaining presets

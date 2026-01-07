@@ -1,4 +1,4 @@
-import { p256 } from '@noble/curves/nist.js'
+import { verify as p256Verify } from '@tevm/voltaire/P256'
 import { createAddress } from '@tevm/address'
 import { toBytes } from '@tevm/utils'
 
@@ -52,20 +52,16 @@ export const p256VerifyPrecompile = () => {
 				const y = input.data.slice(96, 128)
 				const msgHash = input.data.slice(128, 160)
 
-				// Construct the signature as a 64-byte compact (r, s) format
-				const signature = new Uint8Array(64)
-				signature.set(r, 0)
-				signature.set(s, 32)
+				// Construct the public key as a 64-byte uncompressed key (x || y)
+				// voltaire's P256.verify expects 64 bytes without the 0x04 prefix
+				const publicKey = new Uint8Array(64)
+				publicKey.set(x, 0)
+				publicKey.set(y, 32)
 
-				// Construct the public key as a 65-byte uncompressed key (0x04 || x || y)
-				const publicKey = new Uint8Array(65)
-				publicKey[0] = 0x04
-				publicKey.set(x, 1)
-				publicKey.set(y, 33)
-
-				// Verify the signature using the noble/curves p256 implementation
-				// Note: We use prehash: false because the input is already a hash (msgHash)
-				const isValid = p256.verify(signature, msgHash, publicKey, { prehash: false })
+				// Verify the signature using voltaire's P256 implementation
+				// voltaire's verify takes { r, s } object and 64-byte public key
+				// Use type assertions for the branded types
+				const isValid = p256Verify({ r, s } as any, msgHash as any, publicKey)
 
 				if (isValid) {
 					// Return 32-byte padded 1 for valid signature

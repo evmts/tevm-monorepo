@@ -1,0 +1,84 @@
+# Ralph Migration Iteration 110 - Event Encoding/Decoding Migration (SUCCESS)
+
+## Target
+
+Replace viem's `decodeEventLog` and `encodeEventTopics` with native implementations using @tevm/voltaire.
+
+## Assessment
+
+Previous iteration (#109) migrated function encoding/decoding. The log indicated the next targets were event-related functions.
+
+## Changes Made
+
+### 1. Created abiEventEncoding.js (packages/utils)
+New file with native implementations:
+- `decodeEventLog({abi, topics, data, eventName?, strict?})` - Wraps voltaire's `Event.decodeLog`
+  - Supports automatic event identification from topic0 selector
+  - Supports explicit eventName parameter
+  - Strict mode (default) throws errors, non-strict returns undefined
+  - Converts Uint8Array results to hex strings for addresses/bytes
+- `encodeEventTopics({abi, eventName, args})` - Wraps voltaire's `Event.encodeTopics`
+  - Returns hex string topics array
+  - Supports null values for wildcard filtering
+
+Both functions match viem's API patterns for drop-in replacement.
+
+### 2. Added comprehensive test suite
+- Created `abiEventEncoding.spec.ts` with 13 tests covering:
+  - encodeEventTopics for Transfer and Approval events
+  - encodeEventTopics with partial/no args
+  - Error handling for unknown events
+  - decodeEventLog for Transfer event
+  - decodeEventLog with explicit eventName
+  - Strict vs non-strict mode error handling
+  - Roundtrip encode/decode test
+
+### 3. Updated viem.js exports
+Changed from:
+```js
+export {
+	decodeErrorResult,
+	decodeEventLog,
+	encodeDeployData,
+	encodeErrorResult,
+	encodeEventTopics,
+} from 'viem/utils'
+```
+To:
+```js
+export { decodeEventLog, encodeEventTopics } from './abiEventEncoding.js'
+
+export {
+	decodeErrorResult,
+	encodeDeployData,
+	encodeErrorResult,
+} from 'viem/utils'
+```
+
+## Tests
+
+All 347 tests in @tevm/utils pass (1 skipped):
+- 13 new abiEventEncoding tests
+- 334 existing tests continue to pass
+
+## Commits
+
+1. `⚡ refactor(utils): implement native event encoding/decoding using @tevm/voltaire` (tevm)
+
+## Migration Status Summary
+
+**Remaining viem imports in @tevm/utils viem.js:**
+
+1. `viem/accounts`: `mnemonicToAccount`, `privateKeyToAccount` - Complex wallet APIs
+2. `viem/utils`:
+   - ~~encodeAbiParameters, decodeAbiParameters~~ ✅ MIGRATED (iteration 108)
+   - ~~encodeFunctionData, decodeFunctionData~~ ✅ MIGRATED (iteration 109)
+   - ~~decodeFunctionResult, encodeFunctionResult~~ ✅ MIGRATED (iteration 109)
+   - ~~decodeEventLog, encodeEventTopics~~ ✅ MIGRATED (this iteration)
+   - decodeErrorResult, encodeErrorResult (error handling)
+   - encodeDeployData (deploy encoding)
+3. `viem`: Transport/client functions (createPublicClient, http, etc.) - Needed for forking
+
+**Next targets:**
+- `decodeErrorResult` / `encodeErrorResult` - use voltaire's Abi.Error functions
+- `encodeDeployData` - use voltaire's Abi.Constructor functions

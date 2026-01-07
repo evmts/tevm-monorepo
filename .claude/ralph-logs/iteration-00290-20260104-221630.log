@@ -1,0 +1,75 @@
+# Ralph Migration Log - Iteration 290
+## Date: 2026-01-04 22:16
+
+## Summary
+Created native `nativeWebSocket()` transport function using @tevm/voltaire's WebSocketProvider. This provides a viem-compatible webSocket() transport API without requiring viem as a dependency.
+
+## Changes Made
+
+### New Files:
+1. `packages/utils/src/nativeWebSocket.js`
+   - Native WebSocket transport using voltaire's WebSocketProvider
+   - Compatible with viem's webSocket() transport API
+   - Supports configuration options: timeout, reconnect, reconnectDelay, maxReconnectAttempts, protocols
+   - Provides methods: connect(), disconnect(), request(), subscribe(), unsubscribe()
+   - Returns a factory function that creates EIP-1193 compliant request function with subscription support
+
+2. `packages/utils/src/nativeWebSocket.spec.ts`
+   - 11 tests covering transport creation, configuration, and all methods
+   - Tests: connect, disconnect, request, subscribe, unsubscribe
+   - Uses mocked WebSocketProvider for unit testing
+
+### Modified Files:
+1. `packages/utils/src/index.ts`
+   - Added export for `nativeWebSocket` function
+
+## Test Results
+- nativeWebSocket.spec.ts: 11 tests passed
+- nativeHttp.spec.ts: 6 tests passed (verified no regression)
+- build:types: successful
+
+## Migration Path
+Users can now migrate from viem's webSocket() to nativeWebSocket():
+
+```javascript
+// Before:
+import { webSocket } from 'viem'
+const transport = webSocket('wss://mainnet.infura.io/ws/v3/KEY')
+
+// After:
+import { nativeWebSocket } from '@tevm/utils'
+const transport = nativeWebSocket('wss://mainnet.infura.io/ws/v3/KEY')
+
+// With configuration:
+const transport = nativeWebSocket('wss://mainnet.infura.io/ws/v3/KEY', {
+  reconnect: true,
+  reconnectDelay: 3000,
+  maxReconnectAttempts: 5,
+  protocols: 'graphql-ws'
+})
+
+// Usage:
+const ws = transport()
+await ws.connect()
+const blockNumber = await ws.request({ method: 'eth_blockNumber' })
+const subId = await ws.subscribe('newHeads', [], (block) => console.log(block))
+await ws.unsubscribe(subId)
+ws.disconnect()
+```
+
+## Impact
+This change provides a drop-in replacement for viem's webSocket() transport that uses voltaire's
+WebSocketProvider internally. Combined with nativeHttp(), users now have native alternatives
+for both HTTP and WebSocket transports.
+
+## Technical Notes
+- voltaire's WebSocketProvider.subscribe() and unsubscribe() methods are public in JavaScript
+  but typed as private, requiring @ts-ignore comments to suppress TypeScript errors
+- Used `Record<string, unknown>` type with conditional property assignment to handle
+  optional protocols parameter cleanly
+
+## Next Steps
+1. Consider creating nativeCustom() for custom transport functions
+2. Update example code and JSDoc to reference native transports
+3. Continue migration - eventually remove deprecated viem transport re-exports
+4. Consider updating memory-client to use native transports internally

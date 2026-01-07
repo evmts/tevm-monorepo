@@ -1,0 +1,26 @@
+I've completed this iteration of the Ralph migration. Here's a summary:
+
+## Migration Summary
+
+**Files migrated this session:**
+1. `tevmMiningModes.spec.ts` - Replaced `{type Address, parseEther}` from viem with `@tevm/utils`
+2. `tevmAccountManagement.spec.ts` - Replaced `{type Address, parseEther}` from viem with `@tevm/utils`
+3. `tevmForkIntegration.spec.ts` - Replaced `{type Address, parseEther}` from viem with `@tevm/utils`
+4. `tevmContractIntegration.spec.ts` - Replaced `{type Address, encodeFunctionData, parseEther}` from viem with `@tevm/utils`
+5. `tevmDeploy.spec.ts` - Split import, moved `Address` type to `@tevm/utils`
+6. `tevmMine.spec.ts` - Split import, moved `Address` type to `@tevm/utils`
+
+**Commits:**
+- `1fa1dc9f5` - tevmMiningModes.spec.ts migration
+- `f26b38e56` - 5 other test file migrations
+
+**What stayed from viem:**
+- `createClient` - viem-specific client factory
+- `Client` type - viem's client type
+- `testActions`, `walletActions` - viem-specific action decorators
+- Actions from `viem/actions` (getBalance, getCode, etc.)
+
+**Next targets for future iterations:**
+- Look for more simple type imports (Hex, Address) in other packages
+- The `@tevm/decorators` package has some viem type imports that could be migrated
+- Continue checking test files in other core packages

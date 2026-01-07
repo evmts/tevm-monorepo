@@ -1,0 +1,41 @@
+# Ralph Migration Log - Iteration 410
+## Date: 2026-01-05 05:22
+
+## Summary
+
+Migrated test files in @tevm/mud from viem to @tevm/utils.
+
+## Files Migrated
+
+1. **bundler-packages/mud/test/state.ts**
+   - Changed: `import { bytesToHex, concatHex } from 'viem'` -> `import { bytesToHex, concatHex } from '@tevm/utils'`
+   - Fully migrated - no more viem imports
+
+2. **bundler-packages/mud/test/prepare.ts**
+   - Moved `decodeEventLog`, `Log` from `viem` to `@tevm/utils`
+   - Removed now-unnecessary `@ts-expect-error` comment (types are compatible)
+   - Note: Still imports `createClient` from viem and bundler client creation functions
+
+## Test Results
+
+- Typecheck passes
+
+## Updated Status - Remaining viem Imports in @tevm/mud
+
+### Source Files (src/)
+1. src/createOptimisticHandler.ts - `Client` (type), `parseEventLogs` (function), `getTransaction` (action)
+2. src/internal/decorators/mudStoreGetStorageAtOverride.ts - `EIP1193RequestFn`
+3. src/internal/decorators/mudStoreWriteRequestOverride.ts - `Client` (type), `waitForTransactionReceipt` (action)
+4. src/types.ts - viem client types
+
+### Test Files (test/)
+1. test/prepare.ts - `createClient`, `createBundlerClient`, `writeContract`
+
+### Spec Files (src/**/*.spec.ts)
+- Multiple spec files still use viem for test setup (createClient, etc.)
+
+## Impact
+
+- test/state.ts fully migrated (no viem imports)
+- test/prepare.ts partially migrated (decodeEventLog, Log moved)
+- Overall reduction in viem dependencies for mud package

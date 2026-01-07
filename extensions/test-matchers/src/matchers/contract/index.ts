@@ -1,6 +1,5 @@
 import type { TevmNode } from '@tevm/node'
-import type { AbiParameter, AbiParametersToPrimitiveTypes, ExtractAbiFunction } from 'abitype'
-import type { Abi, Client, ContractFunctionName, Hex } from 'viem'
+import type { Abi, AbiParameter, AbiParametersToPrimitiveTypes, Client, ContractFunctionName, ExtractAbiFunction, Hex } from '@tevm/utils'
 import { createChainableFromVitest } from '../../chainable/chainable.js'
 import type { ChainableAssertion } from '../../chainable/types.js'
 import type { AbiInputsToNamedArgs, ContainsContractAddressAndOptionalAbi } from '../../common/types.js'

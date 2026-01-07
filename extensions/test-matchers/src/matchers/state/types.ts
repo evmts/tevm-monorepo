@@ -1,5 +1,5 @@
 import type { GetAccountResult } from '@tevm/actions'
-import type { Hex } from 'viem'
+import type { Hex } from '@tevm/utils'
 
 export type ExpectedState = Partial<Omit<GetAccountResult, 'address' | 'errors'>>
 

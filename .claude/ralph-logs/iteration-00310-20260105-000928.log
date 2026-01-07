@@ -1,0 +1,92 @@
+# Ralph Migration Log - Iteration 310
+## Date: 2026-01-05 00:09
+
+## Summary
+Status verification and assessment of remaining migration opportunities.
+
+## Actions Taken
+1. Reviewed previous iteration (309) - core migration confirmed stable
+2. Verified test status:
+   - nativePrivateKeyToAccount.spec.ts: 18 tests passing
+   - guillotineWasm.spec.ts: 38 tests passing, 1 skipped
+   - signature.spec.ts: 31 tests passing
+
+3. Analyzed remaining viem dependencies:
+   - @tevm/memory-client: Intentionally kept for viem client compatibility
+   - @tevm/utils/viem.js: Contains mostly native implementations
+     - parseAbi, formatAbi from 'abitype' (type-level transformations, complex to replace)
+     - mnemonicToAccount, privateKeyToAccount from 'viem/accounts' (deprecated, native alternatives exist)
+     - createPublicClient, createTransport, custom, defineChain, http, webSocket from 'viem' (required for forking)
+
+4. Analyzed remaining @ethereumjs dependencies:
+   - @tevm/tx: Re-exports @ethereumjs/tx (voltaire has Transaction alternative)
+   - @tevm/common: Uses @ethereumjs/common for chain configuration
+   - @tevm/trie: Re-exports @ethereumjs/trie for Merkle Patricia Trie
+
+5. Verified native implementations in @tevm/utils:
+   - ecrecover.js: Uses @tevm/voltaire/Secp256k1.recoverPublicKeyFromHash
+   - signature.js: Uses native keccak256, toBytes, toHex from viem.js (all native)
+   - prefundedAccounts.ts: Uses nativePrivateKeyToAccount
+
+## Test Summary
+- nativePrivateKeyToAccount.spec.ts: 18 passed
+- guillotineWasm.spec.ts: 38 passed, 1 skipped
+- signature.spec.ts: 31 passed
+- Total: 87 tests verified passing
+
+## Migration Status (Stable)
+
+### Core Packages - COMPLETE
+All core packages have ZERO direct viem imports:
+- @tevm/actions, @tevm/evm, @tevm/state, @tevm/vm, @tevm/node
+- @tevm/block, @tevm/blockchain, @tevm/precompiles
+- @tevm/decorators, @tevm/jsonrpc, @tevm/procedures
+- @tevm/rlp, @tevm/utils (native implementations)
+
+### Native Implementations in @tevm/utils
+All utility functions in viem.js are now native implementations using voltaire:
+- keccak256, bytesToHex, hexToBytes, toBytes, toHex
+- toRlp, fromRlp (RLP encoding/decoding)
+- getAddress, isAddress, checksumAddress
+- serializeTransaction (native)
+- All ABI encoding/decoding functions via voltaire
+- ecrecover using voltaire Secp256k1
+- EIP-712 using voltaire EIP712
+
+### Intentional Dependencies (Kept for API Compatibility)
+- viem in @tevm/memory-client - User-facing viem client compatibility
+- viem re-exports in @tevm/utils - Backward compatibility (native alternatives available)
+- @ethereumjs/common - Chain configuration
+- @ethereumjs/tx - Transaction classes (voltaire has alternatives)
+- @ethereumjs/trie - Merkle Patricia Trie
+
+### Guillotine-mini Integration Status
+- WASM loader working (packages/evm/src/guillotineWasm.js)
+- EVM creation and destruction working
+- Basic opcode execution working (arithmetic, bitwise, control flow)
+- Storage operations (SSTORE/SLOAD) working during execution
+- Pre-execution storage setting has known bug (skipped test)
+- Hardfork selection working (Cancun, Prague)
+
+### Next Steps (Future Iterations)
+1. **Transaction Migration**: Migrate @tevm/tx from @ethereumjs/tx to voltaire Transaction
+   - Voltaire has comprehensive Transaction module with all types
+   - Would eliminate @ethereumjs/tx dependency
+   - Significant change requiring careful testing
+
+2. **Remove deprecated viem re-exports**:
+   - mnemonicToAccount, privateKeyToAccount can be removed in favor of native versions
+   - Would require updating any external consumers
+
+3. **Guillotine-mini Storage Bug**: Fix evm_set_storage WASM bug
+   - Currently fails with "null function or function signature mismatch"
+   - Workaround: use SSTORE during execution instead of pre-population
+
+## Files Modified
+None - verification and testing only
+
+## Notes
+- Migration remains stable and complete for core packages
+- All native implementations tested and working
+- Focus has shifted from viem removal to optional ethereumjs removal via voltaire
+- Transaction migration is the most impactful next step but requires significant work

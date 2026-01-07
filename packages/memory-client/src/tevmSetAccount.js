@@ -25,13 +25,14 @@ import { setAccountHandler } from '@tevm/actions'
  * @example
  * ```typescript
  * import { tevmSetAccount } from 'tevm/actions'
- * import { createClient, http, parseEther } from 'viem'
+ * import { createClient } from 'viem'
+ * import { nativeHttp, parseEther } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  *
  * const client = createClient({
  *   transport: createTevmTransport({
- *     fork: { transport: http('https://mainnet.optimism.io')({}) }
+ *     fork: { transport: nativeHttp('https://mainnet.optimism.io')({}) }
  *   }),
  *   chain: optimism,
  * })
@@ -59,7 +60,7 @@ import { setAccountHandler } from '@tevm/actions'
  * // Deploy a contract directly (without executing constructor code)
  * import { tevmSetAccount } from 'tevm/actions'
  * import { createMemoryClient } from 'tevm'
- * import { numberToHex } from 'viem'
+ * import { numberToHex } from '@tevm/utils'
  * import { SimpleStorage } from './SimpleStorage.sol'
  *
  * const client = createMemoryClient()

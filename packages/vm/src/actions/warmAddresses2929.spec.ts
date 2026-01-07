@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, jest, type Mock } from 'bun:test'
+import { beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
 import { bytesToUnprefixedHex, createAddressFromString, EthjsAddress } from '@tevm/utils'
 import type { Vm } from '../Vm.js'
 import { warmAddresses2929 } from './warmAddresses2929.js'
@@ -17,7 +17,7 @@ describe('warmAddresses2929', () => {
 		vm = {
 			common: {
 				ethjsCommon: {
-					isActivatedEIP: jest.fn().mockReturnValue(false),
+					isActivatedEIP: vi.fn().mockReturnValue(false),
 				},
 			},
 			evm: {
@@ -26,7 +26,7 @@ describe('warmAddresses2929', () => {
 					['0x02', {}],
 				]),
 				journal: {
-					addAlwaysWarmAddress: jest.fn(),
+					addAlwaysWarmAddress: vi.fn(),
 				},
 			},
 		} as unknown as Vm

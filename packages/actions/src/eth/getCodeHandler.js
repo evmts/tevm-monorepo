@@ -33,7 +33,7 @@ export const getCodeHandler = (baseClient) => async (params) => {
 		throw new UnknownBlockError(`Unable to find block ${tag}`)
 	}
 	/**
-	 * @type {import('viem').Hex | undefined}
+	 * @type {import('@tevm/utils').Hex | undefined}
 	 */
 	let deployedBytecode
 	// if we have the state cached already grab it from there

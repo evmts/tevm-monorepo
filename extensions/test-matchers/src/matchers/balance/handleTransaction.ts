@@ -1,7 +1,6 @@
 import { debugTraceTransactionJsonRpcProcedure, type PrestateTraceResult } from '@tevm/actions'
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { type Address, type Client, type Hex, isHex } from 'viem'
-import { waitForTransactionReceipt } from 'viem/actions'
+import { type Address, type Client, type Hex, type PublicActions, isHex } from '@tevm/utils'
 import type { ContainsTransactionAny } from '../../common/types.js'
 import { getBalanceChange } from './getBalanceChange.js'
 import { getTokenBalanceChange } from './getTokenBalanceChange.js'
@@ -20,7 +19,7 @@ export const handleTransaction = async (
 	const { client } = opts
 	const res = tx instanceof Promise ? await tx : tx
 
-	const node = 'request' in client ? createTevmNode({ fork: { transport: client } }) : client
+	const node = 'request' in client ? createTevmNode({ fork: { transport: client as any } }) : client
 
 	const txHash =
 		// If it's a transaction receipt
@@ -42,7 +41,8 @@ export const handleTransaction = async (
 
 	// If a client was passed, we assume the tx will get mined consumer side, so we just need to wait for it
 	if ('request' in client) {
-		await waitForTransactionReceipt(client, { hash: txHash })
+		const clientWithActions = client as Client & PublicActions
+		await clientWithActions.waitForTransactionReceipt({ hash: txHash })
 	}
 
 	// Now we can replay the transaction with a prestate tracer to figure out the balance changes

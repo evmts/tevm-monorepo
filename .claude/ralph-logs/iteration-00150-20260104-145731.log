@@ -1,0 +1,14 @@
+Successfully migrated the p256verify precompile from `@noble/curves/nist.js` to `@tevm/voltaire/P256`. 
+
+## Summary
+
+**Iteration 202 - Migrated p256verify.precompile.ts to voltaire**
+
+- Changed import from `@noble/curves/nist.js` to `@tevm/voltaire/P256`
+- Updated the verification call to use voltaire's API:
+  - Old: `p256.verify(signature, msgHash, publicKey, { prehash: false })` with 64-byte compact signature and 65-byte public key
+  - New: `p256Verify({ r, s }, msgHash, publicKey)` with signature object and 64-byte public key
+- All 4 tests pass
+
+**Remaining noble-curves/hashes imports:**
+- `packages/utils/src/eip7702.js` - uses `@noble/curves/secp256k1.js` (requires significant refactoring due to low-level API usage like `Signature.fromBytes`, `Point.fromBytes`, `recoverPublicKey` with 65-byte format)

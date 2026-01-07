@@ -1,0 +1,61 @@
+# Ralph Migration Iteration 53
+
+**Date**: 2026-01-04
+**File migrated**: packages/utils/src/viem.js
+
+## Summary
+
+Implemented native `concatHex` function to replace the viem/utils import. This continues the incremental migration away from viem dependencies.
+
+## Changes Made
+
+1. Added a native `concatHex` function that:
+   - Uses existing `hexToBytes` and `bytesToHex` functions
+   - Takes an array of hex strings and concatenates them
+   - Matches viem's API exactly
+
+2. Removed `concatHex` from the viem/utils import list
+
+3. Added comprehensive tests for the new `concatHex` function:
+   - Multiple hex strings concatenation
+   - Empty array handling
+   - Single hex string
+   - Empty hex strings within array
+   - Longer hex strings
+   - Preserving leading zeros
+
+## Tests
+
+All 265 tests in the utils package pass, including 6 new tests for concatHex.
+
+## Commit
+
+`⚡ refactor(utils): implement native concatHex to replace viem/utils import`
+
+## Progress
+
+The remaining viem/utils imports are:
+- decodeAbiParameters
+- decodeErrorResult
+- decodeEventLog
+- decodeFunctionData
+- decodeFunctionResult
+- encodeAbiParameters
+- encodeDeployData
+- encodeErrorResult
+- encodeEventTopics
+- encodeFunctionData
+- encodeFunctionResult
+- encodePacked
+- serializeTransaction
+
+These are more complex ABI encoding/decoding functions that will require more work to migrate.
+The direct viem exports remaining are:
+- getContractError, RawContractError (error handling)
+- createPublicClient, createTransport, custom, defineChain, http, webSocket (transport/client)
+
+## Next Steps
+
+The ABI encoding/decoding functions (encodeAbiParameters, decodeAbiParameters, etc.) are the largest
+remaining viem/utils dependencies. Voltaire has `Abi.encodeParameters` and `Abi.decodeParameters`
+which could potentially replace these, but would require careful API compatibility testing.

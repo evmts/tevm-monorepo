@@ -2,7 +2,7 @@ import { deployHandler, setAccountHandler } from '@tevm/actions'
 import { SimpleContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'
 import { createTevmNode } from '@tevm/node'
-import { type Address, type Hex, parseEther, toHex } from 'viem'
+import { type Address, type Hex, parseEther, toHex } from '@tevm/utils'
 import { beforeAll, describe, expect, it } from 'vitest'
 
 describe('toHaveStorageAt', () => {

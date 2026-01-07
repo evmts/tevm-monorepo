@@ -1,0 +1,28 @@
+# Ralph Migration Iteration
+
+**Date**: 2026-01-04
+**Target**: packages/memory-client/src/test/tevm.spec.ts
+**Change**: Migrated encodeDeployData import from viem to @tevm/utils
+
+## Summary
+- Replaced `import { encodeDeployData, testActions } from 'viem'` with:
+  - `import { ..., encodeDeployData, ... } from '@tevm/utils'`
+  - `import { testActions } from 'viem'` (testActions is viem-specific client extension)
+
+## Tests
+- TypeScript check passed: `npx tsc --noEmit -p packages/memory-client/tsconfig.json`
+- Test file has pre-existing failures unrelated to this change (storageRoot validation issue)
+
+## Status
+- Committed: fb0f96e96
+
+**Remaining viem imports to migrate in memory-client test files:**
+- deployments.spec.ts: testActions (viem-specific)
+- viemTestActions.spec.ts: TestActions type (viem-specific)
+- viemSigner.spec.ts: walletActions (viem-specific)
+- viem/* test files: various viem-specific actions and types
+
+**Notes:**
+- testActions, walletActions, publicActions are viem-specific client extensions
+- These must remain as viem imports since they extend viem clients
+- Focus should shift to finding other utility/type imports that can be migrated

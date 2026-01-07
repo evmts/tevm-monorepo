@@ -1,7 +1,6 @@
 import type { TevmNode } from '@tevm/node'
+import { type Abi, type Client, type ContractFunctionName, type Hex, isHex } from '@tevm/utils'
 import { AbiFunction, AbiItem } from 'ox'
-import type { Abi, Client, ContractFunctionName, Hex } from 'viem'
-import { isHex } from 'viem'
 import type { MatcherResult } from '../../chainable/types.js'
 import type { ContainsContractAddressAndOptionalAbi, ContainsTransactionAny } from '../../common/types.js'
 import { getSelectorToCalldataMap } from './getSelectorToCalldataMap.js'

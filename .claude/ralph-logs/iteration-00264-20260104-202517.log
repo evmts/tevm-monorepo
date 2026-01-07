@@ -1,0 +1,57 @@
+# Ralph Migration Log - Iteration 264
+## Date: 2026-01-04 20:25:17
+
+## Summary
+Verification iteration - confirmed all migrations are stable and tests are passing.
+
+## Actions Taken
+1. Reviewed previous iteration logs (iteration 263)
+2. Assessed current migration status by searching for viem/ethereumjs imports
+3. Ran comprehensive test suite on all migrated components:
+   - signature.spec.ts: 31 passed
+   - nativePrivateKeyToAccount.spec.ts: 18 passed
+   - nativeMnemonicToAccount.spec.ts: 17 passed
+   - eip7702.spec.ts: 22 passed
+   - guillotineWasm.spec.ts: 26 passed, 1 skipped (known bug)
+   - Bloom.spec.ts: 6 passed
+   - prefundedAccounts.spec.ts: 1 passed
+
+4. Confirmed remaining viem imports are intentionally retained:
+   - Transport/client functions (createPublicClient, http, webSocket, etc.)
+   - Deprecated account exports (mnemonicToAccount, privateKeyToAccount)
+
+## Test Results
+All 121 tests across migrated files pass successfully.
+
+## Migration Status Summary
+
+### Complete - Using @tevm/voltaire
+- All cryptographic operations (Keccak256, Secp256k1, P256)
+- Native account implementations (nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount)
+- ABI encoding/decoding (encodeAbiParameters, decodeAbiParameters, encodeFunctionData, etc.)
+- Event encoding/decoding (decodeEventLog, encodeEventTopics)
+- Error encoding/decoding (decodeErrorResult, encodeErrorResult)
+- Signature operations (signMessage, verifyMessage, signTypedData, verifyTypedData)
+- EIP-7702 authorization utilities
+- Bloom filter implementation
+- Prefunded test accounts
+
+### Complete - Using guillotine-mini
+- WASM EVM integration in @tevm/evm
+- Utility functions (hexToAddress, u256ToBytes, bytesToU256)
+- Basic opcode execution (PUSH, ADD, RETURN, REVERT, CALLER, CALLDATASIZE, SSTORE, SLOAD)
+
+### Intentionally Retained (No Action Required)
+1. **Transport/client functions** (viem) - Required for RPC/forking, voltaire lacks typed convenience methods
+2. **memory-client viem dependency** - Package is intentionally a viem wrapper
+3. **@ethereumjs/tx, @ethereumjs/common, @ethereumjs/trie** - Required for VM compatibility
+4. **Deprecated viem account exports** - Backward compatibility (scheduled for removal in next major)
+5. **@scure/bip39, @scure/bip32** - Optimal implementation (voltaire wraps these anyway)
+
+## Conclusion
+The migration has reached a stable, complete state. All actionable migrations have been completed and tested. The remaining viem dependency in transport/forking would require significant voltaire changes (adding typed provider methods) before it could be migrated.
+
+## Metrics
+- Total tests passing: 121 across migration-related files
+- Core source files with viem imports: 2 (@tevm/utils/viem.js, @tevm/utils/abitype.ts)
+- Both are intentionally retained for backward compatibility and transport functionality

@@ -1,0 +1,14 @@
+## Summary - Iteration 198 Complete
+
+Successfully migrated `nativePrivateKeyToAccount` to use @tevm/voltaire:
+
+**Changes made:**
+1. Updated imports from `@noble/curves/secp256k1.js` and `@noble/hashes/sha3.js` to `@tevm/voltaire/Secp256k1`, `@tevm/voltaire/Keccak256`, and `@tevm/voltaire/Hash`
+2. Updated `signHash` function to use `Secp256k1.sign()` which properly computes the recovery ID (v = 27 or 28)
+3. Updated public key derivation to handle voltaire's 64-byte format (without 0x04 prefix)
+4. Updated `signMessage` to use `Keccak256.hash()` for EIP-191 message hashing
+5. Used subpath exports to avoid FFI dependencies from the main voltaire bundle
+
+**Tests:** All 14 tests pass
+
+**Key benefit:** This resolves the signature compatibility issues from iteration 197. Voltaire's `Secp256k1.sign()` properly computes the recovery bit by testing all possibilities, ensuring signatures are compatible with Ethereum signature verification.

@@ -1,0 +1,14 @@
+The migration work for this iteration is complete. Here's a summary of what was accomplished:
+
+## Summary
+
+**Migrated** `keccak256` and `toHex` imports from `viem` to native `@tevm/utils` implementations in `nativeMnemonicToAccount.spec.ts`.
+
+**Key decision**: Kept viem imports for signature verification functions (`verifyMessage`, `verifyTypedData`, `recoverAddress`) because:
+- These are used to verify our native implementations are compatible with viem
+- Our native versions have some API differences (BigInt handling, raw message objects)
+- Using viem for verification ensures we're testing actual compatibility
+
+**Tests**: All 17 tests in `nativeMnemonicToAccount.spec.ts` pass.
+
+**Migration status**: Core packages (`@tevm/actions`, `@tevm/vm`, `@tevm/evm`, `@tevm/state`, `@tevm/node`) are already clean of direct viem imports. The remaining viem imports are either intentional for compatibility testing or backwards compatibility re-exports.

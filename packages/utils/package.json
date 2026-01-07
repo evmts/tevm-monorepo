@@ -63,12 +63,16 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/evm": "^10.0.0",
-		"@ethereumjs/util": "^10.0.0",
+		"@scure/bip32": "^1.6.0",
+		"@scure/bip39": "^1.5.0",
 		"@tevm/errors": "workspace:^",
-		"abitype": "^1.1.1"
+		"@tevm/voltaire": "workspace:^",
+		"abitype": "^1.1.1",
+		"lru-cache": "^11.0.0"
 	},
 	"devDependencies": {
+		"@noble/curves": "^2.0.1",
+		"@noble/hashes": "^2.0.1",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},

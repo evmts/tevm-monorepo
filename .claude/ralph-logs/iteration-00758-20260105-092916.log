@@ -1,0 +1,62 @@
+# Ralph Migration Log - Iteration 758
+## Date: 2026-01-05
+
+## Task: Assess memory-client type migration potential
+
+## Summary
+
+Attempted to migrate viem type imports in memory-client package to @tevm/utils. Discovered that these types must remain as viem imports due to full generic type compatibility requirements.
+
+## Attempted Changes (Reverted)
+
+1. **packages/memory-client/src/MemoryClient.ts** - Attempted to change viem imports to @tevm/utils
+2. **packages/memory-client/src/TevmTransport.ts** - Attempted to change viem imports to @tevm/utils
+3. **packages/memory-client/src/TevmContractType.ts** - Attempted to change viem imports to @tevm/utils
+4. **packages/memory-client/src/CreateMemoryClientFn.ts** - Attempted to change viem imports to @tevm/utils
+5. **packages/memory-client/src/MemoryClientOptions.ts** - Attempted to change viem imports to @tevm/utils
+
+## Why Migration Failed
+
+The viem types `Client`, `PublicActions`, `WalletActions`, etc. have complex generic type parameters that differ from the simplified versions in @tevm/utils:
+- viem's `PublicActions<TTransport, TChain, TAccount>` has 3 generic parameters
+- viem's `WalletActions<TChain, TAccount>` has 2 generic parameters
+- viem's `Client<...>` has up to 5 generic parameters with extended functionality
+
+The @tevm/utils versions are simplified for internal use and don't support the full generic parameter signature that memory-client requires for viem compatibility.
+
+## Current Migration Status
+
+### Core packages (fully migrated from direct viem imports):
+- @tevm/actions - No direct viem imports
+- @tevm/vm - No direct viem imports
+- @tevm/evm - No direct viem imports
+- @tevm/state - No direct viem imports
+- @tevm/node - No direct viem imports
+
+### Packages that must keep viem imports:
+- @tevm/memory-client - User-facing API that extends viem's client system
+- @tevm/utils/viem.js - Re-exports viem functions (by design)
+- extensions/viem/* - Viem-specific extensions
+
+### Remaining ethereumjs imports (8 total):
+- packages/common/src/Common.ts
+- packages/common/src/createCommon.js
+- packages/trie/src/index.ts
+- packages/tx/src/* (4 files)
+
+### Remaining viem imports in bundler-packages:
+- bundler-packages/mud/src/types.ts - Uses viem/account-abstraction types
+- bundler-packages/whatsabi/src/resolveContractUri.js
+
+## Recommendations
+
+1. **memory-client should keep viem imports** - These are user-facing types that must be fully viem-compatible
+2. **Focus on ethereumjs migrations** - The 8 remaining @ethereumjs imports are better candidates for migration
+3. **Consider adding BundlerClient/SmartAccount types** to @tevm/utils for mud package migration
+4. **JSDoc examples** that reference viem imports are documentation-only and don't need migration
+
+## Next Steps
+
+1. Continue working on migrating @ethereumjs imports where possible
+2. Consider if guillotine-mini can replace @ethereumjs/tx usage
+3. Document which viem types in @tevm/utils need generic parameter enhancements for future full migration

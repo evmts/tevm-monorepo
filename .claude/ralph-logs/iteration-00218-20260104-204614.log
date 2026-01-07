@@ -1,0 +1,28 @@
+## Summary
+
+**Iteration 272 Complete**
+
+Assessment of the migration status shows that the core packages have been successfully migrated from direct viem imports:
+
+**Fully migrated (no viem imports):**
+- `@tevm/actions`
+- `@tevm/vm`
+- `@tevm/evm`
+- `@tevm/state`
+- `@tevm/node`
+- `@tevm/block`
+- `@tevm/jsonrpc`
+
+**Remaining viem usage:**
+1. **Transport/client functions** in `@tevm/utils/src/viem.js` (lines 2136-2143) - Required for fork RPC communication
+2. **Deprecated exports** - `mnemonicToAccount`, `privateKeyToAccount`, `Account`, `HDAccount` types - kept for backward compatibility (native alternatives exist: `nativeMnemonicToAccount`, `nativePrivateKeyToAccount`, `NativeHDAccount`)
+3. **memory-client package** - Expected to have viem imports as it provides the viem compatibility layer
+
+**Test Results:** 607/608 tests passed (1 skipped)
+
+**Build:** SUCCESS
+
+The migration is in a healthy state. Future work could focus on:
+1. Removing deprecated exports in next major version
+2. Implementing native RPC client to replace viem transport
+3. Migrating ethereumjs dependencies in tx, trie, common packages

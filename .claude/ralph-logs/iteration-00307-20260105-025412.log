@@ -1,0 +1,11 @@
+I've completed iteration 366, migrating 5 more chain presets from viem/chains to nativeDefineChain:
+
+1. **polygonZkEvm.js** (id: 1101) - Polygon zkEVM mainnet
+2. **polygonZkEvmCardona.js** (id: 2442) - Polygon zkEVM Cardona testnet
+3. **polygonZkEvmTestnet.js** (id: 1442) - Polygon zkEVM Testnet (has dual block explorers)
+4. **pulsechain.js** (id: 369) - PulseChain mainnet (uses PLS token, has ensRegistry)
+5. **pulsechainV4.js** (id: 943) - PulseChain V4 testnet (uses v4PLS token)
+
+**Tests verified**: createCommon.spec.ts - 10 passed, 1 skipped
+
+**Progress**: 93 chains remaining (~27% left, down from ~29%)

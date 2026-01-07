@@ -1,0 +1,57 @@
+# Ralph Migration Iteration - Native RPC Error Classes
+
+## Target
+
+Replace viem's RPC error class imports in @tevm/errors with native implementations.
+
+## Changes Made
+
+1. Created `packages/errors/src/rpcErrors.js` with 16 native RPC error classes:
+   - RpcError (base class extending BaseError)
+   - InternalRpcError (code: -32603)
+   - InvalidInputRpcError (code: -32000)
+   - InvalidParamsRpcError (code: -32602)
+   - InvalidRequestRpcError (code: -32600)
+   - JsonRpcVersionUnsupportedError (code: -32006)
+   - LimitExceededRpcError (code: -32005)
+   - MethodNotFoundRpcError (code: -32601)
+   - MethodNotSupportedRpcError (code: -32004)
+   - ParseRpcError (code: -32700)
+   - ProviderDisconnectedError (code: 4900)
+   - ResourceNotFoundRpcError (code: -32001)
+   - ResourceUnavailableRpcError (code: -32002)
+   - TimeoutError (no standard code)
+   - UnknownRpcError (code: -1)
+   - UnsupportedProviderMethodError (code: 4200)
+   - UserRejectedRequestError (code: 4001)
+
+2. Updated `packages/errors/src/requestErrors.ts`:
+   - Changed import from 'viem' to './rpcErrors.js'
+   - Updated module description
+
+3. Updated test snapshots to use tevm version string instead of viem version
+
+## Test Results
+
+- All 92 tests pass in @tevm/errors package (3 skipped)
+- Build succeeds (both dist and types)
+
+## Commit
+
+`771317739` - ⚡ refactor(errors): implement native RPC error classes to replace viem imports
+
+## Migration Status
+
+**@tevm/errors is now viem-free!**
+
+Remaining viem dependencies are in:
+1. @tevm/utils (intentional re-export layer for viem utilities)
+2. @tevm/memory-client (intentional viem integration layer)
+
+## Next Steps
+
+The remaining targets for viem removal from @tevm/utils are:
+- ABI encoding/decoding functions (blocked by voltaire build issues)
+- Transport/client functions (needed for fork support)
+- Account functions (mnemonicToAccount, privateKeyToAccount)
+- getContractError, RawContractError

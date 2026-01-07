@@ -1,7 +1,7 @@
 import { createAddress } from '@tevm/address'
+import { InternalRpcError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { bytesToHex, hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
-import { InternalRpcError } from 'viem'
 import { getPendingClient } from '../internal/getPendingClient.js'
 import { isArray } from '../utils/isArray.js'
 import { parseBlockParam } from './utils/parseBlockParam.js'

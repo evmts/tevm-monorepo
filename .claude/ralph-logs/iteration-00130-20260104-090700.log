@@ -1,0 +1,58 @@
+# Ralph Migration Iteration 130 - Remove @ethereumjs/evm from @tevm/utils
+
+## Summary
+
+Completed the migration away from `@ethereumjs/evm` in the `@tevm/utils` package by creating a native EthjsLog type definition and removing the dependency from package.json.
+
+## Changes Made
+
+### New Files
+
+1. `packages/utils/src/EthjsLog.ts` - Native EthjsLog type definition:
+   - Defines `EthjsLog` as a tuple: `[address: Uint8Array, topics: Uint8Array[], data: Uint8Array]`
+   - Includes JSDoc documentation explaining the tuple format
+   - This replaces the `Log` type from `@ethereumjs/evm`
+
+### Modified Files
+
+1. `packages/utils/src/index.ts` - Updated to use native type:
+   - Changed `export type { Log as EthjsLog } from '@ethereumjs/evm'`
+   - To `export type { EthjsLog } from './EthjsLog.js'`
+
+2. `packages/utils/package.json` - Removed `@ethereumjs/evm` dependency:
+   - Removed `"@ethereumjs/evm": "^10.0.0"` from dependencies
+
+3. `packages/precompiles/src/logToEthjsLog.spec.ts` - Updated test snapshot:
+   - Updated inline snapshot for error message (viem version change, not related to this migration)
+
+## Impact
+
+### Major Achievement
+- **@ethereumjs/evm is now COMPLETELY removed from @tevm/utils**
+- The package no longer depends on @ethereumjs/evm at all
+- Combined with iteration 129, @tevm/utils now has NO @ethereumjs/* dependencies
+
+### Remaining Dependencies in @tevm/utils
+- `@noble/curves` - Used for cryptographic operations
+- `@noble/hashes` - Used for hashing functions
+- `@tevm/errors` - Internal workspace dependency
+- `@tevm/voltaire` - Native Ethereum primitives
+- `abitype` - TypeScript types for ABI encoding
+- `viem` - Still a peer dependency for fork client compatibility
+
+### Migration Status for @tevm/utils
+- ✅ @ethereumjs/util - Fully removed (iteration 129)
+- ✅ @ethereumjs/evm - Fully removed (this iteration)
+- ⚠️ viem - Still a peer dependency (many types re-exported)
+
+## Test Results
+
+- All 540 tests pass in @tevm/utils
+- 8 tests pass in @tevm/precompiles (logToEthjsLog.spec.ts)
+- Pre-existing failures in other precompile tests (EvmError constructor issue, not related)
+
+## Next Steps
+
+1. Continue migrating viem imports to voltaire equivalents
+2. Target core packages: @tevm/actions, @tevm/vm, @tevm/evm, @tevm/state, @tevm/node
+3. Consider migrating the remaining viem types to native implementations

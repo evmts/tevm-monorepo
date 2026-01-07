@@ -2,10 +2,9 @@ import { createStash, type TableRecord } from '@latticexyz/stash/internal'
 import { storeEventsAbi } from '@latticexyz/store'
 import { createStorageAdapter } from '@latticexyz/store-sync/internal'
 import { tevmDefault } from '@tevm/common'
-import { createTevmTransport, tevmContract, tevmDeploy } from '@tevm/memory-client'
+import { createClient, createTevmTransport, tevmContract, tevmDeploy } from '@tevm/memory-client'
 import { MUDTestSystem } from '@tevm/test-utils'
-import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
-import { createClient, decodeEventLog, type Log } from 'viem'
+import { decodeEventLog, type Log, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { createBundlerClient } from 'viem/account-abstraction'
 import { writeContract } from 'viem/actions'
 import { config } from './config.js'
@@ -17,7 +16,8 @@ export const stash = createStash(config)
 export const client = createClient({
 	chain: tevmDefault,
 	transport: createTevmTransport({ common: tevmDefault, miningConfig: { type: 'manual' } }),
-	account: PREFUNDED_ACCOUNTS[0],
+	// Cast to any to handle viem Account type mismatch with NativePrivateKeyAccount
+	account: PREFUNDED_ACCOUNTS[0] as any,
 })
 export const sessionClient = createBundlerClient({
 	client,
@@ -42,7 +42,6 @@ export const writeRecords = async (records: TableRecord<typeof config.tables.app
 		logs?.forEach((log) => {
 			if (log.address.toLowerCase() === testContract.address.toLowerCase()) {
 				storeEventLogs.push({
-					// @ts-expect-error - Source provides no match for required element at position 0 in target.
 					...decodeEventLog({ abi: storeEventsAbi, data: log.data, topics: log.topics }),
 					address: testContract.address,
 					data: log.data,

@@ -1,0 +1,8 @@
+Migration iteration 239 complete. I migrated `packages/utils/src/prefundedAccounts.spec.ts` from using viem's `mnemonicToAccount` to the native implementation `nativeMnemonicToAccount`. The test passes.
+
+**Summary:**
+- **File changed:** `packages/utils/src/prefundedAccounts.spec.ts`
+- **Change:** Replaced `mnemonicToAccount` from `./viem.js` with `nativeMnemonicToAccount` 
+- **Test result:** 1/1 test passing
+
+The core migration is now substantially complete. The only remaining `viem/accounts` imports are in the native implementation comparison tests (`nativeMnemonicToAccount.spec.ts`, `nativeHdAccount.spec.ts`), which intentionally import viem to verify that our native implementations produce identical output.

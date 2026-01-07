@@ -1,0 +1,16 @@
+I've completed iteration 131 of the Ralph migration. Here's a summary of what was accomplished:
+
+## Iteration 131 Summary
+
+**Task**: Implemented native `BlockNumber` and `BlockTag` types to reduce viem dependency in @tevm/utils.
+
+**Changes Made**:
+1. Created `packages/utils/src/block-types.ts` with native type definitions:
+   - `BlockNumber<TQuantity = bigint>` - A generic type for block numbers
+   - `BlockTag` - Union type: `'latest' | 'earliest' | 'pending' | 'safe' | 'finalized'`
+
+2. Updated `packages/utils/src/abitype.ts` to import these types from the local file instead of viem
+
+**Test Results**: All tests pass (540 in utils, 29 in contract, 17 in decorators)
+
+**Impact**: Two fewer type imports from viem. The remaining viem type imports are complex types with methods or deep generic nesting (Account, HDAccount, Filter, CreateEventFilterParameters, etc.) that would require more effort to migrate.

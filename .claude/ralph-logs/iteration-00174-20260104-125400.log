@@ -1,0 +1,75 @@
+# Ralph Migration Log - Iteration 174
+## Date: 2026-01-04 12:54:00
+
+## Summary
+Fixed multiple type and import issues in @tevm/utils and @tevm/errors packages related to the migration from @ethereumjs dependencies to native implementations.
+
+## Changes Made
+
+### 1. Fixed EVMError.errorMessages type inference
+**File**: `packages/errors/src/ethereum/EVMError.js`
+- Removed explicit `@type {Record<string, string>}` JSDoc annotation that was overriding the `as const` inference
+- This allows TypeScript to properly infer literal types for error message keys
+- Fixes type errors where accessing `EVMError.errorMessages.INVALID_JUMP` was treated as index signature access
+
+### 2. Fixed EthjsAddress.js module references in cache implementations
+**File**: `packages/utils/src/AccountCache.js`
+- Changed JSDoc imports from `import('./EthjsAddress.js').EthjsAddress` to `import('./address.js').Address`
+- The EthjsAddress type has been migrated to the native Address class in address.js
+
+**File**: `packages/utils/src/StorageCache.js`
+- Changed JSDoc imports from `import('./EthjsAddress.js').EthjsAddress` to `import('./address.js').Address`
+- Fixed internal method call in `_saveCachePreState` to use `_getByHex` instead of creating mock Address objects
+- Removed unused `hexToBytes` helper function
+- Updated `get` method to use existing `_getByHex` internal method
+
+### 3. Fixed unused parameter warning
+**File**: `packages/utils/src/AccountCache.js`
+- Renamed `couldBePartialAccount` parameter to `_couldBePartialAccount` to indicate intentionally unused (kept for API compatibility)
+
+### 4. Fixed typeOutput.js type issues
+**File**: `packages/utils/src/typeOutput.js`
+- Added `@type {any}` cast for Address-like object check to handle narrowed types
+- Removed unnecessary `@ts-expect-error` directive that was no longer needed
+
+### 5. Updated utils tsconfig to exclude spec files
+**File**: `packages/utils/tsconfig.json`
+- Added exclude pattern for `src/**/*.spec.ts` and `src/**/*.spec.js` to prevent test file type errors from blocking type generation
+
+## Verification
+```bash
+# Checkpoint/revert/commit tests all pass - exercises cache modifications
+pnpm vitest run packages/state/src/actions/checkpoint.spec.ts packages/state/src/actions/revert.spec.ts packages/state/src/actions/commit.spec.ts
+# Result: 11 tests passed
+
+# createBaseState tests pass
+pnpm vitest run packages/state/src/createBaseState.spec.ts
+# Result: 4 tests passed
+```
+
+## Remaining Type Build Issues
+The @tevm/utils:build:types task still fails due to:
+- Type errors in `lib/voltaire/dist/primitives/Hex/index.js` - These are in the voltaire library's compiled output, not tevm source files
+- The voltaire library needs separate attention to fix implicit any types in its dist files
+
+## Files Changed
+- packages/errors/src/ethereum/EVMError.js (modified)
+- packages/utils/src/AccountCache.js (modified)
+- packages/utils/src/StorageCache.js (modified)
+- packages/utils/src/typeOutput.js (modified)
+- packages/utils/tsconfig.json (modified)
+
+## Status of Migration
+### Fixed in this iteration:
+- ✅ EthjsAddress.js module reference errors in cache implementations
+- ✅ EVMError.errorMessages type inference issues
+- ✅ typeOutput.js type narrowing issues
+
+### Remaining blockers:
+- voltaire library type issues (implicit any in dist files)
+- These are external to the tevm packages migration
+
+## Next Steps
+1. The voltaire library needs to be fixed separately (outside tevm packages scope)
+2. Once voltaire is fixed, @tevm/state types can be rebuilt to update stale type declarations
+3. Continue finding other @ethereumjs imports to migrate

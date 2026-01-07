@@ -1,0 +1,22 @@
+Successfully committed. Let me summarize this iteration:
+
+## Iteration 392 Summary
+
+**Migrated viem primitive imports to @tevm/utils in test-matchers extension**
+
+Changed 5 files:
+1. `extensions/test-matchers/src/common/handleTransaction.ts`
+2. `extensions/test-matchers/src/matchers/balance/handleTransaction.ts`
+3. `extensions/test-matchers/src/matchers/state/toBeInitializedAccount.ts`
+4. `extensions/test-matchers/src/matchers/state/toHaveState.ts`
+5. `extensions/test-matchers/src/matchers/state/toHaveStorageAt.ts`
+
+**Imports migrated from viem to @tevm/utils:**
+- `Address` type
+- `Hex` type  
+- `isHex` function
+- `isAddress` function
+
+**Note:** The `Client` type from viem is still needed as it's a viem-specific interface. Also `waitForTransactionReceipt` from `viem/actions` is still needed.
+
+**Build Status:** `@tevm/test-matchers:build:dist` passed.

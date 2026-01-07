@@ -12,10 +12,10 @@ import type { TestSnapshotNode, TestSnapshotNodeOptions } from './types.js'
  * ```typescript
  * import { createTestSnapshotNode } from '@tevm/test-node'
  * import { blockNumberProcedure } from '@tevm/actions'
- * import { http } from 'viem'
+ * import { nativeHttp } from '@tevm/utils'
  *
  * const node = createTestSnapshotNode({
- *   fork: { transport: http('https://mainnet.optimism.io')() }
+ *   fork: { transport: nativeHttp('https://mainnet.optimism.io')() }
  * })
  *
  * // Use the node in your tests

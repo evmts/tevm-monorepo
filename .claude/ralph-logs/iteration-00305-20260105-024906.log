@@ -1,0 +1,11 @@
+Successfully migrated 5 more chain presets from `viem/chains` to `nativeDefineChain`:
+
+1. **palm.js** (id: 11297108109) - Palm mainnet with PALM token
+2. **palmTestnet.js** (id: 11297108099) - Palm Testnet  
+3. **pgn.js** (id: 424) - Public Goods Network (L2 with OP Stack contracts)
+4. **pgnTestnet.js** (id: 58008) - PGN Testnet (Sepolia-based)
+5. **phoenix.js** (id: 13381) - Phoenix Blockchain with PHX token
+
+**Progress**: ~241 presets migrated, 104 remaining (~31% left to go)
+
+Tests pass: 10 passed, 1 skipped in createCommon.spec.ts

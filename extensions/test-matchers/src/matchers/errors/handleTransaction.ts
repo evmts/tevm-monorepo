@@ -1,17 +1,34 @@
-import { BaseError, RevertError } from '@tevm/errors'
+import { BaseError, ContractFunctionRevertedError, RevertError } from '@tevm/errors'
+import type { Client, DecodeErrorResultReturnType, Hex, PublicActions } from '@tevm/utils'
+import { decodeAbiParameters, isHex } from '@tevm/utils'
 import type { AbiError } from 'abitype'
-import {
-	type Client,
-	ContractFunctionRevertedError,
-	type DecodeErrorResultReturnType,
-	decodeAbiParameters,
-	type Hex,
-	isHex,
-	type TransactionReceipt,
-	BaseError as ViemBaseError,
-} from 'viem'
-import { estimateGas, getTransaction, getTransactionReceipt } from 'viem/actions'
 import type { ContainsTransactionAny } from '../../common/types.js'
+
+/**
+ * Type guard to check if an error is a BaseError-like object (from tevm or viem).
+ * Uses duck typing to check for the `walk` method which is present in both implementations.
+ */
+const isBaseErrorLike = (error: unknown): error is BaseError => {
+	return (
+		error instanceof Error &&
+		typeof (error as BaseError).walk === 'function' &&
+		'message' in error
+	)
+}
+
+/** Internal transaction receipt type that handles both viem and raw RPC formats */
+type TransactionReceiptLike = {
+	transactionHash: Hex
+	status: 'success' | 'reverted' | '0x0' | '0x1'
+}
+
+/** Internal transaction type for estimateGas replay */
+type TransactionLike = {
+	from: Hex
+	to: Hex | null
+	input: Hex
+	value: bigint
+}
 
 export const handleTransaction = async (
 	tx: ContainsTransactionAny | Promise<ContainsTransactionAny>,
@@ -30,13 +47,14 @@ export const handleTransaction = async (
 				"You need to pass a client if the result of the promise is a transaction hash, receipt or call result that didn't throw",
 			)
 
+		const clientWithActions = client as Client & PublicActions
 		const txReceipt =
 			typeof res === 'object' && 'status' in res
-				? (res as TransactionReceipt)
+				? (res as TransactionReceiptLike)
 				: typeof res === 'string' && isHex(res)
-					? await getTransactionReceipt(client, { hash: res })
+					? ((await clientWithActions.getTransactionReceipt({ hash: res })) as TransactionReceiptLike)
 					: undefined
-		if (txReceipt) await maybeThrowErrorFromTxReceipt(client, txReceipt)
+		if (txReceipt) await maybeThrowErrorFromTxReceipt(clientWithActions, txReceipt)
 
 		return {
 			isRevert: false,
@@ -55,7 +73,7 @@ export const handleTransaction = async (
 }
 
 const parseError = (error: unknown) => {
-	const isRevert = (error instanceof BaseError || error instanceof ViemBaseError) && error.message.includes('revert')
+	const isRevert = isBaseErrorLike(error) && error.message.includes('revert')
 
 	// Return early if it's not a revert
 	if (!isRevert) {
@@ -89,10 +107,11 @@ const parseError = (error: unknown) => {
 	}
 }
 
-const maybeThrowErrorFromTxReceipt = async (client: Client, txReceipt: TransactionReceipt) => {
-	if (txReceipt.status === 'success') return
-	const tx = await getTransaction(client, { hash: txReceipt.transactionHash })
-	await estimateGas(client, { account: tx.from, to: tx.to, data: tx.input, value: tx.value })
+const maybeThrowErrorFromTxReceipt = async (client: Client & PublicActions, txReceipt: TransactionReceiptLike) => {
+	// Handle both viem format ('success'/'reverted') and raw RPC format ('0x1'/'0x0')
+	if (txReceipt.status === 'success' || txReceipt.status === '0x1') return
+	const tx = (await client.getTransaction({ hash: txReceipt.transactionHash })) as TransactionLike
+	await client.estimateGas({ account: tx.from, to: tx.to, data: tx.input, value: tx.value })
 
 	// TODO: we should use that for better accuracy (fork the block to reexecute the tx) but rn this errors with:
 	// State root for 0x... does not exist
@@ -123,7 +142,7 @@ const extractRevertData = (error: unknown): DecodeErrorResultReturnType | Hex | 
 
 	const isRevertError = (err: unknown): boolean => {
 		return (
-			(err instanceof ViemBaseError || err instanceof BaseError) &&
+			isBaseErrorLike(err) &&
 			err.message.includes('execution reverted') &&
 			('data' in err || 'raw' in err)
 		)
@@ -132,7 +151,7 @@ const extractRevertData = (error: unknown): DecodeErrorResultReturnType | Hex | 
 	const revertError = (
 		isRevertError(error)
 			? error
-			: error instanceof ViemBaseError || error instanceof BaseError
+			: isBaseErrorLike(error)
 				? error.walk?.(isRevertError) || error.walk?.()
 				: {}
 	) as ContractFunctionRevertedError | RevertError | { data: { data: Hex } } | undefined

@@ -1,7 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { DecodeFunctionDataError, InvalidRequestError, RevertError } from '@tevm/errors'
-import { decodeFunctionResult, encodeFunctionData, isHex } from '@tevm/utils'
-import { getContractError, RawContractError } from 'viem'
+import { decodeFunctionResult, encodeFunctionData, getContractError, isHex, RawContractError } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateContractParams } from './validateContractParams.js'
@@ -111,8 +110,8 @@ export const contractHandler =
 						// Create a raw contract error in a format friendly to getContractError, which will also create a sensible causality chain
 						const rawContractError = new RawContractError({ data: result.rawData })
 						const contractError = getContractError(rawContractError, {
-							abi: /** @type {import('@tevm/utils').Abi} */ (params.abi),
-							args: params.args,
+							abi: /** @type {any} */ (params.abi),
+							args: /** @type {any} */ (params.args),
 							address: params.to,
 							docsPath: err.docsPath,
 							functionName: params.functionName,

@@ -1,0 +1,40 @@
+# Ralph Migration Log - Iteration 345
+## Date: 2026-01-05 01:59
+
+## Summary
+Migrated 9 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **cyber.js** (id: 7560) - Cyber
+2. **curtis.js** (id: 33111) - Curtis
+3. **crossbell.js** (id: 3737) - Crossbell
+4. **cronoszkEVMTestnet.js** (id: 282) - Cronos zkEVM Testnet
+5. **darwinia.js** (id: 46) - Darwinia Network
+6. **dchain.js** (id: 2716446429837000) - Dchain (OP Stack)
+7. **dchainTestnet.js** (id: 2713017997578000) - Dchain Testnet (OP Stack)
+8. **defichainEvm.js** (id: 1130) - DeFiChain EVM Mainnet
+9. **defichainEvmTestnet.js** (id: 1131) - DeFiChain EVM Testnet
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~99
+- **Migrated this session**: 9
+- **Total migrated**: ~108
+- **Remaining**: ~227
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- OP Stack chains (dchain, dchainTestnet) include the standard OP Stack predeploy contracts
+- cyberTestnet was already migrated
+
+## Next Steps
+Continue migrating remaining chain presets. ~227 remain (~68% remaining).

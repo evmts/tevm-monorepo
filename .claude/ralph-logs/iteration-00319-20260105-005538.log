@@ -1,0 +1,42 @@
+# Ralph Migration Log - Iteration 319
+## Date: 2026-01-05 00:55
+
+## Summary
+Added exports for native transport implementations (nativeHttp, nativeWebSocket, nativeCustom, nativeDefineChain) to viem.js for consistency with index.ts.
+
+## Actions Taken
+1. Updated `packages/utils/src/viem.js`:
+   - Added export for `nativeHttp` from './nativeHttp.js'
+   - Added export for `nativeWebSocket` from './nativeWebSocket.js'
+   - Added export for `nativeCustom` from './nativeCustom.js'
+   - Added export for `nativeDefineChain` from './nativeDefineChain.js'
+   - These exports now appear right after the deprecated viem transport exports
+
+## Files Modified
+1. `packages/utils/src/viem.js` (lines 2165-2169)
+
+## Tests Verified
+- nativeHttp.spec.ts: 6 passed
+- nativeDefineChain.spec.ts: 11 passed
+- nativeCustom.spec.ts: 11 passed
+- Types build successfully with `pnpm nx run @tevm/utils:build:types`
+
+## Impact
+- **Improved API consistency**: Native transport functions are now exported from both viem.js and index.ts
+- **Better discoverability**: Users can import native alternatives from the same module as deprecated viem exports
+- **Migration path clearer**: Users can easily switch from `http` to `nativeHttp` in the same import
+
+## Remaining viem Exports in utils
+- `createPublicClient` - needs native createForkRpcClient implementation
+- `createTransport` - base transport factory (low priority)
+- `custom` - deprecated, use nativeCustom
+- `defineChain` - deprecated, use nativeDefineChain
+- `http` - deprecated, use nativeHttp
+- `webSocket` - deprecated, use nativeWebSocket
+- `mnemonicToAccount` - deprecated, use nativeMnemonicToAccount
+- `privateKeyToAccount` - deprecated, use nativePrivateKeyToAccount
+
+## Next Steps
+1. Create native implementation for createPublicClient (or ensure createForkRpcClient covers use cases)
+2. Consider removing deprecated viem exports in next major version
+3. Continue migrating preset chain files (mainnet.js, optimism.js, etc.) to use nativeDefineChain

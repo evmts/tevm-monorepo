@@ -1,0 +1,34 @@
+The commit was successful. Here's a summary of what was accomplished in this iteration:
+
+## Summary - Iteration 728
+
+**Task:** Migrate memory-client spec files from viem `Client` type to `@tevm/utils` `Client` type
+
+**Changes Made:**
+- Migrated 10 spec files in `@tevm/memory-client` package from importing `Client` from `viem` to `@tevm/utils`
+
+**Files Modified:**
+1. `tevmReady.spec.ts`
+2. `tevmMine.spec.ts`
+3. `tevmStateCheckpoints.spec.ts`
+4. `tevmCall.spec.ts`
+5. `tevmDeploy.spec.ts`
+6. `tevmDumpState.spec.ts`
+7. `tevmGetAccount.spec.ts`
+8. `tevmLoadState.spec.ts`
+9. `tevmSetAccount.spec.ts`
+10. `tevmStatePersistence.spec.ts`
+
+**Verification:**
+- Tests pass (verified with `tevmReady.spec.ts` and `tevmCall.spec.ts`)
+- Build types succeed
+
+**Impact:**
+- Reduced 10 direct viem type imports in test files
+- Tests now rely on the `@tevm/utils` abstraction layer for the `Client` type
+- This helps isolate test code from viem version changes
+
+**Remaining Work:**
+- More spec files still import `TestActions`, `PublicActions` from viem
+- Core source files (MemoryClient.ts, etc.) still need viem for full API compatibility
+- Future iterations could add `TestRpcSchema`, `PublicRpcSchema` types to `@tevm/utils`

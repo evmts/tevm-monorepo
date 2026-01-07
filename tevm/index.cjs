@@ -7,7 +7,6 @@ var jsonrpc = require('@tevm/jsonrpc');
 var address = require('@tevm/address');
 var node = require('@tevm/node');
 var memoryClient = require('@tevm/memory-client');
-var viem = require('@tevm/viem');
 var precompiles = require('@tevm/precompiles');
 var syncStoragePersister = require('@tevm/sync-storage-persister');
 
@@ -256,10 +255,6 @@ Object.defineProperty(exports, "createTevmNode", {
 Object.defineProperty(exports, "prefundedAccounts", {
   enumerable: true,
   get: function () { return node.prefundedAccounts; }
-});
-Object.defineProperty(exports, "tevmTransport", {
-  enumerable: true,
-  get: function () { return viem.tevmTransport; }
 });
 Object.defineProperty(exports, "defineCall", {
   enumerable: true,

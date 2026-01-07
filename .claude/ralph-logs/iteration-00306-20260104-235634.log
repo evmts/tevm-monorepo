@@ -1,0 +1,110 @@
+# Ralph Migration Log - Iteration 306
+## Date: 2026-01-04 23:56
+
+## Summary
+Verification iteration confirming all core packages remain migrated. No new migration targets found.
+
+## Actions Taken
+1. Reviewed previous iteration logs (303-305) to understand current state
+2. Verified no viem imports in core packages:
+   - @tevm/actions - clean
+   - @tevm/evm - clean
+   - @tevm/state - clean
+   - @tevm/vm - clean
+   - @tevm/node - clean
+   - @tevm/block - clean
+   - @tevm/blockchain - clean
+   - @tevm/precompiles - clean
+   - @tevm/decorators - clean
+   - @tevm/jsonrpc - clean
+   - @tevm/procedures - clean
+   - @tevm/errors - clean
+   - @tevm/receipt-manager - clean
+   - @tevm/txpool - clean
+   - @tevm/rlp - clean (uses voltaire)
+   - @tevm/http-client - clean
+   - @tevm/server - clean
+   - @tevm/effect - clean
+   - @tevm/sync-storage-persister - clean
+   - @tevm/logger - clean
+   - @tevm/predeploys - clean
+   - @tevm/contract - clean
+   - @tevm/client-types - clean
+
+3. Confirmed @noble/curves and @noble/hashes are only referenced in comments/documentation
+
+4. Ran test suites to verify stability:
+   - signature.spec.ts: 31 tests passed
+   - guillotineWasm.spec.ts: 38 tests passed (1 skipped)
+   - nativePrivateKeyToAccount.spec.ts: 18 tests passed
+   - nativeMnemonicToAccount.spec.ts: 17 tests passed
+   - nativeHttp.spec.ts: 6 tests passed
+   - eip7702.spec.ts: 22 tests passed
+   - definePrecompile.spec.ts: 3 tests passed
+   - Rlp.spec.ts: 1 test passed
+
+## Test Summary
+All 136 tests verified passing across core migration-related test files.
+
+## Migration Status (Complete)
+
+### Fully Migrated Packages
+All core packages have been successfully migrated to use @tevm/voltaire and guillotine-mini:
+- @tevm/actions - All utilities via @tevm/utils (voltaire-powered)
+- @tevm/evm - Guillotine WASM integration
+- @tevm/state - No viem/ethereumjs imports
+- @tevm/vm - No viem/ethereumjs imports
+- @tevm/node - No viem/ethereumjs imports
+- @tevm/utils - Native implementations using @tevm/voltaire
+- @tevm/precompiles - P256 verify via @tevm/voltaire/P256
+- @tevm/blockchain - Uses @tevm/utils helpers
+- @tevm/block - Uses @tevm/utils, @tevm/tx, @tevm/common
+- @tevm/decorators - No viem/ethereumjs imports
+- @tevm/jsonrpc - No viem/ethereumjs imports
+- @tevm/rlp - Uses @tevm/voltaire/Rlp
+
+### Native Transport Implementations (All Complete)
+- nativeHttp() - HTTP transport via @tevm/voltaire/provider HttpProvider
+- nativeWebSocket() - WebSocket transport via @tevm/voltaire/provider WebSocketProvider
+- nativeCustom() - Custom EIP-1193 provider wrapper
+
+### Voltaire Integrations Active
+- RLP encoding/decoding (Rlp module)
+- Keccak256 hashing (viem.js keccak256 function)
+- ABI encoding/decoding (Abi module)
+- P256 signature verification (precompiles)
+- Secp256k1 operations (signature, eip7702, account creation)
+- EIP-712 typed data signing
+- HTTP/WebSocket/Custom providers (native transports)
+- Address utilities
+- Hash utilities
+- Chain definition utilities
+- HD wallet derivation (BIP-32/BIP-39)
+
+### Intentional Dependencies (architectural)
+- @tevm/common - @ethereumjs/common for chain configuration
+- @tevm/tx - @ethereumjs/tx for transaction classes
+- @tevm/trie - @ethereumjs/trie for merkle patricia trie
+- @tevm/memory-client - viem for user-facing API compatibility
+
+### viem.js Re-exports (in @tevm/utils)
+The @tevm/utils package intentionally re-exports certain viem utilities for:
+- API compatibility (users expect viem types)
+- Gradual migration path (allows deprecation over time)
+
+## Files Modified
+None - verification only
+
+## Notes
+- Core package migration is COMPLETE
+- All native implementations have comprehensive tests
+- Voltaire provides core crypto primitives across the codebase
+- Remaining ethereumjs dependencies are architectural (tx, common, trie)
+- Voltaire has many additional primitives available (Rlp, Block, Transaction, etc.) that could be used in future to migrate remaining ethereumjs dependencies
+
+## Next Steps for Future Iterations
+1. Monitor for any new viem imports added during development
+2. Consider migrating ethereumjs dependencies when voltaire supports them fully
+3. Maintain test coverage for all native implementations
+4. Potential: Replace @ethereumjs/trie with voltaire's trie implementation
+5. Potential: Replace @ethereumjs/tx with voltaire's Transaction primitives

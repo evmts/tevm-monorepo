@@ -1,0 +1,8 @@
+The migration is complete for this iteration. To summarize:
+- Migrated 19 files to use `Client` type from `@tevm/utils` instead of `viem`
+- Remaining viem dependencies in test-matchers are:
+  1. `DecodeErrorResultReturnType` type (needs to be added to @tevm/utils)
+  2. Various runtime functions from `viem/actions` (waitForTransactionReceipt, estimateGas, getTransaction, getTransactionReceipt)
+  3. Various error/utility types in the errors handleTransaction.ts
+
+This was a successful migration iteration that removed 19 direct viem `Client` type imports from the test-matchers extension!

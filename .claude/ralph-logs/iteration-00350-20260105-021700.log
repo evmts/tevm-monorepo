@@ -1,0 +1,38 @@
+# Ralph Migration Log - Iteration 350
+## Date: 2026-01-05 02:17
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **immutableZkEvm.js** (id: 13371) - Immutable zkEVM with IMX native currency
+2. **immutableZkEvmTestnet.js** (id: 13473) - Immutable zkEVM Testnet with IMX native currency
+3. **inEVM.js** (id: 2525) - inEVM Mainnet (Injective) with INJ native currency
+4. **iota.js** (id: 8822) - IOTA EVM with IOTA native currency
+5. **iotaTestnet.js** (id: 1075) - IOTA EVM Testnet with IOTA native currency
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~166 (from iteration 349)
+- **Migrated this session**: 5
+- **Total migrated**: ~171
+- **Remaining**: ~173 (~51% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Immutable zkEVM chains: Use 'IMX' (Immutable Coin) as native currency
+- inEVM: Use 'INJ' (Injective) as native currency
+- IOTA chains: Use 'IOTA' as native currency, includes webSocket URLs
+
+## Next Steps
+Continue migrating remaining chain presets. ~173 remain (~51% remaining).
+Next chains to migrate: iotex, iotexTestnet, jbc, jbcTestnet, kaia, kairos...

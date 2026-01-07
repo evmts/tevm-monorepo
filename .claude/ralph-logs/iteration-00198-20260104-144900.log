@@ -1,0 +1,62 @@
+# Ralph Migration Log - Iteration 198
+## Date: 2026-01-04 14:49:00
+
+## Summary
+Migrated `nativePrivateKeyToAccount` to use @tevm/voltaire's Secp256k1, Keccak256, and Hash modules instead of direct @noble/curves and @noble/hashes imports. This resolves the recovery ID calculation issues noted in iteration 197.
+
+## Changes Made
+
+### 1. Updated nativePrivateKeyToAccount.js imports
+Changed from:
+```javascript
+import { secp256k1 } from '@noble/curves/secp256k1.js'
+import { keccak_256 } from '@noble/hashes/sha3.js'
+```
+
+To specific voltaire subpath exports:
+```javascript
+import { Secp256k1 } from '@tevm/voltaire/Secp256k1'
+import { Keccak256 } from '@tevm/voltaire/Keccak256'
+import { Hash } from '@tevm/voltaire/Hash'
+```
+
+### 2. Updated signHash function
+- Now uses `Secp256k1.sign()` which properly computes recovery ID (v = 27 or 28)
+- Uses `Hash.from()` to create properly typed hash input
+- The voltaire implementation correctly handles the recovery bit calculation
+
+### 3. Updated derivePublicKey usage
+- `Secp256k1.derivePublicKey()` returns 64 bytes (without 0x04 prefix)
+- Added code to prepend the 0x04 prefix for viem compatibility
+
+### 4. Updated signMessage function
+- Now uses `Keccak256.hash()` instead of `keccak_256()` from noble-hashes
+- Maintains EIP-191 message prefix handling
+
+## Key Improvement
+The main issue from iteration 197 was that `@noble/curves` v2.x changed how signatures are returned, making recovery ID calculation unreliable. By using voltaire's `Secp256k1.sign()`, which:
+1. Uses the same underlying @noble/curves library
+2. Properly computes the recovery ID by testing all possibilities
+3. Returns `{ r, s, v }` with Ethereum-compatible v (27 or 28)
+
+This ensures signatures are compatible with Ethereum signature verification.
+
+## Test Results
+- nativePrivateKeyToAccount.spec.ts: 14 tests passed
+- privateKeyToAddress.spec.ts: 5 tests passed
+
+## Files Modified
+1. `packages/utils/src/nativePrivateKeyToAccount.js`
+   - Updated imports to use @tevm/voltaire subpath exports
+   - Updated signHash to use Secp256k1.sign
+   - Updated public key derivation to handle 64-byte response
+   - Updated signMessage to use Keccak256.hash
+
+## Technical Notes
+- Using subpath exports (`@tevm/voltaire/Secp256k1` instead of `@tevm/voltaire`) avoids loading the main bundle which has FFI dependencies (ref-napi, ffi-napi) that require native compilation
+- The subpath exports are pure JavaScript using @noble/curves under the hood
+
+## Next Steps
+1. Consider adding signature verification test against viem to confirm full compatibility
+2. Look for other places where we can use voltaire's Secp256k1 instead of direct noble-curves
+3. Continue migration of other utility functions

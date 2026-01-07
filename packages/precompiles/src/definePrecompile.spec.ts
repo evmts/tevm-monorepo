@@ -43,9 +43,9 @@ describe(defineCall.name, () => {
 					executionGasUsed: 0n,
 					logs: [
 						{
-							eventName: 'ValueSet',
-							address: '0x1234567890123456789012345678901234567890',
-							args: [20n, 30n],
+							eventName: 'ValueSet' as const,
+							address: '0x1234567890123456789012345678901234567890' as const,
+							args: { newValue: 20n },
 						},
 					],
 				}

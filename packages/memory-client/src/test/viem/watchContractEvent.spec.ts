@@ -1,5 +1,5 @@
 import { SimpleContract } from '@tevm/test-utils'
-import type { WatchContractEventOnLogsParameter } from 'viem'
+import type { Log } from '@tevm/utils'
 import { beforeEach, describe, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
 import type { MemoryClient } from '../../MemoryClient.js'
@@ -30,7 +30,7 @@ beforeEach(async () => {
 
 describe('watchContractEvent', () => {
 	it('watchContract should work', async () => {
-		const logs: WatchContractEventOnLogsParameter<typeof c.simpleContract.abi> = []
+		const logs: Log[] = []
 		const unwatch = mc.watchContractEvent({
 			abi: c.simpleContract.abi,
 			address: c.simpleContract.address,

@@ -1,0 +1,62 @@
+# Ralph Migration Log - Iteration 5
+Date: 2026-01-04
+
+## Migration Target
+- Package: @tevm/utils
+- Function: numberToHex
+- From: viem/utils
+- To: native implementation
+
+## Changes Made
+1. Modified `packages/utils/src/viem.js`:
+   - Removed `numberToHex` from viem/utils import list
+   - Added native `numberToHex` function implementation
+   - Implementation supports:
+     - Basic number to hex conversion
+     - BigInt inputs
+     - Size padding (for fixed-width encoding)
+     - Signed integer encoding (two's complement)
+     - Range validation for signed/sized encoding
+
+2. Modified `packages/utils/src/viem.spec.ts`:
+   - Added 8 new tests for numberToHex:
+     - Basic number conversion
+     - BigInt conversion
+     - Size padding
+     - Size overflow errors
+     - Negative unsigned errors
+     - Signed encoding
+     - Signed range validation
+     - Size requirement for signed encoding
+
+## Tests Passed
+- packages/utils/src/viem.spec.ts (27 tests, up from 19)
+- All 77 tests in @tevm/utils pass
+- 100% code coverage maintained
+
+## Notes
+- numberToHex is the inverse of hexToNumber (completed in iteration 4)
+- Completes the number<->hex roundtrip with native implementations
+- Implementation handles edge cases like viem does
+
+## Remaining viem imports in @tevm/utils/src/viem.js (39 remaining):
+- boolToBytes, boolToHex, bytesToBigInt, bytesToBigint, bytesToBool, bytesToNumber
+- decodeAbiParameters, decodeErrorResult, decodeEventLog, decodeFunctionData, decodeFunctionResult
+- encodeAbiParameters, encodeDeployData, encodeErrorResult, encodeEventTopics
+- encodeFunctionData, encodeFunctionResult, encodePacked
+- formatEther, formatGwei, formatLog
+- fromBytes, fromHex, fromRlp
+- getAddress, hexToBool, hexToString
+- isAddress, isBytes, isHex, keccak256
+- parseEther, parseGwei, serializeTransaction, stringToHex
+- toBytes, toHex, toRlp
+- mnemonicToAccount (from viem/accounts)
+
+## Next Steps
+Possible next targets (simple conversions):
+- boolToHex, hexToBool (very simple boolean conversions)
+- isHex (validation function)
+- stringToHex, hexToString (string conversions)
+
+## Commit
+604c7ef43 - ⚡ refactor(utils): replace viem numberToHex with native implementation

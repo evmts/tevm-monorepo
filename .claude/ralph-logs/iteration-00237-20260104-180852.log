@@ -1,0 +1,91 @@
+# Ralph Migration Log - Iteration 237
+## Date: 2026-01-04 18:08:52
+
+## Summary
+Investigation into HDWallet migration revealed that voltaire's HDWallet module has FFI (native) dependencies bundled that cause Node.js errors. Attempted migration reverted - @scure/bip39 and @scure/bip32 remain the correct choice for HD wallet functionality.
+
+## Investigation Performed
+
+### Attempted Migration: nativeHdAccount.js → voltaire/Bip39 + voltaire/HDWallet
+1. Updated imports from @scure to voltaire:
+   ```js
+   - import { validateMnemonic, mnemonicToSeedSync } from '@scure/bip39'
+   - import { wordlist } from '@scure/bip39/wordlists/english'
+   - import { HDKey } from '@scure/bip32'
+   + import { Bip39 } from '@tevm/voltaire/Bip39'
+   + import * as HDWallet from '@tevm/voltaire/HDWallet'
+   ```
+
+2. Updated function calls to use voltaire API
+
+3. **Test Failure**: Native build error
+   ```
+   Error: No native build was found for platform=darwin arch=arm64 runtime=node
+   loaded from: ref-napi
+   ```
+
+### Root Cause Analysis
+- Voltaire's `@tevm/voltaire/Bip39` subpath import works correctly (pure JS)
+- Voltaire's `@tevm/voltaire/HDWallet` bundle includes `ffi.js` which pulls in native modules
+- The bundled `dist/crypto/HDWallet/index.js` imports:
+  - `ffi-napi` - FFI library for native code
+  - `ref-napi` - C reference types
+- This is bundled even though the pure JS functions don't use FFI
+
+### Resolution
+Reverted nativeHdAccount.js to continue using @scure/bip39 and @scure/bip32 directly.
+These are the same libraries voltaire wraps internally.
+
+## Files Changed
+- **packages/utils/src/nativeHdAccount.js** - Attempted migration, then reverted (no net change)
+
+## Blockers Identified
+
+### 1. Voltaire HDWallet FFI Bundling Issue
+- **Issue**: The voltaire dist bundle includes FFI code in all HDWallet exports
+- **Impact**: Cannot import @tevm/voltaire/HDWallet in Node.js without native build
+- **Solution Needed**: Voltaire needs to either:
+  1. Separate FFI exports from pure JS exports
+  2. Use conditional imports for FFI vs pure JS
+  3. Export HDWallet functions individually (not through index.js)
+
+### 2. @scure Usage is Acceptable
+As documented in iteration 235, @scure/bip39 and @scure/bip32 usage is acceptable because:
+- Voltaire wraps the same @scure libraries internally
+- The @scure libraries are audited and widely used (Paul Miller)
+- Direct usage avoids FFI complexity
+- No real dependency reduction by going through voltaire
+
+## Test Results
+```
+packages/utils/src/nativeHdAccount.spec.ts: 13 tests passed
+```
+
+## Migration Status Summary
+
+### Complete
+- ✅ keccak256 → @tevm/voltaire/Keccak256
+- ✅ secp256k1 signing → @tevm/voltaire/Secp256k1
+- ✅ ecrecover → @tevm/voltaire/Secp256k1.recoverPublicKey
+- ✅ P256 verify → @tevm/voltaire/P256
+- ✅ eip7702 signing → @tevm/voltaire/Secp256k1
+
+### Not Migratable (By Design)
+- @scure/bip39, @scure/bip32 - Voltaire FFI bundling issue
+- viem/accounts - Deprecated, native alternatives exist
+- viem transport (createPublicClient, http, etc.) - Required for forking
+
+### Core Package Status
+- packages/actions/src: No viem/ethereumjs imports ✅
+- packages/vm/src: No viem/ethereumjs imports ✅
+- packages/evm/src: No viem/ethereumjs imports ✅
+- packages/state/src: No viem/ethereumjs imports ✅
+- packages/node/src: No viem/ethereumjs imports ✅
+- packages/block/src: No viem/ethereumjs imports ✅
+- packages/jsonrpc/src: No viem/ethereumjs imports ✅
+- packages/tx/src: @ethereumjs/tx for FeeMarket1559Tx (impersonated tx)
+
+## Next Steps
+1. Fix voltaire HDWallet bundling to separate FFI from pure JS exports
+2. Consider migrating createImpersonatedTx from @ethereumjs/tx to voltaire Transaction
+3. Continue guillotine-mini WASM integration (blocked by build.zig.zon hash issue)

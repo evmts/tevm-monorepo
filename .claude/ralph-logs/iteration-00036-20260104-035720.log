@@ -1,0 +1,35 @@
+Migration iteration 36 completed successfully.
+
+## Summary
+
+**Migrated in this iteration (6 files in @tevm/state):**
+1. `setStateRoot.js`: Changed `bytesToHex` import from 'viem' to '@tevm/utils'
+2. `dumpStorage.js`: Changed `bytesToHex` import from 'viem' to '@tevm/utils'
+3. `getContractStorage.js`: Changed `bytesToHex`, `hexToBytes` imports from 'viem' to '@tevm/utils'
+4. `getContractCode.js`: Changed `hexToBytes` import from 'viem' to '@tevm/utils' (bytesToHex already migrated)
+5. `commit.js`: Changed `keccak256`, `numberToHex`, `toHex` imports from 'viem' to '@tevm/utils'
+6. `getAppliedKey.js`: Changed `keccak256` import from 'viem' to '@tevm/utils'
+
+**Results:**
+- All migrated utility function imports now come from @tevm/utils
+- 6 commits created
+- @tevm/state source files now only have 1 viem import (createPublicClient/createTransport in getForkClient.js - cannot be migrated as these are core viem client factories)
+
+**Commits:**
+- e13973942: setStateRoot.js bytesToHex
+- 5978272ad: dumpStorage.js bytesToHex
+- 5a6550cf4: getContractStorage.js bytesToHex + hexToBytes
+- 31325123a: getContractCode.js hexToBytes
+- 9101f2526: commit.js keccak256 + numberToHex + toHex
+- bb9c0d584: getAppliedKey.js keccak256
+
+**Pre-existing test failures (NOT related to migrations):**
+- storageRoot validation errors in setStateRoot tests - ethereumjs issue
+- RPC transport errors in forking tests - test environment config issue
+
+**Remaining in @tevm/state source (CANNOT migrate):**
+- `getForkClient.js`: createPublicClient, createTransport - core viem client factories
+
+**Next targets for future iterations:**
+- Test files in @tevm/state (dumpStorageRange.spec.ts, dumpCannonicalGenesis.spec.ts, getStateRoot.spec.ts)
+- @tevm/actions package utility imports

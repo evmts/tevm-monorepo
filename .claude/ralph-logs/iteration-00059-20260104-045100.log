@@ -1,0 +1,39 @@
+## Migration Iteration 59 Complete
+
+**Successfully added parseUnits to @tevm/utils and migrated 3 test files:**
+
+### New additions to @tevm/utils:
+- `parseUnits(value, decimals)`: Native implementation that parses a string value with the given number of decimals into a bigint
+  - Generalized version of parseEther (18 decimals) and parseGwei (9 decimals)
+  - Supports negative values
+  - Handles fractional truncation/padding
+
+### Files migrated:
+
+**packages/memory-client/src/test/viem (2 files):**
+- readContract.spec.ts: `encodeDeployData, encodeFunctionData, numberToHex` from viem → @tevm/utils
+- stopImpersonatingAccount.spec.ts: `getAddress` from viem → @tevm/utils (kept `testActions, TestActions` from viem)
+
+**packages/memory-client/src/test (1 file):**
+- transactionMiningBehavior.spec.ts: `encodeFunctionData, parseUnits` from viem → @tevm/utils
+
+### Commit created:
+- `7de8f18dc`: refactor(utils/memory-client): add parseUnits and migrate more test files
+
+### Verification:
+- Types check passes (tsc --noEmit for both utils and memory-client packages)
+- Note: Some tests fail due to pre-existing state module issue (`storageRoot must have a length of 32`) - not caused by this migration
+
+### Strategy note:
+- Added `parseUnits` as a native implementation to continue migrating test files that use it
+- The `testActions` and `TestActions` functions/types are kept from viem as they are viem-specific client extensions
+
+### Remaining viem imports:
+~195 remaining across packages. Key remaining imports in memory-client:
+- testActions, walletActions, publicActions (viem client extensions)
+- createClient, createTransport (viem client creation)
+- Various type imports (Address, Hex, TestActions, etc.)
+
+**Next targets:**
+- Continue migrating test files in memory-client
+- Consider migrating files using only utility functions (not viem client APIs)

@@ -1,0 +1,49 @@
+# Ralph Migration Log - Iteration 349
+## Date: 2026-01-05 02:14
+
+## Summary
+Migrated 12 chain presets from viem/chains to nativeDefineChain in this session.
+
+## Chains Migrated This Session
+
+1. **goerli.js** (id: 5) - Goerli (Ethereum testnet - deprecated)
+2. **gravity.js** (id: 1625) - Gravity Alpha Mainnet
+3. **ham.js** (id: 5112) - Ham
+4. **haqqMainnet.js** (id: 11235) - HAQQ Mainnet
+5. **haqqTestedge2.js** (id: 54211) - HAQQ Testedge 2
+6. **hardhat.js** (id: 31337) - Hardhat (local development)
+7. **harmonyOne.js** (id: 1666600000) - Harmony One
+8. **hashkeyTestnet.js** (id: 133) - HashKey Chain Testnet
+9. **hedera.js** (id: 295) - Hedera Mainnet
+10. **hederaPreviewnet.js** (id: 297) - Hedera Previewnet
+11. **hederaTestnet.js** (id: 296) - Hedera Testnet
+12. **holesky.js** (id: 17000) - Holesky (Ethereum testnet)
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: ~335
+- **Previously migrated**: ~154 (from iteration 348)
+- **Migrated this session**: 12
+- **Total migrated**: ~166
+- **Remaining**: ~169 (~50% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Goerli: Deprecated Ethereum testnet with ENS contracts support
+- Gravity: Uses 'G.' as native currency symbol
+- HAQQ chains: Use 'ISLM' (Islamic Coin) as native currency
+- Hardhat: Local development chain (id 31337, same as Foundry)
+- Harmony One: Uses 'ONE' as native currency
+- Hedera chains: Use 'HBAR' as native currency
+- Holesky: New Ethereum testnet with ENS contracts support
+
+## Next Steps
+Continue migrating remaining chain presets. ~169 remain (~50% remaining).
+Next chains to migrate: immutableZkEvm, immutableZkEvmTestnet, inEVM, iotex, iotexTestnet...

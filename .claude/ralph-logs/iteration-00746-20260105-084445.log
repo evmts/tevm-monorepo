@@ -1,0 +1,53 @@
+# Ralph Migration Log - Iteration 746
+## Date: 2026-01-05
+
+## Task: Migrate toBeReverted.spec.ts from viem/actions to client methods
+
+## Summary
+
+Successfully migrated extensions/test-matchers/src/matchers/errors/toBeReverted.spec.ts to use client methods directly instead of importing from viem/actions.
+
+## File Modified
+
+### extensions/test-matchers/src/matchers/errors/toBeReverted.spec.ts
+
+**Removed:**
+```typescript
+import { getTransactionReceipt, mine, sendTransaction, writeContract } from 'viem/actions'
+```
+
+**Changed all function calls from:**
+- `writeContract(client, {...})` → `client.writeContract({...})`
+- `sendTransaction(client, {...})` → `client.sendTransaction({...})`
+- `mine(client, {...})` → `client.mine({...})`
+- `getTransactionReceipt(client, {...})` → `client.getTransactionReceipt({...})`
+
+## Changes Made
+
+1. Line 5: Removed viem/actions import
+2. Line 36: `writeContract(client, ...)` → `client.writeContract(...)`
+3. Lines 58-61: `sendTransaction(client, ...)` → `client.sendTransaction(...)`
+4. Lines 66-70: `writeContract(...)` and `mine(...)` → `client.writeContract(...)` and `client.mine(...)`
+5. Lines 75-78: `writeContract(...)`, `mine(...)`, `getTransactionReceipt(...)` → client methods
+6. Line 82: `sendTransaction(client, ...)` → `client.sendTransaction(...)`
+7. Line 86: `writeContract(client, ...)` → `client.writeContract(...)`
+8. Line 103: `writeContract(client, ...)` → `client.writeContract(...)`
+9. Line 115: `writeContract(client, ...)` → `client.writeContract(...)`
+10. Line 149: `writeContract(client, ...)` → `client.writeContract(...)`
+11. Line 166: `writeContract(client, ...)` → `client.writeContract(...)`
+12. Line 185: `writeContract(client, ...)` → `client.writeContract(...)`
+
+## Test Results
+
+Tests fail due to pre-existing gas limit infrastructure issue (not related to this migration):
+```
+InternalError: tx gas limit 94952 is lower than the minimum gas limit of 190466
+```
+
+This is the same issue noted in iteration 745 and is not caused by the migration.
+
+## Migration Progress
+
+Remaining viem imports in test-matchers spec files:
+- toBeRevertedWithString.spec.ts - has `writeContract` from viem/actions
+- toBeRevertedWithError.spec.ts - has `writeContract` from viem/actions

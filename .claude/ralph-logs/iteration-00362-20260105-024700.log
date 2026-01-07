@@ -1,0 +1,40 @@
+# Ralph Migration Log - Iteration 362
+## Date: 2026-01-05 02:47
+
+## Summary
+Migrated 5 chain presets from viem/chains to nativeDefineChain.
+
+## Chains Migrated This Session
+
+1. **nexi.js** (id: 4242) - Nexi mainnet with NEXI native currency, multicall3 support
+2. **nexilix.js** (id: 240) - Nexilix Smart Chain with NEXILIX native currency, multicall3 support
+3. **oasys.js** (id: 248) - Oasys mainnet with OAS native currency, has API URL for block explorer
+4. **oasisTestnet.js** (id: 4090) - Oasis Testnet with FTN (Fasttoken) native currency, testnet flag set
+5. **okc.js** (id: 66) - OKC (OKX Chain) with OKT native currency, multicall3 support
+
+## Tests Verified
+- createCommon.spec.ts: 10 passed, 1 skipped (consistent)
+
+## Migration Progress
+- **Total presets**: 335 (excluding generator script)
+- **Previously migrated**: ~226 (from iteration 361)
+- **Migrated this session**: 5
+- **Total migrated**: ~231
+- **Remaining**: 113 (~34% remaining)
+
+## Pattern Used
+Each migration follows this pattern:
+1. Replace `import { X as _X } from 'viem/chains'` with `import { nativeDefineChain } from '@tevm/utils'`
+2. Replace `..._X` spread with `...nativeDefineChain({...})` inline configuration
+3. Configuration includes: id, name, nativeCurrency, rpcUrls, blockExplorers, contracts (if applicable), testnet (if applicable)
+
+## Notes
+- Nexi: Has API URL for block explorer
+- Nexilix: Multicall3 deployed at non-standard address
+- Oasys: Gaming-focused L1, uses OAS token
+- Oasis Testnet: Uses Fasttoken (FTN) instead of ETH
+- OKC: OKX's blockchain, uses standard multicall3 address
+
+## Next Steps
+Continue migrating remaining chain presets. 113 remain (~34% remaining).
+Next chains to migrate: oortMainnetDev, opBNB, opBNBTestnet, optimismGoerli, optimismSepolia...

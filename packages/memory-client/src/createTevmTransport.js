@@ -1,7 +1,7 @@
 import { createCommon } from '@tevm/common'
 import { requestEip1193, tevmSend } from '@tevm/decorators'
 import { createTevmNode } from '@tevm/node'
-import { createTransport } from 'viem'
+import { createTransport } from '@tevm/utils'
 
 /**
  * Creates a custom TEVM Transport for viem clients, integrating an in-memory Ethereum Virtual Machine.
@@ -25,7 +25,8 @@ import { createTransport } from 'viem'
  *
  * @example
  * ```typescript
- * import { createClient, http } from 'viem'
+ * import { createClient } from 'viem'
+ * import { nativeHttp } from '@tevm/utils'
  * import { createTevmTransport } from 'tevm'
  * import { optimism } from 'tevm/common'
  *
@@ -33,7 +34,7 @@ import { createTransport } from 'viem'
  * const client = createClient({
  *   transport: createTevmTransport({
  *     fork: {
- *       transport: http('https://mainnet.optimism.io')({}),
+ *       transport: nativeHttp('https://mainnet.optimism.io')({}),
  *       blockTag: 'latest' // Optional: specify block number or hash
  *     },
  *     mining: {

@@ -75,7 +75,6 @@ export const createEvmError = (error) => {
 		case 'kzg proof invalid': {
 			return new InvalidProofError(errorMessage, { cause: error })
 		}
-		// @ts-expect-error - This error message is deprecated in ethereumjs v10
 		case 'attempting to AUTHCALL without AUTH set': {
 			return new AuthCallUnsetError(errorMessage, { cause: error })
 		}
@@ -88,21 +87,18 @@ export const createEvmError = (error) => {
 		case 'value overflow': {
 			return new ValueOverflowError(errorMessage, { cause: error })
 		}
-		// @ts-expect-error - This error message is deprecated in ethereumjs v10
 		case 'invalid JUMPSUB': {
 			return new InvalidJumpSubError(errorMessage, { cause: error })
 		}
 		case 'create collision': {
 			return new CreateCollisionError(errorMessage, { cause: error })
 		}
-		// @ts-expect-error - This error message is deprecated in ethereumjs v10
 		case 'invalid BEGINSUB': {
 			return new InvalidBeginSubError(errorMessage, { cause: error })
 		}
 		case 'refund exhausted': {
 			return new RefundExhaustedError(errorMessage, { cause: error })
 		}
-		// @ts-expect-error - This error message is deprecated in ethereumjs v10
 		case 'invalid RETURNSUB': {
 			return new InvalidReturnSubError(errorMessage, { cause: error })
 		}

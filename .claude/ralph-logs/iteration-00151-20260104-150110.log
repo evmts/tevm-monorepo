@@ -1,0 +1,20 @@
+## Summary
+
+Successfully completed iteration 203 of the voltaire migration. 
+
+**Migration completed:**
+- `packages/utils/src/eip7702.js` - migrated from `@noble/curves/secp256k1` to `@tevm/voltaire/Secp256k1`
+
+**Key changes:**
+1. Replaced `secp256k1.sign` with voltaire's `signHash` (returns `{r, s, v}` directly)
+2. Replaced `secp256k1.getPublicKey` with voltaire's `derivePublicKey` (returns 64-byte uncompressed)
+3. Replaced `secp256k1.recoverPublicKey` + Point conversion with voltaire's `recoverPublicKey` (returns 64-byte uncompressed)
+
+**Test results:** All 22 eip7702 tests + 7 ecrecover tests pass.
+
+**Remaining status:**
+- **Source files**: All core source files are now free of `@noble/curves` imports!
+- **Test files**: Still use `@noble/curves` for verification/comparison purposes (acceptable)
+- **Dist files**: Need rebuild to update bundled code
+
+This was a significant milestone - the last `@noble/curves` import in the main source files has been migrated to voltaire!

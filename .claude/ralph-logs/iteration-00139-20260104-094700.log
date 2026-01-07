@@ -1,0 +1,36 @@
+# Ralph Migration Log - Iteration 139
+## Date: 2026-01-04 09:47:00
+
+## Summary
+Migrated 2 test files in @tevm/utils to use local imports instead of viem/abitype imports.
+
+## Changes Made
+
+### Modified: packages/utils/src/abiDeployEncoding.spec.ts
+- Changed: `import type { Abi, Hex } from 'viem'`
+- To: `import type { Abi, Hex } from './abitype.js'`
+
+### Modified: packages/utils/src/prefundedAccounts.spec.ts
+- Changed: `import type { Address } from 'abitype'`
+- To: `import type { Address } from './abitype.js'`
+
+## Test Results
+- abiDeployEncoding.spec.ts: All 7 tests pass
+- prefundedAccounts.spec.ts: 1 test passes
+
+## Migration Impact
+
+### Direct viem Imports Reduced in @tevm/utils
+- The only remaining viem imports in utils/src are:
+  1. `viem.js` - The intentional re-export file (expected)
+  2. `abitype.ts` - Still imports some complex types from viem (Account, ContractConstructorArgs, etc.)
+
+### Direct viem/accounts Imports Remaining
+- `prefundedAccounts.spec.ts` still uses `mnemonicToAccount` from viem/accounts
+  - This is a complex HD wallet function that derives addresses from mnemonics
+  - Would require implementing BIP39/BIP32 to replace
+
+## Next Steps
+1. Look for more direct viem imports in other packages (actions, vm, evm, state, node)
+2. Consider implementing `mnemonicToAccount` using @noble/hashes and @noble/secp256k1
+3. Continue migrating types from abitype.ts away from viem

@@ -1,0 +1,108 @@
+# Ralph Migration Log - Iteration 419
+## Date: 2026-01-05 05:56
+
+## Task: Add AbiEventParameter type + migrate event matcher files
+
+## Changes Made
+
+### Part 1: Add AbiEventParameter to @tevm/utils
+
+Added `AbiEventParameter` re-export from abitype to:
+- packages/utils/src/abitype.ts
+- packages/utils/src/index.ts
+
+### Part 2: Migrated test-matchers event files
+
+#### events/types.ts
+Changed from:
+```typescript
+import type { ExtractAbiEvent } from 'abitype'
+import type { Abi, ContractEventName, Log } from 'viem'
+```
+To:
+```typescript
+import type { Abi, ContractEventName, ExtractAbiEvent, Log } from '@tevm/utils'
+```
+
+#### events/withEventArgs.ts
+Changed from:
+```typescript
+import type { AbiEventParameter, AbiParametersToPrimitiveTypes, ExtractAbiEvent } from 'abitype'
+import { type Abi, type ContractEventName, decodeEventLog } from 'viem'
+```
+To:
+```typescript
+import {
+	type Abi, type AbiEventParameter, type AbiParametersToPrimitiveTypes,
+	type ContractEventName, type ExtractAbiEvent, decodeEventLog,
+} from '@tevm/utils'
+```
+
+#### events/withEventNamedArgs.ts
+Changed from:
+```typescript
+import type { AbiEventParameter, ExtractAbiEvent } from 'abitype'
+import { type Abi, type ContractEventName, decodeEventLog } from 'viem'
+```
+To:
+```typescript
+import {
+	type Abi, type AbiEventParameter, type ContractEventName,
+	type ExtractAbiEvent, decodeEventLog,
+} from '@tevm/utils'
+```
+
+## Files Changed
+1. packages/utils/src/abitype.ts (added AbiEventParameter)
+2. packages/utils/src/index.ts (added AbiEventParameter)
+3. extensions/test-matchers/src/matchers/events/types.ts
+4. extensions/test-matchers/src/matchers/events/withEventArgs.ts
+5. extensions/test-matchers/src/matchers/events/withEventNamedArgs.ts
+
+## Build Status
+- @tevm/utils:build:types - SUCCESS
+
+## Migration Progress
+- Files with viem imports in test-matchers: 26 (down from 29)
+- Started iteration with 33 files
+- Migrated 7 files total this session
+
+## Types added to @tevm/utils this session:
+1. `isAddressEqual` function
+2. `trim` function
+3. `ContractErrorName` type
+4. `ContractErrorArgs` type
+5. `ExtractAbiError` type (re-export)
+6. `AbiError` type (re-export)
+7. `AbiEventParameter` type (re-export)
+8. Fixed `isAddress` type signature
+
+## Files migrated this session:
+1. common/types.ts
+2. matchers/state/types.ts
+3. matchers/utils/toBeAddress.ts
+4. matchers/utils/toBeHex.ts
+5. matchers/utils/index.ts
+6. matchers/utils/toEqualAddress.ts
+7. matchers/utils/toEqualHex.ts
+8. matchers/contract/withFunctionArgs.ts
+9. matchers/contract/withFunctionNamedArgs.ts
+10. matchers/errors/withErrorArgs.ts
+11. matchers/errors/withErrorNamedArgs.ts
+12. matchers/events/types.ts
+13. matchers/events/withEventArgs.ts
+14. matchers/events/withEventNamedArgs.ts
+
+## Remaining files with viem imports
+Most remaining files use `Client` type from viem which would require significant work to migrate.
+Files not using Client that still need migration:
+- matchers/contract/toCallContractFunction.ts (isHex only)
+- matchers/errors/toBeRevertedWithError.ts (isHex only)
+- matchers/errors/types.ts (DecodeErrorResultReturnType)
+- matchers/events/toEmit.ts
+- matchers/events/index.ts
+
+## Next Steps
+1. Migrate files that only use `isHex` from viem
+2. Add `DecodeErrorResultReturnType` to @tevm/utils
+3. Continue with remaining event files

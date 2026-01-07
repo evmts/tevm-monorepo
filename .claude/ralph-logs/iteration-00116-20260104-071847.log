@@ -1,0 +1,69 @@
+# Ralph Migration Iteration 116 - Native concatBytes/equalsBytes Implementation
+
+## Summary
+
+Migrated `concatBytes` and `equalsBytes` from `@ethereumjs/util` to native implementations in `@tevm/utils`. These are now zero-dependency pure JavaScript functions based on the same algorithms used in `@tevm/voltaire`.
+
+## Changes Made
+
+### New Files
+1. `packages/utils/src/concatBytes.js` - Native implementation of concatBytes
+2. `packages/utils/src/equalsBytes.js` - Native implementation of equalsBytes
+
+### Modified Files
+1. `packages/utils/src/ethereumjs.js` - Removed `concatBytes` and `equalsBytes` from @ethereumjs/util exports
+2. `packages/utils/src/index.ts` - Added exports from new native implementations
+3. `packages/utils/src/ethereumjs.spec.ts` - Updated imports to use new native implementations
+
+## Implementation Details
+
+### concatBytes
+```javascript
+export const concatBytes = (...arrays) => {
+    const totalLength = arrays.reduce((sum, arr) => sum + arr.length, 0)
+    const result = new Uint8Array(totalLength)
+    let offset = 0
+    for (const arr of arrays) {
+        result.set(arr, offset)
+        offset += arr.length
+    }
+    return result
+}
+```
+
+### equalsBytes
+```javascript
+export const equalsBytes = (a, b) => {
+    if (a.length !== b.length) return false
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) return false
+    }
+    return true
+}
+```
+
+## Notes
+
+Initially tried to import from `@tevm/voltaire` directly, but this caused issues:
+1. The voltaire package doesn't export deep paths like `@tevm/voltaire/primitives/Bytes/concat.js`
+2. Importing from the main `@tevm/voltaire` package loads native FFI bindings that require platform-specific builds
+
+Since `concatBytes` and `equalsBytes` are simple pure-JS functions (no crypto, no FFI needed), implementing them natively is the cleaner solution and removes the dependency on both `@ethereumjs/util` AND avoids adding a voltaire dependency that would pull in native code.
+
+## Tests Passed
+
+- `packages/utils/src/ethereumjs.spec.ts` - 9 passed, 1 skipped
+- All @tevm/utils tests - 380 passed, 1 skipped
+- `packages/address/src/create2ContractAddress.spec.ts` - 2 passed (uses concatBytes)
+- `packages/receipt-manager/src/` - 34 passed (uses concatBytes)
+
+## Impact
+
+Reduced dependency on `@ethereumjs/util` by 2 functions. The functions `concatBytes` and `equalsBytes` were previously re-exported from `@ethereumjs/util` which itself re-exported them from `ethereum-cryptography/utils.js`.
+
+## Next Steps
+
+Continue migrating other utilities from `@ethereumjs/util`. Potential targets:
+- `setLengthLeft` - pad bytes to a specific length
+- `bytesToUtf8` - convert bytes to UTF-8 string
+- `bytesToUnprefixedHex` - convert bytes to hex without 0x prefix

@@ -1,0 +1,46 @@
+# Ralph Migration Log - Iteration 281
+## Date: 2026-01-04 21:28
+
+## Summary
+Added two JUMPI (conditional jump) tests to guillotine-mini WASM integration tests:
+1. JUMPI with true condition (condition = 1) - verifies jump is taken
+2. JUMPI with false condition (condition = 0) - verifies jump is NOT taken, execution continues
+
+## Changes Made
+- Added test "should execute conditional JUMPI when condition is true"
+  - Pushes condition = 1 (true) and destination = 7
+  - JUMPI should take the jump, skipping INVALID opcodes
+  - Lands at JUMPDEST, then STOP
+  - PASSED
+
+- Added test "should not jump on JUMPI when condition is zero"
+  - Pushes condition = 0 (false) and destination = 7
+  - JUMPI should NOT take the jump, fall through to STOP
+  - PASSED
+
+## Test Results
+- guillotineWasm.spec.ts: 30/31 passed (1 skipped - known evm_set_storage WASM bug)
+
+## Key Findings
+1. **JUMPI Works Correctly**: Both conditional jump cases work as expected:
+   - When condition is non-zero, jump is taken
+   - When condition is zero, execution continues to next instruction
+
+2. **Previous iteration note was incorrect**: Iteration 280 mentioned "JUMPI failed"
+   but it appears JUMPI works correctly. The failure may have been due to
+   incorrect bytecode layout or stack ordering.
+
+3. **Stack order for JUMPI**: The correct stack order is:
+   - PUSH condition first
+   - PUSH destination second
+   - JUMPI pops destination first, then condition
+   This follows standard EVM semantics where JUMPI(dest, cond) expects
+   the destination on top of stack and condition below it.
+
+## Migration Status
+Core migration remains complete. These tests improve coverage for:
+- JUMPI opcode with true condition (jump taken)
+- JUMPI opcode with false condition (fall through)
+
+## Files Modified
+- packages/evm/src/guillotineWasm.spec.ts (added 2 JUMPI tests)

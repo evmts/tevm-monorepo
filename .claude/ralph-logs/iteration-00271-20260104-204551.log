@@ -1,0 +1,40 @@
+# Ralph Migration Log - Iteration 271
+## Date: 2026-01-04 20:45
+
+## Summary
+Fixed type errors in signature.js related to voltaire TypedData and Domain types.
+
+## Problem
+The @tevm/utils:build:types was failing due to type incompatibilities between our TypedData conversion and voltaire's expected types:
+
+1. `import('@tevm/voltaire').TypedData` was resolving to a namespace, not the type from EIP712
+2. `domain.salt` was being passed as `Uint8Array` instead of `HashType` (branded type)
+3. `exactOptionalPropertyTypes` was causing issues with undefined domain properties
+
+## Solution
+1. Added `Hash as VoltaireHash` import from `@tevm/voltaire/Hash`
+2. Changed domain construction to use conditional property assignment instead of inline ternary
+3. Used `VoltaireHash.from()` to convert salt to branded HashType
+4. Used `Parameters<typeof EIP712.hashTypedData>[0]` to infer the correct TypedData type
+5. Used explicit `import('@tevm/voltaire/EIP712').Domain` type for domain object
+
+## Changes Made
+- `/packages/utils/src/signature.js`:
+  - Added import for `Hash as VoltaireHash` from `@tevm/voltaire/Hash`
+  - Updated `hashTypedData` function to build domain object conditionally
+  - Updated `signTypedData` function to build domain object conditionally
+  - Used `VoltaireHash.from()` for salt conversion
+  - Used explicit type annotations for domain and voltaireTypedData objects
+
+## Test Results
+All 88 tests passing:
+- signature.spec.ts: 31 passed
+- eip7702.spec.ts: 22 passed
+- nativePrivateKeyToAccount.spec.ts: 18 passed
+- nativeMnemonicToAccount.spec.ts: 17 passed
+
+## Build Results
+- @tevm/utils:build:types: SUCCESS
+
+## Migration Status
+The migration is stable and builds are passing. The TypedData type compatibility issues have been resolved.

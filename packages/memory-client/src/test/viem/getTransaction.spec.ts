@@ -1,5 +1,5 @@
 import { SimpleContract } from '@tevm/test-utils'
-import { bytesToHex, type Hex } from 'viem'
+import { bytesToHex, type Hex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
 import type { MemoryClient } from '../../MemoryClient.js'

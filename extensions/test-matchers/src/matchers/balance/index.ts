@@ -1,5 +1,5 @@
 import type { TevmNode } from '@tevm/node'
-import type { Address, Client } from 'viem'
+import type { Address, Client } from '@tevm/utils'
 
 export { toChangeBalance } from './toChangeBalance.js'
 export { toChangeBalances } from './toChangeBalances.js'

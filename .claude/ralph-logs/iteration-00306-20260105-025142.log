@@ -1,0 +1,11 @@
+I've successfully migrated 5 more chain presets from `viem/chains` to `nativeDefineChain`:
+
+1. **playfiAlbireo.js** - PlayFi Albireo Testnet (id: 1612127)
+2. **plinga.js** - Plinga mainnet (id: 242)
+3. **plumeTestnet.js** - Plume Testnet Legacy (id: 161221135)
+4. **polygonAmoy.js** - Polygon Amoy testnet (id: 80002)
+5. **polygonMumbai.js** - Polygon Mumbai testnet (id: 80001)
+
+All tests pass (10 passed, 1 skipped). 
+
+**Migration Progress**: ~246 presets migrated, 98 remaining (~29% left to migrate).

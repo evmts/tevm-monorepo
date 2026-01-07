@@ -1,0 +1,69 @@
+# Ralph Migration Log - Iteration 761
+## Date: 2026-01-05
+
+## Task: Migrate TevmNode.ts from voltaire types to @tevm/utils types
+
+## Summary
+
+Successfully migrated TevmNode.ts to use @tevm/utils types instead of @tevm/voltaire/provider types.
+
+## Changes Made
+
+### packages/node/src/TevmNode.ts
+- Changed: `import type { EIP1193RequestFn, RpcSchema } from '@tevm/voltaire/provider'`
+- To: `import type { Address, EIP1193RequestFn, Hex } from '@tevm/utils'`
+- Simplified `forkTransport.request` type from `EIP1193RequestFn<RpcSchema>` to `EIP1193RequestFn`
+- This removes the dependency on @tevm/voltaire in the core node package
+
+### packages/node/src/getBlockNumber.js
+- Updated JSDoc to use proper type annotations with @tevm/utils types
+- Added @returns JSDoc annotation
+- Improved type casting for the transport variable
+
+## Type Checking Results
+- All EIP1193RequestFn type errors are now resolved
+- The remaining errors in createTevmNode.js are unrelated to this migration (they concern `exactOptionalPropertyTypes` and precompile types)
+
+## Test Results
+- Tests require TEVM_RPC_URLS_MAINNET and TEVM_RPC_URLS_OPTIMISM environment variables
+- Test failure is due to missing env vars, not the migration changes
+
+## Assessment Summary
+
+### Packages with viem imports that MUST remain (for compatibility):
+
+1. **@tevm/memory-client** - Must keep viem dependency
+   - Provides viem-compatible Client interface
+   - Uses viem types: Client, Chain, Account, PublicActions, TestActions, WalletActions, etc.
+
+2. **extensions/viem** - Must keep viem dependency
+   - Specifically for viem integration
+
+3. **bundler-packages/mud/src/types.ts** - Must keep viem dependency
+   - Uses viem/account-abstraction types (BundlerClient, SmartAccount)
+
+4. **bundler-packages/whatsabi/src/resolveContractUri.js** - Must keep viem dependency
+   - Works with whatsabi third-party library that expects viem types
+
+5. **@tevm/utils/src/viem.js** - Must keep viem dependency
+   - This is the re-export wrapper file for viem functions
+
+### Core packages FULLY migrated from direct viem imports:
+- @tevm/actions
+- @tevm/vm
+- @tevm/evm
+- @tevm/state
+- @tevm/node (now also migrated from voltaire)
+- @tevm/block
+- @tevm/blockchain
+- @tevm/common
+- @tevm/decorators
+- @tevm/errors
+- @tevm/jsonrpc
+- @tevm/precompiles
+
+## Notes
+
+This migration removes the @tevm/voltaire/provider dependency from the core @tevm/node package. The @tevm/utils EIP1193RequestFn type has a simpler signature that is sufficient for the node package's needs.
+
+## Status: Migration complete - voltaire removed from @tevm/node core types

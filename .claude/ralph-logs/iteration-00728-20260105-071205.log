@@ -1,0 +1,58 @@
+# Ralph Migration Log - Iteration 728
+## Date: 2026-01-05
+
+## Task: Migrate memory-client spec files from viem Client type to @tevm/utils Client type
+
+## Summary
+
+Migrated 10 spec files in the `@tevm/memory-client` package to use `Client` type from `@tevm/utils` instead of `viem`.
+
+## Changes Made
+
+### Files migrated (viem -> @tevm/utils Client type):
+
+1. `packages/memory-client/src/tevmReady.spec.ts`
+2. `packages/memory-client/src/tevmMine.spec.ts`
+3. `packages/memory-client/src/tevmStateCheckpoints.spec.ts`
+4. `packages/memory-client/src/tevmCall.spec.ts`
+5. `packages/memory-client/src/tevmDeploy.spec.ts`
+6. `packages/memory-client/src/tevmDumpState.spec.ts`
+7. `packages/memory-client/src/tevmGetAccount.spec.ts`
+8. `packages/memory-client/src/tevmLoadState.spec.ts`
+9. `packages/memory-client/src/tevmSetAccount.spec.ts`
+10. `packages/memory-client/src/tevmStatePersistence.spec.ts`
+
+### Pattern changed:
+```typescript
+// Before:
+import type { Client } from 'viem'
+
+// After:
+import type { Client } from '@tevm/utils'
+```
+
+## Test Results
+
+- `tevmReady.spec.ts`: PASS (1 test)
+- `tevmCall.spec.ts`: PASS (8 tests, 1 skipped)
+
+## Build Status
+
+- @tevm/memory-client:build:types - PASS
+
+## Notes
+
+1. The `Client` type from `@tevm/utils` (added in iteration 727) is compatible with the tests because the spec files only use the basic client interface properties.
+
+2. There are still more spec files in memory-client that could be migrated:
+   - Files importing `TestActions` from viem (viem test action types)
+   - Files importing `PublicActions` from viem
+   - Files importing `erc20Abi` from viem
+
+3. The core source files in memory-client (MemoryClient.ts, CreateMemoryClientFn.ts, etc.) still need viem imports for full API compatibility with viem's Client type.
+
+4. This migration reduces direct viem type dependencies in test files, making them rely on the @tevm/utils abstraction layer instead.
+
+## Impact
+
+Reduced 10 direct viem type imports in spec files by using the @tevm/utils Client type. This helps isolate test code from viem version changes.

@@ -1,0 +1,36 @@
+# Ralph Migration Log - Iteration 145
+## Date: 2026-01-04 10:05:00
+
+## Summary
+Migrated JSDoc type imports in `eip7702.js` from viem Hex type to local hex-types.js.
+
+## Changes Made
+
+### Modified: packages/utils/src/eip7702.js
+- Changed 6 `import('viem').Hex` references to `import('./hex-types.js').Hex` in EOACode7702AuthorizationJSON typedef (lines 31-36)
+- Changed 3 `import('viem').Hex` references to `import('./hex-types.js').Hex` in UnsignedEOACode7702AuthorizationJSON typedef (lines 41-43)
+
+## Rationale
+The eip7702.js file uses JSDoc type annotations for the Hex type in its typedef definitions. By pointing to our local hex-types.js instead of viem:
+1. We reduce direct coupling to viem's type system
+2. The types are functionally identical (both are branded `0x${string}` types)
+3. This follows the pattern established in previous migrations
+4. All 9 Hex references in this file have now been migrated
+
+## Test Results
+- eip7702.spec.ts: 22 tests passed
+
+## Remaining viem JSDoc imports in utils/src/
+After this change, the following files still have `import('viem')` JSDoc references:
+1. abiDeployEncoding.js - Abi, Hex (4 references)
+2. abiEventEncoding.js - Abi, ContractEventName, Hex (8 references)
+3. abiErrorEncoding.js - Abi, Hex (5 references)
+4. abiFunctionEncoding.js - ContractFunctionArgs, ContractFunctionReturnType (3 references)
+5. formatAbi.js - AbiItem (2 references)
+6. viem.js - Transport, PublicClient, EIP1193RequestFn (3 references - these are intentional as they re-export viem types)
+
+## Next Steps
+1. Continue migrating JSDoc imports in abiDeployEncoding.js (Abi, Hex references)
+2. Then move to abiEventEncoding.js, abiErrorEncoding.js
+3. abiFunctionEncoding.js uses ContractFunctionArgs/ReturnType which may not have local equivalents yet
+4. formatAbi.js uses AbiItem which is from abitype - may need to check if local type exists

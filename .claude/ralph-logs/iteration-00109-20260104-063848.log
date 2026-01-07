@@ -1,0 +1,73 @@
+# Ralph Migration Iteration 109 - Function Encoding/Decoding Migration (SUCCESS)
+
+## Target
+
+Replace viem's `encodeFunctionData`, `decodeFunctionData`, `decodeFunctionResult`, and `encodeFunctionResult` with native implementations using @tevm/voltaire.
+
+## Assessment
+
+Previous iteration (#108) migrated `encodeAbiParameters` and `decodeAbiParameters`. The log indicated the next targets were function encoding/decoding functions.
+
+## Changes Made
+
+### 1. Added voltaire Abi exports (lib/voltaire)
+- Added `encodeFunction` export to `src/primitives/Abi/index.ts`
+- Added `decodeFunction` export to `src/primitives/Abi/index.ts`
+- Rebuilt voltaire dist to include new exports
+
+### 2. Created abiFunctionEncoding.js (packages/utils)
+New file with native implementations:
+- `encodeFunctionData({abi, functionName, args})` - Wraps voltaire's `encodeFunction`, returns Hex
+- `decodeFunctionData({abi, data})` - Wraps voltaire's `decodeFunction`, returns {functionName, args}
+- `decodeFunctionResult({abi, functionName, data})` - Uses voltaire's `decodeParameters` on outputs
+- `encodeFunctionResult({abi, functionName, result})` - Uses voltaire's `encodeParameters` on outputs
+
+All functions match viem's API pattern for drop-in replacement.
+
+### 3. Added comprehensive test suite
+- Created `abiFunctionEncoding.spec.ts` with 15 tests covering:
+  - encodeFunctionData for transfer, balanceOf, no-args functions
+  - decodeFunctionData for transfer and balanceOf
+  - decodeFunctionResult for single output, bool, multiple outputs
+  - encodeFunctionResult for single output, bool, multiple outputs
+  - Roundtrip tests for function data and results
+  - Error handling for unknown functions
+
+### 4. Updated viem.js exports
+Changed from:
+```js
+export { decodeFunctionData, decodeFunctionResult, encodeFunctionData, encodeFunctionResult } from 'viem/utils'
+```
+To:
+```js
+export { encodeFunctionData, decodeFunctionData, decodeFunctionResult, encodeFunctionResult } from './abiFunctionEncoding.js'
+```
+
+## Tests
+
+All 334 tests in @tevm/utils pass (1 skipped):
+- 15 new abiFunctionEncoding tests
+- 319 existing tests continue to pass
+
+## Commits
+
+1. `feat(Abi): export encodeFunction and decodeFunction from index` (voltaire)
+2. `⚡ refactor(utils): implement native function encoding/decoding using @tevm/voltaire` (tevm)
+
+## Migration Status Summary
+
+**Remaining viem imports in @tevm/utils viem.js:**
+
+1. `viem/accounts`: `mnemonicToAccount`, `privateKeyToAccount` - Complex wallet APIs
+2. `viem/utils`:
+   - ~~encodeAbiParameters, decodeAbiParameters~~ ✅ MIGRATED (iteration 108)
+   - ~~encodeFunctionData, decodeFunctionData~~ ✅ MIGRATED (this iteration)
+   - ~~decodeFunctionResult, encodeFunctionResult~~ ✅ MIGRATED (this iteration)
+   - decodeErrorResult, decodeEventLog (error/event handling)
+   - encodeDeployData, encodeErrorResult, encodeEventTopics (deploy/error/event encoding)
+3. `viem`: Transport/client functions (createPublicClient, http, etc.) - Needed for forking
+
+**Next targets:**
+- `decodeEventLog` / `encodeEventTopics` - use voltaire's Abi.Event functions
+- `decodeErrorResult` / `encodeErrorResult` - use voltaire's Abi.Error functions
+- `encodeDeployData` - use voltaire's Abi.Constructor functions

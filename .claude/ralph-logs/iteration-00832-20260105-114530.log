@@ -1,0 +1,86 @@
+# Ralph Migration Log - Iteration 832
+## Date: 2026-01-05
+
+## Task: Add test coverage for pad and size utility functions
+
+## Summary
+
+Added comprehensive test suites for the `pad` and `size` functions in the utils package. These are native implementations that are part of the voltaire migration, providing padding and size calculation utilities without viem dependencies.
+
+## Changes Made
+
+### New files:
+- `packages/utils/src/size.spec.ts` - 9 tests
+- `packages/utils/src/pad.spec.ts` - 24 tests
+
+### Test coverage:
+
+**size.spec.ts (9 tests):**
+- Hex values:
+  - Returns size of hex string in bytes
+  - Handles empty hex string
+  - Handles single byte hex
+  - Handles odd-length hex strings (ceiling)
+  - Handles 32-byte hex strings
+  - Handles address-sized hex strings (20 bytes)
+- Byte arrays:
+  - Returns length of Uint8Array
+  - Handles empty Uint8Array
+  - Handles large Uint8Arrays
+
+**pad.spec.ts (24 tests):**
+- padHex (9 tests):
+  - Pads to 32 bytes by default (left-aligned)
+  - Pads to the right with dir: 'right'
+  - Pads to custom size
+  - Returns unchanged when size is null
+  - Handles empty hex
+  - Handles single byte hex
+  - Throws when exceeding target size
+  - Throws with correct error message
+
+- padBytes (8 tests):
+  - Pads to 32 by default (left-aligned)
+  - Pads to right with dir: 'right'
+  - Pads to custom size
+  - Returns unchanged when size is null
+  - Handles empty bytes
+  - Throws when exceeding target size
+  - Throws with correct error message
+
+- pad (generic) (5 tests):
+  - Detects hex and uses padHex
+  - Detects bytes and uses padBytes
+  - Uses default options
+  - Preserves type for hex input
+  - Preserves type for bytes input
+
+- SizeExceedsPaddingSizeError (4 tests):
+  - Has correct name
+  - Has descriptive message for hex type
+  - Has descriptive message for bytes type
+  - Is an instance of Error
+
+## Technical Notes
+
+The pad and size functions are native implementations replacing viem's pad and size utilities. Tests verify:
+- Correct padding behavior with default (32 bytes) and custom sizes
+- Left (default) and right padding directions
+- Proper error handling when data exceeds target size
+- Type preservation (Hex returns Hex, Uint8Array returns Uint8Array)
+- Edge cases like empty inputs and null size
+
+## Test Results
+
+All tests passing:
+- size.spec.ts: 9 tests (2ms)
+- pad.spec.ts: 24 tests (3ms)
+
+## Status: COMPLETE
+
+## Next Steps
+
+Continue voltaire migration work:
+1. Look for more untested utility functions or types
+2. Continue replacing viem imports with native implementations
+3. Explore guillotine-mini integration opportunities

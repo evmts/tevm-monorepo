@@ -1,0 +1,49 @@
+# Ralph Migration Log - Iteration 752
+## Date: 2026-01-05
+
+## Task: Attempt to migrate memory-client type imports from viem to @tevm/utils
+
+## Summary
+
+Attempted to migrate MemoryClient.ts viem type imports to @tevm/utils, but **reverted** because the types are not compatible.
+
+## Analysis
+
+The @tevm/utils package exports simplified versions of viem types:
+- `Client<TTransport, TChain, TAccount, TRpcSchema>` - 4 type parameters
+- `PublicActions` - not generic
+- `WalletActions` - not generic
+
+Viem's types have full type-level action composition:
+- `Client<TTransport, TChain, TAccount, TRpcSchema, TActions>` - 5 type parameters
+- `PublicActions<TTransport, TChain, TAccount>` - generic for type inference
+- `WalletActions<TChain, TAccount>` - generic for type inference
+
+The memory-client package needs full viem type compatibility for:
+1. MemoryClient type definition with proper action type inference
+2. Type-safe method signatures on the client
+3. Compatibility with viem ecosystem
+
+## Decision
+
+**Cannot migrate** MemoryClient.ts viem type imports. The @tevm/utils types are simplified versions meant for basic use cases, not full viem client type composition.
+
+## Migration Status Summary
+
+### Completed Migrations (iterations 746-750):
+1. extensions/test-matchers/src/matchers/errors/toBeReverted.spec.ts ✅
+2. extensions/test-matchers/src/matchers/errors/toBeRevertedWithString.spec.ts ✅
+3. extensions/test-matchers/src/matchers/errors/toBeRevertedWithError.spec.ts ✅
+4. packages/memory-client/src/test/viem/sendRawTransaction.spec.ts ✅
+
+### Core Packages Status:
+- @tevm/actions - No viem imports ✅
+- @tevm/vm - No viem imports ✅
+- @tevm/evm - No viem imports ✅
+- @tevm/state - No viem imports ✅
+- @tevm/node - No viem imports ✅
+
+### Not Migratable:
+- memory-client type imports from viem (need full generic types)
+- Files using basic createClient (functional action pattern is correct)
+- Viem extension files (need to work with any viem client)

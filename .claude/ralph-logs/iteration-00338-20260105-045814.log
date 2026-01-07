@@ -1,0 +1,21 @@
+Good. Now let me summarize the iteration results:
+
+## Summary - Iteration 403
+
+**Successfully migrated:**
+1. Added `RpcSchema` type to `@tevm/utils` (packages/utils/src/provider-types.ts)
+2. Migrated `bundler-packages/mud/src/subscribeTx.ts` - changed `Hex` import from viem to @tevm/utils
+3. Migrated `bundler-packages/mud/src/internal/mud/createSyncAdapter.ts` - changed `Hex` import from viem to @tevm/utils
+
+**Attempted but reverted:**
+1. test-node/src/types.ts - `Account` type incompatibility with MemoryClientOptions
+2. mudStoreGetStorageAtOverride.ts - `EIP1193RequestFn` type incompatibility (our version is untyped, viem's is fully typed)
+
+**Key learnings:**
+- Simple type imports (`Hex`, `Address`) migrate easily
+- Complex function types (`EIP1193RequestFn`) and account types have signature differences
+- Must migrate dependency chain from core packages outward
+
+**Tests:**
+- All subscribeTx tests pass (10 tests)
+- Typecheck passes for @tevm/mud

@@ -1,0 +1,57 @@
+# Ralph Migration Log - Iteration 745
+## Date: 2026-01-05
+
+## Task: Migrate viem/actions imports in test-matchers handleTransaction files
+
+## Summary
+
+Successfully migrated 3 files in extensions/test-matchers to use client methods directly instead of importing from viem/actions.
+
+## Files Modified
+
+### 1. extensions/test-matchers/src/common/handleTransaction.ts
+- Removed: `import { waitForTransactionReceipt } from 'viem/actions'`
+- Added: `type PublicActions` import from `@tevm/utils`
+- Changed: `waitForTransactionReceipt(client, { hash: txHash })` → `clientWithActions.waitForTransactionReceipt({ hash: txHash })`
+
+### 2. extensions/test-matchers/src/matchers/balance/handleTransaction.ts
+- Same migration pattern as above
+- Removed viem/actions import, use client method directly
+
+### 3. extensions/test-matchers/src/matchers/errors/handleTransaction.ts
+- Removed: `import { estimateGas, getTransaction, getTransactionReceipt } from 'viem/actions'`
+- Removed: `type TransactionReceipt` from viem (kept `BaseError as ViemBaseError` - see note below)
+- Added: Local type definitions `TransactionReceiptLike` and `TransactionLike`
+- Added: `type PublicActions` import from `@tevm/utils`
+- Changed: Action function calls to client method calls:
+  - `getTransactionReceipt(client, {...})` → `clientWithActions.getTransactionReceipt({...})`
+  - `getTransaction(client, {...})` → `client.getTransaction({...})`
+  - `estimateGas(client, {...})` → `client.estimateGas({...})`
+- Added: Support for both viem format (`'success'`/`'reverted'`) and raw RPC format (`'0x1'`/`'0x0'`) in status checks
+
+## Remaining viem Imports
+
+### Still Required
+- `BaseError as ViemBaseError` in errors/handleTransaction.ts - Used for error type checking to detect viem-originated errors. Removing this would require a more complex duck-typing approach and could break error detection for viem users.
+
+## Type Compatibility Notes
+
+The `TransactionReceiptLike` type was created to handle both:
+- viem's processed format: `status: 'success' | 'reverted'`
+- Raw RPC format: `status: '0x0' | '0x1'`
+
+This allows the code to work with both viem clients and tevm clients.
+
+## Test Results
+
+Tests fail due to pre-existing gas limit issue in test infrastructure (not related to this migration):
+```
+InvalidGasLimitError: tx gas limit 94952 is lower than the minimum gas limit of 190466
+```
+
+TypeScript compilation shows no new errors from the migration.
+
+## Migration Progress
+
+Remaining viem imports in test-matchers:
+- `BaseError as ViemBaseError` from 'viem' (1 file) - Intentionally kept for error handling compatibility

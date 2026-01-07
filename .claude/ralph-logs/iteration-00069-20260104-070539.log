@@ -1,0 +1,24 @@
+## Summary
+
+I've completed a comprehensive assessment of the remaining viem/ethereumjs migration work. Here's what I found:
+
+**Migration Status:**
+- **26 viem imports remain** in source files (excluding tests)
+- **22 in memory-client** - Intentionally a viem integration layer, not a migration target
+- **4 in utils** - Transport functions and type exports for API compatibility
+
+**Completed Migrations (from previous iterations):**
+- All ABI encoding/decoding functions (native implementations using @tevm/voltaire)
+- All utility functions (hex conversions, RLP, keccak256, etc.)
+- `formatAbi` (native implementation)
+- Error classes (ContractFunctionRevertedError, etc.)
+
+**Remaining Dependencies (Deferred):**
+1. **Transport functions** (`createPublicClient`, `http`, etc.) - Deep viem integration needed for forking
+2. **Type exports** - Required for API compatibility with consumers
+3. **parseAbi** - Would require implementing a full human-readable ABI parser
+4. **Account functions** (`privateKeyToAccount`, etc.) - Intentional viem integration
+
+**Conclusion:** The valuable core migration work is complete. The remaining viem dependencies exist for legitimate reasons (API compatibility, intentional integrations, complex functionality). Future migration efforts should focus on:
+- guillotine-mini integration for EVM execution
+- State management refactoring with voltaire primitives

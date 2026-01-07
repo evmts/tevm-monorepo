@@ -1,0 +1,67 @@
+# Ralph Migration Log - Iteration 270
+## Date: 2026-01-04 20:39
+
+## Summary
+Verification and assessment iteration. All tests continue to pass. The migration of core packages is complete.
+
+## Current Migration Status
+
+### Core Packages - COMPLETE (0 viem imports)
+- packages/actions: 0 viem imports
+- packages/vm: 0 viem imports
+- packages/evm: 0 viem imports
+- packages/state: 0 viem imports
+- packages/node: 0 viem imports
+- packages/block: 0 viem imports
+- packages/receipt-manager: 0 viem imports
+
+### Remaining Dependencies (By Design)
+
+1. **packages/tx** - @ethereumjs/tx (4 imports)
+   - ImpersonatedTx extends FeeMarket1559Tx from @ethereumjs/tx
+   - Migration would require voltaire transaction implementation parity
+   - Voltaire has EIP-1559 transaction types but would need work to support ImpersonatedTx
+
+2. **packages/common/src/presets/** - viem/chains (hundreds of imports)
+   - Chain configuration data from viem/chains
+   - Migration would be a breaking change
+   - Marked as intentional dependency
+
+3. **packages/memory-client/** - viem (intentional)
+   - This package is designed to be a viem wrapper
+   - Not a migration target
+
+4. **packages/utils/src/viem.js** - viem transport/client functions
+   - RPC compatibility layer
+   - Intentionally kept
+
+5. **packages/utils/src/abitype.ts** - Account/HDAccount re-exports
+   - Deprecated, kept for backwards compatibility
+   - Native alternatives available
+
+## Test Results
+All tests passing:
+- signature.spec.ts: 31 passed
+- guillotineWasm.spec.ts: 26 passed, 1 skipped (known bug)
+- nativePrivateKeyToAccount.spec.ts: 18 passed
+- eip7702.spec.ts: 22 passed
+- nativeMnemonicToAccount.spec.ts: 17 passed
+- Bloom.spec.ts: 6 passed
+
+## Migration Complete Summary
+- All cryptographic operations to voltaire (Keccak256, Secp256k1, P256)
+- Native account implementations (nativePrivateKeyToAccount, nativeMnemonicToAccount, nativeHdAccount)
+- ABI encoding/decoding
+- Event/Error encoding/decoding
+- Signature operations
+- EIP-7702 authorization utilities
+- Bloom filter implementation
+- Guillotine-mini WASM integration in @tevm/evm
+
+## Future Work (Not Immediate Priority)
+1. Migrate ImpersonatedTx to voltaire Transaction when voltaire adds class-based tx support
+2. Convert chain presets to native format (would be a major version change)
+3. Add transport/client functionality to voltaire for RPC layer
+
+## Conclusion
+Migration is stable and complete for all targeted core packages. The remaining dependencies are either by design (memory-client wraps viem) or would require breaking changes to migrate.

@@ -1,4 +1,4 @@
-import { type IsAddressOptions, isAddress } from 'viem'
+import { type IsAddressOptions, isAddress } from '@tevm/utils'
 
 /**
  * Custom Vitest matcher to assert that a value is a valid Ethereum address

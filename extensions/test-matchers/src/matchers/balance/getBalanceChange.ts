@@ -1,5 +1,5 @@
 import type { PrestateTraceResult } from '@tevm/actions'
-import type { Address } from 'viem'
+import type { Address } from '@tevm/utils'
 
 export const getBalanceChange = (prestateTrace: PrestateTraceResult<true>, address: Address) => {
 	const pre = prestateTrace.pre[address]

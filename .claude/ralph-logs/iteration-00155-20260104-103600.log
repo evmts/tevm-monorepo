@@ -1,0 +1,66 @@
+# Ralph Migration Log - Iteration 155
+## Date: 2026-01-04 10:36:00
+
+## Summary
+Created native `CacheType` constant object to replace `@ethereumjs/statemanager` CacheType import in state package.
+
+## Changes Made
+
+### Created: packages/utils/src/cache-types.js
+New JavaScript file with JSDoc containing native CacheType implementation:
+- `CacheType` constant object with `LRU: 'lru'` and `ORDERED_MAP: 'ordered_map'`
+- `CacheTypeValue` typedef for the value type
+- `CacheOpts` typedef for cache configuration options
+- `CachesStateManagerOpts` typedef for state manager cache configuration
+
+### Modified: packages/utils/src/index.ts
+- Added exports for `CacheType` constant and related types
+
+### Modified: packages/state/src/ContractCache.js
+- Changed import from `import { CacheType, StorageCache } from '@ethereumjs/statemanager'`
+- To: `import { StorageCache } from '@ethereumjs/statemanager'` and `import { CacheType } from '@tevm/utils'`
+
+### Modified: packages/state/src/createBaseState.js
+- Changed import to use native `CacheType` from `@tevm/utils`
+
+### Modified: packages/state/src/actions/shallowCopy.js
+- Changed import to use native `CacheType` from `@tevm/utils`
+
+### Modified: packages/state/src/actions/generateCannonicalGenesis.js
+- Changed import to use native `CacheType` from `@tevm/utils`
+
+### Modified: packages/state/src/index.js
+- Changed export to re-export `CacheType` from `@tevm/utils` instead of `@ethereumjs/statemanager`
+
+### Modified: packages/state/src/index.ts
+- Changed export to re-export `CacheType` from `@tevm/utils` instead of `@ethereumjs/statemanager`
+
+## Test Results
+- `packages/state/src/ContractCache.spec.ts` - 13 tests passed
+- `packages/state/src/createBaseState.spec.ts` - 4 tests passed
+- `packages/state/src/index.spec.ts` - 1 test passed
+
+## Migration Progress
+
+### @ethereumjs/statemanager imports in packages/state:
+- Before: `CacheType`, `AccountCache`, `StorageCache` from @ethereumjs/statemanager (8 files)
+- After: `AccountCache`, `StorageCache` from @ethereumjs/statemanager (8 files), `CacheType` from @tevm/utils
+
+### Remaining @ethereumjs/statemanager imports:
+- `AccountCache` class - 8 files
+- `StorageCache` class - 8 files
+
+### Notes
+The `AccountCache` and `StorageCache` classes are complex implementations with:
+- LRU cache functionality
+- OrderedMap cache functionality
+- Checkpoint/revert/commit state management
+- Pre-allocation and size limits
+
+These would require significant implementation work to replace natively. For now, the simple `CacheType` enum was the easy win.
+
+## Next Steps
+To fully eliminate `@ethereumjs/statemanager` dependency would require:
+1. Implementing native `StorageCache` class with LRU/OrderedMap support and checkpoint/revert/commit
+2. Implementing native `AccountCache` class with similar functionality
+3. These are substantial pieces of work that could be broken into smaller iterations
