@@ -1,4 +1,4 @@
-import { http } from '@tevm/utils'
+import { nativeHttp } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getForkClient, NoForkError } from './getForkClient.js'
@@ -7,13 +7,16 @@ describe(getForkClient.name, () => {
 	it('should return a fork client with transport function', () => {
 		const state = createBaseState({
 			fork: {
-				transport: http('https://example.com'),
+				transport: nativeHttp('https://example.com'),
 			},
 		})
 
 		const client = getForkClient(state)
 		expect(client).toBeDefined()
-		expect(client.transport.type).toBe('tevm')
+		// Verify the client has the expected methods
+		expect(typeof client.getBytecode).toBe('function')
+		expect(typeof client.getStorageAt).toBe('function')
+		expect(typeof client.getProof).toBe('function')
 	})
 
 	it('should return a fork client with transport object', () => {
@@ -29,7 +32,10 @@ describe(getForkClient.name, () => {
 
 		const client = getForkClient(state)
 		expect(client).toBeDefined()
-		expect(client.transport.type).toBe('tevm')
+		// Verify the client has the expected methods
+		expect(typeof client.getBytecode).toBe('function')
+		expect(typeof client.getStorageAt).toBe('function')
+		expect(typeof client.getProof).toBe('function')
 	})
 
 	it('should error if no fork config', () => {

@@ -1,7 +1,7 @@
 import { SimpleContract } from '@tevm/test-utils'
 import { bytesToHex, encodeFunctionData } from '@tevm/utils'
-import { testActions } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { testActions } from '../../createClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
 let mc = createMemoryClient().extend(testActions({ mode: 'anvil' }))

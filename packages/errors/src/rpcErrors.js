@@ -339,6 +339,12 @@ export class UnknownRpcError extends RpcError {
  */
 export class UnsupportedProviderMethodError extends RpcError {
 	/**
+	 * The error code for UnsupportedProviderMethodError.
+	 * @type {number}
+	 */
+	static code = 4200
+
+	/**
 	 * @param {Error} cause - The cause of the error
 	 */
 	constructor(cause) {

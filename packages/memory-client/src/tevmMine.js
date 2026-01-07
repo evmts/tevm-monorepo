@@ -31,13 +31,13 @@ import { mineHandler } from '@tevm/actions'
  * ```typescript
  * import { tevmMine } from 'tevm/actions'
  * import { createClient } from 'viem'
- * import { http, parseEther } from '@tevm/utils'
+ * import { nativeHttp, parseEther } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  *
  * const client = createClient({
  *   transport: createTevmTransport({
- *     fork: { transport: http('https://mainnet.optimism.io')({}) },
+ *     fork: { transport: nativeHttp('https://mainnet.optimism.io')({}) },
  *     mining: { auto: false } // Explicit manual mining mode
  *   }),
  *   chain: optimism,
@@ -94,24 +94,24 @@ import { mineHandler } from '@tevm/actions'
  * @example
  * ```typescript
  * // Configure different mining modes when creating the client
- * import { createMemoryClient, http } from 'tevm'
+ * import { createMemoryClient, nativeHttp } from 'tevm'
  *
  * // Auto-mining mode (mines after every transaction)
  * const autoMineClient = createMemoryClient({
  *   mining: { auto: true },
- *   fork: { transport: http('https://mainnet.optimism.io')({}) }
+ *   fork: { transport: nativeHttp('https://mainnet.optimism.io')({}) }
  * })
  *
  * // Interval mining mode (mines every 5 seconds)
  * const intervalMineClient = createMemoryClient({
  *   mining: { interval: 5000 }, // milliseconds
- *   fork: { transport: http('https://mainnet.optimism.io')({}) }
+ *   fork: { transport: nativeHttp('https://mainnet.optimism.io')({}) }
  * })
  *
  * // Manual mining mode (explicit mining required)
  * const manualMineClient = createMemoryClient({
  *   mining: { auto: false, interval: 0 }, // explicitly disable auto modes
- *   fork: { transport: http('https://mainnet.optimism.io')({}) }
+ *   fork: { transport: nativeHttp('https://mainnet.optimism.io')({}) }
  * })
  * ```
  *

@@ -1,5 +1,5 @@
 import { Block } from '@tevm/block'
-import { parseGwei, Withdrawal } from '@tevm/utils'
+import { EthjsAddress, parseGwei, Withdrawal } from '@tevm/utils'
 
 import type { BaseVm } from '../BaseVm.js'
 import { rewardAccount } from './rewardAccount.js'
@@ -14,6 +14,6 @@ export const assignWithdrawals =
 			// converted to wei
 			// Note: event if amount is 0, still reward the account
 			// such that the account is touched and marked for cleanup if it is empty
-			await rewardAccount(vm.evm, address, parseGwei(amount.toString()))
+			await rewardAccount(vm.evm, new EthjsAddress(address), parseGwei(amount.toString()))
 		}
 	}

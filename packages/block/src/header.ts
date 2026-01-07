@@ -10,7 +10,6 @@ import {
 	ecrecover,
 	equalsBytes,
 	hexToBytes,
-	KECCAK256_RLP,
 	KECCAK256_RLP_ARRAY,
 	KECCAK256_RLP_ARRAY_BYTES,
 	KECCAK256_RLP_BYTES,

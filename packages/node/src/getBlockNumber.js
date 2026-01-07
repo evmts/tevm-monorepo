@@ -2,10 +2,12 @@ import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { hexToBigInt } from '@tevm/utils'
 
 /**
- * @param {{request: import('@tevm/voltaire/provider').EIP1193RequestFn} | import('@tevm/voltaire/provider').EIP1193Provider} client
+ * Gets the current block number from an EIP-1193 transport or transport factory.
+ * @param {{request: import('@tevm/utils').EIP1193RequestFn} | import('@tevm/utils').Transport} client - Either a transport object with a request method, or a viem-style transport factory function
+ * @returns {Promise<bigint>} The current block number
  */
 export const getBlockNumber = async (client) => {
-	const transport = typeof client === 'function' ? client({}) : client
+	const transport = /** @type {{request: import('@tevm/utils').EIP1193RequestFn}} */ (typeof client === 'function' ? client({}) : client)
 	const fetcher = createJsonRpcFetcher(transport)
 	const { result: blockNumber, error } = await fetcher.request({
 		jsonrpc: '2.0',

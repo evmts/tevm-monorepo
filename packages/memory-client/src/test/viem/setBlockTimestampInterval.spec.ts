@@ -1,5 +1,6 @@
-import { type TestActions, testActions } from 'viem'
+import type { TestActions } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { testActions } from '../../createClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 import type { MemoryClient } from '../../MemoryClient.js'
 

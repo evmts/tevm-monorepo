@@ -32,13 +32,13 @@ import { getAccountHandler } from '@tevm/actions'
  * ```typescript
  * import { tevmGetAccount } from 'tevm/actions'
  * import { createClient } from 'viem'
- * import { http } from '@tevm/utils'
+ * import { nativeHttp } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  *
  * const client = createClient({
  *   transport: createTevmTransport({
- *     fork: { transport: http('https://mainnet.optimism.io')({}) }
+ *     fork: { transport: nativeHttp('https://mainnet.optimism.io')({}) }
  *   }),
  *   chain: optimism,
  * })

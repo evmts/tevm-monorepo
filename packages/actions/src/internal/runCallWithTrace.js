@@ -34,7 +34,7 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 			gasCost: BigInt(step.opcode.fee) + (step.opcode.dynamicFee ?? 0n),
 			gas: step.gasLeft,
 			depth: step.depth,
-			stack: step.stack.map((code) => numberToHex(code)),
+			stack: step.stack.map((/** @type {bigint} */ code) => numberToHex(code)),
 		})
 		next?.()
 	})

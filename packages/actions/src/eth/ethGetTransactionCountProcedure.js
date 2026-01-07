@@ -62,10 +62,9 @@ export const ethGetTransactionCountProcedure = (node) => {
 
 		if (includedCount === undefined && node.forkTransport) {
 			try {
-				/**
-				 * @type {import('@tevm/utils').Hex}
-				 */
-				const result = await node.forkTransport.request(request)
+				const result = /** @type {import('@tevm/utils').Hex} */ (
+					await node.forkTransport.request(/** @type {any} */ (request))
+				)
 				return {
 					...(request.id ? { id: request.id } : {}),
 					method: request.method,

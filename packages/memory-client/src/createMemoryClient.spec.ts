@@ -2,7 +2,7 @@
 // This only tests this specific unit the src/test folder has more e2e tests and examples
 import { optimism } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
-import { parseEther } from 'viem'
+import { nativePrivateKeyToAccount, parseEther, PREFUNDED_PRIVATE_KEYS } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from './createMemoryClient.js'
 
@@ -77,7 +77,8 @@ describe('createMemoryClient', () => {
 	})
 
 	it('should auto-mine transactions when miningMode is set to auto', async () => {
-		const testAddress = '0x1234567890123456789012345678901234567890'
+		// Use native privateKeyToAccount (viem-compatible, no viem dependency)
+		const testAccount = nativePrivateKeyToAccount(PREFUNDED_PRIVATE_KEYS[0])
 		const client = createMemoryClient({
 			miningConfig: {
 				type: 'auto',
@@ -86,22 +87,22 @@ describe('createMemoryClient', () => {
 
 		await client.tevmReady()
 
-		// Set initial balance
+		// Set initial balance for the test account
 		await client.setBalance({
-			address: testAddress,
+			address: testAccount.address,
 			value: parseEther('1.0'),
 		})
 
 		// In auto mining mode, the transaction should be mined automatically
 		// without needing to call client.mine()
 		await client.sendTransaction({
-			account: testAddress,
+			account: testAccount,
 			to: '0x0000000000000000000000000000000000000000',
 			value: parseEther('0.1'),
 		})
 
 		// Check if the balance was updated (transaction mined)
-		const balance = await client.getBalance({ address: testAddress })
+		const balance = await client.getBalance({ address: testAccount.address })
 
 		// Balance should be less than initial amount (1 ETH - 0.1 ETH - gas costs)
 		expect(balance).toBeLessThan(parseEther('0.9'))

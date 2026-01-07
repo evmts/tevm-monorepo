@@ -11,7 +11,16 @@ export interface AccountInterface {
 	balance: bigint
 	storageRoot: Uint8Array
 	codeHash: Uint8Array
-	codeSize?: number
+	codeSize?: number | undefined
+	/**
+	 * Returns a boolean determining if the account has contract code.
+	 */
+	isContract(): boolean
+	/**
+	 * Returns a boolean determining if the account is empty.
+	 * An account is considered empty if it has zero nonce, zero balance, and no code.
+	 */
+	isEmpty(): boolean
 }
 
 /**

@@ -20,7 +20,7 @@ function bytesToBigInt(bytes) {
 	if (bytes.length === 0) return 0n
 	let hex = '0x'
 	for (let i = 0; i < bytes.length; i++) {
-		hex += bytes[i].toString(16).padStart(2, '0')
+		hex += /** @type {number} */ (bytes[i]).toString(16).padStart(2, '0')
 	}
 	return BigInt(hex)
 }
@@ -39,8 +39,8 @@ export function fromRlpSerializedAccount(serialized) {
 	const [nonceBytes, balanceBytes, storageRoot, codeHash] = decoded
 
 	// Convert nonce and balance from Uint8Array to bigint
-	const nonce = nonceBytes instanceof Uint8Array ? bytesToBigInt(nonceBytes) : BigInt(nonceBytes ?? 0)
-	const balance = balanceBytes instanceof Uint8Array ? bytesToBigInt(balanceBytes) : BigInt(balanceBytes ?? 0)
+	const nonce = nonceBytes instanceof Uint8Array ? bytesToBigInt(nonceBytes) : BigInt(/** @type {string | number | bigint | boolean} */ (/** @type {unknown} */ (nonceBytes)) ?? 0)
+	const balance = balanceBytes instanceof Uint8Array ? bytesToBigInt(balanceBytes) : BigInt(/** @type {string | number | bigint | boolean} */ (/** @type {unknown} */ (balanceBytes)) ?? 0)
 
 	/** @type {{nonce: bigint, balance: bigint, storageRoot: Uint8Array, codeHash: Uint8Array}} */
 	const accountData = {

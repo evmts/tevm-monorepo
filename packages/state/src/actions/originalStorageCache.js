@@ -28,7 +28,9 @@ export const originalStorageCache = (baseState) => {
 
 	return {
 		async get(address, key) {
-			const addressHex = bytesToUnprefixedHex(address.bytes)
+			// Cast AddressInterface to EthjsAddress since internal functions expect the concrete type
+			const addr = /** @type {import('@tevm/utils').EthjsAddress} */ (address)
+			const addressHex = bytesToUnprefixedHex(addr.bytes)
 			const map = state.get(addressHex)
 			if (map !== undefined) {
 				const keyHex = bytesToUnprefixedHex(key)
@@ -37,8 +39,8 @@ export const originalStorageCache = (baseState) => {
 					return value
 				}
 			}
-			const value = await getContractStorage(baseState)(address, key)
-			put(address, key, value)
+			const value = await getContractStorage(baseState)(addr, key)
+			put(addr, key, value)
 			return value
 		},
 		clear() {},

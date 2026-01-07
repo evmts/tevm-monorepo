@@ -1,5 +1,5 @@
-import { testActions } from 'viem'
 import { describe, expect, it } from 'vitest'
+import { testActions } from '../../createClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
 describe('getAutomine', () => {

@@ -31,14 +31,14 @@
  *
  * @example
  * ```typescript
- * import { createMemoryClient, http } from 'tevm'
+ * import { createMemoryClient, nativeHttp } from 'tevm'
  * import { optimism } from 'tevm/common'
  *
  * async function main() {
  *   // Create a client that forks from Optimism mainnet
  *   const client = createMemoryClient({
  *     fork: {
- *       transport: http('https://mainnet.optimism.io')({})
+ *       transport: nativeHttp('https://mainnet.optimism.io')({})
  *     },
  *     common: optimism,
  *   })
@@ -69,12 +69,12 @@
  * @example
  * ```typescript
  * // Using with promise.race() for timeout handling
- * import { createMemoryClient, http } from 'tevm'
+ * import { createMemoryClient, nativeHttp } from 'tevm'
  *
  * async function initWithTimeout() {
  *   const client = createMemoryClient({
  *     fork: {
- *       transport: http('https://mainnet.ethereum.org')({})
+ *       transport: nativeHttp('https://mainnet.ethereum.org')({})
  *     }
  *   })
  *

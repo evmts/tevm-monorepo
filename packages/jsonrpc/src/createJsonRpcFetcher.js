@@ -20,7 +20,7 @@ export const createJsonRpcFetcher = (client) => {
 	return {
 		request: async (request) => {
 			try {
-				const result = await client.request(request)
+				const result = await client.request(/** @type {{method: string, params?: readonly unknown[]}} */ (request))
 				return {
 					jsonrpc: '2.0',
 					result,

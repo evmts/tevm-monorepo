@@ -22,13 +22,13 @@ import { contractHandler } from '@tevm/actions'
  * ```typescript
  * import { tevmContract } from 'tevm/actions'
  * import { createClient } from 'viem'
- * import { http, parseAbi } from '@tevm/utils'
+ * import { nativeHttp, parseAbi } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  *
  * const client = createClient({
  *   transport: createTevmTransport({
- *     fork: { transport: http('https://mainnet.optimism.io')({}) }
+ *     fork: { transport: nativeHttp('https://mainnet.optimism.io')({}) }
  *   }),
  *   chain: optimism,
  * })

@@ -60,7 +60,8 @@ export const p256VerifyPrecompile = () => {
 
 				// Verify the signature using voltaire's P256 implementation
 				// voltaire's verify takes { r, s } object and 64-byte public key
-				const isValid = p256Verify({ r, s }, msgHash, publicKey)
+				// Use type assertions for the branded types
+				const isValid = p256Verify({ r, s } as any, msgHash as any, publicKey)
 
 				if (isValid) {
 					// Return 32-byte padded 1 for valid signature

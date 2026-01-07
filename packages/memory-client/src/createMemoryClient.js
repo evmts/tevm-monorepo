@@ -23,13 +23,13 @@ import { tevmViemActions } from './tevmViemActions.js'
  *
  * @example
  * ```typescript
- * import { createMemoryClient, http } from "tevm";
+ * import { createMemoryClient, nativeHttp } from "tevm";
  * import { optimism } from "tevm/common";
  *
  * // Create a memory client that forks from Optimism mainnet
  * const client = createMemoryClient({
  *   fork: {
- *     transport: http("https://mainnet.optimism.io")({}),
+ *     transport: nativeHttp("https://mainnet.optimism.io")({}),
  *   },
  *   common: optimism,
  *   mining: { auto: true }, // Automatically mine blocks after transactions
@@ -63,7 +63,7 @@ import { tevmViemActions } from './tevmViemActions.js'
  *
  *   // Forking from an existing network
  *   fork: {
- *     transport: http("https://mainnet.optimism.io")({}),
+ *     transport: nativeHttp("https://mainnet.optimism.io")({}),
  *     blockTag: 'latest', // or specific block number/hash
  *   },
  *
@@ -151,13 +151,13 @@ import { tevmViemActions } from './tevmViemActions.js'
  * lazily loads state from the remote network as needed:
  *
  * ```typescript
- * import { createMemoryClient, http } from "tevm";
+ * import { createMemoryClient, nativeHttp } from "tevm";
  * import { optimism } from "tevm/common";
  *
  * const forkedClient = createMemoryClient({
  *   // Fork specification
  *   fork: {
- *     transport: http("https://mainnet.optimism.io")({}),
+ *     transport: nativeHttp("https://mainnet.optimism.io")({}),
  *     blockTag: '0xa6a63cd70fbbe396321ca6fe79e1b6735760c03538208b50d7e3a5dac5226435',
  *   },
  *   // Always specify chain configuration for optimal performance

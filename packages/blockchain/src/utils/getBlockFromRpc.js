@@ -50,7 +50,7 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 					.../** @type {any}*/ (rpcBlock),
 					// filter out transactions we don't support as a hack
 					transactions: rpcBlock.transactions?.filter((tx) => {
-						if (customTxTypes.includes(tx.type)) {
+						if (tx.type && customTxTypes.includes(tx.type)) {
 							doWarning(/** @type {any}*/ (tx))
 							return false
 						}

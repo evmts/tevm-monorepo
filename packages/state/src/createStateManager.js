@@ -63,7 +63,7 @@ const decorate = (state) => {
 		revert: revert(state),
 		getProof: getProof(state),
 		getCode: getContractCode(state),
-		getCodeSize: (address) => getContractCode(state)(address).then((code) => code.length),
+		getCodeSize: (address) => getContractCode(state)(/** @type {import('@tevm/utils').EthjsAddress} */ (address)).then((code) => code.length),
 		getAccount: getAccount(state),
 		dumpStorage: dumpStorage(state),
 		getStateRoot: getStateRoot(state),

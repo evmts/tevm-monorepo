@@ -31,9 +31,9 @@ export async function applyDAOHardfork(evm: Evm) {
 		DAORefundAccount.balance += account.balance
 		// clear the accounts' balance
 		account.balance = 0n
-		await evm.journal.putAccount(address, account)
+		await evm.journal.putAccount(address, account as EthjsAccount)
 	}
 
 	// finally, put the Refund Account
-	await evm.journal.putAccount(DAORefundContractAddress, DAORefundAccount)
+	await evm.journal.putAccount(DAORefundContractAddress, DAORefundAccount as EthjsAccount)
 }

@@ -24,7 +24,7 @@ export const putContractCode = (baseState) => async (address, value) => {
 		accountData.storageRoot = account.storageRoot
 	}
 
-	await putAccount(baseState)(address, createAccount(accountData))
-	baseState.caches.contracts.put(address, value)
+	await putAccount(baseState)(address, /** @type {import('@tevm/common').AccountInterface} */ (createAccount(accountData)))
+	baseState.caches.contracts.put(/** @type {import('@tevm/utils').EthjsAddress} */ (address), value)
 	return
 }

@@ -1,4 +1,4 @@
-import { type TestActions } from 'viem'
+import { type TestActions } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 
 describe('viemTestActions', () => {

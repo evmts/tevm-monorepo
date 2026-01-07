@@ -110,8 +110,8 @@ export const contractHandler =
 						// Create a raw contract error in a format friendly to getContractError, which will also create a sensible causality chain
 						const rawContractError = new RawContractError({ data: result.rawData })
 						const contractError = getContractError(rawContractError, {
-							abi: /** @type {import('@tevm/utils').Abi} */ (params.abi),
-							args: params.args,
+							abi: /** @type {any} */ (params.abi),
+							args: /** @type {any} */ (params.args),
 							address: params.to,
 							docsPath: err.docsPath,
 							functionName: params.functionName,

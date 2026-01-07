@@ -43,7 +43,9 @@ export const decodeRevertReason = (data) => {
 	if (hexData.startsWith(PANIC_SELECTOR)) {
 		try {
 			const code = decodeAbiParameters([{ type: 'uint256' }], `0x${hexData.slice(10)}`)[0]
-			return `execution reverted: Panic(${code.toString()})`
+			if (code !== undefined) {
+				return `execution reverted: Panic(${code.toString()})`
+			}
 		} catch {
 			// Malformed Panic selector - continue to next step
 		}

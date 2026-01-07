@@ -144,7 +144,7 @@ export class BlockBuilder {
 	 * Calculates and returns the logs bloom for the block.
 	 */
 	public logsBloom() {
-		const bloom = new Bloom(undefined, this.vm.common.ethjsCommon)
+		const bloom = new Bloom()
 		for (const txResult of this.transactionResults) {
 			// Combine blooms via bitwise OR
 			bloom.or(txResult.bloom)
@@ -160,7 +160,7 @@ export class BlockBuilder {
 			return KECCAK256_RLP
 		}
 		const receiptTrie = new Trie({ common: this.vm.common.ethjsCommon })
-		for (const [i, txResult] of this.transactionResults.entries()) {
+		for (const [i, _txResult] of this.transactionResults.entries()) {
 			const tx = this.transactions[i]
 			if (!tx)
 				throw new InternalError(
@@ -204,7 +204,7 @@ export class BlockBuilder {
 			if (amount === 0n) continue
 			// Withdrawal amount is represented in Gwei so needs to be
 			// converted to wei
-			await rewardAccount(this.vm.evm, address, parseGwei(amount.toString()))
+			await rewardAccount(this.vm.evm, new EthjsAddress(address), parseGwei(amount.toString()))
 		}
 	}
 

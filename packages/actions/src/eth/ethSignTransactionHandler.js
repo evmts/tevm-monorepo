@@ -16,12 +16,12 @@ import { MissingAccountError } from './ethSignHandler.js'
  * @example
  * ```javascript
  * import { ethSignTransactionHandler } from '@tevm/actions'
- * import { mnemonicToAccount, parseGwei } from '@tevm/utils'
+ * import { nativeMnemonicToAccount, parseGwei } from '@tevm/utils'
  *
  * // Create accounts from a mnemonic
  * const mnemonic = 'test test test test test test test test test test test junk'
  * const accounts = Array.from(Array(10).keys()).map(
- *   (i) => mnemonicToAccount(mnemonic, { addressIndex: i })
+ *   (i) => nativeMnemonicToAccount(mnemonic, { addressIndex: i })
  * )
  *
  * // Create the handler

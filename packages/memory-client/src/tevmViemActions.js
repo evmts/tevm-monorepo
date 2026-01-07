@@ -26,7 +26,7 @@ import { tevmActions } from '@tevm/decorators'
  * @example
  * ```typescript
  * import { createClient } from 'viem'
- * import { http } from '@tevm/utils'
+ * import { nativeHttp } from '@tevm/utils'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport, tevmViemActions } from 'tevm'
  *
@@ -34,7 +34,7 @@ import { tevmActions } from '@tevm/decorators'
  * const client = createClient({
  *   transport: createTevmTransport({
  *     fork: {
- *       transport: http('https://mainnet.optimism.io')({})
+ *       transport: nativeHttp('https://mainnet.optimism.io')({})
  *     }
  *   }),
  *   chain: optimism,

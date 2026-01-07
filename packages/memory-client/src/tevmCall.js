@@ -24,14 +24,14 @@ import { callHandler } from '@tevm/actions'
  * @example
  * ```typescript
  * import { createClient } from 'viem'
- * import { http } from '@tevm/utils'
+ * import { nativeHttp } from '@tevm/utils'
  * import { tevmCall } from 'tevm/actions'
  * import { optimism } from 'tevm/common'
  * import { createTevmTransport } from 'tevm'
  *
  * const client = createClient({
  *   transport: createTevmTransport({
- *     fork: { transport: http('https://mainnet.optimism.io')({}) }
+ *     fork: { transport: nativeHttp('https://mainnet.optimism.io')({}) }
  *   }),
  *   chain: optimism,
  * })

@@ -295,7 +295,7 @@ describe('createTevmNode coverage tests', () => {
 		// This is a very targeted test for the specific uncovered branch
 		// Create a mocked implementation of the transport request
 		const mockTransport = {
-			request: vi.fn().mockResolvedValue('123'),
+			request: vi.fn().mockResolvedValue('0x7b'), // 123 in hex
 		}
 
 		// Create a client with a fork that has a transport

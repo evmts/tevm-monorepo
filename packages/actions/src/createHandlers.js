@@ -1,4 +1,5 @@
 import { MethodNotSupportedError } from '@tevm/errors'
+import { hexToBytes } from '@tevm/utils'
 import { anvilAddBalanceJsonRpcProcedure } from './anvil/anvilAddBalanceProcedure.js'
 import { anvilAutoImpersonateAccountJsonRpcProcedure } from './anvil/anvilAutoImpersonateAccountProcedure.js'
 import { anvilDealErc20JsonRpcProcedure } from './anvil/anvilDealErc20Procedure.js'
@@ -376,15 +377,12 @@ export const createHandlers = (client) => {
 			}
 			try {
 				const vm = await client.getVm()
+				// Convert hex state root to bytes using native hexToBytes
+				const stateRootBytes = /** @type {any} */ (hexToBytes(/** @type {import('@tevm/utils').Hex} */ (snapshot.stateRoot)))
 				// Save the state root with its associated state
-				vm.stateManager.saveStateRoot(
-					/** @type {any} */ (Uint8Array.from(Buffer.from(snapshot.stateRoot.slice(2), 'hex'))),
-					snapshot.state,
-				)
+				vm.stateManager.saveStateRoot(stateRootBytes, snapshot.state)
 				// Set the state root to revert to that state
-				await vm.stateManager.setStateRoot(
-					/** @type {any} */ (Uint8Array.from(Buffer.from(snapshot.stateRoot.slice(2), 'hex'))),
-				)
+				await vm.stateManager.setStateRoot(stateRootBytes)
 				// Delete all snapshots from this ID onwards (they are now invalid)
 				client.deleteSnapshotsFrom(snapshotId)
 				return {

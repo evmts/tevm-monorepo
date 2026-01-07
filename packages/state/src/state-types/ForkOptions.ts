@@ -6,10 +6,10 @@ import { type BlockTag, type EIP1193RequestFn, type Transport } from '@tevm/util
  * @example
  * ```typescript
  * import { ForkOptions } from '@tevm/state'
- * import { http } from '@tevm/utils'
+ * import { nativeHttp } from '@tevm/utils'
  *
  * const value: ForkOptions = {
- *   transport: http('https://mainnet.infura.io/v3/your-api-key'),
+ *   transport: nativeHttp('https://mainnet.infura.io/v3/your-api-key')({}),
  *   blockTag: 'latest'
  * }
  * ```
@@ -17,10 +17,10 @@ import { type BlockTag, type EIP1193RequestFn, type Transport } from '@tevm/util
  * ```typescript
  * // Override chain ID to avoid wallet confusion when forking
  * import { ForkOptions } from '@tevm/state'
- * import { http } from '@tevm/utils'
+ * import { nativeHttp } from '@tevm/utils'
  *
  * const value: ForkOptions = {
- *   transport: http('https://mainnet.optimism.io'),
+ *   transport: nativeHttp('https://mainnet.optimism.io')({}),
  *   chainId: 1337, // Use a custom chain ID instead of Optimism's 10
  * }
  * ```
@@ -35,9 +35,12 @@ export interface ForkOptions {
 	 * is used for both the fork and the original network.
 	 * @example
 	 * ```typescript
+	 * import { createMemoryClient } from 'tevm'
+	 * import { nativeHttp } from 'tevm'
+	 *
 	 * const client = createMemoryClient({
 	 *   fork: {
-	 *     transport: http('https://mainnet.optimism.io'),
+	 *     transport: nativeHttp('https://mainnet.optimism.io')({}),
 	 *     chainId: 1337, // Override Optimism's chain ID (10) with a custom one
 	 *   },
 	 * })

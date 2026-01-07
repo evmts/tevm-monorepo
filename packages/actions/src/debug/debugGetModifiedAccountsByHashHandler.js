@@ -1,4 +1,4 @@
-import { bytesToHex } from '@tevm/utils'
+import { bytesToHex, hexToBytes } from '@tevm/utils'
 
 /**
  * Returns addresses of accounts modified between two block hashes
@@ -27,10 +27,10 @@ export const debugGetModifiedAccountsByHashHandler = (client) => async (params) 
 	const vm = await getVm()
 	const { startBlockHash, endBlockHash } = params
 
-	// Normalize block hashes to Uint8Array
+	// Normalize block hashes to Uint8Array using native hexToBytes
 	const normalizeBlockHash = (/** @type {import('@tevm/utils').Hex | Uint8Array} */ bh) => {
 		if (typeof bh === 'string') {
-			return Uint8Array.from(Buffer.from(bh.slice(2), 'hex'))
+			return hexToBytes(bh)
 		}
 		return bh
 	}

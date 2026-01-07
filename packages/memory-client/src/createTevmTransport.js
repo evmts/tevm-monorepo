@@ -26,7 +26,7 @@ import { createTransport } from '@tevm/utils'
  * @example
  * ```typescript
  * import { createClient } from 'viem'
- * import { http } from '@tevm/utils'
+ * import { nativeHttp } from '@tevm/utils'
  * import { createTevmTransport } from 'tevm'
  * import { optimism } from 'tevm/common'
  *
@@ -34,7 +34,7 @@ import { createTransport } from '@tevm/utils'
  * const client = createClient({
  *   transport: createTevmTransport({
  *     fork: {
- *       transport: http('https://mainnet.optimism.io')({}),
+ *       transport: nativeHttp('https://mainnet.optimism.io')({}),
  *       blockTag: 'latest' // Optional: specify block number or hash
  *     },
  *     mining: {

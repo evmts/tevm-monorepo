@@ -50,7 +50,7 @@ export const requestEip1193 = () => (client) => {
 					throw result.error
 				}
 				return /** @type {any}*/ (result.result)
-			}, options)
+			}, /** @type {any} */ (options))
 		},
 	}
 }

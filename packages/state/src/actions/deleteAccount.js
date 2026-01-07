@@ -4,7 +4,8 @@
  */
 export const deleteAccount = (baseState) => async (address) => {
 	await baseState.ready()
-	baseState.caches.accounts.del(address)
+	// Cast AddressInterface to EthjsAddress for internal cache operations
+	baseState.caches.accounts.del(/** @type {import('@tevm/utils').EthjsAddress} */ (address))
 	// TODO known bug for unused api. we should delete bytecode too
 	baseState.logger.debug({ address }, 'Deleted account')
 	return
