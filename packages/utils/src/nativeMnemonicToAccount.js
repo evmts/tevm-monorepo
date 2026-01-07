@@ -1,11 +1,6 @@
-// Native HD account implementation using @scure/bip39 and @scure/bip32
-// This provides a viem-compatible HDAccount from a mnemonic phrase
-// Uses pure JS libraries (no FFI/native dependencies)
-//
-// Note: @tevm/voltaire has Bip39 and HDWallet modules that wrap @scure,
-// but importing them pulls in FFI dependencies due to module structure.
-// Direct @scure usage avoids this and is equally correct since voltaire
-// internally uses @scure for the same functionality.
+// Native mnemonicToAccount implementation using @scure/bip39 and @scure/bip32
+// This provides a viem-compatible account object from a mnemonic phrase
+// Uses pure JS libraries (no FFI/native dependencies) - same libraries used by viem
 
 import { validateMnemonic, mnemonicToSeedSync } from '@scure/bip39'
 import { wordlist } from '@scure/bip39/wordlists/english'
@@ -14,10 +9,23 @@ import { nativePrivateKeyToAccount } from './nativePrivateKeyToAccount.js'
 import { bytesToHex } from './viem.js'
 
 /**
- * Creates a viem-compatible HD account object from a mnemonic phrase.
+ * @typedef {Object} NativeMnemonicAccount
+ * @property {import('./address-types.js').Address} address - The checksummed Ethereum address
+ * @property {import('./hex-types.js').Hex} publicKey - The uncompressed public key (65 bytes with 0x04 prefix)
+ * @property {'local'} type - Account type, always 'local' for mnemonic accounts
+ * @property {'mnemonic'} source - Account source, always 'mnemonic'
+ * @property {(parameters: { hash: import('./hex-types.js').Hex }) => Promise<import('./hex-types.js').Hex>} sign - Sign a hash directly
+ * @property {(parameters: { message: string | { raw: import('./hex-types.js').Hex | Uint8Array } }) => Promise<import('./hex-types.js').Hex>} signMessage - Sign a message with EIP-191 prefix
+ * @property {(transaction: any) => Promise<any>} signTransaction - Sign a transaction (returns signed tx object)
+ * @property {(parameters: { domain?: any, types: any, primaryType: string, message: any }) => Promise<import('./hex-types.js').Hex>} signTypedData - Sign typed data (EIP-712)
+ * @property {(index: number) => NativeMnemonicAccount} getAccount - Get an account at a specific index
+ */
+
+/**
+ * Creates a viem-compatible account object from a mnemonic phrase using native implementation.
  *
- * This implementation uses `source: 'hd'` to match viem's HDAccount type,
- * making it a drop-in replacement for viem's mnemonicToAccount.
+ * This is a native implementation that doesn't depend on viem for HD derivation or signing,
+ * using @scure/bip39 for seed generation, @scure/bip32 for key derivation, and @tevm/voltaire for signing.
  *
  * @param {string} mnemonic - The BIP-39 mnemonic phrase (12, 15, 18, 21, or 24 words)
  * @param {Object} [options] - Options for account derivation
@@ -26,15 +34,14 @@ import { bytesToHex } from './viem.js'
  * @param {number} [options.changeIndex] - The change index (0 for external, 1 for internal, default: 0)
  * @param {string} [options.path] - Custom derivation path (overrides accountIndex/addressIndex/changeIndex)
  * @param {string} [options.passphrase] - Optional BIP-39 passphrase
- * @returns {import('./account-types.js').NativeHDAccount} A viem-compatible HD account object
+ * @returns {NativeMnemonicAccount} A viem-compatible account object
  * @throws {Error} If the mnemonic is invalid
  * @example
  * ```javascript
- * import { nativeHdAccount } from '@tevm/utils'
+ * import { nativeMnemonicToAccount } from '@tevm/utils'
  *
- * const account = nativeHdAccount('test test test test test test test test test test test junk')
+ * const account = nativeMnemonicToAccount('test test test test test test test test test test test junk')
  * console.log(account.address) // '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
- * console.log(account.source) // 'hd'
  *
  * // Sign a message
  * const signature = await account.signMessage({ message: 'Hello, Ethereum!' })
@@ -43,7 +50,7 @@ import { bytesToHex } from './viem.js'
  * const account1 = account.getAccount(1)
  * ```
  */
-export function nativeHdAccount(mnemonic, options = {}) {
+export function nativeMnemonicToAccount(mnemonic, options = {}) {
 	// Validate mnemonic using @scure/bip39
 	if (!validateMnemonic(mnemonic, wordlist)) {
 		throw new Error('Invalid mnemonic phrase')
@@ -84,10 +91,10 @@ export function nativeHdAccount(mnemonic, options = {}) {
 	/**
 	 * Get an account at a specific address index (keeping the same account index)
 	 * @param {number} index - The address index
-	 * @returns {import('./account-types.js').NativeHDAccount}
+	 * @returns {NativeMnemonicAccount}
 	 */
 	function getAccount(index) {
-		return nativeHdAccount(mnemonic, {
+		return nativeMnemonicToAccount(mnemonic, {
 			accountIndex,
 			addressIndex: index,
 			changeIndex,
@@ -99,7 +106,7 @@ export function nativeHdAccount(mnemonic, options = {}) {
 		address: baseAccount.address,
 		publicKey: baseAccount.publicKey,
 		type: /** @type {const} */ ('local'),
-		source: /** @type {const} */ ('hd'),
+		source: /** @type {const} */ ('mnemonic'),
 		sign: baseAccount.sign,
 		signMessage: baseAccount.signMessage,
 		signTransaction: baseAccount.signTransaction,

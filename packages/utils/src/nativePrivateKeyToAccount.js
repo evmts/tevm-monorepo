@@ -7,8 +7,7 @@ import { Keccak256 } from '@tevm/voltaire/Keccak256'
 import { Hash } from '@tevm/voltaire/Hash'
 import { EIP712 } from '@tevm/voltaire/EIP712'
 import { Address as VoltaireAddress } from '@tevm/voltaire/Address'
-import * as Transaction from '@tevm/voltaire/Transaction'
-import { hexToBytes, bytesToHex } from './viem.js'
+import { hexToBytes, bytesToHex, serializeTransaction, keccak256 } from './viem.js'
 import { privateKeyToAddress } from './privateKeyToAddress.js'
 
 /**
@@ -128,145 +127,67 @@ export function nativePrivateKeyToAccount(privateKey) {
 	}
 
 	/**
-	 * Convert viem-style transaction request to voltaire transaction format
-	 * @param {any} tx - viem-style transaction request
-	 * @returns {Transaction.Any} voltaire transaction object (unsigned)
+	 * Compute the signing hash for a transaction.
+	 * Uses native keccak256 and our RLP encoding.
+	 * @param {any} tx - Transaction in viem format
+	 * @returns {Uint8Array} The 32-byte signing hash
 	 */
-	function convertToVoltaireTransaction(tx) {
-		// Convert 'to' address to voltaire format (null for contract creation)
-		const to = tx.to ? VoltaireAddress.from(tx.to) : null
-		// Convert data to Uint8Array
-		const data = tx.data ? (typeof tx.data === 'string' ? hexToBytes(tx.data) : tx.data) : new Uint8Array(0)
-
-		// Check explicit type field (viem style)
-		const explicitType = tx.type
-
-		// Check if EIP-1559 transaction (has maxFeePerGas or explicit type)
-		if (tx.maxFeePerGas !== undefined || explicitType === 'eip1559') {
-			// Convert accessList if present
-			const accessList = tx.accessList?.map((/** @type {any} */ item) => ({
-				address: VoltaireAddress.from(item.address),
-				storageKeys: item.storageKeys?.map((/** @type {string} */ key) => Hash.from(hexToBytes(key))) ?? [],
-			})) ?? []
-
-			return /** @type {Transaction.EIP1559} */ ({
-				type: Transaction.Type.EIP1559,
-				chainId: BigInt(tx.chainId ?? 1),
-				nonce: BigInt(tx.nonce ?? 0),
-				maxPriorityFeePerGas: BigInt(tx.maxPriorityFeePerGas ?? 0),
-				maxFeePerGas: BigInt(tx.maxFeePerGas),
-				gasLimit: BigInt(tx.gas ?? tx.gasLimit ?? 21000),
-				to,
-				value: BigInt(tx.value ?? 0),
-				data,
-				accessList,
-				// Signature fields will be filled after signing
-				yParity: 0,
-				r: new Uint8Array(32),
-				s: new Uint8Array(32),
-			})
-		}
-
-		// Check if EIP-2930 transaction (has accessList, no maxFeePerGas, or explicit type)
-		if (tx.accessList !== undefined || explicitType === 'eip2930') {
-			const accessList = (tx.accessList ?? []).map((/** @type {any} */ item) => ({
-				address: VoltaireAddress.from(item.address),
-				storageKeys: item.storageKeys?.map((/** @type {string} */ key) => Hash.from(hexToBytes(key))) ?? [],
-			}))
-
-			return /** @type {Transaction.EIP2930} */ ({
-				type: Transaction.Type.EIP2930,
-				chainId: BigInt(tx.chainId ?? 1),
-				nonce: BigInt(tx.nonce ?? 0),
-				gasPrice: BigInt(tx.gasPrice ?? 0),
-				gasLimit: BigInt(tx.gas ?? tx.gasLimit ?? 21000),
-				to,
-				value: BigInt(tx.value ?? 0),
-				data,
-				accessList,
-				// Signature fields will be filled after signing
-				yParity: 0,
-				r: new Uint8Array(32),
-				s: new Uint8Array(32),
-			})
-		}
-
-		// Legacy transaction
-		// For EIP-155, v = chainId * 2 + 35 + recovery (0 or 1)
-		const chainId = tx.chainId !== undefined ? BigInt(tx.chainId) : null
-		return /** @type {Transaction.Legacy} */ ({
-			type: Transaction.Type.Legacy,
-			nonce: BigInt(tx.nonce ?? 0),
-			gasPrice: BigInt(tx.gasPrice ?? 0),
-			gasLimit: BigInt(tx.gas ?? tx.gasLimit ?? 21000),
-			to,
-			value: BigInt(tx.value ?? 0),
-			data,
-			// Signature fields will be filled after signing - start with EIP-155 format if chainId present
-			v: chainId !== null ? chainId : 27n,
-			r: new Uint8Array(32),
-			s: new Uint8Array(32),
-		})
+	function getSigningHash(tx) {
+		// Get the unsigned serialized transaction for signing
+		// For EIP-1559/2930, we serialize without signature
+		// For Legacy with chainId, we use EIP-155 format
+		const unsignedSerialized = serializeTransaction(tx)
+		return hexToBytes(keccak256(unsignedSerialized))
 	}
 
 	/**
-	 * Sign a transaction and return the RLP-encoded signed transaction
+	 * Sign a transaction and return the RLP-encoded signed transaction.
+	 * Uses native serializeTransaction to avoid voltaire RLP encoding issues.
 	 * @param {any} transaction - viem-style transaction request
 	 * @returns {Promise<import('./hex-types.js').Hex>} RLP-encoded signed transaction
 	 */
 	async function signTransaction(transaction) {
-		// Convert to voltaire transaction format
-		const voltaireTx = convertToVoltaireTransaction(transaction)
+		// Determine transaction type
+		const type = transaction.type ??
+			(transaction.maxFeePerGas !== undefined ? 'eip1559' :
+			 transaction.accessList !== undefined ? 'eip2930' : 'legacy')
 
-		// Get signing hash based on transaction type
-		const signingHash = Transaction.getSigningHash(voltaireTx)
+		// Normalize transaction fields
+		const tx = {
+			...transaction,
+			type,
+			chainId: transaction.chainId ?? 1,
+			nonce: transaction.nonce ?? 0n,
+			gas: transaction.gas ?? transaction.gasLimit ?? 21000n,
+			value: transaction.value ?? 0n,
+			data: transaction.data ?? '0x',
+		}
 
-		// Sign the hash
+		// Get signing hash
+		const signingHash = getSigningHash(tx)
+
+		// Sign the hash using voltaire
 		const hashTyped = Hash.from(signingHash)
 		// @ts-ignore - privateKeyTyped is typed correctly
 		const sig = Secp256k1.sign(hashTyped, privateKeyTyped)
 
-		// Create signed transaction based on type
-		/** @type {Transaction.Any} */
-		let signedTx
-
-		if (voltaireTx.type === Transaction.Type.EIP1559) {
-			signedTx = /** @type {Transaction.EIP1559} */ ({
-				...voltaireTx,
-				yParity: sig.v - 27, // Convert 27/28 to 0/1
-				r: new Uint8Array(sig.r),
-				s: new Uint8Array(sig.s),
-			})
-		} else if (voltaireTx.type === Transaction.Type.EIP2930) {
-			signedTx = /** @type {Transaction.EIP2930} */ ({
-				...voltaireTx,
-				yParity: sig.v - 27, // Convert 27/28 to 0/1
-				r: new Uint8Array(sig.r),
-				s: new Uint8Array(sig.s),
-			})
-		} else {
-			// Legacy transaction - v includes chainId for EIP-155
-			const chainId = transaction.chainId !== undefined ? BigInt(transaction.chainId) : null
-			let v
-			if (chainId !== null) {
-				// EIP-155: v = chainId * 2 + 35 + recoveryId
-				v = chainId * 2n + 35n + BigInt(sig.v - 27)
-			} else {
-				// Pre-EIP-155: v = 27 or 28
-				v = BigInt(sig.v)
-			}
-			signedTx = /** @type {Transaction.Legacy} */ ({
-				...voltaireTx,
-				v,
-				r: new Uint8Array(sig.r),
-				s: new Uint8Array(sig.s),
-			})
+		// Create signature object for serialization
+		// yParity is 0 or 1 for EIP-1559/2930
+		// v is computed for legacy transactions
+		const signature = {
+			r: BigInt(bytesToHex(new Uint8Array(sig.r))),
+			s: BigInt(bytesToHex(new Uint8Array(sig.s))),
+			yParity: sig.v - 27, // Convert 27/28 to 0/1
+			v: BigInt(sig.v), // For legacy
 		}
 
-		// Serialize the signed transaction
-		const serialized = Transaction.serialize(signedTx)
+		// For legacy transactions, compute EIP-155 v value
+		if (type === 'legacy' && tx.chainId !== undefined) {
+			signature.v = BigInt(tx.chainId) * 2n + 35n + BigInt(sig.v - 27)
+		}
 
-		return /** @type {import('./hex-types.js').Hex} */ (bytesToHex(serialized))
+		// Serialize the signed transaction using our native implementation
+		return serializeTransaction(tx, signature)
 	}
 
 	/**
@@ -302,7 +223,7 @@ export function nativePrivateKeyToAccount(privateKey) {
 		// Handle bytes type - convert hex string to Uint8Array
 		if (type === 'bytes' || type.match(/^bytes\d+$/)) {
 			if (typeof value === 'string') {
-				return hexToBytes(value)
+				return hexToBytes(/** @type {import('./hex-types.js').Hex} */ (value))
 			}
 			return value
 		}

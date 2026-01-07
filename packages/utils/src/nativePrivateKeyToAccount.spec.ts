@@ -60,6 +60,13 @@ describe('nativePrivateKeyToAccount', () => {
 			// Signature should be 65 bytes (r + s + v)
 			expect(signature).toMatch(/^0x[a-fA-F0-9]{130}$/)
 		})
+
+		it('should throw for invalid hash length', async () => {
+			const account = nativePrivateKeyToAccount(TEST_PRIVATE_KEY)
+			// Hash is too short (not 32 bytes)
+			const shortHash = '0x0000000000000000000000000000000000000001'
+			await expect(account.sign({ hash: shortHash })).rejects.toThrow('Hash must be 32 bytes')
+		})
 	})
 
 	describe('signMessage', () => {
@@ -85,6 +92,22 @@ describe('nativePrivateKeyToAccount', () => {
 
 			// Signature should be 65 bytes (r + s + v)
 			expect(signature).toMatch(/^0x[a-fA-F0-9]{130}$/)
+		})
+
+		it('should sign raw hex message', async () => {
+			const account = nativePrivateKeyToAccount(TEST_PRIVATE_KEY)
+			// 'Hello' as hex
+			const rawHex = '0x48656c6c6f'
+			const signature = await account.signMessage({ message: { raw: rawHex } })
+
+			// Signature should be 65 bytes (r + s + v)
+			expect(signature).toMatch(/^0x[a-fA-F0-9]{130}$/)
+		})
+
+		it('should throw for invalid message format', async () => {
+			const account = nativePrivateKeyToAccount(TEST_PRIVATE_KEY)
+			// @ts-ignore - Intentionally passing invalid format
+			await expect(account.signMessage({ message: { notRaw: 'invalid' } })).rejects.toThrow('Invalid message format')
 		})
 	})
 
@@ -301,6 +324,97 @@ describe('nativePrivateKeyToAccount', () => {
 
 			const signature = await account.signTypedData(typedData)
 			expect(signature).toMatch(/^0x[a-fA-F0-9]{130}$/)
+		})
+
+		it('should handle array types in message', async () => {
+			const account = nativePrivateKeyToAccount(TEST_PRIVATE_KEY)
+			const typedData = {
+				domain: { name: 'Test', version: '1' },
+				types: {
+					BatchTransfer: [
+						{ name: 'recipients', type: 'address[]' },
+						{ name: 'amounts', type: 'uint256[]' },
+					],
+				},
+				primaryType: 'BatchTransfer',
+				message: {
+					recipients: [
+						'0x0000000000000000000000000000000000000001',
+						'0x0000000000000000000000000000000000000002',
+					],
+					amounts: [100n, 200n],
+				},
+			}
+
+			const signature = await account.signTypedData(typedData)
+			expect(signature).toMatch(/^0x[a-fA-F0-9]{130}$/)
+		})
+
+		it('should handle bytes values already as Uint8Array', async () => {
+			const account = nativePrivateKeyToAccount(TEST_PRIVATE_KEY)
+			const typedData = {
+				domain: { name: 'Test', version: '1' },
+				types: {
+					DataWithBytes: [
+						{ name: 'data', type: 'bytes' },
+					],
+				},
+				primaryType: 'DataWithBytes',
+				message: {
+					// Pass bytes as Uint8Array instead of hex string
+					data: new Uint8Array([0x01, 0x02, 0x03, 0x04]),
+				},
+			}
+
+			const signature = await account.signTypedData(typedData)
+			expect(signature).toMatch(/^0x[a-fA-F0-9]{130}$/)
+		})
+
+		it('should handle uint values already as bigint', async () => {
+			const account = nativePrivateKeyToAccount(TEST_PRIVATE_KEY)
+			const typedData = {
+				domain: { name: 'Test', version: '1' },
+				types: {
+					Amount: [
+						{ name: 'value', type: 'uint256' },
+					],
+				},
+				primaryType: 'Amount',
+				message: {
+					// Pass bigint directly (should pass through unchanged)
+					value: 1000000000000000000n,
+				},
+			}
+
+			const signature = await account.signTypedData(typedData)
+			expect(signature).toMatch(/^0x[a-fA-F0-9]{130}$/)
+		})
+
+		it('should handle bool values', async () => {
+			const account = nativePrivateKeyToAccount(TEST_PRIVATE_KEY)
+			const typedData = {
+				domain: { name: 'Test', version: '1' },
+				types: {
+					Toggle: [
+						{ name: 'enabled', type: 'bool' },
+						{ name: 'name', type: 'string' },
+					],
+				},
+				primaryType: 'Toggle',
+				message: {
+					enabled: true,
+					name: 'feature',
+				},
+			}
+
+			const signature = await account.signTypedData(typedData)
+			expect(signature).toMatch(/^0x[a-fA-F0-9]{130}$/)
+		})
+	})
+
+	describe('error cases', () => {
+		it('should throw for invalid private key length', () => {
+			expect(() => nativePrivateKeyToAccount('0x1234' as `0x${string}`)).toThrow('Private key must be 32 bytes')
 		})
 	})
 })
