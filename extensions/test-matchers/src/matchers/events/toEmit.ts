@@ -1,6 +1,14 @@
+import {
+	type Abi,
+	type AbiEvent,
+	type ContractEventName,
+	type Hex,
+	decodeEventLog,
+	encodeEventTopics,
+	getAddress,
+	isHex,
+} from '@tevm/utils'
 import { AbiItem } from 'ox'
-import type { Abi, AbiEvent, ContractEventName, Hex } from 'viem'
-import { decodeEventLog, encodeEventTopics, getAddress, isHex } from 'viem'
 import type { MatcherResult } from '../../chainable/types.js'
 import type { ContainsContractAbi, ContainsTransactionLogs } from '../../common/types.js'
 import type { ToEmitState } from './types.js'
@@ -77,7 +85,8 @@ export const toEmit = async <
 					abi: contract.abi,
 					data: log.data,
 					topics: log.topics,
-				})
+				}) as { eventName: string; args: Record<string, unknown> } | undefined
+				if (!decoded) return `UnknownEvent(${log.topics[0]})`
 				return `${decoded.eventName}(${decoded.args ? Object.values(decoded.args).join(', ') : ''})`
 			} catch {
 				return `UnknownEvent(${log.topics[0]})`

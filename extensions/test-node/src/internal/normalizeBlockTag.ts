@@ -1,4 +1,4 @@
-import { type BlockTag, type Hex, type RpcBlockIdentifier } from 'viem'
+import { type BlockTag, type Hex, type RpcBlockIdentifier } from '@tevm/utils'
 
 /**
  * Normalizes a block tag to a consistent lowercase string for cache key generation.

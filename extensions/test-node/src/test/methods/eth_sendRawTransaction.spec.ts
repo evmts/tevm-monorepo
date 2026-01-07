@@ -1,5 +1,4 @@
-import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
-import type { Hex } from 'viem'
+import { type Hex, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { describe, it } from 'vitest'
 import { chain } from '../constants.js'
 import { assertMethodNotCached } from '../snapshot-utils.js'

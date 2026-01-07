@@ -3,7 +3,7 @@ import path from 'node:path'
 import { blockNumberProcedure, ethGetBlockByNumberJsonRpcProcedure } from '@tevm/actions'
 import { mainnet } from '@tevm/common'
 import { transports } from '@tevm/test-utils'
-import { http, numberToHex } from 'viem'
+import { nativeHttp, numberToHex } from '@tevm/utils'
 import { afterEach, describe, expect, it } from 'vitest'
 import { createTestSnapshotNode } from './createTestSnapshotNode.js'
 import { BLOCK_NUMBER } from './test/constants.js'
@@ -32,7 +32,7 @@ describe('createTestSnapshotNode', () => {
 	it('should create a client with all required methods', async () => {
 		const client = createTestSnapshotNode({
 			fork: {
-				transport: http('https://mainnet.optimism.io')({}),
+				transport: nativeHttp('https://mainnet.optimism.io')(),
 			},
 		})
 

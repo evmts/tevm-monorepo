@@ -1,5 +1,10 @@
-import type { AbiParameter, ExtractAbiFunction } from 'abitype'
-import { type Abi, type ContractFunctionName, decodeAbiParameters } from 'viem'
+import {
+	type Abi,
+	type AbiParameter,
+	type ContractFunctionName,
+	type ExtractAbiFunction,
+	decodeAbiParameters,
+} from '@tevm/utils'
 import type { ChainState, MatcherResult } from '../../chainable/types.js'
 import type { AbiInputsToNamedArgs } from '../../common/types.js'
 import type { ToCallContractFunctionState } from './types.js'

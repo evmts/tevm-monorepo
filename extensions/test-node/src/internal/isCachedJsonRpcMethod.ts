@@ -6,7 +6,7 @@ import {
 	isHex,
 	type RpcBlockIdentifier,
 	type RpcTransactionRequest,
-} from 'viem'
+} from '@tevm/utils'
 
 /**
  * Checks if a block tag is static (deterministic) and therefore safe to cache.

@@ -2,7 +2,7 @@ import type { Server as HttpServer } from 'node:http'
 import type { Common } from '@tevm/common'
 import type { MemoryClient, MemoryClientOptions, TevmRpcSchema } from '@tevm/memory-client'
 import type { TevmNode, TevmNodeOptions } from '@tevm/node'
-import type { Account, Address, Chain, EIP1193RequestFn, RpcSchema, Transport } from 'viem'
+import type { Account, Address, Chain, EIP1193RequestFn, RpcSchema, Transport } from '@tevm/utils'
 
 export type SnapshotAutosaveMode = 'onStop' | 'onRequest' | 'onSave'
 

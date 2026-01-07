@@ -1,4 +1,4 @@
-import type { IsAddressOptions } from 'viem'
+import type { IsAddressOptions } from '@tevm/utils'
 import { toBeAddress } from './toBeAddress.js'
 import { type IsHexOptions, toBeHex } from './toBeHex.js'
 import { toEqualAddress } from './toEqualAddress.js'

@@ -1,4 +1,4 @@
-import type { Abi, ContractErrorName, DecodeErrorResultReturnType, Hex } from 'viem'
+import type { Abi, ContractErrorName, DecodeErrorResultReturnType, Hex } from '@tevm/utils'
 import type { ContainsContractAbi } from '../../common/types.js'
 
 export interface ToBeRevertedWithState<

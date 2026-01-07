@@ -1,7 +1,5 @@
-import type { AbiError } from 'abitype'
+import { type Abi, type AbiError, type Client, type ContractErrorName, type Hex, isHex } from '@tevm/utils'
 import { AbiItem } from 'ox'
-import type { Abi, Client, ContractErrorName, Hex } from 'viem'
-import { isHex } from 'viem'
 import type { MatcherResult } from '../../chainable/types.js'
 import type { ContainsContractAbi, ContainsTransactionAny } from '../../common/types.js'
 import { handleTransaction } from './handleTransaction.js'

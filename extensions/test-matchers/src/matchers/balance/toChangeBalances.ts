@@ -1,5 +1,5 @@
 import { type TevmNode } from '@tevm/node'
-import { type Client, isAddress } from 'viem'
+import { type Client, isAddress } from '@tevm/utils'
 import type { ContainsTransactionAny } from '../../common/types.js'
 import { getDiffMethodsFromPrestateTrace } from './getDiffMethodsFromPrestateTrace.js'
 import type { BalanceChange } from './types.js'

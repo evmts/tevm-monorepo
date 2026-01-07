@@ -1,5 +1,11 @@
-import type { AbiParameter, AbiParametersToPrimitiveTypes, ExtractAbiError } from 'abitype'
-import { type Abi, type ContractErrorName, decodeErrorResult } from 'viem'
+import {
+	type Abi,
+	type AbiParameter,
+	type AbiParametersToPrimitiveTypes,
+	type ContractErrorName,
+	type ExtractAbiError,
+	decodeErrorResult,
+} from '@tevm/utils'
 import { parseChainArgs } from '../../chainable/chainable.js'
 import type { ChainState, MatcherResult } from '../../chainable/types.js'
 import type { ToBeRevertedWithState } from './types.js'
@@ -27,8 +33,9 @@ export const withErrorArgs = <
 		throw new Error('withErrorArgs() requires a contract with abi and error name')
 
 	const { contract, decodedRevertData, rawRevertData } = previousState
+	if (!contract?.abi) throw new Error('Contract with ABI is required for error decoding')
 	const decodedRevert =
-		decodedRevertData ?? (rawRevertData ? decodeErrorResult({ abi: contract?.abi, data: rawRevertData }) : undefined)
+		decodedRevertData ?? (rawRevertData ? decodeErrorResult({ abi: contract.abi, data: rawRevertData }) : undefined)
 	const decodedArgs = decodedRevert?.args
 	if (!decodedArgs) throw new Error('Could not decode revert data')
 

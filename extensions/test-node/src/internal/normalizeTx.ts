@@ -1,4 +1,4 @@
-import { bytesToHex, type ExactPartial, type Hex, type RpcTransactionRequest } from 'viem'
+import { bytesToHex, type ExactPartial, type Hex, type RpcTransactionRequest } from '@tevm/utils'
 import { normalizeHex } from './normalizeHex.js'
 
 /**

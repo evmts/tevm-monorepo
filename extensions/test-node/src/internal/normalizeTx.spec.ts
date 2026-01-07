@@ -1,4 +1,4 @@
-import { type ExactPartial, type Hex, type RpcTransactionRequest } from 'viem'
+import type { ExactPartial, Hex, RpcTransactionRequest } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { normalizeTx } from './normalizeTx.js'
 

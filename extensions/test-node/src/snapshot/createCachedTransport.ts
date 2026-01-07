@@ -1,5 +1,4 @@
-import type { EIP1193Parameters, EIP1474Methods, Transport } from 'viem'
-import { type EIP1193RequestFn } from 'viem'
+import type { EIP1193Parameters, EIP1193RequestFn, EIP1474Methods, Transport } from '@tevm/utils'
 import { ethMethodToCacheKey } from '../internal/ethMethodToCacheKey.js'
 import { isCachedJsonRpcMethod } from '../internal/isCachedJsonRpcMethod.js'
 import type { SnapshotAutosaveMode } from '../types.js'

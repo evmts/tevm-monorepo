@@ -1,8 +1,8 @@
 import { anvilSetStorageAtJsonRpcProcedure, contractHandler, type PrestateTraceResult } from '@tevm/actions'
 import { ERC20 } from '@tevm/contract'
 import type { TevmNode } from '@tevm/node'
+import { type Address, type Hex, hexToBigInt, numberToHex } from '@tevm/utils'
 import { isEqual } from 'ox/Hex'
-import { type Address, type Hex, hexToBigInt, numberToHex } from 'viem'
 
 /**
  * Gets the token balance change for a specific token and address by analyzing storage changes

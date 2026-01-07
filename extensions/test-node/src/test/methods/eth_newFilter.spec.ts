@@ -1,4 +1,4 @@
-import { type Hex, numberToHex } from 'viem'
+import { type Hex, numberToHex } from '@tevm/utils'
 import { describe, it } from 'vitest'
 import { assertMethodNotCached } from '../snapshot-utils.js'
 import { client } from '../vitest.setup.js'

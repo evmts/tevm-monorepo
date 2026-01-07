@@ -1,4 +1,4 @@
-import type { Address } from 'viem'
+import type { Address } from '@tevm/utils'
 import type { ContainsAddress } from '../../common/types.js'
 
 /**

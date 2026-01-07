@@ -1,4 +1,4 @@
-import type { EIP1193RequestFn, Transport } from 'viem'
+import type { EIP1193RequestFn } from '@tevm/utils'
 import { createTestSnapshotClient } from './createTestSnapshotClient.js'
 import type { TestSnapshotTransport, TestSnapshotTransportOptions } from './types.js'
 
@@ -11,10 +11,10 @@ import type { TestSnapshotTransport, TestSnapshotTransportOptions } from './type
  * @example
  * ```typescript
  * import { createTestSnapshotTransport } from '@tevm/test-node'
- * import { http } from 'viem'
+ * import { nativeHttp } from '@tevm/utils'
  *
  * const transport = createTestSnapshotTransport({
- *   transport: http('https://mainnet.optimism.io')()
+ *   transport: nativeHttp('https://mainnet.optimism.io')()
  * })
  *
  * // Use the transport in your tests
@@ -34,7 +34,7 @@ export const createTestSnapshotTransport = <
 ): TestSnapshotTransport<TEip1193RequestFn> => {
 	const client = createTestSnapshotClient({
 		fork: {
-			transport: options.transport as Transport | { request: EIP1193RequestFn },
+			transport: options.transport as any,
 		},
 		test: options.test,
 	})

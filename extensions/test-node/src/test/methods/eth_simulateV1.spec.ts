@@ -1,4 +1,4 @@
-import { type EIP1193RequestFn, type EIP1474Methods } from 'viem'
+import { type EIP1193RequestFn, type EIP1474Methods } from '@tevm/utils'
 import { describe, it } from 'vitest'
 import { BLOCK_NUMBER } from '../constants.js'
 import { assertMethodCached, assertMethodNotCached } from '../snapshot-utils.js'

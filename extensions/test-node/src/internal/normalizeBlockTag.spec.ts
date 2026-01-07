@@ -1,4 +1,4 @@
-import type { BlockTag, Hex, RpcBlockIdentifier } from 'viem'
+import type { BlockTag, Hex, RpcBlockIdentifier } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { normalizeBlockTag } from './normalizeBlockTag.js'
 

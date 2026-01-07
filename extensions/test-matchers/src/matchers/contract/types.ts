@@ -1,4 +1,4 @@
-import type { AbiFunction, Hex } from 'viem'
+import type { AbiFunction, Hex } from '@tevm/utils'
 
 export interface ToCallContractFunctionState {
 	abiFunction: AbiFunction

@@ -1,4 +1,4 @@
-import type { Client } from 'viem'
+import type { Client } from '@tevm/utils'
 import type { ContainsTransactionAny } from '../../common/types.js'
 import { handleTransaction } from './handleTransaction.js'
 
