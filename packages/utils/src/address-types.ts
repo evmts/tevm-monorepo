@@ -19,3 +19,26 @@
  * ```
  */
 export type Address = `0x${string}`
+
+/**
+ * Options for the isAddress function.
+ * Compatible with viem's IsAddressOptions type.
+ *
+ * @example
+ * ```typescript
+ * import { isAddress, type IsAddressOptions } from '@tevm/utils'
+ *
+ * // Strict mode (default) - validates checksum
+ * isAddress('0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed', { strict: true })
+ *
+ * // Non-strict mode - only validates format
+ * isAddress('0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed', { strict: false })
+ * ```
+ */
+export type IsAddressOptions = {
+	/**
+	 * Enables strict mode. Whether or not to compare the address against its checksum.
+	 * @default true
+	 */
+	strict?: boolean | undefined
+}

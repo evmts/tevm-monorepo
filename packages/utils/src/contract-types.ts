@@ -806,3 +806,174 @@ export type CreateEventFilterParameters<
 			events?: undefined
 			strict?: undefined
 		})
+
+// ========================================================================
+// Error Types - Native implementations replacing viem error types
+// ========================================================================
+
+import type {
+	ExtractAbiError,
+	ExtractAbiErrorNames,
+} from 'abitype'
+
+/**
+ * Extracts error names from an ABI.
+ *
+ * This is a native replacement for viem's ContractErrorName type.
+ * It extracts all error names from an ABI.
+ *
+ * @template TAbi - The contract ABI type
+ *
+ * @example
+ * ```typescript
+ * import { ContractErrorName } from '@tevm/utils'
+ *
+ * const abi = [
+ *   { type: 'error', name: 'InsufficientBalance', inputs: [] },
+ *   { type: 'error', name: 'Unauthorized', inputs: [] },
+ * ] as const
+ *
+ * type ErrorNames = ContractErrorName<typeof abi> // 'InsufficientBalance' | 'Unauthorized'
+ * ```
+ */
+export type ContractErrorName<TAbi extends Abi | readonly unknown[] = Abi> =
+	ExtractAbiErrorNames<TAbi extends Abi ? TAbi : Abi> extends infer TErrorName extends string
+		? [TErrorName] extends [never]
+			? string
+			: TErrorName
+		: string
+
+/**
+ * Extracts the argument types for a contract error.
+ *
+ * This is a native replacement for viem's ContractErrorArgs type.
+ * It extracts the input parameter types for a specific error from an ABI.
+ *
+ * @template TAbi - The contract ABI type
+ * @template TErrorName - The error name to extract args for
+ *
+ * @example
+ * ```typescript
+ * import { ContractErrorArgs } from '@tevm/utils'
+ *
+ * const abi = [
+ *   {
+ *     type: 'error',
+ *     name: 'InsufficientBalance',
+ *     inputs: [
+ *       { name: 'balance', type: 'uint256' },
+ *       { name: 'required', type: 'uint256' }
+ *     ]
+ *   }
+ * ] as const
+ *
+ * type ErrorArgs = ContractErrorArgs<typeof abi, 'InsufficientBalance'>
+ * // Result: readonly [bigint, bigint]
+ * ```
+ */
+export type ContractErrorArgs<
+	TAbi extends Abi | readonly unknown[] = Abi,
+	TErrorName extends ContractErrorName<TAbi> = ContractErrorName<TAbi>
+> = AbiParametersToPrimitiveTypes<
+	ExtractAbiError<TAbi extends Abi ? TAbi : Abi, TErrorName>['inputs']
+> extends infer TArgs
+	? [TArgs] extends [never]
+		? readonly unknown[]
+		: TArgs
+	: readonly unknown[]
+
+// Re-export ExtractAbiError from abitype for convenience
+export type { ExtractAbiError } from 'abitype'
+
+// ========================================================================
+// DecodeErrorResult Types - Native implementation replacing viem type
+// ========================================================================
+
+/**
+ * Represents any item from an ABI (function, event, error, constructor, fallback, receive).
+ * This is equivalent to `Abi[number]` in viem.
+ * @internal
+ */
+type AbiItem = Abi[number]
+
+/**
+ * Helper type: Checks if a type is narrowable (specific) vs. wide.
+ * Returns true if TAbi is a specific ABI type, false if it's just `Abi`.
+ * @internal
+ */
+type IsNarrowable<T, TBase> = [T] extends [never]
+	? false
+	: [TBase] extends [T]
+		? false
+		: true
+
+/**
+ * Return type for decoding error results from a reverted contract call.
+ *
+ * This is a native replacement for viem's `DecodeErrorResultReturnType` type.
+ * It provides the return type when decoding the error output of a reverted contract call.
+ *
+ * When the ABI is narrow (specific), this returns a union of possible error structures.
+ * When the ABI is wide (generic `Abi`), this returns a generic error structure.
+ *
+ * @template TAbi - The contract ABI type
+ * @template TErrorName - The error name(s) to include (defaults to all error names in the ABI)
+ *
+ * @example
+ * ```typescript
+ * import { DecodeErrorResultReturnType } from '@tevm/utils'
+ *
+ * const abi = [
+ *   {
+ *     type: 'error',
+ *     name: 'InsufficientBalance',
+ *     inputs: [
+ *       { name: 'balance', type: 'uint256' },
+ *       { name: 'required', type: 'uint256' }
+ *     ]
+ *   },
+ *   {
+ *     type: 'error',
+ *     name: 'Unauthorized',
+ *     inputs: []
+ *   }
+ * ] as const
+ *
+ * type ErrorResult = DecodeErrorResultReturnType<typeof abi>
+ * // Result:
+ * // | { abiItem: ExtractAbiError<typeof abi, 'InsufficientBalance'>; args: readonly [bigint, bigint]; errorName: 'InsufficientBalance' }
+ * // | { abiItem: ExtractAbiError<typeof abi, 'Unauthorized'>; args: readonly []; errorName: 'Unauthorized' }
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // With generic Abi
+ * import { Abi } from 'abitype'
+ * import { DecodeErrorResultReturnType } from '@tevm/utils'
+ *
+ * type GenericResult = DecodeErrorResultReturnType<Abi>
+ * // Result: { abiItem: AbiItem; args: readonly unknown[] | undefined; errorName: string }
+ * ```
+ */
+export type DecodeErrorResultReturnType<
+	TAbi extends Abi | readonly unknown[] = Abi,
+	TErrorName extends ContractErrorName<TAbi> = ContractErrorName<TAbi>
+> = IsNarrowable<TAbi, Abi> extends true
+	? UnionEvaluate<{
+			[K in TErrorName]: {
+				/** The ABI item for the error */
+				abiItem: TAbi extends Abi ? Abi extends TAbi ? AbiItem : ExtractAbiError<TAbi, K> : AbiItem
+				/** The decoded error arguments */
+				args: ContractErrorArgs<TAbi, K>
+				/** The error name */
+				errorName: K
+			}
+		}[TErrorName]>
+	: {
+			/** The ABI item for the error */
+			abiItem: AbiItem
+			/** The decoded error arguments */
+			args: readonly unknown[] | undefined
+			/** The error name */
+			errorName: string
+		}

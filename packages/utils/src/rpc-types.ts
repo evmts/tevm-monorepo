@@ -319,6 +319,12 @@ export type RpcTransactionReceipt = {
 }
 
 /**
+ * Alias for RpcTransactionReceipt for viem compatibility.
+ * This type is compatible with viem's TransactionReceipt type.
+ */
+export type TransactionReceipt = RpcTransactionReceipt
+
+/**
  * JSON-RPC transaction request object.
  */
 export type RpcTransactionRequest = {

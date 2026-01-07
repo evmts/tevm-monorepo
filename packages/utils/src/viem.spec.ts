@@ -15,6 +15,7 @@ import {
 	formatLog,
 	fromBytes,
 	fromHex,
+	fromRlp,
 	getAddress,
 	hexToBigInt,
 	hexToBool,
@@ -35,6 +36,7 @@ import {
 	toEventSelector,
 	toFunctionSelector,
 	toHex,
+	trim,
 } from './viem.js'
 
 describe('viem re-exports', () => {
@@ -1849,6 +1851,234 @@ describe('native implementations (migrated from viem)', () => {
 				expect(result.startsWith('0x02')).toBe(true)
 				// The serialized result should contain the padded data
 				expect(result.length).toBeGreaterThan(50)
+			})
+		})
+	})
+
+	describe('trim', () => {
+		describe('hex string - left trim (default)', () => {
+			it('should trim leading zero bytes', () => {
+				expect(trim('0x00001234')).toBe('0x1234')
+				expect(trim('0x0000001234')).toBe('0x1234')
+			})
+
+			it('should preserve at least one byte if all zeros', () => {
+				expect(trim('0x0000')).toBe('0x00')
+				expect(trim('0x00000000')).toBe('0x00')
+			})
+
+			it('should not trim non-zero bytes', () => {
+				expect(trim('0x1234')).toBe('0x1234')
+				expect(trim('0xabcd')).toBe('0xabcd')
+			})
+
+			it('should handle single byte', () => {
+				expect(trim('0x00')).toBe('0x00')
+				expect(trim('0x01')).toBe('0x01')
+				expect(trim('0xff')).toBe('0xff')
+			})
+		})
+
+		describe('hex string - right trim', () => {
+			it('should trim trailing zero bytes', () => {
+				expect(trim('0x12340000', { dir: 'right' })).toBe('0x1234')
+				expect(trim('0x12340000000000', { dir: 'right' })).toBe('0x1234')
+			})
+
+			it('should preserve at least one byte if all zeros', () => {
+				expect(trim('0x0000', { dir: 'right' })).toBe('0x00')
+				expect(trim('0x00000000', { dir: 'right' })).toBe('0x00')
+			})
+
+			it('should not trim non-zero bytes', () => {
+				expect(trim('0x1234', { dir: 'right' })).toBe('0x1234')
+				expect(trim('0xabcd', { dir: 'right' })).toBe('0xabcd')
+			})
+		})
+
+		describe('Uint8Array - left trim (default)', () => {
+			it('should trim leading zero bytes', () => {
+				const input = new Uint8Array([0, 0, 0x12, 0x34])
+				const result = trim(input)
+				expect(result).toEqual(new Uint8Array([0x12, 0x34]))
+			})
+
+			it('should preserve at least one byte if all zeros', () => {
+				const input = new Uint8Array([0, 0, 0, 0])
+				const result = trim(input)
+				expect(result).toEqual(new Uint8Array([0]))
+			})
+
+			it('should not trim non-zero leading bytes', () => {
+				const input = new Uint8Array([0x12, 0x34])
+				const result = trim(input)
+				expect(result).toEqual(new Uint8Array([0x12, 0x34]))
+			})
+		})
+
+		describe('Uint8Array - right trim', () => {
+			it('should trim trailing zero bytes', () => {
+				const input = new Uint8Array([0x12, 0x34, 0, 0])
+				const result = trim(input, { dir: 'right' })
+				expect(result).toEqual(new Uint8Array([0x12, 0x34]))
+			})
+
+			it('should preserve at least one byte if all zeros', () => {
+				const input = new Uint8Array([0, 0, 0, 0])
+				const result = trim(input, { dir: 'right' })
+				expect(result).toEqual(new Uint8Array([0]))
+			})
+
+			it('should not trim non-zero trailing bytes', () => {
+				const input = new Uint8Array([0x12, 0x34])
+				const result = trim(input, { dir: 'right' })
+				expect(result).toEqual(new Uint8Array([0x12, 0x34]))
+			})
+		})
+	})
+
+	describe('fromRlp', () => {
+		describe('hex output (default)', () => {
+			it('should decode a single byte value', () => {
+				// RLP encoding of 0x7f is just 0x7f (single byte < 0x80)
+				const result = fromRlp('0x7f')
+				expect(result).toBe('0x7f')
+			})
+
+			it('should decode a short string', () => {
+				// 0x83 = 0x80 + 3 (3 byte string), followed by bytes
+				const result = fromRlp('0x83abcdef')
+				expect(result).toBe('0xabcdef')
+			})
+
+			it('should decode empty string', () => {
+				// 0x80 = empty string
+				const result = fromRlp('0x80')
+				expect(result).toBe('0x')
+			})
+
+			it('should decode a short list', () => {
+				// 0xc2 = 0xc0 + 2 (2 byte payload), containing [0x01, 0x02]
+				// Each item is a single byte: 0x01 and 0x02
+				const result = fromRlp('0xc20102')
+				expect(result).toEqual(['0x01', '0x02'])
+			})
+
+			it('should decode nested list', () => {
+				// Nested list: [[0x01], 0x02]
+				// Inner list: 0xc1 + 0x01 = 0xc101
+				// Outer list: 0xc3 + inner + 0x02 = 0xc3c10102
+				const result = fromRlp('0xc3c10102')
+				expect(result).toEqual([['0x01'], '0x02'])
+			})
+
+			it('should decode empty list', () => {
+				// 0xc0 = empty list
+				const result = fromRlp('0xc0')
+				expect(result).toEqual([])
+			})
+		})
+
+		describe('bytes output', () => {
+			it('should decode a single byte value as bytes', () => {
+				const result = fromRlp('0x7f', 'bytes')
+				expect(result).toEqual(new Uint8Array([0x7f]))
+			})
+
+			it('should decode a short string as bytes', () => {
+				const result = fromRlp('0x83abcdef', 'bytes')
+				expect(result).toEqual(new Uint8Array([0xab, 0xcd, 0xef]))
+			})
+
+			it('should decode a list as bytes arrays', () => {
+				const result = fromRlp('0xc20102', 'bytes')
+				expect(result).toEqual([new Uint8Array([0x01]), new Uint8Array([0x02])])
+			})
+		})
+
+		describe('Uint8Array input', () => {
+			it('should accept Uint8Array input', () => {
+				const input = new Uint8Array([0x83, 0xab, 0xcd, 0xef])
+				const result = fromRlp(input)
+				expect(result).toBe('0xabcdef')
+			})
+
+			it('should accept Uint8Array and return bytes', () => {
+				const input = new Uint8Array([0x83, 0xab, 0xcd, 0xef])
+				const result = fromRlp(input, 'bytes')
+				expect(result).toEqual(new Uint8Array([0xab, 0xcd, 0xef]))
+			})
+		})
+
+		describe('error cases', () => {
+			it('should throw for empty input', () => {
+				expect(() => fromRlp('0x')).toThrow('RLP: Cannot decode empty input')
+			})
+
+			it('should throw for extra data after decoded value', () => {
+				// 0x7f is complete single byte, extra 0x00 is invalid
+				expect(() => fromRlp('0x7f00')).toThrow('RLP: Extra data after decoded value')
+			})
+
+			it('should throw when input too short for short string content', () => {
+				// 0x85 = short string with 5 bytes of content (0x85 - 0x80 = 5), but we only provide 3
+				expect(() => fromRlp('0x85010203')).toThrow('RLP: Input too short for string')
+			})
+
+			it('should throw when decoding list with inner item past end', () => {
+				// 0xc2 = list with 2 bytes of content
+				// 0x01 = single byte value (consumed 1 byte)
+				// Now expects second byte but none left - triggers "RLP: Input too short"
+				// But we declare 2 bytes and provide only 1
+				expect(() => fromRlp('0xc201')).toThrow('RLP: Input too short')
+			})
+
+			it('should throw when input too short for short list content', () => {
+				// 0xc5 = short list with 5 bytes of content, but we only provide 3
+				expect(() => fromRlp('0xc5010203')).toThrow('RLP: Input too short for list')
+			})
+
+			it('should throw when input too short for long string length header', () => {
+				// 0xb8 = long string needing 1 byte for length, but we don't provide it
+				expect(() => fromRlp('0xb8')).toThrow('RLP: Input too short for string length')
+			})
+
+			it('should throw when input too short for long string content', () => {
+				// 0xb8 = long string with 1 byte length, 0x40 = 64 bytes expected, but only provide 5
+				expect(() => fromRlp('0xb8400102030405')).toThrow('RLP: Input too short for string')
+			})
+
+			it('should throw when input too short for long list length header', () => {
+				// 0xf8 = long list, needs 1 byte for length, but we don't provide it
+				expect(() => fromRlp('0xf8')).toThrow('RLP: Input too short for list length')
+			})
+
+			it('should throw when input too short for long list content', () => {
+				// 0xf8 + 0x40 = long list with 64 bytes, but we only provide a few bytes
+				// The length byte says 64 bytes should follow, but input ends early
+				expect(() => fromRlp('0xf8400102030405')).toThrow('RLP: Input too short for list')
+			})
+		})
+
+		describe('long strings and lists', () => {
+			it('should decode a long string (56+ bytes)', () => {
+				// Create a 56-byte string: 0xb8 + 0x38 (56 in hex) + 56 bytes
+				const longData = 'ab'.repeat(56) // 56 bytes of 0xab
+				const encoded = '0xb838' + longData
+				const result = fromRlp(encoded)
+				expect(result).toBe('0x' + longData)
+			})
+
+			it('should decode a long list', () => {
+				// Long list with 56+ bytes of content
+				// List with 56 single-byte items (each is 0x00-0x7f range)
+				const items = Array(56).fill(0x01).map((_, i) => i % 0x7f)
+				const itemBytes = items.map(x => x.toString(16).padStart(2, '0')).join('')
+				// 0xf8 + 0x38 (56 in hex) + items
+				const encoded = '0xf838' + itemBytes
+				const result = fromRlp(encoded)
+				expect(Array.isArray(result)).toBe(true)
+				expect((result as string[]).length).toBe(56)
 			})
 		})
 	})

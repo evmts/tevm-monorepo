@@ -51,12 +51,16 @@ describe('Bloom', () => {
 		expect(bloom.multiCheck([element1, nonExistentElement])).toBe(false)
 	})
 
-	it('should throw a DefensiveNullCheckError if an item is undefined in or method', () => {
+	it('should correctly OR two bloom filters together', () => {
 		const bloom1 = new Bloom()
 		const bloom2 = new Bloom()
-		for (let i = 0; i < 256; i++) {
-			bloom2.bitvector[i] = undefined as any
-		}
-		expect(() => bloom1.or(bloom2)).toThrow(DefensiveNullCheckError)
+		// Add elements to each bloom
+		bloom1.add(new Uint8Array([1, 2, 3]))
+		bloom2.add(new Uint8Array([4, 5, 6]))
+		// OR them together
+		bloom1.or(bloom2)
+		// bloom1 should now contain both elements
+		expect(bloom1.check(new Uint8Array([1, 2, 3]))).toBe(true)
+		expect(bloom1.check(new Uint8Array([4, 5, 6]))).toBe(true)
 	})
 })

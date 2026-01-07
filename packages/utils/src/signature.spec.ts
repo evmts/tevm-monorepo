@@ -607,5 +607,183 @@ describe('signature', () => {
 			expect(signature).toBeDefined()
 			expect(signature.r).toBeDefined()
 		})
+
+		it('should handle address values that are not strings (pass-through)', () => {
+			// Test that non-string address values are passed through unchanged
+			// This tests the else branch at line 240
+			const addressObject = {
+				bytes: new Uint8Array(20).fill(0x12),
+			}
+
+			const typedDataWithAddressObject = {
+				domain: {
+					name: 'Test',
+					version: '1',
+				},
+				types: {
+					AddressData: [
+						{ name: 'owner', type: 'address' },
+					],
+				},
+				primaryType: 'AddressData' as const,
+				message: {
+					owner: addressObject as any,
+				},
+			}
+
+			const signature = signTypedData({
+				privateKey: testVectors.privateKey,
+				typedData: typedDataWithAddressObject,
+			})
+
+			expect(signature).toBeDefined()
+			expect(signature.r).toBeDefined()
+		})
+
+		it('should handle bytes values as Uint8Array (pass-through)', () => {
+			// Test that Uint8Array bytes values are passed through unchanged
+			// This tests the else branch at line 248
+			const bytesValue = new Uint8Array([0xde, 0xad, 0xbe, 0xef])
+
+			const typedDataWithBytesArray = {
+				domain: {
+					name: 'Test',
+					version: '1',
+				},
+				types: {
+					BytesData: [
+						{ name: 'data', type: 'bytes' },
+					],
+				},
+				primaryType: 'BytesData' as const,
+				message: {
+					data: bytesValue as any,
+				},
+			}
+
+			const signature = signTypedData({
+				privateKey: testVectors.privateKey,
+				typedData: typedDataWithBytesArray,
+			})
+
+			expect(signature).toBeDefined()
+			expect(signature.r).toBeDefined()
+		})
+
+		it('should handle bytes32 values as Uint8Array (pass-through)', () => {
+			// Test that Uint8Array bytes32 values are passed through unchanged
+			const bytes32Value = new Uint8Array(32).fill(0xab)
+
+			const typedDataWithBytes32Array = {
+				domain: {
+					name: 'Test',
+					version: '1',
+				},
+				types: {
+					HashData: [
+						{ name: 'hash', type: 'bytes32' },
+					],
+				},
+				primaryType: 'HashData' as const,
+				message: {
+					hash: bytes32Value as any,
+				},
+			}
+
+			const signature = signTypedData({
+				privateKey: testVectors.privateKey,
+				typedData: typedDataWithBytes32Array,
+			})
+
+			expect(signature).toBeDefined()
+			expect(signature.r).toBeDefined()
+		})
+
+		it('should handle dynamic array types (e.g., uint256[])', () => {
+			// Test dynamic array handling at lines 224-226
+			const typedDataWithArray = {
+				domain: {
+					name: 'Test',
+					version: '1',
+				},
+				types: {
+					ArrayData: [
+						{ name: 'values', type: 'uint256[]' },
+					],
+				},
+				primaryType: 'ArrayData' as const,
+				message: {
+					values: [1n, 2n, 3n],
+				},
+			}
+
+			const signature = signTypedData({
+				privateKey: testVectors.privateKey,
+				typedData: typedDataWithArray,
+			})
+
+			expect(signature).toBeDefined()
+			expect(signature.r).toBeDefined()
+		})
+
+		// NOTE: Fixed-size array types (e.g., uint256[2]) are not currently supported by voltaire
+		// The code path at lines 231-233 handles them, but voltaire throws an error
+		// Skip this test until voltaire adds support
+		it.skip('should handle fixed-size array types (e.g., uint256[2])', () => {
+			// Test fixed-size array handling at lines 231-233
+			const typedDataWithFixedArray = {
+				domain: {
+					name: 'Test',
+					version: '1',
+				},
+				types: {
+					FixedArrayData: [
+						{ name: 'values', type: 'uint256[2]' },
+					],
+				},
+				primaryType: 'FixedArrayData' as const,
+				message: {
+					values: [100n, 200n],
+				},
+			}
+
+			const signature = signTypedData({
+				privateKey: testVectors.privateKey,
+				typedData: typedDataWithFixedArray,
+			})
+
+			expect(signature).toBeDefined()
+			expect(signature.r).toBeDefined()
+		})
+
+		it('should handle address array types', () => {
+			// Test address[] handling
+			const typedDataWithAddressArray = {
+				domain: {
+					name: 'Test',
+					version: '1',
+				},
+				types: {
+					AddressArray: [
+						{ name: 'addresses', type: 'address[]' },
+					],
+				},
+				primaryType: 'AddressArray' as const,
+				message: {
+					addresses: [
+						'0x1234567890123456789012345678901234567890',
+						'0xabcdefabcdefabcdefabcdefabcdefabcdefabcd',
+					],
+				},
+			}
+
+			const signature = signTypedData({
+				privateKey: testVectors.privateKey,
+				typedData: typedDataWithAddressArray,
+			})
+
+			expect(signature).toBeDefined()
+			expect(signature.r).toBeDefined()
+		})
 	})
 })

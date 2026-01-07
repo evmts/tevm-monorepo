@@ -1,10 +1,14 @@
 export type {
 	Abi,
 	AbiConstructor,
+	AbiError,
 	AbiEvent,
+	AbiEventParameter,
 	AbiFunction,
 	AbiItemType,
+	AbiParameter,
 	AbiParametersToPrimitiveTypes,
+	AbiParameterToPrimitiveType,
 	AbiStateMutability,
 	ExtractAbiEvent,
 	ExtractAbiEventNames,
@@ -15,7 +19,7 @@ export type {
 	ParseAbi,
 } from 'abitype'
 // Native Address type (migrated from abitype)
-export type { Address } from './address-types.js'
+export type { Address, IsAddressOptions } from './address-types.js'
 // Native block types (migrated from viem)
 export type { BlockNumber, BlockTag } from './block-types.js'
 // Native Hex type (migrated from viem)
@@ -24,13 +28,13 @@ export type { Hex } from './hex-types.js'
 export type { ContractFunctionName, ContractFunctionArgs, ContractFunctionReturnType, ContractConstructorArgs, EncodeFunctionDataParameters, EncodeDeployDataParameters, DecodeFunctionResultReturnType } from './contract-types.js'
 // Native event types (migrated from viem)
 export type { GetEventArgs, CreateEventFilterParameters } from './contract-types.js'
-// Remaining viem types (complex types with methods/deep nesting)
+// Native error types (migrated from viem)
+export type { ContractErrorName, ContractErrorArgs, ExtractAbiError, DecodeErrorResultReturnType } from './contract-types.js'
+// Native account types - compatible with viem's Account/HDAccount types
 export type {
 	Account,
 	HDAccount,
-} from 'viem'
-// Native account types (can be used instead of viem's Account/HDAccount)
-export type {
+	JsonRpcAccount,
 	LocalAccount,
 	NativeAccount,
 	NativeHDAccount,
@@ -39,4 +43,5 @@ export type {
 	SignMessageParameters,
 	SignParameters,
 	SignTypedDataParameters,
+	SmartAccount,
 } from './account-types.js'

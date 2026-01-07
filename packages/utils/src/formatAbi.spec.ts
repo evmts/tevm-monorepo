@@ -229,4 +229,62 @@ describe('formatAbi', () => {
 		const result = formatAbi(abi)
 		expect(result).toEqual(['function transfer(address, uint256) returns (bool)'])
 	})
+
+	it('should handle unknown ABI item types by returning the type', () => {
+		// Test with an unknown type that doesn't match any case
+		const abi = [
+			{
+				type: 'unknownType' as any,
+				name: 'something',
+			},
+		]
+		const result = formatAbi(abi)
+		expect(result).toEqual(['unknownType'])
+	})
+
+	it('should handle function with undefined inputs', () => {
+		const abi = [
+			{
+				type: 'function' as const,
+				name: 'noInputs',
+				outputs: [{ type: 'bool' }],
+				stateMutability: 'view' as const,
+			} as any,
+		]
+		const result = formatAbi(abi)
+		expect(result).toEqual(['function noInputs() view returns (bool)'])
+	})
+
+	it('should handle event with undefined inputs', () => {
+		const abi = [
+			{
+				type: 'event' as const,
+				name: 'SimpleEvent',
+			} as any,
+		]
+		const result = formatAbi(abi)
+		expect(result).toEqual(['event SimpleEvent()'])
+	})
+
+	it('should handle error with undefined inputs', () => {
+		const abi = [
+			{
+				type: 'error' as const,
+				name: 'SimpleError',
+			} as any,
+		]
+		const result = formatAbi(abi)
+		expect(result).toEqual(['error SimpleError()'])
+	})
+
+	it('should handle constructor with undefined inputs', () => {
+		const abi = [
+			{
+				type: 'constructor' as const,
+				stateMutability: 'nonpayable' as const,
+			} as any,
+		]
+		const result = formatAbi(abi)
+		expect(result).toEqual(['constructor()'])
+	})
 })

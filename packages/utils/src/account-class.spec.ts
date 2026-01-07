@@ -216,6 +216,46 @@ describe('createAccount', () => {
 	})
 })
 
+describe('Account setters', () => {
+	it('should allow setting nonce', () => {
+		const account = new Account()
+		expect(account.nonce).toBe(0n)
+
+		account.nonce = 5n
+		expect(account.nonce).toBe(5n)
+
+		account.nonce = 100n
+		expect(account.nonce).toBe(100n)
+	})
+
+	it('should allow setting balance', () => {
+		const account = new Account()
+		expect(account.balance).toBe(0n)
+
+		account.balance = 1000000000000000000n
+		expect(account.balance).toBe(1000000000000000000n)
+
+		account.balance = 0n
+		expect(account.balance).toBe(0n)
+	})
+
+	it('should update isEmpty after setting nonce', () => {
+		const account = new Account()
+		expect(account.isEmpty()).toBe(true)
+
+		account.nonce = 1n
+		expect(account.isEmpty()).toBe(false)
+	})
+
+	it('should update isEmpty after setting balance', () => {
+		const account = new Account()
+		expect(account.isEmpty()).toBe(true)
+
+		account.balance = 1n
+		expect(account.isEmpty()).toBe(false)
+	})
+})
+
 describe('compatibility with ethereumjs Account', () => {
 	it('should produce correct serialization for empty account', () => {
 		// Expected RLP encoding for empty account from ethereumjs

@@ -83,3 +83,59 @@ export type NativeHDAccount = LocalAccount<'hd'> & {
  * Use this when you need to accept any local account.
  */
 export type NativeAccount = NativePrivateKeyAccount | NativeMnemonicAccount | NativeHDAccount
+
+/**
+ * JSON-RPC account - represents an account managed by an external provider.
+ * Compatible with viem's JsonRpcAccount type.
+ */
+export type JsonRpcAccount = {
+	/** The checksummed Ethereum address */
+	address: Address
+	/** Account type - always 'json-rpc' for externally managed accounts */
+	type: 'json-rpc'
+}
+
+/**
+ * Smart account - represents a smart contract wallet (ERC-4337).
+ * Compatible with viem's SmartAccount type.
+ */
+export type SmartAccount<TSource extends string = string> = {
+	/** The checksummed Ethereum address */
+	address: Address
+	/** Account type - always 'smart' for smart contract wallets */
+	type: 'smart'
+	/** Source of the smart account (e.g., 'safe', 'kernel', 'custom') */
+	source: TSource
+}
+
+/**
+ * Base account type - union of all account types.
+ * Compatible with viem's Account type.
+ *
+ * This type represents any Ethereum account that can sign transactions:
+ * - LocalAccount: A local account with private key access (privateKey, mnemonic, hd)
+ * - JsonRpcAccount: An account managed by an external JSON-RPC provider
+ * - SmartAccount: A smart contract wallet (ERC-4337)
+ *
+ * @example
+ * ```typescript
+ * import { type Account } from '@tevm/utils'
+ *
+ * function sendTransaction(account: Account) {
+ *   if (account.type === 'local') {
+ *     // Has signing methods
+ *     return account.signTransaction(tx)
+ *   } else if (account.type === 'json-rpc') {
+ *     // Managed by provider
+ *     return provider.request({ method: 'eth_sendTransaction', params: [tx] })
+ *   }
+ * }
+ * ```
+ */
+export type Account = LocalAccount | JsonRpcAccount | SmartAccount
+
+/**
+ * HD (Hierarchical Deterministic) account - compatible with viem's HDAccount.
+ * This is an alias for NativeHDAccount for compatibility.
+ */
+export type HDAccount = NativeHDAccount

@@ -6,7 +6,7 @@
  */
 
 import { equalsBytes } from './equalsBytes.js'
-import { toRlp } from './viem.js'
+import * as Rlp from '@tevm/voltaire/Rlp'
 import { KECCAK256_RLP_BYTES, KECCAK256_NULL_BYTES, BIGINT_0, BIGINT_1 } from './constants.js'
 
 /**
@@ -220,7 +220,7 @@ export class Account {
 	 */
 	serialize() {
 		const raw = this.raw()
-		return toRlp(raw, 'bytes')
+		return Rlp.encode(raw)
 	}
 
 	/**
@@ -235,7 +235,7 @@ export class Account {
 			this._codeHash,
 			bigIntToBytes(BigInt(this._codeSize !== undefined ? this._codeSize : 0))
 		]
-		return toRlp(raw, 'bytes')
+		return Rlp.encode(raw)
 	}
 
 	/**

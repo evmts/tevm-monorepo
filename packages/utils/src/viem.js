@@ -601,7 +601,7 @@ const addressPattern = /^0x[0-9a-fA-F]{40}$/
  * isAddress(null) // false
  * ```
  */
-export function isAddress(address, _opts = undefined) {
+export function isAddress(address, _opts = /** @type {import('./address-types.js').IsAddressOptions | undefined} */ (undefined)) {
 	if (!address) {
 		return false
 	}
@@ -916,6 +916,29 @@ export function getAddress(address) {
 	}
 
 	return /** @type {import('./address-types.js').Address} */ (checksummed)
+}
+
+/**
+ * Check if two Ethereum addresses are equal (case-insensitive comparison).
+ * Native implementation that matches viem's isAddressEqual API.
+ * @param {import('./address-types.js').Address} addressA - The first address
+ * @param {import('./address-types.js').Address} addressB - The second address
+ * @returns {boolean} True if the addresses are equal
+ * @example
+ * ```javascript
+ * import { isAddressEqual } from '@tevm/utils'
+ * isAddressEqual('0xd8da6bf26964af9d7eed9e03e53415d37aa96045', '0xD8DA6BF26964AF9D7EED9E03E53415D37AA96045') // true
+ * isAddressEqual('0xd8da6bf26964af9d7eed9e03e53415d37aa96045', '0x0000000000000000000000000000000000000000') // false
+ * ```
+ */
+export function isAddressEqual(addressA, addressB) {
+	if (!isAddress(addressA)) {
+		throw new Error(`Invalid address: ${addressA}`)
+	}
+	if (!isAddress(addressB)) {
+		throw new Error(`Invalid address: ${addressB}`)
+	}
+	return addressA.toLowerCase() === addressB.toLowerCase()
 }
 
 /**
@@ -1594,6 +1617,78 @@ export function concatHex(hexValues) {
 }
 
 /**
+ * Trims leading zeros from a hex string or Uint8Array.
+ * Native implementation that matches viem's trim API.
+ * @param {import('./hex-types.js').Hex | Uint8Array} value - The hex string or bytes to trim
+ * @param {Object} [opts] - Options
+ * @param {'left' | 'right'} [opts.dir='left'] - Direction to trim (default: 'left')
+ * @returns {import('./hex-types.js').Hex | Uint8Array} The trimmed value (same type as input)
+ * @example
+ * ```javascript
+ * import { trim } from '@tevm/utils'
+ * trim('0x00000000000000000000000000000000000000000000000000000000000001a4') // '0x01a4'
+ * trim('0x00000000000000000000000000000000') // '0x00' (at least one byte preserved)
+ * trim('0x1234') // '0x1234' (no leading zeros to trim)
+ * ```
+ */
+export function trim(value, opts) {
+	const dir = opts?.dir ?? 'left'
+
+	if (typeof value === 'string') {
+		// Handle hex string
+		const hexValue = value.slice(2) // Remove '0x' prefix
+		let trimmed = ''
+
+		if (dir === 'left') {
+			// Trim leading zeros (in pairs)
+			let foundNonZero = false
+			for (let i = 0; i < hexValue.length; i += 2) {
+				const byte = hexValue.slice(i, i + 2)
+				if (byte !== '00' || foundNonZero) {
+					foundNonZero = true
+					trimmed += byte
+				}
+			}
+			// If all zeros, return at least one byte
+			if (trimmed === '') {
+				trimmed = '00'
+			}
+		} else {
+			// Trim trailing zeros (in pairs)
+			let foundNonZero = false
+			for (let i = hexValue.length; i > 0; i -= 2) {
+				const byte = hexValue.slice(i - 2, i)
+				if (byte !== '00' || foundNonZero) {
+					foundNonZero = true
+					trimmed = byte + trimmed
+				}
+			}
+			// If all zeros, return at least one byte
+			if (trimmed === '') {
+				trimmed = '00'
+			}
+		}
+
+		return /** @type {import('./hex-types.js').Hex} */ (`0x${trimmed}`)
+	} else {
+		// Handle Uint8Array
+		if (dir === 'left') {
+			let startIndex = 0
+			while (startIndex < value.length - 1 && value[startIndex] === 0) {
+				startIndex++
+			}
+			return value.slice(startIndex)
+		} else {
+			let endIndex = value.length
+			while (endIndex > 1 && value[endIndex - 1] === 0) {
+				endIndex--
+			}
+			return value.slice(0, endIndex)
+		}
+	}
+}
+
+/**
  * Encode a value for packed ABI encoding.
  * @param {string} type - The solidity type
  * @param {unknown} value - The value to encode
@@ -2155,6 +2250,7 @@ export {
  */
 export {
 	createPublicClient,
+	createWalletClient,
 	createTransport,
 	custom,
 	defineChain,

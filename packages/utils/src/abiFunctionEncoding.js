@@ -174,6 +174,11 @@ export function encodeFunctionResult({ abi, functionName, result }) {
 		throw new Error(`Function "${functionName}" not found in ABI`)
 	}
 
+	// Handle functions with no outputs (void functions)
+	if (!fn.outputs || fn.outputs.length === 0) {
+		return /** @type {import('./hex-types.js').Hex} */ ('0x')
+	}
+
 	// Wrap single value in array (viem behavior)
 	const values = fn.outputs.length === 1 ? [result] : result
 

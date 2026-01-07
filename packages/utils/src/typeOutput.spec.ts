@@ -140,6 +140,23 @@ describe('toType', () => {
 	})
 
 	describe('edge cases', () => {
+		it('should handle Address-like objects with .bytes property', () => {
+			// Test objects that have a .bytes property (like Address objects)
+			const addressLike = {
+				bytes: new Uint8Array([0x12, 0x34, 0x56, 0x78, 0x9a, 0xbc, 0xde, 0xf0, 0x12, 0x34, 0x56, 0x78, 0x9a, 0xbc, 0xde, 0xf0, 0x12, 0x34, 0x56, 0x78]),
+			}
+
+			// Should extract .bytes and convert
+			const resultUint8Array = toType(addressLike as any, TypeOutput.Uint8Array)
+			expect(resultUint8Array).toEqual(addressLike.bytes)
+
+			const resultHex = toType(addressLike as any, TypeOutput.PrefixedHexString)
+			expect(resultHex).toBe('0x123456789abcdef0123456789abcdef012345678')
+
+			const resultBigInt = toType(addressLike as any, TypeOutput.BigInt)
+			expect(resultBigInt).toBe(0x123456789abcdef0123456789abcdef012345678n)
+		})
+
 		it('should handle empty hex string', () => {
 			expect(toType('0x', TypeOutput.BigInt)).toBe(0n)
 			expect(toType('0x', TypeOutput.Number)).toBe(0)

@@ -1,6 +1,6 @@
-// Import Address directly to avoid pulling in native-only crypto modules
+// Import from voltaire directly to avoid pulling in native-only crypto modules
 import { Address } from '@tevm/voltaire/Address'
-import { hexToBytes } from './viem.js'
+import { Hex } from '@tevm/voltaire/Hex'
 
 /**
  * Get the address for a private key.
@@ -18,8 +18,8 @@ import { hexToBytes } from './viem.js'
  * ```
  */
 export function privateKeyToAddress(privateKey) {
-	// Convert hex string to bytes
-	const privateKeyBytes = hexToBytes(privateKey)
+	// Convert hex string to bytes using voltaire Hex.toBytes
+	const privateKeyBytes = Hex.toBytes(privateKey)
 
 	// Validate private key length (32 bytes)
 	if (privateKeyBytes.length !== 32) {

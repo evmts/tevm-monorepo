@@ -138,6 +138,43 @@ describe('abiFunctionEncoding', () => {
 	})
 
 	describe('encodeFunctionResult', () => {
+		it('should return 0x for void functions (no outputs)', () => {
+			const voidFunctionAbi = [
+				{
+					type: 'function' as const,
+					name: 'doSomething',
+					inputs: [],
+					outputs: [],
+					stateMutability: 'nonpayable' as const,
+				},
+			] as const
+
+			const data = encodeFunctionResult({
+				abi: voidFunctionAbi,
+				functionName: 'doSomething',
+				result: undefined as any,
+			})
+			expect(data).toBe('0x')
+		})
+
+		it('should return 0x for functions with undefined outputs', () => {
+			const noOutputsAbi = [
+				{
+					type: 'function' as const,
+					name: 'noOutputs',
+					inputs: [],
+					stateMutability: 'nonpayable' as const,
+				},
+			] as const
+
+			const data = encodeFunctionResult({
+				abi: noOutputsAbi,
+				functionName: 'noOutputs',
+				result: undefined as any,
+			})
+			expect(data).toBe('0x')
+		})
+
 		it('should encode single uint256 result', () => {
 			const data = encodeFunctionResult({
 				abi: balanceOfAbi,

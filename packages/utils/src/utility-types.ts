@@ -30,3 +30,33 @@
 export type Prettify<T> = {
 	[K in keyof T]: T[K]
 } & {}
+
+/**
+ * Makes all properties of an object type optional, including explicitly allowing undefined.
+ *
+ * This is a native replacement for viem's ExactPartial type.
+ * Unlike TypeScript's built-in Partial<T>, ExactPartial ensures that
+ * each property explicitly accepts undefined, making it more precise
+ * for optional object parameters.
+ *
+ * @template T - The type to make partial
+ *
+ * @example
+ * ```typescript
+ * import type { ExactPartial } from '@tevm/utils'
+ *
+ * type User = {
+ *   name: string
+ *   age: number
+ * }
+ *
+ * // All properties are optional and explicitly allow undefined
+ * type PartialUser = ExactPartial<User>
+ * // Equivalent to: { name?: string | undefined; age?: number | undefined }
+ *
+ * const user: PartialUser = { name: 'Alice' } // age is optional
+ * ```
+ */
+export type ExactPartial<T> = {
+	[K in keyof T]?: T[K] | undefined
+}

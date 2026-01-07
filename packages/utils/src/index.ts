@@ -53,6 +53,7 @@ export type {
 	ContractFunctionName,
 	ContractFunctionReturnType,
 	CreateEventFilterParameters,
+	DecodeErrorResultReturnType,
 	DecodeFunctionResultReturnType,
 	EncodeDeployDataParameters,
 	EncodeFunctionDataParameters,
@@ -259,6 +260,7 @@ export {
 	ContractFunctionRevertedError,
 	ContractFunctionZeroDataError,
 	createPublicClient,
+	createWalletClient,
 	createTransport,
 	custom,
 	defineChain,
@@ -281,6 +283,8 @@ export { nativeWebSocket } from './nativeWebSocket.js'
 export { nativeCustom } from './nativeCustom.js'
 // Native defineChain - provides viem-compatible defineChain() API without viem dependency
 export { nativeDefineChain } from './nativeDefineChain.js'
+// Native ERC-20 ABI constant - provides viem-compatible erc20Abi without viem dependency
+export { erc20Abi } from './erc20Abi.js'
 // Convert @tevm/chains format to viem-compatible Chain format
 export { tevmChainToViemChain } from './tevmChainToViemChain.js'
 // Chain types for native chain definitions (migrated from viem)
@@ -307,6 +311,11 @@ export type {
 	RpcSchema,
 	ClientConfig,
 	Client,
+	TestActions,
+	PublicActions,
+	WalletActions,
+	PublicRpcSchema,
+	TestRpcSchema,
 } from './provider-types.js'
 // Native RPC types for JSON-RPC schema definitions (migrated from viem)
 export type {

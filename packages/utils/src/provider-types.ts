@@ -651,3 +651,590 @@ export type Client<
 		fn: (client: Client<TTransport, TChain, TAccount, TRpcSchema>) => TExtended,
 	) => Client<TTransport, TChain, TAccount, TRpcSchema> & TExtended
 }
+
+/**
+ * Test actions type.
+ *
+ * An interface for test client actions like those provided by Anvil, Hardhat, or Tevm.
+ * Includes methods for manipulating blockchain state during testing.
+ *
+ * This is a simplified version compatible with viem's TestActions type.
+ *
+ * @example
+ * ```typescript
+ * import type { TestActions, MemoryClient } from '@tevm/utils'
+ *
+ * const client: MemoryClient & TestActions = createMemoryClient().extend(testActions({ mode: 'anvil' }))
+ * await client.mine({ blocks: 1 })
+ * await client.setBalance({ address: '0x...', value: 1000000000000000000n })
+ * ```
+ */
+export type TestActions = {
+	/** Removes a transaction from the mempool */
+	dropTransaction: (args: { hash: Hex }) => Promise<void>
+	/** Serializes the current state into a savable data blob */
+	dumpState: () => Promise<Hex>
+	/** Returns the automatic mining status of the node */
+	getAutomine: () => Promise<boolean>
+	/** Returns the details of all transactions currently pending */
+	getTxpoolContent: () => Promise<unknown>
+	/** Returns a summary of all pending transactions */
+	getTxpoolStatus: () => Promise<{ pending: number; queued: number }>
+	/** Impersonate an account or contract address */
+	impersonateAccount: (args: { address: Address }) => Promise<void>
+	/** Jump forward in time by the given amount of seconds */
+	increaseTime: (args: { seconds: number }) => Promise<Hex>
+	/** Returns a summary of all pending transactions for inspection */
+	inspectTxpool: () => Promise<unknown>
+	/** Adds state previously dumped with dumpState to the current chain */
+	loadState: (args: { state: Hex }) => Promise<void>
+	/** Mine a specified number of blocks */
+	mine: (args: { blocks: number; interval?: number }) => Promise<void>
+	/** Removes setBlockTimestampInterval if it exists */
+	removeBlockTimestampInterval: () => Promise<void>
+	/** Resets fork back to its original state */
+	reset: (args?: { blockNumber?: bigint; jsonRpcUrl?: string }) => Promise<void>
+	/** Revert the state of the blockchain to a previous snapshot */
+	revert: (args: { id: Hex }) => Promise<void>
+	/** Send an unsigned transaction from an impersonated account */
+	sendUnsignedTransaction: (args: unknown) => Promise<Hex>
+	/** Enables or disables the automatic mining of new blocks */
+	setAutomine: (args: boolean) => Promise<void>
+	/** Modifies the balance of an account */
+	setBalance: (args: { address: Address; value: bigint }) => Promise<void>
+	/** Sets the block's gas limit */
+	setBlockGasLimit: (args: { gasLimit: bigint }) => Promise<void>
+	/** Sets a block timestamp interval for future blocks */
+	setBlockTimestampInterval: (args: { interval: number }) => Promise<void>
+	/** Modifies the bytecode stored at an account's address */
+	setCode: (args: { address: Address; bytecode: Hex }) => Promise<void>
+	/** Sets the coinbase address to be used in new blocks */
+	setCoinbase: (args: { address: Address }) => Promise<void>
+	/** Sets the automatic mining interval */
+	setIntervalMining: (args: { interval: number }) => Promise<void>
+	/** Enable or disable logging on the test node */
+	setLoggingEnabled: (args: boolean) => Promise<void>
+	/** Change the minimum gas price accepted by the network */
+	setMinGasPrice: (args: { gasPrice: bigint }) => Promise<void>
+	/** Sets the next block's base fee per gas */
+	setNextBlockBaseFeePerGas: (args: { baseFeePerGas: bigint }) => Promise<void>
+	/** Sets the next block's timestamp */
+	setNextBlockTimestamp: (args: { timestamp: bigint }) => Promise<void>
+	/** Modifies the nonce of an account */
+	setNonce: (args: { address: Address; nonce: number }) => Promise<void>
+	/** Sets the backend RPC URL */
+	setRpcUrl: (args: string) => Promise<void>
+	/** Writes to a slot of an account's storage */
+	setStorageAt: (args: { address: Address; index: number | Hex; value: Hex }) => Promise<void>
+	/** Snapshot the state of the blockchain at the current block */
+	snapshot: () => Promise<Hex>
+	/** Stop impersonating an account */
+	stopImpersonatingAccount: (args: { address: Address }) => Promise<void>
+}
+
+/**
+ * Interface for public client actions - read-only blockchain operations.
+ * Compatible with viem's PublicActions interface.
+ *
+ * @example
+ * ```typescript
+ * import type { PublicActions } from '@tevm/utils'
+ *
+ * // Type a client with public actions
+ * function useClient(client: PublicActions) {
+ *   return client.getBalance({ address: '0x...' })
+ * }
+ * ```
+ */
+export type PublicActions = {
+	/** Executes a new message call immediately without submitting a transaction */
+	call: (args: unknown) => Promise<unknown>
+	/** Creates an access list for a transaction */
+	createAccessList: (args: unknown) => Promise<unknown>
+	/** Creates a Filter to listen for new block hashes */
+	createBlockFilter: () => Promise<unknown>
+	/** Creates a Filter to retrieve event logs for a contract */
+	createContractEventFilter: (args: unknown) => Promise<unknown>
+	/** Creates a Filter to retrieve event logs */
+	createEventFilter: (args?: unknown) => Promise<unknown>
+	/** Creates a Filter to listen for new pending transactions */
+	createPendingTransactionFilter: () => Promise<unknown>
+	/** Estimates the gas required for a contract method call */
+	estimateContractGas: (args: unknown) => Promise<bigint>
+	/** Estimates the fees per gas for a transaction */
+	estimateFeesPerGas: (args?: unknown) => Promise<unknown>
+	/** Estimates the gas required for a transaction */
+	estimateGas: (args: unknown) => Promise<bigint>
+	/** Estimates the max priority fee per gas */
+	estimateMaxPriorityFeePerGas: (args?: unknown) => Promise<bigint>
+	/** Returns the balance of an address in wei */
+	getBalance: (args: { address: Address; blockNumber?: bigint; blockTag?: string }) => Promise<bigint>
+	/** Returns the blob base fee in wei */
+	getBlobBaseFee: () => Promise<bigint>
+	/** Returns information about a block */
+	getBlock: (args?: unknown) => Promise<unknown>
+	/** Returns the number of the most recent block */
+	getBlockNumber: () => Promise<bigint>
+	/** Returns the number of transactions in a block */
+	getBlockTransactionCount: (args?: unknown) => Promise<number>
+	/** Returns the bytecode at an address */
+	getBytecode: (args: { address: Address; blockNumber?: bigint; blockTag?: string }) => Promise<Hex | undefined>
+	/** Returns the chain ID */
+	getChainId: () => Promise<number>
+	/** Gets the bytecode at an address (alias for getBytecode) */
+	getCode: (args: { address: Address; blockNumber?: bigint; blockTag?: string }) => Promise<Hex | undefined>
+	/** Returns a list of event logs for a contract */
+	getContractEvents: (args: unknown) => Promise<unknown[]>
+	/** Gets the EIP-712 domain of a contract */
+	getEip712Domain: (args: { address: Address }) => Promise<unknown>
+	/** Gets address for an ENS name */
+	getEnsAddress: (args: { name: string }) => Promise<Address | null>
+	/** Gets avatar URI for an ENS name */
+	getEnsAvatar: (args: { name: string }) => Promise<string | null>
+	/** Gets primary ENS name for an address */
+	getEnsName: (args: { address: Address }) => Promise<string | null>
+	/** Gets resolver address for an ENS name */
+	getEnsResolver: (args: { name: string }) => Promise<Address>
+	/** Gets text record for an ENS name */
+	getEnsText: (args: { name: string; key: string }) => Promise<string | null>
+	/** Returns historical gas information */
+	getFeeHistory: (args: unknown) => Promise<unknown>
+	/** Returns a list of logs or hashes based on a filter */
+	getFilterChanges: (args: { filter: unknown }) => Promise<unknown[]>
+	/** Returns a list of all logs based on a filter */
+	getFilterLogs: (args: { filter: unknown }) => Promise<unknown[]>
+	/** Returns the current price per gas in wei */
+	getGasPrice: () => Promise<bigint>
+	/** Returns a list of event logs matching the provided parameters */
+	getLogs: (args?: unknown) => Promise<unknown[]>
+	/** Returns the account and storage values of a contract with Merkle proofs */
+	getProof: (args: unknown) => Promise<unknown>
+	/** Returns the value from a storage slot at a given address */
+	getStorageAt: (args: { address: Address; slot: Hex; blockNumber?: bigint; blockTag?: string }) => Promise<Hex | undefined>
+	/** Returns information about a transaction by its hash */
+	getTransaction: (args: { hash: Hex }) => Promise<unknown>
+	/** Returns the number of confirmations for a transaction */
+	getTransactionConfirmations: (args: { hash: Hex }) => Promise<bigint>
+	/** Returns the number of transactions sent from an address */
+	getTransactionCount: (args: { address: Address; blockNumber?: bigint; blockTag?: string }) => Promise<number>
+	/** Returns the transaction receipt for a transaction */
+	getTransactionReceipt: (args: { hash: Hex }) => Promise<unknown>
+	/** Executes multiple read calls in a single request */
+	multicall: (args: unknown) => Promise<unknown[]>
+	/** Prepares a transaction request for signing */
+	prepareTransactionRequest: (args: unknown) => Promise<unknown>
+	/** Calls a read-only function on a contract */
+	readContract: (args: unknown) => Promise<unknown>
+	/** Sends a signed transaction to the network */
+	sendRawTransaction: (args: { serializedTransaction: Hex }) => Promise<Hex>
+	/** Simulates a transaction */
+	simulate: (args: unknown) => Promise<unknown>
+	/** Simulates multiple blocks */
+	simulateBlocks: (args: unknown) => Promise<unknown>
+	/** Simulates multiple calls */
+	simulateCalls: (args: unknown) => Promise<unknown>
+	/** Simulates a contract function call */
+	simulateContract: (args: unknown) => Promise<unknown>
+	/** Destroys a Filter */
+	uninstallFilter: (args: { filter: unknown }) => Promise<boolean>
+	/** Verifies a message signature */
+	verifyMessage: (args: unknown) => Promise<boolean>
+	/** Verifies a SIWE message signature */
+	verifySiweMessage: (args: unknown) => Promise<boolean>
+	/** Verifies typed data signature */
+	verifyTypedData: (args: unknown) => Promise<boolean>
+	/** Waits for a transaction receipt */
+	waitForTransactionReceipt: (args: { hash: Hex; timeout?: number }) => Promise<unknown>
+	/** Watches for new block numbers */
+	watchBlockNumber: (args: unknown) => unknown
+	/** Watches for new blocks */
+	watchBlocks: (args: unknown) => unknown
+	/** Watches for contract events */
+	watchContractEvent: (args: unknown) => unknown
+	/** Watches for events */
+	watchEvent: (args: unknown) => unknown
+	/** Watches for pending transactions */
+	watchPendingTransactions: (args: unknown) => unknown
+}
+
+/**
+ * Interface for wallet client actions - write operations requiring signatures.
+ * Compatible with viem's WalletActions interface.
+ *
+ * @example
+ * ```typescript
+ * import type { WalletActions } from '@tevm/utils'
+ *
+ * // Type a client with wallet actions
+ * function useWalletClient(client: WalletActions) {
+ *   return client.sendTransaction({ to: '0x...', value: 1000000000000000000n })
+ * }
+ * ```
+ */
+export type WalletActions = {
+	/** Adds an EIP712 domain to the client */
+	addChain: (args: { chain: unknown }) => Promise<void>
+	/** Deploys a contract to the network */
+	deployContract: (args: unknown) => Promise<Hex>
+	/** Returns the account addresses managed by the wallet */
+	getAddresses: () => Promise<readonly Address[]>
+	/** Returns the permissions granted to the wallet */
+	getPermissions: () => Promise<unknown[]>
+	/** Prepares transaction request for signing */
+	prepareTransactionRequest: (args: unknown) => Promise<unknown>
+	/** Requests new permissions from the wallet */
+	requestPermissions: (args: { eth_accounts: unknown }) => Promise<unknown[]>
+	/** Requests addresses from the wallet */
+	requestAddresses: () => Promise<readonly Address[]>
+	/** Sends a transaction to the network */
+	sendTransaction: (args: unknown) => Promise<Hex>
+	/** Sends raw signed transaction data */
+	sendRawTransaction: (args: { serializedTransaction: Hex }) => Promise<Hex>
+	/** Signs a message */
+	signMessage: (args: { account?: Address; message: string | Hex }) => Promise<Hex>
+	/** Signs a transaction without sending */
+	signTransaction: (args: unknown) => Promise<Hex>
+	/** Signs typed data (EIP-712) */
+	signTypedData: (args: unknown) => Promise<Hex>
+	/** Switches to a different chain */
+	switchChain: (args: { id: number }) => Promise<void>
+	/** Watches for asset changes */
+	watchAsset: (args: unknown) => Promise<boolean>
+	/** Writes to a contract */
+	writeContract: (args: unknown) => Promise<Hex>
+}
+
+/**
+ * Public RPC schema type.
+ *
+ * Defines the standard public JSON-RPC methods available for read-only operations.
+ * Compatible with viem's PublicRpcSchema type.
+ *
+ * @example
+ * ```typescript
+ * import type { PublicRpcSchema } from '@tevm/utils'
+ *
+ * // Use with client configuration
+ * type MyPublicClient = Client<Transport, Chain, undefined, PublicRpcSchema>
+ * ```
+ */
+export type PublicRpcSchema = readonly [
+	{
+		Method: 'eth_blockNumber'
+		Parameters?: undefined
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_call'
+		Parameters: readonly [transaction: unknown, block?: unknown]
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_chainId'
+		Parameters?: undefined
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_estimateGas'
+		Parameters: readonly [transaction: unknown, block?: unknown]
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_feeHistory'
+		Parameters: readonly [blockCount: Hex, newestBlock: unknown, rewardPercentiles?: readonly number[]]
+		ReturnType: unknown
+	},
+	{
+		Method: 'eth_gasPrice'
+		Parameters?: undefined
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_getBalance'
+		Parameters: readonly [address: Address, block?: unknown]
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_getBlockByHash'
+		Parameters: readonly [hash: Hex, includeTransactions?: boolean]
+		ReturnType: unknown
+	},
+	{
+		Method: 'eth_getBlockByNumber'
+		Parameters: readonly [block: unknown, includeTransactions?: boolean]
+		ReturnType: unknown
+	},
+	{
+		Method: 'eth_getBlockTransactionCountByHash'
+		Parameters: readonly [hash: Hex]
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_getBlockTransactionCountByNumber'
+		Parameters: readonly [block: unknown]
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_getCode'
+		Parameters: readonly [address: Address, block?: unknown]
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_getFilterChanges'
+		Parameters: readonly [filterId: Hex]
+		ReturnType: readonly unknown[]
+	},
+	{
+		Method: 'eth_getFilterLogs'
+		Parameters: readonly [filterId: Hex]
+		ReturnType: readonly unknown[]
+	},
+	{
+		Method: 'eth_getLogs'
+		Parameters: readonly [filter: unknown]
+		ReturnType: readonly unknown[]
+	},
+	{
+		Method: 'eth_getProof'
+		Parameters: readonly [address: Address, storageKeys: readonly Hex[], block?: unknown]
+		ReturnType: unknown
+	},
+	{
+		Method: 'eth_getStorageAt'
+		Parameters: readonly [address: Address, slot: Hex, block?: unknown]
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_getTransactionByBlockHashAndIndex'
+		Parameters: readonly [hash: Hex, index: Hex]
+		ReturnType: unknown
+	},
+	{
+		Method: 'eth_getTransactionByBlockNumberAndIndex'
+		Parameters: readonly [block: unknown, index: Hex]
+		ReturnType: unknown
+	},
+	{
+		Method: 'eth_getTransactionByHash'
+		Parameters: readonly [hash: Hex]
+		ReturnType: unknown
+	},
+	{
+		Method: 'eth_getTransactionCount'
+		Parameters: readonly [address: Address, block?: unknown]
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_getTransactionReceipt'
+		Parameters: readonly [hash: Hex]
+		ReturnType: unknown
+	},
+	{
+		Method: 'eth_maxPriorityFeePerGas'
+		Parameters?: undefined
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_newBlockFilter'
+		Parameters?: undefined
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_newFilter'
+		Parameters: readonly [filter: unknown]
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_newPendingTransactionFilter'
+		Parameters?: undefined
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_protocolVersion'
+		Parameters?: undefined
+		ReturnType: string
+	},
+	{
+		Method: 'eth_sendRawTransaction'
+		Parameters: readonly [signedTransaction: Hex]
+		ReturnType: Hex
+	},
+	{
+		Method: 'eth_uninstallFilter'
+		Parameters: readonly [filterId: Hex]
+		ReturnType: boolean
+	},
+]
+
+/**
+ * Test RPC schema type.
+ *
+ * Defines the JSON-RPC methods available for test/development operations.
+ * Includes Anvil-compatible methods for state manipulation.
+ * Compatible with viem's TestRpcSchema type.
+ *
+ * @example
+ * ```typescript
+ * import type { TestRpcSchema } from '@tevm/utils'
+ *
+ * // Use with test client configuration
+ * type MyTestClient = Client<Transport, Chain, undefined, TestRpcSchema>
+ * ```
+ */
+export type TestRpcSchema = readonly [
+	{
+		Method: 'anvil_dropTransaction'
+		Parameters: readonly [hash: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_dumpState'
+		Parameters?: undefined
+		ReturnType: Hex
+	},
+	{
+		Method: 'anvil_getAutomine'
+		Parameters?: undefined
+		ReturnType: boolean
+	},
+	{
+		Method: 'anvil_impersonateAccount'
+		Parameters: readonly [address: Address]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_loadState'
+		Parameters: readonly [state: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_mine'
+		Parameters: readonly [blocks?: Hex, interval?: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_reset'
+		Parameters: readonly [options?: { forking?: { blockNumber?: Hex; jsonRpcUrl?: string } }]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setAutomine'
+		Parameters: readonly [enabled: boolean]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setBalance'
+		Parameters: readonly [address: Address, balance: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setBlockGasLimit'
+		Parameters: readonly [gasLimit: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setBlockTimestampInterval'
+		Parameters: readonly [interval: number]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setCode'
+		Parameters: readonly [address: Address, code: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setCoinbase'
+		Parameters: readonly [address: Address]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setIntervalMining'
+		Parameters: readonly [interval: number]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setLoggingEnabled'
+		Parameters: readonly [enabled: boolean]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setMinGasPrice'
+		Parameters: readonly [gasPrice: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setNextBlockBaseFeePerGas'
+		Parameters: readonly [baseFeePerGas: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setNextBlockTimestamp'
+		Parameters: readonly [timestamp: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setNonce'
+		Parameters: readonly [address: Address, nonce: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setRpcUrl'
+		Parameters: readonly [url: string]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_setStorageAt'
+		Parameters: readonly [address: Address, slot: Hex, value: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'anvil_snapshot'
+		Parameters?: undefined
+		ReturnType: Hex
+	},
+	{
+		Method: 'anvil_stopImpersonatingAccount'
+		Parameters: readonly [address: Address]
+		ReturnType: void
+	},
+	{
+		Method: 'evm_increaseTime'
+		Parameters: readonly [seconds: number]
+		ReturnType: Hex
+	},
+	{
+		Method: 'evm_mine'
+		Parameters?: readonly [options?: { timestamp?: number }]
+		ReturnType: void
+	},
+	{
+		Method: 'evm_revert'
+		Parameters: readonly [snapshotId: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'evm_setAutomine'
+		Parameters: readonly [enabled: boolean]
+		ReturnType: void
+	},
+	{
+		Method: 'evm_setBlockGasLimit'
+		Parameters: readonly [gasLimit: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'evm_setIntervalMining'
+		Parameters: readonly [interval: number]
+		ReturnType: void
+	},
+	{
+		Method: 'evm_setNextBlockTimestamp'
+		Parameters: readonly [timestamp: Hex]
+		ReturnType: void
+	},
+	{
+		Method: 'evm_snapshot'
+		Parameters?: undefined
+		ReturnType: Hex
+	},
+]

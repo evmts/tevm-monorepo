@@ -5,7 +5,6 @@
  * Provides an Ethereum address handling class compatible with the ethereumjs API.
  */
 
-import { keccak256 } from './viem.js'
 import { equalsBytes } from './equalsBytes.js'
 import { setLengthLeft } from './setLengthLeft.js'
 import { BIGINT_0 } from './constants.js'
