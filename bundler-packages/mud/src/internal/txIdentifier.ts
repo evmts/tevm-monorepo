@@ -1,5 +1,5 @@
 import type { TxPool } from '@tevm/txpool'
-import { bytesToHex, type Hex } from 'viem'
+import { bytesToHex, type Hex } from '@tevm/utils'
 
 export const matchOptimisticTxCounterpart = async (txPool: TxPool, data: Hex) => {
 	const matchingTx = [...txPool.txsByHash.values()].find((tx) => {

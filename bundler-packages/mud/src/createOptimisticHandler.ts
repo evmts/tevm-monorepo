@@ -23,8 +23,7 @@ import type { SyncAdapter } from '@latticexyz/store-sync'
 import { createCommon } from '@tevm/common'
 import { createLogger } from '@tevm/logger'
 import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
-import { type Address, createAddressFromString } from '@tevm/utils'
-import { bytesToHex, type Client, type Hex, parseEventLogs } from 'viem'
+import { type Address, bytesToHex, type Client, createAddressFromString, type Hex, parseEventLogs } from '@tevm/utils'
 import { getTransaction } from 'viem/actions'
 import { mudStoreGetStorageAtOverride } from './internal/decorators/mudStoreGetStorageAtOverride.js'
 import { mudStoreWriteRequestOverride } from './internal/decorators/mudStoreWriteRequestOverride.js'
@@ -198,7 +197,9 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 			})
 
 			// Get updates and add to internal logs (builds up incrementally)
-			const updates = await adapter({ logs: storeEventsLogs, blockNumber: 0n })
+			// Type assertion needed because parseEventLogs returns generic args type,
+			// but the adapter expects specific MUD event args (tableId, keyTuple, etc.)
+			const updates = await adapter({ logs: storeEventsLogs as unknown as Parameters<typeof adapter>[0]['logs'], blockNumber: 0n })
 			internalLogs.push(...updates)
 		}
 

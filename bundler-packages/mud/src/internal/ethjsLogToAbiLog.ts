@@ -1,5 +1,4 @@
-import { type Abi, bytesToHex, decodeEventLog, type EthjsLog } from '@tevm/utils'
-import type { Log } from 'viem'
+import { type Abi, bytesToHex, decodeEventLog, type EthjsLog, type Log } from '@tevm/utils'
 
 /**
  * Converts ethjs log format back to structured log arguments
@@ -15,12 +14,17 @@ export const ethjsLogToAbiLog = <TAbi extends Abi>(abi: TAbi, ethjsLog: EthjsLog
 		...decodeEventLog({
 			abi,
 			data: dataHex,
-			// @ts-expect-error - Source provides no match for required element at position 0 in target.
-			topics: topicsHex,
+			topics: topicsHex as any,
 		}),
 		address: addressHex,
 		data: dataHex,
-		// @ts-expect-error - Source provides no match for required element at position 0 in target.
-		topics: topicsHex,
+		topics: topicsHex as any,
+		// Required fields for Log type (mock values for internal use)
+		blockHash: null,
+		blockNumber: null,
+		logIndex: null,
+		transactionHash: null,
+		transactionIndex: null,
+		removed: false,
 	}
 }

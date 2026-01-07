@@ -17,8 +17,18 @@ import {
 	staticAbiTypeToDefaultValue,
 } from '@latticexyz/schema-type/internal'
 import { type TableRecord } from '@latticexyz/stash/internal'
-import { type Hex } from '@tevm/utils'
-import { bytesToHex, concatHex, encodePacked, hexToBigInt, hexToBytes, keccak256, numberToHex, pad, toHex } from 'viem'
+import {
+	bytesToHex,
+	concatHex,
+	encodePacked,
+	type Hex,
+	hexToBigInt,
+	hexToBytes,
+	keccak256,
+	numberToHex,
+	pad,
+	toHex,
+} from '@tevm/utils'
 
 // Unified slot info types
 type StaticSlotInfo = {

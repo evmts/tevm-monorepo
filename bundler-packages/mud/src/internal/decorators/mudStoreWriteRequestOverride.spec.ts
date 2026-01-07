@@ -9,7 +9,7 @@ import { mudStoreWriteRequestOverride } from './mudStoreWriteRequestOverride.js'
 describe('mudStoreWriteRequestOverride', () => {
 	// TODO: when eth_getProof is supported on tevm node
 	it.todo('should correctly wrap writeContract calls with a bundler client', async () => {
-		const optimisticClient = createMemoryClient({ fork: { transport: sessionClient } })
+		const optimisticClient = createMemoryClient({ fork: { transport: sessionClient as any } })
 		const record = Object.values(state.records.app.TestTable)[0]!
 		mudStoreWriteRequestOverride(
 			sessionClient,

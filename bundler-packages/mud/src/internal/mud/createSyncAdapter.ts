@@ -1,7 +1,7 @@
 import { getRecord, registerTable, type Stash, setRecord } from '@latticexyz/stash/internal'
 import { createStoreSync, type SyncAdapter, SyncStep } from '@latticexyz/store-sync'
 import { SyncProgress } from '@latticexyz/store-sync/internal'
-import type { Hex } from 'viem'
+import type { Hex } from '@tevm/utils'
 import { stateUpdateCoordinator } from '../stateUpdateCoordinator.js'
 import { applyStashUpdates, notifyStashSubscribers } from './applyUpdates.js'
 import { createStorageAdapter } from './createStorageAdapter.js'
