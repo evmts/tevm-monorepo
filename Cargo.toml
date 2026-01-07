@@ -6,6 +6,9 @@ members = [
 	'bundler-packages/runtime-rs',
 	'bundler-packages/solc-rs',
 ]
+exclude = [
+	'lib/voltaire',
+]
 
 [profile.release]
 lto = true
