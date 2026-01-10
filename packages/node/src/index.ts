@@ -1,6 +1,7 @@
 export type { BaseClientOptions } from './BaseClientOptions.js'
 export type { CustomPrecompile } from './CustomPrecompile.js'
 export { createTevmNode } from './createTevmNode.js'
+export { createIntervalMiner } from './createIntervalMiner.js'
 export {
 	type EIP1193EventEmitter,
 	type EIP1193EventMap,

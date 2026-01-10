@@ -13,6 +13,7 @@ import { GENESIS_STATE } from './GENESIS_STATE.js'
 import { getBlockNumber } from './getBlockNumber.js'
 import { getChainId } from './getChainId.js'
 import { statePersister } from './statePersister.js'
+import { createIntervalMiner } from './createIntervalMiner.js'
 
 // TODO the common code is not very good and should be moved to common package
 // it has rotted from a previous implementation where the chainId was not used by vm
@@ -790,11 +791,27 @@ export const createTevmNode = (options = {}) => {
 		},
 	}
 
+	// Create interval miner and add it to the client
+	const intervalMiner = createIntervalMiner(baseClient)
+
+	// Add interval miner methods to the client
+	Object.assign(baseClient, {
+		startIntervalMining: intervalMiner.start,
+		stopIntervalMining: intervalMiner.stop,
+		isIntervalMiningRunning: intervalMiner.isRunning,
+	})
+
 	eventEmitter.on('connect', () => {
 		if (baseClient.status !== 'INITIALIZING') {
 			return
 		}
 		baseClient.status = 'READY'
+		
+		// Start interval mining when the client is ready and configured for interval mining
+		if (baseClient.miningConfig.type === 'interval' && baseClient.miningConfig.blockTime > 0) {
+			baseClient.logger.debug('Client ready, starting interval mining')
+			intervalMiner.start()
+		}
 	})
 
 	return baseClient

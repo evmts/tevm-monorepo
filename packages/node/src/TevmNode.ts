@@ -162,6 +162,20 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 */
 	readonly setBlockTimestampInterval: (interval: bigint | undefined) => void
 	/**
+	 * Starts interval mining if the client is configured for interval mining.
+	 * Does nothing if mining config is not 'interval' type or blockTime is 0.
+	 */
+	readonly startIntervalMining: () => void
+	/**
+	 * Stops interval mining with clean shutdown.
+	 * Cancels any scheduled mining operations but doesn't wait for current operation to complete.
+	 */
+	readonly stopIntervalMining: () => void
+	/**
+	 * Returns whether interval mining is currently running.
+	 */
+	readonly isIntervalMiningRunning: () => boolean
+	/**
 	 * Gets all stored snapshots for evm_snapshot/evm_revert
 	 */
 	readonly getSnapshots: () => Map<string, { stateRoot: string; state: TevmState }>

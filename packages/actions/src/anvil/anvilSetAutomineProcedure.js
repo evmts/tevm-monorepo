@@ -26,6 +26,9 @@ export const anvilSetAutomineJsonRpcProcedure = (client) => {
 
 		client.logger.debug({ enabled }, 'anvil_setAutomine: Setting automine mode')
 
+		// Stop interval mining when switching to automine/manual mode
+		client.stopIntervalMining?.()
+
 		// Update the mining configuration
 		if (enabled) {
 			client.miningConfig = { type: 'auto' }
