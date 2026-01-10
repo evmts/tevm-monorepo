@@ -171,6 +171,93 @@ export const createTevmNode = (options = {}) => {
 	const getBlockTimestampInterval = () => blockTimestampInterval
 
 	/**
+	 * Current interval mining timer ID
+	 * @type {NodeJS.Timeout | undefined}
+	 */
+	let intervalMiningTimer
+
+	/**
+	 * Sets the mining configuration and starts/stops interval mining as needed
+	 * @param {import('./MiningConfig.js').MiningConfig} config
+	 */
+	const setMiningConfig = (config) => {
+		// Stop any existing interval timer
+		if (intervalMiningTimer) {
+			clearTimeout(intervalMiningTimer)
+			intervalMiningTimer = undefined
+			logger.debug('Stopped existing interval mining timer')
+		}
+
+		// Update the mining configuration
+		baseClient.miningConfig = config
+		logger.debug({ miningConfig: config }, 'Mining configuration updated')
+
+		// Start interval mining if configured
+		if (config.type === 'interval' && config.blockTime > 0) {
+			startIntervalMining(config.blockTime)
+		}
+	}
+
+	/**
+	 * Starts interval mining with the specified block time
+	 * @param {number} blockTime - Time between blocks in seconds
+	 */
+	const startIntervalMining = (blockTime) => {
+		const intervalMs = blockTime * 1000
+		logger.debug({ blockTime, intervalMs }, 'Starting interval mining')
+
+		const mineBlock = async () => {
+			try {
+				// Only mine if we're still in interval mode (config might have changed)
+				if (baseClient.miningConfig.type !== 'interval') {
+					logger.debug('Mining config changed, stopping interval mining')
+					return
+				}
+
+				logger.debug('Interval mining: creating new block')
+				
+				// Import mineHandler dynamically to avoid circular imports
+				const { mineHandler } = await import('@tevm/actions')
+				const mineResult = await mineHandler(baseClient)({
+					throwOnFail: false,
+					blockCount: 1,
+				})
+
+				if (mineResult.errors?.length) {
+					logger.warn({ errors: mineResult.errors }, 'Interval mining failed')
+				} else {
+					logger.debug({ blockHashes: mineResult.blockHashes }, 'Interval mining successful')
+				}
+
+				// Schedule next mining operation using setTimeout (not setInterval) to prevent race conditions
+				if (baseClient.miningConfig.type === 'interval' && baseClient.status === 'READY') {
+					intervalMiningTimer = setTimeout(mineBlock, intervalMs)
+				}
+			} catch (error) {
+				logger.error({ error }, 'Error during interval mining')
+				// Try to continue mining after error
+				if (baseClient.miningConfig.type === 'interval' && baseClient.status === 'READY') {
+					intervalMiningTimer = setTimeout(mineBlock, intervalMs)
+				}
+			}
+		}
+
+		// Start the first mining operation
+		intervalMiningTimer = setTimeout(mineBlock, intervalMs)
+	}
+
+	/**
+	 * Stops interval mining and cleans up resources
+	 */
+	const close = () => {
+		if (intervalMiningTimer) {
+			clearTimeout(intervalMiningTimer)
+			intervalMiningTimer = undefined
+			logger.debug('Interval mining stopped and resources cleaned up')
+		}
+	}
+
+	/**
 	 * Snapshot storage for evm_snapshot/evm_revert
 	 * Maps snapshot ID (hex string) to { stateRoot, state }
 	 * @type {Map<string, { stateRoot: string, state: import('@tevm/state').TevmState }>}
@@ -685,6 +772,8 @@ export const createTevmNode = (options = {}) => {
 			setMinGasPrice: setCopiedMinGasPrice,
 			getBlockTimestampInterval: () => copiedBlockTimestampInterval,
 			setBlockTimestampInterval: setCopiedBlockTimestampInterval,
+			setMiningConfig: baseClient.setMiningConfig,
+			close: baseClient.close,
 			getSnapshots: getCopiedSnapshots,
 			addSnapshot: addCopiedSnapshot,
 			getSnapshot: getCopiedSnapshot,
@@ -748,6 +837,8 @@ export const createTevmNode = (options = {}) => {
 		setMinGasPrice,
 		getBlockTimestampInterval,
 		setBlockTimestampInterval,
+		setMiningConfig,
+		close,
 		getSnapshots,
 		addSnapshot,
 		getSnapshot,

@@ -162,6 +162,16 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 */
 	readonly setBlockTimestampInterval: (interval: bigint | undefined) => void
 	/**
+	 * Sets the mining configuration and starts/stops interval mining as needed.
+	 * This is used internally by anvil_setIntervalMining RPC method.
+	 */
+	readonly setMiningConfig: (config: MiningConfig) => void
+	/**
+	 * Stops the interval mining timer and cleans up resources.
+	 * Should be called when the node is no longer needed to prevent resource leaks.
+	 */
+	readonly close: () => void
+	/**
 	 * Gets all stored snapshots for evm_snapshot/evm_revert
 	 */
 	readonly getSnapshots: () => Map<string, { stateRoot: string; state: TevmState }>

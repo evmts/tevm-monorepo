@@ -30,7 +30,7 @@ describe('anvilSetIntervalMiningJsonRpcProcedure', () => {
 		})
 
 		expect(result.result).toBe(null)
-		expect(node.miningConfig).toEqual({ type: 'interval', blockTime: 0 })
+		expect(node.miningConfig).toEqual({ type: 'manual' })
 	})
 
 	it('should handle requests with id', async () => {
