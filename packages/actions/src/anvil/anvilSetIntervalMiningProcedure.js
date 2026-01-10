@@ -35,11 +35,12 @@ export const anvilSetIntervalMiningJsonRpcProcedure = (client) => {
 
 		client.logger.debug({ interval }, 'anvil_setIntervalMining: Setting interval mining')
 
-		// Update the mining configuration to interval mode
-		client.miningConfig = {
+		// Update the mining configuration to interval mode using setMiningConfig
+		// This will automatically start/stop interval mining as needed
+		client.setMiningConfig({
 			type: 'interval',
 			blockTime: interval,
-		}
+		})
 
 		client.logger.debug({ miningConfig: client.miningConfig }, 'anvil_setIntervalMining: Mining mode updated')
 

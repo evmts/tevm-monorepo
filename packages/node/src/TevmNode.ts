@@ -212,6 +212,14 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 */
 	readonly deepCopy: () => Promise<TevmNode<TMode, TExtended>>
 	/**
+	 * Sets the mining configuration and starts/stops interval mining as needed
+	 */
+	readonly setMiningConfig: (config: MiningConfig) => void
+	/**
+	 * Closes the client and stops any running interval mining
+	 */
+	readonly close: () => Promise<void>
+	/**
 	 * Returns debug information about the current node state
 	 * including chain details, status, mode, mining config, filters,
 	 * blocks, mempool transactions, and state

@@ -67,6 +67,19 @@ export const createTevmNode = (options = {}) => {
 	 * @type {boolean}
 	 */
 	let tracesEnabled = false
+
+	/**
+	 * @type {Promise<void>}
+	 */
+	let currentMinePromise = Promise.resolve()
+	/**
+	 * @type {NodeJS.Timeout | null}
+	 */
+	let intervalTimerId = null
+	/**
+	 * @type {number}
+	 */
+	let nextScheduledTime = Date.now()
 	/**
 	 * Gets whether automatic tracing is enabled
 	 * @returns {boolean}
@@ -761,6 +774,26 @@ export const createTevmNode = (options = {}) => {
 		},
 		status: 'INITIALIZING',
 		deepCopy: () => deepCopy(baseClient)(),
+		/**
+		 * Sets the mining configuration and starts/stops interval mining as needed
+		 * @param {import('./MiningConfig.js').MiningConfig} config
+		 */
+		setMiningConfig: (config) => {
+			stopIntervalMining() // Stop any existing interval mining
+			baseClient.miningConfig = config
+			
+			// Start interval mining if config type is 'interval'
+			if (config.type === 'interval' && config.blockTime > 0) {
+				startIntervalMining(config.blockTime * 1000) // Convert seconds to milliseconds
+			}
+		},
+		/**
+		 * Closes the client and stops any running interval mining
+		 */
+		close: async () => {
+			stopIntervalMining()
+			await currentMinePromise // Wait for any current mining to complete
+		},
 		debug: async () => {
 			const txPool = await txPoolPromise
 			const vm = await vmPromise
@@ -790,11 +823,54 @@ export const createTevmNode = (options = {}) => {
 		},
 	}
 
+	/**
+	 * Starts interval mining
+	 * @param {number} blockTimeMs - Block time in milliseconds
+	 */
+	const startIntervalMining = async (blockTimeMs) => {
+		if (intervalTimerId) return // Already running
+		
+		// Import mineHandler dynamically to avoid circular dependencies
+		const { mineHandler } = await import('@tevm/actions')
+		const mine = mineHandler(baseClient)
+		
+		nextScheduledTime = Date.now() + blockTimeMs
+		
+		const scheduleNext = () => {
+			const now = Date.now()
+			const delay = Math.max(0, nextScheduledTime - now)
+			nextScheduledTime += blockTimeMs
+			
+			intervalTimerId = setTimeout(() => {
+				// Schedule BEFORE executing to prevent time drift
+				currentMinePromise = currentMinePromise.then(() => mine())
+				scheduleNext()
+			}, delay)
+		}
+		
+		scheduleNext()
+	}
+	
+	/**
+	 * Stops interval mining
+	 */
+	const stopIntervalMining = () => {
+		if (intervalTimerId) {
+			clearTimeout(intervalTimerId)
+			intervalTimerId = null
+		}
+	}
+
 	eventEmitter.on('connect', () => {
 		if (baseClient.status !== 'INITIALIZING') {
 			return
 		}
 		baseClient.status = 'READY'
+		
+		// Start interval mining if configured
+		if (baseClient.miningConfig.type === 'interval' && baseClient.miningConfig.blockTime > 0) {
+			startIntervalMining(baseClient.miningConfig.blockTime * 1000) // Convert seconds to milliseconds
+		}
 	})
 
 	return baseClient
