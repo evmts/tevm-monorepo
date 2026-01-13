@@ -18,6 +18,7 @@
 - [EIP1193Events](type-aliases/EIP1193Events.md)
 - [Extension](type-aliases/Extension.md)
 - [Filter](type-aliases/Filter.md)
+- [FilterLog](type-aliases/FilterLog.md)
 - [FilterType](type-aliases/FilterType.md)
 - [Hardfork](type-aliases/Hardfork.md)
 - [IntervalMining](type-aliases/IntervalMining.md)

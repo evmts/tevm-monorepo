@@ -8,7 +8,7 @@
 
 > **EIP1193EventMap** = `object`
 
-Defined in: packages/node/dist/index.d.ts:251
+Defined in: packages/node/dist/index.d.ts:242
 
 ## Methods
 
@@ -16,7 +16,7 @@ Defined in: packages/node/dist/index.d.ts:251
 
 > **accountsChanged**(`accounts`): `void`
 
-Defined in: packages/node/dist/index.d.ts:252
+Defined in: packages/node/dist/index.d.ts:243
 
 #### Parameters
 
@@ -34,7 +34,7 @@ Defined in: packages/node/dist/index.d.ts:252
 
 > **chainChanged**(`chainId`): `void`
 
-Defined in: packages/node/dist/index.d.ts:253
+Defined in: packages/node/dist/index.d.ts:244
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Defined in: packages/node/dist/index.d.ts:253
 
 > **connect**(`connectInfo`): `void`
 
-Defined in: packages/node/dist/index.d.ts:254
+Defined in: packages/node/dist/index.d.ts:245
 
 #### Parameters
 
@@ -70,7 +70,7 @@ Defined in: packages/node/dist/index.d.ts:254
 
 > **disconnect**(`error`): `void`
 
-Defined in: packages/node/dist/index.d.ts:255
+Defined in: packages/node/dist/index.d.ts:246
 
 #### Parameters
 
@@ -88,7 +88,7 @@ Defined in: packages/node/dist/index.d.ts:255
 
 > **message**(`message`): `void`
 
-Defined in: packages/node/dist/index.d.ts:256
+Defined in: packages/node/dist/index.d.ts:247
 
 #### Parameters
 
@@ -106,7 +106,7 @@ Defined in: packages/node/dist/index.d.ts:256
 
 > **newBlock**(`block`): `void`
 
-Defined in: packages/node/dist/index.d.ts:259
+Defined in: packages/node/dist/index.d.ts:250
 
 #### Parameters
 
@@ -124,13 +124,13 @@ Defined in: packages/node/dist/index.d.ts:259
 
 > **newLog**(`log`): `void`
 
-Defined in: packages/node/dist/index.d.ts:260
+Defined in: packages/node/dist/index.d.ts:251
 
 #### Parameters
 
 ##### log
 
-`Log`\<`bigint`, `number`, `false`, `undefined`, `undefined`, `undefined`, `undefined`\>
+[`Log`](../../evm/type-aliases/Log.md)
 
 #### Returns
 
@@ -142,7 +142,7 @@ Defined in: packages/node/dist/index.d.ts:260
 
 > **newPendingTransaction**(`tx`): `void`
 
-Defined in: packages/node/dist/index.d.ts:257
+Defined in: packages/node/dist/index.d.ts:248
 
 #### Parameters
 
@@ -160,7 +160,7 @@ Defined in: packages/node/dist/index.d.ts:257
 
 > **newReceipt**(`receipt`): `void`
 
-Defined in: packages/node/dist/index.d.ts:258
+Defined in: packages/node/dist/index.d.ts:249
 
 #### Parameters
 

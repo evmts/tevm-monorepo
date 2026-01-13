@@ -8,7 +8,7 @@
 
 > **DebugTraceStateObject** = `object`
 
-Defined in: [packages/actions/src/debug/DebugResult.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L81)
+Defined in: [packages/actions/src/debug/DebugResult.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L103)
 
 Complete state object structure
 
@@ -18,7 +18,7 @@ Complete state object structure
 
 > `readonly` **blockchain**: `object`
 
-Defined in: [packages/actions/src/debug/DebugResult.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L82)
+Defined in: [packages/actions/src/debug/DebugResult.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L104)
 
 #### blocksByNumber
 
@@ -34,7 +34,7 @@ Defined in: [packages/actions/src/debug/DebugResult.ts:82](https://github.com/ev
 
 > `readonly` **evm**: `object`
 
-Defined in: [packages/actions/src/debug/DebugResult.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L86)
+Defined in: [packages/actions/src/debug/DebugResult.ts:108](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L108)
 
 #### common
 
@@ -74,7 +74,7 @@ Defined in: [packages/actions/src/debug/DebugResult.ts:86](https://github.com/ev
 
 > `readonly` **node**: `object`
 
-Defined in: [packages/actions/src/debug/DebugResult.ts:110](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L110)
+Defined in: [packages/actions/src/debug/DebugResult.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L132)
 
 #### filters
 
@@ -102,7 +102,7 @@ Defined in: [packages/actions/src/debug/DebugResult.ts:110](https://github.com/e
 
 > `readonly` **pool**: `object`
 
-Defined in: [packages/actions/src/debug/DebugResult.ts:117](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L117)
+Defined in: [packages/actions/src/debug/DebugResult.ts:139](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L139)
 
 #### pool
 
@@ -130,7 +130,7 @@ Defined in: [packages/actions/src/debug/DebugResult.ts:117](https://github.com/e
 
 > `readonly` **stateManager**: `object`
 
-Defined in: [packages/actions/src/debug/DebugResult.ts:124](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L124)
+Defined in: [packages/actions/src/debug/DebugResult.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L146)
 
 #### stateRoots
 

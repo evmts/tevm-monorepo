@@ -8,7 +8,7 @@
 
 > **EthGetUncleCountByBlockHashHandler** = (`request`) => `Promise`\<[`EthGetUncleCountByBlockHashResult`](EthGetUncleCountByBlockHashResult.md)\>
 
-Defined in: [packages/actions/src/eth/EthHandler.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L127)
+Defined in: [packages/actions/src/eth/EthHandler.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L149)
 
 ## Parameters
 

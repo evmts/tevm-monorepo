@@ -380,9 +380,7 @@ describe('ethSimulateV2Handler', () => {
 			expect(callResult.contractCreated.code).toBeDefined()
 
 			// Should have synthetic log for contract creation
-			const creationLog = callResult.logs.find(
-				(log) => log.address === '0xcccccccccccccccccccccccccccccccccccccccc',
-			)
+			const creationLog = callResult.logs.find((log) => log.address === '0xcccccccccccccccccccccccccccccccccccccccc')
 			expect(creationLog).toBeDefined()
 		}
 	})

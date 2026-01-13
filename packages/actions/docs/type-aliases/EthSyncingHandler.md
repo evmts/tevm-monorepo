@@ -8,7 +8,7 @@
 
 > **EthSyncingHandler** = (`request`) => `Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
 
-Defined in: [packages/actions/src/eth/EthHandler.ts:173](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L173)
+Defined in: [packages/actions/src/eth/EthHandler.ts:197](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L197)
 
 ## Parameters
 

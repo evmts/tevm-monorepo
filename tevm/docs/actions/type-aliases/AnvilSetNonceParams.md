@@ -8,7 +8,7 @@
 
 > **AnvilSetNonceParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:86
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:114
 
 Params for `anvil_setNonce` handler
 
@@ -18,7 +18,7 @@ Params for `anvil_setNonce` handler
 
 > `readonly` **address**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:90
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:118
 
 The address to set the nonce for
 
@@ -28,6 +28,6 @@ The address to set the nonce for
 
 > `readonly` **nonce**: `BigInt`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:94
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:122
 
 The nonce to set

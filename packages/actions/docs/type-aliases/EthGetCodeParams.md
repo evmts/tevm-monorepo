@@ -8,7 +8,7 @@
 
 > **EthGetCodeParams** = `object`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L130)
+Defined in: [packages/actions/src/eth/EthParams.ts:154](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L154)
 
 Based on the JSON-RPC request for `eth_getCode` procedure
 
@@ -18,7 +18,7 @@ Based on the JSON-RPC request for `eth_getCode` procedure
 
 > `readonly` **address**: [`Address`](Address.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L130)
+Defined in: [packages/actions/src/eth/EthParams.ts:154](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L154)
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: [packages/actions/src/eth/EthParams.ts:130](https://github.com/evmts
 
 > `readonly` `optional` **blockTag**: [`BlockParam`](BlockParam.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:130](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L130)
+Defined in: [packages/actions/src/eth/EthParams.ts:154](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L154)

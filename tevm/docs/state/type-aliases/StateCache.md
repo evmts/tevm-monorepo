@@ -8,7 +8,7 @@
 
 > **StateCache** = `object`
 
-Defined in: packages/state/dist/index.d.ts:265
+Defined in: packages/state/dist/index.d.ts:292
 
 **`Internal`**
 
@@ -20,7 +20,7 @@ The shape of the internal cache
 
 > **accounts**: [`AccountCache`](../classes/AccountCache.md)
 
-Defined in: packages/state/dist/index.d.ts:266
+Defined in: packages/state/dist/index.d.ts:293
 
 ***
 
@@ -28,7 +28,7 @@ Defined in: packages/state/dist/index.d.ts:266
 
 > **contracts**: [`ContractCache`](../classes/ContractCache.md)
 
-Defined in: packages/state/dist/index.d.ts:268
+Defined in: packages/state/dist/index.d.ts:295
 
 ***
 
@@ -36,4 +36,4 @@ Defined in: packages/state/dist/index.d.ts:268
 
 > **storage**: [`StorageCache`](../classes/StorageCache.md)
 
-Defined in: packages/state/dist/index.d.ts:267
+Defined in: packages/state/dist/index.d.ts:294

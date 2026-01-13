@@ -8,7 +8,7 @@
 
 > **EthProtocolVersionHandler** = (`request`) => `Promise`\<[`EthProtocolVersionResult`](EthProtocolVersionResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:31
+Defined in: packages/actions/types/eth/EthHandler.d.ts:34
 
 ## Parameters
 

@@ -8,7 +8,7 @@
 
 > **EthGetTransactionByBlockNumberAndIndexHandler** = (`request`) => `Promise`\<[`EthGetTransactionByBlockNumberAndIndexResult`](EthGetTransactionByBlockNumberAndIndexResult.md)\>
 
-Defined in: [packages/actions/src/eth/EthHandler.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L143)
+Defined in: [packages/actions/src/eth/EthHandler.ts:165](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L165)
 
 ## Parameters
 

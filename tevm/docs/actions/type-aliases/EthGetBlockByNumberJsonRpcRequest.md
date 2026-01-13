@@ -8,6 +8,6 @@
 
 > **EthGetBlockByNumberJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_getBlockByNumber"`, readonly \[[`BlockTag`](../../index/type-aliases/BlockTag.md) \| [`Hex`](../../index/type-aliases/Hex.md), `boolean`\]\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:96
+Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:104
 
 JSON-RPC request for `eth_getBlockByNumber` procedure

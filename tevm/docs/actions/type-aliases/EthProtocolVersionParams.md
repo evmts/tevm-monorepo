@@ -8,6 +8,6 @@
 
 > **EthProtocolVersionParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:206
+Defined in: packages/actions/types/eth/EthParams.d.ts:238
 
 Based on the JSON-RPC request for `eth_protocolVersion` procedure

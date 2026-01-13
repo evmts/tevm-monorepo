@@ -8,7 +8,7 @@
 
 > **EthGetUncleByBlockHashAndIndexParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:188
+Defined in: packages/actions/types/eth/EthParams.d.ts:220
 
 Based on the JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
 
@@ -18,7 +18,7 @@ Based on the JSON-RPC request for `eth_getUncleByBlockHashAndIndex` procedure
 
 > `readonly` **blockHash**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:189
+Defined in: packages/actions/types/eth/EthParams.d.ts:221
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: packages/actions/types/eth/EthParams.d.ts:189
 
 > `readonly` **uncleIndex**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:190
+Defined in: packages/actions/types/eth/EthParams.d.ts:222

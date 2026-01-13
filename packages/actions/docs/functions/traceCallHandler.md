@@ -8,7 +8,7 @@
 
 > **traceCallHandler**(`client`): [`DebugTraceCallHandler`](../type-aliases/DebugTraceCallHandler.md)
 
-Defined in: [packages/actions/src/debug/traceCallHandler.js:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/traceCallHandler.js#L15)
+Defined in: [packages/actions/src/debug/traceCallHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/traceCallHandler.js#L17)
 
 Returns a trace of an eth_call within the context of the given block execution using the final state of the parent block
 

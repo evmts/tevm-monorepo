@@ -8,7 +8,7 @@
 
 > **EIP1193EventEmitter** = [`EIP1193Events`](EIP1193Events.md) & `object`
 
-Defined in: packages/node/dist/index.d.ts:269
+Defined in: packages/node/dist/index.d.ts:260
 
 A very minimal EventEmitter interface
 

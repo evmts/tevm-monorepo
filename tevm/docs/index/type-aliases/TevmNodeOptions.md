@@ -8,7 +8,7 @@
 
 > **TevmNodeOptions**\<`TCommon`\> = [`StateOptions`](StateOptions.md) & `object`
 
-Defined in: packages/node/dist/index.d.ts:118
+Defined in: packages/node/dist/index.d.ts:110
 
 Options for creating an Tevm MemoryClient instance
 
@@ -121,7 +121,6 @@ Configure logging options for the client
 
 The configuration for mining. Defaults to 'auto'
 - 'auto' will mine a block on every transaction
-- 'interval' will mine a block every `interval` milliseconds
 - 'manual' will not mine a block automatically and requires a manual call to `mineBlock`
 
 ### persister?

@@ -8,7 +8,7 @@
 
 > **DebugTraceStateParams**\<`TStateFilters`\> = `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:87
+Defined in: packages/actions/types/debug/DebugParams.d.ts:106
 
 Params taken by `debug_traceState` handler
 
@@ -24,7 +24,7 @@ Params taken by `debug_traceState` handler
 
 > `readonly` `optional` **filters**: `TStateFilters`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:91
+Defined in: packages/actions/types/debug/DebugParams.d.ts:110
 
 Filters to apply to the state
 
@@ -34,6 +34,6 @@ Filters to apply to the state
 
 > `readonly` `optional` **timeout**: `string`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:95
+Defined in: packages/actions/types/debug/DebugParams.d.ts:114
 
 Timeout for the state trace

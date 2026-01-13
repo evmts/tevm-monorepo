@@ -8,7 +8,7 @@
 
 > **MemoryClientOptions**\<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\> = `TevmNodeOptions`\<`TCommon`\> & `Pick`\<`ClientConfig`\<`Transport`, `TCommon`, `TAccountOrAddress`, `TRpcSchema`\>, `"type"` \| `"key"` \| `"name"` \| `"account"` \| `"pollingInterval"` \| `"cacheTime"`\>
 
-Defined in: [packages/memory-client/src/MemoryClientOptions.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClientOptions.ts#L79)
+Defined in: [packages/memory-client/src/MemoryClientOptions.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/MemoryClientOptions.ts#L78)
 
 Configuration options for creating a [MemoryClient](MemoryClient.md).
 

@@ -8,4 +8,4 @@
 
 > `const` **getAccountAddresses**: [`StateAction`](../type-aliases/StateAction.md)\<`"getAccountAddresses"`\>
 
-Defined in: packages/state/dist/index.d.ts:413
+Defined in: packages/state/dist/index.d.ts:440

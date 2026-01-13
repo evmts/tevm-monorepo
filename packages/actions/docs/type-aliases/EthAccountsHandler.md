@@ -8,7 +8,7 @@
 
 > **EthAccountsHandler** = (`request?`) => `Promise`\<[`EthAccountsResult`](EthAccountsResult.md)\>
 
-Defined in: [packages/actions/src/eth/EthHandler.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L83)
+Defined in: [packages/actions/src/eth/EthHandler.ts:99](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L99)
 
 ## Parameters
 

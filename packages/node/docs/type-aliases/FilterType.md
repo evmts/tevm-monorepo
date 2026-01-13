@@ -8,4 +8,4 @@
 
 > **FilterType** = `"PendingTransaction"` \| `"Block"` \| `"Log"`
 
-Defined in: [packages/node/src/Filter.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L6)
+Defined in: [packages/node/src/Filter.ts:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L5)

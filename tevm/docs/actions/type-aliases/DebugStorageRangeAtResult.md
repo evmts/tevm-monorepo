@@ -1,0 +1,33 @@
+[**tevm**](../../README.md)
+
+***
+
+[tevm](../../modules.md) / [actions](../README.md) / DebugStorageRangeAtResult
+
+# Type Alias: DebugStorageRangeAtResult
+
+> **DebugStorageRangeAtResult** = `object`
+
+Defined in: packages/actions/types/debug/DebugResult.d.ts:160
+
+Result from `debug_storageRangeAt`
+
+## Properties
+
+### nextKey
+
+> **nextKey**: [`Hex`](Hex.md) \| `null`
+
+Defined in: packages/actions/types/debug/DebugResult.d.ts:168
+
+Next storage key for pagination (null if no more entries)
+
+***
+
+### storage
+
+> **storage**: `Record`\<[`Hex`](Hex.md), [`DebugStorageEntry`](DebugStorageEntry.md)\>
+
+Defined in: packages/actions/types/debug/DebugResult.d.ts:164
+
+Storage entries

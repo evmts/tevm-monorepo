@@ -8,4 +8,4 @@
 
 > **AnvilSetStorageAtResult** = `null`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:11
+Defined in: packages/actions/types/anvil/AnvilResult.d.ts:15

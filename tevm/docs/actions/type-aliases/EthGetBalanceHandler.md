@@ -8,7 +8,7 @@
 
 > **EthGetBalanceHandler** = (`request`) => `Promise`\<[`EthGetBalanceResult`](EthGetBalanceResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:11
+Defined in: packages/actions/types/eth/EthHandler.d.ts:13
 
 ## Parameters
 

@@ -6,7 +6,7 @@
 
 # Interface: StateManager
 
-Defined in: packages/state/dist/index.d.ts:147
+Defined in: packages/state/dist/index.d.ts:174
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: packages/state/dist/index.d.ts:147
 
 > **\_baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
-Defined in: packages/state/dist/index.d.ts:151
+Defined in: packages/state/dist/index.d.ts:178
 
 The internal state representation
 
@@ -28,7 +28,7 @@ The internal state representation
 
 > **getAccountAddresses**: () => `Set`\<`` `0x${string}` ``\>
 
-Defined in: packages/state/dist/index.d.ts:156
+Defined in: packages/state/dist/index.d.ts:183
 
 Returns contract addresses
 
@@ -80,7 +80,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **ready**: () => `Promise`\<`true`\>
 
-Defined in: packages/state/dist/index.d.ts:152
+Defined in: packages/state/dist/index.d.ts:179
 
 #### Returns
 
@@ -134,7 +134,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **clearCaches**(): `void`
 
-Defined in: packages/state/dist/index.d.ts:168
+Defined in: packages/state/dist/index.d.ts:195
 
 Resets all internal caches
 
@@ -152,7 +152,7 @@ Resets all internal caches
 
 > **clearContractStorage**(`address`): `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:189
+Defined in: packages/state/dist/index.d.ts:216
 
 Clears all storage entries for the account
 
@@ -194,7 +194,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **commit**(`createNewStateRoot?`): `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:178
+Defined in: packages/state/dist/index.d.ts:205
 
 Commits the current state.
 
@@ -224,7 +224,7 @@ This api is not stable
 
 > **deepCopy**(): `Promise`\<`StateManager`\>
 
-Defined in: packages/state/dist/index.d.ts:160
+Defined in: packages/state/dist/index.d.ts:187
 
 Returns a new instance of the ForkStateManager with the same opts and all storage copied over
 
@@ -260,7 +260,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **dumpCanonicalGenesis**(): `Promise`\<[`TevmState`](../../index/type-aliases/TevmState.md)\>
 
-Defined in: packages/state/dist/index.d.ts:164
+Defined in: packages/state/dist/index.d.ts:191
 
 Dumps the state of the state manager as a [TevmState](../../index/type-aliases/TevmState.md)
 
@@ -274,7 +274,7 @@ Dumps the state of the state manager as a [TevmState](../../index/type-aliases/T
 
 > **dumpStorage**(`address`): `Promise`\<[`StorageDump`](../../common/interfaces/StorageDump.md)\>
 
-Defined in: packages/state/dist/index.d.ts:193
+Defined in: packages/state/dist/index.d.ts:220
 
 Dumps storage based on the input
 
@@ -298,7 +298,7 @@ Dumps storage based on the input
 
 > **dumpStorageRange**(`address`, `startKey`, `limit`): `Promise`\<[`StorageRange`](../../common/interfaces/StorageRange.md)\>
 
-Defined in: packages/state/dist/index.d.ts:197
+Defined in: packages/state/dist/index.d.ts:224
 
 Dumps a range of storage values
 
@@ -330,7 +330,7 @@ Dumps a range of storage values
 
 > **generateCanonicalGenesis**(`state`): `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:201
+Defined in: packages/state/dist/index.d.ts:228
 
 Loads a state from a given state root
 
@@ -442,7 +442,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **getProof**(`address`, `storageSlots?`): `Promise`\<`Proof`\>
 
-Defined in: packages/state/dist/index.d.ts:208
+Defined in: packages/state/dist/index.d.ts:235
 
 Get an EIP-1186 proof from the provider
 
@@ -712,7 +712,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **saveStateRoot**(`root`, `state`): `void`
 
-Defined in: packages/state/dist/index.d.ts:174
+Defined in: packages/state/dist/index.d.ts:201
 
 **`Experimental`**
 

@@ -8,7 +8,7 @@
 
 > **EthGetLogsJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetLogsJsonRpcResponse`](EthGetLogsJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:20
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:22
 
 ## Parameters
 

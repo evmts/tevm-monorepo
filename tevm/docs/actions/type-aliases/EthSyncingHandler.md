@@ -8,7 +8,7 @@
 
 > **EthSyncingHandler** = (`request`) => `Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:36
+Defined in: packages/actions/types/eth/EthHandler.d.ts:39
 
 ## Parameters
 

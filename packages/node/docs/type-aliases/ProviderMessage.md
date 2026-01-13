@@ -8,7 +8,7 @@
 
 > **ProviderMessage** = `object`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L16)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L15)
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:16](https://github.co
 
 > **data**: `unknown`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L18)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L17)
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:18](https://github.co
 
 > **type**: `string`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L17)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L16)

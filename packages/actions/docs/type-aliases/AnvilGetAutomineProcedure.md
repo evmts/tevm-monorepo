@@ -8,7 +8,7 @@
 
 > **AnvilGetAutomineProcedure** = (`request`) => `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](AnvilGetAutomineJsonRpcResponse.md)\>
 
-Defined in: [packages/actions/src/anvil/AnvilProcedure.ts:62](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L62)
+Defined in: [packages/actions/src/anvil/AnvilProcedure.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L114)
 
 JSON-RPC procedure for `anvil_getAutomine`
 

@@ -8,6 +8,6 @@
 
 > **EthNewPendingTransactionFilterResult** = [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:170
+Defined in: packages/actions/types/eth/EthResult.d.ts:204
 
 JSON-RPC response for `eth_newPendingTransactionFilter` procedure

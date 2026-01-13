@@ -8,4 +8,4 @@
 
 > **AnvilMineResult** = `null`
 
-Defined in: [packages/actions/src/anvil/AnvilResult.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L13)
+Defined in: [packages/actions/src/anvil/AnvilResult.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L18)

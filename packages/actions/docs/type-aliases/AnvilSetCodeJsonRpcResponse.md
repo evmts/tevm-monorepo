@@ -8,6 +8,6 @@
 
 > **AnvilSetCodeJsonRpcResponse** = `JsonRpcResponse`\<`"anvil_setCode"`, `SerializeToJson`\<[`AnvilSetCodeResult`](AnvilSetCodeResult.md)\>, `AnvilError`\>
 
-Defined in: [packages/actions/src/anvil/AnvilJsonRpcResponse.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L96)
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcResponse.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L146)
 
 JSON-RPC response for `anvil_setCode` procedure

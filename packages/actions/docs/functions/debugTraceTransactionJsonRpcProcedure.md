@@ -6,7 +6,7 @@
 
 # Function: debugTraceTransactionJsonRpcProcedure()
 
-> **debugTraceTransactionJsonRpcProcedure**(`client`): `DebugTraceTransactionProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"`, `boolean`\>
+> **debugTraceTransactionJsonRpcProcedure**(`client`): `DebugTraceTransactionProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"`, `boolean`\>
 
 Defined in: [packages/actions/src/debug/debugTraceTransactionProcedure.js:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/debugTraceTransactionProcedure.js#L61)
 
@@ -26,7 +26,7 @@ The TEVM node instance
 
 ## Returns
 
-`DebugTraceTransactionProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"`, `boolean`\>
+`DebugTraceTransactionProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"`, `boolean`\>
 
 A handler function for debug_traceTransaction requests
 

@@ -8,7 +8,7 @@
 
 > **EthGetTransactionReceiptParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:182
+Defined in: packages/actions/types/eth/EthParams.d.ts:204
 
 Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
 
@@ -18,4 +18,4 @@ Based on the JSON-RPC request for `eth_getTransactionReceipt` procedure
 
 > `readonly` **hash**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:183
+Defined in: packages/actions/types/eth/EthParams.d.ts:205

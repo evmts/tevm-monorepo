@@ -16,22 +16,22 @@ import type {
 	AccessList,
 	AccessListEIP2930Transaction,
 	AccessListItem,
+	EOACodeEIP7702Transaction,
 	FeeMarketEIP1559Transaction,
 	LegacyTransaction,
-	EOACodeEIP7702Transaction,
 } from '@tevm/tx'
 import { BlobEIP4844Transaction, Capability, isBlobEIP4844Tx } from '@tevm/tx'
 import {
+	BIGINT_0,
+	BIGINT_1,
+	bytesToBigInt,
+	concatBytes,
 	EthjsAccount,
 	EthjsAddress,
+	eoaCode7702RecoverAuthority,
 	equalsBytes,
 	type Hex,
 	hexToBytes,
-	bytesToBigInt,
-	concatBytes,
-	eoaCode7702RecoverAuthority,
-	BIGINT_0,
-	BIGINT_1,
 	MAX_UINT64,
 	SECP256K1_ORDER_DIV_2,
 } from '@tevm/utils'
@@ -161,11 +161,7 @@ const _runTx =
 				// If the EOA is 7702-delegated, sending txs from this EOA is fine
 				if (!equalsBytes(code.slice(0, 3), DELEGATION_7702_FLAG)) {
 					// Trying to send TX from account with code (which is not 7702-delegated)
-					const msg = errorMsg(
-						'invalid sender address, address is not EOA (EIP-3607)',
-						block,
-						tx,
-					)
+					const msg = errorMsg('invalid sender address, address is not EOA (EIP-3607)', block, tx)
 					throw new InvalidTransactionError(msg)
 				}
 			} else {

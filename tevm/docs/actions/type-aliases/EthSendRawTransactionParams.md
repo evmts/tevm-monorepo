@@ -8,7 +8,7 @@
 
 > **EthSendRawTransactionParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:211
+Defined in: packages/actions/types/eth/EthParams.d.ts:243
 
 Based on the JSON-RPC request for `eth_sendRawTransaction` procedure
 This type is a placeholder
@@ -19,4 +19,4 @@ This type is a placeholder
 
 > `readonly` **data**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:212
+Defined in: packages/actions/types/eth/EthParams.d.ts:244

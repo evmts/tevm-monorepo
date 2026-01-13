@@ -8,6 +8,6 @@
 
 > **EthGetStorageAtResult** = [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:79
+Defined in: packages/actions/types/eth/EthResult.d.ts:108
 
 JSON-RPC response for `eth_getStorageAt` procedure

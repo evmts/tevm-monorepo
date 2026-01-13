@@ -8,6 +8,6 @@
 
 > **EthGetTransactionByBlockNumberAndIndexResult** = [`TransactionResult`](../../index/type-aliases/TransactionResult.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:103
+Defined in: packages/actions/types/eth/EthResult.d.ts:132
 
 JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure

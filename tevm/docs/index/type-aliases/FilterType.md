@@ -8,4 +8,4 @@
 
 > **FilterType** = `"PendingTransaction"` \| `"Block"` \| `"Log"`
 
-Defined in: packages/node/dist/index.d.ts:279
+Defined in: packages/node/dist/index.d.ts:270

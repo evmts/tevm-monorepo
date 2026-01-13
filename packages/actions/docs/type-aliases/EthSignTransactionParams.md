@@ -8,7 +8,7 @@
 
 > **EthSignTransactionParams** = `object`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:249](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L249)
+Defined in: [packages/actions/src/eth/EthParams.ts:280](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L280)
 
 **`Experimental`**
 
@@ -20,7 +20,7 @@ Based on the JSON-RPC request for `eth_signTransaction` procedure
 
 > `readonly` `optional` **data**: [`Hex`](Hex.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:277](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L277)
+Defined in: [packages/actions/src/eth/EthParams.ts:308](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L308)
 
 The compiled code of a contract OR the hash of the invoked method signature and encoded parameters.
 Optional if creating a contract.
@@ -31,7 +31,7 @@ Optional if creating a contract.
 
 > `readonly` **from**: [`Address`](Address.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:253](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L253)
+Defined in: [packages/actions/src/eth/EthParams.ts:284](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L284)
 
 The address from which the transaction is sent from
 
@@ -41,7 +41,7 @@ The address from which the transaction is sent from
 
 > `readonly` `optional` **gas**: `bigint`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:263](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L263)
+Defined in: [packages/actions/src/eth/EthParams.ts:294](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L294)
 
 The gas provded for transaction execution. It will return unused gas.
 Default value is 90000
@@ -52,7 +52,7 @@ Default value is 90000
 
 > `readonly` `optional` **gasPrice**: `bigint`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:268](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L268)
+Defined in: [packages/actions/src/eth/EthParams.ts:299](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L299)
 
 Integer of the gasPrice used for each paid gas, in Wei.
 If not provided tevm will default to the eth_gasPrice value
@@ -63,7 +63,7 @@ If not provided tevm will default to the eth_gasPrice value
 
 > `readonly` `optional` **nonce**: `bigint`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:281](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L281)
+Defined in: [packages/actions/src/eth/EthParams.ts:312](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L312)
 
 Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
 
@@ -73,7 +73,7 @@ Integer of a nonce. This allows to overwrite your own pending transactions that 
 
 > `readonly` `optional` **to**: [`Address`](Address.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:258](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L258)
+Defined in: [packages/actions/src/eth/EthParams.ts:289](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L289)
 
 The address the transaction is directed to. Optional if
 creating a contract
@@ -84,6 +84,6 @@ creating a contract
 
 > `readonly` `optional` **value**: `bigint`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:272](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L272)
+Defined in: [packages/actions/src/eth/EthParams.ts:303](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L303)
 
 Integer of the value sent with this transaction, in Wei.

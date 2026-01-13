@@ -8,7 +8,7 @@
 
 > **AnvilSetChainIdParams** = `object`
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:141](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L141)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:174](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L174)
 
 Params for `anvil_setChainId` handler
 
@@ -18,6 +18,6 @@ Params for `anvil_setChainId` handler
 
 > `readonly` **chainId**: `number`
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:145](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L145)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:178](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L178)
 
 The chain id to set

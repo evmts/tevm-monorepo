@@ -8,6 +8,6 @@
 
 > **AnvilSetStorageAtJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setStorageAt"`, `SerializeToJson`\<[`AnvilSetStorageAtResult`](AnvilSetStorageAtResult.md)\>, `AnvilError`\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:53
+Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:65
 
 JSON-RPC response for `anvil_setStorageAt` procedure

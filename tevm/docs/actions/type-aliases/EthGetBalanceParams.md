@@ -8,7 +8,7 @@
 
 > **EthGetBalanceParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:77
+Defined in: packages/actions/types/eth/EthParams.d.ts:99
 
 Based on the  JSON-RPC request for `eth_getBalance` procedure
 
@@ -18,7 +18,7 @@ Based on the  JSON-RPC request for `eth_getBalance` procedure
 
 > **address**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:78
+Defined in: packages/actions/types/eth/EthParams.d.ts:100
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: packages/actions/types/eth/EthParams.d.ts:78
 
 > `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:79
+Defined in: packages/actions/types/eth/EthParams.d.ts:101

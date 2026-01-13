@@ -8,7 +8,7 @@
 
 > **EthGetCodeParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:110
+Defined in: packages/actions/types/eth/EthParams.d.ts:132
 
 Based on the JSON-RPC request for `eth_getCode` procedure
 
@@ -18,7 +18,7 @@ Based on the JSON-RPC request for `eth_getCode` procedure
 
 > `readonly` **address**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:111
+Defined in: packages/actions/types/eth/EthParams.d.ts:133
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: packages/actions/types/eth/EthParams.d.ts:111
 
 > `readonly` `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:112
+Defined in: packages/actions/types/eth/EthParams.d.ts:134

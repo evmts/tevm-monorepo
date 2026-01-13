@@ -8,6 +8,6 @@
 
 > **AnvilGetAutomineParams** = \{ \} \| `undefined` \| `never`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:30
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:36
 
 Params for `anvil_getAutomine` handler

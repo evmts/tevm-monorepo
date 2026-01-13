@@ -123,9 +123,7 @@ export const ethSimulateV2Handler = (client) => {
 
 				/** @type {import('@tevm/evm').EvmRunCallOpts} */
 				const callParams = {
-					...(call.from !== undefined
-						? { caller: createAddress(call.from), origin: createAddress(call.from) }
-						: {}),
+					...(call.from !== undefined ? { caller: createAddress(call.from), origin: createAddress(call.from) } : {}),
 					...(call.to !== undefined ? { to: createAddress(call.to) } : {}),
 					...(call.data !== undefined ? { data: hexToBytes(call.data) } : {}),
 					...(call.value !== undefined ? { value: call.value } : {}),
@@ -140,7 +138,9 @@ export const ethSimulateV2Handler = (client) => {
 				if (includeCallTraces) {
 					trace = {
 						type: isContractCreation ? 'CREATE' : 'CALL',
-						from: /** @type {import('@tevm/utils').Address} */ (call.from ?? '0x0000000000000000000000000000000000000000'),
+						from: /** @type {import('@tevm/utils').Address} */ (
+							call.from ?? '0x0000000000000000000000000000000000000000'
+						),
 						...(call.to !== undefined ? { to: call.to } : {}),
 						...(call.value !== undefined ? { value: call.value } : {}),
 						gas: call.gas ?? gasLimit,
@@ -184,9 +184,7 @@ export const ethSimulateV2Handler = (client) => {
 				let contractCreated
 
 				if (isContractCreation && result.createdAddress && includeContractCreationEvents) {
-					const createdAddress = /** @type {import('@tevm/utils').Address} */ (
-						bytesToHex(result.createdAddress.bytes)
-					)
+					const createdAddress = /** @type {import('@tevm/utils').Address} */ (bytesToHex(result.createdAddress.bytes))
 					const creator = /** @type {import('@tevm/utils').Address} */ (
 						call.from ?? '0x0000000000000000000000000000000000000000'
 					)

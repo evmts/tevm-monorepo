@@ -8,7 +8,7 @@
 
 > **AnvilDealParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:135
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:163
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: packages/actions/types/anvil/AnvilParams.d.ts:135
 
 > **account**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:139
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:167
 
 The owner of the dealt tokens
 
@@ -26,7 +26,7 @@ The owner of the dealt tokens
 
 > **amount**: `bigint`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:141
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:169
 
 The amount of tokens to deal
 
@@ -36,6 +36,6 @@ The amount of tokens to deal
 
 > `optional` **erc20**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:137
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:165
 
 The address of the ERC20 token to deal

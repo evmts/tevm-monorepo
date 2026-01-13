@@ -8,6 +8,6 @@
 
 > **AnvilSetCoinbaseJsonRpcResponse** = `JsonRpcResponse`\<`"anvil_setCoinbase"`, `Address`, `AnvilError`\>
 
-Defined in: [packages/actions/src/anvil/AnvilJsonRpcResponse.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L48)
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcResponse.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L68)
 
 JSON-RPC response for `anvil_setCoinbase` procedure

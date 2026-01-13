@@ -8,7 +8,7 @@
 
 > **EthUninstallFilterHandler** = (`request`) => `Promise`\<[`EthUninstallFilterResult`](EthUninstallFilterResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:40
+Defined in: packages/actions/types/eth/EthHandler.d.ts:43
 
 ## Parameters
 

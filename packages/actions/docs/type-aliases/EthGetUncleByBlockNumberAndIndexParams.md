@@ -8,7 +8,7 @@
 
 > **EthGetUncleByBlockNumberAndIndexParams** = `object`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:211](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L211)
+Defined in: [packages/actions/src/eth/EthParams.ts:242](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L242)
 
 Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
@@ -18,7 +18,7 @@ Based on the JSON-RPC request for `eth_getUncleByBlockNumberAndIndex` procedure
 
 > `readonly` `optional` **blockTag**: [`BlockParam`](BlockParam.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:212](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L212)
+Defined in: [packages/actions/src/eth/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L243)
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: [packages/actions/src/eth/EthParams.ts:212](https://github.com/evmts
 
 > `readonly` **uncleIndex**: [`Hex`](Hex.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:213](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L213)
+Defined in: [packages/actions/src/eth/EthParams.ts:244](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L244)

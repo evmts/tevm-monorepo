@@ -8,7 +8,7 @@
 
 > **EthNewPendingTransactionFilterJsonRpcProcedure** = (`request`) => `Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](EthNewPendingTransactionFilterJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:40
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:43
 
 ## Parameters
 

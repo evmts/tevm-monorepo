@@ -8,7 +8,7 @@
 
 > **EthSignHandler** = (`request`) => `Promise`\<[`EthSignResult`](EthSignResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:34
+Defined in: packages/actions/types/eth/EthHandler.d.ts:37
 
 ## Parameters
 

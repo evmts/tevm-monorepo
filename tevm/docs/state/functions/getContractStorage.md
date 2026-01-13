@@ -8,7 +8,7 @@
 
 > **getContractStorage**(`baseState`): (`address`, `key`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/state/dist/index.d.ts:427
+Defined in: packages/state/dist/index.d.ts:454
 
 ## Parameters
 

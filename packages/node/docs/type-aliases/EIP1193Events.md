@@ -8,7 +8,7 @@
 
 > **EIP1193Events** = `object`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L46)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L45)
 
 ## Methods
 
@@ -16,7 +16,7 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:46](https://github.co
 
 > **on**\<`TEvent`\>(`event`, `listener`): `void`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L47)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L46)
 
 #### Type Parameters
 
@@ -44,7 +44,7 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:47](https://github.co
 
 > **removeListener**\<`TEvent`\>(`event`, `listener`): `void`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L48)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L47)
 
 #### Type Parameters
 

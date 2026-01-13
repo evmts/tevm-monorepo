@@ -8,6 +8,6 @@
 
 > **AnvilGetAutomineJsonRpcRequest** = `JsonRpcRequest`\<`"anvil_getAutomine"`, \[`SerializeToJson`\<[`AnvilGetAutomineParams`](AnvilGetAutomineParams.md)\>\]\>
 
-Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L35)
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcRequest.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcRequest.ts#L38)
 
 JSON-RPC request for `anvil_getAutomine` method

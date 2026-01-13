@@ -8,6 +8,6 @@
 
 > **AnvilSetChainIdJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_setChainId"`, `SerializeToJson`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>, `AnvilError`\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:57
+Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:69
 
 JSON-RPC response for `anvil_setChainId` procedure

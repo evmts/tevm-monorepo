@@ -18,7 +18,11 @@ describe('handleAutomining', () => {
 		vi.resetAllMocks()
 
 		// Create a default client
-		client = createTevmNode({ common: optimism, fork: { transport: transports.optimism }, miningConfig: { type: 'auto' } }) as unknown as TevmNode
+		client = createTevmNode({
+			common: optimism,
+			fork: { transport: transports.optimism },
+			miningConfig: { type: 'auto' },
+		}) as unknown as TevmNode
 
 		// Add debug logger if not present
 		if (!client.logger.debug) {

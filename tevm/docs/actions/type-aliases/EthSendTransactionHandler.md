@@ -8,7 +8,7 @@
 
 > **EthSendTransactionHandler** = (`request`) => `Promise`\<[`EthSendTransactionResult`](EthSendTransactionResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:33
+Defined in: packages/actions/types/eth/EthHandler.d.ts:36
 
 ## Parameters
 

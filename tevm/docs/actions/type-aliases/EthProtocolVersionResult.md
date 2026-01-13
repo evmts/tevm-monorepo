@@ -8,6 +8,6 @@
 
 > **EthProtocolVersionResult** = [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:123
+Defined in: packages/actions/types/eth/EthResult.d.ts:157
 
 JSON-RPC response for `eth_protocolVersion` procedure

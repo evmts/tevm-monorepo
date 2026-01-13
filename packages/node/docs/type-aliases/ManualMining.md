@@ -8,7 +8,7 @@
 
 > **ManualMining** = `object`
 
-Defined in: [packages/node/src/MiningConfig.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L32)
+Defined in: [packages/node/src/MiningConfig.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L16)
 
 Mining configuration where blocks are only created when explicitly requested.
 Transactions remain in the mempool until manually mined.
@@ -32,4 +32,4 @@ const value: ManualMining = {
 
 > **type**: `"manual"`
 
-Defined in: [packages/node/src/MiningConfig.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L33)
+Defined in: [packages/node/src/MiningConfig.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L17)

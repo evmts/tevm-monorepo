@@ -8,6 +8,6 @@
 
 > `const` **hasStateRoot**: [`StateAction`](../type-aliases/StateAction.md)\<`"hasStateRoot"`\>
 
-Defined in: packages/state/dist/index.d.ts:449
+Defined in: packages/state/dist/index.d.ts:476
 
 Returns true if state root exists

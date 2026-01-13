@@ -8,7 +8,7 @@
 
 > **AnvilSetStorageAtProcedure** = (`request`) => `Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](AnvilSetStorageAtJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:47
+Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:59
 
 JSON-RPC procedure for `anvil_setStorageAt`
 

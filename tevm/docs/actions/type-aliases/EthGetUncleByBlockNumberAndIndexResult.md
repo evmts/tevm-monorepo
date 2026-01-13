@@ -8,6 +8,6 @@
 
 > **EthGetUncleByBlockNumberAndIndexResult** = [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:115
+Defined in: packages/actions/types/eth/EthResult.d.ts:149
 
 JSON-RPC response for `eth_getUncleByBlockNumberAndIndex` procedure

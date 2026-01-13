@@ -8,4 +8,4 @@
 
 > **AnvilLoadStateResult** = `null`
 
-Defined in: [packages/actions/src/anvil/AnvilResult.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L33)
+Defined in: [packages/actions/src/anvil/AnvilResult.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L38)

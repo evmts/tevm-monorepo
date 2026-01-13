@@ -8,7 +8,7 @@
 
 > **EthGetFilterLogsParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:123
+Defined in: packages/actions/types/eth/EthParams.d.ts:145
 
 Based on the JSON-RPC request for `eth_getFilterLogs` procedure
 
@@ -18,4 +18,4 @@ Based on the JSON-RPC request for `eth_getFilterLogs` procedure
 
 > `readonly` **filterId**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:124
+Defined in: packages/actions/types/eth/EthParams.d.ts:146

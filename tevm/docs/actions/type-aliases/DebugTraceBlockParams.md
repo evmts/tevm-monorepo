@@ -8,7 +8,7 @@
 
 > **DebugTraceBlockParams**\<`TTracer`, `TDiffMode`\> = [`TraceParams`](TraceParams.md)\<`TTracer`, `TDiffMode`\> & `ExactlyOne`\<\{ `block`: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint` \| [`BlockTag`](BlockTag.md); `blockHash`: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint`; `blockNumber`: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint`; `blockTag`: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint` \| [`BlockTag`](BlockTag.md); \}, `"block"` \| `"blockTag"` \| `"blockHash"` \| `"blockNumber"`\>
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:58
+Defined in: packages/actions/types/debug/DebugParams.d.ts:59
 
 Params taken by `debug_traceBlock` handler
 
@@ -16,7 +16,7 @@ Params taken by `debug_traceBlock` handler
 
 ### TTracer
 
-`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `undefined`
+`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` \| `undefined`
 
 ### TDiffMode
 

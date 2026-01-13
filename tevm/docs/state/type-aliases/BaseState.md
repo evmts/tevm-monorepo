@@ -8,7 +8,7 @@
 
 > **BaseState** = `object`
 
-Defined in: packages/state/dist/index.d.ts:133
+Defined in: packages/state/dist/index.d.ts:160
 
 **`Internal`**
 
@@ -20,7 +20,7 @@ The core data structure powering the state manager internally
 
 > **caches**: [`StateCache`](StateCache.md)
 
-Defined in: packages/state/dist/index.d.ts:141
+Defined in: packages/state/dist/index.d.ts:168
 
 ***
 
@@ -28,7 +28,7 @@ Defined in: packages/state/dist/index.d.ts:141
 
 > **forkCache**: [`StateCache`](StateCache.md)
 
-Defined in: packages/state/dist/index.d.ts:142
+Defined in: packages/state/dist/index.d.ts:169
 
 ***
 
@@ -36,7 +36,7 @@ Defined in: packages/state/dist/index.d.ts:142
 
 > **getCurrentStateRoot**: () => [`Hex`](../../index/type-aliases/Hex.md)
 
-Defined in: packages/state/dist/index.d.ts:143
+Defined in: packages/state/dist/index.d.ts:170
 
 #### Returns
 
@@ -48,7 +48,7 @@ Defined in: packages/state/dist/index.d.ts:143
 
 > **logger**: `Logger`
 
-Defined in: packages/state/dist/index.d.ts:135
+Defined in: packages/state/dist/index.d.ts:162
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: packages/state/dist/index.d.ts:135
 
 > **options**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
 
-Defined in: packages/state/dist/index.d.ts:140
+Defined in: packages/state/dist/index.d.ts:167
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: packages/state/dist/index.d.ts:140
 
 > **ready**: () => `Promise`\<`true`\>
 
-Defined in: packages/state/dist/index.d.ts:134
+Defined in: packages/state/dist/index.d.ts:161
 
 #### Returns
 
@@ -76,7 +76,7 @@ Defined in: packages/state/dist/index.d.ts:134
 
 > **setCurrentStateRoot**: (`newStateRoot`) => `void`
 
-Defined in: packages/state/dist/index.d.ts:144
+Defined in: packages/state/dist/index.d.ts:171
 
 #### Parameters
 
@@ -94,6 +94,6 @@ Defined in: packages/state/dist/index.d.ts:144
 
 > **stateRoots**: [`StateRoots`](StateRoots.md)
 
-Defined in: packages/state/dist/index.d.ts:139
+Defined in: packages/state/dist/index.d.ts:166
 
 Mapping of hashes to State roots

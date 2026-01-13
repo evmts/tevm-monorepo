@@ -8,7 +8,7 @@
 
 > **AnvilSetCodeParams** = `object`
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:92](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L92)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:125](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L125)
 
 Params for `anvil_setCode` handler
 
@@ -18,7 +18,7 @@ Params for `anvil_setCode` handler
 
 > `readonly` **address**: [`Address`](Address.md)
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:96](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L96)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:129](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L129)
 
 The address to set the code for
 
@@ -28,6 +28,6 @@ The address to set the code for
 
 > `readonly` **code**: [`Hex`](Hex.md)
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:100](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L100)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L133)
 
 The code to set

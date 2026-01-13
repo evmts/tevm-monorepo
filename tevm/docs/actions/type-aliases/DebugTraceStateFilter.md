@@ -8,6 +8,6 @@
 
 > **DebugTraceStateFilter** = *typeof* [`debugTraceStateFilters`](../variables/debugTraceStateFilters.md)\[`number`\]
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:83
+Defined in: packages/actions/types/debug/DebugParams.d.ts:102
 
 Type for state filters

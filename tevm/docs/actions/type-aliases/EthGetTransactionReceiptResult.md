@@ -8,6 +8,6 @@
 
 > **EthGetTransactionReceiptResult** = [`TransactionReceiptResult`](TransactionReceiptResult.md) \| `null`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:107
+Defined in: packages/actions/types/eth/EthResult.d.ts:136
 
 JSON-RPC response for `eth_getTransactionReceipt` procedure

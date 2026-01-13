@@ -8,7 +8,7 @@
 
 > **EthGetUncleByBlockNumberAndIndexHandler** = (`request`) => `Promise`\<[`EthGetUncleByBlockNumberAndIndexResult`](EthGetUncleByBlockNumberAndIndexResult.md)\>
 
-Defined in: [packages/actions/src/eth/EthHandler.ts:155](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L155)
+Defined in: [packages/actions/src/eth/EthHandler.ts:179](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L179)
 
 ## Parameters
 

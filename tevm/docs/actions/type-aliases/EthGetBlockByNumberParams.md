@@ -8,7 +8,7 @@
 
 > **EthGetBlockByNumberParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:91
+Defined in: packages/actions/types/eth/EthParams.d.ts:113
 
 Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
 
@@ -18,7 +18,7 @@ Based on the JSON-RPC request for `eth_getBlockByNumber` procedure
 
 > `readonly` `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:92
+Defined in: packages/actions/types/eth/EthParams.d.ts:114
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: packages/actions/types/eth/EthParams.d.ts:92
 
 > `readonly` **fullTransactionObjects**: `boolean`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:93
+Defined in: packages/actions/types/eth/EthParams.d.ts:115

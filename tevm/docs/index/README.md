@@ -67,7 +67,6 @@
 - [HDAccount](type-aliases/HDAccount.md)
 - [HeadersInit](type-aliases/HeadersInit.md)
 - [Hex](type-aliases/Hex.md)
-- [IntervalMining](type-aliases/IntervalMining.md)
 - [JsonRpcClient](type-aliases/JsonRpcClient.md)
 - [JsonRpcProcedure](type-aliases/JsonRpcProcedure.md)
 - [JsonRpcRequest](type-aliases/JsonRpcRequest.md)

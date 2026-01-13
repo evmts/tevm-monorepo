@@ -8,7 +8,7 @@
 
 > **EthHashrateJsonRpcProcedure** = (`request`) => `Promise`\<[`EthHashrateJsonRpcResponse`](EthHashrateJsonRpcResponse.md)\>
 
-Defined in: [packages/actions/src/eth/EthProcedure.ts:107](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L107)
+Defined in: [packages/actions/src/eth/EthProcedure.ts:123](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L123)
 
 ## Parameters
 

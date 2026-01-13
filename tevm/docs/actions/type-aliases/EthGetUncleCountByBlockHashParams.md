@@ -8,7 +8,7 @@
 
 > **EthGetUncleCountByBlockHashParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:150
+Defined in: packages/actions/types/eth/EthParams.d.ts:172
 
 Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
@@ -18,4 +18,4 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 > `readonly` **hash**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:151
+Defined in: packages/actions/types/eth/EthParams.d.ts:173

@@ -8,7 +8,7 @@
 
 > **AnvilLoadStateParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:129
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:157
 
 Params for `anvil_loadState` handler
 
@@ -18,6 +18,6 @@ Params for `anvil_loadState` handler
 
 > `readonly` **state**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:133
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:161
 
 The state to load

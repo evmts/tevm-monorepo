@@ -8,7 +8,7 @@
 
 > **putContractCode**(`baseState`): (`address`, `value`) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:472
+Defined in: packages/state/dist/index.d.ts:499
 
 ## Parameters
 

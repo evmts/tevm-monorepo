@@ -8,6 +8,6 @@
 
 > **EthNewPendingTransactionFilterParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:281
+Defined in: packages/actions/types/eth/EthParams.d.ts:313
 
 Based on the JSON-RPC request for `eth_newPendingTransactionFilter` procedure

@@ -6,7 +6,7 @@
 
 # Function: debugTraceBlockJsonRpcProcedure()
 
-> **debugTraceBlockJsonRpcProcedure**(`client`): `DebugTraceBlockProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"`, `boolean`\>
+> **debugTraceBlockJsonRpcProcedure**(`client`): `DebugTraceBlockProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"`, `boolean`\>
 
 Defined in: [packages/actions/src/debug/debugTraceBlockProcedure.js:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/debugTraceBlockProcedure.js#L53)
 
@@ -26,7 +26,7 @@ The TEVM node instance
 
 ## Returns
 
-`DebugTraceBlockProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"`, `boolean`\>
+`DebugTraceBlockProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"`, `boolean`\>
 
 A handler function for debug_traceBlock requests
 

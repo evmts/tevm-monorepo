@@ -8,7 +8,7 @@
 
 > **EthSendTransactionParams** = [`CallParams`](CallParams.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:219
+Defined in: packages/actions/types/eth/EthParams.d.ts:251
 
 **`Experimental`**
 

@@ -8,7 +8,7 @@
 
 > **AnvilDealResult** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:15
+Defined in: packages/actions/types/anvil/AnvilResult.d.ts:19
 
 ## Properties
 
@@ -16,4 +16,4 @@ Defined in: packages/actions/types/anvil/AnvilResult.d.ts:15
 
 > `optional` **errors**: `Error`[]
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:16
+Defined in: packages/actions/types/anvil/AnvilResult.d.ts:20

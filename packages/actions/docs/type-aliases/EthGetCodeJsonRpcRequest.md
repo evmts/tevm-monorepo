@@ -8,6 +8,6 @@
 
 > **EthGetCodeJsonRpcRequest** = `JsonRpcRequest`\<`"eth_getCode"`, readonly \[`Address`, `BlockTag` \| `Hex`\]\>
 
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L143)
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:156](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L156)
 
 JSON-RPC request for `eth_getCode` procedure

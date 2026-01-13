@@ -8,6 +8,6 @@
 
 > **AnvilDealJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_deal"`, \[`SerializeToJson`\<[`AnvilDealParams`](AnvilDealParams.md)\>\]\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:78
+Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:92
 
 JSON-RPC request for `anvil_deal` method

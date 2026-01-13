@@ -14,7 +14,7 @@ Defined in: packages/actions/types/debug/DebugHandler.d.ts:3
 
 ### TTracer
 
-`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` = `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"`
+`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` = `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"`
 
 ### TDiffMode
 

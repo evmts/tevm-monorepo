@@ -8,7 +8,7 @@
 
 > **EthSendTransactionParams** = [`CallParams`](CallParams.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:237](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L237)
+Defined in: [packages/actions/src/eth/EthParams.ts:268](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L268)
 
 **`Experimental`**
 

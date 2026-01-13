@@ -8,7 +8,7 @@
 
 > **AnvilResetHandler** = (`params`) => `Promise`\<[`AnvilResetResult`](AnvilResetResult.md)\>
 
-Defined in: [packages/actions/src/anvil/AnvilHandler.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L50)
+Defined in: [packages/actions/src/anvil/AnvilHandler.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L64)
 
 ## Parameters
 

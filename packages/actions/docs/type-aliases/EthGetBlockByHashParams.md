@@ -8,7 +8,7 @@
 
 > **EthGetBlockByHashParams** = `object`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L102)
+Defined in: [packages/actions/src/eth/EthParams.ts:126](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L126)
 
 Based on the JSON-RPC request for `eth_getBlockByHash` procedure
 
@@ -18,7 +18,7 @@ Based on the JSON-RPC request for `eth_getBlockByHash` procedure
 
 > `readonly` **blockHash**: [`Hex`](Hex.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:103](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L103)
+Defined in: [packages/actions/src/eth/EthParams.ts:127](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L127)
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: [packages/actions/src/eth/EthParams.ts:103](https://github.com/evmts
 
 > `readonly` **fullTransactionObjects**: `boolean`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:104](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L104)
+Defined in: [packages/actions/src/eth/EthParams.ts:128](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L128)

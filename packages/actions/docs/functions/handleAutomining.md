@@ -6,13 +6,13 @@
 
 # Function: handleAutomining()
 
-> **handleAutomining**(`client`, `txHash?`, `isGasMining?`, `mineAllTx?`): `Promise`\<`undefined` \| \{ `blockHashes?`: `undefined`; `errors?`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \}\>
+> **handleAutomining**(`client`, `txHash?`, `_reserved?`, `mineAllTx?`): `Promise`\<`undefined` \| \{ `blockHashes?`: `undefined`; `errors?`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \}\>
 
-Defined in: [packages/actions/src/Call/handleAutomining.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleAutomining.js#L12)
+Defined in: [packages/actions/src/Call/handleAutomining.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleAutomining.js#L13)
 
 **`Internal`**
 
-Runs the mining logic if the client is set to automine or gas mining threshold is reached
+Runs the mining logic if the client is set to automine
 
 ## Parameters
 
@@ -24,15 +24,17 @@ Runs the mining logic if the client is set to automine or gas mining threshold i
 
 `` `0x${string}` ``
 
-### isGasMining?
+### \_reserved?
 
 `boolean` = `false`
 
-Whether this is being triggered by gas mining
+Reserved parameter for backwards compatibility
 
 ### mineAllTx?
 
 `boolean` = `true`
+
+Whether to mine all transactions in the pool
 
 ## Returns
 

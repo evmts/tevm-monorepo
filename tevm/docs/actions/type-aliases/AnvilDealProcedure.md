@@ -8,7 +8,7 @@
 
 > **AnvilDealProcedure** = (`request`) => `Promise`\<[`AnvilDealJsonRpcResponse`](AnvilDealJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:63
+Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:75
 
 JSON-RPC procedure for `anvil_deal`
 

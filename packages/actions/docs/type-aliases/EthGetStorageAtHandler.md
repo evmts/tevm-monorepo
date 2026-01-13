@@ -8,7 +8,7 @@
 
 > **EthGetStorageAtHandler** = (`request`) => `Promise`\<[`EthGetStorageAtResult`](EthGetStorageAtResult.md)\>
 
-Defined in: [packages/actions/src/eth/EthHandler.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L121)
+Defined in: [packages/actions/src/eth/EthHandler.ts:143](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L143)
 
 ## Parameters
 

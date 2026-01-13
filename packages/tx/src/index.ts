@@ -4,14 +4,21 @@ export {
 	type AccessListItem,
 	Blob4844Tx as BlobEIP4844Transaction,
 	Capability,
+	createEOACode7702Tx as createEOACodeEIP7702Tx,
+	createEOACode7702TxFromBytesArray as createEOACodeEIP7702TxFromBytesArray,
+	createEOACode7702TxFromRLP as createEOACodeEIP7702TxFromRLP,
 	createTx as TransactionFactory,
 	createTxFromBlockBodyData,
 	createTxFromRLP,
 	type EIP1559CompatibleTx,
 	type EIP4844CompatibleTx,
+	// EIP-7702 EOA Code transaction support
+	EOACode7702Tx as EOACodeEIP7702Transaction,
+	type EOACode7702TxData as EOACodeEIP7702TxData,
 	FeeMarket1559Tx as FeeMarketEIP1559Transaction,
 	isAccessList2930Tx as isAccessListEIP2930Tx,
 	isBlob4844Tx as isBlobEIP4844Tx,
+	isEOACode7702Tx as isEOACodeEIP7702Tx,
 	isFeeMarket1559Tx as isFeeMarketEIP1559Tx,
 	isLegacyTx,
 	type JSONRPCTx as JsonRpcTx,
@@ -21,13 +28,6 @@ export {
 	type TxData,
 	type TxOptions,
 	type TypedTransaction,
-	// EIP-7702 EOA Code transaction support
-	EOACode7702Tx as EOACodeEIP7702Transaction,
-	createEOACode7702Tx as createEOACodeEIP7702Tx,
-	createEOACode7702TxFromBytesArray as createEOACodeEIP7702TxFromBytesArray,
-	createEOACode7702TxFromRLP as createEOACodeEIP7702TxFromRLP,
-	isEOACode7702Tx as isEOACodeEIP7702Tx,
-	type EOACode7702TxData as EOACodeEIP7702TxData,
 } from '@ethereumjs/tx'
 export { createImpersonatedTx } from './createImpersonatedTx.js'
 export type { ImpersonatedTx } from './ImpersonatedTx.js'

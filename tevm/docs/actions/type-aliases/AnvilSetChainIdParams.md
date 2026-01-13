@@ -8,7 +8,7 @@
 
 > **AnvilSetChainIdParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:116
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:144
 
 Params for `anvil_setChainId` handler
 
@@ -18,6 +18,6 @@ Params for `anvil_setChainId` handler
 
 > `readonly` **chainId**: `number`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:120
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:148
 
 The chain id to set

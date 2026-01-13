@@ -8,6 +8,6 @@
 
 > **EthSendRawTransactionResult** = [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:127
+Defined in: packages/actions/types/eth/EthResult.d.ts:161
 
 JSON-RPC response for `eth_sendRawTransaction` procedure

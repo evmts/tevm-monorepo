@@ -8,6 +8,6 @@
 
 > `const` **putAccount**: [`StateAction`](../type-aliases/StateAction.md)\<`"putAccount"`\>
 
-Defined in: packages/state/dist/index.d.ts:470
+Defined in: packages/state/dist/index.d.ts:497
 
 Saves an account into state under the provided `address`.

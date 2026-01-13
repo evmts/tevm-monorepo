@@ -8,6 +8,6 @@
 
 > **EthGetFilterChangesJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getFilterChanges"`, `SerializeToJson`\<[`FilterLog`](FilterLog.md)\>[], `string` \| `number`\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:72
+Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:101
 
 JSON-RPC response for `eth_getFilterChanges` procedure

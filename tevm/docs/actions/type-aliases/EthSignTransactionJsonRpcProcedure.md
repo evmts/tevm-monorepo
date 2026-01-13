@@ -8,7 +8,7 @@
 
 > **EthSignTransactionJsonRpcProcedure** = (`request`) => `Promise`\<[`EthSignTransactionJsonRpcResponse`](EthSignTransactionJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:36
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:39
 
 ## Parameters
 

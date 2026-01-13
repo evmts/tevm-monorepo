@@ -8,6 +8,6 @@
 
 > **EthSendRawTransactionJsonRpcRequest** = `JsonRpcRequest`\<`"eth_sendRawTransaction"`, \[`Hex`\]\>
 
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:247](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L247)
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:268](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L268)
 
 JSON-RPC request for `eth_sendRawTransaction` procedure

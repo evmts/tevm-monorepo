@@ -8,6 +8,6 @@
 
 > **EthGetUncleCountByBlockNumberJsonRpcResponse** = `JsonRpcResponse`\<`"eth_getUncleCountByBlockNumber"`, `Hex`, `string` \| `number`\>
 
-Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:168](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L168)
+Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:205](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L205)
 
 JSON-RPC response for `eth_getUncleCountByBlockNumber` procedure

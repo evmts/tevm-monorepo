@@ -8,7 +8,7 @@
 
 > **EthGetTransactionCountParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:143
+Defined in: packages/actions/types/eth/EthParams.d.ts:165
 
 Based on the JSON-RPC request for `eth_getTransactionCount` procedure
 
@@ -18,7 +18,7 @@ Based on the JSON-RPC request for `eth_getTransactionCount` procedure
 
 > `readonly` **address**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:144
+Defined in: packages/actions/types/eth/EthParams.d.ts:166
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: packages/actions/types/eth/EthParams.d.ts:144
 
 > `readonly` `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:145
+Defined in: packages/actions/types/eth/EthParams.d.ts:167

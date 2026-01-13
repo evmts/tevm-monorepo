@@ -8,6 +8,6 @@
 
 > **EthGetBlockTransactionCountByHashResult** = [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:55
+Defined in: packages/actions/types/eth/EthResult.d.ts:84
 
 JSON-RPC response for `eth_getBlockTransactionCountByHash` procedure

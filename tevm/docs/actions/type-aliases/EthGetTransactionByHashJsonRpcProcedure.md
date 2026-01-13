@@ -8,7 +8,7 @@
 
 > **EthGetTransactionByHashJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](EthGetTransactionByHashJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:25
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:27
 
 ## Parameters
 

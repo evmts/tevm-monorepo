@@ -8,7 +8,7 @@
 
 > **Filter** = `object`
 
-Defined in: [packages/node/src/Filter.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L14)
+Defined in: [packages/node/src/Filter.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L56)
 
 Internal representation of a registered filter
 
@@ -18,7 +18,7 @@ Internal representation of a registered filter
 
 > **blocks**: `Block`[]
 
-Defined in: [packages/node/src/Filter.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L43)
+Defined in: [packages/node/src/Filter.ts:85](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L85)
 
 Stores the blocks
 
@@ -28,7 +28,7 @@ Stores the blocks
 
 > **created**: `number`
 
-Defined in: [packages/node/src/Filter.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L26)
+Defined in: [packages/node/src/Filter.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L68)
 
 Creation timestamp
 
@@ -38,7 +38,7 @@ Creation timestamp
 
 > **err**: `Error` \| `undefined`
 
-Defined in: [packages/node/src/Filter.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L51)
+Defined in: [packages/node/src/Filter.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L93)
 
 Error if any
 
@@ -48,7 +48,7 @@ Error if any
 
 > **id**: `Hex`
 
-Defined in: [packages/node/src/Filter.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L18)
+Defined in: [packages/node/src/Filter.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L60)
 
 Id of the filter
 
@@ -58,7 +58,7 @@ Id of the filter
 
 > **installed**: `object`
 
-Defined in: [packages/node/src/Filter.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L47)
+Defined in: [packages/node/src/Filter.ts:89](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L89)
 
 Not sure what this is yet
 
@@ -66,9 +66,9 @@ Not sure what this is yet
 
 ### logs
 
-> **logs**: `GetFilterLogsReturnType`\[`number`\][]
+> **logs**: [`FilterLog`](FilterLog.md)[]
 
-Defined in: [packages/node/src/Filter.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L35)
+Defined in: [packages/node/src/Filter.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L77)
 
 Stores logs
 
@@ -78,7 +78,7 @@ Stores logs
 
 > `optional` **logsCriteria**: `TODO`
 
-Defined in: [packages/node/src/Filter.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L31)
+Defined in: [packages/node/src/Filter.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L73)
 
 Criteria of the logs
 https://github.com/ethereum/go-ethereum/blob/master/eth/filters/filter_system.go#L329
@@ -89,7 +89,7 @@ https://github.com/ethereum/go-ethereum/blob/master/eth/filters/filter_system.go
 
 > **registeredListeners**: (...`args`) => `any`[]
 
-Defined in: [packages/node/src/Filter.ts:55](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L55)
+Defined in: [packages/node/src/Filter.ts:97](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L97)
 
 Listeners registered for the filter
 
@@ -109,7 +109,7 @@ Listeners registered for the filter
 
 > **tx**: `TypedTransaction`[]
 
-Defined in: [packages/node/src/Filter.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L39)
+Defined in: [packages/node/src/Filter.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L81)
 
 stores tx
 
@@ -119,6 +119,6 @@ stores tx
 
 > **type**: [`FilterType`](FilterType.md)
 
-Defined in: [packages/node/src/Filter.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L22)
+Defined in: [packages/node/src/Filter.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L64)
 
 The type of the filter

@@ -8,6 +8,6 @@
 
 > **EthGetLogsResult** = [`FilterLog`](FilterLog.md)[]
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:75
+Defined in: packages/actions/types/eth/EthResult.d.ts:104
 
 JSON-RPC response for `eth_getLogs` procedure

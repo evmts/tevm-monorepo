@@ -8,6 +8,6 @@
 
 > **EthMiningResult** = `boolean`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:119
+Defined in: packages/actions/types/eth/EthResult.d.ts:153
 
 JSON-RPC response for `eth_mining` procedure

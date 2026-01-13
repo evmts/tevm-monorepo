@@ -8,7 +8,7 @@
 
 > **EthGetUncleCountByBlockHashParams** = `object`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L167)
+Defined in: [packages/actions/src/eth/EthParams.ts:191](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L191)
 
 Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
@@ -18,4 +18,4 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockHash` procedure
 
 > `readonly` **hash**: [`Hex`](Hex.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:167](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L167)
+Defined in: [packages/actions/src/eth/EthParams.ts:191](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L191)

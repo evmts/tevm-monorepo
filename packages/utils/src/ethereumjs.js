@@ -1,6 +1,8 @@
 export {
 	Account as EthjsAccount,
 	Address as EthjsAddress,
+	BIGINT_0,
+	BIGINT_1,
 	bytesToUnprefixedHex,
 	bytesToUtf8,
 	concatBytes,
@@ -8,34 +10,32 @@ export {
 	// AsyncEventEmitter was also removed
 	createAddressFromString,
 	createWithdrawal,
+	EOA_CODE_7702_AUTHORITY_SIGNING_MAGIC,
 	ecrecover,
+	eoaCode7702AuthorizationHashedMessageToSign,
+	eoaCode7702AuthorizationListBytesItemToJSON,
+	eoaCode7702AuthorizationListJSONItemToBytes,
+	eoaCode7702AuthorizationMessageToSign,
+	// EIP-7702 EOA Code authorization utilities
+	eoaCode7702RecoverAuthority,
+	eoaCode7702SignAuthorization,
 	equalsBytes,
 	fetchFromProvider,
 	GWEI_TO_WEI,
 	getProvider,
+	isEOACode7702AuthorizationList,
 	KECCAK256_RLP,
 	KECCAK256_RLP_ARRAY,
 	KeyEncoding,
+	// Additional constants needed for EIP-7702 validation
+	MAX_UINT64,
 	// ecsign was removed in newer versions of @ethereumjs/util
 	// zeros was also removed
 	randomBytes,
+	SECP256K1_ORDER_DIV_2,
 	setLengthLeft,
 	TypeOutput,
 	toType,
 	ValueEncoding,
 	Withdrawal,
-	// EIP-7702 EOA Code authorization utilities
-	eoaCode7702RecoverAuthority,
-	eoaCode7702SignAuthorization,
-	eoaCode7702AuthorizationMessageToSign,
-	eoaCode7702AuthorizationHashedMessageToSign,
-	eoaCode7702AuthorizationListBytesItemToJSON,
-	eoaCode7702AuthorizationListJSONItemToBytes,
-	isEOACode7702AuthorizationList,
-	EOA_CODE_7702_AUTHORITY_SIGNING_MAGIC,
-	// Additional constants needed for EIP-7702 validation
-	MAX_UINT64,
-	SECP256K1_ORDER_DIV_2,
-	BIGINT_0,
-	BIGINT_1,
 } from '@ethereumjs/util'

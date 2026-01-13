@@ -6,7 +6,7 @@
 
 # Class: ProviderRpcError
 
-Defined in: packages/node/dist/index.d.ts:246
+Defined in: packages/node/dist/index.d.ts:237
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: packages/node/dist/index.d.ts:246
 
 > **new ProviderRpcError**(`code`, `message`): `ProviderRpcError`
 
-Defined in: packages/node/dist/index.d.ts:249
+Defined in: packages/node/dist/index.d.ts:240
 
 #### Parameters
 
@@ -56,7 +56,7 @@ Defined in: node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/li
 
 > **code**: `number`
 
-Defined in: packages/node/dist/index.d.ts:247
+Defined in: packages/node/dist/index.d.ts:238
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: packages/node/dist/index.d.ts:247
 
 > **details**: `string`
 
-Defined in: packages/node/dist/index.d.ts:248
+Defined in: packages/node/dist/index.d.ts:239
 
 ***
 

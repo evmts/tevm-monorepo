@@ -8,6 +8,6 @@
 
 > **EthGetBlockTransactionCountByNumberJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getBlockTransactionCountByNumber"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:64
+Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:93
 
 JSON-RPC response for `eth_getBlockTransactionCountByNumber` procedure

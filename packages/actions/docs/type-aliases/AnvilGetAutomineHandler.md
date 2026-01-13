@@ -8,7 +8,7 @@
 
 > **AnvilGetAutomineHandler** = (`params`) => `Promise`\<[`AnvilGetAutomineResult`](AnvilGetAutomineResult.md)\>
 
-Defined in: [packages/actions/src/anvil/AnvilHandler.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L46)
+Defined in: [packages/actions/src/anvil/AnvilHandler.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L60)
 
 ## Parameters
 

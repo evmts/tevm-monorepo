@@ -8,7 +8,7 @@
 
 > **EthGetFilterChangesJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetFilterChangesJsonRpcResponse`](EthGetFilterChangesJsonRpcResponse.md)\>
 
-Defined in: [packages/actions/src/eth/EthProcedure.ts:133](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L133)
+Defined in: [packages/actions/src/eth/EthProcedure.ts:157](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthProcedure.ts#L157)
 
 ## Parameters
 

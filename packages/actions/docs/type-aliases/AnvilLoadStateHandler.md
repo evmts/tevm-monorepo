@@ -8,7 +8,7 @@
 
 > **AnvilLoadStateHandler** = (`params`) => `Promise`\<[`AnvilLoadStateResult`](AnvilLoadStateResult.md)\>
 
-Defined in: [packages/actions/src/anvil/AnvilHandler.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L68)
+Defined in: [packages/actions/src/anvil/AnvilHandler.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilHandler.ts#L82)
 
 ## Parameters
 

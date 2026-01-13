@@ -8,7 +8,7 @@
 
 > **EthUninstallFilterParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:285
+Defined in: packages/actions/types/eth/EthParams.d.ts:317
 
 Based on the JSON-RPC request for `eth_uninstallFilter` procedure
 
@@ -18,4 +18,4 @@ Based on the JSON-RPC request for `eth_uninstallFilter` procedure
 
 > `readonly` **filterId**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:286
+Defined in: packages/actions/types/eth/EthParams.d.ts:318

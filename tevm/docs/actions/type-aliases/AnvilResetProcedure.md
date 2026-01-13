@@ -8,7 +8,7 @@
 
 > **AnvilResetProcedure** = (`request`) => `Promise`\<[`AnvilResetJsonRpcResponse`](AnvilResetJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:27
+Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:39
 
 JSON-RPC procedure for `anvil_reset`
 

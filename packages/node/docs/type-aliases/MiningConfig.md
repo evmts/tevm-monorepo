@@ -6,9 +6,9 @@
 
 # Type Alias: MiningConfig
 
-> **MiningConfig** = [`IntervalMining`](IntervalMining.md) \| [`ManualMining`](ManualMining.md) \| [`AutoMining`](AutoMining.md) \| `GasMining`
+> **MiningConfig** = [`ManualMining`](ManualMining.md) \| [`AutoMining`](AutoMining.md) \| [`IntervalMining`](IntervalMining.md)
 
-Defined in: [packages/node/src/MiningConfig.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L86)
+Defined in: [packages/node/src/MiningConfig.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/MiningConfig.ts#L78)
 
 Configuration options for controlling block mining behavior.
 Union of all mining strategy types.
@@ -21,8 +21,7 @@ import { createMemoryClient } from 'tevm'
 
 // Choose one of the mining strategies
 const miningConfig: MiningConfig = {
-  type: 'interval',
-  interval: 2000 // Mine every 2 seconds
+  type: 'auto' // Mine automatically after each transaction
 }
 
 const client = createMemoryClient({

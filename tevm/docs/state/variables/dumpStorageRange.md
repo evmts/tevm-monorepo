@@ -8,4 +8,4 @@
 
 > `const` **dumpStorageRange**: [`StateAction`](../type-aliases/StateAction.md)\<`"dumpStorageRange"`\>
 
-Defined in: packages/state/dist/index.d.ts:388
+Defined in: packages/state/dist/index.d.ts:415

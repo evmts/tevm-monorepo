@@ -156,7 +156,7 @@ The number of txs currently in the pool
 
 > **\_logPoolStats**(): `void`
 
-Defined in: packages/txpool/types/TxPool.d.ts:238
+Defined in: packages/txpool/types/TxPool.d.ts:241
 
 **`Experimental`**
 
@@ -234,7 +234,7 @@ Transaction
 
 > **cleanup**(): `void`
 
-Defined in: packages/txpool/types/TxPool.d.ts:150
+Defined in: packages/txpool/types/TxPool.d.ts:152
 
 **`Experimental`**
 
@@ -250,7 +250,7 @@ Regular tx pool cleanup
 
 > **clear**(): `Promise`\<`void`\>
 
-Defined in: packages/txpool/types/TxPool.d.ts:236
+Defined in: packages/txpool/types/TxPool.d.ts:239
 
 **`Experimental`**
 
@@ -266,7 +266,7 @@ Clears the pool of all transactions.
 
 > **close**(): `void`
 
-Defined in: packages/txpool/types/TxPool.d.ts:232
+Defined in: packages/txpool/types/TxPool.d.ts:235
 
 **`Experimental`**
 
@@ -344,13 +344,57 @@ readonly `Uint8Array`\<`ArrayBufferLike`\>[]
 
 Array with tx objects
 
+#### Call Signature
+
+> **getByHash**(`txHashes`): `null` \| [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md)
+
+Defined in: packages/txpool/types/TxPool.d.ts:138
+
+**`Experimental`**
+
+Returns the available txs from the pool
+
+##### Parameters
+
+###### txHashes
+
+`string`
+
+##### Returns
+
+`null` \| [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md)
+
+Array with tx objects
+
+#### Call Signature
+
+> **getByHash**(`txHashes`): ([`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md))[]
+
+Defined in: packages/txpool/types/TxPool.d.ts:139
+
+**`Experimental`**
+
+Returns the available txs from the pool
+
+##### Parameters
+
+###### txHashes
+
+readonly `Uint8Array`\<`ArrayBufferLike`\>[]
+
+##### Returns
+
+([`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md))[]
+
+Array with tx objects
+
 ***
 
 ### getBySenderAddress()
 
 > **getBySenderAddress**(`address`): `Promise`\<`TxPoolObject`[]\>
 
-Defined in: packages/txpool/types/TxPool.d.ts:166
+Defined in: packages/txpool/types/TxPool.d.ts:168
 
 **`Experimental`**
 
@@ -370,7 +414,7 @@ Defined in: packages/txpool/types/TxPool.d.ts:166
 
 > **getPendingTransactions**(): `Promise`\<([`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md))[]\>
 
-Defined in: packages/txpool/types/TxPool.d.ts:171
+Defined in: packages/txpool/types/TxPool.d.ts:173
 
 **`Experimental`**
 
@@ -388,7 +432,7 @@ Array of transactions
 
 > **getTransactionStatus**(`txHash`): `Promise`\<`"pending"` \| `"mined"` \| `"unknown"`\>
 
-Defined in: packages/txpool/types/TxPool.d.ts:177
+Defined in: packages/txpool/types/TxPool.d.ts:179
 
 **`Experimental`**
 
@@ -414,7 +458,7 @@ Transaction status: 'pending', 'mined', or 'unknown'
 
 > **logStats**(): `void`
 
-Defined in: packages/txpool/types/TxPool.d.ts:237
+Defined in: packages/txpool/types/TxPool.d.ts:240
 
 **`Experimental`**
 
@@ -426,9 +470,9 @@ Defined in: packages/txpool/types/TxPool.d.ts:237
 
 ### on()
 
-> **on**(`event`, `callback`): `void`
+> **on**(`event`, `callback`): () => `void`
 
-Defined in: packages/txpool/types/TxPool.d.ts:187
+Defined in: packages/txpool/types/TxPool.d.ts:190
 
 **`Experimental`**
 
@@ -450,6 +494,12 @@ Handler function
 
 #### Returns
 
+Unsubscribe function
+
+> (): `void`
+
+##### Returns
+
 `void`
 
 ***
@@ -458,7 +508,7 @@ Handler function
 
 > **onBlockAdded**(`block`): `Promise`\<`void`\>
 
-Defined in: packages/txpool/types/TxPool.d.ts:198
+Defined in: packages/txpool/types/TxPool.d.ts:201
 
 **`Experimental`**
 
@@ -482,7 +532,7 @@ The block that was added
 
 > **onChainReorganization**(`removedBlocks`, `addedBlocks`): `Promise`\<`void`\>
 
-Defined in: packages/txpool/types/TxPool.d.ts:204
+Defined in: packages/txpool/types/TxPool.d.ts:207
 
 **`Experimental`**
 
@@ -528,7 +578,7 @@ Open pool
 
 > **removeByHash**(`txHash`): `void`
 
-Defined in: packages/txpool/types/TxPool.d.ts:142
+Defined in: packages/txpool/types/TxPool.d.ts:144
 
 **`Experimental`**
 
@@ -552,7 +602,7 @@ Hash of the transaction
 
 > **removeNewBlockTxs**(`newBlocks`): `void`
 
-Defined in: packages/txpool/types/TxPool.d.ts:146
+Defined in: packages/txpool/types/TxPool.d.ts:148
 
 **`Experimental`**
 
@@ -590,7 +640,7 @@ Start tx processing
 
 > **stop**(): `boolean`
 
-Defined in: packages/txpool/types/TxPool.d.ts:228
+Defined in: packages/txpool/types/TxPool.d.ts:231
 
 **`Experimental`**
 
@@ -606,7 +656,7 @@ Stop pool execution
 
 > **txsByPriceAndNonce**(`baseFee?`): `Promise`\<([`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md))[]\>
 
-Defined in: packages/txpool/types/TxPool.d.ts:221
+Defined in: packages/txpool/types/TxPool.d.ts:224
 
 **`Experimental`**
 

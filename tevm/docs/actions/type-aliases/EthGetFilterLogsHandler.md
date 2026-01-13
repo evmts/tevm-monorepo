@@ -8,7 +8,7 @@
 
 > **EthGetFilterLogsHandler** = (`request`) => `Promise`\<[`EthGetFilterLogsResult`](EthGetFilterLogsResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:18
+Defined in: packages/actions/types/eth/EthHandler.d.ts:20
 
 ## Parameters
 

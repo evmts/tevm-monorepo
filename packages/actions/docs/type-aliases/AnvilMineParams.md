@@ -8,7 +8,7 @@
 
 > **AnvilMineParams** = `object`
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L45)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L78)
 
 Params for `anvil_mine` handler
 
@@ -18,7 +18,7 @@ Params for `anvil_mine` handler
 
 > `readonly` `optional` **blockCount**: `number`
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L49)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L82)
 
 Number of blocks to mine. Defaults to 1
 
@@ -28,6 +28,6 @@ Number of blocks to mine. Defaults to 1
 
 > `readonly` `optional` **interval**: `number`
 
-Defined in: [packages/actions/src/anvil/AnvilParams.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L53)
+Defined in: [packages/actions/src/anvil/AnvilParams.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L86)
 
 mineing interval

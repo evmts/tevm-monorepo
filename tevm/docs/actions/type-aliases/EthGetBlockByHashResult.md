@@ -8,6 +8,6 @@
 
 > **EthGetBlockByHashResult** = [`BlockResult`](../../index/type-aliases/BlockResult.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:47
+Defined in: packages/actions/types/eth/EthResult.d.ts:76
 
 JSON-RPC response for `eth_getBlockByHash` procedure

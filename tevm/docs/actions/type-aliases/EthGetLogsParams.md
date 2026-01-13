@@ -8,7 +8,7 @@
 
 > **EthGetLogsParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:129
+Defined in: packages/actions/types/eth/EthParams.d.ts:151
 
 Based on the JSON-RPC request for `eth_getLogs` procedure
 
@@ -18,4 +18,4 @@ Based on the JSON-RPC request for `eth_getLogs` procedure
 
 > `readonly` **filterParams**: [`FilterParams`](../../index/type-aliases/FilterParams.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:130
+Defined in: packages/actions/types/eth/EthParams.d.ts:152

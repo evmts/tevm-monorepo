@@ -8,6 +8,6 @@
 
 > **EthGetTransactionByBlockNumberAndIndexResult** = [`TransactionResult`](TransactionResult.md)
 
-Defined in: [packages/actions/src/eth/EthResult.ts:149](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L149)
+Defined in: [packages/actions/src/eth/EthResult.ts:182](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L182)
 
 JSON-RPC response for `eth_getTransactionByBlockNumberAndIndex` procedure

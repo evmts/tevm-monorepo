@@ -8,7 +8,7 @@
 
 > **AnvilDumpStateProcedure** = (`request`) => `Promise`\<[`AnvilDumpStateJsonRpcResponse`](AnvilDumpStateJsonRpcResponse.md)\>
 
-Defined in: [packages/actions/src/anvil/AnvilProcedure.ts:118](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L118)
+Defined in: [packages/actions/src/anvil/AnvilProcedure.ts:191](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilProcedure.ts#L191)
 
 JSON-RPC procedure for `anvil_dumpState`
 

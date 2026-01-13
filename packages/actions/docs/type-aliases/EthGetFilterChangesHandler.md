@@ -8,7 +8,7 @@
 
 > **EthGetFilterChangesHandler** = (`request`) => `Promise`\<[`EthGetFilterChangesResult`](EthGetFilterChangesResult.md)\>
 
-Defined in: [packages/actions/src/eth/EthHandler.ts:115](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L115)
+Defined in: [packages/actions/src/eth/EthHandler.ts:137](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L137)
 
 ## Parameters
 

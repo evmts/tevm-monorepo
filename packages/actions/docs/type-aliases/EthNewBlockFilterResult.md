@@ -8,6 +8,6 @@
 
 > **EthNewBlockFilterResult** = [`Hex`](Hex.md)
 
-Defined in: [packages/actions/src/eth/EthResult.ts:241](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L241)
+Defined in: [packages/actions/src/eth/EthResult.ts:281](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L281)
 
 JSON-RPC response for `eth_newBlockFilter` procedure

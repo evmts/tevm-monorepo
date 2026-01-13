@@ -8,7 +8,7 @@
 
 > **EthGetBlockByNumberHandler** = (`request`) => `Promise`\<[`EthGetBlockByNumberResult`](EthGetBlockByNumberResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:13
+Defined in: packages/actions/types/eth/EthHandler.d.ts:15
 
 ## Parameters
 

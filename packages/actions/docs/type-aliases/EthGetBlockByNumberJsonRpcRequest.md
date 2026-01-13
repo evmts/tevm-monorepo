@@ -8,6 +8,6 @@
 
 > **EthGetBlockByNumberJsonRpcRequest** = `JsonRpcRequest`\<`"eth_getBlockByNumber"`, readonly \[`BlockTag` \| `Hex`, `boolean`\]\>
 
-Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:119](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L119)
+Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:132](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L132)
 
 JSON-RPC request for `eth_getBlockByNumber` procedure

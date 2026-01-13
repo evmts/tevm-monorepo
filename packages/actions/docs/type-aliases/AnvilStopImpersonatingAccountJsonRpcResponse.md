@@ -8,6 +8,6 @@
 
 > **AnvilStopImpersonatingAccountJsonRpcResponse** = `JsonRpcResponse`\<`"anvil_stopImpersonatingAccount"`, `SerializeToJson`\<[`AnvilStopImpersonatingAccountResult`](AnvilStopImpersonatingAccountResult.md)\>, `AnvilError`\>
 
-Defined in: [packages/actions/src/anvil/AnvilJsonRpcResponse.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L39)
+Defined in: [packages/actions/src/anvil/AnvilJsonRpcResponse.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilJsonRpcResponse.ts#L59)
 
 JSON-RPC response for `anvil_stopImpersonatingAccount` procedure

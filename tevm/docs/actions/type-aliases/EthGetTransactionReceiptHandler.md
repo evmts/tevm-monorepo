@@ -8,7 +8,7 @@
 
 > **EthGetTransactionReceiptHandler** = (`request`) => `Promise`\<[`EthGetTransactionReceiptResult`](EthGetTransactionReceiptResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:27
+Defined in: packages/actions/types/eth/EthHandler.d.ts:29
 
 ## Parameters
 

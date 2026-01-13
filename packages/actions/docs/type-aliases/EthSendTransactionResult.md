@@ -8,6 +8,6 @@
 
 > **EthSendTransactionResult** = [`Hex`](Hex.md)
 
-Defined in: [packages/actions/src/eth/EthResult.ts:191](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L191)
+Defined in: [packages/actions/src/eth/EthResult.ts:231](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L231)
 
 JSON-RPC response for `eth_sendTransaction` procedure

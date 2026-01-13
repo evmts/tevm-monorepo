@@ -6,7 +6,7 @@
 
 # Function: debugTraceCallJsonRpcProcedure()
 
-> **debugTraceCallJsonRpcProcedure**(`client`): `DebugTraceCallProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"`, `boolean`\>
+> **debugTraceCallJsonRpcProcedure**(`client`): `DebugTraceCallProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"`, `boolean`\>
 
 Defined in: packages/actions/types/debug/debugTraceCallProcedure.d.ts:1
 
@@ -18,4 +18,4 @@ Defined in: packages/actions/types/debug/debugTraceCallProcedure.d.ts:1
 
 ## Returns
 
-`DebugTraceCallProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"`, `boolean`\>
+`DebugTraceCallProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"`, `boolean`\>

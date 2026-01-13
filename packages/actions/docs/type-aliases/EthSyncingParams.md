@@ -8,6 +8,6 @@
 
 > **EthSyncingParams** = [`EmptyParams`](EmptyParams.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:288](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L288)
+Defined in: [packages/actions/src/eth/EthParams.ts:319](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L319)
 
 Based on the JSON-RPC request for `eth_syncing` procedure (no params)

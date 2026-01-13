@@ -8,6 +8,6 @@
 
 > **EthGetCodeResult** = [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:63
+Defined in: packages/actions/types/eth/EthResult.d.ts:92
 
 JSON-RPC response for `eth_getCode` procedure

@@ -8,7 +8,7 @@
 
 > **AnvilDealResult** = `object`
 
-Defined in: [packages/actions/src/anvil/AnvilResult.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L35)
+Defined in: [packages/actions/src/anvil/AnvilResult.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L40)
 
 ## Properties
 
@@ -16,4 +16,4 @@ Defined in: [packages/actions/src/anvil/AnvilResult.ts:35](https://github.com/ev
 
 > `optional` **errors**: `Error`[]
 
-Defined in: [packages/actions/src/anvil/AnvilResult.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L36)
+Defined in: [packages/actions/src/anvil/AnvilResult.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L41)

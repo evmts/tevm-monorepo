@@ -8,7 +8,7 @@
 
 > **AnvilSetStorageAtParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:99
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:127
 
 Params for `anvil_setStorageAt` handler
 
@@ -18,7 +18,7 @@ Params for `anvil_setStorageAt` handler
 
 > `readonly` **address**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:103
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:131
 
 The address to set the storage for
 
@@ -28,7 +28,7 @@ The address to set the storage for
 
 > `readonly` **position**: [`Hex`](Hex.md) \| `BigInt`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:107
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:135
 
 The position in storage to set
 
@@ -38,6 +38,6 @@ The position in storage to set
 
 > `readonly` **value**: [`Hex`](Hex.md) \| `BigInt`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:111
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:139
 
 The value to set

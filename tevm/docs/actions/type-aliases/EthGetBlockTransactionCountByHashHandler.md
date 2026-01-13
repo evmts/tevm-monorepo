@@ -8,7 +8,7 @@
 
 > **EthGetBlockTransactionCountByHashHandler** = (`request`) => `Promise`\<[`EthGetBlockTransactionCountByHashResult`](EthGetBlockTransactionCountByHashResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:14
+Defined in: packages/actions/types/eth/EthHandler.d.ts:16
 
 ## Parameters
 

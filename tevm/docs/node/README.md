@@ -9,6 +9,8 @@
 ## Type Aliases
 
 - [~~BaseClientOptions~~](type-aliases/BaseClientOptions.md)
+- [FilterLog](type-aliases/FilterLog.md)
+- [IntervalMining](type-aliases/IntervalMining.md)
 
 ## References
 
@@ -75,12 +77,6 @@ Re-exports [GENESIS_STATE](../index/variables/GENESIS_STATE.md)
 ### Hardfork
 
 Re-exports [Hardfork](../index/type-aliases/Hardfork.md)
-
-***
-
-### IntervalMining
-
-Re-exports [IntervalMining](../index/type-aliases/IntervalMining.md)
 
 ***
 

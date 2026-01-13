@@ -8,7 +8,7 @@
 
 > **EthGetStorageAtParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:135
+Defined in: packages/actions/types/eth/EthParams.d.ts:157
 
 Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
@@ -18,7 +18,7 @@ Based on the JSON-RPC request for `eth_getStorageAt` procedure
 
 > `readonly` **address**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:136
+Defined in: packages/actions/types/eth/EthParams.d.ts:158
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: packages/actions/types/eth/EthParams.d.ts:136
 
 > `readonly` `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:138
+Defined in: packages/actions/types/eth/EthParams.d.ts:160
 
 ***
 
@@ -34,4 +34,4 @@ Defined in: packages/actions/types/eth/EthParams.d.ts:138
 
 > `readonly` **position**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:137
+Defined in: packages/actions/types/eth/EthParams.d.ts:159

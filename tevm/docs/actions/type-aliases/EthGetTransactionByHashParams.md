@@ -8,7 +8,7 @@
 
 > **EthGetTransactionByHashParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:162
+Defined in: packages/actions/types/eth/EthParams.d.ts:184
 
 Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
 
@@ -18,4 +18,4 @@ Based on the JSON-RPC request for `eth_getTransactionByHash` procedure
 
 > `readonly` **data**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:163
+Defined in: packages/actions/types/eth/EthParams.d.ts:185

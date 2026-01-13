@@ -8,7 +8,7 @@
 
 > **EthGetBlockTransactionCountByNumberHandler** = (`request`) => `Promise`\<[`EthGetBlockTransactionCountByNumberResult`](EthGetBlockTransactionCountByNumberResult.md)\>
 
-Defined in: [packages/actions/src/eth/EthHandler.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L109)
+Defined in: [packages/actions/src/eth/EthHandler.ts:131](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthHandler.ts#L131)
 
 ## Parameters
 

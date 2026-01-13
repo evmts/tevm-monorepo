@@ -8,4 +8,4 @@
 
 > **AnvilSetChainIdResult** = `null`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:12
+Defined in: packages/actions/types/anvil/AnvilResult.d.ts:16

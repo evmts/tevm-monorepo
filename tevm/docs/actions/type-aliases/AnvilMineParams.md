@@ -8,7 +8,7 @@
 
 > **AnvilMineParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:34
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:62
 
 Params for `anvil_mine` handler
 
@@ -18,7 +18,7 @@ Params for `anvil_mine` handler
 
 > `readonly` `optional` **blockCount**: `number`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:38
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:66
 
 Number of blocks to mine. Defaults to 1
 
@@ -28,6 +28,6 @@ Number of blocks to mine. Defaults to 1
 
 > `readonly` `optional` **interval**: `number`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:42
+Defined in: packages/actions/types/anvil/AnvilParams.d.ts:70
 
 mineing interval

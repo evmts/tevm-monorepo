@@ -6,7 +6,7 @@
 
 # Class: ProviderRpcError
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L21)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L20)
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:21](https://github.co
 
 > **new ProviderRpcError**(`code`, `message`): `ProviderRpcError`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L25)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L24)
 
 #### Parameters
 
@@ -58,7 +58,7 @@ The cause of the error.
 
 > **code**: `number`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L22)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L21)
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:22](https://github.co
 
 > **details**: `string`
 
-Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L23)
+Defined in: [packages/node/src/EIP1193EventEmitterTypes.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/EIP1193EventEmitterTypes.ts#L22)
 
 ***
 

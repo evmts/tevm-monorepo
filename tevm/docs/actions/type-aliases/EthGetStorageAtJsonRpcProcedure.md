@@ -8,7 +8,7 @@
 
 > **EthGetStorageAtJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetStorageAtJsonRpcResponse`](EthGetStorageAtJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:21
+Defined in: packages/actions/types/eth/EthProcedure.d.ts:23
 
 ## Parameters
 

@@ -16,7 +16,7 @@ Config params for trace calls
 
 ### TTracer
 
-`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `undefined`
+`TTracer` *extends* `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` \| `undefined` = `"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"` \| `undefined`
 
 ### TDiffMode
 
@@ -47,21 +47,15 @@ A duration string of decimal numbers that overrides the default timeout of 5 sec
 Defined in: packages/actions/types/debug/DebugParams.d.ts:13
 
 The type of tracer
-Supported tracers: callTracer, prestateTracer, 4byteTracer
+Supported tracers: callTracer, prestateTracer, 4byteTracer, flatCallTracer, muxTracer
 
 ***
 
 ### tracerConfig?
 
-> `readonly` `optional` **tracerConfig**: `object`
+> `readonly` `optional` **tracerConfig**: `TTracer` *extends* `"muxTracer"` ? [`MuxTracerConfiguration`](MuxTracerConfiguration.md)\<`TDiffMode`\> : `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:22
+Defined in: packages/actions/types/debug/DebugParams.d.ts:23
 
-object to specify configurations for the tracer
-
-#### diffMode?
-
-> `readonly` `optional` **diffMode**: `TTracer` *extends* `"prestateTracer"` ? `TDiffMode` : `never`
-
-When using the prestateTracer, setting this to true will make the tracer return only the state difference between before and after execution.
-Default is false which returns the full state of all touched accounts.
+object to specify configurations for the tracer.
+For muxTracer, this specifies which tracers to run and their individual configs.

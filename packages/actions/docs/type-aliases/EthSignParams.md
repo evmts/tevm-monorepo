@@ -8,7 +8,7 @@
 
 > **EthSignParams** = `object`
 
-Defined in: [packages/actions/src/eth/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L243)
+Defined in: [packages/actions/src/eth/EthParams.ts:274](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L274)
 
 **`Experimental`**
 
@@ -20,7 +20,7 @@ Based on the JSON-RPC request for `eth_sign` procedure
 
 > `readonly` **address**: [`Address`](Address.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L243)
+Defined in: [packages/actions/src/eth/EthParams.ts:274](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L274)
 
 ***
 
@@ -28,4 +28,4 @@ Defined in: [packages/actions/src/eth/EthParams.ts:243](https://github.com/evmts
 
 > `readonly` **data**: [`Hex`](Hex.md)
 
-Defined in: [packages/actions/src/eth/EthParams.ts:243](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L243)
+Defined in: [packages/actions/src/eth/EthParams.ts:274](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L274)

@@ -8,4 +8,4 @@
 
 > **AnvilDumpStateResult** = [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:13
+Defined in: packages/actions/types/anvil/AnvilResult.d.ts:17

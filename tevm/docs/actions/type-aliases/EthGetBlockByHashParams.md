@@ -8,7 +8,7 @@
 
 > **EthGetBlockByHashParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:84
+Defined in: packages/actions/types/eth/EthParams.d.ts:106
 
 Based on the JSON-RPC request for `eth_getBlockByHash` procedure
 
@@ -18,7 +18,7 @@ Based on the JSON-RPC request for `eth_getBlockByHash` procedure
 
 > `readonly` **blockHash**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:85
+Defined in: packages/actions/types/eth/EthParams.d.ts:107
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: packages/actions/types/eth/EthParams.d.ts:85
 
 > `readonly` **fullTransactionObjects**: `boolean`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:86
+Defined in: packages/actions/types/eth/EthParams.d.ts:108
