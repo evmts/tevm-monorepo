@@ -105,7 +105,9 @@
     "@tevm/zig": "0.0.1",
     "app": "0.1.1-next.0",
     "@tevm/test-matchers": "1.0.0-next.146",
-    "@tevm/test-node": "1.0.0-next.146"
+    "@tevm/test-node": "1.0.0-next.146",
+    "@tevm/mud": "1.0.0-next.142",
+    "@tevm/requirejs-plugin": "1.0.0-next.148"
   },
   "changesets": [
     "add-deal-action",
@@ -387,6 +389,7 @@
     "plenty-pumpkins-sip",
     "plenty-suns-drum",
     "polite-baboons-perform",
+    "polite-doors-attend",
     "polite-teachers-worry",
     "poor-colts-learn",
     "poor-fishes-promise",
@@ -499,6 +502,7 @@
     "spicy-rice-tickle",
     "spicy-shrimps-collect",
     "stale-avocados-fail",
+    "stale-badgers-wink",
     "stale-cameras-drum",
     "strange-chicken-return",
     "strange-icons-sell",

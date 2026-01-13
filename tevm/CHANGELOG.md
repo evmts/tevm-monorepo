@@ -1,5 +1,52 @@
 # @tevm/contract
 
+## 1.0.0-next.151
+
+### Patch Changes
+
+- 2d9d44b: bumping potentially one last time before release
+- 725f0ae: Bug fixes to lots of packages done with ai and no changeset
+- Updated dependencies [2d9d44b]
+- Updated dependencies [725f0ae]
+  - @tevm/memory-client@1.0.0-next.151
+  - @tevm/precompiles@1.0.0-next.151
+  - @tevm/actions@1.0.0-next.151
+  - @tevm/txpool@1.0.0-next.151
+  - @tevm/state@1.0.0-next.151
+  - @tevm/utils@1.0.0-next.151
+  - @tevm/node@1.0.0-next.151
+  - @tevm/tx@1.0.0-next.151
+  - @tevm/vm@1.0.0-next.151
+  - @tevm/base-bundler@1.0.0-next.151
+  - @tevm/bun-plugin@1.0.0-next.151
+  - @tevm/bundler-cache@1.0.0-next.151
+  - @tevm/compiler@1.0.0-next.151
+  - @tevm/config@1.0.0-next.151
+  - @tevm/esbuild-plugin@1.0.0-next.151
+  - @tevm/rollup-plugin@1.0.0-next.151
+  - @tevm/rspack-plugin@1.0.0-next.151
+  - @tevm/solc@1.0.0-next.151
+  - @tevm/vite-plugin@1.0.0-next.151
+  - @tevm/webpack-plugin@1.0.0-next.151
+  - @tevm/cli@1.0.0-next.151
+  - @tevm/viem@1.0.0-next.151
+  - @tevm/ts-plugin@1.0.0-next.151
+  - @tevm/address@1.0.0-next.151
+  - @tevm/block@1.0.0-next.151
+  - @tevm/blockchain@1.0.0-next.151
+  - @tevm/client-types@1.0.0-next.151
+  - @tevm/common@1.0.0-next.151
+  - @tevm/contract@1.0.0-next.151
+  - @tevm/decorators@1.0.0-next.151
+  - @tevm/errors@1.0.0-next.151
+  - @tevm/evm@1.0.0-next.151
+  - @tevm/http-client@1.0.0-next.151
+  - @tevm/jsonrpc@1.0.0-next.151
+  - @tevm/predeploys@1.0.0-next.151
+  - @tevm/receipt-manager@1.0.0-next.151
+  - @tevm/server@1.0.0-next.151
+  - @tevm/sync-storage-persister@1.0.0-next.151
+
 ## 1.0.0-next.149
 
 ### Patch Changes

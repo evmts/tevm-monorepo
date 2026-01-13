@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/resolutions-rs-linux-arm-gnueabihf",
-	"version": "0.0.0",
+	"version": "1.0.0-next.151",
 	"cpu": [
 		"arm"
 	],

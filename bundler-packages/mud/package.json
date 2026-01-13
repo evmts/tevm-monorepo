@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/mud",
-	"version": "1.0.0-next.142",
+	"version": "1.0.0-next.151",
 	"private": true,
 	"description": "MUD plugin for optimistic updates with Tevm",
 	"keywords": [
