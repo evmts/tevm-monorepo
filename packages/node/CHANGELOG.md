@@ -1,5 +1,30 @@
 # @tevm/client
 
+## 1.0.0-next.151
+
+### Patch Changes
+
+- 2d9d44b: bumping potentially one last time before release
+- 725f0ae: Bug fixes to lots of packages done with ai and no changeset
+- Updated dependencies [2d9d44b]
+- Updated dependencies [725f0ae]
+  - @tevm/precompiles@1.0.0-next.151
+  - @tevm/txpool@1.0.0-next.151
+  - @tevm/state@1.0.0-next.151
+  - @tevm/utils@1.0.0-next.151
+  - @tevm/tx@1.0.0-next.151
+  - @tevm/vm@1.0.0-next.151
+  - @tevm/address@1.0.0-next.151
+  - @tevm/block@1.0.0-next.151
+  - @tevm/blockchain@1.0.0-next.151
+  - @tevm/common@1.0.0-next.151
+  - @tevm/evm@1.0.0-next.151
+  - @tevm/jsonrpc@1.0.0-next.151
+  - @tevm/logger@1.0.0-next.151
+  - @tevm/predeploys@1.0.0-next.151
+  - @tevm/receipt-manager@1.0.0-next.151
+  - @tevm/sync-storage-persister@1.0.0-next.151
+
 ## 1.0.0-next.148
 
 ### Patch Changes

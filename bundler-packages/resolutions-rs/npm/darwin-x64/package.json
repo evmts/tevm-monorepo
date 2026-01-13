@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/resolutions-rs-darwin-x64",
-	"version": "0.1.0",
+	"version": "1.0.0-next.151",
 	"cpu": [
 		"x64"
 	],

@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/resolutions-rs-wasm32-wasi",
-	"version": "1.0.0-next.146",
+	"version": "1.0.0-next.151",
 	"cpu": [
 		"wasm32"
 	],
