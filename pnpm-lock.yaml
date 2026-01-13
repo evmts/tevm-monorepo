@@ -1484,9 +1484,6 @@ importers:
       '@tevm/bundler-cache':
         specifier: workspace:^
         version: link:../../bundler-packages/bundler-cache
-      '@types/minimatch':
-        specifier: ^6.0.0
-        version: 6.0.0
       effect:
         specifier: 3.18.1
         version: 3.18.1
