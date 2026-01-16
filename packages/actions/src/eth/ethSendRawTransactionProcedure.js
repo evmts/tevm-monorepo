@@ -33,6 +33,8 @@ export const ethSendRawTransactionJsonRpcProcedure = (client) => {
 		if (client.miningConfig.type === 'auto') {
 			await handleAutomining(client, bytesToHex(tx.hash()), false, true)
 		}
+		// For interval mining, transactions are automatically processed by the interval timer
+		// No additional action needed here - transactions stay in mempool until next interval
 
 		return {
 			method: request.method,
