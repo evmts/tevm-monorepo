@@ -33,9 +33,40 @@
 **Goal**: Add Effect as dependency, create interop layer, migrate foundational packages
 **Breaking Changes**: None (additive only)
 
-### REVIEW AGENT Review Status: 🟢 SIXTH REVIEW RESOLVED (2026-01-29)
+### REVIEW AGENT Review Status: 🟡 SEVENTH REVIEW COMPLETE (2026-01-29)
 
-**Sixth review (2026-01-29)** - Opus 4.5 comprehensive review with parallel researcher subagents:
+**Seventh review (2026-01-29)** - Opus 4.5 comprehensive review with parallel researcher subagents:
+
+**@tevm/errors-effect Issues (3 new, 5 remaining from prior reviews):**
+- 🔴 **High**: Static and instance property duplication - `code`/`docsPath` defined both as static and instance properties. RFC only specifies instance properties.
+- 🔴 **High**: Missing required constructor parameter validation - `TevmError` allows `undefined` message if `props.message` not provided.
+- 🔴 **High**: Inconsistent property optionality - all properties optional allowing empty error construction, but RFC implies some should be required.
+- 🔴 **Medium**: toTaggedError return type is union but no narrowing possible - callers cannot narrow type based on input.
+- 🔴 **Medium**: Equal.equals behavior with differing `cause` objects not tested - same error data but different cause references may not be equal.
+- 🔴 **Medium**: Version string hardcoded (`VERSION = '1.0.0-next.148'`) - will drift from actual package version.
+- 🔴 **Low**: toTaggedError code duplication - uses if/else chain instead of mapping pattern.
+- 🔴 **Low**: Inconsistent message generation patterns across error types.
+
+**@tevm/interop Issues (2 new, 4 remaining from prior reviews):**
+- 🔴 **High**: Runtime<any> cast in effectToPromise allows unsatisfied requirements without compile error (documented but not enforced).
+- 🔴 **Medium**: JSDoc types misleading about default runtime behavior - says `Runtime<R>` but default is `Runtime<any>`.
+- 🔴 **Medium**: wrapWithEffect state divergence is documented but could be confusing - effect methods bound to original, not wrapped copy.
+- 🔴 **Medium**: RFC wrapWithEffect type signature is wrong - RFC shows Effect values, implementation correctly returns functions.
+- 🔴 **Low**: promiseToEffect does not validate input is function - error occurs on call, not on wrap.
+- 🔴 **Low**: createManagedRuntime is thin 1-line wrapper with no added value.
+
+**Test Coverage Gaps Identified:**
+- Missing test for TevmError with undefined message
+- Missing test for Equal.equals when cause objects differ
+- Missing test for defects (Effect.die) vs failures (Effect.fail) in effectToPromise
+- Missing test for non-function input to promiseToEffect
+- Missing test for private fields limitation in wrapWithEffect
+- Missing test for factory that throws synchronously in layerFromFactory
+
+See SEVENTH REVIEW tables in sections 1.2 and 1.3 for full details.
+
+**Previous Review Status:**
+- Sixth review (2026-01-29)** - Opus 4.5 comprehensive review with parallel researcher subagents:
 
 **@tevm/errors-effect Issues (8 resolved):**
 - ✅ **Critical**: toBaseError now explicitly handles `cause` property - passes cause to Error constructor and includes in baseProps
@@ -270,6 +301,40 @@ TypeError: Cannot define property Symbol(effect/Hash), object is not extensible
 ```
 **Resolution**: Removed Object.freeze from all error constructors. Immutability is now documented via `@readonly` JSDoc annotations only. This is a tradeoff between runtime immutability and Effect.ts trait compatibility - Effect compatibility was prioritized since these errors are designed for use in Effect pipelines.
 
+**SEVENTH REVIEW (2026-01-29)**: 🟡 NEW ISSUES FOUND
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| Static and instance property duplication | **High** | All EVM error files | 🔴 Open | Both static and instance `code`/`docsPath` properties. RFC only specifies instance properties. Instance copies from static creating redundancy. |
+| Missing required constructor parameter validation | **High** | TevmError.js:58 | 🔴 Open | `TevmError` allows `undefined` message if `props.message` not provided. No validation. |
+| Inconsistent property optionality | **High** | All error files | 🔴 Open | All properties optional via `props = {}` default. RFC implies some should be required (e.g., `address`, `required`, `available` for InsufficientBalanceError). |
+| toTaggedError return type no narrowing | **Medium** | toTaggedError.js:49 | 🔴 Open | Return type is union but callers cannot narrow type based on input, reducing type safety. |
+| Equal.equals with differing cause objects | **Medium** | All error files | 🔴 Open | Same error data but different cause object references may not be equal. No test coverage for this scenario. |
+| Version string hardcoded | **Medium** | toBaseError.js:7 | 🔴 Open | `VERSION = '1.0.0-next.148'` hardcoded instead of imported. Will drift from actual package version. |
+| toTaggedError code duplication | **Low** | toTaggedError.js:76-122 | 🔴 Open | Uses if/else chain for each error type. Could use mapping pattern for maintainability. |
+| Inconsistent message generation patterns | **Low** | All error files | 🔴 Open | Different patterns: ternary vs if/else, inconsistent fallback messages. |
+| Types file export pattern | **Low** | types.js:14 | 🔴 Open | `export {}` with JSDoc typedefs - typedefs not importable, only via JSDoc references. |
+
+**Missing Test Scenarios (Seventh Review)**:
+| Test | Priority | Files Affected | Status |
+|------|----------|----------------|--------|
+| TevmError with undefined/missing message | High | TevmError.spec.ts | 🔴 Open |
+| Equal.equals when cause objects differ (same data, different refs) | Medium | All error spec files | 🔴 Open |
+| toTaggedError with wrong-typed properties (e.g., `required: "string"`) | Medium | toTaggedError.spec.ts | 🔴 Open |
+| Circular reference in cause chain during JSON.stringify | Low | toBaseError.spec.ts | 🔴 Open |
+| Hash.hash stability across JS engine restarts | Low | All error spec files | 🔴 Open |
+
+**Seventh Review Action Items**:
+1. **High**: Add validation for required properties like `TevmError.message`
+2. **High**: Remove redundant static properties (keep only instance properties per RFC)
+3. **High**: Consider making domain-specific properties required (not optional)
+4. **Medium**: Fix hardcoded VERSION string - import from package.json or use build-time replacement
+5. **Medium**: Add test for Equal.equals with differing cause objects
+6. **Low**: Refactor toTaggedError to use mapping pattern
+7. **Low**: Standardize message generation patterns across all errors
+
+---
+
 **SIXTH REVIEW (2026-01-29)**: ✅ RESOLVED
 
 | Issue | Severity | File | Status | Notes |
@@ -502,29 +567,71 @@ export const effectToPromise = <A, E>(
 3. **Medium**: Add Effect.die and fiber interruption tests
 4. **Low**: Add upfront validation in `promiseToEffect` that input is a function
 5. ~~**Low**: Document private fields limitation in wrapWithEffect JSDoc~~ ✅ Completed 2026-01-29
+
+**SEVENTH REVIEW (2026-01-29)**: 🟡 NEW ISSUES FOUND
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| Runtime<any> cast allows unsatisfied requirements | **High** | effectToPromise.js:78 | 🔴 Open | `Runtime.Runtime<any>` cast allows Effects with requirements (R !== never) to compile but fail at runtime. JSDoc documents this but type system doesn't enforce it. |
+| JSDoc types misleading about default runtime | **Medium** | effectToPromise.js:69-73 | 🔴 Open | JSDoc says `Runtime<R>` but default is `Runtime<any>`. Mismatch between documented and actual behavior. |
+| RFC wrapWithEffect type signature incorrect | **Medium** | RFC vs implementation | 🔴 RFC Issue | RFC shows `effect: { [K]: Effect.Effect<...> }` (Effect values) but implementation correctly returns functions `(...args) => Effect`. RFC should be updated. |
+| promiseToEffect no input validation | **Low** | promiseToEffect.js:74-75 | 🔴 Open | No validation that `fn` is actually a function. Error occurs when called, not when wrapped. |
+| createManagedRuntime thin wrapper | **Low** | createManagedRuntime.js:50-52 | 🔴 Open | Single-line passthrough to `ManagedRuntime.make` with no added value. Consider removing or enhancing. |
+| No Effect type re-exports from index | **Low** | index.js | 🔴 Open | Users must import Effect types separately. Consider re-exporting commonly needed types. |
+
+**Missing Test Scenarios (Seventh Review)**:
+| Test | Priority | Files Affected | Status |
+|------|----------|----------------|--------|
+| Defects (Effect.die) vs failures (Effect.fail) in effectToPromise | Medium | effectToPromise.spec.ts | 🔴 Open |
+| Non-function input to promiseToEffect | Medium | promiseToEffect.spec.ts | 🔴 Open |
+| Private fields limitation in wrapWithEffect | Low | wrapWithEffect.spec.ts | 🔴 Open |
+| Factory that throws synchronously in layerFromFactory | Low | layerFromFactory.spec.ts | 🔴 Open |
+| Layers with errors during construction in createManagedRuntime | Low | createManagedRuntime.spec.ts | 🔴 Open |
+| effectToPromise specific error type assertion | Low | effectToPromise.spec.ts | 🔴 Open |
+
+**Seventh Review Action Items**:
+1. **High**: Consider adding runtime validation or TypeScript overloads to catch Effects with requirements at compile time
+2. **Medium**: Update RFC to correct wrapWithEffect type signature
+3. **Medium**: Add test for Effect.die vs Effect.fail behavior in effectToPromise
+4. **Low**: Add upfront validation in promiseToEffect that input is a function
+5. **Low**: Decide on createManagedRuntime - remove or add actual value (logging, defaults)
+6. **Low**: Add tests for private fields limitation, synchronous factory errors
+
+**Positive Observations (Seventh Review)**:
+- Excellent JSDoc documentation with comprehensive warnings and examples
+- Test coverage is comprehensive for documented functionality
+- Proper error messages for invalid inputs in wrapWithEffect
+- Clean barrel file re-exports following project conventions
+- wrapWithEffect correctly preserves `this` via `.apply(instance, args)`
+- State divergence behavior is well-documented even if potentially confusing
 6. **Low**: Decide definitively on createManagedRuntime: remove, keep, or enhance
 7. **Low**: Add tests for empty methods array and symbol-keyed methods
 
 ---
 
-### 1.4 @tevm/logger Migration
+### 1.4 @tevm/logger-effect (New Package)
 
 **Current**: Simple logger with level-based filtering, closure-captured state
 **Target**: `LoggerService` with Effect-based methods
 
 | Task | Status | Owner | Notes |
 |------|--------|-------|-------|
-| Define `LoggerService` Context.Tag | [ ] | | Interface with Effect-based methods |
-| Define `LoggerShape` interface | [ ] | | level, debug, info, warn, error, child |
-| Implement `LoggerLive` layer factory | [ ] | | Takes LogLevel param |
-| Implement `LoggerSilent` layer | [ ] | | For testing |
-| Implement `LoggerTest` layer | [ ] | | Captures logs for assertions |
-| Keep existing logger API (backward compat) | [ ] | | Don't break current usage |
-| Export both APIs from package | [ ] | | Dual export pattern |
-| Write tests for LoggerService | [ ] | | |
+| Create `@tevm/logger-effect` package scaffold | [x] | Claude | Created with package.json, tsconfig, vitest.config, tsup.config |
+| Define `LoggerShape` interface | [x] | Claude | level, name, debug, info, warn, error, child |
+| Define `LoggerService` Context.Tag | [x] | Claude | Uses Context.GenericTag for JavaScript compatibility |
+| Implement `LoggerLive` layer factory | [x] | Claude | Takes LogLevel and optional name params, uses Pino |
+| Implement `LoggerSilent` layer | [x] | Claude | Discards all logs, minimal overhead |
+| Implement `LoggerTest` layer | [x] | Claude | Captures logs in memory with getLogs, getLogsByLevel, clearLogs, getLastLog, getLogCount |
+| Implement `isTestLogger` type guard | [x] | Claude | Checks if logger has test-specific methods |
+| Keep existing @tevm/logger API unchanged | [x] | Claude | @tevm/logger-effect is a separate package, existing usage unaffected |
+| Write tests for LoggerService | [x] | Claude | 58 tests, 99.79% statement coverage |
 
 **Learnings**:
-- _None yet_
+- `Context.GenericTag` is the preferred approach for JavaScript (without TypeScript generics) - `Context.Tag('name')` returns a function for TypeScript generic class extension
+- Child loggers share the same Ref storage in LoggerTest, enabling assertions from any point in the logger hierarchy
+- Effect.void is the idiomatic way to return a void Effect for silent logging operations
+- LoggerTest using Ref enables each test to have isolated log storage when creating new layers
+- Pino logger level mapping works with the custom LogLevel type (debug, info, warn, error, silent)
 
 ---
 
@@ -1138,7 +1245,30 @@ export const effectToPromise = <A, E>(
 | 2026-01-29 | Effect.die and fiber interruption handling untested in interop functions | Medium - unknown behavior in edge cases | 🔴 Still open - add comprehensive defect and interruption tests |
 | 2026-01-29 | walk function in toBaseError did not check for null/undefined cause before recursing | Low - potential null reference error | ✅ Fixed: Added null/undefined check before recursing |
 
-### REVIEW AGENT Review Status: 🟢 SIXTH REVIEW ISSUES RESOLVED (2026-01-29)
+### Technical & Process Learnings (Seventh Review)
+
+| Date | Learning | Impact | Action Taken |
+|------|----------|--------|--------------|
+| 2026-01-29 | Static and instance property duplication creates redundancy and confusion | Medium - unclear which to use | 🔴 Consider removing static properties per RFC |
+| 2026-01-29 | Missing constructor validation allows undefined required properties | High - errors may lack critical data | 🔴 Add validation for required properties |
+| 2026-01-29 | All error properties optional enables empty error construction | Medium - reduces debugging value | 🔴 Consider making domain-specific properties required |
+| 2026-01-29 | toTaggedError return type union without narrowing reduces type safety | Medium - callers cannot narrow | 🔴 Consider overloads or discriminated union |
+| 2026-01-29 | Equal.equals with differing cause objects needs testing | Medium - structural equality may be unexpected | 🔴 Add test coverage for this scenario |
+| 2026-01-29 | RFC wrapWithEffect signature shows Effect values but implementation returns functions | Medium - RFC is wrong | 🔴 Update RFC to match implementation |
+| 2026-01-29 | Parallel researcher subagents provide efficient comprehensive review | High - thorough coverage | Continue using parallel agents for reviews |
+| 2026-01-29 | Test coverage for edge cases (Effect.die, private fields, sync errors) often missing | Medium - unknown behavior | 🔴 Add edge case tests systematically |
+
+### Technical & Process Learnings (Logger Implementation - 2026-01-29)
+
+| Date | Learning | Impact | Action Taken |
+|------|----------|--------|--------------|
+| 2026-01-29 | `Context.GenericTag` is preferred for JavaScript without TypeScript generics | High - `Context.Tag('name')` returns a function for TS class extension | ✅ Used Context.GenericTag for LoggerService |
+| 2026-01-29 | Child loggers sharing Ref storage enables hierarchical log assertions | Medium - useful testing pattern | ✅ Implemented shared Ref in LoggerTest layer |
+| 2026-01-29 | Effect.void is idiomatic for returning void Effect in silent operations | Low - cleaner code pattern | ✅ Used in LoggerSilent implementation |
+| 2026-01-29 | LoggerTest with Ref.make in Layer.effect creates isolated storage per layer creation | High - test isolation guaranteed | ✅ Each LoggerTest() call gets fresh log storage |
+| 2026-01-29 | Pino level mapping to custom LogLevel type works seamlessly | Low - good interop | ✅ Mapped 'silent' to pino's silent level |
+
+### REVIEW AGENT Review Status: 🟡 SEVENTH REVIEW COMPLETE (2026-01-29)
 
 ---
 
@@ -1186,8 +1316,17 @@ export const effectToPromise = <A, E>(
 | **R6**: Private fields limitation undocumented in wrapWithEffect | Low | Low | Add JSDoc warning about private field (#field) behavior | ✅ Fixed |
 | **R6**: Effect.die and fiber interruption handling untested | Medium | Medium | Add comprehensive tests for defects and cancellation | 🔴 Open |
 | **R6**: Round-trip conversion (toTaggedError(toBaseError(x))) untested | Medium | Medium | Add property preservation tests for round-trip scenarios | ✅ Fixed |
+| **R7**: Static and instance property duplication in error classes | Medium | Low | Remove redundant static properties per RFC pattern | 🔴 Open |
+| **R7**: Missing constructor validation for required properties | High | Medium | Add validation for TevmError.message and other required props | 🔴 Open |
+| **R7**: All error properties optional allows empty construction | Medium | Medium | Consider making domain-specific properties required | 🔴 Open |
+| **R7**: toTaggedError return type no narrowing possible | Medium | Low | Consider overloads or factory functions for type narrowing | 🔴 Open |
+| **R7**: Equal.equals with differing cause objects untested | Medium | Medium | Add test for same error data with different cause refs | 🔴 Open |
+| **R7**: Version string hardcoded in toBaseError | Low | Low | Import from package.json or use build-time replacement | 🔴 Open |
+| **R7**: RFC wrapWithEffect signature incorrect | Low | Low | Update RFC to show functions returning Effects, not Effect values | 🔴 Open |
+| **R7**: JSDoc types misleading about effectToPromise default runtime | Medium | Medium | Update JSDoc to accurately reflect Runtime<any> default | 🔴 Open |
+| **R7**: Missing edge case tests (Effect.die, private fields, sync factory errors) | Medium | Low | Add comprehensive edge case test coverage | 🔴 Open |
 
-### REVIEW AGENT Review Status: 🟢 SIXTH REVIEW ISSUES RESOLVED (2026-01-29)
+### REVIEW AGENT Review Status: 🟡 SEVENTH REVIEW COMPLETE (2026-01-29)
 
 ---
 
@@ -1267,3 +1406,5 @@ const program = Effect.gen(function* () {
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 0.1 | 2026-01-29 | Claude | Initial draft from gap analysis |
+| 0.7 | 2026-01-29 | Claude | Seventh review with parallel subagents - found 11 new issues across both packages |
+| 0.8 | 2026-01-29 | Claude | Implemented @tevm/logger-effect package with LoggerService, LoggerLive, LoggerSilent, LoggerTest layers (58 tests, 99.79% coverage) |
