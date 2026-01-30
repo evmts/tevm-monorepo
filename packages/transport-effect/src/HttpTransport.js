@@ -40,8 +40,9 @@ const isRetryableError = (error) => {
 	// Get the error message from either the cause or the error itself
 	// Using explicit conditionals for better coverage tracking
 	let message = ''
-	if (error.cause && error.cause.message) {
-		message = error.cause.message
+	const cause = /** @type {{ message?: string } | undefined} */ (error.cause)
+	if (cause && typeof cause.message === 'string') {
+		message = cause.message
 	} else if (error.message) {
 		message = error.message
 	}
@@ -422,14 +423,15 @@ export const HttpTransport = (config) => {
 
 			/** @type {TransportShape} */
 			const transport = {
-				request: (method, params) => {
+				request: /** @type {TransportShape['request']} */ ((method, params) => {
 					return Effect.gen(function* () {
 						// Create unique ID for this request
 						const id = yield* Ref.updateAndGet(idCounter, (n) => n + 1)
 
 						// Create deferred for this request
-						/** @type {Deferred.Deferred<unknown, ForkError>} */
-						const deferred = yield* Deferred.make()
+						const deferred = /** @type {Deferred.Deferred<unknown, ForkError>} */ (
+							/** @type {unknown} */ (yield* Deferred.make())
+						)
 
 						// Add to pending queue
 						/** @type {PendingRequest} */
@@ -461,7 +463,7 @@ export const HttpTransport = (config) => {
 							while: isRetryableError,
 						})
 					)
-				},
+				}),
 			}
 
 			return transport

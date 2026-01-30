@@ -51,9 +51,7 @@ import { Context } from 'effect'
  * const layer = BlockParamsLive()
  * Effect.runPromise(program.pipe(Effect.provide(layer)))
  * ```
- *
- * @type {Context.Tag<BlockParamsService, BlockParamsShape>}
  */
-export const BlockParamsService = /** @type {Context.Tag<BlockParamsService, BlockParamsShape>} */ (
-	Context.GenericTag('BlockParamsService')
+export const BlockParamsService = Context.GenericTag(
+	'@tevm/node-effect/BlockParamsService',
 )

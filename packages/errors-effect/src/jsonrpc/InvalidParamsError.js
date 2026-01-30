@@ -54,6 +54,7 @@ export class InvalidParamsError extends Data.TaggedError('InvalidParamsError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -75,6 +76,7 @@ export class InvalidParamsError extends Data.TaggedError('InvalidParamsError') {
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -89,8 +91,8 @@ export class InvalidParamsError extends Data.TaggedError('InvalidParamsError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'InvalidParamsError'
 		this.method = props.method
 		this.params = props.params

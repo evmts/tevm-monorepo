@@ -39,12 +39,7 @@ import { Context } from 'effect'
  * )
  * ```
  *
- * @type {Context.Tag<GetBalanceService, GetBalanceShape>}
  */
 export const GetBalanceService = Context.GenericTag(
-	/** @type {const} */ ('@tevm/actions-effect/GetBalanceService'),
+	'@tevm/actions-effect/GetBalanceService',
 )
-
-/**
- * @typedef {Context.Tag.Identifier<typeof GetBalanceService>} GetBalanceService
- */

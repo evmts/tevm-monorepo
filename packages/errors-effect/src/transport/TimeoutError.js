@@ -53,6 +53,7 @@ export class TimeoutError extends Data.TaggedError('TimeoutError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -74,6 +75,7 @@ export class TimeoutError extends Data.TaggedError('TimeoutError') {
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -88,8 +90,8 @@ export class TimeoutError extends Data.TaggedError('TimeoutError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'TimeoutError'
 		this.timeout = props.timeout
 		this.operation = props.operation

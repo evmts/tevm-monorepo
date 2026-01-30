@@ -31,6 +31,9 @@
  * ```
  */
 
+// Re-export types for consumers
+export * from './types.js'
+
 // GetAccount action
 export { GetAccountService } from './GetAccountService.js'
 export { GetAccountLive } from './GetAccountLive.js'

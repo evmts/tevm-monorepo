@@ -14,6 +14,7 @@ import { VmService } from './VmService.js'
 /**
  * @typedef {import('./types.js').VmShape} VmShape
  * @typedef {import('./types.js').VmLiveOptions} VmLiveOptions
+ * @typedef {import('./VmService.js').VmServiceId} VmServiceId
  */
 
 /**
@@ -50,10 +51,12 @@ import { VmService } from './VmService.js'
  * Effect.runPromise(program.pipe(Effect.provide(vmLayer)))
  * ```
  *
- * @param {VmLiveOptions} [options] - Configuration options
- * @returns {Layer.Layer<VmService, never, CommonService | StateManagerService | BlockchainService | EvmService>} Layer providing VmService
+ * @param {VmLiveOptions} [_options] - Configuration options (reserved for future use)
+ * @returns {Layer.Layer<VmServiceId, never, typeof CommonService | typeof StateManagerService | typeof BlockchainService | typeof EvmService>} Layer providing VmService
  */
-export const VmLive = (options = {}) => {
+export const VmLive = (_options = {}) => {
+	// Note: _options is currently unused but kept for API compatibility
+	// Future versions may use profiler or loggingEnabled options
 	return Layer.effect(
 		VmService,
 		Effect.gen(function* () {
@@ -66,8 +69,7 @@ export const VmLive = (options = {}) => {
 				common: commonShape.common,
 				stateManager: stateManagerShape.stateManager,
 				blockchain: blockchainShape.chain,
-				evm: evmShape.evm,
-				profiler: options.profiler ?? false,
+				evm: /** @type {import('@tevm/vm').CreateVmOptions['evm']} */ (evmShape.evm),
 			})
 
 			/**

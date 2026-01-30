@@ -2,9 +2,6 @@ declare const FilterNotFoundError_base: new <A extends Record<string, any> = {}>
     readonly _tag: "FilterNotFoundError";
 } & Readonly<A>;
 /**
- * @typedef {`0x${string}`} Hex
- */
-/**
  * TaggedError representing a filter not found error.
  *
  * This error occurs when attempting to use a filter that does not exist,
@@ -41,7 +38,7 @@ export class FilterNotFoundError extends FilterNotFoundError_base {
     /**
      * Constructs a new FilterNotFoundError
      * @param {Object} props - Error properties
-     * @param {Hex | string} [props.filterId] - The filter ID that was not found
+     * @param {`0x${string}` | string} [props.filterId] - The filter ID that was not found
      * @param {string} [props.message] - Optional custom message
      * @param {unknown} [props.cause] - The underlying cause of this error
      */
@@ -53,15 +50,16 @@ export class FilterNotFoundError extends FilterNotFoundError_base {
     /**
      * The filter ID that was not found
      * @readonly
-     * @type {Hex | string | undefined}
+     * @type {`0x${string}` | string | undefined}
      */
-    readonly filterId: Hex | string | undefined;
+    readonly filterId: `0x${string}` | string | undefined;
     /**
      * Human-readable error message
+     * @override
      * @readonly
      * @type {string}
      */
-    readonly message: string;
+    override readonly message: string;
     /**
      * JSON-RPC error code
      * @readonly
@@ -76,11 +74,11 @@ export class FilterNotFoundError extends FilterNotFoundError_base {
     readonly docsPath: string;
     /**
      * The underlying cause of this error, if any.
+     * @override
      * @readonly
      * @type {unknown}
      */
-    readonly cause: unknown;
+    override readonly cause: unknown;
 }
-export type Hex = `0x${string}`;
 export {};
 //# sourceMappingURL=FilterNotFoundError.d.ts.map

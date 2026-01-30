@@ -2,9 +2,6 @@ declare const InvalidFilterTypeError_base: new <A extends Record<string, any> = 
     readonly _tag: "InvalidFilterTypeError";
 } & Readonly<A>;
 /**
- * @typedef {`0x${string}`} Hex
- */
-/**
  * TaggedError representing an invalid filter type error.
  *
  * This error occurs when attempting to use a filter with an operation that
@@ -44,7 +41,7 @@ export class InvalidFilterTypeError extends InvalidFilterTypeError_base {
     /**
      * Constructs a new InvalidFilterTypeError
      * @param {Object} props - Error properties
-     * @param {Hex | string} [props.filterId] - The filter ID that had the wrong type
+     * @param {`0x${string}` | string} [props.filterId] - The filter ID that had the wrong type
      * @param {string} [props.expectedType] - The expected filter type (e.g., 'Log', 'Block', 'PendingTransaction')
      * @param {string} [props.actualType] - The actual filter type
      * @param {string} [props.message] - Optional custom message
@@ -60,9 +57,9 @@ export class InvalidFilterTypeError extends InvalidFilterTypeError_base {
     /**
      * The filter ID that had the wrong type
      * @readonly
-     * @type {Hex | string | undefined}
+     * @type {`0x${string}` | string | undefined}
      */
-    readonly filterId: Hex | string | undefined;
+    readonly filterId: `0x${string}` | string | undefined;
     /**
      * The expected filter type
      * @readonly
@@ -77,10 +74,11 @@ export class InvalidFilterTypeError extends InvalidFilterTypeError_base {
     readonly actualType: string | undefined;
     /**
      * Human-readable error message
+     * @override
      * @readonly
      * @type {string}
      */
-    readonly message: string;
+    override readonly message: string;
     /**
      * JSON-RPC error code
      * @readonly
@@ -95,11 +93,11 @@ export class InvalidFilterTypeError extends InvalidFilterTypeError_base {
     readonly docsPath: string;
     /**
      * The underlying cause of this error, if any.
+     * @override
      * @readonly
      * @type {unknown}
      */
-    readonly cause: unknown;
+    override readonly cause: unknown;
 }
-export type Hex = `0x${string}`;
 export {};
 //# sourceMappingURL=InvalidFilterTypeError.d.ts.map

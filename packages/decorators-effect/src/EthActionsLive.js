@@ -53,9 +53,8 @@ import { InternalError } from '@tevm/errors-effect'
  * await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
  * ```
  *
- * @type {Layer.Layer<EthActionsService, never, VmService | CommonService | BlockchainService | GetBalanceService | GetCodeService | GetStorageAtService>}
  */
-export const EthActionsLive = Layer.effect(
+export const EthActionsLive = /** @type {Layer.Layer<import('./EthActionsService.js').EthActionsServiceId, never, any>} */ (Layer.effect(
 	EthActionsService,
 	Effect.gen(function* () {
 		const vm = yield* VmService
@@ -65,7 +64,7 @@ export const EthActionsLive = Layer.effect(
 		const getCodeService = yield* GetCodeService
 		const getStorageAtService = yield* GetStorageAtService
 
-		return {
+		return /** @type {import('./types.js').EthActionsShape} */ ({
 			blockNumber: () =>
 				Effect.gen(function* () {
 					// Use BlockchainService for proper service abstraction (RFC §4.2)
@@ -106,18 +105,23 @@ export const EthActionsLive = Layer.effect(
 					})
 
 					// Prepare call options for EVM runCall
+					/** @type {Record<string, unknown>} */
 					const callOpts = {
-						to: params.to ? createAddress(params.to) : undefined,
-						caller: params.from ? createAddress(params.from) : undefined,
-						origin: params.from ? createAddress(params.from) : undefined,
 						data: hexToBytes(params.data),
 						gasLimit: params.gas ?? 30000000n,
 						gasPrice: params.gasPrice ?? 0n,
 						value: params.value ?? 0n,
 					}
+					if (params.to) {
+						callOpts['to'] = createAddress(params.to)
+					}
+					if (params.from) {
+						callOpts['caller'] = createAddress(params.from)
+						callOpts['origin'] = createAddress(params.from)
+					}
 
 					const result = yield* Effect.tryPromise({
-						try: () => vm.vm.evm.runCall(callOpts),
+						try: () => vm.vm.evm.runCall(/** @type {any} */ (callOpts)),
 						catch: (e) =>
 							new InternalError({
 								message: `eth_call failed: ${e instanceof Error ? e.message : String(e)}`,
@@ -130,11 +134,15 @@ export const EthActionsLive = Layer.effect(
 						if (!bytes || bytes.length === 0) return '0x'
 						let hex = '0x'
 						for (let i = 0; i < bytes.length; i++) {
-							hex += bytes[i].toString(16).padStart(2, '0')
+							const byte = bytes[i]
+							if (byte !== undefined) {
+								hex += byte.toString(16).padStart(2, '0')
+							}
 						}
 						return hex
 					}
-					return bytesToHex(result.execResult?.returnValue ?? new Uint8Array())
+					const execResult = result.execResult
+					return bytesToHex(execResult?.returnValue ?? new Uint8Array())
 				}),
 
 			chainId: () => Effect.succeed(BigInt(common.chainId)),
@@ -153,6 +161,6 @@ export const EthActionsLive = Layer.effect(
 			getCode: (params) => getCodeService.getCode(params),
 
 			getStorageAt: (params) => getStorageAtService.getStorageAt(params),
-		}
+		})
 	})
-)
+))

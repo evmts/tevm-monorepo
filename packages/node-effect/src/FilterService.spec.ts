@@ -4,7 +4,7 @@ import { FilterService } from './FilterService.js'
 describe('FilterService', () => {
 	it('should be a Context.Tag', () => {
 		expect(FilterService).toBeDefined()
-		expect(FilterService.key).toBe('FilterService')
+		expect(FilterService.key).toBe('@tevm/node-effect/FilterService')
 	})
 
 	it('should have a unique identifier', () => {

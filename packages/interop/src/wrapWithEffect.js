@@ -57,7 +57,7 @@ import { Effect } from 'effect'
  * console.log(wrappedManager.effect) // { getAccount: ..., putAccount: ... }
  * ```
  *
- * @template T - The type of the object to wrap
+ * @template {object} T - The type of the object to wrap
  * @param {T} instance - The object instance to wrap (will NOT be mutated)
  * @param {(keyof T)[]} methods - Array of method names to wrap with Effect
  * @returns {T & { effect: Record<string, (...args: unknown[]) => Effect.Effect<unknown, unknown, never>> }} A new object with all original properties plus an `.effect` property

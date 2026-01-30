@@ -47,7 +47,6 @@ import { ImpersonationService } from './ImpersonationService.js'
  * ```
  *
  * @param {ImpersonationLiveOptions} [options] - Configuration options
- * @returns {Layer.Layer<ImpersonationService>} Layer providing ImpersonationService
  */
 export const ImpersonationLive = (options = {}) => {
 	return Layer.effect(

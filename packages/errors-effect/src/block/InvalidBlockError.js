@@ -64,6 +64,7 @@ export class InvalidBlockError extends Data.TaggedError('InvalidBlockError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -85,6 +86,7 @@ export class InvalidBlockError extends Data.TaggedError('InvalidBlockError') {
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -100,8 +102,8 @@ export class InvalidBlockError extends Data.TaggedError('InvalidBlockError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'InvalidBlockError'
 		this.blockNumber = props.blockNumber
 		this.blockHash = props.blockHash

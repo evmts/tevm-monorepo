@@ -60,9 +60,9 @@
 
 // Re-export types
 /**
- * @typedef {import('./types.js').CommonShape} CommonShape
+ * @typedef {import('./CommonShape.js').CommonShape} CommonShape
+ * @typedef {import('./CommonShape.js').Hardfork} Hardfork
  * @typedef {import('./types.js').CommonConfigOptions} CommonConfigOptions
- * @typedef {import('./types.js').Hardfork} Hardfork
  * @typedef {import('./types.js').LogLevel} LogLevel
  */
 

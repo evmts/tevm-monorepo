@@ -1,10 +1,6 @@
 import { Data } from 'effect'
 
 /**
- * @typedef {`0x${string}`} Hex
- */
-
-/**
  * TaggedError representing a snapshot not found error.
  *
  * This error occurs when attempting to revert to a snapshot that does not exist,
@@ -43,12 +39,13 @@ export class SnapshotNotFoundError extends Data.TaggedError('SnapshotNotFoundErr
 	/**
 	 * The snapshot ID that was not found
 	 * @readonly
-	 * @type {Hex | string | undefined}
+	 * @type {`0x${string}` | string | undefined}
 	 */
 	snapshotId
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -70,6 +67,7 @@ export class SnapshotNotFoundError extends Data.TaggedError('SnapshotNotFoundErr
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -78,13 +76,13 @@ export class SnapshotNotFoundError extends Data.TaggedError('SnapshotNotFoundErr
 	/**
 	 * Constructs a new SnapshotNotFoundError
 	 * @param {Object} props - Error properties
-	 * @param {Hex | string} [props.snapshotId] - The snapshot ID that was not found
+	 * @param {`0x${string}` | string} [props.snapshotId] - The snapshot ID that was not found
 	 * @param {string} [props.message] - Optional custom message
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'SnapshotNotFoundError'
 		this.snapshotId = props.snapshotId
 		this.message =

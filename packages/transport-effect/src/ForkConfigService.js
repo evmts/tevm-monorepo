@@ -54,9 +54,7 @@ import { Context } from 'effect'
  *   )
  * )
  * ```
- *
- * @type {Context.Tag<ForkConfigService, ForkConfigShape>}
  */
-export const ForkConfigService = /** @type {Context.Tag<ForkConfigService, ForkConfigShape>} */ (
-	Context.GenericTag('ForkConfigService')
+export const ForkConfigService = Context.GenericTag(
+	'@tevm/transport-effect/ForkConfigService'
 )

@@ -64,10 +64,11 @@ export class GasTooLowError extends GasTooLowError_base {
     readonly intrinsicGas: bigint | undefined;
     /**
      * Human-readable error message
+     * @override
      * @readonly
      * @type {string}
      */
-    readonly message: string;
+    override readonly message: string;
     /**
      * JSON-RPC error code
      * @readonly
@@ -82,10 +83,11 @@ export class GasTooLowError extends GasTooLowError_base {
     readonly docsPath: string;
     /**
      * The underlying cause of this error, if any.
+     * @override
      * @readonly
      * @type {unknown}
      */
-    readonly cause: unknown;
+    override readonly cause: unknown;
 }
 export {};
 //# sourceMappingURL=GasTooLowError.d.ts.map

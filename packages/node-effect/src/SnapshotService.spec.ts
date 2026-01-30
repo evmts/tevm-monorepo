@@ -14,6 +14,6 @@ describe('SnapshotService', () => {
 
 	it('should have the correct key', () => {
 		// @ts-expect-error - accessing internal key
-		expect(SnapshotService.key).toBe('SnapshotService')
+		expect(SnapshotService.key).toBe('@tevm/node-effect/SnapshotService')
 	})
 })

@@ -82,20 +82,24 @@ export const BlockchainLive = (options = {}) => {
 			const transport = yield* TransportService
 			const forkConfig = yield* ForkConfigService
 
-			const chain = yield* Effect.promise(() =>
-				createChain({
-					common: options.common ?? common,
-					genesisBlock: options.genesisBlock,
-					genesisStateRoot: options.genesisStateRoot,
-					fork: {
-						transport: {
-							request: (method, params) =>
-								Effect.runPromise(transport.request(method, params)),
-						},
-						blockTag: forkConfig.blockTag,
+			/** @type {import('@tevm/blockchain').ChainOptions} */
+			const chainOptions = {
+				common: options.common ?? common,
+				fork: {
+					transport: {
+						request: (method, params) =>
+							Effect.runPromise(transport.request(method, params)),
 					},
-				}),
-			)
+					blockTag: forkConfig.blockTag,
+				},
+			}
+			if (options.genesisBlock !== undefined) {
+				chainOptions.genesisBlock = options.genesisBlock
+			}
+			if (options.genesisStateRoot !== undefined) {
+				chainOptions.genesisStateRoot = options.genesisStateRoot
+			}
+			const chain = yield* Effect.promise(() => createChain(chainOptions))
 
 			// Wait for the chain to be ready
 			yield* Effect.promise(() => chain.ready())
@@ -112,7 +116,12 @@ export const BlockchainLive = (options = {}) => {
 
 					getBlock: (blockId) =>
 						Effect.tryPromise({
-							try: () => chainInstance.getBlockByTag(blockId),
+							try: () =>
+								chainInstance.getBlockByTag(
+									/** @type {`0x${string}` | Uint8Array | number | bigint | 'latest' | 'earliest' | 'pending' | 'safe' | 'finalized'} */ (
+										blockId
+									),
+								),
 							catch: (error) =>
 								new BlockNotFoundError({
 									message: `Block not found: ${String(blockId)}`,
@@ -122,7 +131,7 @@ export const BlockchainLive = (options = {}) => {
 
 					getBlockByHash: (hash) =>
 						Effect.tryPromise({
-							try: () => chainInstance.getBlock(hash),
+							try: () => chainInstance.getBlockByTag(hash),
 							catch: (error) =>
 								new BlockNotFoundError({
 									message: `Block not found for hash: ${hash}`,

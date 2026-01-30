@@ -10,12 +10,6 @@ import { keccak256 as keccak256Utils, createAccount } from '@tevm/utils'
  */
 
 /**
- * Empty code hash constant (keccak256 of empty bytes)
- * @type {`0x${string}`}
- */
-const EMPTY_CODE_HASH = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
-
-/**
  * Converts a hex string to Uint8Array
  * @param {string} hex - Hex string to convert
  * @param {Object} [options] - Conversion options
@@ -160,12 +154,6 @@ const validateBigInt = (value, fieldName, method = 'tevm_setAccount') =>
  *
  * Effect.runPromise(program.pipe(Effect.provide(AppLayer)))
  * ```
- *
- * @type {import('effect').Layer.Layer<
- *   import('./SetAccountService.js').SetAccountService,
- *   never,
- *   import('@tevm/state-effect').StateManagerService
- * >}
  */
 export const SetAccountLive = Layer.effect(
 	SetAccountService,
@@ -175,11 +163,6 @@ export const SetAccountLive = Layer.effect(
 		return {
 			/**
 			 * @param {import('./types.js').SetAccountParams} params
-			 * @returns {import('effect').Effect.Effect<
-			 *   import('./types.js').SetAccountSuccess,
-			 *   import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError,
-			 *   never
-			 * >}
 			 */
 			setAccount: (params) =>
 				Effect.gen(function* () {

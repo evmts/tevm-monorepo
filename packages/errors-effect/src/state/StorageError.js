@@ -58,6 +58,7 @@ export class StorageError extends Data.TaggedError('StorageError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -79,6 +80,7 @@ export class StorageError extends Data.TaggedError('StorageError') {
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -93,8 +95,8 @@ export class StorageError extends Data.TaggedError('StorageError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'StorageError'
 		this.address = props.address
 		this.key = props.key

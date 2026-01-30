@@ -45,6 +45,7 @@ export class NodeNotReadyError extends Data.TaggedError('NodeNotReadyError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -66,6 +67,7 @@ export class NodeNotReadyError extends Data.TaggedError('NodeNotReadyError') {
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -79,8 +81,8 @@ export class NodeNotReadyError extends Data.TaggedError('NodeNotReadyError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'NodeNotReadyError'
 		this.reason = props.reason
 		this.message =

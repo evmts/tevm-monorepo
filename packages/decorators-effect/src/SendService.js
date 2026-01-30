@@ -6,6 +6,15 @@
 import { Context } from 'effect'
 
 /**
+ * @typedef {import('./types.js').SendServiceShape} SendServiceShape
+ */
+
+/**
+ * SendService identifier type for Effect Context.Tag
+ * @typedef {{ readonly _tag: '@tevm/decorators-effect/SendService' }} SendServiceId
+ */
+
+/**
  * Service tag for Send providing JSON-RPC send methods.
  *
  * This service exposes:
@@ -31,12 +40,8 @@ import { Context } from 'effect'
  * })
  * ```
  *
- * @type {Context.Tag<SendService, import('./types.js').SendServiceShape>}
+ * @type {Context.Tag<SendServiceId, SendServiceShape>}
  */
-export const SendService = /** @type {Context.Tag<SendService, import('./types.js').SendServiceShape>} */ (
+export const SendService = /** @type {Context.Tag<SendServiceId, SendServiceShape>} */ (
 	Context.GenericTag('@tevm/decorators-effect/SendService')
 )
-
-/**
- * @typedef {Context.Tag.Identifier<typeof SendService>} SendService
- */

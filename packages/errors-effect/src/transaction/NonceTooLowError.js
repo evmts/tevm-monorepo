@@ -65,6 +65,7 @@ export class NonceTooLowError extends Data.TaggedError('NonceTooLowError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -86,6 +87,7 @@ export class NonceTooLowError extends Data.TaggedError('NonceTooLowError') {
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -101,8 +103,8 @@ export class NonceTooLowError extends Data.TaggedError('NonceTooLowError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'NonceTooLowError'
 		this.address = props.address
 		this.expected = props.expected

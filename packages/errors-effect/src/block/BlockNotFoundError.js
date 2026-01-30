@@ -49,6 +49,7 @@ export class BlockNotFoundError extends Data.TaggedError('BlockNotFoundError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -70,6 +71,7 @@ export class BlockNotFoundError extends Data.TaggedError('BlockNotFoundError') {
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -83,8 +85,8 @@ export class BlockNotFoundError extends Data.TaggedError('BlockNotFoundError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'BlockNotFoundError'
 		this.blockTag = props.blockTag
 		this.cause = props.cause

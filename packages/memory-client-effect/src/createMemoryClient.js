@@ -95,7 +95,7 @@ const createFullLayer = (options = {}) => {
 	// Create common layer with chain configuration
 	const commonLayer = CommonFromConfig({
 		chainId: options.common?.chainId ?? options.fork?.chainId ?? 1,
-		hardfork: options.common?.hardfork ?? 'prague',
+		hardfork: /** @type {import('@tevm/common-effect').Hardfork} */ (options.common?.hardfork ?? 'prague'),
 		eips: options.common?.eips ?? [],
 	})
 
@@ -137,7 +137,7 @@ const createFullLayer = (options = {}) => {
 	// Finally: memory client layer on top
 	const memoryClientComposedLayer = Layer.provide(MemoryClientLive, servicesLayer)
 
-	return memoryClientComposedLayer
+	return /** @type {Layer.Layer<MemoryClientService, never, never>} */ (memoryClientComposedLayer)
 }
 
 /**
@@ -148,8 +148,22 @@ const createFullLayer = (options = {}) => {
  * @returns {ViemMemoryClient}
  */
 const createDeepCopyClient = (runtime) => {
+	/**
+	 * Helper to run an Effect program with the managed runtime
+	 * @template A
+	 * @template E
+	 * @param {Effect.Effect<A, E, MemoryClientService>} effect
+	 * @returns {Promise<A>}
+	 */
 	const runEffect = async (effect) => runtime.runPromise(effect)
 
+	/**
+	 * Helper to create a program that uses the MemoryClientService
+	 * @template A
+	 * @template E
+	 * @param {(client: import('./types.js').MemoryClientShape) => Effect.Effect<A, E, never>} fn
+	 * @returns {Effect.Effect<A, E, MemoryClientService>}
+	 */
 	const withClient = (fn) =>
 		Effect.gen(function* () {
 			const client = yield* MemoryClientService
@@ -157,18 +171,18 @@ const createDeepCopyClient = (runtime) => {
 		})
 
 	return {
-		ready: () => runEffect(withClient((c) => c.ready)),
-		getBlockNumber: () => runEffect(withClient((c) => c.getBlockNumber)),
-		getChainId: () => runEffect(withClient((c) => c.getChainId)),
-		tevmGetAccount: (params) => runEffect(withClient((c) => c.getAccount(params))),
-		tevmSetAccount: (params) => runEffect(withClient((c) => c.setAccount(params))),
-		getBalance: (params) => runEffect(withClient((c) => c.getBalance(params))),
-		getCode: (params) => runEffect(withClient((c) => c.getCode(params))),
-		getStorageAt: (params) => runEffect(withClient((c) => c.getStorageAt(params))),
-		takeSnapshot: () => runEffect(withClient((c) => c.takeSnapshot())),
-		revertToSnapshot: (snapshotId) => runEffect(withClient((c) => c.revertToSnapshot(snapshotId))),
+		ready: () => runEffect(withClient((/** @type {import('./types.js').MemoryClientShape} */ c) => c.ready)),
+		getBlockNumber: () => runEffect(withClient((/** @type {import('./types.js').MemoryClientShape} */ c) => c.getBlockNumber)),
+		getChainId: () => runEffect(withClient((/** @type {import('./types.js').MemoryClientShape} */ c) => c.getChainId)),
+		tevmGetAccount: (/** @type {import('@tevm/actions-effect').GetAccountParams} */ params) => runEffect(withClient((/** @type {import('./types.js').MemoryClientShape} */ c) => c.getAccount(params))),
+		tevmSetAccount: (/** @type {import('@tevm/actions-effect').SetAccountParams} */ params) => runEffect(withClient((/** @type {import('./types.js').MemoryClientShape} */ c) => c.setAccount(params))),
+		getBalance: (/** @type {import('@tevm/actions-effect').GetBalanceParams} */ params) => runEffect(withClient((/** @type {import('./types.js').MemoryClientShape} */ c) => c.getBalance(params))),
+		getCode: (/** @type {import('@tevm/actions-effect').GetCodeParams} */ params) => runEffect(withClient((/** @type {import('./types.js').MemoryClientShape} */ c) => c.getCode(params))),
+		getStorageAt: (/** @type {import('@tevm/actions-effect').GetStorageAtParams} */ params) => runEffect(withClient((/** @type {import('./types.js').MemoryClientShape} */ c) => c.getStorageAt(params))),
+		takeSnapshot: () => runEffect(withClient((/** @type {import('./types.js').MemoryClientShape} */ c) => c.takeSnapshot())),
+		revertToSnapshot: (/** @type {import('./types.js').Hex} */ snapshotId) => runEffect(withClient((/** @type {import('./types.js').MemoryClientShape} */ c) => c.revertToSnapshot(snapshotId))),
 		deepCopy: async function() {
-			const copiedShape = await runEffect(withClient((c) => c.deepCopy()))
+			const copiedShape = await runEffect(withClient((/** @type {import('./types.js').MemoryClientShape} */ c) => c.deepCopy()))
 			// Validate the copied shape implements the required contract
 			const validatedShape = validateMemoryClientShape(copiedShape)
 			const copiedLayer = Layer.succeed(MemoryClientService, validatedShape)
@@ -178,7 +192,7 @@ const createDeepCopyClient = (runtime) => {
 			} catch (e) {
 				// Dispose runtime on failure to prevent resource leak
 				// Fire-and-forget pattern: dispose() returns Promise but we're about to throw
-				copiedRuntime.dispose().catch((disposeError) => {
+				copiedRuntime.dispose().catch((/** @type {unknown} */ disposeError) => {
 					console.error('[createMemoryClient] Failed to dispose runtime during error recovery:', disposeError)
 				})
 				throw e
@@ -188,10 +202,11 @@ const createDeepCopyClient = (runtime) => {
 		effect: {
 			runtime,
 			// Note: The original composed layer is not available in deep-copied clients.
-			// Use the runtime to run Effects instead. Accessing this layer will provide
-			// null which should not be used directly - use the parent client's layer if needed.
+			// Use the runtime to run Effects instead. Accessing this layer throws an error
+			// to prevent misuse - use the parent client's layer if needed.
+			/** @type {Layer.Layer<MemoryClientService, never, never>} */
 			get layer() {
-				throw new Error('layer is not available on deep-copied clients. Use effect.runtime instead, or access the layer from the original client.')
+				throw /** @type {never} */ (new Error('layer is not available on deep-copied clients. Use effect.runtime instead, or access the layer from the original client.'))
 			},
 		},
 	}

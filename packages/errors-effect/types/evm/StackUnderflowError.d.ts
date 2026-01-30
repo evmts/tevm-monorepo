@@ -64,10 +64,11 @@ export class StackUnderflowError extends StackUnderflowError_base {
     readonly availableItems: number | undefined;
     /**
      * Human-readable error message
+     * @override
      * @readonly
      * @type {string}
      */
-    readonly message: string;
+    override readonly message: string;
     /**
      * JSON-RPC error code
      * @readonly
@@ -83,10 +84,11 @@ export class StackUnderflowError extends StackUnderflowError_base {
     /**
      * The underlying cause of this error, if any.
      * Enables error chaining for better debugging.
+     * @override
      * @readonly
      * @type {unknown}
      */
-    readonly cause: unknown;
+    override readonly cause: unknown;
 }
 export {};
 //# sourceMappingURL=StackUnderflowError.d.ts.map

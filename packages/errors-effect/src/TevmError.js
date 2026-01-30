@@ -21,6 +21,7 @@ import { Data } from 'effect'
 export class TevmError extends Data.TaggedError('TevmError') {
 	/**
 	 * The error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -42,6 +43,7 @@ export class TevmError extends Data.TaggedError('TevmError') {
 
 	/**
 	 * The underlying cause of this error, if any
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -56,8 +58,8 @@ export class TevmError extends Data.TaggedError('TevmError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'TevmError'
 		this.message = props.message
 		this.code = props.code ?? 0
@@ -70,6 +72,7 @@ export class TevmError extends Data.TaggedError('TevmError') {
 
 	/**
 	 * Returns a string representation of the error
+	 * @override
 	 * @returns {string}
 	 */
 	toString() {

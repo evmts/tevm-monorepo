@@ -39,12 +39,7 @@ import { Context } from 'effect'
  * )
  * ```
  *
- * @type {Context.Tag<GetCodeService, GetCodeShape>}
  */
 export const GetCodeService = Context.GenericTag(
-	/** @type {const} */ ('@tevm/actions-effect/GetCodeService'),
+	'@tevm/actions-effect/GetCodeService',
 )
-
-/**
- * @typedef {Context.Tag.Identifier<typeof GetCodeService>} GetCodeService
- */

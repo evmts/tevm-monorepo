@@ -80,8 +80,8 @@ export const CommonFromConfig = (config = {}) => {
 		id: chainId,
 		hardfork,
 		eips: /** @type {number[]} */ ([...eips]),
-		loggingLevel,
-		customCrypto: config.customCrypto,
+		...(loggingLevel !== 'silent' && { loggingLevel }),
+		...(config.customCrypto && { customCrypto: config.customCrypto }),
 	}).copy() // Always copy to avoid mutation issues
 
 	return Layer.succeed(

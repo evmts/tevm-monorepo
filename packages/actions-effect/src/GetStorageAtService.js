@@ -40,12 +40,7 @@ import { Context } from 'effect'
  * )
  * ```
  *
- * @type {Context.Tag<GetStorageAtService, GetStorageAtShape>}
  */
 export const GetStorageAtService = Context.GenericTag(
-	/** @type {const} */ ('@tevm/actions-effect/GetStorageAtService'),
+	'@tevm/actions-effect/GetStorageAtService',
 )
-
-/**
- * @typedef {Context.Tag.Identifier<typeof GetStorageAtService>} GetStorageAtService
- */

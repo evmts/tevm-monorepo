@@ -1,10 +1,6 @@
 import { Data } from 'effect'
 
 /**
- * @typedef {`0x${string}`} Address
- */
-
-/**
  * TaggedError representing insufficient funds for gas * price + value.
  *
  * This error occurs when the sender account doesn't have enough balance
@@ -46,7 +42,7 @@ export class InsufficientFundsError extends Data.TaggedError('InsufficientFundsE
 	/**
 	 * The address of the account
 	 * @readonly
-	 * @type {Address | undefined}
+	 * @type {`0x${string}` | undefined}
 	 */
 	address
 
@@ -66,6 +62,7 @@ export class InsufficientFundsError extends Data.TaggedError('InsufficientFundsE
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -87,6 +84,7 @@ export class InsufficientFundsError extends Data.TaggedError('InsufficientFundsE
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -95,15 +93,15 @@ export class InsufficientFundsError extends Data.TaggedError('InsufficientFundsE
 	/**
 	 * Constructs a new InsufficientFundsError
 	 * @param {Object} props - Error properties
-	 * @param {Address} [props.address] - The account address
+	 * @param {`0x${string}`} [props.address] - The account address
 	 * @param {bigint} [props.required] - The total required balance
 	 * @param {bigint} [props.available] - The available balance
 	 * @param {string} [props.message] - Optional custom message
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'InsufficientFundsError'
 		this.address = props.address
 		this.required = props.required

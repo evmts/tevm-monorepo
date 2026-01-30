@@ -6,6 +6,15 @@
 import { Context } from 'effect'
 
 /**
+ * @typedef {import('./types.js').EthActionsShape} EthActionsShape
+ */
+
+/**
+ * EthActionsService identifier type for Effect Context.Tag
+ * @typedef {{ readonly _tag: '@tevm/decorators-effect/EthActionsService' }} EthActionsServiceId
+ */
+
+/**
  * Service tag for EthActions providing standard Ethereum JSON-RPC methods.
  *
  * This service exposes common Ethereum operations like:
@@ -30,12 +39,8 @@ import { Context } from 'effect'
  * })
  * ```
  *
- * @type {Context.Tag<EthActionsService, import('./types.js').EthActionsShape>}
+ * @type {Context.Tag<EthActionsServiceId, EthActionsShape>}
  */
-export const EthActionsService = /** @type {Context.Tag<EthActionsService, import('./types.js').EthActionsShape>} */ (
+export const EthActionsService = /** @type {Context.Tag<EthActionsServiceId, EthActionsShape>} */ (
 	Context.GenericTag('@tevm/decorators-effect/EthActionsService')
 )
-
-/**
- * @typedef {Context.Tag.Identifier<typeof EthActionsService>} EthActionsService
- */

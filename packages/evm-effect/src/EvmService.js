@@ -10,6 +10,11 @@ import { Context } from 'effect'
  */
 
 /**
+ * EvmService identifier type for Effect Context.Tag
+ * @typedef {{ readonly _tag: '@tevm/evm-effect/EvmService' }} EvmServiceId
+ */
+
+/**
  * EvmService Context Tag for Effect-based dependency injection.
  *
  * This tag is used to inject the EvmShape into Effect computations,
@@ -61,8 +66,8 @@ import { Context } from 'effect'
  * Effect.runPromise(program.pipe(Effect.provide(layer)))
  * ```
  *
- * @type {Context.Tag<EvmService, EvmShape>}
+ * @type {Context.Tag<EvmServiceId, EvmShape>}
  */
-export const EvmService = /** @type {Context.Tag<EvmService, EvmShape>} */ (
-	Context.GenericTag('EvmService')
+export const EvmService = /** @type {Context.Tag<EvmServiceId, EvmShape>} */ (
+	Context.GenericTag('@tevm/evm-effect/EvmService')
 )

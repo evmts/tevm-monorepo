@@ -7,7 +7,7 @@ describe('ForkConfigService', () => {
 	describe('Context.Tag', () => {
 		it('should be a valid Context.Tag', () => {
 			expect(ForkConfigService).toBeDefined()
-			expect(ForkConfigService.key).toBe('ForkConfigService')
+			expect(ForkConfigService.key).toBe('@tevm/transport-effect/ForkConfigService')
 		})
 
 		it('should be usable in Effect.gen for dependency injection', async () => {

@@ -2,9 +2,6 @@ declare const InsufficientFundsError_base: new <A extends Record<string, any> = 
     readonly _tag: "InsufficientFundsError";
 } & Readonly<A>;
 /**
- * @typedef {`0x${string}`} Address
- */
-/**
  * TaggedError representing insufficient funds for gas * price + value.
  *
  * This error occurs when the sender account doesn't have enough balance
@@ -44,7 +41,7 @@ export class InsufficientFundsError extends InsufficientFundsError_base {
     /**
      * Constructs a new InsufficientFundsError
      * @param {Object} props - Error properties
-     * @param {Address} [props.address] - The account address
+     * @param {`0x${string}`} [props.address] - The account address
      * @param {bigint} [props.required] - The total required balance
      * @param {bigint} [props.available] - The available balance
      * @param {string} [props.message] - Optional custom message
@@ -60,9 +57,9 @@ export class InsufficientFundsError extends InsufficientFundsError_base {
     /**
      * The address of the account
      * @readonly
-     * @type {Address | undefined}
+     * @type {`0x${string}` | undefined}
      */
-    readonly address: Address | undefined;
+    readonly address: `0x${string}` | undefined;
     /**
      * The total required balance (gas * price + value)
      * @readonly
@@ -77,10 +74,11 @@ export class InsufficientFundsError extends InsufficientFundsError_base {
     readonly available: bigint | undefined;
     /**
      * Human-readable error message
+     * @override
      * @readonly
      * @type {string}
      */
-    readonly message: string;
+    override readonly message: string;
     /**
      * JSON-RPC error code
      * @readonly
@@ -95,11 +93,11 @@ export class InsufficientFundsError extends InsufficientFundsError_base {
     readonly docsPath: string;
     /**
      * The underlying cause of this error, if any.
+     * @override
      * @readonly
      * @type {unknown}
      */
-    readonly cause: unknown;
+    override readonly cause: unknown;
 }
-export type Address = `0x${string}`;
 export {};
 //# sourceMappingURL=InsufficientFundsError.d.ts.map

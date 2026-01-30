@@ -49,8 +49,7 @@ import { Context } from 'effect'
  * )
  * ```
  *
- * @type {Context.Tag<MemoryClientService, import('./types.js').MemoryClientShape>}
  */
-export const MemoryClientService = /** @type {Context.Tag<MemoryClientService, import('./types.js').MemoryClientShape>} */ (
-	Context.GenericTag('@tevm/memory-client-effect/MemoryClientService')
+export const MemoryClientService = Context.GenericTag(
+	'@tevm/memory-client-effect/MemoryClientService'
 )

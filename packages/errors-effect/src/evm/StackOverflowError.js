@@ -44,6 +44,7 @@ export class StackOverflowError extends Data.TaggedError('StackOverflowError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -66,6 +67,7 @@ export class StackOverflowError extends Data.TaggedError('StackOverflowError') {
 	/**
 	 * The underlying cause of this error, if any.
 	 * Enables error chaining for better debugging.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -79,8 +81,8 @@ export class StackOverflowError extends Data.TaggedError('StackOverflowError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'StackOverflowError'
 		this.stackSize = props.stackSize
 		// Include stackSize in auto-generated message when available

@@ -1633,6 +1633,9 @@ importers:
       '@tevm/state-effect':
         specifier: workspace:^
         version: link:../state-effect
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../utils
       '@tevm/vm-effect':
         specifier: workspace:^
         version: link:../vm-effect
@@ -1652,9 +1655,6 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
-      '@tevm/utils':
-        specifier: workspace:^
-        version: link:../utils
       '@types/node':
         specifier: ^24.6.1
         version: 24.6.1
@@ -2264,6 +2264,9 @@ importers:
       '@tevm/interop':
         specifier: workspace:^
         version: link:../interop
+      '@tevm/logger-effect':
+        specifier: workspace:^
+        version: link:../logger-effect
       '@tevm/node-effect':
         specifier: workspace:^
         version: link:../node-effect
@@ -2362,6 +2365,9 @@ importers:
       '@tevm/errors-effect':
         specifier: workspace:^
         version: link:../errors-effect
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
       '@tevm/state-effect':
         specifier: workspace:^
         version: link:../state-effect

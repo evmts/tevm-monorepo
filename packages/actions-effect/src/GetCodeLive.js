@@ -17,7 +17,10 @@ const bytesToHex = (bytes) => {
 	if (!bytes || bytes.length === 0) return '0x'
 	let hex = ''
 	for (let i = 0; i < bytes.length; i++) {
-		hex += bytes[i].toString(16).padStart(2, '0')
+		const byte = bytes[i]
+		if (byte !== undefined) {
+			hex += byte.toString(16).padStart(2, '0')
+		}
 	}
 	return /** @type {`0x${string}`} */ (`0x${hex}`)
 }
@@ -33,7 +36,7 @@ const validateBlockTag = (blockTag, method = 'eth_getCode') =>
 		// Only 'latest' and undefined are supported
 		// Historical block queries require TransportService for fork mode which is not yet implemented
 		if (blockTag === undefined || blockTag === 'latest') {
-			return 'latest'
+			return /** @type {'latest'} */ ('latest')
 		}
 		return yield* Effect.fail(
 			new InvalidParamsError({
@@ -99,12 +102,6 @@ const validateAddress = (address, method = 'eth_getCode') =>
  *
  * Effect.runPromise(program.pipe(Effect.provide(AppLayer)))
  * ```
- *
- * @type {import('effect').Layer.Layer<
- *   import('./GetCodeService.js').GetCodeService,
- *   never,
- *   import('@tevm/state-effect').StateManagerService
- * >}
  */
 export const GetCodeLive = Layer.effect(
 	GetCodeService,
@@ -114,7 +111,6 @@ export const GetCodeLive = Layer.effect(
 		return {
 			/**
 			 * @param {import('./types.js').GetCodeParams} params
-			 * @returns {import('effect').Effect.Effect<`0x${string}`, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>}
 			 */
 			getCode: (params) =>
 				Effect.gen(function* () {

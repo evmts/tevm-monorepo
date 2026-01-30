@@ -57,6 +57,7 @@ export class RevertError extends Data.TaggedError('RevertError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -79,6 +80,7 @@ export class RevertError extends Data.TaggedError('RevertError') {
 	/**
 	 * The underlying cause of this error, if any.
 	 * Enables error chaining for better debugging.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -93,8 +95,8 @@ export class RevertError extends Data.TaggedError('RevertError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'RevertError'
 		this.raw = props.raw
 		this.reason = props.reason

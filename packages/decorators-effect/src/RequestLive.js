@@ -7,7 +7,7 @@ import { Effect, Layer } from 'effect'
 import { RequestService } from './RequestService.js'
 import { EthActionsService } from './EthActionsService.js'
 import { TevmActionsService } from './TevmActionsService.js'
-import { InternalError, InvalidParamsError, MethodNotFoundError } from '@tevm/errors-effect'
+import { InvalidParamsError, MethodNotFoundError } from '@tevm/errors-effect'
 
 /**
  * Live implementation of RequestService.
@@ -42,15 +42,19 @@ import { InternalError, InvalidParamsError, MethodNotFoundError } from '@tevm/er
  * await Effect.runPromise(program.pipe(Effect.provide(layer)))
  * ```
  *
- * @type {Layer.Layer<RequestService, never, EthActionsService | TevmActionsService>}
  */
-export const RequestLive = Layer.effect(
+export const RequestLive = /** @type {Layer.Layer<import('./RequestService.js').RequestServiceId, never, any>} */ (Layer.effect(
 	RequestService,
 	Effect.gen(function* () {
 		const ethActions = yield* EthActionsService
 		const tevmActions = yield* TevmActionsService
 
-		return {
+		return /** @type {import('./types.js').RequestServiceShape} */ ({
+			/**
+			 * @template T
+			 * @param {import('./types.js').Eip1193RequestParams} params
+			 * @returns {import('effect').Effect.Effect<T, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError | import('@tevm/errors-effect').MethodNotFoundError, never>}
+			 */
 			request: (params) =>
 				Effect.gen(function* () {
 					const { method, params: rpcParams = [] } = params
@@ -59,17 +63,17 @@ export const RequestLive = Layer.effect(
 						// Ethereum methods
 						case 'eth_blockNumber': {
 							const result = yield* ethActions.blockNumber()
-							return `0x${result.toString(16)}`
+							return /** @type {T} */ (`0x${result.toString(16)}`)
 						}
 
 						case 'eth_chainId': {
 							const result = yield* ethActions.chainId()
-							return `0x${result.toString(16)}`
+							return /** @type {T} */ (`0x${result.toString(16)}`)
 						}
 
 						case 'eth_gasPrice': {
 							const result = yield* ethActions.gasPrice()
-							return `0x${result.toString(16)}`
+							return /** @type {T} */ (`0x${result.toString(16)}`)
 						}
 
 						case 'eth_call': {
@@ -84,11 +88,11 @@ export const RequestLive = Layer.effect(
 								)
 							}
 							const result = yield* ethActions.call(callParams)
-							return result
+							return /** @type {T} */ (result)
 						}
 
 						case 'eth_getBalance': {
-							const [address, blockTag] = /** @type {[string, string]} */ (rpcParams)
+							const [address, blockTag] = /** @type {[string, string | undefined]} */ (rpcParams)
 							if (!address) {
 								return yield* Effect.fail(
 									new InvalidParamsError({
@@ -98,12 +102,15 @@ export const RequestLive = Layer.effect(
 									})
 								)
 							}
-							const result = yield* ethActions.getBalance({ address, blockTag })
-							return `0x${result.toString(16)}`
+							const result = yield* ethActions.getBalance({
+								address: /** @type {import('./types.js').Address} */ (address),
+								...(blockTag !== undefined && { blockTag: /** @type {import('./types.js').BlockParam} */ (blockTag) }),
+							})
+							return /** @type {T} */ (`0x${result.toString(16)}`)
 						}
 
 						case 'eth_getCode': {
-							const [address, blockTag] = /** @type {[string, string]} */ (rpcParams)
+							const [address, blockTag] = /** @type {[string, string | undefined]} */ (rpcParams)
 							if (!address) {
 								return yield* Effect.fail(
 									new InvalidParamsError({
@@ -113,12 +120,15 @@ export const RequestLive = Layer.effect(
 									})
 								)
 							}
-							const result = yield* ethActions.getCode({ address, blockTag })
-							return result
+							const result = yield* ethActions.getCode({
+								address: /** @type {import('./types.js').Address} */ (address),
+								...(blockTag !== undefined && { blockTag: /** @type {import('./types.js').BlockParam} */ (blockTag) }),
+							})
+							return /** @type {T} */ (result)
 						}
 
 						case 'eth_getStorageAt': {
-							const [address, position, blockTag] = /** @type {[string, string, string]} */ (rpcParams)
+							const [address, position, blockTag] = /** @type {[string, string, string | undefined]} */ (rpcParams)
 							if (!address || position === undefined) {
 								return yield* Effect.fail(
 									new InvalidParamsError({
@@ -128,8 +138,12 @@ export const RequestLive = Layer.effect(
 									})
 								)
 							}
-							const result = yield* ethActions.getStorageAt({ address, position, blockTag })
-							return result
+							const result = yield* ethActions.getStorageAt({
+								address: /** @type {import('./types.js').Address} */ (address),
+								position: /** @type {import('./types.js').Hex} */ (position),
+								...(blockTag !== undefined && { blockTag: /** @type {import('./types.js').BlockParam} */ (blockTag) }),
+							})
+							return /** @type {T} */ (result)
 						}
 
 						// TEVM methods
@@ -145,7 +159,7 @@ export const RequestLive = Layer.effect(
 								)
 							}
 							const result = yield* tevmActions.getAccount(accountParams)
-							return result
+							return /** @type {T} */ (result)
 						}
 
 						case 'tevm_setAccount': {
@@ -160,18 +174,18 @@ export const RequestLive = Layer.effect(
 								)
 							}
 							const result = yield* tevmActions.setAccount(accountParams)
-							return result
+							return /** @type {T} */ (result)
 						}
 
 						case 'tevm_call': {
 							const [callParams] = /** @type {[any]} */ (rpcParams)
 							const result = yield* tevmActions.call(callParams ?? {})
-							return result
+							return /** @type {T} */ (result)
 						}
 
 						case 'tevm_dumpState': {
 							const result = yield* tevmActions.dumpState()
-							return result
+							return /** @type {T} */ (result)
 						}
 
 						case 'tevm_loadState': {
@@ -186,7 +200,7 @@ export const RequestLive = Layer.effect(
 								)
 							}
 							yield* tevmActions.loadState(state)
-							return null
+							return /** @type {T} */ (null)
 						}
 
 						case 'anvil_mine':
@@ -194,7 +208,7 @@ export const RequestLive = Layer.effect(
 							const [blocksHex] = /** @type {[string]} */ (rpcParams)
 							const blocks = blocksHex ? parseInt(blocksHex, 16) : 1
 							yield* tevmActions.mine({ blocks })
-							return null
+							return /** @type {T} */ (null)
 						}
 
 						default:
@@ -206,6 +220,6 @@ export const RequestLive = Layer.effect(
 							)
 					}
 				}),
-		}
+		})
 	})
-)
+))

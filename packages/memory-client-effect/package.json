@@ -69,6 +69,7 @@
 		"@tevm/errors-effect": "workspace:^",
 		"@tevm/evm-effect": "workspace:^",
 		"@tevm/interop": "workspace:^",
+		"@tevm/logger-effect": "workspace:^",
 		"@tevm/node-effect": "workspace:^",
 		"@tevm/state-effect": "workspace:^",
 		"@tevm/utils": "workspace:^",

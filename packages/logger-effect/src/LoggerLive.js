@@ -24,8 +24,9 @@ import { LoggerService } from './LoggerService.js'
  */
 const createLoggerShape = (level, name = 'tevm') => {
 	// LogLevel aligns with @tevm/logger's Level type, so we can pass directly to Pino
+	// Cast to Level since we handle 'silent' separately (Pino handles it natively)
 	const pinoLogger = createLogger({
-		level: /** @type {import('@tevm/logger').Level | 'silent'} */ (level),
+		level: /** @type {import('@tevm/logger').Level} */ (level === 'silent' ? 'error' : level),
 		name,
 	})
 

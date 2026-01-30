@@ -4,23 +4,16 @@
  */
 
 /**
- * Ethereum hardfork identifier
- * @typedef {'chainstart' | 'homestead' | 'dao' | 'tangerineWhistle' | 'spuriousDragon' | 'byzantium' | 'constantinople' | 'petersburg' | 'istanbul' | 'muirGlacier' | 'berlin' | 'london' | 'arrowGlacier' | 'grayGlacier' | 'mergeForkIdTransition' | 'paris' | 'shanghai' | 'cancun' | 'prague' | 'osaka'} Hardfork
+ * @typedef {import('./CommonShape.js').Hardfork} Hardfork
+ */
+
+/**
+ * @typedef {import('./CommonShape.js').CommonShape} CommonShape
  */
 
 /**
  * Logging level options
  * @typedef {'debug' | 'info' | 'warn' | 'error' | 'silent'} LogLevel
- */
-
-/**
- * Common shape interface providing chain configuration
- * @typedef {Object} CommonShape
- * @property {import('@tevm/common').Common} common - The underlying Common object from @tevm/common
- * @property {number} chainId - The chain ID
- * @property {Hardfork} hardfork - The active hardfork
- * @property {readonly number[]} eips - Enabled EIPs
- * @property {() => import('@tevm/common').Common} copy - Create an independent copy of the Common object
  */
 
 /**

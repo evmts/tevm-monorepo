@@ -49,6 +49,7 @@ export class AccountNotFoundError extends Data.TaggedError('AccountNotFoundError
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -70,6 +71,7 @@ export class AccountNotFoundError extends Data.TaggedError('AccountNotFoundError
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -83,8 +85,8 @@ export class AccountNotFoundError extends Data.TaggedError('AccountNotFoundError
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'AccountNotFoundError'
 		this.address = props.address
 		this.message =

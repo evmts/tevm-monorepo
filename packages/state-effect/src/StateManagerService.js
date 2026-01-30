@@ -52,8 +52,7 @@ import { Context } from 'effect'
  * Effect.runPromise(program.pipe(Effect.provide(layer)))
  * ```
  *
- * @type {Context.Tag<StateManagerService, StateManagerShape>}
  */
-export const StateManagerService = /** @type {Context.Tag<StateManagerService, StateManagerShape>} */ (
-	Context.GenericTag('StateManagerService')
+export const StateManagerService = Context.GenericTag(
+	'@tevm/state-effect/StateManagerService'
 )

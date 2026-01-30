@@ -46,6 +46,7 @@ export class NetworkError extends Data.TaggedError('NetworkError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -67,6 +68,7 @@ export class NetworkError extends Data.TaggedError('NetworkError') {
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -80,8 +82,8 @@ export class NetworkError extends Data.TaggedError('NetworkError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'NetworkError'
 		this.url = props.url
 		this.cause = props.cause

@@ -46,9 +46,7 @@ import { Context } from 'effect'
  * const layer = ImpersonationLive()
  * Effect.runPromise(program.pipe(Effect.provide(layer)))
  * ```
- *
- * @type {Context.Tag<ImpersonationService, ImpersonationShape>}
  */
-export const ImpersonationService = /** @type {Context.Tag<ImpersonationService, ImpersonationShape>} */ (
-	Context.GenericTag('ImpersonationService')
+export const ImpersonationService = Context.GenericTag(
+	'@tevm/node-effect/ImpersonationService',
 )

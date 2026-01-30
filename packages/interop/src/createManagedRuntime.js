@@ -41,10 +41,9 @@ import { ManagedRuntime, Layer } from 'effect'
  * await runtime.dispose()
  * ```
  *
- * @template RIn - The requirements of the layer
  * @template E - The error type of the layer
  * @template ROut - The services provided by the layer
- * @param {Layer.Layer<ROut, E, RIn>} layer - The layer to create a runtime from
+ * @param {Layer.Layer<ROut, E, never>} layer - The layer to create a runtime from (must have no requirements)
  * @returns {ManagedRuntime.ManagedRuntime<ROut, E>} A managed runtime that must be disposed when no longer needed
  */
 export const createManagedRuntime = (layer) => {

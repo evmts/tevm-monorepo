@@ -53,6 +53,7 @@ export class InvalidTransactionError extends Data.TaggedError('InvalidTransactio
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -74,6 +75,7 @@ export class InvalidTransactionError extends Data.TaggedError('InvalidTransactio
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -88,8 +90,8 @@ export class InvalidTransactionError extends Data.TaggedError('InvalidTransactio
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'InvalidTransactionError'
 		this.reason = props.reason
 		this.tx = props.tx

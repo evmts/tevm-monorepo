@@ -55,13 +55,13 @@
 /**
  * Shape of the EthActions service
  * @typedef {Object} EthActionsShape
- * @property {() => import('effect').Effect<bigint, import('@tevm/errors-effect').InternalError, never>} blockNumber - Get current block number
- * @property {(params: EthCallParams) => import('effect').Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} call - Execute eth_call
- * @property {() => import('effect').Effect<bigint, never, never>} chainId - Get chain ID
- * @property {() => import('effect').Effect<bigint, never, never>} gasPrice - Get current gas price (returns fixed 1 gwei for in-memory simulation)
- * @property {(params: EthGetBalanceParams) => import('effect').Effect<bigint, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getBalance - Get account balance
- * @property {(params: EthGetCodeParams) => import('effect').Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getCode - Get contract code
- * @property {(params: EthGetStorageAtParams) => import('effect').Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getStorageAt - Get storage value
+ * @property {() => import('effect').Effect.Effect<bigint, import('@tevm/errors-effect').InternalError, never>} blockNumber - Get current block number
+ * @property {(params: EthCallParams) => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} call - Execute eth_call
+ * @property {() => import('effect').Effect.Effect<bigint, never, never>} chainId - Get chain ID
+ * @property {() => import('effect').Effect.Effect<bigint, never, never>} gasPrice - Get current gas price (returns fixed 1 gwei for in-memory simulation)
+ * @property {(params: EthGetBalanceParams) => import('effect').Effect.Effect<bigint, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getBalance - Get account balance
+ * @property {(params: EthGetCodeParams) => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getCode - Get contract code
+ * @property {(params: EthGetStorageAtParams) => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getStorageAt - Get storage value
  */
 
 /**
@@ -129,12 +129,12 @@
 /**
  * Shape of the TevmActions service
  * @typedef {Object} TevmActionsShape
- * @property {(params: TevmCallParams) => import('effect').Effect<TevmCallResult, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} call - Execute TEVM call
- * @property {(params: TevmGetAccountParams) => import('effect').Effect<TevmGetAccountResult, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getAccount - Get account state
- * @property {(params: TevmSetAccountParams) => import('effect').Effect<TevmSetAccountResult, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} setAccount - Set account state
- * @property {() => import('effect').Effect<string, import('@tevm/errors-effect').InternalError, never>} dumpState - Dump VM state
- * @property {(state: string) => import('effect').Effect<void, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} loadState - Load VM state
- * @property {(options?: { blocks?: number }) => import('effect').Effect<void, import('@tevm/errors-effect').InternalError, never>} mine - Mine blocks
+ * @property {(params: TevmCallParams) => import('effect').Effect.Effect<TevmCallResult, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} call - Execute TEVM call
+ * @property {(params: TevmGetAccountParams) => import('effect').Effect.Effect<TevmGetAccountResult, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getAccount - Get account state
+ * @property {(params: TevmSetAccountParams) => import('effect').Effect.Effect<TevmSetAccountResult, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} setAccount - Set account state
+ * @property {() => import('effect').Effect.Effect<string, import('@tevm/errors-effect').InternalError, never>} dumpState - Dump VM state
+ * @property {(state: string) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} loadState - Load VM state
+ * @property {(options?: { blocks?: number }) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').InternalError, never>} mine - Mine blocks
  */
 
 /**
@@ -147,7 +147,7 @@
 /**
  * Shape of the Request service for EIP-1193
  * @typedef {Object} RequestServiceShape
- * @property {<T = unknown>(params: Eip1193RequestParams) => import('effect').Effect<T, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError | import('@tevm/errors-effect').MethodNotFoundError, never>} request - Execute EIP-1193 request
+ * @property {<T = unknown>(params: Eip1193RequestParams) => import('effect').Effect.Effect<T, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError | import('@tevm/errors-effect').MethodNotFoundError, never>} request - Execute EIP-1193 request
  */
 
 /**
@@ -176,8 +176,8 @@
  * always succeeds - errors are encoded in the response's `error` field per JSON-RPC 2.0 spec.
  *
  * @typedef {Object} SendServiceShape
- * @property {<T = unknown>(request: JsonRpcRequest) => import('effect').Effect<JsonRpcResponse, never, never>} send - Send single request (errors returned in response.error)
- * @property {(requests: Array<JsonRpcRequest>) => import('effect').Effect<Array<JsonRpcResponse>, never, never>} sendBulk - Send bulk requests (errors returned in response.error)
+ * @property {(request: JsonRpcRequest) => import('effect').Effect.Effect<JsonRpcResponse, never, never>} send - Send single request (errors returned in response.error)
+ * @property {(requests: Array<JsonRpcRequest>) => import('effect').Effect.Effect<Array<JsonRpcResponse>, never, never>} sendBulk - Send bulk requests (errors returned in response.error)
  */
 
 export {}

@@ -72,8 +72,7 @@ import { Context } from 'effect'
  * Effect.runPromise(program.pipe(Effect.provide(blockchainLayer)))
  * ```
  *
- * @type {Context.Tag<BlockchainService, BlockchainShape>}
  */
-export const BlockchainService = /** @type {Context.Tag<BlockchainService, BlockchainShape>} */ (
-	Context.GenericTag('BlockchainService')
+export const BlockchainService = Context.GenericTag(
+	'@tevm/blockchain-effect/BlockchainService',
 )

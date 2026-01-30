@@ -14,6 +14,6 @@ describe('BlockParamsService', () => {
 
 	it('should have the correct key', () => {
 		// @ts-expect-error - accessing internal key
-		expect(BlockParamsService.key).toBe('BlockParamsService')
+		expect(BlockParamsService.key).toBe('@tevm/node-effect/BlockParamsService')
 	})
 })

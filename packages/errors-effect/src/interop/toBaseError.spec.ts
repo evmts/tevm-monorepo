@@ -300,7 +300,7 @@ describe('toBaseError', () => {
 		it('should handle circular reference in cause object', () => {
 			// Create an object with a circular reference
 			const circularCause: Record<string, unknown> = { name: 'circular' }
-			circularCause.self = circularCause
+			circularCause['self'] = circularCause
 
 			const error = new TevmError({
 				message: 'Top error',

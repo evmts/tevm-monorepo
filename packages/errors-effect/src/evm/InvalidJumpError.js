@@ -53,6 +53,7 @@ export class InvalidJumpError extends Data.TaggedError('InvalidJumpError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -74,6 +75,7 @@ export class InvalidJumpError extends Data.TaggedError('InvalidJumpError') {
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -88,8 +90,8 @@ export class InvalidJumpError extends Data.TaggedError('InvalidJumpError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'InvalidJumpError'
 		this.destination = props.destination
 		this.pc = props.pc

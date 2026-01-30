@@ -10,7 +10,6 @@ import { TransportService } from './TransportService.js'
 
 /**
  * @typedef {import('./types.js').ForkConfigShape} ForkConfigShape
- * @typedef {import('@tevm/errors-effect').ForkError} ForkError
  */
 
 /**
@@ -61,7 +60,6 @@ import { TransportService } from './TransportService.js'
  * )
  * ```
  *
- * @type {Layer.Layer<ForkConfigService, ForkError, TransportService>}
  */
 export const ForkConfigFromRpc = Layer.effect(
 	ForkConfigService,

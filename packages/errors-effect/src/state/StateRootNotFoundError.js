@@ -49,6 +49,7 @@ export class StateRootNotFoundError extends Data.TaggedError('StateRootNotFoundE
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -70,6 +71,7 @@ export class StateRootNotFoundError extends Data.TaggedError('StateRootNotFoundE
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -83,8 +85,8 @@ export class StateRootNotFoundError extends Data.TaggedError('StateRootNotFoundE
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'StateRootNotFoundError'
 		this.stateRoot = props.stateRoot
 		this.cause = props.cause

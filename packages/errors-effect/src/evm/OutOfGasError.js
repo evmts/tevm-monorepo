@@ -52,6 +52,7 @@ export class OutOfGasError extends Data.TaggedError('OutOfGasError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -74,6 +75,7 @@ export class OutOfGasError extends Data.TaggedError('OutOfGasError') {
 	/**
 	 * The underlying cause of this error, if any.
 	 * Enables error chaining for better debugging.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -88,8 +90,8 @@ export class OutOfGasError extends Data.TaggedError('OutOfGasError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'OutOfGasError'
 		this.gasUsed = props.gasUsed
 		this.gasLimit = props.gasLimit

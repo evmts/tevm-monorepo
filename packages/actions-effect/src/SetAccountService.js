@@ -40,12 +40,7 @@ import { Context } from 'effect'
  * )
  * ```
  *
- * @type {Context.Tag<SetAccountService, SetAccountShape>}
  */
 export const SetAccountService = Context.GenericTag(
-	/** @type {const} */ ('@tevm/actions-effect/SetAccountService'),
+	'@tevm/actions-effect/SetAccountService',
 )
-
-/**
- * @typedef {Context.Tag.Identifier<typeof SetAccountService>} SetAccountService
- */

@@ -7,7 +7,7 @@ describe('TransportService', () => {
 	describe('Context.Tag', () => {
 		it('should be a valid Context.Tag', () => {
 			expect(TransportService).toBeDefined()
-			expect(TransportService.key).toBe('TransportService')
+			expect(TransportService.key).toBe('@tevm/transport-effect/TransportService')
 		})
 
 		it('should be usable in Effect.gen for dependency injection', async () => {

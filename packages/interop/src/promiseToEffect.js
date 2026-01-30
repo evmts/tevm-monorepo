@@ -67,7 +67,7 @@ import { Effect } from 'effect'
  * ```
  *
  * @template A - The return type of the Promise
- * @template Args - The argument types of the function
+ * @template {readonly any[]} Args - The argument types of the function
  * @param {(...args: Args) => Promise<A>} fn - The Promise-returning function to wrap. If this is a method, you MUST bind it first.
  * @returns {(...args: Args) => Effect.Effect<A, unknown, never>} A function that returns an Effect. The error type is `unknown` as the Promise may reject with any value.
  */
@@ -78,5 +78,5 @@ export const promiseToEffect = (fn) => {
 	if (typeof fn !== 'function') {
 		throw new TypeError('promiseToEffect: fn parameter must be a function')
 	}
-	return (...args) => Effect.tryPromise(() => fn(...args))
+	return (/** @type {Args} */ ...args) => Effect.tryPromise(() => fn(...args))
 }

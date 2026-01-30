@@ -29,7 +29,10 @@ const bytesToHex = (bytes) => {
 	if (!bytes || bytes.length === 0) return '0x'
 	let hex = ''
 	for (let i = 0; i < bytes.length; i++) {
-		hex += bytes[i].toString(16).padStart(2, '0')
+		const byte = bytes[i]
+		if (byte !== undefined) {
+			hex += byte.toString(16).padStart(2, '0')
+		}
 	}
 	return /** @type {`0x${string}`} */ (`0x${hex}`)
 }
@@ -45,7 +48,7 @@ const validateBlockTag = (blockTag, method = 'tevm_getAccount') =>
 		// Only 'latest' and undefined are supported
 		// Historical block queries require TransportService for fork mode which is not yet implemented
 		if (blockTag === undefined || blockTag === 'latest') {
-			return 'latest'
+			return /** @type {'latest'} */ ('latest')
 		}
 		return yield* Effect.fail(
 			new InvalidParamsError({
@@ -130,12 +133,6 @@ const validateAddress = (address, method = 'tevm_getAccount') =>
  *
  * Effect.runPromise(program.pipe(Effect.provide(AppLayer)))
  * ```
- *
- * @type {import('effect').Layer.Layer<
- *   import('./GetAccountService.js').GetAccountService,
- *   never,
- *   import('@tevm/state-effect').StateManagerService
- * >}
  */
 export const GetAccountLive = Layer.effect(
 	GetAccountService,
@@ -145,11 +142,6 @@ export const GetAccountLive = Layer.effect(
 		return {
 			/**
 			 * @param {import('./types.js').GetAccountParams} params
-			 * @returns {import('effect').Effect.Effect<
-			 *   import('./types.js').GetAccountSuccess,
-			 *   import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError,
-			 *   never
-			 * >}
 			 */
 			getAccount: (params) =>
 				Effect.gen(function* () {

@@ -81,7 +81,7 @@ export const CommonFromFork = (options = {}) => {
 				id: Number(forkConfig.chainId),
 				hardfork,
 				eips: /** @type {number[]} */ ([...eips]),
-				loggingLevel,
+				...(loggingLevel !== 'silent' && { loggingLevel }),
 			}).copy() // Always copy to avoid mutation issues
 
 			return /** @type {CommonShape} */ ({

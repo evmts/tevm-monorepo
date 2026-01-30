@@ -68,10 +68,11 @@ export class StorageError extends StorageError_base {
     readonly key: Hex | undefined;
     /**
      * Human-readable error message
+     * @override
      * @readonly
      * @type {string}
      */
-    readonly message: string;
+    override readonly message: string;
     /**
      * JSON-RPC error code
      * @readonly
@@ -86,10 +87,11 @@ export class StorageError extends StorageError_base {
     readonly docsPath: string;
     /**
      * The underlying cause of this error, if any.
+     * @override
      * @readonly
      * @type {unknown}
      */
-    readonly cause: unknown;
+    override readonly cause: unknown;
 }
 export type Address = `0x${string}`;
 export type Hex = `0x${string}`;

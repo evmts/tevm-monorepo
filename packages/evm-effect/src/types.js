@@ -4,8 +4,8 @@
  */
 
 /**
- * EVM execution error type from @tevm/errors-effect
- * @typedef {import('@tevm/errors-effect').EvmExecutionError | import('@tevm/errors-effect').TevmError} EvmError
+ * EVM execution error type - union of specific EVM errors and general TevmError
+ * @typedef {import('@tevm/errors-effect').OutOfGasError | import('@tevm/errors-effect').RevertError | import('@tevm/errors-effect').InvalidOpcodeError | import('@tevm/errors-effect').StackOverflowError | import('@tevm/errors-effect').StackUnderflowError | import('@tevm/errors-effect').InsufficientBalanceError | import('@tevm/errors-effect').InsufficientFundsError | import('@tevm/errors-effect').InvalidJumpError | import('@tevm/errors-effect').TevmError} EvmError
  */
 
 /**
@@ -21,9 +21,9 @@
  *
  * @typedef {Object} EvmShape
  * @property {import('@tevm/evm').Evm} evm - The underlying EVM instance
- * @property {(opts: import('@ethereumjs/evm').EVMRunCallOpts) => import('effect').Effect.Effect<import('@ethereumjs/evm').EVMResult, EvmError>} runCall - Execute a call in the EVM. Typed error channel for exceptions; execution errors in execResult.exceptionError
- * @property {(opts: import('@ethereumjs/evm').EVMRunCodeOpts) => import('effect').Effect.Effect<import('@ethereumjs/evm').ExecResult, EvmError>} runCode - Execute code in the EVM. Typed error channel for exceptions; execution errors in exceptionError property
- * @property {() => import('effect').Effect.Effect<Map<string, import('@ethereumjs/evm').PrecompileInput>>} getActivePrecompiles - Get all active precompiles
+ * @property {(opts: import('@tevm/evm').EvmRunCallOpts) => import('effect').Effect.Effect<import('@tevm/evm').EvmResult, EvmError>} runCall - Execute a call in the EVM. Typed error channel for exceptions; execution errors in execResult.exceptionError
+ * @property {(opts: import('@tevm/evm').EvmRunCallOpts) => import('effect').Effect.Effect<import('@tevm/evm').ExecResult, EvmError>} runCode - Execute code in the EVM. Typed error channel for exceptions; execution errors in exceptionError property
+ * @property {() => import('effect').Effect.Effect<import('@tevm/evm').Evm['precompiles']>} getActivePrecompiles - Get all active precompiles
  * @property {(precompile: import('@tevm/evm').CustomPrecompile) => import('effect').Effect.Effect<void>} addCustomPrecompile - Add a custom precompile
  * @property {(precompile: import('@tevm/evm').CustomPrecompile) => import('effect').Effect.Effect<void>} removeCustomPrecompile - Remove a custom precompile
  */

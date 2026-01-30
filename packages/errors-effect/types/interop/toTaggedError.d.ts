@@ -1,4 +1,4 @@
-export function toTaggedError(error: import("@tevm/errors").BaseError | Error | unknown): TevmError | InsufficientBalanceError | InsufficientFundsError | InvalidJumpError | OutOfGasError | RevertError | InvalidOpcodeError | StackOverflowError | StackUnderflowError | ForkError | NetworkError | TimeoutError | BlockNotFoundError | InvalidBlockError | BlockGasLimitExceededError | InvalidTransactionError | NonceTooLowError | NonceTooHighError | GasTooLowError | StateRootNotFoundError | AccountNotFoundError | StorageError | InvalidRequestError | MethodNotFoundError | InvalidParamsError | InternalError | SnapshotNotFoundError | FilterNotFoundError | NodeNotReadyError;
+export function toTaggedError(error: import("@tevm/errors").BaseError | Error | unknown): TevmError | InsufficientBalanceError | InsufficientFundsError | InvalidJumpError | OutOfGasError | RevertError | InvalidOpcodeError | StackOverflowError | StackUnderflowError | ForkError | NetworkError | TimeoutError | BlockNotFoundError | InvalidBlockError | BlockGasLimitExceededError | InvalidTransactionError | NonceTooLowError | NonceTooHighError | GasTooLowError | StateRootNotFoundError | AccountNotFoundError | StorageError | InvalidRequestError | MethodNotFoundError | InvalidParamsError | InternalError | SnapshotNotFoundError | FilterNotFoundError | InvalidFilterTypeError | NodeNotReadyError;
 import { TevmError } from '../TevmError.js';
 import { InsufficientBalanceError } from '../evm/InsufficientBalanceError.js';
 import { InsufficientFundsError } from '../evm/InsufficientFundsError.js';
@@ -27,5 +27,6 @@ import { InvalidParamsError } from '../jsonrpc/InvalidParamsError.js';
 import { InternalError } from '../jsonrpc/InternalError.js';
 import { SnapshotNotFoundError } from '../node/SnapshotNotFoundError.js';
 import { FilterNotFoundError } from '../node/FilterNotFoundError.js';
+import { InvalidFilterTypeError } from '../node/InvalidFilterTypeError.js';
 import { NodeNotReadyError } from '../node/NodeNotReadyError.js';
 //# sourceMappingURL=toTaggedError.d.ts.map

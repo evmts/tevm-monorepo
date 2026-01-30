@@ -1,10 +1,6 @@
 import { Data } from 'effect'
 
 /**
- * @typedef {`0x${string}`} Address
- */
-
-/**
  * TaggedError representing insufficient balance during EVM execution.
  *
  * This error occurs when an account has insufficient balance to perform a transaction.
@@ -45,7 +41,7 @@ export class InsufficientBalanceError extends Data.TaggedError('InsufficientBala
 	/**
 	 * The address that has insufficient balance
 	 * @readonly
-	 * @type {Address | undefined}
+	 * @type {`0x${string}` | undefined}
 	 */
 	address
 
@@ -65,6 +61,7 @@ export class InsufficientBalanceError extends Data.TaggedError('InsufficientBala
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -87,6 +84,7 @@ export class InsufficientBalanceError extends Data.TaggedError('InsufficientBala
 	/**
 	 * The underlying cause of this error, if any.
 	 * Enables error chaining for better debugging.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -95,15 +93,15 @@ export class InsufficientBalanceError extends Data.TaggedError('InsufficientBala
 	/**
 	 * Constructs a new InsufficientBalanceError
 	 * @param {Object} props - Error properties
-	 * @param {Address} [props.address] - The address with insufficient balance
+	 * @param {`0x${string}`} [props.address] - The address with insufficient balance
 	 * @param {bigint} [props.required] - The required balance
 	 * @param {bigint} [props.available] - The available balance
 	 * @param {string} [props.message] - Optional custom message
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'InsufficientBalanceError'
 		this.address = props.address
 		this.required = props.required

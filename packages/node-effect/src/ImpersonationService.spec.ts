@@ -14,6 +14,6 @@ describe('ImpersonationService', () => {
 
 	it('should have the correct key', () => {
 		// @ts-expect-error - accessing internal key
-		expect(ImpersonationService.key).toBe('ImpersonationService')
+		expect(ImpersonationService.key).toBe('@tevm/node-effect/ImpersonationService')
 	})
 })

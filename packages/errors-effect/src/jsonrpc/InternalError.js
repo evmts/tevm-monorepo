@@ -48,6 +48,7 @@ export class InternalError extends Data.TaggedError('InternalError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -69,6 +70,7 @@ export class InternalError extends Data.TaggedError('InternalError') {
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -82,8 +84,8 @@ export class InternalError extends Data.TaggedError('InternalError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'InternalError'
 		this.meta = props.meta
 		this.message = props.message ?? 'Internal JSON-RPC error'

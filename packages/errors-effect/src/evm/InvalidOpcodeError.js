@@ -44,6 +44,7 @@ export class InvalidOpcodeError extends Data.TaggedError('InvalidOpcodeError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -66,6 +67,7 @@ export class InvalidOpcodeError extends Data.TaggedError('InvalidOpcodeError') {
 	/**
 	 * The underlying cause of this error, if any.
 	 * Enables error chaining for better debugging.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -79,8 +81,8 @@ export class InvalidOpcodeError extends Data.TaggedError('InvalidOpcodeError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'InvalidOpcodeError'
 		this.opcode = props.opcode
 		this.message = props.message ?? (props.opcode !== undefined ? `Invalid opcode: 0x${props.opcode.toString(16)}` : 'Invalid opcode encountered')

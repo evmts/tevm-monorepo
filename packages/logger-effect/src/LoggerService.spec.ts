@@ -13,7 +13,7 @@ describe('LoggerService', () => {
 		it('should have the correct service identifier', () => {
 			// The tag key should be 'LoggerService'
 			const key = LoggerService.key
-			expect(key).toBe('LoggerService')
+			expect(key).toBe('@tevm/logger-effect/LoggerService')
 		})
 	})
 

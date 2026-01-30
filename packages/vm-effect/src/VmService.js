@@ -10,6 +10,11 @@ import { Context } from 'effect'
  */
 
 /**
+ * VmService identifier type for Effect Context.Tag
+ * @typedef {{ readonly _tag: '@tevm/vm-effect/VmService' }} VmServiceId
+ */
+
+/**
  * VmService Context Tag for Effect-based dependency injection.
  *
  * This tag is used to inject the VmShape into Effect computations,
@@ -57,8 +62,8 @@ import { Context } from 'effect'
  * Effect.runPromise(program.pipe(Effect.provide(vmLayer)))
  * ```
  *
- * @type {Context.Tag<VmService, VmShape>}
+ * @type {Context.Tag<VmServiceId, VmShape>}
  */
-export const VmService = /** @type {Context.Tag<VmService, VmShape>} */ (
-	Context.GenericTag('VmService')
+export const VmService = /** @type {Context.Tag<VmServiceId, VmShape>} */ (
+	Context.GenericTag('@tevm/vm-effect/VmService')
 )

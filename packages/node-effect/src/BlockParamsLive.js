@@ -49,7 +49,6 @@ import { BlockParamsService } from './BlockParamsService.js'
  * ```
  *
  * @param {BlockParamsLiveOptions} [options] - Configuration options
- * @returns {Layer.Layer<BlockParamsService>} Layer providing BlockParamsService
  */
 export const BlockParamsLive = (options = {}) => {
 	return Layer.effect(

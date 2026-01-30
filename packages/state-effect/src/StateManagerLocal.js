@@ -3,7 +3,7 @@ import { createStateManager } from '@tevm/state'
 import { CommonService } from '@tevm/common-effect'
 import { StateRootNotFoundError } from '@tevm/errors-effect'
 import { StateManagerService } from './StateManagerService.js'
-import { createAddressFromString, EthjsAddress } from '@tevm/utils'
+import { createAddressFromString } from '@tevm/utils'
 
 /**
  * Helper to convert an address (hex string or EthjsAddress) to EthjsAddress.
@@ -92,7 +92,7 @@ export const StateManagerLocal = (options = {}) => {
 			yield* CommonService
 
 			const stateManager = createStateManager({
-				loggingLevel: options.loggingEnabled ? 'debug' : 'silent',
+				loggingLevel: options.loggingEnabled ? 'debug' : 'warn',
 			})
 
 			// Wait for the state manager to be ready
@@ -174,7 +174,7 @@ export const StateManagerLocal = (options = {}) => {
 							return createShape(copiedSm)
 						}),
 
-					shallowCopy: () => createShape(sm.shallowCopy()),
+					shallowCopy: () => createShape(/** @type {import('@tevm/state').StateManager} */ (sm.shallowCopy())),
 				}
 				return shape
 			}

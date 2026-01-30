@@ -4,7 +4,7 @@ import { CommonService } from '@tevm/common-effect'
 import { TransportService, ForkConfigService } from '@tevm/transport-effect'
 import { StateRootNotFoundError } from '@tevm/errors-effect'
 import { StateManagerService } from './StateManagerService.js'
-import { createAddressFromString, EthjsAddress } from '@tevm/utils'
+import { createAddressFromString } from '@tevm/utils'
 
 /**
  * Helper to convert an address (hex string or EthjsAddress) to EthjsAddress.
@@ -87,7 +87,7 @@ export const StateManagerLive = (options = {}) => {
 			const forkConfig = yield* ForkConfigService
 
 			const stateManager = createStateManager({
-				loggingLevel: options.loggingEnabled ? 'debug' : 'silent',
+				loggingLevel: options.loggingEnabled ? 'debug' : 'warn',
 				fork: {
 					transport: {
 						request: (method, params) =>
@@ -176,7 +176,7 @@ export const StateManagerLive = (options = {}) => {
 							return createShape(copiedSm)
 						}),
 
-					shallowCopy: () => createShape(sm.shallowCopy()),
+					shallowCopy: () => createShape(/** @type {import('@tevm/state').StateManager} */ (sm.shallowCopy())),
 				}
 				return shape
 			}

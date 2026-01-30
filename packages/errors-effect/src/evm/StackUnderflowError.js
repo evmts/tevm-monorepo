@@ -53,6 +53,7 @@ export class StackUnderflowError extends Data.TaggedError('StackUnderflowError')
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -75,6 +76,7 @@ export class StackUnderflowError extends Data.TaggedError('StackUnderflowError')
 	/**
 	 * The underlying cause of this error, if any.
 	 * Enables error chaining for better debugging.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -89,8 +91,8 @@ export class StackUnderflowError extends Data.TaggedError('StackUnderflowError')
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'StackUnderflowError'
 		this.requiredItems = props.requiredItems
 		this.availableItems = props.availableItems

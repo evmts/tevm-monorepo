@@ -146,249 +146,249 @@ export const toTaggedError = (error) => {
 			// EVM errors
 			if (tag === 'InsufficientBalanceError') {
 				return new InsufficientBalanceError({
-					address: typeof baseError.address === 'string' ? /** @type {`0x${string}`} */ (baseError.address) : undefined,
-					required: typeof baseError.required === 'bigint' ? baseError.required : undefined,
-					available: typeof baseError.available === 'bigint' ? baseError.available : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					address: typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
+					required: typeof baseError['required'] === 'bigint' ? baseError['required'] : undefined,
+					available: typeof baseError['available'] === 'bigint' ? baseError['available'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'InsufficientFundsError') {
 				return new InsufficientFundsError({
-					address: typeof baseError.address === 'string' ? /** @type {`0x${string}`} */ (baseError.address) : undefined,
-					required: typeof baseError.required === 'bigint' ? baseError.required : undefined,
-					available: typeof baseError.available === 'bigint' ? baseError.available : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					address: typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
+					required: typeof baseError['required'] === 'bigint' ? baseError['required'] : undefined,
+					available: typeof baseError['available'] === 'bigint' ? baseError['available'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'InvalidJumpError') {
 				return new InvalidJumpError({
-					destination: typeof baseError.destination === 'number' ? baseError.destination : undefined,
-					pc: typeof baseError.pc === 'number' ? baseError.pc : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					destination: typeof baseError['destination'] === 'number' ? baseError['destination'] : undefined,
+					pc: typeof baseError['pc'] === 'number' ? baseError['pc'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'OutOfGasError') {
 				return new OutOfGasError({
-					gasUsed: typeof baseError.gasUsed === 'bigint' ? baseError.gasUsed : undefined,
-					gasLimit: typeof baseError.gasLimit === 'bigint' ? baseError.gasLimit : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					gasUsed: typeof baseError['gasUsed'] === 'bigint' ? baseError['gasUsed'] : undefined,
+					gasLimit: typeof baseError['gasLimit'] === 'bigint' ? baseError['gasLimit'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'RevertError' || tag === 'Revert') {
 				return new RevertError({
 					// Original @tevm/errors uses 'raw' property, Effect version also uses 'raw'
-					raw: typeof baseError.raw === 'string' ? /** @type {`0x${string}`} */ (baseError.raw) : undefined,
-					reason: typeof baseError.reason === 'string' ? baseError.reason : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					raw: typeof baseError['raw'] === 'string' ? /** @type {`0x${string}`} */ (baseError['raw']) : undefined,
+					reason: typeof baseError['reason'] === 'string' ? baseError['reason'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'InvalidOpcodeError') {
 				return new InvalidOpcodeError({
-					opcode: typeof baseError.opcode === 'number' ? baseError.opcode : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					opcode: typeof baseError['opcode'] === 'number' ? baseError['opcode'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'StackOverflowError') {
 				return new StackOverflowError({
-					stackSize: typeof baseError.stackSize === 'number' ? baseError.stackSize : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					stackSize: typeof baseError['stackSize'] === 'number' ? baseError['stackSize'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'StackUnderflowError') {
 				return new StackUnderflowError({
-					requiredItems: typeof baseError.requiredItems === 'number' ? baseError.requiredItems : undefined,
-					availableItems: typeof baseError.availableItems === 'number' ? baseError.availableItems : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					requiredItems: typeof baseError['requiredItems'] === 'number' ? baseError['requiredItems'] : undefined,
+					availableItems: typeof baseError['availableItems'] === 'number' ? baseError['availableItems'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 
 			// Transport errors
 			if (tag === 'ForkError') {
 				return new ForkError({
-					method: typeof baseError.method === 'string' ? baseError.method : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					method: typeof baseError['method'] === 'string' ? baseError['method'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'NetworkError') {
 				return new NetworkError({
-					url: typeof baseError.url === 'string' ? baseError.url : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					url: typeof baseError['url'] === 'string' ? baseError['url'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'TimeoutError') {
 				return new TimeoutError({
-					timeout: typeof baseError.timeout === 'number' ? baseError.timeout : undefined,
-					operation: typeof baseError.operation === 'string' ? baseError.operation : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					timeout: typeof baseError['timeout'] === 'number' ? baseError['timeout'] : undefined,
+					operation: typeof baseError['operation'] === 'string' ? baseError['operation'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 
 			// Block errors
 			if (tag === 'BlockNotFoundError' || tag === 'UnknownBlock') {
 				return new BlockNotFoundError({
-					blockTag: baseError.blockTag,
-					message: baseError.message,
-					cause: baseError.cause,
+					blockTag: /** @type {import('../block/BlockNotFoundError.js').BlockTag | undefined} */ (baseError['blockTag']),
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'InvalidBlockError') {
 				return new InvalidBlockError({
-					blockNumber: typeof baseError.blockNumber === 'bigint' ? baseError.blockNumber : undefined,
-					blockHash: typeof baseError.blockHash === 'string' ? /** @type {`0x${string}`} */ (baseError.blockHash) : undefined,
-					reason: typeof baseError.reason === 'string' ? baseError.reason : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					blockNumber: typeof baseError['blockNumber'] === 'bigint' ? baseError['blockNumber'] : undefined,
+					blockHash: typeof baseError['blockHash'] === 'string' ? /** @type {`0x${string}`} */ (baseError['blockHash']) : undefined,
+					reason: typeof baseError['reason'] === 'string' ? baseError['reason'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'BlockGasLimitExceededError') {
 				return new BlockGasLimitExceededError({
-					blockGasLimit: typeof baseError.blockGasLimit === 'bigint' ? baseError.blockGasLimit : undefined,
-					gasUsed: typeof baseError.gasUsed === 'bigint' ? baseError.gasUsed : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					blockGasLimit: typeof baseError['blockGasLimit'] === 'bigint' ? baseError['blockGasLimit'] : undefined,
+					gasUsed: typeof baseError['gasUsed'] === 'bigint' ? baseError['gasUsed'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 
 			// Transaction errors
 			if (tag === 'InvalidTransactionError' || tag === 'InvalidTransaction') {
 				return new InvalidTransactionError({
-					reason: typeof baseError.reason === 'string' ? baseError.reason : undefined,
-					tx: baseError.tx,
-					message: baseError.message,
-					cause: baseError.cause,
+					reason: typeof baseError['reason'] === 'string' ? baseError['reason'] : undefined,
+					tx: baseError['tx'],
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'NonceTooLowError') {
 				return new NonceTooLowError({
-					address: typeof baseError.address === 'string' ? /** @type {`0x${string}`} */ (baseError.address) : undefined,
-					expected: typeof baseError.expected === 'bigint' ? baseError.expected : undefined,
-					actual: typeof baseError.actual === 'bigint' ? baseError.actual : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					address: typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
+					expected: typeof baseError['expected'] === 'bigint' ? baseError['expected'] : undefined,
+					actual: typeof baseError['actual'] === 'bigint' ? baseError['actual'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'NonceTooHighError') {
 				return new NonceTooHighError({
-					address: typeof baseError.address === 'string' ? /** @type {`0x${string}`} */ (baseError.address) : undefined,
-					expected: typeof baseError.expected === 'bigint' ? baseError.expected : undefined,
-					actual: typeof baseError.actual === 'bigint' ? baseError.actual : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					address: typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
+					expected: typeof baseError['expected'] === 'bigint' ? baseError['expected'] : undefined,
+					actual: typeof baseError['actual'] === 'bigint' ? baseError['actual'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'GasTooLowError') {
 				return new GasTooLowError({
-					gasLimit: typeof baseError.gasLimit === 'bigint' ? baseError.gasLimit : undefined,
-					intrinsicGas: typeof baseError.intrinsicGas === 'bigint' ? baseError.intrinsicGas : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					gasLimit: typeof baseError['gasLimit'] === 'bigint' ? baseError['gasLimit'] : undefined,
+					intrinsicGas: typeof baseError['intrinsicGas'] === 'bigint' ? baseError['intrinsicGas'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 
 			// State errors
 			if (tag === 'StateRootNotFoundError') {
 				return new StateRootNotFoundError({
-					stateRoot: typeof baseError.stateRoot === 'string' ? /** @type {`0x${string}`} */ (baseError.stateRoot) : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					stateRoot: typeof baseError['stateRoot'] === 'string' ? /** @type {`0x${string}`} */ (baseError['stateRoot']) : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'AccountNotFoundError' || tag === 'AccountNotFound') {
 				return new AccountNotFoundError({
-					address: typeof baseError.address === 'string' ? /** @type {`0x${string}`} */ (baseError.address) : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					address: typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'StorageError') {
 				return new StorageError({
-					address: typeof baseError.address === 'string' ? /** @type {`0x${string}`} */ (baseError.address) : undefined,
-					key: typeof baseError.key === 'string' ? /** @type {`0x${string}`} */ (baseError.key) : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					address: typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
+					key: typeof baseError['key'] === 'string' ? /** @type {`0x${string}`} */ (baseError['key']) : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 
 			// JSON-RPC errors
 			if (tag === 'InvalidRequestError' || tag === 'InvalidRequest') {
 				return new InvalidRequestError({
-					message: baseError.message,
-					cause: baseError.cause,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'MethodNotFoundError' || tag === 'MethodNotFound') {
 				return new MethodNotFoundError({
-					method: typeof baseError.method === 'string' ? baseError.method : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					method: typeof baseError['method'] === 'string' ? baseError['method'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'InvalidParamsError' || tag === 'InvalidParams') {
 				return new InvalidParamsError({
-					method: typeof baseError.method === 'string' ? baseError.method : undefined,
-					params: baseError.params,
-					message: baseError.message,
-					cause: baseError.cause,
+					method: typeof baseError['method'] === 'string' ? baseError['method'] : undefined,
+					params: baseError['params'],
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'InternalError') {
 				return new InternalError({
-					meta: baseError.meta,
-					message: baseError.message,
-					cause: baseError.cause,
+					meta: baseError['meta'],
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 
 			// Node errors
 			if (tag === 'SnapshotNotFoundError') {
 				return new SnapshotNotFoundError({
-					snapshotId: typeof baseError.snapshotId === 'string' ? baseError.snapshotId : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					snapshotId: typeof baseError['snapshotId'] === 'string' ? baseError['snapshotId'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'FilterNotFoundError') {
 				return new FilterNotFoundError({
-					filterId: typeof baseError.filterId === 'string' ? baseError.filterId : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					filterId: typeof baseError['filterId'] === 'string' ? baseError['filterId'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'InvalidFilterTypeError') {
 				return new InvalidFilterTypeError({
-					filterId: typeof baseError.filterId === 'string' ? baseError.filterId : undefined,
-					expectedType: typeof baseError.expectedType === 'string' ? baseError.expectedType : undefined,
-					actualType: typeof baseError.actualType === 'string' ? baseError.actualType : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					filterId: typeof baseError['filterId'] === 'string' ? baseError['filterId'] : undefined,
+					expectedType: typeof baseError['expectedType'] === 'string' ? baseError['expectedType'] : undefined,
+					actualType: typeof baseError['actualType'] === 'string' ? baseError['actualType'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'NodeNotReadyError') {
 				return new NodeNotReadyError({
-					reason: typeof baseError.reason === 'string' ? baseError.reason : undefined,
-					message: baseError.message,
-					cause: baseError.cause,
+					reason: typeof baseError['reason'] === 'string' ? baseError['reason'] : undefined,
+					message: baseError['message'],
+					cause: baseError['cause'],
 				})
 			}
 		}
 
 		// Fall back to generic TevmError
 		return new TevmError({
-			message: baseError.message,
-			code: baseError.code ?? 0,
-			docsPath: baseError.docsPath,
-			cause: baseError.cause,
+			message: baseError['message'],
+			code: baseError['code'] ?? 0,
+			docsPath: baseError['docsPath'],
+			cause: baseError['cause'],
 		})
 	}
 

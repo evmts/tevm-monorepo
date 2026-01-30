@@ -1,10 +1,6 @@
 import { Data } from 'effect'
 
 /**
- * @typedef {`0x${string}`} Hex
- */
-
-/**
  * TaggedError representing an invalid filter type error.
  *
  * This error occurs when attempting to use a filter with an operation that
@@ -46,7 +42,7 @@ export class InvalidFilterTypeError extends Data.TaggedError('InvalidFilterTypeE
 	/**
 	 * The filter ID that had the wrong type
 	 * @readonly
-	 * @type {Hex | string | undefined}
+	 * @type {`0x${string}` | string | undefined}
 	 */
 	filterId
 
@@ -66,6 +62,7 @@ export class InvalidFilterTypeError extends Data.TaggedError('InvalidFilterTypeE
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -87,6 +84,7 @@ export class InvalidFilterTypeError extends Data.TaggedError('InvalidFilterTypeE
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -95,15 +93,15 @@ export class InvalidFilterTypeError extends Data.TaggedError('InvalidFilterTypeE
 	/**
 	 * Constructs a new InvalidFilterTypeError
 	 * @param {Object} props - Error properties
-	 * @param {Hex | string} [props.filterId] - The filter ID that had the wrong type
+	 * @param {`0x${string}` | string} [props.filterId] - The filter ID that had the wrong type
 	 * @param {string} [props.expectedType] - The expected filter type (e.g., 'Log', 'Block', 'PendingTransaction')
 	 * @param {string} [props.actualType] - The actual filter type
 	 * @param {string} [props.message] - Optional custom message
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'InvalidFilterTypeError'
 		this.filterId = props.filterId
 		this.expectedType = props.expectedType

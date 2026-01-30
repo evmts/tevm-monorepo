@@ -64,8 +64,7 @@ import { Context } from 'effect'
  * )
  * ```
  *
- * @type {Context.Tag<CommonService, CommonShape>}
  */
-export const CommonService = /** @type {Context.Tag<CommonService, CommonShape>} */ (
-	Context.GenericTag('CommonService')
+export const CommonService = Context.GenericTag(
+	'@tevm/common-effect/CommonService'
 )

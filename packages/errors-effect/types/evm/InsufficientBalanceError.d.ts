@@ -2,9 +2,6 @@ declare const InsufficientBalanceError_base: new <A extends Record<string, any> 
     readonly _tag: "InsufficientBalanceError";
 } & Readonly<A>;
 /**
- * @typedef {`0x${string}`} Address
- */
-/**
  * TaggedError representing insufficient balance during EVM execution.
  *
  * This error occurs when an account has insufficient balance to perform a transaction.
@@ -43,7 +40,7 @@ export class InsufficientBalanceError extends InsufficientBalanceError_base {
     /**
      * Constructs a new InsufficientBalanceError
      * @param {Object} props - Error properties
-     * @param {Address} [props.address] - The address with insufficient balance
+     * @param {`0x${string}`} [props.address] - The address with insufficient balance
      * @param {bigint} [props.required] - The required balance
      * @param {bigint} [props.available] - The available balance
      * @param {string} [props.message] - Optional custom message
@@ -59,9 +56,9 @@ export class InsufficientBalanceError extends InsufficientBalanceError_base {
     /**
      * The address that has insufficient balance
      * @readonly
-     * @type {Address | undefined}
+     * @type {`0x${string}` | undefined}
      */
-    readonly address: Address | undefined;
+    readonly address: `0x${string}` | undefined;
     /**
      * The required balance to perform the operation
      * @readonly
@@ -76,10 +73,11 @@ export class InsufficientBalanceError extends InsufficientBalanceError_base {
     readonly available: bigint | undefined;
     /**
      * Human-readable error message
+     * @override
      * @readonly
      * @type {string}
      */
-    readonly message: string;
+    override readonly message: string;
     /**
      * JSON-RPC error code
      * @readonly
@@ -95,11 +93,11 @@ export class InsufficientBalanceError extends InsufficientBalanceError_base {
     /**
      * The underlying cause of this error, if any.
      * Enables error chaining for better debugging.
+     * @override
      * @readonly
      * @type {unknown}
      */
-    readonly cause: unknown;
+    override readonly cause: unknown;
 }
-export type Address = `0x${string}`;
 export {};
 //# sourceMappingURL=InsufficientBalanceError.d.ts.map

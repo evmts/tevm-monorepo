@@ -6,6 +6,15 @@
 import { Context } from 'effect'
 
 /**
+ * @typedef {import('./types.js').RequestServiceShape} RequestServiceShape
+ */
+
+/**
+ * RequestService identifier type for Effect Context.Tag
+ * @typedef {{ readonly _tag: '@tevm/decorators-effect/RequestService' }} RequestServiceId
+ */
+
+/**
  * Service tag for Request providing EIP-1193 compatible request handling.
  *
  * This service exposes the standard EIP-1193 `request` method for
@@ -28,12 +37,8 @@ import { Context } from 'effect'
  * })
  * ```
  *
- * @type {Context.Tag<RequestService, import('./types.js').RequestServiceShape>}
+ * @type {Context.Tag<RequestServiceId, RequestServiceShape>}
  */
-export const RequestService = /** @type {Context.Tag<RequestService, import('./types.js').RequestServiceShape>} */ (
+export const RequestService = /** @type {Context.Tag<RequestServiceId, RequestServiceShape>} */ (
 	Context.GenericTag('@tevm/decorators-effect/RequestService')
 )
-
-/**
- * @typedef {Context.Tag.Identifier<typeof RequestService>} RequestService
- */

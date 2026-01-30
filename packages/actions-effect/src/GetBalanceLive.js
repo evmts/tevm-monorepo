@@ -19,7 +19,7 @@ const validateBlockTag = (blockTag, method = 'eth_getBalance') =>
 		// Only 'latest' and undefined are supported
 		// Historical block queries require TransportService for fork mode which is not yet implemented
 		if (blockTag === undefined || blockTag === 'latest') {
-			return 'latest'
+			return /** @type {'latest'} */ ('latest')
 		}
 		return yield* Effect.fail(
 			new InvalidParamsError({
@@ -85,12 +85,6 @@ const validateAddress = (address, method = 'eth_getBalance') =>
  *
  * Effect.runPromise(program.pipe(Effect.provide(AppLayer)))
  * ```
- *
- * @type {import('effect').Layer.Layer<
- *   import('./GetBalanceService.js').GetBalanceService,
- *   never,
- *   import('@tevm/state-effect').StateManagerService
- * >}
  */
 export const GetBalanceLive = Layer.effect(
 	GetBalanceService,
@@ -100,7 +94,6 @@ export const GetBalanceLive = Layer.effect(
 		return {
 			/**
 			 * @param {import('./types.js').GetBalanceParams} params
-			 * @returns {import('effect').Effect.Effect<bigint, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>}
 			 */
 			getBalance: (params) =>
 				Effect.gen(function* () {

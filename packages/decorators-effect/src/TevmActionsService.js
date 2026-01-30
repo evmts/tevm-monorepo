@@ -6,6 +6,15 @@
 import { Context } from 'effect'
 
 /**
+ * @typedef {import('./types.js').TevmActionsShape} TevmActionsShape
+ */
+
+/**
+ * TevmActionsService identifier type for Effect Context.Tag
+ * @typedef {{ readonly _tag: '@tevm/decorators-effect/TevmActionsService' }} TevmActionsServiceId
+ */
+
+/**
  * Service tag for TevmActions providing TEVM-specific operations.
  *
  * This service exposes TEVM-specific operations like:
@@ -39,12 +48,8 @@ import { Context } from 'effect'
  * })
  * ```
  *
- * @type {Context.Tag<TevmActionsService, import('./types.js').TevmActionsShape>}
+ * @type {Context.Tag<TevmActionsServiceId, TevmActionsShape>}
  */
-export const TevmActionsService = /** @type {Context.Tag<TevmActionsService, import('./types.js').TevmActionsShape>} */ (
+export const TevmActionsService = /** @type {Context.Tag<TevmActionsServiceId, TevmActionsShape>} */ (
 	Context.GenericTag('@tevm/decorators-effect/TevmActionsService')
 )
-
-/**
- * @typedef {Context.Tag.Identifier<typeof TevmActionsService>} TevmActionsService
- */

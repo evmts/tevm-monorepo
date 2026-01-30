@@ -38,20 +38,29 @@ const isValidAddress = (address) => {
  * @returns {import('./types.js').Hex}
  */
 const bytesToHex = (bytes) => {
-	if (!bytes || bytes.length === 0) return /** @type {import('./types.js').Hex} */ ('0x')
+	if (!bytes || /** @type {Uint8Array} */ (bytes).length === 0) return /** @type {import('./types.js').Hex} */ ('0x')
 	let hex = '0x'
 	for (let i = 0; i < bytes.length; i++) {
-		hex += bytes[i].toString(16).padStart(2, '0')
+		hex += /** @type {number} */ (bytes[i]).toString(16).padStart(2, '0')
 	}
 	return /** @type {import('./types.js').Hex} */ (hex)
 }
+
+/**
+ * @typedef {Object} ActionServices
+ * @property {(params: import('@tevm/actions-effect').GetAccountParams) => import('effect').Effect.Effect<import('@tevm/actions-effect').GetAccountSuccess, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError>} getAccount
+ * @property {(params: import('@tevm/actions-effect').SetAccountParams) => import('effect').Effect.Effect<import('@tevm/actions-effect').SetAccountSuccess, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError>} setAccount
+ * @property {(params: import('@tevm/actions-effect').GetBalanceParams) => import('effect').Effect.Effect<bigint, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError>} getBalance
+ * @property {(params: import('@tevm/actions-effect').GetCodeParams) => import('effect').Effect.Effect<import('./types.js').Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError>} getCode
+ * @property {(params: import('@tevm/actions-effect').GetStorageAtParams) => import('effect').Effect.Effect<import('./types.js').Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError>} getStorageAt
+ */
 
 /**
  * Creates action service wrappers bound to a specific StateManagerShape.
  * This allows deepCopy to create services that operate on the copied state.
  *
  * @param {import('@tevm/state-effect').StateManagerShape} stateManager
- * @returns {Object} Action service implementations
+ * @returns {ActionServices} Action service implementations
  */
 const createActionServices = (stateManager) => {
 	return {
@@ -77,8 +86,8 @@ const createActionServices = (stateManager) => {
 					try: () => createEthjsAddress(params.address.toLowerCase()),
 					catch: (e) =>
 						new InternalError({
-							message: `Failed to create address: ${e instanceof Error ? e.message : String(e)}`,
-							cause: e instanceof Error ? e : undefined,
+							message: `Failed to create address: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+							cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 						}),
 				})
 
@@ -86,8 +95,8 @@ const createActionServices = (stateManager) => {
 					Effect.mapError(
 						(e) =>
 							new InternalError({
-								message: `Failed to get account: ${e instanceof Error ? e.message : String(e)}`,
-								cause: e instanceof Error ? e : undefined,
+								message: `Failed to get account: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+								cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 							})
 					)
 				)
@@ -96,8 +105,8 @@ const createActionServices = (stateManager) => {
 					Effect.mapError(
 						(e) =>
 							new InternalError({
-								message: `Failed to get code: ${e instanceof Error ? e.message : String(e)}`,
-								cause: e instanceof Error ? e : undefined,
+								message: `Failed to get code: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+								cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 							})
 					)
 				)
@@ -116,7 +125,6 @@ const createActionServices = (stateManager) => {
 					codeHash: /** @type {import('./types.js').Hex} */ (codeHash),
 					isContract: code.length > 0,
 					isEmpty: nonce === 0n && balance === 0n && code.length === 0,
-					storage: undefined,
 				}
 			}),
 
@@ -142,16 +150,16 @@ const createActionServices = (stateManager) => {
 					try: () => createEthjsAddress(params.address.toLowerCase()),
 					catch: (e) =>
 						new InternalError({
-							message: `Failed to create address: ${e instanceof Error ? e.message : String(e)}`,
-							cause: e instanceof Error ? e : undefined,
+							message: `Failed to create address: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+							cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 						}),
 				})
 				const { Account } = yield* Effect.tryPromise({
 					try: () => import('@ethereumjs/util'),
 					catch: (e) =>
 						new InternalError({
-							message: `Failed to import @ethereumjs/util: ${e instanceof Error ? e.message : String(e)}`,
-							cause: e instanceof Error ? e : undefined,
+							message: `Failed to import @ethereumjs/util: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+							cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 						}),
 				})
 
@@ -160,8 +168,8 @@ const createActionServices = (stateManager) => {
 					Effect.mapError(
 						(e) =>
 							new InternalError({
-								message: `Failed to checkpoint: ${e instanceof Error ? e.message : String(e)}`,
-								cause: e instanceof Error ? e : undefined,
+								message: `Failed to checkpoint: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+								cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 							})
 					)
 				)
@@ -169,13 +177,14 @@ const createActionServices = (stateManager) => {
 				// Build the core operations that should be reverted on failure (RFC §6.3)
 				// Using Effect patterns instead of try/catch for proper error channel handling
 				const coreOperations = Effect.gen(function* () {
-					const account = new Account(params.nonce ?? 0n, params.balance ?? 0n)
+					// Cast to unknown first to allow instanceof check, then use any to bypass private property mismatch
+					const account = /** @type {any} */ (new Account(params.nonce ?? 0n, params.balance ?? 0n))
 					yield* stateManager.putAccount(ethjsAddress, account).pipe(
 						Effect.mapError(
 							(e) =>
 								new InternalError({
-									message: `Failed to put account: ${e instanceof Error ? e.message : String(e)}`,
-									cause: e instanceof Error ? e : undefined,
+									message: `Failed to put account: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+									cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 								})
 						)
 					)
@@ -194,8 +203,8 @@ const createActionServices = (stateManager) => {
 							Effect.mapError(
 								(e) =>
 									new InternalError({
-										message: `Failed to put code: ${e instanceof Error ? e.message : String(e)}`,
-										cause: e instanceof Error ? e : undefined,
+										message: `Failed to put code: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+										cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 									})
 							)
 						)
@@ -221,8 +230,8 @@ const createActionServices = (stateManager) => {
 								Effect.mapError(
 									(e) =>
 										new InternalError({
-											message: `Failed to put storage: ${e instanceof Error ? e.message : String(e)}`,
-											cause: e instanceof Error ? e : undefined,
+											message: `Failed to put storage: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+											cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 										})
 								)
 							)
@@ -234,8 +243,8 @@ const createActionServices = (stateManager) => {
 						Effect.mapError(
 							(e) =>
 								new InternalError({
-									message: `Failed to commit: ${e instanceof Error ? e.message : String(e)}`,
-									cause: e instanceof Error ? e : undefined,
+									message: `Failed to commit: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+									cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 								})
 						)
 					)
@@ -276,8 +285,8 @@ const createActionServices = (stateManager) => {
 					try: () => createEthjsAddress(params.address.toLowerCase()),
 					catch: (e) =>
 						new InternalError({
-							message: `Failed to create address: ${e instanceof Error ? e.message : String(e)}`,
-							cause: e instanceof Error ? e : undefined,
+							message: `Failed to create address: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+							cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 						}),
 				})
 
@@ -285,8 +294,8 @@ const createActionServices = (stateManager) => {
 					Effect.mapError(
 						(e) =>
 							new InternalError({
-								message: `Failed to get account: ${e instanceof Error ? e.message : String(e)}`,
-								cause: e instanceof Error ? e : undefined,
+								message: `Failed to get account: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+								cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 							})
 					)
 				)
@@ -316,8 +325,8 @@ const createActionServices = (stateManager) => {
 					try: () => createEthjsAddress(params.address.toLowerCase()),
 					catch: (e) =>
 						new InternalError({
-							message: `Failed to create address: ${e instanceof Error ? e.message : String(e)}`,
-							cause: e instanceof Error ? e : undefined,
+							message: `Failed to create address: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+							cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 						}),
 				})
 
@@ -325,8 +334,8 @@ const createActionServices = (stateManager) => {
 					Effect.mapError(
 						(e) =>
 							new InternalError({
-								message: `Failed to get code: ${e instanceof Error ? e.message : String(e)}`,
-								cause: e instanceof Error ? e : undefined,
+								message: `Failed to get code: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+								cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 							})
 					)
 				)
@@ -369,8 +378,8 @@ const createActionServices = (stateManager) => {
 					try: () => createEthjsAddress(params.address.toLowerCase()),
 					catch: (e) =>
 						new InternalError({
-							message: `Failed to create address: ${e instanceof Error ? e.message : String(e)}`,
-							cause: e instanceof Error ? e : undefined,
+							message: `Failed to create address: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+							cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 						}),
 				})
 
@@ -389,8 +398,8 @@ const createActionServices = (stateManager) => {
 					Effect.mapError(
 						(e) =>
 							new InternalError({
-								message: `Failed to get storage: ${e instanceof Error ? e.message : String(e)}`,
-								cause: e instanceof Error ? e : undefined,
+								message: `Failed to get storage: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+								cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 							})
 					)
 				)
@@ -436,8 +445,8 @@ const createMemoryClientShape = (deps) => {
 				try: () => vm.vm.blockchain.getCanonicalHeadBlock(),
 				catch: (e) =>
 					new InternalError({
-						message: `Failed to get canonical head block: ${e instanceof Error ? e.message : String(e)}`,
-						cause: e instanceof Error ? e : undefined,
+						message: `Failed to get canonical head block: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+						cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
 					}),
 			})
 			return block.header.number

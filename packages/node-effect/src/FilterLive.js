@@ -59,8 +59,6 @@ const toHex = (num) => /** @type {Hex} */ (`0x${num.toString(16)}`)
  * const layer = FilterLive()
  * Effect.runPromise(program.pipe(Effect.provide(layer)))
  * ```
- *
- * @returns {Layer.Layer<FilterService>} Layer providing FilterService
  */
 export const FilterLive = () => {
 	return Layer.effect(
@@ -93,13 +91,14 @@ export const FilterLive = () => {
 						const id = yield* Ref.getAndUpdate(ctrRef, (n) => n + 1)
 						const hexId = toHex(id)
 
-						// Create filter
+						// Create filter - use spread to conditionally include optional properties
+						// to satisfy exactOptionalPropertyTypes
 						/** @type {Filter} */
 						const filter = {
 							id: hexId,
 							type,
 							created: Date.now(),
-							logsCriteria,
+							...(logsCriteria !== undefined ? { logsCriteria } : {}),
 							logs: [],
 							tx: [],
 							blocks: [],
@@ -118,17 +117,16 @@ export const FilterLive = () => {
 						return hexId
 					})
 
-				/** @type {FilterShape} */
 				const shape = {
-					createLogFilter: (params) => createFilter('Log', params),
+					createLogFilter: (/** @type {LogFilterParams | undefined} */ params) => createFilter('Log', params),
 
 					createBlockFilter: () => createFilter('Block'),
 
 					createPendingTransactionFilter: () => createFilter('PendingTransaction'),
 
-					get: (id) => Ref.get(fltrRef).pipe(Effect.map((m) => m.get(id))),
+					get: (/** @type {Hex} */ id) => Ref.get(fltrRef).pipe(Effect.map((m) => m.get(id))),
 
-					remove: (id) =>
+					remove: (/** @type {Hex} */ id) =>
 						Ref.getAndUpdate(fltrRef, (map) => {
 							if (!map.has(id)) {
 								return map
@@ -138,22 +136,26 @@ export const FilterLive = () => {
 							return newMap
 						}).pipe(Effect.map((oldMap) => oldMap.has(id))),
 
-					getChanges: (id) =>
+					getChanges: (/** @type {Hex} */ id) =>
 						Effect.gen(function* () {
 							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
+							/**
+							 * @type {{ found: boolean; wrongType: boolean; logs?: FilterLog[] }}
+							 */
+							// @ts-expect-error - Ref.modify union return type inference issue with literal booleans
 							const result = yield* Ref.modify(fltrRef, (map) => {
 								const filter = map.get(id)
 								if (!filter) {
-									return [{ found: /** @type {const} */ (false), wrongType: false }, map]
+									return /** @type {const} */ ([{ found: false, wrongType: false }, map])
 								}
 								if (filter.type !== 'Log') {
-									return [{ found: /** @type {const} */ (true), wrongType: /** @type {const} */ (true) }, map]
+									return /** @type {const} */ ([{ found: true, wrongType: true }, map])
 								}
 								// Atomically get logs and clear them
 								const logs = [...filter.logs]
 								const newMap = new Map(map)
 								newMap.set(id, { ...filter, logs: [] })
-								return [{ found: /** @type {const} */ (true), wrongType: /** @type {const} */ (false), logs }, newMap]
+								return /** @type {const} */ ([{ found: true, wrongType: false, logs }, newMap])
 							})
 
 							if (!result.found) {
@@ -175,25 +177,30 @@ export const FilterLive = () => {
 								)
 							}
 
-							return result.logs
+							// At this point, logs is guaranteed to be defined
+							return /** @type {FilterLog[]} */ (result.logs)
 						}),
 
-					getBlockChanges: (id) =>
+					getBlockChanges: (/** @type {Hex} */ id) =>
 						Effect.gen(function* () {
 							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
+							/**
+							 * @type {{ found: boolean; wrongType: boolean; blocks?: unknown[] }}
+							 */
+							// @ts-expect-error - Ref.modify union return type inference issue with literal booleans
 							const result = yield* Ref.modify(fltrRef, (map) => {
 								const filter = map.get(id)
 								if (!filter) {
-									return [{ found: /** @type {const} */ (false), wrongType: false }, map]
+									return /** @type {const} */ ([{ found: false, wrongType: false }, map])
 								}
 								if (filter.type !== 'Block') {
-									return [{ found: /** @type {const} */ (true), wrongType: /** @type {const} */ (true) }, map]
+									return /** @type {const} */ ([{ found: true, wrongType: true }, map])
 								}
 								// Atomically get blocks and clear them
 								const blocks = [...filter.blocks]
 								const newMap = new Map(map)
 								newMap.set(id, { ...filter, blocks: [] })
-								return [{ found: /** @type {const} */ (true), wrongType: /** @type {const} */ (false), blocks }, newMap]
+								return /** @type {const} */ ([{ found: true, wrongType: false, blocks }, newMap])
 							})
 
 							if (!result.found) {
@@ -215,25 +222,30 @@ export const FilterLive = () => {
 								)
 							}
 
-							return result.blocks
+							// At this point, blocks is guaranteed to be defined
+							return /** @type {unknown[]} */ (result.blocks)
 						}),
 
-					getPendingTransactionChanges: (id) =>
+					getPendingTransactionChanges: (/** @type {Hex} */ id) =>
 						Effect.gen(function* () {
 							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
+							/**
+							 * @type {{ found: boolean; wrongType: boolean; txs?: unknown[] }}
+							 */
+							// @ts-expect-error - Ref.modify union return type inference issue with literal booleans
 							const result = yield* Ref.modify(fltrRef, (map) => {
 								const filter = map.get(id)
 								if (!filter) {
-									return [{ found: /** @type {const} */ (false), wrongType: false }, map]
+									return /** @type {const} */ ([{ found: false, wrongType: false }, map])
 								}
 								if (filter.type !== 'PendingTransaction') {
-									return [{ found: /** @type {const} */ (true), wrongType: /** @type {const} */ (true) }, map]
+									return /** @type {const} */ ([{ found: true, wrongType: true }, map])
 								}
 								// Atomically get txs and clear them
 								const txs = [...filter.tx]
 								const newMap = new Map(map)
 								newMap.set(id, { ...filter, tx: [] })
-								return [{ found: /** @type {const} */ (true), wrongType: /** @type {const} */ (false), txs }, newMap]
+								return /** @type {const} */ ([{ found: true, wrongType: false, txs }, newMap])
 							})
 
 							if (!result.found) {
@@ -255,10 +267,11 @@ export const FilterLive = () => {
 								)
 							}
 
-							return result.txs
+							// At this point, txs is guaranteed to be defined
+							return /** @type {unknown[]} */ (result.txs)
 						}),
 
-					addLog: (id, log) =>
+					addLog: (/** @type {Hex} */ id, /** @type {FilterLog} */ log) =>
 						Effect.gen(function* () {
 							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
 							const found = yield* Ref.modify(fltrRef, (map) => {
@@ -281,7 +294,7 @@ export const FilterLive = () => {
 							}
 						}),
 
-					addBlock: (id, block) =>
+					addBlock: (/** @type {Hex} */ id, /** @type {unknown} */ block) =>
 						Effect.gen(function* () {
 							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
 							const found = yield* Ref.modify(fltrRef, (map) => {
@@ -304,7 +317,7 @@ export const FilterLive = () => {
 							}
 						}),
 
-					addPendingTransaction: (id, tx) =>
+					addPendingTransaction: (/** @type {Hex} */ id, /** @type {unknown} */ tx) =>
 						Effect.gen(function* () {
 							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
 							const found = yield* Ref.modify(fltrRef, (map) => {
@@ -361,8 +374,9 @@ export const FilterLive = () => {
 									installed: { ...filter.installed },
 									// Deep copy arrays with individual object copies - must deep copy topics array
 									logs: filter.logs.map((log) => ({ ...log, topics: [...log.topics] })),
-									tx: filter.tx.map((t) => ({ ...t })),
-									blocks: filter.blocks.map((b) => ({ ...b })),
+									// tx and blocks are unknown[] - cast to object for spreading
+									tx: filter.tx.map((t) => ({ .../** @type {object} */ (t) })),
+									blocks: filter.blocks.map((b) => ({ .../** @type {object} */ (b) })),
 									registeredListeners: [...filter.registeredListeners],
 								})
 							}

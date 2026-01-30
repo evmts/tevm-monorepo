@@ -47,6 +47,7 @@ export class ForkError extends Data.TaggedError('ForkError') {
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -69,6 +70,7 @@ export class ForkError extends Data.TaggedError('ForkError') {
 	/**
 	 * The underlying cause of this error.
 	 * Typically contains the original JSON-RPC error or network error.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -82,8 +84,8 @@ export class ForkError extends Data.TaggedError('ForkError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'ForkError'
 		this.method = props.method
 		this.cause = props.cause

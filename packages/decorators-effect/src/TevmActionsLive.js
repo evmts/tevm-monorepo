@@ -45,9 +45,8 @@ import { InternalError } from '@tevm/errors-effect'
  * await Effect.runPromise(program.pipe(Effect.provide(layer)))
  * ```
  *
- * @type {Layer.Layer<TevmActionsService, never, StateManagerService | VmService | GetAccountService | SetAccountService>}
  */
-export const TevmActionsLive = Layer.effect(
+export const TevmActionsLive = /** @type {Layer.Layer<import('./TevmActionsService.js').TevmActionsServiceId, never, any>} */ (Layer.effect(
 	TevmActionsService,
 	Effect.gen(function* () {
 		const stateManager = yield* StateManagerService
@@ -60,7 +59,7 @@ export const TevmActionsLive = Layer.effect(
 		 * @param {string | undefined} hex
 		 * @returns {Uint8Array}
 		 */
-		const hexToBytes = (hex) => {
+		const hexToBytes = (/** @type {string | undefined} */ hex) => {
 			if (!hex || hex === '0x') return new Uint8Array()
 			const cleanHex = hex.startsWith('0x') ? hex.slice(2) : hex
 			const normalizedHex = cleanHex.length % 2 === 1 ? '0' + cleanHex : cleanHex
@@ -80,12 +79,15 @@ export const TevmActionsLive = Layer.effect(
 			if (!bytes || bytes.length === 0) return '0x'
 			let hex = '0x'
 			for (let i = 0; i < bytes.length; i++) {
-				hex += bytes[i].toString(16).padStart(2, '0')
+				const byte = bytes[i]
+				if (byte !== undefined) {
+					hex += byte.toString(16).padStart(2, '0')
+				}
 			}
 			return hex
 		}
 
-		return {
+		return /** @type {import('./types.js').TevmActionsShape} */ ({
 			call: (params) =>
 				Effect.gen(function* () {
 					// Execute call using EVM's runCall directly for simulation
@@ -100,18 +102,23 @@ export const TevmActionsLive = Layer.effect(
 					})
 
 					// Prepare call options for EVM runCall
+					/** @type {Record<string, unknown>} */
 					const callOpts = {
-						to: params.to ? createAddress(params.to) : undefined,
-						caller: params.from ? createAddress(params.from) : undefined,
-						origin: params.from ? createAddress(params.from) : undefined,
 						data: hexToBytes(params.data),
 						gasLimit: params.gas ?? 30000000n,
 						gasPrice: params.gasPrice ?? 0n,
 						value: params.value ?? 0n,
 					}
+					if (params.to) {
+						callOpts['to'] = createAddress(params.to)
+					}
+					if (params.from) {
+						callOpts['caller'] = createAddress(params.from)
+						callOpts['origin'] = createAddress(params.from)
+					}
 
 					const result = yield* Effect.tryPromise({
-						try: () => vm.vm.evm.runCall(callOpts),
+						try: () => vm.vm.evm.runCall(/** @type {any} */ (callOpts)),
 						catch: (e) =>
 							new InternalError({
 								message: `tevm_call failed: ${e instanceof Error ? e.message : String(e)}`,
@@ -175,11 +182,11 @@ export const TevmActionsLive = Layer.effect(
 							storageRoot: account.storageRoot,
 							codeHash: account.codeHash,
 						}
-						if (account.deployedBytecode) {
-							serializedAccount.deployedBytecode = account.deployedBytecode
+						if (account['deployedBytecode']) {
+							serializedAccount['deployedBytecode'] = account['deployedBytecode']
 						}
-						if (account.storage) {
-							serializedAccount.storage = account.storage
+						if (account['storage']) {
+							serializedAccount['storage'] = account['storage']
 						}
 						serializedState[address] = serializedAccount
 					}
@@ -263,6 +270,7 @@ export const TevmActionsLive = Layer.effect(
 									},
 									blockOpts: {
 										putBlockIntoBlockchain: false,
+										common: vm.vm.common,
 									},
 								}),
 							catch: (e) =>
@@ -293,6 +301,6 @@ export const TevmActionsLive = Layer.effect(
 						})
 					}
 				}),
-		}
+		})
 	})
-)
+))

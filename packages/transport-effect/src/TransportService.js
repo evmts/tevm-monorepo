@@ -60,8 +60,7 @@ import { Context } from 'effect'
  * ).catch(console.error)
  * ```
  *
- * @type {Context.Tag<TransportService, TransportShape>}
  */
-export const TransportService = /** @type {Context.Tag<TransportService, TransportShape>} */ (
-	Context.GenericTag('TransportService')
+export const TransportService = Context.GenericTag(
+	'@tevm/transport-effect/TransportService'
 )

@@ -58,10 +58,11 @@ export class StateRootNotFoundError extends StateRootNotFoundError_base {
     readonly stateRoot: Hex | undefined;
     /**
      * Human-readable error message
+     * @override
      * @readonly
      * @type {string}
      */
-    readonly message: string;
+    override readonly message: string;
     /**
      * JSON-RPC error code
      * @readonly
@@ -76,10 +77,11 @@ export class StateRootNotFoundError extends StateRootNotFoundError_base {
     readonly docsPath: string;
     /**
      * The underlying cause of this error, if any.
+     * @override
      * @readonly
      * @type {unknown}
      */
-    readonly cause: unknown;
+    override readonly cause: unknown;
 }
 export type Hex = `0x${string}`;
 export {};

@@ -67,7 +67,7 @@ describe('InsufficientBalanceError', () => {
 
 		const program = Effect.fail(error).pipe(
 			Effect.catchTag('InsufficientBalanceError', (e) =>
-				Effect.succeed(`Need ${e.required - e.available} more`)
+				Effect.succeed(`Need ${e.required! - e.available!} more`)
 			)
 		)
 

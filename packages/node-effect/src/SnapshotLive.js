@@ -76,7 +76,6 @@ const hexToBytes = (hex) => {
  * Effect.runPromise(program.pipe(Effect.provide(layer)))
  * ```
  *
- * @returns {Layer.Layer<SnapshotService, never, StateManagerService>} Layer providing SnapshotService
  */
 export const SnapshotLive = () => {
 	return Layer.effect(
@@ -97,10 +96,8 @@ export const SnapshotLive = () => {
 			 *
 			 * @param {Ref.Ref<Map<Hex, Snapshot>>} snapsRef
 			 * @param {Ref.Ref<number>} ctrRef
-			 * @returns {SnapshotShape}
 			 */
 			const createShape = (snapsRef, ctrRef) => {
-				/** @type {SnapshotShape} */
 				const shape = {
 					takeSnapshot: () =>
 						Effect.gen(function* () {
@@ -151,7 +148,7 @@ export const SnapshotLive = () => {
 							),
 						),
 
-					revertToSnapshot: (id) =>
+					revertToSnapshot: (/** @type {Hex} */ id) =>
 						Effect.gen(function* () {
 							// Step 1: Read snapshot WITHOUT deleting it
 							// This ensures we don't lose the snapshot if setStateRoot fails
@@ -190,7 +187,7 @@ export const SnapshotLive = () => {
 							})
 						}),
 
-					getSnapshot: (id) => Ref.get(snapsRef).pipe(Effect.map((m) => m.get(id))),
+					getSnapshot: (/** @type {Hex} */ id) => Ref.get(snapsRef).pipe(Effect.map((m) => m.get(id))),
 
 					getAllSnapshots: Ref.get(snapsRef),
 

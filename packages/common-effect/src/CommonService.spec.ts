@@ -11,7 +11,7 @@ describe('CommonService', () => {
 
 		it('should have the correct tag key', () => {
 			// Context.GenericTag creates a tag with an identifier
-			expect(CommonService.key).toBe('CommonService')
+			expect(CommonService.key).toBe('@tevm/common-effect/CommonService')
 		})
 
 		it('should be usable with Context.get', () => {

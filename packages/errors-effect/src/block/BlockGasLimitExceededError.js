@@ -53,6 +53,7 @@ export class BlockGasLimitExceededError extends Data.TaggedError('BlockGasLimitE
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -74,6 +75,7 @@ export class BlockGasLimitExceededError extends Data.TaggedError('BlockGasLimitE
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -88,8 +90,8 @@ export class BlockGasLimitExceededError extends Data.TaggedError('BlockGasLimitE
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'BlockGasLimitExceededError'
 		this.blockGasLimit = props.blockGasLimit
 		this.gasUsed = props.gasUsed

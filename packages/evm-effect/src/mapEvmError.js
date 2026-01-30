@@ -16,11 +16,11 @@ import {
 } from '@tevm/errors-effect'
 
 /**
- * @typedef {import('@tevm/errors-effect').EvmExecutionError} EvmExecutionError
+ * @typedef {import('./types.js').EvmError} EvmError
  */
 
 /**
- * Maps an EVM exception to a typed EvmExecutionError.
+ * Maps an EVM exception to a typed EvmError.
  *
  * This function analyzes the error message/type and creates the appropriate
  * typed error from @tevm/errors-effect.
@@ -41,7 +41,7 @@ import {
  * ```
  *
  * @param {unknown} error - The error thrown by the EVM
- * @returns {EvmExecutionError | TevmError} A typed error instance
+ * @returns {EvmError} A typed error instance
  */
 export const mapEvmError = (error) => {
 	const message = error instanceof Error ? error.message : String(error)

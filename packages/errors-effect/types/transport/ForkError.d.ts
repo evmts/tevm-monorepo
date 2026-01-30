@@ -57,10 +57,11 @@ export class ForkError extends ForkError_base {
     readonly method: string | undefined;
     /**
      * Human-readable error message
+     * @override
      * @readonly
      * @type {string}
      */
-    readonly message: string;
+    override readonly message: string;
     /**
      * JSON-RPC error code
      * @readonly
@@ -76,10 +77,11 @@ export class ForkError extends ForkError_base {
     /**
      * The underlying cause of this error.
      * Typically contains the original JSON-RPC error or network error.
+     * @override
      * @readonly
      * @type {unknown}
      */
-    readonly cause: unknown;
+    override readonly cause: unknown;
 }
 export {};
 //# sourceMappingURL=ForkError.d.ts.map

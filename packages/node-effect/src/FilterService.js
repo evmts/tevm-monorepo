@@ -40,7 +40,5 @@ import { Context } from 'effect'
  *   yield* filter.remove(filterId)
  * })
  * ```
- *
- * @type {Context.Tag<FilterService, FilterShape>}
  */
-export const FilterService = Context.GenericTag('FilterService')
+export const FilterService = Context.GenericTag('@tevm/node-effect/FilterService')

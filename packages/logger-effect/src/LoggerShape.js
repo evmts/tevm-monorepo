@@ -6,11 +6,6 @@ import { Effect } from 'effect'
  */
 
 /**
- * @typedef {import('./types.js').LogLevel} LogLevel
- * @typedef {import('./types.js').LogSeverity} LogSeverity
- */
-
-/**
  * The shape interface for the LoggerService.
  * Provides Effect-wrapped logging methods for type-safe, composable logging.
  *
@@ -24,7 +19,7 @@ import { Effect } from 'effect'
  * - For silent mode, set level to 'silent' to suppress all output
  *
  * @typedef {Object} LoggerShape
- * @property {LogLevel} level - Current log level configuration (any valid Pino level + 'silent')
+ * @property {import('./types.js').LogLevel} level - Current log level configuration (any valid Pino level + 'silent')
  * @property {string} name - Logger name for contextual logging
  * @property {(message: string, data?: unknown) => Effect.Effect<void, never, never>} debug - Log a debug message
  * @property {(message: string, data?: unknown) => Effect.Effect<void, never, never>} info - Log an info message

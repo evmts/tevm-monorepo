@@ -46,6 +46,7 @@ export class MethodNotFoundError extends Data.TaggedError('MethodNotFoundError')
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -67,6 +68,7 @@ export class MethodNotFoundError extends Data.TaggedError('MethodNotFoundError')
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -80,8 +82,8 @@ export class MethodNotFoundError extends Data.TaggedError('MethodNotFoundError')
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'MethodNotFoundError'
 		this.method = props.method
 		this.message =

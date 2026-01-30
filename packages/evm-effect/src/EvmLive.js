@@ -64,7 +64,7 @@ import { mapEvmError } from './mapEvmError.js'
  * ```
  *
  * @param {EvmLiveOptions} [options] - Configuration options
- * @returns {Layer.Layer<EvmService, never, CommonService | StateManagerService | BlockchainService>} Layer providing EvmService
+ * @returns {Layer.Layer<import('./EvmService.js').EvmServiceId, never, CommonService | StateManagerService | BlockchainService>} Layer providing EvmService
  */
 export const EvmLive = (options = {}) => {
 	return Layer.effect(
@@ -82,7 +82,7 @@ export const EvmLive = (options = {}) => {
 					allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
 					customPrecompiles: options.customPrecompiles ?? [],
 					profiler: options.profiler ?? false,
-					loggingLevel: options.loggingEnabled ? 'debug' : 'silent',
+					loggingLevel: options.loggingEnabled ? 'debug' : 'fatal',
 				}),
 			)
 

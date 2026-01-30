@@ -39,6 +39,7 @@ export class InvalidRequestError extends Data.TaggedError('InvalidRequestError')
 
 	/**
 	 * Human-readable error message
+	 * @override
 	 * @readonly
 	 * @type {string}
 	 */
@@ -60,6 +61,7 @@ export class InvalidRequestError extends Data.TaggedError('InvalidRequestError')
 
 	/**
 	 * The underlying cause of this error, if any.
+	 * @override
 	 * @readonly
 	 * @type {unknown}
 	 */
@@ -72,8 +74,8 @@ export class InvalidRequestError extends Data.TaggedError('InvalidRequestError')
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super()
-		/** @type {string} */
+		super({})
+		/** @override @type {string} */
 		this.name = 'InvalidRequestError'
 		this.message = props.message ?? 'Invalid JSON-RPC request'
 		this.code = InvalidRequestError.code

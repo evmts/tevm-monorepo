@@ -36,9 +36,8 @@ import { RequestService } from './RequestService.js'
  * await Effect.runPromise(program.pipe(Effect.provide(layer)))
  * ```
  *
- * @type {Layer.Layer<SendService, never, RequestService>}
  */
-export const SendLive = Layer.effect(
+export const SendLive = /** @type {Layer.Layer<import('./SendService.js').SendServiceId, never, any>} */ (Layer.effect(
 	SendService,
 	Effect.gen(function* () {
 		const requestService = yield* RequestService
@@ -49,7 +48,7 @@ export const SendLive = Layer.effect(
 					const result = yield* requestService
 						.request({
 							method: request.method,
-							params: request.params,
+							...(request.params !== undefined && { params: request.params }),
 						})
 						.pipe(
 							Effect.map((result) => ({
@@ -84,7 +83,7 @@ export const SendLive = Layer.effect(
 							const result = yield* requestService
 								.request({
 									method: request.method,
-									params: request.params,
+									...(request.params !== undefined && { params: request.params }),
 								})
 								.pipe(
 									Effect.map((result) => ({
@@ -115,4 +114,4 @@ export const SendLive = Layer.effect(
 				),
 		}
 	})
-)
+))

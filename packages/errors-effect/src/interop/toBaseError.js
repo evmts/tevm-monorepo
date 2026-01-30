@@ -112,7 +112,7 @@ export const toBaseError = (taggedError) => {
 
 	// Extract metaMessages if present (some errors may have this)
 	const metaMessages = /** @type {string[] | undefined} */ (
-		'metaMessages' in taggedError ? taggedError.metaMessages : undefined
+		'metaMessages' in taggedError ? taggedError['metaMessages'] : undefined
 	)
 
 	// Base properties that exist on all errors
@@ -146,8 +146,9 @@ export const toBaseError = (taggedError) => {
 		}
 	}
 
-	/** @type {BaseErrorLike & Omit<T, '_tag' | 'message' | 'code' | 'docsPath'>} */
-	const result = Object.assign(error, baseProps, specificProps)
+	const result = /** @type {BaseErrorLike & Omit<T, '_tag' | 'message' | 'code' | 'docsPath'>} */ (
+		Object.assign(error, baseProps, specificProps)
+	)
 
 	return result
 }

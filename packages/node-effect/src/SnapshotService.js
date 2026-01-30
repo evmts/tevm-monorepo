@@ -52,9 +52,7 @@ import { Context } from 'effect'
  * const layer = Layer.provide(SnapshotLive(), StateManagerLocal())
  * Effect.runPromise(program.pipe(Effect.provide(layer)))
  * ```
- *
- * @type {Context.Tag<SnapshotService, SnapshotShape>}
  */
-export const SnapshotService = /** @type {Context.Tag<SnapshotService, SnapshotShape>} */ (
-	Context.GenericTag('SnapshotService')
+export const SnapshotService = Context.GenericTag(
+	'@tevm/node-effect/SnapshotService',
 )
