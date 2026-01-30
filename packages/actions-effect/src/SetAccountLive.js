@@ -24,7 +24,10 @@ const EMPTY_CODE_HASH = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad
  */
 const hexToBytes = (hex, options) => {
 	const cleanHex = hex.startsWith('0x') ? hex.slice(2) : hex
-	const paddedHex = options?.size ? cleanHex.padStart(options.size * 2, '0') : cleanHex
+	// Normalize odd-length hex strings by left-padding with a single '0'
+	// This prevents silent data truncation (e.g., "0xabc" becomes "0abc" -> [0x0a, 0xbc])
+	const normalizedHex = cleanHex.length % 2 === 1 ? '0' + cleanHex : cleanHex
+	const paddedHex = options?.size ? normalizedHex.padStart(options.size * 2, '0') : normalizedHex
 	const bytes = new Uint8Array(paddedHex.length / 2)
 	for (let i = 0; i < bytes.length; i++) {
 		bytes[i] = Number.parseInt(paddedHex.slice(i * 2, i * 2 + 2), 16)

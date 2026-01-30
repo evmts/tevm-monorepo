@@ -791,5 +791,55 @@ describe('SetAccountLive', () => {
 
 			expect(result.address).toBe('0x1234567890123456789012345678901234567890')
 		})
+
+		it('should correctly handle odd-length hex values in storage (not truncate)', async () => {
+			// This tests the hexToBytes fix for odd-length hex strings
+			// Before the fix, "0xabc" would be truncated to [0xab] (losing the 'c' nibble)
+			// After the fix, "0xabc" is normalized to "0x0abc" -> [0x0a, 0xbc]
+			let capturedKeyBytes: Uint8Array | undefined
+			let capturedValueBytes: Uint8Array | undefined
+
+			const putStorageMock = vi.fn((address: any, key: Uint8Array, value: Uint8Array) => {
+				capturedKeyBytes = key
+				capturedValueBytes = value
+				return Effect.succeed(undefined)
+			})
+
+			const MockStateManagerLayer = Layer.succeed(
+				StateManagerService,
+				createMockStateManager({
+					putStorage: putStorageMock,
+				}) as any,
+			)
+			const testLayer = SetAccountLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { setAccount } = yield* SetAccountService
+				return yield* setAccount({
+					address: '0x1234567890123456789012345678901234567890',
+					// Using odd-length hex value (3 hex chars after 0x)
+					stateDiff: {
+						'0x0000000000000000000000000000000000000000000000000000000000000001': '0xabc',
+					},
+				})
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(testLayer)))
+
+			expect(result.address).toBe('0x1234567890123456789012345678901234567890')
+			expect(putStorageMock).toHaveBeenCalled()
+
+			// The value "0xabc" should be normalized to "0x0abc" and converted correctly
+			// After fix: "0xabc" -> "0abc" (normalized) -> [0x0a, 0xbc] (2 bytes)
+			// Before fix (bug): "0xabc" -> "abc" -> [0xab] (1 byte, 'c' lost)
+			expect(capturedValueBytes).toBeDefined()
+			if (capturedValueBytes) {
+				// Value should be 32 bytes (padded), but the significant bytes at the end should be [0x0a, 0xbc]
+				// Since the value is left-padded to 32 bytes, check last 2 bytes
+				const lastTwo = capturedValueBytes.slice(-2)
+				expect(lastTwo[0]).toBe(0x0a) // First nibble 0, second nibble a
+				expect(lastTwo[1]).toBe(0xbc) // bc as expected
+			}
+		})
 	})
 })

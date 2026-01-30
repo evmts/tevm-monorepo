@@ -9,20 +9,200 @@
 
 ## Review Agent Summary (2026-01-30)
 
-**FIFTY-NINTH UPDATE COMPLETE.** CRITICAL issue resolved - atomic takeSnapshot implemented.
+**SIXTY-FIRST UPDATE.** Fixed 2 MEDIUM issues (hexToBytes truncation, revertToSnapshot snapshot loss). Non-atomic deepCopy documented as acceptable trade-off.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
 | **Phase 1** | 🟢 FORTY-NINTH REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
 | **Phase 2** | 🟢 FORTY-NINTH REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | ✅ COMPLIANT |
-| **Phase 3** | 🟢 FIFTY-NINTH UPDATE | 2 (node-effect, actions-effect) | 194 | 100% | ⚠️ 0 CRITICAL, 7 MEDIUM |
+| **Phase 3** | 🟢 SIXTY-FIRST UPDATE | 2 (node-effect, actions-effect) | 195 | 100% | ⚠️ 0 CRITICAL, 6 MEDIUM |
 | **Phase 4** | ⚪ NOT STARTED | 0 | - | - | - |
 
 **Open Issues Summary:**
-- **CRITICAL**: 0 ✅ (was 1, non-atomic takeSnapshot - RESOLVED)
+- **CRITICAL**: 0 ✅
 - **HIGH**: 0
-- **MEDIUM**: 7 (error type mismatches, returnStorage unimplemented, non-atomic Refs, missing error propagation, unbounded memory growth)
-- **LOW**: 9 (duplicated utilities, memory growth, logging, throwOnFail, naming conventions)
+- **MEDIUM**: 6 (error type mismatches, returnStorage unimplemented, non-atomic Refs/deepCopy [accepted], unbounded memory growth)
+- **LOW**: 13 (duplicated utilities, filter type validation, bytesToHex type checking, etc.)
+
+### Fixes Applied (2026-01-30):
+1. ✅ **hexToBytes truncation** - Added odd-length hex normalization in SetAccountLive.js, GetStorageAtLive.js, SnapshotLive.js
+2. ✅ **revertToSnapshot snapshot loss** - Reordered operations: setStateRoot now completes before snapshot deletion
+3. ⚠️ **Non-atomic deepCopy** - Documented as acceptable trade-off (benign inconsistencies, not a hot path)
+
+---
+
+### SIXTIETH REVIEW (2026-01-30) - Opus 4.5 Comprehensive Parallel Verification Review
+
+**Reviewed By**: Claude Opus 4.5 (2 parallel subagents)
+**Scope**: Complete verification review of all @tevm/actions-effect handlers + @tevm/node-effect services
+
+#### Summary: New Issues Discovered
+
+| Package | File | CRITICAL | MEDIUM | LOW | Notes |
+|---------|------|----------|--------|-----|-------|
+| actions-effect | SetAccountLive.js, GetStorageAtLive.js | 0 | 1 | 1 | hexToBytes truncates odd-length hex |
+| actions-effect | GetAccountLive.js | 0 | 0 | 1 | getCode called before existence check |
+| actions-effect | Multiple files | 0 | 0 | 1 | bytesToHex accepts any truthy value |
+| node-effect | All *Live.js | 0 | 1 | 0 | Non-atomic deepCopy reads |
+| node-effect | SnapshotLive.js | 0 | 1 | 0 | revertToSnapshot deletes before setStateRoot |
+| node-effect | FilterLive.js | 0 | 0 | 1 | getChanges doesn't validate filter type |
+| node-effect | FilterService.js | 0 | 0 | 1 | Missing type annotation |
+| **NEW TOTAL** | | **0** | **2** | **5** | |
+| **PRIOR TOTAL** | | **0** | **7** | **8** | From 58th review |
+| **COMBINED** | | **0** | **9** | **13** | |
+
+---
+
+#### 🟡 NEW MEDIUM Issues (60th Review)
+
+##### 1. ✅ RESOLVED: hexToBytes Truncates Odd-Length Hex Strings
+
+**Files**: SetAccountLive.js:25-35, GetStorageAtLive.js:34-44, SnapshotLive.js:37-46
+
+**Problem**: When hex string has odd length after removing `0x` prefix and no `size` option is provided, `bytes.length = Math.floor(paddedHex.length / 2)` causes the last nibble to be silently discarded.
+
+```javascript
+// Example: hexToBytes("0xabc") produces [171] (from "ab") and loses "c"
+const paddedHex = hex.slice(2) // "abc" (odd length)
+bytes.length = Math.floor(paddedHex.length / 2) // Math.floor(3/2) = 1
+// Only one byte [0xab] is stored, 'c' is lost
+```
+
+**Impact**: Silent data corruption for odd-length hex inputs.
+
+**Resolution (2026-01-30)**: Added odd-length normalization by left-padding with single '0':
+```javascript
+const normalizedHex = cleanHex.length % 2 === 1 ? '0' + cleanHex : cleanHex
+```
+This ensures "0xabc" correctly becomes [0x0a, 0xbc]. Test added to verify fix.
+
+---
+
+##### 2. ⚠️ ACCEPTED: Non-Atomic deepCopy Reads Across All Services
+
+**Files**: ImpersonationLive.js:82-85, BlockParamsLive.js:107-112, SnapshotLive.js:180-181, FilterLive.js:320-321
+
+**Problem**: All deepCopy implementations use multiple sequential `Ref.get` calls. If concurrent modifications happen between reads, the copied state will be inconsistent.
+
+```javascript
+// Example from BlockParamsLive.js:107-112
+deepCopy: Effect.gen(function* () {
+    const ts = yield* Ref.get(timestampRef)    // Read 1
+    const gl = yield* Ref.get(gasLimitRef)     // Read 2 - state may have changed!
+    const bf = yield* Ref.get(baseFeeRef)      // Read 3 - state may have changed!
+    // Copy could have inconsistent state
+})
+```
+
+**Impact**: Race condition during concurrent access can produce inconsistent state copies.
+
+**Decision (2026-01-30)**: **ACCEPTED AS TRADE-OFF** - Analysis determined this is acceptable because:
+1. Inconsistencies are benign (counter >= collection size means no ID collisions)
+2. Settings are semantically independent (impersonation, block params)
+3. deepCopy is not a hot path (used primarily for forking/testing)
+4. Fix would require consolidating all Refs into single state objects, adding complexity to all operations
+
+---
+
+##### 3. ✅ RESOLVED: revertToSnapshot Deletes Snapshot Before setStateRoot Completes
+
+**File**: SnapshotLive.js:136-169
+
+**Problem**: Uses `Ref.modify` to atomically get and delete the snapshot, then calls `stateManager.setStateRoot`. If `setStateRoot` fails, the snapshot is already deleted and unrecoverable.
+
+```javascript
+// OLD implementation (simplified)
+const snapshotData = yield* Ref.modify(snapsRef, (map) => {
+    const data = map.get(snapshotId)
+    map.delete(snapshotId) // Deleted BEFORE setStateRoot!
+    return [data, map]
+})
+```
+
+**Resolution (2026-01-30)**: Reordered operations to ensure snapshot is only deleted after setStateRoot succeeds:
+```javascript
+// Step 1: Read snapshot WITHOUT deleting
+const snapshot = (yield* Ref.get(snapsRef)).get(id)
+// Step 2: Restore state FIRST (can fail safely)
+yield* stateManager.setStateRoot(hexToBytes(snapshot.stateRoot))
+// Step 3: ONLY after success, delete snapshot
+yield* Ref.update(snapsRef, (map) => { /* delete */ })
+```
+yield* stateManager.setStateRoot(snapshotData.stateRoot) // If this fails, snapshot is gone!
+```
+
+**Impact**: If setStateRoot fails, the snapshot is permanently lost and system is in inconsistent state.
+
+**Fix**: Only delete snapshot after setStateRoot succeeds, or restore snapshot on failure.
+
+---
+
+#### 🟢 NEW LOW Issues (60th Review)
+
+##### 1. GetAccountLive Calls getCode Before Account Existence Check
+
+**File**: GetAccountLive.js:144-152
+
+**Problem**: `getCode()` is called unconditionally before checking if `ethjsAccount` is undefined. This is wasted work for non-existent accounts.
+
+---
+
+##### 2. bytesToHex Accepts Any Truthy Value Without Type Checking
+
+**Files**: GetAccountLive.js:28-31, GetCodeLive.js:16-19, GetStorageAtLive.js:16-25
+
+**Problem**: If `bytes` is truthy but not a Uint8Array (e.g., a plain object), `Buffer.from(bytes)` may produce unexpected results or throw.
+
+---
+
+##### 3. getChanges Doesn't Validate Filter Type is 'Log'
+
+**File**: FilterLive.js:141-166
+
+**Problem**: `getChanges` returns `filter.logs` without checking if `filter.type === 'Log'`. For Block or PendingTransaction filters, this returns an empty array rather than an error. Inconsistent with `getBlockChanges` and `getPendingTransactionChanges` which validate type.
+
+---
+
+##### 4. FilterService Missing Type Annotation
+
+**File**: FilterService.js:46
+
+**Problem**: Uses `Context.GenericTag('FilterService')` without the JSDoc `@type` cast. Other services properly include `/** @type {Context.Tag<...>} */`.
+
+---
+
+##### 5. Duplicated Utility Functions (toHex/bytesToHex/hexToBytes)
+
+**Files**: SnapshotLive.js:22-44, FilterLive.js:24
+
+**Problem**: Utility functions are duplicated between files. Should be extracted to shared utilities module.
+
+---
+
+#### ✅ VERIFIED Prior Findings (60th Review)
+
+| Prior Finding | Status | Verification Notes |
+|--------------|--------|-------------------|
+| CRITICAL: takeSnapshot atomicity | ✅ **FIXED** | Verified checkpoint/commit/revert pattern correctly implemented at lines 103-121 |
+| MEDIUM: GetAccountService error type mismatch | **STILL PRESENT** | Service declares AccountNotFoundError but never produced |
+| MEDIUM: Missing error propagation from StateManager | **REFINED** | StateManagerService methods don't declare error types, so failures become untyped defects |
+| MEDIUM: returnStorage not implemented | **STILL PRESENT** | Comment at GetAccountLive.js:187-188 confirms TODO |
+| MEDIUM: BlockParamsLive non-atomic clearNextBlockOverrides | **STILL PRESENT** | 3 separate Ref.set calls at lines 99-103 |
+| MEDIUM: Unbounded memory growth | **STILL PRESENT** | No cleanup mechanism for filters or snapshots |
+| LOW: Duplicated validation functions | **STILL PRESENT** | validateAddress in 5 files, validateBlockTag in 4 files |
+| LOW: SnapshotLive naming mismatch | **STILL PRESENT** | Uses takeSnapshot/revertToSnapshot vs RFC's take/revert |
+
+---
+
+#### Correction to Prior Finding
+
+**Finding**: "GetBalance/GetCode/GetStorageAt - Missing error propagation from StateManager"
+
+**Correction**: The issue is not "missing propagation" but rather that **StateManagerService methods don't declare error types** in their signatures (state-effect/types.js lines 30-36 show `getAccount`, `getCode`, `getStorage` return Effects without error channel). If the underlying implementation throws, those become **untyped defects** rather than typed failures.
+
+**Updated Fix**: Either:
+1. StateManagerService should declare error types (e.g., `StorageError`, `ForkError` for network issues)
+2. OR action handlers should wrap calls with `Effect.catchAllDefect` to convert unexpected failures to `InternalError`
 
 ---
 

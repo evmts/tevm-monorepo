@@ -36,9 +36,12 @@ const bytesToHex = (bytes) => /** @type {Hex} */ (`0x${Array.from(bytes, (b) => 
  */
 const hexToBytes = (hex) => {
 	const str = hex.slice(2) // Remove '0x' prefix
-	const bytes = new Uint8Array(str.length / 2)
+	// Normalize odd-length hex strings by left-padding with a single '0'
+	// This prevents silent data truncation (e.g., "0xabc" becomes "0abc" -> [0x0a, 0xbc])
+	const normalizedStr = str.length % 2 === 1 ? '0' + str : str
+	const bytes = new Uint8Array(normalizedStr.length / 2)
 	for (let i = 0; i < bytes.length; i++) {
-		bytes[i] = parseInt(str.slice(i * 2, i * 2 + 2), 16)
+		bytes[i] = parseInt(normalizedStr.slice(i * 2, i * 2 + 2), 16)
 	}
 	return bytes
 }
@@ -135,28 +138,14 @@ export const SnapshotLive = () => {
 
 					revertToSnapshot: (id) =>
 						Effect.gen(function* () {
-							// Atomically get snapshot and remove it along with all subsequent snapshots
-							// Using Ref.modify to avoid TOCTOU race condition
 							const targetNum = parseInt(id.slice(2), 16)
 
-							/** @type {Snapshot | undefined} */
-							const snapshot = yield* Ref.modify(snapsRef, (map) => {
-								const foundSnapshot = map.get(id)
-								if (!foundSnapshot) {
-									// Return undefined and keep map unchanged
-									return [undefined, map]
-								}
-								// Remove this snapshot and all subsequent ones
-								const newMap = new Map(map)
-								for (const [key] of newMap) {
-									if (parseInt(key.slice(2), 16) >= targetNum) {
-										newMap.delete(key)
-									}
-								}
-								return [foundSnapshot, newMap]
-							})
+							// Step 1: Read snapshot WITHOUT deleting it
+							// This ensures we don't lose the snapshot if setStateRoot fails
+							const snapshots = yield* Ref.get(snapsRef)
+							const snapshot = snapshots.get(id)
 
-							// Check if snapshot was found
+							// Step 2: Check if snapshot exists
 							if (!snapshot) {
 								return yield* Effect.fail(
 									new SnapshotNotFoundError({
@@ -166,8 +155,21 @@ export const SnapshotLive = () => {
 								)
 							}
 
-							// Restore state (snapshot data is immutable so this is safe after the atomic read)
+							// Step 3: Restore state FIRST (this can fail)
+							// If setStateRoot fails, the snapshot is still available for retry
 							yield* stateManager.setStateRoot(hexToBytes(snapshot.stateRoot))
+
+							// Step 4: ONLY after setStateRoot succeeds, delete the snapshot and subsequent ones
+							// This ensures we don't lose snapshots on setStateRoot failure
+							yield* Ref.update(snapsRef, (map) => {
+								const newMap = new Map(map)
+								for (const [key] of newMap) {
+									if (parseInt(key.slice(2), 16) >= targetNum) {
+										newMap.delete(key)
+									}
+								}
+								return newMap
+							})
 						}),
 
 					getSnapshot: (id) => Ref.get(snapsRef).pipe(Effect.map((m) => m.get(id))),
