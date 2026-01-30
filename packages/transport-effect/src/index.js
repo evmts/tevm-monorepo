@@ -48,6 +48,7 @@
 /**
  * @typedef {import('./types.js').Hex} Hex
  * @typedef {import('./types.js').HttpTransportConfig} HttpTransportConfig
+ * @typedef {import('./types.js').BatchConfig} BatchConfig
  * @typedef {import('./types.js').ForkConfigShape} ForkConfigShape
  * @typedef {import('./types.js').TransportShape} TransportShape
  */

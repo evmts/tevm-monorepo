@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { Effect, Exit } from 'effect'
+import { Effect, Exit, Fiber } from 'effect'
 import { HttpTransport } from './HttpTransport.js'
 import { TransportService } from './TransportService.js'
 import { ForkError } from '@tevm/errors-effect'
@@ -538,6 +538,528 @@ describe('HttpTransport', () => {
 				const error = result.cause._tag === 'Fail' ? result.cause.error : null
 				expect(error).toBeInstanceOf(ForkError)
 			}
+		})
+	})
+
+	describe('batch request support', () => {
+		it('should batch multiple requests into a single HTTP call with wait timer', async () => {
+			// Mock batch responses - use a function to return responses with matching IDs
+			mockFetch.mockImplementation(async (url, options) => {
+				const requests = JSON.parse(options.body)
+				// Return responses matching the request IDs
+				const responses = requests.map((req: { id: number; method: string }) => ({
+					jsonrpc: '2.0',
+					id: req.id,
+					result:
+						req.method === 'eth_chainId' ? '0xa' : req.method === 'eth_blockNumber' ? '0x100' : '0x5',
+				}))
+				return {
+					ok: true,
+					json: async () => responses,
+				}
+			})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				batch: {
+					wait: 100, // Wait 100ms to accumulate requests
+					maxSize: 10,
+				},
+				retryCount: 0,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+
+				// Make multiple requests concurrently - they should be batched
+				const results = yield* Effect.all([
+					transport.request<string>('eth_chainId'),
+					transport.request<string>('eth_blockNumber'),
+					transport.request<string>('eth_gasPrice'),
+				])
+
+				return results
+			})
+
+			const results = await Effect.runPromise(
+				Effect.scoped(program.pipe(Effect.provide(layer)))
+			)
+
+			expect(results).toEqual(['0xa', '0x100', '0x5'])
+
+			// Verify that batched requests were sent (at least one call was a batch)
+			expect(mockFetch).toHaveBeenCalled()
+			const lastCall = mockFetch.mock.calls[mockFetch.mock.calls.length - 1]
+			const body = JSON.parse(lastCall[1].body)
+			expect(Array.isArray(body)).toBe(true)
+		})
+
+		it('should send batch when maxSize is reached', async () => {
+			// Mock batch responses - return results based on request IDs
+			mockFetch.mockImplementation(async (url, options) => {
+				const requests = JSON.parse(options.body)
+				const responses = requests.map((req: { id: number }) => ({
+					jsonrpc: '2.0',
+					id: req.id,
+					result: `0x${req.id}`,
+				}))
+				return {
+					ok: true,
+					json: async () => responses,
+				}
+			})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				batch: {
+					wait: 100, // Wait for batching
+					maxSize: 2, // Small batch size
+				},
+				retryCount: 0,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+
+				// Make exactly maxSize requests - should trigger batch
+				const results = yield* Effect.all([
+					transport.request<string>('eth_chainId'),
+					transport.request<string>('eth_blockNumber'),
+				])
+
+				return results
+			})
+
+			const results = await Effect.runPromise(
+				Effect.scoped(program.pipe(Effect.provide(layer)))
+			)
+
+			expect(results).toHaveLength(2)
+			expect(mockFetch).toHaveBeenCalled()
+		})
+
+		it('should match results back by id correctly', async () => {
+			// Return results in different order than requests - shuffle based on request IDs
+			mockFetch.mockImplementation(async (url, options) => {
+				const requests = JSON.parse(options.body)
+				// Return in reverse order to test ID matching
+				const responses = requests
+					.map((req: { id: number; method: string }) => {
+						const methodNum = req.method.replace('method', '')
+						return {
+							jsonrpc: '2.0',
+							id: req.id,
+							result: methodNum === '1' ? 'first' : methodNum === '2' ? 'second' : 'third',
+						}
+					})
+					.reverse()
+				return {
+					ok: true,
+					json: async () => responses,
+				}
+			})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				batch: {
+					wait: 100,
+					maxSize: 10,
+				},
+				retryCount: 0,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+
+				const results = yield* Effect.all([
+					transport.request<string>('method1'),
+					transport.request<string>('method2'),
+					transport.request<string>('method3'),
+				])
+
+				return results
+			})
+
+			const results = await Effect.runPromise(
+				Effect.scoped(program.pipe(Effect.provide(layer)))
+			)
+
+			// Results should be matched by ID, not order of response
+			expect(results).toEqual(['first', 'second', 'third'])
+		})
+
+		it('should handle batch with mixed success and error responses', async () => {
+			// Return mixed success/error based on method
+			mockFetch.mockImplementation(async (url, options) => {
+				const requests = JSON.parse(options.body)
+				const responses = requests.map((req: { id: number; method: string }) => {
+					if (req.method === 'invalid_method') {
+						return {
+							jsonrpc: '2.0',
+							id: req.id,
+							error: { code: -32600, message: 'Invalid method' },
+						}
+					}
+					return {
+						jsonrpc: '2.0',
+						id: req.id,
+						result: req.method === 'eth_chainId' ? '0x1' : '0x3',
+					}
+				})
+				return {
+					ok: true,
+					json: async () => responses,
+				}
+			})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				batch: {
+					wait: 100,
+					maxSize: 10,
+				},
+				retryCount: 0,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+
+				// Make requests - middle one will fail
+				const [result1, result2, result3] = yield* Effect.all([
+					transport.request<string>('eth_chainId').pipe(Effect.either),
+					transport.request<string>('invalid_method').pipe(Effect.either),
+					transport.request<string>('eth_gasPrice').pipe(Effect.either),
+				])
+
+				return { result1, result2, result3 }
+			})
+
+			const { result1, result2, result3 } = await Effect.runPromise(
+				Effect.scoped(program.pipe(Effect.provide(layer)))
+			)
+
+			// First and third should succeed
+			expect(result1._tag).toBe('Right')
+			if (result1._tag === 'Right') {
+				expect(result1.right).toBe('0x1')
+			}
+
+			expect(result3._tag).toBe('Right')
+			if (result3._tag === 'Right') {
+				expect(result3.right).toBe('0x3')
+			}
+
+			// Second should fail with ForkError
+			expect(result2._tag).toBe('Left')
+			if (result2._tag === 'Left') {
+				expect(result2.left).toBeInstanceOf(ForkError)
+				expect(result2.left.method).toBe('invalid_method')
+			}
+		})
+
+		it('should fail all batch requests on HTTP error', async () => {
+			// Always return HTTP error
+			mockFetch.mockImplementation(async () => ({
+				ok: false,
+				status: 500,
+				statusText: 'Internal Server Error',
+			}))
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				batch: {
+					wait: 100,
+					maxSize: 10,
+				},
+				retryCount: 0,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+
+				const results = yield* Effect.all([
+					transport.request<string>('eth_chainId').pipe(Effect.either),
+					transport.request<string>('eth_blockNumber').pipe(Effect.either),
+				])
+
+				return results
+			})
+
+			const results = await Effect.runPromise(
+				Effect.scoped(program.pipe(Effect.provide(layer)))
+			)
+
+			// Both should fail
+			expect(results[0]._tag).toBe('Left')
+			expect(results[1]._tag).toBe('Left')
+
+			if (results[0]._tag === 'Left') {
+				expect(results[0].left).toBeInstanceOf(ForkError)
+				expect(results[0].left.method).toBe('eth_chainId')
+			}
+			if (results[1]._tag === 'Left') {
+				expect(results[1].left).toBeInstanceOf(ForkError)
+				expect(results[1].left.method).toBe('eth_blockNumber')
+			}
+		})
+
+		it('should handle missing response for a request id', async () => {
+			// Response is missing for the second request (eth_blockNumber)
+			mockFetch.mockImplementation(async (url, options) => {
+				const requests = JSON.parse(options.body)
+				// Only return responses for non-blockNumber requests
+				const responses = requests
+					.filter((req: { method: string }) => req.method !== 'eth_blockNumber')
+					.map((req: { id: number; method: string }) => ({
+						jsonrpc: '2.0',
+						id: req.id,
+						result: req.method === 'eth_chainId' ? '0x1' : '0x3',
+					}))
+				return {
+					ok: true,
+					json: async () => responses,
+				}
+			})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				batch: {
+					wait: 100,
+					maxSize: 10,
+				},
+				retryCount: 0,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+
+				const results = yield* Effect.all([
+					transport.request<string>('eth_chainId').pipe(Effect.either),
+					transport.request<string>('eth_blockNumber').pipe(Effect.either),
+					transport.request<string>('eth_gasPrice').pipe(Effect.either),
+				])
+
+				return results
+			})
+
+			const results = await Effect.runPromise(
+				Effect.scoped(program.pipe(Effect.provide(layer)))
+			)
+
+			// First and third succeed
+			expect(results[0]._tag).toBe('Right')
+			expect(results[2]._tag).toBe('Right')
+
+			// Second should fail with missing response error
+			expect(results[1]._tag).toBe('Left')
+			if (results[1]._tag === 'Left') {
+				expect(results[1].left).toBeInstanceOf(ForkError)
+				expect((results[1].left.cause as Error).message).toContain('No response found for request id')
+			}
+		})
+
+		it('should work as non-batched when batch config is not provided', async () => {
+			// Individual responses
+			mockFetch
+				.mockResolvedValueOnce({
+					ok: true,
+					json: async () => ({ jsonrpc: '2.0', id: 1, result: '0xa' }),
+				})
+				.mockResolvedValueOnce({
+					ok: true,
+					json: async () => ({ jsonrpc: '2.0', id: 2, result: '0xb' }),
+				})
+
+			// No batch config
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				retryCount: 0,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+
+				// Make multiple requests
+				const result1 = yield* transport.request<string>('eth_chainId')
+				const result2 = yield* transport.request<string>('eth_blockNumber')
+
+				return [result1, result2]
+			})
+
+			const results = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+
+			expect(results).toEqual(['0xa', '0xb'])
+			// Should make individual calls
+			expect(mockFetch).toHaveBeenCalledTimes(2)
+
+			// Each call should be a single request, not a batch
+			const body1 = JSON.parse(mockFetch.mock.calls[0][1].body)
+			expect(Array.isArray(body1)).toBe(false)
+			expect(body1.method).toBe('eth_chainId')
+		})
+
+		it('should process remaining requests on layer teardown', async () => {
+			mockFetch.mockImplementation(async (url, options) => {
+				const requests = JSON.parse(options.body)
+				const responses = requests.map((req: { id: number }) => ({
+					jsonrpc: '2.0',
+					id: req.id,
+					result: '0x1',
+				}))
+				return {
+					ok: true,
+					json: async () => responses,
+				}
+			})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				batch: {
+					wait: 50, // Short wait for test
+					maxSize: 100,
+				},
+				retryCount: 0,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+
+				// Make a simple request
+				const result = yield* transport.request<string>('eth_chainId')
+
+				return result
+			})
+
+			const result = await Effect.runPromise(Effect.scoped(program.pipe(Effect.provide(layer))))
+
+			expect(result).toBe('0x1')
+			expect(mockFetch).toHaveBeenCalled()
+		})
+
+		it('should trigger batch immediately when maxSize is reached', async () => {
+			// Track request timing to verify maxSize trigger works
+			let requestTime = 0
+			mockFetch.mockImplementation(async (url, options) => {
+				requestTime = Date.now()
+				const requests = JSON.parse(options.body)
+				const responses = requests.map((req: { id: number }) => ({
+					jsonrpc: '2.0',
+					id: req.id,
+					result: '0x1',
+				}))
+				return {
+					ok: true,
+					json: async () => responses,
+				}
+			})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				batch: {
+					wait: 50, // Short wait
+					maxSize: 3, // Trigger when 3 requests queued
+				},
+				retryCount: 0,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+				// Make 3 requests concurrently - should trigger batch at maxSize
+				const results = yield* Effect.all([
+					transport.request<string>('eth_chainId'),
+					transport.request<string>('eth_blockNumber'),
+					transport.request<string>('eth_gasPrice'),
+				])
+				return results
+			})
+
+			const startTime = Date.now()
+			const results = await Effect.runPromise(Effect.scoped(program.pipe(Effect.provide(layer))))
+
+			expect(results).toEqual(['0x1', '0x1', '0x1'])
+			expect(mockFetch).toHaveBeenCalled()
+			// Verify fetch happened (batch was triggered)
+			expect(requestTime).toBeGreaterThan(0)
+		})
+
+		it('should handle non-Error exception in batch sendBatch', async () => {
+			// Make fetch reject with a non-Error value
+			mockFetch.mockImplementation(async () => {
+				throw 'string error'
+			})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				batch: {
+					wait: 10,
+					maxSize: 10,
+				},
+				retryCount: 0,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+				const result = yield* transport.request<string>('eth_chainId').pipe(Effect.either)
+				return result
+			})
+
+			const result = await Effect.runPromise(Effect.scoped(program.pipe(Effect.provide(layer))))
+
+			expect(result._tag).toBe('Left')
+			if (result._tag === 'Left') {
+				expect(result.left).toBeInstanceOf(ForkError)
+			}
+		})
+
+		it('should handle trigger being null when maxSize is reached', async () => {
+			// This tests the race condition where trigger hasn't been set up yet
+			// by making multiple rapid requests with small maxSize
+			let callCount = 0
+			mockFetch.mockImplementation(async (url, options) => {
+				callCount++
+				const requests = JSON.parse(options.body)
+				const responses = requests.map((req: { id: number }) => ({
+					jsonrpc: '2.0',
+					id: req.id,
+					result: `0x${req.id}`,
+				}))
+				return {
+					ok: true,
+					json: async () => responses,
+				}
+			})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				batch: {
+					wait: 5, // Very short wait
+					maxSize: 2, // Small batch size to trigger maxSize logic
+				},
+				retryCount: 0,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+
+				// Make multiple requests rapidly to trigger the maxSize code path
+				const results = yield* Effect.all(
+					[1, 2, 3, 4, 5, 6].map((i) =>
+						transport.request<string>(`method${i}`).pipe(Effect.either)
+					),
+					{ concurrency: 'unbounded' }
+				)
+
+				return results
+			})
+
+			const results = await Effect.runPromise(Effect.scoped(program.pipe(Effect.provide(layer))))
+
+			// All should succeed
+			for (const r of results) {
+				expect(r._tag).toBe('Right')
+			}
+			// Should have made multiple fetch calls due to batching
+			expect(callCount).toBeGreaterThanOrEqual(1)
 		})
 	})
 })

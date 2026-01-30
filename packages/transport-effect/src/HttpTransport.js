@@ -1,4 +1,4 @@
-import { Effect, Layer, Schedule, Duration } from 'effect'
+import { Effect, Layer, Schedule, Duration, Queue, Deferred, Ref, Chunk, Fiber } from 'effect'
 import { ForkError } from '@tevm/errors-effect'
 import { TransportService } from './TransportService.js'
 
@@ -10,6 +10,7 @@ import { TransportService } from './TransportService.js'
 /**
  * @typedef {import('./types.js').TransportShape} TransportShape
  * @typedef {import('./types.js').HttpTransportConfig} HttpTransportConfig
+ * @typedef {import('./types.js').BatchConfig} BatchConfig
  */
 
 /**
@@ -17,6 +18,15 @@ import { TransportService } from './TransportService.js'
  * @type {number}
  */
 const DEFAULT_TIMEOUT = 30000
+
+/**
+ * A pending batch request with its deferred result
+ * @typedef {Object} PendingRequest
+ * @property {number} id - The JSON-RPC request id
+ * @property {string} method - The RPC method
+ * @property {unknown[]} params - The RPC params
+ * @property {Deferred.Deferred<unknown, ForkError>} deferred - The deferred to resolve/reject
+ */
 
 /**
  * Checks if an error is a transient network error that should be retried.
@@ -67,6 +77,166 @@ const isRetryableError = (error) => {
 
 	// Do NOT retry semantic RPC errors (insufficient funds, nonce issues, revert, etc.)
 	return false
+}
+
+/**
+ * Creates a single request effect (non-batched behavior)
+ *
+ * @param {HttpTransportConfig} config - The transport configuration
+ * @param {number} timeout - Request timeout in milliseconds
+ * @param {Schedule.Schedule<unknown, ForkError>} retrySchedule - Retry schedule
+ * @returns {(method: string, params?: unknown[]) => Effect.Effect<unknown, ForkError>}
+ */
+const createSingleRequest = (config, timeout, retrySchedule) => {
+	return (method, params) => {
+		return Effect.tryPromise({
+			try: async () => {
+				const controller = new AbortController()
+				const timeoutId = setTimeout(() => controller.abort(), timeout)
+
+				try {
+					const response = await fetch(config.url, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							...config.headers,
+						},
+						body: JSON.stringify({
+							jsonrpc: '2.0',
+							id: Date.now(),
+							method,
+							params: params ?? [],
+						}),
+						signal: controller.signal,
+					})
+
+					if (!response.ok) {
+						throw new Error(`HTTP error: ${response.status} ${response.statusText}`)
+					}
+
+					const json = /** @type {{ result?: unknown; error?: { message: string; code: number } }} */ (
+						await response.json()
+					)
+
+					if (json.error) {
+						throw new Error(`RPC error: ${json.error.message} (code: ${json.error.code})`)
+					}
+
+					return json.result
+				} finally {
+					clearTimeout(timeoutId)
+				}
+			},
+			catch: (error) =>
+				new ForkError({
+					method,
+					cause: error instanceof Error ? error : new Error(String(error)),
+				}),
+		}).pipe(
+			Effect.retry({
+				schedule: retrySchedule,
+				while: isRetryableError,
+			})
+		)
+	}
+}
+
+/**
+ * Sends a batch of requests to the RPC endpoint and resolves each deferred
+ *
+ * @param {HttpTransportConfig} config - The transport configuration
+ * @param {number} timeout - Request timeout in milliseconds
+ * @param {PendingRequest[]} batch - The batch of pending requests (must be non-empty)
+ * @returns {Effect.Effect<void, never>}
+ */
+const sendBatch = (config, timeout, batch) => {
+	return Effect.gen(function* () {
+		const requests = batch.map((req) => ({
+			jsonrpc: '2.0',
+			id: req.id,
+			method: req.method,
+			params: req.params,
+		}))
+
+		const result = yield* Effect.tryPromise({
+			try: async () => {
+				const controller = new AbortController()
+				const timeoutId = setTimeout(() => controller.abort(), timeout)
+
+				try {
+					const response = await fetch(config.url, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							...config.headers,
+						},
+						body: JSON.stringify(requests),
+						signal: controller.signal,
+					})
+
+					if (!response.ok) {
+						throw new Error(`HTTP error: ${response.status} ${response.statusText}`)
+					}
+
+					const json = /** @type {Array<{ id: number; result?: unknown; error?: { message: string; code: number } }>} */ (
+						await response.json()
+					)
+
+					return json
+				} finally {
+					clearTimeout(timeoutId)
+				}
+			},
+			catch: (error) => (error instanceof Error ? error : new Error(String(error))),
+		}).pipe(Effect.either)
+
+		if (result._tag === 'Left') {
+			// All requests in the batch failed with a transport error
+			const error = result.left
+			for (const req of batch) {
+				yield* Deferred.fail(
+					req.deferred,
+					new ForkError({
+						method: req.method,
+						cause: error,
+					})
+				)
+			}
+			return
+		}
+
+		// Create a map of id -> response for fast lookup
+		const responses = result.right
+		/** @type {Map<number, { result?: unknown; error?: { message: string; code: number } }>} */
+		const responseMap = new Map()
+		for (const resp of responses) {
+			responseMap.set(resp.id, resp)
+		}
+
+		// Resolve each request with its corresponding response
+		for (const req of batch) {
+			const resp = responseMap.get(req.id)
+			if (!resp) {
+				yield* Deferred.fail(
+					req.deferred,
+					new ForkError({
+						method: req.method,
+						cause: new Error(`No response found for request id ${req.id}`),
+					})
+				)
+			} else if (resp.error) {
+				yield* Deferred.fail(
+					req.deferred,
+					new ForkError({
+						method: req.method,
+						cause: new Error(`RPC error: ${resp.error.message} (code: ${resp.error.code})`),
+					})
+				)
+			} else {
+				yield* Deferred.succeed(req.deferred, resp.result)
+			}
+		}
+	})
 }
 
 /**
@@ -125,6 +295,27 @@ const isRetryableError = (error) => {
  *   }
  * })
  * ```
+ *
+ * @example
+ * ```javascript
+ * // With batching enabled - requests are batched together
+ * const transport = HttpTransport({
+ *   url: 'https://mainnet.optimism.io',
+ *   batch: {
+ *     wait: 10,    // Wait 10ms to accumulate requests
+ *     maxSize: 20  // Send batch when 20 requests accumulated
+ *   }
+ * })
+ *
+ * // Multiple concurrent requests will be batched into a single HTTP call
+ * const [balance, code, nonce] = await Effect.runPromise(
+ *   Effect.all([
+ *     transport.request('eth_getBalance', [address, 'latest']),
+ *     transport.request('eth_getCode', [address, 'latest']),
+ *     transport.request('eth_getTransactionCount', [address, 'latest'])
+ *   ]).pipe(Effect.provide(transport))
+ * )
+ * ```
  */
 export const HttpTransport = (config) => {
 	const timeout = config.timeout ?? DEFAULT_TIMEOUT
@@ -135,60 +326,145 @@ export const HttpTransport = (config) => {
 		Schedule.compose(Schedule.recurs(retryCount))
 	)
 
-	return Layer.succeed(
+	// If no batch config, use simple Layer.succeed for non-batched transport
+	if (!config.batch) {
+		const singleRequest = createSingleRequest(config, timeout, retrySchedule)
+		return Layer.succeed(
+			TransportService,
+			/** @type {TransportShape} */ ({
+				request: singleRequest,
+			})
+		)
+	}
+
+	// Batched transport with proper resource management
+	const batchConfig = config.batch
+
+	return Layer.scoped(
 		TransportService,
-		/** @type {TransportShape} */ ({
-			request: (method, params) => {
-				return Effect.tryPromise({
-					try: async () => {
-						const controller = new AbortController()
-						const timeoutId = setTimeout(() => controller.abort(), timeout)
+		Effect.gen(function* () {
+			// Counter for unique request IDs
+			const idCounter = yield* Ref.make(0)
 
-						try {
-							const response = await fetch(config.url, {
-								method: 'POST',
-								headers: {
-									'Content-Type': 'application/json',
-									...config.headers,
-								},
-								body: JSON.stringify({
-									jsonrpc: '2.0',
-									id: Date.now(),
-									method,
-									params: params ?? [],
-								}),
-								signal: controller.signal,
-							})
+			// Queue to hold pending requests
+			/** @type {Queue.Queue<PendingRequest>} */
+			const pendingQueue = yield* Queue.unbounded()
 
-							if (!response.ok) {
-								throw new Error(`HTTP error: ${response.status} ${response.statusText}`)
-							}
+			// Deferred that is completed when a batch should be sent (by timer or maxSize)
+			/** @type {Ref.Ref<Deferred.Deferred<void, never> | null>} */
+			const batchTriggerRef = yield* Ref.make(/** @type {Deferred.Deferred<void, never> | null} */ (null))
 
-							const json = /** @type {{ result?: unknown; error?: { message: string; code: number } }} */ (
-								await response.json()
-							)
+			// Flag to track if we're shutting down (for batch processor loop termination)
+			const isShuttingDown = yield* Ref.make(false)
 
-							if (json.error) {
-								throw new Error(`RPC error: ${json.error.message} (code: ${json.error.code})`)
-							}
+			/**
+			 * Process and send the current batch of requests
+			 * @returns {Effect.Effect<void, never>}
+			 */
+			const processBatch = Effect.gen(function* () {
+				// Take all available requests from the queue (up to maxSize)
+				const batchChunk = yield* Queue.takeUpTo(pendingQueue, batchConfig.maxSize)
+				const batch = Chunk.toArray(batchChunk)
 
-							return json.result
-						} finally {
-							clearTimeout(timeoutId)
-						}
-					},
-					catch: (error) =>
-						new ForkError({
+				if (batch.length > 0) {
+					yield* sendBatch(config, timeout, batch)
+				}
+			})
+
+			// Start a background fiber that processes batches when triggered
+			const batchProcessor = Effect.gen(function* () {
+				while (true) {
+					// Check if we're shutting down
+					const shuttingDown = yield* Ref.get(isShuttingDown)
+					if (shuttingDown) {
+						// Process any remaining before exiting
+						yield* processBatch
+						return
+					}
+
+					// Create a new trigger deferred
+					const trigger = yield* Deferred.make()
+					yield* Ref.set(batchTriggerRef, trigger)
+
+					// Wait for either the trigger or a timeout
+					yield* Effect.race(Deferred.await(trigger), Effect.sleep(Duration.millis(batchConfig.wait)))
+
+					// Clear the trigger
+					yield* Ref.set(batchTriggerRef, null)
+
+					// Process the batch
+					yield* processBatch
+				}
+			})
+
+			// Fork the batch processor
+			const processorFiber = yield* Effect.fork(batchProcessor)
+
+			// Clean up function for layer teardown
+			yield* Effect.acquireRelease(Effect.void, () =>
+				Effect.gen(function* () {
+					// Mark as shutting down
+					yield* Ref.set(isShuttingDown, true)
+
+					// Trigger the processor to wake up and finish
+					const trigger = yield* Ref.get(batchTriggerRef)
+					if (trigger) {
+						yield* Deferred.succeed(trigger, undefined)
+					}
+
+					// Wait for processor to finish
+					yield* Fiber.join(processorFiber)
+
+					// Shutdown the queue
+					yield* Queue.shutdown(pendingQueue)
+				})
+			)
+
+			/** @type {TransportShape} */
+			const transport = {
+				request: (method, params) => {
+					return Effect.gen(function* () {
+						// Create unique ID for this request
+						const id = yield* Ref.updateAndGet(idCounter, (n) => n + 1)
+
+						// Create deferred for this request
+						/** @type {Deferred.Deferred<unknown, ForkError>} */
+						const deferred = yield* Deferred.make()
+
+						// Add to pending queue
+						/** @type {PendingRequest} */
+						const pendingRequest = {
+							id,
 							method,
-							cause: error instanceof Error ? error : new Error(String(error)),
-						}),
-				}).pipe(
-					Effect.retry({
-						schedule: retrySchedule,
-						while: isRetryableError,
-					})
-				)
-			},
+							params: params ?? [],
+							deferred,
+						}
+
+						// Add to pending queue
+						yield* Queue.offer(pendingQueue, pendingRequest)
+
+						// Check if we should trigger batch immediately (queue size >= maxSize)
+						const queueSize = yield* Queue.size(pendingQueue)
+						if (queueSize >= batchConfig.maxSize) {
+							// Trigger immediate batch processing
+							const trigger = yield* Ref.get(batchTriggerRef)
+							if (trigger) {
+								yield* Deferred.succeed(trigger, undefined)
+							}
+						}
+
+						// Wait for the result
+						return yield* Deferred.await(deferred)
+					}).pipe(
+						Effect.retry({
+							schedule: retrySchedule,
+							while: isRetryableError,
+						})
+					)
+				},
+			}
+
+			return transport
 		})
 	)
 }

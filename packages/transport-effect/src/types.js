@@ -9,6 +9,13 @@
  */
 
 /**
+ * Batch request configuration for HTTP transport
+ * @typedef {Object} BatchConfig
+ * @property {number} wait - Milliseconds to wait before sending batch (allows requests to accumulate)
+ * @property {number} maxSize - Maximum number of requests per batch
+ */
+
+/**
  * Transport configuration for HTTP-based transport
  * @typedef {Object} HttpTransportConfig
  * @property {string} url - The RPC endpoint URL
@@ -16,6 +23,7 @@
  * @property {number} [retryCount] - Number of retry attempts (default: 3)
  * @property {number} [retryDelay] - Base delay between retries in ms (default: 1000)
  * @property {Record<string, string>} [headers] - Custom HTTP headers
+ * @property {BatchConfig} [batch] - Batch configuration for combining multiple requests
  */
 
 /**
