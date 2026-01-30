@@ -55,13 +55,18 @@ export const TevmActionsLive = /** @type {Layer.Layer<import('./TevmActionsServi
 		const setAccountService = yield* SetAccountService
 
 		/**
-		 * Converts hex string to bytes
+		 * Converts hex string to bytes with validation
 		 * @param {string | undefined} hex
 		 * @returns {Uint8Array}
+		 * @throws {Error} If hex string contains invalid characters
 		 */
 		const hexToBytes = (/** @type {string | undefined} */ hex) => {
 			if (!hex || hex === '0x') return new Uint8Array()
 			const cleanHex = hex.startsWith('0x') ? hex.slice(2) : hex
+			// Validate hex characters before processing
+			if (!/^[0-9a-fA-F]*$/.test(cleanHex)) {
+				throw new Error(`Invalid hex string: contains non-hex characters in "${hex}"`)
+			}
 			const normalizedHex = cleanHex.length % 2 === 1 ? '0' + cleanHex : cleanHex
 			const bytes = new Uint8Array(normalizedHex.length / 2)
 			for (let i = 0; i < bytes.length; i++) {

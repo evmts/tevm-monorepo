@@ -21,7 +21,7 @@
 **Open Issues Summary:**
 - **CRITICAL**: 0
 - **HIGH**: 0 ✅ (Issue #69 resolved)
-- **MEDIUM**: 15 🟡 (Issue #73 resolved)
+- **MEDIUM**: 14 🟡 (Issues #73, #75 resolved)
 - **LOW**: 36 (+13 new from 95th review)
 
 ---
@@ -316,7 +316,7 @@ mine: (options = {}) =>
 ##### Issue #75: hexToBytes Silently Converts Invalid Hex to Zeros
 **File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:62-70` and `EthActionsLive.js:87-96`
 **Severity**: 🟡 MEDIUM
-**Status**: 🟡 NEW
+**Status**: ✅ FIXED
 
 **Problem**: The `hexToBytes` helper uses `parseInt(hex, 16)` which returns `NaN` for invalid hex characters. `NaN` gets coerced to `0` when stored in a Uint8Array, causing silent data corruption.
 
@@ -329,6 +329,8 @@ for (let i = 0; i < bytes.length; i++) {
 ```
 
 **Recommended Fix**: Add validation with `Number.isNaN(byte)` check.
+
+**Resolution**: Added regex validation (`/^[0-9a-fA-F]*$/`) before processing in both TevmActionsLive.js and EthActionsLive.js. Invalid hex now throws an Error instead of silently corrupting data. Added test for invalid hex handling. All 79 tests pass.
 
 ---
 

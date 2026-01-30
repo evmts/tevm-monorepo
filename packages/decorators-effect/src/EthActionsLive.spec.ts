@@ -552,6 +552,28 @@ describe('EthActionsLive', () => {
 			}
 		})
 
+		it('should handle invalid hex in data parameter', async () => {
+			const { layer, mocks } = createTestLayer()
+
+			// Make runCall throw due to invalid hex conversion
+			mocks.vm.vm.evm.runCall.mockImplementationOnce(() => {
+				throw new Error('Invalid hex')
+			})
+
+			const params = {
+				to: '0x1234567890123456789012345678901234567890' as `0x${string}`,
+				data: '0xZZZZ' as `0x${string}`, // Invalid hex characters
+			}
+
+			const program = Effect.gen(function* () {
+				const ethActions = yield* EthActionsService
+				return yield* ethActions.call(params)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+		})
+
 		it('should handle revert with empty return data', async () => {
 			const vmMock = createMockVm()
 			vmMock.vm.evm.runCall.mockResolvedValueOnce({
