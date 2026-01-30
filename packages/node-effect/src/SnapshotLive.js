@@ -164,8 +164,36 @@ export const SnapshotLive = () => {
 							const snapshots = yield* Ref.get(snapsRef)
 							const counter = yield* Ref.get(ctrRef)
 
-							// Create new Refs with copied values
-							const newSnapshotsRef = yield* Ref.make(new Map(snapshots))
+							// Deep copy the snapshots Map by copying each snapshot and its state
+							/** @type {Map<Hex, Snapshot>} */
+							const newSnapshots = new Map()
+							for (const [id, snapshot] of snapshots) {
+								// Deep copy the state object (TevmState = { [address]: AccountStorage })
+								/** @type {Record<string, any>} */
+								const newState = {}
+								for (const [address, accountStorage] of Object.entries(snapshot.state)) {
+									// Deep copy AccountStorage with bigint values preserved
+									newState[address] = {
+										nonce: accountStorage.nonce,
+										balance: accountStorage.balance,
+										storageRoot: accountStorage.storageRoot,
+										codeHash: accountStorage.codeHash,
+										...(accountStorage.deployedBytecode && { deployedBytecode: accountStorage.deployedBytecode }),
+										// Deep copy storage if present (StorageDump is { [slot]: value })
+										...(accountStorage.storage && {
+											storage: { ...accountStorage.storage },
+										}),
+									}
+								}
+								// Create new Snapshot with copied state
+								newSnapshots.set(id, {
+									stateRoot: snapshot.stateRoot,
+									state: newState,
+								})
+							}
+
+							// Create new Refs with deeply copied values
+							const newSnapshotsRef = yield* Ref.make(newSnapshots)
 							const newCounterRef = yield* Ref.make(counter)
 
 							// Return new shape

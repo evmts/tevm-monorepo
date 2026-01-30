@@ -9,10 +9,9 @@ import { SnapshotNotFoundError } from '@tevm/errors-effect'
  * Create a mock StateManagerService for testing.
  * This simulates state management behavior without real EVM state.
  */
-const createMockStateManagerLayer = () => {
+const createMockStateManagerLayer = (withStorage = false) => {
 	let currentStateRoot = new Uint8Array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31])
 	let stateVersion = 0
-	const stateData = new Map<string, unknown>()
 
 	return Layer.succeed(
 		StateManagerService,
@@ -24,7 +23,22 @@ const createMockStateManagerLayer = () => {
 			}),
 			dumpState: () => Effect.sync(() => {
 				stateVersion++
-				return { version: stateVersion, data: Object.fromEntries(stateData) }
+				// Return proper TevmState structure with AccountStorage
+				if (withStorage) {
+					return {
+						'0x1234567890123456789012345678901234567890': {
+							nonce: 1n,
+							balance: 1000000000000000000n,
+							storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421' as `0x${string}`,
+							codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470' as `0x${string}`,
+							deployedBytecode: '0x6080604052' as `0x${string}`,
+							storage: {
+								'0x0000000000000000000000000000000000000000000000000000000000000001': '0x0000000000000000000000000000000000000000000000000000000000000042'
+							}
+						}
+					}
+				}
+				return { version: stateVersion }
 			}),
 			loadState: () => Effect.sync(() => undefined),
 			getAccount: () => Effect.sync(() => undefined),
@@ -249,6 +263,83 @@ describe('SnapshotLive', () => {
 
 			const result = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
 			expect(result).toBe('0x3')
+		})
+
+		it('should deep copy snapshot state data - not share references', async () => {
+			const program = Effect.gen(function* () {
+				const snapshot = yield* SnapshotService
+				const snapshotId = yield* snapshot.takeSnapshot()
+
+				// Create deep copy
+				const copy = yield* snapshot.deepCopy()
+
+				// Get the snapshot from both original and copy
+				const originalSnapshot = yield* snapshot.getSnapshot(snapshotId)
+				const copiedSnapshot = yield* copy.getSnapshot(snapshotId)
+
+				// Verify both exist
+				if (!originalSnapshot || !copiedSnapshot) {
+					return { hasBoth: false, stateIsSameRef: true }
+				}
+
+				// Verify the state objects are NOT the same reference
+				const stateIsSameRef = originalSnapshot.state === copiedSnapshot.state
+
+				return { hasBoth: true, stateIsSameRef }
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
+			expect(result.hasBoth).toBe(true)
+			// The key test: state should NOT be the same reference after deep copy
+			expect(result.stateIsSameRef).toBe(false)
+		})
+
+		it('should deep copy AccountStorage including storage and deployedBytecode', async () => {
+			// Use mock with storage to test deep copy of AccountStorage fields
+			const layerWithStorage = Layer.provide(SnapshotLive(), createMockStateManagerLayer(true))
+
+			const program = Effect.gen(function* () {
+				const snapshot = yield* SnapshotService
+				const snapshotId = yield* snapshot.takeSnapshot()
+
+				// Create deep copy
+				const copy = yield* snapshot.deepCopy()
+
+				// Get the snapshot from both
+				const originalSnapshot = yield* snapshot.getSnapshot(snapshotId)
+				const copiedSnapshot = yield* copy.getSnapshot(snapshotId)
+
+				if (!originalSnapshot || !copiedSnapshot) {
+					return { hasBoth: false, accountsNotSameRef: false, storageNotSameRef: false }
+				}
+
+				const address = '0x1234567890123456789012345678901234567890'
+				const originalAccount = (originalSnapshot.state as Record<string, any>)[address]
+				const copiedAccount = (copiedSnapshot.state as Record<string, any>)[address]
+
+				if (!originalAccount || !copiedAccount) {
+					return { hasBoth: false, accountsNotSameRef: false, storageNotSameRef: false }
+				}
+
+				// Verify account objects are different references
+				const accountsNotSameRef = originalAccount !== copiedAccount
+				// Verify storage objects are different references
+				const storageNotSameRef = originalAccount.storage !== copiedAccount.storage
+
+				// Verify values are preserved
+				const valuesPreserved =
+					copiedAccount.nonce === 1n &&
+					copiedAccount.balance === 1000000000000000000n &&
+					copiedAccount.deployedBytecode === '0x6080604052'
+
+				return { hasBoth: true, accountsNotSameRef, storageNotSameRef, valuesPreserved }
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layerWithStorage)))
+			expect(result.hasBoth).toBe(true)
+			expect(result.accountsNotSameRef).toBe(true)
+			expect(result.storageNotSameRef).toBe(true)
+			expect(result.valuesPreserved).toBe(true)
 		})
 	})
 })

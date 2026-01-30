@@ -9,19 +9,19 @@
 
 ## Review Agent Summary (2026-01-29)
 
-**THIRTY-EIGHTH REVIEW COMPLETE.** Critical and medium bugs fixed in Phase 2 packages.
+**THIRTY-NINTH REVIEW COMPLETE.** Critical and medium bugs fixed in Phase 2 and Phase 3 packages.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
 | **Phase 1** | 🟢 NINETEENTH REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
 | **Phase 2** | 🟢 THIRTY-EIGHTH REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 211 | 100% | ✅ MOSTLY COMPLIANT |
-| **Phase 3** | 🟡 THIRTY-SEVENTH REVIEW | 1 (node-effect: 4 services) | 83 | 100% | ⚠️ HAS ISSUES |
+| **Phase 3** | 🟢 THIRTY-NINTH REVIEW | 1 (node-effect: 4 services) | 85 | 100% | ✅ MOSTLY COMPLIANT |
 | **Phase 4** | ⚪ NOT STARTED | 0 | - | - | - |
 
 **Open Issues Summary:**
 - **CRITICAL**: 0 (all resolved)
 - **HIGH**: 2 (transport-effect batch support feature gap; node-effect method naming mismatch with RFC)
-- **MEDIUM**: 18 (SnapshotLive shallow deepCopy, FilterLive TOCTOU race, etc.)
+- **MEDIUM**: 17 (FilterLive TOCTOU race, etc.)
 - **LOW**: 38 (minor enhancements, style, documentation)
 
 **✅ BUGS RESOLVED (2026-01-29 - THIRTY-EIGHTH REVIEW):**
@@ -30,9 +30,11 @@
 3. ✅ @tevm/vm-effect buildBlock return type - FIXED, now uses `Awaited<ReturnType<...>>` to correctly return `BlockBuilder` instead of `Promise<BlockBuilder>`.
 4. ✅ @tevm/blockchain-effect iterator swallows ALL errors - FIXED, now only catches block-not-found errors (UnknownBlock/UnknownBlockError) and re-throws all other errors.
 
+**✅ BUGS RESOLVED (2026-01-29 - THIRTY-NINTH REVIEW):**
+5. ✅ @tevm/node-effect SnapshotLive.deepCopy - FIXED, now properly deep copies each Snapshot's state including AccountStorage with bigint values, deployedBytecode, and storage. Added comprehensive test with 100% coverage.
+
 **🟡 REMAINING MEDIUM BUGS:**
-1. @tevm/node-effect SnapshotLive.deepCopy is shallow - Snapshot state data not deep copied
-2. @tevm/node-effect FilterLive TOCTOU race condition - read-check-write pattern not atomic
+1. @tevm/node-effect FilterLive TOCTOU race condition - read-check-write pattern not atomic
 
 **✅ Previously fixed: Phase 3.1 CRITICAL bug in SnapshotLive.js:134 (snapshotId property).**
 
