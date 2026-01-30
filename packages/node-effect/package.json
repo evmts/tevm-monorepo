@@ -1,0 +1,77 @@
+{
+	"name": "@tevm/node-effect",
+	"version": "1.0.0-next.148",
+	"private": false,
+	"description": "Effect.ts Node services for type-safe, composable Tevm node state management",
+	"keywords": [
+		"effect",
+		"tevm",
+		"node",
+		"ethereum",
+		"typescript"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/node-effect"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./types/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/index.d.ts",
+	"files": [
+		"dist",
+		"types",
+		"src"
+	],
+	"scripts": {
+		"all": "bun run lint && bun run format && bun run build:dist && bun run build:types && bun run test:run && bun run generate:docs",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/node-effect ",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "biome format . --write",
+		"format:check": "biome format .",
+		"generate:docs": "typedoc",
+		"lint": "biome check . --write --unsafe",
+		"lint:check": "biome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
+		"test": "vitest --coverage",
+		"test:coverage": "vitest run --coverage",
+		"test:run": "vitest run",
+		"test:ui": "vitest --ui"
+	},
+	"dependencies": {
+		"@tevm/errors-effect": "workspace:^",
+		"@tevm/state-effect": "workspace:^",
+		"effect": "3.18.1"
+	},
+	"devDependencies": {
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
+		"@tevm/utils": "workspace:^",
+		"@types/node": "^24.6.1"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

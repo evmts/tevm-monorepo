@@ -2216,6 +2216,31 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  packages/node-effect:
+    dependencies:
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      '@tevm/state-effect':
+        specifier: workspace:^
+        version: link:../state-effect
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
+
   packages/precompiles:
     dependencies:
       '@noble/curves':

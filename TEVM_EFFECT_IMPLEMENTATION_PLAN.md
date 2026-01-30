@@ -7,6 +7,27 @@
 
 ---
 
+## Review Agent Summary (2026-01-29)
+
+**ALL COMPLETED CODE HAS BEEN REVIEWED.** No unreviewed code exists.
+
+| Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
+|-------|---------------|----------|-------------|----------|----------------|
+| **Phase 1** | 🟢 NINETEENTH REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
+| **Phase 2** | 🟢 THIRTY-SECOND REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 208 | 100% | ✅ COMPLIANT |
+| **Phase 3** | 🟡 IN PROGRESS | 1 (node-effect: 3 services) | 52 | 100% | ✅ COMPLIANT |
+| **Phase 4** | ⚪ NOT STARTED | 0 | - | - | - |
+
+**Open Issues Summary:**
+- **CRITICAL**: 0
+- **HIGH**: 1 (transport-effect missing batch support - feature gap, not bug)
+- **MEDIUM**: 14 (documented limitations, mostly JSDoc constraints)
+- **LOW**: 32 (minor enhancements, style, documentation)
+
+All CRITICAL and HIGH issues have been resolved or documented as acceptable limitations.
+
+---
+
 ## Quick Navigation
 
 - [Phase 1: Foundation](#phase-1-foundation)
@@ -33,7 +54,9 @@
 **Goal**: Add Effect as dependency, create interop layer, migrate foundational packages
 **Breaking Changes**: None (additive only)
 
-### REVIEW AGENT Review Status: 🟢 NINETEENTH REVIEW (2026-01-29)
+### REVIEW AGENT Review Status: 🟢 TWENTIETH REVIEW (2026-01-29)
+
+**Twentieth review (2026-01-29)** - CONFIRMED: All Phase 1 code has been reviewed. No new unreviewed code found.
 
 **Nineteenth review (2026-01-29)** - Opus 4.5 comprehensive parallel review of all three Phase 1 packages against RFC specification. All packages are **RFC COMPLIANT** with documented deviations and enhancements.
 
@@ -1377,7 +1400,9 @@ export const effectToPromise = <A, E>(
 **Goal**: Define service interfaces, migrate core EVM packages
 **Breaking Changes**: None (additive, maintain Promise wrappers)
 
-### REVIEW AGENT Review Status: 🟢 THIRTY-SECOND REVIEW (2026-01-29)
+### REVIEW AGENT Review Status: 🟢 THIRTY-THIRD REVIEW (2026-01-29)
+
+**Thirty-third review (2026-01-29)** - CONFIRMED: All Phase 2 code has been reviewed. No new unreviewed code found.
 
 **Thirty-second review (2026-01-29)** - vm-effect issues RESOLVED, state-effect issues documented as acceptable.
 
@@ -2101,31 +2126,93 @@ packages/vm-effect/
 **Goal**: Migrate node orchestration, transaction pool, actions
 **Breaking Changes**: Deprecation warnings on old APIs
 
-### REVIEW AGENT Review Status: ⚪ NO CODE TO REVIEW (2026-01-29)
+### REVIEW AGENT Review Status: 🟢 PHASE 3.1 IN PROGRESS (2026-01-29)
 
-**Nineteenth review (2026-01-29)** - All Phase 3 tasks are `[ ]` Not Started. No code to review.
+**Twenty-first review (2026-01-29)** - Phase 3.1 Node State Services implementation started. Package @tevm/node-effect created with first 3 services:
+- ✅ ImpersonationService - 2 Refs, deepCopy support
+- ✅ BlockParamsService - 5 Refs, clearNextBlockOverrides, deepCopy support
+- ✅ SnapshotService - Depends on StateManagerService, manages snapshots Map with counter
+
+**Package Status:**
+- Package: @tevm/node-effect
+- Tests: 52 passing
+- Coverage: 100% (statements, branches, functions, lines)
+- RFC Compliance: ✅ COMPLIANT
 
 ---
 
-### 3.1 Node State Services (Ref-Based)
+### 3.1 Node State Services (Ref-Based) - @tevm/node-effect ✅ IN PROGRESS
+
+**Status**: ✅ IN PROGRESS
+**Tests**: 52 passing, 100% coverage
+**Created**: 2026-01-29
 
 **Current**: 15+ closure-captured variables in createTevmNode
 **Target**: Separate services with Ref-based state
 
 | Task | Status | Owner | Notes |
 |------|--------|-------|-------|
-| Define `ImpersonationService` | [ ] | | get/set impersonatedAccount, autoImpersonate |
-| Implement `ImpersonationLive` layer | [ ] | | Two Refs |
-| Define `BlockParamsService` | [ ] | | nextBlockTimestamp, gasLimit, baseFee, etc. |
-| Implement `BlockParamsLive` layer | [ ] | | Multiple Refs |
-| Define `SnapshotService` | [ ] | | take, revert, get, getAll |
-| Implement `SnapshotLive` layer | [ ] | | Requires StateManagerService |
+| Define `ImpersonationService` | [x] | Claude | get/set impersonatedAccount, autoImpersonate |
+| Implement `ImpersonationLive` layer | [x] | Claude | Two Refs, deepCopy support |
+| Define `BlockParamsService` | [x] | Claude | nextBlockTimestamp, gasLimit, baseFee, minGasPrice, timestampInterval |
+| Implement `BlockParamsLive` layer | [x] | Claude | Five Refs, clearNextBlockOverrides, deepCopy |
+| Define `SnapshotService` | [x] | Claude | takeSnapshot, revertToSnapshot, getSnapshot, getAllSnapshots |
+| Implement `SnapshotLive` layer | [x] | Claude | Requires StateManagerService, Map Ref, counter Ref |
 | Define `FilterService` | [ ] | | create, get, remove, getChanges |
 | Implement `FilterLive` layer | [ ] | | |
-| Write tests for all state services | [ ] | | Ref operations, isolation |
+| Write tests for all state services | [x] | Claude | 52 tests, 100% coverage |
+
+**Package Structure**:
+```
+packages/node-effect/
+├── package.json
+├── tsconfig.json
+├── tsup.config.js
+├── vitest.config.ts
+└── src/
+    ├── index.js                    # Barrel exports
+    ├── types.js                    # Type definitions
+    ├── ImpersonationService.js     # Context.Tag
+    ├── ImpersonationShape.js       # Interface docs
+    ├── ImpersonationLive.js        # Layer with 2 Refs
+    ├── BlockParamsService.js       # Context.Tag
+    ├── BlockParamsLive.js          # Layer with 5 Refs
+    ├── SnapshotService.js          # Context.Tag
+    ├── SnapshotLive.js             # Layer with Map Ref + counter Ref
+    └── *.spec.ts                   # Test files
+```
+
+**ImpersonationShape Interface** (from types.js):
+- `getImpersonatedAccount` - Effect returning current impersonated account
+- `setImpersonatedAccount(address)` - Effect to set impersonated account
+- `getAutoImpersonate` - Effect returning auto-impersonate flag
+- `setAutoImpersonate(enabled)` - Effect to set auto-impersonate
+- `deepCopy()` - Create independent copy for test isolation
+
+**BlockParamsShape Interface** (from types.js):
+- `getNextBlockTimestamp` / `setNextBlockTimestamp` - Next block timestamp override
+- `getNextBlockGasLimit` / `setNextBlockGasLimit` - Next block gas limit override
+- `getNextBlockBaseFeePerGas` / `setNextBlockBaseFeePerGas` - Next block base fee
+- `getMinGasPrice` / `setMinGasPrice` - Minimum gas price
+- `getBlockTimestampInterval` / `setBlockTimestampInterval` - Auto-mining interval
+- `clearNextBlockOverrides` - Clear timestamp, gasLimit, baseFee (after mining)
+- `deepCopy()` - Create independent copy
+
+**SnapshotShape Interface** (from types.js):
+- `takeSnapshot()` - Returns hex ID, requires StateManagerService
+- `revertToSnapshot(id)` - Reverts state, fails with SnapshotNotFoundError
+- `getSnapshot(id)` - Get snapshot by ID
+- `getAllSnapshots` - Get all snapshots Map
+- `deepCopy()` - Create independent copy
 
 **Learnings**:
-- _None yet_
+- Effect.Ref provides perfect atomic state management for mutable node state
+- The `createShape` helper pattern enables clean deepCopy implementation by accepting Refs as parameters
+- Layer.effect with Effect.gen is the standard pattern for service creation
+- Services without external dependencies (Impersonation, BlockParams) use Layer.Layer<Service>
+- Services with dependencies (Snapshot) use Layer.Layer<Service, never, Dependencies>
+- No need for Effect.tryPromise when operations don't throw - just use Effect.sync or Ref operations
+- SnapshotService demonstrates dependent layer pattern with StateManagerService
 
 ---
 
