@@ -501,6 +501,56 @@ describe('TevmActionsLive', () => {
 		expect(mocks.stateManager.loadState).toHaveBeenCalled()
 	})
 
+	it('should handle loadState with missing nonce/balance fields (Issue #76)', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		// State with missing nonce and balance - should use defaults
+		const stateJson = JSON.stringify({
+			'0x1234567890123456789012345678901234567890': {
+				// No nonce or balance - should default to 0
+				storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+				codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
+			},
+		})
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.loadState(stateJson)
+		})
+
+		await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(mocks.stateManager.loadState).toHaveBeenCalled()
+		const loadedState = mocks.stateManager.loadState.mock.calls[0][0]
+		// Verify defaults were applied
+		expect(loadedState['0x1234567890123456789012345678901234567890'].nonce).toBe(0n)
+		expect(loadedState['0x1234567890123456789012345678901234567890'].balance).toBe(0n)
+	})
+
+	it('should handle loadState with missing storageRoot/codeHash fields', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		// State with only nonce and balance - should use default hashes
+		const stateJson = JSON.stringify({
+			'0x1234567890123456789012345678901234567890': {
+				nonce: '0x1',
+				balance: '0x100',
+				// No storageRoot or codeHash - should use defaults
+			},
+		})
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.loadState(stateJson)
+		})
+
+		await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(mocks.stateManager.loadState).toHaveBeenCalled()
+		const loadedState = mocks.stateManager.loadState.mock.calls[0][0]
+		// Verify defaults were applied for hashes
+		expect(loadedState['0x1234567890123456789012345678901234567890'].storageRoot).toBe('0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421')
+		expect(loadedState['0x1234567890123456789012345678901234567890'].codeHash).toBe('0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470')
+	})
+
 	it('should dump state with deployedBytecode and storage', async () => {
 		const vmMock = createMockVm()
 		const stateManagerMock = createMockStateManager()

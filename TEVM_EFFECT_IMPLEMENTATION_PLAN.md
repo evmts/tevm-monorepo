@@ -21,7 +21,7 @@
 **Open Issues Summary:**
 - **CRITICAL**: 0
 - **HIGH**: 0 ✅ (Issue #69 resolved)
-- **MEDIUM**: 14 🟡 (Issues #73, #75 resolved)
+- **MEDIUM**: 13 🟡 (Issues #73, #75, #76 resolved)
 - **LOW**: 36 (+13 new from 95th review)
 
 ---
@@ -337,7 +337,7 @@ for (let i = 0; i < bytes.length; i++) {
 ##### Issue #76: loadState Throws on Undefined nonce/balance
 **File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:218-228`
 **Severity**: 🟡 MEDIUM
-**Status**: 🟡 NEW
+**Status**: ✅ FIXED
 
 **Problem**: When deserializing state JSON, if an account is missing `nonce` or `balance` fields, `BigInt(undefined)` throws a TypeError instead of gracefully handling the missing values.
 
@@ -349,6 +349,8 @@ tevmState[address] = {
 ```
 
 **Recommended Fix**: Use default values: `BigInt(acct.nonce ?? '0x0')`.
+
+**Resolution**: Added nullish coalescing operators for all account fields: nonce and balance default to '0x0', storageRoot and codeHash default to empty trie/code hashes. Added 2 new tests for missing fields scenarios. All 81 tests pass.
 
 ---
 

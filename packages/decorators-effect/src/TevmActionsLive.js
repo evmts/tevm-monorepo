@@ -221,12 +221,13 @@ export const TevmActionsLive = /** @type {Layer.Layer<import('./TevmActionsServi
 					/** @type {Record<string, {nonce: bigint, balance: bigint, storageRoot: string, codeHash: string, deployedBytecode?: string, storage?: Record<string, string>}>} */
 					const tevmState = {}
 					for (const [address, account] of Object.entries(serializedState)) {
-						const acct = /** @type {{nonce: string, balance: string, storageRoot: string, codeHash: string, deployedBytecode?: string, storage?: Record<string, string>}} */ (account)
+						const acct = /** @type {{nonce?: string, balance?: string, storageRoot?: string, codeHash?: string, deployedBytecode?: string, storage?: Record<string, string>}} */ (account)
 						tevmState[address] = {
-							nonce: BigInt(acct.nonce),
-							balance: BigInt(acct.balance),
-							storageRoot: acct.storageRoot,
-							codeHash: acct.codeHash,
+							// Use default values if nonce/balance are undefined (Issue #76 fix)
+							nonce: BigInt(acct.nonce ?? '0x0'),
+							balance: BigInt(acct.balance ?? '0x0'),
+							storageRoot: acct.storageRoot ?? '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+							codeHash: acct.codeHash ?? '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
 							...(acct.deployedBytecode && { deployedBytecode: acct.deployedBytecode }),
 							...(acct.storage && { storage: acct.storage }),
 						}
