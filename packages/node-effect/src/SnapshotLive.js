@@ -132,6 +132,7 @@ export const SnapshotLive = () => {
 							if (!snapshot) {
 								return yield* Effect.fail(
 									new SnapshotNotFoundError({
+										snapshotId: id,
 										message: `Snapshot with id ${id} not found`,
 									}),
 								)

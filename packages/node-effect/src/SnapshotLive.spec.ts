@@ -149,6 +149,23 @@ describe('SnapshotLive', () => {
 			}
 		})
 
+		it('should set snapshotId property on SnapshotNotFoundError', async () => {
+			const targetSnapshotId = '0x999'
+			const program = Effect.gen(function* () {
+				const snapshot = yield* SnapshotService
+				yield* snapshot.revertToSnapshot(targetSnapshotId)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(fullLayer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as SnapshotNotFoundError
+				expect(error._tag).toBe('SnapshotNotFoundError')
+				expect(error.snapshotId).toBe(targetSnapshotId)
+				expect(error.message).toContain(targetSnapshotId)
+			}
+		})
+
 		it('should revert to existing snapshot', async () => {
 			const program = Effect.gen(function* () {
 				const snapshot = yield* SnapshotService

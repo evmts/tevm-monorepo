@@ -4,8 +4,8 @@
  *
  * This package provides Effect-based services for managing Tevm node state, including:
  * - ImpersonationService - Account impersonation state management
- * - BlockParamsService - Block parameter overrides (coming soon)
- * - SnapshotService - EVM state snapshots (coming soon)
+ * - BlockParamsService - Block parameter overrides
+ * - SnapshotService - EVM state snapshots
  *
  * All services use Effect Refs for type-safe, composable state management.
  *
@@ -42,10 +42,10 @@
 export { ImpersonationService } from './ImpersonationService.js'
 export { ImpersonationLive } from './ImpersonationLive.js'
 
-// Block Params Service (to be implemented)
+// Block Params Service
 export { BlockParamsService } from './BlockParamsService.js'
 export { BlockParamsLive } from './BlockParamsLive.js'
 
-// Snapshot Service (to be implemented)
+// Snapshot Service
 export { SnapshotService } from './SnapshotService.js'
 export { SnapshotLive } from './SnapshotLive.js'
