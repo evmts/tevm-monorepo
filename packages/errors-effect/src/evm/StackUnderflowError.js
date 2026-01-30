@@ -1,0 +1,65 @@
+import { Data } from 'effect'
+
+/**
+ * TaggedError representing a stack underflow error during EVM execution.
+ *
+ * This error occurs when an operation tries to pop from an empty stack.
+ *
+ * @example
+ * ```typescript
+ * import { StackUnderflowError } from '@tevm/errors-effect'
+ * import { Effect } from 'effect'
+ *
+ * const program = Effect.gen(function* () {
+ *   yield* Effect.fail(new StackUnderflowError())
+ * })
+ *
+ * // Pattern matching
+ * Effect.catchTag('StackUnderflowError', (error) => {
+ *   console.log('Stack underflow occurred')
+ * })
+ * ```
+ */
+export class StackUnderflowError extends Data.TaggedError('StackUnderflowError') {
+	/**
+	 * JSON-RPC error code for execution error
+	 * @type {number}
+	 */
+	static code = -32015
+
+	/**
+	 * Path to documentation for this error
+	 * @type {string}
+	 */
+	static docsPath = '/reference/tevm/errors/classes/stackunderflowerror/'
+
+	/**
+	 * Human-readable error message
+	 * @type {string}
+	 */
+	message
+
+	/**
+	 * JSON-RPC error code
+	 * @type {number}
+	 */
+	code
+
+	/**
+	 * Path to documentation
+	 * @type {string}
+	 */
+	docsPath
+
+	/**
+	 * Constructs a new StackUnderflowError
+	 * @param {Object} props - Error properties
+	 * @param {string} [props.message] - Optional custom message
+	 */
+	constructor(props = {}) {
+		super()
+		this.message = props.message ?? 'Stack underflow error occurred.'
+		this.code = StackUnderflowError.code
+		this.docsPath = StackUnderflowError.docsPath
+	}
+}
