@@ -9,13 +9,13 @@
 
 ## Review Agent Summary (2026-01-29)
 
-**FORTY-EIGHTH REVIEW COMPLETE.** All FilterLive deepCopy bugs FIXED. 89 tests passing with 100% coverage.
+**FORTY-NINTH REVIEW COMPLETE.** Started @tevm/actions-effect package (Phase 3.6). 107 tests total, 100% coverage.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟢 FORTY-EIGHTH REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
-| **Phase 2** | 🟢 FORTY-EIGHTH REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | ✅ COMPLIANT |
-| **Phase 3** | 🟢 FORTY-EIGHTH REVIEW | 1 (node-effect: 4 services) | 89 | 100% | ✅ COMPLIANT |
+| **Phase 1** | 🟢 FORTY-NINTH REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
+| **Phase 2** | 🟢 FORTY-NINTH REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | ✅ COMPLIANT |
+| **Phase 3** | 🟡 FORTY-NINTH REVIEW | 2 (node-effect, actions-effect) | 107 | 100% | ⚠️ IN PROGRESS |
 | **Phase 4** | ⚪ NOT STARTED | 0 | - | - | - |
 
 **Open Issues Summary:**
@@ -2295,11 +2295,58 @@ packages/vm-effect/
 **Goal**: Migrate node orchestration, transaction pool, actions
 **Breaking Changes**: Deprecation warnings on old APIs
 
-### REVIEW AGENT Review Status: 🔴 FORTY-SEVENTH REVIEW (2026-01-29)
+### REVIEW AGENT Review Status: 🟡 FORTY-NINTH REVIEW (2026-01-29)
 
-**Forty-seventh review (2026-01-29)** - Opus 4.5 parallel researcher subagent deep code verification. **FINDING (NOW RESOLVED):** Prior reviews (41st, 46th) INCORRECTLY marked FilterLive deepCopy bugs as fixed. All 3 bugs were STILL PRESENT in the code. **FIXED in 48th review.**
+**Forty-ninth review (2026-01-29)** - Opus 4.5 parallel researcher subagent deep code verification. Verified all prior fixes are correct. Found **7 NEW issues** (0 CRITICAL, 0 HIGH, 3 MEDIUM, 4 LOW).
 
 **Cross-Package Status Summary:**
+- @tevm/transport-effect: ⚠️ HAS ISSUES (1 MEDIUM: retry on batched requests may orphan deferreds)
+- @tevm/node-effect: ⚠️ HAS ISSUES (2 MEDIUM: tx/blocks shallow copy, unbounded snapshot memory)
+- @tevm/state-effect: ✅ COMPLIANT (1 LOW: duplicate helper, 1 LOW: unused import)
+- @tevm/vm-effect: ⚠️ HAS ISSUES (1 MEDIUM: ready/deepCopy use Effect.promise not tryPromise)
+- @tevm/blockchain-effect: ✅ COMPLIANT (1 LOW: fragile string matching)
+
+---
+
+#### FORTY-NINTH REVIEW - NEW ISSUES FOUND (2026-01-29)
+
+##### @tevm/transport-effect - NEW ISSUES
+
+| Issue | Severity | File:Line | Status | Notes |
+|-------|----------|-----------|--------|-------|
+| **Retry on batched requests may orphan deferreds** | **MEDIUM** | HttpTransport.js:458-462 | 🔴 Open | Retry logic wraps entire request effect including queue add + deferred await. If batch fails with retryable error, retry adds NEW request to queue while original deferred is never resolved. Could cause memory growth and orphaned deferreds. |
+| Queue size race after offer | **LOW** | HttpTransport.js:444-454 | ⚠️ Acceptable | Minor race between offer and size check. Only affects timing optimization, not correctness. |
+| Trigger null window in processor loop | **LOW** | HttpTransport.js:390-396 | ⚠️ Acceptable | Small window where batchTriggerRef is null. Requests may wait for next cycle timer. Minor latency impact. |
+
+##### @tevm/node-effect - NEW ISSUES
+
+| Issue | Severity | File:Line | Status | Notes |
+|-------|----------|-----------|--------|-------|
+| **tx/blocks shallow copy may be incomplete** | **MEDIUM** | FilterLive.js:349-350 | 🔴 Open | `tx.map(t => ({...t}))` and `blocks.map(b => ({...b}))` only perform one-level deep copy. If tx/block objects have nested arrays/objects, they remain shared between original and copy. |
+| **Topics type definition incomplete** | **LOW** | types.js:116 | 🔴 Open | Type says `Hex \| Hex[]` but per Ethereum eth_newFilter spec, should be `Array<Hex \| Hex[] \| null>` (positional topic matching). Code is correct, type is incomplete. |
+| registeredListeners shared refs | **LOW** | FilterLive.js:351 | ⚠️ Acceptable | Function references shared between original and copy. Likely intentional - listeners apply to both. |
+| **Unbounded snapshot memory growth** | **MEDIUM** | SnapshotLive.js:113-120 | 🔴 Open | No limit on snapshots. Each stores full TevmState dump. Cleaned only on revert. Long-running apps could accumulate significant memory. Consider max limit or LRU eviction. |
+| Counter overflow (theoretical) | **VERY LOW** | SnapshotLive.js:89,105 | ⚠️ Acceptable | Would require 2^53 snapshots. No action needed. |
+
+##### @tevm/vm-effect - NEW ISSUES
+
+| Issue | Severity | File:Line | Status | Notes |
+|-------|----------|-----------|--------|-------|
+| **ready/deepCopy use Effect.promise not Effect.tryPromise** | **MEDIUM** | VmLive.js:101,103-107 | 🔴 Open | If operations fail, error thrown as untyped "defect" rather than typed VmError. Should use `Effect.tryPromise({ try: ..., catch: mapEvmError })` for consistency with runTx/runBlock. |
+| ready type signature missing error channel | **LOW** | types.js:25 | 🔴 Open | Signature shows `Effect<void>` with no error, but underlying could reject. Inconsistent with other methods. |
+| deepCopy type signature missing error channel | **LOW** | types.js:26 | 🔴 Open | Same issue - no error in signature but operation could fail. |
+
+##### @tevm/state-effect - NEW ISSUES
+
+| Issue | Severity | File:Line | Status | Notes |
+|-------|----------|-----------|--------|-------|
+| Unused EthjsAddress import | **LOW** | StateManagerLocal.js:6, StateManagerLive.js:7 | 🔴 Open | `EthjsAddress` imported but never used as value. Only type reference uses `import()` syntax. |
+
+---
+
+**Previous: Forty-seventh review (2026-01-29)** - Opus 4.5 parallel researcher subagent deep code verification. **FINDING (NOW RESOLVED):** Prior reviews (41st, 46th) INCORRECTLY marked FilterLive deepCopy bugs as fixed. All 3 bugs were STILL PRESENT in the code. **FIXED in 48th review.**
+
+**Prior Cross-Package Status Summary:**
 - @tevm/transport-effect: ✅ COMPLIANT (batch support, Layer.scoped both working)
 - @tevm/node-effect: ✅ **COMPLIANT** (FilterLive deepCopy bugs FIXED in 48th review)
 - @tevm/state-effect: ✅ COMPLIANT (1 LOW: duplicate helper)
@@ -2386,24 +2433,41 @@ packages/vm-effect/
 
 ---
 
-**Status Summary (FORTY-SEVENTH REVIEW - 2026-01-29):**
+**Status Summary (FORTY-NINTH REVIEW - 2026-01-29):**
 
 | Package | CRITICAL | HIGH | MEDIUM | LOW | Total Open | Tests | Coverage | RFC Compliance |
 |---------|----------|------|--------|-----|------------|-------|----------|----------------|
-| @tevm/transport-effect | 0 | 0 | 0 | 0 | 0 | 68 | 100% | ✅ COMPLIANT |
-| @tevm/node-effect | 0 | 0 | 0 | 2 | 2 | 89 | 100% | ✅ COMPLIANT |
-| @tevm/state-effect | 0 | 0 | 0 | 1 | 1 | 36 | 100% | ✅ COMPLIANT |
-| @tevm/vm-effect | 0 | 0 | 0 | 1 | 1 | 17 | 100% | ✅ COMPLIANT |
+| @tevm/transport-effect | 0 | 0 | 1 | 2 | 3 | 68 | 100% | ⚠️ HAS ISSUES |
+| @tevm/node-effect | 0 | 0 | 2 | 3 | 5 | 89 | 100% | ⚠️ HAS ISSUES |
+| @tevm/state-effect | 0 | 0 | 0 | 2 | 2 | 36 | 100% | ✅ COMPLIANT |
+| @tevm/vm-effect | 0 | 0 | 1 | 3 | 4 | 17 | 100% | ⚠️ HAS ISSUES |
 | @tevm/blockchain-effect | 0 | 0 | 0 | 1 | 1 | 37 | 100% | ✅ COMPLIANT |
-| **TOTAL** | **0** | **0** | **3** | **5** | **8** | **243** | **100%** | ⚠️ HAS BUGS |
+| **TOTAL** | **0** | **0** | **4** | **11** | **15** | **247** | **100%** | ⚠️ HAS ISSUES |
 
-**✅ RESOLVED BUGS (FORTY-EIGHTH REVIEW) - FilterLive deepCopy:**
+**🔴 NEW ISSUES FOUND (FORTY-NINTH REVIEW):**
 
-1. ✅ **FIXED** @tevm/node-effect FilterLive.js:334 - Address now passed through unchanged (not spread)
-2. ✅ **FIXED** @tevm/node-effect FilterLive.js:338-342 - topics checked with Array.isArray before .map()
-3. ✅ **FIXED** @tevm/node-effect FilterLive.js:348 - log.topics deep copied with `{ ...log, topics: [...log.topics] }`
+| # | Severity | Package | Issue | File:Line |
+|---|----------|---------|-------|-----------|
+| 1 | **MEDIUM** | transport-effect | Retry on batched requests may orphan deferreds | HttpTransport.js:458-462 |
+| 2 | **MEDIUM** | node-effect | tx/blocks shallow copy may be incomplete for nested objects | FilterLive.js:349-350 |
+| 3 | **MEDIUM** | node-effect | Unbounded snapshot memory growth (no limit, no LRU) | SnapshotLive.js:113-120 |
+| 4 | **MEDIUM** | vm-effect | ready/deepCopy use Effect.promise not Effect.tryPromise (untyped defects) | VmLive.js:101,103-107 |
+| 5 | **LOW** | node-effect | Topics type definition incomplete in types.js | types.js:116 |
+| 6 | **LOW** | vm-effect | ready type signature missing error channel | types.js:25 |
+| 7 | **LOW** | vm-effect | deepCopy type signature missing error channel | types.js:26 |
+| 8 | **LOW** | state-effect | Unused EthjsAddress import | StateManagerLocal.js:6, StateManagerLive.js:7 |
 
-**🟡 REMAINING OPEN ISSUES (FORTY-SEVENTH REVIEW):**
+**✅ VERIFIED CORRECT (FORTY-NINTH REVIEW):**
+1. ✅ FilterLive deepCopy 3 bugs FIXED - address, topics Array.isArray check, log.topics deep copy all correct
+2. ✅ SnapshotLive deepCopy properly deep copies AccountStorage with nested storage objects
+3. ✅ transport-effect batch support with Layer.scoped, Queue/Deferred pattern correct
+4. ✅ transport-effect isRetryableError correctly distinguishes network vs semantic errors
+5. ✅ state-effect toEthjsAddress helper correctly checks `typeof === 'string'`
+6. ✅ state-effect setStateRoot includes stateRoot property in StateRootNotFoundError
+7. ✅ vm-effect buildBlock return type uses `Awaited<ReturnType<...>>` correctly
+8. ✅ vm-effect VmError type properly exported from index.js
+
+**🟡 PREVIOUSLY KNOWN OPEN ISSUES (from prior reviews):**
 
 1. **MEDIUM** @tevm/node-effect - SnapshotShape method naming differs from RFC (intentional deviation)
 2. **LOW** @tevm/state-effect - Duplicate toEthjsAddress helper in both Local/Live files
@@ -2412,30 +2476,25 @@ packages/vm-effect/
 5. **LOW** @tevm/blockchain-effect - Iterator uses fragile string matching for error detection
 6. **LOW** @tevm/node-effect - SnapshotLive revertToSnapshot has potential TOCTOU (lower severity)
 
-**✅ VERIFIED WORKING (FORTY-SEVENTH REVIEW):**
-1. ✅ SnapshotLive deepCopy properly deep copies Snapshot state with nested AccountStorage objects
-2. ✅ FilterLive TOCTOU race condition - All 6 methods use `Ref.modify` for atomic operations
-3. ✅ state-effect Address type handling with `toEthjsAddress` helper
-4. ✅ state-effect setStateRoot includes stateRoot property in error
-5. ✅ vm-effect buildBlock return type uses `Awaited<ReturnType<...>>`
-6. ✅ blockchain-effect iterator catches only block-not-found errors, re-throws others (with fragile string matching noted)
-7. ✅ transport-effect retry logic only retries network/timeout errors
-8. ✅ transport-effect batch support uses Layer.scoped with Effect.acquireRelease
-9. ✅ transport-effect ForkConfigFromRpc BigInt parsing wrapped in Effect.try
-
 **Acceptable Deviations:**
 1. **MEDIUM**: Method names differ from RFC (`takeSnapshot`/`revertToSnapshot` vs `take`/`revert`) - More explicit naming
 2. **LOW**: FilterShape uses typed `createLogFilter/createBlockFilter/createPendingTransactionFilter` instead of RFC's single `create(params)` - Better type safety
+3. **LOW**: registeredListeners shared refs in FilterLive deepCopy - likely intentional, listeners apply to both copies
+4. **LOW**: Queue size race / trigger null window in HttpTransport - minor timing, not correctness issues
 
-**Action Items (FORTY-FIFTH REVIEW) - UPDATED 48TH REVIEW:**
-1. ✅ **FIXED**: FilterLive deepCopy handles `address` as Hex string not array
-2. ✅ **FIXED**: FilterLive deepCopy checks if `topics` is array before calling `.map()`
-3. ✅ **FIXED**: FilterLive deepCopy deep copies `log.topics` array: `logs.map((log) => ({ ...log, topics: [...log.topics] }))`
-4. **LOW**: Extract duplicate `toEthjsAddress` to shared utility file
-5. **LOW**: Remove unused `loggingEnabled` option from VmLiveOptions or implement it
+**Action Items (FORTY-NINTH REVIEW):**
+1. **MEDIUM**: Fix retry logic in HttpTransport batched requests - move retry to sendBatch or cleanup original deferred before retry
+2. **MEDIUM**: Consider deeper recursive copy for tx/blocks in FilterLive.deepCopy if they contain nested mutable objects
+3. **MEDIUM**: Add snapshot limit or LRU eviction to SnapshotLive to prevent unbounded memory growth
+4. **MEDIUM**: Change VmLive ready/deepCopy to use Effect.tryPromise with mapEvmError for typed error handling
+5. **LOW**: Update types.js:116 topics type to `Array<Hex | Hex[] | null>` per Ethereum spec
+6. **LOW**: Add error channel to VmShape ready/deepCopy type signatures
+7. **LOW**: Remove unused EthjsAddress import in state-effect
+8. **LOW**: Extract duplicate toEthjsAddress to shared utility file
+9. **LOW**: Remove unused loggingEnabled option from VmLiveOptions or implement it
 
 **Phase 3.1 Status:**
-All 4 Node State Services implemented. All FilterLive deepCopy bugs FIXED (48th review). 89 tests passing, 100% coverage.
+All 4 Node State Services implemented. All FilterLive deepCopy bugs from 48th review VERIFIED FIXED. 4 new MEDIUM issues found in 49th review. 89 tests passing, 100% coverage.
 
 ---
 
@@ -2630,14 +2689,20 @@ packages/node-effect/
 
 ---
 
-### 3.6 @tevm/actions Migration
+### 3.6 @tevm/actions-effect (NEW PACKAGE)
 
-**Current**: 5k LOC, all action handlers
-**Target**: Effect-based action functions
+**Current**: 5k LOC, all action handlers in @tevm/actions
+**Target**: Effect-based action services in @tevm/actions-effect
 
 | Task | Status | Owner | Notes |
 |------|--------|-------|-------|
-| Create action Effect wrappers pattern | [ ] | | Reusable template |
+| Create @tevm/actions-effect package scaffold | [x] | Claude | package.json, tsconfig, vitest.config, tsup.config created |
+| Create action Effect services pattern | [x] | Claude | GetAccountService + GetAccountLive establishes the pattern |
+| Migrate `getAccount` handler | [x] | Claude | 18 tests, 100% coverage |
+| Migrate `setAccount` handler | [ ] | | |
+| Migrate `call` handler | [ ] | | Core action |
+| Migrate `contract` handler | [ ] | | Uses call internally |
+| Migrate `deploy` handler | [ ] | | Uses call internally |
 | Migrate `eth_call` handler | [ ] | | |
 | Migrate `eth_sendTransaction` handler | [ ] | | |
 | Migrate `eth_getBalance` handler | [ ] | | |
@@ -2647,11 +2712,14 @@ packages/node-effect/
 | Migrate debug_* handlers | [ ] | | |
 | Migrate anvil_* handlers | [ ] | | |
 | Migrate tevm_* handlers | [ ] | | |
-| Keep Promise-based exports | [ ] | | Backward compat |
-| Write tests for migrated actions | [ ] | | |
+| Write tests for migrated actions | [~] | Claude | 18 tests for getAccount, more needed |
 
 **Learnings**:
-- _None yet_
+- The action handler pattern uses: Service (Context.Tag) + Live (Layer) composition
+- GetAccountLive depends on StateManagerService which provides getAccount, getCode, etc.
+- Effect error channel replaces `throwOnFail` pattern - errors are typed and catchable
+- Address validation can be done with Effect.gen and Effect.fail for typed errors
+- EthjsAccount from ethereumjs has Uint8Array properties (storageRoot, codeHash) that need hex conversion
 
 ---
 

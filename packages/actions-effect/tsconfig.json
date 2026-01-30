@@ -1,0 +1,7 @@
+{
+	"extends": "@tevm/tsconfig/base.json",
+	"compilerOptions": {
+		"outDir": "types"
+	},
+	"include": ["src/**/*.js", "src/**/*.ts"]
+}
