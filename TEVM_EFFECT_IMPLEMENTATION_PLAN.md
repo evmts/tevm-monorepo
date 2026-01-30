@@ -1379,12 +1379,15 @@ export const effectToPromise = <A, E>(
 
 ### REVIEW AGENT Review Status: 🟢 PHASE 2 SERVICES REVIEWED (2026-01-29)
 
-**Twenty-fifth review (2026-01-29)** - @tevm/state-effect implemented with 36 tests, 100% coverage. Four of six Phase 2 packages complete.
+**Twenty-sixth review (2026-01-29)** - @tevm/evm-effect implemented with 18 tests, 100% coverage. Five of six Phase 2 packages complete.
 
 - ✅ @tevm/common-effect - **RFC COMPLIANT**
 - ✅ @tevm/transport-effect - **RFC COMPLIANT** (HIGH: missing batch support is feature gap, not bug)
 - ✅ @tevm/blockchain-effect - **RFC COMPLIANT** (iterator method implemented, 37 tests, 100% coverage)
 - ✅ @tevm/state-effect - **RFC COMPLIANT** (36 tests, 100% coverage)
+- ✅ @tevm/evm-effect - **RFC COMPLIANT** (18 tests, 100% coverage)
+
+**Twenty-fifth review (2026-01-29)** - @tevm/state-effect implemented with 36 tests, 100% coverage.
 
 **Twenty-fourth review (2026-01-29)** - CRITICAL `iterator` method added to @tevm/blockchain-effect.
 
@@ -1521,7 +1524,7 @@ export const effectToPromise = <A, E>(
 - ✅ @tevm/transport-effect - 47 tests, 100% coverage, RFC COMPLIANT
 - ✅ @tevm/blockchain-effect - 37 tests, 100% coverage, RFC COMPLIANT
 - ✅ @tevm/state-effect - 36 tests, 100% coverage, RFC COMPLIANT
-- [ ] @tevm/evm-effect - Not Started
+- ✅ @tevm/evm-effect - 18 tests, 100% coverage, RFC COMPLIANT
 - [ ] @tevm/vm-effect - Not Started
 
 ---
@@ -1591,6 +1594,59 @@ packages/state-effect/
 - putStorage requires an account to exist first
 - Use `createAddressFromString` from @tevm/utils, not `EthjsAddress.fromString`
 - createShape helper pattern enables recursive structure for deepCopy/shallowCopy
+
+---
+
+### 2.5 @tevm/evm-effect ✅ COMPLETE
+
+**Status**: ✅ COMPLETE
+**Tests**: 18 passing, 100% coverage
+**Created**: 2026-01-29
+
+| Component | Status | Notes |
+|-----------|--------|-------|
+| EvmService Context.Tag | ✅ | Context.GenericTag for DI |
+| EvmShape interface | ✅ | EVM operations wrapped in Effect |
+| EvmLive layer | ✅ | Creates EVM from CommonService + StateManagerService + BlockchainService |
+| Comprehensive tests | ✅ | 18 tests covering all functionality |
+
+**Package Structure**:
+```
+packages/evm-effect/
+├── package.json
+├── tsconfig.json
+├── tsup.config.js
+├── vitest.config.ts
+└── src/
+    ├── index.js              # Barrel exports
+    ├── types.js              # Type definitions
+    ├── EvmService.js         # Context.Tag
+    ├── EvmShape.js           # Interface docs
+    ├── EvmLive.js            # Layer implementation
+    └── *.spec.ts             # Test files
+```
+
+**EvmShape Interface** (from types.js):
+- `evm` - Underlying @tevm/evm Evm instance
+- `runCall(opts)` - Execute a call, returns `Effect<EVMResult>`. Execution errors in execResult.exceptionError
+- `runCode(opts)` - Execute code, returns `Effect<EVMResult>`. Execution errors in execResult.exceptionError
+- `getActivePrecompiles()` - Get active precompiles, returns `Effect<Map<string, PrecompileInput>>`
+- `addCustomPrecompile(precompile)` - Add custom precompile, returns `Effect<void>`
+- `removeCustomPrecompile(precompile)` - Remove custom precompile, returns `Effect<void>`
+
+**Layer Dependencies**:
+- EvmLive: Requires `CommonService`, `StateManagerService`, `BlockchainService`
+
+**EvmLiveOptions**:
+- `allowUnlimitedContractSize?: boolean` - Allow contracts larger than EIP-170 limit
+- `customPrecompiles?: CustomPrecompile[]` - Custom precompiles to add
+- `profiler?: boolean` - Enable EVM profiler
+- `loggingEnabled?: boolean` - Enable EVM logging
+
+**Learnings**:
+- EVM execution doesn't throw errors - errors are returned in `execResult.exceptionError`
+- Use `Effect.promise` instead of `Effect.tryPromise` for cleaner implementation
+- EVM requires Common, StateManager, and Blockchain to be initialized
 
 ---
 
