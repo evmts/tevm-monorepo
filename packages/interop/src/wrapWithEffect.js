@@ -7,6 +7,10 @@ import { Effect } from 'effect'
  * The original methods remain unchanged, and a new `.effect` property is added
  * containing Effect-wrapped versions of the specified methods.
  *
+ * **IMPORTANT**: This function returns a NEW object - it does NOT mutate the original
+ * instance. This ensures immutability and prevents unexpected side effects for callers
+ * who may not expect their original object to be modified.
+ *
  * Note: The wrapped Effect methods have an error type of `unknown` since
  * the original Promise-based methods may reject with any error type.
  *
@@ -31,12 +35,16 @@ import { Effect } from 'effect'
  *   const account2 = yield* wrappedManager.effect.getAccount('0x...')
  *   return account2
  * })
+ *
+ * // Original instance is NOT modified
+ * console.log(stateManager.effect) // undefined
+ * console.log(wrappedManager.effect) // { getAccount: ..., putAccount: ... }
  * ```
  *
  * @template T - The type of the object to wrap
- * @param {T} instance - The object instance to wrap
+ * @param {T} instance - The object instance to wrap (will NOT be mutated)
  * @param {(keyof T)[]} methods - Array of method names to wrap with Effect
- * @returns {T & { effect: Record<string, (...args: unknown[]) => Effect.Effect<unknown, unknown, never>> }} The original object with an added `.effect` property
+ * @returns {T & { effect: Record<string, (...args: unknown[]) => Effect.Effect<unknown, unknown, never>> }} A new object with all original properties plus an `.effect` property
  * @throws {Error} Throws if any specified method does not exist on the instance or is not a function
  */
 export const wrapWithEffect = (instance, methods) => {
@@ -55,5 +63,9 @@ export const wrapWithEffect = (instance, methods) => {
 			Effect.tryPromise(() => /** @type {Function} */ (fn).apply(instance, args))
 	}
 
-	return Object.assign(instance, { effect: effectMethods })
+	// Return a new object instead of mutating the original instance
+	// This preserves immutability and prevents unexpected side effects
+	return /** @type {T & { effect: Record<string, (...args: unknown[]) => Effect.Effect<unknown, unknown, never>> }} */ (
+		Object.assign({}, instance, { effect: effectMethods })
+	)
 }

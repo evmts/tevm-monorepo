@@ -33,19 +33,29 @@
 **Goal**: Add Effect as dependency, create interop layer, migrate foundational packages
 **Breaking Changes**: None (additive only)
 
-### REVIEW AGENT Review Status: 🔴 CRITICAL ISSUES FOUND (2026-01-29)
+### REVIEW AGENT Review Status: 🔴 FOURTH REVIEW COMPLETE (2026-01-29)
 
-**Third review (2026-01-29)** found additional critical and high-severity issues in @tevm/errors-effect and @tevm/interop:
+**Fourth review (2026-01-29)** - Opus-level comprehensive review found additional issues:
 
-**@tevm/errors-effect Critical Issues:**
-- Data.TaggedError generic type parameter missing - breaks Effect structural equality
-- JSDoc `@readonly` doesn't enforce runtime immutability - errors remain mutable
+**@tevm/errors-effect Issues (8 new):**
+- 🔴 **High**: All 6 EVM errors missing `cause` property - breaks error chaining
+- 🔴 **High**: `toTaggedError` does not preserve `cause` when converting
+- 🔴 **High**: RFC-defined error types not implemented (InvalidTransactionError, BlockNotFoundError, etc.)
+- 🔴 **Medium**: Optional properties should be required per RFC
 
-**@tevm/interop Critical Issues:**
-- `effectToPromise` uses `Runtime<any>` cast - hides type errors until runtime
-- Missing explicit `@returns` annotations violates codebase conventions
+**@tevm/interop Issues (8 new):**
+- 🔴 **Critical**: `Runtime<any>` cast in effectToPromise hides compile-time type errors
+- 🔴 **Critical**: `wrapWithEffect` mutates original object (violates immutability)
+- 🔴 **High**: Type information lost in `.effect` methods (returns `Effect<unknown>`)
+- 🔴 **High**: No compile-time enforcement for Effects with requirements
 
-See THIRD REVIEW tables in sections 1.2 and 1.3 for full details.
+**Test Coverage Gaps Identified:**
+- Missing `Equal.equals()` structural equality tests (all 7 error types)
+- Missing immutability tests for 5 EVM error types
+- Missing toBaseError tests for 4 error types
+- Missing null/undefined rejection and Effect.die defect tests
+
+See FOURTH REVIEW tables in sections 1.2 and 1.3 for full details.
 
 ---
 
@@ -169,6 +179,38 @@ export class InsufficientBalanceError extends Data.TaggedError("InsufficientBala
 4. **Medium**: Fix cause property handling in toBaseError
 5. **Low**: Create shared type definitions file, refactor toTaggedError to use mapping
 
+**FOURTH REVIEW (2026-01-29)**: 🔴 OPUS-LEVEL REVIEW COMPLETE
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| EVM errors missing `cause` property | **High** | All EVM error files | 🔴 Open | TevmError has `cause` (line 48), but all 6 EVM error classes (InsufficientBalanceError, OutOfGasError, RevertError, InvalidOpcodeError, StackOverflowError, StackUnderflowError) do not accept or store `cause`. Breaks error chaining pattern. |
+| toTaggedError does not preserve `cause` | **High** | toTaggedError.js:75-111 | 🔴 Open | When converting specific error types, `cause` is not extracted from source error and passed to new TaggedError. |
+| Missing RFC-defined error types | **High** | src/ | 🔴 Open | RFC defines `InvalidTransactionError`, `BlockNotFoundError`, `StateRootNotFoundError`, `ForkError` - none implemented. |
+| Optional properties should be required per RFC | **Medium** | InsufficientBalanceError.js:47-62 | 🔴 Open | `address`, `required`, `available` typed as `T \| undefined`. RFC shows these as required (non-optional). Allows creating errors without critical data. |
+| Static properties lack `@readonly` annotation | **Medium** | All EVM error files | 🔴 Open | Static `code` and `docsPath` don't have `@readonly` JSDoc. Instance properties have it. |
+| Inconsistent default message patterns | **Low** | All EVM error files | 🔴 Open | InsufficientBalanceError: "error occurred", RevertError: "Execution reverted", InvalidOpcodeError: "encountered". Consider standardizing. |
+| Missing `@example` in some constructor JSDoc | **Low** | StackUnderflowError.js:58-61 | 🔴 Open | No `@example` showing constructor usage. |
+| types.js empty export pattern | **Low** | types.js:13-14 | 🔴 Open | `export {}` with JSDoc typedefs is unusual pattern. May be confusing. |
+
+**Test Coverage Gaps Identified**:
+| Gap | Priority | Files Affected |
+|-----|----------|----------------|
+| Missing `Equal.equals()` structural equality tests | High | All 7 error spec files |
+| Missing immutability tests for 5 EVM errors | High | RevertError, InvalidOpcodeError, OutOfGasError, StackOverflowError, StackUnderflowError spec files |
+| Missing toBaseError tests for 4 error types | Medium | toBaseError.spec.ts (RevertError, InvalidOpcodeError, StackOverflowError, StackUnderflowError) |
+| Missing null/undefined rejection tests | Medium | promiseToEffect.spec.ts |
+| Missing Effect.die defect tests | Medium | effectToPromise.spec.ts |
+| Missing fiber interruption tests | Low | effectToPromise.spec.ts, promiseToEffect.spec.ts |
+
+**Fourth Review Action Items**:
+1. **High**: Add `cause` property to all 6 EVM error constructors
+2. **High**: Update toTaggedError to preserve `cause` when converting specific error types
+3. **High**: Implement RFC-defined error types (InvalidTransactionError, BlockNotFoundError, StateRootNotFoundError, ForkError) or document as Phase 2 scope
+4. **Medium**: Add `Equal.equals()` structural equality tests to all error spec files
+5. **Medium**: Add immutability tests to remaining 5 EVM error spec files
+6. **Medium**: Complete toBaseError.spec.ts with tests for all error types
+7. **Low**: Standardize default message patterns across all errors
+
 ---
 
 ### 1.3 @tevm/interop (New Package)
@@ -265,6 +307,34 @@ export const effectToPromise = <A, E>(
 5. ~~**Medium**: Add test case demonstrating `this` binding issue and solution~~ ✅ Completed 2026-01-29
 6. **Medium**: Document that `wrapWithEffect` mutates original object
 7. **Low**: Add `@since` tags, update examples to dogfood package functions
+
+**FOURTH REVIEW (2026-01-29)**: 🔴 OPUS-LEVEL REVIEW COMPLETE
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| `Runtime<any>` cast hides type errors | **Critical** | effectToPromise.js:78 | 🔴 Open | Cast to `Runtime.Runtime<any>` bypasses TypeScript's type safety. When Effect has requirements (R !== never), compile-time checking is lost. RFC expected `Runtime.Runtime<never>` constraint without cast. |
+| `wrapWithEffect` mutates original object | **Critical** | wrapWithEffect.js:58 | ✅ Fixed | Changed to `Object.assign({}, instance, { effect })` to return new object instead of mutating original. Added 2 immutability tests. |
+| Type information lost in `.effect` methods | **High** | wrapWithEffect.js:39,43-44 | 🔴 Open | Return type `Record<string, (...args: unknown[]) => Effect<unknown, unknown, never>>` loses all method signatures. Users get no IDE autocomplete, parameters typed as `unknown[]`, return as `Effect<unknown>`. |
+| No compile-time enforcement for runtime requirement | **High** | effectToPromise.js:69-77 | 🔴 Open | JSDoc generics include `R` but function doesn't constrain it. Runtime parameter optional even when `R !== never`. |
+| Error types always `unknown`, no mapper | **Medium** | promiseToEffect.js:72,75; wrapWithEffect.js:39; layerFromFactory.js:52 | 🔴 Open | All wrapped Effects have error type `unknown`. No way to refine error type at conversion boundary. Consider optional `mapError` parameter. |
+| `layerFromFactory` generic parameter order unconventional | **Medium** | layerFromFactory.js:47-52 | 🔴 Open | Order `<I, S, O>` doesn't align with Effect.ts convention `<A, E, R>`. May confuse Effect.ts users. |
+| `createManagedRuntime` is 1:1 wrapper with no added value | **Medium** | createManagedRuntime.js:50-52 | ⚠️ Known | Pure passthrough to `ManagedRuntime.make`. Consider removing or adding meaningful value (logging, defaults). |
+| Missing explicit function return type annotations | **Low** | All source files | 🔴 Open | Per CLAUDE.md "We always explicitly type return types". Functions lack explicit return type in signature. |
+
+**Positive Observations**:
+- Excellent JSDoc documentation with comprehensive warnings and examples
+- Comprehensive test coverage including `this` binding edge cases
+- Proper error messages for invalid inputs in `wrapWithEffect`
+- Clean barrel file re-exports following project conventions
+
+**Fourth Review Action Items**:
+1. **Critical**: Remove `Runtime<any>` cast - use constrained generics or separate safe/unsafe functions
+2. ~~**Critical**: Fix `wrapWithEffect` to return new object instead of mutating: `return { ...instance, effect: effectMethods }`~~ ✅ Completed 2026-01-29
+3. **High**: Create `.d.ts` file with mapped types to preserve method signatures in `wrapWithEffect`
+4. **High**: Add compile-time enforcement for runtime requirements (e.g., overloads or separate functions)
+5. **Medium**: Add optional `mapError` parameter to `promiseToEffect`, `wrapWithEffect`, `layerFromFactory`
+6. **Medium**: Decide whether to keep or deprecate `createManagedRuntime`
+7. **Low**: Add explicit `@returns` type annotations to all exported functions
 
 ---
 
@@ -836,7 +906,7 @@ export const effectToPromise = <A, E>(
 | 2026-01-29 | JSDoc `@readonly` is documentation-only - doesn't enforce immutability | Critical - errors remain mutable at runtime | ✅ Added Object.freeze(this) to all error constructors |
 | 2026-01-29 | wrapWithEffect return type loses all method type information | High - users get Effect<unknown> | 🔴 Needs .d.ts with mapped types |
 | 2026-01-29 | Missing explicit @returns annotations violates CLAUDE.md conventions | High - inconsistent with codebase standards | 🔴 Needs explicit return types |
-| 2026-01-29 | Object.assign in wrapWithEffect mutates original instance | Medium - unexpected side effect | 🔴 Needs documentation or new object |
+| 2026-01-29 | Object.assign in wrapWithEffect mutates original instance | Medium - unexpected side effect | ✅ Fixed: Changed to `Object.assign({}, instance, { effect })` to create new object |
 | 2026-01-29 | Error mapper parameters needed for promiseToEffect/layerFromFactory | Medium - error types always unknown | 🔴 Consider optional mapError param |
 
 ### Process Learnings
@@ -852,8 +922,23 @@ export const effectToPromise = <A, E>(
 | 2026-01-29 | Third review found additional critical issues after two prior reviews | High - review depth matters | Opus-level models should be used for complex Effect.ts reviews |
 | 2026-01-29 | Test coverage should verify documented warnings (e.g., this binding) | Medium - documentation not validated | Add tests that demonstrate failure cases mentioned in JSDoc |
 | 2026-01-29 | Type definitions need explicit handling for JS packages with Effect.ts | High - JSDoc limitations compound with Effect complexity | Consider .d.ts files for complex generic patterns |
+| 2026-01-29 | Object.assign mutates original object - violates immutability principle | Critical - unexpected side effects | 🔴 Use spread operator or Object.create instead |
+| 2026-01-29 | Error `cause` chaining is fundamental for debugging Effect pipelines | High - error context lost during conversion | 🔴 Add cause property to all EVM error constructors |
+| 2026-01-29 | Effect.ts `Equal.equals` provides structural equality but requires testing | Medium - feature may silently fail | 🔴 Add Equal.equals tests to all error types |
+| 2026-01-29 | wrapWithEffect type-erasing return destroys IDE experience | High - autocomplete, type checking lost | 🔴 Create .d.ts with mapped types preserving signatures |
+| 2026-01-29 | RFC-defined error types represent real use cases in TEVM | Medium - incomplete API surface | 🔴 Implement or document as Phase 2 scope |
+| 2026-01-29 | Optional error properties reduce error usefulness in debugging | Medium - errors may lack critical context | Consider making domain-specific properties required |
 
-### REVIEW AGENT Review Status: 🔴 THIRD REVIEW COMPLETE (2026-01-29)
+### Process Learnings (Fourth Review)
+
+| Date | Learning | Impact | Action Taken |
+|------|----------|--------|--------------|
+| 2026-01-29 | Opus-level reviews catch issues previous reviews missed | High - critical issues in shipped code | Use Opus for Effect.ts package reviews |
+| 2026-01-29 | Test coverage gaps accumulate across related packages | Medium - systemic gaps emerge | Run cross-package test gap analysis |
+| 2026-01-29 | Mutation vs immutability must be explicit in interop helpers | High - affects caller assumptions | Document mutation behavior prominently |
+| 2026-01-29 | Type information loss in generic wrappers compounds through usage | High - users end up with `unknown` everywhere | Prioritize .d.ts files for complex generics |
+
+### REVIEW AGENT Review Status: 🔴 FOURTH REVIEW COMPLETE (2026-01-29)
 
 ---
 
@@ -878,8 +963,14 @@ export const effectToPromise = <A, E>(
 | **R3**: Method type information lost in wrapWithEffect | Medium | Medium | Create .d.ts with mapped types for proper inference | 🔴 Open |
 | **R3**: Missing error types from RFC (TransactionError, BlockError, etc.) | Medium | Low | Implement in Phase 1 or document as Phase 2 scope | 🔴 Open |
 | **R3**: Cause property not properly chained through EVM errors | Medium | Medium | Add cause parameter to EVM error constructors | 🔴 Open |
+| **R4**: wrapWithEffect mutates original object | High | Medium | Return new object instead of using Object.assign on original | ✅ Fixed |
+| **R4**: wrapWithEffect loses all method type information | High | Medium | Create .d.ts with mapped types preserving method signatures | 🔴 Open |
+| **R4**: No compile-time enforcement for runtime requirements | Medium | High | Use constrained generics or separate effectToPromiseSafe/Unsafe | 🔴 Open |
+| **R4**: Test coverage gaps for structural equality | Medium | Low | Add Equal.equals tests to all error spec files | 🔴 Open |
+| **R4**: Test coverage gaps for immutability | Medium | Low | Add Object.freeze verification tests to 5 EVM error spec files | 🔴 Open |
+| **R4**: Test coverage gaps for edge cases | Low | Low | Add null/undefined rejection, Effect.die, fiber interruption tests | 🔴 Open |
 
-### REVIEW AGENT Review Status: 🔴 NEW CRITICAL ISSUES (2026-01-29)
+### REVIEW AGENT Review Status: 🔴 FOURTH REVIEW COMPLETE (2026-01-29)
 
 ---
 

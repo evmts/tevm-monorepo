@@ -159,4 +159,52 @@ describe('wrapWithEffect', () => {
 		const result = await Effect.runPromise(program)
 		expect(result).toBe(2)
 	})
+
+	it('should NOT mutate the original object (immutability)', async () => {
+		const original = {
+			async getValue(): Promise<number> {
+				return 42
+			},
+		}
+
+		// Capture original state
+		const originalHadEffect = 'effect' in original
+		const originalKeys = Object.keys(original)
+
+		const wrapped = wrapWithEffect(original, ['getValue'])
+
+		// Verify original object was NOT mutated
+		expect('effect' in original).toBe(originalHadEffect)
+		expect(Object.keys(original)).toEqual(originalKeys)
+		// @ts-expect-error - checking that effect doesn't exist on original
+		expect(original.effect).toBeUndefined()
+
+		// Verify wrapped object HAS the effect property
+		expect(wrapped.effect).toBeDefined()
+		expect(typeof wrapped.effect.getValue).toBe('function')
+
+		// Verify wrapped and original are different objects
+		expect(wrapped).not.toBe(original)
+
+		// Verify the wrapped effect methods work correctly
+		const result = await Effect.runPromise(wrapped.effect.getValue())
+		expect(result).toBe(42)
+	})
+
+	it('should return a new object distinct from the original', () => {
+		const original = {
+			async method(): Promise<string> {
+				return 'result'
+			},
+		}
+
+		const wrapped = wrapWithEffect(original, ['method'])
+
+		// These should be different object references
+		expect(wrapped).not.toBe(original)
+
+		// Modifying wrapped should not affect original
+		;(wrapped as any).newProperty = 'test'
+		expect((original as any).newProperty).toBeUndefined()
+	})
 })
