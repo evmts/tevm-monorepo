@@ -1709,6 +1709,40 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  packages/blockchain-effect:
+    dependencies:
+      '@tevm/blockchain':
+        specifier: workspace:^
+        version: link:../blockchain
+      '@tevm/common-effect':
+        specifier: workspace:^
+        version: link:../common-effect
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      '@tevm/transport-effect':
+        specifier: workspace:^
+        version: link:../transport-effect
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/block':
+        specifier: workspace:^
+        version: link:../block
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../common
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
+
   packages/client-types:
     dependencies:
       '@tevm/actions':
