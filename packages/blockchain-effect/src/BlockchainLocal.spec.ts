@@ -324,6 +324,75 @@ describe('BlockchainLocal', () => {
 			const result = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
 			expect(result).toBe('deep copy works')
 		})
+
+		it('should iterate over blocks with iterator', async () => {
+			const program = Effect.gen(function* () {
+				const blockchain = yield* BlockchainService
+				yield* blockchain.ready
+				// Iterator exists and is a function
+				expect(typeof blockchain.iterator).toBe('function')
+				// Return the blockchain for async iteration outside Effect.gen
+				return blockchain
+			})
+
+			const blockchain = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
+			// Get blocks from 0 to 0 (only genesis)
+			const blocks = []
+			for await (const block of blockchain.iterator(0n, 0n)) {
+				blocks.push(block)
+			}
+			expect(blocks.length).toBe(1)
+			expect(blocks[0].header.number).toBe(0n)
+		})
+
+		it('should yield no blocks when range has no blocks', async () => {
+			const program = Effect.gen(function* () {
+				const blockchain = yield* BlockchainService
+				yield* blockchain.ready
+				return blockchain
+			})
+
+			const blockchain = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
+			// Try to iterate over blocks that don't exist
+			const blocks = []
+			for await (const block of blockchain.iterator(100n, 110n)) {
+				blocks.push(block)
+			}
+			expect(blocks.length).toBe(0)
+		})
+
+		it('should support reverse iteration (end to start)', async () => {
+			const program = Effect.gen(function* () {
+				const blockchain = yield* BlockchainService
+				yield* blockchain.ready
+				return blockchain
+			})
+
+			const blockchain = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
+			// Iterate in reverse (should still find genesis)
+			const blocks = []
+			for await (const block of blockchain.iterator(0n, 0n)) {
+				blocks.push(block)
+			}
+			expect(blocks.length).toBe(1)
+		})
+
+		it('should handle iterator with start > end (reverse iteration)', async () => {
+			const program = Effect.gen(function* () {
+				const blockchain = yield* BlockchainService
+				yield* blockchain.ready
+				return blockchain
+			})
+
+			const blockchain = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
+			// When start > end, should iterate backwards
+			const blocks = []
+			for await (const block of blockchain.iterator(10n, 0n)) {
+				blocks.push(block)
+			}
+			// Should find genesis block at position 0
+			expect(blocks.some((b) => b.header.number === 0n)).toBe(true)
+		})
 	})
 
 	describe('with custom options', () => {

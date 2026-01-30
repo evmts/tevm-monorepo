@@ -167,6 +167,32 @@ export const BlockchainLive = (options = {}) => {
 					shallowCopy: () => createShape(chainInstance.shallowCopy()),
 
 					ready: Effect.promise(() => chainInstance.ready()),
+
+					/**
+					 * Iterate through blocks in a range from start to end (inclusive).
+					 * Yields blocks that exist in the specified range.
+					 * For fork mode, blocks may be fetched from the remote network if not cached locally.
+					 * @param {bigint} start - Starting block number (inclusive)
+					 * @param {bigint} end - Ending block number (inclusive)
+					 * @returns {AsyncIterable<import('@tevm/block').Block>}
+					 */
+					iterator: (start, end) => {
+						return {
+							async *[Symbol.asyncIterator]() {
+								const step = start <= end ? 1n : -1n
+								for (let i = start; step > 0 ? i <= end : i >= end; i += step) {
+									try {
+										const block = await chainInstance.getBlock(i)
+										if (block) {
+											yield block
+										}
+									} catch {
+										// Block not found at this height, continue to next
+									}
+								}
+							},
+						}
+					},
 				}
 				return shape
 			}

@@ -80,6 +80,24 @@
  *
  * Returns: `Effect<void>`
  *
+ * ### iterator(start, end)
+ * Iterate through blocks in a range from start to end (inclusive).
+ * Returns an AsyncIterable that yields blocks that exist in the specified range.
+ * For fork mode, blocks may be fetched from the remote network if not cached locally.
+ *
+ * Parameters:
+ * - `start: bigint` - Starting block number (inclusive)
+ * - `end: bigint` - Ending block number (inclusive)
+ *
+ * Returns: `AsyncIterable<Block>` (Note: not wrapped in Effect)
+ *
+ * ```javascript
+ * const blockchain = yield* BlockchainService
+ * for await (const block of blockchain.iterator(100n, 110n)) {
+ *   console.log('Block:', block.header.number)
+ * }
+ * ```
+ *
  * ## Usage Example
  *
  * ```javascript

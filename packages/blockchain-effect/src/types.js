@@ -37,6 +37,7 @@
  * @property {() => import('effect').Effect.Effect<BlockchainShape>} deepCopy - Create a deep copy of the blockchain
  * @property {() => BlockchainShape} shallowCopy - Create a shallow copy of the blockchain
  * @property {import('effect').Effect.Effect<void>} ready - Effect that completes when the blockchain is ready
+ * @property {(start: bigint, end: bigint) => AsyncIterable<import('@tevm/block').Block>} iterator - Iterate through blocks in a range from start to end (inclusive)
  */
 
 /**
