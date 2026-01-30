@@ -107,17 +107,20 @@ describe('EvmLive', () => {
 		it('should execute runCode', async () => {
 			const program = Effect.gen(function* () {
 				const evmService = yield* EvmService
-				// Execute runCode (internally uses runCall)
+				// Execute runCode with bytecode (PUSH1 0x42 PUSH1 0x00 MSTORE PUSH1 0x01 PUSH1 0x1F RETURN)
+				// This bytecode stores 0x42 at memory and returns 1 byte
+				const code = new Uint8Array([0x60, 0x42, 0x60, 0x00, 0x52, 0x60, 0x01, 0x60, 0x1f, 0xf3])
 				const result = yield* evmService.runCode({
+					code,
 					gasLimit: 1000000n,
-					skipBalance: true,
 				})
 				return result
 			})
 
 			const result = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
 			expect(result).toBeDefined()
-			expect(result.execResult).toBeDefined()
+			// runCode returns ExecResult directly (not wrapped in EVMResult)
+			expect(result.executionGasUsed).toBeDefined()
 		})
 
 		it('should add and remove custom precompile', async () => {

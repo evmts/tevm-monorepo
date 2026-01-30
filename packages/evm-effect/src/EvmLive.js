@@ -91,7 +91,7 @@ export const EvmLive = (options = {}) => {
 
 				runCall: (opts) => Effect.promise(() => evm.runCall(opts)),
 
-				runCode: (opts) => Effect.promise(() => evm.runCall(opts)),
+				runCode: (opts) => Effect.promise(() => evm.runCode(opts)),
 
 				getActivePrecompiles: () => Effect.sync(() => evm.precompiles),
 
