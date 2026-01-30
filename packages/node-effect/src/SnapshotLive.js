@@ -1,5 +1,5 @@
 import { Effect, Layer, Ref } from 'effect'
-import { SnapshotNotFoundError, StorageError } from '@tevm/errors-effect'
+import { SnapshotNotFoundError, StateRootNotFoundError, StorageError } from '@tevm/errors-effect'
 import { StateManagerService } from '@tevm/state-effect'
 import { SnapshotService } from './SnapshotService.js'
 
@@ -172,7 +172,18 @@ export const SnapshotLive = () => {
 
 							// Step 4: Restore state FIRST (this can fail)
 							// If setStateRoot fails, the snapshot is still available for retry
-							yield* stateManager.setStateRoot(hexToBytes(snapshot.stateRoot))
+							// Wrap with catchAllDefect to convert defects to StateRootNotFoundError
+							yield* stateManager.setStateRoot(hexToBytes(snapshot.stateRoot)).pipe(
+								Effect.catchAllDefect((defect) =>
+									Effect.fail(
+										new StateRootNotFoundError({
+											stateRoot: snapshot.stateRoot,
+											message: `Failed to restore state root: ${defect instanceof Error ? defect.message : String(defect)}`,
+											cause: defect,
+										}),
+									),
+								),
+							)
 
 							// Step 5: ONLY after setStateRoot succeeds, delete the snapshot and subsequent ones
 							// This ensures we don't lose snapshots on setStateRoot failure

@@ -2,27 +2,419 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (94th Review - Resolved 4 HIGH + 1 MEDIUM issues)
+**Last Updated**: 2026-01-30 (96th Update - Resolved HIGH Issue #69: Added StateRootNotFoundError handling to SnapshotLive.revertToSnapshot)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
 
 ## Review Agent Summary (2026-01-30)
 
-**NINETY-FOURTH REVIEW.** Resolved all 4 HIGH issues and 1 MEDIUM issue from 93rd review: parseInt hex fix (#56), @tevm/utils dependency fix (#50), FilterLive type validation (#52), SetAccountLive error handling (#39), and LoggerLive silent mode (#45).
+**NINETY-FIFTH REVIEW.** Independent parallel Opus 4.5 subagent review of all 4 phases. Found 1 HIGH issue in Phase 3 (SnapshotShape type mismatch), 5 MEDIUM issues across Phases 3-4, and 13 LOW issues (code duplication, type safety, minor bugs).
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟡 MINOR ISSUES | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 1 MEDIUM (#47), 4 LOW |
-| **Phase 2** | ✅ PRODUCTION-READY | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 3 MEDIUM (interop - documented), 4 LOW |
-| **Phase 3** | 🟡 MINOR ISSUES | 2 (node-effect, actions-effect) | 206 | ~99% | 2 MEDIUM (#40, #53), 4 LOW |
-| **Phase 4** | 🟡 MINOR ISSUES | 2 (memory-client-effect, decorators-effect) | 163 | ~86% | 3 MEDIUM (#55, #58, #59), 6 LOW |
+| **Phase 1** | 🟡 MINOR ISSUES | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 1 MEDIUM (#47), 8 LOW (+4 new) |
+| **Phase 2** | 🟡 MINOR ISSUES | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 3 MEDIUM (interop), 8 LOW (+4 new) |
+| **Phase 3** | 🟢 COMPLETE | 2 (node-effect, actions-effect) | 208 | ~99% | 0 HIGH (resolved), 3 MEDIUM (+1 new), 6 LOW (+2 new) |
+| **Phase 4** | 🟡 MINOR ISSUES | 2 (memory-client-effect, decorators-effect) | 163 | ~86% | 7 MEDIUM (+4 new), 9 LOW (+3 new) |
 
 **Open Issues Summary:**
 - **CRITICAL**: 0
-- **HIGH**: 0 ✅ (All 4 HIGH issues RESOLVED in 94th review)
-- **MEDIUM**: 11 🟡 (Issue #45 RESOLVED in 94th review)
-- **LOW**: 23 (unchanged)
+- **HIGH**: 0 ✅ (Issue #69 resolved)
+- **MEDIUM**: 16 🟡 (+5 new from 95th review)
+- **LOW**: 36 (+13 new from 95th review)
+
+---
+
+### NINETY-FIFTH REVIEW (2026-01-30) - Independent Parallel Subagent Comprehensive Re-Review
+
+**Reviewed By**: Claude Opus 4.5 (4 parallel Opus subagents)
+**Scope**: Complete independent re-review of all 4 phases to find unreviewed bugs and flaws
+
+---
+
+#### Phase 1: 4 NEW LOW Issues Found
+
+##### Issue #61: wrapWithEffect Effect Methods Lose Type Information
+**File:Lines**: `packages/interop/src/wrapWithEffect.js:63` and `packages/interop/types/wrapWithEffect.d.ts:1-3`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `wrapWithEffect` function returns an `.effect` property typed as `Record<string, (...args: unknown[]) => Effect.Effect<unknown, unknown, never>>`, which loses all type information about the original methods.
+
+**Evidence (from wrapWithEffect.d.ts)**:
+```typescript
+export function wrapWithEffect<T extends object>(instance: T, methods: (keyof T)[]): T & {
+    effect: Record<string, (...args: unknown[]) => Effect.Effect<unknown, unknown, never>>;
+};
+```
+
+**Impact**: When calling wrapped methods via `.effect`, users lose argument types, return type inference, and error type information.
+
+**Recommended Fix**: Use a mapped type to preserve method signatures:
+```typescript
+type WrappedEffectMethods<T, K extends keyof T> = {
+  [P in K]: T[P] extends (...args: infer A) => Promise<infer R>
+    ? (...args: A) => Effect.Effect<R, unknown, never>
+    : never
+}
+```
+
+---
+
+##### Issue #62: LoggerTest Creates New Ref on Each Layer Provision
+**File:Lines**: `packages/logger-effect/src/LoggerTest.js:178-186`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Each time `LoggerTest()` is called, it creates a new layer with a fresh `Ref`. If the same layer is provided to multiple effects in a complex composition, each will get an isolated log store.
+
+**Evidence**:
+```javascript
+export const LoggerTest = (level = 'debug', name = 'tevm') =>
+    Layer.effect(
+        LoggerService,
+        Effect.gen(function* () {
+            const logsRef = yield* Ref.make([])
+            return createTestLoggerShape(logsRef, level, name)
+        }),
+    )
+```
+
+**Impact**: Could be confusing for test authors who call `LoggerTest()` multiple times expecting logs to be shared.
+
+**Recommended Fix**: Document this behavior explicitly or provide a factory that returns a tuple `[layer, logsRef]` for advanced use cases.
+
+---
+
+##### Issue #63: toTaggedError Falls Through to Generic TevmError for Unmatched Tags
+**File:Lines**: `packages/errors-effect/src/interop/toTaggedError.js:386-393`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: When `toTaggedError` receives an error with a `_tag` that matches a key in `errorMap` but isn't explicitly handled in the if-chain, it falls through to the generic `TevmError` fallback instead of using the matched `ErrorClass`.
+
+**Impact**: If a new error type is added to `errorMap` but its handling branch isn't added to the if-chain, the error will be incorrectly converted to a generic `TevmError`.
+
+**Recommended Fix**: Add a fallback that uses the matched `ErrorClass` before falling through to generic TevmError.
+
+---
+
+##### Issue #64: createManagedRuntime Adds No Value Over Direct ManagedRuntime.make
+**File:Lines**: `packages/interop/src/createManagedRuntime.js:49-51`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `createManagedRuntime` function is a trivial wrapper that adds no functionality:
+```javascript
+export const createManagedRuntime = (layer) => {
+    return ManagedRuntime.make(layer)
+}
+```
+
+**Impact**: Adds unnecessary indirection and increases bundle size.
+
+**Recommended Fix**: Either remove this function and document `ManagedRuntime.make` usage directly, or add meaningful functionality.
+
+---
+
+#### Phase 2: 4 NEW LOW Issues Found
+
+##### Issue #65: Double-cast Through Unknown in HttpTransport Batching
+**File:Lines**: `packages/transport-effect/src/HttpTransport.js:432-434`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The code uses a double-cast through `unknown` to create a typed Deferred, which could hide type errors.
+
+**Evidence**:
+```javascript
+const deferred = /** @type {Deferred.Deferred<unknown, ForkError>} */ (
+    /** @type {unknown} */ (yield* Deferred.make())
+)
+```
+
+**Recommended Fix**: Use proper generic type parameters when creating the Deferred.
+
+---
+
+##### Issue #66: Duplicated toEthjsAddress Helper Function
+**Files**: `packages/state-effect/src/StateManagerLive.js:17-22` and `packages/state-effect/src/StateManagerLocal.js:16-21`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `toEthjsAddress` helper function is identically defined in both files.
+
+**Recommended Fix**: Extract to a shared utility file within the state-effect package.
+
+---
+
+##### Issue #67: Duplicated createShape Helper Pattern
+**Files**:
+- `packages/blockchain-effect/src/BlockchainLive.js:112-218`
+- `packages/blockchain-effect/src/BlockchainLocal.js:87-192`
+- `packages/state-effect/src/StateManagerLive.js:108-182`
+- `packages/state-effect/src/StateManagerLocal.js:106-180`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `createShape` helper functions are nearly identical between Live and Local variants in both blockchain-effect and state-effect packages (~100 lines each for blockchain, ~75 lines each for state).
+
+**Recommended Fix**: Extract `createShape` to shared utility files within each package.
+
+---
+
+##### Issue #68: Inconsistent JSDoc @returns Type Annotation for Layer Requirements
+**Files**:
+- `packages/evm-effect/src/EvmLive.js:67`
+- `packages/vm-effect/src/VmLive.js:55`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: EvmLive.js and VmLive.js use inconsistent patterns for expressing layer requirements in JSDoc. VmLive uses `typeof` while EvmLive does not.
+
+**Recommended Fix**: Standardize on one pattern across all packages.
+
+---
+
+#### Phase 3: 1 NEW HIGH, 1 NEW MEDIUM, 2 NEW LOW Issues Found
+
+##### Issue #69: SnapshotShape Type Declares StateRootNotFoundError But Implementation Never Returns It
+**File:Lines**: `packages/node-effect/src/types.js:84` and `packages/node-effect/src/SnapshotLive.js:151-188`
+**Severity**: 🔴 HIGH
+**Status**: ✅ FIXED
+
+**Problem**: The `SnapshotShape` type declaration indicates that `revertToSnapshot` can fail with either `SnapshotNotFoundError` OR `StateRootNotFoundError`. However, the actual implementation only ever creates/returns `SnapshotNotFoundError`. If `stateManager.setStateRoot()` fails, the error becomes an unhandled defect rather than a typed `StateRootNotFoundError`.
+
+**Evidence (types.js line 84)**:
+```javascript
+* @property {(id: Hex) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').SnapshotNotFoundError | import('@tevm/errors-effect').StateRootNotFoundError, never>} revertToSnapshot
+```
+
+**Evidence (SnapshotLive.js lines 174-176)**:
+```javascript
+// Step 4: Restore state FIRST (this can fail)
+yield* stateManager.setStateRoot(hexToBytes(snapshot.stateRoot))
+// No error handling - if setStateRoot fails, it becomes a defect!
+```
+
+Unlike `takeSnapshot` which has `catchAllDefect` (lines 141-148), `revertToSnapshot` does not convert defects to typed errors.
+
+**Impact**: Type signature is a lie. Callers expect to handle `StateRootNotFoundError` but will never receive it.
+
+**Recommended Fix**: Either:
+1. Add `catchAllDefect` to convert defects from `setStateRoot` to `StateRootNotFoundError`, OR
+2. Remove `StateRootNotFoundError` from the type signature if it's not actually used
+
+**Resolution**: Added `catchAllDefect` wrapper around `stateManager.setStateRoot()` call in `revertToSnapshot` to convert defects to typed `StateRootNotFoundError`. Added 2 new tests to verify both Error and non-Error defects are properly converted. All 103 tests pass with 100% coverage.
+
+---
+
+##### Issue #70: SetAccountLive getAccount catchAll Silently Swallows All Errors
+**File:Lines**: `packages/actions-effect/src/SetAccountLive.js:189-192`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: When fetching the existing account to merge values, the code uses `Effect.catchAll(() => Effect.succeed(undefined))` which catches ALL errors - not just "account not found" errors. Genuine errors like I/O failures, database corruption, or connection timeouts would be silently swallowed.
+
+**Evidence**:
+```javascript
+const existingAccount = yield* stateManager.getAccount(address).pipe(
+    Effect.catchAll(() => Effect.succeed(undefined)),
+)
+```
+
+**Impact**: Data integrity issues - code proceeds as if account doesn't exist when there's an underlying error.
+
+**Recommended Fix**: Use a more specific error handler that only catches "account not found" type errors:
+```javascript
+Effect.catchTag('AccountNotFoundError', () => Effect.succeed(undefined)),
+```
+
+---
+
+##### Issue #71: Layer Type Declarations Use `any` for All Type Parameters
+**Files**: Multiple .d.ts files in both packages
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: All Layer type declarations in the generated .d.ts files use `any` for their type parameters.
+
+**Evidence**:
+```typescript
+// FilterLive.d.ts
+export function FilterLive(): Layer.Layer<any, never, never>;
+// SnapshotLive.d.ts
+export function SnapshotLive(): Layer.Layer<any, never, any>;
+// GetAccountLive.d.ts
+export const GetAccountLive: Layer.Layer<any, never, any>;
+```
+
+**Recommended Fix**: Add explicit type annotations to JSDoc in source files.
+
+---
+
+##### Issue #72: types.d.ts Uses Uppercase Object Type
+**File:Lines**: `packages/node-effect/types/types.d.ts:276`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Uses uppercase `Object` instead of lowercase `object` which is less strict.
+
+**Recommended Fix**: Change to lowercase `object` or `Record<string, unknown>`.
+
+---
+
+#### Phase 4: 4 NEW MEDIUM, 3 NEW LOW Issues Found
+
+##### Issue #73: EthActionsLive.call Ignores EVM Execution Errors
+**File:Lines**: `packages/decorators-effect/src/EthActionsLive.js:123-145`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `eth_call` implementation does not check for EVM execution errors in the result. When a contract reverts or throws an exception, `runCall` still resolves successfully, but the error is in `execResult.exceptionError`. The current code ignores this and returns the return value as if the call succeeded.
+
+**Evidence**:
+```javascript
+const result = yield* Effect.tryPromise({
+    try: () => vm.vm.evm.runCall(callOpts),
+    catch: (e) => new InternalError({...}),
+})
+// No check for result.execResult.exceptionError!
+const execResult = result.execResult
+return bytesToHex(execResult?.returnValue ?? new Uint8Array())
+```
+
+**Impact**: Callers cannot distinguish between successful calls and reverts.
+
+**Recommended Fix**: Check `execResult.exceptionError` and fail with an appropriate error when present.
+
+---
+
+##### Issue #74: mine() Doesn't Validate Blocks Parameter
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:241-246`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `mine` function accepts `options.blocks` without validation. Negative numbers, floats, or very large values would cause unexpected behavior.
+
+**Evidence**:
+```javascript
+mine: (options = {}) =>
+    Effect.gen(function* () {
+        const blocks = options.blocks ?? 1
+        // No validation!
+        for (let i = 0; i < blocks; i++) {
+```
+
+**Recommended Fix**: Add validation for integer >= 0 and reasonable upper bound.
+
+---
+
+##### Issue #75: hexToBytes Silently Converts Invalid Hex to Zeros
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:62-70` and `EthActionsLive.js:87-96`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `hexToBytes` helper uses `parseInt(hex, 16)` which returns `NaN` for invalid hex characters. `NaN` gets coerced to `0` when stored in a Uint8Array, causing silent data corruption.
+
+**Evidence**:
+```javascript
+for (let i = 0; i < bytes.length; i++) {
+    bytes[i] = parseInt(normalizedHex.substring(i * 2, i * 2 + 2), 16)
+    // If hex is "0xZZZZ", parseInt("ZZ", 16) returns NaN, stored as 0
+}
+```
+
+**Recommended Fix**: Add validation with `Number.isNaN(byte)` check.
+
+---
+
+##### Issue #76: loadState Throws on Undefined nonce/balance
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:218-228`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: When deserializing state JSON, if an account is missing `nonce` or `balance` fields, `BigInt(undefined)` throws a TypeError instead of gracefully handling the missing values.
+
+**Evidence**:
+```javascript
+tevmState[address] = {
+    nonce: BigInt(acct.nonce),      // Throws if acct.nonce is undefined
+    balance: BigInt(acct.balance),  // Throws if acct.balance is undefined
+```
+
+**Recommended Fix**: Use default values: `BigInt(acct.nonce ?? '0x0')`.
+
+---
+
+##### Issue #77: eth_getStorageAt Position Validation Uses Loose Check
+**File:Lines**: `packages/decorators-effect/src/RequestLive.js:131-132`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The position check uses `position === undefined` which allows empty string `''` as valid position, inconsistent with address validation which uses `!address`.
+
+**Recommended Fix**: Use consistent validation pattern.
+
+---
+
+##### Issue #78: SendLive error.message Fallback May Fail
+**File:Lines**: `packages/decorators-effect/src/SendLive.js:64-65`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The error handling assumes `error.message` exists. If the error is not an Error object, `error.message` would be undefined.
+
+**Recommended Fix**: Use defensive check: `String(error.message || error)`.
+
+---
+
+##### Issue #79: dumpState Truthy Check for deployedBytecode
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:185-186`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The truthy check `if (account['deployedBytecode'])` would exclude empty string `''` but include `'0x'`. Inconsistent behavior.
+
+**Recommended Fix**: Use explicit check: `if (account['deployedBytecode'] !== undefined)`.
+
+---
+
+#### Summary Table (95th Review)
+
+| Package | CRITICAL | HIGH | MEDIUM | LOW | Total New |
+|---------|----------|------|--------|-----|-----------|
+| interop | 0 | 0 | 0 | 2 | 2 |
+| logger-effect | 0 | 0 | 0 | 1 | 1 |
+| errors-effect | 0 | 0 | 0 | 1 | 1 |
+| transport-effect | 0 | 0 | 0 | 1 | 1 |
+| state-effect | 0 | 0 | 0 | 2 | 2 |
+| blockchain-effect | 0 | 0 | 0 | 1 | 1 |
+| evm-effect | 0 | 0 | 0 | 1 | 1 (shared) |
+| node-effect | 0 | 1 | 0 | 2 | 3 |
+| actions-effect | 0 | 0 | 1 | 0 | 1 |
+| decorators-effect | 0 | 0 | 4 | 3 | 7 |
+| **TOTAL NEW** | **0** | **1** | **5** | **13** | **19** |
+
+---
+
+#### Recommendations
+
+**Priority 1 - HIGH (Must Fix Before Production):**
+1. ✅ FIXED Issue #69: Added `catchAllDefect` wrapper to `revertToSnapshot` for `setStateRoot` failures
+
+**Priority 2 - MEDIUM (Should Fix):**
+2. Issue #70: Use specific error tag catching in SetAccountLive instead of catchAll
+3. Issue #73: Check `execResult.exceptionError` in EthActionsLive.call
+4. Issue #74: Validate blocks parameter in mine()
+5. Issue #75: Validate hex input in hexToBytes to prevent silent data corruption
+6. Issue #76: Use default values for missing nonce/balance in loadState
+
+**Priority 3 - LOW (Nice to Have):**
+7. Extract duplicated helper functions (#66, #67)
+8. Improve type safety in wrapWithEffect (#61) and Layer types (#71)
+9. Minor validation and consistency improvements (#77, #78, #79)
 
 ---
 

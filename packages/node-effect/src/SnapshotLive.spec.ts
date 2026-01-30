@@ -3,7 +3,7 @@ import { Effect, Layer, Exit } from 'effect'
 import { SnapshotService } from './SnapshotService.js'
 import { SnapshotLive } from './SnapshotLive.js'
 import { StateManagerService } from '@tevm/state-effect'
-import { SnapshotNotFoundError } from '@tevm/errors-effect'
+import { SnapshotNotFoundError, StateRootNotFoundError } from '@tevm/errors-effect'
 
 /**
  * Create a mock StateManagerService that fails on dumpState for testing the revert branch.
@@ -90,6 +90,82 @@ const createNonErrorDefectStateManagerLayer = () => {
 			getStateRoot: () => Effect.sync(() => { throw 'Non-Error defect string' }),
 			setStateRoot: () => Effect.sync(() => undefined),
 			dumpState: () => Effect.sync(() => ({})),
+			loadState: () => Effect.sync(() => undefined),
+			getAccount: () => Effect.sync(() => undefined),
+			putAccount: () => Effect.sync(() => undefined),
+			deleteAccount: () => Effect.sync(() => undefined),
+			getStorage: () => Effect.sync(() => new Uint8Array()),
+			putStorage: () => Effect.sync(() => undefined),
+			clearStorage: () => Effect.sync(() => undefined),
+			getCode: () => Effect.sync(() => new Uint8Array()),
+			putCode: () => Effect.sync(() => undefined),
+			checkpoint: () => Effect.sync(() => undefined),
+			commit: () => Effect.sync(() => undefined),
+			revert: () => Effect.sync(() => undefined),
+			ready: Effect.sync(() => undefined),
+			deepCopy: () => Effect.die(new Error('Not implemented')),
+			shallowCopy: () => { throw new Error('Not implemented') },
+		} as unknown as import('@tevm/state-effect').StateManagerShape,
+	)
+}
+
+/**
+ * Create a mock StateManagerService that fails on setStateRoot for testing revertToSnapshot.
+ * Used to verify that StateRootNotFoundError is returned when setStateRoot throws a defect.
+ */
+const createSetStateRootDefectLayer = () => {
+	let currentStateRoot = new Uint8Array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31])
+	let stateVersion = 0
+
+	return Layer.succeed(
+		StateManagerService,
+		{
+			stateManager: null as unknown,
+			getStateRoot: () => Effect.sync(() => currentStateRoot),
+			// setStateRoot throws synchronously inside Effect.sync, which becomes a defect
+			setStateRoot: () => Effect.sync(() => { throw new Error('Simulated setStateRoot failure') }),
+			dumpState: () => Effect.sync(() => {
+				stateVersion++
+				return { version: stateVersion }
+			}),
+			loadState: () => Effect.sync(() => undefined),
+			getAccount: () => Effect.sync(() => undefined),
+			putAccount: () => Effect.sync(() => undefined),
+			deleteAccount: () => Effect.sync(() => undefined),
+			getStorage: () => Effect.sync(() => new Uint8Array()),
+			putStorage: () => Effect.sync(() => undefined),
+			clearStorage: () => Effect.sync(() => undefined),
+			getCode: () => Effect.sync(() => new Uint8Array()),
+			putCode: () => Effect.sync(() => undefined),
+			checkpoint: () => Effect.sync(() => undefined),
+			commit: () => Effect.sync(() => undefined),
+			revert: () => Effect.sync(() => undefined),
+			ready: Effect.sync(() => undefined),
+			deepCopy: () => Effect.die(new Error('Not implemented')),
+			shallowCopy: () => { throw new Error('Not implemented') },
+		} as unknown as import('@tevm/state-effect').StateManagerShape,
+	)
+}
+
+/**
+ * Create a mock StateManagerService that fails on setStateRoot with a non-Error defect.
+ * Used to test the non-Error branch of the catchAllDefect handler in revertToSnapshot.
+ */
+const createSetStateRootNonErrorDefectLayer = () => {
+	let currentStateRoot = new Uint8Array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31])
+	let stateVersion = 0
+
+	return Layer.succeed(
+		StateManagerService,
+		{
+			stateManager: null as unknown,
+			getStateRoot: () => Effect.sync(() => currentStateRoot),
+			// setStateRoot throws a string (non-Error) synchronously inside Effect.sync, which becomes a defect
+			setStateRoot: () => Effect.sync(() => { throw 'Non-Error setStateRoot failure' }),
+			dumpState: () => Effect.sync(() => {
+				stateVersion++
+				return { version: stateVersion }
+			}),
 			loadState: () => Effect.sync(() => undefined),
 			getAccount: () => Effect.sync(() => undefined),
 			putAccount: () => Effect.sync(() => undefined),
@@ -409,6 +485,52 @@ describe('SnapshotLive', () => {
 			expect(result.size).toBe(15)
 			expect(result.hasF).toBe(true)
 			expect(result.has10).toBe(false)
+		})
+
+		it('should convert setStateRoot defects to StateRootNotFoundError', async () => {
+			const defectLayer = Layer.provide(SnapshotLive(), createSetStateRootDefectLayer())
+
+			const program = Effect.gen(function* () {
+				const snapshot = yield* SnapshotService
+				const id = yield* snapshot.takeSnapshot()
+				// This should fail because setStateRoot throws
+				yield* snapshot.revertToSnapshot(id)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(defectLayer)))
+
+			// The operation should fail with a StateRootNotFoundError (converted from defect)
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as StateRootNotFoundError
+				expect(error._tag).toBe('StateRootNotFoundError')
+				expect(error.message).toContain('Failed to restore state root')
+				expect(error.message).toContain('Simulated setStateRoot failure')
+				// Verify the stateRoot from the snapshot is included
+				expect(error.stateRoot).toBeDefined()
+			}
+		})
+
+		it('should convert non-Error setStateRoot defects to StateRootNotFoundError with String(defect)', async () => {
+			const defectLayer = Layer.provide(SnapshotLive(), createSetStateRootNonErrorDefectLayer())
+
+			const program = Effect.gen(function* () {
+				const snapshot = yield* SnapshotService
+				const id = yield* snapshot.takeSnapshot()
+				// This should fail because setStateRoot throws a non-Error
+				yield* snapshot.revertToSnapshot(id)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(defectLayer)))
+
+			// The operation should fail with a StateRootNotFoundError (converted from non-Error defect)
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as StateRootNotFoundError
+				expect(error._tag).toBe('StateRootNotFoundError')
+				expect(error.message).toContain('Failed to restore state root')
+				expect(error.message).toContain('Non-Error setStateRoot failure')
+			}
 		})
 	})
 
