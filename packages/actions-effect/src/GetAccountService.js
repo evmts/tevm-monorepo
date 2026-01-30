@@ -10,9 +10,12 @@ import { Context } from 'effect'
  * @typedef {Object} GetAccountShape
  * @property {(params: import('./types.js').GetAccountParams) => import('effect').Effect.Effect<
  *   import('./types.js').GetAccountSuccess,
- *   import('@tevm/errors-effect').AccountNotFoundError | import('@tevm/errors-effect').StateRootNotFoundError | import('@tevm/errors-effect').InvalidParamsError,
+ *   import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError,
  *   never
  * >} getAccount - Get account information for an address
+ *
+ * Note: Non-existent accounts are treated as empty accounts with zero balance/nonce
+ * (per Ethereum semantics) rather than throwing AccountNotFoundError.
  */
 
 /**

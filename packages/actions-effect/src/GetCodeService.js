@@ -10,7 +10,7 @@ import { Context } from 'effect'
  * @typedef {Object} GetCodeShape
  * @property {(params: import('./types.js').GetCodeParams) => import('effect').Effect.Effect<
  *   `0x${string}`,
- *   import('@tevm/errors-effect').InvalidParamsError,
+ *   import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError,
  *   never
  * >} getCode - Get the bytecode deployed at an address
  */

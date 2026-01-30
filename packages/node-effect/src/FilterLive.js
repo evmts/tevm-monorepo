@@ -144,13 +144,16 @@ export const FilterLive = () => {
 							const result = yield* Ref.modify(fltrRef, (map) => {
 								const filter = map.get(id)
 								if (!filter) {
-									return [{ found: /** @type {const} */ (false) }, map]
+									return [{ found: /** @type {const} */ (false), wrongType: false }, map]
+								}
+								if (filter.type !== 'Log') {
+									return [{ found: /** @type {const} */ (true), wrongType: /** @type {const} */ (true) }, map]
 								}
 								// Atomically get logs and clear them
 								const logs = [...filter.logs]
 								const newMap = new Map(map)
 								newMap.set(id, { ...filter, logs: [] })
-								return [{ found: /** @type {const} */ (true), logs }, newMap]
+								return [{ found: /** @type {const} */ (true), wrongType: /** @type {const} */ (false), logs }, newMap]
 							})
 
 							if (!result.found) {
@@ -158,6 +161,15 @@ export const FilterLive = () => {
 									new FilterNotFoundError({
 										filterId: id,
 										message: `Filter with id ${id} not found`,
+									}),
+								)
+							}
+
+							if (result.wrongType) {
+								return yield* Effect.fail(
+									new FilterNotFoundError({
+										filterId: id,
+										message: `Filter ${id} is not a log filter`,
 									}),
 								)
 							}

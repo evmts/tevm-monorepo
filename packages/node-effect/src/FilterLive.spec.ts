@@ -167,6 +167,42 @@ describe('FilterLive', () => {
 			expect(result).toEqual([])
 		})
 
+		it('should fail for non-log filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				// Create a block filter, not a log filter
+				const id = yield* filter.createBlockFilter()
+				// Try to get log changes from a block filter - should fail
+				yield* filter.getChanges(id)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as FilterNotFoundError
+				expect(error._tag).toBe('FilterNotFoundError')
+				expect(error.message).toContain('not a log filter')
+			}
+		})
+
+		it('should fail for pending transaction filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				// Create a pending transaction filter, not a log filter
+				const id = yield* filter.createPendingTransactionFilter()
+				// Try to get log changes from a pending tx filter - should fail
+				yield* filter.getChanges(id)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as FilterNotFoundError
+				expect(error._tag).toBe('FilterNotFoundError')
+				expect(error.message).toContain('not a log filter')
+			}
+		})
+
 		it('should return and clear logs', async () => {
 			const program = Effect.gen(function* () {
 				const filter = yield* FilterService

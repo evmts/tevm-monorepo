@@ -9,25 +9,204 @@
 
 ## Review Agent Summary (2026-01-30)
 
-**SIXTY-FIRST UPDATE.** Fixed 2 MEDIUM issues (hexToBytes truncation, revertToSnapshot snapshot loss). Non-atomic deepCopy documented as acceptable trade-off.
+**SIXTY-THIRD UPDATE.** All CRITICAL and HIGH issues resolved. FilterLive filter type validation fixed, GetAccountService error type mismatch fixed, StateManager error propagation now properly wrapped with InternalError.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
 | **Phase 1** | 🟢 FORTY-NINTH REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
 | **Phase 2** | 🟢 FORTY-NINTH REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | ✅ COMPLIANT |
-| **Phase 3** | 🟢 SIXTY-FIRST UPDATE | 2 (node-effect, actions-effect) | 195 | 100% | ⚠️ 0 CRITICAL, 6 MEDIUM |
+| **Phase 3** | 🟢 SIXTY-THIRD UPDATE | 2 (node-effect, actions-effect) | 197 | ~98% | ✅ COMPLIANT (0 CRITICAL, 0 HIGH) |
 | **Phase 4** | ⚪ NOT STARTED | 0 | - | - | - |
 
 **Open Issues Summary:**
 - **CRITICAL**: 0 ✅
-- **HIGH**: 0
-- **MEDIUM**: 6 (error type mismatches, returnStorage unimplemented, non-atomic Refs/deepCopy [accepted], unbounded memory growth)
-- **LOW**: 13 (duplicated utilities, filter type validation, bytesToHex type checking, etc.)
+- **HIGH**: 0 ✅
+- **MEDIUM**: 3 (returnStorage unimplemented, non-atomic Refs [accepted], unbounded memory growth)
+- **LOW**: 8 (duplicated utilities, bytesToHex type checking, code flow inefficiency, etc.)
 
 ### Fixes Applied (2026-01-30):
 1. ✅ **hexToBytes truncation** - Added odd-length hex normalization in SetAccountLive.js, GetStorageAtLive.js, SnapshotLive.js
 2. ✅ **revertToSnapshot snapshot loss** - Reordered operations: setStateRoot now completes before snapshot deletion
 3. ⚠️ **Non-atomic deepCopy** - Documented as acceptable trade-off (benign inconsistencies, not a hot path)
+4. ✅ **FilterLive.getChanges filter type validation** - Added type validation to reject non-Log filters with proper error
+5. ✅ **GetAccountService error type mismatch** - Removed AccountNotFoundError and StateRootNotFoundError from error union (never produced)
+6. ✅ **StateManager error propagation** - Added Effect.mapError wrapping to convert StateManager errors to InternalError in GetAccountLive, GetBalanceLive, GetCodeLive, GetStorageAtLive
+
+---
+
+### SIXTY-SECOND REVIEW (2026-01-30) - Opus 4.5 Comprehensive Parallel Subagent Verification
+
+**Reviewed By**: Claude Opus 4.5 (2 parallel Explore subagents)
+**Scope**: Complete verification of all prior fixes + discovery of new issues in Phase 3 packages
+
+#### Prior Fix Verification Status
+
+| Prior Fix | Status | File:Lines | Verification Details |
+|-----------|--------|------------|---------------------|
+| hexToBytes truncation | ✅ VERIFIED FIXED | SnapshotLive.js:37-47 | Odd-length hex normalized by left-padding with '0' |
+| revertToSnapshot snapshot loss | ✅ VERIFIED FIXED | SnapshotLive.js:139-173 | Snapshot only deleted AFTER setStateRoot succeeds |
+| takeSnapshot atomicity | ✅ VERIFIED FIXED | SnapshotLive.js:105-137 | Uses checkpoint/commit/revert pattern |
+| FilterLive deepCopy bugs (3) | ✅ VERIFIED FIXED | FilterLive.js:317-361 | Address passed as Hex, Array.isArray check, topics deep copied |
+
+---
+
+#### ✅ CRITICAL Issue RESOLVED (63rd Update)
+
+##### 1. FilterLive.getChanges Missing Filter Type Validation
+
+**File:Lines**: FilterLive.js:141-178
+**Status**: ✅ **RESOLVED**
+
+**Problem**: The `getChanges()` method didn't validate that the filter is a 'Log' type filter before accessing log-specific properties.
+
+**Resolution**: Added filter type validation matching the pattern used by `getBlockChanges` and `getPendingTransactionChanges`:
+- Added `wrongType` flag to atomic Ref.modify operation
+- Returns `FilterNotFoundError` with message "Filter ${id} is not a log filter" for non-Log filters
+- Added 2 new tests: "should fail for non-log filter" and "should fail for pending transaction filter"
+- node-effect tests: 92 passing (up from 90)
+
+---
+
+#### ✅ HIGH Issues RESOLVED (63rd Update)
+
+##### 1. GetAccountService Error Type Mismatch
+
+**File:Lines**: GetAccountService.js:11-16, GetAccountLive.js:125-130
+**Status**: ✅ **RESOLVED**
+
+**Problem**: Service declared error types `AccountNotFoundError | StateRootNotFoundError | InvalidParamsError` but only `InvalidParamsError` was ever produced.
+
+**Resolution**:
+- Removed `AccountNotFoundError` and `StateRootNotFoundError` from error union in GetAccountService.js
+- Updated GetAccountLive.js return type to match
+- Added note explaining that non-existent accounts are treated as empty accounts (per Ethereum semantics)
+- Also added `InternalError` for StateManager error handling (see below)
+
+---
+
+##### 2. GetBalanceLive/GetCodeLive/GetStorageAtLive - Undeclared StateManager Errors
+
+**Files**: GetBalanceLive.js, GetCodeLive.js, GetStorageAtLive.js, GetAccountLive.js
+**Status**: ✅ **RESOLVED**
+
+**Problem**: StateManager method calls weren't wrapped with error handlers, allowing errors to propagate as untyped defects.
+
+**Resolution**: Following the pattern established in SetAccountLive.js:
+- Added `InternalError` import to all four files
+- Wrapped all StateManager calls with `Effect.mapError()` to convert errors to `InternalError`
+- Updated Service type declarations to include `InternalError` in error unions
+- Each InternalError includes detailed metadata: address, operation name, and original cause
+
+**Files Changed**:
+- GetAccountService.js, GetAccountLive.js
+- GetBalanceService.js, GetBalanceLive.js
+- GetCodeService.js, GetCodeLive.js
+- GetStorageAtService.js, GetStorageAtLive.js
+
+**Tests**: actions-effect 105 tests passing, ~98% coverage
+
+---
+
+#### 🟡 NEW MEDIUM Issues (62nd Review)
+
+##### 1. returnStorage Not Implemented - CONFIRMED
+
+**File:Lines**: GetAccountLive.js:187-188
+
+**Status**: CONFIRMED - Code comment explicitly acknowledges this limitation
+
+**Problem**: GetAccountParams includes optional `returnStorage` field (types.js line 26) but implementation ignores it completely.
+
+---
+
+##### 2. FilterService Missing Type Annotation
+
+**File:Lines**: FilterService.js:46
+
+**Problem**: Unlike SnapshotService, BlockParamsService, and ImpersonationService, FilterService lacks proper TypeScript type annotation.
+
+**Current**:
+```javascript
+export const FilterService = Context.GenericTag('FilterService')
+```
+
+**Expected** (from SnapshotService.js:57-60):
+```javascript
+export const FilterService = /** @type {Context.Tag<FilterService, FilterShape>} */ (
+  Context.GenericTag('FilterService')
+)
+```
+
+**Impact**: Type checker may not properly infer FilterShape in all contexts.
+
+---
+
+#### 🟢 LOW Issues (62nd Review)
+
+##### 1. Validation Function Duplication (5+ files)
+
+**Files**: GetAccountLive.js, GetBalanceLive.js, GetCodeLive.js, GetStorageAtLive.js, SetAccountLive.js
+
+**Duplicated Functions**:
+- `validateAddress` - identical regex `/^0x[a-fA-F0-9]{40}$/` in 5 files
+- `validateBlockTag` - identical logic (accepts only 'latest' or undefined) in 4 files
+
+**Recommendation**: Extract to shared utility module
+
+---
+
+##### 2. bytesToHex Input Type Validation Weakness
+
+**Files**: GetAccountLive.js:28-31, GetCodeLive.js:16-19, GetStorageAtLive.js:16-25
+
+**Problem**: Functions check `if (!bytes || bytes.length === 0)` but don't validate input type is actually Uint8Array.
+
+**Example**: `bytesToHex("not bytes")` would call `Buffer.from("not bytes")` instead of failing with type error.
+
+**Contrast**: SetAccountLive correctly validates hex input with `validateHex()` before calling `hexToBytes()`.
+
+---
+
+##### 3. GetAccountLive Calls getCode Before Existence Check
+
+**File:Lines**: GetAccountLive.js:141-145
+
+**Problem**: `getCode()` called unconditionally before checking if `ethjsAccount` is undefined, wasting RPC call for non-existent accounts.
+
+**Note**: Code comment (lines 150-151) indicates this is intentional for Ethereum semantics.
+
+---
+
+##### 4. Code Duplication (toHex/bytesToHex/hexToBytes)
+
+**Files**: SnapshotLive.js, FilterLive.js
+
+**Problem**:
+- `toHex()` - defined in both SnapshotLive.js:18-22 and FilterLive.js:20-24
+- `bytesToHex()` - defined in SnapshotLive.js:25-29
+- `hexToBytes()` - defined in SnapshotLive.js:37-47
+
+**Recommendation**: Create shared utility module
+
+---
+
+#### Summary Table (62nd Review)
+
+| Issue | Severity | Package | File | Status |
+|-------|----------|---------|------|--------|
+| **getChanges missing validation** | **CRITICAL** | node-effect | FilterLive.js:141-166 | 🔴 OPEN |
+| GetAccountService error mismatch | HIGH | actions-effect | GetAccountService.js:13-14 | 🔴 OPEN |
+| StateManager error propagation | HIGH | actions-effect | GetBalance/Code/StorageAt | 🔴 OPEN |
+| returnStorage not implemented | MEDIUM | actions-effect | GetAccountLive.js:187-188 | 🔴 OPEN |
+| FilterService type annotation | MEDIUM | node-effect | FilterService.js:46 | 🔴 OPEN |
+| Validation function duplication | LOW | actions-effect | 5 files | 🔴 OPEN |
+| bytesToHex type validation | LOW | actions-effect | 3 files | 🔴 OPEN |
+| getCode before existence check | LOW | actions-effect | GetAccountLive.js | ⚠️ INTENTIONAL |
+| toHex/hexToBytes duplication | LOW | node-effect | 2 files | 🔴 OPEN |
+| hexToBytes truncation | MEDIUM | Multiple | SnapshotLive.js | ✅ FIXED |
+| revertToSnapshot loss | MEDIUM | node-effect | SnapshotLive.js | ✅ FIXED |
+| takeSnapshot atomicity | MEDIUM | node-effect | SnapshotLive.js | ✅ FIXED |
+| FilterLive deepCopy bugs | MEDIUM | node-effect | FilterLive.js | ✅ FIXED |
 
 ---
 

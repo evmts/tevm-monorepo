@@ -1,7 +1,7 @@
 import { Effect, Layer } from 'effect'
 import { GetCodeService } from './GetCodeService.js'
 import { StateManagerService } from '@tevm/state-effect'
-import { InvalidParamsError } from '@tevm/errors-effect'
+import { InvalidParamsError, InternalError } from '@tevm/errors-effect'
 
 /**
  * @module @tevm/actions-effect/GetCodeLive
@@ -110,7 +110,7 @@ export const GetCodeLive = Layer.effect(
 		return {
 			/**
 			 * @param {import('./types.js').GetCodeParams} params
-			 * @returns {import('effect').Effect.Effect<`0x${string}`, import('@tevm/errors-effect').InvalidParamsError, never>}
+			 * @returns {import('effect').Effect.Effect<`0x${string}`, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>}
 			 */
 			getCode: (params) =>
 				Effect.gen(function* () {
@@ -120,8 +120,17 @@ export const GetCodeLive = Layer.effect(
 					// Validate blockTag - only 'latest' is supported
 					yield* validateBlockTag(params.blockTag)
 
-					// Get code from state manager
-					const code = yield* stateManager.getCode(address)
+					// Get code from state manager, wrapping any errors as InternalError
+					const code = yield* stateManager.getCode(address).pipe(
+						Effect.mapError(
+							(e) =>
+								new InternalError({
+									message: `Failed to get code: ${e instanceof Error ? e.message : String(e)}`,
+									meta: { address, operation: 'getCode' },
+									cause: e,
+								}),
+						),
+					)
 
 					// Convert to hex and return
 					return bytesToHex(code)

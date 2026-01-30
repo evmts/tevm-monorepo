@@ -1,7 +1,7 @@
 import { Effect, Layer } from 'effect'
 import { GetBalanceService } from './GetBalanceService.js'
 import { StateManagerService } from '@tevm/state-effect'
-import { InvalidParamsError } from '@tevm/errors-effect'
+import { InvalidParamsError, InternalError } from '@tevm/errors-effect'
 
 /**
  * @module @tevm/actions-effect/GetBalanceLive
@@ -100,7 +100,7 @@ export const GetBalanceLive = Layer.effect(
 		return {
 			/**
 			 * @param {import('./types.js').GetBalanceParams} params
-			 * @returns {import('effect').Effect.Effect<bigint, import('@tevm/errors-effect').InvalidParamsError, never>}
+			 * @returns {import('effect').Effect.Effect<bigint, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>}
 			 */
 			getBalance: (params) =>
 				Effect.gen(function* () {
@@ -110,8 +110,17 @@ export const GetBalanceLive = Layer.effect(
 					// Validate blockTag - only 'latest' is supported
 					yield* validateBlockTag(params.blockTag)
 
-					// Get account from state manager
-					const account = yield* stateManager.getAccount(address)
+					// Get account from state manager, wrapping any errors as InternalError
+					const account = yield* stateManager.getAccount(address).pipe(
+						Effect.mapError(
+							(e) =>
+								new InternalError({
+									message: `Failed to get account for balance: ${e instanceof Error ? e.message : String(e)}`,
+									meta: { address, operation: 'getAccount' },
+									cause: e,
+								}),
+						),
+					)
 
 					// Return balance (default to 0 if account doesn't exist)
 					return account?.balance ?? 0n

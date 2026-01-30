@@ -10,7 +10,7 @@ import { Context } from 'effect'
  * @typedef {Object} GetStorageAtShape
  * @property {(params: import('./types.js').GetStorageAtParams) => import('effect').Effect.Effect<
  *   `0x${string}`,
- *   import('@tevm/errors-effect').InvalidParamsError,
+ *   import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError,
  *   never
  * >} getStorageAt - Get the storage value at a specific slot for an address
  */

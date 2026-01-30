@@ -1,7 +1,7 @@
 import { Effect, Layer } from 'effect'
 import { GetStorageAtService } from './GetStorageAtService.js'
 import { StateManagerService } from '@tevm/state-effect'
-import { InvalidParamsError } from '@tevm/errors-effect'
+import { InvalidParamsError, InternalError } from '@tevm/errors-effect'
 
 /**
  * @module @tevm/actions-effect/GetStorageAtLive
@@ -174,7 +174,7 @@ export const GetStorageAtLive = Layer.effect(
 		return {
 			/**
 			 * @param {import('./types.js').GetStorageAtParams} params
-			 * @returns {import('effect').Effect.Effect<`0x${string}`, import('@tevm/errors-effect').InvalidParamsError, never>}
+			 * @returns {import('effect').Effect.Effect<`0x${string}`, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>}
 			 */
 			getStorageAt: (params) =>
 				Effect.gen(function* () {
@@ -190,8 +190,17 @@ export const GetStorageAtLive = Layer.effect(
 					// Convert position to bytes (32 bytes)
 					const positionBytes = hexToBytes(position, { size: 32 })
 
-					// Get storage value from state manager
-					const value = yield* stateManager.getStorage(address, positionBytes)
+					// Get storage value from state manager, wrapping any errors as InternalError
+					const value = yield* stateManager.getStorage(address, positionBytes).pipe(
+						Effect.mapError(
+							(e) =>
+								new InternalError({
+									message: `Failed to get storage at ${position}: ${e instanceof Error ? e.message : String(e)}`,
+									meta: { address, position, operation: 'getStorage' },
+									cause: e,
+								}),
+						),
+					)
 
 					// Convert to hex and return
 					return bytesToHex(value)

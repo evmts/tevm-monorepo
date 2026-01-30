@@ -1,7 +1,7 @@
 import { Effect, Layer } from 'effect'
 import { GetAccountService } from './GetAccountService.js'
 import { StateManagerService } from '@tevm/state-effect'
-import { InvalidParamsError } from '@tevm/errors-effect'
+import { InvalidParamsError, InternalError } from '@tevm/errors-effect'
 
 /**
  * @module @tevm/actions-effect/GetAccountLive
@@ -124,7 +124,7 @@ export const GetAccountLive = Layer.effect(
 			 * @param {import('./types.js').GetAccountParams} params
 			 * @returns {import('effect').Effect.Effect<
 			 *   import('./types.js').GetAccountSuccess,
-			 *   import('@tevm/errors-effect').AccountNotFoundError | import('@tevm/errors-effect').StateRootNotFoundError | import('@tevm/errors-effect').InvalidParamsError,
+			 *   import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError,
 			 *   never
 			 * >}
 			 */
@@ -136,12 +136,30 @@ export const GetAccountLive = Layer.effect(
 					// Validate blockTag - only 'latest' is supported
 					yield* validateBlockTag(params.blockTag)
 
-					// Get account from state manager
+					// Get account from state manager, wrapping errors as InternalError
 					// EthjsAccount has: nonce (bigint), balance (bigint), storageRoot (Uint8Array), codeHash (Uint8Array)
-					const ethjsAccount = yield* stateManager.getAccount(address)
+					const ethjsAccount = yield* stateManager.getAccount(address).pipe(
+						Effect.mapError(
+							(e) =>
+								new InternalError({
+									message: `Failed to get account: ${e instanceof Error ? e.message : String(e)}`,
+									meta: { address, operation: 'getAccount' },
+									cause: e,
+								}),
+						),
+					)
 
-					// Get deployed bytecode
-					const code = yield* stateManager.getCode(address)
+					// Get deployed bytecode, wrapping errors as InternalError
+					const code = yield* stateManager.getCode(address).pipe(
+						Effect.mapError(
+							(e) =>
+								new InternalError({
+									message: `Failed to get code: ${e instanceof Error ? e.message : String(e)}`,
+									meta: { address, operation: 'getCode' },
+									cause: e,
+								}),
+						),
+					)
 					const deployedBytecode = bytesToHex(code)
 
 					// Determine if this is a contract

@@ -10,7 +10,7 @@ import { Context } from 'effect'
  * @typedef {Object} GetBalanceShape
  * @property {(params: import('./types.js').GetBalanceParams) => import('effect').Effect.Effect<
  *   bigint,
- *   import('@tevm/errors-effect').InvalidParamsError,
+ *   import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError,
  *   never
  * >} getBalance - Get the balance of an address
  */
