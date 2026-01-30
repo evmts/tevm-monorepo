@@ -9,7 +9,7 @@
 
 ## Review Agent Summary (2026-01-30)
 
-**SEVENTIETH REVIEW.** All CRITICAL and HIGH issues from Phase 4 have been RESOLVED. Tests pass (65 total: 31 memory-client-effect, 34 decorators-effect).
+**SEVENTY-SECOND REVIEW.** All HIGH and 1 MEDIUM issues from 71st review now RESOLVED. Tests pass (65 total: 31 memory-client-effect, 34 decorators-effect).
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
@@ -23,6 +23,185 @@
 - **HIGH**: 0 ✅ (all resolved)
 - **MEDIUM**: 10 🟡 (missing validations, type mismatches, encapsulation violations)
 - **LOW**: 5 (documentation issues, unused functions)
+
+---
+
+### SEVENTY-SECOND REVIEW (2026-01-30) - All 71st Review Issues RESOLVED
+
+**Reviewed By**: Claude Opus 4.5
+**Scope**: Resolution of all HIGH and MEDIUM issues identified in 71st review
+
+---
+
+#### ✅ All HIGH Issues RESOLVED
+
+##### 1. createMemoryClient.js - JSDoc Type Mismatch for revertToSnapshot - FIXED
+**Status**: ✅ RESOLVED
+
+**Fix Applied**: Changed JSDoc typedef from `Promise<boolean>` to `Promise<void>` to match actual implementation at line 29.
+
+##### 2. createMemoryClient.js - Null Layer Violates Type Contract - FIXED
+**Status**: ✅ RESOLVED
+
+**Fix Applied**: Changed `effect.layer` in `createDeepCopyClient` from `Layer.succeed(MemoryClientService, null)` to a getter that throws an informative error explaining that layer is not available on deep-copied clients and users should use `effect.runtime` instead.
+
+##### 3. types.js - gasPrice Error Type Mismatch - FIXED
+**Status**: ✅ RESOLVED
+
+**Fix Applied**: Changed type declaration from `Effect<bigint, InternalError, never>` to `Effect<bigint, never, never>` with documentation note that it returns fixed 1 gwei for in-memory simulation.
+
+#### ✅ All MEDIUM Issues RESOLVED
+
+##### 4. TevmActionsLive.js - Unused parentBlock Variable - FIXED
+**Status**: ✅ RESOLVED
+
+**Fix Applied**: Removed the unused `parentBlock` assignment at lines 227-234 that was dead code.
+
+---
+
+#### Test Results After Fixes
+
+| Package | Tests | Status |
+|---------|-------|--------|
+| memory-client-effect | 31 | ✅ All Pass |
+| decorators-effect | 34 | ✅ All Pass |
+| **Total** | **65** | ✅ **All Pass** |
+
+---
+
+### SEVENTY-FIRST REVIEW (2026-01-30) - NEW HIGH and MEDIUM Issues in Phase 4
+
+**Reviewed By**: Claude Opus 4.5 (2 parallel Explore subagents)
+**Scope**: Post-fix verification of @tevm/memory-client-effect and @tevm/decorators-effect
+
+---
+
+#### 🔴 NEW HIGH Issues Found (NOW RESOLVED - see 72nd review)
+
+##### 1. createMemoryClient.js - JSDoc Type Mismatch for revertToSnapshot
+
+**File:Lines**: createMemoryClient.js:29
+**Package**: memory-client-effect
+**Status**: ✅ RESOLVED
+
+**Problem**: The `ViemMemoryClient` typedef declares `revertToSnapshot` returns `Promise<boolean>`, but the actual implementation returns `Promise<void>` (since the underlying Effect type is `Effect<void, SnapshotNotFoundError>`).
+
+**Evidence**:
+```javascript
+// Line 29: JSDoc says Promise<boolean>
+* @property {(snapshotId: import('./types.js').Hex) => Promise<boolean>} revertToSnapshot
+
+// Line 125: Actual implementation returns void (from Effect<void, ...>)
+revertToSnapshot: (snapshotId) => runEffect(withClient((c) => c.revertToSnapshot(snapshotId))),
+```
+
+**Impact**: Type safety violation - users relying on boolean return value will get undefined behavior.
+
+**Fix**: Change typedef to `Promise<void>` to match implementation.
+
+---
+
+##### 2. createMemoryClient.js - Null Layer Violates Type Contract
+
+**File:Lines**: createMemoryClient.js:135
+**Package**: memory-client-effect
+**Status**: ✅ RESOLVED
+
+**Problem**: In `createDeepCopyClient`, `effect.layer` is set to `Layer.succeed(MemoryClientService, null)`. The JSDoc at line 34 declares it as `Layer.Layer<MemoryClientService, never, never>`, which should provide a valid `MemoryClientShape`. Passing `null` violates the type contract.
+
+**Evidence**:
+```javascript
+// Line 34: Type says Layer should provide MemoryClientService
+* @property {Layer.Layer<MemoryClientService, never, never>} effect.layer
+
+// Line 135: Actually provides null
+layer: Layer.succeed(MemoryClientService, null), // Placeholder - actual layer not available
+```
+
+**Impact**: Users accessing `effect.layer` on a deep-copied client will get a layer that provides `null` instead of a valid `MemoryClientShape`, causing runtime errors.
+
+**Fix**: Either properly construct the layer from copied state, or document this limitation and throw an error if accessed.
+
+---
+
+##### 3. types.js - gasPrice Error Type Mismatch
+
+**File:Lines**: types.js:61
+**Package**: decorators-effect
+**Status**: ✅ RESOLVED
+
+**Problem**: The `EthActionsShape.gasPrice` type declaration says it can fail with `InternalError`, but the actual implementation at EthActionsLive.js:129-136 returns `Effect.gen(...)` with no error handling path, producing `Effect<bigint, never, never>`.
+
+**Evidence**:
+```javascript
+// types.js:61 - declares InternalError in error channel
+@property {() => import('effect').Effect<bigint, import('@tevm/errors-effect').InternalError, never>} gasPrice
+
+// EthActionsLive.js:129-136 - no error possible
+gasPrice: () =>
+    Effect.gen(function* () {
+        return 1000000000n  // Always succeeds, never fails
+    }),
+```
+
+**Impact**: Type declaration misleads users into expecting error handling when none is needed.
+
+**Fix**: Change type to `Effect<bigint, never, never>` to match implementation.
+
+---
+
+#### 🟡 NEW MEDIUM Issues Found
+
+##### 4. TevmActionsLive.js - Unused parentBlock Variable (Dead Code)
+
+**File:Lines**: TevmActionsLive.js:227-234
+**Package**: decorators-effect
+**Status**: ✅ RESOLVED
+
+**Problem**: The `parentBlock` variable is fetched on line 227-234 but never used. Inside the mining loop, `currentBlock` is fetched again (line 238) and used for building blocks (line 254).
+
+**Evidence**:
+```javascript
+// Line 227-234: Fetched but never used
+const parentBlock = yield* Effect.tryPromise({
+    try: () => vm.vm.blockchain.getCanonicalHeadBlock(),
+    // ...
+})
+
+// Line 238-245: currentBlock is fetched and actually used instead
+const currentBlock = yield* Effect.tryPromise({
+    try: () => vm.vm.blockchain.getCanonicalHeadBlock(),
+    // ...
+})
+
+// Line 254: currentBlock is used, not parentBlock
+parentBlock: currentBlock,
+```
+
+**Impact**: Unnecessary RPC call and wasted memory allocation.
+
+**Fix**: Remove the unused `parentBlock` assignment.
+
+---
+
+#### Summary Table
+
+| Package | CRITICAL | HIGH | MEDIUM | LOW | Total |
+|---------|----------|------|--------|-----|-------|
+| memory-client-effect | 0 | 2 | 0 | 0 | 2 |
+| decorators-effect | 0 | 1 | 1 | 0 | 2 |
+| **TOTAL** | **0** | **3** | **1** | **0** | **4** |
+
+---
+
+#### Verification of Prior Fixes (70th Review)
+
+All prior fixes remain in place:
+- ✅ dumpState/loadState - Correctly serializes/deserializes full TevmState
+- ✅ deepCopy action services - Created inline bound to copied stateManager
+- ✅ mine uses vm.vm.buildBlock() - Correct BlockBuilder pattern
+- ✅ chainId error type is `never` - Correct
+- ✅ gasPrice hardcoding documented - Comment explains design decision
 
 ---
 

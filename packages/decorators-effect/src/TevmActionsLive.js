@@ -223,15 +223,6 @@ export const TevmActionsLive = Layer.effect(
 			mine: (options = {}) =>
 				Effect.gen(function* () {
 					const blocks = options.blocks ?? 1
-					// Get the parent block for building new blocks
-					const parentBlock = yield* Effect.tryPromise({
-						try: () => vm.vm.blockchain.getCanonicalHeadBlock(),
-						catch: (e) =>
-							new InternalError({
-								message: `Failed to get parent block: ${e instanceof Error ? e.message : String(e)}`,
-								cause: e instanceof Error ? e : undefined,
-							}),
-					})
 
 					for (let i = 0; i < blocks; i++) {
 						// Get current block for timestamp calculation

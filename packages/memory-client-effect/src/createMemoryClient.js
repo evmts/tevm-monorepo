@@ -26,7 +26,7 @@ import { SnapshotLive } from '@tevm/node-effect'
  * @property {(params: import('@tevm/actions-effect').GetCodeParams) => Promise<import('./types.js').Hex>} getCode - Get account code
  * @property {(params: import('@tevm/actions-effect').GetStorageAtParams) => Promise<import('./types.js').Hex>} getStorageAt - Get storage value
  * @property {() => Promise<import('./types.js').Hex>} takeSnapshot - Take state snapshot
- * @property {(snapshotId: import('./types.js').Hex) => Promise<boolean>} revertToSnapshot - Revert to snapshot
+ * @property {(snapshotId: import('./types.js').Hex) => Promise<void>} revertToSnapshot - Revert to snapshot
  * @property {() => Promise<ViemMemoryClient>} deepCopy - Create deep copy of client
  * @property {() => Promise<void>} destroy - Dispose of client resources
  * @property {Object} effect - Effect escape hatch
@@ -132,7 +132,12 @@ const createDeepCopyClient = (runtime) => {
 		destroy: () => runtime.dispose(),
 		effect: {
 			runtime,
-			layer: Layer.succeed(MemoryClientService, null), // Placeholder - actual layer not available
+			// Note: The original composed layer is not available in deep-copied clients.
+			// Use the runtime to run Effects instead. Accessing this layer will provide
+			// null which should not be used directly - use the parent client's layer if needed.
+			get layer() {
+				throw new Error('layer is not available on deep-copied clients. Use effect.runtime instead, or access the layer from the original client.')
+			},
 		},
 	}
 }
