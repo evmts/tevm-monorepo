@@ -21,10 +21,11 @@ const createSilentLoggerShape = (name = 'tevm') => {
 	const shape = {
 		level: 'silent',
 		name,
-		debug: () => Effect.void,
-		info: () => Effect.void,
-		warn: () => Effect.void,
-		error: () => Effect.void,
+		// Parameters match LoggerShape interface (Issue #38 fix)
+		debug: (_message, _data) => Effect.void,
+		info: (_message, _data) => Effect.void,
+		warn: (_message, _data) => Effect.void,
+		error: (_message, _data) => Effect.void,
 		child: (childName) => createSilentLoggerShape(`${name}:${childName}`),
 	}
 

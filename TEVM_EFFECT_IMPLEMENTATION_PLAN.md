@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (101st Update - Resolved MEDIUM Issue #53: Fixed SnapshotLive dangling checkpoint)
+**Last Updated**: 2026-01-30 (102nd Update - Resolved MEDIUM Issue #38: Fixed LoggerSilent function signatures)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
@@ -21,7 +21,7 @@
 **Open Issues Summary:**
 - **CRITICAL**: 0
 - **HIGH**: 0 ✅ (Issue #69 resolved)
-- **MEDIUM**: 8 🟡 (Issues #53, #57, #58, #70, #73, #74, #75, #76 resolved)
+- **MEDIUM**: 7 🟡 (Issues #38, #53, #57, #58, #70, #73, #74, #75, #76 resolved)
 - **LOW**: 36 (+13 new from 95th review)
 
 ---
@@ -741,7 +741,7 @@ For `eth_call`, the `to` parameter should be optional to support contract deploy
 ##### Issue #38: LoggerSilent Function Signatures Mismatch
 **File:Lines**: `packages/logger-effect/src/LoggerSilent.js:24-27`
 **Severity**: 🟡 MEDIUM
-**Status**: 🟡 NEW
+**Status**: ✅ FIXED
 
 **Problem**: The logging methods (debug, info, warn, error) in LoggerSilent are defined as zero-parameter functions `() => Effect.void`, but the LoggerShape interface requires them to accept `(message: string, data?: unknown)` parameters.
 
@@ -760,13 +760,7 @@ error: () => Effect.void,
 
 **Impact**: While JavaScript ignores extra arguments (so this works at runtime), it violates the type contract and creates inconsistency with LoggerLive and LoggerTest which correctly use `(message, data) => ...` pattern.
 
-**Recommended Fix**:
-```javascript
-debug: (message, data) => Effect.void,
-info: (message, data) => Effect.void,
-warn: (message, data) => Effect.void,
-error: (message, data) => Effect.void,
-```
+**Resolution**: Updated function signatures to accept `(_message, _data)` parameters to match LoggerShape interface.
 
 ---
 
