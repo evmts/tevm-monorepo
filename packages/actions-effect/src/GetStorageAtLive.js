@@ -10,10 +10,11 @@ import { InvalidParamsError, InternalError } from '@tevm/errors-effect'
 
 /**
  * Converts a Uint8Array to a hex string, padded to 32 bytes (browser-compatible implementation)
+ * Named bytesToHex32 to distinguish from bytesToHex in other files which don't pad (Issue #9 fix)
  * @param {Uint8Array} bytes - Bytes to convert
  * @returns {`0x${string}`} - Hex string (64 chars + 0x prefix)
  */
-const bytesToHex = (bytes) => {
+const bytesToHex32 = (bytes) => {
 	if (!bytes || bytes.length === 0) {
 		// Return 32 bytes of zeros for empty storage
 		return '0x0000000000000000000000000000000000000000000000000000000000000000'
@@ -201,8 +202,8 @@ export const GetStorageAtLive = Layer.effect(
 						),
 					)
 
-					// Convert to hex and return
-					return bytesToHex(value)
+					// Convert to hex and return (padded to 32 bytes for storage values)
+					return bytesToHex32(value)
 				}),
 		}
 	}),

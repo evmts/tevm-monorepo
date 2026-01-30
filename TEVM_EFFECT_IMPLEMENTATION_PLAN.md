@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (103rd Update - Resolved MEDIUM Issues #14, #24: Type declarations already correct)
+**Last Updated**: 2026-01-30 (104th Update - Resolved MEDIUM Issue #9: Renamed bytesToHex32 for clarity)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
@@ -21,7 +21,7 @@
 **Open Issues Summary:**
 - **CRITICAL**: 0
 - **HIGH**: 0 ✅ (Issue #69 resolved)
-- **MEDIUM**: 5 🟡 (Issues #14, #24, #38, #53, #57, #58, #70, #73, #74, #75, #76 resolved)
+- **MEDIUM**: 4 🟡 (Issues #9, #14, #24, #38, #53, #57, #58, #70, #73, #74, #75, #76 resolved)
 - **LOW**: 36 (+13 new from 95th review)
 
 ---
@@ -1918,11 +1918,11 @@ export const ImpersonationService = /** @type {Context.Tag<ImpersonationService,
 ##### 9. Inconsistent bytesToHex Behavior
 **File:Lines**: `packages/actions-effect/src/GetStorageAtLive.js:16-28` vs other files
 **Severity**: 🟡 MEDIUM
-**Status**: 🟡 NEW
+**Status**: ✅ FIXED
 
 **Problem**: `bytesToHex` in GetStorageAtLive.js pads output to 32 bytes (64 hex chars), while the same function in GetAccountLive.js and GetCodeLive.js does not pad. This is correct for storage values but inconsistent naming could lead to bugs.
 
-**Recommended Fix**: Create distinct named functions like `bytesToHex` and `bytesToHex32` to make behavior explicit.
+**Resolution**: Renamed to `bytesToHex32` in GetStorageAtLive.js to make the 32-byte padding behavior explicit. All 109 tests pass.
 
 ---
 
