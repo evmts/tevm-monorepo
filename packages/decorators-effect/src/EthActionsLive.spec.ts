@@ -5,6 +5,7 @@ import { EthActionsLive } from './EthActionsLive.js'
 import { StateManagerService } from '@tevm/state-effect'
 import { VmService } from '@tevm/vm-effect'
 import { CommonService } from '@tevm/common-effect'
+import { BlockchainService } from '@tevm/blockchain-effect'
 import {
 	GetBalanceService,
 	GetCodeService,
@@ -74,6 +75,22 @@ describe('EthActionsLive', () => {
 		),
 	})
 
+	const createMockBlockchainService = () => ({
+		chain: {} as any,
+		getBlock: vi.fn(() => Effect.succeed({ header: { number: 100n } } as any)),
+		getBlockByHash: vi.fn(() => Effect.succeed({ header: { number: 100n } } as any)),
+		putBlock: vi.fn(() => Effect.succeed(undefined)),
+		getCanonicalHeadBlock: vi.fn(() => Effect.succeed({ header: { number: 100n } } as any)),
+		getIteratorHead: vi.fn(() => Effect.succeed({ header: { number: 100n } } as any)),
+		setIteratorHead: vi.fn(() => Effect.succeed(undefined)),
+		delBlock: vi.fn(() => Effect.succeed(undefined)),
+		validateHeader: vi.fn(() => Effect.succeed(undefined)),
+		deepCopy: vi.fn(() => Effect.succeed({} as any)),
+		shallowCopy: vi.fn(() => ({} as any)),
+		ready: Effect.succeed(undefined),
+		iterator: vi.fn(() => (async function* () {})()),
+	})
+
 	const createTestLayer = () => {
 		const vmMock = createMockVm()
 		const commonMock = createMockCommon()
@@ -81,11 +98,13 @@ describe('EthActionsLive', () => {
 		const getBalanceMock = createMockGetBalanceService()
 		const getCodeMock = createMockGetCodeService()
 		const getStorageAtMock = createMockGetStorageAtService()
+		const blockchainMock = createMockBlockchainService()
 
 		const mockLayer = Layer.mergeAll(
 			Layer.succeed(StateManagerService, stateManagerMock as any),
 			Layer.succeed(VmService, vmMock as any),
 			Layer.succeed(CommonService, commonMock as any),
+			Layer.succeed(BlockchainService, blockchainMock as any),
 			Layer.succeed(GetBalanceService, getBalanceMock as any),
 			Layer.succeed(GetCodeService, getCodeMock as any),
 			Layer.succeed(GetStorageAtService, getStorageAtMock as any)
@@ -97,6 +116,7 @@ describe('EthActionsLive', () => {
 				vm: vmMock,
 				common: commonMock,
 				stateManager: stateManagerMock,
+				blockchain: blockchainMock,
 				getBalance: getBalanceMock,
 				getCode: getCodeMock,
 				getStorageAt: getStorageAtMock,

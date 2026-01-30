@@ -7,6 +7,7 @@ import { Effect, Layer } from 'effect'
 import { EthActionsService } from './EthActionsService.js'
 import { VmService } from '@tevm/vm-effect'
 import { CommonService } from '@tevm/common-effect'
+import { BlockchainService } from '@tevm/blockchain-effect'
 import {
 	GetBalanceService,
 	GetCodeService,
@@ -52,13 +53,14 @@ import { InternalError } from '@tevm/errors-effect'
  * await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
  * ```
  *
- * @type {Layer.Layer<EthActionsService, never, VmService | CommonService | GetBalanceService | GetCodeService | GetStorageAtService>}
+ * @type {Layer.Layer<EthActionsService, never, VmService | CommonService | BlockchainService | GetBalanceService | GetCodeService | GetStorageAtService>}
  */
 export const EthActionsLive = Layer.effect(
 	EthActionsService,
 	Effect.gen(function* () {
 		const vm = yield* VmService
 		const common = yield* CommonService
+		const blockchain = yield* BlockchainService
 		const getBalanceService = yield* GetBalanceService
 		const getCodeService = yield* GetCodeService
 		const getStorageAtService = yield* GetStorageAtService
@@ -66,16 +68,16 @@ export const EthActionsLive = Layer.effect(
 		return {
 			blockNumber: () =>
 				Effect.gen(function* () {
-					// Access the underlying VM's blockchain to get the canonical head block
-					// VmShape doesn't expose getBlock() directly - use vm.vm.blockchain
-					const block = yield* Effect.tryPromise({
-						try: () => vm.vm.blockchain.getCanonicalHeadBlock(),
-						catch: (e) =>
-							new InternalError({
-								message: `Failed to get block: ${e instanceof Error ? e.message : String(e)}`,
-								cause: e instanceof Error ? e : undefined,
-							}),
-					})
+					// Use BlockchainService for proper service abstraction (RFC §4.2)
+					const block = yield* blockchain.getCanonicalHeadBlock().pipe(
+						Effect.mapError(
+							(e) =>
+								new InternalError({
+									message: `Failed to get block: ${e instanceof Error ? e.message : String(e)}`,
+									cause: e instanceof Error ? e : undefined,
+								})
+						)
+					)
 					return block.header.number
 				}),
 

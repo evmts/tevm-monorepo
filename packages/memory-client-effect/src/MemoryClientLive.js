@@ -130,8 +130,16 @@ const createActionServices = (stateManager) => {
 				const ethjsAddress = yield* Effect.promise(() => createEthjsAddress(params.address.toLowerCase()))
 				const { Account } = yield* Effect.promise(() => import('@ethereumjs/util'))
 
-				// Create checkpoint for atomic operation
-				yield* stateManager.checkpoint()
+				// Create checkpoint for atomic operation (RFC §6.3)
+				yield* stateManager.checkpoint().pipe(
+					Effect.mapError(
+						(e) =>
+							new InternalError({
+								message: `Failed to checkpoint: ${e instanceof Error ? e.message : String(e)}`,
+								cause: e instanceof Error ? e : undefined,
+							})
+					)
+				)
 
 				try {
 					const account = new Account(params.nonce ?? 0n, params.balance ?? 0n)
@@ -194,14 +202,31 @@ const createActionServices = (stateManager) => {
 						}
 					}
 
-					yield* stateManager.commit()
+					yield* stateManager.commit().pipe(
+						Effect.mapError(
+							(e) =>
+								new InternalError({
+									message: `Failed to commit: ${e instanceof Error ? e.message : String(e)}`,
+									cause: e instanceof Error ? e : undefined,
+								})
+						)
+					)
 
 					return {
 						address: /** @type {import('./types.js').Address} */ (params.address.toLowerCase()),
 					}
 				} catch (error) {
-					yield* stateManager.revert()
-					throw error
+					// Suppress revert errors to preserve original error (RFC §6.3)
+					yield* stateManager.revert().pipe(Effect.catchAll(() => Effect.void))
+					// Use Effect.fail for proper error channel (RFC §6.2)
+					return yield* Effect.fail(
+						error instanceof InvalidParamsError || error instanceof InternalError
+							? error
+							: new InternalError({
+									message: `setAccount failed: ${error instanceof Error ? error.message : String(error)}`,
+									cause: error instanceof Error ? error : undefined,
+								})
+					)
 				}
 			}),
 
@@ -389,12 +414,22 @@ const createMemoryClientShape = (deps) => {
 				const currentReady = yield* Ref.get(readyRef)
 				const newReadyRef = yield* Ref.make(currentReady)
 
+				// Deep copy common to prevent shared mutable state (RFC §5.4)
+				// CommonShape has a copy() method that creates an independent copy
+				const commonCopy = {
+					common: common.copy(),
+					chainId: common.chainId,
+					hardfork: common.hardfork,
+					eips: common.eips,
+					copy: common.copy,
+				}
+
 				// Return new shape with copied state
 				// Action services will be recreated with the new stateManagerCopy
 				return createMemoryClientShape({
 					stateManager: stateManagerCopy,
 					vm: vmCopy,
-					common,
+					common: commonCopy,
 					snapshotService: snapshotCopy,
 					readyRef: newReadyRef,
 				})

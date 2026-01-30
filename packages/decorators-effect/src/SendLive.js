@@ -61,7 +61,8 @@ export const SendLive = Layer.effect(
 								Effect.succeed({
 									jsonrpc: /** @type {const} */ ('2.0'),
 									error: {
-										code: -32603,
+										// Preserve error-specific codes (RFC §6.3, JSON-RPC 2.0 spec)
+										code: /** @type {any} */ (error).code ?? -32603,
 										message: error.message || 'Internal error',
 									},
 									id: request.id,
@@ -90,7 +91,8 @@ export const SendLive = Layer.effect(
 										Effect.succeed({
 											jsonrpc: /** @type {const} */ ('2.0'),
 											error: {
-												code: -32603,
+												// Preserve error-specific codes (RFC §6.3, JSON-RPC 2.0 spec)
+												code: /** @type {any} */ (error).code ?? -32603,
 												message: error.message || 'Internal error',
 											},
 											id: request.id,

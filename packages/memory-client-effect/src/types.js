@@ -38,18 +38,18 @@
 /**
  * Shape of the MemoryClient service - provides access to all tevm functionality
  * @typedef {Object} MemoryClientShape
- * @property {import('effect').Effect.Effect<boolean>} ready - Check if client is ready
- * @property {import('effect').Effect.Effect<bigint>} getBlockNumber - Get current block number
- * @property {import('effect').Effect.Effect<bigint>} getChainId - Get chain ID
- * @property {(params: import('@tevm/actions-effect').GetAccountParams) => import('effect').Effect.Effect<import('@tevm/actions-effect').GetAccountSuccess, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError>} getAccount - Get account info
- * @property {(params: import('@tevm/actions-effect').SetAccountParams) => import('effect').Effect.Effect<import('@tevm/actions-effect').SetAccountSuccess, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError>} setAccount - Set account state
- * @property {(params: import('@tevm/actions-effect').GetBalanceParams) => import('effect').Effect.Effect<bigint, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError>} getBalance - Get account balance
- * @property {(params: import('@tevm/actions-effect').GetCodeParams) => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError>} getCode - Get account code
- * @property {(params: import('@tevm/actions-effect').GetStorageAtParams) => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError>} getStorageAt - Get storage value
- * @property {() => import('effect').Effect.Effect<Hex>} takeSnapshot - Take state snapshot
- * @property {(snapshotId: Hex) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').SnapshotNotFoundError>} revertToSnapshot - Revert to snapshot
- * @property {() => import('effect').Effect.Effect<MemoryClientShape>} deepCopy - Create deep copy of client
- * @property {import('effect').Effect.Effect<void>} dispose - Dispose of client resources
+ * @property {import('effect').Effect.Effect<boolean, never, never>} ready - Check if client is ready
+ * @property {import('effect').Effect.Effect<bigint, never, never>} getBlockNumber - Get current block number
+ * @property {import('effect').Effect.Effect<bigint, never, never>} getChainId - Get chain ID
+ * @property {(params: import('@tevm/actions-effect').GetAccountParams) => import('effect').Effect.Effect<import('@tevm/actions-effect').GetAccountSuccess, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getAccount - Get account info
+ * @property {(params: import('@tevm/actions-effect').SetAccountParams) => import('effect').Effect.Effect<import('@tevm/actions-effect').SetAccountSuccess, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} setAccount - Set account state
+ * @property {(params: import('@tevm/actions-effect').GetBalanceParams) => import('effect').Effect.Effect<bigint, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getBalance - Get account balance
+ * @property {(params: import('@tevm/actions-effect').GetCodeParams) => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getCode - Get account code
+ * @property {(params: import('@tevm/actions-effect').GetStorageAtParams) => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getStorageAt - Get storage value
+ * @property {() => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').InternalError, never>} takeSnapshot - Take state snapshot
+ * @property {(snapshotId: Hex) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').SnapshotNotFoundError | import('@tevm/errors-effect').InternalError, never>} revertToSnapshot - Revert to snapshot
+ * @property {() => import('effect').Effect.Effect<MemoryClientShape, never, never>} deepCopy - Create deep copy of client
+ * @property {import('effect').Effect.Effect<void, never, never>} dispose - Dispose of client resources
  */
 
 /**

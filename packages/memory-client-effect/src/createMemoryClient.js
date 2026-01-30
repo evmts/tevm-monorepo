@@ -334,67 +334,13 @@ export const createMemoryClient = (options = {}) => {
 			// Create a new managed runtime with the copied layer
 			const copiedRuntime = ManagedRuntime.make(copiedLayer)
 
-			/**
-			 * Helper to run effects on the copied runtime
-			 * @template A
-			 * @template E
-			 * @param {Effect.Effect<A, E, MemoryClientService>} effect
-			 * @returns {Promise<A>}
-			 */
-			const runCopiedEffect = async (effect) => {
-				return copiedRuntime.runPromise(effect)
-			}
-
-			/**
-			 * Helper for the copied client
-			 * @template A
-			 * @template E
-			 * @param {(client: import('./types.js').MemoryClientShape) => Effect.Effect<A, E, never>} fn
-			 * @returns {Effect.Effect<A, E, MemoryClientService>}
-			 */
-			const withCopiedClient = (fn) =>
-				Effect.gen(function* () {
-					const client = yield* MemoryClientService
-					return yield* fn(client)
-				})
-
-			// Return a new client wrapper that uses the copied shape
-			return {
-				ready: () => runCopiedEffect(withCopiedClient((c) => c.ready)),
-				getBlockNumber: () => runCopiedEffect(withCopiedClient((c) => c.getBlockNumber)),
-				getChainId: () => runCopiedEffect(withCopiedClient((c) => c.getChainId)),
-				tevmGetAccount: (params) => runCopiedEffect(withCopiedClient((c) => c.getAccount(params))),
-				tevmSetAccount: (params) => runCopiedEffect(withCopiedClient((c) => c.setAccount(params))),
-				getBalance: (params) => runCopiedEffect(withCopiedClient((c) => c.getBalance(params))),
-				getCode: (params) => runCopiedEffect(withCopiedClient((c) => c.getCode(params))),
-				getStorageAt: (params) => runCopiedEffect(withCopiedClient((c) => c.getStorageAt(params))),
-				takeSnapshot: () => runCopiedEffect(withCopiedClient((c) => c.takeSnapshot())),
-				revertToSnapshot: (snapshotId) => runCopiedEffect(withCopiedClient((c) => c.revertToSnapshot(snapshotId))),
-				// Recursive deep copy works because the copied shape has its own deepCopy method
-				deepCopy: async function() {
-					const nestedCopiedShape = await runCopiedEffect(withCopiedClient((c) => c.deepCopy()))
-					// Validate the copied shape implements the required contract
-					const validatedShape = validateMemoryClientShape(nestedCopiedShape)
-					const nestedLayer = Layer.succeed(MemoryClientService, validatedShape)
-					const nestedRuntime = ManagedRuntime.make(nestedLayer)
-					try {
-						// Return a simplified client for deep nested copies
-						return createDeepCopyClient(nestedRuntime)
-					} catch (e) {
-						// Dispose runtime on failure to prevent resource leak
-						nestedRuntime.dispose()
-						throw e
-					}
-				},
-				destroy: () => copiedRuntime.dispose(),
-				effect: {
-					runtime: copiedRuntime,
-					// Note: Layer is not available on deep-copied clients for consistency.
-					// All deep copies should use effect.runtime instead.
-					get layer() {
-						throw new Error('layer is not available on deep-copied clients. Use effect.runtime instead, or access the layer from the original client.')
-					},
-				},
+			// Reuse createDeepCopyClient to eliminate code duplication
+			try {
+				return createDeepCopyClient(copiedRuntime)
+			} catch (e) {
+				// Dispose runtime on failure to prevent resource leak
+				copiedRuntime.dispose()
+				throw e
 			}
 		},
 
