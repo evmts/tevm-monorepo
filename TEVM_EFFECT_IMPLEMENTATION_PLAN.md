@@ -21,7 +21,7 @@
 **Open Issues Summary:**
 - **CRITICAL**: 0
 - **HIGH**: 0 ✅ (Issue #69 resolved)
-- **MEDIUM**: 16 🟡 (+5 new from 95th review)
+- **MEDIUM**: 15 🟡 (Issue #73 resolved)
 - **LOW**: 36 (+13 new from 95th review)
 
 ---
@@ -270,7 +270,7 @@ export const GetAccountLive: Layer.Layer<any, never, any>;
 ##### Issue #73: EthActionsLive.call Ignores EVM Execution Errors
 **File:Lines**: `packages/decorators-effect/src/EthActionsLive.js:123-145`
 **Severity**: 🟡 MEDIUM
-**Status**: 🟡 NEW
+**Status**: ✅ FIXED
 
 **Problem**: The `eth_call` implementation does not check for EVM execution errors in the result. When a contract reverts or throws an exception, `runCall` still resolves successfully, but the error is in `execResult.exceptionError`. The current code ignores this and returns the return value as if the call succeeded.
 
@@ -288,6 +288,8 @@ return bytesToHex(execResult?.returnValue ?? new Uint8Array())
 **Impact**: Callers cannot distinguish between successful calls and reverts.
 
 **Recommended Fix**: Check `execResult.exceptionError` and fail with an appropriate error when present.
+
+**Resolution**: Added error checking for `execResult.exceptionError` in `eth_call`. Now properly returns typed errors: `RevertError` for reverts, `OutOfGasError` for gas exhaustion, `InvalidOpcodeError` for invalid opcodes, and `InternalError` for other EVM errors. Added 5 new tests covering all error types. Coverage improved from 79.67% to 98.39%.
 
 ---
 

@@ -13,7 +13,7 @@ import {
 	GetCodeService,
 	GetStorageAtService,
 } from '@tevm/actions-effect'
-import { InternalError } from '@tevm/errors-effect'
+import { InternalError, RevertError, OutOfGasError, InvalidOpcodeError } from '@tevm/errors-effect'
 
 /**
  * Live implementation of EthActionsService.
@@ -141,7 +141,49 @@ export const EthActionsLive = /** @type {Layer.Layer<import('./EthActionsService
 						}
 						return hex
 					}
+
 					const execResult = result.execResult
+
+					// Check for EVM execution errors (Issue #73 fix)
+					// execResult.exceptionError contains the error if the call failed
+					if (execResult?.exceptionError) {
+						const error = execResult.exceptionError
+						const errorName = error.error || 'unknown'
+						const returnData = bytesToHex(execResult.returnValue ?? new Uint8Array())
+
+						// Map EVM error types to typed Effect errors for proper observability
+						if (errorName === 'revert') {
+							return yield* Effect.fail(
+								new RevertError({
+									raw: returnData !== '0x' ? /** @type {`0x${string}`} */ (returnData) : undefined,
+									reason: error.message,
+									message: error.message || 'Execution reverted',
+								}),
+							)
+						} else if (errorName === 'out of gas') {
+							return yield* Effect.fail(
+								new OutOfGasError({
+									message: error.message || 'Out of gas',
+								}),
+							)
+						} else if (errorName === 'invalid opcode') {
+							return yield* Effect.fail(
+								new InvalidOpcodeError({
+									opcode: 0,
+									message: error.message || 'Invalid opcode',
+								}),
+							)
+						} else {
+							// Fallback for other EVM errors
+							return yield* Effect.fail(
+								new InternalError({
+									message: `EVM execution failed: ${error.message || errorName}`,
+									cause: error,
+								}),
+							)
+						}
+					}
+
 					return bytesToHex(execResult?.returnValue ?? new Uint8Array())
 				}),
 

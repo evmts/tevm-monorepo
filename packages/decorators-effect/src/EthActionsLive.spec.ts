@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { Effect, Layer } from 'effect'
+import { Effect, Layer, Exit } from 'effect'
 import { EthActionsService } from './EthActionsService.js'
 import { EthActionsLive } from './EthActionsLive.js'
 import { StateManagerService } from '@tevm/state-effect'
@@ -11,6 +11,7 @@ import {
 	GetCodeService,
 	GetStorageAtService,
 } from '@tevm/actions-effect'
+import { RevertError, OutOfGasError, InvalidOpcodeError, InternalError } from '@tevm/errors-effect'
 
 describe('EthActionsLive', () => {
 	const createMockVm = () => ({
@@ -343,5 +344,264 @@ describe('EthActionsLive', () => {
 
 		const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
 		expect(result._tag).toBe('Failure')
+	})
+
+	describe('EVM execution error handling', () => {
+		it('should return RevertError when EVM execution reverts', async () => {
+			const vmMock = createMockVm()
+			vmMock.vm.evm.runCall.mockResolvedValueOnce({
+				execResult: {
+					returnValue: new Uint8Array([0x08, 0xc3, 0x79, 0xa0]), // Error selector
+					executionGasUsed: 21000n,
+					exceptionError: {
+						error: 'revert',
+						message: 'Insufficient balance',
+					},
+				},
+			})
+
+			const commonMock = createMockCommon()
+			const stateManagerMock = createMockStateManager()
+			const getBalanceMock = createMockGetBalanceService()
+			const getCodeMock = createMockGetCodeService()
+			const getStorageAtMock = createMockGetStorageAtService()
+			const blockchainMock = createMockBlockchainService()
+
+			const mockLayer = Layer.mergeAll(
+				Layer.succeed(StateManagerService, stateManagerMock as any),
+				Layer.succeed(VmService, vmMock as any),
+				Layer.succeed(CommonService, commonMock as any),
+				Layer.succeed(BlockchainService, blockchainMock as any),
+				Layer.succeed(GetBalanceService, getBalanceMock as any),
+				Layer.succeed(GetCodeService, getCodeMock as any),
+				Layer.succeed(GetStorageAtService, getStorageAtMock as any)
+			)
+
+			const layer = Layer.provide(EthActionsLive, mockLayer)
+
+			const params = {
+				to: '0x1234567890123456789012345678901234567890' as `0x${string}`,
+				data: '0x1234' as `0x${string}`,
+			}
+
+			const program = Effect.gen(function* () {
+				const ethActions = yield* EthActionsService
+				return yield* ethActions.call(params)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as RevertError
+				expect(error._tag).toBe('RevertError')
+				expect(error.reason).toBe('Insufficient balance')
+				expect(error.raw).toBe('0x08c379a0')
+			}
+		})
+
+		it('should return OutOfGasError when EVM runs out of gas', async () => {
+			const vmMock = createMockVm()
+			vmMock.vm.evm.runCall.mockResolvedValueOnce({
+				execResult: {
+					returnValue: new Uint8Array(),
+					executionGasUsed: 100000n,
+					exceptionError: {
+						error: 'out of gas',
+						message: 'Transaction ran out of gas',
+					},
+				},
+			})
+
+			const commonMock = createMockCommon()
+			const stateManagerMock = createMockStateManager()
+			const getBalanceMock = createMockGetBalanceService()
+			const getCodeMock = createMockGetCodeService()
+			const getStorageAtMock = createMockGetStorageAtService()
+			const blockchainMock = createMockBlockchainService()
+
+			const mockLayer = Layer.mergeAll(
+				Layer.succeed(StateManagerService, stateManagerMock as any),
+				Layer.succeed(VmService, vmMock as any),
+				Layer.succeed(CommonService, commonMock as any),
+				Layer.succeed(BlockchainService, blockchainMock as any),
+				Layer.succeed(GetBalanceService, getBalanceMock as any),
+				Layer.succeed(GetCodeService, getCodeMock as any),
+				Layer.succeed(GetStorageAtService, getStorageAtMock as any)
+			)
+
+			const layer = Layer.provide(EthActionsLive, mockLayer)
+
+			const params = {
+				to: '0x1234567890123456789012345678901234567890' as `0x${string}`,
+				data: '0x1234' as `0x${string}`,
+			}
+
+			const program = Effect.gen(function* () {
+				const ethActions = yield* EthActionsService
+				return yield* ethActions.call(params)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as OutOfGasError
+				expect(error._tag).toBe('OutOfGasError')
+				expect(error.message).toBe('Transaction ran out of gas')
+			}
+		})
+
+		it('should return InvalidOpcodeError when EVM hits invalid opcode', async () => {
+			const vmMock = createMockVm()
+			vmMock.vm.evm.runCall.mockResolvedValueOnce({
+				execResult: {
+					returnValue: new Uint8Array(),
+					executionGasUsed: 50000n,
+					exceptionError: {
+						error: 'invalid opcode',
+						message: 'Invalid opcode: INVALID',
+					},
+				},
+			})
+
+			const commonMock = createMockCommon()
+			const stateManagerMock = createMockStateManager()
+			const getBalanceMock = createMockGetBalanceService()
+			const getCodeMock = createMockGetCodeService()
+			const getStorageAtMock = createMockGetStorageAtService()
+			const blockchainMock = createMockBlockchainService()
+
+			const mockLayer = Layer.mergeAll(
+				Layer.succeed(StateManagerService, stateManagerMock as any),
+				Layer.succeed(VmService, vmMock as any),
+				Layer.succeed(CommonService, commonMock as any),
+				Layer.succeed(BlockchainService, blockchainMock as any),
+				Layer.succeed(GetBalanceService, getBalanceMock as any),
+				Layer.succeed(GetCodeService, getCodeMock as any),
+				Layer.succeed(GetStorageAtService, getStorageAtMock as any)
+			)
+
+			const layer = Layer.provide(EthActionsLive, mockLayer)
+
+			const params = {
+				to: '0x1234567890123456789012345678901234567890' as `0x${string}`,
+				data: '0x1234' as `0x${string}`,
+			}
+
+			const program = Effect.gen(function* () {
+				const ethActions = yield* EthActionsService
+				return yield* ethActions.call(params)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as InvalidOpcodeError
+				expect(error._tag).toBe('InvalidOpcodeError')
+				expect(error.message).toBe('Invalid opcode: INVALID')
+			}
+		})
+
+		it('should return InternalError for other EVM errors', async () => {
+			const vmMock = createMockVm()
+			vmMock.vm.evm.runCall.mockResolvedValueOnce({
+				execResult: {
+					returnValue: new Uint8Array(),
+					executionGasUsed: 50000n,
+					exceptionError: {
+						error: 'stack underflow',
+						message: 'Stack underflow at position 0',
+					},
+				},
+			})
+
+			const commonMock = createMockCommon()
+			const stateManagerMock = createMockStateManager()
+			const getBalanceMock = createMockGetBalanceService()
+			const getCodeMock = createMockGetCodeService()
+			const getStorageAtMock = createMockGetStorageAtService()
+			const blockchainMock = createMockBlockchainService()
+
+			const mockLayer = Layer.mergeAll(
+				Layer.succeed(StateManagerService, stateManagerMock as any),
+				Layer.succeed(VmService, vmMock as any),
+				Layer.succeed(CommonService, commonMock as any),
+				Layer.succeed(BlockchainService, blockchainMock as any),
+				Layer.succeed(GetBalanceService, getBalanceMock as any),
+				Layer.succeed(GetCodeService, getCodeMock as any),
+				Layer.succeed(GetStorageAtService, getStorageAtMock as any)
+			)
+
+			const layer = Layer.provide(EthActionsLive, mockLayer)
+
+			const params = {
+				to: '0x1234567890123456789012345678901234567890' as `0x${string}`,
+				data: '0x1234' as `0x${string}`,
+			}
+
+			const program = Effect.gen(function* () {
+				const ethActions = yield* EthActionsService
+				return yield* ethActions.call(params)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as InternalError
+				expect(error._tag).toBe('InternalError')
+				expect(error.message).toContain('Stack underflow')
+			}
+		})
+
+		it('should handle revert with empty return data', async () => {
+			const vmMock = createMockVm()
+			vmMock.vm.evm.runCall.mockResolvedValueOnce({
+				execResult: {
+					returnValue: new Uint8Array(),
+					executionGasUsed: 21000n,
+					exceptionError: {
+						error: 'revert',
+						message: '',
+					},
+				},
+			})
+
+			const commonMock = createMockCommon()
+			const stateManagerMock = createMockStateManager()
+			const getBalanceMock = createMockGetBalanceService()
+			const getCodeMock = createMockGetCodeService()
+			const getStorageAtMock = createMockGetStorageAtService()
+			const blockchainMock = createMockBlockchainService()
+
+			const mockLayer = Layer.mergeAll(
+				Layer.succeed(StateManagerService, stateManagerMock as any),
+				Layer.succeed(VmService, vmMock as any),
+				Layer.succeed(CommonService, commonMock as any),
+				Layer.succeed(BlockchainService, blockchainMock as any),
+				Layer.succeed(GetBalanceService, getBalanceMock as any),
+				Layer.succeed(GetCodeService, getCodeMock as any),
+				Layer.succeed(GetStorageAtService, getStorageAtMock as any)
+			)
+
+			const layer = Layer.provide(EthActionsLive, mockLayer)
+
+			const params = {
+				to: '0x1234567890123456789012345678901234567890' as `0x${string}`,
+				data: '0x1234' as `0x${string}`,
+			}
+
+			const program = Effect.gen(function* () {
+				const ethActions = yield* EthActionsService
+				return yield* ethActions.call(params)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as RevertError
+				expect(error._tag).toBe('RevertError')
+				expect(error.message).toBe('Execution reverted')
+				expect(error.raw).toBeUndefined()
+			}
+		})
 	})
 })

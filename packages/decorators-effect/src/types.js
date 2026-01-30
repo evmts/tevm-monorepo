@@ -56,7 +56,7 @@
  * Shape of the EthActions service
  * @typedef {Object} EthActionsShape
  * @property {() => import('effect').Effect.Effect<bigint, import('@tevm/errors-effect').InternalError, never>} blockNumber - Get current block number
- * @property {(params: EthCallParams) => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} call - Execute eth_call
+ * @property {(params: EthCallParams) => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError | import('@tevm/errors-effect').RevertError | import('@tevm/errors-effect').OutOfGasError | import('@tevm/errors-effect').InvalidOpcodeError, never>} call - Execute eth_call
  * @property {() => import('effect').Effect.Effect<bigint, never, never>} chainId - Get chain ID
  * @property {() => import('effect').Effect.Effect<bigint, never, never>} gasPrice - Get current gas price (returns fixed 1 gwei for in-memory simulation)
  * @property {(params: EthGetBalanceParams) => import('effect').Effect.Effect<bigint, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getBalance - Get account balance
