@@ -102,14 +102,14 @@ export class InsufficientBalanceError extends Data.TaggedError("InsufficientBala
 
 | Task | Status | Owner | Notes |
 |------|--------|-------|-------|
-| Create `@tevm/interop` package scaffold | [ ] | | |
-| Implement `effectToPromise()` helper | [ ] | | `Effect<A, E> → Promise<A>` |
-| Implement `promiseToEffect()` helper | [ ] | | `Promise<A> → Effect<A, unknown>` |
-| Implement `wrapWithEffect()` for class instances | [ ] | | Adds `.effect` methods to existing objects |
-| Implement `layerFromFactory()` helper | [ ] | | `createFoo(options) → Layer<Foo>` |
-| Implement `ManagedRuntime` factory helper | [ ] | | Reusable runtime creation |
-| Write comprehensive tests | [ ] | | All helpers with edge cases |
-| Document interop patterns | [ ] | | Examples for each scenario |
+| Create `@tevm/interop` package scaffold | [x] | Claude | Package with package.json, configs |
+| Implement `effectToPromise()` helper | [x] | Claude | `Effect<A, E> → Promise<A>` |
+| Implement `promiseToEffect()` helper | [x] | Claude | `(...args) => Promise<A> → (...args) => Effect<A, unknown>` |
+| Implement `wrapWithEffect()` for class instances | [x] | Claude | Adds `.effect` methods to existing objects |
+| Implement `layerFromFactory()` helper | [x] | Claude | `createFoo(options) → Layer<Foo>` |
+| Implement `ManagedRuntime` factory helper | [x] | Claude | createManagedRuntime wrapper |
+| Write comprehensive tests | [x] | Claude | 35 tests, 100% coverage |
+| Document interop patterns | [~] | | JSDoc examples added |
 
 **Code Pattern** (from RFC):
 ```typescript
@@ -120,7 +120,9 @@ export const effectToPromise = <A, E>(
 ```
 
 **Learnings**:
-- _None yet_
+- ManagedRuntime.make returns an object with runPromise/dispose methods directly
+- Effect.tryPromise is the idiomatic way to wrap Promise-returning functions
+- wrapWithEffect must preserve `this` binding with .apply(instance, args)
 
 ---
 
