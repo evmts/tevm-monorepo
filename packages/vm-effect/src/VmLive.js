@@ -3,7 +3,7 @@ import { createVm } from '@tevm/vm'
 import { CommonService } from '@tevm/common-effect'
 import { StateManagerService } from '@tevm/state-effect'
 import { BlockchainService } from '@tevm/blockchain-effect'
-import { EvmService } from '@tevm/evm-effect'
+import { EvmService, mapEvmError } from '@tevm/evm-effect'
 import { VmService } from './VmService.js'
 
 /**
@@ -80,11 +80,23 @@ export const VmLive = (options = {}) => {
 				const shape = {
 					vm: vmInstance,
 
-					runTx: (opts) => Effect.promise(() => vmInstance.runTx(opts)),
+					runTx: (opts) =>
+						Effect.tryPromise({
+							try: () => vmInstance.runTx(opts),
+							catch: (e) => mapEvmError(e),
+						}),
 
-					runBlock: (opts) => Effect.promise(() => vmInstance.runBlock(opts)),
+					runBlock: (opts) =>
+						Effect.tryPromise({
+							try: () => vmInstance.runBlock(opts),
+							catch: (e) => mapEvmError(e),
+						}),
 
-					buildBlock: (opts) => Effect.promise(async () => vmInstance.buildBlock(opts)),
+					buildBlock: (opts) =>
+						Effect.tryPromise({
+							try: async () => vmInstance.buildBlock(opts),
+							catch: (e) => mapEvmError(e),
+						}),
 
 					ready: Effect.promise(() => vmInstance.ready()),
 

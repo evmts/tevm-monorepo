@@ -47,6 +47,7 @@
 /**
  * @typedef {import('./types.js').EvmShape} EvmShape
  * @typedef {import('./types.js').EvmLiveOptions} EvmLiveOptions
+ * @typedef {import('./types.js').EvmError} EvmError
  */
 
 // Service
@@ -54,3 +55,6 @@ export { EvmService } from './EvmService.js'
 
 // Layers
 export { EvmLive } from './EvmLive.js'
+
+// Utilities
+export { mapEvmError } from './mapEvmError.js'

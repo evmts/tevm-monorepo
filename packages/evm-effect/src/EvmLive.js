@@ -4,6 +4,7 @@ import { CommonService } from '@tevm/common-effect'
 import { StateManagerService } from '@tevm/state-effect'
 import { BlockchainService } from '@tevm/blockchain-effect'
 import { EvmService } from './EvmService.js'
+import { mapEvmError } from './mapEvmError.js'
 
 /**
  * @module @tevm/evm-effect/EvmLive
@@ -89,9 +90,17 @@ export const EvmLive = (options = {}) => {
 			const shape = {
 				evm,
 
-				runCall: (opts) => Effect.promise(() => evm.runCall(opts)),
+				runCall: (opts) =>
+					Effect.tryPromise({
+						try: () => evm.runCall(opts),
+						catch: (e) => mapEvmError(e),
+					}),
 
-				runCode: (opts) => Effect.promise(() => evm.runCode(opts)),
+				runCode: (opts) =>
+					Effect.tryPromise({
+						try: () => evm.runCode(opts),
+						catch: (e) => mapEvmError(e),
+					}),
 
 				getActivePrecompiles: () => Effect.sync(() => evm.precompiles),
 
