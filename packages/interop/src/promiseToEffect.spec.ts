@@ -108,4 +108,69 @@ describe('promiseToEffect', () => {
 
 		expect(result).toBe(200)
 	})
+
+	it('should fail when wrapping unbound class methods (demonstrates this binding issue)', async () => {
+		// This test demonstrates the `this` binding gotcha documented in JSDoc
+		class DataService {
+			private value = 42
+			async getValue() {
+				return this.value
+			}
+		}
+
+		const service = new DataService()
+
+		// ❌ WRONG: Passing method reference without binding loses `this`
+		const unboundEffect = promiseToEffect(service.getValue)
+		const effect = unboundEffect()
+
+		// Should fail because `this` is undefined
+		const result = await Effect.runPromise(Effect.either(effect))
+
+		expect(result._tag).toBe('Left')
+		// Effect.tryPromise wraps the error in UnknownException
+		// The underlying cause is a TypeError because this.value is accessed on undefined
+		if (result._tag === 'Left') {
+			// The error is wrapped by Effect.tryPromise, check it's an UnknownException
+			expect(result.left).toHaveProperty('_tag', 'UnknownException')
+		}
+	})
+
+	it('should work correctly when method is bound with .bind()', async () => {
+		class DataService {
+			private value = 42
+			async getValue() {
+				return this.value
+			}
+		}
+
+		const service = new DataService()
+
+		// ✅ CORRECT: Use .bind() to preserve `this` context
+		const boundEffect = promiseToEffect(service.getValue.bind(service))
+		const effect = boundEffect()
+
+		const result = await Effect.runPromise(effect)
+
+		expect(result).toBe(42)
+	})
+
+	it('should work correctly when using arrow function wrapper', async () => {
+		class DataService {
+			private value = 42
+			async getValueById(id: string) {
+				return { id, value: this.value }
+			}
+		}
+
+		const service = new DataService()
+
+		// ✅ ALSO CORRECT: Use arrow function to capture `this`
+		const wrappedEffect = promiseToEffect((id: string) => service.getValueById(id))
+		const effect = wrappedEffect('test-id')
+
+		const result = await Effect.runPromise(effect)
+
+		expect(result).toEqual({ id: 'test-id', value: 42 })
+	})
 })

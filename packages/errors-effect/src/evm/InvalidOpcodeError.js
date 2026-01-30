@@ -75,5 +75,7 @@ export class InvalidOpcodeError extends Data.TaggedError('InvalidOpcodeError') {
 		this.message = props.message ?? (props.opcode !== undefined ? `Invalid opcode: 0x${props.opcode.toString(16)}` : 'Invalid opcode encountered')
 		this.code = InvalidOpcodeError.code
 		this.docsPath = InvalidOpcodeError.docsPath
+		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
+		Object.freeze(this)
 	}
 }

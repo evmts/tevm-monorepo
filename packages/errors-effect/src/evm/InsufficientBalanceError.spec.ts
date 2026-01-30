@@ -95,4 +95,25 @@ describe('InsufficientBalanceError', () => {
 
 		expect(error.message).toBe('Insufficient balance error occurred.')
 	})
+
+	it('should be immutable (Object.freeze applied)', () => {
+		const error = new InsufficientBalanceError({
+			address: '0x1234567890123456789012345678901234567890',
+			required: 100n,
+			available: 50n,
+		})
+
+		// Verify the object is frozen
+		expect(Object.isFrozen(error)).toBe(true)
+
+		// Verify properties cannot be modified
+		const originalAddress = error.address
+		try {
+			// @ts-expect-error - testing runtime immutability
+			error.address = '0xABCD'
+		} catch {
+			// Expected in strict mode
+		}
+		expect(error.address).toBe(originalAddress)
+	})
 })

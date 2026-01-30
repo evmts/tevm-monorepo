@@ -89,5 +89,7 @@ export class RevertError extends Data.TaggedError('RevertError') {
 		this.message = props.message ?? (props.reason ? `Reverted: ${props.reason}` : 'Execution reverted')
 		this.code = RevertError.code
 		this.docsPath = RevertError.docsPath
+		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
+		Object.freeze(this)
 	}
 }

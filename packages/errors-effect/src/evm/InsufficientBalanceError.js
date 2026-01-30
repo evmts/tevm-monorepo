@@ -103,5 +103,7 @@ export class InsufficientBalanceError extends Data.TaggedError('InsufficientBala
 				: 'Insufficient balance error occurred.')
 		this.code = InsufficientBalanceError.code
 		this.docsPath = InsufficientBalanceError.docsPath
+		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
+		Object.freeze(this)
 	}
 }

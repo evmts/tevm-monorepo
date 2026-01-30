@@ -82,5 +82,7 @@ export class StackOverflowError extends Data.TaggedError('StackOverflowError') {
 		}
 		this.code = StackOverflowError.code
 		this.docsPath = StackOverflowError.docsPath
+		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
+		Object.freeze(this)
 	}
 }

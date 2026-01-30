@@ -64,5 +64,7 @@ export class StackUnderflowError extends Data.TaggedError('StackUnderflowError')
 		this.message = props.message ?? 'Stack underflow error occurred.'
 		this.code = StackUnderflowError.code
 		this.docsPath = StackUnderflowError.docsPath
+		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
+		Object.freeze(this)
 	}
 }

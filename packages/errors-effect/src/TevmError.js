@@ -61,6 +61,8 @@ export class TevmError extends Data.TaggedError('TevmError') {
 		this.code = props.code ?? 0
 		this.docsPath = props.docsPath
 		this.cause = props.cause
+		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
+		Object.freeze(this)
 	}
 
 	/**

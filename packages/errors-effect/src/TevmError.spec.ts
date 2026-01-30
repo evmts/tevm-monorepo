@@ -81,4 +81,26 @@ describe('TevmError', () => {
 		expect(str).toBe('Error without docs')
 		expect(str).not.toContain('https://tevm.sh')
 	})
+
+	it('should be immutable (Object.freeze applied)', () => {
+		const error = new TevmError({
+			message: 'Immutable error',
+			code: -32000,
+		})
+
+		// Verify the object is frozen
+		expect(Object.isFrozen(error)).toBe(true)
+
+		// In strict mode, attempting to modify should throw
+		// In non-strict mode, modifications are silently ignored
+		// Either way, the value should not change
+		const originalMessage = error.message
+		try {
+			// @ts-expect-error - testing runtime immutability
+			error.message = 'Modified message'
+		} catch {
+			// Expected in strict mode
+		}
+		expect(error.message).toBe(originalMessage)
+	})
 })

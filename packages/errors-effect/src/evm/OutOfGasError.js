@@ -89,5 +89,7 @@ export class OutOfGasError extends Data.TaggedError('OutOfGasError') {
 				: 'Out of gas error occurred.')
 		this.code = OutOfGasError.code
 		this.docsPath = OutOfGasError.docsPath
+		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
+		Object.freeze(this)
 	}
 }
