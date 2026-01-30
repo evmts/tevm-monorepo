@@ -140,10 +140,20 @@ export const FilterLive = () => {
 
 					getChanges: (id) =>
 						Effect.gen(function* () {
-							const filters = yield* Ref.get(fltrRef)
-							const filter = filters.get(id)
+							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
+							const result = yield* Ref.modify(fltrRef, (map) => {
+								const filter = map.get(id)
+								if (!filter) {
+									return [{ found: /** @type {const} */ (false) }, map]
+								}
+								// Atomically get logs and clear them
+								const logs = [...filter.logs]
+								const newMap = new Map(map)
+								newMap.set(id, { ...filter, logs: [] })
+								return [{ found: /** @type {const} */ (true), logs }, newMap]
+							})
 
-							if (!filter) {
+							if (!result.found) {
 								return yield* Effect.fail(
 									new FilterNotFoundError({
 										filterId: id,
@@ -152,25 +162,28 @@ export const FilterLive = () => {
 								)
 							}
 
-							// Get current logs and clear them (atomic operation)
-							const logs = [...filter.logs]
-							yield* Ref.update(fltrRef, (map) => {
-								const newMap = new Map(map)
-								// Safe to use non-null assertion since we validated filter exists above
-								const f = /** @type {Filter} */ (map.get(id))
-								newMap.set(id, { ...f, logs: [] })
-								return newMap
-							})
-
-							return logs
+							return result.logs
 						}),
 
 					getBlockChanges: (id) =>
 						Effect.gen(function* () {
-							const filters = yield* Ref.get(fltrRef)
-							const filter = filters.get(id)
+							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
+							const result = yield* Ref.modify(fltrRef, (map) => {
+								const filter = map.get(id)
+								if (!filter) {
+									return [{ found: /** @type {const} */ (false), wrongType: false }, map]
+								}
+								if (filter.type !== 'Block') {
+									return [{ found: /** @type {const} */ (true), wrongType: /** @type {const} */ (true) }, map]
+								}
+								// Atomically get blocks and clear them
+								const blocks = [...filter.blocks]
+								const newMap = new Map(map)
+								newMap.set(id, { ...filter, blocks: [] })
+								return [{ found: /** @type {const} */ (true), wrongType: /** @type {const} */ (false), blocks }, newMap]
+							})
 
-							if (!filter) {
+							if (!result.found) {
 								return yield* Effect.fail(
 									new FilterNotFoundError({
 										filterId: id,
@@ -179,7 +192,7 @@ export const FilterLive = () => {
 								)
 							}
 
-							if (filter.type !== 'Block') {
+							if (result.wrongType) {
 								return yield* Effect.fail(
 									new FilterNotFoundError({
 										filterId: id,
@@ -188,25 +201,28 @@ export const FilterLive = () => {
 								)
 							}
 
-							// Get current blocks and clear them
-							const blocks = [...filter.blocks]
-							yield* Ref.update(fltrRef, (map) => {
-								const newMap = new Map(map)
-								// Safe to use non-null assertion since we validated filter exists above
-								const f = /** @type {Filter} */ (map.get(id))
-								newMap.set(id, { ...f, blocks: [] })
-								return newMap
-							})
-
-							return blocks
+							return result.blocks
 						}),
 
 					getPendingTransactionChanges: (id) =>
 						Effect.gen(function* () {
-							const filters = yield* Ref.get(fltrRef)
-							const filter = filters.get(id)
+							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
+							const result = yield* Ref.modify(fltrRef, (map) => {
+								const filter = map.get(id)
+								if (!filter) {
+									return [{ found: /** @type {const} */ (false), wrongType: false }, map]
+								}
+								if (filter.type !== 'PendingTransaction') {
+									return [{ found: /** @type {const} */ (true), wrongType: /** @type {const} */ (true) }, map]
+								}
+								// Atomically get txs and clear them
+								const txs = [...filter.tx]
+								const newMap = new Map(map)
+								newMap.set(id, { ...filter, tx: [] })
+								return [{ found: /** @type {const} */ (true), wrongType: /** @type {const} */ (false), txs }, newMap]
+							})
 
-							if (!filter) {
+							if (!result.found) {
 								return yield* Effect.fail(
 									new FilterNotFoundError({
 										filterId: id,
@@ -215,7 +231,7 @@ export const FilterLive = () => {
 								)
 							}
 
-							if (filter.type !== 'PendingTransaction') {
+							if (result.wrongType) {
 								return yield* Effect.fail(
 									new FilterNotFoundError({
 										filterId: id,
@@ -224,25 +240,23 @@ export const FilterLive = () => {
 								)
 							}
 
-							// Get current txs and clear them
-							const txs = [...filter.tx]
-							yield* Ref.update(fltrRef, (map) => {
-								const newMap = new Map(map)
-								// Safe to use non-null assertion since we validated filter exists above
-								const f = /** @type {Filter} */ (map.get(id))
-								newMap.set(id, { ...f, tx: [] })
-								return newMap
-							})
-
-							return txs
+							return result.txs
 						}),
 
 					addLog: (id, log) =>
 						Effect.gen(function* () {
-							const filters = yield* Ref.get(fltrRef)
-							const filter = filters.get(id)
+							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
+							const found = yield* Ref.modify(fltrRef, (map) => {
+								const filter = map.get(id)
+								if (!filter) {
+									return [false, map]
+								}
+								const newMap = new Map(map)
+								newMap.set(id, { ...filter, logs: [...filter.logs, log] })
+								return [true, newMap]
+							})
 
-							if (!filter) {
+							if (!found) {
 								return yield* Effect.fail(
 									new FilterNotFoundError({
 										filterId: id,
@@ -250,22 +264,22 @@ export const FilterLive = () => {
 									}),
 								)
 							}
-
-							yield* Ref.update(fltrRef, (map) => {
-								const newMap = new Map(map)
-								// Safe to use non-null assertion since we validated filter exists above
-								const f = /** @type {Filter} */ (map.get(id))
-								newMap.set(id, { ...f, logs: [...f.logs, log] })
-								return newMap
-							})
 						}),
 
 					addBlock: (id, block) =>
 						Effect.gen(function* () {
-							const filters = yield* Ref.get(fltrRef)
-							const filter = filters.get(id)
+							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
+							const found = yield* Ref.modify(fltrRef, (map) => {
+								const filter = map.get(id)
+								if (!filter) {
+									return [false, map]
+								}
+								const newMap = new Map(map)
+								newMap.set(id, { ...filter, blocks: [...filter.blocks, block] })
+								return [true, newMap]
+							})
 
-							if (!filter) {
+							if (!found) {
 								return yield* Effect.fail(
 									new FilterNotFoundError({
 										filterId: id,
@@ -273,22 +287,22 @@ export const FilterLive = () => {
 									}),
 								)
 							}
-
-							yield* Ref.update(fltrRef, (map) => {
-								const newMap = new Map(map)
-								// Safe to use non-null assertion since we validated filter exists above
-								const f = /** @type {Filter} */ (map.get(id))
-								newMap.set(id, { ...f, blocks: [...f.blocks, block] })
-								return newMap
-							})
 						}),
 
 					addPendingTransaction: (id, tx) =>
 						Effect.gen(function* () {
-							const filters = yield* Ref.get(fltrRef)
-							const filter = filters.get(id)
+							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
+							const found = yield* Ref.modify(fltrRef, (map) => {
+								const filter = map.get(id)
+								if (!filter) {
+									return [false, map]
+								}
+								const newMap = new Map(map)
+								newMap.set(id, { ...filter, tx: [...filter.tx, tx] })
+								return [true, newMap]
+							})
 
-							if (!filter) {
+							if (!found) {
 								return yield* Effect.fail(
 									new FilterNotFoundError({
 										filterId: id,
@@ -296,14 +310,6 @@ export const FilterLive = () => {
 									}),
 								)
 							}
-
-							yield* Ref.update(fltrRef, (map) => {
-								const newMap = new Map(map)
-								// Safe to use non-null assertion since we validated filter exists above
-								const f = /** @type {Filter} */ (map.get(id))
-								newMap.set(id, { ...f, tx: [...f.tx, tx] })
-								return newMap
-							})
 						}),
 
 					getAllFilters: Ref.get(fltrRef),
@@ -317,11 +323,31 @@ export const FilterLive = () => {
 							// Deep copy filters map with new filter objects
 							const newFiltersMap = new Map()
 							for (const [key, filter] of filters) {
+								// Deep copy each filter's nested objects
 								newFiltersMap.set(key, {
 									...filter,
-									logs: [...filter.logs],
-									tx: [...filter.tx],
-									blocks: [...filter.blocks],
+									// Deep copy logsCriteria if it exists
+									logsCriteria: filter.logsCriteria
+										? {
+												...filter.logsCriteria,
+												// Deep copy address array if present
+												address: filter.logsCriteria.address
+													? [...filter.logsCriteria.address]
+													: filter.logsCriteria.address,
+												// Deep copy topics array and nested arrays if present
+												topics: filter.logsCriteria.topics
+													? filter.logsCriteria.topics.map((t) =>
+															Array.isArray(t) ? [...t] : t,
+														)
+													: filter.logsCriteria.topics,
+											}
+										: undefined,
+									// Deep copy installed object
+									installed: filter.installed ? { ...filter.installed } : {},
+									// Deep copy arrays with individual object copies
+									logs: filter.logs.map((log) => ({ ...log })),
+									tx: filter.tx.map((t) => ({ ...t })),
+									blocks: filter.blocks.map((b) => ({ ...b })),
 									registeredListeners: [...filter.registeredListeners],
 								})
 							}

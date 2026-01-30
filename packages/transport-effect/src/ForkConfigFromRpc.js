@@ -1,4 +1,5 @@
 import { Effect, Layer } from 'effect'
+import { ForkError } from '@tevm/errors-effect'
 import { ForkConfigService } from './ForkConfigService.js'
 import { TransportService } from './TransportService.js'
 
@@ -73,9 +74,30 @@ export const ForkConfigFromRpc = Layer.effect(
 			transport.request('eth_blockNumber'),
 		])
 
+		// Parse BigInt values with proper error handling
+		const chainId = yield* Effect.try({
+			try: () => BigInt(/** @type {string} */ (chainIdHex)),
+			catch: (error) =>
+				new ForkError({
+					method: 'eth_chainId',
+					message: `Failed to parse chain ID: ${chainIdHex}`,
+					cause: /** @type {Error} */ (error),
+				}),
+		})
+
+		const blockTag = yield* Effect.try({
+			try: () => BigInt(/** @type {string} */ (blockNumberHex)),
+			catch: (error) =>
+				new ForkError({
+					method: 'eth_blockNumber',
+					message: `Failed to parse block number: ${blockNumberHex}`,
+					cause: /** @type {Error} */ (error),
+				}),
+		})
+
 		return /** @type {ForkConfigShape} */ ({
-			chainId: BigInt(/** @type {string} */ (chainIdHex)),
-			blockTag: BigInt(/** @type {string} */ (blockNumberHex)),
+			chainId,
+			blockTag,
 		})
 	})
 )
