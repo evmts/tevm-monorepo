@@ -2,27 +2,321 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (82nd Review)
+**Last Updated**: 2026-01-30 (84th Review - Buffer API fixes)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
 
 ## Review Agent Summary (2026-01-30)
 
-**EIGHTY-SECOND REVIEW.** Resolution of all 81st review issues (2 MEDIUM, 5 LOW).
+**EIGHTY-FOURTH REVIEW.** Resolved 2 HIGH severity browser compatibility issues (Buffer API usage) in Phase 4 packages.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟢 RESOLVED | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 4 MEDIUM, 7 LOW |
-| **Phase 2** | 🟢 RESOLVED | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 1 LOW remaining |
-| **Phase 3** | 🟢 VERIFIED | 2 (node-effect, actions-effect) | 200 | ~99% | 8 LOW |
-| **Phase 4** | 🟢 RESOLVED | 2 (memory-client-effect, decorators-effect) | 65 | ~85% | All 81st issues fixed |
+| **Phase 1** | 🟢 PRODUCTION-READY | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 2 LOW |
+| **Phase 2** | 🟢 PRODUCTION-READY | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 2 MEDIUM (interop boundary), 1 LOW |
+| **Phase 3** | 🟢 PRODUCTION-READY | 2 (node-effect, actions-effect) | 200 | ~99% | 2 MEDIUM, 5 LOW |
+| **Phase 4** | 🟡 NEAR PRODUCTION-READY | 2 (memory-client-effect, decorators-effect) | 65 | ~85% | 2 MEDIUM |
 
 **Open Issues Summary:**
 - **CRITICAL**: 0 ✅
-- **HIGH**: 0 ✅
-- **MEDIUM**: 13 🟡 (2 resolved from 81st review)
-- **LOW**: 19 (5 resolved from 81st review)
+- **HIGH**: 0 ✅ (Buffer API issues RESOLVED in 84th review)
+- **MEDIUM**: 6 🟡 (4 new from 83rd review)
+- **LOW**: 8 (6 new from 83rd review)
+
+---
+
+### EIGHTY-THIRD REVIEW (2026-01-30) - Independent Parallel Subagent Re-Review
+
+**Reviewed By**: Claude Opus 4.5 (4 parallel Opus subagents)
+**Scope**: Complete independent re-review of all 4 phases to find unreviewed bugs and flaws
+
+---
+
+#### Phase 1: ✅ PRODUCTION-READY
+
+All Phase 1 packages (errors-effect, logger-effect, interop) are production-ready with 100% test coverage. All 30 error classes properly extend `Data.TaggedError`, `toTaggedError`/`toBaseError` interop functions handle all error types, and LoggerService correctly uses `Context.Tag` pattern.
+
+##### 1. Hardcoded VERSION Constant
+**File:Lines**: `packages/errors-effect/src/interop/toBaseError.js:7`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: VERSION is hardcoded as `'1.0.0-next.148'` which may drift from package.json.
+
+**Recommended Fix**: Consider importing version from package.json or using a build-time replacement.
+
+---
+
+##### 2. types.js Not Re-exported from index.js
+**File:Lines**: `packages/errors-effect/src/index.js`
+**Severity**: 🟢 LOW
+**Status**: 🟡 ACCEPTABLE
+
+**Problem**: The `types.js` file containing union type definitions is not re-exported from main index.js.
+
+**Assessment**: This appears intentional since `types.js` only contains JSDoc typedefs with `export {}`. Types are available via generated `.d.ts` files.
+
+---
+
+#### Phase 2: ✅ PRODUCTION-READY (with acceptable interop boundaries)
+
+All Phase 2 packages demonstrate correct Effect.ts patterns. Two MEDIUM issues identified are acceptable interop boundaries with Promise-based underlying packages.
+
+##### 3. Effect.runPromise Used for Transport Interop in BlockchainLive
+**File:Lines**: `packages/blockchain-effect/src/BlockchainLive.js:91-96`
+**Severity**: 🟡 MEDIUM (Acceptable Interop)
+**Status**: 🟡 DOCUMENT
+
+**Problem**: The fork transport adapter wraps Effect-based `transport.request` in `Effect.runPromise`, which loses Effect's error tracking and interruption semantics.
+
+**Evidence**:
+```javascript
+fork: {
+    transport: {
+        request: (method, params) =>
+            Effect.runPromise(transport.request(method, params)),
+    },
+    blockTag: forkConfig.blockTag,
+},
+```
+
+**Assessment**: This is a necessary interop boundary with the Promise-based `@tevm/blockchain` API. Errors thrown become unhandled Promise rejections. Consider documenting this as an intentional interop boundary.
+
+---
+
+##### 4. Same Effect.runPromise Pattern in StateManagerLive
+**File:Lines**: `packages/state-effect/src/StateManagerLive.js:92-97`
+**Severity**: 🟡 MEDIUM (Acceptable Interop)
+**Status**: 🟡 DOCUMENT
+
+**Problem**: Same pattern as Issue 3 - wrapping Effect transport.request in `Effect.runPromise` for interop with `@tevm/state`.
+
+**Assessment**: Same as Issue 3 - acceptable interop boundary that should be documented.
+
+---
+
+##### 5. ForkConfigFromRpc Could Use Effect.tryPromise for Consistency
+**File:Lines**: `packages/transport-effect/src/ForkConfigFromRpc.js:78-96`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Uses `Effect.try` for parsing BigInt values which is correct but could use `Effect.tryPromise` for consistency with other files. Stylistic preference, not a bug.
+
+---
+
+#### Phase 3: ✅ PRODUCTION-READY (with minor improvements needed)
+
+Both packages (node-effect, actions-effect) follow RFC patterns correctly with comprehensive JSDoc documentation.
+
+##### 6. FilterService Missing Type Annotation
+**File:Lines**: `packages/node-effect/src/FilterService.js:46`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: FilterService tag uses `Context.GenericTag` without the explicit JSDoc type cast that other services have.
+
+**Evidence**:
+```javascript
+// FilterService.js line 46 - missing type cast
+export const FilterService = Context.GenericTag('FilterService')
+
+// Compare to ImpersonationService.js - has type cast
+export const ImpersonationService = /** @type {Context.Tag<ImpersonationService, ImpersonationShape>} */ (
+    Context.GenericTag('ImpersonationService')
+)
+```
+
+**Recommended Fix**: Add type cast for consistency with other services.
+
+---
+
+##### 7. SnapshotShape Type Has Incorrect R Channel
+**File:Lines**: `packages/node-effect/src/types.js:82-88`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `SnapshotShape` interface includes `StateManagerService` in the R (requirements) channel, but since `SnapshotLive` captures `StateManagerService` during layer creation, the returned methods should have `never` in the R channel.
+
+**Evidence**:
+```javascript
+// types.js lines 82-88 - declares StateManagerService in R channel
+* @property {() => import('effect').Effect.Effect<Hex, StorageError, StateManagerService>} takeSnapshot
+
+// But SnapshotLive captures StateManagerService at construction, so R should be 'never'
+```
+
+**Recommended Fix**: Change R channel to `never` since the dependency is captured at layer construction time.
+
+---
+
+##### 8. Duplicated Validation Helper Functions Across Actions
+**File:Lines**: Multiple files in `packages/actions-effect/src/`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `validateAddress`, `validateBlockTag`, `bytesToHex`, and `hexToBytes` functions are duplicated across GetAccountLive.js, SetAccountLive.js, GetBalanceLive.js, GetCodeLive.js, and GetStorageAtLive.js (~100+ lines duplicated).
+
+**Recommended Fix**: Create a shared utility file (e.g., `utils.js`) and import from there.
+
+---
+
+##### 9. Inconsistent bytesToHex Behavior
+**File:Lines**: `packages/actions-effect/src/GetStorageAtLive.js:16-28` vs other files
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: `bytesToHex` in GetStorageAtLive.js pads output to 32 bytes (64 hex chars), while the same function in GetAccountLive.js and GetCodeLive.js does not pad. This is correct for storage values but inconsistent naming could lead to bugs.
+
+**Recommended Fix**: Create distinct named functions like `bytesToHex` and `bytesToHex32` to make behavior explicit.
+
+---
+
+##### 10. EMPTY_CODE_HASH Constant Duplicated
+**File:Lines**: `packages/actions-effect/src/GetAccountLive.js:15` and `SetAccountLive.js:16`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `EMPTY_CODE_HASH` constant is duplicated in both files.
+
+**Recommended Fix**: Move to shared utility file or import from `@tevm/utils`.
+
+---
+
+##### 11. Missing Type Exports in actions-effect index.js
+**File:Lines**: `packages/actions-effect/src/index.js`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The barrel file exports services and layers but does not re-export type definitions from types.js.
+
+**Recommended Fix**: Add typedef exports to barrel file for better DX.
+
+---
+
+#### Phase 4: 🔴 NOT PRODUCTION-READY
+
+Phase 4 packages have 2 HIGH severity issues that MUST be fixed before browser deployment.
+
+##### 12. Buffer API Usage in MemoryClientLive (Browser Incompatible)
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:42`
+**Severity**: 🔴 HIGH
+**Status**: ✅ RESOLVED (84th review)
+
+**Problem**: The `bytesToHex` function uses Node.js-specific `Buffer.from()` which is not available in browsers without polyfills.
+
+**Resolution**: Replaced `Buffer.from(bytes).toString('hex')` with browser-compatible loop implementation using `bytes[i].toString(16).padStart(2, '0')`. All 31 tests pass.
+
+**Applied Fix**:
+```javascript
+const bytesToHex = (bytes) => {
+    if (!bytes || bytes.length === 0) return /** @type {import('./types.js').Hex} */ ('0x')
+    let hex = '0x'
+    for (let i = 0; i < bytes.length; i++) {
+        hex += bytes[i].toString(16).padStart(2, '0')
+    }
+    return /** @type {import('./types.js').Hex} */ (hex)
+}
+```
+
+---
+
+##### 13. Buffer API Usage in EthActionsLive and TevmActionsLive (Browser Incompatible)
+**File:Lines**:
+- `packages/decorators-effect/src/EthActionsLive.js:131`
+- `packages/decorators-effect/src/TevmActionsLive.js:81`
+**Severity**: 🔴 HIGH
+**Status**: ✅ RESOLVED (84th review)
+
+**Problem**: Both files use Node.js-specific `Buffer.from()` in their `bytesToHex` implementations.
+
+**Resolution**: Replaced `Buffer.from(bytes).toString('hex')` with browser-compatible loop implementation in both files. All 34 tests pass.
+
+**Applied Fix**: Same pattern as Issue 12 - using loop with `bytes[i].toString(16).padStart(2, '0')`.
+
+---
+
+##### 14. RequestServiceShape Missing MethodNotFoundError in Type
+**File:Lines**: `packages/decorators-effect/src/types.js:150`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `RequestServiceShape.request` type declares only `InvalidParamsError | InternalError` in error channel, but the implementation (RequestLive.js:201-206) also produces `MethodNotFoundError` for unsupported methods.
+
+**Evidence**:
+```javascript
+// types.js:150 - missing MethodNotFoundError
+* @property {<T = unknown>(params: Eip1193RequestParams) => import('effect').Effect<T, InvalidParamsError | InternalError, never>} request
+
+// RequestLive.js:201-206 - actually throws MethodNotFoundError
+return yield* Effect.fail(
+    new MethodNotFoundError({
+        method,
+        message: `Unsupported method: ${method}`,
+    })
+)
+```
+
+**Recommended Fix**: Update type to include `MethodNotFoundError`:
+```javascript
+import('effect').Effect<T, InvalidParamsError | InternalError | MethodNotFoundError, never>
+```
+
+---
+
+##### 15. deepCopy Error Channel Type Mismatch
+**File:Lines**: `packages/memory-client-effect/src/types.js:51`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `deepCopy` type declaration claims `never` in error channel, but implementation calls `stateManager.deepCopy()`, `vm.deepCopy()`, and `snapshotService.deepCopy()` which can all fail.
+
+**Evidence**:
+```javascript
+// types.js line 51 - declares 'never' for error channel
+* @property {() => import('effect').Effect.Effect<MemoryClientShape, never, never>} deepCopy
+```
+
+**Recommended Fix**: Update type to include potential errors or ensure all inner errors are caught.
+
+---
+
+#### Summary Table (83rd Review)
+
+| Package | CRITICAL | HIGH | MEDIUM | LOW | Total |
+|---------|----------|------|--------|-----|-------|
+| errors-effect | 0 | 0 | 0 | 2 | 2 |
+| logger-effect | 0 | 0 | 0 | 0 | 0 |
+| common-effect | 0 | 0 | 0 | 0 | 0 |
+| transport-effect | 0 | 0 | 0 | 1 | 1 |
+| blockchain-effect | 0 | 0 | 1 | 0 | 1 |
+| state-effect | 0 | 0 | 1 | 0 | 1 |
+| node-effect | 0 | 0 | 1 | 1 | 2 |
+| actions-effect | 0 | 0 | 1 | 2 | 3 |
+| memory-client-effect | 0 | 1 | 1 | 0 | 2 |
+| decorators-effect | 0 | 1 | 1 | 0 | 2 |
+| **TOTAL NEW** | **0** | **2** | **6** | **6** | **14** |
+
+---
+
+#### Recommendations
+
+**Priority 1 - HIGH (MUST FIX BEFORE PRODUCTION):**
+1. Replace `Buffer.from()` with browser-compatible `bytesToHex` in `MemoryClientLive.js:42`
+2. Replace `Buffer.from()` with browser-compatible `bytesToHex` in `EthActionsLive.js:131` and `TevmActionsLive.js:81`
+
+**Priority 2 - MEDIUM (Should Fix):**
+3. Update `RequestServiceShape` type to include `MethodNotFoundError`
+4. Update `deepCopy` type to reflect actual error possibilities
+5. Update `SnapshotShape` R channel to `never` (dependency captured at construction)
+6. Create distinct `bytesToHex` vs `bytesToHex32` functions in actions-effect
+7. Document `Effect.runPromise` interop boundaries in blockchain-effect and state-effect
+
+**Priority 3 - LOW (Nice to Have):**
+8. Add type cast to FilterService tag
+9. Extract duplicated validation helpers to shared utility
+10. Move EMPTY_CODE_HASH constant to shared location
+11. Add typedef exports to actions-effect barrel file
 
 ---
 

@@ -33,13 +33,17 @@ const isValidAddress = (address) => {
 }
 
 /**
- * Converts bytes to hex string
+ * Converts bytes to hex string (browser-compatible implementation)
  * @param {Uint8Array} bytes
  * @returns {import('./types.js').Hex}
  */
 const bytesToHex = (bytes) => {
 	if (!bytes || bytes.length === 0) return /** @type {import('./types.js').Hex} */ ('0x')
-	return /** @type {import('./types.js').Hex} */ ('0x' + Buffer.from(bytes).toString('hex'))
+	let hex = '0x'
+	for (let i = 0; i < bytes.length; i++) {
+		hex += bytes[i].toString(16).padStart(2, '0')
+	}
+	return /** @type {import('./types.js').Hex} */ (hex)
 }
 
 /**

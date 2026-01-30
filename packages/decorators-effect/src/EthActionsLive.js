@@ -125,10 +125,14 @@ export const EthActionsLive = Layer.effect(
 							}),
 					})
 
-					// Convert result to hex string
+					// Convert result to hex string (browser-compatible implementation)
 					const bytesToHex = (/** @type {Uint8Array} */ bytes) => {
 						if (!bytes || bytes.length === 0) return '0x'
-						return '0x' + Buffer.from(bytes).toString('hex')
+						let hex = '0x'
+						for (let i = 0; i < bytes.length; i++) {
+							hex += bytes[i].toString(16).padStart(2, '0')
+						}
+						return hex
 					}
 					return bytesToHex(result.execResult?.returnValue ?? new Uint8Array())
 				}),
