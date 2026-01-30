@@ -15,14 +15,17 @@ import { LoggerService } from './LoggerService.js'
 /**
  * Creates a LoggerShape implementation that uses Pino under the hood.
  *
+ * The LogLevel type aligns with @tevm/logger's Level type ('fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace')
+ * plus 'silent' for disabling all output. All these levels are directly supported by Pino.
+ *
  * @param {LogLevel} level - Minimum log level to output
  * @param {string} [name='tevm'] - Logger name for contextual logging
  * @returns {LoggerShape} The logger shape implementation
  */
 const createLoggerShape = (level, name = 'tevm') => {
-	// Pino uses the same level names as our LogLevel type, so we can pass directly
+	// LogLevel aligns with @tevm/logger's Level type, so we can pass directly to Pino
 	const pinoLogger = createLogger({
-		level,
+		level: /** @type {import('@tevm/logger').Level | 'silent'} */ (level),
 		name,
 	})
 

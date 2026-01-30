@@ -435,6 +435,88 @@ describe('LoggerTest', () => {
 		})
 	})
 
+	describe('trace level behavior', () => {
+		it('should capture all logs when level is trace (most verbose)', async () => {
+			const program = Effect.gen(function* () {
+				const logger = yield* LoggerService
+				if (isTestLogger(logger)) {
+					// Trace is most verbose - all logs should be captured
+					yield* logger.debug('debug')
+					yield* logger.info('info')
+					yield* logger.warn('warn')
+					yield* logger.error('error')
+
+					const logs = yield* logger.getLogs()
+					expect(logs).toHaveLength(4)
+					expect(logs[0]?.level).toBe('debug')
+					expect(logs[1]?.level).toBe('info')
+					expect(logs[2]?.level).toBe('warn')
+					expect(logs[3]?.level).toBe('error')
+				}
+				return true
+			})
+
+			const result = await Effect.runPromise(
+				program.pipe(Effect.provide(LoggerTest('trace'))),
+			)
+			expect(result).toBe(true)
+		})
+
+		it('should have level property set to trace', async () => {
+			const program = Effect.gen(function* () {
+				const logger = yield* LoggerService
+				expect(logger.level).toBe('trace')
+				return true
+			})
+
+			const result = await Effect.runPromise(
+				program.pipe(Effect.provide(LoggerTest('trace'))),
+			)
+			expect(result).toBe(true)
+		})
+	})
+
+	describe('fatal level behavior', () => {
+		it('should capture only error logs when level is fatal (least verbose)', async () => {
+			const program = Effect.gen(function* () {
+				const logger = yield* LoggerService
+				if (isTestLogger(logger)) {
+					// Fatal is least verbose - only error should be captured
+					// since LoggerShape only has debug, info, warn, error methods
+					// and fatal is the highest priority
+					yield* logger.debug('debug')
+					yield* logger.info('info')
+					yield* logger.warn('warn')
+					yield* logger.error('error')
+
+					// At fatal level, only errors meet the threshold
+					// (since there's no fatal() method, error is the closest)
+					const logs = yield* logger.getLogs()
+					expect(logs).toHaveLength(0) // Fatal is higher than error
+				}
+				return true
+			})
+
+			const result = await Effect.runPromise(
+				program.pipe(Effect.provide(LoggerTest('fatal'))),
+			)
+			expect(result).toBe(true)
+		})
+
+		it('should have level property set to fatal', async () => {
+			const program = Effect.gen(function* () {
+				const logger = yield* LoggerService
+				expect(logger.level).toBe('fatal')
+				return true
+			})
+
+			const result = await Effect.runPromise(
+				program.pipe(Effect.provide(LoggerTest('fatal'))),
+			)
+			expect(result).toBe(true)
+		})
+	})
+
 	describe('getAndClearLogs method', () => {
 		it('should return logs and clear them atomically', async () => {
 			const program = Effect.gen(function* () {

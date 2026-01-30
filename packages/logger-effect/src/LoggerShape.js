@@ -14,8 +14,17 @@ import { Effect } from 'effect'
  * The shape interface for the LoggerService.
  * Provides Effect-wrapped logging methods for type-safe, composable logging.
  *
+ * This interface exposes 4 primary log methods (debug, info, warn, error) that cover
+ * the most common use cases. The `level` property can be set to any LogLevel
+ * (including 'fatal', 'trace', and 'silent') for configuration purposes, even though
+ * there are no dedicated fatal() or trace() methods on the interface.
+ *
+ * - For fatal errors, use `error()` with appropriate message/data indicating criticality
+ * - For trace-level logging, use `debug()` with detailed context
+ * - For silent mode, set level to 'silent' to suppress all output
+ *
  * @typedef {Object} LoggerShape
- * @property {LogLevel} level - Current log level configuration
+ * @property {LogLevel} level - Current log level configuration (any valid Pino level + 'silent')
  * @property {string} name - Logger name for contextual logging
  * @property {(message: string, data?: unknown) => Effect.Effect<void, never, never>} debug - Log a debug message
  * @property {(message: string, data?: unknown) => Effect.Effect<void, never, never>} info - Log an info message

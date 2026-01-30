@@ -39,15 +39,18 @@ import { LoggerService } from './LoggerService.js'
  */
 const createTestLoggerShape = (logsRef, level = 'debug', name = 'tevm') => {
 	/**
-	 * Log level priority for filtering
+	 * Log level priority for filtering.
+	 * Lower numbers mean more verbose. Matches Pino's level hierarchy.
 	 * @type {Record<LogLevel, number>}
 	 */
 	const levelPriority = {
-		debug: 0,
-		info: 1,
-		warn: 2,
-		error: 3,
-		silent: 4,
+		trace: 0,
+		debug: 1,
+		info: 2,
+		warn: 3,
+		error: 4,
+		fatal: 5,
+		silent: 6,
 	}
 
 	const currentPriority = levelPriority[level]
