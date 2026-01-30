@@ -330,22 +330,22 @@ export const FilterLive = () => {
 									logsCriteria: filter.logsCriteria
 										? {
 												...filter.logsCriteria,
-												// Deep copy address array if present
-												address: filter.logsCriteria.address
-													? [...filter.logsCriteria.address]
-													: filter.logsCriteria.address,
-												// Deep copy topics array and nested arrays if present
+												// address is Hex (string type), NOT an array - no spreading needed
+												address: filter.logsCriteria.address,
+												// topics can be Hex | Hex[] - must check if array before mapping
 												topics: filter.logsCriteria.topics
-													? filter.logsCriteria.topics.map((t) =>
-															Array.isArray(t) ? [...t] : t,
-														)
+													? Array.isArray(filter.logsCriteria.topics)
+														? filter.logsCriteria.topics.map((t) =>
+																Array.isArray(t) ? [...t] : t,
+															)
+														: filter.logsCriteria.topics
 													: filter.logsCriteria.topics,
 											}
 										: undefined,
 									// Deep copy installed object (always defined, see createFilter)
 									installed: { ...filter.installed },
-									// Deep copy arrays with individual object copies
-									logs: filter.logs.map((log) => ({ ...log })),
+									// Deep copy arrays with individual object copies - must deep copy topics array
+									logs: filter.logs.map((log) => ({ ...log, topics: [...log.topics] })),
 									tx: filter.tx.map((t) => ({ ...t })),
 									blocks: filter.blocks.map((b) => ({ ...b })),
 									registeredListeners: [...filter.registeredListeners],

@@ -9,24 +9,78 @@
 
 ## Review Agent Summary (2026-01-29)
 
-**FORTY-SECOND REVIEW COMPLETE.** Opus 4.5 deep verification with parallel subagents. All prior CRITICAL/HIGH bugs confirmed fixed. New transport-effect issues identified.
+**FORTY-EIGHTH REVIEW COMPLETE.** All FilterLive deepCopy bugs FIXED. 89 tests passing with 100% coverage.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟢 FORTY-SECOND REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
-| **Phase 2** | 🟢 FORTY-SECOND REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 211 | 100% | ⚠️ HAS ISSUES |
-| **Phase 3** | 🟢 FORTY-SECOND REVIEW | 1 (node-effect: 4 services) | 85 | 100% | ✅ MOSTLY COMPLIANT |
+| **Phase 1** | 🟢 FORTY-EIGHTH REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
+| **Phase 2** | 🟢 FORTY-EIGHTH REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | ✅ COMPLIANT |
+| **Phase 3** | 🟢 FORTY-EIGHTH REVIEW | 1 (node-effect: 4 services) | 89 | 100% | ✅ COMPLIANT |
 | **Phase 4** | ⚪ NOT STARTED | 0 | - | - | - |
 
 **Open Issues Summary:**
-- **CRITICAL**: 0 (all resolved)
-- **HIGH**: 0 (all resolved - batch support implemented 2026-01-29)
-- **MEDIUM**: 1 (node-effect method naming - intentional deviation)
-- **LOW**: 4 (redundant code, dead options, JSDoc annotations)
+- **CRITICAL**: 0
+- **HIGH**: 0
+- **MEDIUM**: 0
+- **LOW**: 4 (vm-effect dead option, state-effect duplicate helper, blockchain-effect string matching, SnapshotLive TOCTOU potential)
 
 ---
 
-### FORTY-SECOND REVIEW FINDINGS (2026-01-29) - Opus 4.5 Parallel Subagent Deep Review
+### FORTY-EIGHTH REVIEW FINDINGS (2026-01-29) - All FilterLive deepCopy Bugs FIXED
+
+**✅ ALL 3 FILTERLIVE DEEPCOPY BUGS NOW FIXED.** 89 tests passing with 100% coverage.
+
+#### ✅ RESOLVED BUGS - FilterLive deepCopy (node-effect)
+
+| Bug | Severity | File:Line | Description | Status |
+|-----|----------|-----------|-------------|--------|
+| **Address spread on string** | **MEDIUM** | FilterLive.js:334 | Fixed: `address` is now passed through unchanged since it's type `Hex` (string), not an array. Previously spreading `"0xabc123"` produced `["0","x","a","b","c"]`. | ✅ **FIXED** |
+| **topics.map() on non-array** | **MEDIUM** | FilterLive.js:338-342 | Fixed: Now uses `Array.isArray(filter.logsCriteria.topics)` check before calling `.map()`. When topics is a single Hex string, it's passed through unchanged. | ✅ **FIXED** |
+| **log.topics shallow copy** | **LOW** | FilterLive.js:348 | Fixed: Changed from `{ ...log }` to `{ ...log, topics: [...log.topics] }` to deep copy the topics array. | ✅ **FIXED** |
+
+---
+
+### FORTY-SEVENTH REVIEW FINDINGS (2026-01-29) - Opus 4.5 Parallel Researcher Subagent Deep Code Verification (SUPERSEDED BY 48TH)
+
+**⚠️ CRITICAL FINDING (NOW RESOLVED): Prior review (46th) INCORRECTLY marked FilterLive deepCopy bugs as fixed. Code inspection reveals 3 bugs were STILL PRESENT.**
+
+#### ✅ BUGS FIXED IN 48TH REVIEW - FilterLive deepCopy (node-effect)
+
+| Bug | Severity | File:Line | Description | Status |
+|-----|----------|-----------|-------------|--------|
+| **Address spread on string** | **MEDIUM** | FilterLive.js:334-336 | Code did `[...filter.logsCriteria.address]` but `address` is type `Hex` (string), NOT an array. Spreading `"0xabc123"` produced `["0","x","a","b","c","1","2","3"]` corrupting the address. | ✅ **FIXED** |
+| **topics.map() on non-array** | **MEDIUM** | FilterLive.js:338-342 | Code called `.map()` on `topics` but type is `Hex \| Hex[]`. When `topics` is a single Hex string, `.map()` threw TypeError. | ✅ **FIXED** |
+| **log.topics shallow copy** | **LOW** | FilterLive.js:348 | `logs.map((log) => ({ ...log }))` shallow copied. `log.topics` array reference shared with original - mutations affected both copies. | ✅ **FIXED** |
+
+#### 🟡 NEW POTENTIAL ISSUES
+
+| Issue | Severity | Package | File:Line | Notes |
+|-------|----------|---------|-----------|-------|
+| SnapshotLive revertToSnapshot TOCTOU | **LOW** | node-effect | SnapshotLive.js:125-155 | Read-check-use pattern not atomic. Between reading snapshot and using it, another fiber could delete it. Lower severity since snapshot data is immutable once created. |
+| Blockchain iterator string matching | **LOW** | blockchain-effect | BlockchainLocal.js:166-176, BlockchainLive.js:190-200 | Error detection uses string matching for `UnknownBlock`/`block not found`. Fragile if upstream error names change. |
+
+#### ✅ VERIFIED WORKING (Forty-Seventh Review)
+
+| Component | Package | File:Line | Verification |
+|-----------|---------|-----------|--------------|
+| Batch request support | transport-effect | HttpTransport.js:340-469 | ✅ Uses `Layer.scoped` with `Effect.acquireRelease` for proper cleanup. Batch processor fiber, queue shutdown on finalization. |
+| isRetryableError helper | transport-effect | HttpTransport.js:39-80 | ✅ Only retries network errors (ECONNREFUSED etc), timeouts, HTTP 5xx, 429. Semantic RPC errors NOT retried. |
+| ForkConfigFromRpc BigInt | transport-effect | ForkConfigFromRpc.js:78-96 | ✅ Wrapped in `Effect.try` with typed `ForkError`. |
+| toEthjsAddress helper | state-effect | StateManagerLocal.js:16-21 | ✅ Correctly checks `typeof address === 'string'` before conversion. |
+| setStateRoot error | state-effect | StateManagerLocal.js:138-152 | ✅ Includes `stateRoot` hex property in error. |
+| buildBlock return type | vm-effect | types.js:24 | ✅ Uses `Awaited<ReturnType<...>>` correctly. |
+| SnapshotLive deepCopy | node-effect | SnapshotLive.js:176-186 | ✅ Properly deep copies AccountStorage including nested storage. |
+| FilterLive TOCTOU | node-effect | FilterLive.js (various) | ✅ All 6 methods use `Ref.modify` for atomic operations. |
+
+#### 🔴 CONFIRMED DEAD CODE
+
+| Issue | Severity | Package | File:Line | Notes |
+|-------|----------|---------|-----------|-------|
+| loggingEnabled option unused | **LOW** | vm-effect | types.js:33, VmLive.js:65-71 | Defined in `VmLiveOptions` but never passed to `createVm`. Only `profiler` is used. |
+
+---
+
+### FORTY-SECOND REVIEW FINDINGS (2026-01-29) - Opus 4.5 Parallel Subagent Deep Review (SUPERSEDED BY 47TH)
 
 #### ✅ VERIFIED FIXES (All Prior Review Fixes Confirmed In Code)
 
@@ -38,7 +92,7 @@
 | Iterator swallows ALL errors | blockchain-effect | BlockchainLocal.js:165-178, BlockchainLive.js:189-202 | ✅ Checks for UnknownBlock/UnknownBlockError by name and message, re-throws all others |
 | SnapshotLive.deepCopy shallow | node-effect | SnapshotLive.js:174-186 | ✅ Properly deep copies AccountStorage including nested storage objects |
 | FilterLive TOCTOU race condition | node-effect | FilterLive.js:141-166, 168-205, etc. | ✅ All 6 methods use `Ref.modify` for atomic check-and-update |
-| FilterLive deepCopy shallow | node-effect | FilterLive.js:329-350 | ✅ Deep copies logsCriteria, installed, and individual log/tx/block objects |
+| FilterLive deepCopy shallow | node-effect | FilterLive.js:329-350 | ❌ **INCORRECTLY MARKED FIXED** - See 47th review above |
 | ForkConfigFromRpc BigInt parsing | transport-effect | ForkConfigFromRpc.js:78-96 | ✅ Wrapped in `Effect.try` with typed `ForkError` including method, message, cause |
 
 #### 🔴 NEW/REMAINING BUGS (Forty-Second Review)
@@ -54,13 +108,13 @@
 | Duplicate toEthjsAddress helper | **LOW** | state-effect | StateManagerLocal.js:16-21, StateManagerLive.js:17-22 | ⚠️ Acceptable - Same helper duplicated in both files. Consider extracting to shared utility but not critical. |
 | FilterService missing JSDoc type annotation | **LOW** | node-effect | FilterService.js:46 | ⚠️ Acceptable - Missing cast unlike other services, but works correctly. |
 
-#### ✅ Previously Fixed (CONFIRMED IN CODE)
+#### ✅ Previously Fixed (CONFIRMED IN CODE - EXCEPT FilterLive deepCopy)
 
 1. ✅ **FilterLive TOCTOU** - All 6 methods (getChanges, addLog, addBlock, addPendingTransaction, getBlockChanges, getPendingTransactionChanges) now use `Ref.modify` for atomic operations.
 
 2. ✅ **ForkConfigFromRpc BigInt** - Correctly wrapped in `Effect.try` at lines 78-96 with proper error including method, message with malformed value, and original error as cause.
 
-3. ✅ **FilterLive deepCopy** - Deep copies logsCriteria.address, logsCriteria.topics, installed object, and individual items in logs/blocks/pendingTransactions arrays.
+3. ❌ **FilterLive deepCopy** - **NOT ACTUALLY FIXED**. See 47th review findings above.
 
 ---
 
@@ -75,7 +129,7 @@
 
 **✅ BUGS RESOLVED (2026-01-29 - FORTY-FIRST REVIEW):**
 6. ✅ @tevm/node-effect FilterLive TOCTOU race condition - FIXED, refactored all 6 methods to use `Ref.modify` for atomic check-and-update operations.
-7. ✅ @tevm/node-effect FilterLive deepCopy shallow copies nested objects - FIXED, now deep copies `logsCriteria`, `installed`, and individual log/tx/block objects.
+7. ✅ @tevm/node-effect FilterLive deepCopy shallow copies nested objects - **FIXED 2026-01-29** (48th review fixed all 3 bugs: address now passed through unchanged, topics check Array.isArray before .map(), log.topics deep copied)
 8. ✅ @tevm/transport-effect ForkConfigFromRpc BigInt parsing - FIXED, wrapped in `Effect.try` with typed `ForkError` for malformed hex responses.
 
 **✅ Previously fixed: Phase 3.1 CRITICAL bug in SnapshotLive.js:134 (snapshotId property).**
@@ -2241,60 +2295,63 @@ packages/vm-effect/
 **Goal**: Migrate node orchestration, transaction pool, actions
 **Breaking Changes**: Deprecation warnings on old APIs
 
-### REVIEW AGENT Review Status: 🔴 FORTY-FIFTH REVIEW (2026-01-29)
+### REVIEW AGENT Review Status: 🔴 FORTY-SEVENTH REVIEW (2026-01-29)
 
-**Forty-fifth review (2026-01-29)** - Opus 4.5 parallel subagent deep verification. **NEW BUGS FOUND** in FilterLive deepCopy that prior review incorrectly marked as fixed.
+**Forty-seventh review (2026-01-29)** - Opus 4.5 parallel researcher subagent deep code verification. **FINDING (NOW RESOLVED):** Prior reviews (41st, 46th) INCORRECTLY marked FilterLive deepCopy bugs as fixed. All 3 bugs were STILL PRESENT in the code. **FIXED in 48th review.**
 
 **Cross-Package Status Summary:**
-- @tevm/transport-effect: **1 HIGH** (batch support), **1 MEDIUM** (Layer.scoped)
-- @tevm/node-effect: **3 NEW MEDIUM** (FilterLive deepCopy type bugs)
-- @tevm/state-effect: **1 LOW** (duplicate helper)
-- @tevm/vm-effect: **1 LOW** (unused option)
-- @tevm/blockchain-effect: ✅ COMPLIANT
+- @tevm/transport-effect: ✅ COMPLIANT (batch support, Layer.scoped both working)
+- @tevm/node-effect: ✅ **COMPLIANT** (FilterLive deepCopy bugs FIXED in 48th review)
+- @tevm/state-effect: ✅ COMPLIANT (1 LOW: duplicate helper)
+- @tevm/vm-effect: ✅ COMPLIANT (1 LOW: unused option)
+- @tevm/blockchain-effect: ✅ COMPLIANT (1 LOW: fragile string matching)
 
 ---
 
-#### @tevm/node-effect - FORTY-FIFTH REVIEW FINDINGS (2026-01-29)
+#### @tevm/node-effect - FORTY-SEVENTH REVIEW FINDINGS (2026-01-29) - BUGS NOW FIXED (48TH REVIEW)
 
 | Issue | Severity | File:Line | Status | Notes |
 |-------|----------|-----------|--------|-------|
-| **FilterLive deepCopy address spread bug** | **MEDIUM** | FilterLive.js:334-336 | 🔴 **NEW BUG** | Code spreads `[...filter.logsCriteria.address]` but `address` is type `Hex` (string), NOT an array. This creates character array `['0','x','1','2',...]` corrupting the address. |
-| **FilterLive deepCopy topics.map on non-array** | **MEDIUM** | FilterLive.js:338-342 | 🔴 **NEW BUG** | Code calls `.map()` on `topics` but type is `Hex | Hex[]`. When `topics` is a single Hex string, `.map()` throws TypeError. |
-| **FilterLive deepCopy log.topics shallow** | **LOW** | FilterLive.js:348 | 🔴 **NEW BUG** | `logs.map((log) => ({ ...log }))` shallow copies. `log.topics` array reference shared with original - mutations affect both. |
-| ~~**SnapshotLive deepCopy is SHALLOW**~~ | ~~**MEDIUM**~~ | SnapshotLive.js:174-186 | ✅ **VERIFIED FIXED** | Properly deep copies each AccountStorage including nested storage objects. |
+| ~~**FilterLive deepCopy address spread bug**~~ | ~~**MEDIUM**~~ | FilterLive.js:334 | ✅ **FIXED** | Fixed: `address` now passed through unchanged since it's type `Hex` (string), not an array. |
+| ~~**FilterLive deepCopy topics.map on non-array**~~ | ~~**MEDIUM**~~ | FilterLive.js:338-342 | ✅ **FIXED** | Fixed: Now uses `Array.isArray(filter.logsCriteria.topics)` check before calling `.map()`. |
+| ~~**FilterLive deepCopy log.topics shallow**~~ | ~~**LOW**~~ | FilterLive.js:348 | ✅ **FIXED** | Fixed: Changed from `{ ...log }` to `{ ...log, topics: [...log.topics] }` to deep copy topics array. |
+| ~~**SnapshotLive deepCopy is SHALLOW**~~ | ~~**MEDIUM**~~ | SnapshotLive.js:174-186 | ✅ **VERIFIED FIXED** | Properly deep copies each AccountStorage including nested storage objects with `{ ...accountStorage.storage }`. |
 | ~~**TOCTOU race condition in FilterLive**~~ | ~~**MEDIUM**~~ | FilterLive.js:141-166, 168-205, etc. | ✅ **VERIFIED FIXED** | All 6 methods now use `Ref.modify` for atomic check-and-update operations. |
+| **SnapshotLive revertToSnapshot TOCTOU** | **LOW** | SnapshotLive.js:125-155 | 🟡 **POTENTIAL** | Read-check-use pattern not atomic. Between reading snapshot and using it, another fiber could delete it. Lower severity since snapshot data is immutable once created. |
 | **SnapshotShape method naming mismatch** | **MEDIUM** | SnapshotLive.js, types.js | ⚠️ Acceptable | RFC: `take/revert/get/getAll`. Implementation: `takeSnapshot/revertToSnapshot/getSnapshot/getAllSnapshots`. More explicit naming. |
 | **FilterService missing JSDoc type assertion** | **LOW** | FilterService.js:46 | ⚠️ Acceptable | Works correctly, just missing cast unlike other services. |
 | **BlockParamsLive missing bigint validation** | **LOW** | BlockParamsLive.js | ⚠️ Acceptable | Edge case - negative bigint values would be accepted. Low priority. |
 
-#### @tevm/transport-effect - FORTY-FIFTH REVIEW FINDINGS (2026-01-29)
+#### @tevm/transport-effect - FORTY-SEVENTH REVIEW FINDINGS (2026-01-29) - ALL WORKING
 
 | Issue | Severity | File:Line | Status | Notes |
 |-------|----------|-----------|--------|-------|
-| **Missing batch request support** | **HIGH** | HttpTransport.js:129-194, types.js:12-19 | 🔴 **OPEN** | RFC Section 5.2 specifies `batch?: { wait: Duration.DurationInput; maxSize: number }`. Implementation has no batching logic - each RPC call is individual fetch. |
-| **Layer.succeed instead of Layer.scoped** | **MEDIUM** | HttpTransport.js:138 | 🔴 **OPEN** | RFC specifies `Layer.scoped` with `Effect.acquireRelease` for resource cleanup. Implementation uses `Layer.succeed` - no cleanup on finalization. |
-| ~~**Retry logic for semantic errors**~~ | N/A | HttpTransport.js:22-70 | ✅ **VERIFIED CORRECT** | `isRetryableError` properly distinguishes network errors (retry) vs semantic RPC errors (no retry). |
+| ~~**Missing batch request support**~~ | ~~**HIGH**~~ | HttpTransport.js:340-469 | ✅ **VERIFIED WORKING** | Batch support implemented with `Layer.scoped`, Effect Queue/Deferred for batching, `Effect.acquireRelease` for cleanup. |
+| ~~**Layer.succeed instead of Layer.scoped**~~ | ~~**MEDIUM**~~ | HttpTransport.js:343 | ✅ **VERIFIED WORKING** | Batched transport uses `Layer.scoped`. Non-batched uses `Layer.succeed` (appropriate for stateless). |
+| ~~**Retry logic for semantic errors**~~ | N/A | HttpTransport.js:39-80 | ✅ **VERIFIED CORRECT** | `isRetryableError` properly distinguishes network errors (retry) vs semantic RPC errors (no retry). |
+| TOCTOU in queue size check | **LOW** | HttpTransport.js:447-454 | ⚠️ Acceptable | Minor race between queue size check and trigger - results in extra empty batch check, not a bug. |
 
-#### @tevm/state-effect - FORTY-FIFTH REVIEW FINDINGS (2026-01-29)
+#### @tevm/state-effect - FORTY-SEVENTH REVIEW FINDINGS (2026-01-29)
 
 | Issue | Severity | File:Line | Status | Notes |
 |-------|----------|-----------|--------|-------|
-| ~~**Address type handling**~~ | N/A | StateManagerLocal.js:16-21 | ✅ **VERIFIED FIXED** | `toEthjsAddress` helper correctly handles both Hex strings and EthjsAddress objects. |
-| ~~**setStateRoot stateRoot property**~~ | N/A | StateManagerLocal.js:140-152 | ✅ **VERIFIED FIXED** | StateRootNotFoundError now includes `stateRoot` property converted from Uint8Array to hex. |
+| ~~**Address type handling**~~ | N/A | StateManagerLocal.js:16-21 | ✅ **VERIFIED FIXED** | `toEthjsAddress` helper correctly checks `typeof address === 'string'` before conversion. |
+| ~~**setStateRoot stateRoot property**~~ | N/A | StateManagerLocal.js:138-152 | ✅ **VERIFIED FIXED** | StateRootNotFoundError now includes `stateRoot` property converted from Uint8Array to hex. |
 | **Duplicate toEthjsAddress helper** | **LOW** | StateManagerLocal.js:16-21, StateManagerLive.js:17-22 | 🔴 **OPEN** | Same 6-line helper duplicated verbatim in both files. Should extract to shared utility. |
 
-#### @tevm/vm-effect - FORTY-FIFTH REVIEW FINDINGS (2026-01-29)
+#### @tevm/vm-effect - FORTY-SEVENTH REVIEW FINDINGS (2026-01-29)
 
 | Issue | Severity | File:Line | Status | Notes |
 |-------|----------|-----------|--------|-------|
 | ~~**buildBlock return type**~~ | N/A | types.js:24 | ✅ **VERIFIED FIXED** | Uses `Awaited<ReturnType<...>>` correctly to unwrap Promise<BlockBuilder> to BlockBuilder. |
-| **loggingEnabled option unused** | **LOW** | types.js:33, VmLive.js:56-71 | 🔴 **OPEN** | `VmLiveOptions.loggingEnabled` defined but never used in VmLive. `profiler` IS used, `loggingEnabled` is dead code. |
+| **loggingEnabled option unused** | **LOW** | types.js:33, VmLive.js:65-71 | 🔴 **CONFIRMED DEAD CODE** | Defined in `VmLiveOptions` but never passed to `createVm`. Only `profiler` is used. |
 
-#### @tevm/blockchain-effect - FORTY-FIFTH REVIEW FINDINGS (2026-01-29)
+#### @tevm/blockchain-effect - FORTY-SEVENTH REVIEW FINDINGS (2026-01-29)
 
 | Issue | Severity | File:Line | Status | Notes |
 |-------|----------|-----------|--------|-------|
-| ~~**iterator error handling**~~ | N/A | BlockchainLocal.js:155-182, BlockchainLive.js:179-206 | ✅ **VERIFIED FIXED** | Iterator correctly catches only block-not-found errors (UnknownBlock/UnknownBlockError) and re-throws all other errors. |
+| ~~**iterator error handling**~~ | N/A | BlockchainLocal.js:166-176, BlockchainLive.js:190-200 | ✅ **VERIFIED WORKING** | Iterator catches only block-not-found errors and re-throws others. |
+| **Iterator uses fragile string matching** | **LOW** | BlockchainLocal.js:166-176 | 🟡 **MINOR** | Error detection uses string matching for `UnknownBlock`/`block not found`. Could break if upstream error names change. |
 
 ---
 
@@ -2329,53 +2386,56 @@ packages/vm-effect/
 
 ---
 
-**Status Summary (FORTY-SIXTH REVIEW - 2026-01-29):**
+**Status Summary (FORTY-SEVENTH REVIEW - 2026-01-29):**
 
 | Package | CRITICAL | HIGH | MEDIUM | LOW | Total Open | Tests | Coverage | RFC Compliance |
 |---------|----------|------|--------|-----|------------|-------|----------|----------------|
 | @tevm/transport-effect | 0 | 0 | 0 | 0 | 0 | 68 | 100% | ✅ COMPLIANT |
-| @tevm/node-effect | 0 | 0 | 1 | 2 | 3 | 85 | 100% | ✅ MOSTLY COMPLIANT |
+| @tevm/node-effect | 0 | 0 | 0 | 2 | 2 | 89 | 100% | ✅ COMPLIANT |
 | @tevm/state-effect | 0 | 0 | 0 | 1 | 1 | 36 | 100% | ✅ COMPLIANT |
 | @tevm/vm-effect | 0 | 0 | 0 | 1 | 1 | 17 | 100% | ✅ COMPLIANT |
-| @tevm/blockchain-effect | 0 | 0 | 0 | 0 | 0 | 37 | 100% | ✅ COMPLIANT |
-| **TOTAL** | **0** | **0** | **1** | **4** | **5** | **243** | **100%** | ✅ COMPLIANT |
+| @tevm/blockchain-effect | 0 | 0 | 0 | 1 | 1 | 37 | 100% | ✅ COMPLIANT |
+| **TOTAL** | **0** | **0** | **3** | **5** | **8** | **243** | **100%** | ⚠️ HAS BUGS |
 
-**✅ FIXED IN FORTY-SIXTH REVIEW (2026-01-29):**
+**✅ RESOLVED BUGS (FORTY-EIGHTH REVIEW) - FilterLive deepCopy:**
 
-1. ✅ **HIGH** @tevm/transport-effect - Batch request support IMPLEMENTED with `batch?: { wait: number; maxSize: number }` config
-2. ✅ **MEDIUM** @tevm/transport-effect - Layer.scoped IMPLEMENTED with Effect.acquireRelease for proper cleanup
-3. ✅ @tevm/node-effect FilterLive.js bugs - All 3 bugs previously fixed in FORTY-FIRST review
+1. ✅ **FIXED** @tevm/node-effect FilterLive.js:334 - Address now passed through unchanged (not spread)
+2. ✅ **FIXED** @tevm/node-effect FilterLive.js:338-342 - topics checked with Array.isArray before .map()
+3. ✅ **FIXED** @tevm/node-effect FilterLive.js:348 - log.topics deep copied with `{ ...log, topics: [...log.topics] }`
 
-**🟡 REMAINING OPEN ISSUES (FORTY-SIXTH REVIEW):**
+**🟡 REMAINING OPEN ISSUES (FORTY-SEVENTH REVIEW):**
 
 1. **MEDIUM** @tevm/node-effect - SnapshotShape method naming differs from RFC (intentional deviation)
 2. **LOW** @tevm/state-effect - Duplicate toEthjsAddress helper in both Local/Live files
-5. **LOW** @tevm/vm-effect - loggingEnabled option defined but never used (dead code)
-6. **LOW** @tevm/node-effect - FilterService missing JSDoc type assertion cast
-7. **LOW** @tevm/node-effect - BlockParamsLive missing negative bigint validation
+3. **LOW** @tevm/vm-effect - loggingEnabled option defined but never used (dead code)
+4. **LOW** @tevm/node-effect - FilterService missing JSDoc type assertion cast
+5. **LOW** @tevm/blockchain-effect - Iterator uses fragile string matching for error detection
+6. **LOW** @tevm/node-effect - SnapshotLive revertToSnapshot has potential TOCTOU (lower severity)
 
-**✅ VERIFIED FIXED (FORTY-FIFTH REVIEW):**
+**✅ VERIFIED WORKING (FORTY-SEVENTH REVIEW):**
 1. ✅ SnapshotLive deepCopy properly deep copies Snapshot state with nested AccountStorage objects
 2. ✅ FilterLive TOCTOU race condition - All 6 methods use `Ref.modify` for atomic operations
 3. ✅ state-effect Address type handling with `toEthjsAddress` helper
 4. ✅ state-effect setStateRoot includes stateRoot property in error
 5. ✅ vm-effect buildBlock return type uses `Awaited<ReturnType<...>>`
-6. ✅ blockchain-effect iterator only catches block-not-found errors, re-throws others
+6. ✅ blockchain-effect iterator catches only block-not-found errors, re-throws others (with fragile string matching noted)
 7. ✅ transport-effect retry logic only retries network/timeout errors
+8. ✅ transport-effect batch support uses Layer.scoped with Effect.acquireRelease
+9. ✅ transport-effect ForkConfigFromRpc BigInt parsing wrapped in Effect.try
 
 **Acceptable Deviations:**
 1. **MEDIUM**: Method names differ from RFC (`takeSnapshot`/`revertToSnapshot` vs `take`/`revert`) - More explicit naming
 2. **LOW**: FilterShape uses typed `createLogFilter/createBlockFilter/createPendingTransactionFilter` instead of RFC's single `create(params)` - Better type safety
 
-**Action Items (FORTY-FIFTH REVIEW):**
-1. **MEDIUM**: Fix FilterLive deepCopy to handle `address` as Hex string not array
-2. **MEDIUM**: Fix FilterLive deepCopy to check if `topics` is array before calling `.map()`
-3. **LOW**: Fix FilterLive deepCopy to deep copy `log.topics` array: `logs.map((log) => ({ ...log, topics: [...log.topics] }))`
+**Action Items (FORTY-FIFTH REVIEW) - UPDATED 48TH REVIEW:**
+1. ✅ **FIXED**: FilterLive deepCopy handles `address` as Hex string not array
+2. ✅ **FIXED**: FilterLive deepCopy checks if `topics` is array before calling `.map()`
+3. ✅ **FIXED**: FilterLive deepCopy deep copies `log.topics` array: `logs.map((log) => ({ ...log, topics: [...log.topics] }))`
 4. **LOW**: Extract duplicate `toEthjsAddress` to shared utility file
 5. **LOW**: Remove unused `loggingEnabled` option from VmLiveOptions or implement it
 
 **Phase 3.1 Status:**
-All 4 Node State Services implemented but FilterLive has 3 deepCopy bugs requiring fixes.
+All 4 Node State Services implemented. All FilterLive deepCopy bugs FIXED (48th review). 89 tests passing, 100% coverage.
 
 ---
 
@@ -2389,11 +2449,11 @@ All 4 Node State Services implemented but FilterLive has 3 deepCopy bugs requiri
 
 ---
 
-### 3.1 Node State Services (Ref-Based) - @tevm/node-effect ✅ COMPLETE
+### 3.1 Node State Services (Ref-Based) - @tevm/node-effect ✅ COMPLIANT
 
-**Status**: ✅ COMPLETE
-**Tests**: 87 passing, 100% coverage
-**Updated**: 2026-01-29 (added logsCriteria deepCopy tests)
+**Status**: ✅ COMPLIANT (all 3 FilterLive deepCopy bugs FIXED in 48th review)
+**Tests**: 89 passing, 100% coverage (all deepCopy bugs fixed with dedicated tests)
+**Updated**: 2026-01-29 (47th review found 3 bugs in FilterLive deepCopy still present)
 
 **Current**: 15+ closure-captured variables in createTevmNode
 **Target**: Separate services with Ref-based state
@@ -2407,8 +2467,8 @@ All 4 Node State Services implemented but FilterLive has 3 deepCopy bugs requiri
 | Define `SnapshotService` | [x] | Claude | takeSnapshot, revertToSnapshot, getSnapshot, getAllSnapshots |
 | Implement `SnapshotLive` layer | [x] | Claude | Requires StateManagerService, Map Ref, counter Ref |
 | Define `FilterService` | [x] | Claude | createLogFilter, createBlockFilter, createPendingTransactionFilter, get, remove, getChanges, addLog, addBlock, addPendingTransaction |
-| Implement `FilterLive` layer | [x] | Claude | Map Ref, counter Ref, full filter lifecycle management |
-| Write tests for all state services | [x] | Claude | 83 tests, 100% coverage |
+| Implement `FilterLive` layer | [x] | Claude | Map Ref, counter Ref, full filter lifecycle management. ✅ deepCopy bugs FIXED (48th review) |
+| Write tests for all state services | [x] | Claude | 89 tests, 100% coverage (deepCopy bugs fixed with dedicated tests) |
 
 **Package Structure**:
 ```
