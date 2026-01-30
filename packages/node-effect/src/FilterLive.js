@@ -1,6 +1,7 @@
 import { Effect, Layer, Ref } from 'effect'
 import { FilterNotFoundError, InvalidFilterTypeError } from '@tevm/errors-effect'
 import { FilterService } from './FilterService.js'
+import { DEFAULT_FILTER_EXPIRATION_MS } from './types.js'
 
 /**
  * @module @tevm/node-effect/FilterLive
@@ -93,11 +94,13 @@ export const FilterLive = () => {
 
 						// Create filter - use spread to conditionally include optional properties
 						// to satisfy exactOptionalPropertyTypes
+						const now = Date.now()
 						/** @type {Filter} */
 						const filter = {
 							id: hexId,
 							type,
-							created: Date.now(),
+							created: now,
+							lastAccessed: now,
 							...(logsCriteria !== undefined ? { logsCriteria } : {}),
 							logs: [],
 							tx: [],
@@ -151,10 +154,10 @@ export const FilterLive = () => {
 								if (filter.type !== 'Log') {
 									return /** @type {const} */ ([{ found: true, wrongType: true }, map])
 								}
-								// Atomically get logs and clear them
+								// Atomically get logs, clear them, and update lastAccessed
 								const logs = [...filter.logs]
 								const newMap = new Map(map)
-								newMap.set(id, { ...filter, logs: [] })
+								newMap.set(id, { ...filter, logs: [], lastAccessed: Date.now() })
 								return /** @type {const} */ ([{ found: true, wrongType: false, logs }, newMap])
 							})
 
@@ -196,10 +199,10 @@ export const FilterLive = () => {
 								if (filter.type !== 'Block') {
 									return /** @type {const} */ ([{ found: true, wrongType: true }, map])
 								}
-								// Atomically get blocks and clear them
+								// Atomically get blocks, clear them, and update lastAccessed
 								const blocks = [...filter.blocks]
 								const newMap = new Map(map)
-								newMap.set(id, { ...filter, blocks: [] })
+								newMap.set(id, { ...filter, blocks: [], lastAccessed: Date.now() })
 								return /** @type {const} */ ([{ found: true, wrongType: false, blocks }, newMap])
 							})
 
@@ -241,10 +244,10 @@ export const FilterLive = () => {
 								if (filter.type !== 'PendingTransaction') {
 									return /** @type {const} */ ([{ found: true, wrongType: true }, map])
 								}
-								// Atomically get txs and clear them
+								// Atomically get txs, clear them, and update lastAccessed
 								const txs = [...filter.tx]
 								const newMap = new Map(map)
-								newMap.set(id, { ...filter, tx: [] })
+								newMap.set(id, { ...filter, tx: [], lastAccessed: Date.now() })
 								return /** @type {const} */ ([{ found: true, wrongType: false, txs }, newMap])
 							})
 
@@ -392,6 +395,27 @@ export const FilterLive = () => {
 						}),
 
 					getAllFilters: Ref.get(fltrRef),
+
+					cleanupExpiredFilters: (/** @type {number | undefined} */ expirationMs) =>
+						Ref.modify(fltrRef, (map) => {
+							const now = Date.now()
+							const expiration = expirationMs ?? DEFAULT_FILTER_EXPIRATION_MS
+							let removedCount = 0
+							const newMap = new Map()
+
+							for (const [key, filter] of map) {
+								const age = now - filter.lastAccessed
+								if (age < expiration) {
+									// Filter is still valid, keep it
+									newMap.set(key, filter)
+								} else {
+									// Filter has expired, remove it
+									removedCount++
+								}
+							}
+
+							return /** @type {const} */ ([removedCount, newMap])
+						}),
 
 					deepCopy: () =>
 						Effect.gen(function* () {

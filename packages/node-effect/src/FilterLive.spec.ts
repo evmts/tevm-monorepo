@@ -748,4 +748,205 @@ describe('FilterLive', () => {
 			expect(result.topicsLength).toBe(2)
 		})
 	})
+
+	describe('lastAccessed timestamp', () => {
+		it('should set lastAccessed on filter creation', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createLogFilter()
+				const f = yield* filter.get(id)
+				return {
+					created: f?.created,
+					lastAccessed: f?.lastAccessed,
+				}
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.created).toBeDefined()
+			expect(result.lastAccessed).toBeDefined()
+			expect(result.created).toBe(result.lastAccessed)
+		})
+
+		it('should update lastAccessed when getChanges is called', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createLogFilter()
+				const beforeFilter = yield* filter.get(id)
+				const beforeLastAccessed = beforeFilter?.lastAccessed ?? 0
+
+				// Wait a tiny bit to ensure time difference
+				yield* Effect.sleep('10 millis')
+
+				// Call getChanges which should update lastAccessed
+				yield* filter.getChanges(id)
+
+				const afterFilter = yield* filter.get(id)
+				const afterLastAccessed = afterFilter?.lastAccessed ?? 0
+
+				return {
+					beforeLastAccessed,
+					afterLastAccessed,
+					increased: afterLastAccessed > beforeLastAccessed,
+				}
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.increased).toBe(true)
+		})
+
+		it('should update lastAccessed when getBlockChanges is called', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createBlockFilter()
+				const beforeFilter = yield* filter.get(id)
+				const beforeLastAccessed = beforeFilter?.lastAccessed ?? 0
+
+				// Wait a tiny bit to ensure time difference
+				yield* Effect.sleep('10 millis')
+
+				// Call getBlockChanges which should update lastAccessed
+				yield* filter.getBlockChanges(id)
+
+				const afterFilter = yield* filter.get(id)
+				const afterLastAccessed = afterFilter?.lastAccessed ?? 0
+
+				return {
+					increased: afterLastAccessed > beforeLastAccessed,
+				}
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.increased).toBe(true)
+		})
+
+		it('should update lastAccessed when getPendingTransactionChanges is called', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createPendingTransactionFilter()
+				const beforeFilter = yield* filter.get(id)
+				const beforeLastAccessed = beforeFilter?.lastAccessed ?? 0
+
+				// Wait a tiny bit to ensure time difference
+				yield* Effect.sleep('10 millis')
+
+				// Call getPendingTransactionChanges which should update lastAccessed
+				yield* filter.getPendingTransactionChanges(id)
+
+				const afterFilter = yield* filter.get(id)
+				const afterLastAccessed = afterFilter?.lastAccessed ?? 0
+
+				return {
+					increased: afterLastAccessed > beforeLastAccessed,
+				}
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.increased).toBe(true)
+		})
+	})
+
+	describe('cleanupExpiredFilters', () => {
+		it('should return 0 when no filters exist', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const removedCount = yield* filter.cleanupExpiredFilters()
+				return removedCount
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result).toBe(0)
+		})
+
+		it('should return 0 when all filters are fresh', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				yield* filter.createLogFilter()
+				yield* filter.createBlockFilter()
+				yield* filter.createPendingTransactionFilter()
+
+				// Cleanup with default 5-minute expiration - all filters should be kept
+				const removedCount = yield* filter.cleanupExpiredFilters()
+				const allFilters = yield* filter.getAllFilters
+
+				return { removedCount, filterCount: allFilters.size }
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.removedCount).toBe(0)
+			expect(result.filterCount).toBe(3)
+		})
+
+		it('should remove filters older than custom expiration time', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				yield* filter.createLogFilter()
+				yield* filter.createBlockFilter()
+
+				// Wait a tiny bit
+				yield* Effect.sleep('20 millis')
+
+				// Cleanup with very short expiration (10ms) - filters should be expired
+				const removedCount = yield* filter.cleanupExpiredFilters(10)
+				const allFilters = yield* filter.getAllFilters
+
+				return { removedCount, filterCount: allFilters.size }
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.removedCount).toBe(2)
+			expect(result.filterCount).toBe(0)
+		})
+
+		it('should keep filters that have been accessed recently', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const logId = yield* filter.createLogFilter()
+				const blockId = yield* filter.createBlockFilter()
+
+				// Wait a tiny bit
+				yield* Effect.sleep('20 millis')
+
+				// Access the log filter to update its lastAccessed
+				yield* filter.getChanges(logId)
+
+				// Wait a tiny bit more
+				yield* Effect.sleep('20 millis')
+
+				// Cleanup with 30ms expiration - only block filter should be expired
+				// (it hasn't been accessed since creation, while log filter was just accessed)
+				const removedCount = yield* filter.cleanupExpiredFilters(30)
+				const allFilters = yield* filter.getAllFilters
+
+				return {
+					removedCount,
+					filterCount: allFilters.size,
+					hasLogFilter: allFilters.has(logId),
+					hasBlockFilter: allFilters.has(blockId),
+				}
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.removedCount).toBe(1)
+			expect(result.filterCount).toBe(1)
+			expect(result.hasLogFilter).toBe(true)
+			expect(result.hasBlockFilter).toBe(false)
+		})
+
+		it('should use default expiration when no parameter is provided', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				yield* filter.createLogFilter()
+
+				// With default 5-minute expiration, a freshly created filter should not be expired
+				const removedCount = yield* filter.cleanupExpiredFilters()
+				const allFilters = yield* filter.getAllFilters
+
+				return { removedCount, filterCount: allFilters.size }
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.removedCount).toBe(0)
+			expect(result.filterCount).toBe(1)
+		})
+	})
 })

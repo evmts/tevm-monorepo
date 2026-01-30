@@ -2,27 +2,401 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (108th Update - MEDIUM Priority Issues Fixed)
+**Last Updated**: 2026-01-30 (110th Update - HIGH Priority Issues Fixed)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
 
 ## Review Agent Summary (2026-01-30)
 
-**108th UPDATE.** Fixed 5 MEDIUM priority issues from the 107th review.
+**110th UPDATE.** Fixed all HIGH priority issues (#138, #145). All CRITICAL and HIGH issues are now resolved.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | ✅ FIXED | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 0 MEDIUM ✅ (#102, #106 FIXED), 17 LOW |
-| **Phase 2** | 🟡 MINOR ISSUES | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 1 MEDIUM (#112), 16 LOW |
-| **Phase 3** | ✅ FIXED | 2 (node-effect, actions-effect) | 208 | ~99% | 0 MEDIUM ✅ (#116 FIXED), 19 LOW |
-| **Phase 4** | ✅ FIXED | 2 (memory-client-effect, decorators-effect) | 163 | ~86% | 0 MEDIUM ✅ (#124, #125 FIXED), 22 LOW |
+| **Phase 1** | 🟡 MINOR ISSUES | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 2 MEDIUM (#133, #134), 20 LOW |
+| **Phase 2** | 🟢 RESOLVED | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 0 HIGH (#138 FIXED), 3 MEDIUM, 20 LOW |
+| **Phase 3** | 🟢 RESOLVED | 2 (node-effect, actions-effect) | 208 | ~99% | 0 HIGH (#145 FIXED), 4 MEDIUM, 24 LOW |
+| **Phase 4** | 🟡 MINOR ISSUES | 2 (memory-client-effect, decorators-effect) | 163 | ~86% | 2 MEDIUM (#154, #156), 27 LOW |
 
 **Open Issues Summary:**
 - **CRITICAL**: 0
-- **HIGH**: 0 ✅ (Issues #80, #81 FIXED)
-- **MEDIUM**: 7 🟡 (Issues #47, #82, #83, #112 + 3 previously open) - 5 FIXED (#102, #106, #116, #124, #125)
-- **LOW**: 81
+- **HIGH**: 0 ✅ (Issues #138, #145 FIXED)
+- **MEDIUM**: 13 🟡 (Previous: #47, #82, #83, #112 + NEW: #133, #134, #139, #140, #146, #147, #148, #149, #154, #156)
+- **LOW**: 107
+
+---
+
+### 110TH UPDATE (2026-01-30) - HIGH Priority Issues Fixed
+
+**Fixed By**: Claude Opus 4.5
+**Scope**: Fix all remaining HIGH priority issues identified in 109th review
+
+#### Issues Fixed:
+
+##### Issue #138: CommonLocal Creates Shared Mutable State Singleton ✅ FIXED
+**Resolution**: Changed CommonLocal from an IIFE pattern to use `Layer.effect` with `Effect.sync`. Now each layer build creates a fresh Common instance ensuring proper isolation between different TEVM instances.
+
+##### Issue #145: Filter Memory Leak - No Filter Expiration/Cleanup Mechanism ✅ FIXED
+**Resolution**: Added filter expiration mechanism with:
+- `lastAccessed` timestamp to Filter type that is updated on filter creation and each getChanges/getBlockChanges/getPendingTransactionChanges call
+- `cleanupExpiredFilters(expirationMs?)` method to FilterShape that removes filters older than the expiration period (defaults to 5 minutes per Ethereum JSON-RPC spec)
+- `DEFAULT_FILTER_EXPIRATION_MS` constant exported from types.js (5 * 60 * 1000 = 5 minutes)
+- Added 9 new tests covering the new functionality with 100% coverage
+
+**Result**: All HIGH priority issues have been resolved. The Effect.ts migration now has 0 CRITICAL and 0 HIGH issues remaining.
+
+---
+
+### 109TH REVIEW (2026-01-30) - Comprehensive Independent Re-Review
+
+**Reviewed By**: Claude Opus 4.5 (4 parallel Opus subagents)
+**Scope**: Complete independent re-review of all 4 phases to find unreviewed bugs and flaws
+
+---
+
+#### Phase 1: 2 NEW MEDIUM + 3 NEW LOW Issues Found
+
+##### Issue #133: Inconsistent `name` Property Passing to super() in Error Constructors
+**File:Lines**: Multiple error files in `packages/errors-effect/src/`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Some error classes pass `name` to `super()` while others don't. This inconsistency could cause issues with Effect.ts equality and hashing since the properties passed to `super()` are used for structural equality.
+
+**Evidence**:
+- Files that pass `name` to super(): `AccountNotFoundError.js`, `ForkError.js`, `NetworkError.js`, `NonceTooLowError.js`, `GasTooLowError.js`, `TimeoutError.js`
+- Files that DON'T pass `name` to super(): `TevmError.js`, `OutOfGasError.js`, `RevertError.js`, `InsufficientBalanceError.js`, `InvalidOpcodeError.js`, and many others
+
+**Recommended Fix**: Standardize by either always passing `name` or never passing it. Since `Data.TaggedError` uses `_tag` for identification (not `name`), it's better to NOT pass `name` to maintain consistency.
+
+---
+
+##### Issue #134: layerFromFactory Has No Input Validation
+**File:Lines**: `packages/interop/src/layerFromFactory.js:57-63`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Unlike `promiseToEffect` and `effectToPromise`, `layerFromFactory` doesn't validate its inputs at runtime. If `tag` or `factory` is null/undefined, it will fail with a cryptic error.
+
+**Evidence**:
+```javascript
+export const layerFromFactory = (tag, factory) => {
+    return (options) =>
+        Layer.effect(tag, Effect.tryPromise(() => factory(options)))
+}
+```
+No validation for `tag` or `factory` being null/undefined.
+
+**Recommended Fix**: Add input validation: `if (!tag) throw new TypeError('layerFromFactory: tag parameter is required')`
+
+---
+
+##### Issue #135: toTaggedError Potential Data Loss for Numeric snapshotId
+**File:Lines**: `packages/errors-effect/src/interop/toTaggedError.js:354-360`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: When converting `SnapshotNotFoundError`, the code only extracts `snapshotId` if it's a string. Numeric snapshotIds would be lost.
+
+---
+
+##### Issue #136: LoggerTest with 'fatal' Level Captures Nothing
+**File:Lines**: `packages/logger-effect/src/LoggerTest.js:46-53`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: When `LoggerTest` is created with level 'fatal', no logs are captured because 'fatal' has priority 5 but the highest method is `error` with priority 4. Since there's no `fatal()` method on `LoggerShape`, setting level to 'fatal' means nothing gets logged.
+
+---
+
+##### Issue #137: Inconsistent Error Property Type Checking in toTaggedError
+**File:Lines**: `packages/errors-effect/src/interop/toTaggedError.js:347, 174`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Type checking for properties is inconsistent. For some errors, it checks `typeof property === 'bigint'`, but for `InternalError.meta`, it doesn't do any type checking.
+
+---
+
+#### Phase 2: 1 NEW HIGH + 2 NEW MEDIUM + 4 NEW LOW Issues Found
+
+##### Issue #138: CommonLocal Creates Shared Mutable State Singleton ✅ FIXED
+**File:Lines**: `packages/common-effect/src/CommonLocal.js:48-67`
+**Severity**: 🔴 HIGH
+**Status**: ✅ FIXED
+
+**Problem**: `CommonLocal` is implemented as an IIFE that creates a single `common` instance at module load time. All consumers share the same mutable `common` instance.
+
+**Evidence**:
+```javascript
+export const CommonLocal = (() => {
+    const common = createCommon({...}).copy()
+    return Layer.succeed(CommonService, { common, ... })
+})()
+```
+
+This means:
+1. All consumers of `CommonLocal` share the same `common` instance
+2. If any consumer mutates the common object, it affects all other consumers
+3. This violates the expected isolation between different TEVM instances
+
+**Resolution**: Changed CommonLocal from an IIFE pattern to use `Layer.effect` with `Effect.sync`. Now each layer build creates a fresh Common instance ensuring proper isolation between different TEVM instances:
+```javascript
+export const CommonLocal = Layer.effect(CommonService,
+    Effect.sync(() => {
+        const common = createCommon({...}).copy()
+        return { common, ... }
+    })
+)
+```
+
+---
+
+##### Issue #139: ForkConfigFromRpc Error Channel Type Mismatch
+**File:Lines**: `packages/transport-effect/src/ForkConfigFromRpc.js:64-101`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The JSDoc return type claims the layer has no error channel (`never`), but the implementation can fail with `ForkError`.
+
+**Evidence**: `transport.request` returns `Effect<T, ForkError>` and `Effect.try` also returns a `ForkError`, but the return type says `Layer.Layer<ForkConfigService, never, TransportService>`.
+
+---
+
+##### Issue #140: Iterator Method Returns AsyncIterable Instead of Effect
+**File:Lines**: `packages/blockchain-effect/src/BlockchainLocal.js:162-189`, `BlockchainLive.js:188-215`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `iterator` method returns a raw `AsyncIterable<Block>` instead of an Effect. This breaks the Effect pattern because users cannot use Effect's error channel for typed error handling, retry logic, or fiber cancellation.
+
+**Recommended Fix**: Return `Effect<AsyncIterable<Block>, BlockNotFoundError>` or use Effect's `Stream` API.
+
+---
+
+##### Issue #141: BlockNotFoundError Missing blockTag Property
+**File:Lines**: `packages/blockchain-effect/src/BlockchainLocal.js:92-105`, `BlockchainLive.js:117-130`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: When creating `BlockNotFoundError`, the `blockTag` property is available but not passed, even though the error class supports it.
+
+---
+
+##### Issue #142: Type Mismatch in EvmShape.runCode Options Type
+**File:Lines**: `packages/evm-effect/src/types.js:25`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `runCode` method is typed to accept `EvmRunCallOpts` but should accept `EvmRunCodeOpts`. Copy-paste error from `runCall`.
+
+---
+
+##### Issue #143: VmLive Dependency Types Use typeof Instead of Tag Types
+**File:Lines**: `packages/vm-effect/src/VmLive.js:61`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The JSDoc return type uses `typeof` on service tags (`typeof CommonService`) which is semantically incorrect.
+
+---
+
+##### Issue #144: mapEvmError Doesn't Preserve Original Error Codes
+**File:Lines**: `packages/evm-effect/src/mapEvmError.js`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `mapEvmError` function creates typed errors but doesn't preserve error codes from the original error. JSON-RPC error codes are lost.
+
+---
+
+#### Phase 3: 1 NEW HIGH + 4 NEW MEDIUM + 4 NEW LOW Issues Found
+
+##### Issue #145: Filter Memory Leak - No Filter Expiration/Cleanup Mechanism ✅ FIXED
+**File:Lines**: `packages/node-effect/src/FilterLive.js:63-449`
+**Severity**: 🔴 HIGH
+**Status**: ✅ FIXED
+
+**Problem**: Filters are created but there is no automatic expiration or cleanup mechanism. In the standard Ethereum JSON-RPC spec, filters typically expire after 5 minutes of inactivity. The current implementation stores filters indefinitely, which can lead to memory leaks in long-running nodes.
+
+**Evidence**:
+```javascript
+const filter = {
+    id: hexId,
+    type,
+    created: Date.now(), // Timestamp stored but never used for expiration
+    // ...
+}
+```
+
+**Resolution**: Added filter expiration mechanism with:
+1. `lastAccessed` timestamp to Filter type that is updated on filter creation and each getChanges/getBlockChanges/getPendingTransactionChanges call
+2. `cleanupExpiredFilters(expirationMs?)` method to FilterShape that removes filters older than the expiration period (defaults to 5 minutes per Ethereum JSON-RPC spec)
+3. `DEFAULT_FILTER_EXPIRATION_MS` constant exported from types.js (5 * 60 * 1000 = 5 minutes)
+4. Added 9 new tests covering the new functionality with 100% coverage
+
+---
+
+##### Issue #146: deepCopy of Filter Does Not Deep Copy registeredListeners Functions
+**File:Lines**: `packages/node-effect/src/FilterLive.js:431`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `deepCopy` implementation copies the `registeredListeners` array but the listener functions are still shared references. After deepCopy, listeners on the copied filter still reference closures from the original context.
+
+**Recommended Fix**: Clear `registeredListeners` in deep copies or document this limitation.
+
+---
+
+##### Issue #147: Snapshot revertToSnapshot Race Condition
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:152-200`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Between reading the snapshot and deleting entries (steps 1 and 5), another fiber could take a new snapshot. This new snapshot would contain pre-revert state.
+
+**Recommended Fix**: Use `Ref.modify` to atomically read the snapshot and mark it for deletion.
+
+---
+
+##### Issue #148: GetAccountLive Returns Inconsistent isContract for Edge Cases
+**File:Lines**: `packages/actions-effect/src/GetAccountLive.js:183-199`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The code fetches `code` before checking if `ethjsAccount` exists. The `isContract` flag is computed from `deployedBytecode`, but if the account doesn't exist, the function returns hardcoded `isContract: false`, ignoring the already-computed value.
+
+---
+
+##### Issue #149: SetAccountLive Doesn't Restore Checkpoint on Revert Error
+**File:Lines**: `packages/actions-effect/src/SetAccountLive.js:350-367`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: When state modifications fail and `stateManager.revert()` is called, the Error from the revert operation is silently caught. If revert fails, the state could be left corrupted/partial.
+
+**Recommended Fix**: Log the revert failure using a Logger service instead of silently swallowing.
+
+---
+
+##### Issue #150: BlockParams clearNextBlockOverrides Is Not Atomic
+**File:Lines**: `packages/node-effect/src/BlockParamsLive.js:98-102`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `clearNextBlockOverrides` method sets three separate Refs in sequence. This is not atomic - concurrent reads could see partially-cleared state.
+
+---
+
+##### Issue #151: GetStorageAtLive Always Pads to 32 Bytes
+**File:Lines**: `packages/actions-effect/src/GetStorageAtLive.js:17-32`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `bytesToHex32` function always pads the storage value to 32 bytes. While consistent with most clients, this may not match expectations of some applications.
+
+---
+
+##### Issue #152: SetAccountLive Doesn't Validate storageRoot Length
+**File:Lines**: `packages/actions-effect/src/SetAccountLive.js:176`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `storageRoot` parameter is validated as a hex string but not validated to be exactly 32 bytes (66 characters including 0x prefix).
+
+---
+
+##### Issue #153: Missing Type Exports in node-effect types.js
+**File:Lines**: `packages/node-effect/src/types.js:160`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `types.js` file exports `{}` (empty object) but all the types are JSDoc `@typedef`. This limits TypeScript integration.
+
+---
+
+#### Phase 4: 2 NEW MEDIUM + 3 NEW LOW Issues Found
+
+##### Issue #154: tevm_call Does Not Return Typed Errors Like eth_call
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:96-142`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `TevmActionsLive.call()` method returns EVM execution errors in the `exceptionError` field of the success result, while `EthActionsLive.call()` properly maps EVM errors to typed Effect errors (RevertError, OutOfGasError, InvalidOpcodeError). This inconsistency means tevm_call silently "succeeds" when the EVM reverts.
+
+**Recommended Fix**: Either add the same error mapping to `TevmActionsLive.call()`, or clearly document this intentional API difference.
+
+---
+
+##### Issue #155: hexToBytes Throws Synchronously But Called Inside Effect.gen
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:63-76, 112`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `hexToBytes` helper throws synchronously if invalid hex is detected, but it's called directly when constructing `callOpts`, before the `Effect.tryPromise`. The error becomes untyped instead of `InvalidParamsError`.
+
+---
+
+##### Issue #156: setAccount Doesn't Validate Hex in deployedBytecode
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:193-238`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `setAccount` method uses `parseInt(..., 16)` to convert hex strings to bytes without validating that the input contains valid hex characters. If non-hex characters are provided, `parseInt` returns `NaN` which becomes `0` in a `Uint8Array`, causing silent data corruption.
+
+**Recommended Fix**: Add hex validation similar to `TevmActionsLive.hexToBytes()` regex check.
+
+---
+
+##### Issue #157: getStorageAt May Incorrectly Double-Pad Already-Padded Values
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:407-410`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: If the underlying stateManager already returns 32 bytes, the padding logic would shift the value incorrectly.
+
+---
+
+##### Issue #158: ViemMemoryClient Type Has Incorrect layer Type for Deep-Copied Clients
+**File:Lines**: `packages/memory-client-effect/types/createMemoryClient.d.ts:54-58`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `effect.layer` type is always present in `ViemMemoryClient`, but for deep-copied clients, accessing it throws an error. TypeScript won't warn users.
+
+---
+
+#### Summary Table (109th Review)
+
+| Phase | CRITICAL | HIGH | MEDIUM | LOW | Total NEW |
+|-------|----------|------|--------|-----|-----------|
+| **Phase 1** | 0 | 0 | 2 | 3 | 5 |
+| **Phase 2** | 0 | 1 | 2 | 4 | 7 |
+| **Phase 3** | 0 | 1 | 4 | 4 | 9 |
+| **Phase 4** | 0 | 0 | 2 | 3 | 5 |
+| **TOTAL NEW** | **0** | **2** | **10** | **14** | **26** |
+
+---
+
+#### Recommendations (110th Review)
+
+**Priority 1 - HIGH (MUST FIX BEFORE PRODUCTION):**
+All HIGH priority issues have been resolved! ✅
+
+**Priority 2 - MEDIUM (Should Fix):**
+1. Issue #133: Standardize `name` property passing in error constructors
+2. Issue #134: Add input validation to layerFromFactory
+5. Issue #139: Fix ForkConfigFromRpc error channel type
+6. Issue #140: Return Effect from iterator method
+7. Issue #146: Document/fix deepCopy registeredListeners behavior
+8. Issue #147: Make snapshot revert atomic
+9. Issue #148: Use computed isContract value for non-existent accounts
+10. Issue #149: Log revert failures instead of silently swallowing
+11. Issue #154: Document tevm_call vs eth_call error handling difference
+12. Issue #156: Validate hex in setAccount deployedBytecode
+
+**Priority 3 - LOW (Nice to Have):**
+13. Various type corrections and consistency improvements (#135-137, #141-144, #150-153, #155, #157-158)
 
 ---
 

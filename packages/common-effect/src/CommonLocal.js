@@ -1,4 +1,4 @@
-import { Layer } from 'effect'
+import { Effect, Layer } from 'effect'
 import { createCommon, tevmDefault } from '@tevm/common'
 import { CommonService } from './CommonService.js'
 
@@ -19,6 +19,10 @@ import { CommonService } from './CommonService.js'
  * use cases where you don't need to fork from a remote network.
  *
  * The layer has no dependencies, making it easy to use in isolation.
+ *
+ * IMPORTANT: Each layer build creates a fresh Common instance to ensure
+ * proper isolation between different TEVM instances. This prevents state
+ * leakage when multiple TEVM nodes are created in the same process.
  *
  * @example
  * ```javascript
@@ -45,23 +49,25 @@ import { CommonService } from './CommonService.js'
  *
  * @type {Layer.Layer<CommonService, never, never>}
  */
-export const CommonLocal = (() => {
-	const common = createCommon({
-		...tevmDefault,
-		id: 900,
-		hardfork: 'prague',
-		eips: [],
-		loggingLevel: 'warn',
-	}).copy()
+export const CommonLocal = Layer.effect(
+	CommonService,
+	Effect.sync(() => {
+		// Create a fresh Common instance for each layer build to ensure
+		// proper isolation between different TEVM instances
+		const common = createCommon({
+			...tevmDefault,
+			id: 900,
+			hardfork: 'prague',
+			eips: [],
+			loggingLevel: 'warn',
+		}).copy()
 
-	return Layer.succeed(
-		CommonService,
-		/** @type {CommonShape} */ ({
+		return /** @type {CommonShape} */ ({
 			common,
 			chainId: 900,
 			hardfork: 'prague',
 			eips: common.ethjsCommon.eips(),
 			copy: () => common.copy(),
-		}),
-	)
-})()
+		})
+	}),
+)
