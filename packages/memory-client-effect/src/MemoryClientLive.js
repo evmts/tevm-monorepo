@@ -404,6 +404,16 @@ const createActionServices = (stateManager) => {
 					)
 				)
 
+				// Validate storage length does not exceed 32 bytes (Issue #297)
+				// Ethereum storage slots are exactly 32 bytes, so anything larger indicates corrupted state
+				if (storage.length > 32) {
+					return yield* Effect.fail(
+						new InternalError({
+							message: `Storage value exceeds 32 bytes (got ${storage.length} bytes). This indicates corrupted state data.`,
+						})
+					)
+				}
+
 				// Pad storage to 32 bytes for consistent return
 				const paddedStorage = new Uint8Array(32)
 				paddedStorage.set(storage, 32 - storage.length)

@@ -130,14 +130,33 @@ export const FilterLive = () => {
 					get: (/** @type {Hex} */ id) => Ref.get(fltrRef).pipe(Effect.map((m) => m.get(id))),
 
 					remove: (/** @type {Hex} */ id) =>
-						Ref.getAndUpdate(fltrRef, (map) => {
-							if (!map.has(id)) {
-								return map
+						Effect.gen(function* () {
+							// Atomic check-and-update with listener cleanup (Issue #285/#286)
+							const result = yield* Ref.modify(fltrRef, (map) => {
+								const filter = map.get(id)
+								if (!filter) {
+									return /** @type {const} */ ([{ found: false, listeners: /** @type {Array<() => void>} */ ([]) }, map])
+								}
+								const newMap = new Map(map)
+								newMap.delete(id)
+								return /** @type {const} */ ([{ found: true, listeners: filter.registeredListeners }, newMap])
+							})
+
+							// Clean up registered listeners to prevent memory leaks
+							if (result.found && result.listeners.length > 0) {
+								for (const listener of result.listeners) {
+									if (typeof listener === 'function') {
+										try {
+											listener()
+										} catch {
+											// Ignore cleanup errors - best effort cleanup
+										}
+									}
+								}
 							}
-							const newMap = new Map(map)
-							newMap.delete(id)
-							return newMap
-						}).pipe(Effect.map((oldMap) => oldMap.has(id))),
+
+							return result.found
+						}),
 
 					getChanges: (/** @type {Hex} */ id) =>
 						Effect.gen(function* () {
@@ -397,24 +416,46 @@ export const FilterLive = () => {
 					getAllFilters: Ref.get(fltrRef),
 
 					cleanupExpiredFilters: (/** @type {number | undefined} */ expirationMs) =>
-						Ref.modify(fltrRef, (map) => {
+						Effect.gen(function* () {
 							const now = Date.now()
 							const expiration = expirationMs ?? DEFAULT_FILTER_EXPIRATION_MS
-							let removedCount = 0
-							const newMap = new Map()
 
-							for (const [key, filter] of map) {
-								const age = now - filter.lastAccessed
-								if (age < expiration) {
-									// Filter is still valid, keep it
-									newMap.set(key, filter)
-								} else {
-									// Filter has expired, remove it
-									removedCount++
+							// Atomic get-and-update with listener collection for cleanup (Issue #285/#286)
+							const { removedCount, listenersToCleanup } = yield* Ref.modify(fltrRef, (map) => {
+								let removedCount = 0
+								/** @type {Array<() => void>} */
+								const listenersToCleanup = []
+								const newMap = new Map()
+
+								for (const [key, filter] of map) {
+									const age = now - filter.lastAccessed
+									if (age < expiration) {
+										// Filter is still valid, keep it
+										newMap.set(key, filter)
+									} else {
+										// Filter has expired, collect listeners for cleanup
+										removedCount++
+										if (filter.registeredListeners.length > 0) {
+											listenersToCleanup.push(...filter.registeredListeners)
+										}
+									}
+								}
+
+								return /** @type {const} */ ([{ removedCount, listenersToCleanup }, newMap])
+							})
+
+							// Clean up registered listeners to prevent memory leaks
+							for (const listener of listenersToCleanup) {
+								if (typeof listener === 'function') {
+									try {
+										listener()
+									} catch {
+										// Ignore cleanup errors - best effort cleanup
+									}
 								}
 							}
 
-							return /** @type {const} */ ([removedCount, newMap])
+							return removedCount
 						}),
 
 					deepCopy: () =>

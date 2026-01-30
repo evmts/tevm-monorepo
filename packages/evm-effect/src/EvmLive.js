@@ -74,17 +74,19 @@ export const EvmLive = (options = {}) => {
 			const stateManagerShape = yield* StateManagerService
 			const blockchainShape = yield* BlockchainService
 
-			const evm = yield* Effect.promise(() =>
-				createEvm({
-					common: commonShape.common,
-					stateManager: stateManagerShape.stateManager,
-					blockchain: blockchainShape.chain,
-					allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
-					customPrecompiles: options.customPrecompiles ?? [],
-					profiler: options.profiler ?? false,
-					loggingLevel: options.loggingEnabled ? 'debug' : 'fatal',
-				}),
-			)
+			const evm = yield* Effect.tryPromise({
+				try: () =>
+					createEvm({
+						common: commonShape.common,
+						stateManager: stateManagerShape.stateManager,
+						blockchain: blockchainShape.chain,
+						allowUnlimitedContractSize: options.allowUnlimitedContractSize ?? false,
+						customPrecompiles: options.customPrecompiles ?? [],
+						profiler: options.profiler ?? false,
+						loggingLevel: options.loggingEnabled ? 'debug' : 'fatal',
+					}),
+				catch: (e) => mapEvmError(e),
+			})
 
 			/** @type {EvmShape} */
 			const shape = {

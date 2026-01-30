@@ -112,10 +112,21 @@ export const EthActionsLive = /** @type {Layer.Layer<import('./EthActionsService
 							}),
 					})
 
+					// Convert data parameter using Effect.try to capture validation errors (Issue #298)
+					const dataBytes = yield* Effect.try({
+						try: () => hexToBytes(params.data),
+						catch: (e) =>
+							new InvalidParamsError({
+								message: `Invalid 'data' parameter: ${e instanceof Error ? e.message : String(e)}`,
+								method: 'eth_call',
+								cause: e instanceof Error ? e : undefined,
+							}),
+					})
+
 					// Prepare call options for EVM runCall
 					/** @type {Record<string, unknown>} */
 					const callOpts = {
-						data: hexToBytes(params.data),
+						data: dataBytes,
 						gasLimit: params.gas ?? 30000000n,
 						gasPrice: params.gasPrice ?? 0n,
 						value: params.value ?? 0n,
