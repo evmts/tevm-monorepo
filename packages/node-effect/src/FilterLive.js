@@ -458,6 +458,15 @@ export const FilterLive = () => {
 							return removedCount
 						}),
 
+					/**
+					 * Creates a deep copy of the filter service with fully isolated state.
+					 *
+					 * Note on registeredListeners (Issue #257):
+					 * - Listener functions cannot be truly deep copied (closures capture references)
+					 * - For true isolation, deep copy clears registeredListeners on all filters
+					 * - This ensures events on the original filter don't fire on the copied filter
+					 * - If you need to preserve listeners, re-register them after deep copy
+					 */
 					deepCopy: () =>
 						Effect.gen(function* () {
 							// Read current values
@@ -493,7 +502,9 @@ export const FilterLive = () => {
 									// tx and blocks are unknown[] - cast to object for spreading
 									tx: filter.tx.map((t) => ({ .../** @type {object} */ (t) })),
 									blocks: filter.blocks.map((b) => ({ .../** @type {object} */ (b) })),
-									registeredListeners: [...filter.registeredListeners],
+									// Issue #257 fix: Clear listeners for true isolation - functions can't be cloned
+									// and shared listeners would cause cross-copy event handling issues
+									registeredListeners: [],
 								})
 							}
 

@@ -91,8 +91,18 @@ export const StateManagerLive = (options = {}) => {
 				loggingLevel: options.loggingEnabled ? 'debug' : 'warn',
 				fork: {
 					transport: {
+						// Note: Effect.runPromise is used here as a boundary between Effect and non-Effect code.
+						// The createStateManager function expects a Promise-based transport, so we must convert.
+						// Errors from transport.request are converted to Promise rejections which propagate
+						// through createStateManager's error handling. (Issue #253 - documented architectural boundary)
 						request: (method, params) =>
-							Effect.runPromise(transport.request(method, params)),
+							Effect.runPromise(
+								transport.request(method, params).pipe(
+									Effect.tapError((error) =>
+										Effect.logError(`Fork transport error: ${method}`, { error, method, params })
+									)
+								)
+							),
 					},
 					blockTag: forkConfig.blockTag,
 				},

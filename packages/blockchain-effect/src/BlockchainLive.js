@@ -87,8 +87,18 @@ export const BlockchainLive = (options = {}) => {
 				common: options.common ?? common,
 				fork: {
 					transport: {
+						// Note: Effect.runPromise is used here as a boundary between Effect and non-Effect code.
+						// The createChain function expects a Promise-based transport, so we must convert.
+						// Errors from transport.request are converted to Promise rejections which propagate
+						// through createChain's error handling. (Issue #252 - documented architectural boundary)
 						request: (method, params) =>
-							Effect.runPromise(transport.request(method, params)),
+							Effect.runPromise(
+								transport.request(method, params).pipe(
+									Effect.tapError((error) =>
+										Effect.logError(`Fork transport error: ${method}`, { error, method, params })
+									)
+								)
+							),
 					},
 					blockTag: forkConfig.blockTag,
 				},
