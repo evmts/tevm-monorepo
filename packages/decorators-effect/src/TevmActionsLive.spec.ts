@@ -743,5 +743,64 @@ describe('TevmActionsLive', () => {
 				expect((result.cause.error as any).message).toContain('too large')
 			}
 		})
+
+		it('should use parent timestamp + 1 when parent has future timestamp (Issue #58)', async () => {
+			// Parent block has a timestamp 100 seconds in the future
+			const futureTimestamp = BigInt(Math.floor(Date.now() / 1000)) + 100n
+
+			let capturedTimestamp: bigint | undefined
+
+			const mockBlockBuilder = {
+				build: vi.fn(() => Promise.resolve({ header: { number: 101n, timestamp: futureTimestamp + 1n } })),
+			}
+
+			const vmMock = {
+				vm: {
+					blockchain: {
+						getCanonicalHeadBlock: vi.fn(() => Promise.resolve({
+							header: { number: 100n, timestamp: futureTimestamp }
+						})),
+						putBlock: vi.fn(() => Promise.resolve()),
+					},
+					evm: {
+						runCall: vi.fn(() => Promise.resolve({ execResult: { returnValue: new Uint8Array() } })),
+					},
+					buildBlock: vi.fn((opts: any) => {
+						capturedTimestamp = opts.headerData?.timestamp
+						return Promise.resolve(mockBlockBuilder)
+					}),
+					common: {},
+				},
+				runTx: vi.fn(() => Effect.succeed({})),
+				runBlock: vi.fn(() => Effect.succeed({})),
+				buildBlock: vi.fn(() => Effect.succeed({})),
+				ready: Effect.succeed(true),
+				deepCopy: vi.fn(() => Effect.succeed({} as any)),
+			}
+
+			const stateManagerMock = createMockStateManager()
+			const getAccountMock = createMockGetAccountService()
+			const setAccountMock = createMockSetAccountService()
+
+			const mockLayer = Layer.mergeAll(
+				Layer.succeed(StateManagerService, stateManagerMock as any),
+				Layer.succeed(VmService, vmMock as any),
+				Layer.succeed(GetAccountService, getAccountMock as any),
+				Layer.succeed(SetAccountService, setAccountMock as any)
+			)
+
+			const layer = Layer.provide(TevmActionsLive, mockLayer)
+
+			const program = Effect.gen(function* () {
+				const tevmActions = yield* TevmActionsService
+				return yield* tevmActions.mine({ blocks: 1 })
+			})
+
+			await Effect.runPromise(program.pipe(Effect.provide(layer)))
+
+			// The timestamp should be parent + 1, not current time (which is 100 seconds behind)
+			expect(capturedTimestamp).toBeDefined()
+			expect(capturedTimestamp!).toBeGreaterThan(futureTimestamp)
+		})
 	})
 })

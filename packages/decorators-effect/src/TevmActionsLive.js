@@ -265,8 +265,8 @@ export const TevmActionsLive = /** @type {Layer.Layer<import('./TevmActionsServi
 						)
 					}
 
-					// Capture base timestamp once outside the loop to ensure strictly increasing timestamps
-					const baseTimestamp = BigInt(Math.floor(Date.now() / 1000))
+					// Capture current time once outside the loop to ensure strictly increasing timestamps
+					const currentTime = BigInt(Math.floor(Date.now() / 1000))
 
 					for (let i = 0; i < blocks; i++) {
 						// Get current block for timestamp calculation
@@ -279,7 +279,10 @@ export const TevmActionsLive = /** @type {Layer.Layer<import('./TevmActionsServi
 								}),
 						})
 
-						// Use baseTimestamp + i to ensure strictly increasing timestamps even when mining rapidly
+						// Ensure timestamp is greater than parent block's timestamp to satisfy Ethereum consensus rules
+						// This handles forked chains or test setups where parent may have a future timestamp (Issue #58 fix)
+						const parentTimestamp = currentBlock.header.timestamp
+						const baseTimestamp = parentTimestamp >= currentTime ? parentTimestamp + 1n : currentTime
 						const timestamp = baseTimestamp + BigInt(i)
 						const blockNumber = currentBlock.header.number + 1n
 

@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (98th Update - Resolved MEDIUM Issue #70: Fixed SetAccountLive getAccount error handling)
+**Last Updated**: 2026-01-30 (99th Update - Resolved MEDIUM Issue #58: Fixed mine() timestamp to exceed parent block)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
@@ -21,7 +21,7 @@
 **Open Issues Summary:**
 - **CRITICAL**: 0
 - **HIGH**: 0 ✅ (Issue #69 resolved)
-- **MEDIUM**: 11 🟡 (Issues #70, #73, #74, #75, #76 resolved)
+- **MEDIUM**: 10 🟡 (Issues #58, #70, #73, #74, #75, #76 resolved)
 - **LOW**: 36 (+13 new from 95th review)
 
 ---
@@ -657,9 +657,11 @@ For `eth_call`, the `to` parameter should be optional to support contract deploy
 ##### Issue #58: Mine Function May Produce Timestamps Less Than Parent Block
 **File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:245-259`
 **Severity**: 🟡 MEDIUM
-**Status**: 🟡 NEW
+**Status**: ✅ FIXED
 
 **Problem**: The timestamp uses `Date.now()` without ensuring it exceeds the parent block's timestamp. If the parent block has a future timestamp (e.g., from a forked chain or test setup), the new block's timestamp could be less than the parent's, violating Ethereum consensus rules.
+
+**Resolution**: Added logic to compare parent block timestamp with current time and use `max(parentTimestamp + 1, currentTime)` as the base timestamp. This ensures mined blocks always have timestamps strictly greater than their parent, satisfying Ethereum consensus rules even when forking chains with future timestamps. Added 1 new test verifying behavior with future parent timestamps. All 85 tests pass.
 
 ---
 
