@@ -9,20 +9,258 @@
 
 ## Review Agent Summary (2026-01-30)
 
-**SEVENTY-EIGHTH REVIEW.** All CRITICAL and HIGH issues from 77th review RESOLVED.
+**EIGHTIETH REVIEW.** All HIGH issues and 5 MEDIUM issues from 79th review RESOLVED.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟢 RESOLVED | 3 (errors-effect, interop, logger-effect) | 682 | 100% | 4 MEDIUM, 5 LOW |
-| **Phase 2** | 🟢 RESOLVED | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | See Phase 1 (shared package issues) |
-| **Phase 3** | 🟢 RESOLVED | 2 (node-effect, actions-effect) | 200 | ~99% | 4 MEDIUM, 3 LOW remaining |
-| **Phase 4** | 🟢 RESOLVED | 2 (memory-client-effect, decorators-effect) | 65 | ~85% | 4 MEDIUM remaining |
+| **Phase 1** | 🟢 RESOLVED | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 4 MEDIUM, 7 LOW |
+| **Phase 2** | 🟢 RESOLVED | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 1 LOW |
+| **Phase 3** | 🟢 RESOLVED | 2 (node-effect, actions-effect) | 200 | ~99% | 8 LOW |
+| **Phase 4** | 🟢 RESOLVED | 2 (memory-client-effect, decorators-effect) | 65 | ~85% | 3 LOW |
 
 **Open Issues Summary:**
-- **CRITICAL**: 0 ✅ (All resolved in 78th review)
-- **HIGH**: 0 ✅ (All resolved in 78th review)
-- **MEDIUM**: 12 🟡 (type mismatches, incomplete serialization, loose assertions, code duplication)
-- **LOW**: 8 (documentation issues, minor code duplication, inconsistent patterns)
+- **CRITICAL**: 0 ✅
+- **HIGH**: 0 ✅
+- **MEDIUM**: 13 🟡 (remaining type signature issues, validation patterns)
+- **LOW**: 19 (dead code, encapsulation violations, inconsistent patterns)
+
+---
+
+### EIGHTIETH REVIEW (2026-01-30) - All HIGH + 5 MEDIUM Issues RESOLVED
+
+**Reviewed By**: Claude Opus 4.5
+**Scope**: Resolution of all HIGH issues and key MEDIUM issues from 79th review
+
+---
+
+#### ✅ HIGH Issues RESOLVED
+
+##### 1. InvalidFilterTypeError Missing from toTaggedError.js - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**:
+- Added import for `InvalidFilterTypeError` from `../node/InvalidFilterTypeError.js`
+- Added `InvalidFilterTypeError` to the `errorMap` constant
+- Added conversion handler with property extraction (`filterId`, `expectedType`, `actualType`)
+- Updated JSDoc return type to include `InvalidFilterTypeError`
+- Added test coverage for the new conversion path
+
+---
+
+#### ✅ MEDIUM Issues RESOLVED
+
+##### 2. MemoryClientLive.js setAccount Try/Catch - RESOLVED
+**Status**: ✅ FIXED
+
+**Problem**: JavaScript try/catch inside Effect.gen() doesn't catch Effect failures from `yield*`.
+
+**Fix Applied**: Restructured to use proper Effect patterns:
+- Extracted core operations into a separate `Effect.gen()` block
+- Used `Effect.tapError()` for revert on failure (proper Effect error handling)
+- Errors now properly propagate through Effect's error channel
+
+---
+
+##### 3. Effect.promise() Without Catch Handlers - RESOLVED
+**Status**: ✅ FIXED
+
+**Problem**: Multiple locations used `Effect.promise()` without catch handlers, creating untyped defects.
+
+**Packages Fixed**:
+- `memory-client-effect/MemoryClientLive.js` (5 locations → `Effect.tryPromise`)
+- `decorators-effect/EthActionsLive.js` (1 location → `Effect.tryPromise`)
+- `decorators-effect/TevmActionsLive.js` (1 location → `Effect.tryPromise`)
+
+**Fix Applied**: All `Effect.promise()` calls replaced with `Effect.tryPromise()` with explicit `catch` handlers that produce typed `InternalError` instances.
+
+---
+
+##### 4. SnapshotLive onExit Callback Error Propagation - RESOLVED
+**Status**: ✅ FIXED
+
+**Problem**: The `takeSnapshot` method used `Effect.onExit` for checkpoint cleanup. When exit is `Success`, it calls `stateManager.commit()`. If `commit()` fails, the error was NOT propagated.
+
+**Fix Applied**: Replaced `Effect.onExit` pattern with proper `Effect.tapError` + `Effect.flatMap` pattern:
+- `Effect.tapError()` handles revert on failure (errors suppressed, as intended)
+- `Effect.flatMap()` chains commit on success, properly propagating commit errors through the error channel
+
+---
+
+##### 5. Buffer API Usage (Node.js-specific) - RESOLVED
+**Status**: ✅ FIXED
+
+**Problem**: `Buffer.from(bytes).toString('hex')` is Node.js-specific and fails in browsers.
+
+**Packages Fixed**:
+- `actions-effect/GetAccountLive.js`
+- `actions-effect/GetCodeLive.js`
+- `actions-effect/GetStorageAtLive.js`
+
+**Fix Applied**: Replaced with browser-compatible pure JavaScript implementation:
+```javascript
+let hex = ''
+for (let i = 0; i < bytes.length; i++) {
+    hex += bytes[i].toString(16).padStart(2, '0')
+}
+return `0x${hex}`
+```
+
+---
+
+#### Test Results After 80th Review Fixes
+
+| Package | Tests | Status |
+|---------|-------|--------|
+| errors-effect | 61+ (toTaggedError) | ✅ All Pass |
+| memory-client-effect | 31 | ✅ All Pass |
+| decorators-effect | 34 | ✅ All Pass |
+| node-effect (SnapshotLive) | 16 | ✅ All Pass |
+| actions-effect | 108 | ✅ All Pass |
+| **Total Verified** | **250+** | ✅ **All Pass** |
+
+---
+
+### SEVENTY-NINTH REVIEW (2026-01-30) - Comprehensive Parallel Subagent Review
+
+**Reviewed By**: Claude Opus 4.5 (4 parallel Opus subagents)
+**Scope**: Full independent re-review of all 4 phases to find unreviewed bugs and flaws
+
+---
+
+#### 🔴 HIGH Issues Found
+
+##### 1. InvalidFilterTypeError Missing from toTaggedError.js Interop Function
+
+**File:Lines**: `/packages/errors-effect/src/interop/toTaggedError.js:33-87, 350-372`
+**Package**: errors-effect
+**Status**: 🔴 NEW
+
+**Problem**: The `InvalidFilterTypeError` class was added in the 78th review but was never added to the `toTaggedError.js` interop function. This means:
+1. The error is not imported at the top of the file
+2. The error is not in the `errorMap`
+3. There is no conversion handler in the function body
+4. No test coverage for this conversion path
+
+**Evidence**:
+```javascript
+// toTaggedError.js lines 33-36 (imports)
+import { SnapshotNotFoundError } from '../node/SnapshotNotFoundError.js'
+import { FilterNotFoundError } from '../node/FilterNotFoundError.js'
+import { NodeNotReadyError } from '../node/NodeNotReadyError.js'
+// Missing: import { InvalidFilterTypeError } from '../node/InvalidFilterTypeError.js'
+```
+
+**Impact**: When a BaseError from `@tevm/errors` with `_tag: 'InvalidFilterTypeError'` is passed to `toTaggedError()`, it will fall through to the generic `TevmError` fallback instead of being properly converted.
+
+**Recommended Fix**: Add import, add to errorMap, add conversion handler with property extraction.
+
+---
+
+#### 🟡 MEDIUM Issues Found
+
+##### 2. MemoryClientLive.js setAccount Try/Catch Doesn't Catch Effect Failures
+
+**File:Lines**: `/packages/memory-client-effect/src/MemoryClientLive.js:144-230`
+**Package**: memory-client-effect
+**Status**: 🟡 NEW
+
+**Problem**: The `setAccount` method uses a JavaScript try/catch block inside `Effect.gen()`. Effect failures from `yield*` propagate through the Effect error channel, NOT through JavaScript exceptions. The catch block only catches synchronous JS errors, not Effect failures.
+
+**Impact**: If `stateManager.commit()` fails with `Effect.fail()`, the catch block won't execute and `stateManager.revert()` won't be called, leaving state manager with open checkpoint.
+
+**Recommended Fix**: Replace try/catch with `Effect.onExit` or `Effect.acquireUseRelease` pattern.
+
+---
+
+##### 3. Effect.promise() Without Catch Handlers Creates Untyped Defects
+
+**File:Lines**:
+- `/packages/memory-client-effect/src/MemoryClientLive.js:72,130,131,251,284,328,388`
+- `/packages/decorators-effect/src/EthActionsLive.js:99`
+- `/packages/decorators-effect/src/TevmActionsLive.js:89`
+**Package**: memory-client-effect, decorators-effect
+**Status**: 🟡 NEW
+
+**Problem**: Multiple locations use `Effect.promise(() => ...)` without providing a `catch` handler. If these promises reject, errors become untyped defects rather than typed errors in the error channel.
+
+**Impact**: Errors from `createEthjsAddress()`, `getCanonicalHeadBlock()`, or dynamic imports become unrecoverable defects that cannot be pattern-matched.
+
+**Recommended Fix**: Use `Effect.tryPromise` with explicit catch handlers.
+
+---
+
+##### 4. SnapshotLive onExit Callback Does Not Propagate commit() Errors
+
+**File:Lines**: `/packages/node-effect/src/SnapshotLive.js:120-124`
+**Package**: node-effect
+**Status**: 🟡 NEW
+
+**Problem**: The `takeSnapshot` method uses `Effect.onExit` for checkpoint cleanup. When exit is `Success`, it calls `stateManager.commit()`. If `commit()` fails, the error is NOT propagated - `onExit` callback errors go to defects.
+
+**Impact**: A failed commit will still result in the snapshot appearing to succeed.
+
+**Recommended Fix**: Use `Effect.flatMap` with `Effect.ensuring` pattern.
+
+---
+
+##### 5. Buffer API Usage (Node.js-specific) in actions-effect
+
+**File:Lines**:
+- `/packages/actions-effect/src/GetAccountLive.js:30`
+- `/packages/actions-effect/src/GetCodeLive.js:18`
+- `/packages/actions-effect/src/GetStorageAtLive.js:21`
+**Package**: actions-effect
+**Status**: 🟡 NEW
+
+**Problem**: These files use `Buffer.from(bytes).toString('hex')` for bytes-to-hex conversion. The `Buffer` API is Node.js-specific and will fail in browser environments.
+
+**Recommended Fix**: Use pure JavaScript implementation like `Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('')`.
+
+---
+
+#### 🟢 LOW Issues Found
+
+##### 6-19. Various Low-Severity Issues
+
+| # | Issue | File | Package |
+|---|-------|------|---------|
+| 6 | LoggerTest potential memory growth with large log volumes | LoggerTest.js:74 | logger-effect |
+| 7 | genesisStateRoot option declared but never used | types.js:53,60, StateManager*.js | state-effect |
+| 8 | No address format validation in setImpersonatedAccount | ImpersonationLive.js:75 | node-effect |
+| 9 | addLog/addBlock/addPendingTransaction don't validate filter type | FilterLive.js:261-328 | node-effect |
+| 10 | setStateRoot lacks error handling wrapper in revertToSnapshot | SnapshotLive.js:175 | node-effect |
+| 11 | Unused EMPTY_CODE_HASH constant | SetAccountLive.js:16 | actions-effect |
+| 12 | getBlockNumber accesses internal vm.vm.blockchain | MemoryClientLive.js:386-389 | memory-client-effect |
+| 13 | mine() accesses vm.vm.blockchain directly | TevmActionsLive.js:229-279 | decorators-effect |
+| 14 | Inconsistent error handling patterns between getAccount/setAccount | MemoryClientLive.js | memory-client-effect |
+
+---
+
+#### Summary Table (79th Review)
+
+| Package | HIGH | MEDIUM | LOW | Total |
+|---------|------|--------|-----|-------|
+| errors-effect | 1 | 0 | 0 | 1 |
+| logger-effect | 0 | 0 | 1 | 1 |
+| state-effect | 0 | 0 | 1 | 1 |
+| node-effect | 0 | 1 | 3 | 4 |
+| actions-effect | 0 | 1 | 1 | 2 |
+| memory-client-effect | 0 | 2 | 2 | 4 |
+| decorators-effect | 0 | 1 | 1 | 2 |
+| **TOTAL** | **1** | **5** | **9** | **15** |
+
+---
+
+#### Recommendations
+
+**Priority 1 - HIGH (Must Fix Before Production):**
+1. Add InvalidFilterTypeError to toTaggedError.js with proper import, errorMap entry, and conversion handler
+
+**Priority 2 - MEDIUM (Should Fix):**
+2. Replace try/catch in setAccount with proper Effect error handling
+3. Replace all Effect.promise() calls with Effect.tryPromise() with catch handlers
+4. Fix SnapshotLive onExit pattern to propagate commit errors
+5. Replace Buffer API usage with browser-compatible implementations
 
 ---
 

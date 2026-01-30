@@ -9,7 +9,7 @@ import { InvalidParamsError, InternalError } from '@tevm/errors-effect'
  */
 
 /**
- * Converts a Uint8Array to a hex string, padded to 32 bytes
+ * Converts a Uint8Array to a hex string, padded to 32 bytes (browser-compatible implementation)
  * @param {Uint8Array} bytes - Bytes to convert
  * @returns {`0x${string}`} - Hex string (64 chars + 0x prefix)
  */
@@ -18,7 +18,10 @@ const bytesToHex = (bytes) => {
 		// Return 32 bytes of zeros for empty storage
 		return '0x0000000000000000000000000000000000000000000000000000000000000000'
 	}
-	const hex = Buffer.from(bytes).toString('hex')
+	let hex = ''
+	for (let i = 0; i < bytes.length; i++) {
+		hex += bytes[i].toString(16).padStart(2, '0')
+	}
 	// Pad to 32 bytes (64 hex chars)
 	const paddedHex = hex.padStart(64, '0')
 	return /** @type {`0x${string}`} */ (`0x${paddedHex}`)

@@ -773,6 +773,22 @@ describe('toTaggedError', () => {
 		expect((result as any).filterId).toBe('0xabc')
 	})
 
+	it('should convert InvalidFilterTypeError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'InvalidFilterTypeError',
+			message: 'Filter type mismatch',
+			filterId: '0xabc',
+			expectedType: 'Log',
+			actualType: 'Block',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InvalidFilterTypeError')
+		expect((result as any).filterId).toBe('0xabc')
+		expect((result as any).expectedType).toBe('Log')
+		expect((result as any).actualType).toBe('Block')
+	})
+
 	it('should convert NodeNotReadyError-like objects', () => {
 		const baseErrorLike = {
 			_tag: 'NodeNotReadyError',
@@ -806,6 +822,7 @@ describe('toTaggedError', () => {
 			{ _tag: 'InternalError', message: 'test' },
 			{ _tag: 'SnapshotNotFoundError', message: 'test' },
 			{ _tag: 'FilterNotFoundError', message: 'test' },
+			{ _tag: 'InvalidFilterTypeError', message: 'test' },
 			{ _tag: 'NodeNotReadyError', message: 'test' },
 		]
 

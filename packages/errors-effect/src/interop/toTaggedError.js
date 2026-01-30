@@ -33,6 +33,7 @@ import { InternalError } from '../jsonrpc/InternalError.js'
 // Node errors
 import { SnapshotNotFoundError } from '../node/SnapshotNotFoundError.js'
 import { FilterNotFoundError } from '../node/FilterNotFoundError.js'
+import { InvalidFilterTypeError } from '../node/InvalidFilterTypeError.js'
 import { NodeNotReadyError } from '../node/NodeNotReadyError.js'
 
 /**
@@ -83,6 +84,7 @@ const errorMap = {
 	// Node errors
 	SnapshotNotFoundError,
 	FilterNotFoundError,
+	InvalidFilterTypeError,
 	NodeNotReadyError,
 }
 
@@ -112,7 +114,7 @@ const errorMap = {
  * ```
  *
  * @param {import('@tevm/errors').BaseError | Error | unknown} error - The error to convert
- * @returns {TevmError | InsufficientBalanceError | InsufficientFundsError | InvalidJumpError | OutOfGasError | RevertError | InvalidOpcodeError | StackOverflowError | StackUnderflowError | ForkError | NetworkError | TimeoutError | BlockNotFoundError | InvalidBlockError | BlockGasLimitExceededError | InvalidTransactionError | NonceTooLowError | NonceTooHighError | GasTooLowError | StateRootNotFoundError | AccountNotFoundError | StorageError | InvalidRequestError | MethodNotFoundError | InvalidParamsError | InternalError | SnapshotNotFoundError | FilterNotFoundError | NodeNotReadyError} A TaggedError instance
+ * @returns {TevmError | InsufficientBalanceError | InsufficientFundsError | InvalidJumpError | OutOfGasError | RevertError | InvalidOpcodeError | StackOverflowError | StackUnderflowError | ForkError | NetworkError | TimeoutError | BlockNotFoundError | InvalidBlockError | BlockGasLimitExceededError | InvalidTransactionError | NonceTooLowError | NonceTooHighError | GasTooLowError | StateRootNotFoundError | AccountNotFoundError | StorageError | InvalidRequestError | MethodNotFoundError | InvalidParamsError | InternalError | SnapshotNotFoundError | FilterNotFoundError | InvalidFilterTypeError | NodeNotReadyError} A TaggedError instance
  */
 export const toTaggedError = (error) => {
 	// If it's already a TevmError TaggedError, return as-is
@@ -359,6 +361,15 @@ export const toTaggedError = (error) => {
 			if (tag === 'FilterNotFoundError') {
 				return new FilterNotFoundError({
 					filterId: typeof baseError.filterId === 'string' ? baseError.filterId : undefined,
+					message: baseError.message,
+					cause: baseError.cause,
+				})
+			}
+			if (tag === 'InvalidFilterTypeError') {
+				return new InvalidFilterTypeError({
+					filterId: typeof baseError.filterId === 'string' ? baseError.filterId : undefined,
+					expectedType: typeof baseError.expectedType === 'string' ? baseError.expectedType : undefined,
+					actualType: typeof baseError.actualType === 'string' ? baseError.actualType : undefined,
 					message: baseError.message,
 					cause: baseError.cause,
 				})

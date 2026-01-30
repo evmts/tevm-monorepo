@@ -69,7 +69,14 @@ const createActionServices = (stateManager) => {
 					)
 				}
 
-				const ethjsAddress = yield* Effect.promise(() => createEthjsAddress(params.address.toLowerCase()))
+				const ethjsAddress = yield* Effect.tryPromise({
+					try: () => createEthjsAddress(params.address.toLowerCase()),
+					catch: (e) =>
+						new InternalError({
+							message: `Failed to create address: ${e instanceof Error ? e.message : String(e)}`,
+							cause: e instanceof Error ? e : undefined,
+						}),
+				})
 
 				const account = yield* stateManager.getAccount(ethjsAddress).pipe(
 					Effect.mapError(
@@ -127,8 +134,22 @@ const createActionServices = (stateManager) => {
 					)
 				}
 
-				const ethjsAddress = yield* Effect.promise(() => createEthjsAddress(params.address.toLowerCase()))
-				const { Account } = yield* Effect.promise(() => import('@ethereumjs/util'))
+				const ethjsAddress = yield* Effect.tryPromise({
+					try: () => createEthjsAddress(params.address.toLowerCase()),
+					catch: (e) =>
+						new InternalError({
+							message: `Failed to create address: ${e instanceof Error ? e.message : String(e)}`,
+							cause: e instanceof Error ? e : undefined,
+						}),
+				})
+				const { Account } = yield* Effect.tryPromise({
+					try: () => import('@ethereumjs/util'),
+					catch: (e) =>
+						new InternalError({
+							message: `Failed to import @ethereumjs/util: ${e instanceof Error ? e.message : String(e)}`,
+							cause: e instanceof Error ? e : undefined,
+						}),
+				})
 
 				// Create checkpoint for atomic operation (RFC §6.3)
 				yield* stateManager.checkpoint().pipe(
@@ -141,7 +162,9 @@ const createActionServices = (stateManager) => {
 					)
 				)
 
-				try {
+				// Build the core operations that should be reverted on failure (RFC §6.3)
+				// Using Effect patterns instead of try/catch for proper error channel handling
+				const coreOperations = Effect.gen(function* () {
 					const account = new Account(params.nonce ?? 0n, params.balance ?? 0n)
 					yield* stateManager.putAccount(ethjsAddress, account).pipe(
 						Effect.mapError(
@@ -202,6 +225,7 @@ const createActionServices = (stateManager) => {
 						}
 					}
 
+					// Commit on success
 					yield* stateManager.commit().pipe(
 						Effect.mapError(
 							(e) =>
@@ -215,19 +239,15 @@ const createActionServices = (stateManager) => {
 					return {
 						address: /** @type {import('./types.js').Address} */ (params.address.toLowerCase()),
 					}
-				} catch (error) {
-					// Suppress revert errors to preserve original error (RFC §6.3)
-					yield* stateManager.revert().pipe(Effect.catchAll(() => Effect.void))
-					// Use Effect.fail for proper error channel (RFC §6.2)
-					return yield* Effect.fail(
-						error instanceof InvalidParamsError || error instanceof InternalError
-							? error
-							: new InternalError({
-									message: `setAccount failed: ${error instanceof Error ? error.message : String(error)}`,
-									cause: error instanceof Error ? error : undefined,
-								})
+				})
+
+				// Use tapError to revert on any failure, then propagate the original error
+				return yield* coreOperations.pipe(
+					Effect.tapError(() =>
+						// Suppress revert errors to preserve original error (RFC §6.3)
+						stateManager.revert().pipe(Effect.catchAll(() => Effect.void))
 					)
-				}
+				)
 			}),
 
 		/**
@@ -248,7 +268,14 @@ const createActionServices = (stateManager) => {
 					)
 				}
 
-				const ethjsAddress = yield* Effect.promise(() => createEthjsAddress(params.address.toLowerCase()))
+				const ethjsAddress = yield* Effect.tryPromise({
+					try: () => createEthjsAddress(params.address.toLowerCase()),
+					catch: (e) =>
+						new InternalError({
+							message: `Failed to create address: ${e instanceof Error ? e.message : String(e)}`,
+							cause: e instanceof Error ? e : undefined,
+						}),
+				})
 
 				const account = yield* stateManager.getAccount(ethjsAddress).pipe(
 					Effect.mapError(
@@ -281,7 +308,14 @@ const createActionServices = (stateManager) => {
 					)
 				}
 
-				const ethjsAddress = yield* Effect.promise(() => createEthjsAddress(params.address.toLowerCase()))
+				const ethjsAddress = yield* Effect.tryPromise({
+					try: () => createEthjsAddress(params.address.toLowerCase()),
+					catch: (e) =>
+						new InternalError({
+							message: `Failed to create address: ${e instanceof Error ? e.message : String(e)}`,
+							cause: e instanceof Error ? e : undefined,
+						}),
+				})
 
 				const code = yield* stateManager.getCode(ethjsAddress).pipe(
 					Effect.mapError(
@@ -325,7 +359,14 @@ const createActionServices = (stateManager) => {
 					)
 				}
 
-				const ethjsAddress = yield* Effect.promise(() => createEthjsAddress(params.address.toLowerCase()))
+				const ethjsAddress = yield* Effect.tryPromise({
+					try: () => createEthjsAddress(params.address.toLowerCase()),
+					catch: (e) =>
+						new InternalError({
+							message: `Failed to create address: ${e instanceof Error ? e.message : String(e)}`,
+							cause: e instanceof Error ? e : undefined,
+						}),
+				})
 
 				// Convert position to bytes
 				const positionHex = params.position.startsWith('0x')
@@ -385,7 +426,14 @@ const createMemoryClientShape = (deps) => {
 		getBlockNumber: Effect.gen(function* () {
 			// Access the underlying VM's blockchain to get the canonical head block
 			// VmShape doesn't expose getBlock() directly - use vm.vm.blockchain
-			const block = yield* Effect.promise(() => vm.vm.blockchain.getCanonicalHeadBlock())
+			const block = yield* Effect.tryPromise({
+				try: () => vm.vm.blockchain.getCanonicalHeadBlock(),
+				catch: (e) =>
+					new InternalError({
+						message: `Failed to get canonical head block: ${e instanceof Error ? e.message : String(e)}`,
+						cause: e instanceof Error ? e : undefined,
+					}),
+			})
 			return block.header.number
 		}),
 

@@ -96,7 +96,14 @@ export const EthActionsLive = Layer.effect(
 						return bytes
 					}
 
-					const { createAddress } = yield* Effect.promise(() => import('@tevm/address'))
+					const { createAddress } = yield* Effect.tryPromise({
+						try: () => import('@tevm/address'),
+						catch: (e) =>
+							new InternalError({
+								message: `Failed to import @tevm/address: ${e instanceof Error ? e.message : String(e)}`,
+								cause: e instanceof Error ? e : undefined,
+							}),
+					})
 
 					// Prepare call options for EVM runCall
 					const callOpts = {

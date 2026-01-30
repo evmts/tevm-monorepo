@@ -9,13 +9,17 @@ import { InvalidParamsError, InternalError } from '@tevm/errors-effect'
  */
 
 /**
- * Converts a Uint8Array to a hex string
+ * Converts a Uint8Array to a hex string (browser-compatible implementation)
  * @param {Uint8Array} bytes - Bytes to convert
  * @returns {`0x${string}`} - Hex string
  */
 const bytesToHex = (bytes) => {
 	if (!bytes || bytes.length === 0) return '0x'
-	return /** @type {`0x${string}`} */ (`0x${Buffer.from(bytes).toString('hex')}`)
+	let hex = ''
+	for (let i = 0; i < bytes.length; i++) {
+		hex += bytes[i].toString(16).padStart(2, '0')
+	}
+	return /** @type {`0x${string}`} */ (`0x${hex}`)
 }
 
 /**

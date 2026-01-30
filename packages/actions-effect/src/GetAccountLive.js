@@ -21,13 +21,17 @@ const EMPTY_CODE_HASH = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad
 const EMPTY_STORAGE_ROOT = '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
 
 /**
- * Converts a Uint8Array to a hex string
+ * Converts a Uint8Array to a hex string (browser-compatible implementation)
  * @param {Uint8Array} bytes - Bytes to convert
  * @returns {`0x${string}`} - Hex string
  */
 const bytesToHex = (bytes) => {
 	if (!bytes || bytes.length === 0) return '0x'
-	return /** @type {`0x${string}`} */ (`0x${Buffer.from(bytes).toString('hex')}`)
+	let hex = ''
+	for (let i = 0; i < bytes.length; i++) {
+		hex += bytes[i].toString(16).padStart(2, '0')
+	}
+	return /** @type {`0x${string}`} */ (`0x${hex}`)
 }
 
 /**

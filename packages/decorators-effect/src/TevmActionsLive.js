@@ -86,7 +86,14 @@ export const TevmActionsLive = Layer.effect(
 				Effect.gen(function* () {
 					// Execute call using EVM's runCall directly for simulation
 					// This doesn't require a signed transaction - it's a stateless call
-					const { createAddress } = yield* Effect.promise(() => import('@tevm/address'))
+					const { createAddress } = yield* Effect.tryPromise({
+						try: () => import('@tevm/address'),
+						catch: (e) =>
+							new InternalError({
+								message: `Failed to import @tevm/address: ${e instanceof Error ? e.message : String(e)}`,
+								cause: e instanceof Error ? e : undefined,
+							}),
+					})
 
 					// Prepare call options for EVM runCall
 					const callOpts = {

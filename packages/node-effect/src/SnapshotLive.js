@@ -113,13 +113,16 @@ export const SnapshotLive = () => {
 							// state between getStateRoot and dumpState, causing inconsistent snapshots.
 							yield* stateManager.checkpoint()
 
-							// Get current state with proper cleanup on success/failure
+							// Get current state with proper cleanup on failure.
+							// Use tapError for revert on failure, then flatMap for commit on success.
+							// This ensures commit errors are properly propagated through the error channel.
 							const { stateRoot, state } = yield* Effect.all({
 								stateRoot: stateManager.getStateRoot(),
 								state: stateManager.dumpState(),
 							}).pipe(
-								Effect.onExit((exit) =>
-									exit._tag === 'Success' ? stateManager.commit() : stateManager.revert(),
+								Effect.tapError(() => stateManager.revert().pipe(Effect.catchAll(() => Effect.void))),
+								Effect.flatMap((result) =>
+									stateManager.commit().pipe(Effect.map(() => result))
 								),
 							)
 
