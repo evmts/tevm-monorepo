@@ -187,8 +187,19 @@ export const SetAccountLive = Layer.effect(
 					}
 
 					// Get existing account to merge values
+					// Note: getAccount returns undefined for non-existent accounts (not an error).
+					// We only map errors to InternalError to preserve observability for genuine failures
+					// (like network errors in fork mode) rather than silently swallowing them. (Issue #70 fix)
 					const existingAccount = yield* stateManager.getAccount(address).pipe(
-						Effect.catchAll(() => Effect.succeed(undefined)),
+						Effect.catchAll((e) =>
+							Effect.fail(
+								new InternalError({
+									message: `Failed to get existing account ${address}: ${e instanceof Error ? e.message : String(e)}`,
+									meta: { address, operation: 'getAccount' },
+									cause: e instanceof Error ? e : undefined,
+								}),
+							),
+						),
 					)
 
 					// Merge with existing values

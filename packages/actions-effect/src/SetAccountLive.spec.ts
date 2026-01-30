@@ -841,5 +841,38 @@ describe('SetAccountLive', () => {
 				expect(lastTwo[1]).toBe(0xbc) // bc as expected
 			}
 		})
+
+		it('should propagate getAccount errors as InternalError instead of swallowing them (Issue #70)', async () => {
+			// This test verifies that genuine errors from getAccount (like network failures)
+			// are properly propagated rather than silently treated as "account not found"
+			const MockStateManagerLayer = Layer.succeed(
+				StateManagerService,
+				createMockStateManager({
+					getAccount: () => Effect.fail(new Error('Network connection failed')),
+				}) as any,
+			)
+			const testLayer = SetAccountLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { setAccount } = yield* SetAccountService
+				return yield* setAccount({
+					address: '0x1234567890123456789012345678901234567890',
+					balance: 100n,
+				})
+			}).pipe(
+				Effect.catchTag('InternalError', (error) =>
+					Effect.succeed({
+						caught: true,
+						errorMessage: error.message,
+					}),
+				),
+			)
+
+			const result = (await Effect.runPromise(program.pipe(Effect.provide(testLayer)))) as any
+
+			expect(result.caught).toBe(true)
+			expect(result.errorMessage).toContain('Failed to get existing account')
+			expect(result.errorMessage).toContain('Network connection failed')
+		})
 	})
 })

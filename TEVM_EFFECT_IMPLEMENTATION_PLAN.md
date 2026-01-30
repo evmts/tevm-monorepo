@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (97th Update - Resolved MEDIUM Issue #74: Added blocks parameter validation to mine())
+**Last Updated**: 2026-01-30 (98th Update - Resolved MEDIUM Issue #70: Fixed SetAccountLive getAccount error handling)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
@@ -21,7 +21,7 @@
 **Open Issues Summary:**
 - **CRITICAL**: 0
 - **HIGH**: 0 ✅ (Issue #69 resolved)
-- **MEDIUM**: 12 🟡 (Issues #73, #74, #75, #76 resolved)
+- **MEDIUM**: 11 🟡 (Issues #70, #73, #74, #75, #76 resolved)
 - **LOW**: 36 (+13 new from 95th review)
 
 ---
@@ -213,7 +213,7 @@ Unlike `takeSnapshot` which has `catchAllDefect` (lines 141-148), `revertToSnaps
 ##### Issue #70: SetAccountLive getAccount catchAll Silently Swallows All Errors
 **File:Lines**: `packages/actions-effect/src/SetAccountLive.js:189-192`
 **Severity**: 🟡 MEDIUM
-**Status**: 🟡 NEW
+**Status**: ✅ FIXED
 
 **Problem**: When fetching the existing account to merge values, the code uses `Effect.catchAll(() => Effect.succeed(undefined))` which catches ALL errors - not just "account not found" errors. Genuine errors like I/O failures, database corruption, or connection timeouts would be silently swallowed.
 
@@ -230,6 +230,8 @@ const existingAccount = yield* stateManager.getAccount(address).pipe(
 ```javascript
 Effect.catchTag('AccountNotFoundError', () => Effect.succeed(undefined)),
 ```
+
+**Resolution**: Changed `catchAll` to map errors to `InternalError` instead of silently returning `undefined`. Note: Since `getAccount` returns `undefined` for non-existent accounts (not an error), the old catchAll was only catching genuine errors like network failures. Now these errors are properly propagated as typed `InternalError` for observability. Added 1 new test to verify error propagation. All 109 tests pass.
 
 ---
 
