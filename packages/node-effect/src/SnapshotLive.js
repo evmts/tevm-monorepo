@@ -96,8 +96,9 @@ export const SnapshotLive = () => {
 			 *
 			 * @param {Ref.Ref<Map<Hex, Snapshot>>} snapsRef
 			 * @param {Ref.Ref<number>} ctrRef
+			 * @param {import('@tevm/state-effect').StateManagerShape} stateMgr - The state manager to use for snapshot operations
 			 */
-			const createShape = (snapsRef, ctrRef) => {
+			const createShape = (snapsRef, ctrRef, stateMgr) => {
 				const shape = {
 					takeSnapshot: () =>
 						Effect.gen(function* () {
@@ -108,20 +109,20 @@ export const SnapshotLive = () => {
 							// Create checkpoint to ensure atomic read of state root and state.
 							// This prevents race conditions where concurrent operations could modify
 							// state between getStateRoot and dumpState, causing inconsistent snapshots.
-							yield* stateManager.checkpoint()
+							yield* stateMgr.checkpoint()
 
 							// Get current state with proper cleanup on failure.
 							// The tapError is placed AFTER flatMap so it catches errors from both
 							// Effect.all (getStateRoot/dumpState) AND commit(). This ensures the checkpoint
 							// is properly reverted if any operation fails, preventing dangling checkpoints. (Issue #53 fix)
 							const { stateRoot, state } = yield* Effect.all({
-								stateRoot: stateManager.getStateRoot(),
-								state: stateManager.dumpState(),
+								stateRoot: stateMgr.getStateRoot(),
+								state: stateMgr.dumpState(),
 							}).pipe(
 								Effect.flatMap((result) =>
-									stateManager.commit().pipe(Effect.map(() => result))
+									stateMgr.commit().pipe(Effect.map(() => result))
 								),
-								Effect.tapError(() => stateManager.revert().pipe(Effect.catchAll(() => Effect.void))),
+								Effect.tapError(() => stateMgr.revert().pipe(Effect.catchAll(() => Effect.void))),
 							)
 
 							// Store snapshot
@@ -172,14 +173,29 @@ export const SnapshotLive = () => {
 							const targetNum = parseInt(id.slice(2), 16)
 
 							// Step 4: Restore state FIRST (this can fail)
-							// If setStateRoot fails, the snapshot is still available for retry
-							// Wrap with catchAllDefect to convert defects to StateRootNotFoundError
-							yield* stateManager.setStateRoot(hexToBytes(snapshot.stateRoot)).pipe(
+							// If setStateRoot or loadState fails, the snapshot is still available for retry
+							// We must call BOTH setStateRoot AND loadState to ensure full state restoration.
+							// setStateRoot alone may not be sufficient if state manager's storage has been flushed
+							// or in fork mode where state must be explicitly loaded. (Issue #220 fix)
+							yield* stateMgr.setStateRoot(hexToBytes(snapshot.stateRoot)).pipe(
 								Effect.catchAllDefect((defect) =>
 									Effect.fail(
 										new StateRootNotFoundError({
 											stateRoot: snapshot.stateRoot,
 											message: `Failed to restore state root: ${defect instanceof Error ? defect.message : String(defect)}`,
+											cause: defect,
+										}),
+									),
+								),
+							)
+
+							// Also load the full state data to ensure all account/storage data is restored (Issue #220 fix)
+							yield* stateMgr.loadState(snapshot.state).pipe(
+								Effect.catchAllDefect((defect) =>
+									Effect.fail(
+										new StateRootNotFoundError({
+											stateRoot: snapshot.stateRoot,
+											message: `Failed to load state: ${defect instanceof Error ? defect.message : String(defect)}`,
 											cause: defect,
 										}),
 									),
@@ -203,7 +219,16 @@ export const SnapshotLive = () => {
 
 					getAllSnapshots: Ref.get(snapsRef),
 
-					deepCopy: () =>
+					/**
+					 * Create a deep copy of the snapshot state.
+					 *
+					 * IMPORTANT: You must pass the new stateManager if the parent's stateManager was also
+					 * deep-copied, otherwise snapshots will operate on the original stateManager. (Issue #234 fix)
+					 *
+					 * @param {import('@tevm/state-effect').StateManagerShape} [newStateManager] - Optional new state manager to use for the copy
+					 * @returns {import('effect').Effect.Effect<SnapshotShape>}
+					 */
+					deepCopy: (newStateManager) =>
 						Effect.gen(function* () {
 							// Read current values
 							const snapshots = yield* Ref.get(snapsRef)
@@ -241,14 +266,14 @@ export const SnapshotLive = () => {
 							const newSnapshotsRef = yield* Ref.make(newSnapshots)
 							const newCounterRef = yield* Ref.make(counter)
 
-							// Return new shape
-							return createShape(newSnapshotsRef, newCounterRef)
+							// Return new shape using the new stateManager if provided, otherwise use current one (Issue #234 fix)
+							return createShape(newSnapshotsRef, newCounterRef, newStateManager ?? stateMgr)
 						}),
 				}
 				return shape
 			}
 
-			return createShape(snapshotsRef, counterRef)
+			return createShape(snapshotsRef, counterRef, stateManager)
 		}),
 	)
 }

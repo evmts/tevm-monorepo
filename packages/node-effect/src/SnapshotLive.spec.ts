@@ -186,6 +186,86 @@ const createSetStateRootDefectLayer = () => {
 }
 
 /**
+ * Create a mock StateManagerService that fails on loadState for testing Issue #220.
+ * Used to verify that StateRootNotFoundError is returned when loadState throws a defect.
+ */
+const createLoadStateDefectLayer = () => {
+	let currentStateRoot = new Uint8Array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31])
+	let stateVersion = 0
+
+	return Layer.succeed(
+		StateManagerService,
+		{
+			stateManager: null as unknown,
+			getStateRoot: () => Effect.sync(() => currentStateRoot),
+			setStateRoot: (root: Uint8Array) => Effect.sync(() => {
+				currentStateRoot = root
+			}),
+			dumpState: () => Effect.sync(() => {
+				stateVersion++
+				return { version: stateVersion }
+			}),
+			// loadState throws synchronously inside Effect.sync, which becomes a defect
+			loadState: () => Effect.sync(() => { throw new Error('Simulated loadState failure') }),
+			getAccount: () => Effect.sync(() => undefined),
+			putAccount: () => Effect.sync(() => undefined),
+			deleteAccount: () => Effect.sync(() => undefined),
+			getStorage: () => Effect.sync(() => new Uint8Array()),
+			putStorage: () => Effect.sync(() => undefined),
+			clearStorage: () => Effect.sync(() => undefined),
+			getCode: () => Effect.sync(() => new Uint8Array()),
+			putCode: () => Effect.sync(() => undefined),
+			checkpoint: () => Effect.sync(() => undefined),
+			commit: () => Effect.sync(() => undefined),
+			revert: () => Effect.sync(() => undefined),
+			ready: Effect.sync(() => undefined),
+			deepCopy: () => Effect.die(new Error('Not implemented')),
+			shallowCopy: () => { throw new Error('Not implemented') },
+		} as unknown as import('@tevm/state-effect').StateManagerShape,
+	)
+}
+
+/**
+ * Create a mock StateManagerService that fails on loadState with a non-Error defect.
+ * Used to test the non-Error branch of the catchAllDefect handler for loadState in revertToSnapshot.
+ */
+const createLoadStateNonErrorDefectLayer = () => {
+	let currentStateRoot = new Uint8Array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31])
+	let stateVersion = 0
+
+	return Layer.succeed(
+		StateManagerService,
+		{
+			stateManager: null as unknown,
+			getStateRoot: () => Effect.sync(() => currentStateRoot),
+			setStateRoot: (root: Uint8Array) => Effect.sync(() => {
+				currentStateRoot = root
+			}),
+			dumpState: () => Effect.sync(() => {
+				stateVersion++
+				return { version: stateVersion }
+			}),
+			// loadState throws a non-Error synchronously inside Effect.sync, which becomes a defect
+			loadState: () => Effect.sync(() => { throw 'Non-Error loadState failure' }),
+			getAccount: () => Effect.sync(() => undefined),
+			putAccount: () => Effect.sync(() => undefined),
+			deleteAccount: () => Effect.sync(() => undefined),
+			getStorage: () => Effect.sync(() => new Uint8Array()),
+			putStorage: () => Effect.sync(() => undefined),
+			clearStorage: () => Effect.sync(() => undefined),
+			getCode: () => Effect.sync(() => new Uint8Array()),
+			putCode: () => Effect.sync(() => undefined),
+			checkpoint: () => Effect.sync(() => undefined),
+			commit: () => Effect.sync(() => undefined),
+			revert: () => Effect.sync(() => undefined),
+			ready: Effect.sync(() => undefined),
+			deepCopy: () => Effect.die(new Error('Not implemented')),
+			shallowCopy: () => { throw new Error('Not implemented') },
+		} as unknown as import('@tevm/state-effect').StateManagerShape,
+	)
+}
+
+/**
  * Create a mock StateManagerService that fails on setStateRoot with a non-Error defect.
  * Used to test the non-Error branch of the catchAllDefect handler in revertToSnapshot.
  */
@@ -570,6 +650,52 @@ describe('SnapshotLive', () => {
 				expect(error.message).toContain('Non-Error setStateRoot failure')
 			}
 		})
+
+		it('should convert loadState defects to StateRootNotFoundError (Issue #220)', async () => {
+			const defectLayer = Layer.provide(SnapshotLive(), createLoadStateDefectLayer())
+
+			const program = Effect.gen(function* () {
+				const snapshot = yield* SnapshotService
+				const id = yield* snapshot.takeSnapshot()
+				// This should fail because loadState throws
+				yield* snapshot.revertToSnapshot(id)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(defectLayer)))
+
+			// The operation should fail with a StateRootNotFoundError (converted from defect)
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as StateRootNotFoundError
+				expect(error._tag).toBe('StateRootNotFoundError')
+				expect(error.message).toContain('Failed to load state')
+				expect(error.message).toContain('Simulated loadState failure')
+				// Verify the stateRoot from the snapshot is included
+				expect(error.stateRoot).toBeDefined()
+			}
+		})
+
+		it('should convert non-Error loadState defects to StateRootNotFoundError with String(defect) (Issue #220)', async () => {
+			const defectLayer = Layer.provide(SnapshotLive(), createLoadStateNonErrorDefectLayer())
+
+			const program = Effect.gen(function* () {
+				const snapshot = yield* SnapshotService
+				const id = yield* snapshot.takeSnapshot()
+				// This should fail because loadState throws a non-Error
+				yield* snapshot.revertToSnapshot(id)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(defectLayer)))
+
+			// The operation should fail with a StateRootNotFoundError (converted from non-Error defect)
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as StateRootNotFoundError
+				expect(error._tag).toBe('StateRootNotFoundError')
+				expect(error.message).toContain('Failed to load state')
+				expect(error.message).toContain('Non-Error loadState failure')
+			}
+		})
 	})
 
 	describe('deepCopy', () => {
@@ -646,6 +772,68 @@ describe('SnapshotLive', () => {
 			expect(result.hasBoth).toBe(true)
 			// The key test: state should NOT be the same reference after deep copy
 			expect(result.stateIsSameRef).toBe(false)
+		})
+
+		it('should accept a new stateManager in deepCopy (Issue #234)', async () => {
+			// Create two different mock state manager layers
+			const originalMockLayer = createMockStateManagerLayer(false)
+			const fullTestLayer = Layer.provide(SnapshotLive(), originalMockLayer)
+
+			const program = Effect.gen(function* () {
+				const snapshot = yield* SnapshotService
+
+				// Take a snapshot using the original state manager
+				const snapshotId = yield* snapshot.takeSnapshot()
+
+				// Create a "new" state manager shape for the copy (simulating what happens after deepCopy)
+				// In real usage, this would be the result of stateManager.deepCopy()
+				const newStateMgrShape = {
+					stateManager: null as unknown,
+					getStateRoot: () => Effect.sync(() => new Uint8Array([99, 99, 99])), // Different value
+					setStateRoot: () => Effect.sync(() => undefined),
+					dumpState: () => Effect.sync(() => ({ newStateManager: true })),
+					loadState: () => Effect.sync(() => undefined),
+					getAccount: () => Effect.sync(() => undefined),
+					putAccount: () => Effect.sync(() => undefined),
+					deleteAccount: () => Effect.sync(() => undefined),
+					getStorage: () => Effect.sync(() => new Uint8Array()),
+					putStorage: () => Effect.sync(() => undefined),
+					clearStorage: () => Effect.sync(() => undefined),
+					getCode: () => Effect.sync(() => new Uint8Array()),
+					putCode: () => Effect.sync(() => undefined),
+					checkpoint: () => Effect.sync(() => undefined),
+					commit: () => Effect.sync(() => undefined),
+					revert: () => Effect.sync(() => undefined),
+					ready: Effect.sync(() => undefined),
+					deepCopy: () => Effect.die(new Error('Not implemented')),
+					shallowCopy: () => { throw new Error('Not implemented') },
+				} as unknown as import('@tevm/state-effect').StateManagerShape
+
+				// Deep copy with the new state manager
+				const copy = yield* snapshot.deepCopy(newStateMgrShape)
+
+				// Take a new snapshot on the copy - it should use the new stateManager
+				const newSnapshotId = yield* copy.takeSnapshot()
+				const newSnapshot = yield* copy.getSnapshot(newSnapshotId)
+
+				// Verify the new snapshot used the new state manager's values
+				return {
+					originalSnapshotId: snapshotId,
+					copiedSnapshotId: newSnapshotId,
+					// The new snapshot should have a state root from the new state manager (99,99,99)
+					newStateRootPrefix: newSnapshot?.stateRoot.slice(0, 8),
+					// The state should be from the new state manager
+					hasNewStateMarker: (newSnapshot?.state as Record<string, unknown>)?.newStateManager === true,
+				}
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(fullTestLayer)))
+			expect(result.originalSnapshotId).toBe('0x1')
+			// Counter starts at 1, becomes 2 after first snapshot, so copy starts at 2
+			expect(result.copiedSnapshotId).toBe('0x2')
+			// New state root should start with "0x636363" (hex for 99,99,99)
+			expect(result.newStateRootPrefix).toBe('0x636363')
+			expect(result.hasNewStateMarker).toBe(true)
 		})
 
 		it('should deep copy AccountStorage including storage and deployedBytecode', async () => {

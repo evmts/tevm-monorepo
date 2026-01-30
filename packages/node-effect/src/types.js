@@ -84,7 +84,7 @@
  * @property {(id: Hex) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').SnapshotNotFoundError | import('@tevm/errors-effect').StateRootNotFoundError, never>} revertToSnapshot - Revert to a snapshot by ID
  * @property {(id: Hex) => import('effect').Effect.Effect<Snapshot | undefined>} getSnapshot - Get a snapshot by ID
  * @property {import('effect').Effect.Effect<Map<Hex, Snapshot>>} getAllSnapshots - Get all snapshots
- * @property {() => import('effect').Effect.Effect<SnapshotShape>} deepCopy - Create a deep copy of the snapshot state
+ * @property {(newStateManager?: import('@tevm/state-effect').StateManagerShape) => import('effect').Effect.Effect<SnapshotShape>} deepCopy - Create a deep copy of the snapshot state. IMPORTANT: You must pass the new stateManager if the parent's stateManager was also deep-copied, otherwise snapshots will operate on the original stateManager (Issue #234 fix)
  */
 
 /**

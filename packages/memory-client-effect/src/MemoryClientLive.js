@@ -493,7 +493,10 @@ const createMemoryClientShape = (deps) => {
 				// Action services are bound to stateManagerCopy for consistency.
 				const stateManagerCopy = yield* stateManager.deepCopy()
 				const vmCopy = yield* vm.deepCopy()
-				const snapshotCopy = yield* snapshotService.deepCopy()
+				// CRITICAL: Pass the copied stateManager to snapshotService.deepCopy() so that
+				// snapshot operations (takeSnapshot, revertToSnapshot) operate on the copied state,
+				// not the original state manager. (Issue #233, #234 fix)
+				const snapshotCopy = yield* snapshotService.deepCopy(stateManagerCopy)
 				const currentReady = yield* Ref.get(readyRef)
 				const newReadyRef = yield* Ref.make(currentReady)
 
