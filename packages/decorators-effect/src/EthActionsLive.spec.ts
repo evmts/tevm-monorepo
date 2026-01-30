@@ -13,8 +13,22 @@ import {
 
 describe('EthActionsLive', () => {
 	const createMockVm = () => ({
-		getBlock: vi.fn(() => Effect.succeed({ header: { number: 100n } })),
+		// The underlying VM instance with blockchain and evm access
+		vm: {
+			blockchain: {
+				getCanonicalHeadBlock: vi.fn(() => Promise.resolve({ header: { number: 100n } })),
+			},
+			evm: {
+				runCall: vi.fn(() => Promise.resolve({
+					execResult: {
+						returnValue: new Uint8Array([0x12, 0x34]),
+						executionGasUsed: 21000n,
+					},
+				})),
+			},
+		},
 		runTx: vi.fn(() => Effect.succeed({ returnValue: '0x1234' as const })),
+		runBlock: vi.fn(() => Effect.succeed({})),
 		buildBlock: vi.fn(() => Effect.succeed({})),
 		ready: Effect.succeed(true),
 		deepCopy: vi.fn(() => Effect.succeed({} as any)),

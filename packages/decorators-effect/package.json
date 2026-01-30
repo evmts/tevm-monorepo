@@ -40,6 +40,7 @@
 	},
 	"dependencies": {
 		"@tevm/actions-effect": "workspace:^",
+		"@tevm/address": "workspace:^",
 		"@tevm/common-effect": "workspace:^",
 		"@tevm/decorators": "workspace:^",
 		"@tevm/errors-effect": "workspace:^",

@@ -33,8 +33,17 @@ describe('MemoryClientLive', () => {
 	})
 
 	const createMockVm = () => ({
-		getBlock: vi.fn(() => Effect.succeed({ header: { number: 100n } })),
+		// The underlying VM instance with blockchain access
+		vm: {
+			blockchain: {
+				getCanonicalHeadBlock: vi.fn(() => Promise.resolve({ header: { number: 100n } })),
+			},
+			evm: {
+				runCall: vi.fn(() => Promise.resolve({ execResult: { returnValue: new Uint8Array() } })),
+			},
+		},
 		runTx: vi.fn(() => Effect.succeed({} as any)),
+		runBlock: vi.fn(() => Effect.succeed({} as any)),
 		buildBlock: vi.fn(() => Effect.succeed({} as any)),
 		ready: Effect.succeed(true),
 		deepCopy: vi.fn(() => Effect.succeed({} as any)),

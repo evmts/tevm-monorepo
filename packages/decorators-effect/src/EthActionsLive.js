@@ -31,20 +31,26 @@ import { InternalError } from '@tevm/errors-effect'
  * import { EthActionsService, EthActionsLive } from '@tevm/decorators-effect'
  * import { StateManagerLocal } from '@tevm/state-effect'
  * import { VmLive } from '@tevm/vm-effect'
- * import { CommonLive } from '@tevm/common-effect'
+ * import { CommonFromConfig } from '@tevm/common-effect'
+ * import { BlockchainLocal } from '@tevm/blockchain-effect'
+ * import { EvmLive } from '@tevm/evm-effect'
  *
- * const layer = EthActionsLive.pipe(
- *   Layer.provide(StateManagerLocal()),
- *   Layer.provide(VmLive()),
- *   Layer.provide(CommonLive({ chainId: 1 }))
- * )
+ * // Build layer composition (VmLive requires CommonService, StateManagerService, BlockchainService, EvmService)
+ * const commonLayer = CommonFromConfig({ chainId: 1, hardfork: 'prague' })
+ * const stateLayer = Layer.provide(StateManagerLocal(), commonLayer)
+ * const blockchainLayer = Layer.provide(BlockchainLocal(), commonLayer)
+ * const evmLayer = Layer.provide(EvmLive(), Layer.mergeAll(stateLayer, blockchainLayer, commonLayer))
+ * const vmLayer = Layer.provide(VmLive(), Layer.mergeAll(evmLayer, stateLayer, blockchainLayer, commonLayer))
+ *
+ * // Then provide EthActionsLive with its dependencies
+ * const fullLayer = Layer.provide(EthActionsLive, Layer.mergeAll(vmLayer, stateLayer, commonLayer))
  *
  * const program = Effect.gen(function* () {
  *   const ethActions = yield* EthActionsService
  *   return yield* ethActions.blockNumber()
  * })
  *
- * await Effect.runPromise(program.pipe(Effect.provide(layer)))
+ * await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
  * ```
  *
  * @type {Layer.Layer<EthActionsService, never, StateManagerService | VmService | CommonService | GetBalanceService | GetCodeService | GetStorageAtService>}
@@ -61,40 +67,62 @@ export const EthActionsLive = Layer.effect(
 		return {
 			blockNumber: () =>
 				Effect.gen(function* () {
-					const block = yield* vm.getBlock().pipe(
-						Effect.mapError(
-							(e) =>
-								new InternalError({
-									message: `Failed to get block: ${e instanceof Error ? e.message : String(e)}`,
-									cause: e instanceof Error ? e : undefined,
-								})
-						)
-					)
+					// Access the underlying VM's blockchain to get the canonical head block
+					// VmShape doesn't expose getBlock() directly - use vm.vm.blockchain
+					const block = yield* Effect.tryPromise({
+						try: () => vm.vm.blockchain.getCanonicalHeadBlock(),
+						catch: (e) =>
+							new InternalError({
+								message: `Failed to get block: ${e instanceof Error ? e.message : String(e)}`,
+								cause: e instanceof Error ? e : undefined,
+							}),
+					})
 					return block.header.number
 				}),
 
 			call: (params) =>
 				Effect.gen(function* () {
-					// Execute call via VM
-					const result = yield* vm
-						.runTx({
-							to: params.to,
-							from: params.from,
-							data: params.data,
-							gas: params.gas,
-							gasPrice: params.gasPrice,
-							value: params.value,
-						})
-						.pipe(
-							Effect.mapError(
-								(e) =>
-									new InternalError({
-										message: `eth_call failed: ${e instanceof Error ? e.message : String(e)}`,
-										cause: e instanceof Error ? e : undefined,
-									})
-							)
-						)
-					return result.returnValue ?? '0x'
+					// Execute call using EVM's runCall directly for simulation
+					// This doesn't require a signed transaction - it's a stateless call
+					const hexToBytes = (/** @type {string | undefined} */ hex) => {
+						if (!hex || hex === '0x') return new Uint8Array()
+						const cleanHex = hex.startsWith('0x') ? hex.slice(2) : hex
+						const normalizedHex = cleanHex.length % 2 === 1 ? '0' + cleanHex : cleanHex
+						const bytes = new Uint8Array(normalizedHex.length / 2)
+						for (let i = 0; i < bytes.length; i++) {
+							bytes[i] = parseInt(normalizedHex.substring(i * 2, i * 2 + 2), 16)
+						}
+						return bytes
+					}
+
+					const { createAddress } = yield* Effect.promise(() => import('@tevm/address'))
+
+					// Prepare call options for EVM runCall
+					const callOpts = {
+						to: params.to ? createAddress(params.to) : undefined,
+						caller: params.from ? createAddress(params.from) : undefined,
+						origin: params.from ? createAddress(params.from) : undefined,
+						data: hexToBytes(params.data),
+						gasLimit: params.gas ?? 30000000n,
+						gasPrice: params.gasPrice ?? 0n,
+						value: params.value ?? 0n,
+					}
+
+					const result = yield* Effect.tryPromise({
+						try: () => vm.vm.evm.runCall(callOpts),
+						catch: (e) =>
+							new InternalError({
+								message: `eth_call failed: ${e instanceof Error ? e.message : String(e)}`,
+								cause: e instanceof Error ? e : undefined,
+							}),
+					})
+
+					// Convert result to hex string
+					const bytesToHex = (/** @type {Uint8Array} */ bytes) => {
+						if (!bytes || bytes.length === 0) return '0x'
+						return '0x' + Buffer.from(bytes).toString('hex')
+					}
+					return bytesToHex(result.execResult?.returnValue ?? new Uint8Array())
 				}),
 
 			chainId: () => Effect.succeed(BigInt(common.chainId)),

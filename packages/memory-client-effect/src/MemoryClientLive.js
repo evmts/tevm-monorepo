@@ -60,7 +60,9 @@ const createMemoryClientShape = (deps) => {
 		ready: Ref.get(readyRef),
 
 		getBlockNumber: Effect.gen(function* () {
-			const block = yield* vm.getBlock()
+			// Access the underlying VM's blockchain to get the canonical head block
+			// VmShape doesn't expose getBlock() directly - use vm.vm.blockchain
+			const block = yield* Effect.promise(() => vm.vm.blockchain.getCanonicalHeadBlock())
 			return block.header.number
 		}),
 
@@ -126,15 +128,17 @@ const createMemoryClientShape = (deps) => {
  * import { MemoryClientService, MemoryClientLive } from '@tevm/memory-client-effect'
  * import { StateManagerLocal } from '@tevm/state-effect'
  * import { VmLive } from '@tevm/vm-effect'
- * import { CommonLive } from '@tevm/common-effect'
+ * import { CommonFromConfig } from '@tevm/common-effect'
+ * import { BlockchainLocal } from '@tevm/blockchain-effect'
+ * import { EvmLive } from '@tevm/evm-effect'
  *
- * // Compose layers
- * const fullLayer = MemoryClientLive.pipe(
- *   Layer.provide(StateManagerLocal()),
- *   Layer.provide(VmLive()),
- *   Layer.provide(CommonLive()),
- *   // ... other required layers
- * )
+ * // Compose layers - VmLive requires CommonService, StateManagerService, BlockchainService, EvmService
+ * const commonLayer = CommonFromConfig({ chainId: 1, hardfork: 'prague' })
+ * const stateLayer = Layer.provide(StateManagerLocal(), commonLayer)
+ * const blockchainLayer = Layer.provide(BlockchainLocal(), commonLayer)
+ * const evmLayer = Layer.provide(EvmLive(), Layer.mergeAll(stateLayer, blockchainLayer, commonLayer))
+ * const vmLayer = Layer.provide(VmLive(), Layer.mergeAll(evmLayer, stateLayer, blockchainLayer, commonLayer))
+ * // ... compose remaining action and node service layers
  *
  * const program = Effect.gen(function* () {
  *   const client = yield* MemoryClientService

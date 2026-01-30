@@ -8,7 +8,21 @@ import { GetAccountService, SetAccountService } from '@tevm/actions-effect'
 
 describe('TevmActionsLive', () => {
 	const createMockVm = () => ({
-		getBlock: vi.fn(() => Effect.succeed({ header: { number: 100n } })),
+		// The underlying VM instance with blockchain and evm access
+		vm: {
+			blockchain: {
+				getCanonicalHeadBlock: vi.fn(() => Promise.resolve({ header: { number: 100n } })),
+			},
+			evm: {
+				runCall: vi.fn(() => Promise.resolve({
+					execResult: {
+						returnValue: new Uint8Array([0x12, 0x34]),
+						executionGasUsed: 21000n,
+						gas: 79000n,
+					},
+				})),
+			},
+		},
 		runTx: vi.fn(() =>
 			Effect.succeed({
 				returnValue: '0x1234' as const,
@@ -16,6 +30,7 @@ describe('TevmActionsLive', () => {
 				gas: 79000n,
 			})
 		),
+		runBlock: vi.fn(() => Effect.succeed({})),
 		buildBlock: vi.fn(() => Effect.succeed({})),
 		ready: Effect.succeed(true),
 		deepCopy: vi.fn(() => Effect.succeed({} as any)),
@@ -100,7 +115,7 @@ describe('TevmActionsLive', () => {
 		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
 		expect(result.rawData).toBe('0x1234')
 		expect(result.executionGasUsed).toBe(21000n)
-		expect(mocks.vm.runTx).toHaveBeenCalled()
+		expect(mocks.vm.vm.evm.runCall).toHaveBeenCalled()
 	})
 
 	it('should delegate getAccount to GetAccountService', async () => {

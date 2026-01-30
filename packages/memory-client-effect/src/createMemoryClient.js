@@ -8,7 +8,9 @@ import { MemoryClientService } from './MemoryClientService.js'
 import { MemoryClientLive } from './MemoryClientLive.js'
 import { StateManagerLocal } from '@tevm/state-effect'
 import { VmLive } from '@tevm/vm-effect'
-import { CommonLive } from '@tevm/common-effect'
+import { CommonFromConfig } from '@tevm/common-effect'
+import { BlockchainLocal } from '@tevm/blockchain-effect'
+import { EvmLive } from '@tevm/evm-effect'
 import {
 	GetAccountLive,
 	SetAccountLive,
@@ -52,54 +54,51 @@ import { SnapshotLive } from '@tevm/node-effect'
  */
 const createFullLayer = (options = {}) => {
 	// Create common layer with chain configuration
-	const commonLayer = CommonLive({
+	const commonLayer = CommonFromConfig({
 		chainId: options.common?.chainId ?? options.fork?.chainId ?? 1,
 		hardfork: options.common?.hardfork ?? 'prague',
 		eips: options.common?.eips ?? [],
 	})
 
-	// Create state manager layer
-	const stateManagerLayer = StateManagerLocal()
+	// Create state manager layer (depends on common)
+	const stateManagerLayer = Layer.provide(StateManagerLocal(), commonLayer)
+
+	// Create blockchain layer (depends on common)
+	const blockchainLayer = Layer.provide(BlockchainLocal(), commonLayer)
+
+	// Create EVM layer (depends on common, state manager, blockchain)
+	const evmLayer = Layer.provide(
+		EvmLive(),
+		Layer.mergeAll(commonLayer, stateManagerLayer, blockchainLayer)
+	)
+
+	// Create VM layer (depends on common, state manager, blockchain, evm)
+	const vmLayer = Layer.provide(
+		VmLive(),
+		Layer.mergeAll(commonLayer, stateManagerLayer, blockchainLayer, evmLayer)
+	)
 
 	// Create action layers (depend on state manager)
-	const getAccountLayer = GetAccountLive
-	const setAccountLayer = SetAccountLive
-	const getBalanceLayer = GetBalanceLive
-	const getCodeLayer = GetCodeLive
-	const getStorageAtLayer = GetStorageAtLive
-
-	// Create node service layers
-	const snapshotLayer = SnapshotLive()
-
-	// Create VM layer (depends on common and state manager)
-	const vmLayer = VmLive()
-
-	// Compose layers bottom-up
-	// First: foundation layers
-	const foundationLayer = Layer.merge(commonLayer, stateManagerLayer)
-
-	// Second: VM layer on top of foundation
-	const vmComposedLayer = Layer.provide(vmLayer, foundationLayer)
-
-	// Third: merge VM with foundation for full base
-	const baseLayer = Layer.merge(foundationLayer, vmComposedLayer)
-
-	// Fourth: action layers (depend on state manager)
 	const actionsLayer = Layer.mergeAll(
-		getAccountLayer,
-		setAccountLayer,
-		getBalanceLayer,
-		getCodeLayer,
-		getStorageAtLayer
+		GetAccountLive,
+		SetAccountLive,
+		GetBalanceLive,
+		GetCodeLive,
+		GetStorageAtLive
 	)
 	const actionsComposedLayer = Layer.provide(actionsLayer, stateManagerLayer)
 
-	// Fifth: node service layers (snapshot depends on state manager)
+	// Create node service layers (snapshot depends on state manager)
+	const snapshotLayer = SnapshotLive()
 	const snapshotComposedLayer = Layer.provide(snapshotLayer, stateManagerLayer)
 
-	// Sixth: merge all service layers
+	// Merge all service layers together
 	const servicesLayer = Layer.mergeAll(
-		baseLayer,
+		commonLayer,
+		stateManagerLayer,
+		blockchainLayer,
+		evmLayer,
+		vmLayer,
 		actionsComposedLayer,
 		snapshotComposedLayer
 	)

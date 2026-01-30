@@ -55,34 +55,66 @@ export const TevmActionsLive = Layer.effect(
 		const getAccountService = yield* GetAccountService
 		const setAccountService = yield* SetAccountService
 
+		/**
+		 * Converts hex string to bytes
+		 * @param {string | undefined} hex
+		 * @returns {Uint8Array}
+		 */
+		const hexToBytes = (hex) => {
+			if (!hex || hex === '0x') return new Uint8Array()
+			const cleanHex = hex.startsWith('0x') ? hex.slice(2) : hex
+			const normalizedHex = cleanHex.length % 2 === 1 ? '0' + cleanHex : cleanHex
+			const bytes = new Uint8Array(normalizedHex.length / 2)
+			for (let i = 0; i < bytes.length; i++) {
+				bytes[i] = parseInt(normalizedHex.substring(i * 2, i * 2 + 2), 16)
+			}
+			return bytes
+		}
+
+		/**
+		 * Converts bytes to hex string
+		 * @param {Uint8Array} bytes
+		 * @returns {string}
+		 */
+		const bytesToHex = (bytes) => {
+			if (!bytes || bytes.length === 0) return '0x'
+			return '0x' + Buffer.from(bytes).toString('hex')
+		}
+
 		return {
 			call: (params) =>
 				Effect.gen(function* () {
-					const result = yield* vm
-						.runTx({
-							to: params.to,
-							from: params.from,
-							data: params.data,
-							gas: params.gas,
-							gasPrice: params.gasPrice,
-							value: params.value,
-						})
-						.pipe(
-							Effect.mapError(
-								(e) =>
-									new InternalError({
-										message: `tevm_call failed: ${e instanceof Error ? e.message : String(e)}`,
-										cause: e instanceof Error ? e : undefined,
-									})
-							)
-						)
+					// Execute call using EVM's runCall directly for simulation
+					// This doesn't require a signed transaction - it's a stateless call
+					const { createAddress } = yield* Effect.promise(() => import('@tevm/address'))
 
+					// Prepare call options for EVM runCall
+					const callOpts = {
+						to: params.to ? createAddress(params.to) : undefined,
+						caller: params.from ? createAddress(params.from) : undefined,
+						origin: params.from ? createAddress(params.from) : undefined,
+						data: hexToBytes(params.data),
+						gasLimit: params.gas ?? 30000000n,
+						gasPrice: params.gasPrice ?? 0n,
+						value: params.value ?? 0n,
+					}
+
+					const result = yield* Effect.tryPromise({
+						try: () => vm.vm.evm.runCall(callOpts),
+						catch: (e) =>
+							new InternalError({
+								message: `tevm_call failed: ${e instanceof Error ? e.message : String(e)}`,
+								cause: e instanceof Error ? e : undefined,
+							}),
+					})
+
+					const execResult = result.execResult ?? {}
 					return {
-						rawData: result.returnValue ?? '0x',
-						executionGasUsed: result.gasUsed ?? 0n,
-						gas: result.gas,
-						createdAddress: result.createdAddress,
-						exceptionError: result.exceptionError,
+						rawData: bytesToHex(execResult.returnValue ?? new Uint8Array()),
+						executionGasUsed: execResult.executionGasUsed ?? 0n,
+						gas: execResult.gas ?? 0n,
+						createdAddress: result.createdAddress?.toString(),
+						exceptionError: execResult.exceptionError,
 					}
 				}),
 

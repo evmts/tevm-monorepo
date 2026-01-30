@@ -1907,6 +1907,9 @@ importers:
       '@tevm/actions-effect':
         specifier: workspace:^
         version: link:../actions-effect
+      '@tevm/address':
+        specifier: workspace:^
+        version: link:../address
       '@tevm/common-effect':
         specifier: workspace:^
         version: link:../common-effect
@@ -2240,12 +2243,18 @@ importers:
       '@tevm/actions-effect':
         specifier: workspace:^
         version: link:../actions-effect
+      '@tevm/blockchain-effect':
+        specifier: workspace:^
+        version: link:../blockchain-effect
       '@tevm/common-effect':
         specifier: workspace:^
         version: link:../common-effect
       '@tevm/errors-effect':
         specifier: workspace:^
         version: link:../errors-effect
+      '@tevm/evm-effect':
+        specifier: workspace:^
+        version: link:../evm-effect
       '@tevm/interop':
         specifier: workspace:^
         version: link:../interop
