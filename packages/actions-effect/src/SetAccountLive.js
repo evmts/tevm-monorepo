@@ -2,7 +2,7 @@ import { Effect, Layer } from 'effect'
 import { SetAccountService } from './SetAccountService.js'
 import { StateManagerService } from '@tevm/state-effect'
 import { InvalidParamsError, InternalError } from '@tevm/errors-effect'
-import { keccak256 as keccak256Utils } from '@tevm/utils'
+import { keccak256 as keccak256Utils, createAccount } from '@tevm/utils'
 
 /**
  * @module @tevm/actions-effect/SetAccountLive
@@ -253,8 +253,8 @@ export const SetAccountLive = Layer.effect(
 
 					// Wrap state modifications with commit/revert pattern
 					yield* Effect.gen(function* () {
-						// Put account into state manager
-						yield* stateManager.putAccount(address, accountData).pipe(
+						// Put account into state manager using createAccount() for proper EthjsAccount instance
+						yield* stateManager.putAccount(address, createAccount(accountData)).pipe(
 							Effect.mapError(
 								(e) =>
 									new InternalError({

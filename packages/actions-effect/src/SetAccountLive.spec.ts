@@ -657,10 +657,11 @@ describe('SetAccountLive', () => {
 		})
 
 		it('should use existing storageRoot when not provided', async () => {
+			// storageRoot must be exactly 32 bytes for createAccount() validation
 			const existingAccount = {
 				nonce: 1n,
 				balance: 100n,
-				storageRoot: new Uint8Array([1, 2, 3, 4, 5]),
+				storageRoot: new Uint8Array(32).fill(1), // 32-byte storage root
 				codeHash: undefined,
 			}
 
@@ -686,11 +687,12 @@ describe('SetAccountLive', () => {
 		})
 
 		it('should use existing codeHash when not providing deployedBytecode', async () => {
+			// codeHash must be exactly 32 bytes for createAccount() validation
 			const existingAccount = {
 				nonce: 1n,
 				balance: 100n,
 				storageRoot: undefined,
-				codeHash: new Uint8Array([1, 2, 3, 4, 5]),
+				codeHash: new Uint8Array(32).fill(2), // 32-byte code hash
 			}
 
 			const MockStateManagerLayer = Layer.succeed(
