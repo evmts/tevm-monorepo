@@ -80,8 +80,8 @@
  * Snapshots allow reverting to a previous state, useful for testing and simulation.
  *
  * @typedef {Object} SnapshotShape
- * @property {() => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').StorageError, import('@tevm/state-effect').StateManagerService>} takeSnapshot - Take a snapshot and return its ID
- * @property {(id: Hex) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').SnapshotNotFoundError, import('@tevm/state-effect').StateManagerService>} revertToSnapshot - Revert to a snapshot by ID
+ * @property {() => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').StorageError, never>} takeSnapshot - Take a snapshot and return its ID
+ * @property {(id: Hex) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').SnapshotNotFoundError | import('@tevm/errors-effect').StateRootNotFoundError, never>} revertToSnapshot - Revert to a snapshot by ID
  * @property {(id: Hex) => import('effect').Effect.Effect<Snapshot | undefined>} getSnapshot - Get a snapshot by ID
  * @property {import('effect').Effect.Effect<Map<Hex, Snapshot>>} getAllSnapshots - Get all snapshots
  * @property {() => import('effect').Effect.Effect<SnapshotShape>} deepCopy - Create a deep copy of the snapshot state

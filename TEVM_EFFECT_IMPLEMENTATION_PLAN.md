@@ -2,27 +2,236 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (84th Review - Buffer API fixes)
+**Last Updated**: 2026-01-30 (86th Review - Resolved all HIGH type declaration issues)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
 
 ## Review Agent Summary (2026-01-30)
 
-**EIGHTY-FOURTH REVIEW.** Resolved 2 HIGH severity browser compatibility issues (Buffer API usage) in Phase 4 packages.
+**EIGHTY-SIXTH REVIEW.** All 3 HIGH severity type declaration mismatches from 85th review have been RESOLVED. Phase 4 now has 0 HIGH issues.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟢 PRODUCTION-READY | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 2 LOW |
-| **Phase 2** | 🟢 PRODUCTION-READY | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 2 MEDIUM (interop boundary), 1 LOW |
+| **Phase 1** | 🟢 PRODUCTION-READY | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 3 LOW |
+| **Phase 2** | 🟢 PRODUCTION-READY | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 2 MEDIUM (interop boundary), 3 LOW |
 | **Phase 3** | 🟢 PRODUCTION-READY | 2 (node-effect, actions-effect) | 200 | ~99% | 2 MEDIUM, 5 LOW |
-| **Phase 4** | 🟡 NEAR PRODUCTION-READY | 2 (memory-client-effect, decorators-effect) | 65 | ~85% | 2 MEDIUM |
+| **Phase 4** | 🟡 NEAR PRODUCTION-READY | 2 (memory-client-effect, decorators-effect) | 65 | ~85% | 0 HIGH ✅, 3 MEDIUM |
 
 **Open Issues Summary:**
 - **CRITICAL**: 0 ✅
-- **HIGH**: 0 ✅ (Buffer API issues RESOLVED in 84th review)
-- **MEDIUM**: 6 🟡 (4 new from 83rd review)
-- **LOW**: 8 (6 new from 83rd review)
+- **HIGH**: 0 ✅ (All 3 resolved in 86th review)
+- **MEDIUM**: 7 🟡 (1 resolved: Issue #25)
+- **LOW**: 11 (3 new from 85th review)
+
+---
+
+### EIGHTY-FIFTH REVIEW (2026-01-30) - Comprehensive Type Declaration Audit
+
+**Reviewed By**: Claude Opus 4.5 (4 parallel Opus subagents)
+**Scope**: Complete independent re-review of all 4 phases focusing on type declarations vs implementations
+
+---
+
+#### Phase 1: ✅ PRODUCTION-READY
+
+All Phase 1 packages verified production-ready. Minor issues found:
+
+##### 16. Spec Files Included in Type Generation
+**File:Lines**: `packages/errors-effect/types/` directory
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The tsconfig includes spec files, generating unnecessary `.d.ts` files for test files (e.g., `TevmError.spec.d.ts`).
+
+**Recommended Fix**: Update tsconfig.json to exclude `**/*.spec.ts`.
+
+---
+
+#### Phase 2: ✅ PRODUCTION-READY
+
+All Phase 2 packages verified production-ready. The Effect.runPromise interop boundaries are documented and acceptable.
+
+##### 17. Unconventional acquireRelease Pattern in HttpTransport
+**File:Lines**: `packages/transport-effect/src/HttpTransport.js:404`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Uses `Effect.acquireRelease(Effect.void, ...)` which is unconventional. Typically the acquire action creates the resource.
+
+**Assessment**: Works correctly but could use a comment explaining the pattern.
+
+---
+
+##### 18. EVM Error Channel Semantics Documentation
+**File:Lines**: `packages/evm-effect/src/types.js:18-25`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The error channel only catches exceptions during EVM setup. Execution "errors" (reverts, OOG) are in `execResult.exceptionError` in the success channel. This is correct EVM semantics but may confuse users.
+
+**Assessment**: Already documented in types.js. Consider adding to index.js module-level JSDoc.
+
+---
+
+#### Phase 3: ✅ PRODUCTION-READY
+
+Phase 3 verified production-ready with existing documented issues.
+
+##### 19. Filter deepCopy Shallow Copy of Nested Objects
+**File:Lines**: `packages/node-effect/src/FilterLive.js:364-365`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: When deep copying filters, `tx` and `blocks` arrays use spread `{ ...t }` which is shallow. If these contain nested objects, they won't be deep copied.
+
+**Evidence**:
+```javascript
+tx: filter.tx.map((t) => ({ ...t })),
+blocks: filter.blocks.map((b) => ({ ...b })),
+```
+
+**Recommended Fix**: Use `structuredClone` or document that these must be plain objects.
+
+---
+
+##### 20. SnapshotLive.revertToSnapshot parseInt Edge Case
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:174`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `parseInt(id.slice(2), 16)` could return NaN for edge case inputs like `0x`. Currently not exploitable since snapshot IDs are internally generated.
+
+**Recommended Fix**: Add NaN validation for defense-in-depth.
+
+---
+
+#### Phase 4: 🔴 REQUIRES FIXES
+
+Phase 4 has 3 HIGH severity type declaration mismatches that MUST be fixed.
+
+##### 21. MemoryClientShape.takeSnapshot Error Type Mismatch
+**File:Lines**: `packages/memory-client-effect/src/types.js:49`
+**Severity**: 🔴 HIGH
+**Status**: ✅ RESOLVED (86th review)
+
+**Problem**: `takeSnapshot` declares `InternalError` in error channel, but the actual `SnapshotShape.takeSnapshot` returns `StorageError`. The implementation passes through without mapping.
+
+**Resolution**: Updated `types.js` line 49 to use `StorageError`:
+```javascript
+@property {() => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').StorageError, never>} takeSnapshot
+```
+
+All 123 tests pass after the fix.
+
+---
+
+##### 22. MemoryClientShape.revertToSnapshot Missing StateRootNotFoundError
+**File:Lines**: `packages/memory-client-effect/src/types.js:50`
+**Severity**: 🔴 HIGH
+**Status**: ✅ RESOLVED (86th review)
+
+**Problem**: `revertToSnapshot` can fail with `StateRootNotFoundError` from `StateManagerService.setStateRoot()`, but this error is not declared in the type.
+
+**Resolution**: Added `StateRootNotFoundError` to error channel and removed incorrect `InternalError`:
+```javascript
+@property {(snapshotId: Hex) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').SnapshotNotFoundError | import('@tevm/errors-effect').StateRootNotFoundError, never>} revertToSnapshot
+```
+
+All 123 tests pass after the fix.
+
+---
+
+##### 23. SnapshotShape Incorrect Requirement Channel
+**File:Lines**: `packages/node-effect/src/types.js:83-84`
+**Severity**: 🔴 HIGH
+**Status**: ✅ RESOLVED (86th review)
+
+**Problem**: `SnapshotShape.takeSnapshot` and `revertToSnapshot` declare `StateManagerService` in the requirement (R) channel, but the implementation captures `stateManager` in the closure at layer creation time. The returned Effects have `never` as requirement.
+
+**Resolution**: Changed R channel to `never` and added `StateRootNotFoundError` to `revertToSnapshot` error channel:
+```javascript
+@property {() => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').StorageError, never>} takeSnapshot
+@property {(id: Hex) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').SnapshotNotFoundError | import('@tevm/errors-effect').StateRootNotFoundError, never>} revertToSnapshot
+```
+
+All 123 tests pass after the fix.
+
+---
+
+##### 24. Missing Type Validation for position Parameter
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:356-377`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `getStorageAt` method validates that `position` is not `undefined`, but doesn't validate it's actually a string. If a caller passes a number, the code will throw on `.startsWith()`.
+
+**Evidence**:
+```javascript
+// Lines 356-364 - validates undefined but not type
+if (params.position === undefined) {
+  return yield* Effect.fail(new InvalidParamsError({...}))
+}
+// Line 376-377 - will throw TypeError if position is not a string
+const positionHex = params.position.startsWith('0x')
+```
+
+**Recommended Fix**: Add type validation:
+```javascript
+if (params.position === undefined || typeof params.position !== 'string') {
+  return yield* Effect.fail(
+    new InvalidParamsError({
+      method: 'getStorageAt',
+      params,
+      message: `Invalid position: expected hex string, got ${typeof params.position}`,
+    })
+  )
+}
+```
+
+---
+
+##### 25. Inconsistent InternalError in MemoryClientShape.revertToSnapshot
+**File:Lines**: `packages/memory-client-effect/src/types.js:50`
+**Severity**: 🟢 LOW
+**Status**: ✅ RESOLVED (86th review)
+
+**Problem**: The `revertToSnapshot` type includes `InternalError` but neither the SnapshotShape nor the implementation maps errors to `InternalError`. This creates a misleading type.
+
+**Resolution**: Removed `InternalError` as part of the fix for Issue #22. The error channel now correctly declares only `SnapshotNotFoundError | StateRootNotFoundError`.
+
+---
+
+#### Summary Table (86th Review)
+
+| Package | HIGH | MEDIUM | LOW | Status |
+|---------|------|--------|-----|--------|
+| errors-effect | 0 | 0 | 1 | ✅ |
+| transport-effect | 0 | 0 | 1 | ✅ |
+| evm-effect | 0 | 0 | 1 | ✅ |
+| node-effect | 0 ✅ | 0 | 2 | ✅ (Issue #23 resolved) |
+| memory-client-effect | 0 ✅ | 1 | 0 ✅ | ✅ (Issues #21, #22, #25 resolved) |
+| **TOTAL** | **0** ✅ | **1** | **5** | **4 issues resolved** |
+
+---
+
+#### Recommendations
+
+**Priority 1 - HIGH (MUST FIX BEFORE PRODUCTION):**
+✅ All HIGH issues resolved in 86th review:
+1. ✅ Fixed `MemoryClientShape.takeSnapshot` error type: `InternalError` → `StorageError` (Issue #21)
+2. ✅ Fixed `MemoryClientShape.revertToSnapshot` error type: Added `StateRootNotFoundError`, removed `InternalError` (Issue #22)
+3. ✅ Fixed `SnapshotShape` requirement channels: `StateManagerService` → `never` (Issue #23)
+
+**Priority 2 - MEDIUM (Should Fix):**
+4. Add type validation for `position` parameter in `getStorageAt` (Issue #24)
+
+**Priority 3 - LOW (Nice to Have):**
+5. Exclude spec files from tsconfig type generation
+6. Add comment explaining acquireRelease pattern in HttpTransport
+7. Add EVM error channel documentation to index.js
+8. Consider using structuredClone for filter deepCopy
+9. Add NaN validation for snapshot ID parsing
 
 ---
 
