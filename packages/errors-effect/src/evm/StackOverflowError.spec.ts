@@ -14,10 +14,18 @@ describe('StackOverflowError', () => {
 		expect(error.docsPath).toBe('/reference/tevm/errors/classes/stackoverflowerror/')
 	})
 
-	it('should use default message when not provided', () => {
+	it('should use default message when not provided and no stackSize', () => {
 		const error = new StackOverflowError({})
 
 		expect(error.message).toBe('Stack overflow error occurred.')
+	})
+
+	it('should include stackSize in auto-generated message when provided', () => {
+		const error = new StackOverflowError({
+			stackSize: 1025,
+		})
+
+		expect(error.message).toBe('Stack overflow error occurred. Stack size: 1025 (max: 1024).')
 	})
 
 	it('should allow custom message', () => {

@@ -118,4 +118,80 @@ describe('toBaseError', () => {
 
 		expect(result.docsPath).toBeUndefined()
 	})
+
+	describe('walk method', () => {
+		it('should have a walk method', () => {
+			const error = new TevmError({
+				message: 'Test error',
+				code: -32000,
+			})
+
+			const result = toBaseError(error)
+
+			expect(typeof result.walk).toBe('function')
+		})
+
+		it('should return the error itself when called without a predicate', () => {
+			const error = new TevmError({
+				message: 'Test error',
+				code: -32000,
+			})
+
+			const result = toBaseError(error)
+			const walked = result.walk()
+
+			expect(walked).toBe(result)
+		})
+
+		it('should return the error when predicate matches', () => {
+			const error = new TevmError({
+				message: 'Test error',
+				code: -32000,
+			})
+
+			const result = toBaseError(error)
+			const walked = result.walk((err) => err instanceof Error)
+
+			expect(walked).toBe(result)
+		})
+
+		it('should return null when predicate does not match', () => {
+			const error = new TevmError({
+				message: 'Test error',
+				code: -32000,
+			})
+
+			const result = toBaseError(error)
+			const walked = result.walk((err) => err === 'never matches')
+
+			expect(walked).toBeNull()
+		})
+
+		it('should traverse error chain through cause property', () => {
+			// Create a chain of errors
+			const rootCause = new Error('Root cause')
+			const middleError = new Error('Middle error')
+			// @ts-expect-error - adding cause property
+			middleError.cause = rootCause
+
+			const topError = new TevmError({
+				message: 'Top error',
+				code: -32000,
+				cause: middleError,
+			})
+
+			const result = toBaseError(topError)
+			// @ts-expect-error - result has cause property
+			result.cause = middleError
+
+			// Find the first error that is a plain Error (no _tag property)
+			// This should traverse from result (has _tag) to middleError (no _tag)
+			const walked = result.walk((err) => {
+				return err instanceof Error && !('_tag' in (err as object))
+			})
+
+			// Should find middleError since it's the first in the chain without _tag
+			expect(walked).toBe(middleError)
+		})
+	})
 })

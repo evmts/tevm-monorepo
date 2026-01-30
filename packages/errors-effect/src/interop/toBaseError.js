@@ -7,6 +7,22 @@ import { TevmError } from '../TevmError.js'
 const VERSION = '1.0.0-next.148'
 
 /**
+ * Helper function to walk through the error chain.
+ * Recursively traverses the error's cause property to find a matching error.
+ *
+ * @param {unknown} err - The error to walk through.
+ * @param {((err: unknown) => boolean) | undefined} fn - A predicate function to match errors.
+ * @returns {unknown} The first error that matches the function, or null/original error.
+ */
+const walk = (err, fn) => {
+	if (fn?.(err)) return err
+	if (err && typeof err === 'object' && 'cause' in err) {
+		return walk(/** @type {{ cause: unknown }} */ (err).cause, fn)
+	}
+	return fn ? null : err
+}
+
+/**
  * Converts a TaggedError from @tevm/errors-effect to a BaseError-like object.
  *
  * This is useful for backward compatibility when you need to interop with
@@ -16,6 +32,9 @@ const VERSION = '1.0.0-next.148'
  * but rather a plain object with the same shape that can be used for error
  * handling in Promise-based code. Error-specific properties (address, gasUsed,
  * opcode, etc.) are preserved on the result object.
+ *
+ * The returned object includes a `walk` method for traversing error chains,
+ * matching the BaseError interface from @tevm/errors.
  *
  * @example
  * ```typescript
@@ -31,6 +50,9 @@ const VERSION = '1.0.0-next.148'
  * // Error-specific properties are preserved
  * console.log(baseErrorLike.address) // '0x1234...'
  * console.log(baseErrorLike.required) // 1000n
+ *
+ * // Use walk to traverse error chain
+ * const rootCause = baseErrorLike.walk((err) => !(err instanceof Error))
  *
  * // Can now throw or use with Promise-based code
  * throw baseErrorLike
@@ -52,6 +74,13 @@ export const toBaseError = (taggedError) => {
 		shortMessage: taggedError.message,
 		version: VERSION,
 		details: '',
+		/**
+		 * Walks through the error chain to find a matching error.
+		 *
+		 * @param {((err: unknown) => boolean) | undefined} fn - A predicate function to execute on each error.
+		 * @returns {unknown} The first error that matches the function, or the original error if no predicate.
+		 */
+		walk: (fn) => walk(error, fn),
 	}
 
 	// Collect error-specific properties (everything except base properties)
@@ -81,4 +110,5 @@ export const toBaseError = (taggedError) => {
  * @property {string} shortMessage - Short description of the error
  * @property {string} version - Library version
  * @property {string} details - Error details
+ * @property {(fn?: (err: unknown) => boolean) => unknown} walk - Walk through error chain to find matching error
  */

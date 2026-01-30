@@ -72,7 +72,14 @@ export class StackOverflowError extends Data.TaggedError('StackOverflowError') {
 	constructor(props = {}) {
 		super()
 		this.stackSize = props.stackSize
-		this.message = props.message ?? 'Stack overflow error occurred.'
+		// Include stackSize in auto-generated message when available
+		if (props.message) {
+			this.message = props.message
+		} else if (props.stackSize !== undefined) {
+			this.message = `Stack overflow error occurred. Stack size: ${props.stackSize} (max: 1024).`
+		} else {
+			this.message = 'Stack overflow error occurred.'
+		}
 		this.code = StackOverflowError.code
 		this.docsPath = StackOverflowError.docsPath
 	}

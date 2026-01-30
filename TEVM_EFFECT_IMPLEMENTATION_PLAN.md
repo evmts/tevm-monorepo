@@ -33,7 +33,9 @@
 **Goal**: Add Effect as dependency, create interop layer, migrate foundational packages
 **Breaking Changes**: None (additive only)
 
-### REVIEW AGENT Review Status: COMPLETED (2026-01-29)
+### REVIEW AGENT Review Status: ⚠️ ISSUES FOUND (2026-01-29)
+
+Second review on 2026-01-29 found additional critical and high-severity issues in @tevm/errors-effect and @tevm/interop. See SECOND REVIEW tables in sections 1.2 and 1.3.
 
 ---
 
@@ -110,6 +112,31 @@ export class InsufficientBalanceError extends Data.TaggedError("InsufficientBala
 
 **All Action Items Completed** (2026-01-29)
 
+**SECOND REVIEW (2026-01-29)**: ⚠️ PARTIALLY RESOLVED
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| RFC pattern mismatch - Data.TaggedError generic | **Critical** | All error files | ⚠️ Known | Errors use constructor-based property assignment instead of `Data.TaggedError("Tag")<{readonly props}>` generic pattern. Works with `Effect.catchTag` but loses structural equality. JSDoc limitations prevent pure generic pattern. |
+| toBaseError missing `walk` method | High | toBaseError.js:43-72 | ✅ Fixed | Added walk method that traverses error chain through cause property. |
+| toTaggedError instanceof loop never matches | High | toTaggedError.js:57-61 | ✅ Fixed | Clarified comments explaining that loop catches already-converted TaggedErrors. |
+| StackOverflowError missing stackSize in message | High | StackOverflowError.js:75 | ✅ Fixed | Message now includes stackSize when provided (e.g., "Stack size: 1025 (max: 1024)"). |
+| Missing `cause` property in EVM errors | Medium | All EVM error files | 🔴 Open | EVM errors don't accept/store `cause` property unlike TevmError. Breaks error chaining pattern. |
+| Static/instance property duplication | Medium | All EVM error files | ⚠️ Known | Both static and instance `code`/`docsPath` properties. RFC shows only instance field pattern. |
+| TevmError vs EVM errors pattern inconsistency | Medium | TevmError.js vs EVM errors | ⚠️ Known | TevmError accepts code/docsPath as params with defaults; EVM errors use static properties. |
+| VERSION hardcoded will drift | Medium | toBaseError.js:7 | ⚠️ Known | `VERSION = '1.0.0-next.148'` will drift from actual package version. |
+| Missing Effect structural equality tests | Low | All spec files | 🔴 Open | Tests don't verify `Equal.equals(error1, error2)` for errors with same properties. |
+| Missing `@throws` JSDoc | Low | All source files | 🔴 Open | No functions document what errors they might throw. |
+
+**Resolved Action Items** (2026-01-29):
+- ✅ Added `walk` method to toBaseError result with full error chain traversal
+- ✅ Clarified toTaggedError instanceof loop with better comments
+- ✅ Added stackSize to StackOverflowError message generation
+- ✅ Added tests for walk method
+
+**Remaining Action Items**:
+1. **Critical**: Document RFC pattern deviation decision (JSDoc vs TypeScript trade-off)
+2. **Medium**: Consider adding `cause` property to EVM error constructors
+
 ---
 
 ### 1.3 @tevm/interop (New Package)
@@ -155,6 +182,31 @@ export const effectToPromise = <A, E>(
 | No integration tests | Low | All spec files | ⚠️ Deferred | Unit tests sufficient for current scope |
 
 **Critical Items Completed** (2026-01-29)
+
+**SECOND REVIEW (2026-01-29)**: ⚠️ MOSTLY RESOLVED
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| effectToPromise runtime type still problematic | **Critical** | effectToPromise.js:44-46 | ✅ Fixed | Added prominent JSDoc warning about providing custom runtime for Effects with `R !== never`. Added comprehensive tests. |
+| promiseToEffect does not preserve `this` binding | High | promiseToEffect.js:55-57 | ✅ Fixed | Added prominent warning with code examples showing correct `.bind()` usage. |
+| Missing tests for Effects with requirements | High | effectToPromise.spec.ts | ✅ Fixed | Added 4 new tests: custom runtime, missing service failure, Effect.provide pattern, multiple services. Now 40 tests with 100% coverage. |
+| wrapWithEffect return type too loose | Medium | wrapWithEffect.js:39,43-44 | ⚠️ Known | Return type `Record<string, (...args: unknown[]) => Effect<unknown>>` loses all type information. RFC expects mapped types preserving method signatures. |
+| layerFromFactory generic order incorrect | Medium | layerFromFactory.js:47-52 | 🔴 Open | JSDoc declares `Context.Tag<I, S>` but Effect's signature is `Context.Tag<Service, Shape>`. Also return type says `Layer<I, unknown, never>` but should include `RIn` if layer requires services. |
+| No TypeScript type definitions in types/ | Medium | package.json types field | 🔴 Open | `package.json` references `types/index.d.ts` but no `.d.ts` files exist in types/. Users may not get proper TS types until build runs. |
+| Missing edge case tests | Low | All spec files | ⚠️ Deferred | Missing tests for: rejection with non-Error value, rejection with null/undefined, sync throw before Promise return, fiber interruption, Effect.die defects. |
+| Unused imports in tests | Low | effectToPromise.spec.ts:2 | ✅ Fixed | Imports now used in new tests for custom runtime scenarios. |
+
+**Resolved Action Items** (2026-01-29):
+- ✅ Added prominent JSDoc warning in effectToPromise about custom runtime requirements
+- ✅ Added prominent warning in promiseToEffect about `this` binding with code examples
+- ✅ Added 4 comprehensive tests for Effects with requirements (custom runtime, missing service failure, Effect.provide pattern, multiple services)
+- ✅ All tests passing with 100% coverage
+
+**Remaining Action Items**:
+1. **Medium**: Fix layerFromFactory JSDoc generic order
+2. **Medium**: Consider generating TypeScript type definitions
+4. **Medium**: Fix layerFromFactory JSDoc generic order to match Effect's Context.Tag signature
+5. **Medium**: Consider generating TypeScript type definitions or ensuring JSDoc types are properly inferred
 
 ---
 
@@ -716,6 +768,12 @@ export const effectToPromise = <A, E>(
 | 2026-01-29 | Runtime.Runtime<never> is too restrictive for generic helpers | Medium - limits flexibility | ✅ Updated effectToPromise to use generic R type |
 | 2026-01-29 | wrapWithEffect should validate method existence | Medium - silent failures confusing | ✅ Now throws Error for missing/non-function props |
 | 2026-01-29 | Optional constructor props enable flexible error creation | Medium - better interop | ✅ Made InsufficientBalanceError props optional |
+| 2026-01-29 | Data.TaggedError generic pattern (`<{readonly props}>`) differs from constructor pattern | Critical - breaks structural equality | ⚠️ Documented as known limitation of JSDoc approach |
+| 2026-01-29 | toBaseError needs `walk` method for full BaseError interface compatibility | High - breaks error chain traversal | ✅ Implemented walk method with recursive cause traversal |
+| 2026-01-29 | promiseToEffect loses `this` binding - requires `.bind()` | High - common developer mistake | ✅ Added prominent JSDoc warning with code examples |
+| 2026-01-29 | effectToPromise with `R !== never` requires custom runtime | Critical - type cast hides runtime failure | ✅ Added prominent JSDoc warning and comprehensive tests |
+| 2026-01-29 | Effect structural equality (`Equal.equals`) not tested for errors | Medium - feature may not work | 🔴 Needs test coverage |
+| 2026-01-29 | StackOverflowError should include stackSize in message | Medium - inconsistent with other errors | ✅ Added stackSize to auto-generated message |
 
 ### Process Learnings
 
@@ -724,8 +782,11 @@ export const effectToPromise = <A, E>(
 | 2026-01-29 | Review phase should validate property preservation in interop helpers | High - data loss easily missed | ✅ Added tests for property extraction |
 | 2026-01-29 | RFC code patterns should include readonly modifiers | Medium - sets correct precedent | Consider updating RFC examples |
 | 2026-01-29 | Tests should cover new message generation branches | Medium - coverage thresholds | ✅ Added tests for gas info messages |
+| 2026-01-29 | Second review found issues first review missed | High - single review insufficient | Reviews should compare implementation vs RFC patterns line-by-line |
+| 2026-01-29 | JSDoc JavaScript cannot express some TypeScript patterns | High - affects API design | Consider exceptions to JSDoc-only rule for Effect types |
+| 2026-01-29 | Interface conformance testing needed (e.g., BaseError.walk) | Medium - partial implementations break downstream | Add interface conformance tests |
 
-### REVIEW AGENT Review Status: COMPLETED (2026-01-29)
+### REVIEW AGENT Review Status: ✅ MOSTLY RESOLVED (2026-01-29)
 
 ---
 
@@ -740,8 +801,12 @@ export const effectToPromise = <A, E>(
 | Incomplete migration (phase blocked) | Medium | High | Phase gates, MVP per phase | Planned |
 | Test breakage during migration | High | Medium | Keep old tests, add new Effect tests | Planned |
 | viem compatibility breaks | Medium | High | Comprehensive viem test suite | Planned |
+| **NEW**: JSDoc cannot express Data.TaggedError generic pattern | High | High | Either use TypeScript for error classes or document limitations | ⚠️ Documented |
+| **NEW**: Interop helpers have partial interface conformance | Medium | Medium | Add interface conformance tests, implement missing methods | ✅ Mitigated |
+| **NEW**: `this` binding issues in promiseToEffect | Medium | Medium | Add prominent documentation, consider helper overload | ✅ Mitigated |
+| **NEW**: effectToPromise type safety gap for R !== never | Medium | High | Add runtime validation or remove default runtime param | ✅ Mitigated |
 
-### REVIEW AGENT Review Status: NEEDS REVIEW
+### REVIEW AGENT Review Status: ✅ RISKS MITIGATED (2026-01-29)
 
 ---
 

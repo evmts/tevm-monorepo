@@ -61,4 +61,96 @@ describe('effectToPromise', () => {
 
 		await expect(effectToPromise(effect)).rejects.toThrow('Custom error')
 	})
+
+	describe('Effects with requirements', () => {
+		it('should work with custom runtime that satisfies requirements', async () => {
+			// Define a service with requirements
+			class ConfigService extends Context.Tag('ConfigService')<ConfigService, { apiUrl: string }>() {}
+
+			// Create layer that provides the service
+			const ConfigLive = Layer.succeed(ConfigService, { apiUrl: 'https://api.example.com' })
+
+			// Effect that requires ConfigService
+			const effect = Effect.gen(function* () {
+				const config = yield* ConfigService
+				return config.apiUrl
+			})
+
+			// Create a ManagedRuntime with the layer
+			const managedRuntime = ManagedRuntime.make(ConfigLive)
+
+			// Get the runtime and use it
+			const runtime = await managedRuntime.runtime()
+			const result = await effectToPromise(effect, runtime)
+
+			expect(result).toBe('https://api.example.com')
+
+			// Clean up
+			await managedRuntime.dispose()
+		})
+
+		it('should fail at runtime when Effect has requirements but default runtime is used', async () => {
+			// Define a service with requirements
+			class MissingService extends Context.Tag('MissingService')<MissingService, { value: number }>() {}
+
+			// Effect that requires MissingService
+			const effect = Effect.gen(function* () {
+				const service = yield* MissingService
+				return service.value
+			})
+
+			// Using default runtime should fail since MissingService is not provided
+			await expect(effectToPromise(effect)).rejects.toThrow()
+		})
+
+		it('should work when Effect requirements are satisfied with Effect.provide before conversion', async () => {
+			// Define a service
+			class CounterService extends Context.Tag('CounterService')<CounterService, { getCount: () => number }>() {}
+
+			const CounterLive = Layer.succeed(CounterService, { getCount: () => 42 })
+
+			// Effect with requirements
+			const effectWithRequirements = Effect.gen(function* () {
+				const counter = yield* CounterService
+				return counter.getCount()
+			})
+
+			// Satisfy requirements with Effect.provide - R becomes never
+			const satisfiedEffect = effectWithRequirements.pipe(Effect.provide(CounterLive))
+
+			// Now can use default runtime since R is never
+			const result = await effectToPromise(satisfiedEffect)
+
+			expect(result).toBe(42)
+		})
+
+		it('should work with multiple services in custom runtime', async () => {
+			// Define multiple services
+			class ServiceA extends Context.Tag('ServiceA')<ServiceA, { valueA: string }>() {}
+			class ServiceB extends Context.Tag('ServiceB')<ServiceB, { valueB: number }>() {}
+
+			const ServiceALive = Layer.succeed(ServiceA, { valueA: 'hello' })
+			const ServiceBLive = Layer.succeed(ServiceB, { valueB: 100 })
+
+			// Combine layers
+			const AllServices = Layer.mergeAll(ServiceALive, ServiceBLive)
+
+			// Effect requiring both services
+			const effect = Effect.gen(function* () {
+				const a = yield* ServiceA
+				const b = yield* ServiceB
+				return `${a.valueA}-${b.valueB}`
+			})
+
+			// Create runtime with all services
+			const managedRuntime = ManagedRuntime.make(AllServices)
+			const runtime = await managedRuntime.runtime()
+
+			const result = await effectToPromise(effect, runtime)
+
+			expect(result).toBe('hello-100')
+
+			await managedRuntime.dispose()
+		})
+	})
 })

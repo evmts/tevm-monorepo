@@ -48,19 +48,21 @@ const errorMap = {
  * @returns {TevmError | InsufficientBalanceError | OutOfGasError | RevertError | InvalidOpcodeError | StackOverflowError | StackUnderflowError} A TaggedError instance
  */
 export const toTaggedError = (error) => {
-	// If it's already a TaggedError, return as-is
+	// If it's already a TevmError TaggedError, return as-is
 	if (error instanceof TevmError) {
 		return error
 	}
 
-	// Check for known error types
-	for (const [tag, ErrorClass] of Object.entries(errorMap)) {
+	// Check if already a known TaggedError type from this package
+	// Note: We check using Object.values since instanceof checks work for
+	// errors that were created with these exact constructors
+	for (const ErrorClass of Object.values(errorMap)) {
 		if (error instanceof ErrorClass) {
-			return error
+			return /** @type {InsufficientBalanceError | OutOfGasError | RevertError | InvalidOpcodeError | StackOverflowError | StackUnderflowError} */ (error)
 		}
 	}
 
-	// Handle BaseError from @tevm/errors
+	// Handle BaseError from @tevm/errors (has _tag property but is not an Effect TaggedError)
 	if (error && typeof error === 'object' && '_tag' in error) {
 		const baseError = /** @type {import('@tevm/errors').BaseError & Record<string, unknown>} */ (error)
 		const tag = baseError._tag
