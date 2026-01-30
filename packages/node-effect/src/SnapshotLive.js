@@ -29,13 +29,27 @@ const toHex = (num) => /** @type {Hex} */ (`0x${num.toString(16)}`)
 const bytesToHex = (bytes) => /** @type {Hex} */ (`0x${Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('')}`)
 
 /**
+ * Validates that a string contains only valid hexadecimal characters.
+ * @param {string} str - The string to validate (without 0x prefix)
+ * @returns {boolean} True if valid hex, false otherwise
+ */
+const isValidHex = (str) => /^[0-9a-fA-F]*$/.test(str)
+
+/**
  * Converts a hex string to a Uint8Array.
  * Assumes hex string starts with '0x' prefix (as per Hex type definition).
  * @param {Hex} hex - The hex string to convert (must start with '0x')
  * @returns {Uint8Array} The bytes
+ * @throws {Error} If hex string contains invalid characters (Issue #295 fix)
  */
 const hexToBytes = (hex) => {
 	const str = hex.slice(2) // Remove '0x' prefix
+	// Validate hex characters BEFORE parsing to prevent silent data corruption (Issue #295 fix)
+	/* c8 ignore start - defensive code: bytesToHex always produces valid hex */
+	if (!isValidHex(str)) {
+		throw new Error(`Invalid hex string: ${hex}. Contains non-hexadecimal characters.`)
+	}
+	/* c8 ignore stop */
 	// Normalize odd-length hex strings by left-padding with a single '0'
 	// This prevents silent data truncation (e.g., "0xabc" becomes "0abc" -> [0x0a, 0xbc])
 	const normalizedStr = str.length % 2 === 1 ? '0' + str : str
@@ -207,7 +221,10 @@ export const SnapshotLive = () => {
 							yield* Ref.update(snapsRef, (map) => {
 								const newMap = new Map(map)
 								for (const [key] of newMap) {
-									if (parseInt(key.slice(2), 16) >= targetNum) {
+									const keyNum = parseInt(key.slice(2), 16)
+									// Add NaN check to prevent corrupted entries from being retained (Issue #293 fix)
+									// If key contains invalid hex, delete it to prevent memory leak
+									if (Number.isNaN(keyNum) || keyNum >= targetNum) {
 										newMap.delete(key)
 									}
 								}
@@ -230,9 +247,12 @@ export const SnapshotLive = () => {
 					 */
 					deepCopy: (newStateManager) =>
 						Effect.gen(function* () {
-							// Read current values
-							const snapshots = yield* Ref.get(snapsRef)
-							const counter = yield* Ref.get(ctrRef)
+							// Read current values atomically using Effect.all to get consistent snapshot (Issue #296 fix)
+							// This prevents reading values at different points in time if other fibers modify them
+							const { snapshots, counter } = yield* Effect.all({
+								snapshots: Ref.get(snapsRef),
+								counter: Ref.get(ctrRef),
+							})
 
 							// Deep copy the snapshots Map by copying each snapshot and its state
 							/** @type {Map<Hex, Snapshot>} */

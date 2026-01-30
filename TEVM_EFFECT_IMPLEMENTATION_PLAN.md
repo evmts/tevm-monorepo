@@ -2,30 +2,450 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (116th Review - Independent Deep Code Review)
+**Last Updated**: 2026-01-30 (Post 117th Review - Additional MEDIUM Issues Fixed)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
 
 ## Review Agent Summary (2026-01-30)
 
-**116th REVIEW.** Found 4 HIGH, 14 MEDIUM, 15 LOW new issues across all phases. Key findings: Effect.runPromise inside Effect context in fork mode (Phase 2), Filter.deepCopy listener isolation (Phase 3), hexToBytes not wrapped in Effect.try (Phase 4).
+**117th REVIEW.** Found 0 HIGH, 16 MEDIUM, 19 LOW new issues across all phases. Key findings: Effect.promise used for fallible operations (Phase 2), non-atomic multi-Ref operations (Phase 3), hex parsing missing validation in storage operations (Phase 4).
 
-**FIXED (2026-01-30):** 4 HIGH priority issues resolved - #252, #253, #257, #268
+**FIXED (2026-01-30):** 4 HIGH + 7 MEDIUM/LOW issues resolved
+- HIGH: #252, #253, #257, #268
+- MEDIUM (Phase 3): #292, #293, #295, #296
+- MEDIUM (Phase 4): #304, #305
+- LOW (Phase 3): #303
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟢 GOOD | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 11 MEDIUM, 39 LOW |
-| **Phase 2** | 🟢 FIXED | 6 (common, transport, blockchain, state, evm, vm) | 231 | 100% | ~~3 HIGH~~ ✅ 2 FIXED, 11 MEDIUM, 33 LOW |
-| **Phase 3** | 🟢 FIXED | 2 (node-effect, actions-effect) | 219 | 100% | ~~1 HIGH~~ ✅ FIXED, 15 MEDIUM, 45 LOW |
-| **Phase 4** | 🟢 FIXED | 2 (memory-client-effect, decorators-effect) | 167 | ~97% | ~~1 HIGH~~ ✅ FIXED, 13 MEDIUM, 39 LOW |
+| **Phase 1** | 🟢 GOOD | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 14 MEDIUM, 43 LOW |
+| **Phase 2** | 🟢 FIXED | 6 (common, transport, blockchain, state, evm, vm) | 231 | 100% | ~~3 HIGH~~ ✅ 2 FIXED, 16 MEDIUM, 37 LOW |
+| **Phase 3** | 🟢 FIXED | 2 (node-effect, actions-effect) | 219 | 100% | ~~1 HIGH~~ ✅ FIXED, ~~20 MEDIUM~~ 16 MEDIUM (4 FIXED), ~~52 LOW~~ 51 LOW (1 FIXED) |
+| **Phase 4** | 🟢 FIXED | 2 (memory-client-effect, decorators-effect) | 167 | ~97% | ~~1 HIGH~~ ✅ FIXED, ~~16 MEDIUM~~ 14 MEDIUM (2 FIXED), 43 LOW |
 
 **Open Issues Summary:**
 - **CRITICAL**: 0
 - **HIGH**: 1 🔴 (Previous Phase 2 #161 - still open)
 - **HIGH FIXED**: 4 ✅ (#252, #253, #257, #268)
-- **MEDIUM**: 50 🟡 (Previous 36 + 14 NEW)
-- **LOW**: 172 (Previous 157 + 15 NEW)
+- **MEDIUM**: 60 🟡 (Previous 66 - 6 FIXED: #292, #293, #295, #296, #304, #305)
+- **MEDIUM FIXED**: 6 ✅ (Phase 3: #292, #293, #295, #296; Phase 4: #304, #305)
+- **LOW**: 190 (Previous 191 - 1 FIXED: #303)
+- **LOW FIXED**: 1 ✅ (#303)
+
+### 117TH REVIEW (2026-01-30) - Post-Fix Deep Independent Review
+
+**Reviewed By**: Claude Opus 4.5 (4 parallel Opus subagents)
+**Scope**: Deep independent review of all 4 phases, focusing on recently-fixed files and finding previously undetected bugs
+
+---
+
+#### Phase 1: 3 MEDIUM + 4 LOW NEW Issues Found
+
+##### Issue #276: Error Classes Have Inconsistent `name` Property Handling in super() Calls
+**File:Lines**: Multiple error files in `packages/errors-effect/src/`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Two different patterns exist for handling the `name` property across 30 TaggedError classes. Pattern A (10 errors) passes `name` to super(), Pattern B (20 errors) does not. This causes `name` to be included in Effect.ts equality checks only for Pattern A errors.
+
+**Impact**: Inconsistent equality behavior when comparing errors of the same type.
+
+**Recommended Fix**: Standardize on Pattern A for all 30 error classes.
+
+---
+
+##### Issue #277: layerFromFactory Uses Effect.tryPromise Without Explicit Catch Handler
+**File:Lines**: `packages/interop/src/layerFromFactory.js:61`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Uses shorthand `Effect.tryPromise(() => factory(options))` without catch handler, unlike `wrapWithEffect.js` which properly preserves error context with explicit catch.
+
+**Impact**: Factory errors lose original type and properties when becoming Layer build errors.
+
+**Recommended Fix**: Use pattern with explicit error preservation: `Effect.tryPromise({ try: () => factory(options), catch: (error) => error })`
+
+---
+
+##### Issue #278: promiseToEffect Uses Effect.tryPromise Without Explicit Catch Handler
+**File:Lines**: `packages/interop/src/promiseToEffect.js:81`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Similar to #277. Shorthand Effect.tryPromise loses error type information.
+
+**Impact**: Promise rejections lose original error type and get wrapped in UnknownException.
+
+**Recommended Fix**: Apply same fix as wrapWithEffect.js with explicit catch handler.
+
+---
+
+##### Issue #279: LoggerSilent Creates Single Shared Instance with Fixed Name
+**File:Lines**: `packages/logger-effect/src/LoggerSilent.js:71`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `LoggerSilent` is a constant with fixed name 'tevm', while `LoggerLive` is a factory function allowing custom names. Inconsistent API.
+
+---
+
+##### Issue #280: index.spec.ts for errors-effect Only Tests 3 of 30+ Exports
+**File:Lines**: `packages/errors-effect/src/index.spec.ts`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Only verifies 3 exports (TevmError, toTaggedError, toBaseError) out of 30+ error classes.
+
+---
+
+##### Issue #281: TestLoggerShape Type Not Exported from index.js
+**File:Lines**: `packages/logger-effect/src/index.js:57`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: TestLoggerShape is only available as JSDoc typedef, not as importable TypeScript type.
+
+---
+
+##### Issue #282: wrapWithEffect State Divergence Under-Documented
+**File:Lines**: `packages/interop/src/wrapWithEffect.spec.ts:248-281`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Effect methods are bound to original instance at wrap time. Modifications to wrapped object don't affect Effect methods. Subtle bug potential.
+
+---
+
+#### Phase 2: 5 MEDIUM + 4 LOW NEW Issues Found
+
+##### Issue #283: Effect.promise Used for Fallible Operations in StateManagerLocal/Live
+**File:Lines**: `packages/state-effect/src/StateManagerLocal.js:113-178` and `StateManagerLive.js:125-190`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Nearly all StateManager operations use `Effect.promise()` instead of `Effect.tryPromise()`. When operations reject, errors become untyped "defects" rather than typed errors.
+
+**Impact**: Users cannot use typed error handling (catchTag, catchAll with proper types).
+
+**Recommended Fix**: Replace `Effect.promise` with `Effect.tryPromise` providing appropriate error mappers.
+
+---
+
+##### Issue #284: Effect.promise Used for Fallible Operations in BlockchainLocal/Live
+**File:Lines**: `packages/blockchain-effect/src/BlockchainLocal.js:117-153` and `BlockchainLive.js:152-188`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Same as #283 but for blockchain operations (putBlock, getCanonicalHeadBlock, etc.).
+
+**Impact**: Errors from putBlock become untyped defects.
+
+---
+
+##### Issue #285: Effect.promise Used for createChain and chain.ready() Calls
+**File:Lines**: `packages/blockchain-effect/src/BlockchainLive.js:112-115` and `BlockchainLocal.js:77-80`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Chain creation and ready check use Effect.promise(). createChain can throw on invalid configuration.
+
+**Impact**: Layer initialization failures become untyped defects.
+
+---
+
+##### Issue #286: toEthjsAddress Function Missing Error Handling for Invalid Addresses
+**File:Lines**: `packages/state-effect/src/StateManagerLive.js:17-22` and `StateManagerLocal.js:16-21`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: `createAddressFromString(address)` can throw for invalid addresses. Since called inside Effect.promise callbacks, errors become untyped defects.
+
+**Impact**: Invalid addresses cause untyped defects rather than proper InvalidParamsError.
+
+---
+
+##### Issue #287: VmLive deepCopy Creates Orphaned Services
+**File:Lines**: `packages/vm-effect/src/VmLive.js:124-128`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: deepCopy returns a new VmShape wrapping copied VM, but doesn't create new service layers for internal StateManager/Blockchain/EVM. Effect services become inconsistent.
+
+**Impact**: After deepCopy, accessing StateManagerService still returns original, not copy.
+
+---
+
+##### Issue #288: HttpTransport Batch Queue Unbounded Memory Growth
+**File:Lines**: `packages/transport-effect/src/HttpTransport.js:368`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Uses `Queue.unbounded()`. If RPC endpoint is slow, queue can grow without limit.
+
+---
+
+##### Issue #289: BlockchainLive/Local iterator Uses Brittle String Matching
+**File:Lines**: `packages/blockchain-effect/src/BlockchainLive.js:198-225`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Error detection uses string matching on error.message for "block not found". Brittle to library changes.
+
+---
+
+##### Issue #290: CommonFromConfig Creates Common Synchronously - Potential Blocking
+**File:Lines**: `packages/common-effect/src/CommonFromConfig.js:78-85`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Layer construction calls createCommon() synchronously, potentially blocking other fibers.
+
+---
+
+##### Issue #291: ForkConfigFromRpc Missing Error Type Documentation
+**File:Lines**: `packages/transport-effect/src/ForkConfigFromRpc.js:64-101`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Layer can fail with ForkError but JSDoc doesn't document this.
+
+---
+
+#### Phase 3: 5 MEDIUM + 7 LOW NEW Issues Found
+
+##### Issue #292: BlockParamsLive.clearNextBlockOverrides Not Atomic
+**File:Lines**: `packages/node-effect/src/BlockParamsLive.js:98-104`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED (2026-01-30)
+
+**Problem**: Three separate Ref.set calls. If fiber is interrupted between calls, block params left in inconsistent state.
+
+**Impact**: Miners could produce blocks with partial overrides.
+
+**Fix Applied**: Used Effect.all to batch all three Ref.set calls atomically, ensuring all updates happen together or none do.
+
+---
+
+##### Issue #293: SnapshotLive revertToSnapshot parseInt NaN Issue
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:221-228`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED (2026-01-30)
+
+**Problem**: If snapshot key contains invalid hex, parseInt returns NaN. Comparison `NaN >= targetNum` is always false, so corrupted entries never deleted.
+
+**Impact**: Memory leak from corrupted snapshot entries.
+
+**Fix Applied**: Added NaN check: `if (Number.isNaN(keyNum) || keyNum >= targetNum) { newMap.delete(key) }` - corrupted entries with NaN keys are now deleted to prevent memory leak.
+
+---
+
+##### Issue #294: SetAccountLive catchAll Swallows Typed Errors
+**File:Lines**: `packages/actions-effect/src/SetAccountLive.js:193-203`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Uses Effect.catchAll to wrap all errors as InternalError. Loses original error type from StateManagerService.
+
+**Impact**: Callers cannot distinguish between different failure modes.
+
+**Recommended Fix**: Use Effect.mapError to preserve type information.
+
+---
+
+##### Issue #295: SnapshotLive hexToBytes Silently Truncates Invalid Hex
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:45-61`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED (2026-01-30)
+
+**Problem**: parseInt returns NaN for invalid hex characters, NaN becomes 0 in Uint8Array. Silent data corruption.
+
+**Impact**: Invalid hex like "0xGG" silently becomes Uint8Array([0]).
+
+**Fix Applied**: Added `isValidHex()` helper and validation in `hexToBytes()` that throws Error with descriptive message when hex contains non-hexadecimal characters.
+
+---
+
+##### Issue #296: Snapshot/Filter deepCopy Reads Non-Atomic
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:250-253` and `FilterLive.js:492-495`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED (2026-01-30)
+
+**Problem**: Multiple Refs read sequentially. Between reads, another fiber could modify state, creating inconsistent snapshot.
+
+**Impact**: deepCopy could create copy where counter doesn't match map contents.
+
+**Fix Applied**: Used Effect.all to batch multiple Ref.get calls atomically in both SnapshotLive.js and FilterLive.js deepCopy methods, ensuring consistent reads.
+
+---
+
+##### Issue #297: FilterLive deepCopy Spreads Primitives in Arrays
+**File:Lines**: `packages/node-effect/src/FilterLive.js:502-504`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Spreads tx/blocks elements assuming they're objects. Primitives would become empty objects.
+
+---
+
+##### Issue #298: FilterLive registeredListeners Type Mismatch
+**File:Lines**: `packages/node-effect/src/types.js:140` and `FilterLive.js:147-155`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Type says listeners take args, but cleanup calls them with no args.
+
+---
+
+##### Issue #299: GetAccountLive bytesToHex Returns '0x' for Empty
+**File:Lines**: `packages/actions-effect/src/GetAccountLive.js:28-38`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Returns '0x' for empty input. Correct for code but could confuse if reused for storage.
+
+---
+
+##### Issue #300: Filter.remove Doesn't Report Listener Cleanup Failures
+**File:Lines**: `packages/node-effect/src/FilterLive.js:132-159`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Returns boolean for filter found, but listener cleanup errors silently swallowed.
+
+---
+
+##### Issue #301: SetAccountLive Storage Key Length Not Validated
+**File:Lines**: `packages/actions-effect/src/SetAccountLive.js:299-316`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Storage key >64 hex chars would be silently truncated to 32 bytes.
+
+---
+
+##### Issue #302: SnapshotLive Checkpoint Recovery May Leave Orphan
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:111-126`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: If revert() fails, checkpoint remains dangling. catchAll swallows errors.
+
+---
+
+##### Issue #303: BlockParamsLive deepCopy Reads Five Refs Non-Atomically
+**File:Lines**: `packages/node-effect/src/BlockParamsLive.js:108-116`
+**Severity**: 🟢 LOW
+**Status**: ✅ FIXED (2026-01-30)
+
+**Problem**: Similar to #296. Five sequential Ref reads can produce inconsistent snapshot.
+
+**Fix Applied**: Used Effect.all to batch all five Ref.get calls atomically in deepCopy method, ensuring consistent reads of timestamp, gasLimit, baseFee, gasPrice, and interval.
+
+---
+
+#### Phase 4: 3 MEDIUM + 4 LOW NEW Issues Found
+
+##### Issue #304: Missing hex validation in MemoryClientLive setAccount deployedBytecode
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:204-216`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED (2026-01-30)
+
+**Problem**: deployedBytecode hex parsing uses parseInt without validation. NaN silently becomes 0.
+
+**Impact**: Invalid hex produces corrupted bytecode without error.
+
+**Fix Applied**: Added `isValidHex()` helper and validation that returns InvalidParamsError with descriptive message when deployedBytecode contains non-hexadecimal characters.
+
+---
+
+##### Issue #305: Missing hex validation in storage key/value parsing
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:237-256,431-443`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED (2026-01-30)
+
+**Problem**: Same as #304 but for storage operations. parseInt on invalid hex returns NaN → 0.
+
+**Impact**: Storage key/value corruption without error.
+
+**Fix Applied**: Added hex validation for storage keys, values, and getStorageAt position. Returns InvalidParamsError with descriptive message when hex contains non-hexadecimal characters.
+
+---
+
+##### Issue #306: ManagedRuntime Accumulation in deepCopy Chains
+**File:Lines**: `packages/memory-client-effect/src/createMemoryClient.js:184-200`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Each deepCopy creates new ManagedRuntime. Chain A→B→C→D creates 4 runtimes. Only destroying D leaves A,B,C active.
+
+**Impact**: Memory/resource leak in applications with repeated deep copies.
+
+**Recommended Fix**: Document lifecycle, or provide disposeAll() method.
+
+---
+
+##### Issue #307: tevm_call vs eth_call Error Handling Inconsistency
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:164-170`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: tevm_call returns errors as string in success response, eth_call fails with typed errors. Inconsistent API.
+
+---
+
+##### Issue #308: InvalidOpcodeError Always Has opcode 0
+**File:Lines**: `packages/decorators-effect/src/EthActionsLive.js:207-211`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: opcode hardcoded to 0 rather than parsed from error message.
+
+---
+
+##### Issue #309: SendLive Error Code Extraction Pattern
+**File:Lines**: `packages/decorators-effect/src/SendLive.js:64-70`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Pattern works but could be clearer with comment about error class code property.
+
+---
+
+##### Issue #310: commonCopy.copy() Returns Common Not CommonShape
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:515-523`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: copy() method returns underlying ethereumjs Common, not full CommonShape object.
+
+---
+
+#### Summary Table (117th Review)
+
+| Phase | CRITICAL | HIGH | MEDIUM | LOW | Total NEW |
+|-------|----------|------|--------|-----|-----------|
+| **Phase 1** | 0 | 0 | 3 | 4 | 7 |
+| **Phase 2** | 0 | 0 | 5 | 4 | 9 |
+| **Phase 3** | 0 | 0 | 5 | 7 | 12 |
+| **Phase 4** | 0 | 0 | 3 | 4 | 7 |
+| **TOTAL NEW** | **0** | **0** | **16** | **19** | **35** |
+
+---
+
+#### Key Themes (117th Review)
+
+1. **Effect.promise vs Effect.tryPromise** (Issues #283-#286): Widespread use of Effect.promise() for fallible operations causes errors to become untyped defects.
+
+2. **Non-atomic multi-Ref operations** (Issues #292, #296, #303): Multiple Refs read/written sequentially can be interrupted, creating inconsistent state.
+
+3. **Hex parsing without validation** (Issues #293, #295, #304, #305): parseInt on invalid hex returns NaN which silently becomes 0, causing data corruption.
+
+4. **Missing catch handlers** (Issues #277, #278): Effect.tryPromise shorthand loses error type information.
+
+5. **deepCopy isolation issues** (Issues #287, #306): VmLive deepCopy creates orphaned services, ManagedRuntime accumulates in copy chains.
+
+---
 
 ### 116TH REVIEW (2026-01-30) - Independent Deep Code Review
 

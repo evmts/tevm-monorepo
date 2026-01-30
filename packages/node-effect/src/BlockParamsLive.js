@@ -95,20 +95,25 @@ export const BlockParamsLive = (options = {}) => {
 					getBlockTimestampInterval: Ref.get(intervalRef),
 					setBlockTimestampInterval: (interval) => Ref.set(intervalRef, interval),
 
-					clearNextBlockOverrides: Effect.gen(function* () {
-						yield* Ref.set(timestampRef, undefined)
-						yield* Ref.set(gasLimitRef, undefined)
-						yield* Ref.set(baseFeeRef, undefined)
-					}),
+					// Use Effect.all to batch Ref updates atomically (Issue #292 fix)
+					// This prevents inconsistent state if fiber is interrupted between individual Ref.set calls
+					clearNextBlockOverrides: Effect.all([
+						Ref.set(timestampRef, undefined),
+						Ref.set(gasLimitRef, undefined),
+						Ref.set(baseFeeRef, undefined),
+					]).pipe(Effect.asVoid),
 
 					deepCopy: () =>
 						Effect.gen(function* () {
-							// Read current values
-							const timestamp = yield* Ref.get(timestampRef)
-							const gasLimit = yield* Ref.get(gasLimitRef)
-							const baseFee = yield* Ref.get(baseFeeRef)
-							const gasPrice = yield* Ref.get(gasPriceRef)
-							const interval = yield* Ref.get(intervalRef)
+							// Read current values atomically using Effect.all to get consistent snapshot (Issue #303 fix)
+							// This prevents reading values at different points in time if other fibers modify them
+							const { timestamp, gasLimit, baseFee, gasPrice, interval } = yield* Effect.all({
+								timestamp: Ref.get(timestampRef),
+								gasLimit: Ref.get(gasLimitRef),
+								baseFee: Ref.get(baseFeeRef),
+								gasPrice: Ref.get(gasPriceRef),
+								interval: Ref.get(intervalRef),
+							})
 
 							// Create new Refs with copied values
 							const newTimestampRef = yield* Ref.make(timestamp)

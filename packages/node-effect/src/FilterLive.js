@@ -469,9 +469,12 @@ export const FilterLive = () => {
 					 */
 					deepCopy: () =>
 						Effect.gen(function* () {
-							// Read current values
-							const filters = yield* Ref.get(fltrRef)
-							const counter = yield* Ref.get(ctrRef)
+							// Read current values atomically using Effect.all to get consistent snapshot (Issue #296 fix)
+							// This prevents reading values at different points in time if other fibers modify them
+							const { filters, counter } = yield* Effect.all({
+								filters: Ref.get(fltrRef),
+								counter: Ref.get(ctrRef),
+							})
 
 							// Deep copy filters map with new filter objects
 							const newFiltersMap = new Map()

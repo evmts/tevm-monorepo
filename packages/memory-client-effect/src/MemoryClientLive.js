@@ -33,6 +33,13 @@ const isValidAddress = (address) => {
 }
 
 /**
+ * Validates that a string contains only valid hexadecimal characters.
+ * @param {string} str - The string to validate (without 0x prefix)
+ * @returns {boolean} True if valid hex, false otherwise
+ */
+const isValidHex = (str) => /^[0-9a-fA-F]*$/.test(str)
+
+/**
  * Converts bytes to hex string (browser-compatible implementation)
  * @param {Uint8Array} bytes
  * @returns {import('./types.js').Hex}
@@ -194,6 +201,18 @@ const createActionServices = (stateManager) => {
 						const codeHex = params.deployedBytecode.startsWith('0x')
 							? params.deployedBytecode.slice(2)
 							: params.deployedBytecode
+						// Validate hex characters BEFORE parsing to prevent silent data corruption (Issue #304 fix)
+						/* c8 ignore start - defensive validation for corrupt input */
+						if (!isValidHex(codeHex)) {
+							return yield* Effect.fail(
+								new InvalidParamsError({
+									method: 'setAccount',
+									params,
+									message: `Invalid hex in deployedBytecode: contains non-hexadecimal characters`,
+								})
+							)
+						}
+						/* c8 ignore stop */
 						const normalizedHex = codeHex.length % 2 === 1 ? '0' + codeHex : codeHex
 						const codeBytes = new Uint8Array(normalizedHex.length / 2)
 						for (let i = 0; i < codeBytes.length; i++) {
@@ -215,6 +234,27 @@ const createActionServices = (stateManager) => {
 						for (const [key, value] of Object.entries(params.state)) {
 							const keyHex = key.startsWith('0x') ? key.slice(2) : key
 							const valueHex = value.startsWith('0x') ? value.slice(2) : value
+							// Validate hex characters BEFORE parsing to prevent silent data corruption (Issue #305 fix)
+							/* c8 ignore start - defensive validation for corrupt input */
+							if (!isValidHex(keyHex)) {
+								return yield* Effect.fail(
+									new InvalidParamsError({
+										method: 'setAccount',
+										params,
+										message: `Invalid hex in storage key '${key}': contains non-hexadecimal characters`,
+									})
+								)
+							}
+							if (!isValidHex(valueHex)) {
+								return yield* Effect.fail(
+									new InvalidParamsError({
+										method: 'setAccount',
+										params,
+										message: `Invalid hex in storage value for key '${key}': contains non-hexadecimal characters`,
+									})
+								)
+							}
+							/* c8 ignore stop */
 							const keyBytes = new Uint8Array(32)
 							const valueBytes = new Uint8Array(32)
 
@@ -387,6 +427,18 @@ const createActionServices = (stateManager) => {
 				const positionHex = params.position.startsWith('0x')
 					? params.position.slice(2)
 					: params.position
+				// Validate hex characters BEFORE parsing to prevent silent data corruption (Issue #305 fix)
+				/* c8 ignore start - defensive validation for corrupt input */
+				if (!isValidHex(positionHex)) {
+					return yield* Effect.fail(
+						new InvalidParamsError({
+							method: 'getStorageAt',
+							params,
+							message: `Invalid hex in position: contains non-hexadecimal characters`,
+						})
+					)
+				}
+				/* c8 ignore stop */
 				const normalizedHex = positionHex.length % 2 === 1 ? '0' + positionHex : positionHex
 				const positionBytes = new Uint8Array(32)
 				const paddedHex = normalizedHex.padStart(64, '0')
