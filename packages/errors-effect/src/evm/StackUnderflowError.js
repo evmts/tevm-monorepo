@@ -3,7 +3,8 @@ import { Data } from 'effect'
 /**
  * TaggedError representing a stack underflow error during EVM execution.
  *
- * This error occurs when an operation tries to pop from an empty stack.
+ * This error occurs when an operation tries to pop more items from the stack
+ * than are available.
  *
  * @example
  * ```typescript
@@ -11,12 +12,15 @@ import { Data } from 'effect'
  * import { Effect } from 'effect'
  *
  * const program = Effect.gen(function* () {
- *   yield* Effect.fail(new StackUnderflowError())
+ *   yield* Effect.fail(new StackUnderflowError({
+ *     requiredItems: 2,
+ *     availableItems: 1
+ *   }))
  * })
  *
  * // Pattern matching
  * Effect.catchTag('StackUnderflowError', (error) => {
- *   console.log('Stack underflow occurred')
+ *   console.log(`Stack underflow: needed ${error.requiredItems}, had ${error.availableItems}`)
  * })
  * ```
  */
@@ -32,6 +36,20 @@ export class StackUnderflowError extends Data.TaggedError('StackUnderflowError')
 	 * @type {string}
 	 */
 	static docsPath = '/reference/tevm/errors/classes/stackunderflowerror/'
+
+	/**
+	 * The number of stack items required by the operation
+	 * @readonly
+	 * @type {number | undefined}
+	 */
+	requiredItems
+
+	/**
+	 * The number of stack items available when underflow occurred
+	 * @readonly
+	 * @type {number | undefined}
+	 */
+	availableItems
 
 	/**
 	 * Human-readable error message
@@ -65,12 +83,25 @@ export class StackUnderflowError extends Data.TaggedError('StackUnderflowError')
 	/**
 	 * Constructs a new StackUnderflowError
 	 * @param {Object} props - Error properties
+	 * @param {number} [props.requiredItems] - The number of stack items required by the operation
+	 * @param {number} [props.availableItems] - The number of stack items available
 	 * @param {string} [props.message] - Optional custom message
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
 		super()
-		this.message = props.message ?? 'Stack underflow error occurred.'
+		/** @type {string} */
+		this.name = 'StackUnderflowError'
+		this.requiredItems = props.requiredItems
+		this.availableItems = props.availableItems
+		// Include item counts in auto-generated message when available
+		if (props.message) {
+			this.message = props.message
+		} else if (props.requiredItems !== undefined || props.availableItems !== undefined) {
+			this.message = `Stack underflow error occurred. Required ${props.requiredItems ?? 'unknown'} items, but only ${props.availableItems ?? 'unknown'} available.`
+		} else {
+			this.message = 'Stack underflow error occurred.'
+		}
 		this.code = StackUnderflowError.code
 		this.docsPath = StackUnderflowError.docsPath
 		this.cause = props.cause

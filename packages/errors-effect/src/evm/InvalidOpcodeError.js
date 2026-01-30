@@ -80,6 +80,8 @@ export class InvalidOpcodeError extends Data.TaggedError('InvalidOpcodeError') {
 	 */
 	constructor(props = {}) {
 		super()
+		/** @type {string} */
+		this.name = 'InvalidOpcodeError'
 		this.opcode = props.opcode
 		this.message = props.message ?? (props.opcode !== undefined ? `Invalid opcode: 0x${props.opcode.toString(16)}` : 'Invalid opcode encountered')
 		this.code = InvalidOpcodeError.code

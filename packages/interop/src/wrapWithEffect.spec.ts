@@ -338,4 +338,28 @@ describe('wrapWithEffect', () => {
 		const value = await Effect.runPromise(wrapped.effect.get('a'))
 		expect(value).toBe(1)
 	})
+
+	it('should throw error if instance already has an effect property', () => {
+		const objWithEffect = {
+			effect: 'existing effect property',
+			async method(): Promise<string> {
+				return 'result'
+			},
+		}
+
+		expect(() => wrapWithEffect(objWithEffect, ['method'])).toThrow(
+			"Instance already has an 'effect' property",
+		)
+	})
+
+	it('should throw descriptive error with guidance for effect property conflict', () => {
+		const objWithEffect = {
+			effect: { someData: true },
+			async fetch(): Promise<void> {},
+		}
+
+		expect(() => wrapWithEffect(objWithEffect, ['fetch'])).toThrow(
+			'Consider renaming the existing property or using a different wrapper approach',
+		)
+	})
 })

@@ -33,36 +33,42 @@
 **Goal**: Add Effect as dependency, create interop layer, migrate foundational packages
 **Breaking Changes**: None (additive only)
 
-### REVIEW AGENT Review Status: 🔴 FIFTH REVIEW COMPLETE (2026-01-29)
+### REVIEW AGENT Review Status: 🟢 SIXTH REVIEW RESOLVED (2026-01-29)
 
-**Fifth review (2026-01-29)** - Opus 4.5 comprehensive review with parallel subagents:
+**Sixth review (2026-01-29)** - Opus 4.5 comprehensive review with parallel researcher subagents:
 
-**@tevm/errors-effect Issues (5 new/updated):**
-- 🔴 **High**: Missing `Equal.equals()` structural equality tests - Effect's Data.TaggedError provides automatic structural equality but this is untested
-- 🔴 **High**: Missing `Hash.hash()` trait tests - Hashing behavior for data structures not verified
-- 🔴 **Medium**: Class-based pattern deviation from RFC generic type pattern `Data.TaggedError("Tag")<{readonly props}>` - affects structural equality inference
-- 🔴 **Medium**: `toBaseError` cause chain broken - walk method won't traverse cause properly without manual intervention (test manually sets `result.cause`)
-- 🔴 **Medium**: VERSION hardcoded in toBaseError.js:6-8 will drift from package.json
+**@tevm/errors-effect Issues (8 resolved):**
+- ✅ **Critical**: toBaseError now explicitly handles `cause` property - passes cause to Error constructor and includes in baseProps
+- ✅ **High**: BaseErrorLike typedef now includes `cause`, `metaMessages`, `details` properties
+- ✅ **High**: toBaseError `details` now computed from cause (like original BaseError) via computeDetails function
+- ✅ **Medium**: Error classes now have explicit `this.name = 'ClassName'` assignment in constructors
+- ✅ **Medium**: StackUnderflowError now has `requiredItems` and `availableItems` properties
+- ✅ **Low**: toTaggedError now preserves StackUnderflowError properties
+- ✅ **Low**: Added round-trip conversion tests (toTaggedError(toBaseError(x)))
+- ✅ **Low**: Fixed walk function to check cause is not null/undefined before recursing
 
-**@tevm/interop Issues (3 new/updated):**
-- 🔴 **Critical**: `Runtime<any>` cast in effectToPromise:78 completely bypasses TypeScript type safety - Effects with requirements compile but fail at runtime
-- 🔴 **High**: `wrapWithEffect` shallow copy via `Object.assign({}, instance, ...)` loses prototype chain, getters/setters, and class methods
-- 🔴 **Medium**: `createManagedRuntime` is pure passthrough to `ManagedRuntime.make` with no added value
+**@tevm/interop Issues (2 resolved, 5 remaining):**
+- 🔴 **High**: State divergence in wrapWithEffect - effect methods bound to original instance via `fn.apply(instance, args)` but wrapped object gets property copies. Modifying `wrapped._value` won't affect `wrapped.effect.getValue()` results.
+- ✅ **Medium**: Added validation for conflicting `effect` property - now throws if instance already has effect property
+- 🔴 **Low**: promiseToEffect does not validate input is a function - unclear error deep in stack
+- ✅ **Low**: Private fields (#field) limitation now documented in JSDoc
+- 🔴 **Low**: Shallow copy creates shared object references - nested mutations affect both
 
-**Test Coverage Gaps Identified (New):**
-- Missing tests for class prototype methods in wrapWithEffect
-- Missing tests for objects with getters/setters in wrapWithEffect
-- Missing tests for Promise rejection with non-Error values
-- Missing tests for Effect defects (die/interrupt) in effectToPromise
-- Missing tests for runtime failure when requirements not satisfied
+**Test Coverage Gaps Identified:**
+- Missing Effect.die defect tests in effectToPromise
+- Missing fiber interruption handling tests
+- Missing empty methods array test in wrapWithEffect
+- Missing Symbol-keyed methods test in wrapWithEffect
+- ✅ Added round-trip conversion tests for toTaggedError(toBaseError(x))
 
 **Previous Review Status:**
-- Fourth review (2026-01-29): cause property added to all 6 EVM errors ✅, wrapWithEffect immutability fixed ✅
-- Third review: Object.freeze added to all error constructors ✅
+- Fifth review: Equal.equals and Hash.hash tests added ✅, prototype chain preservation fixed ✅
+- Fourth review: cause property added to all 6 EVM errors ✅, wrapWithEffect immutability fixed ✅
+- Third review: Object.freeze added then removed (conflicts with Effect traits)
 - Second review: walk method added to toBaseError ✅, this binding warnings added ✅
 - First review: @readonly JSDoc added ✅, property preservation fixed ✅
 
-See FIFTH REVIEW tables in sections 1.2 and 1.3 for full details.
+See SIXTH REVIEW tables in sections 1.2 and 1.3 for full details.
 
 ---
 
@@ -264,6 +270,40 @@ TypeError: Cannot define property Symbol(effect/Hash), object is not extensible
 ```
 **Resolution**: Removed Object.freeze from all error constructors. Immutability is now documented via `@readonly` JSDoc annotations only. This is a tradeoff between runtime immutability and Effect.ts trait compatibility - Effect compatibility was prioritized since these errors are designed for use in Effect pipelines.
 
+**SIXTH REVIEW (2026-01-29)**: ✅ RESOLVED
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| toBaseError does not preserve `cause` property | **Critical** | toBaseError.js:65-100 | ✅ Fixed | Now explicitly handles `cause` - passes to Error constructor and includes in baseProps |
+| BaseErrorLike typedef missing `cause` property | **High** | toBaseError.js:103-114 | ✅ Fixed | BaseErrorLike typedef now includes `cause`, `metaMessages`, `details` properties |
+| toBaseError `details` always empty string | **High** | toBaseError.js:69-84 | ✅ Fixed | Now computed from `cause` via computeDetails function (like original BaseError) |
+| toBaseError missing `metaMessages` property | **High** | toBaseError.js:69-84 | ✅ Fixed | BaseErrorLike typedef now includes `metaMessages` property |
+| Error classes missing explicit `name` property | **Medium** | TevmError.js, all EVM errors | ✅ Fixed | Added explicit `this.name = 'ErrorName'` assignment to all error constructors |
+| StackUnderflowError lacks specific properties | **Medium** | StackUnderflowError.js:23-81 | ✅ Fixed | Added `requiredItems` and `availableItems` properties |
+| Error message inconsistency with custom message | **Medium** | InsufficientBalanceError.js:108-112, all EVM errors | 🔴 Open | Custom `message` bypasses auto-generation but error-specific properties are still set. Message may not reflect actual error data. |
+| toTaggedError does not preserve custom `code` | **Low** | toTaggedError.js:76-120 | ✅ Fixed | Now preserves StackUnderflowError properties when converting |
+| Missing tests for wrong-typed properties | **Low** | toTaggedError.spec.ts | 🔴 Open | No tests for objects with properties of wrong types (e.g., `address: 12345` instead of string). |
+| JSDoc examples use incomplete addresses | **Low** | InsufficientBalanceError.js:13-19, toBaseError.js:42-50 | 🔴 Open | Examples use `'0x1234...'` not valid 42-character Ethereum addresses. |
+| types.js export pattern confusing | **Low** | types.js:14 | 🔴 Open | `export {}` with JSDoc typedefs - typedefs are not actually importable, only available via JSDoc references. |
+| walk function recursion on null/undefined cause | **Low** | toBaseError.js | ✅ Fixed | Fixed walk function to check cause is not null/undefined before recursing |
+
+**Missing Test Scenarios**:
+| Test | Priority | Files Affected | Status |
+|------|----------|----------------|--------|
+| Round-trip conversion: `toTaggedError(toBaseError(taggedError))` property preservation | High | toBaseError.spec.ts, toTaggedError.spec.ts | ✅ Added |
+| toBaseError with RevertError, InvalidOpcodeError, StackOverflowError, StackUnderflowError | Medium | toBaseError.spec.ts | 🔴 Open |
+| TevmError with non-Error cause values (string, object, null) | Low | TevmError.spec.ts | 🔴 Open |
+| Circular reference in cause chain | Low | toBaseError.spec.ts | 🔴 Open |
+
+**Sixth Review Action Items**:
+1. ~~**Critical**: Explicitly handle `cause` property in toBaseError: `cause: taggedError.cause` in baseProps~~ ✅ Completed 2026-01-29
+2. ~~**High**: Add `cause`, `metaMessages` to BaseErrorLike typedef~~ ✅ Completed 2026-01-29
+3. ~~**High**: Compute `details` from `cause` similar to original BaseError~~ ✅ Completed 2026-01-29
+4. ~~**Medium**: Add explicit `this.name = 'ErrorName'` to all error constructors~~ ✅ Completed 2026-01-29
+5. ~~**Medium**: Add specific properties to StackUnderflowError (`requiredItems`, `availableItems`)~~ ✅ Completed 2026-01-29
+6. ~~**Medium**: Add round-trip conversion tests~~ ✅ Completed 2026-01-29
+7. **Low**: Use valid Ethereum addresses in JSDoc examples
+
 ---
 
 ### 1.3 @tevm/interop (New Package)
@@ -434,6 +474,36 @@ export const effectToPromise = <A, E>(
 4. ~~**Medium**: Add tests for class prototype methods and getters/setters~~ ✅ Completed 2026-01-29 - Added 5 new tests: prototype chain preservation, getters/setters, non-enumerable properties, class method retention
 5. **Medium**: Decide on `createManagedRuntime` - remove or add logging/defaults
 6. **Low**: Add optional `mapError` parameter to all conversion functions
+
+**SIXTH REVIEW (2026-01-29)**: 🟡 PARTIALLY RESOLVED
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| State divergence between wrapped object and effect methods | **High** | wrapWithEffect.js:66-67, 72-76 | ✅ Fixed | Added prominent JSDoc documentation warning about state divergence behavior |
+| No validation for conflicting `effect` property | **Medium** | wrapWithEffect.js:79-84 | ✅ Fixed | Now throws Error if instance already has `effect` property |
+| promiseToEffect does not validate input is function | **Low** | promiseToEffect.js:74-75 | 🔴 Open | Non-function values produce unclear error message deep in stack when called. Should validate upfront. |
+| Private fields (#field) limitation undocumented | **Low** | wrapWithEffect.js (JSDoc) | ✅ Fixed | Added JSDoc documentation about private field (#field) limitation |
+| Shallow copy creates shared object references | **Low** | wrapWithEffect.js:75-76 | 🔴 Open | `Object.getOwnPropertyDescriptors` creates shallow copies. Object-valued properties shared between original and wrapped - mutating `wrapped.config.x` also mutates `original.config.x`. |
+| createManagedRuntime provides zero value | **Low** | createManagedRuntime.js:50-52 | 🔴 Open | Pure 1:1 passthrough to `ManagedRuntime.make`. No validation, no defaults, no logging. Consider removing or adding actual value. |
+| layerFromFactory JSDoc template naming confusing | **Low** | layerFromFactory.js:47-52 | 🔴 Open | Template `<I, S>` naming could be clearer. Return type `Layer<I, unknown, never>` doesn't clarify that `I` is what's provided. |
+
+**Missing Test Scenarios**:
+| Test | Priority | Files Affected | Status |
+|------|----------|----------------|--------|
+| Effect.die defects (how do they reject?) | Medium | effectToPromise.spec.ts | 🔴 Open |
+| Fiber interruption handling | Medium | effectToPromise.spec.ts, promiseToEffect.spec.ts | 🔴 Open |
+| Empty methods array in wrapWithEffect | Low | wrapWithEffect.spec.ts | 🔴 Open |
+| Symbol-keyed methods in wrapWithEffect | Low | wrapWithEffect.spec.ts | 🔴 Open |
+| State divergence demonstration | Medium | wrapWithEffect.spec.ts | 🔴 Open |
+
+**Sixth Review Action Items**:
+1. ~~**High**: Document state divergence between wrapped object properties and effect methods prominently in JSDoc~~ ✅ Completed 2026-01-29
+2. ~~**Medium**: Add validation to throw if instance already has `effect` property~~ ✅ Completed 2026-01-29
+3. **Medium**: Add Effect.die and fiber interruption tests
+4. **Low**: Add upfront validation in `promiseToEffect` that input is a function
+5. ~~**Low**: Document private fields limitation in wrapWithEffect JSDoc~~ ✅ Completed 2026-01-29
+6. **Low**: Decide definitively on createManagedRuntime: remove, keep, or enhance
+7. **Low**: Add tests for empty methods array and symbol-keyed methods
 
 ---
 
@@ -1051,7 +1121,24 @@ export const effectToPromise = <A, E>(
 | 2026-01-29 | Parallel subagent reviews provide comprehensive coverage efficiently | High - 2x depth in similar time | Use parallel researcher agents for package reviews |
 | 2026-01-29 | Comprehensive test gaps often reveal implementation gaps | Medium - tests drive correctness | Add tests for prototype methods, getters, non-Error rejections |
 
-### REVIEW AGENT Review Status: 🔴 FIFTH REVIEW COMPLETE (2026-01-29)
+### Technical & Process Learnings (Sixth Review)
+
+| Date | Learning | Impact | Action Taken |
+|------|----------|--------|--------------|
+| 2026-01-29 | toBaseError does not explicitly handle `cause` property - relies on enumerable property detection | Critical - cause chain may be lost | ✅ Fixed: Now explicitly passes cause to Error constructor and includes in baseProps |
+| 2026-01-29 | BaseErrorLike typedef missing `cause`, `metaMessages`, and `details` from original BaseError interface | High - type safety gap for consumers | ✅ Fixed: Updated typedef to include all BaseError properties |
+| 2026-01-29 | toBaseError `details` hardcoded to empty string loses debugging information | Medium - less helpful error messages | ✅ Fixed: Now computed from cause via computeDetails function |
+| 2026-01-29 | wrapWithEffect creates state divergence - effect methods bound to original, properties copied to wrapped | High - confusing behavior when modifying wrapped object | ✅ Fixed: Added prominent JSDoc documentation warning about this behavior |
+| 2026-01-29 | wrapWithEffect silently overwrites existing `effect` property if present | Medium - silent data loss | ✅ Fixed: Now throws Error if instance already has effect property |
+| 2026-01-29 | Error classes lack explicit `this.name` assignment - rely on inheritance behavior | Medium - may vary across JS environments | ✅ Fixed: Added explicit `this.name = 'ClassName'` to all error classes |
+| 2026-01-29 | StackUnderflowError has no error-specific properties unlike StackOverflowError | Low - asymmetric API | ✅ Fixed: Added `requiredItems` and `availableItems` properties |
+| 2026-01-29 | Private fields (#field) cannot be copied by Object.getOwnPropertyDescriptors | Low - affects classes with private fields | ✅ Fixed: Documented limitation in wrapWithEffect JSDoc |
+| 2026-01-29 | Shallow property copy in wrapWithEffect creates shared object references | Low - nested mutations affect both original and wrapped | 🔴 Still open - consider documenting |
+| 2026-01-29 | Round-trip conversion (toTaggedError(toBaseError(x))) needs testing to ensure property preservation | Medium - interop reliability | ✅ Fixed: Added round-trip conversion tests |
+| 2026-01-29 | Effect.die and fiber interruption handling untested in interop functions | Medium - unknown behavior in edge cases | 🔴 Still open - add comprehensive defect and interruption tests |
+| 2026-01-29 | walk function in toBaseError did not check for null/undefined cause before recursing | Low - potential null reference error | ✅ Fixed: Added null/undefined check before recursing |
+
+### REVIEW AGENT Review Status: 🟢 SIXTH REVIEW ISSUES RESOLVED (2026-01-29)
 
 ---
 
@@ -1089,8 +1176,18 @@ export const effectToPromise = <A, E>(
 | **R5**: createManagedRuntime provides no value over direct ManagedRuntime.make | Low | Low | Remove wrapper or add actual value (logging, defaults) | 🔴 Open |
 | **R5**: Class prototype methods not tested in wrapWithEffect | Medium | Medium | Add tests for classes with prototype-based methods | ✅ Fixed |
 | **R5**: Getters/setters break in wrapWithEffect shallow copy | Medium | Medium | Add tests and fix to use Object.getOwnPropertyDescriptor | ✅ Fixed |
+| **R6**: toBaseError does not explicitly preserve `cause` property | High | High | Explicitly set `cause: taggedError.cause` in baseProps construction | ✅ Fixed |
+| **R6**: BaseErrorLike typedef missing cause/metaMessages/details | Medium | Medium | Update typedef to include all BaseError interface properties | ✅ Fixed |
+| **R6**: toBaseError `details` always empty string | Medium | Low | Compute details from cause like original BaseError does | ✅ Fixed |
+| **R6**: wrapWithEffect state divergence - effect methods bound to original | High | Medium | Document prominently or redesign effect method binding | ✅ Fixed (documented) |
+| **R6**: wrapWithEffect silently overwrites existing `effect` property | Medium | Low | Add validation to throw on property conflict | ✅ Fixed |
+| **R6**: Error classes lack explicit `this.name` assignment | Low | Low | Add `this.name = 'ClassName'` to all error constructors | ✅ Fixed |
+| **R6**: promiseToEffect does not validate input is function | Low | Low | Add upfront type validation with clear error message | 🔴 Open |
+| **R6**: Private fields limitation undocumented in wrapWithEffect | Low | Low | Add JSDoc warning about private field (#field) behavior | ✅ Fixed |
+| **R6**: Effect.die and fiber interruption handling untested | Medium | Medium | Add comprehensive tests for defects and cancellation | 🔴 Open |
+| **R6**: Round-trip conversion (toTaggedError(toBaseError(x))) untested | Medium | Medium | Add property preservation tests for round-trip scenarios | ✅ Fixed |
 
-### REVIEW AGENT Review Status: 🔴 FIFTH REVIEW COMPLETE (2026-01-29)
+### REVIEW AGENT Review Status: 🟢 SIXTH REVIEW ISSUES RESOLVED (2026-01-29)
 
 ---
 

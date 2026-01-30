@@ -93,6 +93,8 @@ export class RevertError extends Data.TaggedError('RevertError') {
 	 */
 	constructor(props = {}) {
 		super()
+		/** @type {string} */
+		this.name = 'RevertError'
 		this.data = props.data
 		this.reason = props.reason
 		this.message = props.message ?? (props.reason ? `Reverted: ${props.reason}` : 'Execution reverted')

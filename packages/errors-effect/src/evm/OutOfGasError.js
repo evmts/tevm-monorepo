@@ -89,6 +89,8 @@ export class OutOfGasError extends Data.TaggedError('OutOfGasError') {
 	 */
 	constructor(props = {}) {
 		super()
+		/** @type {string} */
+		this.name = 'OutOfGasError'
 		this.gasUsed = props.gasUsed
 		this.gasLimit = props.gasLimit
 		this.message =

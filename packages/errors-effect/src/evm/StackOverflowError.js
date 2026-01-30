@@ -80,6 +80,8 @@ export class StackOverflowError extends Data.TaggedError('StackOverflowError') {
 	 */
 	constructor(props = {}) {
 		super()
+		/** @type {string} */
+		this.name = 'StackOverflowError'
 		this.stackSize = props.stackSize
 		// Include stackSize in auto-generated message when available
 		if (props.message) {

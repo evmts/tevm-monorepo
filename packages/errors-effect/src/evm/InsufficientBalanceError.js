@@ -102,6 +102,8 @@ export class InsufficientBalanceError extends Data.TaggedError('InsufficientBala
 	 */
 	constructor(props = {}) {
 		super()
+		/** @type {string} */
+		this.name = 'InsufficientBalanceError'
 		this.address = props.address
 		this.required = props.required
 		this.available = props.available

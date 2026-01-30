@@ -15,6 +15,18 @@ import { Effect } from 'effect'
  * of the original instance. Prototype methods (like those defined on a class) will be
  * accessible on the wrapped object. Getters and setters are also preserved correctly.
  *
+ * **STATE DIVERGENCE WARNING**: The Effect methods (`.effect.*`) are bound to the
+ * ORIGINAL instance, not the wrapped copy. This means:
+ * - Modifications to the wrapped object's properties will NOT affect Effect method behavior
+ * - Effect methods will always operate on the original instance's state
+ * - This is intentional to preserve correct `this` binding for class methods
+ * - If you need synchronized state, modify the original instance or use the Effect methods exclusively
+ *
+ * **LIMITATIONS**:
+ * - JavaScript private fields (#field) cannot be copied to the wrapped object
+ * - The wrapped object performs a shallow copy - nested object mutations affect both copies
+ * - Instances with an existing 'effect' property will throw an error
+ *
  * Note: The wrapped Effect methods have an error type of `unknown` since
  * the original Promise-based methods may reject with any error type.
  *
@@ -50,8 +62,17 @@ import { Effect } from 'effect'
  * @param {(keyof T)[]} methods - Array of method names to wrap with Effect
  * @returns {T & { effect: Record<string, (...args: unknown[]) => Effect.Effect<unknown, unknown, never>> }} A new object with all original properties plus an `.effect` property
  * @throws {Error} Throws if any specified method does not exist on the instance or is not a function
+ * @throws {Error} Throws if the instance already has an 'effect' property (would be silently overwritten)
  */
 export const wrapWithEffect = (instance, methods) => {
+	// Validate that instance doesn't already have an 'effect' property to prevent silent overwrites
+	if ('effect' in instance) {
+		throw new Error(
+			"Instance already has an 'effect' property. Wrapping would overwrite it. " +
+			"Consider renaming the existing property or using a different wrapper approach."
+		)
+	}
+
 	/** @type {Record<string, (...args: unknown[]) => Effect.Effect<unknown, unknown, never>>} */
 	const effectMethods = {}
 

@@ -16,10 +16,46 @@ const VERSION = '1.0.0-next.148'
  */
 const walk = (err, fn) => {
 	if (fn?.(err)) return err
-	if (err && typeof err === 'object' && 'cause' in err) {
+	// Check both that cause property exists AND has a value (not undefined/null)
+	if (err && typeof err === 'object' && 'cause' in err && /** @type {{ cause: unknown }} */ (err).cause != null) {
 		return walk(/** @type {{ cause: unknown }} */ (err).cause, fn)
 	}
 	return fn ? null : err
+}
+
+/**
+ * Computes the details string from a cause, matching the behavior of @tevm/errors BaseError.
+ *
+ * @param {unknown} cause - The cause to extract details from.
+ * @returns {string} The computed details string.
+ */
+const computeDetails = (cause) => {
+	// If cause is null/undefined -> empty string
+	if (cause === null || cause === undefined) {
+		return ''
+	}
+	// If cause is a string -> use directly
+	if (typeof cause === 'string') {
+		return cause
+	}
+	// If cause is not an object -> empty string
+	if (typeof cause !== 'object') {
+		return ''
+	}
+	// If cause has a message property -> use it
+	if ('message' in cause && typeof cause.message === 'string') {
+		return cause.message
+	}
+	// If cause has an errorType property -> use it
+	if ('errorType' in cause && typeof cause.errorType === 'string') {
+		return cause.errorType
+	}
+	// Try to JSON.stringify the cause
+	try {
+		return JSON.stringify(cause)
+	} catch (_e) {
+		return 'Unable to parse error details'
+	}
 }
 
 /**
@@ -63,7 +99,21 @@ const walk = (err, fn) => {
  * @returns {BaseErrorLike & Omit<T, '_tag' | 'message' | 'code' | 'docsPath'>} A BaseError-like object with preserved error-specific properties
  */
 export const toBaseError = (taggedError) => {
-	const error = new Error(taggedError.message)
+	// Explicitly extract cause from taggedError to preserve error chain
+	const cause = /** @type {unknown} */ (taggedError.cause)
+
+	// Create Error with cause option to preserve error chain for walk method
+	const error = cause !== undefined
+		? new Error(taggedError.message, { cause })
+		: new Error(taggedError.message)
+
+	// Compute details from cause like the original BaseError does
+	const details = computeDetails(cause)
+
+	// Extract metaMessages if present (some errors may have this)
+	const metaMessages = /** @type {string[] | undefined} */ (
+		'metaMessages' in taggedError ? taggedError.metaMessages : undefined
+	)
 
 	// Base properties that exist on all errors
 	const baseProps = {
@@ -73,7 +123,9 @@ export const toBaseError = (taggedError) => {
 		docsPath: taggedError.docsPath,
 		shortMessage: taggedError.message,
 		version: VERSION,
-		details: '',
+		details,
+		cause,
+		metaMessages,
 		/**
 		 * Walks through the error chain to find a matching error.
 		 *
@@ -86,7 +138,7 @@ export const toBaseError = (taggedError) => {
 	// Collect error-specific properties (everything except base properties)
 	/** @type {Record<string, unknown>} */
 	const specificProps = {}
-	const baseKeys = new Set(['_tag', 'name', 'message', 'code', 'docsPath'])
+	const baseKeys = new Set(['_tag', 'name', 'message', 'code', 'docsPath', 'cause', 'metaMessages'])
 
 	for (const key of Object.keys(taggedError)) {
 		if (!baseKeys.has(key) && taggedError[/** @type {keyof T} */ (key)] !== undefined) {
@@ -109,6 +161,8 @@ export const toBaseError = (taggedError) => {
  * @property {string | undefined} docsPath - Path to documentation
  * @property {string} shortMessage - Short description of the error
  * @property {string} version - Library version
- * @property {string} details - Error details
+ * @property {string} details - Error details computed from cause (matches BaseError behavior)
+ * @property {unknown} cause - The underlying cause of the error (for error chaining)
+ * @property {string[] | undefined} metaMessages - Additional meta messages for display
  * @property {(fn?: (err: unknown) => boolean) => unknown} walk - Walk through error chain to find matching error
  */

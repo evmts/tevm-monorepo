@@ -1,8 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import { toBaseError } from './toBaseError.js'
+import { toTaggedError } from './toTaggedError.js'
 import { TevmError } from '../TevmError.js'
 import { InsufficientBalanceError } from '../evm/InsufficientBalanceError.js'
 import { OutOfGasError } from '../evm/OutOfGasError.js'
+import { RevertError } from '../evm/RevertError.js'
+import { StackUnderflowError } from '../evm/StackUnderflowError.js'
+import { StackOverflowError } from '../evm/StackOverflowError.js'
 
 describe('toBaseError', () => {
 	it('should convert TevmError to BaseError-like object', () => {
@@ -170,9 +174,7 @@ describe('toBaseError', () => {
 		it('should traverse error chain through cause property', () => {
 			// Create a chain of errors
 			const rootCause = new Error('Root cause')
-			const middleError = new Error('Middle error')
-			// @ts-expect-error - adding cause property
-			middleError.cause = rootCause
+			const middleError = new Error('Middle error', { cause: rootCause })
 
 			const topError = new TevmError({
 				message: 'Top error',
@@ -181,8 +183,9 @@ describe('toBaseError', () => {
 			})
 
 			const result = toBaseError(topError)
-			// @ts-expect-error - result has cause property
-			result.cause = middleError
+
+			// Cause should be automatically preserved by toBaseError
+			expect(result.cause).toBe(middleError)
 
 			// Find the first error that is a plain Error (no _tag property)
 			// This should traverse from result (has _tag) to middleError (no _tag)
@@ -192,6 +195,168 @@ describe('toBaseError', () => {
 
 			// Should find middleError since it's the first in the chain without _tag
 			expect(walked).toBe(middleError)
+		})
+	})
+
+	describe('cause property preservation', () => {
+		it('should explicitly preserve cause property', () => {
+			const cause = new Error('Underlying cause')
+			const error = new TevmError({
+				message: 'Top level error',
+				code: -32000,
+				cause,
+			})
+
+			const result = toBaseError(error)
+
+			expect(result.cause).toBe(cause)
+		})
+
+		it('should handle undefined cause', () => {
+			const error = new TevmError({
+				message: 'No cause',
+				code: -32000,
+			})
+
+			const result = toBaseError(error)
+
+			expect(result.cause).toBeUndefined()
+		})
+	})
+
+	describe('details computation', () => {
+		it('should compute details from cause message', () => {
+			const cause = new Error('This is the underlying error')
+			const error = new TevmError({
+				message: 'Top error',
+				code: -32000,
+				cause,
+			})
+
+			const result = toBaseError(error)
+
+			expect(result.details).toBe('This is the underlying error')
+		})
+
+		it('should compute empty details when no cause', () => {
+			const error = new TevmError({
+				message: 'No cause',
+				code: -32000,
+			})
+
+			const result = toBaseError(error)
+
+			expect(result.details).toBe('')
+		})
+
+		it('should use string cause directly as details', () => {
+			const error = new TevmError({
+				message: 'Top error',
+				code: -32000,
+				cause: 'String cause',
+			})
+
+			const result = toBaseError(error)
+
+			expect(result.details).toBe('String cause')
+		})
+
+		it('should JSON stringify object causes without message', () => {
+			const error = new TevmError({
+				message: 'Top error',
+				code: -32000,
+				cause: { code: 123, data: 'test' },
+			})
+
+			const result = toBaseError(error)
+
+			expect(result.details).toBe('{"code":123,"data":"test"}')
+		})
+	})
+
+	describe('round-trip conversion', () => {
+		it('should preserve InsufficientBalanceError properties through round-trip', () => {
+			const original = new InsufficientBalanceError({
+				address: '0x1234567890123456789012345678901234567890',
+				required: 1000000n,
+				available: 500000n,
+			})
+
+			const baseError = toBaseError(original)
+			const roundTripped = toTaggedError(baseError)
+
+			expect(roundTripped._tag).toBe('InsufficientBalanceError')
+			expect((roundTripped as InsufficientBalanceError).address).toBe('0x1234567890123456789012345678901234567890')
+			expect((roundTripped as InsufficientBalanceError).required).toBe(1000000n)
+			expect((roundTripped as InsufficientBalanceError).available).toBe(500000n)
+		})
+
+		it('should preserve OutOfGasError properties through round-trip', () => {
+			const original = new OutOfGasError({
+				gasUsed: 50000n,
+				gasLimit: 21000n,
+			})
+
+			const baseError = toBaseError(original)
+			const roundTripped = toTaggedError(baseError)
+
+			expect(roundTripped._tag).toBe('OutOfGasError')
+			expect((roundTripped as OutOfGasError).gasUsed).toBe(50000n)
+			expect((roundTripped as OutOfGasError).gasLimit).toBe(21000n)
+		})
+
+		it('should preserve RevertError properties through round-trip', () => {
+			const original = new RevertError({
+				data: '0xaabbccdd',
+				reason: 'Insufficient allowance',
+			})
+
+			const baseError = toBaseError(original)
+			const roundTripped = toTaggedError(baseError)
+
+			expect(roundTripped._tag).toBe('RevertError')
+			expect((roundTripped as RevertError).data).toBe('0xaabbccdd')
+			expect((roundTripped as RevertError).reason).toBe('Insufficient allowance')
+		})
+
+		it('should preserve StackUnderflowError properties through round-trip', () => {
+			const original = new StackUnderflowError({
+				requiredItems: 3,
+				availableItems: 1,
+			})
+
+			const baseError = toBaseError(original)
+			const roundTripped = toTaggedError(baseError)
+
+			expect(roundTripped._tag).toBe('StackUnderflowError')
+			expect((roundTripped as StackUnderflowError).requiredItems).toBe(3)
+			expect((roundTripped as StackUnderflowError).availableItems).toBe(1)
+		})
+
+		it('should preserve StackOverflowError properties through round-trip', () => {
+			const original = new StackOverflowError({
+				stackSize: 1025,
+			})
+
+			const baseError = toBaseError(original)
+			const roundTripped = toTaggedError(baseError)
+
+			expect(roundTripped._tag).toBe('StackOverflowError')
+			expect((roundTripped as StackOverflowError).stackSize).toBe(1025)
+		})
+
+		it('should preserve cause through round-trip', () => {
+			const cause = new Error('Original cause')
+			const original = new TevmError({
+				message: 'Test error',
+				code: -32000,
+				cause,
+			})
+
+			const baseError = toBaseError(original)
+			const roundTripped = toTaggedError(baseError)
+
+			expect(roundTripped.cause).toBe(cause)
 		})
 	})
 })

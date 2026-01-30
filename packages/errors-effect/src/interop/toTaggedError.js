@@ -114,6 +114,8 @@ export const toTaggedError = (error) => {
 			}
 			if (tag === 'StackUnderflowError') {
 				return new StackUnderflowError({
+					requiredItems: typeof baseError.requiredItems === 'number' ? baseError.requiredItems : undefined,
+					availableItems: typeof baseError.availableItems === 'number' ? baseError.availableItems : undefined,
 					message: baseError.message,
 					cause: baseError.cause,
 				})

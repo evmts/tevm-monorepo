@@ -57,6 +57,8 @@ export class TevmError extends Data.TaggedError('TevmError') {
 	 */
 	constructor(props) {
 		super()
+		/** @type {string} */
+		this.name = 'TevmError'
 		this.message = props.message
 		this.code = props.code ?? 0
 		this.docsPath = props.docsPath
