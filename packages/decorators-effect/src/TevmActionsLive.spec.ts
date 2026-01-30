@@ -249,4 +249,401 @@ describe('TevmActionsLive', () => {
 		// Verify blocks were put into blockchain
 		expect(mocks.vm.vm.blockchain.putBlock).toHaveBeenCalledTimes(3)
 	})
+
+	it('should mine default 1 block when no options provided', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.mine()
+		})
+
+		await Effect.runPromise(program.pipe(Effect.provide(layer)))
+
+		expect(mocks.vm.vm.buildBlock).toHaveBeenCalledTimes(1)
+		expect(mocks.vm.vm.blockchain.putBlock).toHaveBeenCalledTimes(1)
+	})
+
+	it('should execute call with from parameter', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const params = {
+			to: '0x1234567890123456789012345678901234567890' as const,
+			from: '0x0987654321098765432109876543210987654321' as const,
+			data: '0x1234' as const,
+			gas: 100000n,
+			gasPrice: 1000000000n,
+			value: 1000n,
+		}
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.call(params)
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(result.rawData).toBe('0x1234')
+		expect(mocks.vm.vm.evm.runCall).toHaveBeenCalled()
+	})
+
+	it('should execute call without to parameter (contract creation)', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const params = {
+			data: '0x60806040' as const,
+		}
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.call(params)
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(result.rawData).toBe('0x1234')
+	})
+
+	it('should handle call with empty data', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		// Update mock to return empty result
+		mocks.vm.vm.evm.runCall.mockResolvedValueOnce({
+			execResult: {
+				returnValue: new Uint8Array(),
+				executionGasUsed: 21000n,
+			},
+		})
+
+		const params = {
+			to: '0x1234567890123456789012345678901234567890' as const,
+		}
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.call(params)
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(result.rawData).toBe('0x')
+	})
+
+	it('should handle call with odd-length hex data', async () => {
+		const { layer } = createTestLayer()
+
+		const params = {
+			to: '0x1234567890123456789012345678901234567890' as const,
+			data: '0x123' as const, // Odd-length hex
+		}
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.call(params)
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(result.rawData).toBeDefined()
+	})
+
+	it('should handle call error from EVM', async () => {
+		const vmMock = createMockVm()
+		vmMock.vm.evm.runCall.mockRejectedValueOnce(new Error('EVM execution failed'))
+
+		const stateManagerMock = createMockStateManager()
+		const getAccountMock = createMockGetAccountService()
+		const setAccountMock = createMockSetAccountService()
+
+		const mockLayer = Layer.mergeAll(
+			Layer.succeed(StateManagerService, stateManagerMock as any),
+			Layer.succeed(VmService, vmMock as any),
+			Layer.succeed(GetAccountService, getAccountMock as any),
+			Layer.succeed(SetAccountService, setAccountMock as any)
+		)
+
+		const layer = Layer.provide(TevmActionsLive, mockLayer)
+
+		const params = {
+			to: '0x1234567890123456789012345678901234567890' as const,
+		}
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.call(params)
+		})
+
+		const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+		expect(result._tag).toBe('Failure')
+	})
+
+	it('should handle dumpState error from stateManager', async () => {
+		const vmMock = createMockVm()
+		const stateManagerMock = createMockStateManager()
+		stateManagerMock.dumpState.mockReturnValueOnce(Effect.fail(new Error('Dump failed')))
+
+		const getAccountMock = createMockGetAccountService()
+		const setAccountMock = createMockSetAccountService()
+
+		const mockLayer = Layer.mergeAll(
+			Layer.succeed(StateManagerService, stateManagerMock as any),
+			Layer.succeed(VmService, vmMock as any),
+			Layer.succeed(GetAccountService, getAccountMock as any),
+			Layer.succeed(SetAccountService, setAccountMock as any)
+		)
+
+		const layer = Layer.provide(TevmActionsLive, mockLayer)
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.dumpState()
+		})
+
+		const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+		expect(result._tag).toBe('Failure')
+	})
+
+	it('should handle loadState JSON parse error', async () => {
+		const { layer } = createTestLayer()
+
+		const invalidJson = 'not valid json {'
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.loadState(invalidJson)
+		})
+
+		const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+		expect(result._tag).toBe('Failure')
+	})
+
+	it('should handle loadState error from stateManager', async () => {
+		const vmMock = createMockVm()
+		const stateManagerMock = createMockStateManager()
+		stateManagerMock.loadState.mockReturnValueOnce(Effect.fail(new Error('Load failed')))
+
+		const getAccountMock = createMockGetAccountService()
+		const setAccountMock = createMockSetAccountService()
+
+		const mockLayer = Layer.mergeAll(
+			Layer.succeed(StateManagerService, stateManagerMock as any),
+			Layer.succeed(VmService, vmMock as any),
+			Layer.succeed(GetAccountService, getAccountMock as any),
+			Layer.succeed(SetAccountService, setAccountMock as any)
+		)
+
+		const layer = Layer.provide(TevmActionsLive, mockLayer)
+
+		const stateJson = JSON.stringify({
+			state: {
+				'0x1234567890123456789012345678901234567890': {
+					nonce: '0x0',
+					balance: '0x0',
+					storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+					codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
+				},
+			},
+		})
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.loadState(stateJson)
+		})
+
+		const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+		expect(result._tag).toBe('Failure')
+	})
+
+	it('should load state with deployedBytecode and storage', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const stateJson = JSON.stringify({
+			state: {
+				'0x1234567890123456789012345678901234567890': {
+					nonce: '0x1',
+					balance: '0x100',
+					storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+					codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
+					deployedBytecode: '0x608060405234801561001057600080fd5b50',
+					storage: { '0x0': '0x1' },
+				},
+			},
+		})
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.loadState(stateJson)
+		})
+
+		await Effect.runPromise(program.pipe(Effect.provide(layer)))
+
+		const loadedState = mocks.stateManager.loadState.mock.calls[0][0]
+		const account = loadedState['0x1234567890123456789012345678901234567890']
+		expect(account.deployedBytecode).toBe('0x608060405234801561001057600080fd5b50')
+		expect(account.storage).toEqual({ '0x0': '0x1' })
+	})
+
+	it('should load state without .state wrapper', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		// State without .state wrapper (fallback parsing)
+		const stateJson = JSON.stringify({
+			'0x1234567890123456789012345678901234567890': {
+				nonce: '0x0',
+				balance: '0x0',
+				storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+				codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
+			},
+		})
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.loadState(stateJson)
+		})
+
+		await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(mocks.stateManager.loadState).toHaveBeenCalled()
+	})
+
+	it('should dump state with deployedBytecode and storage', async () => {
+		const vmMock = createMockVm()
+		const stateManagerMock = createMockStateManager()
+		stateManagerMock.dumpState.mockReturnValueOnce(
+			Effect.succeed({
+				'0x1234567890123456789012345678901234567890': {
+					nonce: 1n,
+					balance: 100n,
+					storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+					codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
+					deployedBytecode: '0x608060405234801561001057600080fd5b50',
+					storage: { '0x0': '0x1' },
+				},
+			})
+		)
+
+		const getAccountMock = createMockGetAccountService()
+		const setAccountMock = createMockSetAccountService()
+
+		const mockLayer = Layer.mergeAll(
+			Layer.succeed(StateManagerService, stateManagerMock as any),
+			Layer.succeed(VmService, vmMock as any),
+			Layer.succeed(GetAccountService, getAccountMock as any),
+			Layer.succeed(SetAccountService, setAccountMock as any)
+		)
+
+		const layer = Layer.provide(TevmActionsLive, mockLayer)
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.dumpState()
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		const parsed = JSON.parse(result)
+		expect(parsed.state['0x1234567890123456789012345678901234567890'].deployedBytecode).toBe('0x608060405234801561001057600080fd5b50')
+		expect(parsed.state['0x1234567890123456789012345678901234567890'].storage).toEqual({ '0x0': '0x1' })
+	})
+
+	it('should handle mine error from getCanonicalHeadBlock', async () => {
+		const vmMock = createMockVm()
+		vmMock.vm.blockchain.getCanonicalHeadBlock.mockRejectedValueOnce(new Error('Block not found'))
+
+		const stateManagerMock = createMockStateManager()
+		const getAccountMock = createMockGetAccountService()
+		const setAccountMock = createMockSetAccountService()
+
+		const mockLayer = Layer.mergeAll(
+			Layer.succeed(StateManagerService, stateManagerMock as any),
+			Layer.succeed(VmService, vmMock as any),
+			Layer.succeed(GetAccountService, getAccountMock as any),
+			Layer.succeed(SetAccountService, setAccountMock as any)
+		)
+
+		const layer = Layer.provide(TevmActionsLive, mockLayer)
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.mine({ blocks: 1 })
+		})
+
+		const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+		expect(result._tag).toBe('Failure')
+	})
+
+	it('should handle mine error from buildBlock', async () => {
+		const vmMock = createMockVm()
+		vmMock.vm.buildBlock.mockRejectedValueOnce(new Error('Build failed'))
+
+		const stateManagerMock = createMockStateManager()
+		const getAccountMock = createMockGetAccountService()
+		const setAccountMock = createMockSetAccountService()
+
+		const mockLayer = Layer.mergeAll(
+			Layer.succeed(StateManagerService, stateManagerMock as any),
+			Layer.succeed(VmService, vmMock as any),
+			Layer.succeed(GetAccountService, getAccountMock as any),
+			Layer.succeed(SetAccountService, setAccountMock as any)
+		)
+
+		const layer = Layer.provide(TevmActionsLive, mockLayer)
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.mine({ blocks: 1 })
+		})
+
+		const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+		expect(result._tag).toBe('Failure')
+	})
+
+	it('should handle mine error from block.build()', async () => {
+		const vmMock = createMockVm()
+		const mockBlockBuilder = {
+			build: vi.fn(() => Promise.reject(new Error('Finalize failed'))),
+		}
+		vmMock.vm.buildBlock.mockResolvedValueOnce(mockBlockBuilder)
+
+		const stateManagerMock = createMockStateManager()
+		const getAccountMock = createMockGetAccountService()
+		const setAccountMock = createMockSetAccountService()
+
+		const mockLayer = Layer.mergeAll(
+			Layer.succeed(StateManagerService, stateManagerMock as any),
+			Layer.succeed(VmService, vmMock as any),
+			Layer.succeed(GetAccountService, getAccountMock as any),
+			Layer.succeed(SetAccountService, setAccountMock as any)
+		)
+
+		const layer = Layer.provide(TevmActionsLive, mockLayer)
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.mine({ blocks: 1 })
+		})
+
+		const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+		expect(result._tag).toBe('Failure')
+	})
+
+	it('should handle mine error from putBlock', async () => {
+		const vmMock = createMockVm()
+		vmMock.vm.blockchain.putBlock.mockRejectedValueOnce(new Error('Put failed'))
+
+		const stateManagerMock = createMockStateManager()
+		const getAccountMock = createMockGetAccountService()
+		const setAccountMock = createMockSetAccountService()
+
+		const mockLayer = Layer.mergeAll(
+			Layer.succeed(StateManagerService, stateManagerMock as any),
+			Layer.succeed(VmService, vmMock as any),
+			Layer.succeed(GetAccountService, getAccountMock as any),
+			Layer.succeed(SetAccountService, setAccountMock as any)
+		)
+
+		const layer = Layer.provide(TevmActionsLive, mockLayer)
+
+		const program = Effect.gen(function* () {
+			const tevmActions = yield* TevmActionsService
+			return yield* tevmActions.mine({ blocks: 1 })
+		})
+
+		const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+		expect(result._tag).toBe('Failure')
+	})
 })

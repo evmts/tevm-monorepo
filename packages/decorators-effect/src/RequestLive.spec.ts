@@ -184,4 +184,290 @@ describe('RequestLive', () => {
 			Effect.runPromise(program.pipe(Effect.provide(layer)))
 		).rejects.toThrow('Unsupported method')
 	})
+
+	it('should handle eth_gasPrice request', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'eth_gasPrice',
+				params: [],
+			})
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(result).toBe('0x3b9aca00') // 1 gwei in hex
+		expect(mocks.ethActions.gasPrice).toHaveBeenCalled()
+	})
+
+	it('should handle eth_call request', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'eth_call',
+				params: [{ to: '0x1234567890123456789012345678901234567890', data: '0x1234' }],
+			})
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(result).toBe('0x')
+		expect(mocks.ethActions.call).toHaveBeenCalled()
+	})
+
+	it('should fail eth_call with missing params', async () => {
+		const { layer } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'eth_call',
+				params: [],
+			})
+		})
+
+		await expect(
+			Effect.runPromise(program.pipe(Effect.provide(layer)))
+		).rejects.toThrow('Missing call parameters')
+	})
+
+	it('should fail eth_getBalance with missing address', async () => {
+		const { layer } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'eth_getBalance',
+				params: [],
+			})
+		})
+
+		await expect(
+			Effect.runPromise(program.pipe(Effect.provide(layer)))
+		).rejects.toThrow('Missing address parameter')
+	})
+
+	it('should handle eth_getBalance without blockTag', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'eth_getBalance',
+				params: ['0x1234567890123456789012345678901234567890'],
+			})
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(result).toBe('0xde0b6b3a7640000')
+		expect(mocks.ethActions.getBalance).toHaveBeenCalled()
+	})
+
+	it('should handle eth_getCode request', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'eth_getCode',
+				params: ['0x1234567890123456789012345678901234567890', 'latest'],
+			})
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(result).toBe('0x')
+		expect(mocks.ethActions.getCode).toHaveBeenCalled()
+	})
+
+	it('should fail eth_getCode with missing address', async () => {
+		const { layer } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'eth_getCode',
+				params: [],
+			})
+		})
+
+		await expect(
+			Effect.runPromise(program.pipe(Effect.provide(layer)))
+		).rejects.toThrow('Missing address parameter')
+	})
+
+	it('should handle eth_getStorageAt request', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'eth_getStorageAt',
+				params: ['0x1234567890123456789012345678901234567890', '0x0', 'latest'],
+			})
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(result).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
+		expect(mocks.ethActions.getStorageAt).toHaveBeenCalled()
+	})
+
+	it('should fail eth_getStorageAt with missing address', async () => {
+		const { layer } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'eth_getStorageAt',
+				params: [],
+			})
+		})
+
+		await expect(
+			Effect.runPromise(program.pipe(Effect.provide(layer)))
+		).rejects.toThrow('Missing address or position parameter')
+	})
+
+	it('should fail tevm_getAccount with missing address', async () => {
+		const { layer } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'tevm_getAccount',
+				params: [{}],
+			})
+		})
+
+		await expect(
+			Effect.runPromise(program.pipe(Effect.provide(layer)))
+		).rejects.toThrow('Missing address parameter')
+	})
+
+	it('should fail tevm_setAccount with missing address', async () => {
+		const { layer } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'tevm_setAccount',
+				params: [{}],
+			})
+		})
+
+		await expect(
+			Effect.runPromise(program.pipe(Effect.provide(layer)))
+		).rejects.toThrow('Missing address parameter')
+	})
+
+	it('should handle tevm_call request', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'tevm_call',
+				params: [{ to: '0x1234567890123456789012345678901234567890' }],
+			})
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect((result as any).rawData).toBe('0x')
+		expect(mocks.tevmActions.call).toHaveBeenCalled()
+	})
+
+	it('should handle tevm_call with no params', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'tevm_call',
+				params: [],
+			})
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect((result as any).rawData).toBe('0x')
+		expect(mocks.tevmActions.call).toHaveBeenCalledWith({})
+	})
+
+	it('should handle tevm_dumpState request', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'tevm_dumpState',
+				params: [],
+			})
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(result).toBe('0x')
+		expect(mocks.tevmActions.dumpState).toHaveBeenCalled()
+	})
+
+	it('should handle tevm_loadState request', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'tevm_loadState',
+				params: ['0x1234'],
+			})
+		})
+
+		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(result).toBe(null)
+		expect(mocks.tevmActions.loadState).toHaveBeenCalledWith('0x1234')
+	})
+
+	it('should fail tevm_loadState with missing state', async () => {
+		const { layer } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'tevm_loadState',
+				params: [],
+			})
+		})
+
+		await expect(
+			Effect.runPromise(program.pipe(Effect.provide(layer)))
+		).rejects.toThrow('Missing state parameter')
+	})
+
+	it('should handle anvil_mine request', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'anvil_mine',
+				params: ['0x5'], // 5 blocks
+			})
+		})
+
+		await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(mocks.tevmActions.mine).toHaveBeenCalledWith({ blocks: 5 })
+	})
+
+	it('should handle evm_mine with no params (default 1 block)', async () => {
+		const { layer, mocks } = createTestLayer()
+
+		const program = Effect.gen(function* () {
+			const requestService = yield* RequestService
+			return yield* requestService.request({
+				method: 'evm_mine',
+				params: [],
+			})
+		})
+
+		await Effect.runPromise(program.pipe(Effect.provide(layer)))
+		expect(mocks.tevmActions.mine).toHaveBeenCalledWith({ blocks: 1 })
+	})
 })
