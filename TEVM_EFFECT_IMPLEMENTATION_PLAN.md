@@ -9,7 +9,7 @@
 
 ## Review Agent Summary (2026-01-30)
 
-**SEVENTY-SECOND REVIEW.** All HIGH and 1 MEDIUM issues from 71st review now RESOLVED. Tests pass (65 total: 31 memory-client-effect, 34 decorators-effect).
+**SEVENTY-FOURTH REVIEW.** All CRITICAL and HIGH issues from 73rd review RESOLVED. Phase 4 now fully compliant.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
@@ -19,10 +19,193 @@
 | **Phase 4** | 🟢 VERIFIED | 2 (memory-client-effect, decorators-effect) | 65 | ~85% | ✅ COMPLIANT (0 CRITICAL, 0 HIGH) |
 
 **Open Issues Summary:**
-- **CRITICAL**: 0 ✅ (all resolved)
-- **HIGH**: 0 ✅ (all resolved)
+- **CRITICAL**: 0 ✅
+- **HIGH**: 0 ✅
 - **MEDIUM**: 10 🟡 (missing validations, type mismatches, encapsulation violations)
 - **LOW**: 5 (documentation issues, unused functions)
+
+---
+
+### SEVENTY-FOURTH REVIEW (2026-01-30) - All 73rd Review Issues RESOLVED
+
+**Reviewed By**: Claude Opus 4.5
+**Scope**: Resolution of all CRITICAL and HIGH issues identified in 73rd review
+
+---
+
+#### ✅ CRITICAL Issue RESOLVED
+
+##### 1. createMemoryClient.js - effect.layer Inconsistency Across Nesting Levels - FIXED
+**Status**: ✅ RESOLVED
+
+**Fix Applied**: Made all deep-copied clients consistently throw an error when accessing `effect.layer`. Previously, only nested copies (via `createDeepCopyClient`) threw an error, while first-level copies exposed `copiedLayer`. Now both behave consistently - all deep copies throw with the same helpful error message directing users to use `effect.runtime` instead.
+
+```javascript
+// Now consistent across ALL deep-copied clients:
+get layer() {
+    throw new Error('layer is not available on deep-copied clients. Use effect.runtime instead, or access the layer from the original client.')
+}
+```
+
+---
+
+#### ✅ All HIGH Issues RESOLVED
+
+##### 2. createMemoryClient.js - Runtime Disposal on Failure - FIXED
+**Status**: ✅ RESOLVED
+
+**Fix Applied**: Added try/catch blocks around all `createDeepCopyClient()` calls to ensure `ManagedRuntime` is properly disposed if an exception occurs during client creation.
+
+```javascript
+const nestedRuntime = ManagedRuntime.make(nestedLayer)
+try {
+    return createDeepCopyClient(nestedRuntime)
+} catch (e) {
+    nestedRuntime.dispose()
+    throw e
+}
+```
+
+##### 3. createMemoryClient.js - MemoryClientShape Contract Validation - FIXED
+**Status**: ✅ RESOLVED
+
+**Fix Applied**: Added `validateMemoryClientShape()` function that validates copied shapes implement all 12 required methods before creating layers. This provides early, clear error messages if the shape is malformed.
+
+```javascript
+const REQUIRED_SHAPE_METHODS = [
+    'ready', 'getBlockNumber', 'getChainId', 'getAccount', 'setAccount',
+    'getBalance', 'getCode', 'getStorageAt', 'takeSnapshot',
+    'revertToSnapshot', 'deepCopy', 'dispose'
+]
+
+const validateMemoryClientShape = (shape) => {
+    const missingMethods = REQUIRED_SHAPE_METHODS.filter(m => !(m in shape))
+    if (missingMethods.length > 0) {
+        throw new Error(`Invalid MemoryClientShape: missing required methods: ${missingMethods.join(', ')}`)
+    }
+    return shape
+}
+```
+
+---
+
+#### Test Results After Fixes
+
+| Package | Tests | Status |
+|---------|-------|--------|
+| memory-client-effect | 31 | ✅ All Pass |
+| decorators-effect | 34 | ✅ All Pass |
+| **Total** | **65** | ✅ **All Pass** |
+
+---
+
+### SEVENTY-THIRD REVIEW (2026-01-30) - NEW CRITICAL and HIGH Issues Found (NOW RESOLVED - see 74th review)
+
+**Reviewed By**: Claude Opus 4.5 (2 parallel Explore subagents)
+**Scope**: Full re-review of @tevm/memory-client-effect and @tevm/decorators-effect
+
+---
+
+#### @tevm/decorators-effect: ✅ NO NEW ISSUES FOUND
+
+All previously fixed issues remain resolved:
+- ✅ gasPrice error type correctly set to `never`
+- ✅ parentBlock properly used in buildBlock call
+- ✅ dumpState/loadState correctly serializes BigInt to hex strings
+
+---
+
+#### @tevm/memory-client-effect: 🔴 NEW ISSUES FOUND
+
+##### 🔴 CRITICAL: effect.layer Property Inconsistency Across Nesting Levels
+
+**File:Lines**: createMemoryClient.js:137-140, 327-330, 336-339
+**Package**: memory-client-effect
+**Status**: ✅ RESOLVED (see 74th review)
+
+**Problem**: The main client and first deepCopy client provide `effect.layer` as an accessible property (lines 336-339, 327-330). However, nested deepCopy clients created by `createDeepCopyClient` throw an error when accessing `effect.layer` (lines 137-140). This creates inconsistent API behavior where clients at different nesting levels behave differently for the same property.
+
+**Evidence**:
+```javascript
+// Main client (lines 336-339): layer is accessible
+effect: {
+    runtime: managedRuntime,
+    layer: fullLayer,  // Works
+}
+
+// Nested deepCopy (lines 137-140): layer throws error
+get layer() {
+    throw new Error('Layer not available on deep-copied clients...')
+}
+```
+
+**Impact**: Users cannot rely on consistent `effect.layer` behavior. Code that works on main client fails silently when called on nested copied clients. API contract violation.
+
+**Recommended Fix**: Either:
+1. Make ALL clients throw on layer access (consistent behavior), OR
+2. Properly reconstruct the layer for all client types (consistent availability)
+
+---
+
+##### 🔴 HIGH: Potential Unhandled Runtime Disposal in Nested deepCopy
+
+**File:Lines**: createMemoryClient.js:319-325
+**Package**: memory-client-effect
+**Status**: ✅ RESOLVED (see 74th review)
+
+**Problem**: The nested deepCopy method creates a `ManagedRuntime` at line 322 but has no error handling. If an exception is thrown during `createDeepCopyClient(nestedRuntime)` at line 324, the runtime is created but never disposed.
+
+**Evidence**:
+```javascript
+deepCopy: async () => {
+    const copiedShape = await Effect.runPromise(...)
+    const nestedRuntime = ManagedRuntime.make(...)  // Created here
+    return createDeepCopyClient(nestedRuntime)       // If this throws, runtime leaks
+}
+```
+
+**Impact**: Resource leak - ManagedRuntime resources are not cleaned up on failure. Repeated failures could exhaust resources.
+
+**Recommended Fix**: Wrap in try/catch and dispose runtime on failure:
+```javascript
+const nestedRuntime = ManagedRuntime.make(...)
+try {
+    return createDeepCopyClient(nestedRuntime)
+} catch (e) {
+    nestedRuntime.dispose()
+    throw e
+}
+```
+
+---
+
+##### 🔴 HIGH: Missing Validation of MemoryClientShape Contract
+
+**File:Lines**: createMemoryClient.js:277-278, 321-322
+**Package**: memory-client-effect
+**Status**: ✅ RESOLVED (see 74th review)
+
+**Problem**: Both `Layer.succeed(MemoryClientService, copiedShape)` calls assume the shape returned from `deepCopy()` fully implements the `MemoryClientShape` contract. There is no runtime validation that the copied shape has all required methods and properties.
+
+**Evidence**:
+```javascript
+const copiedLayer = Layer.succeed(MemoryClientService, copiedShape)
+// No validation that copiedShape implements MemoryClientShape
+```
+
+**Impact**: If deepCopy returns a malformed object (e.g., due to future code changes breaking the copy logic), runtime failures will occur with unclear error messages instead of early validation failure.
+
+**Recommended Fix**: Add explicit validation of required methods before creating the layer, or use a schema validation library.
+
+---
+
+#### Summary Table (73rd Review) - ALL RESOLVED in 74th Review
+
+| Package | CRITICAL | HIGH | MEDIUM | LOW | Total |
+|---------|----------|------|--------|-----|-------|
+| memory-client-effect | ~~1~~ 0 ✅ | ~~2~~ 0 ✅ | 0 | 0 | ~~3~~ 0 ✅ |
+| decorators-effect | 0 | 0 | 0 | 0 | 0 |
+| **TOTAL** | **0** ✅ | **0** ✅ | **0** | **0** | **0** ✅ |
 
 ---
 
