@@ -46,7 +46,7 @@ import { InternalError, InvalidParamsError } from '@tevm/errors-effect'
  * ```
  *
  */
-export const TevmActionsLive = /** @type {Layer.Layer<import('./TevmActionsService.js').TevmActionsServiceId, never, any>} */ (Layer.effect(
+export const TevmActionsLive = /** @type {Layer.Layer<import('./TevmActionsService.js').TevmActionsServiceId, never, import('@tevm/state-effect').StateManagerService | import('@tevm/vm-effect').VmService | import('@tevm/actions-effect').GetAccountService | import('@tevm/actions-effect').SetAccountService>} */ (Layer.effect(
 	TevmActionsService,
 	Effect.gen(function* () {
 		const stateManager = yield* StateManagerService

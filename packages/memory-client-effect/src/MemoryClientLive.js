@@ -24,12 +24,56 @@ const createEthjsAddress = async (address) => {
 }
 
 /**
- * Validates an Ethereum address
+ * Validates basic Ethereum address format (40 hex characters with 0x prefix).
+ * Note: This is a sync format check only. EIP-55 checksum validation is handled
+ * by validateAddressWithChecksum() which uses viem's getAddress function.
+ *
+ * @param {string} address
+ * @returns {boolean}
+ */
+const isValidAddressFormat = (address) => {
+	return /^0x[a-fA-F0-9]{40}$/.test(address)
+}
+
+/**
+ * Validates an Ethereum address with full EIP-55 checksum support.
+ * - Lowercase addresses (0x...) are accepted (no checksum to verify)
+ * - Uppercase addresses (0x...) are accepted (no checksum to verify)
+ * - Mixed-case addresses must have valid EIP-55 checksum
+ *
+ * @param {string} address - The address to validate
+ * @returns {Promise<{valid: boolean, checksumAddress?: string, error?: string}>}
+ */
+const validateAddressWithChecksum = async (address) => {
+	// Basic format check first
+	if (!isValidAddressFormat(address)) {
+		return { valid: false, error: `Invalid address format: ${address}` }
+	}
+
+	try {
+		// Import getAddress from viem for EIP-55 checksum validation
+		const { getAddress } = await import('viem')
+		// getAddress will throw if the checksum is invalid for mixed-case addresses
+		// and will return the properly checksummed address
+		const checksumAddress = getAddress(address)
+		return { valid: true, checksumAddress }
+	} catch (e) {
+		return {
+			valid: false,
+			error: `Invalid EIP-55 checksum: ${e instanceof Error ? e.message : String(e)}`
+		}
+	}
+}
+
+/**
+ * Legacy sync validator for backwards compatibility.
+ * Only checks format, not EIP-55 checksum.
+ * @deprecated Use validateAddressWithChecksum for full validation
  * @param {string} address
  * @returns {boolean}
  */
 const isValidAddress = (address) => {
-	return /^0x[a-fA-F0-9]{40}$/.test(address)
+	return isValidAddressFormat(address)
 }
 
 /**
@@ -78,19 +122,41 @@ const createActionServices = (stateManager) => {
 		 */
 		getAccount: (params) =>
 			Effect.gen(function* () {
-				// Validate address
-				if (!params.address || !isValidAddress(params.address)) {
+				// Validate address with EIP-55 checksum support (Issue #312 fix)
+				if (!params.address) {
 					return yield* Effect.fail(
 						new InvalidParamsError({
 							method: 'getAccount',
 							params,
-							message: `Invalid address: ${params.address}`,
+							message: 'Missing address parameter',
 						})
 					)
 				}
 
+				// Validate EIP-55 checksum for mixed-case addresses
+				const addressValidation = yield* Effect.tryPromise({
+					try: () => validateAddressWithChecksum(params.address),
+					catch: (e) =>
+						new InternalError({
+							message: `Address validation failed: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+							cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
+						}),
+				})
+
+				if (!addressValidation.valid) {
+					return yield* Effect.fail(
+						new InvalidParamsError({
+							method: 'getAccount',
+							params,
+							message: addressValidation.error || `Invalid address: ${params.address}`,
+						})
+					)
+				}
+
+				// Use the checksummed address for internal operations
+				const normalizedAddress = addressValidation.checksumAddress || params.address
 				const ethjsAddress = yield* Effect.tryPromise({
-					try: () => createEthjsAddress(params.address.toLowerCase()),
+					try: () => createEthjsAddress(normalizedAddress.toLowerCase()),
 					catch: (e) =>
 						new InternalError({
 							message: `Failed to create address: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
@@ -124,7 +190,8 @@ const createActionServices = (stateManager) => {
 				const codeHash = account ? bytesToHex(account.codeHash) : '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
 
 				return {
-					address: /** @type {import('./types.js').Address} */ (params.address.toLowerCase()),
+					// Return EIP-55 checksummed address (Issue #312 fix)
+					address: /** @type {import('./types.js').Address} */ (normalizedAddress),
 					nonce,
 					balance,
 					deployedBytecode: bytesToHex(code),
@@ -142,19 +209,41 @@ const createActionServices = (stateManager) => {
 		 */
 		setAccount: (params) =>
 			Effect.gen(function* () {
-				// Validate address
-				if (!params.address || !isValidAddress(params.address)) {
+				// Validate address with EIP-55 checksum support (Issue #312 fix)
+				if (!params.address) {
 					return yield* Effect.fail(
 						new InvalidParamsError({
 							method: 'setAccount',
 							params,
-							message: `Invalid address: ${params.address}`,
+							message: 'Missing address parameter',
 						})
 					)
 				}
 
+				// Validate EIP-55 checksum for mixed-case addresses
+				const addressValidation = yield* Effect.tryPromise({
+					try: () => validateAddressWithChecksum(params.address),
+					catch: (e) =>
+						new InternalError({
+							message: `Address validation failed: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+							cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
+						}),
+				})
+
+				if (!addressValidation.valid) {
+					return yield* Effect.fail(
+						new InvalidParamsError({
+							method: 'setAccount',
+							params,
+							message: addressValidation.error || `Invalid address: ${params.address}`,
+						})
+					)
+				}
+
+				// Use the checksummed address for internal operations
+				const normalizedAddress = addressValidation.checksumAddress || params.address
 				const ethjsAddress = yield* Effect.tryPromise({
-					try: () => createEthjsAddress(params.address.toLowerCase()),
+					try: () => createEthjsAddress(normalizedAddress.toLowerCase()),
 					catch: (e) =>
 						new InternalError({
 							message: `Failed to create address: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
@@ -290,7 +379,8 @@ const createActionServices = (stateManager) => {
 					)
 
 					return {
-						address: /** @type {import('./types.js').Address} */ (params.address.toLowerCase()),
+						// Return EIP-55 checksummed address (Issue #312 fix)
+						address: /** @type {import('./types.js').Address} */ (normalizedAddress),
 					}
 				})
 
@@ -310,19 +400,41 @@ const createActionServices = (stateManager) => {
 		 */
 		getBalance: (params) =>
 			Effect.gen(function* () {
-				// Validate address
-				if (!params.address || !isValidAddress(params.address)) {
+				// Validate address with EIP-55 checksum support (Issue #312 fix)
+				if (!params.address) {
 					return yield* Effect.fail(
 						new InvalidParamsError({
 							method: 'getBalance',
 							params,
-							message: `Invalid address: ${params.address}`,
+							message: 'Missing address parameter',
 						})
 					)
 				}
 
+				// Validate EIP-55 checksum for mixed-case addresses
+				const addressValidation = yield* Effect.tryPromise({
+					try: () => validateAddressWithChecksum(params.address),
+					catch: (e) =>
+						new InternalError({
+							message: `Address validation failed: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+							cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
+						}),
+				})
+
+				if (!addressValidation.valid) {
+					return yield* Effect.fail(
+						new InvalidParamsError({
+							method: 'getBalance',
+							params,
+							message: addressValidation.error || `Invalid address: ${params.address}`,
+						})
+					)
+				}
+
+				// Use the checksummed address for internal operations
+				const normalizedAddress = addressValidation.checksumAddress || params.address
 				const ethjsAddress = yield* Effect.tryPromise({
-					try: () => createEthjsAddress(params.address.toLowerCase()),
+					try: () => createEthjsAddress(normalizedAddress.toLowerCase()),
 					catch: (e) =>
 						new InternalError({
 							message: `Failed to create address: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
@@ -350,19 +462,41 @@ const createActionServices = (stateManager) => {
 		 */
 		getCode: (params) =>
 			Effect.gen(function* () {
-				// Validate address
-				if (!params.address || !isValidAddress(params.address)) {
+				// Validate address with EIP-55 checksum support (Issue #312 fix)
+				if (!params.address) {
 					return yield* Effect.fail(
 						new InvalidParamsError({
 							method: 'getCode',
 							params,
-							message: `Invalid address: ${params.address}`,
+							message: 'Missing address parameter',
 						})
 					)
 				}
 
+				// Validate EIP-55 checksum for mixed-case addresses
+				const addressValidation = yield* Effect.tryPromise({
+					try: () => validateAddressWithChecksum(params.address),
+					catch: (e) =>
+						new InternalError({
+							message: `Address validation failed: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+							cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
+						}),
+				})
+
+				if (!addressValidation.valid) {
+					return yield* Effect.fail(
+						new InvalidParamsError({
+							method: 'getCode',
+							params,
+							message: addressValidation.error || `Invalid address: ${params.address}`,
+						})
+					)
+				}
+
+				// Use the checksummed address for internal operations
+				const normalizedAddress = addressValidation.checksumAddress || params.address
 				const ethjsAddress = yield* Effect.tryPromise({
-					try: () => createEthjsAddress(params.address.toLowerCase()),
+					try: () => createEthjsAddress(normalizedAddress.toLowerCase()),
 					catch: (e) =>
 						new InternalError({
 							message: `Failed to create address: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
@@ -390,13 +524,33 @@ const createActionServices = (stateManager) => {
 		 */
 		getStorageAt: (params) =>
 			Effect.gen(function* () {
-				// Validate address
-				if (!params.address || !isValidAddress(params.address)) {
+				// Validate address with EIP-55 checksum support (Issue #312 fix)
+				if (!params.address) {
 					return yield* Effect.fail(
 						new InvalidParamsError({
 							method: 'getStorageAt',
 							params,
-							message: `Invalid address: ${params.address}`,
+							message: 'Missing address parameter',
+						})
+					)
+				}
+
+				// Validate EIP-55 checksum for mixed-case addresses
+				const addressValidation = yield* Effect.tryPromise({
+					try: () => validateAddressWithChecksum(params.address),
+					catch: (e) =>
+						new InternalError({
+							message: `Address validation failed: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
+							cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
+						}),
+				})
+
+				if (!addressValidation.valid) {
+					return yield* Effect.fail(
+						new InvalidParamsError({
+							method: 'getStorageAt',
+							params,
+							message: addressValidation.error || `Invalid address: ${params.address}`,
 						})
 					)
 				}
@@ -414,8 +568,10 @@ const createActionServices = (stateManager) => {
 					)
 				}
 
+				// Use the checksummed address for internal operations
+				const normalizedAddress = addressValidation.checksumAddress || params.address
 				const ethjsAddress = yield* Effect.tryPromise({
-					try: () => createEthjsAddress(params.address.toLowerCase()),
+					try: () => createEthjsAddress(normalizedAddress.toLowerCase()),
 					catch: (e) =>
 						new InternalError({
 							message: `Failed to create address: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,

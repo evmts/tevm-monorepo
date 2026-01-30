@@ -54,7 +54,7 @@ import { InternalError, RevertError, OutOfGasError, InvalidOpcodeError, InvalidP
  * ```
  *
  */
-export const EthActionsLive = /** @type {Layer.Layer<import('./EthActionsService.js').EthActionsServiceId, never, any>} */ (Layer.effect(
+export const EthActionsLive = /** @type {Layer.Layer<import('./EthActionsService.js').EthActionsServiceId, never, import('@tevm/vm-effect').VmService | import('@tevm/common-effect').CommonService | import('@tevm/blockchain-effect').BlockchainService | import('@tevm/actions-effect').GetBalanceService | import('@tevm/actions-effect').GetCodeService | import('@tevm/actions-effect').GetStorageAtService>} */ (Layer.effect(
 	EthActionsService,
 	Effect.gen(function* () {
 		const vm = yield* VmService

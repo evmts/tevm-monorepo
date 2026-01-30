@@ -43,7 +43,7 @@ import { InvalidParamsError, MethodNotFoundError } from '@tevm/errors-effect'
  * ```
  *
  */
-export const RequestLive = /** @type {Layer.Layer<import('./RequestService.js').RequestServiceId, never, any>} */ (Layer.effect(
+export const RequestLive = /** @type {Layer.Layer<import('./RequestService.js').RequestServiceId, never, import('./EthActionsService.js').EthActionsService | import('./TevmActionsService.js').TevmActionsService>} */ (Layer.effect(
 	RequestService,
 	Effect.gen(function* () {
 		const ethActions = yield* EthActionsService

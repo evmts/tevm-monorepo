@@ -37,7 +37,7 @@ import { RequestService } from './RequestService.js'
  * ```
  *
  */
-export const SendLive = /** @type {Layer.Layer<import('./SendService.js').SendServiceId, never, any>} */ (Layer.effect(
+export const SendLive = /** @type {Layer.Layer<import('./SendService.js').SendServiceId, never, import('./RequestService.js').RequestService>} */ (Layer.effect(
 	SendService,
 	Effect.gen(function* () {
 		const requestService = yield* RequestService
