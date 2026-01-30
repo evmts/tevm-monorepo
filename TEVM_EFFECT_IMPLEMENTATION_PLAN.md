@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (102nd Update - Resolved MEDIUM Issue #38: Fixed LoggerSilent function signatures)
+**Last Updated**: 2026-01-30 (103rd Update - Resolved MEDIUM Issues #14, #24: Type declarations already correct)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
@@ -21,7 +21,7 @@
 **Open Issues Summary:**
 - **CRITICAL**: 0
 - **HIGH**: 0 ✅ (Issue #69 resolved)
-- **MEDIUM**: 7 🟡 (Issues #38, #53, #57, #58, #70, #73, #74, #75, #76 resolved)
+- **MEDIUM**: 5 🟡 (Issues #14, #24, #38, #53, #57, #58, #70, #73, #74, #75, #76 resolved)
 - **LOW**: 36 (+13 new from 95th review)
 
 ---
@@ -1715,28 +1715,20 @@ All 123 tests pass after the fix.
 ##### 24. Missing Type Validation for position Parameter
 **File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:356-377`
 **Severity**: 🟡 MEDIUM
-**Status**: 🟡 NEW
+**Status**: ✅ FIXED (already implemented)
 
 **Problem**: The `getStorageAt` method validates that `position` is not `undefined`, but doesn't validate it's actually a string. If a caller passes a number, the code will throw on `.startsWith()`.
 
-**Evidence**:
-```javascript
-// Lines 356-364 - validates undefined but not type
-if (params.position === undefined) {
-  return yield* Effect.fail(new InvalidParamsError({...}))
-}
-// Line 376-377 - will throw TypeError if position is not a string
-const positionHex = params.position.startsWith('0x')
-```
-
-**Recommended Fix**: Add type validation:
+**Resolution**: Already fixed in current implementation. Lines 364-375 include proper type validation:
 ```javascript
 if (params.position === undefined || typeof params.position !== 'string') {
   return yield* Effect.fail(
     new InvalidParamsError({
       method: 'getStorageAt',
       params,
-      message: `Invalid position: expected hex string, got ${typeof params.position}`,
+      message: params.position === undefined
+        ? 'Missing required field: position'
+        : `Invalid position: expected hex string, got ${typeof params.position}`,
     })
   )
 }
@@ -2001,27 +1993,13 @@ const bytesToHex = (bytes) => {
 ##### 14. RequestServiceShape Missing MethodNotFoundError in Type
 **File:Lines**: `packages/decorators-effect/src/types.js:150`
 **Severity**: 🟡 MEDIUM
-**Status**: 🟡 NEW
+**Status**: ✅ FIXED (already implemented)
 
 **Problem**: The `RequestServiceShape.request` type declares only `InvalidParamsError | InternalError` in error channel, but the implementation (RequestLive.js:201-206) also produces `MethodNotFoundError` for unsupported methods.
 
-**Evidence**:
+**Resolution**: Already fixed in current implementation. Line 150 includes `MethodNotFoundError` in the error union:
 ```javascript
-// types.js:150 - missing MethodNotFoundError
-* @property {<T = unknown>(params: Eip1193RequestParams) => import('effect').Effect<T, InvalidParamsError | InternalError, never>} request
-
-// RequestLive.js:201-206 - actually throws MethodNotFoundError
-return yield* Effect.fail(
-    new MethodNotFoundError({
-        method,
-        message: `Unsupported method: ${method}`,
-    })
-)
-```
-
-**Recommended Fix**: Update type to include `MethodNotFoundError`:
-```javascript
-import('effect').Effect<T, InvalidParamsError | InternalError | MethodNotFoundError, never>
+@property {<T = unknown>(params: Eip1193RequestParams) => import('effect').Effect.Effect<T, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError | import('@tevm/errors-effect').MethodNotFoundError, never>} request
 ```
 
 ---
