@@ -3,6 +3,8 @@
 .vercel
 dist/
 tree/
+voltaire/
+effect/
 
 alloy/
 evmone/
