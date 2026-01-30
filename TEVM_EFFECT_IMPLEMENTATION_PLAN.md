@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (100th Update - Resolved MEDIUM Issue #57: Made EthCallParams.to optional)
+**Last Updated**: 2026-01-30 (101st Update - Resolved MEDIUM Issue #53: Fixed SnapshotLive dangling checkpoint)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
@@ -21,7 +21,7 @@
 **Open Issues Summary:**
 - **CRITICAL**: 0
 - **HIGH**: 0 ✅ (Issue #69 resolved)
-- **MEDIUM**: 9 🟡 (Issues #57, #58, #70, #73, #74, #75, #76 resolved)
+- **MEDIUM**: 8 🟡 (Issues #53, #57, #58, #70, #73, #74, #75, #76 resolved)
 - **LOW**: 36 (+13 new from 95th review)
 
 ---
@@ -594,13 +594,15 @@ The log is stored but can never be retrieved because `getChanges` validates the 
 ##### Issue #53: SnapshotLive Checkpoint Left Dangling if Commit Fails
 **File:Lines**: `packages/node-effect/src/SnapshotLive.js:116-124`
 **Severity**: 🟡 MEDIUM
-**Status**: 🟡 NEW
+**Status**: ✅ FIXED
 
 **Problem**: In `takeSnapshot`, if the `commit()` call fails after `getStateRoot()` and `dumpState()` succeed, the checkpoint created is left dangling. The `tapError` only catches errors from `getStateRoot/dumpState`, not from `commit`.
 
 If `commit()` fails, the error propagates but `revert()` is never called. This leaves the internal checkpoint stack in a corrupted state, potentially breaking future checkpoint/commit/revert operations.
 
 **Recommended Fix**: If `commit()` fails, `revert()` should be called to clean up the checkpoint.
+
+**Resolution**: Moved `tapError` AFTER `flatMap` so it catches errors from both `Effect.all` (getStateRoot/dumpState) AND `commit()`. Added test with mock StateManager that fails on commit() to verify revert() is called.
 
 ---
 

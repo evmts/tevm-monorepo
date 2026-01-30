@@ -78,6 +78,44 @@ const createDefectStateManagerLayer = () => {
 }
 
 /**
+ * Create a mock StateManagerService that fails on commit() for testing Issue #53.
+ * Used to verify that checkpoint is reverted when commit fails in takeSnapshot.
+ */
+const createCommitFailingStateManagerLayer = () => {
+	let checkpointCalled = false
+	let revertCalled = false
+
+	return {
+		layer: Layer.succeed(
+			StateManagerService,
+			{
+				stateManager: null as unknown,
+				getStateRoot: () => Effect.sync(() => new Uint8Array(32)),
+				setStateRoot: () => Effect.sync(() => undefined),
+				dumpState: () => Effect.sync(() => ({})),
+				loadState: () => Effect.sync(() => undefined),
+				getAccount: () => Effect.sync(() => undefined),
+				putAccount: () => Effect.sync(() => undefined),
+				deleteAccount: () => Effect.sync(() => undefined),
+				getStorage: () => Effect.sync(() => new Uint8Array()),
+				putStorage: () => Effect.sync(() => undefined),
+				clearStorage: () => Effect.sync(() => undefined),
+				getCode: () => Effect.sync(() => new Uint8Array()),
+				putCode: () => Effect.sync(() => undefined),
+				checkpoint: () => Effect.sync(() => { checkpointCalled = true }),
+				commit: () => Effect.fail(new Error('Simulated commit failure')),
+				revert: () => Effect.sync(() => { revertCalled = true }),
+				ready: Effect.sync(() => undefined),
+				deepCopy: () => Effect.die(new Error('Not implemented')),
+				shallowCopy: () => { throw new Error('Not implemented') },
+			} as unknown as import('@tevm/state-effect').StateManagerShape,
+		),
+		getCheckpointCalled: () => checkpointCalled,
+		getRevertCalled: () => revertCalled,
+	}
+}
+
+/**
  * Create a mock StateManagerService that causes a non-Error defect (string) during snapshot.
  * This is used to test the catchAllDefect handler branch for non-Error defects.
  */
@@ -656,6 +694,27 @@ describe('SnapshotLive', () => {
 			expect(result.accountsNotSameRef).toBe(true)
 			expect(result.storageNotSameRef).toBe(true)
 			expect(result.valuesPreserved).toBe(true)
+		})
+	})
+
+	describe('commit failure handling (Issue #53)', () => {
+		it('should call revert when commit fails in takeSnapshot', async () => {
+			const { layer: mockLayer, getCheckpointCalled, getRevertCalled } = createCommitFailingStateManagerLayer()
+			const testLayer = Layer.provide(SnapshotLive(), mockLayer)
+
+			const program = Effect.gen(function* () {
+				const snapshot = yield* SnapshotService
+				return yield* snapshot.takeSnapshot()
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(testLayer)))
+
+			// Verify the operation failed
+			expect(Exit.isFailure(result)).toBe(true)
+			// Verify checkpoint was called
+			expect(getCheckpointCalled()).toBe(true)
+			// Verify revert was called to clean up the dangling checkpoint
+			expect(getRevertCalled()).toBe(true)
 		})
 	})
 })

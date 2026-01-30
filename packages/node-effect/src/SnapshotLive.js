@@ -111,16 +111,17 @@ export const SnapshotLive = () => {
 							yield* stateManager.checkpoint()
 
 							// Get current state with proper cleanup on failure.
-							// Use tapError for revert on failure, then flatMap for commit on success.
-							// This ensures commit errors are properly propagated through the error channel.
+							// The tapError is placed AFTER flatMap so it catches errors from both
+							// Effect.all (getStateRoot/dumpState) AND commit(). This ensures the checkpoint
+							// is properly reverted if any operation fails, preventing dangling checkpoints. (Issue #53 fix)
 							const { stateRoot, state } = yield* Effect.all({
 								stateRoot: stateManager.getStateRoot(),
 								state: stateManager.dumpState(),
 							}).pipe(
-								Effect.tapError(() => stateManager.revert().pipe(Effect.catchAll(() => Effect.void))),
 								Effect.flatMap((result) =>
 									stateManager.commit().pipe(Effect.map(() => result))
 								),
+								Effect.tapError(() => stateManager.revert().pipe(Effect.catchAll(() => Effect.void))),
 							)
 
 							// Store snapshot
