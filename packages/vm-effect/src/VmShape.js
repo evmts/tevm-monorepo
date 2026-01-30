@@ -25,14 +25,14 @@
  *
  * @param opts - Transaction execution options including tx, skipNonce, skipBalance
  *
- * Returns: `Effect<RunTxResult>`
+ * Returns: `Effect<RunTxResult, VmError>` - Typed error channel for VM execution errors
  *
  * ### runBlock(opts)
  * Execute a block in the VM.
  *
  * @param opts - Block execution options including block, generate, skipNonce
  *
- * Returns: `Effect<RunBlockResult>`
+ * Returns: `Effect<RunBlockResult, VmError>` - Typed error channel for VM execution errors
  *
  * ### buildBlock(opts)
  * Build a new block. Returns a block builder that can be used to
@@ -40,7 +40,7 @@
  *
  * @param opts - Build block options including parentBlock, headerData
  *
- * Returns: `Effect<BlockBuilder>`
+ * Returns: `Effect<BlockBuilder, VmError>` - Typed error channel for build errors
  *
  * ### ready
  * Effect that completes when the VM is fully initialized.
@@ -62,18 +62,28 @@
  *   const vmService = yield* VmService
  *   yield* vmService.ready
  *
- *   // Build a block
+ *   // Execute a transaction with typed error handling
+ *   const txResult = yield* vmService.runTx({ tx: signedTx }).pipe(
+ *     Effect.catchTag('OutOfGasError', (e) => Effect.succeed({ gasUsed: 0n })),
+ *     Effect.catchTag('RevertError', (e) => {
+ *       console.log('Reverted with data:', e.raw)
+ *       return Effect.fail(e)
+ *     })
+ *   )
+ *
+ *   // Build a block (note: addTransaction returns a Promise, not Effect)
  *   const blockBuilder = yield* vmService.buildBlock({
  *     headerData: { gasLimit: 8000000n }
  *   })
  *
- *   // Add transactions
- *   await blockBuilder.addTransaction(tx1)
- *   await blockBuilder.addTransaction(tx2)
- *
- *   // Finalize and get the block
- *   const block = await blockBuilder.build()
- *   console.log('Built block:', block.header.number)
+ *   // BlockBuilder methods are Promise-based
+ *   yield* Effect.promise(async () => {
+ *     await blockBuilder.addTransaction(tx1)
+ *     await blockBuilder.addTransaction(tx2)
+ *     const block = await blockBuilder.build()
+ *     console.log('Built block:', block.header.number)
+ *     return block
+ *   })
  * })
  * ```
  */

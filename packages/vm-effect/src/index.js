@@ -42,6 +42,7 @@
 /**
  * @typedef {import('./types.js').VmShape} VmShape
  * @typedef {import('./types.js').VmLiveOptions} VmLiveOptions
+ * @typedef {import('./types.js').VmError} VmError
  */
 
 // Service
