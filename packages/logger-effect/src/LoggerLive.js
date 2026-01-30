@@ -13,18 +13,6 @@ import { LoggerService } from './LoggerService.js'
  */
 
 /**
- * Maps our LogLevel to Pino's log levels
- * @type {Record<LogLevel, string>}
- */
-const levelMap = {
-	debug: 'debug',
-	info: 'info',
-	warn: 'warn',
-	error: 'error',
-	silent: 'silent',
-}
-
-/**
  * Log level priority for filtering (higher number = more severe)
  * @type {Record<LogLevel, number>}
  */
@@ -44,8 +32,9 @@ const levelPriority = {
  * @returns {LoggerShape} The logger shape implementation
  */
 const createLoggerShape = (level, name = 'tevm') => {
+	// Pino uses the same level names as our LogLevel type, so we can pass directly
 	const pinoLogger = createLogger({
-		level: level === 'silent' ? 'silent' : levelMap[level],
+		level,
 		name,
 	})
 

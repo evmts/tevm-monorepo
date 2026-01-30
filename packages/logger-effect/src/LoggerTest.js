@@ -15,13 +15,17 @@ import { LoggerService } from './LoggerService.js'
 
 /**
  * Extended LoggerShape with additional methods for test assertions.
+ * Note: The `child` method returns `TestLoggerShape` (not `LoggerShape`) so child loggers
+ * also have access to test-specific methods like `getLogs`, `clearLogs`, etc.
  *
- * @typedef {LoggerShape & {
+ * @typedef {Omit<LoggerShape, 'child'> & {
+ *   child: (name: string) => TestLoggerShape,
  *   getLogs: () => Effect.Effect<readonly LogEntry[], never, never>,
  *   getLogsByLevel: (level: LogSeverity) => Effect.Effect<readonly LogEntry[], never, never>,
  *   clearLogs: () => Effect.Effect<void, never, never>,
  *   getLastLog: () => Effect.Effect<LogEntry | undefined, never, never>,
- *   getLogCount: () => Effect.Effect<number, never, never>
+ *   getLogCount: () => Effect.Effect<number, never, never>,
+ *   getAndClearLogs: () => Effect.Effect<readonly LogEntry[], never, never>
  * }} TestLoggerShape
  */
 
@@ -97,6 +101,12 @@ const createTestLoggerShape = (logsRef, level = 'debug', name = 'tevm') => {
 				const logs = yield* Ref.get(logsRef)
 				return logs.length
 			}),
+		getAndClearLogs: () =>
+			Effect.gen(function* () {
+				const logs = yield* Ref.get(logsRef)
+				yield* Ref.set(logsRef, [])
+				return logs
+			}),
 	}
 
 	return shape
@@ -162,6 +172,8 @@ const createTestLoggerShape = (logsRef, level = 'debug', name = 'tevm') => {
  * ```
  *
  * @param {LogLevel} [level='debug'] - Minimum log level to capture. Defaults to 'debug' to capture all.
+ *   **Note**: Passing 'silent' will create a logger that captures nothing, as no log severity
+ *   meets the 'silent' threshold. This is likely unintentional for testing - use 'debug' to capture all logs.
  * @param {string} [name='tevm'] - Root logger name. Defaults to 'tevm'.
  * @returns {Layer.Layer<LoggerService, never, never>} Layer providing LoggerService with test capabilities
  */

@@ -51,6 +51,11 @@ export * from './types.js'
 // Shape interface
 export * from './LoggerShape.js'
 
+/**
+ * Re-export TestLoggerShape for consumers
+ * @typedef {import('./LoggerTest.js').TestLoggerShape} TestLoggerShape
+ */
+
 // Service tag
 export { LoggerService } from './LoggerService.js'
 

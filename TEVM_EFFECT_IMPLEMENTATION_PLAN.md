@@ -33,8 +33,47 @@
 **Goal**: Add Effect as dependency, create interop layer, migrate foundational packages
 **Breaking Changes**: None (additive only)
 
-### REVIEW AGENT Review Status: 🟡 SEVENTH REVIEW COMPLETE (2026-01-29)
+### REVIEW AGENT Review Status: 🟡 EIGHTH REVIEW COMPLETE (2026-01-29)
 
+**Eighth review (2026-01-29)** - Opus 4.5 comprehensive review with parallel researcher subagents:
+
+**@tevm/errors-effect Issues (4 new, 9 remaining from prior reviews):**
+- 🔴 **Medium**: toBaseError `computeDetails` logic differs from BaseError - BaseError returns `docsPath` when cause is BaseError instance, but toBaseError falls through to message check.
+- 🔴 **Low**: InsufficientBalanceError message may include `undefined` values - checks only `address` before using detailed format, but `required`/`available` may be undefined.
+- 🔴 **Low**: toBaseError walk method operates on wrapper error - uses newly created `Error` wrapper object rather than original `taggedError`, semantic confusion.
+- 🔴 **Low**: StackUnderflowError properties (`requiredItems`, `availableItems`) not tested - unlike StackOverflowError which tests `stackSize` property.
+
+**@tevm/interop Issues (2 new, 6 remaining from prior reviews):**
+- 🔴 **Medium**: Missing validation for empty methods array in wrapWithEffect - calling with `[]` creates pointless wrapper with empty `effect` object.
+- 🔴 **Low**: Symbol-keyed methods not handled in wrapWithEffect - cast to string may fail or produce unexpected behavior with Symbol keys.
+
+**@tevm/logger-effect Issues (12 new - FIRST REVIEW):**
+- 🔴 **High**: Type definition for LoggerService is incorrect - JSDoc says `Context.Tag<'LoggerService', LoggerShape>` but GenericTag first param should be the Tag itself.
+- 🔴 **High**: Child logger type mismatch in LoggerTest - `child` returns `TestLoggerShape` but typed as returning `LoggerShape`, losing test-specific methods.
+- 🔴 **Medium**: Redundant level mapping in LoggerLive - `levelMap` maps level names to identical strings, serves no purpose since Pino uses same names.
+- 🔴 **Medium**: Missing readonly enforcement on log entries - LogEntry objects are mutable despite `readonly LogEntry[]` array type.
+- 🔴 **Medium**: LoggerTest silent level behavior undocumented - passing `level: 'silent'` creates test logger that captures nothing.
+- 🔴 **Medium**: Missing export of TestLoggerShape type - typedef defined but not exported in index.js.
+- 🔴 **Medium**: Potential memory leak in long-running tests - logs accumulate indefinitely if `clearLogs` not called.
+- 🔴 **Low**: Inconsistent return type for LoggerLive layer - JSDoc says `Layer<LoggerService>` but Layer provides `LoggerShape`.
+- 🔴 **Low**: Missing validation of logger name - empty string, special characters, or very long strings not validated.
+- 🔴 **Low**: No test for data undefined vs omitted - `LogEntry` always has `data` property even when undefined.
+- 🔴 **Low**: JSDoc Examples Use Different Import Paths - internal imports use relative paths (correct for implementation).
+- 🔴 **Low**: No error handling test for Pino creation failure.
+
+**Test Coverage Gaps Identified:**
+- Missing test for StackUnderflowError-specific properties (`requiredItems`, `availableItems`)
+- Missing test for wrapWithEffect with empty methods array
+- Missing test for wrapWithEffect with Symbol-keyed methods
+- Missing test for promiseToEffect with synchronous errors
+- Missing test for effectToPromise with Effect.die defects
+- Missing test for toTaggedError with incorrect property types
+- Missing test for LoggerTest with `level: 'silent'`
+- Missing test for concurrent log access in LoggerTest
+
+See EIGHTH REVIEW tables in sections 1.2, 1.3, and 1.4 for full details.
+
+**Previous Review Summary:**
 **Seventh review (2026-01-29)** - Opus 4.5 comprehensive review with parallel researcher subagents:
 
 **@tevm/errors-effect Issues (3 new, 5 remaining from prior reviews):**
@@ -333,6 +372,26 @@ TypeError: Cannot define property Symbol(effect/Hash), object is not extensible
 6. **Low**: Refactor toTaggedError to use mapping pattern
 7. **Low**: Standardize message generation patterns across all errors
 
+**EIGHTH REVIEW (2026-01-29)**: 🟡 NEW ISSUES FOUND
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| toBaseError computeDetails differs from BaseError | **Medium** | toBaseError.js:32-59 | 🔴 Open | BaseError returns `docsPath` when cause is BaseError instance, but toBaseError falls through to message check. Causes inconsistent `details` property. |
+| InsufficientBalanceError message may have undefined values | **Low** | InsufficientBalanceError.js:110-114 | 🔴 Open | Checks only `address` before using detailed message format, but `required`/`available` may be undefined, producing "requires undefined but has undefined". |
+| toBaseError walk operates on wrapper | **Low** | toBaseError.js:135 | 🔴 Open | Walk method passed newly created Error wrapper object rather than original taggedError. Semantics unclear. |
+| StackUnderflowError properties not tested | **Low** | StackUnderflowError.spec.ts | 🔴 Open | Has `requiredItems` and `availableItems` properties but no tests verifying storage or message generation. |
+| toTaggedError duplicate conversion logic | **Low** | toTaggedError.js:70-123 | 🔴 Open | `errorMap` defined but not used for instantiation; if/else chain duplicates mapping. Adding new error requires updating both. |
+| Test coverage gap: toTaggedError wrong property types | **Low** | toTaggedError.spec.ts | 🔴 Open | No tests for properties with wrong types (e.g., `address: 123` instead of string). Implementation guards this but untested. |
+| types.js not properly exported | **Low** | types.js | 🔴 Open | Union types (`EvmExecutionError`, `TevmErrorUnion`) defined but only export `{}`. Types not importable by consumers. |
+| Equal/Hash with undefined cause not tested | **Low** | All error spec files | 🔴 Open | No test comparing errors where one has undefined cause and one has explicit undefined cause. |
+
+**Eighth Review Action Items**:
+1. **Medium**: Fix `computeDetails` to check for BaseError-like causes and return `docsPath` like original
+2. **Low**: Check all three properties (`address`, `required`, `available`) before using detailed message format
+3. **Low**: Add tests for StackUnderflowError `requiredItems` and `availableItems` properties
+4. **Low**: Refactor toTaggedError to use errorMap for instantiation, eliminating duplication
+5. **Low**: Add tests for toTaggedError with wrong property types
+
 ---
 
 **SIXTH REVIEW (2026-01-29)**: ✅ RESOLVED
@@ -596,16 +655,34 @@ export const effectToPromise = <A, E>(
 4. **Low**: Add upfront validation in promiseToEffect that input is a function
 5. **Low**: Decide on createManagedRuntime - remove or add actual value (logging, defaults)
 6. **Low**: Add tests for private fields limitation, synchronous factory errors
+7. **Low**: Add tests for empty methods array and symbol-keyed methods
 
-**Positive Observations (Seventh Review)**:
+**EIGHTH REVIEW (2026-01-29)**: 🟡 NEW ISSUES FOUND
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| Missing validation for empty methods array | **Medium** | wrapWithEffect.js:67 | 🔴 Open | Calling `wrapWithEffect(obj, [])` succeeds but creates pointless wrapper with empty `effect` object. Silent no-op behavior. |
+| Symbol-keyed methods not handled | **Low** | wrapWithEffect.js:79-86 | 🔴 Open | Cast to string may fail or produce unexpected behavior when Symbol keys passed in methods array. |
+| No test for promiseToEffect with synchronous errors | **Medium** | promiseToEffect.spec.ts | 🔴 Open | Tests cover Promise rejections but not synchronous throws before any await. |
+| No test for effectToPromise with Effect.die | **Low** | effectToPromise.spec.ts | 🔴 Open | Tests cover `Effect.fail` (expected errors) but not `Effect.die` (defects/unexpected errors). |
+| No test for wrapWithEffect with getter-only properties | **Low** | wrapWithEffect.spec.ts | 🔴 Open | Tests cover getters and setters together but not getter-only properties. |
+| JSDoc @throws incomplete for effectToPromise | **Low** | effectToPromise.js:75-76 | 🔴 Open | Missing `@throws` for Effect defects (created via `Effect.die`), which also cause rejection. |
+| JSDoc @throws missing for non-function in wrapWithEffect | **Low** | wrapWithEffect.js:64-65 | 🔴 Open | Documents throwing for missing methods and existing effect property, but not for non-function properties. |
+
+**Eighth Review Action Items**:
+1. **Medium**: Add validation to reject empty methods array in wrapWithEffect
+2. **Medium**: Add test for promiseToEffect with synchronous errors (throw before await)
+3. **Low**: Handle or document Symbol key behavior in wrapWithEffect
+4. **Low**: Add test for Effect.die defects in effectToPromise
+5. **Low**: Add comprehensive @throws documentation for all error conditions
+
+**Positive Observations (Eighth Review)**:
 - Excellent JSDoc documentation with comprehensive warnings and examples
 - Test coverage is comprehensive for documented functionality
 - Proper error messages for invalid inputs in wrapWithEffect
 - Clean barrel file re-exports following project conventions
 - wrapWithEffect correctly preserves `this` via `.apply(instance, args)`
 - State divergence behavior is well-documented even if potentially confusing
-6. **Low**: Decide definitively on createManagedRuntime: remove, keep, or enhance
-7. **Low**: Add tests for empty methods array and symbol-keyed methods
 
 ---
 
@@ -624,7 +701,7 @@ export const effectToPromise = <A, E>(
 | Implement `LoggerTest` layer | [x] | Claude | Captures logs in memory with getLogs, getLogsByLevel, clearLogs, getLastLog, getLogCount |
 | Implement `isTestLogger` type guard | [x] | Claude | Checks if logger has test-specific methods |
 | Keep existing @tevm/logger API unchanged | [x] | Claude | @tevm/logger-effect is a separate package, existing usage unaffected |
-| Write tests for LoggerService | [x] | Claude | 58 tests, 99.79% statement coverage |
+| Write tests for LoggerService | [x] | Claude | 63 tests, 99.79% statement coverage |
 
 **Learnings**:
 - `Context.GenericTag` is the preferred approach for JavaScript (without TypeScript generics) - `Context.Tag('name')` returns a function for TypeScript generic class extension
@@ -632,6 +709,54 @@ export const effectToPromise = <A, E>(
 - Effect.void is the idiomatic way to return a void Effect for silent logging operations
 - LoggerTest using Ref enables each test to have isolated log storage when creating new layers
 - Pino logger level mapping works with the custom LogLevel type (debug, info, warn, error, silent)
+
+**FIRST REVIEW (2026-01-29)**: 🟡 ISSUES FOUND
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| LoggerService type definition incorrect | **High** | LoggerService.js:47-48 | ✅ Fixed | JSDoc updated to `Context.Tag<LoggerService, LoggerShape>` with explicit cast |
+| Child logger type mismatch in LoggerTest | **High** | LoggerTest.js:79-80 | ✅ Fixed | TestLoggerShape now uses `Omit<LoggerShape, 'child'>` and explicitly types `child` to return `TestLoggerShape` |
+| Redundant level mapping in LoggerLive | **Medium** | LoggerLive.js:18-25 | ✅ Fixed | Removed redundant `levelMap`, Pino uses same level names directly |
+| Missing readonly enforcement on log entries | **Medium** | LoggerTest.js:60-67 | 🔴 Open | `LogEntry` objects are mutable despite `readonly LogEntry[]` array type. Could lead to subtle test bugs if entries mutated after creation. |
+| LoggerTest silent level behavior undocumented | **Medium** | LoggerTest.js:41-47 | ✅ Fixed | Added JSDoc documentation explaining that 'silent' level captures nothing |
+| Missing export of TestLoggerShape type | **Medium** | index.js | ✅ Fixed | Added `@typedef` re-export in index.js for TestLoggerShape |
+| Potential memory leak in long-running tests | **Medium** | LoggerTest.js:67 | ✅ Fixed | Added `getAndClearLogs()` convenience method for atomic get-and-clear |
+| Inconsistent return type for LoggerLive layer | **Low** | LoggerLive.js:113 | 🔴 Open | JSDoc says `Layer.Layer<LoggerService, never, never>` but Layer provides `LoggerShape`, not `LoggerService` (the Tag). |
+| Missing validation of logger name | **Low** | All layer files | 🔴 Open | Empty string, special characters, or very long strings not validated. `child('')` produces 'tevm:' with trailing colon. |
+| No test for data undefined vs omitted | **Low** | LoggerTest.spec.ts | 🔴 Open | `LogEntry` always has `data` property even when undefined. No test clarifying this behavior. |
+| No error handling test for Pino creation failure | **Low** | LoggerLive.spec.ts | 🔴 Open | No test for what happens if `createLogger` from `@tevm/logger` throws. Layer creation can throw synchronously. |
+
+**Test Coverage Gaps**:
+| Gap | Priority | Files Affected | Status |
+|-----|----------|----------------|--------|
+| LoggerTest with `level: 'silent'` behavior | Medium | LoggerTest.spec.ts | ✅ Fixed |
+| Child logger returning TestLoggerShape | Medium | LoggerTest.spec.ts | ✅ Fixed |
+| getAndClearLogs method | Medium | LoggerTest.spec.ts | ✅ Fixed |
+| Concurrent log access in LoggerTest | Low | LoggerTest.spec.ts | 🔴 Open |
+| Very large log data objects | Low | LoggerLive.spec.ts | 🔴 Open |
+| Circular references in data | Low | LoggerLive.spec.ts | 🔴 Open |
+
+**First Review Action Items**:
+1. ~~**High**: Fix LoggerService type definition - use `Context.Tag<LoggerService, LoggerShape>`~~ ✅ Completed 2026-01-29
+2. ~~**High**: Fix child logger return type in TestLoggerShape to return `TestLoggerShape` not `LoggerShape`~~ ✅ Completed 2026-01-29
+3. ~~**Medium**: Remove redundant `levelMap` in LoggerLive - use level directly~~ ✅ Completed 2026-01-29
+4. **Medium**: Add Object.freeze to LogEntry objects or document mutability
+5. ~~**Medium**: Document or prevent `level: 'silent'` in LoggerTest~~ ✅ Completed 2026-01-29
+6. ~~**Medium**: Export TestLoggerShape type in index.js~~ ✅ Completed 2026-01-29
+7. ~~**Medium**: Add `getAndClearLogs` convenience method or max capacity option~~ ✅ Completed 2026-01-29
+8. **Low**: Fix JSDoc return type for LoggerLive layer (`LoggerShape` not `LoggerService`)
+9. **Low**: Add validation for logger names (non-empty, reasonable length)
+10. **Low**: Add test clarifying data undefined vs omitted behavior
+
+**Positive Observations**:
+- Correct use of `Context.GenericTag` for JavaScript compatibility
+- Proper use of `Layer.succeed` and `Layer.effect` for sync/async layer creation
+- `Effect.sync` correctly used for Pino logging side effects
+- `Effect.void` correctly used for no-op in LoggerSilent
+- `Ref` correctly used for thread-safe log storage in LoggerTest
+- Good test coverage (58 tests, 99.79% statement coverage)
+- Child loggers properly share log storage for hierarchical assertions
+- Clean separation between Live, Silent, and Test implementations
 
 ---
 
@@ -1268,7 +1393,24 @@ export const effectToPromise = <A, E>(
 | 2026-01-29 | LoggerTest with Ref.make in Layer.effect creates isolated storage per layer creation | High - test isolation guaranteed | ✅ Each LoggerTest() call gets fresh log storage |
 | 2026-01-29 | Pino level mapping to custom LogLevel type works seamlessly | Low - good interop | ✅ Mapped 'silent' to pino's silent level |
 
-### REVIEW AGENT Review Status: 🟡 SEVENTH REVIEW COMPLETE (2026-01-29)
+### Technical & Process Learnings (Eighth Review - 2026-01-29)
+
+| Date | Learning | Impact | Action Taken |
+|------|----------|--------|--------------|
+| 2026-01-29 | toBaseError `computeDetails` logic differs from original BaseError | Medium - inconsistent `details` property | 🔴 BaseError returns `docsPath` when cause is BaseError, toBaseError falls through to message |
+| 2026-01-29 | InsufficientBalanceError message generation incomplete | Low - may include "undefined" in message | 🔴 Only checks `address`, should check all three properties |
+| 2026-01-29 | wrapWithEffect should reject empty methods array | Medium - silent no-op confusing | 🔴 Add validation to throw on empty array |
+| 2026-01-29 | Symbol-keyed methods not handled in wrapWithEffect | Low - cast to string may fail | 🔴 Handle or document Symbol key behavior |
+| 2026-01-29 | LoggerService type definition uses incorrect generic parameter | High - affects TypeScript inference in complex Effect pipelines | 🔴 JSDoc says `<'LoggerService', LoggerShape>` but GenericTag first param should be the Tag itself |
+| 2026-01-29 | Child logger type mismatch loses test-specific methods | High - TestLoggerShape methods not available on child | 🔴 Update child method return type in TestLoggerShape |
+| 2026-01-29 | Redundant level mapping in LoggerLive is dead code | Medium - unnecessary complexity | 🔴 Remove `levelMap` and use level directly |
+| 2026-01-29 | LogEntry objects mutable despite `readonly LogEntry[]` | Medium - tests could mutate log entries | 🔴 Consider Object.freeze on entries |
+| 2026-01-29 | LoggerTest with `level: 'silent'` captures nothing | Medium - unexpected for test logger | 🔴 Document or prevent this behavior |
+| 2026-01-29 | TestLoggerShape type not exported | Medium - users cannot type-annotate test loggers | 🔴 Export type from index.js |
+| 2026-01-29 | LoggerTest logs accumulate indefinitely | Medium - potential memory leak in long tests | 🔴 Consider max capacity or getAndClearLogs |
+| 2026-01-29 | @tevm/logger-effect package first review complete | High - 12 new issues identified | 🟡 Added FIRST REVIEW section to 1.4 |
+
+### REVIEW AGENT Review Status: 🟡 EIGHTH REVIEW COMPLETE (2026-01-29)
 
 ---
 
@@ -1325,8 +1467,18 @@ export const effectToPromise = <A, E>(
 | **R7**: RFC wrapWithEffect signature incorrect | Low | Low | Update RFC to show functions returning Effects, not Effect values | 🔴 Open |
 | **R7**: JSDoc types misleading about effectToPromise default runtime | Medium | Medium | Update JSDoc to accurately reflect Runtime<any> default | 🔴 Open |
 | **R7**: Missing edge case tests (Effect.die, private fields, sync factory errors) | Medium | Low | Add comprehensive edge case test coverage | 🔴 Open |
+| **R8**: toBaseError computeDetails differs from BaseError | Medium | Low | Fix to return docsPath when cause is BaseError-like | 🔴 Open |
+| **R8**: InsufficientBalanceError message may contain "undefined" | Low | Low | Check all three properties before using detailed format | 🔴 Open |
+| **R8**: wrapWithEffect silently accepts empty methods array | Medium | Low | Add validation to throw on empty array | 🔴 Open |
+| **R8**: LoggerService type definition incorrect | High | Medium | Fix JSDoc to use `Context.Tag<LoggerService, LoggerShape>` | 🔴 Open |
+| **R8**: Child logger loses TestLoggerShape type | High | Medium | Update child method return type in TestLoggerShape typedef | 🔴 Open |
+| **R8**: Redundant levelMap in LoggerLive | Low | Low | Remove dead code - use level directly | 🔴 Open |
+| **R8**: LogEntry objects mutable | Medium | Low | Add Object.freeze to entries or document mutability | 🔴 Open |
+| **R8**: LoggerTest with 'silent' captures nothing | Medium | Medium | Document behavior or prevent silent level in LoggerTest | 🔴 Open |
+| **R8**: TestLoggerShape type not exported | Medium | Low | Add export to index.js | 🔴 Open |
+| **R8**: LoggerTest memory leak in long-running tests | Medium | Medium | Add max capacity option or getAndClearLogs method | 🔴 Open |
 
-### REVIEW AGENT Review Status: 🟡 SEVENTH REVIEW COMPLETE (2026-01-29)
+### REVIEW AGENT Review Status: 🟡 EIGHTH REVIEW COMPLETE (2026-01-29)
 
 ---
 

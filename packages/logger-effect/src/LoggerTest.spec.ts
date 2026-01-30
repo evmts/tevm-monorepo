@@ -410,6 +410,136 @@ describe('LoggerTest', () => {
 		})
 	})
 
+	describe('silent level behavior', () => {
+		it('should capture no logs when level is silent', async () => {
+			const program = Effect.gen(function* () {
+				const logger = yield* LoggerService
+				if (isTestLogger(logger)) {
+					// Try to log at all levels
+					yield* logger.debug('debug')
+					yield* logger.info('info')
+					yield* logger.warn('warn')
+					yield* logger.error('error')
+
+					// No logs should be captured since silent level is higher than all
+					const logs = yield* logger.getLogs()
+					expect(logs).toHaveLength(0)
+				}
+				return true
+			})
+
+			const result = await Effect.runPromise(
+				program.pipe(Effect.provide(LoggerTest('silent'))),
+			)
+			expect(result).toBe(true)
+		})
+	})
+
+	describe('getAndClearLogs method', () => {
+		it('should return logs and clear them atomically', async () => {
+			const program = Effect.gen(function* () {
+				const logger = yield* LoggerService
+				if (isTestLogger(logger)) {
+					yield* logger.info('first')
+					yield* logger.warn('second')
+
+					// Get and clear should return logs
+					const logs = yield* logger.getAndClearLogs()
+					expect(logs).toHaveLength(2)
+					expect(logs[0]?.message).toBe('first')
+					expect(logs[1]?.message).toBe('second')
+
+					// Logs should now be empty
+					const remainingLogs = yield* logger.getLogs()
+					expect(remainingLogs).toHaveLength(0)
+				}
+				return true
+			})
+
+			const result = await Effect.runPromise(
+				program.pipe(Effect.provide(LoggerTest())),
+			)
+			expect(result).toBe(true)
+		})
+
+		it('should return empty array when no logs exist', async () => {
+			const program = Effect.gen(function* () {
+				const logger = yield* LoggerService
+				if (isTestLogger(logger)) {
+					const logs = yield* logger.getAndClearLogs()
+					expect(logs).toHaveLength(0)
+				}
+				return true
+			})
+
+			const result = await Effect.runPromise(
+				program.pipe(Effect.provide(LoggerTest())),
+			)
+			expect(result).toBe(true)
+		})
+	})
+
+	describe('child logger type', () => {
+		it('should return TestLoggerShape from child(), allowing test methods', async () => {
+			const program = Effect.gen(function* () {
+				const logger = yield* LoggerService
+				if (isTestLogger(logger)) {
+					const child = logger.child('component')
+
+					// Child should have all test methods
+					yield* child.info('child log')
+
+					// Should be able to call getLogs on child
+					const childLogs = yield* child.getLogs()
+					expect(childLogs).toHaveLength(1)
+
+					// Should be able to call getLogCount on child
+					const count = yield* child.getLogCount()
+					expect(count).toBe(1)
+
+					// Should be able to call clearLogs on child (affects shared storage)
+					yield* child.clearLogs()
+					const logsAfterClear = yield* logger.getLogs()
+					expect(logsAfterClear).toHaveLength(0)
+
+					// Should be able to call getAndClearLogs on child
+					yield* child.warn('after clear')
+					const clearedLogs = yield* child.getAndClearLogs()
+					expect(clearedLogs).toHaveLength(1)
+				}
+				return true
+			})
+
+			const result = await Effect.runPromise(
+				program.pipe(Effect.provide(LoggerTest())),
+			)
+			expect(result).toBe(true)
+		})
+
+		it('should allow nested children with test methods', async () => {
+			const program = Effect.gen(function* () {
+				const logger = yield* LoggerService
+				if (isTestLogger(logger)) {
+					const child1 = logger.child('level1')
+					const child2 = child1.child('level2')
+
+					yield* child2.error('deep log')
+
+					// Test methods should work on deeply nested child
+					const lastLog = yield* child2.getLastLog()
+					expect(lastLog?.loggerName).toBe('tevm:level1:level2')
+					expect(lastLog?.message).toBe('deep log')
+				}
+				return true
+			})
+
+			const result = await Effect.runPromise(
+				program.pipe(Effect.provide(LoggerTest())),
+			)
+			expect(result).toBe(true)
+		})
+	})
+
 	describe('isolation between layers', () => {
 		it('should not share logs between different LoggerTest instances', async () => {
 			// First program with its own layer

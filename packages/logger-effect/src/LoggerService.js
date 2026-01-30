@@ -43,6 +43,6 @@ import { Context } from 'effect'
  * })
  * ```
  *
- * @type {Context.Tag<'LoggerService', LoggerShape>}
+ * @type {Context.Tag<LoggerService, LoggerShape>}
  */
-export const LoggerService = Context.GenericTag('LoggerService')
+export const LoggerService = /** @type {Context.Tag<LoggerService, LoggerShape>} */ (Context.GenericTag('LoggerService'))
