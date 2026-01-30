@@ -191,6 +191,57 @@ describe('GetAccountLive', () => {
 			expect(result._tag).toBe('Failure')
 		})
 
+		it('should fail with InvalidParamsError for unsupported blockTag', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = GetAccountLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { getAccount } = yield* GetAccountService
+				return yield* getAccount({
+					address: '0x1234567890123456789012345678901234567890',
+					blockTag: 'pending', // Unsupported blockTag
+				})
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(testLayer)))
+
+			expect(result._tag).toBe('Failure')
+		})
+
+		it('should succeed with blockTag undefined (defaults to latest)', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = GetAccountLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { getAccount } = yield* GetAccountService
+				return yield* getAccount({
+					address: '0x1234567890123456789012345678901234567890',
+					// blockTag is undefined
+				})
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(testLayer)))
+
+			expect(result.address).toBe('0x1234567890123456789012345678901234567890')
+		})
+
+		it('should succeed with blockTag latest', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = GetAccountLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { getAccount } = yield* GetAccountService
+				return yield* getAccount({
+					address: '0x1234567890123456789012345678901234567890',
+					blockTag: 'latest',
+				})
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(testLayer)))
+
+			expect(result.address).toBe('0x1234567890123456789012345678901234567890')
+		})
+
 		it('should lowercase the address in the result', async () => {
 			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
 			const testLayer = GetAccountLive.pipe(Layer.provide(MockStateManagerLayer))

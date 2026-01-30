@@ -162,6 +162,38 @@ describe('GetBalanceLive', () => {
 			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(testLayer)))
 			expect(result._tag).toBe('Failure')
 		})
+
+		it('should fail with InvalidParamsError for unsupported blockTag', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = GetBalanceLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { getBalance } = yield* GetBalanceService
+				return yield* getBalance({
+					address: '0x1234567890123456789012345678901234567890',
+					blockTag: 'earliest', // Unsupported blockTag
+				})
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(testLayer)))
+			expect(result._tag).toBe('Failure')
+		})
+
+		it('should succeed with blockTag latest', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = GetBalanceLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { getBalance } = yield* GetBalanceService
+				return yield* getBalance({
+					address: '0x1234567890123456789012345678901234567890',
+					blockTag: 'latest',
+				})
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(testLayer)))
+			expect(result).toBe(0n)
+		})
 	})
 
 	describe('error handling', () => {

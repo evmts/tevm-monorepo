@@ -205,6 +205,40 @@ describe('GetStorageAtLive', () => {
 			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(testLayer)))
 			expect(result._tag).toBe('Failure')
 		})
+
+		it('should fail with InvalidParamsError for unsupported blockTag', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = GetStorageAtLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { getStorageAt } = yield* GetStorageAtService
+				return yield* getStorageAt({
+					address: '0x1234567890123456789012345678901234567890',
+					position: '0x0',
+					blockTag: 'safe', // Unsupported blockTag
+				})
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(testLayer)))
+			expect(result._tag).toBe('Failure')
+		})
+
+		it('should succeed with blockTag latest', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = GetStorageAtLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { getStorageAt } = yield* GetStorageAtService
+				return yield* getStorageAt({
+					address: '0x1234567890123456789012345678901234567890',
+					position: '0x0',
+					blockTag: 'latest',
+				})
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(testLayer)))
+			expect(result).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
+		})
 	})
 
 	describe('error handling', () => {

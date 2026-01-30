@@ -402,6 +402,82 @@ describe('SetAccountLive', () => {
 
 			expect(result._tag).toBe('Failure')
 		})
+
+		it('should fail with InvalidParamsError for storage key without 0x prefix', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = SetAccountLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { setAccount } = yield* SetAccountService
+				return yield* setAccount({
+					address: '0x1234567890123456789012345678901234567890',
+					state: {
+						'1234': '0xabcd', // Key missing 0x prefix
+					},
+				})
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(testLayer)))
+
+			expect(result._tag).toBe('Failure')
+		})
+
+		it('should fail with InvalidParamsError for storage key with invalid hex chars', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = SetAccountLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { setAccount } = yield* SetAccountService
+				return yield* setAccount({
+					address: '0x1234567890123456789012345678901234567890',
+					stateDiff: {
+						'0xGGGG': '0xabcd', // Invalid hex chars in key
+					},
+				})
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(testLayer)))
+
+			expect(result._tag).toBe('Failure')
+		})
+
+		it('should fail with InvalidParamsError for storage value without 0x prefix', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = SetAccountLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { setAccount } = yield* SetAccountService
+				return yield* setAccount({
+					address: '0x1234567890123456789012345678901234567890',
+					state: {
+						'0x0000000000000000000000000000000000000000000000000000000000000001': 'abcd', // Value missing 0x prefix
+					},
+				})
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(testLayer)))
+
+			expect(result._tag).toBe('Failure')
+		})
+
+		it('should fail with InvalidParamsError for storage value with invalid hex chars', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = SetAccountLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { setAccount } = yield* SetAccountService
+				return yield* setAccount({
+					address: '0x1234567890123456789012345678901234567890',
+					stateDiff: {
+						'0x0000000000000000000000000000000000000000000000000000000000000001': '0xZZZZ', // Invalid hex chars in value
+					},
+				})
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(testLayer)))
+
+			expect(result._tag).toBe('Failure')
+		})
 	})
 
 	describe('error handling', () => {

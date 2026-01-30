@@ -124,11 +124,28 @@ export const SnapshotLive = () => {
 
 					revertToSnapshot: (id) =>
 						Effect.gen(function* () {
-							// Get snapshots
-							const snapshots = yield* Ref.get(snapsRef)
-							const snapshot = snapshots.get(id)
+							// Atomically get snapshot and remove it along with all subsequent snapshots
+							// Using Ref.modify to avoid TOCTOU race condition
+							const targetNum = parseInt(id.slice(2), 16)
 
-							// Check if snapshot exists
+							/** @type {Snapshot | undefined} */
+							const snapshot = yield* Ref.modify(snapsRef, (map) => {
+								const foundSnapshot = map.get(id)
+								if (!foundSnapshot) {
+									// Return undefined and keep map unchanged
+									return [undefined, map]
+								}
+								// Remove this snapshot and all subsequent ones
+								const newMap = new Map(map)
+								for (const [key] of newMap) {
+									if (parseInt(key.slice(2), 16) >= targetNum) {
+										newMap.delete(key)
+									}
+								}
+								return [foundSnapshot, newMap]
+							})
+
+							// Check if snapshot was found
 							if (!snapshot) {
 								return yield* Effect.fail(
 									new SnapshotNotFoundError({
@@ -138,20 +155,8 @@ export const SnapshotLive = () => {
 								)
 							}
 
-							// Restore state
+							// Restore state (snapshot data is immutable so this is safe after the atomic read)
 							yield* stateManager.setStateRoot(hexToBytes(snapshot.stateRoot))
-
-							// Delete this and all subsequent snapshots
-							const targetNum = parseInt(id.slice(2), 16)
-							yield* Ref.update(snapsRef, (map) => {
-								const newMap = new Map(map)
-								for (const [key] of newMap) {
-									if (parseInt(key.slice(2), 16) >= targetNum) {
-										newMap.delete(key)
-									}
-								}
-								return newMap
-							})
 						}),
 
 					getSnapshot: (id) => Ref.get(snapsRef).pipe(Effect.map((m) => m.get(id))),

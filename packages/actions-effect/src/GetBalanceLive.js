@@ -9,6 +9,28 @@ import { InvalidParamsError } from '@tevm/errors-effect'
  */
 
 /**
+ * Validates blockTag parameter - only 'latest' or undefined are supported
+ * @param {import('./types.js').BlockParam} [blockTag] - Block tag to validate
+ * @param {string} method - Method name for error messages
+ * @returns {import('effect').Effect.Effect<'latest', import('@tevm/errors-effect').InvalidParamsError, never>}
+ */
+const validateBlockTag = (blockTag, method = 'eth_getBalance') =>
+	Effect.gen(function* () {
+		// Only 'latest' and undefined are supported
+		// Historical block queries require TransportService for fork mode which is not yet implemented
+		if (blockTag === undefined || blockTag === 'latest') {
+			return 'latest'
+		}
+		return yield* Effect.fail(
+			new InvalidParamsError({
+				method,
+				params: { blockTag },
+				message: `Unsupported blockTag: ${String(blockTag)}. Only 'latest' is currently supported. Historical block queries require fork mode which is not yet implemented in actions-effect.`,
+			}),
+		)
+	})
+
+/**
  * Validates the address format
  * @param {string} address - Address to validate
  * @returns {import('effect').Effect.Effect<`0x${string}`, import('@tevm/errors-effect').InvalidParamsError, never>}
@@ -84,6 +106,9 @@ export const GetBalanceLive = Layer.effect(
 				Effect.gen(function* () {
 					// Validate address format
 					const address = yield* validateAddress(params.address)
+
+					// Validate blockTag - only 'latest' is supported
+					yield* validateBlockTag(params.blockTag)
 
 					// Get account from state manager
 					const account = yield* stateManager.getAccount(address)

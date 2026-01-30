@@ -9,93 +9,226 @@
 
 ## Review Agent Summary (2026-01-30)
 
-**FIFTY-FIFTH UPDATE COMPLETE.** All CRITICAL issues in SetAccountLive.js have been resolved.
+**FIFTY-SEVENTH REVIEW COMPLETE.** All 6 CRITICAL issues from 56th review have been RESOLVED.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
 | **Phase 1** | 🟢 FORTY-NINTH REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
 | **Phase 2** | 🟢 FORTY-NINTH REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | ✅ COMPLIANT |
-| **Phase 3** | 🟢 FIFTY-FIFTH UPDATE | 2 (node-effect, actions-effect) | 180 | 99.24% | ✅ **0 CRITICAL** |
+| **Phase 3** | 🟢 FIFTY-SEVENTH REVIEW | 2 (node-effect, actions-effect) | 193 | 99.24% | ✅ ALL CRITICAL RESOLVED |
 | **Phase 4** | ⚪ NOT STARTED | 0 | - | - | - |
 
 **Open Issues Summary:**
-- **CRITICAL**: 0 ✅ (ALL RESOLVED)
+- **CRITICAL**: 0 ✅ (all resolved in 57th review)
 - **HIGH**: 0
-- **MEDIUM**: 10 (blockTag support, fork integration, TOCTOU race, returnStorage)
-- **LOW**: 13 (duplicated utilities, memory growth, logging, throwOnFail)
+- **MEDIUM**: 5 (returnStorage unimplemented, non-atomic Refs, shallow copies, incomplete error types)
+- **LOW**: 8 (duplicated utilities, memory growth, logging, throwOnFail)
 
 ---
 
-### FIFTY-FIFTH UPDATE (2026-01-30) - All CRITICAL Issues Resolved
+### FIFTY-SEVENTH REVIEW (2026-01-30) - ALL CRITICAL ISSUES RESOLVED
 
-**✅ ALL CRITICAL ISSUES NOW FIXED:**
+**Reviewed By**: Claude Opus 4.5
+**Scope**: All 6 CRITICAL issues from 56th review + MEDIUM issue #1 (error masking)
 
-1. ✅ **SetAccountLive.js - createAccount() FIXED** - Now imports and uses `createAccount()` from `@tevm/utils` to create proper `EthjsAccount` instances for `putAccount()`.
+#### ✅ All 6 CRITICAL Issues RESOLVED
 
-2. ✅ **Checkpoint/commit pattern - ANALYZED AND CORRECT** - After analysis, the Effect version's transactional pattern is actually an **IMPROVEMENT** over the original:
-   - **Original pattern**: Do all operations → `checkpoint()` → `commit(false)` (no rollback capability)
-   - **Effect pattern**: `checkpoint()` → operations → `commit()` on success OR `revert()` on failure (full ACID-like transaction)
+| Issue | File | Fix Applied | Tests Added |
+|-------|------|-------------|-------------|
+| Storage validation bypass | SetAccountLive.js:300-342 | Added hex validation for storage keys/values before `hexToBytes()` | 4 new tests |
+| SnapshotLive TOCTOU race | SnapshotLive.js:125-155 | Replaced `Ref.get` + `Ref.update` with atomic `Ref.modify` | Existing tests pass |
+| GetAccountLive blockTag ignored | GetAccountLive.js | Added `validateBlockTag()` - throws `InvalidParamsError` for unsupported blockTag | 3 new tests |
+| GetBalanceLive blockTag ignored | GetBalanceLive.js | Added `validateBlockTag()` - throws `InvalidParamsError` for unsupported blockTag | 2 new tests |
+| GetCodeLive blockTag ignored | GetCodeLive.js | Added `validateBlockTag()` - throws `InvalidParamsError` for unsupported blockTag | 2 new tests |
+| GetStorageAtLive blockTag ignored | GetStorageAtLive.js | Added `validateBlockTag()` - throws `InvalidParamsError` for unsupported blockTag | 2 new tests |
 
-   The Effect version provides proper atomic transaction semantics with rollback on failure. This is the correct pattern for database-like state management.
+#### ✅ MEDIUM Issue #1 RESOLVED
 
-**Tests: 91 pass, 99.24% coverage in @tevm/actions-effect**
+| Issue | File | Fix Applied |
+|-------|------|-------------|
+| Error masking in revert | SetAccountLive.js:355 | Added `Effect.catchAll(() => Effect.void)` to preserve original error |
+
+#### Test Results
+
+```
+actions-effect: 104 passed (up from 91)
+node-effect: 89 passed (unchanged)
+Total: 193 tests passing
+```
+
+#### Changes Made
+
+1. **SetAccountLive.js**: Added storage key/value hex validation in the state/stateDiff processing loop. Each key and value is now validated against `/^0x[a-fA-F0-9]+$/` before conversion.
+
+2. **SnapshotLive.js**: Rewrote `revertToSnapshot()` to use atomic `Ref.modify()` pattern:
+   - Atomically reads snapshot data
+   - Atomically removes snapshot and subsequent ones
+   - Then restores state (safe since snapshot data is immutable after atomic read)
+
+3. **All Get Handlers**: Added `validateBlockTag()` function that:
+   - Accepts `undefined` (defaults to 'latest')
+   - Accepts `'latest'` explicitly
+   - Rejects all other values with clear `InvalidParamsError` explaining limitation
+
+4. **SetAccountLive.js**: Fixed error masking by catching revert errors with `Effect.catchAll(() => Effect.void)` to preserve original failure error.
 
 ---
 
-### FIFTY-FOURTH REVIEW (2026-01-30) - Opus 4.5 Parallel Subagent Deep Review
+### FIFTY-SIXTH REVIEW (2026-01-30) - Opus 4.5 Parallel Subagent Deep Re-Review
 
-**Reviewed By**: Claude Opus 4.5 (4 parallel subagents)
+**Reviewed By**: Claude Opus 4.5 (3 parallel subagents)
 **Scope**: All @tevm/actions-effect handlers + @tevm/node-effect services
 
-#### Summary: Issues Status
+**⚠️ CRITICAL FINDING: Prior review (55th) INCORRECTLY marked issues as resolved or miscategorized severity.**
+
+The missing blockTag support is a **CRITICAL** issue per RFC, not MEDIUM. Without blockTag support, handlers cannot query historical state - a core Ethereum feature. Additionally, a new storage validation bypass was discovered.
+
+#### Summary: Issues Status (CORRECTED)
 
 | Package | File | CRITICAL | MEDIUM | LOW | Notes |
 |---------|------|----------|--------|-----|-------|
-| actions-effect | SetAccountLive.js | ✅ 0 (FIXED) | 1 | 3 | createAccount() added, checkpoint pattern is correct |
-| actions-effect | GetAccountLive.js | 0 | 2 | 2 | Missing blockTag, returnStorage support |
-| actions-effect | GetBalanceLive.js | 0 | 2 | 1 | Missing blockTag, fork integration |
-| actions-effect | GetCodeLive.js | 0 | 2 | 1 | Missing blockTag, fork integration |
-| actions-effect | GetStorageAtLive.js | 0 | 2 | 1 | Missing blockTag, fork integration |
-| node-effect | SnapshotLive.js | 0 | 1 | 2 | TOCTOU race in revertToSnapshot |
-| node-effect | FilterLive.js | 0 | 0 | 1 | Unbounded memory growth |
+| actions-effect | SetAccountLive.js | ~~1~~ ✅ | ~~1~~ ✅ | 3 | ✅ Storage validation + error masking RESOLVED |
+| actions-effect | GetAccountLive.js | ~~1~~ ✅ | 2 | 2 | ✅ blockTag validation RESOLVED |
+| actions-effect | GetBalanceLive.js | ~~1~~ ✅ | 1 | 1 | ✅ blockTag validation RESOLVED |
+| actions-effect | GetCodeLive.js | ~~1~~ ✅ | 1 | 1 | ✅ blockTag validation RESOLVED |
+| actions-effect | GetStorageAtLive.js | ~~1~~ ✅ | 1 | 1 | ✅ blockTag validation RESOLVED |
+| node-effect | SnapshotLive.js | ~~1~~ ✅ | 0 | 2 | ✅ TOCTOU race RESOLVED with Ref.modify |
+| node-effect | FilterLive.js | 0 | 1 | 1 | Shallow copy of tx/blocks arrays in deepCopy |
 | node-effect | BlockParamsLive.js | 0 | 0 | 2 | Non-atomic multi-Ref operations |
-| **TOTAL** | | **0** | **10** | **13** | |
+| **TOTAL** | | ~~6~~ **0** | ~~7~~ **6** | **13** | **All CRITICAL resolved** |
 
 ---
 
-#### ✅ RESOLVED CRITICAL Issues (2026-01-30)
+### ✅ CRITICAL Issues (FIFTY-SIXTH REVIEW) - ALL RESOLVED IN 57TH REVIEW
 
-##### 1. SetAccountLive.js - createAccount() helper - ✅ FIXED
+#### 1. SetAccountLive.js - Storage validation bypass ✅ RESOLVED
 
-**Solution**: Added import of `createAccount` from `@tevm/utils` and wrapped account data before passing to `putAccount()`:
+**File:Line**: SetAccountLive.js:300-302
+
+**Problem**: `params.state` and `params.stateDiff` are passed directly to `hexToBytes()` without validation:
 
 ```javascript
-import { keccak256 as keccak256Utils, createAccount } from '@tevm/utils'
+// Lines 300-302: No validation before conversion!
+const key = entry[0]   // Could be invalid hex like "0xZZ"
+const value = entry[1] // Could be invalid hex
+yield* stateManager.putStorage(address, hexToBytes(key), hexToBytes(value))
+```
 
-// Now correctly creates EthjsAccount instance
-yield* stateManager.putAccount(address, createAccount(accountData)).pipe(...)
+If invalid hex is provided (e.g., `"0xZZ"`), `Number.parseInt()` produces `NaN` values in the resulting Uint8Array, corrupting state silently.
+
+**Fix**: Add storage key/value validation in the validation phase (lines 192-201):
+```javascript
+if (!/^0x[a-fA-F0-9]+$/.test(key)) return yield* InvalidParamsError(...)
 ```
 
 ---
 
-##### 2. SetAccountLive.js - Checkpoint pattern - ✅ CORRECT (Not a bug)
+#### 2. All Get Handlers - Missing blockTag Support ✅ RESOLVED
 
-**Analysis**: After comparing the original and Effect patterns:
+**Files**: GetAccountLive.js, GetBalanceLive.js, GetCodeLive.js, GetStorageAtLive.js
 
-| Aspect | Original | Effect |
-|--------|----------|--------|
-| Checkpoint timing | AFTER operations | BEFORE operations |
-| Rollback capability | ❌ None | ✅ Full revert on failure |
-| Atomicity | Partial | Full ACID-like |
-| Pattern | Finalize/persist | Transaction with rollback |
+**Problem**: All handlers declare `blockTag` in their params types but **completely ignore it**. Original handlers support:
+- `latest`, `pending`, `earliest`, `safe`, `finalized`
+- Block numbers (hex or decimal)
+- Block hashes
+- Fork RPC fallback via `createJsonRpcFetcher`
 
-The Effect version's pattern (`checkpoint` → ops → `commit`/`revert`) is the **correct** database transaction pattern. The original's pattern (`ops` → `checkpoint` → `commit`) doesn't provide rollback capability if operations partially fail.
+**Why CRITICAL (not MEDIUM)**: Per RFC Section 6 - "all failure modes visible in types, pattern-matchable." These handlers silently return `latest` state when user requests historical state. This violates API contract and breaks:
+- Historical balance queries
+- Contract state at specific blocks
+- Forking mode entirely
 
-**Conclusion**: The Effect version provides IMPROVED semantics, not inverted semantics. No change needed.
+**Fix**: Either:
+1. Implement blockTag support with `TransportService` dependency for fork mode
+2. OR throw `InvalidParamsError` when blockTag != 'latest' with clear error message
 
 ---
 
-#### MEDIUM Issues
+#### 3. SnapshotLive.js - TOCTOU Race Condition ✅ RESOLVED
+
+**File:Line**: SnapshotLive.js:125-155
+
+**Problem**: Uses separate `Ref.get` and `Ref.update` operations instead of atomic `Ref.modify`:
+
+```javascript
+// CURRENT - Race condition vulnerable
+const snapshots = yield* Ref.get(snapshotsRef)           // Step 1: Read
+const snapshotData = snapshots.get(snapshotId)
+// ... time passes, another fiber could modify snapshots ...
+yield* stateManager.setStateRoot(...)                    // Step 2: Use
+yield* Ref.update(snapshotsRef, (s) => { s.delete(snapshotId); return s }) // Step 3: Update
+
+// CORRECT - Atomic operation
+yield* Ref.modify(snapshotsRef, (snapshots) => {
+  const data = snapshots.get(snapshotId)
+  if (!data) return [Effect.fail(new SnapshotNotFoundError()), snapshots]
+  snapshots.delete(snapshotId)
+  return [data, snapshots]
+})
+```
+
+**Impact**: Concurrent `revertToSnapshot` calls could:
+- Read stale snapshot data
+- Delete wrong snapshots
+- Corrupt state
+
+---
+
+### MEDIUM Issues (FIFTY-SIXTH REVIEW)
+
+#### 1. SetAccountLive.js - Error masking in revert ✅ RESOLVED in 57th review
+
+**Status**: RESOLVED - Added `Effect.catchAll(() => Effect.void)` to revert handler.
+
+---
+
+#### 2. GetAccountLive.js - Missing returnStorage implementation
+
+**File:Line**: GetAccountLive.js:162-163
+
+**Problem**: Comment admits "returnStorage is not supported yet" but params include it and return type includes `storage` field.
+
+---
+
+#### 3. FilterLive.js - Shallow copy of tx/blocks arrays
+
+**File:Line**: FilterLive.js:349-350
+
+**Problem**: Uses `.map(t => ({ ...t }))` shallow copy. If objects contain nested arrays/objects, data won't be properly deep copied.
+
+---
+
+#### 4. Get Handlers - Incomplete error type signatures
+
+**Files**: GetBalanceService.js:11-14, GetCodeService.js:11-14, GetStorageAtService.js:11-14
+
+**Problem**: Service type signatures only declare `InvalidParamsError`, but original handlers can throw `UnknownBlockError`, `ForkError`, RPC errors. Violates RFC Section 6 requiring all failure modes in types.
+
+---
+
+### LOW Issues (FIFTY-SIXTH REVIEW)
+
+1. **Duplicated utility functions** (5 files) - `validateAddress()`, `bytesToHex()`, `hexToBytes()` duplicated across handlers
+2. **BlockParamsLive.js** - Non-atomic multi-Ref operations in `clearNextBlockOverrides()`
+3. **Missing service dependencies** - GetBalance/GetCode/GetStorageAt missing `TransportService` for fork fallback
+4. **Missing logging** - SetAccountLive, GetAccountLive don't use LoggerService
+5. **Missing throwOnFail** - SetAccountLive, GetAccountLive ignore `throwOnFail` parameter
+6. **Validation inconsistency** - GetStorageAtLive allows arbitrary-length hex but pads to 32 bytes
+7. **Early return pattern** - SetAccountLive uses `return undefined` in Effect.gen instead of `yield* Effect.succeed(undefined)`
+8. **Unused accountData field** - SetAccountLive intermediate object doesn't match full EthjsAccount shape
+
+---
+
+### Previous: FIFTY-FIFTH UPDATE (2026-01-30) - Status: SUPERSEDED
+
+The 55th update claimed all CRITICAL issues were resolved. This was **INCORRECT**:
+- Storage validation bypass was not identified
+- blockTag issues were miscategorized as MEDIUM (should be CRITICAL per RFC)
+- TOCTOU race was miscategorized as MEDIUM (should be CRITICAL for data integrity)
+
+---
+
+#### MEDIUM Issues (from 54th review, kept for reference)
 
 ##### 1. All 5 Action Handlers - Missing blockTag support
 

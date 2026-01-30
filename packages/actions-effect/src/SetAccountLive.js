@@ -298,6 +298,44 @@ export const SetAccountLive = Layer.effect(
 						const storageChanges = params.state ?? params.stateDiff
 						if (storageChanges !== undefined) {
 							for (const [key, value] of Object.entries(storageChanges)) {
+								// Validate storage key hex format
+								if (typeof key !== 'string' || !key.startsWith('0x')) {
+									return yield* Effect.fail(
+										new InvalidParamsError({
+											method: 'tevm_setAccount',
+											params: { storageKey: key },
+											message: `Invalid storage key: ${key}. Must be a hex string starting with 0x`,
+										}),
+									)
+								}
+								if (!/^0x[a-fA-F0-9]+$/.test(key)) {
+									return yield* Effect.fail(
+										new InvalidParamsError({
+											method: 'tevm_setAccount',
+											params: { storageKey: key },
+											message: `Invalid storage key: ${key}. Contains invalid hex characters`,
+										}),
+									)
+								}
+								// Validate storage value hex format
+								if (typeof value !== 'string' || !value.startsWith('0x')) {
+									return yield* Effect.fail(
+										new InvalidParamsError({
+											method: 'tevm_setAccount',
+											params: { storageKey: key, storageValue: value },
+											message: `Invalid storage value for key ${key}: ${value}. Must be a hex string starting with 0x`,
+										}),
+									)
+								}
+								if (!/^0x[a-fA-F0-9]+$/.test(value)) {
+									return yield* Effect.fail(
+										new InvalidParamsError({
+											method: 'tevm_setAccount',
+											params: { storageKey: key, storageValue: value },
+											message: `Invalid storage value for key ${key}: ${value}. Contains invalid hex characters`,
+										}),
+									)
+								}
 								const keyBytes = hexToBytes(key, { size: 32 })
 								const valueBytes = hexToBytes(value)
 								yield* stateManager.putStorage(address, keyBytes, valueBytes).pipe(
@@ -326,8 +364,8 @@ export const SetAccountLive = Layer.effect(
 								),
 							),
 						),
-						// On failure, revert the checkpoint
-						Effect.tapError(() => stateManager.revert()),
+						// On failure, revert the checkpoint (ignoring revert errors to preserve original error)
+						Effect.tapError(() => stateManager.revert().pipe(Effect.catchAll(() => Effect.void))),
 					)
 
 					/** @type {import('./types.js').SetAccountSuccess} */
