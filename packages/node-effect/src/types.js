@@ -113,7 +113,7 @@
  *
  * @typedef {Object} LogFilterParams
  * @property {Hex} [address] - Address to filter logs from
- * @property {Hex | Hex[]} [topics] - Topics to filter by
+ * @property {(Hex | Hex[] | null)[] | Hex} [topics] - Topics to filter by (supports nested arrays for OR matching per Ethereum JSON-RPC spec)
  * @property {bigint | Hex} [fromBlock] - Block number or tag to start from
  * @property {bigint | Hex} [toBlock] - Block number or tag to end at
  */

@@ -147,7 +147,7 @@
 /**
  * Shape of the Request service for EIP-1193
  * @typedef {Object} RequestServiceShape
- * @property {<T = unknown>(params: Eip1193RequestParams) => import('effect').Effect<T, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} request - Execute EIP-1193 request
+ * @property {<T = unknown>(params: Eip1193RequestParams) => import('effect').Effect<T, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError | import('@tevm/errors-effect').MethodNotFoundError, never>} request - Execute EIP-1193 request
  */
 
 /**

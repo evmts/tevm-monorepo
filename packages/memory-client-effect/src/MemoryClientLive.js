@@ -352,13 +352,15 @@ const createActionServices = (stateManager) => {
 					)
 				}
 
-				// Validate position
-				if (params.position === undefined) {
+				// Validate position (presence and type)
+				if (params.position === undefined || typeof params.position !== 'string') {
 					return yield* Effect.fail(
 						new InvalidParamsError({
 							method: 'getStorageAt',
 							params,
-							message: 'Missing required field: position',
+							message: params.position === undefined
+								? 'Missing required field: position'
+								: `Invalid position: expected hex string, got ${typeof params.position}`,
 						})
 					)
 				}

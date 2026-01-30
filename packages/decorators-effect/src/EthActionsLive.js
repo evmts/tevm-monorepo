@@ -20,7 +20,7 @@ import { InternalError } from '@tevm/errors-effect'
  *
  * Provides Effect-based wrappers around standard Ethereum JSON-RPC methods.
  * This layer depends on:
- * - StateManagerService for state access
+ * - BlockchainService for blockchain state access
  * - VmService for execution
  * - CommonService for chain configuration
  * - Action services for specific operations
