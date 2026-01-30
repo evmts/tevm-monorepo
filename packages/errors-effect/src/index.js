@@ -4,6 +4,18 @@ export * from './TevmError.js'
 // EVM execution errors
 export * from './evm/index.js'
 
+// Transport errors
+export * from './transport/index.js'
+
+// Block errors
+export * from './block/index.js'
+
+// Transaction errors
+export * from './transaction/index.js'
+
+// State errors
+export * from './state/index.js'
+
 // Interop helpers
 export * from './interop/index.js'
 

@@ -19,4 +19,20 @@ describe('index', () => {
 		expect(errorsEffect.toTaggedError).toBeDefined()
 		expect(errorsEffect.toBaseError).toBeDefined()
 	})
+
+	it('should export transport errors', () => {
+		expect(errorsEffect.ForkError).toBeDefined()
+	})
+
+	it('should export block errors', () => {
+		expect(errorsEffect.BlockNotFoundError).toBeDefined()
+	})
+
+	it('should export transaction errors', () => {
+		expect(errorsEffect.InvalidTransactionError).toBeDefined()
+	})
+
+	it('should export state errors', () => {
+		expect(errorsEffect.StateRootNotFoundError).toBeDefined()
+	})
 })

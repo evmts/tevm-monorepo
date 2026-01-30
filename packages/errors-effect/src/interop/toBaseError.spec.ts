@@ -272,6 +272,46 @@ describe('toBaseError', () => {
 
 			expect(result.details).toBe('{"code":123,"data":"test"}')
 		})
+
+		it('should return empty string for non-object primitive cause (e.g., number)', () => {
+			const error = new TevmError({
+				message: 'Top error',
+				code: -32000,
+				cause: 12345,
+			})
+
+			const result = toBaseError(error)
+
+			expect(result.details).toBe('')
+		})
+
+		it('should use errorType property when cause has errorType but no message', () => {
+			const error = new TevmError({
+				message: 'Top error',
+				code: -32000,
+				cause: { errorType: 'ValidationError' },
+			})
+
+			const result = toBaseError(error)
+
+			expect(result.details).toBe('ValidationError')
+		})
+
+		it('should handle circular reference in cause object', () => {
+			// Create an object with a circular reference
+			const circularCause: Record<string, unknown> = { name: 'circular' }
+			circularCause.self = circularCause
+
+			const error = new TevmError({
+				message: 'Top error',
+				code: -32000,
+				cause: circularCause,
+			})
+
+			const result = toBaseError(error)
+
+			expect(result.details).toBe('Unable to parse error details')
+		})
 	})
 
 	describe('round-trip conversion', () => {
@@ -357,6 +397,34 @@ describe('toBaseError', () => {
 			const roundTripped = toTaggedError(baseError)
 
 			expect(roundTripped.cause).toBe(cause)
+		})
+	})
+
+	describe('metaMessages property', () => {
+		it('should extract metaMessages from error that has them', () => {
+			// Create an error-like object with metaMessages
+			const errorWithMeta = Object.assign(
+				new TevmError({
+					message: 'Test error',
+					code: -32000,
+				}),
+				{ metaMessages: ['Additional info 1', 'Additional info 2'] }
+			)
+
+			const result = toBaseError(errorWithMeta)
+
+			expect(result.metaMessages).toEqual(['Additional info 1', 'Additional info 2'])
+		})
+
+		it('should have undefined metaMessages when not present on error', () => {
+			const error = new TevmError({
+				message: 'Test error',
+				code: -32000,
+			})
+
+			const result = toBaseError(error)
+
+			expect(result.metaMessages).toBeUndefined()
 		})
 	})
 })

@@ -5,14 +5,19 @@ import { OutOfGasError } from '../evm/OutOfGasError.js'
 import { RevertError } from '../evm/RevertError.js'
 import { StackOverflowError } from '../evm/StackOverflowError.js'
 import { StackUnderflowError } from '../evm/StackUnderflowError.js'
+import { ForkError } from '../transport/ForkError.js'
+import { BlockNotFoundError } from '../block/BlockNotFoundError.js'
+import { InvalidTransactionError } from '../transaction/InvalidTransactionError.js'
+import { StateRootNotFoundError } from '../state/StateRootNotFoundError.js'
 
 /**
  * Map of error tags to their TaggedError constructors.
- * Note: 'Revert' is an alias for RevertError to handle errors from @tevm/errors
- * which uses _tag='Revert' while Effect version uses _tag='RevertError'.
+ * Note: Some aliases are included to handle errors from @tevm/errors
+ * which may use different _tag values than the Effect versions.
  * @type {Record<string, new (props: any) => any>}
  */
 const errorMap = {
+	// EVM execution errors
 	InsufficientBalanceError,
 	InvalidOpcodeError,
 	OutOfGasError,
@@ -20,6 +25,16 @@ const errorMap = {
 	RevertError,
 	StackOverflowError,
 	StackUnderflowError,
+	// Transport errors
+	ForkError,
+	// Block errors
+	BlockNotFoundError,
+	UnknownBlock: BlockNotFoundError,
+	// Transaction errors
+	InvalidTransactionError,
+	InvalidTransaction: InvalidTransactionError,
+	// State errors
+	StateRootNotFoundError,
 }
 
 /**
@@ -48,7 +63,7 @@ const errorMap = {
  * ```
  *
  * @param {import('@tevm/errors').BaseError | Error | unknown} error - The error to convert
- * @returns {TevmError | InsufficientBalanceError | OutOfGasError | RevertError | InvalidOpcodeError | StackOverflowError | StackUnderflowError} A TaggedError instance
+ * @returns {TevmError | InsufficientBalanceError | OutOfGasError | RevertError | InvalidOpcodeError | StackOverflowError | StackUnderflowError | ForkError | BlockNotFoundError | InvalidTransactionError | StateRootNotFoundError} A TaggedError instance
  */
 export const toTaggedError = (error) => {
 	// If it's already a TevmError TaggedError, return as-is
@@ -120,6 +135,35 @@ export const toTaggedError = (error) => {
 				return new StackUnderflowError({
 					requiredItems: typeof baseError.requiredItems === 'number' ? baseError.requiredItems : undefined,
 					availableItems: typeof baseError.availableItems === 'number' ? baseError.availableItems : undefined,
+					message: baseError.message,
+					cause: baseError.cause,
+				})
+			}
+			if (tag === 'ForkError') {
+				return new ForkError({
+					method: typeof baseError.method === 'string' ? baseError.method : undefined,
+					message: baseError.message,
+					cause: baseError.cause,
+				})
+			}
+			if (tag === 'BlockNotFoundError' || tag === 'UnknownBlock') {
+				return new BlockNotFoundError({
+					blockTag: baseError.blockTag,
+					message: baseError.message,
+					cause: baseError.cause,
+				})
+			}
+			if (tag === 'InvalidTransactionError' || tag === 'InvalidTransaction') {
+				return new InvalidTransactionError({
+					reason: typeof baseError.reason === 'string' ? baseError.reason : undefined,
+					tx: baseError.tx,
+					message: baseError.message,
+					cause: baseError.cause,
+				})
+			}
+			if (tag === 'StateRootNotFoundError') {
+				return new StateRootNotFoundError({
+					stateRoot: typeof baseError.stateRoot === 'string' ? /** @type {`0x${string}`} */ (baseError.stateRoot) : undefined,
 					message: baseError.message,
 					cause: baseError.cause,
 				})

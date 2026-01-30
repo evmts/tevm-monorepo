@@ -333,4 +333,165 @@ describe('toTaggedError', () => {
 		const result = toTaggedError(baseErrorLike) as StackUnderflowError
 		expect(result.cause).toBe(originalError)
 	})
+
+	it('should use default code 0 when BaseError-like object has undefined code', () => {
+		const baseErrorLike = {
+			_tag: 'SomeUnknownError',
+			message: 'Error without code',
+			// code is intentionally undefined
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('TevmError')
+		expect(result.code).toBe(0)
+	})
+
+	// Tests for new error types
+
+	it('should convert a BaseError-like ForkError to TaggedError', () => {
+		const baseErrorLike = {
+			_tag: 'ForkError',
+			message: 'Fork request failed',
+			code: -32604,
+			method: 'eth_getBalance',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('ForkError')
+		expect((result as any).method).toBe('eth_getBalance')
+	})
+
+	it('should preserve cause when converting ForkError-like objects', () => {
+		const originalError = new Error('Network timeout')
+		const baseErrorLike = {
+			_tag: 'ForkError',
+			message: 'Fork request failed',
+			code: -32604,
+			method: 'eth_call',
+			cause: originalError,
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result.cause).toBe(originalError)
+	})
+
+	it('should convert a BaseError-like BlockNotFoundError to TaggedError', () => {
+		const baseErrorLike = {
+			_tag: 'BlockNotFoundError',
+			message: 'Block not found',
+			code: -32001,
+			blockTag: 'latest',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('BlockNotFoundError')
+		expect((result as any).blockTag).toBe('latest')
+	})
+
+	it('should convert a BaseError-like with _tag UnknownBlock to BlockNotFoundError', () => {
+		const baseErrorLike = {
+			_tag: 'UnknownBlock',
+			message: 'Block not found',
+			code: -32001,
+			blockTag: 12345n,
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('BlockNotFoundError')
+		expect((result as any).blockTag).toBe(12345n)
+	})
+
+	it('should convert a BaseError-like InvalidTransactionError to TaggedError', () => {
+		const baseErrorLike = {
+			_tag: 'InvalidTransactionError',
+			message: 'Invalid transaction',
+			code: -32003,
+			reason: 'Invalid nonce',
+			tx: { to: '0x123', value: 100n },
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InvalidTransactionError')
+		expect((result as any).reason).toBe('Invalid nonce')
+		expect((result as any).tx).toEqual({ to: '0x123', value: 100n })
+	})
+
+	it('should convert a BaseError-like with _tag InvalidTransaction to InvalidTransactionError', () => {
+		const baseErrorLike = {
+			_tag: 'InvalidTransaction',
+			message: 'Invalid transaction',
+			code: -32003,
+			reason: 'Gas too low',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InvalidTransactionError')
+		expect((result as any).reason).toBe('Gas too low')
+	})
+
+	it('should convert a BaseError-like StateRootNotFoundError to TaggedError', () => {
+		const baseErrorLike = {
+			_tag: 'StateRootNotFoundError',
+			message: 'State root not found',
+			code: -32602,
+			stateRoot: '0x1234567890abcdef',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('StateRootNotFoundError')
+		expect((result as any).stateRoot).toBe('0x1234567890abcdef')
+	})
+
+	it('should preserve cause when converting StateRootNotFoundError-like objects', () => {
+		const originalError = new Error('State root cause')
+		const baseErrorLike = {
+			_tag: 'StateRootNotFoundError',
+			message: 'State root not found',
+			code: -32602,
+			stateRoot: '0xabcd',
+			cause: originalError,
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result.cause).toBe(originalError)
+	})
+
+	it('should handle ForkError with non-string method', () => {
+		const baseErrorLike = {
+			_tag: 'ForkError',
+			message: 'Fork request failed',
+			code: -32604,
+			method: 12345, // Not a string
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('ForkError')
+		expect((result as any).method).toBeUndefined()
+	})
+
+	it('should handle InvalidTransactionError with non-string reason', () => {
+		const baseErrorLike = {
+			_tag: 'InvalidTransactionError',
+			message: 'Invalid transaction',
+			code: -32003,
+			reason: { code: 'INVALID_NONCE' }, // Not a string
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InvalidTransactionError')
+		expect((result as any).reason).toBeUndefined()
+	})
+
+	it('should handle StateRootNotFoundError with non-string stateRoot', () => {
+		const baseErrorLike = {
+			_tag: 'StateRootNotFoundError',
+			message: 'State root not found',
+			code: -32602,
+			stateRoot: 12345, // Not a string
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('StateRootNotFoundError')
+		expect((result as any).stateRoot).toBeUndefined()
+	})
 })

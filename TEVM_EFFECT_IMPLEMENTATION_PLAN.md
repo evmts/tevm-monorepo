@@ -33,7 +33,67 @@
 **Goal**: Add Effect as dependency, create interop layer, migrate foundational packages
 **Breaking Changes**: None (additive only)
 
-### REVIEW AGENT Review Status: 🟡 ELEVENTH REVIEW (2026-01-29)
+### REVIEW AGENT Review Status: 🟢 THIRTEENTH IMPLEMENTATION UPDATE (2026-01-29)
+
+**Thirteenth implementation update (2026-01-29)** - Expanded error types and fixed coverage gaps:
+
+**@tevm/errors-effect Changes - IMPLEMENTED:**
+- ✅ **CRITICAL PARTIAL**: Added 4 new error types from RFC:
+  - `ForkError` (transport errors, code -32604)
+  - `BlockNotFoundError` (block errors, code -32001)
+  - `InvalidTransactionError` (transaction errors, code -32003)
+  - `StateRootNotFoundError` (state errors, code -32602)
+- ✅ Fixed all coverage gaps in `toBaseError.js` (computeDetails edge cases, metaMessages)
+- ✅ Fixed coverage gaps in `toTaggedError.js` (new error type handling)
+- ✅ Fixed coverage gaps in `StackUnderflowError.js` (partial property message generation)
+- ✅ Updated `toTaggedError` to handle new error types + BaseError aliases (UnknownBlock, InvalidTransaction)
+- ✅ All tests pass with 100% coverage (237 tests across 14 test files)
+
+**Remaining Error Types to Implement:**
+Still missing ~20 error types from RFC including: InvalidJumpError, InsufficientFundsError, NonceTooLowError, GasLimitExceededError, TransactionRejectedError, etc.
+
+---
+
+### Previous Review Status: 🟡 TWELFTH REVIEW (2026-01-29)
+
+**Twelfth review (2026-01-29)** - Opus 4.5 comprehensive review with parallel researcher subagents reviewing all three Phase 1 packages. Validated all previous findings remain open and discovered additional issues.
+
+**@tevm/interop Issues - NEW FINDINGS:**
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| Potential memory leak from closure capturing instance | **MEDIUM** | wrapWithEffect.js:88 | 🔴 Open | Effect closures capture `instance` reference. If wrapped object is replaced but original instance retained through closures, original cannot be garbage collected. Issue in long-running apps with many wrapped objects. |
+| No cancellation/abort support in effectToPromise | **MEDIUM** | effectToPromise.js | 🔴 Open | No way to handle Effect interruption from Promise side. No `AbortSignal` parameter support. Partial RFC 10.3 implementation - shows full lifecycle management but not implemented. |
+
+**@tevm/logger-effect Issues - NEW FINDINGS:**
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| LoggerSilent level hardcoded differently than other loggers | **LOW** | LoggerSilent.js:28 | 🔴 Open | `createSilentLoggerShape` hardcodes `level: 'silent'` unlike LoggerLive/LoggerTest which take level as parameter. Intentional but inconsistent pattern. |
+| getLogsByLevel returns mutable array despite readonly type | **LOW** | LoggerTest.js:88-92 | 🔴 Open | Return type is `Effect.Effect<readonly LogEntry[], never, never>` but `filter()` returns mutable array. Type declaration doesn't match reality. |
+| LoggerSilent is constant vs function - API inconsistency | **LOW** | LoggerSilent.js | 🔴 Open | `LoggerSilent` exported as constant `Layer.Layer`, while `LoggerLive()` and `LoggerTest()` are functions. Consider `LoggerSilent()` for consistency. |
+| Branch coverage gap in LoggerLive.js | **LOW** | LoggerLive.js | 🔴 Open | Coverage shows 87.5% branch (7/8). Uncovered branch likely the `data !== undefined` else case. Minor testing gap. |
+
+**Overall Status Summary:**
+
+| Package | CRITICAL | HIGH | MEDIUM | LOW | Total Open | Tests | Coverage |
+|---------|----------|------|--------|-----|------------|-------|----------|
+| @tevm/errors-effect | 0 (was 1) | 2 | 4 | 4 | 10 | 237 | 100% |
+| @tevm/interop | 2 (Runtime<any>, state divergence) | 5 | 8 | 5 | 20 | 53 | 100% |
+| @tevm/logger-effect | 0 | 5 | 9 | 8 | 22 | 63 | 100% |
+| **Total** | **2** | **12** | **21** | **17** | **52** | **353** | **100%** |
+
+**Key Blockers for Phase 2:**
+
+1. ~~**CRITICAL**: Missing ~24 error types from RFC~~ → Now 10 error types implemented (6 EVM + 4 new transport/block/tx/state errors)
+2. **CRITICAL**: `Runtime<any>` cast in effectToPromise defeats type safety - Effects with requirements fail at runtime
+3. **CRITICAL**: State divergence in wrapWithEffect creates dangerous foot-gun for stateful services
+
+**Recommendation**: Address remaining CRITICAL issues before proceeding to Phase 2. HIGH issues can be addressed in parallel with Phase 2 development.
+
+---
+
+### Previous Review Status: 🟡 ELEVENTH REVIEW (2026-01-29)
 
 **Eleventh review (2026-01-29)** - Opus 4.5 comprehensive review with parallel researcher subagents reviewing all three Phase 1 packages:
 

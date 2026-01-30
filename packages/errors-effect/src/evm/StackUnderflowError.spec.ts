@@ -89,6 +89,37 @@ describe('StackUnderflowError', () => {
 		expect(error.cause).toBeUndefined()
 	})
 
+	it('should generate message when only requiredItems is provided', () => {
+		const error = new StackUnderflowError({
+			requiredItems: 5,
+		})
+
+		expect(error.message).toBe('Stack underflow error occurred. Required 5 items, but only unknown available.')
+		expect(error.requiredItems).toBe(5)
+		expect(error.availableItems).toBeUndefined()
+	})
+
+	it('should generate message when only availableItems is provided', () => {
+		const error = new StackUnderflowError({
+			availableItems: 2,
+		})
+
+		expect(error.message).toBe('Stack underflow error occurred. Required unknown items, but only 2 available.')
+		expect(error.requiredItems).toBeUndefined()
+		expect(error.availableItems).toBe(2)
+	})
+
+	it('should generate message when both requiredItems and availableItems are provided', () => {
+		const error = new StackUnderflowError({
+			requiredItems: 3,
+			availableItems: 1,
+		})
+
+		expect(error.message).toBe('Stack underflow error occurred. Required 3 items, but only 1 available.')
+		expect(error.requiredItems).toBe(3)
+		expect(error.availableItems).toBe(1)
+	})
+
 	describe('Effect traits', () => {
 		it('should support Equal.equals for structural equality', () => {
 			const error1 = new StackUnderflowError({
