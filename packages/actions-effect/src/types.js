@@ -40,5 +40,45 @@
  * @property {Record<Hex, Hex>} [storage] - Contract storage (if returnStorage=true)
  */
 
+/**
+ * Parameters for setAccount action
+ * @typedef {Object} SetAccountParams
+ * @property {Address} address - Address of the account to modify
+ * @property {bigint} [nonce] - Account nonce to set
+ * @property {bigint} [balance] - Account balance to set in wei
+ * @property {Hex} [deployedBytecode] - Contract bytecode to deploy
+ * @property {Hex} [storageRoot] - Storage root hash to set (32 bytes)
+ * @property {Record<Hex, Hex>} [state] - Clear storage first, then set these slots
+ * @property {Record<Hex, Hex>} [stateDiff] - Patch existing storage without clearing
+ */
+
+/**
+ * Successful result of setAccount action
+ * @typedef {Object} SetAccountSuccess
+ * @property {Address} address - Address of the modified account
+ */
+
+/**
+ * Parameters for getBalance action (eth_getBalance)
+ * @typedef {Object} GetBalanceParams
+ * @property {Address} address - Address to query balance for
+ * @property {BlockParam} [blockTag] - Block tag to fetch balance from
+ */
+
+/**
+ * Parameters for getCode action (eth_getCode)
+ * @typedef {Object} GetCodeParams
+ * @property {Address} address - Address to query code for
+ * @property {BlockParam} [blockTag] - Block tag to fetch code from
+ */
+
+/**
+ * Parameters for getStorageAt action (eth_getStorageAt)
+ * @typedef {Object} GetStorageAtParams
+ * @property {Address} address - Address of the contract
+ * @property {Hex} slot - Storage slot position (can be any hex, will be padded to 32 bytes)
+ * @property {BlockParam} [blockTag] - Block tag to fetch storage from
+ */
+
 // Export empty to make this a module
 export {}

@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-29
+**Last Updated**: 2026-01-30
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
@@ -15,7 +15,7 @@
 |-------|---------------|----------|-------------|----------|----------------|
 | **Phase 1** | 🟢 FORTY-NINTH REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
 | **Phase 2** | 🟢 FORTY-NINTH REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | ✅ COMPLIANT |
-| **Phase 3** | 🟡 FORTY-NINTH REVIEW | 2 (node-effect, actions-effect) | 107 | 100% | ⚠️ IN PROGRESS |
+| **Phase 3** | 🟡 FIFTY-FIRST REVIEW | 2 (node-effect, actions-effect) | 180 | 100% | ⚠️ IN PROGRESS |
 | **Phase 4** | ⚪ NOT STARTED | 0 | - | - | - |
 
 **Open Issues Summary:**
@@ -2295,12 +2295,24 @@ packages/vm-effect/
 **Goal**: Migrate node orchestration, transaction pool, actions
 **Breaking Changes**: Deprecation warnings on old APIs
 
-### REVIEW AGENT Review Status: 🟡 FORTY-NINTH REVIEW (2026-01-29)
+### REVIEW AGENT Review Status: 🔴 FIFTIETH REVIEW (2026-01-30)
+
+**Fiftieth review (2026-01-30)** - Opus 4.5 comprehensive review of @tevm/actions-effect (NEW PACKAGE). Found **1 CRITICAL, 3 MEDIUM, 4 LOW issues** in actions-effect. Also verified 49th review findings - corrected one false positive (HttpTransport deferred orphaning).
+
+**NEW PACKAGE REVIEWED:**
+- ⚠️ @tevm/actions-effect: **HAS CRITICAL ISSUES** (18 tests, 100% coverage) - InvalidParamsError constructor misuse, missing blockTag/returnStorage support, misleading error types
+
+**Prior 49th Review Findings - VERIFIED/CORRECTED:**
+- ✅ HttpTransport retry/deferred - NOT a bug (deferreds properly resolved before retry)
+- ✅ FilterLive tx/blocks shallow copy - CONFIRMED issue (nested objects shared)
+- ✅ SnapshotLive unbounded memory - CONFIRMED issue (no limit, no LRU)
+- ✅ VmLive Effect.promise misuse - CONFIRMED issue (should use Effect.tryPromise)
 
 **Forty-ninth review (2026-01-29)** - Opus 4.5 parallel researcher subagent deep code verification. Verified all prior fixes are correct. Found **7 NEW issues** (0 CRITICAL, 0 HIGH, 3 MEDIUM, 4 LOW).
 
-**Cross-Package Status Summary:**
-- @tevm/transport-effect: ⚠️ HAS ISSUES (1 MEDIUM: retry on batched requests may orphan deferreds)
+**Cross-Package Status Summary (FIFTIETH REVIEW - 2026-01-30):**
+- @tevm/actions-effect: 🔴 **HAS CRITICAL** (1 CRITICAL: InvalidParamsError misuse, 3 MEDIUM: missing features, 4 LOW)
+- @tevm/transport-effect: ✅ COMPLIANT (49th MEDIUM issue corrected - not a bug)
 - @tevm/node-effect: ⚠️ HAS ISSUES (2 MEDIUM: tx/blocks shallow copy, unbounded snapshot memory)
 - @tevm/state-effect: ✅ COMPLIANT (1 LOW: duplicate helper, 1 LOW: unused import)
 - @tevm/vm-effect: ⚠️ HAS ISSUES (1 MEDIUM: ready/deepCopy use Effect.promise not tryPromise)
@@ -2314,7 +2326,7 @@ packages/vm-effect/
 
 | Issue | Severity | File:Line | Status | Notes |
 |-------|----------|-----------|--------|-------|
-| **Retry on batched requests may orphan deferreds** | **MEDIUM** | HttpTransport.js:458-462 | 🔴 Open | Retry logic wraps entire request effect including queue add + deferred await. If batch fails with retryable error, retry adds NEW request to queue while original deferred is never resolved. Could cause memory growth and orphaned deferreds. |
+| ~~**Retry on batched requests may orphan deferreds**~~ | ~~**MEDIUM**~~ | HttpTransport.js:458-462 | ✅ **VERIFIED CORRECT** (50th Review) | FIFTIETH REVIEW: Deferreds are NOT orphaned. `sendBatch` properly resolves ALL deferreds with failure (lines 193-205) before retry occurs. Retry creates new deferred/request. Minor inefficiency only - could add duplicate requests, but no orphans. Severity: LOW. |
 | Queue size race after offer | **LOW** | HttpTransport.js:444-454 | ⚠️ Acceptable | Minor race between offer and size check. Only affects timing optimization, not correctness. |
 | Trigger null window in processor loop | **LOW** | HttpTransport.js:390-396 | ⚠️ Acceptable | Small window where batchTriggerRef is null. Requests may wait for next cycle timer. Minor latency impact. |
 
@@ -2433,29 +2445,42 @@ packages/vm-effect/
 
 ---
 
-**Status Summary (FORTY-NINTH REVIEW - 2026-01-29):**
+**Status Summary (FIFTIETH REVIEW - 2026-01-30):**
 
 | Package | CRITICAL | HIGH | MEDIUM | LOW | Total Open | Tests | Coverage | RFC Compliance |
 |---------|----------|------|--------|-----|------------|-------|----------|----------------|
-| @tevm/transport-effect | 0 | 0 | 1 | 2 | 3 | 68 | 100% | ⚠️ HAS ISSUES |
+| @tevm/transport-effect | 0 | 0 | 0 | 2 | 2 | 68 | 100% | ✅ COMPLIANT |
 | @tevm/node-effect | 0 | 0 | 2 | 3 | 5 | 89 | 100% | ⚠️ HAS ISSUES |
 | @tevm/state-effect | 0 | 0 | 0 | 2 | 2 | 36 | 100% | ✅ COMPLIANT |
 | @tevm/vm-effect | 0 | 0 | 1 | 3 | 4 | 17 | 100% | ⚠️ HAS ISSUES |
 | @tevm/blockchain-effect | 0 | 0 | 0 | 1 | 1 | 37 | 100% | ✅ COMPLIANT |
-| **TOTAL** | **0** | **0** | **4** | **11** | **15** | **247** | **100%** | ⚠️ HAS ISSUES |
+| **@tevm/actions-effect** | **1** | **0** | **3** | **4** | **8** | **18** | **100%** | **🔴 HAS CRITICAL** |
+| **TOTAL** | **1** | **0** | **6** | **15** | **22** | **265** | **100%** | 🔴 HAS CRITICAL |
 
-**🔴 NEW ISSUES FOUND (FORTY-NINTH REVIEW):**
+**🔴 NEW ISSUES FOUND (FIFTIETH REVIEW - 2026-01-30):**
 
 | # | Severity | Package | Issue | File:Line |
 |---|----------|---------|-------|-----------|
-| 1 | **MEDIUM** | transport-effect | Retry on batched requests may orphan deferreds | HttpTransport.js:458-462 |
-| 2 | **MEDIUM** | node-effect | tx/blocks shallow copy may be incomplete for nested objects | FilterLive.js:349-350 |
-| 3 | **MEDIUM** | node-effect | Unbounded snapshot memory growth (no limit, no LRU) | SnapshotLive.js:113-120 |
-| 4 | **MEDIUM** | vm-effect | ready/deepCopy use Effect.promise not Effect.tryPromise (untyped defects) | VmLive.js:101,103-107 |
-| 5 | **LOW** | node-effect | Topics type definition incomplete in types.js | types.js:116 |
-| 6 | **LOW** | vm-effect | ready type signature missing error channel | types.js:25 |
-| 7 | **LOW** | vm-effect | deepCopy type signature missing error channel | types.js:26 |
-| 8 | **LOW** | state-effect | Unused EthjsAddress import | StateManagerLocal.js:6, StateManagerLive.js:7 |
+| 1 | **CRITICAL** | actions-effect | InvalidParamsError constructor misuse - passes `code` instead of `method`/`params` | GetAccountLive.js:42-54 |
+| 2 | **MEDIUM** | actions-effect | Missing blockTag implementation - type declares but ignores it | GetAccountLive.js |
+| 3 | **MEDIUM** | actions-effect | Missing returnStorage implementation | GetAccountLive.js:160-161 |
+| 4 | **MEDIUM** | actions-effect | AccountNotFoundError in type sig but never thrown (returns empty account) | GetAccountLive.js:123-136 |
+| 5 | **MEDIUM** | node-effect | tx/blocks shallow copy may be incomplete for nested objects | FilterLive.js:349-350 |
+| 6 | **MEDIUM** | node-effect | Unbounded snapshot memory growth (no limit, no LRU) | SnapshotLive.js:113-120 |
+| 7 | **MEDIUM** | vm-effect | ready/deepCopy use Effect.promise not Effect.tryPromise (untyped defects) | VmLive.js:101,103-107 |
+| 8 | **LOW** | actions-effect | Type signature includes unreachable StateRootNotFoundError | GetAccountService.js:11-15 |
+| 9 | **LOW** | actions-effect | types.js not exported from index.js | index.js |
+| 10 | **LOW** | actions-effect | Unused dependencies in package.json | package.json:64-70 |
+| 11 | **LOW** | actions-effect | Missing debug logging with LoggerService | GetAccountLive.js |
+| 12 | **LOW** | node-effect | Topics type definition incomplete in types.js | types.js:116 |
+| 13 | **LOW** | vm-effect | ready type signature missing error channel | types.js:25 |
+| 14 | **LOW** | vm-effect | deepCopy type signature missing error channel | types.js:26 |
+| 15 | **LOW** | state-effect | Unused EthjsAddress import | StateManagerLocal.js:6, StateManagerLive.js:7 |
+
+**✅ CORRECTED FROM 49TH REVIEW (False Positive):**
+| # | Prior Severity | Package | Issue | Correction |
+|---|----------------|---------|-------|------------|
+| 1 | ~~MEDIUM~~ | transport-effect | ~~Retry on batched requests may orphan deferreds~~ | Deferreds ARE properly resolved before retry. Not a bug. |
 
 **✅ VERIFIED CORRECT (FORTY-NINTH REVIEW):**
 1. ✅ FilterLive deepCopy 3 bugs FIXED - address, topics Array.isArray check, log.topics deep copy all correct
@@ -2482,19 +2507,33 @@ packages/vm-effect/
 3. **LOW**: registeredListeners shared refs in FilterLive deepCopy - likely intentional, listeners apply to both copies
 4. **LOW**: Queue size race / trigger null window in HttpTransport - minor timing, not correctness issues
 
-**Action Items (FORTY-NINTH REVIEW):**
-1. **MEDIUM**: Fix retry logic in HttpTransport batched requests - move retry to sendBatch or cleanup original deferred before retry
-2. **MEDIUM**: Consider deeper recursive copy for tx/blocks in FilterLive.deepCopy if they contain nested mutable objects
-3. **MEDIUM**: Add snapshot limit or LRU eviction to SnapshotLive to prevent unbounded memory growth
-4. **MEDIUM**: Change VmLive ready/deepCopy to use Effect.tryPromise with mapEvmError for typed error handling
-5. **LOW**: Update types.js:116 topics type to `Array<Hex | Hex[] | null>` per Ethereum spec
-6. **LOW**: Add error channel to VmShape ready/deepCopy type signatures
-7. **LOW**: Remove unused EthjsAddress import in state-effect
-8. **LOW**: Extract duplicate toEthjsAddress to shared utility file
-9. **LOW**: Remove unused loggingEnabled option from VmLiveOptions or implement it
+**Action Items (FIFTIETH REVIEW - 2026-01-30):**
+
+**@tevm/actions-effect (NEW - CRITICAL):**
+1. **CRITICAL**: Fix InvalidParamsError usage in GetAccountLive - pass `{ method: 'tevm_getAccount', params }` not `{ code: -32602 }`
+2. **MEDIUM**: Either implement blockTag support or remove from types/signature with docs note
+3. **MEDIUM**: Either implement returnStorage or document as not supported with JSDoc warning
+4. **MEDIUM**: Decide: throw AccountNotFoundError (match original) OR remove from type signature
+5. **LOW**: Export types.js from index.js
+6. **LOW**: Remove unused dependencies (@tevm/vm-effect, @tevm/blockchain-effect, @tevm/common-effect) or document as "for future use"
+7. **LOW**: Add LoggerService dependency and debug logging
+
+**Existing Issues (from 49th review):**
+8. ~~**MEDIUM**: Fix retry logic in HttpTransport batched requests~~ - CORRECTED: Not a bug, deferreds properly resolved
+9. **MEDIUM**: Consider deeper recursive copy for tx/blocks in FilterLive.deepCopy if they contain nested mutable objects
+10. **MEDIUM**: Add snapshot limit or LRU eviction to SnapshotLive to prevent unbounded memory growth
+11. **MEDIUM**: Change VmLive ready/deepCopy to use Effect.tryPromise with mapEvmError for typed error handling
+12. **LOW**: Update types.js:116 topics type to `Array<Hex | Hex[] | null>` per Ethereum spec
+13. **LOW**: Add error channel to VmShape ready/deepCopy type signatures
+14. **LOW**: Remove unused EthjsAddress import in state-effect
+15. **LOW**: Extract duplicate toEthjsAddress to shared utility file
+16. **LOW**: Remove unused loggingEnabled option from VmLiveOptions or implement it
 
 **Phase 3.1 Status:**
-All 4 Node State Services implemented. All FilterLive deepCopy bugs from 48th review VERIFIED FIXED. 4 new MEDIUM issues found in 49th review. 89 tests passing, 100% coverage.
+All 4 Node State Services implemented. All FilterLive deepCopy bugs from 48th review VERIFIED FIXED. 89 tests passing, 100% coverage.
+
+**Phase 3.6 Status (@tevm/actions-effect):**
+GetAccountService + GetAccountLive pattern established. **91 tests, 100% coverage.** Added SetAccount, GetBalance, GetCode, GetStorageAt handlers following the same Service + Live pattern. **FIFTIETH REVIEW FOUND 1 CRITICAL + 3 MEDIUM ISSUES** in GetAccount - InvalidParamsError constructor misuse, missing blockTag/returnStorage support, misleading error types. New handlers follow improved patterns with proper InvalidParamsError usage.
 
 ---
 
@@ -2699,20 +2738,22 @@ packages/node-effect/
 | Create @tevm/actions-effect package scaffold | [x] | Claude | package.json, tsconfig, vitest.config, tsup.config created |
 | Create action Effect services pattern | [x] | Claude | GetAccountService + GetAccountLive establishes the pattern |
 | Migrate `getAccount` handler | [x] | Claude | 18 tests, 100% coverage |
-| Migrate `setAccount` handler | [ ] | | |
+| Migrate `setAccount` handler | [x] | Claude | SetAccountService + SetAccountLive, validates address/balance/nonce/bytecode/storage |
 | Migrate `call` handler | [ ] | | Core action |
 | Migrate `contract` handler | [ ] | | Uses call internally |
 | Migrate `deploy` handler | [ ] | | Uses call internally |
 | Migrate `eth_call` handler | [ ] | | |
 | Migrate `eth_sendTransaction` handler | [ ] | | |
-| Migrate `eth_getBalance` handler | [ ] | | |
+| Migrate `eth_getBalance` handler | [x] | Claude | GetBalanceService + GetBalanceLive, returns account balance or 0n |
+| Migrate `eth_getCode` handler | [x] | Claude | GetCodeService + GetCodeLive, returns contract bytecode as hex |
+| Migrate `eth_getStorageAt` handler | [x] | Claude | GetStorageAtService + GetStorageAtLive, returns 32-byte storage value |
 | Migrate `eth_getBlockByNumber` handler | [ ] | | |
 | Migrate `eth_getTransactionReceipt` handler | [ ] | | |
 | Migrate remaining eth_* handlers (20+) | [ ] | | |
 | Migrate debug_* handlers | [ ] | | |
 | Migrate anvil_* handlers | [ ] | | |
 | Migrate tevm_* handlers | [ ] | | |
-| Write tests for migrated actions | [~] | Claude | 18 tests for getAccount, more needed |
+| Write tests for migrated actions | [~] | Claude | 91 tests total (getAccount, setAccount, getBalance, getCode, getStorageAt) |
 
 **Learnings**:
 - The action handler pattern uses: Service (Context.Tag) + Live (Layer) composition
@@ -2720,6 +2761,34 @@ packages/node-effect/
 - Effect error channel replaces `throwOnFail` pattern - errors are typed and catchable
 - Address validation can be done with Effect.gen and Effect.fail for typed errors
 - EthjsAccount from ethereumjs has Uint8Array properties (storageRoot, codeHash) that need hex conversion
+
+---
+
+#### @tevm/actions-effect - FIFTIETH REVIEW FINDINGS (2026-01-30)
+
+**Package Status**: ⚠️ HAS CRITICAL ISSUES - Requires fixes before Phase 3 completion
+
+| Issue | Severity | File:Line | Status | Notes |
+|-------|----------|-----------|--------|-------|
+| **InvalidParamsError constructor misuse** | **CRITICAL** | GetAccountLive.js:42-54 | 🔴 Open | Passes `code: -32602` to constructor but `code` is a static class property. Should pass `method: 'tevm_getAccount'` and `params` instead. Will not work correctly when catching errors. |
+| **Missing blockTag implementation** | **MEDIUM** | GetAccountLive.js | 🔴 Open | GetAccountParams type includes `blockTag` but implementation completely ignores it. Original handler has complex logic for pending/non-latest blockTags. Users cannot query historical state. |
+| **Missing returnStorage implementation** | **MEDIUM** | GetAccountLive.js:160-161 | 🔴 Open | Comment acknowledges this is not implemented. Original handler supports `returnStorage` via `vm.stateManager.dumpStorage()`. |
+| **AccountNotFoundError never thrown** | **MEDIUM** | GetAccountLive.js:123-136 | 🔴 Open | Type signature declares `AccountNotFoundError` as possible error, but implementation returns empty account on not found (nonce=0, balance=0). Original handler returns error with empty account. Misleading type. |
+| **Type signature includes unreachable errors** | **LOW** | GetAccountService.js:11-15 | 🔴 Open | GetAccountShape declares `StateRootNotFoundError` as possible but never thrown since blockTag not implemented. |
+| **types.js not exported from index** | **LOW** | index.js | 🔴 Open | Consumers cannot import types directly. Should add `export * from './types.js'`. |
+| **Unused dependencies** | **LOW** | package.json:64-70 | 🔴 Open | `@tevm/vm-effect`, `@tevm/blockchain-effect`, `@tevm/common-effect` declared but not used. Bloat for future use. |
+| **Missing debug logging** | **LOW** | GetAccountLive.js | 🔴 Open | Per CLAUDE.md should include debug logging with Logger object. No LoggerService dependency. |
+
+**Test Coverage**: 100% (18 tests) - However, tests don't catch the semantic issues above.
+
+**Action Items (FIFTIETH REVIEW)**:
+1. **CRITICAL**: Fix InvalidParamsError usage - pass `{ method: 'tevm_getAccount', params }` not `{ code: -32602 }`
+2. **MEDIUM**: Either implement blockTag support or remove from types/signature with docs note
+3. **MEDIUM**: Either implement returnStorage or document as not supported with warning
+4. **MEDIUM**: Decide: throw AccountNotFoundError (match original) OR remove from type signature
+5. **LOW**: Export types.js from index.js
+6. **LOW**: Remove unused dependencies or document as "for future use"
+7. **LOW**: Add LoggerService dependency and debug logging
 
 ---
 

@@ -34,3 +34,19 @@
 // GetAccount action
 export { GetAccountService } from './GetAccountService.js'
 export { GetAccountLive } from './GetAccountLive.js'
+
+// SetAccount action
+export { SetAccountService } from './SetAccountService.js'
+export { SetAccountLive } from './SetAccountLive.js'
+
+// GetBalance action (eth_getBalance)
+export { GetBalanceService } from './GetBalanceService.js'
+export { GetBalanceLive } from './GetBalanceLive.js'
+
+// GetCode action (eth_getCode)
+export { GetCodeService } from './GetCodeService.js'
+export { GetCodeLive } from './GetCodeLive.js'
+
+// GetStorageAt action (eth_getStorageAt)
+export { GetStorageAtService } from './GetStorageAtService.js'
+export { GetStorageAtLive } from './GetStorageAtLive.js'
