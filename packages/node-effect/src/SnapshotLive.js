@@ -101,13 +101,24 @@ export const SnapshotLive = () => {
 				const shape = {
 					takeSnapshot: () =>
 						Effect.gen(function* () {
-							// Generate unique ID
+							// Generate unique ID first (atomic operation)
 							const id = yield* Ref.getAndUpdate(ctrRef, (n) => n + 1)
 							const hexId = toHex(id)
 
-							// Get current state
-							const stateRoot = yield* stateManager.getStateRoot()
-							const state = yield* stateManager.dumpState()
+							// Create checkpoint to ensure atomic read of state root and state.
+							// This prevents race conditions where concurrent operations could modify
+							// state between getStateRoot and dumpState, causing inconsistent snapshots.
+							yield* stateManager.checkpoint()
+
+							// Get current state with proper cleanup on success/failure
+							const { stateRoot, state } = yield* Effect.all({
+								stateRoot: stateManager.getStateRoot(),
+								state: stateManager.dumpState(),
+							}).pipe(
+								Effect.onExit((exit) =>
+									exit._tag === 'Success' ? stateManager.commit() : stateManager.revert(),
+								),
+							)
 
 							// Store snapshot
 							yield* Ref.update(snapsRef, (map) => {

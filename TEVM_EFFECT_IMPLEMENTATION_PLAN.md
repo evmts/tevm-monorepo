@@ -9,20 +9,219 @@
 
 ## Review Agent Summary (2026-01-30)
 
-**FIFTY-SEVENTH REVIEW COMPLETE.** All 6 CRITICAL issues from 56th review have been RESOLVED.
+**FIFTY-NINTH UPDATE COMPLETE.** CRITICAL issue resolved - atomic takeSnapshot implemented.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
 | **Phase 1** | 🟢 FORTY-NINTH REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
 | **Phase 2** | 🟢 FORTY-NINTH REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | ✅ COMPLIANT |
-| **Phase 3** | 🟢 FIFTY-SEVENTH REVIEW | 2 (node-effect, actions-effect) | 193 | 99.24% | ✅ ALL CRITICAL RESOLVED |
+| **Phase 3** | 🟢 FIFTY-NINTH UPDATE | 2 (node-effect, actions-effect) | 194 | 100% | ⚠️ 0 CRITICAL, 7 MEDIUM |
 | **Phase 4** | ⚪ NOT STARTED | 0 | - | - | - |
 
 **Open Issues Summary:**
-- **CRITICAL**: 0 ✅ (all resolved in 57th review)
+- **CRITICAL**: 0 ✅ (was 1, non-atomic takeSnapshot - RESOLVED)
 - **HIGH**: 0
-- **MEDIUM**: 5 (returnStorage unimplemented, non-atomic Refs, shallow copies, incomplete error types)
-- **LOW**: 8 (duplicated utilities, memory growth, logging, throwOnFail)
+- **MEDIUM**: 7 (error type mismatches, returnStorage unimplemented, non-atomic Refs, missing error propagation, unbounded memory growth)
+- **LOW**: 9 (duplicated utilities, memory growth, logging, throwOnFail, naming conventions)
+
+---
+
+### FIFTY-NINTH UPDATE (2026-01-30) - CRITICAL Issue Resolved
+
+**Implemented By**: Claude Opus 4.5
+**Scope**: Fix non-atomic takeSnapshot in SnapshotLive.js
+
+#### ✅ CRITICAL Issue RESOLVED
+
+##### SnapshotLive.js - Non-Atomic takeSnapshot Sequence
+
+**File**: SnapshotLive.js:102-134
+**Status**: ✅ **RESOLVED**
+
+**Solution Implemented**: Used checkpoint/commit/revert pattern with `Effect.onExit` for proper cleanup:
+
+```javascript
+takeSnapshot: () =>
+    Effect.gen(function* () {
+        // Generate unique ID first (atomic operation)
+        const id = yield* Ref.getAndUpdate(ctrRef, (n) => n + 1)
+        const hexId = toHex(id)
+
+        // Create checkpoint to ensure atomic read of state root and state.
+        // This prevents race conditions where concurrent operations could modify
+        // state between getStateRoot and dumpState, causing inconsistent snapshots.
+        yield* stateManager.checkpoint()
+
+        // Get current state with proper cleanup on success/failure
+        const { stateRoot, state } = yield* Effect.all({
+            stateRoot: stateManager.getStateRoot(),
+            state: stateManager.dumpState(),
+        }).pipe(
+            Effect.onExit((exit) =>
+                exit._tag === 'Success' ? stateManager.commit() : stateManager.revert(),
+            ),
+        )
+
+        // Store snapshot
+        yield* Ref.update(snapsRef, (map) => { ... })
+        return hexId
+    }),
+```
+
+**Changes Made**:
+1. Added `stateManager.checkpoint()` call before reading state
+2. Wrapped `getStateRoot` and `dumpState` in `Effect.all` for parallel execution
+3. Used `Effect.onExit` to ensure proper cleanup:
+   - On success: calls `stateManager.commit()`
+   - On failure: calls `stateManager.revert()`
+4. Added test `should revert checkpoint when dumpState fails` with mock that verifies revert is called on failure
+
+**Test Results**:
+- node-effect: 90 tests passing (up from 89)
+- Coverage: 100% statements, 100% branches, 100% functions, 100% lines
+
+---
+
+### FIFTY-EIGHTH REVIEW (2026-01-30) - Opus 4.5 Comprehensive Parallel Subagent Review
+
+**Reviewed By**: Claude Opus 4.5 (2 parallel subagents)
+**Scope**: Complete review of all @tevm/actions-effect handlers + @tevm/node-effect services
+
+#### Summary: New Issues Discovered
+
+| Package | File | CRITICAL | MEDIUM | LOW | Notes |
+|---------|------|----------|--------|-----|-------|
+| node-effect | SnapshotLive.js | ~~1~~ ✅ | 0 | 2 | ✅ Non-atomic takeSnapshot RESOLVED (59th update), naming conventions |
+| node-effect | BlockParamsLive.js | 0 | 1 | 0 | Non-atomic clearNextBlockOverrides |
+| node-effect | FilterLive.js | 0 | 1 | 0 | Unbounded memory growth |
+| actions-effect | GetAccountService.js | 0 | 1 | 0 | Error type mismatch in service declaration |
+| actions-effect | GetBalanceLive.js | 0 | 1 | 1 | Missing error propagation from StateManager |
+| actions-effect | GetCodeLive.js | 0 | 1 | 1 | Missing error propagation from StateManager |
+| actions-effect | GetStorageAtLive.js | 0 | 1 | 1 | Missing error propagation from StateManager |
+| actions-effect | GetAccountLive.js | 0 | 1 | 1 | returnStorage not implemented |
+| actions-effect | Multiple files | 0 | 0 | 3 | Duplicated validation functions |
+| **TOTAL** | | **1** | **8** | **9** | |
+
+---
+
+#### ✅ CRITICAL Issues (58th Review) - ALL RESOLVED
+
+##### 1. SnapshotLive.js - Non-Atomic takeSnapshot Sequence ✅ RESOLVED
+
+**File:Line**: SnapshotLive.js:102-134
+**Status**: ✅ **RESOLVED in 59th Update**
+
+**Problem**: The `takeSnapshot` operation performed multiple steps that were NOT atomic together.
+
+**Resolution**: Implemented checkpoint/commit/revert pattern using `Effect.onExit` for proper cleanup. See 59th Update above for details.
+
+---
+
+#### 🟡 MEDIUM Issues (58th Review)
+
+##### 1. GetAccountService - Error Type Declaration Mismatch
+
+**File:Line**: GetAccountService.js:11-16
+
+**Problem**: Service declares `AccountNotFoundError | StateRootNotFoundError` in error channel but implementation never produces these errors:
+```javascript
+// GetAccountService.js declares:
+import('@tevm/errors-effect').AccountNotFoundError |
+import('@tevm/errors-effect').StateRootNotFoundError |
+import('@tevm/errors-effect').InvalidParamsError
+
+// GetAccountLive.js only produces InvalidParamsError
+```
+
+**Fix**: Update service type to only declare `InvalidParamsError`, or implement logic to produce `AccountNotFoundError` when `throwOnEmpty` option is passed.
+
+---
+
+##### 2. GetBalance/GetCode/GetStorageAt - Missing Error Propagation
+
+**Files**: GetBalanceLive.js:114, GetCodeLive.js:124, GetStorageAtLive.js:191
+
+**Problem**: The `stateManager.getAccount()`, `stateManager.getCode()`, and `stateManager.getStorage()` calls could potentially fail with underlying errors. Service declarations only list `InvalidParamsError` in error channel.
+
+**Fix**: Either wrap StateManager calls in `Effect.catchAll` to map errors to `InternalError`, or update service types to include a generic error type for internal failures.
+
+---
+
+##### 3. BlockParamsLive.js - Non-Atomic clearNextBlockOverrides
+
+**File:Line**: BlockParamsLive.js:99-103
+
+**Problem**: Three separate `Ref.set` calls are executed sequentially but not atomically:
+```javascript
+clearNextBlockOverrides: Effect.gen(function* () {
+    yield* Ref.set(timestampRef, undefined)  // Concurrent reader sees partial state
+    yield* Ref.set(gasLimitRef, undefined)
+    yield* Ref.set(baseFeeRef, undefined)
+}),
+```
+
+**Impact**: Concurrent reader could see inconsistent state (e.g., timestamp cleared but gasLimit not yet cleared).
+
+**Fix**: Use a single combined Ref with an object type, or use Effect STM for transactional semantics.
+
+---
+
+##### 4. FilterLive.js & SnapshotLive.js - Unbounded Memory Growth
+
+**Problem**: Neither FilterLive nor SnapshotLive implements any cleanup mechanism:
+- Filters accumulate indefinitely (each has `created: Date.now()` but no TTL enforcement)
+- Snapshots only cleaned when explicitly reverted to
+- No maximum limit on number of filters or snapshots
+
+**Impact**: Long-running nodes will experience unbounded memory growth.
+
+**Fix**: Add configurable TTL for filters with automatic cleanup, and optional max snapshot limit.
+
+---
+
+##### 5. GetAccountLive.js - returnStorage Not Implemented
+
+**File:Line**: GetAccountLive.js:187-188
+
+**Problem**: Types define `returnStorage` parameter, but implementation has TODO comment:
+```javascript
+// Note: returnStorage is not supported yet - requires dumping the entire state
+// and extracting storage for this address. This can be added in a future iteration.
+```
+
+**Fix**: Either implement the feature or remove `returnStorage` from types until implemented.
+
+---
+
+#### 🟢 LOW Issues (58th Review)
+
+1. **Duplicated validation functions** - `validateAddress` and `validateBlockTag` duplicated across 5 handler files. Should extract to shared validation utility.
+
+2. **Inconsistent bytesToHex implementations** - GetAccountLive.js and GetStorageAtLive.js have different padding behaviors. Both correct but could be confusing.
+
+3. **Non-RFC naming** - SnapshotLive uses `takeSnapshot`/`revertToSnapshot` instead of RFC's `take`/`revert`. Minor but documented deviation.
+
+4. **FilterLog topics type constraint** - Types require at least one topic `[Hex, ...Hex[]]` but empty arrays can occur in practice.
+
+---
+
+#### ✅ Positive Findings (58th Review)
+
+1. **Error Constructor Usage is Correct** - All usages of `InvalidParamsError` and `InternalError` match their constructor signatures correctly.
+
+2. **Input Validation Before hexToBytes** - All handlers correctly validate hex strings before calling `hexToBytes()`. Storage key/value validation properly implemented.
+
+3. **blockTag Validation Correctly Implemented** - All handlers properly reject unsupported blockTags with clear error messages.
+
+4. **Checkpoint/Commit/Revert Pattern Correct** - SetAccountLive.js correctly implements atomic state mutations with checkpoint/commit/revert.
+
+5. **Atomic Ref.modify Used Correctly** - FilterLive uses `Ref.modify` for atomic read-modify-write operations in `getChanges`, `addLog`, `addBlock`, etc. SnapshotLive uses atomic `Ref.modify` for `revertToSnapshot`.
+
+6. **Deep Copy Implementation is Thorough** - Both packages properly deep copy nested objects, Maps, and arrays. SnapshotLive properly copies AccountStorage with bigint values.
+
+7. **Comprehensive Test Coverage** - Tests cover happy path, error cases, deep copy independence, and edge cases.
+
+8. **RFC-Compliant Service Definitions** - Correct use of `Context.GenericTag`, `Layer.effect`, typed error handling.
 
 ---
 

@@ -6,6 +6,46 @@ import { StateManagerService } from '@tevm/state-effect'
 import { SnapshotNotFoundError } from '@tevm/errors-effect'
 
 /**
+ * Create a mock StateManagerService that fails on dumpState for testing the revert branch.
+ * Used to verify that checkpoint is reverted when takeSnapshot fails.
+ */
+const createFailingStateManagerLayer = () => {
+	let checkpointCalled = false
+	let commitCalled = false
+	let revertCalled = false
+
+	return {
+		layer: Layer.succeed(
+			StateManagerService,
+			{
+				stateManager: null as unknown,
+				getStateRoot: () => Effect.sync(() => new Uint8Array(32)),
+				setStateRoot: () => Effect.sync(() => undefined),
+				dumpState: () => Effect.fail(new Error('Simulated dumpState failure')),
+				loadState: () => Effect.sync(() => undefined),
+				getAccount: () => Effect.sync(() => undefined),
+				putAccount: () => Effect.sync(() => undefined),
+				deleteAccount: () => Effect.sync(() => undefined),
+				getStorage: () => Effect.sync(() => new Uint8Array()),
+				putStorage: () => Effect.sync(() => undefined),
+				clearStorage: () => Effect.sync(() => undefined),
+				getCode: () => Effect.sync(() => new Uint8Array()),
+				putCode: () => Effect.sync(() => undefined),
+				checkpoint: () => Effect.sync(() => { checkpointCalled = true }),
+				commit: () => Effect.sync(() => { commitCalled = true }),
+				revert: () => Effect.sync(() => { revertCalled = true }),
+				ready: Effect.sync(() => undefined),
+				deepCopy: () => Effect.die(new Error('Not implemented')),
+				shallowCopy: () => { throw new Error('Not implemented') },
+			} as unknown as import('@tevm/state-effect').StateManagerShape,
+		),
+		getCheckpointCalled: () => checkpointCalled,
+		getCommitCalled: () => commitCalled,
+		getRevertCalled: () => revertCalled,
+	}
+}
+
+/**
  * Create a mock StateManagerService for testing.
  * This simulates state management behavior without real EVM state.
  */
@@ -92,6 +132,30 @@ describe('SnapshotLive', () => {
 
 			const result = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
 			expect(result).toEqual(['0x1', '0x2', '0x3'])
+		})
+
+		it('should revert checkpoint when dumpState fails', async () => {
+			const failingMock = createFailingStateManagerLayer()
+			const failingLayer = Layer.provide(SnapshotLive(), failingMock.layer)
+
+			const program = Effect.gen(function* () {
+				const snapshot = yield* SnapshotService
+				yield* snapshot.takeSnapshot()
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(failingLayer)))
+
+			// The operation should fail
+			expect(Exit.isFailure(exit)).toBe(true)
+
+			// Checkpoint should have been called
+			expect(failingMock.getCheckpointCalled()).toBe(true)
+
+			// Commit should NOT have been called (because we failed)
+			expect(failingMock.getCommitCalled()).toBe(false)
+
+			// Revert SHOULD have been called (cleanup on failure)
+			expect(failingMock.getRevertCalled()).toBe(true)
 		})
 	})
 
