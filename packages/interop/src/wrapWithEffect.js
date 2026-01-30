@@ -11,6 +11,10 @@ import { Effect } from 'effect'
  * instance. This ensures immutability and prevents unexpected side effects for callers
  * who may not expect their original object to be modified.
  *
+ * **Prototype chain preservation**: This function properly preserves the prototype chain
+ * of the original instance. Prototype methods (like those defined on a class) will be
+ * accessible on the wrapped object. Getters and setters are also preserved correctly.
+ *
  * Note: The wrapped Effect methods have an error type of `unknown` since
  * the original Promise-based methods may reject with any error type.
  *
@@ -63,9 +67,23 @@ export const wrapWithEffect = (instance, methods) => {
 			Effect.tryPromise(() => /** @type {Function} */ (fn).apply(instance, args))
 	}
 
-	// Return a new object instead of mutating the original instance
-	// This preserves immutability and prevents unexpected side effects
+	// Create a new object that preserves the prototype chain
+	// This ensures prototype methods (class methods) are accessible on the wrapped object
+	const wrapped = Object.create(Object.getPrototypeOf(instance))
+
+	// Copy all own property descriptors from the instance to preserve getters/setters
+	const descriptors = Object.getOwnPropertyDescriptors(instance)
+	Object.defineProperties(wrapped, descriptors)
+
+	// Add the effect methods
+	Object.defineProperty(wrapped, 'effect', {
+		value: effectMethods,
+		writable: false,
+		enumerable: true,
+		configurable: false,
+	})
+
 	return /** @type {T & { effect: Record<string, (...args: unknown[]) => Effect.Effect<unknown, unknown, never>> }} */ (
-		Object.assign({}, instance, { effect: effectMethods })
+		wrapped
 	)
 }

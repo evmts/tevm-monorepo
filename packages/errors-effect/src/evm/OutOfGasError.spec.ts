@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { Effect } from 'effect'
+import { Effect, Equal, Hash, HashSet } from 'effect'
 import { OutOfGasError } from './OutOfGasError.js'
 
 describe('OutOfGasError', () => {
@@ -96,24 +96,17 @@ describe('OutOfGasError', () => {
 		expect(OutOfGasError.docsPath).toBe('/reference/tevm/errors/classes/outofgaserror/')
 	})
 
-	it('should be immutable (Object.freeze applied)', () => {
+	it('should NOT be frozen (for Effect trait compatibility)', () => {
 		const error = new OutOfGasError({
 			gasUsed: 100000n,
 			gasLimit: 21000n,
 		})
 
-		// Verify the object is frozen
-		expect(Object.isFrozen(error)).toBe(true)
-
-		// Verify properties cannot be modified
-		const originalGasUsed = error.gasUsed
-		try {
-			// @ts-expect-error - testing runtime immutability
-			error.gasUsed = 50000n
-		} catch {
-			// Expected in strict mode
-		}
-		expect(error.gasUsed).toBe(originalGasUsed)
+		// Object.freeze is NOT used because Effect.ts requires objects to be extensible
+		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
+		// Properties are marked @readonly in JSDoc for documentation purposes only.
+		expect(Object.isFrozen(error)).toBe(false)
+		expect(Object.isExtensible(error)).toBe(true)
 	})
 
 	it('should accept and store cause property for error chaining', () => {
@@ -136,5 +129,73 @@ describe('OutOfGasError', () => {
 		})
 
 		expect(error.cause).toBeUndefined()
+	})
+
+	describe('Effect traits', () => {
+		it('should support Equal.equals for structural equality', () => {
+			const error1 = new OutOfGasError({
+				gasUsed: 100000n,
+				gasLimit: 21000n,
+			})
+			const error2 = new OutOfGasError({
+				gasUsed: 100000n,
+				gasLimit: 21000n,
+			})
+
+			expect(Equal.equals(error1, error2)).toBe(true)
+		})
+
+		it('should return false for Equal.equals with different properties', () => {
+			const error1 = new OutOfGasError({
+				gasUsed: 100000n,
+				gasLimit: 21000n,
+			})
+			const error2 = new OutOfGasError({
+				gasUsed: 200000n,
+				gasLimit: 21000n,
+			})
+
+			expect(Equal.equals(error1, error2)).toBe(false)
+		})
+
+		it('should have consistent Hash values for equal errors', () => {
+			const error1 = new OutOfGasError({
+				gasUsed: 50000n,
+				gasLimit: 30000n,
+			})
+			const error2 = new OutOfGasError({
+				gasUsed: 50000n,
+				gasLimit: 30000n,
+			})
+
+			expect(Hash.hash(error1)).toBe(Hash.hash(error2))
+		})
+
+		it('should have different Hash values for different errors', () => {
+			const error1 = new OutOfGasError({
+				gasUsed: 100000n,
+				gasLimit: 21000n,
+			})
+			const error2 = new OutOfGasError({
+				gasUsed: 100000n,
+				gasLimit: 42000n,
+			})
+
+			expect(Hash.hash(error1)).not.toBe(Hash.hash(error2))
+		})
+
+		it('should work correctly in Effect HashSet', () => {
+			const error1 = new OutOfGasError({
+				gasUsed: 75000n,
+				gasLimit: 50000n,
+			})
+			const error2 = new OutOfGasError({
+				gasUsed: 75000n,
+				gasLimit: 50000n,
+			})
+
+			const set = HashSet.make(error1)
+			expect(HashSet.has(set, error2)).toBe(true)
+		})
 	})
 })

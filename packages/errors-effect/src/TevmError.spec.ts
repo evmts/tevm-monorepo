@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { Effect } from 'effect'
+import { Effect, Equal, Hash } from 'effect'
 import { TevmError } from './TevmError.js'
 
 describe('TevmError', () => {
@@ -82,25 +82,96 @@ describe('TevmError', () => {
 		expect(str).not.toContain('https://tevm.sh')
 	})
 
-	it('should be immutable (Object.freeze applied)', () => {
+	it('should NOT be frozen (for Effect trait compatibility)', () => {
 		const error = new TevmError({
-			message: 'Immutable error',
+			message: 'Effect-compatible error',
 			code: -32000,
 		})
 
-		// Verify the object is frozen
-		expect(Object.isFrozen(error)).toBe(true)
+		// Object.freeze is NOT used because Effect.ts requires objects to be extensible
+		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
+		// Properties are marked @readonly in JSDoc for documentation purposes only.
+		expect(Object.isFrozen(error)).toBe(false)
+		expect(Object.isExtensible(error)).toBe(true)
+	})
 
-		// In strict mode, attempting to modify should throw
-		// In non-strict mode, modifications are silently ignored
-		// Either way, the value should not change
-		const originalMessage = error.message
-		try {
-			// @ts-expect-error - testing runtime immutability
-			error.message = 'Modified message'
-		} catch {
-			// Expected in strict mode
-		}
-		expect(error.message).toBe(originalMessage)
+	describe('Effect traits', () => {
+		it('should support Equal.equals for structural equality', () => {
+			const error1 = new TevmError({
+				message: 'Test error',
+				code: -32000,
+				docsPath: '/reference/tevm/errors/',
+			})
+			const error2 = new TevmError({
+				message: 'Test error',
+				code: -32000,
+				docsPath: '/reference/tevm/errors/',
+			})
+
+			// Effect's structural equality should return true for identical properties
+			expect(Equal.equals(error1, error2)).toBe(true)
+		})
+
+		it('should return false for Equal.equals with different properties', () => {
+			const error1 = new TevmError({
+				message: 'Error 1',
+				code: -32000,
+			})
+			const error2 = new TevmError({
+				message: 'Error 2',
+				code: -32000,
+			})
+
+			expect(Equal.equals(error1, error2)).toBe(false)
+		})
+
+		it('should have consistent Hash values for equal errors', () => {
+			const error1 = new TevmError({
+				message: 'Test error',
+				code: -32001,
+				docsPath: '/docs/',
+			})
+			const error2 = new TevmError({
+				message: 'Test error',
+				code: -32001,
+				docsPath: '/docs/',
+			})
+
+			// Equal errors should have the same hash
+			expect(Hash.hash(error1)).toBe(Hash.hash(error2))
+		})
+
+		it('should have different Hash values for different errors', () => {
+			const error1 = new TevmError({
+				message: 'Error 1',
+				code: -32000,
+			})
+			const error2 = new TevmError({
+				message: 'Error 2',
+				code: -32001,
+			})
+
+			// Different errors should likely have different hashes
+			// (not guaranteed but extremely likely for different content)
+			expect(Hash.hash(error1)).not.toBe(Hash.hash(error2))
+		})
+
+		it('should work correctly in Effect HashSet/HashMap', async () => {
+			const error1 = new TevmError({
+				message: 'Unique error',
+				code: -32000,
+			})
+			const error2 = new TevmError({
+				message: 'Unique error',
+				code: -32000,
+			})
+
+			// Using Effect's HashSet to verify the error works with Effect's data structures
+			const { HashSet } = await import('effect')
+			const set = HashSet.make(error1)
+
+			// Should find the structurally equal error
+			expect(HashSet.has(set, error2)).toBe(true)
+		})
 	})
 })

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { Effect } from 'effect'
+import { Effect, Equal, Hash, HashSet } from 'effect'
 import { StackUnderflowError } from './StackUnderflowError.js'
 
 describe('StackUnderflowError', () => {
@@ -62,21 +62,14 @@ describe('StackUnderflowError', () => {
 		expect(StackUnderflowError.docsPath).toBe('/reference/tevm/errors/classes/stackunderflowerror/')
 	})
 
-	it('should be immutable (Object.freeze applied)', () => {
+	it('should NOT be frozen (for Effect trait compatibility)', () => {
 		const error = new StackUnderflowError({})
 
-		// Verify the object is frozen
-		expect(Object.isFrozen(error)).toBe(true)
-
-		// Verify properties cannot be modified
-		const originalMessage = error.message
-		try {
-			// @ts-expect-error - testing runtime immutability
-			error.message = 'Modified message'
-		} catch {
-			// Expected in strict mode
-		}
-		expect(error.message).toBe(originalMessage)
+		// Object.freeze is NOT used because Effect.ts requires objects to be extensible
+		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
+		// Properties are marked @readonly in JSDoc for documentation purposes only.
+		expect(Object.isFrozen(error)).toBe(false)
+		expect(Object.isExtensible(error)).toBe(true)
 	})
 
 	it('should accept and store cause property for error chaining', () => {
@@ -94,5 +87,63 @@ describe('StackUnderflowError', () => {
 		const error = new StackUnderflowError({})
 
 		expect(error.cause).toBeUndefined()
+	})
+
+	describe('Effect traits', () => {
+		it('should support Equal.equals for structural equality', () => {
+			const error1 = new StackUnderflowError({
+				message: 'Test underflow',
+			})
+			const error2 = new StackUnderflowError({
+				message: 'Test underflow',
+			})
+
+			expect(Equal.equals(error1, error2)).toBe(true)
+		})
+
+		it('should return false for Equal.equals with different properties', () => {
+			const error1 = new StackUnderflowError({
+				message: 'Error 1',
+			})
+			const error2 = new StackUnderflowError({
+				message: 'Error 2',
+			})
+
+			expect(Equal.equals(error1, error2)).toBe(false)
+		})
+
+		it('should have consistent Hash values for equal errors', () => {
+			const error1 = new StackUnderflowError({
+				message: 'Consistent message',
+			})
+			const error2 = new StackUnderflowError({
+				message: 'Consistent message',
+			})
+
+			expect(Hash.hash(error1)).toBe(Hash.hash(error2))
+		})
+
+		it('should have different Hash values for different errors', () => {
+			const error1 = new StackUnderflowError({
+				message: 'Message A',
+			})
+			const error2 = new StackUnderflowError({
+				message: 'Message B',
+			})
+
+			expect(Hash.hash(error1)).not.toBe(Hash.hash(error2))
+		})
+
+		it('should work correctly in Effect HashSet', () => {
+			const error1 = new StackUnderflowError({
+				message: 'Unique stack underflow',
+			})
+			const error2 = new StackUnderflowError({
+				message: 'Unique stack underflow',
+			})
+
+			const set = HashSet.make(error1)
+			expect(HashSet.has(set, error2)).toBe(true)
+		})
 	})
 })

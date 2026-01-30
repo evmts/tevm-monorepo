@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { Effect } from 'effect'
+import { Effect, Equal, Hash, HashSet } from 'effect'
 import { InsufficientBalanceError } from './InsufficientBalanceError.js'
 
 describe('InsufficientBalanceError', () => {
@@ -96,25 +96,18 @@ describe('InsufficientBalanceError', () => {
 		expect(error.message).toBe('Insufficient balance error occurred.')
 	})
 
-	it('should be immutable (Object.freeze applied)', () => {
+	it('should NOT be frozen (for Effect trait compatibility)', () => {
 		const error = new InsufficientBalanceError({
 			address: '0x1234567890123456789012345678901234567890',
 			required: 100n,
 			available: 50n,
 		})
 
-		// Verify the object is frozen
-		expect(Object.isFrozen(error)).toBe(true)
-
-		// Verify properties cannot be modified
-		const originalAddress = error.address
-		try {
-			// @ts-expect-error - testing runtime immutability
-			error.address = '0xABCD'
-		} catch {
-			// Expected in strict mode
-		}
-		expect(error.address).toBe(originalAddress)
+		// Object.freeze is NOT used because Effect.ts requires objects to be extensible
+		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
+		// Properties are marked @readonly in JSDoc for documentation purposes only.
+		expect(Object.isFrozen(error)).toBe(false)
+		expect(Object.isExtensible(error)).toBe(true)
 	})
 
 	it('should accept and store cause property for error chaining', () => {
@@ -139,5 +132,83 @@ describe('InsufficientBalanceError', () => {
 		})
 
 		expect(error.cause).toBeUndefined()
+	})
+
+	describe('Effect traits', () => {
+		it('should support Equal.equals for structural equality', () => {
+			const error1 = new InsufficientBalanceError({
+				address: '0x1234567890123456789012345678901234567890',
+				required: 1000n,
+				available: 500n,
+			})
+			const error2 = new InsufficientBalanceError({
+				address: '0x1234567890123456789012345678901234567890',
+				required: 1000n,
+				available: 500n,
+			})
+
+			expect(Equal.equals(error1, error2)).toBe(true)
+		})
+
+		it('should return false for Equal.equals with different properties', () => {
+			const error1 = new InsufficientBalanceError({
+				address: '0x1234',
+				required: 100n,
+				available: 50n,
+			})
+			const error2 = new InsufficientBalanceError({
+				address: '0x1234',
+				required: 200n,
+				available: 50n,
+			})
+
+			expect(Equal.equals(error1, error2)).toBe(false)
+		})
+
+		it('should have consistent Hash values for equal errors', () => {
+			const error1 = new InsufficientBalanceError({
+				address: '0xABCD',
+				required: 500n,
+				available: 250n,
+			})
+			const error2 = new InsufficientBalanceError({
+				address: '0xABCD',
+				required: 500n,
+				available: 250n,
+			})
+
+			expect(Hash.hash(error1)).toBe(Hash.hash(error2))
+		})
+
+		it('should have different Hash values for different errors', () => {
+			const error1 = new InsufficientBalanceError({
+				address: '0x1111',
+				required: 100n,
+				available: 50n,
+			})
+			const error2 = new InsufficientBalanceError({
+				address: '0x2222',
+				required: 100n,
+				available: 50n,
+			})
+
+			expect(Hash.hash(error1)).not.toBe(Hash.hash(error2))
+		})
+
+		it('should work correctly in Effect HashSet', () => {
+			const error1 = new InsufficientBalanceError({
+				address: '0xDEAD',
+				required: 1000n,
+				available: 0n,
+			})
+			const error2 = new InsufficientBalanceError({
+				address: '0xDEAD',
+				required: 1000n,
+				available: 0n,
+			})
+
+			const set = HashSet.make(error1)
+			expect(HashSet.has(set, error2)).toBe(true)
+		})
 	})
 })

@@ -113,7 +113,8 @@ export class InsufficientBalanceError extends Data.TaggedError('InsufficientBala
 		this.code = InsufficientBalanceError.code
 		this.docsPath = InsufficientBalanceError.docsPath
 		this.cause = props.cause
-		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
-		Object.freeze(this)
+		// NOTE: Object.freeze is NOT used because Effect.ts requires objects to be extensible
+		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
+		// Properties are marked @readonly in JSDoc for documentation purposes.
 	}
 }

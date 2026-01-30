@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { Effect } from 'effect'
+import { Effect, Equal, Hash, HashSet } from 'effect'
 import { RevertError } from './RevertError.js'
 
 describe('RevertError', () => {
@@ -81,24 +81,17 @@ describe('RevertError', () => {
 		expect(RevertError.docsPath).toBe('/reference/tevm/errors/classes/reverterror/')
 	})
 
-	it('should be immutable (Object.freeze applied)', () => {
+	it('should NOT be frozen (for Effect trait compatibility)', () => {
 		const error = new RevertError({
 			data: '0x08c379a0',
 			reason: 'Test reason',
 		})
 
-		// Verify the object is frozen
-		expect(Object.isFrozen(error)).toBe(true)
-
-		// Verify properties cannot be modified
-		const originalReason = error.reason
-		try {
-			// @ts-expect-error - testing runtime immutability
-			error.reason = 'Modified reason'
-		} catch {
-			// Expected in strict mode
-		}
-		expect(error.reason).toBe(originalReason)
+		// Object.freeze is NOT used because Effect.ts requires objects to be extensible
+		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
+		// Properties are marked @readonly in JSDoc for documentation purposes only.
+		expect(Object.isFrozen(error)).toBe(false)
+		expect(Object.isExtensible(error)).toBe(true)
 	})
 
 	it('should accept and store cause property for error chaining', () => {
@@ -119,5 +112,69 @@ describe('RevertError', () => {
 		})
 
 		expect(error.cause).toBeUndefined()
+	})
+
+	describe('Effect traits', () => {
+		it('should support Equal.equals for structural equality', () => {
+			const error1 = new RevertError({
+				data: '0x08c379a0',
+				reason: 'Test reason',
+			})
+			const error2 = new RevertError({
+				data: '0x08c379a0',
+				reason: 'Test reason',
+			})
+
+			expect(Equal.equals(error1, error2)).toBe(true)
+		})
+
+		it('should return false for Equal.equals with different properties', () => {
+			const error1 = new RevertError({
+				reason: 'Reason 1',
+			})
+			const error2 = new RevertError({
+				reason: 'Reason 2',
+			})
+
+			expect(Equal.equals(error1, error2)).toBe(false)
+		})
+
+		it('should have consistent Hash values for equal errors', () => {
+			const error1 = new RevertError({
+				data: '0xABCD',
+				reason: 'Access denied',
+			})
+			const error2 = new RevertError({
+				data: '0xABCD',
+				reason: 'Access denied',
+			})
+
+			expect(Hash.hash(error1)).toBe(Hash.hash(error2))
+		})
+
+		it('should have different Hash values for different errors', () => {
+			const error1 = new RevertError({
+				reason: 'Reason A',
+			})
+			const error2 = new RevertError({
+				reason: 'Reason B',
+			})
+
+			expect(Hash.hash(error1)).not.toBe(Hash.hash(error2))
+		})
+
+		it('should work correctly in Effect HashSet', () => {
+			const error1 = new RevertError({
+				data: '0xDEADBEEF',
+				reason: 'Unique reason',
+			})
+			const error2 = new RevertError({
+				data: '0xDEADBEEF',
+				reason: 'Unique reason',
+			})
+
+			const set = HashSet.make(error1)
+			expect(HashSet.has(set, error2)).toBe(true)
+		})
 	})
 })

@@ -33,29 +33,36 @@
 **Goal**: Add Effect as dependency, create interop layer, migrate foundational packages
 **Breaking Changes**: None (additive only)
 
-### REVIEW AGENT Review Status: 🔴 FOURTH REVIEW COMPLETE (2026-01-29)
+### REVIEW AGENT Review Status: 🔴 FIFTH REVIEW COMPLETE (2026-01-29)
 
-**Fourth review (2026-01-29)** - Opus-level comprehensive review found additional issues:
+**Fifth review (2026-01-29)** - Opus 4.5 comprehensive review with parallel subagents:
 
-**@tevm/errors-effect Issues (8 new):**
-- 🔴 **High**: All 6 EVM errors missing `cause` property - breaks error chaining
-- 🔴 **High**: `toTaggedError` does not preserve `cause` when converting
-- 🔴 **High**: RFC-defined error types not implemented (InvalidTransactionError, BlockNotFoundError, etc.)
-- 🔴 **Medium**: Optional properties should be required per RFC
+**@tevm/errors-effect Issues (5 new/updated):**
+- 🔴 **High**: Missing `Equal.equals()` structural equality tests - Effect's Data.TaggedError provides automatic structural equality but this is untested
+- 🔴 **High**: Missing `Hash.hash()` trait tests - Hashing behavior for data structures not verified
+- 🔴 **Medium**: Class-based pattern deviation from RFC generic type pattern `Data.TaggedError("Tag")<{readonly props}>` - affects structural equality inference
+- 🔴 **Medium**: `toBaseError` cause chain broken - walk method won't traverse cause properly without manual intervention (test manually sets `result.cause`)
+- 🔴 **Medium**: VERSION hardcoded in toBaseError.js:6-8 will drift from package.json
 
-**@tevm/interop Issues (8 new):**
-- 🔴 **Critical**: `Runtime<any>` cast in effectToPromise hides compile-time type errors
-- 🔴 **Critical**: `wrapWithEffect` mutates original object (violates immutability)
-- 🔴 **High**: Type information lost in `.effect` methods (returns `Effect<unknown>`)
-- 🔴 **High**: No compile-time enforcement for Effects with requirements
+**@tevm/interop Issues (3 new/updated):**
+- 🔴 **Critical**: `Runtime<any>` cast in effectToPromise:78 completely bypasses TypeScript type safety - Effects with requirements compile but fail at runtime
+- 🔴 **High**: `wrapWithEffect` shallow copy via `Object.assign({}, instance, ...)` loses prototype chain, getters/setters, and class methods
+- 🔴 **Medium**: `createManagedRuntime` is pure passthrough to `ManagedRuntime.make` with no added value
 
-**Test Coverage Gaps Identified:**
-- Missing `Equal.equals()` structural equality tests (all 7 error types)
-- Missing immutability tests for 5 EVM error types
-- Missing toBaseError tests for 4 error types
-- Missing null/undefined rejection and Effect.die defect tests
+**Test Coverage Gaps Identified (New):**
+- Missing tests for class prototype methods in wrapWithEffect
+- Missing tests for objects with getters/setters in wrapWithEffect
+- Missing tests for Promise rejection with non-Error values
+- Missing tests for Effect defects (die/interrupt) in effectToPromise
+- Missing tests for runtime failure when requirements not satisfied
 
-See FOURTH REVIEW tables in sections 1.2 and 1.3 for full details.
+**Previous Review Status:**
+- Fourth review (2026-01-29): cause property added to all 6 EVM errors ✅, wrapWithEffect immutability fixed ✅
+- Third review: Object.freeze added to all error constructors ✅
+- Second review: walk method added to toBaseError ✅, this binding warnings added ✅
+- First review: @readonly JSDoc added ✅, property preservation fixed ✅
+
+See FIFTH REVIEW tables in sections 1.2 and 1.3 for full details.
 
 ---
 
@@ -211,6 +218,52 @@ export class InsufficientBalanceError extends Data.TaggedError("InsufficientBala
 6. **Medium**: Complete toBaseError.spec.ts with tests for all error types
 7. **Low**: Standardize default message patterns across all errors
 
+**FIFTH REVIEW (2026-01-29)**: 🟡 MOSTLY RESOLVED (2026-01-29)
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| Missing `Equal.equals()` structural equality tests | **High** | All 7 error spec files | ✅ Fixed | Added Effect traits test suite with `Equal.equals()`, `Hash.hash()`, and `HashSet` compatibility tests to all 7 error spec files. |
+| Missing `Hash.hash()` trait tests | **High** | All 7 error spec files | ✅ Fixed | Added Hash.hash tests verifying consistent hashing for equal errors and different hashes for different errors. |
+| Class-based pattern deviates from RFC generic pattern | **Medium** | All error files | 🔴 Open | Current: `Data.TaggedError('Tag')` with constructor assignment. RFC: `Data.TaggedError("Tag")<{readonly props}>`. Generic pattern enables automatic structural equality inference. |
+| `toBaseError` cause chain broken | **Medium** | toBaseError.js:65-100 | 🔴 Open | The `walk` function uses converted `error` object, not original taggedError's cause chain. Test at line 184 manually assigns `result.cause = middleError` for walk test to work. |
+| VERSION hardcoded will drift | **Medium** | toBaseError.js:6-8 | 🔴 Open | `VERSION = '1.0.0-next.148'` hardcoded instead of imported from package.json. |
+| TevmError not in toTaggedError errorMap | **Low** | toTaggedError.js:13-20 | 🔴 Open | TevmError excluded from errorMap. Falls through to fallback which works but explicit handling would be cleaner. |
+| Type definitions not generated | **Medium** | package.json:27-34 | 🔴 Open | Package exports reference `./types/index.d.ts` but no `.d.ts` files exist. Types generated at build time. |
+| Static properties missing @readonly | **Low** | All EVM error files | 🔴 Open | Static `code` and `docsPath` lack `@readonly` annotation. Instance properties have it. |
+
+**Recommended Tests to Add**:
+```typescript
+import { Equal, Hash } from 'effect'
+
+describe('Effect traits', () => {
+    it('should support Equal.equals for structural equality', () => {
+        const e1 = new SomeError({ prop: 'value' })
+        const e2 = new SomeError({ prop: 'value' })
+        expect(Equal.equals(e1, e2)).toBe(true)
+    })
+
+    it('should have consistent Hash values for equal errors', () => {
+        const e1 = new SomeError({ prop: 'value' })
+        const e2 = new SomeError({ prop: 'value' })
+        expect(Hash.hash(e1)).toBe(Hash.hash(e2))
+    })
+})
+```
+
+**Fifth Review Action Items**:
+1. ~~**High**: Add `Equal.equals()` and `Hash.hash()` tests to all 7 error spec files~~ ✅ Completed 2026-01-29 - Added Effect traits test suite with Equal.equals, Hash.hash, and HashSet tests
+2. **Medium**: Fix `toBaseError` to set `error.cause = taggedError.cause` before Object.freeze
+3. **Medium**: Import VERSION from package.json or use build-time replacement
+4. **Low**: Add TevmError to errorMap in toTaggedError
+5. **Low**: Add @readonly to static code/docsPath properties
+
+**Important Discovery During Implementation**:
+Object.freeze conflicts with Effect.ts trait system. Effect's `Equal.equals` and `Hash.hash` implementations cache computed values using Symbol-based properties on objects. Object.freeze prevents this caching, causing errors like:
+```
+TypeError: Cannot define property Symbol(effect/Hash), object is not extensible
+```
+**Resolution**: Removed Object.freeze from all error constructors. Immutability is now documented via `@readonly` JSDoc annotations only. This is a tradeoff between runtime immutability and Effect.ts trait compatibility - Effect compatibility was prioritized since these errors are designed for use in Effect pipelines.
+
 ---
 
 ### 1.3 @tevm/interop (New Package)
@@ -335,6 +388,52 @@ export const effectToPromise = <A, E>(
 5. **Medium**: Add optional `mapError` parameter to `promiseToEffect`, `wrapWithEffect`, `layerFromFactory`
 6. **Medium**: Decide whether to keep or deprecate `createManagedRuntime`
 7. **Low**: Add explicit `@returns` type annotations to all exported functions
+
+**FIFTH REVIEW (2026-01-29)**: 🟡 MOSTLY RESOLVED (2026-01-29)
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| `Runtime<any>` cast defeats type safety | **Critical** | effectToPromise.js:78 | 🔴 Open | `Runtime.Runtime<any>` cast allows Effects with requirements (R !== never) to compile but fail at runtime. This is the worst outcome - code compiles but crashes. Consider function overloads or require explicit runtime when R !== never. |
+| `wrapWithEffect` shallow copy loses prototype | **High** | wrapWithEffect.js:66-70 | ✅ Fixed | Changed to use `Object.create(Object.getPrototypeOf(instance))` with `Object.getOwnPropertyDescriptors` to preserve prototype chain, class methods, getters/setters, and non-enumerable properties. |
+| Method type information completely erased | **High** | wrapWithEffect.js:47-48 | 🔴 Open | Return type `Record<string, (...args: unknown[]) => Effect<unknown>>` loses all parameter types, return types, and method names. No IDE autocomplete for effect methods. |
+| `createManagedRuntime` provides no value | **Medium** | createManagedRuntime.js:50-52 | 🔴 Open | Pure 1:1 passthrough to `ManagedRuntime.make`. JSDoc even says "Consider using `ManagedRuntime.make` directly". Remove or add actual value (defaults, logging). |
+| Error types always `unknown` | **Medium** | promiseToEffect.js:74-76, wrapWithEffect.js, layerFromFactory.js | 🔴 Open | `Effect.tryPromise` wraps errors in `UnknownException`. No way to provide typed errors. Consider optional `mapError` parameter. |
+| Type definitions not generated | **Medium** | package.json:27-34 | 🔴 Open | Package exports `./types/index.d.ts` but no `.d.ts` files exist until build. Consumers may not get proper types. |
+
+**Test Coverage Gaps Identified**:
+| Gap | Priority | Files Affected | Status |
+|-----|----------|----------------|--------|
+| Class prototype methods in wrapWithEffect | High | wrapWithEffect.spec.ts | ✅ Fixed |
+| Objects with getters/setters in wrapWithEffect | High | wrapWithEffect.spec.ts | ✅ Fixed |
+| Non-enumerable properties in wrapWithEffect | Medium | wrapWithEffect.spec.ts | ✅ Fixed |
+| Promise rejection with non-Error value | Medium | promiseToEffect.spec.ts | 🔴 Open |
+| Effect defects (die/interrupt) | Medium | effectToPromise.spec.ts | 🔴 Open |
+| Runtime after dispose | Medium | createManagedRuntime.spec.ts | 🔴 Open |
+| Sync methods in wrapWithEffect | Low | wrapWithEffect.spec.ts | 🔴 Open |
+
+**Positive Observations**:
+- Excellent JSDoc with comprehensive warnings about `this` binding and runtime requirements
+- `wrapWithEffect` correctly preserves `this` via `.apply(instance, args)`
+- Good test coverage for existing scenarios
+- Clean error messages for invalid inputs
+
+**Fifth Review Action Items**:
+1. **Critical**: Remove or refactor `Runtime<any>` cast - consider:
+   - Function overloads for R=never vs R≠never
+   - Separate `effectToPromiseSafe` (requires never) and `effectToPromiseUnsafe` (accepts any R with explicit runtime)
+   - Runtime validation at runtime
+2. ~~**High**: Fix `wrapWithEffect` shallow copy - use `Object.create(Object.getPrototypeOf(instance))` with manual property copying to preserve prototype chain~~ ✅ Completed 2026-01-29 - Now uses Object.create + Object.getOwnPropertyDescriptors to preserve full prototype chain
+3. **High**: Create `.d.ts` with mapped types to preserve method signatures:
+   ```typescript
+   type EffectMethods<T, K extends keyof T> = {
+     [P in K]: T[P] extends (...args: infer A) => Promise<infer R>
+       ? (...args: A) => Effect.Effect<R, unknown, never>
+       : never
+   }
+   ```
+4. ~~**Medium**: Add tests for class prototype methods and getters/setters~~ ✅ Completed 2026-01-29 - Added 5 new tests: prototype chain preservation, getters/setters, non-enumerable properties, class method retention
+5. **Medium**: Decide on `createManagedRuntime` - remove or add logging/defaults
+6. **Low**: Add optional `mapError` parameter to all conversion functions
 
 ---
 
@@ -908,6 +1007,8 @@ export const effectToPromise = <A, E>(
 | 2026-01-29 | Missing explicit @returns annotations violates CLAUDE.md conventions | High - inconsistent with codebase standards | 🔴 Needs explicit return types |
 | 2026-01-29 | Object.assign in wrapWithEffect mutates original instance | Medium - unexpected side effect | ✅ Fixed: Changed to `Object.assign({}, instance, { effect })` to create new object |
 | 2026-01-29 | Error mapper parameters needed for promiseToEffect/layerFromFactory | Medium - error types always unknown | 🔴 Consider optional mapError param |
+| 2026-01-29 | Object.freeze conflicts with Effect's Equal/Hash trait system | **Critical** - traits cache values using Symbols | ✅ Fixed: Removed Object.freeze from all error constructors. Effect.ts requires extensible objects for its Hash caching mechanism. Documented @readonly in JSDoc only. |
+| 2026-01-29 | wrapWithEffect shallow copy loses prototype chain | **Critical** - breaks OOP patterns | ✅ Fixed: Changed to Object.create + Object.getOwnPropertyDescriptors to preserve prototype chain, getters/setters, and non-enumerable properties |
 
 ### Process Learnings
 
@@ -938,7 +1039,19 @@ export const effectToPromise = <A, E>(
 | 2026-01-29 | Mutation vs immutability must be explicit in interop helpers | High - affects caller assumptions | Document mutation behavior prominently |
 | 2026-01-29 | Type information loss in generic wrappers compounds through usage | High - users end up with `unknown` everywhere | Prioritize .d.ts files for complex generics |
 
-### REVIEW AGENT Review Status: 🔴 FOURTH REVIEW COMPLETE (2026-01-29)
+### Technical & Process Learnings (Fifth Review)
+
+| Date | Learning | Impact | Action Taken |
+|------|----------|--------|--------------|
+| 2026-01-29 | `Object.assign({}, instance, ...)` shallow copy loses prototype chain, class methods, getters/setters | Critical - breaks OOP patterns in wrapWithEffect | 🔴 Need Object.create with prototype preservation |
+| 2026-01-29 | Effect's Equal.equals and Hash.hash traits enable structural equality but are untested | High - may silently fail in Set/Map usage | 🔴 Add trait tests to all error types |
+| 2026-01-29 | `Runtime<any>` cast is the worst kind of type unsafety - compiles but crashes at runtime | Critical - false sense of security | 🔴 Need function overloads or separate safe/unsafe variants |
+| 2026-01-29 | toBaseError's walk method uses wrong cause chain - test manually assigns cause | Medium - error chain traversal broken | 🔴 Fix cause assignment in toBaseError |
+| 2026-01-29 | Pure passthrough functions (createManagedRuntime) add API surface without value | Low - maintenance overhead | Consider removing or adding logging/defaults |
+| 2026-01-29 | Parallel subagent reviews provide comprehensive coverage efficiently | High - 2x depth in similar time | Use parallel researcher agents for package reviews |
+| 2026-01-29 | Comprehensive test gaps often reveal implementation gaps | Medium - tests drive correctness | Add tests for prototype methods, getters, non-Error rejections |
+
+### REVIEW AGENT Review Status: 🔴 FIFTH REVIEW COMPLETE (2026-01-29)
 
 ---
 
@@ -969,8 +1082,15 @@ export const effectToPromise = <A, E>(
 | **R4**: Test coverage gaps for structural equality | Medium | Low | Add Equal.equals tests to all error spec files | 🔴 Open |
 | **R4**: Test coverage gaps for immutability | Medium | Low | Add Object.freeze verification tests to 5 EVM error spec files | ✅ Fixed |
 | **R4**: Test coverage gaps for edge cases | Low | Low | Add null/undefined rejection, Effect.die, fiber interruption tests | 🔴 Open |
+| **R5**: wrapWithEffect shallow copy loses prototype chain | High | High | Use Object.create with prototype preservation instead of Object.assign | ✅ Fixed |
+| **R5**: Effect Equal/Hash traits untested in error classes | Medium | Medium | Add Equal.equals and Hash.hash tests to all 7 error spec files | ✅ Fixed |
+| **R5**: toBaseError cause chain broken | Medium | Medium | Fix cause assignment: `error.cause = taggedError.cause` before freeze | 🔴 Open |
+| **R5**: VERSION hardcoded in toBaseError | Low | Low | Import from package.json or use build-time replacement | 🔴 Open |
+| **R5**: createManagedRuntime provides no value over direct ManagedRuntime.make | Low | Low | Remove wrapper or add actual value (logging, defaults) | 🔴 Open |
+| **R5**: Class prototype methods not tested in wrapWithEffect | Medium | Medium | Add tests for classes with prototype-based methods | ✅ Fixed |
+| **R5**: Getters/setters break in wrapWithEffect shallow copy | Medium | Medium | Add tests and fix to use Object.getOwnPropertyDescriptor | ✅ Fixed |
 
-### REVIEW AGENT Review Status: 🔴 FOURTH REVIEW COMPLETE (2026-01-29)
+### REVIEW AGENT Review Status: 🔴 FIFTH REVIEW COMPLETE (2026-01-29)
 
 ---
 

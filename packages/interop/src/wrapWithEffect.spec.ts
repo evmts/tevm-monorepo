@@ -207,4 +207,135 @@ describe('wrapWithEffect', () => {
 		;(wrapped as any).newProperty = 'test'
 		expect((original as any).newProperty).toBeUndefined()
 	})
+
+	it('should preserve prototype chain for class instances', async () => {
+		class BaseService {
+			async baseMethod(): Promise<string> {
+				return 'from base'
+			}
+		}
+
+		class DerivedService extends BaseService {
+			private state = 'initial'
+
+			async derivedMethod(): Promise<string> {
+				return `derived: ${this.state}`
+			}
+
+			async updateState(newState: string): Promise<void> {
+				this.state = newState
+			}
+		}
+
+		const service = new DerivedService()
+		const wrapped = wrapWithEffect(service, ['derivedMethod', 'updateState'])
+
+		// Prototype method from base class should still be accessible
+		expect(typeof wrapped.baseMethod).toBe('function')
+		const baseResult = await wrapped.baseMethod()
+		expect(baseResult).toBe('from base')
+
+		// Effect methods should work
+		const effectResult = await Effect.runPromise(wrapped.effect.derivedMethod())
+		expect(effectResult).toBe('derived: initial')
+
+		// State should be shared properly
+		await Effect.runPromise(wrapped.effect.updateState('updated'))
+		const updatedResult = await Effect.runPromise(wrapped.effect.derivedMethod())
+		expect(updatedResult).toBe('derived: updated')
+	})
+
+	it('should preserve getters and setters on wrapped object', async () => {
+		const objWithAccessors = {
+			_value: 10,
+			get value() {
+				return this._value * 2
+			},
+			set value(v: number) {
+				this._value = v
+			},
+			async getValue(): Promise<number> {
+				return this.value
+			},
+		}
+
+		const wrapped = wrapWithEffect(objWithAccessors, ['getValue'])
+
+		// Getter should work correctly on wrapped object (returns doubled value)
+		expect(wrapped.value).toBe(20)
+
+		// Setter should work correctly on wrapped object
+		wrapped.value = 15
+		expect(wrapped._value).toBe(15)
+		expect(wrapped.value).toBe(30)
+
+		// Effect methods use the ORIGINAL instance (not the wrapped copy)
+		// This is intentional to preserve `this` binding to the original state.
+		// So even though wrapped._value is 15, the effect method returns
+		// the original instance's value (10 * 2 = 20)
+		const result = await Effect.runPromise(wrapped.effect.getValue())
+		expect(result).toBe(20)
+
+		// Verify the original was NOT modified
+		expect(objWithAccessors._value).toBe(10)
+	})
+
+	it('should preserve non-enumerable properties', async () => {
+		const obj: { visible: string; hidden?: string; method: () => Promise<string> } = {
+			visible: 'can see',
+			async method(): Promise<string> {
+				return this.hidden || 'no hidden'
+			},
+		}
+
+		Object.defineProperty(obj, 'hidden', {
+			value: 'secret',
+			enumerable: false,
+			writable: true,
+			configurable: true,
+		})
+
+		const wrapped = wrapWithEffect(obj, ['method'])
+
+		// Non-enumerable property should be preserved
+		expect(wrapped.hidden).toBe('secret')
+		expect(Object.keys(wrapped).includes('hidden')).toBe(false)
+
+		// Method using non-enumerable property should work via Effect
+		const result = await Effect.runPromise(wrapped.effect.method())
+		expect(result).toBe('secret')
+	})
+
+	it('should preserve prototype methods defined on class', async () => {
+		class DataStore {
+			private data: Map<string, number> = new Map()
+
+			async set(key: string, value: number): Promise<void> {
+				this.data.set(key, value)
+			}
+
+			async get(key: string): Promise<number | undefined> {
+				return this.data.get(key)
+			}
+
+			// This is a prototype method (not an own property of instances)
+			size(): number {
+				return this.data.size
+			}
+		}
+
+		const store = new DataStore()
+		const wrapped = wrapWithEffect(store, ['set', 'get'])
+
+		// Use Effect API to set values
+		await Effect.runPromise(wrapped.effect.set('a', 1))
+		await Effect.runPromise(wrapped.effect.set('b', 2))
+
+		// Prototype method should work
+		expect(wrapped.size()).toBe(2)
+
+		// Get via Effect should work
+		const value = await Effect.runPromise(wrapped.effect.get('a'))
+		expect(value).toBe(1)
+	})
 })

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { Effect } from 'effect'
+import { Effect, Equal, Hash, HashSet } from 'effect'
 import { InvalidOpcodeError } from './InvalidOpcodeError.js'
 
 describe('InvalidOpcodeError', () => {
@@ -78,23 +78,16 @@ describe('InvalidOpcodeError', () => {
 		expect(InvalidOpcodeError.docsPath).toBe('/reference/tevm/errors/classes/invalidopcodeerror/')
 	})
 
-	it('should be immutable (Object.freeze applied)', () => {
+	it('should NOT be frozen (for Effect trait compatibility)', () => {
 		const error = new InvalidOpcodeError({
 			opcode: 0xfe,
 		})
 
-		// Verify the object is frozen
-		expect(Object.isFrozen(error)).toBe(true)
-
-		// Verify properties cannot be modified
-		const originalOpcode = error.opcode
-		try {
-			// @ts-expect-error - testing runtime immutability
-			error.opcode = 0xff
-		} catch {
-			// Expected in strict mode
-		}
-		expect(error.opcode).toBe(originalOpcode)
+		// Object.freeze is NOT used because Effect.ts requires objects to be extensible
+		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
+		// Properties are marked @readonly in JSDoc for documentation purposes only.
+		expect(Object.isFrozen(error)).toBe(false)
+		expect(Object.isExtensible(error)).toBe(true)
 	})
 
 	it('should accept and store cause property for error chaining', () => {
@@ -115,5 +108,63 @@ describe('InvalidOpcodeError', () => {
 		})
 
 		expect(error.cause).toBeUndefined()
+	})
+
+	describe('Effect traits', () => {
+		it('should support Equal.equals for structural equality', () => {
+			const error1 = new InvalidOpcodeError({
+				opcode: 0xfe,
+			})
+			const error2 = new InvalidOpcodeError({
+				opcode: 0xfe,
+			})
+
+			expect(Equal.equals(error1, error2)).toBe(true)
+		})
+
+		it('should return false for Equal.equals with different properties', () => {
+			const error1 = new InvalidOpcodeError({
+				opcode: 0xfe,
+			})
+			const error2 = new InvalidOpcodeError({
+				opcode: 0xff,
+			})
+
+			expect(Equal.equals(error1, error2)).toBe(false)
+		})
+
+		it('should have consistent Hash values for equal errors', () => {
+			const error1 = new InvalidOpcodeError({
+				opcode: 0xab,
+			})
+			const error2 = new InvalidOpcodeError({
+				opcode: 0xab,
+			})
+
+			expect(Hash.hash(error1)).toBe(Hash.hash(error2))
+		})
+
+		it('should have different Hash values for different errors', () => {
+			const error1 = new InvalidOpcodeError({
+				opcode: 0x01,
+			})
+			const error2 = new InvalidOpcodeError({
+				opcode: 0x02,
+			})
+
+			expect(Hash.hash(error1)).not.toBe(Hash.hash(error2))
+		})
+
+		it('should work correctly in Effect HashSet', () => {
+			const error1 = new InvalidOpcodeError({
+				opcode: 0xcd,
+			})
+			const error2 = new InvalidOpcodeError({
+				opcode: 0xcd,
+			})
+
+			const set = HashSet.make(error1)
+			expect(HashSet.has(set, error2)).toBe(true)
+		})
 	})
 })
