@@ -1,5 +1,5 @@
 import { Effect, Layer, Ref } from 'effect'
-import { FilterNotFoundError } from '@tevm/errors-effect'
+import { FilterNotFoundError, InvalidFilterTypeError } from '@tevm/errors-effect'
 import { FilterService } from './FilterService.js'
 
 /**
@@ -167,8 +167,9 @@ export const FilterLive = () => {
 
 							if (result.wrongType) {
 								return yield* Effect.fail(
-									new FilterNotFoundError({
+									new InvalidFilterTypeError({
 										filterId: id,
+										expectedType: 'Log',
 										message: `Filter ${id} is not a log filter`,
 									}),
 								)
@@ -206,8 +207,9 @@ export const FilterLive = () => {
 
 							if (result.wrongType) {
 								return yield* Effect.fail(
-									new FilterNotFoundError({
+									new InvalidFilterTypeError({
 										filterId: id,
+										expectedType: 'Block',
 										message: `Filter ${id} is not a block filter`,
 									}),
 								)
@@ -245,8 +247,9 @@ export const FilterLive = () => {
 
 							if (result.wrongType) {
 								return yield* Effect.fail(
-									new FilterNotFoundError({
+									new InvalidFilterTypeError({
 										filterId: id,
+										expectedType: 'PendingTransaction',
 										message: `Filter ${id} is not a pending transaction filter`,
 									}),
 								)

@@ -13,7 +13,7 @@
 /**
  * Union type for all node errors
  *
- * @typedef {import('./node/SnapshotNotFoundError.js').SnapshotNotFoundError | import('./node/FilterNotFoundError.js').FilterNotFoundError | import('./node/NodeNotReadyError.js').NodeNotReadyError} NodeError
+ * @typedef {import('./node/SnapshotNotFoundError.js').SnapshotNotFoundError | import('./node/FilterNotFoundError.js').FilterNotFoundError | import('./node/InvalidFilterTypeError.js').InvalidFilterTypeError | import('./node/NodeNotReadyError.js').NodeNotReadyError} NodeError
  */
 
 /**

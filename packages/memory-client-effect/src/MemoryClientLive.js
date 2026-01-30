@@ -421,7 +421,9 @@ const createMemoryClientShape = (deps) => {
 					chainId: common.chainId,
 					hardfork: common.hardfork,
 					eips: common.eips,
-					copy: common.copy,
+					// CRITICAL FIX: Bind copy to the new common, not the original
+					// Using arrow function to ensure copy() operates on commonCopy.common
+					copy: () => commonCopy.common.copy(),
 				}
 
 				// Return new shape with copied state

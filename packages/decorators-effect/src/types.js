@@ -170,9 +170,14 @@
 
 /**
  * Shape of the Send service for JSON-RPC
+ *
+ * Note: Both `send` and `sendBulk` have `never` in the error channel because
+ * all errors are caught and converted to JSON-RPC error responses. The Effect
+ * always succeeds - errors are encoded in the response's `error` field per JSON-RPC 2.0 spec.
+ *
  * @typedef {Object} SendServiceShape
- * @property {<T = unknown>(request: JsonRpcRequest) => import('effect').Effect<JsonRpcResponse, import('@tevm/errors-effect').InternalError, never>} send - Send single request
- * @property {(requests: Array<JsonRpcRequest>) => import('effect').Effect<Array<JsonRpcResponse>, import('@tevm/errors-effect').InternalError, never>} sendBulk - Send bulk requests
+ * @property {<T = unknown>(request: JsonRpcRequest) => import('effect').Effect<JsonRpcResponse, never, never>} send - Send single request (errors returned in response.error)
+ * @property {(requests: Array<JsonRpcRequest>) => import('effect').Effect<Array<JsonRpcResponse>, never, never>} sendBulk - Send bulk requests (errors returned in response.error)
  */
 
 export {}

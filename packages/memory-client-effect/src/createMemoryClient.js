@@ -177,7 +177,10 @@ const createDeepCopyClient = (runtime) => {
 				return createDeepCopyClient(copiedRuntime)
 			} catch (e) {
 				// Dispose runtime on failure to prevent resource leak
-				copiedRuntime.dispose()
+				// Fire-and-forget pattern: dispose() returns Promise but we're about to throw
+				copiedRuntime.dispose().catch((disposeError) => {
+					console.error('[createMemoryClient] Failed to dispose runtime during error recovery:', disposeError)
+				})
 				throw e
 			}
 		},
@@ -339,7 +342,10 @@ export const createMemoryClient = (options = {}) => {
 				return createDeepCopyClient(copiedRuntime)
 			} catch (e) {
 				// Dispose runtime on failure to prevent resource leak
-				copiedRuntime.dispose()
+				// Fire-and-forget pattern: dispose() returns Promise but we're about to throw
+				copiedRuntime.dispose().catch((disposeError) => {
+					console.error('[createMemoryClient] Failed to dispose runtime during error recovery:', disposeError)
+				})
 				throw e
 			}
 		},

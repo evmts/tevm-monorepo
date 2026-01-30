@@ -80,7 +80,7 @@
  * Snapshots allow reverting to a previous state, useful for testing and simulation.
  *
  * @typedef {Object} SnapshotShape
- * @property {() => import('effect').Effect.Effect<Hex, never, import('@tevm/state-effect').StateManagerService>} takeSnapshot - Take a snapshot and return its ID
+ * @property {() => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').StorageError, import('@tevm/state-effect').StateManagerService>} takeSnapshot - Take a snapshot and return its ID
  * @property {(id: Hex) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').SnapshotNotFoundError, import('@tevm/state-effect').StateManagerService>} revertToSnapshot - Revert to a snapshot by ID
  * @property {(id: Hex) => import('effect').Effect.Effect<Snapshot | undefined>} getSnapshot - Get a snapshot by ID
  * @property {import('effect').Effect.Effect<Map<Hex, Snapshot>>} getAllSnapshots - Get all snapshots
@@ -147,9 +147,9 @@
  * @property {() => import('effect').Effect.Effect<Hex>} createPendingTransactionFilter - Create a pending transaction filter
  * @property {(id: Hex) => import('effect').Effect.Effect<Filter | undefined>} get - Get a filter by ID
  * @property {(id: Hex) => import('effect').Effect.Effect<boolean>} remove - Remove a filter by ID
- * @property {(id: Hex) => import('effect').Effect.Effect<Array<FilterLog>, import('@tevm/errors-effect').FilterNotFoundError>} getChanges - Get and clear log changes for a filter
- * @property {(id: Hex) => import('effect').Effect.Effect<Array<unknown>, import('@tevm/errors-effect').FilterNotFoundError>} getBlockChanges - Get and clear block changes for a block filter
- * @property {(id: Hex) => import('effect').Effect.Effect<Array<unknown>, import('@tevm/errors-effect').FilterNotFoundError>} getPendingTransactionChanges - Get and clear tx changes for a pending tx filter
+ * @property {(id: Hex) => import('effect').Effect.Effect<Array<FilterLog>, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} getChanges - Get and clear log changes for a filter
+ * @property {(id: Hex) => import('effect').Effect.Effect<Array<unknown>, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} getBlockChanges - Get and clear block changes for a block filter
+ * @property {(id: Hex) => import('effect').Effect.Effect<Array<unknown>, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} getPendingTransactionChanges - Get and clear tx changes for a pending tx filter
  * @property {(id: Hex, log: FilterLog) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError>} addLog - Add a log to a filter
  * @property {(id: Hex, block: unknown) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError>} addBlock - Add a block to a block filter
  * @property {(id: Hex, tx: unknown) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError>} addPendingTransaction - Add a tx to a pending tx filter

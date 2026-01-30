@@ -242,6 +242,51 @@ describe('GetAccountLive', () => {
 			expect(result.address).toBe('0x1234567890123456789012345678901234567890')
 		})
 
+		it('should fail with InvalidParamsError when returnStorage: true is passed', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = GetAccountLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { getAccount } = yield* GetAccountService
+				return yield* getAccount({
+					address: '0x1234567890123456789012345678901234567890',
+					returnStorage: true, // Not yet implemented
+				})
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(testLayer)))
+
+			expect(result._tag).toBe('Failure')
+		})
+
+		it('should succeed when returnStorage is false or undefined', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = GetAccountLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			// Test with returnStorage: false
+			const programFalse = Effect.gen(function* () {
+				const { getAccount } = yield* GetAccountService
+				return yield* getAccount({
+					address: '0x1234567890123456789012345678901234567890',
+					returnStorage: false,
+				})
+			})
+
+			const resultFalse = await Effect.runPromise(programFalse.pipe(Effect.provide(testLayer)))
+			expect(resultFalse.address).toBe('0x1234567890123456789012345678901234567890')
+
+			// Test with returnStorage: undefined (implicit)
+			const programUndefined = Effect.gen(function* () {
+				const { getAccount } = yield* GetAccountService
+				return yield* getAccount({
+					address: '0x1234567890123456789012345678901234567890',
+				})
+			})
+
+			const resultUndefined = await Effect.runPromise(programUndefined.pipe(Effect.provide(testLayer)))
+			expect(resultUndefined.address).toBe('0x1234567890123456789012345678901234567890')
+		})
+
 		it('should lowercase the address in the result', async () => {
 			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
 			const testLayer = GetAccountLive.pipe(Layer.provide(MockStateManagerLayer))
@@ -433,6 +478,32 @@ describe('GetAccountLive', () => {
 
 			expect(result.caught).toBe(true)
 			expect(result.errorMessage).toContain('Invalid address format')
+		})
+
+		it('should allow catching InvalidParamsError for returnStorage: true', async () => {
+			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
+			const testLayer = GetAccountLive.pipe(Layer.provide(MockStateManagerLayer))
+
+			const program = Effect.gen(function* () {
+				const { getAccount } = yield* GetAccountService
+				return yield* getAccount({
+					address: '0x1234567890123456789012345678901234567890',
+					returnStorage: true,
+				})
+			}).pipe(
+				Effect.catchTag('InvalidParamsError', (error) =>
+					Effect.succeed({
+						caught: true,
+						errorMessage: error.message,
+					}),
+				),
+			)
+
+			const result = (await Effect.runPromise(program.pipe(Effect.provide(testLayer)))) as any
+
+			expect(result.caught).toBe(true)
+			expect(result.errorMessage).toContain('returnStorage: true is not yet implemented')
+			expect(result.errorMessage).toContain('eth_getStorageAt')
 		})
 	})
 })

@@ -9,20 +9,461 @@
 
 ## Review Agent Summary (2026-01-30)
 
-**SEVENTY-SIXTH REVIEW.** All 75th review issues have been resolved. Phase 4 is now compliant.
+**SEVENTY-EIGHTH REVIEW.** All CRITICAL and HIGH issues from 77th review RESOLVED.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟢 VERIFIED | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
-| **Phase 2** | 🟢 VERIFIED | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | ✅ COMPLIANT (95%+ RFC conformance) |
-| **Phase 3** | 🟢 VERIFIED | 2 (node-effect, actions-effect) | 197 | ~99% | ✅ COMPLIANT (0 CRITICAL, 0 HIGH) |
-| **Phase 4** | 🟢 VERIFIED | 2 (memory-client-effect, decorators-effect) | 65 | ~85% | ✅ COMPLIANT (0 CRITICAL, 0 HIGH) |
+| **Phase 1** | 🟢 RESOLVED | 3 (errors-effect, interop, logger-effect) | 682 | 100% | 4 MEDIUM, 5 LOW |
+| **Phase 2** | 🟢 RESOLVED | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | See Phase 1 (shared package issues) |
+| **Phase 3** | 🟢 RESOLVED | 2 (node-effect, actions-effect) | 200 | ~99% | 4 MEDIUM, 3 LOW remaining |
+| **Phase 4** | 🟢 RESOLVED | 2 (memory-client-effect, decorators-effect) | 65 | ~85% | 4 MEDIUM remaining |
 
 **Open Issues Summary:**
-- **CRITICAL**: 0 ✅ (all resolved)
-- **HIGH**: 0 ✅ (all resolved)
-- **MEDIUM**: 10 🟡 (type mismatches, incomplete serialization, loose assertions)
-- **LOW**: 3 (documentation issues, minor code duplication)
+- **CRITICAL**: 0 ✅ (All resolved in 78th review)
+- **HIGH**: 0 ✅ (All resolved in 78th review)
+- **MEDIUM**: 12 🟡 (type mismatches, incomplete serialization, loose assertions, code duplication)
+- **LOW**: 8 (documentation issues, minor code duplication, inconsistent patterns)
+
+---
+
+### SEVENTY-EIGHTH REVIEW (2026-01-30) - All CRITICAL and HIGH Issues RESOLVED
+
+**Reviewed By**: Claude Opus 4.5 (8 parallel Sonnet subagents)
+**Scope**: Resolution of all 2 CRITICAL and 6 HIGH issues from 77th review
+
+---
+
+#### ✅ All CRITICAL Issues RESOLVED
+
+##### 1. MemoryClientLive.js - CommonShape deepCopy Fixed - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**: Changed `copy: common.copy` to `copy: () => commonCopy.common.copy()` to properly bind the copy method to the new common instance.
+
+##### 2. SnapshotLive.js - takeSnapshot Error Channel Fixed - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**:
+- Updated type signature to include `StorageError` in error channel
+- Added `Effect.catchAllDefect` to convert unhandled defects to typed `StorageError`
+
+---
+
+#### ✅ All HIGH Issues RESOLVED
+
+##### 3. SendServiceShape Type Mismatch - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**: Updated types.js to declare `never` in error channel for `send` and `sendBulk` methods since all errors are caught and converted to JSON-RPC error responses.
+
+##### 4. createMemoryClient.js dispose() Not Awaited - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**: Added fire-and-forget pattern with error logging: `copiedRuntime.dispose().catch((disposeError) => console.error(...))`
+
+##### 5. SnapshotLive.js Snapshot ID Parsing Before Validation - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**: Reordered logic to validate snapshot exists before parsing ID with parseInt.
+
+##### 6. FilterLive.js Wrong Error Type - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**:
+- Created new `InvalidFilterTypeError` class in errors-effect package
+- Updated FilterLive.js to use `InvalidFilterTypeError` instead of `FilterNotFoundError` for filter type mismatches
+- Added 17 new tests for the error class
+
+##### 7. SetAccountLive.js Commit Error Handling Gap - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**: Changed `Effect.tap()` to `Effect.flatMap()` so commit errors properly propagate to `tapError` for revert.
+
+##### 8. GetAccountLive.js returnStorage Silently Ignored - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**: Added explicit `InvalidParamsError` when `returnStorage: true` is passed, with descriptive error message.
+
+---
+
+#### Test Results After 78th Review Fixes
+
+| Package | Tests | Status |
+|---------|-------|--------|
+| memory-client-effect | 31 | ✅ All Pass |
+| decorators-effect | 34 | ✅ All Pass |
+| node-effect | 92 | ✅ All Pass |
+| actions-effect | 108 | ✅ All Pass |
+| errors-effect | 682 | ✅ All Pass (100% coverage) |
+| **Total** | **947** | ✅ **All Pass** |
+
+---
+
+### SEVENTY-SEVENTH REVIEW (2026-01-30) - Comprehensive Parallel Subagent Review
+
+**Reviewed By**: Claude Opus 4.5 (3 parallel Explore subagents)
+**Scope**: Full re-review of all 4 phases using dedicated subagents per phase group
+
+---
+
+#### ✅ Phase 4 CRITICAL Issues Found (RESOLVED)
+
+##### 1. MemoryClientLive.js - CommonShape deepCopy Creates Reference to Original's copy Method
+
+**File:Lines**: MemoryClientLive.js:424
+**Package**: memory-client-effect
+**Status**: ✅ RESOLVED (78th review)
+
+**Problem**: The `copy` property in CommonShape deepCopy is assigned `common.copy` which is a reference to the **original** Common object's copy method, not a method bound to the newly created `commonCopy.common`. This means calling `commonCopy.copy()` will return copies of the ORIGINAL common, not the deep-copied one.
+
+**Evidence**:
+```javascript
+const commonCopy = {
+    common: common.copy(),
+    chainId: common.chainId,
+    hardfork: common.hardfork,
+    eips: common.eips,
+    copy: common.copy,  // BUG: References original common's copy function
+}
+```
+
+**Impact**: State mutations in deep-copied clients may leak back to the original client, breaking test isolation guarantees. Violates RFC section 5.4 and CommonShape typedef.
+
+**Recommended Fix**: Create a bound copy method: `copy: () => commonCopy.common.copy()`
+
+---
+
+#### ✅ Phase 4 HIGH Issues Found (RESOLVED)
+
+##### 2. SendLive.js - Type Mismatch: Error Channel Declared But All Errors Caught
+
+**File:Lines**: types.js:174-176, SendLive.js:60-70
+**Package**: decorators-effect
+**Status**: ✅ RESOLVED (78th review)
+
+**Problem**: The type signature says `send` can fail with `InternalError`, but the implementation catches all errors and converts them to successful JSON-RPC error responses. The actual error channel should be `never`.
+
+**Evidence**:
+```javascript
+// types.js declares InternalError in error channel
+@property {<T = unknown>(request: JsonRpcRequest) => import('effect').Effect<JsonRpcResponse, import('@tevm/errors-effect').InternalError, never>} send
+
+// Implementation catches ALL errors
+Effect.catchAll((error) =>
+    Effect.succeed({
+        jsonrpc: '2.0',
+        error: { code: error.code ?? -32603, message: error.message || 'Internal error' },
+        id: request.id,
+    })
+)
+```
+
+**Impact**: Type consumers may write error handling code that will never execute.
+
+---
+
+##### 3. createMemoryClient.js - ManagedRuntime.dispose() Not Awaited in Error Path
+
+**File:Lines**: createMemoryClient.js:179, 340-341
+**Package**: memory-client-effect
+**Status**: ✅ RESOLVED (78th review)
+
+**Problem**: `runtime.dispose()` returns a Promise, but in the synchronous catch block it's called without awaiting. If disposal fails, the error is silently swallowed.
+
+**Evidence**:
+```javascript
+try {
+    return createDeepCopyClient(copiedRuntime)
+} catch (e) {
+    copiedRuntime.dispose()  // Returns Promise but not awaited
+    throw e
+}
+```
+
+**Impact**: Resource cleanup failures in error paths will be silently ignored.
+
+---
+
+#### ✅ Phase 3 CRITICAL Issues Found (RESOLVED)
+
+##### 4. SnapshotLive.js - Missing Error Type in takeSnapshot Error Channel
+
+**File:Lines**: SnapshotLive.js:106-137
+**Package**: node-effect
+**Status**: ✅ RESOLVED (78th review)
+
+**Problem**: The `takeSnapshot` method's return type signature declares it returns `Effect.Effect<Hex, never, StateManagerService>`, but the implementation uses `stateManager.checkpoint()`, `stateManager.getStateRoot()`, and `stateManager.dumpState()` which could potentially fail. Per RFC section 5.4, `setStateRoot` can fail with `StateRootNotFoundError`.
+
+**Evidence**:
+```javascript
+// types.js:83 says "never" for error channel
+@property {() => Effect.Effect<Hex, never, StateManagerService>} takeSnapshot
+
+// But implementation calls methods that can fail:
+yield* stateManager.checkpoint()  // What if this fails?
+const { stateRoot, state } = yield* Effect.all({
+    stateRoot: stateManager.getStateRoot(),  // What if this fails?
+    state: stateManager.dumpState(),  // What if this fails?
+})
+```
+
+**Impact**: Runtime failures may go untyped, breaking Effect's typed error guarantees.
+
+---
+
+#### ✅ Phase 3 HIGH Issues Found (RESOLVED)
+
+##### 5. SnapshotLive.js - Snapshot ID Parsing Before Validation
+
+**File:Lines**: SnapshotLive.js:141
+**Package**: node-effect
+**Status**: ✅ RESOLVED (78th review)
+
+**Problem**: The `revertToSnapshot` method parses the snapshot ID before validating the snapshot exists. If `id` is not a valid hex string, `parseInt` returns `NaN`, causing unexpected behavior.
+
+**Evidence**:
+```javascript
+revertToSnapshot: (id) =>
+    Effect.gen(function* () {
+        const targetNum = parseInt(id.slice(2), 16)  // Parsing before validation
+```
+
+**Impact**: Invalid snapshot IDs could silently fail to clean up subsequent snapshots.
+
+---
+
+##### 6. FilterLive.js - Wrong Error Type for Filter Type Mismatch
+
+**File:Lines**: FilterLive.js:168-175
+**Package**: node-effect
+**Status**: ✅ RESOLVED (78th review) - Created InvalidFilterTypeError
+
+**Problem**: When a filter exists but is of the wrong type, the code throws `FilterNotFoundError`. Per RFC section 6.1, this should be a different error type (e.g., `InvalidFilterTypeError`).
+
+**Evidence**:
+```javascript
+if (result.wrongType) {
+    return yield* Effect.fail(
+        new FilterNotFoundError({
+            filterId: id,
+            message: `Filter ${id} is not a log filter`,
+        }),
+    )
+}
+```
+
+**Impact**: Callers cannot differentiate between a missing filter and a filter type mismatch.
+
+---
+
+##### 7. SetAccountLive.js - Commit Error Handling Gap
+
+**File:Lines**: SetAccountLive.js:356-372
+**Package**: actions-effect
+**Status**: ✅ RESOLVED (78th review) - Changed tap to flatMap
+
+**Problem**: The commit is done inside `Effect.tap()`. If commit fails, the revert in `tapError` won't be triggered because `tap` errors don't flow to `tapError`.
+
+**Evidence**:
+```javascript
+.pipe(
+    Effect.tap(() =>
+        stateManager.commit().pipe(...)  // If this fails, tapError won't run
+    ),
+    Effect.tapError(() => stateManager.revert().pipe(Effect.catchAll(() => Effect.void))),
+)
+```
+
+**Impact**: Failed commits leave state manager with open checkpoints, causing potential state corruption.
+
+---
+
+##### 8. GetAccountLive.js - returnStorage Silently Ignored
+
+**File:Lines**: GetAccountLive.js:205-206
+**Package**: actions-effect
+**Status**: ✅ RESOLVED (78th review) - Added InvalidParamsError for returnStorage:true
+
+**Problem**: The `returnStorage` parameter is documented but silently ignored. The RFC mandates explicit errors for unimplemented features.
+
+**Impact**: Users may expect storage to be returned and get silently incomplete data.
+
+---
+
+#### 🟡 Phase 4 MEDIUM Issues Found
+
+##### 9. EthActionsShape.call Type Signature Overly Broad
+
+**File:Lines**: types.js:59, EthActionsLive.js:84-127
+**Package**: decorators-effect
+**Status**: 🟡 NEW
+
+**Problem**: Type declares `InvalidParamsError | InternalError` but implementation only produces `InternalError`.
+
+---
+
+##### 10. validateMemoryClientShape Uses Synchronous Throw
+
+**File:Lines**: createMemoryClient.js:37,45
+**Package**: memory-client-effect
+**Status**: 🟡 NEW
+
+**Problem**: Per RFC section 6.2, errors should use `Effect.fail()`. This function throws synchronously instead.
+
+---
+
+##### 11. TevmActionsLive.dumpState/loadState No Schema Validation
+
+**File:Lines**: TevmActionsLive.js:156-177, 179-221
+**Package**: decorators-effect
+**Status**: 🟡 NEW
+
+**Problem**: Returns/accepts `string` with no schema validation for JSON structure.
+
+---
+
+##### 12. SnapshotShape Type Signature Misleading
+
+**File:Lines**: types.js:83-84
+**Package**: node-effect (also affects memory-client-effect)
+**Status**: 🟡 NEW
+
+**Problem**: Type signature shows `StateManagerService` in R channel but implementation captures it at layer construction time.
+
+---
+
+#### 🟡 Phase 3 MEDIUM Issues Found
+
+##### 13. FilterLive deepCopy Creates Shallow Copy of Block Objects
+
+**File:Lines**: FilterLive.js:362
+**Package**: node-effect
+**Status**: 🟡 NEW
+
+**Problem**: `blocks: filter.blocks.map((b) => ({ ...b }))` is a shallow copy. Nested objects shared between original and copy.
+
+---
+
+##### 14. Duplicate Validation Helper Functions Across Action Files
+
+**Files**: SetAccountLive.js:53-74, GetBalanceLive.js:38-59, GetCodeLive.js:48-69, GetStorageAtLive.js:74-95, GetAccountLive.js:60-81
+**Package**: actions-effect
+**Status**: 🟡 NEW
+
+**Problem**: Identical `validateAddress` and `validateBlockTag` functions duplicated in each file.
+
+---
+
+##### 15. FilterService Tag Not Typed Properly
+
+**File:Lines**: FilterService.js:46
+**Package**: node-effect
+**Status**: 🟡 NEW
+
+**Problem**: Missing type cast like other services have: `/** @type {Context.Tag<FilterService, FilterShape>} */`
+
+---
+
+##### 16. BlockParamsLive Lacks Input Validation
+
+**File:Lines**: BlockParamsLive.js:85-86
+**Package**: node-effect
+**Status**: 🟡 NEW
+
+**Problem**: No validation that bigint parameters are actually bigint | undefined.
+
+---
+
+#### 🟡 Phase 1-2 MEDIUM Issues Found
+
+##### 17. InternalError.js Missing Freeze Comment Consistency
+
+**File:Lines**: InternalError.js:93
+**Package**: errors-effect
+**Status**: 🟡 NEW
+
+**Problem**: Missing the standard freeze note comment that all other errors have.
+
+---
+
+##### 18. HttpTransport Batching Shutdown Memory Leak Risk
+
+**File:Lines**: HttpTransport.js:404-420
+**Package**: transport-effect
+**Status**: 🟡 NEW
+
+**Problem**: If the processor fiber is interrupted before trigger deferred completes, pending requests may never resolve.
+
+---
+
+##### 19. toBaseError Incomplete Return Type Template
+
+**File:Lines**: toBaseError.js:97-99
+**Package**: errors-effect
+**Status**: 🟡 NEW
+
+**Problem**: JSDoc template type only includes subset of errors (7 EVM errors) but function handles all TaggedError types.
+
+---
+
+##### 20. TransportShape.request Generic Type Not Used
+
+**File:Lines**: types.js:39
+**Package**: transport-effect
+**Status**: 🟡 NEW
+
+**Problem**: Method has generic `<T>` but implementation returns `Effect.Effect<unknown, ForkError>`.
+
+---
+
+#### 🟢 LOW Issues Found
+
+##### 21-28. Code Duplication and Minor Issues
+
+- **BlockchainLocal.js / BlockchainLive.js**: `createShape` function duplicated (~100 lines each)
+- **StateManagerLocal.js / StateManagerLive.js**: `createShape` function duplicated (~72 lines each)
+- **toBaseError.js:7**: VERSION constant hardcoded instead of imported from package.json
+- **StateManagerLocal.js:6, StateManagerLive.js:7**: Unused EthjsAddress import
+- **HttpTransport.js:38**: Inconsistent parameter type for isRetryableError (accesses `error.cause.message` when `cause` typed as `unknown`)
+- **GetCodeLive.js:18**: Uses `Buffer.from()` which is Node.js-specific; should use browser-compatible pattern
+- **Inconsistent service tag naming**: node-effect uses short names, actions-effect uses fully qualified names
+
+---
+
+#### Summary Table (77th Review)
+
+| Package | CRITICAL | HIGH | MEDIUM | LOW | Total |
+|---------|----------|------|--------|-----|-------|
+| memory-client-effect | 1 | 1 | 2 | 0 | 4 |
+| decorators-effect | 0 | 1 | 2 | 0 | 3 |
+| node-effect | 1 | 3 | 4 | 3 | 11 |
+| actions-effect | 0 | 1 | 1 | 0 | 2 |
+| errors-effect | 0 | 0 | 2 | 2 | 4 |
+| transport-effect | 0 | 0 | 2 | 1 | 3 |
+| blockchain-effect | 0 | 0 | 0 | 1 | 1 |
+| state-effect | 0 | 0 | 0 | 2 | 2 |
+| **TOTAL** | **2** | **6** | **12** | **8** | **28** |
+
+---
+
+#### Recommendations
+
+**Priority 1 - CRITICAL fixes required before production:**
+1. Fix CommonShape deepCopy to properly bind the copy method to the new common instance
+2. Add proper error types to SnapshotLive's takeSnapshot method signature
+
+**Priority 2 - HIGH fixes for correctness:**
+3. Update SendServiceShape type to have `never` in error channel
+4. Await dispose() calls in error paths or wrap in fire-and-forget with logging
+5. Validate snapshot ID format before parsing
+6. Create dedicated `InvalidFilterTypeError` for filter type mismatch
+7. Fix SetAccountLive checkpoint/commit pattern to handle commit failures
+8. Add explicit `InvalidParamsError` when `returnStorage: true` is passed
+
+**Priority 3 - MEDIUM improvements for type safety:**
+9. Extract shared validation helpers into common module
+10. Add type casts to all Context.Tag definitions
+11. Consider using Effect Schema for JSON validation in dumpState/loadState
 
 ---
 

@@ -9,7 +9,7 @@ export type JsonRpcError = import("./jsonrpc/InvalidRequestError.js").InvalidReq
 /**
  * Union type for all node errors
  */
-export type NodeError = import("./node/SnapshotNotFoundError.js").SnapshotNotFoundError | import("./node/FilterNotFoundError.js").FilterNotFoundError | import("./node/NodeNotReadyError.js").NodeNotReadyError;
+export type NodeError = import("./node/SnapshotNotFoundError.js").SnapshotNotFoundError | import("./node/FilterNotFoundError.js").FilterNotFoundError | import("./node/InvalidFilterTypeError.js").InvalidFilterTypeError | import("./node/NodeNotReadyError.js").NodeNotReadyError;
 /**
  * Union type for all transport errors
  */

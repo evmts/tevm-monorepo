@@ -1,5 +1,5 @@
 import { Effect, Layer, Ref } from 'effect'
-import { SnapshotNotFoundError } from '@tevm/errors-effect'
+import { SnapshotNotFoundError, StorageError } from '@tevm/errors-effect'
 import { StateManagerService } from '@tevm/state-effect'
 import { SnapshotService } from './SnapshotService.js'
 
@@ -134,18 +134,29 @@ export const SnapshotLive = () => {
 							})
 
 							return hexId
-						}),
+						}).pipe(
+							// Catch any defects (unhandled errors from state operations like checkpoint,
+							// getStateRoot, dumpState) and convert them to typed StorageError.
+							// This ensures the error type signature is accurate and errors are recoverable.
+							Effect.catchAllDefect((defect) =>
+								Effect.fail(
+									new StorageError({
+										message: `Failed to take snapshot: ${defect instanceof Error ? defect.message : String(defect)}`,
+										cause: defect,
+									}),
+								),
+							),
+						),
 
 					revertToSnapshot: (id) =>
 						Effect.gen(function* () {
-							const targetNum = parseInt(id.slice(2), 16)
-
 							// Step 1: Read snapshot WITHOUT deleting it
 							// This ensures we don't lose the snapshot if setStateRoot fails
 							const snapshots = yield* Ref.get(snapsRef)
 							const snapshot = snapshots.get(id)
 
-							// Step 2: Check if snapshot exists
+							// Step 2: Check if snapshot exists BEFORE parsing the ID
+							// This validates the ID format implicitly and avoids NaN from invalid hex
 							if (!snapshot) {
 								return yield* Effect.fail(
 									new SnapshotNotFoundError({
@@ -155,11 +166,15 @@ export const SnapshotLive = () => {
 								)
 							}
 
-							// Step 3: Restore state FIRST (this can fail)
+							// Step 3: Parse the ID only after confirming snapshot exists
+							// At this point, id is guaranteed to be a valid hex string since it was used as a key
+							const targetNum = parseInt(id.slice(2), 16)
+
+							// Step 4: Restore state FIRST (this can fail)
 							// If setStateRoot fails, the snapshot is still available for retry
 							yield* stateManager.setStateRoot(hexToBytes(snapshot.stateRoot))
 
-							// Step 4: ONLY after setStateRoot succeeds, delete the snapshot and subsequent ones
+							// Step 5: ONLY after setStateRoot succeeds, delete the snapshot and subsequent ones
 							// This ensures we don't lose snapshots on setStateRoot failure
 							yield* Ref.update(snapsRef, (map) => {
 								const newMap = new Map(map)

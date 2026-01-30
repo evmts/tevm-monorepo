@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { Effect, Exit } from 'effect'
 import { FilterService } from './FilterService.js'
 import { FilterLive } from './FilterLive.js'
-import { FilterNotFoundError } from '@tevm/errors-effect'
+import { FilterNotFoundError, InvalidFilterTypeError } from '@tevm/errors-effect'
 import type { FilterLog, Hex } from './types.js'
 
 describe('FilterLive', () => {
@@ -179,8 +179,9 @@ describe('FilterLive', () => {
 			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
 			expect(Exit.isFailure(exit)).toBe(true)
 			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
-				const error = exit.cause.error as FilterNotFoundError
-				expect(error._tag).toBe('FilterNotFoundError')
+				const error = exit.cause.error as InvalidFilterTypeError
+				expect(error._tag).toBe('InvalidFilterTypeError')
+				expect(error.expectedType).toBe('Log')
 				expect(error.message).toContain('not a log filter')
 			}
 		})
@@ -197,8 +198,9 @@ describe('FilterLive', () => {
 			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
 			expect(Exit.isFailure(exit)).toBe(true)
 			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
-				const error = exit.cause.error as FilterNotFoundError
-				expect(error._tag).toBe('FilterNotFoundError')
+				const error = exit.cause.error as InvalidFilterTypeError
+				expect(error._tag).toBe('InvalidFilterTypeError')
+				expect(error.expectedType).toBe('Log')
 				expect(error.message).toContain('not a log filter')
 			}
 		})
@@ -257,6 +259,12 @@ describe('FilterLive', () => {
 
 			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
 			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as InvalidFilterTypeError
+				expect(error._tag).toBe('InvalidFilterTypeError')
+				expect(error.expectedType).toBe('Block')
+				expect(error.message).toContain('not a block filter')
+			}
 		})
 
 		it('should return and clear blocks', async () => {
@@ -301,6 +309,12 @@ describe('FilterLive', () => {
 
 			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
 			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as InvalidFilterTypeError
+				expect(error._tag).toBe('InvalidFilterTypeError')
+				expect(error.expectedType).toBe('PendingTransaction')
+				expect(error.message).toContain('not a pending transaction filter')
+			}
 		})
 
 		it('should return and clear pending transactions', async () => {

@@ -53,6 +53,25 @@ const validateBlockTag = (blockTag, method = 'tevm_getAccount') =>
 	})
 
 /**
+ * Validates that returnStorage is not enabled (not yet implemented)
+ * @param {boolean} [returnStorage] - returnStorage parameter to validate
+ * @param {string} method - Method name for error messages
+ * @returns {import('effect').Effect.Effect<void, import('@tevm/errors-effect').InvalidParamsError, never>}
+ */
+const validateReturnStorage = (returnStorage, method = 'tevm_getAccount') =>
+	Effect.gen(function* () {
+		if (returnStorage === true) {
+			return yield* Effect.fail(
+				new InvalidParamsError({
+					method,
+					params: { returnStorage },
+					message: `returnStorage: true is not yet implemented. This feature requires dumping the entire state and extracting storage for the address. Use eth_getStorageAt for individual storage slots instead.`,
+				}),
+			)
+		}
+	})
+
+/**
  * Validates the address format
  * @param {string} address - Address to validate
  * @returns {import('effect').Effect.Effect<`0x${string}`, import('@tevm/errors-effect').InvalidParamsError, never>}
@@ -136,6 +155,9 @@ export const GetAccountLive = Layer.effect(
 					// Validate blockTag - only 'latest' is supported
 					yield* validateBlockTag(params.blockTag)
 
+					// Validate returnStorage - not yet implemented, throws explicit error per RFC
+					yield* validateReturnStorage(params.returnStorage)
+
 					// Get account from state manager, wrapping errors as InternalError
 					// EthjsAccount has: nonce (bigint), balance (bigint), storageRoot (Uint8Array), codeHash (Uint8Array)
 					const ethjsAccount = yield* stateManager.getAccount(address).pipe(
@@ -201,9 +223,6 @@ export const GetAccountLive = Layer.effect(
 						isContract,
 						isEmpty,
 					}
-
-					// Note: returnStorage is not supported yet - requires dumping the entire state
-					// and extracting storage for this address. This can be added in a future iteration.
 
 					return result
 				}),

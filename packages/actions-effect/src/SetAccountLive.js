@@ -355,7 +355,8 @@ export const SetAccountLive = Layer.effect(
 						}
 					}).pipe(
 						// On success, commit the changes
-						Effect.tap(() =>
+						// Use flatMap instead of tap so commit failures propagate to tapError for proper revert
+						Effect.flatMap(() =>
 							stateManager.commit().pipe(
 								Effect.mapError(
 									(e) =>
