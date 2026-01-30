@@ -38,7 +38,7 @@ export class StateRootNotFoundError extends Data.TaggedError('StateRootNotFoundE
 	 * Path to documentation for this error
 	 * @type {string}
 	 */
-	static docsPath = '/reference/tevm/errors/classes/invalidstoragerooterror/'
+	static docsPath = '/reference/tevm/errors/classes/staterootnotfounderror/'
 
 	/**
 	 * The state root hash that was not found

@@ -8,7 +8,7 @@ describe('StateRootNotFoundError', () => {
 
 		expect(error._tag).toBe('StateRootNotFoundError')
 		expect(error.code).toBe(-32602)
-		expect(error.docsPath).toBe('/reference/tevm/errors/classes/invalidstoragerooterror/')
+		expect(error.docsPath).toBe('/reference/tevm/errors/classes/staterootnotfounderror/')
 		expect(error.message).toBe('State root not found')
 	})
 
@@ -78,7 +78,7 @@ describe('StateRootNotFoundError', () => {
 
 	it('should have correct static properties', () => {
 		expect(StateRootNotFoundError.code).toBe(-32602)
-		expect(StateRootNotFoundError.docsPath).toBe('/reference/tevm/errors/classes/invalidstoragerooterror/')
+		expect(StateRootNotFoundError.docsPath).toBe('/reference/tevm/errors/classes/staterootnotfounderror/')
 	})
 
 	it('should NOT be frozen (for Effect trait compatibility)', () => {

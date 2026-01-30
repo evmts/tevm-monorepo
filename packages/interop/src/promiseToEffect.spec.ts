@@ -173,4 +173,41 @@ describe('promiseToEffect', () => {
 
 		expect(result).toEqual({ id: 'test-id', value: 42 })
 	})
+
+	describe('input validation', () => {
+		it('should throw TypeError when fn is null', () => {
+			expect(() => promiseToEffect(null as unknown as () => Promise<void>)).toThrow(TypeError)
+			expect(() => promiseToEffect(null as unknown as () => Promise<void>)).toThrow(
+				'promiseToEffect: fn parameter is required and cannot be null or undefined'
+			)
+		})
+
+		it('should throw TypeError when fn is undefined', () => {
+			expect(() => promiseToEffect(undefined as unknown as () => Promise<void>)).toThrow(TypeError)
+			expect(() => promiseToEffect(undefined as unknown as () => Promise<void>)).toThrow(
+				'promiseToEffect: fn parameter is required and cannot be null or undefined'
+			)
+		})
+
+		it('should throw TypeError when fn is not a function', () => {
+			expect(() => promiseToEffect('not a function' as unknown as () => Promise<void>)).toThrow(TypeError)
+			expect(() => promiseToEffect('not a function' as unknown as () => Promise<void>)).toThrow(
+				'promiseToEffect: fn parameter must be a function'
+			)
+		})
+
+		it('should throw TypeError when fn is an object', () => {
+			expect(() => promiseToEffect({} as unknown as () => Promise<void>)).toThrow(TypeError)
+			expect(() => promiseToEffect({} as unknown as () => Promise<void>)).toThrow(
+				'promiseToEffect: fn parameter must be a function'
+			)
+		})
+
+		it('should throw TypeError when fn is a number', () => {
+			expect(() => promiseToEffect(42 as unknown as () => Promise<void>)).toThrow(TypeError)
+			expect(() => promiseToEffect(42 as unknown as () => Promise<void>)).toThrow(
+				'promiseToEffect: fn parameter must be a function'
+			)
+		})
+	})
 })

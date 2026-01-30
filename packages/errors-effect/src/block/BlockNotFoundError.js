@@ -38,7 +38,7 @@ export class BlockNotFoundError extends Data.TaggedError('BlockNotFoundError') {
 	 * Path to documentation for this error
 	 * @type {string}
 	 */
-	static docsPath = '/reference/tevm/errors/classes/unknownblockerror/'
+	static docsPath = '/reference/tevm/errors/classes/blocknotfounderror/'
 
 	/**
 	 * The block tag, number, or hash that was not found

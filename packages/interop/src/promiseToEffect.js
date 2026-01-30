@@ -72,5 +72,11 @@ import { Effect } from 'effect'
  * @returns {(...args: Args) => Effect.Effect<A, unknown, never>} A function that returns an Effect. The error type is `unknown` as the Promise may reject with any value.
  */
 export const promiseToEffect = (fn) => {
+	if (fn === null || fn === undefined) {
+		throw new TypeError('promiseToEffect: fn parameter is required and cannot be null or undefined')
+	}
+	if (typeof fn !== 'function') {
+		throw new TypeError('promiseToEffect: fn parameter must be a function')
+	}
 	return (...args) => Effect.tryPromise(() => fn(...args))
 }

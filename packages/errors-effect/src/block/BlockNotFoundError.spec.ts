@@ -8,7 +8,7 @@ describe('BlockNotFoundError', () => {
 
 		expect(error._tag).toBe('BlockNotFoundError')
 		expect(error.code).toBe(-32001)
-		expect(error.docsPath).toBe('/reference/tevm/errors/classes/unknownblockerror/')
+		expect(error.docsPath).toBe('/reference/tevm/errors/classes/blocknotfounderror/')
 		expect(error.message).toBe('Block not found')
 	})
 
@@ -105,7 +105,7 @@ describe('BlockNotFoundError', () => {
 
 	it('should have correct static properties', () => {
 		expect(BlockNotFoundError.code).toBe(-32001)
-		expect(BlockNotFoundError.docsPath).toBe('/reference/tevm/errors/classes/unknownblockerror/')
+		expect(BlockNotFoundError.docsPath).toBe('/reference/tevm/errors/classes/blocknotfounderror/')
 	})
 
 	it('should NOT be frozen (for Effect trait compatibility)', () => {
