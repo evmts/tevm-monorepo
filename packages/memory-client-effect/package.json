@@ -62,6 +62,7 @@
 		"test:ui": "vitest --ui"
 	},
 	"dependencies": {
+		"@ethereumjs/util": "^9.1.0",
 		"@tevm/actions-effect": "workspace:^",
 		"@tevm/blockchain-effect": "workspace:^",
 		"@tevm/common-effect": "workspace:^",
@@ -70,13 +71,13 @@
 		"@tevm/interop": "workspace:^",
 		"@tevm/node-effect": "workspace:^",
 		"@tevm/state-effect": "workspace:^",
+		"@tevm/utils": "workspace:^",
 		"@tevm/vm-effect": "workspace:^",
 		"effect": "3.18.1"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/utils": "workspace:^",
 		"@types/node": "^24.6.1"
 	},
 	"peerDependencies": {

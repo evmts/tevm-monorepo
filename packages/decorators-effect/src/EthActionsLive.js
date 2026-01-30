@@ -5,7 +5,6 @@
 
 import { Effect, Layer } from 'effect'
 import { EthActionsService } from './EthActionsService.js'
-import { StateManagerService } from '@tevm/state-effect'
 import { VmService } from '@tevm/vm-effect'
 import { CommonService } from '@tevm/common-effect'
 import {
@@ -53,7 +52,7 @@ import { InternalError } from '@tevm/errors-effect'
  * await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
  * ```
  *
- * @type {Layer.Layer<EthActionsService, never, StateManagerService | VmService | CommonService | GetBalanceService | GetCodeService | GetStorageAtService>}
+ * @type {Layer.Layer<EthActionsService, never, VmService | CommonService | GetBalanceService | GetCodeService | GetStorageAtService>}
  */
 export const EthActionsLive = Layer.effect(
 	EthActionsService,
@@ -129,7 +128,10 @@ export const EthActionsLive = Layer.effect(
 
 			gasPrice: () =>
 				Effect.gen(function* () {
-					// Default gas price (1 gwei)
+					// Default gas price (1 gwei) for in-memory simulation
+					// Note: In a real Ethereum network, gas price would be dynamically
+					// calculated based on network conditions. For local in-memory execution,
+					// a fixed value is appropriate as there's no network congestion to model.
 					return 1000000000n
 				}),
 

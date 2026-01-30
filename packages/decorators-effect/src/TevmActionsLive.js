@@ -114,7 +114,7 @@ export const TevmActionsLive = Layer.effect(
 						executionGasUsed: execResult.executionGasUsed ?? 0n,
 						gas: execResult.gas ?? 0n,
 						createdAddress: result.createdAddress?.toString(),
-						exceptionError: execResult.exceptionError,
+						exceptionError: execResult.exceptionError?.error,
 					}
 				}),
 
@@ -142,7 +142,8 @@ export const TevmActionsLive = Layer.effect(
 
 			dumpState: () =>
 				Effect.gen(function* () {
-					const stateRoot = yield* stateManager.getStateRoot().pipe(
+					// Get full state from StateManager (returns TevmState with BigInt values)
+					const rawState = yield* stateManager.dumpState().pipe(
 						Effect.mapError(
 							(e) =>
 								new InternalError({
@@ -151,23 +152,64 @@ export const TevmActionsLive = Layer.effect(
 								})
 						)
 					)
-					// Convert Uint8Array to hex string
-					const hexString = Array.from(stateRoot)
-						.map((b) => b.toString(16).padStart(2, '0'))
-						.join('')
-					return `0x${hexString}`
-				}),
 
-			loadState: (state) =>
-				Effect.gen(function* () {
-					// Parse hex string to Uint8Array
-					const hex = state.startsWith('0x') ? state.slice(2) : state
-					const bytes = new Uint8Array(hex.length / 2)
-					for (let i = 0; i < bytes.length; i++) {
-						bytes[i] = parseInt(hex.substring(i * 2, i * 2 + 2), 16)
+					// Serialize TevmState: convert BigInt values to hex strings for JSON transport
+					/** @type {Record<string, object>} */
+					const serializedState = {}
+					for (const [address, account] of Object.entries(rawState)) {
+						/** @type {Record<string, unknown>} */
+						const serializedAccount = {
+							nonce: `0x${account.nonce.toString(16)}`,
+							balance: `0x${account.balance.toString(16)}`,
+							storageRoot: account.storageRoot,
+							codeHash: account.codeHash,
+						}
+						if (account.deployedBytecode) {
+							serializedAccount.deployedBytecode = account.deployedBytecode
+						}
+						if (account.storage) {
+							serializedAccount.storage = account.storage
+						}
+						serializedState[address] = serializedAccount
 					}
 
-					yield* stateManager.setStateRoot(bytes).pipe(
+					return JSON.stringify({ state: serializedState })
+				}),
+
+			loadState: (stateJson) =>
+				Effect.gen(function* () {
+					// Parse the JSON string to get SerializableTevmState
+					let parsed
+					try {
+						parsed = JSON.parse(stateJson)
+					} catch (e) {
+						yield* Effect.fail(
+							new InternalError({
+								message: `Failed to parse state JSON: ${e instanceof Error ? e.message : String(e)}`,
+								cause: e instanceof Error ? e : undefined,
+							})
+						)
+						return
+					}
+
+					const serializedState = parsed.state || parsed
+
+					// Deserialize: convert hex strings back to BigInt values
+					/** @type {Record<string, {nonce: bigint, balance: bigint, storageRoot: string, codeHash: string, deployedBytecode?: string, storage?: Record<string, string>}>} */
+					const tevmState = {}
+					for (const [address, account] of Object.entries(serializedState)) {
+						const acct = /** @type {{nonce: string, balance: string, storageRoot: string, codeHash: string, deployedBytecode?: string, storage?: Record<string, string>}} */ (account)
+						tevmState[address] = {
+							nonce: BigInt(acct.nonce),
+							balance: BigInt(acct.balance),
+							storageRoot: acct.storageRoot,
+							codeHash: acct.codeHash,
+							...(acct.deployedBytecode && { deployedBytecode: acct.deployedBytecode }),
+							...(acct.storage && { storage: acct.storage }),
+						}
+					}
+
+					yield* stateManager.loadState(tevmState).pipe(
 						Effect.mapError(
 							(e) =>
 								new InternalError({
@@ -181,16 +223,69 @@ export const TevmActionsLive = Layer.effect(
 			mine: (options = {}) =>
 				Effect.gen(function* () {
 					const blocks = options.blocks ?? 1
+					// Get the parent block for building new blocks
+					const parentBlock = yield* Effect.tryPromise({
+						try: () => vm.vm.blockchain.getCanonicalHeadBlock(),
+						catch: (e) =>
+							new InternalError({
+								message: `Failed to get parent block: ${e instanceof Error ? e.message : String(e)}`,
+								cause: e instanceof Error ? e : undefined,
+							}),
+					})
+
 					for (let i = 0; i < blocks; i++) {
-						yield* vm.buildBlock().pipe(
-							Effect.mapError(
-								(e) =>
-									new InternalError({
-										message: `Failed to mine block: ${e instanceof Error ? e.message : String(e)}`,
-										cause: e instanceof Error ? e : undefined,
-									})
-							)
-						)
+						// Get current block for timestamp calculation
+						const currentBlock = yield* Effect.tryPromise({
+							try: () => vm.vm.blockchain.getCanonicalHeadBlock(),
+							catch: (e) =>
+								new InternalError({
+									message: `Failed to get current block: ${e instanceof Error ? e.message : String(e)}`,
+									cause: e instanceof Error ? e : undefined,
+								}),
+						})
+
+						const timestamp = BigInt(Math.floor(Date.now() / 1000))
+						const blockNumber = currentBlock.header.number + 1n
+
+						// Build a new block using the VM's buildBlock method
+						const blockBuilder = yield* Effect.tryPromise({
+							try: () =>
+								vm.vm.buildBlock({
+									parentBlock: currentBlock,
+									headerData: {
+										timestamp,
+										number: blockNumber,
+									},
+									blockOpts: {
+										putBlockIntoBlockchain: false,
+									},
+								}),
+							catch: (e) =>
+								new InternalError({
+									message: `Failed to build block: ${e instanceof Error ? e.message : String(e)}`,
+									cause: e instanceof Error ? e : undefined,
+								}),
+						})
+
+						// Build and finalize the block
+						const block = yield* Effect.tryPromise({
+							try: () => blockBuilder.build(),
+							catch: (e) =>
+								new InternalError({
+									message: `Failed to finalize block: ${e instanceof Error ? e.message : String(e)}`,
+									cause: e instanceof Error ? e : undefined,
+								}),
+						})
+
+						// Put the block into the blockchain
+						yield* Effect.tryPromise({
+							try: () => vm.vm.blockchain.putBlock(block),
+							catch: (e) =>
+								new InternalError({
+									message: `Failed to put block into blockchain: ${e instanceof Error ? e.message : String(e)}`,
+									cause: e instanceof Error ? e : undefined,
+								}),
+						})
 					}
 				}),
 		}

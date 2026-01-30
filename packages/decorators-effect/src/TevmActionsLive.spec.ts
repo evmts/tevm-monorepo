@@ -7,34 +7,45 @@ import { VmService } from '@tevm/vm-effect'
 import { GetAccountService, SetAccountService } from '@tevm/actions-effect'
 
 describe('TevmActionsLive', () => {
-	const createMockVm = () => ({
-		// The underlying VM instance with blockchain and evm access
-		vm: {
-			blockchain: {
-				getCanonicalHeadBlock: vi.fn(() => Promise.resolve({ header: { number: 100n } })),
+	const createMockVm = () => {
+		// Create a mock block builder that returns a mock block
+		const mockBlockBuilder = {
+			build: vi.fn(() => Promise.resolve({ header: { number: 101n } })),
+		}
+
+		return {
+			// The underlying VM instance with blockchain and evm access
+			vm: {
+				blockchain: {
+					getCanonicalHeadBlock: vi.fn(() => Promise.resolve({ header: { number: 100n } })),
+					putBlock: vi.fn(() => Promise.resolve()),
+				},
+				evm: {
+					runCall: vi.fn(() =>
+						Promise.resolve({
+							execResult: {
+								returnValue: new Uint8Array([0x12, 0x34]),
+								executionGasUsed: 21000n,
+								gas: 79000n,
+							},
+						})
+					),
+				},
+				buildBlock: vi.fn(() => Promise.resolve(mockBlockBuilder)),
 			},
-			evm: {
-				runCall: vi.fn(() => Promise.resolve({
-					execResult: {
-						returnValue: new Uint8Array([0x12, 0x34]),
-						executionGasUsed: 21000n,
-						gas: 79000n,
-					},
-				})),
-			},
-		},
-		runTx: vi.fn(() =>
-			Effect.succeed({
-				returnValue: '0x1234' as const,
-				gasUsed: 21000n,
-				gas: 79000n,
-			})
-		),
-		runBlock: vi.fn(() => Effect.succeed({})),
-		buildBlock: vi.fn(() => Effect.succeed({})),
-		ready: Effect.succeed(true),
-		deepCopy: vi.fn(() => Effect.succeed({} as any)),
-	})
+			runTx: vi.fn(() =>
+				Effect.succeed({
+					returnValue: '0x1234' as const,
+					gasUsed: 21000n,
+					gas: 79000n,
+				})
+			),
+			runBlock: vi.fn(() => Effect.succeed({})),
+			buildBlock: vi.fn(() => Effect.succeed({})),
+			ready: Effect.succeed(true),
+			deepCopy: vi.fn(() => Effect.succeed({} as any)),
+		}
+	}
 
 	const createMockStateManager = () => ({
 		getAccount: vi.fn(() => Effect.succeed({ balance: 0n, nonce: 0n })),
@@ -50,6 +61,19 @@ describe('TevmActionsLive', () => {
 		getStateRoot: vi.fn(() => Effect.succeed(new Uint8Array([1, 2, 3, 4]))),
 		setStateRoot: vi.fn(() => Effect.succeed(undefined)),
 		deepCopy: vi.fn(() => Effect.succeed({} as any)),
+		// New: dumpState returns TevmState format (address -> account data)
+		dumpState: vi.fn(() =>
+			Effect.succeed({
+				'0x1234567890123456789012345678901234567890': {
+					nonce: 5n,
+					balance: 1000000000000000000n,
+					storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+					codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
+				},
+			})
+		),
+		// New: loadState accepts TevmState format
+		loadState: vi.fn(() => Effect.succeed(undefined)),
 	})
 
 	const createMockGetAccountService = () => ({
@@ -152,8 +176,8 @@ describe('TevmActionsLive', () => {
 		expect(mocks.setAccount.setAccount).toHaveBeenCalledWith(params)
 	})
 
-	it('should dump state as hex string', async () => {
-		const { layer } = createTestLayer()
+	it('should dump state as JSON with serialized TevmState', async () => {
+		const { layer, mocks } = createTestLayer()
 
 		const program = Effect.gen(function* () {
 			const tevmActions = yield* TevmActionsService
@@ -161,24 +185,56 @@ describe('TevmActionsLive', () => {
 		})
 
 		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
-		expect(result).toBe('0x01020304')
+
+		// Verify it's valid JSON
+		const parsed = JSON.parse(result)
+		expect(parsed).toHaveProperty('state')
+		expect(parsed.state).toHaveProperty('0x1234567890123456789012345678901234567890')
+
+		// Verify BigInt values were serialized to hex strings
+		const account = parsed.state['0x1234567890123456789012345678901234567890']
+		expect(account.nonce).toBe('0x5')
+		expect(account.balance).toBe('0xde0b6b3a7640000')
+
+		// Verify stateManager.dumpState was called
+		expect(mocks.stateManager.dumpState).toHaveBeenCalled()
 	})
 
-	it('should load state from hex string', async () => {
+	it('should load state from JSON with serialized TevmState', async () => {
 		const { layer, mocks } = createTestLayer()
 
-		const state = '0x01020304'
+		// Create a valid state JSON (as dumpState would produce)
+		const stateJson = JSON.stringify({
+			state: {
+				'0xabcdef1234567890abcdef1234567890abcdef12': {
+					nonce: '0xa',
+					balance: '0x1bc16d674ec80000',
+					storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+					codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
+				},
+			},
+		})
 
 		const program = Effect.gen(function* () {
 			const tevmActions = yield* TevmActionsService
-			return yield* tevmActions.loadState(state)
+			return yield* tevmActions.loadState(stateJson)
 		})
 
 		await Effect.runPromise(program.pipe(Effect.provide(layer)))
-		expect(mocks.stateManager.setStateRoot).toHaveBeenCalled()
+
+		// Verify stateManager.loadState was called with deserialized TevmState
+		expect(mocks.stateManager.loadState).toHaveBeenCalled()
+
+		// Verify the state was deserialized correctly (BigInt values restored)
+		const loadedState = mocks.stateManager.loadState.mock.calls[0][0]
+		expect(loadedState).toHaveProperty('0xabcdef1234567890abcdef1234567890abcdef12')
+
+		const account = loadedState['0xabcdef1234567890abcdef1234567890abcdef12']
+		expect(account.nonce).toBe(10n)
+		expect(account.balance).toBe(2000000000000000000n)
 	})
 
-	it('should mine blocks', async () => {
+	it('should mine blocks using vm.vm.buildBlock', async () => {
 		const { layer, mocks } = createTestLayer()
 
 		const program = Effect.gen(function* () {
@@ -187,6 +243,10 @@ describe('TevmActionsLive', () => {
 		})
 
 		await Effect.runPromise(program.pipe(Effect.provide(layer)))
-		expect(mocks.vm.buildBlock).toHaveBeenCalledTimes(3)
+
+		// Verify vm.vm.buildBlock was called 3 times (once per block)
+		expect(mocks.vm.vm.buildBlock).toHaveBeenCalledTimes(3)
+		// Verify blocks were put into blockchain
+		expect(mocks.vm.vm.blockchain.putBlock).toHaveBeenCalledTimes(3)
 	})
 })

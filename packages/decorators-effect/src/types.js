@@ -57,7 +57,7 @@
  * @typedef {Object} EthActionsShape
  * @property {() => import('effect').Effect<bigint, import('@tevm/errors-effect').InternalError, never>} blockNumber - Get current block number
  * @property {(params: EthCallParams) => import('effect').Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} call - Execute eth_call
- * @property {() => import('effect').Effect<bigint, import('@tevm/errors-effect').InternalError, never>} chainId - Get chain ID
+ * @property {() => import('effect').Effect<bigint, never, never>} chainId - Get chain ID
  * @property {() => import('effect').Effect<bigint, import('@tevm/errors-effect').InternalError, never>} gasPrice - Get current gas price
  * @property {(params: EthGetBalanceParams) => import('effect').Effect<bigint, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getBalance - Get account balance
  * @property {(params: EthGetCodeParams) => import('effect').Effect<Hex, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} getCode - Get contract code
