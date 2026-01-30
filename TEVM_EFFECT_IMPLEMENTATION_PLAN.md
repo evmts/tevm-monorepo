@@ -9,54 +9,58 @@
 
 ## Review Agent Summary (2026-01-29)
 
-**FORTIETH REVIEW COMPLETE.** Comprehensive verification of all prior fixes. New medium bugs identified.
+**FORTY-SECOND REVIEW COMPLETE.** Opus 4.5 deep verification with parallel subagents. All prior CRITICAL/HIGH bugs confirmed fixed. New transport-effect issues identified.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟢 FORTIETH REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
-| **Phase 2** | 🟢 FORTIETH REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 211 | 100% | ✅ MOSTLY COMPLIANT |
-| **Phase 3** | 🟢 FORTIETH REVIEW | 1 (node-effect: 4 services) | 85 | 100% | ⚠️ HAS ISSUES |
+| **Phase 1** | 🟢 FORTY-SECOND REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
+| **Phase 2** | 🟢 FORTY-SECOND REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 211 | 100% | ⚠️ HAS ISSUES |
+| **Phase 3** | 🟢 FORTY-SECOND REVIEW | 1 (node-effect: 4 services) | 85 | 100% | ✅ MOSTLY COMPLIANT |
 | **Phase 4** | ⚪ NOT STARTED | 0 | - | - | - |
 
 **Open Issues Summary:**
 - **CRITICAL**: 0 (all resolved)
-- **HIGH**: 2 (transport-effect batch support feature gap; node-effect method naming mismatch with RFC)
-- **MEDIUM**: 1 (remaining low priority issues)
-- **LOW**: 5 (JSDoc type annotations, duplicate helpers, documentation)
+- **HIGH**: 1 (transport-effect missing batch support - RFC feature gap)
+- **MEDIUM**: 3 (transport-effect retry logic, Layer.scoped; node-effect method naming)
+- **LOW**: 4 (redundant code, dead options, JSDoc annotations)
 
 ---
 
-### FORTIETH REVIEW FINDINGS (2026-01-29) - Opus 4.5 Deep Review
+### FORTY-SECOND REVIEW FINDINGS (2026-01-29) - Opus 4.5 Parallel Subagent Deep Review
 
-#### ✅ VERIFIED FIXES (All 38th/39th Review Fixes Confirmed In Place)
+#### ✅ VERIFIED FIXES (All Prior Review Fixes Confirmed In Code)
 
 | Fix | Package | File:Line | Verification |
 |-----|---------|-----------|--------------|
-| Address type mismatch | state-effect | StateManagerLocal.js:16-21, StateManagerLive.js:17-22 | ✅ `toEthjsAddress` helper correctly handles hex strings |
-| setStateRoot missing stateRoot | state-effect | StateManagerLocal.js:138-152, StateManagerLive.js:140-154 | ✅ Error now includes `stateRoot` hex property |
-| buildBlock return type | vm-effect | types.js:24 | ✅ Uses `Awaited<ReturnType<...>>` correctly |
-| Iterator swallows ALL errors | blockchain-effect | BlockchainLocal.js:165-177, BlockchainLive.js:189-201 | ✅ Only catches block-not-found, re-throws others |
-| SnapshotLive.deepCopy shallow | node-effect | SnapshotLive.js:161-201 | ✅ Properly deep copies Snapshot state with nested objects |
+| Address type mismatch | state-effect | StateManagerLocal.js:16-21, StateManagerLive.js:17-22 | ✅ `toEthjsAddress` helper correctly handles hex strings AND EthjsAddress objects |
+| setStateRoot missing stateRoot | state-effect | StateManagerLocal.js:138-152, StateManagerLive.js:140-154 | ✅ Error now includes `stateRoot` hex property converted from Uint8Array |
+| buildBlock return type | vm-effect | types.js:24 | ✅ Uses `Awaited<ReturnType<...>>` correctly to return BlockBuilder |
+| Iterator swallows ALL errors | blockchain-effect | BlockchainLocal.js:165-178, BlockchainLive.js:189-202 | ✅ Checks for UnknownBlock/UnknownBlockError by name and message, re-throws all others |
+| SnapshotLive.deepCopy shallow | node-effect | SnapshotLive.js:174-186 | ✅ Properly deep copies AccountStorage including nested storage objects |
+| FilterLive TOCTOU race condition | node-effect | FilterLive.js:141-166, 168-205, etc. | ✅ All 6 methods use `Ref.modify` for atomic check-and-update |
+| FilterLive deepCopy shallow | node-effect | FilterLive.js:329-350 | ✅ Deep copies logsCriteria, installed, and individual log/tx/block objects |
+| ForkConfigFromRpc BigInt parsing | transport-effect | ForkConfigFromRpc.js:78-96 | ✅ Wrapped in `Effect.try` with typed `ForkError` including method, message, cause |
 
-#### 🔴 NEW BUGS FOUND (Fortieth Review)
+#### 🔴 NEW/REMAINING BUGS (Forty-Second Review)
 
 | Issue | Severity | Package | File:Line | Notes |
 |-------|----------|---------|-----------|-------|
-| FilterLive TOCTOU race condition | **MEDIUM** | node-effect | FilterLive.js:143-162, 170-197, etc. | ✅ FIXED 2026-01-29 - Refactored all 6 methods to use `Ref.modify` for atomic check-and-update operations. |
-| FilterLive deepCopy shallow copies nested objects | **MEDIUM** | node-effect | FilterLive.js:319-327 | ✅ FIXED 2026-01-29 - Now deep copies `logsCriteria`, `installed`, and individual log/tx/block objects within arrays. |
-| ForkConfigFromRpc BigInt parsing not in try/catch | **MEDIUM** | transport-effect | ForkConfigFromRpc.js:76-79 | ✅ FIXED 2026-01-29 - Wrapped `BigInt()` calls in `Effect.try` with typed `ForkError` for malformed hex responses. |
-| Missing batch support in HttpTransport | **HIGH** | transport-effect | types.js:12-18 | RFC specifies `batch?: { wait: Duration.DurationInput; maxSize: number }` but not implemented. |
-| FilterService missing JSDoc type annotation | **LOW** | node-effect | FilterService.js:46 | Missing `/** @type {Context.Tag<FilterService, FilterShape>} */` cast unlike other services. |
-| Duplicate toEthjsAddress helper | **LOW** | state-effect | StateManagerLocal.js:16-21, StateManagerLive.js:17-22 | Same helper duplicated in both files. Consider extracting to shared utility. |
-| RFC method naming mismatch | **LOW** | node-effect | types.js (SnapshotShape, FilterShape) | RFC: `take/revert/get/getAll`. Implementation: `takeSnapshot/revertToSnapshot/getSnapshot/getAllSnapshots`. Acceptable deviation but should document. |
+| Missing batch support in HttpTransport | **HIGH** | transport-effect | HttpTransport.js | 🔴 Open - RFC specifies `batch?: { wait: Duration.DurationInput; maxSize: number }` for request batching. Implementation only supports single requests. Important for fork performance. |
+| Retry applied to ALL ForkErrors | **MEDIUM** | transport-effect | HttpTransport.js:144 | 🔴 Open - Retry schedule retries ALL ForkErrors including semantic RPC errors (e.g., "insufficient funds", "nonce too low") which are not transient. Should only retry network/timeout errors. |
+| Missing Layer.scoped for resource cleanup | **MEDIUM** | transport-effect | HttpTransport.js:96 | 🔴 Open - RFC shows `Layer.scoped` with `Effect.acquireRelease` for proper resource management. Current impl uses `Layer.succeed` which doesn't handle connection cleanup. |
+| SnapshotShape method naming mismatch | **MEDIUM** | node-effect | SnapshotLive.js, types.js | 🔴 Open - RFC: `take/revert/get/getAll`. Implementation: `takeSnapshot/revertToSnapshot/getSnapshot/getAllSnapshots`. More verbose but clearer. Document as intentional deviation. |
+| Redundant catchTag call | **LOW** | transport-effect | HttpTransport.js:145 | 🔴 Open - `.catchTag('ForkError', (e) => Effect.fail(e))` catches and re-fails with same error - no-op code. Should remove. |
+| loggingEnabled option is dead code | **LOW** | vm-effect | types.js:33, VmLive.js | 🔴 Open - Defined in `VmLiveOptions` but never used. Only `profiler` option is accessed. Remove or implement. |
+| Duplicate toEthjsAddress helper | **LOW** | state-effect | StateManagerLocal.js:16-21, StateManagerLive.js:17-22 | ⚠️ Acceptable - Same helper duplicated in both files. Consider extracting to shared utility but not critical. |
+| FilterService missing JSDoc type annotation | **LOW** | node-effect | FilterService.js:46 | ⚠️ Acceptable - Missing cast unlike other services, but works correctly. |
 
-#### ✅ Recommended Fixes (COMPLETED 2026-01-29)
+#### ✅ Previously Fixed (CONFIRMED IN CODE)
 
-1. ✅ **FilterLive TOCTOU** - Refactored all 6 methods to use `Ref.modify` for atomic check-and-update.
+1. ✅ **FilterLive TOCTOU** - All 6 methods (getChanges, addLog, addBlock, addPendingTransaction, getBlockChanges, getPendingTransactionChanges) now use `Ref.modify` for atomic operations.
 
-2. ✅ **ForkConfigFromRpc BigInt** - Wrapped in `Effect.try` with typed `ForkError`.
+2. ✅ **ForkConfigFromRpc BigInt** - Correctly wrapped in `Effect.try` at lines 78-96 with proper error including method, message with malformed value, and original error as cause.
 
-3. ✅ **FilterLive deepCopy** - Now deep copies nested objects (logsCriteria, installed, individual items) like SnapshotLive does.
+3. ✅ **FilterLive deepCopy** - Deep copies logsCriteria.address, logsCriteria.topics, installed object, and individual items in logs/blocks/pendingTransactions arrays.
 
 ---
 
@@ -1599,19 +1603,20 @@ export const effectToPromise = <A, E>(
 
 ---
 
-#### @tevm/transport-effect - TWENTY-FIRST REVIEW FINDINGS
+#### @tevm/transport-effect - FORTY-THIRD REVIEW FINDINGS (Updated 2026-01-29)
 
 | Issue | Severity | File:Line | Status | Notes |
 |-------|----------|-----------|--------|-------|
 | **Missing `batch` configuration option** | **HIGH** | HttpTransport.js:87-94 | 🔴 Open | RFC specifies `batch?: { wait: Duration.DurationInput; maxSize: number }` for request batching. Implementation has no batching support. Important for fork performance. |
-| **HttpTransport uses `Layer.succeed` instead of `Layer.scoped`** | **MEDIUM** | HttpTransport.js:96 | ⚠️ Acceptable | RFC shows `Layer.scoped` with `Effect.acquireRelease` for lifecycle management. Implementation uses stateless fetch - works but doesn't support connection pooling. |
-| **Missing BigInt parse error handling in ForkConfigFromRpc** | **MEDIUM** | ForkConfigFromRpc.js:76-79 | 🔴 Open | If RPC returns malformed hex string, `BigInt()` throws sync exception. Should wrap in `Effect.try` to convert to ForkError. |
-| **Missing retry exhaustion test** | **MEDIUM** | HttpTransport.spec.ts:250-275 | 🔴 Open | Tests retry succeeds on 2nd attempt, but no test verifying failure after all retries exhausted. |
-| **Missing timeout behavior test** | **MEDIUM** | HttpTransport.spec.ts | 🔴 Open | Tests verify AbortSignal passed (line 294-299) but no test for actual timeout triggering. |
-| **Missing invalid hex parsing test** | **MEDIUM** | ForkConfigFromRpc.spec.ts | 🔴 Open | No test for malformed RPC responses. `BigInt("not_hex")` would throw. |
-| **Redundant `Effect.catchTag` after retry** | **LOW** | HttpTransport.js:145 | 🔴 Open | `.catchTag('ForkError', (e) => Effect.fail(e))` is a no-op (catches and immediately re-fails). Should be removed. |
-| **Unused `Scope` import** | **LOW** | HttpTransport.js:1 | 🔴 Open | `Scope` is imported from effect but never used. |
-| **Dead code: `defaultRetrySchedule` unused** | **LOW** | HttpTransport.js:20-22 | 🔴 Open | Constant defined but each HttpTransport creates its own schedule (line 92-94). |
+| ~~**Retry applied to ALL ForkErrors**~~ | ~~**MEDIUM**~~ | HttpTransport.js | ✅ **FIXED** | Added `isRetryableError` helper that only retries network failures, timeouts, HTTP 5xx, and rate limiting (429). Semantic RPC errors (insufficient funds, nonce too low) are NOT retried. 7 new tests added. |
+| **HttpTransport uses `Layer.succeed` instead of `Layer.scoped`** | **MEDIUM** | HttpTransport.js:102 | 🔴 Open | RFC shows `Layer.scoped` with `Effect.acquireRelease` for lifecycle management. Implementation uses stateless fetch - doesn't support connection pooling or cleanup. |
+| ~~**Missing BigInt parse error handling in ForkConfigFromRpc**~~ | ~~**MEDIUM**~~ | ForkConfigFromRpc.js:78-96 | ✅ **FIXED** | Now correctly wrapped in `Effect.try` with proper `ForkError` including method, message with raw value, and cause. |
+| **Missing retry exhaustion test** | **MEDIUM** | HttpTransport.spec.ts | 🔴 Open | Tests retry succeeds on 2nd attempt, but no test verifying failure after all retries exhausted. |
+| **Missing timeout behavior test** | **MEDIUM** | HttpTransport.spec.ts | 🔴 Open | Tests verify AbortSignal passed but no test for actual timeout triggering. |
+| ~~**Missing invalid hex parsing test**~~ | ~~**MEDIUM**~~ | ForkConfigFromRpc.spec.ts | ✅ **FIXED** | Added 2 tests for malformed hex responses (invalid chainId and invalid blockNumber). Tests verify ForkError with correct method and message. |
+| ~~**Redundant `Effect.catchTag` after retry**~~ | ~~**LOW**~~ | HttpTransport.js | ✅ **FIXED** | Removed redundant `.catchTag('ForkError', ...)` call. |
+| ~~**Unused `Scope` import**~~ | ~~**LOW**~~ | HttpTransport.js | ✅ **FIXED** | Removed unused `Scope` import. |
+| ~~**Dead code: `defaultRetrySchedule` unused**~~ | ~~**LOW**~~ | HttpTransport.js | ✅ **FIXED** | Removed unused `defaultRetrySchedule` constant. |
 | **`retrySchedule` replaced with `retryCount`/`retryDelay`** | **LOW** | types.js:16-17 | ⚠️ Acceptable | RFC uses `Schedule.Schedule`. Implementation uses simple numbers. Less flexible but simpler API. |
 | **`timeout` uses `number` instead of `Duration.DurationInput`** | **LOW** | types.js:15 | ⚠️ Acceptable | RFC uses Effect's Duration. Implementation uses milliseconds. Simpler. |
 | **TransportShape missing `readonly` modifier** | **LOW** | types.js:30 | ⚠️ JSDoc limitation | RFC uses TypeScript `readonly`. JSDoc cannot express this. |
@@ -1727,33 +1732,39 @@ export const effectToPromise = <A, E>(
 
 ---
 
-**Updated Status Summary (THIRTY-SEVENTH REVIEW) - Phase 2 All Packages:**
+**Updated Status Summary (FORTY-THIRD REVIEW) - Phase 2 All Packages:**
 
 | Package | CRITICAL | HIGH | MEDIUM | LOW | Total Open | Tests | Coverage | RFC Compliance |
 |---------|----------|------|--------|-----|------------|-------|----------|----------------|
 | @tevm/common-effect | 0 | 0 | 0 | 4 | 4 | 33 | 100% | ✅ COMPLIANT |
-| @tevm/transport-effect | 0 | 1 | 5 | 7 | 13 | 47 | 100% | ✅ COMPLIANT* |
-| @tevm/blockchain-effect | 0 | 0 | 4 | 3 | 7 | 37 | 100% | ⚠️ HAS ISSUES |
-| @tevm/state-effect | 1 | 0 | 2 | 4 | 7 | 36 | 100% | ⚠️ HAS ISSUES |
+| @tevm/transport-effect | 0 | 1 | 3 | 0 | 4 | 55 | 100% | ⚠️ HAS ISSUES (batch support missing) |
+| @tevm/blockchain-effect | 0 | 0 | 2 | 3 | 5 | 37 | 100% | ✅ COMPLIANT |
+| @tevm/state-effect | 0 | 0 | 0 | 2 | 2 | 36 | 100% | ✅ COMPLIANT |
 | @tevm/evm-effect | 0 | 0 | 2 | 2 | 4 | 38 | 100% | ✅ COMPLIANT |
-| @tevm/vm-effect | 0 | 0 | 1 | 2 | 3 | 17 | 100% | ⚠️ HAS ISSUES |
-| **Phase 2 Total** | **1** | **1** | **14** | **22** | **38** | **208** | **100%** | **⚠️ HAS ISSUES** |
+| @tevm/vm-effect | 0 | 0 | 0 | 1 | 1 | 17 | 100% | ✅ COMPLIANT |
+| **Phase 2 Total** | **0** | **1** | **7** | **12** | **20** | **216** | **100%** | **⚠️ transport-effect batch support missing** |
 
-**🔴 NEW ISSUES FOUND (THIRTY-SEVENTH REVIEW - 2026-01-29):**
-- 🔴 **CRITICAL** @tevm/state-effect: Address type causes RUNTIME ERRORS - types say hex string but StateManager expects EthjsAddress object
-- 🔴 **MEDIUM** @tevm/state-effect: setStateRoot error doesn't populate `stateRoot` property on StateRootNotFoundError
-- 🔴 **MEDIUM** @tevm/vm-effect: buildBlock return type is `Promise<BlockBuilder>` instead of `BlockBuilder` (missing `Awaited<>`)
-- 🔴 **MEDIUM** @tevm/blockchain-effect: iterator method silently swallows ALL errors (should only catch block-not-found)
-- 🔴 **LOW** @tevm/state-effect: genesisStateRoot option defined but never used
+**🔴 REMAINING ISSUES (FORTY-THIRD REVIEW - 2026-01-29):**
+- 🔴 **HIGH** @tevm/transport-effect: Missing batch request support - RFC feature gap
+- 🔴 **MEDIUM** @tevm/transport-effect: Missing Layer.scoped for resource cleanup
+- 🔴 **MEDIUM** @tevm/transport-effect: Missing retry exhaustion test
+- 🔴 **MEDIUM** @tevm/transport-effect: Missing timeout behavior test
 - 🔴 **LOW** @tevm/vm-effect: loggingEnabled option unused in VmLiveOptions
+- 🔴 **LOW** @tevm/state-effect: Duplicate toEthjsAddress helper in both Local/Live files
 - 🔴 **LOW** @tevm/blockchain-effect: BlockNotFoundError missing blockTag property
-- 🔴 **LOW** @tevm/blockchain-effect: iterator returns raw AsyncIterable, not Effect-wrapped (inconsistent API)
 
-**✅ ISSUES RESOLVED (THIRTY-SECOND REVIEW - 2026-01-29):**
-- ✅ @tevm/vm-effect: VmError type now exported from index.js
-- ✅ @tevm/vm-effect: VmShape.js documentation updated with error channels in all return types
-- ✅ @tevm/state-effect: `Effect.promise()` usage documented as acceptable (operations rarely throw)
-- ⚠️ @tevm/state-effect: Address type casts documented as "acceptable" - **NOW IDENTIFIED AS CRITICAL BUG**
+**✅ FIXED IN FORTY-THIRD REVIEW (2026-01-29):**
+- ✅ @tevm/transport-effect: Retry logic now only retries network/timeout errors (added `isRetryableError` helper)
+- ✅ @tevm/transport-effect: Added malformed hex parsing tests for ForkConfigFromRpc (2 new tests)
+- ✅ @tevm/transport-effect: Removed redundant catchTag, unused Scope import, dead defaultRetrySchedule
+- ✅ @tevm/transport-effect: Added 7 new retry behavior tests covering all retry scenarios
+
+**✅ ALL PRIOR CRITICAL/HIGH BUGS NOW FIXED (FORTY-SECOND REVIEW - 2026-01-29):**
+- ✅ @tevm/state-effect: Address type mismatch - FIXED with `toEthjsAddress` helper
+- ✅ @tevm/state-effect: setStateRoot error now includes `stateRoot` property
+- ✅ @tevm/vm-effect: buildBlock return type now uses `Awaited<ReturnType<...>>`
+- ✅ @tevm/blockchain-effect: iterator only catches block-not-found, re-throws others
+- ✅ @tevm/transport-effect: ForkConfigFromRpc BigInt parsing wrapped in Effect.try
 
 **Previous Status Summary (THIRTIETH REVIEW):**
 
@@ -2220,27 +2231,28 @@ packages/vm-effect/
 **Goal**: Migrate node orchestration, transaction pool, actions
 **Breaking Changes**: Deprecation warnings on old APIs
 
-### REVIEW AGENT Review Status: 🟡 FORTIETH REVIEW (2026-01-29)
+### REVIEW AGENT Review Status: 🟢 FORTY-SECOND REVIEW (2026-01-29)
 
-**Fortieth review (2026-01-29)** - Opus 4.5 parallel subagent deep review. SnapshotLive.deepCopy VERIFIED FIXED. FilterLive issues remain.
+**Forty-second review (2026-01-29)** - Opus 4.5 parallel subagent deep verification. ALL PRIOR BUGS VERIFIED AS FIXED IN CODE. Only method naming deviation remains.
 
 **Package Status:**
 - Package: @tevm/node-effect
 - Tests: 85 passing (4 services: Impersonation, BlockParams, Snapshot, Filter)
 - Coverage: 100% (statements, branches, functions, lines)
-- RFC Compliance: ⚠️ HAS ISSUES (FilterLive race conditions, method naming)
+- RFC Compliance: ✅ MOSTLY COMPLIANT (method naming deviation is intentional for clarity)
 
 ---
 
-#### @tevm/node-effect - FORTIETH REVIEW FINDINGS (2026-01-29)
+#### @tevm/node-effect - FORTY-SECOND REVIEW FINDINGS (2026-01-29)
 
 | Issue | Severity | File:Line | Status | Notes |
 |-------|----------|-----------|--------|-------|
-| ~~**SnapshotLive deepCopy is SHALLOW**~~ | ~~**MEDIUM**~~ | SnapshotLive.js:161-201 | ✅ **FIXED** | Now properly deep copies each Snapshot's state including AccountStorage with nested storage objects, bigint values, and deployedBytecode. Test coverage at lines 268-343 verifies state objects are different references. |
-| **TOCTOU race condition in FilterLive** | **MEDIUM** | FilterLive.js:143-162, 170-197, 206-233, 242-258, 265-281, 288-304 | 🔴 Open | 6 methods (getChanges, getBlockChanges, getPendingTransactionChanges, addLog, addBlock, addPendingTransaction) use read-check-write pattern across multiple Ref operations. Not atomic. Line 160 uses `map.get(id)` assuming filter still exists after check - could be deleted between check and update in concurrent fibers. Should use `Ref.modify`. |
-| **FilterLive deepCopy shallow copies nested objects** | **MEDIUM** | FilterLive.js:319-327 | ✅ FIXED 2026-01-29 | Now properly deep copies `logsCriteria`, `installed`, and individual log/tx/block objects within arrays. |
-| **FilterService missing JSDoc type assertion** | **LOW** | FilterService.js:46 | 🔴 Open | Unlike other services, FilterService is missing `/** @type {Context.Tag<FilterService, FilterShape>} */` cast. |
-| **BlockParamsLive missing bigint validation** | **LOW** | BlockParamsLive.js | 🔴 Open | No validation for negative bigint values. `setNextBlockTimestamp(-1n)` would be accepted. |
+| ~~**SnapshotLive deepCopy is SHALLOW**~~ | ~~**MEDIUM**~~ | SnapshotLive.js:174-186 | ✅ **VERIFIED FIXED** | Properly deep copies each AccountStorage including nested storage objects. |
+| ~~**TOCTOU race condition in FilterLive**~~ | ~~**MEDIUM**~~ | FilterLive.js:141-166, 168-205, etc. | ✅ **VERIFIED FIXED** | All 6 methods (getChanges, addLog, addBlock, addPendingTransaction, getBlockChanges, getPendingTransactionChanges) now use `Ref.modify` for atomic check-and-update operations. |
+| ~~**FilterLive deepCopy shallow copies nested objects**~~ | ~~**MEDIUM**~~ | FilterLive.js:329-350 | ✅ **VERIFIED FIXED** | Deep copies logsCriteria.address, logsCriteria.topics, installed object, and individual items in logs/blocks/pendingTransactions arrays. |
+| **SnapshotShape method naming mismatch** | **MEDIUM** | SnapshotLive.js, types.js | ⚠️ Acceptable | RFC: `take/revert/get/getAll`. Implementation: `takeSnapshot/revertToSnapshot/getSnapshot/getAllSnapshots`. More explicit naming - document as intentional. |
+| **FilterService missing JSDoc type assertion** | **LOW** | FilterService.js:46 | ⚠️ Acceptable | Works correctly, just missing cast unlike other services. |
+| **BlockParamsLive missing bigint validation** | **LOW** | BlockParamsLive.js | ⚠️ Acceptable | Edge case - negative bigint values would be accepted. Low priority. |
 
 #### @tevm/node-effect - THIRTY-SIXTH REVIEW FINDINGS (2026-01-29) - PRIOR ISSUES
 
@@ -2258,36 +2270,35 @@ packages/vm-effect/
 
 ---
 
-**Status Summary (FORTIETH REVIEW - 2026-01-29):**
+**Status Summary (FORTY-SECOND REVIEW - 2026-01-29):**
 
 | Package | CRITICAL | HIGH | MEDIUM | LOW | Total Open | Tests | Coverage | RFC Compliance |
 |---------|----------|------|--------|-----|------------|-------|----------|----------------|
-| @tevm/node-effect | 0 | 1 | 2 | 2 | 5 | 85 | 100% | ⚠️ HAS ISSUES |
+| @tevm/node-effect | 0 | 0 | 1 | 2 | 3 | 85 | 100% | ✅ MOSTLY COMPLIANT |
 
-**FIXED IN 39th/40th REVIEW:**
-1. ✅ **CRITICAL**: SnapshotLive.js:134 now passes `{ snapshotId: id, message: ... }` to SnapshotNotFoundError
-2. ✅ **MEDIUM**: SnapshotLive deepCopy now properly deep copies Snapshot state with nested AccountStorage objects (lines 170-192)
-3. ✅ **LOW**: Added test verifying `error.snapshotId` is correctly set when revertToSnapshot fails
-4. ✅ **LOW**: Removed stale "coming soon" comments from index.js
-5. ✅ **NEW**: Implemented FilterService with full filter lifecycle management (30 new tests)
+**ALL PRIOR BUGS VERIFIED AS FIXED (FORTY-SECOND REVIEW):**
+1. ✅ **CRITICAL**: SnapshotLive.js:134 now passes `{ snapshotId: id, message: ... }` to SnapshotNotFoundError - VERIFIED IN CODE
+2. ✅ **MEDIUM**: SnapshotLive deepCopy now properly deep copies Snapshot state with nested AccountStorage objects (lines 174-186) - VERIFIED IN CODE
+3. ✅ **MEDIUM**: FilterLive TOCTOU race condition - VERIFIED FIXED: All 6 methods (getChanges, addLog, addBlock, addPendingTransaction, getBlockChanges, getPendingTransactionChanges) now use `Ref.modify` for atomic operations
+4. ✅ **MEDIUM**: FilterLive deepCopy - VERIFIED FIXED: Deep copies logsCriteria.address, logsCriteria.topics, installed object, and individual items in arrays (lines 329-350)
+5. ✅ **LOW**: snapshotId verification test added - VERIFIED IN CODE
+6. ✅ FilterService implemented with full filter lifecycle management (30 tests)
 
-**REMAINING BUGS (Fortieth Review):**
-1. **MEDIUM**: FilterLive TOCTOU race condition - 6 methods use read-check-write across multiple Ref operations
-2. **MEDIUM**: FilterLive deepCopy shallow copies nested objects (logsCriteria, installed, individual items)
-3. **LOW**: FilterService missing JSDoc type assertion cast
-4. **LOW**: BlockParamsLive missing negative bigint validation
+**REMAINING ISSUES (FORTY-SECOND REVIEW):**
+1. **MEDIUM**: SnapshotShape method naming differs from RFC (`takeSnapshot`/`revertToSnapshot` vs RFC's `take`/`revert`) - Document as intentional deviation for clarity
+2. **LOW**: FilterService missing JSDoc type assertion cast (works correctly)
+3. **LOW**: BlockParamsLive missing negative bigint validation (edge case)
 
 **Acceptable Deviations:**
-1. **HIGH (Acceptable)**: Method names differ from RFC (`takeSnapshot`/`revertToSnapshot` vs `take`/`revert`) - More explicit naming, documented deviation
+1. **MEDIUM**: Method names differ from RFC (`takeSnapshot`/`revertToSnapshot` vs `take`/`revert`) - More explicit naming, should document as intentional
+2. **LOW**: FilterShape uses typed `createLogFilter/createBlockFilter/createPendingTransactionFilter` instead of RFC's single `create(params)` - Better type safety
 
 **Phase 3.1 Complete:**
-All 4 Node State Services are now implemented: ImpersonationService, BlockParamsService, SnapshotService, FilterService.
+All 4 Node State Services are now implemented and verified: ImpersonationService, BlockParamsService, SnapshotService, FilterService.
 
 **Recommendations:**
-1. Fix SnapshotLive.deepCopy to deep copy Snapshot objects like FilterLive does
-2. Use `Ref.modify` instead of read-check-write pattern in FilterLive
-3. Add JSDoc type assertion to FilterService
-4. Document clearNextBlockOverrides semantics - explain why minGasPrice and blockTimestampInterval are not cleared
+1. Document method naming deviation (takeSnapshot vs take) in package README
+2. Consider adding negative bigint validation to BlockParamsLive
 
 ---
 

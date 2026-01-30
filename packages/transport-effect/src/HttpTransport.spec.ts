@@ -248,10 +248,10 @@ describe('HttpTransport', () => {
 	})
 
 	describe('retry behavior', () => {
-		it('should retry on failure', async () => {
-			// Fail first, succeed second
+		it('should retry on network failure', async () => {
+			// Fail first with a network error, succeed second
 			mockFetch
-				.mockRejectedValueOnce(new Error('First failure'))
+				.mockRejectedValueOnce(new Error('fetch failed: ECONNREFUSED'))
 				.mockResolvedValueOnce({
 					ok: true,
 					json: async () => ({ jsonrpc: '2.0', id: 1, result: '0x1' }),
@@ -271,6 +271,164 @@ describe('HttpTransport', () => {
 			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
 			expect(result).toBe('0x1')
 			expect(mockFetch).toHaveBeenCalledTimes(2)
+		})
+
+		it('should retry on timeout error', async () => {
+			// Fail first with a timeout error, succeed second
+			mockFetch
+				.mockRejectedValueOnce(new Error('aborted'))
+				.mockResolvedValueOnce({
+					ok: true,
+					json: async () => ({ jsonrpc: '2.0', id: 1, result: '0x1' }),
+				})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				retryCount: 2,
+				retryDelay: 10,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+				return yield* transport.request('eth_chainId')
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result).toBe('0x1')
+			expect(mockFetch).toHaveBeenCalledTimes(2)
+		})
+
+		it('should retry on HTTP 5xx server error', async () => {
+			// First HTTP 500, then success
+			mockFetch
+				.mockResolvedValueOnce({
+					ok: false,
+					status: 503,
+					statusText: 'Service Unavailable',
+				})
+				.mockResolvedValueOnce({
+					ok: true,
+					json: async () => ({ jsonrpc: '2.0', id: 1, result: '0x1' }),
+				})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				retryCount: 2,
+				retryDelay: 10,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+				return yield* transport.request('eth_chainId')
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result).toBe('0x1')
+			expect(mockFetch).toHaveBeenCalledTimes(2)
+		})
+
+		it('should NOT retry on semantic RPC errors', async () => {
+			// RPC error should NOT be retried
+			mockFetch.mockResolvedValue({
+				ok: true,
+				json: async () => ({
+					jsonrpc: '2.0',
+					id: 1,
+					error: { code: -32000, message: 'insufficient funds for gas' },
+				}),
+			})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				retryCount: 3,
+				retryDelay: 10,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+				return yield* transport.request('eth_sendTransaction', [])
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(result)).toBe(true)
+			// Should only be called once since semantic errors are NOT retried
+			expect(mockFetch).toHaveBeenCalledTimes(1)
+		})
+
+		it('should NOT retry on HTTP 4xx client errors', async () => {
+			// HTTP 400 should NOT be retried
+			mockFetch.mockResolvedValue({
+				ok: false,
+				status: 400,
+				statusText: 'Bad Request',
+			})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				retryCount: 3,
+				retryDelay: 10,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+				return yield* transport.request('eth_chainId')
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(result)).toBe(true)
+			// Should only be called once since 4xx errors are NOT retried
+			expect(mockFetch).toHaveBeenCalledTimes(1)
+		})
+
+		it('should retry on rate limit (429) errors', async () => {
+			// First 429, then success
+			mockFetch
+				.mockResolvedValueOnce({
+					ok: false,
+					status: 429,
+					statusText: 'Too Many Requests',
+				})
+				.mockResolvedValueOnce({
+					ok: true,
+					json: async () => ({ jsonrpc: '2.0', id: 1, result: '0x1' }),
+				})
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				retryCount: 2,
+				retryDelay: 10,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+				return yield* transport.request('eth_chainId')
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result).toBe('0x1')
+			expect(mockFetch).toHaveBeenCalledTimes(2)
+		})
+
+		it('should NOT retry when error cause message is empty', async () => {
+			// Simulate an error with cause that has no message
+			const errorWithNoMessage = Object.assign(new Error(), { message: '' })
+			mockFetch.mockRejectedValue(errorWithNoMessage)
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				retryCount: 3,
+				retryDelay: 10,
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+				return yield* transport.request('eth_chainId')
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(result)).toBe(true)
+			// Should only be called once since empty message errors are not retryable
+			expect(mockFetch).toHaveBeenCalledTimes(1)
 		})
 	})
 

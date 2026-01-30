@@ -175,6 +175,78 @@ describe('ForkConfigFromRpc', () => {
 		})
 	})
 
+	describe('malformed hex parsing errors', () => {
+		it('should fail with ForkError when chainId is malformed', async () => {
+			const mockTransport: TransportShape = {
+				request: <T>(method: string) => {
+					if (method === 'eth_chainId') {
+						return Effect.succeed('not_a_valid_hex' as T) // Malformed hex
+					}
+					if (method === 'eth_blockNumber') {
+						return Effect.succeed('0x1' as T)
+					}
+					return Effect.fail(new ForkError({ method, cause: new Error('Unknown method') }))
+				},
+			}
+
+			const transportLayer = Layer.succeed(TransportService, mockTransport)
+			const forkConfigLayer = Layer.provide(ForkConfigFromRpc, transportLayer)
+
+			const program = Effect.gen(function* () {
+				const config = yield* ForkConfigService
+				return config
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(forkConfigLayer)))
+
+			expect(Exit.isFailure(result)).toBe(true)
+			if (Exit.isFailure(result)) {
+				const cause = result.cause
+				// @ts-expect-error - accessing internal structure
+				const error = cause._tag === 'Fail' ? cause.error : undefined
+				expect(error).toBeDefined()
+				expect(error._tag).toBe('ForkError')
+				expect(error.method).toBe('eth_chainId')
+				expect(error.message).toContain('Failed to parse chain ID')
+			}
+		})
+
+		it('should fail with ForkError when blockNumber is malformed', async () => {
+			const mockTransport: TransportShape = {
+				request: <T>(method: string) => {
+					if (method === 'eth_chainId') {
+						return Effect.succeed('0x1' as T)
+					}
+					if (method === 'eth_blockNumber') {
+						return Effect.succeed('invalid_block_number' as T) // Malformed hex
+					}
+					return Effect.fail(new ForkError({ method, cause: new Error('Unknown method') }))
+				},
+			}
+
+			const transportLayer = Layer.succeed(TransportService, mockTransport)
+			const forkConfigLayer = Layer.provide(ForkConfigFromRpc, transportLayer)
+
+			const program = Effect.gen(function* () {
+				const config = yield* ForkConfigService
+				return config
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(forkConfigLayer)))
+
+			expect(Exit.isFailure(result)).toBe(true)
+			if (Exit.isFailure(result)) {
+				const cause = result.cause
+				// @ts-expect-error - accessing internal structure
+				const error = cause._tag === 'Fail' ? cause.error : undefined
+				expect(error).toBeDefined()
+				expect(error._tag).toBe('ForkError')
+				expect(error.method).toBe('eth_blockNumber')
+				expect(error.message).toContain('Failed to parse block number')
+			}
+		})
+	})
+
 	describe('hex parsing', () => {
 		it('should correctly parse Ethereum mainnet chainId', async () => {
 			const mockTransport: TransportShape = {

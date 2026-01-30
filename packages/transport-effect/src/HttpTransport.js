@@ -1,4 +1,4 @@
-import { Effect, Layer, Schedule, Duration, Scope } from 'effect'
+import { Effect, Layer, Schedule, Duration } from 'effect'
 import { ForkError } from '@tevm/errors-effect'
 import { TransportService } from './TransportService.js'
 
@@ -13,19 +13,61 @@ import { TransportService } from './TransportService.js'
  */
 
 /**
- * Default retry schedule for HTTP requests.
- * Retries up to 3 times with exponential backoff starting at 1 second.
- * @type {Schedule.Schedule<number, unknown, never>}
- */
-const defaultRetrySchedule = Schedule.exponential(Duration.seconds(1)).pipe(
-	Schedule.compose(Schedule.recurs(3))
-)
-
-/**
  * Default timeout for HTTP requests in milliseconds.
  * @type {number}
  */
 const DEFAULT_TIMEOUT = 30000
+
+/**
+ * Checks if an error is a transient network error that should be retried.
+ * Only retries network failures, timeouts, and server errors (5xx).
+ * Does NOT retry semantic RPC errors like "insufficient funds" or "nonce too low".
+ *
+ * @param {ForkError} error - The error to check
+ * @returns {boolean} - True if the error should be retried
+ */
+const isRetryableError = (error) => {
+	// Get the error message from either the cause or the error itself
+	// Using explicit conditionals for better coverage tracking
+	let message = ''
+	if (error.cause && error.cause.message) {
+		message = error.cause.message
+	} else if (error.message) {
+		message = error.message
+	}
+	message = message.toLowerCase()
+
+	// Retry on network errors
+	if (
+		message.includes('fetch failed') ||
+		message.includes('network') ||
+		message.includes('econnrefused') ||
+		message.includes('econnreset') ||
+		message.includes('etimedout') ||
+		message.includes('enotfound') ||
+		message.includes('socket hang up')
+	) {
+		return true
+	}
+
+	// Retry on timeout/abort errors
+	if (message.includes('abort') || message.includes('timeout')) {
+		return true
+	}
+
+	// Retry on HTTP 5xx server errors
+	if (message.includes('http error: 5')) {
+		return true
+	}
+
+	// Retry on rate limiting (429)
+	if (message.includes('http error: 429') || message.includes('rate limit')) {
+		return true
+	}
+
+	// Do NOT retry semantic RPC errors (insufficient funds, nonce issues, revert, etc.)
+	return false
+}
 
 /**
  * Creates an HTTP transport layer for making JSON-RPC requests to Ethereum nodes.
@@ -141,8 +183,10 @@ export const HttpTransport = (config) => {
 							cause: error instanceof Error ? error : new Error(String(error)),
 						}),
 				}).pipe(
-					Effect.retry(retrySchedule),
-					Effect.catchTag('ForkError', (e) => Effect.fail(e))
+					Effect.retry({
+						schedule: retrySchedule,
+						while: isRetryableError,
+					})
 				)
 			},
 		})
