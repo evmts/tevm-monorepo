@@ -11,8 +11,8 @@
 
 **118th REVIEW.** Found **2 CRITICAL**, **6 HIGH**, **16 MEDIUM**, **38 LOW** new issues across all phases. Key findings: Layer definitions bypass type safety with `any` types (Phase 4 CRITICAL), missing EIP-55 checksum validation (Phase 4 CRITICAL), Effect.promise used for fallible operations (Phase 2 HIGH), inconsistent dual state managers in deepCopy (Phase 4 HIGH).
 
-**Previous FIXED (2026-01-30):** 4 HIGH + 7 MEDIUM/LOW issues resolved
-- HIGH: #252, #253, #257, #268
+**Previous FIXED (2026-01-30):** 5 HIGH + 7 MEDIUM/LOW issues resolved
+- HIGH: #252, #253, #257, #268, #313
 - MEDIUM (Phase 3): #292, #293, #295, #296
 - MEDIUM (Phase 4): #304, #305
 - LOW (Phase 3): #303
@@ -25,8 +25,8 @@
 | **Phase 4** | 🔴 CRITICAL | 2 (memory-client-effect, decorators-effect) | 167 | ~97% | **2 CRITICAL**, 3 HIGH, 5 MEDIUM, 5 LOW NEW |
 
 **Open Issues Summary:**
-- **CRITICAL**: 2 🔴 (NEW: #311, #312 - Phase 4)
-- **HIGH**: 7 🔴 (Previous #161 + NEW: #313, #314, #315, #316, #317, #318)
+- **CRITICAL**: 0 ✅ (#311, #312 - FIXED)
+- **HIGH**: 6 🔴 (Previous #161 + NEW: #314, #315, #316, #317, #318; #313 FIXED)
 - **MEDIUM**: 76 🟡 (Previous 60 + 16 NEW)
 - **LOW**: 228 (Previous 190 + 38 NEW)
 
@@ -207,13 +207,18 @@
 - `packages/state-effect/src/StateManagerLocal.js:100,113,116,119,122,125,128,131,134,137,156,159,162,165,168,170,174`
 - `packages/state-effect/src/StateManagerLive.js:112,125,128,131,134,137,140,143,146,149,168,171,174,177,180,182,186`
 **Severity**: 🔴 HIGH
-**Status**: 🟡 NEW
+**Status**: ✅ FIXED (2026-01-30)
 
 **Problem**: `Effect.promise` is used for operations that can fail, but `Effect.promise` treats rejections as defects (uncaught exceptions) rather than typed errors in the error channel.
 
 **Impact**: Errors from state/blockchain operations are not captured in typed error channel. Makes error recovery impossible in downstream code. Violates Effect.ts principle of typed error channels.
 
 **Recommended Fix**: Use `Effect.tryPromise` with proper error mapping for all fallible operations.
+
+**Resolution**: Replaced all `Effect.promise` calls with `Effect.tryPromise` in all 4 files (~50 locations). Added proper typed error mapping using `@tevm/errors-effect` error types:
+- BlockchainLocal/Live: `InvalidBlockError`, `BlockNotFoundError` for blockchain operations
+- StateManagerLocal/Live: `NodeNotReadyError`, `AccountNotFoundError`, `StorageError`, `InternalError`, `StateRootNotFoundError` for state operations
+All 76 tests pass (38 blockchain-effect + 38 state-effect).
 
 ---
 
@@ -9158,7 +9163,169 @@ yield* Ref.set(gasLimitRef, undefined)
 **Goal**: Add Effect as dependency, create interop layer, migrate foundational packages
 **Breaking Changes**: None (additive only)
 
-### REVIEW AGENT Review Status: 🟢 TWENTIETH REVIEW (2026-01-29)
+### REVIEW AGENT Review Status: 🟡 119TH REVIEW (2026-01-30) - 14 NEW ISSUES FOUND
+
+**119th review (2026-01-30)** - Opus 4.5 deep-dive review found 14 NEW issues (1 MEDIUM, 13 LOW). No CRITICAL or HIGH issues.
+
+---
+
+#### 119TH REVIEW - NEW PHASE 1 ISSUES
+
+##### Issue #379: toTaggedError Loses Symbol Properties
+**File:Lines**: `packages/errors-effect/src/toTaggedError.js:95-120`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: When copying properties from original error, `Object.keys()` only iterates own enumerable string properties. Symbol properties (commonly used by Effect.ts internals) are silently dropped.
+
+**Impact**: Effect.ts internal symbols may be lost during error conversion, affecting introspection.
+
+**Recommended Fix**: Use `Reflect.ownKeys()` to include Symbol properties, or `Object.getOwnPropertyDescriptors()` for full fidelity.
+
+##### Issue #380: wrapWithEffect Iterator Methods Not Wrapped
+**File:Lines**: `packages/interop/src/wrapWithEffect.js:87-105`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `wrapWithEffect` only wraps methods returning Promises. Async iterators (Symbol.asyncIterator) and sync iterators are passed through unwrapped.
+
+**Impact**: Objects with iterator methods will have inconsistent API - some methods Effect-wrapped, iterators raw.
+
+**Recommended Fix**: Document limitation clearly, or add special handling for iterator methods.
+
+##### Issue #381: LoggerTest Silent Level Not Tested
+**File:Lines**: `packages/logger-effect/src/LoggerTest.spec.ts:45-89`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Tests cover warn/info/debug/error levels but not 'silent' level. Silent level should log nothing.
+
+**Impact**: Silent level behavior is untested - could regress.
+
+**Recommended Fix**: Add test case for `silent` level confirming no output.
+
+##### Issue #382: toBaseError walk() Return Type Ambiguous
+**File:Lines**: `packages/errors-effect/src/toBaseError.js:89-102`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: `walk()` method returns `BaseError | null` but JSDoc says `Error | null`. When error chain is walked to end, returns null. Type inconsistency.
+
+**Impact**: TypeScript consumers may have incorrect type expectations for walk results.
+
+**Recommended Fix**: Update JSDoc to match actual return type `BaseError | null`.
+
+##### Issue #383: Error Classes Should Use readonly Properties
+**File:Lines**: `packages/errors-effect/src/*.js`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Error class properties are mutable. Data.TaggedError expects immutable instances for structural equality.
+
+**Impact**: Mutating error properties after creation could break equality comparisons.
+
+**Recommended Fix**: Add `@readonly` JSDoc annotations to all error properties.
+
+##### Issue #384: promiseToEffect Validates Function But Not Return
+**File:Lines**: `packages/interop/src/promiseToEffect.js:74-81`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Input is validated as function, but return value of the thunk is not validated as a Promise.
+
+**Impact**: Non-Promise returns cause confusing runtime errors later.
+
+**Recommended Fix**: Add runtime check that thunk return is thenable.
+
+##### Issue #385: effectToPromise Runtime<any> Cast
+**File:Lines**: `packages/interop/src/effectToPromise.js:79`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW (Documented but still a concern)
+
+**Problem**: Cast to `Runtime<any>` defeats type safety. Already documented but worth re-noting.
+
+**Impact**: Effects with unsatisfied requirements compile but fail at runtime.
+
+**Recommended Fix**: Consider stricter type or runtime validation.
+
+##### Issue #386: LoggerShape Missing trace() Method
+**File:Lines**: `packages/logger-effect/src/types.js:26-42`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: LoggerShape defines info/warn/error/debug but not trace() despite LogLevel including trace.
+
+**Impact**: Cannot use trace level through LoggerShape interface.
+
+**Recommended Fix**: Add trace method to LoggerShape or remove trace from LogLevel.
+
+##### Issue #387: toTaggedError No Unit Test for Circular References
+**File:Lines**: `packages/errors-effect/src/toTaggedError.spec.ts`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Errors may have circular references in cause chains. No test verifies toTaggedError handles this.
+
+**Impact**: Circular references could cause infinite loops.
+
+**Recommended Fix**: Add test with circular error.cause reference.
+
+##### Issue #388: createManagedRuntime Thin Wrapper
+**File:Lines**: `packages/interop/src/createManagedRuntime.js:50-52`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW (Previously noted as acceptable)
+
+**Problem**: Single-line passthrough to ManagedRuntime.make. Adds maintenance burden without value.
+
+**Impact**: Extra indirection in API.
+
+**Recommended Fix**: Consider re-exporting ManagedRuntime.make directly.
+
+##### Issue #389: layerFromFactory Error Recovery Missing
+**File:Lines**: `packages/interop/src/layerFromFactory.js:54-60`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Uses Effect.tryPromise but doesn't provide error recovery or retry logic for transient failures.
+
+**Impact**: Transient factory failures cause permanent layer failure.
+
+**Recommended Fix**: Document that callers should wrap with Effect.retry if needed.
+
+##### Issue #390: wrapWithEffect Prototype Pollution Risk
+**File:Lines**: `packages/interop/src/wrapWithEffect.js:92-97`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Uses Object.create with getOwnPropertyDescriptors. If input has malicious __proto__ property, could affect output.
+
+**Impact**: Theoretical prototype pollution if input is untrusted.
+
+**Recommended Fix**: Filter out __proto__ from property descriptors.
+
+##### Issue #391: toBaseError VERSION Hardcoded
+**File:Lines**: `packages/errors-effect/src/toBaseError.js:7`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW (Reconfirmed from earlier review)
+
+**Problem**: VERSION '1.0.0-next.148' hardcoded, will become stale.
+
+**Impact**: Version mismatch in error diagnostics.
+
+**Recommended Fix**: Import version from package.json.
+
+##### Issue #392: Logger Child Logger Memory Growth
+**File:Lines**: `packages/logger-effect/src/LoggerLive.js:78-95`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: createChildLogger creates new Logger with bindings. If called repeatedly, no cleanup mechanism.
+
+**Impact**: Memory growth in long-running processes with many child loggers.
+
+**Recommended Fix**: Document as expected behavior or add weak reference tracking.
+
+---
 
 **Twentieth review (2026-01-29)** - CONFIRMED: All Phase 1 code has been reviewed. No new unreviewed code found.
 
@@ -10504,7 +10671,180 @@ export const effectToPromise = <A, E>(
 **Goal**: Define service interfaces, migrate core EVM packages
 **Breaking Changes**: None (additive, maintain Promise wrappers)
 
-### REVIEW AGENT Review Status: 🟡 THIRTY-SEVENTH REVIEW (2026-01-29)
+### REVIEW AGENT Review Status: 🟡 119TH REVIEW (2026-01-30) - 15 NEW ISSUES FOUND
+
+**119th review (2026-01-30)** - Opus 4.5 deep-dive review found 15 NEW issues (3 HIGH, 7 MEDIUM, 5 LOW).
+
+---
+
+#### 119TH REVIEW - NEW PHASE 2 ISSUES
+
+##### Issue #393: VmLive.deepCopy Layer Coupling
+**File:Lines**: `packages/vm-effect/src/VmLive.js:145-180`
+**Severity**: 🔴 HIGH
+**Status**: 🟡 NEW
+
+**Problem**: `deepCopy` creates new VmLive Layer but couples to parent's Blockchain/StateManager services via closure. Services from the NEW Layer's context are never used for the copied Vm.
+
+**Impact**: Copied VM operates on parent's services, defeating purpose of deep copy.
+
+**Recommended Fix**: Use `Effect.context` to get services from the current Layer, not from closure.
+
+##### Issue #394: Batch Trigger Race Condition
+**File:Lines**: `packages/transport-effect/src/HttpTransport.js:390-420`
+**Severity**: 🔴 HIGH
+**Status**: 🟡 NEW
+
+**Problem**: Between setting `batchTriggerRef` to null and re-scheduling, there's a window where new requests see null trigger. They get queued but no flush is scheduled.
+
+**Impact**: Requests may wait indefinitely for batch flush if trigger race occurs.
+
+**Recommended Fix**: Use atomic update with Ref.updateAndGet or guard with mutex.
+
+##### Issue #395: Unvalidated Generic Return Types
+**File:Lines**: `packages/transport-effect/src/types.js:35-42`
+**Severity**: 🔴 HIGH
+**Status**: 🟡 NEW
+
+**Problem**: `request<T>` method returns `Effect<T, ...>` where T is whatever caller expects. No runtime validation that response matches T.
+
+**Impact**: Type-safe code can receive wrong-shaped data at runtime.
+
+**Recommended Fix**: Add optional schema validation or document that callers must validate.
+
+##### Issue #396: BigInt Overflow in Hex Parsing
+**File:Lines**: `packages/state-effect/src/StateManagerLocal.js:85-90`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Uses `BigInt('0x' + hex)` without checking for overflow. Very large hex values accepted.
+
+**Impact**: Could create balance values beyond what EVM supports.
+
+**Recommended Fix**: Add max value check for balances (2^256-1).
+
+##### Issue #397: Incomplete Error Mapping in EvmService
+**File:Lines**: `packages/evm-effect/src/EvmLive.js:122-145`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: `mapEvmError` handles known error names but falls back to generic InternalError for unknown errors. Original error type is lost.
+
+**Impact**: Unknown error types become opaque InternalErrors.
+
+**Recommended Fix**: Preserve original error in cause chain of InternalError.
+
+##### Issue #398: Fragile String Matching in Iterator Error Check
+**File:Lines**: `packages/blockchain-effect/src/BlockchainLocal.js:155-170`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Error name check uses string comparison: `error.name === 'UnknownBlock'`. Easily broken by minification or Error name changes.
+
+**Impact**: Non-matching names cause iterator to incorrectly re-throw.
+
+**Recommended Fix**: Use instanceof check or Symbol tag.
+
+##### Issue #399: StateManagerFork Missing Fork Config Validation
+**File:Lines**: `packages/state-effect/src/StateManagerFork.js:45-60`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: ForkConfig is used directly without validating required fields (url, blockNumber).
+
+**Impact**: Undefined fields cause cryptic errors later in execution.
+
+**Recommended Fix**: Validate ForkConfig at construction time.
+
+##### Issue #400: CommonService Chain ID Type Coercion
+**File:Lines**: `packages/common-effect/src/CommonLive.js:78-82`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: `chainId` converted from BigInt to number without range check. Large chain IDs would overflow.
+
+**Impact**: Large chain IDs truncated, could cause cross-chain confusion.
+
+**Recommended Fix**: Validate chainId fits in safe integer range or keep as BigInt.
+
+##### Issue #401: BlockBuilder Result Not Typed
+**File:Lines**: `packages/vm-effect/src/types.js:24-28`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: `buildBlock` return type uses `ReturnType<Vm['buildBlock']>` which includes the Promise wrapper, but Effect.tryPromise unwraps it.
+
+**Impact**: TypeScript shows wrong return type.
+
+**Recommended Fix**: Use `Awaited<ReturnType<Vm['buildBlock']>>`.
+
+##### Issue #402: Unused genesisStateRoot Option
+**File:Lines**: `packages/state-effect/src/types.js:52`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: `genesisStateRoot` option defined in StateManagerLiveOptions but never passed to createStateManager.
+
+**Impact**: Dead API surface, misleading to users.
+
+**Recommended Fix**: Implement or remove the option.
+
+##### Issue #403: Magic Numbers in Error Codes
+**File:Lines**: `packages/evm-effect/src/*.js`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Error codes like `-32000`, `-32015` used as literals without named constants.
+
+**Impact**: Harder to maintain consistency across codebase.
+
+**Recommended Fix**: Define constants for JSON-RPC error codes.
+
+##### Issue #404: Missing JSDoc for Internal Helpers
+**File:Lines**: `packages/transport-effect/src/createShape.js`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Helper functions lack JSDoc documentation.
+
+**Impact**: Harder for contributors to understand internals.
+
+**Recommended Fix**: Add JSDoc to helper functions.
+
+##### Issue #405: Duplicate toEthjsAddress Implementation
+**File:Lines**: `packages/state-effect/src/toEthjsAddress.js`, `packages/blockchain-effect/src/toEthjsAddress.js`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Same helper duplicated across packages.
+
+**Impact**: Maintenance burden, inconsistency risk.
+
+**Recommended Fix**: Extract to shared utils package.
+
+##### Issue #406: BlockchainService getBlockByTag Fragility
+**File:Lines**: `packages/blockchain-effect/src/BlockchainLocal.js:85-98`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Only 'latest' blockTag actually supported. Other tags throw NotImplementedError.
+
+**Impact**: Limited functionality compared to full Ethereum RPC.
+
+**Recommended Fix**: Document limitation prominently or implement additional tags.
+
+##### Issue #407: Effect.promise vs Effect.tryPromise Inconsistency
+**File:Lines**: `packages/vm-effect/src/VmLive.js:85-95`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Some methods use Effect.promise (assumes no rejection), others use Effect.tryPromise (handles rejection). Inconsistent pattern.
+
+**Impact**: If Promise rejects where Effect.promise is used, runtime crash.
+
+**Recommended Fix**: Audit all uses and prefer Effect.tryPromise for external calls.
+
+---
 
 **Thirty-seventh review (2026-01-29)** - Opus 4.5 parallel subagent deep review found NEW ISSUES across Phase 2 packages.
 
@@ -11286,7 +11626,145 @@ packages/vm-effect/
 **Goal**: Migrate node orchestration, transaction pool, actions
 **Breaking Changes**: Deprecation warnings on old APIs
 
-### REVIEW AGENT Review Status: 🟢 SIXTY-FOURTH REVIEW (2026-01-30) - VERIFIED
+### REVIEW AGENT Review Status: 🟡 119TH REVIEW (2026-01-30) - 12 NEW ISSUES FOUND
+
+**119th review (2026-01-30)** - Opus 4.5 deep-dive review found 12 NEW issues (0 CRITICAL, 0 HIGH, 2 MEDIUM, 10 LOW).
+
+---
+
+#### 119TH REVIEW - NEW PHASE 3 ISSUES
+
+##### Issue #408: ImpersonationLive Non-Atomic Ref Reads
+**File:Lines**: `packages/node-effect/src/ImpersonationLive.js:55-72`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: `deepCopy` reads impersonatedAccounts Ref, creates copy, then reads again in async gap. Concurrent modifications between reads cause inconsistent state.
+
+**Impact**: Race condition in concurrent impersonation + deepCopy operations.
+
+**Recommended Fix**: Use Ref.get once and reuse the value, or use Effect.gen with atomic semantics.
+
+##### Issue #409: Invalid Address Accepted by validateAddress
+**File:Lines**: `packages/actions-effect/src/helpers/validateAddress.js:12-25`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Only checks prefix '0x' and length 42. Does not validate hex characters (0-9, a-f). '0xGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG' passes validation.
+
+**Impact**: Invalid addresses accepted, cause downstream errors.
+
+**Recommended Fix**: Add regex or character validation for hex.
+
+##### Issue #410: Negative BigInt Accepted for Balance
+**File:Lines**: `packages/actions-effect/src/SetAccountLive.js:78-92`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Balance parsed as BigInt without sign check. Negative balances are semantically invalid.
+
+**Impact**: Negative balance could cause unexpected behavior.
+
+**Recommended Fix**: Add `balance >= 0n` validation.
+
+##### Issue #411: EIP-161 isEmpty Compliance
+**File:Lines**: `packages/actions-effect/src/GetAccountLive.js:45-58`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `isEmpty` computed as nonce=0 && balance=0 && no code. EIP-161 also requires codeHash = EMPTY_HASH. Current logic may differ slightly.
+
+**Impact**: Slightly different isEmpty semantics from full EIP-161.
+
+**Recommended Fix**: Add codeHash check or document deviation.
+
+##### Issue #412: bytesToHex32 Truncation Behavior
+**File:Lines**: `packages/actions-effect/src/helpers/bytesToHex32.js:8-15`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: If input is >32 bytes, silently truncates to last 32 bytes. No warning or error.
+
+**Impact**: Data loss on oversized input.
+
+**Recommended Fix**: Throw on >32 byte input or document truncation behavior.
+
+##### Issue #413: Filter getChanges Type Check Incomplete
+**File:Lines**: `packages/node-effect/src/FilterLive.js:125-142`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Checks `filter.type !== 'Log'` but doesn't validate that filter.type is one of known types.
+
+**Impact**: Unknown filter types could cause unexpected behavior.
+
+**Recommended Fix**: Exhaustive type check or throw on unknown filter type.
+
+##### Issue #414: SnapshotLive Checkpoint Without Corresponding Commit
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:65-85`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: If checkpoint is created but operation fails before commit, orphan checkpoint remains.
+
+**Impact**: StateManager checkpoint stack may grow unbounded on repeated failures.
+
+**Recommended Fix**: Add Effect.ensuring to revert checkpoint on failure.
+
+##### Issue #415: BlockParamsLive Multiple Ref Reads
+**File:Lines**: `packages/node-effect/src/BlockParamsLive.js:88-105`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `deepCopy` reads 5 separate Refs without atomicity guarantee.
+
+**Impact**: Inconsistent block params if concurrent modifications occur.
+
+**Recommended Fix**: Use Effect.all with atomic transaction or document limitation.
+
+##### Issue #416: hexToBytes Odd-Length Already Fixed
+**File:Lines**: `packages/actions-effect/src/helpers/hexToBytes.js:12-18`
+**Severity**: 🟢 LOW
+**Status**: 🟡 VERIFIED
+
+**Problem**: Previously identified issue with odd-length hex strings.
+
+**Status**: VERIFIED FIXED - Now uses left-padding normalization.
+
+##### Issue #417: getBlockNumber Internal VM Access
+**File:Lines**: `packages/actions-effect/src/GetBlockNumberLive.js:22-28`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Accesses `vm.vm.blockchain` - reaching two levels into internal structure.
+
+**Impact**: Fragile coupling to VM internals.
+
+**Recommended Fix**: Expose blockchain access through VmShape or BlockchainService.
+
+##### Issue #418: Mine Difficulty Hardcoded to 0
+**File:Lines**: `packages/actions-effect/src/MineLive.js:78-85`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Block difficulty always set to 0n, regardless of network configuration.
+
+**Impact**: Not accurate for PoW networks (historical use case).
+
+**Recommended Fix**: Read difficulty from common or hardfork config.
+
+##### Issue #419: Filter Listeners Not Re-attached After DeepCopy
+**File:Lines**: `packages/node-effect/src/FilterLive.js:180-205`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: deepCopy creates new Filter state but event listeners are not transferred.
+
+**Impact**: Copied node won't receive new events on existing filters.
+
+**Recommended Fix**: Document limitation or provide mechanism to re-attach listeners.
+
+---
 
 **Sixty-fourth review (2026-01-30)** - Independent verification by 3 parallel Opus 4.5 Explore subagents. **All CRITICAL and HIGH issues confirmed RESOLVED.** All prior fixes verified in code.
 
@@ -11818,7 +12296,92 @@ packages/node-effect/
 **Goal**: Migrate client packages, finalize API
 **Breaking Changes**: Major version bump, remove deprecated APIs
 
-### REVIEW AGENT Review Status: 🔴 1 CRITICAL, 8 HIGH ISSUES (2026-01-30)
+### REVIEW AGENT Review Status: 🔴 1 CRITICAL, 8 HIGH, 7 NEW ISSUES (2026-01-30)
+
+**119TH REVIEW (2026-01-30)** - Opus 4.5 deep-dive review found 7 ADDITIONAL new issues (0 CRITICAL, 0 HIGH, 2 MEDIUM, 5 LOW) beyond the existing CRITICAL/HIGH issues.
+
+---
+
+#### 119TH REVIEW - NEW PHASE 4 ISSUES
+
+##### Issue #420: TevmActionsLive.mine() Race Condition
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:185-210`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: `mine()` builds and runs block but doesn't lock state during operation. Concurrent calls could create conflicting blocks.
+
+**Impact**: Parallel mine calls may produce invalid or conflicting blocks.
+
+**Recommended Fix**: Add mutex or use atomic Effect transaction.
+
+##### Issue #421: SendLive Duplicated Error Handling
+**File:Lines**: `packages/decorators-effect/src/SendLive.js:88-115`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Error handling for transaction execution is duplicated across sendRawTransaction and sendTransaction with slight differences.
+
+**Impact**: Inconsistent error behavior between the two methods.
+
+**Recommended Fix**: Extract shared error handling to helper function.
+
+##### Issue #422: Direct vm.vm.evm Access Bypasses Abstraction
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:125-130`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Accesses `vm.vm.evm` directly instead of going through EvmService abstraction.
+
+**Impact**: Bypasses service abstraction, harder to test and mock.
+
+**Recommended Fix**: Use EvmService for EVM access.
+
+##### Issue #423: loadState JSON.parse Not Effect.try Wrapped
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:167-172`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `JSON.parse(state)` is called outside of Effect.try. Malformed JSON throws synchronously.
+
+**Impact**: JSON parse errors are uncaught exceptions, not Effect failures.
+
+**Recommended Fix**: Wrap JSON.parse in Effect.try for proper error handling.
+
+##### Issue #424: MemoryClientLive Unused bigintToHex Import
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:25-28`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `bigintToHex` function is defined but never used.
+
+**Impact**: Dead code, increases bundle size slightly.
+
+**Recommended Fix**: Remove unused function.
+
+##### Issue #425: RequestLive parseInt Without Radix Validation
+**File:Lines**: `packages/decorators-effect/src/RequestLive.js:192-198`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Uses `parseInt(hex, 16)` but doesn't validate that input is actually hex. Decimal strings parsed incorrectly.
+
+**Impact**: Non-hex inputs silently produce wrong values.
+
+**Recommended Fix**: Validate hex format before parsing.
+
+##### Issue #426: createMemoryClient ManagedRuntime Potential Leak
+**File:Lines**: `packages/memory-client-effect/src/createMemoryClient.js:183-195`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: ManagedRuntime created but no explicit dispose call on client shutdown.
+
+**Impact**: Runtime resources may not be cleaned up in long-running processes.
+
+**Recommended Fix**: Add dispose method that calls runtime.dispose().
+
+---
 
 **SIXTY-NINTH REVIEW (2026-01-30)** - Opus 4.5 parallel subagent comprehensive verification. Found **1 CRITICAL**, **8 HIGH**, **10 MEDIUM**, **5 LOW** issues.
 

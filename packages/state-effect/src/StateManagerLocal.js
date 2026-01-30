@@ -1,7 +1,13 @@
 import { Effect, Layer } from 'effect'
 import { createStateManager } from '@tevm/state'
 import { CommonService } from '@tevm/common-effect'
-import { StateRootNotFoundError } from '@tevm/errors-effect'
+import {
+	StateRootNotFoundError,
+	StorageError,
+	AccountNotFoundError,
+	InternalError,
+	NodeNotReadyError,
+} from '@tevm/errors-effect'
 import { StateManagerService } from './StateManagerService.js'
 import { createAddressFromString } from '@tevm/utils'
 
@@ -97,7 +103,14 @@ export const StateManagerLocal = (options = {}) => {
 			})
 
 			// Wait for the state manager to be ready
-			yield* Effect.promise(() => stateManager.ready())
+			yield* Effect.tryPromise({
+				try: () => stateManager.ready(),
+				catch: (error) =>
+					new NodeNotReadyError({
+						message: `Failed to initialize state manager`,
+						cause: /** @type {Error} */ (error),
+					}),
+			})
 
 			/**
 			 * Helper to create StateManagerShape from a stateManager instance
@@ -110,31 +123,95 @@ export const StateManagerLocal = (options = {}) => {
 					stateManager: sm,
 
 					getAccount: (address) =>
-						Effect.promise(() => sm.getAccount(toEthjsAddress(address))),
+						Effect.tryPromise({
+							try: () => sm.getAccount(toEthjsAddress(address)),
+							catch: (error) =>
+								new AccountNotFoundError({
+									message: `Failed to get account for address ${String(address)}`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					putAccount: (address, account) =>
-						Effect.promise(() => sm.putAccount(toEthjsAddress(address), account)),
+						Effect.tryPromise({
+							try: () => sm.putAccount(toEthjsAddress(address), account),
+							catch: (error) =>
+								new InternalError({
+									message: `Failed to put account for address ${String(address)}`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					deleteAccount: (address) =>
-						Effect.promise(() => sm.deleteAccount(toEthjsAddress(address))),
+						Effect.tryPromise({
+							try: () => sm.deleteAccount(toEthjsAddress(address)),
+							catch: (error) =>
+								new InternalError({
+									message: `Failed to delete account for address ${String(address)}`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					getStorage: (address, slot) =>
-						Effect.promise(() => sm.getStorage(toEthjsAddress(address), slot)),
+						Effect.tryPromise({
+							try: () => sm.getStorage(toEthjsAddress(address), slot),
+							catch: (error) =>
+								new StorageError({
+									message: `Failed to get storage for address ${String(address)}`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					putStorage: (address, slot, value) =>
-						Effect.promise(() => sm.putStorage(toEthjsAddress(address), slot, value)),
+						Effect.tryPromise({
+							try: () => sm.putStorage(toEthjsAddress(address), slot, value),
+							catch: (error) =>
+								new StorageError({
+									message: `Failed to put storage for address ${String(address)}`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					clearStorage: (address) =>
-						Effect.promise(() => sm.clearStorage(toEthjsAddress(address))),
+						Effect.tryPromise({
+							try: () => sm.clearStorage(toEthjsAddress(address)),
+							catch: (error) =>
+								new StorageError({
+									message: `Failed to clear storage for address ${String(address)}`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					getCode: (address) =>
-						Effect.promise(() => sm.getCode(toEthjsAddress(address))),
+						Effect.tryPromise({
+							try: () => sm.getCode(toEthjsAddress(address)),
+							catch: (error) =>
+								new InternalError({
+									message: `Failed to get code for address ${String(address)}`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					putCode: (address, code) =>
-						Effect.promise(() => sm.putCode(toEthjsAddress(address), code)),
+						Effect.tryPromise({
+							try: () => sm.putCode(toEthjsAddress(address), code),
+							catch: (error) =>
+								new InternalError({
+									message: `Failed to put code for address ${String(address)}`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					getStateRoot: () =>
-						Effect.promise(() => sm.getStateRoot()),
+						Effect.tryPromise({
+							try: () => sm.getStateRoot(),
+							catch: (error) =>
+								new StateRootNotFoundError({
+									message: `Failed to get state root`,
+									stateRoot: /** @type {`0x${string}`} */ ('0x'),
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					setStateRoot: (root) =>
 						Effect.tryPromise({
@@ -153,25 +230,74 @@ export const StateManagerLocal = (options = {}) => {
 						}),
 
 					checkpoint: () =>
-						Effect.promise(() => sm.checkpoint()),
+						Effect.tryPromise({
+							try: () => sm.checkpoint(),
+							catch: (error) =>
+								new InternalError({
+									message: `Failed to create state checkpoint`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					commit: () =>
-						Effect.promise(() => sm.commit()),
+						Effect.tryPromise({
+							try: () => sm.commit(),
+							catch: (error) =>
+								new InternalError({
+									message: `Failed to commit state changes`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					revert: () =>
-						Effect.promise(() => sm.revert()),
+						Effect.tryPromise({
+							try: () => sm.revert(),
+							catch: (error) =>
+								new InternalError({
+									message: `Failed to revert state to checkpoint`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					dumpState: () =>
-						Effect.promise(() => sm.dumpCanonicalGenesis()),
+						Effect.tryPromise({
+							try: () => sm.dumpCanonicalGenesis(),
+							catch: (error) =>
+								new InternalError({
+									message: `Failed to dump state`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					loadState: (state) =>
-						Effect.promise(() => sm.generateCanonicalGenesis(state)),
+						Effect.tryPromise({
+							try: () => sm.generateCanonicalGenesis(state),
+							catch: (error) =>
+								new InternalError({
+									message: `Failed to load state`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
-					ready: Effect.promise(() => sm.ready()),
+					ready: Effect.tryPromise({
+						try: () => sm.ready(),
+						catch: (error) =>
+							new NodeNotReadyError({
+								message: `State manager failed to become ready`,
+								cause: /** @type {Error} */ (error),
+							}),
+					}),
 
 					deepCopy: () =>
 						Effect.gen(function* () {
-							const copiedSm = yield* Effect.promise(() => sm.deepCopy())
+							const copiedSm = yield* Effect.tryPromise({
+								try: () => sm.deepCopy(),
+								catch: (error) =>
+									new InternalError({
+										message: `Failed to deep copy state manager`,
+										cause: /** @type {Error} */ (error),
+									}),
+							})
 							return createShape(copiedSm)
 						}),
 

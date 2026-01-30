@@ -74,10 +74,24 @@ export const BlockchainLocal = (options = {}) => {
 			if (options.genesisStateRoot !== undefined) {
 				chainOptions.genesisStateRoot = options.genesisStateRoot
 			}
-			const chain = yield* Effect.promise(() => createChain(chainOptions))
+			const chain = yield* Effect.tryPromise({
+				try: () => createChain(chainOptions),
+				catch: (error) =>
+					new InvalidBlockError({
+						message: `Failed to initialize blockchain chain`,
+						cause: /** @type {Error} */ (error),
+					}),
+			})
 
 			// Wait for the chain to be ready
-			yield* Effect.promise(() => chain.ready())
+			yield* Effect.tryPromise({
+				try: () => chain.ready(),
+				catch: (error) =>
+					new InvalidBlockError({
+						message: `Chain failed to become ready`,
+						cause: /** @type {Error} */ (error),
+					}),
+			})
 
 			/**
 			 * Helper to create BlockchainShape from a chain instance
@@ -114,13 +128,45 @@ export const BlockchainLocal = (options = {}) => {
 								}),
 						}),
 
-					putBlock: (block) => Effect.promise(() => chainInstance.putBlock(block)),
+					putBlock: (block) =>
+						Effect.tryPromise({
+							try: () => chainInstance.putBlock(block),
+							catch: (error) =>
+								new InvalidBlockError({
+									message: `Failed to add block to chain`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
-					getCanonicalHeadBlock: () => Effect.promise(() => chainInstance.getCanonicalHeadBlock()),
+					getCanonicalHeadBlock: () =>
+						Effect.tryPromise({
+							try: () => chainInstance.getCanonicalHeadBlock(),
+							catch: (error) =>
+								new BlockNotFoundError({
+									message: `Failed to get canonical head block`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
-					getIteratorHead: (name) => Effect.promise(() => chainInstance.getIteratorHead(name)),
+					getIteratorHead: (name) =>
+						Effect.tryPromise({
+							try: () => chainInstance.getIteratorHead(name),
+							catch: (error) =>
+								new BlockNotFoundError({
+									message: `Failed to get iterator head: ${name}`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
-					setIteratorHead: (tag, headHash) => Effect.promise(() => chainInstance.setIteratorHead(tag, headHash)),
+					setIteratorHead: (tag, headHash) =>
+						Effect.tryPromise({
+							try: () => chainInstance.setIteratorHead(tag, headHash),
+							catch: (error) =>
+								new InvalidBlockError({
+									message: `Failed to set iterator head for ${tag}`,
+									cause: /** @type {Error} */ (error),
+								}),
+						}),
 
 					delBlock: (blockHash) =>
 						Effect.tryPromise({
@@ -144,13 +190,27 @@ export const BlockchainLocal = (options = {}) => {
 
 					deepCopy: () =>
 						Effect.gen(function* () {
-							const copiedChain = yield* Effect.promise(() => chainInstance.deepCopy())
+							const copiedChain = yield* Effect.tryPromise({
+								try: () => chainInstance.deepCopy(),
+								catch: (error) =>
+									new InvalidBlockError({
+										message: `Failed to create deep copy of blockchain`,
+										cause: /** @type {Error} */ (error),
+									}),
+							})
 							return createShape(copiedChain)
 						}),
 
 					shallowCopy: () => createShape(chainInstance.shallowCopy()),
 
-					ready: Effect.promise(() => chainInstance.ready()),
+					ready: Effect.tryPromise({
+						try: () => chainInstance.ready(),
+						catch: (error) =>
+							new InvalidBlockError({
+								message: `Chain failed to become ready`,
+								cause: /** @type {Error} */ (error),
+							}),
+					}),
 
 					/**
 					 * Iterate through blocks in a range from start to end (inclusive).
