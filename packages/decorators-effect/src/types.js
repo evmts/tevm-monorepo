@@ -134,7 +134,7 @@
  * @property {(params: TevmSetAccountParams) => import('effect').Effect.Effect<TevmSetAccountResult, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} setAccount - Set account state
  * @property {() => import('effect').Effect.Effect<string, import('@tevm/errors-effect').InternalError, never>} dumpState - Dump VM state
  * @property {(state: string) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} loadState - Load VM state
- * @property {(options?: { blocks?: number }) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').InternalError, never>} mine - Mine blocks
+ * @property {(options?: { blocks?: number }) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').InvalidParamsError | import('@tevm/errors-effect').InternalError, never>} mine - Mine blocks
  */
 
 /**

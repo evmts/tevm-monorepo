@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (96th Update - Resolved HIGH Issue #69: Added StateRootNotFoundError handling to SnapshotLive.revertToSnapshot)
+**Last Updated**: 2026-01-30 (97th Update - Resolved MEDIUM Issue #74: Added blocks parameter validation to mine())
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
@@ -21,7 +21,7 @@
 **Open Issues Summary:**
 - **CRITICAL**: 0
 - **HIGH**: 0 ✅ (Issue #69 resolved)
-- **MEDIUM**: 13 🟡 (Issues #73, #75, #76 resolved)
+- **MEDIUM**: 12 🟡 (Issues #73, #74, #75, #76 resolved)
 - **LOW**: 36 (+13 new from 95th review)
 
 ---
@@ -296,7 +296,7 @@ return bytesToHex(execResult?.returnValue ?? new Uint8Array())
 ##### Issue #74: mine() Doesn't Validate Blocks Parameter
 **File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:241-246`
 **Severity**: 🟡 MEDIUM
-**Status**: 🟡 NEW
+**Status**: ✅ FIXED
 
 **Problem**: The `mine` function accepts `options.blocks` without validation. Negative numbers, floats, or very large values would cause unexpected behavior.
 
@@ -310,6 +310,8 @@ mine: (options = {}) =>
 ```
 
 **Recommended Fix**: Add validation for integer >= 0 and reasonable upper bound.
+
+**Resolution**: Added comprehensive validation for the `blocks` parameter: rejects negative numbers, non-integers, and values exceeding 1000 (reasonable upper bound to prevent DoS). Returns `InvalidParamsError` with descriptive messages. Updated type signature in `types.js` to include `InvalidParamsError` in error channel. Added 3 new tests covering negative, non-integer, and max-exceeded scenarios.
 
 ---
 

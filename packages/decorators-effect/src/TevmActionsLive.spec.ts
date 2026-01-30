@@ -696,4 +696,52 @@ describe('TevmActionsLive', () => {
 		const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
 		expect(result._tag).toBe('Failure')
 	})
+
+	describe('mine validation (Issue #74)', () => {
+		it('should reject negative blocks parameter', async () => {
+			const { layer } = createTestLayer()
+
+			const program = Effect.gen(function* () {
+				const tevmActions = yield* TevmActionsService
+				return yield* tevmActions.mine({ blocks: -1 })
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(result._tag).toBe('Failure')
+			if (result._tag === 'Failure' && result.cause._tag === 'Fail') {
+				expect((result.cause.error as any)._tag).toBe('InvalidParamsError')
+			}
+		})
+
+		it('should reject non-integer blocks parameter', async () => {
+			const { layer } = createTestLayer()
+
+			const program = Effect.gen(function* () {
+				const tevmActions = yield* TevmActionsService
+				return yield* tevmActions.mine({ blocks: 1.5 })
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(result._tag).toBe('Failure')
+			if (result._tag === 'Failure' && result.cause._tag === 'Fail') {
+				expect((result.cause.error as any)._tag).toBe('InvalidParamsError')
+			}
+		})
+
+		it('should reject blocks parameter exceeding max (1000)', async () => {
+			const { layer } = createTestLayer()
+
+			const program = Effect.gen(function* () {
+				const tevmActions = yield* TevmActionsService
+				return yield* tevmActions.mine({ blocks: 1001 })
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(result._tag).toBe('Failure')
+			if (result._tag === 'Failure' && result.cause._tag === 'Fail') {
+				expect((result.cause.error as any)._tag).toBe('InvalidParamsError')
+				expect((result.cause.error as any).message).toContain('too large')
+			}
+		})
+	})
 })

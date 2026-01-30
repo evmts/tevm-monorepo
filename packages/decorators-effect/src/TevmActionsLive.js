@@ -11,7 +11,7 @@ import {
 	GetAccountService,
 	SetAccountService,
 } from '@tevm/actions-effect'
-import { InternalError } from '@tevm/errors-effect'
+import { InternalError, InvalidParamsError } from '@tevm/errors-effect'
 
 /**
  * Live implementation of TevmActionsService.
@@ -247,6 +247,24 @@ export const TevmActionsLive = /** @type {Layer.Layer<import('./TevmActionsServi
 			mine: (options = {}) =>
 				Effect.gen(function* () {
 					const blocks = options.blocks ?? 1
+
+					// Validate blocks parameter (Issue #74 fix)
+					if (typeof blocks !== 'number' || !Number.isInteger(blocks) || blocks < 0) {
+						return yield* Effect.fail(
+							new InvalidParamsError({
+								message: `Invalid blocks parameter: expected non-negative integer, got ${blocks}`,
+							}),
+						)
+					}
+					// Reasonable upper bound to prevent accidental DoS
+					if (blocks > 1000) {
+						return yield* Effect.fail(
+							new InvalidParamsError({
+								message: `blocks parameter too large: ${blocks} (max 1000)`,
+							}),
+						)
+					}
+
 					// Capture base timestamp once outside the loop to ensure strictly increasing timestamps
 					const baseTimestamp = BigInt(Math.floor(Date.now() / 1000))
 
