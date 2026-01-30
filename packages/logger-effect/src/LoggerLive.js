@@ -23,10 +23,10 @@ import { LoggerService } from './LoggerService.js'
  * @returns {LoggerShape} The logger shape implementation
  */
 const createLoggerShape = (level, name = 'tevm') => {
-	// LogLevel aligns with @tevm/logger's Level type, so we can pass directly to Pino
+	// LogLevel aligns with @tevm/logger's Level type (now includes 'silent')
 	// 'silent' is natively supported by Pino to disable all log output
 	const pinoLogger = createLogger({
-		level: /** @type {import('@tevm/logger').Level} */ (level),
+		level,
 		name,
 	})
 
@@ -67,6 +67,14 @@ const createLoggerShape = (level, name = 'tevm') => {
  * This layer provides production-ready logging with configurable log levels.
  * Logs are output to stdout in JSON format (Pino's default).
  *
+ * **IMPORTANT: Node.js Environment Only**
+ *
+ * LoggerLive uses Pino which is designed for Node.js environments. It writes to
+ * `process.stdout` which is not available in browsers. For browser environments:
+ * - Use {@link LoggerSilent} to disable logging entirely
+ * - Implement a custom LoggerService layer with browser-compatible logging
+ * - Use console-based logging via a custom Layer.succeed implementation
+ *
  * @example
  * ```javascript
  * import { Effect } from 'effect'
@@ -86,6 +94,13 @@ const createLoggerShape = (level, name = 'tevm') => {
  * ```javascript
  * // Debug level for development
  * Effect.runPromise(program.pipe(Effect.provide(LoggerLive('debug'))))
+ * ```
+ *
+ * @example
+ * ```javascript
+ * // Browser-compatible alternative using LoggerSilent
+ * import { LoggerSilent } from '@tevm/logger-effect'
+ * Effect.runPromise(program.pipe(Effect.provide(LoggerSilent)))
  * ```
  *
  * @param {LogLevel} [level='warn'] - Minimum log level to output. Defaults to 'warn'.

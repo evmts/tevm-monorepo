@@ -114,12 +114,30 @@ export const TevmActionsLive = /** @type {Layer.Layer<import('./TevmActionsServi
 						gasPrice: params.gasPrice ?? 0n,
 						value: params.value ?? 0n,
 					}
+					// Wrap createAddress calls in Effect.try to capture validation errors (Issue #163)
 					if (params.to) {
-						callOpts['to'] = createAddress(params.to)
+						callOpts['to'] = yield* Effect.try({
+							try: () => createAddress(params.to),
+							catch: (e) =>
+								new InvalidParamsError({
+									message: `Invalid 'to' address: ${e instanceof Error ? e.message : String(e)}`,
+									method: 'tevm_call',
+									cause: e instanceof Error ? e : undefined,
+								}),
+						})
 					}
 					if (params.from) {
-						callOpts['caller'] = createAddress(params.from)
-						callOpts['origin'] = createAddress(params.from)
+						const fromAddress = yield* Effect.try({
+							try: () => createAddress(params.from),
+							catch: (e) =>
+								new InvalidParamsError({
+									message: `Invalid 'from' address: ${e instanceof Error ? e.message : String(e)}`,
+									method: 'tevm_call',
+									cause: e instanceof Error ? e : undefined,
+								}),
+						})
+						callOpts['caller'] = fromAddress
+						callOpts['origin'] = fromAddress
 					}
 
 					const result = yield* Effect.tryPromise({

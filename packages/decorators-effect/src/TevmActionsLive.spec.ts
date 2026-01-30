@@ -803,4 +803,53 @@ describe('TevmActionsLive', () => {
 			expect(capturedTimestamp!).toBeGreaterThan(futureTimestamp)
 		})
 	})
+
+	describe('address validation (Issue #163)', () => {
+		it('should return InvalidParamsError for invalid to address in tevm_call', async () => {
+			const { layer } = createTestLayer()
+
+			const params = {
+				to: 'invalid-address', // Invalid address
+				data: '0x1234',
+			}
+
+			const program = Effect.gen(function* () {
+				const tevmActions = yield* TevmActionsService
+				return yield* tevmActions.call(params as any)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(exit._tag).toBe('Failure')
+			if (exit._tag === 'Failure' && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error
+				expect(error._tag).toBe('InvalidParamsError')
+				expect((error as any).message).toContain("Invalid 'to' address")
+				expect((error as any).method).toBe('tevm_call')
+			}
+		})
+
+		it('should return InvalidParamsError for invalid from address in tevm_call', async () => {
+			const { layer } = createTestLayer()
+
+			const params = {
+				to: '0x1234567890123456789012345678901234567890',
+				data: '0x1234',
+				from: 'not-a-valid-hex-address', // Invalid from address
+			}
+
+			const program = Effect.gen(function* () {
+				const tevmActions = yield* TevmActionsService
+				return yield* tevmActions.call(params as any)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(exit._tag).toBe('Failure')
+			if (exit._tag === 'Failure' && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error
+				expect(error._tag).toBe('InvalidParamsError')
+				expect((error as any).message).toContain("Invalid 'from' address")
+				expect((error as any).method).toBe('tevm_call')
+			}
+		})
+	})
 })

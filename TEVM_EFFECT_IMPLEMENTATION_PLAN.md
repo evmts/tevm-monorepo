@@ -2,27 +2,182 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (110th Update - HIGH Priority Issues Fixed)
+**Last Updated**: 2026-01-30 (112th Update - HIGH Priority Issue #161 Fixed + MEDIUM Issues #159, #160, #163 Fixed)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
 
 ## Review Agent Summary (2026-01-30)
 
-**110th UPDATE.** Fixed all HIGH priority issues (#138, #145). All CRITICAL and HIGH issues are now resolved.
+**112th UPDATE.** Fixed 1 HIGH and 3 MEDIUM issues from the 111th review.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟡 MINOR ISSUES | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 2 MEDIUM (#133, #134), 20 LOW |
-| **Phase 2** | 🟢 RESOLVED | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 0 HIGH (#138 FIXED), 3 MEDIUM, 20 LOW |
-| **Phase 3** | 🟢 RESOLVED | 2 (node-effect, actions-effect) | 208 | ~99% | 0 HIGH (#145 FIXED), 4 MEDIUM, 24 LOW |
-| **Phase 4** | 🟡 MINOR ISSUES | 2 (memory-client-effect, decorators-effect) | 163 | ~86% | 2 MEDIUM (#154, #156), 27 LOW |
+| **Phase 1** | 🟢 GOOD | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 2 MEDIUM (#133, #134), 20 LOW |
+| **Phase 2** | 🟢 GOOD | 6 (common, transport, blockchain, state, evm, vm) | 231 | 100% | 3 MEDIUM, 20 LOW |
+| **Phase 3** | 🟡 MINOR ISSUES | 2 (node-effect, actions-effect) | 208 | ~99% | 5 MEDIUM (#146-149, #162), 24 LOW |
+| **Phase 4** | 🟡 MINOR ISSUES | 2 (memory-client-effect, decorators-effect) | 167 | ~97% | 3 MEDIUM (#154, #156, #164), 27 LOW |
 
 **Open Issues Summary:**
 - **CRITICAL**: 0
-- **HIGH**: 0 ✅ (Issues #138, #145 FIXED)
-- **MEDIUM**: 13 🟡 (Previous: #47, #82, #83, #112 + NEW: #133, #134, #139, #140, #146, #147, #148, #149, #154, #156)
+- **HIGH**: 0 ✅ (All HIGH issues resolved!)
+- **MEDIUM**: 13 🟡 (Previous 18 - 4 fixed: #159, #160, #161, #163)
 - **LOW**: 107
+
+---
+
+### 112TH UPDATE (2026-01-30) - HIGH Priority Issue #161 Fixed + MEDIUM Issues
+
+**Fixed By**: Claude Opus 4.5
+**Scope**: Fix all HIGH priority issues and several MEDIUM priority issues from 111th review
+
+#### Issues Fixed:
+
+##### Issue #161: VmLive Synchronous createVm Can Throw Without Effect Wrapper ✅ FIXED
+**Resolution**: Wrapped `createVm()` in `Effect.try()` with proper TevmError creation that includes error message, code (-32603), cause, and docsPath. Added 2 new tests covering both Error and non-Error thrown values. All 17 tests pass with 100% coverage.
+
+##### Issue #159: LogLevel 'silent' Type Mismatch with @tevm/logger ✅ FIXED
+**Resolution**: Updated `@tevm/logger`'s Level type to include 'silent', which is natively supported by Pino. Removed the type assertion in LoggerLive since types are now compatible.
+
+##### Issue #160: LoggerLive Browser Compatibility Concern (Pino) ✅ FIXED
+**Resolution**: Added comprehensive JSDoc documentation noting that LoggerLive is for Node.js environments only, and recommending LoggerSilent or custom browser-compatible layers for browser usage.
+
+##### Issue #163: createAddress Throws Synchronously Without Error Channel Capture ✅ FIXED
+**Resolution**: Wrapped all `createAddress` calls in `Effect.try()` with `InvalidParamsError` in both EthActionsLive.js and TevmActionsLive.js. Added 4 new tests for invalid address handling. All 89 decorators-effect tests pass.
+
+**Result**: All HIGH priority issues have been resolved! The Effect.ts migration now has 0 CRITICAL and 0 HIGH issues remaining.
+
+---
+
+### 111TH REVIEW (2026-01-30) - Independent Opus Subagent Code Review
+
+**Reviewed By**: Claude Opus 4.5 (4 parallel Opus subagents)
+**Scope**: Complete independent re-review of all 4 phases to find unreviewed bugs and flaws
+
+---
+
+#### Phase 1: 2 NEW MEDIUM Issues Found
+
+##### Issue #159: LogLevel 'silent' Type Mismatch with @tevm/logger ✅ FIXED
+**File:Lines**: `packages/logger-effect/src/LoggerLive.js:28-31`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED
+
+**Problem**: LoggerLive passes 'silent' as a level to `createLogger` from `@tevm/logger`, but `@tevm/logger`'s `Level` type is `'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'` - it does NOT include 'silent'. The JSDoc type assertion `/** @type {import('@tevm/logger').Level} */` hides this mismatch.
+
+**Resolution**: Updated `@tevm/logger`'s `Level` type in `packages/logger/src/LogOptions.ts` to include `'silent'`. Removed the type assertion in LoggerLive since types are now compatible. All 67 logger-effect tests pass with 100% coverage.
+
+---
+
+##### Issue #160: LoggerLive Browser Compatibility Concern (Pino) ✅ FIXED
+**File:Lines**: `packages/logger-effect/src/LoggerLive.js:2, 28`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED
+
+**Problem**: LoggerLive imports and uses pino via `@tevm/logger`, but pino has limited browser support. The JSDoc says logs are output to "stdout in JSON format" but `stdout` doesn't exist in browsers. Users may encounter runtime failures when using LoggerLive in browser environments.
+
+**Resolution**: Added comprehensive JSDoc documentation to LoggerLive noting that it is for Node.js environments only, and recommending LoggerSilent or custom browser-compatible layers for browser usage.
+
+---
+
+#### Phase 2: 1 NEW HIGH Issue Found
+
+##### Issue #161: VmLive Synchronous createVm Can Throw Without Effect Wrapper ✅ FIXED
+**File:Lines**: `packages/vm-effect/src/VmLive.js:73-78`
+**Severity**: 🔴 HIGH
+**Status**: ✅ FIXED
+
+**Problem**: `createVm()` is called synchronously without any Effect wrapper. If `createVm` throws a synchronous exception (e.g., invalid options, internal assertion failure), it becomes an unhandled defect that crashes the Effect fiber rather than being captured in the typed error channel.
+
+**Resolution**: Wrapped `createVm()` in `Effect.try()` with a `TevmError` error type that captures the original error message and cause. Updated JSDoc return type to include `TevmError` in the error channel. Added 2 new tests for error handling (Error object and non-Error thrown values). All 17 vm-effect tests pass with 100% coverage.
+
+---
+
+#### Phase 3: 1 NEW MEDIUM Issue Found
+
+##### Issue #162: Filter Cleanup Not Automatically Scheduled (Usability Issue)
+**File:Lines**: `packages/node-effect/src/FilterLive.js`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: While issue #145 added the `cleanupExpiredFilters` method, there is no automatic scheduling mechanism. Users must manually call `cleanupExpiredFilters()` periodically. Long-running applications that don't manually invoke cleanup will still accumulate filters (albeit with `lastAccessed` timestamps).
+
+**Recommended Fix**: Either:
+1. Add optional configuration parameter to `FilterLive()` for auto-cleanup interval
+2. Use `Effect.schedule` or a Fiber to periodically run cleanup when auto-cleanup is enabled
+3. Document prominently that users should implement their own periodic cleanup
+
+---
+
+#### Phase 4: 2 NEW MEDIUM Issues Found
+
+##### Issue #163: createAddress Throws Synchronously Without Error Channel Capture ✅ FIXED
+**File:Lines**: `packages/decorators-effect/src/EthActionsLive.js:123-128` and `TevmActionsLive.js:100-123`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED
+
+**Problem**: The `createAddress` function from `@tevm/address` is called synchronously after a dynamic import. If it throws (e.g., for malformed addresses), the exception is NOT captured in the typed Effect error channel - it becomes an untyped defect.
+
+**Resolution**: Wrapped all `createAddress` calls in `Effect.try()` with `InvalidParamsError` in both EthActionsLive.js and TevmActionsLive.js. Added InvalidParamsError import to EthActionsLive.js. Added 4 new tests for invalid address handling (invalid 'to' and 'from' addresses in both eth_call and tevm_call). All 89 decorators-effect tests pass with ~97% coverage.
+
+---
+
+##### Issue #164: setAccount Potential Race Condition with Concurrent Checkpoint Operations
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:166-264`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `setAccount` implementation uses checkpoint/commit/revert for atomicity, but Effect.ts does not serialize concurrent Effect executions by default. If multiple `setAccount` calls are made concurrently via `Effect.all()`, their checkpoint operations can interleave, potentially leading to nested checkpoints that don't properly isolate and one operation's revert affecting another operation's state.
+
+**Evidence**:
+```javascript
+// Lines 166-175: Checkpoint created
+yield* stateManager.checkpoint().pipe(...)
+
+// Lines 179-255: Core operations with multiple state mutations
+const coreOperations = Effect.gen(function* () {
+    // ... multiple state mutations
+    yield* stateManager.commit()
+})
+
+// Lines 258-262: Revert on error
+return yield* coreOperations.pipe(
+    Effect.tapError(() => stateManager.revert().pipe(...))
+)
+```
+
+**Recommended Fix**: Add a mutex/semaphore for state-modifying operations:
+```javascript
+import { Semaphore } from 'effect'
+const stateMutex = yield* Semaphore.make(1)
+return yield* Semaphore.withPermits(stateMutex, 1)(coreOperations)
+```
+
+---
+
+#### Summary Table (111th Review)
+
+| Phase | CRITICAL | HIGH | MEDIUM | LOW | Total NEW |
+|-------|----------|------|--------|-----|-----------|
+| **Phase 1** | 0 | 0 | 2 | 0 | 2 |
+| **Phase 2** | 0 | 1 | 0 | 0 | 1 |
+| **Phase 3** | 0 | 0 | 1 | 0 | 1 |
+| **Phase 4** | 0 | 0 | 2 | 0 | 2 |
+| **TOTAL NEW** | **0** | **1** | **5** | **0** | **6** |
+
+---
+
+#### Recommendations (111th Review)
+
+**Priority 1 - HIGH (MUST FIX BEFORE PRODUCTION):**
+1. Issue #161: Wrap `createVm()` in `Effect.try()` to capture synchronous exceptions
+
+**Priority 2 - MEDIUM (Should Fix):**
+2. Issue #159: Fix LogLevel type mismatch for 'silent'
+3. Issue #160: Document LoggerLive Node.js-only limitation
+4. Issue #162: Add optional auto-cleanup scheduling for filters
+5. Issue #163: Wrap `createAddress` calls in Effect error handling
+6. Issue #164: Add concurrency protection for setAccount checkpoint operations
 
 ---
 

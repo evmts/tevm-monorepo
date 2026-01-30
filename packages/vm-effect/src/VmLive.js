@@ -4,6 +4,7 @@ import { CommonService } from '@tevm/common-effect'
 import { StateManagerService } from '@tevm/state-effect'
 import { BlockchainService } from '@tevm/blockchain-effect'
 import { EvmService, mapEvmError } from '@tevm/evm-effect'
+import { TevmError } from '@tevm/errors-effect'
 import { VmService } from './VmService.js'
 
 /**
@@ -58,7 +59,8 @@ import { VmService } from './VmService.js'
  * ```
  *
  * @param {VmLiveOptions} [_options] - Configuration options (currently unused, reserved for API compatibility)
- * @returns {Layer.Layer<VmServiceId, never, typeof CommonService | typeof StateManagerService | typeof BlockchainService | typeof EvmService>} Layer providing VmService
+ * @returns {Layer.Layer<VmServiceId, TevmError, typeof CommonService | typeof StateManagerService | typeof BlockchainService | typeof EvmService>} Layer providing VmService
+ * @throws {TevmError} If the VM instance fails to initialize (captured in the typed error channel)
  */
 export const VmLive = (_options = {}) => {
 	// VmLiveOptions is empty - profiler/logging should be configured at EvmLive layer
@@ -70,11 +72,23 @@ export const VmLive = (_options = {}) => {
 			const blockchainShape = yield* BlockchainService
 			const evmShape = yield* EvmService
 
-			const vm = createVm({
-				common: commonShape.common,
-				stateManager: stateManagerShape.stateManager,
-				blockchain: blockchainShape.chain,
-				evm: /** @type {import('@tevm/vm').CreateVmOptions['evm']} */ (evmShape.evm),
+			// Wrap createVm in Effect.try to capture synchronous exceptions
+			// in the typed error channel (Issue #161)
+			const vm = yield* Effect.try({
+				try: () =>
+					createVm({
+						common: commonShape.common,
+						stateManager: stateManagerShape.stateManager,
+						blockchain: blockchainShape.chain,
+						evm: /** @type {import('@tevm/vm').CreateVmOptions['evm']} */ (evmShape.evm),
+					}),
+				catch: (error) =>
+					new TevmError({
+						message: `Failed to create VM: ${error instanceof Error ? error.message : String(error)}`,
+						code: -32603,
+						cause: error,
+						docsPath: '/reference/tevm/vm-effect/',
+					}),
 			})
 
 			/**

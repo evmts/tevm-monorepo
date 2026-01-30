@@ -1,11 +1,13 @@
-import { describe, it, expect } from 'vitest'
-import { Effect, Layer, Exit } from 'effect'
+import { describe, it, expect, vi } from 'vitest'
+import { Effect, Layer, Exit, Cause } from 'effect'
 import { VmService } from './VmService.js'
 import { VmLive } from './VmLive.js'
-import { CommonLocal } from '@tevm/common-effect'
-import { StateManagerLocal } from '@tevm/state-effect'
-import { BlockchainLocal } from '@tevm/blockchain-effect'
+import { CommonLocal, CommonService } from '@tevm/common-effect'
+import { StateManagerLocal, StateManagerService } from '@tevm/state-effect'
+import { BlockchainLocal, BlockchainService } from '@tevm/blockchain-effect'
 import { EvmService, EvmLive } from '@tevm/evm-effect'
+import { TevmError } from '@tevm/errors-effect'
+import * as vmModule from '@tevm/vm'
 
 describe('VmLive', () => {
 	describe('layer creation', () => {
@@ -191,6 +193,102 @@ describe('VmLive', () => {
 			const { VmLive: ExportedVmLive } = await import('./VmLive.js')
 			expect(ExportedVmLive).toBeDefined()
 			expect(typeof ExportedVmLive).toBe('function')
+		})
+	})
+
+	describe('error handling', () => {
+		it('should capture createVm errors in the typed error channel', async () => {
+			// Mock createVm to throw a synchronous error
+			const mockCreateVm = vi.spyOn(vmModule, 'createVm').mockImplementation(() => {
+				throw new Error('Simulated createVm failure')
+			})
+
+			try {
+				// Use valid layers for the other services
+				const stateLayer = Layer.provide(StateManagerLocal(), CommonLocal)
+				const blockchainLayer = Layer.provide(BlockchainLocal(), CommonLocal)
+				const evmLayer = Layer.provide(
+					EvmLive(),
+					Layer.mergeAll(stateLayer, blockchainLayer, CommonLocal),
+				)
+
+				// Build VmLive
+				const vmLayer = Layer.provide(
+					VmLive(),
+					Layer.mergeAll(evmLayer, stateLayer, blockchainLayer, CommonLocal),
+				)
+
+				const program = Effect.gen(function* () {
+					const vmService = yield* VmService
+					return vmService
+				})
+
+				const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(vmLayer)))
+
+				// The createVm failure should be captured as a TevmError
+				expect(Exit.isFailure(exit)).toBe(true)
+				if (Exit.isFailure(exit)) {
+					const failure = Cause.failureOption(exit.cause)
+					expect(failure._tag).toBe('Some')
+					if (failure._tag === 'Some') {
+						const error = failure.value
+						expect(error).toBeInstanceOf(TevmError)
+						expect((error as TevmError).message).toContain('Failed to create VM')
+						expect((error as TevmError).message).toContain('Simulated createVm failure')
+						expect((error as TevmError).code).toBe(-32603)
+						expect((error as TevmError).docsPath).toBe('/reference/tevm/vm-effect/')
+					}
+				}
+			} finally {
+				mockCreateVm.mockRestore()
+			}
+		})
+
+		it('should handle non-Error thrown values', async () => {
+			// Mock createVm to throw a string (not an Error instance)
+			const mockCreateVm = vi.spyOn(vmModule, 'createVm').mockImplementation(() => {
+				throw 'String error message' // Throwing a string, not an Error
+			})
+
+			try {
+				// Use valid layers for the other services
+				const stateLayer = Layer.provide(StateManagerLocal(), CommonLocal)
+				const blockchainLayer = Layer.provide(BlockchainLocal(), CommonLocal)
+				const evmLayer = Layer.provide(
+					EvmLive(),
+					Layer.mergeAll(stateLayer, blockchainLayer, CommonLocal),
+				)
+
+				// Build VmLive
+				const vmLayer = Layer.provide(
+					VmLive(),
+					Layer.mergeAll(evmLayer, stateLayer, blockchainLayer, CommonLocal),
+				)
+
+				const program = Effect.gen(function* () {
+					const vmService = yield* VmService
+					return vmService
+				})
+
+				const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(vmLayer)))
+
+				// The createVm failure should be captured as a TevmError
+				expect(Exit.isFailure(exit)).toBe(true)
+				if (Exit.isFailure(exit)) {
+					const failure = Cause.failureOption(exit.cause)
+					expect(failure._tag).toBe('Some')
+					if (failure._tag === 'Some') {
+						const error = failure.value
+						expect(error).toBeInstanceOf(TevmError)
+						// When throwing a string, it should be converted via String()
+						expect((error as TevmError).message).toContain('Failed to create VM')
+						expect((error as TevmError).message).toContain('String error message')
+						expect((error as TevmError).code).toBe(-32603)
+					}
+				}
+			} finally {
+				mockCreateVm.mockRestore()
+			}
 		})
 	})
 })

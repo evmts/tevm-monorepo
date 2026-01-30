@@ -626,4 +626,53 @@ describe('EthActionsLive', () => {
 			}
 		})
 	})
+
+	describe('address validation (Issue #163)', () => {
+		it('should return InvalidParamsError for invalid to address', async () => {
+			const { layer } = createTestLayer()
+
+			const params = {
+				to: 'invalid-address' as `0x${string}`, // Invalid address
+				data: '0x1234' as `0x${string}`,
+			}
+
+			const program = Effect.gen(function* () {
+				const ethActions = yield* EthActionsService
+				return yield* ethActions.call(params)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error
+				expect(error._tag).toBe('InvalidParamsError')
+				expect((error as any).message).toContain("Invalid 'to' address")
+				expect((error as any).method).toBe('eth_call')
+			}
+		})
+
+		it('should return InvalidParamsError for invalid from address', async () => {
+			const { layer } = createTestLayer()
+
+			const params = {
+				to: '0x1234567890123456789012345678901234567890' as `0x${string}`,
+				data: '0x1234' as `0x${string}`,
+				from: 'not-a-valid-hex-address' as `0x${string}`, // Invalid from address
+			}
+
+			const program = Effect.gen(function* () {
+				const ethActions = yield* EthActionsService
+				return yield* ethActions.call(params)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error
+				expect(error._tag).toBe('InvalidParamsError')
+				expect((error as any).message).toContain("Invalid 'from' address")
+				expect((error as any).method).toBe('eth_call')
+			}
+		})
+	})
 })
