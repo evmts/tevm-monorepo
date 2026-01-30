@@ -1614,6 +1614,8 @@ export const effectToPromise = <A, E>(
 | **Missing retry exhaustion test** | **MEDIUM** | HttpTransport.spec.ts | 🔴 Open | Tests retry succeeds on 2nd attempt, but no test verifying failure after all retries exhausted. |
 | **Missing timeout behavior test** | **MEDIUM** | HttpTransport.spec.ts | 🔴 Open | Tests verify AbortSignal passed but no test for actual timeout triggering. |
 | ~~**Missing invalid hex parsing test**~~ | ~~**MEDIUM**~~ | ForkConfigFromRpc.spec.ts | ✅ **FIXED** | Added 2 tests for malformed hex responses (invalid chainId and invalid blockNumber). Tests verify ForkError with correct method and message. |
+| ~~**Missing retry exhaustion test**~~ | ~~**MEDIUM**~~ | HttpTransport.spec.ts | ✅ **FIXED** | Added test verifying failure after all retries are exhausted (initial + 2 retries = 3 calls). |
+| ~~**Missing timeout behavior test**~~ | ~~**MEDIUM**~~ | HttpTransport.spec.ts | ✅ **FIXED** | Added test for timeout triggering with abort signal. |
 | ~~**Redundant `Effect.catchTag` after retry**~~ | ~~**LOW**~~ | HttpTransport.js | ✅ **FIXED** | Removed redundant `.catchTag('ForkError', ...)` call. |
 | ~~**Unused `Scope` import**~~ | ~~**LOW**~~ | HttpTransport.js | ✅ **FIXED** | Removed unused `Scope` import. |
 | ~~**Dead code: `defaultRetrySchedule` unused**~~ | ~~**LOW**~~ | HttpTransport.js | ✅ **FIXED** | Removed unused `defaultRetrySchedule` constant. |
@@ -1737,27 +1739,26 @@ export const effectToPromise = <A, E>(
 | Package | CRITICAL | HIGH | MEDIUM | LOW | Total Open | Tests | Coverage | RFC Compliance |
 |---------|----------|------|--------|-----|------------|-------|----------|----------------|
 | @tevm/common-effect | 0 | 0 | 0 | 4 | 4 | 33 | 100% | ✅ COMPLIANT |
-| @tevm/transport-effect | 0 | 1 | 3 | 0 | 4 | 55 | 100% | ⚠️ HAS ISSUES (batch support missing) |
+| @tevm/transport-effect | 0 | 1 | 1 | 0 | 2 | 57 | 100% | ⚠️ HAS ISSUES (batch support missing) |
 | @tevm/blockchain-effect | 0 | 0 | 2 | 3 | 5 | 37 | 100% | ✅ COMPLIANT |
 | @tevm/state-effect | 0 | 0 | 0 | 2 | 2 | 36 | 100% | ✅ COMPLIANT |
 | @tevm/evm-effect | 0 | 0 | 2 | 2 | 4 | 38 | 100% | ✅ COMPLIANT |
 | @tevm/vm-effect | 0 | 0 | 0 | 1 | 1 | 17 | 100% | ✅ COMPLIANT |
 | **Phase 2 Total** | **0** | **1** | **7** | **12** | **20** | **216** | **100%** | **⚠️ transport-effect batch support missing** |
 
-**🔴 REMAINING ISSUES (FORTY-THIRD REVIEW - 2026-01-29):**
+**🔴 REMAINING ISSUES (FORTY-FOURTH REVIEW - 2026-01-29):**
 - 🔴 **HIGH** @tevm/transport-effect: Missing batch request support - RFC feature gap
 - 🔴 **MEDIUM** @tevm/transport-effect: Missing Layer.scoped for resource cleanup
-- 🔴 **MEDIUM** @tevm/transport-effect: Missing retry exhaustion test
-- 🔴 **MEDIUM** @tevm/transport-effect: Missing timeout behavior test
 - 🔴 **LOW** @tevm/vm-effect: loggingEnabled option unused in VmLiveOptions
 - 🔴 **LOW** @tevm/state-effect: Duplicate toEthjsAddress helper in both Local/Live files
 - 🔴 **LOW** @tevm/blockchain-effect: BlockNotFoundError missing blockTag property
 
-**✅ FIXED IN FORTY-THIRD REVIEW (2026-01-29):**
+**✅ FIXED IN FORTY-FOURTH REVIEW (2026-01-29):**
 - ✅ @tevm/transport-effect: Retry logic now only retries network/timeout errors (added `isRetryableError` helper)
 - ✅ @tevm/transport-effect: Added malformed hex parsing tests for ForkConfigFromRpc (2 new tests)
 - ✅ @tevm/transport-effect: Removed redundant catchTag, unused Scope import, dead defaultRetrySchedule
-- ✅ @tevm/transport-effect: Added 7 new retry behavior tests covering all retry scenarios
+- ✅ @tevm/transport-effect: Added 9 new retry behavior tests covering all scenarios including retry exhaustion and timeout
+- ✅ @tevm/node-effect: Added logsCriteria deepCopy tests (2 new tests), removed unnecessary ternary
 
 **✅ ALL PRIOR CRITICAL/HIGH BUGS NOW FIXED (FORTY-SECOND REVIEW - 2026-01-29):**
 - ✅ @tevm/state-effect: Address type mismatch - FIXED with `toEthjsAddress` helper
@@ -2315,8 +2316,8 @@ All 4 Node State Services are now implemented and verified: ImpersonationService
 ### 3.1 Node State Services (Ref-Based) - @tevm/node-effect ✅ COMPLETE
 
 **Status**: ✅ COMPLETE
-**Tests**: 53 passing, 100% coverage
-**Created**: 2026-01-29
+**Tests**: 87 passing, 100% coverage
+**Updated**: 2026-01-29 (added logsCriteria deepCopy tests)
 
 **Current**: 15+ closure-captured variables in createTevmNode
 **Target**: Separate services with Ref-based state

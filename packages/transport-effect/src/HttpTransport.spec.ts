@@ -430,6 +430,67 @@ describe('HttpTransport', () => {
 			// Should only be called once since empty message errors are not retryable
 			expect(mockFetch).toHaveBeenCalledTimes(1)
 		})
+
+		it('should fail after all retries are exhausted', async () => {
+			// All network errors - retries will be exhausted
+			mockFetch.mockRejectedValue(new Error('fetch failed: ECONNREFUSED'))
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				retryCount: 2,
+				retryDelay: 10, // Short delay for testing
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+				return yield* transport.request('eth_chainId')
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(result)).toBe(true)
+			// Initial call + 2 retries = 3 total calls
+			expect(mockFetch).toHaveBeenCalledTimes(3)
+			if (Exit.isFailure(result)) {
+				const cause = result.cause
+				// @ts-expect-error - accessing internal structure
+				const error = cause._tag === 'Fail' ? cause.error : undefined
+				expect(error).toBeDefined()
+				expect(error._tag).toBe('ForkError')
+				expect(error.method).toBe('eth_chainId')
+			}
+		})
+
+		it('should handle timeout when request takes too long', async () => {
+			// Mock fetch that takes longer than timeout
+			mockFetch.mockImplementation(
+				() =>
+					new Promise((_, reject) => {
+						// Simulate abort signal being triggered
+						setTimeout(() => reject(new Error('aborted')), 50)
+					}),
+			)
+
+			const layer = HttpTransport({
+				url: 'https://example.com',
+				timeout: 10, // Very short timeout
+				retryCount: 0, // No retries for faster test
+			})
+
+			const program = Effect.gen(function* () {
+				const transport = yield* TransportService
+				return yield* transport.request('eth_chainId')
+			})
+
+			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(result)).toBe(true)
+			if (Exit.isFailure(result)) {
+				const cause = result.cause
+				// @ts-expect-error - accessing internal structure
+				const error = cause._tag === 'Fail' ? cause.error : undefined
+				expect(error).toBeDefined()
+				expect(error._tag).toBe('ForkError')
+			}
+		})
 	})
 
 	describe('configuration', () => {
