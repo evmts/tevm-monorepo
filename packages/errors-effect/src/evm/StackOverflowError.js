@@ -37,24 +37,28 @@ export class StackOverflowError extends Data.TaggedError('StackOverflowError') {
 
 	/**
 	 * The stack size when overflow occurred
+	 * @readonly
 	 * @type {number | undefined}
 	 */
 	stackSize
 
 	/**
 	 * Human-readable error message
+	 * @readonly
 	 * @type {string}
 	 */
 	message
 
 	/**
 	 * JSON-RPC error code
+	 * @readonly
 	 * @type {number}
 	 */
 	code
 
 	/**
 	 * Path to documentation
+	 * @readonly
 	 * @type {string}
 	 */
 	docsPath

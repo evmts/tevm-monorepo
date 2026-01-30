@@ -37,24 +37,28 @@ export class InvalidOpcodeError extends Data.TaggedError('InvalidOpcodeError') {
 
 	/**
 	 * The invalid opcode that was encountered
+	 * @readonly
 	 * @type {number | undefined}
 	 */
 	opcode
 
 	/**
 	 * Human-readable error message
+	 * @readonly
 	 * @type {string}
 	 */
 	message
 
 	/**
 	 * JSON-RPC error code
+	 * @readonly
 	 * @type {number}
 	 */
 	code
 
 	/**
 	 * Path to documentation
+	 * @readonly
 	 * @type {string}
 	 */
 	docsPath

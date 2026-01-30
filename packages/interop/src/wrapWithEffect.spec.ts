@@ -106,7 +106,7 @@ describe('wrapWithEffect', () => {
 		expect(wrapped.effect.methodB).toBeUndefined()
 	})
 
-	it('should skip non-function properties', () => {
+	it('should throw error for non-function properties', () => {
 		const obj = {
 			value: 42,
 			async method(): Promise<string> {
@@ -115,10 +115,22 @@ describe('wrapWithEffect', () => {
 		}
 
 		// TypeScript would normally prevent this, but testing runtime behavior
-		const wrapped = wrapWithEffect(obj, ['value' as keyof typeof obj, 'method'])
+		expect(() => wrapWithEffect(obj, ['value' as keyof typeof obj, 'method'])).toThrow(
+			"Property 'value' is not a function",
+		)
+	})
 
-		expect(wrapped.effect.method).toBeDefined()
-		expect(wrapped.effect.value).toBeUndefined()
+	it('should throw error for missing methods', () => {
+		const obj = {
+			async method(): Promise<string> {
+				return 'result'
+			},
+		}
+
+		// TypeScript would normally prevent this, but testing runtime behavior
+		expect(() => wrapWithEffect(obj, ['nonexistent' as keyof typeof obj])).toThrow(
+			"Method 'nonexistent' does not exist on instance",
+		)
 	})
 
 	it('should preserve this binding for methods', async () => {

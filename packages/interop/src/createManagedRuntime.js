@@ -7,6 +7,9 @@ import { ManagedRuntime, Layer } from 'effect'
  * a reusable pattern for creating runtimes with layers. The runtime can be
  * disposed when no longer needed, properly cleaning up resources.
  *
+ * Note: This is a thin wrapper around `ManagedRuntime.make`. Consider using
+ * `ManagedRuntime.make` directly if you don't need the abstraction.
+ *
  * @example
  * ```typescript
  * import { createManagedRuntime, effectToPromise } from '@tevm/interop'
@@ -42,7 +45,7 @@ import { ManagedRuntime, Layer } from 'effect'
  * @template E - The error type of the layer
  * @template ROut - The services provided by the layer
  * @param {Layer.Layer<ROut, E, RIn>} layer - The layer to create a runtime from
- * @returns {ManagedRuntime.ManagedRuntime<ROut, E>} A managed runtime
+ * @returns {ManagedRuntime.ManagedRuntime<ROut, E>} A managed runtime that must be disposed when no longer needed
  */
 export const createManagedRuntime = (layer) => {
 	return ManagedRuntime.make(layer)

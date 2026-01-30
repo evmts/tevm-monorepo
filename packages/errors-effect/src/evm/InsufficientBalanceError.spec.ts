@@ -79,4 +79,20 @@ describe('InsufficientBalanceError', () => {
 		expect(InsufficientBalanceError.code).toBe(-32000)
 		expect(InsufficientBalanceError.docsPath).toBe('/reference/tevm/errors/classes/insufficientbalanceerror/')
 	})
+
+	it('should create with empty props', () => {
+		const error = new InsufficientBalanceError()
+
+		expect(error.address).toBeUndefined()
+		expect(error.required).toBeUndefined()
+		expect(error.available).toBeUndefined()
+		expect(error._tag).toBe('InsufficientBalanceError')
+		expect(error.message).toBe('Insufficient balance error occurred.')
+	})
+
+	it('should use default message when no address provided', () => {
+		const error = new InsufficientBalanceError({})
+
+		expect(error.message).toBe('Insufficient balance error occurred.')
+	})
 })

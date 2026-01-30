@@ -43,36 +43,42 @@ export class InsufficientBalanceError extends Data.TaggedError('InsufficientBala
 
 	/**
 	 * The address that has insufficient balance
-	 * @type {Address}
+	 * @readonly
+	 * @type {Address | undefined}
 	 */
 	address
 
 	/**
 	 * The required balance to perform the operation
-	 * @type {bigint}
+	 * @readonly
+	 * @type {bigint | undefined}
 	 */
 	required
 
 	/**
 	 * The available balance in the account
-	 * @type {bigint}
+	 * @readonly
+	 * @type {bigint | undefined}
 	 */
 	available
 
 	/**
 	 * Human-readable error message
+	 * @readonly
 	 * @type {string}
 	 */
 	message
 
 	/**
 	 * JSON-RPC error code
+	 * @readonly
 	 * @type {number}
 	 */
 	code
 
 	/**
 	 * Path to documentation
+	 * @readonly
 	 * @type {string}
 	 */
 	docsPath
@@ -80,19 +86,21 @@ export class InsufficientBalanceError extends Data.TaggedError('InsufficientBala
 	/**
 	 * Constructs a new InsufficientBalanceError
 	 * @param {Object} props - Error properties
-	 * @param {Address} props.address - The address with insufficient balance
-	 * @param {bigint} props.required - The required balance
-	 * @param {bigint} props.available - The available balance
+	 * @param {Address} [props.address] - The address with insufficient balance
+	 * @param {bigint} [props.required] - The required balance
+	 * @param {bigint} [props.available] - The available balance
 	 * @param {string} [props.message] - Optional custom message
 	 */
-	constructor(props) {
+	constructor(props = {}) {
 		super()
 		this.address = props.address
 		this.required = props.required
 		this.available = props.available
 		this.message =
 			props.message ??
-			`Insufficient balance: account ${props.address} requires ${props.required} but has ${props.available}`
+			(props.address !== undefined
+				? `Insufficient balance: account ${props.address} requires ${props.required} but has ${props.available}`
+				: 'Insufficient balance error occurred.')
 		this.code = InsufficientBalanceError.code
 		this.docsPath = InsufficientBalanceError.docsPath
 	}

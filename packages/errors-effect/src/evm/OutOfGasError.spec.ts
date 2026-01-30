@@ -16,10 +16,31 @@ describe('OutOfGasError', () => {
 		expect(error.docsPath).toBe('/reference/tevm/errors/classes/outofgaserror/')
 	})
 
-	it('should use default message when not provided', () => {
+	it('should use default message when no gas info provided', () => {
 		const error = new OutOfGasError({})
 
 		expect(error.message).toBe('Out of gas error occurred.')
+	})
+
+	it('should include gas info in message when provided', () => {
+		const error = new OutOfGasError({
+			gasUsed: 100000n,
+			gasLimit: 21000n,
+		})
+
+		expect(error.message).toBe('Out of gas: used 100000, limit 21000')
+	})
+
+	it('should handle partial gas info in message', () => {
+		const errorWithOnlyGasUsed = new OutOfGasError({
+			gasUsed: 100000n,
+		})
+		expect(errorWithOnlyGasUsed.message).toBe('Out of gas: used 100000, limit unknown')
+
+		const errorWithOnlyGasLimit = new OutOfGasError({
+			gasLimit: 21000n,
+		})
+		expect(errorWithOnlyGasLimit.message).toBe('Out of gas: used unknown, limit 21000')
 	})
 
 	it('should allow custom message', () => {

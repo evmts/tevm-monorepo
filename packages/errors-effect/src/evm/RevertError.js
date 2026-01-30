@@ -42,30 +42,35 @@ export class RevertError extends Data.TaggedError('RevertError') {
 
 	/**
 	 * The revert data (encoded error)
+	 * @readonly
 	 * @type {Hex | undefined}
 	 */
 	data
 
 	/**
 	 * The decoded revert reason, if available
+	 * @readonly
 	 * @type {string | undefined}
 	 */
 	reason
 
 	/**
 	 * Human-readable error message
+	 * @readonly
 	 * @type {string}
 	 */
 	message
 
 	/**
 	 * JSON-RPC error code
+	 * @readonly
 	 * @type {number}
 	 */
 	code
 
 	/**
 	 * Path to documentation
+	 * @readonly
 	 * @type {string}
 	 */
 	docsPath

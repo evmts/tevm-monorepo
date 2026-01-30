@@ -21,24 +21,28 @@ import { Data } from 'effect'
 export class TevmError extends Data.TaggedError('TevmError') {
 	/**
 	 * The error message
+	 * @readonly
 	 * @type {string}
 	 */
 	message
 
 	/**
 	 * JSON-RPC error code
+	 * @readonly
 	 * @type {number}
 	 */
 	code
 
 	/**
 	 * Path to documentation for this error
+	 * @readonly
 	 * @type {string | undefined}
 	 */
 	docsPath
 
 	/**
 	 * The underlying cause of this error, if any
+	 * @readonly
 	 * @type {unknown}
 	 */
 	cause

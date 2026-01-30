@@ -38,6 +38,24 @@ describe('toBaseError', () => {
 		expect(result.docsPath).toBe('/reference/tevm/errors/classes/insufficientbalanceerror/')
 	})
 
+	it('should preserve error-specific properties on InsufficientBalanceError', () => {
+		const error = new InsufficientBalanceError({
+			address: '0x1234567890123456789012345678901234567890',
+			required: 100n,
+			available: 50n,
+		})
+
+		const result = toBaseError(error) as ReturnType<typeof toBaseError> & {
+			address: string
+			required: bigint
+			available: bigint
+		}
+
+		expect(result.address).toBe('0x1234567890123456789012345678901234567890')
+		expect(result.required).toBe(100n)
+		expect(result.available).toBe(50n)
+	})
+
 	it('should convert OutOfGasError to BaseError-like object', () => {
 		const error = new OutOfGasError({
 			gasUsed: 100000n,
@@ -49,6 +67,21 @@ describe('toBaseError', () => {
 		expect(result._tag).toBe('OutOfGasError')
 		expect(result.name).toBe('OutOfGasError')
 		expect(result.code).toBe(-32003)
+	})
+
+	it('should preserve error-specific properties on OutOfGasError', () => {
+		const error = new OutOfGasError({
+			gasUsed: 100000n,
+			gasLimit: 21000n,
+		})
+
+		const result = toBaseError(error) as ReturnType<typeof toBaseError> & {
+			gasUsed: bigint
+			gasLimit: bigint
+		}
+
+		expect(result.gasUsed).toBe(100000n)
+		expect(result.gasLimit).toBe(21000n)
 	})
 
 	it('should produce an Error instance', () => {

@@ -7,6 +7,10 @@ import { Effect } from 'effect'
  * with Effect pipelines. The resulting function returns an Effect that will
  * either succeed with the Promise's resolved value or fail with the rejection.
  *
+ * Note: The resulting Effect has an error type of `unknown` since the original
+ * Promise may reject with any error type. Use Effect.catchAll or Effect.mapError
+ * to refine the error type if needed.
+ *
  * @example
  * ```typescript
  * import { promiseToEffect } from '@tevm/interop'
@@ -46,7 +50,7 @@ import { Effect } from 'effect'
  * @template A - The return type of the Promise
  * @template Args - The argument types of the function
  * @param {(...args: Args) => Promise<A>} fn - The Promise-returning function to wrap
- * @returns {(...args: Args) => Effect.Effect<A, unknown, never>} A function that returns an Effect
+ * @returns {(...args: Args) => Effect.Effect<A, unknown, never>} A function that returns an Effect. The error type is `unknown` as the Promise may reject with any value.
  */
 export const promiseToEffect = (fn) => {
 	return (...args) => Effect.tryPromise(() => fn(...args))

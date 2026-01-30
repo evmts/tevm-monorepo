@@ -7,6 +7,9 @@ import { Effect } from 'effect'
  * The original methods remain unchanged, and a new `.effect` property is added
  * containing Effect-wrapped versions of the specified methods.
  *
+ * Note: The wrapped Effect methods have an error type of `unknown` since
+ * the original Promise-based methods may reject with any error type.
+ *
  * @example
  * ```typescript
  * import { wrapWithEffect } from '@tevm/interop'
@@ -34,6 +37,7 @@ import { Effect } from 'effect'
  * @param {T} instance - The object instance to wrap
  * @param {(keyof T)[]} methods - Array of method names to wrap with Effect
  * @returns {T & { effect: Record<string, (...args: unknown[]) => Effect.Effect<unknown, unknown, never>> }} The original object with an added `.effect` property
+ * @throws {Error} Throws if any specified method does not exist on the instance or is not a function
  */
 export const wrapWithEffect = (instance, methods) => {
 	/** @type {Record<string, (...args: unknown[]) => Effect.Effect<unknown, unknown, never>>} */
@@ -41,10 +45,14 @@ export const wrapWithEffect = (instance, methods) => {
 
 	for (const method of methods) {
 		const fn = instance[method]
-		if (typeof fn === 'function') {
-			effectMethods[/** @type {string} */ (method)] = (...args) =>
-				Effect.tryPromise(() => /** @type {Function} */ (fn).apply(instance, args))
+		if (fn === undefined) {
+			throw new Error(`Method '${String(method)}' does not exist on instance`)
 		}
+		if (typeof fn !== 'function') {
+			throw new Error(`Property '${String(method)}' is not a function`)
+		}
+		effectMethods[/** @type {string} */ (method)] = (...args) =>
+			Effect.tryPromise(() => /** @type {Function} */ (fn).apply(instance, args))
 	}
 
 	return Object.assign(instance, { effect: effectMethods })

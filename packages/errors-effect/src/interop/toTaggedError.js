@@ -24,6 +24,10 @@ const errorMap = {
  *
  * This is useful for bridging between the Promise-based API and the Effect-based API.
  *
+ * Note: Error-specific properties (address, gasUsed, opcode, etc.) will be extracted
+ * from the source error if they exist. If the source error doesn't have structured
+ * data, only the message will be preserved.
+ *
  * @example
  * ```typescript
  * import { toTaggedError } from '@tevm/errors-effect'
@@ -58,33 +62,47 @@ export const toTaggedError = (error) => {
 
 	// Handle BaseError from @tevm/errors
 	if (error && typeof error === 'object' && '_tag' in error) {
-		const baseError = /** @type {import('@tevm/errors').BaseError} */ (error)
+		const baseError = /** @type {import('@tevm/errors').BaseError & Record<string, unknown>} */ (error)
 		const tag = baseError._tag
 
 		// Check if we have a matching TaggedError class
 		const ErrorClass = errorMap[tag]
 		if (ErrorClass) {
 			// Create a TaggedError with properties from the BaseError
-			// Different error types have different required properties
+			// Extract error-specific properties if they exist on the source
 			if (tag === 'InsufficientBalanceError') {
 				return new InsufficientBalanceError({
-					address: /** @type {`0x${string}`} */ ('0x0000000000000000000000000000000000000000'),
-					required: 0n,
-					available: 0n,
+					address: typeof baseError.address === 'string' ? /** @type {`0x${string}`} */ (baseError.address) : undefined,
+					required: typeof baseError.required === 'bigint' ? baseError.required : undefined,
+					available: typeof baseError.available === 'bigint' ? baseError.available : undefined,
 					message: baseError.message,
 				})
 			}
 			if (tag === 'OutOfGasError') {
-				return new OutOfGasError({ message: baseError.message })
+				return new OutOfGasError({
+					gasUsed: typeof baseError.gasUsed === 'bigint' ? baseError.gasUsed : undefined,
+					gasLimit: typeof baseError.gasLimit === 'bigint' ? baseError.gasLimit : undefined,
+					message: baseError.message,
+				})
 			}
 			if (tag === 'RevertError') {
-				return new RevertError({ message: baseError.message })
+				return new RevertError({
+					data: typeof baseError.data === 'string' ? /** @type {`0x${string}`} */ (baseError.data) : undefined,
+					reason: typeof baseError.reason === 'string' ? baseError.reason : undefined,
+					message: baseError.message,
+				})
 			}
 			if (tag === 'InvalidOpcodeError') {
-				return new InvalidOpcodeError({ message: baseError.message })
+				return new InvalidOpcodeError({
+					opcode: typeof baseError.opcode === 'number' ? baseError.opcode : undefined,
+					message: baseError.message,
+				})
 			}
 			if (tag === 'StackOverflowError') {
-				return new StackOverflowError({ message: baseError.message })
+				return new StackOverflowError({
+					stackSize: typeof baseError.stackSize === 'number' ? baseError.stackSize : undefined,
+					message: baseError.message,
+				})
 			}
 			if (tag === 'StackUnderflowError') {
 				return new StackUnderflowError({ message: baseError.message })

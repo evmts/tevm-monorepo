@@ -38,30 +38,35 @@ export class OutOfGasError extends Data.TaggedError('OutOfGasError') {
 
 	/**
 	 * The gas used when the error occurred
+	 * @readonly
 	 * @type {bigint | undefined}
 	 */
 	gasUsed
 
 	/**
 	 * The gas limit for the transaction
+	 * @readonly
 	 * @type {bigint | undefined}
 	 */
 	gasLimit
 
 	/**
 	 * Human-readable error message
+	 * @readonly
 	 * @type {string}
 	 */
 	message
 
 	/**
 	 * JSON-RPC error code
+	 * @readonly
 	 * @type {number}
 	 */
 	code
 
 	/**
 	 * Path to documentation
+	 * @readonly
 	 * @type {string}
 	 */
 	docsPath
@@ -77,7 +82,11 @@ export class OutOfGasError extends Data.TaggedError('OutOfGasError') {
 		super()
 		this.gasUsed = props.gasUsed
 		this.gasLimit = props.gasLimit
-		this.message = props.message ?? 'Out of gas error occurred.'
+		this.message =
+			props.message ??
+			(props.gasUsed !== undefined || props.gasLimit !== undefined
+				? `Out of gas: used ${props.gasUsed ?? 'unknown'}, limit ${props.gasLimit ?? 'unknown'}`
+				: 'Out of gas error occurred.')
 		this.code = OutOfGasError.code
 		this.docsPath = OutOfGasError.docsPath
 	}

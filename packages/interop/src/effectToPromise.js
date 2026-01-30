@@ -35,10 +35,12 @@ import { Effect, Runtime } from 'effect'
  *
  * @template A - The success type of the Effect
  * @template E - The error type of the Effect
- * @param {Effect.Effect<A, E, never>} effect - The Effect to convert
- * @param {Runtime.Runtime<never>} [runtime] - Optional runtime to use. Defaults to defaultRuntime.
+ * @template R - The requirements type of the Effect (must be satisfied by the runtime)
+ * @param {Effect.Effect<A, E, R>} effect - The Effect to convert
+ * @param {Runtime.Runtime<R>} [runtime] - Optional runtime to use. Defaults to defaultRuntime (only valid when R is never).
  * @returns {Promise<A>} A Promise that resolves with the Effect's success value or rejects with the error
+ * @throws {E} Rejects with the Effect's error type if the effect fails
  */
-export const effectToPromise = (effect, runtime = Runtime.defaultRuntime) => {
+export const effectToPromise = (effect, runtime = /** @type {Runtime.Runtime<any>} */ (Runtime.defaultRuntime)) => {
 	return Runtime.runPromise(runtime)(effect)
 }

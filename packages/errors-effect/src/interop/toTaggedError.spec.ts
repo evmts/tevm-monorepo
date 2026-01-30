@@ -57,6 +57,25 @@ describe('toTaggedError', () => {
 		expect(result).toBeInstanceOf(InsufficientBalanceError)
 	})
 
+	it('should extract properties from InsufficientBalanceError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'InsufficientBalanceError',
+			message: 'Insufficient balance',
+			code: -32000,
+			address: '0x1234567890123456789012345678901234567890',
+			required: 1000n,
+			available: 500n,
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InsufficientBalanceError')
+		expect(result).toBeInstanceOf(InsufficientBalanceError)
+		const insufficientError = result as InsufficientBalanceError
+		expect(insufficientError.address).toBe('0x1234567890123456789012345678901234567890')
+		expect(insufficientError.required).toBe(1000n)
+		expect(insufficientError.available).toBe(500n)
+	})
+
 	it('should convert a BaseError-like OutOfGasError to TaggedError', () => {
 		const baseErrorLike = {
 			_tag: 'OutOfGasError',
@@ -67,6 +86,23 @@ describe('toTaggedError', () => {
 		const result = toTaggedError(baseErrorLike)
 		expect(result._tag).toBe('OutOfGasError')
 		expect(result).toBeInstanceOf(OutOfGasError)
+	})
+
+	it('should extract properties from OutOfGasError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'OutOfGasError',
+			message: 'Out of gas',
+			code: -32003,
+			gasUsed: 100000n,
+			gasLimit: 21000n,
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('OutOfGasError')
+		expect(result).toBeInstanceOf(OutOfGasError)
+		const outOfGasError = result as OutOfGasError
+		expect(outOfGasError.gasUsed).toBe(100000n)
+		expect(outOfGasError.gasLimit).toBe(21000n)
 	})
 
 	it('should convert a BaseError-like RevertError to TaggedError', () => {
@@ -81,6 +117,23 @@ describe('toTaggedError', () => {
 		expect(result).toBeInstanceOf(RevertError)
 	})
 
+	it('should extract properties from RevertError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'RevertError',
+			message: 'Execution reverted',
+			code: 3,
+			data: '0x08c379a00000000000000000',
+			reason: 'Insufficient allowance',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('RevertError')
+		expect(result).toBeInstanceOf(RevertError)
+		const revertError = result as RevertError
+		expect(revertError.data).toBe('0x08c379a00000000000000000')
+		expect(revertError.reason).toBe('Insufficient allowance')
+	})
+
 	it('should convert a BaseError-like InvalidOpcodeError to TaggedError', () => {
 		const baseErrorLike = {
 			_tag: 'InvalidOpcodeError',
@@ -93,6 +146,21 @@ describe('toTaggedError', () => {
 		expect(result).toBeInstanceOf(InvalidOpcodeError)
 	})
 
+	it('should extract properties from InvalidOpcodeError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'InvalidOpcodeError',
+			message: 'Invalid opcode',
+			code: -32015,
+			opcode: 0xfe,
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InvalidOpcodeError')
+		expect(result).toBeInstanceOf(InvalidOpcodeError)
+		const invalidOpcodeError = result as InvalidOpcodeError
+		expect(invalidOpcodeError.opcode).toBe(0xfe)
+	})
+
 	it('should convert a BaseError-like StackOverflowError to TaggedError', () => {
 		const baseErrorLike = {
 			_tag: 'StackOverflowError',
@@ -103,6 +171,21 @@ describe('toTaggedError', () => {
 		const result = toTaggedError(baseErrorLike)
 		expect(result._tag).toBe('StackOverflowError')
 		expect(result).toBeInstanceOf(StackOverflowError)
+	})
+
+	it('should extract properties from StackOverflowError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'StackOverflowError',
+			message: 'Stack overflow',
+			code: -32015,
+			stackSize: 1025,
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('StackOverflowError')
+		expect(result).toBeInstanceOf(StackOverflowError)
+		const stackOverflowError = result as StackOverflowError
+		expect(stackOverflowError.stackSize).toBe(1025)
 	})
 
 	it('should convert a BaseError-like StackUnderflowError to TaggedError', () => {

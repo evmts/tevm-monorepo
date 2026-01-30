@@ -7,6 +7,9 @@ import { Effect, Layer, Context } from 'effect'
  * The factory function is called when the Layer is provided, and its result
  * becomes the service implementation.
  *
+ * Note: The resulting Layer has an error type of `unknown` since the factory
+ * function's Promise may reject with any error type.
+ *
  * @example
  * ```typescript
  * import { layerFromFactory } from '@tevm/interop'
@@ -46,7 +49,7 @@ import { Effect, Layer, Context } from 'effect'
  * @template O - The options type for the factory function
  * @param {Context.Tag<I, S>} tag - The Context.Tag for the service
  * @param {(options: O) => Promise<S>} factory - The factory function that creates the service
- * @returns {(options: O) => Layer.Layer<I, unknown, never>} A function that takes options and returns a Layer
+ * @returns {(options: O) => Layer.Layer<I, unknown, never>} A function that takes options and returns a Layer. The error type is `unknown` as the factory may reject with any value.
  */
 export const layerFromFactory = (tag, factory) => {
 	return (options) =>

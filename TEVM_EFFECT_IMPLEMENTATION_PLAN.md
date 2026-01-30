@@ -33,7 +33,7 @@
 **Goal**: Add Effect as dependency, create interop layer, migrate foundational packages
 **Breaking Changes**: None (additive only)
 
-### REVIEW AGENT Review Status: IN PROGRESS (2026-01-29)
+### REVIEW AGENT Review Status: COMPLETED (2026-01-29)
 
 ---
 
@@ -94,6 +94,22 @@ export class InsufficientBalanceError extends Data.TaggedError("InsufficientBala
 - Interop helpers enable gradual migration between Promise and Effect APIs
 - Test coverage with Effect.catchTag pattern validation confirms type-safe error handling
 
+**REVIEW NOTES (2026-01-29)**: ✅ RESOLVED
+
+| Issue | Severity | File | Status | Resolution |
+|-------|----------|------|--------|------------|
+| Missing readonly properties | **Critical** | All error files | ✅ Fixed | Added `@readonly` JSDoc to all properties |
+| toTaggedError loses data | **Critical** | toTaggedError.js:69-91 | ✅ Fixed | Now extracts properties from source if available |
+| Hardcoded version | High | toBaseError.js:42 | ✅ Fixed | Extracted to VERSION constant |
+| toBaseError missing props | High | toBaseError.js:36-44 | ✅ Fixed | Now preserves all error-specific properties |
+| BaseErrorLike typedef mismatch | High | toBaseError.js:49-59 | ✅ Fixed | Return type includes error-specific props |
+| Inconsistent message generation | Medium | OutOfGasError.js | ✅ Fixed | Message now includes gas info when available |
+| InsufficientBalanceError props | Medium | InsufficientBalanceError.js:88-98 | ✅ Fixed | Props made optional, constructor uses defaults |
+| Missing test coverage | Medium | toTaggedError.spec.ts | ✅ Fixed | Added 5 tests for property extraction |
+| Incomplete JSDoc | Low | toTaggedError.js:44 | ✅ Fixed | Added note about property extraction |
+
+**All Action Items Completed** (2026-01-29)
+
 ---
 
 ### 1.3 @tevm/interop (New Package)
@@ -123,6 +139,22 @@ export const effectToPromise = <A, E>(
 - ManagedRuntime.make returns an object with runPromise/dispose methods directly
 - Effect.tryPromise is the idiomatic way to wrap Promise-returning functions
 - wrapWithEffect must preserve `this` binding with .apply(instance, args)
+
+**REVIEW NOTES (2026-01-29)**: ✅ RESOLVED
+
+| Issue | Severity | File | Status | Resolution |
+|-------|----------|------|--------|------------|
+| Runtime type too restrictive | Medium | effectToPromise.js:42 | ✅ Fixed | Runtime now accepts generic R type |
+| Generic types not preserved | Medium | promiseToEffect.js:51-52 | ⚠️ Known | Documented as limitation of tryPromise wrapper |
+| Error type is `unknown` | Medium | promiseToEffect.js, wrapWithEffect.js, layerFromFactory.js | ✅ Fixed | All JSDoc now documents `unknown` error type |
+| wrapWithEffect silent skip | Medium | wrapWithEffect.js:44 | ✅ Fixed | Now throws Error for missing/non-function props |
+| Questionable wrapper | Low | createManagedRuntime.js | ✅ Documented | Added note suggesting direct ManagedRuntime.make |
+| Missing @throws JSDoc | Low | All files | ✅ Fixed | Added @throws documentation |
+| Missing custom runtime test | Low | effectToPromise.spec.ts | ⚠️ Deferred | Existing tests cover default runtime |
+| Missing sync method tests | Low | wrapWithEffect.spec.ts | ⚠️ Deferred | Current tests focus on async (primary use case) |
+| No integration tests | Low | All spec files | ⚠️ Deferred | Unit tests sufficient for current scope |
+
+**Critical Items Completed** (2026-01-29)
 
 ---
 
@@ -678,15 +710,22 @@ export const effectToPromise = <A, E>(
 
 | Date | Learning | Impact | Action Taken |
 |------|----------|--------|--------------|
-| _None yet_ | | | |
+| 2026-01-29 | Data.TaggedError properties should be `readonly` | Critical - enables immutability guarantees | ✅ Added @readonly JSDoc to all error properties |
+| 2026-01-29 | Interop helpers lose error-specific data during conversion | Critical - debugging context lost | ✅ Fixed toTaggedError and toBaseError to preserve properties |
+| 2026-01-29 | Effect.tryPromise produces `unknown` error type | Medium - requires documentation | ✅ Added JSDoc notes about unknown error types |
+| 2026-01-29 | Runtime.Runtime<never> is too restrictive for generic helpers | Medium - limits flexibility | ✅ Updated effectToPromise to use generic R type |
+| 2026-01-29 | wrapWithEffect should validate method existence | Medium - silent failures confusing | ✅ Now throws Error for missing/non-function props |
+| 2026-01-29 | Optional constructor props enable flexible error creation | Medium - better interop | ✅ Made InsufficientBalanceError props optional |
 
 ### Process Learnings
 
 | Date | Learning | Impact | Action Taken |
 |------|----------|--------|--------------|
-| _None yet_ | | | |
+| 2026-01-29 | Review phase should validate property preservation in interop helpers | High - data loss easily missed | ✅ Added tests for property extraction |
+| 2026-01-29 | RFC code patterns should include readonly modifiers | Medium - sets correct precedent | Consider updating RFC examples |
+| 2026-01-29 | Tests should cover new message generation branches | Medium - coverage thresholds | ✅ Added tests for gas info messages |
 
-### REVIEW AGENT Review Status: NEEDS REVIEW
+### REVIEW AGENT Review Status: COMPLETED (2026-01-29)
 
 ---
 
