@@ -16,7 +16,7 @@
 | **Phase 1** | 🟢 VERIFIED | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
 | **Phase 2** | 🟢 VERIFIED | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | ✅ COMPLIANT (95%+ RFC conformance) |
 | **Phase 3** | 🟢 VERIFIED | 2 (node-effect, actions-effect) | 197 | ~99% | ✅ COMPLIANT (0 CRITICAL, 0 HIGH) |
-| **Phase 4** | 🟡 IN PROGRESS | 1 (memory-client-effect) | 28 | 69.8% | ✅ COMPLIANT |
+| **Phase 4** | 🟡 IN PROGRESS | 2 (memory-client-effect, decorators-effect) | 62 | ~75% | ✅ COMPLIANT |
 
 **Open Issues Summary:**
 - **CRITICAL**: 0 ✅ (independently verified)
@@ -4001,7 +4001,9 @@ packages/node-effect/
 
 ### REVIEW AGENT Review Status: 🟡 IN PROGRESS (2026-01-30)
 
-**Sixty-fifth review (2026-01-30)** - @tevm/memory-client-effect package created and tested. 28 tests passing.
+**Sixty-sixth review (2026-01-30)** - @tevm/decorators-effect package created and tested. 34 tests passing.
+
+**Previous review (2026-01-30)** - @tevm/memory-client-effect package created and tested. 28 tests passing.
 
 ---
 
@@ -4038,19 +4040,36 @@ packages/node-effect/
 
 ---
 
-### 4.2 @tevm/decorators Migration
+### 4.2 @tevm/decorators-effect Migration
 
 **Current**: viem action decorators
 **Target**: Effect + viem interop
+**Status**: 🟢 COMPLETE
 
 | Task | Status | Owner | Notes |
 |------|--------|-------|-------|
-| Update decorators to use Effect internally | [ ] | | |
-| Keep viem-compatible Promise API | [ ] | | |
-| Write tests | [ ] | | |
+| Create EthActionsService and EthActionsLive | [x] | | Standard eth_* methods |
+| Create TevmActionsService and TevmActionsLive | [x] | | TEVM-specific operations |
+| Create RequestService and RequestLive | [x] | | EIP-1193 request routing |
+| Create SendService and SendLive | [x] | | JSON-RPC 2.0 send methods |
+| Keep viem-compatible Promise API | [x] | | Via RequestService |
+| Write tests | [x] | | 34 tests passing |
+| Build package | [x] | | Clean build |
+
+**Package Created**: `packages/decorators-effect/`
+- `EthActionsService.js` / `EthActionsLive.js` - Standard Ethereum methods
+- `TevmActionsService.js` / `TevmActionsLive.js` - TEVM-specific operations
+- `RequestService.js` / `RequestLive.js` - EIP-1193 compatible request handling
+- `SendService.js` / `SendLive.js` - JSON-RPC 2.0 send methods
+- `types.js` - Type definitions
+- Full test suite (34 tests)
+
+**Coverage**: ~80% (mock-based testing)
 
 **Learnings**:
-- _None yet_
+- RequestLive serves as central routing hub for all JSON-RPC methods
+- Services delegate to underlying action services (GetAccountService, etc.)
+- SendLive wraps RequestService with JSON-RPC 2.0 response formatting
 
 ---
 

@@ -1,0 +1,61 @@
+{
+	"name": "@tevm/decorators-effect",
+	"version": "1.0.0-next.143",
+	"private": false,
+	"description": "Effect-based decorator services for TEVM clients",
+	"keywords": ["tevm", "effect", "decorators", "ethereum", "viem"],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/decorators-effect"
+	},
+	"license": "MIT",
+	"contributors": ["Will Cory <willcory10@gmail.com>"],
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		},
+		"./package.json": "./package.json"
+	},
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"files": ["dist", "src", "types"],
+	"scripts": {
+		"build": "tsup",
+		"build:dist": "tsup",
+		"build:types": "tsc --declaration --emitDeclarationOnly --outDir dist",
+		"lint": "biome check . --write --unsafe",
+		"test": "vitest --coverage",
+		"test:coverage": "vitest run --coverage"
+	},
+	"dependencies": {
+		"@tevm/actions-effect": "workspace:^",
+		"@tevm/common-effect": "workspace:^",
+		"@tevm/decorators": "workspace:^",
+		"@tevm/errors-effect": "workspace:^",
+		"@tevm/interop": "workspace:^",
+		"@tevm/node-effect": "workspace:^",
+		"@tevm/state-effect": "workspace:^",
+		"@tevm/vm-effect": "workspace:^",
+		"effect": "3.18.1"
+	},
+	"devDependencies": {
+		"@tevm/tsconfig": "workspace:^",
+		"tsup": "^8.0.0",
+		"typescript": "^5.3.3",
+		"vitest": "^2.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
