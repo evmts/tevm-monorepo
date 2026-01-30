@@ -1379,11 +1379,14 @@ export const effectToPromise = <A, E>(
 
 ### REVIEW AGENT Review Status: 🟢 PHASE 2 SERVICES REVIEWED (2026-01-29)
 
-**Twenty-fourth review (2026-01-29)** - CRITICAL `iterator` method added to @tevm/blockchain-effect. All Phase 2 packages now RFC COMPLIANT.
+**Twenty-fifth review (2026-01-29)** - @tevm/state-effect implemented with 36 tests, 100% coverage. Four of six Phase 2 packages complete.
 
 - ✅ @tevm/common-effect - **RFC COMPLIANT**
 - ✅ @tevm/transport-effect - **RFC COMPLIANT** (HIGH: missing batch support is feature gap, not bug)
 - ✅ @tevm/blockchain-effect - **RFC COMPLIANT** (iterator method implemented, 37 tests, 100% coverage)
+- ✅ @tevm/state-effect - **RFC COMPLIANT** (36 tests, 100% coverage)
+
+**Twenty-fourth review (2026-01-29)** - CRITICAL `iterator` method added to @tevm/blockchain-effect.
 
 ---
 
@@ -1517,13 +1520,77 @@ export const effectToPromise = <A, E>(
 - ✅ @tevm/common-effect - 33 tests, 100% coverage, RFC COMPLIANT
 - ✅ @tevm/transport-effect - 47 tests, 100% coverage, RFC COMPLIANT
 - ✅ @tevm/blockchain-effect - 37 tests, 100% coverage, RFC COMPLIANT
-- [ ] @tevm/state-effect - Not Started
+- ✅ @tevm/state-effect - 36 tests, 100% coverage, RFC COMPLIANT
 - [ ] @tevm/evm-effect - Not Started
 - [ ] @tevm/vm-effect - Not Started
 
 ---
 
 **Previous review (2026-01-29)** - Phase 2.2 Transport Services completed. Package @tevm/transport-effect created with 47 tests, 100% coverage.
+
+---
+
+### 2.4 @tevm/state-effect ✅ COMPLETE
+
+**Status**: ✅ COMPLETE
+**Tests**: 36 passing, 100% coverage
+**Created**: 2026-01-29
+
+| Component | Status | Notes |
+|-----------|--------|-------|
+| StateManagerService Context.Tag | ✅ | Context.GenericTag for DI |
+| StateManagerShape interface | ✅ | Full state operations wrapped in Effect |
+| StateManagerLocal layer | ✅ | Local mode without fork |
+| StateManagerLive layer | ✅ | Fork mode with TransportService |
+| Comprehensive tests | ✅ | 36 tests covering all functionality |
+
+**Package Structure**:
+```
+packages/state-effect/
+├── package.json
+├── tsconfig.json
+├── tsup.config.js
+├── vitest.config.ts
+└── src/
+    ├── index.js                    # Barrel exports
+    ├── types.js                    # Type definitions
+    ├── StateManagerService.js      # Context.Tag
+    ├── StateManagerShape.js        # Interface docs
+    ├── StateManagerLocal.js        # Local layer
+    ├── StateManagerLive.js         # Fork layer
+    └── *.spec.ts                   # Test files
+```
+
+**StateManagerShape Interface** (from types.js):
+- `stateManager` - Underlying @tevm/state StateManager instance
+- `getAccount(address)` - Get account, returns `Effect<Account | undefined>`
+- `putAccount(address, account)` - Set account, returns `Effect<void>`
+- `deleteAccount(address)` - Delete account, returns `Effect<void>`
+- `getStorage(address, slot)` - Get storage, returns `Effect<Uint8Array>`
+- `putStorage(address, slot, value)` - Set storage, returns `Effect<void>`
+- `clearStorage(address)` - Clear all storage, returns `Effect<void>`
+- `getCode(address)` - Get code, returns `Effect<Uint8Array>`
+- `putCode(address, code)` - Set code, returns `Effect<void>`
+- `getStateRoot()` - Get state root, returns `Effect<Uint8Array>`
+- `setStateRoot(root)` - Set state root, returns `Effect<void, StateRootNotFoundError>`
+- `checkpoint()` - Create checkpoint, returns `Effect<void>`
+- `commit()` - Commit checkpoint, returns `Effect<void>`
+- `revert()` - Revert to checkpoint, returns `Effect<void>`
+- `dumpState()` - Dump state, returns `Effect<TevmState>`
+- `loadState(state)` - Load state, returns `Effect<void>`
+- `ready` - Ready signal, returns `Effect<void>`
+- `deepCopy()` - Deep copy, returns `Effect<StateManagerShape>`
+- `shallowCopy()` - Shallow copy, returns `StateManagerShape` (sync)
+
+**Layer Dependencies**:
+- StateManagerLocal: Requires `CommonService`
+- StateManagerLive: Requires `CommonService`, `TransportService`, `ForkConfigService`
+
+**Learnings**:
+- StateManager.ready() is a method, not a property
+- putStorage requires an account to exist first
+- Use `createAddressFromString` from @tevm/utils, not `EthjsAddress.fromString`
+- createShape helper pattern enables recursive structure for deepCopy/shallowCopy
 
 ---
 
