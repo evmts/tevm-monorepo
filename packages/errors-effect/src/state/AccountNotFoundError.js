@@ -85,17 +85,27 @@ export class AccountNotFoundError extends Data.TaggedError('AccountNotFoundError
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'AccountNotFoundError'
-		this.address = props.address
-		this.message =
+		// Compute all property values BEFORE calling super() for Effect.ts equality/hashing
+		const name = 'AccountNotFoundError'
+		const address = props.address
+		const message =
 			props.message ??
 			(props.address !== undefined
 				? `Account '${props.address}' not found`
 				: 'Account not found')
-		this.code = AccountNotFoundError.code
-		this.docsPath = AccountNotFoundError.docsPath
-		this.cause = props.cause
+		const code = AccountNotFoundError.code
+		const docsPath = AccountNotFoundError.docsPath
+		const cause = props.cause
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ name, address, message, code, docsPath, cause })
+
+		/** @override @type {string} */
+		this.name = name
+		this.address = address
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 	}
 }

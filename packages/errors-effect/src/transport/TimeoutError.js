@@ -90,26 +90,38 @@ export class TimeoutError extends Data.TaggedError('TimeoutError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'TimeoutError'
-		this.timeout = props.timeout
-		this.operation = props.operation
-		this.cause = props.cause
+		// Compute all properties BEFORE calling super()
+		const name = 'TimeoutError'
+		const timeout = props.timeout
+		const operation = props.operation
+		const cause = props.cause
 
+		let message
 		if (props.message) {
-			this.message = props.message
+			message = props.message
 		} else if (props.operation !== undefined && props.timeout !== undefined) {
-			this.message = `Operation '${props.operation}' timed out after ${props.timeout}ms`
+			message = `Operation '${props.operation}' timed out after ${props.timeout}ms`
 		} else if (props.timeout !== undefined) {
-			this.message = `Request timed out after ${props.timeout}ms`
+			message = `Request timed out after ${props.timeout}ms`
 		} else if (props.operation !== undefined) {
-			this.message = `Operation '${props.operation}' timed out`
+			message = `Operation '${props.operation}' timed out`
 		} else {
-			this.message = 'Request timed out'
+			message = 'Request timed out'
 		}
 
-		this.code = TimeoutError.code
-		this.docsPath = TimeoutError.docsPath
+		const code = TimeoutError.code
+		const docsPath = TimeoutError.docsPath
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ name, timeout, operation, cause, message, code, docsPath })
+
+		/** @override @type {string} */
+		this.name = name
+		this.timeout = timeout
+		this.operation = operation
+		this.cause = cause
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
 	}
 }

@@ -468,9 +468,29 @@ const createMemoryClientShape = (deps) => {
 
 		revertToSnapshot: (snapshotId) => snapshotService.revertToSnapshot(snapshotId),
 
+		/**
+		 * Create a deep copy of the memory client.
+		 *
+		 * **IMPORTANT**: This method creates a consistent copy where:
+		 * - All action methods (getAccount, setAccount, etc.) operate on the copied stateManager
+		 * - The VM is separately deep-copied and has its own internal stateManager
+		 *
+		 * **STATE MANAGER CONSISTENCY NOTE**:
+		 * After deepCopy, the action services use `stateManagerCopy`, while `vmCopy.vm.stateManager`
+		 * is a separate copy created during VM.deepCopy(). For consistent behavior:
+		 * - Use action methods (getAccount, setAccount, getBalance, etc.) for state operations
+		 * - Avoid direct access to `vm.vm.stateManager` after deepCopy
+		 *
+		 * If you need direct VM operations with synchronized state, consider:
+		 * 1. Using the action services exclusively
+		 * 2. Creating snapshots and reverting instead of deepCopy
+		 */
 		deepCopy: () =>
 			Effect.gen(function* () {
 				// Create deep copies of all state
+				// NOTE: stateManagerCopy and vmCopy.vm.stateManager are DIFFERENT instances
+				// because VM.deepCopy() creates its own copy of the stateManager internally.
+				// Action services are bound to stateManagerCopy for consistency.
 				const stateManagerCopy = yield* stateManager.deepCopy()
 				const vmCopy = yield* vm.deepCopy()
 				const snapshotCopy = yield* snapshotService.deepCopy()

@@ -150,9 +150,9 @@
  * @property {(id: Hex) => import('effect').Effect.Effect<Array<FilterLog>, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} getChanges - Get and clear log changes for a filter
  * @property {(id: Hex) => import('effect').Effect.Effect<Array<unknown>, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} getBlockChanges - Get and clear block changes for a block filter
  * @property {(id: Hex) => import('effect').Effect.Effect<Array<unknown>, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} getPendingTransactionChanges - Get and clear tx changes for a pending tx filter
- * @property {(id: Hex, log: FilterLog) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError>} addLog - Add a log to a filter
- * @property {(id: Hex, block: unknown) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError>} addBlock - Add a block to a block filter
- * @property {(id: Hex, tx: unknown) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError>} addPendingTransaction - Add a tx to a pending tx filter
+ * @property {(id: Hex, log: FilterLog) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} addLog - Add a log to a log filter (fails with InvalidFilterTypeError if filter is wrong type)
+ * @property {(id: Hex, block: unknown) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} addBlock - Add a block to a block filter (fails with InvalidFilterTypeError if filter is wrong type)
+ * @property {(id: Hex, tx: unknown) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} addPendingTransaction - Add a tx to a pending tx filter (fails with InvalidFilterTypeError if filter is wrong type)
  * @property {import('effect').Effect.Effect<Map<Hex, Filter>>} getAllFilters - Get all filters
  * @property {() => import('effect').Effect.Effect<FilterShape>} deepCopy - Create a deep copy of the filter state
  */

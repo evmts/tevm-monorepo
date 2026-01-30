@@ -82,17 +82,26 @@ export class MethodNotFoundError extends Data.TaggedError('MethodNotFoundError')
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'MethodNotFoundError'
-		this.method = props.method
-		this.message =
+		// Compute all property values BEFORE calling super()
+		const method = props.method
+		const message =
 			props.message ??
 			(props.method !== undefined
 				? `Method '${props.method}' not found`
 				: 'Method not found')
-		this.code = MethodNotFoundError.code
-		this.docsPath = MethodNotFoundError.docsPath
-		this.cause = props.cause
+		const code = MethodNotFoundError.code
+		const docsPath = MethodNotFoundError.docsPath
+		const cause = props.cause
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ method, message, code, docsPath, cause })
+
+		/** @override @type {string} */
+		this.name = 'MethodNotFoundError'
+		this.method = method
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 	}
 }

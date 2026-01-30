@@ -90,19 +90,31 @@ export class InvalidTransactionError extends Data.TaggedError('InvalidTransactio
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'InvalidTransactionError'
-		this.reason = props.reason
-		this.tx = props.tx
-		this.cause = props.cause
-		this.message =
+		// Compute all properties BEFORE calling super() for Effect.ts equality/hashing
+		const name = 'InvalidTransactionError'
+		const reason = props.reason
+		const tx = props.tx
+		const cause = props.cause
+		const code = InvalidTransactionError.code
+		const docsPath = InvalidTransactionError.docsPath
+		const message =
 			props.message ??
 			(props.reason !== undefined
 				? `Invalid transaction: ${props.reason}`
 				: 'Invalid transaction')
-		this.code = InvalidTransactionError.code
-		this.docsPath = InvalidTransactionError.docsPath
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ name, reason, tx, message, code, docsPath, cause })
+
+		// Assign to instance properties
+		/** @override @type {string} */
+		this.name = name
+		this.reason = reason
+		this.tx = tx
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 		// NOTE: Object.freeze is NOT used because Effect.ts requires objects to be extensible
 		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
 		// Properties are marked @readonly in JSDoc for documentation purposes.

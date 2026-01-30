@@ -58,13 +58,21 @@ export class TevmError extends Data.TaggedError('TevmError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props) {
-		super({})
+		// Compute all final property values before calling super
+		const code = props.code ?? 0
+		const message = props.message
+		const docsPath = props.docsPath
+		const cause = props.cause
+
+		// Pass properties to super() for Effect.ts equality and hashing
+		super({ message, code, docsPath, cause })
+
 		/** @override @type {string} */
 		this.name = 'TevmError'
-		this.message = props.message
-		this.code = props.code ?? 0
-		this.docsPath = props.docsPath
-		this.cause = props.cause
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 		// NOTE: Object.freeze is NOT used because Effect.ts requires objects to be extensible
 		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
 		// Properties are marked @readonly in JSDoc for documentation purposes.

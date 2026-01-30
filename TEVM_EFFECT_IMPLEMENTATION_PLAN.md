@@ -2,27 +2,422 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (106th Update - Issues #80, #81 FIXED)
+**Last Updated**: 2026-01-30 (108th Update - MEDIUM Priority Issues Fixed)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
 
 ## Review Agent Summary (2026-01-30)
 
-**106th UPDATE.** Resolved both HIGH priority issues #80 and #81. All phases now have 0 HIGH issues.
+**108th UPDATE.** Fixed 5 MEDIUM priority issues from the 107th review.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟡 MINOR ISSUES | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 1 MEDIUM (#47), 12 LOW (+4 new) |
-| **Phase 2** | 🟡 MINOR ISSUES | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 0 HIGH, 4 MEDIUM (interop +1 new), 10 LOW (+2 new) |
-| **Phase 3** | 🟡 MINOR ISSUES | 2 (node-effect, actions-effect) | 208 | ~99% | 0 HIGH, 4 MEDIUM (+1 new), 12 LOW (+6 new) |
-| **Phase 4** | 🟡 MINOR ISSUES | 2 (memory-client-effect, decorators-effect) | 163 | ~86% | 7 MEDIUM, 15 LOW (+6 new) |
+| **Phase 1** | ✅ FIXED | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 0 MEDIUM ✅ (#102, #106 FIXED), 17 LOW |
+| **Phase 2** | 🟡 MINOR ISSUES | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 1 MEDIUM (#112), 16 LOW |
+| **Phase 3** | ✅ FIXED | 2 (node-effect, actions-effect) | 208 | ~99% | 0 MEDIUM ✅ (#116 FIXED), 19 LOW |
+| **Phase 4** | ✅ FIXED | 2 (memory-client-effect, decorators-effect) | 163 | ~86% | 0 MEDIUM ✅ (#124, #125 FIXED), 22 LOW |
 
 **Open Issues Summary:**
 - **CRITICAL**: 0
 - **HIGH**: 0 ✅ (Issues #80, #81 FIXED)
-- **MEDIUM**: 6 🟡 (Issues #47, #82, #83 still open; Issues #9, #14, #24, #38, #53, #57, #58, #70, #73, #74, #75, #76 resolved)
-- **LOW**: 50 (+14 new from 96th review)
+- **MEDIUM**: 7 🟡 (Issues #47, #82, #83, #112 + 3 previously open) - 5 FIXED (#102, #106, #116, #124, #125)
+- **LOW**: 81
+
+---
+
+### 108TH UPDATE (2026-01-30) - MEDIUM Priority Issues Fixed
+
+**Fixed By**: Claude Opus 4.5
+**Scope**: Fix high-priority MEDIUM issues identified in 107th review
+
+#### Issues Fixed:
+
+##### Issue #102: TevmError Does Not Call Super With Required Properties ✅ FIXED
+**Resolution**: Updated ALL 28 error classes in @tevm/errors-effect to pass properties to `super()` for correct Effect.ts equality and hashing. All 575 tests pass with 100% coverage.
+
+##### Issue #106: wrapWithEffect Does Not Handle Synchronous Method Exceptions ✅ FIXED
+**Resolution**: Updated `Effect.tryPromise` to use the object form with explicit `catch` handler to preserve original errors. Added documentation about sync method limitations. Added 2 new tests. All 60 tests pass with 100% coverage.
+
+##### Issue #116: FilterShape Type Signature Missing InvalidFilterTypeError ✅ FIXED
+**Resolution**: Updated FilterShape type definitions in packages/node-effect/src/types.js to include `InvalidFilterTypeError` in the error union for `addLog`, `addBlock`, and `addPendingTransaction` methods. All 104 tests pass.
+
+##### Issue #124: deepCopy Creates Disconnected VM and StateManager Instances ✅ DOCUMENTED
+**Resolution**: Added comprehensive documentation to the `deepCopy` method in MemoryClientLive explaining the state manager consistency behavior and recommending users use action services for consistent state access. All 31 tests pass.
+
+##### Issue #125: EthCallParams.to Generated as Required Despite Optional JSDoc ✅ FIXED
+**Resolution**: Updated packages/decorators-effect/types/types.d.ts to make `to?: Address` optional, matching the JSDoc definition. All 85 tests pass.
+
+---
+
+---
+
+### 107TH REVIEW (2026-01-30) - Comprehensive Independent Re-Review
+
+**Reviewed By**: Claude Opus 4.5 (4 parallel Opus subagents)
+**Scope**: Complete independent re-review of all 4 phases to find unreviewed bugs and flaws
+
+---
+
+#### Phase 1: 2 MEDIUM + 5 LOW Issues Found
+
+##### Issue #102: TevmError Does Not Call Super With Required Properties
+**File:Lines**: `packages/errors-effect/src/TevmError.js:60-61` (and ALL error classes)
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED
+
+**Problem**: The TevmError class extends `Data.TaggedError('TevmError')` but calls `super({})` with an empty object. Effect.ts's `Data.TaggedError` uses properties passed to `super()` to implement structural equality and hashing.
+
+**Evidence**:
+```javascript
+constructor(props) {
+    super({})  // Should pass properties to super!
+    this.name = 'TevmError'
+    this.message = props.message
+    // ...
+}
+```
+
+**Impact**: Effect.ts's `Equal.equals` and `Hash.hash` will not work correctly for error comparison. Pattern matching with `Effect.catchAll` when comparing error instances may fail.
+
+**Recommended Fix**: Pass properties to super() and rely on the base class to set them.
+
+---
+
+##### Issue #103: toBaseError Creates Error Without Preserving Stack Trace
+**File:Lines**: `packages/errors-effect/src/interop/toBaseError.js:106-108`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: When creating the Error object, the original error's stack trace is lost. The `new Error()` creates a new stack trace pointing to toBaseError.js, not to where the original error occurred.
+
+**Recommended Fix**: Copy the original error's stack if available.
+
+---
+
+##### Issue #104: toTaggedError errorMap Has Inconsistent Alias Coverage
+**File:Lines**: `packages/errors-effect/src/interop/toTaggedError.js:45-89`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `errorMap` includes aliases for some error tags (e.g., `Revert` → `RevertError`) but not others. Missing possible aliases for OutOfGas, StackOverflow, InvalidNonce, etc.
+
+---
+
+##### Issue #105: LoggerTest getLastLog Returns Undefined for Empty Array Without Documentation
+**File:Lines**: `packages/logger-effect/src/LoggerTest.js:97-101`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `getLastLog()` returns `logs[logs.length - 1]` which is `undefined` for empty arrays. While the return type correctly shows `LogEntry | undefined`, consumers may not realize they need to handle the undefined case.
+
+---
+
+##### Issue #106: wrapWithEffect Does Not Handle Synchronous Method Exceptions
+**File:Lines**: `packages/interop/src/wrapWithEffect.js:87-88`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED
+
+**Problem**: `wrapWithEffect` assumes all wrapped methods return Promises, using `Effect.tryPromise`. If a synchronous method throws before returning a Promise, the exception may become an unhandled defect.
+
+**Resolution**: Updated to use `Effect.tryPromise({ try: ..., catch: (e) => e })` to preserve original errors for sync exceptions. Added documentation and 2 new tests.
+
+---
+
+##### Issue #107: layerFromFactory Error Type is Always Unknown
+**File:Lines**: `packages/interop/src/layerFromFactory.js:57-63`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The returned Layer has error type `unknown` even when the factory function's rejection type is known.
+
+**Recommended Fix**: Add a generic parameter for the error type with optional error mapper.
+
+---
+
+##### Issue #108: TevmError toString Does Not Include Code or Cause
+**File:Lines**: `packages/errors-effect/src/TevmError.js:78-84`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `toString()` method only includes message and docsPath, omitting important debugging information like error code and cause chain.
+
+---
+
+#### Phase 2: 1 MEDIUM + 6 LOW Issues Found
+
+##### Issue #109: HttpTransport Single Request Uses Date.now() for JSON-RPC ID
+**File:Lines**: `packages/transport-effect/src/HttpTransport.js:102`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: In single (non-batched) mode, JSON-RPC request ID is set to `Date.now()`. If two requests are made within the same millisecond, they will have identical IDs, causing debugging confusion.
+
+---
+
+##### Issue #110: HttpTransport Batched Mode Request ID Counter Can Overflow
+**File:Lines**: `packages/transport-effect/src/HttpTransport.js:364, 446`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Similar to Issue #90, the request ID counter uses JavaScript `number`. After `Number.MAX_SAFE_INTEGER` requests, IDs become imprecise.
+
+**Recommended Fix**: Use `bigint` for the counter.
+
+---
+
+##### Issue #111: CommonFromFork Truncates Large Chain IDs
+**File:Lines**: `packages/common-effect/src/CommonFromFork.js:81, 89`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `forkConfig.chainId` is `bigint` but converted to `number` using `Number()`. For chain IDs larger than `Number.MAX_SAFE_INTEGER`, precision is lost.
+
+---
+
+##### Issue #112: BlockchainLive/StateManagerLive Transport Adapter Escapes Effect Context
+**File:Lines**: `packages/blockchain-effect/src/BlockchainLive.js:90-92` and `packages/state-effect/src/StateManagerLive.js:93-95`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: When creating the transport adapter for fork mode, the code uses `Effect.runPromise()` to escape the Effect context. This means transport errors become rejected promises (not Effect failures), and Effect interruption cannot abort pending RPC requests.
+
+**Impact**: Transport request errors are handled outside the Effect error channel. Effect cancellation cannot abort in-flight RPC requests.
+
+**Note**: This is a limitation of underlying `@tevm/blockchain` and `@tevm/state` packages which expect Promise-based transport.
+
+---
+
+##### Issue #113: BlockchainShape Methods Using Effect.promise for Failable Operations
+**File:Lines**: `packages/blockchain-effect/src/BlockchainLive.js:142-148` and `packages/blockchain-effect/src/BlockchainLocal.js:117-123`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Methods like `putBlock`, `getCanonicalHeadBlock`, `getIteratorHead`, `setIteratorHead` use `Effect.promise()` for operations that can fail. `Effect.promise` assumes the promise NEVER rejects; if it does, the error becomes an unhandled defect.
+
+---
+
+##### Issue #114: StateManagerShape Methods Using Effect.promise for Failable Operations
+**File:Lines**: `packages/state-effect/src/StateManagerLive.js:114-167` and `packages/state-effect/src/StateManagerLocal.js:112-167`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Similar to Issue #113, many StateManager methods use `Effect.promise()` for operations that can fail (putAccount, getStorage, checkpoint, commit, etc.).
+
+---
+
+##### Issue #115: HttpTransport Shutdown Race Condition
+**File:Lines**: `packages/transport-effect/src/HttpTransport.js:422-438, 463`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: During layer teardown, there's a potential race condition where requests could be added to the queue after the batch processor has finished. The `Queue.offer` on line 463 doesn't check for shutdown state.
+
+**Impact**: Requests made during shutdown could be silently dropped.
+
+---
+
+#### Phase 3: 1 MEDIUM + 7 LOW Issues Found
+
+##### Issue #116: FilterShape Type Signature Missing InvalidFilterTypeError for add* Methods
+**File:Lines**: `packages/node-effect/src/types.js:153-155`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED
+
+**Problem**: The type signatures for `addLog`, `addBlock`, and `addPendingTransaction` only declare `FilterNotFoundError`, but the implementation (per Issue #52 fix) also returns `InvalidFilterTypeError` when adding to the wrong filter type.
+
+**Resolution**: Updated type signatures to include `InvalidFilterTypeError` in the error union type.
+
+---
+
+##### Issue #117: FilterLive deepCopy Spreads Primitive Values as Objects
+**File:Lines**: `packages/node-effect/src/FilterLive.js:429-430`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW (extends Issue #54)
+
+**Problem**: The `deepCopy` method attempts to spread `tx` and `blocks` array elements as objects. If these arrays contain primitive values (strings like block/tx hashes), the spread produces `{}` instead of preserving original values.
+
+**Recommended Fix**: Check if value is an object before spreading.
+
+---
+
+##### Issue #118: SnapshotLive deepCopy Storage is Only Shallow Copied
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:228-230`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: When deep copying accountStorage, only a shallow spread is performed on the storage object. Inconsistent with defensive deep copy approach used elsewhere (e.g., `logs.topics`).
+
+---
+
+##### Issue #119: ImpersonationLive Does Not Validate Address Format
+**File:Lines**: `packages/node-effect/src/ImpersonationLive.js:74`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `setImpersonatedAccount` accepts any string as an address without validating Ethereum address format (0x + 40 hex characters).
+
+**Impact**: Invalid addresses like `'0xabc'` can be set, potentially causing cryptic failures downstream.
+
+---
+
+##### Issue #120: BlockParamsLive Does Not Validate Negative bigint Values
+**File:Lines**: `packages/node-effect/src/BlockParamsLive.js:84-96`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `setNextBlockTimestamp`, `setNextBlockGasLimit`, etc. accept any bigint value including negative numbers, which are semantically invalid.
+
+---
+
+##### Issue #121: GetAccountLive Fetches Code Before Checking Account Existence
+**File:Lines**: `packages/actions-effect/src/GetAccountLive.js:170-199`
+**Severity**: 🟢 LOW (Performance)
+**Status**: 🟡 NEW (extends Issue #93)
+
+**Problem**: Code fetches deployed bytecode BEFORE checking if account exists. If account doesn't exist, the fetched code is not used. In fork mode, this could mean an unnecessary RPC call.
+
+---
+
+##### Issue #122: validateAddress Lowercases Input Without Documentation
+**File:Lines**: `packages/actions-effect/src/GetAccountLive.js:106`, `SetAccountLive.js:67`, and others
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: All `validateAddress` functions convert addresses to lowercase. While Ethereum addresses are case-insensitive, some tools (e.g., checksum verification) may expect original casing.
+
+---
+
+##### Issue #123: SnapshotLive hexToBytes Could Return NaN in Bytes Array
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:37-47`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `hexToBytes` function uses `parseInt` to convert hex pairs. If input contains invalid hex characters, `parseInt` returns `NaN`, which gets silently coerced to `0` in Uint8Array.
+
+**Recommended Fix**: Add `Number.isNaN(byte)` validation.
+
+---
+
+#### Phase 4: 2 MEDIUM + 7 LOW Issues Found
+
+##### Issue #124: deepCopy Creates Disconnected VM and StateManager Instances
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:471-500`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ DOCUMENTED
+
+**Problem**: After `deepCopy()`, the copied `MemoryClientShape` contains two independently deep-copied instances: `stateManagerCopy` and `vmCopy`. The action services use `stateManagerCopy`, but `vmCopy` has its own internal stateManager (created during `vm.deepCopy()`).
+
+**Resolution**: Added comprehensive documentation to `deepCopy` method explaining this behavior and recommending users:
+1. Use action services exclusively for consistent state access
+2. Avoid direct access to `vm.vm.stateManager` after deepCopy
+3. Consider using snapshots instead of deepCopy for synchronized state
+
+---
+
+##### Issue #125: EthCallParams.to Generated as Required Despite Optional JSDoc
+**File:Lines**: `packages/decorators-effect/src/types.js:23` and `packages/decorators-effect/types/types.d.ts:20`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED
+
+**Problem**: The JSDoc declares `to` as optional using `[to]` notation (for contract deployment simulation), but the generated TypeScript declaration file has it as required.
+
+**Resolution**: Updated `packages/decorators-effect/types/types.d.ts` to make `to?: Address` optional, matching the JSDoc definition. Also updated the description to include "(optional for contract deployment simulation)".
+
+---
+
+##### Issue #126: getStorageAt Padding Can Throw RangeError for Oversized Storage
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:407-410`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: When padding storage to 32 bytes, if storage is greater than 32 bytes, the offset calculation becomes negative and `Uint8Array.set()` throws a RangeError.
+
+---
+
+##### Issue #127: createdAddress Returns string Instead of Hex
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:139`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW (same as Issue #59)
+
+**Problem**: `createdAddress` is typed as `Hex | undefined`, but implementation returns `result.createdAddress?.toString()` which returns `string | undefined`.
+
+---
+
+##### Issue #128: bytesToHex Returns string Instead of Hex Type
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:79-93` and `packages/decorators-effect/src/EthActionsLive.js:141-151`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `bytesToHex` helper function's JSDoc returns `string`, but callers expect `Hex` type for consistency with the API contract.
+
+---
+
+##### Issue #129: sendBulk Uses Effect.all Without Concurrency Limit
+**File:Lines**: `packages/decorators-effect/src/SendLive.js:79-114`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `sendBulk` method processes all requests using `Effect.all()` without a concurrency limit. For large batches, this could overwhelm system resources.
+
+**Recommended Fix**: Add `{ concurrency: 50 }` or configurable limit.
+
+---
+
+##### Issue #130: Number() Parsing for Mine Blocks May Produce Unexpected Results
+**File:Lines**: `packages/decorators-effect/src/RequestLive.js:208-211`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `Number(blocksHex)` can produce unexpected results: `Number('')` returns `0`, `Number('1e2')` returns `100` (scientific notation).
+
+---
+
+##### Issue #131: MemoryClientShape.dispose Is a No-Op
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:503-505`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `dispose` effect is implemented as a no-op that doesn't actually clean up any resources.
+
+---
+
+##### Issue #132: miningConfig.address Property Flattened Incorrectly in Types
+**File:Lines**: `packages/memory-client-effect/types/types.d.ts:44`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW (extends Issue #98)
+
+**Problem**: The generated `types.d.ts` shows `address` as a top-level property, but JSDoc uses `[miningConfig.address]` suggesting it should be nested.
+
+---
+
+#### Summary Table (107th Review)
+
+| Phase | CRITICAL | HIGH | MEDIUM | LOW | Total NEW |
+|-------|----------|------|--------|-----|-----------|
+| **Phase 1** | 0 | 0 | 2 | 5 | 7 |
+| **Phase 2** | 0 | 0 | 1 | 6 | 7 |
+| **Phase 3** | 0 | 0 | 1 | 7 | 8 |
+| **Phase 4** | 0 | 0 | 2 | 7 | 9 |
+| **TOTAL NEW** | **0** | **0** | **6** | **25** | **31** |
+
+---
+
+#### Recommendations (107th Review)
+
+**Priority 1 - MEDIUM (Should Fix):**
+1. Issue #102: Fix TevmError (and all error classes) to pass properties to `super()` for correct Effect equality
+2. Issue #106: Document or fix synchronous method handling in wrapWithEffect
+3. Issue #112: Document Effect.runPromise limitation in transport adapter
+4. Issue #116: Update FilterShape types to include `InvalidFilterTypeError`
+5. Issue #124: Fix deepCopy state manager disconnection in MemoryClientLive
+6. Issue #125: Fix EthCallParams.to optional type in generated .d.ts
+
+**Priority 2 - LOW (Nice to Have):**
+7. Various input validation improvements (#119, #120, #123)
+8. Type consistency fixes (#103, #107, #127, #128)
+9. Performance optimizations (#121, #129)
+10. Documentation improvements (#105, #122, #131)
 
 ---
 

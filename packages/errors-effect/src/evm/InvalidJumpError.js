@@ -90,22 +90,28 @@ export class InvalidJumpError extends Data.TaggedError('InvalidJumpError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
+		// Compute all final property values before calling super
+		const code = InvalidJumpError.code
+		const docsPath = InvalidJumpError.docsPath
+		const destination = props.destination
+		const pc = props.pc
+		const cause = props.cause
+		const message = props.message
+			? props.message
+			: props.destination !== undefined
+				? `Invalid jump destination: 0x${props.destination.toString(16)}`
+				: 'Invalid jump destination'
+
+		// Pass properties to super() for Effect.ts equality and hashing
+		super({ message, code, docsPath, cause, destination, pc })
+
 		/** @override @type {string} */
 		this.name = 'InvalidJumpError'
-		this.destination = props.destination
-		this.pc = props.pc
-
-		if (props.message) {
-			this.message = props.message
-		} else if (props.destination !== undefined) {
-			this.message = `Invalid jump destination: 0x${props.destination.toString(16)}`
-		} else {
-			this.message = 'Invalid jump destination'
-		}
-
-		this.code = InvalidJumpError.code
-		this.docsPath = InvalidJumpError.docsPath
-		this.cause = props.cause
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.destination = destination
+		this.pc = pc
+		this.cause = cause
 	}
 }

@@ -100,20 +100,31 @@ export class InsufficientBalanceError extends Data.TaggedError('InsufficientBala
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'InsufficientBalanceError'
-		this.address = props.address
-		this.required = props.required
-		this.available = props.available
-		this.message =
+		// Compute all final property values before calling super
+		const code = InsufficientBalanceError.code
+		const docsPath = InsufficientBalanceError.docsPath
+		const address = props.address
+		const required = props.required
+		const available = props.available
+		const cause = props.cause
+		const message =
 			props.message ??
 			(props.address !== undefined
 				? `Insufficient balance: account ${props.address} requires ${props.required} but has ${props.available}`
 				: 'Insufficient balance error occurred.')
-		this.code = InsufficientBalanceError.code
-		this.docsPath = InsufficientBalanceError.docsPath
-		this.cause = props.cause
+
+		// Pass properties to super() for Effect.ts equality and hashing
+		super({ message, code, docsPath, cause, address, required, available })
+
+		/** @override @type {string} */
+		this.name = 'InsufficientBalanceError'
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.address = address
+		this.required = required
+		this.available = available
+		this.cause = cause
 		// NOTE: Object.freeze is NOT used because Effect.ts requires objects to be extensible
 		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
 		// Properties are marked @readonly in JSDoc for documentation purposes.

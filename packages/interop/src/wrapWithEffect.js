@@ -26,6 +26,13 @@ import { Effect } from 'effect'
  * - JavaScript private fields (#field) cannot be copied to the wrapped object
  * - The wrapped object performs a shallow copy - nested object mutations affect both copies
  * - Instances with an existing 'effect' property will throw an error
+ * - Only async methods (returning Promises) should be wrapped - synchronous methods
+ *   returning non-Promise values will fail at runtime (TypeScript will warn about this)
+ *
+ * **ERROR HANDLING**:
+ * - Both synchronous exceptions and Promise rejections are caught and converted to Effect failures
+ * - Original errors are preserved (not wrapped in UnknownException)
+ * - If a method throws synchronously before returning a Promise, the error is still captured
  *
  * Note: The wrapped Effect methods have an error type of `unknown` since
  * the original Promise-based methods may reject with any error type.
@@ -85,7 +92,11 @@ export const wrapWithEffect = (instance, methods) => {
 			throw new Error(`Property '${String(method)}' is not a function`)
 		}
 		effectMethods[/** @type {string} */ (method)] = (...args) =>
-			Effect.tryPromise(() => /** @type {Function} */ (fn).apply(instance, args))
+			Effect.tryPromise({
+				try: () => /** @type {Function} */ (fn).apply(instance, args),
+				// Preserve the original error for both synchronous exceptions and Promise rejections
+				catch: (error) => error,
+			})
 	}
 
 	// Create a new object that preserves the prototype chain

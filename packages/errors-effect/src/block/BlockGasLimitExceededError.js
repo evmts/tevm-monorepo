@@ -90,24 +90,35 @@ export class BlockGasLimitExceededError extends Data.TaggedError('BlockGasLimitE
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'BlockGasLimitExceededError'
-		this.blockGasLimit = props.blockGasLimit
-		this.gasUsed = props.gasUsed
+		// Compute all properties BEFORE calling super() for Effect.ts equality/hashing
+		const blockGasLimit = props.blockGasLimit
+		const gasUsed = props.gasUsed
+		const cause = props.cause
 
+		let message
 		if (props.message) {
-			this.message = props.message
+			message = props.message
 		} else if (props.blockGasLimit !== undefined && props.gasUsed !== undefined) {
-			this.message = `Block gas limit exceeded: used ${props.gasUsed} of ${props.blockGasLimit}`
+			message = `Block gas limit exceeded: used ${props.gasUsed} of ${props.blockGasLimit}`
 		} else if (props.gasUsed !== undefined) {
-			this.message = `Gas usage ${props.gasUsed} exceeds block gas limit`
+			message = `Gas usage ${props.gasUsed} exceeds block gas limit`
 		} else {
-			this.message = 'Block gas limit exceeded'
+			message = 'Block gas limit exceeded'
 		}
 
-		this.code = BlockGasLimitExceededError.code
-		this.docsPath = BlockGasLimitExceededError.docsPath
-		this.cause = props.cause
+		const code = BlockGasLimitExceededError.code
+		const docsPath = BlockGasLimitExceededError.docsPath
+
+		// Pass ALL properties to super() for Effect.ts equality and hashing
+		super({ blockGasLimit, gasUsed, cause, message, code, docsPath })
+
+		/** @override @type {string} */
+		this.name = 'BlockGasLimitExceededError'
+		this.blockGasLimit = blockGasLimit
+		this.gasUsed = gasUsed
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 	}
 }

@@ -15,9 +15,9 @@ export type BlockParam = "latest" | "earliest" | "pending" | "safe" | "finalized
  */
 export type EthCallParams = {
     /**
-     * - Target contract address
+     * - Target contract address (optional for contract deployment simulation)
      */
-    to: Address;
+    to?: Address;
     /**
      * - Sender address
      */

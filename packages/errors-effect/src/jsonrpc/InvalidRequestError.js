@@ -74,13 +74,21 @@ export class InvalidRequestError extends Data.TaggedError('InvalidRequestError')
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
+		// Compute all property values BEFORE calling super()
+		const message = props.message ?? 'Invalid JSON-RPC request'
+		const code = InvalidRequestError.code
+		const docsPath = InvalidRequestError.docsPath
+		const cause = props.cause
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ message, code, docsPath, cause })
+
 		/** @override @type {string} */
 		this.name = 'InvalidRequestError'
-		this.message = props.message ?? 'Invalid JSON-RPC request'
-		this.code = InvalidRequestError.code
-		this.docsPath = InvalidRequestError.docsPath
-		this.cause = props.cause
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 		// NOTE: Object.freeze is NOT used because Effect.ts requires objects to be extensible
 		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
 	}

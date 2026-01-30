@@ -100,21 +100,32 @@ export class InvalidFilterTypeError extends Data.TaggedError('InvalidFilterTypeE
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'InvalidFilterTypeError'
-		this.filterId = props.filterId
-		this.expectedType = props.expectedType
-		this.actualType = props.actualType
-		this.message =
+		// Compute all properties before calling super() for Effect.ts equality/hashing
+		const filterId = props.filterId
+		const expectedType = props.expectedType
+		const actualType = props.actualType
+		const message =
 			props.message ??
 			(props.filterId !== undefined && props.expectedType !== undefined
 				? `Filter '${props.filterId}' is not a ${props.expectedType} filter`
 				: props.filterId !== undefined
 					? `Filter '${props.filterId}' has invalid type`
 					: 'Invalid filter type')
-		this.code = InvalidFilterTypeError.code
-		this.docsPath = InvalidFilterTypeError.docsPath
-		this.cause = props.cause
+		const code = InvalidFilterTypeError.code
+		const docsPath = InvalidFilterTypeError.docsPath
+		const cause = props.cause
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ filterId, expectedType, actualType, message, code, docsPath, cause })
+
+		/** @override @type {string} */
+		this.name = 'InvalidFilterTypeError'
+		this.filterId = filterId
+		this.expectedType = expectedType
+		this.actualType = actualType
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 	}
 }

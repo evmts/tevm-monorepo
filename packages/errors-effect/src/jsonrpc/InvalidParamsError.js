@@ -91,18 +91,28 @@ export class InvalidParamsError extends Data.TaggedError('InvalidParamsError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'InvalidParamsError'
-		this.method = props.method
-		this.params = props.params
-		this.message =
+		// Compute all property values BEFORE calling super()
+		const method = props.method
+		const params = props.params
+		const message =
 			props.message ??
 			(props.method !== undefined
 				? `Invalid parameters for method '${props.method}'`
 				: 'Invalid parameters')
-		this.code = InvalidParamsError.code
-		this.docsPath = InvalidParamsError.docsPath
-		this.cause = props.cause
+		const code = InvalidParamsError.code
+		const docsPath = InvalidParamsError.docsPath
+		const cause = props.cause
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ method, params, message, code, docsPath, cause })
+
+		/** @override @type {string} */
+		this.name = 'InvalidParamsError'
+		this.method = method
+		this.params = params
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 	}
 }

@@ -84,22 +84,32 @@ export class ForkError extends Data.TaggedError('ForkError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'ForkError'
-		this.method = props.method
-		this.cause = props.cause
-		this.message =
+		// Compute all properties BEFORE calling super()
+		const name = 'ForkError'
+		const method = props.method
+		const cause = props.cause
+		const message =
 			props.message ??
 			(props.method !== undefined
 				? `Fork request failed for method '${props.method}'`
 				: 'Fork request failed')
 		// If cause has a code, use it; otherwise use the static default
-		this.code =
+		const code =
 			props.cause && typeof props.cause === 'object' && 'code' in props.cause && typeof props.cause.code === 'number'
 				? props.cause.code
 				: ForkError.code
-		this.docsPath = ForkError.docsPath
+		const docsPath = ForkError.docsPath
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ name, method, cause, message, code, docsPath })
+
+		/** @override @type {string} */
+		this.name = name
+		this.method = method
+		this.cause = cause
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
 		// NOTE: Object.freeze is NOT used because Effect.ts requires objects to be extensible
 		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
 		// Properties are marked @readonly in JSDoc for documentation purposes.

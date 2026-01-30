@@ -103,23 +103,36 @@ export class NonceTooLowError extends Data.TaggedError('NonceTooLowError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'NonceTooLowError'
-		this.address = props.address
-		this.expected = props.expected
-		this.actual = props.actual
+		// Compute all properties BEFORE calling super() for Effect.ts equality/hashing
+		const name = 'NonceTooLowError'
+		const address = props.address
+		const expected = props.expected
+		const actual = props.actual
+		const cause = props.cause
+		const code = NonceTooLowError.code
+		const docsPath = NonceTooLowError.docsPath
 
+		let message
 		if (props.message) {
-			this.message = props.message
+			message = props.message
 		} else if (props.expected !== undefined && props.actual !== undefined) {
-			this.message = `Nonce too low: expected ${props.expected}, got ${props.actual}`
+			message = `Nonce too low: expected ${props.expected}, got ${props.actual}`
 		} else {
-			this.message = 'Transaction nonce too low'
+			message = 'Transaction nonce too low'
 		}
 
-		this.code = NonceTooLowError.code
-		this.docsPath = NonceTooLowError.docsPath
-		this.cause = props.cause
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ name, address, expected, actual, message, code, docsPath, cause })
+
+		// Assign to instance properties
+		/** @override @type {string} */
+		this.name = name
+		this.address = address
+		this.expected = expected
+		this.actual = actual
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 	}
 }

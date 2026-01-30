@@ -81,17 +81,26 @@ export class NodeNotReadyError extends Data.TaggedError('NodeNotReadyError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'NodeNotReadyError'
-		this.reason = props.reason
-		this.message =
+		// Compute all properties before calling super() for Effect.ts equality/hashing
+		const reason = props.reason
+		const message =
 			props.message ??
 			(props.reason !== undefined
 				? `Node not ready: ${props.reason}`
 				: 'Node is not ready')
-		this.code = NodeNotReadyError.code
-		this.docsPath = NodeNotReadyError.docsPath
-		this.cause = props.cause
+		const code = NodeNotReadyError.code
+		const docsPath = NodeNotReadyError.docsPath
+		const cause = props.cause
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ reason, message, code, docsPath, cause })
+
+		/** @override @type {string} */
+		this.name = 'NodeNotReadyError'
+		this.reason = reason
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 	}
 }

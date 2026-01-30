@@ -81,17 +81,26 @@ export class FilterNotFoundError extends Data.TaggedError('FilterNotFoundError')
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'FilterNotFoundError'
-		this.filterId = props.filterId
-		this.message =
+		// Compute all properties before calling super() for Effect.ts equality/hashing
+		const filterId = props.filterId
+		const message =
 			props.message ??
 			(props.filterId !== undefined
 				? `Filter '${props.filterId}' not found`
 				: 'Filter not found')
-		this.code = FilterNotFoundError.code
-		this.docsPath = FilterNotFoundError.docsPath
-		this.cause = props.cause
+		const code = FilterNotFoundError.code
+		const docsPath = FilterNotFoundError.docsPath
+		const cause = props.cause
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ filterId, message, code, docsPath, cause })
+
+		/** @override @type {string} */
+		this.name = 'FilterNotFoundError'
+		this.filterId = filterId
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 	}
 }

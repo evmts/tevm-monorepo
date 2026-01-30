@@ -81,17 +81,26 @@ export class SnapshotNotFoundError extends Data.TaggedError('SnapshotNotFoundErr
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'SnapshotNotFoundError'
-		this.snapshotId = props.snapshotId
-		this.message =
+		// Compute all properties before calling super() for Effect.ts equality/hashing
+		const snapshotId = props.snapshotId
+		const message =
 			props.message ??
 			(props.snapshotId !== undefined
 				? `Snapshot '${props.snapshotId}' not found`
 				: 'Snapshot not found')
-		this.code = SnapshotNotFoundError.code
-		this.docsPath = SnapshotNotFoundError.docsPath
-		this.cause = props.cause
+		const code = SnapshotNotFoundError.code
+		const docsPath = SnapshotNotFoundError.docsPath
+		const cause = props.cause
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ snapshotId, message, code, docsPath, cause })
+
+		/** @override @type {string} */
+		this.name = 'SnapshotNotFoundError'
+		this.snapshotId = snapshotId
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 	}
 }

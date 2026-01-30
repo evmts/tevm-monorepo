@@ -90,24 +90,36 @@ export class GasTooLowError extends Data.TaggedError('GasTooLowError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'GasTooLowError'
-		this.gasLimit = props.gasLimit
-		this.intrinsicGas = props.intrinsicGas
+		// Compute all properties BEFORE calling super() for Effect.ts equality/hashing
+		const name = 'GasTooLowError'
+		const gasLimit = props.gasLimit
+		const intrinsicGas = props.intrinsicGas
+		const cause = props.cause
+		const code = GasTooLowError.code
+		const docsPath = GasTooLowError.docsPath
 
+		let message
 		if (props.message) {
-			this.message = props.message
+			message = props.message
 		} else if (props.gasLimit !== undefined && props.intrinsicGas !== undefined) {
-			this.message = `Gas too low: provided ${props.gasLimit}, but intrinsic gas is ${props.intrinsicGas}`
+			message = `Gas too low: provided ${props.gasLimit}, but intrinsic gas is ${props.intrinsicGas}`
 		} else if (props.gasLimit !== undefined) {
-			this.message = `Gas limit ${props.gasLimit} is too low`
+			message = `Gas limit ${props.gasLimit} is too low`
 		} else {
-			this.message = 'Transaction gas limit too low'
+			message = 'Transaction gas limit too low'
 		}
 
-		this.code = GasTooLowError.code
-		this.docsPath = GasTooLowError.docsPath
-		this.cause = props.cause
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ name, gasLimit, intrinsicGas, message, code, docsPath, cause })
+
+		// Assign to instance properties
+		/** @override @type {string} */
+		this.name = name
+		this.gasLimit = gasLimit
+		this.intrinsicGas = intrinsicGas
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 	}
 }

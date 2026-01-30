@@ -95,15 +95,25 @@ export class RevertError extends Data.TaggedError('RevertError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
+		// Compute all final property values before calling super
+		const code = RevertError.code
+		const docsPath = RevertError.docsPath
+		const raw = props.raw
+		const reason = props.reason
+		const cause = props.cause
+		const message = props.message ?? (props.reason ? `Reverted: ${props.reason}` : 'Execution reverted')
+
+		// Pass properties to super() for Effect.ts equality and hashing
+		super({ message, code, docsPath, cause, raw, reason })
+
 		/** @override @type {string} */
 		this.name = 'RevertError'
-		this.raw = props.raw
-		this.reason = props.reason
-		this.message = props.message ?? (props.reason ? `Reverted: ${props.reason}` : 'Execution reverted')
-		this.code = RevertError.code
-		this.docsPath = RevertError.docsPath
-		this.cause = props.cause
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.raw = raw
+		this.reason = reason
+		this.cause = cause
 		// NOTE: Object.freeze is NOT used because Effect.ts requires objects to be extensible
 		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
 		// Properties are marked @readonly in JSDoc for documentation purposes.

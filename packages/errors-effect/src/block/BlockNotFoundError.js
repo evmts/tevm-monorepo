@@ -85,18 +85,27 @@ export class BlockNotFoundError extends Data.TaggedError('BlockNotFoundError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'BlockNotFoundError'
-		this.blockTag = props.blockTag
-		this.cause = props.cause
-		this.message =
+		// Compute all properties BEFORE calling super() for Effect.ts equality/hashing
+		const blockTag = props.blockTag
+		const cause = props.cause
+		const message =
 			props.message ??
 			(props.blockTag !== undefined
 				? `Block '${String(props.blockTag)}' not found`
 				: 'Block not found')
-		this.code = BlockNotFoundError.code
-		this.docsPath = BlockNotFoundError.docsPath
+		const code = BlockNotFoundError.code
+		const docsPath = BlockNotFoundError.docsPath
+
+		// Pass ALL properties to super() for Effect.ts equality and hashing
+		super({ blockTag, cause, message, code, docsPath })
+
+		/** @override @type {string} */
+		this.name = 'BlockNotFoundError'
+		this.blockTag = blockTag
+		this.cause = cause
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
 		// NOTE: Object.freeze is NOT used because Effect.ts requires objects to be extensible
 		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
 		// Properties are marked @readonly in JSDoc for documentation purposes.

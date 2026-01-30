@@ -90,19 +90,29 @@ export class OutOfGasError extends Data.TaggedError('OutOfGasError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'OutOfGasError'
-		this.gasUsed = props.gasUsed
-		this.gasLimit = props.gasLimit
-		this.message =
+		// Compute all final property values before calling super
+		const code = OutOfGasError.code
+		const docsPath = OutOfGasError.docsPath
+		const gasUsed = props.gasUsed
+		const gasLimit = props.gasLimit
+		const cause = props.cause
+		const message =
 			props.message ??
 			(props.gasUsed !== undefined || props.gasLimit !== undefined
 				? `Out of gas: used ${props.gasUsed ?? 'unknown'}, limit ${props.gasLimit ?? 'unknown'}`
 				: 'Out of gas error occurred.')
-		this.code = OutOfGasError.code
-		this.docsPath = OutOfGasError.docsPath
-		this.cause = props.cause
+
+		// Pass properties to super() for Effect.ts equality and hashing
+		super({ message, code, docsPath, cause, gasUsed, gasLimit })
+
+		/** @override @type {string} */
+		this.name = 'OutOfGasError'
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.gasUsed = gasUsed
+		this.gasLimit = gasLimit
+		this.cause = cause
 		// NOTE: Object.freeze is NOT used because Effect.ts requires objects to be extensible
 		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
 		// Properties are marked @readonly in JSDoc for documentation purposes.

@@ -81,14 +81,23 @@ export class InvalidOpcodeError extends Data.TaggedError('InvalidOpcodeError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
+		// Compute all final property values before calling super
+		const code = InvalidOpcodeError.code
+		const docsPath = InvalidOpcodeError.docsPath
+		const opcode = props.opcode
+		const cause = props.cause
+		const message = props.message ?? (props.opcode !== undefined ? `Invalid opcode: 0x${props.opcode.toString(16)}` : 'Invalid opcode encountered')
+
+		// Pass properties to super() for Effect.ts equality and hashing
+		super({ message, code, docsPath, cause, opcode })
+
 		/** @override @type {string} */
 		this.name = 'InvalidOpcodeError'
-		this.opcode = props.opcode
-		this.message = props.message ?? (props.opcode !== undefined ? `Invalid opcode: 0x${props.opcode.toString(16)}` : 'Invalid opcode encountered')
-		this.code = InvalidOpcodeError.code
-		this.docsPath = InvalidOpcodeError.docsPath
-		this.cause = props.cause
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.opcode = opcode
+		this.cause = cause
 		// NOTE: Object.freeze is NOT used because Effect.ts requires objects to be extensible
 		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
 		// Properties are marked @readonly in JSDoc for documentation purposes.

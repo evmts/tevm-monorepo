@@ -102,27 +102,39 @@ export class InvalidBlockError extends Data.TaggedError('InvalidBlockError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'InvalidBlockError'
-		this.blockNumber = props.blockNumber
-		this.blockHash = props.blockHash
-		this.reason = props.reason
+		// Compute all properties BEFORE calling super() for Effect.ts equality/hashing
+		const blockNumber = props.blockNumber
+		const blockHash = props.blockHash
+		const reason = props.reason
+		const cause = props.cause
 
+		let message
 		if (props.message) {
-			this.message = props.message
+			message = props.message
 		} else if (props.blockNumber !== undefined && props.reason !== undefined) {
-			this.message = `Invalid block ${props.blockNumber}: ${props.reason}`
+			message = `Invalid block ${props.blockNumber}: ${props.reason}`
 		} else if (props.blockNumber !== undefined) {
-			this.message = `Block ${props.blockNumber} is invalid`
+			message = `Block ${props.blockNumber} is invalid`
 		} else if (props.reason !== undefined) {
-			this.message = `Invalid block: ${props.reason}`
+			message = `Invalid block: ${props.reason}`
 		} else {
-			this.message = 'Invalid block'
+			message = 'Invalid block'
 		}
 
-		this.code = InvalidBlockError.code
-		this.docsPath = InvalidBlockError.docsPath
-		this.cause = props.cause
+		const code = InvalidBlockError.code
+		const docsPath = InvalidBlockError.docsPath
+
+		// Pass ALL properties to super() for Effect.ts equality and hashing
+		super({ blockNumber, blockHash, reason, cause, message, code, docsPath })
+
+		/** @override @type {string} */
+		this.name = 'InvalidBlockError'
+		this.blockNumber = blockNumber
+		this.blockHash = blockHash
+		this.reason = reason
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 	}
 }

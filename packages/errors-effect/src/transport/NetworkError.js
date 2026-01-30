@@ -82,17 +82,27 @@ export class NetworkError extends Data.TaggedError('NetworkError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'NetworkError'
-		this.url = props.url
-		this.cause = props.cause
-		this.message =
+		// Compute all properties BEFORE calling super()
+		const name = 'NetworkError'
+		const url = props.url
+		const cause = props.cause
+		const message =
 			props.message ??
 			(props.url !== undefined
 				? `Network request failed for '${props.url}'`
 				: 'Network request failed')
-		this.code = NetworkError.code
-		this.docsPath = NetworkError.docsPath
+		const code = NetworkError.code
+		const docsPath = NetworkError.docsPath
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ name, url, cause, message, code, docsPath })
+
+		/** @override @type {string} */
+		this.name = name
+		this.url = url
+		this.cause = cause
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
 	}
 }

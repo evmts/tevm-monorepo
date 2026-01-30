@@ -85,18 +85,28 @@ export class StateRootNotFoundError extends Data.TaggedError('StateRootNotFoundE
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
-		/** @override @type {string} */
-		this.name = 'StateRootNotFoundError'
-		this.stateRoot = props.stateRoot
-		this.cause = props.cause
-		this.message =
+		// Compute all property values BEFORE calling super() for Effect.ts equality/hashing
+		const name = 'StateRootNotFoundError'
+		const stateRoot = props.stateRoot
+		const message =
 			props.message ??
 			(props.stateRoot !== undefined
 				? `State root '${props.stateRoot}' not found`
 				: 'State root not found')
-		this.code = StateRootNotFoundError.code
-		this.docsPath = StateRootNotFoundError.docsPath
+		const code = StateRootNotFoundError.code
+		const docsPath = StateRootNotFoundError.docsPath
+		const cause = props.cause
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ name, stateRoot, message, code, docsPath, cause })
+
+		/** @override @type {string} */
+		this.name = name
+		this.stateRoot = stateRoot
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 		// NOTE: Object.freeze is NOT used because Effect.ts requires objects to be extensible
 		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
 		// Properties are marked @readonly in JSDoc for documentation purposes.

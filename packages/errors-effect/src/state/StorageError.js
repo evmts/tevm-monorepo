@@ -95,24 +95,31 @@ export class StorageError extends Data.TaggedError('StorageError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
+		// Compute all property values BEFORE calling super() for Effect.ts equality/hashing
+		const name = 'StorageError'
+		const address = props.address
+		const key = props.key
+		const message = props.message
+			? props.message
+			: props.address !== undefined && props.key !== undefined
+				? `Storage error for account ${props.address} at key ${props.key}`
+				: props.address !== undefined
+					? `Storage error for account ${props.address}`
+					: 'Storage access error'
+		const code = StorageError.code
+		const docsPath = StorageError.docsPath
+		const cause = props.cause
+
+		// Pass all properties to super() for Effect.ts equality and hashing
+		super({ name, address, key, message, code, docsPath, cause })
+
 		/** @override @type {string} */
-		this.name = 'StorageError'
-		this.address = props.address
-		this.key = props.key
-
-		if (props.message) {
-			this.message = props.message
-		} else if (props.address !== undefined && props.key !== undefined) {
-			this.message = `Storage error for account ${props.address} at key ${props.key}`
-		} else if (props.address !== undefined) {
-			this.message = `Storage error for account ${props.address}`
-		} else {
-			this.message = 'Storage access error'
-		}
-
-		this.code = StorageError.code
-		this.docsPath = StorageError.docsPath
-		this.cause = props.cause
+		this.name = name
+		this.address = address
+		this.key = key
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.cause = cause
 	}
 }

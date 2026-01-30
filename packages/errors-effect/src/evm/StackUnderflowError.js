@@ -91,22 +91,29 @@ export class StackUnderflowError extends Data.TaggedError('StackUnderflowError')
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
+		// Compute all final property values before calling super
+		const code = StackUnderflowError.code
+		const docsPath = StackUnderflowError.docsPath
+		const requiredItems = props.requiredItems
+		const availableItems = props.availableItems
+		const cause = props.cause
+		const message = props.message
+			? props.message
+			: props.requiredItems !== undefined || props.availableItems !== undefined
+				? `Stack underflow error occurred. Required ${props.requiredItems ?? 'unknown'} items, but only ${props.availableItems ?? 'unknown'} available.`
+				: 'Stack underflow error occurred.'
+
+		// Pass properties to super() for Effect.ts equality and hashing
+		super({ message, code, docsPath, cause, requiredItems, availableItems })
+
 		/** @override @type {string} */
 		this.name = 'StackUnderflowError'
-		this.requiredItems = props.requiredItems
-		this.availableItems = props.availableItems
-		// Include item counts in auto-generated message when available
-		if (props.message) {
-			this.message = props.message
-		} else if (props.requiredItems !== undefined || props.availableItems !== undefined) {
-			this.message = `Stack underflow error occurred. Required ${props.requiredItems ?? 'unknown'} items, but only ${props.availableItems ?? 'unknown'} available.`
-		} else {
-			this.message = 'Stack underflow error occurred.'
-		}
-		this.code = StackUnderflowError.code
-		this.docsPath = StackUnderflowError.docsPath
-		this.cause = props.cause
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.requiredItems = requiredItems
+		this.availableItems = availableItems
+		this.cause = cause
 		// NOTE: Object.freeze is NOT used because Effect.ts requires objects to be extensible
 		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
 		// Properties are marked @readonly in JSDoc for documentation purposes.

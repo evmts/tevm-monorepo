@@ -81,21 +81,27 @@ export class StackOverflowError extends Data.TaggedError('StackOverflowError') {
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
+		// Compute all final property values before calling super
+		const code = StackOverflowError.code
+		const docsPath = StackOverflowError.docsPath
+		const stackSize = props.stackSize
+		const cause = props.cause
+		const message = props.message
+			? props.message
+			: props.stackSize !== undefined
+				? `Stack overflow error occurred. Stack size: ${props.stackSize} (max: 1024).`
+				: 'Stack overflow error occurred.'
+
+		// Pass properties to super() for Effect.ts equality and hashing
+		super({ message, code, docsPath, cause, stackSize })
+
 		/** @override @type {string} */
 		this.name = 'StackOverflowError'
-		this.stackSize = props.stackSize
-		// Include stackSize in auto-generated message when available
-		if (props.message) {
-			this.message = props.message
-		} else if (props.stackSize !== undefined) {
-			this.message = `Stack overflow error occurred. Stack size: ${props.stackSize} (max: 1024).`
-		} else {
-			this.message = 'Stack overflow error occurred.'
-		}
-		this.code = StackOverflowError.code
-		this.docsPath = StackOverflowError.docsPath
-		this.cause = props.cause
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.stackSize = stackSize
+		this.cause = cause
 		// NOTE: Object.freeze is NOT used because Effect.ts requires objects to be extensible
 		// for its Equal.equals and Hash.hash trait implementations (Symbol-based caching).
 		// Properties are marked @readonly in JSDoc for documentation purposes.

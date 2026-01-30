@@ -362,4 +362,51 @@ describe('wrapWithEffect', () => {
 			'Consider renaming the existing property or using a different wrapper approach',
 		)
 	})
+
+	it('should handle synchronous exceptions as Effect failures (not defects)', async () => {
+		// Issue #106: Verifies that synchronous exceptions thrown before returning
+		// a Promise are properly caught and converted to Effect failures.
+		const obj = {
+			syncThrowingMethod(): Promise<string> {
+				// This throws synchronously BEFORE returning a Promise
+				throw new Error('Synchronous error')
+			},
+		}
+
+		const wrapped = wrapWithEffect(obj, ['syncThrowingMethod'])
+
+		const effect = wrapped.effect.syncThrowingMethod()
+		const result = await Effect.runPromise(Effect.either(effect))
+
+		// Should be a Left (failure), not a defect
+		expect(result._tag).toBe('Left')
+		if (result._tag === 'Left') {
+			expect(result.left).toBeInstanceOf(Error)
+			expect((result.left as Error).message).toBe('Synchronous error')
+		}
+	})
+
+	it('should fail gracefully for synchronous methods that return non-Promises', async () => {
+		// Edge case: synchronous methods that don't return Promises are NOT supported.
+		// This documents the expected behavior - Effect.tryPromise requires a Promise.
+		// TypeScript prevents this at compile-time, but this test documents runtime behavior.
+		const obj = {
+			syncMethod(): number {
+				return 42
+			},
+		}
+
+		// TypeScript would warn about this, but testing runtime behavior
+		const wrapped = wrapWithEffect(obj, ['syncMethod' as keyof typeof obj])
+
+		const effect = wrapped.effect.syncMethod()
+		const result = await Effect.runPromise(Effect.either(effect))
+
+		// Should fail because tryPromise expects a Promise, and 42 doesn't have a .then method
+		expect(result._tag).toBe('Left')
+		if (result._tag === 'Left') {
+			expect(result.left).toBeInstanceOf(TypeError)
+			expect((result.left as TypeError).message).toContain('is not a function')
+		}
+	})
 })

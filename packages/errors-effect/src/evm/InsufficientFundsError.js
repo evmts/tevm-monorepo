@@ -100,23 +100,30 @@ export class InsufficientFundsError extends Data.TaggedError('InsufficientFundsE
 	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
-		super({})
+		// Compute all final property values before calling super
+		const code = InsufficientFundsError.code
+		const docsPath = InsufficientFundsError.docsPath
+		const address = props.address
+		const required = props.required
+		const available = props.available
+		const cause = props.cause
+		const message = props.message
+			? props.message
+			: props.required !== undefined && props.available !== undefined
+				? `Insufficient funds: requires ${props.required} but account has ${props.available}`
+				: 'Insufficient funds for gas * price + value'
+
+		// Pass properties to super() for Effect.ts equality and hashing
+		super({ message, code, docsPath, cause, address, required, available })
+
 		/** @override @type {string} */
 		this.name = 'InsufficientFundsError'
-		this.address = props.address
-		this.required = props.required
-		this.available = props.available
-
-		if (props.message) {
-			this.message = props.message
-		} else if (props.required !== undefined && props.available !== undefined) {
-			this.message = `Insufficient funds: requires ${props.required} but account has ${props.available}`
-		} else {
-			this.message = 'Insufficient funds for gas * price + value'
-		}
-
-		this.code = InsufficientFundsError.code
-		this.docsPath = InsufficientFundsError.docsPath
-		this.cause = props.cause
+		this.message = message
+		this.code = code
+		this.docsPath = docsPath
+		this.address = address
+		this.required = required
+		this.available = available
+		this.cause = cause
 	}
 }
