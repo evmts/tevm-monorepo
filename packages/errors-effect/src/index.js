@@ -16,6 +16,12 @@ export * from './transaction/index.js'
 // State errors
 export * from './state/index.js'
 
+// JSON-RPC errors
+export * from './jsonrpc/index.js'
+
+// Node errors
+export * from './node/index.js'
+
 // Interop helpers
 export * from './interop/index.js'
 

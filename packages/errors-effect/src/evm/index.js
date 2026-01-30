@@ -1,4 +1,6 @@
 export * from './InsufficientBalanceError.js'
+export * from './InsufficientFundsError.js'
+export * from './InvalidJumpError.js'
 export * from './InvalidOpcodeError.js'
 export * from './OutOfGasError.js'
 export * from './RevertError.js'

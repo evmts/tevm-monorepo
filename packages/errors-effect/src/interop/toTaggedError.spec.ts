@@ -494,4 +494,325 @@ describe('toTaggedError', () => {
 		expect(result._tag).toBe('StateRootNotFoundError')
 		expect((result as any).stateRoot).toBeUndefined()
 	})
+
+	// Tests for new error types added in Phase 1 completion
+
+	it('should convert InsufficientFundsError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'InsufficientFundsError',
+			message: 'Insufficient funds',
+			address: '0x1234567890123456789012345678901234567890',
+			required: 1000n,
+			available: 500n,
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InsufficientFundsError')
+		expect((result as any).address).toBe('0x1234567890123456789012345678901234567890')
+		expect((result as any).required).toBe(1000n)
+		expect((result as any).available).toBe(500n)
+	})
+
+	it('should convert InvalidJumpError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'InvalidJumpError',
+			message: 'Invalid jump',
+			destination: 0x1234,
+			pc: 0x100,
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InvalidJumpError')
+		expect((result as any).destination).toBe(0x1234)
+		expect((result as any).pc).toBe(0x100)
+	})
+
+	it('should convert NetworkError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'NetworkError',
+			message: 'Network error',
+			url: 'https://mainnet.infura.io',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('NetworkError')
+		expect((result as any).url).toBe('https://mainnet.infura.io')
+	})
+
+	it('should convert TimeoutError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'TimeoutError',
+			message: 'Timeout',
+			timeout: 30000,
+			operation: 'eth_call',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('TimeoutError')
+		expect((result as any).timeout).toBe(30000)
+		expect((result as any).operation).toBe('eth_call')
+	})
+
+	it('should convert InvalidBlockError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'InvalidBlockError',
+			message: 'Invalid block',
+			blockNumber: 12345n,
+			blockHash: '0xabcdef',
+			reason: 'Invalid state root',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InvalidBlockError')
+		expect((result as any).blockNumber).toBe(12345n)
+		expect((result as any).blockHash).toBe('0xabcdef')
+		expect((result as any).reason).toBe('Invalid state root')
+	})
+
+	it('should convert BlockGasLimitExceededError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'BlockGasLimitExceededError',
+			message: 'Block gas limit exceeded',
+			blockGasLimit: 30000000n,
+			gasUsed: 35000000n,
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('BlockGasLimitExceededError')
+		expect((result as any).blockGasLimit).toBe(30000000n)
+		expect((result as any).gasUsed).toBe(35000000n)
+	})
+
+	it('should convert NonceTooLowError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'NonceTooLowError',
+			message: 'Nonce too low',
+			address: '0x1234567890123456789012345678901234567890',
+			expected: 5n,
+			actual: 3n,
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('NonceTooLowError')
+		expect((result as any).address).toBe('0x1234567890123456789012345678901234567890')
+		expect((result as any).expected).toBe(5n)
+		expect((result as any).actual).toBe(3n)
+	})
+
+	it('should convert NonceTooHighError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'NonceTooHighError',
+			message: 'Nonce too high',
+			address: '0x1234567890123456789012345678901234567890',
+			expected: 5n,
+			actual: 10n,
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('NonceTooHighError')
+		expect((result as any).address).toBe('0x1234567890123456789012345678901234567890')
+		expect((result as any).expected).toBe(5n)
+		expect((result as any).actual).toBe(10n)
+	})
+
+	it('should convert GasTooLowError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'GasTooLowError',
+			message: 'Gas too low',
+			gasLimit: 21000n,
+			intrinsicGas: 53000n,
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('GasTooLowError')
+		expect((result as any).gasLimit).toBe(21000n)
+		expect((result as any).intrinsicGas).toBe(53000n)
+	})
+
+	it('should convert AccountNotFoundError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'AccountNotFoundError',
+			message: 'Account not found',
+			address: '0x1234567890123456789012345678901234567890',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('AccountNotFoundError')
+		expect((result as any).address).toBe('0x1234567890123456789012345678901234567890')
+	})
+
+	it('should convert AccountNotFound alias to AccountNotFoundError', () => {
+		const baseErrorLike = {
+			_tag: 'AccountNotFound',
+			message: 'Account not found',
+			address: '0xabcd',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('AccountNotFoundError')
+		expect((result as any).address).toBe('0xabcd')
+	})
+
+	it('should convert StorageError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'StorageError',
+			message: 'Storage error',
+			address: '0x1234567890123456789012345678901234567890',
+			key: '0x0000000000000000000000000000000000000000000000000000000000000001',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('StorageError')
+		expect((result as any).address).toBe('0x1234567890123456789012345678901234567890')
+		expect((result as any).key).toBe('0x0000000000000000000000000000000000000000000000000000000000000001')
+	})
+
+	it('should convert InvalidRequestError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'InvalidRequestError',
+			message: 'Invalid request',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InvalidRequestError')
+	})
+
+	it('should convert InvalidRequest alias to InvalidRequestError', () => {
+		const baseErrorLike = {
+			_tag: 'InvalidRequest',
+			message: 'Invalid request',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InvalidRequestError')
+	})
+
+	it('should convert MethodNotFoundError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'MethodNotFoundError',
+			message: 'Method not found',
+			method: 'eth_unknownMethod',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('MethodNotFoundError')
+		expect((result as any).method).toBe('eth_unknownMethod')
+	})
+
+	it('should convert MethodNotFound alias to MethodNotFoundError', () => {
+		const baseErrorLike = {
+			_tag: 'MethodNotFound',
+			message: 'Method not found',
+			method: 'eth_test',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('MethodNotFoundError')
+		expect((result as any).method).toBe('eth_test')
+	})
+
+	it('should convert InvalidParamsError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'InvalidParamsError',
+			message: 'Invalid params',
+			method: 'eth_getBalance',
+			params: ['invalid-address'],
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InvalidParamsError')
+		expect((result as any).method).toBe('eth_getBalance')
+		expect((result as any).params).toEqual(['invalid-address'])
+	})
+
+	it('should convert InvalidParams alias to InvalidParamsError', () => {
+		const baseErrorLike = {
+			_tag: 'InvalidParams',
+			message: 'Invalid params',
+			method: 'eth_call',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InvalidParamsError')
+		expect((result as any).method).toBe('eth_call')
+	})
+
+	it('should convert InternalError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'InternalError',
+			message: 'Internal error',
+			meta: { database: 'state-db' },
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('InternalError')
+		expect((result as any).meta).toEqual({ database: 'state-db' })
+	})
+
+	it('should convert SnapshotNotFoundError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'SnapshotNotFoundError',
+			message: 'Snapshot not found',
+			snapshotId: '0x123',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('SnapshotNotFoundError')
+		expect((result as any).snapshotId).toBe('0x123')
+	})
+
+	it('should convert FilterNotFoundError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'FilterNotFoundError',
+			message: 'Filter not found',
+			filterId: '0xabc',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('FilterNotFoundError')
+		expect((result as any).filterId).toBe('0xabc')
+	})
+
+	it('should convert NodeNotReadyError-like objects', () => {
+		const baseErrorLike = {
+			_tag: 'NodeNotReadyError',
+			message: 'Node not ready',
+			reason: 'Fork synchronization in progress',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('NodeNotReadyError')
+		expect((result as any).reason).toBe('Fork synchronization in progress')
+	})
+
+	it('should preserve cause for new error types', () => {
+		const originalError = new Error('Original cause')
+
+		const testCases = [
+			{ _tag: 'InsufficientFundsError', message: 'test' },
+			{ _tag: 'InvalidJumpError', message: 'test' },
+			{ _tag: 'NetworkError', message: 'test' },
+			{ _tag: 'TimeoutError', message: 'test' },
+			{ _tag: 'InvalidBlockError', message: 'test' },
+			{ _tag: 'BlockGasLimitExceededError', message: 'test' },
+			{ _tag: 'NonceTooLowError', message: 'test' },
+			{ _tag: 'NonceTooHighError', message: 'test' },
+			{ _tag: 'GasTooLowError', message: 'test' },
+			{ _tag: 'AccountNotFoundError', message: 'test' },
+			{ _tag: 'StorageError', message: 'test' },
+			{ _tag: 'InvalidRequestError', message: 'test' },
+			{ _tag: 'MethodNotFoundError', message: 'test' },
+			{ _tag: 'InvalidParamsError', message: 'test' },
+			{ _tag: 'InternalError', message: 'test' },
+			{ _tag: 'SnapshotNotFoundError', message: 'test' },
+			{ _tag: 'FilterNotFoundError', message: 'test' },
+			{ _tag: 'NodeNotReadyError', message: 'test' },
+		]
+
+		for (const testCase of testCases) {
+			const baseErrorLike = { ...testCase, cause: originalError }
+			const result = toTaggedError(baseErrorLike)
+			expect(result.cause).toBe(originalError)
+		}
+	})
 })

@@ -1,0 +1,96 @@
+import { Data } from 'effect'
+
+/**
+ * TaggedError representing a method not found error.
+ *
+ * This error occurs when the requested JSON-RPC method does not exist
+ * or is not available on the server.
+ *
+ * @example
+ * ```typescript
+ * import { MethodNotFoundError } from '@tevm/errors-effect'
+ * import { Effect } from 'effect'
+ *
+ * const program = Effect.gen(function* () {
+ *   yield* Effect.fail(new MethodNotFoundError({
+ *     method: 'eth_unknownMethod'
+ *   }))
+ * })
+ *
+ * // Pattern matching
+ * Effect.catchTag('MethodNotFoundError', (error) => {
+ *   console.log(`Method not found: ${error.method}`)
+ * })
+ * ```
+ */
+export class MethodNotFoundError extends Data.TaggedError('MethodNotFoundError') {
+	/**
+	 * JSON-RPC error code for method not found.
+	 * Standard JSON-RPC 2.0 error code: -32601
+	 * @type {number}
+	 */
+	static code = -32601
+
+	/**
+	 * Path to documentation for this error
+	 * @type {string}
+	 */
+	static docsPath = '/reference/tevm/errors/classes/methodnotfounderror/'
+
+	/**
+	 * The method name that was not found
+	 * @readonly
+	 * @type {string | undefined}
+	 */
+	method
+
+	/**
+	 * Human-readable error message
+	 * @readonly
+	 * @type {string}
+	 */
+	message
+
+	/**
+	 * JSON-RPC error code
+	 * @readonly
+	 * @type {number}
+	 */
+	code
+
+	/**
+	 * Path to documentation
+	 * @readonly
+	 * @type {string}
+	 */
+	docsPath
+
+	/**
+	 * The underlying cause of this error, if any.
+	 * @readonly
+	 * @type {unknown}
+	 */
+	cause
+
+	/**
+	 * Constructs a new MethodNotFoundError
+	 * @param {Object} props - Error properties
+	 * @param {string} [props.method] - The method that was not found
+	 * @param {string} [props.message] - Optional custom message
+	 * @param {unknown} [props.cause] - The underlying cause of this error
+	 */
+	constructor(props = {}) {
+		super()
+		/** @type {string} */
+		this.name = 'MethodNotFoundError'
+		this.method = props.method
+		this.message =
+			props.message ??
+			(props.method !== undefined
+				? `Method '${props.method}' not found`
+				: 'Method not found')
+		this.code = MethodNotFoundError.code
+		this.docsPath = MethodNotFoundError.docsPath
+		this.cause = props.cause
+	}
+}
