@@ -61,4 +61,38 @@ describe('StackUnderflowError', () => {
 		expect(StackUnderflowError.code).toBe(-32015)
 		expect(StackUnderflowError.docsPath).toBe('/reference/tevm/errors/classes/stackunderflowerror/')
 	})
+
+	it('should be immutable (Object.freeze applied)', () => {
+		const error = new StackUnderflowError({})
+
+		// Verify the object is frozen
+		expect(Object.isFrozen(error)).toBe(true)
+
+		// Verify properties cannot be modified
+		const originalMessage = error.message
+		try {
+			// @ts-expect-error - testing runtime immutability
+			error.message = 'Modified message'
+		} catch {
+			// Expected in strict mode
+		}
+		expect(error.message).toBe(originalMessage)
+	})
+
+	it('should accept and store cause property for error chaining', () => {
+		const originalError = new Error('Original error')
+		const error = new StackUnderflowError({
+			cause: originalError,
+		})
+
+		expect(error.cause).toBe(originalError)
+		expect(error.cause).toBeInstanceOf(Error)
+		expect((error.cause as Error).message).toBe('Original error')
+	})
+
+	it('should have undefined cause when not provided', () => {
+		const error = new StackUnderflowError({})
+
+		expect(error.cause).toBeUndefined()
+	})
 })

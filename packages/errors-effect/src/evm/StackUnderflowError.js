@@ -55,15 +55,25 @@ export class StackUnderflowError extends Data.TaggedError('StackUnderflowError')
 	docsPath
 
 	/**
+	 * The underlying cause of this error, if any.
+	 * Enables error chaining for better debugging.
+	 * @readonly
+	 * @type {unknown}
+	 */
+	cause
+
+	/**
 	 * Constructs a new StackUnderflowError
 	 * @param {Object} props - Error properties
 	 * @param {string} [props.message] - Optional custom message
+	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
 		super()
 		this.message = props.message ?? 'Stack underflow error occurred.'
 		this.code = StackUnderflowError.code
 		this.docsPath = StackUnderflowError.docsPath
+		this.cause = props.cause
 		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
 		Object.freeze(this)
 	}

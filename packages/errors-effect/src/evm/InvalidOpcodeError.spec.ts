@@ -77,4 +77,43 @@ describe('InvalidOpcodeError', () => {
 		expect(InvalidOpcodeError.code).toBe(-32015)
 		expect(InvalidOpcodeError.docsPath).toBe('/reference/tevm/errors/classes/invalidopcodeerror/')
 	})
+
+	it('should be immutable (Object.freeze applied)', () => {
+		const error = new InvalidOpcodeError({
+			opcode: 0xfe,
+		})
+
+		// Verify the object is frozen
+		expect(Object.isFrozen(error)).toBe(true)
+
+		// Verify properties cannot be modified
+		const originalOpcode = error.opcode
+		try {
+			// @ts-expect-error - testing runtime immutability
+			error.opcode = 0xff
+		} catch {
+			// Expected in strict mode
+		}
+		expect(error.opcode).toBe(originalOpcode)
+	})
+
+	it('should accept and store cause property for error chaining', () => {
+		const originalError = new Error('Original error')
+		const error = new InvalidOpcodeError({
+			opcode: 0xfe,
+			cause: originalError,
+		})
+
+		expect(error.cause).toBe(originalError)
+		expect(error.cause).toBeInstanceOf(Error)
+		expect((error.cause as Error).message).toBe('Original error')
+	})
+
+	it('should have undefined cause when not provided', () => {
+		const error = new InvalidOpcodeError({
+			opcode: 0xfe,
+		})
+
+		expect(error.cause).toBeUndefined()
+	})
 })

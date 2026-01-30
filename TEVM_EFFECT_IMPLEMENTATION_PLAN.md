@@ -183,8 +183,8 @@ export class InsufficientBalanceError extends Data.TaggedError("InsufficientBala
 
 | Issue | Severity | File | Status | Notes |
 |-------|----------|------|--------|-------|
-| EVM errors missing `cause` property | **High** | All EVM error files | 🔴 Open | TevmError has `cause` (line 48), but all 6 EVM error classes (InsufficientBalanceError, OutOfGasError, RevertError, InvalidOpcodeError, StackOverflowError, StackUnderflowError) do not accept or store `cause`. Breaks error chaining pattern. |
-| toTaggedError does not preserve `cause` | **High** | toTaggedError.js:75-111 | 🔴 Open | When converting specific error types, `cause` is not extracted from source error and passed to new TaggedError. |
+| EVM errors missing `cause` property | **High** | All EVM error files | ✅ Fixed | Added `cause` property to all 6 EVM error classes with proper JSDoc. Error chaining now works. |
+| toTaggedError does not preserve `cause` | **High** | toTaggedError.js:75-111 | ✅ Fixed | Now extracts and passes `cause` from source error when converting to specific TaggedError types. |
 | Missing RFC-defined error types | **High** | src/ | 🔴 Open | RFC defines `InvalidTransactionError`, `BlockNotFoundError`, `StateRootNotFoundError`, `ForkError` - none implemented. |
 | Optional properties should be required per RFC | **Medium** | InsufficientBalanceError.js:47-62 | 🔴 Open | `address`, `required`, `available` typed as `T \| undefined`. RFC shows these as required (non-optional). Allows creating errors without critical data. |
 | Static properties lack `@readonly` annotation | **Medium** | All EVM error files | 🔴 Open | Static `code` and `docsPath` don't have `@readonly` JSDoc. Instance properties have it. |
@@ -196,18 +196,18 @@ export class InsufficientBalanceError extends Data.TaggedError("InsufficientBala
 | Gap | Priority | Files Affected |
 |-----|----------|----------------|
 | Missing `Equal.equals()` structural equality tests | High | All 7 error spec files |
-| Missing immutability tests for 5 EVM errors | High | RevertError, InvalidOpcodeError, OutOfGasError, StackOverflowError, StackUnderflowError spec files |
+| ~~Missing immutability tests for 5 EVM errors~~ | ~~High~~ | ~~RevertError, InvalidOpcodeError, OutOfGasError, StackOverflowError, StackUnderflowError spec files~~ ✅ Added |
 | Missing toBaseError tests for 4 error types | Medium | toBaseError.spec.ts (RevertError, InvalidOpcodeError, StackOverflowError, StackUnderflowError) |
 | Missing null/undefined rejection tests | Medium | promiseToEffect.spec.ts |
 | Missing Effect.die defect tests | Medium | effectToPromise.spec.ts |
 | Missing fiber interruption tests | Low | effectToPromise.spec.ts, promiseToEffect.spec.ts |
 
 **Fourth Review Action Items**:
-1. **High**: Add `cause` property to all 6 EVM error constructors
-2. **High**: Update toTaggedError to preserve `cause` when converting specific error types
+1. ~~**High**: Add `cause` property to all 6 EVM error constructors~~ ✅ Completed 2026-01-29
+2. ~~**High**: Update toTaggedError to preserve `cause` when converting specific error types~~ ✅ Completed 2026-01-29
 3. **High**: Implement RFC-defined error types (InvalidTransactionError, BlockNotFoundError, StateRootNotFoundError, ForkError) or document as Phase 2 scope
 4. **Medium**: Add `Equal.equals()` structural equality tests to all error spec files
-5. **Medium**: Add immutability tests to remaining 5 EVM error spec files
+5. ~~**Medium**: Add immutability tests to remaining 5 EVM error spec files~~ ✅ Completed 2026-01-29
 6. **Medium**: Complete toBaseError.spec.ts with tests for all error types
 7. **Low**: Standardize default message patterns across all errors
 
@@ -962,12 +962,12 @@ export const effectToPromise = <A, E>(
 | **R3**: Return types not explicit on interop functions | Medium | Medium | Add @returns annotations per CLAUDE.md conventions | 🔴 Open |
 | **R3**: Method type information lost in wrapWithEffect | Medium | Medium | Create .d.ts with mapped types for proper inference | 🔴 Open |
 | **R3**: Missing error types from RFC (TransactionError, BlockError, etc.) | Medium | Low | Implement in Phase 1 or document as Phase 2 scope | 🔴 Open |
-| **R3**: Cause property not properly chained through EVM errors | Medium | Medium | Add cause parameter to EVM error constructors | 🔴 Open |
+| **R3**: Cause property not properly chained through EVM errors | Medium | Medium | Add cause parameter to EVM error constructors | ✅ Fixed |
 | **R4**: wrapWithEffect mutates original object | High | Medium | Return new object instead of using Object.assign on original | ✅ Fixed |
 | **R4**: wrapWithEffect loses all method type information | High | Medium | Create .d.ts with mapped types preserving method signatures | 🔴 Open |
 | **R4**: No compile-time enforcement for runtime requirements | Medium | High | Use constrained generics or separate effectToPromiseSafe/Unsafe | 🔴 Open |
 | **R4**: Test coverage gaps for structural equality | Medium | Low | Add Equal.equals tests to all error spec files | 🔴 Open |
-| **R4**: Test coverage gaps for immutability | Medium | Low | Add Object.freeze verification tests to 5 EVM error spec files | 🔴 Open |
+| **R4**: Test coverage gaps for immutability | Medium | Low | Add Object.freeze verification tests to 5 EVM error spec files | ✅ Fixed |
 | **R4**: Test coverage gaps for edge cases | Low | Low | Add null/undefined rejection, Effect.die, fiber interruption tests | 🔴 Open |
 
 ### REVIEW AGENT Review Status: 🔴 FOURTH REVIEW COMPLETE (2026-01-29)

@@ -95,4 +95,46 @@ describe('OutOfGasError', () => {
 		expect(OutOfGasError.code).toBe(-32003)
 		expect(OutOfGasError.docsPath).toBe('/reference/tevm/errors/classes/outofgaserror/')
 	})
+
+	it('should be immutable (Object.freeze applied)', () => {
+		const error = new OutOfGasError({
+			gasUsed: 100000n,
+			gasLimit: 21000n,
+		})
+
+		// Verify the object is frozen
+		expect(Object.isFrozen(error)).toBe(true)
+
+		// Verify properties cannot be modified
+		const originalGasUsed = error.gasUsed
+		try {
+			// @ts-expect-error - testing runtime immutability
+			error.gasUsed = 50000n
+		} catch {
+			// Expected in strict mode
+		}
+		expect(error.gasUsed).toBe(originalGasUsed)
+	})
+
+	it('should accept and store cause property for error chaining', () => {
+		const originalError = new Error('Original error')
+		const error = new OutOfGasError({
+			gasUsed: 100000n,
+			gasLimit: 21000n,
+			cause: originalError,
+		})
+
+		expect(error.cause).toBe(originalError)
+		expect(error.cause).toBeInstanceOf(Error)
+		expect((error.cause as Error).message).toBe('Original error')
+	})
+
+	it('should have undefined cause when not provided', () => {
+		const error = new OutOfGasError({
+			gasUsed: 100000n,
+			gasLimit: 21000n,
+		})
+
+		expect(error.cause).toBeUndefined()
+	})
 })

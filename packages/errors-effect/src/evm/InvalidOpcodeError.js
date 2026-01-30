@@ -64,10 +64,19 @@ export class InvalidOpcodeError extends Data.TaggedError('InvalidOpcodeError') {
 	docsPath
 
 	/**
+	 * The underlying cause of this error, if any.
+	 * Enables error chaining for better debugging.
+	 * @readonly
+	 * @type {unknown}
+	 */
+	cause
+
+	/**
 	 * Constructs a new InvalidOpcodeError
 	 * @param {Object} props - Error properties
 	 * @param {number} [props.opcode] - The invalid opcode
 	 * @param {string} [props.message] - Optional custom message
+	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
 		super()
@@ -75,6 +84,7 @@ export class InvalidOpcodeError extends Data.TaggedError('InvalidOpcodeError') {
 		this.message = props.message ?? (props.opcode !== undefined ? `Invalid opcode: 0x${props.opcode.toString(16)}` : 'Invalid opcode encountered')
 		this.code = InvalidOpcodeError.code
 		this.docsPath = InvalidOpcodeError.docsPath
+		this.cause = props.cause
 		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
 		Object.freeze(this)
 	}

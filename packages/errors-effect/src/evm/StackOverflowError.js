@@ -64,10 +64,19 @@ export class StackOverflowError extends Data.TaggedError('StackOverflowError') {
 	docsPath
 
 	/**
+	 * The underlying cause of this error, if any.
+	 * Enables error chaining for better debugging.
+	 * @readonly
+	 * @type {unknown}
+	 */
+	cause
+
+	/**
 	 * Constructs a new StackOverflowError
 	 * @param {Object} props - Error properties
 	 * @param {number} [props.stackSize] - The stack size when overflow occurred
 	 * @param {string} [props.message] - Optional custom message
+	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
 		super()
@@ -82,6 +91,7 @@ export class StackOverflowError extends Data.TaggedError('StackOverflowError') {
 		}
 		this.code = StackOverflowError.code
 		this.docsPath = StackOverflowError.docsPath
+		this.cause = props.cause
 		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
 		Object.freeze(this)
 	}

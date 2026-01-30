@@ -116,4 +116,28 @@ describe('InsufficientBalanceError', () => {
 		}
 		expect(error.address).toBe(originalAddress)
 	})
+
+	it('should accept and store cause property for error chaining', () => {
+		const originalError = new Error('Original error')
+		const error = new InsufficientBalanceError({
+			address: '0x1234567890123456789012345678901234567890',
+			required: 100n,
+			available: 50n,
+			cause: originalError,
+		})
+
+		expect(error.cause).toBe(originalError)
+		expect(error.cause).toBeInstanceOf(Error)
+		expect((error.cause as Error).message).toBe('Original error')
+	})
+
+	it('should have undefined cause when not provided', () => {
+		const error = new InsufficientBalanceError({
+			address: '0x1234',
+			required: 100n,
+			available: 50n,
+		})
+
+		expect(error.cause).toBeUndefined()
+	})
 })

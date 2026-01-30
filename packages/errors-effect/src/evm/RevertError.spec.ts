@@ -80,4 +80,44 @@ describe('RevertError', () => {
 		expect(RevertError.code).toBe(3)
 		expect(RevertError.docsPath).toBe('/reference/tevm/errors/classes/reverterror/')
 	})
+
+	it('should be immutable (Object.freeze applied)', () => {
+		const error = new RevertError({
+			data: '0x08c379a0',
+			reason: 'Test reason',
+		})
+
+		// Verify the object is frozen
+		expect(Object.isFrozen(error)).toBe(true)
+
+		// Verify properties cannot be modified
+		const originalReason = error.reason
+		try {
+			// @ts-expect-error - testing runtime immutability
+			error.reason = 'Modified reason'
+		} catch {
+			// Expected in strict mode
+		}
+		expect(error.reason).toBe(originalReason)
+	})
+
+	it('should accept and store cause property for error chaining', () => {
+		const originalError = new Error('Original error')
+		const error = new RevertError({
+			reason: 'Test reason',
+			cause: originalError,
+		})
+
+		expect(error.cause).toBe(originalError)
+		expect(error.cause).toBeInstanceOf(Error)
+		expect((error.cause as Error).message).toBe('Original error')
+	})
+
+	it('should have undefined cause when not provided', () => {
+		const error = new RevertError({
+			reason: 'Test reason',
+		})
+
+		expect(error.cause).toBeUndefined()
+	})
 })

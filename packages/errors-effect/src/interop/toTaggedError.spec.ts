@@ -227,4 +227,92 @@ describe('toTaggedError', () => {
 		expect(result._tag).toBe('TevmError')
 		expect(result.message).toBe('undefined')
 	})
+
+	it('should preserve cause when converting InsufficientBalanceError-like objects', () => {
+		const originalError = new Error('Original cause')
+		const baseErrorLike = {
+			_tag: 'InsufficientBalanceError',
+			message: 'Insufficient balance',
+			code: -32000,
+			address: '0x1234',
+			required: 1000n,
+			available: 500n,
+			cause: originalError,
+		}
+
+		const result = toTaggedError(baseErrorLike) as InsufficientBalanceError
+		expect(result.cause).toBe(originalError)
+		expect((result.cause as Error).message).toBe('Original cause')
+	})
+
+	it('should preserve cause when converting OutOfGasError-like objects', () => {
+		const originalError = new Error('Gas error cause')
+		const baseErrorLike = {
+			_tag: 'OutOfGasError',
+			message: 'Out of gas',
+			code: -32003,
+			gasUsed: 100000n,
+			gasLimit: 21000n,
+			cause: originalError,
+		}
+
+		const result = toTaggedError(baseErrorLike) as OutOfGasError
+		expect(result.cause).toBe(originalError)
+	})
+
+	it('should preserve cause when converting RevertError-like objects', () => {
+		const originalError = new Error('Revert cause')
+		const baseErrorLike = {
+			_tag: 'RevertError',
+			message: 'Execution reverted',
+			code: 3,
+			data: '0x08c379a0',
+			reason: 'Test',
+			cause: originalError,
+		}
+
+		const result = toTaggedError(baseErrorLike) as RevertError
+		expect(result.cause).toBe(originalError)
+	})
+
+	it('should preserve cause when converting InvalidOpcodeError-like objects', () => {
+		const originalError = new Error('Opcode cause')
+		const baseErrorLike = {
+			_tag: 'InvalidOpcodeError',
+			message: 'Invalid opcode',
+			code: -32015,
+			opcode: 0xfe,
+			cause: originalError,
+		}
+
+		const result = toTaggedError(baseErrorLike) as InvalidOpcodeError
+		expect(result.cause).toBe(originalError)
+	})
+
+	it('should preserve cause when converting StackOverflowError-like objects', () => {
+		const originalError = new Error('Stack cause')
+		const baseErrorLike = {
+			_tag: 'StackOverflowError',
+			message: 'Stack overflow',
+			code: -32015,
+			stackSize: 1025,
+			cause: originalError,
+		}
+
+		const result = toTaggedError(baseErrorLike) as StackOverflowError
+		expect(result.cause).toBe(originalError)
+	})
+
+	it('should preserve cause when converting StackUnderflowError-like objects', () => {
+		const originalError = new Error('Underflow cause')
+		const baseErrorLike = {
+			_tag: 'StackUnderflowError',
+			message: 'Stack underflow',
+			code: -32015,
+			cause: originalError,
+		}
+
+		const result = toTaggedError(baseErrorLike) as StackUnderflowError
+		expect(result.cause).toBe(originalError)
+	})
 })

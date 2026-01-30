@@ -77,4 +77,43 @@ describe('StackOverflowError', () => {
 		expect(StackOverflowError.code).toBe(-32015)
 		expect(StackOverflowError.docsPath).toBe('/reference/tevm/errors/classes/stackoverflowerror/')
 	})
+
+	it('should be immutable (Object.freeze applied)', () => {
+		const error = new StackOverflowError({
+			stackSize: 1025,
+		})
+
+		// Verify the object is frozen
+		expect(Object.isFrozen(error)).toBe(true)
+
+		// Verify properties cannot be modified
+		const originalStackSize = error.stackSize
+		try {
+			// @ts-expect-error - testing runtime immutability
+			error.stackSize = 2000
+		} catch {
+			// Expected in strict mode
+		}
+		expect(error.stackSize).toBe(originalStackSize)
+	})
+
+	it('should accept and store cause property for error chaining', () => {
+		const originalError = new Error('Original error')
+		const error = new StackOverflowError({
+			stackSize: 1025,
+			cause: originalError,
+		})
+
+		expect(error.cause).toBe(originalError)
+		expect(error.cause).toBeInstanceOf(Error)
+		expect((error.cause as Error).message).toBe('Original error')
+	})
+
+	it('should have undefined cause when not provided', () => {
+		const error = new StackOverflowError({
+			stackSize: 1025,
+		})
+
+		expect(error.cause).toBeUndefined()
+	})
 })

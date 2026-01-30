@@ -84,12 +84,21 @@ export class InsufficientBalanceError extends Data.TaggedError('InsufficientBala
 	docsPath
 
 	/**
+	 * The underlying cause of this error, if any.
+	 * Enables error chaining for better debugging.
+	 * @readonly
+	 * @type {unknown}
+	 */
+	cause
+
+	/**
 	 * Constructs a new InsufficientBalanceError
 	 * @param {Object} props - Error properties
 	 * @param {Address} [props.address] - The address with insufficient balance
 	 * @param {bigint} [props.required] - The required balance
 	 * @param {bigint} [props.available] - The available balance
 	 * @param {string} [props.message] - Optional custom message
+	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
 		super()
@@ -103,6 +112,7 @@ export class InsufficientBalanceError extends Data.TaggedError('InsufficientBala
 				: 'Insufficient balance error occurred.')
 		this.code = InsufficientBalanceError.code
 		this.docsPath = InsufficientBalanceError.docsPath
+		this.cause = props.cause
 		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
 		Object.freeze(this)
 	}

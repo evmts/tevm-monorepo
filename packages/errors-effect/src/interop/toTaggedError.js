@@ -72,12 +72,14 @@ export const toTaggedError = (error) => {
 		if (ErrorClass) {
 			// Create a TaggedError with properties from the BaseError
 			// Extract error-specific properties if they exist on the source
+			// Note: We always preserve the cause property for proper error chaining
 			if (tag === 'InsufficientBalanceError') {
 				return new InsufficientBalanceError({
 					address: typeof baseError.address === 'string' ? /** @type {`0x${string}`} */ (baseError.address) : undefined,
 					required: typeof baseError.required === 'bigint' ? baseError.required : undefined,
 					available: typeof baseError.available === 'bigint' ? baseError.available : undefined,
 					message: baseError.message,
+					cause: baseError.cause,
 				})
 			}
 			if (tag === 'OutOfGasError') {
@@ -85,6 +87,7 @@ export const toTaggedError = (error) => {
 					gasUsed: typeof baseError.gasUsed === 'bigint' ? baseError.gasUsed : undefined,
 					gasLimit: typeof baseError.gasLimit === 'bigint' ? baseError.gasLimit : undefined,
 					message: baseError.message,
+					cause: baseError.cause,
 				})
 			}
 			if (tag === 'RevertError') {
@@ -92,22 +95,28 @@ export const toTaggedError = (error) => {
 					data: typeof baseError.data === 'string' ? /** @type {`0x${string}`} */ (baseError.data) : undefined,
 					reason: typeof baseError.reason === 'string' ? baseError.reason : undefined,
 					message: baseError.message,
+					cause: baseError.cause,
 				})
 			}
 			if (tag === 'InvalidOpcodeError') {
 				return new InvalidOpcodeError({
 					opcode: typeof baseError.opcode === 'number' ? baseError.opcode : undefined,
 					message: baseError.message,
+					cause: baseError.cause,
 				})
 			}
 			if (tag === 'StackOverflowError') {
 				return new StackOverflowError({
 					stackSize: typeof baseError.stackSize === 'number' ? baseError.stackSize : undefined,
 					message: baseError.message,
+					cause: baseError.cause,
 				})
 			}
 			if (tag === 'StackUnderflowError') {
-				return new StackUnderflowError({ message: baseError.message })
+				return new StackUnderflowError({
+					message: baseError.message,
+					cause: baseError.cause,
+				})
 			}
 		}
 

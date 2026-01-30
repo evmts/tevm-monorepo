@@ -76,11 +76,20 @@ export class RevertError extends Data.TaggedError('RevertError') {
 	docsPath
 
 	/**
+	 * The underlying cause of this error, if any.
+	 * Enables error chaining for better debugging.
+	 * @readonly
+	 * @type {unknown}
+	 */
+	cause
+
+	/**
 	 * Constructs a new RevertError
 	 * @param {Object} props - Error properties
 	 * @param {Hex} [props.data] - The revert data (encoded error)
 	 * @param {string} [props.reason] - The decoded revert reason
 	 * @param {string} [props.message] - Optional custom message
+	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
 		super()
@@ -89,6 +98,7 @@ export class RevertError extends Data.TaggedError('RevertError') {
 		this.message = props.message ?? (props.reason ? `Reverted: ${props.reason}` : 'Execution reverted')
 		this.code = RevertError.code
 		this.docsPath = RevertError.docsPath
+		this.cause = props.cause
 		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
 		Object.freeze(this)
 	}

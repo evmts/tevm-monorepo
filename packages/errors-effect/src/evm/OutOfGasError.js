@@ -72,11 +72,20 @@ export class OutOfGasError extends Data.TaggedError('OutOfGasError') {
 	docsPath
 
 	/**
+	 * The underlying cause of this error, if any.
+	 * Enables error chaining for better debugging.
+	 * @readonly
+	 * @type {unknown}
+	 */
+	cause
+
+	/**
 	 * Constructs a new OutOfGasError
 	 * @param {Object} props - Error properties
 	 * @param {bigint} [props.gasUsed] - The gas used when the error occurred
 	 * @param {bigint} [props.gasLimit] - The gas limit for the transaction
 	 * @param {string} [props.message] - Optional custom message
+	 * @param {unknown} [props.cause] - The underlying cause of this error
 	 */
 	constructor(props = {}) {
 		super()
@@ -89,6 +98,7 @@ export class OutOfGasError extends Data.TaggedError('OutOfGasError') {
 				: 'Out of gas error occurred.')
 		this.code = OutOfGasError.code
 		this.docsPath = OutOfGasError.docsPath
+		this.cause = props.cause
 		// Freeze to enforce runtime immutability - JSDoc @readonly is documentation-only
 		Object.freeze(this)
 	}
