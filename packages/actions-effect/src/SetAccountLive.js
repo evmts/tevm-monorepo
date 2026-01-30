@@ -230,7 +230,7 @@ export const SetAccountLive = Layer.effect(
 						Effect.mapError(
 							(e) =>
 								new InternalError({
-									message: `Failed to create checkpoint: ${e.message}`,
+									message: `Failed to create checkpoint: ${e instanceof Error ? e.message : String(e)}`,
 									meta: { address, operation: 'checkpoint' },
 									cause: e,
 								}),
@@ -244,7 +244,7 @@ export const SetAccountLive = Layer.effect(
 							Effect.mapError(
 								(e) =>
 									new InternalError({
-										message: `Failed to put account: ${e.message}`,
+										message: `Failed to put account: ${e instanceof Error ? e.message : String(e)}`,
 										meta: { address, operation: 'putAccount' },
 										cause: e,
 									}),
@@ -257,7 +257,7 @@ export const SetAccountLive = Layer.effect(
 								Effect.mapError(
 									(e) =>
 										new InternalError({
-											message: `Failed to put code: ${e.message}`,
+											message: `Failed to put code: ${e instanceof Error ? e.message : String(e)}`,
 											meta: { address, operation: 'putCode' },
 											cause: e,
 										}),
@@ -272,7 +272,7 @@ export const SetAccountLive = Layer.effect(
 								Effect.mapError(
 									(e) =>
 										new InternalError({
-											message: `Failed to clear storage: ${e.message}`,
+											message: `Failed to clear storage: ${e instanceof Error ? e.message : String(e)}`,
 											meta: { address, operation: 'clearStorage' },
 											cause: e,
 										}),
@@ -328,7 +328,7 @@ export const SetAccountLive = Layer.effect(
 									Effect.mapError(
 										(e) =>
 											new InternalError({
-												message: `Failed to put storage at ${key}: ${e.message}`,
+												message: `Failed to put storage at ${key}: ${e instanceof Error ? e.message : String(e)}`,
 												meta: { address, key, operation: 'putStorage' },
 												cause: e,
 											}),
@@ -344,7 +344,7 @@ export const SetAccountLive = Layer.effect(
 								Effect.mapError(
 									(e) =>
 										new InternalError({
-											message: `Failed to commit state changes: ${e.message}`,
+											message: `Failed to commit state changes: ${e instanceof Error ? e.message : String(e)}`,
 											meta: { address, operation: 'commit' },
 											cause: e,
 										}),

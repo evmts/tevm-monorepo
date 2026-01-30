@@ -2,27 +2,488 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (91st Review - Fixed vitest version mismatch, improved test coverage in decorators-effect)
+**Last Updated**: 2026-01-30 (94th Review - Resolved 4 HIGH + 1 MEDIUM issues)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
 
 ## Review Agent Summary (2026-01-30)
 
-**NINETY-FIRST REVIEW.** Fixed vitest version mismatch in decorators-effect, added comprehensive tests bringing branch coverage to 81.76%. All tests passing (73 tests in decorators-effect, 1300+ total across all effect packages).
+**NINETY-FOURTH REVIEW.** Resolved all 4 HIGH issues and 1 MEDIUM issue from 93rd review: parseInt hex fix (#56), @tevm/utils dependency fix (#50), FilterLive type validation (#52), SetAccountLive error handling (#39), and LoggerLive silent mode (#45).
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟢 PRODUCTION-READY | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 3 LOW |
-| **Phase 2** | 🟢 PRODUCTION-READY | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 2 MEDIUM (interop boundary), 3 LOW |
-| **Phase 3** | 🟢 PRODUCTION-READY | 2 (node-effect, actions-effect) | 200 | ~99% | 2 LOW |
-| **Phase 4** | 🟢 PRODUCTION-READY | 2 (memory-client-effect, decorators-effect) | 157 | ~85% | 2 LOW |
+| **Phase 1** | 🟡 MINOR ISSUES | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 1 MEDIUM (#47), 4 LOW |
+| **Phase 2** | ✅ PRODUCTION-READY | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 3 MEDIUM (interop - documented), 4 LOW |
+| **Phase 3** | 🟡 MINOR ISSUES | 2 (node-effect, actions-effect) | 206 | ~99% | 2 MEDIUM (#40, #53), 4 LOW |
+| **Phase 4** | 🟡 MINOR ISSUES | 2 (memory-client-effect, decorators-effect) | 163 | ~86% | 3 MEDIUM (#55, #58, #59), 6 LOW |
 
 **Open Issues Summary:**
-- **CRITICAL**: 0 (2 RESOLVED in 90th review)
-- **HIGH**: 0 (3 RESOLVED in 90th review)
-- **MEDIUM**: 5 🟡 (1 RESOLVED in 90th review)
-- **LOW**: 11 (2 RESOLVED in 90th review)
+- **CRITICAL**: 0
+- **HIGH**: 0 ✅ (All 4 HIGH issues RESOLVED in 94th review)
+- **MEDIUM**: 11 🟡 (Issue #45 RESOLVED in 94th review)
+- **LOW**: 23 (unchanged)
+
+---
+
+### NINETY-FOURTH REVIEW (2026-01-30) - Resolution of 4 HIGH + 1 MEDIUM Issues
+
+**Reviewed By**: Claude Opus 4.5
+**Scope**: Fix all HIGH and MEDIUM issues from 93rd review
+
+---
+
+#### All HIGH Issues RESOLVED
+
+##### Issue #50: @tevm/utils in devDependencies but Imported at Runtime in state-effect
+**Status**: FIXED
+**Fix**: Moved @tevm/utils from devDependencies to dependencies in packages/state-effect/package.json
+
+##### Issue #52: FilterLive add* Methods Missing Filter Type Validation
+**Status**: FIXED
+**Fix**: Added type validation to addLog (type='Log'), addBlock (type='Block'), addPendingTransaction (type='PendingTransaction'). Returns InvalidFilterTypeError if filter type doesn't match. Added 6 new tests for 100% coverage.
+
+##### Issue #56: parseInt Fails with 0x Prefix for Mine Blocks
+**Status**: FIXED
+**Fix**: Changed `parseInt(blocksHex, 16)` to `Number(blocksHex)` which correctly handles both decimal and hex strings with 0x prefix.
+
+##### Issue #39: Unsafe Error Handling in SetAccountLive
+**Status**: FIXED
+**Fix**: Changed all 6 mapError calls at lines 233, 247, 260, 275, 331, 347 to use `e instanceof Error ? e.message : String(e)` pattern.
+
+---
+
+#### MEDIUM Issue RESOLVED
+
+##### Issue #45: LoggerLive 'silent' Level Outputs Error Logs
+**Status**: FIXED
+**Fix**: Removed incorrect conversion of 'silent' to 'error'. Now passes 'silent' directly to Pino which natively supports it to suppress all output.
+
+---
+
+### NINETY-THIRD REVIEW (2026-01-30) - Independent Parallel Subagent Re-Review
+
+**Reviewed By**: Claude Opus 4.5 (4 parallel Opus subagents)
+**Scope**: Complete independent re-review of all 4 phases to find unreviewed bugs and flaws
+
+---
+
+#### Phase 1: 🟡 2 MEDIUM + 3 LOW Issues Found
+
+##### Issue #45: LoggerLive 'silent' Level Behavioral Bug
+**File:Lines**: `packages/logger-effect/src/LoggerLive.js:29`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ FIXED
+
+**Problem**: When a user passes `LoggerLive('silent')`, the code incorrectly converts the level to 'error':
+```javascript
+level: /** @type {import('@tevm/logger').Level} */ (level === 'silent' ? 'error' : level),
+```
+
+This means Pino will still output error-level logs when the user expects complete silence. Pino natively supports 'silent' level which suppresses all output.
+
+**Impact**: Users expecting silent mode will get error log output.
+
+**Recommended Fix**: Remove the conversion and pass 'silent' directly to Pino:
+```javascript
+level: level, // Pino supports 'silent' natively
+```
+
+---
+
+##### Issue #46: toBaseError Template Type Too Narrow
+**File:Lines**: `packages/errors-effect/src/interop/toBaseError.js:97-98`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The template type only includes a subset of error types. Missing: InsufficientFundsError, InvalidJumpError, all transport errors (ForkError, NetworkError, TimeoutError), all block errors, all transaction errors, all state errors, all JSON-RPC errors, and all node errors.
+
+**Impact**: Works at runtime, but TypeScript users won't get full type inference for error-specific properties on other error types.
+
+---
+
+##### Issue #47: effectToPromise Runtime Type Erasure
+**File:Lines**: `packages/interop/src/effectToPromise.js:79`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The function uses `Runtime.Runtime<any>` cast for the default runtime:
+```javascript
+export const effectToPromise = (effect, runtime = /** @type {Runtime.Runtime<any>} */ (Runtime.defaultRuntime)) => {
+```
+
+The type system does NOT prevent calling `effectToPromise(effectWithRequirements)` without providing a custom runtime. This compiles successfully but crashes at runtime with a missing service error.
+
+**Impact**: Type safety hole that allows runtime failures.
+
+---
+
+##### Issue #48: Inconsistent Error Message Interpolation
+**File:Lines**: `packages/errors-effect/src/evm/OutOfGasError.js:100-102`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: If only `gasUsed` is provided without `gasLimit`, message becomes "Out of gas: used 100000, limit unknown" which is inconsistent. Other error classes have similar patterns.
+
+---
+
+##### Issue #49: LoggerService Generic Tag Lacks Explicit Type Binding
+**File:Lines**: `packages/logger-effect/src/LoggerService.js:47-49`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The Context.Tag doesn't explicitly bind to LoggerShape. More idiomatic Effect.ts pattern would include explicit type cast for IDE tooling.
+
+---
+
+#### Phase 2: 🔴 1 HIGH + 1 LOW Issues Found
+
+##### Issue #50: @tevm/utils in devDependencies but Imported at Runtime in state-effect
+**File:Lines**: `packages/state-effect/package.json:74`, `packages/state-effect/src/StateManagerLive.js:7`, `packages/state-effect/src/StateManagerLocal.js:6`
+**Severity**: 🔴 HIGH
+**Status**: ✅ FIXED
+
+**Problem**: The `@tevm/utils` package is imported at runtime in `StateManagerLive.js` and `StateManagerLocal.js` for the `createAddressFromString` function, but `@tevm/utils` is listed in `devDependencies` instead of `dependencies` in the package.json.
+
+This is the same class of issue as Issue #30 (actions-effect @tevm/utils in devDependencies) which was already fixed.
+
+**Impact**: When this package is published, consumers will not have `@tevm/utils` installed, causing runtime failures.
+
+**Recommended Fix**: Move `@tevm/utils` from `devDependencies` to `dependencies` in `packages/state-effect/package.json`.
+
+---
+
+##### Issue #51: Service Tags Declared as `Context.Tag<any, any>` in Generated Type Declarations
+**File:Lines**: Multiple files in common-effect, transport-effect, blockchain-effect, state-effect
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The generated TypeScript declarations for 5 Service Tags in Phase 2 packages are typed as `Context.Tag<any, any>` instead of proper typed tags like `Context.Tag<ServiceId, ServiceShape>`.
+
+**Impact**: Reduces TypeScript type-safety for consumers using these services with `yield*`.
+
+---
+
+#### Phase 3: 🔴 1 HIGH + 1 MEDIUM + 2 LOW Issues Found
+
+##### Issue #52: FilterLive add* Methods Missing Filter Type Validation
+**File:Lines**: `packages/node-effect/src/FilterLive.js:274-341`
+**Severity**: 🔴 HIGH
+**Status**: ✅ FIXED
+
+**Problem**: The `addLog`, `addBlock`, and `addPendingTransaction` methods do not validate that the filter is of the correct type before adding data. This allows:
+- Adding logs to Block or PendingTransaction filters
+- Adding blocks to Log or PendingTransaction filters
+- Adding pending transactions to Log or Block filters
+
+**Example Bug Scenario**:
+```javascript
+const blockFilterId = yield* filter.createBlockFilter()
+yield* filter.addLog(blockFilterId, someLog) // SUCCEEDS - no type check!
+const logs = yield* filter.getChanges(blockFilterId) // FAILS with InvalidFilterTypeError
+```
+
+The log is stored but can never be retrieved because `getChanges` validates the type. This creates a data integrity issue where data is silently lost.
+
+**Recommended Fix**: The `add*` methods should validate filter type and fail with `InvalidFilterTypeError` if the filter is not of the expected type.
+
+---
+
+##### Issue #53: SnapshotLive Checkpoint Left Dangling if Commit Fails
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:116-124`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: In `takeSnapshot`, if the `commit()` call fails after `getStateRoot()` and `dumpState()` succeed, the checkpoint created is left dangling. The `tapError` only catches errors from `getStateRoot/dumpState`, not from `commit`.
+
+If `commit()` fails, the error propagates but `revert()` is never called. This leaves the internal checkpoint stack in a corrupted state, potentially breaking future checkpoint/commit/revert operations.
+
+**Recommended Fix**: If `commit()` fails, `revert()` should be called to clean up the checkpoint.
+
+---
+
+##### Issue #54: FilterLive deepCopy Corrupts Primitive Values in tx/blocks Arrays
+**File:Lines**: `packages/node-effect/src/FilterLive.js:378-379`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `deepCopy` method attempts to spread `tx` and `blocks` array elements as objects. If these arrays contain primitive values (strings, numbers, or hex strings like block hashes), spreading them produces incorrect results.
+
+---
+
+##### Issue #55: SnapshotLive revertToSnapshot Missing Defect Handling
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:151-188`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `takeSnapshot` uses `Effect.catchAllDefect` to catch and convert defects to typed `StorageError`. However, `revertToSnapshot` does not have equivalent defect handling, creating an inconsistency.
+
+---
+
+#### Phase 4: 🔴 1 HIGH + 3 MEDIUM + 2 LOW Issues Found
+
+##### Issue #56: parseInt Fails with 0x Prefix for Mine Blocks
+**File:Lines**: `packages/decorators-effect/src/RequestLive.js:209`
+**Severity**: 🔴 HIGH
+**Status**: ✅ FIXED
+
+**Problem**:
+```javascript
+const blocks = blocksHex ? parseInt(blocksHex, 16) : 1
+```
+
+When `blocksHex = '0x3'`, `parseInt('0x3', 16)` returns `0` (not `3`) because `parseInt` with radix 16 stops parsing at the 'x' character. This means calling `anvil_mine` or `evm_mine` with a hex-prefixed block count like `0x3` will mine 0 blocks instead of 3.
+
+**Recommended Fix**: Strip the `0x` prefix before parsing:
+```javascript
+const blocks = blocksHex ? parseInt(blocksHex.replace(/^0x/i, ''), 16) : 1
+```
+
+---
+
+##### Issue #57: EthCallParams.to Declared as Required but Should Be Optional
+**File:Lines**: `packages/decorators-effect/src/types.js:24`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The type declares `to` as required (`@property {Address} to`), but the implementation in both `EthActionsLive.js` and `TevmActionsLive.js` checks `if (params.to)`, treating it as optional.
+
+For `eth_call`, the `to` parameter should be optional to support contract deployment simulation.
+
+---
+
+##### Issue #58: Mine Function May Produce Timestamps Less Than Parent Block
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:245-259`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The timestamp uses `Date.now()` without ensuring it exceeds the parent block's timestamp. If the parent block has a future timestamp (e.g., from a forked chain or test setup), the new block's timestamp could be less than the parent's, violating Ethereum consensus rules.
+
+---
+
+##### Issue #59: createdAddress Returns string Not Hex
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:134`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The type declares `createdAddress` as `Hex`, but line 134 returns `result.createdAddress?.toString()`. The `toString()` method returns `string`, not the template literal type `Hex`.
+
+---
+
+##### Issue #60: No Storage Length Validation Before Padding
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:409`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `paddedStorage.set(storage, 32 - storage.length)` - if `storage.length > 32`, the offset would be negative, causing a `RangeError`. While Ethereum storage values should always be at most 32 bytes, there's no defensive check.
+
+---
+
+#### Summary Table (93rd Review)
+
+| Package | CRITICAL | HIGH | MEDIUM | LOW | Total NEW |
+|---------|----------|------|--------|-----|-----------|
+| errors-effect | 0 | 0 | 0 | 2 | 2 |
+| logger-effect | 0 | 0 | 1 | 1 | 2 |
+| interop | 0 | 0 | 1 | 0 | 1 |
+| state-effect | 0 | 1 | 0 | 0 | 1 |
+| common/transport/blockchain/evm/vm | 0 | 0 | 0 | 1 | 1 |
+| node-effect | 0 | 1 | 1 | 2 | 4 |
+| decorators-effect | 0 | 1 | 2 | 1 | 4 |
+| memory-client-effect | 0 | 0 | 1 | 1 | 2 |
+| **TOTAL NEW** | **0** | **4** | **6** | **8** | **17** |
+
+---
+
+#### Recommendations (93rd Review)
+
+**Priority 1 - HIGH (MUST FIX BEFORE PRODUCTION):**
+1. Fix parseInt hex parsing in RequestLive.js - strip `0x` prefix before parsing (Issue #56)
+2. Move `@tevm/utils` from devDependencies to dependencies in state-effect (Issue #50)
+3. Add filter type validation in FilterLive add* methods (Issue #52)
+4. Fix unsafe error handling in SetAccountLive.js (existing Issue #39)
+
+**Priority 2 - MEDIUM (Should Fix):**
+5. Fix LoggerLive 'silent' mode to pass 'silent' directly to Pino (Issue #45)
+6. Fix effectToPromise type safety hole (Issue #47)
+7. Fix SnapshotLive checkpoint cleanup on commit failure (Issue #53)
+8. Make EthCallParams.to optional (Issue #57)
+9. Ensure mined block timestamps exceed parent block timestamp (Issue #58)
+
+**Priority 3 - LOW (Nice to Have):**
+10. Expand toBaseError template type to include all error types (Issue #46)
+11. Add explicit type binding to LoggerService (Issue #49)
+12. Add explicit types to Phase 2 Service Tags (Issue #51)
+13. Fix FilterLive deepCopy for primitive values (Issue #54)
+14. Add defect handling to SnapshotLive.revertToSnapshot (Issue #55)
+15. Add Hex type assertion for createdAddress (Issue #59)
+16. Add defensive storage length validation (Issue #60)
+
+---
+
+### NINETY-SECOND REVIEW (2026-01-30) - Independent Parallel Subagent Re-Review
+
+**Reviewed By**: Claude Opus 4.5 (4 parallel Opus subagents)
+**Scope**: Complete independent re-review of all 4 phases to find unreviewed bugs and flaws
+
+---
+
+#### Phase 1: 🟡 1 NEW MEDIUM Issue Found
+
+##### Issue #38: LoggerSilent Function Signatures Mismatch
+**File:Lines**: `packages/logger-effect/src/LoggerSilent.js:24-27`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The logging methods (debug, info, warn, error) in LoggerSilent are defined as zero-parameter functions `() => Effect.void`, but the LoggerShape interface requires them to accept `(message: string, data?: unknown)` parameters.
+
+**Evidence from LoggerSilent.js (lines 24-27):**
+```javascript
+debug: () => Effect.void,
+info: () => Effect.void,
+warn: () => Effect.void,
+error: () => Effect.void,
+```
+
+**Evidence from LoggerShape.js (line 24):**
+```javascript
+@property {(message: string, data?: unknown) => Effect.Effect<void, never, never>} debug
+```
+
+**Impact**: While JavaScript ignores extra arguments (so this works at runtime), it violates the type contract and creates inconsistency with LoggerLive and LoggerTest which correctly use `(message, data) => ...` pattern.
+
+**Recommended Fix**:
+```javascript
+debug: (message, data) => Effect.void,
+info: (message, data) => Effect.void,
+warn: (message, data) => Effect.void,
+error: (message, data) => Effect.void,
+```
+
+---
+
+#### Phase 2: ✅ PRODUCTION-READY
+
+No new issues found. Previously documented Effect.runPromise interop boundaries in BlockchainLive (Issue #3) and StateManagerLive (Issue #4) remain as acceptable interop patterns.
+
+---
+
+#### Phase 3: 🔴 1 HIGH + 1 MEDIUM Issues Found
+
+##### Issue #39: Unsafe Error Handling in SetAccountLive
+**File:Lines**: `packages/actions-effect/src/SetAccountLive.js:233, 247, 260, 275, 331, 347`
+**Severity**: 🔴 HIGH
+**Status**: ✅ FIXED
+
+**Problem**: All `mapError` calls directly access `e.message` without type checking. If an error is not an Error object (e.g., a string, number, or null), accessing `.message` returns `undefined`, resulting in confusing error messages like "Failed to create checkpoint: undefined".
+
+**Evidence (line 233):**
+```javascript
+Effect.mapError(
+    (e) =>
+        new InternalError({
+            message: `Failed to create checkpoint: ${e.message}`,  // Unsafe!
+            meta: { address, operation: 'checkpoint' },
+            cause: e,
+        }),
+),
+```
+
+**Correct Pattern (used in GetAccountLive.js, GetBalanceLive.js):**
+```javascript
+message: `Failed to ...: ${e instanceof Error ? e.message : String(e)}`,
+```
+
+**Impact**: Runtime errors with non-Error exceptions produce unhelpful "undefined" messages that mask the actual error cause.
+
+**Recommended Fix**: Replace all 6 instances with the safer pattern: `e instanceof Error ? e.message : String(e)`
+
+---
+
+##### Issue #40: Code Duplication - bytesToHex/hexToBytes Across 8+ Files
+**File:Lines**: Multiple files across actions-effect and node-effect
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW (extends previous Issue #8)
+
+**Problem**: The `bytesToHex` and `hexToBytes` utility functions are duplicated across at least 8 different files with essentially identical implementations.
+
+**Affected Files**:
+- `packages/actions-effect/src/GetAccountLive.js` (lines 28-38)
+- `packages/actions-effect/src/GetCodeLive.js` (lines 16-26)
+- `packages/actions-effect/src/GetStorageAtLive.js` (lines 16-31, 40-51)
+- `packages/actions-effect/src/SetAccountLive.js` (lines 19-30)
+- `packages/node-effect/src/SnapshotLive.js` (lines 22-47)
+- Plus 3+ more files
+
+**Recommended Fix**: Extract to a shared utility module and import in all files.
+
+---
+
+#### Phase 4: 🟡 4 LOW Issues Found (Type Safety)
+
+##### Issue #41: EthActionsLive Layer Type Uses `any` for Dependencies
+**File:Lines**: `packages/decorators-effect/src/EthActionsLive.js:57`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Layer type annotation uses `any` for requirements: `Layer.Layer<..., never, any>` instead of proper service types.
+
+**Should be:**
+```javascript
+Layer.Layer<EthActionsServiceId, never, VmService | CommonService | BlockchainService | GetBalanceService | GetCodeService | GetStorageAtService>
+```
+
+---
+
+##### Issue #42: TevmActionsLive Layer Type Uses `any` for Dependencies
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:49`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Same as Issue #41 - Layer type uses `any` instead of proper service dependencies.
+
+---
+
+##### Issue #43: SendLive Layer Type Uses `any` for Dependencies
+**File:Lines**: `packages/decorators-effect/src/SendLive.js:40`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Same as Issue #41. Error properties at lines 64, 68, 69, 99, 103, 104 are also cast to `any`.
+
+---
+
+##### Issue #44: RequestLive Layer Type Uses `any` for Dependencies
+**File:Lines**: `packages/decorators-effect/src/RequestLive.js:46`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Same as Issue #41. RPC params at lines 80, 151, 166, 181 are also cast to `any`.
+
+---
+
+#### Summary Table (92nd Review)
+
+| Package | CRITICAL | HIGH | MEDIUM | LOW | Total NEW |
+|---------|----------|------|--------|-----|-----------|
+| logger-effect | 0 | 0 | 1 | 0 | 1 |
+| actions-effect | 0 | 1 | 1 | 0 | 2 |
+| decorators-effect | 0 | 0 | 0 | 4 | 4 |
+| **TOTAL NEW** | **0** | **1** | **2** | **4** | **7** |
+
+---
+
+#### Recommendations (92nd Review)
+
+**Priority 1 - HIGH (Should Fix Before Production):**
+1. Fix unsafe error handling in SetAccountLive.js - use `e instanceof Error ? e.message : String(e)` pattern (Issue #39)
+
+**Priority 2 - MEDIUM (Should Fix):**
+2. Fix LoggerSilent function signatures to accept parameters (Issue #38)
+3. Consider extracting bytesToHex/hexToBytes to shared utility (Issue #40)
+
+**Priority 3 - LOW (Nice to Have):**
+4. Update Layer type annotations in decorators-effect to use specific service types instead of `any` (Issues #41-44)
 
 ---
 

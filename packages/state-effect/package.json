@@ -65,13 +65,13 @@
 		"@tevm/common-effect": "workspace:^",
 		"@tevm/transport-effect": "workspace:^",
 		"@tevm/errors-effect": "workspace:^",
+		"@tevm/utils": "workspace:^",
 		"effect": "3.18.1"
 	},
 	"devDependencies": {
 		"@tevm/common": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/utils": "workspace:^",
 		"@types/node": "^24.6.1",
 		"viem": "^2.27.0"
 	},

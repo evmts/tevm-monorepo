@@ -274,21 +274,38 @@ export const FilterLive = () => {
 					addLog: (/** @type {Hex} */ id, /** @type {FilterLog} */ log) =>
 						Effect.gen(function* () {
 							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
-							const found = yield* Ref.modify(fltrRef, (map) => {
+							/**
+							 * @type {{ found: boolean; wrongType: boolean }}
+							 */
+							// @ts-expect-error - Ref.modify union return type inference issue with literal booleans
+							const result = yield* Ref.modify(fltrRef, (map) => {
 								const filter = map.get(id)
 								if (!filter) {
-									return [false, map]
+									return /** @type {const} */ ([{ found: false, wrongType: false }, map])
+								}
+								if (filter.type !== 'Log') {
+									return /** @type {const} */ ([{ found: true, wrongType: true }, map])
 								}
 								const newMap = new Map(map)
 								newMap.set(id, { ...filter, logs: [...filter.logs, log] })
-								return [true, newMap]
+								return /** @type {const} */ ([{ found: true, wrongType: false }, newMap])
 							})
 
-							if (!found) {
+							if (!result.found) {
 								return yield* Effect.fail(
 									new FilterNotFoundError({
 										filterId: id,
 										message: `Filter with id ${id} not found`,
+									}),
+								)
+							}
+
+							if (result.wrongType) {
+								return yield* Effect.fail(
+									new InvalidFilterTypeError({
+										filterId: id,
+										expectedType: 'Log',
+										message: `Filter ${id} is not a log filter`,
 									}),
 								)
 							}
@@ -297,21 +314,38 @@ export const FilterLive = () => {
 					addBlock: (/** @type {Hex} */ id, /** @type {unknown} */ block) =>
 						Effect.gen(function* () {
 							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
-							const found = yield* Ref.modify(fltrRef, (map) => {
+							/**
+							 * @type {{ found: boolean; wrongType: boolean }}
+							 */
+							// @ts-expect-error - Ref.modify union return type inference issue with literal booleans
+							const result = yield* Ref.modify(fltrRef, (map) => {
 								const filter = map.get(id)
 								if (!filter) {
-									return [false, map]
+									return /** @type {const} */ ([{ found: false, wrongType: false }, map])
+								}
+								if (filter.type !== 'Block') {
+									return /** @type {const} */ ([{ found: true, wrongType: true }, map])
 								}
 								const newMap = new Map(map)
 								newMap.set(id, { ...filter, blocks: [...filter.blocks, block] })
-								return [true, newMap]
+								return /** @type {const} */ ([{ found: true, wrongType: false }, newMap])
 							})
 
-							if (!found) {
+							if (!result.found) {
 								return yield* Effect.fail(
 									new FilterNotFoundError({
 										filterId: id,
 										message: `Filter with id ${id} not found`,
+									}),
+								)
+							}
+
+							if (result.wrongType) {
+								return yield* Effect.fail(
+									new InvalidFilterTypeError({
+										filterId: id,
+										expectedType: 'Block',
+										message: `Filter ${id} is not a block filter`,
 									}),
 								)
 							}
@@ -320,21 +354,38 @@ export const FilterLive = () => {
 					addPendingTransaction: (/** @type {Hex} */ id, /** @type {unknown} */ tx) =>
 						Effect.gen(function* () {
 							// Atomic check-and-update using Ref.modify to prevent TOCTOU race
-							const found = yield* Ref.modify(fltrRef, (map) => {
+							/**
+							 * @type {{ found: boolean; wrongType: boolean }}
+							 */
+							// @ts-expect-error - Ref.modify union return type inference issue with literal booleans
+							const result = yield* Ref.modify(fltrRef, (map) => {
 								const filter = map.get(id)
 								if (!filter) {
-									return [false, map]
+									return /** @type {const} */ ([{ found: false, wrongType: false }, map])
+								}
+								if (filter.type !== 'PendingTransaction') {
+									return /** @type {const} */ ([{ found: true, wrongType: true }, map])
 								}
 								const newMap = new Map(map)
 								newMap.set(id, { ...filter, tx: [...filter.tx, tx] })
-								return [true, newMap]
+								return /** @type {const} */ ([{ found: true, wrongType: false }, newMap])
 							})
 
-							if (!found) {
+							if (!result.found) {
 								return yield* Effect.fail(
 									new FilterNotFoundError({
 										filterId: id,
 										message: `Filter with id ${id} not found`,
+									}),
+								)
+							}
+
+							if (result.wrongType) {
+								return yield* Effect.fail(
+									new InvalidFilterTypeError({
+										filterId: id,
+										expectedType: 'PendingTransaction',
+										message: `Filter ${id} is not a pending transaction filter`,
 									}),
 								)
 							}

@@ -46,6 +46,70 @@ const createFailingStateManagerLayer = () => {
 }
 
 /**
+ * Create a mock StateManagerService that causes a defect (thrown error) during snapshot.
+ * This is used to test the catchAllDefect handler in SnapshotLive.takeSnapshot.
+ */
+const createDefectStateManagerLayer = () => {
+	return Layer.succeed(
+		StateManagerService,
+		{
+			stateManager: null as unknown,
+			// getStateRoot throws synchronously inside Effect.sync, which becomes a defect
+			getStateRoot: () => Effect.sync(() => { throw new Error('Simulated defect in getStateRoot') }),
+			setStateRoot: () => Effect.sync(() => undefined),
+			dumpState: () => Effect.sync(() => ({})),
+			loadState: () => Effect.sync(() => undefined),
+			getAccount: () => Effect.sync(() => undefined),
+			putAccount: () => Effect.sync(() => undefined),
+			deleteAccount: () => Effect.sync(() => undefined),
+			getStorage: () => Effect.sync(() => new Uint8Array()),
+			putStorage: () => Effect.sync(() => undefined),
+			clearStorage: () => Effect.sync(() => undefined),
+			getCode: () => Effect.sync(() => new Uint8Array()),
+			putCode: () => Effect.sync(() => undefined),
+			checkpoint: () => Effect.sync(() => undefined),
+			commit: () => Effect.sync(() => undefined),
+			revert: () => Effect.sync(() => undefined),
+			ready: Effect.sync(() => undefined),
+			deepCopy: () => Effect.die(new Error('Not implemented')),
+			shallowCopy: () => { throw new Error('Not implemented') },
+		} as unknown as import('@tevm/state-effect').StateManagerShape,
+	)
+}
+
+/**
+ * Create a mock StateManagerService that causes a non-Error defect (string) during snapshot.
+ * This is used to test the catchAllDefect handler branch for non-Error defects.
+ */
+const createNonErrorDefectStateManagerLayer = () => {
+	return Layer.succeed(
+		StateManagerService,
+		{
+			stateManager: null as unknown,
+			// getStateRoot throws a string (non-Error) synchronously inside Effect.sync, which becomes a defect
+			getStateRoot: () => Effect.sync(() => { throw 'Non-Error defect string' }),
+			setStateRoot: () => Effect.sync(() => undefined),
+			dumpState: () => Effect.sync(() => ({})),
+			loadState: () => Effect.sync(() => undefined),
+			getAccount: () => Effect.sync(() => undefined),
+			putAccount: () => Effect.sync(() => undefined),
+			deleteAccount: () => Effect.sync(() => undefined),
+			getStorage: () => Effect.sync(() => new Uint8Array()),
+			putStorage: () => Effect.sync(() => undefined),
+			clearStorage: () => Effect.sync(() => undefined),
+			getCode: () => Effect.sync(() => new Uint8Array()),
+			putCode: () => Effect.sync(() => undefined),
+			checkpoint: () => Effect.sync(() => undefined),
+			commit: () => Effect.sync(() => undefined),
+			revert: () => Effect.sync(() => undefined),
+			ready: Effect.sync(() => undefined),
+			deepCopy: () => Effect.die(new Error('Not implemented')),
+			shallowCopy: () => { throw new Error('Not implemented') },
+		} as unknown as import('@tevm/state-effect').StateManagerShape,
+	)
+}
+
+/**
  * Create a mock StateManagerService for testing.
  * This simulates state management behavior without real EVM state.
  */
@@ -156,6 +220,46 @@ describe('SnapshotLive', () => {
 
 			// Revert SHOULD have been called (cleanup on failure)
 			expect(failingMock.getRevertCalled()).toBe(true)
+		})
+
+		it('should convert defects to StorageError in takeSnapshot', async () => {
+			const defectLayer = Layer.provide(SnapshotLive(), createDefectStateManagerLayer())
+
+			const program = Effect.gen(function* () {
+				const snapshot = yield* SnapshotService
+				yield* snapshot.takeSnapshot()
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(defectLayer)))
+
+			// The operation should fail with a StorageError (converted from defect)
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as { _tag: string; message: string }
+				expect(error._tag).toBe('StorageError')
+				expect(error.message).toContain('Failed to take snapshot')
+				expect(error.message).toContain('Simulated defect in getStateRoot')
+			}
+		})
+
+		it('should convert non-Error defects to StorageError with String(defect)', async () => {
+			const defectLayer = Layer.provide(SnapshotLive(), createNonErrorDefectStateManagerLayer())
+
+			const program = Effect.gen(function* () {
+				const snapshot = yield* SnapshotService
+				yield* snapshot.takeSnapshot()
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(defectLayer)))
+
+			// The operation should fail with a StorageError (converted from non-Error defect)
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as { _tag: string; message: string }
+				expect(error._tag).toBe('StorageError')
+				expect(error.message).toContain('Failed to take snapshot')
+				expect(error.message).toContain('Non-Error defect string')
+			}
 		})
 	})
 
@@ -279,6 +383,32 @@ describe('SnapshotLive', () => {
 			expect(result.has1).toBe(true)
 			expect(result.has2).toBe(false)
 			expect(result.has3).toBe(false)
+		})
+
+		it('should handle even-length hex IDs correctly (e.g., 0x10)', async () => {
+			// This test exercises the hexToBytes branch for even-length hex strings
+			// IDs 0x1-0xf are odd-length (1 char), 0x10+ are even-length (2 chars)
+			const program = Effect.gen(function* () {
+				const snapshot = yield* SnapshotService
+				// Create 16 snapshots to get to 0x10 (even-length hex)
+				for (let i = 0; i < 16; i++) {
+					yield* snapshot.takeSnapshot()
+				}
+				// Revert to 0x10 (even-length hex string)
+				yield* snapshot.revertToSnapshot('0x10')
+				const snapshots = yield* snapshot.getAllSnapshots
+				return {
+					size: snapshots.size,
+					hasF: snapshots.has('0xf'),
+					has10: snapshots.has('0x10'),
+				}
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
+			// After reverting to 0x10, snapshots 0x1-0xf should remain, 0x10 should be deleted
+			expect(result.size).toBe(15)
+			expect(result.hasF).toBe(true)
+			expect(result.has10).toBe(false)
 		})
 	})
 

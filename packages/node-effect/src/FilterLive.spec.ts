@@ -360,6 +360,62 @@ describe('FilterLive', () => {
 			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
 			expect(Exit.isFailure(exit)).toBe(true)
 		})
+
+		it('should fail with InvalidFilterTypeError when adding to a block filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createBlockFilter()
+				const log: FilterLog = {
+					address: '0x1234567890123456789012345678901234567890' as Hex,
+					blockHash: '0xabc' as Hex,
+					blockNumber: 1n,
+					data: '0x' as Hex,
+					logIndex: 0n,
+					removed: false,
+					topics: ['0xdef' as Hex],
+					transactionHash: '0x123' as Hex,
+					transactionIndex: 0n,
+				}
+				yield* filter.addLog(id, log)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as InvalidFilterTypeError
+				expect(error._tag).toBe('InvalidFilterTypeError')
+				expect(error.expectedType).toBe('Log')
+				expect(error.message).toContain('not a log filter')
+			}
+		})
+
+		it('should fail with InvalidFilterTypeError when adding to a pending transaction filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createPendingTransactionFilter()
+				const log: FilterLog = {
+					address: '0x1234567890123456789012345678901234567890' as Hex,
+					blockHash: '0xabc' as Hex,
+					blockNumber: 1n,
+					data: '0x' as Hex,
+					logIndex: 0n,
+					removed: false,
+					topics: ['0xdef' as Hex],
+					transactionHash: '0x123' as Hex,
+					transactionIndex: 0n,
+				}
+				yield* filter.addLog(id, log)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as InvalidFilterTypeError
+				expect(error._tag).toBe('InvalidFilterTypeError')
+				expect(error.expectedType).toBe('Log')
+				expect(error.message).toContain('not a log filter')
+			}
+		})
 	})
 
 	describe('addBlock', () => {
@@ -372,6 +428,40 @@ describe('FilterLive', () => {
 			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
 			expect(Exit.isFailure(exit)).toBe(true)
 		})
+
+		it('should fail with InvalidFilterTypeError when adding to a log filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createLogFilter()
+				yield* filter.addBlock(id, { number: 1n })
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as InvalidFilterTypeError
+				expect(error._tag).toBe('InvalidFilterTypeError')
+				expect(error.expectedType).toBe('Block')
+				expect(error.message).toContain('not a block filter')
+			}
+		})
+
+		it('should fail with InvalidFilterTypeError when adding to a pending transaction filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createPendingTransactionFilter()
+				yield* filter.addBlock(id, { number: 1n })
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as InvalidFilterTypeError
+				expect(error._tag).toBe('InvalidFilterTypeError')
+				expect(error.expectedType).toBe('Block')
+				expect(error.message).toContain('not a block filter')
+			}
+		})
 	})
 
 	describe('addPendingTransaction', () => {
@@ -383,6 +473,40 @@ describe('FilterLive', () => {
 
 			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
 			expect(Exit.isFailure(exit)).toBe(true)
+		})
+
+		it('should fail with InvalidFilterTypeError when adding to a log filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createLogFilter()
+				yield* filter.addPendingTransaction(id, { hash: '0xabc' })
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as InvalidFilterTypeError
+				expect(error._tag).toBe('InvalidFilterTypeError')
+				expect(error.expectedType).toBe('PendingTransaction')
+				expect(error.message).toContain('not a pending transaction filter')
+			}
+		})
+
+		it('should fail with InvalidFilterTypeError when adding to a block filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createBlockFilter()
+				yield* filter.addPendingTransaction(id, { hash: '0xabc' })
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as InvalidFilterTypeError
+				expect(error._tag).toBe('InvalidFilterTypeError')
+				expect(error.expectedType).toBe('PendingTransaction')
+				expect(error.message).toContain('not a pending transaction filter')
+			}
 		})
 	})
 

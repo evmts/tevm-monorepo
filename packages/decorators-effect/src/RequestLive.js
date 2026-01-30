@@ -206,7 +206,8 @@ export const RequestLive = /** @type {Layer.Layer<import('./RequestService.js').
 						case 'anvil_mine':
 						case 'evm_mine': {
 							const [blocksHex] = /** @type {[string]} */ (rpcParams)
-							const blocks = blocksHex ? parseInt(blocksHex, 16) : 1
+							// Use Number() to handle both decimal ("5") and hex ("0x5") formats
+							const blocks = blocksHex ? Number(blocksHex) : 1
 							yield* tevmActions.mine({ blocks })
 							return /** @type {T} */ (null)
 						}
