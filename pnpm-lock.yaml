@@ -2331,6 +2331,25 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  packages/transport-effect:
+    dependencies:
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
+
   packages/trie:
     dependencies:
       '@ethereumjs/trie':
