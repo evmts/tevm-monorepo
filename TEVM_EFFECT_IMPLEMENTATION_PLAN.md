@@ -33,7 +33,69 @@
 **Goal**: Add Effect as dependency, create interop layer, migrate foundational packages
 **Breaking Changes**: None (additive only)
 
-### REVIEW AGENT Review Status: 🟡 TENTH IMPLEMENTATION UPDATE (2026-01-29)
+### REVIEW AGENT Review Status: 🟡 ELEVENTH REVIEW (2026-01-29)
+
+**Eleventh review (2026-01-29)** - Opus 4.5 comprehensive review with parallel researcher subagents reviewing all three Phase 1 packages:
+
+**@tevm/errors-effect Issues - NEW FINDINGS:**
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| RFC specifies error properties as required, implementation makes them optional | **HIGH** | All EVM error files | 🔴 Open | RFC shows `readonly address: Address` (required), but implementation uses `props = {}` allowing all properties to be undefined. Weakens type safety. |
+| Missing error types from RFC error hierarchy | **HIGH** | src/evm/ | 🔴 Open | Only 6 of ~30 error types implemented. Missing: InvalidJumpError, InsufficientFundsError, all Transport/State/Transaction/Block/JsonRpc/Node errors from RFC section 6.1. |
+| toTaggedError does not extract `data` property for RevertError | **MEDIUM** | toTaggedError.js:96-104 | 🔴 Open | Test uses `data` property but only `raw` is extracted. If BaseError has `data` instead of `raw`, property not preserved. |
+| Missing metaMessages support in EVM errors | **MEDIUM** | All EVM error files | 🔴 Open | Original @tevm/errors supports `metaMessages`, toBaseError extracts it (line 114-116), but no EVM error constructor accepts it. |
+| Inconsistent name property assignment | **LOW** | All error files | 🔴 Open | Manual `this.name = 'ErrorName'` may conflict with Effect's internal behavior. Data.TaggedError already provides name via tag. |
+| Address/Hex type definitions duplicated | **LOW** | InsufficientBalanceError.js:4, RevertError.js:4 | 🔴 Open | `@typedef {0x${string}} Address` duplicated. Should centralize. |
+| toTaggedError instanceof check never matches for BaseError | **LOW** | toTaggedError.js:62-66 | 🔴 Open | Loop checking `instanceof ErrorClass` never matches for @tevm/errors BaseError objects since they're different classes. Redundant code. |
+
+**@tevm/interop Issues - NEW FINDINGS:**
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| No input validation for null/undefined in effectToPromise | **CRITICAL** | effectToPromise.js:78-79 | ✅ Fixed | Added null/undefined validation with clear TypeError message. Added 2 tests for validation. |
+| layerFromFactory returns wrong type according to JSDoc | **CRITICAL** | layerFromFactory.js:52 | ✅ Fixed | Clarified JSDoc: `I` is the service identifier (what Layer provides), `S` is the shape. Added note about R=never limitation for dependent layers. |
+| wrapWithEffect sync methods silently converted to async Effects | **HIGH** | wrapWithEffect.js:87-88 | 🔴 Open | All methods wrapped with `Effect.tryPromise`. Sync methods get unnecessary async overhead. RFC shows Promise-returning methods only. |
+| layerFromFactory does not support dependent layers | **HIGH** | layerFromFactory.js:54-59 | 🔴 Open | Return type `Layer<I, unknown, never>` (R=never). Cannot create layers that depend on other services. |
+| promiseToEffect does not distinguish async vs sync functions | **HIGH** | promiseToEffect.js:74-75 | 🔴 Open | No validation that input actually returns Promise. Function name misleading for sync functions. |
+| effectToPromise JSDoc missing @throws for Effect.die (defects) | **MEDIUM** | effectToPromise.js:75-76 | 🔴 Open | Only documents expected errors (E), not defects from Effect.die. |
+| wrapWithEffect effect property not configurable | **MEDIUM** | wrapWithEffect.js:100-105 | 🔴 Open | Property name hardcoded as 'effect'. Users cannot customize. |
+| createManagedRuntime no error handling for layer construction | **MEDIUM** | createManagedRuntime.js:50-51 | 🔴 Open | Layer construction errors surface only when runPromise first called. Not documented. |
+| Frozen objects cannot be wrapped | **MEDIUM** | wrapWithEffect.js:93-97 | 🔴 Open | No check if original is frozen. Object.getOwnPropertyDescriptors copies writable:false. |
+| Symbol-keyed methods not supported | **MEDIUM** | wrapWithEffect.js:87 | 🔴 Open | Method keys cast to string. Symbol methods cannot be wrapped despite JSDoc allowing them. |
+| Empty methods array accepted silently | **LOW** | wrapWithEffect.js:79 | 🔴 Open | `wrapWithEffect(obj, [])` produces `{ effect: {} }`. Likely caller mistake. |
+| layerFromFactory example uses Effect.promise not promiseToEffect | **LOW** | layerFromFactory.js:42 | 🔴 Open | Should dogfood package's own utility. |
+
+**@tevm/logger-effect Issues - NEW FINDINGS:**
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| LogLevel type includes 'silent' but Pino has no silent() method | **HIGH** | types.js:8 | 🔴 Open | 'silent' is config-only in Pino. Logger shape `level: 'silent'` is misleading since no actual method exists. |
+| RFC defines LoggerService as class, implementation uses GenericTag | **HIGH** | LoggerService.js:48 | ⚠️ Known | Intentional JS compatibility deviation but creates RFC mismatch. Should document. |
+| LoggerLive creates new Pino logger per child, not native child() | **MEDIUM** | LoggerLive.js:54 | 🔴 Open | Loses Pino child logger bindings and is less efficient than `logger.child()`. |
+| No validation of child name parameter | **MEDIUM** | LoggerLive.js:54, LoggerSilent.js:28, LoggerTest.js:83-84 | 🔴 Open | Empty string produces 'tevm:'. No validation for special chars or length. |
+| RFC LoggerShape missing 'name' property | **MEDIUM** | LoggerShape.js:19 | 🔴 Open | Implementation adds `name: string` not in RFC section 5.1. Undocumented extension. |
+| LoggerLive comment imprecise about Pino level names | **LOW** | LoggerLive.js:23 | 🔴 Open | Comment says levels match but base @tevm/logger uses `fatal|trace` not in LogLevel type. |
+
+**Test Coverage Gaps - NEW FINDINGS:**
+
+| Test Gap | Priority | Package | Files Affected | Status |
+|----------|----------|---------|----------------|--------|
+| Invalid effect parameter (null/undefined) | **CRITICAL** | interop | effectToPromise.spec.ts | ✅ Fixed |
+| Effect.die (defects) vs Effect.fail (errors) | **HIGH** | interop | effectToPromise.spec.ts | 🔴 Open |
+| Synchronous method wrapping | **HIGH** | interop | wrapWithEffect.spec.ts | 🔴 Open |
+| Sync function to promiseToEffect | **HIGH** | interop | promiseToEffect.spec.ts | 🔴 Open |
+| Integration tests with actual @tevm/errors BaseError instances | **HIGH** | errors-effect | toTaggedError.spec.ts | 🔴 Open |
+| Layer construction failure | **MEDIUM** | interop | createManagedRuntime.spec.ts | 🔴 Open |
+| Concurrent fibers logging | **MEDIUM** | logger-effect | LoggerTest.spec.ts | 🔴 Open |
+| Error composition (errors with errors as causes) | **MEDIUM** | errors-effect | All error spec files | 🔴 Open |
+| Empty methods array | **LOW** | interop | wrapWithEffect.spec.ts | 🔴 Open |
+| Empty string child name | **LOW** | logger-effect | LoggerLive.spec.ts | 🔴 Open |
+| Circular references in log data | **LOW** | logger-effect | LoggerLive.spec.ts | 🔴 Open |
+
+---
+
+### Previous Review Status: 🟡 TENTH IMPLEMENTATION UPDATE (2026-01-29)
 
 **Tenth implementation update (2026-01-29)** - Critical issues from Ninth Review resolved:
 
@@ -1532,7 +1594,24 @@ export const effectToPromise = <A, E>(
 | 2026-01-29 | Comparing original @tevm/errors vs Effect version reveals critical differences | High - property names and tags may differ | Always compare with original package when creating Effect versions. |
 | 2026-01-29 | Multiple parallel researcher subagents provide comprehensive coverage | High - found 4 CRITICAL issues 8th review missed | Continue using parallel Opus agents for package reviews. |
 
-### REVIEW AGENT Review Status: 🔴 NINTH REVIEW COMPLETE (2026-01-29)
+### Technical & Process Learnings (Eleventh Review - 2026-01-29)
+
+| Date | Learning | Impact | Action Taken |
+|------|----------|--------|--------------|
+| 2026-01-29 | RFC specifies error properties as required but implementation makes them optional | **HIGH** - weakens type safety, errors can have undefined properties | 🔴 Consider making domain-specific properties required or document tradeoff |
+| 2026-01-29 | effectToPromise has no input validation for null/undefined effect parameter | **CRITICAL** - produces cryptic internal Effect errors | 🔴 Add upfront parameter validation with clear error message |
+| 2026-01-29 | layerFromFactory JSDoc uses wrong type parameter (I vs S) | **CRITICAL** - misleads users about what layer provides | 🔴 Fix JSDoc to use correct Effect type semantics |
+| 2026-01-29 | wrapWithEffect uses Effect.tryPromise for ALL methods including sync | **HIGH** - unnecessary async overhead for sync methods | 🔴 Consider separate sync/async wrapping or document limitation |
+| 2026-01-29 | promiseToEffect accepts synchronous functions without warning | **HIGH** - function name misleading, different error semantics | 🔴 Add validation or rename to clarify behavior |
+| 2026-01-29 | LoggerLive.child() creates new Pino logger instead of using native child() | **MEDIUM** - loses Pino child bindings, less efficient | 🔴 Consider using Pino's native logger.child() method |
+| 2026-01-29 | toTaggedError only extracts 'raw' property, not 'data' for RevertError | **MEDIUM** - BaseErrors with 'data' lose that property | 🔴 Add 'data' fallback extraction in toTaggedError |
+| 2026-01-29 | Missing metaMessages support in EVM error constructors despite toBaseError extracting it | **MEDIUM** - asymmetric support breaks round-trip | 🔴 Add metaMessages parameter to EVM error constructors |
+| 2026-01-29 | Only 6 of ~30 RFC error types implemented | **HIGH** - incomplete error hierarchy limits interop | 🔴 Document as Phase 2 scope or implement remaining types |
+| 2026-01-29 | No validation of child logger name parameter allows empty strings | **MEDIUM** - produces malformed names like 'tevm:' | 🔴 Add name validation in all child() implementations |
+| 2026-01-29 | Parallel Opus subagents reviewing separate packages provides thorough coverage efficiently | **HIGH** - found 25+ new issues across 3 packages | ✅ Continue parallel review pattern |
+| 2026-01-29 | Integration tests should use actual @tevm/errors instances, not plain objects | **HIGH** - tests don't verify real-world interop | 🔴 Add integration tests with real BaseError imports |
+
+### REVIEW AGENT Review Status: 🟡 ELEVENTH REVIEW COMPLETE (2026-01-29)
 
 ---
 
@@ -1609,9 +1688,21 @@ export const effectToPromise = <A, E>(
 | **R9 (MEDIUM)**: layerFromFactory does not support layers with dependencies | Medium | Low | Return type is Layer<I, unknown, never>. Cannot express factory functions needing other services. | 🔴 Open |
 | **R9 (MEDIUM)**: Double filtering in LoggerLive | Low | Low | levelPriority check AND Pino's filtering both run. Redundant CPU work. | 🔴 Open |
 | **R9 (MEDIUM)**: RFC LogLevel type mismatch | Medium | Medium | logger-effect missing 'fatal' and 'trace' levels from base @tevm/logger. | 🔴 Open |
-| **R9 (MEDIUM)**: getAndClearLogs race condition | Medium | Low | Uses Ref.get then Ref.set instead of atomic Ref.getAndSet. Logs may be lost in concurrent fibers. | 🔴 Open |
+| **R9 (MEDIUM)**: getAndClearLogs race condition | Medium | Low | Uses Ref.get then Ref.set instead of atomic Ref.getAndSet. Logs may be lost in concurrent fibers. | ✅ Fixed |
+| **R10 (CRITICAL)**: effectToPromise no input validation for null/undefined | High | High | Passing null/undefined produces cryptic internal Effect error. Should validate upfront. | 🔴 Open |
+| **R10 (CRITICAL)**: layerFromFactory JSDoc returns wrong type | High | Medium | JSDoc claims `Layer<I>` but actual is `Layer<S>`. Type parameter confusion. | 🔴 Open |
+| **R10 (HIGH)**: RFC specifies error properties required, implementation optional | High | Medium | All EVM error properties can be undefined. Weakens type safety and RFC compliance. | 🔴 Open |
+| **R10 (HIGH)**: Missing 24+ error types from RFC hierarchy | High | Medium | Only 6/30 error types implemented. Missing Transport/State/Transaction/Block/JsonRpc/Node errors. | 🔴 Open |
+| **R10 (HIGH)**: wrapWithEffect sync methods get async overhead | Medium | Medium | Effect.tryPromise used for all methods. Sync methods get unnecessary Promise wrapping. | 🔴 Open |
+| **R10 (HIGH)**: promiseToEffect accepts sync functions without validation | Medium | Medium | Function name misleading. No check that input actually returns Promise. | 🔴 Open |
+| **R10 (MEDIUM)**: LoggerLive creates new Pino logger per child | Medium | Low | Loses Pino child() bindings and is less efficient. | 🔴 Open |
+| **R10 (MEDIUM)**: No validation of child logger name parameter | Medium | Low | Empty string produces 'tevm:'. No length or character validation. | 🔴 Open |
+| **R10 (MEDIUM)**: toTaggedError does not extract 'data' property | Medium | Low | Only extracts 'raw'. If BaseError has 'data', property lost. | 🔴 Open |
+| **R10 (MEDIUM)**: Missing metaMessages support in EVM error constructors | Medium | Low | Original supports it, toBaseError extracts it, but no constructor accepts it. | 🔴 Open |
+| **R10 (LOW)**: Address/Hex typedefs duplicated across files | Low | Low | Should centralize type definitions. | 🔴 Open |
+| **R10 (LOW)**: Empty methods array accepted silently in wrapWithEffect | Low | Low | Produces `{ effect: {} }`. Likely caller mistake. | 🔴 Open |
 
-### REVIEW AGENT Review Status: 🔴 NINTH REVIEW COMPLETE (2026-01-29)
+### REVIEW AGENT Review Status: 🟡 ELEVENTH REVIEW COMPLETE (2026-01-29)
 
 ---
 
@@ -1693,3 +1784,4 @@ const program = Effect.gen(function* () {
 | 0.1 | 2026-01-29 | Claude | Initial draft from gap analysis |
 | 0.7 | 2026-01-29 | Claude | Seventh review with parallel subagents - found 11 new issues across both packages |
 | 0.8 | 2026-01-29 | Claude | Implemented @tevm/logger-effect package with LoggerService, LoggerLive, LoggerSilent, LoggerTest layers (58 tests, 99.79% coverage) |
+| 0.11 | 2026-01-29 | Claude (Review Agent) | Eleventh review with parallel Opus subagents - found 25+ new issues across all 3 Phase 1 packages (errors-effect, interop, logger-effect) |

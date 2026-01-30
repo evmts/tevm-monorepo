@@ -3,6 +3,22 @@ import { Effect, Runtime, Layer, Context, ManagedRuntime } from 'effect'
 import { effectToPromise } from './effectToPromise.js'
 
 describe('effectToPromise', () => {
+	describe('input validation', () => {
+		it('should reject with TypeError when effect is null', async () => {
+			await expect(effectToPromise(null as any)).rejects.toThrow(TypeError)
+			await expect(effectToPromise(null as any)).rejects.toThrow(
+				'effectToPromise: effect parameter is required and cannot be null or undefined',
+			)
+		})
+
+		it('should reject with TypeError when effect is undefined', async () => {
+			await expect(effectToPromise(undefined as any)).rejects.toThrow(TypeError)
+			await expect(effectToPromise(undefined as any)).rejects.toThrow(
+				'effectToPromise: effect parameter is required and cannot be null or undefined',
+			)
+		})
+	})
+
 	it('should convert a successful Effect to a resolved Promise', async () => {
 		const effect = Effect.succeed(42)
 

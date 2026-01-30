@@ -72,9 +72,13 @@ import { Effect, Runtime } from 'effect'
  * @param {Effect.Effect<A, E, R>} effect - The Effect to convert
  * @param {Runtime.Runtime<R>} [runtime] - Optional runtime to use. Defaults to defaultRuntime. **MUST be provided if R !== never!**
  * @returns {Promise<A>} A Promise that resolves with the Effect's success value or rejects with the error
+ * @throws {TypeError} If effect parameter is null or undefined
  * @throws {E} Rejects with the Effect's error type if the effect fails
  * @throws Will throw a runtime error if the Effect has requirements (R !== never) and no custom runtime is provided
  */
 export const effectToPromise = (effect, runtime = /** @type {Runtime.Runtime<any>} */ (Runtime.defaultRuntime)) => {
+	if (effect === null || effect === undefined) {
+		return Promise.reject(new TypeError('effectToPromise: effect parameter is required and cannot be null or undefined'))
+	}
 	return Runtime.runPromise(runtime)(effect)
 }

@@ -44,12 +44,15 @@ import { Effect, Layer, Context } from 'effect'
  * }).pipe(Effect.provide(StateManagerLive({ fork: 'https://mainnet.infura.io' })))
  * ```
  *
- * @template I - The identifier type of the Context.Tag
- * @template S - The service interface type
+ * **Note**: This creates simple layers with no dependencies (R = never). If your factory
+ * needs other services, use `Layer.effect` directly with `Effect.gen` instead.
+ *
+ * @template I - The service identifier type (what the Layer provides, typically the Tag class itself)
+ * @template S - The service shape/interface type (the actual implementation interface)
  * @template O - The options type for the factory function
- * @param {Context.Tag<I, S>} tag - The Context.Tag for the service
- * @param {(options: O) => Promise<S>} factory - The factory function that creates the service
- * @returns {(options: O) => Layer.Layer<I, unknown, never>} A function that takes options and returns a Layer. The error type is `unknown` as the factory may reject with any value.
+ * @param {Context.Tag<I, S>} tag - The Context.Tag for the service. The Layer will provide this service.
+ * @param {(options: O) => Promise<S>} factory - The factory function that creates the service implementation
+ * @returns {(options: O) => Layer.Layer<I, unknown, never>} A function that takes options and returns a Layer providing service I. Error type is `unknown` as the factory may reject with any value. R = never means no dependencies.
  */
 export const layerFromFactory = (tag, factory) => {
 	return (options) =>
