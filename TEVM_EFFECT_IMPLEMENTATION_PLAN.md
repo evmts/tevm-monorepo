@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (99th Update - Resolved MEDIUM Issue #58: Fixed mine() timestamp to exceed parent block)
+**Last Updated**: 2026-01-30 (100th Update - Resolved MEDIUM Issue #57: Made EthCallParams.to optional)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
@@ -21,7 +21,7 @@
 **Open Issues Summary:**
 - **CRITICAL**: 0
 - **HIGH**: 0 ✅ (Issue #69 resolved)
-- **MEDIUM**: 10 🟡 (Issues #58, #70, #73, #74, #75, #76 resolved)
+- **MEDIUM**: 9 🟡 (Issues #57, #58, #70, #73, #74, #75, #76 resolved)
 - **LOW**: 36 (+13 new from 95th review)
 
 ---
@@ -646,11 +646,13 @@ const blocks = blocksHex ? parseInt(blocksHex.replace(/^0x/i, ''), 16) : 1
 ##### Issue #57: EthCallParams.to Declared as Required but Should Be Optional
 **File:Lines**: `packages/decorators-effect/src/types.js:24`
 **Severity**: 🟡 MEDIUM
-**Status**: 🟡 NEW
+**Status**: ✅ FIXED
 
 **Problem**: The type declares `to` as required (`@property {Address} to`), but the implementation in both `EthActionsLive.js` and `TevmActionsLive.js` checks `if (params.to)`, treating it as optional.
 
 For `eth_call`, the `to` parameter should be optional to support contract deployment simulation.
+
+**Resolution**: Changed `@property {Address} to` to `@property {Address} [to]` in the JSDoc typedef. Added clarifying comment about optional for contract deployment simulation. All 85 tests pass.
 
 ---
 

@@ -21,7 +21,7 @@
 /**
  * Parameters for eth_call
  * @typedef {Object} EthCallParams
- * @property {Address} to - Target contract address
+ * @property {Address} [to] - Target contract address (optional for contract deployment simulation)
  * @property {Address} [from] - Sender address
  * @property {Hex} [data] - Call data
  * @property {bigint} [gas] - Gas limit
