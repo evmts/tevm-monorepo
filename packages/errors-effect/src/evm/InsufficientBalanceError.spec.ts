@@ -14,7 +14,7 @@ describe('InsufficientBalanceError', () => {
 		expect(error.required).toBe(1000000000000000000n)
 		expect(error.available).toBe(500000000000000000n)
 		expect(error._tag).toBe('InsufficientBalanceError')
-		expect(error.code).toBe(-32000)
+		expect(error.code).toBe(-32015)
 		expect(error.docsPath).toBe('/reference/tevm/errors/classes/insufficientbalanceerror/')
 	})
 
@@ -76,7 +76,7 @@ describe('InsufficientBalanceError', () => {
 	})
 
 	it('should have correct static properties', () => {
-		expect(InsufficientBalanceError.code).toBe(-32000)
+		expect(InsufficientBalanceError.code).toBe(-32015)
 		expect(InsufficientBalanceError.docsPath).toBe('/reference/tevm/errors/classes/insufficientbalanceerror/')
 	})
 

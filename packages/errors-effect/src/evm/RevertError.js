@@ -16,7 +16,7 @@ import { Data } from 'effect'
  *
  * const program = Effect.gen(function* () {
  *   yield* Effect.fail(new RevertError({
- *     data: '0x08c379a0...',
+ *     raw: '0x08c379a0...',
  *     reason: 'Insufficient allowance'
  *   }))
  * })
@@ -41,11 +41,12 @@ export class RevertError extends Data.TaggedError('RevertError') {
 	static docsPath = '/reference/tevm/errors/classes/reverterror/'
 
 	/**
-	 * The revert data (encoded error)
+	 * The raw revert data (encoded error).
+	 * Named 'raw' to match the original @tevm/errors RevertError property.
 	 * @readonly
 	 * @type {Hex | undefined}
 	 */
-	data
+	raw
 
 	/**
 	 * The decoded revert reason, if available
@@ -86,7 +87,7 @@ export class RevertError extends Data.TaggedError('RevertError') {
 	/**
 	 * Constructs a new RevertError
 	 * @param {Object} props - Error properties
-	 * @param {Hex} [props.data] - The revert data (encoded error)
+	 * @param {Hex} [props.raw] - The raw revert data (encoded error)
 	 * @param {string} [props.reason] - The decoded revert reason
 	 * @param {string} [props.message] - Optional custom message
 	 * @param {unknown} [props.cause] - The underlying cause of this error
@@ -95,7 +96,7 @@ export class RevertError extends Data.TaggedError('RevertError') {
 		super()
 		/** @type {string} */
 		this.name = 'RevertError'
-		this.data = props.data
+		this.raw = props.raw
 		this.reason = props.reason
 		this.message = props.message ?? (props.reason ? `Reverted: ${props.reason}` : 'Execution reverted')
 		this.code = RevertError.code

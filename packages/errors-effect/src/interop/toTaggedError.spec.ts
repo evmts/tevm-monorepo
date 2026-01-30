@@ -122,7 +122,7 @@ describe('toTaggedError', () => {
 			_tag: 'RevertError',
 			message: 'Execution reverted',
 			code: 3,
-			data: '0x08c379a00000000000000000',
+			raw: '0x08c379a00000000000000000',
 			reason: 'Insufficient allowance',
 		}
 
@@ -130,8 +130,26 @@ describe('toTaggedError', () => {
 		expect(result._tag).toBe('RevertError')
 		expect(result).toBeInstanceOf(RevertError)
 		const revertError = result as RevertError
-		expect(revertError.data).toBe('0x08c379a00000000000000000')
+		expect(revertError.raw).toBe('0x08c379a00000000000000000')
 		expect(revertError.reason).toBe('Insufficient allowance')
+	})
+
+	it('should convert a BaseError-like with _tag Revert (original package) to RevertError', () => {
+		// Original @tevm/errors uses _tag: 'Revert', not 'RevertError'
+		const baseErrorLike = {
+			_tag: 'Revert',
+			message: 'Execution reverted',
+			code: 3,
+			raw: '0xdeadbeef',
+			reason: 'Transfer failed',
+		}
+
+		const result = toTaggedError(baseErrorLike)
+		expect(result._tag).toBe('RevertError')
+		expect(result).toBeInstanceOf(RevertError)
+		const revertError = result as RevertError
+		expect(revertError.raw).toBe('0xdeadbeef')
+		expect(revertError.reason).toBe('Transfer failed')
 	})
 
 	it('should convert a BaseError-like InvalidOpcodeError to TaggedError', () => {

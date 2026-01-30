@@ -7,13 +7,16 @@ import { StackOverflowError } from '../evm/StackOverflowError.js'
 import { StackUnderflowError } from '../evm/StackUnderflowError.js'
 
 /**
- * Map of error tags to their TaggedError constructors
+ * Map of error tags to their TaggedError constructors.
+ * Note: 'Revert' is an alias for RevertError to handle errors from @tevm/errors
+ * which uses _tag='Revert' while Effect version uses _tag='RevertError'.
  * @type {Record<string, new (props: any) => any>}
  */
 const errorMap = {
 	InsufficientBalanceError,
 	InvalidOpcodeError,
 	OutOfGasError,
+	Revert: RevertError,
 	RevertError,
 	StackOverflowError,
 	StackUnderflowError,
@@ -90,9 +93,10 @@ export const toTaggedError = (error) => {
 					cause: baseError.cause,
 				})
 			}
-			if (tag === 'RevertError') {
+			if (tag === 'RevertError' || tag === 'Revert') {
 				return new RevertError({
-					data: typeof baseError.data === 'string' ? /** @type {`0x${string}`} */ (baseError.data) : undefined,
+					// Original @tevm/errors uses 'raw' property, Effect version also uses 'raw'
+					raw: typeof baseError.raw === 'string' ? /** @type {`0x${string}`} */ (baseError.raw) : undefined,
 					reason: typeof baseError.reason === 'string' ? baseError.reason : undefined,
 					message: baseError.message,
 					cause: baseError.cause,

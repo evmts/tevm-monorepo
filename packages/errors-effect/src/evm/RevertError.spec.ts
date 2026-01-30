@@ -5,11 +5,11 @@ import { RevertError } from './RevertError.js'
 describe('RevertError', () => {
 	it('should create a RevertError with data and reason', () => {
 		const error = new RevertError({
-			data: '0x08c379a00000000000000000000000000000000000000000000000000000000000000020',
+			raw: '0x08c379a00000000000000000000000000000000000000000000000000000000000000020',
 			reason: 'Insufficient allowance',
 		})
 
-		expect(error.data).toBe('0x08c379a00000000000000000000000000000000000000000000000000000000000000020')
+		expect(error.raw).toBe('0x08c379a00000000000000000000000000000000000000000000000000000000000000020')
 		expect(error.reason).toBe('Insufficient allowance')
 		expect(error._tag).toBe('RevertError')
 		expect(error.code).toBe(3)
@@ -41,7 +41,7 @@ describe('RevertError', () => {
 	it('should create with empty props', () => {
 		const error = new RevertError()
 
-		expect(error.data).toBeUndefined()
+		expect(error.raw).toBeUndefined()
 		expect(error.reason).toBeUndefined()
 		expect(error._tag).toBe('RevertError')
 	})
@@ -83,7 +83,7 @@ describe('RevertError', () => {
 
 	it('should NOT be frozen (for Effect trait compatibility)', () => {
 		const error = new RevertError({
-			data: '0x08c379a0',
+			raw: '0x08c379a0',
 			reason: 'Test reason',
 		})
 
@@ -117,11 +117,11 @@ describe('RevertError', () => {
 	describe('Effect traits', () => {
 		it('should support Equal.equals for structural equality', () => {
 			const error1 = new RevertError({
-				data: '0x08c379a0',
+				raw: '0x08c379a0',
 				reason: 'Test reason',
 			})
 			const error2 = new RevertError({
-				data: '0x08c379a0',
+				raw: '0x08c379a0',
 				reason: 'Test reason',
 			})
 
@@ -141,11 +141,11 @@ describe('RevertError', () => {
 
 		it('should have consistent Hash values for equal errors', () => {
 			const error1 = new RevertError({
-				data: '0xABCD',
+				raw: '0xABCD',
 				reason: 'Access denied',
 			})
 			const error2 = new RevertError({
-				data: '0xABCD',
+				raw: '0xABCD',
 				reason: 'Access denied',
 			})
 
@@ -165,11 +165,11 @@ describe('RevertError', () => {
 
 		it('should work correctly in Effect HashSet', () => {
 			const error1 = new RevertError({
-				data: '0xDEADBEEF',
+				raw: '0xDEADBEEF',
 				reason: 'Unique reason',
 			})
 			const error2 = new RevertError({
-				data: '0xDEADBEEF',
+				raw: '0xDEADBEEF',
 				reason: 'Unique reason',
 			})
 

@@ -33,47 +33,47 @@
 **Goal**: Add Effect as dependency, create interop layer, migrate foundational packages
 **Breaking Changes**: None (additive only)
 
-### REVIEW AGENT Review Status: 🟡 EIGHTH REVIEW COMPLETE (2026-01-29)
+### REVIEW AGENT Review Status: 🟡 TENTH IMPLEMENTATION UPDATE (2026-01-29)
 
-**Eighth review (2026-01-29)** - Opus 4.5 comprehensive review with parallel researcher subagents:
+**Tenth implementation update (2026-01-29)** - Critical issues from Ninth Review resolved:
 
-**@tevm/errors-effect Issues (4 new, 9 remaining from prior reviews):**
-- 🔴 **Medium**: toBaseError `computeDetails` logic differs from BaseError - BaseError returns `docsPath` when cause is BaseError instance, but toBaseError falls through to message check.
-- 🔴 **Low**: InsufficientBalanceError message may include `undefined` values - checks only `address` before using detailed format, but `required`/`available` may be undefined.
-- 🔴 **Low**: toBaseError walk method operates on wrapper error - uses newly created `Error` wrapper object rather than original `taggedError`, semantic confusion.
-- 🔴 **Low**: StackUnderflowError properties (`requiredItems`, `availableItems`) not tested - unlike StackOverflowError which tests `stackSize` property.
+**@tevm/errors-effect Issues - RESOLVED:**
+- ✅ **CRITICAL**: RevertError `_tag` mismatch - Added 'Revert' alias in errorMap to handle original @tevm/errors errors
+- ✅ **CRITICAL**: RevertError property name mismatch - Changed Effect version to use `raw` property (matching original)
+- ✅ **High**: InsufficientBalanceError code - Changed from `-32000` to `-32015` (matching ExecutionError inheritance)
+- ✅ **High**: toTaggedError handles 'Revert' tag - Added `'Revert': RevertError` alias and updated conversion logic
+- ✅ Added test for `_tag: 'Revert'` conversion from original package
+- 🔴 **Medium**: Hardcoded VERSION string `'1.0.0-next.148'` will become stale.
+- 🔴 **Medium**: Missing properties in original errors not documented - Effect errors have structured properties but original package has properties embedded in message string.
+- 🔴 **Medium**: Default message inconsistency - InvalidOpcodeError uses "Invalid opcode encountered" but original uses "Invalid opcode error occurred."
 
-**@tevm/interop Issues (2 new, 6 remaining from prior reviews):**
-- 🔴 **Medium**: Missing validation for empty methods array in wrapWithEffect - calling with `[]` creates pointless wrapper with empty `effect` object.
-- 🔴 **Low**: Symbol-keyed methods not handled in wrapWithEffect - cast to string may fail or produce unexpected behavior with Symbol keys.
+**@tevm/interop Issues (2 CRITICAL documented, 4 medium/low):**
+- 🔴 **CRITICAL**: effectToPromise `Runtime<any>` cast defeats type safety - Documented in JSDoc, compile-time safety tradeoff. Consider function overloads in future.
+- 🔴 **CRITICAL**: wrapWithEffect state divergence - Documented as intentional behavior in JSDoc. Effect methods bound to original for correct `this` binding.
+- 🔴 **High**: RFC non-compliance - layerFromFactory uses `Effect.tryPromise` which is defensive and correct for unknown factory error types.
+- 🔴 **High**: Missing error type refinement utilities - All wrapped Effects have `unknown` error type. Consider future utilities.
+- 🔴 **Medium**: layerFromFactory does not support layers with dependencies - Return type is `Layer<I, unknown, never>`.
+- 🔴 **Medium**: No validation of synchronous functions in promiseToEffect.
 
-**@tevm/logger-effect Issues (12 new - FIRST REVIEW):**
-- 🔴 **High**: Type definition for LoggerService is incorrect - JSDoc says `Context.Tag<'LoggerService', LoggerShape>` but GenericTag first param should be the Tag itself.
-- 🔴 **High**: Child logger type mismatch in LoggerTest - `child` returns `TestLoggerShape` but typed as returning `LoggerShape`, losing test-specific methods.
-- 🔴 **Medium**: Redundant level mapping in LoggerLive - `levelMap` maps level names to identical strings, serves no purpose since Pino uses same names.
-- 🔴 **Medium**: Missing readonly enforcement on log entries - LogEntry objects are mutable despite `readonly LogEntry[]` array type.
-- 🔴 **Medium**: LoggerTest silent level behavior undocumented - passing `level: 'silent'` creates test logger that captures nothing.
-- 🔴 **Medium**: Missing export of TestLoggerShape type - typedef defined but not exported in index.js.
-- 🔴 **Medium**: Potential memory leak in long-running tests - logs accumulate indefinitely if `clearLogs` not called.
-- 🔴 **Low**: Inconsistent return type for LoggerLive layer - JSDoc says `Layer<LoggerService>` but Layer provides `LoggerShape`.
-- 🔴 **Low**: Missing validation of logger name - empty string, special characters, or very long strings not validated.
-- 🔴 **Low**: No test for data undefined vs omitted - `LogEntry` always has `data` property even when undefined.
-- 🔴 **Low**: JSDoc Examples Use Different Import Paths - internal imports use relative paths (correct for implementation).
-- 🔴 **Low**: No error handling test for Pino creation failure.
+**@tevm/logger-effect Issues - PARTIALLY RESOLVED:**
+- ✅ **Medium**: Double filtering in LoggerLive - Removed redundant `levelPriority` check, Pino handles filtering internally
+- 🔴 **Medium**: RFC LogLevel type mismatch - logger-effect defines different levels than base @tevm/logger. Intentional simplification.
+- ✅ **Medium**: getAndClearLogs race condition - Fixed with atomic `Ref.getAndSet(logsRef, [])` call
+- 🔴 **Low**: isTestLogger type guard only checks 'getLogs' method.
+- 🔴 **Low**: LoggerShape.js exports nothing (`export {}`) - JSDoc types only.
+- 🔴 **Low**: Effect version pinned to exact `3.18.1`.
+- 🔴 **Low**: LoggerService JSDoc uses circular reference.
 
-**Test Coverage Gaps Identified:**
-- Missing test for StackUnderflowError-specific properties (`requiredItems`, `availableItems`)
-- Missing test for wrapWithEffect with empty methods array
-- Missing test for wrapWithEffect with Symbol-keyed methods
-- Missing test for promiseToEffect with synchronous errors
-- Missing test for effectToPromise with Effect.die defects
-- Missing test for toTaggedError with incorrect property types
-- Missing test for LoggerTest with `level: 'silent'`
-- Missing test for concurrent log access in LoggerTest
+**Test Coverage Gaps - PARTIALLY RESOLVED:**
+- ✅ Added test for toTaggedError with `_tag: 'Revert'` from actual @tevm/errors package
+- ✅ RevertError now uses `raw` property (no conversion needed)
+- 🔴 Missing test for concurrent fibers logging simultaneously in LoggerTest
+- 🔴 Missing test for Symbol properties in wrapWithEffect
+- 🔴 Missing test for frozen objects in wrapWithEffect
 
-See EIGHTH REVIEW tables in sections 1.2, 1.3, and 1.4 for full details.
+See NINTH REVIEW tables in sections 1.2, 1.3, and 1.4 for full details.
 
-**Previous Review Summary:**
+**Previous Review Summary (Eighth):**
 **Seventh review (2026-01-29)** - Opus 4.5 comprehensive review with parallel researcher subagents:
 
 **@tevm/errors-effect Issues (3 new, 5 remaining from prior reviews):**
@@ -371,6 +371,35 @@ TypeError: Cannot define property Symbol(effect/Hash), object is not extensible
 5. **Medium**: Add test for Equal.equals with differing cause objects
 6. **Low**: Refactor toTaggedError to use mapping pattern
 7. **Low**: Standardize message generation patterns across all errors
+
+**NINTH REVIEW (2026-01-29)**: 🔴 CRITICAL ISSUES FOUND
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| RevertError `_tag` mismatch breaks interop | **CRITICAL** | toTaggedError.js:93-99 | 🔴 Open | Original @tevm/errors uses `_tag = 'Revert'` (see packages/errors/src/ethereum/RevertError.js:65), but Effect version uses `_tag = 'RevertError'`. toTaggedError checks for 'RevertError' which will NEVER match original errors. Conversion falls through to generic TevmError, losing error-specific properties. |
+| RevertError property name mismatch | **CRITICAL** | RevertError.js:48, toTaggedError.js:95 | 🔴 Open | Original @tevm/errors uses `raw` property for revert data, Effect version uses `data`. toTaggedError attempts to extract `data` but original has `raw`. Revert data LOST during conversion. |
+| InsufficientBalanceError code inconsistency | **High** | InsufficientBalanceError.js:36 | 🔴 Open | Effect version uses `static code = -32000`, but original inherits `-32015` from ExecutionError. RFC suggests `-32000` but creates package inconsistency. Either update RFC or document as intentional deviation. |
+| toTaggedError does not handle 'Revert' tag | **High** | toTaggedError.js:13-20 | 🔴 Open | errorMap only includes 'RevertError', not 'Revert'. Need to add `'Revert': RevertError` alias to handle errors from original package. |
+| Hardcoded VERSION string will become stale | **Medium** | toBaseError.js:7 | 🔴 Open | `VERSION = '1.0.0-next.148'` hardcoded. Should import from package.json or use build-time replacement. |
+| Missing properties in original errors not documented | **Medium** | toTaggedError.js | 🔴 Open | Effect errors have structured properties (e.g., `address`, `required`, `available`) but original package has properties embedded in message string. Users may expect properties to be populated after conversion but they will be undefined. |
+| Default message inconsistency | **Medium** | InvalidOpcodeError.js:86 | 🔴 Open | Effect version uses "Invalid opcode encountered" but original uses "Invalid opcode error occurred." Could cause test failures or confusion. |
+
+**Missing Test Scenarios (Ninth Review)**:
+| Test | Priority | Files Affected | Status |
+|------|----------|----------------|--------|
+| toTaggedError with `_tag: 'Revert'` from actual @tevm/errors | **CRITICAL** | toTaggedError.spec.ts | 🔴 Open |
+| RevertError `raw` to `data` property conversion | **CRITICAL** | toTaggedError.spec.ts | 🔴 Open |
+| Error code consistency between Effect and original packages | **High** | All error spec files | 🔴 Open |
+
+**Ninth Review Action Items**:
+1. **CRITICAL**: Add `'Revert': RevertError` alias to errorMap in toTaggedError.js
+2. **CRITICAL**: Handle `raw` property conversion to `data` in toTaggedError for RevertError
+3. **High**: Resolve code discrepancy for InsufficientBalanceError (-32000 vs -32015) - update RFC or document deviation
+4. **High**: Add test for toTaggedError with `_tag: 'Revert'` from actual @tevm/errors package
+5. **Medium**: Document that properties may be undefined when converting from original errors
+6. **Medium**: Import VERSION from package.json or use build-time replacement
+
+---
 
 **EIGHTH REVIEW (2026-01-29)**: 🟡 NEW ISSUES FOUND
 
@@ -684,6 +713,36 @@ export const effectToPromise = <A, E>(
 - wrapWithEffect correctly preserves `this` via `.apply(instance, args)`
 - State divergence behavior is well-documented even if potentially confusing
 
+**NINTH REVIEW (2026-01-29)**: 🔴 CRITICAL ISSUES FOUND
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| effectToPromise `Runtime<any>` cast defeats type safety | **CRITICAL** | effectToPromise.js:78 | 🔴 Open | Cast to `Runtime.Runtime<any>` bypasses TypeScript type safety. When Effect has requirements (R !== never), compile-time checking is lost. Code compiles but crashes at runtime. RFC specifies `Runtime.Runtime<never>` constraint without cast. |
+| wrapWithEffect state divergence creates dangerous foot-gun | **CRITICAL** | wrapWithEffect.js:87-88 | 🔴 Open | Effect methods bind to ORIGINAL instance via `.apply(instance, args)`, but wrapped object properties are copies. Modifications to `wrapped._value` do NOT affect `wrapped.effect.getValue()` results. Test at line 276 explicitly demonstrates this. Documented in JSDoc but behavior is highly confusing. |
+| RFC non-compliance: Effect.tryPromise vs Effect.promise | **High** | layerFromFactory.js:58 | 🔴 Open | Implementation uses `Effect.tryPromise` but RFC specifies `Effect.promise`. Error type should be documented as `UnknownException` not `unknown`. |
+| Missing error type refinement utilities | **High** | All interop files | 🔴 Open | All wrapped Effects have error type `unknown`. Package lacks utilities to refine to typed TEVM errors. RFC emphasizes typed, pattern-matchable errors but interop layer loses all type information. |
+| wrapWithEffect RFC deviation - immutability change | **High** | wrapWithEffect.js:91-108 | ⚠️ Known | RFC specifies mutation via `Object.assign(instance, ...)` but implementation returns new object. Deliberate deviation for immutability, but causes Critical Issue #2 (state divergence). |
+| layerFromFactory does not support layers with dependencies | **Medium** | layerFromFactory.js:54-60 | 🔴 Open | Return type `Layer<I, unknown, never>` means R = never. Factory functions needing other services cannot be wrapped. RFC example `ForkConfigFromRpc` has dependencies (`TransportService`) but `layerFromFactory` cannot express this. |
+| No validation of synchronous functions in promiseToEffect | **Medium** | promiseToEffect.js:74-76 | 🔴 Open | If `fn` returns value instead of Promise, `Effect.tryPromise` still works but may have unexpected behavior. Function name suggests Promise-returning functions only. |
+
+**Missing Test Scenarios (Ninth Review)**:
+| Test | Priority | Files Affected | Status |
+|------|----------|----------------|--------|
+| Symbol properties in wrapWithEffect | **Medium** | wrapWithEffect.spec.ts | 🔴 Open |
+| Frozen objects in wrapWithEffect | **Medium** | wrapWithEffect.spec.ts | 🔴 Open |
+| Fiber interruption handling | **Medium** | effectToPromise.spec.ts, promiseToEffect.spec.ts | 🔴 Open |
+| effectToPromiseExit returning Exit for error preservation | **Low** | effectToPromise.spec.ts | 🔴 Open |
+
+**Ninth Review Action Items**:
+1. **CRITICAL**: Add overloads to `effectToPromise` with proper generic constraints:
+   - For R=never: `effectToPromise<A, E>(effect: Effect<A, E, never>): Promise<A>`
+   - For R≠never: `effectToPromise<A, E, R>(effect: Effect<A, E, R>, runtime: Runtime<R>): Promise<A>` (runtime mandatory)
+2. **CRITICAL**: Address state divergence in wrapWithEffect - either use Proxy to synchronize, document as limitation with alternative patterns, or bind to wrapped object (breaking change)
+3. **High**: Add error refinement utilities to package (e.g., `catchTevmError<E extends TevmError>(effect: Effect<A, unknown>): Effect<A, E | UnknownError>`)
+4. **High**: Add `layerFromFactory` overload supporting layers with dependencies
+5. **Medium**: Add Symbol properties test and frozen objects test to wrapWithEffect
+6. **Low**: Consider removing `createManagedRuntime` as it adds no value
+
 ---
 
 ### 1.4 @tevm/logger-effect (New Package)
@@ -757,6 +816,50 @@ export const effectToPromise = <A, E>(
 - Good test coverage (58 tests, 99.79% statement coverage)
 - Child loggers properly share log storage for hierarchical assertions
 - Clean separation between Live, Silent, and Test implementations
+
+**SECOND REVIEW (2026-01-29)**: 🟢 ISSUES RESOLVED (2026-01-29)
+
+| Issue | Severity | File | Status | Notes |
+|-------|----------|------|--------|-------|
+| Double filtering in LoggerLive creates redundant work | **Medium** | LoggerLive.js | ✅ Fixed | Removed redundant `levelPriority` check. Pino handles filtering internally. |
+| RFC LogLevel type mismatch with base @tevm/logger | **Medium** | types.js:8-9 | 🔴 Open | logger-effect defines `'debug' | 'info' | 'warn' | 'error' | 'silent'` but base @tevm/logger uses `'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'`. Intentional simplification. |
+| getAndClearLogs race condition | **Medium** | LoggerTest.js | ✅ Fixed | Changed to atomic `Ref.getAndSet(logsRef, [])` call. |
+| isTestLogger type guard only checks one method | **Low** | LoggerTest.js:207-209 | 🔴 Open | Only checks for 'getLogs' method. |
+| LoggerShape.js exports nothing | **Low** | LoggerShape.js:27 | 🔴 Open | JSDoc typedef only pattern. |
+| Effect version pinned to exact version | **Low** | package.json:65 | 🔴 Open | Pinned to `3.18.1`. |
+| LoggerService JSDoc uses circular reference | **Low** | LoggerService.js:46-48 | 🔴 Open | Standard Context.Tag pattern. |
+
+**Previously Fixed Issues Verified**:
+| Issue | Status | Notes |
+|-------|--------|-------|
+| Child logger type mismatch | ✅ Fixed | `TestLoggerShape` now uses `Omit<LoggerShape, 'child'>` |
+| Redundant level mapping | ✅ Fixed | `levelMap` removed, Pino handles filtering |
+| LoggerTest silent level undocumented | ✅ Fixed | JSDoc now documents that 'silent' captures nothing |
+| Missing TestLoggerShape export | ✅ Fixed | `@typedef` re-export added |
+| Memory leak - getAndClearLogs | ✅ Fixed | `getAndClearLogs()` method now uses atomic `Ref.getAndSet` |
+
+**Previously Flagged Incorrectly**:
+| Issue | Status | Explanation |
+|-------|--------|-------------|
+| Inconsistent return type for LoggerLive layer | ⚪ Not An Issue | JSDoc `Layer.Layer<LoggerService, never, never>` is correct. `Layer.succeed(LoggerService, ...)` creates a layer providing the `LoggerService` Tag. |
+
+**Missing Test Scenarios (Second Review)**:
+| Test | Priority | Files Affected | Status |
+|------|----------|----------------|--------|
+| Concurrent fibers logging simultaneously | **Medium** | LoggerTest.spec.ts | 🔴 Open |
+| Very large log data objects | **Low** | LoggerLive.spec.ts | 🔴 Open |
+| Circular references in data | **Low** | LoggerLive.spec.ts | 🔴 Open |
+| Empty logger name behavior (`child('')`) | **Low** | LoggerTest.spec.ts | 🔴 Open |
+| Pino creation failure handling | **Low** | LoggerLive.spec.ts | 🔴 Open |
+
+**Second Review Action Items**:
+1. **Medium**: Remove redundant `levelPriority` check in LoggerLive - Pino handles filtering internally
+2. **Medium**: Use `Ref.getAndSet(logsRef, [])` instead of `Ref.get` then `Ref.set` for atomic operation
+3. **Medium**: Decide whether to match base @tevm/logger levels or document the difference
+4. **Low**: Add Object.freeze to LogEntry objects to prevent mutation
+5. **Low**: Improve isTestLogger to check for multiple test methods
+6. **Low**: Use `^3.18.1` instead of exact version for Effect dependency
+7. **Low**: Add concurrent logging test to verify Ref thread-safety
 
 ---
 
@@ -1410,7 +1513,26 @@ export const effectToPromise = <A, E>(
 | 2026-01-29 | LoggerTest logs accumulate indefinitely | Medium - potential memory leak in long tests | 🔴 Consider max capacity or getAndClearLogs |
 | 2026-01-29 | @tevm/logger-effect package first review complete | High - 12 new issues identified | 🟡 Added FIRST REVIEW section to 1.4 |
 
-### REVIEW AGENT Review Status: 🟡 EIGHTH REVIEW COMPLETE (2026-01-29)
+### Technical & Process Learnings (Ninth Review - 2026-01-29)
+
+| Date | Learning | Impact | Action Taken |
+|------|----------|--------|--------------|
+| 2026-01-29 | RevertError `_tag` mismatch - original uses 'Revert', Effect uses 'RevertError' | **CRITICAL** - interop completely broken for RevertError | 🔴 toTaggedError will NEVER match original errors. Add 'Revert' alias to errorMap. |
+| 2026-01-29 | RevertError property name mismatch - original uses `raw`, Effect uses `data` | **CRITICAL** - revert data LOST during conversion | 🔴 Handle `raw` property conversion in toTaggedError for RevertError. |
+| 2026-01-29 | effectToPromise `Runtime<any>` cast defeats type safety | **CRITICAL** - compiles but crashes at runtime | 🔴 When Effect has requirements (R !== never), compile-time checking is lost. Add function overloads. |
+| 2026-01-29 | wrapWithEffect state divergence - effect methods bind to ORIGINAL instance | **CRITICAL** - modifications to wrapped object don't affect effect methods | ⚠️ Documented but creates dangerous foot-gun. Test at line 276 demonstrates this. |
+| 2026-01-29 | InsufficientBalanceError code inconsistency (-32000 vs -32015) | High - different codes between Effect and original packages | 🔴 Effect version uses -32000 (per RFC), original inherits -32015 from ExecutionError. |
+| 2026-01-29 | toTaggedError only handles 'ErrorName' tags, not shortened tags | High - original package may use different tags like 'Revert' | 🔴 Add aliases for known shortened tags. |
+| 2026-01-29 | Missing error type refinement utilities in interop | High - all wrapped Effects have `unknown` error type | 🔴 Package lacks utilities to refine errors to typed TEVM errors. |
+| 2026-01-29 | layerFromFactory uses Effect.tryPromise but RFC specifies Effect.promise | Medium - error type should be `UnknownException` not `unknown` | 🔴 Document correct error type or match RFC. |
+| 2026-01-29 | layerFromFactory cannot express layers with dependencies (R = never) | Medium - factory functions needing other services cannot be wrapped | 🔴 Add overload supporting layers with dependencies. |
+| 2026-01-29 | Double filtering in LoggerLive - both levelPriority check AND Pino filtering | Medium - redundant CPU work on every log call | 🔴 Remove levelPriority check since Pino handles filtering. |
+| 2026-01-29 | RFC LogLevel type mismatch with base @tevm/logger | Medium - missing 'fatal' and 'trace', adds 'silent' | 🔴 Decide whether to match base package or document difference. |
+| 2026-01-29 | getAndClearLogs race condition - uses Ref.get then Ref.set | Medium - logs may be lost in concurrent fibers | 🔴 Use atomic `Ref.getAndSet(logsRef, [])` instead. |
+| 2026-01-29 | Comparing original @tevm/errors vs Effect version reveals critical differences | High - property names and tags may differ | Always compare with original package when creating Effect versions. |
+| 2026-01-29 | Multiple parallel researcher subagents provide comprehensive coverage | High - found 4 CRITICAL issues 8th review missed | Continue using parallel Opus agents for package reviews. |
+
+### REVIEW AGENT Review Status: 🔴 NINTH REVIEW COMPLETE (2026-01-29)
 
 ---
 
@@ -1475,10 +1597,21 @@ export const effectToPromise = <A, E>(
 | **R8**: Redundant levelMap in LoggerLive | Low | Low | Remove dead code - use level directly | 🔴 Open |
 | **R8**: LogEntry objects mutable | Medium | Low | Add Object.freeze to entries or document mutability | 🔴 Open |
 | **R8**: LoggerTest with 'silent' captures nothing | Medium | Medium | Document behavior or prevent silent level in LoggerTest | 🔴 Open |
-| **R8**: TestLoggerShape type not exported | Medium | Low | Add export to index.js | 🔴 Open |
-| **R8**: LoggerTest memory leak in long-running tests | Medium | Medium | Add max capacity option or getAndClearLogs method | 🔴 Open |
+| **R8**: TestLoggerShape type not exported | Medium | Low | Add export to index.js | ✅ Fixed |
+| **R8**: LoggerTest memory leak in long-running tests | Medium | Medium | Add max capacity option or getAndClearLogs method | ✅ Fixed |
+| **R9 (CRITICAL)**: RevertError `_tag` mismatch breaks interop | High | High | Original uses 'Revert', Effect uses 'RevertError'. toTaggedError check will NEVER match. Add 'Revert' alias. | 🔴 Open |
+| **R9 (CRITICAL)**: RevertError property name mismatch | High | High | Original uses `raw`, Effect uses `data`. Revert data LOST during conversion. Handle `raw` in toTaggedError. | 🔴 Open |
+| **R9 (CRITICAL)**: effectToPromise Runtime<any> cast defeats type safety | High | High | Compiles but crashes at runtime when R !== never. Add function overloads with proper constraints. | 🔴 Open |
+| **R9 (CRITICAL)**: wrapWithEffect state divergence | High | High | Effect methods bind to ORIGINAL instance. Modifications to wrapped object do NOT affect effect methods. Use Proxy or document prominently. | ⚠️ Documented |
+| **R9 (HIGH)**: InsufficientBalanceError code inconsistency | Medium | Medium | Effect version uses -32000, original uses -32015. Update RFC or document deviation. | 🔴 Open |
+| **R9 (HIGH)**: toTaggedError does not handle 'Revert' tag | Medium | Medium | errorMap only includes 'RevertError', need 'Revert' alias for original package compatibility. | 🔴 Open |
+| **R9 (HIGH)**: Missing error type refinement utilities in interop | Medium | Medium | All wrapped Effects have `unknown` error type. Add utilities to refine to typed TEVM errors. | 🔴 Open |
+| **R9 (MEDIUM)**: layerFromFactory does not support layers with dependencies | Medium | Low | Return type is Layer<I, unknown, never>. Cannot express factory functions needing other services. | 🔴 Open |
+| **R9 (MEDIUM)**: Double filtering in LoggerLive | Low | Low | levelPriority check AND Pino's filtering both run. Redundant CPU work. | 🔴 Open |
+| **R9 (MEDIUM)**: RFC LogLevel type mismatch | Medium | Medium | logger-effect missing 'fatal' and 'trace' levels from base @tevm/logger. | 🔴 Open |
+| **R9 (MEDIUM)**: getAndClearLogs race condition | Medium | Low | Uses Ref.get then Ref.set instead of atomic Ref.getAndSet. Logs may be lost in concurrent fibers. | 🔴 Open |
 
-### REVIEW AGENT Review Status: 🟡 EIGHTH REVIEW COMPLETE (2026-01-29)
+### REVIEW AGENT Review Status: 🔴 NINTH REVIEW COMPLETE (2026-01-29)
 
 ---
 

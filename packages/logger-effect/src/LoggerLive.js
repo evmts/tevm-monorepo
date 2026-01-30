@@ -13,18 +13,6 @@ import { LoggerService } from './LoggerService.js'
  */
 
 /**
- * Log level priority for filtering (higher number = more severe)
- * @type {Record<LogLevel, number>}
- */
-const levelPriority = {
-	debug: 0,
-	info: 1,
-	warn: 2,
-	error: 3,
-	silent: 4,
-}
-
-/**
  * Creates a LoggerShape implementation that uses Pino under the hood.
  *
  * @param {LogLevel} level - Minimum log level to output
@@ -38,21 +26,20 @@ const createLoggerShape = (level, name = 'tevm') => {
 		name,
 	})
 
-	const currentPriority = levelPriority[level]
-
 	/**
-	 * Creates a log function that respects the current level
+	 * Creates a log function that delegates to Pino.
+	 * Note: Pino already handles level filtering internally, so we don't need
+	 * to check the level priority here - calling pinoLogger.debug() when the
+	 * level is 'warn' is already a no-op in Pino.
 	 * @param {'debug' | 'info' | 'warn' | 'error'} severity
 	 * @returns {(message: string, data?: unknown) => Effect.Effect<void, never, never>}
 	 */
 	const createLogFn = (severity) => (message, data) =>
 		Effect.sync(() => {
-			if (levelPriority[severity] >= currentPriority) {
-				if (data !== undefined) {
-					pinoLogger[severity](data, message)
-				} else {
-					pinoLogger[severity](message)
-				}
+			if (data !== undefined) {
+				pinoLogger[severity](data, message)
+			} else {
+				pinoLogger[severity](message)
 			}
 		})
 

@@ -38,7 +38,7 @@ describe('toBaseError', () => {
 
 		expect(result._tag).toBe('InsufficientBalanceError')
 		expect(result.name).toBe('InsufficientBalanceError')
-		expect(result.code).toBe(-32000)
+		expect(result.code).toBe(-32015)
 		expect(result.docsPath).toBe('/reference/tevm/errors/classes/insufficientbalanceerror/')
 	})
 
@@ -307,7 +307,7 @@ describe('toBaseError', () => {
 
 		it('should preserve RevertError properties through round-trip', () => {
 			const original = new RevertError({
-				data: '0xaabbccdd',
+				raw: '0xaabbccdd',
 				reason: 'Insufficient allowance',
 			})
 
@@ -315,7 +315,7 @@ describe('toBaseError', () => {
 			const roundTripped = toTaggedError(baseError)
 
 			expect(roundTripped._tag).toBe('RevertError')
-			expect((roundTripped as RevertError).data).toBe('0xaabbccdd')
+			expect((roundTripped as RevertError).raw).toBe('0xaabbccdd')
 			expect((roundTripped as RevertError).reason).toBe('Insufficient allowance')
 		})
 

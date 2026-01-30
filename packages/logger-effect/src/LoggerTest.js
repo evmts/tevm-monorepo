@@ -101,12 +101,7 @@ const createTestLoggerShape = (logsRef, level = 'debug', name = 'tevm') => {
 				const logs = yield* Ref.get(logsRef)
 				return logs.length
 			}),
-		getAndClearLogs: () =>
-			Effect.gen(function* () {
-				const logs = yield* Ref.get(logsRef)
-				yield* Ref.set(logsRef, [])
-				return logs
-			}),
+		getAndClearLogs: () => Ref.getAndSet(logsRef, []),
 	}
 
 	return shape

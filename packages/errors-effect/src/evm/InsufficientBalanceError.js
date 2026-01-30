@@ -30,10 +30,11 @@ import { Data } from 'effect'
  */
 export class InsufficientBalanceError extends Data.TaggedError('InsufficientBalanceError') {
 	/**
-	 * JSON-RPC error code for insufficient balance
+	 * JSON-RPC error code for insufficient balance.
+	 * Uses -32015 to match the original @tevm/errors ExecutionError code.
 	 * @type {number}
 	 */
-	static code = -32000
+	static code = -32015
 
 	/**
 	 * Path to documentation for this error
