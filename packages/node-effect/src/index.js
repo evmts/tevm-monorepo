@@ -6,6 +6,7 @@
  * - ImpersonationService - Account impersonation state management
  * - BlockParamsService - Block parameter overrides
  * - SnapshotService - EVM state snapshots
+ * - FilterService - Blockchain event filter management
  *
  * All services use Effect Refs for type-safe, composable state management.
  *
@@ -36,6 +37,11 @@
  * @typedef {import('./types.js').BlockParamsLiveOptions} BlockParamsLiveOptions
  * @typedef {import('./types.js').Snapshot} Snapshot
  * @typedef {import('./types.js').SnapshotShape} SnapshotShape
+ * @typedef {import('./types.js').Filter} Filter
+ * @typedef {import('./types.js').FilterType} FilterType
+ * @typedef {import('./types.js').FilterLog} FilterLog
+ * @typedef {import('./types.js').LogFilterParams} LogFilterParams
+ * @typedef {import('./types.js').FilterShape} FilterShape
  */
 
 // Impersonation Service
@@ -49,3 +55,7 @@ export { BlockParamsLive } from './BlockParamsLive.js'
 // Snapshot Service
 export { SnapshotService } from './SnapshotService.js'
 export { SnapshotLive } from './SnapshotLive.js'
+
+// Filter Service
+export { FilterService } from './FilterService.js'
+export { FilterLive } from './FilterLive.js'

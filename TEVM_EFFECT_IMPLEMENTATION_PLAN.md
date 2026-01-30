@@ -15,7 +15,7 @@
 |-------|---------------|----------|-------------|----------|----------------|
 | **Phase 1** | 🟢 NINETEENTH REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
 | **Phase 2** | 🟢 THIRTY-SECOND REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 208 | 100% | ✅ COMPLIANT |
-| **Phase 3** | 🟢 THIRTY-FIFTH REVIEW | 1 (node-effect: 3 services) | 53 | 100% | ✅ COMPLIANT |
+| **Phase 3** | 🟢 THIRTY-SIXTH REVIEW | 1 (node-effect: 4 services) | 83 | 100% | ✅ COMPLIANT |
 | **Phase 4** | ⚪ NOT STARTED | 0 | - | - | - |
 
 **Open Issues Summary:**
@@ -2126,19 +2126,19 @@ packages/vm-effect/
 **Goal**: Migrate node orchestration, transaction pool, actions
 **Breaking Changes**: Deprecation warnings on old APIs
 
-### REVIEW AGENT Review Status: 🟢 PHASE 3.1 FIXED (2026-01-29)
+### REVIEW AGENT Review Status: 🟢 PHASE 3.1 COMPLETE (2026-01-29)
 
-**Thirty-fifth review (2026-01-29)** - Fixed CRITICAL bug in SnapshotLive.js, added snapshotId verification test, removed stale documentation.
+**Thirty-sixth review (2026-01-29)** - Implemented FilterService completing Phase 3.1 Node State Services.
 
 **Package Status:**
 - Package: @tevm/node-effect
-- Tests: 53 passing
+- Tests: 83 passing (4 services: Impersonation, BlockParams, Snapshot, Filter)
 - Coverage: 100% (statements, branches, functions, lines)
 - RFC Compliance: ✅ COMPLIANT
 
 ---
 
-#### @tevm/node-effect - THIRTY-FIFTH REVIEW FINDINGS (2026-01-29)
+#### @tevm/node-effect - THIRTY-SIXTH REVIEW FINDINGS (2026-01-29)
 
 | Issue | Severity | File:Line | Status | Notes |
 |-------|----------|-----------|--------|-------|
@@ -2146,36 +2146,44 @@ packages/vm-effect/
 | **SnapshotShape method names differ from RFC** | **HIGH** | types.js | ⚠️ Deviation | RFC: `take/revert/get/getAll`. Implementation: `takeSnapshot/revertToSnapshot/getSnapshot/getAllSnapshots`. Breaking RFC contract. |
 | **Context.GenericTag vs class-based Context.Tag** | **MEDIUM** | All *Service.js files | ⚠️ Acceptable | RFC uses class pattern `Context.Tag()`. Implementation uses `Context.GenericTag()` for JSDoc compatibility. Standard pattern in this codebase. |
 | **clearNextBlockOverrides incomplete** | **MEDIUM** | BlockParamsLive.js | ⚠️ Documented | Only clears timestamp/gasLimit/baseFee. Does NOT clear minGasPrice/blockTimestampInterval. Semantics unclear but tests verify current behavior. |
-| **deepCopy method not in RFC** | **MEDIUM** | All *Live.js files | ⚠️ Enhancement | All three services add deepCopy() for test isolation. Additive, not breaking. |
+| **deepCopy method not in RFC** | **MEDIUM** | All *Live.js files | ⚠️ Enhancement | All four services add deepCopy() for test isolation. Additive, not breaking. |
 | ~~**index.js says "coming soon"**~~ | ~~**LOW**~~ | index.js | ✅ **FIXED** | Removed stale "coming soon" comments. |
-| **Local hex conversion helpers** | **LOW** | SnapshotLive.js | ⚠️ Acceptable | Uses local toHex/bytesToHex/hexToBytes instead of importing from shared lib. Works correctly. |
+| **Local hex conversion helpers** | **LOW** | SnapshotLive.js, FilterLive.js | ⚠️ Acceptable | Uses local toHex/bytesToHex/hexToBytes instead of importing from shared lib. Works correctly. |
 | ~~Tests don't verify snapshotId on SnapshotNotFoundError~~ | ~~**LOW**~~ | SnapshotLive.spec.ts | ✅ **FIXED** | Added test verifying `error.snapshotId` is correctly set. |
+| ✅ **FilterService implemented** | **NEW** | FilterService.js, FilterLive.js | ✅ **COMPLETE** | Full filter lifecycle: create (log/block/pendingTx), get, remove, getChanges, addLog/Block/PendingTransaction, deepCopy. 30 new tests. |
 
 ---
 
-**Status Summary (THIRTY-FIFTH REVIEW - 2026-01-29):**
+**Status Summary (THIRTY-SIXTH REVIEW - 2026-01-29):**
 
 | Package | CRITICAL | HIGH | MEDIUM | LOW | Total Open | Tests | Coverage | RFC Compliance |
 |---------|----------|------|--------|-----|------------|-------|----------|----------------|
-| @tevm/node-effect | 0 | 1 | 3 | 1 | 5 | 53 | 100% | ✅ COMPLIANT |
+| @tevm/node-effect | 0 | 1 | 3 | 1 | 5 | 83 | 100% | ✅ COMPLIANT |
 
-**FIXED in this session:**
+**FIXED/IMPLEMENTED in this session:**
 1. ✅ **CRITICAL**: SnapshotLive.js:134 now passes `{ snapshotId: id, message: ... }` to SnapshotNotFoundError
 2. ✅ **LOW**: Added test verifying `error.snapshotId` is correctly set when revertToSnapshot fails
 3. ✅ **LOW**: Removed stale "coming soon" comments from index.js
+4. ✅ **NEW**: Implemented FilterService with full filter lifecycle management (30 new tests)
 
 **Remaining issues:**
 1. **HIGH**: Method names differ from RFC (`takeSnapshot`/`revertToSnapshot` vs `take`/`revert`) - Acceptable deviation
+
+**Phase 3.1 Complete:**
+All 4 Node State Services are now implemented: ImpersonationService, BlockParamsService, SnapshotService, FilterService.
 
 **Recommendations:**
 1. Document clearNextBlockOverrides semantics - explain why minGasPrice and blockTimestampInterval are not cleared
 
 ---
 
+**Previous: Thirty-fifth review (2026-01-29)** - Fixed CRITICAL bug in SnapshotLive.js, added snapshotId verification test.
+
 **Previous: Twenty-first review (2026-01-29)** - Phase 3.1 Node State Services implementation started. Package @tevm/node-effect created with first 3 services:
 - ✅ ImpersonationService - 2 Refs, deepCopy support
 - ✅ BlockParamsService - 5 Refs, clearNextBlockOverrides, deepCopy support
 - ✅ SnapshotService - Depends on StateManagerService, manages snapshots Map with counter
+- ✅ FilterService (added 2026-01-29) - Full filter lifecycle, 3 filter types, deepCopy support
 
 ---
 
@@ -2196,9 +2204,9 @@ packages/vm-effect/
 | Implement `BlockParamsLive` layer | [x] | Claude | Five Refs, clearNextBlockOverrides, deepCopy |
 | Define `SnapshotService` | [x] | Claude | takeSnapshot, revertToSnapshot, getSnapshot, getAllSnapshots |
 | Implement `SnapshotLive` layer | [x] | Claude | Requires StateManagerService, Map Ref, counter Ref |
-| Define `FilterService` | [ ] | | create, get, remove, getChanges |
-| Implement `FilterLive` layer | [ ] | | |
-| Write tests for all state services | [x] | Claude | 52 tests, 100% coverage |
+| Define `FilterService` | [x] | Claude | createLogFilter, createBlockFilter, createPendingTransactionFilter, get, remove, getChanges, addLog, addBlock, addPendingTransaction |
+| Implement `FilterLive` layer | [x] | Claude | Map Ref, counter Ref, full filter lifecycle management |
+| Write tests for all state services | [x] | Claude | 83 tests, 100% coverage |
 
 **Package Structure**:
 ```
@@ -2217,6 +2225,8 @@ packages/node-effect/
     ├── BlockParamsLive.js          # Layer with 5 Refs
     ├── SnapshotService.js          # Context.Tag
     ├── SnapshotLive.js             # Layer with Map Ref + counter Ref
+    ├── FilterService.js            # Context.Tag
+    ├── FilterLive.js               # Layer with Map Ref + counter Ref
     └── *.spec.ts                   # Test files
 ```
 
@@ -2243,14 +2253,31 @@ packages/node-effect/
 - `getAllSnapshots` - Get all snapshots Map
 - `deepCopy()` - Create independent copy
 
+**FilterShape Interface** (from types.js):
+- `createLogFilter(params?)` - Create a log filter with optional criteria
+- `createBlockFilter()` - Create a block filter
+- `createPendingTransactionFilter()` - Create a pending transaction filter
+- `get(id)` - Get filter by ID
+- `remove(id)` - Remove filter by ID, returns boolean
+- `getChanges(id)` - Get and clear log changes, fails with FilterNotFoundError
+- `getBlockChanges(id)` - Get and clear block changes
+- `getPendingTransactionChanges(id)` - Get and clear pending tx changes
+- `addLog(id, log)` - Add a log entry to a filter
+- `addBlock(id, block)` - Add a block to a block filter
+- `addPendingTransaction(id, tx)` - Add a tx to a pending tx filter
+- `getAllFilters` - Get all filters Map
+- `deepCopy()` - Create independent copy
+
 **Learnings**:
 - Effect.Ref provides perfect atomic state management for mutable node state
 - The `createShape` helper pattern enables clean deepCopy implementation by accepting Refs as parameters
 - Layer.effect with Effect.gen is the standard pattern for service creation
-- Services without external dependencies (Impersonation, BlockParams) use Layer.Layer<Service>
+- Services without external dependencies (Impersonation, BlockParams, Filter) use Layer.Layer<Service>
 - Services with dependencies (Snapshot) use Layer.Layer<Service, never, Dependencies>
 - No need for Effect.tryPromise when operations don't throw - just use Effect.sync or Ref operations
 - SnapshotService demonstrates dependent layer pattern with StateManagerService
+- FilterService shows how to implement complex filter lifecycle (create/get/add/getChanges/remove) with atomic Ref operations
+- For 100% coverage, avoid redundant null checks inside Ref.update callbacks when validation already happened
 
 ---
 

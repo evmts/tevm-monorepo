@@ -87,4 +87,74 @@
  * @property {() => import('effect').Effect.Effect<SnapshotShape>} deepCopy - Create a deep copy of the snapshot state
  */
 
+/**
+ * Filter type for classifying filters.
+ * @typedef {'PendingTransaction' | 'Block' | 'Log'} FilterType
+ */
+
+/**
+ * Log entry stored in a filter.
+ * Uses bigint for blockNumber, logIndex, and transactionIndex for consistency.
+ *
+ * @typedef {Object} FilterLog
+ * @property {Hex} address - Address that emitted the log
+ * @property {Hex} blockHash - Block hash containing the log
+ * @property {bigint} blockNumber - Block number containing the log
+ * @property {Hex} data - Non-indexed log data
+ * @property {bigint} logIndex - Index of the log within the block
+ * @property {boolean} removed - Whether the log was removed due to a chain reorganization
+ * @property {[Hex, ...Hex[]]} topics - Indexed log topics
+ * @property {Hex} transactionHash - Transaction hash that created the log
+ * @property {bigint} transactionIndex - Index of the transaction within the block
+ */
+
+/**
+ * Parameters for creating a log filter.
+ *
+ * @typedef {Object} LogFilterParams
+ * @property {Hex} [address] - Address to filter logs from
+ * @property {Hex | Hex[]} [topics] - Topics to filter by
+ * @property {bigint | Hex} [fromBlock] - Block number or tag to start from
+ * @property {bigint | Hex} [toBlock] - Block number or tag to end at
+ */
+
+/**
+ * Internal representation of a registered filter.
+ * Adapted from go-ethereum filter system.
+ *
+ * @typedef {Object} Filter
+ * @property {Hex} id - Id of the filter
+ * @property {FilterType} type - The type of the filter
+ * @property {number} created - Creation timestamp
+ * @property {LogFilterParams} [logsCriteria] - Criteria for log filtering
+ * @property {Array<FilterLog>} logs - Stored logs
+ * @property {Array<unknown>} tx - Stored transactions
+ * @property {Array<unknown>} blocks - Stored blocks
+ * @property {Object} installed - Installation metadata
+ * @property {Error | undefined} err - Error if any
+ * @property {Array<(...args: Array<unknown>) => unknown>} registeredListeners - Listeners registered for the filter
+ */
+
+/**
+ * FilterShape interface for Effect-based filter management.
+ *
+ * This interface provides Effect-wrapped methods for managing blockchain event filters.
+ * Filters are used to track new blocks, pending transactions, and contract logs.
+ *
+ * @typedef {Object} FilterShape
+ * @property {(params?: LogFilterParams) => import('effect').Effect.Effect<Hex>} createLogFilter - Create a log filter
+ * @property {() => import('effect').Effect.Effect<Hex>} createBlockFilter - Create a block filter
+ * @property {() => import('effect').Effect.Effect<Hex>} createPendingTransactionFilter - Create a pending transaction filter
+ * @property {(id: Hex) => import('effect').Effect.Effect<Filter | undefined>} get - Get a filter by ID
+ * @property {(id: Hex) => import('effect').Effect.Effect<boolean>} remove - Remove a filter by ID
+ * @property {(id: Hex) => import('effect').Effect.Effect<Array<FilterLog>, import('@tevm/errors-effect').FilterNotFoundError>} getChanges - Get and clear log changes for a filter
+ * @property {(id: Hex) => import('effect').Effect.Effect<Array<unknown>, import('@tevm/errors-effect').FilterNotFoundError>} getBlockChanges - Get and clear block changes for a block filter
+ * @property {(id: Hex) => import('effect').Effect.Effect<Array<unknown>, import('@tevm/errors-effect').FilterNotFoundError>} getPendingTransactionChanges - Get and clear tx changes for a pending tx filter
+ * @property {(id: Hex, log: FilterLog) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError>} addLog - Add a log to a filter
+ * @property {(id: Hex, block: unknown) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError>} addBlock - Add a block to a block filter
+ * @property {(id: Hex, tx: unknown) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError>} addPendingTransaction - Add a tx to a pending tx filter
+ * @property {import('effect').Effect.Effect<Map<Hex, Filter>>} getAllFilters - Get all filters
+ * @property {() => import('effect').Effect.Effect<FilterShape>} deepCopy - Create a deep copy of the filter state
+ */
+
 export {}

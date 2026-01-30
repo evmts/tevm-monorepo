@@ -1,0 +1,446 @@
+import { describe, it, expect } from 'vitest'
+import { Effect, Exit } from 'effect'
+import { FilterService } from './FilterService.js'
+import { FilterLive } from './FilterLive.js'
+import { FilterNotFoundError } from '@tevm/errors-effect'
+import type { FilterLog, Hex } from './types.js'
+
+describe('FilterLive', () => {
+	const layer = FilterLive()
+
+	describe('layer creation', () => {
+		it('should create a layer', () => {
+			expect(layer).toBeDefined()
+		})
+	})
+
+	describe('createLogFilter', () => {
+		it('should create a log filter and return a hex ID', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createLogFilter()
+				return id
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result).toBe('0x1')
+		})
+
+		it('should create a log filter with params', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createLogFilter({
+					address: '0x1234567890123456789012345678901234567890',
+					topics: ['0xabc'],
+				})
+				const f = yield* filter.get(id)
+				return { id, type: f?.type, criteria: f?.logsCriteria }
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.id).toBe('0x1')
+			expect(result.type).toBe('Log')
+			expect(result.criteria?.address).toBe('0x1234567890123456789012345678901234567890')
+		})
+
+		it('should increment filter IDs', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id1 = yield* filter.createLogFilter()
+				const id2 = yield* filter.createLogFilter()
+				const id3 = yield* filter.createLogFilter()
+				return [id1, id2, id3]
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result).toEqual(['0x1', '0x2', '0x3'])
+		})
+	})
+
+	describe('createBlockFilter', () => {
+		it('should create a block filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createBlockFilter()
+				const f = yield* filter.get(id)
+				return { id, type: f?.type }
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.id).toBe('0x1')
+			expect(result.type).toBe('Block')
+		})
+	})
+
+	describe('createPendingTransactionFilter', () => {
+		it('should create a pending transaction filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createPendingTransactionFilter()
+				const f = yield* filter.get(id)
+				return { id, type: f?.type }
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.id).toBe('0x1')
+			expect(result.type).toBe('PendingTransaction')
+		})
+	})
+
+	describe('get', () => {
+		it('should return undefined for non-existent filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				return yield* filter.get('0x999')
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result).toBeUndefined()
+		})
+
+		it('should return filter data for existing filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createLogFilter()
+				return yield* filter.get(id)
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result).toBeDefined()
+			expect(result?.id).toBe('0x1')
+			expect(result?.type).toBe('Log')
+			expect(result?.created).toBeGreaterThan(0)
+		})
+	})
+
+	describe('remove', () => {
+		it('should return false for non-existent filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				return yield* filter.remove('0x999')
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result).toBe(false)
+		})
+
+		it('should return true and remove existing filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createLogFilter()
+				const removed = yield* filter.remove(id)
+				const afterRemove = yield* filter.get(id)
+				return { removed, afterRemove }
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.removed).toBe(true)
+			expect(result.afterRemove).toBeUndefined()
+		})
+	})
+
+	describe('getChanges', () => {
+		it('should fail with FilterNotFoundError for non-existent filter', async () => {
+			const targetFilterId = '0x999' as Hex
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				yield* filter.getChanges(targetFilterId)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
+				const error = exit.cause.error as FilterNotFoundError
+				expect(error._tag).toBe('FilterNotFoundError')
+				expect(error.filterId).toBe(targetFilterId)
+			}
+		})
+
+		it('should return empty array for new filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createLogFilter()
+				return yield* filter.getChanges(id)
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result).toEqual([])
+		})
+
+		it('should return and clear logs', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createLogFilter()
+
+				// Add a log
+				const log: FilterLog = {
+					address: '0x1234567890123456789012345678901234567890' as Hex,
+					blockHash: '0xabc' as Hex,
+					blockNumber: 1n,
+					data: '0x' as Hex,
+					logIndex: 0n,
+					removed: false,
+					topics: ['0xdef' as Hex],
+					transactionHash: '0x123' as Hex,
+					transactionIndex: 0n,
+				}
+				yield* filter.addLog(id, log)
+
+				// Get changes (should have log)
+				const firstChanges = yield* filter.getChanges(id)
+				// Get changes again (should be empty)
+				const secondChanges = yield* filter.getChanges(id)
+
+				return { firstChanges, secondChanges }
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.firstChanges.length).toBe(1)
+			expect(result.firstChanges[0]?.address).toBe('0x1234567890123456789012345678901234567890')
+			expect(result.secondChanges.length).toBe(0)
+		})
+	})
+
+	describe('getBlockChanges', () => {
+		it('should fail with FilterNotFoundError for non-existent filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				yield* filter.getBlockChanges('0x999' as Hex)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+		})
+
+		it('should fail for non-block filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createLogFilter()
+				yield* filter.getBlockChanges(id)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+		})
+
+		it('should return and clear blocks', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createBlockFilter()
+
+				// Add a block
+				yield* filter.addBlock(id, { number: 1n })
+
+				// Get changes (should have block)
+				const firstChanges = yield* filter.getBlockChanges(id)
+				// Get changes again (should be empty)
+				const secondChanges = yield* filter.getBlockChanges(id)
+
+				return { firstChanges, secondChanges }
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.firstChanges.length).toBe(1)
+			expect(result.secondChanges.length).toBe(0)
+		})
+	})
+
+	describe('getPendingTransactionChanges', () => {
+		it('should fail with FilterNotFoundError for non-existent filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				yield* filter.getPendingTransactionChanges('0x999' as Hex)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+		})
+
+		it('should fail for non-pending-tx filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createBlockFilter()
+				yield* filter.getPendingTransactionChanges(id)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+		})
+
+		it('should return and clear pending transactions', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createPendingTransactionFilter()
+
+				// Add a tx
+				yield* filter.addPendingTransaction(id, { hash: '0xabc' })
+
+				// Get changes (should have tx)
+				const firstChanges = yield* filter.getPendingTransactionChanges(id)
+				// Get changes again (should be empty)
+				const secondChanges = yield* filter.getPendingTransactionChanges(id)
+
+				return { firstChanges, secondChanges }
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.firstChanges.length).toBe(1)
+			expect(result.secondChanges.length).toBe(0)
+		})
+	})
+
+	describe('addLog', () => {
+		it('should fail with FilterNotFoundError for non-existent filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const log: FilterLog = {
+					address: '0x1234567890123456789012345678901234567890' as Hex,
+					blockHash: '0xabc' as Hex,
+					blockNumber: 1n,
+					data: '0x' as Hex,
+					logIndex: 0n,
+					removed: false,
+					topics: ['0xdef' as Hex],
+					transactionHash: '0x123' as Hex,
+					transactionIndex: 0n,
+				}
+				yield* filter.addLog('0x999' as Hex, log)
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+		})
+	})
+
+	describe('addBlock', () => {
+		it('should fail with FilterNotFoundError for non-existent filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				yield* filter.addBlock('0x999' as Hex, { number: 1n })
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+		})
+	})
+
+	describe('addPendingTransaction', () => {
+		it('should fail with FilterNotFoundError for non-existent filter', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				yield* filter.addPendingTransaction('0x999' as Hex, { hash: '0xabc' })
+			})
+
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer)))
+			expect(Exit.isFailure(exit)).toBe(true)
+		})
+	})
+
+	describe('getAllFilters', () => {
+		it('should return empty map initially', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				return yield* filter.getAllFilters
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.size).toBe(0)
+		})
+
+		it('should return all filters', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				yield* filter.createLogFilter()
+				yield* filter.createBlockFilter()
+				yield* filter.createPendingTransactionFilter()
+				return yield* filter.getAllFilters
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.size).toBe(3)
+		})
+	})
+
+	describe('deepCopy', () => {
+		it('should create an independent copy', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				yield* filter.createLogFilter()
+				yield* filter.createBlockFilter()
+
+				// Create deep copy
+				const copy = yield* filter.deepCopy()
+
+				// Create more filters on original
+				yield* filter.createPendingTransactionFilter()
+
+				// Check sizes are different
+				const originalFilters = yield* filter.getAllFilters
+				const copiedFilters = yield* copy.getAllFilters
+
+				return {
+					originalSize: originalFilters.size,
+					copiedSize: copiedFilters.size,
+				}
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.originalSize).toBe(3)
+			expect(result.copiedSize).toBe(2)
+		})
+
+		it('should preserve counter state', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				yield* filter.createLogFilter() // 0x1
+				yield* filter.createBlockFilter() // 0x2
+
+				// Create deep copy
+				const copy = yield* filter.deepCopy()
+
+				// Create filter on copy
+				const copyId = yield* copy.createLogFilter()
+
+				return copyId
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result).toBe('0x3')
+		})
+
+		it('should deep copy logs array', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+				const id = yield* filter.createLogFilter()
+
+				// Add a log
+				const log: FilterLog = {
+					address: '0x1234567890123456789012345678901234567890' as Hex,
+					blockHash: '0xabc' as Hex,
+					blockNumber: 1n,
+					data: '0x' as Hex,
+					logIndex: 0n,
+					removed: false,
+					topics: ['0xdef' as Hex],
+					transactionHash: '0x123' as Hex,
+					transactionIndex: 0n,
+				}
+				yield* filter.addLog(id, log)
+
+				// Create deep copy
+				const copy = yield* filter.deepCopy()
+
+				// Clear original
+				yield* filter.getChanges(id)
+
+				// Check copy still has logs
+				const copyChanges = yield* copy.getChanges(id)
+
+				return copyChanges.length
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result).toBe(1)
+		})
+	})
+})
