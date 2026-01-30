@@ -342,8 +342,8 @@ export const FilterLive = () => {
 													: filter.logsCriteria.topics,
 											}
 										: undefined,
-									// Deep copy installed object
-									installed: filter.installed ? { ...filter.installed } : {},
+									// Deep copy installed object (always defined, see createFilter)
+									installed: { ...filter.installed },
 									// Deep copy arrays with individual object copies
 									logs: filter.logs.map((log) => ({ ...log })),
 									tx: filter.tx.map((t) => ({ ...t })),

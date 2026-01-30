@@ -442,5 +442,65 @@ describe('FilterLive', () => {
 			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
 			expect(result).toBe(1)
 		})
+
+		it('should deep copy logsCriteria with address and topics', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+
+				// Create log filter WITH address and topics criteria
+				const id = yield* filter.createLogFilter({
+					address: '0x1234567890123456789012345678901234567890' as Hex,
+					topics: [
+						'0x0000000000000000000000000000000000000000000000000000000000000001' as Hex,
+						['0x0000000000000000000000000000000000000000000000000000000000000002' as Hex, '0x0000000000000000000000000000000000000000000000000000000000000003' as Hex],
+					],
+				})
+
+				// Create deep copy
+				const copy = yield* filter.deepCopy()
+
+				// Get the filter from the copy
+				const copiedFilter = yield* copy.get(id)
+
+				return {
+					hasAddress: copiedFilter?.logsCriteria?.address !== undefined,
+					hasTopics: copiedFilter?.logsCriteria?.topics !== undefined,
+					topicsLength: copiedFilter?.logsCriteria?.topics?.length,
+				}
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.hasAddress).toBe(true)
+			expect(result.hasTopics).toBe(true)
+			expect(result.topicsLength).toBe(2)
+		})
+
+		it('should deep copy logsCriteria without address/topics', async () => {
+			const program = Effect.gen(function* () {
+				const filter = yield* FilterService
+
+				// Create log filter WITHOUT address and topics (only fromBlock)
+				const id = yield* filter.createLogFilter({
+					fromBlock: 100n,
+				})
+
+				// Create deep copy
+				const copy = yield* filter.deepCopy()
+
+				// Get the filter from the copy
+				const copiedFilter = yield* copy.get(id)
+
+				return {
+					hasAddress: copiedFilter?.logsCriteria?.address !== undefined,
+					hasTopics: copiedFilter?.logsCriteria?.topics !== undefined,
+					hasFromBlock: copiedFilter?.logsCriteria?.fromBlock !== undefined,
+				}
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
+			expect(result.hasAddress).toBe(false)
+			expect(result.hasTopics).toBe(false)
+			expect(result.hasFromBlock).toBe(true)
+		})
 	})
 })
