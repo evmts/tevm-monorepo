@@ -23,6 +23,12 @@ import { VmService } from './VmService.js'
  * This layer creates a VM instance using the provided CommonService,
  * StateManagerService, BlockchainService, and EvmService dependencies.
  *
+ * Note: For profiling and logging configuration, use EvmLive options:
+ * ```javascript
+ * const evmLayer = EvmLive({ profiler: true, loggingEnabled: true })
+ * const vmLayer = VmLive() // VM uses the configured EVM
+ * ```
+ *
  * @example
  * ```javascript
  * import { Effect, Layer } from 'effect'
@@ -51,12 +57,11 @@ import { VmService } from './VmService.js'
  * Effect.runPromise(program.pipe(Effect.provide(vmLayer)))
  * ```
  *
- * @param {VmLiveOptions} [_options] - Configuration options (reserved for future use)
+ * @param {VmLiveOptions} [_options] - Configuration options (currently unused, reserved for API compatibility)
  * @returns {Layer.Layer<VmServiceId, never, typeof CommonService | typeof StateManagerService | typeof BlockchainService | typeof EvmService>} Layer providing VmService
  */
 export const VmLive = (_options = {}) => {
-	// Note: _options is currently unused but kept for API compatibility
-	// Future versions may use profiler or loggingEnabled options
+	// VmLiveOptions is empty - profiler/logging should be configured at EvmLive layer
 	return Layer.effect(
 		VmService,
 		Effect.gen(function* () {

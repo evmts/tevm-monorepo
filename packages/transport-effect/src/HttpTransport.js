@@ -37,16 +37,11 @@ const DEFAULT_TIMEOUT = 30000
  * @returns {boolean} - True if the error should be retried
  */
 const isRetryableError = (error) => {
-	// Get the error message from either the cause or the error itself
-	// Using explicit conditionals for better coverage tracking
-	let message = ''
-	const cause = /** @type {{ message?: string } | undefined} */ (error.cause)
-	if (cause && typeof cause.message === 'string') {
-		message = cause.message
-	} else if (error.message) {
-		message = error.message
-	}
-	message = message.toLowerCase()
+	// Get the error message from the cause
+	// ForkError always has a cause that is an Error with a message string
+	// (see catch handler in createSingleRequest and sendBatch)
+	const cause = /** @type {Error} */ (error.cause)
+	const message = cause.message.toLowerCase()
 
 	// Retry on network errors
 	if (
@@ -145,12 +140,17 @@ const createSingleRequest = (config, timeout, retrySchedule) => {
 /**
  * Sends a batch of requests to the RPC endpoint and resolves each deferred
  *
+ * This function includes retry logic for transient network errors (timeouts, 5xx, etc.).
+ * Retries are applied at the HTTP request level, so the same batch with the same Deferreds
+ * is retried immediately on failure, rather than creating new Deferreds.
+ *
  * @param {HttpTransportConfig} config - The transport configuration
  * @param {number} timeout - Request timeout in milliseconds
  * @param {PendingRequest[]} batch - The batch of pending requests (must be non-empty)
+ * @param {Schedule.Schedule<unknown, ForkError>} retrySchedule - Retry schedule for transient errors
  * @returns {Effect.Effect<void, never>}
  */
-const sendBatch = (config, timeout, batch) => {
+const sendBatch = (config, timeout, batch, retrySchedule) => {
 	return Effect.gen(function* () {
 		const requests = batch.map((req) => ({
 			jsonrpc: '2.0',
@@ -159,7 +159,9 @@ const sendBatch = (config, timeout, batch) => {
 			params: req.params,
 		}))
 
-		const result = yield* Effect.tryPromise({
+		// HTTP request with retry logic applied at this level
+		// This ensures the same batch is retried with the same Deferreds
+		const httpRequest = Effect.tryPromise({
 			try: async () => {
 				const controller = new AbortController()
 				const timeoutId = setTimeout(() => controller.abort(), timeout)
@@ -188,18 +190,32 @@ const sendBatch = (config, timeout, batch) => {
 					clearTimeout(timeoutId)
 				}
 			},
-			catch: (error) => (error instanceof Error ? error : new Error(String(error))),
-		}).pipe(Effect.either)
+			catch: (error) =>
+				new ForkError({
+					method: 'batch',
+					cause: error instanceof Error ? error : new Error(String(error)),
+				}),
+		}).pipe(
+			// Apply retry logic HERE at the HTTP request level
+			// This ensures the same batch is retried immediately on transient failures
+			Effect.retry({
+				schedule: retrySchedule,
+				while: isRetryableError,
+			})
+		)
+
+		const result = yield* Effect.either(httpRequest)
 
 		if (result._tag === 'Left') {
-			// All requests in the batch failed with a transport error
-			const error = result.left
+			// All retries exhausted - now fail the Deferreds
+			// Create individual ForkErrors with each request's method name
+			const batchError = result.left
 			for (const req of batch) {
 				yield* Deferred.fail(
 					req.deferred,
 					new ForkError({
 						method: req.method,
-						cause: error,
+						cause: batchError.cause,
 					})
 				)
 			}
@@ -368,7 +384,8 @@ export const HttpTransport = (config) => {
 				const batch = Chunk.toArray(batchChunk)
 
 				if (batch.length > 0) {
-					yield* sendBatch(config, timeout, batch)
+					// Pass retrySchedule so sendBatch can retry the HTTP request itself
+					yield* sendBatch(config, timeout, batch, retrySchedule)
 				}
 			})
 
@@ -456,13 +473,11 @@ export const HttpTransport = (config) => {
 						}
 
 						// Wait for the result
+						// Note: Retry logic is now in sendBatch at the HTTP request level,
+						// not here. Retrying here would create new Deferreds on each retry,
+						// requiring a wait for the next batch cycle instead of immediate retry.
 						return yield* Deferred.await(deferred)
-					}).pipe(
-						Effect.retry({
-							schedule: retrySchedule,
-							while: isRetryableError,
-						})
-					)
+					})
 				}),
 			}
 

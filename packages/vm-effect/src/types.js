@@ -27,10 +27,13 @@
  */
 
 /**
- * Configuration options for VmLive layer
+ * Configuration options for VmLive layer.
+ *
+ * Note: VM-level profiling and logging should be configured at the EVM layer
+ * using EvmLive({ profiler: true, loggingEnabled: true }). The VM layer wraps
+ * an already-configured EVM from EvmService.
+ *
  * @typedef {Object} VmLiveOptions
- * @property {boolean} [profiler] - Enable VM profiler
- * @property {boolean} [loggingEnabled] - Enable logging for VM operations
  */
 
 export {}

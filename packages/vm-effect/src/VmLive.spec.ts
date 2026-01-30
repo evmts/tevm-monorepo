@@ -28,13 +28,6 @@ describe('VmLive', () => {
 			expect(Exit.isFailure(exit)).toBe(true)
 		})
 
-		it('should accept VmLiveOptions with profiler', () => {
-			const layer = VmLive({
-				profiler: true,
-			})
-			expect(layer).toBeDefined()
-		})
-
 		it('should accept empty VmLiveOptions', () => {
 			const layer = VmLive({})
 			expect(layer).toBeDefined()
@@ -190,32 +183,6 @@ describe('VmLive', () => {
 
 			const result = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
 			expect(result).toBe('deep copy works')
-		})
-	})
-
-	describe('with profiler option', () => {
-		// Build the layer stack with profiler
-		const stateLayer = Layer.provide(StateManagerLocal(), CommonLocal)
-		const blockchainLayer = Layer.provide(BlockchainLocal(), CommonLocal)
-		const evmLayer = Layer.provide(
-			EvmLive(),
-			Layer.mergeAll(stateLayer, blockchainLayer, CommonLocal),
-		)
-		const fullLayerWithProfiler = Layer.provide(
-			VmLive({ profiler: true }),
-			Layer.mergeAll(evmLayer, stateLayer, blockchainLayer, CommonLocal),
-		)
-
-		it('should work with profiler true', async () => {
-			const program = Effect.gen(function* () {
-				const vmService = yield* VmService
-				expect(vmService).toBeDefined()
-				yield* vmService.ready
-				return 'profiler enabled'
-			})
-
-			const result = await Effect.runPromise(program.pipe(Effect.provide(fullLayerWithProfiler)))
-			expect(result).toBe('profiler enabled')
 		})
 	})
 

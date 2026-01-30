@@ -38,16 +38,11 @@ export type VmShape = {
     deepCopy: () => import("effect").Effect.Effect<VmShape>;
 };
 /**
- * Configuration options for VmLive layer
+ * Configuration options for VmLive layer.
+ *
+ * Note: VM-level profiling and logging should be configured at the EVM layer
+ * using EvmLive({ profiler: true, loggingEnabled: true }). The VM layer wraps
+ * an already-configured EVM from EvmService.
  */
-export type VmLiveOptions = {
-    /**
-     * - Enable VM profiler
-     */
-    profiler?: boolean;
-    /**
-     * - Enable logging for VM operations
-     */
-    loggingEnabled?: boolean;
-};
+export type VmLiveOptions = {};
 //# sourceMappingURL=types.d.ts.map

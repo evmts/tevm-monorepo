@@ -2,27 +2,377 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30 (104th Update - Resolved MEDIUM Issue #9: Renamed bytesToHex32 for clarity)
+**Last Updated**: 2026-01-30 (106th Update - Issues #80, #81 FIXED)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
 
 ## Review Agent Summary (2026-01-30)
 
-**NINETY-FIFTH REVIEW.** Independent parallel Opus 4.5 subagent review of all 4 phases. Found 1 HIGH issue in Phase 3 (SnapshotShape type mismatch), 5 MEDIUM issues across Phases 3-4, and 13 LOW issues (code duplication, type safety, minor bugs).
+**106th UPDATE.** Resolved both HIGH priority issues #80 and #81. All phases now have 0 HIGH issues.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟡 MINOR ISSUES | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 1 MEDIUM (#47), 8 LOW (+4 new) |
-| **Phase 2** | 🟡 MINOR ISSUES | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 3 MEDIUM (interop), 8 LOW (+4 new) |
-| **Phase 3** | 🟢 COMPLETE | 2 (node-effect, actions-effect) | 208 | ~99% | 0 HIGH (resolved), 3 MEDIUM (+1 new), 6 LOW (+2 new) |
-| **Phase 4** | 🟡 MINOR ISSUES | 2 (memory-client-effect, decorators-effect) | 163 | ~86% | 7 MEDIUM (+4 new), 9 LOW (+3 new) |
+| **Phase 1** | 🟡 MINOR ISSUES | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 1 MEDIUM (#47), 12 LOW (+4 new) |
+| **Phase 2** | 🟡 MINOR ISSUES | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 0 HIGH, 4 MEDIUM (interop +1 new), 10 LOW (+2 new) |
+| **Phase 3** | 🟡 MINOR ISSUES | 2 (node-effect, actions-effect) | 208 | ~99% | 0 HIGH, 4 MEDIUM (+1 new), 12 LOW (+6 new) |
+| **Phase 4** | 🟡 MINOR ISSUES | 2 (memory-client-effect, decorators-effect) | 163 | ~86% | 7 MEDIUM, 15 LOW (+6 new) |
 
 **Open Issues Summary:**
 - **CRITICAL**: 0
-- **HIGH**: 0 ✅ (Issue #69 resolved)
-- **MEDIUM**: 4 🟡 (Issues #9, #14, #24, #38, #53, #57, #58, #70, #73, #74, #75, #76 resolved)
-- **LOW**: 36 (+13 new from 95th review)
+- **HIGH**: 0 ✅ (Issues #80, #81 FIXED)
+- **MEDIUM**: 6 🟡 (Issues #47, #82, #83 still open; Issues #9, #14, #24, #38, #53, #57, #58, #70, #73, #74, #75, #76 resolved)
+- **LOW**: 50 (+14 new from 96th review)
+
+---
+
+### NINETY-SIXTH REVIEW (2026-01-30) - Independent Parallel Subagent Comprehensive Code Review
+
+**Reviewed By**: Claude Opus 4.5 (4 parallel Opus subagents)
+**Scope**: Complete independent re-review of all 4 phases to find unreviewed bugs and flaws
+
+---
+
+#### Phase 2: 2 NEW HIGH + 1 NEW MEDIUM + 2 NEW LOW Issues Found
+
+##### Issue #80: Batched Transport Retry Logic Does Not Resend HTTP Requests
+**File:Lines**: `packages/transport-effect/src/HttpTransport.js:460-465`
+**Severity**: 🔴 HIGH
+**Status**: ✅ FIXED
+
+**Problem**: In batched transport mode, the retry logic wraps `Deferred.await(deferred)`, but the actual HTTP request happens in `sendBatch` which is called by the background `batchProcessor`. When a batched request fails due to a retryable error (network timeout, 5xx, etc.), the individual request's retry will re-await the same already-rejected Deferred, not resend the HTTP request.
+
+**Evidence**:
+```javascript
+// Lines 460-465
+}).pipe(
+    Effect.retry({
+        schedule: retrySchedule,
+        while: isRetryableError,
+    })
+)
+```
+
+The retry wraps `Effect.gen` which includes adding to queue and awaiting the deferred. But once `sendBatch` fails and rejects the Deferred, retrying `Deferred.await(deferred)` will immediately return the same failure - no new HTTP request is made.
+
+**Impact**: Silent failures during network hiccups in batched mode. Retries are ineffective.
+
+**Recommended Fix**: Move retry logic into `sendBatch` function, or create a new Deferred on retry and re-queue the request.
+
+**Resolution**: Moved retry logic into `sendBatch` function. Now `sendBatch` accepts `retrySchedule` parameter and applies `Effect.retry` around the HTTP `tryPromise`. Removed retry from individual request Effect. When batch fails, individual ForkErrors are created with each request's method name (preserving backward compatibility with tests). All 68 tests pass with 100% coverage.
+
+---
+
+##### Issue #81: VmLiveOptions Are Never Applied
+**File:Lines**: `packages/vm-effect/src/VmLive.js:57-73` and `packages/vm-effect/src/types.js:30-34`
+**Severity**: 🔴 HIGH
+**Status**: ✅ FIXED
+
+**Problem**: The `VmLiveOptions` type defines `profiler` and `loggingEnabled` options, but they are never used in the implementation. This is a broken API contract.
+
+**Evidence**:
+```javascript
+// types.js lines 30-34
+/**
+ * Configuration options for VmLive layer
+ * @typedef {Object} VmLiveOptions
+ * @property {boolean} [profiler] - Enable VM profiler
+ * @property {boolean} [loggingEnabled] - Enable logging for VM operations
+ */
+
+// VmLive.js lines 57-59
+export const VmLive = (_options = {}) => {
+    // Note: _options is currently unused but kept for API compatibility
+```
+
+**Impact**: Users who pass `{ profiler: true }` or `{ loggingEnabled: true }` will have their configuration silently ignored.
+
+**Recommended Fix**: Either implement the options (pass to `createVm`), or remove them from the type definition to avoid misleading consumers.
+
+**Resolution**: Removed the unused `profiler` and `loggingEnabled` options from `VmLiveOptions` type. Added documentation explaining that profiling and logging should be configured at the `EvmLive` layer (which properly implements these options). Updated `VmLive.js` with documentation pointing users to `EvmLive`. Removed related tests. All 15 tests pass with 100% coverage.
+
+---
+
+##### Issue #82: mapEvmError May Pass Non-Error Objects as Cause
+**File:Lines**: `packages/evm-effect/src/mapEvmError.js:46-112`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: When the input error is not an Error instance, the code still passes it as `cause`. Depending on the error class implementations, this may cause serialization issues.
+
+**Evidence**:
+```javascript
+const message = error instanceof Error ? error.message : String(error)
+// Later:
+return new OutOfGasError({
+    message,
+    cause: error,  // 'error' may not be an Error instance
+})
+```
+
+**Recommended Fix**: Normalize the cause: `const errorCause = error instanceof Error ? error : new Error(String(error))`
+
+---
+
+##### Issue #83: Unused CommonService Dependency in StateManagerLocal
+**File:Lines**: `packages/state-effect/src/StateManagerLocal.js:91-92`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: CommonService is yielded but its return value is not used. While the comment justifies this for "consistent API", it creates an unnecessary dependency.
+
+**Evidence**:
+```javascript
+// CommonService is available but we don't strictly need it for local mode
+// We yield it anyway to ensure consistent API with fork mode
+yield* CommonService
+```
+
+**Recommended Fix**: Either use the CommonService or remove the dependency.
+
+---
+
+##### Issue #84: VmShape Missing shallowCopy Method
+**File:Lines**: `packages/vm-effect/src/types.js:20-27`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: VmShape has `deepCopy` but no `shallowCopy`, unlike `StateManagerShape` and `BlockchainShape` which have both. API inconsistency.
+
+**Recommended Fix**: Add `shallowCopy: () => VmShape` for consistency.
+
+---
+
+#### Phase 1: 4 NEW LOW Issues Found
+
+##### Issue #85: Hardcoded VERSION Constant in toBaseError
+**File:Lines**: `packages/errors-effect/src/interop/toBaseError.js:7`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The VERSION is hardcoded as `'1.0.0-next.148'`. This will become stale as the package is updated.
+
+**Recommended Fix**: Import version from package.json or a central constants file.
+
+---
+
+##### Issue #86: promiseToEffect Returns Unknown Error Type
+**File:Lines**: `packages/interop/src/promiseToEffect.js:72`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The returned Effect has error type `unknown` since Promises can reject with any type. Consumers must use `Effect.catchAll` to refine the error type.
+
+**Recommended Fix**: Consider adding a variant like `promiseToEffectWith<E>` that accepts an error mapper.
+
+---
+
+##### Issue #87: LoggerService Uses GenericTag Losing Type Information
+**File:Lines**: `packages/logger-effect/src/LoggerService.js:47-49`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The LoggerService uses `Context.GenericTag` which results in `Context.Tag<any, any>` in type declarations.
+
+**Recommended Fix**: Use the class-based pattern: `export class LoggerService extends Context.Tag('@tevm/logger-effect/LoggerService')() {}`
+
+---
+
+##### Issue #88: LogLevel Type Includes 'fatal' and 'trace' But No Methods Exist
+**File:Lines**: `packages/logger-effect/src/types.js:18-20`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The LogLevel type includes 'fatal' and 'trace' levels, but LoggerShape only provides `debug`, `info`, `warn`, and `error` methods.
+
+**Recommended Fix**: Either add `fatal()` and `trace()` methods, or rename LogLevel to `ConfigLogLevel`.
+
+---
+
+#### Phase 3: 1 NEW MEDIUM + 6 NEW LOW Issues Found
+
+##### Issue #89: SetAccountLive Storage Value Not Padded to 32 Bytes
+**File:Lines**: `packages/actions-effect/src/SetAccountLive.js:336-337`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: When setting storage values, the key is padded to 32 bytes but the value is not. This could lead to inconsistent behavior.
+
+**Evidence**:
+```javascript
+const keyBytes = hexToBytes(key, { size: 32 })
+const valueBytes = hexToBytes(value)  // No size specified
+```
+
+**Recommended Fix**: Pad the value to 32 bytes: `hexToBytes(value, { size: 32 })`
+
+---
+
+##### Issue #90: Filter Counter Overflow Risk
+**File:Lines**: `packages/node-effect/src/FilterLive.js:71, 91`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The filter counter is a JavaScript `number`. If many filters are created over a long-running node, the counter could exceed `Number.MAX_SAFE_INTEGER`, leading to imprecise filter IDs.
+
+**Recommended Fix**: Use `bigint` for the counter, or add overflow protection.
+
+---
+
+##### Issue #91: SnapshotLive deepCopy Uses Record<string, any>
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:217-218`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `deepCopy` method uses `Record<string, any>` which loses type safety.
+
+**Recommended Fix**: Use the proper TevmState type import.
+
+---
+
+##### Issue #92: Snapshot ID Parsing Does Not Handle Invalid Hex
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:172, 194`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `parseInt(id.slice(2), 16)` could return `NaN` for malformed keys. The comparison `>= targetNum` with `NaN` would always be false.
+
+**Recommended Fix**: Add `Number.isNaN(targetNum)` validation.
+
+---
+
+##### Issue #93: GetAccountLive Fetches Code Even for Non-Existent Accounts
+**File:Lines**: `packages/actions-effect/src/GetAccountLive.js:170-198`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Code is fetched before checking if the account exists. If account doesn't exist, the fetched code is ignored and hardcoded values are returned.
+
+**Recommended Fix**: Skip getCode call when account is undefined, or use fetched values consistently.
+
+---
+
+##### Issue #94: BlockParam 'forked' Not Documented
+**File:Lines**: `packages/actions-effect/src/types.js:18`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The `BlockParam` type includes `'forked'` as a valid value, but none of the validators document or handle this case specifically.
+
+**Recommended Fix**: Add JSDoc documentation explaining what 'forked' means.
+
+---
+
+##### Issue #95: GetStorageAtLive Position Validation Allows Arbitrarily Long Hex
+**File:Lines**: `packages/actions-effect/src/GetStorageAtLive.js:129`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The regex `^0x[a-fA-F0-9]+$` allows arbitrarily long hex strings. Extremely long inputs could cause memory issues.
+
+**Recommended Fix**: Limit to 66 characters: `/^0x[a-fA-F0-9]{1,64}$/`
+
+---
+
+#### Phase 4: 6 NEW LOW Issues Found
+
+##### Issue #96: EthActionsShape Generated Types Return Unparameterized Effect
+**File:Lines**: `packages/decorators-effect/types/types.d.ts:92-121`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The generated TypeScript declarations for `EthActionsShape` methods return `typeof import("effect/Effect")` instead of properly parameterized `Effect.Effect<A, E, R>`.
+
+**Recommended Fix**: Adjust JSDoc to ensure proper d.ts generation.
+
+---
+
+##### Issue #97: loadState JSON Parse Error Wrapped as InternalError
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:206-215`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: JSON parsing errors in `loadState` are wrapped as `InternalError`, but this is really a user input validation error and should be `InvalidParamsError`.
+
+**Recommended Fix**: Use `InvalidParamsError` for invalid JSON input.
+
+---
+
+##### Issue #98: miningConfig.address JSDoc Creates Invalid Nested Property
+**File:Lines**: `packages/memory-client-effect/src/types.js:34`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: The JSDoc `@property {Address} [miningConfig.address]` creates an invalid pattern. Generated types show `address` at top level.
+
+**Recommended Fix**: Flatten property or create proper nested type for `miningConfig`.
+
+---
+
+##### Issue #99: Potential Resource Leak in createDeepCopyClient Error Path
+**File:Lines**: `packages/memory-client-effect/src/createMemoryClient.js:184-199`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: If validation fails after creating runtime, `.catch()` on `dispose()` logs to console but swallows dispose error.
+
+**Recommended Fix**: Consider using Effect's Scope/acquireRelease for robust cleanup.
+
+---
+
+##### Issue #100: loadState Return Statement After Effect.fail Is Unreachable
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:216`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: There's a `return` statement after `yield* Effect.fail(...)` which is technically unreachable code.
+
+**Recommended Fix**: Remove the unreachable return or restructure to use `Effect.tryPromise`.
+
+---
+
+##### Issue #101: FilterLog Topics Type Requires At Least 1 Topic
+**File:Lines**: `packages/node-effect/src/types.js:106`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `FilterLog.topics` is typed as `[Hex, ...Hex[]]` requiring at least one topic. Ethereum logs can have 0-4 topics.
+
+**Recommended Fix**: Change to `Hex[]` to allow empty topics arrays.
+
+---
+
+#### Summary Table (96th Review)
+
+| Package | CRITICAL | HIGH | MEDIUM | LOW | Total NEW |
+|---------|----------|------|--------|-----|-----------|
+| transport-effect | 0 | 1 | 0 | 0 | 1 |
+| vm-effect | 0 | 1 | 0 | 1 | 2 |
+| evm-effect | 0 | 0 | 1 | 0 | 1 |
+| state-effect | 0 | 0 | 0 | 1 | 1 |
+| errors-effect | 0 | 0 | 0 | 1 | 1 |
+| interop | 0 | 0 | 0 | 1 | 1 |
+| logger-effect | 0 | 0 | 0 | 2 | 2 |
+| node-effect | 0 | 0 | 0 | 3 | 3 |
+| actions-effect | 0 | 0 | 1 | 3 | 4 |
+| decorators-effect | 0 | 0 | 0 | 3 | 3 |
+| memory-client-effect | 0 | 0 | 0 | 2 | 2 |
+| **TOTAL NEW** | **0** | **2** | **2** | **18** | **22** |
+
+---
+
+#### Recommendations (96th Review)
+
+**Priority 1 - HIGH (MUST FIX BEFORE PRODUCTION):**
+1. Fix batched transport retry logic in HttpTransport.js (Issue #80) - retries are currently ineffective
+2. Either implement VmLiveOptions or remove from type definition (Issue #81) - broken API contract
+
+**Priority 2 - MEDIUM (Should Fix):**
+3. Normalize cause in mapEvmError (Issue #82)
+4. Pad storage values to 32 bytes in SetAccountLive (Issue #89)
+
+**Priority 3 - LOW (Nice to Have):**
+5. Various type safety, documentation, and minor bug fixes (Issues #83-101)
 
 ---
 
