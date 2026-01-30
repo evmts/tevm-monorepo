@@ -23,21 +23,23 @@ const bytesToHex = (bytes) => {
  * @param {string} address - Address to validate
  * @returns {import('effect').Effect.Effect<`0x${string}`, import('@tevm/errors-effect').InvalidParamsError, never>}
  */
-const validateAddress = (address) =>
+const validateAddress = (address, method = 'eth_getCode') =>
 	Effect.gen(function* () {
 		if (!address || typeof address !== 'string') {
 			return yield* Effect.fail(
 				new InvalidParamsError({
+					method,
+					params: { address },
 					message: 'Address is required and must be a string',
-					code: -32602,
 				}),
 			)
 		}
 		if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
 			return yield* Effect.fail(
 				new InvalidParamsError({
+					method,
+					params: { address },
 					message: `Invalid address format: ${address}. Must be a 40-character hex string prefixed with 0x`,
-					code: -32602,
 				}),
 			)
 		}

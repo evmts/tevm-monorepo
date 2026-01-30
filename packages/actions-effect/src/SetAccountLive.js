@@ -47,21 +47,23 @@ const keccak256 = (hex) => {
  * @param {string} address - Address to validate
  * @returns {import('effect').Effect.Effect<`0x${string}`, import('@tevm/errors-effect').InvalidParamsError, never>}
  */
-const validateAddress = (address) =>
+const validateAddress = (address, method = 'tevm_setAccount') =>
 	Effect.gen(function* () {
 		if (!address || typeof address !== 'string') {
 			return yield* Effect.fail(
 				new InvalidParamsError({
+					method,
+					params: { address },
 					message: 'Address is required and must be a string',
-					code: -32602,
 				}),
 			)
 		}
 		if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
 			return yield* Effect.fail(
 				new InvalidParamsError({
+					method,
+					params: { address },
 					message: `Invalid address format: ${address}. Must be a 40-character hex string prefixed with 0x`,
-					code: -32602,
 				}),
 			)
 		}
@@ -74,22 +76,24 @@ const validateAddress = (address) =>
  * @param {string} fieldName - Name of the field for error messages
  * @returns {import('effect').Effect.Effect<`0x${string}` | undefined, import('@tevm/errors-effect').InvalidParamsError, never>}
  */
-const validateHex = (hex, fieldName) =>
+const validateHex = (hex, fieldName, method = 'tevm_setAccount') =>
 	Effect.gen(function* () {
 		if (hex === undefined) return undefined
 		if (typeof hex !== 'string' || !hex.startsWith('0x')) {
 			return yield* Effect.fail(
 				new InvalidParamsError({
+					method,
+					params: { [fieldName]: hex },
 					message: `${fieldName} must be a hex string starting with 0x`,
-					code: -32602,
 				}),
 			)
 		}
 		if (!/^0x[a-fA-F0-9]*$/.test(hex)) {
 			return yield* Effect.fail(
 				new InvalidParamsError({
+					method,
+					params: { [fieldName]: hex },
 					message: `${fieldName} contains invalid hex characters`,
-					code: -32602,
 				}),
 			)
 		}
@@ -102,22 +106,24 @@ const validateHex = (hex, fieldName) =>
  * @param {string} fieldName - Name of the field for error messages
  * @returns {import('effect').Effect.Effect<bigint | undefined, import('@tevm/errors-effect').InvalidParamsError, never>}
  */
-const validateBigInt = (value, fieldName) =>
+const validateBigInt = (value, fieldName, method = 'tevm_setAccount') =>
 	Effect.gen(function* () {
 		if (value === undefined) return undefined
 		if (typeof value !== 'bigint') {
 			return yield* Effect.fail(
 				new InvalidParamsError({
+					method,
+					params: { [fieldName]: value },
 					message: `${fieldName} must be a bigint`,
-					code: -32602,
 				}),
 			)
 		}
 		if (value < 0n) {
 			return yield* Effect.fail(
 				new InvalidParamsError({
+					method,
+					params: { [fieldName]: value },
 					message: `${fieldName} cannot be negative`,
-					code: -32602,
 				}),
 			)
 		}
@@ -187,8 +193,9 @@ export const SetAccountLive = Layer.effect(
 					if (params.state !== undefined && params.stateDiff !== undefined) {
 						return yield* Effect.fail(
 							new InvalidParamsError({
+								method: 'tevm_setAccount',
+								params: { state: params.state, stateDiff: params.stateDiff },
 								message: 'Cannot provide both state and stateDiff - they are mutually exclusive',
-								code: -32602,
 							}),
 						)
 					}
@@ -232,65 +239,96 @@ export const SetAccountLive = Layer.effect(
 						accountData.codeHash = finalCodeHash
 					}
 
-					// Put account into state manager
-					yield* stateManager.putAccount(address, accountData).pipe(
+					// Create checkpoint for atomic state modifications
+					yield* stateManager.checkpoint().pipe(
 						Effect.mapError(
 							(e) =>
 								new InternalError({
-									message: `Failed to put account: ${e.message}`,
-									code: -32603,
+									message: `Failed to create checkpoint: ${e.message}`,
+									meta: { address, operation: 'checkpoint' },
 									cause: e,
 								}),
 						),
 					)
 
-					// Put contract code if provided
-					if (deployedBytecode) {
-						yield* stateManager.putCode(address, hexToBytes(deployedBytecode)).pipe(
+					// Wrap state modifications with commit/revert pattern
+					yield* Effect.gen(function* () {
+						// Put account into state manager
+						yield* stateManager.putAccount(address, accountData).pipe(
 							Effect.mapError(
 								(e) =>
 									new InternalError({
-										message: `Failed to put code: ${e.message}`,
-										code: -32603,
+										message: `Failed to put account: ${e.message}`,
+										meta: { address, operation: 'putAccount' },
 										cause: e,
 									}),
 							),
 						)
-					}
 
-					// Handle storage modifications
-					// If `state` is provided, clear storage first
-					if (params.state !== undefined) {
-						yield* stateManager.clearStorage(address).pipe(
-							Effect.mapError(
-								(e) =>
-									new InternalError({
-										message: `Failed to clear storage: ${e.message}`,
-										code: -32603,
-										cause: e,
-									}),
-							),
-						)
-					}
-
-					// Apply storage changes (from state or stateDiff)
-					const storageChanges = params.state ?? params.stateDiff
-					if (storageChanges !== undefined) {
-						for (const [key, value] of Object.entries(storageChanges)) {
-							const keyBytes = hexToBytes(key, { size: 32 })
-							const valueBytes = hexToBytes(value)
-							yield* stateManager.putStorage(address, keyBytes, valueBytes).pipe(
+						// Put contract code if provided
+						if (deployedBytecode) {
+							yield* stateManager.putCode(address, hexToBytes(deployedBytecode)).pipe(
 								Effect.mapError(
 									(e) =>
 										new InternalError({
-											message: `Failed to put storage at ${key}: ${e.message}`,
-											code: -32603,
+											message: `Failed to put code: ${e.message}`,
+											meta: { address, operation: 'putCode' },
 											cause: e,
 										}),
 								),
 							)
 						}
-					}
+
+						// Handle storage modifications
+						// If `state` is provided, clear storage first
+						if (params.state !== undefined) {
+							yield* stateManager.clearStorage(address).pipe(
+								Effect.mapError(
+									(e) =>
+										new InternalError({
+											message: `Failed to clear storage: ${e.message}`,
+											meta: { address, operation: 'clearStorage' },
+											cause: e,
+										}),
+								),
+							)
+						}
+
+						// Apply storage changes (from state or stateDiff)
+						const storageChanges = params.state ?? params.stateDiff
+						if (storageChanges !== undefined) {
+							for (const [key, value] of Object.entries(storageChanges)) {
+								const keyBytes = hexToBytes(key, { size: 32 })
+								const valueBytes = hexToBytes(value)
+								yield* stateManager.putStorage(address, keyBytes, valueBytes).pipe(
+									Effect.mapError(
+										(e) =>
+											new InternalError({
+												message: `Failed to put storage at ${key}: ${e.message}`,
+												meta: { address, key, operation: 'putStorage' },
+												cause: e,
+											}),
+									),
+								)
+							}
+						}
+					}).pipe(
+						// On success, commit the changes
+						Effect.tap(() =>
+							stateManager.commit().pipe(
+								Effect.mapError(
+									(e) =>
+										new InternalError({
+											message: `Failed to commit state changes: ${e.message}`,
+											meta: { address, operation: 'commit' },
+											cause: e,
+										}),
+								),
+							),
+						),
+						// On failure, revert the checkpoint
+						Effect.tapError(() => stateManager.revert()),
+					)
 
 					/** @type {import('./types.js').SetAccountSuccess} */
 					const result = {

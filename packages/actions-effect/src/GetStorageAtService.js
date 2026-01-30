@@ -28,7 +28,7 @@ import { Context } from 'effect'
  *   const { getStorageAt } = yield* GetStorageAtService
  *   const value = yield* getStorageAt({
  *     address: '0x1234567890123456789012345678901234567890',
- *     slot: '0x0000000000000000000000000000000000000000000000000000000000000000'
+ *     position: '0x0000000000000000000000000000000000000000000000000000000000000000'
  *   })
  *   console.log(`Storage value: ${value}`)
  *   return value

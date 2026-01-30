@@ -46,21 +46,23 @@ const hexToBytes = (hex, options) => {
  * @param {string} address - Address to validate
  * @returns {import('effect').Effect.Effect<`0x${string}`, import('@tevm/errors-effect').InvalidParamsError, never>}
  */
-const validateAddress = (address) =>
+const validateAddress = (address, method = 'eth_getStorageAt') =>
 	Effect.gen(function* () {
 		if (!address || typeof address !== 'string') {
 			return yield* Effect.fail(
 				new InvalidParamsError({
+					method,
+					params: { address },
 					message: 'Address is required and must be a string',
-					code: -32602,
 				}),
 			)
 		}
 		if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
 			return yield* Effect.fail(
 				new InvalidParamsError({
+					method,
+					params: { address },
 					message: `Invalid address format: ${address}. Must be a 40-character hex string prefixed with 0x`,
-					code: -32602,
 				}),
 			)
 		}
@@ -68,37 +70,40 @@ const validateAddress = (address) =>
 	})
 
 /**
- * Validates the storage slot format
- * @param {string} slot - Storage slot to validate
+ * Validates the storage position format
+ * @param {string} position - Storage position to validate
  * @returns {import('effect').Effect.Effect<`0x${string}`, import('@tevm/errors-effect').InvalidParamsError, never>}
  */
-const validateSlot = (slot) =>
+const validatePosition = (position, method = 'eth_getStorageAt') =>
 	Effect.gen(function* () {
-		if (!slot || typeof slot !== 'string') {
+		if (!position || typeof position !== 'string') {
 			return yield* Effect.fail(
 				new InvalidParamsError({
-					message: 'Storage slot is required and must be a string',
-					code: -32602,
+					method,
+					params: { position },
+					message: 'Storage position is required and must be a string',
 				}),
 			)
 		}
-		if (!slot.startsWith('0x')) {
+		if (!position.startsWith('0x')) {
 			return yield* Effect.fail(
 				new InvalidParamsError({
-					message: `Invalid storage slot format: ${slot}. Must be a hex string prefixed with 0x`,
-					code: -32602,
+					method,
+					params: { position },
+					message: `Invalid storage position format: ${position}. Must be a hex string prefixed with 0x`,
 				}),
 			)
 		}
-		if (!/^0x[a-fA-F0-9]+$/.test(slot)) {
+		if (!/^0x[a-fA-F0-9]+$/.test(position)) {
 			return yield* Effect.fail(
 				new InvalidParamsError({
-					message: `Invalid storage slot format: ${slot}. Contains invalid hex characters`,
-					code: -32602,
+					method,
+					params: { position },
+					message: `Invalid storage position format: ${position}. Contains invalid hex characters`,
 				}),
 			)
 		}
-		return /** @type {`0x${string}`} */ (slot.toLowerCase())
+		return /** @type {`0x${string}`} */ (position.toLowerCase())
 	})
 
 /**
@@ -117,7 +122,7 @@ const validateSlot = (slot) =>
  *   const { getStorageAt } = yield* GetStorageAtService
  *   const value = yield* getStorageAt({
  *     address: '0x1234567890123456789012345678901234567890',
- *     slot: '0x0'
+ *     position: '0x0'
  *   })
  *   return value
  * })
@@ -151,14 +156,14 @@ export const GetStorageAtLive = Layer.effect(
 					// Validate address format
 					const address = yield* validateAddress(params.address)
 
-					// Validate slot format
-					const slot = yield* validateSlot(params.slot)
+					// Validate position format
+					const position = yield* validatePosition(params.position)
 
-					// Convert slot to bytes (32 bytes)
-					const slotBytes = hexToBytes(slot, { size: 32 })
+					// Convert position to bytes (32 bytes)
+					const positionBytes = hexToBytes(position, { size: 32 })
 
 					// Get storage value from state manager
-					const value = yield* stateManager.getStorage(address, slotBytes)
+					const value = yield* stateManager.getStorage(address, positionBytes)
 
 					// Convert to hex and return
 					return bytesToHex(value)

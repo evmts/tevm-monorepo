@@ -59,7 +59,7 @@ describe('GetStorageAtLive', () => {
 				const { getStorageAt } = yield* GetStorageAtService
 				return yield* getStorageAt({
 					address: '0x1234567890123456789012345678901234567890',
-					slot: '0x0',
+					position: '0x0',
 				})
 			})
 
@@ -84,7 +84,7 @@ describe('GetStorageAtLive', () => {
 				const { getStorageAt } = yield* GetStorageAtService
 				return yield* getStorageAt({
 					address: '0xABCDEF1234567890123456789012345678901234',
-					slot: '0x0000000000000000000000000000000000000000000000000000000000000001',
+					position: '0x0000000000000000000000000000000000000000000000000000000000000001',
 				})
 			})
 
@@ -92,7 +92,7 @@ describe('GetStorageAtLive', () => {
 			expect(result).toBe('0x0000000000000000000000000000000000000000000000000000000000000064') // 64 = 100 in hex
 		})
 
-		it('should handle short slot values by padding', async () => {
+		it('should handle short position values by padding', async () => {
 			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
 			const testLayer = GetStorageAtLive.pipe(Layer.provide(MockStateManagerLayer))
 
@@ -100,7 +100,7 @@ describe('GetStorageAtLive', () => {
 				const { getStorageAt } = yield* GetStorageAtService
 				return yield* getStorageAt({
 					address: '0x1234567890123456789012345678901234567890',
-					slot: '0x1', // Short slot
+					position: '0x1', // Short position
 				})
 			})
 
@@ -118,7 +118,7 @@ describe('GetStorageAtLive', () => {
 				const { getStorageAt } = yield* GetStorageAtService
 				return yield* getStorageAt({
 					address: 'invalid-address' as any,
-					slot: '0x0',
+					position: '0x0',
 				})
 			})
 
@@ -134,7 +134,7 @@ describe('GetStorageAtLive', () => {
 				const { getStorageAt } = yield* GetStorageAtService
 				return yield* getStorageAt({
 					address: undefined as any,
-					slot: '0x0',
+					position: '0x0',
 				})
 			})
 
@@ -150,7 +150,7 @@ describe('GetStorageAtLive', () => {
 				const { getStorageAt } = yield* GetStorageAtService
 				return yield* getStorageAt({
 					address: '0x1234', // Too short
-					slot: '0x0',
+					position: '0x0',
 				})
 			})
 
@@ -158,7 +158,7 @@ describe('GetStorageAtLive', () => {
 			expect(result._tag).toBe('Failure')
 		})
 
-		it('should fail with InvalidParamsError for missing slot', async () => {
+		it('should fail with InvalidParamsError for missing position', async () => {
 			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
 			const testLayer = GetStorageAtLive.pipe(Layer.provide(MockStateManagerLayer))
 
@@ -166,7 +166,7 @@ describe('GetStorageAtLive', () => {
 				const { getStorageAt } = yield* GetStorageAtService
 				return yield* getStorageAt({
 					address: '0x1234567890123456789012345678901234567890',
-					slot: undefined as any,
+					position: undefined as any,
 				})
 			})
 
@@ -174,7 +174,7 @@ describe('GetStorageAtLive', () => {
 			expect(result._tag).toBe('Failure')
 		})
 
-		it('should fail with InvalidParamsError for slot without 0x prefix', async () => {
+		it('should fail with InvalidParamsError for position without 0x prefix', async () => {
 			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
 			const testLayer = GetStorageAtLive.pipe(Layer.provide(MockStateManagerLayer))
 
@@ -182,7 +182,7 @@ describe('GetStorageAtLive', () => {
 				const { getStorageAt } = yield* GetStorageAtService
 				return yield* getStorageAt({
 					address: '0x1234567890123456789012345678901234567890',
-					slot: '0000' as any, // No 0x prefix
+					position: '0000' as any, // position without 0x prefix
 				})
 			})
 
@@ -190,7 +190,7 @@ describe('GetStorageAtLive', () => {
 			expect(result._tag).toBe('Failure')
 		})
 
-		it('should fail with InvalidParamsError for slot with invalid hex chars', async () => {
+		it('should fail with InvalidParamsError for position with invalid hex chars', async () => {
 			const MockStateManagerLayer = Layer.succeed(StateManagerService, createMockStateManager() as any)
 			const testLayer = GetStorageAtLive.pipe(Layer.provide(MockStateManagerLayer))
 
@@ -198,7 +198,7 @@ describe('GetStorageAtLive', () => {
 				const { getStorageAt } = yield* GetStorageAtService
 				return yield* getStorageAt({
 					address: '0x1234567890123456789012345678901234567890',
-					slot: '0xGGGG' as any, // Invalid hex
+					position: '0xGGGG' as any, // Invalid hex
 				})
 			})
 
@@ -216,7 +216,7 @@ describe('GetStorageAtLive', () => {
 				const { getStorageAt } = yield* GetStorageAtService
 				return yield* getStorageAt({
 					address: 'invalid' as any,
-					slot: '0x0',
+					position: '0x0',
 				})
 			}).pipe(
 				Effect.catchTag('InvalidParamsError', (error) =>

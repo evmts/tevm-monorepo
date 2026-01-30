@@ -76,7 +76,7 @@
  * Parameters for getStorageAt action (eth_getStorageAt)
  * @typedef {Object} GetStorageAtParams
  * @property {Address} address - Address of the contract
- * @property {Hex} slot - Storage slot position (can be any hex, will be padded to 32 bytes)
+ * @property {Hex} position - Storage slot position (can be any hex, will be padded to 32 bytes)
  * @property {BlockParam} [blockTag] - Block tag to fetch storage from
  */
 
