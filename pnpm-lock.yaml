@@ -1750,6 +1750,31 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  packages/common-effect:
+    dependencies:
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../common
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      '@tevm/transport-effect':
+        specifier: workspace:^
+        version: link:../transport-effect
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
+
   packages/contract:
     dependencies:
       '@tevm/errors':

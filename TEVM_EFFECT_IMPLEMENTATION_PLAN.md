@@ -1377,9 +1377,56 @@ export const effectToPromise = <A, E>(
 **Goal**: Define service interfaces, migrate core EVM packages
 **Breaking Changes**: None (additive, maintain Promise wrappers)
 
-### REVIEW AGENT Review Status: 🟢 TRANSPORT SERVICES COMPLETE (2026-01-29)
+### REVIEW AGENT Review Status: 🟢 TRANSPORT SERVICES REVIEWED (2026-01-29)
 
-**Twentieth review (2026-01-29)** - Phase 2.2 Transport Services completed. Package @tevm/transport-effect created with 47 tests, 100% coverage.
+**Twenty-first review (2026-01-29)** - Opus 4.5 comprehensive parallel review of @tevm/transport-effect against RFC specification. Package is **RFC COMPLIANT** with documented deviations and minor issues.
+
+---
+
+#### @tevm/transport-effect - TWENTY-FIRST REVIEW FINDINGS
+
+| Issue | Severity | File:Line | Status | Notes |
+|-------|----------|-----------|--------|-------|
+| **Missing `batch` configuration option** | **HIGH** | HttpTransport.js:87-94 | 🔴 Open | RFC specifies `batch?: { wait: Duration.DurationInput; maxSize: number }` for request batching. Implementation has no batching support. Important for fork performance. |
+| **HttpTransport uses `Layer.succeed` instead of `Layer.scoped`** | **MEDIUM** | HttpTransport.js:96 | ⚠️ Acceptable | RFC shows `Layer.scoped` with `Effect.acquireRelease` for lifecycle management. Implementation uses stateless fetch - works but doesn't support connection pooling. |
+| **Missing BigInt parse error handling in ForkConfigFromRpc** | **MEDIUM** | ForkConfigFromRpc.js:76-79 | 🔴 Open | If RPC returns malformed hex string, `BigInt()` throws sync exception. Should wrap in `Effect.try` to convert to ForkError. |
+| **Missing retry exhaustion test** | **MEDIUM** | HttpTransport.spec.ts:250-275 | 🔴 Open | Tests retry succeeds on 2nd attempt, but no test verifying failure after all retries exhausted. |
+| **Missing timeout behavior test** | **MEDIUM** | HttpTransport.spec.ts | 🔴 Open | Tests verify AbortSignal passed (line 294-299) but no test for actual timeout triggering. |
+| **Missing invalid hex parsing test** | **MEDIUM** | ForkConfigFromRpc.spec.ts | 🔴 Open | No test for malformed RPC responses. `BigInt("not_hex")` would throw. |
+| **Redundant `Effect.catchTag` after retry** | **LOW** | HttpTransport.js:145 | 🔴 Open | `.catchTag('ForkError', (e) => Effect.fail(e))` is a no-op (catches and immediately re-fails). Should be removed. |
+| **Unused `Scope` import** | **LOW** | HttpTransport.js:1 | 🔴 Open | `Scope` is imported from effect but never used. |
+| **Dead code: `defaultRetrySchedule` unused** | **LOW** | HttpTransport.js:20-22 | 🔴 Open | Constant defined but each HttpTransport creates its own schedule (line 92-94). |
+| **`retrySchedule` replaced with `retryCount`/`retryDelay`** | **LOW** | types.js:16-17 | ⚠️ Acceptable | RFC uses `Schedule.Schedule`. Implementation uses simple numbers. Less flexible but simpler API. |
+| **`timeout` uses `number` instead of `Duration.DurationInput`** | **LOW** | types.js:15 | ⚠️ Acceptable | RFC uses Effect's Duration. Implementation uses milliseconds. Simpler. |
+| **TransportShape missing `readonly` modifier** | **LOW** | types.js:30 | ⚠️ JSDoc limitation | RFC uses TypeScript `readonly`. JSDoc cannot express this. |
+| **TransportService uses `GenericTag` vs class-based `Tag`** | **LOW** | TransportService.js:65-67 | ⚠️ Acceptable | Both patterns valid in Effect.ts. GenericTag is idiomatic for JavaScript. |
+| **ForkConfigShape.js only contains docs** | **LOW** | ForkConfigShape.js:63 | ⚠️ Acceptable | File exports `{}`. Serves as documentation; actual type in types.js. |
+| **ForkConfigFromRpc error type not verified in tests** | **LOW** | ForkConfigFromRpc.spec.ts:125-175 | 🔴 Open | Tests check `Exit.isFailure` but don't verify it's specifically a ForkError. |
+| TransportShape interface matches RFC | ✅ **VERIFIED** | types.js:30-31 | ✅ COMPLIANT | `request: <T>(method, params?) => Effect<T, ForkError>` matches RFC. |
+| TransportNoop correctly returns ForkError | ✅ **VERIFIED** | TransportNoop.js:59-69 | ✅ COMPLIANT | Matches RFC exactly. |
+| ForkConfigFromRpc uses Effect.all for parallel fetch | ✅ **VERIFIED** | ForkConfigFromRpc.js:71-74 | ✅ COMPLIANT | Fetches eth_chainId and eth_blockNumber in parallel. |
+| ForkConfigFromRpc Layer type includes TransportService requirement | ✅ **VERIFIED** | ForkConfigFromRpc.js:65 | ✅ COMPLIANT | `Layer.Layer<ForkConfigService, ForkError, TransportService>` |
+| ForkConfigStatic matches RFC | ✅ **VERIFIED** | ForkConfigStatic.js:83-85 | ✅ COMPLIANT | Returns `Layer.succeed(ForkConfigService, config)` |
+
+---
+
+**Updated Status Summary (TWENTY-FIRST REVIEW):**
+
+| Package | CRITICAL | HIGH | MEDIUM | LOW | Total Open | Tests | Coverage | RFC Compliance |
+|---------|----------|------|--------|-----|------------|-------|----------|----------------|
+| @tevm/transport-effect | 0 | 1 | 5 | 7 | 13 | 47 | 100% | ✅ COMPLIANT* |
+
+*Note: HIGH issue (missing batch support) is feature gap, not bug. All core functionality works correctly.
+
+**Recommendations Before Phase 2.3:**
+1. **HIGH**: Consider implementing batch support for better fork performance (can be deferred)
+2. **MEDIUM**: Wrap `BigInt()` calls in ForkConfigFromRpc with `Effect.try` for graceful error handling
+3. **LOW**: Remove dead code (`defaultRetrySchedule`, unused `Scope` import, redundant `catchTag`)
+4. **LOW**: Add missing test cases (retry exhaustion, timeout behavior, invalid hex)
+
+---
+
+**Previous review (2026-01-29)** - Phase 2.2 Transport Services completed. Package @tevm/transport-effect created with 47 tests, 100% coverage.
 
 ---
 
@@ -1431,22 +1478,49 @@ packages/transport-effect/
 
 ---
 
-### 2.1 @tevm/common Migration
+### 2.1 @tevm/common-effect ✅ COMPLETE
+
+**Status**: ✅ COMPLETE
+**Tests**: 33 passing, 100% coverage
+**Created**: 2026-01-29
 
 **Current**: `createCommon()` factory returning Common object
-**Target**: `CommonService` with `CommonFromFork` and `CommonFromConfig` layers
+**Target**: `CommonService` with `CommonFromFork` and `CommonFromConfig` layers → ✅ ACHIEVED
 
 | Task | Status | Owner | Notes |
 |------|--------|-------|-------|
-| Define `CommonService` Context.Tag | [ ] | | |
-| Define `CommonShape` interface | [ ] | | common, chainId, hardfork, eips, copy |
-| Implement `CommonFromFork` layer | [ ] | | Auto-detect from ForkConfigService |
-| Implement `CommonFromConfig` layer | [ ] | | Explicit configuration |
-| Keep `createCommon()` API | [ ] | | Backward compat wrapper |
-| Write tests for CommonService | [ ] | | |
+| Define `CommonService` Context.Tag | [x] | Claude | Context.GenericTag('CommonService') |
+| Define `CommonShape` interface | [x] | Claude | common, chainId, hardfork, eips, copy |
+| Implement `CommonFromFork` layer | [x] | Claude | Auto-detect from ForkConfigService, hardfork/eips options |
+| Implement `CommonFromConfig` layer | [x] | Claude | Explicit configuration with chainId, hardfork, eips |
+| Implement `CommonLocal` layer | [x] | Claude | Pre-built layer for tevm-devnet (chainId 900) |
+| Keep `createCommon()` API | [x] | N/A | No changes needed - @tevm/common unchanged, @tevm/common-effect is additive |
+| Write tests for CommonService | [x] | Claude | 33 tests, 100% coverage |
+
+**Package Structure**:
+```
+packages/common-effect/
+├── package.json
+├── tsconfig.json
+├── tsup.config.js
+├── vitest.config.ts
+└── src/
+    ├── index.js                    # Barrel exports
+    ├── types.js                    # Type definitions (CommonShape, Hardfork, etc.)
+    ├── CommonService.js            # Context.Tag
+    ├── CommonShape.js              # Interface documentation
+    ├── CommonFromFork.js           # Layer using ForkConfigService
+    ├── CommonFromConfig.js         # Layer with explicit config
+    ├── CommonLocal.js              # Pre-built layer for local mode
+    └── *.spec.ts                   # Test files
+```
 
 **Learnings**:
-- _None yet_
+- `Context.GenericTag` works well for JavaScript-based Context.Tag creation
+- createCommon() from @tevm/common provides .copy() method for creating independent copies (important for statefulness)
+- The ethjsCommon property on Common provides access to ethereumjs Common for EIP/hardfork queries
+- Layer.succeed for sync layers (CommonFromConfig, CommonLocal), Layer.effect for async layers (CommonFromFork)
+- ForkConfigService dependency allows CommonFromFork to auto-detect chain configuration
 
 ---
 
