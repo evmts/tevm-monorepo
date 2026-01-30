@@ -3,6 +3,22 @@ import { createStateManager } from '@tevm/state'
 import { CommonService } from '@tevm/common-effect'
 import { StateRootNotFoundError } from '@tevm/errors-effect'
 import { StateManagerService } from './StateManagerService.js'
+import { createAddressFromString, EthjsAddress } from '@tevm/utils'
+
+/**
+ * Helper to convert an address (hex string or EthjsAddress) to EthjsAddress.
+ * This handles the type mismatch between the public API (which accepts hex strings)
+ * and the underlying StateManager (which expects EthjsAddress objects).
+ *
+ * @param {import('./types.js').Address} address - Address as hex string or EthjsAddress
+ * @returns {import('@tevm/utils').EthjsAddress} EthjsAddress instance
+ */
+const toEthjsAddress = (address) => {
+	if (typeof address === 'string') {
+		return createAddressFromString(address)
+	}
+	return address
+}
 
 /**
  * @module @tevm/state-effect/StateManagerLocal
@@ -46,7 +62,7 @@ import { StateManagerService } from './StateManagerService.js'
  *
  * @example
  * ```javascript
- * // With checkpoint/commit pattern
+ * // With checkpoint/commit pattern - now accepts hex string addresses directly!
  * const program = Effect.gen(function* () {
  *   const stateManager = yield* StateManagerService
  *   yield* stateManager.ready
@@ -54,6 +70,7 @@ import { StateManagerService } from './StateManagerService.js'
  *   // Create checkpoint for atomic operations
  *   yield* stateManager.checkpoint()
  *
+ *   // Pass address as hex string - conversion is handled internally
  *   const address = '0x1234567890123456789012345678901234567890'
  *   const slot = new Uint8Array(32)
  *   const value = new Uint8Array([1, 2, 3, 4])
@@ -92,28 +109,28 @@ export const StateManagerLocal = (options = {}) => {
 					stateManager: sm,
 
 					getAccount: (address) =>
-						Effect.promise(() => sm.getAccount(/** @type {any} */ (address))),
+						Effect.promise(() => sm.getAccount(toEthjsAddress(address))),
 
 					putAccount: (address, account) =>
-						Effect.promise(() => sm.putAccount(/** @type {any} */ (address), account)),
+						Effect.promise(() => sm.putAccount(toEthjsAddress(address), account)),
 
 					deleteAccount: (address) =>
-						Effect.promise(() => sm.deleteAccount(/** @type {any} */ (address))),
+						Effect.promise(() => sm.deleteAccount(toEthjsAddress(address))),
 
 					getStorage: (address, slot) =>
-						Effect.promise(() => sm.getStorage(/** @type {any} */ (address), slot)),
+						Effect.promise(() => sm.getStorage(toEthjsAddress(address), slot)),
 
 					putStorage: (address, slot, value) =>
-						Effect.promise(() => sm.putStorage(/** @type {any} */ (address), slot, value)),
+						Effect.promise(() => sm.putStorage(toEthjsAddress(address), slot, value)),
 
 					clearStorage: (address) =>
-						Effect.promise(() => sm.clearStorage(/** @type {any} */ (address))),
+						Effect.promise(() => sm.clearStorage(toEthjsAddress(address))),
 
 					getCode: (address) =>
-						Effect.promise(() => sm.getCode(/** @type {any} */ (address))),
+						Effect.promise(() => sm.getCode(toEthjsAddress(address))),
 
 					putCode: (address, code) =>
-						Effect.promise(() => sm.putCode(/** @type {any} */ (address), code)),
+						Effect.promise(() => sm.putCode(toEthjsAddress(address), code)),
 
 					getStateRoot: () =>
 						Effect.promise(() => sm.getStateRoot()),
@@ -121,11 +138,17 @@ export const StateManagerLocal = (options = {}) => {
 					setStateRoot: (root) =>
 						Effect.tryPromise({
 							try: () => sm.setStateRoot(root),
-							catch: (error) =>
-								new StateRootNotFoundError({
-									message: `State root not found`,
+							catch: (error) => {
+								// Convert Uint8Array to hex string for error context
+								const stateRootHex = `0x${Array.from(root)
+									.map((b) => b.toString(16).padStart(2, '0'))
+									.join('')}`
+								return new StateRootNotFoundError({
+									message: `State root not found: ${stateRootHex}`,
+									stateRoot: /** @type {`0x${string}`} */ (stateRootHex),
 									cause: /** @type {Error} */ (error),
-								}),
+								})
+							},
 						}),
 
 					checkpoint: () =>

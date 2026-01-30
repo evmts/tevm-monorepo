@@ -94,12 +94,12 @@ describe('StateManagerLocal', () => {
 			expect(result).toBe('reverted')
 		})
 
-		it('should get undefined for non-existent account', async () => {
+		it('should get undefined for non-existent account using hex string address', async () => {
 			const program = Effect.gen(function* () {
 				const stateManager = yield* StateManagerService
 				yield* stateManager.ready
-				const address = createAddressFromString('0x1234567890123456789012345678901234567890')
-				const account = yield* stateManager.getAccount(address as any)
+				// Use hex string directly - no more EthjsAddress or "as any" cast needed!
+				const account = yield* stateManager.getAccount('0x1234567890123456789012345678901234567890')
 				return account
 			})
 
@@ -107,14 +107,15 @@ describe('StateManagerLocal', () => {
 			expect(result).toBeUndefined()
 		})
 
-		it('should support putAccount and getAccount', async () => {
+		it('should support putAccount and getAccount with hex string address', async () => {
 			const program = Effect.gen(function* () {
 				const stateManager = yield* StateManagerService
 				yield* stateManager.ready
-				const address = createAddressFromString('0x1234567890123456789012345678901234567890')
+				// Use hex string directly - no more EthjsAddress or "as any" cast needed!
+				const address = '0x1234567890123456789012345678901234567890'
 				const account = new EthjsAccount()
-				yield* stateManager.putAccount(address as any, account)
-				const retrieved = yield* stateManager.getAccount(address as any)
+				yield* stateManager.putAccount(address, account)
+				const retrieved = yield* stateManager.getAccount(address)
 				return retrieved
 			})
 
@@ -122,12 +123,25 @@ describe('StateManagerLocal', () => {
 			expect(result).toBeDefined()
 		})
 
-		it('should support deleteAccount', async () => {
+		it('should still accept EthjsAddress for backwards compatibility', async () => {
 			const program = Effect.gen(function* () {
 				const stateManager = yield* StateManagerService
 				yield* stateManager.ready
+				// Using EthjsAddress object directly still works
 				const address = createAddressFromString('0x1234567890123456789012345678901234567890')
-				yield* stateManager.deleteAccount(address as any)
+				const account = yield* stateManager.getAccount(address)
+				return account
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
+			expect(result).toBeUndefined()
+		})
+
+		it('should support deleteAccount with hex string address', async () => {
+			const program = Effect.gen(function* () {
+				const stateManager = yield* StateManagerService
+				yield* stateManager.ready
+				yield* stateManager.deleteAccount('0x1234567890123456789012345678901234567890')
 				return 'deleted'
 			})
 
@@ -135,20 +149,20 @@ describe('StateManagerLocal', () => {
 			expect(result).toBe('deleted')
 		})
 
-		it('should support putStorage and getStorage', async () => {
+		it('should support putStorage and getStorage with hex string address', async () => {
 			const program = Effect.gen(function* () {
 				const stateManager = yield* StateManagerService
 				yield* stateManager.ready
-				const address = createAddressFromString('0x1234567890123456789012345678901234567890')
+				const address = '0x1234567890123456789012345678901234567890'
 				const slot = new Uint8Array(32)
 				const value = new Uint8Array([1, 2, 3, 4])
 				// Need to create account first before putting storage
 				const account = new EthjsAccount()
-				yield* stateManager.putAccount(address as any, account)
+				yield* stateManager.putAccount(address, account)
 				yield* stateManager.checkpoint()
-				yield* stateManager.putStorage(address as any, slot, value)
+				yield* stateManager.putStorage(address, slot, value)
 				yield* stateManager.commit()
-				const retrieved = yield* stateManager.getStorage(address as any, slot)
+				const retrieved = yield* stateManager.getStorage(address, slot)
 				return retrieved
 			})
 
@@ -156,12 +170,11 @@ describe('StateManagerLocal', () => {
 			expect(result).toBeDefined()
 		})
 
-		it('should support clearStorage', async () => {
+		it('should support clearStorage with hex string address', async () => {
 			const program = Effect.gen(function* () {
 				const stateManager = yield* StateManagerService
 				yield* stateManager.ready
-				const address = createAddressFromString('0x1234567890123456789012345678901234567890')
-				yield* stateManager.clearStorage(address as any)
+				yield* stateManager.clearStorage('0x1234567890123456789012345678901234567890')
 				return 'cleared'
 			})
 
@@ -169,12 +182,11 @@ describe('StateManagerLocal', () => {
 			expect(result).toBe('cleared')
 		})
 
-		it('should support getCode', async () => {
+		it('should support getCode with hex string address', async () => {
 			const program = Effect.gen(function* () {
 				const stateManager = yield* StateManagerService
 				yield* stateManager.ready
-				const address = createAddressFromString('0x1234567890123456789012345678901234567890')
-				const code = yield* stateManager.getCode(address as any)
+				const code = yield* stateManager.getCode('0x1234567890123456789012345678901234567890')
 				return code
 			})
 
@@ -182,13 +194,12 @@ describe('StateManagerLocal', () => {
 			expect(result).toBeInstanceOf(Uint8Array)
 		})
 
-		it('should support putCode', async () => {
+		it('should support putCode with hex string address', async () => {
 			const program = Effect.gen(function* () {
 				const stateManager = yield* StateManagerService
 				yield* stateManager.ready
-				const address = createAddressFromString('0x1234567890123456789012345678901234567890')
 				const code = new Uint8Array([0x60, 0x00, 0x60, 0x00])
-				yield* stateManager.putCode(address as any, code)
+				yield* stateManager.putCode('0x1234567890123456789012345678901234567890', code)
 				return 'code put'
 			})
 
@@ -312,7 +323,7 @@ describe('StateManagerLocal', () => {
 			expect(result).toBe('setStateRoot exists')
 		})
 
-		it('should fail with StateRootNotFoundError when setting non-existent state root', async () => {
+		it('should fail with StateRootNotFoundError with stateRoot property when setting non-existent state root', async () => {
 			const program = Effect.gen(function* () {
 				const stateManager = yield* StateManagerService
 				yield* stateManager.ready
@@ -324,6 +335,11 @@ describe('StateManagerLocal', () => {
 
 			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(fullLayer)))
 			expect(Exit.isFailure(exit)).toBe(true)
+			if (Exit.isFailure(exit)) {
+				const error = exit.cause
+				// The error should include the stateRoot in the message
+				expect(JSON.stringify(error)).toContain('stateRoot')
+			}
 		})
 
 		it('should support deep copy methods on copied state manager', async () => {
@@ -339,6 +355,21 @@ describe('StateManagerLocal', () => {
 
 			const result = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
 			expect(result).toBe('deep copy works')
+		})
+
+		it('should work with deep copy and hex string addresses', async () => {
+			const program = Effect.gen(function* () {
+				const stateManager = yield* StateManagerService
+				yield* stateManager.ready
+				const copy = yield* stateManager.deepCopy()
+				// Use hex string address with copied state manager
+				const account = yield* copy.getAccount('0xabcdef0123456789abcdef0123456789abcdef01')
+				expect(account).toBeUndefined() // Non-existent account
+				return 'deep copy with hex string works'
+			})
+
+			const result = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
+			expect(result).toBe('deep copy with hex string works')
 		})
 	})
 

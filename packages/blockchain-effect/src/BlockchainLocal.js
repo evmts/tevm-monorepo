@@ -162,7 +162,18 @@ export const BlockchainLocal = (options = {}) => {
 										if (block) {
 											yield block
 										}
-									} catch {
+									} catch (error) {
+										// Only silently continue for block-not-found errors
+										// Re-throw all other errors (network errors, validation errors, etc.)
+										const isBlockNotFound =
+											error instanceof Error &&
+											(error.name === 'UnknownBlock' ||
+												error.name === 'UnknownBlockError' ||
+												error.message?.toLowerCase().includes('block not found') ||
+												error.message?.toLowerCase().includes('unknown block'))
+										if (!isBlockNotFound) {
+											throw error
+										}
 										// Block not found at this height, continue to next
 									}
 								}

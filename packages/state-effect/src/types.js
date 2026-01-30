@@ -9,8 +9,9 @@
  */
 
 /**
- * Ethereum address type (20 bytes hex string)
- * @typedef {Hex} Address
+ * Ethereum address type - can be either a hex string or an EthjsAddress instance.
+ * The implementation will convert hex strings to EthjsAddress objects internally.
+ * @typedef {Hex | import('@tevm/utils').EthjsAddress} Address
  */
 
 /**

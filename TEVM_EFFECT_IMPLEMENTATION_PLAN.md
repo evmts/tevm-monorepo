@@ -9,22 +9,32 @@
 
 ## Review Agent Summary (2026-01-29)
 
-**ALL COMPLETED CODE HAS BEEN REVIEWED.** Phase 3.1 CRITICAL bug has been fixed.
+**THIRTY-EIGHTH REVIEW COMPLETE.** Critical and medium bugs fixed in Phase 2 packages.
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
 | **Phase 1** | 🟢 NINETEENTH REVIEW | 3 (errors-effect, interop, logger-effect) | 682 | 100% | ✅ COMPLIANT |
-| **Phase 2** | 🟢 THIRTY-SECOND REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 208 | 100% | ✅ COMPLIANT |
-| **Phase 3** | 🟢 THIRTY-SIXTH REVIEW | 1 (node-effect: 4 services) | 83 | 100% | ✅ COMPLIANT |
+| **Phase 2** | 🟢 THIRTY-EIGHTH REVIEW | 6 (common, transport, blockchain, state, evm, vm) | 211 | 100% | ✅ MOSTLY COMPLIANT |
+| **Phase 3** | 🟡 THIRTY-SEVENTH REVIEW | 1 (node-effect: 4 services) | 83 | 100% | ⚠️ HAS ISSUES |
 | **Phase 4** | ⚪ NOT STARTED | 0 | - | - | - |
 
 **Open Issues Summary:**
-- **CRITICAL**: 0
+- **CRITICAL**: 0 (all resolved)
 - **HIGH**: 2 (transport-effect batch support feature gap; node-effect method naming mismatch with RFC)
-- **MEDIUM**: 17 (documented limitations, JSDoc constraints, enhancements)
-- **LOW**: 33 (minor enhancements, style, documentation)
+- **MEDIUM**: 18 (SnapshotLive shallow deepCopy, FilterLive TOCTOU race, etc.)
+- **LOW**: 38 (minor enhancements, style, documentation)
 
-**✅ Phase 3.1 CRITICAL bug in SnapshotLive.js:134 has been FIXED (2026-01-29).**
+**✅ BUGS RESOLVED (2026-01-29 - THIRTY-EIGHTH REVIEW):**
+1. ✅ @tevm/state-effect Address type mismatch - FIXED with `toEthjsAddress` helper that accepts hex strings OR EthjsAddress objects. Consumers can now pass `'0x...'` hex strings directly without casting.
+2. ✅ @tevm/state-effect setStateRoot missing stateRoot property - FIXED, error now includes `stateRoot` hex string property.
+3. ✅ @tevm/vm-effect buildBlock return type - FIXED, now uses `Awaited<ReturnType<...>>` to correctly return `BlockBuilder` instead of `Promise<BlockBuilder>`.
+4. ✅ @tevm/blockchain-effect iterator swallows ALL errors - FIXED, now only catches block-not-found errors (UnknownBlock/UnknownBlockError) and re-throws all other errors.
+
+**🟡 REMAINING MEDIUM BUGS:**
+1. @tevm/node-effect SnapshotLive.deepCopy is shallow - Snapshot state data not deep copied
+2. @tevm/node-effect FilterLive TOCTOU race condition - read-check-write pattern not atomic
+
+**✅ Previously fixed: Phase 3.1 CRITICAL bug in SnapshotLive.js:134 (snapshotId property).**
 
 ---
 
@@ -1400,9 +1410,43 @@ export const effectToPromise = <A, E>(
 **Goal**: Define service interfaces, migrate core EVM packages
 **Breaking Changes**: None (additive, maintain Promise wrappers)
 
-### REVIEW AGENT Review Status: 🟢 THIRTY-THIRD REVIEW (2026-01-29)
+### REVIEW AGENT Review Status: 🟡 THIRTY-SEVENTH REVIEW (2026-01-29)
 
-**Thirty-third review (2026-01-29)** - CONFIRMED: All Phase 2 code has been reviewed. No new unreviewed code found.
+**Thirty-seventh review (2026-01-29)** - Opus 4.5 parallel subagent deep review found NEW ISSUES across Phase 2 packages.
+
+- ✅ @tevm/common-effect - **RFC COMPLIANT** (33 tests, 100% coverage)
+- ✅ @tevm/transport-effect - **RFC COMPLIANT** (47 tests, 100% coverage)
+- ⚠️ @tevm/blockchain-effect - **HAS ISSUES** (37 tests, 100% coverage) - iterator swallows errors, BlockNotFoundError missing blockTag
+- ⚠️ @tevm/state-effect - **HAS ISSUES** (36 tests, 100% coverage) - CRITICAL: Address type causes runtime errors, setStateRoot missing stateRoot in error
+- ⚠️ @tevm/vm-effect - **HAS ISSUES** (17 tests, 100% coverage) - buildBlock return type bug, unused loggingEnabled option
+- ✅ @tevm/evm-effect - **RFC COMPLIANT** (38 tests, 100% coverage) - mapEvmError correctly implemented
+
+#### @tevm/vm-effect - THIRTY-SEVENTH REVIEW FINDINGS (2026-01-29)
+
+| Issue | Severity | File:Line | Status | Notes |
+|-------|----------|-----------|--------|-------|
+| **buildBlock return type bug** | **MEDIUM** | types.js:24 | 🔴 Open | `ReturnType<Vm['buildBlock']>` evaluates to `Promise<BlockBuilder>`, but Effect.tryPromise unwraps the Promise. Should be `Awaited<ReturnType<...>>` or `BlockBuilder` directly. TypeScript consumers see wrong type. |
+| **Unused loggingEnabled option** | **LOW** | types.js:33, VmLive.js | 🔴 Open | `VmLiveOptions.loggingEnabled` is declared but never used. Only `profiler` is accessed from options. Users expect it to work. |
+
+#### @tevm/state-effect - THIRTY-SEVENTH REVIEW FINDINGS (2026-01-29)
+
+| Issue | Severity | File:Line | Status | Notes |
+|-------|----------|-----------|--------|-------|
+| **Address type causes RUNTIME ERRORS** | **CRITICAL** | StateManagerLocal.js:95-116 | 🔴 Open | Type says `Address` (hex string `0x${string}`), but underlying StateManager expects `EthjsAddress` class object. Tests work because they pass `EthjsAddress` with `as any` cast. Consumers passing hex strings will get runtime errors! |
+| **setStateRoot missing stateRoot in error** | **MEDIUM** | StateManagerLocal.js:121-129 | 🔴 Open | `StateRootNotFoundError` is created but `stateRoot` property is never set. Debugging is harder. Should convert `root` Uint8Array to hex and pass to error. |
+| **genesisStateRoot option never used** | **LOW** | types.js:52, StateManagerLocal.js:77 | 🔴 Open | Option defined in types but never passed to `createStateManager`. Dead API surface. |
+
+#### @tevm/blockchain-effect - THIRTY-SEVENTH REVIEW FINDINGS (2026-01-29)
+
+| Issue | Severity | File:Line | Status | Notes |
+|-------|----------|-----------|--------|-------|
+| **iterator silently swallows ALL errors** | **MEDIUM** | BlockchainLocal.js:155-171, BlockchainLive.js:179-195 | 🔴 Open | The `catch {}` block catches all errors including network failures, RPC errors, etc. Should only catch block-not-found and re-throw others. |
+| **BlockNotFoundError missing blockTag property** | **LOW** | BlockchainLocal.js:90-98, BlockchainLive.js:113-121 | 🔴 Open | Error is created but `blockTag` property never set. Reduces pattern matching utility. |
+| **iterator not Effect-wrapped** | **LOW** | types.js:40 | 🔴 Open | Returns raw `AsyncIterable<Block>` unlike all other methods that return Effects. Inconsistent API, no typed error handling. |
+
+---
+
+**Previous: Thirty-third review (2026-01-29)** - CONFIRMED: All Phase 2 code has been reviewed. No new unreviewed code found.
 
 **Thirty-second review (2026-01-29)** - vm-effect issues RESOLVED, state-effect issues documented as acceptable.
 
@@ -1415,7 +1459,7 @@ export const effectToPromise = <A, E>(
 
 **RESOLVED (2026-01-29):**
 
-#### @tevm/vm-effect - RESOLVED
+#### @tevm/vm-effect - RESOLVED (Prior issues)
 
 | Issue | Severity | File:Line | Status | Notes |
 |-------|----------|-----------|--------|-------|
@@ -1643,23 +1687,33 @@ export const effectToPromise = <A, E>(
 
 ---
 
-**Updated Status Summary (THIRTY-SECOND REVIEW) - Phase 2 All Packages:**
+**Updated Status Summary (THIRTY-SEVENTH REVIEW) - Phase 2 All Packages:**
 
 | Package | CRITICAL | HIGH | MEDIUM | LOW | Total Open | Tests | Coverage | RFC Compliance |
 |---------|----------|------|--------|-----|------------|-------|----------|----------------|
 | @tevm/common-effect | 0 | 0 | 0 | 4 | 4 | 33 | 100% | ✅ COMPLIANT |
 | @tevm/transport-effect | 0 | 1 | 5 | 7 | 13 | 47 | 100% | ✅ COMPLIANT* |
-| @tevm/blockchain-effect | 0 | 0 | 3 | 2 | 5 | 37 | 100% | ✅ COMPLIANT |
-| @tevm/state-effect | 0 | 0 | 1 | 4 | 5 | 36 | 100% | ✅ COMPLIANT |
+| @tevm/blockchain-effect | 0 | 0 | 4 | 3 | 7 | 37 | 100% | ⚠️ HAS ISSUES |
+| @tevm/state-effect | 1 | 0 | 2 | 4 | 7 | 36 | 100% | ⚠️ HAS ISSUES |
 | @tevm/evm-effect | 0 | 0 | 2 | 2 | 4 | 38 | 100% | ✅ COMPLIANT |
-| @tevm/vm-effect | 0 | 0 | 0 | 1 | 1 | 17 | 100% | ✅ COMPLIANT |
-| **Phase 2 Total** | **0** | **1** | **11** | **20** | **32** | **208** | **100%** | **✅ FULLY COMPLIANT** |
+| @tevm/vm-effect | 0 | 0 | 1 | 2 | 3 | 17 | 100% | ⚠️ HAS ISSUES |
+| **Phase 2 Total** | **1** | **1** | **14** | **22** | **38** | **208** | **100%** | **⚠️ HAS ISSUES** |
+
+**🔴 NEW ISSUES FOUND (THIRTY-SEVENTH REVIEW - 2026-01-29):**
+- 🔴 **CRITICAL** @tevm/state-effect: Address type causes RUNTIME ERRORS - types say hex string but StateManager expects EthjsAddress object
+- 🔴 **MEDIUM** @tevm/state-effect: setStateRoot error doesn't populate `stateRoot` property on StateRootNotFoundError
+- 🔴 **MEDIUM** @tevm/vm-effect: buildBlock return type is `Promise<BlockBuilder>` instead of `BlockBuilder` (missing `Awaited<>`)
+- 🔴 **MEDIUM** @tevm/blockchain-effect: iterator method silently swallows ALL errors (should only catch block-not-found)
+- 🔴 **LOW** @tevm/state-effect: genesisStateRoot option defined but never used
+- 🔴 **LOW** @tevm/vm-effect: loggingEnabled option unused in VmLiveOptions
+- 🔴 **LOW** @tevm/blockchain-effect: BlockNotFoundError missing blockTag property
+- 🔴 **LOW** @tevm/blockchain-effect: iterator returns raw AsyncIterable, not Effect-wrapped (inconsistent API)
 
 **✅ ISSUES RESOLVED (THIRTY-SECOND REVIEW - 2026-01-29):**
 - ✅ @tevm/vm-effect: VmError type now exported from index.js
 - ✅ @tevm/vm-effect: VmShape.js documentation updated with error channels in all return types
 - ✅ @tevm/state-effect: `Effect.promise()` usage documented as acceptable (operations rarely throw)
-- ✅ @tevm/state-effect: Address type casts documented as necessary type bridge
+- ⚠️ @tevm/state-effect: Address type casts documented as "acceptable" - **NOW IDENTIFIED AS CRITICAL BUG**
 
 **Previous Status Summary (THIRTIETH REVIEW):**
 
@@ -2126,19 +2180,28 @@ packages/vm-effect/
 **Goal**: Migrate node orchestration, transaction pool, actions
 **Breaking Changes**: Deprecation warnings on old APIs
 
-### REVIEW AGENT Review Status: 🟢 PHASE 3.1 COMPLETE (2026-01-29)
+### REVIEW AGENT Review Status: 🟡 THIRTY-SEVENTH REVIEW (2026-01-29)
 
-**Thirty-sixth review (2026-01-29)** - Implemented FilterService completing Phase 3.1 Node State Services.
+**Thirty-seventh review (2026-01-29)** - Opus 4.5 parallel subagent deep review found NEW ISSUES in @tevm/node-effect.
 
 **Package Status:**
 - Package: @tevm/node-effect
 - Tests: 83 passing (4 services: Impersonation, BlockParams, Snapshot, Filter)
 - Coverage: 100% (statements, branches, functions, lines)
-- RFC Compliance: ✅ COMPLIANT
+- RFC Compliance: ⚠️ HAS ISSUES
 
 ---
 
-#### @tevm/node-effect - THIRTY-SIXTH REVIEW FINDINGS (2026-01-29)
+#### @tevm/node-effect - THIRTY-SEVENTH REVIEW FINDINGS (2026-01-29)
+
+| Issue | Severity | File:Line | Status | Notes |
+|-------|----------|-----------|--------|-------|
+| **SnapshotLive deepCopy is SHALLOW** | **MEDIUM** | SnapshotLive.js:161-173 | 🔴 Open | `new Map(snapshots)` creates shallow copy. Snapshot objects containing `stateRoot` and `state` are NOT deep copied. Mutations to snapshot state affect both original and copy. Compare to FilterLive.deepCopy which properly deep copies filter contents. |
+| **TOCTOU race condition in FilterLive** | **LOW-MEDIUM** | FilterLive.js:141-166, 168-238 | 🔴 Open | getChanges/getBlockChanges/getPendingTransactionChanges/addLog/addBlock/addPendingTransaction all use read-check-write pattern across multiple Ref operations. Not atomic. In concurrent Effect fibers, logs could be lost. Should use `Ref.modify` or `Ref.getAndUpdate`. |
+| **FilterService missing JSDoc type assertion** | **LOW** | FilterService.js:46 | 🔴 Open | Unlike other services, FilterService is missing `/** @type {Context.Tag<FilterService, FilterShape>} */` cast. Other services have it for type safety. |
+| **BlockParamsLive missing bigint validation** | **LOW** | BlockParamsLive.js | 🔴 Open | No validation for negative bigint values. `setNextBlockTimestamp(-1n)` would be accepted. EVM layer would reject but early validation gives better errors. |
+
+#### @tevm/node-effect - THIRTY-SIXTH REVIEW FINDINGS (2026-01-29) - PRIOR ISSUES
 
 | Issue | Severity | File:Line | Status | Notes |
 |-------|----------|-----------|--------|-------|
@@ -2154,13 +2217,19 @@ packages/vm-effect/
 
 ---
 
-**Status Summary (THIRTY-SIXTH REVIEW - 2026-01-29):**
+**Status Summary (THIRTY-SEVENTH REVIEW - 2026-01-29):**
 
 | Package | CRITICAL | HIGH | MEDIUM | LOW | Total Open | Tests | Coverage | RFC Compliance |
 |---------|----------|------|--------|-----|------------|-------|----------|----------------|
-| @tevm/node-effect | 0 | 1 | 3 | 1 | 5 | 83 | 100% | ✅ COMPLIANT |
+| @tevm/node-effect | 0 | 1 | 5 | 3 | 9 | 83 | 100% | ⚠️ HAS ISSUES |
 
-**FIXED/IMPLEMENTED in this session:**
+**NEW ISSUES FOUND (THIRTY-SEVENTH REVIEW):**
+1. **MEDIUM**: SnapshotLive deepCopy is shallow - Snapshot state data not deep copied, mutations affect both copies
+2. **LOW-MEDIUM**: TOCTOU race condition in FilterLive - read-check-write pattern not atomic, logs could be lost in concurrent fibers
+3. **LOW**: FilterService missing JSDoc type assertion cast
+4. **LOW**: BlockParamsLive missing negative bigint validation
+
+**Previously FIXED:**
 1. ✅ **CRITICAL**: SnapshotLive.js:134 now passes `{ snapshotId: id, message: ... }` to SnapshotNotFoundError
 2. ✅ **LOW**: Added test verifying `error.snapshotId` is correctly set when revertToSnapshot fails
 3. ✅ **LOW**: Removed stale "coming soon" comments from index.js
@@ -2168,12 +2237,17 @@ packages/vm-effect/
 
 **Remaining issues:**
 1. **HIGH**: Method names differ from RFC (`takeSnapshot`/`revertToSnapshot` vs `take`/`revert`) - Acceptable deviation
+2. **MEDIUM**: SnapshotLive deepCopy shallow copy bug
+3. **LOW-MEDIUM**: FilterLive TOCTOU race conditions
 
 **Phase 3.1 Complete:**
 All 4 Node State Services are now implemented: ImpersonationService, BlockParamsService, SnapshotService, FilterService.
 
 **Recommendations:**
-1. Document clearNextBlockOverrides semantics - explain why minGasPrice and blockTimestampInterval are not cleared
+1. Fix SnapshotLive.deepCopy to deep copy Snapshot objects like FilterLive does
+2. Use `Ref.modify` instead of read-check-write pattern in FilterLive
+3. Add JSDoc type assertion to FilterService
+4. Document clearNextBlockOverrides semantics - explain why minGasPrice and blockTimestampInterval are not cleared
 
 ---
 
@@ -2776,6 +2850,27 @@ packages/node-effect/
 
 ### REVIEW AGENT Review Status: 🟡 THIRTY-FIRST REVIEW COMPLETE (2026-01-29)
 
+### Technical & Process Learnings (Thirty-Seventh Review - 2026-01-29)
+
+| Date | Learning | Impact | Action Taken |
+|------|----------|--------|--------------|
+| 2026-01-29 | state-effect Address type causes RUNTIME ERRORS | **CRITICAL** - Types say `Address` (hex string) but StateManager expects `EthjsAddress` class object. Tests use `as any` casts to pass. Consumers passing hex strings crash. | 🔴 CRITICAL: Fix type to accept EthjsAddress or add conversion layer |
+| 2026-01-29 | SnapshotLive.deepCopy is shallow - Snapshot state data shared | **MEDIUM** - `new Map(snapshots)` copies map refs but not Snapshot objects. Mutations to snapshot.state affect both original and "copy". FilterLive correctly deep copies. | 🔴 Fix deepCopy to deep copy Snapshot objects like FilterLive does |
+| 2026-01-29 | vm-effect buildBlock return type is wrong | **MEDIUM** - `ReturnType<Vm['buildBlock']>` = `Promise<BlockBuilder>` but Effect.tryPromise unwraps. Should be `Awaited<...>` or `BlockBuilder`. TypeScript consumers see wrong type. | 🔴 Use `Awaited<ReturnType<...>>` or import BlockBuilder directly |
+| 2026-01-29 | blockchain-effect iterator silently swallows ALL errors | **MEDIUM** - Catch block catches network failures, RPC errors, etc. and ignores them. Should only catch block-not-found. Silent data loss. | 🔴 Rethrow non-block-not-found errors |
+| 2026-01-29 | FilterLive TOCTOU race condition | **LOW-MEDIUM** - Read-check-write pattern across multiple Ref operations not atomic. In concurrent fibers, logs could be lost between get and update. | 🔴 Use `Ref.modify` or `Ref.getAndUpdate` for atomic operations |
+| 2026-01-29 | setStateRoot error missing stateRoot property | **MEDIUM** - StateRootNotFoundError created but `stateRoot` property never set. Should convert root Uint8Array to hex and pass to error. | 🔴 Pass `stateRoot: bytesToHex(root)` to error constructor |
+| 2026-01-29 | BlockNotFoundError missing blockTag property | **LOW** - Error created but `blockTag` property never set. Reduces pattern matching utility. | 🔴 Pass `blockTag: blockId` to error constructor |
+| 2026-01-29 | blockchain-effect iterator not Effect-wrapped | **LOW** - Returns raw `AsyncIterable<Block>` unlike all other methods. Inconsistent API, no typed error handling. | 🔴 Consider Effect-wrapped iterator or document deviation |
+| 2026-01-29 | vm-effect loggingEnabled option unused | **LOW** - `VmLiveOptions.loggingEnabled` defined but never used. Only `profiler` accessed. | 🔴 Either implement or remove from types |
+| 2026-01-29 | state-effect genesisStateRoot option unused | **LOW** - Option defined in types but never passed to createStateManager. Dead API surface. | 🔴 Either implement or remove from types |
+| 2026-01-29 | FilterService missing JSDoc type assertion | **LOW** - Unlike other services, missing `/** @type {Context.Tag<...>} */` cast. | 🔴 Add type assertion for consistency |
+| 2026-01-29 | BlockParamsLive accepts negative bigint values | **LOW** - No validation for negative timestamps, gas limits. EVM would reject but early validation gives better errors. | 🔴 Consider adding validation |
+| 2026-01-29 | Parallel Opus 4.5 subagent deep reviews find issues prior reviews missed | **HIGH** - THIRTY-SEVENTH review found 1 CRITICAL and 4 MEDIUM bugs not caught in 36 prior reviews | ✅ Continue using parallel deep review pattern |
+| 2026-01-29 | "Acceptable" documentation of type issues can hide CRITICAL bugs | **HIGH** - Address type casts were "documented as acceptable" but cause actual runtime failures | 🔴 Re-examine all "acceptable" deviations for actual impact |
+
+### REVIEW AGENT Review Status: 🟡 THIRTY-SEVENTH REVIEW COMPLETE (2026-01-29)
+
 ---
 
 ## Risk Register
@@ -2883,8 +2978,20 @@ packages/node-effect/
 | **R31 (LOW)**: vm-effect tests use try/catch not Effect error patterns | Low | Low | Tests don't use `Effect.catchTag` to verify typed error handling actually works for consumers. | 🔴 Open |
 | **R31 (LOW)**: state-effect address type casts everywhere | Low | Low | Uses `/** @type {any} */` for address params. Type mismatch between Address (hex string) and EthjsAddress. | 🔴 Open |
 | **R31 (POSITIVE)**: evm-effect mapEvmError correctly implemented | Low | Low | Handles all 8 EVM error types, case-insensitive, preserves cause, falls back to TevmError. 26 tests. | ✅ Verified |
+| **R37 (CRITICAL)**: state-effect Address type causes RUNTIME ERRORS | High | High | Types say `Address` (hex string `0x${string}`) but StateManager expects EthjsAddress class object. Tests use `as any` casts. Consumers passing hex strings crash at runtime. | 🔴 Open |
+| **R37 (MEDIUM)**: node-effect SnapshotLive.deepCopy is shallow | Medium | Medium | `new Map(snapshots)` copies Map refs but not Snapshot objects. Snapshot.state mutations affect both original and "copy". FilterLive correctly deep copies. | 🔴 Open |
+| **R37 (MEDIUM)**: vm-effect buildBlock return type bug | Medium | Medium | `ReturnType<Vm['buildBlock']>` = `Promise<BlockBuilder>` but Effect.tryPromise unwraps. Should be `Awaited<...>` or `BlockBuilder`. Wrong TypeScript type for consumers. | 🔴 Open |
+| **R37 (MEDIUM)**: blockchain-effect iterator silently swallows ALL errors | Medium | Medium | Catch block catches network failures, RPC errors, etc. and ignores them. Should only catch block-not-found. Silent data loss possible. | 🔴 Open |
+| **R37 (MEDIUM)**: state-effect setStateRoot missing stateRoot in error | Medium | Low | StateRootNotFoundError created but `stateRoot` property never set. Reduces debuggability. Should pass `bytesToHex(root)`. | 🔴 Open |
+| **R37 (LOW-MEDIUM)**: node-effect FilterLive TOCTOU race condition | Medium | Low | Read-check-write pattern across multiple Ref operations not atomic. In concurrent fibers, logs could be lost. Should use `Ref.modify`. | 🔴 Open |
+| **R37 (LOW)**: blockchain-effect BlockNotFoundError missing blockTag | Low | Low | Error created but `blockTag` property never populated. Reduces pattern matching utility. | 🔴 Open |
+| **R37 (LOW)**: blockchain-effect iterator not Effect-wrapped | Low | Low | Returns raw `AsyncIterable<Block>` unlike all other methods. Inconsistent API, no typed error handling. | 🔴 Open |
+| **R37 (LOW)**: vm-effect loggingEnabled option unused | Low | Low | `VmLiveOptions.loggingEnabled` defined but never used. Only `profiler` accessed from options. | 🔴 Open |
+| **R37 (LOW)**: state-effect genesisStateRoot option unused | Low | Low | Option defined in types but never passed to createStateManager. Dead API surface. | 🔴 Open |
+| **R37 (LOW)**: node-effect FilterService missing JSDoc type assertion | Low | Low | Unlike other services, missing `/** @type {Context.Tag<...>} */` cast for type safety. | 🔴 Open |
+| **R37 (LOW)**: node-effect BlockParamsLive accepts negative bigint | Low | Low | No validation for negative timestamps, gas limits. EVM would reject but early validation gives better errors. | 🔴 Open |
 
-### REVIEW AGENT Review Status: 🟡 THIRTY-FIRST REVIEW COMPLETE (2026-01-29)
+### REVIEW AGENT Review Status: 🟡 THIRTY-SEVENTH REVIEW COMPLETE (2026-01-29)
 
 ---
 

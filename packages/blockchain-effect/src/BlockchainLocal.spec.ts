@@ -393,6 +393,42 @@ describe('BlockchainLocal', () => {
 			// Should find genesis block at position 0
 			expect(blocks.some((b) => b.header.number === 0n)).toBe(true)
 		})
+
+		it('should re-throw non-block-not-found errors in iterator', async () => {
+			const program = Effect.gen(function* () {
+				const blockchain = yield* BlockchainService
+				yield* blockchain.ready
+				return blockchain
+			})
+
+			const blockchain = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
+
+			// Monkey-patch the underlying chain's getBlock to throw a different error
+			const originalGetBlock = blockchain.chain.getBlock.bind(blockchain.chain)
+			blockchain.chain.getBlock = async (blockId: any) => {
+				if (blockId === 5n) {
+					throw new Error('Network timeout - this is NOT a block-not-found error')
+				}
+				return originalGetBlock(blockId)
+			}
+
+			// Iterator should re-throw non-block-not-found errors
+			const blocks = []
+			let thrownError: Error | null = null
+			try {
+				for await (const block of blockchain.iterator(0n, 10n)) {
+					blocks.push(block)
+				}
+			} catch (error) {
+				thrownError = error as Error
+			}
+
+			// Restore the original function
+			blockchain.chain.getBlock = originalGetBlock
+
+			expect(thrownError).not.toBeNull()
+			expect(thrownError?.message).toContain('Network timeout')
+		})
 	})
 
 	describe('with custom options', () => {
