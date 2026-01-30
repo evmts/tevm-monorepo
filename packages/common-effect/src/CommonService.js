@@ -53,14 +53,14 @@ import { Context } from 'effect'
  * // Using CommonFromFork to auto-detect chain from RPC
  * import { HttpTransport, ForkConfigFromRpc } from '@tevm/transport-effect'
  * import { CommonFromFork } from '@tevm/common-effect'
- * import { Layer } from 'effect'
+ * import { Effect, Layer } from 'effect'
  *
  * const transportLayer = HttpTransport({ url: 'https://mainnet.optimism.io' })
- * const forkConfigLayer = Layer.provide(ForkConfigFromRpc, transportLayer)
- * const commonLayer = Layer.provide(CommonFromFork, forkConfigLayer)
+ * const forkConfigLayer = Layer.provide(ForkConfigFromRpc(), transportLayer)
+ * const commonLayer = Layer.provide(CommonFromFork(), forkConfigLayer)
  *
  * Effect.runPromise(
- *   program.pipe(Effect.provide(Layer.merge(transportLayer, commonLayer)))
+ *   program.pipe(Effect.provide(commonLayer))
  * )
  * ```
  *

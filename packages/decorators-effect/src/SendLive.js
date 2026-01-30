@@ -64,6 +64,11 @@ export const SendLive = Layer.effect(
 										// Preserve error-specific codes (RFC §6.3, JSON-RPC 2.0 spec)
 										code: /** @type {any} */ (error).code ?? -32603,
 										message: error.message || 'Internal error',
+										// Include error data with _tag and cause for diagnostics (RFC §6.3 Pattern 3)
+										data: {
+											_tag: /** @type {any} */ (error)._tag,
+											...(/** @type {any} */ (error).cause && { cause: String(/** @type {any} */ (error).cause) }),
+										},
 									},
 									id: request.id,
 								})
@@ -94,6 +99,11 @@ export const SendLive = Layer.effect(
 												// Preserve error-specific codes (RFC §6.3, JSON-RPC 2.0 spec)
 												code: /** @type {any} */ (error).code ?? -32603,
 												message: error.message || 'Internal error',
+												// Include error data with _tag and cause for diagnostics (RFC §6.3 Pattern 3)
+												data: {
+													_tag: /** @type {any} */ (error)._tag,
+													...(/** @type {any} */ (error).cause && { cause: String(/** @type {any} */ (error).cause) }),
+												},
 											},
 											id: request.id,
 										})

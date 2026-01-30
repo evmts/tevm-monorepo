@@ -7,7 +7,7 @@ import { Effect, Layer } from 'effect'
 import { RequestService } from './RequestService.js'
 import { EthActionsService } from './EthActionsService.js'
 import { TevmActionsService } from './TevmActionsService.js'
-import { InternalError, InvalidParamsError } from '@tevm/errors-effect'
+import { InternalError, InvalidParamsError, MethodNotFoundError } from '@tevm/errors-effect'
 
 /**
  * Live implementation of RequestService.
@@ -199,9 +199,8 @@ export const RequestLive = Layer.effect(
 
 						default:
 							return yield* Effect.fail(
-								new InvalidParamsError({
+								new MethodNotFoundError({
 									method,
-									params: rpcParams,
 									message: `Unsupported method: ${method}`,
 								})
 							)

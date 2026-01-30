@@ -230,6 +230,8 @@ export const TevmActionsLive = Layer.effect(
 			mine: (options = {}) =>
 				Effect.gen(function* () {
 					const blocks = options.blocks ?? 1
+					// Capture base timestamp once outside the loop to ensure strictly increasing timestamps
+					const baseTimestamp = BigInt(Math.floor(Date.now() / 1000))
 
 					for (let i = 0; i < blocks; i++) {
 						// Get current block for timestamp calculation
@@ -242,7 +244,8 @@ export const TevmActionsLive = Layer.effect(
 								}),
 						})
 
-						const timestamp = BigInt(Math.floor(Date.now() / 1000))
+						// Use baseTimestamp + i to ensure strictly increasing timestamps even when mining rapidly
+						const timestamp = baseTimestamp + BigInt(i)
 						const blockNumber = currentBlock.header.number + 1n
 
 						// Build a new block using the VM's buildBlock method

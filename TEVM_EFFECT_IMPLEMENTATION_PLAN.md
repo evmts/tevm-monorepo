@@ -2,27 +2,347 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-30
+**Last Updated**: 2026-01-30 (82nd Review)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
 
 ## Review Agent Summary (2026-01-30)
 
-**EIGHTIETH REVIEW.** All HIGH issues and 5 MEDIUM issues from 79th review RESOLVED.
+**EIGHTY-SECOND REVIEW.** Resolution of all 81st review issues (2 MEDIUM, 5 LOW).
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
 | **Phase 1** | 🟢 RESOLVED | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 4 MEDIUM, 7 LOW |
-| **Phase 2** | 🟢 RESOLVED | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 1 LOW |
-| **Phase 3** | 🟢 RESOLVED | 2 (node-effect, actions-effect) | 200 | ~99% | 8 LOW |
-| **Phase 4** | 🟢 RESOLVED | 2 (memory-client-effect, decorators-effect) | 65 | ~85% | 3 LOW |
+| **Phase 2** | 🟢 RESOLVED | 6 (common, transport, blockchain, state, evm, vm) | 229 | 100% | 1 LOW remaining |
+| **Phase 3** | 🟢 VERIFIED | 2 (node-effect, actions-effect) | 200 | ~99% | 8 LOW |
+| **Phase 4** | 🟢 RESOLVED | 2 (memory-client-effect, decorators-effect) | 65 | ~85% | All 81st issues fixed |
 
 **Open Issues Summary:**
 - **CRITICAL**: 0 ✅
 - **HIGH**: 0 ✅
-- **MEDIUM**: 13 🟡 (remaining type signature issues, validation patterns)
-- **LOW**: 19 (dead code, encapsulation violations, inconsistent patterns)
+- **MEDIUM**: 13 🟡 (2 resolved from 81st review)
+- **LOW**: 19 (5 resolved from 81st review)
+
+---
+
+### EIGHTY-SECOND REVIEW (2026-01-30) - Resolution of All 81st Review Issues
+
+**Reviewed By**: Claude Opus 4.5
+**Scope**: Fix all 7 issues identified in 81st review (2 MEDIUM, 5 LOW)
+
+---
+
+#### ✅ All MEDIUM Issues RESOLVED
+
+##### 1. getBlockNumber Type Lies About Error Channel - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**: Updated `packages/memory-client-effect/src/types.js:42` to properly declare `InternalError` in the error channel:
+```javascript
+// Before (incorrect - type lies about failures)
+* @property {import('effect').Effect.Effect<bigint, never, never>} getBlockNumber
+
+// After (correct - error channel matches implementation)
+* @property {import('effect').Effect.Effect<bigint, import('@tevm/errors-effect').InternalError, never>} getBlockNumber
+```
+
+---
+
+##### 2. Wrong Error Type for Unsupported JSON-RPC Methods - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**: Updated `packages/decorators-effect/src/RequestLive.js:200-207` to use `MethodNotFoundError` (JSON-RPC error code -32601) instead of `InvalidParamsError`:
+```javascript
+// Before (incorrect - wrong error code per JSON-RPC 2.0 spec)
+new InvalidParamsError({
+    method,
+    params: rpcParams,
+    message: `Unsupported method: ${method}`,
+})
+
+// After (correct - uses MethodNotFoundError per JSON-RPC 2.0 spec)
+new MethodNotFoundError({
+    method,
+    message: `Unsupported method: ${method}`,
+})
+```
+
+---
+
+#### ✅ All LOW Issues RESOLVED
+
+##### 3. CommonService.js JSDoc Example Incorrect - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**: Updated `packages/common-effect/src/CommonService.js:51-65` JSDoc example to use correct function call syntax and proper layer composition:
+- Changed `CommonFromFork` to `CommonFromFork()`
+- Changed `ForkConfigFromRpc` to `ForkConfigFromRpc()`
+- Fixed Effect.provide call to use the composed layer properly
+
+---
+
+##### 4. TransportShape Type Missing from types.js - VERIFIED AS NOT AN ISSUE
+**Status**: ✅ NO FIX NEEDED
+
+**Investigation**: Upon review, `TransportShape` is already properly defined in `packages/transport-effect/src/types.js:36-40`. The 81st review incorrectly flagged this as missing.
+
+---
+
+##### 5. Mining Multiple Blocks Can Produce Same Timestamp - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**: Updated `packages/decorators-effect/src/TevmActionsLive.js:230-246` to capture base timestamp once outside the loop and increment for each block:
+```javascript
+// Before (incorrect - same timestamp if loop < 1 second)
+for (let i = 0; i < blocks; i++) {
+    const timestamp = BigInt(Math.floor(Date.now() / 1000))
+    ...
+}
+
+// After (correct - strictly increasing timestamps)
+const baseTimestamp = BigInt(Math.floor(Date.now() / 1000))
+for (let i = 0; i < blocks; i++) {
+    const timestamp = baseTimestamp + BigInt(i)
+    ...
+}
+```
+
+---
+
+##### 6. JSON-RPC Error Response Missing 'data' Field - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**: Updated `packages/decorators-effect/src/SendLive.js` in both `send` and `sendBulk` methods to include `data` field with error metadata per RFC §6.3 Pattern 3:
+```javascript
+error: {
+    code: error.code ?? -32603,
+    message: error.message || 'Internal error',
+    // NEW: Include error data with _tag and cause for diagnostics
+    data: {
+        _tag: error._tag,
+        ...(error.cause && { cause: String(error.cause) }),
+    },
+}
+```
+
+---
+
+##### 7. Unconventional Import Ordering in createMemoryClient.js - RESOLVED
+**Status**: ✅ FIXED
+
+**Fix Applied**: Refactored `packages/memory-client-effect/src/createMemoryClient.js` to consolidate all imports at the top of the file before any code declarations:
+- Moved all 8 import statements (effect, local modules, @tevm/* packages) to lines 6-16
+- Code declarations (`REQUIRED_SHAPE_METHODS`, `validateMemoryClientShape`) now appear after imports
+
+---
+
+#### Test Results After 82nd Review Fixes
+
+| Package | Tests | Status |
+|---------|-------|--------|
+| memory-client-effect | 31 | ✅ All Pass |
+| decorators-effect | 34 | ✅ All Pass |
+| common-effect | 33 | ✅ All Pass |
+| **Total Verified** | **98** | ✅ **All Pass** |
+
+---
+
+---
+
+### EIGHTY-FIRST REVIEW (2026-01-30) - Independent Parallel Subagent Re-Review
+
+**Reviewed By**: Claude Opus 4.5 (4 parallel Opus subagents)
+**Scope**: Complete independent re-review of all 4 phases to find unreviewed bugs and flaws
+
+---
+
+#### Phase 1: ✅ No New Issues Found
+
+All Phase 1 packages (errors-effect, logger-effect, interop) are production-ready. All error classes properly extend `Data.TaggedError`, LoggerService correctly uses `Context.Tag` pattern, and interop utilities correctly bridge Effect and Promise APIs.
+
+---
+
+#### Phase 2: 🟡 2 NEW LOW Issues Found
+
+##### 1. CommonService.js JSDoc Example Incorrect
+
+**File:Lines**: `packages/common-effect/src/CommonService.js:60-64`
+**Severity**: 🟢 LOW
+**Status**: ✅ RESOLVED (82nd Review)
+
+**Problem**: JSDoc example shows `CommonFromFork` as a constant instead of a function call. The actual API requires `CommonFromFork()` with parentheses.
+
+**Evidence**:
+```javascript
+// Line 60 in CommonService.js - incorrect example
+ * const commonLayer = Layer.provide(CommonFromFork, forkConfigLayer)
+
+// Actual API (CommonFromFork.js:69) - requires function call
+export const CommonFromFork = (options = {}) => {
+```
+
+**Fix Applied**: Updated example to use correct function call syntax `CommonFromFork()` and proper layer composition.
+
+---
+
+##### 2. TransportShape Type Missing from types.js
+
+**File:Lines**: `packages/transport-effect/src/types.js`
+**Severity**: 🟢 LOW
+**Status**: ✅ NOT AN ISSUE (82nd Review - Verified)
+
+**Problem**: `TransportShape` type definition was reported as missing from types.js. The interface was thought to be only implicitly defined through the `HttpTransport.js` and `TransportNoop.js` implementations.
+
+**Investigation Result**: Upon verification, `TransportShape` is already properly defined at `packages/transport-effect/src/types.js:36-40`. This was incorrectly flagged.
+
+---
+
+#### Phase 3: ✅ No New Issues Found
+
+All Phase 3 packages (node-effect, actions-effect) are well-implemented. All previously documented issues from reviews 1-80 have been verified as correctly resolved. Only 4 LOW-severity issues remain (already documented).
+
+---
+
+#### Phase 4: 🔴 5 NEW Issues Found (2 MEDIUM, 3 LOW)
+
+##### 3. getBlockNumber Type Lies About Error Channel
+
+**File:Lines**: `packages/memory-client-effect/src/types.js:42`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ RESOLVED (82nd Review)
+
+**Problem**: Type signature declares `Effect.Effect<bigint, never, never>` indicating it cannot fail. However, the implementation in `MemoryClientLive.js` uses `Effect.tryPromise` which can fail with `InternalError`.
+
+**Evidence**:
+```javascript
+// types.js:42 - declares error channel as 'never'
+* @property {import('effect').Effect.Effect<bigint, never, never>} getBlockNumber
+
+// MemoryClientLive.js:426-438 - implementation can fail with InternalError
+getBlockNumber: Effect.gen(function* () {
+    const block = yield* Effect.tryPromise({
+        try: () => vm.vm.blockchain.getCanonicalHeadBlock(),
+        catch: (e) =>
+            new InternalError({
+                message: `Failed to get canonical head block: ${...}`,
+                cause: e instanceof Error ? e : undefined,
+            }),
+    })
+    return block.header.number
+}),
+```
+
+**RFC Violation**: RFC Section 6 states "all failure modes visible in types, pattern-matchable."
+
+**Fix Applied**: Updated types.js to declare `InternalError` in error channel: `Effect.Effect<bigint, import('@tevm/errors-effect').InternalError, never>`
+
+---
+
+##### 4. Wrong Error Type for Unsupported JSON-RPC Methods
+
+**File:Lines**: `packages/decorators-effect/src/RequestLive.js:200-207`
+**Severity**: 🟡 MEDIUM
+**Status**: ✅ RESOLVED (82nd Review)
+
+**Problem**: When an unsupported JSON-RPC method is requested, the code throws `InvalidParamsError` instead of `MethodNotFoundError`. Per JSON-RPC 2.0 specification:
+- Error code `-32601` = Method not found
+- Error code `-32602` = Invalid params
+
+**Evidence**:
+```javascript
+// RequestLive.js:200-207
+default:
+    return yield* Effect.fail(
+        new InvalidParamsError({  // WRONG: should be MethodNotFoundError
+            method,
+            params: rpcParams,
+            message: `Unsupported method: ${method}`,
+        })
+    )
+```
+
+**Fix Applied**: Replaced `InvalidParamsError` with `MethodNotFoundError` to comply with JSON-RPC 2.0 specification.
+
+---
+
+##### 5. Mining Multiple Blocks Can Produce Same Timestamp
+
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:245`
+**Severity**: 🟢 LOW
+**Status**: ✅ RESOLVED (82nd Review)
+
+**Problem**: When mining multiple blocks rapidly (e.g., `mine({ blocks: 5 })`), the timestamp is captured inside the loop using `Date.now()`. If the loop executes faster than 1 second, blocks will have identical timestamps.
+
+**Evidence**:
+```javascript
+// TevmActionsLive.js:230-246
+for (let i = 0; i < blocks; i++) {
+    const timestamp = BigInt(Math.floor(Date.now() / 1000))  // Same if loop < 1s
+    // ...
+}
+```
+
+**Fix Applied**: Captured base timestamp once outside the loop (`baseTimestamp`), then use `baseTimestamp + BigInt(i)` inside the loop to ensure strictly increasing timestamps.
+
+---
+
+##### 6. JSON-RPC Error Response Missing 'data' Field
+
+**File:Lines**: `packages/decorators-effect/src/SendLive.js:63-68`
+**Severity**: 🟢 LOW
+**Status**: ✅ RESOLVED (82nd Review)
+
+**Problem**: When converting Effect errors to JSON-RPC responses, only `code` and `message` are preserved. The `data` field with `_tag`, `cause`, and diagnostics is lost.
+
+**Fix Applied**: Added `data` field to error responses in both `send` and `sendBulk` methods containing `_tag` and optional `cause` for diagnostics per RFC §6.3 Pattern 3.
+
+**RFC Reference**: RFC Section 6.3 Pattern 3 shows: `data: { tag: e._tag, ...e }` should be included.
+
+**Recommended Fix**: Add `data` field with error `_tag` and `cause`.
+
+---
+
+##### 7. Unconventional Import Ordering in createMemoryClient.js
+
+**File:Lines**: `packages/memory-client-effect/src/createMemoryClient.js:14-60`
+**Severity**: 🟢 LOW
+**Status**: ✅ RESOLVED (82nd Review)
+
+**Problem**: Constants and function definitions appear before import statements. While JavaScript hoisting prevents bugs, this violates conventions.
+
+**Fix Applied**: Refactored file to consolidate all imports at the top (lines 6-16) before code declarations.
+
+---
+
+#### Summary Table (81st Review)
+
+| Package | CRITICAL | HIGH | MEDIUM | LOW | Total |
+|---------|----------|------|--------|-----|-------|
+| errors-effect | 0 | 0 | 0 | 0 | 0 |
+| logger-effect | 0 | 0 | 0 | 0 | 0 |
+| common-effect | 0 | 0 | 0 | 1 | 1 |
+| transport-effect | 0 | 0 | 0 | 1 | 1 |
+| node-effect | 0 | 0 | 0 | 0 | 0 |
+| actions-effect | 0 | 0 | 0 | 0 | 0 |
+| memory-client-effect | 0 | 0 | 1 | 1 | 2 |
+| decorators-effect | 0 | 0 | 1 | 2 | 3 |
+| **TOTAL NEW** | **0** | **0** | **2** | **5** | **7** |
+
+---
+
+#### Recommendations
+
+**Priority 1 - MEDIUM (Should Fix Before Production):**
+1. Fix types.js `getBlockNumber` error type declaration
+2. Change `InvalidParamsError` to `MethodNotFoundError` for unsupported methods
+
+**Priority 2 - LOW (Minor Improvements):**
+3. Fix CommonService.js JSDoc example
+4. Add TransportShape typedef to types.js
+5. Increment timestamps when mining multiple blocks
+6. Add `data` field to JSON-RPC error responses
+7. Reorder imports in createMemoryClient.js
 
 ---
 

@@ -5,6 +5,15 @@
 
 import { Effect, ManagedRuntime, Layer } from 'effect'
 import { MemoryClientService } from './MemoryClientService.js'
+import { MemoryClientLive } from './MemoryClientLive.js'
+import { StateManagerLocal } from '@tevm/state-effect'
+import { VmLive } from '@tevm/vm-effect'
+import { CommonFromConfig } from '@tevm/common-effect'
+import { BlockchainLocal } from '@tevm/blockchain-effect'
+import { EvmLive } from '@tevm/evm-effect'
+// Note: Action services are now created inline in MemoryClientLive
+// to ensure deepCopy creates services bound to the copied state manager
+import { SnapshotLive } from '@tevm/node-effect'
 
 /**
  * Required methods for MemoryClientShape contract.
@@ -49,15 +58,6 @@ const validateMemoryClientShape = (shape) => {
 
 	return /** @type {import('./types.js').MemoryClientShape} */ (shape)
 }
-import { MemoryClientLive } from './MemoryClientLive.js'
-import { StateManagerLocal } from '@tevm/state-effect'
-import { VmLive } from '@tevm/vm-effect'
-import { CommonFromConfig } from '@tevm/common-effect'
-import { BlockchainLocal } from '@tevm/blockchain-effect'
-import { EvmLive } from '@tevm/evm-effect'
-// Note: Action services are now created inline in MemoryClientLive
-// to ensure deepCopy creates services bound to the copied state manager
-import { SnapshotLive } from '@tevm/node-effect'
 
 /**
  * @typedef {Object} ViemMemoryClient
