@@ -99,14 +99,26 @@ export const StateManagerLive = (options = {}) => {
 					transport: {
 						// Note: Effect.runPromise is used here as a boundary between Effect and non-Effect code.
 						// The createStateManager function expects a Promise-based transport, so we must convert.
-						// Errors from transport.request are converted to Promise rejections which propagate
-						// through createStateManager's error handling. (Issue #253 - documented architectural boundary)
+						// Issue #314 fix: Preserve ForkError properties through Promise boundary by enriching
+						// the thrown error with the original typed error's properties.
 						request: (method, params) =>
 							Effect.runPromise(
 								transport.request(method, params).pipe(
 									Effect.tapError((error) =>
 										Effect.logError(`Fork transport error: ${method}`, { error, method, params })
-									)
+									),
+									// Issue #314: Catch typed ForkError and convert to enriched Error that preserves context
+									Effect.catchTag('ForkError', (forkError) => {
+										const enrichedError = /** @type {Error & { method?: string; code?: number; docsPath?: string; __isForkError?: boolean }} */ (
+											new Error(forkError.message)
+										)
+										enrichedError.method = forkError.method
+										enrichedError.code = forkError.code
+										enrichedError.docsPath = forkError.docsPath
+										enrichedError.cause = forkError.cause
+										enrichedError.__isForkError = true
+										return Effect.fail(enrichedError)
+									})
 								)
 							),
 					},

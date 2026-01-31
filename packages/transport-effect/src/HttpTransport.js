@@ -442,6 +442,20 @@ export const HttpTransport = (config) => {
 			const transport = {
 				request: /** @type {TransportShape['request']} */ ((method, params) => {
 					return Effect.gen(function* () {
+						// Issue #315 fix: Check if transport is shutting down before accepting new requests
+						// This prevents race condition where requests are added to queue after processor exits
+						const shuttingDown = yield* Ref.get(isShuttingDown)
+						/* v8 ignore start - defensive code only runs during layer teardown race condition */
+						if (shuttingDown) {
+							return yield* Effect.fail(
+								new ForkError({
+									method,
+									cause: new Error('Transport is shutting down - cannot accept new requests'),
+								})
+							)
+						}
+						/* v8 ignore stop */
+
 						// Create unique ID for this request
 						const id = yield* Ref.updateAndGet(idCounter, (n) => n + 1)
 
