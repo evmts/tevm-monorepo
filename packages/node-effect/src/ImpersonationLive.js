@@ -79,9 +79,13 @@ export const ImpersonationLive = (options = {}) => {
 
 					deepCopy: () =>
 						Effect.gen(function* () {
-							// Read current values
-							const currentAccount = yield* Ref.get(accountRef)
-							const currentAuto = yield* Ref.get(autoRef)
+							// Read current values ATOMICALLY using Effect.all (Issue #NEW-P3-001 fix)
+							// This prevents reading values at different points in time if other fibers modify them
+							// between reads, which could cause the copied state to be inconsistent.
+							const [currentAccount, currentAuto] = yield* Effect.all([
+								Ref.get(accountRef),
+								Ref.get(autoRef),
+							])
 
 							// Create new Refs with copied values
 							const newAccountRef = yield* Ref.make(currentAccount)

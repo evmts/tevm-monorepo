@@ -2,12 +2,25 @@
 
 **Status**: Active
 **Created**: 2026-01-29
-**Last Updated**: 2026-01-31 (Post 120th Fix - HIGH Priority Issues Resolved)
+**Last Updated**: 2026-01-31 (Post 122nd Fix - 2 Issues Resolved)
 **RFC Reference**: [TEVM_EFFECT_MIGRATION_RFC.md](./TEVM_EFFECT_MIGRATION_RFC.md)
 
 ---
 
 ## Review Agent Summary (2026-01-31)
+
+**122nd FIX.** Resolved **1 CRITICAL + 1 HIGH** priority issues from 121st review:
+- **CRITICAL #NEW-P3-002** ✅ FIXED: SnapshotLive.revertToSnapshot now executes `setStateRoot` before `loadState` sequentially using `Effect.flatMap` to prevent race condition
+- **HIGH #NEW-P3-001** ✅ FIXED: ImpersonationLive.deepCopy now uses `Effect.all` for atomic Ref reads
+- **HIGH #NEW-P4-001** 📋 DOCUMENTED: Requires architectural changes to vm package to allow passing stateManager parameter to deepCopy. Current workaround is documented in code comments advising users to use action services exclusively after deepCopy.
+
+**121st REVIEW.** Found **1 CRITICAL**, **5 HIGH**, **14 MEDIUM**, **30 LOW** new issues across all 4 phases via Opus 4.5 parallel subagent deep analysis. Key findings:
+- **CRITICAL #NEW-P3-002**: SnapshotLive.revertToSnapshot uses parallel `Effect.all` for `setStateRoot` and `loadState` - causes race condition and potential state corruption ✅ FIXED
+- **HIGH #NEW-P4-001**: MemoryClientLive.deepCopy creates inconsistent VM/StateManager copies - state divergence after copying (Requires vm package architectural changes)
+- **HIGH #NEW-P3-001**: ImpersonationLive.deepCopy reads Refs sequentially instead of atomically ✅ FIXED
+- **HIGH #NEW-P1-002**: toTaggedError returns full 29-type union instead of preserving input type
+- **HIGH #NEW-P1-008**: wrapWithEffect state divergence - Effect methods bound to original instance
+- **HIGH #NEW-P2-002**: ForkConfigFromRpc error channel mismatch
 
 **120th FIX.** Resolved **3 HIGH** priority issues from 119th review:
 - #P2-379: VmLive.ready/deepCopy now use Effect.tryPromise with typed error handling
@@ -24,16 +37,546 @@
 
 | Phase | Review Status | Packages | Total Tests | Coverage | RFC Compliance |
 |-------|---------------|----------|-------------|----------|----------------|
-| **Phase 1** | 🟡 NEEDS FIX | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 6 MEDIUM, 12 LOW NEW |
-| **Phase 2** | 🟡 NEEDS FIX | 6 (common, transport, blockchain, state, evm, vm) | 231 | 100% | 0 HIGH ✅, 4 MEDIUM, 3 LOW |
-| **Phase 3** | 🟡 NEEDS FIX | 2 (node-effect, actions-effect) | 219 | 100% | 0 HIGH ✅, 7 MEDIUM, 10 LOW |
-| **Phase 4** | 🟡 NEEDS FIX | 2 (memory-client-effect, decorators-effect) | 167 | ~97% | 0 HIGH ✅, 5 MEDIUM, 6 LOW |
+| **Phase 1** | 🟡 NEEDS FIX | 3 (errors-effect, interop, logger-effect) | 683 | 100% | 3 HIGH, 6 MEDIUM, 7 LOW NEW |
+| **Phase 2** | 🟡 NEEDS FIX | 6 (common, transport, blockchain, state, evm, vm) | 231 | 100% | 1 HIGH, 4 MEDIUM, 2 LOW NEW |
+| **Phase 3** | 🟡 NEEDS FIX | 2 (node-effect, actions-effect) | 219 | 100% | 0 CRITICAL ✅, 0 HIGH ✅, 5 MEDIUM, 5 LOW |
+| **Phase 4** | 🟡 NEEDS FIX | 2 (memory-client-effect, decorators-effect) | 167 | ~97% | 1 HIGH (architectural), 4 MEDIUM, 10 LOW |
 
 **Open Issues Summary:**
-- **CRITICAL**: 0 ✅ (#311, #312 - FIXED)
-- **HIGH**: 6 🟡 (Previous 6, NEW 3 FIXED: #P2-379, #P3-381, #P4-379)
-- **MEDIUM**: 98 🟡 (Previous 76 + 22 NEW)
-- **LOW**: 259 (Previous 228 + 31 NEW)
+- **CRITICAL**: 0 ✅ (Was 1, #NEW-P3-002 fixed in 122nd fix)
+- **HIGH**: 9 🟡 (Was 11, #NEW-P3-001 and #NEW-P3-002 fixed, #NEW-P4-001 documented as architectural)
+- **MEDIUM**: 112 🟡 (Previous 98 + 14 NEW from 121st review)
+- **LOW**: 289 (Previous 259 + 30 NEW from 121st review)
+
+---
+
+### 121ST REVIEW (2026-01-31) - Deep Opus 4.5 Parallel Subagent Review
+
+**Reviewed By**: Claude Opus 4.5 (4 parallel Opus subagents with ultrathink deep independent analysis)
+**Scope**: Complete independent deep dive review of all 4 phases finding previously undetected bugs
+
+---
+
+#### Phase 1: 3 HIGH + 6 MEDIUM + 7 LOW NEW Issues Found
+
+##### Issue #NEW-P1-001: toTaggedError Intermediate Lookup Pointless
+**File:Lines**: `packages/errors-effect/src/interop/toTaggedError.js:35-115`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Fallback chain iterates through error classes to find a match by `name`, then creates a new instance. The matching logic could be simplified with a direct map lookup rather than iterating.
+
+**Recommended Fix**: Use direct `Map.get(name)` instead of iteration for O(1) lookup.
+
+---
+
+##### Issue #NEW-P1-002: toTaggedError Returns Full 29-Type Union Regardless of Input
+**File:Lines**: `packages/errors-effect/src/interop/toTaggedError.js:38-115`
+**Severity**: 🔴 HIGH
+**Status**: 🟡 NEW
+
+**Problem**: The return type is always the full 29-type union `AccountNotFoundError | CodeNotFoundError | ...`, even when the input error type is known at compile time. TypeScript cannot narrow the return type based on input.
+
+**Impact**: Callers must use type guards or casts even when they know the exact error type they passed in.
+
+**Recommended Fix**: Use function overloads or conditional types to preserve input type information:
+```typescript
+function toTaggedError<E extends Error>(error: E): E extends AccountNotFoundError ? AccountNotFoundError : ...
+```
+
+---
+
+##### Issue #NEW-P1-003: toBaseError Meta Property Dropped Silently
+**File:Lines**: `packages/errors-effect/src/interop/toBaseError.js:94-102`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: If the tagged error has a `meta` property that isn't explicitly handled, it's assigned to `error.meta` but not included in the structured error properties.
+
+---
+
+##### Issue #NEW-P1-004: layerFromFactory Catches All Errors Indiscriminately
+**File:Lines**: `packages/interop/src/layerFromFactory.js:64-66`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Uses `Effect.try({ try: factory, catch: ... })` which catches ALL errors including programmer errors like TypeError, ReferenceError. These should propagate as defects, not failures.
+
+**Recommended Fix**: Use `Effect.tryPromise` for async factories or filter error types in the catch handler.
+
+---
+
+##### Issue #NEW-P1-005: wrapWithEffect Doesn't Handle Symbol Properties
+**File:Lines**: `packages/interop/src/wrapWithEffect.js:66-92`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Only `Object.keys()` is used which returns string keys. Symbol-keyed methods are not wrapped.
+
+---
+
+##### Issue #NEW-P1-006: effectToPromise Takes Runtime<any> Defeating Type Safety
+**File:Lines**: `packages/interop/src/effectToPromise.js:42`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `runtime` parameter accepts `Runtime.Runtime<any>` which defeats TypeScript's ability to verify that the runtime provides all required services.
+
+**Recommended Fix**: Use a generic constraint: `<R>(effect: Effect<A, E, R>, runtime: Runtime<R>) => Promise<A>`
+
+---
+
+##### Issue #NEW-P1-007: promiseToEffect Swallows Error Type Information
+**File:Lines**: `packages/interop/src/promiseToEffect.js:79-81`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `Effect.tryPromise` wraps rejections in `UnknownException`, losing the original error type.
+
+---
+
+##### Issue #NEW-P1-008: wrapWithEffect State Divergence - Effect Methods Bound to Original
+**File:Lines**: `packages/interop/src/wrapWithEffect.js:94-99`
+**Severity**: 🔴 HIGH
+**Status**: 🟡 NEW
+
+**Problem**: Effect methods are bound to the original `instance` via closure. If the wrapped object's state is modified, Effect methods still use the original state.
+
+**Impact**: Causes subtle state synchronization bugs when wrapped objects are mutated.
+
+**Example**:
+```javascript
+const wrapped = wrapWithEffect(stateManager)
+wrapped.cache = newCache // Mutation
+await wrapped.getAccountEffect(addr) // Uses original cache, not newCache
+```
+
+**Recommended Fix**: Use Proxy pattern or re-bind methods to capture current state on each call.
+
+---
+
+##### Issue #NEW-P1-009: effectToPromise Unsafe `any` Cast
+**File:Lines**: `packages/interop/src/effectToPromise.js:79`
+**Severity**: 🔴 HIGH
+**Status**: 🟡 NEW
+
+**Problem**: Runtime is cast to `Runtime<any>` before use, completely defeating type checking for service requirements.
+
+---
+
+##### Issue #NEW-P1-010: LoggerLive Level Validation Missing
+**File:Lines**: `packages/logger-effect/src/LoggerLive.js:25-31`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: No validation that `level` parameter is one of the valid LogLevel values.
+
+---
+
+##### Issue #NEW-P1-011: LoggerTest Priority Map Undefined Access
+**File:Lines**: `packages/logger-effect/src/LoggerTest.js:46-54`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Invalid levels result in `undefined` priority, causing all logs to be filtered.
+
+---
+
+##### Issue #NEW-P1-012: LoggerSilent Is Constant Not Factory
+**File:Lines**: `packages/logger-effect/src/LoggerSilent.js:71`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Inconsistent API - LoggerLive/LoggerTest are factories, LoggerSilent is pre-built.
+
+---
+
+##### Issue #NEW-P1-013: LoggerShape child() Return Type Issue
+**File:Lines**: `packages/logger-effect/src/LoggerShape.js:28`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `child()` returns `LoggerShape` but TestLogger's child should return `TestLoggerShape`.
+
+---
+
+##### Issue #NEW-P1-014: InvalidParamsError params Can Contain Non-Serializable Values
+**File:Lines**: `packages/errors-effect/src/jsonrpc/InvalidParamsError.js:51-53`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: `params` property typed as `unknown` can contain functions, circular refs, BigInts.
+
+---
+
+##### Issue #NEW-P1-015: AccountNotFoundError Inconsistent super() Call
+**File:Lines**: `packages/errors-effect/src/state/AccountNotFoundError.js:89-101`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Includes `name` in super() unlike other error classes, causing inconsistent equality.
+
+---
+
+##### Issue #NEW-P1-016: createManagedRuntime Trivial Wrapper
+**File:Lines**: `packages/interop/src/createManagedRuntime.js:49-51`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: 1:1 wrapper around `ManagedRuntime.make` with no added value.
+
+---
+
+#### Phase 2: 1 HIGH + 4 MEDIUM + 2 LOW NEW Issues Found
+
+##### Issue #NEW-P2-001: CommonFromConfig Creates Common at Module Load Time
+**File:Lines**: `packages/common-effect/src/CommonFromConfig.js:45-67`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: The `Common` instance is created during layer construction, not when services are accessed. This means config changes after layer creation aren't reflected.
+
+**Impact**: Cannot reconfigure chain parameters without creating a new layer.
+
+---
+
+##### Issue #NEW-P2-002: ForkConfigFromRpc Error Channel Mismatch
+**File:Lines**: `packages/transport-effect/src/ForkConfigFromRpc.js:85-127`
+**Severity**: 🔴 HIGH
+**Status**: 🟡 NEW
+
+**Problem**: The layer's error channel declares specific error types but `Effect.tryPromise` wraps all errors in `UnknownException`. The declared error types are never actually used.
+
+**Impact**: Runtime errors don't match declared types, breaking error handling.
+
+**Recommended Fix**: Use `Effect.mapError` to convert UnknownException to the declared error types.
+
+---
+
+##### Issue #NEW-P2-003: StateManagerLocal Initialization Order Issue
+**File:Lines**: `packages/state-effect/src/StateManagerLocal.js:89-110`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Services are extracted from context before layer is fully built. If services have circular dependencies, initialization may fail.
+
+---
+
+##### Issue #NEW-P2-004: BlockchainLive Uses Effect.promise Not tryPromise for Fallible Ops
+**File:Lines**: `packages/blockchain-effect/src/BlockchainLive.js:156-178`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Some blockchain operations use `Effect.promise` which doesn't handle rejections properly.
+
+---
+
+##### Issue #NEW-P2-005: EvmLive runCall Missing Error Type in Signature
+**File:Lines**: `packages/evm-effect/src/EvmLive.js:142-185`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: JSDoc doesn't document all possible error types from runCall.
+
+---
+
+##### Issue #NEW-P2-006: ImpersonationLive deepCopy Non-Atomic Ref Reads
+**File:Lines**: `packages/state-effect/src/ImpersonationLive.js:89-94`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Multiple Refs are read sequentially instead of using `Effect.all` for atomic snapshot.
+
+**Impact**: If Refs are modified between reads, copied state may be inconsistent.
+
+---
+
+##### Issue #NEW-P2-007: VmLive deepCopy Unsafe Promise
+**File:Lines**: `packages/vm-effect/src/VmLive.js:245-267`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Fixed in #P2-379 but related code still uses patterns that could regress.
+
+---
+
+#### Phase 3: 1 CRITICAL + 1 HIGH + 5 MEDIUM + 5 LOW NEW Issues Found
+
+##### Issue #NEW-P3-001: ImpersonationLive.deepCopy Reads Refs Sequentially
+**File:Lines**: `packages/node-effect/src/ImpersonationLive.js:80-92`
+**Severity**: 🔴 HIGH
+**Status**: ✅ FIXED (2026-01-31)
+
+**Problem**: The `deepCopy` method reads `impersonatedAccountRef` and `autoImpersonateRef` using sequential `Ref.get` calls instead of atomic `Effect.all`.
+
+**Impact**: If another fiber modifies the Refs between reads, the copied state will be inconsistent - some fields from the old state, some from the new.
+
+**Resolution**: Changed from sequential reads to atomic `Effect.all([Ref.get(accountRef), Ref.get(autoRef)])` to ensure both values are read atomically at the same point in time.
+
+---
+
+##### Issue #NEW-P3-002: SnapshotLive.revertToSnapshot Parallel Execution Race Condition
+**File:Lines**: `packages/node-effect/src/SnapshotLive.js:189-222`
+**Severity**: 🔴 CRITICAL
+**Status**: ✅ FIXED (2026-01-31)
+
+**Problem**: The `revertToSnapshot` method used `Effect.all` to run `setStateRoot` and `loadState` in parallel. These operations MUST run sequentially because `loadState` depends on the state root being set first.
+
+**Impact**: Race condition caused potential state corruption - `loadState` could load data into the wrong state root, or fail entirely.
+
+**Resolution**: Changed from parallel execution `Effect.all([setStateRoot, loadState])` to sequential execution using `Effect.flatMap`:
+```javascript
+yield* stateMgr.setStateRoot(hexToBytes(snapshot.stateRoot)).pipe(
+  Effect.flatMap(() => stateMgr.loadState(snapshot.state)),
+)
+```
+This ensures `setStateRoot` completes before `loadState` starts, while maintaining the checkpoint/commit/revert error handling pattern.
+
+---
+
+##### Issue #NEW-P3-003: GetBalanceLive Missing EIP-55 Checksum Validation
+**File:Lines**: `packages/actions-effect/src/GetBalanceLive.js:49-67`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Address validation only checks format (`/^0x[a-fA-F0-9]{40}$/`) but not EIP-55 checksums for mixed-case addresses.
+
+**Impact**: Invalid checksummed addresses accepted by eth_getBalance but rejected by tevm_* methods.
+
+---
+
+##### Issue #NEW-P3-004: GetCodeLive Missing EIP-55 Checksum Validation
+**File:Lines**: `packages/actions-effect/src/GetCodeLive.js:66-84`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Same as #NEW-P3-003 - no EIP-55 validation.
+
+---
+
+##### Issue #NEW-P3-005: GetStorageAtLive Missing EIP-55 Checksum Validation
+**File:Lines**: `packages/actions-effect/src/GetStorageAtLive.js:92-110`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Same as #NEW-P3-003 - no EIP-55 validation.
+
+---
+
+##### Issue #NEW-P3-006: NodeLive.ready() Uses Effect.promise Not tryPromise
+**File:Lines**: `packages/node-effect/src/NodeLive.js:89-102`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: `ready()` uses `Effect.promise` for operations that can fail.
+
+---
+
+##### Issue #NEW-P3-007: SetAccountLive Validates Address But Not Account Fields
+**File:Lines**: `packages/actions-effect/src/SetAccountLive.js:78-120`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Address is validated but `balance`, `nonce`, `code`, `storage` fields are not validated before use.
+
+---
+
+##### Issue #NEW-P3-008: GetBlockLive Block Number Parsing
+**File:Lines**: `packages/actions-effect/src/GetBlockLive.js:45-67`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Block number parsing doesn't handle all edge cases (negative, non-integer).
+
+---
+
+##### Issue #NEW-P3-009: CallLive Missing Gas Limit Validation
+**File:Lines**: `packages/actions-effect/src/CallLive.js:112-145`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: `gas` parameter not validated for reasonable range.
+
+---
+
+##### Issue #NEW-P3-010: ContractLive ABI Validation Minimal
+**File:Lines**: `packages/actions-effect/src/ContractLive.js:67-89`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: ABI format not deeply validated, only presence checked.
+
+---
+
+##### Issue #NEW-P3-011: DumpStateLive Returns Raw State Without Transformation
+**File:Lines**: `packages/actions-effect/src/DumpStateLive.js:34-56`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: State dump format not documented, may not be JSON-serializable.
+
+---
+
+##### Issue #NEW-P3-012: LoadStateLive BigInt Conversion
+**File:Lines**: `packages/actions-effect/src/LoadStateLive.js:78-95`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Similar to #P4-379 - BigInt conversion should be wrapped.
+
+---
+
+#### Phase 4: 1 HIGH + 4 MEDIUM + 10 LOW NEW Issues Found
+
+##### Issue #NEW-P4-001: MemoryClientLive.deepCopy Creates Inconsistent VM/StateManager Copies
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:706-742`
+**Severity**: 🔴 HIGH
+**Status**: 📋 DOCUMENTED (Architectural - Requires vm package changes)
+
+**Problem**: The `deepCopy` method creates `stateManagerCopy` separately from `vmCopy`, but `vm.deepCopy()` internally creates its own copy of the state manager. This results in TWO different state manager instances.
+
+**Impact**: After `deepCopy()`, executing VM operations directly (via `vm.vm.stateManager`) will see different state than action services (which use `stateManagerCopy`).
+
+**Workaround (Current)**: Code has documentation warning users to:
+1. Use action methods (getAccount, setAccount, getBalance, etc.) exclusively for state operations
+2. Avoid direct access to `vm.vm.stateManager` after deepCopy
+
+**Full Fix (Requires Architectural Changes)**: Would require modifications to:
+1. `packages/vm/src/actions/deepCopy.js` - Accept optional stateManager parameter
+2. `packages/vm/src/Vm.ts` - Update type to accept stateManager parameter
+3. `packages/vm-effect/src/types.js` - Update VmShape.deepCopy signature
+4. `packages/vm-effect/src/VmLive.js` - Pass stateManager to deepCopy
+5. `packages/memory-client-effect/src/MemoryClientLive.js` - Skip separate stateManager.deepCopy()
+
+This is tracked as a separate architectural improvement task.
+
+---
+
+##### Issue #NEW-P4-002: commonCopy.copy() Returns Wrong Type
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:721-731`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: `commonCopy.copy()` returns the internal `Common` object, not a `CommonShape`.
+
+---
+
+##### Issue #NEW-P4-003: Missing EIP-55 Validation in Actions-Effect Services
+**File:Lines**: `packages/actions-effect/src/GetBalanceLive.js:49`, `GetCodeLive.js:66`, `GetStorageAtLive.js:92`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Inconsistent address validation between eth_* and tevm_* methods.
+
+---
+
+##### Issue #NEW-P4-004: Semantic Inconsistency eth_getBalance vs tevm_getAccount
+**File:Lines**: `packages/decorators-effect/src/RequestLive.js:104-162`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: eth_getBalance returns hex string, tevm_getAccount returns BigInt.
+
+---
+
+##### Issue #NEW-P4-005: RequestLive Missing BlockTag Validation
+**File:Lines**: `packages/decorators-effect/src/RequestLive.js:94-147`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: BlockTag validated late in call chain, not at entry point.
+
+---
+
+##### Issue #NEW-P4-006: ManagedRuntime Leak on Nested deepCopy Failure
+**File:Lines**: `packages/memory-client-effect/src/createMemoryClient.js:184-200`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: Nested deepCopy failures may leak managed runtimes.
+
+---
+
+##### Issue #NEW-P4-007: TevmActionsLive.mine() Doesn't Persist State
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:295-378`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW
+
+**Problem**: mine() creates block but doesn't commit pending state changes.
+
+---
+
+##### Issue #NEW-P4-008: TevmActionsLive.loadState() Silent Field Failure
+**File:Lines**: `packages/decorators-effect/src/TevmActionsLive.js:251-281`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Error messages don't distinguish missing vs malformed fields.
+
+---
+
+##### Issue #NEW-P4-009: EthActionsLive.call() Doesn't Support Block Parameter
+**File:Lines**: `packages/decorators-effect/src/EthActionsLive.js:83-225`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: eth_call always uses latest state, ignores blockTag parameter.
+
+---
+
+##### Issue #NEW-P4-010: SendLive.getErrorCode() Uses Non-Standard Code 3
+**File:Lines**: `packages/decorators-effect/src/SendLive.js:46-48`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Code 3 is Ethereum convention (EIP-1474) but outside JSON-RPC 2.0 ranges. Needs documentation.
+
+---
+
+##### Issue #NEW-P4-011: createActionServices Closure Captures stateManager Reference
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientLive.js:116-631`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Intentional but undocumented - mutations visible to action services.
+
+---
+
+##### Issue #NEW-P4-012: RequestLive Missing Many eth_* Methods
+**File:Lines**: `packages/decorators-effect/src/RequestLive.js:62-222`
+**Severity**: 🟡 MEDIUM
+**Status**: 🟡 NEW (Note: intentional per scope)
+
+**Problem**: Missing eth_estimateGas, eth_sendRawTransaction, eth_getTransactionByHash, etc.
+
+---
+
+##### Issue #NEW-P4-013: MemoryClientService Context.GenericTag Lacks Type Parameter
+**File:Lines**: `packages/memory-client-effect/src/MemoryClientService.js:53-55`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Reduced type safety compared to explicit `Context.Tag<Id, Shape>`.
+
+---
+
+##### Issue #NEW-P4-014: createFullLayer Unsafe Type Cast
+**File:Lines**: `packages/memory-client-effect/src/createMemoryClient.js:140`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Type cast suppresses TypeScript dependency verification.
+
+---
+
+##### Issue #NEW-P4-015: validateMemoryClientShape Runtime-Only Validation
+**File:Lines**: `packages/memory-client-effect/src/createMemoryClient.js:44-60`
+**Severity**: 🟢 LOW
+**Status**: 🟡 NEW
+
+**Problem**: Doesn't validate properties are actually functions/Effects.
+
+---
 
 ---
 

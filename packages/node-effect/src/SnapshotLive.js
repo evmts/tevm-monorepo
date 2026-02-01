@@ -191,11 +191,13 @@ export const SnapshotLive = () => {
 							// is rolled back to prevent inconsistency where stateRoot is updated but account data isn't.
 							// We must call BOTH operations to ensure full state restoration - setStateRoot alone may not
 							// be sufficient if state manager's storage has been flushed or in fork mode. (Issue #220 fix)
+							// CRITICAL FIX (Issue #NEW-P3-002): setStateRoot MUST complete before loadState starts.
+							// loadState depends on the state root being set first. Using parallel Effect.all caused
+							// race conditions where loadState could run before setStateRoot completed, causing state corruption.
 							yield* stateMgr.checkpoint()
-							yield* Effect.all([
-								stateMgr.setStateRoot(hexToBytes(snapshot.stateRoot)),
-								stateMgr.loadState(snapshot.state),
-							]).pipe(
+							yield* stateMgr.setStateRoot(hexToBytes(snapshot.stateRoot)).pipe(
+								Effect.flatMap(() => stateMgr.loadState(snapshot.state)),
+							).pipe(
 								Effect.flatMap(() => stateMgr.commit()),
 								Effect.catchAllDefect((defect) =>
 									// Rollback on defect before re-throwing typed error
