@@ -622,7 +622,8 @@ describe('SnapshotLive', () => {
 			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
 				const error = exit.cause.error as StateRootNotFoundError
 				expect(error._tag).toBe('StateRootNotFoundError')
-				expect(error.message).toContain('Failed to restore state root')
+				// After Issue #P3-381 fix: both operations are atomic, so error message is unified
+				expect(error.message).toContain('Failed to restore state')
 				expect(error.message).toContain('Simulated setStateRoot failure')
 				// Verify the stateRoot from the snapshot is included
 				expect(error.stateRoot).toBeDefined()
@@ -646,7 +647,8 @@ describe('SnapshotLive', () => {
 			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
 				const error = exit.cause.error as StateRootNotFoundError
 				expect(error._tag).toBe('StateRootNotFoundError')
-				expect(error.message).toContain('Failed to restore state root')
+				// After Issue #P3-381 fix: both operations are atomic, so error message is unified
+				expect(error.message).toContain('Failed to restore state')
 				expect(error.message).toContain('Non-Error setStateRoot failure')
 			}
 		})
@@ -668,7 +670,8 @@ describe('SnapshotLive', () => {
 			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
 				const error = exit.cause.error as StateRootNotFoundError
 				expect(error._tag).toBe('StateRootNotFoundError')
-				expect(error.message).toContain('Failed to load state')
+				// After Issue #P3-381 fix: both operations are atomic, so error message is unified
+				expect(error.message).toContain('Failed to restore state')
 				expect(error.message).toContain('Simulated loadState failure')
 				// Verify the stateRoot from the snapshot is included
 				expect(error.stateRoot).toBeDefined()
@@ -692,7 +695,8 @@ describe('SnapshotLive', () => {
 			if (Exit.isFailure(exit) && exit.cause._tag === 'Fail') {
 				const error = exit.cause.error as StateRootNotFoundError
 				expect(error._tag).toBe('StateRootNotFoundError')
-				expect(error.message).toContain('Failed to load state')
+				// After Issue #P3-381 fix: both operations are atomic, so error message is unified
+				expect(error.message).toContain('Failed to restore state')
 				expect(error.message).toContain('Non-Error loadState failure')
 			}
 		})

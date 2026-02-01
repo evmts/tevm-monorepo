@@ -186,32 +186,37 @@ export const SnapshotLive = () => {
 							// At this point, id is guaranteed to be a valid hex string since it was used as a key
 							const targetNum = parseInt(id.slice(2), 16)
 
-							// Step 4: Restore state FIRST (this can fail)
-							// If setStateRoot or loadState fails, the snapshot is still available for retry
-							// We must call BOTH setStateRoot AND loadState to ensure full state restoration.
-							// setStateRoot alone may not be sufficient if state manager's storage has been flushed
-							// or in fork mode where state must be explicitly loaded. (Issue #220 fix)
-							yield* stateMgr.setStateRoot(hexToBytes(snapshot.stateRoot)).pipe(
+							// Step 4: Restore state ATOMICALLY using checkpoint/commit/revert pattern (Issue #P3-381 fix)
+							// Both setStateRoot AND loadState must succeed together. If either fails, the state
+							// is rolled back to prevent inconsistency where stateRoot is updated but account data isn't.
+							// We must call BOTH operations to ensure full state restoration - setStateRoot alone may not
+							// be sufficient if state manager's storage has been flushed or in fork mode. (Issue #220 fix)
+							yield* stateMgr.checkpoint()
+							yield* Effect.all([
+								stateMgr.setStateRoot(hexToBytes(snapshot.stateRoot)),
+								stateMgr.loadState(snapshot.state),
+							]).pipe(
+								Effect.flatMap(() => stateMgr.commit()),
 								Effect.catchAllDefect((defect) =>
-									Effect.fail(
-										new StateRootNotFoundError({
-											stateRoot: snapshot.stateRoot,
-											message: `Failed to restore state root: ${defect instanceof Error ? defect.message : String(defect)}`,
-											cause: defect,
-										}),
+									// Rollback on defect before re-throwing typed error
+									stateMgr.revert().pipe(
+										Effect.catchAll(() => Effect.void), // Ignore revert errors
+										Effect.flatMap(() =>
+											Effect.fail(
+												new StateRootNotFoundError({
+													stateRoot: snapshot.stateRoot,
+													message: `Failed to restore state: ${defect instanceof Error ? defect.message : String(defect)}`,
+													cause: defect,
+												}),
+											),
+										),
 									),
 								),
-							)
-
-							// Also load the full state data to ensure all account/storage data is restored (Issue #220 fix)
-							yield* stateMgr.loadState(snapshot.state).pipe(
-								Effect.catchAllDefect((defect) =>
-									Effect.fail(
-										new StateRootNotFoundError({
-											stateRoot: snapshot.stateRoot,
-											message: `Failed to load state: ${defect instanceof Error ? defect.message : String(defect)}`,
-											cause: defect,
-										}),
+								Effect.catchAll((error) =>
+									// Rollback on typed error before re-throwing
+									stateMgr.revert().pipe(
+										Effect.catchAll(() => Effect.void), // Ignore revert errors
+										Effect.flatMap(() => Effect.fail(error)),
 									),
 								),
 							)

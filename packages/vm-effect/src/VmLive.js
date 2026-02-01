@@ -119,11 +119,17 @@ export const VmLive = (_options = {}) => {
 							catch: (e) => mapEvmError(e),
 						}),
 
-					ready: Effect.promise(() => vmInstance.ready()),
+					ready: Effect.tryPromise({
+						try: () => vmInstance.ready(),
+						catch: (e) => mapEvmError(e),
+					}),
 
 					deepCopy: () =>
 						Effect.gen(function* () {
-							const copiedVm = yield* Effect.promise(() => vmInstance.deepCopy())
+							const copiedVm = yield* Effect.tryPromise({
+							try: () => vmInstance.deepCopy(),
+							catch: (e) => mapEvmError(e),
+						})
 							return createShape(copiedVm)
 						}),
 				}
