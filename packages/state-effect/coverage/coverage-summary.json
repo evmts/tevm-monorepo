@@ -1,0 +1,3 @@
+{"total": {"lines":{"total":279,"covered":227,"skipped":0,"pct":81.36},"statements":{"total":279,"covered":227,"skipped":0,"pct":81.36},"functions":{"total":56,"covered":39,"skipped":0,"pct":69.64},"branches":{"total":48,"covered":48,"skipped":0,"pct":100},"branchesTrue":{"total":0,"covered":0,"skipped":0,"pct":"Unknown"}}
+,"/Users/colinnielsen/code/tevm-monorepo/packages/state-effect/src/StateManagerLocal.js": {"lines":{"total":279,"covered":227,"skipped":0,"pct":81.36},"functions":{"total":56,"covered":39,"skipped":0,"pct":69.64},"statements":{"total":279,"covered":227,"skipped":0,"pct":81.36},"branches":{"total":48,"covered":48,"skipped":0,"pct":100}}
+}

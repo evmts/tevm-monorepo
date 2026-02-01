@@ -14,7 +14,7 @@ import {
 
 describe('ethereumjs re-exports', () => {
 	it('should properly export EthjsAddress', () => {
-		const address = new EthjsAddress(Buffer.from('1234567890123456789012345678901234567890', 'hex'))
+		const address = new EthjsAddress(new Uint8Array(Buffer.from('1234567890123456789012345678901234567890', 'hex')))
 		expect(address).toBeDefined()
 		expect(address.bytes).toBeInstanceOf(Uint8Array)
 	})
