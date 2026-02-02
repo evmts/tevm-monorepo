@@ -9,6 +9,7 @@
  * - info: Informational messages highlighting normal application progress
  * - debug: Detailed information for debugging purposes
  * - trace: Extremely detailed information including function entry/exit
+ * - silent: Disables all logging output (pino native support)
  *
  * @example
  * ```typescript
@@ -22,9 +23,15 @@
  *   name: 'my-module',
  *   level: 'debug' // Show all logs at debug level and above
  * })
+ *
+ * // Disable all logging
+ * const silentLogger = createLogger({
+ *   name: 'silent-module',
+ *   level: 'silent' // No output
+ * })
  * ```
  */
-export type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
+export type Level = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
 
 /**
  * Options for logger

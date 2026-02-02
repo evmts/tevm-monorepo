@@ -1214,7 +1214,7 @@ importers:
         version: 0.2.0
       forge-std:
         specifier: github:foundry-rs/forge-std
-        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/17a9b2398a7d629931dc66a168a098d051d53dc6
+        version: https://codeload.github.com/foundry-rs/forge-std/tar.gz/4f227ab1b9a9a62f587580145951c7ace5e42569
       react-helmet:
         specifier: ^6.1.0
         version: 6.1.0(react@19.1.1)
@@ -1619,6 +1619,46 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1(typescript@5.9.3)(zod@4.1.11)
 
+  packages/actions-effect:
+    dependencies:
+      '@tevm/blockchain-effect':
+        specifier: workspace:^
+        version: link:../blockchain-effect
+      '@tevm/common-effect':
+        specifier: workspace:^
+        version: link:../common-effect
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      '@tevm/state-effect':
+        specifier: workspace:^
+        version: link:../state-effect
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@tevm/vm-effect':
+        specifier: workspace:^
+        version: link:../vm-effect
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/actions':
+        specifier: workspace:^
+        version: link:../actions
+      '@tevm/address':
+        specifier: workspace:^
+        version: link:../address
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
+
   packages/address:
     dependencies:
       '@tevm/errors':
@@ -1709,6 +1749,40 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  packages/blockchain-effect:
+    dependencies:
+      '@tevm/blockchain':
+        specifier: workspace:^
+        version: link:../blockchain
+      '@tevm/common-effect':
+        specifier: workspace:^
+        version: link:../common-effect
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      '@tevm/transport-effect':
+        specifier: workspace:^
+        version: link:../transport-effect
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/block':
+        specifier: workspace:^
+        version: link:../block
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../common
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
+
   packages/client-types:
     dependencies:
       '@tevm/actions':
@@ -1749,6 +1823,31 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+
+  packages/common-effect:
+    dependencies:
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../common
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      '@tevm/transport-effect':
+        specifier: workspace:^
+        version: link:../transport-effect
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
 
   packages/contract:
     dependencies:
@@ -1803,6 +1902,55 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  packages/decorators-effect:
+    dependencies:
+      '@tevm/actions-effect':
+        specifier: workspace:^
+        version: link:../actions-effect
+      '@tevm/address':
+        specifier: workspace:^
+        version: link:../address
+      '@tevm/blockchain-effect':
+        specifier: workspace:^
+        version: link:../blockchain-effect
+      '@tevm/common-effect':
+        specifier: workspace:^
+        version: link:../common-effect
+      '@tevm/decorators':
+        specifier: workspace:^
+        version: link:../decorators
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      '@tevm/interop':
+        specifier: workspace:^
+        version: link:../interop
+      '@tevm/node-effect':
+        specifier: workspace:^
+        version: link:../node-effect
+      '@tevm/state-effect':
+        specifier: workspace:^
+        version: link:../state-effect
+      '@tevm/vm-effect':
+        specifier: workspace:^
+        version: link:../vm-effect
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      tsup:
+        specifier: ^8.0.0
+        version: 8.5.0(@swc/core@1.13.19)(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
+
   packages/effect:
     dependencies:
       effect:
@@ -1847,6 +1995,25 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.6.1)(@vitest/ui@3.2.4)(jiti@2.6.1)(jsdom@26.1.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(lightningcss@1.30.2)(msw@2.8.4(@types/node@24.6.1)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
 
+  packages/errors-effect:
+    dependencies:
+      '@tevm/errors':
+        specifier: workspace:^
+        version: link:../errors
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
+
   packages/evm:
     dependencies:
       '@ethereumjs/evm':
@@ -1880,6 +2047,40 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+
+  packages/evm-effect:
+    dependencies:
+      '@tevm/blockchain-effect':
+        specifier: workspace:^
+        version: link:../blockchain-effect
+      '@tevm/common-effect':
+        specifier: workspace:^
+        version: link:../common-effect
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      '@tevm/evm':
+        specifier: workspace:^
+        version: link:../evm
+      '@tevm/state-effect':
+        specifier: workspace:^
+        version: link:../state-effect
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
 
   packages/http-client:
     dependencies:
@@ -1918,6 +2119,22 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  packages/interop:
+    dependencies:
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
+
   packages/jsonrpc:
     dependencies:
       '@ponder/utils':
@@ -1946,6 +2163,25 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+
+  packages/logger-effect:
+    dependencies:
+      '@tevm/logger':
+        specifier: workspace:^
+        version: link:../logger
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
 
   packages/memory-client:
     dependencies:
@@ -2004,6 +2240,61 @@ importers:
       '@tevm/tx':
         specifier: workspace:^
         version: link:../tx
+
+  packages/memory-client-effect:
+    dependencies:
+      '@ethereumjs/util':
+        specifier: ^9.1.0
+        version: 9.1.0
+      '@tevm/actions-effect':
+        specifier: workspace:^
+        version: link:../actions-effect
+      '@tevm/blockchain-effect':
+        specifier: workspace:^
+        version: link:../blockchain-effect
+      '@tevm/common-effect':
+        specifier: workspace:^
+        version: link:../common-effect
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      '@tevm/evm-effect':
+        specifier: workspace:^
+        version: link:../evm-effect
+      '@tevm/interop':
+        specifier: workspace:^
+        version: link:../interop
+      '@tevm/logger-effect':
+        specifier: workspace:^
+        version: link:../logger-effect
+      '@tevm/node-effect':
+        specifier: workspace:^
+        version: link:../node-effect
+      '@tevm/state-effect':
+        specifier: workspace:^
+        version: link:../state-effect
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@tevm/vm-effect':
+        specifier: workspace:^
+        version: link:../vm-effect
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+      viem:
+        specifier: ^2.37.9
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
 
   packages/node:
     dependencies:
@@ -2068,6 +2359,34 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+
+  packages/node-effect:
+    dependencies:
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
+      '@tevm/state-effect':
+        specifier: workspace:^
+        version: link:../state-effect
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
 
   packages/precompiles:
     dependencies:
@@ -2264,6 +2583,43 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  packages/state-effect:
+    dependencies:
+      '@tevm/common-effect':
+        specifier: workspace:^
+        version: link:../common-effect
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      '@tevm/state':
+        specifier: workspace:^
+        version: link:../state
+      '@tevm/transport-effect':
+        specifier: workspace:^
+        version: link:../transport-effect
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/common':
+        specifier: workspace:^
+        version: link:../common
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
+      viem:
+        specifier: ^2.27.0
+        version: 2.37.9(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
+
   packages/sync-storage-persister:
     dependencies:
       '@tevm/state':
@@ -2276,6 +2632,25 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+
+  packages/transport-effect:
+    dependencies:
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
 
   packages/trie:
     dependencies:
@@ -2422,6 +2797,43 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
+
+  packages/vm-effect:
+    dependencies:
+      '@tevm/blockchain-effect':
+        specifier: workspace:^
+        version: link:../blockchain-effect
+      '@tevm/common-effect':
+        specifier: workspace:^
+        version: link:../common-effect
+      '@tevm/errors-effect':
+        specifier: workspace:^
+        version: link:../errors-effect
+      '@tevm/evm-effect':
+        specifier: workspace:^
+        version: link:../evm-effect
+      '@tevm/state-effect':
+        specifier: workspace:^
+        version: link:../state-effect
+      '@tevm/vm':
+        specifier: workspace:^
+        version: link:../vm
+      effect:
+        specifier: 3.18.1
+        version: 3.18.1
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+      '@tevm/utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@types/node':
+        specifier: ^24.6.1
+        version: 24.6.1
 
   scripts:
     dependencies:
@@ -8612,6 +9024,7 @@ packages:
 
   '@walletconnect/ethereum-provider@2.21.1':
     resolution: {integrity: sha512-SSlIG6QEVxClgl1s0LMk4xr2wg4eT3Zn/Hb81IocyqNSGfXpjtawWxKxiC5/9Z95f1INyBD6MctJbL/R1oBwIw==}
+    deprecated: 'Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases'
 
   '@walletconnect/events@1.0.1':
     resolution: {integrity: sha512-NPTqaoi0oPBVNuLv7qPaJazmGHs5JGyO8eEAk5VGKmJzDR7AHzD4k6ilox5kxk1iwiOnFopBOOMLs86Oa76HpQ==}
@@ -8676,9 +9089,11 @@ packages:
 
   '@walletconnect/sign-client@2.21.0':
     resolution: {integrity: sha512-z7h+PeLa5Au2R591d/8ZlziE0stJvdzP9jNFzFolf2RG/OiXulgFKum8PrIyXy+Rg2q95U9nRVUF9fWcn78yBA==}
+    deprecated: 'Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases'
 
   '@walletconnect/sign-client@2.21.1':
     resolution: {integrity: sha512-QaXzmPsMnKGV6tc4UcdnQVNOz4zyXgarvdIQibJ4L3EmLat73r5ZVl4c0cCOcoaV7rgM9Wbphgu5E/7jNcd3Zg==}
+    deprecated: 'Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases'
 
   '@walletconnect/time@1.0.2':
     resolution: {integrity: sha512-uzdd9woDcJ1AaBZRhqy5rNC9laqWGErfc4dxA9a87mPdKOgWMD85mcFo9dIYIts/Jwocfwn07EC6EzclKubk/g==}
@@ -8694,12 +9109,15 @@ packages:
 
   '@walletconnect/universal-provider@2.16.1':
     resolution: {integrity: sha512-q/tyWUVNenizuClEiaekx9FZj/STU1F3wpDK4PUIh3xh+OmUI5fw2dY3MaNDjyb5AyrS0M8BuQDeuoSuOR/Q7w==}
+    deprecated: 'Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases'
 
   '@walletconnect/universal-provider@2.21.0':
     resolution: {integrity: sha512-mtUQvewt+X0VBQay/xOJBvxsB3Xsm1lTwFjZ6WUwSOTR1X+FNb71hSApnV5kbsdDIpYPXeQUbGt2se1n5E5UBg==}
+    deprecated: 'Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases'
 
   '@walletconnect/universal-provider@2.21.1':
     resolution: {integrity: sha512-Wjx9G8gUHVMnYfxtasC9poGm8QMiPCpXpbbLFT+iPoQskDDly8BwueWnqKs4Mx2SdIAWAwuXeZ5ojk5qQOxJJg==}
+    deprecated: 'Reliability and performance improvements. See: https://github.com/WalletConnect/walletconnect-monorepo/releases'
 
   '@walletconnect/utils@2.16.1':
     resolution: {integrity: sha512-aoQirVoDoiiEtYeYDtNtQxFzwO/oCrz9zqeEEXYJaAwXlGVTS34KFe7W3/Rxd/pldTYKFOZsku2EzpISfH8Wsw==}
@@ -10019,8 +10437,8 @@ packages:
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
 
-  cors@2.8.5:
-    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
+  cors@2.8.6:
+    resolution: {integrity: sha512-tJtZBBHA6vjIAaF6EnIaq6laBBP9aq/Y3ouVJjEfoHbRBcHBAHYcMh/w8LDrk2PvIMMq8gmopa5D4V8RmbrxGw==}
     engines: {node: '>= 0.10'}
 
   cose-base@1.0.3:
@@ -11508,9 +11926,9 @@ packages:
     resolution: {integrity: sha512-W8+hV/qnShs4pZSIcHfYvKi7ds1FjNVW14XG5fMkkTBzbUGJh5BxbTc3KZZy7nWbPpaHLGnRszMZNZlLvi6qww==}
     hasBin: true
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/17a9b2398a7d629931dc66a168a098d051d53dc6:
-    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/17a9b2398a7d629931dc66a168a098d051d53dc6}
-    version: 1.10.0
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/4f227ab1b9a9a62f587580145951c7ace5e42569:
+    resolution: {tarball: https://codeload.github.com/foundry-rs/forge-std/tar.gz/4f227ab1b9a9a62f587580145951c7ace5e42569}
+    version: 1.14.0
 
   form-data@4.0.4:
     resolution: {integrity: sha512-KrGhL9Q4zjj0kiUt5OO4Mr/A/jlI2jDYs5eHBpYHPcBEVSiipAvn2Ko2HnPe20rmcuuvMHNdZFp+4IlGTMF0Ow==}
@@ -13936,6 +14354,7 @@ packages:
   next@15.5.4:
     resolution: {integrity: sha512-xH4Yjhb82sFYQfY3vbkJfgSDgXvBB6a8xPs9i35k6oZJRoQRihZH+4s9Yo2qsWpzBmZ3lPXaJ2KPXLfkvW4LnA==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
+    deprecated: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/CVE-2025-66478 for more details.
     hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
@@ -16352,10 +16771,12 @@ packages:
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
 
   tar@7.5.1:
     resolution: {integrity: sha512-nlGpxf+hv0v7GkWBK2V9spgactGOp0qvfWRxUMjqHyzrt3SgwE48DIv/FhqPHJYLHpgW1opq3nERbz5Anq7n1g==}
     engines: {node: '>=18'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exhorbitant rates) by contacting i@izs.me
 
   tdigest@0.1.2:
     resolution: {integrity: sha512-+G0LLgjjo9BZX2MfdvPfH+MKLCrxlXSYec5DaPYP1fe6Iyhf0/fSmJ0bFiZ1F8BT6cGXl2LpltQptzjXKWEkKA==}
@@ -17498,6 +17919,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-fetch@3.6.20:
     resolution: {integrity: sha512-EqhiFU6daOA8kpjOWTL0olhVOF3i7OrFzSYiGsEMB8GcXS+RrzauAERX65xMeNWVqxA6HXH2m69Z9LaKKdisfg==}
@@ -29483,7 +29905,7 @@ snapshots:
 
   accepts@2.0.0:
     dependencies:
-      mime-types: 3.0.1
+      mime-types: 3.0.2
       negotiator: 1.0.0
 
   acorn-import-attributes@1.9.5(acorn@8.15.0):
@@ -30125,7 +30547,7 @@ snapshots:
       bytes: 3.1.2
       content-type: 1.0.5
       debug: 4.4.3(supports-color@8.1.1)
-      http-errors: 2.0.0
+      http-errors: 2.0.1
       iconv-lite: 0.6.3
       on-finished: 2.4.1
       qs: 6.14.0
@@ -30904,7 +31326,7 @@ snapshots:
 
   core-util-is@1.0.3: {}
 
-  cors@2.8.5:
+  cors@2.8.6:
     dependencies:
       object-assign: 4.1.1
       vary: 1.1.2
@@ -32773,7 +33195,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/17a9b2398a7d629931dc66a168a098d051d53dc6: {}
+  forge-std@https://codeload.github.com/foundry-rs/forge-std/tar.gz/4f227ab1b9a9a62f587580145951c7ace5e42569: {}
 
   form-data@4.0.4:
     dependencies:
@@ -34607,7 +35029,7 @@ snapshots:
       chokidar: 2.1.8
       colors: 1.4.0
       connect: 3.7.0
-      cors: 2.8.5
+      cors: 2.8.6
       event-stream: 3.3.4
       faye-websocket: 0.11.4
       http-auth: 3.1.3
@@ -38225,8 +38647,8 @@ snapshots:
       escape-html: 1.0.3
       etag: 1.8.1
       fresh: 2.0.0
-      http-errors: 2.0.0
-      mime-types: 3.0.1
+      http-errors: 2.0.1
+      mime-types: 3.0.2
       ms: 2.1.3
       on-finished: 2.4.1
       range-parser: 1.2.1
@@ -39491,7 +39913,7 @@ snapshots:
     dependencies:
       content-type: 1.0.5
       media-typer: 1.1.0
-      mime-types: 3.0.1
+      mime-types: 3.0.2
 
   typed-array-buffer@1.0.3:
     dependencies:
