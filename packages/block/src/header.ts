@@ -19,7 +19,7 @@ import {
 import { CLIQUE_EXTRA_SEAL, CLIQUE_EXTRA_VANITY } from './clique.js'
 import { fakeExponential, valuesArrayToHeaderData } from './helpers.js'
 import type { BlockHeaderBytes, BlockOptions, HeaderData, JsonHeader } from './types.js'
-import { createAddressFromPublicKey, createZeroAddress, getSignatureV, safeToType, zeros } from './utils.js'
+import { createAddressFromPublicKey, createZeroAddress, safeToType, zeros } from './utils.js'
 
 interface HeaderCache {
 	hash: Uint8Array | undefined
@@ -797,12 +797,13 @@ export class BlockHeader {
 		if (!ecSignFunction) {
 			throw new Error('ecsign function must be provided in customCrypto for clique signing')
 		}
-		const signature = ecSignFunction(this.cliqueSigHash(), privateKey)
-		const v = getSignatureV(signature)
-		const vBytes = new Uint8Array([Number(v - 27n)])
-		// Convert signature r and s to Uint8Array
-		const rBytes = toBytes(signature.r)
-		const sBytes = toBytes(signature.s)
+		// ecsign type varies between noble/curves versions (Uint8Array in v2, RecoveredSignatureType in v1)
+		const sig = ecSignFunction(this.cliqueSigHash(), privateKey) as any
+		// Handle both Uint8Array (r||s||recovery) and object ({r, s, recovery}) formats
+		const rBytes = sig instanceof Uint8Array ? sig.subarray(0, 32) : toBytes(sig.r)
+		const sBytes = sig instanceof Uint8Array ? sig.subarray(32, 64) : toBytes(sig.s)
+		const recovery = sig instanceof Uint8Array ? (sig[64] ?? 0) : (sig.recovery ?? 0)
+		const vBytes = new Uint8Array([recovery])
 		const signatureB = concatBytes(rBytes, sBytes, vBytes)
 
 		const extraDataWithoutSeal = this.extraData.subarray(0, this.extraData.length - CLIQUE_EXTRA_SEAL)
