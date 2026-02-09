@@ -1,5 +1,5 @@
-import type { BlockTag } from '@tevm/actions'
 import {
+	type BlockTag,
 	type EIP1193Parameters,
 	type EIP1474Methods,
 	type Hex,

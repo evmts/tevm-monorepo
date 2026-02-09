@@ -1,16 +1,21 @@
 import { rm } from 'node:fs/promises'
-import path from 'node:path'
 import { createMemoryClient } from '@tevm/memory-client'
-import { transports } from '@tevm/test-utils'
 import { type EIP1193RequestFn, type EIP1474Methods, http, numberToHex } from 'viem'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { createTestSnapshotTransport } from './createTestSnapshotTransport.js'
+import { resolveVitestTestSnapshotPath } from './internal/resolveVitestTestSnapshotPath.js'
 import { BLOCK_NUMBER } from './test/constants.js'
 import { assertMethodCached, assertMethodNotCached } from './test/snapshot-utils.js'
+import { transports } from './test/transports.js'
 
 describe('createTestSnapshotTransport', () => {
+	const clearSnapshot = async () => {
+		await rm(resolveVitestTestSnapshotPath(), { force: true })
+	}
+
+	beforeEach(clearSnapshot)
 	afterEach(async () => {
-		await rm(path.join(__dirname, '__rpc_snapshots__', `${path.basename(__filename)}.snap.json`), { force: true })
+		await clearSnapshot()
 	})
 
 	it('should create a transport with all required methods', async () => {
@@ -169,17 +174,20 @@ describe('createTestSnapshotTransport', () => {
 	})
 
 	it('should work as a transport in a memory client', async () => {
+		const snapshotTransport = createTestSnapshotTransport({
+			transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
+			test: { autosave: 'onRequest' },
+		})
+
 		const client = createMemoryClient({
 			fork: {
-				transport: createTestSnapshotTransport({
-					transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
-					test: { autosave: 'onRequest' },
-				}),
+				transport: snapshotTransport,
 			},
 		})
 
 		const block = await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
 		expect(block?.number).toBe(BigInt(BLOCK_NUMBER))
+		await snapshotTransport.saveSnapshots()
 
 		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
 	})

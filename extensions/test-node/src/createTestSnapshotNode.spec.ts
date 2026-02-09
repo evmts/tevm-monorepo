@@ -1,17 +1,21 @@
 import { rm } from 'node:fs/promises'
-import path from 'node:path'
-import { blockNumberProcedure, ethGetBlockByNumberJsonRpcProcedure } from '@tevm/actions'
 import { mainnet } from '@tevm/common'
-import { transports } from '@tevm/test-utils'
 import { http, numberToHex } from 'viem'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { createTestSnapshotNode } from './createTestSnapshotNode.js'
+import { resolveVitestTestSnapshotPath } from './internal/resolveVitestTestSnapshotPath.js'
 import { BLOCK_NUMBER } from './test/constants.js'
 import { assertMethodCached, assertMethodNotCached } from './test/snapshot-utils.js'
+import { transports } from './test/transports.js'
 
 describe('createTestSnapshotNode', () => {
+	const clearSnapshot = async () => {
+		await rm(resolveVitestTestSnapshotPath(), { force: true })
+	}
+
+	beforeEach(clearSnapshot)
 	afterEach(async () => {
-		await rm(path.join(__dirname, '__rpc_snapshots__', `${path.basename(__filename)}.snap.json`), { force: true })
+		await clearSnapshot()
 	})
 
 	it('should throw error if fork transport is not provided', () => {
@@ -80,14 +84,12 @@ describe('createTestSnapshotNode', () => {
 		})
 
 		// Make a cacheable request
-		const block = await ethGetBlockByNumberJsonRpcProcedure(client)({
-			jsonrpc: '2.0',
+		const block = await (client as any).request({
 			method: 'eth_getBlockByNumber',
-			id: 1,
-			params: [BLOCK_NUMBER, false],
+			params: [BLOCK_NUMBER, false] as any,
 		})
 		// Should return the correct result
-		expect(block.result?.number).toBe(BLOCK_NUMBER)
+		expect((block as any)?.number).toBe(BLOCK_NUMBER)
 
 		// Save to ensure snapshots are written
 		await client.saveSnapshots()
@@ -105,10 +107,8 @@ describe('createTestSnapshotNode', () => {
 		})
 
 		// Make a non-cacheable request (blockNumber is not cached)
-		await blockNumberProcedure(client)({
-			jsonrpc: '2.0',
+		await (client as any).request({
 			method: 'eth_blockNumber',
-			id: 1,
 			params: [],
 		})
 		await client.saveSnapshots()
@@ -125,11 +125,9 @@ describe('createTestSnapshotNode', () => {
 			common: mainnet,
 		})
 
-		await ethGetBlockByNumberJsonRpcProcedure(client)({
-			jsonrpc: '2.0',
+		await (client as any).request({
 			method: 'eth_getBlockByNumber',
-			id: 1,
-			params: [BLOCK_NUMBER, false],
+			params: [BLOCK_NUMBER, false] as any,
 		})
 		await client.server.stop()
 
@@ -149,23 +147,21 @@ describe('createTestSnapshotNode', () => {
 		})
 
 		await client.server.start()
+		const forkTransport = (client as any).forkTransport
+		expect(forkTransport).toBeDefined()
 
 		// Make first cacheable request - should save immediately
-		await ethGetBlockByNumberJsonRpcProcedure(client)({
-			jsonrpc: '2.0',
+		await forkTransport.request({
 			method: 'eth_getBlockByNumber',
-			id: 1,
-			params: [numberToHex(BigInt(BLOCK_NUMBER) - 1n), false],
+			params: [numberToHex(BigInt(BLOCK_NUMBER) - 1n), false] as any,
 		})
 		// Check snapshots were saved immediately (without calling save() or stop())
 		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 1n))
 
 		// Make another cacheable request - should add to existing snapshots
-		await ethGetBlockByNumberJsonRpcProcedure(client)({
-			jsonrpc: '2.0',
+		await forkTransport.request({
 			method: 'eth_getBlockByNumber',
-			id: 1,
-			params: [numberToHex(BigInt(BLOCK_NUMBER) - 2n), false],
+			params: [numberToHex(BigInt(BLOCK_NUMBER) - 2n), false] as any,
 		})
 		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 2n))
 
@@ -184,13 +180,13 @@ describe('createTestSnapshotNode', () => {
 		})
 
 		await client.server.start()
+		const forkTransport = (client as any).forkTransport
+		expect(forkTransport).toBeDefined()
 
 		// Make cacheable request
-		await ethGetBlockByNumberJsonRpcProcedure(client)({
-			jsonrpc: '2.0',
+		await forkTransport.request({
 			method: 'eth_getBlockByNumber',
-			id: 1,
-			params: [BLOCK_NUMBER, false],
+			params: [BLOCK_NUMBER, false] as any,
 		})
 
 		// Check snapshots were NOT saved immediately

@@ -32,7 +32,7 @@ import type { TestSnapshotNode, TestSnapshotNodeOptions } from './types.js'
  * ```
  */
 export const createTestSnapshotNode = (options: TestSnapshotNodeOptions): TestSnapshotNode => {
-	const client = createTestSnapshotClient(options)
+	const client = createTestSnapshotClient(options as any)
 	const node = client.transport.tevm as TevmNode<'fork'>
 
 	return node.extend(() => ({

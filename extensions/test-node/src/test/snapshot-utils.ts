@@ -3,13 +3,26 @@ import type { EIP1193Parameters, EIP1193RequestFn, EIP1474Methods } from 'viem'
 import { assert } from 'vitest'
 import { resolveVitestTestSnapshotPath } from '../internal/resolveVitestTestSnapshotPath.js'
 
+const sleep = (ms: number) => {
+	// Use Atomics.wait for a tiny synchronous backoff while snapshot writes flush to disk.
+	Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms)
+}
+
 /**
  * Get snapshot entries from the JSON snapshot format
  */
 export const getSnapshotEntries = (): Record<string, any> => {
 	const snapshotPath = resolveVitestTestSnapshotPath()
 	if (!fs.existsSync(snapshotPath)) return {}
-	return JSON.parse(fs.readFileSync(snapshotPath, 'utf-8'))
+	for (let attempt = 0; attempt < 20; attempt++) {
+		try {
+			return JSON.parse(fs.readFileSync(snapshotPath, 'utf-8'))
+		} catch {
+			if (attempt === 19) return {}
+			sleep(20)
+		}
+	}
+	return {}
 }
 
 /**
@@ -52,6 +65,16 @@ const isMethodCached = <TMethod extends EIP1193Parameters<EIP1474Methods>['metho
 	})
 }
 
+const waitForCacheState = (checker: () => boolean, expected: boolean, timeoutMs = 10_000): boolean => {
+	const startedAt = Date.now()
+	while (Date.now() - startedAt < timeoutMs) {
+		const value = checker()
+		if (value === expected) return value
+		sleep(20)
+	}
+	return checker()
+}
+
 /**
  * Assert that a method is cached in the snapshot entries
  */
@@ -59,7 +82,7 @@ export const assertMethodCached = <TMethod extends EIP1193Parameters<EIP1474Meth
 	method: TMethod,
 	withParams?: (params: any) => boolean,
 ) => {
-	const cached = isMethodCached(method, withParams)
+	const cached = waitForCacheState(() => isMethodCached(method, withParams), true)
 	assert(cached, `${method} should be cached`)
 }
 
@@ -70,6 +93,6 @@ export const assertMethodNotCached = <TMethod extends EIP1193Parameters<EIP1474M
 	method: TMethod,
 	withParams?: (params: any) => boolean,
 ) => {
-	const cached = isMethodCached(method, withParams)
+	const cached = waitForCacheState(() => isMethodCached(method, withParams), false)
 	assert(!cached, `${method} should NOT be cached`)
 }

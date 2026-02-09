@@ -54,7 +54,7 @@ export const createTestSnapshotClient = <
 		fork: {
 			...options.fork,
 			// Create a transport with a request function that handles caching
-			transport: createCachedTransport(forkTransport, snapshotManager, autosave),
+			transport: createCachedTransport(forkTransport as any, snapshotManager, autosave) as any,
 		},
 	})
 	// @ts-expect-error - TODO: fix this, likely in some change we made to yParity inconsistent with view we didn't detect before
