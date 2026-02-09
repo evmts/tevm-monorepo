@@ -34,5 +34,10 @@ export const createMockKzg = () => {
 		computeBlobProof: () => mockHash,
 		verifyProof: () => true,
 		verifyBlobProofBatch: () => true,
+		// New methods required by ethereumjs KZG interface (PeerDAS support)
+		computeCells: () => [mockHash],
+		computeCellsAndProofs: () => [[mockHash], [mockHash]],
+		recoverCellsAndProofs: () => [[mockHash], [mockHash]],
+		verifyCellKzgProofBatch: () => true,
 	}
 }

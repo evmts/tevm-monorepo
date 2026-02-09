@@ -33,4 +33,9 @@ export type MockKzg = {
 	computeBlobProof: (blob: string, commitment: string) => string
 	verifyProof: (commitment: string, z: string, y: string, proof: string) => boolean
 	verifyBlobProofBatch: (blobs: string[], commitments: string[], proofs: string[]) => boolean
+	// New methods required by ethereumjs KZG interface (PeerDAS support)
+	computeCells: (blob: string) => string[]
+	computeCellsAndProofs: (blob: string) => [string[], string[]]
+	recoverCellsAndProofs: (indices: number[], cells: string[]) => [string[], string[]]
+	verifyCellKzgProofBatch: (commitments: string[], indices: number[], cells: string[], proofs: string[]) => boolean
 }
