@@ -1,86 +1,80 @@
 {
-  "name": "tevm Dev Container",
-  "build": {
-    "dockerfile": "./Dockerfile",
-    "args": {
-      "VARIANT": "bullseye"
-    }
-  },
-  "features": {
-    "ghcr.io/devcontainers/features/git": {},
-    "ghcr.io/devcontainers/features/rust": {},
-    "ghcr.io/devcontainers/features/github-cli": {},
-    "ghcr.io/devcontainers/features/docker-in-docker": {}
-  },
-  "runArgs": [
-    "--cap-add=SYS_PTRACE",
-    "--security-opt",
-    "seccomp=unconfined"
-  ],
-  "remoteUser": "root",
-  "containerEnv": {
-    "GOERLI_RPC_URL": "",
-    "OPTIMISM_GOERLI_RPC_URL": "",
-    "MAINNET_RPC_URL": "",
-    "OPTIMISM_RPC_URL": "",
-    "DEPLOYER_PRIVATE_KEY": "",
-    "ETHERSCAN_API_KEY": "",
-    "OPTIMISM_ETHERSCAN_API_KEY": ""
-  },
-  "forwardPorts": [
-    8545
-  ],
-  "portsAttributes": {
-    "8545": {
-      "label": "Foundry Anvil",
-      "onAutoForward": "notify"
-    }
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-azuretools.vscode-docker",
-        "ms-vscode-remote.vscode-remote-extensionpack",
-        "ms-vsliveshare.vsliveshare",
-        "biomejs.biome",
-        "JuanBlanco.solidity",
-        // there is no angular in this repo!
-        // but this is useful for running nx commands in vscode
-        "nrwl.angular-console",
-        "antfu.vite",
-        "rust-lang.rust-analyzer",
-        "tamasfe.even-better-toml",
-        "serayuzgur.crates",
-        "vadimcn.vscode-lldb"
-      ],
-      "settings": {
-        "typescript.tsdk": "node_modules/typescript/lib",
-        "editor.formatOnSaveMode": "file",
-        "editor.tabCompletion": "on",
-        "editor.tabSize": 2,
-        "editor.formatOnSave": true,
-        "editor.inlineSuggest.enabled": true,
-        "editor.codeActionsOnSave": {
-          "source.fixAll": "always",
-          "source.organizeImports.biome": "always"
-        },
-        "files.eol": "\n",
-        "[typescript]": {
-          "editor.defaultFormatter": "biomejs.biome"
-        },
-        "editorconfig.generateAuto": false,
-        "files.trimTrailingWhitespace": true,
-        "solidity.packageDefaultDependenciesContractsDirectory": "src",
-        "solidity.packageDefaultDependenciesDirectory": "lib",
-        "solidity.compileUsingRemoteVersion": "v0.8.17",
-        "typescript.tsserver.log": "verbose",
-        "search.exclude": {
-          "lib": true
-        },
-        "files.associations": {
-          ".gas-snapshot": "julia"
-        }
-      }
-    }
-  }
+	"name": "tevm Dev Container",
+	"build": {
+		"dockerfile": "./Dockerfile",
+		"args": {
+			"VARIANT": "bullseye"
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/git": {},
+		"ghcr.io/devcontainers/features/rust": {},
+		"ghcr.io/devcontainers/features/github-cli": {},
+		"ghcr.io/devcontainers/features/docker-in-docker": {}
+	},
+	"runArgs": ["--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"],
+	"remoteUser": "root",
+	"containerEnv": {
+		"GOERLI_RPC_URL": "",
+		"OPTIMISM_GOERLI_RPC_URL": "",
+		"MAINNET_RPC_URL": "",
+		"OPTIMISM_RPC_URL": "",
+		"DEPLOYER_PRIVATE_KEY": "",
+		"ETHERSCAN_API_KEY": "",
+		"OPTIMISM_ETHERSCAN_API_KEY": ""
+	},
+	"forwardPorts": [8545],
+	"portsAttributes": {
+		"8545": {
+			"label": "Foundry Anvil",
+			"onAutoForward": "notify"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"ms-vscode-remote.vscode-remote-extensionpack",
+				"ms-vsliveshare.vsliveshare",
+				"biomejs.biome",
+				"JuanBlanco.solidity",
+				// there is no angular in this repo!
+				// but this is useful for running nx commands in vscode
+				"nrwl.angular-console",
+				"antfu.vite",
+				"rust-lang.rust-analyzer",
+				"tamasfe.even-better-toml",
+				"serayuzgur.crates",
+				"vadimcn.vscode-lldb"
+			],
+			"settings": {
+				"typescript.tsdk": "node_modules/typescript/lib",
+				"editor.formatOnSaveMode": "file",
+				"editor.tabCompletion": "on",
+				"editor.tabSize": 2,
+				"editor.formatOnSave": true,
+				"editor.inlineSuggest.enabled": true,
+				"editor.codeActionsOnSave": {
+					"source.fixAll": "always",
+					"source.organizeImports.biome": "always"
+				},
+				"files.eol": "\n",
+				"[typescript]": {
+					"editor.defaultFormatter": "biomejs.biome"
+				},
+				"editorconfig.generateAuto": false,
+				"files.trimTrailingWhitespace": true,
+				"solidity.packageDefaultDependenciesContractsDirectory": "src",
+				"solidity.packageDefaultDependenciesDirectory": "lib",
+				"solidity.compileUsingRemoteVersion": "v0.8.17",
+				"typescript.tsserver.log": "verbose",
+				"search.exclude": {
+					"lib": true
+				},
+				"files.associations": {
+					".gas-snapshot": "julia"
+				}
+			}
+		}
+	}
 }
