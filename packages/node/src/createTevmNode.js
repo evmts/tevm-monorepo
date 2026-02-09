@@ -450,6 +450,22 @@ export const createTevmNode = (options = {}) => {
 		logger.debug('initializing receipts manager...')
 		return new ReceiptsManager(createMapDb({ cache: new Map() }), vm.blockchain)
 	})
+
+	// Suppress unhandled promise rejections on intermediate promises.
+	// When fork transport fails (e.g., no RPC URLs configured), the rejection propagates
+	// through the entire promise chain. The actual error is surfaced via readyPromise,
+	// but these intermediate promises would otherwise cause unhandled rejection warnings.
+	const noop = () => {}
+	chainIdPromise.catch(noop)
+	blockTagPromise.catch(noop)
+	chainCommonPromise.catch(noop)
+	blockchainPromise.catch(noop)
+	stateManagerPromise.catch(noop)
+	evmPromise.catch(noop)
+	vmPromise.catch(noop)
+	txPoolPromise.catch(noop)
+	receiptManagerPromise.catch(noop)
+
 	/**
 	 * @type {Map<import('viem').Hex, import('./Filter.js').Filter>}
 	 */
