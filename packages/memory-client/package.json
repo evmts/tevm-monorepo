@@ -47,7 +47,7 @@
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/memory-client",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -73,18 +73,17 @@
 		"@tevm/node": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/utils": "workspace:^",
-		"kzg-wasm": "^0.5.0",
-		"vitest": "^3.2.4"
+		"kzg-wasm": "^1.0.0",
+		"vitest": "^4.0.18"
 	},
 	"devDependencies": {
-		"@tevm/test-matchers": "latest",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/tx": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.45.2"
 	},
 	"publishConfig": {
 		"access": "public"

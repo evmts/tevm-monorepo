@@ -47,7 +47,7 @@
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/txpool",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",

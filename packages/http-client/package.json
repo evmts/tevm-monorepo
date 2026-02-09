@@ -47,7 +47,7 @@
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/http-client",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -58,12 +58,12 @@
 		"lint:package": "bunx publint --strict && attw --pack",
 		"package:up": "pnpm up --latest",
 		"test": "vitest --watch",
-		"test:coverage": "vitest --coverage --run",
+		"test:coverage": "vitest --coverage --run --passWithNoTests",
 		"test:run": "vitest run",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@tevm/address": "workspace:1.0.0-next.148",
+		"@tevm/address": "workspace:*",
 		"@tevm/contract": "workspace:^",
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/utils": "workspace:^",
@@ -77,7 +77,7 @@
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.45.2"
 	},
 	"publishConfig": {
 		"access": "public"

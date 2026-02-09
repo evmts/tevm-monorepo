@@ -11,19 +11,19 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.13",
-    "ethers": "^6.15.0",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "tailwindcss": "^4.1.13",
+    "@tailwindcss/vite": "^4.1.18",
+    "ethers": "^6.16.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^4.1.18",
     "tevm": "workspace:^",
-    "viem": "^2.37.9",
-    "vitest": "^3.2.4",
-    "vocs": "1.0.13"
+    "viem": "^2.45.2",
+    "vitest": "^4.0.18",
+    "vocs": "1.4.1"
   },
   "devDependencies": {
-    "@types/react": "^19.1.16",
-    "@types/react-dom": "^19.1.9",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {

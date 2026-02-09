@@ -48,7 +48,7 @@
 		"all": "bun run build && bun run format && bun run lint && bun run test:coverage && bun run generate:docs && bun lint:deps && bun lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/base-bundler ",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -70,9 +70,9 @@
 		"@tevm/solc": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^24.6.1",
-		"effect": "3.18.1",
-		"solc": "0.8.30",
+		"@types/node": "^25.2.2",
+		"effect": "3.19.16",
+		"solc": "0.8.33",
 		"solidity-ast": "^0.4.61"
 	},
 	"publishConfig": {

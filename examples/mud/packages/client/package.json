@@ -1,44 +1,44 @@
 {
-  "name": "client",
-  "version": "0.0.0",
-  "private": true,
-  "license": "MIT",
-  "type": "module",
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite",
-    "preview": "vite preview",
-    "test": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@latticexyz/common": "2.2.21",
-    "@latticexyz/entrykit": "2.2.21",
-    "@latticexyz/explorer": "2.2.21",
-    "@latticexyz/react": "2.2.21",
-    "@latticexyz/schema-type": "2.2.21",
-    "@latticexyz/stash": "2.2.21",
-    "@latticexyz/store-sync": "2.2.21",
-    "@latticexyz/utils": "2.2.21",
-    "@latticexyz/world": "2.2.21",
-    "@tanstack/react-query": "^5.63.0",
-    "contracts": "workspace:*",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-error-boundary": "5.0.0",
-    "tailwind-merge": "^2.6.0",
-    "viem": "2.23.2",
-    "wagmi": "2.12.11"
-  },
-  "devDependencies": {
-    "@types/react": "18.2.22",
-    "@types/react-dom": "18.2.7",
-    "@vitejs/plugin-react": "^4.3.4",
-    "autoprefixer": "^10.4.20",
-    "eslint-plugin-react": "7.31.11",
-    "eslint-plugin-react-hooks": "4.6.0",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.17",
-    "vite": "^6.0.7",
-    "vite-plugin-mud": "2.2.21"
-  }
+	"name": "client",
+	"version": "0.0.0",
+	"private": true,
+	"license": "MIT",
+	"type": "module",
+	"scripts": {
+		"build": "vite build",
+		"dev": "vite",
+		"preview": "vite preview",
+		"test": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@latticexyz/common": "2.2.23",
+		"@latticexyz/entrykit": "2.2.23",
+		"@latticexyz/explorer": "2.2.23",
+		"@latticexyz/react": "2.2.23",
+		"@latticexyz/schema-type": "2.2.23",
+		"@latticexyz/stash": "2.2.23",
+		"@latticexyz/store-sync": "2.2.23",
+		"@latticexyz/utils": "2.2.23",
+		"@latticexyz/world": "2.2.23",
+		"@tanstack/react-query": "^5.90.20",
+		"contracts": "workspace:*",
+		"react": "19.2.4",
+		"react-dom": "19.2.4",
+		"react-error-boundary": "6.1.0",
+		"tailwind-merge": "^3.4.0",
+		"viem": "2.45.2",
+		"wagmi": "3.4.2"
+	},
+	"devDependencies": {
+		"@types/react": "19.2.13",
+		"@types/react-dom": "19.2.3",
+		"@vitejs/plugin-react": "^5.1.3",
+		"autoprefixer": "^10.4.24",
+		"eslint-plugin-react": "7.37.5",
+		"eslint-plugin-react-hooks": "7.0.1",
+		"postcss": "^8.5.6",
+		"tailwindcss": "^4.1.18",
+		"vite": "^7.3.1",
+		"vite-plugin-mud": "2.2.23"
+	}
 }

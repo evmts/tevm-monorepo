@@ -47,7 +47,7 @@
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/errors",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -63,16 +63,16 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/evm": "^10.0.0",
-		"viem": "^2.37.9"
+		"@ethereumjs/evm": "10.1.1",
+		"viem": "^2.45.2"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"vitest": "^3.2.4"
+		"vitest": "^4.0.18"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.45.2"
 	},
 	"publishConfig": {
 		"access": "public"

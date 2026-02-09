@@ -48,7 +48,7 @@
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/ts-plugin ",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"dev": "TSS_DEBUG_BRK=9559 code ../../examples/forge-foundry",
 		"format": "biome format . --write",
@@ -66,10 +66,10 @@
 	"dependencies": {
 		"@tevm/base-bundler": "workspace:^",
 		"@tevm/bundler-cache": "workspace:^",
-		"effect": "3.18.1",
-		"glob": "^11.0.3",
-		"minimatch": "^10.0.3",
-		"solc": "0.8.30",
+		"effect": "3.19.16",
+		"glob": "^13.0.1",
+		"minimatch": "^10.1.2",
+		"solc": "0.8.33",
 		"solidity-ast": "^0.4.61"
 	},
 	"devDependencies": {

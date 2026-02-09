@@ -54,7 +54,7 @@
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun run lint:deps && bun run lint:package",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/test-matchers",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration --skipLibCheck",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration --skipLibCheck",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -75,10 +75,10 @@
 		"@tevm/errors": "workspace:^",
 		"@tevm/node": "workspace:^",
 		"@tevm/utils": "workspace:^",
-		"abitype": "^1.1.1",
-		"ox": "^0.9.8",
-		"viem": "^2.37.9",
-		"vitest": "^3.2.4"
+		"abitype": "^1.2.3",
+		"ox": "^0.12.0",
+		"viem": "^2.45.2",
+		"vitest": "^4.0.18"
 	},
 	"devDependencies": {
 		"@tevm/common": "workspace:^",
@@ -87,7 +87,7 @@
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.45.2"
 	},
 	"publishConfig": {
 		"access": "public"

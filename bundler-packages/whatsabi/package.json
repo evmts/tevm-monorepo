@@ -51,7 +51,7 @@
 		"all": "pnpm i  && bun run build && bun run lint && bun run lint:check && bun run format:check && bun run format && bun run test:coverage && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/whatsabi ",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -61,7 +61,7 @@
 		"lint:deps": "bunx depcheck"
 	},
 	"dependencies": {
-		"@shazow/whatsabi": "^0.23.0",
+		"@shazow/whatsabi": "^0.25.0",
 		"@tevm/config": "workspace:^",
 		"@tevm/utils": "workspace:^"
 	},
@@ -70,7 +70,7 @@
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.45.2"
 	},
 	"publishConfig": {
 		"access": "public"

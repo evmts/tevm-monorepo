@@ -46,7 +46,7 @@
 		"all": "bun run lint && bun run format && bun run build:dist && bun run build:types && bun run test:run && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/node-effect ",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -64,13 +64,13 @@
 		"@tevm/errors-effect": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/state-effect": "workspace:^",
-		"effect": "3.18.1"
+		"effect": "3.19.16"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/utils": "workspace:^",
-		"@types/node": "^24.6.1"
+		"@types/node": "^25.2.2"
 	},
 	"publishConfig": {
 		"access": "public"

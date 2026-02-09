@@ -49,7 +49,7 @@
 		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/actions",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache && rm -rf types",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -83,15 +83,14 @@
 		"@tevm/vm": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/decorators": "latest",
-		"@tevm/test-matchers": "latest",
+		"@tevm/test-matchers": "1.0.0-next.149",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"abitype": "^1.1.1"
+		"abitype": "^1.2.3"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9",
+		"viem": "^2.45.2",
 		"zod": "^4.1.11"
 	},
 	"publishConfig": {

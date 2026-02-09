@@ -49,7 +49,7 @@
 		"all": "bun run build && bun run test:coverage && bun run lint && bun run format && bun run generate:docs && bun lint:package && bun lint:deps",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/contracts ",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -72,10 +72,9 @@
 		"@evmts/core": "1.0.0-next.12",
 		"@evmts/ts-plugin": "1.0.0-next.18",
 		"@evmts/vite-plugin": "1.0.0-next.19",
-		"@tevm/test-matchers": "latest",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"zod": "^4.1.11"
+		"zod": "^4.3.6"
 	},
 	"publishConfig": {
 		"access": "public"

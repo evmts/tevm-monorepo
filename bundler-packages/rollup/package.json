@@ -45,7 +45,7 @@
 	"scripts": {
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/rollup-plugin ",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -65,7 +65,7 @@
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"vitest": "^3.2.4"
+		"vitest": "^4.0.18"
 	},
 	"publishConfig": {
 		"access": "public"

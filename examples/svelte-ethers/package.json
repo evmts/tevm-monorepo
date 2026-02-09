@@ -15,20 +15,20 @@
 	"dependencies": {
 		"@tevm/contract": "workspace:^",
 		"@tevm/ethers": "workspace:^",
-		"ethers": "^6.15.0"
+		"ethers": "^6.16.0"
 	},
 	"devDependencies": {
 		"@openzeppelin/contracts": "^5.4.0",
-		"@sveltejs/adapter-auto": "^6.1.0",
-		"@sveltejs/kit": "^2.43.6",
+		"@sveltejs/adapter-auto": "^7.0.0",
+		"@sveltejs/kit": "^2.50.2",
 		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/vite-plugin": "workspace:^",
-		"solc": "0.8.30",
-		"svelte": "^5.39.7",
-		"svelte-check": "^4.3.2",
+		"solc": "0.8.33",
+		"svelte": "^5.50.0",
+		"svelte-check": "^4.3.6",
 		"typescript": "^5.9.3",
-		"vite": "^7.1.7",
+		"vite": "^7.3.1",
 		"vite-plugin-top-level-await": "^1.6.0",
-		"vitest": "^3.2.4"
+		"vitest": "^4.0.18"
 	}
 }

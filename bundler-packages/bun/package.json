@@ -46,7 +46,7 @@
 		"all": "bun run build && bun run lint && bun run format && bun run generate:docs && bun run test:coverage",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/bun-plugin ",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -65,14 +65,14 @@
 		"@tevm/bundler-cache": "workspace:^",
 		"@tevm/config": "workspace:^",
 		"@tevm/solc": "workspace:^",
-		"effect": "3.18.1",
-		"solc": "0.8.30"
+		"effect": "3.19.16",
+		"solc": "0.8.33"
 	},
 	"devDependencies": {
 		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"bun-types": "^1.2.23"
+		"bun-types": "^1.3.9"
 	},
 	"publishConfig": {
 		"access": "public"

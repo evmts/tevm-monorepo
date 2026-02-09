@@ -32,11 +32,11 @@
 		"@tevm/lsp": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/vscode": "^1.104.0",
-		"@volar/language-server": "~2.4.23",
-		"@volar/vscode": "~2.4.23",
-		"esbuild": "^0.25.10",
-		"vsce": "^2.15.0",
+		"@types/vscode": "^1.109.0",
+		"@vscode/vsce": "^3.7.1",
+		"@volar/language-server": "~2.4.28",
+		"@volar/vscode": "~2.4.28",
+		"esbuild": "^0.27.3",
 		"vscode-languageclient": "^9.0.1"
 	}
 }

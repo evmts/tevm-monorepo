@@ -16,8 +16,8 @@
 	},
 	"dependencies": {
 		"@tevm/contract": "workspace:^",
-		"viem": "^2.37.9",
-		"zod": "^4.1.11"
+		"viem": "^2.45.2",
+		"zod": "^4.3.6"
 	},
 	"devDependencies": {
 		"@nomicfoundation/hardhat-foundry": "^1.2.0",
@@ -27,12 +27,12 @@
 		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/vite-plugin": "workspace:^",
 		"@types/live-server": "^1.2.3",
-		"@types/node": "^24.6.1",
-		"esbuild": "^0.25.10",
+		"@types/node": "^25.2.2",
+		"esbuild": "^0.27.3",
 		"isomorphic-fetch": "^3.0.0",
 		"live-server": "^1.2.2",
-		"solc": "0.8.30",
-		"tsx": "^4.20.6",
+		"solc": "0.8.33",
+		"tsx": "^4.21.0",
 		"typescript": "^5.9.3"
 	}
 }

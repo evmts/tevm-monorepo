@@ -46,7 +46,7 @@
 		"all": "pnpm i  && bun run build && bun run lint && bun run lint:check && bun run format:check && bun run format && bun run test:coverage && bun run generate:docs",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/solc ",
 		"build:dist": "tsup",
-		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"build:types": "tsup --dts-only && rm -rf types && tsc --emitDeclarationOnly --declaration",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
@@ -66,9 +66,9 @@
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"devDependencies": {
-		"abitype": "^1.1.1",
-		"solc": "0.8.30",
-		"vitest": "^3.2.4"
+		"abitype": "^1.2.3",
+		"solc": "0.8.33",
+		"vitest": "^4.0.18"
 	},
 	"publishConfig": {
 		"access": "public"
