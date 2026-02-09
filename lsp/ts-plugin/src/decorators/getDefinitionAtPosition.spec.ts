@@ -136,7 +136,7 @@ describe('getDefinitionServiceDecorator', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance as any)
 
 		// Mock utils functions
 		vi.mocked(findNode).mockReturnValue({
@@ -351,7 +351,7 @@ describe('getDefinitionServiceDecorator', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance as any)
 
 		const definitions = decoratedService.getDefinitionAtPosition('someFile.ts', 42)
 
@@ -375,7 +375,7 @@ describe('getDefinitionServiceDecorator', () => {
 			resolveEsmModuleSync: vi.fn(),
 			resolveDtsSync: vi.fn().mockReturnValue({ asts: null }),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance as any)
 
 		const decoratedService = getDefinitionServiceDecorator(
 			mockLanguageService,
@@ -419,7 +419,7 @@ describe('getDefinitionServiceDecorator', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance as any)
 
 		// Mock findAll to return generator that yields nothing
 		vi.mocked(findAll).mockReturnValue((function* () {})())
@@ -466,7 +466,7 @@ describe('getDefinitionServiceDecorator', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance as any)
 
 		// Mock findAll to return nodes with different names
 		vi.mocked(findAll).mockImplementation((_type) => {
@@ -526,7 +526,7 @@ describe('getDefinitionServiceDecorator', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance as any)
 
 		// Mock findAll to return function definitions
 		vi.mocked(findAll).mockImplementation((type) => {
@@ -578,7 +578,7 @@ describe('getDefinitionServiceDecorator', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance as any)
 
 		// Mock findAll to return event definitions
 		vi.mocked(findAll).mockImplementation((type) => {
@@ -663,7 +663,7 @@ describe('getDefinitionServiceDecorator', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance as any)
 
 		// Setup a mock language service that returns a TS file definition
 		const mockLSWithTSDefs = {
@@ -708,7 +708,7 @@ describe('getDefinitionServiceDecorator', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance as any)
 
 		// Mock findAll for FunctionDefinition
 		vi.mocked(findAll).mockImplementation((type) => {
@@ -755,7 +755,7 @@ describe('getDefinitionServiceDecorator', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance as any)
 
 		// Mock utils functions to match the node text
 		vi.mocked(findNode).mockReturnValue({

@@ -33,7 +33,7 @@ exports[`getBlockFromRpc > should handle a fetch error 1`] = `
   "message": "An unknown RPC error occurred.
 
 Details: fetch error
-Version: viem@2.37.9",
+Version: viem@2.45.2",
 }
 `;
 
@@ -43,7 +43,7 @@ exports[`getBlockFromRpc > should handle a fetch error 2`] = `
   "message": "An unknown RPC error occurred.
 
 Details: fetch error
-Version: viem@2.37.9",
+Version: viem@2.45.2",
 }
 `;
 
@@ -53,7 +53,7 @@ exports[`getBlockFromRpc > should handle a fetch error 3`] = `
   "message": "An unknown RPC error occurred.
 
 Details: fetch error
-Version: viem@2.37.9",
+Version: viem@2.45.2",
 }
 `;
 

@@ -16,7 +16,7 @@ Contract Call:
   args:                ([{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"},{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"},{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"}])
 
 Docs: https://viem.sh/docs/contract/readContract
-Version: viem@2.37.9],
+Version: viem@2.45.2],
     "result": undefined,
     "status": "failure",
   },
@@ -34,7 +34,7 @@ Contract Call:
   args:                ([{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"},{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"},{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"}])
 
 Docs: https://viem.sh/docs/contract/readContract
-Version: viem@2.37.9],
+Version: viem@2.45.2],
     "result": undefined,
     "status": "failure",
   },
@@ -52,7 +52,7 @@ Contract Call:
   args:                ([{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"},{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"},{"allowFailure":true,"callData":"0x6d4ce63c","target":"0x5FbDB2315678afecb367f032d93F642f64180aa3"}])
 
 Docs: https://viem.sh/docs/contract/readContract
-Version: viem@2.37.9],
+Version: viem@2.45.2],
     "result": undefined,
     "status": "failure",
   },

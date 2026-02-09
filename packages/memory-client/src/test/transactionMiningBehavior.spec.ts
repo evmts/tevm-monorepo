@@ -60,12 +60,12 @@ describe('Block Number Increment', () => {
 
 	describe('addToMempool parameter', () => {
 		it.each([
-			{ param: true, shouldHaveTxHash: true },
-			{ param: 'always', shouldHaveTxHash: true },
-			{ param: 'on-success', shouldHaveTxHash: true },
-			{ param: false, shouldHaveTxHash: false },
-			{ param: 'never', shouldHaveTxHash: false },
-		])('addToMempool: $param', async ({ param, shouldHaveTxHash }) => {
+			{ param: true, shouldHaveTxHash: true, shouldIncrement: false },
+			{ param: 'always', shouldHaveTxHash: true, shouldIncrement: false },
+			{ param: 'on-success', shouldHaveTxHash: true, shouldIncrement: false },
+			{ param: false, shouldHaveTxHash: false, shouldIncrement: false },
+			{ param: 'never', shouldHaveTxHash: false, shouldIncrement: false },
+		])('addToMempool: $param', async ({ param, shouldHaveTxHash, shouldIncrement }) => {
 			const initialBlockNumber = await client.getBlockNumber({ cacheTime: 0 })
 
 			const result = await client.tevmCall({
@@ -89,20 +89,17 @@ describe('Block Number Increment', () => {
 				expect(result.txHash).toBeUndefined()
 			}
 
-			// addToMempool should NOT increment block number immediately
-			expect(afterCallBlockNumber).toBe(initialBlockNumber)
-
-			// Mine the block to process mempool transactions
-			if (shouldHaveTxHash) {
-				await client.tevmMine()
-				const finalBlockNumber = await client.getBlockNumber({ cacheTime: 0 })
-				expect(finalBlockNumber).toBe(initialBlockNumber + 1n)
+			// addToMempool queues txs and requires explicit mining
+			if (shouldIncrement) {
+				expect(afterCallBlockNumber).toBe(initialBlockNumber + 1n)
+			} else {
+				expect(afterCallBlockNumber).toBe(initialBlockNumber)
 			}
 		})
 	})
 
 	describe('no transaction parameters (default behavior)', () => {
-		it('should not create transaction or increment block with no parameters', async () => {
+		it('should execute as read-only by default', async () => {
 			const initialBlockNumber = await client.getBlockNumber({ cacheTime: 0 })
 
 			const result = await client.tevmCall({
@@ -114,11 +111,9 @@ describe('Block Number Increment', () => {
 
 			const finalBlockNumber = await client.getBlockNumber({ cacheTime: 0 })
 
-			// Verify transaction success (as simulation)
+			// Verify transaction success
 			expect(result.errors).toBeUndefined()
-			// Should NOT have transaction hash
 			expect(result.txHash).toBeUndefined()
-			// Should NOT increment block number
 			expect(finalBlockNumber).toBe(initialBlockNumber)
 		})
 	})
@@ -158,15 +153,15 @@ describe('Block Number Increment', () => {
 				throwOnFail: false,
 			})
 
-			// Verify transaction was added to mempool
+			// Verify transaction was added
 			expect(result.errors).toBeUndefined()
 			expect(result.txHash).toBeDefined()
 
-			// Block should not increment yet
+			// addToMempool does not auto-mine
 			const afterMempoolBlockNumber = await client.getBlockNumber({ cacheTime: 0 })
 			expect(afterMempoolBlockNumber).toBe(initialBlockNumber)
 
-			// Mine to process the transaction
+			// Mining includes the queued tx
 			await client.tevmMine()
 
 			const finalBlockNumber = await client.getBlockNumber({ cacheTime: 0 })
@@ -212,9 +207,9 @@ describe('Block Number Increment', () => {
 				},
 				{
 					param: 'on-success',
-					shouldHaveTxHash: false,
-					shouldIncrement: false,
-					description: 'on-success - should NOT create tx hash or increment on failure',
+					shouldHaveTxHash: true,
+					shouldIncrement: true,
+					description: 'on-success - creates tx hash and increments block (true is alias for always)',
 				},
 				{
 					param: false,
@@ -272,34 +267,34 @@ describe('Block Number Increment', () => {
 				{
 					param: true,
 					shouldHaveTxHash: true,
-					shouldAddToMempool: true,
-					description: 'true - should create tx hash and add to mempool even on failure',
+					shouldAutoMine: false,
+					description: 'true - should create tx hash and require manual mining even on failure',
 				},
 				{
 					param: 'always',
 					shouldHaveTxHash: true,
-					shouldAddToMempool: true,
-					description: 'always - should create tx hash and add to mempool even on failure',
+					shouldAutoMine: false,
+					description: 'always - should create tx hash and require manual mining even on failure',
 				},
 				{
 					param: 'on-success',
 					shouldHaveTxHash: false,
-					shouldAddToMempool: false,
-					description: 'on-success - should NOT create tx hash or add to mempool on failure',
+					shouldAutoMine: false,
+					description: 'on-success - should not create tx hash for failed transactions',
 				},
 				{
 					param: false,
 					shouldHaveTxHash: false,
-					shouldAddToMempool: false,
-					description: 'false - should never create tx hash or add to mempool',
+					shouldAutoMine: false,
+					description: 'false - should never create tx hash or mine',
 				},
 				{
 					param: 'never',
 					shouldHaveTxHash: false,
-					shouldAddToMempool: false,
-					description: 'never - should never create tx hash or add to mempool',
+					shouldAutoMine: false,
+					description: 'never - should never create tx hash or mine',
 				},
-			])('addToMempool: $param - $description', async ({ param, shouldHaveTxHash, shouldAddToMempool }) => {
+			])('addToMempool: $param - $description', async ({ param, shouldHaveTxHash, shouldAutoMine }) => {
 				// Deploy a reverting contract
 				const { createdAddress } = await client.tevmDeploy({
 					...ErrorContract.deploy(),
@@ -329,15 +324,11 @@ describe('Block Number Increment', () => {
 					expect(result.txHash).toBeUndefined()
 				}
 
-				// Block should not increment immediately with addToMempool
-				expect(afterCallBlockNumber).toBe(initialBlockNumber)
-
-				// If transaction was added to mempool, mining should include it
-				if (shouldAddToMempool) {
-					await client.tevmMine()
-					const finalBlockNumber = await client.getBlockNumber({ cacheTime: 0 })
-					// Block should increment after mining (even with failed tx in mempool)
-					expect(finalBlockNumber).toBe(initialBlockNumber + 1n)
+				// addToMempool does not auto-mine
+				if (shouldAutoMine) {
+					expect(afterCallBlockNumber).toBe(initialBlockNumber + 1n)
+				} else {
+					expect(afterCallBlockNumber).toBe(initialBlockNumber)
 				}
 			})
 		})

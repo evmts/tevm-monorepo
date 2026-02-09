@@ -22,10 +22,10 @@ describe(createCommon.name, () => {
 		expect(common.ethjsCommon.isActivatedEIP(2929)).toEqual(true)
 	})
 
-	it('activates EIP 6800 when specified', () => {
-		const customEIPs = [6800]
+	it('activates EIP 7709 when specified', () => {
+		const customEIPs = [7709]
 		const common = createCommon({ ...optimism, hardfork: 'prague', eips: customEIPs, loggingLevel: 'warn' })
-		expect(common.ethjsCommon.isActivatedEIP(6800)).toEqual(true)
+		expect(common.ethjsCommon.isActivatedEIP(7709)).toEqual(true)
 	})
 
 	it('creates a copy of the common instance', () => {

@@ -1,168 +1,108 @@
 import { createAddress } from '@tevm/address'
 import { mainnet } from '@tevm/common'
-import { createTevmNode, type TevmNode } from '@tevm/node'
-import { transports } from '@tevm/test-utils'
-import { type Hex, PREFUNDED_ACCOUNTS } from '@tevm/utils'
-import { custom, numberToHex, parseEther } from 'viem'
+import { createTevmNode } from '@tevm/node'
+import { bytesToHex, type Hex, numberToHex } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
-import { callHandler } from '../Call/callHandler.js'
 import type { BlockTag } from '../common/BlockTag.js'
 import { mineHandler } from '../Mine/mineHandler.js'
-import { requestProcedure } from '../requestProcedure.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { ethGetTransactionCountProcedure } from './ethGetTransactionCountProcedure.js'
 
-const node = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
-const address = '0xb5d85CBf7cB3EE0D56b3bB207D5Fc4B82f43F511' as const
+const address = createAddress('0xb5d85CBf7cB3EE0D56b3bB207D5Fc4B82f43F511').toString() as `0x${string}`
+
+const setupNodeWithNonce = async (nonce: bigint) => {
+	const node = createTevmNode()
+	await setAccountHandler(node)({ address, nonce })
+	await mineHandler(node)({ blockCount: 1 })
+	return node
+}
 
 describe(ethGetTransactionCountProcedure.name, () => {
-	it.skip('should work', async () => {
-		const forkedNode = createTevmNode()
-		const request: any = async (request: any) => {
-			const response = await requestProcedure(forkedNode)(request)
-			console.log(request, response)
-			if (request.error) throw request.error
-			return response.result
-		}
-		const node = createTevmNode({
-			fork: {
-				transport: custom({ request }),
-			},
-		})
-		expect(
-			await ethGetTransactionCountProcedure(node)({
-				jsonrpc: '2.0',
-				id: 1,
-				method: 'eth_getTransactionCount',
-				params: [address, 'latest'],
-			}),
-		).toMatchInlineSnapshot()
-
-		await callHandler(node)({
-			from: PREFUNDED_ACCOUNTS[2].address,
-			to: PREFUNDED_ACCOUNTS[3].address,
-			value: parseEther('1'),
-			createTransaction: true,
-		})
-		await mineHandler(node)()
-		expect(
-			await ethGetTransactionCountProcedure(node)({
-				jsonrpc: '2.0',
-				id: 1,
-				method: 'eth_getTransactionCount',
-				params: [address, 'latest'],
-			}),
-		).toMatchInlineSnapshot()
-	})
-
 	it('should work with past block tags', async () => {
+		const node = await setupNodeWithNonce(7n)
+		const vm = await node.getVm()
+		const latest = vm.blockchain.blocksByTag.get('latest')
+		if (!latest) throw new Error('Latest block not found')
+
 		expect(
 			await ethGetTransactionCountProcedure(node)({
 				jsonrpc: '2.0',
 				id: 1,
 				method: 'eth_getTransactionCount',
-				params: [address, numberToHex(23483670n)],
+				params: [address, numberToHex(latest.header.number)],
 			}),
-		).toMatchInlineSnapshot(`
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "method": "eth_getTransactionCount",
-  "result": "0xb74811",
-}
-`)
+		).toMatchObject({
+			id: 1,
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionCount',
+			result: '0x7',
+		})
 	})
 
 	it('should work with block hash', async () => {
+		const node = await setupNodeWithNonce(5n)
+		const vm = await node.getVm()
+		const latest = vm.blockchain.blocksByTag.get('latest')
+		if (!latest) throw new Error('Latest block not found')
+
 		const result = await ethGetTransactionCountProcedure(node)({
 			jsonrpc: '2.0',
 			id: 1,
 			method: 'eth_getTransactionCount',
-			params: [address, '0xa72e1a56125701149dc4d3c9b4d3d096dd8367bc93fdbffb737e3f37b0e275c6'],
+			params: [address, bytesToHex(latest.hash())],
 		})
 
 		expect(result).toMatchObject({
 			id: 1,
 			jsonrpc: '2.0',
 			method: 'eth_getTransactionCount',
-			result: expect.any(String),
+			result: '0x5',
 		})
 	})
 
 	it('should work with other valid tags', async () => {
-		// Setup the blockchain to have the correct block tags
+		const node = await setupNodeWithNonce(3n)
 		const vm = await node.getVm()
-		const latestBlock = await vm.blockchain.getBlock(21996939n)
+		const latest = vm.blockchain.blocksByTag.get('latest')
+		if (!latest) throw new Error('Latest block not found')
 
-		// Mock the blocksByTag map
 		const originalGet = vm.blockchain.blocksByTag.get
 		vm.blockchain.blocksByTag.get = vi.fn((tag) => {
-			// For test purposes, return the latest block for all tags
-			if (['earliest', 'safe', 'finalized', 'latest'].includes(tag)) {
-				return latestBlock
+			if (['earliest', 'safe', 'finalized', 'latest'].includes(tag as string)) {
+				return latest
 			}
-			// Fall back to original implementation for unknown tags
-			return originalGet.call(vm.blockchain.blocksByTag, tag)
+			return originalGet.call(vm.blockchain.blocksByTag, tag as any)
 		})
 
 		try {
-			// Test 'earliest' tag
-			const earliestResult = await ethGetTransactionCountProcedure(node)({
-				jsonrpc: '2.0',
-				id: 1,
-				method: 'eth_getTransactionCount',
-				params: [address, 'earliest'],
-			})
+			for (const tag of ['earliest', 'safe', 'finalized'] as const) {
+				const result = await ethGetTransactionCountProcedure(node)({
+					jsonrpc: '2.0',
+					id: 1,
+					method: 'eth_getTransactionCount',
+					params: [address, tag],
+				})
 
-			expect(earliestResult).toMatchObject({
-				id: 1,
-				jsonrpc: '2.0',
-				method: 'eth_getTransactionCount',
-				result: expect.any(String),
-			})
-
-			// Test 'safe' tag
-			const safeResult = await ethGetTransactionCountProcedure(node)({
-				jsonrpc: '2.0',
-				id: 1,
-				method: 'eth_getTransactionCount',
-				params: [address, 'safe'],
-			})
-
-			expect(safeResult).toMatchObject({
-				id: 1,
-				jsonrpc: '2.0',
-				method: 'eth_getTransactionCount',
-				result: expect.any(String),
-			})
-
-			// Test 'finalized' tag
-			const finalizedResult = await ethGetTransactionCountProcedure(node)({
-				jsonrpc: '2.0',
-				id: 1,
-				method: 'eth_getTransactionCount',
-				params: [address, 'finalized'],
-			})
-
-			expect(finalizedResult).toMatchObject({
-				id: 1,
-				jsonrpc: '2.0',
-				method: 'eth_getTransactionCount',
-				result: expect.any(String),
-			})
+				expect(result).toMatchObject({
+					id: 1,
+					jsonrpc: '2.0',
+					method: 'eth_getTransactionCount',
+					result: '0x3',
+				})
+			}
 		} finally {
-			// Restore original method
 			vm.blockchain.blocksByTag.get = originalGet
 		}
 	})
 
 	it('should handle invalid block tag', async () => {
+		const node = await setupNodeWithNonce(1n)
+
 		expect(
 			await ethGetTransactionCountProcedure(node)({
 				jsonrpc: '2.0',
 				id: 1,
 				method: 'eth_getTransactionCount',
-				// Fix for TS2322: Use type assertion for the test
 				params: [address, 'invalid_tag' as BlockTag | Hex],
 			}),
 		).toMatchObject({
@@ -177,57 +117,21 @@ describe(ethGetTransactionCountProcedure.name, () => {
 	})
 
 	it('should handle fork fallback when state root not found', async () => {
-		// Create a node with a mock fork transport
 		const mockTransport = {
-			request: vi.fn().mockResolvedValue('0x1234'),
+			request: vi.fn(async ({ method }: { method: string }) => {
+				if (method === 'eth_chainId') return '0x1'
+				if (method === 'eth_getTransactionCount') return '0x1234'
+				return '0x0'
+			}),
 		}
 
 		const node = createTevmNode({
+			common: mainnet,
 			fork: {
 				transport: mockTransport,
 			},
 		})
 
-		// Mock the stateManager to simulate missing state root
-		const vm = await node.getVm()
-		const originalHasStateRoot = vm.stateManager.hasStateRoot
-		vm.stateManager.hasStateRoot = vi.fn().mockResolvedValue(false)
-
-		const result = await ethGetTransactionCountProcedure(node)({
-			jsonrpc: '2.0',
-			id: 1,
-			method: 'eth_getTransactionCount',
-			params: [address, 'latest'],
-		})
-
-		// Restore original method
-		vm.stateManager.hasStateRoot = originalHasStateRoot
-
-		// Verify the fork transport was called
-		expect(mockTransport.request).toHaveBeenCalled()
-		expect(result).toMatchObject({
-			id: 1,
-			jsonrpc: '2.0',
-			method: 'eth_getTransactionCount',
-			result: expect.any(String),
-		})
-	})
-
-	it.skip('should handle fork request errors', async () => {
-		// This test is skipped because it has issues with the RPC provider
-		// Create a node with a mock fork transport that throws
-		const mockError = new Error('Fork error')
-		const mockTransport = {
-			request: vi.fn().mockRejectedValue(mockError),
-		}
-
-		const node = createTevmNode({
-			fork: {
-				transport: mockTransport,
-			},
-		})
-
-		// Mock the stateManager to simulate missing state root
 		const vm = await node.getVm()
 		const originalHasStateRoot = vm.stateManager.hasStateRoot
 		vm.stateManager.hasStateRoot = vi.fn().mockResolvedValue(false)
@@ -240,111 +144,48 @@ describe(ethGetTransactionCountProcedure.name, () => {
 				params: [address, 'latest'],
 			})
 
-			// Verify the error response
+			expect(mockTransport.request).toHaveBeenCalled()
 			expect(result).toMatchObject({
 				id: 1,
 				jsonrpc: '2.0',
 				method: 'eth_getTransactionCount',
-				error: {
-					message: expect.stringContaining('Unable to resolve eth_getTransactionCount with fork'),
-				},
+				result: '0x1234',
 			})
 		} finally {
-			// Restore original method
 			vm.stateManager.hasStateRoot = originalHasStateRoot
 		}
 	})
 
 	it('should handle case when no state root is found and no fork is available', async () => {
-		// Create a node without fork
 		const node = createTevmNode()
-
-		// Mock the stateManager to simulate missing state root
 		const vm = await node.getVm()
 		const originalHasStateRoot = vm.stateManager.hasStateRoot
 		vm.stateManager.hasStateRoot = vi.fn().mockResolvedValue(false)
 
-		const result = await ethGetTransactionCountProcedure(node)({
-			jsonrpc: '2.0',
-			id: 1,
-			method: 'eth_getTransactionCount',
-			params: [address, 'latest'],
-		})
+		try {
+			const result = await ethGetTransactionCountProcedure(node)({
+				jsonrpc: '2.0',
+				id: 1,
+				method: 'eth_getTransactionCount',
+				params: [address, 'latest'],
+			})
 
-		// Restore original method
-		vm.stateManager.hasStateRoot = originalHasStateRoot
-
-		// Verify the error response
-		expect(result).toMatchObject({
-			id: 1,
-			jsonrpc: '2.0',
-			method: 'eth_getTransactionCount',
-			error: {
-				message: expect.stringContaining('No state root found for block tag latest'),
-			},
-		})
-	})
-
-	it.skip('should work with pending tx', async () => {
-		// This test is skipped because it relies on specific transaction count values that
-		// may not be consistent across test runs
-		const forkedNode = createTevmNode()
-		const request = requestProcedure(forkedNode)
-		const node = createTevmNode({
-			fork: {
-				transport: custom({ request }),
-			},
-		})
-		await setAccountHandler(node)({
-			address,
-			balance: parseEther('25'),
-		})
-		await callHandler(node)({
-			from: address,
-			to: createAddress(500).toString(),
-			value: parseEther('0.1'),
-			createTransaction: true,
-		})
-
-		// Get current transaction count
-		const latestResponse = await ethGetTransactionCountProcedure(node)({
-			jsonrpc: '2.0',
-			id: 1,
-			method: 'eth_getTransactionCount',
-			params: [address, 'latest'],
-		})
-
-		expect(latestResponse).toMatchObject({
-			id: 1,
-			jsonrpc: '2.0',
-			method: 'eth_getTransactionCount',
-			result: expect.any(String),
-		})
-
-		// Pending should be one more than latest
-		const pendingResponse = await ethGetTransactionCountProcedure(node)({
-			jsonrpc: '2.0',
-			id: 1,
-			method: 'eth_getTransactionCount',
-			params: [address, 'pending'],
-		})
-
-		expect(pendingResponse).toMatchObject({
-			id: 1,
-			jsonrpc: '2.0',
-			method: 'eth_getTransactionCount',
-			result: expect.any(String),
-		})
-
-		// Check that pending count is exactly one more than latest
-		if (latestResponse.result && pendingResponse.result) {
-			const latestCount = BigInt(latestResponse.result)
-			const pendingCount = BigInt(pendingResponse.result)
-			expect(pendingCount).toBe(latestCount + 1n)
+			expect(result).toMatchObject({
+				id: 1,
+				jsonrpc: '2.0',
+				method: 'eth_getTransactionCount',
+				error: {
+					message: expect.stringContaining('No state root found for block tag latest'),
+				},
+			})
+		} finally {
+			vm.stateManager.hasStateRoot = originalHasStateRoot
 		}
 	})
 
 	it('should handle requests without id', async () => {
+		const node = await setupNodeWithNonce(2n)
+
 		expect(
 			await ethGetTransactionCountProcedure(node)({
 				jsonrpc: '2.0',
@@ -354,7 +195,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		).toMatchObject({
 			jsonrpc: '2.0',
 			method: 'eth_getTransactionCount',
-			result: expect.any(String),
+			result: '0x2',
 		})
 	})
 })

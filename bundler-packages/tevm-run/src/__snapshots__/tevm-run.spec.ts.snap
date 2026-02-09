@@ -1,9 +1,0 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`should run a cli 1`] = `
-"[tevm-run] bun run --bun --config=/bunfig.toml --install=fallback ./example/example.ts 
-success
-address:  0x5FbDB2315678afecb367f032d93F642f64180aa3
-SimpleContract.get():  20n
-"
-`;

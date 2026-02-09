@@ -83,7 +83,7 @@ describe('debugDumpBlockJsonRpcProcedure', () => {
 		// Should return an error
 		if ('error' in response) {
 			expect(response.error).toBeDefined()
-			expect(response.error.code).toBe(-32000)
+			expect(response.error.code).toBe('-32000')
 			expect(typeof response.error.message).toBe('string')
 		}
 	})

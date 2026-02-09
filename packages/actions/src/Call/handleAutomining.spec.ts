@@ -187,20 +187,13 @@ describe('handleAutomining', () => {
 		const txHash = '0x123456789abcdef'
 		const result = await handleAutomining(client, txHash, true)
 
-		// Should log the gas mining process
-		expect(debugSpy).toHaveBeenCalledWith(`Gas mining transaction ${txHash}...`)
+		// Should log the automining process
+		expect(debugSpy).toHaveBeenCalledWith(`Automining transaction ${txHash}...`)
 		expect(debugSpy).toHaveBeenCalledWith(
 			expect.objectContaining({
 				blockHashes: ['0xabc123'],
 			}),
 			'Transaction successfully mined',
-		)
-
-		// Should log gas mining mode with limit
-		// Since we know client.miningConfig.type === 'gas', we can safely access client.miningConfig.limit
-		// TypeScript doesn't understand the discriminated union here, so we need to assert
-		expect(debugSpy).toHaveBeenCalledWith(
-			`Gas mining mode with limit ${(client.miningConfig as { type: 'gas'; limit: BigInt }).limit}`,
 		)
 
 		// Should call mineHandler with throwOnFail: false and blockCount: 1
@@ -243,11 +236,8 @@ describe('handleAutomining', () => {
 		const txHash = '0x123456789abcdef'
 		const result = await handleAutomining(client, txHash, true)
 
-		// Should still log gas mining (based on isGasMining flag)
-		expect(debugSpy).toHaveBeenCalledWith(`Gas mining transaction ${txHash}...`)
-
-		// Should not log gas limit (since it's not gas mining type)
-		expect(debugSpy).not.toHaveBeenCalledWith(expect.stringContaining('Gas mining mode with limit'))
+		// Should still log automining (based on isGasMining flag)
+		expect(debugSpy).toHaveBeenCalledWith(`Automining transaction ${txHash}...`)
 
 		// Should still call mineHandler (based on isGasMining flag)
 		expect(mineHandlerMock).toHaveBeenCalledWith(client)

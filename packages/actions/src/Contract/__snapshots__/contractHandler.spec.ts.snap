@@ -12,7 +12,7 @@ Contract Call:
   args:                  (0x1111111111111111111111111111111111111111, 0x2222222222222222222222222222222222222222, 1000)
 
 Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-Version: viem@2.37.9
+Version: viem@2.45.2
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: The contract function "transferFrom" reverted.
@@ -26,7 +26,7 @@ Contract Call:
   args:                  (0x1111111111111111111111111111111111111111, 0x2222222222222222222222222222222222222222, 1000)
 
 Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-Version: viem@2.37.9
+Version: viem@2.45.2
 Version: 1.1.0.next-73]
 `;
 
@@ -63,7 +63,7 @@ Contract Call:
   args:                  (0x2323232323232323232323232323232323232323, 0x2323232323232323232323232323232323232323, 1)
 
 Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-Version: viem@2.37.9
+Version: viem@2.45.2
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: The contract function "transferFrom" reverted.
@@ -77,7 +77,7 @@ Contract Call:
   args:                  (0x2323232323232323232323232323232323232323, 0x2323232323232323232323232323232323232323, 1)
 
 Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-Version: viem@2.37.9
+Version: viem@2.45.2
 Version: 1.1.0.next-73],
 ]
 `;
@@ -88,14 +88,14 @@ exports[`contractHandler > should handle invalid function encoding 1`] = `
 Make sure you are using the correct ABI and that the function exists on it.
 
 Docs: https://viem.sh/docs/contract/encodeFunctionData
-Version: viem@2.37.9
+Version: viem@2.45.2
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
 Details: Function "nonExistentFunction" not found on ABI.
 Make sure you are using the correct ABI and that the function exists on it.
 
 Docs: https://viem.sh/docs/contract/encodeFunctionData
-Version: viem@2.37.9
+Version: viem@2.45.2
 Version: 1.1.0.next-73],
 ]
 `;
@@ -140,7 +140,7 @@ Contract Call:
   args:                  (0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000, 1)
 
 Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-Version: viem@2.37.9
+Version: viem@2.45.2
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/
 Details: The contract function "transferFrom" reverted.
@@ -154,7 +154,7 @@ Contract Call:
   args:                  (0x0000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000, 1)
 
 Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
-Version: viem@2.37.9
+Version: viem@2.45.2
 Version: 1.1.0.next-73],
 ]
 `;

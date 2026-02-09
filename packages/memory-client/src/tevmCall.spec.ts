@@ -38,6 +38,11 @@ describe('tevmCall', () => {
 
 	it('should execute a call with a specific from address', async () => {
 		const fromAddress = '0x0000000000000000000000000000000000000001'
+		// Set up the from account with some balance since auto-mining creates transactions
+		await tevmSetAccount(client, {
+			address: fromAddress,
+			balance: 1000000000000000000n,
+		})
 		const result = await tevmCall(client, {
 			to: '0x0000000000000000000000000000000000000000',
 			data: '0x',

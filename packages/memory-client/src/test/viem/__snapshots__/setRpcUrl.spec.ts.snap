@@ -1,11 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`setRpcUrl > should throw an error 1`] = `
-[MethodNotFoundRpcError: The method "anvil_setRpcUrl" does not exist / is not available.
+[UnknownRpcError: An unknown RPC error occurred.
 
-Details: UnsupportedMethodError: Unknown method anvil_setRpcUrl
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
-Version: 1.1.0.next-73
-Version: viem@2.37.9]
+Details: Cannot set RPC URL on a non-forked node. Create the node with fork configuration.
+Version: viem@2.45.2]
 `;

@@ -2,7 +2,7 @@ import { createAddress } from '@tevm/address'
 import { Block } from '@tevm/block'
 import { mainnet } from '@tevm/common'
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { transports } from '@tevm/test-utils'
+import { createCachedMainnetTransport } from '@tevm/test-utils'
 import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
@@ -63,42 +63,42 @@ describe('anvilResetJsonRpcProcedure', () => {
 		})
 	})
 
-	it('should reset a forked blockchain', async () => {
-		const client = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
-		// Skip this test due to external RPC dependency issues
-		try {
-			await client.ready()
-			const forkedBlock = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
-			const resetProcedure = anvilResetJsonRpcProcedure(client)
+	it('should reset a forked blockchain', { timeout: 20_000 }, async () => {
+		const cachedTransport = createCachedMainnetTransport()
+		const client = createTevmNode({
+			common: mainnet,
+			fork: {
+				transport: cachedTransport,
+				blockTag: 23531308n,
+			},
+		}) as unknown as TevmNode
+		await client.ready()
+		const forkedBlock = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+		const resetProcedure = anvilResetJsonRpcProcedure(client)
 
-			await mineHandler(client)()
+		await mineHandler(client)()
 
-			const request = {
-				method: 'anvil_reset',
-				params: [],
-				jsonrpc: '2.0',
-				id: 1,
-			} as const
+		const request = {
+			method: 'anvil_reset',
+			params: [],
+			jsonrpc: '2.0',
+			id: 1,
+		} as const
 
-			const result = await resetProcedure(request)
+		const result = await resetProcedure(request)
 
-			expect(result).toEqual({
-				result: null,
-				method: 'anvil_reset',
-				jsonrpc: '2.0',
-				id: 1,
-			})
+		expect(result).toEqual({
+			result: null,
+			method: 'anvil_reset',
+			jsonrpc: '2.0',
+			id: 1,
+		})
 
-			expect(
-				await client
-					.getVm()
-					.then((vm) => vm.blockchain.getCanonicalHeadBlock())
-					.then((block) => block.header.hash),
-			).toEqual(forkedBlock.header.hash)
-		} catch (_error) {
-			// Expected to potentially fail due to RPC connection issues
-			console.log('Skipped forked blockchain reset test due to external dependency issues')
-			return
-		}
+		expect(
+			await client
+				.getVm()
+				.then((vm) => vm.blockchain.getCanonicalHeadBlock())
+				.then((block) => block.header.hash),
+		).toEqual(forkedBlock.header.hash)
 	})
 })

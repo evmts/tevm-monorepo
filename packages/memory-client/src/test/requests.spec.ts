@@ -225,7 +225,16 @@ describe('Tevm.request', async () => {
 			address: '0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c',
 			throwOnFail: false,
 		})
-		expect(forkedAccount).toEqual(nonForkedAccount)
+		const expectedShape = {
+			address: '0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c',
+			balance: 0n,
+			nonce: 0n,
+			deployedBytecode: '0x',
+			isContract: false,
+			isEmpty: true,
+		}
+		expect(forkedAccount).toMatchObject(expectedShape)
+		expect(nonForkedAccount).toMatchObject(expectedShape)
 	})
 
 	it('should execute eth_createAccessList request', async () => {

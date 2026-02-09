@@ -135,7 +135,7 @@ describe('getDefinitionServiceDecorator - additional tests', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance as any)
 
 		// Setup default findNode mock
 		vi.mocked(findNode).mockReturnValue({
@@ -175,7 +175,7 @@ describe('getDefinitionServiceDecorator - additional tests', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance as any)
 
 		// Mock findAll to return both function and event definitions
 		vi.mocked(findAll).mockImplementation((type) => {
@@ -260,7 +260,7 @@ describe('getDefinitionServiceDecorator - additional tests', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(mockBundlerInstance as any)
 
 		// Mock findAll to return functions/events
 		vi.mocked(findAll).mockImplementation((type) => {

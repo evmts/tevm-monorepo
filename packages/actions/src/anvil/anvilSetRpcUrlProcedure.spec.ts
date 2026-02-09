@@ -1,3 +1,4 @@
+import { mainnet } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
 import { describe, expect, it } from 'vitest'
 import { anvilSetRpcUrlJsonRpcProcedure } from './anvilSetRpcUrlProcedure.js'
@@ -18,7 +19,7 @@ describe('anvilSetRpcUrlJsonRpcProcedure', () => {
 			jsonrpc: '2.0',
 			method: 'anvil_setRpcUrl',
 			error: {
-				code: -32602,
+				code: '-32602',
 				message: 'Cannot set RPC URL on a non-forked node. Create the node with fork configuration.',
 			},
 			id: 1,
@@ -31,12 +32,14 @@ describe('anvilSetRpcUrlJsonRpcProcedure', () => {
 
 		const mockTransport = {
 			url: originalUrl,
-			request: async () => {
-				throw new Error('Mock transport')
+			request: async ({ method }: { method: string }) => {
+				if (method === 'eth_chainId') return '0x1'
+				return '0x0'
 			},
 		}
 
 		const node = createTevmNode({
+			common: mainnet,
 			fork: {
 				transport: mockTransport,
 			},
@@ -66,12 +69,14 @@ describe('anvilSetRpcUrlJsonRpcProcedure', () => {
 
 		const mockTransport = {
 			url: originalUrl,
-			request: async () => {
-				throw new Error('Mock transport')
+			request: async ({ method }: { method: string }) => {
+				if (method === 'eth_chainId') return '0x1'
+				return '0x0'
 			},
 		}
 
 		const node = createTevmNode({
+			common: mainnet,
 			fork: {
 				transport: mockTransport,
 			},
@@ -93,10 +98,12 @@ describe('anvilSetRpcUrlJsonRpcProcedure', () => {
 
 	it('should handle forked node with readonly transport', async () => {
 		const node = createTevmNode({
+			common: mainnet,
 			fork: {
 				transport: {
-					request: async () => {
-						throw new Error('Mock transport')
+					request: async ({ method }: { method: string }) => {
+						if (method === 'eth_chainId') return '0x1'
+						return '0x0'
 					},
 					// No url property
 				},

@@ -89,7 +89,7 @@ describe('write', () => {
 			args: ['test', BigInt(123)],
 		})
 		expect((write as any).deployedBytecode).toBeUndefined()
-		expect((write as any).code).toEqualHex('0x69')
+		expect((write as any).code).toEqual('0x69')
 	})
 	it('should work for overloaded function', () => {
 		const writeInfo1Arg = contract.write.overloadedWrite('data')

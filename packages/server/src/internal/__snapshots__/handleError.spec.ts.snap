@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`handleError > should handle error with JSON-RPC request id 1`] = `
-[MockFunction spy] {
+[MockFunction] {
   "calls": [
     [
       "{"id":1,"method":"testMethod","jsonrpc":"2.0","error":{"code":-32600,"message":"Invalid request\\n\\nDocs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/\\nVersion: 1.1.0.next-73"}}",
@@ -17,7 +17,7 @@ exports[`handleError > should handle error with JSON-RPC request id 1`] = `
 `;
 
 exports[`handleError > should handle error with default method when JSON-RPC request is not provided 1`] = `
-[MockFunction spy] {
+[MockFunction] {
   "calls": [
     [
       "{"method":"unknown","jsonrpc":"2.0","error":{"code":-32600,"message":"Invalid request\\n\\nDocs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/\\nVersion: 1.1.0.next-73"}}",
@@ -33,7 +33,7 @@ exports[`handleError > should handle error with default method when JSON-RPC req
 `;
 
 exports[`handleError > should handle error without JSON-RPC request id 1`] = `
-[MockFunction spy] {
+[MockFunction] {
   "calls": [
     [
       "{"method":"testMethod","jsonrpc":"2.0","error":{"code":-32600,"message":"Invalid request\\n\\nDocs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/\\nVersion: 1.1.0.next-73"}}",

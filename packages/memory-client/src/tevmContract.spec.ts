@@ -57,6 +57,11 @@ describe('tevmContract', () => {
 
 	it('should handle contract call with custom sender', async () => {
 		const senderAddress = '0x0000000000000000000000000000000000000001'
+		// Set up the sender account with some balance since auto-mining creates transactions
+		await client.tevmSetAccount({
+			address: senderAddress,
+			balance: 1000000000000000000n,
+		})
 		const result = await tevmContract(client, {
 			...contract.write.set(42n),
 			from: senderAddress,

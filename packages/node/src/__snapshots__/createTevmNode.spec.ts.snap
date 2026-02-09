@@ -34,5 +34,3 @@ exports[`createTevmNode > Creates a base client 1`] = `
   },
 }
 `;
-
-exports[`createTevmNode with State Persister > Restores state correctly from persister 1`] = `Map {}`;

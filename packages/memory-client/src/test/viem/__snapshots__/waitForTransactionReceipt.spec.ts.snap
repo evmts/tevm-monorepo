@@ -28,6 +28,7 @@ exports[`waitForTransactionReceipt > waitForTransactionReceipt hould work 2`] = 
     "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
     "blockHash": "redacted",
     "blockNumber": 2n,
+    "blockTimestamp": undefined,
     "data": "0x0000000000000000000000000000000000000000000000000000000000000045",
     "logIndex": 0,
     "removed": false,

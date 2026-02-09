@@ -1,5 +1,0 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`createHttpClient implements a tevm client tevm.setAccount and tevm.getAccount 1`] = `{}`;
-
-exports[`createHttpClient implements a tevm client can use tevm.eth.chainId 1`] = `{}`;

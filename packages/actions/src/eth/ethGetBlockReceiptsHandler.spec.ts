@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { createTevmNode } from '@tevm/node'
+import { bytesToHex } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
@@ -214,7 +215,7 @@ describe('ethGetBlockReceiptsHandler', () => {
 		// Get the block to retrieve its hash
 		const vm = await client.getVm()
 		const block = await vm.blockchain.getBlock(1n)
-		const blockHash = `0x${block.hash().toString('hex')}`
+		const blockHash = bytesToHex(block.hash())
 
 		const handler = ethGetBlockReceiptsHandler(client)
 		const receipts = await handler({ blockHash })
@@ -297,15 +298,8 @@ describe('ethGetBlockReceiptsHandler', () => {
 	})
 
 	it('should handle fork transport when block not found locally', async () => {
-		const client = createTevmNode({
-			fork: {
-				transport: {
-					request: async () => {
-						throw new Error('Should use mock')
-					},
-				},
-			},
-		})
+		const client = createTevmNode()
+		;(client as any).forkTransport = { request: async () => null }
 
 		const handler = ethGetBlockReceiptsHandler(client)
 		const receipts = await handler({ blockTag: '0x5' })

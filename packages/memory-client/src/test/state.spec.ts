@@ -1,5 +1,5 @@
 import { createCachedOptimismTransport } from '@tevm/test-utils'
-import { bytesToHex, type Hex, hexToBytes, parseEther } from '@tevm/utils'
+import { bytesToHex, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 
@@ -86,23 +86,18 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 					abi: MOCKERC20_ABI,
 					functionName: 'mint',
 					args: [from, amount],
-					createTransaction: true,
+					addToBlockchain: true,
 				})
 				expect(mintErrors).toBeUndefined()
 				expect(txHash).toBeHex()
 				expect(executionGasUsed).toBe(46495n)
 
-				const { blockHashes, errors } = await client.tevmMine()
-
-				expect(errors).toBeUndefined()
-				expect(blockHashes).toHaveLength(1)
-				expect(blockHashes?.[0]).toBeHex()
-
 				const rm = await client.transport.tevm.getReceiptsManager()
 				const vm = await client.transport.tevm.getVm()
 
-				const block = await vm.blockchain.getBlock(hexToBytes(blockHashes?.[0] as Hex))
-				expect(block).toBe(await vm.blockchain.getCanonicalHeadBlock())
+				// With addToBlockchain: true, the transaction is auto-mined
+				const block = await vm.blockchain.getCanonicalHeadBlock()
+				expect(block.transactions.length).toBeGreaterThan(0)
 
 				expect(bytesToHex(block.transactions[0]?.hash() as Uint8Array)).toEqualHex(txHash)
 				expect(await rm.getReceiptByTxHash(block.transactions[0]?.hash() as Uint8Array)).toBeDefined()
@@ -122,7 +117,7 @@ describe('Testing tevm state managers with mix of createTransaction: true and fa
 					abi: MOCKERC20_ABI,
 					functionName: 'balanceOf',
 					args: [from],
-					createTransaction: true,
+					addToMempool: true,
 				})
 
 				expect(contractErrors2).toBeUndefined()

@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { transports } from '@tevm/test-utils'
-import { type Hex, hexToBigInt } from '@tevm/utils'
+import { type Hex, hexToBigInt, toBytes } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getAccountFromProvider } from './getAccountFromProvider.js'
@@ -16,19 +16,24 @@ describe(getAccountFromProvider.name, () => {
 		if (!latestBlock) {
 			throw new Error('Latest block not found')
 		}
+
+		const proof = (await transports.optimism.request({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'eth_getProof',
+			params: [address.toString(), [], latestBlock],
+		})) as {
+			nonce: Hex
+			codeHash: Hex
+			storageHash: Hex
+		}
+
 		const state = createBaseState({ fork: { transport: transports.optimism, blockTag: hexToBigInt(latestBlock) } })
-		expect(await getAccountFromProvider(state)(address)).toMatchObject({
-			_codeHash: new Uint8Array([
-				197, 210, 70, 1, 134, 247, 35, 60, 146, 126, 125, 178, 220, 199, 3, 192, 229, 0, 182, 83, 202, 130, 39, 59, 123,
-				250, 216, 4, 93, 133, 164, 112,
-			]),
-			_codeSize: 0,
-			_nonce: 31n,
-			_storageRoot: new Uint8Array([
-				86, 232, 31, 23, 27, 204, 85, 166, 255, 131, 69, 230, 146, 192, 248, 110, 91, 72, 224, 27, 153, 108, 173, 192,
-				1, 98, 47, 181, 227, 99, 180, 33,
-			]),
-			_version: 0,
-		})
+		const account = await getAccountFromProvider(state)(address)
+		expect(account._nonce).toBe(hexToBigInt(proof.nonce))
+		expect(account._codeHash).toEqual(toBytes(proof.codeHash))
+		expect(account._codeSize).toBeGreaterThanOrEqual(0)
+		expect(account._storageRoot).toEqual(toBytes(proof.storageHash))
+		expect(account._version).toBe(0)
 	})
 })

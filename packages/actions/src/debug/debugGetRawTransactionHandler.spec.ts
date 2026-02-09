@@ -4,7 +4,7 @@ import { type Address, type Hex, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { assert, beforeEach, describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
 import { deployHandler } from '../Deploy/deployHandler.js'
-import { ethGetTransactionReceipt } from '../eth/ethGetTransactionReceipt.js'
+import { ethGetTransactionReceiptHandler } from '../eth/ethGetTransactionReceipt.js'
 import { debugGetRawTransactionHandler } from './debugGetRawTransactionHandler.js'
 
 describe('debugGetRawTransactionHandler', () => {
@@ -142,7 +142,7 @@ describe('debugGetRawTransactionHandler', () => {
 		expect(result).toMatch(/^0x[0-9a-f]+$/i)
 
 		// Verify using ethGetTransactionReceipt
-		const receipt = await ethGetTransactionReceipt(client)({ hash: deploymentTxHash })
+		const receipt = await ethGetTransactionReceiptHandler(client)({ hash: deploymentTxHash })
 		expect(receipt).toBeDefined()
 		expect(receipt?.transactionHash).toBe(deploymentTxHash)
 	})

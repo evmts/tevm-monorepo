@@ -2,7 +2,7 @@ import { createAddress } from '@tevm/address'
 import { mainnet, optimism } from '@tevm/common'
 import { UnknownBlockError } from '@tevm/errors'
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { SimpleContract, transports } from '@tevm/test-utils'
+import { SimpleContract } from '@tevm/test-utils'
 import { numberToHex } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
@@ -146,8 +146,24 @@ describe(getCodeHandler.name, () => {
 })
 
 describe('Forking tests', () => {
+	const createMockForkTransport = () => ({
+		request: async ({ method, params }: { method: string; params?: readonly unknown[] }) => {
+			if (method === 'eth_chainId') return '0x1'
+			if (method === 'eth_getCode') {
+				const address = (params?.[0] as string | undefined)?.toLowerCase()
+				if (address === '0x7a250d5630b4cf539739df2c5dacb4c659f2488d') return '0x60006000'
+				if (address === '0x4200000000000000000000000000000000000010') return '0x6001'
+				return '0x'
+			}
+			return '0x0'
+		},
+	})
+
 	it('should fetch code from mainnet fork when block is not in local state', async () => {
-		const node = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
+		const node = createTevmNode({
+			common: mainnet,
+			fork: { transport: createMockForkTransport() },
+		}) as unknown as TevmNode
 		const forkedHandler = getCodeHandler(node)
 
 		// Use a known contract address from mainnet
@@ -159,7 +175,10 @@ describe('Forking tests', () => {
 	})
 
 	it('should fetch code from Optimism fork', async () => {
-		const node = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
+		const node = createTevmNode({
+			common: optimism,
+			fork: { transport: createMockForkTransport() },
+		}) as unknown as TevmNode
 		const forkedHandler = getCodeHandler(node)
 
 		// Use a known contract address from Optimism

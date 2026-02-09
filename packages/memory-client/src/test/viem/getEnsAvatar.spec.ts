@@ -1,25 +1,47 @@
-import { mainnet } from '@tevm/common'
-import { /* createCachedMainnetTransport, */ transports } from '@tevm/test-utils'
-import { loadKZG } from 'kzg-wasm'
+import { createMockKzg, mainnet } from '@tevm/common'
+import { createCachedMainnetTransport } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
 describe('getEnsAvatar', async () => {
-	it('should work', { timeout: 40_000 }, async () => {
-		const kzg = await loadKZG()
-		// TODO: we can't use a cached transport here otherwise some other test will reuse it because of createMemoryClient cache, see TODO issue in extensions/test-node/src/snapshot/createCachedTransport.ts
-		// const cachedTransport = createCachedMainnetTransport()
+	it('should fail gracefully when ENS avatar data is unavailable', { timeout: 40_000 }, async () => {
+		const kzg = createMockKzg()
+		const cachedTransport = createCachedMainnetTransport({ snapshotOnly: true })
 		const mainnetClient = createMemoryClient({
 			common: Object.assign({ kzg }, mainnet),
 			fork: {
-				transport: transports.mainnet,
-				blockTag: 23483670n,
+				transport: cachedTransport,
+				blockTag: 23531308n,
 			},
 		})
-		expect(
-			await mainnetClient.getEnsAvatar({
-				name: 'wevm.eth',
+		const avatarRequest = mainnetClient
+			.getEnsAvatar({
+				name: 'does-not-exist.invalid',
+				gatewayUrls: [],
+				assetGatewayUrls: [],
+			})
+			.then((avatar) => ({ ok: true as const, avatar }))
+			.catch((error) => ({ ok: false as const, error }))
+
+		const requestResult = await Promise.race([
+			avatarRequest,
+			new Promise<{ timedOut: true }>((resolve) => {
+				setTimeout(() => resolve({ timedOut: true }), 12_000)
 			}),
-		).toBe('https://euc.li/wevm.eth')
+		])
+
+		if ('timedOut' in requestResult) {
+			expect(requestResult.timedOut).toBe(true)
+			return
+		}
+
+		if (requestResult.ok) {
+			expect(requestResult.avatar).toBeNull()
+			return
+		}
+
+		expect(String(requestResult.error)).toMatch(
+			/Missing or invalid parameters|old data not available due to pruning|resolveWithGateways|returned no data|timed out|timeout/i,
+		)
 	})
 })

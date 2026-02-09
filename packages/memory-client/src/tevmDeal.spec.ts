@@ -55,16 +55,19 @@ describe('tevmDeal', () => {
 })
 
 describe('bug repro march 17th', () => {
-	const client = createMemoryClient({
-		common: mainnet,
-		fork: {
-			transport: transports.mainnet,
-		},
-	})
+	const createForkClient = () =>
+		createMemoryClient({
+			common: mainnet,
+			fork: {
+				transport: transports.mainnet,
+				blockTag: 'latest',
+			},
+		})
 	const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 	const amount = BigInt(1000000)
 	describe('tevmDeal', () => {
-		it('should deal WETH to an account', async () => {
+		it('should deal WETH to an account', { timeout: 60_000 }, async () => {
+			const client = createForkClient()
 			const token = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' // WETH
 
 			// Deal tokens to the account
@@ -85,7 +88,8 @@ describe('bug repro march 17th', () => {
 			expect(result.data).toEqual(amount)
 		})
 
-		it('should deal a Proxy token to an account', async () => {
+		it('should deal a Proxy token to an account', { timeout: 60_000 }, async () => {
+			const client = createForkClient()
 			const token = '0xE95A203B1a91a908F9B9CE46459d101078c2c3cb' // PROXY
 
 			// Deal tokens to the account

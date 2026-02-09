@@ -33,6 +33,7 @@ describe(validateHeader.name, async () => {
 			throw new Error('Expected baseFeePerGas to be defined')
 		}
 		vi.spyOn(parentBlock.header, 'calcNextBaseFee').mockReturnValue(baseFeePerGas)
+		vi.spyOn(parentBlock.header, 'calcNextExcessBlobGas').mockReturnValue(cannonicalHead.header.excessBlobGas)
 
 		const headerValidator = validateHeader(chain)
 		expect(await headerValidator(cannonicalHead.header)).toBeUndefined()

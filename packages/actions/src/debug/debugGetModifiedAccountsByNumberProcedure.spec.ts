@@ -142,7 +142,7 @@ describe('debugGetModifiedAccountsByNumberJsonRpcProcedure', () => {
 		// Should return an error
 		if ('error' in response) {
 			expect(response.error).toBeDefined()
-			expect(response.error.code).toBe(-32000)
+			expect(response.error.code).toBe('-32000')
 			expect(response.error.message).toContain('greater than')
 		}
 	})

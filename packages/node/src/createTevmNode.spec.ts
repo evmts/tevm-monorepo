@@ -9,8 +9,14 @@ import { bytesToHex, createAccount, createAddressFromString, type Hex, hexToByte
 import { describe, expect, it, vi } from 'vitest'
 import { createTevmNode } from './createTevmNode.js'
 
+const hasRpcEnvVars = Boolean(process.env['TEVM_RPC_URLS_OPTIMISM'])
+
 describe('createTevmNode with State Persister', () => {
 	it('Restores state correctly from persister', async () => {
+		if (!hasRpcEnvVars) {
+			console.log('Skipping: TEVM_RPC_URLS_OPTIMISM not set')
+			return
+		}
 		const storage = new Map()
 
 		const persister = createSyncStoragePersister({
@@ -100,12 +106,18 @@ describe('createTevmNode', () => {
 	})
 
 	it('Handles fork mode with provided transport', async () => {
+		if (!hasRpcEnvVars) {
+			console.log('Skipping: TEVM_RPC_URLS_OPTIMISM not set')
+			return
+		}
 		const forkClient = createTevmNode({
 			fork: { transport: transports.optimism },
 		})
 		const { mode, forkTransport } = forkClient
 		expect(mode).toBe('fork')
 		expect(forkTransport).toBe(transports.optimism)
+		// Await ready to ensure internal promises settle and don't become unhandled rejections
+		await forkClient.ready()
 	})
 
 	it('Uses custom common and state manager options', async () => {
@@ -256,6 +268,10 @@ describe('createTevmNode', () => {
 	})
 
 	it('Fetches latest block number for fork block tag "latest"', async () => {
+		if (!hasRpcEnvVars) {
+			console.log('Skipping: TEVM_RPC_URLS_OPTIMISM not set')
+			return
+		}
 		const client = createTevmNode({
 			fork: { transport: transports.optimism, blockTag: 'latest' },
 		})

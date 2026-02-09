@@ -1,6 +1,5 @@
-import { transports } from '@tevm/test-utils'
 import { parseGwei } from '@tevm/utils'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { gasPriceHandler } from './gasPriceHandler.js'
 
 describe(gasPriceHandler.name, () => {
@@ -21,36 +20,37 @@ describe(gasPriceHandler.name, () => {
 	})
 
 	it('should fetch from fork uri', async () => {
+		let blockNumber = 420n
 		const blockchain = {
 			getCanonicalHeadBlock: () =>
 				Promise.resolve({
 					header: {
-						number: 420n,
+						number: blockNumber,
 					},
 				}),
 		}
-		expect(
-			await gasPriceHandler({
-				forkTransport: transports.mainnet,
-				getVm: () => ({ blockchain }) as any,
-			} as any)({}),
-		).toBeGreaterThan(parseGwei('.1'))
+		const request = vi
+			.fn<(...args: any[]) => Promise<`0x${string}`>>()
+			.mockResolvedValueOnce('0x2540be400')
+			.mockResolvedValueOnce('0x3b9aca00')
 
-		// Gas price may change between requests in real network
-		const firstResult = await gasPriceHandler({
-			forkTransport: transports.mainnet,
+		const handler = gasPriceHandler({
+			forkTransport: {
+				request,
+			},
 			getVm: () => ({ blockchain }) as any,
-		} as any)({})
+		} as any)
 
-		const secondResult = await gasPriceHandler({
-			forkTransport: transports.mainnet,
-			getVm: () => ({ blockchain }) as any,
-		} as any)({})
+		const firstResult = await handler({})
+		const secondResult = await handler({})
 
-		// Just verify both are valid gas prices (don't check exact equality)
-		expect(typeof firstResult).toBe('bigint')
-		expect(typeof secondResult).toBe('bigint')
-		expect(firstResult).toBeGreaterThan(0n)
-		expect(secondResult).toBeGreaterThan(0n)
+		expect(firstResult).toBe(parseGwei('10'))
+		expect(secondResult).toBe(parseGwei('10'))
+		expect(request).toHaveBeenCalledTimes(1)
+
+		blockNumber = 421n
+		const thirdResult = await handler({})
+		expect(thirdResult).toBe(parseGwei('1'))
+		expect(request).toHaveBeenCalledTimes(2)
 	})
 })

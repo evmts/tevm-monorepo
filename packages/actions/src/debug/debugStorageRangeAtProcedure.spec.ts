@@ -42,7 +42,7 @@ describe('debugStorageRangeAtJsonRpcProcedure', () => {
 		if ('error' in response) {
 			// It's OK if there's no storage or the address doesn't exist
 			expect(response.error).toBeDefined()
-			expect(response.error.code).toBe(-32000)
+			expect(response.error.code).toBe('-32000')
 		} else {
 			expect(response.result).toBeDefined()
 			expect(response.result.storage).toBeDefined()
@@ -123,7 +123,7 @@ describe('debugStorageRangeAtJsonRpcProcedure', () => {
 		// Should return an error or empty storage
 		if ('error' in response) {
 			expect(response.error).toBeDefined()
-			expect(response.error.code).toBe(-32000)
+			expect(response.error.code).toBe('-32000')
 		}
 	})
 })

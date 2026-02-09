@@ -40,7 +40,7 @@ describe('logToEthjsLog', () => {
 			Make sure you are using the correct ABI and that the event exists on it.
 
 			Docs: https://viem.sh/docs/contract/encodeEventTopics
-			Version: viem@2.37.9]
+			Version: viem@2.45.2]
 		`,
 		)
 	})

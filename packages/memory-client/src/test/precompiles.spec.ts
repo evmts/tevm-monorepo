@@ -33,6 +33,7 @@ describe('precompiles option', () => {
 			gas: BigInt(30000),
 			data: '0x0',
 			caller: sender,
+			skipBalance: true,
 		})
 		expect(result.errors).toBeUndefined()
 		expect(result.rawData).toEqual(bytesToHex(expectedReturn))
@@ -56,6 +57,7 @@ describe('precompiles option', () => {
 				'c2e11decac2b8561ddd38f68823c2379918a86e6289090edb8c24757dc10004a' + // y
 				'e928602caf3f7716ee83abc596147665d9adfe7154a05440555571cefbe9652c') as Hex, // msgHash
 			caller: sender,
+			skipBalance: true,
 		})
 
 		expect(validResult.errors).toBeUndefined()
@@ -76,6 +78,7 @@ describe('precompiles option', () => {
 				'c2e11decac2b8561ddd38f68823c2379918a86e6289090edb8c24757dc10004a' + // y (same as valid)
 				'e928602caf3f7716ee83abc596147665d9adfe7154a05440555571cefbe9652c') as Hex, // msgHash (same as valid)
 			caller: sender,
+			skipBalance: true,
 		})
 
 		expect(invalidResult.errors).toBeUndefined()
