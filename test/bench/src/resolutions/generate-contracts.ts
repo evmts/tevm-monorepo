@@ -7,7 +7,7 @@ import * as resolutionsRs from '@tevm/resolutions-rs'
 console.log('Resolutions-RS Exports:', Object.keys(resolutionsRs))
 
 // Extract the moduleFactoryJs function
-const { moduleFactoryJs } = resolutionsRs
+const { moduleFactoryJs: _moduleFactoryJs } = resolutionsRs
 
 // Paths to our test fixtures
 const FIXTURE_DIR = path.join(__dirname)

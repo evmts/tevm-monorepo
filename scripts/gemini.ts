@@ -2,8 +2,8 @@ import { readdirSync } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'
 import { basename, join } from 'node:path'
 import 'dotenv/config'
-import { GeminiClient } from './lib/GeminiClient'
 import { getResourceFiles, getZigFiles } from './lib/fileUtils'
+import { GeminiClient } from './lib/GeminiClient'
 
 interface ResourceConfig {
 	name: string
