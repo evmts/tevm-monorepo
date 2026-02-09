@@ -1,4 +1,5 @@
 import { hexToBigInt } from '@tevm/utils'
+import { handleAutomining } from '../Call/handleAutomining.js'
 import { ethSendTransactionHandler } from './ethSendTransactionHandler.js'
 
 /**
@@ -19,6 +20,9 @@ export const ethSendTransactionJsonRpcProcedure = (client) => {
 			...(request.params[0].gasPrice ? { gasPrice: hexToBigInt(request.params[0].gasPrice) } : {}),
 			...(request.params[0].value ? { value: hexToBigInt(request.params[0].value) } : {}),
 		})
+		if (client.miningConfig.type === 'auto') {
+			await handleAutomining(client, txHash, false, true)
+		}
 		return {
 			method: sendTransactionRequest.method,
 			result: txHash,

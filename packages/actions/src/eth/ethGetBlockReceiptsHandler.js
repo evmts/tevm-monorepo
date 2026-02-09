@@ -66,6 +66,8 @@ export const ethGetBlockReceiptsHandler = (client) => async (params) => {
 			} else if (typeof params.blockTag === 'string') {
 				if (params.blockTag.startsWith('0x')) {
 					block = await vm.blockchain.getBlock(hexToBigInt(/** @type {import('@tevm/utils').Hex} */ (params.blockTag)))
+				} else if (params.blockTag === 'earliest') {
+					block = await vm.blockchain.getBlock(0n)
 				} else {
 					block = await vm.blockchain.blocksByTag.get(/** @type {import('@tevm/utils').BlockTag} */ (params.blockTag))
 				}
@@ -200,12 +202,13 @@ export const ethGetBlockReceiptsHandler = (client) => async (params) => {
 		// Calculate effective gas price
 		/** @type {any} */
 		const txAny = tx
-		const effectiveGasPrice = txAny.maxFeePerGas ?
-			(txAny.maxPriorityFeePerGas !== undefined && txAny.maxFeePerGas !== undefined
+		const effectiveGasPrice = txAny.maxFeePerGas
+			? txAny.maxPriorityFeePerGas !== undefined && txAny.maxFeePerGas !== undefined
 				? txAny.maxPriorityFeePerGas < txAny.maxFeePerGas - (block.header.baseFeePerGas ?? 0n)
 					? txAny.maxPriorityFeePerGas + (block.header.baseFeePerGas ?? 0n)
 					: txAny.maxFeePerGas
-				: (txAny?.gasPrice ?? 0n)) : txAny.gasPrice;
+				: (txAny?.gasPrice ?? 0n)
+			: txAny.gasPrice
 
 		/** @type {import('./EthResult.js').EthGetTransactionReceiptResult} */
 		const receiptResult = {
