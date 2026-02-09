@@ -421,14 +421,15 @@ export class ReceiptsManager {
 				//  * [[A, B], [A, B]] - (A OR B) in first position AND (A OR B) in second position (and anything after)
 				logs = logs.filter((l) => {
 					for (const [i, topic] of topics.entries()) {
+						const logTopic = l.log[1][i] as Uint8Array | undefined
 						if (Array.isArray(topic)) {
 							// Can match any items in this array
-							if (!topic.find((t) => equalsBytes(t, l.log[1][i] as Uint8Array))) return false
+							if (!logTopic || !topic.find((t) => equalsBytes(t, logTopic))) return false
 						} else if (!topic) {
 							// If null then can match any
 						} else {
 							// If a value is specified then it must match
-							if (!equalsBytes(topic, l.log[1][i] as Uint8Array)) return false
+							if (!logTopic || !equalsBytes(topic, logTopic)) return false
 						}
 					}
 					// All topic conditions passed, accept the log
