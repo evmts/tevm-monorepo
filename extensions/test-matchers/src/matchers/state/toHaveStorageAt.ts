@@ -12,7 +12,7 @@ export const toHaveStorageAt = async (
 	const address = typeof received === 'string' ? received : received.address
 	if (!isAddress(address)) throw new Error(`Invalid address: ${address}`)
 
-	const node = 'request' in client ? createTevmNode({ fork: { transport: client } }) : client
+	const node = 'request' in client ? createTevmNode({ fork: { transport: client as any } }) : client
 	const account = await getAccountHandler(node, { throwOnFail: false })({ address, returnStorage: true })
 
 	if (account.errors) throw new Error(account.errors[0]?.message ?? 'Could not retrieve account')

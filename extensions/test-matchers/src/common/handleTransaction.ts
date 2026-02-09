@@ -23,7 +23,7 @@ export const handleTransaction = async (
 ): Promise<HandleTransactionResult> => {
 	const res = tx instanceof Promise ? await tx : tx
 
-	const node = 'request' in client ? createTevmNode({ fork: { transport: client } }) : client
+	const node = 'request' in client ? createTevmNode({ fork: { transport: client as any } }) : client
 
 	const txHash =
 		// If it's a transaction receipt

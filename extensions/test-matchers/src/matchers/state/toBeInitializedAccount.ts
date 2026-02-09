@@ -15,7 +15,7 @@ export const toBeInitializedAccount = async (received: Address | ContainsAddress
 	const address = typeof received === 'string' ? received : received.address
 	if (!isAddress(address)) throw new Error(`Invalid address: ${address}`)
 
-	const node = 'request' in client ? createTevmNode({ fork: { transport: client } }) : client
+	const node = 'request' in client ? createTevmNode({ fork: { transport: client as any } }) : client
 	const account = await getAccountHandler(node, { throwOnFail: false })({ address })
 
 	const pass = account.errors === undefined

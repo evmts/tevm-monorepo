@@ -39,7 +39,6 @@ export interface CustomMatchers {
 
 // Augment vitest's Assertion - this preserves ALL existing functionality including 'not'
 declare module 'vitest' {
-	// biome-ignore lint/correctness/noUnusedVariables: we need to match exactly the base vitest Assertion type
 	interface Assertion<T = any> extends CustomMatchers {}
 }
 

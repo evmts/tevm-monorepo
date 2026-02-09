@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { contractHandler, dealHandler, deployHandler, ethGetTransactionReceiptHandler } from '@tevm/actions'
 import { ERC20, ErrorContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'

@@ -68,7 +68,6 @@ registerChainableMatchers(chainableErrorMatchers)
 registerChainableMatchers(chainableContractMatchers)
 
 declare module 'vitest' {
-	// biome-ignore lint/correctness/noUnusedVariables: we need to match exactly the base vitest Assertion type
 	interface Assertion<T = any>
 		extends UtilsMatchers,
 			EmitMatchers,
