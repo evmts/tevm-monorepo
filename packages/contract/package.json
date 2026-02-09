@@ -69,8 +69,8 @@
 		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/ts-plugin": "^1.0.0-next.148",
-		"@tevm/vite-plugin": "^1.0.0-next.148",
+		"@tevm/ts-plugin": "workspace:^",
+		"@tevm/vite-plugin": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"zod": "^4.3.6"

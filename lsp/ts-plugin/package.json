@@ -74,7 +74,7 @@
 	},
 	"devDependencies": {
 		"@tevm/config": "workspace:^",
-		"@tevm/contract": "workspace:^",
+		"@tevm/contract": "^1.0.0-next.149",
 		"@tevm/tsupconfig": "workspace:^",
 		"typescript": "^5.9.3"
 	},

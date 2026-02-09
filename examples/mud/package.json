@@ -14,8 +14,6 @@
 	"devDependencies": {
 		"@latticexyz/cli": "2.2.23",
 		"@latticexyz/common": "2.2.23",
-		"@latticexyz/explorer": "2.2.23",
-		"@latticexyz/store-indexer": "2.2.23",
 		"@types/debug": "4.1.12",
 		"@typescript-eslint/eslint-plugin": "8.55.0",
 		"@typescript-eslint/parser": "8.55.0",

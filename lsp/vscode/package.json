@@ -25,15 +25,14 @@
 	"scripts": {
 		"build": "node scripts/build -- --minify",
 		"watch": "npm run build -- --watch",
-		"pack": "npm run build && vsce package --pre-release",
-		"release": "npm run build && vsce publish --pre-release"
+		"pack": "npm run build && pnpm dlx @vscode/vsce package --pre-release",
+		"release": "npm run build && pnpm dlx @vscode/vsce publish --pre-release"
 	},
 	"devDependencies": {
 		"@tevm/lsp": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@types/vscode": "^1.109.0",
-		"@vscode/vsce": "^3.7.1",
 		"@volar/language-server": "~2.4.28",
 		"@volar/vscode": "~2.4.28",
 		"esbuild": "^0.27.3",

@@ -56,7 +56,6 @@
 		"@types/react-dom": "^19.2.3",
 		"@vitejs/plugin-react": "^5.1.3",
 		"abitype": "^1.2.3",
-		"forge-deploy": "^0.2.0",
 		"forge-std": "github:foundry-rs/forge-std",
 		"react-helmet": "^6.1.0",
 		"serve": "^14.2.5",
