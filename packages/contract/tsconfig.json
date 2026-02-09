@@ -8,7 +8,7 @@
 		],
 		"outDir": "types",
 		"skipLibCheck": true,
-		"types": ["bun-types", "@tevm/test-matchers"],
+		"types": ["bun-types"],
 		// this should be "Bundler" but don't want to fight a broken type
 		"moduleResolution": "NodeNext",
 		"module": "NodeNext"

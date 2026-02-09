@@ -4,7 +4,9 @@
 		"rootDir": "src",
 		"outDir": "types",
 		"skipLibCheck": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"exactOptionalPropertyTypes": false,
+		"noCheck": true
 	},
 	"include": ["src", "src/**/*.json"],
 	"exclude": ["src/**/*.spec.ts", "src/**/*.spec.js", "src/**/*.test.ts", "src/**/*.test.js"]
