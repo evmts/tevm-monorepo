@@ -80,7 +80,7 @@ describe('SnapshotManager', () => {
 		expect(newManager.get('key3')).toEqual(data3)
 	})
 
-	it('should throw on invalid snapshot file', async () => {
+	it('should recover gracefully from an invalid snapshot file', async () => {
 		// Create corrupt file
 		// @ts-expect-error - accessing private property for testing
 		const snapshotPath = manager.snapshotPath
@@ -88,8 +88,9 @@ describe('SnapshotManager', () => {
 		fs.mkdirSync(snapshotDir, { recursive: true })
 		fs.writeFileSync(snapshotPath, 'invalid json content')
 
-		// Should throw on invalid snapshot file
-		expect(() => new SnapshotManager()).toThrow('"invalid json content" is not valid JSON')
+		// Should recover with an empty snapshot set instead of throwing.
+		const recoveredManager = new SnapshotManager()
+		expect(recoveredManager.has('any-key')).toBe(false)
 	})
 
 	it('should reload snapshots from disk when checking cache', async () => {

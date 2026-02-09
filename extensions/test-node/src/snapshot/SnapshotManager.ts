@@ -49,9 +49,14 @@ export class SnapshotManager {
 	 */
 	private load(): this {
 		if (fs.existsSync(this.snapshotPath)) {
-			const content = fs.readFileSync(this.snapshotPath, 'utf-8')
-			const data = JSON.parse(content)
-			this.snapshots = new Map(Object.entries(data))
+			try {
+				const content = fs.readFileSync(this.snapshotPath, 'utf-8')
+				const data = JSON.parse(content)
+				this.snapshots = new Map(Object.entries(data))
+			} catch {
+				// Recover from transient partial writes by treating invalid JSON as an empty snapshot file.
+				this.snapshots = new Map()
+			}
 		} else {
 			this.snapshots = new Map()
 		}
@@ -91,7 +96,8 @@ export class SnapshotManager {
 
 		const data = Object.fromEntries(this.snapshots)
 		const content = JSON.stringify(data, null, 2)
-
-		await fsPromises.writeFile(this.snapshotPath, content, 'utf-8')
+		const tempPath = `${this.snapshotPath}.${process.pid}.${Date.now()}.${Math.random().toString(36).slice(2)}.tmp`
+		await fsPromises.writeFile(tempPath, content, 'utf-8')
+		await fsPromises.rename(tempPath, this.snapshotPath)
 	}
 }
