@@ -64,7 +64,7 @@
 		},
 		"build:types": {
 			"inputs": ["production", "outputsDts"],
-			"dependsOn": ["^build:types", "^build:dist"],
+			"dependsOn": [],
 			"outputs": [
 				"{projectRoot}/dist/**/*.d.ts",
 				"{projectRoot}/dist/**/*.d.cts",
@@ -81,7 +81,7 @@
 		},
 		"build:dist": {
 			"inputs": ["production", "outputsDist"],
-			"dependsOn": ["^build:dist"],
+			"dependsOn": [],
 			"outputs": ["{projectRoot}/dist/**/*.js", "{projectRoot}/dist/**/*.cjs", "{projectRoot}/dist/**/*.mjs"],
 			"cache": true
 		},
@@ -105,10 +105,7 @@
 	"defaultBase": "main",
 	"$schema": "./node_modules/nx/schemas/nx-schema.json",
 	"namedInputs": {
-		"buildConfigs": [
-			"{projectRoot}/tsconfig.*?.json",
-			"{projectRoot}/tsup.config.ts"
-		],
+		"buildConfigs": ["{projectRoot}/tsconfig.*?.json", "{projectRoot}/tsup.config.ts"],
 		"rustBuildInputs": [
 			"{projectRoot}/Cargo.toml",
 			"{projectRoot}/Cargo.lock",
