@@ -75,7 +75,11 @@
 			"!**/fixtures",
 			"!**/tevm.json",
 			"!**/fixtures/*",
-			"!**/__rpc_snapshots__"
+			"!**/__rpc_snapshots__",
+			"!**/*.wasi-browser.js",
+			"!**/bundler-packages/runtime-rs/browser.js",
+			"!**/bundler-packages/resolutions-rs/browser.js",
+			"!**/bundler-packages/resolutions-rs/examples"
 		]
 	},
 	"formatter": {
@@ -95,7 +99,8 @@
 			},
 			"performance": {
 				"noDelete": "off",
-				"noAccumulatingSpread": "off"
+				"noAccumulatingSpread": "off",
+				"noDynamicNamespaceImportAccess": "off"
 			},
 			"complexity": {
 				"noForEach": "off",
@@ -109,12 +114,18 @@
 				"noConfusingVoidType": "off",
 				"noAssignInExpressions": "off",
 				"noRedeclare": "off",
-				"noImplicitAnyLet": "off"
+				"noImplicitAnyLet": "off",
+				"noTemplateCurlyInString": "off",
+				"noUnknownAtRules": "off",
+				"useIterableCallbackReturn": "off"
 			},
 			"a11y": {
 				"useKeyWithClickEvents": "off",
 				"useSemanticElements": "off",
-				"useFocusableInteractive": "off"
+				"useFocusableInteractive": "off",
+				"useButtonType": "off",
+				"useIframeTitle": "off",
+				"noSvgWithoutTitle": "off"
 			},
 			"correctness": {
 				"useExhaustiveDependencies": "off"
@@ -122,6 +133,12 @@
 			"security": {
 				"noDangerouslySetInnerHtml": "off"
 			}
+		}
+	},
+	"css": {
+		"parser": {
+			"cssModules": true,
+			"tailwindDirectives": true
 		}
 	},
 	"javascript": {
