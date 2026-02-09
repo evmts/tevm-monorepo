@@ -311,16 +311,20 @@ export const createMemoryClient = (options) => {
 		// but if not forking we know common will be default
 		return tevmDefault
 	})()
-	const memoryClient = createClient({
-		...options,
-		cacheTime: 0,
-		transport: createTevmTransport({
+	/** @type {any} */
+	const baseClient = createClient(
+		/** @type {any} */ ({
 			...options,
-			...(common !== undefined ? { common } : {}),
+			cacheTime: 0,
+			transport: createTevmTransport({
+				...options,
+				...(common !== undefined ? { common } : {}),
+			}),
+			type: 'tevm',
+			...(common !== undefined ? { chain: common } : {}),
 		}),
-		type: 'tevm',
-		...(common !== undefined ? { chain: common } : {}),
-	})
+	)
+	const memoryClient = baseClient
 		.extend(tevmViemActions())
 		.extend(publicActions)
 		.extend(walletActions)

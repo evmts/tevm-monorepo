@@ -114,7 +114,7 @@ export const createTevmTransport = (options = {}) => {
 				? /** @type {import('@tevm/common').Common} */ (chain)
 				: chain !== undefined
 					? // if user passed in chain instead of common create a common from it with cancun and default eips
-						createCommon({ ...chain, hardfork: 'prague', loggingLevel: 'warn' })
+						createCommon(/** @type {any} */ ({ ...chain, hardfork: 'prague', loggingLevel: 'warn' }))
 					: undefined
 		const common = options.common ?? dynamicChain
 		const id = common?.id ?? -1
