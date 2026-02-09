@@ -9,8 +9,8 @@ import {
 	Struct,
 	Undefined,
 	Union,
-} from '@effect/schema/Schema'
-import { formatErrorSync } from '@effect/schema/TreeFormatter'
+} from 'effect/Schema'
+import { TreeFormatter } from 'effect/ParseResult'
 import { pipe } from 'effect'
 import { try as effectTry, fail, flatMap, logDebug, succeed, tap } from 'effect/Effect'
 import { match } from 'effect/Either'
@@ -87,7 +87,7 @@ export const validateUserConfig = (untrustedConfigFactory) => {
 				onExcessProperty: 'error',
 			})
 			return match(res, {
-				onLeft: (left) => fail(new InvalidConfigError(formatErrorSync(left), { cause: left })),
+				onLeft: (left) => fail(new InvalidConfigError(TreeFormatter.formatErrorSync(left), { cause: left })),
 				onRight: (right) => succeed(right),
 			})
 		}),

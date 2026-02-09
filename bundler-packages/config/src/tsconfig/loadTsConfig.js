@@ -7,7 +7,7 @@ import {
 	Array as SArray,
 	String as SString,
 	Struct,
-} from '@effect/schema/Schema'
+} from 'effect/Schema'
 import { parseJson } from '@tevm/effect'
 import { catchTag, fail, flatMap, logDebug, succeed, tap, tapBoth, try as tryEffect } from 'effect/Effect'
 import { match } from 'effect/Either'

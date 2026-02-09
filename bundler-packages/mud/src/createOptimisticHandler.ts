@@ -242,7 +242,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 			},
 			blockTag: 'latest',
 		},
-		common: createCommon(client.chain),
+		common: createCommon(client.chain as any),
 		...(loggingLevel ? { loggingLevel } : {}),
 	})
 	const optimisticClient = createMemoryClient({
@@ -256,7 +256,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 			},
 			blockTag: 'latest',
 		},
-		common: createCommon(client.chain),
+		common: createCommon(client.chain as any),
 		...(loggingLevel ? { loggingLevel } : {}),
 	})
 
