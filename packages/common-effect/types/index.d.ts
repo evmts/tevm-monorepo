@@ -1,7 +1,7 @@
-export { CommonService } from "./CommonService.js";
 export { CommonFromConfig } from "./CommonFromConfig.js";
 export { CommonFromFork } from "./CommonFromFork.js";
 export { CommonLocal } from "./CommonLocal.js";
+export { CommonService } from "./CommonService.js";
 export type CommonShape = import("./CommonShape.js").CommonShape;
 export type Hardfork = import("./CommonShape.js").Hardfork;
 export type CommonConfigOptions = import("./types.js").CommonConfigOptions;

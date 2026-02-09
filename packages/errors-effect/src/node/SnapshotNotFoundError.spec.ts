@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { SnapshotNotFoundError } from './SnapshotNotFoundError.js'
 
 describe('SnapshotNotFoundError', () => {
@@ -58,9 +58,7 @@ describe('SnapshotNotFoundError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('SnapshotNotFoundError', (e) =>
-				Effect.succeed(`Cannot revert to snapshot ${e.snapshotId}`)
-			)
+			Effect.catchTag('SnapshotNotFoundError', (e) => Effect.succeed(`Cannot revert to snapshot ${e.snapshotId}`)),
 		)
 
 		const result = await Effect.runPromise(program)

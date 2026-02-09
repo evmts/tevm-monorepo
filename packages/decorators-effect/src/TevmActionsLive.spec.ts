@@ -1,10 +1,10 @@
-import { describe, it, expect, vi } from 'vitest'
-import { Effect, Layer } from 'effect'
-import { TevmActionsService } from './TevmActionsService.js'
-import { TevmActionsLive } from './TevmActionsLive.js'
+import { GetAccountService, SetAccountService } from '@tevm/actions-effect'
 import { StateManagerService } from '@tevm/state-effect'
 import { VmService } from '@tevm/vm-effect'
-import { GetAccountService, SetAccountService } from '@tevm/actions-effect'
+import { Effect, Layer } from 'effect'
+import { describe, expect, it, vi } from 'vitest'
+import { TevmActionsLive } from './TevmActionsLive.js'
+import { TevmActionsService } from './TevmActionsService.js'
 
 describe('TevmActionsLive', () => {
 	const createMockVm = () => {
@@ -28,7 +28,7 @@ describe('TevmActionsLive', () => {
 								executionGasUsed: 21000n,
 								gas: 79000n,
 							},
-						})
+						}),
 					),
 				},
 				buildBlock: vi.fn(() => Promise.resolve(mockBlockBuilder)),
@@ -38,7 +38,7 @@ describe('TevmActionsLive', () => {
 					returnValue: '0x1234' as const,
 					gasUsed: 21000n,
 					gas: 79000n,
-				})
+				}),
 			),
 			runBlock: vi.fn(() => Effect.succeed({})),
 			buildBlock: vi.fn(() => Effect.succeed({})),
@@ -70,7 +70,7 @@ describe('TevmActionsLive', () => {
 					storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
 					codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
 				},
-			})
+			}),
 		),
 		// New: loadState accepts TevmState format
 		loadState: vi.fn(() => Effect.succeed(undefined)),
@@ -83,20 +83,16 @@ describe('TevmActionsLive', () => {
 				nonce: 0n,
 				balance: 1000000000000000000n,
 				deployedBytecode: '0x' as const,
-				storageRoot:
-					'0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421' as const,
-				codeHash:
-					'0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470' as const,
+				storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421' as const,
+				codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470' as const,
 				isContract: false,
 				isEmpty: false,
-			})
+			}),
 		),
 	})
 
 	const createMockSetAccountService = () => ({
-		setAccount: vi.fn((params: any) =>
-			Effect.succeed({ address: params.address })
-		),
+		setAccount: vi.fn((params: any) => Effect.succeed({ address: params.address })),
 	})
 
 	const createTestLayer = () => {
@@ -109,7 +105,7 @@ describe('TevmActionsLive', () => {
 			Layer.succeed(StateManagerService, stateManagerMock as any),
 			Layer.succeed(VmService, vmMock as any),
 			Layer.succeed(GetAccountService, getAccountMock as any),
-			Layer.succeed(SetAccountService, setAccountMock as any)
+			Layer.succeed(SetAccountService, setAccountMock as any),
 		)
 
 		return {
@@ -287,7 +283,7 @@ describe('TevmActionsLive', () => {
 	})
 
 	it('should execute call without to parameter (contract creation)', async () => {
-		const { layer, mocks } = createTestLayer()
+		const { layer, mocks: _mocks } = createTestLayer()
 
 		const params = {
 			data: '0x60806040' as const,
@@ -355,7 +351,7 @@ describe('TevmActionsLive', () => {
 			Layer.succeed(StateManagerService, stateManagerMock as any),
 			Layer.succeed(VmService, vmMock as any),
 			Layer.succeed(GetAccountService, getAccountMock as any),
-			Layer.succeed(SetAccountService, setAccountMock as any)
+			Layer.succeed(SetAccountService, setAccountMock as any),
 		)
 
 		const layer = Layer.provide(TevmActionsLive, mockLayer)
@@ -385,7 +381,7 @@ describe('TevmActionsLive', () => {
 			Layer.succeed(StateManagerService, stateManagerMock as any),
 			Layer.succeed(VmService, vmMock as any),
 			Layer.succeed(GetAccountService, getAccountMock as any),
-			Layer.succeed(SetAccountService, setAccountMock as any)
+			Layer.succeed(SetAccountService, setAccountMock as any),
 		)
 
 		const layer = Layer.provide(TevmActionsLive, mockLayer)
@@ -425,7 +421,7 @@ describe('TevmActionsLive', () => {
 			Layer.succeed(StateManagerService, stateManagerMock as any),
 			Layer.succeed(VmService, vmMock as any),
 			Layer.succeed(GetAccountService, getAccountMock as any),
-			Layer.succeed(SetAccountService, setAccountMock as any)
+			Layer.succeed(SetAccountService, setAccountMock as any),
 		)
 
 		const layer = Layer.provide(TevmActionsLive, mockLayer)
@@ -547,8 +543,12 @@ describe('TevmActionsLive', () => {
 		expect(mocks.stateManager.loadState).toHaveBeenCalled()
 		const loadedState = mocks.stateManager.loadState.mock.calls[0][0]
 		// Verify defaults were applied for hashes
-		expect(loadedState['0x1234567890123456789012345678901234567890'].storageRoot).toBe('0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421')
-		expect(loadedState['0x1234567890123456789012345678901234567890'].codeHash).toBe('0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470')
+		expect(loadedState['0x1234567890123456789012345678901234567890'].storageRoot).toBe(
+			'0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+		)
+		expect(loadedState['0x1234567890123456789012345678901234567890'].codeHash).toBe(
+			'0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
+		)
 	})
 
 	it('should dump state with deployedBytecode and storage', async () => {
@@ -564,7 +564,7 @@ describe('TevmActionsLive', () => {
 					deployedBytecode: '0x608060405234801561001057600080fd5b50',
 					storage: { '0x0': '0x1' },
 				},
-			})
+			}),
 		)
 
 		const getAccountMock = createMockGetAccountService()
@@ -574,7 +574,7 @@ describe('TevmActionsLive', () => {
 			Layer.succeed(StateManagerService, stateManagerMock as any),
 			Layer.succeed(VmService, vmMock as any),
 			Layer.succeed(GetAccountService, getAccountMock as any),
-			Layer.succeed(SetAccountService, setAccountMock as any)
+			Layer.succeed(SetAccountService, setAccountMock as any),
 		)
 
 		const layer = Layer.provide(TevmActionsLive, mockLayer)
@@ -586,7 +586,9 @@ describe('TevmActionsLive', () => {
 
 		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
 		const parsed = JSON.parse(result)
-		expect(parsed.state['0x1234567890123456789012345678901234567890'].deployedBytecode).toBe('0x608060405234801561001057600080fd5b50')
+		expect(parsed.state['0x1234567890123456789012345678901234567890'].deployedBytecode).toBe(
+			'0x608060405234801561001057600080fd5b50',
+		)
 		expect(parsed.state['0x1234567890123456789012345678901234567890'].storage).toEqual({ '0x0': '0x1' })
 	})
 
@@ -602,7 +604,7 @@ describe('TevmActionsLive', () => {
 			Layer.succeed(StateManagerService, stateManagerMock as any),
 			Layer.succeed(VmService, vmMock as any),
 			Layer.succeed(GetAccountService, getAccountMock as any),
-			Layer.succeed(SetAccountService, setAccountMock as any)
+			Layer.succeed(SetAccountService, setAccountMock as any),
 		)
 
 		const layer = Layer.provide(TevmActionsLive, mockLayer)
@@ -628,7 +630,7 @@ describe('TevmActionsLive', () => {
 			Layer.succeed(StateManagerService, stateManagerMock as any),
 			Layer.succeed(VmService, vmMock as any),
 			Layer.succeed(GetAccountService, getAccountMock as any),
-			Layer.succeed(SetAccountService, setAccountMock as any)
+			Layer.succeed(SetAccountService, setAccountMock as any),
 		)
 
 		const layer = Layer.provide(TevmActionsLive, mockLayer)
@@ -657,7 +659,7 @@ describe('TevmActionsLive', () => {
 			Layer.succeed(StateManagerService, stateManagerMock as any),
 			Layer.succeed(VmService, vmMock as any),
 			Layer.succeed(GetAccountService, getAccountMock as any),
-			Layer.succeed(SetAccountService, setAccountMock as any)
+			Layer.succeed(SetAccountService, setAccountMock as any),
 		)
 
 		const layer = Layer.provide(TevmActionsLive, mockLayer)
@@ -683,7 +685,7 @@ describe('TevmActionsLive', () => {
 			Layer.succeed(StateManagerService, stateManagerMock as any),
 			Layer.succeed(VmService, vmMock as any),
 			Layer.succeed(GetAccountService, getAccountMock as any),
-			Layer.succeed(SetAccountService, setAccountMock as any)
+			Layer.succeed(SetAccountService, setAccountMock as any),
 		)
 
 		const layer = Layer.provide(TevmActionsLive, mockLayer)
@@ -757,9 +759,11 @@ describe('TevmActionsLive', () => {
 			const vmMock = {
 				vm: {
 					blockchain: {
-						getCanonicalHeadBlock: vi.fn(() => Promise.resolve({
-							header: { number: 100n, timestamp: futureTimestamp }
-						})),
+						getCanonicalHeadBlock: vi.fn(() =>
+							Promise.resolve({
+								header: { number: 100n, timestamp: futureTimestamp },
+							}),
+						),
 						putBlock: vi.fn(() => Promise.resolve()),
 					},
 					evm: {
@@ -786,7 +790,7 @@ describe('TevmActionsLive', () => {
 				Layer.succeed(StateManagerService, stateManagerMock as any),
 				Layer.succeed(VmService, vmMock as any),
 				Layer.succeed(GetAccountService, getAccountMock as any),
-				Layer.succeed(SetAccountService, setAccountMock as any)
+				Layer.succeed(SetAccountService, setAccountMock as any),
 			)
 
 			const layer = Layer.provide(TevmActionsLive, mockLayer)

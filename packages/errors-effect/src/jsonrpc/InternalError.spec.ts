@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { InternalError } from './InternalError.js'
 
 describe('InternalError', () => {
@@ -54,9 +54,7 @@ describe('InternalError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('InternalError', (e) =>
-				Effect.succeed(`Internal error: ${e.message}`)
-			)
+			Effect.catchTag('InternalError', (e) => Effect.succeed(`Internal error: ${e.message}`)),
 		)
 
 		const result = await Effect.runPromise(program)

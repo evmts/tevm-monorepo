@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { AccountNotFoundError } from './AccountNotFoundError.js'
 
 describe('AccountNotFoundError', () => {
@@ -58,9 +58,7 @@ describe('AccountNotFoundError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('AccountNotFoundError', (e) =>
-				Effect.succeed(`Missing account: ${e.address}`)
-			)
+			Effect.catchTag('AccountNotFoundError', (e) => Effect.succeed(`Missing account: ${e.address}`)),
 		)
 
 		const result = await Effect.runPromise(program)

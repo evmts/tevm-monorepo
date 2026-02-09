@@ -1,8 +1,8 @@
-import { describe, it, expect, vi } from 'vitest'
 import { Effect, Layer } from 'effect'
-import { RequestService } from './RequestService.js'
-import { RequestLive } from './RequestLive.js'
+import { describe, expect, it, vi } from 'vitest'
 import { EthActionsService } from './EthActionsService.js'
+import { RequestLive } from './RequestLive.js'
+import { RequestService } from './RequestService.js'
 import { TevmActionsService } from './TevmActionsService.js'
 
 describe('RequestLive', () => {
@@ -14,9 +14,7 @@ describe('RequestLive', () => {
 		getBalance: vi.fn(() => Effect.succeed(1000000000000000000n)),
 		getCode: vi.fn(() => Effect.succeed('0x' as const)),
 		getStorageAt: vi.fn(() =>
-			Effect.succeed(
-				'0x0000000000000000000000000000000000000000000000000000000000000000' as const
-			)
+			Effect.succeed('0x0000000000000000000000000000000000000000000000000000000000000000' as const),
 		),
 	})
 
@@ -25,7 +23,7 @@ describe('RequestLive', () => {
 			Effect.succeed({
 				rawData: '0x' as const,
 				executionGasUsed: 21000n,
-			})
+			}),
 		),
 		getAccount: vi.fn((params: any) =>
 			Effect.succeed({
@@ -33,17 +31,13 @@ describe('RequestLive', () => {
 				nonce: 0n,
 				balance: 1000000000000000000n,
 				deployedBytecode: '0x' as const,
-				storageRoot:
-					'0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421' as const,
-				codeHash:
-					'0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470' as const,
+				storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421' as const,
+				codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470' as const,
 				isContract: false,
 				isEmpty: false,
-			})
+			}),
 		),
-		setAccount: vi.fn((params: any) =>
-			Effect.succeed({ address: params.address })
-		),
+		setAccount: vi.fn((params: any) => Effect.succeed({ address: params.address })),
 		dumpState: vi.fn(() => Effect.succeed('0x' as const)),
 		loadState: vi.fn(() => Effect.succeed(undefined)),
 		mine: vi.fn(() => Effect.succeed(undefined)),
@@ -55,7 +49,7 @@ describe('RequestLive', () => {
 
 		const mockLayer = Layer.mergeAll(
 			Layer.succeed(EthActionsService, ethActionsMock as any),
-			Layer.succeed(TevmActionsService, tevmActionsMock as any)
+			Layer.succeed(TevmActionsService, tevmActionsMock as any),
 		)
 
 		return {
@@ -148,9 +142,7 @@ describe('RequestLive', () => {
 		})
 
 		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
-		expect((result as any).address).toBe(
-			'0x1234567890123456789012345678901234567890'
-		)
+		expect((result as any).address).toBe('0x1234567890123456789012345678901234567890')
 		expect(mocks.tevmActions.setAccount).toHaveBeenCalled()
 	})
 
@@ -180,9 +172,7 @@ describe('RequestLive', () => {
 			})
 		})
 
-		await expect(
-			Effect.runPromise(program.pipe(Effect.provide(layer)))
-		).rejects.toThrow('Unsupported method')
+		await expect(Effect.runPromise(program.pipe(Effect.provide(layer)))).rejects.toThrow('Unsupported method')
 	})
 
 	it('should handle eth_gasPrice request', async () => {
@@ -228,9 +218,7 @@ describe('RequestLive', () => {
 			})
 		})
 
-		await expect(
-			Effect.runPromise(program.pipe(Effect.provide(layer)))
-		).rejects.toThrow('Missing call parameters')
+		await expect(Effect.runPromise(program.pipe(Effect.provide(layer)))).rejects.toThrow('Missing call parameters')
 	})
 
 	it('should fail eth_getBalance with missing address', async () => {
@@ -244,9 +232,7 @@ describe('RequestLive', () => {
 			})
 		})
 
-		await expect(
-			Effect.runPromise(program.pipe(Effect.provide(layer)))
-		).rejects.toThrow('Missing address parameter')
+		await expect(Effect.runPromise(program.pipe(Effect.provide(layer)))).rejects.toThrow('Missing address parameter')
 	})
 
 	it('should handle eth_getBalance without blockTag', async () => {
@@ -292,9 +278,7 @@ describe('RequestLive', () => {
 			})
 		})
 
-		await expect(
-			Effect.runPromise(program.pipe(Effect.provide(layer)))
-		).rejects.toThrow('Missing address parameter')
+		await expect(Effect.runPromise(program.pipe(Effect.provide(layer)))).rejects.toThrow('Missing address parameter')
 	})
 
 	it('should handle eth_getStorageAt request', async () => {
@@ -324,9 +308,9 @@ describe('RequestLive', () => {
 			})
 		})
 
-		await expect(
-			Effect.runPromise(program.pipe(Effect.provide(layer)))
-		).rejects.toThrow('Missing address or position parameter')
+		await expect(Effect.runPromise(program.pipe(Effect.provide(layer)))).rejects.toThrow(
+			'Missing address or position parameter',
+		)
 	})
 
 	it('should fail tevm_getAccount with missing address', async () => {
@@ -340,9 +324,7 @@ describe('RequestLive', () => {
 			})
 		})
 
-		await expect(
-			Effect.runPromise(program.pipe(Effect.provide(layer)))
-		).rejects.toThrow('Missing address parameter')
+		await expect(Effect.runPromise(program.pipe(Effect.provide(layer)))).rejects.toThrow('Missing address parameter')
 	})
 
 	it('should fail tevm_setAccount with missing address', async () => {
@@ -356,9 +338,7 @@ describe('RequestLive', () => {
 			})
 		})
 
-		await expect(
-			Effect.runPromise(program.pipe(Effect.provide(layer)))
-		).rejects.toThrow('Missing address parameter')
+		await expect(Effect.runPromise(program.pipe(Effect.provide(layer)))).rejects.toThrow('Missing address parameter')
 	})
 
 	it('should handle tevm_call request', async () => {
@@ -436,9 +416,7 @@ describe('RequestLive', () => {
 			})
 		})
 
-		await expect(
-			Effect.runPromise(program.pipe(Effect.provide(layer)))
-		).rejects.toThrow('Missing state parameter')
+		await expect(Effect.runPromise(program.pipe(Effect.provide(layer)))).rejects.toThrow('Missing state parameter')
 	})
 
 	it('should handle anvil_mine request', async () => {

@@ -1,10 +1,10 @@
-import { Effect, Layer } from 'effect'
-import { createVm } from '@tevm/vm'
-import { CommonService } from '@tevm/common-effect'
-import { StateManagerService } from '@tevm/state-effect'
 import { BlockchainService } from '@tevm/blockchain-effect'
-import { EvmService, mapEvmError } from '@tevm/evm-effect'
+import { CommonService } from '@tevm/common-effect'
 import { TevmError } from '@tevm/errors-effect'
+import { EvmService, mapEvmError } from '@tevm/evm-effect'
+import { StateManagerService } from '@tevm/state-effect'
+import { createVm } from '@tevm/vm'
+import { Effect, Layer } from 'effect'
 import { VmService } from './VmService.js'
 
 /**
@@ -127,9 +127,9 @@ export const VmLive = (_options = {}) => {
 					deepCopy: () =>
 						Effect.gen(function* () {
 							const copiedVm = yield* Effect.tryPromise({
-							try: () => vmInstance.deepCopy(),
-							catch: (e) => mapEvmError(e),
-						})
+								try: () => vmInstance.deepCopy(),
+								catch: (e) => mapEvmError(e),
+							})
 							return createShape(copiedVm)
 						}),
 				}

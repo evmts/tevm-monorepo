@@ -1,16 +1,16 @@
-import { describe, it, expect } from 'vitest'
-import { mapEvmError } from './mapEvmError.js'
 import {
-	OutOfGasError,
-	RevertError,
-	InvalidOpcodeError,
-	StackOverflowError,
-	StackUnderflowError,
 	InsufficientBalanceError,
 	InsufficientFundsError,
 	InvalidJumpError,
+	InvalidOpcodeError,
+	OutOfGasError,
+	RevertError,
+	StackOverflowError,
+	StackUnderflowError,
 	TevmError,
 } from '@tevm/errors-effect'
+import { describe, expect, it } from 'vitest'
+import { mapEvmError } from './mapEvmError.js'
 
 describe('mapEvmError', () => {
 	describe('error pattern detection', () => {

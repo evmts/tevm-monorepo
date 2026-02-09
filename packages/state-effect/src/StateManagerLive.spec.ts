@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest'
-import { Effect, Layer, Exit } from 'effect'
-import { StateManagerService } from './StateManagerService.js'
+import { Effect, Exit, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { StateManagerLive } from './StateManagerLive.js'
+import { StateManagerService } from './StateManagerService.js'
 
 describe('StateManagerLive', () => {
 	describe('layer creation', () => {

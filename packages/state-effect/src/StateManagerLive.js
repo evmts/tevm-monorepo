@@ -1,16 +1,16 @@
-import { Effect, Layer } from 'effect'
-import { createStateManager } from '@tevm/state'
 import { CommonService } from '@tevm/common-effect'
-import { TransportService, ForkConfigService } from '@tevm/transport-effect'
 import {
-	StateRootNotFoundError,
-	StorageError,
 	AccountNotFoundError,
 	InternalError,
 	NodeNotReadyError,
+	StateRootNotFoundError,
+	StorageError,
 } from '@tevm/errors-effect'
-import { StateManagerService } from './StateManagerService.js'
+import { createStateManager } from '@tevm/state'
+import { ForkConfigService, TransportService } from '@tevm/transport-effect'
 import { createAddressFromString } from '@tevm/utils'
+import { Effect, Layer } from 'effect'
+import { StateManagerService } from './StateManagerService.js'
 
 /**
  * Helper to convert an address (hex string or EthjsAddress) to EthjsAddress.
@@ -26,7 +26,6 @@ const toEthjsAddress = (address) => {
 	}
 	return address
 }
-
 
 /**
  * @module @tevm/state-effect/StateManagerLive
@@ -83,7 +82,7 @@ const toEthjsAddress = (address) => {
  * ```
  *
  * @param {StateManagerLiveOptions} [options] - Configuration options
- * @returns {Layer.Layer<StateManagerService, never, CommonService | TransportService | ForkConfigService>} Layer providing StateManagerService
+ * @returns {Layer.Layer<StateManagerService, import('@tevm/errors-effect').NodeNotReadyError, CommonService | TransportService | ForkConfigService>} Layer providing StateManagerService
  */
 export const StateManagerLive = (options = {}) => {
 	return Layer.effect(
@@ -105,21 +104,22 @@ export const StateManagerLive = (options = {}) => {
 							Effect.runPromise(
 								transport.request(method, params).pipe(
 									Effect.tapError((error) =>
-										Effect.logError(`Fork transport error: ${method}`, { error, method, params })
+										Effect.logError(`Fork transport error: ${method}`, { error, method, params }),
 									),
 									// Issue #314: Catch typed ForkError and convert to enriched Error that preserves context
 									Effect.catchTag('ForkError', (forkError) => {
-										const enrichedError = /** @type {Error & { method?: string; code?: number; docsPath?: string; __isForkError?: boolean }} */ (
-											new Error(forkError.message)
-										)
+										const enrichedError =
+											/** @type {Error & { method?: string; code?: number; docsPath?: string; __isForkError?: boolean }} */ (
+												new Error(forkError.message)
+											)
 										enrichedError.method = forkError.method
 										enrichedError.code = forkError.code
 										enrichedError.docsPath = forkError.docsPath
 										enrichedError.cause = forkError.cause
 										enrichedError.__isForkError = true
 										return Effect.fail(enrichedError)
-									})
-								)
+									}),
+								),
 							),
 					},
 					blockTag: forkConfig.blockTag,

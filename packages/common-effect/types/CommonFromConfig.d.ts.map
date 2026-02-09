@@ -1,1 +1,1 @@
-{"version":3,"file":"CommonFromConfig.d.ts","sourceRoot":"","sources":["../src/CommonFromConfig.js"],"names":[],"mappings":"AAuEO,0CAHI,mBAAmB,GACjB,KAAK,CAAC,KAAK,yCAAgB,KAAK,EAAE,KAAK,CAAC,CA2BpD;0BAtFY,OAAO,YAAY,EAAE,WAAW;kCAChC,OAAO,YAAY,EAAE,mBAAmB;sBAX/B,QAAQ"}
+{"version":3,"file":"CommonFromConfig.d.ts","sourceRoot":"","sources":["../src/CommonFromConfig.js"],"names":[],"mappings":"AAuEO,0CAHI,mBAAmB,GACjB,KAAK,CAAC,KAAK,yCAAgB,KAAK,EAAE,KAAK,CAAC,CA2BpD;0BAtFY,OAAO,YAAY,EAAE,WAAW;kCAChC,OAAO,YAAY,EAAE,mBAAmB;sBAV/B,QAAQ"}

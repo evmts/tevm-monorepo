@@ -25,39 +25,39 @@ export type StateManagerShape = {
     /**
      * - Get an account by address
      */
-    getAccount: (address: Address) => import("effect").Effect.Effect<import("@tevm/utils").EthjsAccount | undefined>;
+    getAccount: (address: Address) => import("effect").Effect.Effect<import("@tevm/utils").EthjsAccount | undefined, import("@tevm/errors-effect").AccountNotFoundError>;
     /**
      * - Set an account at an address
      */
-    putAccount: (address: Address, account: import("@tevm/utils").EthjsAccount) => import("effect").Effect.Effect<void>;
+    putAccount: (address: Address, account: import("@tevm/utils").EthjsAccount) => import("effect").Effect.Effect<void, import("@tevm/errors-effect").InternalError>;
     /**
      * - Delete an account at an address
      */
-    deleteAccount: (address: Address) => import("effect").Effect.Effect<void>;
+    deleteAccount: (address: Address) => import("effect").Effect.Effect<void, import("@tevm/errors-effect").InternalError>;
     /**
      * - Get storage value at address and slot
      */
-    getStorage: (address: Address, slot: Uint8Array) => import("effect").Effect.Effect<Uint8Array>;
+    getStorage: (address: Address, slot: Uint8Array) => import("effect").Effect.Effect<Uint8Array, import("@tevm/errors-effect").StorageError>;
     /**
      * - Set storage value at address and slot
      */
-    putStorage: (address: Address, slot: Uint8Array, value: Uint8Array) => import("effect").Effect.Effect<void>;
+    putStorage: (address: Address, slot: Uint8Array, value: Uint8Array) => import("effect").Effect.Effect<void, import("@tevm/errors-effect").StorageError>;
     /**
      * - Clear all storage for an address
      */
-    clearStorage: (address: Address) => import("effect").Effect.Effect<void>;
+    clearStorage: (address: Address) => import("effect").Effect.Effect<void, import("@tevm/errors-effect").StorageError>;
     /**
      * - Get the code at an address
      */
-    getCode: (address: Address) => import("effect").Effect.Effect<Uint8Array>;
+    getCode: (address: Address) => import("effect").Effect.Effect<Uint8Array, import("@tevm/errors-effect").InternalError>;
     /**
      * - Set the code at an address
      */
-    putCode: (address: Address, code: Uint8Array) => import("effect").Effect.Effect<void>;
+    putCode: (address: Address, code: Uint8Array) => import("effect").Effect.Effect<void, import("@tevm/errors-effect").InternalError>;
     /**
      * - Get the current state root
      */
-    getStateRoot: () => import("effect").Effect.Effect<Uint8Array>;
+    getStateRoot: () => import("effect").Effect.Effect<Uint8Array, import("@tevm/errors-effect").StateRootNotFoundError>;
     /**
      * - Set the state root
      */
@@ -65,31 +65,31 @@ export type StateManagerShape = {
     /**
      * - Create a state checkpoint
      */
-    checkpoint: () => import("effect").Effect.Effect<void>;
+    checkpoint: () => import("effect").Effect.Effect<void, import("@tevm/errors-effect").InternalError>;
     /**
      * - Commit the current checkpoint
      */
-    commit: () => import("effect").Effect.Effect<void>;
+    commit: () => import("effect").Effect.Effect<void, import("@tevm/errors-effect").InternalError>;
     /**
      * - Revert to the last checkpoint
      */
-    revert: () => import("effect").Effect.Effect<void>;
+    revert: () => import("effect").Effect.Effect<void, import("@tevm/errors-effect").InternalError>;
     /**
      * - Dump the entire state
      */
-    dumpState: () => import("effect").Effect.Effect<import("@tevm/state").TevmState>;
+    dumpState: () => import("effect").Effect.Effect<import("@tevm/state").TevmState, import("@tevm/errors-effect").InternalError>;
     /**
      * - Load state from a dump
      */
-    loadState: (state: import("@tevm/state").TevmState) => import("effect").Effect.Effect<void>;
+    loadState: (state: import("@tevm/state").TevmState) => import("effect").Effect.Effect<void, import("@tevm/errors-effect").InternalError>;
     /**
      * - Effect that completes when the state manager is ready
      */
-    ready: import("effect").Effect.Effect<void>;
+    ready: import("effect").Effect.Effect<void, import("@tevm/errors-effect").NodeNotReadyError>;
     /**
      * - Create a deep copy of the state manager
      */
-    deepCopy: () => import("effect").Effect.Effect<StateManagerShape>;
+    deepCopy: () => import("effect").Effect.Effect<StateManagerShape, import("@tevm/errors-effect").InternalError>;
     /**
      * - Create a shallow copy of the state manager
      */

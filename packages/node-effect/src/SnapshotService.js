@@ -53,6 +53,4 @@ import { Context } from 'effect'
  * Effect.runPromise(program.pipe(Effect.provide(layer)))
  * ```
  */
-export const SnapshotService = Context.GenericTag(
-	'@tevm/node-effect/SnapshotService',
-)
+export const SnapshotService = Context.GenericTag('@tevm/node-effect/SnapshotService')

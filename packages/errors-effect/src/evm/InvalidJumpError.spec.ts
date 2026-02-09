@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { InvalidJumpError } from './InvalidJumpError.js'
 
 describe('InvalidJumpError', () => {
@@ -67,8 +67,8 @@ describe('InvalidJumpError', () => {
 
 		const program = Effect.fail(error).pipe(
 			Effect.catchTag('InvalidJumpError', (e) =>
-				Effect.succeed(`Jump to 0x${e.destination?.toString(16)} from pc 0x${e.pc?.toString(16)}`)
-			)
+				Effect.succeed(`Jump to 0x${e.destination?.toString(16)} from pc 0x${e.pc?.toString(16)}`),
+			),
 		)
 
 		const result = await Effect.runPromise(program)
@@ -150,11 +150,11 @@ describe('InvalidJumpError', () => {
 
 		it('should have consistent Hash values for equal errors', () => {
 			const error1 = new InvalidJumpError({
-				destination: 0xABCD,
+				destination: 0xabcd,
 				pc: 0x200,
 			})
 			const error2 = new InvalidJumpError({
-				destination: 0xABCD,
+				destination: 0xabcd,
 				pc: 0x200,
 			})
 
@@ -176,11 +176,11 @@ describe('InvalidJumpError', () => {
 
 		it('should work correctly in Effect HashSet', () => {
 			const error1 = new InvalidJumpError({
-				destination: 0xDEAD,
+				destination: 0xdead,
 				pc: 0x300,
 			})
 			const error2 = new InvalidJumpError({
-				destination: 0xDEAD,
+				destination: 0xdead,
 				pc: 0x300,
 			})
 

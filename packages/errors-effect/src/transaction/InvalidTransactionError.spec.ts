@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { InvalidTransactionError } from './InvalidTransactionError.js'
 
 describe('InvalidTransactionError', () => {
@@ -77,9 +77,7 @@ describe('InvalidTransactionError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('InvalidTransactionError', () =>
-				Effect.succeed('Transaction error handled')
-			)
+			Effect.catchTag('InvalidTransactionError', () => Effect.succeed('Transaction error handled')),
 		)
 
 		const result = await Effect.runPromise(program)

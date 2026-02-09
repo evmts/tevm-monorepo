@@ -1,13 +1,12 @@
-import { describe, it, expect } from 'vitest'
+import { ForkConfigStatic } from '@tevm/transport-effect'
 import { Effect, Layer } from 'effect'
-import { ForkConfigService, ForkConfigStatic } from '@tevm/transport-effect'
-import { CommonService } from './CommonService.js'
+import { describe, expect, it } from 'vitest'
 import { CommonFromFork } from './CommonFromFork.js'
+import { CommonService } from './CommonService.js'
 
 describe('CommonFromFork', () => {
 	// Helper to create a mock ForkConfigService layer
-	const createMockForkConfig = (chainId: bigint, blockTag: bigint = 1000000n) =>
-		ForkConfigStatic({ chainId, blockTag })
+	const createMockForkConfig = (chainId: bigint, blockTag: bigint = 1000000n) => ForkConfigStatic({ chainId, blockTag })
 
 	describe('with ForkConfigService', () => {
 		it('should create CommonService using chain ID from ForkConfigService', async () => {
@@ -65,10 +64,7 @@ describe('CommonFromFork', () => {
 			})
 
 			const forkConfigLayer = createMockForkConfig(1n)
-			const commonLayer = Layer.provide(
-				CommonFromFork({ hardfork: 'cancun' }),
-				forkConfigLayer,
-			)
+			const commonLayer = Layer.provide(CommonFromFork({ hardfork: 'cancun' }), forkConfigLayer)
 			const fullLayer = Layer.merge(forkConfigLayer, commonLayer)
 
 			const hardfork = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
@@ -84,10 +80,7 @@ describe('CommonFromFork', () => {
 			})
 
 			const forkConfigLayer = createMockForkConfig(1n)
-			const commonLayer = Layer.provide(
-				CommonFromFork({ eips: [customEip] }),
-				forkConfigLayer,
-			)
+			const commonLayer = Layer.provide(CommonFromFork({ eips: [customEip] }), forkConfigLayer)
 			const fullLayer = Layer.merge(forkConfigLayer, commonLayer)
 
 			const eips = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
@@ -135,9 +128,7 @@ describe('CommonFromFork', () => {
 			const commonLayer = Layer.provide(CommonFromFork(), forkConfigLayer)
 			const fullLayer = Layer.merge(forkConfigLayer, commonLayer)
 
-			const { original, copy } = await Effect.runPromise(
-				program.pipe(Effect.provide(fullLayer)),
-			)
+			const { original, copy } = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
 
 			expect(copy).toBeDefined()
 			expect(copy).not.toBe(original)
@@ -160,9 +151,7 @@ describe('CommonFromFork', () => {
 			const commonLayer = Layer.provide(CommonFromFork(), forkConfigLayer)
 			const fullLayer = Layer.merge(forkConfigLayer, commonLayer)
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(fullLayer)),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
 
 			expect(result.isEip1559Active).toBe(true)
 			expect(result.isEip4844Active).toBe(true)
@@ -183,10 +172,7 @@ describe('CommonFromFork', () => {
 
 			// We need to provide ForkConfigService for it to work
 			const forkConfigLayer = createMockForkConfig(100n)
-			const fullLayer = Layer.merge(
-				forkConfigLayer,
-				Layer.provide(commonLayer, forkConfigLayer),
-			)
+			const fullLayer = Layer.merge(forkConfigLayer, Layer.provide(commonLayer, forkConfigLayer))
 
 			const result = await Effect.runPromise(program.pipe(Effect.provide(fullLayer)))
 			expect(result).toBe(100)

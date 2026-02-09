@@ -84,10 +84,7 @@ export class FilterNotFoundError extends Data.TaggedError('FilterNotFoundError')
 		// Compute all properties before calling super() for Effect.ts equality/hashing
 		const filterId = props.filterId
 		const message =
-			props.message ??
-			(props.filterId !== undefined
-				? `Filter '${props.filterId}' not found`
-				: 'Filter not found')
+			props.message ?? (props.filterId !== undefined ? `Filter '${props.filterId}' not found` : 'Filter not found')
 		const code = FilterNotFoundError.code
 		const docsPath = FilterNotFoundError.docsPath
 		const cause = props.cause

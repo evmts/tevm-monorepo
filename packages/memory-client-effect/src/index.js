@@ -101,14 +101,13 @@
  * @packageDocumentation
  */
 
-// Service definition
-export { MemoryClientService } from './MemoryClientService.js'
+// Viem-compatible wrapper
+export { createMemoryClient } from './createMemoryClient.js'
 
 // Layer implementation
 export { MemoryClientLive } from './MemoryClientLive.js'
-
-// Viem-compatible wrapper
-export { createMemoryClient } from './createMemoryClient.js'
+// Service definition
+export { MemoryClientService } from './MemoryClientService.js'
 
 // Re-export types
 export * from './types.js'

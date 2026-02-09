@@ -47,6 +47,4 @@ import { Context } from 'effect'
  * Effect.runPromise(program.pipe(Effect.provide(layer)))
  * ```
  */
-export const ImpersonationService = Context.GenericTag(
-	'@tevm/node-effect/ImpersonationService',
-)
+export const ImpersonationService = Context.GenericTag('@tevm/node-effect/ImpersonationService')

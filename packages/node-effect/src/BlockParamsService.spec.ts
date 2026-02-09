@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
 import { Context } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { BlockParamsService } from './BlockParamsService.js'
 
 describe('BlockParamsService', () => {

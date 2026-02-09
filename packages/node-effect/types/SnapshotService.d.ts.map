@@ -1,1 +1,1 @@
-{"version":3,"file":"SnapshotService.d.ts","sourceRoot":"","sources":["../src/SnapshotService.js"],"names":[],"mappings":"AAEA;;;GAGG;AAEH;;GAEG;AAEH;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;GA2CG;AACH,oDAEC;4BAjDY,OAAO,YAAY,EAAE,aAAa;wBARvB,QAAQ"}
+{"version":3,"file":"SnapshotService.d.ts","sourceRoot":"","sources":["../src/SnapshotService.js"],"names":[],"mappings":"AAEA;;;GAGG;AAEH;;GAEG;AAEH;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;GA2CG;AACH,oDAAsF;4BA/CzE,OAAO,YAAY,EAAE,aAAa;wBARvB,QAAQ"}

@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { InvalidFilterTypeError } from './InvalidFilterTypeError.js'
 
 describe('InvalidFilterTypeError', () => {
@@ -75,8 +75,8 @@ describe('InvalidFilterTypeError', () => {
 
 		const program = Effect.fail(error).pipe(
 			Effect.catchTag('InvalidFilterTypeError', (e) =>
-				Effect.succeed(`Filter ${e.filterId} is ${e.actualType}, expected ${e.expectedType}`)
-			)
+				Effect.succeed(`Filter ${e.filterId} is ${e.actualType}, expected ${e.expectedType}`),
+			),
 		)
 
 		const result = await Effect.runPromise(program)

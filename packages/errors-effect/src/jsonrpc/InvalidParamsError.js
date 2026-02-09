@@ -96,9 +96,7 @@ export class InvalidParamsError extends Data.TaggedError('InvalidParamsError') {
 		const params = props.params
 		const message =
 			props.message ??
-			(props.method !== undefined
-				? `Invalid parameters for method '${props.method}'`
-				: 'Invalid parameters')
+			(props.method !== undefined ? `Invalid parameters for method '${props.method}'` : 'Invalid parameters')
 		const code = InvalidParamsError.code
 		const docsPath = InvalidParamsError.docsPath
 		const cause = props.cause

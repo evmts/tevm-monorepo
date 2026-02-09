@@ -1,8 +1,8 @@
+import { InternalError, InvalidParamsError } from '@tevm/errors-effect'
+import { StateManagerService } from '@tevm/state-effect'
+import { createAccount, keccak256 as keccak256Utils } from '@tevm/utils'
 import { Effect, Layer } from 'effect'
 import { SetAccountService } from './SetAccountService.js'
-import { StateManagerService } from '@tevm/state-effect'
-import { InvalidParamsError, InternalError } from '@tevm/errors-effect'
-import { keccak256 as keccak256Utils, createAccount } from '@tevm/utils'
 
 /**
  * @module @tevm/actions-effect/SetAccountLive
@@ -20,7 +20,7 @@ const hexToBytes = (hex, options) => {
 	const cleanHex = hex.startsWith('0x') ? hex.slice(2) : hex
 	// Normalize odd-length hex strings by left-padding with a single '0'
 	// This prevents silent data truncation (e.g., "0xabc" becomes "0abc" -> [0x0a, 0xbc])
-	const normalizedHex = cleanHex.length % 2 === 1 ? '0' + cleanHex : cleanHex
+	const normalizedHex = cleanHex.length % 2 === 1 ? `0${cleanHex}` : cleanHex
 	const paddedHex = options?.size ? normalizedHex.padStart(options.size * 2, '0') : normalizedHex
 	const bytes = new Uint8Array(paddedHex.length / 2)
 	for (let i = 0; i < bytes.length; i++) {
@@ -208,7 +208,7 @@ export const SetAccountLive = Layer.effect(
 
 					// Build storage root and code hash
 					let finalStorageRoot = storageRoot ? hexToBytes(storageRoot) : undefined
-					let finalCodeHash = undefined
+					let finalCodeHash
 
 					if (deployedBytecode) {
 						const codeHashHex = keccak256(deployedBytecode)

@@ -41,6 +41,4 @@ import { Context } from 'effect'
  * ```
  *
  */
-export const SetAccountService = Context.GenericTag(
-	'@tevm/actions-effect/SetAccountService',
-)
+export const SetAccountService = Context.GenericTag('@tevm/actions-effect/SetAccountService')

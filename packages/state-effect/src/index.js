@@ -42,9 +42,9 @@
  * @typedef {import('./types.js').Bytes32} Bytes32
  */
 
-// Service
-export { StateManagerService } from './StateManagerService.js'
+export { StateManagerLive } from './StateManagerLive.js'
 
 // Layers
 export { StateManagerLocal } from './StateManagerLocal.js'
-export { StateManagerLive } from './StateManagerLive.js'
+// Service
+export { StateManagerService } from './StateManagerService.js'

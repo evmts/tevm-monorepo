@@ -41,6 +41,4 @@ import { Context } from 'effect'
  * ```
  *
  */
-export const GetStorageAtService = Context.GenericTag(
-	'@tevm/actions-effect/GetStorageAtService',
-)
+export const GetStorageAtService = Context.GenericTag('@tevm/actions-effect/GetStorageAtService')

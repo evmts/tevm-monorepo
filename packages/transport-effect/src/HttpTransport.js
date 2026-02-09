@@ -1,5 +1,5 @@
-import { Effect, Layer, Schedule, Duration, Queue, Deferred, Ref, Chunk, Fiber } from 'effect'
 import { ForkError } from '@tevm/errors-effect'
+import { Chunk, Deferred, Duration, Effect, Fiber, Layer, Queue, Ref, Schedule } from 'effect'
 import { TransportService } from './TransportService.js'
 
 /**
@@ -132,7 +132,7 @@ const createSingleRequest = (config, timeout, retrySchedule) => {
 			Effect.retry({
 				schedule: retrySchedule,
 				while: isRetryableError,
-			})
+			}),
 		)
 	}
 }
@@ -181,9 +181,10 @@ const sendBatch = (config, timeout, batch, retrySchedule) => {
 						throw new Error(`HTTP error: ${response.status} ${response.statusText}`)
 					}
 
-					const json = /** @type {Array<{ id: number; result?: unknown; error?: { message: string; code: number } }>} */ (
-						await response.json()
-					)
+					const json =
+						/** @type {Array<{ id: number; result?: unknown; error?: { message: string; code: number } }>} */ (
+							await response.json()
+						)
 
 					return json
 				} finally {
@@ -201,7 +202,7 @@ const sendBatch = (config, timeout, batch, retrySchedule) => {
 			Effect.retry({
 				schedule: retrySchedule,
 				while: isRetryableError,
-			})
+			}),
 		)
 
 		const result = yield* Effect.either(httpRequest)
@@ -216,7 +217,7 @@ const sendBatch = (config, timeout, batch, retrySchedule) => {
 					new ForkError({
 						method: req.method,
 						cause: batchError.cause,
-					})
+					}),
 				)
 			}
 			return
@@ -239,7 +240,7 @@ const sendBatch = (config, timeout, batch, retrySchedule) => {
 					new ForkError({
 						method: req.method,
 						cause: new Error(`No response found for request id ${req.id}`),
-					})
+					}),
 				)
 			} else if (resp.error) {
 				yield* Deferred.fail(
@@ -247,7 +248,7 @@ const sendBatch = (config, timeout, batch, retrySchedule) => {
 					new ForkError({
 						method: req.method,
 						cause: new Error(`RPC error: ${resp.error.message} (code: ${resp.error.code})`),
-					})
+					}),
 				)
 			} else {
 				yield* Deferred.succeed(req.deferred, resp.result)
@@ -340,7 +341,7 @@ export const HttpTransport = (config) => {
 	const retryDelay = config.retryDelay ?? 1000
 
 	const retrySchedule = Schedule.exponential(Duration.millis(retryDelay)).pipe(
-		Schedule.compose(Schedule.recurs(retryCount))
+		Schedule.compose(Schedule.recurs(retryCount)),
 	)
 
 	// If no batch config, use simple Layer.succeed for non-batched transport
@@ -350,7 +351,7 @@ export const HttpTransport = (config) => {
 			TransportService,
 			/** @type {TransportShape} */ ({
 				request: singleRequest,
-			})
+			}),
 		)
 	}
 
@@ -435,67 +436,69 @@ export const HttpTransport = (config) => {
 
 					// Shutdown the queue
 					yield* Queue.shutdown(pendingQueue)
-				})
+				}),
 			)
 
 			/** @type {TransportShape} */
 			const transport = {
-				request: /** @type {TransportShape['request']} */ ((method, params) => {
-					return Effect.gen(function* () {
-						// Issue #315 fix: Check if transport is shutting down before accepting new requests
-						// This prevents race condition where requests are added to queue after processor exits
-						const shuttingDown = yield* Ref.get(isShuttingDown)
-						/* v8 ignore start - defensive code only runs during layer teardown race condition */
-						if (shuttingDown) {
-							return yield* Effect.fail(
-								new ForkError({
-									method,
-									cause: new Error('Transport is shutting down - cannot accept new requests'),
-								})
-							)
-						}
-						/* v8 ignore stop */
-
-						// Create unique ID for this request
-						const id = yield* Ref.updateAndGet(idCounter, (n) => n + 1)
-
-						// Create deferred for this request
-						const deferred = /** @type {Deferred.Deferred<unknown, ForkError>} */ (
-							/** @type {unknown} */ (yield* Deferred.make())
-						)
-
-						// Add to pending queue
-						/** @type {PendingRequest} */
-						const pendingRequest = {
-							id,
-							method,
-							params: params ?? [],
-							deferred,
-						}
-
-						// Add to pending queue
-						yield* Queue.offer(pendingQueue, pendingRequest)
-
-						// Check if we should trigger batch immediately (queue size >= maxSize)
-						const queueSize = yield* Queue.size(pendingQueue)
-						if (queueSize >= batchConfig.maxSize) {
-							// Trigger immediate batch processing
-							const trigger = yield* Ref.get(batchTriggerRef)
-							if (trigger) {
-								yield* Deferred.succeed(trigger, undefined)
+				request: /** @type {TransportShape['request']} */ (
+					(method, params) => {
+						return Effect.gen(function* () {
+							// Issue #315 fix: Check if transport is shutting down before accepting new requests
+							// This prevents race condition where requests are added to queue after processor exits
+							const shuttingDown = yield* Ref.get(isShuttingDown)
+							/* v8 ignore start - defensive code only runs during layer teardown race condition */
+							if (shuttingDown) {
+								return yield* Effect.fail(
+									new ForkError({
+										method,
+										cause: new Error('Transport is shutting down - cannot accept new requests'),
+									}),
+								)
 							}
-						}
+							/* v8 ignore stop */
 
-						// Wait for the result
-						// Note: Retry logic is now in sendBatch at the HTTP request level,
-						// not here. Retrying here would create new Deferreds on each retry,
-						// requiring a wait for the next batch cycle instead of immediate retry.
-						return yield* Deferred.await(deferred)
-					})
-				}),
+							// Create unique ID for this request
+							const id = yield* Ref.updateAndGet(idCounter, (n) => n + 1)
+
+							// Create deferred for this request
+							const deferred = /** @type {Deferred.Deferred<unknown, ForkError>} */ (
+								/** @type {unknown} */ (yield* Deferred.make())
+							)
+
+							// Add to pending queue
+							/** @type {PendingRequest} */
+							const pendingRequest = {
+								id,
+								method,
+								params: params ?? [],
+								deferred,
+							}
+
+							// Add to pending queue
+							yield* Queue.offer(pendingQueue, pendingRequest)
+
+							// Check if we should trigger batch immediately (queue size >= maxSize)
+							const queueSize = yield* Queue.size(pendingQueue)
+							if (queueSize >= batchConfig.maxSize) {
+								// Trigger immediate batch processing
+								const trigger = yield* Ref.get(batchTriggerRef)
+								if (trigger) {
+									yield* Deferred.succeed(trigger, undefined)
+								}
+							}
+
+							// Wait for the result
+							// Note: Retry logic is now in sendBatch at the HTTP request level,
+							// not here. Retrying here would create new Deferreds on each retry,
+							// requiring a wait for the next batch cycle instead of immediate retry.
+							return yield* Deferred.await(deferred)
+						})
+					}
+				),
 			}
 
 			return transport
-		})
+		}),
 	)
 }

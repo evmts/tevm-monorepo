@@ -1,9 +1,9 @@
-import { describe, it, expect } from 'vitest'
-import { Effect, Layer, Exit } from 'effect'
+import { ForkError } from '@tevm/errors-effect'
+import { Effect, Exit, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { ForkConfigFromRpc } from './ForkConfigFromRpc.js'
 import { ForkConfigService } from './ForkConfigService.js'
 import { TransportService } from './TransportService.js'
-import { ForkError } from '@tevm/errors-effect'
 import type { TransportShape } from './types.js'
 
 describe('ForkConfigFromRpc', () => {

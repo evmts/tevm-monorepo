@@ -44,6 +44,4 @@ import { Context } from 'effect'
  * ```
  *
  */
-export const LoggerService = Context.GenericTag(
-	'@tevm/logger-effect/LoggerService'
-)
+export const LoggerService = Context.GenericTag('@tevm/logger-effect/LoggerService')

@@ -64,7 +64,7 @@
  * @typedef {import('./types.js').BlockchainLocalOptions} BlockchainLocalOptions
  */
 
-// Blockchain exports
-export { BlockchainService } from './BlockchainService.js'
 export { BlockchainLive } from './BlockchainLive.js'
 export { BlockchainLocal } from './BlockchainLocal.js'
+// Blockchain exports
+export { BlockchainService } from './BlockchainService.js'

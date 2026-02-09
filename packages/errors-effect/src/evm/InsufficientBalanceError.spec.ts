@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { InsufficientBalanceError } from './InsufficientBalanceError.js'
 
 describe('InsufficientBalanceError', () => {
@@ -66,9 +66,7 @@ describe('InsufficientBalanceError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('InsufficientBalanceError', (e) =>
-				Effect.succeed(`Need ${e.required! - e.available!} more`)
-			)
+			Effect.catchTag('InsufficientBalanceError', (e) => Effect.succeed(`Need ${e.required! - e.available!} more`)),
 		)
 
 		const result = await Effect.runPromise(program)

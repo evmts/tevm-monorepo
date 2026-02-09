@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { InvalidRequestError } from './InvalidRequestError.js'
 
 describe('InvalidRequestError', () => {
@@ -41,9 +41,7 @@ describe('InvalidRequestError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('InvalidRequestError', (e) =>
-				Effect.succeed(`Request error: ${e.message}`)
-			)
+			Effect.catchTag('InvalidRequestError', (e) => Effect.succeed(`Request error: ${e.message}`)),
 		)
 
 		const result = await Effect.runPromise(program)

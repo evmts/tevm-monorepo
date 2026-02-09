@@ -33,13 +33,7 @@ describe('@tevm/logger-effect exports', () => {
 
 	describe('Complete exports list', () => {
 		it('should export all expected items', () => {
-			const expectedExports = [
-				'LoggerService',
-				'LoggerLive',
-				'LoggerSilent',
-				'LoggerTest',
-				'isTestLogger',
-			]
+			const expectedExports = ['LoggerService', 'LoggerLive', 'LoggerSilent', 'LoggerTest', 'isTestLogger']
 
 			expectedExports.forEach((exportName) => {
 				expect(LoggerEffect).toHaveProperty(exportName)

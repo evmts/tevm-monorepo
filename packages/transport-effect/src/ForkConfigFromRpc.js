@@ -1,5 +1,5 @@
-import { Effect, Layer } from 'effect'
 import { ForkError } from '@tevm/errors-effect'
+import { Effect, Layer } from 'effect'
 import { ForkConfigService } from './ForkConfigService.js'
 import { TransportService } from './TransportService.js'
 
@@ -97,5 +97,5 @@ export const ForkConfigFromRpc = Layer.effect(
 			chainId,
 			blockTag,
 		})
-	})
+	}),
 )

@@ -1,5 +1,3 @@
-import { TevmError } from '../TevmError.js'
-
 /**
  * Library version - should match package.json version
  * @type {string}
@@ -94,7 +92,7 @@ const computeDetails = (cause) => {
  * throw baseErrorLike
  * ```
  *
- * @template {TevmError | import('../evm/InsufficientBalanceError.js').InsufficientBalanceError | import('../evm/OutOfGasError.js').OutOfGasError | import('../evm/RevertError.js').RevertError | import('../evm/InvalidOpcodeError.js').InvalidOpcodeError | import('../evm/StackOverflowError.js').StackOverflowError | import('../evm/StackUnderflowError.js').StackUnderflowError} T
+ * @template {import('../TevmError.js').TevmError | import('../evm/InsufficientBalanceError.js').InsufficientBalanceError | import('../evm/OutOfGasError.js').OutOfGasError | import('../evm/RevertError.js').RevertError | import('../evm/InvalidOpcodeError.js').InvalidOpcodeError | import('../evm/StackOverflowError.js').StackOverflowError | import('../evm/StackUnderflowError.js').StackUnderflowError} T
  * @param {T} taggedError - The TaggedError to convert
  * @returns {BaseErrorLike & Omit<T, '_tag' | 'message' | 'code' | 'docsPath'>} A BaseError-like object with preserved error-specific properties
  */
@@ -103,9 +101,7 @@ export const toBaseError = (taggedError) => {
 	const cause = /** @type {unknown} */ (taggedError.cause)
 
 	// Create Error with cause option to preserve error chain for walk method
-	const error = cause !== undefined
-		? new Error(taggedError.message, { cause })
-		: new Error(taggedError.message)
+	const error = cause !== undefined ? new Error(taggedError.message, { cause }) : new Error(taggedError.message)
 
 	// Compute details from cause like the original BaseError does
 	const details = computeDetails(cause)

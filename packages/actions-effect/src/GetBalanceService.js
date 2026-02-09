@@ -40,6 +40,4 @@ import { Context } from 'effect'
  * ```
  *
  */
-export const GetBalanceService = Context.GenericTag(
-	'@tevm/actions-effect/GetBalanceService',
-)
+export const GetBalanceService = Context.GenericTag('@tevm/actions-effect/GetBalanceService')

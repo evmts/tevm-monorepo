@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { RevertError } from './RevertError.js'
 
 describe('RevertError', () => {
@@ -67,9 +67,7 @@ describe('RevertError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('RevertError', (e) =>
-				Effect.succeed(`Transaction reverted: ${e.reason}`)
-			)
+			Effect.catchTag('RevertError', (e) => Effect.succeed(`Transaction reverted: ${e.reason}`)),
 		)
 
 		const result = await Effect.runPromise(program)

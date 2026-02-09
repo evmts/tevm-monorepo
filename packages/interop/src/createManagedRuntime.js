@@ -1,4 +1,4 @@
-import { ManagedRuntime, Layer } from 'effect'
+import { Layer, ManagedRuntime } from 'effect'
 
 /**
  * Create a managed runtime with proper lifecycle management.

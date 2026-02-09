@@ -78,7 +78,9 @@ import { Effect, Runtime } from 'effect'
  */
 export const effectToPromise = (effect, runtime = /** @type {Runtime.Runtime<any>} */ (Runtime.defaultRuntime)) => {
 	if (effect === null || effect === undefined) {
-		return Promise.reject(new TypeError('effectToPromise: effect parameter is required and cannot be null or undefined'))
+		return Promise.reject(
+			new TypeError('effectToPromise: effect parameter is required and cannot be null or undefined'),
+		)
 	}
 	return Runtime.runPromise(runtime)(effect)
 }

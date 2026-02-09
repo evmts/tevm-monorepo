@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { GasTooLowError } from './GasTooLowError.js'
 
 describe('GasTooLowError', () => {
@@ -73,8 +73,10 @@ describe('GasTooLowError', () => {
 
 		const program = Effect.fail(error).pipe(
 			Effect.catchTag('GasTooLowError', (e) =>
-				Effect.succeed(`Need ${e.intrinsicGas !== undefined && e.gasLimit !== undefined ? e.intrinsicGas - e.gasLimit : 0n} more gas`)
-			)
+				Effect.succeed(
+					`Need ${e.intrinsicGas !== undefined && e.gasLimit !== undefined ? e.intrinsicGas - e.gasLimit : 0n} more gas`,
+				),
+			),
 		)
 
 		const result = await Effect.runPromise(program)

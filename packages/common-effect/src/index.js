@@ -66,10 +66,9 @@
  * @typedef {import('./types.js').LogLevel} LogLevel
  */
 
-// Service exports
-export { CommonService } from './CommonService.js'
-
 // Layer exports
 export { CommonFromConfig } from './CommonFromConfig.js'
 export { CommonFromFork } from './CommonFromFork.js'
 export { CommonLocal } from './CommonLocal.js'
+// Service exports
+export { CommonService } from './CommonService.js'

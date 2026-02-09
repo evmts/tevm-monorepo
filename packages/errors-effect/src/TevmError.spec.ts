@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { TevmError } from './TevmError.js'
 
 describe('TevmError', () => {
@@ -34,9 +34,7 @@ describe('TevmError', () => {
 
 		const program = Effect.fail(error)
 
-		const result = await Effect.runPromise(
-			Effect.either(program)
-		)
+		const result = await Effect.runPromise(Effect.either(program))
 
 		expect(result._tag).toBe('Left')
 		if (result._tag === 'Left') {
@@ -51,9 +49,7 @@ describe('TevmError', () => {
 			code: -32002,
 		})
 
-		const program = Effect.fail(error).pipe(
-			Effect.catchTag('TevmError', (e) => Effect.succeed(`Caught: ${e.message}`))
-		)
+		const program = Effect.fail(error).pipe(Effect.catchTag('TevmError', (e) => Effect.succeed(`Caught: ${e.message}`)))
 
 		const result = await Effect.runPromise(program)
 		expect(result).toBe('Caught: Catchable error')

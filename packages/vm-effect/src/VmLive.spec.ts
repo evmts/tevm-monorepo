@@ -1,13 +1,13 @@
-import { describe, it, expect, vi } from 'vitest'
-import { Effect, Layer, Exit, Cause } from 'effect'
-import { VmService } from './VmService.js'
-import { VmLive } from './VmLive.js'
-import { CommonLocal, CommonService } from '@tevm/common-effect'
-import { StateManagerLocal, StateManagerService } from '@tevm/state-effect'
-import { BlockchainLocal, BlockchainService } from '@tevm/blockchain-effect'
-import { EvmService, EvmLive } from '@tevm/evm-effect'
+import { BlockchainLocal } from '@tevm/blockchain-effect'
+import { CommonLocal } from '@tevm/common-effect'
 import { TevmError } from '@tevm/errors-effect'
+import { EvmLive } from '@tevm/evm-effect'
+import { StateManagerLocal } from '@tevm/state-effect'
 import * as vmModule from '@tevm/vm'
+import { Cause, Effect, Exit, Layer } from 'effect'
+import { describe, expect, it, vi } from 'vitest'
+import { VmLive } from './VmLive.js'
+import { VmService } from './VmService.js'
 
 describe('VmLive', () => {
 	describe('layer creation', () => {
@@ -24,9 +24,7 @@ describe('VmLive', () => {
 
 			// Should fail without dependencies
 			const layer = VmLive()
-			const exit = await Effect.runPromiseExit(
-				program.pipe(Effect.provide(layer as unknown as Layer.Layer<VmService>)),
-			)
+			const exit = await Effect.runPromiseExit(program.pipe(Effect.provide(layer as unknown as Layer.Layer<VmService>)))
 			expect(Exit.isFailure(exit)).toBe(true)
 		})
 
@@ -40,14 +38,8 @@ describe('VmLive', () => {
 		// Build the layer stack
 		const stateLayer = Layer.provide(StateManagerLocal(), CommonLocal)
 		const blockchainLayer = Layer.provide(BlockchainLocal(), CommonLocal)
-		const evmLayer = Layer.provide(
-			EvmLive(),
-			Layer.mergeAll(stateLayer, blockchainLayer, CommonLocal),
-		)
-		const fullLayer = Layer.provide(
-			VmLive(),
-			Layer.mergeAll(evmLayer, stateLayer, blockchainLayer, CommonLocal),
-		)
+		const evmLayer = Layer.provide(EvmLive(), Layer.mergeAll(stateLayer, blockchainLayer, CommonLocal))
+		const fullLayer = Layer.provide(VmLive(), Layer.mergeAll(evmLayer, stateLayer, blockchainLayer, CommonLocal))
 
 		it('should create a working VM service', async () => {
 			const program = Effect.gen(function* () {
@@ -207,16 +199,10 @@ describe('VmLive', () => {
 				// Use valid layers for the other services
 				const stateLayer = Layer.provide(StateManagerLocal(), CommonLocal)
 				const blockchainLayer = Layer.provide(BlockchainLocal(), CommonLocal)
-				const evmLayer = Layer.provide(
-					EvmLive(),
-					Layer.mergeAll(stateLayer, blockchainLayer, CommonLocal),
-				)
+				const evmLayer = Layer.provide(EvmLive(), Layer.mergeAll(stateLayer, blockchainLayer, CommonLocal))
 
 				// Build VmLive
-				const vmLayer = Layer.provide(
-					VmLive(),
-					Layer.mergeAll(evmLayer, stateLayer, blockchainLayer, CommonLocal),
-				)
+				const vmLayer = Layer.provide(VmLive(), Layer.mergeAll(evmLayer, stateLayer, blockchainLayer, CommonLocal))
 
 				const program = Effect.gen(function* () {
 					const vmService = yield* VmService
@@ -254,16 +240,10 @@ describe('VmLive', () => {
 				// Use valid layers for the other services
 				const stateLayer = Layer.provide(StateManagerLocal(), CommonLocal)
 				const blockchainLayer = Layer.provide(BlockchainLocal(), CommonLocal)
-				const evmLayer = Layer.provide(
-					EvmLive(),
-					Layer.mergeAll(stateLayer, blockchainLayer, CommonLocal),
-				)
+				const evmLayer = Layer.provide(EvmLive(), Layer.mergeAll(stateLayer, blockchainLayer, CommonLocal))
 
 				// Build VmLive
-				const vmLayer = Layer.provide(
-					VmLive(),
-					Layer.mergeAll(evmLayer, stateLayer, blockchainLayer, CommonLocal),
-				)
+				const vmLayer = Layer.provide(VmLive(), Layer.mergeAll(evmLayer, stateLayer, blockchainLayer, CommonLocal))
 
 				const program = Effect.gen(function* () {
 					const vmService = yield* VmService

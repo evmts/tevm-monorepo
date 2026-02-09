@@ -76,7 +76,7 @@ export const wrapWithEffect = (instance, methods) => {
 	if ('effect' in instance) {
 		throw new Error(
 			"Instance already has an 'effect' property. Wrapping would overwrite it. " +
-			"Consider renaming the existing property or using a different wrapper approach."
+				'Consider renaming the existing property or using a different wrapper approach.',
 		)
 	}
 

@@ -1,11 +1,11 @@
-import { describe, it, expect, vi } from 'vitest'
-import { Effect, Layer, Ref } from 'effect'
-import { MemoryClientService } from './MemoryClientService.js'
-import { MemoryClientLive } from './MemoryClientLive.js'
-import { StateManagerService } from '@tevm/state-effect'
-import { VmService } from '@tevm/vm-effect'
 import { CommonService } from '@tevm/common-effect'
 import { SnapshotService } from '@tevm/node-effect'
+import { StateManagerService } from '@tevm/state-effect'
+import { VmService } from '@tevm/vm-effect'
+import { Effect, Layer } from 'effect'
+import { describe, expect, it, vi } from 'vitest'
+import { MemoryClientLive } from './MemoryClientLive.js'
+import { MemoryClientService } from './MemoryClientService.js'
 
 describe('MemoryClientLive', () => {
 	// Create mock implementations for all required services
@@ -16,9 +16,15 @@ describe('MemoryClientLive', () => {
 			Effect.succeed({
 				nonce: 5n,
 				balance: 1000000000000000000n,
-				codeHash: new Uint8Array([0xc5, 0xd2, 0x46, 0x01, 0x86, 0xf7, 0x23, 0x3c, 0x92, 0x7e, 0x7d, 0xb2, 0xdc, 0xc7, 0x03, 0xc0, 0xe5, 0x00, 0xb6, 0x53, 0xca, 0x82, 0x27, 0x3b, 0x7b, 0xfa, 0xd8, 0x04, 0x5d, 0x85, 0xa4, 0x70]),
-				storageRoot: new Uint8Array([0x56, 0xe8, 0x1f, 0x17, 0x1b, 0xcc, 0x55, 0xa6, 0xff, 0x83, 0x45, 0xe6, 0x92, 0xc0, 0xf8, 0x6e, 0x5b, 0x48, 0xe0, 0x1b, 0x99, 0x6c, 0xad, 0xc0, 0x01, 0x62, 0x2f, 0xb5, 0xe3, 0x63, 0xb4, 0x21]),
-			})
+				codeHash: new Uint8Array([
+					0xc5, 0xd2, 0x46, 0x01, 0x86, 0xf7, 0x23, 0x3c, 0x92, 0x7e, 0x7d, 0xb2, 0xdc, 0xc7, 0x03, 0xc0, 0xe5, 0x00,
+					0xb6, 0x53, 0xca, 0x82, 0x27, 0x3b, 0x7b, 0xfa, 0xd8, 0x04, 0x5d, 0x85, 0xa4, 0x70,
+				]),
+				storageRoot: new Uint8Array([
+					0x56, 0xe8, 0x1f, 0x17, 0x1b, 0xcc, 0x55, 0xa6, 0xff, 0x83, 0x45, 0xe6, 0x92, 0xc0, 0xf8, 0x6e, 0x5b, 0x48,
+					0xe0, 0x1b, 0x99, 0x6c, 0xad, 0xc0, 0x01, 0x62, 0x2f, 0xb5, 0xe3, 0x63, 0xb4, 0x21,
+				]),
+			}),
 		),
 		putAccount: vi.fn(() => Effect.succeed(undefined)),
 		getCode: vi.fn(() => Effect.succeed(new Uint8Array([0x60, 0x80, 0x60, 0x40]))),
@@ -46,7 +52,7 @@ describe('MemoryClientLive', () => {
 				getStateRoot: vi.fn(() => Effect.succeed(new Uint8Array(32))),
 				setStateRoot: vi.fn(() => Effect.succeed(undefined)),
 				deepCopy: vi.fn(() => Effect.succeed({} as any)),
-			} as any)
+			} as any),
 		),
 	})
 
@@ -79,7 +85,7 @@ describe('MemoryClientLive', () => {
 				buildBlock: vi.fn(() => Effect.succeed({} as any)),
 				ready: Effect.succeed(true),
 				deepCopy: vi.fn(() => Effect.succeed({} as any)),
-			} as any)
+			} as any),
 		),
 	})
 
@@ -88,7 +94,7 @@ describe('MemoryClientLive', () => {
 		hardfork: 'prague' as const,
 		eips: [],
 		common: {} as any,
-		copy: vi.fn(() => ({} as any)),
+		copy: vi.fn(() => ({}) as any),
 	})
 
 	const createMockSnapshotService = () => ({
@@ -99,7 +105,7 @@ describe('MemoryClientLive', () => {
 				takeSnapshot: vi.fn(() => Effect.succeed('0x2' as const)),
 				revertToSnapshot: vi.fn(() => Effect.succeed(undefined)),
 				deepCopy: vi.fn(() => Effect.succeed({} as any)),
-			} as any)
+			} as any),
 		),
 	})
 
@@ -113,7 +119,7 @@ describe('MemoryClientLive', () => {
 			Layer.succeed(StateManagerService, stateManagerMock as any),
 			Layer.succeed(VmService, vmMock as any),
 			Layer.succeed(CommonService, commonMock as any),
-			Layer.succeed(SnapshotService, snapshotMock as any)
+			Layer.succeed(SnapshotService, snapshotMock as any),
 		)
 
 		return {

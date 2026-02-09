@@ -1,5 +1,5 @@
+import { Context, Effect, Layer, ManagedRuntime } from 'effect'
 import { describe, expect, it } from 'vitest'
-import { Effect, Runtime, Layer, Context, ManagedRuntime } from 'effect'
 import { effectToPromise } from './effectToPromise.js'
 
 describe('effectToPromise', () => {

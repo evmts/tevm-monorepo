@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { NetworkError } from './NetworkError.js'
 
 describe('NetworkError', () => {
@@ -58,9 +58,7 @@ describe('NetworkError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('NetworkError', (e) =>
-				Effect.succeed(`Failed to fetch from ${e.url}`)
-			)
+			Effect.catchTag('NetworkError', (e) => Effect.succeed(`Failed to fetch from ${e.url}`)),
 		)
 
 		const result = await Effect.runPromise(program)

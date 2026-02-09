@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { StackUnderflowError } from './StackUnderflowError.js'
 
 describe('StackUnderflowError', () => {
@@ -48,9 +48,7 @@ describe('StackUnderflowError', () => {
 		const error = new StackUnderflowError({})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('StackUnderflowError', () =>
-				Effect.succeed('Stack underflow handled')
-			)
+			Effect.catchTag('StackUnderflowError', () => Effect.succeed('Stack underflow handled')),
 		)
 
 		const result = await Effect.runPromise(program)

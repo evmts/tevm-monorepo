@@ -53,6 +53,4 @@ import { Context } from 'effect'
  * ```
  *
  */
-export const StateManagerService = Context.GenericTag(
-	'@tevm/state-effect/StateManagerService'
-)
+export const StateManagerService = Context.GenericTag('@tevm/state-effect/StateManagerService')

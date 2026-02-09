@@ -90,9 +90,7 @@ export class BlockNotFoundError extends Data.TaggedError('BlockNotFoundError') {
 		const cause = props.cause
 		const message =
 			props.message ??
-			(props.blockTag !== undefined
-				? `Block '${String(props.blockTag)}' not found`
-				: 'Block not found')
+			(props.blockTag !== undefined ? `Block '${String(props.blockTag)}' not found` : 'Block not found')
 		const code = BlockNotFoundError.code
 		const docsPath = BlockNotFoundError.docsPath
 

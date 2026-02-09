@@ -1,5 +1,5 @@
+import { Context, Effect, Layer } from 'effect'
 import { describe, expect, it } from 'vitest'
-import { Effect, Context, Layer } from 'effect'
 import { layerFromFactory } from './layerFromFactory.js'
 
 describe('layerFromFactory', () => {
@@ -26,9 +26,7 @@ describe('layerFromFactory', () => {
 			return yield* Effect.promise(() => service.getData())
 		})
 
-		const result = await Effect.runPromise(
-			program.pipe(Effect.provide(DataServiceLive({ prefix: 'test' })))
-		)
+		const result = await Effect.runPromise(program.pipe(Effect.provide(DataServiceLive({ prefix: 'test' }))))
 
 		expect(result).toBe('test-data')
 	})
@@ -51,9 +49,7 @@ describe('layerFromFactory', () => {
 			service.doSomething()
 		})
 
-		const result = await Effect.runPromise(
-			Effect.either(program.pipe(Effect.provide(FailingServiceLive({}))))
-		)
+		const result = await Effect.runPromise(Effect.either(program.pipe(Effect.provide(FailingServiceLive({})))))
 
 		expect(result._tag).toBe('Left')
 	})
@@ -63,10 +59,7 @@ describe('layerFromFactory', () => {
 			getConfig(): { url: string; timeout: number }
 		}
 
-		class ConfiguredServiceTag extends Context.Tag('ConfiguredService')<
-			ConfiguredServiceTag,
-			ConfiguredService
-		>() {}
+		class ConfiguredServiceTag extends Context.Tag('ConfiguredService')<ConfiguredServiceTag, ConfiguredService>() {}
 
 		interface ServiceOptions {
 			url: string
@@ -86,7 +79,7 @@ describe('layerFromFactory', () => {
 		})
 
 		const result = await Effect.runPromise(
-			program.pipe(Effect.provide(ConfiguredServiceLive({ url: 'https://api.example.com', timeout: 5000 })))
+			program.pipe(Effect.provide(ConfiguredServiceLive({ url: 'https://api.example.com', timeout: 5000 }))),
 		)
 
 		expect(result).toEqual({ url: 'https://api.example.com', timeout: 5000 })

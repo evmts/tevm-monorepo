@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { TimeoutError } from './TimeoutError.js'
 
 describe('TimeoutError', () => {
@@ -80,9 +80,7 @@ describe('TimeoutError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('TimeoutError', (e) =>
-				Effect.succeed(`${e.operation} exceeded ${e.timeout}ms limit`)
-			)
+			Effect.catchTag('TimeoutError', (e) => Effect.succeed(`${e.operation} exceeded ${e.timeout}ms limit`)),
 		)
 
 		const result = await Effect.runPromise(program)

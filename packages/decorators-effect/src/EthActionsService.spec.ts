@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { Context, Effect, Layer } from 'effect'
+import { Effect, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { EthActionsService } from './EthActionsService.js'
 
 describe('EthActionsService', () => {
@@ -23,10 +23,7 @@ describe('EthActionsService', () => {
 			gasPrice: () => Effect.succeed(1000000000n),
 			getBalance: () => Effect.succeed(1000000000000000000n),
 			getCode: () => Effect.succeed('0x' as const),
-			getStorageAt: () =>
-				Effect.succeed(
-					'0x0000000000000000000000000000000000000000000000000000000000000000' as const
-				),
+			getStorageAt: () => Effect.succeed('0x0000000000000000000000000000000000000000000000000000000000000000' as const),
 		}
 
 		const testLayer = Layer.succeed(EthActionsService, mockEthActions as any)

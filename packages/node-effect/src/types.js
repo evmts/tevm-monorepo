@@ -80,11 +80,34 @@
  * Snapshots allow reverting to a previous state, useful for testing and simulation.
  *
  * @typedef {Object} SnapshotShape
- * @property {() => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').StorageError, never>} takeSnapshot - Take a snapshot and return its ID
- * @property {(id: Hex) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').SnapshotNotFoundError | import('@tevm/errors-effect').StateRootNotFoundError, never>} revertToSnapshot - Revert to a snapshot by ID
+ * @property {() => import('effect').Effect.Effect<Hex, import('@tevm/errors-effect').StorageError | import('@tevm/errors-effect').StateRootNotFoundError | import('@tevm/errors-effect').InternalError, never>} takeSnapshot - Take a snapshot and return its ID
+ * @property {(id: Hex) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').SnapshotNotFoundError | import('@tevm/errors-effect').StateRootNotFoundError | import('@tevm/errors-effect').InternalError, never>} revertToSnapshot - Revert to a snapshot by ID
  * @property {(id: Hex) => import('effect').Effect.Effect<Snapshot | undefined>} getSnapshot - Get a snapshot by ID
  * @property {import('effect').Effect.Effect<Map<Hex, Snapshot>>} getAllSnapshots - Get all snapshots
  * @property {(newStateManager?: import('@tevm/state-effect').StateManagerShape) => import('effect').Effect.Effect<SnapshotShape>} deepCopy - Create a deep copy of the snapshot state. IMPORTANT: You must pass the new stateManager if the parent's stateManager was also deep-copied, otherwise snapshots will operate on the original stateManager (Issue #234 fix)
+ */
+
+/**
+ * FilterShape interface for Effect-based filter management.
+ *
+ * This interface provides Effect-wrapped methods for managing blockchain event filters
+ * such as log filters, block filters, and pending transaction filters.
+ *
+ * @typedef {Object} FilterShape
+ * @property {(params?: LogFilterParams) => import('effect').Effect.Effect<Hex>} createLogFilter - Create a new log filter with optional criteria
+ * @property {() => import('effect').Effect.Effect<Hex>} createBlockFilter - Create a new block filter
+ * @property {() => import('effect').Effect.Effect<Hex>} createPendingTransactionFilter - Create a new pending transaction filter
+ * @property {(id: Hex) => import('effect').Effect.Effect<Filter | undefined>} get - Get a filter by ID
+ * @property {(id: Hex) => import('effect').Effect.Effect<boolean>} remove - Remove a filter by ID, returns whether the filter was found
+ * @property {(id: Hex) => import('effect').Effect.Effect<FilterLog[], import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} getChanges - Get log changes for a log filter
+ * @property {(id: Hex) => import('effect').Effect.Effect<unknown[], import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} getBlockChanges - Get block changes for a block filter
+ * @property {(id: Hex) => import('effect').Effect.Effect<unknown[], import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} getPendingTransactionChanges - Get pending transaction changes for a pending transaction filter
+ * @property {(id: Hex, log: FilterLog) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} addLog - Add a log to a log filter
+ * @property {(id: Hex, block: unknown) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} addBlock - Add a block to a block filter
+ * @property {(id: Hex, tx: unknown) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} addPendingTransaction - Add a transaction to a pending transaction filter
+ * @property {import('effect').Effect.Effect<Map<Hex, Filter>>} getAllFilters - Get all filters
+ * @property {(expirationMs?: number) => import('effect').Effect.Effect<number>} cleanupExpiredFilters - Remove expired filters and return count of removed filters
+ * @property {() => import('effect').Effect.Effect<FilterShape>} deepCopy - Create a deep copy of the filter state
  */
 
 /**
@@ -146,32 +169,3 @@
  * @type {number}
  */
 export const DEFAULT_FILTER_EXPIRATION_MS = 5 * 60 * 1000
-
-/**
- * FilterShape interface for Effect-based filter management.
- *
- * This interface provides Effect-wrapped methods for managing blockchain event filters.
- * Filters are used to track new blocks, pending transactions, and contract logs.
- *
- * Per the Ethereum JSON-RPC specification, filters typically expire after 5 minutes
- * of inactivity. Use the cleanupExpiredFilters method to remove stale filters and
- * prevent memory leaks in long-running nodes.
- *
- * @typedef {Object} FilterShape
- * @property {(params?: LogFilterParams) => import('effect').Effect.Effect<Hex>} createLogFilter - Create a log filter
- * @property {() => import('effect').Effect.Effect<Hex>} createBlockFilter - Create a block filter
- * @property {() => import('effect').Effect.Effect<Hex>} createPendingTransactionFilter - Create a pending transaction filter
- * @property {(id: Hex) => import('effect').Effect.Effect<Filter | undefined>} get - Get a filter by ID
- * @property {(id: Hex) => import('effect').Effect.Effect<boolean>} remove - Remove a filter by ID
- * @property {(id: Hex) => import('effect').Effect.Effect<Array<FilterLog>, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} getChanges - Get and clear log changes for a filter (updates lastAccessed)
- * @property {(id: Hex) => import('effect').Effect.Effect<Array<unknown>, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} getBlockChanges - Get and clear block changes for a block filter (updates lastAccessed)
- * @property {(id: Hex) => import('effect').Effect.Effect<Array<unknown>, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} getPendingTransactionChanges - Get and clear tx changes for a pending tx filter (updates lastAccessed)
- * @property {(id: Hex, log: FilterLog) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} addLog - Add a log to a log filter (fails with InvalidFilterTypeError if filter is wrong type)
- * @property {(id: Hex, block: unknown) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} addBlock - Add a block to a block filter (fails with InvalidFilterTypeError if filter is wrong type)
- * @property {(id: Hex, tx: unknown) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').FilterNotFoundError | import('@tevm/errors-effect').InvalidFilterTypeError>} addPendingTransaction - Add a tx to a pending tx filter (fails with InvalidFilterTypeError if filter is wrong type)
- * @property {import('effect').Effect.Effect<Map<Hex, Filter>>} getAllFilters - Get all filters
- * @property {(expirationMs?: number) => import('effect').Effect.Effect<number>} cleanupExpiredFilters - Remove filters that have not been accessed within the expiration period. Returns the number of filters removed. Defaults to 5 minutes (per Ethereum JSON-RPC spec).
- * @property {() => import('effect').Effect.Effect<FilterShape>} deepCopy - Create a deep copy of the filter state
- */
-
-export {}

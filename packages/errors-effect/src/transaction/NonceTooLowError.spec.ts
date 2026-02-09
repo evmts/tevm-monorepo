@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { NonceTooLowError } from './NonceTooLowError.js'
 
 describe('NonceTooLowError', () => {
@@ -73,8 +73,10 @@ describe('NonceTooLowError', () => {
 
 		const program = Effect.fail(error).pipe(
 			Effect.catchTag('NonceTooLowError', (e) =>
-				Effect.succeed(`Missing ${e.expected !== undefined && e.actual !== undefined ? e.expected - e.actual : 0n} transactions for ${e.address}`)
-			)
+				Effect.succeed(
+					`Missing ${e.expected !== undefined && e.actual !== undefined ? e.expected - e.actual : 0n} transactions for ${e.address}`,
+				),
+			),
 		)
 
 		const result = await Effect.runPromise(program)

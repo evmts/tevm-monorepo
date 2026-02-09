@@ -55,6 +55,4 @@ import { Context } from 'effect'
  * )
  * ```
  */
-export const ForkConfigService = Context.GenericTag(
-	'@tevm/transport-effect/ForkConfigService'
-)
+export const ForkConfigService = Context.GenericTag('@tevm/transport-effect/ForkConfigService')

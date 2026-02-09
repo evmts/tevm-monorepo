@@ -1,1 +1,1 @@
-{"version":3,"file":"LoggerSilent.d.ts","sourceRoot":"","sources":["../src/LoggerSilent.js"],"names":[],"mappings":"AAiCA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;GAmCG;AACH,2BAFU,KAAK,CAAC,KAAK,yCAAgB,KAAK,EAAE,KAAK,CAAC,CAEiC;0BA5DtE,OAAO,kBAAkB,EAAE,WAAW;sBATrB,QAAQ"}
+{"version":3,"file":"LoggerSilent.d.ts","sourceRoot":"","sources":["../src/LoggerSilent.js"],"names":[],"mappings":"AAkCA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;GAmCG;AACH,2BAFU,KAAK,CAAC,KAAK,yCAAgB,KAAK,EAAE,KAAK,CAAC,CAEiC;0BA7DtE,OAAO,kBAAkB,EAAE,WAAW;sBATrB,QAAQ"}

@@ -31,11 +31,11 @@ export type VmShape = {
     /**
      * - Effect that completes when VM is ready
      */
-    ready: import("effect").Effect.Effect<void>;
+    ready: import("effect").Effect.Effect<void, VmError>;
     /**
      * - Create a deep copy of the VM
      */
-    deepCopy: () => import("effect").Effect.Effect<VmShape>;
+    deepCopy: () => import("effect").Effect.Effect<VmShape, VmError>;
 };
 /**
  * Configuration options for VmLive layer.
@@ -44,5 +44,5 @@ export type VmShape = {
  * using EvmLive({ profiler: true, loggingEnabled: true }). The VM layer wraps
  * an already-configured EVM from EvmService.
  */
-export type VmLiveOptions = {};
+export type VmLiveOptions = Object;
 //# sourceMappingURL=types.d.ts.map

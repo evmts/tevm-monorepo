@@ -1,14 +1,11 @@
+import { Context, Effect, Layer } from 'effect'
 import { describe, expect, it } from 'vitest'
-import { Effect, Layer, Context, ManagedRuntime } from 'effect'
 import { createManagedRuntime } from './createManagedRuntime.js'
 
 describe('createManagedRuntime', () => {
 	it('should create a managed runtime from a layer', async () => {
 		// Define a service
-		class CounterService extends Context.Tag('CounterService')<
-			CounterService,
-			{ getValue(): number }
-		>() {}
+		class CounterService extends Context.Tag('CounterService')<CounterService, { getValue(): number }>() {}
 
 		const CounterLive = Layer.succeed(CounterService, {
 			getValue: () => 42,
@@ -56,10 +53,7 @@ describe('createManagedRuntime', () => {
 	it('should handle layer with state', async () => {
 		let initCount = 0
 
-		class StatefulService extends Context.Tag('StatefulService')<
-			StatefulService,
-			{ getInitCount(): number }
-		>() {}
+		class StatefulService extends Context.Tag('StatefulService')<StatefulService, { getInitCount(): number }>() {}
 
 		const StatefulLive = Layer.effect(
 			StatefulService,
@@ -68,7 +62,7 @@ describe('createManagedRuntime', () => {
 				return {
 					getInitCount: () => initCount,
 				}
-			})
+			}),
 		)
 
 		const runtime = createManagedRuntime(StatefulLive)
@@ -91,10 +85,7 @@ describe('createManagedRuntime', () => {
 	})
 
 	it('should be usable for running effects', async () => {
-		class SyncService extends Context.Tag('SyncService')<
-			SyncService,
-			{ compute(x: number): number }
-		>() {}
+		class SyncService extends Context.Tag('SyncService')<SyncService, { compute(x: number): number }>() {}
 
 		const SyncLive = Layer.succeed(SyncService, {
 			compute: (x: number) => x * 2,
@@ -117,20 +108,15 @@ describe('createManagedRuntime', () => {
 	it('should properly dispose resources', async () => {
 		let disposed = false
 
-		class DisposableService extends Context.Tag('DisposableService')<
-			DisposableService,
-			{ isActive(): boolean }
-		>() {}
+		class DisposableService extends Context.Tag('DisposableService')<DisposableService, { isActive(): boolean }>() {}
 
 		const DisposableLive = Layer.scoped(
 			DisposableService,
-			Effect.acquireRelease(
-				Effect.succeed({ isActive: () => true }),
-				() =>
-					Effect.sync(() => {
-						disposed = true
-					})
-			)
+			Effect.acquireRelease(Effect.succeed({ isActive: () => true }), () =>
+				Effect.sync(() => {
+					disposed = true
+				}),
+			),
 		)
 
 		const runtime = createManagedRuntime(DisposableLive)

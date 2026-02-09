@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { Effect, Layer, Context } from 'effect'
+import { Effect, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { TransportService } from './TransportService.js'
 import type { TransportShape } from './types.js'
 
@@ -12,8 +12,7 @@ describe('TransportService', () => {
 
 		it('should be usable in Effect.gen for dependency injection', async () => {
 			const mockTransport: TransportShape = {
-				request: <T>(method: string, params?: unknown[]) =>
-					Effect.succeed('0x1' as T),
+				request: <T>(_method: string, _params?: unknown[]) => Effect.succeed('0x1' as T),
 			}
 
 			const testLayer = Layer.succeed(TransportService, mockTransport)
@@ -29,7 +28,7 @@ describe('TransportService', () => {
 
 		it('should allow making requests through the service', async () => {
 			const mockTransport: TransportShape = {
-				request: <T>(method: string, params?: unknown[]) => {
+				request: <T>(method: string, _params?: unknown[]) => {
 					if (method === 'eth_chainId') {
 						return Effect.succeed('0xa' as T) // Chain ID 10
 					}
@@ -75,10 +74,7 @@ describe('TransportService', () => {
 			const result = await Effect.runPromise(program.pipe(Effect.provide(testLayer)))
 			expect(result).toBe(1000000000000000000n)
 			expect(capturedMethod).toBe('eth_getBalance')
-			expect(capturedParams).toEqual([
-				'0x742d35Cc6634C0532925a3b844Bc9e7595f2bD73',
-				'latest',
-			])
+			expect(capturedParams).toEqual(['0x742d35Cc6634C0532925a3b844Bc9e7595f2bD73', 'latest'])
 		})
 	})
 })

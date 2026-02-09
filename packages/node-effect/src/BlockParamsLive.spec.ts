@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest'
 import { Effect } from 'effect'
-import { BlockParamsService } from './BlockParamsService.js'
+import { describe, expect, it } from 'vitest'
 import { BlockParamsLive } from './BlockParamsLive.js'
+import { BlockParamsService } from './BlockParamsService.js'
 
 describe('BlockParamsLive', () => {
 	describe('layer creation', () => {

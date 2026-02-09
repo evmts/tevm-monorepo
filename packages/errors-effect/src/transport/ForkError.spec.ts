@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { ForkError } from './ForkError.js'
 
 describe('ForkError', () => {
@@ -78,11 +78,7 @@ describe('ForkError', () => {
 			method: 'eth_getBalance',
 		})
 
-		const program = Effect.fail(error).pipe(
-			Effect.catchTag('ForkError', () =>
-				Effect.succeed('Fork error handled')
-			)
-		)
+		const program = Effect.fail(error).pipe(Effect.catchTag('ForkError', () => Effect.succeed('Fork error handled')))
 
 		const result = await Effect.runPromise(program)
 		expect(result).toBe('Fork error handled')

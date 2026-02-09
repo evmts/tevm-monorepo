@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest'
 import { Effect } from 'effect'
-import { CommonService } from './CommonService.js'
+import { describe, expect, it } from 'vitest'
 import { CommonLocal } from './CommonLocal.js'
+import { CommonService } from './CommonService.js'
 
 describe('CommonLocal', () => {
 	describe('default configuration', () => {
@@ -68,9 +68,7 @@ describe('CommonLocal', () => {
 				return { original: commonService.common, copy }
 			})
 
-			const { original, copy } = await Effect.runPromise(
-				program.pipe(Effect.provide(CommonLocal)),
-			)
+			const { original, copy } = await Effect.runPromise(program.pipe(Effect.provide(CommonLocal)))
 
 			expect(copy).toBeDefined()
 			expect(copy).not.toBe(original)

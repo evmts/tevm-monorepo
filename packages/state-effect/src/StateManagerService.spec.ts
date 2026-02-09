@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
 import { Context } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { StateManagerService } from './StateManagerService.js'
 
 describe('StateManagerService', () => {

@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest'
-import { Effect, Layer } from 'effect'
-import { GetCodeService } from './GetCodeService.js'
-import { GetCodeLive } from './GetCodeLive.js'
 import { StateManagerService } from '@tevm/state-effect'
+import { Effect, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
+import { GetCodeLive } from './GetCodeLive.js'
+import { GetCodeService } from './GetCodeService.js'
 
 // Create a mock StateManager for testing
 const createMockStateManager = (overrides: Partial<Record<string, unknown>> = {}) => ({
@@ -24,7 +24,7 @@ const createMockStateManager = (overrides: Partial<Record<string, unknown>> = {}
 	loadState: () => Effect.succeed(undefined),
 	ready: Effect.succeed(undefined),
 	deepCopy: () => Effect.succeed({} as any),
-	shallowCopy: () => ({} as any),
+	shallowCopy: () => ({}) as any,
 	...overrides,
 })
 

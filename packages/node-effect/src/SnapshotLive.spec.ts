@@ -1,9 +1,9 @@
-import { describe, it, expect } from 'vitest'
-import { Effect, Layer, Exit } from 'effect'
-import { SnapshotService } from './SnapshotService.js'
-import { SnapshotLive } from './SnapshotLive.js'
-import { StateManagerService } from '@tevm/state-effect'
 import { SnapshotNotFoundError, StateRootNotFoundError } from '@tevm/errors-effect'
+import { StateManagerService } from '@tevm/state-effect'
+import { Effect, Exit, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
+import { SnapshotLive } from './SnapshotLive.js'
+import { SnapshotService } from './SnapshotService.js'
 
 /**
  * Create a mock StateManagerService that fails on dumpState for testing the revert branch.
@@ -15,30 +15,38 @@ const createFailingStateManagerLayer = () => {
 	let revertCalled = false
 
 	return {
-		layer: Layer.succeed(
-			StateManagerService,
-			{
-				stateManager: null as unknown,
-				getStateRoot: () => Effect.sync(() => new Uint8Array(32)),
-				setStateRoot: () => Effect.sync(() => undefined),
-				dumpState: () => Effect.fail(new Error('Simulated dumpState failure')),
-				loadState: () => Effect.sync(() => undefined),
-				getAccount: () => Effect.sync(() => undefined),
-				putAccount: () => Effect.sync(() => undefined),
-				deleteAccount: () => Effect.sync(() => undefined),
-				getStorage: () => Effect.sync(() => new Uint8Array()),
-				putStorage: () => Effect.sync(() => undefined),
-				clearStorage: () => Effect.sync(() => undefined),
-				getCode: () => Effect.sync(() => new Uint8Array()),
-				putCode: () => Effect.sync(() => undefined),
-				checkpoint: () => Effect.sync(() => { checkpointCalled = true }),
-				commit: () => Effect.sync(() => { commitCalled = true }),
-				revert: () => Effect.sync(() => { revertCalled = true }),
-				ready: Effect.sync(() => undefined),
-				deepCopy: () => Effect.die(new Error('Not implemented')),
-				shallowCopy: () => { throw new Error('Not implemented') },
-			} as unknown as import('@tevm/state-effect').StateManagerShape,
-		),
+		layer: Layer.succeed(StateManagerService, {
+			stateManager: null as unknown,
+			getStateRoot: () => Effect.sync(() => new Uint8Array(32)),
+			setStateRoot: () => Effect.sync(() => undefined),
+			dumpState: () => Effect.fail(new Error('Simulated dumpState failure')),
+			loadState: () => Effect.sync(() => undefined),
+			getAccount: () => Effect.sync(() => undefined),
+			putAccount: () => Effect.sync(() => undefined),
+			deleteAccount: () => Effect.sync(() => undefined),
+			getStorage: () => Effect.sync(() => new Uint8Array()),
+			putStorage: () => Effect.sync(() => undefined),
+			clearStorage: () => Effect.sync(() => undefined),
+			getCode: () => Effect.sync(() => new Uint8Array()),
+			putCode: () => Effect.sync(() => undefined),
+			checkpoint: () =>
+				Effect.sync(() => {
+					checkpointCalled = true
+				}),
+			commit: () =>
+				Effect.sync(() => {
+					commitCalled = true
+				}),
+			revert: () =>
+				Effect.sync(() => {
+					revertCalled = true
+				}),
+			ready: Effect.sync(() => undefined),
+			deepCopy: () => Effect.die(new Error('Not implemented')),
+			shallowCopy: () => {
+				throw new Error('Not implemented')
+			},
+		} as unknown as import('@tevm/state-effect').StateManagerShape),
 		getCheckpointCalled: () => checkpointCalled,
 		getCommitCalled: () => commitCalled,
 		getRevertCalled: () => revertCalled,
@@ -50,31 +58,33 @@ const createFailingStateManagerLayer = () => {
  * This is used to test the catchAllDefect handler in SnapshotLive.takeSnapshot.
  */
 const createDefectStateManagerLayer = () => {
-	return Layer.succeed(
-		StateManagerService,
-		{
-			stateManager: null as unknown,
-			// getStateRoot throws synchronously inside Effect.sync, which becomes a defect
-			getStateRoot: () => Effect.sync(() => { throw new Error('Simulated defect in getStateRoot') }),
-			setStateRoot: () => Effect.sync(() => undefined),
-			dumpState: () => Effect.sync(() => ({})),
-			loadState: () => Effect.sync(() => undefined),
-			getAccount: () => Effect.sync(() => undefined),
-			putAccount: () => Effect.sync(() => undefined),
-			deleteAccount: () => Effect.sync(() => undefined),
-			getStorage: () => Effect.sync(() => new Uint8Array()),
-			putStorage: () => Effect.sync(() => undefined),
-			clearStorage: () => Effect.sync(() => undefined),
-			getCode: () => Effect.sync(() => new Uint8Array()),
-			putCode: () => Effect.sync(() => undefined),
-			checkpoint: () => Effect.sync(() => undefined),
-			commit: () => Effect.sync(() => undefined),
-			revert: () => Effect.sync(() => undefined),
-			ready: Effect.sync(() => undefined),
-			deepCopy: () => Effect.die(new Error('Not implemented')),
-			shallowCopy: () => { throw new Error('Not implemented') },
-		} as unknown as import('@tevm/state-effect').StateManagerShape,
-	)
+	return Layer.succeed(StateManagerService, {
+		stateManager: null as unknown,
+		// getStateRoot throws synchronously inside Effect.sync, which becomes a defect
+		getStateRoot: () =>
+			Effect.sync(() => {
+				throw new Error('Simulated defect in getStateRoot')
+			}),
+		setStateRoot: () => Effect.sync(() => undefined),
+		dumpState: () => Effect.sync(() => ({})),
+		loadState: () => Effect.sync(() => undefined),
+		getAccount: () => Effect.sync(() => undefined),
+		putAccount: () => Effect.sync(() => undefined),
+		deleteAccount: () => Effect.sync(() => undefined),
+		getStorage: () => Effect.sync(() => new Uint8Array()),
+		putStorage: () => Effect.sync(() => undefined),
+		clearStorage: () => Effect.sync(() => undefined),
+		getCode: () => Effect.sync(() => new Uint8Array()),
+		putCode: () => Effect.sync(() => undefined),
+		checkpoint: () => Effect.sync(() => undefined),
+		commit: () => Effect.sync(() => undefined),
+		revert: () => Effect.sync(() => undefined),
+		ready: Effect.sync(() => undefined),
+		deepCopy: () => Effect.die(new Error('Not implemented')),
+		shallowCopy: () => {
+			throw new Error('Not implemented')
+		},
+	} as unknown as import('@tevm/state-effect').StateManagerShape)
 }
 
 /**
@@ -86,46 +96,9 @@ const createCommitFailingStateManagerLayer = () => {
 	let revertCalled = false
 
 	return {
-		layer: Layer.succeed(
-			StateManagerService,
-			{
-				stateManager: null as unknown,
-				getStateRoot: () => Effect.sync(() => new Uint8Array(32)),
-				setStateRoot: () => Effect.sync(() => undefined),
-				dumpState: () => Effect.sync(() => ({})),
-				loadState: () => Effect.sync(() => undefined),
-				getAccount: () => Effect.sync(() => undefined),
-				putAccount: () => Effect.sync(() => undefined),
-				deleteAccount: () => Effect.sync(() => undefined),
-				getStorage: () => Effect.sync(() => new Uint8Array()),
-				putStorage: () => Effect.sync(() => undefined),
-				clearStorage: () => Effect.sync(() => undefined),
-				getCode: () => Effect.sync(() => new Uint8Array()),
-				putCode: () => Effect.sync(() => undefined),
-				checkpoint: () => Effect.sync(() => { checkpointCalled = true }),
-				commit: () => Effect.fail(new Error('Simulated commit failure')),
-				revert: () => Effect.sync(() => { revertCalled = true }),
-				ready: Effect.sync(() => undefined),
-				deepCopy: () => Effect.die(new Error('Not implemented')),
-				shallowCopy: () => { throw new Error('Not implemented') },
-			} as unknown as import('@tevm/state-effect').StateManagerShape,
-		),
-		getCheckpointCalled: () => checkpointCalled,
-		getRevertCalled: () => revertCalled,
-	}
-}
-
-/**
- * Create a mock StateManagerService that causes a non-Error defect (string) during snapshot.
- * This is used to test the catchAllDefect handler branch for non-Error defects.
- */
-const createNonErrorDefectStateManagerLayer = () => {
-	return Layer.succeed(
-		StateManagerService,
-		{
+		layer: Layer.succeed(StateManagerService, {
 			stateManager: null as unknown,
-			// getStateRoot throws a string (non-Error) synchronously inside Effect.sync, which becomes a defect
-			getStateRoot: () => Effect.sync(() => { throw 'Non-Error defect string' }),
+			getStateRoot: () => Effect.sync(() => new Uint8Array(32)),
 			setStateRoot: () => Effect.sync(() => undefined),
 			dumpState: () => Effect.sync(() => ({})),
 			loadState: () => Effect.sync(() => undefined),
@@ -137,14 +110,58 @@ const createNonErrorDefectStateManagerLayer = () => {
 			clearStorage: () => Effect.sync(() => undefined),
 			getCode: () => Effect.sync(() => new Uint8Array()),
 			putCode: () => Effect.sync(() => undefined),
-			checkpoint: () => Effect.sync(() => undefined),
-			commit: () => Effect.sync(() => undefined),
-			revert: () => Effect.sync(() => undefined),
+			checkpoint: () =>
+				Effect.sync(() => {
+					checkpointCalled = true
+				}),
+			commit: () => Effect.fail(new Error('Simulated commit failure')),
+			revert: () =>
+				Effect.sync(() => {
+					revertCalled = true
+				}),
 			ready: Effect.sync(() => undefined),
 			deepCopy: () => Effect.die(new Error('Not implemented')),
-			shallowCopy: () => { throw new Error('Not implemented') },
-		} as unknown as import('@tevm/state-effect').StateManagerShape,
-	)
+			shallowCopy: () => {
+				throw new Error('Not implemented')
+			},
+		} as unknown as import('@tevm/state-effect').StateManagerShape),
+		getCheckpointCalled: () => checkpointCalled,
+		getRevertCalled: () => revertCalled,
+	}
+}
+
+/**
+ * Create a mock StateManagerService that causes a non-Error defect (string) during snapshot.
+ * This is used to test the catchAllDefect handler branch for non-Error defects.
+ */
+const createNonErrorDefectStateManagerLayer = () => {
+	return Layer.succeed(StateManagerService, {
+		stateManager: null as unknown,
+		// getStateRoot throws a string (non-Error) synchronously inside Effect.sync, which becomes a defect
+		getStateRoot: () =>
+			Effect.sync(() => {
+				throw 'Non-Error defect string'
+			}),
+		setStateRoot: () => Effect.sync(() => undefined),
+		dumpState: () => Effect.sync(() => ({})),
+		loadState: () => Effect.sync(() => undefined),
+		getAccount: () => Effect.sync(() => undefined),
+		putAccount: () => Effect.sync(() => undefined),
+		deleteAccount: () => Effect.sync(() => undefined),
+		getStorage: () => Effect.sync(() => new Uint8Array()),
+		putStorage: () => Effect.sync(() => undefined),
+		clearStorage: () => Effect.sync(() => undefined),
+		getCode: () => Effect.sync(() => new Uint8Array()),
+		putCode: () => Effect.sync(() => undefined),
+		checkpoint: () => Effect.sync(() => undefined),
+		commit: () => Effect.sync(() => undefined),
+		revert: () => Effect.sync(() => undefined),
+		ready: Effect.sync(() => undefined),
+		deepCopy: () => Effect.die(new Error('Not implemented')),
+		shallowCopy: () => {
+			throw new Error('Not implemented')
+		},
+	} as unknown as import('@tevm/state-effect').StateManagerShape)
 }
 
 /**
@@ -152,37 +169,43 @@ const createNonErrorDefectStateManagerLayer = () => {
  * Used to verify that StateRootNotFoundError is returned when setStateRoot throws a defect.
  */
 const createSetStateRootDefectLayer = () => {
-	let currentStateRoot = new Uint8Array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31])
+	const currentStateRoot = new Uint8Array([
+		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+		31,
+	])
 	let stateVersion = 0
 
-	return Layer.succeed(
-		StateManagerService,
-		{
-			stateManager: null as unknown,
-			getStateRoot: () => Effect.sync(() => currentStateRoot),
-			// setStateRoot throws synchronously inside Effect.sync, which becomes a defect
-			setStateRoot: () => Effect.sync(() => { throw new Error('Simulated setStateRoot failure') }),
-			dumpState: () => Effect.sync(() => {
+	return Layer.succeed(StateManagerService, {
+		stateManager: null as unknown,
+		getStateRoot: () => Effect.sync(() => currentStateRoot),
+		// setStateRoot throws synchronously inside Effect.sync, which becomes a defect
+		setStateRoot: () =>
+			Effect.sync(() => {
+				throw new Error('Simulated setStateRoot failure')
+			}),
+		dumpState: () =>
+			Effect.sync(() => {
 				stateVersion++
 				return { version: stateVersion }
 			}),
-			loadState: () => Effect.sync(() => undefined),
-			getAccount: () => Effect.sync(() => undefined),
-			putAccount: () => Effect.sync(() => undefined),
-			deleteAccount: () => Effect.sync(() => undefined),
-			getStorage: () => Effect.sync(() => new Uint8Array()),
-			putStorage: () => Effect.sync(() => undefined),
-			clearStorage: () => Effect.sync(() => undefined),
-			getCode: () => Effect.sync(() => new Uint8Array()),
-			putCode: () => Effect.sync(() => undefined),
-			checkpoint: () => Effect.sync(() => undefined),
-			commit: () => Effect.sync(() => undefined),
-			revert: () => Effect.sync(() => undefined),
-			ready: Effect.sync(() => undefined),
-			deepCopy: () => Effect.die(new Error('Not implemented')),
-			shallowCopy: () => { throw new Error('Not implemented') },
-		} as unknown as import('@tevm/state-effect').StateManagerShape,
-	)
+		loadState: () => Effect.sync(() => undefined),
+		getAccount: () => Effect.sync(() => undefined),
+		putAccount: () => Effect.sync(() => undefined),
+		deleteAccount: () => Effect.sync(() => undefined),
+		getStorage: () => Effect.sync(() => new Uint8Array()),
+		putStorage: () => Effect.sync(() => undefined),
+		clearStorage: () => Effect.sync(() => undefined),
+		getCode: () => Effect.sync(() => new Uint8Array()),
+		putCode: () => Effect.sync(() => undefined),
+		checkpoint: () => Effect.sync(() => undefined),
+		commit: () => Effect.sync(() => undefined),
+		revert: () => Effect.sync(() => undefined),
+		ready: Effect.sync(() => undefined),
+		deepCopy: () => Effect.die(new Error('Not implemented')),
+		shallowCopy: () => {
+			throw new Error('Not implemented')
+		},
+	} as unknown as import('@tevm/state-effect').StateManagerShape)
 }
 
 /**
@@ -190,39 +213,46 @@ const createSetStateRootDefectLayer = () => {
  * Used to verify that StateRootNotFoundError is returned when loadState throws a defect.
  */
 const createLoadStateDefectLayer = () => {
-	let currentStateRoot = new Uint8Array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31])
+	let currentStateRoot = new Uint8Array([
+		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+		31,
+	])
 	let stateVersion = 0
 
-	return Layer.succeed(
-		StateManagerService,
-		{
-			stateManager: null as unknown,
-			getStateRoot: () => Effect.sync(() => currentStateRoot),
-			setStateRoot: (root: Uint8Array) => Effect.sync(() => {
+	return Layer.succeed(StateManagerService, {
+		stateManager: null as unknown,
+		getStateRoot: () => Effect.sync(() => currentStateRoot),
+		setStateRoot: (root: Uint8Array) =>
+			Effect.sync(() => {
 				currentStateRoot = root
 			}),
-			dumpState: () => Effect.sync(() => {
+		dumpState: () =>
+			Effect.sync(() => {
 				stateVersion++
 				return { version: stateVersion }
 			}),
-			// loadState throws synchronously inside Effect.sync, which becomes a defect
-			loadState: () => Effect.sync(() => { throw new Error('Simulated loadState failure') }),
-			getAccount: () => Effect.sync(() => undefined),
-			putAccount: () => Effect.sync(() => undefined),
-			deleteAccount: () => Effect.sync(() => undefined),
-			getStorage: () => Effect.sync(() => new Uint8Array()),
-			putStorage: () => Effect.sync(() => undefined),
-			clearStorage: () => Effect.sync(() => undefined),
-			getCode: () => Effect.sync(() => new Uint8Array()),
-			putCode: () => Effect.sync(() => undefined),
-			checkpoint: () => Effect.sync(() => undefined),
-			commit: () => Effect.sync(() => undefined),
-			revert: () => Effect.sync(() => undefined),
-			ready: Effect.sync(() => undefined),
-			deepCopy: () => Effect.die(new Error('Not implemented')),
-			shallowCopy: () => { throw new Error('Not implemented') },
-		} as unknown as import('@tevm/state-effect').StateManagerShape,
-	)
+		// loadState throws synchronously inside Effect.sync, which becomes a defect
+		loadState: () =>
+			Effect.sync(() => {
+				throw new Error('Simulated loadState failure')
+			}),
+		getAccount: () => Effect.sync(() => undefined),
+		putAccount: () => Effect.sync(() => undefined),
+		deleteAccount: () => Effect.sync(() => undefined),
+		getStorage: () => Effect.sync(() => new Uint8Array()),
+		putStorage: () => Effect.sync(() => undefined),
+		clearStorage: () => Effect.sync(() => undefined),
+		getCode: () => Effect.sync(() => new Uint8Array()),
+		putCode: () => Effect.sync(() => undefined),
+		checkpoint: () => Effect.sync(() => undefined),
+		commit: () => Effect.sync(() => undefined),
+		revert: () => Effect.sync(() => undefined),
+		ready: Effect.sync(() => undefined),
+		deepCopy: () => Effect.die(new Error('Not implemented')),
+		shallowCopy: () => {
+			throw new Error('Not implemented')
+		},
+	} as unknown as import('@tevm/state-effect').StateManagerShape)
 }
 
 /**
@@ -230,39 +260,46 @@ const createLoadStateDefectLayer = () => {
  * Used to test the non-Error branch of the catchAllDefect handler for loadState in revertToSnapshot.
  */
 const createLoadStateNonErrorDefectLayer = () => {
-	let currentStateRoot = new Uint8Array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31])
+	let currentStateRoot = new Uint8Array([
+		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+		31,
+	])
 	let stateVersion = 0
 
-	return Layer.succeed(
-		StateManagerService,
-		{
-			stateManager: null as unknown,
-			getStateRoot: () => Effect.sync(() => currentStateRoot),
-			setStateRoot: (root: Uint8Array) => Effect.sync(() => {
+	return Layer.succeed(StateManagerService, {
+		stateManager: null as unknown,
+		getStateRoot: () => Effect.sync(() => currentStateRoot),
+		setStateRoot: (root: Uint8Array) =>
+			Effect.sync(() => {
 				currentStateRoot = root
 			}),
-			dumpState: () => Effect.sync(() => {
+		dumpState: () =>
+			Effect.sync(() => {
 				stateVersion++
 				return { version: stateVersion }
 			}),
-			// loadState throws a non-Error synchronously inside Effect.sync, which becomes a defect
-			loadState: () => Effect.sync(() => { throw 'Non-Error loadState failure' }),
-			getAccount: () => Effect.sync(() => undefined),
-			putAccount: () => Effect.sync(() => undefined),
-			deleteAccount: () => Effect.sync(() => undefined),
-			getStorage: () => Effect.sync(() => new Uint8Array()),
-			putStorage: () => Effect.sync(() => undefined),
-			clearStorage: () => Effect.sync(() => undefined),
-			getCode: () => Effect.sync(() => new Uint8Array()),
-			putCode: () => Effect.sync(() => undefined),
-			checkpoint: () => Effect.sync(() => undefined),
-			commit: () => Effect.sync(() => undefined),
-			revert: () => Effect.sync(() => undefined),
-			ready: Effect.sync(() => undefined),
-			deepCopy: () => Effect.die(new Error('Not implemented')),
-			shallowCopy: () => { throw new Error('Not implemented') },
-		} as unknown as import('@tevm/state-effect').StateManagerShape,
-	)
+		// loadState throws a non-Error synchronously inside Effect.sync, which becomes a defect
+		loadState: () =>
+			Effect.sync(() => {
+				throw 'Non-Error loadState failure'
+			}),
+		getAccount: () => Effect.sync(() => undefined),
+		putAccount: () => Effect.sync(() => undefined),
+		deleteAccount: () => Effect.sync(() => undefined),
+		getStorage: () => Effect.sync(() => new Uint8Array()),
+		putStorage: () => Effect.sync(() => undefined),
+		clearStorage: () => Effect.sync(() => undefined),
+		getCode: () => Effect.sync(() => new Uint8Array()),
+		putCode: () => Effect.sync(() => undefined),
+		checkpoint: () => Effect.sync(() => undefined),
+		commit: () => Effect.sync(() => undefined),
+		revert: () => Effect.sync(() => undefined),
+		ready: Effect.sync(() => undefined),
+		deepCopy: () => Effect.die(new Error('Not implemented')),
+		shallowCopy: () => {
+			throw new Error('Not implemented')
+		},
+	} as unknown as import('@tevm/state-effect').StateManagerShape)
 }
 
 /**
@@ -270,37 +307,43 @@ const createLoadStateNonErrorDefectLayer = () => {
  * Used to test the non-Error branch of the catchAllDefect handler in revertToSnapshot.
  */
 const createSetStateRootNonErrorDefectLayer = () => {
-	let currentStateRoot = new Uint8Array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31])
+	const currentStateRoot = new Uint8Array([
+		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+		31,
+	])
 	let stateVersion = 0
 
-	return Layer.succeed(
-		StateManagerService,
-		{
-			stateManager: null as unknown,
-			getStateRoot: () => Effect.sync(() => currentStateRoot),
-			// setStateRoot throws a string (non-Error) synchronously inside Effect.sync, which becomes a defect
-			setStateRoot: () => Effect.sync(() => { throw 'Non-Error setStateRoot failure' }),
-			dumpState: () => Effect.sync(() => {
+	return Layer.succeed(StateManagerService, {
+		stateManager: null as unknown,
+		getStateRoot: () => Effect.sync(() => currentStateRoot),
+		// setStateRoot throws a string (non-Error) synchronously inside Effect.sync, which becomes a defect
+		setStateRoot: () =>
+			Effect.sync(() => {
+				throw 'Non-Error setStateRoot failure'
+			}),
+		dumpState: () =>
+			Effect.sync(() => {
 				stateVersion++
 				return { version: stateVersion }
 			}),
-			loadState: () => Effect.sync(() => undefined),
-			getAccount: () => Effect.sync(() => undefined),
-			putAccount: () => Effect.sync(() => undefined),
-			deleteAccount: () => Effect.sync(() => undefined),
-			getStorage: () => Effect.sync(() => new Uint8Array()),
-			putStorage: () => Effect.sync(() => undefined),
-			clearStorage: () => Effect.sync(() => undefined),
-			getCode: () => Effect.sync(() => new Uint8Array()),
-			putCode: () => Effect.sync(() => undefined),
-			checkpoint: () => Effect.sync(() => undefined),
-			commit: () => Effect.sync(() => undefined),
-			revert: () => Effect.sync(() => undefined),
-			ready: Effect.sync(() => undefined),
-			deepCopy: () => Effect.die(new Error('Not implemented')),
-			shallowCopy: () => { throw new Error('Not implemented') },
-		} as unknown as import('@tevm/state-effect').StateManagerShape,
-	)
+		loadState: () => Effect.sync(() => undefined),
+		getAccount: () => Effect.sync(() => undefined),
+		putAccount: () => Effect.sync(() => undefined),
+		deleteAccount: () => Effect.sync(() => undefined),
+		getStorage: () => Effect.sync(() => new Uint8Array()),
+		putStorage: () => Effect.sync(() => undefined),
+		clearStorage: () => Effect.sync(() => undefined),
+		getCode: () => Effect.sync(() => new Uint8Array()),
+		putCode: () => Effect.sync(() => undefined),
+		checkpoint: () => Effect.sync(() => undefined),
+		commit: () => Effect.sync(() => undefined),
+		revert: () => Effect.sync(() => undefined),
+		ready: Effect.sync(() => undefined),
+		deepCopy: () => Effect.die(new Error('Not implemented')),
+		shallowCopy: () => {
+			throw new Error('Not implemented')
+		},
+	} as unknown as import('@tevm/state-effect').StateManagerShape)
 }
 
 /**
@@ -308,18 +351,21 @@ const createSetStateRootNonErrorDefectLayer = () => {
  * This simulates state management behavior without real EVM state.
  */
 const createMockStateManagerLayer = (withStorage = false) => {
-	let currentStateRoot = new Uint8Array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31])
+	let currentStateRoot = new Uint8Array([
+		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+		31,
+	])
 	let stateVersion = 0
 
-	return Layer.succeed(
-		StateManagerService,
-		{
-			stateManager: null as unknown,
-			getStateRoot: () => Effect.sync(() => currentStateRoot),
-			setStateRoot: (root: Uint8Array) => Effect.sync(() => {
+	return Layer.succeed(StateManagerService, {
+		stateManager: null as unknown,
+		getStateRoot: () => Effect.sync(() => currentStateRoot),
+		setStateRoot: (root: Uint8Array) =>
+			Effect.sync(() => {
 				currentStateRoot = root
 			}),
-			dumpState: () => Effect.sync(() => {
+		dumpState: () =>
+			Effect.sync(() => {
 				stateVersion++
 				// Return proper TevmState structure with AccountStorage
 				if (withStorage) {
@@ -331,30 +377,32 @@ const createMockStateManagerLayer = (withStorage = false) => {
 							codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470' as `0x${string}`,
 							deployedBytecode: '0x6080604052' as `0x${string}`,
 							storage: {
-								'0x0000000000000000000000000000000000000000000000000000000000000001': '0x0000000000000000000000000000000000000000000000000000000000000042'
-							}
-						}
+								'0x0000000000000000000000000000000000000000000000000000000000000001':
+									'0x0000000000000000000000000000000000000000000000000000000000000042',
+							},
+						},
 					}
 				}
 				return { version: stateVersion }
 			}),
-			loadState: () => Effect.sync(() => undefined),
-			getAccount: () => Effect.sync(() => undefined),
-			putAccount: () => Effect.sync(() => undefined),
-			deleteAccount: () => Effect.sync(() => undefined),
-			getStorage: () => Effect.sync(() => new Uint8Array()),
-			putStorage: () => Effect.sync(() => undefined),
-			clearStorage: () => Effect.sync(() => undefined),
-			getCode: () => Effect.sync(() => new Uint8Array()),
-			putCode: () => Effect.sync(() => undefined),
-			checkpoint: () => Effect.sync(() => undefined),
-			commit: () => Effect.sync(() => undefined),
-			revert: () => Effect.sync(() => undefined),
-			ready: Effect.sync(() => undefined),
-			deepCopy: () => Effect.die(new Error('Not implemented')),
-			shallowCopy: () => { throw new Error('Not implemented') },
-		} as unknown as import('@tevm/state-effect').StateManagerShape,
-	)
+		loadState: () => Effect.sync(() => undefined),
+		getAccount: () => Effect.sync(() => undefined),
+		putAccount: () => Effect.sync(() => undefined),
+		deleteAccount: () => Effect.sync(() => undefined),
+		getStorage: () => Effect.sync(() => new Uint8Array()),
+		putStorage: () => Effect.sync(() => undefined),
+		clearStorage: () => Effect.sync(() => undefined),
+		getCode: () => Effect.sync(() => new Uint8Array()),
+		putCode: () => Effect.sync(() => undefined),
+		checkpoint: () => Effect.sync(() => undefined),
+		commit: () => Effect.sync(() => undefined),
+		revert: () => Effect.sync(() => undefined),
+		ready: Effect.sync(() => undefined),
+		deepCopy: () => Effect.die(new Error('Not implemented')),
+		shallowCopy: () => {
+			throw new Error('Not implemented')
+		},
+	} as unknown as import('@tevm/state-effect').StateManagerShape)
 }
 
 describe('SnapshotLive', () => {
@@ -810,7 +858,9 @@ describe('SnapshotLive', () => {
 					revert: () => Effect.sync(() => undefined),
 					ready: Effect.sync(() => undefined),
 					deepCopy: () => Effect.die(new Error('Not implemented')),
-					shallowCopy: () => { throw new Error('Not implemented') },
+					shallowCopy: () => {
+						throw new Error('Not implemented')
+					},
 				} as unknown as import('@tevm/state-effect').StateManagerShape
 
 				// Deep copy with the new state manager

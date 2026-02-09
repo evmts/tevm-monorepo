@@ -98,10 +98,7 @@ export class InvalidTransactionError extends Data.TaggedError('InvalidTransactio
 		const code = InvalidTransactionError.code
 		const docsPath = InvalidTransactionError.docsPath
 		const message =
-			props.message ??
-			(props.reason !== undefined
-				? `Invalid transaction: ${props.reason}`
-				: 'Invalid transaction')
+			props.message ?? (props.reason !== undefined ? `Invalid transaction: ${props.reason}` : 'Invalid transaction')
 
 		// Pass all properties to super() for Effect.ts equality and hashing
 		super({ name, reason, tx, message, code, docsPath, cause })

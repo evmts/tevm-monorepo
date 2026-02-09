@@ -1,8 +1,8 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { Effect, Exit, Fiber } from 'effect'
+import { ForkError } from '@tevm/errors-effect'
+import { Effect, Exit } from 'effect'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { HttpTransport } from './HttpTransport.js'
 import { TransportService } from './TransportService.js'
-import { ForkError } from '@tevm/errors-effect'
 
 // Mock fetch globally
 const mockFetch = vi.fn()
@@ -83,7 +83,7 @@ describe('HttpTransport', () => {
 						'Content-Type': 'application/json',
 					}),
 					body: expect.stringContaining('"method":"eth_getBalance"'),
-				})
+				}),
 			)
 
 			const body = JSON.parse(mockFetch.mock.calls[0][1].body)
@@ -137,7 +137,7 @@ describe('HttpTransport', () => {
 					headers: expect.objectContaining({
 						Authorization: 'Bearer token123',
 					}),
-				})
+				}),
 			)
 		})
 	})
@@ -239,7 +239,7 @@ describe('HttpTransport', () => {
 			}).pipe(
 				Effect.catchTag('ForkError', (error) => {
 					return Effect.succeed({ caught: true, method: error.method })
-				})
+				}),
 			)
 
 			const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
@@ -250,12 +250,10 @@ describe('HttpTransport', () => {
 	describe('retry behavior', () => {
 		it('should retry on network failure', async () => {
 			// Fail first with a network error, succeed second
-			mockFetch
-				.mockRejectedValueOnce(new Error('fetch failed: ECONNREFUSED'))
-				.mockResolvedValueOnce({
-					ok: true,
-					json: async () => ({ jsonrpc: '2.0', id: 1, result: '0x1' }),
-				})
+			mockFetch.mockRejectedValueOnce(new Error('fetch failed: ECONNREFUSED')).mockResolvedValueOnce({
+				ok: true,
+				json: async () => ({ jsonrpc: '2.0', id: 1, result: '0x1' }),
+			})
 
 			const layer = HttpTransport({
 				url: 'https://example.com',
@@ -275,12 +273,10 @@ describe('HttpTransport', () => {
 
 		it('should retry on timeout error', async () => {
 			// Fail first with a timeout error, succeed second
-			mockFetch
-				.mockRejectedValueOnce(new Error('aborted'))
-				.mockResolvedValueOnce({
-					ok: true,
-					json: async () => ({ jsonrpc: '2.0', id: 1, result: '0x1' }),
-				})
+			mockFetch.mockRejectedValueOnce(new Error('aborted')).mockResolvedValueOnce({
+				ok: true,
+				json: async () => ({ jsonrpc: '2.0', id: 1, result: '0x1' }),
+			})
 
 			const layer = HttpTransport({
 				url: 'https://example.com',
@@ -514,7 +510,7 @@ describe('HttpTransport', () => {
 				'https://example.com',
 				expect.objectContaining({
 					signal: expect.any(AbortSignal),
-				})
+				}),
 			)
 		})
 
@@ -544,14 +540,13 @@ describe('HttpTransport', () => {
 	describe('batch request support', () => {
 		it('should batch multiple requests into a single HTTP call with wait timer', async () => {
 			// Mock batch responses - use a function to return responses with matching IDs
-			mockFetch.mockImplementation(async (url, options) => {
+			mockFetch.mockImplementation(async (_url, options) => {
 				const requests = JSON.parse(options.body)
 				// Return responses matching the request IDs
 				const responses = requests.map((req: { id: number; method: string }) => ({
 					jsonrpc: '2.0',
 					id: req.id,
-					result:
-						req.method === 'eth_chainId' ? '0xa' : req.method === 'eth_blockNumber' ? '0x100' : '0x5',
+					result: req.method === 'eth_chainId' ? '0xa' : req.method === 'eth_blockNumber' ? '0x100' : '0x5',
 				}))
 				return {
 					ok: true,
@@ -581,9 +576,7 @@ describe('HttpTransport', () => {
 				return results
 			})
 
-			const results = await Effect.runPromise(
-				Effect.scoped(program.pipe(Effect.provide(layer)))
-			)
+			const results = await Effect.runPromise(Effect.scoped(program.pipe(Effect.provide(layer))))
 
 			expect(results).toEqual(['0xa', '0x100', '0x5'])
 
@@ -596,7 +589,7 @@ describe('HttpTransport', () => {
 
 		it('should send batch when maxSize is reached', async () => {
 			// Mock batch responses - return results based on request IDs
-			mockFetch.mockImplementation(async (url, options) => {
+			mockFetch.mockImplementation(async (_url, options) => {
 				const requests = JSON.parse(options.body)
 				const responses = requests.map((req: { id: number }) => ({
 					jsonrpc: '2.0',
@@ -630,9 +623,7 @@ describe('HttpTransport', () => {
 				return results
 			})
 
-			const results = await Effect.runPromise(
-				Effect.scoped(program.pipe(Effect.provide(layer)))
-			)
+			const results = await Effect.runPromise(Effect.scoped(program.pipe(Effect.provide(layer))))
 
 			expect(results).toHaveLength(2)
 			expect(mockFetch).toHaveBeenCalled()
@@ -640,7 +631,7 @@ describe('HttpTransport', () => {
 
 		it('should match results back by id correctly', async () => {
 			// Return results in different order than requests - shuffle based on request IDs
-			mockFetch.mockImplementation(async (url, options) => {
+			mockFetch.mockImplementation(async (_url, options) => {
 				const requests = JSON.parse(options.body)
 				// Return in reverse order to test ID matching
 				const responses = requests
@@ -680,9 +671,7 @@ describe('HttpTransport', () => {
 				return results
 			})
 
-			const results = await Effect.runPromise(
-				Effect.scoped(program.pipe(Effect.provide(layer)))
-			)
+			const results = await Effect.runPromise(Effect.scoped(program.pipe(Effect.provide(layer))))
 
 			// Results should be matched by ID, not order of response
 			expect(results).toEqual(['first', 'second', 'third'])
@@ -690,7 +679,7 @@ describe('HttpTransport', () => {
 
 		it('should handle batch with mixed success and error responses', async () => {
 			// Return mixed success/error based on method
-			mockFetch.mockImplementation(async (url, options) => {
+			mockFetch.mockImplementation(async (_url, options) => {
 				const requests = JSON.parse(options.body)
 				const responses = requests.map((req: { id: number; method: string }) => {
 					if (req.method === 'invalid_method') {
@@ -734,9 +723,7 @@ describe('HttpTransport', () => {
 				return { result1, result2, result3 }
 			})
 
-			const { result1, result2, result3 } = await Effect.runPromise(
-				Effect.scoped(program.pipe(Effect.provide(layer)))
-			)
+			const { result1, result2, result3 } = await Effect.runPromise(Effect.scoped(program.pipe(Effect.provide(layer))))
 
 			// First and third should succeed
 			expect(result1._tag).toBe('Right')
@@ -785,9 +772,7 @@ describe('HttpTransport', () => {
 				return results
 			})
 
-			const results = await Effect.runPromise(
-				Effect.scoped(program.pipe(Effect.provide(layer)))
-			)
+			const results = await Effect.runPromise(Effect.scoped(program.pipe(Effect.provide(layer))))
 
 			// Both should fail
 			expect(results[0]._tag).toBe('Left')
@@ -805,7 +790,7 @@ describe('HttpTransport', () => {
 
 		it('should handle missing response for a request id', async () => {
 			// Response is missing for the second request (eth_blockNumber)
-			mockFetch.mockImplementation(async (url, options) => {
+			mockFetch.mockImplementation(async (_url, options) => {
 				const requests = JSON.parse(options.body)
 				// Only return responses for non-blockNumber requests
 				const responses = requests
@@ -842,9 +827,7 @@ describe('HttpTransport', () => {
 				return results
 			})
 
-			const results = await Effect.runPromise(
-				Effect.scoped(program.pipe(Effect.provide(layer)))
-			)
+			const results = await Effect.runPromise(Effect.scoped(program.pipe(Effect.provide(layer))))
 
 			// First and third succeed
 			expect(results[0]._tag).toBe('Right')
@@ -899,7 +882,7 @@ describe('HttpTransport', () => {
 		})
 
 		it('should process remaining requests on layer teardown', async () => {
-			mockFetch.mockImplementation(async (url, options) => {
+			mockFetch.mockImplementation(async (_url, options) => {
 				const requests = JSON.parse(options.body)
 				const responses = requests.map((req: { id: number }) => ({
 					jsonrpc: '2.0',
@@ -939,7 +922,7 @@ describe('HttpTransport', () => {
 		it('should trigger batch immediately when maxSize is reached', async () => {
 			// Track request timing to verify maxSize trigger works
 			let requestTime = 0
-			mockFetch.mockImplementation(async (url, options) => {
+			mockFetch.mockImplementation(async (_url, options) => {
 				requestTime = Date.now()
 				const requests = JSON.parse(options.body)
 				const responses = requests.map((req: { id: number }) => ({
@@ -973,7 +956,7 @@ describe('HttpTransport', () => {
 				return results
 			})
 
-			const startTime = Date.now()
+			const _startTime = Date.now()
 			const results = await Effect.runPromise(Effect.scoped(program.pipe(Effect.provide(layer))))
 
 			expect(results).toEqual(['0x1', '0x1', '0x1'])
@@ -1015,7 +998,7 @@ describe('HttpTransport', () => {
 			// This tests the race condition where trigger hasn't been set up yet
 			// by making multiple rapid requests with small maxSize
 			let callCount = 0
-			mockFetch.mockImplementation(async (url, options) => {
+			mockFetch.mockImplementation(async (_url, options) => {
 				callCount++
 				const requests = JSON.parse(options.body)
 				const responses = requests.map((req: { id: number }) => ({
@@ -1043,10 +1026,8 @@ describe('HttpTransport', () => {
 
 				// Make multiple requests rapidly to trigger the maxSize code path
 				const results = yield* Effect.all(
-					[1, 2, 3, 4, 5, 6].map((i) =>
-						transport.request<string>(`method${i}`).pipe(Effect.either)
-					),
-					{ concurrency: 'unbounded' }
+					[1, 2, 3, 4, 5, 6].map((i) => transport.request<string>(`method${i}`).pipe(Effect.either)),
+					{ concurrency: 'unbounded' },
 				)
 
 				return results
@@ -1065,7 +1046,7 @@ describe('HttpTransport', () => {
 		it('should reject new requests during shutdown (Issue #315 fix)', async () => {
 			// This test verifies that the shutdown race condition is fixed
 			// by checking that requests made after shutdown begins are rejected
-			mockFetch.mockImplementation(async (url, options) => {
+			mockFetch.mockImplementation(async (_url, options) => {
 				const requests = JSON.parse(options.body)
 				const responses = requests.map((req: { id: number }) => ({
 					jsonrpc: '2.0',
@@ -1108,7 +1089,7 @@ describe('HttpTransport', () => {
 			// This tests the shutdown sequence with pending requests
 			// The shutdown logic should process remaining requests before exiting
 			let fetchCallCount = 0
-			mockFetch.mockImplementation(async (url, options) => {
+			mockFetch.mockImplementation(async (_url, options) => {
 				fetchCallCount++
 				const requests = JSON.parse(options.body)
 				const responses = requests.map((req: { id: number }) => ({
@@ -1153,7 +1134,7 @@ describe('HttpTransport', () => {
 			// This test verifies that the isShuttingDown flag is properly set
 			// during layer teardown by observing the shutdown behavior
 			let fetchDelayComplete = false
-			mockFetch.mockImplementation(async (url, options) => {
+			mockFetch.mockImplementation(async (_url, options) => {
 				// Add a small delay to simulate network latency
 				await new Promise((resolve) => setTimeout(resolve, 10))
 				fetchDelayComplete = true

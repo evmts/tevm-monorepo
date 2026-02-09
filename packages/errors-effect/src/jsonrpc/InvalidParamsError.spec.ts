@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { InvalidParamsError } from './InvalidParamsError.js'
 
 describe('InvalidParamsError', () => {
@@ -66,9 +66,7 @@ describe('InvalidParamsError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('InvalidParamsError', (e) =>
-				Effect.succeed(`Bad params for ${e.method}`)
-			)
+			Effect.catchTag('InvalidParamsError', (e) => Effect.succeed(`Bad params for ${e.method}`)),
 		)
 
 		const result = await Effect.runPromise(program)

@@ -50,6 +50,4 @@ import { Context } from 'effect'
  * ```
  *
  */
-export const MemoryClientService = Context.GenericTag(
-	'@tevm/memory-client-effect/MemoryClientService'
-)
+export const MemoryClientService = Context.GenericTag('@tevm/memory-client-effect/MemoryClientService')

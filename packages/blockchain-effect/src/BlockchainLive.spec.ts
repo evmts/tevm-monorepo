@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest'
-import { Effect, Layer, Exit } from 'effect'
-import { BlockchainService } from './BlockchainService.js'
+import { Effect, Exit, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { BlockchainLive } from './BlockchainLive.js'
+import { BlockchainService } from './BlockchainService.js'
 
 describe('BlockchainLive', () => {
 	describe('layer creation', () => {

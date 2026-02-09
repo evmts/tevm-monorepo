@@ -32,19 +32,19 @@ export type BlockchainShape = {
     /**
      * - Add a block to the blockchain
      */
-    putBlock: (block: import("@tevm/block").Block) => import("effect").Effect.Effect<void>;
+    putBlock: (block: import("@tevm/block").Block) => import("effect").Effect.Effect<void, import("@tevm/errors-effect").InvalidBlockError>;
     /**
      * - Get the latest block in the canonical chain
      */
-    getCanonicalHeadBlock: () => import("effect").Effect.Effect<import("@tevm/block").Block>;
+    getCanonicalHeadBlock: () => import("effect").Effect.Effect<import("@tevm/block").Block, import("@tevm/errors-effect").BlockNotFoundError>;
     /**
      * - Get the current iterator head block
      */
-    getIteratorHead: (name?: string) => import("effect").Effect.Effect<import("@tevm/block").Block>;
+    getIteratorHead: (name?: string) => import("effect").Effect.Effect<import("@tevm/block").Block, import("@tevm/errors-effect").BlockNotFoundError>;
     /**
      * - Set the iterator head position
      */
-    setIteratorHead: (tag: string, headHash: Uint8Array) => import("effect").Effect.Effect<void>;
+    setIteratorHead: (tag: string, headHash: Uint8Array) => import("effect").Effect.Effect<void, import("@tevm/errors-effect").InvalidBlockError>;
     /**
      * - Delete a block from the blockchain
      */
@@ -56,7 +56,7 @@ export type BlockchainShape = {
     /**
      * - Create a deep copy of the blockchain
      */
-    deepCopy: () => import("effect").Effect.Effect<BlockchainShape>;
+    deepCopy: () => import("effect").Effect.Effect<BlockchainShape, import("@tevm/errors-effect").InvalidBlockError>;
     /**
      * - Create a shallow copy of the blockchain
      */
@@ -64,7 +64,7 @@ export type BlockchainShape = {
     /**
      * - Effect that completes when the blockchain is ready
      */
-    ready: import("effect").Effect.Effect<void>;
+    ready: import("effect").Effect.Effect<void, import("@tevm/errors-effect").InvalidBlockError>;
     /**
      * - Iterate through blocks in a range from start to end (inclusive)
      */

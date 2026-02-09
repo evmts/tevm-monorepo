@@ -85,10 +85,7 @@ export class MethodNotFoundError extends Data.TaggedError('MethodNotFoundError')
 		// Compute all property values BEFORE calling super()
 		const method = props.method
 		const message =
-			props.message ??
-			(props.method !== undefined
-				? `Method '${props.method}' not found`
-				: 'Method not found')
+			props.message ?? (props.method !== undefined ? `Method '${props.method}' not found` : 'Method not found')
 		const code = MethodNotFoundError.code
 		const docsPath = MethodNotFoundError.docsPath
 		const cause = props.cause

@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { LoggerService } from './LoggerService.js'
 import { LoggerSilent } from './LoggerSilent.js'
 
@@ -12,9 +12,7 @@ describe('LoggerSilent', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerSilent)),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerSilent)))
 			expect(result).toBe(true)
 		})
 
@@ -25,9 +23,7 @@ describe('LoggerSilent', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerSilent)),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerSilent)))
 			expect(result).toBe(true)
 		})
 	})
@@ -44,9 +40,7 @@ describe('LoggerSilent', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerSilent)),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerSilent)))
 			expect(result).toBe(true)
 		})
 
@@ -68,9 +62,7 @@ describe('LoggerSilent', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerSilent)),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerSilent)))
 			expect(result).toBe(true)
 		})
 
@@ -84,9 +76,7 @@ describe('LoggerSilent', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerSilent)),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerSilent)))
 			expect(result).toBe(true)
 		})
 	})
@@ -100,9 +90,7 @@ describe('LoggerSilent', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerSilent)),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerSilent)))
 			expect(result).toBe(true)
 		})
 
@@ -114,9 +102,7 @@ describe('LoggerSilent', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerSilent)),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerSilent)))
 			expect(result).toBe(true)
 		})
 
@@ -129,9 +115,7 @@ describe('LoggerSilent', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerSilent)),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerSilent)))
 			expect(result).toBe(true)
 		})
 
@@ -147,9 +131,7 @@ describe('LoggerSilent', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerSilent)),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerSilent)))
 			expect(result).toBe(true)
 		})
 	})
@@ -168,9 +150,7 @@ describe('LoggerSilent', () => {
 			})
 
 			const startTime = Date.now()
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerSilent)),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerSilent)))
 			const elapsed = Date.now() - startTime
 
 			expect(result).toBe(true)
@@ -186,9 +166,7 @@ describe('LoggerSilent', () => {
 				yield* logger.info('Starting')
 			}).pipe(Effect.flatMap(() => Effect.succeed(42)))
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerSilent)),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerSilent)))
 			expect(result).toBe(42)
 		})
 	})

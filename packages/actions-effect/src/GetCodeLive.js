@@ -1,7 +1,7 @@
+import { InternalError, InvalidParamsError } from '@tevm/errors-effect'
+import { StateManagerService } from '@tevm/state-effect'
 import { Effect, Layer } from 'effect'
 import { GetCodeService } from './GetCodeService.js'
-import { StateManagerService } from '@tevm/state-effect'
-import { InvalidParamsError, InternalError } from '@tevm/errors-effect'
 
 /**
  * @module @tevm/actions-effect/GetCodeLive

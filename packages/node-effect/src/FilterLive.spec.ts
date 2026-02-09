@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest'
-import { Effect, Exit } from 'effect'
-import { FilterService } from './FilterService.js'
-import { FilterLive } from './FilterLive.js'
 import { FilterNotFoundError, InvalidFilterTypeError } from '@tevm/errors-effect'
+import { Effect, Exit } from 'effect'
+import { describe, expect, it } from 'vitest'
+import { FilterLive } from './FilterLive.js'
+import { FilterService } from './FilterService.js'
 import type { FilterLog, Hex } from './types.js'
 
 describe('FilterLive', () => {
@@ -157,7 +157,9 @@ describe('FilterLive', () => {
 						// Test that non-function values are handled gracefully
 						'not-a-function' as unknown as () => void,
 						// Test that listener errors are caught
-						() => { throw new Error('listener error') }
+						() => {
+							throw new Error('listener error')
+						},
 					)
 				}
 
@@ -662,7 +664,10 @@ describe('FilterLive', () => {
 					address: '0x1234567890123456789012345678901234567890' as Hex,
 					topics: [
 						'0x0000000000000000000000000000000000000000000000000000000000000001' as Hex,
-						['0x0000000000000000000000000000000000000000000000000000000000000002' as Hex, '0x0000000000000000000000000000000000000000000000000000000000000003' as Hex],
+						[
+							'0x0000000000000000000000000000000000000000000000000000000000000002' as Hex,
+							'0x0000000000000000000000000000000000000000000000000000000000000003' as Hex,
+						],
 					],
 				})
 
@@ -1005,7 +1010,9 @@ describe('FilterLive', () => {
 						// Test that non-function values are handled gracefully
 						'not-a-function' as unknown as () => void,
 						// Test that listener errors are caught
-						() => { throw new Error('listener error') }
+						() => {
+							throw new Error('listener error')
+						},
 					)
 				}
 

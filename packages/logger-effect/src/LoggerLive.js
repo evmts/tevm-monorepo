@@ -1,5 +1,5 @@
-import { Effect, Layer } from 'effect'
 import { createLogger } from '@tevm/logger'
+import { Effect, Layer } from 'effect'
 import { LoggerService } from './LoggerService.js'
 
 /**

@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { InvalidBlockError } from './InvalidBlockError.js'
 
 describe('InvalidBlockError', () => {
@@ -82,9 +82,7 @@ describe('InvalidBlockError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('InvalidBlockError', (e) =>
-				Effect.succeed(`Block ${e.blockNumber} failed: ${e.reason}`)
-			)
+			Effect.catchTag('InvalidBlockError', (e) => Effect.succeed(`Block ${e.blockNumber} failed: ${e.reason}`)),
 		)
 
 		const result = await Effect.runPromise(program)

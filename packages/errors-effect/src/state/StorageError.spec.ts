@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { StorageError } from './StorageError.js'
 
 describe('StorageError', () => {
@@ -22,7 +22,9 @@ describe('StorageError', () => {
 			key: '0x0000000000000000000000000000000000000000000000000000000000000001',
 		})
 
-		expect(error.message).toBe('Storage error for account 0x1234567890123456789012345678901234567890 at key 0x0000000000000000000000000000000000000000000000000000000000000001')
+		expect(error.message).toBe(
+			'Storage error for account 0x1234567890123456789012345678901234567890 at key 0x0000000000000000000000000000000000000000000000000000000000000001',
+		)
 	})
 
 	it('should generate a default message with address only', () => {
@@ -72,9 +74,7 @@ describe('StorageError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('StorageError', (e) =>
-				Effect.succeed(`Failed to access storage at ${e.address} key ${e.key}`)
-			)
+			Effect.catchTag('StorageError', (e) => Effect.succeed(`Failed to access storage at ${e.address} key ${e.key}`)),
 		)
 
 		const result = await Effect.runPromise(program)

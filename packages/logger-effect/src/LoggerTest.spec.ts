@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest'
 import { Effect } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { LoggerService } from './LoggerService.js'
-import { LoggerTest, isTestLogger } from './LoggerTest.js'
+import { isTestLogger, LoggerTest } from './LoggerTest.js'
 
 describe('LoggerTest', () => {
 	describe('layer creation', () => {
@@ -13,9 +13,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -26,9 +24,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest('error'))),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest('error'))))
 			expect(result).toBe(true)
 		})
 
@@ -39,9 +35,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest('debug', 'custom-test-logger'))),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest('debug', 'custom-test-logger'))))
 			expect(result).toBe(true)
 		})
 	})
@@ -58,9 +52,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -80,9 +72,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -101,9 +91,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -122,9 +110,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -138,9 +124,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -161,9 +145,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 	})
@@ -182,9 +164,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -206,9 +186,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -224,9 +202,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -245,9 +221,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -263,9 +237,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 	})
@@ -288,9 +260,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest('warn'))),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest('warn'))))
 			expect(result).toBe(true)
 		})
 
@@ -309,9 +279,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest('debug'))),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest('debug'))))
 			expect(result).toBe(true)
 		})
 	})
@@ -331,9 +299,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -353,9 +319,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -373,9 +337,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 	})
@@ -388,9 +350,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -428,9 +388,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest('silent'))),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest('silent'))))
 			expect(result).toBe(true)
 		})
 	})
@@ -456,9 +414,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest('trace'))),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest('trace'))))
 			expect(result).toBe(true)
 		})
 
@@ -469,9 +425,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest('trace'))),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest('trace'))))
 			expect(result).toBe(true)
 		})
 	})
@@ -497,9 +451,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest('fatal'))),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest('fatal'))))
 			expect(result).toBe(true)
 		})
 
@@ -510,9 +462,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest('fatal'))),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest('fatal'))))
 			expect(result).toBe(true)
 		})
 	})
@@ -538,9 +488,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -554,9 +502,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 	})
@@ -592,9 +538,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 
@@ -615,9 +559,7 @@ describe('LoggerTest', () => {
 				return true
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerTest())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerTest())))
 			expect(result).toBe(true)
 		})
 	})
@@ -647,12 +589,8 @@ describe('LoggerTest', () => {
 				return 0
 			})
 
-			const result1 = await Effect.runPromise(
-				program1.pipe(Effect.provide(LoggerTest())),
-			)
-			const result2 = await Effect.runPromise(
-				program2.pipe(Effect.provide(LoggerTest())),
-			)
+			const result1 = await Effect.runPromise(program1.pipe(Effect.provide(LoggerTest())))
+			const result2 = await Effect.runPromise(program2.pipe(Effect.provide(LoggerTest())))
 
 			expect(result1).toBe(1)
 			expect(result2).toBe(2)

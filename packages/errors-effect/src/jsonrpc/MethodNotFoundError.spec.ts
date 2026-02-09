@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { MethodNotFoundError } from './MethodNotFoundError.js'
 
 describe('MethodNotFoundError', () => {
@@ -58,9 +58,7 @@ describe('MethodNotFoundError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('MethodNotFoundError', (e) =>
-				Effect.succeed(`Unknown method: ${e.method}`)
-			)
+			Effect.catchTag('MethodNotFoundError', (e) => Effect.succeed(`Unknown method: ${e.method}`)),
 		)
 
 		const result = await Effect.runPromise(program)

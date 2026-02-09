@@ -65,6 +65,4 @@ import { Context } from 'effect'
  * ```
  *
  */
-export const CommonService = Context.GenericTag(
-	'@tevm/common-effect/CommonService'
-)
+export const CommonService = Context.GenericTag('@tevm/common-effect/CommonService')

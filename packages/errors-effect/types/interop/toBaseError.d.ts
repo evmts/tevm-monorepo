@@ -1,4 +1,4 @@
-export function toBaseError<T extends TevmError | import("../evm/InsufficientBalanceError.js").InsufficientBalanceError | import("../evm/OutOfGasError.js").OutOfGasError | import("../evm/RevertError.js").RevertError | import("../evm/InvalidOpcodeError.js").InvalidOpcodeError | import("../evm/StackOverflowError.js").StackOverflowError | import("../evm/StackUnderflowError.js").StackUnderflowError>(taggedError: T): BaseErrorLike & Omit<T, "_tag" | "message" | "code" | "docsPath">;
+export function toBaseError<T extends import("../TevmError.js").TevmError | import("../evm/InsufficientBalanceError.js").InsufficientBalanceError | import("../evm/OutOfGasError.js").OutOfGasError | import("../evm/RevertError.js").RevertError | import("../evm/InvalidOpcodeError.js").InvalidOpcodeError | import("../evm/StackOverflowError.js").StackOverflowError | import("../evm/StackUnderflowError.js").StackUnderflowError>(taggedError: T): BaseErrorLike & Omit<T, "_tag" | "message" | "code" | "docsPath">;
 export type BaseErrorLike = {
     /**
      * - Internal tag for the error
@@ -45,5 +45,4 @@ export type BaseErrorLike = {
      */
     walk: (fn?: (err: unknown) => boolean) => unknown;
 };
-import { TevmError } from '../TevmError.js';
 //# sourceMappingURL=toBaseError.d.ts.map

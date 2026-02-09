@@ -1,8 +1,8 @@
-import { describe, it, expect, vi } from 'vitest'
-import { Effect, Layer, Data } from 'effect'
-import { SendService } from './SendService.js'
-import { SendLive } from './SendLive.js'
+import { Data, Effect, Layer } from 'effect'
+import { describe, expect, it, vi } from 'vitest'
 import { RequestService } from './RequestService.js'
+import { SendLive } from './SendLive.js'
+import { SendService } from './SendService.js'
 
 // Tagged error classes for testing EIP-1193 error code mapping
 class InvalidRequestError extends Data.TaggedError('InvalidRequestError')<{ message: string }> {}
@@ -464,7 +464,7 @@ describe('SendLive', () => {
 		it('should include cause in error data when present', async () => {
 			const errorWithCause = Object.assign(new Error('Test error'), {
 				_tag: 'InternalError',
-				cause: new Error('Root cause')
+				cause: new Error('Root cause'),
 			})
 			const layer = createErrorTestLayer(errorWithCause)
 			const program = Effect.gen(function* () {

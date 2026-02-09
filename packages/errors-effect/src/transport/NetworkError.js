@@ -88,9 +88,7 @@ export class NetworkError extends Data.TaggedError('NetworkError') {
 		const cause = props.cause
 		const message =
 			props.message ??
-			(props.url !== undefined
-				? `Network request failed for '${props.url}'`
-				: 'Network request failed')
+			(props.url !== undefined ? `Network request failed for '${props.url}'` : 'Network request failed')
 		const code = NetworkError.code
 		const docsPath = NetworkError.docsPath
 

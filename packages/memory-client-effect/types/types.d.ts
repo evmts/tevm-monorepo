@@ -18,34 +18,52 @@ export type MemoryClientOptions = {
      * - Fork configuration
      */
     fork?: {
+        /**
+         * - RPC URL to fork from
+         */
         url?: string | undefined;
+        /**
+         * - Block number to fork from
+         */
         blockNumber?: bigint | `0x${string}` | "latest" | undefined;
+        /**
+         * - Chain ID to use
+         */
         chainId?: number | undefined;
-    };
+    } | undefined;
     /**
      * - Common chain configuration
      */
     common?: {
+        /**
+         * - Chain ID
+         */
         chainId?: number | undefined;
+        /**
+         * - Hardfork to use (default: 'prague')
+         */
         hardfork?: string | undefined;
+        /**
+         * - EIPs to enable
+         */
         eips?: number[] | undefined;
-    };
+    } | undefined;
     /**
      * - Logging level
      */
-    loggingLevel?: import("@tevm/logger-effect").LogLevel;
+    loggingLevel?: import("@tevm/logger-effect").LogLevel | undefined;
     /**
      * - Allow unlimited contract size
      */
-    allowUnlimitedContractSize?: boolean;
+    allowUnlimitedContractSize?: boolean | undefined;
     /**
      * - Mining reward address
      */
-    address?: Address;
+    address?: `0x${string}` | undefined;
     /**
      * - Enable EVM profiler
      */
-    profiler?: boolean;
+    profiler?: boolean | undefined;
 };
 /**
  * Shape of the MemoryClient service - provides access to all tevm functionality
@@ -107,6 +125,6 @@ export type MemoryClientLiveOptions = {
     /**
      * - Memory client options
      */
-    options?: MemoryClientOptions;
+    options?: MemoryClientOptions | undefined;
 };
 //# sourceMappingURL=types.d.ts.map

@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { wrapWithEffect } from './wrapWithEffect.js'
 
 describe('wrapWithEffect', () => {
@@ -8,7 +8,7 @@ describe('wrapWithEffect', () => {
 			async getValue(): Promise<number> {
 				return 42
 			},
-			async setValue(x: number): Promise<void> {
+			async setValue(_x: number): Promise<void> {
 				// side effect
 			},
 		}
@@ -347,9 +347,7 @@ describe('wrapWithEffect', () => {
 			},
 		}
 
-		expect(() => wrapWithEffect(objWithEffect, ['method'])).toThrow(
-			"Instance already has an 'effect' property",
-		)
+		expect(() => wrapWithEffect(objWithEffect, ['method'])).toThrow("Instance already has an 'effect' property")
 	})
 
 	it('should throw descriptive error with guidance for effect property conflict', () => {

@@ -61,6 +61,4 @@ import { Context } from 'effect'
  * ```
  *
  */
-export const TransportService = Context.GenericTag(
-	'@tevm/transport-effect/TransportService'
-)
+export const TransportService = Context.GenericTag('@tevm/transport-effect/TransportService')

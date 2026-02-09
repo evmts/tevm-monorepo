@@ -28,15 +28,15 @@
  * @property {import('@tevm/blockchain').Chain} chain - The underlying Chain instance
  * @property {(blockId: BlockId) => import('effect').Effect.Effect<import('@tevm/block').Block, import('@tevm/errors-effect').BlockNotFoundError>} getBlock - Get a block by its ID (number, hash, or tag)
  * @property {(hash: Hex) => import('effect').Effect.Effect<import('@tevm/block').Block, import('@tevm/errors-effect').BlockNotFoundError>} getBlockByHash - Get a block by its hash
- * @property {(block: import('@tevm/block').Block) => import('effect').Effect.Effect<void>} putBlock - Add a block to the blockchain
- * @property {() => import('effect').Effect.Effect<import('@tevm/block').Block>} getCanonicalHeadBlock - Get the latest block in the canonical chain
- * @property {(name?: string) => import('effect').Effect.Effect<import('@tevm/block').Block>} getIteratorHead - Get the current iterator head block
- * @property {(tag: string, headHash: Uint8Array) => import('effect').Effect.Effect<void>} setIteratorHead - Set the iterator head position
+ * @property {(block: import('@tevm/block').Block) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').InvalidBlockError>} putBlock - Add a block to the blockchain
+ * @property {() => import('effect').Effect.Effect<import('@tevm/block').Block, import('@tevm/errors-effect').BlockNotFoundError>} getCanonicalHeadBlock - Get the latest block in the canonical chain
+ * @property {(name?: string) => import('effect').Effect.Effect<import('@tevm/block').Block, import('@tevm/errors-effect').BlockNotFoundError>} getIteratorHead - Get the current iterator head block
+ * @property {(tag: string, headHash: Uint8Array) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').InvalidBlockError>} setIteratorHead - Set the iterator head position
  * @property {(blockHash: Uint8Array) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').BlockNotFoundError>} delBlock - Delete a block from the blockchain
  * @property {(header: import('@tevm/block').BlockHeader, height?: bigint) => import('effect').Effect.Effect<void, import('@tevm/errors-effect').InvalidBlockError>} validateHeader - Validate a block header
- * @property {() => import('effect').Effect.Effect<BlockchainShape>} deepCopy - Create a deep copy of the blockchain
+ * @property {() => import('effect').Effect.Effect<BlockchainShape, import('@tevm/errors-effect').InvalidBlockError>} deepCopy - Create a deep copy of the blockchain
  * @property {() => BlockchainShape} shallowCopy - Create a shallow copy of the blockchain
- * @property {import('effect').Effect.Effect<void>} ready - Effect that completes when the blockchain is ready
+ * @property {import('effect').Effect.Effect<void, import('@tevm/errors-effect').InvalidBlockError>} ready - Effect that completes when the blockchain is ready
  * @property {(start: bigint, end: bigint) => AsyncIterable<import('@tevm/block').Block>} iterator - Iterate through blocks in a range from start to end (inclusive)
  */
 

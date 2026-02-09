@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { toBaseError } from './toBaseError.js'
-import { toTaggedError } from './toTaggedError.js'
-import { TevmError } from '../TevmError.js'
 import { InsufficientBalanceError } from '../evm/InsufficientBalanceError.js'
 import { OutOfGasError } from '../evm/OutOfGasError.js'
 import { RevertError } from '../evm/RevertError.js'
-import { StackUnderflowError } from '../evm/StackUnderflowError.js'
 import { StackOverflowError } from '../evm/StackOverflowError.js'
+import { StackUnderflowError } from '../evm/StackUnderflowError.js'
+import { TevmError } from '../TevmError.js'
+import { toBaseError } from './toBaseError.js'
+import { toTaggedError } from './toTaggedError.js'
 
 describe('toBaseError', () => {
 	it('should convert TevmError to BaseError-like object', () => {
@@ -49,7 +49,7 @@ describe('toBaseError', () => {
 			available: 50n,
 		})
 
-		const result = toBaseError(error) as ReturnType<typeof toBaseError> & {
+		const result = toBaseError(error) as unknown as ReturnType<typeof toBaseError> & {
 			address: string
 			required: bigint
 			available: bigint
@@ -79,7 +79,7 @@ describe('toBaseError', () => {
 			gasLimit: 21000n,
 		})
 
-		const result = toBaseError(error) as ReturnType<typeof toBaseError> & {
+		const result = toBaseError(error) as unknown as ReturnType<typeof toBaseError> & {
 			gasUsed: bigint
 			gasLimit: bigint
 		}
@@ -408,7 +408,7 @@ describe('toBaseError', () => {
 					message: 'Test error',
 					code: -32000,
 				}),
-				{ metaMessages: ['Additional info 1', 'Additional info 2'] }
+				{ metaMessages: ['Additional info 1', 'Additional info 2'] },
 			)
 
 			const result = toBaseError(errorWithMeta)

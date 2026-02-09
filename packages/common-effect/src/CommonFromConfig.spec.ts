@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest'
-import { Effect, Layer } from 'effect'
-import { CommonService } from './CommonService.js'
+import { Effect } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { CommonFromConfig } from './CommonFromConfig.js'
+import { CommonService } from './CommonService.js'
 
 describe('CommonFromConfig', () => {
 	describe('default configuration', () => {
@@ -15,9 +15,7 @@ describe('CommonFromConfig', () => {
 				}
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(CommonFromConfig())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(CommonFromConfig())))
 
 			expect(result.chainId).toBe(900) // tevm-devnet default
 			expect(result.hardfork).toBe('prague')
@@ -30,9 +28,7 @@ describe('CommonFromConfig', () => {
 				return commonService.common
 			})
 
-			const common = await Effect.runPromise(
-				program.pipe(Effect.provide(CommonFromConfig())),
-			)
+			const common = await Effect.runPromise(program.pipe(Effect.provide(CommonFromConfig())))
 
 			expect(common).toBeDefined()
 			expect(common.id).toBe(900)
@@ -47,9 +43,7 @@ describe('CommonFromConfig', () => {
 				return common.chainId
 			})
 
-			const chainId = await Effect.runPromise(
-				program.pipe(Effect.provide(CommonFromConfig({ chainId: 1 }))),
-			)
+			const chainId = await Effect.runPromise(program.pipe(Effect.provide(CommonFromConfig({ chainId: 1 }))))
 
 			expect(chainId).toBe(1)
 		})
@@ -60,9 +54,7 @@ describe('CommonFromConfig', () => {
 				return common.hardfork
 			})
 
-			const hardfork = await Effect.runPromise(
-				program.pipe(Effect.provide(CommonFromConfig({ hardfork: 'cancun' }))),
-			)
+			const hardfork = await Effect.runPromise(program.pipe(Effect.provide(CommonFromConfig({ hardfork: 'cancun' }))))
 
 			expect(hardfork).toBe('cancun')
 		})
@@ -74,9 +66,7 @@ describe('CommonFromConfig', () => {
 				return common.eips
 			})
 
-			const eips = await Effect.runPromise(
-				program.pipe(Effect.provide(CommonFromConfig({ eips: [customEip] }))),
-			)
+			const eips = await Effect.runPromise(program.pipe(Effect.provide(CommonFromConfig({ eips: [customEip] }))))
 
 			expect(eips).toContain(customEip)
 			// Should also contain default EIPs
@@ -119,9 +109,7 @@ describe('CommonFromConfig', () => {
 				return { original: commonService.common, copy }
 			})
 
-			const { original, copy } = await Effect.runPromise(
-				program.pipe(Effect.provide(CommonFromConfig())),
-			)
+			const { original, copy } = await Effect.runPromise(program.pipe(Effect.provide(CommonFromConfig())))
 
 			expect(copy).toBeDefined()
 			expect(copy).not.toBe(original) // Should be a different object
@@ -136,9 +124,7 @@ describe('CommonFromConfig', () => {
 				return { copy1, copy2 }
 			})
 
-			const { copy1, copy2 } = await Effect.runPromise(
-				program.pipe(Effect.provide(CommonFromConfig())),
-			)
+			const { copy1, copy2 } = await Effect.runPromise(program.pipe(Effect.provide(CommonFromConfig())))
 
 			expect(copy1).not.toBe(copy2)
 		})
@@ -171,9 +157,7 @@ describe('CommonFromConfig', () => {
 				}
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(CommonFromConfig())),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(CommonFromConfig())))
 
 			expect(result.isEip1559Active).toBe(true)
 			expect(result.isEip4844Active).toBe(true)

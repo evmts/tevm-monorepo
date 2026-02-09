@@ -84,10 +84,7 @@ export class NodeNotReadyError extends Data.TaggedError('NodeNotReadyError') {
 		// Compute all properties before calling super() for Effect.ts equality/hashing
 		const reason = props.reason
 		const message =
-			props.message ??
-			(props.reason !== undefined
-				? `Node not ready: ${props.reason}`
-				: 'Node is not ready')
+			props.message ?? (props.reason !== undefined ? `Node not ready: ${props.reason}` : 'Node is not ready')
 		const code = NodeNotReadyError.code
 		const docsPath = NodeNotReadyError.docsPath
 		const cause = props.cause

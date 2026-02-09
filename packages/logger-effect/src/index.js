@@ -45,21 +45,19 @@
  * ```
  */
 
-// Types (re-exported for convenience)
-export * from './types.js'
-
 // Shape interface
 export * from './LoggerShape.js'
+// Types (re-exported for convenience)
+export * from './types.js'
 
 /**
  * Re-export TestLoggerShape for consumers
  * @typedef {import('./LoggerTest.js').TestLoggerShape} TestLoggerShape
  */
 
-// Service tag
-export { LoggerService } from './LoggerService.js'
-
 // Layer implementations
 export { LoggerLive } from './LoggerLive.js'
+// Service tag
+export { LoggerService } from './LoggerService.js'
 export { LoggerSilent } from './LoggerSilent.js'
-export { LoggerTest, isTestLogger } from './LoggerTest.js'
+export { isTestLogger, LoggerTest } from './LoggerTest.js'

@@ -1,8 +1,8 @@
-import { Effect, Layer } from 'effect'
-import { createEvm } from '@tevm/evm'
-import { CommonService } from '@tevm/common-effect'
-import { StateManagerService } from '@tevm/state-effect'
 import { BlockchainService } from '@tevm/blockchain-effect'
+import { CommonService } from '@tevm/common-effect'
+import { createEvm } from '@tevm/evm'
+import { StateManagerService } from '@tevm/state-effect'
+import { Effect, Layer } from 'effect'
 import { EvmService } from './EvmService.js'
 import { mapEvmError } from './mapEvmError.js'
 
@@ -64,7 +64,7 @@ import { mapEvmError } from './mapEvmError.js'
  * ```
  *
  * @param {EvmLiveOptions} [options] - Configuration options
- * @returns {Layer.Layer<import('./EvmService.js').EvmServiceId, never, CommonService | StateManagerService | BlockchainService>} Layer providing EvmService
+ * @returns {Layer.Layer<import('./EvmService.js').EvmServiceId, import('./types.js').EvmError, CommonService | StateManagerService | BlockchainService>} Layer providing EvmService
  */
 export const EvmLive = (options = {}) => {
 	return Layer.effect(
@@ -106,11 +106,9 @@ export const EvmLive = (options = {}) => {
 
 				getActivePrecompiles: () => Effect.sync(() => evm.precompiles),
 
-				addCustomPrecompile: (precompile) =>
-					Effect.sync(() => evm.addCustomPrecompile(precompile)),
+				addCustomPrecompile: (precompile) => Effect.sync(() => evm.addCustomPrecompile(precompile)),
 
-				removeCustomPrecompile: (precompile) =>
-					Effect.sync(() => evm.removeCustomPrecompile(precompile)),
+				removeCustomPrecompile: (precompile) => Effect.sync(() => evm.removeCustomPrecompile(precompile)),
 			}
 
 			return shape

@@ -73,6 +73,4 @@ import { Context } from 'effect'
  * ```
  *
  */
-export const BlockchainService = Context.GenericTag(
-	'@tevm/blockchain-effect/BlockchainService',
-)
+export const BlockchainService = Context.GenericTag('@tevm/blockchain-effect/BlockchainService')

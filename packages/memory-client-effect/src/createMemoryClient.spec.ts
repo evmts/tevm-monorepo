@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { Effect } from 'effect'
+import { describe, expect, it } from 'vitest'
+
 // Note: createMemoryClient tests require full layer composition
 // which depends on all effect packages being properly wired
 // For now, we test the module structure and basic functionality

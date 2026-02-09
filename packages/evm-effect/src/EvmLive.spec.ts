@@ -1,11 +1,11 @@
-import { describe, it, expect } from 'vitest'
-import { Effect, Layer, Exit } from 'effect'
-import { EvmService } from './EvmService.js'
-import { EvmLive } from './EvmLive.js'
+import { BlockchainLocal } from '@tevm/blockchain-effect'
 import { CommonLocal } from '@tevm/common-effect'
-import { StateManagerService, StateManagerLocal } from '@tevm/state-effect'
-import { BlockchainService, BlockchainLocal } from '@tevm/blockchain-effect'
+import { StateManagerLocal } from '@tevm/state-effect'
 import { createAddressFromString } from '@tevm/utils'
+import { Effect, Exit, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
+import { EvmLive } from './EvmLive.js'
+import { EvmService } from './EvmService.js'
 
 describe('EvmLive', () => {
 	describe('layer creation', () => {
@@ -59,10 +59,7 @@ describe('EvmLive', () => {
 		// Build the layer stack
 		const stateLayer = Layer.provide(StateManagerLocal(), CommonLocal)
 		const blockchainLayer = Layer.provide(BlockchainLocal(), CommonLocal)
-		const fullLayer = Layer.provide(
-			EvmLive(),
-			Layer.mergeAll(stateLayer, blockchainLayer, CommonLocal),
-		)
+		const fullLayer = Layer.provide(EvmLive(), Layer.mergeAll(stateLayer, blockchainLayer, CommonLocal))
 
 		it('should create a working EVM service', async () => {
 			const program = Effect.gen(function* () {
@@ -213,10 +210,7 @@ describe('EvmLive', () => {
 		// Build the layer stack
 		const stateLayer = Layer.provide(StateManagerLocal(), CommonLocal)
 		const blockchainLayer = Layer.provide(BlockchainLocal(), CommonLocal)
-		const fullLayer = Layer.provide(
-			EvmLive(),
-			Layer.mergeAll(stateLayer, blockchainLayer, CommonLocal),
-		)
+		const fullLayer = Layer.provide(EvmLive(), Layer.mergeAll(stateLayer, blockchainLayer, CommonLocal))
 
 		it('should map runCall errors through mapEvmError', async () => {
 			const program = Effect.gen(function* () {

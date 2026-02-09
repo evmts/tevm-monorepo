@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
 import { Context } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { CommonService } from './CommonService.js'
 
 describe('CommonService', () => {
@@ -21,7 +21,7 @@ describe('CommonService', () => {
 				chainId: 1,
 				hardfork: 'prague' as const,
 				eips: [1559],
-				copy: () => ({ ethjsCommon: {} } as any),
+				copy: () => ({ ethjsCommon: {} }) as any,
 			}
 
 			const context = Context.make(CommonService, mockShape)

@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { FilterNotFoundError } from './FilterNotFoundError.js'
 
 describe('FilterNotFoundError', () => {
@@ -58,9 +58,7 @@ describe('FilterNotFoundError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('FilterNotFoundError', (e) =>
-				Effect.succeed(`Filter ${e.filterId} has expired or was removed`)
-			)
+			Effect.catchTag('FilterNotFoundError', (e) => Effect.succeed(`Filter ${e.filterId} has expired or was removed`)),
 		)
 
 		const result = await Effect.runPromise(program)

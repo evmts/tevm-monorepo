@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest'
-import { Effect, Exit } from 'effect'
-import { ImpersonationService } from './ImpersonationService.js'
+import { Effect } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { ImpersonationLive } from './ImpersonationLive.js'
+import { ImpersonationService } from './ImpersonationService.js'
 
 describe('ImpersonationLive', () => {
 	describe('layer creation', () => {
@@ -109,9 +109,7 @@ describe('ImpersonationLive', () => {
 				return yield* impersonation.getAutoImpersonate
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(ImpersonationLive({ autoImpersonate: true }))),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(ImpersonationLive({ autoImpersonate: true }))))
 			expect(result).toBe(true)
 		})
 	})

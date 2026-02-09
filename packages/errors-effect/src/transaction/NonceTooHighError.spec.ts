@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { NonceTooHighError } from './NonceTooHighError.js'
 
 describe('NonceTooHighError', () => {
@@ -73,8 +73,10 @@ describe('NonceTooHighError', () => {
 
 		const program = Effect.fail(error).pipe(
 			Effect.catchTag('NonceTooHighError', (e) =>
-				Effect.succeed(`Gap of ${e.actual !== undefined && e.expected !== undefined ? e.actual - e.expected : 0n} for ${e.address}`)
-			)
+				Effect.succeed(
+					`Gap of ${e.actual !== undefined && e.expected !== undefined ? e.actual - e.expected : 0n} for ${e.address}`,
+				),
+			),
 		)
 
 		const result = await Effect.runPromise(program)

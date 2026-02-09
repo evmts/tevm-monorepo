@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { Context, Effect, Layer } from 'effect'
+import { Effect, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { SendService } from './SendService.js'
 
 describe('SendService', () => {
@@ -17,7 +17,7 @@ describe('SendService', () => {
 
 	it('should be usable in Effect.gen', async () => {
 		const mockSendService = {
-			send: ({ method, id }: { method: string; id: number }) =>
+			send: ({ method: _method, id }: { method: string; id: number }) =>
 				Effect.succeed({
 					jsonrpc: '2.0' as const,
 					result: '0x64',
@@ -29,7 +29,7 @@ describe('SendService', () => {
 						jsonrpc: '2.0' as const,
 						result: '0x64',
 						id: req.id,
-					}))
+					})),
 				),
 		}
 

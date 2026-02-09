@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { BlockNotFoundError } from './BlockNotFoundError.js'
 
 describe('BlockNotFoundError', () => {
@@ -94,9 +94,7 @@ describe('BlockNotFoundError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('BlockNotFoundError', () =>
-				Effect.succeed('Block error handled')
-			)
+			Effect.catchTag('BlockNotFoundError', () => Effect.succeed('Block error handled')),
 		)
 
 		const result = await Effect.runPromise(program)

@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest'
+import { ForkError } from '@tevm/errors-effect'
 import { Effect, Exit } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { TransportNoop } from './TransportNoop.js'
 import { TransportService } from './TransportService.js'
-import { ForkError } from '@tevm/errors-effect'
 
 describe('TransportNoop', () => {
 	describe('Layer', () => {
@@ -60,10 +60,7 @@ describe('TransportNoop', () => {
 		it('should fail with ForkError for eth_getBalance with params', async () => {
 			const program = Effect.gen(function* () {
 				const transport = yield* TransportService
-				return yield* transport.request('eth_getBalance', [
-					'0x742d35Cc6634C0532925a3b844Bc9e7595f2bD73',
-					'latest',
-				])
+				return yield* transport.request('eth_getBalance', ['0x742d35Cc6634C0532925a3b844Bc9e7595f2bD73', 'latest'])
 			})
 
 			const result = await Effect.runPromiseExit(program.pipe(Effect.provide(TransportNoop)))
@@ -97,7 +94,7 @@ describe('TransportNoop', () => {
 			}).pipe(
 				Effect.catchTag('ForkError', (error) => {
 					return Effect.succeed({ caught: true, method: error.method })
-				})
+				}),
 			)
 
 			const result = await Effect.runPromise(program.pipe(Effect.provide(TransportNoop)))

@@ -45,8 +45,7 @@
  * @typedef {import('./types.js').VmError} VmError
  */
 
-// Service
-export { VmService } from './VmService.js'
-
 // Layers
 export { VmLive } from './VmLive.js'
+// Service
+export { VmService } from './VmService.js'

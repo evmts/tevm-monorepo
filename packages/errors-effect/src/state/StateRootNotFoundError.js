@@ -90,9 +90,7 @@ export class StateRootNotFoundError extends Data.TaggedError('StateRootNotFoundE
 		const stateRoot = props.stateRoot
 		const message =
 			props.message ??
-			(props.stateRoot !== undefined
-				? `State root '${props.stateRoot}' not found`
-				: 'State root not found')
+			(props.stateRoot !== undefined ? `State root '${props.stateRoot}' not found` : 'State root not found')
 		const code = StateRootNotFoundError.code
 		const docsPath = StateRootNotFoundError.docsPath
 		const cause = props.cause

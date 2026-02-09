@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { InsufficientFundsError } from './InsufficientFundsError.js'
 
 describe('InsufficientFundsError', () => {
@@ -73,8 +73,10 @@ describe('InsufficientFundsError', () => {
 
 		const program = Effect.fail(error).pipe(
 			Effect.catchTag('InsufficientFundsError', (e) =>
-				Effect.succeed(`Need ${e.required !== undefined && e.available !== undefined ? e.required - e.available : 0} more`)
-			)
+				Effect.succeed(
+					`Need ${e.required !== undefined && e.available !== undefined ? e.required - e.available : 0} more`,
+				),
+			),
 		)
 
 		const result = await Effect.runPromise(program)

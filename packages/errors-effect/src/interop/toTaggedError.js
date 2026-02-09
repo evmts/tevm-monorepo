@@ -1,4 +1,7 @@
-import { TevmError } from '../TevmError.js'
+import { BlockGasLimitExceededError } from '../block/BlockGasLimitExceededError.js'
+// Block errors
+import { BlockNotFoundError } from '../block/BlockNotFoundError.js'
+import { InvalidBlockError } from '../block/InvalidBlockError.js'
 // EVM errors
 import { InsufficientBalanceError } from '../evm/InsufficientBalanceError.js'
 import { InsufficientFundsError } from '../evm/InsufficientFundsError.js'
@@ -8,33 +11,30 @@ import { OutOfGasError } from '../evm/OutOfGasError.js'
 import { RevertError } from '../evm/RevertError.js'
 import { StackOverflowError } from '../evm/StackOverflowError.js'
 import { StackUnderflowError } from '../evm/StackUnderflowError.js'
+import { InternalError } from '../jsonrpc/InternalError.js'
+import { InvalidParamsError } from '../jsonrpc/InvalidParamsError.js'
+// JSON-RPC errors
+import { InvalidRequestError } from '../jsonrpc/InvalidRequestError.js'
+import { MethodNotFoundError } from '../jsonrpc/MethodNotFoundError.js'
+import { FilterNotFoundError } from '../node/FilterNotFoundError.js'
+import { InvalidFilterTypeError } from '../node/InvalidFilterTypeError.js'
+import { NodeNotReadyError } from '../node/NodeNotReadyError.js'
+// Node errors
+import { SnapshotNotFoundError } from '../node/SnapshotNotFoundError.js'
+import { AccountNotFoundError } from '../state/AccountNotFoundError.js'
+// State errors
+import { StateRootNotFoundError } from '../state/StateRootNotFoundError.js'
+import { StorageError } from '../state/StorageError.js'
+import { TevmError } from '../TevmError.js'
+import { GasTooLowError } from '../transaction/GasTooLowError.js'
+// Transaction errors
+import { InvalidTransactionError } from '../transaction/InvalidTransactionError.js'
+import { NonceTooHighError } from '../transaction/NonceTooHighError.js'
+import { NonceTooLowError } from '../transaction/NonceTooLowError.js'
 // Transport errors
 import { ForkError } from '../transport/ForkError.js'
 import { NetworkError } from '../transport/NetworkError.js'
 import { TimeoutError } from '../transport/TimeoutError.js'
-// Block errors
-import { BlockNotFoundError } from '../block/BlockNotFoundError.js'
-import { InvalidBlockError } from '../block/InvalidBlockError.js'
-import { BlockGasLimitExceededError } from '../block/BlockGasLimitExceededError.js'
-// Transaction errors
-import { InvalidTransactionError } from '../transaction/InvalidTransactionError.js'
-import { NonceTooLowError } from '../transaction/NonceTooLowError.js'
-import { NonceTooHighError } from '../transaction/NonceTooHighError.js'
-import { GasTooLowError } from '../transaction/GasTooLowError.js'
-// State errors
-import { StateRootNotFoundError } from '../state/StateRootNotFoundError.js'
-import { AccountNotFoundError } from '../state/AccountNotFoundError.js'
-import { StorageError } from '../state/StorageError.js'
-// JSON-RPC errors
-import { InvalidRequestError } from '../jsonrpc/InvalidRequestError.js'
-import { MethodNotFoundError } from '../jsonrpc/MethodNotFoundError.js'
-import { InvalidParamsError } from '../jsonrpc/InvalidParamsError.js'
-import { InternalError } from '../jsonrpc/InternalError.js'
-// Node errors
-import { SnapshotNotFoundError } from '../node/SnapshotNotFoundError.js'
-import { FilterNotFoundError } from '../node/FilterNotFoundError.js'
-import { InvalidFilterTypeError } from '../node/InvalidFilterTypeError.js'
-import { NodeNotReadyError } from '../node/NodeNotReadyError.js'
 
 /**
  * Map of error tags to their TaggedError constructors.
@@ -146,7 +146,8 @@ export const toTaggedError = (error) => {
 			// EVM errors
 			if (tag === 'InsufficientBalanceError') {
 				return new InsufficientBalanceError({
-					address: typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
+					address:
+						typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
 					required: typeof baseError['required'] === 'bigint' ? baseError['required'] : undefined,
 					available: typeof baseError['available'] === 'bigint' ? baseError['available'] : undefined,
 					message: baseError['message'],
@@ -155,7 +156,8 @@ export const toTaggedError = (error) => {
 			}
 			if (tag === 'InsufficientFundsError') {
 				return new InsufficientFundsError({
-					address: typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
+					address:
+						typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
 					required: typeof baseError['required'] === 'bigint' ? baseError['required'] : undefined,
 					available: typeof baseError['available'] === 'bigint' ? baseError['available'] : undefined,
 					message: baseError['message'],
@@ -237,7 +239,9 @@ export const toTaggedError = (error) => {
 			// Block errors
 			if (tag === 'BlockNotFoundError' || tag === 'UnknownBlock') {
 				return new BlockNotFoundError({
-					blockTag: /** @type {import('../block/BlockNotFoundError.js').BlockTag | undefined} */ (baseError['blockTag']),
+					blockTag: /** @type {import('../block/BlockNotFoundError.js').BlockTag | undefined} */ (
+						baseError['blockTag']
+					),
 					message: baseError['message'],
 					cause: baseError['cause'],
 				})
@@ -245,7 +249,10 @@ export const toTaggedError = (error) => {
 			if (tag === 'InvalidBlockError') {
 				return new InvalidBlockError({
 					blockNumber: typeof baseError['blockNumber'] === 'bigint' ? baseError['blockNumber'] : undefined,
-					blockHash: typeof baseError['blockHash'] === 'string' ? /** @type {`0x${string}`} */ (baseError['blockHash']) : undefined,
+					blockHash:
+						typeof baseError['blockHash'] === 'string'
+							? /** @type {`0x${string}`} */ (baseError['blockHash'])
+							: undefined,
 					reason: typeof baseError['reason'] === 'string' ? baseError['reason'] : undefined,
 					message: baseError['message'],
 					cause: baseError['cause'],
@@ -271,7 +278,8 @@ export const toTaggedError = (error) => {
 			}
 			if (tag === 'NonceTooLowError') {
 				return new NonceTooLowError({
-					address: typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
+					address:
+						typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
 					expected: typeof baseError['expected'] === 'bigint' ? baseError['expected'] : undefined,
 					actual: typeof baseError['actual'] === 'bigint' ? baseError['actual'] : undefined,
 					message: baseError['message'],
@@ -280,7 +288,8 @@ export const toTaggedError = (error) => {
 			}
 			if (tag === 'NonceTooHighError') {
 				return new NonceTooHighError({
-					address: typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
+					address:
+						typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
 					expected: typeof baseError['expected'] === 'bigint' ? baseError['expected'] : undefined,
 					actual: typeof baseError['actual'] === 'bigint' ? baseError['actual'] : undefined,
 					message: baseError['message'],
@@ -299,21 +308,26 @@ export const toTaggedError = (error) => {
 			// State errors
 			if (tag === 'StateRootNotFoundError') {
 				return new StateRootNotFoundError({
-					stateRoot: typeof baseError['stateRoot'] === 'string' ? /** @type {`0x${string}`} */ (baseError['stateRoot']) : undefined,
+					stateRoot:
+						typeof baseError['stateRoot'] === 'string'
+							? /** @type {`0x${string}`} */ (baseError['stateRoot'])
+							: undefined,
 					message: baseError['message'],
 					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'AccountNotFoundError' || tag === 'AccountNotFound') {
 				return new AccountNotFoundError({
-					address: typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
+					address:
+						typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
 					message: baseError['message'],
 					cause: baseError['cause'],
 				})
 			}
 			if (tag === 'StorageError') {
 				return new StorageError({
-					address: typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
+					address:
+						typeof baseError['address'] === 'string' ? /** @type {`0x${string}`} */ (baseError['address']) : undefined,
 					key: typeof baseError['key'] === 'string' ? /** @type {`0x${string}`} */ (baseError['key']) : undefined,
 					message: baseError['message'],
 					cause: baseError['cause'],

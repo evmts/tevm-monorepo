@@ -4,8 +4,8 @@
  */
 
 import { Effect, Layer } from 'effect'
-import { SendService } from './SendService.js'
 import { RequestService } from './RequestService.js'
+import { SendService } from './SendService.js'
 
 /**
  * Maps error instances to appropriate JSON-RPC error codes per EIP-1193.
@@ -138,48 +138,15 @@ const getErrorCode = (error) => {
  * ```
  *
  */
-export const SendLive = /** @type {Layer.Layer<import('./SendService.js').SendServiceId, never, import('./RequestService.js').RequestService>} */ (Layer.effect(
-	SendService,
-	Effect.gen(function* () {
-		const requestService = yield* RequestService
+export const SendLive =
+	/** @type {Layer.Layer<import('./SendService.js').SendServiceId, never, import('./RequestService.js').RequestService>} */ (
+		Layer.effect(
+			SendService,
+			Effect.gen(function* () {
+				const requestService = yield* RequestService
 
-		return {
-			send: (request) =>
-				Effect.gen(function* () {
-					const result = yield* requestService
-						.request({
-							method: request.method,
-							...(request.params !== undefined && { params: request.params }),
-						})
-						.pipe(
-							Effect.map((result) => ({
-								jsonrpc: /** @type {const} */ ('2.0'),
-								result,
-								id: request.id,
-							})),
-							Effect.catchAll((error) =>
-								Effect.succeed({
-									jsonrpc: /** @type {const} */ ('2.0'),
-									error: {
-										// Map error to proper EIP-1193 compliant JSON-RPC error code (Issue #317 fix)
-										code: getErrorCode(error),
-										message: /** @type {{ message?: string }} */ (error).message || 'Internal error',
-										// Include error data with _tag and cause for diagnostics (RFC §6.3 Pattern 3)
-										data: {
-											_tag: /** @type {any} */ (error)._tag,
-											...(/** @type {any} */ (error).cause && { cause: String(/** @type {any} */ (error).cause) }),
-										},
-									},
-									id: request.id,
-								})
-							)
-						)
-					return result
-				}),
-
-			sendBulk: (requests) =>
-				Effect.all(
-					requests.map((request) =>
+				return {
+					send: (request) =>
 						Effect.gen(function* () {
 							const result = yield* requestService
 								.request({
@@ -202,17 +169,57 @@ export const SendLive = /** @type {Layer.Layer<import('./SendService.js').SendSe
 												// Include error data with _tag and cause for diagnostics (RFC §6.3 Pattern 3)
 												data: {
 													_tag: /** @type {any} */ (error)._tag,
-													...(/** @type {any} */ (error).cause && { cause: String(/** @type {any} */ (error).cause) }),
+													.../** @type {any} */ (error.cause && { cause: String(/** @type {any} */ (error).cause) }),
 												},
 											},
 											id: request.id,
-										})
-									)
+										}),
+									),
 								)
 							return result
-						})
-					)
-				),
-		}
-	})
-))
+						}),
+
+					sendBulk: (requests) =>
+						Effect.all(
+							requests.map((request) =>
+								Effect.gen(function* () {
+									const result = yield* requestService
+										.request({
+											method: request.method,
+											...(request.params !== undefined && { params: request.params }),
+										})
+										.pipe(
+											Effect.map((result) => ({
+												jsonrpc: /** @type {const} */ ('2.0'),
+												result,
+												id: request.id,
+											})),
+											Effect.catchAll((error) =>
+												Effect.succeed({
+													jsonrpc: /** @type {const} */ ('2.0'),
+													error: {
+														// Map error to proper EIP-1193 compliant JSON-RPC error code (Issue #317 fix)
+														code: getErrorCode(error),
+														message: /** @type {{ message?: string }} */ (error).message || 'Internal error',
+														// Include error data with _tag and cause for diagnostics (RFC §6.3 Pattern 3)
+														data: {
+															_tag: /** @type {any} */ (error)._tag,
+															.../** @type {any} */ (
+																error.cause && {
+																	cause: String(/** @type {any} */ (error).cause),
+																}
+															),
+														},
+													},
+													id: request.id,
+												}),
+											),
+										)
+									return result
+								}),
+							),
+						),
+				}
+			}),
+		)
+	)

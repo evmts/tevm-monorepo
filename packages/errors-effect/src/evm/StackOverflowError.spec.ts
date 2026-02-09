@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { StackOverflowError } from './StackOverflowError.js'
 
 describe('StackOverflowError', () => {
@@ -64,9 +64,7 @@ describe('StackOverflowError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('StackOverflowError', (e) =>
-				Effect.succeed(`Stack exceeded: ${e.stackSize} items`)
-			)
+			Effect.catchTag('StackOverflowError', (e) => Effect.succeed(`Stack exceeded: ${e.stackSize} items`)),
 		)
 
 		const result = await Effect.runPromise(program)

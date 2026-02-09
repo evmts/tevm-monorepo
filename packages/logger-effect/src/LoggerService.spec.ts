@@ -1,7 +1,7 @@
+import { Context, Effect } from 'effect'
 import { describe, expect, it } from 'vitest'
-import { Effect, Context } from 'effect'
-import { LoggerService } from './LoggerService.js'
 import { LoggerLive } from './LoggerLive.js'
+import { LoggerService } from './LoggerService.js'
 
 describe('LoggerService', () => {
 	describe('Context.Tag', () => {
@@ -30,9 +30,7 @@ describe('LoggerService', () => {
 				return 'success'
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerLive('silent'))),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerLive('silent'))))
 			expect(result).toBe('success')
 		})
 
@@ -61,9 +59,7 @@ describe('LoggerService', () => {
 				return result
 			})
 
-			const result = await Effect.runPromise(
-				program.pipe(Effect.provide(LoggerLive('silent'))),
-			)
+			const result = await Effect.runPromise(program.pipe(Effect.provide(LoggerLive('silent'))))
 			expect(result).toBe(42)
 		})
 	})

@@ -104,14 +104,13 @@
  * ```
  */
 
-// Services
-export { EthActionsService } from './EthActionsService.js'
-export { TevmActionsService } from './TevmActionsService.js'
-export { RequestService } from './RequestService.js'
-export { SendService } from './SendService.js'
-
 // Live implementations
 export { EthActionsLive } from './EthActionsLive.js'
-export { TevmActionsLive } from './TevmActionsLive.js'
+// Services
+export { EthActionsService } from './EthActionsService.js'
 export { RequestLive } from './RequestLive.js'
+export { RequestService } from './RequestService.js'
 export { SendLive } from './SendLive.js'
+export { SendService } from './SendService.js'
+export { TevmActionsLive } from './TevmActionsLive.js'
+export { TevmActionsService } from './TevmActionsService.js'

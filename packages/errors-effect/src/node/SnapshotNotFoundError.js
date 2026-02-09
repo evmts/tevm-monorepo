@@ -85,9 +85,7 @@ export class SnapshotNotFoundError extends Data.TaggedError('SnapshotNotFoundErr
 		const snapshotId = props.snapshotId
 		const message =
 			props.message ??
-			(props.snapshotId !== undefined
-				? `Snapshot '${props.snapshotId}' not found`
-				: 'Snapshot not found')
+			(props.snapshotId !== undefined ? `Snapshot '${props.snapshotId}' not found` : 'Snapshot not found')
 		const code = SnapshotNotFoundError.code
 		const docsPath = SnapshotNotFoundError.docsPath
 		const cause = props.cause

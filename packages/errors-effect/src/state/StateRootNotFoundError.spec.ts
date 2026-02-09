@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { StateRootNotFoundError } from './StateRootNotFoundError.js'
 
 describe('StateRootNotFoundError', () => {
@@ -18,7 +18,9 @@ describe('StateRootNotFoundError', () => {
 		})
 
 		expect(error.stateRoot).toBe('0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef')
-		expect(error.message).toBe("State root '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef' not found")
+		expect(error.message).toBe(
+			"State root '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef' not found",
+		)
 	})
 
 	it('should allow custom message', () => {
@@ -67,9 +69,7 @@ describe('StateRootNotFoundError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('StateRootNotFoundError', () =>
-				Effect.succeed('State root error handled')
-			)
+			Effect.catchTag('StateRootNotFoundError', () => Effect.succeed('State root error handled')),
 		)
 
 		const result = await Effect.runPromise(program)

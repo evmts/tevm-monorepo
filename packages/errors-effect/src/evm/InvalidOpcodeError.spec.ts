@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { InvalidOpcodeError } from './InvalidOpcodeError.js'
 
 describe('InvalidOpcodeError', () => {
@@ -65,8 +65,8 @@ describe('InvalidOpcodeError', () => {
 
 		const program = Effect.fail(error).pipe(
 			Effect.catchTag('InvalidOpcodeError', (e) =>
-				Effect.succeed(`Invalid opcode detected: 0x${e.opcode?.toString(16)}`)
-			)
+				Effect.succeed(`Invalid opcode detected: 0x${e.opcode?.toString(16)}`),
+			),
 		)
 
 		const result = await Effect.runPromise(program)

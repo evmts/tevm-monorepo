@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { toTaggedError } from './toTaggedError.js'
-import { TevmError } from '../TevmError.js'
 import { InsufficientBalanceError } from '../evm/InsufficientBalanceError.js'
 import { InvalidOpcodeError } from '../evm/InvalidOpcodeError.js'
 import { OutOfGasError } from '../evm/OutOfGasError.js'
 import { RevertError } from '../evm/RevertError.js'
 import { StackOverflowError } from '../evm/StackOverflowError.js'
 import { StackUnderflowError } from '../evm/StackUnderflowError.js'
+import { TevmError } from '../TevmError.js'
+import { toTaggedError } from './toTaggedError.js'
 
 describe('toTaggedError', () => {
 	it('should return TevmError as-is', () => {

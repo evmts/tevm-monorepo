@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { Context, Effect, Layer } from 'effect'
+import { Effect, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { TevmActionsService } from './TevmActionsService.js'
 
 describe('TevmActionsService', () => {
@@ -28,10 +28,8 @@ describe('TevmActionsService', () => {
 					nonce: 0n,
 					balance: 1000000000000000000n,
 					deployedBytecode: '0x' as const,
-					storageRoot:
-						'0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421' as const,
-					codeHash:
-						'0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470' as const,
+					storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421' as const,
+					codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470' as const,
 					isContract: false,
 					isEmpty: false,
 				}),

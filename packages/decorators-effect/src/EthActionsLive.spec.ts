@@ -1,17 +1,13 @@
-import { describe, it, expect, vi } from 'vitest'
-import { Effect, Layer, Exit } from 'effect'
-import { EthActionsService } from './EthActionsService.js'
-import { EthActionsLive } from './EthActionsLive.js'
+import { GetBalanceService, GetCodeService, GetStorageAtService } from '@tevm/actions-effect'
+import { BlockchainService } from '@tevm/blockchain-effect'
+import { CommonService } from '@tevm/common-effect'
+import { InternalError, InvalidOpcodeError, OutOfGasError, RevertError } from '@tevm/errors-effect'
 import { StateManagerService } from '@tevm/state-effect'
 import { VmService } from '@tevm/vm-effect'
-import { CommonService } from '@tevm/common-effect'
-import { BlockchainService } from '@tevm/blockchain-effect'
-import {
-	GetBalanceService,
-	GetCodeService,
-	GetStorageAtService,
-} from '@tevm/actions-effect'
-import { RevertError, OutOfGasError, InvalidOpcodeError, InternalError } from '@tevm/errors-effect'
+import { Effect, Exit, Layer } from 'effect'
+import { describe, expect, it, vi } from 'vitest'
+import { EthActionsLive } from './EthActionsLive.js'
+import { EthActionsService } from './EthActionsService.js'
 
 describe('EthActionsLive', () => {
 	const createMockVm = () => ({
@@ -21,12 +17,14 @@ describe('EthActionsLive', () => {
 				getCanonicalHeadBlock: vi.fn(() => Promise.resolve({ header: { number: 100n } })),
 			},
 			evm: {
-				runCall: vi.fn(() => Promise.resolve({
-					execResult: {
-						returnValue: new Uint8Array([0x12, 0x34]),
-						executionGasUsed: 21000n,
-					},
-				})),
+				runCall: vi.fn(() =>
+					Promise.resolve({
+						execResult: {
+							returnValue: new Uint8Array([0x12, 0x34]),
+							executionGasUsed: 21000n,
+						},
+					}),
+				),
 			},
 		},
 		runTx: vi.fn(() => Effect.succeed({ returnValue: '0x1234' as const })),
@@ -41,7 +39,7 @@ describe('EthActionsLive', () => {
 		hardfork: 'prague' as const,
 		eips: [],
 		common: {} as any,
-		copy: vi.fn(() => ({} as any)),
+		copy: vi.fn(() => ({}) as any),
 	})
 
 	const createMockStateManager = () => ({
@@ -70,9 +68,7 @@ describe('EthActionsLive', () => {
 
 	const createMockGetStorageAtService = () => ({
 		getStorageAt: vi.fn(() =>
-			Effect.succeed(
-				'0x0000000000000000000000000000000000000000000000000000000000000000' as const
-			)
+			Effect.succeed('0x0000000000000000000000000000000000000000000000000000000000000000' as const),
 		),
 	})
 
@@ -87,7 +83,7 @@ describe('EthActionsLive', () => {
 		delBlock: vi.fn(() => Effect.succeed(undefined)),
 		validateHeader: vi.fn(() => Effect.succeed(undefined)),
 		deepCopy: vi.fn(() => Effect.succeed({} as any)),
-		shallowCopy: vi.fn(() => ({} as any)),
+		shallowCopy: vi.fn(() => ({}) as any),
 		ready: Effect.succeed(undefined),
 		iterator: vi.fn(() => (async function* () {})()),
 	})
@@ -108,7 +104,7 @@ describe('EthActionsLive', () => {
 			Layer.succeed(BlockchainService, blockchainMock as any),
 			Layer.succeed(GetBalanceService, getBalanceMock as any),
 			Layer.succeed(GetCodeService, getCodeMock as any),
-			Layer.succeed(GetStorageAtService, getStorageAtMock as any)
+			Layer.succeed(GetStorageAtService, getStorageAtMock as any),
 		)
 
 		return {
@@ -205,9 +201,7 @@ describe('EthActionsLive', () => {
 		})
 
 		const result = await Effect.runPromise(program.pipe(Effect.provide(layer)))
-		expect(result).toBe(
-			'0x0000000000000000000000000000000000000000000000000000000000000000'
-		)
+		expect(result).toBe('0x0000000000000000000000000000000000000000000000000000000000000000')
 		expect(mocks.getStorageAt.getStorageAt).toHaveBeenCalledWith(params)
 	})
 
@@ -292,7 +286,7 @@ describe('EthActionsLive', () => {
 			Layer.succeed(BlockchainService, blockchainMock as any),
 			Layer.succeed(GetBalanceService, getBalanceMock as any),
 			Layer.succeed(GetCodeService, getCodeMock as any),
-			Layer.succeed(GetStorageAtService, getStorageAtMock as any)
+			Layer.succeed(GetStorageAtService, getStorageAtMock as any),
 		)
 
 		const layer = Layer.provide(EthActionsLive, mockLayer)
@@ -321,9 +315,7 @@ describe('EthActionsLive', () => {
 		const blockchainMock = createMockBlockchainService()
 
 		// Make getCanonicalHeadBlock fail
-		blockchainMock.getCanonicalHeadBlock.mockReturnValueOnce(
-			Effect.fail(new Error('Blockchain error'))
-		)
+		blockchainMock.getCanonicalHeadBlock.mockReturnValueOnce(Effect.fail(new Error('Blockchain error')))
 
 		const mockLayer = Layer.mergeAll(
 			Layer.succeed(StateManagerService, stateManagerMock as any),
@@ -332,7 +324,7 @@ describe('EthActionsLive', () => {
 			Layer.succeed(BlockchainService, blockchainMock as any),
 			Layer.succeed(GetBalanceService, getBalanceMock as any),
 			Layer.succeed(GetCodeService, getCodeMock as any),
-			Layer.succeed(GetStorageAtService, getStorageAtMock as any)
+			Layer.succeed(GetStorageAtService, getStorageAtMock as any),
 		)
 
 		const layer = Layer.provide(EthActionsLive, mockLayer)
@@ -374,7 +366,7 @@ describe('EthActionsLive', () => {
 				Layer.succeed(BlockchainService, blockchainMock as any),
 				Layer.succeed(GetBalanceService, getBalanceMock as any),
 				Layer.succeed(GetCodeService, getCodeMock as any),
-				Layer.succeed(GetStorageAtService, getStorageAtMock as any)
+				Layer.succeed(GetStorageAtService, getStorageAtMock as any),
 			)
 
 			const layer = Layer.provide(EthActionsLive, mockLayer)
@@ -426,7 +418,7 @@ describe('EthActionsLive', () => {
 				Layer.succeed(BlockchainService, blockchainMock as any),
 				Layer.succeed(GetBalanceService, getBalanceMock as any),
 				Layer.succeed(GetCodeService, getCodeMock as any),
-				Layer.succeed(GetStorageAtService, getStorageAtMock as any)
+				Layer.succeed(GetStorageAtService, getStorageAtMock as any),
 			)
 
 			const layer = Layer.provide(EthActionsLive, mockLayer)
@@ -477,7 +469,7 @@ describe('EthActionsLive', () => {
 				Layer.succeed(BlockchainService, blockchainMock as any),
 				Layer.succeed(GetBalanceService, getBalanceMock as any),
 				Layer.succeed(GetCodeService, getCodeMock as any),
-				Layer.succeed(GetStorageAtService, getStorageAtMock as any)
+				Layer.succeed(GetStorageAtService, getStorageAtMock as any),
 			)
 
 			const layer = Layer.provide(EthActionsLive, mockLayer)
@@ -528,7 +520,7 @@ describe('EthActionsLive', () => {
 				Layer.succeed(BlockchainService, blockchainMock as any),
 				Layer.succeed(GetBalanceService, getBalanceMock as any),
 				Layer.succeed(GetCodeService, getCodeMock as any),
-				Layer.succeed(GetStorageAtService, getStorageAtMock as any)
+				Layer.succeed(GetStorageAtService, getStorageAtMock as any),
 			)
 
 			const layer = Layer.provide(EthActionsLive, mockLayer)
@@ -601,7 +593,7 @@ describe('EthActionsLive', () => {
 				Layer.succeed(BlockchainService, blockchainMock as any),
 				Layer.succeed(GetBalanceService, getBalanceMock as any),
 				Layer.succeed(GetCodeService, getCodeMock as any),
-				Layer.succeed(GetStorageAtService, getStorageAtMock as any)
+				Layer.succeed(GetStorageAtService, getStorageAtMock as any),
 			)
 
 			const layer = Layer.provide(EthActionsLive, mockLayer)

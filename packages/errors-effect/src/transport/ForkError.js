@@ -90,9 +90,7 @@ export class ForkError extends Data.TaggedError('ForkError') {
 		const cause = props.cause
 		const message =
 			props.message ??
-			(props.method !== undefined
-				? `Fork request failed for method '${props.method}'`
-				: 'Fork request failed')
+			(props.method !== undefined ? `Fork request failed for method '${props.method}'` : 'Fork request failed')
 		// If cause has a code, use it; otherwise use the static default
 		const code =
 			props.cause && typeof props.cause === 'object' && 'code' in props.cause && typeof props.cause.code === 'number'

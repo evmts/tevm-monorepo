@@ -1,4 +1,4 @@
-import { Effect, Layer, Context } from 'effect'
+import { Context, Effect, Layer } from 'effect'
 
 /**
  * Create a Layer from an existing factory function that returns a Promise.

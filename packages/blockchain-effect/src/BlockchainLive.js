@@ -1,8 +1,8 @@
-import { Effect, Layer } from 'effect'
 import { createChain } from '@tevm/blockchain'
 import { CommonService } from '@tevm/common-effect'
-import { TransportService, ForkConfigService } from '@tevm/transport-effect'
 import { BlockNotFoundError, InvalidBlockError } from '@tevm/errors-effect'
+import { ForkConfigService, TransportService } from '@tevm/transport-effect'
+import { Effect, Layer } from 'effect'
 import { BlockchainService } from './BlockchainService.js'
 
 /**
@@ -72,7 +72,7 @@ import { BlockchainService } from './BlockchainService.js'
  * ```
  *
  * @param {BlockchainLiveOptions} [options] - Configuration options
- * @returns {Layer.Layer<BlockchainService, never, CommonService | TransportService | ForkConfigService>} Layer providing BlockchainService
+ * @returns {Layer.Layer<BlockchainService, import('@tevm/errors-effect').InvalidBlockError, CommonService | TransportService | ForkConfigService>} Layer providing BlockchainService
  */
 export const BlockchainLive = (options = {}) => {
 	return Layer.effect(
@@ -95,21 +95,22 @@ export const BlockchainLive = (options = {}) => {
 							Effect.runPromise(
 								transport.request(method, params).pipe(
 									Effect.tapError((error) =>
-										Effect.logError(`Fork transport error: ${method}`, { error, method, params })
+										Effect.logError(`Fork transport error: ${method}`, { error, method, params }),
 									),
 									// Issue #314: Catch typed ForkError and convert to enriched Error that preserves context
 									Effect.catchTag('ForkError', (forkError) => {
-										const enrichedError = /** @type {Error & { method?: string; code?: number; docsPath?: string; __isForkError?: boolean }} */ (
-											new Error(forkError.message)
-										)
+										const enrichedError =
+											/** @type {Error & { method?: string; code?: number; docsPath?: string; __isForkError?: boolean }} */ (
+												new Error(forkError.message)
+											)
 										enrichedError.method = forkError.method
 										enrichedError.code = forkError.code
 										enrichedError.docsPath = forkError.docsPath
 										enrichedError.cause = forkError.cause
 										enrichedError.__isForkError = true
 										return Effect.fail(enrichedError)
-									})
-								)
+									}),
+								),
 							),
 					},
 					blockTag: forkConfig.blockTag,

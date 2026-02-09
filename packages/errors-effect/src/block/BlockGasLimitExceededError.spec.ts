@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { BlockGasLimitExceededError } from './BlockGasLimitExceededError.js'
 
 describe('BlockGasLimitExceededError', () => {
@@ -73,8 +73,10 @@ describe('BlockGasLimitExceededError', () => {
 
 		const program = Effect.fail(error).pipe(
 			Effect.catchTag('BlockGasLimitExceededError', (e) =>
-				Effect.succeed(`Exceeded by ${e.gasUsed !== undefined && e.blockGasLimit !== undefined ? e.gasUsed - e.blockGasLimit : 0n}`)
-			)
+				Effect.succeed(
+					`Exceeded by ${e.gasUsed !== undefined && e.blockGasLimit !== undefined ? e.gasUsed - e.blockGasLimit : 0n}`,
+				),
+			),
 		)
 
 		const result = await Effect.runPromise(program)

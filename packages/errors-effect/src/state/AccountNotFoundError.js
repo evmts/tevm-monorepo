@@ -89,10 +89,7 @@ export class AccountNotFoundError extends Data.TaggedError('AccountNotFoundError
 		const name = 'AccountNotFoundError'
 		const address = props.address
 		const message =
-			props.message ??
-			(props.address !== undefined
-				? `Account '${props.address}' not found`
-				: 'Account not found')
+			props.message ?? (props.address !== undefined ? `Account '${props.address}' not found` : 'Account not found')
 		const code = AccountNotFoundError.code
 		const docsPath = AccountNotFoundError.docsPath
 		const cause = props.cause

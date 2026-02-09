@@ -1,8 +1,8 @@
-import { describe, it, expect, vi } from 'vitest'
-import { Effect, Layer } from 'effect'
-import { SetAccountService } from './SetAccountService.js'
-import { SetAccountLive } from './SetAccountLive.js'
 import { StateManagerService } from '@tevm/state-effect'
+import { Effect, Layer } from 'effect'
+import { describe, expect, it, vi } from 'vitest'
+import { SetAccountLive } from './SetAccountLive.js'
+import { SetAccountService } from './SetAccountService.js'
 
 // Create a mock StateManager for testing
 const createMockStateManager = (overrides: Partial<Record<string, unknown>> = {}) => ({
@@ -24,7 +24,7 @@ const createMockStateManager = (overrides: Partial<Record<string, unknown>> = {}
 	loadState: () => Effect.succeed(undefined),
 	ready: Effect.succeed(undefined),
 	deepCopy: () => Effect.succeed({} as any),
-	shallowCopy: () => ({} as any),
+	shallowCopy: () => ({}) as any,
 	...overrides,
 })
 
@@ -796,11 +796,11 @@ describe('SetAccountLive', () => {
 			// This tests the hexToBytes fix for odd-length hex strings
 			// Before the fix, "0xabc" would be truncated to [0xab] (losing the 'c' nibble)
 			// After the fix, "0xabc" is normalized to "0x0abc" -> [0x0a, 0xbc]
-			let capturedKeyBytes: Uint8Array | undefined
+			let _capturedKeyBytes: Uint8Array | undefined
 			let capturedValueBytes: Uint8Array | undefined
 
-			const putStorageMock = vi.fn((address: any, key: Uint8Array, value: Uint8Array) => {
-				capturedKeyBytes = key
+			const putStorageMock = vi.fn((_address: any, key: Uint8Array, value: Uint8Array) => {
+				_capturedKeyBytes = key
 				capturedValueBytes = value
 				return Effect.succeed(undefined)
 			})

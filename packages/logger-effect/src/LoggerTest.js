@@ -83,8 +83,7 @@ const createTestLoggerShape = (logsRef, level = 'debug', name = 'tevm') => {
 		info: createLogFn('info'),
 		warn: createLogFn('warn'),
 		error: createLogFn('error'),
-		child: (childName) =>
-			createTestLoggerShape(logsRef, level, `${name}:${childName}`),
+		child: (childName) => createTestLoggerShape(logsRef, level, `${name}:${childName}`),
 
 		// Test-specific methods
 		getLogs: () => Ref.get(logsRef),

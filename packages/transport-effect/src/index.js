@@ -53,12 +53,11 @@
  * @typedef {import('./types.js').TransportShape} TransportShape
  */
 
-// Transport exports
-export { TransportService } from './TransportService.js'
-export { HttpTransport } from './HttpTransport.js'
-export { TransportNoop } from './TransportNoop.js'
-
+export { ForkConfigFromRpc } from './ForkConfigFromRpc.js'
 // Fork config exports
 export { ForkConfigService } from './ForkConfigService.js'
-export { ForkConfigFromRpc } from './ForkConfigFromRpc.js'
 export { ForkConfigStatic } from './ForkConfigStatic.js'
+export { HttpTransport } from './HttpTransport.js'
+export { TransportNoop } from './TransportNoop.js'
+// Transport exports
+export { TransportService } from './TransportService.js'

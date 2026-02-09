@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest'
-import { Effect, Layer, Exit } from 'effect'
-import { BlockchainService } from './BlockchainService.js'
-import { BlockchainLocal } from './BlockchainLocal.js'
 import { CommonLocal } from '@tevm/common-effect'
+import { Effect, Exit, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
+import { BlockchainLocal } from './BlockchainLocal.js'
+import { BlockchainService } from './BlockchainService.js'
 
 describe('BlockchainLocal', () => {
 	describe('layer creation', () => {
@@ -129,7 +129,7 @@ describe('BlockchainLocal', () => {
 			const program = Effect.gen(function* () {
 				const blockchain = yield* BlockchainService
 				yield* blockchain.ready
-				const headBlock = yield* blockchain.getCanonicalHeadBlock()
+				const _headBlock = yield* blockchain.getCanonicalHeadBlock()
 				// Just verify putBlock doesn't throw (we'd need to create a valid block to actually put)
 				// For now, verify the method exists and is callable
 				expect(typeof blockchain.chain.putBlock).toBe('function')
@@ -206,7 +206,9 @@ describe('BlockchainLocal', () => {
 				const blockchain = yield* BlockchainService
 				yield* blockchain.ready
 				// Try to get a block with a fake hash
-				const block = yield* blockchain.getBlockByHash('0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef')
+				const block = yield* blockchain.getBlockByHash(
+					'0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+				)
 				return block
 			})
 

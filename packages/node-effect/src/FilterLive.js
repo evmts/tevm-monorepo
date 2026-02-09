@@ -1,5 +1,5 @@
-import { Effect, Layer, Ref } from 'effect'
 import { FilterNotFoundError, InvalidFilterTypeError } from '@tevm/errors-effect'
+import { Effect, Layer, Ref } from 'effect'
 import { FilterService } from './FilterService.js'
 import { DEFAULT_FILTER_EXPIRATION_MS } from './types.js'
 
@@ -132,10 +132,17 @@ export const FilterLive = () => {
 					remove: (/** @type {Hex} */ id) =>
 						Effect.gen(function* () {
 							// Atomic check-and-update with listener cleanup (Issue #285/#286)
+							/**
+							 * @type {{ found: boolean; listeners: Array<(...args: Array<unknown>) => unknown> }}
+							 */
+							// @ts-expect-error - Ref.modify union return type inference issue with literal booleans
 							const result = yield* Ref.modify(fltrRef, (map) => {
 								const filter = map.get(id)
 								if (!filter) {
-									return /** @type {const} */ ([{ found: false, listeners: /** @type {Array<() => void>} */ ([]) }, map])
+									return /** @type {const} */ ([
+										{ found: false, listeners: /** @type {Array<() => void>} */ ([]) },
+										map,
+									])
 								}
 								const newMap = new Map(map)
 								newMap.delete(id)
@@ -491,9 +498,7 @@ export const FilterLive = () => {
 												// topics can be Hex | Hex[] - must check if array before mapping
 												topics: filter.logsCriteria.topics
 													? Array.isArray(filter.logsCriteria.topics)
-														? filter.logsCriteria.topics.map((t) =>
-																Array.isArray(t) ? [...t] : t,
-															)
+														? filter.logsCriteria.topics.map((t) => (Array.isArray(t) ? [...t] : t))
 														: filter.logsCriteria.topics
 													: filter.logsCriteria.topics,
 											}

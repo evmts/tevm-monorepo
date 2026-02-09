@@ -3,15 +3,15 @@
  * Layer implementation for the Effect-based memory client
  */
 
-import { Effect, Layer, Ref } from 'effect'
-import { MemoryClientService } from './MemoryClientService.js'
-import { StateManagerService } from '@tevm/state-effect'
-import { VmService } from '@tevm/vm-effect'
 import { CommonService } from '@tevm/common-effect'
+import { InternalError, InvalidParamsError } from '@tevm/errors-effect'
 // Note: Action services are created inline in createActionServices() to ensure
 // deepCopy creates services bound to the copied state manager
 import { SnapshotService } from '@tevm/node-effect'
-import { InvalidParamsError, InternalError } from '@tevm/errors-effect'
+import { StateManagerService } from '@tevm/state-effect'
+import { VmService } from '@tevm/vm-effect'
+import { Effect, Layer, Ref } from 'effect'
+import { MemoryClientService } from './MemoryClientService.js'
 
 /**
  * Helper to convert address to EthjsAddress
@@ -60,7 +60,7 @@ const validateAddressWithChecksum = async (address) => {
 	} catch (e) {
 		return {
 			valid: false,
-			error: `Invalid EIP-55 checksum: ${e instanceof Error ? e.message : String(e)}`
+			error: `Invalid EIP-55 checksum: ${e instanceof Error ? e.message : String(e)}`,
 		}
 	}
 }
@@ -72,7 +72,7 @@ const validateAddressWithChecksum = async (address) => {
  * @param {string} address
  * @returns {boolean}
  */
-const isValidAddress = (address) => {
+const _isValidAddress = (address) => {
 	return isValidAddressFormat(address)
 }
 
@@ -129,7 +129,7 @@ const createActionServices = (stateManager) => {
 							method: 'getAccount',
 							params,
 							message: 'Missing address parameter',
-						})
+						}),
 					)
 				}
 
@@ -149,7 +149,7 @@ const createActionServices = (stateManager) => {
 							method: 'getAccount',
 							params,
 							message: addressValidation.error || `Invalid address: ${params.address}`,
-						})
+						}),
 					)
 				}
 
@@ -170,8 +170,8 @@ const createActionServices = (stateManager) => {
 							new InternalError({
 								message: `Failed to get account: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
 								cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
-							})
-					)
+							}),
+					),
 				)
 
 				const code = yield* stateManager.getCode(ethjsAddress).pipe(
@@ -180,14 +180,18 @@ const createActionServices = (stateManager) => {
 							new InternalError({
 								message: `Failed to get code: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
 								cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
-							})
-					)
+							}),
+					),
 				)
 
 				const nonce = account?.nonce ?? 0n
 				const balance = account?.balance ?? 0n
-				const storageRoot = account ? bytesToHex(account.storageRoot) : '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
-				const codeHash = account ? bytesToHex(account.codeHash) : '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+				const storageRoot = account
+					? bytesToHex(account.storageRoot)
+					: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
+				const codeHash = account
+					? bytesToHex(account.codeHash)
+					: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
 
 				return {
 					// Return EIP-55 checksummed address (Issue #312 fix)
@@ -216,7 +220,7 @@ const createActionServices = (stateManager) => {
 							method: 'setAccount',
 							params,
 							message: 'Missing address parameter',
-						})
+						}),
 					)
 				}
 
@@ -236,7 +240,7 @@ const createActionServices = (stateManager) => {
 							method: 'setAccount',
 							params,
 							message: addressValidation.error || `Invalid address: ${params.address}`,
-						})
+						}),
 					)
 				}
 
@@ -266,8 +270,8 @@ const createActionServices = (stateManager) => {
 							new InternalError({
 								message: `Failed to checkpoint: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
 								cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
-							})
-					)
+							}),
+					),
 				)
 
 				// Build the core operations that should be reverted on failure (RFC §6.3)
@@ -281,8 +285,8 @@ const createActionServices = (stateManager) => {
 								new InternalError({
 									message: `Failed to put account: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
 									cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
-								})
-						)
+								}),
+						),
 					)
 
 					// Set code if provided
@@ -298,11 +302,11 @@ const createActionServices = (stateManager) => {
 									method: 'setAccount',
 									params,
 									message: `Invalid hex in deployedBytecode: contains non-hexadecimal characters`,
-								})
+								}),
 							)
 						}
 						/* c8 ignore stop */
-						const normalizedHex = codeHex.length % 2 === 1 ? '0' + codeHex : codeHex
+						const normalizedHex = codeHex.length % 2 === 1 ? `0${codeHex}` : codeHex
 						const codeBytes = new Uint8Array(normalizedHex.length / 2)
 						for (let i = 0; i < codeBytes.length; i++) {
 							codeBytes[i] = parseInt(normalizedHex.substring(i * 2, i * 2 + 2), 16)
@@ -313,8 +317,8 @@ const createActionServices = (stateManager) => {
 									new InternalError({
 										message: `Failed to put code: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
 										cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
-									})
-							)
+									}),
+							),
 						)
 					}
 
@@ -331,7 +335,7 @@ const createActionServices = (stateManager) => {
 										method: 'setAccount',
 										params,
 										message: `Invalid hex in storage key '${key}': contains non-hexadecimal characters`,
-									})
+									}),
 								)
 							}
 							if (!isValidHex(valueHex)) {
@@ -340,7 +344,7 @@ const createActionServices = (stateManager) => {
 										method: 'setAccount',
 										params,
 										message: `Invalid hex in storage value for key '${key}': contains non-hexadecimal characters`,
-									})
+									}),
 								)
 							}
 							/* c8 ignore stop */
@@ -361,8 +365,8 @@ const createActionServices = (stateManager) => {
 										new InternalError({
 											message: `Failed to put storage: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
 											cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
-										})
-								)
+										}),
+								),
 							)
 						}
 					}
@@ -374,8 +378,8 @@ const createActionServices = (stateManager) => {
 								new InternalError({
 									message: `Failed to commit: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
 									cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
-								})
-						)
+								}),
+						),
 					)
 
 					return {
@@ -388,8 +392,8 @@ const createActionServices = (stateManager) => {
 				return yield* coreOperations.pipe(
 					Effect.tapError(() =>
 						// Suppress revert errors to preserve original error (RFC §6.3)
-						stateManager.revert().pipe(Effect.catchAll(() => Effect.void))
-					)
+						stateManager.revert().pipe(Effect.catchAll(() => Effect.void)),
+					),
 				)
 			}),
 
@@ -407,7 +411,7 @@ const createActionServices = (stateManager) => {
 							method: 'getBalance',
 							params,
 							message: 'Missing address parameter',
-						})
+						}),
 					)
 				}
 
@@ -427,7 +431,7 @@ const createActionServices = (stateManager) => {
 							method: 'getBalance',
 							params,
 							message: addressValidation.error || `Invalid address: ${params.address}`,
-						})
+						}),
 					)
 				}
 
@@ -448,8 +452,8 @@ const createActionServices = (stateManager) => {
 							new InternalError({
 								message: `Failed to get account: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
 								cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
-							})
-					)
+							}),
+					),
 				)
 
 				return account?.balance ?? 0n
@@ -469,7 +473,7 @@ const createActionServices = (stateManager) => {
 							method: 'getCode',
 							params,
 							message: 'Missing address parameter',
-						})
+						}),
 					)
 				}
 
@@ -489,7 +493,7 @@ const createActionServices = (stateManager) => {
 							method: 'getCode',
 							params,
 							message: addressValidation.error || `Invalid address: ${params.address}`,
-						})
+						}),
 					)
 				}
 
@@ -510,8 +514,8 @@ const createActionServices = (stateManager) => {
 							new InternalError({
 								message: `Failed to get code: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
 								cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
-							})
-					)
+							}),
+					),
 				)
 
 				return bytesToHex(code)
@@ -531,7 +535,7 @@ const createActionServices = (stateManager) => {
 							method: 'getStorageAt',
 							params,
 							message: 'Missing address parameter',
-						})
+						}),
 					)
 				}
 
@@ -551,7 +555,7 @@ const createActionServices = (stateManager) => {
 							method: 'getStorageAt',
 							params,
 							message: addressValidation.error || `Invalid address: ${params.address}`,
-						})
+						}),
 					)
 				}
 
@@ -561,10 +565,11 @@ const createActionServices = (stateManager) => {
 						new InvalidParamsError({
 							method: 'getStorageAt',
 							params,
-							message: params.position === undefined
-								? 'Missing required field: position'
-								: `Invalid position: expected hex string, got ${typeof params.position}`,
-						})
+							message:
+								params.position === undefined
+									? 'Missing required field: position'
+									: `Invalid position: expected hex string, got ${typeof params.position}`,
+						}),
 					)
 				}
 
@@ -580,9 +585,7 @@ const createActionServices = (stateManager) => {
 				})
 
 				// Convert position to bytes
-				const positionHex = params.position.startsWith('0x')
-					? params.position.slice(2)
-					: params.position
+				const positionHex = params.position.startsWith('0x') ? params.position.slice(2) : params.position
 				// Validate hex characters BEFORE parsing to prevent silent data corruption (Issue #305 fix)
 				/* c8 ignore start - defensive validation for corrupt input */
 				if (!isValidHex(positionHex)) {
@@ -591,11 +594,11 @@ const createActionServices = (stateManager) => {
 							method: 'getStorageAt',
 							params,
 							message: `Invalid hex in position: contains non-hexadecimal characters`,
-						})
+						}),
 					)
 				}
 				/* c8 ignore stop */
-				const normalizedHex = positionHex.length % 2 === 1 ? '0' + positionHex : positionHex
+				const normalizedHex = positionHex.length % 2 === 1 ? `0${positionHex}` : positionHex
 				const positionBytes = new Uint8Array(32)
 				const paddedHex = normalizedHex.padStart(64, '0')
 				for (let i = 0; i < 32; i++) {
@@ -608,8 +611,8 @@ const createActionServices = (stateManager) => {
 							new InternalError({
 								message: `Failed to get storage: ${/** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e).message : String(e)}`,
 								cause: /** @type {unknown} */ (e) instanceof Error ? /** @type {Error} */ (e) : undefined,
-							})
-					)
+							}),
+					),
 				)
 
 				// Validate storage length does not exceed 32 bytes (Issue #297)
@@ -618,7 +621,7 @@ const createActionServices = (stateManager) => {
 					return yield* Effect.fail(
 						new InternalError({
 							message: `Storage value exceeds 32 bytes (got ${storage.length} bytes). This indicates corrupted state data.`,
-						})
+						}),
 					)
 				}
 
@@ -641,13 +644,7 @@ const createActionServices = (stateManager) => {
  * @returns {import('./types.js').MemoryClientShape}
  */
 const createMemoryClientShape = (deps) => {
-	const {
-		stateManager,
-		vm,
-		common,
-		snapshotService,
-		readyRef,
-	} = deps
+	const { stateManager, vm, common, snapshotService, readyRef } = deps
 
 	// Create action services bound to THIS stateManager instance
 	// This ensures deepCopy creates services that operate on the copied state
@@ -814,5 +811,5 @@ export const MemoryClientLive = Layer.effect(
 			snapshotService,
 			readyRef,
 		})
-	})
+	}),
 )

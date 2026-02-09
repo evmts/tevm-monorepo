@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest'
 import { Effect } from 'effect'
-import { ForkConfigStatic } from './ForkConfigStatic.js'
+import { describe, expect, it } from 'vitest'
 import { ForkConfigService } from './ForkConfigService.js'
+import { ForkConfigStatic } from './ForkConfigStatic.js'
 
 describe('ForkConfigStatic', () => {
 	describe('Layer creation', () => {

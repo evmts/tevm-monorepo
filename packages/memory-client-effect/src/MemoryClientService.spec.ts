@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
 import { Context } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { MemoryClientService } from './MemoryClientService.js'
 
 describe('MemoryClientService', () => {
@@ -18,14 +18,14 @@ describe('MemoryClientService', () => {
 			ready: {} as any,
 			getBlockNumber: {} as any,
 			getChainId: {} as any,
-			getAccount: () => ({} as any),
-			setAccount: () => ({} as any),
-			getBalance: () => ({} as any),
-			getCode: () => ({} as any),
-			getStorageAt: () => ({} as any),
-			takeSnapshot: () => ({} as any),
-			revertToSnapshot: () => ({} as any),
-			deepCopy: () => ({} as any),
+			getAccount: () => ({}) as any,
+			setAccount: () => ({}) as any,
+			getBalance: () => ({}) as any,
+			getCode: () => ({}) as any,
+			getStorageAt: () => ({}) as any,
+			takeSnapshot: () => ({}) as any,
+			revertToSnapshot: () => ({}) as any,
+			deepCopy: () => ({}) as any,
 			dispose: {} as any,
 		}
 

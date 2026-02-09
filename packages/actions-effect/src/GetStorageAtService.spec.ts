@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
 import { Effect, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { GetStorageAtService } from './GetStorageAtService.js'
 
 describe('GetStorageAtService', () => {
@@ -17,9 +17,7 @@ describe('GetStorageAtService', () => {
 		it('should be usable as a Context.Tag for dependency injection', async () => {
 			const mockShape = {
 				getStorageAt: () =>
-					Effect.succeed(
-						'0x0000000000000000000000000000000000000000000000000000000000000001' as const,
-					),
+					Effect.succeed('0x0000000000000000000000000000000000000000000000000000000000000001' as const),
 			}
 
 			const MockLayer = Layer.succeed(GetStorageAtService, mockShape as any)

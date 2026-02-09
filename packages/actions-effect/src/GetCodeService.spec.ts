@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
 import { Effect, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { GetCodeService } from './GetCodeService.js'
 
 describe('GetCodeService', () => {

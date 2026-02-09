@@ -1,15 +1,15 @@
-import { Effect, Layer } from 'effect'
-import { createStateManager } from '@tevm/state'
 import { CommonService } from '@tevm/common-effect'
 import {
-	StateRootNotFoundError,
-	StorageError,
 	AccountNotFoundError,
 	InternalError,
 	NodeNotReadyError,
+	StateRootNotFoundError,
+	StorageError,
 } from '@tevm/errors-effect'
-import { StateManagerService } from './StateManagerService.js'
+import { createStateManager } from '@tevm/state'
 import { createAddressFromString } from '@tevm/utils'
+import { Effect, Layer } from 'effect'
+import { StateManagerService } from './StateManagerService.js'
 
 /**
  * Helper to convert an address (hex string or EthjsAddress) to EthjsAddress.
@@ -25,7 +25,6 @@ const toEthjsAddress = (address) => {
 	}
 	return address
 }
-
 
 /**
  * @module @tevm/state-effect/StateManagerLocal
@@ -88,7 +87,7 @@ const toEthjsAddress = (address) => {
  * ```
  *
  * @param {StateManagerLocalOptions} [options] - Configuration options
- * @returns {Layer.Layer<StateManagerService, never, CommonService>} Layer providing StateManagerService
+ * @returns {Layer.Layer<StateManagerService, import('@tevm/errors-effect').NodeNotReadyError, CommonService>} Layer providing StateManagerService
  */
 export const StateManagerLocal = (options = {}) => {
 	return Layer.effect(

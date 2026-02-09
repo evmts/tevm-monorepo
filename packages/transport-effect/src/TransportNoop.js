@@ -1,5 +1,5 @@
-import { Effect, Layer } from 'effect'
 import { ForkError } from '@tevm/errors-effect'
+import { Effect, Layer } from 'effect'
 import { TransportService } from './TransportService.js'
 
 /**
@@ -64,7 +64,7 @@ export const TransportNoop = Layer.succeed(
 				new ForkError({
 					method,
 					cause: new Error('No fork transport configured'),
-				})
+				}),
 			),
-	})
+	}),
 )

@@ -1,6 +1,6 @@
-import { Effect, Layer, Ref } from 'effect'
 import { SnapshotNotFoundError, StateRootNotFoundError, StorageError } from '@tevm/errors-effect'
 import { StateManagerService } from '@tevm/state-effect'
+import { Effect, Layer, Ref } from 'effect'
 import { SnapshotService } from './SnapshotService.js'
 
 /**
@@ -26,7 +26,8 @@ const toHex = (num) => /** @type {Hex} */ (`0x${num.toString(16)}`)
  * @param {Uint8Array} bytes - The bytes to convert
  * @returns {Hex} The hex string
  */
-const bytesToHex = (bytes) => /** @type {Hex} */ (`0x${Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('')}`)
+const bytesToHex = (bytes) =>
+	/** @type {Hex} */ (`0x${Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('')}`)
 
 /**
  * Validates that a string contains only valid hexadecimal characters.
@@ -52,7 +53,7 @@ const hexToBytes = (hex) => {
 	/* c8 ignore stop */
 	// Normalize odd-length hex strings by left-padding with a single '0'
 	// This prevents silent data truncation (e.g., "0xabc" becomes "0abc" -> [0x0a, 0xbc])
-	const normalizedStr = str.length % 2 === 1 ? '0' + str : str
+	const normalizedStr = str.length % 2 === 1 ? `0${str}` : str
 	const bytes = new Uint8Array(normalizedStr.length / 2)
 	for (let i = 0; i < bytes.length; i++) {
 		bytes[i] = parseInt(normalizedStr.slice(i * 2, i * 2 + 2), 16)
@@ -133,9 +134,7 @@ export const SnapshotLive = () => {
 								stateRoot: stateMgr.getStateRoot(),
 								state: stateMgr.dumpState(),
 							}).pipe(
-								Effect.flatMap((result) =>
-									stateMgr.commit().pipe(Effect.map(() => result))
-								),
+								Effect.flatMap((result) => stateMgr.commit().pipe(Effect.map(() => result))),
 								Effect.tapError(() => stateMgr.revert().pipe(Effect.catchAll(() => Effect.void))),
 							)
 
@@ -195,33 +194,34 @@ export const SnapshotLive = () => {
 							// loadState depends on the state root being set first. Using parallel Effect.all caused
 							// race conditions where loadState could run before setStateRoot completed, causing state corruption.
 							yield* stateMgr.checkpoint()
-							yield* stateMgr.setStateRoot(hexToBytes(snapshot.stateRoot)).pipe(
-								Effect.flatMap(() => stateMgr.loadState(snapshot.state)),
-							).pipe(
-								Effect.flatMap(() => stateMgr.commit()),
-								Effect.catchAllDefect((defect) =>
-									// Rollback on defect before re-throwing typed error
-									stateMgr.revert().pipe(
-										Effect.catchAll(() => Effect.void), // Ignore revert errors
-										Effect.flatMap(() =>
-											Effect.fail(
-												new StateRootNotFoundError({
-													stateRoot: snapshot.stateRoot,
-													message: `Failed to restore state: ${defect instanceof Error ? defect.message : String(defect)}`,
-													cause: defect,
-												}),
+							yield* stateMgr
+								.setStateRoot(hexToBytes(snapshot.stateRoot))
+								.pipe(Effect.flatMap(() => stateMgr.loadState(snapshot.state)))
+								.pipe(
+									Effect.flatMap(() => stateMgr.commit()),
+									Effect.catchAllDefect((defect) =>
+										// Rollback on defect before re-throwing typed error
+										stateMgr.revert().pipe(
+											Effect.catchAll(() => Effect.void), // Ignore revert errors
+											Effect.flatMap(() =>
+												Effect.fail(
+													new StateRootNotFoundError({
+														stateRoot: snapshot.stateRoot,
+														message: `Failed to restore state: ${defect instanceof Error ? defect.message : String(defect)}`,
+														cause: defect,
+													}),
+												),
 											),
 										),
 									),
-								),
-								Effect.catchAll((error) =>
-									// Rollback on typed error before re-throwing
-									stateMgr.revert().pipe(
-										Effect.catchAll(() => Effect.void), // Ignore revert errors
-										Effect.flatMap(() => Effect.fail(error)),
+									Effect.catchAll((error) =>
+										// Rollback on typed error before re-throwing
+										stateMgr.revert().pipe(
+											Effect.catchAll(() => Effect.void), // Ignore revert errors
+											Effect.flatMap(() => Effect.fail(error)),
+										),
 									),
-								),
-							)
+								)
 
 							// Step 5: ONLY after setStateRoot succeeds, delete the snapshot and subsequent ones
 							// This ensures we don't lose snapshots on setStateRoot failure

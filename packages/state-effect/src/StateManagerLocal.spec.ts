@@ -1,9 +1,9 @@
-import { describe, it, expect } from 'vitest'
-import { Effect, Layer, Exit } from 'effect'
-import { StateManagerService } from './StateManagerService.js'
-import { StateManagerLocal } from './StateManagerLocal.js'
 import { CommonLocal } from '@tevm/common-effect'
 import { createAddressFromString, EthjsAccount } from '@tevm/utils'
+import { Effect, Exit, Layer } from 'effect'
+import { describe, expect, it } from 'vitest'
+import { StateManagerLocal } from './StateManagerLocal.js'
+import { StateManagerService } from './StateManagerService.js'
 
 describe('StateManagerLocal', () => {
 	describe('layer creation', () => {

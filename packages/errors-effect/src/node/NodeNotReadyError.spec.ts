@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Effect, Equal, Hash, HashSet } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { NodeNotReadyError } from './NodeNotReadyError.js'
 
 describe('NodeNotReadyError', () => {
@@ -58,9 +58,7 @@ describe('NodeNotReadyError', () => {
 		})
 
 		const program = Effect.fail(error).pipe(
-			Effect.catchTag('NodeNotReadyError', (e) =>
-				Effect.succeed(`Please wait: ${e.reason}`)
-			)
+			Effect.catchTag('NodeNotReadyError', (e) => Effect.succeed(`Please wait: ${e.reason}`)),
 		)
 
 		const result = await Effect.runPromise(program)

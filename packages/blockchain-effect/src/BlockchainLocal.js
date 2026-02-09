@@ -1,7 +1,7 @@
-import { Effect, Layer } from 'effect'
 import { createChain } from '@tevm/blockchain'
 import { CommonService } from '@tevm/common-effect'
 import { BlockNotFoundError, InvalidBlockError } from '@tevm/errors-effect'
+import { Effect, Layer } from 'effect'
 import { BlockchainService } from './BlockchainService.js'
 
 /**
@@ -58,7 +58,7 @@ import { BlockchainService } from './BlockchainService.js'
  * ```
  *
  * @param {BlockchainLocalOptions} [options] - Configuration options
- * @returns {Layer.Layer<BlockchainService, never, CommonService>} Layer providing BlockchainService
+ * @returns {Layer.Layer<BlockchainService, import('@tevm/errors-effect').InvalidBlockError, CommonService>} Layer providing BlockchainService
  */
 export const BlockchainLocal = (options = {}) => {
 	return Layer.effect(

@@ -14,6 +14,10 @@
  *
  * The layer has no dependencies, making it easy to use in isolation.
  *
+ * IMPORTANT: Each layer build creates a fresh Common instance to ensure
+ * proper isolation between different TEVM instances. This prevents state
+ * leakage when multiple TEVM nodes are created in the same process.
+ *
  * @example
  * ```javascript
  * import { Effect } from 'effect'

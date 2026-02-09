@@ -22,8 +22,8 @@
  * @property {(opts: import('@tevm/vm').RunTxOpts) => import('effect').Effect.Effect<import('@tevm/vm').RunTxResult, VmError>} runTx - Execute a transaction. Typed error channel for exceptions.
  * @property {(opts: import('@tevm/vm').RunBlockOpts) => import('effect').Effect.Effect<import('@tevm/vm').RunBlockResult, VmError>} runBlock - Execute a block. Typed error channel for exceptions.
  * @property {(opts: import('@tevm/vm').BuildBlockOpts) => import('effect').Effect.Effect<Awaited<ReturnType<import('@tevm/vm').Vm['buildBlock']>>, VmError>} buildBlock - Build a new block. Typed error channel for exceptions.
- * @property {import('effect').Effect.Effect<void>} ready - Effect that completes when VM is ready
- * @property {() => import('effect').Effect.Effect<VmShape>} deepCopy - Create a deep copy of the VM
+ * @property {import('effect').Effect.Effect<void, VmError>} ready - Effect that completes when VM is ready
+ * @property {() => import('effect').Effect.Effect<VmShape, VmError>} deepCopy - Create a deep copy of the VM
  */
 
 /**
