@@ -102,9 +102,8 @@ export const useProviderStore = create<ProviderStore>()(
           if (!client) {
             // TODO TEMP await because of lazy import
             const { createMemoryClient } = await import('tevm');
-            const { createSyncStoragePersister } = await import(
-              'tevm/sync-storage-persister'
-            );
+            const { createSyncStoragePersister } =
+              await import('tevm/sync-storage-persister');
 
             const forkUrl = chain.custom.rpcUrl;
 

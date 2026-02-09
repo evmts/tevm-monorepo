@@ -1,23 +1,23 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react'
 
-import SiteHeader from '@/components/common/site-header';
+import SiteHeader from '@/components/common/site-header'
 
 type BaseLayoutProps = {
-  children: ReactNode;
-};
+	children: ReactNode
+}
 
 /**
  * @notice The base layout component for all pages
  */
 const BaseLayout: FC<BaseLayoutProps> = ({ children }) => {
-  return (
-    <>
-      <SiteHeader />
-      <main className="relative flex grow flex-col">{children}</main>
-    </>
-  );
-};
+	return (
+		<>
+			<SiteHeader />
+			<main className="relative flex grow flex-col">{children}</main>
+		</>
+	)
+}
 
-BaseLayout.displayName = 'BaseLayout';
+BaseLayout.displayName = 'BaseLayout'
 
-export default BaseLayout;
+export default BaseLayout

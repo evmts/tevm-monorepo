@@ -1,12 +1,11 @@
-import type { FC } from 'react';
-
-import { useProviderStore } from '@/lib/store/use-provider';
-import SearchBar from '@/components/core/search-bar';
-import ChainSelection from '@/components/core/selection/chain';
+import type { FC } from 'react'
+import SearchBar from '@/components/core/search-bar'
+import ChainSelection from '@/components/core/selection/chain'
+import { useProviderStore } from '@/lib/store/use-provider'
 
 type HeaderProps = {
-  initialAddress?: string;
-};
+	initialAddress?: string
+}
 
 /**
  * @notice The header of the app, where the user can search for an account and interact with
@@ -17,14 +16,14 @@ type HeaderProps = {
  * @param initialAddress The researched address, if relevant (not on the home page)
  */
 const Header: FC<HeaderProps> = ({ initialAddress }) => {
-  const isHydrated = useProviderStore((state) => state.isHydrated);
+	const isHydrated = useProviderStore((state) => state.isHydrated)
 
-  return (
-    <>
-      <SearchBar initialAddress={initialAddress} hydrating={!isHydrated} />
-      <ChainSelection hydrating={!isHydrated} />
-    </>
-  );
-};
+	return (
+		<>
+			<SearchBar initialAddress={initialAddress} hydrating={!isHydrated} />
+			<ChainSelection hydrating={!isHydrated} />
+		</>
+	)
+}
 
-export default Header;
+export default Header

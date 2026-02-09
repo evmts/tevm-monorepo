@@ -1,50 +1,52 @@
-import { useClient, WagmiProvider } from "wagmi";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { ReactNode } from "react";
-import { stash } from "./mud/stash";
-import { defineConfig, useSessionClient, EntryKitProvider } from "@latticexyz/entrykit/internal";
-import { wagmiConfig } from "./wagmiConfig";
-import { chainId, getWorldAddress, startBlock } from "./common";
-import { Toaster } from "sonner";
-import { OptimisticWrapperProvider } from "@tevm/mud/react";
-import { SessionClient } from "@tevm/mud";
+import { defineConfig, EntryKitProvider, useSessionClient } from '@latticexyz/entrykit/internal'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { SessionClient } from '@tevm/mud'
+import { OptimisticWrapperProvider } from '@tevm/mud/react'
+import { ReactNode } from 'react'
+import { Toaster } from 'sonner'
+import { useClient, WagmiProvider } from 'wagmi'
+import { chainId, getWorldAddress, startBlock } from './common'
+import { stash } from './mud/stash'
+import { wagmiConfig } from './wagmiConfig'
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
 export type Props = {
-  children: ReactNode;
-};
+	children: ReactNode
+}
 
 function OptimisticEntryKitProvider({ children }: { children: ReactNode }) {
-  const worldAddress = getWorldAddress();
-  const publicClient = useClient()
-  const { data: sessionClient } = useSessionClient();
+	const worldAddress = getWorldAddress()
+	const publicClient = useClient()
+	const { data: sessionClient } = useSessionClient()
 
-  return <OptimisticWrapperProvider
-    stash={stash}
-    storeAddress={worldAddress}
-    client={sessionClient as unknown as SessionClient | undefined ?? publicClient}
-    sync={{ startBlock }}
-    loggingLevel="debug"
-  >
-    {/* @ts-expect-error - react versions mismatch */}
-    {children}
-  </OptimisticWrapperProvider>
+	return (
+		<OptimisticWrapperProvider
+			stash={stash}
+			storeAddress={worldAddress}
+			client={(sessionClient as unknown as SessionClient | undefined) ?? publicClient}
+			sync={{ startBlock }}
+			loggingLevel="debug"
+		>
+			{/* @ts-expect-error - react versions mismatch */}
+			{children}
+		</OptimisticWrapperProvider>
+	)
 }
 
 export function Providers({ children }: Props) {
-  const worldAddress = getWorldAddress();
+	const worldAddress = getWorldAddress()
 
-  return (
-    <WagmiProvider config={wagmiConfig}>
-      <QueryClientProvider client={queryClient}>
-        <EntryKitProvider config={defineConfig({ chainId, worldAddress })}>
-            <OptimisticEntryKitProvider>
-              <Toaster />
-              {children}
-            </OptimisticEntryKitProvider>
-        </EntryKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
-  );
+	return (
+		<WagmiProvider config={wagmiConfig}>
+			<QueryClientProvider client={queryClient}>
+				<EntryKitProvider config={defineConfig({ chainId, worldAddress })}>
+					<OptimisticEntryKitProvider>
+						<Toaster />
+						{children}
+					</OptimisticEntryKitProvider>
+				</EntryKitProvider>
+			</QueryClientProvider>
+		</WagmiProvider>
+	)
 }

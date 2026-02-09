@@ -1,29 +1,18 @@
-'use client';
+'use client'
 
-import type { ReactNode } from 'react';
-import {
-  flexRender,
-  type Table as TableInterface,
-} from '@tanstack/react-table';
-
-import { cn } from '@/lib/utils';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import DataTablePagination from '@/components/templates/table/pagination';
+import { flexRender, type Table as TableInterface } from '@tanstack/react-table'
+import type { ReactNode } from 'react'
+import DataTablePagination from '@/components/templates/table/pagination'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { cn } from '@/lib/utils'
 
 type DataTableProps<TData> = {
-  table: TableInterface<TData>;
-  header: ReactNode;
-  noDataLabel?: string;
-  pagination?: boolean;
-  className?: string;
-};
+	table: TableInterface<TData>
+	header: ReactNode
+	noDataLabel?: string
+	pagination?: boolean
+	className?: string
+}
 
 /**
  * @notice A table component that uses tanstack react-table and shadcn
@@ -37,67 +26,52 @@ type DataTableProps<TData> = {
  * @see https://ui.shadcn.com/docs/components/data-table
  */
 const DataTable = <TData,>({
-  table,
-  header,
-  noDataLabel = 'No results.',
-  pagination = false,
-  className,
+	table,
+	header,
+	noDataLabel = 'No results.',
+	pagination = false,
+	className,
 }: DataTableProps<TData>) => {
-  return (
-    <div className={cn('flex flex-col gap-2 rounded-md pb-2', className)}>
-      {header ? (
-        <div className="flex items-center justify-between gap-4 p-2">
-          {header}
-        </div>
-      ) : null}
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && 'selected'}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} className="font-mono">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell
-                colSpan={table.getAllColumns().length}
-                className="h-24 text-center"
-              >
-                {noDataLabel}
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-      {pagination ? <DataTablePagination table={table} /> : null}
-    </div>
-  );
-};
+	return (
+		<div className={cn('flex flex-col gap-2 rounded-md pb-2', className)}>
+			{header ? <div className="flex items-center justify-between gap-4 p-2">{header}</div> : null}
+			<Table>
+				<TableHeader>
+					{table.getHeaderGroups().map((headerGroup) => (
+						<TableRow key={headerGroup.id}>
+							{headerGroup.headers.map((header) => {
+								return (
+									<TableHead key={header.id}>
+										{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+									</TableHead>
+								)
+							})}
+						</TableRow>
+					))}
+				</TableHeader>
+				<TableBody>
+					{table.getRowModel().rows?.length ? (
+						table.getRowModel().rows.map((row) => (
+							<TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+								{row.getVisibleCells().map((cell) => (
+									<TableCell key={cell.id} className="font-mono">
+										{flexRender(cell.column.columnDef.cell, cell.getContext())}
+									</TableCell>
+								))}
+							</TableRow>
+						))
+					) : (
+						<TableRow>
+							<TableCell colSpan={table.getAllColumns().length} className="h-24 text-center">
+								{noDataLabel}
+							</TableCell>
+						</TableRow>
+					)}
+				</TableBody>
+			</Table>
+			{pagination ? <DataTablePagination table={table} /> : null}
+		</div>
+	)
+}
 
-export default DataTable;
+export default DataTable
