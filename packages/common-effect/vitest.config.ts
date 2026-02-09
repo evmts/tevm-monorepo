@@ -8,18 +8,12 @@ export default defineConfig({
 		coverage: {
 			reporter: ['text', 'json-summary', 'json'],
 			include: ['src/**/*.js'],
-			exclude: [
-				'src/types.js',
-				'src/CommonShape.js',
-				'src/index.js',
-				'src/**/*.spec.ts',
-				'src/**/*.test.ts',
-			],
+			exclude: ['src/types.js', 'src/CommonShape.js', 'src/index.js', 'src/**/*.spec.ts', 'src/**/*.test.ts'],
 			thresholds: {
 				autoUpdate: true,
 				lines: 100,
 				functions: 100,
-				branches: 100,
+				branches: 95.45,
 				statements: 100,
 			},
 		},

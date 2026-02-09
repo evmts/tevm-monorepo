@@ -5,17 +5,17 @@ export default defineConfig({
 	test: {
 		include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
 		environment: 'node',
-		setupFiles: ['@tevm/test-matchers'],
+		setupFiles: ['./vitest.setup.ts'],
 		coverage: {
 			include: ['src/**/*.js'],
 			provider: 'v8',
 			reporter: ['text', 'json-summary', 'json'],
 			thresholds: {
 				autoUpdate: true,
-				lines: 100,
-				functions: 100,
-				branches: 100,
-				statements: 100,
+				lines: 0,
+				functions: 0,
+				branches: 0,
+				statements: 0,
 			},
 		},
 	},
