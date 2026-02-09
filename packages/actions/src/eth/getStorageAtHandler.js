@@ -19,10 +19,14 @@ export const getStorageAtHandler = (client) => async (params) => {
 		return getStorageAtHandler(mineResult.pendingClient)({ ...params, blockTag: 'latest' })
 	}
 	if (tag === 'latest') {
-		return bytesToHex(
-			await vm.stateManager.getStorage(createAddress(params.address), hexToBytes(params.position, { size: 32 })),
-			{ size: 32 },
+		const rawStorage = await vm.stateManager.getStorage(
+			createAddress(params.address),
+			hexToBytes(params.position, { size: 32 }),
 		)
+		// Left-pad storage value to 32 bytes (Ethereum storage values are big-endian)
+		const padded = new Uint8Array(32)
+		padded.set(rawStorage, 32 - rawStorage.length)
+		return bytesToHex(padded, { size: 32 })
 	}
 	const block = await vm.blockchain.getBlockByTag(tag)
 	const clonedVm = await cloneVmWithBlockTag(client, block)
