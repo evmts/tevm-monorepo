@@ -8,6 +8,7 @@ import { createStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
 import { bytesToHex, getAddress, hexToBigInt, KECCAK256_RLP, keccak256 } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
+import { createIntervalMiner } from './createIntervalMiner.js'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { GENESIS_STATE } from './GENESIS_STATE.js'
 import { getBlockNumber } from './getBlockNumber.js'
@@ -671,6 +672,11 @@ export const createTevmNode = (options = {}) => {
 			getTxPool: async () => Promise.resolve(txPool),
 			getVm: async () => Promise.resolve(vm),
 			miningConfig: baseClient.miningConfig,
+			setMiningConfig: (config) => {
+				copiedClient.miningConfig = config
+				baseClient.logger.debug({ newConfig: config }, 'Copied client mining configuration updated')
+				// Copied clients don't manage interval mining independently
+			},
 			mode: baseClient.mode,
 			...('forkTransport' in baseClient
 				? {
@@ -712,9 +718,18 @@ export const createTevmNode = (options = {}) => {
 				newFilters.delete(filterId)
 			},
 			status: 'READY',
+			close: () => {
+				// Copied clients don't manage interval mining independently
+				// They inherit the state but don't start their own timers
+				copiedClient.status = 'STOPPED'
+				baseClient.logger.debug('Copied TevmNode closed')
+			},
 		}
 		return copiedClient
 	}
+
+	// Create interval miner instance before baseClient so we can reference it
+	let intervalMiner = null
 
 	/**
 	 * Create and return the baseClient
@@ -738,6 +753,57 @@ export const createTevmNode = (options = {}) => {
 			return vmPromise
 		},
 		miningConfig: options.miningConfig ?? { type: 'auto' },
+		setMiningConfig: (config) => {
+			const oldConfig = baseClient.miningConfig
+			baseClient.miningConfig = config
+			logger.debug({ oldConfig, newConfig: config }, 'Mining configuration updated')
+			
+			// Handle interval mining state changes
+			if (oldConfig.type === 'interval' && intervalMiner) {
+				intervalMiner.stop()
+			}
+			
+			if (config.type === 'interval') {
+				if (!intervalMiner) {
+					intervalMiner = createIntervalMiner(baseClient)
+					// Set up the mining callback
+					intervalMiner.setMiningCallback(async () => {
+						try {
+							const txPool = await baseClient.getTxPool()
+							const vm = await baseClient.getVm()
+							const orderedTxs = await txPool.txsByPriceAndNonce({ baseFee: 0n })
+							if (orderedTxs.length === 0) return
+
+							const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
+							const timestamp = Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
+
+							const blockBuilder = await vm.buildBlock({
+								parentBlock,
+								headerData: { timestamp, number: parentBlock.header.number + 1n },
+								blockOpts: { freeze: false, setHardfork: false, putBlockIntoBlockchain: false, common: vm.common },
+							})
+
+							for (const tx of orderedTxs) {
+								try {
+									await blockBuilder.addTransaction(tx, { skipBalance: true, skipNonce: true, skipHardForkValidation: true })
+								} catch (txError) {
+									baseClient.logger.debug({ txError }, 'Failed to add transaction to block')
+								}
+							}
+
+							const block = await blockBuilder.build()
+							await vm.blockchain.putBlock(block)
+							txPool.removeNewBlockTxs([block])
+							baseClient.logger.debug({ blockNumber: block.header.number, txCount: orderedTxs.length }, 'Block mined via setMiningConfig')
+						} catch (error) {
+							baseClient.logger.error(error, 'Failed to mine block in setMiningConfig')
+						}
+					})
+				}
+				intervalMiner.updateConfig()
+				intervalMiner.start()
+			}
+		},
 		mode: transport ? 'fork' : 'normal',
 		...(transport
 			? {
@@ -777,6 +843,15 @@ export const createTevmNode = (options = {}) => {
 		},
 		status: 'INITIALIZING',
 		deepCopy: () => deepCopy(baseClient)(),
+		close: () => {
+			// Stop interval mining if running
+			if (baseClient.miningConfig.type === 'interval') {
+				intervalMiner.stop()
+			}
+			// Set status to stopped
+			baseClient.status = 'STOPPED'
+			logger.debug('TevmNode closed')
+		},
 		debug: async () => {
 			const txPool = await txPoolPromise
 			const vm = await vmPromise
@@ -811,6 +886,74 @@ export const createTevmNode = (options = {}) => {
 			return
 		}
 		baseClient.status = 'READY'
+		
+		// Start interval mining if configured
+		if (baseClient.miningConfig.type === 'interval') {
+			intervalMiner = createIntervalMiner(baseClient)
+			
+			// Set up the mining callback to handle block creation
+			intervalMiner.setMiningCallback(async () => {
+				try {
+					// Simple mining implementation - mine one block with all pending transactions
+					const txPool = await baseClient.getTxPool()
+					const vm = await baseClient.getVm()
+					
+					// Get ordered transactions from pool
+					const orderedTxs = await txPool.txsByPriceAndNonce({
+						baseFee: 0n, // Use 0 for simplicity
+					})
+
+					if (orderedTxs.length === 0) {
+						baseClient.logger.debug('No transactions to mine')
+						return
+					}
+
+					const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
+					const timestamp = Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
+
+					// Build block with transactions
+					const blockBuilder = await vm.buildBlock({
+						parentBlock,
+						headerData: {
+							timestamp,
+							number: parentBlock.header.number + 1n,
+						},
+						blockOpts: {
+							freeze: false,
+							setHardfork: false,
+							putBlockIntoBlockchain: false,
+							common: vm.common,
+						},
+					})
+
+					// Add transactions to block
+					for (const tx of orderedTxs) {
+						try {
+							await blockBuilder.addTransaction(tx, {
+								skipBalance: true,
+								skipNonce: true,
+								skipHardForkValidation: true,
+							})
+						} catch (txError) {
+							baseClient.logger.debug({ txError }, 'Failed to add transaction to block')
+						}
+					}
+
+					// Finalize and commit block
+					const block = await blockBuilder.build()
+					await vm.blockchain.putBlock(block)
+					
+					// Remove mined transactions from pool
+					txPool.removeNewBlockTxs([block])
+
+					baseClient.logger.debug({ blockNumber: block.header.number, txCount: orderedTxs.length }, 'Block mined via interval mining')
+				} catch (error) {
+					baseClient.logger.error(error, 'Failed to mine block in interval mining')
+				}
+			})
+			
+			intervalMiner.start()
+		}
 	})
 
 	return baseClient
