@@ -36,7 +36,7 @@
 		"effect": "3.19.16",
 		"solc": "0.8.33",
 		"volar-service-css": "0.0.68",
-		"volar-service-emmet": "0.0.68",
+		"volar-service-emmet": "0.0.70",
 		"volar-service-html": "0.0.68",
 		"volar-service-typescript": "^0.0.68",
 		"vscode-html-languageservice": "^5.6.1",
