@@ -18,7 +18,6 @@ describe('mine', () => {
 			bytecode: SimpleContract.bytecode,
 			abi: SimpleContract.abi,
 			args: [420n],
-			addToBlockchain: true,
 		})
 		if (!deployResult.createdAddress) {
 			throw new Error('contract never deployed')
@@ -29,13 +28,11 @@ describe('mine', () => {
 		if (!deployResult.txHash) {
 			throw new Error('txHash not found')
 		}
-		// Deployment is added to blockchain at block 1
-		// mining another block brings us to block 2
 		await mc.mine({ blocks: 1 })
 		const vm = await mc.transport.tevm.getVm()
 		const block = await vm.blockchain.getCanonicalHeadBlock()
-		expect(block.header.number).toEqual(2n)
-		expect(await mc.getBlockNumber()).toEqual(2n)
+		expect(block.header.number).toEqual(1n)
+		expect(await mc.getBlockNumber()).toEqual(1n)
 		expect(await mc.getBytecode({ address: c.simpleContract.address })).toEqual(SimpleContract.deployedBytecode)
 	})
 

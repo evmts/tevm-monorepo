@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { tevmDefault } from '@tevm/common'
 import { type Contract, ErrorContract } from '@tevm/contract'
 import { createTevmTransport, tevmDeploy } from '@tevm/memory-client'

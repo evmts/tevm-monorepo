@@ -41,11 +41,10 @@ export type SetToHex<T> = T extends Set<any> ? Hex : T
  * A helper type that converts a widened JSON-serializable value to a JSON-serializable value.
  * It replaces bigint with hex strings and sets with arrays.
  */
-export type SerializeToJson<T> =
-	T extends JsonSerializableSet<infer S>
-		? ReadonlyArray<S>
-		: T extends JsonSerializableObject
-			? { [P in keyof T]: SerializeToJson<T[P]> }
-			: T extends JsonSerializableArray
-				? SerializeToJson<T[number]>[]
-				: BigIntToHex<SetToHex<T>>
+export type SerializeToJson<T> = T extends JsonSerializableSet<infer S>
+	? ReadonlyArray<S>
+	: T extends JsonSerializableObject
+		? { [P in keyof T]: SerializeToJson<T[P]> }
+		: T extends JsonSerializableArray
+			? SerializeToJson<T[number]>[]
+			: BigIntToHex<SetToHex<T>>

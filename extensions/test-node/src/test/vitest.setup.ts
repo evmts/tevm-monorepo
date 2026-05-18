@@ -1,8 +1,7 @@
-// @ts-nocheck
+import { transports } from '@tevm/test-utils'
 import { afterAll, beforeAll } from 'vitest'
 import { createTestSnapshotClient } from '../createTestSnapshotClient.js'
 import { BLOCK_NUMBER, chain } from './constants.js'
-import { transports } from './transports.js'
 
 // Global client instance
 export const client = createTestSnapshotClient({

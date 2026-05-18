@@ -30,8 +30,9 @@ beforeEach(async () => {
 
 describe('getStorageAt', () => {
 	it('should work', async () => {
-		const storageValue = await mc.getStorageAt({ address: c.simpleContract.address, slot: numberToHex(0) })
-		// Storage values may be returned in different hex padding formats
-		expect(BigInt(storageValue ?? '0x0')).toBe(420n)
+		expect(await mc.getStorageAt({ address: c.simpleContract.address, slot: numberToHex(0) })).toBe(
+			// TODO why does this have to be size 2?
+			numberToHex(420, { size: 2 }),
+		)
 	})
 })

@@ -64,24 +64,23 @@
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^25.2.2"
+		"@types/node": "^24.6.1"
 	},
 	"publishConfig": {
 		"access": "public"
 	},
 	"dependencies": {
-		"@latticexyz/schema-type": "^2.2.23",
-		"@latticexyz/store": "^2.2.23",
-		"@latticexyz/world": "^2.2.23",
+		"@latticexyz/schema-type": "^2.2.21",
+		"@latticexyz/store": "^2.2.21",
+		"@latticexyz/world": "^2.2.21",
 		"@openzeppelin/contracts": "5.4.0",
-		"@ponder/utils": "^0.2.17",
+		"@ponder/utils": "^0.2.13",
 		"@tevm/common": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/esbuild-plugin": "workspace:^",
-		"@tevm/test-node": "workspace:^",
 		"@tevm/ts-plugin": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.45.2"
+		"viem": "^2.37.9"
 	}
 }

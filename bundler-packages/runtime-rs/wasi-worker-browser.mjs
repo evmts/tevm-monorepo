@@ -1,4 +1,4 @@
-import { instantiateNapiModuleSync, MessageHandler, WASI } from '@napi-rs/wasm-runtime'
+import { MessageHandler, WASI, instantiateNapiModuleSync } from '@napi-rs/wasm-runtime'
 
 const handler = new MessageHandler({
 	onLoad({ wasmModule, wasmMemory }) {

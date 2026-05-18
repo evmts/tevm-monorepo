@@ -3,12 +3,12 @@
 	"compilerOptions": {
 		"plugins": [
 			{
-				"name": "@tevm/ts-plugin"
+				"name": "@evmts/ts-plugin"
 			}
 		],
 		"outDir": "types",
 		"skipLibCheck": true,
-		"types": ["bun-types"],
+		"types": ["bun-types", "@tevm/test-matchers"],
 		// this should be "Bundler" but don't want to fight a broken type
 		"moduleResolution": "NodeNext",
 		"module": "NodeNext"

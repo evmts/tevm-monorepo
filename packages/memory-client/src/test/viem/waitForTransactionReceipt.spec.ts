@@ -1,5 +1,5 @@
 import { SimpleContract } from '@tevm/test-utils'
-import { encodeFunctionData, testActions } from 'viem'
+import { bytesToHex, encodeFunctionData, testActions } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
@@ -32,12 +32,14 @@ describe('waitForTransactionReceipt', () => {
 		const { txHash } = await mc.tevmCall({
 			to: c.simpleContract.address,
 			data: encodeFunctionData(c.simpleContract.write.set(69n)),
-			addToBlockchain: true,
+			createTransaction: true,
 		})
 		if (!txHash) throw new Error('txHash not found')
+		await mc.mine({ blocks: 1 })
 		const { blockHash, logs, ...receipt } = await mc.waitForTransactionReceipt({ hash: txHash })
-		// Verify block hash is valid hex
-		expect(blockHash.startsWith('0x')).toBe(true)
+		const vm = await mc.transport.tevm.getVm()
+		const block = await vm.blockchain.getCanonicalHeadBlock()
+		expect(blockHash).toBe(bytesToHex(block.header.hash()))
 		expect(receipt).toMatchSnapshot()
 		expect(logs.map((log) => ({ ...log, blockHash: 'redacted' }))).toMatchSnapshot()
 	})

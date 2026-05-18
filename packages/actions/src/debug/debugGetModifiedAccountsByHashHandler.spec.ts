@@ -110,9 +110,8 @@ describe('debugGetModifiedAccountsByHashHandler', () => {
 		})
 
 		expect(Array.isArray(result)).toBe(true)
-		// Even between "empty" blocks, the coinbase/miner address may be modified
-		// due to block rewards being recorded in the state root
-		expect(result.length).toBeLessThanOrEqual(1)
+		// No modifications between empty blocks
+		expect(result.length).toBe(0)
 	})
 
 	it('should handle endBlockHash not provided (defaults to next block)', async () => {
@@ -143,16 +142,35 @@ describe('debugGetModifiedAccountsByHashHandler', () => {
 	})
 
 	it('should detect balance changes', async () => {
-		// Between block 0 and block 1, the sender (PREFUNDED_ACCOUNTS[0]) balance changes
-		// due to paying gas for contract deployment
-		const handler = debugGetModifiedAccountsByHashHandler(client)
-		const result = await handler({
-			startBlockHash: block0Hash,
-			endBlockHash: block1Hash,
+		// Create a new account with balance
+		const testAddress = '0x1234567890123456789012345678901234567890'
+		await setAccountHandler(client)({
+			address: testAddress,
+			balance: 1000n,
 		})
 
-		// The sender's balance changed due to gas costs
-		expect(result).toContain(PREFUNDED_ACCOUNTS[0].address)
+		await mineHandler(client)()
+		const vm = await client.getVm()
+		const blockA = await vm.blockchain.blocksByTag.get('latest')
+		assert(blockA, 'blockA is undefined')
+
+		// Modify balance
+		await setAccountHandler(client)({
+			address: testAddress,
+			balance: 2000n,
+		})
+
+		await mineHandler(client)()
+		const blockB = await vm.blockchain.blocksByTag.get('latest')
+		assert(blockB, 'blockB is undefined')
+
+		const handler = debugGetModifiedAccountsByHashHandler(client)
+		const result = await handler({
+			startBlockHash: bytesToHex(blockA.hash()),
+			endBlockHash: bytesToHex(blockB.hash()),
+		})
+
+		expect(result).toContain(testAddress)
 	})
 
 	it('should detect nonce changes', async () => {
@@ -205,18 +223,56 @@ describe('debugGetModifiedAccountsByHashHandler', () => {
 	})
 
 	it('should handle multiple modified accounts', async () => {
-		// Between block 0 and block 2, multiple accounts are modified:
-		// - PREFUNDED_ACCOUNTS[0] (sender) nonce + balance changes
-		// - contractAddress (new contract deployed, then storage modified)
-		// - coinbase/miner address
-		const handler = debugGetModifiedAccountsByHashHandler(client)
-		const result = await handler({
-			startBlockHash: block0Hash,
-			endBlockHash: block2Hash,
+		// Create multiple accounts
+		const addr1 = '0x1111111111111111111111111111111111111111'
+		const addr2 = '0x2222222222222222222222222222222222222222'
+		const addr3 = '0x3333333333333333333333333333333333333333'
+
+		await setAccountHandler(client)({
+			address: addr1,
+			balance: 1n,
+		})
+		await setAccountHandler(client)({
+			address: addr2,
+			balance: 2n,
+		})
+		await setAccountHandler(client)({
+			address: addr3,
+			balance: 3n,
 		})
 
-		// At minimum, the sender and contract should be modified
-		expect(result.length).toBeGreaterThanOrEqual(2)
+		await mineHandler(client)()
+		const vm = await client.getVm()
+		const blockBefore = await vm.blockchain.blocksByTag.get('latest')
+		assert(blockBefore, 'blockBefore is undefined')
+
+		// Modify all accounts
+		await setAccountHandler(client)({
+			address: addr1,
+			balance: 10n,
+		})
+		await setAccountHandler(client)({
+			address: addr2,
+			balance: 20n,
+		})
+		await setAccountHandler(client)({
+			address: addr3,
+			balance: 30n,
+		})
+
+		await mineHandler(client)()
+		const blockAfter = await vm.blockchain.blocksByTag.get('latest')
+		assert(blockAfter, 'blockAfter is undefined')
+
+		const handler = debugGetModifiedAccountsByHashHandler(client)
+		const result = await handler({
+			startBlockHash: bytesToHex(blockBefore.hash()),
+			endBlockHash: bytesToHex(blockAfter.hash()),
+		})
+
+		expect(result).toContain(addr1)
+		expect(result).toContain(addr2)
+		expect(result).toContain(addr3)
 	})
 
 	it('should return unique addresses only', async () => {

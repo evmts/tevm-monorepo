@@ -23,12 +23,7 @@ export function createMockFileAccessObject(fileMap: Record<string, string> = {})
  *
  * @returns The mock logger object
  */
-export function createMockLogger(): {
-	error: (...args: any[]) => any
-	warn: (...args: any[]) => any
-	info: (...args: any[]) => any
-	log: (...args: any[]) => any
-} {
+export function createMockLogger() {
 	return {
 		error: vi.fn(),
 		warn: vi.fn(),
@@ -66,7 +61,7 @@ contract SimpleContract {
  * @param outputs - The compiler outputs to return
  * @returns The mock solc compiler
  */
-export function createMockSolc(outputs: any = {}): { compile: (...args: any[]) => any } {
+export function createMockSolc(outputs: any = {}) {
 	return {
 		compile: vi.fn().mockReturnValue(outputs),
 	}

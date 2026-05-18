@@ -1,4 +1,5 @@
 import { SimpleContract } from '@tevm/contract'
+import { type EIP1193RequestFn, requestEip1193 } from '@tevm/decorators'
 import { createTevmNode } from '@tevm/node'
 import { assert, describe, expect, it } from 'vitest'
 import { contractHandler } from '../Contract/contractHandler.js'
@@ -134,7 +135,8 @@ describe('debugTraceBlockJsonRpcProcedure', () => {
 	// - next fix is to get forked block transactions to be signed
 	// - last fix will be `eth_getProof` support (should be automatically fixed when implemented)
 	it.skip('should trace a forked block', async () => {
-		const client = createTevmNode()
+		// @ts-expect-error - Monorepo type issue
+		const client = createTevmNode().extend(requestEip1193())
 
 		const { createdAddress } = await deployHandler(client)({ addToBlockchain: true, ...SimpleContract.deploy(1n) })
 		assert(createdAddress, 'Contract deployment failed')
@@ -152,7 +154,7 @@ describe('debugTraceBlockJsonRpcProcedure', () => {
 		})
 		await mineHandler(client)({})
 
-		const forkClient = createTevmNode({ fork: { transport: { request: client.request as any } } })
+		const forkClient = createTevmNode({ fork: { transport: { request: client.request as EIP1193RequestFn } } })
 		const procedure = debugTraceBlockJsonRpcProcedure(forkClient)
 
 		console.log(

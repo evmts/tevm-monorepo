@@ -5,7 +5,7 @@ export default defineConfig({
 	test: {
 		include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
 		environment: 'node',
-		setupFiles: ['../../extensions/test-matchers/src/index.ts'],
+		setupFiles: ['@tevm/test-matchers'],
 		testTimeout: 60000,
 		coverage: {
 			include: ['src/**/*.js'],
@@ -13,10 +13,10 @@ export default defineConfig({
 			reporter: ['text', 'json-summary', 'json'],
 			thresholds: {
 				autoUpdate: false,
-				lines: 0,
-				functions: 0,
-				branches: 0,
-				statements: 0,
+				lines: 98.0,
+				functions: 95.0,
+				branches: 96.0,
+				statements: 98.0,
 			},
 		},
 	},

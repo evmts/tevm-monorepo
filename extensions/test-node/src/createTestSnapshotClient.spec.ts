@@ -1,22 +1,16 @@
-// @ts-nocheck
 import { rm } from 'node:fs/promises'
+import path from 'node:path'
 import { mainnet } from '@tevm/common'
+import { transports } from '@tevm/test-utils'
 import { http, numberToHex } from 'viem'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 import { createTestSnapshotClient } from './createTestSnapshotClient.js'
-import { resolveVitestTestSnapshotPath } from './internal/resolveVitestTestSnapshotPath.js'
 import { BLOCK_NUMBER } from './test/constants.js'
 import { assertMethodCached, assertMethodNotCached } from './test/snapshot-utils.js'
-import { transports } from './test/transports.js'
 
 describe('createTestSnapshotClient', () => {
-	const clearSnapshot = async () => {
-		await rm(resolveVitestTestSnapshotPath(), { force: true })
-	}
-
-	beforeEach(clearSnapshot)
 	afterEach(async () => {
-		await clearSnapshot()
+		await rm(path.join(__dirname, '__rpc_snapshots__', `${path.basename(__filename)}.snap.json`), { force: true })
 	})
 
 	it('should throw error if fork transport is not provided', () => {
@@ -143,22 +137,14 @@ describe('createTestSnapshotClient', () => {
 		})
 
 		await client.server.start()
-		const forkTransport = client.transport.tevm.forkTransport
-		expect(forkTransport).toBeDefined()
 
 		// Make first cacheable request - should save immediately
-		await forkTransport.request({
-			method: 'eth_getBlockByNumber',
-			params: [numberToHex(BigInt(BLOCK_NUMBER) - 1n), false],
-		})
+		await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) - 1n })
 		// Check snapshots were saved immediately (without calling save() or stop())
 		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 1n))
 
 		// Make another cacheable request - should add to existing snapshots
-		await forkTransport.request({
-			method: 'eth_getBlockByNumber',
-			params: [numberToHex(BigInt(BLOCK_NUMBER) - 2n), false],
-		})
+		await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) - 2n })
 		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 2n))
 
 		await client.server.stop()
@@ -176,14 +162,9 @@ describe('createTestSnapshotClient', () => {
 		})
 
 		await client.server.start()
-		const forkTransport = client.transport.tevm.forkTransport
-		expect(forkTransport).toBeDefined()
 
 		// Make cacheable request
-		await forkTransport.request({
-			method: 'eth_getBlockByNumber',
-			params: [BLOCK_NUMBER, false],
-		})
+		await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
 
 		// Check snapshots were NOT saved immediately
 		assertMethodNotCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
@@ -206,14 +187,9 @@ describe('createTestSnapshotClient', () => {
 		})
 
 		await client.server.start()
-		const forkTransport = client.transport.tevm.forkTransport
-		expect(forkTransport).toBeDefined()
 
 		// Make cacheable request
-		await forkTransport.request({
-			method: 'eth_getBlockByNumber',
-			params: [BLOCK_NUMBER, false],
-		})
+		await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
 
 		// Check snapshots were NOT saved automatically
 		assertMethodNotCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)

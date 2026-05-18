@@ -6,6 +6,5 @@
 		"allowSyntheticDefaultImports": true,
 		"resolveJsonModule": true
 	},
-	"include": ["src", "src/**/*.json", "package.json"],
-	"exclude": ["src/**/*.spec.ts"]
+	"include": ["src", "src/**/*.json", "package.json"]
 }

@@ -83,11 +83,10 @@
 	"devDependencies": {
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"viem": "^2.45.2"
+		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.45.2"
+		"viem": "^2.37.9"
 	},
 	"publishConfig": {
 		"access": "public"

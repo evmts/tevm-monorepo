@@ -65,11 +65,13 @@ describe('Tevm Account Management', () => {
 			transport: createTevmTransport(),
 		})
 
-		// Storage key and value - values must be full 32-byte padded hex
+		// Storage key and value
 		const storageKey = '0x0000000000000000000000000000000000000000000000000000000000000001'
-		const storageValue = '0x000000000000000000000000000000000000000000000000000000000000002a' as `0x${string}` // hex for 42
+		const storageValue = '0x000000000000000000000000000000000000000000000000000000000000002a' // hex for 42
+		// Note: getStorageAt may return simplified hex values
+		const simplifiedValue = '0x2a'
 
-		// Set account with storage using full 32-byte padded value
+		// Set account with storage
 		await tevmSetAccount(client, {
 			address: testAddress,
 			state: {
@@ -83,10 +85,8 @@ describe('Tevm Account Management', () => {
 			slot: storageKey,
 		})
 
-		// The value might be returned in full 32-byte or simplified hex format
-		const normalizedRetrieved = BigInt(retrievedValue ?? '0x0')
-		const normalizedExpected = BigInt(storageValue)
-		expect(normalizedRetrieved).toBe(normalizedExpected)
+		// The value might be simplified in the return value, accept both formats
+		expect([storageValue, simplifiedValue]).toContain(retrievedValue)
 	})
 
 	it('should update existing account state', async () => {
@@ -209,8 +209,8 @@ describe('Tevm Account Management', () => {
 			const keyPadding = i.toString(16).padStart(64, '0')
 			const key = `0x${keyPadding}` as `0x${string}`
 
-			// Create values - must be full 32-byte padded hex for state mapping
-			const value = `0x${i.toString(16).padStart(64, '0')}` as `0x${string}`
+			// Create values - simpler values that won't get modified
+			const value = `0x${i.toString(16).padStart(2, '0')}` as `0x${string}`
 
 			largeState[key] = value
 		}
@@ -226,15 +226,14 @@ describe('Tevm Account Management', () => {
 			const keyPadding = i.toString(16).padStart(64, '0')
 			const key = `0x${keyPadding}` as `0x${string}`
 
-			const expectedValue = BigInt(i)
+			const expectedValue = `0x${i.toString(16).padStart(2, '0')}` as `0x${string}`
 
 			const actualValue = await getStorageAt(client, {
 				address: testAddress,
 				slot: key,
 			})
 
-			// Storage values may be returned in different hex formats
-			expect(BigInt(actualValue ?? '0x0')).toBe(expectedValue)
+			expect(actualValue).toBe(expectedValue)
 		}
 	})
 })

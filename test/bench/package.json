@@ -70,15 +70,15 @@
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/viem": "workspace:^",
-		"effect": "3.19.16",
+		"effect": "3.18.1",
 		"tevm": "workspace:^",
 		"typescript": "^5.9.3",
-		"wagmi": "^3.4.2"
+		"wagmi": "^2.17.5"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^25.2.2"
+		"@types/node": "^24.6.1"
 	},
 	"peerDependencies": {
 		"viem": "^2.37.9"

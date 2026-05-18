@@ -13,7 +13,6 @@ beforeEach(async () => {
 		bytecode: SimpleContract.bytecode,
 		abi: SimpleContract.abi,
 		args: [420n],
-		addToBlockchain: true,
 	})
 	if (!deployResult.createdAddress) {
 		throw new Error('contract never deployed')
@@ -27,8 +26,6 @@ beforeEach(async () => {
 
 describe('getTransactionConfirmations', () => {
 	it('should work', async () => {
-		// Deploy is added to blockchain (block 1), then tevmMine() creates block 2
-		// Confirmations = latest block - tx block + 1 = 2 - 1 + 1 = 2
-		expect(await mc.getTransactionConfirmations({ hash: deployTxHash })).toBe(2n)
+		expect(await mc.getTransactionConfirmations({ hash: deployTxHash })).toBe(1n)
 	})
 })

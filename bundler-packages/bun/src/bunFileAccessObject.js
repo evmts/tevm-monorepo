@@ -81,7 +81,7 @@ export const bunFileAccesObject = {
 	 */
 	writeFileSync: (filePath, data) => {
 		const bunFile = file(filePath)
-		return /** @type {number} */ (bunFile.writer().write(data))
+		return bunFile.writer().write(data)
 	},
 
 	/**

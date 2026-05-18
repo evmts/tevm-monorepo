@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { optimism } from '@tevm/common'
 import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
 import { transports } from '@tevm/test-utils'

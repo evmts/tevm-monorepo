@@ -36,13 +36,11 @@ describe('Mining modes', () => {
 		})) as CallJsonRpcResponse['result']
 		expect(res?.rawData).toEqual('0x')
 
-		// createTransaction adds to mempool but does not auto-mine
+		// should be no tx in mempool
 		const txPool = await tevm.transport.tevm.getTxPool()
-		expect((await txPool.getBySenderAddress(new EthjsAddress(hexToBytes(address1)))).length).toBe(1)
+		expect((await txPool.getBySenderAddress(new EthjsAddress(hexToBytes(address1)))).length).toBe(0)
 
-		// block should not advance until we mine explicitly
-		expect(await tevm.getBlockNumber()).toBe(0n)
-		await tevm.tevmMine()
+		// should have mined the tx
 		expect(await tevm.getBlockNumber()).toBe(1n)
 
 		// should have updated states

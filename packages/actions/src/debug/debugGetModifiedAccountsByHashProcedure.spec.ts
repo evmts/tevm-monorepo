@@ -9,14 +9,13 @@ describe('debugGetModifiedAccountsByHashJsonRpcProcedure', () => {
 	it('should return empty array when no accounts modified', async () => {
 		const client = createTevmNode()
 
-		// Mine blocks to have block 0, 1, and 2
+		// Mine blocks to have block 0 and 1
 		await mineHandler(client)({ blockCount: 2 })
 
 		const vm = await client.getVm()
-		const block0 = await vm.blockchain.getBlock(0n)
-		const block1 = await vm.blockchain.getBlock(1n)
-		const block0Hash = bytesToHex(block0.hash())
-		const block1Hash = bytesToHex(block1.hash())
+		const blocks = Array.from(vm.blockchain.blocksByTag.values())
+		const block0Hash = bytesToHex(blocks[0].hash())
+		const block1Hash = bytesToHex(blocks[1].hash())
 
 		const procedure = debugGetModifiedAccountsByHashJsonRpcProcedure(client)
 
@@ -91,18 +90,18 @@ describe('debugGetModifiedAccountsByHashJsonRpcProcedure', () => {
 
 		expect(response.result).toBeDefined()
 		expect(Array.isArray(response.result)).toBe(true)
-		// Should include at least some modified accounts (coinbase, etc.)
-		expect(response.result!.length).toBeGreaterThan(0)
+		// Should include the modified account
+		expect(response.result).toContain(testAddress.toLowerCase())
 	})
 
 	it('should use next block if end hash not provided', async () => {
 		const client = createTevmNode()
 
-		await mineHandler(client)({ blockCount: 2 })
+		await mineHandler(client)({ blockCount: 1 })
 
 		const vm = await client.getVm()
-		const block0 = await vm.blockchain.getBlock(0n)
-		const block0Hash = bytesToHex(block0.hash())
+		const blocks = Array.from(vm.blockchain.blocksByTag.values())
+		const block0Hash = bytesToHex(blocks[0].hash())
 
 		const procedure = debugGetModifiedAccountsByHashJsonRpcProcedure(client)
 
@@ -153,7 +152,7 @@ describe('debugGetModifiedAccountsByHashJsonRpcProcedure', () => {
 		// Should return an error
 		if ('error' in response) {
 			expect(response.error).toBeDefined()
-			expect(response.error.code).toBe('-32000')
+			expect(response.error.code).toBe(-32000)
 		}
 	})
 })

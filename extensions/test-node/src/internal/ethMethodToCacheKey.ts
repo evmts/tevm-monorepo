@@ -1,4 +1,5 @@
-import { type BlockTag, type EIP1193Parameters, type EIP1474Methods, type Hex } from 'viem'
+import type { BlockTag } from '@tevm/actions'
+import { type EIP1193Parameters, type EIP1474Methods, type Hex } from 'viem'
 import { normalizeBlockTag } from './normalizeBlockTag.js'
 import { normalizeHex } from './normalizeHex.js'
 import { normalizeTx } from './normalizeTx.js'

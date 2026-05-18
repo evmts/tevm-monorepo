@@ -29,16 +29,11 @@ export const handleTransactionCreation = async (client, params, executedCall, ev
 		)
 	}
 
-	// Auto-mine only if:
-	// 1. Auto-mining is enabled
-	// 2. addToBlockchain is explicitly set to a truthy value (true, 'always', 'on-success')
-	// Note: createTransaction (deprecated) and addToMempool do NOT trigger auto-mining.
-	// They only add to the mempool. Use addToBlockchain to auto-mine.
 	const shouldAutoMine =
 		client.miningConfig.type === 'auto' &&
-		params.addToBlockchain !== undefined &&
-		params.addToBlockchain !== false &&
-		params.addToBlockchain !== 'never'
+		[params.addToMempool, params.addToBlockchain, params.createTransaction].every(
+			(param) => param !== false && param !== 'never',
+		)
 	const shouldAddToChain = shouldAutoMine || shouldAddToBlockchain(params, executedCall.runTxResult)
 	const shouldCreateTx = shouldAddToChain || shouldCreateTransaction(params, executedCall.runTxResult)
 

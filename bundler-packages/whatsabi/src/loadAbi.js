@@ -10,29 +10,21 @@ import { loaders, whatsabi } from '@shazow/whatsabi'
  * @returns {ReturnType<typeof import('@shazow/whatsabi').autoload>}
  */
 export const loadAbi = async ({ address, client, explorerUrl, followProxies, etherscanApiKey }) => {
-	const chainId = client.chain?.id ?? 1
 	return whatsabi.autoload(address, {
 		provider: client,
 		followProxies,
 		abiLoader: new loaders.MultiABILoader([
 			new loaders.SourcifyABILoader({
-				chainId,
+				chainId: client.chain?.id ?? 1,
 			}),
-			...(etherscanApiKey !== undefined
+			...(explorerUrl !== undefined
 				? [
 						new loaders.EtherscanABILoader({
-							apiKey: etherscanApiKey,
-							chainId,
+							baseURL: explorerUrl,
+							...(etherscanApiKey !== undefined ? { apiKey: etherscanApiKey } : {}),
 						}),
 					]
-				: explorerUrl !== undefined
-					? [
-							new loaders.EtherscanV1ABILoader({
-								baseURL: explorerUrl,
-								...(etherscanApiKey !== undefined ? { apiKey: etherscanApiKey } : {}),
-							}),
-						]
-					: []),
+				: []),
 		]),
 	})
 }

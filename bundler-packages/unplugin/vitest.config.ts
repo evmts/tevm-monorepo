@@ -11,10 +11,10 @@ export default defineConfig({
 			exclude: ['src/index.ts'], // Exclude TypeScript declaration file
 			thresholds: {
 				autoUpdate: true,
-				lines: 97.05,
-				functions: 80,
+				lines: 100,
+				functions: 100,
 				branches: 100,
-				statements: 94.28,
+				statements: 100,
 			},
 		},
 	},

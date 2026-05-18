@@ -226,44 +226,28 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           "osaka",
           {
             "eips": [
-              7594,
-              7823,
-              7825,
-              7883,
-              7892,
-              7939,
-              7951,
-              7918,
+              663,
+              3540,
+              3670,
+              4200,
+              4750,
+              5450,
+              6206,
+              7069,
+              7480,
+              7620,
+              7692,
+              7698,
             ],
           },
         ],
         [
-          "bpo1",
-          {
-            "eips": [],
-            "params": {
-              "blobGasPriceUpdateFraction": 8346193,
-              "max": 15,
-              "target": 10,
-            },
-          },
-        ],
-        [
-          "bpo2",
-          {
-            "eips": [],
-            "params": {
-              "blobGasPriceUpdateFraction": 11684671,
-              "max": 21,
-              "target": 14,
-            },
-          },
-        ],
-        [
-          "amsterdam",
+          "verkle",
           {
             "eips": [
-              7928,
+              7709,
+              4762,
+              6800,
             ],
           },
         ],
@@ -465,25 +449,11 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           },
           {
             "block": null,
-            "forkHash": "0x5167e2a6",
             "name": "osaka",
-            "timestamp": "1764798551",
           },
           {
             "block": null,
-            "forkHash": "0xcba2a1c0",
-            "name": "bpo1",
-            "timestamp": "1765290071",
-          },
-          {
-            "block": null,
-            "forkHash": "0x07c9462e",
-            "name": "bpo2",
-            "timestamp": "1767747671",
-          },
-          {
-            "block": null,
-            "name": "amsterdam",
+            "name": "verkle",
           },
         ],
         "name": "tevm-devnet",
@@ -772,6 +742,10 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           "exchangeGas": 3,
           "swapnGas": 3,
         },
+        "6800": {
+          "coldsloadGas": 0,
+          "createGas": 1000,
+        },
         "7069": {
           "extcallGas": 0,
           "extdelegatecallGas": 0,
@@ -789,9 +763,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         "7516": {
           "blobbasefeeGas": 2,
         },
-        "7594": {
-          "maxBlobsPerTx": 6,
-        },
         "7620": {
           "eofcreateGas": 32000,
           "returncontractGas": 0,
@@ -805,12 +776,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         "7702": {
           "perAuthBaseGas": 12500,
           "perEmptyAccountCost": 25000,
-        },
-        "7825": {
-          "maxTransactionGasLimit": 16777216,
-        },
-        "7939": {
-          "clzGas": 5,
         },
         "gasConfig": {
           "maxRefundQuotient": 5,
@@ -836,15 +801,11 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           "blobToKzgCommitment": [Function],
           "computeBlobKzgProof": [Function],
           "computeBlobProof": [Function],
-          "computeCells": [Function],
-          "computeCellsAndProofs": [Function],
           "freeTrustedSetup": [Function],
           "loadTrustedSetup": [Function],
-          "recoverCellsAndProofs": [Function],
           "verifyBlobKzgProof": [Function],
           "verifyBlobKzgProofBatch": [Function],
           "verifyBlobProofBatch": [Function],
-          "verifyCellKzgProofBatch": [Function],
           "verifyKzgProof": [Function],
           "verifyProof": [Function],
         },
@@ -854,7 +815,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         "_eventsCount": 0,
       },
     },
-    "extend": [Function],
     "fees": undefined,
     "formatters": {
       "block": {
@@ -1161,44 +1121,28 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           "osaka",
           {
             "eips": [
-              7594,
-              7823,
-              7825,
-              7883,
-              7892,
-              7939,
-              7951,
-              7918,
+              663,
+              3540,
+              3670,
+              4200,
+              4750,
+              5450,
+              6206,
+              7069,
+              7480,
+              7620,
+              7692,
+              7698,
             ],
           },
         ],
         [
-          "bpo1",
-          {
-            "eips": [],
-            "params": {
-              "blobGasPriceUpdateFraction": 8346193,
-              "max": 15,
-              "target": 10,
-            },
-          },
-        ],
-        [
-          "bpo2",
-          {
-            "eips": [],
-            "params": {
-              "blobGasPriceUpdateFraction": 11684671,
-              "max": 21,
-              "target": 14,
-            },
-          },
-        ],
-        [
-          "amsterdam",
+          "verkle",
           {
             "eips": [
-              7928,
+              7709,
+              4762,
+              6800,
             ],
           },
         ],
@@ -1400,25 +1344,11 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           },
           {
             "block": null,
-            "forkHash": "0x5167e2a6",
             "name": "osaka",
-            "timestamp": "1764798551",
           },
           {
             "block": null,
-            "forkHash": "0xcba2a1c0",
-            "name": "bpo1",
-            "timestamp": "1765290071",
-          },
-          {
-            "block": null,
-            "forkHash": "0x07c9462e",
-            "name": "bpo2",
-            "timestamp": "1767747671",
-          },
-          {
-            "block": null,
-            "name": "amsterdam",
+            "name": "verkle",
           },
         ],
         "name": "tevm-devnet",
@@ -1707,6 +1637,10 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           "exchangeGas": 3,
           "swapnGas": 3,
         },
+        "6800": {
+          "coldsloadGas": 0,
+          "createGas": 1000,
+        },
         "7069": {
           "extcallGas": 0,
           "extdelegatecallGas": 0,
@@ -1724,9 +1658,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         "7516": {
           "blobbasefeeGas": 2,
         },
-        "7594": {
-          "maxBlobsPerTx": 6,
-        },
         "7620": {
           "eofcreateGas": 32000,
           "returncontractGas": 0,
@@ -1740,12 +1671,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         "7702": {
           "perAuthBaseGas": 12500,
           "perEmptyAccountCost": 25000,
-        },
-        "7825": {
-          "maxTransactionGasLimit": 16777216,
-        },
-        "7939": {
-          "clzGas": 5,
         },
         "gasConfig": {
           "maxRefundQuotient": 5,
@@ -1771,15 +1696,11 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           "blobToKzgCommitment": [Function],
           "computeBlobKzgProof": [Function],
           "computeBlobProof": [Function],
-          "computeCells": [Function],
-          "computeCellsAndProofs": [Function],
           "freeTrustedSetup": [Function],
           "loadTrustedSetup": [Function],
-          "recoverCellsAndProofs": [Function],
           "verifyBlobKzgProof": [Function],
           "verifyBlobKzgProofBatch": [Function],
           "verifyBlobProofBatch": [Function],
-          "verifyCellKzgProofBatch": [Function],
           "verifyKzgProof": [Function],
           "verifyProof": [Function],
         },
@@ -1789,7 +1710,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         "_eventsCount": 0,
       },
     },
-    "extend": [Function],
     "fees": undefined,
     "formatters": {
       "block": {
@@ -2609,44 +2529,28 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           "osaka",
           {
             "eips": [
-              7594,
-              7823,
-              7825,
-              7883,
-              7892,
-              7939,
-              7951,
-              7918,
+              663,
+              3540,
+              3670,
+              4200,
+              4750,
+              5450,
+              6206,
+              7069,
+              7480,
+              7620,
+              7692,
+              7698,
             ],
           },
         ],
         [
-          "bpo1",
-          {
-            "eips": [],
-            "params": {
-              "blobGasPriceUpdateFraction": 8346193,
-              "max": 15,
-              "target": 10,
-            },
-          },
-        ],
-        [
-          "bpo2",
-          {
-            "eips": [],
-            "params": {
-              "blobGasPriceUpdateFraction": 11684671,
-              "max": 21,
-              "target": 14,
-            },
-          },
-        ],
-        [
-          "amsterdam",
+          "verkle",
           {
             "eips": [
-              7928,
+              7709,
+              4762,
+              6800,
             ],
           },
         ],
@@ -2848,25 +2752,11 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           },
           {
             "block": null,
-            "forkHash": "0x5167e2a6",
             "name": "osaka",
-            "timestamp": "1764798551",
           },
           {
             "block": null,
-            "forkHash": "0xcba2a1c0",
-            "name": "bpo1",
-            "timestamp": "1765290071",
-          },
-          {
-            "block": null,
-            "forkHash": "0x07c9462e",
-            "name": "bpo2",
-            "timestamp": "1767747671",
-          },
-          {
-            "block": null,
-            "name": "amsterdam",
+            "name": "verkle",
           },
         ],
         "name": "tevm-devnet",
@@ -2919,15 +2809,11 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           "blobToKzgCommitment": [Function],
           "computeBlobKzgProof": [Function],
           "computeBlobProof": [Function],
-          "computeCells": [Function],
-          "computeCellsAndProofs": [Function],
           "freeTrustedSetup": [Function],
           "loadTrustedSetup": [Function],
-          "recoverCellsAndProofs": [Function],
           "verifyBlobKzgProof": [Function],
           "verifyBlobKzgProofBatch": [Function],
           "verifyBlobProofBatch": [Function],
-          "verifyCellKzgProofBatch": [Function],
           "verifyKzgProof": [Function],
           "verifyProof": [Function],
         },
@@ -2937,7 +2823,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         "_eventsCount": 0,
       },
     },
-    "extend": [Function],
     "fees": undefined,
     "formatters": {
       "block": {
@@ -3228,44 +3113,28 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           "osaka",
           {
             "eips": [
-              7594,
-              7823,
-              7825,
-              7883,
-              7892,
-              7939,
-              7951,
-              7918,
+              663,
+              3540,
+              3670,
+              4200,
+              4750,
+              5450,
+              6206,
+              7069,
+              7480,
+              7620,
+              7692,
+              7698,
             ],
           },
         ],
         [
-          "bpo1",
-          {
-            "eips": [],
-            "params": {
-              "blobGasPriceUpdateFraction": 8346193,
-              "max": 15,
-              "target": 10,
-            },
-          },
-        ],
-        [
-          "bpo2",
-          {
-            "eips": [],
-            "params": {
-              "blobGasPriceUpdateFraction": 11684671,
-              "max": 21,
-              "target": 14,
-            },
-          },
-        ],
-        [
-          "amsterdam",
+          "verkle",
           {
             "eips": [
-              7928,
+              7709,
+              4762,
+              6800,
             ],
           },
         ],
@@ -3467,25 +3336,11 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           },
           {
             "block": null,
-            "forkHash": "0x5167e2a6",
             "name": "osaka",
-            "timestamp": "1764798551",
           },
           {
             "block": null,
-            "forkHash": "0xcba2a1c0",
-            "name": "bpo1",
-            "timestamp": "1765290071",
-          },
-          {
-            "block": null,
-            "forkHash": "0x07c9462e",
-            "name": "bpo2",
-            "timestamp": "1767747671",
-          },
-          {
-            "block": null,
-            "name": "amsterdam",
+            "name": "verkle",
           },
         ],
         "name": "tevm-devnet",
@@ -3538,15 +3393,11 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
           "blobToKzgCommitment": [Function],
           "computeBlobKzgProof": [Function],
           "computeBlobProof": [Function],
-          "computeCells": [Function],
-          "computeCellsAndProofs": [Function],
           "freeTrustedSetup": [Function],
           "loadTrustedSetup": [Function],
-          "recoverCellsAndProofs": [Function],
           "verifyBlobKzgProof": [Function],
           "verifyBlobKzgProofBatch": [Function],
           "verifyBlobProofBatch": [Function],
-          "verifyCellKzgProofBatch": [Function],
           "verifyKzgProof": [Function],
           "verifyProof": [Function],
         },
@@ -3556,7 +3407,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         "_eventsCount": 0,
       },
     },
-    "extend": [Function],
     "fees": undefined,
     "formatters": {
       "block": {
@@ -4149,28 +3999,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
 
 exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 5`] = `
 {
-  "hash": "090094e705db512a9723f73dcab5dc924b5a55571fec5706c8633c460c84bd57",
-  "tx": {
-    "accessList": [],
-    "chainId": "0x384",
-    "data": "0x60fe47b1000000000000000000000000000000000000000000000000000000000000002a",
-    "gasLimit": "0x7762",
-    "maxFeePerGas": "0x7",
-    "maxPriorityFeePerGas": "0x0",
-    "nonce": "0x1",
-    "r": undefined,
-    "s": undefined,
-    "to": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
-    "type": "0x2",
-    "v": undefined,
-    "value": "0x0",
-    "yParity": undefined,
-  },
-}
-`;
-
-exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 6`] = `
-{
   "balance": 1000000000000000000000n,
   "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "nonce": 0n,
@@ -4179,7 +4007,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
 }
 `;
 
-exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 7`] = `
+exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 6`] = `
 {
   "balance": 999999999999998882387n,
   "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -4189,7 +4017,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
 }
 `;
 
-exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 8`] = `
+exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 7`] = `
 {
   "balance": 0n,
   "codeHash": "0xc832aa8616e87d0a857dd93588b32cacc51deb4920b7c784b52afcbc1f97bdc5",
@@ -4202,7 +4030,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
 }
 `;
 
-exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 9`] = `
+exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 8`] = `
 {
   "common": {
     "consensus": {
@@ -5733,7 +5561,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
 }
 `;
 
-exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 10`] = `
+exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no filters are provided 9`] = `
 {
   "filters": Map {},
   "impersonatedAccount": undefined,

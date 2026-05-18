@@ -326,7 +326,7 @@ function createFileAccessObject() {
 }
 
 // Module type enum that mirrors the Rust implementation's ModuleType
-enum _ModuleType {
+enum ModuleType {
 	Ts = 'ts',
 	Cjs = 'cjs',
 	Mjs = 'mjs',

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { deployHandler, setAccountHandler } from '@tevm/actions'
 import { SimpleContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'

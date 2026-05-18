@@ -1,17 +1,20 @@
 import { createAddress } from '@tevm/address'
 import { createTevmNode, type TevmNode } from '@tevm/node'
+import { transports } from '@tevm/test-utils'
 import { parseEther } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { callHandler } from '../Call/callHandler.js'
-import { mineHandler } from '../Mine/mineHandler.js'
-import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { debugIntermediateRootsJsonRpcProcedure } from './debugIntermediateRootsProcedure.js'
 
 describe('debugIntermediateRootsProcedure', () => {
 	let client: TevmNode
 
-	beforeEach(() => {
-		client = createTevmNode()
+	beforeEach(async () => {
+		client = createTevmNode({
+			fork: {
+				transport: transports.optimism,
+			},
+		})
+		await client.ready()
 	})
 
 	it('should return intermediate roots for a block with transactions', async () => {
@@ -23,26 +26,26 @@ describe('debugIntermediateRootsProcedure', () => {
 		const to2 = createAddress('0x3000000000000000000000000000000000000000').toString()
 
 		// Set balance and send transactions
-		await setAccountHandler(client)({
+		await client.setAccount({
 			address: from,
 			balance: parseEther('10'),
 		})
 
-		await callHandler(client)({
+		await client.tevmCall({
 			from,
 			to: to1,
 			value: parseEther('1'),
 			createTransaction: true,
 		})
 
-		await callHandler(client)({
+		await client.tevmCall({
 			from,
 			to: to2,
 			value: parseEther('1'),
 			createTransaction: true,
 		})
 
-		await mineHandler(client)({})
+		await client.tevmMine()
 
 		// Get the latest block number
 		const vm = await client.getVm()
@@ -70,13 +73,16 @@ describe('debugIntermediateRootsProcedure', () => {
 		for (const root of response.result) {
 			expect(root).toMatch(/^0x[0-9a-f]+$/i)
 		}
+
+		// Roots should be different (state changes after each transaction)
+		expect(response.result[0]).not.toBe(response.result[1])
 	})
 
 	it('should return empty array for block with no transactions', async () => {
 		const procedure = debugIntermediateRootsJsonRpcProcedure(client)
 
 		// Mine an empty block
-		await mineHandler(client)({})
+		await client.tevmMine()
 
 		// Get the latest block number
 		const vm = await client.getVm()
@@ -105,19 +111,19 @@ describe('debugIntermediateRootsProcedure', () => {
 		const from = createAddress('0x1000000000000000000000000000000000000000').toString()
 		const to = createAddress('0x2000000000000000000000000000000000000000').toString()
 
-		await setAccountHandler(client)({
+		await client.setAccount({
 			address: from,
 			balance: parseEther('10'),
 		})
 
-		await callHandler(client)({
+		await client.tevmCall({
 			from,
 			to,
 			value: parseEther('1'),
 			createTransaction: true,
 		})
 
-		await mineHandler(client)({})
+		await client.tevmMine()
 
 		// Call debug_intermediateRoots with 'latest' tag
 		const response = await procedure({
@@ -142,7 +148,7 @@ describe('debugIntermediateRootsProcedure', () => {
 		const procedure = debugIntermediateRootsJsonRpcProcedure(client)
 
 		// Mine a block
-		await mineHandler(client)({})
+		await client.tevmMine()
 
 		// Get the latest block number
 		const vm = await client.getVm()
