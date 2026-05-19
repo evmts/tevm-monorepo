@@ -2,10 +2,10 @@
 	"name": "@tevm/state",
 	"version": "1.0.0-next.148",
 	"private": false,
-	"description": "A custom implementation of ethereumjs state manager",
+	"description": "Tevm state manager backed by zevm-compatible primitives",
 	"keywords": [
 		"solidity",
-		"ethereumjs",
+		"zevm",
 		"typescript",
 		"web3",
 		"blockchain"
@@ -63,12 +63,11 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/statemanager": "^10.1.1",
+		"@evmts/zevm": "workspace:*",
 		"@tevm/address": "workspace:^",
 		"@tevm/common": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/logger": "workspace:^",
-		"@tevm/rlp": "workspace:^",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"ethereum-cryptography": "^3.2.0"

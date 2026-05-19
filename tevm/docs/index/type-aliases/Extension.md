@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [index](../README.md) / Extension
 
-# Type Alias: Extension()\<TExtended\>
+# Type Alias: Extension\<TExtended\>
 
 > **Extension**\<`TExtended`\> = (`client`) => `TExtended`
 
-Defined in: packages/node/dist/index.d.ts:592
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:586
 
 ## Type Parameters
 

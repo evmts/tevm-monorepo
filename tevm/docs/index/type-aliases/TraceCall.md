@@ -8,23 +8,23 @@
 
 > **TraceCall** = `object`
 
-Defined in: packages/actions/types/common/TraceCall.d.ts:4
+Defined in: tevm-monorepo/packages/actions/types/common/TraceCall.d.ts:4
 
 ## Properties
 
 ### calls?
 
-> `optional` **calls**: `TraceCall`[]
+> `optional` **calls?**: `TraceCall`[]
 
-Defined in: packages/actions/types/common/TraceCall.d.ts:15
+Defined in: tevm-monorepo/packages/actions/types/common/TraceCall.d.ts:15
 
 ***
 
 ### error?
 
-> `optional` **error**: `string`
+> `optional` **error?**: `string`
 
-Defined in: packages/actions/types/common/TraceCall.d.ts:13
+Defined in: tevm-monorepo/packages/actions/types/common/TraceCall.d.ts:13
 
 ***
 
@@ -32,23 +32,23 @@ Defined in: packages/actions/types/common/TraceCall.d.ts:13
 
 > **from**: [`Address`](../../actions/type-aliases/Address.md)
 
-Defined in: packages/actions/types/common/TraceCall.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/common/TraceCall.d.ts:6
 
 ***
 
 ### gas?
 
-> `optional` **gas**: `bigint`
+> `optional` **gas?**: `bigint`
 
-Defined in: packages/actions/types/common/TraceCall.d.ts:9
+Defined in: tevm-monorepo/packages/actions/types/common/TraceCall.d.ts:9
 
 ***
 
 ### gasUsed?
 
-> `optional` **gasUsed**: `bigint`
+> `optional` **gasUsed?**: `bigint`
 
-Defined in: packages/actions/types/common/TraceCall.d.ts:10
+Defined in: tevm-monorepo/packages/actions/types/common/TraceCall.d.ts:10
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: packages/actions/types/common/TraceCall.d.ts:10
 
 > **input**: [`Hex`](../../actions/type-aliases/Hex.md)
 
-Defined in: packages/actions/types/common/TraceCall.d.ts:11
+Defined in: tevm-monorepo/packages/actions/types/common/TraceCall.d.ts:11
 
 ***
 
@@ -64,15 +64,15 @@ Defined in: packages/actions/types/common/TraceCall.d.ts:11
 
 > **output**: [`Hex`](../../actions/type-aliases/Hex.md)
 
-Defined in: packages/actions/types/common/TraceCall.d.ts:12
+Defined in: tevm-monorepo/packages/actions/types/common/TraceCall.d.ts:12
 
 ***
 
 ### revertReason?
 
-> `optional` **revertReason**: `string`
+> `optional` **revertReason?**: `string`
 
-Defined in: packages/actions/types/common/TraceCall.d.ts:14
+Defined in: tevm-monorepo/packages/actions/types/common/TraceCall.d.ts:14
 
 ***
 
@@ -80,7 +80,7 @@ Defined in: packages/actions/types/common/TraceCall.d.ts:14
 
 > **to**: [`Address`](../../actions/type-aliases/Address.md)
 
-Defined in: packages/actions/types/common/TraceCall.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/common/TraceCall.d.ts:7
 
 ***
 
@@ -88,12 +88,12 @@ Defined in: packages/actions/types/common/TraceCall.d.ts:7
 
 > **type**: [`TraceType`](../../actions/type-aliases/TraceType.md)
 
-Defined in: packages/actions/types/common/TraceCall.d.ts:5
+Defined in: tevm-monorepo/packages/actions/types/common/TraceCall.d.ts:5
 
 ***
 
 ### value?
 
-> `optional` **value**: `bigint`
+> `optional` **value?**: `bigint`
 
-Defined in: packages/actions/types/common/TraceCall.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/common/TraceCall.d.ts:8

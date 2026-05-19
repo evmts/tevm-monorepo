@@ -8,6 +8,6 @@
 
 > **AnvilSetBlockTimestampIntervalJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setBlockTimestampInterval"`, readonly \[[`Hex`](../../index/type-aliases/Hex.md)\]\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:177
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:177
 
 JSON-RPC request for `anvil_setBlockTimestampInterval` method

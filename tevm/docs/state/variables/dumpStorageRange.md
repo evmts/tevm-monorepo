@@ -8,4 +8,4 @@
 
 > `const` **dumpStorageRange**: [`StateAction`](../type-aliases/StateAction.md)\<`"dumpStorageRange"`\>
 
-Defined in: packages/state/dist/index.d.ts:415
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:419

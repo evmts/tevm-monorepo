@@ -8,7 +8,7 @@
 
 > **EventActionCreator**\<`THumanReadableAbi`, `TBytecode`, `TDeployedBytecode`, `TAddress`, `TAddressArgs`\> = \{ \[TEventName in ExtractAbiEventNames\<ParseAbi\<THumanReadableAbi\>\>\]: (params: Pick\<CreateEventFilterParameters\<ExtractAbiEvent\<ParseAbi\<THumanReadableAbi\>, TEventName\>, ParseAbi\<THumanReadableAbi\>, TStrict, TFromBlock, TToBlock, TEventName, MaybeExtractEventArgsFromAbi\<ParseAbi\<THumanReadableAbi\>, TEventName\>\>, "fromBlock" \| "toBlock" \| "args" \| "strict"\>) =\> CreateEventFilterParameters\<ExtractAbiEvent\<ParseAbi\<THumanReadableAbi\>, TEventName\>, ParseAbi\<THumanReadableAbi\>, TStrict, TFromBlock, TToBlock, TEventName, MaybeExtractEventArgsFromAbi\<ParseAbi\<THumanReadableAbi\>, TEventName\>\> & \{ abi: \[ExtractAbiEvent\<ParseAbi\<THumanReadableAbi\>, TEventName\>\]; bytecode: TBytecode; deployedBytecode: TDeployedBytecode; eventName: TEventName \} & \{ abi: \[ExtractAbiEvent\<ParseAbi\<THumanReadableAbi\>, TEventName\>\]; bytecode: TBytecode; deployedBytecode: TDeployedBytecode; eventName: TEventName; humanReadableAbi: FormatAbi\<\[ExtractAbiEvent\<ParseAbi\<THumanReadableAbi\>, TEventName\>\]\> \} & TAddressArgs \}
 
-Defined in: packages/contract/types/event/EventActionCreator.d.ts:34
+Defined in: tevm-monorepo/packages/contract/types/event/EventActionCreator.d.ts:34
 
 A mapping of event names to action creators for events. Can be used to create event filters in a typesafe way.
 

@@ -36,7 +36,7 @@ Highest block number of the requested range as a block tag or block number.
 
 ### rewardPercentiles?
 
-> `readonly` `optional` **rewardPercentiles**: readonly `number`[]
+> `readonly` `optional` **rewardPercentiles?**: readonly `number`[]
 
 Defined in: [packages/actions/src/eth/EthParams.ts:115](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L115)
 

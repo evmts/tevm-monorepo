@@ -8,7 +8,7 @@
 
 > **loadConfig**(`configFilePath`): `Effect`\<`ResolvedCompilerConfig`, `LoadConfigError`, `never`\>
 
-Defined in: bundler-packages/config/types/loadConfig.d.ts:23
+Defined in: tevm-monorepo/bundler-packages/config/types/loadConfig.d.ts:23
 
 ## Parameters
 

@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthUnsubscribeJsonRpcProcedure
 
-# Type Alias: EthUnsubscribeJsonRpcProcedure()
+# Type Alias: EthUnsubscribeJsonRpcProcedure
 
 > **EthUnsubscribeJsonRpcProcedure** = (`request`) => `Promise`\<[`EthUnsubscribeJsonRpcResponse`](EthUnsubscribeJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:46
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:46
 
 ## Parameters
 

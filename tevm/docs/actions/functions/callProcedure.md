@@ -8,7 +8,7 @@
 
 > **callProcedure**(`client`): [`CallJsonRpcProcedure`](../type-aliases/CallJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/Call/callProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Call/callProcedure.d.ts:1
 
 ## Parameters
 

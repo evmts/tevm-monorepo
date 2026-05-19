@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / DebugDumpBlockHandler
 
-# Type Alias: DebugDumpBlockHandler()
+# Type Alias: DebugDumpBlockHandler
 
 > **DebugDumpBlockHandler** = (`params`) => `Promise`\<[`DebugDumpBlockResult`](DebugDumpBlockResult.md)\>
 

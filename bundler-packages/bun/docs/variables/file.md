@@ -4,11 +4,11 @@
 
 [@tevm/bun-plugin](../globals.md) / file
 
-# Variable: file()
+# Variable: file
 
 > `const` **file**: \{(`path`, `options?`): `BunFile`; (`path`, `options?`): `BunFile`; (`fileDescriptor`, `options?`): `BunFile`; \}
 
-Defined in: [bundler-packages/bun/src/bunFile.js:26](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bun/src/bunFile.js#L26)
+Defined in: [bunFile.js:26](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/bun/src/bunFile.js#L26)
 
 Re-exports the Bun file API for working with files in the file system.
 The Bun file API provides an optimized interface for file operations with
@@ -29,9 +29,9 @@ This Blob is lazy. That means it won't do any work until you read from it.
 
 #### path
 
-The path to the file (lazily loaded) if the path starts with `s3://` it will behave like S3File
+`string` \| `URL`
 
-`string` | `URL`
+The path to the file (lazily loaded) if the path starts with `s3://` it will behave like S3File
 
 #### options?
 
@@ -71,9 +71,9 @@ This Blob is lazy. It won't do any work until you read from it. Errors propagate
 
 #### path
 
-The path to the file as a byte buffer (the buffer is copied) if the path starts with `s3://` it will behave like S3File
+`ArrayBufferLike` \| `Uint8Array`\<`ArrayBuffer`\>
 
-`ArrayBufferLike` | `Uint8Array`\<`ArrayBuffer`\>
+The path to the file as a byte buffer (the buffer is copied) if the path starts with `s3://` it will behave like S3File
 
 #### options?
 

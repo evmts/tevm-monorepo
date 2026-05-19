@@ -14,7 +14,7 @@ Defined in: [solcTypes.ts:613](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### entryPoint?
 
-> `optional` **entryPoint**: `number`
+> `optional` **entryPoint?**: `number`
 
 Defined in: [solcTypes.ts:614](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L614)
 
@@ -22,7 +22,7 @@ Defined in: [solcTypes.ts:614](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### id?
 
-> `optional` **id**: `number` \| `null`
+> `optional` **id?**: `number` \| `null`
 
 Defined in: [solcTypes.ts:615](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L615)
 
@@ -30,7 +30,7 @@ Defined in: [solcTypes.ts:615](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### parameterSlots?
 
-> `optional` **parameterSlots**: `number`
+> `optional` **parameterSlots?**: `number`
 
 Defined in: [solcTypes.ts:616](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L616)
 
@@ -38,6 +38,6 @@ Defined in: [solcTypes.ts:616](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### returnSlots?
 
-> `optional` **returnSlots**: `number`
+> `optional` **returnSlots?**: `number`
 
 Defined in: [solcTypes.ts:617](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L617)

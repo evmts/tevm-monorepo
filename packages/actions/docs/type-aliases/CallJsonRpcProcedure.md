@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / CallJsonRpcProcedure
 
-# Type Alias: CallJsonRpcProcedure()
+# Type Alias: CallJsonRpcProcedure
 
 > **CallJsonRpcProcedure** = (`request`) => `Promise`\<[`CallJsonRpcResponse`](CallJsonRpcResponse.md)\>
 

@@ -45,7 +45,7 @@ if (result.errors) {
 
 ### errors?
 
-> `optional` **errors**: `ErrorType`[]
+> `optional` **errors?**: `ErrorType`[]
 
 Defined in: [packages/actions/src/LoadState/LoadStateResult.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/LoadState/LoadStateResult.ts#L30)
 

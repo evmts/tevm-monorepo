@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthSignTransactionHandler
 
-# Type Alias: EthSignTransactionHandler()
+# Type Alias: EthSignTransactionHandler
 
 > **EthSignTransactionHandler** = (`request`) => `Promise`\<[`EthSignTransactionResult`](EthSignTransactionResult.md)\>
 

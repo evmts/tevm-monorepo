@@ -24,7 +24,7 @@ export const getAccount =
 		// First check main cache
 		const elem = accounts.get(address)
 		if (elem !== undefined) {
-			return elem.accountRLP !== undefined ? fromRlpSerializedAccount(elem.accountRLP) : undefined
+			return /** @type {any} */ (elem.accountRLP !== undefined ? fromRlpSerializedAccount(elem.accountRLP) : undefined)
 		}
 
 		// Then check fork cache if we have a fork
@@ -34,9 +34,9 @@ export const getAccount =
 				// Convert to account and update main cache with value from fork cache
 				if (forkElem.accountRLP !== undefined) {
 					const account = fromRlpSerializedAccount(forkElem.accountRLP)
-					accounts.put(address, account)
+					accounts.put(address, /** @type {any} */ (account))
 					baseState.logger.debug({ address }, 'Retrieved account from fork cache')
-					return account
+					return /** @type {any} */ (account)
 				}
 				// Handle undefined account case
 				accounts.put(address, undefined)
@@ -69,9 +69,9 @@ export const getAccount =
 		}
 
 		// Store in both caches
-		accounts.put(address, account)
-		forkAccounts.put(address, account)
+		accounts.put(address, /** @type {any} */ (account))
+		forkAccounts.put(address, /** @type {any} */ (account))
 
 		baseState.logger.debug({ address, account }, 'Cached forked account in state manager and fork cache')
-		return account
+		return /** @type {any} */ (account)
 	}

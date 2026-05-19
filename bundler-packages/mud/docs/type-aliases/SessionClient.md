@@ -16,7 +16,7 @@ Defined in: [types.ts:4](https://github.com/evmts/tevm-monorepo/blob/main/bundle
 
 > `readonly` **userAddress**: `Address`
 
-### writeContract()
+### writeContract
 
 > **writeContract**: (`args`) => `Promise`\<`WriteContractReturnType`\>
 

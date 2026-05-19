@@ -8,7 +8,7 @@
 
 > **MaybeExtractEventArgsFromAbi**\<`TAbi`, `TEventName`\> = `Exclude`\<`TAbi` *extends* [`Abi`](../../index/type-aliases/Abi.md) \| readonly `unknown`[] ? `TEventName` *extends* `string` ? [`GetEventArgs`](../../index/type-aliases/GetEventArgs.md)\<`TAbi`, `TEventName`\> : `undefined` : `undefined`, readonly `unknown`[] \| `Record`\<`string`, `unknown`\>\>
 
-Defined in: packages/contract/types/event/EventActionCreator.d.ts:7
+Defined in: tevm-monorepo/packages/contract/types/event/EventActionCreator.d.ts:7
 
 Extracts event arguments from an ABI.
 

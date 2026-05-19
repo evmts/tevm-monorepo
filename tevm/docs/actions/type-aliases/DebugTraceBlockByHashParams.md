@@ -8,7 +8,7 @@
 
 > **DebugTraceBlockByHashParams**\<`TTracer`, `TDiffMode`\> = [`TraceParams`](TraceParams.md)\<`TTracer`, `TDiffMode`\> & `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:89
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:89
 
 Params taken by `debug_traceBlockByHash` handler
 

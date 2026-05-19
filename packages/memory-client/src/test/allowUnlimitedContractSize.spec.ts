@@ -1,4 +1,4 @@
-import { EvmError } from '@tevm/evm'
+import { EvmError } from '@evmts/zevm/evm'
 import { hexToBigInt } from '@tevm/utils'
 import { describe, expect, test } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'

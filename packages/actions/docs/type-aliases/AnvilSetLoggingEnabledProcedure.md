@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetLoggingEnabledProcedure
 
-# Type Alias: AnvilSetLoggingEnabledProcedure()
+# Type Alias: AnvilSetLoggingEnabledProcedure
 
 > **AnvilSetLoggingEnabledProcedure** = (`request`) => `Promise`\<[`AnvilSetLoggingEnabledJsonRpcResponse`](AnvilSetLoggingEnabledJsonRpcResponse.md)\>
 

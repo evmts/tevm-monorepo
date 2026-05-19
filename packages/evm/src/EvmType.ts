@@ -1,4 +1,4 @@
-import { EVM as EthereumEVM } from '@ethereumjs/evm'
+import type { EVM as EthereumEVM } from '@evmts/zevm/evm'
 import { type StateManager } from '@tevm/state'
 import { type CustomPrecompile } from './CustomPrecompile.js'
 import { type EVMOpts } from './EvmOpts.js'
@@ -9,11 +9,14 @@ export type EvmOptions = {
 	blockchain: any
 }
 
-export declare class Evm extends EthereumEVM {
+export type Evm = Omit<EthereumEVM, 'stateManager'> & {
 	stateManager: StateManager
-	protected _customPrecompiles: CustomPrecompile[]
 
-	addCustomPrecompile(precompile: CustomPrecompile): void
-	removeCustomPrecompile(precompile: CustomPrecompile): void
-	static create(options?: EVMOpts): Promise<Evm>
+	addCustomPrecompile: (precompile: CustomPrecompile) => void
+	removeCustomPrecompile: (precompile: CustomPrecompile) => void
+}
+
+export declare const Evm: {
+	create: (options?: EVMOpts) => Promise<Evm>
+	prototype: Evm
 }

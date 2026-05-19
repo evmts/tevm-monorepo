@@ -8,7 +8,7 @@
 
 > **putContractStorage**(`baseState`): (`address`, `key`, `value`) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:501
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:505
 
 ## Parameters
 
@@ -18,22 +18,4 @@ Defined in: packages/state/dist/index.d.ts:501
 
 ## Returns
 
-> (`address`, `key`, `value`): `Promise`\<`void`\>
-
-### Parameters
-
-#### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-#### key
-
-`Uint8Array`
-
-#### value
-
-`Uint8Array`
-
-### Returns
-
-`Promise`\<`void`\>
+(`address`, `key`, `value`) => `Promise`\<`void`\>

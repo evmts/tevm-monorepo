@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [vm](../README.md) / assignWithdrawals
 
-# Variable: assignWithdrawals()
+# Variable: assignWithdrawals
 
 > `const` **assignWithdrawals**: (`vm`) => (`block`) => `Promise`\<`void`\>
 
-Defined in: packages/vm/types/actions/assignWithdrawals.d.ts:3
+Defined in: tevm-monorepo/packages/vm/types/actions/assignWithdrawals.d.ts:3
 
 ## Parameters
 
@@ -18,14 +18,4 @@ Defined in: packages/vm/types/actions/assignWithdrawals.d.ts:3
 
 ## Returns
 
-> (`block`): `Promise`\<`void`\>
-
-### Parameters
-
-#### block
-
-[`Block`](../../block/classes/Block.md)
-
-### Returns
-
-`Promise`\<`void`\>
+(`block`) => `Promise`\<`void`\>

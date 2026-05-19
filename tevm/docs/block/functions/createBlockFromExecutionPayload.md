@@ -8,7 +8,7 @@
 
 > **createBlockFromExecutionPayload**(`payload`, `opts`): `Promise`\<[`Block`](../classes/Block.md)\>
 
-Defined in: packages/block/types/index.d.ts:43
+Defined in: tevm-monorepo/packages/block/types/index.d.ts:43
 
 Creates a block from an execution payload
 

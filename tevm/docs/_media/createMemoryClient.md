@@ -29,15 +29,15 @@ This provides an integrated environment for local Ethereum development with capa
 
 ### TCommon
 
-`TCommon` *extends* `object` & `object` & `ChainConfig`\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\> = `object` & `object` & `ChainConfig`\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\>
+`TCommon` *extends* `object` & `object` & `ChainConfig`\<`ChainFormatters` \| `undefined`, `Record`\<`string`, `unknown`\> \| `undefined`\> = `object` & `object` & `ChainConfig`\<`ChainFormatters` \| `undefined`, `Record`\<`string`, `unknown`\> \| `undefined`\>
 
 ### TAccountOrAddress
 
-`TAccountOrAddress` *extends* `undefined` \| `` `0x${string}` `` \| `Account` = `undefined`
+`TAccountOrAddress` *extends* `` `0x${string}` `` \| `Account` \| `undefined` = `undefined`
 
 ### TRpcSchema
 
-`TRpcSchema` *extends* `undefined` \| `RpcSchema` = \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\]
+`TRpcSchema` *extends* `RpcSchema` \| `undefined` = \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\]
 
 ## Parameters
 
@@ -53,7 +53,7 @@ This provides an integrated environment for local Ethereum development with capa
 
 The Account of the Client.
 
-### addChain()
+### addChain
 
 > **addChain**: (`args`) => `Promise`\<`void`\>
 
@@ -88,21 +88,55 @@ await client.addChain({ chain: optimism })
 
 ### batch?
 
-> `optional` **batch**: `object`
+> `optional` **batch?**: `object`
 
 Flags for batch settings.
 
 #### batch.multicall?
 
-> `optional` **multicall**: `boolean` \| \{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}
+> `optional` **multicall?**: `boolean` \| \{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}
 
 Toggle to enable `eth_call` multicall aggregation.
 
-##### Type Declaration
+##### Union Members
 
 `boolean`
 
+***
+
+###### Type Literal
+
 \{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}
+
+###### batchSize?
+
+> `optional` **batchSize?**: `number`
+
+The maximum size (in bytes) for each calldata chunk.
+
+###### Default
+
+```ts
+1_024
+```
+
+###### deployless?
+
+> `optional` **deployless?**: `boolean`
+
+Enable deployless multicall.
+
+###### wait?
+
+> `optional` **wait?**: `number`
+
+The maximum number of milliseconds to wait before sending a batch.
+
+###### Default
+
+```ts
+0
+```
 
 ### cacheTime
 
@@ -110,7 +144,7 @@ Toggle to enable `eth_call` multicall aggregation.
 
 Time (in ms) that cached data will remain in memory.
 
-### call()
+### call
 
 > **call**: (`parameters`) => `Promise`\<`CallReturnType`\>
 
@@ -150,15 +184,39 @@ const data = await client.call({
 
 ### ccipRead?
 
-> `optional` **ccipRead**: `false` \| \{ `request?`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
+> `optional` **ccipRead?**: `false` \| \{ `request?`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
 
 [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
 
-#### Type Declaration
+#### Union Members
 
 `false`
 
+***
+
+##### Type Literal
+
 \{ `request?`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
+
+##### request?
+
+> `optional` **request?**: (`parameters`) => `Promise`\<`` `0x${string}` ``\>
+
+A function that will be called to make the offchain CCIP lookup request.
+
+###### Parameters
+
+###### parameters
+
+`CcipRequestParameters`
+
+###### Returns
+
+`Promise`\<`` `0x${string}` ``\>
+
+###### See
+
+https://eips.ethereum.org/EIPS/eip-3668#client-lookup-protocol
 
 ### chain
 
@@ -166,7 +224,7 @@ const data = await client.call({
 
 Chain for the client.
 
-### createAccessList()
+### createAccessList
 
 > **createAccessList**: (`parameters`) => `Promise`\<\{ `accessList`: `AccessList`; `gasUsed`: `bigint`; \}\>
 
@@ -204,7 +262,7 @@ const data = await client.createAccessList({
 })
 ```
 
-### createBlockFilter()
+### createBlockFilter
 
 > **createBlockFilter**: () => `Promise`\<\{ `id`: `` `0x${string}` ``; `request`: `EIP1193RequestFn`\<readonly \[\{ `Method`: `"eth_getFilterChanges"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `` `0x${string}` ``[] \| `RpcLog`[]; \}, \{ `Method`: `"eth_getFilterLogs"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[]; \}, \{ `Method`: `"eth_uninstallFilter"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `boolean`; \}\]\>; `type`: `"block"`; \}\>
 
@@ -233,7 +291,7 @@ const filter = await createBlockFilter(client)
 // { id: "0x345a6572337856574a76364e457a4366", type: 'block' }
 ```
 
-### createContractEventFilter()
+### createContractEventFilter
 
 > **createContractEventFilter**: \<`abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`CreateContractEventFilterReturnType`\<`abi`, `eventName`, `args`, `strict`, `fromBlock`, `toBlock`\>\>
 
@@ -249,23 +307,23 @@ Creates a Filter to retrieve event logs that can be used with [`getFilterChanges
 
 ##### eventName
 
-`eventName` *extends* `undefined` \| `string`
+`eventName` *extends* `string` \| `undefined`
 
 ##### args
 
-`args` *extends* `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[]
+`args` *extends* `Record`\<`string`, `unknown`\> \| readonly `unknown`[] \| `undefined`
 
 ##### strict
 
-`strict` *extends* `undefined` \| `boolean` = `undefined`
+`strict` *extends* `boolean` \| `undefined` = `undefined`
 
 ##### fromBlock
 
-`fromBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`fromBlock` *extends* `bigint` \| `BlockTag` \| `undefined` = `undefined`
 
 ##### toBlock
 
-`toBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`toBlock` *extends* `bigint` \| `BlockTag` \| `undefined` = `undefined`
 
 #### Parameters
 
@@ -296,7 +354,7 @@ const filter = await client.createContractEventFilter({
 })
 ```
 
-### createEventFilter()
+### createEventFilter
 
 > **createEventFilter**: \<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`, `_EventName`, `_Args`\>(`args?`) => `Promise`\<\{ \[K in string \| number \| symbol\]: Filter\<"event", abiEvents, \_EventName, \_Args, strict, fromBlock, toBlock\>\[K\] \}\>
 
@@ -309,31 +367,31 @@ Creates a [`Filter`](https://viem.sh/docs/glossary/types#filter) to listen for n
 
 ##### abiEvent
 
-`abiEvent` *extends* `undefined` \| `AbiEvent` = `undefined`
+`abiEvent` *extends* `AbiEvent` \| `undefined` = `undefined`
 
 ##### abiEvents
 
-`abiEvents` *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `abiEvent` *extends* `AbiEvent` ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
+`abiEvents` *extends* readonly `unknown`[] \| readonly `AbiEvent`[] \| `undefined` = `abiEvent` *extends* `AbiEvent` ? \[`abiEvent`\] : `undefined`
 
 ##### strict
 
-`strict` *extends* `undefined` \| `boolean` = `undefined`
+`strict` *extends* `boolean` \| `undefined` = `undefined`
 
 ##### fromBlock
 
-`fromBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`fromBlock` *extends* `bigint` \| `BlockTag` \| `undefined` = `undefined`
 
 ##### toBlock
 
-`toBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`toBlock` *extends* `bigint` \| `BlockTag` \| `undefined` = `undefined`
 
 ##### _EventName
 
-`_EventName` *extends* `undefined` \| `string` = `MaybeAbiEventName`\<`abiEvent`\>
+`_EventName` *extends* `string` \| `undefined` = `MaybeAbiEventName`\<`abiEvent`\>
 
 ##### _Args
 
-`_Args` *extends* `undefined` \| `Record`\<`string`, `unknown`\> \| readonly `unknown`[] = `undefined`
+`_Args` *extends* `Record`\<`string`, `unknown`\> \| readonly `unknown`[] \| `undefined` = `undefined`
 
 #### Parameters
 
@@ -364,7 +422,7 @@ const filter = await client.createEventFilter({
 })
 ```
 
-### createPendingTransactionFilter()
+### createPendingTransactionFilter
 
 > **createPendingTransactionFilter**: () => `Promise`\<\{ `id`: `` `0x${string}` ``; `request`: `EIP1193RequestFn`\<readonly \[\{ `Method`: `"eth_getFilterChanges"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `` `0x${string}` ``[] \| `RpcLog`[]; \}, \{ `Method`: `"eth_getFilterLogs"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `RpcLog`[]; \}, \{ `Method`: `"eth_uninstallFilter"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `boolean`; \}\]\>; `type`: `"transaction"`; \}\>
 
@@ -393,7 +451,13 @@ const filter = await client.createPendingTransactionFilter()
 // { id: "0x345a6572337856574a76364e457a4366", type: 'transaction' }
 ```
 
-### deployContract()
+### dataSuffix?
+
+> `optional` **dataSuffix?**: `DataSuffix`
+
+Data suffix to append to transaction data.
+
+### deployContract
 
 > **deployContract**: \<`abi`, `chainOverride`\>(`args`) => `Promise`\<`` `0x${string}` ``\>
 
@@ -410,7 +474,7 @@ Deploys a contract to the network, given bytecode and constructor arguments.
 
 ##### chainOverride
 
-`chainOverride` *extends* `undefined` \| `Chain`
+`chainOverride` *extends* `Chain` \| `undefined`
 
 #### Parameters
 
@@ -445,7 +509,7 @@ const hash = await client.deployContract({
 })
 ```
 
-### dropTransaction()
+### dropTransaction
 
 > **dropTransaction**: (`args`) => `Promise`\<`void`\>
 
@@ -481,7 +545,7 @@ await client.dropTransaction({
 })
 ```
 
-### dumpState()
+### dumpState
 
 > **dumpState**: () => `Promise`\<`` `0x${string}` ``\>
 
@@ -508,7 +572,7 @@ const client = createTestClient({
 await client.dumpState()
 ```
 
-### estimateContractGas()
+### estimateContractGas
 
 > **estimateContractGas**: \<`chain`, `abi`, `functionName`, `args`\>(`args`) => `Promise`\<`bigint`\>
 
@@ -520,7 +584,7 @@ Estimates the gas required to successfully execute a contract write function cal
 
 ##### chain
 
-`chain` *extends* `undefined` \| `Chain`
+`chain` *extends* `Chain` \| `undefined`
 
 ##### abi
 
@@ -570,7 +634,7 @@ const gas = await client.estimateContractGas({
 })
 ```
 
-### estimateFeesPerGas()
+### estimateFeesPerGas
 
 > **estimateFeesPerGas**: \<`chainOverride`, `type`\>(`args?`) => `Promise`\<`EstimateFeesPerGasReturnType`\<`type`\>\>
 
@@ -583,7 +647,7 @@ in the next block.
 
 ##### chainOverride
 
-`chainOverride` *extends* `undefined` \| `Chain` = `undefined`
+`chainOverride` *extends* `Chain` \| `undefined` = `undefined`
 
 ##### type
 
@@ -615,7 +679,7 @@ const maxPriorityFeePerGas = await client.estimateFeesPerGas()
 // { maxFeePerGas: ..., maxPriorityFeePerGas: ... }
 ```
 
-### estimateGas()
+### estimateGas
 
 > **estimateGas**: (`args`) => `Promise`\<`bigint`\>
 
@@ -655,7 +719,7 @@ const gasEstimate = await client.estimateGas({
 })
 ```
 
-### estimateMaxPriorityFeePerGas()
+### estimateMaxPriorityFeePerGas
 
 > **estimateMaxPriorityFeePerGas**: \<`chainOverride`\>(`args?`) => `Promise`\<`bigint`\>
 
@@ -668,7 +732,7 @@ to be included in the next block.
 
 ##### chainOverride
 
-`chainOverride` *extends* `undefined` \| `Chain` = `undefined`
+`chainOverride` *extends* `Chain` \| `undefined` = `undefined`
 
 #### Parameters
 
@@ -698,11 +762,11 @@ const maxPriorityFeePerGas = await client.estimateMaxPriorityFeePerGas()
 
 ### experimental\_blockTag?
 
-> `optional` **experimental\_blockTag**: `BlockTag`
+> `optional` **experimental\_blockTag?**: `BlockTag`
 
 Default block tag to use for RPC requests.
 
-### extend()
+### extend
 
 > **extend**: \<`client`\>(`fn`) => `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\], \{ \[K in string \| number \| symbol\]: client\[K\] \} & [`TevmActions`](../type-aliases/TevmActions.md) & `PublicActions`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>
 
@@ -722,7 +786,44 @@ Default block tag to use for RPC requests.
 
 `Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\], \{ \[K in string \| number \| symbol\]: client\[K\] \} & [`TevmActions`](../type-aliases/TevmActions.md) & `PublicActions`\<[`TevmTransport`](../type-aliases/TevmTransport.md), `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `WalletActions`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`\> & `TestActions`\>
 
-### getAddresses()
+### fillTransaction
+
+> **fillTransaction**: \<`chainOverride`, `accountOverride`\>(`args`) => `Promise`\<`FillTransactionReturnType`\<`TCommon`, `chainOverride`\>\> & \<`chainOverride`, `accountOverride`\>(`args`) => `Promise`\<`FillTransactionReturnType`\<`TCommon`, `chainOverride`\>\>
+
+Fills a transaction request with the necessary fields to be signed over.
+
+- Docs: https://viem.sh/docs/actions/public/fillTransaction
+
+#### Param
+
+Client to use
+
+#### Param
+
+FillTransactionParameters
+
+#### Returns
+
+The filled transaction. FillTransactionReturnType
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const result = await client.fillTransaction({
+  account: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+  value: parseEther('1'),
+})
+```
+
+### getAddresses
 
 > **getAddresses**: () => `Promise`\<`GetAddressesReturnType`\>
 
@@ -750,7 +851,7 @@ const client = createWalletClient({
 const accounts = await client.getAddresses()
 ```
 
-### getAutomine()
+### getAutomine
 
 > **getAutomine**: () => `Promise`\<`boolean`\>
 
@@ -778,7 +879,7 @@ const client = createTestClient({
 const isAutomining = await client.getAutomine()
 ```
 
-### getBalance()
+### getBalance
 
 > **getBalance**: (`args`) => `Promise`\<`bigint`\>
 
@@ -830,7 +931,7 @@ const balance = await client.getBalance({
 // 10000000000000000000000n (wei)
 ```
 
-### getBlobBaseFee()
+### getBlobBaseFee
 
 > **getBlobBaseFee**: () => `Promise`\<`bigint`\>
 
@@ -859,7 +960,7 @@ const client = createPublicClient({
 const blobBaseFee = await client.getBlobBaseFee()
 ```
 
-### getBlock()
+### getBlock
 
 > **getBlock**: \<`includeTransactions`, `blockTag`\>(`args?`) => `Promise`\<\{ \[K in string \| number \| symbol\]: FormattedBlock\<TCommon, includeTransactions, blockTag\>\[K\] \}\>
 
@@ -908,7 +1009,7 @@ const client = createPublicClient({
 const block = await client.getBlock()
 ```
 
-### getBlockNumber()
+### getBlockNumber
 
 > **getBlockNumber**: (`args?`) => `Promise`\<`bigint`\>
 
@@ -946,7 +1047,7 @@ const blockNumber = await client.getBlockNumber()
 // 69420n
 ```
 
-### getBlockTransactionCount()
+### getBlockTransactionCount
 
 > **getBlockTransactionCount**: (`args?`) => `Promise`\<`number`\>
 
@@ -984,7 +1085,7 @@ const client = createPublicClient({
 const count = await client.getBlockTransactionCount()
 ```
 
-### ~~getBytecode()~~
+### ~~getBytecode~~
 
 > **getBytecode**: (`args`) => `Promise`\<`GetCodeReturnType`\>
 
@@ -1002,9 +1103,9 @@ const count = await client.getBlockTransactionCount()
 
 Use `getCode` instead.
 
-### getCallsStatus()
+### getCallsStatus
 
-> **getCallsStatus**: (`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
+> **getCallsStatus**: (`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `"pending"` \| `"success"` \| `"failure"` \| `undefined`; `statusCode`: `number`; `version`: `string`; \}\>
 
 Returns the status of a call batch that was sent via `sendCalls`.
 
@@ -1019,7 +1120,7 @@ Returns the status of a call batch that was sent via `sendCalls`.
 
 #### Returns
 
-`Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
+`Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `"pending"` \| `"success"` \| `"failure"` \| `undefined`; `statusCode`: `number`; `version`: `string`; \}\>
 
 Status of the calls. GetCallsStatusReturnType
 
@@ -1037,7 +1138,7 @@ const client = createWalletClient({
 const { receipts, status } = await client.getCallsStatus({ id: '0xdeadbeef' })
 ```
 
-### getCapabilities()
+### getCapabilities
 
 > **getCapabilities**: \<`chainId`\>(`parameters?`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (chainId extends number ? \{ atomic?: \{ status: "ready" \| "supported" \| "unsupported" \}; paymasterService?: \{ supported: boolean \}; unstable\_addSubAccount?: \{ keyTypes: ((...) \| (...) \| (...) \| (...))\[\]; supported: boolean \}; \[key: string\]: any \} : ChainIdToCapabilities\<Capabilities\<\{ atomic?: \{ status: ... \}; paymasterService?: \{ supported: ... \}; unstable\_addSubAccount?: \{ keyTypes: ...; supported: ... \}; \[key: string\]: any \}\>, number\>)\[K\] \}\>
 
@@ -1050,7 +1151,7 @@ Extract capabilities that a connected wallet supports (e.g. paymasters, session 
 
 ##### chainId
 
-`chainId` *extends* `undefined` \| `number`
+`chainId` *extends* `number` \| `undefined`
 
 #### Parameters
 
@@ -1107,7 +1208,7 @@ const chainId = await client.getChainId()
 // 1
 ```
 
-### getCode()
+### getCode
 
 > **getCode**: (`args`) => `Promise`\<`GetCodeReturnType`\>
 
@@ -1145,7 +1246,7 @@ const code = await client.getCode({
 })
 ```
 
-### getContractEvents()
+### getContractEvents
 
 > **getContractEvents**: \<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`GetContractEventsReturnType`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
 
@@ -1162,19 +1263,19 @@ Returns a list of event logs emitted by a contract.
 
 ##### eventName
 
-`eventName` *extends* `undefined` \| `string` = `undefined`
+`eventName` *extends* `string` \| `undefined` = `undefined`
 
 ##### strict
 
-`strict` *extends* `undefined` \| `boolean` = `undefined`
+`strict` *extends* `boolean` \| `undefined` = `undefined`
 
 ##### fromBlock
 
-`fromBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`fromBlock` *extends* `bigint` \| `BlockTag` \| `undefined` = `undefined`
 
 ##### toBlock
 
-`toBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`toBlock` *extends* `bigint` \| `BlockTag` \| `undefined` = `undefined`
 
 #### Parameters
 
@@ -1206,7 +1307,44 @@ const logs = await client.getContractEvents(client, {
 })
 ```
 
-### getEip712Domain()
+### getDelegation
+
+> **getDelegation**: (`args`) => `Promise`\<`GetDelegationReturnType`\>
+
+Returns the address that an account has delegated to via EIP-7702.
+
+- Docs: https://viem.sh/docs/actions/public/getDelegation
+
+#### Parameters
+
+##### args
+
+`GetDelegationParameters`
+
+GetDelegationParameters
+
+#### Returns
+
+`Promise`\<`GetDelegationReturnType`\>
+
+The delegated address, or undefined if not delegated. GetDelegationReturnType
+
+#### Example
+
+```ts
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(),
+})
+const delegation = await client.getDelegation({
+  address: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+})
+```
+
+### getEip712Domain
 
 > **getEip712Domain**: (`args`) => `Promise`\<`GetEip712DomainReturnType`\>
 
@@ -1250,7 +1388,7 @@ const domain = await client.getEip712Domain({
 // }
 ```
 
-### getEnsAddress()
+### getEnsAddress
 
 > **getEnsAddress**: (`args`) => `Promise`\<`GetEnsAddressReturnType`\>
 
@@ -1356,7 +1494,7 @@ const ensAddress = await client.getEnsAddress({
 // '0xd2135CfB216b74109775236E36d4b433F1DF507B'
 ```
 
-### getEnsAvatar()
+### getEnsAvatar
 
 > **getEnsAvatar**: (`args`) => `Promise`\<`GetEnsAvatarReturnType`\>
 
@@ -1448,7 +1586,7 @@ const ensAvatar = await client.getEnsAvatar({
 // 'https://ipfs.io/ipfs/Qma8mnp6xV3J2cRNf3mTth5C8nV11CAnceVinc3y8jSbio'
 ```
 
-### getEnsName()
+### getEnsName
 
 > **getEnsName**: (`args`) => `Promise`\<`GetEnsNameReturnType`\>
 
@@ -1551,7 +1689,7 @@ const ensName = await client.getEnsName({
 // 'wevm.eth'
 ```
 
-### getEnsResolver()
+### getEnsResolver
 
 > **getEnsResolver**: (`args`) => `Promise`\<`` `0x${string}` ``\>
 
@@ -1625,7 +1763,7 @@ const resolverAddress = await client.getEnsResolver({
 // '0x4976fb03C32e5B8cfe2b6cCB31c09Ba78EBaBa41'
 ```
 
-### getEnsText()
+### getEnsText
 
 > **getEnsText**: (`args`) => `Promise`\<`GetEnsTextReturnType`\>
 
@@ -1718,7 +1856,7 @@ const twitterRecord = await client.getEnsText({
 // 'wevm_dev'
 ```
 
-### getFeeHistory()
+### getFeeHistory
 
 > **getFeeHistory**: (`args`) => `Promise`\<`GetFeeHistoryReturnType`\>
 
@@ -1757,7 +1895,7 @@ const feeHistory = await client.getFeeHistory({
 })
 ```
 
-### getFilterChanges()
+### getFilterChanges
 
 > **getFilterChanges**: \<`filterType`, `abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`GetFilterChangesReturnType`\<`filterType`, `abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
 
@@ -1774,23 +1912,23 @@ Returns a list of logs or hashes based on a [Filter](/docs/glossary/terms#filter
 
 ##### abi
 
-`abi` *extends* `undefined` \| `Abi` \| readonly `unknown`[]
+`abi` *extends* `Abi` \| readonly `unknown`[] \| `undefined`
 
 ##### eventName
 
-`eventName` *extends* `undefined` \| `string`
+`eventName` *extends* `string` \| `undefined`
 
 ##### strict
 
-`strict` *extends* `undefined` \| `boolean` = `undefined`
+`strict` *extends* `boolean` \| `undefined` = `undefined`
 
 ##### fromBlock
 
-`fromBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`fromBlock` *extends* `bigint` \| `BlockTag` \| `undefined` = `undefined`
 
 ##### toBlock
 
-`toBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`toBlock` *extends* `bigint` \| `BlockTag` \| `undefined` = `undefined`
 
 #### Parameters
 
@@ -1882,7 +2020,7 @@ const filter = await client.createPendingTransactionFilter()
 const hashes = await client.getFilterChanges({ filter })
 ```
 
-### getFilterLogs()
+### getFilterLogs
 
 > **getFilterLogs**: \<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>(`args`) => `Promise`\<`GetFilterLogsReturnType`\<`abi`, `eventName`, `strict`, `fromBlock`, `toBlock`\>\>
 
@@ -1895,23 +2033,23 @@ Returns a list of event logs since the filter was created.
 
 ##### abi
 
-`abi` *extends* `undefined` \| `Abi` \| readonly `unknown`[]
+`abi` *extends* `Abi` \| readonly `unknown`[] \| `undefined`
 
 ##### eventName
 
-`eventName` *extends* `undefined` \| `string`
+`eventName` *extends* `string` \| `undefined`
 
 ##### strict
 
-`strict` *extends* `undefined` \| `boolean` = `undefined`
+`strict` *extends* `boolean` \| `undefined` = `undefined`
 
 ##### fromBlock
 
-`fromBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`fromBlock` *extends* `bigint` \| `BlockTag` \| `undefined` = `undefined`
 
 ##### toBlock
 
-`toBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`toBlock` *extends* `bigint` \| `BlockTag` \| `undefined` = `undefined`
 
 #### Parameters
 
@@ -1948,7 +2086,7 @@ const filter = await client.createEventFilter({
 const logs = await client.getFilterLogs({ filter })
 ```
 
-### getGasPrice()
+### getGasPrice
 
 > **getGasPrice**: () => `Promise`\<`bigint`\>
 
@@ -1976,7 +2114,7 @@ const client = createPublicClient({
 const gasPrice = await client.getGasPrice()
 ```
 
-### getLogs()
+### getLogs
 
 > **getLogs**: \<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>(`args?`) => `Promise`\<`GetLogsReturnType`\<`abiEvent`, `abiEvents`, `strict`, `fromBlock`, `toBlock`\>\>
 
@@ -1990,23 +2128,23 @@ Returns a list of event logs matching the provided parameters.
 
 ##### abiEvent
 
-`abiEvent` *extends* `undefined` \| `AbiEvent` = `undefined`
+`abiEvent` *extends* `AbiEvent` \| `undefined` = `undefined`
 
 ##### abiEvents
 
-`abiEvents` *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `abiEvent` *extends* `AbiEvent` ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
+`abiEvents` *extends* readonly `unknown`[] \| readonly `AbiEvent`[] \| `undefined` = `abiEvent` *extends* `AbiEvent` ? \[`abiEvent`\] : `undefined`
 
 ##### strict
 
-`strict` *extends* `undefined` \| `boolean` = `undefined`
+`strict` *extends* `boolean` \| `undefined` = `undefined`
 
 ##### fromBlock
 
-`fromBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`fromBlock` *extends* `bigint` \| `BlockTag` \| `undefined` = `undefined`
 
 ##### toBlock
 
-`toBlock` *extends* `undefined` \| `bigint` \| `BlockTag` = `undefined`
+`toBlock` *extends* `bigint` \| `BlockTag` \| `undefined` = `undefined`
 
 #### Parameters
 
@@ -2035,7 +2173,7 @@ const client = createPublicClient({
 const logs = await client.getLogs()
 ```
 
-### getPermissions()
+### getPermissions
 
 > **getPermissions**: () => `Promise`\<`GetPermissionsReturnType`\>
 
@@ -2063,7 +2201,7 @@ const client = createWalletClient({
 const permissions = await client.getPermissions()
 ```
 
-### getProof()
+### getProof
 
 > **getProof**: (`args`) => `Promise`\<`GetProofReturnType`\>
 
@@ -2101,7 +2239,7 @@ const block = await client.getProof({
 })
 ```
 
-### getStorageAt()
+### getStorageAt
 
 > **getStorageAt**: (`args`) => `Promise`\<`GetStorageAtReturnType`\>
 
@@ -2141,7 +2279,7 @@ const code = await client.getStorageAt({
 })
 ```
 
-### getTransaction()
+### getTransaction
 
 > **getTransaction**: \<`blockTag`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: FormattedTransaction\<TCommon, blockTag\>\[K\] \}\>
 
@@ -2186,7 +2324,7 @@ const transaction = await client.getTransaction({
 })
 ```
 
-### getTransactionConfirmations()
+### getTransactionConfirmations
 
 > **getTransactionConfirmations**: (`args`) => `Promise`\<`bigint`\>
 
@@ -2225,7 +2363,7 @@ const confirmations = await client.getTransactionConfirmations({
 })
 ```
 
-### getTransactionCount()
+### getTransactionCount
 
 > **getTransactionCount**: (`args`) => `Promise`\<`number`\>
 
@@ -2263,7 +2401,7 @@ const transactionCount = await client.getTransactionCount({
 })
 ```
 
-### getTransactionReceipt()
+### getTransactionReceipt
 
 > **getTransactionReceipt**: (`args`) => `Promise`\<`ExtractChainFormatterReturnType`\<`TCommon`, `"transactionReceipt"`, `TransactionReceipt`\>\>
 
@@ -2302,7 +2440,7 @@ const transactionReceipt = await client.getTransactionReceipt({
 })
 ```
 
-### getTxpoolContent()
+### getTxpoolContent
 
 > **getTxpoolContent**: () => `Promise`\<`GetTxpoolContentReturnType`\>
 
@@ -2330,7 +2468,7 @@ const client = createTestClient({
 const content = await client.getTxpoolContent()
 ```
 
-### getTxpoolStatus()
+### getTxpoolStatus
 
 > **getTxpoolStatus**: () => `Promise`\<`GetTxpoolStatusReturnType`\>
 
@@ -2358,7 +2496,7 @@ const client = createTestClient({
 const status = await client.getTxpoolStatus()
 ```
 
-### impersonateAccount()
+### impersonateAccount
 
 > **impersonateAccount**: (`args`) => `Promise`\<`void`\>
 
@@ -2394,7 +2532,7 @@ await client.impersonateAccount({
 })
 ```
 
-### increaseTime()
+### increaseTime
 
 > **increaseTime**: (`args`) => `Promise`\<`` `0x${string}` ``\>
 
@@ -2430,7 +2568,7 @@ await client.increaseTime({
 })
 ```
 
-### inspectTxpool()
+### inspectTxpool
 
 > **inspectTxpool**: () => `Promise`\<`InspectTxpoolReturnType`\>
 
@@ -2464,7 +2602,7 @@ const data = await client.inspectTxpool()
 
 A key for the client.
 
-### loadState()
+### loadState
 
 > **loadState**: (`args`) => `Promise`\<`void`\>
 
@@ -2496,7 +2634,7 @@ const client = createTestClient({
 await client.loadState({ state: '0x...' })
 ```
 
-### mine()
+### mine
 
 > **mine**: (`args`) => `Promise`\<`void`\>
 
@@ -2530,7 +2668,7 @@ const client = createTestClient({
 await client.mine({ blocks: 1 })
 ```
 
-### multicall()
+### multicall
 
 > **multicall**: \<`contracts`, `allowFailure`\>(`args`) => `Promise`\<`MulticallReturnType`\<`contracts`, `allowFailure`\>\>
 
@@ -2606,7 +2744,7 @@ A name for the client.
 
 Frequency (in ms) for polling enabled actions & events. Defaults to 4_000 milliseconds.
 
-### prepareAuthorization()
+### prepareAuthorization
 
 > **prepareAuthorization**: (`parameters`) => `Promise`\<`PrepareAuthorizationReturnType`\>
 
@@ -2666,7 +2804,7 @@ const authorization = await client.prepareAuthorization({
 
 ### prepareTransactionRequest
 
-> **prepareTransactionRequest**: \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & \{ chainId?: (...) \| (...) \}, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends request\["kzg"\] ? \{\} : Pick\<request, "kzg"\>))\[K\] \}\> & \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & \{ chainId?: (...) \| (...) \}, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends request\["kzg"\] ? \{\} : Pick\<request, "kzg"\>))\[K\] \}\>
+> **prepareTransactionRequest**: \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & \{ chainId?: (...) \| (...) \}, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends request\["kzg"\] ? \{\} : Pick\<request, "kzg"\>) & \{ \_capabilities?: \{ \[key: string\]: any \} \})\[K\] \}\> & \<`request`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<\{ \[K in string \| number \| symbol\]: (UnionRequiredBy\<Extract\<(...) & (...) & (...), (...) extends (...) ? (...) : (...)\> & \{ chainId?: (...) \| (...) \}, ParameterTypeToParameters\<(...)\[(...)\] extends readonly (...)\[\] ? (...)\[(...)\] : (...) \| (...) \| (...) \| (...) \| (...) \| (...)\>\> & (unknown extends request\["kzg"\] ? \{\} : Pick\<request, "kzg"\>) & \{ \_capabilities?: \{ \[key: string\]: any \} \})\[K\] \}\>
 
 Prepares a transaction request for signing.
 
@@ -2714,7 +2852,7 @@ const request = await client.prepareTransactionRequest({
 })
 ```
 
-### readContract()
+### readContract
 
 > **readContract**: \<`abi`, `functionName`, `args`\>(`args`) => `Promise`\<`ReadContractReturnType`\<`abi`, `functionName`, `args`\>\>
 
@@ -2777,7 +2915,7 @@ const result = await client.readContract({
 // 424122n
 ```
 
-### removeBlockTimestampInterval()
+### removeBlockTimestampInterval
 
 > **removeBlockTimestampInterval**: () => `Promise`\<`void`\>
 
@@ -2810,7 +2948,7 @@ await client.removeBlockTimestampInterval()
 
 Request function wrapped with friendly error handling
 
-### requestAddresses()
+### requestAddresses
 
 > **requestAddresses**: () => `Promise`\<`RequestAddressesReturnType`\>
 
@@ -2842,7 +2980,7 @@ const client = createWalletClient({
 const accounts = await client.requestAddresses()
 ```
 
-### requestPermissions()
+### requestPermissions
 
 > **requestPermissions**: (`args`) => `Promise`\<`RequestPermissionsReturnType`\>
 
@@ -2882,7 +3020,7 @@ const permissions = await client.requestPermissions({
 })
 ```
 
-### reset()
+### reset
 
 > **reset**: (`args?`) => `Promise`\<`void`\>
 
@@ -2916,7 +3054,7 @@ const client = createTestClient({
 await client.reset({ blockNumber: 69420n })
 ```
 
-### revert()
+### revert
 
 > **revert**: (`args`) => `Promise`\<`void`\>
 
@@ -2950,7 +3088,7 @@ const client = createTestClient({
 await client.revert({ id: '0x…' })
 ```
 
-### sendCalls()
+### sendCalls
 
 > **sendCalls**: \<`calls`, `chainOverride`\>(`parameters`) => `Promise`\<\{ `capabilities?`: \{\[`key`: `string`\]: `any`; \}; `id`: `string`; \}\>
 
@@ -2967,7 +3105,7 @@ Requests the connected wallet to send a batch of calls.
 
 ##### chainOverride
 
-`chainOverride` *extends* `undefined` \| `Chain` = `undefined`
+`chainOverride` *extends* `Chain` \| `undefined` = `undefined`
 
 #### Parameters
 
@@ -2993,6 +3131,63 @@ const client = createWalletClient({
 })
 
 const id = await client.sendCalls({
+  account: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  calls: [
+    {
+      data: '0xdeadbeef',
+      to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+    },
+    {
+      to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+      value: 69420n,
+    },
+  ],
+})
+```
+
+### sendCallsSync
+
+> **sendCallsSync**: \<`calls`, `chainOverride`\>(`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `"pending"` \| `"success"` \| `"failure"` \| `undefined`; `statusCode`: `number`; `version`: `string`; \}\>
+
+Requests the connected wallet to send a batch of calls, and waits for the calls to be included in a block.
+
+- Docs: https://viem.sh/docs/actions/wallet/sendCallsSync
+- JSON-RPC Methods: [`wallet_sendCalls`](https://eips.ethereum.org/EIPS/eip-5792)
+
+#### Type Parameters
+
+##### calls
+
+`calls` *extends* readonly `unknown`[]
+
+##### chainOverride
+
+`chainOverride` *extends* `Chain` \| `undefined` = `undefined`
+
+#### Parameters
+
+##### parameters
+
+`SendCallsSyncParameters`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, `chainOverride`, `calls`\>
+
+#### Returns
+
+`Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `"pending"` \| `"success"` \| `"failure"` \| `undefined`; `statusCode`: `number`; `version`: `string`; \}\>
+
+Calls status. SendCallsSyncReturnType
+
+#### Example
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+
+const status = await client.sendCallsSync({
   account: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
   calls: [
     {
@@ -3045,7 +3240,45 @@ const hash = await client.sendRawTransaction({
 })
 ```
 
-### sendTransaction()
+### sendRawTransactionSync
+
+> **sendRawTransactionSync**: (`args`) => `Promise`\<`ExtractChainFormatterReturnType`\<`TCommon`, `"transactionReceipt"`, `TransactionReceipt`\>\> & (`args`) => `Promise`\<`ExtractChainFormatterReturnType`\<`TCommon`, `"transactionReceipt"`, `TransactionReceipt`\>\>
+
+Sends a **signed** transaction to the network
+
+- Docs: https://viem.sh/docs/actions/wallet/sendRawTransactionSync
+- JSON-RPC Method: [`eth_sendRawTransactionSync`](https://eips.ethereum.org/EIPS/eip-7966)
+
+#### Param
+
+Client to use
+
+#### Param
+
+SendRawTransactionSyncParameters
+
+#### Returns
+
+The transaction receipt. SendRawTransactionSyncReturnType
+
+#### Example
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+import { sendRawTransactionSync } from 'viem/wallet'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+
+const receipt = await client.sendRawTransactionSync({
+  serializedTransaction: '0x02f850018203118080825208808080c080a04012522854168b27e5dc3d5839bab5e6b39e1a0ffd343901ce1622e3d64b48f1a04e00902ae0502c4728cbf12156290df99c3ed7de85b1dbfe20b5c36931733a33'
+})
+```
+
+### sendTransaction
 
 > **sendTransaction**: \<`request`, `chainOverride`\>(`args`) => `Promise`\<`` `0x${string}` ``\>
 
@@ -3061,11 +3294,11 @@ Creates, signs, and sends a new transaction to the network.
 
 ##### request
 
-`request` *extends* `Omit`\<\{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"legacy"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"eip2930"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"eip1559"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes?`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `Kzg`; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `null` \| `` `0x${string}` ``; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `AuthorizationList`\<`number`, `boolean`\>; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"eip7702"`; `value?`: `bigint`; \}, `"from"`\> & `object`
+`request` *extends* `Omit`\<\{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"legacy"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip2930"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip1559"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `` `0x${string}` `` \| `null`; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes?`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `Kzg`; `maxFeePerBlobGas?`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `` `0x${string}` `` \| `null`; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `AuthorizationList`\<`number`, `boolean`\>; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip7702"`; `value?`: `bigint`; \}, `"from"`\> & `object`
 
 ##### chainOverride
 
-`chainOverride` *extends* `undefined` \| `Chain` = `undefined`
+`chainOverride` *extends* `Chain` \| `undefined` = `undefined`
 
 #### Parameters
 
@@ -3115,7 +3348,78 @@ const hash = await client.sendTransaction({
 })
 ```
 
-### sendUnsignedTransaction()
+### sendTransactionSync
+
+> **sendTransactionSync**: \<`request`, `chainOverride`\>(`args`) => `Promise`\<`ExtractChainFormatterReturnType`\<`TCommon`, `"transactionReceipt"`, `TransactionReceipt`\>\>
+
+Creates, signs, and sends a new transaction to the network synchronously.
+Returns the transaction receipt.
+
+- Docs: https://viem.sh/docs/actions/wallet/sendTransactionSync
+- Examples: https://stackblitz.com/github/wevm/viem/tree/main/examples/transactions_sending-transactions
+- JSON-RPC Methods:
+  - JSON-RPC Accounts: [`eth_sendTransaction`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendtransaction)
+  - Local Accounts: [`eth_sendRawTransaction`](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_sendrawtransaction)
+
+#### Type Parameters
+
+##### request
+
+`request` *extends* `Omit`\<\{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"legacy"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip2930"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip1559"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `` `0x${string}` `` \| `null`; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes?`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `Kzg`; `maxFeePerBlobGas?`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `` `0x${string}` `` \| `null`; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `AuthorizationList`\<`number`, `boolean`\>; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip7702"`; `value?`: `bigint`; \}, `"from"`\> & `object`
+
+##### chainOverride
+
+`chainOverride` *extends* `Chain` \| `undefined` = `undefined`
+
+#### Parameters
+
+##### args
+
+`SendTransactionSyncParameters`\<`TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, `chainOverride`, `request`\>
+
+SendTransactionParameters
+
+#### Returns
+
+`Promise`\<`ExtractChainFormatterReturnType`\<`TCommon`, `"transactionReceipt"`, `TransactionReceipt`\>\>
+
+The transaction receipt. SendTransactionReturnType
+
+#### Examples
+
+```ts
+import { createWalletClient, custom } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const receipt = await client.sendTransactionSync({
+  account: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+  value: 1000000000000000000n,
+})
+```
+
+```ts
+// Account Hoisting
+import { createWalletClient, http } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  account: privateKeyToAccount('0x…'),
+  chain: mainnet,
+  transport: http(),
+})
+const receipt = await client.sendTransactionSync({
+  to: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+  value: 1000000000000000000n,
+})
+```
+
+### sendUnsignedTransaction
 
 > **sendUnsignedTransaction**: \<`chain`\>(`args`) => `Promise`\<`` `0x${string}` ``\>
 
@@ -3127,7 +3431,7 @@ Executes a transaction regardless of the signature.
 
 ##### chain
 
-`chain` *extends* `undefined` \| `Chain`
+`chain` *extends* `Chain` \| `undefined`
 
 #### Parameters
 
@@ -3161,7 +3465,7 @@ const hash = await client.sendUnsignedTransaction({
 })
 ```
 
-### setAutomine()
+### setAutomine
 
 > **setAutomine**: (`args`) => `Promise`\<`void`\>
 
@@ -3193,7 +3497,7 @@ const client = createTestClient({
 await client.setAutomine()
 ```
 
-### setBalance()
+### setBalance
 
 > **setBalance**: (`args`) => `Promise`\<`void`\>
 
@@ -3230,7 +3534,7 @@ await client.setBalance({
 })
 ```
 
-### setBlockGasLimit()
+### setBlockGasLimit
 
 > **setBlockGasLimit**: (`args`) => `Promise`\<`void`\>
 
@@ -3264,7 +3568,7 @@ const client = createTestClient({
 await client.setBlockGasLimit({ gasLimit: 420_000n })
 ```
 
-### setBlockTimestampInterval()
+### setBlockTimestampInterval
 
 > **setBlockTimestampInterval**: (`args`) => `Promise`\<`void`\>
 
@@ -3298,7 +3602,7 @@ const client = createTestClient({
 await client.setBlockTimestampInterval({ interval: 5 })
 ```
 
-### setCode()
+### setCode
 
 > **setCode**: (`args`) => `Promise`\<`void`\>
 
@@ -3335,7 +3639,7 @@ await client.setCode({
 })
 ```
 
-### setCoinbase()
+### setCoinbase
 
 > **setCoinbase**: (`args`) => `Promise`\<`void`\>
 
@@ -3371,7 +3675,7 @@ await client.setCoinbase({
 })
 ```
 
-### setIntervalMining()
+### setIntervalMining
 
 > **setIntervalMining**: (`args`) => `Promise`\<`void`\>
 
@@ -3405,7 +3709,7 @@ const client = createTestClient({
 await client.setIntervalMining({ interval: 5 })
 ```
 
-### setLoggingEnabled()
+### setLoggingEnabled
 
 > **setLoggingEnabled**: (`args`) => `Promise`\<`void`\>
 
@@ -3437,7 +3741,7 @@ const client = createTestClient({
 await client.setLoggingEnabled()
 ```
 
-### setMinGasPrice()
+### setMinGasPrice
 
 > **setMinGasPrice**: (`args`) => `Promise`\<`void`\>
 
@@ -3475,7 +3779,7 @@ await client.setMinGasPrice({
 })
 ```
 
-### setNextBlockBaseFeePerGas()
+### setNextBlockBaseFeePerGas
 
 > **setNextBlockBaseFeePerGas**: (`args`) => `Promise`\<`void`\>
 
@@ -3511,7 +3815,7 @@ await client.setNextBlockBaseFeePerGas({
 })
 ```
 
-### setNextBlockTimestamp()
+### setNextBlockTimestamp
 
 > **setNextBlockTimestamp**: (`args`) => `Promise`\<`void`\>
 
@@ -3545,7 +3849,7 @@ const client = createTestClient({
 await client.setNextBlockTimestamp({ timestamp: 1671744314n })
 ```
 
-### setNonce()
+### setNonce
 
 > **setNonce**: (`args`) => `Promise`\<`void`\>
 
@@ -3582,7 +3886,7 @@ await client.setNonce({
 })
 ```
 
-### setRpcUrl()
+### setRpcUrl
 
 > **setRpcUrl**: (`args`) => `Promise`\<`void`\>
 
@@ -3614,7 +3918,7 @@ const client = createTestClient({
 await client.setRpcUrl('https://eth-mainnet.g.alchemy.com/v2')
 ```
 
-### setStorageAt()
+### setStorageAt
 
 > **setStorageAt**: (`args`) => `Promise`\<`void`\>
 
@@ -3652,7 +3956,7 @@ await client.setStorageAt({
 })
 ```
 
-### showCallsStatus()
+### showCallsStatus
 
 > **showCallsStatus**: (`parameters`) => `Promise`\<`void`\>
 
@@ -3688,7 +3992,7 @@ const client = createWalletClient({
 await client.showCallsStatus({ id: '0xdeadbeef' })
 ```
 
-### signAuthorization()
+### signAuthorization
 
 > **signAuthorization**: (`parameters`) => `Promise`\<`SignAuthorizationReturnType`\>
 
@@ -3747,7 +4051,7 @@ const signature = await client.signAuthorization({
 })
 ```
 
-### signMessage()
+### signMessage
 
 > **signMessage**: (`args`) => `Promise`\<`` `0x${string}` ``\>
 
@@ -3808,9 +4112,9 @@ const signature = await client.signMessage({
 })
 ```
 
-### signTransaction()
+### signTransaction
 
-> **signTransaction**: \<`chainOverride`, `request`\>(`args`) => `Promise`\<`TransactionSerialized`\<`GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\>, `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip1559"` ? `` `0x02${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip2930"` ? `` `0x01${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip4844"` ? `` `0x03${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip7702"` ? `` `0x04${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"legacy"` ? `TransactionSerializedLegacy` : `never`\>\>
+> **signTransaction**: \<`chainOverride`, `request`\>(`args`) => `Promise`\<`TransactionSerialized`\<`GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `string` \| `undefined` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\>, `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `string` \| `undefined` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip1559"` ? `` `0x02${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `string` \| `undefined` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip2930"` ? `` `0x01${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `string` \| `undefined` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip4844"` ? `` `0x03${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `string` \| `undefined` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip7702"` ? `` `0x04${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `string` \| `undefined` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"legacy"` ? `TransactionSerializedLegacy` : `never`\>\>
 
 Signs a transaction.
 
@@ -3823,11 +4127,11 @@ Signs a transaction.
 
 ##### chainOverride
 
-`chainOverride` *extends* `undefined` \| `Chain`
+`chainOverride` *extends* `Chain` \| `undefined`
 
 ##### request
 
-`request` *extends* `Omit`\<\{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"legacy"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"eip2930"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"eip1559"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes?`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `Kzg`; `maxFeePerBlobGas`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `null` \| `` `0x${string}` ``; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `AuthorizationList`\<`number`, `boolean`\>; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `null` \| `` `0x${string}` ``; `type?`: `"eip7702"`; `value?`: `bigint`; \}, `"from"`\> = `UnionOmit`\<`ExtractChainFormatterParameters`\<`DeriveChain`\<`TCommon`, `chainOverride`\>, `"transactionRequest"`, `TransactionRequest`\>, `"from"`\>
+`request` *extends* `Omit`\<\{ `accessList?`: `undefined`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"legacy"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `bigint`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `undefined`; `maxPriorityFeePerGas?`: `undefined`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip2930"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip1559"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs?`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `` `0x${string}` `` \| `null`; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `undefined`; `blobs`: readonly `` `0x${string}` ``[] \| readonly `ByteArray`[]; `blobVersionedHashes?`: readonly `` `0x${string}` ``[]; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `Kzg`; `maxFeePerBlobGas?`: `bigint`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: readonly `BlobSidecar`\<`` `0x${string}` ``\>[]; `to`: `` `0x${string}` `` \| `null`; `type?`: `"eip4844"`; `value?`: `bigint`; \}, `"from"`\> \| `Omit`\<\{ `accessList?`: `AccessList`; `authorizationList?`: `AuthorizationList`\<`number`, `boolean`\>; `blobs?`: `undefined`; `blobVersionedHashes?`: `undefined`; `data?`: `` `0x${string}` ``; `from?`: `` `0x${string}` ``; `gas?`: `bigint`; `gasPrice?`: `undefined`; `kzg?`: `undefined`; `maxFeePerBlobGas?`: `undefined`; `maxFeePerGas?`: `bigint`; `maxPriorityFeePerGas?`: `bigint`; `nonce?`: `number`; `sidecars?`: `undefined`; `to?`: `` `0x${string}` `` \| `null`; `type?`: `"eip7702"`; `value?`: `bigint`; \}, `"from"`\> = `UnionOmit`\<`ExtractChainFormatterParameters`\<`DeriveChain`\<`TCommon`, `chainOverride`\>, `"transactionRequest"`, `TransactionRequest`\>, `"from"`\>
 
 #### Parameters
 
@@ -3839,7 +4143,7 @@ SignTransactionParameters
 
 #### Returns
 
-`Promise`\<`TransactionSerialized`\<`GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\>, `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip1559"` ? `` `0x02${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip2930"` ? `` `0x01${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip4844"` ? `` `0x03${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip7702"` ? `` `0x04${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `undefined` \| `string` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"legacy"` ? `TransactionSerializedLegacy` : `never`\>\>
+`Promise`\<`TransactionSerialized`\<`GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `string` \| `undefined` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\>, `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `string` \| `undefined` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip1559"` ? `` `0x02${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `string` \| `undefined` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip2930"` ? `` `0x01${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `string` \| `undefined` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip4844"` ? `` `0x03${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `string` \| `undefined` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"eip7702"` ? `` `0x04${string}` `` : `never` \| `GetTransactionType`\<`request`, `request` *extends* `LegacyProperties` ? `"legacy"` : `never` \| `request` *extends* `EIP1559Properties` ? `"eip1559"` : `never` \| `request` *extends* `EIP2930Properties` ? `"eip2930"` : `never` \| `request` *extends* `EIP4844Properties` ? `"eip4844"` : `never` \| `request` *extends* `EIP7702Properties` ? `"eip7702"` : `never` \| `request`\[`"type"`\] *extends* `string` \| `undefined` ? `Extract`\<`any`\[`any`\], `string`\> : `never`\> *extends* `"legacy"` ? `TransactionSerializedLegacy` : `never`\>\>
 
 The signed message. SignTransactionReturnType
 
@@ -3879,7 +4183,7 @@ const request = await client.prepareTransactionRequest({
 const signature = await client.signTransaction(request)
 ```
 
-### signTypedData()
+### signTypedData
 
 > **signTypedData**: \<`typedData`, `primaryType`\>(`args`) => `Promise`\<`` `0x${string}` ``\>
 
@@ -4105,7 +4409,7 @@ const signature = await client.signTypedData({
 })
 ```
 
-### ~~simulate()~~
+### ~~simulate~~
 
 > **simulate**: \<`calls`\>(`args`) => `Promise`\<`SimulateBlocksReturnType`\<`calls`\>\>
 
@@ -4129,7 +4433,7 @@ const signature = await client.signTypedData({
 
 Use `simulateBlocks` instead.
 
-### simulateBlocks()
+### simulateBlocks
 
 > **simulateBlocks**: \<`calls`\>(`args`) => `Promise`\<`SimulateBlocksReturnType`\<`calls`\>\>
 
@@ -4189,7 +4493,7 @@ const result = await client.simulateBlocks({
 })
 ```
 
-### simulateCalls()
+### simulateCalls
 
 > **simulateCalls**: \<`calls`\>(`args`) => `Promise`\<`SimulateCallsReturnType`\<`calls`\>\>
 
@@ -4239,7 +4543,7 @@ const result = await client.simulateCalls({
 })
 ```
 
-### simulateContract()
+### simulateContract
 
 > **simulateContract**: \<`abi`, `functionName`, `args`, `chainOverride`, `accountOverride`\>(`args`) => `Promise`\<`SimulateContractReturnType`\<`abi`, `functionName`, `args`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, `chainOverride`, `accountOverride`\>\>
 
@@ -4264,11 +4568,11 @@ Simulates/validates a contract interaction. This is useful for retrieving **retu
 
 ##### chainOverride
 
-`chainOverride` *extends* `undefined` \| `Chain`
+`chainOverride` *extends* `Chain` \| `undefined`
 
 ##### accountOverride
 
-`accountOverride` *extends* `undefined` \| `` `0x${string}` `` \| `Account` = `undefined`
+`accountOverride` *extends* `` `0x${string}` `` \| `Account` \| `undefined` = `undefined`
 
 #### Parameters
 
@@ -4309,7 +4613,7 @@ const result = await client.simulateContract({
 })
 ```
 
-### snapshot()
+### snapshot
 
 > **snapshot**: () => `Promise`\<`` `0x${string}` ``\>
 
@@ -4336,7 +4640,7 @@ const client = createTestClient({
 await client.snapshot()
 ```
 
-### stopImpersonatingAccount()
+### stopImpersonatingAccount
 
 > **stopImpersonatingAccount**: (`args`) => `Promise`\<`void`\>
 
@@ -4373,7 +4677,7 @@ await client.stopImpersonatingAccount({
 })
 ```
 
-### switchChain()
+### switchChain
 
 > **switchChain**: (`args`) => `Promise`\<`void`\>
 
@@ -4619,7 +4923,7 @@ const client = createMemoryClient()
 await client.tevmMine()
 ```
 
-### tevmReady()
+### tevmReady
 
 > **tevmReady**: () => `Promise`\<`true`\>
 
@@ -4685,7 +4989,7 @@ The RPC transport
 
 ###### Type Declaration
 
-###### addSnapshot()
+###### addSnapshot
 
 > `readonly` **addSnapshot**: (`stateRoot`, `state`) => `string`
 
@@ -4706,9 +5010,9 @@ Used by evm_snapshot RPC method
 
 `string`
 
-###### debug()?
+###### debug?
 
-> `readonly` `optional` **debug**: () => `Promise`\<\{ `blocks`: \{ `forked?`: ... \| ...; `latest?`: ... \| ...; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: `MiningConfig`; `mode`: `"fork"` \| `"normal"`; `receipts`: `GetLogsReturn`; `registeredFilters`: `Map`\<`` `0x${(...)}` ``, `Filter`\>; `state`: `TevmState`; `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
+> `readonly` `optional` **debug?**: () => `Promise`\<\{ `blocks`: \{ `forked?`: ... \| ...; `latest?`: ... \| ...; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: `MiningConfig`; `mode`: `"fork"` \| `"normal"`; `receipts`: `GetLogsReturn`; `registeredFilters`: `Map`\<`` `0x${(...)}` ``, `Filter`\>; `state`: `TevmState`; `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
 
 Returns debug information about the current node state
 including chain details, status, mode, mining config, filters,
@@ -4718,7 +5022,7 @@ blocks, mempool transactions, and state
 
 `Promise`\<\{ `blocks`: \{ `forked?`: ... \| ...; `latest?`: ... \| ...; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: `MiningConfig`; `mode`: `"fork"` \| `"normal"`; `receipts`: `GetLogsReturn`; `registeredFilters`: `Map`\<`` `0x${(...)}` ``, `Filter`\>; `state`: `TevmState`; `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
 
-###### deepCopy()
+###### deepCopy
 
 > `readonly` **deepCopy**: () => `Promise`\<`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>\>
 
@@ -4728,7 +5032,7 @@ Copies the current client state into a new client
 
 `Promise`\<`TevmNode`\<`"fork"` \| `"normal"`, \{ \}\>\>
 
-###### deleteSnapshotsFrom()
+###### deleteSnapshotsFrom
 
 > `readonly` **deleteSnapshotsFrom**: (`snapshotId`) => `void`
 
@@ -4745,7 +5049,7 @@ This is needed because reverting invalidates all subsequent snapshots
 
 `void`
 
-###### extend()
+###### extend
 
 > `readonly` **extend**: \<`TExtension`\>(`decorator`) => `TevmNode`\<`"fork"` \| `"normal"`, `object` & `TExtension`\>
 
@@ -4770,7 +5074,7 @@ and extensibility
 
 ###### forkTransport?
 
-> `readonly` `optional` **forkTransport**: `object`
+> `readonly` `optional` **forkTransport?**: `object`
 
 Client to make json rpc requests to a forked node
 
@@ -4784,7 +5088,7 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 
 > **request**: `EIP1193RequestFn`
 
-###### getAutoImpersonate()
+###### getAutoImpersonate
 
 > `readonly` **getAutoImpersonate**: () => `boolean`
 
@@ -4795,18 +5099,18 @@ When enabled, all transaction senders are automatically impersonated.
 
 `boolean`
 
-###### getBlockTimestampInterval()
+###### getBlockTimestampInterval
 
-> `readonly` **getBlockTimestampInterval**: () => `undefined` \| `bigint`
+> `readonly` **getBlockTimestampInterval**: () => `bigint` \| `undefined`
 
 Gets the automatic timestamp interval added between blocks
 If undefined, no automatic interval is applied
 
 ###### Returns
 
-`undefined` \| `bigint`
+`bigint` \| `undefined`
 
-###### getFilters()
+###### getFilters
 
 > `readonly` **getFilters**: () => `Map`\<`` `0x${string}` ``, `Filter`\>
 
@@ -4816,61 +5120,61 @@ Gets all registered filters mapped by id
 
 `Map`\<`` `0x${string}` ``, `Filter`\>
 
-###### getImpersonatedAccount()
+###### getImpersonatedAccount
 
-> `readonly` **getImpersonatedAccount**: () => `undefined` \| `` `0x${string}` ``
+> `readonly` **getImpersonatedAccount**: () => `` `0x${string}` `` \| `undefined`
 
 The currently impersonated account. This is only used in `fork` mode
 
 ###### Returns
 
-`undefined` \| `` `0x${string}` ``
+`` `0x${string}` `` \| `undefined`
 
-###### getMinGasPrice()
+###### getMinGasPrice
 
-> `readonly` **getMinGasPrice**: () => `undefined` \| `bigint`
+> `readonly` **getMinGasPrice**: () => `bigint` \| `undefined`
 
 Gets the minimum gas price for transactions
 If undefined, no minimum gas price is enforced
 
 ###### Returns
 
-`undefined` \| `bigint`
+`bigint` \| `undefined`
 
-###### getNextBlockBaseFeePerGas()
+###### getNextBlockBaseFeePerGas
 
-> `readonly` **getNextBlockBaseFeePerGas**: () => `undefined` \| `bigint`
+> `readonly` **getNextBlockBaseFeePerGas**: () => `bigint` \| `undefined`
 
 Gets the base fee per gas to use for the next block
 If undefined, the base fee will be calculated from the parent block
 
 ###### Returns
 
-`undefined` \| `bigint`
+`bigint` \| `undefined`
 
-###### getNextBlockGasLimit()
+###### getNextBlockGasLimit
 
-> `readonly` **getNextBlockGasLimit**: () => `undefined` \| `bigint`
+> `readonly` **getNextBlockGasLimit**: () => `bigint` \| `undefined`
 
 Gets the gas limit to use for subsequent blocks
 If undefined, the parent block's gas limit will be used
 
 ###### Returns
 
-`undefined` \| `bigint`
+`bigint` \| `undefined`
 
-###### getNextBlockTimestamp()
+###### getNextBlockTimestamp
 
-> `readonly` **getNextBlockTimestamp**: () => `undefined` \| `bigint`
+> `readonly` **getNextBlockTimestamp**: () => `bigint` \| `undefined`
 
 Gets the timestamp to use for the next block
 If undefined, the current time will be used
 
 ###### Returns
 
-`undefined` \| `bigint`
+`bigint` \| `undefined`
 
-###### getReceiptsManager()
+###### getReceiptsManager
 
 > `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
 
@@ -4880,9 +5184,9 @@ Interface for querying receipts and historical state
 
 `Promise`\<`ReceiptsManager`\>
 
-###### getSnapshot()
+###### getSnapshot
 
-> `readonly` **getSnapshot**: (`snapshotId`) => `undefined` \| \{ `state`: `TevmState`; `stateRoot`: `string`; \}
+> `readonly` **getSnapshot**: (`snapshotId`) => \{ `state`: `TevmState`; `stateRoot`: `string`; \} \| `undefined`
 
 Gets a snapshot by ID
 Used by evm_revert RPC method
@@ -4895,9 +5199,9 @@ Used by evm_revert RPC method
 
 ###### Returns
 
-`undefined` \| \{ `state`: `TevmState`; `stateRoot`: `string`; \}
+\{ `state`: `TevmState`; `stateRoot`: `string`; \} \| `undefined`
 
-###### getSnapshots()
+###### getSnapshots
 
 > `readonly` **getSnapshots**: () => `Map`\<`string`, \{ `state`: `TevmState`; `stateRoot`: `string`; \}\>
 
@@ -4907,7 +5211,7 @@ Gets all stored snapshots for evm_snapshot/evm_revert
 
 `Map`\<`string`, \{ `state`: `TevmState`; `stateRoot`: `string`; \}\>
 
-###### getTracesEnabled()
+###### getTracesEnabled
 
 > `readonly` **getTracesEnabled**: () => `boolean`
 
@@ -4918,7 +5222,7 @@ When enabled, all transactions include traces in their responses.
 
 `boolean`
 
-###### getTxPool()
+###### getTxPool
 
 > `readonly` **getTxPool**: () => `Promise`\<`TxPool`\>
 
@@ -4928,7 +5232,7 @@ Gets the pool of pending transactions to be included in next block
 
 `Promise`\<`TxPool`\>
 
-###### getVm()
+###### getVm
 
 > `readonly` **getVm**: () => `Promise`\<`Vm`\>
 
@@ -4972,7 +5276,7 @@ client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-ke
 console.log(client.mode) // 'fork'
 ```
 
-###### ready()
+###### ready
 
 > `readonly` **ready**: () => `Promise`\<`true`\>
 
@@ -4991,7 +5295,7 @@ const client = createMemoryClient()
 await client.ready()
 ```
 
-###### removeFilter()
+###### removeFilter
 
 > `readonly` **removeFilter**: (`id`) => `void`
 
@@ -5007,7 +5311,7 @@ Removes a filter by id
 
 `void`
 
-###### setAutoImpersonate()
+###### setAutoImpersonate
 
 > `readonly` **setAutoImpersonate**: (`enabled`) => `void`
 
@@ -5024,7 +5328,7 @@ When enabled, all transactions will have their sender automatically impersonated
 
 `void`
 
-###### setBlockTimestampInterval()
+###### setBlockTimestampInterval
 
 > `readonly` **setBlockTimestampInterval**: (`interval`) => `void`
 
@@ -5036,13 +5340,13 @@ Pass undefined to clear the interval.
 
 ###### interval
 
-`undefined` | `bigint`
+`bigint` \| `undefined`
 
 ###### Returns
 
 `void`
 
-###### setFilter()
+###### setFilter
 
 > `readonly` **setFilter**: (`filter`) => `void`
 
@@ -5058,7 +5362,7 @@ Creates a new filter to watch for logs events and blocks
 
 `void`
 
-###### setImpersonatedAccount()
+###### setImpersonatedAccount
 
 > `readonly` **setImpersonatedAccount**: (`address`) => `void`
 
@@ -5069,13 +5373,13 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
 ###### address
 
-`undefined` | `` `0x${string}` ``
+`` `0x${string}` `` \| `undefined`
 
 ###### Returns
 
 `void`
 
-###### setMinGasPrice()
+###### setMinGasPrice
 
 > `readonly` **setMinGasPrice**: (`minGasPrice`) => `void`
 
@@ -5088,13 +5392,13 @@ Pass undefined to clear the minimum.
 
 ###### minGasPrice
 
-`undefined` | `bigint`
+`bigint` \| `undefined`
 
 ###### Returns
 
 `void`
 
-###### setNextBlockBaseFeePerGas()
+###### setNextBlockBaseFeePerGas
 
 > `readonly` **setNextBlockBaseFeePerGas**: (`baseFeePerGas`) => `void`
 
@@ -5107,13 +5411,13 @@ Pass undefined to clear the override.
 
 ###### baseFeePerGas
 
-`undefined` | `bigint`
+`bigint` \| `undefined`
 
 ###### Returns
 
 `void`
 
-###### setNextBlockGasLimit()
+###### setNextBlockGasLimit
 
 > `readonly` **setNextBlockGasLimit**: (`gasLimit`) => `void`
 
@@ -5126,13 +5430,13 @@ Pass undefined to clear the override and use parent block's gas limit.
 
 ###### gasLimit
 
-`undefined` | `bigint`
+`bigint` \| `undefined`
 
 ###### Returns
 
 `void`
 
-###### setNextBlockTimestamp()
+###### setNextBlockTimestamp
 
 > `readonly` **setNextBlockTimestamp**: (`timestamp`) => `void`
 
@@ -5144,13 +5448,13 @@ Pass undefined to clear the override and use current time.
 
 ###### timestamp
 
-`undefined` | `bigint`
+`bigint` \| `undefined`
 
 ###### Returns
 
 `void`
 
-###### setTracesEnabled()
+###### setTracesEnabled
 
 > `readonly` **setTracesEnabled**: (`enabled`) => `void`
 
@@ -5224,7 +5528,7 @@ The type of client.
 
 A unique ID for the client.
 
-### uninstallFilter()
+### uninstallFilter
 
 > **uninstallFilter**: (`args`) => `Promise`\<`boolean`\>
 
@@ -5263,7 +5567,7 @@ const uninstalled = await client.uninstallFilter({ filter })
 // true
 ```
 
-### verifyHash()
+### verifyHash
 
 > **verifyHash**: (`args`) => `Promise`\<`boolean`\>
 
@@ -5283,7 +5587,7 @@ Verify that a hash was signed by the provided address.
 
 Whether or not the signature is valid. VerifyHashReturnType
 
-### verifyMessage()
+### verifyMessage
 
 > **verifyMessage**: (`args`) => `Promise`\<`boolean`\>
 
@@ -5321,6 +5625,12 @@ The balance of the account at a block tag.
 'latest'
 ```
 
+###### chain?
+
+`Chain` \| `null`
+
+The chain to use.
+
 ###### erc6492VerifierAddress?
 
 `` `0x${string}` ``
@@ -5340,6 +5650,12 @@ The address of the ERC-6492 signature verifier contract.
 `SignableMessage`
 
 The message to be verified.
+
+###### mode?
+
+`string` & `object` \| `"auto"` \| `"eoa"`
+
+Chooses which verification path to try first before falling back.
 
 ###### multicallAddress?
 
@@ -5367,7 +5683,7 @@ use `erc6492VerifierAddress` instead.
 
 Whether or not the signature is valid. VerifyMessageReturnType
 
-### verifySiweMessage()
+### verifySiweMessage
 
 > **verifySiweMessage**: (`args`) => `Promise`\<`boolean`\>
 
@@ -5453,7 +5769,7 @@ new Date()
 
 Whether or not the signature is valid. VerifySiweMessageReturnType
 
-### verifyTypedData()
+### verifyTypedData
 
 > **verifyTypedData**: (`args`) => `Promise`\<`boolean`\>
 
@@ -5473,9 +5789,9 @@ Verify that typed data was signed by the provided address.
 
 Whether or not the signature is valid. VerifyTypedDataReturnType
 
-### waitForCallsStatus()
+### waitForCallsStatus
 
-> **waitForCallsStatus**: (`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
+> **waitForCallsStatus**: (`parameters`) => `Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `"pending"` \| `"success"` \| `"failure"` \| `undefined`; `statusCode`: `number`; `version`: `string`; \}\>
 
 Waits for the status & receipts of a call bundle that was sent via `sendCalls`.
 
@@ -5492,7 +5808,7 @@ WaitForCallsStatusParameters
 
 #### Returns
 
-`Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `undefined` \| `"pending"` \| `"success"` \| `"failure"`; `statusCode`: `number`; `version`: `string`; \}\>
+`Promise`\<\{ `atomic`: `boolean`; `capabilities?`: \{\[`key`: `string`\]: `any`; \} \| \{\[`key`: `string`\]: `any`; \}; `chainId`: `number`; `id`: `string`; `receipts?`: `WalletCallReceipt`\<`bigint`, `"success"` \| `"reverted"`\>[]; `status`: `"pending"` \| `"success"` \| `"failure"` \| `undefined`; `statusCode`: `number`; `version`: `string`; \}\>
 
 Status & receipts of the call bundle. WaitForCallsStatusReturnType
 
@@ -5510,7 +5826,7 @@ const client = createWalletClient({
 const { receipts, status } = await waitForCallsStatus(client, { id: '0xdeadbeef' })
 ```
 
-### waitForTransactionReceipt()
+### waitForTransactionReceipt
 
 > **waitForTransactionReceipt**: (`args`) => `Promise`\<`ExtractChainFormatterReturnType`\<`TCommon`, `"transactionReceipt"`, `TransactionReceipt`\>\>
 
@@ -5566,7 +5882,7 @@ const transactionReceipt = await client.waitForTransactionReceipt({
 })
 ```
 
-### watchAsset()
+### watchAsset
 
 > **watchAsset**: (`args`) => `Promise`\<`boolean`\>
 
@@ -5609,7 +5925,7 @@ const success = await client.watchAsset({
 })
 ```
 
-### watchBlockNumber()
+### watchBlockNumber
 
 > **watchBlockNumber**: (`args`) => `WatchBlockNumberReturnType`
 
@@ -5650,7 +5966,7 @@ const unwatch = await client.watchBlockNumber({
 })
 ```
 
-### watchBlocks()
+### watchBlocks
 
 > **watchBlocks**: \<`includeTransactions`, `blockTag`\>(`args`) => `WatchBlocksReturnType`
 
@@ -5701,7 +6017,7 @@ const unwatch = await client.watchBlocks({
 })
 ```
 
-### watchContractEvent()
+### watchContractEvent
 
 > **watchContractEvent**: \<`abi`, `eventName`, `strict`\>(`args`) => `WatchContractEventReturnType`
 
@@ -5721,7 +6037,7 @@ Watches and returns emitted contract event logs.
 
 ##### strict
 
-`strict` *extends* `undefined` \| `boolean` = `undefined`
+`strict` *extends* `boolean` \| `undefined` = `undefined`
 
 #### Parameters
 
@@ -5762,7 +6078,7 @@ const unwatch = client.watchContractEvent({
 })
 ```
 
-### watchEvent()
+### watchEvent
 
 > **watchEvent**: \<`abiEvent`, `abiEvents`, `strict`\>(`args`) => `WatchEventReturnType`
 
@@ -5780,15 +6096,15 @@ Watches and returns emitted [Event Logs](https://viem.sh/docs/glossary/terms#eve
 
 ##### abiEvent
 
-`abiEvent` *extends* `undefined` \| `AbiEvent` = `undefined`
+`abiEvent` *extends* `AbiEvent` \| `undefined` = `undefined`
 
 ##### abiEvents
 
-`abiEvents` *extends* `undefined` \| readonly `unknown`[] \| readonly `AbiEvent`[] = `abiEvent` *extends* `AbiEvent` ? \[`abiEvent`\<`abiEvent`\>\] : `undefined`
+`abiEvents` *extends* readonly `unknown`[] \| readonly `AbiEvent`[] \| `undefined` = `abiEvent` *extends* `AbiEvent` ? \[`abiEvent`\] : `undefined`
 
 ##### strict
 
-`strict` *extends* `undefined` \| `boolean` = `undefined`
+`strict` *extends* `boolean` \| `undefined` = `undefined`
 
 #### Parameters
 
@@ -5825,7 +6141,7 @@ const unwatch = client.watchEvent({
 })
 ```
 
-### watchPendingTransactions()
+### watchPendingTransactions
 
 > **watchPendingTransactions**: (`args`) => `WatchPendingTransactionsReturnType`
 
@@ -5871,7 +6187,7 @@ const unwatch = await client.watchPendingTransactions({
 })
 ```
 
-### writeContract()
+### writeContract
 
 > **writeContract**: \<`abi`, `functionName`, `args`, `chainOverride`\>(`args`) => `Promise`\<`` `0x${string}` ``\>
 
@@ -5902,7 +6218,7 @@ __Warning: The `write` internally sends a transaction – it does not validate i
 
 ##### chainOverride
 
-`chainOverride` *extends* `undefined` \| `Chain` = `undefined`
+`chainOverride` *extends* `Chain` \| `undefined` = `undefined`
 
 #### Parameters
 
@@ -5952,6 +6268,71 @@ const { request } = await client.simulateContract({
   args: [69420],
 }
 const hash = await client.writeContract(request)
+```
+
+### writeContractSync
+
+> **writeContractSync**: \<`abi`, `functionName`, `args`, `chainOverride`\>(`args`) => `Promise`\<`TransactionReceipt`\>
+
+Executes a write function on a contract synchronously.
+Returns the transaction receipt.
+
+- Docs: https://viem.sh/docs/contract/writeContract
+
+A "write" function on a Solidity contract modifies the state of the blockchain. These types of functions require gas to be executed, and hence a [Transaction](https://viem.sh/docs/glossary/terms) is needed to be broadcast in order to change the state.
+
+Internally, uses a [Wallet Client](https://viem.sh/docs/clients/wallet) to call the [`sendTransaction` action](https://viem.sh/docs/actions/wallet/sendTransaction) with [ABI-encoded `data`](https://viem.sh/docs/contract/encodeFunctionData).
+
+__Warning: The `write` internally sends a transaction – it does not validate if the contract write will succeed (the contract may throw an error). It is highly recommended to [simulate the contract write with `contract.simulate`](https://viem.sh/docs/contract/writeContract#usage) before you execute it.__
+
+#### Type Parameters
+
+##### abi
+
+`abi` *extends* `Abi` \| readonly `unknown`[]
+
+##### functionName
+
+`functionName` *extends* `string`
+
+##### args
+
+`args` *extends* `unknown`
+
+##### chainOverride
+
+`chainOverride` *extends* `Chain` \| `undefined` = `undefined`
+
+#### Parameters
+
+##### args
+
+`WriteContractSyncParameters`\<`abi`, `functionName`, `args`, `TCommon`, `TAccountOrAddress` *extends* `Account` ? `Account` : `undefined`, `chainOverride`\>
+
+WriteContractSyncParameters
+
+#### Returns
+
+`Promise`\<`TransactionReceipt`\>
+
+A [Transaction Receipt](https://viem.sh/docs/glossary/terms#receipt). WriteContractSyncReturnType
+
+#### Example
+
+```ts
+import { createWalletClient, custom, parseAbi } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: custom(window.ethereum),
+})
+const receipt = await client.writeContractSync({
+  address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+  abi: parseAbi(['function mint(uint32 tokenId) nonpayable']),
+  functionName: 'mint',
+  args: [69420],
+})
 ```
 
 ## Example

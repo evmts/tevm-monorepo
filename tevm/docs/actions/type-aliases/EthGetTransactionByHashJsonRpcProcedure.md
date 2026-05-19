@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetTransactionByHashJsonRpcProcedure
 
-# Type Alias: EthGetTransactionByHashJsonRpcProcedure()
+# Type Alias: EthGetTransactionByHashJsonRpcProcedure
 
 > **EthGetTransactionByHashJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetTransactionByHashJsonRpcResponse`](EthGetTransactionByHashJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:27
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:27
 
 ## Parameters
 

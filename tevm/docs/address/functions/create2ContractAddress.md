@@ -8,7 +8,7 @@
 
 > **create2ContractAddress**(`from`, `salt`, `code`): [`Address`](../classes/Address.md)
 
-Defined in: packages/address/types/create2ContractAddress.d.ts:1
+Defined in: tevm-monorepo/packages/address/types/create2ContractAddress.d.ts:1
 
 ## Parameters
 

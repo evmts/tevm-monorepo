@@ -8,7 +8,7 @@
 
 > **createBaseState**(`options`): [`BaseState`](../type-aliases/BaseState.md)
 
-Defined in: packages/state/dist/index.d.ts:518
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:522
 
 ## Parameters
 

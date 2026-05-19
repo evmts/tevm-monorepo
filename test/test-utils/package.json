@@ -59,7 +59,7 @@
 		"generate:contracts": "bun run node_modules/@tevm/ts-plugin/dist/bin/tevm-gen.js",
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
-		"lint:deps": "bunx depcheck"
+		"lint:deps": "bunx depcheck --ignores=@latticexyz/schema-type,@latticexyz/store,@latticexyz/world,@openzeppelin/contracts,@tevm/common"
 	},
 	"dependencies": {
 		"@latticexyz/schema-type": "^2.2.23",

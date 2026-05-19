@@ -22,7 +22,7 @@ Typesafe way to create an Tevm CompilerConfig
 
 `object`
 
-### configFn()
+### configFn
 
 > **configFn**: (`configFilePath`) => `Effect`\<[`ResolvedCompilerConfig`](../../types/type-aliases/ResolvedCompilerConfig.md), [`DefineConfigError`](../classes/DefineConfigError.md), `never`\>
 

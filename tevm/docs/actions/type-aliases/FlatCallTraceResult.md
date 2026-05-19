@@ -8,7 +8,7 @@
 
 > **FlatCallTraceResult** = [`FlatTraceEntry`](FlatTraceEntry.md)[]
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:84
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:84
 
 Result from `debug_*` with `flatCallTracer`
 A flat array of trace entries instead of a nested call tree

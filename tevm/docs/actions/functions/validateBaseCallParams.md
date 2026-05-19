@@ -8,7 +8,7 @@
 
 > **validateBaseCallParams**(`action`): `ValidateBaseCallParamsError`[]
 
-Defined in: packages/actions/types/BaseCall/validateBaseCallParams.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/BaseCall/validateBaseCallParams.d.ts:1
 
 ## Parameters
 

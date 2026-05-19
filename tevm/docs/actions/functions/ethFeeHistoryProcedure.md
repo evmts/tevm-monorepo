@@ -8,7 +8,7 @@
 
 > **ethFeeHistoryProcedure**(`client`): [`EthFeeHistoryJsonRpcProcedure`](../type-aliases/EthFeeHistoryJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethFeeHistoryProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethFeeHistoryProcedure.d.ts:1
 
 ## Parameters
 

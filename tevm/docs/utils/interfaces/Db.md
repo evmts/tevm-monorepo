@@ -6,7 +6,7 @@
 
 # Interface: Db\<TKey, TValue\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:32
+Defined in: zevm/npm/zevm/dist/util.d.ts:42
 
 ## Type Parameters
 
@@ -24,17 +24,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 > **batch**(`opStack`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:54
-
-Performs a batch operation on db.
+Defined in: zevm/npm/zevm/dist/util.d.ts:46
 
 #### Parameters
 
 ##### opStack
 
 [`BatchDbOp`](../type-aliases/BatchDbOp.md)\<`TKey`, `TValue`\>[]
-
-A stack of levelup operations
 
 #### Returns
 
@@ -46,9 +42,7 @@ A stack of levelup operations
 
 > **del**(`key`, `opts?`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:49
-
-Removes a raw value in the underlying db.
+Defined in: zevm/npm/zevm/dist/util.d.ts:45
 
 #### Parameters
 
@@ -68,11 +62,9 @@ Removes a raw value in the underlying db.
 
 ### get()
 
-> **get**(`key`, `opts?`): `Promise`\<`undefined` \| `TValue`\>
+> **get**(`key`, `opts?`): `Promise`\<`TValue` \| `undefined`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:38
-
-Retrieves a raw value from db.
+Defined in: zevm/npm/zevm/dist/util.d.ts:43
 
 #### Parameters
 
@@ -86,9 +78,7 @@ Retrieves a raw value from db.
 
 #### Returns
 
-`Promise`\<`undefined` \| `TValue`\>
-
-A Promise that resolves to `Uint8Array` if a value is found or `undefined` if no value is found.
+`Promise`\<`TValue` \| `undefined`\>
 
 ***
 
@@ -96,9 +86,7 @@ A Promise that resolves to `Uint8Array` if a value is found or `undefined` if no
 
 > **open**(): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:63
-
-Opens the database -- if applicable
+Defined in: zevm/npm/zevm/dist/util.d.ts:48
 
 #### Returns
 
@@ -110,17 +98,13 @@ Opens the database -- if applicable
 
 > **put**(`key`, `val`, `opts?`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:44
-
-Writes a value directly to db.
+Defined in: zevm/npm/zevm/dist/util.d.ts:44
 
 #### Parameters
 
 ##### key
 
 `TKey`
-
-The key as a `TValue`
 
 ##### val
 
@@ -140,10 +124,7 @@ The key as a `TValue`
 
 > **shallowCopy**(): `DB`\<`TKey`, `TValue`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:59
-
-Returns a copy of the DB instance, with a reference
-to the **same** underlying db instance.
+Defined in: zevm/npm/zevm/dist/util.d.ts:47
 
 #### Returns
 

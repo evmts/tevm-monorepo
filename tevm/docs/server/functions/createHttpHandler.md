@@ -8,7 +8,7 @@
 
 > **createHttpHandler**(`client`): `RequestListener`\<*typeof* `IncomingMessage`, *typeof* `ServerResponse`\>
 
-Defined in: packages/server/types/createHttpHandler.d.ts:1
+Defined in: tevm-monorepo/packages/server/types/createHttpHandler.d.ts:1
 
 ## Parameters
 

@@ -39,7 +39,7 @@ Object.entries(handlers).forEach(([event, handler]) => {
 
 ## Properties
 
-### afterBlock()
+### afterBlock
 
 > **afterBlock**: (`data`, `resolve?`) => `void`
 
@@ -61,7 +61,7 @@ Defined in: [packages/vm/src/utils/VMEvents.ts:34](https://github.com/evmts/tevm
 
 ***
 
-### afterTx()
+### afterTx
 
 > **afterTx**: (`data`, `resolve?`) => `void`
 
@@ -83,7 +83,7 @@ Defined in: [packages/vm/src/utils/VMEvents.ts:36](https://github.com/evmts/tevm
 
 ***
 
-### beforeBlock()
+### beforeBlock
 
 > **beforeBlock**: (`data`, `resolve?`) => `void`
 
@@ -105,7 +105,7 @@ Defined in: [packages/vm/src/utils/VMEvents.ts:33](https://github.com/evmts/tevm
 
 ***
 
-### beforeTx()
+### beforeTx
 
 > **beforeTx**: (`data`, `resolve?`) => `void`
 

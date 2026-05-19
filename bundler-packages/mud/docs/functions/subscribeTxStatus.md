@@ -18,18 +18,4 @@ Defined in: [subscribeTx.ts:23](https://github.com/evmts/tevm-monorepo/blob/main
 
 ## Returns
 
-> (`subscriber`): () => `void`
-
-### Parameters
-
-#### subscriber
-
-[`TxStatusSubscriber`](../type-aliases/TxStatusSubscriber.md)
-
-### Returns
-
-> (): `void`
-
-#### Returns
-
-`void`
+(`subscriber`) => () => `void`

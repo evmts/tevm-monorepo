@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthBlockNumberJsonRpcProcedure
 
-# Type Alias: EthBlockNumberJsonRpcProcedure()
+# Type Alias: EthBlockNumberJsonRpcProcedure
 
 > **EthBlockNumberJsonRpcProcedure** = (`request`) => `Promise`\<[`EthBlockNumberJsonRpcResponse`](EthBlockNumberJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:5
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:5
 
 ## Parameters
 

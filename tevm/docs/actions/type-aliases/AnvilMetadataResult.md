@@ -8,7 +8,7 @@
 
 > **AnvilMetadataResult** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:44
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:44
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: packages/actions/types/anvil/AnvilResult.d.ts:44
 
 > **chainId**: `number`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:48
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:48
 
 Chain ID
 
@@ -26,7 +26,7 @@ Chain ID
 
 > **clientVersion**: `string`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:46
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:46
 
 Client version (e.g., "tevm/1.0.0")
 
@@ -34,9 +34,9 @@ Client version (e.g., "tevm/1.0.0")
 
 ### forked?
 
-> `optional` **forked**: `object`
+> `optional` **forked?**: `object`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:50
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:50
 
 Whether the node is in fork mode
 
@@ -58,6 +58,6 @@ The URL being forked
 
 > **snapshots**: `Record`\<`string`, `string`\>
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:57
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:57
 
 Snapshots taken (for evm_snapshot/evm_revert)

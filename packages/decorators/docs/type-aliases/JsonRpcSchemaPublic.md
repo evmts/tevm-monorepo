@@ -47,7 +47,7 @@ Defined in: [eip1193/JsonRpcSchemaPublic.ts:114](https://github.com/evmts/tevm-m
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -78,7 +78,7 @@ Defined in: [eip1193/JsonRpcSchemaPublic.ts:126](https://github.com/evmts/tevm-m
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -140,7 +140,7 @@ Defined in: [eip1193/JsonRpcSchemaPublic.ts:156](https://github.com/evmts/tevm-m
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -171,7 +171,7 @@ Defined in: [eip1193/JsonRpcSchemaPublic.ts:167](https://github.com/evmts/tevm-m
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -275,7 +275,7 @@ Defined in: [eip1193/JsonRpcSchemaPublic.ts:221](https://github.com/evmts/tevm-m
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -1014,7 +1014,7 @@ Defined in: [eip1193/JsonRpcSchemaPublic.ts:517](https://github.com/evmts/tevm-m
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -1049,7 +1049,7 @@ Defined in: [eip1193/JsonRpcSchemaPublic.ts:529](https://github.com/evmts/tevm-m
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -1119,7 +1119,7 @@ Defined in: [eip1193/JsonRpcSchemaPublic.ts:560](https://github.com/evmts/tevm-m
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -1154,7 +1154,7 @@ Defined in: [eip1193/JsonRpcSchemaPublic.ts:572](https://github.com/evmts/tevm-m
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -1259,7 +1259,7 @@ Defined in: [eip1193/JsonRpcSchemaPublic.ts:78](https://github.com/evmts/tevm-mo
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -1290,7 +1290,7 @@ Defined in: [eip1193/JsonRpcSchemaPublic.ts:90](https://github.com/evmts/tevm-mo
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -1321,7 +1321,7 @@ Defined in: [eip1193/JsonRpcSchemaPublic.ts:102](https://github.com/evmts/tevm-m
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -1352,7 +1352,7 @@ Defined in: [eip1193/JsonRpcSchemaPublic.ts:54](https://github.com/evmts/tevm-mo
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 

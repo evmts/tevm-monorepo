@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetBlockGasLimitProcedure
 
-# Type Alias: AnvilSetBlockGasLimitProcedure()
+# Type Alias: AnvilSetBlockGasLimitProcedure
 
 > **AnvilSetBlockGasLimitProcedure** = (`request`) => `Promise`\<[`AnvilSetBlockGasLimitJsonRpcResponse`](AnvilSetBlockGasLimitJsonRpcResponse.md)\>
 

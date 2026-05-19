@@ -4,6 +4,7 @@ import { EventEmitter } from 'node:events'
 // Increase max listeners globally to prevent warnings
 EventEmitter.defaultMaxListeners = 100
 
+import { BlobEIP4844Transaction, createImpersonatedTx } from '@evmts/zevm/tx'
 import { Block } from '@tevm/block'
 import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
@@ -11,7 +12,6 @@ import { SimpleContract } from '@tevm/contract'
 import { InsufficientFundsError, InvalidGasPriceError, NonceTooLowError } from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import { BlobEIP4844Transaction, createImpersonatedTx } from '@tevm/tx'
 import {
 	bytesToHex,
 	createAccount,

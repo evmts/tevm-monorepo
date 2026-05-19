@@ -8,7 +8,7 @@
 
 > **StateOptions** = `object`
 
-Defined in: [packages/state/src/state-types/StateOptions.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L27)
+Defined in: [tevm-monorepo/packages/state/src/state-types/StateOptions.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L27)
 
 Configuration options for the Tevm state manager.
 Controls forking, initial state, caching, and event handling.
@@ -32,9 +32,9 @@ const value: StateOptions = {
 
 ### accountsCache?
 
-> `readonly` `optional` **accountsCache**: [`AccountCache`](../classes/AccountCache.md)
+> `readonly` `optional` **accountsCache?**: [`AccountCache`](../classes/AccountCache.md)
 
-Defined in: [packages/state/src/state-types/StateOptions.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L51)
+Defined in: [tevm-monorepo/packages/state/src/state-types/StateOptions.ts:51](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L51)
 
 Optionally configure the accounts cache
 
@@ -42,9 +42,9 @@ Optionally configure the accounts cache
 
 ### contractCache?
 
-> `readonly` `optional` **contractCache**: [`ContractCache`](../classes/ContractCache.md)
+> `readonly` `optional` **contractCache?**: [`ContractCache`](../classes/ContractCache.md)
 
-Defined in: [packages/state/src/state-types/StateOptions.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L43)
+Defined in: [tevm-monorepo/packages/state/src/state-types/StateOptions.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L43)
 
 Optionally configure and pass in your own ContractCache
 
@@ -52,43 +52,43 @@ Optionally configure and pass in your own ContractCache
 
 ### currentStateRoot?
 
-> `optional` **currentStateRoot**: `Hex`
+> `optional` **currentStateRoot?**: `Hex`
 
-Defined in: [packages/state/src/state-types/StateOptions.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L30)
+Defined in: [tevm-monorepo/packages/state/src/state-types/StateOptions.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L30)
 
 ***
 
 ### fork?
 
-> `optional` **fork**: [`ForkOptions`](../interfaces/ForkOptions.md)
+> `optional` **fork?**: [`ForkOptions`](../interfaces/ForkOptions.md)
 
-Defined in: [packages/state/src/state-types/StateOptions.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L28)
+Defined in: [tevm-monorepo/packages/state/src/state-types/StateOptions.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L28)
 
 ***
 
 ### genesisState?
 
-> `optional` **genesisState**: [`TevmState`](TevmState.md)
+> `optional` **genesisState?**: [`TevmState`](TevmState.md)
 
-Defined in: [packages/state/src/state-types/StateOptions.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L29)
+Defined in: [tevm-monorepo/packages/state/src/state-types/StateOptions.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L29)
 
 ***
 
 ### loggingLevel?
 
-> `readonly` `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
+> `readonly` `optional` **loggingLevel?**: `LogOptions`\[`"level"`\]
 
-Defined in: [packages/state/src/state-types/StateOptions.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L39)
+Defined in: [tevm-monorepo/packages/state/src/state-types/StateOptions.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L39)
 
 Configure logging options for the client
 
 ***
 
-### onCommit()?
+### onCommit?
 
-> `optional` **onCommit**: (`stateManager`) => `void`
+> `optional` **onCommit?**: (`stateManager`) => `void`
 
-Defined in: [packages/state/src/state-types/StateOptions.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L35)
+Defined in: [tevm-monorepo/packages/state/src/state-types/StateOptions.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L35)
 
 Called when state manager commits state
 
@@ -106,16 +106,16 @@ Called when state manager commits state
 
 ### stateRoots?
 
-> `optional` **stateRoots**: [`StateRoots`](StateRoots.md)
+> `optional` **stateRoots?**: [`StateRoots`](StateRoots.md)
 
-Defined in: [packages/state/src/state-types/StateOptions.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L31)
+Defined in: [tevm-monorepo/packages/state/src/state-types/StateOptions.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L31)
 
 ***
 
 ### storageCache?
 
-> `readonly` `optional` **storageCache**: [`StorageCache`](../classes/StorageCache.md)
+> `readonly` `optional` **storageCache?**: [`StorageCache`](../classes/StorageCache.md)
 
-Defined in: [packages/state/src/state-types/StateOptions.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L47)
+Defined in: [tevm-monorepo/packages/state/src/state-types/StateOptions.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/StateOptions.ts#L47)
 
 Optionally configure and pass in your own StorageCache

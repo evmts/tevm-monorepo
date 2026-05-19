@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetTransactionReceiptHandler
 
-# Type Alias: EthGetTransactionReceiptHandler()
+# Type Alias: EthGetTransactionReceiptHandler
 
 > **EthGetTransactionReceiptHandler** = (`request`) => `Promise`\<[`EthGetTransactionReceiptResult`](EthGetTransactionReceiptResult.md)\>
 

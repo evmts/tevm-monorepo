@@ -8,4 +8,4 @@
 
 > `const` **SECP256K1\_ORDER\_DIV\_2**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/constants.d.ts:16
+Defined in: zevm/npm/zevm/dist/util.d.ts:129

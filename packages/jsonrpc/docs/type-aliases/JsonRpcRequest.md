@@ -16,7 +16,7 @@ Helper type for creating JSON-RPC request types
 
 ### id?
 
-> `readonly` `optional` **id**: `string` \| `number` \| `null`
+> `readonly` `optional` **id?**: `string` \| `number` \| `null`
 
 ### jsonrpc
 

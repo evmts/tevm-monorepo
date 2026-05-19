@@ -1,20 +1,21 @@
+import {
+	AccessListEIP2930Transaction,
+	FeeMarketEIP1559Transaction,
+	LegacyTransaction,
+	type TypedTransaction,
+} from '@evmts/zevm/tx'
 import { Block } from '@tevm/block'
 import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import {
-	AccessListEIP2930Transaction,
-	FeeMarketEIP1559Transaction,
-	type ImpersonatedTx,
-	LegacyTransaction,
-	type TypedTransaction,
-} from '@tevm/tx'
 import { bytesToHex, createAccount, createAddressFromString, EthjsAddress, hexToBytes, parseEther } from '@tevm/utils'
 import { createVm, type Vm } from '@tevm/vm'
 import { assert, beforeEach, describe, expect, it, vi } from 'vitest'
 import { bytesToUnprefixedHex, PREFUNDED_PRIVATE_KEYS } from '../../utils/dist/index.cjs'
 import { TxPool } from './TxPool.js'
+
+type ImpersonatedTx = FeeMarketEIP1559Transaction & { isImpersonated: true }
 
 describe(TxPool.name, () => {
 	let txPool: TxPool

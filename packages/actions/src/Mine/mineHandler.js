@@ -142,7 +142,7 @@ export const mineHandler =
 				 */
 				const receipts = []
 				while (index < orderedTx.length && !blockFull) {
-					const nextTx = /** @type {import('@tevm/tx').TypedTransaction}*/ (orderedTx[index])
+					const nextTx = /** @type {import('@evmts/zevm/tx').TypedTransaction}*/ (orderedTx[index])
 					client.logger.debug({ hash: bytesToHex(nextTx.hash()) }, 'new tx added')
 					const txResult = await blockBuilder.addTransaction(nextTx, {
 						skipBalance: true,

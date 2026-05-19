@@ -15,7 +15,7 @@ Allows this package to be used in browser environments or otherwise pluggable
 
 ## Properties
 
-### exists()
+### exists
 
 > **exists**: (`path`) => `Promise`\<`boolean`\>
 
@@ -33,7 +33,7 @@ Defined in: [types.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 ***
 
-### existsSync()
+### existsSync
 
 > **existsSync**: (`path`) => `boolean`
 
@@ -67,7 +67,7 @@ Defined in: [types.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 ***
 
-### readFile()
+### readFile
 
 > **readFile**: (`path`, `encoding`) => `Promise`\<`string`\>
 
@@ -89,7 +89,7 @@ Defined in: [types.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 ***
 
-### readFileSync()
+### readFileSync
 
 > **readFileSync**: (`path`, `encoding`) => `string`
 
@@ -135,7 +135,7 @@ Defined in: [types.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/bundl
 
 ***
 
-### writeFileSync()
+### writeFileSync
 
 > **writeFileSync**: (`path`, `data`) => `void`
 

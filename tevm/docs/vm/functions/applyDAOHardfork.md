@@ -8,7 +8,7 @@
 
 > **applyDAOHardfork**(`evm`): `Promise`\<`void`\>
 
-Defined in: packages/vm/types/actions/applyDAOHardfork.d.ts:5
+Defined in: tevm-monorepo/packages/vm/types/actions/applyDAOHardfork.d.ts:5
 
 Apply the DAO fork changes to the VM
 
@@ -16,7 +16,7 @@ Apply the DAO fork changes to the VM
 
 ### evm
 
-[`Evm`](../../evm/classes/Evm.md)
+[`EvmType`](../../evm/type-aliases/EvmType.md)
 
 ## Returns
 

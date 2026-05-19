@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthHashrateHandler
 
-# Type Alias: EthHashrateHandler()
+# Type Alias: EthHashrateHandler
 
 > **EthHashrateHandler** = (`request?`) => `Promise`\<[`EthHashrateResult`](EthHashrateResult.md)\>
 

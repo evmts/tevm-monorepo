@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthMaxPriorityFeePerGasJsonRpcProcedure
 
-# Type Alias: EthMaxPriorityFeePerGasJsonRpcProcedure()
+# Type Alias: EthMaxPriorityFeePerGasJsonRpcProcedure
 
 > **EthMaxPriorityFeePerGasJsonRpcProcedure** = (`request`) => `Promise`\<[`EthMaxPriorityFeePerGasJsonRpcResponse`](EthMaxPriorityFeePerGasJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:12
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:12
 
 ## Parameters
 

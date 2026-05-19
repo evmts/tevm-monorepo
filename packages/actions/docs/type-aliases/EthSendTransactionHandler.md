@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthSendTransactionHandler
 
-# Type Alias: EthSendTransactionHandler()
+# Type Alias: EthSendTransactionHandler
 
 > **EthSendTransactionHandler** = (`request`) => `Promise`\<[`EthSendTransactionResult`](EthSendTransactionResult.md)\>
 

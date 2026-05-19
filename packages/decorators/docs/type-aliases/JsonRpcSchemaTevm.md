@@ -87,7 +87,7 @@ Defined in: [eip1193/JsonRpcSchemaTevm.ts:73](https://github.com/evmts/tevm-mono
 
 #### Parameters?
 
-> `optional` **Parameters**: `DumpStateJsonRpcRequest`\[`"params"`\]
+> `optional` **Parameters?**: `DumpStateJsonRpcRequest`\[`"params"`\]
 
 #### ReturnType
 

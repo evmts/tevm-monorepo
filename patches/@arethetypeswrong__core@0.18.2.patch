@@ -1,0 +1,45 @@
+diff --git a/dist/createPackage.js b/dist/createPackage.js
+index 1b8fb1c65a9ccd0fa6448af0781297beeeae9772..ec98e94e70d7e8765c5049922426a4bb76526cfe 100644
+--- a/dist/createPackage.js
++++ b/dist/createPackage.js
+@@ -224,8 +224,15 @@ export function createPackageFromTarballData(tarball) {
+ function extractTarball(tarball) {
+     var _a;
+     // Use streaming API to work around https://github.com/101arrowz/fflate/issues/207
+-    let unzipped;
+-    new Gunzip((chunk) => (unzipped = chunk)).push(tarball, /*final*/ true);
++    const chunks = [];
++    new Gunzip((chunk) => chunks.push(chunk)).push(tarball, /*final*/ true);
++    const length = chunks.reduce((sum, chunk) => sum + chunk.length, 0);
++    const unzipped = new Uint8Array(length);
++    let offset = 0;
++    for (const chunk of chunks) {
++        unzipped.set(chunk, offset);
++        offset += chunk.length;
++    }
+     const data = untar(unzipped);
+     const prefix = data[0].filename.substring(0, data[0].filename.indexOf("/") + 1);
+     const packageJsonText = (_a = data.find((f) => f.filename === `${prefix}package.json`)) === null || _a === void 0 ? void 0 : _a.fileData;
+diff --git a/src/createPackage.ts b/src/createPackage.ts
+index 40851d365a245b3a36dc0c8af4458474e999e395..71f3c1fab7d805d4cbd4bc58afa3cd8ebbaae724 100644
+--- a/src/createPackage.ts
++++ b/src/createPackage.ts
+@@ -296,8 +296,15 @@ export function createPackageFromTarballData(tarball: Uint8Array): Package {
+ function extractTarball(tarball: Uint8Array) {
+   // Use streaming API to work around https://github.com/101arrowz/fflate/issues/207
+-  let unzipped: Uint8Array;
+-  new Gunzip((chunk) => (unzipped = chunk)).push(tarball, /*final*/ true);
+-  const data = untar(unzipped!);
++  const chunks: Uint8Array[] = [];
++  new Gunzip((chunk) => chunks.push(chunk)).push(tarball, /*final*/ true);
++  const length = chunks.reduce((sum, chunk) => sum + chunk.length, 0);
++  const unzipped = new Uint8Array(length);
++  let offset = 0;
++  for (const chunk of chunks) {
++    unzipped.set(chunk, offset);
++    offset += chunk.length;
++  }
++  const data = untar(unzipped);
+   const prefix = data[0].filename.substring(0, data[0].filename.indexOf("/") + 1);
+   const packageJsonText = data.find((f) => f.filename === `${prefix}package.json`)?.fileData;
+   const packageJson = JSON.parse(new TextDecoder().decode(packageJsonText));

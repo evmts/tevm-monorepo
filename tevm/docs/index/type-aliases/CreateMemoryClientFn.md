@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [index](../README.md) / CreateMemoryClientFn
 
-# Type Alias: CreateMemoryClientFn()
+# Type Alias: CreateMemoryClientFn
 
 > **CreateMemoryClientFn** = \<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>(`options?`) => [`MemoryClient`](MemoryClient.md)\<`TCommon`, `TAccountOrAddress`\>
 
-Defined in: packages/memory-client/types/CreateMemoryClientFn.d.ts:83
+Defined in: tevm-monorepo/packages/memory-client/types/CreateMemoryClientFn.d.ts:83
 
 Type definition for the function that creates a [MemoryClient](MemoryClient.md).
 

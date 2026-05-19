@@ -26,7 +26,7 @@ The format evolves with new Ethereum upgrades as additional block components are
 
 ```typescript
 import { BlockBytes, Block } from '@tevm/block'
-import { decode } from '@tevm/rlp'
+import { decode } from '@evmts/zevm/rlp'
 
 // Decode a complete block from its serialized form
 function decodeBlock(blockBytes: BlockBytes): Block {

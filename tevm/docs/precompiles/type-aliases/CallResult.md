@@ -8,7 +8,7 @@
 
 > **CallResult**\<`TAbi`, `TFunctionName`\> = `object`
 
-Defined in: packages/precompiles/dist/index.d.ts:38
+Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:37
 
 A result of a precompile javascript call
 
@@ -26,9 +26,9 @@ A result of a precompile javascript call
 
 ### blobGasUsed?
 
-> `optional` **blobGasUsed**: `bigint`
+> `optional` **blobGasUsed?**: `bigint`
 
-Defined in: packages/precompiles/dist/index.d.ts:67
+Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:66
 
 Amount of blob gas consumed by the transaction
 
@@ -36,9 +36,9 @@ Amount of blob gas consumed by the transaction
 
 ### error?
 
-> `optional` **error**: [`TypedError`](TypedError.md)\<`string`\>
+> `optional` **error?**: [`TypedError`](TypedError.md)\<`string`\>
 
-Defined in: packages/precompiles/dist/index.d.ts:50
+Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:49
 
 Any Error thrown during execution
 
@@ -48,7 +48,7 @@ Any Error thrown during execution
 
 > **executionGasUsed**: `bigint`
 
-Defined in: packages/precompiles/dist/index.d.ts:42
+Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:41
 
 The amount of gas used during execution.
 
@@ -56,9 +56,9 @@ The amount of gas used during execution.
 
 ### logs?
 
-> `optional` **logs**: `ReadonlyArray`\<\{ `address`: [`Address`](../../index/type-aliases/Address.md); `args`: [`EncodeEventTopicsParameters`](../../utils/type-aliases/EncodeEventTopicsParameters.md)\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"args"`\]; `eventName`: [`EncodeEventTopicsParameters`](../../utils/type-aliases/EncodeEventTopicsParameters.md)\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"eventName"`\]; \}\>
+> `optional` **logs?**: `ReadonlyArray`\<\{ `address`: [`Address`](../../index/type-aliases/Address.md); `args`: [`EncodeEventTopicsParameters`](../../utils/type-aliases/EncodeEventTopicsParameters.md)\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"args"`\]; `eventName`: [`EncodeEventTopicsParameters`](../../utils/type-aliases/EncodeEventTopicsParameters.md)\<`TAbi`, `ContractEventName`\<`TAbi`\>\>\[`"eventName"`\]; \}\>
 
-Defined in: packages/precompiles/dist/index.d.ts:55
+Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:54
 
 Logs emitted during contract execution.
 Logs must match the interface of the ABI
@@ -69,7 +69,7 @@ Logs must match the interface of the ABI
 
 > **returnValue**: [`AbiParametersToPrimitiveTypes`](../../index/type-aliases/AbiParametersToPrimitiveTypes.md)\<[`ExtractAbiFunction`](../../index/type-aliases/ExtractAbiFunction.md)\<`TAbi`, `TFunctionName`\>\[`"outputs"`\]\>\[`0`\]
 
-Defined in: packages/precompiles/dist/index.d.ts:46
+Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:45
 
 The return value of the call. Required even on exceptions
 
@@ -77,8 +77,8 @@ The return value of the call. Required even on exceptions
 
 ### selfdestruct?
 
-> `optional` **selfdestruct**: `Set`\<[`Address`](../../index/type-aliases/Address.md)\>
+> `optional` **selfdestruct?**: `Set`\<[`Address`](../../index/type-aliases/Address.md)\>
 
-Defined in: packages/precompiles/dist/index.d.ts:63
+Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:62
 
 A set of accounts to selfdestruct

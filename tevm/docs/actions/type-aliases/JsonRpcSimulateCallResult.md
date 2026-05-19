@@ -8,7 +8,7 @@
 
 > **JsonRpcSimulateCallResult** = `object`
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:271
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:271
 
 JSON-RPC response call result for eth_simulateV1
 
@@ -16,9 +16,9 @@ JSON-RPC response call result for eth_simulateV1
 
 ### error?
 
-> `optional` **error**: `object`
+> `optional` **error?**: `object`
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:276
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:276
 
 #### code
 
@@ -26,7 +26,7 @@ Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:276
 
 #### data?
 
-> `optional` **data**: [`Hex`](../../index/type-aliases/Hex.md)
+> `optional` **data?**: [`Hex`](../../index/type-aliases/Hex.md)
 
 #### message
 
@@ -38,7 +38,7 @@ Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:276
 
 > **gasUsed**: [`Hex`](../../index/type-aliases/Hex.md)
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:274
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:274
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:274
 
 > **logs**: `SerializeToJson`\<[`FilterLog`](FilterLog.md)\>[]
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:273
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:273
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:273
 
 > **returnData**: [`Hex`](../../index/type-aliases/Hex.md)
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:272
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:272
 
 ***
 
@@ -62,4 +62,4 @@ Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:272
 
 > **status**: [`Hex`](../../index/type-aliases/Hex.md)
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:275
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:275

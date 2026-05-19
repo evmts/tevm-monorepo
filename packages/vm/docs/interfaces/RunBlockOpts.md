@@ -18,13 +18,13 @@ Options for running a block.
 
 Defined in: [packages/vm/src/utils/RunBlockOpts.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L12)
 
-The @ethereumjs/block to process
+The block to process.
 
 ***
 
 ### clearCache?
 
-> `optional` **clearCache**: `boolean`
+> `optional` **clearCache?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunBlockOpts.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L24)
 
@@ -38,7 +38,7 @@ Default: true
 
 ### generate?
 
-> `optional` **generate**: `boolean`
+> `optional` **generate?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunBlockOpts.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L31)
 
@@ -51,7 +51,7 @@ Defaults to `false`.
 
 ### reportPreimages?
 
-> `optional` **reportPreimages**: `boolean`
+> `optional` **reportPreimages?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunBlockOpts.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L74)
 
@@ -62,7 +62,7 @@ to the `RunTxResult` returned.
 
 ### root?
 
-> `optional` **root**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **root?**: `Uint8Array`\<`ArrayBufferLike`\>
 
 Defined in: [packages/vm/src/utils/RunBlockOpts.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L16)
 
@@ -72,7 +72,7 @@ Root of the state trie
 
 ### setHardfork?
 
-> `optional` **setHardfork**: `boolean` \| `BigIntLike`
+> `optional` **setHardfork?**: `boolean` \| `BigIntLike`
 
 Defined in: [packages/vm/src/utils/RunBlockOpts.ts:68](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L68)
 
@@ -88,7 +88,7 @@ Default: `false` (HF is set to whatever default HF is set by the Common instance
 
 ### skipBalance?
 
-> `optional` **skipBalance**: `boolean`
+> `optional` **skipBalance?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunBlockOpts.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L58)
 
@@ -99,7 +99,7 @@ balance equal equal to the upfront cost (gas limit * gas price + transaction val
 
 ### skipBlockValidation?
 
-> `optional` **skipBlockValidation**: `boolean`
+> `optional` **skipBlockValidation?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunBlockOpts.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L37)
 
@@ -111,7 +111,7 @@ the transactions, the transaction trie and the uncle hash.
 
 ### skipHardForkValidation?
 
-> `optional` **skipHardForkValidation**: `boolean`
+> `optional` **skipHardForkValidation?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunBlockOpts.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L42)
 
@@ -122,7 +122,7 @@ and tx
 
 ### skipHeaderValidation?
 
-> `optional` **skipHeaderValidation**: `boolean`
+> `optional` **skipHeaderValidation?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunBlockOpts.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L49)
 
@@ -135,7 +135,7 @@ consensus of the chain has moved ahead.
 
 ### skipNonce?
 
-> `optional` **skipNonce**: `boolean`
+> `optional` **skipNonce?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunBlockOpts.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockOpts.ts#L53)
 

@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@arethetypeswrong/core@0.18.2':
+    hash: c0c21095021cb3d260f1be8fb36158ded85a34a1d9219735322f1e552f9f467f
+    path: patches/@arethetypeswrong__core@0.18.2.patch
+
 importers:
 
   .:
@@ -74,6 +79,93 @@ importers:
       vitest:
         specifier: ^4.1.6
         version: 4.1.6(@opentelemetry/api@1.9.1)(@types/node@25.9.0)(@vitest/coverage-v8@4.1.6)(@vitest/ui@4.1.6)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.8.4(@types/node@25.9.0)(typescript@6.0.3))(vite@8.0.13(@types/node@25.9.0)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.47.1)(tsx@4.22.2)(yaml@2.9.0))
+
+  ../zevm/npm/platforms/darwin-arm64: {}
+
+  ../zevm/npm/platforms/darwin-x64: {}
+
+  ../zevm/npm/platforms/freebsd-arm64: {}
+
+  ../zevm/npm/platforms/freebsd-x64: {}
+
+  ../zevm/npm/platforms/linux-arm64-gnu: {}
+
+  ../zevm/npm/platforms/linux-arm64-musl: {}
+
+  ../zevm/npm/platforms/linux-x64-gnu: {}
+
+  ../zevm/npm/platforms/linux-x64-musl: {}
+
+  ../zevm/npm/platforms/win32-arm64-msvc: {}
+
+  ../zevm/npm/platforms/win32-ia32-msvc: {}
+
+  ../zevm/npm/platforms/win32-x64-msvc: {}
+
+  ../zevm/npm/zevm:
+    dependencies:
+      '@ethereumjs/common':
+        specifier: ^10.1.1
+        version: 10.1.1
+      '@ethereumjs/evm':
+        specifier: ^10.1.1
+        version: 10.1.1
+      '@ethereumjs/trie':
+        specifier: 6.2.1
+        version: 6.2.1
+      '@ethereumjs/tx':
+        specifier: ^10.1.1
+        version: 10.1.1
+      '@noble/curves':
+        specifier: ^2.2.0
+        version: 2.2.0
+      '@noble/hashes':
+        specifier: ^2.2.0
+        version: 2.2.0
+    devDependencies:
+      '@types/debug':
+        specifier: ^4.1.13
+        version: 4.1.13
+      '@types/node':
+        specifier: ^22.15.0
+        version: 22.19.19
+      typescript:
+        specifier: ^5.9.0
+        version: 5.9.3
+    optionalDependencies:
+      '@evmts/zevm-darwin-arm64':
+        specifier: 0.0.0
+        version: link:../platforms/darwin-arm64
+      '@evmts/zevm-darwin-x64':
+        specifier: 0.0.0
+        version: link:../platforms/darwin-x64
+      '@evmts/zevm-freebsd-arm64':
+        specifier: 0.0.0
+        version: link:../platforms/freebsd-arm64
+      '@evmts/zevm-freebsd-x64':
+        specifier: 0.0.0
+        version: link:../platforms/freebsd-x64
+      '@evmts/zevm-linux-arm64-gnu':
+        specifier: 0.0.0
+        version: link:../platforms/linux-arm64-gnu
+      '@evmts/zevm-linux-arm64-musl':
+        specifier: 0.0.0
+        version: link:../platforms/linux-arm64-musl
+      '@evmts/zevm-linux-x64-gnu':
+        specifier: 0.0.0
+        version: link:../platforms/linux-x64-gnu
+      '@evmts/zevm-linux-x64-musl':
+        specifier: 0.0.0
+        version: link:../platforms/linux-x64-musl
+      '@evmts/zevm-win32-arm64-msvc':
+        specifier: 0.0.0
+        version: link:../platforms/win32-arm64-msvc
+      '@evmts/zevm-win32-ia32-msvc':
+        specifier: 0.0.0
+        version: link:../platforms/win32-ia32-msvc
+      '@evmts/zevm-win32-x64-msvc':
+        specifier: 0.0.0
+        version: link:../platforms/win32-x64-msvc
 
   bundler-packages/base-bundler:
     dependencies:
@@ -1123,7 +1215,7 @@ importers:
     dependencies:
       '@rainbow-me/rainbowkit':
         specifier: ^2.2.11
-        version: 2.2.11(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(wagmi@3.6.15(@coinbase/wallet-sdk@4.3.6(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(use-sync-external-store@1.4.0(react@19.2.6))(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-provider@0.18.6(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-sdk@9.1.0(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@tanstack/query-core@5.100.11)(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(@walletconnect/ethereum-provider@2.21.1(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3)))
+        version: 2.2.11(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(wagmi@3.6.15(@coinbase/wallet-sdk@4.3.6(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(use-sync-external-store@1.6.0(react@19.2.6))(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-provider@0.18.6(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-sdk@9.1.0(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@tanstack/query-core@5.100.11)(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(@walletconnect/ethereum-provider@2.21.1(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3)))
       '@tanstack/react-query':
         specifier: ^5.100.11
         version: 5.100.11(react@19.2.6)
@@ -1180,7 +1272,7 @@ importers:
         version: 3.6.0(vite@8.0.13(@types/node@25.9.0)(esbuild@0.28.0)(jiti@2.7.0)(terser@5.47.1)(tsx@4.22.2)(yaml@2.9.0))
       wagmi:
         specifier: ^3.6.15
-        version: 3.6.15(@coinbase/wallet-sdk@4.3.6(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(use-sync-external-store@1.4.0(react@19.2.6))(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-provider@0.18.6(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-sdk@9.1.0(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@tanstack/query-core@5.100.11)(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(@walletconnect/ethereum-provider@2.21.1(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))
+        version: 3.6.15(@coinbase/wallet-sdk@4.3.6(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(use-sync-external-store@1.6.0(react@19.2.6))(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-provider@0.18.6(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-sdk@9.1.0(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@tanstack/query-core@5.100.11)(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(@walletconnect/ethereum-provider@2.21.1(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))
       zod:
         specifier: ^4.4.3
         version: 4.4.3
@@ -1548,6 +1640,9 @@ importers:
 
   packages/actions:
     dependencies:
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
       '@tevm/address':
         specifier: workspace:^
         version: link:../address
@@ -1566,9 +1661,6 @@ importers:
       '@tevm/errors':
         specifier: workspace:^
         version: link:../errors
-      '@tevm/evm':
-        specifier: workspace:^
-        version: link:../evm
       '@tevm/jsonrpc':
         specifier: workspace:^
         version: link:../jsonrpc
@@ -1578,18 +1670,9 @@ importers:
       '@tevm/receipt-manager':
         specifier: workspace:^
         version: link:../receipt-manager
-      '@tevm/rlp':
-        specifier: workspace:^
-        version: link:../rlp
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
-      '@tevm/tx':
-        specifier: workspace:^
-        version: link:../tx
-      '@tevm/txpool':
-        specifier: workspace:^
-        version: link:../txpool
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
@@ -1603,6 +1686,9 @@ importers:
         specifier: ^4.1.11
         version: 4.4.3
     devDependencies:
+      '@tevm/evm':
+        specifier: workspace:^
+        version: link:../evm
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -1637,21 +1723,15 @@ importers:
 
   packages/block:
     dependencies:
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
       '@tevm/common':
         specifier: workspace:^
         version: link:../common
       '@tevm/errors':
         specifier: workspace:^
         version: link:../errors
-      '@tevm/rlp':
-        specifier: workspace:^
-        version: link:../rlp
-      '@tevm/trie':
-        specifier: workspace:^
-        version: link:../trie
-      '@tevm/tx':
-        specifier: workspace:^
-        version: link:../tx
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
@@ -1665,9 +1745,9 @@ importers:
 
   packages/blockchain:
     dependencies:
-      '@ethereumjs/blockchain':
-        specifier: ^10.1.1
-        version: 10.1.1
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
@@ -1683,9 +1763,6 @@ importers:
       '@tevm/logger':
         specifier: workspace:^
         version: link:../logger
-      '@tevm/trie':
-        specifier: workspace:^
-        version: link:../trie
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
@@ -1721,9 +1798,9 @@ importers:
 
   packages/common:
     dependencies:
-      '@ethereumjs/common':
-        specifier: ^10.1.1
-        version: 10.1.1
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
       '@tevm/errors':
         specifier: workspace:^
         version: link:../errors
@@ -1821,9 +1898,9 @@ importers:
 
   packages/errors:
     dependencies:
-      '@ethereumjs/evm':
-        specifier: ^10.1.1
-        version: 10.1.1
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
       viem:
         specifier: ^2.49.3
         version: 2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3)
@@ -1840,9 +1917,9 @@ importers:
 
   packages/evm:
     dependencies:
-      '@ethereumjs/evm':
-        specifier: ^10.1.1
-        version: 10.1.1
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
       '@tevm/blockchain':
         specifier: workspace:^
         version: link:../blockchain
@@ -1958,9 +2035,6 @@ importers:
       '@tevm/errors':
         specifier: workspace:^
         version: link:../errors
-      '@tevm/evm':
-        specifier: workspace:^
-        version: link:../evm
       '@tevm/node':
         specifier: workspace:^
         version: link:../node
@@ -1980,6 +2054,9 @@ importers:
         specifier: ^4.1.6
         version: 4.1.6(@opentelemetry/api@1.9.1)(@types/node@25.9.0)(@vitest/coverage-v8@4.1.6)(@vitest/ui@4.1.6)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.8.4(@types/node@25.9.0)(typescript@6.0.3))(vite@8.0.13(@types/node@25.9.0)(esbuild@0.28.0)(jiti@2.7.0)(terser@5.47.1)(tsx@4.22.2)(yaml@2.9.0))
     devDependencies:
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -1989,12 +2066,12 @@ importers:
       '@tevm/tsupconfig':
         specifier: workspace:^
         version: link:../../configs/tsupconfig
-      '@tevm/tx':
-        specifier: workspace:^
-        version: link:../tx
 
   packages/node:
     dependencies:
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
       '@tevm/address':
         specifier: workspace:^
         version: link:../address
@@ -2031,12 +2108,6 @@ importers:
       '@tevm/sync-storage-persister':
         specifier: workspace:^
         version: link:../sync-storage-persister
-      '@tevm/tx':
-        specifier: workspace:^
-        version: link:../tx
-      '@tevm/txpool':
-        specifier: workspace:^
-        version: link:../txpool
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
@@ -2059,6 +2130,9 @@ importers:
 
   packages/precompiles:
     dependencies:
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
       '@noble/curves':
         specifier: ^2.2.0
         version: 2.2.0
@@ -2068,9 +2142,6 @@ importers:
       '@tevm/contract':
         specifier: workspace:^
         version: link:../contract
-      '@tevm/evm':
-        specifier: workspace:^
-        version: link:../evm
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
@@ -2118,6 +2189,9 @@ importers:
 
   packages/receipt-manager:
     dependencies:
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
@@ -2127,12 +2201,6 @@ importers:
       '@tevm/common':
         specifier: workspace:^
         version: link:../common
-      '@tevm/rlp':
-        specifier: workspace:^
-        version: link:../rlp
-      '@tevm/tx':
-        specifier: workspace:^
-        version: link:../tx
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
@@ -2146,9 +2214,9 @@ importers:
 
   packages/rlp:
     dependencies:
-      '@ethereumjs/rlp':
-        specifier: ^10.1.1
-        version: 10.1.1
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -2211,9 +2279,9 @@ importers:
 
   packages/state:
     dependencies:
-      '@ethereumjs/statemanager':
-        specifier: ^10.1.1
-        version: 10.1.1
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
       '@tevm/address':
         specifier: workspace:^
         version: link:../address
@@ -2226,9 +2294,6 @@ importers:
       '@tevm/logger':
         specifier: workspace:^
         version: link:../logger
-      '@tevm/rlp':
-        specifier: workspace:^
-        version: link:../rlp
       '@tevm/test-utils':
         specifier: workspace:^
         version: link:../../test/test-utils
@@ -2264,9 +2329,9 @@ importers:
 
   packages/trie:
     dependencies:
-      '@ethereumjs/trie':
-        specifier: 6.2.1
-        version: 6.2.1
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -2277,15 +2342,9 @@ importers:
 
   packages/tx:
     dependencies:
-      '@ethereumjs/tx':
-        specifier: ^10.1.1
-        version: 10.1.1
-      '@tevm/errors':
-        specifier: workspace:^
-        version: link:../errors
-      '@tevm/utils':
-        specifier: workspace:^
-        version: link:../utils
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -2296,6 +2355,10 @@ importers:
 
   packages/txpool:
     dependencies:
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
+    devDependencies:
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
@@ -2311,9 +2374,12 @@ importers:
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
-      '@tevm/tx':
+      '@tevm/tsconfig':
         specifier: workspace:^
-        version: link:../tx
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
@@ -2323,22 +2389,12 @@ importers:
       qheap:
         specifier: ^1.4.0
         version: 1.4.0
-    devDependencies:
-      '@tevm/tsconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
-      '@tevm/tsupconfig':
-        specifier: workspace:^
-        version: link:../../configs/tsupconfig
 
   packages/utils:
     dependencies:
-      '@ethereumjs/evm':
-        specifier: ^10.1.1
-        version: 10.1.1
-      '@ethereumjs/util':
-        specifier: ^10.1.1
-        version: 10.1.1
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
       '@tevm/errors':
         specifier: workspace:^
         version: link:../errors
@@ -2358,9 +2414,9 @@ importers:
 
   packages/vm:
     dependencies:
-      '@ethereumjs/vm':
-        specifier: ^10.1.1
-        version: 10.1.1
+      '@evmts/zevm':
+        specifier: workspace:*
+        version: link:../../../zevm/npm/zevm
       '@tevm/block':
         specifier: workspace:^
         version: link:../block
@@ -2376,18 +2432,9 @@ importers:
       '@tevm/evm':
         specifier: workspace:^
         version: link:../evm
-      '@tevm/rlp':
-        specifier: workspace:^
-        version: link:../rlp
       '@tevm/state':
         specifier: workspace:^
         version: link:../state
-      '@tevm/trie':
-        specifier: workspace:^
-        version: link:../trie
-      '@tevm/tx':
-        specifier: workspace:^
-        version: link:../tx
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils
@@ -2460,7 +2507,7 @@ importers:
         version: 2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3)
       wagmi:
         specifier: ^3.6.15
-        version: 3.6.15(@coinbase/wallet-sdk@4.3.6(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(use-sync-external-store@1.6.0(react@19.2.6))(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-provider@0.18.6(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-sdk@9.1.0(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@tanstack/query-core@5.100.11)(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(@walletconnect/ethereum-provider@2.21.1(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))
+        version: 3.6.15(@coinbase/wallet-sdk@4.3.6(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(use-sync-external-store@1.4.0(react@19.2.6))(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-provider@0.18.6(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-sdk@9.1.0(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@tanstack/query-core@5.100.11)(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(@walletconnect/ethereum-provider@2.21.1(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))
     devDependencies:
       '@tevm/tsconfig':
         specifier: workspace:^
@@ -3988,14 +4035,6 @@ packages:
     resolution: {integrity: sha512-vcU+cDgWJ0YNrJb5gWcKWfMpYJg4W+8benAds7QQo2ayTYZbuMqju3Fq7m5LNG+xqkdF0a901QDbT5xaB7rJLQ==}
     engines: {node: '>=20'}
 
-  '@ethereumjs/block@10.1.1':
-    resolution: {integrity: sha512-nzQ07KGdujKQPxnPlZ86ppJ/u1t3N/PQ4RpGoPb/LI9DoqulyMr90j5NzkjQNtnvBQc8WbhPffi44yC3Yso+rQ==}
-    engines: {node: '>=20'}
-
-  '@ethereumjs/blockchain@10.1.1':
-    resolution: {integrity: sha512-+zZtO8NDm9mx8PrZN+bWphc+mGW0doeHjUhhJNHfXyLWZAe4uo8J8NsRDeCOgxLHtlu7hjgIX1Gcnt3t3/VSJA==}
-    engines: {node: '>=20'}
-
   '@ethereumjs/common@10.1.1':
     resolution: {integrity: sha512-NefPzPlrJ9w+NWVe06P+sHZQU98E1AEU9vhiHJEVT2wEcNBC1YX6hON9+smrfbn86C4U1pb2zbvjhkF+n/LKBw==}
 
@@ -4051,10 +4090,6 @@ packages:
   '@ethereumjs/util@9.1.0':
     resolution: {integrity: sha512-XBEKsYqLGXLah9PNJbgdkigthkG7TAGvlD/sH12beMXEyHDyigfcbdvHhmLyDWgDyOJn4QwiQUaF7yeuhnjdog==}
     engines: {node: '>=18'}
-
-  '@ethereumjs/vm@10.1.1':
-    resolution: {integrity: sha512-OFr7+3pHgkzTAIXTBXr5UwerKJhrwcQEV/vHrd9jtnPVSdkZQKCttTWXwA/lqEcOGlNVenTLcWNYasdmXOU9lg==}
-    engines: {node: '>=20'}
 
   '@ethersproject/abi@5.8.0':
     resolution: {integrity: sha512-b9YS/43ObplgyV6SlyQsG53/vkSal0MNA1fskSC4mbnCMi8R+NkcH8K9FPYNESf6jUefBUniE4SOKms0E/KK1Q==}
@@ -7989,6 +8024,9 @@ packages:
   '@types/node@20.19.41':
     resolution: {integrity: sha512-ECymXOukMnOoVkC2bb1Vc/w/836DXncOg5m8Xj1RH7xSHZJWNYY6Zh7EH477vcnD5egKNNfy2RpNOmuChhFPgQ==}
 
+  '@types/node@22.19.19':
+    resolution: {integrity: sha512-dyh/xO2Fh5bYrfWaaqGrRQQGkNdmYw6AmaAUvYeUMNTWQtvb796ikLdmTchRmOlOiIJ1TDXfWgVx1QkUlQ6Hew==}
+
   '@types/node@22.7.5':
     resolution: {integrity: sha512-jML7s2NAzMWc//QSJ1a3prpk78cOPchGvXJsC3C6R6PSMoooztvRVQEz89gmBTBY1SPMaqo5teB4uNHPdetShQ==}
 
@@ -9316,7 +9354,6 @@ packages:
 
   bun@1.2.5:
     resolution: {integrity: sha512-fbQLt+DPiGUrPKdmsHRRT7cQAlfjdxPVFvLZrsUPmKiTdv+pU50ypdx9yRJluknSbyaZchFVV7Lx2KXikXKX2Q==}
-    cpu: [arm64, x64, aarch64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -12604,7 +12641,6 @@ packages:
   keygrip@1.1.0:
     resolution: {integrity: sha512-iYSchDJ+liQ8iwbSI2QqsQOvqv58eJCEanyJPJi+Khyu8smkcKSFUCbPwzFcL7YVtZ6eONjqRX/38caJ7QjRAQ==}
     engines: {node: '>= 0.6'}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   keytar@7.9.0:
     resolution: {integrity: sha512-VPD8mtVtm5JNtA2AErl6Chp06JBfy7diFQ7TQQhdpWOl6MrCRB+eRbvAZUsbGQS9kiMq0coJsy0W0vHpDCkWsQ==}
@@ -17721,7 +17757,7 @@ snapshots:
 
   '@arethetypeswrong/cli@0.18.2':
     dependencies:
-      '@arethetypeswrong/core': 0.18.2
+      '@arethetypeswrong/core': 0.18.2(patch_hash=c0c21095021cb3d260f1be8fb36158ded85a34a1d9219735322f1e552f9f467f)
       chalk: 4.1.2
       cli-table3: 0.6.5
       commander: 10.0.1
@@ -17729,7 +17765,7 @@ snapshots:
       marked-terminal: 7.3.0(marked@9.1.6)
       semver: 7.8.0
 
-  '@arethetypeswrong/core@0.18.2':
+  '@arethetypeswrong/core@0.18.2(patch_hash=c0c21095021cb3d260f1be8fb36158ded85a34a1d9219735322f1e552f9f467f)':
     dependencies:
       '@andrewbranch/untar.js': 1.0.3
       '@loaderkit/resolve': 1.0.6
@@ -19068,31 +19104,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@ethereumjs/block@10.1.1':
-    dependencies:
-      '@ethereumjs/common': 10.1.1
-      '@ethereumjs/mpt': 10.1.1
-      '@ethereumjs/rlp': 10.1.1
-      '@ethereumjs/tx': 10.1.1
-      '@ethereumjs/util': 10.1.1
-      '@noble/curves': 2.2.0
-      '@noble/hashes': 2.2.0
-    transitivePeerDependencies:
-      - supports-color
-
-  '@ethereumjs/blockchain@10.1.1':
-    dependencies:
-      '@ethereumjs/block': 10.1.1
-      '@ethereumjs/common': 10.1.1
-      '@ethereumjs/mpt': 10.1.1
-      '@ethereumjs/rlp': 10.1.1
-      '@ethereumjs/util': 10.1.1
-      debug: 4.4.3(supports-color@8.1.1)
-      eventemitter3: 5.0.4
-      lru-cache: 11.0.2
-    transitivePeerDependencies:
-      - supports-color
-
   '@ethereumjs/common@10.1.1':
     dependencies:
       '@ethereumjs/util': 10.1.1
@@ -19189,22 +19200,6 @@ snapshots:
     dependencies:
       '@ethereumjs/rlp': 5.0.2
       ethereum-cryptography: 2.2.1
-
-  '@ethereumjs/vm@10.1.1':
-    dependencies:
-      '@ethereumjs/block': 10.1.1
-      '@ethereumjs/common': 10.1.1
-      '@ethereumjs/evm': 10.1.1
-      '@ethereumjs/mpt': 10.1.1
-      '@ethereumjs/rlp': 10.1.1
-      '@ethereumjs/statemanager': 10.1.1
-      '@ethereumjs/tx': 10.1.1
-      '@ethereumjs/util': 10.1.1
-      '@noble/hashes': 2.2.0
-      debug: 4.4.3(supports-color@8.1.1)
-      eventemitter3: 5.0.4
-    transitivePeerDependencies:
-      - supports-color
 
   '@ethersproject/abi@5.8.0':
     dependencies:
@@ -23703,7 +23698,7 @@ snapshots:
       - babel-plugin-macros
       - typescript
 
-  '@rainbow-me/rainbowkit@2.2.11(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(wagmi@3.6.15(@coinbase/wallet-sdk@4.3.6(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(use-sync-external-store@1.4.0(react@19.2.6))(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-provider@0.18.6(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-sdk@9.1.0(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@tanstack/query-core@5.100.11)(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(@walletconnect/ethereum-provider@2.21.1(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3)))':
+  '@rainbow-me/rainbowkit@2.2.11(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(wagmi@3.6.15(@coinbase/wallet-sdk@4.3.6(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(use-sync-external-store@1.6.0(react@19.2.6))(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-provider@0.18.6(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-sdk@9.1.0(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@tanstack/query-core@5.100.11)(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(@walletconnect/ethereum-provider@2.21.1(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3)))':
     dependencies:
       '@tanstack/react-query': 5.100.11(react@19.2.6)
       '@vanilla-extract/css': 1.20.1
@@ -23716,7 +23711,7 @@ snapshots:
       react-remove-scroll: 2.7.2(@types/react@19.2.14)(react@19.2.6)
       ua-parser-js: 2.0.9
       viem: 2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3)
-      wagmi: 3.6.15(@coinbase/wallet-sdk@4.3.6(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(use-sync-external-store@1.4.0(react@19.2.6))(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-provider@0.18.6(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-sdk@9.1.0(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@tanstack/query-core@5.100.11)(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(@walletconnect/ethereum-provider@2.21.1(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))
+      wagmi: 3.6.15(@coinbase/wallet-sdk@4.3.6(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(use-sync-external-store@1.6.0(react@19.2.6))(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-provider@0.18.6(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@safe-global/safe-apps-sdk@9.1.0(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(@tanstack/query-core@5.100.11)(@tanstack/react-query@5.100.11(react@19.2.6))(@types/react@19.2.14)(@walletconnect/ethereum-provider@2.21.1(@types/react@19.2.14)(bufferutil@4.1.0)(react@19.2.6)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))(react@19.2.6)(typescript@6.0.3)(viem@2.49.3(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3))
     transitivePeerDependencies:
       - '@types/react'
       - babel-plugin-macros
@@ -25602,6 +25597,10 @@ snapshots:
   '@types/node@12.20.55': {}
 
   '@types/node@20.19.41':
+    dependencies:
+      undici-types: 6.21.0
+
+  '@types/node@22.19.19':
     dependencies:
       undici-types: 6.21.0
 

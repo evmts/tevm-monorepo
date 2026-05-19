@@ -60,11 +60,11 @@ Defined in: [packages/block/src/types.ts:137](https://github.com/evmts/tevm-mono
 
 #### currentValue
 
-> **currentValue**: `null` \| `` `0x${string}` ``
+> **currentValue**: `` `0x${string}` `` \| `null`
 
 #### newValue
 
-> **newValue**: `null` \| `` `0x${string}` ``
+> **newValue**: `` `0x${string}` `` \| `null`
 
 #### suffix
 

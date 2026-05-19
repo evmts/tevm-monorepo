@@ -1,4 +1,4 @@
-import { createCustomCommon, Mainnet } from '@ethereumjs/common'
+import { createCustomCommon, Mainnet } from '@evmts/zevm/common'
 import { InvalidParamsError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
 import { createMockKzg } from './createMockKzg.js'
@@ -6,7 +6,7 @@ import { createMockKzg } from './createMockKzg.js'
 /**
  * Common is the main representation of chain specific configuration for tevm clients.
  *
- * createCommon creates a typesafe ethereumjs Common object used by the EVM
+ * createCommon creates a typesafe Common object used by the EVM
  * to access chain and hardfork parameters and to provide
  * a unified and shared view on the network and hardfork state.
  * Tevm common extends the [viem chain](https://github.com/wevm/viem/blob/main/src/chains/index.ts) interface
@@ -36,17 +36,11 @@ import { createMockKzg } from './createMockKzg.js'
  * const commonCopy = common.copy()
  * ```
  *
- * To use with ethereumjs use the ethjsCommon property
+ * To access the underlying Common instance, use the ethjsCommon property.
  * @example
  * ```typescript
- * import { VM } from '@ethereumjs/vm'
- * import { createMemoryClient } from 'tevm'
- *
  * const common = createCommon({ ... })
- *
- * const vm = new VM({
- *   common: common.ethjsCommon,
- * })
+ * const ethjsCommon = common.ethjsCommon
  * ```
  * @see [Tevm client docs](https://tevm.sh/learn/clients/)
  */

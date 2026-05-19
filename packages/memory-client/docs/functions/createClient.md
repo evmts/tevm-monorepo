@@ -8,7 +8,7 @@
 
 > **createClient**\<`transport`, `chain`, `accountOrAddress`, `rpcSchema`\>(`parameters`): `object`
 
-Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.3\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/clients/createClient.d.ts:113
+Defined in: node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/clients/createClient.d.ts:118
 
 ## Type Parameters
 
@@ -18,15 +18,15 @@ Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.3\
 
 ### chain
 
-`chain` *extends* `undefined` \| `Chain` = `undefined`
+`chain` *extends* `Chain` \| `undefined` = `undefined`
 
 ### accountOrAddress
 
-`accountOrAddress` *extends* `undefined` \| `` `0x${string}` `` \| `Account` = `undefined`
+`accountOrAddress` *extends* `` `0x${string}` `` \| `Account` \| `undefined` = `undefined`
 
 ### rpcSchema
 
-`rpcSchema` *extends* `undefined` \| `RpcSchema` = `undefined`
+`rpcSchema` *extends* `RpcSchema` \| `undefined` = `undefined`
 
 ## Parameters
 
@@ -44,21 +44,55 @@ The Account of the Client.
 
 ### batch?
 
-> `optional` **batch**: `object`
+> `optional` **batch?**: `object`
 
 Flags for batch settings.
 
 #### batch.multicall?
 
-> `optional` **multicall**: `boolean` \| \{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}
+> `optional` **multicall?**: `boolean` \| \{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}
 
 Toggle to enable `eth_call` multicall aggregation.
 
-##### Type Declaration
+##### Union Members
 
 `boolean`
 
+***
+
+###### Type Literal
+
 \{ `batchSize?`: `number`; `deployless?`: `boolean`; `wait?`: `number`; \}
+
+###### batchSize?
+
+> `optional` **batchSize?**: `number`
+
+The maximum size (in bytes) for each calldata chunk.
+
+###### Default
+
+```ts
+1_024
+```
+
+###### deployless?
+
+> `optional` **deployless?**: `boolean`
+
+Enable deployless multicall.
+
+###### wait?
+
+> `optional` **wait?**: `number`
+
+The maximum number of milliseconds to wait before sending a batch.
+
+###### Default
+
+```ts
+0
+```
 
 ### cacheTime
 
@@ -68,15 +102,39 @@ Time (in ms) that cached data will remain in memory.
 
 ### ccipRead?
 
-> `optional` **ccipRead**: `false` \| \{ `request?`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
+> `optional` **ccipRead?**: `false` \| \{ `request?`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
 
 [CCIP Read](https://eips.ethereum.org/EIPS/eip-3668) configuration.
 
-#### Type Declaration
+#### Union Members
 
 `false`
 
+***
+
+##### Type Literal
+
 \{ `request?`: (`parameters`) => `Promise`\<`` `0x${string}` ``\>; \}
+
+##### request?
+
+> `optional` **request?**: (`parameters`) => `Promise`\<`` `0x${string}` ``\>
+
+A function that will be called to make the offchain CCIP lookup request.
+
+###### Parameters
+
+###### parameters
+
+`CcipRequestParameters`
+
+###### Returns
+
+`Promise`\<`` `0x${string}` ``\>
+
+###### See
+
+https://eips.ethereum.org/EIPS/eip-3668#client-lookup-protocol
 
 ### chain
 
@@ -84,13 +142,19 @@ Time (in ms) that cached data will remain in memory.
 
 Chain for the client.
 
+### dataSuffix?
+
+> `optional` **dataSuffix?**: `DataSuffix`
+
+Data suffix to append to transaction data.
+
 ### experimental\_blockTag?
 
-> `optional` **experimental\_blockTag**: `BlockTag`
+> `optional` **experimental\_blockTag?**: `BlockTag`
 
 Default block tag to use for RPC requests.
 
-### extend()
+### extend
 
 > **extend**: \<`client`\>(`fn`) => `Client`\<`transport`, `chain`, `accountOrAddress` *extends* `` `0x${string}` `` ? `object` : `accountOrAddress`, `rpcSchema`, \{ \[K in string \| number \| symbol\]: client\[K\] \}\>
 

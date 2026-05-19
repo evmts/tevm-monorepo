@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilSetMinGasPriceProcedure
 
-# Type Alias: AnvilSetMinGasPriceProcedure()
+# Type Alias: AnvilSetMinGasPriceProcedure
 
 > **AnvilSetMinGasPriceProcedure** = (`request`) => `Promise`\<[`AnvilSetMinGasPriceJsonRpcResponse`](AnvilSetMinGasPriceJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:111
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:111
 
 JSON-RPC procedure for `anvil_setMinGasPrice`
 

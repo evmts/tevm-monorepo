@@ -16,7 +16,7 @@ Call trace for V2 debugging
 
 ### calls?
 
-> `optional` **calls**: `CallTrace`[]
+> `optional` **calls?**: `CallTrace`[]
 
 Defined in: [packages/actions/src/eth/EthResult.ts:544](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L544)
 
@@ -26,7 +26,7 @@ Sub-calls made during this call
 
 ### error?
 
-> `optional` **error**: `string`
+> `optional` **error?**: `string`
 
 Defined in: [packages/actions/src/eth/EthResult.ts:540](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L540)
 
@@ -86,7 +86,7 @@ The output/return data
 
 ### to?
 
-> `optional` **to**: [`Address`](Address.md)
+> `optional` **to?**: [`Address`](Address.md)
 
 Defined in: [packages/actions/src/eth/EthResult.ts:516](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L516)
 
@@ -106,7 +106,7 @@ The type of call (CALL, DELEGATECALL, STATICCALL, CREATE, CREATE2)
 
 ### value?
 
-> `optional` **value**: `bigint`
+> `optional` **value?**: `bigint`
 
 Defined in: [packages/actions/src/eth/EthResult.ts:520](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L520)
 

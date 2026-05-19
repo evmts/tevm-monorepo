@@ -8,7 +8,7 @@
 
 > **loadStateProcedure**(`client`): [`LoadStateJsonRpcProcedure`](../type-aliases/LoadStateJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/LoadState/loadStateProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/LoadState/loadStateProcedure.d.ts:1
 
 ## Parameters
 

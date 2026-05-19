@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetTransactionReceiptHandler
 
-# Type Alias: EthGetTransactionReceiptHandler()
+# Type Alias: EthGetTransactionReceiptHandler
 
 > **EthGetTransactionReceiptHandler** = (`request`) => `Promise`\<[`EthGetTransactionReceiptResult`](EthGetTransactionReceiptResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:29
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:29
 
 ## Parameters
 

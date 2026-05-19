@@ -7,9 +7,9 @@ import { decodeRevertReason } from './decodeRevertReason.js'
  * Prepares a trace to be listened to. If laizlyRun is true, it will return an object with the trace and not run the evm internally
  * @param {import('@tevm/vm').Vm} vm
  * @param {import('@tevm/node').TevmNode['logger']} logger
- * @param {import('@tevm/evm').EvmRunCallOpts} params
+ * @param {import('@evmts/zevm/evm').EvmRunCallOpts} params
  * @param {boolean} [lazilyRun]
- * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../common/CallTraceResult.js').CallTraceResult}>}
+ * @returns {Promise<import('@evmts/zevm/evm').EvmResult & {trace: import('../common/CallTraceResult.js').CallTraceResult}>}
  * @throws {never}
  */
 export const runCallWithCallTrace = async (vm, logger, params, lazilyRun = false) => {

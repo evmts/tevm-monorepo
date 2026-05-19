@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthSyncingHandler
 
-# Type Alias: EthSyncingHandler()
+# Type Alias: EthSyncingHandler
 
 > **EthSyncingHandler** = (`request`) => `Promise`\<[`EthSyncingResult`](EthSyncingResult.md)\>
 

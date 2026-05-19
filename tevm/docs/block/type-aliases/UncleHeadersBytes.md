@@ -8,7 +8,7 @@
 
 > **UncleHeadersBytes** = `Uint8Array`[][]
 
-Defined in: packages/block/types/types.d.ts:401
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:401
 
 Represents serialized uncle (ommer) block headers
 

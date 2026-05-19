@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthFeeHistoryHandler
 
-# Type Alias: EthFeeHistoryHandler()
+# Type Alias: EthFeeHistoryHandler
 
 > **EthFeeHistoryHandler** = (`request`) => `Promise`\<[`EthFeeHistoryResult`](EthFeeHistoryResult.md)\>
 

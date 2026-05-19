@@ -1,5 +1,5 @@
+import type { JsonRpcTx, JsonTx, TransactionType, TxData } from '@evmts/zevm/tx'
 import type { Common } from '@tevm/common'
-import type { JsonRpcTx, JsonTx, TransactionType, TxData } from '@tevm/tx'
 import type { AddressLike, BigIntLike, BytesLike, Hex, JsonRpcWithdrawal, WithdrawalData } from '@tevm/utils'
 import type { ClRequest } from './ClRequest.js'
 import type { BlockHeader } from './header.js'
@@ -269,7 +269,7 @@ export type RequestsBytes = Uint8Array[]
  * @example
  * ```typescript
  * import { ExecutionWitnessBytes, VerkleExecutionWitness } from '@tevm/block'
- * import { decode } from '@tevm/rlp'
+ * import { decode } from '@evmts/zevm/rlp'
  *
  * // Decode execution witness from its serialized form
  * function decodeWitness(witnessBytes: ExecutionWitnessBytes): VerkleExecutionWitness {
@@ -301,7 +301,7 @@ export type ExecutionWitnessBytes = Uint8Array
  * @example
  * ```typescript
  * import { BlockBytes, Block } from '@tevm/block'
- * import { decode } from '@tevm/rlp'
+ * import { decode } from '@evmts/zevm/rlp'
  *
  * // Decode a complete block from its serialized form
  * function decodeBlock(blockBytes: BlockBytes): Block {

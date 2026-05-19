@@ -8,6 +8,6 @@
 
 > **AnvilResetParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:75
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:75
 
 Params for `anvil_reset` handler

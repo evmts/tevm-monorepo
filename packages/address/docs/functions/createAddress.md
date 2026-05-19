@@ -8,7 +8,7 @@
 
 > **createAddress**(`address`): [`Address`](../classes/Address.md)
 
-Defined in: [packages/address/src/createAddress.js:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/createAddress.js#L71)
+Defined in: [tevm-monorepo/packages/address/src/createAddress.js:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/address/src/createAddress.js#L71)
 
 Creates an [Address](../classes/Address.md) instance from various input formats for safely
 interacting with Ethereum addresses.
@@ -30,9 +30,9 @@ This is the recommended way to create Address instances throughout TEVM.
 
 ### address
 
-The input to create an address from
+`string` \| `number` \| `bigint` \| `Address` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-`string` | `number` | `bigint` | `Address` | `Uint8Array`\<`ArrayBufferLike`\>
+The input to create an address from
 
 ## Returns
 

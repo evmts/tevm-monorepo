@@ -8,7 +8,7 @@
 
 > **SolcSourceEntry** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:122
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:122
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:122
 
 > **ast**: `any`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:124
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:124
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:124
 
 > **id**: `number`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:123
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:123

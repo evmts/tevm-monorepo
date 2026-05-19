@@ -29,8 +29,7 @@ export {
 	KeyEncoding,
 	// Additional constants needed for EIP-7702 validation
 	MAX_UINT64,
-	// ecsign was removed in newer versions of @ethereumjs/util
-	// zeros was also removed
+	// randomBytes is kept for compatibility with older utility exports.
 	randomBytes,
 	SECP256K1_ORDER_DIV_2,
 	setLengthLeft,
@@ -38,4 +37,4 @@ export {
 	toType,
 	ValueEncoding,
 	Withdrawal,
-} from '@ethereumjs/util'
+} from '@evmts/zevm/util'

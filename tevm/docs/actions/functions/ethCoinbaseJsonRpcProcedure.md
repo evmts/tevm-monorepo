@@ -8,7 +8,7 @@
 
 > **ethCoinbaseJsonRpcProcedure**(`client`): [`EthCoinbaseJsonRpcProcedure`](../type-aliases/EthCoinbaseJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethCoinbaseProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethCoinbaseProcedure.d.ts:1
 
 ## Parameters
 

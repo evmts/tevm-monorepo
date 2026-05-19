@@ -36,7 +36,7 @@ const common = createCommon({
 
 ## Properties
 
-### blobToKzgCommitment()
+### blobToKzgCommitment
 
 > **blobToKzgCommitment**: (`blob`) => `string`
 
@@ -54,7 +54,7 @@ Defined in: [packages/common/src/MockKzg.ts:27](https://github.com/evmts/tevm-mo
 
 ***
 
-### computeBlobKzgProof()
+### computeBlobKzgProof
 
 > **computeBlobKzgProof**: (`blob`, `commitment`) => `string`
 
@@ -76,7 +76,7 @@ Defined in: [packages/common/src/MockKzg.ts:28](https://github.com/evmts/tevm-mo
 
 ***
 
-### computeBlobProof()
+### computeBlobProof
 
 > **computeBlobProof**: (`blob`, `commitment`) => `string`
 
@@ -98,7 +98,43 @@ Defined in: [packages/common/src/MockKzg.ts:33](https://github.com/evmts/tevm-mo
 
 ***
 
-### freeTrustedSetup()
+### computeCells
+
+> **computeCells**: (`blob`) => `string`[]
+
+Defined in: [packages/common/src/MockKzg.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L36)
+
+#### Parameters
+
+##### blob
+
+`string`
+
+#### Returns
+
+`string`[]
+
+***
+
+### computeCellsAndProofs
+
+> **computeCellsAndProofs**: (`blob`) => \[`string`[], `string`[]\]
+
+Defined in: [packages/common/src/MockKzg.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L37)
+
+#### Parameters
+
+##### blob
+
+`string`
+
+#### Returns
+
+\[`string`[], `string`[]\]
+
+***
+
+### freeTrustedSetup
 
 > **freeTrustedSetup**: () => `void`
 
@@ -110,7 +146,7 @@ Defined in: [packages/common/src/MockKzg.ts:26](https://github.com/evmts/tevm-mo
 
 ***
 
-### loadTrustedSetup()
+### loadTrustedSetup
 
 > **loadTrustedSetup**: (`trustedSetup?`) => `number`
 
@@ -128,7 +164,29 @@ Defined in: [packages/common/src/MockKzg.ts:25](https://github.com/evmts/tevm-mo
 
 ***
 
-### verifyBlobKzgProof()
+### recoverCellsAndProofs
+
+> **recoverCellsAndProofs**: (`indices`, `cells`) => \[`string`[], `string`[]\]
+
+Defined in: [packages/common/src/MockKzg.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L38)
+
+#### Parameters
+
+##### indices
+
+`number`[]
+
+##### cells
+
+`string`[]
+
+#### Returns
+
+\[`string`[], `string`[]\]
+
+***
+
+### verifyBlobKzgProof
 
 > **verifyBlobKzgProof**: (`blob`, `commitment`, `proof`) => `boolean`
 
@@ -154,7 +212,7 @@ Defined in: [packages/common/src/MockKzg.ts:31](https://github.com/evmts/tevm-mo
 
 ***
 
-### verifyBlobKzgProofBatch()
+### verifyBlobKzgProofBatch
 
 > **verifyBlobKzgProofBatch**: (`blobs`, `commitments`, `proofs`) => `boolean`
 
@@ -180,7 +238,7 @@ Defined in: [packages/common/src/MockKzg.ts:29](https://github.com/evmts/tevm-mo
 
 ***
 
-### verifyBlobProofBatch()
+### verifyBlobProofBatch
 
 > **verifyBlobProofBatch**: (`blobs`, `commitments`, `proofs`) => `boolean`
 
@@ -206,7 +264,37 @@ Defined in: [packages/common/src/MockKzg.ts:35](https://github.com/evmts/tevm-mo
 
 ***
 
-### verifyKzgProof()
+### verifyCellKzgProofBatch
+
+> **verifyCellKzgProofBatch**: (`commitments`, `indices`, `cells`, `proofs`) => `boolean`
+
+Defined in: [packages/common/src/MockKzg.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/MockKzg.ts#L39)
+
+#### Parameters
+
+##### commitments
+
+`string`[]
+
+##### indices
+
+`number`[]
+
+##### cells
+
+`string`[]
+
+##### proofs
+
+`string`[]
+
+#### Returns
+
+`boolean`
+
+***
+
+### verifyKzgProof
 
 > **verifyKzgProof**: (`commitment`, `z`, `y`, `proof`) => `boolean`
 
@@ -236,7 +324,7 @@ Defined in: [packages/common/src/MockKzg.ts:30](https://github.com/evmts/tevm-mo
 
 ***
 
-### verifyProof()
+### verifyProof
 
 > **verifyProof**: (`commitment`, `z`, `y`, `proof`) => `boolean`
 

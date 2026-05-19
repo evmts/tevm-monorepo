@@ -22,7 +22,7 @@ Defined in: [solcTypes.ts:164](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### divModNoSlacks?
 
-> `optional` **divModNoSlacks**: `boolean`
+> `optional` **divModNoSlacks?**: `boolean`
 
 Defined in: [solcTypes.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L171)
 
@@ -30,7 +30,7 @@ Defined in: [solcTypes.ts:171](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### engine?
 
-> `optional` **engine**: `"all"` \| `"bmc"` \| `"chc"` \| `"none"`
+> `optional` **engine?**: `"all"` \| `"bmc"` \| `"chc"` \| `"none"`
 
 Defined in: [solcTypes.ts:173](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L173)
 
@@ -54,7 +54,7 @@ Defined in: [solcTypes.ts:179](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### showProved?
 
-> `optional` **showProved**: `boolean`
+> `optional` **showProved?**: `boolean`
 
 Defined in: [solcTypes.ts:181](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L181)
 
@@ -62,7 +62,7 @@ Defined in: [solcTypes.ts:181](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### showUnproved?
 
-> `optional` **showUnproved**: `boolean`
+> `optional` **showUnproved?**: `boolean`
 
 Defined in: [solcTypes.ts:183](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L183)
 
@@ -70,7 +70,7 @@ Defined in: [solcTypes.ts:183](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### showUnsupported?
 
-> `optional` **showUnsupported**: `boolean`
+> `optional` **showUnsupported?**: `boolean`
 
 Defined in: [solcTypes.ts:185](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L185)
 
@@ -86,7 +86,7 @@ Defined in: [solcTypes.ts:188](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### targets?
 
-> `optional` **targets**: (`"underflow"` \| `"overflow"` \| `"assert"`)[]
+> `optional` **targets?**: (`"underflow"` \| `"overflow"` \| `"assert"`)[]
 
 Defined in: [solcTypes.ts:194](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L194)
 
@@ -94,6 +94,6 @@ Defined in: [solcTypes.ts:194](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### timeout?
 
-> `optional` **timeout**: `boolean`
+> `optional` **timeout?**: `boolean`
 
 Defined in: [solcTypes.ts:199](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L199)

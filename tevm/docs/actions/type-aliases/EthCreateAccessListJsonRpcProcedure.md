@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthCreateAccessListJsonRpcProcedure
 
-# Type Alias: EthCreateAccessListJsonRpcProcedure()
+# Type Alias: EthCreateAccessListJsonRpcProcedure
 
 > **EthCreateAccessListJsonRpcProcedure** = (`request`) => `Promise`\<[`EthCreateAccessListJsonRpcResponse`](EthCreateAccessListJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:47
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:47
 
 ## Parameters
 

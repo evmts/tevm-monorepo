@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilResetProcedure
 
-# Type Alias: AnvilResetProcedure()
+# Type Alias: AnvilResetProcedure
 
 > **AnvilResetProcedure** = (`request`) => `Promise`\<[`AnvilResetJsonRpcResponse`](AnvilResetJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:39
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:39
 
 JSON-RPC procedure for `anvil_reset`
 

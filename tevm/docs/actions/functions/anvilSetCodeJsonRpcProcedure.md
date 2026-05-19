@@ -8,7 +8,7 @@
 
 > **anvilSetCodeJsonRpcProcedure**(`client`): [`AnvilSetCodeProcedure`](../type-aliases/AnvilSetCodeProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetCodeProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetCodeProcedure.d.ts:1
 
 ## Parameters
 

@@ -16,7 +16,7 @@ Header information of an ethereum block
 
 ### baseFeePerGas?
 
-> `readonly` `optional` **baseFeePerGas**: `bigint`
+> `readonly` `optional` **baseFeePerGas?**: `bigint`
 
 Defined in: [packages/actions/src/common/Block.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Block.ts#L35)
 
@@ -26,7 +26,7 @@ Defined in: [packages/actions/src/common/Block.ts:35](https://github.com/evmts/t
 
 ### blobGasPrice?
 
-> `readonly` `optional` **blobGasPrice**: `bigint`
+> `readonly` `optional` **blobGasPrice?**: `bigint`
 
 Defined in: [packages/actions/src/common/Block.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/Block.ts#L40)
 

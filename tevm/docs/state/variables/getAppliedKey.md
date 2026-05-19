@@ -8,7 +8,7 @@
 
 > `const` **getAppliedKey**: [`StateAction`](../type-aliases/StateAction.md)\<`"getAppliedKey"`\>
 
-Defined in: packages/state/dist/index.d.ts:450
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:454
 
 ## Deprecated
 

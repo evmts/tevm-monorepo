@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / TevmJsonRpcBulkRequestHandler
 
-# Type Alias: TevmJsonRpcBulkRequestHandler()
+# Type Alias: TevmJsonRpcBulkRequestHandler
 
 > **TevmJsonRpcBulkRequestHandler** = (`requests`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`any`\>[]\>
 
-Defined in: packages/actions/types/tevm-request-handler/TevmJsonRpcBulkRequestHandler.d.ts:85
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmJsonRpcBulkRequestHandler.d.ts:85
 
 **`Experimental`**
 

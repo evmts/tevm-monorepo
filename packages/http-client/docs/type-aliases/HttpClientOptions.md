@@ -18,7 +18,7 @@ Options for a HttpClient
 
 ### ~~name?~~
 
-> `readonly` `optional` **name**: `string`
+> `readonly` `optional` **name?**: `string`
 
 Defined in: [HttpClientOptions.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/HttpClientOptions.ts#L13)
 

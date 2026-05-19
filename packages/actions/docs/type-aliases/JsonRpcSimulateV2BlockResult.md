@@ -16,7 +16,7 @@ JSON-RPC response block result for eth_simulateV2 (extends V1)
 
 ### baseFeePerGas?
 
-> `optional` **baseFeePerGas**: `Hex`
+> `optional` **baseFeePerGas?**: `Hex`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:547](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L547)
 
@@ -32,7 +32,7 @@ Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:549](https://github.
 
 ### feeRecipient?
 
-> `optional` **feeRecipient**: `Address`
+> `optional` **feeRecipient?**: `Address`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:548](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L548)
 

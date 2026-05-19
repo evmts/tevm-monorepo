@@ -8,7 +8,7 @@
 
 > **debugGetModifiedAccountsByHashJsonRpcProcedure**(`client`): `DebugGetModifiedAccountsByHashProcedure`
 
-Defined in: packages/actions/types/debug/debugGetModifiedAccountsByHashProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/debug/debugGetModifiedAccountsByHashProcedure.d.ts:1
 
 ## Parameters
 

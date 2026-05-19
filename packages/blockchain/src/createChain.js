@@ -1,4 +1,3 @@
-import { CasperConsensus } from '@ethereumjs/blockchain'
 import { deepCopy } from './actions/deepCopy.js'
 import { delBlock } from './actions/delBlock.js'
 import { getBlock } from './actions/getBlock.js'
@@ -9,6 +8,7 @@ import { putBlock } from './actions/putBlock.js'
 import { setIteratorHead } from './actions/setIteratorHead.js'
 import { shallowCopy } from './actions/shallowCopy.js'
 import { validateHeader } from './actions/validateHeader.js'
+import { CasperConsensus } from './CasperConsensus.js'
 import { createBaseChain } from './createBaseChain.js'
 /**
  * @param {import('./ChainOptions.js').ChainOptions} options
@@ -32,14 +32,7 @@ export const createChain = async (options) => {
 				delBlock: delBlock(baseChain),
 				getIteratorHead: getIteratorHead(baseChain),
 				setIteratorHead: setIteratorHead(baseChain),
-				/**
-				 * Unused but part of interface
-				 * @type {import('@ethereumjs/blockchain').BlockchainInterface['consensus']}
-				 */
 				consensus: new CasperConsensus(),
-				/**
-				 * @type {import('@ethereumjs/blockchain').BlockchainInterface['iterator']}
-				 */
 				iterator: () => {
 					throw new Error('iterator is not implemented')
 				},

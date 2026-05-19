@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilEnableTracesProcedure
 
-# Type Alias: AnvilEnableTracesProcedure()
+# Type Alias: AnvilEnableTracesProcedure
 
 > **AnvilEnableTracesProcedure** = (`request`) => `Promise`\<[`AnvilEnableTracesJsonRpcResponse`](AnvilEnableTracesJsonRpcResponse.md)\>
 

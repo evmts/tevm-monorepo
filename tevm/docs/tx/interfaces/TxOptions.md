@@ -6,7 +6,7 @@
 
 # Interface: TxOptions
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:43
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:43
 
 The options for initializing a Transaction.
 
@@ -14,9 +14,9 @@ The options for initializing a Transaction.
 
 ### allowUnlimitedInitCodeSize?
 
-> `optional` **allowUnlimitedInitCodeSize**: `boolean`
+> `optional` **allowUnlimitedInitCodeSize?**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:88
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:88
 
 Allows unlimited contract code-size init while debugging. This (partially) disables EIP-3860.
 Gas cost for initcode size analysis will still be charged. Use with caution.
@@ -25,9 +25,9 @@ Gas cost for initcode size analysis will still be charged. Use with caution.
 
 ### common?
 
-> `optional` **common**: `Common`
+> `optional` **common?**: `Common`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:54
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:54
 
 A Common object defining the chain and hardfork for the transaction.
 
@@ -42,9 +42,9 @@ Current default hardfork: `istanbul`
 
 ### freeze?
 
-> `optional` **freeze**: `boolean`
+> `optional` **freeze?**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:83
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:83
 
 A transaction object by default gets frozen along initialization. This gives you
 strong additional security guarantees on the consistency of the tx parameters.
@@ -60,9 +60,9 @@ Default: true
 
 ### params?
 
-> `optional` **params**: `ParamsDict`
+> `optional` **params?**: `ParamsDict`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:71
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:71
 
 Tx parameters sorted by EIP can be found in the exported `paramsTx` dictionary,
 which is internally passed to the associated `@ethereumjs/common` instance which

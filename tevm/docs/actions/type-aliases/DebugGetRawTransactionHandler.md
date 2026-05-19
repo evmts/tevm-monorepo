@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DebugGetRawTransactionHandler
 
-# Type Alias: DebugGetRawTransactionHandler()
+# Type Alias: DebugGetRawTransactionHandler
 
 > **DebugGetRawTransactionHandler** = (`params`) => `Promise`\<[`DebugGetRawTransactionResult`](DebugGetRawTransactionResult.md)\>
 
-Defined in: packages/actions/types/debug/DebugHandler.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:6
 
 ## Parameters
 

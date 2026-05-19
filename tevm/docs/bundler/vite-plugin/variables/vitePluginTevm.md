@@ -4,11 +4,11 @@
 
 [tevm](../../../modules.md) / [bundler/vite-plugin](../README.md) / vitePluginTevm
 
-# Variable: vitePluginTevm()
+# Variable: vitePluginTevm
 
 > `const` **vitePluginTevm**: (`options?`) => `Plugin`
 
-Defined in: bundler-packages/vite/types/vitePluginTevm.d.ts:52
+Defined in: tevm-monorepo/bundler-packages/vite/types/vitePluginTevm.d.ts:52
 
 Creates a Vite plugin for Tevm that enables direct Solidity imports in JavaScript
 and TypeScript code.

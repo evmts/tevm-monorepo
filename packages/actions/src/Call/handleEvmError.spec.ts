@@ -1,3 +1,4 @@
+import { EvmError } from '@evmts/zevm/evm'
 import {
 	GasLimitExceededError,
 	InsufficientBalanceError,
@@ -9,7 +10,6 @@ import {
 	InvalidNonceError,
 	MisconfiguredClientError,
 } from '@tevm/errors'
-import { EvmError } from '@tevm/evm'
 
 import { describe, expect, it } from 'vitest'
 import { handleRunTxError } from './handleEvmError.js'

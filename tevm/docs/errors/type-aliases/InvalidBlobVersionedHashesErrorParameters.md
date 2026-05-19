@@ -8,7 +8,7 @@
 
 > **InvalidBlobVersionedHashesErrorParameters** = `object`
 
-Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:51
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:51
 
 Parameters for constructing an InvalidBlobVersionedHashesError.
 
@@ -16,9 +16,9 @@ Parameters for constructing an InvalidBlobVersionedHashesError.
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause?**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:71
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:71
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:71
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:75
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:75
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:75
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:55
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:55
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:55
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:59
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:59
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:59
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:63
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:63
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:63
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:79
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:79
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:79
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:67
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlobVersionedHashesError.d.ts:67
 
 - Additional meta messages.

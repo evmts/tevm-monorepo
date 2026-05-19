@@ -8,7 +8,7 @@
 
 > **validateLoadStateParams**(`action`): [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)[]
 
-Defined in: packages/actions/types/LoadState/validateLoadStateParams.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/LoadState/validateLoadStateParams.d.ts:1
 
 ## Parameters
 

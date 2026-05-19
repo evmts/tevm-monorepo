@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / DebugGetRawBlockHandler
 
-# Type Alias: DebugGetRawBlockHandler()
+# Type Alias: DebugGetRawBlockHandler
 
 > **DebugGetRawBlockHandler** = (`params`) => `Promise`\<[`DebugGetRawBlockResult`](DebugGetRawBlockResult.md)\>
 

@@ -15,7 +15,7 @@ This corresponds to the EVM's internal Message object
 
 ### authcallOrigin?
 
-> `optional` **authcallOrigin**: `Address`
+> `optional` **authcallOrigin?**: `Address`
 
 Defined in: [packages/actions/src/common/CallEvents.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L42)
 
@@ -35,7 +35,7 @@ Address of the account that initiated this call
 
 ### code?
 
-> `optional` **code**: `any`
+> `optional` **code?**: `any`
 
 Defined in: [packages/actions/src/common/CallEvents.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L30)
 
@@ -85,7 +85,7 @@ Gas limit for this call
 
 ### gasRefund?
 
-> `optional` **gasRefund**: `bigint`
+> `optional` **gasRefund?**: `bigint`
 
 Defined in: [packages/actions/src/common/CallEvents.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L44)
 
@@ -115,7 +115,7 @@ Whether the call is static (view)
 
 ### salt?
 
-> `optional` **salt**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **salt?**: `Uint8Array`\<`ArrayBufferLike`\>
 
 Defined in: [packages/actions/src/common/CallEvents.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L40)
 
@@ -125,7 +125,7 @@ Salt for CREATE2 calls
 
 ### to?
 
-> `optional` **to**: `Address`
+> `optional` **to?**: `Address`
 
 Defined in: [packages/actions/src/common/CallEvents.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L20)
 

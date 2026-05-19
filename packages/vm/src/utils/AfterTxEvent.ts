@@ -1,4 +1,4 @@
-import type { TypedTransaction } from '@tevm/tx'
+import type { TypedTransaction } from '@evmts/zevm/tx'
 import type { RunTxResult } from './RunTxResult.js'
 
 /**

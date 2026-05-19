@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetLoggingEnabledHandler
 
-# Type Alias: AnvilSetLoggingEnabledHandler()
+# Type Alias: AnvilSetLoggingEnabledHandler
 
 > **AnvilSetLoggingEnabledHandler** = (`params`) => `Promise`\<[`AnvilSetLoggingEnabledResult`](AnvilSetLoggingEnabledResult.md)\>
 

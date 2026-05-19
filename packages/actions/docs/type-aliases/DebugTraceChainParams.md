@@ -46,7 +46,7 @@ Starting block number, hash, or tag
 
 ### traceConfig?
 
-> `readonly` `optional` **traceConfig**: [`TraceParams`](TraceParams.md)\<`TTracer`, `TDiffMode`\>
+> `readonly` `optional` **traceConfig?**: [`TraceParams`](TraceParams.md)\<`TTracer`, `TDiffMode`\>
 
 Defined in: [packages/actions/src/debug/DebugParams.ts:331](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L331)
 

@@ -4,7 +4,7 @@
  */
 export const putAccount = (baseState) => async (address, account) => {
 	if (account !== undefined) {
-		baseState.caches.accounts?.put(address, account)
+		baseState.caches.accounts?.put(address, /** @type {any} */ (account))
 	} else {
 		baseState.caches.accounts?.del(address)
 	}

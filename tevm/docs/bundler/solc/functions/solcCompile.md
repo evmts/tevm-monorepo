@@ -8,7 +8,7 @@
 
 > **solcCompile**(`solc`, `input`): [`SolcOutput`](../type-aliases/SolcOutput.md)
 
-Defined in: bundler-packages/solc/types/src/solc.d.ts:9
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solc.d.ts:9
 
 ## Parameters
 

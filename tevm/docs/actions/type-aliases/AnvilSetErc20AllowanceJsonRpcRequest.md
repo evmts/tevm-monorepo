@@ -8,6 +8,6 @@
 
 > **AnvilSetErc20AllowanceJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setErc20Allowance"`, readonly \[\{ `amount`: [`Hex`](../../index/type-aliases/Hex.md); `erc20`: [`Address`](../../index/type-aliases/Address.md); `owner`: [`Address`](../../index/type-aliases/Address.md); `spender`: [`Address`](../../index/type-aliases/Address.md); \}\]\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:106
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:106
 
 JSON-RPC request for `anvil_setErc20Allowance` method

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetBalanceHandler
 
-# Type Alias: EthGetBalanceHandler()
+# Type Alias: EthGetBalanceHandler
 
 > **EthGetBalanceHandler** = (`request`) => `Promise`\<[`EthGetBalanceResult`](EthGetBalanceResult.md)\>
 

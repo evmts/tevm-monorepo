@@ -8,7 +8,7 @@
 
 > **TevmActions** = `object`
 
-Defined in: packages/memory-client/types/TevmActions.d.ts:9
+Defined in: tevm-monorepo/packages/memory-client/types/TevmActions.d.ts:9
 
 Provides powerful actions for interacting with the EVM using the TEVM API.
 These actions allow for low-level access to the EVM, managing accounts, deploying contracts, and more.
@@ -24,7 +24,7 @@ These actions allow for low-level access to the EVM, managing accounts, deployin
 
 > **tevmCall**: [`TevmActionsApi`](TevmActionsApi.md)\[`"call"`\]
 
-Defined in: packages/memory-client/types/TevmActions.d.ts:53
+Defined in: tevm-monorepo/packages/memory-client/types/TevmActions.d.ts:53
 
 A powerful low level API for executing calls and sending transactions.
 See [CallParams](https://tevm.sh/reference/tevm/actions/type-aliases/callparams/) for options reference.
@@ -62,7 +62,7 @@ For all options see [CallParams](https://tevm.sh/reference/tevm/actions/type-ali
 
 > **tevmContract**: [`TevmActionsApi`](TevmActionsApi.md)\[`"contract"`\]
 
-Defined in: packages/memory-client/types/TevmActions.d.ts:81
+Defined in: tevm-monorepo/packages/memory-client/types/TevmActions.d.ts:81
 
 A powerful low level API for calling contracts. Similar to `tevmCall` but takes care of encoding and decoding data, revert messages, etc.
 See [ContractParams](https://tevm.sh/reference/tevm/actions/type-aliases/contractparams/) for options reference.
@@ -98,7 +98,7 @@ For all options see [ContractParams](https://tevm.sh/reference/tevm/actions/type
 
 > **tevmDeal**: [`TevmActionsApi`](TevmActionsApi.md)\[`"deal"`\]
 
-Defined in: packages/memory-client/types/TevmActions.d.ts:218
+Defined in: tevm-monorepo/packages/memory-client/types/TevmActions.d.ts:218
 
 Sets the balance of an account to a specific amount of ETH or ERC20 tokens.
 A convenience method over tevmSetAccount for quickly adjusting account balances.
@@ -141,7 +141,7 @@ await client.tevmDeal({
 
 > **tevmDeploy**: [`TevmActionsApi`](TevmActionsApi.md)\[`"deploy"`\]
 
-Defined in: packages/memory-client/types/TevmActions.d.ts:105
+Defined in: tevm-monorepo/packages/memory-client/types/TevmActions.d.ts:105
 
 Deploys a contract to the EVM with encoded constructor arguments. Extends `tevmCall` so it supports all advanced options.
 
@@ -176,7 +176,7 @@ console.log(deploymentResult.createdAddress)
 
 > **tevmDumpState**: [`TevmActionsApi`](TevmActionsApi.md)\[`"dumpState"`\]
 
-Defined in: packages/memory-client/types/TevmActions.d.ts:144
+Defined in: tevm-monorepo/packages/memory-client/types/TevmActions.d.ts:144
 
 Dumps a JSON serializable state from the EVM. This can be useful for persisting and restoring state between processes.
 
@@ -196,7 +196,7 @@ fs.writeFileSync('state.json', JSON.stringify(state))
 
 > **tevmGetAccount**: [`TevmActionsApi`](TevmActionsApi.md)\[`"getAccount"`\]
 
-Defined in: packages/memory-client/types/TevmActions.d.ts:185
+Defined in: tevm-monorepo/packages/memory-client/types/TevmActions.d.ts:185
 
 Gets the account state of an account. It does not return the storage state by default but can if `returnStorage` is set to `true`.
 In forked mode, the storage is only the storage TEVM has cached and may not represent all the on-chain storage.
@@ -225,7 +225,7 @@ const account = await client.tevmGetAccount({
 
 > **tevmLoadState**: [`TevmActionsApi`](TevmActionsApi.md)\[`"loadState"`\]
 
-Defined in: packages/memory-client/types/TevmActions.d.ts:132
+Defined in: tevm-monorepo/packages/memory-client/types/TevmActions.d.ts:132
 
 Loads a JSON serializable state into the EVM. This can be useful for persisting and restoring state between processes.
 
@@ -248,7 +248,7 @@ await client.tevmLoadState(state)
 
 > **tevmMine**: [`TevmActionsApi`](TevmActionsApi.md)\[`"mine"`\]
 
-Defined in: packages/memory-client/types/TevmActions.d.ts:117
+Defined in: tevm-monorepo/packages/memory-client/types/TevmActions.d.ts:117
 
 Mines a new block with all pending transactions. In `manual` mode you must call this manually before the canonical head state is updated.
 
@@ -264,11 +264,11 @@ await client.tevmMine()
 
 ***
 
-### tevmReady()
+### tevmReady
 
 > **tevmReady**: () => `Promise`\<`true`\>
 
-Defined in: packages/memory-client/types/TevmActions.d.ts:23
+Defined in: tevm-monorepo/packages/memory-client/types/TevmActions.d.ts:23
 
 Returns a promise that resolves when the TEVM is ready.
 This is not needed to explicitly be called as all actions will wait for the TEVM to be ready.
@@ -294,7 +294,7 @@ Same as calling `client.transport.tevm.ready()`
 
 > **tevmSetAccount**: [`TevmActionsApi`](TevmActionsApi.md)\[`"setAccount"`\]
 
-Defined in: packages/memory-client/types/TevmActions.d.ts:167
+Defined in: tevm-monorepo/packages/memory-client/types/TevmActions.d.ts:167
 
 Sets any property of an account including its balance, nonce, contract deployedBytecode, contract state, and more.
 

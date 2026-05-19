@@ -14,7 +14,7 @@ Defined in: [extensions/test-matchers/src/matchers/utils/toBeHex.ts:3](https://g
 
 ### size?
 
-> `optional` **size**: `number`
+> `optional` **size?**: `number`
 
 Defined in: [extensions/test-matchers/src/matchers/utils/toBeHex.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/matchers/utils/toBeHex.ts#L12)
 
@@ -24,7 +24,7 @@ Optional expected size in bytes
 
 ### strict?
 
-> `optional` **strict**: `boolean`
+> `optional` **strict?**: `boolean`
 
 Defined in: [extensions/test-matchers/src/matchers/utils/toBeHex.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/matchers/utils/toBeHex.ts#L8)
 

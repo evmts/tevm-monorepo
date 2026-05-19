@@ -8,7 +8,7 @@
 
 > **TraceResult** = `object`
 
-Defined in: packages/actions/types/common/TraceResult.d.ts:4
+Defined in: tevm-monorepo/packages/actions/types/common/TraceResult.d.ts:4
 
 Result from `debug_*` with no tracer
 
@@ -18,7 +18,7 @@ Result from `debug_*` with no tracer
 
 > **failed**: `boolean`
 
-Defined in: packages/actions/types/common/TraceResult.d.ts:5
+Defined in: tevm-monorepo/packages/actions/types/common/TraceResult.d.ts:5
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: packages/actions/types/common/TraceResult.d.ts:5
 
 > **gas**: `bigint`
 
-Defined in: packages/actions/types/common/TraceResult.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/common/TraceResult.d.ts:6
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: packages/actions/types/common/TraceResult.d.ts:6
 
 > **returnValue**: [`Hex`](../../actions/type-aliases/Hex.md)
 
-Defined in: packages/actions/types/common/TraceResult.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/common/TraceResult.d.ts:7
 
 ***
 
@@ -42,4 +42,4 @@ Defined in: packages/actions/types/common/TraceResult.d.ts:7
 
 > **structLogs**: [`StructLog`](../../actions/type-aliases/StructLog.md)[]
 
-Defined in: packages/actions/types/common/TraceResult.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/common/TraceResult.d.ts:8

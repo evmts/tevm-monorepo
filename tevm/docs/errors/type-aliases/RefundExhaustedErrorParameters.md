@@ -8,7 +8,7 @@
 
 > **RefundExhaustedErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:70
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:70
 
 Parameters for constructing a [RefundExhaustedError](../classes/RefundExhaustedError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing a [RefundExhaustedError](../classes/RefundExhaustedE
 
 ### cause?
 
-> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
+> `optional` **cause?**: [`ExecutionError`](../classes/ExecutionError.md) \| `EVMError`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:90
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:90
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:90
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:94
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:94
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:94
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:74
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:74
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:74
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:78
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:78
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:78
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:82
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:82
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:82
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:98
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:98
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:98
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:86
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:86
 
 - Additional meta messages.

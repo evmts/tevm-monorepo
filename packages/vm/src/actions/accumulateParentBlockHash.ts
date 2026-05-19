@@ -28,7 +28,7 @@ export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumb
 	}
 
 	if ((await vm.stateManager.getAccount(historyAddress)) === undefined) {
-		await vm.evm.journal.putAccount(historyAddress, createAccount({}))
+		await vm.evm.journal.putAccount(historyAddress, createAccount({}) as any)
 	}
 
 	async function putBlockHash(vm: BaseVm, hash: Uint8Array, number: bigint) {

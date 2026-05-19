@@ -6,10 +6,7 @@
 
 # Interface: JsonRpcWithdrawal
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:17
-
-JSON RPC interface for EIP-4895 withdrawal data with amount in Gwei to
-match CL representation and for eventual ssz withdrawalsRoot
+Defined in: zevm/npm/zevm/dist/util.d.ts:105
 
 ## Properties
 
@@ -17,7 +14,7 @@ match CL representation and for eventual ssz withdrawalsRoot
 
 > **address**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:20
+Defined in: zevm/npm/zevm/dist/util.d.ts:108
 
 ***
 
@@ -25,7 +22,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 > **amount**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:21
+Defined in: zevm/npm/zevm/dist/util.d.ts:109
 
 ***
 
@@ -33,7 +30,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 > **index**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:18
+Defined in: zevm/npm/zevm/dist/util.d.ts:106
 
 ***
 
@@ -41,4 +38,4 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 > **validatorIndex**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:19
+Defined in: zevm/npm/zevm/dist/util.d.ts:107

@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [index](../README.md) / definePrecompile
 
-# Variable: definePrecompile()
+# Variable: definePrecompile
 
 > `const` **definePrecompile**: \<`TContract`\>(`{ contract, call, }`) => `Precompile`\<`TContract`\>
 
-Defined in: packages/precompiles/dist/index.d.ts:214
+Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:215
 
 Defines a precompile contract that executes JavaScript code instead of EVM bytecode.
 

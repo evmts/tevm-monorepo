@@ -2,10 +2,10 @@
 	"name": "@tevm/rlp",
 	"version": "1.0.0-next.148",
 	"private": false,
-	"description": "A custom implementation of ethereumjs rlp",
+	"description": "RLP utilities backed by zevm",
 	"keywords": [
 		"solidity",
-		"ethereumjs",
+		"zevm",
 		"typescript",
 		"web3",
 		"evm"
@@ -63,7 +63,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/rlp": "^10.1.1"
+		"@evmts/zevm": "workspace:*"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

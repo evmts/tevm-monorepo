@@ -6,7 +6,7 @@
 
 # Function: handleAutomining()
 
-> **handleAutomining**(`client`, `txHash?`, `_reserved?`, `mineAllTx?`): `Promise`\<`undefined` \| \{ `blockHashes?`: `undefined`; `errors?`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \}\>
+> **handleAutomining**(`client`, `txHash?`, `_reserved?`, `mineAllTx?`): `Promise`\<\{ `blockHashes?`: `undefined`; `errors?`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \} \| `undefined`\>
 
 Defined in: [packages/actions/src/Call/handleAutomining.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Call/handleAutomining.js#L13)
 
@@ -38,7 +38,7 @@ Whether to mine all transactions in the pool
 
 ## Returns
 
-`Promise`\<`undefined` \| \{ `blockHashes?`: `undefined`; `errors?`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \}\>
+`Promise`\<\{ `blockHashes?`: `undefined`; `errors?`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \} \| `undefined`\>
 
 undefined if noop, errors if automining fails, blockHashes if automining succeeds
 

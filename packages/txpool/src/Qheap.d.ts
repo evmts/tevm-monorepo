@@ -1,9 +1,5 @@
-// copied from https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/%40types/qheap/index.d.ts and
-// it carries the same license as the original file
 /**
- * QHeap types.
- * @types/qheap does not exist, so we define it here.
- * https://www.npmjs.com/package/qheap
+ * Minimal local declaration for qheap, which does not publish its own types.
  */
 declare module 'qheap' {
 	type QHeapOptions = {

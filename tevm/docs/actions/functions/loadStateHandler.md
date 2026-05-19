@@ -8,7 +8,7 @@
 
 > **loadStateHandler**(`client`, `options?`): [`LoadStateHandler`](../type-aliases/LoadStateHandler.md)
 
-Defined in: packages/actions/types/LoadState/loadStateHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/LoadState/loadStateHandler.d.ts:1
 
 ## Parameters
 

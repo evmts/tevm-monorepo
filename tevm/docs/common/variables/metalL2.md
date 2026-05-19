@@ -8,7 +8,7 @@
 
 > `const` **metalL2**: [`Common`](../type-aliases/Common.md)
 
-Defined in: packages/common/types/presets/metalL2.d.ts:21
+Defined in: tevm-monorepo/packages/common/types/presets/metalL2.d.ts:21
 
 Creates a common configuration for the metalL2 chain.
 

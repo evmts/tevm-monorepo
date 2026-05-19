@@ -8,4 +8,4 @@
 
 > **GenesisState** = `Record`\<`string`, `string` \| `Record`\<`string`, `any`\>\>
 
-Defined in: [packages/utils/src/index.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L146)
+Defined in: [tevm-monorepo/packages/utils/src/index.ts:146](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/index.ts#L146)

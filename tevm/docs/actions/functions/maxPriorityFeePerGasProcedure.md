@@ -8,7 +8,7 @@
 
 > **maxPriorityFeePerGasProcedure**(`__namedParameters`): [`EthMaxPriorityFeePerGasJsonRpcProcedure`](../type-aliases/EthMaxPriorityFeePerGasJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/maxPriorityFeePerGasProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/maxPriorityFeePerGasProcedure.d.ts:1
 
 ## Parameters
 

@@ -1,7 +1,7 @@
+import { createImpersonatedTx, createTxFromRLP, isBlobEIP4844Tx } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
 import { BlobGasLimitExceededError, InvalidTransactionError } from '@tevm/errors'
 import { prefundedAccounts } from '@tevm/node'
-import { createImpersonatedTx, createTxFromRLP, isBlobEIP4844Tx } from '@tevm/tx'
 import { bytesToHex, EthjsAddress, hexToBytes } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
 
@@ -54,7 +54,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 	const vm = await client.getVm()
 	const txBuf = hexToBytes(params.data)
 	/**
-	 * @type {import('@tevm/tx').BlobEIP4844Transaction | import('@tevm/tx').LegacyTransaction | import('@tevm/tx').AccessListEIP2930Transaction | import('@tevm/tx').FeeMarketEIP1559Transaction}
+	 * @type {import('@evmts/zevm/tx').BlobEIP4844Transaction | import('@evmts/zevm/tx').LegacyTransaction | import('@evmts/zevm/tx').AccessListEIP2930Transaction | import('@evmts/zevm/tx').FeeMarketEIP1559Transaction}
 	 */
 	let tx
 	try {
@@ -67,7 +67,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 	const impersonatedAccount = client.getImpersonatedAccount()
 	if (!tx.isSigned() && impersonatedAccount !== undefined) {
 		/**
-		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
+		 * @type {import("@evmts/zevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
 		impersonatedTx.impersonatedAddress = createAddress(impersonatedAccount)
@@ -77,7 +77,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 			'Raw Transaction is not signed. Consider calling impersonate endpoint. In future versions unsigned transactions will be rejected.',
 		)
 		/**
-		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
+		 * @type {import("@evmts/zevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
 		impersonatedTx.impersonatedAddress = createAddress(

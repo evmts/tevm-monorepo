@@ -8,6 +8,6 @@
 
 > **EthCoinbaseJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_coinbase"`, readonly \[\]\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:67
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:67
 
 JSON-RPC request for `eth_coinbase` procedure

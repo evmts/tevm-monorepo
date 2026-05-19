@@ -4,6 +4,7 @@
 		"moduleResolution": "node16",
 		"module": "Node16",
 		"checkJs": true,
+		"rootDir": "src",
 		"outDir": "dist"
 	},
 	"include": ["src"]

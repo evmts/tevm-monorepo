@@ -6,19 +6,17 @@
 
 # Class: Bloom
 
-Defined in: packages/utils/types/Bloom.d.ts:4
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:22
 
-A simple Bloom filter implementation originally from ethereumjs
+Ethereum logs bloom filter.
 
 ## Constructors
 
 ### Constructor
 
-> **new Bloom**(`bitvector?`): `Bloom`
+> **new Bloom**(`bitvector?`, `common?`): `Bloom`
 
-Defined in: packages/utils/types/Bloom.d.ts:10
-
-Represents a Bloom filter.
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:25
 
 #### Parameters
 
@@ -26,13 +24,13 @@ Represents a Bloom filter.
 
 `Uint8Array`\<`ArrayBufferLike`\>
 
+##### common?
+
+`CommonLike`
+
 #### Returns
 
 `Bloom`
-
-#### Throws
-
-If the byte size of the bitvector is not 256.
 
 ## Properties
 
@@ -40,69 +38,55 @@ If the byte size of the bitvector is not 256.
 
 > **bitvector**: `Uint8Array`
 
-Defined in: packages/utils/types/Bloom.d.ts:5
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:24
 
 ## Methods
 
 ### add()
 
-> **add**(`e`): `void`
+> **add**(`value`): `void`
 
-Defined in: packages/utils/types/Bloom.d.ts:16
-
-Adds an element to a bit vector of a 64 byte bloom filter.
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:26
 
 #### Parameters
 
-##### e
+##### value
 
 `Uint8Array`
-
-The element to add
 
 #### Returns
 
 `void`
 
-#### Throws
-
 ***
 
 ### check()
 
-> **check**(`e`): `boolean`
+> **check**(`value`): `boolean`
 
-Defined in: packages/utils/types/Bloom.d.ts:22
-
-Checks if an element is in the bloom.
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:27
 
 #### Parameters
 
-##### e
+##### value
 
 `Uint8Array`
-
-The element to check
 
 #### Returns
 
 `boolean`
 
-#### Throws
-
 ***
 
 ### multiCheck()
 
-> **multiCheck**(`topics`): `boolean`
+> **multiCheck**(`values`): `boolean`
 
-Defined in: packages/utils/types/Bloom.d.ts:28
-
-Checks if multiple topics are in a bloom.
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:28
 
 #### Parameters
 
-##### topics
+##### values
 
 `Uint8Array`\<`ArrayBufferLike`\>[]
 
@@ -110,19 +94,13 @@ Checks if multiple topics are in a bloom.
 
 `boolean`
 
-`true` if every topic is in the bloom
-
-#### Throws
-
 ***
 
 ### or()
 
 > **or**(`bloom`): `void`
 
-Defined in: packages/utils/types/Bloom.d.ts:33
-
-Bitwise or blooms together.
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:29
 
 #### Parameters
 
@@ -133,5 +111,3 @@ Bitwise or blooms together.
 #### Returns
 
 `void`
-
-#### Throws

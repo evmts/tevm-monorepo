@@ -2,10 +2,10 @@
 	"name": "@tevm/tx",
 	"version": "1.0.0-next.148",
 	"private": false,
-	"description": "A custom implementation of ethereumjs tx",
+	"description": "Tevm transaction facade backed by zevm",
 	"keywords": [
 		"solidity",
-		"ethereumjs",
+		"zevm",
 		"typescript",
 		"web3",
 		"blockchain"
@@ -63,9 +63,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/tx": "^10.1.1",
-		"@tevm/errors": "workspace:^",
-		"@tevm/utils": "workspace:^"
+		"@evmts/zevm": "workspace:*"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",

@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/common/TraceCall.ts:5](https://github.com/evmt
 
 ### calls?
 
-> `optional` **calls**: `TraceCall`[]
+> `optional` **calls?**: `TraceCall`[]
 
 Defined in: [packages/actions/src/common/TraceCall.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceCall.ts#L16)
 
@@ -22,7 +22,7 @@ Defined in: [packages/actions/src/common/TraceCall.ts:16](https://github.com/evm
 
 ### error?
 
-> `optional` **error**: `string`
+> `optional` **error?**: `string`
 
 Defined in: [packages/actions/src/common/TraceCall.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceCall.ts#L14)
 
@@ -38,7 +38,7 @@ Defined in: [packages/actions/src/common/TraceCall.ts:7](https://github.com/evmt
 
 ### gas?
 
-> `optional` **gas**: `bigint`
+> `optional` **gas?**: `bigint`
 
 Defined in: [packages/actions/src/common/TraceCall.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceCall.ts#L10)
 
@@ -46,7 +46,7 @@ Defined in: [packages/actions/src/common/TraceCall.ts:10](https://github.com/evm
 
 ### gasUsed?
 
-> `optional` **gasUsed**: `bigint`
+> `optional` **gasUsed?**: `bigint`
 
 Defined in: [packages/actions/src/common/TraceCall.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceCall.ts#L11)
 
@@ -70,7 +70,7 @@ Defined in: [packages/actions/src/common/TraceCall.ts:13](https://github.com/evm
 
 ### revertReason?
 
-> `optional` **revertReason**: `string`
+> `optional` **revertReason?**: `string`
 
 Defined in: [packages/actions/src/common/TraceCall.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceCall.ts#L15)
 
@@ -94,6 +94,6 @@ Defined in: [packages/actions/src/common/TraceCall.ts:6](https://github.com/evmt
 
 ### value?
 
-> `optional` **value**: `bigint`
+> `optional` **value?**: `bigint`
 
 Defined in: [packages/actions/src/common/TraceCall.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TraceCall.ts#L9)

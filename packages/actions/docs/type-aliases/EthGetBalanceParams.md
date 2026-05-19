@@ -24,6 +24,6 @@ Defined in: [packages/actions/src/eth/EthParams.ts:121](https://github.com/evmts
 
 ### blockTag?
 
-> `optional` **blockTag**: [`BlockParam`](BlockParam.md)
+> `optional` **blockTag?**: [`BlockParam`](BlockParam.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:121](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L121)

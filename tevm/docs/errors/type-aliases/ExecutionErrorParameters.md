@@ -8,7 +8,7 @@
 
 > **ExecutionErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:56
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ExecutionErrorError.d.ts:56
 
 Parameters for constructing an ExecutionError.
 
@@ -16,9 +16,9 @@ Parameters for constructing an ExecutionError.
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
+> `optional` **cause?**: [`BaseError`](../classes/BaseError.md) \| `EVMError`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:76
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ExecutionErrorError.d.ts:76
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:76
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:80
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ExecutionErrorError.d.ts:80
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:80
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:60
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ExecutionErrorError.d.ts:60
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:60
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:64
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ExecutionErrorError.d.ts:64
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:64
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:68
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ExecutionErrorError.d.ts:68
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:68
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:84
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ExecutionErrorError.d.ts:84
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:84
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:72
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ExecutionErrorError.d.ts:72
 
 - Additional meta messages.

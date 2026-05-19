@@ -1,4 +1,3 @@
-import { DefensiveNullCheckError, InvalidBytesSizeError } from '@tevm/errors'
 import { describe, expect, it } from 'vitest'
 import { Bloom } from './Bloom.js'
 import { hexToBytes, keccak256 } from './viem.js'
@@ -10,8 +9,8 @@ describe('Bloom', () => {
 	})
 
 	it('should throw an error if bitvector length is not 256', () => {
-		expect(() => new Bloom(new Uint8Array(255))).toThrow(InvalidBytesSizeError)
-		expect(() => new Bloom(new Uint8Array(257))).toThrow(InvalidBytesSizeError)
+		expect(() => new Bloom(new Uint8Array(255))).toThrow('Bloom bitvectors must be 256 bytes long')
+		expect(() => new Bloom(new Uint8Array(257))).toThrow('Bloom bitvectors must be 256 bytes long')
 	})
 
 	it('should add an element to the bloom filter', () => {
@@ -51,12 +50,15 @@ describe('Bloom', () => {
 		expect(bloom.multiCheck([element1, nonExistentElement])).toBe(false)
 	})
 
-	it('should throw a DefensiveNullCheckError if an item is undefined in or method', () => {
+	it('should bitwise-or another bloom filter', () => {
 		const bloom1 = new Bloom()
 		const bloom2 = new Bloom()
-		for (let i = 0; i < 256; i++) {
-			bloom2.bitvector[i] = undefined as any
-		}
-		expect(() => bloom1.or(bloom2)).toThrow(DefensiveNullCheckError)
+		const element1 = new Uint8Array([1, 2, 3, 4, 5])
+		const element2 = new Uint8Array([6, 7, 8, 9, 10])
+		bloom1.add(element1)
+		bloom2.add(element2)
+		bloom1.or(bloom2)
+		expect(bloom1.check(element1)).toBe(true)
+		expect(bloom1.check(element2)).toBe(true)
 	})
 })

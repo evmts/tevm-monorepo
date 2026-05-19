@@ -8,7 +8,7 @@
 
 > **anvilSetAutomineJsonRpcProcedure**(`client`): [`AnvilSetAutomineProcedure`](../type-aliases/AnvilSetAutomineProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetAutomineProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetAutomineProcedure.d.ts:1
 
 ## Parameters
 

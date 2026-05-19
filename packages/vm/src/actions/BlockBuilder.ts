@@ -1,6 +1,8 @@
-// Originally from ethjs
-
-import { Bloom, encodeReceipt } from '@ethereumjs/vm'
+import { Bloom, encodeReceipt } from '@evmts/zevm/receipt'
+import { Rlp } from '@evmts/zevm/rlp'
+import { Trie } from '@evmts/zevm/trie'
+import type { ImpersonatedTx, TypedTransaction } from '@evmts/zevm/tx'
+import { BlobEIP4844Transaction } from '@evmts/zevm/tx'
 import type { HeaderData } from '@tevm/block'
 import { Block } from '@tevm/block'
 import { ConsensusType } from '@tevm/common'
@@ -11,10 +13,6 @@ import {
 	InvalidBlobVersionedHashesError,
 	InvalidGasLimitError,
 } from '@tevm/errors'
-import { Rlp } from '@tevm/rlp'
-import { Trie } from '@tevm/trie'
-import type { ImpersonatedTx, TypedTransaction } from '@tevm/tx'
-import { BlobEIP4844Transaction } from '@tevm/tx'
 import {
 	EthjsAddress,
 	type Hex,

@@ -20,15 +20,15 @@ Defined in: [bundler-packages/whatsabi/src/loadAbi.js:12](https://github.com/evm
 
 #### client
 
-`Client`\<`Transport`, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| \{\[`key`: `string`\]: `unknown`; `account?`: `undefined`; `batch?`: `undefined`; `cacheTime?`: `undefined`; `ccipRead?`: `undefined`; `chain?`: `undefined`; `experimental_blockTag?`: `undefined`; `key?`: `undefined`; `name?`: `undefined`; `pollingInterval?`: `undefined`; `request?`: `undefined`; `transport?`: `undefined`; `type?`: `undefined`; `uid?`: `undefined`; \}\>
+`Client`\<`Transport`, `Chain` \| `undefined`, `Account` \| `undefined`, `undefined`, \{\[`key`: `string`\]: `unknown`; `account?`: `undefined`; `batch?`: `undefined`; `cacheTime?`: `undefined`; `ccipRead?`: `undefined`; `chain?`: `undefined`; `dataSuffix?`: `undefined`; `experimental_blockTag?`: `undefined`; `key?`: `undefined`; `name?`: `undefined`; `pollingInterval?`: `undefined`; `request?`: `undefined`; `transport?`: `undefined`; `type?`: `undefined`; `uid?`: `undefined`; \} \| `undefined`\>
 
 #### etherscanApiKey
 
-`undefined` \| `string`
+`string` \| `undefined`
 
 #### explorerUrl
 
-`undefined` \| `string`
+`string` \| `undefined`
 
 #### followProxies
 

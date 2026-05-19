@@ -16,4 +16,4 @@ JSON-RPC transaction for simulateV2 (extends V1 with estimateGas option)
 
 ### estimateGas?
 
-> `optional` **estimateGas**: `boolean`
+> `optional` **estimateGas?**: `boolean`

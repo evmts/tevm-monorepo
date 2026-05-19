@@ -8,7 +8,7 @@
 
 > **AbiEvent** = `object`
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:103
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:103
 
 ABI ["event"](https://docs.soliditylang.org/en/latest/abi-spec.html#events) type
 
@@ -16,9 +16,9 @@ ABI ["event"](https://docs.soliditylang.org/en/latest/abi-spec.html#events) type
 
 ### anonymous?
 
-> `optional` **anonymous**: `boolean`
+> `optional` **anonymous?**: `boolean`
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:105
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:105
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node
 
 > **inputs**: readonly `AbiEventParameter`[]
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:106
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:106
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node
 
 > **name**: `string`
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:107
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:107
 
 ***
 
@@ -42,4 +42,4 @@ Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node
 
 > **type**: `"event"`
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:104
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:104

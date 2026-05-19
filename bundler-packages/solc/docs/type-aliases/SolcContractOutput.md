@@ -80,11 +80,11 @@ Defined in: [solcTypes.ts:401](https://github.com/evmts/tevm-monorepo/blob/main/
 
 #### methods?
 
-> `optional` **methods**: `Record`\<`string`, \{ `notice`: `string`; \}\>
+> `optional` **methods?**: `Record`\<`string`, \{ `notice`: `string`; \}\>
 
 #### notice?
 
-> `optional` **notice**: `string`
+> `optional` **notice?**: `string`
 
 #### version
 

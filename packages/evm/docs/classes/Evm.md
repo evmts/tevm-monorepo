@@ -6,7 +6,7 @@
 
 # Class: Evm
 
-Defined in: [packages/evm/src/Evm.js:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L25)
+Defined in: [packages/evm/src/Evm.js:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L24)
 
 The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
 The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
@@ -42,7 +42,7 @@ const evm = createEvm({
 
 > **new Evm**(`opts`): `Evm`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:83
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:111
 
 Creates new EVM object
 
@@ -72,9 +72,9 @@ use the async createEVM constructor instead (same API).
 
 ### \_block?
 
-> `protected` `optional` **\_block**: `Block`
+> `protected` `optional` **\_block?**: `Block`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:36
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:66
 
 #### Inherited from
 
@@ -84,9 +84,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 ### \_bls?
 
-> `protected` `readonly` `optional` **\_bls**: `EVMBLSInterface`
+> `protected` `readonly` `optional` **\_bls?**: `EVMBLSInterface`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:60
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:88
 
 #### Inherited from
 
@@ -96,9 +96,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 ### \_customOpcodes?
 
-> `protected` `readonly` `optional` **\_customOpcodes**: `CustomOpcode`[]
+> `protected` `readonly` `optional` **\_customOpcodes?**: `CustomOpcode`[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:50
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:78
 
 #### Inherited from
 
@@ -108,9 +108,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 ### \_customPrecompiles?
 
-> `protected` `readonly` `optional` **\_customPrecompiles**: `CustomPrecompile`[]
+> `protected` `readonly` `optional` **\_customPrecompiles?**: `CustomPrecompile`[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:51
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:79
 
 #### Inherited from
 
@@ -122,7 +122,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **\_dynamicGasHandlers**: `Map`\<`number`, `AsyncDynamicGasHandler` \| `SyncDynamicGasHandler`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:53
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:81
 
 #### Inherited from
 
@@ -130,11 +130,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 ***
 
-### \_emit()
+### \_emit
 
 > `protected` `readonly` **\_emit**: (`topic`, `data`) => `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:70
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:98
 
 #### Parameters
 
@@ -160,7 +160,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **\_handlers**: `Map`\<`number`, `OpHandler`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:52
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:80
 
 #### Inherited from
 
@@ -172,7 +172,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **\_opcodeMap**: `OpcodeMap`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:54
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:82
 
 #### Inherited from
 
@@ -184,7 +184,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **\_opcodes**: `OpcodeList`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:47
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:75
 
 #### Inherited from
 
@@ -196,7 +196,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` `readonly` **\_optsCached**: `EVMOpts`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:56
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:84
 
 #### Inherited from
 
@@ -208,7 +208,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **\_precompiles**: `Map`\<`string`, `PrecompileFunc`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:55
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:83
 
 #### Inherited from
 
@@ -218,9 +218,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 ### \_tx?
 
-> `protected` `optional` **\_tx**: `object`
+> `protected` `optional` **\_tx?**: `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:32
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:62
 
 #### gasPrice
 
@@ -240,7 +240,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `readonly` **allowUnlimitedContractSize**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:48
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:76
 
 #### Inherited from
 
@@ -252,7 +252,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `readonly` **allowUnlimitedInitCodeSize**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:49
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:77
 
 #### Inherited from
 
@@ -262,9 +262,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 ### binaryAccessWitness?
 
-> `optional` **binaryAccessWitness**: `BinaryTreeAccessWitness`
+> `optional` **binaryAccessWitness?**: `BinaryTreeAccessWitness`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:44
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:72
 
 #### Inherited from
 
@@ -276,7 +276,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **blockchain**: `EVMMockBlockchainInterface`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:40
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:70
 
 #### Inherited from
 
@@ -288,7 +288,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `readonly` **common**: `Common`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:37
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:67
 
 #### Inherited from
 
@@ -300,7 +300,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `readonly` **events**: `EventEmitter`\<`EVMEvent`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:38
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:68
 
 #### Inherited from
 
@@ -312,7 +312,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **journal**: `Journal`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:41
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:71
 
 #### Inherited from
 
@@ -324,7 +324,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **performanceLogger**: `EVMPerformanceLogger`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:57
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:85
 
 #### Inherited from
 
@@ -336,7 +336,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **stateManager**: `StateManagerInterface`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:39
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:69
 
 #### Inherited from
 
@@ -346,9 +346,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 ### systemBinaryAccessWitness?
 
-> `optional` **systemBinaryAccessWitness**: `BinaryTreeAccessWitness`
+> `optional` **systemBinaryAccessWitness?**: `BinaryTreeAccessWitness`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:45
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:73
 
 #### Inherited from
 
@@ -356,23 +356,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 ***
 
-### systemVerkleAccessWitness?
-
-> `optional` **systemVerkleAccessWitness**: `VerkleAccessWitness`
-
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:43
-
-#### Inherited from
-
-`EVM.systemVerkleAccessWitness`
-
-***
-
 ### transientStorage
 
 > `readonly` **transientStorage**: `TransientStorage`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:46
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:74
 
 #### Inherited from
 
@@ -380,23 +368,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 ***
 
-### verkleAccessWitness?
-
-> `optional` **verkleAccessWitness**: `VerkleAccessWitness`
-
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:42
-
-#### Inherited from
-
-`EVM.verkleAccessWitness`
-
-***
-
 ### supportedHardforks
 
-> `protected` `static` **supportedHardforks**: (`"chainstart"` \| `"homestead"` \| `"dao"` \| `"tangerineWhistle"` \| `"spuriousDragon"` \| `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"muirGlacier"` \| `"berlin"` \| `"london"` \| `"arrowGlacier"` \| `"grayGlacier"` \| `"mergeNetsplitBlock"` \| `"paris"` \| `"shanghai"` \| `"cancun"` \| `"prague"` \| `"osaka"` \| `"verkle"`)[]
+> `protected` `static` **supportedHardforks**: (`"chainstart"` \| `"homestead"` \| `"dao"` \| `"tangerineWhistle"` \| `"spuriousDragon"` \| `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"muirGlacier"` \| `"berlin"` \| `"london"` \| `"arrowGlacier"` \| `"grayGlacier"` \| `"mergeNetsplitBlock"` \| `"paris"` \| `"shanghai"` \| `"cancun"` \| `"prague"` \| `"osaka"` \| `"bpo1"` \| `"bpo2"` \| `"bpo3"` \| `"bpo4"` \| `"bpo5"` \| `"amsterdam"`)[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:31
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:61
 
 #### Inherited from
 
@@ -410,7 +386,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **get** **opcodes**(): `OpcodeList`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:59
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:87
 
 ##### Returns
 
@@ -428,7 +404,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **get** **precompiles**(): `Map`\<`string`, `PrecompileFunc`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:58
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:86
 
 ##### Returns
 
@@ -444,7 +420,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **\_addToBalance**(`toAccount`, `message`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:118
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:146
 
 #### Parameters
 
@@ -470,7 +446,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **\_executeCall**(`message`): `Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:89
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:117
 
 #### Parameters
 
@@ -492,7 +468,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **\_executeCreate**(`message`): `Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:90
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:118
 
 #### Parameters
 
@@ -514,7 +490,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **\_generateAddress**(`message`): `Promise`\<`Address`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:116
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:144
 
 #### Parameters
 
@@ -536,7 +512,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **\_loadCode**(`message`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:115
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:143
 
 #### Parameters
 
@@ -558,7 +534,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `protected` **\_reduceSenderBalance**(`account`, `message`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:117
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:145
 
 #### Parameters
 
@@ -584,7 +560,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **addCustomPrecompile**(`precompile`): `void`
 
-Defined in: [packages/evm/src/Evm.js:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L31)
+Defined in: [packages/evm/src/Evm.js:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L30)
 
 Adds a custom precompile to the EVM.
 
@@ -606,7 +582,7 @@ Adds a custom precompile to the EVM.
 
 > **clearPerformanceLogs**(): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:137
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:165
 
 #### Returns
 
@@ -622,7 +598,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **getActiveOpcodes**(): `OpcodeList`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:88
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:116
 
 Returns a list with the currently activated opcodes
 available for EVM execution
@@ -641,7 +617,7 @@ available for EVM execution
 
 > **getPerformanceLogs**(): `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:133
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:161
 
 #### Returns
 
@@ -663,9 +639,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 ### getPrecompile()
 
-> **getPrecompile**(`address`): `undefined` \| `PrecompileFunc`
+> **getPrecompile**(`address`): `PrecompileFunc` \| `undefined`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:110
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:138
 
 Returns code for precompile at the given address, or undefined
 if no such precompile exists.
@@ -678,7 +654,7 @@ if no such precompile exists.
 
 #### Returns
 
-`undefined` \| `PrecompileFunc`
+`PrecompileFunc` \| `undefined`
 
 #### Inherited from
 
@@ -690,7 +666,7 @@ if no such precompile exists.
 
 > **removeCustomPrecompile**(`precompile`): `void`
 
-Defined in: [packages/evm/src/Evm.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L47)
+Defined in: [packages/evm/src/Evm.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L46)
 
 Removes a custom precompile from the EVM.
 
@@ -714,7 +690,7 @@ Removes a custom precompile from the EVM.
 
 > **runCall**(`opts`): `Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:100
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:128
 
 Executes an EVM message, determining whether it's a call or create
 based on the `to` address. It checkpoints the state and reverts changes
@@ -740,7 +716,7 @@ if an exception happens during the message execution.
 
 > **runCode**(`opts`): `Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:105
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:133
 
 Bound to the global VM and therefore
 shouldn't be used directly from the evm class
@@ -765,7 +741,7 @@ shouldn't be used directly from the evm class
 
 > `protected` **runInterpreter**(`message`, `opts?`): `Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:94
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:122
 
 Starts the actual bytecode processing for a CALL or CREATE
 
@@ -793,7 +769,7 @@ Starts the actual bytecode processing for a CALL or CREATE
 
 > `protected` **runPrecompile**(`code`, `data`, `gasLimit`): [`ExecResult`](../interfaces/ExecResult.md) \| `Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:114
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:142
 
 Executes a precompiled contract with given data and gas limit.
 
@@ -825,7 +801,7 @@ Executes a precompiled contract with given data and gas limit.
 
 > **shallowCopy**(): `EVM`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:132
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:160
 
 This method copies the EVM, current HF and EIP settings
 and returns a new EVM instance.
@@ -847,7 +823,7 @@ EVM
 
 ### create()
 
-> `static` **create**(`options?`): `Promise`\<[`EvmType`](../interfaces/EvmType.md)\>
+> `static` **create**(`options?`): `Promise`\<[`EvmType`](../type-aliases/EvmType.md)\>
 
 Defined in: [packages/evm/src/Evm.js:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/Evm.js#L64)
 
@@ -859,4 +835,4 @@ Defined in: [packages/evm/src/Evm.js:64](https://github.com/evmts/tevm-monorepo/
 
 #### Returns
 
-`Promise`\<[`EvmType`](../interfaces/EvmType.md)\>
+`Promise`\<[`EvmType`](../type-aliases/EvmType.md)\>

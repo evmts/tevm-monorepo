@@ -62,7 +62,7 @@ Contract bytecode to set account to
 
 ### errors?
 
-> `optional` **errors**: `ErrorType`[]
+> `optional` **errors?**: `ErrorType`[]
 
 Defined in: [packages/actions/src/GetAccount/GetAccountResult.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountResult.ts#L11)
 
@@ -102,7 +102,7 @@ Nonce to set account to
 
 ### storage?
 
-> `optional` **storage**: `object`
+> `optional` **storage?**: `object`
 
 Defined in: [packages/actions/src/GetAccount/GetAccountResult.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/GetAccountResult.ts#L48)
 

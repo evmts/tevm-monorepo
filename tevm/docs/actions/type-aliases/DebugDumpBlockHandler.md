@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DebugDumpBlockHandler
 
-# Type Alias: DebugDumpBlockHandler()
+# Type Alias: DebugDumpBlockHandler
 
 > **DebugDumpBlockHandler** = (`params`) => `Promise`\<[`DebugDumpBlockResult`](DebugDumpBlockResult.md)\>
 
-Defined in: packages/actions/types/debug/DebugHandler.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:8
 
 ## Parameters
 

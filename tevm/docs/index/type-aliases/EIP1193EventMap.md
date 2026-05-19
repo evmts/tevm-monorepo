@@ -8,7 +8,7 @@
 
 > **EIP1193EventMap** = `object`
 
-Defined in: packages/node/dist/index.d.ts:242
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:236
 
 ## Methods
 
@@ -16,7 +16,7 @@ Defined in: packages/node/dist/index.d.ts:242
 
 > **accountsChanged**(`accounts`): `void`
 
-Defined in: packages/node/dist/index.d.ts:243
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:237
 
 #### Parameters
 
@@ -34,7 +34,7 @@ Defined in: packages/node/dist/index.d.ts:243
 
 > **chainChanged**(`chainId`): `void`
 
-Defined in: packages/node/dist/index.d.ts:244
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:238
 
 #### Parameters
 
@@ -52,7 +52,7 @@ Defined in: packages/node/dist/index.d.ts:244
 
 > **connect**(`connectInfo`): `void`
 
-Defined in: packages/node/dist/index.d.ts:245
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:239
 
 #### Parameters
 
@@ -70,7 +70,7 @@ Defined in: packages/node/dist/index.d.ts:245
 
 > **disconnect**(`error`): `void`
 
-Defined in: packages/node/dist/index.d.ts:246
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:240
 
 #### Parameters
 
@@ -88,7 +88,7 @@ Defined in: packages/node/dist/index.d.ts:246
 
 > **message**(`message`): `void`
 
-Defined in: packages/node/dist/index.d.ts:247
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:241
 
 #### Parameters
 
@@ -106,7 +106,7 @@ Defined in: packages/node/dist/index.d.ts:247
 
 > **newBlock**(`block`): `void`
 
-Defined in: packages/node/dist/index.d.ts:250
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:244
 
 #### Parameters
 
@@ -124,13 +124,13 @@ Defined in: packages/node/dist/index.d.ts:250
 
 > **newLog**(`log`): `void`
 
-Defined in: packages/node/dist/index.d.ts:251
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:245
 
 #### Parameters
 
 ##### log
 
-[`Log`](../../evm/type-aliases/Log.md)
+[`EthjsLog`](../../utils/type-aliases/EthjsLog.md)
 
 #### Returns
 
@@ -142,13 +142,13 @@ Defined in: packages/node/dist/index.d.ts:251
 
 > **newPendingTransaction**(`tx`): `void`
 
-Defined in: packages/node/dist/index.d.ts:248
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:242
 
 #### Parameters
 
 ##### tx
 
-[`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) | [`ImpersonatedTx`](../../tx/interfaces/ImpersonatedTx.md)
+[`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md) \| `ImpersonatedTx`
 
 #### Returns
 
@@ -160,7 +160,7 @@ Defined in: packages/node/dist/index.d.ts:248
 
 > **newReceipt**(`receipt`): `void`
 
-Defined in: packages/node/dist/index.d.ts:249
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:243
 
 #### Parameters
 

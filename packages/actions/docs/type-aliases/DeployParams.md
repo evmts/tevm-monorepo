@@ -21,7 +21,7 @@ The `salt` parameter supports the use of CREATE2, allowing for deterministic add
 
 ### salt?
 
-> `readonly` `optional` **salt**: [`Hex`](Hex.md)
+> `readonly` `optional` **salt?**: [`Hex`](Hex.md)
 
 An optional CREATE2 salt, if deploying with CREATE2 for a predictable contract address.
 

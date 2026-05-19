@@ -2,10 +2,10 @@
 	"name": "@tevm/utils",
 	"version": "1.0.0-next.148",
 	"private": false,
-	"description": "A custom implementation of ethereumjs blockchain",
+	"description": "Shared Tevm utility primitives backed by zevm",
 	"keywords": [
 		"solidity",
-		"ethereumjs",
+		"zevm",
 		"typescript",
 		"web3",
 		"blockchain"
@@ -63,8 +63,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/evm": "^10.1.1",
-		"@ethereumjs/util": "^10.1.1",
+		"@evmts/zevm": "workspace:*",
 		"@tevm/errors": "workspace:^",
 		"abitype": "^1.2.4"
 	},

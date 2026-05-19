@@ -8,7 +8,7 @@
 
 > **NetworkConfig** = `object`
 
-Defined in: packages/actions/types/common/NetworkConfig.d.ts:5
+Defined in: tevm-monorepo/packages/actions/types/common/NetworkConfig.d.ts:5
 
 Represents a configuration for a forked or proxied network
 
@@ -18,7 +18,7 @@ Represents a configuration for a forked or proxied network
 
 > **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
-Defined in: packages/actions/types/common/NetworkConfig.d.ts:13
+Defined in: tevm-monorepo/packages/actions/types/common/NetworkConfig.d.ts:13
 
 the block tag to fork from
 
@@ -28,6 +28,6 @@ the block tag to fork from
 
 > **url**: `string`
 
-Defined in: packages/actions/types/common/NetworkConfig.d.ts:9
+Defined in: tevm-monorepo/packages/actions/types/common/NetworkConfig.d.ts:9
 
 The URL to the RPC endpoint

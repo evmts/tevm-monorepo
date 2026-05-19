@@ -16,7 +16,7 @@ Params taken by `debug_getModifiedAccountsByNumber` handler
 
 ### endBlockNumber?
 
-> `readonly` `optional` **endBlockNumber**: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint`
+> `readonly` `optional` **endBlockNumber?**: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint`
 
 Defined in: [packages/actions/src/debug/DebugParams.ts:244](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L244)
 

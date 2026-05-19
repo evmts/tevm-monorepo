@@ -6,9 +6,9 @@ import { decodeRevertReason } from './decodeRevertReason.js'
  * Executes a call with muxTracer - multiplexes multiple tracers and returns results from each
  * @param {import('@tevm/vm').Vm} vm
  * @param {import('@tevm/node').TevmNode['logger']} logger
- * @param {import('@tevm/evm').EvmRunCallOpts} params
+ * @param {import('@evmts/zevm/evm').EvmRunCallOpts} params
  * @param {import('../common/MuxTraceResult.js').MuxTracerConfiguration} tracerConfig Configuration for which tracers to run
- * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../common/MuxTraceResult.js').MuxTraceResult}>}
+ * @returns {Promise<import('@evmts/zevm/evm').EvmResult & {trace: import('../common/MuxTraceResult.js').MuxTraceResult}>}
  * @throws {never}
  */
 export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {

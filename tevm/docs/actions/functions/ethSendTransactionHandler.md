@@ -8,7 +8,7 @@
 
 > **ethSendTransactionHandler**(`client`): [`EthSendTransactionHandler`](../type-aliases/EthSendTransactionHandler.md)
 
-Defined in: packages/actions/types/eth/ethSendTransactionHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethSendTransactionHandler.d.ts:1
 
 ## Parameters
 

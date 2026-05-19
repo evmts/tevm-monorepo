@@ -8,7 +8,7 @@
 
 > **DebugStorageRangeAtParams** = `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:154
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:154
 
 Params taken by `debug_storageRangeAt` handler
 
@@ -18,7 +18,7 @@ Params taken by `debug_storageRangeAt` handler
 
 > `readonly` **address**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:166
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:166
 
 Contract address to get storage for
 
@@ -28,7 +28,7 @@ Contract address to get storage for
 
 > `readonly` **blockTag**: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint` \| [`BlockTag`](BlockTag.md)
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:158
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:158
 
 Block number, block hash, or block tag
 
@@ -38,7 +38,7 @@ Block number, block hash, or block tag
 
 > `readonly` **maxResult**: `number`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:174
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:174
 
 Maximum number of storage entries to return
 
@@ -48,7 +48,7 @@ Maximum number of storage entries to return
 
 > `readonly` **startKey**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:170
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:170
 
 Storage key to start from (hex string)
 
@@ -58,6 +58,6 @@ Storage key to start from (hex string)
 
 > `readonly` **txIndex**: `number`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:162
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:162
 
 Transaction index in the block (0-indexed)

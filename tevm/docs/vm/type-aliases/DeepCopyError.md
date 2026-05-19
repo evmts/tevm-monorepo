@@ -8,4 +8,4 @@
 
 > **DeepCopyError** = [`MisconfiguredClientError`](../../errors/classes/MisconfiguredClientError.md)
 
-Defined in: packages/vm/types/actions/deepCopy.d.ts:2
+Defined in: tevm-monorepo/packages/vm/types/actions/deepCopy.d.ts:2

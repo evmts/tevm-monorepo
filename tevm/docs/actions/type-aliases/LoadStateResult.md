@@ -8,7 +8,7 @@
 
 > **LoadStateResult**\<`ErrorType`\> = `object`
 
-Defined in: packages/actions/types/LoadState/LoadStateResult.d.ts:25
+Defined in: tevm-monorepo/packages/actions/types/LoadState/LoadStateResult.d.ts:25
 
 Result of the `tevmLoadState` method.
 
@@ -45,8 +45,8 @@ if (result.errors) {
 
 ### errors?
 
-> `optional` **errors**: `ErrorType`[]
+> `optional` **errors?**: `ErrorType`[]
 
-Defined in: packages/actions/types/LoadState/LoadStateResult.d.ts:29
+Defined in: tevm-monorepo/packages/actions/types/LoadState/LoadStateResult.d.ts:29
 
 Description of the exception, if any occurred.

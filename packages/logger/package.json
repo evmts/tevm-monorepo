@@ -5,7 +5,7 @@
 	"description": "A logger used by tevm",
 	"keywords": [
 		"solidity",
-		"ethereumjs",
+		"tevm",
 		"typescript",
 		"web3",
 		"evm"

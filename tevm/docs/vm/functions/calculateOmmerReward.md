@@ -8,7 +8,7 @@
 
 > **calculateOmmerReward**(`ommerBlockNumber`, `blockNumber`, `minerReward`): `bigint`
 
-Defined in: packages/vm/types/actions/calculateOmmerReward.d.ts:1
+Defined in: tevm-monorepo/packages/vm/types/actions/calculateOmmerReward.d.ts:1
 
 ## Parameters
 

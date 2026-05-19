@@ -1,12 +1,17 @@
-// this is from ethereumjs and carries the same license as the original
-// https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/execution/receipt.ts
-
+import {
+	Bloom,
+	decodeReceiptLogs,
+	decodeStoredReceipts,
+	decodeTxHashIndex,
+	encodeReceiptLogs,
+	encodeStoredReceipts,
+	encodeTxHashIndex,
+} from '@evmts/zevm/receipt'
+import type { TransactionType, TypedTransaction } from '@evmts/zevm/tx'
 import type { Block } from '@tevm/block'
 import { type Chain, getBlock } from '@tevm/blockchain'
-import { Rlp } from '@tevm/rlp'
-import type { TransactionType, TypedTransaction } from '@tevm/tx'
 import type { EthjsLog } from '@tevm/utils'
-import { Bloom, bytesToBigInt, bytesToNumber, equalsBytes, hexToBytes, numberToHex, stringToHex } from '@tevm/utils'
+import { equalsBytes, hexToBytes, stringToHex } from '@tevm/utils'
 import type { MapDb } from './MapDb.js'
 
 // Some of these types are actually from the Vm package but they are better to live here imo
@@ -172,12 +177,6 @@ enum IndexOperation {
 
 /** Type alias for log entries in RLP format */
 type rlpLog = EthjsLog
-
-/** RLP format for receipt entries: [status/stateRoot, gasUsed, logs] */
-type rlpReceipt = [postStateOrStatus: Uint8Array, cumulativeGasUsed: Uint8Array, logs: rlpLog[]]
-
-/** RLP format for txHash index entries: [blockHash, txIndex] */
-type rlpTxHash = [blockHash: Uint8Array, txIndex: Uint8Array]
 
 /**
  * Enum for RLP conversion operations
@@ -519,50 +518,20 @@ export class ReceiptsManager {
 		switch (type) {
 			case RlpType.Receipts: {
 				if (conversion === RlpConvert.Encode) {
-					return Rlp.encode(
-						(value as TxReceipt[]).map((r) => [
-							(r as PreByzantiumTxReceipt).stateRoot ??
-								// TODO add numberToBytes to utils
-								hexToBytes(numberToHex((r as PostByzantiumTxReceipt).status)),
-							// TODO add numberToBytes to utils
-							hexToBytes(numberToHex(r.cumulativeBlockGasUsed)),
-							this.rlp(RlpConvert.Encode, RlpType.Logs, r.logs),
-						]),
-					)
+					return encodeStoredReceipts(value as TxReceipt[])
 				}
-				const decoded = Rlp.decode(value as Uint8Array) as unknown as rlpReceipt[]
-				return decoded.map((r) => {
-					const gasUsed = r[1]
-					const logs = this.rlp(RlpConvert.Decode, RlpType.Logs, r[2])
-					if (r[0].length === 32) {
-						// Pre-Byzantium Receipt
-						return {
-							stateRoot: r[0],
-							cumulativeBlockGasUsed: bytesToBigInt(gasUsed),
-							logs,
-						} as PreByzantiumTxReceipt
-					}
-					// Post-Byzantium Receipt
-					return {
-						status: bytesToNumber(r[0]),
-						cumulativeBlockGasUsed: bytesToBigInt(gasUsed),
-						logs,
-					} as PostByzantiumTxReceipt
-				})
+				return decodeStoredReceipts(value as Uint8Array) as TxReceipt[]
 			}
 			case RlpType.Logs:
 				if (conversion === RlpConvert.Encode) {
-					return Rlp.encode(value as EthjsLog[])
+					return encodeReceiptLogs(value as EthjsLog[])
 				}
-				return Rlp.decode(value as Uint8Array) as EthjsLog[]
+				return decodeReceiptLogs(value as Uint8Array)
 			case RlpType.TxHash: {
 				if (conversion === RlpConvert.Encode) {
-					const [blockHash, txIndex] = value as TxHashIndex
-					// TODO add numberToBytes to utils
-					return Rlp.encode([blockHash, hexToBytes(numberToHex(txIndex))])
+					return encodeTxHashIndex(value as TxHashIndex)
 				}
-				const [blockHash, txIndex] = Rlp.decode(value as Uint8Array) as unknown as rlpTxHash
-				return [blockHash, bytesToNumber(txIndex)] as TxHashIndex
+				return decodeTxHashIndex(value as Uint8Array)
 			}
 			default:
 				throw new Error('Unknown rlp conversion')

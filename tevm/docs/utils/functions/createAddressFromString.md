@@ -8,17 +8,13 @@
 
 > **createAddressFromString**(`str`): [`EthjsAddress`](../classes/EthjsAddress.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:43
-
-Returns an Address object from a hex-encoded string.
+Defined in: zevm/npm/zevm/dist/util.d.ts:174
 
 ## Parameters
 
 ### str
 
 `string`
-
-Hex-encoded address
 
 ## Returns
 

@@ -14,7 +14,7 @@ Options for building a block.
 
 ### blockOpts?
 
-> `optional` **blockOpts**: [`BuilderOpts`](BuilderOpts.md)
+> `optional` **blockOpts?**: [`BuilderOpts`](BuilderOpts.md)
 
 Defined in: [packages/vm/src/utils/BuildBlockOpts.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BuildBlockOpts.ts#L24)
 
@@ -24,7 +24,7 @@ The block and builder options to use.
 
 ### headerData?
 
-> `optional` **headerData**: `HeaderData`
+> `optional` **headerData?**: `HeaderData`
 
 Defined in: [packages/vm/src/utils/BuildBlockOpts.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BuildBlockOpts.ts#L18)
 
@@ -45,6 +45,6 @@ The parent block
 
 ### withdrawals?
 
-> `optional` **withdrawals**: `WithdrawalData`[]
+> `optional` **withdrawals?**: `WithdrawalData`[]
 
 Defined in: [packages/vm/src/utils/BuildBlockOpts.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BuildBlockOpts.ts#L20)

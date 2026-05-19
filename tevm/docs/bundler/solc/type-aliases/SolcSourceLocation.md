@@ -8,7 +8,7 @@
 
 > **SolcSourceLocation** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:114
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:114
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:114
 
 > **end**: `number`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:117
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:117
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:117
 
 > **file**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:115
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:115
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:115
 
 > **start**: `number`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:116
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:116

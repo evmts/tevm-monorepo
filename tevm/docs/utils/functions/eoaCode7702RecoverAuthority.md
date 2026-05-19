@@ -8,13 +8,13 @@
 
 > **eoaCode7702RecoverAuthority**(`input`): [`EthjsAddress`](../classes/EthjsAddress.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/authorization.d.ts:40
+Defined in: zevm/npm/zevm/dist/util.d.ts:219
 
 ## Parameters
 
 ### input
 
-`EOACode7702AuthorizationListItem` | `EOACode7702AuthorizationListBytesItem`
+`EOACode7702AuthorizationListBytesItem` \| `EOACode7702AuthorizationListItem`
 
 ## Returns
 

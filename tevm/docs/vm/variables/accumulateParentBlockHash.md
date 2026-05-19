@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [vm](../README.md) / accumulateParentBlockHash
 
-# Variable: accumulateParentBlockHash()
+# Variable: accumulateParentBlockHash
 
 > `const` **accumulateParentBlockHash**: (`vm`) => (`currentBlockNumber`, `parentHash`) => `Promise`\<`void`\>
 
-Defined in: packages/vm/types/actions/accumulateParentBlockHash.d.ts:11
+Defined in: tevm-monorepo/packages/vm/types/actions/accumulateParentBlockHash.d.ts:11
 
 This method runs the logic of EIP 2935 (save blockhashes to state)
 It will put the `parentHash` of the block to the storage slot of `block.number - 1` of the history storage contract.
@@ -28,18 +28,4 @@ The VM to run on
 
 Function that accumulates parent block hash
 
-> (`currentBlockNumber`, `parentHash`): `Promise`\<`void`\>
-
-### Parameters
-
-#### currentBlockNumber
-
-`bigint`
-
-#### parentHash
-
-`Uint8Array`
-
-### Returns
-
-`Promise`\<`void`\>
+(`currentBlockNumber`, `parentHash`) => `Promise`\<`void`\>

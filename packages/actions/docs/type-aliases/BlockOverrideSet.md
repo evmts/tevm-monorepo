@@ -18,7 +18,7 @@ Setting the block number to past block will not run in the context of that block
 
 ### baseFee?
 
-> `optional` **baseFee**: `bigint`
+> `optional` **baseFee?**: `bigint`
 
 Defined in: [packages/actions/src/common/BlockOverrideSet.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/BlockOverrideSet.ts#L38)
 
@@ -28,7 +28,7 @@ Block base fee (see EIP-1559)
 
 ### blobBaseFee?
 
-> `optional` **blobBaseFee**: `bigint`
+> `optional` **blobBaseFee?**: `bigint`
 
 Defined in: [packages/actions/src/common/BlockOverrideSet.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/BlockOverrideSet.ts#L42)
 
@@ -38,7 +38,7 @@ Block blob base fee (see EIP-4844)
 
 ### coinbase?
 
-> `optional` **coinbase**: `Address`
+> `optional` **coinbase?**: `Address`
 
 Defined in: [packages/actions/src/common/BlockOverrideSet.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/BlockOverrideSet.ts#L29)
 
@@ -48,7 +48,7 @@ Block fee recipient
 
 ### gasLimit?
 
-> `optional` **gasLimit**: `bigint`
+> `optional` **gasLimit?**: `bigint`
 
 Defined in: [packages/actions/src/common/BlockOverrideSet.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/BlockOverrideSet.ts#L25)
 
@@ -58,7 +58,7 @@ Block gas capacity
 
 ### number?
 
-> `optional` **number**: `bigint`
+> `optional` **number?**: `bigint`
 
 Defined in: [packages/actions/src/common/BlockOverrideSet.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/BlockOverrideSet.ts#L12)
 
@@ -68,7 +68,7 @@ Fake block number
 
 ### time?
 
-> `optional` **time**: `bigint`
+> `optional` **time?**: `bigint`
 
 Defined in: [packages/actions/src/common/BlockOverrideSet.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/BlockOverrideSet.ts#L21)
 

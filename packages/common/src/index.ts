@@ -7,7 +7,7 @@ export {
 	type StateManagerInterface as EvmStateManagerInterface,
 	type StorageDump,
 	type StorageRange,
-} from '@ethereumjs/common'
+} from '@evmts/zevm/common'
 export type { Common } from './Common.js'
 export type { CommonOptions } from './CommonOptions.js'
 export { createCommon } from './createCommon.js'

@@ -8,4 +8,4 @@
 
 > **TraceType** = `"CALL"` \| `"DELEGATECALL"` \| `"STATICCALL"` \| `"CREATE"` \| `"CREATE2"` \| `"SELFDESTRUCT"`
 
-Defined in: packages/actions/types/common/TraceType.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/common/TraceType.d.ts:1

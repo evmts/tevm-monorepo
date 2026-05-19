@@ -8,7 +8,7 @@
 
 > **EthActionsApi** = `object`
 
-Defined in: packages/decorators/dist/index.d.ts:11
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:11
 
 The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)
 These actions correspond 1:1 eith the public ethereum JSON-RPC api
@@ -23,7 +23,7 @@ These actions correspond 1:1 eith the public ethereum JSON-RPC api
 
 > **eth**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:16
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:16
 
 Standard JSON-RPC methods for interacting with the VM
 

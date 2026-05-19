@@ -8,7 +8,7 @@
 
 > `const` **x1Testnet**: [`Common`](../type-aliases/Common.md)
 
-Defined in: packages/common/types/presets/x1Testnet.d.ts:21
+Defined in: tevm-monorepo/packages/common/types/presets/x1Testnet.d.ts:21
 
 Creates a common configuration for the x1Testnet chain.
 

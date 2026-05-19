@@ -8,7 +8,7 @@
 
 > **CallTraceResult** = `object`
 
-Defined in: packages/actions/types/common/CallTraceResult.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:6
 
 Result from `debug_*` with `callTracer`
 
@@ -16,9 +16,9 @@ Result from `debug_*` with `callTracer`
 
 ### calls?
 
-> `optional` **calls**: [`TraceCall`](../../index/type-aliases/TraceCall.md)[]
+> `optional` **calls?**: [`TraceCall`](../../index/type-aliases/TraceCall.md)[]
 
-Defined in: packages/actions/types/common/CallTraceResult.d.ts:15
+Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:15
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: packages/actions/types/common/CallTraceResult.d.ts:15
 
 > **from**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/common/CallTraceResult.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:8
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: packages/actions/types/common/CallTraceResult.d.ts:8
 
 > **gas**: `bigint`
 
-Defined in: packages/actions/types/common/CallTraceResult.d.ts:11
+Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:11
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: packages/actions/types/common/CallTraceResult.d.ts:11
 
 > **gasUsed**: `bigint`
 
-Defined in: packages/actions/types/common/CallTraceResult.d.ts:12
+Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:12
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: packages/actions/types/common/CallTraceResult.d.ts:12
 
 > **input**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/CallTraceResult.d.ts:13
+Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:13
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: packages/actions/types/common/CallTraceResult.d.ts:13
 
 > **output**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/CallTraceResult.d.ts:14
+Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:14
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: packages/actions/types/common/CallTraceResult.d.ts:14
 
 > **to**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/common/CallTraceResult.d.ts:9
+Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:9
 
 ***
 
@@ -74,7 +74,7 @@ Defined in: packages/actions/types/common/CallTraceResult.d.ts:9
 
 > **type**: [`TraceType`](TraceType.md)
 
-Defined in: packages/actions/types/common/CallTraceResult.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:7
 
 ***
 
@@ -82,4 +82,4 @@ Defined in: packages/actions/types/common/CallTraceResult.d.ts:7
 
 > **value**: `bigint`
 
-Defined in: packages/actions/types/common/CallTraceResult.d.ts:10
+Defined in: tevm-monorepo/packages/actions/types/common/CallTraceResult.d.ts:10

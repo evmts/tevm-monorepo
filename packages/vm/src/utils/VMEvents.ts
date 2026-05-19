@@ -1,5 +1,5 @@
+import type { TypedTransaction } from '@evmts/zevm/tx'
 import type { Block } from '@tevm/block'
-import type { TypedTransaction } from '@tevm/tx'
 import type { AfterBlockEvent } from './AfterblockEvent.js'
 import type { AfterTxEvent } from './AfterTxEvent.js'
 

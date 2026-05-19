@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilMineHandler
 
-# Type Alias: AnvilMineHandler()
+# Type Alias: AnvilMineHandler
 
 > **AnvilMineHandler** = (`params`) => `Promise`\<[`AnvilMineResult`](AnvilMineResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:6
 
 ## Parameters
 

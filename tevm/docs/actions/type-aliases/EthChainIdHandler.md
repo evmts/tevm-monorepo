@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthChainIdHandler
 
-# Type Alias: EthChainIdHandler()
+# Type Alias: EthChainIdHandler
 
 > **EthChainIdHandler** = (`request?`) => `Promise`\<[`EthChainIdResult`](EthChainIdResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:6
 
 ## Parameters
 

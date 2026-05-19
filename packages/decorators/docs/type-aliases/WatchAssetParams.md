@@ -34,7 +34,7 @@ The number of token decimals
 
 #### image?
 
-> `optional` **image**: `string`
+> `optional` **image?**: `string`
 
 A string url of the token logo
 

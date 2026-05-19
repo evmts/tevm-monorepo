@@ -8,13 +8,13 @@
 
 > **rewardAccount**(`evm`, `address`, `reward`): `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
-Defined in: packages/vm/types/actions/rewardAccount.d.ts:3
+Defined in: tevm-monorepo/packages/vm/types/actions/rewardAccount.d.ts:3
 
 ## Parameters
 
 ### evm
 
-[`Evm`](../../evm/classes/Evm.md)
+[`EvmType`](../../evm/type-aliases/EvmType.md)
 
 ### address
 

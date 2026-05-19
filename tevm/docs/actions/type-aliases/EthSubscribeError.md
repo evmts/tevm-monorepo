@@ -8,4 +8,4 @@
 
 > **EthSubscribeError** = [`InvalidParamsError`](../../errors/classes/InvalidParamsError.md)
 
-Defined in: packages/actions/types/eth/ethSubscribeHandler.d.ts:2
+Defined in: tevm-monorepo/packages/actions/types/eth/ethSubscribeHandler.d.ts:2

@@ -4,11 +4,11 @@
 
 [@tevm/rollup-plugin](../globals.md) / rollupPluginTevm
 
-# Variable: rollupPluginTevm()
+# Variable: rollupPluginTevm
 
 > `const` **rollupPluginTevm**: (`options?`) => `Plugin`
 
-Defined in: [bundler-packages/rollup/src/rollupPluginTevm.js:125](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/rollup/src/rollupPluginTevm.js#L125)
+Defined in: [rollup/src/rollupPluginTevm.js:125](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/rollup/src/rollupPluginTevm.js#L125)
 
 Creates a Rollup plugin for Tevm that enables direct Solidity imports in JavaScript
 and TypeScript code.

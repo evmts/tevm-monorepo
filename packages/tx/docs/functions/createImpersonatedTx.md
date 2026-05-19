@@ -8,20 +8,16 @@
 
 > **createImpersonatedTx**(`txData`, `opts?`): [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
 
-Defined in: [packages/tx/src/createImpersonatedTx.js:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/tx/src/createImpersonatedTx.js#L21)
+Defined in: zevm/npm/zevm/dist/tx.d.ts:26
 
-Creates an impersonated tx that wraps [FeeMarket1559Tx](../classes/FeeMarketEIP1559Transaction.md).
-Wraps following methods
-- 'isImpersonated'
-- 'hash'
-- 'isSigned'
-- 'getSenderAddress'
+Creates an unsigned EIP-1559 transaction that behaves as if it were signed by
+`impersonatedAddress`.
 
 ## Parameters
 
 ### txData
 
-`FeeMarketEIP1559TxData` & `object`
+[`ImpersonatedTxData`](../type-aliases/ImpersonatedTxData.md)
 
 ### opts?
 
@@ -30,7 +26,3 @@ Wraps following methods
 ## Returns
 
 [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
-
-## Throws
-
-Error if the constructor for [FeeMarket1559Tx](../classes/FeeMarketEIP1559Transaction.md) throws

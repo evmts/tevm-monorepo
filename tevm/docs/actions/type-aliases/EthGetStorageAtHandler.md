@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetStorageAtHandler
 
-# Type Alias: EthGetStorageAtHandler()
+# Type Alias: EthGetStorageAtHandler
 
 > **EthGetStorageAtHandler** = (`request`) => `Promise`\<[`EthGetStorageAtResult`](EthGetStorageAtResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:22
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:22
 
 ## Parameters
 

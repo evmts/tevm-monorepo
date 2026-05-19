@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DebugGetRawReceiptsHandler
 
-# Type Alias: DebugGetRawReceiptsHandler()
+# Type Alias: DebugGetRawReceiptsHandler
 
 > **DebugGetRawReceiptsHandler** = (`params`) => `Promise`\<[`DebugGetRawReceiptsResult`](DebugGetRawReceiptsResult.md)\>
 
-Defined in: packages/actions/types/debug/DebugHandler.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:7
 
 ## Parameters
 

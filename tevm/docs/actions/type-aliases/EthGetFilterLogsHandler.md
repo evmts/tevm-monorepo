@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetFilterLogsHandler
 
-# Type Alias: EthGetFilterLogsHandler()
+# Type Alias: EthGetFilterLogsHandler
 
 > **EthGetFilterLogsHandler** = (`request`) => `Promise`\<[`EthGetFilterLogsResult`](EthGetFilterLogsResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:20
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:20
 
 ## Parameters
 

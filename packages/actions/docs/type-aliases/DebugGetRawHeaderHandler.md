@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / DebugGetRawHeaderHandler
 
-# Type Alias: DebugGetRawHeaderHandler()
+# Type Alias: DebugGetRawHeaderHandler
 
 > **DebugGetRawHeaderHandler** = (`params`) => `Promise`\<[`DebugGetRawHeaderResult`](DebugGetRawHeaderResult.md)\>
 

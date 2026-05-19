@@ -8,7 +8,7 @@
 
 > **deleteAccount**(`baseState`, `skipFetchingFromFork?`): (`address`) => `Promise`\<`void`\>
 
-Defined in: [packages/state/src/actions/deleteAccount.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/deleteAccount.js#L5)
+Defined in: [tevm-monorepo/packages/state/src/actions/deleteAccount.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/deleteAccount.js#L5)
 
 Deletes an account from state under the provided `address`.
 
@@ -24,14 +24,4 @@ Deletes an account from state under the provided `address`.
 
 ## Returns
 
-> (`address`): `Promise`\<`void`\>
-
-### Parameters
-
-#### address
-
-`Address`
-
-### Returns
-
-`Promise`\<`void`\>
+(`address`) => `Promise`\<`void`\>

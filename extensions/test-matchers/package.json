@@ -61,7 +61,7 @@
 		"generate:docs": "bun run typedoc",
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
-		"lint:deps": "bunx depcheck",
+		"lint:deps": "bunx depcheck --ignores=@tevm/common",
 		"lint:package": "bunx publint --strict && attw --pack",
 		"package:up": "pnpm up --latest",
 		"test": "vitest --watch",

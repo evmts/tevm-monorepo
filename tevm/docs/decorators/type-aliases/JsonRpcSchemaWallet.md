@@ -8,7 +8,7 @@
 
 > **JsonRpcSchemaWallet** = `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1573
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1573
 
 Type definitions for Ethereum JSON-RPC methods that interact with wallets.
 Includes methods for account management, signing, transactions, and wallet-specific features.
@@ -44,7 +44,7 @@ const txHash = await node.request({
 
 > **eth\_accounts**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1581
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1581
 
 #### Method
 
@@ -52,7 +52,7 @@ Defined in: packages/decorators/dist/index.d.ts:1581
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -79,7 +79,7 @@ provider.request({ method: 'eth_accounts' })
 
 > **eth\_chainId**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1592
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1592
 
 #### Method
 
@@ -87,7 +87,7 @@ Defined in: packages/decorators/dist/index.d.ts:1592
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -110,7 +110,7 @@ provider.request({ method: 'eth_chainId' })
 
 > **eth\_estimateGas**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1607
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1607
 
 #### Method
 
@@ -144,7 +144,7 @@ provider.request({
 
 > **eth\_requestAccounts**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1619
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1619
 
 #### Method
 
@@ -152,7 +152,7 @@ Defined in: packages/decorators/dist/index.d.ts:1619
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -179,7 +179,7 @@ provider.request({ method: 'eth_requestAccounts' }] })
 
 > **eth\_sendRawTransaction**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1643
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1643
 
 #### Method
 
@@ -214,7 +214,7 @@ provider.request({ method: 'eth_sendRawTransaction', params: ['0x...'] })
 
 > **eth\_sendTransaction**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1631
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1631
 
 #### Method
 
@@ -249,7 +249,7 @@ provider.request({ method: 'eth_sendTransaction', params: [{ from: '0x...', to: 
 
 > **eth\_sign**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1655
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1655
 
 #### Method
 
@@ -284,7 +284,7 @@ provider.request({ method: 'eth_sign', params: ['0x...', '0x...'] })
 
 > **eth\_signTransaction**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1672
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1672
 
 #### Method
 
@@ -319,7 +319,7 @@ provider.request({ method: 'eth_signTransaction', params: [{ from: '0x...', to: 
 
 > **eth\_signTypedData\_v4**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1684
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1684
 
 #### Method
 
@@ -354,7 +354,7 @@ provider.request({ method: 'eth_signTypedData_v4', params: [{ from: '0x...', dat
 
 > **eth\_syncing**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1701
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1701
 
 #### Method
 
@@ -362,7 +362,7 @@ Defined in: packages/decorators/dist/index.d.ts:1701
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -389,7 +389,7 @@ provider.request({ method: 'eth_syncing' })
 
 > **personal\_sign**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1713
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1713
 
 #### Method
 
@@ -424,7 +424,7 @@ provider.request({ method: 'personal_sign', params: ['0x...', '0x...'] })
 
 > **wallet\_addEthereumChain**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1730
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1730
 
 #### Method
 
@@ -459,7 +459,7 @@ provider.request({ method: 'wallet_addEthereumChain', params: [{ chainId: 1, rpc
 
 > **wallet\_getPermissions**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1742
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1742
 
 #### Method
 
@@ -467,7 +467,7 @@ Defined in: packages/decorators/dist/index.d.ts:1742
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -494,7 +494,7 @@ provider.request({ method: 'wallet_getPermissions' })
 
 > **wallet\_requestPermissions**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1754
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1754
 
 #### Method
 
@@ -529,7 +529,7 @@ provider.request({ method: 'wallet_requestPermissions', params: [{ eth_accounts:
 
 > **wallet\_switchEthereumChain**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1768
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1768
 
 #### Method
 
@@ -564,7 +564,7 @@ provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x
 
 > **wallet\_watchAsset**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1782
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1782
 
 #### Method
 

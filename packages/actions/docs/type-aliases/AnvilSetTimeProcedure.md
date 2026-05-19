@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetTimeProcedure
 
-# Type Alias: AnvilSetTimeProcedure()
+# Type Alias: AnvilSetTimeProcedure
 
 > **AnvilSetTimeProcedure** = (`request`) => `Promise`\<[`AnvilSetTimeJsonRpcResponse`](AnvilSetTimeJsonRpcResponse.md)\>
 

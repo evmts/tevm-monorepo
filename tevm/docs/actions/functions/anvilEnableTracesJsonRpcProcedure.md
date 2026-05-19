@@ -8,7 +8,7 @@
 
 > **anvilEnableTracesJsonRpcProcedure**(`client`): [`AnvilEnableTracesProcedure`](../type-aliases/AnvilEnableTracesProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilEnableTracesProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilEnableTracesProcedure.d.ts:1
 
 ## Parameters
 

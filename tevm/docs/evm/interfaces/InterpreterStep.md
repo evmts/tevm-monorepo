@@ -6,31 +6,31 @@
 
 # Interface: InterpreterStep
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:78
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:78
 
 ## Properties
 
 ### account
 
-> **account**: [`EthjsAccount`](../../utils/classes/EthjsAccount.md)
+> **account**: `Account`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:92
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:92
 
 ***
 
 ### address
 
-> **address**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+> **address**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:93
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:93
 
 ***
 
 ### codeAddress
 
-> **codeAddress**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+> **codeAddress**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:96
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:96
 
 ***
 
@@ -38,31 +38,31 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **depth**: `number`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:84
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:84
 
 ***
 
 ### eofFunctionDepth?
 
-> `optional` **eofFunctionDepth**: `number`
+> `optional` **eofFunctionDepth?**: `number`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:99
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:99
 
 ***
 
 ### eofSection?
 
-> `optional` **eofSection**: `number`
+> `optional` **eofSection?**: `number`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:97
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:97
 
 ***
 
 ### error?
 
-> `optional` **error**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **error?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:100
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:100
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **gasLeft**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:79
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:79
 
 ***
 
@@ -78,15 +78,15 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **gasRefund**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:80
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:80
 
 ***
 
 ### immediate?
 
-> `optional` **immediate**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **immediate?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:98
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:98
 
 ***
 
@@ -94,7 +94,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **memory**: `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:94
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:94
 
 ***
 
@@ -102,7 +102,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **memoryWordCount**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:95
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:95
 
 ***
 
@@ -110,7 +110,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **opcode**: `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:85
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:85
 
 #### code
 
@@ -118,7 +118,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 #### dynamicFee?
 
-> `optional` **dynamicFee**: `bigint`
+> `optional` **dynamicFee?**: `bigint`
 
 #### fee
 
@@ -138,7 +138,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **pc**: `number`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:83
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:83
 
 ***
 
@@ -146,7 +146,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **stack**: `bigint`[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:82
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:82
 
 ***
 
@@ -154,12 +154,12 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **stateManager**: [`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:81
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:81
 
 ***
 
 ### storage?
 
-> `optional` **storage**: \[`` `0x${string}` ``, `` `0x${string}` ``\][]
+> `optional` **storage?**: \[`` `0x${string}` ``, `` `0x${string}` ``\][]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:101
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:101

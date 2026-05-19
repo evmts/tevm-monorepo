@@ -32,7 +32,7 @@ state overrides and multiple calls.
 
 ### blockTag?
 
-> `readonly` `optional` **blockTag**: [`BlockParam`](BlockParam.md)
+> `readonly` `optional` **blockTag?**: [`BlockParam`](BlockParam.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:537](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L537)
 
@@ -42,7 +42,7 @@ The block number or tag to execute the simulation against
 
 ### includeCallTraces?
 
-> `readonly` `optional` **includeCallTraces**: `boolean`
+> `readonly` `optional` **includeCallTraces?**: `boolean`
 
 Defined in: [packages/actions/src/eth/EthParams.ts:547](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L547)
 
@@ -53,7 +53,7 @@ V2 feature: provides detailed execution traces for debugging.
 
 ### includeContractCreationEvents?
 
-> `readonly` `optional` **includeContractCreationEvents**: `boolean`
+> `readonly` `optional` **includeContractCreationEvents?**: `boolean`
 
 Defined in: [packages/actions/src/eth/EthParams.ts:542](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L542)
 
@@ -64,7 +64,7 @@ V2 feature: emits a synthetic log when contracts are deployed.
 
 ### returnFullTransactions?
 
-> `readonly` `optional` **returnFullTransactions**: `boolean`
+> `readonly` `optional` **returnFullTransactions?**: `boolean`
 
 Defined in: [packages/actions/src/eth/EthParams.ts:533](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L533)
 
@@ -74,7 +74,7 @@ Whether to return full transaction objects in the response
 
 ### traceTransfers?
 
-> `readonly` `optional` **traceTransfers**: `boolean`
+> `readonly` `optional` **traceTransfers?**: `boolean`
 
 Defined in: [packages/actions/src/eth/EthParams.ts:525](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L525)
 
@@ -84,7 +84,7 @@ Whether to trace ETH transfers (adds Transfer logs for native ETH)
 
 ### validation?
 
-> `readonly` `optional` **validation**: `boolean`
+> `readonly` `optional` **validation?**: `boolean`
 
 Defined in: [packages/actions/src/eth/EthParams.ts:529](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L529)
 

@@ -18,8 +18,4 @@ Defined in: [packages/blockchain/src/actions/shallowCopy.js:7](https://github.co
 
 ## Returns
 
-> (): `BaseChain`
-
-### Returns
-
-`BaseChain`
+() => `BaseChain`

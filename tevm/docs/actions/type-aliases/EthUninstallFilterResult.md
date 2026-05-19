@@ -8,6 +8,6 @@
 
 > **EthUninstallFilterResult** = `boolean`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:208
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:208
 
 JSON-RPC response for `eth_uninstallFilter` procedure

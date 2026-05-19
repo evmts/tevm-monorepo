@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / LoadStateJsonRpcProcedure
 
-# Type Alias: LoadStateJsonRpcProcedure()
+# Type Alias: LoadStateJsonRpcProcedure
 
 > **LoadStateJsonRpcProcedure** = (`request`) => `Promise`\<[`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/LoadState/LoadStateJsonRpcProcedure.d.ts:16
+Defined in: tevm-monorepo/packages/actions/types/LoadState/LoadStateJsonRpcProcedure.d.ts:16
 
 Procedure for handling script JSON-RPC requests
 Procedure for handling tevm_loadState JSON-RPC requests

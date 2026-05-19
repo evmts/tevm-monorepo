@@ -4,7 +4,7 @@
 
 [@tevm/memory-client](../globals.md) / TevmTransport
 
-# Type Alias: TevmTransport()\<TName\>
+# Type Alias: TevmTransport\<TName\>
 
 > **TevmTransport**\<`TName`\> = \<`TChain`\>(`{
 	chain,

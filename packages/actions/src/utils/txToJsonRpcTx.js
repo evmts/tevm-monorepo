@@ -1,7 +1,7 @@
 import { bytesToHex, numberToHex } from '@tevm/utils'
 
 /**
- * @param {import('@tevm/tx').TypedTransaction | import('@tevm/tx').ImpersonatedTx} tx
+ * @param {import('@evmts/zevm/tx').TypedTransaction | import('@evmts/zevm/tx').ImpersonatedTx} tx
  * @param {import('@tevm/block').Block} block
  * @param {number} [txIndex]
  * @returns {import('../common/TransactionResult.js').TransactionResult}

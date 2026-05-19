@@ -54,7 +54,7 @@
 		"generate:docs": "typedoc",
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
-		"lint:deps": "bunx depcheck",
+		"lint:deps": "bunx depcheck --ignores=@tevm/errors,kzg-wasm",
 		"lint:package": "bunx publint --strict && pnpm pack --pack-destination /tmp && attw /tmp/tevm-memory-client-*.tgz && rm /tmp/tevm-memory-client-*.tgz",
 		"package:up": "pnpm up --latest",
 		"test": "vitest --watch",
@@ -69,7 +69,6 @@
 		"@tevm/contract": "workspace:^",
 		"@tevm/decorators": "workspace:^",
 		"@tevm/errors": "workspace:^",
-		"@tevm/evm": "workspace:^",
 		"@tevm/node": "workspace:^",
 		"@tevm/predeploys": "workspace:^",
 		"@tevm/utils": "workspace:^",
@@ -77,10 +76,10 @@
 		"vitest": "^4.1.6"
 	},
 	"devDependencies": {
+		"@evmts/zevm": "workspace:*",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@tevm/tx": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
 		"viem": "^2.49.3"

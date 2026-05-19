@@ -22,6 +22,6 @@ Defined in: [solcTypes.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/b
 
 ### stackAllocation?
 
-> `optional` **stackAllocation**: `boolean`
+> `optional` **stackAllocation?**: `boolean`
 
 Defined in: [solcTypes.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L56)

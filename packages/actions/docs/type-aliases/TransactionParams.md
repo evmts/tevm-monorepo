@@ -24,7 +24,7 @@ Defined in: [packages/actions/src/common/TransactionParams.ts:8](https://github.
 
 ### gas?
 
-> `readonly` `optional` **gas**: [`Hex`](Hex.md)
+> `readonly` `optional` **gas?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/common/TransactionParams.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionParams.ts#L10)
 
@@ -32,7 +32,7 @@ Defined in: [packages/actions/src/common/TransactionParams.ts:10](https://github
 
 ### gasPrice?
 
-> `readonly` `optional` **gasPrice**: [`Hex`](Hex.md)
+> `readonly` `optional` **gasPrice?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/common/TransactionParams.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionParams.ts#L11)
 
@@ -48,7 +48,7 @@ Defined in: [packages/actions/src/common/TransactionParams.ts:13](https://github
 
 ### nonce?
 
-> `readonly` `optional` **nonce**: [`Hex`](Hex.md)
+> `readonly` `optional` **nonce?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/common/TransactionParams.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionParams.ts#L14)
 
@@ -56,7 +56,7 @@ Defined in: [packages/actions/src/common/TransactionParams.ts:14](https://github
 
 ### to?
 
-> `readonly` `optional` **to**: [`Address`](Address.md)
+> `readonly` `optional` **to?**: [`Address`](Address.md)
 
 Defined in: [packages/actions/src/common/TransactionParams.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionParams.ts#L9)
 
@@ -64,6 +64,6 @@ Defined in: [packages/actions/src/common/TransactionParams.ts:9](https://github.
 
 ### value?
 
-> `readonly` `optional` **value**: [`Hex`](Hex.md)
+> `readonly` `optional` **value?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/common/TransactionParams.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionParams.ts#L12)

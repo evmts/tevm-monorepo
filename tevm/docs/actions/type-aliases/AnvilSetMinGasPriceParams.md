@@ -8,7 +8,7 @@
 
 > **AnvilSetMinGasPriceParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:296
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:296
 
 Params for `anvil_setMinGasPrice` handler
 
@@ -18,7 +18,7 @@ Params for `anvil_setMinGasPrice` handler
 
 > `readonly` **minGasPrice**: `bigint`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:301
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:301
 
 The minimum gas price to accept for transactions (in wei)
 Transactions with a gas price below this value will be rejected

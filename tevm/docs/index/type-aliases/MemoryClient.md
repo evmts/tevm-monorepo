@@ -8,7 +8,7 @@
 
 > **MemoryClient**\<`TChain`, `TAccountOrAddress`\> = `Prettify`\<`Client`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* [`Account`](Account.md) ? [`Account`](Account.md) : `undefined`, [`TevmRpcSchema`](TevmRpcSchema.md), [`TevmActions`](TevmActions.md) & `PublicActions`\<[`TevmTransport`](TevmTransport.md), `TChain`, `TAccountOrAddress` *extends* [`Account`](Account.md) ? [`Account`](Account.md) : `undefined`\> & `WalletActions`\<`TChain`, `TAccountOrAddress` *extends* [`Account`](Account.md) ? [`Account`](Account.md) : `undefined`\> & `TestActions`\>\>
 
-Defined in: packages/memory-client/types/MemoryClient.d.ts:232
+Defined in: tevm-monorepo/packages/memory-client/types/MemoryClient.d.ts:232
 
 Represents a TEVM-enhanced viem client with an in-memory Ethereum client as its transport.
 

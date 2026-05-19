@@ -8,7 +8,7 @@
 
 > **AbiFunction** = `object`
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:54
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:54
 
 ABI ["function"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) type
 
@@ -16,9 +16,9 @@ ABI ["function"](https://docs.soliditylang.org/en/latest/abi-spec.html#json) typ
 
 ### ~~constant?~~
 
-> `optional` **constant**: `boolean`
+> `optional` **constant?**: `boolean`
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:60
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:60
 
 #### Deprecated
 
@@ -32,9 +32,9 @@ https://github.com/ethereum/solidity/issues/992
 
 ### ~~gas?~~
 
-> `optional` **gas**: `number`
+> `optional` **gas?**: `number`
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:65
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:65
 
 #### Deprecated
 
@@ -50,7 +50,7 @@ https://github.com/vyperlang/vyper/issues/2151
 
 > **inputs**: readonly `AbiParameter`[]
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:66
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:66
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node
 
 > **name**: `string`
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:67
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:67
 
 ***
 
@@ -66,15 +66,15 @@ Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node
 
 > **outputs**: readonly `AbiParameter`[]
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:68
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:68
 
 ***
 
 ### ~~payable?~~
 
-> `optional` **payable**: `boolean`
+> `optional` **payable?**: `boolean`
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:73
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:73
 
 #### Deprecated
 
@@ -90,7 +90,7 @@ https://github.com/ethereum/solidity/issues/992
 
 > **stateMutability**: `AbiStateMutability`
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:74
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:74
 
 ***
 
@@ -98,4 +98,4 @@ Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node
 
 > **type**: `"function"`
 
-Defined in: node\_modules/.pnpm/abitype@1.1.1\_typescript@5.9.3\_zod@4.1.11/node\_modules/abitype/dist/types/abi.d.ts:55
+Defined in: tevm-monorepo/node\_modules/.pnpm/abitype@1.2.4\_typescript@6.0.3\_zod@4.4.3/node\_modules/abitype/dist/types/abi.d.ts:55

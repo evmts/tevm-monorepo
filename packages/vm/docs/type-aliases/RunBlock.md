@@ -4,7 +4,7 @@
 
 [@tevm/vm](../globals.md) / RunBlock
 
-# Type Alias: RunBlock()
+# Type Alias: RunBlock
 
 > **RunBlock** = (`opts`) => `Promise`\<[`RunBlockResult`](../interfaces/RunBlockResult.md)\>
 

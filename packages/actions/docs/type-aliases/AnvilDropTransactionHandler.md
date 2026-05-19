@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilDropTransactionHandler
 
-# Type Alias: AnvilDropTransactionHandler()
+# Type Alias: AnvilDropTransactionHandler
 
 > **AnvilDropTransactionHandler** = (`params`) => `Promise`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>
 

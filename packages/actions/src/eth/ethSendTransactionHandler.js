@@ -1,6 +1,6 @@
+import { createImpersonatedTx, TransactionFactory } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
 import { prefundedAccounts } from '@tevm/node'
-import { createImpersonatedTx, TransactionFactory } from '@tevm/tx'
 import { bytesToHex, EthjsAddress } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
 
@@ -21,7 +21,7 @@ export const ethSendTransactionHandler = (client) => async (params) => {
 	const impersonatedAccount = client.getImpersonatedAccount()
 	if (!tx.isSigned() && impersonatedAccount !== undefined) {
 		/**
-		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: import('@tevm/utils').EthjsAddress} }
+		 * @type {import("@evmts/zevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: import('@tevm/utils').EthjsAddress} }
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
 		impersonatedTx.impersonatedAddress = createAddress(impersonatedAccount)
@@ -31,7 +31,7 @@ export const ethSendTransactionHandler = (client) => async (params) => {
 			'Raw Transaction is not signed. Consider calling impersonate endpoint. In future versions unsigned transactions will be rejected.',
 		)
 		/**
-		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
+		 * @type {import("@evmts/zevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
 		impersonatedTx.impersonatedAddress = createAddress(

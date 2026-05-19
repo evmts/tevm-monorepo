@@ -8,7 +8,7 @@
 
 > **createContractAddress**(`from`, `nonce`): [`Address`](../classes/Address.md)
 
-Defined in: packages/address/types/createContractAddress.d.ts:1
+Defined in: tevm-monorepo/packages/address/types/createContractAddress.d.ts:1
 
 ## Parameters
 

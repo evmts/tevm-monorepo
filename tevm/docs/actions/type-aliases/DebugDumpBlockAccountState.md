@@ -8,7 +8,7 @@
 
 > **DebugDumpBlockAccountState** = `object`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:97
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:97
 
 Account state in debug_dumpBlock result
 
@@ -18,7 +18,7 @@ Account state in debug_dumpBlock result
 
 > **balance**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:101
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:101
 
 Account balance in hex
 
@@ -26,9 +26,9 @@ Account balance in hex
 
 ### code?
 
-> `optional` **code**: [`Hex`](Hex.md)
+> `optional` **code?**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:117
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:117
 
 Contract code (if present)
 
@@ -38,7 +38,7 @@ Contract code (if present)
 
 > **codeHash**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:109
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:109
 
 Account code hash
 
@@ -48,7 +48,7 @@ Account code hash
 
 > **nonce**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:105
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:105
 
 Account nonce in hex
 
@@ -58,7 +58,7 @@ Account nonce in hex
 
 > **root**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:113
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:113
 
 Account storage root
 
@@ -66,8 +66,8 @@ Account storage root
 
 ### storage?
 
-> `optional` **storage**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
+> `optional` **storage?**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:121
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:121
 
 Account storage

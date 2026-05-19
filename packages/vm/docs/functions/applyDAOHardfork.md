@@ -16,7 +16,7 @@ Apply the DAO fork changes to the VM
 
 ### evm
 
-`Evm`
+`Evm$1`
 
 ## Returns
 

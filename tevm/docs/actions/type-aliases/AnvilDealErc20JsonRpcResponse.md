@@ -8,6 +8,6 @@
 
 > **AnvilDealErc20JsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_dealErc20"`, `SerializeToJson`\<[`AnvilDealErc20Result`](AnvilDealErc20Result.md)\>, `AnvilError`\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:85
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:85
 
 JSON-RPC response for `anvil_dealErc20` procedure

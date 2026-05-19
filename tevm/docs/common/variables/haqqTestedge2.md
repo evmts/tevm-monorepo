@@ -8,7 +8,7 @@
 
 > `const` **haqqTestedge2**: [`Common`](../type-aliases/Common.md)
 
-Defined in: packages/common/types/presets/haqqTestedge2.d.ts:21
+Defined in: tevm-monorepo/packages/common/types/presets/haqqTestedge2.d.ts:21
 
 Creates a common configuration for the haqqTestedge2 chain.
 

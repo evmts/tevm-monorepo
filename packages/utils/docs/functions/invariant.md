@@ -6,9 +6,9 @@
 
 # Function: invariant()
 
-> **invariant**(`condition`, `error`): `asserts condition`
+> **invariant**(`condition`, `error?`): `asserts condition`
 
-Defined in: [packages/utils/src/invariant.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/invariant.ts#L3)
+Defined in: [tevm-monorepo/packages/utils/src/invariant.ts:3](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/invariant.ts#L3)
 
 ## Parameters
 
@@ -16,7 +16,7 @@ Defined in: [packages/utils/src/invariant.ts:3](https://github.com/evmts/tevm-mo
 
 `any`
 
-### error
+### error?
 
 `Error` = `...`
 

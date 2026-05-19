@@ -52,7 +52,7 @@ Defined in: [packages/block/src/from-beacon-payload.ts:53](https://github.com/ev
 
 ### blob\_gas\_used?
 
-> `optional` **blob\_gas\_used**: `Hex`
+> `optional` **blob\_gas\_used?**: `Hex`
 
 Defined in: [packages/block/src/from-beacon-payload.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L57)
 
@@ -76,7 +76,7 @@ Defined in: [packages/block/src/from-beacon-payload.ts:48](https://github.com/ev
 
 ### excess\_blob\_gas?
 
-> `optional` **excess\_blob\_gas**: `Hex`
+> `optional` **excess\_blob\_gas?**: `Hex`
 
 Defined in: [packages/block/src/from-beacon-payload.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L58)
 
@@ -84,7 +84,7 @@ Defined in: [packages/block/src/from-beacon-payload.ts:58](https://github.com/ev
 
 ### execution\_witness?
 
-> `optional` **execution\_witness**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
+> `optional` **execution\_witness?**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
 
 Defined in: [packages/block/src/from-beacon-payload.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L61)
 
@@ -132,7 +132,7 @@ Defined in: [packages/block/src/from-beacon-payload.ts:46](https://github.com/ev
 
 ### parent\_beacon\_block\_root?
 
-> `optional` **parent\_beacon\_block\_root**: `Hex`
+> `optional` **parent\_beacon\_block\_root?**: `Hex`
 
 Defined in: [packages/block/src/from-beacon-payload.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L59)
 
@@ -188,6 +188,6 @@ Defined in: [packages/block/src/from-beacon-payload.ts:55](https://github.com/ev
 
 ### withdrawals?
 
-> `optional` **withdrawals**: `BeaconWithdrawal`[]
+> `optional` **withdrawals?**: `BeaconWithdrawal`[]
 
 Defined in: [packages/block/src/from-beacon-payload.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-beacon-payload.ts#L56)

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthCallHandler
 
-# Type Alias: EthCallHandler()
+# Type Alias: EthCallHandler
 
 > **EthCallHandler** = (`request`) => `Promise`\<[`EthCallResult`](EthCallResult.md)\>
 

@@ -8,6 +8,6 @@
 
 > `const` **resolveArtifacts**: `ResolveArtifacts`
 
-Defined in: bundler-packages/compiler/types/src/resolveArtifacts.d.ts:5
+Defined in: tevm-monorepo/bundler-packages/compiler/types/src/resolveArtifacts.d.ts:5
 
 Resolves artifacts with solc asyncronously

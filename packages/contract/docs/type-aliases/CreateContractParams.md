@@ -52,89 +52,95 @@ The deployed bytecode type (optional)
 
 The runtime bytecode type (optional)
 
-## Type Declaration
+## Union Members
+
+### Type Literal
 
 \{ `abi?`: `never`; `address?`: `TAddress`; `bytecode?`: `TBytecode`; `code?`: `TCode`; `deployedBytecode?`: `TDeployedBytecode`; `humanReadableAbi`: `TAbi` *extends* readonly `string`[] ? `TAbi` : `FormatAbi`\<`TAbi`\>; `name?`: `TName`; \}
 
-### abi?
+#### abi?
 
-> `optional` **abi**: `never`
+> `optional` **abi?**: `never`
 
-### address?
+#### address?
 
-> `optional` **address**: `TAddress`
+> `optional` **address?**: `TAddress`
 
 Optional address of the deployed contract
 
-### bytecode?
+#### bytecode?
 
-> `optional` **bytecode**: `TBytecode`
+> `optional` **bytecode?**: `TBytecode`
 
 Optional creation bytecode of the contract
 
-### code?
+#### code?
 
-> `optional` **code**: `TCode`
+> `optional` **code?**: `TCode`
 
 Optional runtime bytecode of the contract
 
-### deployedBytecode?
+#### deployedBytecode?
 
-> `optional` **deployedBytecode**: `TDeployedBytecode`
+> `optional` **deployedBytecode?**: `TDeployedBytecode`
 
 Optional deployed bytecode of the contract
 
-### humanReadableAbi
+#### humanReadableAbi
 
 > **humanReadableAbi**: `TAbi` *extends* readonly `string`[] ? `TAbi` : `FormatAbi`\<`TAbi`\>
 
 Human-readable ABI of the contract
 
-### name?
+#### name?
 
-> `optional` **name**: `TName`
+> `optional` **name?**: `TName`
 
 Optional name of the contract
 
+***
+
+### Type Literal
+
 \{ `abi`: `TAbi` *extends* readonly `string`[] ? `ParseAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `TAbi` : `never`; `address?`: `TAddress`; `bytecode?`: `TBytecode`; `code?`: `TCode`; `deployedBytecode?`: `TDeployedBytecode`; `humanReadableAbi?`: `never`; `name?`: `TName`; \}
 
-### abi
+#### abi
 
 > **abi**: `TAbi` *extends* readonly `string`[] ? `ParseAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `TAbi` : `never`
 
 JSON ABI of the contract
 
-### address?
+#### address?
 
-> `optional` **address**: `TAddress`
+> `optional` **address?**: `TAddress`
 
 Optional address of the deployed contract
 
-### bytecode?
+#### bytecode?
 
-> `optional` **bytecode**: `TBytecode`
+> `optional` **bytecode?**: `TBytecode`
 
 Optional creation bytecode of the contract
 
-### code?
+#### code?
 
-> `optional` **code**: `TCode`
+> `optional` **code?**: `TCode`
 
 Optional runtime bytecode of the contract
 
-### deployedBytecode?
+#### deployedBytecode?
 
-> `optional` **deployedBytecode**: `TDeployedBytecode`
+> `optional` **deployedBytecode?**: `TDeployedBytecode`
 
 Optional deployed bytecode of the contract
 
-### humanReadableAbi?
+#### humanReadableAbi?
 
-> `optional` **humanReadableAbi**: `never`
+> `optional` **humanReadableAbi?**: `never`
 
-### name?
+#### name?
 
-> `optional` **name**: `TName`
+> `optional` **name?**: `TName`
 
 Optional name of the contract
 

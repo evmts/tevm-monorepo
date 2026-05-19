@@ -71,7 +71,7 @@ describe('ethereumjs re-exports', () => {
 		expect(str).toBe('Hello')
 	})
 
-	// zeros was removed in @ethereumjs/util v10
+	// zeros is intentionally no longer exported.
 	it.skip('should properly export zeros', () => {
 		// const zeroBytes = zeros(3)
 		// expect(zeroBytes).toEqual(new Uint8Array([0, 0, 0]))

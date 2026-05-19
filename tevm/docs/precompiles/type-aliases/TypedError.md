@@ -8,7 +8,7 @@
 
 > **TypedError**\<`TName`\> = `object`
 
-Defined in: packages/precompiles/dist/index.d.ts:25
+Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:24
 
 Represents a typed error with a tag for identification
 
@@ -40,7 +40,7 @@ The string literal type that identifies this error
 
 > **\_tag**: `TName`
 
-Defined in: packages/precompiles/dist/index.d.ts:26
+Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:25
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: packages/precompiles/dist/index.d.ts:26
 
 > **message**: `string`
 
-Defined in: packages/precompiles/dist/index.d.ts:28
+Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:27
 
 ***
 
@@ -56,4 +56,4 @@ Defined in: packages/precompiles/dist/index.d.ts:28
 
 > **name**: `TName`
 
-Defined in: packages/precompiles/dist/index.d.ts:27
+Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:26

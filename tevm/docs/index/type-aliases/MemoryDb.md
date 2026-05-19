@@ -8,7 +8,7 @@
 
 > **MemoryDb**\<`TKey`, `TValue`\> = [`Db`](../../utils/interfaces/Db.md)\<`TKey`, `TValue`\>
 
-Defined in: packages/utils/types/MemoryDb.d.ts:2
+Defined in: tevm-monorepo/packages/utils/types/MemoryDb.d.ts:2
 
 ## Type Parameters
 

@@ -8,7 +8,7 @@
 
 > **blockNumberHandler**(`client`): [`EthBlockNumberHandler`](../type-aliases/EthBlockNumberHandler.md)
 
-Defined in: packages/actions/types/eth/blockNumberHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/blockNumberHandler.d.ts:1
 
 ## Parameters
 

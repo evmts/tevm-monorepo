@@ -8,7 +8,7 @@
 
 > **createBaseChain**(`options`): `BaseChain`
 
-Defined in: [packages/blockchain/src/createBaseChain.js:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBaseChain.js#L46)
+Defined in: [packages/blockchain/src/createBaseChain.js:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/createBaseChain.js#L36)
 
 ## Parameters
 

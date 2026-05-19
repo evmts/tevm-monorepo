@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthSimulateV1Handler
 
-# Type Alias: EthSimulateV1Handler()
+# Type Alias: EthSimulateV1Handler
 
 > **EthSimulateV1Handler** = (`request`) => `Promise`\<[`EthSimulateV1Result`](EthSimulateV1Result.md)\>
 

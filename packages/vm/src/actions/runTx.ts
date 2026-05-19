@@ -1,4 +1,14 @@
-// Originally from ethjs
+import {
+	type AccessList,
+	type AccessListEIP2930Transaction,
+	type AccessListItem,
+	BlobEIP4844Transaction,
+	Capability,
+	type EOACodeEIP7702Transaction,
+	type FeeMarketEIP1559Transaction,
+	isBlobEIP4844Tx,
+	type LegacyTransaction,
+} from '@evmts/zevm/tx'
 import { ConsensusType } from '@tevm/common'
 import {
 	EipNotEnabledError,
@@ -12,15 +22,6 @@ import {
 	NonceTooHighError,
 	NonceTooLowError,
 } from '@tevm/errors'
-import type {
-	AccessList,
-	AccessListEIP2930Transaction,
-	AccessListItem,
-	EOACodeEIP7702Transaction,
-	FeeMarketEIP1559Transaction,
-	LegacyTransaction,
-} from '@tevm/tx'
-import { BlobEIP4844Transaction, Capability, isBlobEIP4844Tx } from '@tevm/tx'
 import {
 	BIGINT_0,
 	BIGINT_1,
@@ -147,7 +148,7 @@ const _runTx =
 			}
 		}
 		// Check from account's balance and nonce
-		let fromAccount = await vm.stateManager.getAccount(caller)
+		let fromAccount = (await vm.stateManager.getAccount(caller)) as EthjsAccount | undefined
 		if (fromAccount === undefined) {
 			fromAccount = new EthjsAccount()
 		}
@@ -181,7 +182,7 @@ const _runTx =
 				if (tx.supports(Capability.EIP1559FeeMarket) === false) {
 					// if skipBalance and not EIP1559 transaction, ensure caller balance is enough to run transaction
 					fromAccount.balance = upFrontCost
-					await vm.evm.journal.putAccount(caller, fromAccount)
+					await vm.evm.journal.putAccount(caller, fromAccount as any)
 				}
 			} else {
 				const msg = errorMsg(
@@ -236,7 +237,7 @@ const _runTx =
 			if (opts.skipBalance === true && fromAccount.balance < maxCost) {
 				// if skipBalance, ensure caller balance is enough to run transaction
 				fromAccount.balance = maxCost
-				await vm.evm.journal.putAccount(caller, fromAccount)
+				await vm.evm.journal.putAccount(caller, fromAccount as any)
 			} else {
 				const msg = errorMsg(
 					`sender doesn't have enough funds to send tx. The max cost is: ${maxCost} and the sender's account (${caller}) only has: ${balance}`,
@@ -293,7 +294,7 @@ const _runTx =
 		if (opts.skipBalance === true && fromAccount.balance < 0n) {
 			fromAccount.balance = 0n
 		}
-		await vm.evm.journal.putAccount(caller, fromAccount)
+		await vm.evm.journal.putAccount(caller, fromAccount as any)
 
 		// EIP-7702: Process authorization list for EOA code transactions
 		let gasRefund = BIGINT_0
@@ -337,7 +338,7 @@ const _runTx =
 					continue
 				}
 
-				const accountMaybeUndefined = await vm.stateManager.getAccount(authority)
+				const accountMaybeUndefined = (await vm.stateManager.getAccount(authority)) as EthjsAccount | undefined
 				const accountExists = accountMaybeUndefined !== undefined
 				const account = accountMaybeUndefined ?? new EthjsAccount()
 
@@ -370,7 +371,7 @@ const _runTx =
 					gasRefund += refund
 				}
 				account.nonce++
-				await vm.evm.journal.putAccount(authority, account)
+				await vm.evm.journal.putAccount(authority, account as any)
 
 				if (equalsBytes(delegateAddress, new Uint8Array(20))) {
 					// Special case: If delegated to the zero address, clear the delegation of authority
@@ -425,14 +426,14 @@ const _runTx =
 		results.amountSpent = results.totalGasSpent * gasPrice
 
 		// Update sender's balance
-		fromAccount = await vm.stateManager.getAccount(caller)
+		fromAccount = (await vm.stateManager.getAccount(caller)) as EthjsAccount | undefined
 		if (fromAccount === undefined) {
 			fromAccount = new EthjsAccount()
 		}
 		const actualTxCost = results.totalGasSpent * gasPrice
 		const txCostDiff = txCost - actualTxCost
 		fromAccount.balance += txCostDiff
-		await vm.evm.journal.putAccount(caller, fromAccount)
+		await vm.evm.journal.putAccount(caller, fromAccount as any)
 
 		// Update miner's balance
 		let miner: EthjsAddress
@@ -442,7 +443,7 @@ const _runTx =
 			miner = block.header.coinbase
 		}
 
-		let minerAccount = await vm.stateManager.getAccount(miner)
+		let minerAccount = (await vm.stateManager.getAccount(miner)) as EthjsAccount | undefined
 		if (minerAccount === undefined) {
 			minerAccount = new EthjsAccount()
 		}
@@ -455,7 +456,7 @@ const _runTx =
 		// Put the miner account into the state. If the balance of the miner account remains zero, note that
 		// the state.putAccount function puts this into the "touched" accounts. This will thus be removed when
 		// we clean the touched accounts below in case we are in a fork >= SpuriousDragon
-		await vm.evm.journal.putAccount(miner, minerAccount)
+		await vm.evm.journal.putAccount(miner, minerAccount as any)
 
 		/*
 		 * Cleanup accounts

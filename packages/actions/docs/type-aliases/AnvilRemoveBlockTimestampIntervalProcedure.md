@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilRemoveBlockTimestampIntervalProcedure
 
-# Type Alias: AnvilRemoveBlockTimestampIntervalProcedure()
+# Type Alias: AnvilRemoveBlockTimestampIntervalProcedure
 
 > **AnvilRemoveBlockTimestampIntervalProcedure** = (`request`) => `Promise`\<[`AnvilRemoveBlockTimestampIntervalJsonRpcResponse`](AnvilRemoveBlockTimestampIntervalJsonRpcResponse.md)\>
 

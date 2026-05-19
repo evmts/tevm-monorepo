@@ -8,13 +8,13 @@
 
 > **createAddress**(`address`): [`Address`](../classes/Address.md)
 
-Defined in: packages/address/types/createAddress.d.ts:1
+Defined in: tevm-monorepo/packages/address/types/createAddress.d.ts:1
 
 ## Parameters
 
 ### address
 
-`string` | `number` | `bigint` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md) | `Uint8Array`\<`ArrayBufferLike`\>
+`string` \| `number` \| `bigint` \| [`EthjsAddress`](../../utils/classes/EthjsAddress.md) \| `Uint8Array`\<`ArrayBufferLike`\>
 
 ## Returns
 

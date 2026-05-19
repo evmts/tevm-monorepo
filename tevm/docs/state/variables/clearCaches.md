@@ -8,6 +8,6 @@
 
 > `const` **clearCaches**: [`StateAction`](../type-aliases/StateAction.md)\<`"clearCaches"`\>
 
-Defined in: packages/state/dist/index.d.ts:379
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:383
 
 Resets all internal caches

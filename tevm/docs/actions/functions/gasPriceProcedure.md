@@ -8,7 +8,7 @@
 
 > **gasPriceProcedure**(`__namedParameters`): [`EthGasPriceJsonRpcProcedure`](../type-aliases/EthGasPriceJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/gasPriceProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/gasPriceProcedure.d.ts:1
 
 ## Parameters
 

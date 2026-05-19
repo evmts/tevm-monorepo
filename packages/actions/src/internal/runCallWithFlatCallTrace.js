@@ -8,9 +8,9 @@ import { decodeRevertReason } from './decodeRevertReason.js'
  * This format is similar to Parity/OpenEthereum trace format and is useful for indexing.
  * @param {import('@tevm/vm').Vm} vm
  * @param {import('@tevm/node').TevmNode['logger']} logger
- * @param {import('@tevm/evm').EvmRunCallOpts} params
+ * @param {import('@evmts/zevm/evm').EvmRunCallOpts} params
  * @param {boolean} [lazilyRun]
- * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../common/FlatCallTraceResult.js').FlatCallTraceResult}>}
+ * @returns {Promise<import('@evmts/zevm/evm').EvmResult & {trace: import('../common/FlatCallTraceResult.js').FlatCallTraceResult}>}
  * @throws {never}
  */
 export const runCallWithFlatCallTrace = async (vm, logger, params, lazilyRun = false) => {

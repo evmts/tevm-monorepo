@@ -16,7 +16,7 @@ An event filter options object
 
 ### address?
 
-> `readonly` `optional` **address**: [`Address`](Address.md)
+> `readonly` `optional` **address?**: [`Address`](Address.md)
 
 Defined in: [packages/actions/src/common/FilterParams.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FilterParams.ts#L11)
 
@@ -24,7 +24,7 @@ Defined in: [packages/actions/src/common/FilterParams.ts:11](https://github.com/
 
 ### fromBlock?
 
-> `readonly` `optional` **fromBlock**: [`BlockParam`](BlockParam.md)
+> `readonly` `optional` **fromBlock?**: [`BlockParam`](BlockParam.md)
 
 Defined in: [packages/actions/src/common/FilterParams.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FilterParams.ts#L9)
 
@@ -32,7 +32,7 @@ Defined in: [packages/actions/src/common/FilterParams.ts:9](https://github.com/e
 
 ### toBlock?
 
-> `readonly` `optional` **toBlock**: [`BlockParam`](BlockParam.md)
+> `readonly` `optional` **toBlock?**: [`BlockParam`](BlockParam.md)
 
 Defined in: [packages/actions/src/common/FilterParams.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FilterParams.ts#L10)
 
@@ -40,6 +40,6 @@ Defined in: [packages/actions/src/common/FilterParams.ts:10](https://github.com/
 
 ### topics?
 
-> `readonly` `optional` **topics**: `ReadonlyArray`\<[`Hex`](Hex.md)\> \| `ReadonlyArray`\<`ReadonlyArray`\<[`Hex`](Hex.md)\>\>
+> `readonly` `optional` **topics?**: `ReadonlyArray`\<[`Hex`](Hex.md)\> \| `ReadonlyArray`\<`ReadonlyArray`\<[`Hex`](Hex.md)\>\>
 
 Defined in: [packages/actions/src/common/FilterParams.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FilterParams.ts#L12)

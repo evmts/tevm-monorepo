@@ -8,14 +8,14 @@
 
 > **SolcInputSource** = `object` & \{ `urls`: `string`[]; \} \| \{ `content`: `string`; \}
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:5
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:5
 
 ## Type Declaration
 
 ### ast?
 
-> `optional` **ast**: `SolcAst`
+> `optional` **ast?**: `SolcAst`
 
 ### keccak256?
 
-> `optional` **keccak256**: `HexNumber`
+> `optional` **keccak256?**: `HexNumber`

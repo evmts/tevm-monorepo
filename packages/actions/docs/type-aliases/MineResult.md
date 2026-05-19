@@ -12,31 +12,37 @@ Defined in: [packages/actions/src/Mine/MineResult.ts:7](https://github.com/evmts
 
 Result of Mine Method
 
-## Type Declaration
+## Union Members
+
+### Type Literal
 
 \{ `blockHashes`: `Hex`[]; `errors?`: `undefined`; \}
 
-### blockHashes
+#### blockHashes
 
 > **blockHashes**: `Hex`[]
 
 Array of mined block hashes
 
-### errors?
+#### errors?
 
-> `optional` **errors**: `undefined`
+> `optional` **errors?**: `undefined`
 
 No errors occurred
 
+***
+
+### Type Literal
+
 \{ `blockHashes?`: `undefined`; `errors`: [`TevmMineError`](TevmMineError.md)[]; \}
 
-### blockHashes?
+#### blockHashes?
 
-> `optional` **blockHashes**: `undefined`
+> `optional` **blockHashes?**: `undefined`
 
 No block hashes available
 
-### errors
+#### errors
 
 > **errors**: [`TevmMineError`](TevmMineError.md)[]
 

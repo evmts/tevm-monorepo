@@ -1,5 +1,5 @@
+import { createImpersonatedTx } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
-import { createImpersonatedTx } from '@tevm/tx'
 import { bytesToHex, EthjsAccount } from '@tevm/utils'
 import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
@@ -17,8 +17,8 @@ const requireSig = false
 export const createTransaction = (client, defaultThrowOnFail = true) => {
 	/**
 	 * @param {object} params
-	 * @param {import('@tevm/evm').EvmRunCallOpts} params.evmInput
-	 * @param {import('@tevm/evm').EvmResult} params.evmOutput
+	 * @param {import('@evmts/zevm/evm').EvmRunCallOpts} params.evmInput
+	 * @param {import('@evmts/zevm/evm').EvmResult} params.evmOutput
 	 * @param {bigint | undefined} [params.maxFeePerGas]
 	 * @param {bigint | undefined} [params.maxPriorityFeePerGas]
 	 * @param {boolean} [params.throwOnFail]

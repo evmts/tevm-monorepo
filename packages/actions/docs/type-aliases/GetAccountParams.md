@@ -22,7 +22,7 @@ Address of account
 
 ### blockTag?
 
-> `readonly` `optional` **blockTag**: [`BlockParam`](BlockParam.md)
+> `readonly` `optional` **blockTag?**: [`BlockParam`](BlockParam.md)
 
 Block tag to fetch account from
 - bigint for block number
@@ -31,7 +31,7 @@ Block tag to fetch account from
 
 ### returnStorage?
 
-> `readonly` `optional` **returnStorage**: `boolean`
+> `readonly` `optional` **returnStorage?**: `boolean`
 
 If true the handler will return the contract storage
 It only returns storage that happens to be cached in the vm

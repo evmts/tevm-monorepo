@@ -31,9 +31,9 @@ const result = await mine(client, {
 
 ## Properties
 
-### onBlock()?
+### onBlock?
 
-> `optional` **onBlock**: (`block`, `next?`) => `void`
+> `optional` **onBlock?**: (`block`, `next?`) => `void`
 
 Defined in: [packages/actions/src/Mine/MineEvents.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineEvents.ts#L29)
 
@@ -59,9 +59,9 @@ Function to continue execution - must be called to proceed
 
 ***
 
-### onLog()?
+### onLog?
 
-> `optional` **onLog**: (`log`, `receipt`, `next?`) => `void`
+> `optional` **onLog?**: (`log`, `receipt`, `next?`) => `void`
 
 Defined in: [packages/actions/src/Mine/MineEvents.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineEvents.ts#L45)
 
@@ -93,9 +93,9 @@ Function to continue execution - must be called to proceed
 
 ***
 
-### onReceipt()?
+### onReceipt?
 
-> `optional` **onReceipt**: (`receipt`, `blockHash`, `next?`) => `void`
+> `optional` **onReceipt?**: (`receipt`, `blockHash`, `next?`) => `void`
 
 Defined in: [packages/actions/src/Mine/MineEvents.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Mine/MineEvents.ts#L37)
 

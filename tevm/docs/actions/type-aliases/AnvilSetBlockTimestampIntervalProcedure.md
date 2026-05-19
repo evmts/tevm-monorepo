@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilSetBlockTimestampIntervalProcedure
 
-# Type Alias: AnvilSetBlockTimestampIntervalProcedure()
+# Type Alias: AnvilSetBlockTimestampIntervalProcedure
 
 > **AnvilSetBlockTimestampIntervalProcedure** = (`request`) => `Promise`\<[`AnvilSetBlockTimestampIntervalJsonRpcResponse`](AnvilSetBlockTimestampIntervalJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:147
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:147
 
 JSON-RPC procedure for `anvil_setBlockTimestampInterval`
 

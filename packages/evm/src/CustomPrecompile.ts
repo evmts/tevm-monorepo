@@ -1,4 +1,4 @@
-import type { Evm } from './EvmType.js'
+import type { EVMOpts } from './EvmOpts.js'
 /**
  * TODO This should be publically exported from ethereumjs but isn't
  * Typing this by hand is tedious so we are using some typescript inference to get it
@@ -38,7 +38,4 @@ import type { Evm } from './EvmType.js'
  * @see [definePrecompile](https://tevm.sh/reference/tevm/precompiles/functions/defineprecompile/)
  * @see [MemoryClient](https://tevm.sh/reference/tevm/memory-client/type-aliases/memoryclient/)
  */
-export type CustomPrecompile = Exclude<
-	Exclude<Parameters<(typeof Evm)['create']>[0], undefined>['customPrecompiles'],
-	undefined
->[number]
+export type CustomPrecompile = Exclude<NonNullable<EVMOpts['customPrecompiles']>, undefined>[number]

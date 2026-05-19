@@ -14,7 +14,7 @@ Storage persister for client state
 
 ## Properties
 
-### persistTevmState()
+### persistTevmState
 
 > **persistTevmState**: (`state`, `onError?`) => `Error` \| `undefined`
 
@@ -26,9 +26,9 @@ Persist serializable tevm state
 
 ##### state
 
-State to be persisted
+`SerializableTevmState` \| `undefined`
 
-`SerializableTevmState` | `undefined`
+State to be persisted
 
 ##### onError?
 
@@ -44,7 +44,7 @@ Error if one occurs during persistence
 
 ***
 
-### removePersistedState()
+### removePersistedState
 
 > **removePersistedState**: () => `Error` \| `undefined`
 
@@ -60,7 +60,7 @@ Error if one occurs during removal
 
 ***
 
-### restoreState()
+### restoreState
 
 > **restoreState**: () => `SerializableTevmState` \| `undefined`
 

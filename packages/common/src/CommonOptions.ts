@@ -1,4 +1,4 @@
-import type { CustomCrypto } from '@ethereumjs/common'
+import type { CustomCrypto } from '@evmts/zevm/common'
 import type { LogOptions } from '@tevm/logger'
 import type { Chain as ViemChain } from 'viem/chains'
 import type { Hardfork } from './Hardfork.js'

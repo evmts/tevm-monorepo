@@ -6,19 +6,17 @@
 
 # Class: Bloom
 
-Defined in: [packages/utils/src/Bloom.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L14)
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:22
 
-A simple Bloom filter implementation originally from ethereumjs
+Ethereum logs bloom filter.
 
 ## Constructors
 
 ### Constructor
 
-> **new Bloom**(`bitvector?`): `Bloom`
+> **new Bloom**(`bitvector?`, `common?`): `Bloom`
 
-Defined in: [packages/utils/src/Bloom.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L21)
-
-Represents a Bloom filter.
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:25
 
 #### Parameters
 
@@ -26,13 +24,13 @@ Represents a Bloom filter.
 
 `Uint8Array`\<`ArrayBufferLike`\>
 
+##### common?
+
+`CommonLike`
+
 #### Returns
 
 `Bloom`
-
-#### Throws
-
-If the byte size of the bitvector is not 256.
 
 ## Properties
 
@@ -40,69 +38,55 @@ If the byte size of the bitvector is not 256.
 
 > **bitvector**: `Uint8Array`
 
-Defined in: [packages/utils/src/Bloom.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L15)
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:24
 
 ## Methods
 
 ### add()
 
-> **add**(`e`): `void`
+> **add**(`value`): `void`
 
-Defined in: [packages/utils/src/Bloom.ts:35](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L35)
-
-Adds an element to a bit vector of a 64 byte bloom filter.
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:26
 
 #### Parameters
 
-##### e
+##### value
 
 `Uint8Array`
-
-The element to add
 
 #### Returns
 
 `void`
 
-#### Throws
-
 ***
 
 ### check()
 
-> **check**(`e`): `boolean`
+> **check**(`value`): `boolean`
 
-Defined in: [packages/utils/src/Bloom.ts:58](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L58)
-
-Checks if an element is in the bloom.
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:27
 
 #### Parameters
 
-##### e
+##### value
 
 `Uint8Array`
-
-The element to check
 
 #### Returns
 
 `boolean`
 
-#### Throws
-
 ***
 
 ### multiCheck()
 
-> **multiCheck**(`topics`): `boolean`
+> **multiCheck**(`values`): `boolean`
 
-Defined in: [packages/utils/src/Bloom.ts:83](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L83)
-
-Checks if multiple topics are in a bloom.
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:28
 
 #### Parameters
 
-##### topics
+##### values
 
 `Uint8Array`\<`ArrayBufferLike`\>[]
 
@@ -110,19 +94,13 @@ Checks if multiple topics are in a bloom.
 
 `boolean`
 
-`true` if every topic is in the bloom
-
-#### Throws
-
 ***
 
 ### or()
 
 > **or**(`bloom`): `void`
 
-Defined in: [packages/utils/src/Bloom.ts:91](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/Bloom.ts#L91)
-
-Bitwise or blooms together.
+Defined in: zevm/npm/zevm/dist/receipt.d.ts:29
 
 #### Parameters
 
@@ -133,5 +111,3 @@ Bitwise or blooms together.
 #### Returns
 
 `void`
-
-#### Throws

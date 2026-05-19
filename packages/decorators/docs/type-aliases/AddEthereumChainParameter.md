@@ -35,7 +35,7 @@ const optimismChain: AddEthereumChainParameter = {
 
 ### blockExplorerUrls?
 
-> `optional` **blockExplorerUrls**: `string`[]
+> `optional` **blockExplorerUrls?**: `string`[]
 
 Defined in: [eip1193/AddEthereumChainParameter.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L39)
 
@@ -63,7 +63,7 @@ The chain name.
 
 ### iconUrls?
 
-> `optional` **iconUrls**: `string`[]
+> `optional` **iconUrls?**: `string`[]
 
 Defined in: [eip1193/AddEthereumChainParameter.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L40)
 
@@ -71,7 +71,7 @@ Defined in: [eip1193/AddEthereumChainParameter.ts:40](https://github.com/evmts/t
 
 ### nativeCurrency?
 
-> `optional` **nativeCurrency**: `object`
+> `optional` **nativeCurrency?**: `object`
 
 Defined in: [eip1193/AddEthereumChainParameter.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/AddEthereumChainParameter.ts#L33)
 

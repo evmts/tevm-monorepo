@@ -168,7 +168,7 @@ export const ethSubscribeHandler = (tevmNode) => {
 
 			case 'newPendingTransactions': {
 				/**
-				 * @param {import('@tevm/tx').TypedTransaction | import('@tevm/tx').ImpersonatedTx} tx
+				 * @param {import('@evmts/zevm/tx').TypedTransaction | import('@evmts/zevm/tx').ImpersonatedTx} tx
 				 */
 				const listener = (tx) => {
 					const filter = tevmNode.getFilters().get(id)

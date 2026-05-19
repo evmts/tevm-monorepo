@@ -8,7 +8,7 @@
 
 > **TevmActionsApi** = `object`
 
-Defined in: packages/decorators/dist/index.d.ts:94
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:94
 
 The actions api is the high level API for interacting with a Tevm client similar to [viem actions](https://viem.sh/learn/actions/)
 
@@ -22,7 +22,7 @@ The actions api is the high level API for interacting with a Tevm client similar
 
 > **call**: [`CallHandler`](../../actions/type-aliases/CallHandler.md)
 
-Defined in: packages/decorators/dist/index.d.ts:132
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:132
 
 Executes a call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment
@@ -48,7 +48,7 @@ const res = tevm.call({
 
 > **contract**: [`ContractHandler`](../../actions/type-aliases/ContractHandler.md)
 
-Defined in: packages/decorators/dist/index.d.ts:154
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:154
 
 Executes a contract call against the VM. It is similar to `eth_call` but has more
 options for controlling the execution environment along with a typesafe API
@@ -79,7 +79,7 @@ console.log(res.data) // "hello"
 
 > **deal**: [`AnvilDealHandler`](../../actions/type-aliases/AnvilDealHandler.md)
 
-Defined in: packages/decorators/dist/index.d.ts:210
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:210
 
 Deals ERC20 tokens to an account by overriding the storage of balanceOf(account)
 
@@ -99,7 +99,7 @@ await tevm.deal({
 
 > **deploy**: [`DeployHandler`](../../actions/type-aliases/DeployHandler.md)
 
-Defined in: packages/decorators/dist/index.d.ts:198
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:198
 
 Creates a transaction to deploys a contract to tevm
 
@@ -109,7 +109,7 @@ Creates a transaction to deploys a contract to tevm
 
 > **dumpState**: [`DumpStateHandler`](../../actions/type-aliases/DumpStateHandler.md)
 
-Defined in: packages/decorators/dist/index.d.ts:172
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:172
 
 Dumps the current state of the VM into a JSON-seralizable object
 
@@ -135,7 +135,7 @@ await tevm.loadState({state})
 
 > **getAccount**: [`GetAccountHandler`](../../actions/type-aliases/GetAccountHandler.md)
 
-Defined in: packages/decorators/dist/index.d.ts:115
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:115
 
 Gets the state of a specific ethereum address
 
@@ -154,7 +154,7 @@ console.log(res.balance)
 
 > **loadState**: [`LoadStateHandler`](../../actions/type-aliases/LoadStateHandler.md)
 
-Defined in: packages/decorators/dist/index.d.ts:190
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:190
 
 Loads a previously dumped state into the VM
 
@@ -180,7 +180,7 @@ await tevm.loadState({state})
 
 > **mine**: [`MineHandler`](../../actions/type-aliases/MineHandler.md)
 
-Defined in: packages/decorators/dist/index.d.ts:194
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:194
 
 Mines 1 or more blocks
 
@@ -190,7 +190,7 @@ Mines 1 or more blocks
 
 > **setAccount**: [`SetAccountHandler`](../../actions/type-aliases/SetAccountHandler.md)
 
-Defined in: packages/decorators/dist/index.d.ts:106
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:106
 
 Sets the state of a specific ethereum address
 

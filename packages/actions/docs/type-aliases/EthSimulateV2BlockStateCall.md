@@ -17,7 +17,7 @@ Extends V1 with additional tracing options
 
 ### blockOverrides?
 
-> `readonly` `optional` **blockOverrides**: [`BlockOverrideSet`](BlockOverrideSet.md)
+> `readonly` `optional` **blockOverrides?**: [`BlockOverrideSet`](BlockOverrideSet.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:497](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L497)
 
@@ -37,7 +37,7 @@ Calls to simulate in this block
 
 ### stateOverrides?
 
-> `readonly` `optional` **stateOverrides**: [`StateOverrideSet`](StateOverrideSet.md)
+> `readonly` `optional` **stateOverrides?**: [`StateOverrideSet`](StateOverrideSet.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:501](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L501)
 

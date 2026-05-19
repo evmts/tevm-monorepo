@@ -35,9 +35,9 @@ const memoryStorage: Storage = {
 
 ## Properties
 
-### getItem()
+### getItem
 
-> **getItem**: (`key`) => `null` \| `string`
+> **getItem**: (`key`) => `string` \| `null`
 
 Defined in: [Storage.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/Storage.ts#L27)
 
@@ -49,11 +49,11 @@ Defined in: [Storage.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 #### Returns
 
-`null` \| `string`
+`string` \| `null`
 
 ***
 
-### removeItem()
+### removeItem
 
 > **removeItem**: (`key`) => `void`
 
@@ -71,7 +71,7 @@ Defined in: [Storage.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/pac
 
 ***
 
-### setItem()
+### setItem
 
 > **setItem**: (`key`, `value`) => `void`
 

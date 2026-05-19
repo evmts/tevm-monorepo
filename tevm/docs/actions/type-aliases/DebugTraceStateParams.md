@@ -8,7 +8,7 @@
 
 > **DebugTraceStateParams**\<`TStateFilters`\> = `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:106
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:106
 
 Params taken by `debug_traceState` handler
 
@@ -22,9 +22,9 @@ Params taken by `debug_traceState` handler
 
 ### filters?
 
-> `readonly` `optional` **filters**: `TStateFilters`
+> `readonly` `optional` **filters?**: `TStateFilters`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:110
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:110
 
 Filters to apply to the state
 
@@ -32,8 +32,8 @@ Filters to apply to the state
 
 ### timeout?
 
-> `readonly` `optional` **timeout**: `string`
+> `readonly` `optional` **timeout?**: `string`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:114
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:114
 
 Timeout for the state trace

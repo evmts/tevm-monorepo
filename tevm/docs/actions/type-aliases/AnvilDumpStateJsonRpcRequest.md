@@ -8,6 +8,6 @@
 
 > **AnvilDumpStateJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_dumpState"`, readonly \[`SerializeToJson`\<[`AnvilDumpStateParams`](AnvilDumpStateParams.md)\>\]\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:84
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:84
 
 JSON-RPC request for `anvil_dumpState` method

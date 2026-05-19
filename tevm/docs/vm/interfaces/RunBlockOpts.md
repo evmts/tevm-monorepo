@@ -6,7 +6,7 @@
 
 # Interface: RunBlockOpts
 
-Defined in: packages/vm/types/utils/RunBlockOpts.d.ts:6
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockOpts.d.ts:6
 
 Options for running a block.
 
@@ -16,17 +16,17 @@ Options for running a block.
 
 > **block**: [`Block`](../../block/classes/Block.md)
 
-Defined in: packages/vm/types/utils/RunBlockOpts.d.ts:10
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockOpts.d.ts:10
 
-The @ethereumjs/block to process
+The block to process.
 
 ***
 
 ### clearCache?
 
-> `optional` **clearCache**: `boolean`
+> `optional` **clearCache?**: `boolean`
 
-Defined in: packages/vm/types/utils/RunBlockOpts.d.ts:22
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockOpts.d.ts:22
 
 Clearing the StateManager cache.
 
@@ -38,9 +38,9 @@ Default: true
 
 ### generate?
 
-> `optional` **generate**: `boolean`
+> `optional` **generate?**: `boolean`
 
-Defined in: packages/vm/types/utils/RunBlockOpts.d.ts:29
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockOpts.d.ts:29
 
 Whether to generate the stateRoot and other related fields.
 If `true`, `runBlock` will set the fields `stateRoot`, `receiptTrie`, `gasUsed`, and `bloom` (logs bloom) after running the block.
@@ -51,9 +51,9 @@ Defaults to `false`.
 
 ### reportPreimages?
 
-> `optional` **reportPreimages**: `boolean`
+> `optional` **reportPreimages?**: `boolean`
 
-Defined in: packages/vm/types/utils/RunBlockOpts.d.ts:71
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockOpts.d.ts:71
 
 If true, adds a hashedKey -> preimages mapping of all touched accounts
 to the `RunTxResult` returned.
@@ -62,9 +62,9 @@ to the `RunTxResult` returned.
 
 ### root?
 
-> `optional` **root**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **root?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/vm/types/utils/RunBlockOpts.d.ts:14
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockOpts.d.ts:14
 
 Root of the state trie
 
@@ -72,9 +72,9 @@ Root of the state trie
 
 ### setHardfork?
 
-> `optional` **setHardfork**: `boolean` \| [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
+> `optional` **setHardfork?**: `boolean` \| [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
 
-Defined in: packages/vm/types/utils/RunBlockOpts.d.ts:66
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockOpts.d.ts:66
 
 Set the hardfork either by timestamp (for HFs from Shanghai onwards) or by block number
 for older Hfs.
@@ -88,9 +88,9 @@ Default: `false` (HF is set to whatever default HF is set by the Common instance
 
 ### skipBalance?
 
-> `optional` **skipBalance**: `boolean`
+> `optional` **skipBalance?**: `boolean`
 
-Defined in: packages/vm/types/utils/RunBlockOpts.d.ts:56
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockOpts.d.ts:56
 
 If true, checks the balance of the `from` account for the transaction and sets its
 balance equal equal to the upfront cost (gas limit * gas price + transaction value)
@@ -99,9 +99,9 @@ balance equal equal to the upfront cost (gas limit * gas price + transaction val
 
 ### skipBlockValidation?
 
-> `optional` **skipBlockValidation**: `boolean`
+> `optional` **skipBlockValidation?**: `boolean`
 
-Defined in: packages/vm/types/utils/RunBlockOpts.d.ts:35
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockOpts.d.ts:35
 
 If true, will skip "Block validation":
 Block validation validates the header (with respect to the blockchain),
@@ -111,9 +111,9 @@ the transactions, the transaction trie and the uncle hash.
 
 ### skipHardForkValidation?
 
-> `optional` **skipHardForkValidation**: `boolean`
+> `optional` **skipHardForkValidation?**: `boolean`
 
-Defined in: packages/vm/types/utils/RunBlockOpts.d.ts:40
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockOpts.d.ts:40
 
 If true, skips the hardfork validation of vm, block
 and tx
@@ -122,9 +122,9 @@ and tx
 
 ### skipHeaderValidation?
 
-> `optional` **skipHeaderValidation**: `boolean`
+> `optional` **skipHeaderValidation?**: `boolean`
 
-Defined in: packages/vm/types/utils/RunBlockOpts.d.ts:47
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockOpts.d.ts:47
 
 if true, will skip "Header validation"
 If the block has been picked from the blockchain to be executed,
@@ -135,8 +135,8 @@ consensus of the chain has moved ahead.
 
 ### skipNonce?
 
-> `optional` **skipNonce**: `boolean`
+> `optional` **skipNonce?**: `boolean`
 
-Defined in: packages/vm/types/utils/RunBlockOpts.d.ts:51
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockOpts.d.ts:51
 
 If true, skips the nonce check

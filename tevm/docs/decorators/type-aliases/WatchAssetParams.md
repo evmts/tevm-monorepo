@@ -8,7 +8,7 @@
 
 > **WatchAssetParams** = `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1531
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1531
 
 Parameters for the `watchAsset` method.
 
@@ -18,7 +18,7 @@ Parameters for the `watchAsset` method.
 
 > **options**: `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1534
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1534
 
 #### address
 
@@ -34,7 +34,7 @@ The number of token decimals
 
 #### image?
 
-> `optional` **image**: `string`
+> `optional` **image?**: `string`
 
 A string url of the token logo
 
@@ -50,6 +50,6 @@ A ticker symbol or shorthand, up to 11 characters
 
 > **type**: `"ERC20"`
 
-Defined in: packages/decorators/dist/index.d.ts:1533
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1533
 
 Token type.

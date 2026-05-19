@@ -8,9 +8,15 @@
 
 > **MapDb** = `object`
 
-Defined in: packages/receipt-manager/types/MapDb.d.ts:18
+Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:6
 
-Helper class to access the metaDB with methods for managing receipts and transaction data
+## Properties
+
+### \_cache
+
+> **\_cache**: `Map`\<`PrefixedHexString`, `Uint8Array`\>
+
+Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:7
 
 ## Methods
 
@@ -18,15 +24,11 @@ Helper class to access the metaDB with methods for managing receipts and transac
 
 > **deepCopy**(): `MapDb`
 
-Defined in: packages/receipt-manager/types/MapDb.d.ts:43
-
-Create a deep copy of the MapDb instance
+Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:11
 
 #### Returns
 
 `MapDb`
-
-A new MapDb instance with a copy of the data
 
 ***
 
@@ -34,9 +36,7 @@ A new MapDb instance with a copy of the data
 
 > **delete**(`type`, `hash`): `Promise`\<`void`\>
 
-Defined in: packages/receipt-manager/types/MapDb.d.ts:38
-
-Delete a value from the database
+Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:10
 
 #### Parameters
 
@@ -44,13 +44,9 @@ Delete a value from the database
 
 [`DbType`](DbType.md)
 
-The type of data to delete
-
 ##### hash
 
 `Uint8Array`
-
-The hash key for the data to delete
 
 #### Returns
 
@@ -60,11 +56,9 @@ The hash key for the data to delete
 
 ### get()
 
-> **get**(`type`, `hash`): `Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+> **get**(`type`, `hash`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\> \| `null`\>
 
-Defined in: packages/receipt-manager/types/MapDb.d.ts:32
-
-Retrieve a value from the database
+Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:9
 
 #### Parameters
 
@@ -72,19 +66,13 @@ Retrieve a value from the database
 
 [`DbType`](DbType.md)
 
-The type of data to retrieve
-
 ##### hash
 
 `Uint8Array`
 
-The hash key for the data
-
 #### Returns
 
-`Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
-
-The stored value or null if not found
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\> \| `null`\>
 
 ***
 
@@ -92,9 +80,7 @@ The stored value or null if not found
 
 > **put**(`type`, `hash`, `value`): `Promise`\<`void`\>
 
-Defined in: packages/receipt-manager/types/MapDb.d.ts:25
-
-Store a value in the database
+Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:8
 
 #### Parameters
 
@@ -102,19 +88,13 @@ Store a value in the database
 
 [`DbType`](DbType.md)
 
-The type of data being stored
-
 ##### hash
 
 `Uint8Array`
 
-The hash key for the data
-
 ##### value
 
 `Uint8Array`
-
-The value to store
 
 #### Returns
 

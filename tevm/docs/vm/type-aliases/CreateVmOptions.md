@@ -8,7 +8,7 @@
 
 > **CreateVmOptions** = `object`
 
-Defined in: packages/vm/types/CreateVmOptions.d.ts:5
+Defined in: tevm-monorepo/packages/vm/types/CreateVmOptions.d.ts:5
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: packages/vm/types/CreateVmOptions.d.ts:5
 
 > **blockchain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
 
-Defined in: packages/vm/types/CreateVmOptions.d.ts:8
+Defined in: tevm-monorepo/packages/vm/types/CreateVmOptions.d.ts:8
 
 ***
 
@@ -24,15 +24,15 @@ Defined in: packages/vm/types/CreateVmOptions.d.ts:8
 
 > **common**: [`Common`](../../common/type-aliases/Common.md)
 
-Defined in: packages/vm/types/CreateVmOptions.d.ts:9
+Defined in: tevm-monorepo/packages/vm/types/CreateVmOptions.d.ts:9
 
 ***
 
 ### evm
 
-> **evm**: [`EvmType`](../../evm/classes/EvmType.md)
+> **evm**: [`EvmType`](../../evm/type-aliases/EvmType.md)
 
-Defined in: packages/vm/types/CreateVmOptions.d.ts:7
+Defined in: tevm-monorepo/packages/vm/types/CreateVmOptions.d.ts:7
 
 ***
 
@@ -40,4 +40,4 @@ Defined in: packages/vm/types/CreateVmOptions.d.ts:7
 
 > **stateManager**: [`StateManager`](../../state/interfaces/StateManager.md)
 
-Defined in: packages/vm/types/CreateVmOptions.d.ts:6
+Defined in: tevm-monorepo/packages/vm/types/CreateVmOptions.d.ts:6

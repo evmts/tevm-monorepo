@@ -8,7 +8,7 @@
 
 > **ethAccountsHandler**(`__namedParameters`): [`EthAccountsHandler`](../type-aliases/EthAccountsHandler.md)
 
-Defined in: packages/actions/types/eth/ethAccountsHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethAccountsHandler.d.ts:1
 
 ## Parameters
 

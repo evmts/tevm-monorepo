@@ -8,7 +8,7 @@
 
 > **bundler**(`config`, `logger`, `fao`, `solc`, `cache`, `contractPackage?`): `object`
 
-Defined in: bundler-packages/base-bundler/types/src/bundler.d.ts:1
+Defined in: tevm-monorepo/bundler-packages/base-bundler/types/src/bundler.d.ts:1
 
 ## Parameters
 
@@ -34,7 +34,7 @@ Defined in: bundler-packages/base-bundler/types/src/bundler.d.ts:1
 
 ### contractPackage?
 
-`"tevm/contract"` | `"@tevm/contract"`
+`"tevm/contract"` \| `"@tevm/contract"`
 
 ## Returns
 
@@ -46,11 +46,11 @@ The configuration of the plugin.
 
 ### exclude?
 
-> `optional` **exclude**: `string`[]
+> `optional` **exclude?**: `string`[]
 
 ### include?
 
-> `optional` **include**: `string`[]
+> `optional` **include?**: `string`[]
 
 ### name
 

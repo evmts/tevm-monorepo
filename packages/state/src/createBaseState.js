@@ -1,4 +1,4 @@
-import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
+import { AccountCache, CacheType, StorageCache } from '@evmts/zevm/statemanager'
 import { InternalError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
 import { checkpoint } from './actions/checkpoint.js'

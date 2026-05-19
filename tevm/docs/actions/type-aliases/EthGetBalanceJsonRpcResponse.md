@@ -8,6 +8,6 @@
 
 > **EthGetBalanceJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getBalance"`, [`Hex`](../../index/type-aliases/Hex.md), `string` \| `number`\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:77
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:77
 
 JSON-RPC response for `eth_getBalance` procedure

@@ -8,6 +8,4 @@
 
 > **DbType** = `"Receipts"` \| `"TxHash"` \| `"SkeletonBlock"` \| `"SkeletonBlockHashToNumber"` \| `"SkeletonStatus"` \| `"SkeletonUnfinalizedBlockByHash"` \| `"Preimage"`
 
-Defined in: packages/receipt-manager/types/MapDb.d.ts:5
-
-Types of database entries used by the receipt manager and other components
+Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:2

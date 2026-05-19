@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilDealErc20Procedure
 
-# Type Alias: AnvilDealErc20Procedure()
+# Type Alias: AnvilDealErc20Procedure
 
 > **AnvilDealErc20Procedure** = (`request`) => `Promise`\<[`AnvilDealErc20JsonRpcResponse`](AnvilDealErc20JsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:79
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:79
 
 JSON-RPC procedure for `anvil_dealErc20`
 

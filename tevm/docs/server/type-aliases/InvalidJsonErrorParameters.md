@@ -8,7 +8,7 @@
 
 > **InvalidJsonErrorParameters** = `object`
 
-Defined in: packages/server/types/errors/InvalidJsonError.d.ts:49
+Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:49
 
 Parameters for constructing an [InvalidJsonError](../classes/InvalidJsonError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing an [InvalidJsonError](../classes/InvalidJsonError.md
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../../errors/classes/BaseError.md) \| `Error`
+> `optional` **cause?**: [`BaseError`](../../errors/classes/BaseError.md) \| `Error`
 
-Defined in: packages/server/types/errors/InvalidJsonError.d.ts:69
+Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:69
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/server/types/errors/InvalidJsonError.d.ts:69
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/server/types/errors/InvalidJsonError.d.ts:73
+Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:73
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/server/types/errors/InvalidJsonError.d.ts:73
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/server/types/errors/InvalidJsonError.d.ts:53
+Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:53
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/server/types/errors/InvalidJsonError.d.ts:53
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/server/types/errors/InvalidJsonError.d.ts:57
+Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:57
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/server/types/errors/InvalidJsonError.d.ts:57
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/server/types/errors/InvalidJsonError.d.ts:61
+Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:61
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/server/types/errors/InvalidJsonError.d.ts:61
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/server/types/errors/InvalidJsonError.d.ts:77
+Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:77
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/server/types/errors/InvalidJsonError.d.ts:77
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/server/types/errors/InvalidJsonError.d.ts:65
+Defined in: tevm-monorepo/packages/server/types/errors/InvalidJsonError.d.ts:65
 
 - Additional meta messages.

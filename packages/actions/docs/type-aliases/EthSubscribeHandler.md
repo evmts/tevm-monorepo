@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthSubscribeHandler
 
-# Type Alias: EthSubscribeHandler()
+# Type Alias: EthSubscribeHandler
 
 > **EthSubscribeHandler** = (`request`) => `Promise`\<[`EthSubscribeResult`](EthSubscribeResult.md)\>
 

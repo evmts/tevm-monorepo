@@ -22,7 +22,7 @@ Execution result of a transaction
 
 ### accessList?
 
-> `optional` **accessList**: `AccessList`
+> `optional` **accessList?**: `AccessList`
 
 Defined in: [packages/vm/src/utils/RunTxResult.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxResult.ts#L41)
 
@@ -42,7 +42,7 @@ The amount of ether used by this transaction
 
 ### blobGasUsed?
 
-> `optional` **blobGasUsed**: `bigint`
+> `optional` **blobGasUsed?**: `bigint`
 
 Defined in: [packages/vm/src/utils/RunTxResult.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxResult.ts#L56)
 
@@ -62,9 +62,9 @@ Bloom filter resulted from transaction
 
 ### createdAddress?
 
-> `optional` **createdAddress**: `Address`
+> `optional` **createdAddress?**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:333
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:331
 
 Address of created account during transaction, if any
 
@@ -78,7 +78,7 @@ Address of created account during transaction, if any
 
 > **execResult**: `ExecResult`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:337
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:335
 
 Contains the results from running the code, if any, as described in runCode
 
@@ -110,7 +110,7 @@ The value that accrues to the miner by this transaction
 
 ### preimages?
 
-> `optional` **preimages**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
+> `optional` **preimages?**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
 
 Defined in: [packages/vm/src/utils/RunTxResult.ts:46](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxResult.ts#L46)
 

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthProtocolVersionHandler
 
-# Type Alias: EthProtocolVersionHandler()
+# Type Alias: EthProtocolVersionHandler
 
 > **EthProtocolVersionHandler** = (`request`) => `Promise`\<[`EthProtocolVersionResult`](EthProtocolVersionResult.md)\>
 

@@ -8,7 +8,7 @@
 
 > **getContractPath**(`basePath`): `"tevm/contract"` \| `"@tevm/contract"`
 
-Defined in: bundler-packages/base-bundler/types/src/getContractPath.d.ts:1
+Defined in: tevm-monorepo/bundler-packages/base-bundler/types/src/getContractPath.d.ts:1
 
 ## Parameters
 

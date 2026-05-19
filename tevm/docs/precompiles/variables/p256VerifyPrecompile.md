@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [precompiles](../README.md) / p256VerifyPrecompile
 
-# Variable: p256VerifyPrecompile()
+# Variable: p256VerifyPrecompile
 
 > `const` **p256VerifyPrecompile**: () => `object`
 
-Defined in: packages/precompiles/dist/index.d.ts:241
+Defined in: tevm-monorepo/packages/precompiles/dist/index.d.ts:242
 
 Creates the p256verify precompile as specified in RIP-7212
 Verifies ECDSA signatures on the secp256r1 (P-256) curve
@@ -23,7 +23,7 @@ The p256verify precompile object
 
 > **address**: [`Address`](../../address/classes/Address.md)
 
-### function()
+### function
 
 > **function**: (`input`) => `object`
 

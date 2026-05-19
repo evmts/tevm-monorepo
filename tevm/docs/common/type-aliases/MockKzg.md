@@ -8,7 +8,7 @@
 
 > **MockKzg** = `object`
 
-Defined in: packages/common/types/MockKzg.d.ts:21
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:21
 
 The interface of the custom crypto for kzg implemented by `createMockKzg``
 The real kzg commitmenet is over 500kb added to bundle size
@@ -36,11 +36,11 @@ const common = createCommon({
 
 ## Properties
 
-### blobToKzgCommitment()
+### blobToKzgCommitment
 
 > **blobToKzgCommitment**: (`blob`) => `string`
 
-Defined in: packages/common/types/MockKzg.d.ts:24
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:24
 
 #### Parameters
 
@@ -54,11 +54,11 @@ Defined in: packages/common/types/MockKzg.d.ts:24
 
 ***
 
-### computeBlobKzgProof()
+### computeBlobKzgProof
 
 > **computeBlobKzgProof**: (`blob`, `commitment`) => `string`
 
-Defined in: packages/common/types/MockKzg.d.ts:25
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:25
 
 #### Parameters
 
@@ -76,11 +76,11 @@ Defined in: packages/common/types/MockKzg.d.ts:25
 
 ***
 
-### computeBlobProof()
+### computeBlobProof
 
 > **computeBlobProof**: (`blob`, `commitment`) => `string`
 
-Defined in: packages/common/types/MockKzg.d.ts:29
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:29
 
 #### Parameters
 
@@ -98,11 +98,47 @@ Defined in: packages/common/types/MockKzg.d.ts:29
 
 ***
 
-### freeTrustedSetup()
+### computeCells
+
+> **computeCells**: (`blob`) => `string`[]
+
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:32
+
+#### Parameters
+
+##### blob
+
+`string`
+
+#### Returns
+
+`string`[]
+
+***
+
+### computeCellsAndProofs
+
+> **computeCellsAndProofs**: (`blob`) => \[`string`[], `string`[]\]
+
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:33
+
+#### Parameters
+
+##### blob
+
+`string`
+
+#### Returns
+
+\[`string`[], `string`[]\]
+
+***
+
+### freeTrustedSetup
 
 > **freeTrustedSetup**: () => `void`
 
-Defined in: packages/common/types/MockKzg.d.ts:23
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:23
 
 #### Returns
 
@@ -110,11 +146,11 @@ Defined in: packages/common/types/MockKzg.d.ts:23
 
 ***
 
-### loadTrustedSetup()
+### loadTrustedSetup
 
 > **loadTrustedSetup**: (`trustedSetup?`) => `number`
 
-Defined in: packages/common/types/MockKzg.d.ts:22
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:22
 
 #### Parameters
 
@@ -128,11 +164,33 @@ Defined in: packages/common/types/MockKzg.d.ts:22
 
 ***
 
-### verifyBlobKzgProof()
+### recoverCellsAndProofs
+
+> **recoverCellsAndProofs**: (`indices`, `cells`) => \[`string`[], `string`[]\]
+
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:34
+
+#### Parameters
+
+##### indices
+
+`number`[]
+
+##### cells
+
+`string`[]
+
+#### Returns
+
+\[`string`[], `string`[]\]
+
+***
+
+### verifyBlobKzgProof
 
 > **verifyBlobKzgProof**: (`blob`, `commitment`, `proof`) => `boolean`
 
-Defined in: packages/common/types/MockKzg.d.ts:28
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:28
 
 #### Parameters
 
@@ -154,11 +212,11 @@ Defined in: packages/common/types/MockKzg.d.ts:28
 
 ***
 
-### verifyBlobKzgProofBatch()
+### verifyBlobKzgProofBatch
 
 > **verifyBlobKzgProofBatch**: (`blobs`, `commitments`, `proofs`) => `boolean`
 
-Defined in: packages/common/types/MockKzg.d.ts:26
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:26
 
 #### Parameters
 
@@ -180,11 +238,11 @@ Defined in: packages/common/types/MockKzg.d.ts:26
 
 ***
 
-### verifyBlobProofBatch()
+### verifyBlobProofBatch
 
 > **verifyBlobProofBatch**: (`blobs`, `commitments`, `proofs`) => `boolean`
 
-Defined in: packages/common/types/MockKzg.d.ts:31
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:31
 
 #### Parameters
 
@@ -206,11 +264,41 @@ Defined in: packages/common/types/MockKzg.d.ts:31
 
 ***
 
-### verifyKzgProof()
+### verifyCellKzgProofBatch
+
+> **verifyCellKzgProofBatch**: (`commitments`, `indices`, `cells`, `proofs`) => `boolean`
+
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:35
+
+#### Parameters
+
+##### commitments
+
+`string`[]
+
+##### indices
+
+`number`[]
+
+##### cells
+
+`string`[]
+
+##### proofs
+
+`string`[]
+
+#### Returns
+
+`boolean`
+
+***
+
+### verifyKzgProof
 
 > **verifyKzgProof**: (`commitment`, `z`, `y`, `proof`) => `boolean`
 
-Defined in: packages/common/types/MockKzg.d.ts:27
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:27
 
 #### Parameters
 
@@ -236,11 +324,11 @@ Defined in: packages/common/types/MockKzg.d.ts:27
 
 ***
 
-### verifyProof()
+### verifyProof
 
 > **verifyProof**: (`commitment`, `z`, `y`, `proof`) => `boolean`
 
-Defined in: packages/common/types/MockKzg.d.ts:30
+Defined in: tevm-monorepo/packages/common/types/MockKzg.d.ts:30
 
 #### Parameters
 

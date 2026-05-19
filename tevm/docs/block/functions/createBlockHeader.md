@@ -8,7 +8,7 @@
 
 > **createBlockHeader**(`headerData`, `opts`): [`BlockHeader`](../classes/BlockHeader.md)
 
-Defined in: packages/block/types/index.d.ts:59
+Defined in: tevm-monorepo/packages/block/types/index.d.ts:59
 
 Creates a block header from header data
 

@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilSetCodeProcedure
 
-# Type Alias: AnvilSetCodeProcedure()
+# Type Alias: AnvilSetCodeProcedure
 
 > **AnvilSetCodeProcedure** = (`request`) => `Promise`\<[`AnvilSetCodeJsonRpcResponse`](AnvilSetCodeJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:51
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:51
 
 JSON-RPC procedure for `anvil_setCode`
 

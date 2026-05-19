@@ -8,10 +8,7 @@
 
 > **WithdrawalData** = `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:7
-
-Flexible input data type for EIP-4895 withdrawal data with amount in Gwei to
-match CL representation and for eventual ssz withdrawalsRoot
+Defined in: zevm/npm/zevm/dist/util.d.ts:99
 
 ## Properties
 
@@ -19,7 +16,7 @@ match CL representation and for eventual ssz withdrawalsRoot
 
 > **address**: [`AddressLike`](AddressLike.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:10
+Defined in: zevm/npm/zevm/dist/util.d.ts:102
 
 ***
 
@@ -27,7 +24,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 > **amount**: [`BigIntLike`](BigIntLike.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:11
+Defined in: zevm/npm/zevm/dist/util.d.ts:103
 
 ***
 
@@ -35,7 +32,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 > **index**: [`BigIntLike`](BigIntLike.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:8
+Defined in: zevm/npm/zevm/dist/util.d.ts:100
 
 ***
 
@@ -43,4 +40,4 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 > **validatorIndex**: [`BigIntLike`](BigIntLike.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:9
+Defined in: zevm/npm/zevm/dist/util.d.ts:101

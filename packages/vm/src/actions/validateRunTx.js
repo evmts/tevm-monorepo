@@ -1,6 +1,6 @@
+import { Capability } from '@evmts/zevm/tx'
 import { Block } from '@tevm/block'
 import { BlockGasLimitExceededError, EipNotEnabledError, MisconfiguredClientError } from '@tevm/errors'
-import { Capability } from '@tevm/tx'
 import { errorMsg } from './errorMessage.js'
 import { execHardfork } from './execHardfork.js'
 

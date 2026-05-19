@@ -8,7 +8,7 @@
 
 > **debugDumpBlockJsonRpcProcedure**(`client`): `DebugDumpBlockProcedure`
 
-Defined in: packages/actions/types/debug/debugDumpBlockProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/debug/debugDumpBlockProcedure.d.ts:1
 
 ## Parameters
 

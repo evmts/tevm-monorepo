@@ -6,7 +6,7 @@
 
 # Interface: ForkOptions
 
-Defined in: [packages/state/src/state-types/ForkOptions.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L29)
+Defined in: [tevm-monorepo/packages/state/src/state-types/ForkOptions.ts:29](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L29)
 
 Configuration options for forking from an existing blockchain network.
 Used to specify the RPC endpoint and block number to fork from.
@@ -38,17 +38,17 @@ const value: ForkOptions = {
 
 ### blockTag?
 
-> `optional` **blockTag**: `bigint` \| `BlockTag`
+> `optional` **blockTag?**: `bigint` \| `BlockTag`
 
-Defined in: [packages/state/src/state-types/ForkOptions.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L31)
+Defined in: [tevm-monorepo/packages/state/src/state-types/ForkOptions.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L31)
 
 ***
 
 ### chainId?
 
-> `optional` **chainId**: `number`
+> `optional` **chainId?**: `number`
 
-Defined in: [packages/state/src/state-types/ForkOptions.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L47)
+Defined in: [tevm-monorepo/packages/state/src/state-types/ForkOptions.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L47)
 
 Optional chain ID override.
 When set, this chain ID will be used instead of the one fetched from the fork RPC.
@@ -70,6 +70,6 @@ const client = createMemoryClient({
 
 ### transport
 
-> **transport**: \{ `request`: `EIP1193RequestFn`; \} \| `Transport`
+> **transport**: \{ `request`: `EIP1193RequestFn`\<`any`\>; \} \| `Transport`
 
-Defined in: [packages/state/src/state-types/ForkOptions.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L30)
+Defined in: [tevm-monorepo/packages/state/src/state-types/ForkOptions.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/state-types/ForkOptions.ts#L30)

@@ -8,7 +8,7 @@
 
 > **AnvilStopImpersonatingAccountParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:17
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:17
 
 Params for `anvil_stopImpersonatingAccount` handler
 
@@ -18,6 +18,6 @@ Params for `anvil_stopImpersonatingAccount` handler
 
 > `readonly` **address**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:21
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:21
 
 The address to stop impersonating

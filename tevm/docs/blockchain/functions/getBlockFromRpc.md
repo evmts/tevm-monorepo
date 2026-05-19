@@ -8,7 +8,7 @@
 
 > **getBlockFromRpc**(`baseChain`, `__namedParameters`, `common`): `Promise`\<\[[`Block`](../../block/classes/Block.md), `RpcBlock`\<[`BlockTag`](../../index/type-aliases/BlockTag.md), `true`, `RpcTransaction`\<`boolean`\>\>\]\>
 
-Defined in: packages/blockchain/types/utils/getBlockFromRpc.d.ts:1
+Defined in: tevm-monorepo/packages/blockchain/types/utils/getBlockFromRpc.d.ts:1
 
 ## Parameters
 
@@ -50,7 +50,7 @@ Block time in milliseconds.
 
 #### contracts?
 
-\{\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}; `ensRegistry?`: `ChainContract`; `ensUniversalResolver?`: `ChainContract`; `erc6492Verifier?`: `ChainContract`; `multicall3?`: `ChainContract`; \}
+\{\[`key`: `string`\]: `ChainContract` \| \{\[`sourceId`: `number`\]: `ChainContract` \| `undefined`; \} \| `undefined`; `ensRegistry?`: `ChainContract`; `ensUniversalResolver?`: `ChainContract`; `erc6492Verifier?`: `ChainContract`; `multicall3?`: `ChainContract`; \}
 
 Collection of contracts
 
@@ -72,13 +72,17 @@ Collection of contracts
 
 #### copy
 
-() => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
+() => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
 
 #### custom?
 
 `Record`\<`string`, `unknown`\>
 
 Custom chain data.
+
+**Deprecated**
+
+use `.extend` instead.
 
 #### ensTlds?
 
@@ -96,9 +100,15 @@ Collection of ENS TLDs for the chain.
 
 Preconfirmation time in milliseconds.
 
+#### extendSchema?
+
+`Record`\<`string`, `unknown`\>
+
+Extend schema.
+
 #### fees?
 
-`ChainFees`\<`undefined` \| `ChainFormatters`\>
+`ChainFees`\<`ChainFormatters` \| `undefined`\>
 
 Modifies how fees are derived.
 
@@ -126,6 +136,12 @@ Human-readable name
 
 Currency used by chain
 
+#### prepareTransactionRequest?
+
+`PrepareTransactionRequestFn` \| \[`PrepareTransactionRequestFn`, `object`\]
+
+Function to prepare a transaction request. Runs before the transaction is filled.
+
 #### rpcUrls
 
 \{\[`key`: `string`\]: `ChainRpcUrls`; `default`: `ChainRpcUrls`; \}
@@ -138,7 +154,7 @@ Collection of RPC endpoints
 
 #### serializers?
 
-`ChainSerializers`\<`undefined` \| `ChainFormatters`, `TransactionSerializable`\>
+`ChainSerializers`\<`ChainFormatters` \| `undefined`, `TransactionSerializable`\>
 
 Modifies how data is serialized (e.g. transactions).
 
@@ -153,6 +169,12 @@ Source Chain ID (ie. the L1 chain)
 `boolean`
 
 Flag for test networks
+
+#### verifyHash?
+
+`ChainVerifyHashFn`
+
+Chain-specific signature verification.
 
 ## Returns
 

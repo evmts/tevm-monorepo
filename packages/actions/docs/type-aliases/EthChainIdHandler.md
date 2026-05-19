@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthChainIdHandler
 
-# Type Alias: EthChainIdHandler()
+# Type Alias: EthChainIdHandler
 
 > **EthChainIdHandler** = (`request?`) => `Promise`\<[`EthChainIdResult`](EthChainIdResult.md)\>
 

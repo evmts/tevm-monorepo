@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGasPriceJsonRpcProcedure
 
-# Type Alias: EthGasPriceJsonRpcProcedure()
+# Type Alias: EthGasPriceJsonRpcProcedure
 
 > **EthGasPriceJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGasPriceJsonRpcResponse`](EthGasPriceJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:11
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:11
 
 ## Parameters
 

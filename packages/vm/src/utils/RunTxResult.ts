@@ -1,6 +1,6 @@
-import type { Bloom } from '@ethereumjs/vm'
-import type { EvmResult } from '@tevm/evm'
-import type { AccessList } from '@tevm/tx'
+import type { EvmResult } from '@evmts/zevm/evm'
+import type { Bloom } from '@evmts/zevm/receipt'
+import type { AccessList } from '@evmts/zevm/tx'
 import type { Hex } from '@tevm/utils'
 import type { TxReceipt } from './TxReceipt.js'
 

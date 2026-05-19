@@ -8,7 +8,7 @@
 
 > **InvalidBeginSubErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:68
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:68
 
 Parameters for constructing a [InvalidBeginSubError](../classes/InvalidBeginSubError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing a [InvalidBeginSubError](../classes/InvalidBeginSubE
 
 ### cause?
 
-> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
+> `optional` **cause?**: [`ExecutionError`](../classes/ExecutionError.md) \| `EVMError`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:88
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:88
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:92
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:92
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:72
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:72
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:76
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:76
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:80
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:80
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:96
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:96
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:84
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:84
 
 - Additional meta messages.

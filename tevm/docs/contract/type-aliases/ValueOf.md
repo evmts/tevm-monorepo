@@ -8,7 +8,7 @@
 
 > **ValueOf**\<`T`\> = `T`\[keyof `T`\]
 
-Defined in: packages/contract/types/event/EventActionCreator.d.ts:12
+Defined in: tevm-monorepo/packages/contract/types/event/EventActionCreator.d.ts:12
 
 Utility type to get the value type of an object.
 

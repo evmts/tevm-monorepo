@@ -8,7 +8,7 @@
 
 > `const` **createMemoryDb**: [`CreateMemoryDbFn`](../type-aliases/CreateMemoryDbFn.md)
 
-Defined in: packages/utils/types/createMemoryDb.d.ts:8
+Defined in: tevm-monorepo/packages/utils/types/createMemoryDb.d.ts:8
 
 **`Internal`**
 

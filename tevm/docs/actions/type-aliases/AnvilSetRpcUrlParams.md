@@ -8,7 +8,7 @@
 
 > **AnvilSetRpcUrlParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:220
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:220
 
 Params for `anvil_setRpcUrl` handler
 
@@ -18,6 +18,6 @@ Params for `anvil_setRpcUrl` handler
 
 > `readonly` **url**: `string`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:224
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:224
 
 The new RPC URL to use for forking

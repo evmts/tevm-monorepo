@@ -8,7 +8,7 @@
 
 > **CommonMismatchErrorParameters** = `object`
 
-Defined in: packages/errors/types/common/CommonMismatchError.d.ts:53
+Defined in: tevm-monorepo/packages/errors/types/common/CommonMismatchError.d.ts:53
 
 Parameters for constructing a [CommonMismatchError](../classes/CommonMismatchError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing a [CommonMismatchError](../classes/CommonMismatchErr
 
 ### cause?
 
-> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
+> `optional` **cause?**: [`ExecutionError`](../classes/ExecutionError.md) \| `EVMError`
 
-Defined in: packages/errors/types/common/CommonMismatchError.d.ts:73
+Defined in: tevm-monorepo/packages/errors/types/common/CommonMismatchError.d.ts:73
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/common/CommonMismatchError.d.ts:73
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/common/CommonMismatchError.d.ts:77
+Defined in: tevm-monorepo/packages/errors/types/common/CommonMismatchError.d.ts:77
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/common/CommonMismatchError.d.ts:77
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/common/CommonMismatchError.d.ts:57
+Defined in: tevm-monorepo/packages/errors/types/common/CommonMismatchError.d.ts:57
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/common/CommonMismatchError.d.ts:57
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/common/CommonMismatchError.d.ts:61
+Defined in: tevm-monorepo/packages/errors/types/common/CommonMismatchError.d.ts:61
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/common/CommonMismatchError.d.ts:61
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/common/CommonMismatchError.d.ts:65
+Defined in: tevm-monorepo/packages/errors/types/common/CommonMismatchError.d.ts:65
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/common/CommonMismatchError.d.ts:65
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/common/CommonMismatchError.d.ts:81
+Defined in: tevm-monorepo/packages/errors/types/common/CommonMismatchError.d.ts:81
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/common/CommonMismatchError.d.ts:81
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/common/CommonMismatchError.d.ts:69
+Defined in: tevm-monorepo/packages/errors/types/common/CommonMismatchError.d.ts:69
 
 - Additional meta messages.

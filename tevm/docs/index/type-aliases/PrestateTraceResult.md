@@ -8,7 +8,7 @@
 
 > **PrestateTraceResult**\<`TDiffMode`\> = `TDiffMode` *extends* `true` ? `object` : `Record`\<[`Hex`](../../actions/type-aliases/Hex.md), [`AccountState`](AccountState.md)\>
 
-Defined in: packages/actions/types/common/PrestateTraceResult.d.ts:4
+Defined in: tevm-monorepo/packages/actions/types/common/PrestateTraceResult.d.ts:4
 
 Result from `debug_*` with `prestateTracer`
 

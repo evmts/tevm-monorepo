@@ -8,7 +8,7 @@
 
 > **getProof**(`baseState`): (`address`, `storageSlots?`) => `Promise`\<`Proof`\>
 
-Defined in: packages/state/dist/index.d.ts:464
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:468
 
 ## Parameters
 
@@ -18,18 +18,4 @@ Defined in: packages/state/dist/index.d.ts:464
 
 ## Returns
 
-> (`address`, `storageSlots?`): `Promise`\<`Proof`\>
-
-### Parameters
-
-#### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-#### storageSlots?
-
-`Uint8Array`\<`ArrayBufferLike`\>[]
-
-### Returns
-
-`Promise`\<`Proof`\>
+(`address`, `storageSlots?`) => `Promise`\<`Proof`\>

@@ -1,11 +1,10 @@
-import { createEVM, EVM, getActivePrecompiles } from '@ethereumjs/evm'
+import { createEVM, EVM, getActivePrecompiles } from '@evmts/zevm/evm'
 import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 
 /**
  * The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
  * The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
  * provide custom typing to the blockchain or common objects.
- * @type {typeof import('./EvmType.js').Evm}
  * @example
  * ```typescript
  * import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
@@ -59,7 +58,8 @@ export class Evm extends EVM {
 	}
 
 	/**
-	 * @type {(typeof import('./EvmType.js').Evm)['create']}
+	 * @param {import('./EvmOpts.js').EVMOpts} [options]
+	 * @returns {Promise<import('./EvmType.js').Evm>}
 	 */
 	static create = async (options) => {
 		const evm = /** @type {any}*/ (await createEVM(options))

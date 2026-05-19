@@ -8,7 +8,7 @@
 
 > **debugStorageRangeAtHandler**(`client`): [`DebugStorageRangeAtHandler`](../type-aliases/DebugStorageRangeAtHandler.md)
 
-Defined in: packages/actions/types/debug/debugStorageRangeAtHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/debug/debugStorageRangeAtHandler.d.ts:1
 
 ## Parameters
 

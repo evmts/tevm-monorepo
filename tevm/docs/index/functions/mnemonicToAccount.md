@@ -6,9 +6,9 @@
 
 # Function: mnemonicToAccount()
 
-> **mnemonicToAccount**(`mnemonic`, `opts?`): `object`
+> **mnemonicToAccount**(`mnemonic`, `__namedParameters?`): `object`
 
-Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.3\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/accounts/mnemonicToAccount.d.ts:11
+Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/accounts/mnemonicToAccount.d.ts:13
 
 ## Parameters
 
@@ -16,9 +16,9 @@ Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.3\
 
 `string`
 
-### opts?
+### \_\_namedParameters?
 
-`HDKeyToAccountOptions`
+`MnemonicToAccountOptions`
 
 ## Returns
 
@@ -32,13 +32,13 @@ A HD Account.
 
 ### nonceManager?
 
-> `optional` **nonceManager**: `NonceManager`
+> `optional` **nonceManager?**: `NonceManager`
 
 ### publicKey
 
 > **publicKey**: `` `0x${string}` ``
 
-### sign()
+### sign
 
 > **sign**: (`parameters`) => `Promise`\<`` `0x${string}` ``\>
 
@@ -54,9 +54,9 @@ A HD Account.
 
 `Promise`\<`` `0x${string}` ``\>
 
-### signAuthorization()?
+### signAuthorization?
 
-> `optional` **signAuthorization**: (`parameters`) => `Promise`\<`SignAuthorizationReturnType`\>
+> `optional` **signAuthorization?**: (`parameters`) => `Promise`\<`SignAuthorizationReturnType`\>
 
 #### Parameters
 
@@ -68,7 +68,7 @@ A HD Account.
 
 `Promise`\<`SignAuthorizationReturnType`\>
 
-### signMessage()
+### signMessage
 
 > **signMessage**: (`__namedParameters`) => `Promise`\<`` `0x${string}` ``\>
 
@@ -84,9 +84,9 @@ A HD Account.
 
 `Promise`\<`` `0x${string}` ``\>
 
-### signTransaction()
+### signTransaction
 
-> **signTransaction**: \<`serializer`, `transaction`\>(`transaction`, `options?`) => `Promise`\<`IsNarrowable`\<`TransactionSerialized`\<`GetTransactionType`\<`transaction`\>\>, `` `0x${string}` ``\> *extends* `true` ? `TransactionSerialized`\<`GetTransactionType`\<`transaction`\>\> : `` `0x${string}` ``\>
+> **signTransaction**: \<`serializer`, `transaction`\>(`transaction`, `options?`) => `Promise`\<`` `0x${string}` ``\>
 
 #### Type Parameters
 
@@ -112,9 +112,9 @@ A HD Account.
 
 #### Returns
 
-`Promise`\<`IsNarrowable`\<`TransactionSerialized`\<`GetTransactionType`\<`transaction`\>\>, `` `0x${string}` ``\> *extends* `true` ? `TransactionSerialized`\<`GetTransactionType`\<`transaction`\>\> : `` `0x${string}` ``\>
+`Promise`\<`` `0x${string}` ``\>
 
-### signTypedData()
+### signTypedData
 
 > **signTypedData**: \<`typedData`, `primaryType`\>(`parameters`) => `Promise`\<`` `0x${string}` ``\>
 
@@ -133,6 +133,7 @@ A HD Account.
 \[`key`: `` `bytes3[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes4[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes8[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes15[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes22[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes5[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes6[${string}]` ``\]: `undefined`;
@@ -143,16 +144,15 @@ A HD Account.
 \[`key`: `` `bytes12[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes13[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes14[${string}]` ``\]: `undefined`;
-\[`key`: `` `bytes15[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes16[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes17[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes18[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes19[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes20[${string}]` ``\]: `undefined`;
+\[`key`: `` `bytes25[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes21[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes23[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes24[${string}]` ``\]: `undefined`;
-\[`key`: `` `bytes25[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes26[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes27[${string}]` ``\]: `undefined`;
 \[`key`: `` `bytes28[${string}]` ``\]: `undefined`;

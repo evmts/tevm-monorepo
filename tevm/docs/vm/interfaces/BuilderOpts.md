@@ -6,7 +6,7 @@
 
 # Interface: BuilderOpts
 
-Defined in: packages/vm/types/utils/BuilderOpts.d.ts:5
+Defined in: tevm-monorepo/packages/vm/types/utils/BuilderOpts.d.ts:5
 
 Options for the block builder.
 
@@ -18,9 +18,9 @@ Options for the block builder.
 
 ### calcDifficultyFromHeader?
 
-> `optional` **calcDifficultyFromHeader**: [`BlockHeader`](../../block/classes/BlockHeader.md)
+> `optional` **calcDifficultyFromHeader?**: [`BlockHeader`](../../block/classes/BlockHeader.md)
 
-Defined in: packages/block/types/types.d.ts:42
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:42
 
 If a preceding [BlockHeader](../../block/classes/BlockHeader.md) (usually the parent header) is given the preceding
 header will be used to calculate the difficulty for this block and the calculated
@@ -37,9 +37,9 @@ Note that this option has no effect on networks other than PoW/Ethash networks
 
 ### cliqueSigner?
 
-> `optional` **cliqueSigner**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **cliqueSigner?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/types.d.ts:59
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:59
 
 Provide a clique signer's privateKey to seal this block.
 Will throw if provided on a non-PoA chain.
@@ -54,7 +54,7 @@ Will throw if provided on a non-PoA chain.
 
 > **common**: `object`
 
-Defined in: packages/block/types/types.d.ts:23
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:23
 
 A [Common](../../common/type-aliases/Common.md) object defining the chain and the hardfork a block/block header belongs to.
 
@@ -68,7 +68,7 @@ Current default hardfork: `merge`
 
 #### blockExplorers?
 
-> `optional` **blockExplorers**: `object`
+> `optional` **blockExplorers?**: `object`
 
 Collection of block explorers
 
@@ -82,53 +82,57 @@ Collection of block explorers
 
 #### blockTime?
 
-> `optional` **blockTime**: `number`
+> `optional` **blockTime?**: `number`
 
 Block time in milliseconds.
 
 #### contracts?
 
-> `optional` **contracts**: `object`
+> `optional` **contracts?**: `object`
 
 Collection of contracts
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
+\[`key`: `string`\]: `ChainContract` \| \{\[`sourceId`: `number`\]: `ChainContract` \| `undefined`; \} \| `undefined`
 
 ##### contracts.ensRegistry?
 
-> `optional` **ensRegistry**: `ChainContract`
+> `optional` **ensRegistry?**: `ChainContract`
 
 ##### contracts.ensUniversalResolver?
 
-> `optional` **ensUniversalResolver**: `ChainContract`
+> `optional` **ensUniversalResolver?**: `ChainContract`
 
 ##### contracts.erc6492Verifier?
 
-> `optional` **erc6492Verifier**: `ChainContract`
+> `optional` **erc6492Verifier?**: `ChainContract`
 
 ##### contracts.multicall3?
 
-> `optional` **multicall3**: `ChainContract`
+> `optional` **multicall3?**: `ChainContract`
 
-#### copy()
+#### copy
 
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
 
 ##### Returns
 
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
 
-#### custom?
+#### ~~custom?~~
 
-> `optional` **custom**: `Record`\<`string`, `unknown`\>
+> `optional` **custom?**: `Record`\<`string`, `unknown`\>
 
 Custom chain data.
 
+##### Deprecated
+
+use `.extend` instead.
+
 #### ensTlds?
 
-> `optional` **ensTlds**: readonly `string`[]
+> `optional` **ensTlds?**: readonly `string`[]
 
 Collection of ENS TLDs for the chain.
 
@@ -138,19 +142,25 @@ Collection of ENS TLDs for the chain.
 
 #### experimental\_preconfirmationTime?
 
-> `optional` **experimental\_preconfirmationTime**: `number`
+> `optional` **experimental\_preconfirmationTime?**: `number`
 
 Preconfirmation time in milliseconds.
 
+#### extendSchema?
+
+> `optional` **extendSchema?**: `Record`\<`string`, `unknown`\>
+
+Extend schema.
+
 #### fees?
 
-> `optional` **fees**: `ChainFees`\<`undefined` \| `ChainFormatters`\>
+> `optional` **fees?**: `ChainFees`\<`ChainFormatters` \| `undefined`\>
 
 Modifies how fees are derived.
 
 #### formatters?
 
-> `optional` **formatters**: `ChainFormatters`
+> `optional` **formatters?**: `ChainFormatters`
 
 Modifies how data is formatted and typed (e.g. blocks and transactions)
 
@@ -172,6 +182,12 @@ Human-readable name
 
 Currency used by chain
 
+#### prepareTransactionRequest?
+
+> `optional` **prepareTransactionRequest?**: `PrepareTransactionRequestFn` \| \[`PrepareTransactionRequestFn`, `object`\]
+
+Function to prepare a transaction request. Runs before the transaction is filled.
+
 #### rpcUrls
 
 > **rpcUrls**: `object`
@@ -188,21 +204,27 @@ Collection of RPC endpoints
 
 #### serializers?
 
-> `optional` **serializers**: `ChainSerializers`\<`undefined` \| `ChainFormatters`, `TransactionSerializable`\>
+> `optional` **serializers?**: `ChainSerializers`\<`ChainFormatters` \| `undefined`, `TransactionSerializable`\>
 
 Modifies how data is serialized (e.g. transactions).
 
 #### sourceId?
 
-> `optional` **sourceId**: `number`
+> `optional` **sourceId?**: `number`
 
 Source Chain ID (ie. the L1 chain)
 
 #### testnet?
 
-> `optional` **testnet**: `boolean`
+> `optional` **testnet?**: `boolean`
 
 Flag for test networks
+
+#### verifyHash?
+
+> `optional` **verifyHash?**: `ChainVerifyHashFn`
+
+Chain-specific signature verification.
 
 #### Inherited from
 
@@ -212,9 +234,9 @@ Flag for test networks
 
 ### executionWitness?
 
-> `optional` **executionWitness**: [`VerkleExecutionWitness`](../../block/interfaces/VerkleExecutionWitness.md)
+> `optional` **executionWitness?**: [`VerkleExecutionWitness`](../../block/interfaces/VerkleExecutionWitness.md)
 
-Defined in: packages/block/types/types.d.ts:64
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:64
 
 #### Inherited from
 
@@ -224,9 +246,9 @@ Defined in: packages/block/types/types.d.ts:64
 
 ### freeze?
 
-> `optional` **freeze**: `boolean`
+> `optional` **freeze?**: `boolean`
 
-Defined in: packages/block/types/types.d.ts:54
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:54
 
 A block object by default gets frozen along initialization. This gives you
 strong additional security guarantees on the consistency of the block parameters.
@@ -246,9 +268,9 @@ Default: true
 
 ### putBlockIntoBlockchain?
 
-> `optional` **putBlockIntoBlockchain**: `boolean`
+> `optional` **putBlockIntoBlockchain?**: `boolean`
 
-Defined in: packages/vm/types/utils/BuilderOpts.d.ts:15
+Defined in: tevm-monorepo/packages/vm/types/utils/BuilderOpts.d.ts:15
 
 Whether to put the block into the vm's blockchain after building it.
 This is useful for completing a full cycle when building a block so
@@ -262,9 +284,9 @@ Default: true
 
 ### setHardfork?
 
-> `optional` **setHardfork**: `boolean` \| [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
+> `optional` **setHardfork?**: `boolean` \| [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
 
-Defined in: packages/block/types/types.d.ts:33
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:33
 
 Set the hardfork either by timestamp (for HFs from Shanghai onwards) or by block number
 for older Hfs.
@@ -282,9 +304,9 @@ Default: `false` (HF is set to whatever default HF is set by the [Common](../../
 
 ### skipConsensusFormatValidation?
 
-> `optional` **skipConsensusFormatValidation**: `boolean`
+> `optional` **skipConsensusFormatValidation?**: `boolean`
 
-Defined in: packages/block/types/types.d.ts:63
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:63
 
 Skip consensus format validation checks on header if set. Defaults to false.
 

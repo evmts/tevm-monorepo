@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetBlockByHashJsonRpcProcedure
 
-# Type Alias: EthGetBlockByHashJsonRpcProcedure()
+# Type Alias: EthGetBlockByHashJsonRpcProcedure
 
 > **EthGetBlockByHashJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetBlockByHashJsonRpcResponse`](EthGetBlockByHashJsonRpcResponse.md)\>
 

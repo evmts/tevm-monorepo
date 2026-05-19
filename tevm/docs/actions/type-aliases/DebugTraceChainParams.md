@@ -8,7 +8,7 @@
 
 > **DebugTraceChainParams**\<`TTracer`, `TDiffMode`\> = `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:197
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:197
 
 Params taken by `debug_traceChain` handler
 
@@ -28,7 +28,7 @@ Params taken by `debug_traceChain` handler
 
 > `readonly` **endBlock**: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint` \| [`BlockTag`](BlockTag.md)
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:205
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:205
 
 Ending block number, hash, or tag
 
@@ -38,7 +38,7 @@ Ending block number, hash, or tag
 
 > `readonly` **startBlock**: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint` \| [`BlockTag`](BlockTag.md)
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:201
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:201
 
 Starting block number, hash, or tag
 
@@ -46,8 +46,8 @@ Starting block number, hash, or tag
 
 ### traceConfig?
 
-> `readonly` `optional` **traceConfig**: [`TraceParams`](TraceParams.md)\<`TTracer`, `TDiffMode`\>
+> `readonly` `optional` **traceConfig?**: [`TraceParams`](TraceParams.md)\<`TTracer`, `TDiffMode`\>
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:209
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:209
 
 Trace configuration options

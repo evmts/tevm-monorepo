@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetProofHandler
 
-# Type Alias: EthGetProofHandler()
+# Type Alias: EthGetProofHandler
 
 > **EthGetProofHandler** = (`request`) => `Promise`\<[`EthGetProofResult`](EthGetProofResult.md)\>
 

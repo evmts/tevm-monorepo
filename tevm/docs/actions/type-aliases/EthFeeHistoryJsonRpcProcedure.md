@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthFeeHistoryJsonRpcProcedure
 
-# Type Alias: EthFeeHistoryJsonRpcProcedure()
+# Type Alias: EthFeeHistoryJsonRpcProcedure
 
 > **EthFeeHistoryJsonRpcProcedure** = (`request`) => `Promise`\<[`EthFeeHistoryJsonRpcResponse`](EthFeeHistoryJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:13
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:13
 
 ## Parameters
 

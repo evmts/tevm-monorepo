@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilSetLoggingEnabledHandler
 
-# Type Alias: AnvilSetLoggingEnabledHandler()
+# Type Alias: AnvilSetLoggingEnabledHandler
 
 > **AnvilSetLoggingEnabledHandler** = (`params`) => `Promise`\<[`AnvilSetLoggingEnabledResult`](AnvilSetLoggingEnabledResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:22
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:22
 
 ## Parameters
 

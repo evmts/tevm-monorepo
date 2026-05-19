@@ -1,10 +1,10 @@
+import type { ExecResult, PrecompileInput } from '@evmts/zevm/evm'
+import type { TxPool } from '@evmts/zevm/txpool'
 import type { Block } from '@tevm/block'
 import type { ChainOptions } from '@tevm/blockchain'
 import type { ConsensusAlgorithm, ConsensusType } from '@tevm/common'
-import type { ExecResult, PrecompileInput } from '@tevm/evm'
 import type { Filter, TevmNode } from '@tevm/node'
 import type { StateRoots, TevmState } from '@tevm/state'
-import type { TxPool } from '@tevm/txpool'
 import type { Address } from '@tevm/utils'
 import type {
 	CallTraceResult,

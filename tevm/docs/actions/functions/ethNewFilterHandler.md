@@ -8,7 +8,7 @@
 
 > **ethNewFilterHandler**(`tevmNode`): [`EthNewFilterHandler`](../type-aliases/EthNewFilterHandler.md)
 
-Defined in: packages/actions/types/eth/ethNewFilterHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethNewFilterHandler.d.ts:1
 
 ## Parameters
 

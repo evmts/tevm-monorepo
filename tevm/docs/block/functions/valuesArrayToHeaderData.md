@@ -8,7 +8,7 @@
 
 > **valuesArrayToHeaderData**(`values`): [`HeaderData`](../interfaces/HeaderData.md)
 
-Defined in: packages/block/types/helpers.d.ts:22
+Defined in: tevm-monorepo/packages/block/types/helpers.d.ts:22
 
 Converts a BlockHeaderBytes array to a HeaderData object
 

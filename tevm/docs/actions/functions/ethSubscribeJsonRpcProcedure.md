@@ -8,7 +8,7 @@
 
 > **ethSubscribeJsonRpcProcedure**(`tevmNode`): [`EthSubscribeJsonRpcProcedure`](../type-aliases/EthSubscribeJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethSubscribeProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethSubscribeProcedure.d.ts:1
 
 ## Parameters
 

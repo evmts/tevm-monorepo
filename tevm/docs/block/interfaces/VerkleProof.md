@@ -6,7 +6,7 @@
 
 # Interface: VerkleProof
 
-Defined in: packages/block/types/types.d.ts:86
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:86
 
 Represents a Verkle proof used for state verification
 
@@ -36,7 +36,7 @@ function verifyProof(proof: VerkleProof, key: Hex, value: Hex, commitment: Hex):
 
 > **commitmentsByPath**: `` `0x${string}` ``[]
 
-Defined in: packages/block/types/types.d.ts:87
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:87
 
 ***
 
@@ -44,7 +44,7 @@ Defined in: packages/block/types/types.d.ts:87
 
 > **d**: `` `0x${string}` ``
 
-Defined in: packages/block/types/types.d.ts:88
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:88
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: packages/block/types/types.d.ts:88
 
 > **depthExtensionPresent**: `` `0x${string}` ``
 
-Defined in: packages/block/types/types.d.ts:89
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:89
 
 ***
 
@@ -60,7 +60,7 @@ Defined in: packages/block/types/types.d.ts:89
 
 > **ipaProof**: `object`
 
-Defined in: packages/block/types/types.d.ts:90
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:90
 
 #### cl
 
@@ -80,4 +80,4 @@ Defined in: packages/block/types/types.d.ts:90
 
 > **otherStems**: `` `0x${string}` ``[]
 
-Defined in: packages/block/types/types.d.ts:95
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:95

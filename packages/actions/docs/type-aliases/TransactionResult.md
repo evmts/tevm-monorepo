@@ -17,7 +17,7 @@ json rpc procedures
 
 ### accessList?
 
-> `readonly` `optional` **accessList**: `ReadonlyArray`\<\{ `address`: [`Hex`](Hex.md); `storageKeys`: `ReadonlyArray`\<[`Hex`](Hex.md)\>; \}\>
+> `readonly` `optional` **accessList?**: `ReadonlyArray`\<\{ `address`: [`Hex`](Hex.md); `storageKeys`: `ReadonlyArray`\<[`Hex`](Hex.md)\>; \}\>
 
 Defined in: [packages/actions/src/common/TransactionResult.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionResult.ts#L26)
 
@@ -25,7 +25,7 @@ Defined in: [packages/actions/src/common/TransactionResult.ts:26](https://github
 
 ### blobVersionedHashes?
 
-> `readonly` `optional` **blobVersionedHashes**: `ReadonlyArray`\<[`Hex`](Hex.md)\>
+> `readonly` `optional` **blobVersionedHashes?**: `ReadonlyArray`\<[`Hex`](Hex.md)\>
 
 Defined in: [packages/actions/src/common/TransactionResult.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionResult.ts#L31)
 
@@ -49,7 +49,7 @@ Defined in: [packages/actions/src/common/TransactionResult.ts:9](https://github.
 
 ### chainId?
 
-> `readonly` `optional` **chainId**: [`Hex`](Hex.md)
+> `readonly` `optional` **chainId?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/common/TransactionResult.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionResult.ts#L22)
 
@@ -97,7 +97,7 @@ Defined in: [packages/actions/src/common/TransactionResult.ts:14](https://github
 
 ### isImpersonated?
 
-> `readonly` `optional` **isImpersonated**: `boolean`
+> `readonly` `optional` **isImpersonated?**: `boolean`
 
 Defined in: [packages/actions/src/common/TransactionResult.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionResult.ts#L32)
 
@@ -105,7 +105,7 @@ Defined in: [packages/actions/src/common/TransactionResult.ts:32](https://github
 
 ### maxFeePerBlobGas?
 
-> `readonly` `optional` **maxFeePerBlobGas**: [`Hex`](Hex.md)
+> `readonly` `optional` **maxFeePerBlobGas?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/common/TransactionResult.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionResult.ts#L30)
 
@@ -113,7 +113,7 @@ Defined in: [packages/actions/src/common/TransactionResult.ts:30](https://github
 
 ### maxFeePerGas?
 
-> `readonly` `optional` **maxFeePerGas**: [`Hex`](Hex.md)
+> `readonly` `optional` **maxFeePerGas?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/common/TransactionResult.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionResult.ts#L23)
 
@@ -121,7 +121,7 @@ Defined in: [packages/actions/src/common/TransactionResult.ts:23](https://github
 
 ### maxPriorityFeePerGas?
 
-> `readonly` `optional` **maxPriorityFeePerGas**: [`Hex`](Hex.md)
+> `readonly` `optional` **maxPriorityFeePerGas?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/common/TransactionResult.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionResult.ts#L24)
 
@@ -169,7 +169,7 @@ Defined in: [packages/actions/src/common/TransactionResult.ts:17](https://github
 
 ### type?
 
-> `readonly` `optional` **type**: [`Hex`](Hex.md)
+> `readonly` `optional` **type?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/common/TransactionResult.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionResult.ts#L25)
 

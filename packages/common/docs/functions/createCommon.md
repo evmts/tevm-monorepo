@@ -8,11 +8,11 @@
 
 > **createCommon**(`options`): `object`
 
-Defined in: [packages/common/src/createCommon.js:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/createCommon.js#L53)
+Defined in: [packages/common/src/createCommon.js:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/common/src/createCommon.js#L47)
 
 Common is the main representation of chain specific configuration for tevm clients.
 
-createCommon creates a typesafe ethereumjs Common object used by the EVM
+createCommon creates a typesafe Common object used by the EVM
 to access chain and hardfork parameters and to provide
 a unified and shared view on the network and hardfork state.
 Tevm common extends the [viem chain](https://github.com/wevm/viem/blob/main/src/chains/index.ts) interface
@@ -27,7 +27,7 @@ Tevm common extends the [viem chain](https://github.com/wevm/viem/blob/main/src/
 
 ### blockExplorers?
 
-> `optional` **blockExplorers**: `object`
+> `optional` **blockExplorers?**: `object`
 
 Collection of block explorers
 
@@ -41,53 +41,57 @@ Collection of block explorers
 
 ### blockTime?
 
-> `optional` **blockTime**: `number`
+> `optional` **blockTime?**: `number`
 
 Block time in milliseconds.
 
 ### contracts?
 
-> `optional` **contracts**: `object`
+> `optional` **contracts?**: `object`
 
 Collection of contracts
 
 #### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
+\[`key`: `string`\]: `ChainContract` \| \{\[`sourceId`: `number`\]: `ChainContract` \| `undefined`; \} \| `undefined`
 
 #### contracts.ensRegistry?
 
-> `optional` **ensRegistry**: `ChainContract`
+> `optional` **ensRegistry?**: `ChainContract`
 
 #### contracts.ensUniversalResolver?
 
-> `optional` **ensUniversalResolver**: `ChainContract`
+> `optional` **ensUniversalResolver?**: `ChainContract`
 
 #### contracts.erc6492Verifier?
 
-> `optional` **erc6492Verifier**: `ChainContract`
+> `optional` **erc6492Verifier?**: `ChainContract`
 
 #### contracts.multicall3?
 
-> `optional` **multicall3**: `ChainContract`
+> `optional` **multicall3?**: `ChainContract`
 
-### copy()
+### copy
 
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
 
 #### Returns
 
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
 
-### custom?
+### ~~custom?~~
 
-> `optional` **custom**: `Record`\<`string`, `unknown`\>
+> `optional` **custom?**: `Record`\<`string`, `unknown`\>
 
 Custom chain data.
 
+#### Deprecated
+
+use `.extend` instead.
+
 ### ensTlds?
 
-> `optional` **ensTlds**: readonly `string`[]
+> `optional` **ensTlds?**: readonly `string`[]
 
 Collection of ENS TLDs for the chain.
 
@@ -97,19 +101,25 @@ Collection of ENS TLDs for the chain.
 
 ### experimental\_preconfirmationTime?
 
-> `optional` **experimental\_preconfirmationTime**: `number`
+> `optional` **experimental\_preconfirmationTime?**: `number`
 
 Preconfirmation time in milliseconds.
 
+### extendSchema?
+
+> `optional` **extendSchema?**: `Record`\<`string`, `unknown`\>
+
+Extend schema.
+
 ### fees?
 
-> `optional` **fees**: `ChainFees`\<`undefined` \| `ChainFormatters`\>
+> `optional` **fees?**: `ChainFees`\<`ChainFormatters` \| `undefined`\>
 
 Modifies how fees are derived.
 
 ### formatters?
 
-> `optional` **formatters**: `ChainFormatters`
+> `optional` **formatters?**: `ChainFormatters`
 
 Modifies how data is formatted and typed (e.g. blocks and transactions)
 
@@ -131,6 +141,12 @@ Human-readable name
 
 Currency used by chain
 
+### prepareTransactionRequest?
+
+> `optional` **prepareTransactionRequest?**: `PrepareTransactionRequestFn` \| \[`PrepareTransactionRequestFn`, `object`\]
+
+Function to prepare a transaction request. Runs before the transaction is filled.
+
 ### rpcUrls
 
 > **rpcUrls**: `object`
@@ -147,21 +163,27 @@ Collection of RPC endpoints
 
 ### serializers?
 
-> `optional` **serializers**: `ChainSerializers`\<`undefined` \| `ChainFormatters`, `TransactionSerializable`\>
+> `optional` **serializers?**: `ChainSerializers`\<`ChainFormatters` \| `undefined`, `TransactionSerializable`\>
 
 Modifies how data is serialized (e.g. transactions).
 
 ### sourceId?
 
-> `optional` **sourceId**: `number`
+> `optional` **sourceId?**: `number`
 
 Source Chain ID (ie. the L1 chain)
 
 ### testnet?
 
-> `optional` **testnet**: `boolean`
+> `optional` **testnet?**: `boolean`
 
 Flag for test networks
+
+### verifyHash?
+
+> `optional` **verifyHash?**: `ChainVerifyHashFn`
+
+Chain-specific signature verification.
 
 ## Throws
 
@@ -191,17 +213,11 @@ const common = createCommon({ ... })
 const commonCopy = common.copy()
 ```
 
-To use with ethereumjs use the ethjsCommon property
+To access the underlying Common instance, use the ethjsCommon property.
 
 ```typescript
-import { VM } from '@ethereumjs/vm'
-import { createMemoryClient } from 'tevm'
-
 const common = createCommon({ ... })
-
-const vm = new VM({
-  common: common.ethjsCommon,
-})
+const ethjsCommon = common.ethjsCommon
 ```
 
 ## See

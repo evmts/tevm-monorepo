@@ -35,7 +35,7 @@ Defined in: [extensions/viem/src/GenError.ts:9](https://github.com/evmts/tevm-mo
 
 ### errors?
 
-> `optional` **errors**: `ReadonlyArray`\<[`TypedError`](TypedError.md)\<`string`\>\>
+> `optional` **errors?**: `ReadonlyArray`\<[`TypedError`](TypedError.md)\<`string`\>\>
 
 Defined in: [extensions/viem/src/GenError.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/extensions/viem/src/GenError.ts#L8)
 

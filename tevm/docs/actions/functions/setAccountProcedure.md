@@ -8,7 +8,7 @@
 
 > **setAccountProcedure**(`client`): [`SetAccountJsonRpcProcedure`](../type-aliases/SetAccountJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/SetAccount/setAccountProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/SetAccount/setAccountProcedure.d.ts:1
 
 ## Parameters
 

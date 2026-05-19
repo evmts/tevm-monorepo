@@ -8,7 +8,7 @@
 
 > **MuxTraceResult**\<`TTracers`, `TDiffMode`\> = `{ [K in TTracers[number]]?: K extends keyof TracerResultMap<TDiffMode> ? TracerResultMap<TDiffMode>[K] : never }`
 
-Defined in: packages/actions/types/common/MuxTraceResult.d.ts:70
+Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:70
 
 Result from `debug_*` with `muxTracer`
 

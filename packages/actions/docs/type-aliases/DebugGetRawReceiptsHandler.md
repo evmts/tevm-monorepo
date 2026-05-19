@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / DebugGetRawReceiptsHandler
 
-# Type Alias: DebugGetRawReceiptsHandler()
+# Type Alias: DebugGetRawReceiptsHandler
 
 > **DebugGetRawReceiptsHandler** = (`params`) => `Promise`\<[`DebugGetRawReceiptsResult`](DebugGetRawReceiptsResult.md)\>
 

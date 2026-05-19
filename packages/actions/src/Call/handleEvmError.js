@@ -1,3 +1,4 @@
+import { EvmError } from '@evmts/zevm/evm'
 import {
 	AuthCallUnsetError,
 	BLS12381FpNotInFieldError,
@@ -37,7 +38,6 @@ import {
 	StopError,
 	ValueOverflowError,
 } from '@tevm/errors'
-import { EvmError } from '@tevm/evm'
 
 /**
  * @internal

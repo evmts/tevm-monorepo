@@ -8,7 +8,7 @@
 
 > **createBlockHeaderFromRLP**(`serializedHeaderData`, `opts`): [`BlockHeader`](../classes/BlockHeader.md)
 
-Defined in: packages/block/types/index.d.ts:67
+Defined in: tevm-monorepo/packages/block/types/index.d.ts:67
 
 Creates a block header from a RLP-serialized header
 

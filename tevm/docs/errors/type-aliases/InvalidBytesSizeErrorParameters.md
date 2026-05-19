@@ -8,7 +8,7 @@
 
 > **InvalidBytesSizeErrorParameters** = `object`
 
-Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:64
+Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:64
 
 Parameters for constructing an [InvalidBytesSizeError](../classes/InvalidBytesSizeError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing an [InvalidBytesSizeError](../classes/InvalidBytesSi
 
 ### cause?
 
-> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
+> `optional` **cause?**: [`InternalError`](../classes/InternalError.md) \| `EVMError`
 
-Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:84
+Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:84
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:84
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:88
+Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:88
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:88
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:68
+Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:68
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:68
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:72
+Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:72
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:72
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:76
+Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:76
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:76
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:92
+Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:92
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:92
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/data/InvalidByteSizeError.d.ts:80
+Defined in: tevm-monorepo/packages/errors/types/data/InvalidByteSizeError.d.ts:80
 
 - Additional meta messages.

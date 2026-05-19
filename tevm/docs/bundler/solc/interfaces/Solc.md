@@ -6,15 +6,15 @@
 
 # Interface: Solc
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:442
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:442
 
 ## Properties
 
-### compile()
+### compile
 
 > **compile**: (`input`) => [`SolcOutput`](../type-aliases/SolcOutput.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:448
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:448
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:448
 
 > **features**: `FeaturesConfig`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:447
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:447
 
 ***
 
@@ -40,15 +40,15 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:447
 
 > **license**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:445
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:445
 
 ***
 
-### loadRemoteVersion()
+### loadRemoteVersion
 
 > **loadRemoteVersion**: (`versionString`, `callback`) => `void`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:449
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:449
 
 #### Parameters
 
@@ -70,7 +70,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:449
 
 > **lowlevel**: `LowLevelConfig`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:446
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:446
 
 ***
 
@@ -78,15 +78,15 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:446
 
 > **semver**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:444
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:444
 
 ***
 
-### setupMethods()
+### setupMethods
 
 > **setupMethods**: (`soljson`) => `void`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:450
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:450
 
 #### Parameters
 
@@ -104,4 +104,4 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:450
 
 > **version**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:443
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:443

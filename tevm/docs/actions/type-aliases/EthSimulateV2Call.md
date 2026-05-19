@@ -8,7 +8,7 @@
 
 > **EthSimulateV2Call** = [`EthSimulateV1Call`](EthSimulateV1Call.md) & `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:451
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:451
 
 Parameters for a single simulated call within a block (V2)
 Extends V1 with additional tracing and gas estimation options
@@ -17,7 +17,7 @@ Extends V1 with additional tracing and gas estimation options
 
 ### estimateGas?
 
-> `readonly` `optional` **estimateGas**: `boolean`
+> `readonly` `optional` **estimateGas?**: `boolean`
 
 Whether to estimate gas for this call.
 When true, the call will be executed to estimate gas.

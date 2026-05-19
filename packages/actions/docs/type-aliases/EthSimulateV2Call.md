@@ -17,7 +17,7 @@ Extends V1 with additional tracing and gas estimation options
 
 ### estimateGas?
 
-> `readonly` `optional` **estimateGas**: `boolean`
+> `readonly` `optional` **estimateGas?**: `boolean`
 
 Whether to estimate gas for this call.
 When true, the call will be executed to estimate gas.

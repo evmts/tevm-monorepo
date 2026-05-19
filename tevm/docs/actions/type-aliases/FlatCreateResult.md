@@ -8,7 +8,7 @@
 
 > **FlatCreateResult** = `object`
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:45
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:45
 
 Result of a create trace entry
 
@@ -18,7 +18,7 @@ Result of a create trace entry
 
 > **address**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:47
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:47
 
 Created contract address
 
@@ -28,7 +28,7 @@ Created contract address
 
 > **code**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:49
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:49
 
 Deployed code
 
@@ -38,6 +38,6 @@ Deployed code
 
 > **gasUsed**: `bigint`
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:51
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:51
 
 Gas used

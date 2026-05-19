@@ -10,7 +10,7 @@
 
 ### cause?
 
-> `optional` **cause**: `unknown`
+> `optional` **cause?**: `unknown`
 
 The cause of the error.
 
@@ -18,7 +18,7 @@ The cause of the error.
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
 Details of the error.
 
@@ -26,7 +26,7 @@ Details of the error.
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
 Base URL for the documentation.
 
@@ -34,7 +34,7 @@ Base URL for the documentation.
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
 Path to the documentation.
 
@@ -42,7 +42,7 @@ Path to the documentation.
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
 Slug for the documentation.
 
@@ -50,6 +50,6 @@ Slug for the documentation.
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
 Additional meta messages.

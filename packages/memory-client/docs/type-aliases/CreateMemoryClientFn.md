@@ -4,7 +4,7 @@
 
 [@tevm/memory-client](../globals.md) / CreateMemoryClientFn
 
-# Type Alias: CreateMemoryClientFn()
+# Type Alias: CreateMemoryClientFn
 
 > **CreateMemoryClientFn** = \<`TCommon`, `TAccountOrAddress`, `TRpcSchema`\>(`options?`) => [`MemoryClient`](MemoryClient.md)\<`TCommon`, `TAccountOrAddress`\>
 

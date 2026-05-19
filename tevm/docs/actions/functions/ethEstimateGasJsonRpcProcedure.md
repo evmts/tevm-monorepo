@@ -8,7 +8,7 @@
 
 > **ethEstimateGasJsonRpcProcedure**(`client`): [`EthEstimateGasJsonRpcProcedure`](../type-aliases/EthEstimateGasJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethEstimateGasProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethEstimateGasProcedure.d.ts:1
 
 ## Parameters
 

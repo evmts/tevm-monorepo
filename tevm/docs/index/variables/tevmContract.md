@@ -8,7 +8,7 @@
 
 > `const` **tevmContract**: [`TevmContract`](../type-aliases/TevmContract.md)
 
-Defined in: packages/memory-client/types/tevmContract.d.ts:120
+Defined in: tevm-monorepo/packages/memory-client/types/tevmContract.d.ts:120
 
 A tree-shakeable version of the `tevmContract` action for viem.
 Provides a high-level interface for contract interactions with automatic encoding/decoding and full type safety.

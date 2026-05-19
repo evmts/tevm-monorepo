@@ -6,7 +6,7 @@
 
 # Interface: JsonBlock
 
-Defined in: packages/block/types/types.d.ts:405
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:405
 
 An object with the block's data represented as strings.
 
@@ -14,17 +14,17 @@ An object with the block's data represented as strings.
 
 ### executionWitness?
 
-> `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
+> `optional` **executionWitness?**: [`VerkleExecutionWitness`](VerkleExecutionWitness.md) \| `null`
 
-Defined in: packages/block/types/types.d.ts:414
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:414
 
 ***
 
 ### header?
 
-> `optional` **header**: [`JsonHeader`](JsonHeader.md)
+> `optional` **header?**: [`JsonHeader`](JsonHeader.md)
 
-Defined in: packages/block/types/types.d.ts:409
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:409
 
 Header data for the block
 
@@ -32,30 +32,30 @@ Header data for the block
 
 ### requests?
 
-> `optional` **requests**: `null` \| `` `0x${string}` ``[]
+> `optional` **requests?**: `` `0x${string}` ``[] \| `null`
 
-Defined in: packages/block/types/types.d.ts:413
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:413
 
 ***
 
 ### transactions?
 
-> `optional` **transactions**: [`JsonTx`](../../tx/interfaces/JsonTx.md)[]
+> `optional` **transactions?**: [`JsonTx`](../../tx/interfaces/JsonTx.md)[]
 
-Defined in: packages/block/types/types.d.ts:410
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:410
 
 ***
 
 ### uncleHeaders?
 
-> `optional` **uncleHeaders**: [`JsonHeader`](JsonHeader.md)[]
+> `optional` **uncleHeaders?**: [`JsonHeader`](JsonHeader.md)[]
 
-Defined in: packages/block/types/types.d.ts:411
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:411
 
 ***
 
 ### withdrawals?
 
-> `optional` **withdrawals**: [`JsonRpcWithdrawal`](../../utils/interfaces/JsonRpcWithdrawal.md)[]
+> `optional` **withdrawals?**: [`JsonRpcWithdrawal`](../../utils/interfaces/JsonRpcWithdrawal.md)[]
 
-Defined in: packages/block/types/types.d.ts:412
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:412

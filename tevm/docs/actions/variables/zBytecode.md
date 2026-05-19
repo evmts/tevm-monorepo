@@ -8,6 +8,6 @@
 
 > `const` **zBytecode**: `ZodPipe`
 
-Defined in: packages/actions/types/internal/zod/zBytecode.d.ts:4
+Defined in: tevm-monorepo/packages/actions/types/internal/zod/zBytecode.d.ts:4
 
 Zod validator for valid Ethereum bytecode

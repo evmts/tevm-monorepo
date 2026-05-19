@@ -12,7 +12,7 @@ const mockIsBlobEIP4844Tx = vi.fn((tx: any) => tx.type === 'blob')
 
 // Mock the actual imports in the module we're testing
 vi.mock(
-	'@tevm/tx',
+	'@evmts/zevm/tx',
 	() => {
 		return {
 			Capability: mockCapability,

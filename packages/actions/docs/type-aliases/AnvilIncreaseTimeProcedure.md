@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilIncreaseTimeProcedure
 
-# Type Alias: AnvilIncreaseTimeProcedure()
+# Type Alias: AnvilIncreaseTimeProcedure
 
 > **AnvilIncreaseTimeProcedure** = (`request`) => `Promise`\<[`AnvilIncreaseTimeJsonRpcResponse`](AnvilIncreaseTimeJsonRpcResponse.md)\>
 

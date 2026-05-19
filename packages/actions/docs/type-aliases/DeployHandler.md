@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / DeployHandler
 
-# Type Alias: DeployHandler()
+# Type Alias: DeployHandler
 
 > **DeployHandler** = \<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>(`action`) => `Promise`\<[`DeployResult`](DeployResult.md)\>
 

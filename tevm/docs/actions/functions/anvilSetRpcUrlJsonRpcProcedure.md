@@ -8,7 +8,7 @@
 
 > **anvilSetRpcUrlJsonRpcProcedure**(`client`): [`AnvilSetRpcUrlProcedure`](../type-aliases/AnvilSetRpcUrlProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetRpcUrlProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetRpcUrlProcedure.d.ts:1
 
 ## Parameters
 

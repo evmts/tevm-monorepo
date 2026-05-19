@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilDumpStateProcedure
 
-# Type Alias: AnvilDumpStateProcedure()
+# Type Alias: AnvilDumpStateProcedure
 
 > **AnvilDumpStateProcedure** = (`request`) => `Promise`\<[`AnvilDumpStateJsonRpcResponse`](AnvilDumpStateJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:67
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:67
 
 JSON-RPC procedure for `anvil_dumpState`
 

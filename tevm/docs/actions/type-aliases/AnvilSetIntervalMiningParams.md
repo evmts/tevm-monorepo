@@ -8,7 +8,7 @@
 
 > **AnvilSetIntervalMiningParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:49
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:49
 
 Params for `anvil_setIntervalMining` handler
 
@@ -18,6 +18,6 @@ Params for `anvil_setIntervalMining` handler
 
 > `readonly` **interval**: `number`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:53
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:53
 
 The mining interval in seconds. Set to 0 to disable interval mining.

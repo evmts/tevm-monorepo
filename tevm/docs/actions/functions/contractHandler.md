@@ -8,7 +8,7 @@
 
 > **contractHandler**(`client`, `__namedParameters?`): [`ContractHandler`](../type-aliases/ContractHandler.md)
 
-Defined in: packages/actions/types/Contract/contractHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Contract/contractHandler.d.ts:1
 
 ## Parameters
 

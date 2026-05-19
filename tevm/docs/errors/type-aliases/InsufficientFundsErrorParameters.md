@@ -8,7 +8,7 @@
 
 > **InsufficientFundsErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:59
+Defined in: tevm-monorepo/packages/errors/types/ethereum/InsufficientFundsError.d.ts:59
 
 Parameters for constructing an InsufficientFundsError.
 
@@ -16,9 +16,9 @@ Parameters for constructing an InsufficientFundsError.
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause?**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:79
+Defined in: tevm-monorepo/packages/errors/types/ethereum/InsufficientFundsError.d.ts:79
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:79
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:83
+Defined in: tevm-monorepo/packages/errors/types/ethereum/InsufficientFundsError.d.ts:83
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:83
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:63
+Defined in: tevm-monorepo/packages/errors/types/ethereum/InsufficientFundsError.d.ts:63
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:63
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:67
+Defined in: tevm-monorepo/packages/errors/types/ethereum/InsufficientFundsError.d.ts:67
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:67
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:71
+Defined in: tevm-monorepo/packages/errors/types/ethereum/InsufficientFundsError.d.ts:71
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:71
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:87
+Defined in: tevm-monorepo/packages/errors/types/ethereum/InsufficientFundsError.d.ts:87
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:87
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/InsufficientFundsError.d.ts:75
+Defined in: tevm-monorepo/packages/errors/types/ethereum/InsufficientFundsError.d.ts:75
 
 - Additional meta messages.

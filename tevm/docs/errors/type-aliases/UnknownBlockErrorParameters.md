@@ -8,7 +8,7 @@
 
 > **UnknownBlockErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:62
+Defined in: tevm-monorepo/packages/errors/types/ethereum/UnknownBlockError.d.ts:62
 
 Parameters for constructing an UnknownBlockError.
 
@@ -16,9 +16,9 @@ Parameters for constructing an UnknownBlockError.
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause?**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:82
+Defined in: tevm-monorepo/packages/errors/types/ethereum/UnknownBlockError.d.ts:82
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:82
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:86
+Defined in: tevm-monorepo/packages/errors/types/ethereum/UnknownBlockError.d.ts:86
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:86
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:66
+Defined in: tevm-monorepo/packages/errors/types/ethereum/UnknownBlockError.d.ts:66
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:66
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:70
+Defined in: tevm-monorepo/packages/errors/types/ethereum/UnknownBlockError.d.ts:70
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:70
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:74
+Defined in: tevm-monorepo/packages/errors/types/ethereum/UnknownBlockError.d.ts:74
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:74
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:90
+Defined in: tevm-monorepo/packages/errors/types/ethereum/UnknownBlockError.d.ts:90
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:90
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/UnknownBlockError.d.ts:78
+Defined in: tevm-monorepo/packages/errors/types/ethereum/UnknownBlockError.d.ts:78
 
 - Additional meta messages.

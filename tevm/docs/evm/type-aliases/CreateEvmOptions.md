@@ -8,7 +8,7 @@
 
 > **CreateEvmOptions** = `object`
 
-Defined in: packages/evm/dist/index.d.ts:107
+Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:99
 
 Options for [createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
 
@@ -47,9 +47,9 @@ The EVM is normally encapsolated by both `@tevm/vm` Vm, TevmNode, and MemoryClie
 
 ### allowUnlimitedContractSize?
 
-> `optional` **allowUnlimitedContractSize**: `boolean`
+> `optional` **allowUnlimitedContractSize?**: `boolean`
 
-Defined in: packages/evm/dist/index.d.ts:190
+Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:182
 
 Enable/disable unlimited contract size. Defaults to false.
 
@@ -59,7 +59,7 @@ Enable/disable unlimited contract size. Defaults to false.
 
 > **blockchain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
 
-Defined in: packages/evm/dist/index.d.ts:124
+Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:116
 
 ***
 
@@ -67,7 +67,7 @@ Defined in: packages/evm/dist/index.d.ts:124
 
 > **common**: [`Common`](../../common/type-aliases/Common.md)
 
-Defined in: packages/evm/dist/index.d.ts:115
+Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:107
 
 Ethereumjs common object
 
@@ -75,9 +75,9 @@ Ethereumjs common object
 
 ### customPrecompiles?
 
-> `optional` **customPrecompiles**: [`CustomPrecompile`](../../precompiles/type-aliases/CustomPrecompile.md)[]
+> `optional` **customPrecompiles?**: [`CustomPrecompile`](CustomPrecompile.md)[]
 
-Defined in: packages/evm/dist/index.d.ts:168
+Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:160
 
 Custom precompiles allow you to run arbitrary JavaScript code in the EVM.
 See the [Precompile guide](https://todo.todo) documentation for a deeper dive
@@ -130,9 +130,9 @@ const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
 
 ### customPredeploys?
 
-> `optional` **customPredeploys**: `ReadonlyArray`\<[`Predeploy`](../../index/type-aliases/Predeploy.md)\<`any`, `any`\>\>
+> `optional` **customPredeploys?**: `ReadonlyArray`\<[`Predeploy`](../../index/type-aliases/Predeploy.md)\<`any`, `any`\>\>
 
-Defined in: packages/evm/dist/index.d.ts:186
+Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:178
 
 Custom predeploys allow you to deploy arbitrary EVM bytecode to an address.
 This is a convenience method and equivalent to calling tevm.setAccount() manually
@@ -154,9 +154,9 @@ const tevm = createMemoryClient({
 
 ### loggingLevel?
 
-> `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
+> `optional` **loggingLevel?**: `LogOptions`\[`"level"`\]
 
-Defined in: packages/evm/dist/index.d.ts:111
+Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:103
 
 The logging level to run the evm at. Defaults to 'warn'
 
@@ -164,9 +164,9 @@ The logging level to run the evm at. Defaults to 'warn'
 
 ### profiler?
 
-> `optional` **profiler**: `boolean`
+> `optional` **profiler?**: `boolean`
 
-Defined in: packages/evm/dist/index.d.ts:123
+Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:115
 
 Enable profiler. Defaults to false.
 
@@ -176,6 +176,6 @@ Enable profiler. Defaults to false.
 
 > **stateManager**: [`StateManager`](../../state/interfaces/StateManager.md)
 
-Defined in: packages/evm/dist/index.d.ts:119
+Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:111
 
 A custom Tevm state manager

@@ -6,11 +6,11 @@
 
 # Interface: StateManager
 
-Defined in: [packages/state/src/StateManager.ts:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L6)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L8)
 
 ## Extends
 
-- `StateManagerInterface`
+- `Omit`\<`EvmStateManagerInterface`, `"getAccount"` \| `"putAccount"` \| `"modifyAccountFields"` \| `"shallowCopy"`\>
 
 ## Properties
 
@@ -18,17 +18,43 @@ Defined in: [packages/state/src/StateManager.ts:6](https://github.com/evmts/tevm
 
 > **\_baseState**: [`BaseState`](../type-aliases/BaseState.md)
 
-Defined in: [packages/state/src/StateManager.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L10)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L13)
 
 The internal state representation
 
 ***
 
-### getAccountAddresses()
+### checkChunkWitnessPresent?
+
+> `optional` **checkChunkWitnessPresent?**: (`contract`, `programCounter`) => `Promise`\<`boolean`\>
+
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:127
+
+#### Parameters
+
+##### contract
+
+`Address`
+
+##### programCounter
+
+`number`
+
+#### Returns
+
+`Promise`\<`boolean`\>
+
+#### Inherited from
+
+`Omit.checkChunkWitnessPresent`
+
+***
+
+### getAccountAddresses
 
 > **getAccountAddresses**: () => `Set`\<`` `0x${string}` ``\>
 
-Defined in: [packages/state/src/StateManager.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L15)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L18)
 
 Returns contract addresses
 
@@ -38,11 +64,59 @@ Returns contract addresses
 
 ***
 
+### getAppliedKey?
+
+> `optional` **getAppliedKey?**: (`address`) => `Uint8Array`
+
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:128
+
+#### Parameters
+
+##### address
+
+`Uint8Array`
+
+#### Returns
+
+`Uint8Array`
+
+#### Inherited from
+
+`Omit.getAppliedKey`
+
+***
+
+### initBinaryTreeExecutionWitness?
+
+> `optional` **initBinaryTreeExecutionWitness?**: (`blockNum`, `executionWitness?`) => `void`
+
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:125
+
+#### Parameters
+
+##### blockNum
+
+`bigint`
+
+##### executionWitness?
+
+`BinaryTreeExecutionWitness` \| `null`
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+`Omit.initBinaryTreeExecutionWitness`
+
+***
+
 ### originalStorageCache
 
 > **originalStorageCache**: `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:164
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:120
 
 #### clear()
 
@@ -72,37 +146,33 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.originalStorageCache`
+`Omit.originalStorageCache`
 
 ***
 
-### ready()
+### ready
 
 > **ready**: () => `Promise`\<`true`\>
 
-Defined in: [packages/state/src/StateManager.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L11)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L14)
 
 #### Returns
 
 `Promise`\<`true`\>
 
-## Methods
+***
 
-### checkChunkWitnessPresent()?
+### verifyBinaryTreePostState?
 
-> `optional` **checkChunkWitnessPresent**(`contract`, `programCounter`): `Promise`\<`boolean`\>
+> `optional` **verifyBinaryTreePostState?**: (`accessWitness`) => `Promise`\<`boolean`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:173
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:126
 
 #### Parameters
 
-##### contract
+##### accessWitness
 
-`Address`
-
-##### programCounter
-
-`number`
+`BinaryTreeAccessWitnessInterface`
 
 #### Returns
 
@@ -110,15 +180,15 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.checkChunkWitnessPresent`
+`Omit.verifyBinaryTreePostState`
 
-***
+## Methods
 
 ### checkpoint()
 
 > **checkpoint**(): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:156
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:112
 
 #### Returns
 
@@ -126,7 +196,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.checkpoint`
+`Omit.checkpoint`
 
 ***
 
@@ -134,7 +204,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **clearCaches**(): `void`
 
-Defined in: [packages/state/src/StateManager.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L27)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L34)
 
 Resets all internal caches
 
@@ -144,7 +214,7 @@ Resets all internal caches
 
 #### Overrides
 
-`EvmStateManagerInterface.clearCaches`
+`Omit.clearCaches`
 
 ***
 
@@ -152,7 +222,7 @@ Resets all internal caches
 
 > **clearContractStorage**(`address`): `Promise`\<`void`\>
 
-Defined in: [packages/state/src/StateManager.ts:49](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L49)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L56)
 
 Clears all storage entries for the account
 
@@ -172,7 +242,7 @@ Clears all storage entries for the account
 
 > **clearStorage**(`address`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:155
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:111
 
 #### Parameters
 
@@ -186,7 +256,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.clearStorage`
+`Omit.clearStorage`
 
 ***
 
@@ -194,7 +264,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **commit**(`createNewStateRoot?`): `Promise`\<`void`\>
 
-Defined in: [packages/state/src/StateManager.ts:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L37)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:44](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L44)
 
 Commits the current state.
 
@@ -216,7 +286,7 @@ This api is not stable
 
 #### Overrides
 
-`EvmStateManagerInterface.commit`
+`Omit.commit`
 
 ***
 
@@ -224,7 +294,7 @@ This api is not stable
 
 > **deepCopy**(): `Promise`\<`StateManager`\>
 
-Defined in: [packages/state/src/StateManager.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L19)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L25)
 
 Returns a new instance of the ForkStateManager with the same opts and all storage copied over
 
@@ -238,7 +308,7 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 
 > **deleteAccount**(`address`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:148
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:104
 
 #### Parameters
 
@@ -252,7 +322,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.deleteAccount`
+`Omit.deleteAccount`
 
 ***
 
@@ -260,7 +330,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **dumpCanonicalGenesis**(): `Promise`\<[`TevmState`](../type-aliases/TevmState.md)\>
 
-Defined in: [packages/state/src/StateManager.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L23)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L30)
 
 Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.md)
 
@@ -274,7 +344,7 @@ Dumps the state of the state manager as a [TevmState](../type-aliases/TevmState.
 
 > **dumpStorage**(`address`): `Promise`\<`StorageDump`\>
 
-Defined in: [packages/state/src/StateManager.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L53)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:60](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L60)
 
 Dumps storage based on the input
 
@@ -290,7 +360,7 @@ Dumps storage based on the input
 
 #### Overrides
 
-`EvmStateManagerInterface.dumpStorage`
+`Omit.dumpStorage`
 
 ***
 
@@ -298,7 +368,7 @@ Dumps storage based on the input
 
 > **dumpStorageRange**(`address`, `startKey`, `limit`): `Promise`\<`StorageRange`\>
 
-Defined in: [packages/state/src/StateManager.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L57)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:64](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L64)
 
 Dumps a range of storage values
 
@@ -322,7 +392,7 @@ Dumps a range of storage values
 
 #### Overrides
 
-`EvmStateManagerInterface.dumpStorageRange`
+`Omit.dumpStorageRange`
 
 ***
 
@@ -330,7 +400,7 @@ Dumps a range of storage values
 
 > **generateCanonicalGenesis**(`state`): `Promise`\<`void`\>
 
-Defined in: [packages/state/src/StateManager.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L65)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L72)
 
 Loads a state from a given state root
 
@@ -346,15 +416,15 @@ Loads a state from a given state root
 
 #### Overrides
 
-`EvmStateManagerInterface.generateCanonicalGenesis`
+`Omit.generateCanonicalGenesis`
 
 ***
 
 ### getAccount()
 
-> **getAccount**(`address`): `Promise`\<`undefined` \| `Account`\>
+> **getAccount**(`address`): `Promise`\<`Account` \| `undefined`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:146
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L19)
 
 #### Parameters
 
@@ -364,33 +434,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Returns
 
-`Promise`\<`undefined` \| `Account`\>
-
-#### Inherited from
-
-`EvmStateManagerInterface.getAccount`
-
-***
-
-### getAppliedKey()?
-
-> `optional` **getAppliedKey**(`address`): `Uint8Array`
-
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:174
-
-#### Parameters
-
-##### address
-
-`Uint8Array`
-
-#### Returns
-
-`Uint8Array`
-
-#### Inherited from
-
-`EvmStateManagerInterface.getAppliedKey`
+`Promise`\<`Account` \| `undefined`\>
 
 ***
 
@@ -398,7 +442,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **getCode**(`address`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:151
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:107
 
 #### Parameters
 
@@ -412,7 +456,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.getCode`
+`Omit.getCode`
 
 ***
 
@@ -420,7 +464,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **getCodeSize**(`address`): `Promise`\<`number`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:152
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:108
 
 #### Parameters
 
@@ -434,7 +478,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.getCodeSize`
+`Omit.getCodeSize`
 
 ***
 
@@ -442,7 +486,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **getProof**(`address`, `storageSlots?`): `Promise`\<`Proof`\>
 
-Defined in: [packages/state/src/StateManager.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L72)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L79)
 
 Get an EIP-1186 proof from the provider
 
@@ -472,7 +516,7 @@ The account and storage proof
 
 > **getStateRoot**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:159
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:115
 
 #### Returns
 
@@ -480,7 +524,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.getStateRoot`
+`Omit.getStateRoot`
 
 ***
 
@@ -488,7 +532,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **getStorage**(`address`, `key`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:153
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:109
 
 #### Parameters
 
@@ -506,7 +550,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.getStorage`
+`Omit.getStorage`
 
 ***
 
@@ -514,7 +558,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **hasStateRoot**(`root`): `Promise`\<`boolean`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:161
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:117
 
 #### Parameters
 
@@ -528,59 +572,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.hasStateRoot`
-
-***
-
-### initBinaryTreeExecutionWitness()?
-
-> `optional` **initBinaryTreeExecutionWitness**(`blockNum`, `executionWitness?`): `void`
-
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:171
-
-#### Parameters
-
-##### blockNum
-
-`bigint`
-
-##### executionWitness?
-
-`null` | `BinaryTreeExecutionWitness`
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-`EvmStateManagerInterface.initBinaryTreeExecutionWitness`
-
-***
-
-### initVerkleExecutionWitness()?
-
-> `optional` **initVerkleExecutionWitness**(`blockNum`, `executionWitness?`): `void`
-
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:169
-
-#### Parameters
-
-##### blockNum
-
-`bigint`
-
-##### executionWitness?
-
-`null` | `VerkleExecutionWitness`
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-`EvmStateManagerInterface.initVerkleExecutionWitness`
+`Omit.hasStateRoot`
 
 ***
 
@@ -588,7 +580,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **modifyAccountFields**(`address`, `accountFields`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:149
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L21)
 
 #### Parameters
 
@@ -604,17 +596,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 `Promise`\<`void`\>
 
-#### Inherited from
-
-`EvmStateManagerInterface.modifyAccountFields`
-
 ***
 
 ### putAccount()
 
 > **putAccount**(`address`, `account?`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:147
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L20)
 
 #### Parameters
 
@@ -630,17 +618,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 `Promise`\<`void`\>
 
-#### Inherited from
-
-`EvmStateManagerInterface.putAccount`
-
 ***
 
 ### putCode()
 
 > **putCode**(`address`, `value`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:150
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:106
 
 #### Parameters
 
@@ -658,7 +642,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.putCode`
+`Omit.putCode`
 
 ***
 
@@ -666,7 +650,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **putStorage**(`address`, `key`, `value`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:154
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:110
 
 #### Parameters
 
@@ -688,7 +672,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.putStorage`
+`Omit.putStorage`
 
 ***
 
@@ -696,7 +680,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **revert**(): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:158
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:114
 
 #### Returns
 
@@ -704,7 +688,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.revert`
+`Omit.revert`
 
 ***
 
@@ -712,7 +696,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 > **saveStateRoot**(`root`, `state`): `void`
 
-Defined in: [packages/state/src/StateManager.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L33)
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:40](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L40)
 
 **`Experimental`**
 
@@ -739,7 +723,7 @@ THis API is considered unstable
 
 > **setStateRoot**(`stateRoot`, `clearCache?`): `Promise`\<`void`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:160
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:116
 
 #### Parameters
 
@@ -757,70 +741,16 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 #### Inherited from
 
-`EvmStateManagerInterface.setStateRoot`
+`Omit.setStateRoot`
 
 ***
 
 ### shallowCopy()
 
-> **shallowCopy**(`downlevelCaches?`): `StateManagerInterface`
+> **shallowCopy**(): `StateManager`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:176
-
-#### Parameters
-
-##### downlevelCaches?
-
-`boolean`
+Defined in: [tevm-monorepo/packages/state/src/StateManager.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/StateManager.ts#L26)
 
 #### Returns
 
-`StateManagerInterface`
-
-#### Inherited from
-
-`EvmStateManagerInterface.shallowCopy`
-
-***
-
-### verifyBinaryTreePostState()?
-
-> `optional` **verifyBinaryTreePostState**(`accessWitness`): `Promise`\<`boolean`\>
-
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:172
-
-#### Parameters
-
-##### accessWitness
-
-`BinaryTreeAccessWitnessInterface`
-
-#### Returns
-
-`Promise`\<`boolean`\>
-
-#### Inherited from
-
-`EvmStateManagerInterface.verifyBinaryTreePostState`
-
-***
-
-### verifyVerklePostState()?
-
-> `optional` **verifyVerklePostState**(`accessWitness`): `Promise`\<`boolean`\>
-
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:170
-
-#### Parameters
-
-##### accessWitness
-
-`VerkleAccessWitnessInterface`
-
-#### Returns
-
-`Promise`\<`boolean`\>
-
-#### Inherited from
-
-`EvmStateManagerInterface.verifyVerklePostState`
+`StateManager`

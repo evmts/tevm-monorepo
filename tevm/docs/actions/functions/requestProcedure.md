@@ -8,7 +8,7 @@
 
 > **requestProcedure**(`client`): [`TevmJsonRpcRequestHandler`](../type-aliases/TevmJsonRpcRequestHandler.md)
 
-Defined in: packages/actions/types/requestProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/requestProcedure.d.ts:1
 
 ## Parameters
 

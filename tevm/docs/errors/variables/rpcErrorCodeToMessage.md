@@ -8,4 +8,4 @@
 
 > `const` **rpcErrorCodeToMessage**: `Record`\<[`RpcErrorCode`](../type-aliases/RpcErrorCode.md), `string`\>
 
-Defined in: packages/errors/types/rpcErrorToMessage.d.ts:4
+Defined in: tevm-monorepo/packages/errors/types/rpcErrorToMessage.d.ts:4

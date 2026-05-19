@@ -8,7 +8,7 @@
 
 > **JsonRpcSimulateTransaction** = [`JsonRpcTransaction`](JsonRpcTransaction.md) & `object`
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:253
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:253
 
 JSON-RPC transaction for simulateV1
 
@@ -16,8 +16,8 @@ JSON-RPC transaction for simulateV1
 
 ### maxFeePerGas?
 
-> `optional` **maxFeePerGas**: [`Hex`](../../index/type-aliases/Hex.md)
+> `optional` **maxFeePerGas?**: [`Hex`](../../index/type-aliases/Hex.md)
 
 ### maxPriorityFeePerGas?
 
-> `optional` **maxPriorityFeePerGas**: [`Hex`](../../index/type-aliases/Hex.md)
+> `optional` **maxPriorityFeePerGas?**: [`Hex`](../../index/type-aliases/Hex.md)

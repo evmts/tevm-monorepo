@@ -8,6 +8,6 @@
 
 > **JsonSerializable** = `bigint` \| `string` \| `number` \| `boolean` \| `null` \| [`JsonSerializableArray`](JsonSerializableArray.md) \| [`JsonSerializableObject`](JsonSerializableObject.md) \| [`JsonSerializableSet`](JsonSerializableSet.md)
 
-Defined in: packages/utils/types/SerializeToJson.d.ts:5
+Defined in: tevm-monorepo/packages/utils/types/SerializeToJson.d.ts:5
 
 A type that represents a JSON-serializable value.

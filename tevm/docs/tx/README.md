@@ -30,6 +30,7 @@
 - [AccessList](type-aliases/AccessList.md)
 - [AccessListItem](type-aliases/AccessListItem.md)
 - [Capability](type-aliases/Capability.md)
+- [ImpersonatedTxData](type-aliases/ImpersonatedTxData.md)
 - [TransactionType](type-aliases/TransactionType.md)
 - [TypedTransaction](type-aliases/TypedTransaction.md)
 

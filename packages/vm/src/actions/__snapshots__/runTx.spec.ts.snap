@@ -262,7 +262,6 @@ exports[`runTx should execute a transaction successfully 1`] = `
       0,
       0,
     ],
-    "keccakFunction": [Function],
   },
   "execResult": {
     "exceptionError": undefined,
@@ -957,7 +956,6 @@ exports[`runTx should report access list 1`] = `
       0,
       0,
     ],
-    "keccakFunction": [Function],
   },
   "execResult": {
     "exceptionError": undefined,
@@ -1496,7 +1494,6 @@ exports[`runTx should handle EIP-1559 transactions 1`] = `
       0,
       0,
     ],
-    "keccakFunction": [Function],
   },
   "execResult": {
     "exceptionError": undefined,
@@ -2035,7 +2032,6 @@ exports[`runTx should generate transaction receipt correctly 1`] = `
       0,
       0,
     ],
-    "keccakFunction": [Function],
   },
   "execResult": {
     "exceptionError": undefined,

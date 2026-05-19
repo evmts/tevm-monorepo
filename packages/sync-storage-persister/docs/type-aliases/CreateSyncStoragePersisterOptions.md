@@ -14,9 +14,9 @@ Options for creating a sync storage persister.
 
 ## Properties
 
-### deserialize()?
+### deserialize?
 
-> `optional` **deserialize**: (`cachedString`) => `SerializableTevmState`
+> `optional` **deserialize?**: (`cachedString`) => `SerializableTevmState`
 
 Defined in: [CreateSyncStoragePersisterOptions.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L26)
 
@@ -40,7 +40,7 @@ How to deserialize the data from storage.
 
 ### key?
 
-> `optional` **key**: `string`
+> `optional` **key?**: `string`
 
 Defined in: [CreateSyncStoragePersisterOptions.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L14)
 
@@ -48,9 +48,9 @@ The key to use when storing the cache
 
 ***
 
-### serialize()?
+### serialize?
 
-> `optional` **serialize**: (`client`) => `string`
+> `optional` **serialize?**: (`client`) => `string`
 
 Defined in: [CreateSyncStoragePersisterOptions.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L21)
 
@@ -86,7 +86,7 @@ For SSR pass in `undefined`. Note that window.localStorage can be
 
 ### throttleTime?
 
-> `optional` **throttleTime**: `number`
+> `optional` **throttleTime?**: `number`
 
 Defined in: [CreateSyncStoragePersisterOptions.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/sync-storage-persister/src/CreateSyncStoragePersisterOptions.ts#L16)
 

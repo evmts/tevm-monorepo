@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [index](../README.md) / createJsonRpcFetcher
 
-# Type Alias: createJsonRpcFetcher()
+# Type Alias: createJsonRpcFetcher
 
 > **createJsonRpcFetcher** = (`client`) => [`JsonRpcClient`](JsonRpcClient.md)
 
-Defined in: packages/jsonrpc/types/createJsonRpcFetcher.d.ts:1
+Defined in: tevm-monorepo/packages/jsonrpc/types/createJsonRpcFetcher.d.ts:1
 
 ## Parameters
 

@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilRemovePoolTransactionsProcedure
 
-# Type Alias: AnvilRemovePoolTransactionsProcedure()
+# Type Alias: AnvilRemovePoolTransactionsProcedure
 
 > **AnvilRemovePoolTransactionsProcedure** = (`request`) => `Promise`\<[`AnvilRemovePoolTransactionsJsonRpcResponse`](AnvilRemovePoolTransactionsJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:91
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:91
 
 JSON-RPC procedure for `anvil_removePoolTransactions`
 

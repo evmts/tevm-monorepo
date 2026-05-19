@@ -8,7 +8,7 @@
 
 > **ethGetTransactionByHashJsonRpcProcedure**(`client`): [`EthGetTransactionByHashJsonRpcProcedure`](../type-aliases/EthGetTransactionByHashJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethGetTransactionByHashProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethGetTransactionByHashProcedure.d.ts:1
 
 ## Parameters
 

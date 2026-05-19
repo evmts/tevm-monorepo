@@ -1,5 +1,5 @@
+import type { EvmResult, InterpreterStep } from '@evmts/zevm/evm'
 import type { Address } from '@tevm/address'
-import type { EvmResult, InterpreterStep } from '@tevm/evm'
 
 /**
  * Event emitted when a new contract is created

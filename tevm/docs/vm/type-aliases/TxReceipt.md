@@ -8,7 +8,7 @@
 
 > **TxReceipt** = [`PreByzantiumTxReceipt`](../interfaces/PreByzantiumTxReceipt.md) \| [`PostByzantiumTxReceipt`](../interfaces/PostByzantiumTxReceipt.md) \| [`EIP4844BlobTxReceipt`](../interfaces/EIP4844BlobTxReceipt.md)
 
-Defined in: packages/vm/types/utils/TxReceipt.d.ts:21
+Defined in: tevm-monorepo/packages/vm/types/utils/TxReceipt.d.ts:21
 
 Union type representing all supported transaction receipt formats.
 Includes pre-Byzantium, post-Byzantium, and EIP-4844 blob transaction receipts.

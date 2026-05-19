@@ -1,4 +1,4 @@
-import { createMapDb } from '@tevm/receipt-manager'
+import { createMapDb } from '@evmts/zevm/receipt-manager'
 import { bytesToHex } from 'viem'
 
 /**

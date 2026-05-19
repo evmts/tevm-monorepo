@@ -8,7 +8,7 @@
 
 > **SolcErrorEntry** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:104
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:104
 
 ## Properties
 
@@ -16,23 +16,23 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:104
 
 > **component**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:108
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:108
 
 ***
 
 ### errorCode?
 
-> `optional` **errorCode**: `string`
+> `optional` **errorCode?**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:110
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:110
 
 ***
 
 ### formattedMessage?
 
-> `optional` **formattedMessage**: `string`
+> `optional` **formattedMessage?**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:112
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:112
 
 ***
 
@@ -40,15 +40,15 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:112
 
 > **message**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:111
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:111
 
 ***
 
 ### secondarySourceLocations?
 
-> `optional` **secondarySourceLocations**: [`SolcSecondarySourceLocation`](SolcSecondarySourceLocation.md)[]
+> `optional` **secondarySourceLocations?**: [`SolcSecondarySourceLocation`](SolcSecondarySourceLocation.md)[]
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:106
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:106
 
 ***
 
@@ -56,15 +56,15 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:106
 
 > **severity**: `"error"` \| `"warning"` \| `"info"`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:109
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:109
 
 ***
 
 ### sourceLocation?
 
-> `optional` **sourceLocation**: [`SolcSourceLocation`](SolcSourceLocation.md)
+> `optional` **sourceLocation?**: [`SolcSourceLocation`](SolcSourceLocation.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:105
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:105
 
 ***
 
@@ -72,4 +72,4 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:105
 
 > **type**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:107
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:107

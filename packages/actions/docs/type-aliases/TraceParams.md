@@ -26,7 +26,7 @@ Config params for trace calls
 
 ### timeout?
 
-> `readonly` `optional` **timeout**: `string`
+> `readonly` `optional` **timeout?**: `string`
 
 Defined in: [packages/actions/src/debug/DebugParams.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L28)
 
@@ -42,7 +42,7 @@ A duration string of decimal numbers that overrides the default timeout of 5 sec
 
 ### tracer?
 
-> `readonly` `optional` **tracer**: `TTracer`
+> `readonly` `optional` **tracer?**: `TTracer`
 
 Defined in: [packages/actions/src/debug/DebugParams.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L23)
 
@@ -53,7 +53,7 @@ Supported tracers: callTracer, prestateTracer, 4byteTracer, flatCallTracer, muxT
 
 ### tracerConfig?
 
-> `readonly` `optional` **tracerConfig**: `TTracer` *extends* `"muxTracer"` ? [`MuxTracerConfiguration`](MuxTracerConfiguration.md)\<`TDiffMode`\> : `object`
+> `readonly` `optional` **tracerConfig?**: `TTracer` *extends* `"muxTracer"` ? [`MuxTracerConfiguration`](MuxTracerConfiguration.md)\<`TDiffMode`\> : `object`
 
 Defined in: [packages/actions/src/debug/DebugParams.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L33)
 

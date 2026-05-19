@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetCoinbaseProcedure
 
-# Type Alias: AnvilSetCoinbaseProcedure()
+# Type Alias: AnvilSetCoinbaseProcedure
 
 > **AnvilSetCoinbaseProcedure** = (`request`) => `Promise`\<[`AnvilSetCoinbaseJsonRpcResponse`](AnvilSetCoinbaseJsonRpcResponse.md)\>
 

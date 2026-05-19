@@ -8,7 +8,7 @@
 
 > **ethGetLogsHandler**(`client`): [`EthGetLogsHandler`](../type-aliases/EthGetLogsHandler.md)
 
-Defined in: packages/actions/types/eth/ethGetLogsHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethGetLogsHandler.d.ts:1
 
 ## Parameters
 

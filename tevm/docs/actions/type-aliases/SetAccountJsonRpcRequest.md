@@ -8,6 +8,6 @@
 
 > **SetAccountJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"tevm_setAccount"`, \[`SerializeToJson`\<[`SetAccountParams`](SetAccountParams.md)\>\]\>
 
-Defined in: packages/actions/types/SetAccount/SetAccountJsonRpcRequest.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/SetAccount/SetAccountJsonRpcRequest.d.ts:7
 
 JSON-RPC request for `tevm_setAccount` method

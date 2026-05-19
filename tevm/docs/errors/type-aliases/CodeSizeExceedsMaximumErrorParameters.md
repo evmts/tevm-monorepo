@@ -8,7 +8,7 @@
 
 > **CodeSizeExceedsMaximumErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:90
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:90
 
 Parameters for constructing a [CodeSizeExceedsMaximumError](../classes/CodeSizeExceedsMaximumError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing a [CodeSizeExceedsMaximumError](../classes/CodeSizeE
 
 ### cause?
 
-> `optional` **cause**: [`GasLimitExceededError`](../classes/GasLimitExceededError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
+> `optional` **cause?**: [`GasLimitExceededError`](../classes/GasLimitExceededError.md) \| `EVMError`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:110
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:110
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumErro
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:114
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:114
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumErro
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:94
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:94
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumErro
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:98
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:98
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumErro
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:102
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:102
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumErro
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:118
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:118
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumErro
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:106
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:106
 
 - Additional meta messages.

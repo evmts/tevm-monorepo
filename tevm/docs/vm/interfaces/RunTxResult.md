@@ -6,7 +6,7 @@
 
 # Interface: RunTxResult
 
-Defined in: packages/vm/types/utils/RunTxResult.d.ts:9
+Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:9
 
 Execution result of a transaction
 
@@ -22,9 +22,9 @@ Execution result of a transaction
 
 ### accessList?
 
-> `optional` **accessList**: [`AccessList`](../../tx/type-aliases/AccessList.md)
+> `optional` **accessList?**: [`AccessList`](../../tx/type-aliases/AccessList.md)
 
-Defined in: packages/vm/types/utils/RunTxResult.d.ts:35
+Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:35
 
 EIP-2930 access list generated for the tx (see `reportAccessList` option)
 
@@ -34,7 +34,7 @@ EIP-2930 access list generated for the tx (see `reportAccessList` option)
 
 > **amountSpent**: `bigint`
 
-Defined in: packages/vm/types/utils/RunTxResult.d.ts:17
+Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:17
 
 The amount of ether used by this transaction
 
@@ -42,9 +42,9 @@ The amount of ether used by this transaction
 
 ### blobGasUsed?
 
-> `optional` **blobGasUsed**: `bigint`
+> `optional` **blobGasUsed?**: `bigint`
 
-Defined in: packages/vm/types/utils/RunTxResult.d.ts:47
+Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:47
 
 This is the blob gas units times the fee per blob gas for 4844 transactions
 
@@ -52,9 +52,9 @@ This is the blob gas units times the fee per blob gas for 4844 transactions
 
 ### bloom
 
-> **bloom**: `Bloom`
+> **bloom**: [`Bloom`](../../utils/classes/Bloom.md)
 
-Defined in: packages/vm/types/utils/RunTxResult.d.ts:13
+Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:13
 
 Bloom filter resulted from transaction
 
@@ -62,9 +62,9 @@ Bloom filter resulted from transaction
 
 ### createdAddress?
 
-> `optional` **createdAddress**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+> `optional` **createdAddress?**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:333
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:331
 
 Address of created account during transaction, if any
 
@@ -78,7 +78,7 @@ Address of created account during transaction, if any
 
 > **execResult**: [`ExecResult`](../../evm/interfaces/ExecResult.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:337
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:335
 
 Contains the results from running the code, if any, as described in runCode
 
@@ -92,7 +92,7 @@ Contains the results from running the code, if any, as described in runCode
 
 > **gasRefund**: `bigint`
 
-Defined in: packages/vm/types/utils/RunTxResult.d.ts:31
+Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:31
 
 The amount of gas as that was refunded during the transaction (i.e. `gasUsed = totalGasConsumed - gasRefund`)
 
@@ -102,7 +102,7 @@ The amount of gas as that was refunded during the transaction (i.e. `gasUsed = t
 
 > **minerValue**: `bigint`
 
-Defined in: packages/vm/types/utils/RunTxResult.d.ts:43
+Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:43
 
 The value that accrues to the miner by this transaction
 
@@ -110,9 +110,9 @@ The value that accrues to the miner by this transaction
 
 ### preimages?
 
-> `optional` **preimages**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
+> `optional` **preimages?**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/vm/types/utils/RunTxResult.d.ts:39
+Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:39
 
 Preimages mapping of the touched accounts from the tx (see `reportPreimages` option)
 
@@ -122,7 +122,7 @@ Preimages mapping of the touched accounts from the tx (see `reportPreimages` opt
 
 > **receipt**: [`TxReceipt`](../type-aliases/TxReceipt.md)
 
-Defined in: packages/vm/types/utils/RunTxResult.d.ts:21
+Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:21
 
 The tx receipt
 
@@ -132,7 +132,7 @@ The tx receipt
 
 > **totalGasSpent**: `bigint`
 
-Defined in: packages/vm/types/utils/RunTxResult.d.ts:27
+Defined in: tevm-monorepo/packages/vm/types/utils/RunTxResult.d.ts:27
 
 The amount of gas used in this transaction, which is paid for
 This contains the gas units that have been used on execution, plus the upfront cost,

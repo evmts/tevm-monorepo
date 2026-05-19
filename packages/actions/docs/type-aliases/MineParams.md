@@ -16,19 +16,19 @@ Tevm params to mine one or more blocks.
 
 ### blockCount?
 
-> `readonly` `optional` **blockCount**: `number`
+> `readonly` `optional` **blockCount?**: `number`
 
 Number of blocks to mine. Defaults to 1.
 
 ### interval?
 
-> `readonly` `optional` **interval**: `number`
+> `readonly` `optional` **interval?**: `number`
 
 Interval between block timestamps. Defaults to 1.
 
 ### tx?
 
-> `readonly` `optional` **tx**: [`Hex`](Hex.md)
+> `readonly` `optional` **tx?**: [`Hex`](Hex.md)
 
 The txHash to mine if only mining one tx
 

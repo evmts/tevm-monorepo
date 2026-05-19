@@ -8,7 +8,7 @@
 
 > **recoverMessageAddress**(`params`): `` `0x${string}` ``
 
-Defined in: packages/utils/types/signature.d.ts:92
+Defined in: tevm-monorepo/packages/utils/types/signature.d.ts:92
 
 Recovers the address from a signed message
 

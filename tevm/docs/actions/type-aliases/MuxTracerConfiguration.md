@@ -8,7 +8,7 @@
 
 > **MuxTracerConfiguration**\<`TDiffMode`\> = `object`
 
-Defined in: packages/actions/types/common/MuxTraceResult.d.ts:77
+Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:77
 
 Configuration for muxTracer
 Each key is a tracer name and the value is that tracer's specific config
@@ -23,42 +23,42 @@ Each key is a tracer name and the value is that tracer's specific config
 
 ### 4byteTracer?
 
-> `optional` **4byteTracer**: `Record`\<`string`, `never`\> \| \{ \}
+> `optional` **4byteTracer?**: `Record`\<`string`, `never`\> \| \{ \}
 
-Defined in: packages/actions/types/common/MuxTraceResult.d.ts:82
+Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:82
 
 ***
 
 ### callTracer?
 
-> `optional` **callTracer**: `Record`\<`string`, `never`\> \| \{ \}
+> `optional` **callTracer?**: `Record`\<`string`, `never`\> \| \{ \}
 
-Defined in: packages/actions/types/common/MuxTraceResult.d.ts:78
+Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:78
 
 ***
 
 ### default?
 
-> `optional` **default**: `Record`\<`string`, `never`\> \| \{ \}
+> `optional` **default?**: `Record`\<`string`, `never`\> \| \{ \}
 
-Defined in: packages/actions/types/common/MuxTraceResult.d.ts:84
+Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:84
 
 ***
 
 ### flatCallTracer?
 
-> `optional` **flatCallTracer**: `Record`\<`string`, `never`\> \| \{ \}
+> `optional` **flatCallTracer?**: `Record`\<`string`, `never`\> \| \{ \}
 
-Defined in: packages/actions/types/common/MuxTraceResult.d.ts:83
+Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:83
 
 ***
 
 ### prestateTracer?
 
-> `optional` **prestateTracer**: `object`
+> `optional` **prestateTracer?**: `object`
 
-Defined in: packages/actions/types/common/MuxTraceResult.d.ts:79
+Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:79
 
 #### diffMode?
 
-> `optional` **diffMode**: `TDiffMode`
+> `optional` **diffMode?**: `TDiffMode`

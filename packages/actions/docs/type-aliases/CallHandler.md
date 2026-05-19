@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / CallHandler
 
-# Type Alias: CallHandler()
+# Type Alias: CallHandler
 
 > **CallHandler** = (`action`) => `Promise`\<[`CallResult`](CallResult.md)\>
 

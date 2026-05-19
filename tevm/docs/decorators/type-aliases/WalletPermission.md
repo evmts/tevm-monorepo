@@ -8,7 +8,7 @@
 
 > **WalletPermission** = `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1520
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1520
 
 Permission granted to a website or application by a wallet.
 Defined in EIP-2255 for the wallet permissions management system.
@@ -45,7 +45,7 @@ const accountsPermission: WalletPermission = {
 
 > **caveats**: [`WalletPermissionCaveat`](WalletPermissionCaveat.md)[]
 
-Defined in: packages/decorators/dist/index.d.ts:1521
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1521
 
 ***
 
@@ -53,7 +53,7 @@ Defined in: packages/decorators/dist/index.d.ts:1521
 
 > **date**: `number`
 
-Defined in: packages/decorators/dist/index.d.ts:1522
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1522
 
 ***
 
@@ -61,7 +61,7 @@ Defined in: packages/decorators/dist/index.d.ts:1522
 
 > **id**: `string`
 
-Defined in: packages/decorators/dist/index.d.ts:1523
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1523
 
 ***
 
@@ -69,7 +69,7 @@ Defined in: packages/decorators/dist/index.d.ts:1523
 
 > **invoker**: `` `http://${string}` `` \| `` `https://${string}` ``
 
-Defined in: packages/decorators/dist/index.d.ts:1524
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1524
 
 ***
 
@@ -77,4 +77,4 @@ Defined in: packages/decorators/dist/index.d.ts:1524
 
 > **parentCapability**: `"eth_accounts"` \| `string`
 
-Defined in: packages/decorators/dist/index.d.ts:1525
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1525

@@ -6,18 +6,16 @@
 
 # Function: eoaCode7702AuthorizationHashedMessageToSign()
 
-> **eoaCode7702AuthorizationHashedMessageToSign**(`input`): `Uint8Array`\<`ArrayBufferLike`\>
+> **eoaCode7702AuthorizationHashedMessageToSign**(`input`): `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/authorization.d.ts:28
-
-Hashes the RLP-encoded message to sign
+Defined in: zevm/npm/zevm/dist/util.d.ts:215
 
 ## Parameters
 
 ### input
 
-`EOACode7702AuthorizationListItemUnsigned` | `EOACode7702AuthorizationListBytesItemUnsigned`
+`EOACode7702AuthorizationListItemUnsigned` \| `EOACode7702AuthorizationListBytesItemUnsigned`
 
 ## Returns
 
-`Uint8Array`\<`ArrayBufferLike`\>
+`Uint8Array`

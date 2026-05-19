@@ -8,7 +8,7 @@
 
 > **publicActions**\<`transport`, `chain`, `account`\>(`client`): `PublicActions`\<`transport`, `chain`, `account`\>
 
-Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.3\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/clients/decorators/public.d.ts:1456
+Defined in: node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/clients/decorators/public.d.ts:1529
 
 ## Type Parameters
 
@@ -18,11 +18,11 @@ Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.3\
 
 ### chain
 
-`chain` *extends* `undefined` \| `Chain` = `undefined` \| `Chain`
+`chain` *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
 
 ### account
 
-`account` *extends* `undefined` \| `Account` = `undefined` \| `Account`
+`account` *extends* `Account` \| `undefined` = `Account` \| `undefined`
 
 ## Parameters
 

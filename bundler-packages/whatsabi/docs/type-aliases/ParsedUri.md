@@ -30,7 +30,7 @@ Defined in: [bundler-packages/whatsabi/src/ParsedUri.ts:5](https://github.com/ev
 
 ### etherscanApiKey?
 
-> `optional` **etherscanApiKey**: `string`
+> `optional` **etherscanApiKey?**: `string`
 
 Defined in: [bundler-packages/whatsabi/src/ParsedUri.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/ParsedUri.ts#L8)
 
@@ -38,7 +38,7 @@ Defined in: [bundler-packages/whatsabi/src/ParsedUri.ts:8](https://github.com/ev
 
 ### etherscanBaseUrl?
 
-> `optional` **etherscanBaseUrl**: `string`
+> `optional` **etherscanBaseUrl?**: `string`
 
 Defined in: [bundler-packages/whatsabi/src/ParsedUri.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/ParsedUri.ts#L9)
 
@@ -46,7 +46,7 @@ Defined in: [bundler-packages/whatsabi/src/ParsedUri.ts:9](https://github.com/ev
 
 ### followProxies?
 
-> `optional` **followProxies**: `boolean`
+> `optional` **followProxies?**: `boolean`
 
 Defined in: [bundler-packages/whatsabi/src/ParsedUri.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/ParsedUri.ts#L10)
 
@@ -54,6 +54,6 @@ Defined in: [bundler-packages/whatsabi/src/ParsedUri.ts:10](https://github.com/e
 
 ### rpcUrl?
 
-> `optional` **rpcUrl**: `string`
+> `optional` **rpcUrl?**: `string`
 
 Defined in: [bundler-packages/whatsabi/src/ParsedUri.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/whatsabi/src/ParsedUri.ts#L7)

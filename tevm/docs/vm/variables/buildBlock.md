@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [vm](../README.md) / buildBlock
 
-# Variable: buildBlock()
+# Variable: buildBlock
 
 > `const` **buildBlock**: (`vm`) => [`BuildBlock`](../type-aliases/BuildBlock.md)
 
-Defined in: packages/vm/types/actions/buildBlock.d.ts:5
+Defined in: tevm-monorepo/packages/vm/types/actions/buildBlock.d.ts:5
 
 ## Parameters
 

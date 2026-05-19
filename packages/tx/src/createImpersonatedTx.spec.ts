@@ -1,30 +1,7 @@
-import { createFeeMarket1559Tx } from '@ethereumjs/tx'
-import { InternalError, InvalidGasLimitError } from '@tevm/errors'
-import { createAddressFromString } from '@tevm/utils'
-import { afterEach, describe, expect, it, type MockedFunction, vi } from 'vitest'
+import { InternalError, InvalidGasLimitError } from '@evmts/zevm/tx'
+import { createAddressFromString } from '@evmts/zevm/util'
+import { describe, expect, it } from 'vitest'
 import { createImpersonatedTx } from './createImpersonatedTx.js'
-
-vi.mock('@ethereumjs/tx', async () => {
-	const actualEthjsTx = (await vi.importActual('@ethereumjs/tx')) as any
-	const mockFactory = vi.fn()
-	mockFactory.mockImplementation((...args: any[]) => {
-		return actualEthjsTx.createFeeMarket1559Tx(...args)
-	})
-	return {
-		...actualEthjsTx,
-		createFeeMarket1559Tx: mockFactory,
-	}
-})
-
-const createFeeMarket1559TxMock = createFeeMarket1559Tx as unknown as MockedFunction<any>
-
-afterEach(async () => {
-	vi.resetAllMocks()
-	const actualEthjsTx = (await vi.importActual('@ethereumjs/tx')) as any
-	createFeeMarket1559TxMock.mockImplementation((...args: any[]) => {
-		return actualEthjsTx.createFeeMarket1559Tx(...args)
-	})
-})
 
 describe(createImpersonatedTx.name, () => {
 	it('should create an EIP-1559 tx impersonating the address', () => {
@@ -61,74 +38,24 @@ describe(createImpersonatedTx.name, () => {
 		expect(Object.keys(createImpersonatedTx({ impersonatedAddress }))).toMatchSnapshot()
 	})
 
-	it('should throw InternalError if EIP-1559 is not enabled', () => {
-		// Since createCommon always includes EIP-1559, we'll mock the FeeMarket1559Tx
-		// to throw the expected error
-		const expectedError = new Error('EIP-1559 not enabled on Common')
-		createFeeMarket1559TxMock.mockImplementation(() => {
-			throw expectedError
-		})
-
-		const impersonatedAddress = createAddressFromString(`0x${'42'.repeat(20)}`)
-		const data = '0x5234'
-		expect(() => createImpersonatedTx({ impersonatedAddress, data })).toThrow(
-			new InternalError(
-				'EIP-1559 is not enabled on Common. Tevm currently only supports 1559 and it should be enabled by default',
-				{ cause: expectedError },
-			),
-		)
-	})
-
 	it('should throw InvalidGasLimitError if bigger than MAX_INTEGER', () => {
 		const impersonatedAddress = createAddressFromString(`0x${'42'.repeat(20)}`)
 		const data = '0x5234'
-		const ethjsError = new Error(
-			'gasLimit cannot exceed MAX_UINT64 (2^64-1), given 374144419156711147060143317175368453031918731001855 (tx type=2 hash=not available (unsigned) nonce=0 value=0 signed=false hf=error maxFeePerGas=undefined maxPriorityFeePerGas=undefined)',
-		)
-		createFeeMarket1559TxMock.mockImplementation(() => {
-			throw ethjsError
-		})
 		expect(() => createImpersonatedTx({ impersonatedAddress, data, gasLimit: `0x${'ff'.repeat(21)}` })).toThrow(
-			new InvalidGasLimitError(ethjsError.message, { cause: ethjsError }),
+			InvalidGasLimitError,
 		)
 	})
 
 	it('should throw GasLimitExceededError if smaller than max priority fee', () => {
-		const expectedError = new Error(
-			'maxFeePerGas cannot be less than maxPriorityFeePerGas (The total must be the larger of the two)',
-		)
-		createFeeMarket1559TxMock.mockImplementation(() => {
-			throw expectedError
-		})
 		const impersonatedAddress = createAddressFromString(`0x${'42'.repeat(20)}`)
 		const data = '0x5234'
-		expect(() => createImpersonatedTx({ impersonatedAddress, data, maxFeePerGas: 0n })).toThrow(
-			new InvalidGasLimitError(expectedError.message, { cause: expectedError }),
-		)
+		expect(() =>
+			createImpersonatedTx({ impersonatedAddress, data, maxFeePerGas: 0n, maxPriorityFeePerGas: 1n }),
+		).toThrow(InvalidGasLimitError)
 	})
 
 	it('should throw an error if FeeMarket1559Tx throws', () => {
-		const expectedError = new Error('Constructor error')
-		createFeeMarket1559TxMock.mockImplementation(() => {
-			throw expectedError
-		})
-
 		const impersonatedAddress = createAddressFromString(`0x${'42'.repeat(20)}`)
-		const data = '0x5234'
-		expect(() => createImpersonatedTx({ impersonatedAddress, data })).toThrow(
-			new InternalError(expectedError.message, { cause: expectedError }),
-		)
-	})
-
-	it('should throw an error if FeeMarket1559Tx throws non error', () => {
-		const notError = { not: 'error' }
-		createFeeMarket1559TxMock.mockImplementation(() => {
-			throw notError
-		})
-		const impersonatedAddress = createAddressFromString(`0x${'42'.repeat(20)}`)
-		const data = '0x5234'
-		expect(() => createImpersonatedTx({ impersonatedAddress, data })).toThrow(
-			new InternalError('Unknown Error', { cause: notError }),
-		)
+		expect(() => createImpersonatedTx({ impersonatedAddress, data: '0xzz' as any })).toThrow(InternalError)
 	})
 })

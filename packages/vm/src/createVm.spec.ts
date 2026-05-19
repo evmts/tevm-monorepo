@@ -6,7 +6,7 @@ import { createStateManager } from '@tevm/state'
 import { createVm } from './createVm.js'
 
 describe(createVm.name, () => {
-	it('wraps ethereumjs vm', async () => {
+	it('creates a VM capable of building blocks', async () => {
 		const common = createCommon({ ...optimism, eips: [], hardfork: 'prague', loggingLevel: 'warn' })
 		const stateManager = createStateManager({})
 		const blockchain = await createChain({

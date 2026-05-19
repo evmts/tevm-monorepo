@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetCodeProcedure
 
-# Type Alias: AnvilSetCodeProcedure()
+# Type Alias: AnvilSetCodeProcedure
 
 > **AnvilSetCodeProcedure** = (`request`) => `Promise`\<[`AnvilSetCodeJsonRpcResponse`](AnvilSetCodeJsonRpcResponse.md)\>
 

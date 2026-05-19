@@ -10,7 +10,7 @@ export {
 	type Log,
 	Message as EthjsMessage,
 	type PrecompileInput,
-} from '@ethereumjs/evm'
+} from '@evmts/zevm/evm'
 export type { CreateEvmOptions } from './CreateEvmOptions.js'
 export type { CustomPrecompile } from './CustomPrecompile.js'
 export { createEvm } from './createEvm.js'

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthEstimateGasHandler
 
-# Type Alias: EthEstimateGasHandler()
+# Type Alias: EthEstimateGasHandler
 
 > **EthEstimateGasHandler** = (`request`) => `Promise`\<[`EthEstimateGasResult`](EthEstimateGasResult.md)\>
 

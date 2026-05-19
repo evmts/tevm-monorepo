@@ -8,7 +8,7 @@
 
 > **RpcSchema** = readonly `object`[]
 
-Defined in: packages/decorators/dist/index.d.ts:255
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:255
 
 **`Internal`**
 

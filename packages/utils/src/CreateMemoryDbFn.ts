@@ -1,4 +1,4 @@
-import type { DBObject } from '@ethereumjs/util'
+import type { DBObject } from '@evmts/zevm/util'
 import type { MemoryDb } from './MemoryDb.js'
 
 export type CreateMemoryDbFn<

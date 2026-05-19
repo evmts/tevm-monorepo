@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / LoadStateJsonRpcProcedure
 
-# Type Alias: LoadStateJsonRpcProcedure()
+# Type Alias: LoadStateJsonRpcProcedure
 
 > **LoadStateJsonRpcProcedure** = (`request`) => `Promise`\<[`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)\>
 

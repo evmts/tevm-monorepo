@@ -6,9 +6,9 @@
 
 # Function: getAccount()
 
-> **getAccount**(`baseState`, `skipFetchingFromFork?`): (`address`) => `Promise`\<`undefined` \| `Account`\>
+> **getAccount**(`baseState`, `skipFetchingFromFork?`): (`address`) => `Promise`\<`Account` \| `undefined`\>
 
-Defined in: [packages/state/src/actions/getAccount.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAccount.js#L16)
+Defined in: [tevm-monorepo/packages/state/src/actions/getAccount.js:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAccount.js#L16)
 
 Gets the account corresponding to the provided `address`.
 Returns undefined if account does not exist.
@@ -31,14 +31,4 @@ When running in fork mode:
 
 ## Returns
 
-> (`address`): `Promise`\<`undefined` \| `Account`\>
-
-### Parameters
-
-#### address
-
-`Address`
-
-### Returns
-
-`Promise`\<`undefined` \| `Account`\>
+(`address`) => `Promise`\<`Account` \| `undefined`\>

@@ -8,7 +8,7 @@
 
 > **ethProtocolVersionJsonRpcProcedure**(): [`EthProtocolVersionJsonRpcProcedure`](../type-aliases/EthProtocolVersionJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethProtocolVersionProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethProtocolVersionProcedure.d.ts:1
 
 ## Returns
 

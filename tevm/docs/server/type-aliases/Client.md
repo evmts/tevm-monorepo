@@ -8,7 +8,7 @@
 
 > **Client** = `object`
 
-Defined in: packages/server/types/Client.d.ts:3
+Defined in: tevm-monorepo/packages/server/types/Client.d.ts:3
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: packages/server/types/Client.d.ts:3
 
 > **transport**: `object`
 
-Defined in: packages/server/types/Client.d.ts:4
+Defined in: tevm-monorepo/packages/server/types/Client.d.ts:4
 
 #### tevm
 

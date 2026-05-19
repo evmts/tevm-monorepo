@@ -8,7 +8,7 @@
 
 > **verifyMessage**(`params`): `boolean`
 
-Defined in: packages/utils/types/signature.d.ts:118
+Defined in: tevm-monorepo/packages/utils/types/signature.d.ts:118
 
 Verifies a message signature
 

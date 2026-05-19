@@ -14,7 +14,7 @@ Defined in: [extensions/test-node/src/types.ts:9](https://github.com/evmts/tevm-
 
 ### autosave?
 
-> `optional` **autosave**: `SnapshotAutosaveMode`
+> `optional` **autosave?**: `SnapshotAutosaveMode`
 
 Defined in: [extensions/test-node/src/types.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L48)
 
@@ -39,7 +39,7 @@ over when snapshots are written to disk.
 
 ### resolveSnapshotPath?
 
-> `optional` **resolveSnapshotPath**: `"vitest"` \| `"bun"` \| () => `string`
+> `optional` **resolveSnapshotPath?**: `"vitest"` \| `"bun"` \| (() => `string`)
 
 Defined in: [extensions/test-node/src/types.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L33)
 

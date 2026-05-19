@@ -56,9 +56,9 @@ Cache instance for build artifacts
 
 ### contractPackage?
 
-Optional contract package name
+`"tevm/contract"` \| `"@tevm/contract"`
 
-`"tevm/contract"` | `"@tevm/contract"`
+Optional contract package name
 
 ## Returns
 
@@ -72,11 +72,11 @@ The configuration of the plugin.
 
 ### exclude?
 
-> `optional` **exclude**: `string`[]
+> `optional` **exclude?**: `string`[]
 
 ### include?
 
-> `optional` **include**: `string`[]
+> `optional` **include?**: `string`[]
 
 ### name
 

@@ -8,7 +8,7 @@
 
 > **DebugTraceChainResult**\<`TTracer`, `TDiffMode`\> = `object`[]
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:187
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:187
 
 Result from `debug_traceChain`
 

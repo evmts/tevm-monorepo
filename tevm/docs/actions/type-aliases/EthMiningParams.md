@@ -8,6 +8,6 @@
 
 > **EthMiningParams** = [`EmptyParams`](../../index/type-aliases/EmptyParams.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:234
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:234
 
 Based on the JSON-RPC request for `eth_mining` procedure

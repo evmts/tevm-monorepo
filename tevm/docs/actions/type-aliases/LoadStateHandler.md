@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / LoadStateHandler
 
-# Type Alias: LoadStateHandler()
+# Type Alias: LoadStateHandler
 
 > **LoadStateHandler** = (`params`) => `Promise`\<[`LoadStateResult`](LoadStateResult.md)\>
 
-Defined in: packages/actions/types/LoadState/LoadStateHandlerType.d.ts:39
+Defined in: tevm-monorepo/packages/actions/types/LoadState/LoadStateHandlerType.d.ts:39
 
 Loads a previously dumped state into the VM.
 

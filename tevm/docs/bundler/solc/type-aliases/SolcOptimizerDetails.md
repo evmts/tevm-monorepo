@@ -8,7 +8,7 @@
 
 > **SolcOptimizerDetails** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:18
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:18
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:18
 
 > **constantOptimizer**: `boolean`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:25
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:25
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:25
 
 > **cse**: `boolean`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:24
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:24
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:24
 
 > **deduplicate**: `boolean`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:23
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:23
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:23
 
 > **inliner**: `boolean`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:20
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:20
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:20
 
 > **jumpdestRemover**: `boolean`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:21
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:21
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:21
 
 > **orderLiterals**: `boolean`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:22
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:22
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:22
 
 > **peephole**: `boolean`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:19
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:19
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:19
 
 > **yul**: `boolean`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:26
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:26
 
 ***
 
@@ -80,4 +80,4 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:26
 
 > **yulDetails**: [`SolcYulDetails`](SolcYulDetails.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:27
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:27

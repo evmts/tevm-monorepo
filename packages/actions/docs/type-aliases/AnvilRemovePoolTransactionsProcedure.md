@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilRemovePoolTransactionsProcedure
 
-# Type Alias: AnvilRemovePoolTransactionsProcedure()
+# Type Alias: AnvilRemovePoolTransactionsProcedure
 
 > **AnvilRemovePoolTransactionsProcedure** = (`request`) => `Promise`\<[`AnvilRemovePoolTransactionsJsonRpcResponse`](AnvilRemovePoolTransactionsJsonRpcResponse.md)\>
 

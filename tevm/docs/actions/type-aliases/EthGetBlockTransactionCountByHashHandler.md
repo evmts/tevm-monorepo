@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetBlockTransactionCountByHashHandler
 
-# Type Alias: EthGetBlockTransactionCountByHashHandler()
+# Type Alias: EthGetBlockTransactionCountByHashHandler
 
 > **EthGetBlockTransactionCountByHashHandler** = (`request`) => `Promise`\<[`EthGetBlockTransactionCountByHashResult`](EthGetBlockTransactionCountByHashResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:16
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:16
 
 ## Parameters
 

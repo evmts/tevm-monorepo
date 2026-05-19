@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilResetProcedure
 
-# Type Alias: AnvilResetProcedure()
+# Type Alias: AnvilResetProcedure
 
 > **AnvilResetProcedure** = (`request`) => `Promise`\<[`AnvilResetJsonRpcResponse`](AnvilResetJsonRpcResponse.md)\>
 

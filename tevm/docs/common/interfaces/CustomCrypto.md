@@ -6,15 +6,15 @@
 
 # Interface: CustomCrypto
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:65
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:65
 
 ## Properties
 
-### ecdsaRecover()?
+### ecdsaRecover?
 
-> `optional` **ecdsaRecover**: (`sig`, `recId`, `hash`) => `Uint8Array`
+> `optional` **ecdsaRecover?**: (`sig`, `recId`, `hash`) => `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:75
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:73
 
 #### Parameters
 
@@ -36,11 +36,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 ***
 
-### ecrecover()?
+### ecrecover?
 
-> `optional` **ecrecover**: (`msgHash`, `v`, `r`, `s`, `chainId?`) => `Uint8Array`
+> `optional` **ecrecover?**: (`msgHash`, `v`, `r`, `s`, `chainId?`) => `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:70
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:70
 
 #### Parameters
 
@@ -70,39 +70,37 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 
 ***
 
-### ecsign()?
+### ecsign?
 
-> `optional` **ecsign**: (`msg`, `pk`, `ecSignOpts?`) => `Pick`\<`ReturnType`\<*typeof* `secp256k1.sign`\>, `"recovery"` \| `"r"` \| `"s"`\>
+> `optional` **ecsign?**: (`message`, `secretKey`, `opts?`) => `Uint8Array`\<`ArrayBufferLike`\> & `Uint8Array`\<`ArrayBuffer`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:72
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:72
 
 #### Parameters
 
-##### msg
+##### message
 
-`Uint8Array`
+`TArg`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-##### pk
+##### secretKey
 
-`Uint8Array`
+`TArg`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-##### ecSignOpts?
+##### opts?
 
-###### extraEntropy?
-
-`boolean` \| `Uint8Array`\<`ArrayBufferLike`\>
+`TArg`\<`ECDSASignOpts`\>
 
 #### Returns
 
-`Pick`\<`ReturnType`\<*typeof* `secp256k1.sign`\>, `"recovery"` \| `"r"` \| `"s"`\>
+`Uint8Array`\<`ArrayBufferLike`\> & `Uint8Array`\<`ArrayBuffer`\>
 
 ***
 
-### keccak256()?
+### keccak256?
 
-> `optional` **keccak256**: (`msg`) => `Uint8Array`
+> `optional` **keccak256?**: (`msg`) => `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:69
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:69
 
 Interface for providing custom cryptographic primitives in place of `ethereum-cryptography` variants
 
@@ -120,17 +118,17 @@ Interface for providing custom cryptographic primitives in place of `ethereum-cr
 
 ### kzg?
 
-> `optional` **kzg**: `KZG`
+> `optional` **kzg?**: `KZG`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:76
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:74
 
 ***
 
-### sha256()?
+### sha256?
 
-> `optional` **sha256**: (`msg`) => `Uint8Array`
+> `optional` **sha256?**: (`msg`) => `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:71
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:71
 
 #### Parameters
 
@@ -141,11 +139,3 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereu
 #### Returns
 
 `Uint8Array`
-
-***
-
-### verkle?
-
-> `optional` **verkle**: `VerkleCrypto`
-
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:77

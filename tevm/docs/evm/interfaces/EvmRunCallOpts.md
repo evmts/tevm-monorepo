@@ -6,7 +6,7 @@
 
 # Interface: EvmRunCallOpts
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:89
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:88
 
 Options for running a call (or create) operation with `EVM.runCall()`
 
@@ -18,17 +18,17 @@ Options for running a call (or create) operation with `EVM.runCall()`
 
 ### accessWitness?
 
-> `optional` **accessWitness**: `VerkleAccessWitnessInterface` \| `BinaryTreeAccessWitnessInterface`
+> `optional` **accessWitness?**: `BinaryTreeAccessWitnessInterface`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:119
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:118
 
 ***
 
 ### blobVersionedHashes?
 
-> `optional` **blobVersionedHashes**: `` `0x${string}` ``[]
+> `optional` **blobVersionedHashes?**: `` `0x${string}` ``[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:81
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:80
 
 Versioned hashes for each blob in a blob transaction
 
@@ -40,9 +40,9 @@ Versioned hashes for each blob in a blob transaction
 
 ### block?
 
-> `optional` **block**: `Block`
+> `optional` **block?**: `Block`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:33
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:32
 
 The `block` the `tx` belongs to. If omitted a default blank block will be used.
 
@@ -54,9 +54,9 @@ The `block` the `tx` belongs to. If omitted a default blank block will be used.
 
 ### caller?
 
-> `optional` **caller**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+> `optional` **caller?**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:45
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:44
 
 The address that ran this code (`msg.sender`). Defaults to the zero address.
 
@@ -68,9 +68,9 @@ The address that ran this code (`msg.sender`). Defaults to the zero address.
 
 ### code?
 
-> `optional` **code**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **code?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:49
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:48
 
 The EVM code to run.
 
@@ -82,9 +82,9 @@ The EVM code to run.
 
 ### createdAddresses?
 
-> `optional` **createdAddresses**: `Set`\<`` `0x${string}` ``\>
+> `optional` **createdAddresses?**: `Set`\<`` `0x${string}` ``\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:101
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:100
 
 Created addresses in current context. Used in EIP 6780
 
@@ -92,9 +92,9 @@ Created addresses in current context. Used in EIP 6780
 
 ### data?
 
-> `optional` **data**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **data?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:53
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:52
 
 The input data.
 
@@ -106,9 +106,9 @@ The input data.
 
 ### delegatecall?
 
-> `optional` **delegatecall**: `boolean`
+> `optional` **delegatecall?**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:110
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:109
 
 If the call is a DELEGATECALL. Defaults to false.
 
@@ -116,9 +116,9 @@ If the call is a DELEGATECALL. Defaults to false.
 
 ### depth?
 
-> `optional` **depth**: `number`
+> `optional` **depth?**: `number`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:65
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:64
 
 The call depth. Defaults to `0`
 
@@ -130,9 +130,9 @@ The call depth. Defaults to `0`
 
 ### gasLimit?
 
-> `optional` **gasLimit**: `bigint`
+> `optional` **gasLimit?**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:57
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:56
 
 The gas limit for the call. Defaults to `16777215` (`0xffffff`)
 
@@ -144,9 +144,9 @@ The gas limit for the call. Defaults to `16777215` (`0xffffff`)
 
 ### gasPrice?
 
-> `optional` **gasPrice**: `bigint`
+> `optional` **gasPrice?**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:37
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:36
 
 The gas price for the call. Defaults to `0`
 
@@ -158,9 +158,9 @@ The gas price for the call. Defaults to `0`
 
 ### gasRefund?
 
-> `optional` **gasRefund**: `bigint`
+> `optional` **gasRefund?**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:114
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:113
 
 Refund counter. Defaults to `0`
 
@@ -168,9 +168,9 @@ Refund counter. Defaults to `0`
 
 ### isCompiled?
 
-> `optional` **isCompiled**: `boolean`
+> `optional` **isCompiled?**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:93
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:92
 
 If the code location is a precompile.
 
@@ -178,9 +178,9 @@ If the code location is a precompile.
 
 ### isStatic?
 
-> `optional` **isStatic**: `boolean`
+> `optional` **isStatic?**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:69
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:68
 
 If the call should be executed statically. Defaults to false.
 
@@ -192,9 +192,9 @@ If the call should be executed statically. Defaults to false.
 
 ### message?
 
-> `optional` **message**: [`EthjsMessage`](../classes/EthjsMessage.md)
+> `optional` **message?**: [`EthjsMessage`](../classes/EthjsMessage.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:118
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:117
 
 Optionally pass in an already-built message.
 
@@ -202,9 +202,9 @@ Optionally pass in an already-built message.
 
 ### origin?
 
-> `optional` **origin**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+> `optional` **origin?**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:41
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:40
 
 The address where the call originated from. Defaults to the zero address.
 
@@ -216,9 +216,9 @@ The address where the call originated from. Defaults to the zero address.
 
 ### salt?
 
-> `optional` **salt**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **salt?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:97
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:96
 
 An optional salt to pass to CREATE2.
 
@@ -226,9 +226,9 @@ An optional salt to pass to CREATE2.
 
 ### selfdestruct?
 
-> `optional` **selfdestruct**: `Set`\<`` `0x${string}` ``\>
+> `optional` **selfdestruct?**: `Set`\<`` `0x${string}` ``\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:73
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:72
 
 Addresses to selfdestruct. Defaults to the empty set.
 
@@ -240,9 +240,9 @@ Addresses to selfdestruct. Defaults to the empty set.
 
 ### skipBalance?
 
-> `optional` **skipBalance**: `boolean`
+> `optional` **skipBalance?**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:106
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:105
 
 Skip balance checks if true. If caller balance is less than message value,
 sets balance to message value to ensure execution doesn't fail.
@@ -251,9 +251,9 @@ sets balance to message value to ensure execution doesn't fail.
 
 ### to?
 
-> `optional` **to**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+> `optional` **to?**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:77
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:76
 
 The address of the account that is executing this code (`address(this)`). Defaults to the zero address.
 
@@ -265,9 +265,9 @@ The address of the account that is executing this code (`address(this)`). Defaul
 
 ### value?
 
-> `optional` **value**: `bigint`
+> `optional` **value?**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:61
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/types.d.ts:60
 
 The value in ether that is being sent to `opts.address`. Defaults to `0`
 

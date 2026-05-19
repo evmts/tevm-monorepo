@@ -6,7 +6,7 @@
 
 # Class: ContractCache
 
-Defined in: packages/state/dist/index.d.ts:244
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:248
 
 Contract cache is a mapping of addresses to deployedBytecode
 It is implemented via extending StorageCache and hardcoding slot 0
@@ -17,7 +17,7 @@ It is implemented via extending StorageCache and hardcoding slot 0
 
 > **new ContractCache**(`storageCache?`): `ContractCache`
 
-Defined in: packages/state/dist/index.d.ts:245
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:249
 
 #### Parameters
 
@@ -35,7 +35,7 @@ Defined in: packages/state/dist/index.d.ts:245
 
 > **storageCache**: [`StorageCache`](StorageCache.md)
 
-Defined in: packages/state/dist/index.d.ts:246
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:250
 
 ## Accessors
 
@@ -45,7 +45,7 @@ Defined in: packages/state/dist/index.d.ts:246
 
 > **get** **\_checkpoints**(): `number`
 
-Defined in: packages/state/dist/index.d.ts:280
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:284
 
 ##### Returns
 
@@ -57,7 +57,7 @@ Defined in: packages/state/dist/index.d.ts:280
 
 > **checkpoint**(): `void`
 
-Defined in: packages/state/dist/index.d.ts:274
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:278
 
 #### Returns
 
@@ -69,7 +69,7 @@ Defined in: packages/state/dist/index.d.ts:274
 
 > **clear**(): `void`
 
-Defined in: packages/state/dist/index.d.ts:254
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:258
 
 #### Returns
 
@@ -81,7 +81,7 @@ Defined in: packages/state/dist/index.d.ts:254
 
 > **commit**(): `void`
 
-Defined in: packages/state/dist/index.d.ts:250
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:254
 
 #### Returns
 
@@ -93,7 +93,7 @@ Defined in: packages/state/dist/index.d.ts:250
 
 > **del**(`address`): `void`
 
-Defined in: packages/state/dist/index.d.ts:270
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:274
 
 #### Parameters
 
@@ -109,9 +109,9 @@ Defined in: packages/state/dist/index.d.ts:270
 
 ### get()
 
-> **get**(`address`): `undefined` \| `Uint8Array`\<`ArrayBufferLike`\>
+> **get**(`address`): `Uint8Array`\<`ArrayBufferLike`\> \| `undefined`
 
-Defined in: packages/state/dist/index.d.ts:259
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:263
 
 #### Parameters
 
@@ -121,7 +121,7 @@ Defined in: packages/state/dist/index.d.ts:259
 
 #### Returns
 
-`undefined` \| `Uint8Array`\<`ArrayBufferLike`\>
+`Uint8Array`\<`ArrayBufferLike`\> \| `undefined`
 
 ***
 
@@ -129,7 +129,7 @@ Defined in: packages/state/dist/index.d.ts:259
 
 > **has**(`address`): `boolean`
 
-Defined in: packages/state/dist/index.d.ts:279
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:283
 
 #### Parameters
 
@@ -149,7 +149,7 @@ if the cache has the key
 
 > **put**(`address`, `bytecode`): `void`
 
-Defined in: packages/state/dist/index.d.ts:265
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:269
 
 #### Parameters
 
@@ -171,7 +171,7 @@ Defined in: packages/state/dist/index.d.ts:265
 
 > **revert**(): `void`
 
-Defined in: packages/state/dist/index.d.ts:285
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:289
 
 #### Returns
 
@@ -183,7 +183,7 @@ Defined in: packages/state/dist/index.d.ts:285
 
 > **size**(): `number`
 
-Defined in: packages/state/dist/index.d.ts:281
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:285
 
 #### Returns
 

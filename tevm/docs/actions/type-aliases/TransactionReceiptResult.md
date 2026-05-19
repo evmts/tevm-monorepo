@@ -8,7 +8,7 @@
 
 > **TransactionReceiptResult** = `object`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:6
 
 Transaction receipt result type for eth JSON-RPC procedures
 
@@ -16,17 +16,17 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ### blobGasPrice?
 
-> `readonly` `optional` **blobGasPrice**: `bigint`
+> `readonly` `optional` **blobGasPrice?**: `bigint`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:22
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:22
 
 ***
 
 ### blobGasUsed?
 
-> `readonly` `optional` **blobGasUsed**: `bigint`
+> `readonly` `optional` **blobGasUsed?**: `bigint`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:21
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:21
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:21
 
 > `readonly` **blockHash**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:7
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:7
 
 > `readonly` **blockNumber**: `bigint`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:8
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:8
 
 > `readonly` **contractAddress**: [`Hex`](Hex.md) \| `null`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:9
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:9
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:9
 
 > `readonly` **cumulativeGasUsed**: `bigint`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:10
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:10
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:10
 
 > `readonly` **effectiveGasPrice**: `bigint`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:11
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:11
 
 ***
 
@@ -74,7 +74,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:11
 
 > `readonly` **from**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:12
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:12
 
 ***
 
@@ -82,7 +82,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:12
 
 > `readonly` **gasUsed**: `bigint`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:13
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:13
 
 ***
 
@@ -90,7 +90,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:13
 
 > `readonly` **logs**: readonly [`FilterLog`](FilterLog.md)[]
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:14
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:14
 
 ***
 
@@ -98,23 +98,23 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:14
 
 > `readonly` **logsBloom**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:15
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:15
 
 ***
 
 ### root?
 
-> `readonly` `optional` **root**: [`Hex`](Hex.md)
+> `readonly` `optional` **root?**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:17
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:17
 
 ***
 
 ### status?
 
-> `readonly` `optional` **status**: [`Hex`](Hex.md)
+> `readonly` `optional` **status?**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:16
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:16
 
 ***
 
@@ -122,7 +122,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:16
 
 > `readonly` **to**: [`Hex`](Hex.md) \| `null`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:18
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:18
 
 ***
 
@@ -130,7 +130,7 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:18
 
 > `readonly` **transactionHash**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:19
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:19
 
 ***
 
@@ -138,4 +138,4 @@ Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:19
 
 > `readonly` **transactionIndex**: `bigint`
 
-Defined in: packages/actions/types/common/TransactionReceiptResult.d.ts:20
+Defined in: tevm-monorepo/packages/actions/types/common/TransactionReceiptResult.d.ts:20

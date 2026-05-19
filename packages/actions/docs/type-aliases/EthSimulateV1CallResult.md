@@ -16,7 +16,7 @@ Result of a single simulated call
 
 ### error?
 
-> `optional` **error**: [`SimulateCallError`](SimulateCallError.md)
+> `optional` **error?**: [`SimulateCallError`](SimulateCallError.md)
 
 Defined in: [packages/actions/src/eth/EthResult.ts:405](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L405)
 

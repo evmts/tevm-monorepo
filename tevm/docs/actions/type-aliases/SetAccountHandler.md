@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / SetAccountHandler
 
-# Type Alias: SetAccountHandler()
+# Type Alias: SetAccountHandler
 
 > **SetAccountHandler** = (`params`) => `Promise`\<[`SetAccountResult`](SetAccountResult.md)\>
 
-Defined in: packages/actions/types/SetAccount/SetAccountHandlerType.d.ts:14
+Defined in: tevm-monorepo/packages/actions/types/SetAccount/SetAccountHandlerType.d.ts:14
 
 Sets the state of a specific ethereum address
 

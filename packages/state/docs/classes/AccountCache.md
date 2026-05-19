@@ -6,7 +6,7 @@
 
 # Class: AccountCache
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:14
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:71
 
 ## Extends
 
@@ -18,7 +18,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@e
 
 > **new AccountCache**(`opts`): `AccountCache`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:27
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:75
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@e
 
 > **\_checkpoints**: `number`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:4
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:66
 
 #### Inherited from
 
@@ -48,11 +48,69 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@e
 
 ***
 
-### \_debug
+### \_diffCache
 
-> **\_debug**: `Debugger`
+> **\_diffCache**: `Map`\<`string`, `AccountCacheElement` \| `undefined`\>[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:3
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:74
+
+***
+
+### \_lruCache
+
+> **\_lruCache**: `SimpleLRUCache`\<`string`, `AccountCacheElement`\> \| `undefined`
+
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:72
+
+***
+
+### \_orderedMapCache
+
+> **\_orderedMapCache**: `SimpleOrderedMap`\<`string`, `AccountCacheElement`\> \| `undefined`
+
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:73
+
+***
+
+### \_stats
+
+> **\_stats**: `CacheStats`
+
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:67
+
+#### Inherited from
+
+`Cache._stats`
+
+***
+
+### DEBUG
+
+> `protected` `readonly` **DEBUG**: `false` = `false`
+
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:68
+
+#### Inherited from
+
+`Cache.DEBUG`
+
+## Methods
+
+### \_debug()
+
+> **\_debug**(`_message`): `void`
+
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:69
+
+#### Parameters
+
+##### \_message
+
+`string`
+
+#### Returns
+
+`void`
 
 #### Inherited from
 
@@ -60,75 +118,11 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@e
 
 ***
 
-### \_diffCache
-
-> **\_diffCache**: `Map`\<`string`, `undefined` \| `AccountCacheElement`\>[]
-
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:26
-
-Diff cache collecting the state of the cache
-at the beginning of checkpoint height
-(respectively: before a first modification)
-
-If the whole cache element is undefined (in contrast
-to the account), the element didn't exist in the cache
-before.
-
-***
-
-### \_lruCache
-
-> **\_lruCache**: `undefined` \| `LRUCache`\<`string`, `AccountCacheElement`, `unknown`\>
-
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:15
-
-***
-
-### \_orderedMapCache
-
-> **\_orderedMapCache**: `undefined` \| `OrderedMap`\<`string`, `AccountCacheElement`\>
-
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:16
-
-***
-
-### \_stats
-
-> **\_stats**: `object`
-
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/cache.d.ts:5
-
-#### deletions
-
-> **deletions**: `number`
-
-#### hits
-
-> **hits**: `number`
-
-#### reads
-
-> **reads**: `number`
-
-#### size
-
-> **size**: `number`
-
-#### writes
-
-> **writes**: `number`
-
-#### Inherited from
-
-`Cache._stats`
-
-## Methods
-
 ### \_saveCachePreState()
 
 > **\_saveCachePreState**(`cacheKeyHex`): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:28
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:76
 
 #### Parameters
 
@@ -146,10 +140,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@e
 
 > **checkpoint**(): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:62
-
-Marks current state of cache as checkpoint, which can
-later on be reverted or committed.
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:83
 
 #### Returns
 
@@ -161,9 +152,7 @@ later on be reverted or committed.
 
 > **clear**(): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:82
-
-Clears cache.
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:86
 
 #### Returns
 
@@ -175,9 +164,7 @@ Clears cache.
 
 > **commit**(): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:57
-
-Commits to current state of cache (no effect on trie).
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:82
 
 #### Returns
 
@@ -189,17 +176,13 @@ Commits to current state of cache (no effect on trie).
 
 > **del**(`address`): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:44
-
-Marks address as deleted in cache.
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:79
 
 #### Parameters
 
 ##### address
 
 `Address`
-
-Address
 
 #### Returns
 
@@ -211,10 +194,7 @@ Address
 
 > **flush**(): \[`string`, `AccountCacheElement`\][]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:49
-
-Flushes cache by returning accounts that have been modified
-or deleted and resetting the diff cache (at checkpoint height).
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:80
 
 #### Returns
 
@@ -224,11 +204,9 @@ or deleted and resetting the diff cache (at checkpoint height).
 
 ### get()
 
-> **get**(`address`): `undefined` \| `AccountCacheElement`
+> **get**(`address`): `AccountCacheElement` \| `undefined`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:39
-
-Returns the queried account or undefined if account doesn't exist
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:78
 
 #### Parameters
 
@@ -236,11 +214,9 @@ Returns the queried account or undefined if account doesn't exist
 
 `Address`
 
-Address of account
-
 #### Returns
 
-`undefined` \| `AccountCacheElement`
+`AccountCacheElement` \| `undefined`
 
 ***
 
@@ -248,9 +224,7 @@ Address of account
 
 > **put**(`address`, `account`, `couldBePartialAccount?`): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:34
-
-Puts account to cache under its address.
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:77
 
 #### Parameters
 
@@ -258,13 +232,9 @@ Puts account to cache under its address.
 
 `Address`
 
-Address of account
-
 ##### account
 
-Account or undefined if account doesn't exist in the trie
-
-`undefined` | `Account`
+`Account` \| `undefined`
 
 ##### couldBePartialAccount?
 
@@ -280,9 +250,7 @@ Account or undefined if account doesn't exist in the trie
 
 > **revert**(): `void`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:53
-
-Revert changes to cache last checkpoint (no effect on trie).
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:81
 
 #### Returns
 
@@ -294,9 +262,7 @@ Revert changes to cache last checkpoint (no effect on trie).
 
 > **size**(): `number`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:67
-
-Returns the size of the cache
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:84
 
 #### Returns
 
@@ -306,11 +272,9 @@ Returns the size of the cache
 
 ### stats()
 
-> **stats**(`reset?`): `object`
+> **stats**(`reset?`): `CacheStats`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+statemanager@10.0.0/node\_modules/@ethereumjs/statemanager/dist/esm/cache/account.d.ts:72
-
-Returns a dict with cache stats
+Defined in: zevm/npm/zevm/dist/statemanager.d.ts:85
 
 #### Parameters
 
@@ -320,24 +284,4 @@ Returns a dict with cache stats
 
 #### Returns
 
-`object`
-
-##### deletions
-
-> **deletions**: `number`
-
-##### hits
-
-> **hits**: `number`
-
-##### reads
-
-> **reads**: `number`
-
-##### size
-
-> **size**: `number`
-
-##### writes
-
-> **writes**: `number`
+`CacheStats`

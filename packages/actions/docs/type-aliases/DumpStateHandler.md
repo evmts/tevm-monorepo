@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / DumpStateHandler
 
-# Type Alias: DumpStateHandler()
+# Type Alias: DumpStateHandler
 
 > **DumpStateHandler** = (`params?`) => `Promise`\<[`DumpStateResult`](DumpStateResult.md)\>
 

@@ -8,20 +8,20 @@
 
 > **EncodingOpts** = `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:17
+Defined in: zevm/npm/zevm/dist/util.d.ts:26
 
 ## Properties
 
 ### keyEncoding?
 
-> `optional` **keyEncoding**: [`KeyEncoding`](KeyEncoding.md)
+> `optional` **keyEncoding?**: [`KeyEncoding`](KeyEncoding.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:18
+Defined in: zevm/npm/zevm/dist/util.d.ts:27
 
 ***
 
 ### valueEncoding?
 
-> `optional` **valueEncoding**: [`ValueEncoding`](ValueEncoding.md)
+> `optional` **valueEncoding?**: [`ValueEncoding`](ValueEncoding.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:19
+Defined in: zevm/npm/zevm/dist/util.d.ts:28

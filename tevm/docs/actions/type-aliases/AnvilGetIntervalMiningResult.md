@@ -8,4 +8,4 @@
 
 > **AnvilGetIntervalMiningResult** = `number`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:8

@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthCoinbaseJsonRpcProcedure
 
-# Type Alias: EthCoinbaseJsonRpcProcedure()
+# Type Alias: EthCoinbaseJsonRpcProcedure
 
 > **EthCoinbaseJsonRpcProcedure** = (`request`) => `Promise`\<[`EthCoinbaseJsonRpcResponse`](EthCoinbaseJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:8
 
 ## Parameters
 

@@ -8,7 +8,7 @@
 
 > **StateCache** = `object`
 
-Defined in: packages/state/dist/index.d.ts:292
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:296
 
 **`Internal`**
 
@@ -20,7 +20,7 @@ The shape of the internal cache
 
 > **accounts**: [`AccountCache`](../classes/AccountCache.md)
 
-Defined in: packages/state/dist/index.d.ts:293
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:297
 
 ***
 
@@ -28,7 +28,7 @@ Defined in: packages/state/dist/index.d.ts:293
 
 > **contracts**: [`ContractCache`](../classes/ContractCache.md)
 
-Defined in: packages/state/dist/index.d.ts:295
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:299
 
 ***
 
@@ -36,4 +36,4 @@ Defined in: packages/state/dist/index.d.ts:295
 
 > **storage**: [`StorageCache`](../classes/StorageCache.md)
 
-Defined in: packages/state/dist/index.d.ts:294
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:298

@@ -8,7 +8,7 @@
 
 > **createBlockFromBeaconPayload**(`payload`, `opts`): `Promise`\<[`Block`](../classes/Block.md)\>
 
-Defined in: packages/block/types/index.d.ts:51
+Defined in: tevm-monorepo/packages/block/types/index.d.ts:51
 
 Creates a block from a beacon payload JSON
 

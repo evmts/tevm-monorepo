@@ -8,7 +8,7 @@
 
 > **EthSimulateV2Params** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:484
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:484
 
 Based on the JSON-RPC request for `eth_simulateV2` procedure
 Extends V1 with additional features:
@@ -23,7 +23,7 @@ Extends V1 with additional features:
 
 > `readonly` **blockStateCalls**: readonly [`EthSimulateV2BlockStateCall`](EthSimulateV2BlockStateCall.md)[]
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:489
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:489
 
 Array of block state calls to simulate. Each block can have its own
 state overrides and multiple calls.
@@ -32,9 +32,9 @@ state overrides and multiple calls.
 
 ### blockTag?
 
-> `readonly` `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> `readonly` `optional` **blockTag?**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:505
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:505
 
 The block number or tag to execute the simulation against
 
@@ -42,9 +42,9 @@ The block number or tag to execute the simulation against
 
 ### includeCallTraces?
 
-> `readonly` `optional` **includeCallTraces**: `boolean`
+> `readonly` `optional` **includeCallTraces?**: `boolean`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:515
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:515
 
 Whether to include call traces in the response.
 V2 feature: provides detailed execution traces for debugging.
@@ -53,9 +53,9 @@ V2 feature: provides detailed execution traces for debugging.
 
 ### includeContractCreationEvents?
 
-> `readonly` `optional` **includeContractCreationEvents**: `boolean`
+> `readonly` `optional` **includeContractCreationEvents?**: `boolean`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:510
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:510
 
 Whether to include contract creation events in the logs.
 V2 feature: emits a synthetic log when contracts are deployed.
@@ -64,9 +64,9 @@ V2 feature: emits a synthetic log when contracts are deployed.
 
 ### returnFullTransactions?
 
-> `readonly` `optional` **returnFullTransactions**: `boolean`
+> `readonly` `optional` **returnFullTransactions?**: `boolean`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:501
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:501
 
 Whether to return full transaction objects in the response
 
@@ -74,9 +74,9 @@ Whether to return full transaction objects in the response
 
 ### traceTransfers?
 
-> `readonly` `optional` **traceTransfers**: `boolean`
+> `readonly` `optional` **traceTransfers?**: `boolean`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:493
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:493
 
 Whether to trace ETH transfers (adds Transfer logs for native ETH)
 
@@ -84,8 +84,8 @@ Whether to trace ETH transfers (adds Transfer logs for native ETH)
 
 ### validation?
 
-> `readonly` `optional` **validation**: `boolean`
+> `readonly` `optional` **validation?**: `boolean`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:497
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:497
 
 Whether to validate transactions (check signatures, nonces, etc.)

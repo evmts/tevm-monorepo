@@ -8,7 +8,7 @@
 
 > **HttpClientOptions** = `object`
 
-Defined in: packages/http-client/types/HttpClientOptions.d.ts:5
+Defined in: tevm-monorepo/packages/http-client/types/HttpClientOptions.d.ts:5
 
 ## Deprecated
 
@@ -18,9 +18,9 @@ Options for a HttpClient
 
 ### ~~name?~~
 
-> `readonly` `optional` **name**: `string`
+> `readonly` `optional` **name?**: `string`
 
-Defined in: packages/http-client/types/HttpClientOptions.d.ts:13
+Defined in: tevm-monorepo/packages/http-client/types/HttpClientOptions.d.ts:13
 
 Optional name for the client
 
@@ -30,6 +30,6 @@ Optional name for the client
 
 > `readonly` **url**: `string`
 
-Defined in: packages/http-client/types/HttpClientOptions.d.ts:9
+Defined in: tevm-monorepo/packages/http-client/types/HttpClientOptions.d.ts:9
 
 Remote URL to connect to

@@ -26,8 +26,6 @@ Defined in: [extensions/ethers/src/contract/BaseContractMethod.ts:4](https://git
 
 > **BaseContractMethod**(...`args`): `Promise`\<`TReturnType` \| `TExtendedReturnType`\>
 
-Defined in: [extensions/ethers/src/contract/BaseContractMethod.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/extensions/ethers/src/contract/BaseContractMethod.ts#L9)
-
 ## Parameters
 
 ### args
@@ -56,7 +54,7 @@ Defined in: [extensions/ethers/src/contract/BaseContractMethod.ts:15](https://gi
 
 ***
 
-### estimateGas()
+### estimateGas
 
 > **estimateGas**: (...`args`) => `Promise`\<`bigint`\>
 
@@ -82,7 +80,7 @@ Defined in: [extensions/ethers/src/contract/BaseContractMethod.ts:24](https://gi
 
 ***
 
-### getFragment()
+### getFragment
 
 > **getFragment**: (...`args`) => `FunctionFragment`
 
@@ -108,7 +106,7 @@ Defined in: [extensions/ethers/src/contract/BaseContractMethod.ts:11](https://gi
 
 ***
 
-### populateTransaction()
+### populateTransaction
 
 > **populateTransaction**: (...`args`) => `Promise`\<`ContractTransaction`\>
 
@@ -126,7 +124,7 @@ Defined in: [extensions/ethers/src/contract/BaseContractMethod.ts:19](https://gi
 
 ***
 
-### send()
+### send
 
 > **send**: (...`args`) => `Promise`\<`ContractTransactionResponse`\>
 
@@ -144,7 +142,7 @@ Defined in: [extensions/ethers/src/contract/BaseContractMethod.ts:20](https://gi
 
 ***
 
-### staticCall()
+### staticCall
 
 > **staticCall**: (...`args`) => `Promise`\<`TReturnType`\>
 
@@ -162,7 +160,7 @@ Defined in: [extensions/ethers/src/contract/BaseContractMethod.ts:21](https://gi
 
 ***
 
-### staticCallResult()
+### staticCallResult
 
 > **staticCallResult**: (...`args`) => `Promise`\<`Result`\>
 

@@ -8,7 +8,7 @@
 
 > **anvilSetNextBlockTimestampJsonRpcProcedure**(`client`): [`AnvilSetNextBlockTimestampProcedure`](../type-aliases/AnvilSetNextBlockTimestampProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetNextBlockTimestampProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetNextBlockTimestampProcedure.d.ts:1
 
 ## Parameters
 

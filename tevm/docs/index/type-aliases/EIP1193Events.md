@@ -8,7 +8,7 @@
 
 > **EIP1193Events** = `object`
 
-Defined in: packages/node/dist/index.d.ts:253
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:247
 
 ## Methods
 
@@ -16,7 +16,7 @@ Defined in: packages/node/dist/index.d.ts:253
 
 > **on**\<`TEvent`\>(`event`, `listener`): `void`
 
-Defined in: packages/node/dist/index.d.ts:254
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:248
 
 #### Type Parameters
 
@@ -44,7 +44,7 @@ Defined in: packages/node/dist/index.d.ts:254
 
 > **removeListener**\<`TEvent`\>(`event`, `listener`): `void`
 
-Defined in: packages/node/dist/index.d.ts:255
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:249
 
 #### Type Parameters
 

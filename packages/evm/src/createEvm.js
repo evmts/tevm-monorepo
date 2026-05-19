@@ -47,7 +47,9 @@ export const createEvm = async ({
 	})
 	const evm = await Evm.create({
 		common: common.ethjsCommon,
-		stateManager,
+		stateManager: /** @type {NonNullable<import('@evmts/zevm/evm').EVMOpts['stateManager']>} */ (
+			/** @type {unknown} */ (stateManager)
+		),
 		blockchain,
 		allowUnlimitedContractSize: allowUnlimitedContractSize ?? false,
 		allowUnlimitedInitCodeSize: false,

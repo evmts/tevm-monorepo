@@ -8,7 +8,7 @@
 
 > **delBlock**(`baseChain`): (`blockHash`) => `Promise`\<`void`\>
 
-Defined in: packages/blockchain/types/actions/delBlock.d.ts:1
+Defined in: tevm-monorepo/packages/blockchain/types/actions/delBlock.d.ts:1
 
 ## Parameters
 

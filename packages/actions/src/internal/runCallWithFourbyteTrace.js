@@ -9,9 +9,9 @@ import { bytesToHex, getAddress } from '@tevm/utils'
  * Prepares a trace to collect 4-byte function selectors from contract calls
  * @param {import('@tevm/vm').Vm} vm
  * @param {import('@tevm/node').TevmNode['logger']} logger
- * @param {import('@tevm/evm').EvmRunCallOpts} params
+ * @param {import('@evmts/zevm/evm').EvmRunCallOpts} params
  * @param {boolean} [lazilyRun]
- * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../common/FourbyteTraceResult.js').FourbyteTraceResult}>}
+ * @returns {Promise<import('@evmts/zevm/evm').EvmResult & {trace: import('../common/FourbyteTraceResult.js').FourbyteTraceResult}>}
  * @throws {never}
  */
 export const runCallWithFourbyteTrace = async (vm, logger, params, lazilyRun = false) => {

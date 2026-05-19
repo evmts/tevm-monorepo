@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthUninstallFilterJsonRpcProcedure
 
-# Type Alias: EthUninstallFilterJsonRpcProcedure()
+# Type Alias: EthUninstallFilterJsonRpcProcedure
 
 > **EthUninstallFilterJsonRpcProcedure** = (`request`) => `Promise`\<[`EthUninstallFilterJsonRpcResponse`](EthUninstallFilterJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:44
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:44
 
 ## Parameters
 

@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [index](../README.md) / EIP1193RequestFn
 
-# Type Alias: EIP1193RequestFn()\<TRpcSchema\>
+# Type Alias: EIP1193RequestFn\<TRpcSchema\>
 
 > **EIP1193RequestFn**\<`TRpcSchema`\> = \<`TRpcSchemaOverride`, `TParameters`, `_ReturnType`\>(`args`, `options?`) => `Promise`\<`_ReturnType`\>
 
-Defined in: packages/decorators/dist/index.d.ts:335
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:335
 
 ## Type Parameters
 

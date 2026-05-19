@@ -14,5 +14,5 @@ export const modifyAccountFields = (baseState) => async (address, accountFields)
 	account.balance = accountFields.balance ?? account.balance
 	account.storageRoot = accountFields.storageRoot ?? account.storageRoot
 	account.codeHash = accountFields.codeHash ?? account.codeHash
-	await putAccount(baseState)(address, account)
+	await putAccount(baseState)(address, /** @type {any} */ (account))
 }

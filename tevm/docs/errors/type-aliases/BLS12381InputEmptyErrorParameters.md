@@ -8,7 +8,7 @@
 
 > **BLS12381InputEmptyErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:60
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:60
 
 Parameters for constructing a [BLS12381InputEmptyError](../classes/BLS12381InputEmptyError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing a [BLS12381InputEmptyError](../classes/BLS12381Input
 
 ### cause?
 
-> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
+> `optional` **cause?**: [`ExecutionError`](../classes/ExecutionError.md) \| `EVMError`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:80
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:80
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:84
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:84
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:64
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:64
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:68
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:68
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:72
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:72
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:88
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:88
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:76
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:76
 
 - Additional meta messages.

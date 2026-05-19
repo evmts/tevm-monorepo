@@ -8,7 +8,7 @@
 
 > **Block** = `object`
 
-Defined in: packages/actions/types/common/Block.d.ts:5
+Defined in: tevm-monorepo/packages/actions/types/common/Block.d.ts:5
 
 Header information of an ethereum block
 
@@ -16,9 +16,9 @@ Header information of an ethereum block
 
 ### baseFeePerGas?
 
-> `readonly` `optional` **baseFeePerGas**: `bigint`
+> `readonly` `optional` **baseFeePerGas?**: `bigint`
 
-Defined in: packages/actions/types/common/Block.d.ts:29
+Defined in: tevm-monorepo/packages/actions/types/common/Block.d.ts:29
 
 (Optional) The base fee per gas in the block, introduced in EIP-1559 for dynamic transaction fee calculation.
 
@@ -26,9 +26,9 @@ Defined in: packages/actions/types/common/Block.d.ts:29
 
 ### blobGasPrice?
 
-> `readonly` `optional` **blobGasPrice**: `bigint`
+> `readonly` `optional` **blobGasPrice?**: `bigint`
 
-Defined in: packages/actions/types/common/Block.d.ts:33
+Defined in: tevm-monorepo/packages/actions/types/common/Block.d.ts:33
 
 The gas price for the block; may be undefined in blocks after EIP-1559.
 
@@ -38,7 +38,7 @@ The gas price for the block; may be undefined in blocks after EIP-1559.
 
 > `readonly` **coinbase**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/common/Block.d.ts:13
+Defined in: tevm-monorepo/packages/actions/types/common/Block.d.ts:13
 
 The address of the miner or validator who mined or validated the block.
 
@@ -48,7 +48,7 @@ The address of the miner or validator who mined or validated the block.
 
 > `readonly` **difficulty**: `bigint`
 
-Defined in: packages/actions/types/common/Block.d.ts:21
+Defined in: tevm-monorepo/packages/actions/types/common/Block.d.ts:21
 
 The difficulty level of the block (relevant in PoW chains).
 
@@ -58,7 +58,7 @@ The difficulty level of the block (relevant in PoW chains).
 
 > `readonly` **gasLimit**: `bigint`
 
-Defined in: packages/actions/types/common/Block.d.ts:25
+Defined in: tevm-monorepo/packages/actions/types/common/Block.d.ts:25
 
 The gas limit for the block, i.e., the maximum amount of gas that can be used by the transactions in the block.
 
@@ -68,7 +68,7 @@ The gas limit for the block, i.e., the maximum amount of gas that can be used by
 
 > `readonly` **number**: `bigint`
 
-Defined in: packages/actions/types/common/Block.d.ts:9
+Defined in: tevm-monorepo/packages/actions/types/common/Block.d.ts:9
 
 The block number (height) in the blockchain.
 
@@ -78,6 +78,6 @@ The block number (height) in the blockchain.
 
 > `readonly` **timestamp**: `bigint`
 
-Defined in: packages/actions/types/common/Block.d.ts:17
+Defined in: tevm-monorepo/packages/actions/types/common/Block.d.ts:17
 
 The timestamp at which the block was mined or validated.

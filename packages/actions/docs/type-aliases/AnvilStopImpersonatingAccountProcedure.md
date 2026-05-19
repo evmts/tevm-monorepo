@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilStopImpersonatingAccountProcedure
 
-# Type Alias: AnvilStopImpersonatingAccountProcedure()
+# Type Alias: AnvilStopImpersonatingAccountProcedure
 
 > **AnvilStopImpersonatingAccountProcedure** = (`request`) => `Promise`\<[`AnvilStopImpersonatingAccountJsonRpcResponse`](AnvilStopImpersonatingAccountJsonRpcResponse.md)\>
 

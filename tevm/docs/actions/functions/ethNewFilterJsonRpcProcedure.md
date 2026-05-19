@@ -8,7 +8,7 @@
 
 > **ethNewFilterJsonRpcProcedure**(`tevmNode`): [`EthNewFilterJsonRpcProcedure`](../type-aliases/EthNewFilterJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethNewFilterProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethNewFilterProcedure.d.ts:1
 
 ## Parameters
 

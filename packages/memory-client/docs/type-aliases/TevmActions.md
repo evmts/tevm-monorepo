@@ -264,7 +264,7 @@ await client.tevmMine()
 
 ***
 
-### tevmReady()
+### tevmReady
 
 > **tevmReady**: () => `Promise`\<`true`\>
 

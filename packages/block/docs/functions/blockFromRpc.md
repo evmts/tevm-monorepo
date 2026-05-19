@@ -6,7 +6,7 @@
 
 # ~~Function: blockFromRpc()~~
 
-> **blockFromRpc**(`blockParams`, `options`, `uncles`): [`Block`](../classes/Block.md)
+> **blockFromRpc**(`blockParams`, `options`, `uncles?`): [`Block`](../classes/Block.md)
 
 Defined in: [packages/block/src/from-rpc.ts:36](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/from-rpc.ts#L36)
 
@@ -26,7 +26,7 @@ Ethereum JSON RPC of block (eth_getBlockByNumber)
 
 An object describing the blockchain
 
-### uncles
+### uncles?
 
 `any`[] = `[]`
 

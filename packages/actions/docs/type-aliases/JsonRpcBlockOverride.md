@@ -16,7 +16,7 @@ Block override for simulateV1
 
 ### baseFeePerGas?
 
-> `optional` **baseFeePerGas**: `Hex`
+> `optional` **baseFeePerGas?**: `Hex`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:387](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L387)
 
@@ -24,7 +24,7 @@ Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:387](https://github.c
 
 ### blobBaseFee?
 
-> `optional` **blobBaseFee**: `Hex`
+> `optional` **blobBaseFee?**: `Hex`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:388](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L388)
 
@@ -32,7 +32,7 @@ Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:388](https://github.c
 
 ### feeRecipient?
 
-> `optional` **feeRecipient**: `Address`
+> `optional` **feeRecipient?**: `Address`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:385](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L385)
 
@@ -40,7 +40,7 @@ Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:385](https://github.c
 
 ### gasLimit?
 
-> `optional` **gasLimit**: `Hex`
+> `optional` **gasLimit?**: `Hex`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:384](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L384)
 
@@ -48,7 +48,7 @@ Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:384](https://github.c
 
 ### number?
 
-> `optional` **number**: `Hex`
+> `optional` **number?**: `Hex`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:382](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L382)
 
@@ -56,7 +56,7 @@ Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:382](https://github.c
 
 ### prevRandao?
 
-> `optional` **prevRandao**: `Hex`
+> `optional` **prevRandao?**: `Hex`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:386](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L386)
 
@@ -64,6 +64,6 @@ Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:386](https://github.c
 
 ### time?
 
-> `optional` **time**: `Hex`
+> `optional` **time?**: `Hex`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:383](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L383)

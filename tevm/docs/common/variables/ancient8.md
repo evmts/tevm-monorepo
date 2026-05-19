@@ -8,7 +8,7 @@
 
 > `const` **ancient8**: [`Common`](../type-aliases/Common.md)
 
-Defined in: packages/common/types/presets/ancient8.d.ts:21
+Defined in: tevm-monorepo/packages/common/types/presets/ancient8.d.ts:21
 
 Creates a common configuration for the ancient8 chain.
 

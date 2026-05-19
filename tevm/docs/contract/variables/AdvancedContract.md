@@ -8,7 +8,7 @@
 
 > `const` **AdvancedContract**: [`Contract`](../../index/type-aliases/Contract.md)
 
-Defined in: packages/contract/types/contract-lib/AdvancedContract.s.sol.d.ts:4
+Defined in: tevm-monorepo/packages/contract/types/contract-lib/AdvancedContract.s.sol.d.ts:4
 
 ## See
 

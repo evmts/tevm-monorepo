@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DebugGetRawHeaderHandler
 
-# Type Alias: DebugGetRawHeaderHandler()
+# Type Alias: DebugGetRawHeaderHandler
 
 > **DebugGetRawHeaderHandler** = (`params`) => `Promise`\<[`DebugGetRawHeaderResult`](DebugGetRawHeaderResult.md)\>
 
-Defined in: packages/actions/types/debug/DebugHandler.d.ts:5
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:5
 
 ## Parameters
 

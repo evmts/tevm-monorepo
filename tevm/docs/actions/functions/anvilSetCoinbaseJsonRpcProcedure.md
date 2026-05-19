@@ -8,7 +8,7 @@
 
 > **anvilSetCoinbaseJsonRpcProcedure**(`client`): [`AnvilSetCoinbaseProcedure`](../type-aliases/AnvilSetCoinbaseProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetCoinbaseProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetCoinbaseProcedure.d.ts:1
 
 ## Parameters
 

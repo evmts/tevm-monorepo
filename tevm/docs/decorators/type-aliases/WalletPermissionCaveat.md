@@ -8,7 +8,7 @@
 
 > **WalletPermissionCaveat** = `object`
 
-Defined in: packages/decorators/dist/index.d.ts:1487
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1487
 
 Restrictions or conditions applied to a wallet permission.
 Used in the EIP-2255 wallet permissions system to add constraints to granted permissions.
@@ -35,7 +35,7 @@ const expirationCaveat: WalletPermissionCaveat = {
 
 > **type**: `string`
 
-Defined in: packages/decorators/dist/index.d.ts:1488
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1488
 
 ***
 
@@ -43,4 +43,4 @@ Defined in: packages/decorators/dist/index.d.ts:1488
 
 > **value**: `any`
 
-Defined in: packages/decorators/dist/index.d.ts:1489
+Defined in: tevm-monorepo/packages/decorators/dist/index.d.ts:1489

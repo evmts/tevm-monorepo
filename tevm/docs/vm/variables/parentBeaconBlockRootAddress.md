@@ -8,4 +8,4 @@
 
 > `const` **parentBeaconBlockRootAddress**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-Defined in: packages/vm/types/actions/parentBeaconBlockRootAddress.d.ts:1
+Defined in: tevm-monorepo/packages/vm/types/actions/parentBeaconBlockRootAddress.d.ts:1

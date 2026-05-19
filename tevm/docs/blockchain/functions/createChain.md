@@ -8,7 +8,7 @@
 
 > **createChain**(`options`): `Promise`\<[`Chain`](../type-aliases/Chain.md)\>
 
-Defined in: packages/blockchain/types/createChain.d.ts:1
+Defined in: tevm-monorepo/packages/blockchain/types/createChain.d.ts:1
 
 ## Parameters
 

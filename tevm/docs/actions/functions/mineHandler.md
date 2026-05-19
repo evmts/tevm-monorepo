@@ -8,7 +8,7 @@
 
 > **mineHandler**(`client`, `options?`): [`MineHandler`](../type-aliases/MineHandler.md)
 
-Defined in: packages/actions/types/Mine/mineHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Mine/mineHandler.d.ts:1
 
 ## Parameters
 

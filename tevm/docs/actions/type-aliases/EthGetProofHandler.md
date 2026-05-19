@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetProofHandler
 
-# Type Alias: EthGetProofHandler()
+# Type Alias: EthGetProofHandler
 
 > **EthGetProofHandler** = (`request`) => `Promise`\<[`EthGetProofResult`](EthGetProofResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:46
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:46
 
 ## Parameters
 

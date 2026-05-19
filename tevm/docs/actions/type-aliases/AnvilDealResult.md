@@ -8,12 +8,12 @@
 
 > **AnvilDealResult** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:19
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:19
 
 ## Properties
 
 ### errors?
 
-> `optional` **errors**: `Error`[]
+> `optional` **errors?**: `Error`[]
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:20
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:20

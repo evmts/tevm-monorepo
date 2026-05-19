@@ -8,7 +8,7 @@
 
 > **InvalidBlockErrorParameters** = `object`
 
-Defined in: packages/errors/types/input/InvalidBlockError.d.ts:44
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlockError.d.ts:44
 
 Parameters for constructing an InvalidBlockError.
 
@@ -16,9 +16,9 @@ Parameters for constructing an InvalidBlockError.
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause?**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/input/InvalidBlockError.d.ts:64
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlockError.d.ts:64
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/input/InvalidBlockError.d.ts:64
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/input/InvalidBlockError.d.ts:68
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlockError.d.ts:68
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/input/InvalidBlockError.d.ts:68
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/input/InvalidBlockError.d.ts:48
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlockError.d.ts:48
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/input/InvalidBlockError.d.ts:48
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/input/InvalidBlockError.d.ts:52
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlockError.d.ts:52
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/input/InvalidBlockError.d.ts:52
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/input/InvalidBlockError.d.ts:56
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlockError.d.ts:56
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/input/InvalidBlockError.d.ts:56
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/input/InvalidBlockError.d.ts:72
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlockError.d.ts:72
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/input/InvalidBlockError.d.ts:72
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/input/InvalidBlockError.d.ts:60
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidBlockError.d.ts:60
 
 - Additional meta messages.

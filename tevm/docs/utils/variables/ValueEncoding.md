@@ -6,9 +6,9 @@
 
 # Variable: ValueEncoding
 
-> **ValueEncoding**: `object`
+> `const` **ValueEncoding**: `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/db.d.ts:11
+Defined in: zevm/npm/zevm/dist/util.d.ts:20
 
 ## Type Declaration
 

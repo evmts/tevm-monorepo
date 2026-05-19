@@ -16,7 +16,7 @@ Defined in: [packages/vm/src/Vm.ts:6](https://github.com/evmts/tevm-monorepo/blo
 
 > **buildBlock**: [`BuildBlock`](BuildBlock.md)
 
-### deepCopy()
+### deepCopy
 
 > **deepCopy**: () => `Promise`\<`Vm`\>
 

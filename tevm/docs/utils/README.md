@@ -31,6 +31,7 @@
 - [EncodeDeployDataParameters](type-aliases/EncodeDeployDataParameters.md)
 - [EncodeEventTopicsParameters](type-aliases/EncodeEventTopicsParameters.md)
 - [EncodingOpts](type-aliases/EncodingOpts.md)
+- [EthjsLog](type-aliases/EthjsLog.md)
 - [GenesisState](type-aliases/GenesisState.md)
 - [JsonSerializable](type-aliases/JsonSerializable.md)
 - [JsonSerializableArray](type-aliases/JsonSerializableArray.md)
@@ -47,12 +48,8 @@
 
 - [BIGINT\_0](variables/BIGINT_0.md)
 - [BIGINT\_1](variables/BIGINT_1.md)
-- [~~bytesToUnprefixedHex~~](variables/bytesToUnprefixedHex.md)
-- [concatBytes](variables/concatBytes.md)
-- [ecrecover](variables/ecrecover.md)
+- [bytesToUnprefixedHex](variables/bytesToUnprefixedHex.md)
 - [EOA\_CODE\_7702\_AUTHORITY\_SIGNING\_MAGIC](variables/EOA_CODE_7702_AUTHORITY_SIGNING_MAGIC.md)
-- [fetchFromProvider](variables/fetchFromProvider.md)
-- [getProvider](variables/getProvider.md)
 - [GWEI\_TO\_WEI](variables/GWEI_TO_WEI.md)
 - [KECCAK256\_RLP](variables/KECCAK256_RLP.md)
 - [KECCAK256\_RLP\_ARRAY](variables/KECCAK256_RLP_ARRAY.md)
@@ -64,16 +61,17 @@
 - [PREFUNDED\_SEED](variables/PREFUNDED_SEED.md)
 - [randomBytes](variables/randomBytes.md)
 - [SECP256K1\_ORDER\_DIV\_2](variables/SECP256K1_ORDER_DIV_2.md)
-- [setLengthLeft](variables/setLengthLeft.md)
 - [TypeOutput](variables/TypeOutput.md)
 - [ValueEncoding](variables/ValueEncoding.md)
 
 ## Functions
 
 - [bytesToUtf8](functions/bytesToUtf8.md)
+- [concatBytes](functions/concatBytes.md)
 - [createAccount](functions/createAccount.md)
 - [createAddressFromString](functions/createAddressFromString.md)
 - [createWithdrawal](functions/createWithdrawal.md)
+- [ecrecover](functions/ecrecover.md)
 - [eoaCode7702AuthorizationHashedMessageToSign](functions/eoaCode7702AuthorizationHashedMessageToSign.md)
 - [eoaCode7702AuthorizationListBytesItemToJSON](functions/eoaCode7702AuthorizationListBytesItemToJSON.md)
 - [eoaCode7702AuthorizationListJSONItemToBytes](functions/eoaCode7702AuthorizationListJSONItemToBytes.md)
@@ -81,6 +79,8 @@
 - [eoaCode7702RecoverAuthority](functions/eoaCode7702RecoverAuthority.md)
 - [eoaCode7702SignAuthorization](functions/eoaCode7702SignAuthorization.md)
 - [equalsBytes](functions/equalsBytes.md)
+- [fetchFromProvider](functions/fetchFromProvider.md)
+- [getProvider](functions/getProvider.md)
 - [hashMessage](functions/hashMessage.md)
 - [invariant](functions/invariant.md)
 - [isEOACode7702AuthorizationList](functions/isEOACode7702AuthorizationList.md)
@@ -88,6 +88,7 @@
 - [recoverMessageAddress](functions/recoverMessageAddress.md)
 - [recoverPublicKey](functions/recoverPublicKey.md)
 - [serializeTransaction](functions/serializeTransaction.md)
+- [setLengthLeft](functions/setLengthLeft.md)
 - [signMessage](functions/signMessage.md)
 - [toType](functions/toType.md)
 - [verifyMessage](functions/verifyMessage.md)
@@ -301,12 +302,6 @@ Re-exports [encodeFunctionResult](../index/functions/encodeFunctionResult.md)
 ### encodePacked
 
 Re-exports [encodePacked](../index/functions/encodePacked.md)
-
-***
-
-### EthjsLog
-
-Renames and re-exports [Log](../evm/type-aliases/Log.md)
 
 ***
 

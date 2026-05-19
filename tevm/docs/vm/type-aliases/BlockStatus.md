@@ -8,4 +8,4 @@
 
 > **BlockStatus** = \{ `status`: [`Pending`](../enumerations/BuildStatus.md#pending) \| [`Reverted`](../enumerations/BuildStatus.md#reverted); \} \| \{ `block`: [`Block`](../../block/classes/Block.md); `status`: [`Build`](../enumerations/BuildStatus.md#build); \}
 
-Defined in: packages/vm/types/actions/BlockStatus.d.ts:3
+Defined in: tevm-monorepo/packages/vm/types/actions/BlockStatus.d.ts:3

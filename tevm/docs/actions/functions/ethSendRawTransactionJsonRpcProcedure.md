@@ -8,7 +8,7 @@
 
 > **ethSendRawTransactionJsonRpcProcedure**(`client`): [`EthSendRawTransactionJsonRpcProcedure`](../type-aliases/EthSendRawTransactionJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethSendRawTransactionProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethSendRawTransactionProcedure.d.ts:1
 
 ## Parameters
 

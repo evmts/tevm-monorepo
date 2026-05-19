@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetNextBlockTimestampProcedure
 
-# Type Alias: AnvilSetNextBlockTimestampProcedure()
+# Type Alias: AnvilSetNextBlockTimestampProcedure
 
 > **AnvilSetNextBlockTimestampProcedure** = (`request`) => `Promise`\<[`AnvilSetNextBlockTimestampJsonRpcResponse`](AnvilSetNextBlockTimestampJsonRpcResponse.md)\>
 

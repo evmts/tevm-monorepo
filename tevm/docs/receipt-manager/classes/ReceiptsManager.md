@@ -6,7 +6,7 @@
 
 # Class: ReceiptsManager
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:128
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:128
 
 Manages transaction receipts within the Ethereum virtual machine
 Provides methods for storing, retrieving, and searching transaction receipts and logs
@@ -17,7 +17,7 @@ Provides methods for storing, retrieving, and searching transaction receipts and
 
 > **new ReceiptsManager**(`mapDb`, `chain`): `ReceiptsManager`
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:136
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:136
 
 Creates a new ReceiptsManager instance
 
@@ -45,7 +45,7 @@ The blockchain instance for retrieving blocks
 
 > `readonly` **chain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:130
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:130
 
 ***
 
@@ -53,7 +53,7 @@ Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:130
 
 > **GET\_LOGS\_BLOCK\_RANGE\_LIMIT**: `number`
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:151
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:151
 
 Maximum block range that can be queried in a single getLogs call
 This prevents excessive computational load from large queries
@@ -64,7 +64,7 @@ This prevents excessive computational load from large queries
 
 > **GET\_LOGS\_LIMIT**: `number`
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:141
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:141
 
 Maximum number of logs to return in getLogs
 This prevents excessive memory usage and response size
@@ -75,7 +75,7 @@ This prevents excessive memory usage and response size
 
 > **GET\_LOGS\_LIMIT\_MEGABYTES**: `number`
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:146
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:146
 
 Maximum size of getLogs response in megabytes
 This prevents excessive memory usage and response size
@@ -86,7 +86,7 @@ This prevents excessive memory usage and response size
 
 > `readonly` **mapDb**: [`MapDb`](../type-aliases/MapDb.md)
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:129
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:129
 
 ## Methods
 
@@ -94,7 +94,7 @@ Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:129
 
 > **deepCopy**(`chain`): `ReceiptsManager`
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:159
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:159
 
 Creates a deep copy of this ReceiptsManager with a new chain reference
 Useful for creating a snapshot of the current state
@@ -119,7 +119,7 @@ A new ReceiptsManager instance with copied state
 
 > **deleteReceipts**(`block`): `Promise`\<`void`\>
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:184
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:184
 
 Deletes transaction receipts and their indexes for a given block
 Used when removing or replacing block data
@@ -151,7 +151,7 @@ await receiptManager.deleteReceipts(block)
 
 > **getLogs**(`from`, `to`, `addresses?`, `topics?`): `Promise`\<`GetLogsReturn`\>
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:239
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:239
 
 Retrieves logs matching the specified criteria within a block range
 Implements the core functionality of eth_getLogs JSON-RPC method
@@ -179,7 +179,7 @@ Optional array of addresses to filter logs by
 
 ##### topics?
 
-(`null` \| `Uint8Array`\<`ArrayBufferLike`\> \| `Uint8Array`\<`ArrayBufferLike`\>[])[]
+(`Uint8Array`\<`ArrayBufferLike`\> \| `Uint8Array`\<`ArrayBufferLike`\>[] \| `null`)[]
 
 Optional array of topics to filter logs by, can include arrays and nulls
 
@@ -206,9 +206,9 @@ const logs = await receiptManager.getLogs(block100, block200, undefined, [eventT
 
 ### getReceiptByTxHash()
 
-> **getReceiptByTxHash**(`txHash`): `Promise`\<`null` \| `GetReceiptByTxHashReturn`\>
+> **getReceiptByTxHash**(`txHash`): `Promise`\<`GetReceiptByTxHashReturn` \| `null`\>
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:217
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:217
 
 Retrieves a transaction receipt by transaction hash
 Also returns additional metadata needed for JSON-RPC responses
@@ -223,7 +223,7 @@ The transaction hash to look up
 
 #### Returns
 
-`Promise`\<`null` \| `GetReceiptByTxHashReturn`\>
+`Promise`\<`GetReceiptByTxHashReturn` \| `null`\>
 
 Promise resolving to receipt data or null if not found
 
@@ -245,7 +245,7 @@ if (receiptData) {
 
 > **getReceipts**(`blockHash`, `calcBloom?`, `includeTxType?`): `Promise`\<[`TxReceiptWithType`](../type-aliases/TxReceiptWithType.md)[]\>
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:201
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:201
 
 Retrieves transaction receipts for a given block hash
 Can optionally calculate bloom filters and include transaction types
@@ -290,7 +290,7 @@ const receiptsWithDetails = await receiptManager.getReceipts(blockHash, true, tr
 
 > **getReceipts**(`blockHash`, `calcBloom?`, `includeTxType?`): `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)[]\>
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:202
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:202
 
 Retrieves transaction receipts for a given block hash
 Can optionally calculate bloom filters and include transaction types
@@ -337,7 +337,7 @@ const receiptsWithDetails = await receiptManager.getReceipts(blockHash, true, tr
 
 > **saveReceipts**(`block`, `receipts`): `Promise`\<`void`\>
 
-Defined in: packages/receipt-manager/types/ReceiptManager.d.ts:172
+Defined in: tevm-monorepo/packages/receipt-manager/types/ReceiptManager.d.ts:172
 
 Saves transaction receipts to the database for a given block
 Also builds and saves transaction hash indexes for efficient lookups

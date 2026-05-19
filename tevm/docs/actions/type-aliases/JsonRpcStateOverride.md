@@ -8,7 +8,7 @@
 
 > **JsonRpcStateOverride** = `object`
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:260
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:260
 
 State override for simulateV1
 

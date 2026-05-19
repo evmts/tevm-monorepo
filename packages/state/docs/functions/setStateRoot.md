@@ -8,7 +8,7 @@
 
 > **setStateRoot**(`baseState`, `skipFetchingFromFork?`): (`stateRoot`, `clearCache?`) => `Promise`\<`void`\>
 
-Defined in: [packages/state/src/actions/setStateRoot.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/setStateRoot.js#L23)
+Defined in: [tevm-monorepo/packages/state/src/actions/setStateRoot.js:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/setStateRoot.js#L23)
 
 Changes the currently loaded state root
 
@@ -24,18 +24,4 @@ Changes the currently loaded state root
 
 ## Returns
 
-> (`stateRoot`, `clearCache?`): `Promise`\<`void`\>
-
-### Parameters
-
-#### stateRoot
-
-`Uint8Array`
-
-#### clearCache?
-
-`boolean`
-
-### Returns
-
-`Promise`\<`void`\>
+(`stateRoot`, `clearCache?`) => `Promise`\<`void`\>

@@ -4,7 +4,7 @@
 
 [@tevm/predeploys](../globals.md) / DefinePredeployFn
 
-# Type Alias: DefinePredeployFn()
+# Type Alias: DefinePredeployFn
 
 > **DefinePredeployFn** = \<`TName`, `THumanReadableAbi`\>(`contract`) => [`Predeploy`](Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 

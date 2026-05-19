@@ -4,7 +4,7 @@
 
 [@tevm/decorators](../globals.md) / EIP1193RequestFn
 
-# Type Alias: EIP1193RequestFn()\<TRpcSchema\>
+# Type Alias: EIP1193RequestFn\<TRpcSchema\>
 
 > **EIP1193RequestFn**\<`TRpcSchema`\> = \<`TRpcSchemaOverride`, `TParameters`, `_ReturnType`\>(`args`, `options?`) => `Promise`\<`_ReturnType`\>
 

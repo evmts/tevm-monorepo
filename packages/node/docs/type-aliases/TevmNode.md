@@ -14,7 +14,7 @@ The base client used by Tevm. Add extensions to add additional functionality
 
 ## Type Declaration
 
-### addSnapshot()
+### addSnapshot
 
 > `readonly` **addSnapshot**: (`stateRoot`, `state`) => `string`
 
@@ -35,9 +35,9 @@ Used by evm_snapshot RPC method
 
 `string`
 
-### debug()?
+### debug?
 
-> `readonly` `optional` **debug**: () => `Promise`\<\{ `blocks`: \{ `forked?`: `JsonHeader`; `latest?`: `JsonHeader`; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: [`MiningConfig`](MiningConfig.md); `mode`: `TMode`; `receipts`: `Awaited`\<`ReturnType`\<`ReceiptsManager`\[`"getLogs"`\]\>\>; `registeredFilters`: `Map`\<`Hex`, [`Filter`](Filter.md)\>; `state`: `TevmState`; `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
+> `readonly` `optional` **debug?**: () => `Promise`\<\{ `blocks`: \{ `forked?`: `JsonHeader`; `latest?`: `JsonHeader`; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: [`MiningConfig`](MiningConfig.md); `mode`: `TMode`; `receipts`: `Awaited`\<`ReturnType`\<`ReceiptsManager`\[`"getLogs"`\]\>\>; `registeredFilters`: `Map`\<`Hex`, [`Filter`](Filter.md)\>; `state`: `TevmState`; `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
 
 Returns debug information about the current node state
 including chain details, status, mode, mining config, filters,
@@ -47,7 +47,7 @@ blocks, mempool transactions, and state
 
 `Promise`\<\{ `blocks`: \{ `forked?`: `JsonHeader`; `latest?`: `JsonHeader`; \}; `chainId`: `number`; `chainName`: `string`; `eips`: `number`[]; `hardfork`: `string`; `miningConfig`: [`MiningConfig`](MiningConfig.md); `mode`: `TMode`; `receipts`: `Awaited`\<`ReturnType`\<`ReceiptsManager`\[`"getLogs"`\]\>\>; `registeredFilters`: `Map`\<`Hex`, [`Filter`](Filter.md)\>; `state`: `TevmState`; `status`: `"INITIALIZING"` \| `"READY"` \| `"SYNCING"` \| `"MINING"` \| `"STOPPED"`; `txsInMempool`: `number`; \}\>
 
-### deepCopy()
+### deepCopy
 
 > `readonly` **deepCopy**: () => `Promise`\<`TevmNode`\<`TMode`, `TExtended`\>\>
 
@@ -57,7 +57,7 @@ Copies the current client state into a new client
 
 `Promise`\<`TevmNode`\<`TMode`, `TExtended`\>\>
 
-### deleteSnapshotsFrom()
+### deleteSnapshotsFrom
 
 > `readonly` **deleteSnapshotsFrom**: (`snapshotId`) => `void`
 
@@ -74,7 +74,7 @@ This is needed because reverting invalidates all subsequent snapshots
 
 `void`
 
-### extend()
+### extend
 
 > `readonly` **extend**: \<`TExtension`\>(`decorator`) => `TevmNode`\<`TMode`, `TExtended` & `TExtension`\>
 
@@ -99,7 +99,7 @@ and extensibility
 
 ### forkTransport?
 
-> `readonly` `optional` **forkTransport**: `object`
+> `readonly` `optional` **forkTransport?**: `object`
 
 Client to make json rpc requests to a forked node
 
@@ -113,7 +113,7 @@ const client = createMemoryClient({ request: eip1193RequestFn })
 
 > **request**: `EIP1193RequestFn`
 
-### getAutoImpersonate()
+### getAutoImpersonate
 
 > `readonly` **getAutoImpersonate**: () => `boolean`
 
@@ -124,7 +124,7 @@ When enabled, all transaction senders are automatically impersonated.
 
 `boolean`
 
-### getBlockTimestampInterval()
+### getBlockTimestampInterval
 
 > `readonly` **getBlockTimestampInterval**: () => `bigint` \| `undefined`
 
@@ -135,7 +135,7 @@ If undefined, no automatic interval is applied
 
 `bigint` \| `undefined`
 
-### getFilters()
+### getFilters
 
 > `readonly` **getFilters**: () => `Map`\<`Hex`, [`Filter`](Filter.md)\>
 
@@ -145,7 +145,7 @@ Gets all registered filters mapped by id
 
 `Map`\<`Hex`, [`Filter`](Filter.md)\>
 
-### getImpersonatedAccount()
+### getImpersonatedAccount
 
 > `readonly` **getImpersonatedAccount**: () => `Address` \| `undefined`
 
@@ -155,7 +155,7 @@ The currently impersonated account. This is only used in `fork` mode
 
 `Address` \| `undefined`
 
-### getMinGasPrice()
+### getMinGasPrice
 
 > `readonly` **getMinGasPrice**: () => `bigint` \| `undefined`
 
@@ -166,7 +166,7 @@ If undefined, no minimum gas price is enforced
 
 `bigint` \| `undefined`
 
-### getNextBlockBaseFeePerGas()
+### getNextBlockBaseFeePerGas
 
 > `readonly` **getNextBlockBaseFeePerGas**: () => `bigint` \| `undefined`
 
@@ -177,7 +177,7 @@ If undefined, the base fee will be calculated from the parent block
 
 `bigint` \| `undefined`
 
-### getNextBlockGasLimit()
+### getNextBlockGasLimit
 
 > `readonly` **getNextBlockGasLimit**: () => `bigint` \| `undefined`
 
@@ -188,7 +188,7 @@ If undefined, the parent block's gas limit will be used
 
 `bigint` \| `undefined`
 
-### getNextBlockTimestamp()
+### getNextBlockTimestamp
 
 > `readonly` **getNextBlockTimestamp**: () => `bigint` \| `undefined`
 
@@ -199,7 +199,7 @@ If undefined, the current time will be used
 
 `bigint` \| `undefined`
 
-### getReceiptsManager()
+### getReceiptsManager
 
 > `readonly` **getReceiptsManager**: () => `Promise`\<`ReceiptsManager`\>
 
@@ -209,7 +209,7 @@ Interface for querying receipts and historical state
 
 `Promise`\<`ReceiptsManager`\>
 
-### getSnapshot()
+### getSnapshot
 
 > `readonly` **getSnapshot**: (`snapshotId`) => \{ `state`: `TevmState`; `stateRoot`: `string`; \} \| `undefined`
 
@@ -226,7 +226,7 @@ Used by evm_revert RPC method
 
 \{ `state`: `TevmState`; `stateRoot`: `string`; \} \| `undefined`
 
-### getSnapshots()
+### getSnapshots
 
 > `readonly` **getSnapshots**: () => `Map`\<`string`, \{ `state`: `TevmState`; `stateRoot`: `string`; \}\>
 
@@ -236,7 +236,7 @@ Gets all stored snapshots for evm_snapshot/evm_revert
 
 `Map`\<`string`, \{ `state`: `TevmState`; `stateRoot`: `string`; \}\>
 
-### getTracesEnabled()
+### getTracesEnabled
 
 > `readonly` **getTracesEnabled**: () => `boolean`
 
@@ -247,7 +247,7 @@ When enabled, all transactions include traces in their responses.
 
 `boolean`
 
-### getTxPool()
+### getTxPool
 
 > `readonly` **getTxPool**: () => `Promise`\<`TxPool`\>
 
@@ -257,7 +257,7 @@ Gets the pool of pending transactions to be included in next block
 
 `Promise`\<`TxPool`\>
 
-### getVm()
+### getVm
 
 > `readonly` **getVm**: () => `Promise`\<`Vm`\>
 
@@ -301,7 +301,7 @@ client = createMemoryClient({ forkUrl: 'https://mainnet.infura.io/v3/your-api-ke
 console.log(client.mode) // 'fork'
 ```
 
-### ready()
+### ready
 
 > `readonly` **ready**: () => `Promise`\<`true`\>
 
@@ -320,7 +320,7 @@ const client = createMemoryClient()
 await client.ready()
 ```
 
-### removeFilter()
+### removeFilter
 
 > `readonly` **removeFilter**: (`id`) => `void`
 
@@ -336,7 +336,7 @@ Removes a filter by id
 
 `void`
 
-### setAutoImpersonate()
+### setAutoImpersonate
 
 > `readonly` **setAutoImpersonate**: (`enabled`) => `void`
 
@@ -353,7 +353,7 @@ When enabled, all transactions will have their sender automatically impersonated
 
 `void`
 
-### setBlockTimestampInterval()
+### setBlockTimestampInterval
 
 > `readonly` **setBlockTimestampInterval**: (`interval`) => `void`
 
@@ -365,13 +365,13 @@ Pass undefined to clear the interval.
 
 ##### interval
 
-`bigint` | `undefined`
+`bigint` \| `undefined`
 
 #### Returns
 
 `void`
 
-### setFilter()
+### setFilter
 
 > `readonly` **setFilter**: (`filter`) => `void`
 
@@ -387,7 +387,7 @@ Creates a new filter to watch for logs events and blocks
 
 `void`
 
-### setImpersonatedAccount()
+### setImpersonatedAccount
 
 > `readonly` **setImpersonatedAccount**: (`address`) => `void`
 
@@ -398,13 +398,13 @@ On Ethereum JSON_RPC endpoints. Pass in undefined to stop impersonating
 
 ##### address
 
-`Address` | `undefined`
+`Address` \| `undefined`
 
 #### Returns
 
 `void`
 
-### setMinGasPrice()
+### setMinGasPrice
 
 > `readonly` **setMinGasPrice**: (`minGasPrice`) => `void`
 
@@ -417,13 +417,13 @@ Pass undefined to clear the minimum.
 
 ##### minGasPrice
 
-`bigint` | `undefined`
+`bigint` \| `undefined`
 
 #### Returns
 
 `void`
 
-### setNextBlockBaseFeePerGas()
+### setNextBlockBaseFeePerGas
 
 > `readonly` **setNextBlockBaseFeePerGas**: (`baseFeePerGas`) => `void`
 
@@ -436,13 +436,13 @@ Pass undefined to clear the override.
 
 ##### baseFeePerGas
 
-`bigint` | `undefined`
+`bigint` \| `undefined`
 
 #### Returns
 
 `void`
 
-### setNextBlockGasLimit()
+### setNextBlockGasLimit
 
 > `readonly` **setNextBlockGasLimit**: (`gasLimit`) => `void`
 
@@ -455,13 +455,13 @@ Pass undefined to clear the override and use parent block's gas limit.
 
 ##### gasLimit
 
-`bigint` | `undefined`
+`bigint` \| `undefined`
 
 #### Returns
 
 `void`
 
-### setNextBlockTimestamp()
+### setNextBlockTimestamp
 
 > `readonly` **setNextBlockTimestamp**: (`timestamp`) => `void`
 
@@ -473,13 +473,13 @@ Pass undefined to clear the override and use current time.
 
 ##### timestamp
 
-`bigint` | `undefined`
+`bigint` \| `undefined`
 
 #### Returns
 
 `void`
 
-### setTracesEnabled()
+### setTracesEnabled
 
 > `readonly` **setTracesEnabled**: (`enabled`) => `void`
 

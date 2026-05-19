@@ -8,7 +8,7 @@
 
 > **anvilSetBlockGasLimitJsonRpcProcedure**(`client`): [`AnvilSetBlockGasLimitProcedure`](../type-aliases/AnvilSetBlockGasLimitProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetBlockGasLimitProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetBlockGasLimitProcedure.d.ts:1
 
 ## Parameters
 

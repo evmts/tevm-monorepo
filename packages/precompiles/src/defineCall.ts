@@ -1,4 +1,4 @@
-import { EvmError, type ExecResult } from '@tevm/evm'
+import { EvmError, type ExecResult } from '@evmts/zevm/evm'
 import {
 	type Abi,
 	type AbiParametersToPrimitiveTypes,

@@ -8,7 +8,7 @@
 
 > **executeCall**(`client`, `evmInput`, `params`, `events?`): `Promise`\<[`ExecuteCallResult`](../type-aliases/ExecuteCallResult.md) & `object` \| \{ `errors`: \[[`HandleRunTxError`](../type-aliases/HandleRunTxError.md)\]; \}\>
 
-Defined in: packages/actions/types/Call/executeCall.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Call/executeCall.d.ts:1
 
 ## Parameters
 

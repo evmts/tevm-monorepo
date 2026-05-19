@@ -12,7 +12,7 @@ Defined in: [packages/block/src/types.ts:465](https://github.com/evmts/tevm-mono
 
 ### baseFeePerGas?
 
-> `optional` **baseFeePerGas**: `string`
+> `optional` **baseFeePerGas?**: `string`
 
 Defined in: [packages/block/src/types.ts:486](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L486)
 
@@ -20,7 +20,7 @@ Defined in: [packages/block/src/types.ts:486](https://github.com/evmts/tevm-mono
 
 ### blobGasUsed?
 
-> `optional` **blobGasUsed**: `string`
+> `optional` **blobGasUsed?**: `string`
 
 Defined in: [packages/block/src/types.ts:489](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L489)
 
@@ -36,7 +36,7 @@ Defined in: [packages/block/src/types.ts:477](https://github.com/evmts/tevm-mono
 
 ### excessBlobGas?
 
-> `optional` **excessBlobGas**: `string`
+> `optional` **excessBlobGas?**: `string`
 
 Defined in: [packages/block/src/types.ts:490](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L490)
 
@@ -44,7 +44,7 @@ Defined in: [packages/block/src/types.ts:490](https://github.com/evmts/tevm-mono
 
 ### executionWitness?
 
-> `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
+> `optional` **executionWitness?**: [`VerkleExecutionWitness`](VerkleExecutionWitness.md) \| `null`
 
 Defined in: [packages/block/src/types.ts:492](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L492)
 
@@ -100,7 +100,7 @@ Defined in: [packages/block/src/types.ts:476](https://github.com/evmts/tevm-mono
 
 ### mixHash?
 
-> `optional` **mixHash**: `string`
+> `optional` **mixHash?**: `string`
 
 Defined in: [packages/block/src/types.ts:469](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L469)
 
@@ -124,7 +124,7 @@ Defined in: [packages/block/src/types.ts:466](https://github.com/evmts/tevm-mono
 
 ### parentBeaconBlockRoot?
 
-> `optional` **parentBeaconBlockRoot**: `string`
+> `optional` **parentBeaconBlockRoot?**: `string`
 
 Defined in: [packages/block/src/types.ts:491](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L491)
 
@@ -148,7 +148,7 @@ Defined in: [packages/block/src/types.ts:475](https://github.com/evmts/tevm-mono
 
 ### requests?
 
-> `optional` **requests**: `string`[]
+> `optional` **requests?**: `string`[]
 
 Defined in: [packages/block/src/types.ts:494](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L494)
 
@@ -156,7 +156,7 @@ Defined in: [packages/block/src/types.ts:494](https://github.com/evmts/tevm-mono
 
 ### requestsRoot?
 
-> `optional` **requestsRoot**: `string`
+> `optional` **requestsRoot?**: `string`
 
 Defined in: [packages/block/src/types.ts:493](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L493)
 
@@ -228,7 +228,7 @@ Defined in: [packages/block/src/types.ts:485](https://github.com/evmts/tevm-mono
 
 ### withdrawals?
 
-> `optional` **withdrawals**: `JSONRPCWithdrawal`[]
+> `optional` **withdrawals?**: `JSONRPCWithdrawal`[]
 
 Defined in: [packages/block/src/types.ts:487](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L487)
 
@@ -236,6 +236,6 @@ Defined in: [packages/block/src/types.ts:487](https://github.com/evmts/tevm-mono
 
 ### withdrawalsRoot?
 
-> `optional` **withdrawalsRoot**: `string`
+> `optional` **withdrawalsRoot?**: `string`
 
 Defined in: [packages/block/src/types.ts:488](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L488)

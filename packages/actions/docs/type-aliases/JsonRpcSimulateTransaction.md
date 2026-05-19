@@ -16,8 +16,8 @@ JSON-RPC transaction for simulateV1
 
 ### maxFeePerGas?
 
-> `optional` **maxFeePerGas**: `Hex`
+> `optional` **maxFeePerGas?**: `Hex`
 
 ### maxPriorityFeePerGas?
 
-> `optional` **maxPriorityFeePerGas**: `Hex`
+> `optional` **maxPriorityFeePerGas?**: `Hex`

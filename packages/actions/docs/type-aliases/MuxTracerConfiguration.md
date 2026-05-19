@@ -23,7 +23,7 @@ Each key is a tracer name and the value is that tracer's specific config
 
 ### 4byteTracer?
 
-> `optional` **4byteTracer**: `Record`\<`string`, `never`\> \| \{ \}
+> `optional` **4byteTracer?**: `Record`\<`string`, `never`\> \| \{ \}
 
 Defined in: [packages/actions/src/common/MuxTraceResult.ts:80](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/MuxTraceResult.ts#L80)
 
@@ -31,7 +31,7 @@ Defined in: [packages/actions/src/common/MuxTraceResult.ts:80](https://github.co
 
 ### callTracer?
 
-> `optional` **callTracer**: `Record`\<`string`, `never`\> \| \{ \}
+> `optional` **callTracer?**: `Record`\<`string`, `never`\> \| \{ \}
 
 Defined in: [packages/actions/src/common/MuxTraceResult.ts:78](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/MuxTraceResult.ts#L78)
 
@@ -39,7 +39,7 @@ Defined in: [packages/actions/src/common/MuxTraceResult.ts:78](https://github.co
 
 ### default?
 
-> `optional` **default**: `Record`\<`string`, `never`\> \| \{ \}
+> `optional` **default?**: `Record`\<`string`, `never`\> \| \{ \}
 
 Defined in: [packages/actions/src/common/MuxTraceResult.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/MuxTraceResult.ts#L82)
 
@@ -47,7 +47,7 @@ Defined in: [packages/actions/src/common/MuxTraceResult.ts:82](https://github.co
 
 ### flatCallTracer?
 
-> `optional` **flatCallTracer**: `Record`\<`string`, `never`\> \| \{ \}
+> `optional` **flatCallTracer?**: `Record`\<`string`, `never`\> \| \{ \}
 
 Defined in: [packages/actions/src/common/MuxTraceResult.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/MuxTraceResult.ts#L81)
 
@@ -55,10 +55,10 @@ Defined in: [packages/actions/src/common/MuxTraceResult.ts:81](https://github.co
 
 ### prestateTracer?
 
-> `optional` **prestateTracer**: `object`
+> `optional` **prestateTracer?**: `object`
 
 Defined in: [packages/actions/src/common/MuxTraceResult.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/MuxTraceResult.ts#L79)
 
 #### diffMode?
 
-> `optional` **diffMode**: `TDiffMode`
+> `optional` **diffMode?**: `TDiffMode`

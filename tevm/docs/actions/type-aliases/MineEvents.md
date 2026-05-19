@@ -8,7 +8,7 @@
 
 > **MineEvents** = `object`
 
-Defined in: packages/actions/types/Mine/MineEvents.d.ts:22
+Defined in: tevm-monorepo/packages/actions/types/Mine/MineEvents.d.ts:22
 
 Event handlers for mining operations
 
@@ -31,11 +31,11 @@ const result = await mine(client, {
 
 ## Properties
 
-### onBlock()?
+### onBlock?
 
-> `optional` **onBlock**: (`block`, `next?`) => `void`
+> `optional` **onBlock?**: (`block`, `next?`) => `void`
 
-Defined in: packages/actions/types/Mine/MineEvents.d.ts:28
+Defined in: tevm-monorepo/packages/actions/types/Mine/MineEvents.d.ts:28
 
 Handler called for each new block mined
 
@@ -59,11 +59,11 @@ Function to continue execution - must be called to proceed
 
 ***
 
-### onLog()?
+### onLog?
 
-> `optional` **onLog**: (`log`, `receipt`, `next?`) => `void`
+> `optional` **onLog?**: (`log`, `receipt`, `next?`) => `void`
 
-Defined in: packages/actions/types/Mine/MineEvents.d.ts:42
+Defined in: tevm-monorepo/packages/actions/types/Mine/MineEvents.d.ts:42
 
 Handler called for each transaction log generated during mining
 
@@ -93,11 +93,11 @@ Function to continue execution - must be called to proceed
 
 ***
 
-### onReceipt()?
+### onReceipt?
 
-> `optional` **onReceipt**: (`receipt`, `blockHash`, `next?`) => `void`
+> `optional` **onReceipt?**: (`receipt`, `blockHash`, `next?`) => `void`
 
-Defined in: packages/actions/types/Mine/MineEvents.d.ts:35
+Defined in: tevm-monorepo/packages/actions/types/Mine/MineEvents.d.ts:35
 
 Handler called for each transaction receipt generated during mining
 

@@ -8,7 +8,7 @@
 
 > **deployHandler**(`client`, `__namedParameters?`): [`DeployHandler`](../type-aliases/DeployHandler.md)
 
-Defined in: packages/actions/types/Deploy/deployHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Deploy/deployHandler.d.ts:1
 
 ## Parameters
 

@@ -8,7 +8,7 @@
 
 > **DebugPreimageParams** = `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:188
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:188
 
 Params taken by `debug_preimage` handler
 
@@ -18,6 +18,6 @@ Params taken by `debug_preimage` handler
 
 > `readonly` **hash**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:192
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:192
 
 The SHA3 hash to get the preimage for

@@ -8,7 +8,7 @@
 
 > **Vm** = `BaseVm` & `object`
 
-Defined in: packages/vm/types/Vm.d.ts:5
+Defined in: tevm-monorepo/packages/vm/types/Vm.d.ts:5
 
 ## Type Declaration
 
@@ -16,7 +16,7 @@ Defined in: packages/vm/types/Vm.d.ts:5
 
 > **buildBlock**: [`BuildBlock`](BuildBlock.md)
 
-### deepCopy()
+### deepCopy
 
 > **deepCopy**: () => `Promise`\<`Vm`\>
 

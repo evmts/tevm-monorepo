@@ -8,6 +8,6 @@
 
 > `const` **zStorageRoot**: `z.ZodPipe`\<`z.ZodString`, `z.ZodTransform`\<`string`, `string`\>\>
 
-Defined in: packages/actions/types/internal/zod/zStorageRoot.d.ts:4
+Defined in: tevm-monorepo/packages/actions/types/internal/zod/zStorageRoot.d.ts:4
 
 Zod validator for valid ethereum storage root

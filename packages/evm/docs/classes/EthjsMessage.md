@@ -6,7 +6,7 @@
 
 # Class: EthjsMessage
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:31
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:31
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **new EthjsMessage**(`opts`): `Message`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:62
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:62
 
 #### Parameters
 
@@ -30,25 +30,25 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 ### \_codeAddress?
 
-> `optional` **\_codeAddress**: `Address`
+> `optional` **\_codeAddress?**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:41
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:41
 
 ***
 
 ### accessWitness?
 
-> `optional` **accessWitness**: `VerkleAccessWitnessInterface` \| `BinaryTreeAccessWitnessInterface`
+> `optional` **accessWitness?**: `BinaryTreeAccessWitnessInterface`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:61
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:61
 
 ***
 
 ### blobVersionedHashes?
 
-> `optional` **blobVersionedHashes**: `` `0x${string}` ``[]
+> `optional` **blobVersionedHashes?**: `` `0x${string}` ``[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:60
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:60
 
 List of versioned hashes if message is a blob transaction in the outer VM
 
@@ -58,31 +58,31 @@ List of versioned hashes if message is a blob transaction in the outer VM
 
 > **caller**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:34
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:34
 
 ***
 
 ### chargeCodeAccesses?
 
-> `optional` **chargeCodeAccesses**: `boolean`
+> `optional` **chargeCodeAccesses?**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:46
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:46
 
 ***
 
 ### code?
 
-> `optional` **code**: `PrecompileFunc` \| `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **code?**: `PrecompileFunc` \| `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:40
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:40
 
 ***
 
 ### createdAddresses?
 
-> `optional` **createdAddresses**: `Set`\<`` `0x${string}` ``\>
+> `optional` **createdAddresses?**: `Set`\<`` `0x${string}` ``\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:54
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:54
 
 Map of addresses which were created (used in EIP 6780)
 
@@ -92,7 +92,7 @@ Map of addresses which were created (used in EIP 6780)
 
 > **data**: `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:36
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:36
 
 ***
 
@@ -100,7 +100,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **delegatecall**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:55
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:55
 
 ***
 
@@ -108,23 +108,23 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **depth**: `number`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:39
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:39
 
 ***
 
 ### eof?
 
-> `optional` **eof**: `EOFEnv`
+> `optional` **eof?**: `EOFEnv`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:45
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:45
 
 ***
 
 ### eofCallData?
 
-> `optional` **eofCallData**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **eofCallData?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:37
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:37
 
 ***
 
@@ -132,7 +132,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **gasLimit**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:35
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:35
 
 ***
 
@@ -140,7 +140,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **gasRefund**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:56
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:56
 
 ***
 
@@ -148,15 +148,15 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **isCompiled**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:43
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:43
 
 ***
 
 ### isCreate?
 
-> `optional` **isCreate**: `boolean`
+> `optional` **isCreate?**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:38
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:38
 
 ***
 
@@ -164,23 +164,23 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **isStatic**: `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:42
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:42
 
 ***
 
 ### salt?
 
-> `optional` **salt**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **salt?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:44
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:44
 
 ***
 
 ### selfdestruct?
 
-> `optional` **selfdestruct**: `Set`\<`` `0x${string}` ``\>
+> `optional` **selfdestruct?**: `Set`\<`` `0x${string}` ``\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:50
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:50
 
 Set of addresses to selfdestruct. Key is the unprefixed address.
 
@@ -188,9 +188,9 @@ Set of addresses to selfdestruct. Key is the unprefixed address.
 
 ### to?
 
-> `optional` **to**: `Address`
+> `optional` **to?**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:32
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:32
 
 ***
 
@@ -198,7 +198,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **value**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:33
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:33
 
 ## Accessors
 
@@ -208,7 +208,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **get** **codeAddress**(): `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:66
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/message.d.ts:66
 
 Note: should only be called in instances where `_codeAddress` or `to` is defined.
 

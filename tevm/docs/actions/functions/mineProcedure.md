@@ -8,7 +8,7 @@
 
 > **mineProcedure**(`client`): [`MineJsonRpcProcedure`](../type-aliases/MineJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/Mine/mineProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Mine/mineProcedure.d.ts:1
 
 ## Parameters
 

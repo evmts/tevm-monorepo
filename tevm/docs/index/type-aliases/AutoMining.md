@@ -8,7 +8,7 @@
 
 > **AutoMining** = `object`
 
-Defined in: packages/node/dist/index.d.ts:58
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:52
 
 Mining configuration that automatically mines blocks for every transaction.
 Each transaction is immediately included in its own block.
@@ -29,4 +29,4 @@ const value: AutoMining = {
 
 > **type**: `"auto"`
 
-Defined in: packages/node/dist/index.d.ts:59
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:53

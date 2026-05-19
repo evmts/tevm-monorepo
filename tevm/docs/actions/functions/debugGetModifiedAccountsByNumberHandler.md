@@ -8,7 +8,7 @@
 
 > **debugGetModifiedAccountsByNumberHandler**(`client`): [`DebugGetModifiedAccountsByNumberHandler`](../type-aliases/DebugGetModifiedAccountsByNumberHandler.md)
 
-Defined in: packages/actions/types/debug/debugGetModifiedAccountsByNumberHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/debug/debugGetModifiedAccountsByNumberHandler.d.ts:1
 
 ## Parameters
 

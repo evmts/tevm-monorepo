@@ -63,6 +63,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@evmts/zevm": "workspace:*",
 		"@tevm/address": "workspace:^",
 		"@tevm/block": "workspace:^",
 		"@tevm/blockchain": "workspace:^",
@@ -75,8 +76,6 @@
 		"@tevm/receipt-manager": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/sync-storage-persister": "workspace:^",
-		"@tevm/tx": "workspace:^",
-		"@tevm/txpool": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"@tevm/vm": "workspace:^"
 	},

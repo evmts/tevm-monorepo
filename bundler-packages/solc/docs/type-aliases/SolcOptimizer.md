@@ -22,7 +22,7 @@ Defined in: [solcTypes.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### enabled?
 
-> `optional` **enabled**: `boolean`
+> `optional` **enabled?**: `boolean`
 
 Defined in: [solcTypes.ts:109](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L109)
 

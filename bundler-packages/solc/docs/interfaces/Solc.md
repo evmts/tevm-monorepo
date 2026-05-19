@@ -10,7 +10,7 @@ Defined in: [solcTypes.ts:885](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ## Properties
 
-### compile()
+### compile
 
 > **compile**: (`input`) => [`SolcOutput`](../type-aliases/SolcOutput.md)
 
@@ -44,7 +44,7 @@ Defined in: [solcTypes.ts:888](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ***
 
-### loadRemoteVersion()
+### loadRemoteVersion
 
 > **loadRemoteVersion**: (`versionString`, `callback`) => `void`
 
@@ -82,7 +82,7 @@ Defined in: [solcTypes.ts:887](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ***
 
-### setupMethods()
+### setupMethods
 
 > **setupMethods**: (`soljson`) => `void`
 

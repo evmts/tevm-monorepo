@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [index](../README.md) / CreateMemoryDbFn
 
-# Type Alias: CreateMemoryDbFn()\<TKey, TValue\>
+# Type Alias: CreateMemoryDbFn\<TKey, TValue\>
 
 > **CreateMemoryDbFn**\<`TKey`, `TValue`\> = (`initialDb?`) => [`MemoryDb`](MemoryDb.md)\<`TKey`, `TValue`\>
 
-Defined in: packages/utils/types/CreateMemoryDbFn.d.ts:3
+Defined in: tevm-monorepo/packages/utils/types/CreateMemoryDbFn.d.ts:3
 
 ## Type Parameters
 

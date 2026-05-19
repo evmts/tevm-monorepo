@@ -16,7 +16,7 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` proced
 
 ### blockTag?
 
-> `readonly` `optional` **blockTag**: [`Hex`](Hex.md)
+> `readonly` `optional` **blockTag?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:207](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L207)
 

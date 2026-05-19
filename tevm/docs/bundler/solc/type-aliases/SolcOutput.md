@@ -8,7 +8,7 @@
 
 > **SolcOutput** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:93
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:93
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:93
 
 > **contracts**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:98
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:98
 
 #### Index Signature
 
@@ -26,9 +26,9 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:98
 
 ### errors?
 
-> `optional` **errors**: [`SolcErrorEntry`](SolcErrorEntry.md)[]
+> `optional` **errors?**: [`SolcErrorEntry`](SolcErrorEntry.md)[]
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:94
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:94
 
 ***
 
@@ -36,7 +36,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:94
 
 > **sources**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:95
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:95
 
 #### Index Signature
 

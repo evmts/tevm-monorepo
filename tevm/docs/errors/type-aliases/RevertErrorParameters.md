@@ -8,7 +8,7 @@
 
 > **RevertErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:67
+Defined in: tevm-monorepo/packages/errors/types/ethereum/RevertError.d.ts:67
 
 Parameters for constructing a RevertError.
 
@@ -16,9 +16,9 @@ Parameters for constructing a RevertError.
 
 ### cause?
 
-> `optional` **cause**: [`EVMError`](../../evm/classes/EVMError.md) \| [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause?**: `EVMError` \| [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:87
+Defined in: tevm-monorepo/packages/errors/types/ethereum/RevertError.d.ts:87
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/RevertError.d.ts:87
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:91
+Defined in: tevm-monorepo/packages/errors/types/ethereum/RevertError.d.ts:91
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/RevertError.d.ts:91
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:71
+Defined in: tevm-monorepo/packages/errors/types/ethereum/RevertError.d.ts:71
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/RevertError.d.ts:71
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:75
+Defined in: tevm-monorepo/packages/errors/types/ethereum/RevertError.d.ts:75
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/RevertError.d.ts:75
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:79
+Defined in: tevm-monorepo/packages/errors/types/ethereum/RevertError.d.ts:79
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/RevertError.d.ts:79
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:95
+Defined in: tevm-monorepo/packages/errors/types/ethereum/RevertError.d.ts:95
 
 - Optional object containing additional information about the error.
 
@@ -76,9 +76,9 @@ Defined in: packages/errors/types/ethereum/RevertError.d.ts:95
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:83
+Defined in: tevm-monorepo/packages/errors/types/ethereum/RevertError.d.ts:83
 
 - Additional meta messages.
 
@@ -86,8 +86,8 @@ Defined in: packages/errors/types/ethereum/RevertError.d.ts:83
 
 ### raw?
 
-> `optional` **raw**: [`Hex`](../../index/type-aliases/Hex.md)
+> `optional` **raw?**: [`Hex`](../../index/type-aliases/Hex.md)
 
-Defined in: packages/errors/types/ethereum/RevertError.d.ts:99
+Defined in: tevm-monorepo/packages/errors/types/ethereum/RevertError.d.ts:99
 
 - The raw data of the revert.

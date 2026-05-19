@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthMaxPriorityFeePerGasHandler
 
-# Type Alias: EthMaxPriorityFeePerGasHandler()
+# Type Alias: EthMaxPriorityFeePerGasHandler
 
 > **EthMaxPriorityFeePerGasHandler** = (`request?`) => `Promise`\<[`EthMaxPriorityFeePerGasResult`](EthMaxPriorityFeePerGasResult.md)\>
 

@@ -14,4 +14,4 @@ Defined in: [extensions/test-node/src/types.ts:90](https://github.com/evmts/tevm
 
 ### test?
 
-> `optional` **test**: [`TestOptions`](TestOptions.md)
+> `optional` **test?**: [`TestOptions`](TestOptions.md)

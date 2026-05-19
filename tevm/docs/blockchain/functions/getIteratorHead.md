@@ -8,7 +8,7 @@
 
 > **getIteratorHead**(`baseChain`): (`name?`) => `Promise`\<[`Block`](../../block/classes/Block.md)\>
 
-Defined in: packages/blockchain/types/actions/getIteratorHead.d.ts:1
+Defined in: tevm-monorepo/packages/blockchain/types/actions/getIteratorHead.d.ts:1
 
 ## Parameters
 

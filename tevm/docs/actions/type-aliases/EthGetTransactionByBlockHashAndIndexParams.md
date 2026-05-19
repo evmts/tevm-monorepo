@@ -8,7 +8,7 @@
 
 > **EthGetTransactionByBlockHashAndIndexParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:190
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:190
 
 Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` procedure
 
@@ -16,9 +16,9 @@ Based on the JSON-RPC request for `eth_getTransactionByBlockHashAndIndex` proced
 
 ### blockTag?
 
-> `readonly` `optional` **blockTag**: [`Hex`](Hex.md)
+> `readonly` `optional` **blockTag?**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:191
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:191
 
 ***
 
@@ -26,4 +26,4 @@ Defined in: packages/actions/types/eth/EthParams.d.ts:191
 
 > `readonly` **index**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:192
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:192

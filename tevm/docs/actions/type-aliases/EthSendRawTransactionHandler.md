@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthSendRawTransactionHandler
 
-# Type Alias: EthSendRawTransactionHandler()
+# Type Alias: EthSendRawTransactionHandler
 
 > **EthSendRawTransactionHandler** = (`request`) => `Promise`\<[`EthSendRawTransactionResult`](EthSendRawTransactionResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:35
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:35
 
 ## Parameters
 

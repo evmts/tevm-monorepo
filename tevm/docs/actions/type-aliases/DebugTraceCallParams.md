@@ -8,7 +8,7 @@
 
 > **DebugTraceCallParams**\<`TTracer`, `TDiffMode`\> = [`TraceParams`](TraceParams.md)\<`TTracer`, `TDiffMode`\> & [`EthCallParams`](EthCallParams.md)
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:55
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:55
 
 Params taken by `debug_traceCall` handler
 

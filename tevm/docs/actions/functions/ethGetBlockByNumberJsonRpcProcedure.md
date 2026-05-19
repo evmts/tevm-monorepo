@@ -8,7 +8,7 @@
 
 > **ethGetBlockByNumberJsonRpcProcedure**(`client`): [`EthGetBlockByNumberJsonRpcProcedure`](../type-aliases/EthGetBlockByNumberJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethGetBlockByNumberProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethGetBlockByNumberProcedure.d.ts:1
 
 ## Parameters
 

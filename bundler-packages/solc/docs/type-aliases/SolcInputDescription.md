@@ -22,7 +22,7 @@ Defined in: [solcTypes.ts:324](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### settings?
 
-> `optional` **settings**: [`SolcSettings`](SolcSettings.md)
+> `optional` **settings?**: [`SolcSettings`](SolcSettings.md)
 
 Defined in: [solcTypes.ts:327](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L327)
 

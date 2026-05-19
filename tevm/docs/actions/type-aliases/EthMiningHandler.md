@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthMiningHandler
 
-# Type Alias: EthMiningHandler()
+# Type Alias: EthMiningHandler
 
 > **EthMiningHandler** = (`request`) => `Promise`\<[`EthMiningResult`](EthMiningResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:33
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:33
 
 ## Parameters
 

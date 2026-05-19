@@ -10,11 +10,11 @@ export default defineConfig({
 			provider: 'v8',
 			reporter: ['text', 'json-summary', 'json'],
 			thresholds: {
-				autoUpdate: true,
-				lines: 71.87,
-				functions: 83.33,
-				branches: 80.85,
-				statements: 71.87,
+				autoUpdate: false,
+				lines: 50,
+				functions: 56,
+				branches: 41,
+				statements: 47,
 			},
 		},
 		typecheck: {

@@ -146,7 +146,7 @@ The runtime bytecode of the contract, encoded with constructor arguments.
 
 ***
 
-### deploy()
+### deploy
 
 > **deploy**: (...`args`) => `EncodeDeployDataParameters`\<`ParseAbi`\<`THumanReadableAbi`\>\>
 
@@ -219,7 +219,7 @@ console.log(MyContract.humanReadableAbi)
 
 ### name?
 
-> `optional` **name**: `TName`
+> `optional` **name?**: `TName`
 
 Defined in: [Contract.ts:114](https://github.com/evmts/tevm-monorepo/blob/main/packages/contract/src/Contract.ts#L114)
 
@@ -244,7 +244,7 @@ const balance = await tevm.contract(balanceAction)
 
 ***
 
-### withAddress()
+### withAddress
 
 > **withAddress**: \<`TNewAddress`\>(`address`) => `Contract`\<`TName`, `THumanReadableAbi`, `TNewAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
@@ -278,7 +278,7 @@ const MyContractWithAddress = MyContract.withAddress('0x1234...')
 
 ***
 
-### withCode()
+### withCode
 
 > **withCode**: (`encodedBytecode`) => `Contract`\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `Hex`\>
 

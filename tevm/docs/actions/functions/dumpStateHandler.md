@@ -8,7 +8,7 @@
 
 > **dumpStateHandler**(`client`, `options?`): [`DumpStateHandler`](../type-aliases/DumpStateHandler.md)
 
-Defined in: packages/actions/types/DumpState/dumpStateHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/DumpState/dumpStateHandler.d.ts:1
 
 ## Parameters
 

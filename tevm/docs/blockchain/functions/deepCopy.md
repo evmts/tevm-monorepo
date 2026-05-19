@@ -8,7 +8,7 @@
 
 > **deepCopy**(`baseChain`): () => `Promise`\<`BaseChain`\>
 
-Defined in: packages/blockchain/types/actions/deepCopy.d.ts:1
+Defined in: tevm-monorepo/packages/blockchain/types/actions/deepCopy.d.ts:1
 
 ## Parameters
 
@@ -18,8 +18,4 @@ Defined in: packages/blockchain/types/actions/deepCopy.d.ts:1
 
 ## Returns
 
-> (): `Promise`\<`BaseChain`\>
-
-### Returns
-
-`Promise`\<`BaseChain`\>
+() => `Promise`\<`BaseChain`\>

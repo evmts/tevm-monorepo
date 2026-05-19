@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetCodeHandler
 
-# Type Alias: AnvilSetCodeHandler()
+# Type Alias: AnvilSetCodeHandler
 
 > **AnvilSetCodeHandler** = (`params`) => `Promise`\<[`AnvilSetCodeResult`](AnvilSetCodeResult.md)\>
 

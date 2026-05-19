@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetBalanceHandler
 
-# Type Alias: EthGetBalanceHandler()
+# Type Alias: EthGetBalanceHandler
 
 > **EthGetBalanceHandler** = (`request`) => `Promise`\<[`EthGetBalanceResult`](EthGetBalanceResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:13
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:13
 
 ## Parameters
 

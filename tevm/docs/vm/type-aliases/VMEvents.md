@@ -8,7 +8,7 @@
 
 > **VMEvents** = `object`
 
-Defined in: packages/vm/types/utils/VMEvents.d.ts:31
+Defined in: tevm-monorepo/packages/vm/types/utils/VMEvents.d.ts:31
 
 Event handlers for the VM execution lifecycle.
 Allows subscribing to events before and after block/transaction processing.
@@ -39,11 +39,11 @@ Object.entries(handlers).forEach(([event, handler]) => {
 
 ## Properties
 
-### afterBlock()
+### afterBlock
 
 > **afterBlock**: (`data`, `resolve?`) => `void`
 
-Defined in: packages/vm/types/utils/VMEvents.d.ts:33
+Defined in: tevm-monorepo/packages/vm/types/utils/VMEvents.d.ts:33
 
 #### Parameters
 
@@ -61,11 +61,11 @@ Defined in: packages/vm/types/utils/VMEvents.d.ts:33
 
 ***
 
-### afterTx()
+### afterTx
 
 > **afterTx**: (`data`, `resolve?`) => `void`
 
-Defined in: packages/vm/types/utils/VMEvents.d.ts:35
+Defined in: tevm-monorepo/packages/vm/types/utils/VMEvents.d.ts:35
 
 #### Parameters
 
@@ -83,11 +83,11 @@ Defined in: packages/vm/types/utils/VMEvents.d.ts:35
 
 ***
 
-### beforeBlock()
+### beforeBlock
 
 > **beforeBlock**: (`data`, `resolve?`) => `void`
 
-Defined in: packages/vm/types/utils/VMEvents.d.ts:32
+Defined in: tevm-monorepo/packages/vm/types/utils/VMEvents.d.ts:32
 
 #### Parameters
 
@@ -105,11 +105,11 @@ Defined in: packages/vm/types/utils/VMEvents.d.ts:32
 
 ***
 
-### beforeTx()
+### beforeTx
 
 > **beforeTx**: (`data`, `resolve?`) => `void`
 
-Defined in: packages/vm/types/utils/VMEvents.d.ts:34
+Defined in: tevm-monorepo/packages/vm/types/utils/VMEvents.d.ts:34
 
 #### Parameters
 

@@ -8,7 +8,7 @@
 
 > **JsonRpcCallTrace** = `object`
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:312
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:312
 
 JSON-RPC call trace for eth_simulateV2
 
@@ -16,9 +16,9 @@ JSON-RPC call trace for eth_simulateV2
 
 ### calls?
 
-> `optional` **calls**: `JsonRpcCallTrace`[]
+> `optional` **calls?**: `JsonRpcCallTrace`[]
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:332
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:332
 
 Sub-calls
 
@@ -26,9 +26,9 @@ Sub-calls
 
 ### error?
 
-> `optional` **error**: `string`
+> `optional` **error?**: `string`
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:330
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:330
 
 Error message if call failed
 
@@ -38,7 +38,7 @@ Error message if call failed
 
 > **from**: [`Address`](../../index/type-aliases/Address.md)
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:316
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:316
 
 Sender address
 
@@ -48,7 +48,7 @@ Sender address
 
 > **gas**: [`Hex`](../../index/type-aliases/Hex.md)
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:322
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:322
 
 Gas provided
 
@@ -58,7 +58,7 @@ Gas provided
 
 > **gasUsed**: [`Hex`](../../index/type-aliases/Hex.md)
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:324
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:324
 
 Gas used
 
@@ -68,7 +68,7 @@ Gas used
 
 > **input**: [`Hex`](../../index/type-aliases/Hex.md)
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:326
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:326
 
 Input data
 
@@ -78,7 +78,7 @@ Input data
 
 > **output**: [`Hex`](../../index/type-aliases/Hex.md)
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:328
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:328
 
 Output data
 
@@ -86,9 +86,9 @@ Output data
 
 ### to?
 
-> `optional` **to**: [`Address`](../../index/type-aliases/Address.md)
+> `optional` **to?**: [`Address`](../../index/type-aliases/Address.md)
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:318
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:318
 
 Recipient or created contract address
 
@@ -98,7 +98,7 @@ Recipient or created contract address
 
 > **type**: `string`
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:314
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:314
 
 Call type (CALL, DELEGATECALL, STATICCALL, CREATE, CREATE2)
 
@@ -106,8 +106,8 @@ Call type (CALL, DELEGATECALL, STATICCALL, CREATE, CREATE2)
 
 ### value?
 
-> `optional` **value**: [`Hex`](../../index/type-aliases/Hex.md)
+> `optional` **value?**: [`Hex`](../../index/type-aliases/Hex.md)
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:320
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:320
 
 Value transferred

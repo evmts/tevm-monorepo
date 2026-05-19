@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthUninstallFilterHandler
 
-# Type Alias: EthUninstallFilterHandler()
+# Type Alias: EthUninstallFilterHandler
 
 > **EthUninstallFilterHandler** = (`request`) => `Promise`\<[`EthUninstallFilterResult`](EthUninstallFilterResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:43
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:43
 
 ## Parameters
 

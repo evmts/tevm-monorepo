@@ -8,7 +8,7 @@
 
 > **DebugRequestType** = `object`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugRequestType.d.ts:5
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugRequestType.d.ts:5
 
 A mapping of `debug_*` method names to their request type
 
@@ -18,7 +18,7 @@ A mapping of `debug_*` method names to their request type
 
 > **debug\_traceBlock**: `DebugTraceBlockJsonRpcRequest`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugRequestType.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugRequestType.d.ts:8
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugRequestType.d.ts:8
 
 > **debug\_traceCall**: `DebugTraceCallJsonRpcRequest`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugRequestType.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugRequestType.d.ts:7
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugRequestType.d.ts:7
 
 > **debug\_traceState**: `DebugTraceStateJsonRpcRequest`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugRequestType.d.ts:9
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugRequestType.d.ts:9
 
 ***
 
@@ -42,4 +42,4 @@ Defined in: packages/actions/types/tevm-request-handler/DebugRequestType.d.ts:9
 
 > **debug\_traceTransaction**: `DebugTraceTransactionJsonRpcRequest`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugRequestType.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugRequestType.d.ts:6

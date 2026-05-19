@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthCoinbaseHandler
 
-# Type Alias: EthCoinbaseHandler()
+# Type Alias: EthCoinbaseHandler
 
 > **EthCoinbaseHandler** = (`request`) => `Promise`\<[`EthCoinbaseResult`](EthCoinbaseResult.md)\>
 

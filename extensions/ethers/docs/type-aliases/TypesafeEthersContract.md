@@ -12,7 +12,7 @@ Defined in: [extensions/ethers/src/contract/TypesafeEthersContract.ts:12](https:
 
 ## Type Declaration
 
-### queryFilter()
+### queryFilter
 
 > **queryFilter**: \<`TContractEventName`\>(`event`, `fromBlock?`, `toBlock?`) => `Promise`\<`TContractEventName` *extends* `ExtractAbiEventNames`\<`TAbi`\> ? `ExtractAbiEvent`\<`TAbi`, `TContractEventName`\> : `EventLog` \| `Log`[]\>
 

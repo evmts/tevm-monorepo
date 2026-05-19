@@ -8,6 +8,6 @@
 
 > **EthSignTransactionResult** = [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:173
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:173
 
 JSON-RPC response for `eth_signTransaction` procedure

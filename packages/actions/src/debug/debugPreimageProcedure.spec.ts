@@ -1,5 +1,4 @@
 import { createTevmNode, type TevmNode } from '@tevm/node'
-import { transports } from '@tevm/test-utils'
 import { keccak256, toHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { debugPreimageJsonRpcProcedure } from './debugPreimageProcedure.js'
@@ -8,11 +7,7 @@ describe('debugPreimageProcedure', () => {
 	let client: TevmNode
 
 	beforeEach(async () => {
-		client = createTevmNode({
-			fork: {
-				transport: transports.optimism,
-			},
-		})
+		client = createTevmNode()
 		await client.ready()
 	})
 

@@ -8,7 +8,7 @@
 
 > **DebugGetModifiedAccountsByNumberParams** = `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:128
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:128
 
 Params taken by `debug_getModifiedAccountsByNumber` handler
 
@@ -16,9 +16,9 @@ Params taken by `debug_getModifiedAccountsByNumber` handler
 
 ### endBlockNumber?
 
-> `readonly` `optional` **endBlockNumber**: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint`
+> `readonly` `optional` **endBlockNumber?**: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:136
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:136
 
 Ending block number (optional, defaults to startBlockNumber + 1)
 
@@ -28,6 +28,6 @@ Ending block number (optional, defaults to startBlockNumber + 1)
 
 > `readonly` **startBlockNumber**: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:132
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:132
 
 Starting block number

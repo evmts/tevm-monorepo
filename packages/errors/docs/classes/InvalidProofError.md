@@ -123,7 +123,7 @@ Same as name, used internally.
 
 ### docsPath
 
-> **docsPath**: `undefined` \| `string`
+> **docsPath**: `string` \| `undefined`
 
 Path to the documentation for this error.
 
@@ -135,7 +135,7 @@ Path to the documentation for this error.
 
 ### metaMessages
 
-> **metaMessages**: `undefined` \| `string`[]
+> **metaMessages**: `string`[] \| `undefined`
 
 Additional meta messages for more context.
 

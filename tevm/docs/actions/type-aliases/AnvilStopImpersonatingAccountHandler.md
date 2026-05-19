@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilStopImpersonatingAccountHandler
 
-# Type Alias: AnvilStopImpersonatingAccountHandler()
+# Type Alias: AnvilStopImpersonatingAccountHandler
 
 > **AnvilStopImpersonatingAccountHandler** = (`params`) => `Promise`\<[`AnvilStopImpersonatingAccountResult`](AnvilStopImpersonatingAccountResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:4
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:4
 
 ## Parameters
 

@@ -8,7 +8,7 @@
 
 > **EthReturnType** = `object`
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:5
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:5
 
 A mapping of `eth_*` method names to their return type
 
@@ -18,7 +18,7 @@ A mapping of `eth_*` method names to their return type
 
 > **eth\_accounts**: [`EthAccountsJsonRpcResponse`](EthAccountsJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:18
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:18
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:18
 
 > **eth\_blobBaseFee**: [`EthBlobBaseFeeJsonRpcResponse`](EthBlobBaseFeeJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:13
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:13
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:13
 
 > **eth\_blockNumber**: [`EthBlockNumberJsonRpcResponse`](EthBlockNumberJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:23
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:23
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:23
 
 > **eth\_call**: [`EthCallJsonRpcResponse`](EthCallJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:6
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:6
 
 > **eth\_chainId**: [`EthChainIdJsonRpcResponse`](EthChainIdJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:14
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:14
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:14
 
 > **eth\_coinbase**: [`EthCoinbaseJsonRpcResponse`](EthCoinbaseJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:19
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:19
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:19
 
 > **eth\_createAccessList**: [`EthCreateAccessListJsonRpcResponse`](EthCreateAccessListJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:47
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:47
 
 ***
 
@@ -74,7 +74,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:47
 
 > **eth\_estimateGas**: [`EthEstimateGasJsonRpcResponse`](EthEstimateGasJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:24
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:24
 
 ***
 
@@ -82,7 +82,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:24
 
 > **eth\_feeHistory**: [`EthFeeHistoryJsonRpcResponse`](EthFeeHistoryJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:9
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:9
 
 ***
 
@@ -90,7 +90,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:9
 
 > **eth\_gasPrice**: [`EthGasPriceJsonRpcResponse`](EthGasPriceJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:7
 
 ***
 
@@ -98,7 +98,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:7
 
 > **eth\_getBalance**: [`EthGetBalanceJsonRpcResponse`](EthGetBalanceJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:22
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:22
 
 ***
 
@@ -106,7 +106,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:22
 
 > **eth\_getBlockByHash**: [`EthGetBlockByHashJsonRpcResponse`](EthGetBlockByHashJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:27
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:27
 
 ***
 
@@ -114,7 +114,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:27
 
 > **eth\_getBlockByNumber**: [`EthGetBlockByNumberJsonRpcResponse`](EthGetBlockByNumberJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:32
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:32
 
 ***
 
@@ -122,7 +122,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:32
 
 > **eth\_getBlockReceipts**: [`EthGetBlockReceiptsJsonRpcResponse`](EthGetBlockReceiptsJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:51
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:51
 
 ***
 
@@ -130,7 +130,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:51
 
 > **eth\_getBlockTransactionCountByHash**: [`EthGetBlockTransactionCountByHashJsonRpcResponse`](EthGetBlockTransactionCountByHashJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:43
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:43
 
 ***
 
@@ -138,7 +138,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:43
 
 > **eth\_getBlockTransactionCountByNumber**: [`EthGetBlockTransactionCountByNumberJsonRpcResponse`](EthGetBlockTransactionCountByNumberJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:44
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:44
 
 ***
 
@@ -146,7 +146,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:44
 
 > **eth\_getCode**: [`EthGetCodeJsonRpcResponse`](EthGetCodeJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:15
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:15
 
 ***
 
@@ -154,7 +154,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:15
 
 > **eth\_getFilterChanges**: [`EthGetFilterChangesJsonRpcResponse`](EthGetFilterChangesJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:33
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:33
 
 ***
 
@@ -162,7 +162,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:33
 
 > **eth\_getFilterLogs**: [`EthGetFilterLogsJsonRpcResponse`](EthGetFilterLogsJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:26
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:26
 
 ***
 
@@ -170,7 +170,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:26
 
 > **eth\_getLogs**: [`EthGetLogsJsonRpcResponse`](EthGetLogsJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:16
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:16
 
 ***
 
@@ -178,7 +178,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:16
 
 > **eth\_getProof**: [`EthGetProofJsonRpcResponse`](EthGetProofJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:48
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:48
 
 ***
 
@@ -186,7 +186,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:48
 
 > **eth\_getStorageAt**: [`EthGetStorageAtJsonRpcResponse`](EthGetStorageAtJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:25
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:25
 
 ***
 
@@ -194,7 +194,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:25
 
 > **eth\_getTransactionByBlockHashAndIndex**: [`EthGetTransactionByBlockHashAndIndexJsonRpcResponse`](EthGetTransactionByBlockHashAndIndexJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:45
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:45
 
 ***
 
@@ -202,7 +202,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:45
 
 > **eth\_getTransactionByBlockNumberAndIndex**: [`EthGetTransactionByBlockNumberAndIndexJsonRpcResponse`](EthGetTransactionByBlockNumberAndIndexJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:46
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:46
 
 ***
 
@@ -210,7 +210,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:46
 
 > **eth\_getTransactionByHash**: [`EthGetTransactionByHashJsonRpcResponse`](EthGetTransactionByHashJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:36
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:36
 
 ***
 
@@ -218,7 +218,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:36
 
 > **eth\_getTransactionCount**: [`EthGetTransactionCountJsonRpcResponse`](EthGetTransactionCountJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:35
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:35
 
 ***
 
@@ -226,7 +226,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:35
 
 > **eth\_getTransactionReceipt**: [`EthGetTransactionReceiptJsonRpcResponse`](EthGetTransactionReceiptJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:37
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:37
 
 ***
 
@@ -234,7 +234,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:37
 
 > **eth\_getUncleByBlockHashAndIndex**: [`EthGetUncleByBlockHashAndIndexJsonRpcResponse`](EthGetUncleByBlockHashAndIndexJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:40
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:40
 
 ***
 
@@ -242,7 +242,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:40
 
 > **eth\_getUncleByBlockNumberAndIndex**: [`EthGetUncleByBlockNumberAndIndexJsonRpcResponse`](EthGetUncleByBlockNumberAndIndexJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:42
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:42
 
 ***
 
@@ -250,7 +250,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:42
 
 > **eth\_getUncleCountByBlockHash**: [`EthGetUncleCountByBlockHashJsonRpcResponse`](EthGetUncleCountByBlockHashJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:38
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:38
 
 ***
 
@@ -258,7 +258,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:38
 
 > **eth\_getUncleCountByBlockNumber**: [`EthGetUncleCountByBlockNumberJsonRpcResponse`](EthGetUncleCountByBlockNumberJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:39
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:39
 
 ***
 
@@ -266,7 +266,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:39
 
 > **eth\_hashrate**: [`EthHashrateJsonRpcResponse`](EthHashrateJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:20
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:20
 
 ***
 
@@ -274,7 +274,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:20
 
 > **eth\_maxPriorityFeePerGas**: [`EthMaxPriorityFeePerGasJsonRpcResponse`](EthMaxPriorityFeePerGasJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:8
 
 ***
 
@@ -282,7 +282,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:8
 
 > **eth\_mining**: [`EthMiningJsonRpcResponse`](EthMiningJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:12
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:12
 
 ***
 
@@ -290,7 +290,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:12
 
 > **eth\_newBlockFilter**: [`EthNewBlockFilterJsonRpcResponse`](EthNewBlockFilterJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:11
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:11
 
 ***
 
@@ -298,7 +298,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:11
 
 > **eth\_newFilter**: [`EthNewFilterJsonRpcResponse`](EthNewFilterJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:21
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:21
 
 ***
 
@@ -306,7 +306,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:21
 
 > **eth\_newPendingTransactionFilter**: [`EthNewPendingTransactionFilterJsonRpcResponse`](EthNewPendingTransactionFilterJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:41
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:41
 
 ***
 
@@ -314,7 +314,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:41
 
 > **eth\_protocolVersion**: [`EthProtocolVersionJsonRpcResponse`](EthProtocolVersionJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:28
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:28
 
 ***
 
@@ -322,7 +322,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:28
 
 > **eth\_sendRawTransaction**: [`EthSendRawTransactionJsonRpcResponse`](EthSendRawTransactionJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:34
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:34
 
 ***
 
@@ -330,7 +330,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:34
 
 > **eth\_sendTransaction**: [`EthSendTransactionJsonRpcResponse`](EthSendTransactionJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:29
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:29
 
 ***
 
@@ -338,7 +338,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:29
 
 > **eth\_sign**: [`EthSignJsonRpcResponse`](EthSignJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:10
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:10
 
 ***
 
@@ -346,7 +346,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:10
 
 > **eth\_signTransaction**: [`EthSignTransactionJsonRpcResponse`](EthSignTransactionJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:30
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:30
 
 ***
 
@@ -354,7 +354,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:30
 
 > **eth\_simulateV1**: [`EthSimulateV1JsonRpcResponse`](EthSimulateV1JsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:49
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:49
 
 ***
 
@@ -362,7 +362,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:49
 
 > **eth\_simulateV2**: [`EthSimulateV2JsonRpcResponse`](EthSimulateV2JsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:50
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:50
 
 ***
 
@@ -370,7 +370,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:50
 
 > **eth\_subscribe**: [`EthSubscribeJsonRpcResponse`](EthSubscribeJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:52
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:52
 
 ***
 
@@ -378,7 +378,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:52
 
 > **eth\_syncing**: [`EthSyncingJsonRpcResponse`](EthSyncingJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:17
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:17
 
 ***
 
@@ -386,7 +386,7 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:17
 
 > **eth\_uninstallFilter**: [`EthUninstallFilterJsonRpcResponse`](EthUninstallFilterJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:31
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:31
 
 ***
 
@@ -394,4 +394,4 @@ Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:31
 
 > **eth\_unsubscribe**: [`EthUnsubscribeJsonRpcResponse`](EthUnsubscribeJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/EthReturnType.d.ts:53
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/EthReturnType.d.ts:53

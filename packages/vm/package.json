@@ -2,10 +2,10 @@
 	"name": "@tevm/vm",
 	"version": "1.0.0-next.148",
 	"private": false,
-	"description": "A custom implementation of ethereumjs vm",
+	"description": "Tevm VM facade backed by zevm-compatible primitives",
 	"keywords": [
 		"solidity",
-		"ethereumjs",
+		"zevm",
 		"typescript",
 		"web3",
 		"blockchain"
@@ -63,16 +63,13 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/vm": "^10.1.1",
+		"@evmts/zevm": "workspace:*",
 		"@tevm/block": "workspace:^",
 		"@tevm/blockchain": "workspace:^",
 		"@tevm/common": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/evm": "workspace:^",
-		"@tevm/rlp": "workspace:^",
 		"@tevm/state": "workspace:^",
-		"@tevm/trie": "workspace:^",
-		"@tevm/tx": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"eventemitter3": "^5.0.4"
 	},

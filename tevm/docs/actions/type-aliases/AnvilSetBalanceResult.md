@@ -8,4 +8,4 @@
 
 > **AnvilSetBalanceResult** = `null`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:12
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:12

@@ -1,4 +1,4 @@
-import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
+import { AccountCache, CacheType, StorageCache } from '@evmts/zevm/statemanager'
 import { createAddress } from '@tevm/address'
 import { InternalError } from '@tevm/errors'
 import { createAccount, hexToBytes, isHex } from '@tevm/utils'
@@ -40,7 +40,7 @@ export const generateCanonicalGenesis = (baseState) => async (state) => {
 			})
 			const address = createAddress(k)
 
-			baseState.caches.accounts?.put(address, account)
+			baseState.caches.accounts?.put(address, /** @type {any} */ (account))
 			if (deployedBytecode) {
 				baseState.caches.contracts.put(address, hexToBytes(deployedBytecode))
 			}

@@ -34,7 +34,7 @@ The amount of tokens to deal
 
 ### erc20?
 
-> `optional` **erc20**: [`Address`](Address.md)
+> `optional` **erc20?**: [`Address`](Address.md)
 
 Defined in: [packages/actions/src/anvil/AnvilParams.ts:202](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilParams.ts#L202)
 

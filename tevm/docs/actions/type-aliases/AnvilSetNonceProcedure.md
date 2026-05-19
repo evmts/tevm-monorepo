@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilSetNonceProcedure
 
-# Type Alias: AnvilSetNonceProcedure()
+# Type Alias: AnvilSetNonceProcedure
 
 > **AnvilSetNonceProcedure** = (`request`) => `Promise`\<[`AnvilSetNonceJsonRpcResponse`](AnvilSetNonceJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:55
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:55
 
 JSON-RPC procedure for `anvil_setNonce`
 

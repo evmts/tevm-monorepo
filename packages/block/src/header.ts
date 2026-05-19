@@ -1,6 +1,6 @@
+import { Rlp } from '@evmts/zevm/rlp'
 import type { CliqueConfig } from '@tevm/common'
 import { type Common, ConsensusAlgorithm, ConsensusType, tevmDefault } from '@tevm/common'
-import { Rlp } from '@tevm/rlp'
 import {
 	bytesToBigInt,
 	bytesToHex,
@@ -798,7 +798,11 @@ export class BlockHeader {
 		if (!ecSignFunction) {
 			throw new Error('ecsign function must be provided in customCrypto for clique signing')
 		}
-		const signature = ecSignFunction(this.cliqueSigHash(), privateKey, { prehash: false })
+		const signature = ecSignFunction(this.cliqueSigHash(), privateKey, { prehash: false }) as unknown as {
+			r: bigint
+			s: bigint
+			recovery: number
+		}
 		const signatureB = concatBytes(
 			setLengthLeft(toBytes(signature.r), 32),
 			setLengthLeft(toBytes(signature.s), 32),

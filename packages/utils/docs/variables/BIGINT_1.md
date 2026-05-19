@@ -6,6 +6,6 @@
 
 # Variable: BIGINT\_1
 
-> `const` **BIGINT\_1**: `bigint`
+> `const` **BIGINT\_1**: `1n` = `1n`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/constants.d.ts:57
+Defined in: zevm/npm/zevm/dist/util.d.ts:127

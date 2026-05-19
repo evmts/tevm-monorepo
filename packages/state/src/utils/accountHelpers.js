@@ -1,4 +1,4 @@
-import { Rlp } from '@tevm/rlp'
+import { Rlp } from '@evmts/zevm/rlp'
 import { createAccount, createAddressFromString as createAddress } from '@tevm/utils'
 
 /**

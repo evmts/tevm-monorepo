@@ -49,7 +49,7 @@ Lowest number block of the returned range.
 
 ### reward?
 
-> `optional` **reward**: `bigint`[][]
+> `optional` **reward?**: `bigint`[][]
 
 Defined in: [packages/actions/src/eth/EthResult.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L86)
 

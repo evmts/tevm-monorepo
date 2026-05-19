@@ -8,7 +8,7 @@
 
 > **JsonRpcSimulateV2CallResult** = [`JsonRpcSimulateCallResult`](JsonRpcSimulateCallResult.md) & `object`
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:337
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:337
 
 JSON-RPC response call result for eth_simulateV2 (extends V1)
 
@@ -16,18 +16,18 @@ JSON-RPC response call result for eth_simulateV2 (extends V1)
 
 ### contractCreated?
 
-> `optional` **contractCreated**: [`JsonRpcContractCreationEvent`](JsonRpcContractCreationEvent.md)
+> `optional` **contractCreated?**: [`JsonRpcContractCreationEvent`](JsonRpcContractCreationEvent.md)
 
 Contract creation event if a contract was deployed
 
 ### estimatedGas?
 
-> `optional` **estimatedGas**: [`Hex`](../../index/type-aliases/Hex.md)
+> `optional` **estimatedGas?**: [`Hex`](../../index/type-aliases/Hex.md)
 
 Estimated gas if gas estimation was requested
 
 ### trace?
 
-> `optional` **trace**: [`JsonRpcCallTrace`](JsonRpcCallTrace.md)
+> `optional` **trace?**: [`JsonRpcCallTrace`](JsonRpcCallTrace.md)
 
 Call trace for debugging

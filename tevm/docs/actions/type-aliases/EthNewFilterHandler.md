@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthNewFilterHandler
 
-# Type Alias: EthNewFilterHandler()
+# Type Alias: EthNewFilterHandler
 
 > **EthNewFilterHandler** = (`request`) => `Promise`\<[`EthNewFilterResult`](EthNewFilterResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:40
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:40
 
 ## Parameters
 

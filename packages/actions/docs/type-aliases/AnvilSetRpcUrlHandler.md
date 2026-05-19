@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetRpcUrlHandler
 
-# Type Alias: AnvilSetRpcUrlHandler()
+# Type Alias: AnvilSetRpcUrlHandler
 
 > **AnvilSetRpcUrlHandler** = (`params`) => `Promise`\<[`AnvilSetRpcUrlResult`](AnvilSetRpcUrlResult.md)\>
 

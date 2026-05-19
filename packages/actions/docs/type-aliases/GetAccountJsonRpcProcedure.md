@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / GetAccountJsonRpcProcedure
 
-# Type Alias: GetAccountJsonRpcProcedure()
+# Type Alias: GetAccountJsonRpcProcedure
 
 > **GetAccountJsonRpcProcedure** = (`request`) => `Promise`\<[`GetAccountJsonRpcResponse`](GetAccountJsonRpcResponse.md)\>
 

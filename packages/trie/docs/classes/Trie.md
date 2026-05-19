@@ -86,7 +86,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs
 
 ***
 
-### debug()
+### debug
 
 > `protected` **debug**: (...`args`) => `void`
 
@@ -124,7 +124,7 @@ The root for an empty trie
 
 ***
 
-### walkTrieIterable()
+### walkTrieIterable
 
 > **walkTrieIterable**: (`nodeHash`, `currentKey?`, `onFound?`, `filter?`, `visited?`) => `AsyncIterable`\<\{ `currentKey`: `number`[]; `node`: `TrieNode`; \}\>
 
@@ -277,7 +277,7 @@ If not during a checkpoint phase
 
 Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:93
 
-Creates a proof from a trie and key that can be verified using [Trie.verifyProof](#verifyproof-2). An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains
+Creates a proof from a trie and key that can be verified using [Trie.verifyProof](#verifyproof-1). An (EIP-1186)[https://eips.ethereum.org/EIPS/eip-1186] proof contains
 the encoded trie nodes from the root node to the leaf node storing state data. The returned proof will be in the format of an array that contains Uint8Arrays of
 serialized branch, extension, and/or leaf nodes.
 
@@ -439,7 +439,7 @@ Use `updateFromProof`
 
 ### get()
 
-> **get**(`key`, `throwIfMissing?`): `Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+> **get**(`key`, `throwIfMissing?`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\> \| `null`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:137
 
@@ -461,7 +461,7 @@ if true, throws if any nodes are missing. Used for verifying proofs. (default: f
 
 #### Returns
 
-`Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\> \| `null`\>
 
 A Promise that resolves to `Uint8Array` if a value was found or `null` if no value was found.
 
@@ -511,7 +511,7 @@ Retrieves a node from db by hash.
 
 ##### node
 
-`Uint8Array`\<`ArrayBufferLike`\> | `Uint8Array`\<`ArrayBufferLike`\>[]
+`Uint8Array`\<`ArrayBufferLike`\> \| `Uint8Array`\<`ArrayBufferLike`\>[]
 
 #### Returns
 
@@ -550,7 +550,7 @@ Stores a given `value` at the given `key` or do a delete if `value` is empty
 
 ##### value
 
-`null` | `Uint8Array`\<`ArrayBufferLike`\>
+`Uint8Array`\<`ArrayBufferLike`\> \| `null`
 
 ##### skipKeyTransform?
 
@@ -592,7 +592,7 @@ Gets and/or Sets the current root of the `trie`
 
 ##### value?
 
-`null` | `Uint8Array`\<`ArrayBufferLike`\>
+`Uint8Array`\<`ArrayBufferLike`\> \| `null`
 
 #### Returns
 
@@ -670,7 +670,7 @@ If true and during a checkpoint, the copy will contain the checkpointing metadat
 
 ### updateFromProof()
 
-> **updateFromProof**(`proof`, `shouldVerifyRoot?`): `Promise`\<`undefined` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+> **updateFromProof**(`proof`, `shouldVerifyRoot?`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\> \| `undefined`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:102
 
@@ -694,7 +694,7 @@ If `true`, verifies that the root key of the proof matches the trie root. Throws
 
 #### Returns
 
-`Promise`\<`undefined` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\> \| `undefined`\>
 
 The root of the proof
 
@@ -702,7 +702,7 @@ The root of the proof
 
 ### verifyProof()
 
-> **verifyProof**(`rootHash`, `key`, `proof`): `Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+> **verifyProof**(`rootHash`, `key`, `proof`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\> \| `null`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:112
 
@@ -731,7 +731,7 @@ an EIP-1186 proof to verify the key against
 
 #### Returns
 
-`Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\> \| `null`\>
 
 The value from the key, or null if valid proof of non-existence.
 
@@ -761,7 +761,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs
 
 A range proof is a proof that includes the encoded trie nodes from the root node to leaf node for one or more branches of a trie,
 allowing an entire range of leaf nodes to be validated. This is useful in applications such as snap sync where contiguous ranges
-of state trie data is received and validated for constructing world state, locally. Also see [verifyRangeProof](#verifyrangeproof-2). A static
+of state trie data is received and validated for constructing world state, locally. Also see [verifyRangeProof](#verifyrangeproof-1). A static
 version of this function also exists.
 
 #### Parameters
@@ -774,15 +774,15 @@ root hash of state trie this proof is being verified against.
 
 ##### firstKey
 
-first key of range being proven.
+`Uint8Array`\<`ArrayBufferLike`\> \| `null`
 
-`null` | `Uint8Array`\<`ArrayBufferLike`\>
+first key of range being proven.
 
 ##### lastKey
 
-last key of range being proven.
+`Uint8Array`\<`ArrayBufferLike`\> \| `null`
 
-`null` | `Uint8Array`\<`ArrayBufferLike`\>
+last key of range being proven.
 
 ##### keys
 
@@ -798,9 +798,9 @@ value list of leaf data being proven, one-to-one correspondence with keys.
 
 ##### proof
 
-proof node list, if all-elements-proof where no proof is needed, proof should be null, and both `firstKey` and `lastKey` must be null as well
+`Uint8Array`\<`ArrayBufferLike`\>[] \| `null`
 
-`null` | `Uint8Array`\<`ArrayBufferLike`\>[]
+proof node list, if all-elements-proof where no proof is needed, proof should be null, and both `firstKey` and `lastKey` must be null as well
 
 #### Returns
 
@@ -974,7 +974,7 @@ Use `createFromProof`
 
 ### verifyProof()
 
-> `static` **verifyProof**(`key`, `proof`, `opts?`): `Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+> `static` **verifyProof**(`key`, `proof`, `opts?`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\> \| `null`\>
 
 Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs/trie/dist/esm/trie.d.ts:50
 
@@ -1003,7 +1003,7 @@ optional, the opts may include a custom hashing function to use with the trie fo
 
 #### Returns
 
-`Promise`\<`null` \| `Uint8Array`\<`ArrayBufferLike`\>\>
+`Promise`\<`Uint8Array`\<`ArrayBufferLike`\> \| `null`\>
 
 The value from the key, or null if valid proof of non-existence.
 
@@ -1021,7 +1021,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+trie@6.2.1/node\_modules/@ethereumjs
 
 A range proof is a proof that includes the encoded trie nodes from the root node to leaf node for one or more branches of a trie,
 allowing an entire range of leaf nodes to be validated. This is useful in applications such as snap sync where contiguous ranges
-of state trie data is received and validated for constructing world state, locally. Also see [verifyRangeProof](#verifyrangeproof-2). A static
+of state trie data is received and validated for constructing world state, locally. Also see [verifyRangeProof](#verifyrangeproof-1). A static
 version of this function also exists.
 
 #### Parameters
@@ -1034,15 +1034,15 @@ root hash of state trie this proof is being verified against.
 
 ##### firstKey
 
-first key of range being proven.
+`Uint8Array`\<`ArrayBufferLike`\> \| `null`
 
-`null` | `Uint8Array`\<`ArrayBufferLike`\>
+first key of range being proven.
 
 ##### lastKey
 
-last key of range being proven.
+`Uint8Array`\<`ArrayBufferLike`\> \| `null`
 
-`null` | `Uint8Array`\<`ArrayBufferLike`\>
+last key of range being proven.
 
 ##### keys
 
@@ -1058,9 +1058,9 @@ value list of leaf data being proven, one-to-one correspondence with keys.
 
 ##### proof
 
-proof node list, if all-elements-proof where no proof is needed, proof should be null, and both `firstKey` and `lastKey` must be null as well
+`Uint8Array`\<`ArrayBufferLike`\>[] \| `null`
 
-`null` | `Uint8Array`\<`ArrayBufferLike`\>[]
+proof node list, if all-elements-proof where no proof is needed, proof should be null, and both `firstKey` and `lastKey` must be null as well
 
 ##### opts?
 

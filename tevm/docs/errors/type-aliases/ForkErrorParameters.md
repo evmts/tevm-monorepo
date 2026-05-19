@@ -8,7 +8,7 @@
 
 > **ForkErrorParameters** = `object`
 
-Defined in: packages/errors/types/fork/ForkError.d.ts:54
+Defined in: tevm-monorepo/packages/errors/types/fork/ForkError.d.ts:54
 
 Parameters for constructing a ForkError.
 
@@ -18,7 +18,7 @@ Parameters for constructing a ForkError.
 
 > **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| \{ `code`: `number` \| `string`; `message`: `string`; \}
 
-Defined in: packages/errors/types/fork/ForkError.d.ts:74
+Defined in: tevm-monorepo/packages/errors/types/fork/ForkError.d.ts:74
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/fork/ForkError.d.ts:74
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/fork/ForkError.d.ts:81
+Defined in: tevm-monorepo/packages/errors/types/fork/ForkError.d.ts:81
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/fork/ForkError.d.ts:81
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/fork/ForkError.d.ts:58
+Defined in: tevm-monorepo/packages/errors/types/fork/ForkError.d.ts:58
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/fork/ForkError.d.ts:58
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/fork/ForkError.d.ts:62
+Defined in: tevm-monorepo/packages/errors/types/fork/ForkError.d.ts:62
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/fork/ForkError.d.ts:62
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/fork/ForkError.d.ts:66
+Defined in: tevm-monorepo/packages/errors/types/fork/ForkError.d.ts:66
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/fork/ForkError.d.ts:66
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/fork/ForkError.d.ts:85
+Defined in: tevm-monorepo/packages/errors/types/fork/ForkError.d.ts:85
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/fork/ForkError.d.ts:85
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/fork/ForkError.d.ts:70
+Defined in: tevm-monorepo/packages/errors/types/fork/ForkError.d.ts:70
 
 - Additional meta messages.

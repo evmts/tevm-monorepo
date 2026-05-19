@@ -8,6 +8,6 @@
 
 > **CallJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"tevm_call"`, `SerializeToJson`\<[`CallResult`](CallResult.md)\>, [`TevmCallError`](TevmCallError.md)\[`"code"`\]\>
 
-Defined in: packages/actions/types/Call/CallJsonRpcResponse.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/Call/CallJsonRpcResponse.d.ts:8
 
 JSON-RPC response for `tevm_call` procedure

@@ -8,7 +8,7 @@
 
 > **anvilSetBalanceJsonRpcProcedure**(`client`): [`AnvilSetBalanceProcedure`](../type-aliases/AnvilSetBalanceProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetBalanceProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetBalanceProcedure.d.ts:1
 
 ## Parameters
 

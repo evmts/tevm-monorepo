@@ -6,9 +6,9 @@
 
 # Function: getForkBlockTag()
 
-> **getForkBlockTag**(`__namedParameters`): `undefined` \| \{ `blockTag`: [`BlockTag`](../../index/type-aliases/BlockTag.md); \} \| \{ `blockNumber`: `bigint`; \}
+> **getForkBlockTag**(`__namedParameters`): \{ `blockTag`: [`BlockTag`](../../index/type-aliases/BlockTag.md); \} \| \{ `blockNumber`: `bigint`; \} \| `undefined`
 
-Defined in: packages/state/dist/index.d.ts:456
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:460
 
 ## Parameters
 
@@ -18,4 +18,4 @@ Defined in: packages/state/dist/index.d.ts:456
 
 ## Returns
 
-`undefined` \| \{ `blockTag`: [`BlockTag`](../../index/type-aliases/BlockTag.md); \} \| \{ `blockNumber`: `bigint`; \}
+\{ `blockTag`: [`BlockTag`](../../index/type-aliases/BlockTag.md); \} \| \{ `blockNumber`: `bigint`; \} \| `undefined`

@@ -16,18 +16,18 @@ JSON-RPC response call result for eth_simulateV2 (extends V1)
 
 ### contractCreated?
 
-> `optional` **contractCreated**: [`JsonRpcContractCreationEvent`](JsonRpcContractCreationEvent.md)
+> `optional` **contractCreated?**: [`JsonRpcContractCreationEvent`](JsonRpcContractCreationEvent.md)
 
 Contract creation event if a contract was deployed
 
 ### estimatedGas?
 
-> `optional` **estimatedGas**: `Hex`
+> `optional` **estimatedGas?**: `Hex`
 
 Estimated gas if gas estimation was requested
 
 ### trace?
 
-> `optional` **trace**: [`JsonRpcCallTrace`](JsonRpcCallTrace.md)
+> `optional` **trace?**: [`JsonRpcCallTrace`](JsonRpcCallTrace.md)
 
 Call trace for debugging

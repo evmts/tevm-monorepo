@@ -8,7 +8,7 @@
 
 > **AnvilSetAutomineParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:40
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:40
 
 Params for `anvil_setAutomine` handler
 
@@ -18,6 +18,6 @@ Params for `anvil_setAutomine` handler
 
 > `readonly` **enabled**: `boolean`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:44
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:44
 
 Whether to enable or disable automine

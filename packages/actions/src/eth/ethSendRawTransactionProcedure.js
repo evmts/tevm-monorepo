@@ -1,5 +1,5 @@
+import { createTxFromRLP } from '@evmts/zevm/tx'
 import { InvalidParamsError } from '@tevm/errors'
-import { createTxFromRLP } from '@tevm/tx'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { handleAutomining } from '../Call/handleAutomining.js'
 

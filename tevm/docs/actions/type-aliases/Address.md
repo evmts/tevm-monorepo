@@ -8,7 +8,7 @@
 
 > **Address** = [`Address`](../../index/type-aliases/Address.md)
 
-Defined in: packages/actions/types/common/Address.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/common/Address.d.ts:6
 
 An ethereum address represented as a hex string
 

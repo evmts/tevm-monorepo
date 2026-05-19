@@ -16,15 +16,15 @@ Creates a test snapshot client that automatically caches RPC responses
 
 ### TCommon
 
-`TCommon` *extends* `object` & `object` & `ChainConfig`\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\> = `object` & `object` & `ChainConfig`\<`undefined` \| `ChainFormatters`, `undefined` \| `Record`\<`string`, `unknown`\>\>
+`TCommon` *extends* `object` & `object` & `ChainConfig`\<`ChainFormatters` \| `undefined`, `Record`\<`string`, `unknown`\> \| `undefined`\> = `object` & `object` & `ChainConfig`\<`ChainFormatters` \| `undefined`, `Record`\<`string`, `unknown`\> \| `undefined`\>
 
 ### TAccountOrAddress
 
-`TAccountOrAddress` *extends* `undefined` \| `` `0x${string}` `` \| `Account` = `undefined`
+`TAccountOrAddress` *extends* `` `0x${string}` `` \| `Account` \| `undefined` = `undefined`
 
 ### TRpcSchema
 
-`TRpcSchema` *extends* `undefined` \| `RpcSchema` = \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\]
+`TRpcSchema` *extends* `RpcSchema` \| `undefined` = \[\{ `Method`: `"web3_clientVersion"`; `Parameters?`: `undefined`; `ReturnType`: `string`; \}, \{ `Method`: `"web3_sha3"`; `Parameters`: \[`` `0x${string}` ``\]; `ReturnType`: `string`; \}, \{ `Method`: `"net_listening"`; `Parameters?`: `undefined`; `ReturnType`: `boolean`; \}, \{ `Method`: `"net_peerCount"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}, \{ `Method`: `"net_version"`; `Parameters?`: `undefined`; `ReturnType`: `` `0x${string}` ``; \}\]
 
 ## Parameters
 

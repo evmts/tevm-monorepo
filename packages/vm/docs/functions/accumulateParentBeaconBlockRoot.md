@@ -18,18 +18,4 @@ Defined in: [packages/vm/src/actions/accumulateParentBeaconBlockRoot.ts:6](https
 
 ## Returns
 
-> (`root`, `timestamp`): `Promise`\<`void`\>
-
-### Parameters
-
-#### root
-
-`Uint8Array`
-
-#### timestamp
-
-`bigint`
-
-### Returns
-
-`Promise`\<`void`\>
+(`root`, `timestamp`) => `Promise`\<`void`\>

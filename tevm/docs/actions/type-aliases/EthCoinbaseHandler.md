@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthCoinbaseHandler
 
-# Type Alias: EthCoinbaseHandler()
+# Type Alias: EthCoinbaseHandler
 
 > **EthCoinbaseHandler** = (`request`) => `Promise`\<[`EthCoinbaseResult`](EthCoinbaseResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:7
 
 ## Parameters
 

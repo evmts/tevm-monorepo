@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [vm](../README.md) / assignBlockRewards
 
-# Variable: assignBlockRewards()
+# Variable: assignBlockRewards
 
 > `const` **assignBlockRewards**: (`vm`) => (`block`) => `Promise`\<`void`\>
 
-Defined in: packages/vm/types/actions/assignBlockRewards.d.ts:7
+Defined in: tevm-monorepo/packages/vm/types/actions/assignBlockRewards.d.ts:7
 
 Calculates block rewards for miner and ommers and puts
 the updated balances of their accounts to state.
@@ -21,14 +21,4 @@ the updated balances of their accounts to state.
 
 ## Returns
 
-> (`block`): `Promise`\<`void`\>
-
-### Parameters
-
-#### block
-
-[`Block`](../../block/classes/Block.md)
-
-### Returns
-
-`Promise`\<`void`\>
+(`block`) => `Promise`\<`void`\>

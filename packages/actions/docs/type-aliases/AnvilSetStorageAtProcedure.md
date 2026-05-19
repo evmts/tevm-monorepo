@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetStorageAtProcedure
 
-# Type Alias: AnvilSetStorageAtProcedure()
+# Type Alias: AnvilSetStorageAtProcedure
 
 > **AnvilSetStorageAtProcedure** = (`request`) => `Promise`\<[`AnvilSetStorageAtJsonRpcResponse`](AnvilSetStorageAtJsonRpcResponse.md)\>
 

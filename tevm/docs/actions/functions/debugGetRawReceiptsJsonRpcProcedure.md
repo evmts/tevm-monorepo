@@ -8,7 +8,7 @@
 
 > **debugGetRawReceiptsJsonRpcProcedure**(`client`): `DebugGetRawReceiptsProcedure`
 
-Defined in: packages/actions/types/debug/debugGetRawReceiptsProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/debug/debugGetRawReceiptsProcedure.d.ts:1
 
 ## Parameters
 

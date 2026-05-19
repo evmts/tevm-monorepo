@@ -1,4 +1,4 @@
-import { CacheType, StorageCache } from '@ethereumjs/statemanager'
+import { CacheType, StorageCache } from '@evmts/zevm/statemanager'
 import { createAddress } from '@tevm/address'
 import { describe, expect, it } from 'vitest'
 import { ContractCache } from './ContractCache.js'

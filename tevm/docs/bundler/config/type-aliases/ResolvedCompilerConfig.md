@@ -8,4 +8,4 @@
 
 > **ResolvedCompilerConfig** = `ResolvedCompilerConfig`
 
-Defined in: bundler-packages/config/types/index.d.ts:5
+Defined in: tevm-monorepo/bundler-packages/config/types/index.d.ts:5

@@ -8,7 +8,7 @@
 
 > **warmAddresses2929**(`vm`, `caller`, `to`, `coinbase`): `void`
 
-Defined in: packages/vm/types/actions/warmAddresses2929.d.ts:1
+Defined in: tevm-monorepo/packages/vm/types/actions/warmAddresses2929.d.ts:1
 
 ## Parameters
 
@@ -22,7 +22,7 @@ Defined in: packages/vm/types/actions/warmAddresses2929.d.ts:1
 
 ### to
 
-`undefined` | [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
+[`EthjsAddress`](../../utils/classes/EthjsAddress.md) \| `undefined`
 
 ### coinbase
 

@@ -8,6 +8,6 @@
 
 > **AnvilSetIntervalMiningJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setIntervalMining"`, readonly \[`number`\]\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:31
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:31
 
 JSON-RPC request for `anvil_setIntervalMining` method

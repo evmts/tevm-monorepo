@@ -8,4 +8,4 @@
 
 > **foundryProject**: `boolean`
 
-Defined in: bundler-packages/config/types/config/withDefaults.d.ts:3
+Defined in: tevm-monorepo/bundler-packages/config/types/config/withDefaults.d.ts:3

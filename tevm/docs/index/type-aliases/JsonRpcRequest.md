@@ -8,7 +8,7 @@
 
 > **JsonRpcRequest**\<`TMethod`, `TParams`\> = `object` & `TParams` *extends* readonly \[\] ? `object` : `object`
 
-Defined in: packages/jsonrpc/types/JsonRpcRequest.d.ts:4
+Defined in: tevm-monorepo/packages/jsonrpc/types/JsonRpcRequest.d.ts:4
 
 Helper type for creating JSON-RPC request types
 
@@ -16,7 +16,7 @@ Helper type for creating JSON-RPC request types
 
 ### id?
 
-> `readonly` `optional` **id**: `string` \| `number` \| `null`
+> `readonly` `optional` **id?**: `string` \| `number` \| `null`
 
 ### jsonrpc
 

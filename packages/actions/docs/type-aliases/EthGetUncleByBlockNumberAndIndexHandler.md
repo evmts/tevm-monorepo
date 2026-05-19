@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetUncleByBlockNumberAndIndexHandler
 
-# Type Alias: EthGetUncleByBlockNumberAndIndexHandler()
+# Type Alias: EthGetUncleByBlockNumberAndIndexHandler
 
 > **EthGetUncleByBlockNumberAndIndexHandler** = (`request`) => `Promise`\<[`EthGetUncleByBlockNumberAndIndexResult`](EthGetUncleByBlockNumberAndIndexResult.md)\>
 

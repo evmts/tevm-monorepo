@@ -8,15 +8,15 @@
 
 > **BaseErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:73
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:73
 
 ## Properties
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| [`EVMError`](../../evm/classes/EVMError.md) \| `unknown`
+> `optional` **cause?**: [`BaseError`](../classes/BaseError.md) \| `Error` \| `EVMError` \| `unknown`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:93
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:93
 
 - The cause of the error.
 
@@ -24,9 +24,9 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:93
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:97
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:97
 
 - Details of the error.
 
@@ -34,9 +34,9 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:97
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:77
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:77
 
 - Base URL for the documentation.
 
@@ -44,9 +44,9 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:77
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:81
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:81
 
 - Path to the documentation.
 
@@ -54,9 +54,9 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:81
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:85
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:85
 
 - Slug for the documentation.
 
@@ -64,8 +64,8 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:85
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:89
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:89
 
 - Additional meta messages.

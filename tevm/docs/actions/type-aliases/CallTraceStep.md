@@ -8,7 +8,7 @@
 
 > **CallTraceStep** = `object`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:353
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:353
 
 A single call trace step for V2 debugging
 
@@ -18,7 +18,7 @@ A single call trace step for V2 debugging
 
 > **depth**: `number`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:373
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:373
 
 The current depth of the call stack
 
@@ -28,7 +28,7 @@ The current depth of the call stack
 
 > **gas**: `bigint`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:365
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:365
 
 The gas remaining
 
@@ -38,7 +38,7 @@ The gas remaining
 
 > **gasCost**: `bigint`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:369
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:369
 
 The gas cost of this operation
 
@@ -46,9 +46,9 @@ The gas cost of this operation
 
 ### memory?
 
-> `optional` **memory**: [`Hex`](Hex.md)
+> `optional` **memory?**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:381
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:381
 
 The memory contents (if requested)
 
@@ -58,7 +58,7 @@ The memory contents (if requested)
 
 > **op**: `string`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:357
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:357
 
 The opcode executed
 
@@ -68,7 +68,7 @@ The opcode executed
 
 > **pc**: `number`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:361
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:361
 
 The program counter
 
@@ -76,8 +76,8 @@ The program counter
 
 ### stack?
 
-> `optional` **stack**: [`Hex`](Hex.md)[]
+> `optional` **stack?**: [`Hex`](Hex.md)[]
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:377
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:377
 
 The stack contents (top items)

@@ -8,7 +8,7 @@
 
 > **blockNumberProcedure**(`client`): [`EthBlockNumberJsonRpcProcedure`](../type-aliases/EthBlockNumberJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/blockNumberProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/blockNumberProcedure.d.ts:1
 
 ## Parameters
 

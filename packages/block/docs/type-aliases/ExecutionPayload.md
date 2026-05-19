@@ -64,7 +64,7 @@ Defined in: [packages/block/src/types.ts:587](https://github.com/evmts/tevm-mono
 
 ### blobGasUsed?
 
-> `optional` **blobGasUsed**: `Hex` \| `string`
+> `optional` **blobGasUsed?**: `Hex` \| `string`
 
 Defined in: [packages/block/src/types.ts:591](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L591)
 
@@ -88,7 +88,7 @@ Defined in: [packages/block/src/types.ts:582](https://github.com/evmts/tevm-mono
 
 ### excessBlobGas?
 
-> `optional` **excessBlobGas**: `Hex` \| `string`
+> `optional` **excessBlobGas?**: `Hex` \| `string`
 
 Defined in: [packages/block/src/types.ts:592](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L592)
 
@@ -96,7 +96,7 @@ Defined in: [packages/block/src/types.ts:592](https://github.com/evmts/tevm-mono
 
 ### executionWitness?
 
-> `optional` **executionWitness**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
+> `optional` **executionWitness?**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
 
 Defined in: [packages/block/src/types.ts:595](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L595)
 
@@ -144,7 +144,7 @@ Defined in: [packages/block/src/types.ts:580](https://github.com/evmts/tevm-mono
 
 ### parentBeaconBlockRoot?
 
-> `optional` **parentBeaconBlockRoot**: `Hex` \| `string`
+> `optional` **parentBeaconBlockRoot?**: `Hex` \| `string`
 
 Defined in: [packages/block/src/types.ts:593](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L593)
 
@@ -176,7 +176,7 @@ Defined in: [packages/block/src/types.ts:579](https://github.com/evmts/tevm-mono
 
 ### requestsRoot?
 
-> `optional` **requestsRoot**: `Hex` \| `string` \| `null`
+> `optional` **requestsRoot?**: `Hex` \| `string` \| `null`
 
 Defined in: [packages/block/src/types.ts:596](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L596)
 
@@ -208,6 +208,6 @@ Defined in: [packages/block/src/types.ts:589](https://github.com/evmts/tevm-mono
 
 ### withdrawals?
 
-> `optional` **withdrawals**: [`WithdrawalV1`](WithdrawalV1.md)[]
+> `optional` **withdrawals?**: [`WithdrawalV1`](WithdrawalV1.md)[]
 
 Defined in: [packages/block/src/types.ts:590](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L590)

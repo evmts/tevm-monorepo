@@ -8,7 +8,7 @@
 
 > **putAccount**(`baseState`, `skipFetchingFromFork?`): (`address`, `account?`) => `Promise`\<`void`\>
 
-Defined in: [packages/state/src/actions/putAccount.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putAccount.js#L5)
+Defined in: [tevm-monorepo/packages/state/src/actions/putAccount.js:5](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putAccount.js#L5)
 
 Saves an account into state under the provided `address`.
 
@@ -24,18 +24,4 @@ Saves an account into state under the provided `address`.
 
 ## Returns
 
-> (`address`, `account?`): `Promise`\<`void`\>
-
-### Parameters
-
-#### address
-
-`Address`
-
-#### account?
-
-`Account`
-
-### Returns
-
-`Promise`\<`void`\>
+(`address`, `account?`) => `Promise`\<`void`\>

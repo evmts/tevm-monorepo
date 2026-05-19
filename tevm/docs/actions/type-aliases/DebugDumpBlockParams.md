@@ -8,7 +8,7 @@
 
 > **DebugDumpBlockParams** = `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:119
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:119
 
 Params taken by `debug_dumpBlock` handler
 
@@ -18,6 +18,6 @@ Params taken by `debug_dumpBlock` handler
 
 > `readonly` **blockTag**: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint` \| [`BlockTag`](BlockTag.md)
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:123
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:123
 
 Block number, block hash, or block tag to dump state for

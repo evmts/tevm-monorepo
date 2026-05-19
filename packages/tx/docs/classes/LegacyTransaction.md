@@ -6,7 +6,7 @@
 
 # Class: LegacyTransaction
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:10
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:10
 
 An Ethereum non-typed (legacy) transaction
 
@@ -20,7 +20,7 @@ An Ethereum non-typed (legacy) transaction
 
 > **new LegacyTransaction**(`txData`, `opts?`): `LegacyTx`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:38
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:38
 
 This constructor takes the values, validates them, assigns them and freezes the object.
 
@@ -48,7 +48,7 @@ varying data types.
 
 > `protected` **activeCapabilities**: `number`[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:30
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:30
 
 List of tx type defining EIPs,
 e.g. 1559 (fee market) and 2930 (access lists)
@@ -60,7 +60,7 @@ for FeeMarket1559Tx objects
 
 > `readonly` **cache**: `TransactionCache`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:24
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:24
 
 #### Implementation of
 
@@ -72,7 +72,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > `readonly` **common**: `Common`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:21
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:21
 
 #### Implementation of
 
@@ -84,7 +84,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > `readonly` **data**: `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:16
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:16
 
 #### Implementation of
 
@@ -96,7 +96,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > `readonly` **gasLimit**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:14
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:14
 
 #### Implementation of
 
@@ -108,7 +108,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > `readonly` **gasPrice**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:12
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:12
 
 ***
 
@@ -116,7 +116,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > `readonly` **nonce**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:13
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:13
 
 #### Implementation of
 
@@ -126,9 +126,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 ### r?
 
-> `readonly` `optional` **r**: `bigint`
+> `readonly` `optional` **r?**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:19
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:19
 
 #### Implementation of
 
@@ -138,9 +138,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 ### s?
 
-> `readonly` `optional` **s**: `bigint`
+> `readonly` `optional` **s?**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:20
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:20
 
 #### Implementation of
 
@@ -150,9 +150,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 ### to?
 
-> `readonly` `optional` **to**: `Address`
+> `readonly` `optional` **to?**: `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:17
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:17
 
 #### Implementation of
 
@@ -164,7 +164,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > `readonly` **txOptions**: [`TxOptions`](../interfaces/TxOptions.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:23
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:23
 
 #### Implementation of
 
@@ -176,7 +176,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > **type**: `0`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:11
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:11
 
 #### Implementation of
 
@@ -186,9 +186,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 ### v?
 
-> `readonly` `optional` **v**: `bigint`
+> `readonly` `optional` **v?**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:18
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:18
 
 #### Implementation of
 
@@ -200,7 +200,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > `readonly` **value**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:15
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:15
 
 #### Implementation of
 
@@ -212,7 +212,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > **addSignature**(`v`, `r`, `s`, `convertV?`): `LegacyTx`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:135
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:157
+
+Adds a signature (or replaces an existing one) and returns a new transaction instance.
 
 #### Parameters
 
@@ -220,21 +222,31 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 `bigint`
 
+Recovery parameter, potentially unconverted when `convertV` is false
+
 ##### r
 
-`bigint` | `Uint8Array`\<`ArrayBufferLike`\>
+`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
+
+`r` value of the signature
 
 ##### s
 
-`bigint` | `Uint8Array`\<`ArrayBufferLike`\>
+`bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
+
+`s` value of the signature
 
 ##### convertV?
 
 `boolean`
 
+When true, converts the recovery ID into the appropriate legacy `v`
+
 #### Returns
 
 `LegacyTx`
+
+A new `LegacyTx` that includes the provided signature
 
 #### Implementation of
 
@@ -246,13 +258,15 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > **errorStr**(): `string`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:148
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:194
 
 Return a compact error string representation of the object
 
 #### Returns
 
 `string`
+
+Human-readable error summary
 
 #### Implementation of
 
@@ -264,7 +278,7 @@ Return a compact error string representation of the object
 
 > **getDataGas**(): `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:104
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:115
 
 The amount of gas paid for the data in this tx
 
@@ -282,7 +296,9 @@ The amount of gas paid for the data in this tx
 
 > **getEffectivePriorityFee**(`baseFee?`): `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:57
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:66
+
+Computes the effective priority fee for this legacy transaction, optionally considering a base fee.
 
 #### Parameters
 
@@ -290,9 +306,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 `bigint`
 
+Optional base fee used on networks that emulate 1559-style pricing
+
 #### Returns
 
 `bigint`
+
+Priority fee portion denominated in wei
 
 ***
 
@@ -300,7 +320,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > **getHashedMessageToSign**(): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:100
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:111
 
 Returns the hashed serialized unsigned tx, which can be used
 to sign the transaction (e.g. for sending to a hardware wallet).
@@ -308,6 +328,8 @@ to sign the transaction (e.g. for sending to a hardware wallet).
 #### Returns
 
 `Uint8Array`\<`ArrayBufferLike`\>
+
+Hash of the unsigned transaction payload
 
 #### Implementation of
 
@@ -319,7 +341,7 @@ to sign the transaction (e.g. for sending to a hardware wallet).
 
 > **getIntrinsicGas**(): `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:115
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:126
 
 The minimum gas limit which the tx to have to be valid.
 This covers costs as the standard fee (21000 gas), the data fee (paid for each calldata byte),
@@ -340,7 +362,7 @@ to be paid for access lists (EIP-2930) and authority lists (EIP-7702).
 
 > **getMessageToSign**(): `Uint8Array`\<`ArrayBufferLike`\>[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:95
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:105
 
 Returns the raw unsigned tx, which can be used
 to sign the transaction (e.g. for sending to a hardware wallet).
@@ -358,6 +380,8 @@ const serializedMessage = RLP.encode(message)) // use this for the HW wallet inp
 
 `Uint8Array`\<`ArrayBufferLike`\>[]
 
+Array representing the unsigned transaction fields
+
 #### Implementation of
 
 `TransactionInterface.getMessageToSign`
@@ -368,13 +392,15 @@ const serializedMessage = RLP.encode(message)) // use this for the HW wallet inp
 
 > **getMessageToVerifySignature**(): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:130
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:143
 
 Computes a sha3-256 hash which can be used to verify the signature
 
 #### Returns
 
 `Uint8Array`\<`ArrayBufferLike`\>
+
+Hash used when verifying the signature
 
 #### Implementation of
 
@@ -386,11 +412,15 @@ Computes a sha3-256 hash which can be used to verify the signature
 
 > **getSenderAddress**(): `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:143
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:182
+
+Returns the recovered sender address.
 
 #### Returns
 
 `Address`
+
+Sender Address
 
 #### Implementation of
 
@@ -402,13 +432,15 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > **getSenderPublicKey**(): `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:134
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:148
 
 Returns the public key of the sender
 
 #### Returns
 
 `Uint8Array`
+
+Sender public key
 
 #### Implementation of
 
@@ -420,7 +452,7 @@ Returns the public key of the sender
 
 > **getUpfrontCost**(): `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:119
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:130
 
 The up front amount that an account must have for this transaction to be valid
 
@@ -438,11 +470,15 @@ The up front amount that an account must have for this transaction to be valid
 
 > **getValidationErrors**(): `string`[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:140
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:167
+
+Validates the transaction and returns any encountered errors.
 
 #### Returns
 
 `string`[]
+
+Array containing validation error messages
 
 #### Implementation of
 
@@ -454,7 +490,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > **hash**(): `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:126
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:138
 
 Computes a sha3-256 hash of the serialized tx.
 
@@ -464,6 +500,8 @@ Use Transaction.getMessageToSign to get a tx hash for the purpose of signing.
 #### Returns
 
 `Uint8Array`
+
+Hash of the serialized signed transaction
 
 #### Implementation of
 
@@ -475,11 +513,15 @@ Use Transaction.getMessageToSign to get a tx hash for the purpose of signing.
 
 > **isSigned**(): `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:56
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:60
+
+Indicates whether the transaction already contains signature values.
 
 #### Returns
 
 `boolean`
+
+true if `v`, `r`, and `s` are populated
 
 #### Implementation of
 
@@ -491,11 +533,15 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > **isValid**(): `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:141
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:172
+
+Determines whether the transaction passes all validation checks.
 
 #### Returns
 
 `boolean`
+
+true if no validation errors were found
 
 #### Implementation of
 
@@ -507,7 +553,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > **raw**(): `LegacyTxValuesArray`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:71
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:80
 
 Returns a Uint8Array Array of the raw Bytes of the legacy transaction, in order.
 
@@ -535,7 +581,7 @@ representation have a look at Transaction.getMessageToSign.
 
 > **serialize**(): `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:81
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:90
 
 Returns the serialized encoding of the legacy transaction.
 
@@ -559,7 +605,9 @@ representation for external signing use Transaction.getMessageToSign.
 
 > **sign**(`privateKey`, `extraEntropy?`): `LegacyTx`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:144
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:189
+
+Signs the transaction with the provided private key and returns the new signed instance.
 
 #### Parameters
 
@@ -567,13 +615,19 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 `Uint8Array`
 
+32-byte private key used to sign the transaction
+
 ##### extraEntropy?
 
-`boolean` | `Uint8Array`\<`ArrayBufferLike`\>
+`boolean` \| `Uint8Array`\<`ArrayBufferLike`\>
+
+Optional entropy passed to the signing routine
 
 #### Returns
 
 `LegacyTx`
+
+A new signed `LegacyTx`
 
 #### Implementation of
 
@@ -585,7 +639,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 > **supports**(`capability`): `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:55
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:55
 
 Checks if a tx type defining capability is active
 on a tx, for example the EIP-1559 fee market mechanism
@@ -622,7 +676,7 @@ on all supported capabilities.
 
 > **toCreationAddress**(): `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:108
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:119
 
 If the tx's `to` is to the creation address
 
@@ -640,13 +694,15 @@ If the tx's `to` is to the creation address
 
 > **toJSON**(): [`JsonTx`](../interfaces/JsonTx.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:139
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:162
 
 Returns an object with the JSON representation of the transaction.
 
 #### Returns
 
 [`JsonTx`](../interfaces/JsonTx.md)
+
+JSON encoding of the transaction
 
 #### Implementation of
 
@@ -658,11 +714,15 @@ Returns an object with the JSON representation of the transaction.
 
 > **verifySignature**(): `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:142
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/legacy/tx.d.ts:177
+
+Checks whether the stored signature can be successfully verified.
 
 #### Returns
 
 `boolean`
+
+true if the signature is valid
 
 #### Implementation of
 

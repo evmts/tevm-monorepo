@@ -46,9 +46,9 @@ Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:16](https://git
 
 ### cause?
 
-> `optional` **cause**: `unknown`
+> `optional` **cause?**: `unknown`
 
-Defined in: node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:26
+Defined in: node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es2022.error.d.ts:24
 
 #### Inherited from
 
@@ -60,7 +60,7 @@ Defined in: node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/li
 
 > **message**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
+Defined in: node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1075
 
 #### Inherited from
 
@@ -82,9 +82,9 @@ Defined in: [bundler-packages/whatsabi/src/resolveContractUri.js:12](https://git
 
 ### stack?
 
-> `optional` **stack**: `string`
+> `optional` **stack?**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1078
+Defined in: node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 #### Inherited from
 
@@ -96,7 +96,7 @@ Defined in: node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/li
 
 > `static` **isError**(`error`): `error is Error`
 
-Defined in: node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.esnext.error.d.ts:23
+Defined in: node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.esnext.error.d.ts:21
 
 Indicates whether the argument provided is a built-in Error instance or not.
 
