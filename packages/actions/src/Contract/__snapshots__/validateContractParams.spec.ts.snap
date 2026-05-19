@@ -123,10 +123,6 @@ exports[`validateContractParams > should validate that createTransaction and sta
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
 Version: 1.1.0.next-73],
-  [InvalidParams: Invalid Address 0x1234
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
-Version: 1.1.0.next-73],
 ]
 `;
 

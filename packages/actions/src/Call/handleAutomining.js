@@ -11,7 +11,13 @@ import { mineHandler } from '../Mine/mineHandler.js'
  * @throws {never} returns errors as values
  */
 export const handleAutomining = async (client, txHash, _reserved = false, mineAllTx = true) => {
-	client.logger.debug(`Automining transaction ${txHash}...`)
+	client.logger.debug(`${_reserved ? 'Gas mining' : 'Automining'} transaction ${txHash}...`)
+	const miningConfig = /** @type {import('@tevm/node').MiningConfig | { type: 'gas', limit?: bigint }} */ (
+		client.miningConfig
+	)
+	if (_reserved && miningConfig.type === 'gas' && 'limit' in miningConfig) {
+		client.logger.debug(`Gas mining mode with limit ${miningConfig.limit}`)
+	}
 
 	// Mine a single block
 	const mineRes = await mineHandler(client)({

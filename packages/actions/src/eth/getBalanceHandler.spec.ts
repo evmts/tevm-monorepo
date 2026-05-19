@@ -9,6 +9,8 @@ import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getBalanceHandler } from './getBalanceHandler.js'
 
+const hasLiveMainnetFork = Boolean(process.env['TEVM_RPC_URLS_MAINNET'] && process.env['TEVM_RUN_LIVE_FORK_TESTS'])
+
 describe(getBalanceHandler.name, () => {
 	let baseClient: ReturnType<typeof createTevmNode>
 	let address: Address
@@ -73,42 +75,51 @@ describe(getBalanceHandler.name, () => {
 	})
 
 	// This test assumes you have a way to set up a forked client
-	it('should fetch balance from fork when block is not in local state with blockTag latest', async () => {
-		const node = createTevmNode({
-			fork: {
-				transport: transports.mainnet,
-			},
-		})
-		const forkedHandler = getBalanceHandler(node)
+	it.skipIf(!hasLiveMainnetFork)(
+		'should fetch balance from fork when block is not in local state with blockTag latest',
+		async () => {
+			const node = createTevmNode({
+				fork: {
+					transport: transports.mainnet,
+				},
+			})
+			const forkedHandler = getBalanceHandler(node)
 
-		// Use a known address from mainnet with a stable balance
-		const vitalikAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-		const balance = await forkedHandler({ address: vitalikAddress, blockTag: 'latest' })
+			// Use a known address from mainnet with a stable balance
+			const vitalikAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+			const balance = await forkedHandler({ address: vitalikAddress, blockTag: 'latest' })
 
-		expect(balance).toBeGreaterThan(0n)
-	})
+			expect(balance).toBeGreaterThan(0n)
+		},
+	)
 
-	it('should fetch balance from fork when block is not in local state with block number', async () => {
-		const node = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
-		const forkedHandler = getBalanceHandler(node)
+	it.skipIf(!hasLiveMainnetFork)(
+		'should fetch balance from fork when block is not in local state with block number',
+		async () => {
+			const node = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
+			const forkedHandler = getBalanceHandler(node)
 
-		const vitalikAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-		const balance = await forkedHandler({ address: vitalikAddress, blockTag: 23531308n })
+			const vitalikAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+			const balance = await forkedHandler({ address: vitalikAddress, blockTag: 23531308n })
 
-		expect(balance).toBe(29589346973619754955n)
-	})
+			expect(balance).toBe(29589346973619754955n)
+		},
+	)
 
-	it('should fetch balance from fork when block is not in local state with block hash', async () => {
-		const node = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
-		const forkedHandler = getBalanceHandler(node)
+	it.skipIf(!hasLiveMainnetFork)(
+		'should fetch balance from fork when block is not in local state with block hash',
+		async () => {
+			const node = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
+			const forkedHandler = getBalanceHandler(node)
 
-		// Use a known address from mainnet with a stable balance
-		const vitalikAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-		const balance = await forkedHandler({
-			address: vitalikAddress,
-			blockTag: '0x08d73a165cd64ecf0872c4d21099bcbec4d0a0242eeb77f83ca2cf1bde4ca196',
-		})
+			// Use a known address from mainnet with a stable balance
+			const vitalikAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+			const balance = await forkedHandler({
+				address: vitalikAddress,
+				blockTag: '0x08d73a165cd64ecf0872c4d21099bcbec4d0a0242eeb77f83ca2cf1bde4ca196',
+			})
 
-		expect(balance).toBe(29589346973619754955n)
-	})
+			expect(balance).toBe(29589346973619754955n)
+		},
+	)
 })

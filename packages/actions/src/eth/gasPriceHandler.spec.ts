@@ -3,6 +3,8 @@ import { parseGwei } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { gasPriceHandler } from './gasPriceHandler.js'
 
+const hasLiveMainnetFork = Boolean(process.env['TEVM_RPC_URLS_MAINNET'] && process.env['TEVM_RUN_LIVE_FORK_TESTS'])
+
 describe(gasPriceHandler.name, () => {
 	it('should default to 1 gwei if no forkUrl', async () => {
 		const blockchain = {
@@ -20,7 +22,7 @@ describe(gasPriceHandler.name, () => {
 		).toBe(parseGwei('1'))
 	})
 
-	it('should fetch from fork uri', async () => {
+	it.skipIf(!hasLiveMainnetFork)('should fetch from fork uri', async () => {
 		const blockchain = {
 			getCanonicalHeadBlock: () =>
 				Promise.resolve({

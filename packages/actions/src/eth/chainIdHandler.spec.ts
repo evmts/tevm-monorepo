@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { chainIdHandler } from './chainIdHandler.js'
 
 // Check if RPC env vars are set for fork tests
-const hasRpcEnvVars = Boolean(process.env['TEVM_RPC_URLS_OPTIMISM'])
+const hasRpcEnvVars = Boolean(process.env['TEVM_RPC_URLS_OPTIMISM'] && process.env['TEVM_RUN_LIVE_FORK_TESTS'])
 
 describe(chainIdHandler.name, () => {
 	it('should return the chain id', async () => {
@@ -28,7 +28,7 @@ describe(chainIdHandler.name, () => {
 
 	it('should return fork.chainId override when provided', async () => {
 		if (!hasRpcEnvVars) {
-			console.log('Skipping: TEVM_RPC_URLS_OPTIMISM not set')
+			console.log('Skipping: TEVM_RPC_URLS_OPTIMISM and TEVM_RUN_LIVE_FORK_TESTS not set')
 			return
 		}
 		const node = createTevmNode({
@@ -45,7 +45,7 @@ describe(chainIdHandler.name, () => {
 
 	it('fork.chainId takes priority over common.id', async () => {
 		if (!hasRpcEnvVars) {
-			console.log('Skipping: TEVM_RPC_URLS_OPTIMISM not set')
+			console.log('Skipping: TEVM_RPC_URLS_OPTIMISM and TEVM_RUN_LIVE_FORK_TESTS not set')
 			return
 		}
 		const node = createTevmNode({

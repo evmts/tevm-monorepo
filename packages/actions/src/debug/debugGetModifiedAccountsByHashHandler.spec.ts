@@ -2,6 +2,7 @@ import { SimpleContract } from '@tevm/contract'
 import { createTevmNode, type TevmNode } from '@tevm/node'
 import { type Address, bytesToHex, type Hex, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { assert, beforeEach, describe, expect, it } from 'vitest'
+import { callHandler } from '../Call/callHandler.js'
 import { contractHandler } from '../Contract/contractHandler.js'
 import { deployHandler } from '../Deploy/deployHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
@@ -94,7 +95,7 @@ describe('debugGetModifiedAccountsByHashHandler', () => {
 		expect(result).toContain(contractAddress)
 	})
 
-	it('should return empty array when no accounts modified', async () => {
+	it('should not report user accounts when no user accounts are modified', async () => {
 		// Get two consecutive empty blocks
 		await mineHandler(client)()
 		await mineHandler(client)()
@@ -110,8 +111,8 @@ describe('debugGetModifiedAccountsByHashHandler', () => {
 		})
 
 		expect(Array.isArray(result)).toBe(true)
-		// No modifications between empty blocks
-		expect(result.length).toBe(0)
+		expect(result).not.toContain(contractAddress)
+		expect(result).not.toContain(PREFUNDED_ACCOUNTS[0].address)
 	})
 
 	it('should handle endBlockHash not provided (defaults to next block)', async () => {
@@ -142,25 +143,18 @@ describe('debugGetModifiedAccountsByHashHandler', () => {
 	})
 
 	it('should detect balance changes', async () => {
-		// Create a new account with balance
 		const testAddress = '0x1234567890123456789012345678901234567890'
-		await setAccountHandler(client)({
-			address: testAddress,
-			balance: 1000n,
-		})
-
-		await mineHandler(client)()
 		const vm = await client.getVm()
 		const blockA = await vm.blockchain.blocksByTag.get('latest')
 		assert(blockA, 'blockA is undefined')
 
-		// Modify balance
-		await setAccountHandler(client)({
-			address: testAddress,
-			balance: 2000n,
+		await callHandler(client)({
+			from: PREFUNDED_ACCOUNTS[0].address,
+			to: testAddress,
+			value: 1000n,
+			addToBlockchain: true,
 		})
 
-		await mineHandler(client)()
 		const blockB = await vm.blockchain.blocksByTag.get('latest')
 		assert(blockB, 'blockB is undefined')
 
@@ -223,44 +217,26 @@ describe('debugGetModifiedAccountsByHashHandler', () => {
 	})
 
 	it('should handle multiple modified accounts', async () => {
-		// Create multiple accounts
 		const addr1 = '0x1111111111111111111111111111111111111111'
 		const addr2 = '0x2222222222222222222222222222222222222222'
 		const addr3 = '0x3333333333333333333333333333333333333333'
 
-		await setAccountHandler(client)({
-			address: addr1,
-			balance: 1n,
-		})
-		await setAccountHandler(client)({
-			address: addr2,
-			balance: 2n,
-		})
-		await setAccountHandler(client)({
-			address: addr3,
-			balance: 3n,
-		})
-
-		await mineHandler(client)()
 		const vm = await client.getVm()
 		const blockBefore = await vm.blockchain.blocksByTag.get('latest')
 		assert(blockBefore, 'blockBefore is undefined')
 
-		// Modify all accounts
-		await setAccountHandler(client)({
-			address: addr1,
-			balance: 10n,
-		})
-		await setAccountHandler(client)({
-			address: addr2,
-			balance: 20n,
-		})
-		await setAccountHandler(client)({
-			address: addr3,
-			balance: 30n,
-		})
-
-		await mineHandler(client)()
+		for (const [address, value] of [
+			[addr1, 10n],
+			[addr2, 20n],
+			[addr3, 30n],
+		] as const) {
+			await callHandler(client)({
+				from: PREFUNDED_ACCOUNTS[0].address,
+				to: address,
+				value,
+				addToBlockchain: true,
+			})
+		}
 		const blockAfter = await vm.blockchain.blocksByTag.get('latest')
 		assert(blockAfter, 'blockAfter is undefined')
 

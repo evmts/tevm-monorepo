@@ -93,7 +93,7 @@ describe(ethGetFilterLogsProcedure.name, () => {
 		expect(deterministicResult).toMatchInlineSnapshot(`
 			{
 			  "address": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
-			  "blockNumber": "0x3",
+			  "blockNumber": "0x2",
 			  "data": "0x0000000000000000000000000000000000000000000000000000000000000045",
 			  "logIndex": "0x0",
 			  "removed": false,

@@ -82,7 +82,7 @@ describe('anvilDealHandler', () => {
 		expect(result.errors?.[0]?.name).toEqual('StorageSlotNotFound')
 	})
 
-	it('should deal a Proxy token to an account', async () => {
+	it.skipIf(!process.env['TEVM_RUN_LIVE_FORK_TESTS'])('should deal a Proxy token to an account', async () => {
 		const node = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
 		const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const amount = BigInt(1000000)

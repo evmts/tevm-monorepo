@@ -117,6 +117,8 @@ export const debugIntermediateRootsJsonRpcProcedure = (client) => {
 				skipBlockGasLimitValidation: true,
 				tx: impersonatedTx,
 			})
+			await vmClone.stateManager.checkpoint()
+			await vmClone.stateManager.commit(true)
 
 			// Get the state root after this transaction
 			const stateRoot = vmClone.stateManager._baseState.getCurrentStateRoot()

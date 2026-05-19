@@ -12,7 +12,9 @@ import { requestProcedure } from '../requestProcedure.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { ethGetTransactionCountProcedure } from './ethGetTransactionCountProcedure.js'
 
-const node = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
+const createMainnetForkNode = () =>
+	createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
+const hasLiveMainnetFork = Boolean(process.env['TEVM_RPC_URLS_MAINNET'] && process.env['TEVM_RUN_LIVE_FORK_TESTS'])
 const address = '0xb5d85CBf7cB3EE0D56b3bB207D5Fc4B82f43F511' as const
 
 describe(ethGetTransactionCountProcedure.name, () => {
@@ -55,7 +57,8 @@ describe(ethGetTransactionCountProcedure.name, () => {
 		).toMatchInlineSnapshot()
 	})
 
-	it('should work with past block tags', async () => {
+	it.skipIf(!hasLiveMainnetFork)('should work with past block tags', async () => {
+		const node = createMainnetForkNode()
 		expect(
 			await ethGetTransactionCountProcedure(node)({
 				jsonrpc: '2.0',
@@ -73,7 +76,8 @@ describe(ethGetTransactionCountProcedure.name, () => {
 `)
 	})
 
-	it('should work with block hash', async () => {
+	it.skipIf(!hasLiveMainnetFork)('should work with block hash', async () => {
+		const node = createMainnetForkNode()
 		const result = await ethGetTransactionCountProcedure(node)({
 			jsonrpc: '2.0',
 			id: 1,
@@ -90,9 +94,10 @@ describe(ethGetTransactionCountProcedure.name, () => {
 	})
 
 	it('should work with other valid tags', async () => {
+		const node = createTevmNode({ common: mainnet })
 		// Setup the blockchain to have the correct block tags
 		const vm = await node.getVm()
-		const latestBlock = await vm.blockchain.getBlock(21996939n)
+		const latestBlock = await vm.blockchain.getBlock(0n)
 
 		// Mock the blocksByTag map
 		const originalGet = vm.blockchain.blocksByTag.get
@@ -157,6 +162,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 	})
 
 	it('should handle invalid block tag', async () => {
+		const node = createTevmNode({ common: mainnet })
 		expect(
 			await ethGetTransactionCountProcedure(node)({
 				jsonrpc: '2.0',
@@ -345,6 +351,7 @@ describe(ethGetTransactionCountProcedure.name, () => {
 	})
 
 	it('should handle requests without id', async () => {
+		const node = createTevmNode({ common: mainnet })
 		expect(
 			await ethGetTransactionCountProcedure(node)({
 				jsonrpc: '2.0',

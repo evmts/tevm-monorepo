@@ -63,12 +63,21 @@ export const deployHandler =
 
 		client.logger.debug({ deployData }, 'deployHandler: Encoded abi bytecode and args into hex data to execute call')
 
+		const transactionDefaults =
+			params.createTransaction === undefined &&
+			params.addToMempool === undefined &&
+			params.addToBlockchain === undefined
+				? client.miningConfig.type === 'auto'
+					? { addToBlockchain: true }
+					: { addToMempool: true }
+				: {}
+
 		const result = await callHandler(client, {
 			throwOnFail: throwOnFailDefault,
 		})({
 			...params,
-			// Unlike most calls deployments default to true
-			createTransaction: params.createTransaction !== undefined ? params.createTransaction : true,
+			// Unlike most calls deployments default to creating a transaction.
+			...transactionDefaults,
 			data: deployData,
 			throwOnFail: false,
 		})

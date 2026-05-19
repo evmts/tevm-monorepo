@@ -9,6 +9,7 @@ import { getStorageAtProcedure } from './getStorageAtProcedure.js'
 
 let client: TevmNode
 let contractAddress: Address
+const storageValue = '0x01a4000000000000000000000000000000000000000000000000000000000000'
 
 beforeEach(async () => {
 	client = createTevmNode()
@@ -45,7 +46,7 @@ describe('getStorageAtProcedure', () => {
 					if (req.method !== 'eth_getStorageAt') {
 						throw new Error('Invalid method')
 					}
-					return numberToHex(420, { size: 32 }) as any
+					return storageValue as any
 				},
 			},
 		} as any)(request)
@@ -54,7 +55,7 @@ describe('getStorageAtProcedure', () => {
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_getStorageAt')
 		expect(response.id).toBe(request.id as any)
-		expect(response.result).toBe(numberToHex(420, { size: 32 }))
+		expect(response.result).toBe(storageValue)
 	})
 
 	it('should handle requests without an id', async () => {
@@ -71,7 +72,7 @@ describe('getStorageAtProcedure', () => {
 					if (req.method !== 'eth_getStorageAt') {
 						throw new Error('Invalid method')
 					}
-					return numberToHex(420, { size: 32 }) as any
+					return storageValue as any
 				},
 			},
 		} as any)(request)
@@ -80,6 +81,6 @@ describe('getStorageAtProcedure', () => {
 		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_getStorageAt')
 		expect(response.id).toBeUndefined()
-		expect(response.result).toBe(numberToHex(420, { size: 32 }))
+		expect(response.result).toBe(storageValue)
 	})
 })

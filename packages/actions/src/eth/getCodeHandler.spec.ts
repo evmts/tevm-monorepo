@@ -10,6 +10,8 @@ import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { getCodeHandler } from './getCodeHandler.js'
 
 const contract = SimpleContract.withAddress(createAddress(420420).toString())
+const hasLiveMainnetFork = Boolean(process.env['TEVM_RPC_URLS_MAINNET'] && process.env['TEVM_RUN_LIVE_FORK_TESTS'])
+const hasLiveOptimismFork = Boolean(process.env['TEVM_RPC_URLS_OPTIMISM'] && process.env['TEVM_RUN_LIVE_FORK_TESTS'])
 
 describe(getCodeHandler.name, () => {
 	it('should implement eth_getCode', async () => {
@@ -146,7 +148,7 @@ describe(getCodeHandler.name, () => {
 })
 
 describe('Forking tests', () => {
-	it('should fetch code from mainnet fork when block is not in local state', async () => {
+	it.skipIf(!hasLiveMainnetFork)('should fetch code from mainnet fork when block is not in local state', async () => {
 		const node = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
 		const forkedHandler = getCodeHandler(node)
 
@@ -158,7 +160,7 @@ describe('Forking tests', () => {
 		expect(code.length).toBeGreaterThan(2)
 	})
 
-	it('should fetch code from Optimism fork', async () => {
+	it.skipIf(!hasLiveOptimismFork)('should fetch code from Optimism fork', async () => {
 		const node = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
 		const forkedHandler = getCodeHandler(node)
 

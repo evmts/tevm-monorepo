@@ -63,7 +63,7 @@ describe('anvilResetJsonRpcProcedure', () => {
 		})
 	})
 
-	it('should reset a forked blockchain', async () => {
+	it.skipIf(!process.env['TEVM_RUN_LIVE_FORK_TESTS'])('should reset a forked blockchain', async () => {
 		const client = createTevmNode({ common: mainnet, fork: { transport: transports.mainnet } }) as unknown as TevmNode
 		// Skip this test due to external RPC dependency issues
 		try {

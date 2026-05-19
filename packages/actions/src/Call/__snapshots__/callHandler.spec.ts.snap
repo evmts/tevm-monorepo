@@ -55,38 +55,6 @@ Version: 1.1.0.next-73],
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
 Version: 1.1.0.next-73],
-  [InvalidBytecodeError: Invalid input: expected "latest"
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Version: 1.1.0.next-73],
-  [InvalidBytecodeError: Invalid input: expected "earliest"
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Version: 1.1.0.next-73],
-  [InvalidBytecodeError: Invalid input: expected "pending"
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Version: 1.1.0.next-73],
-  [InvalidBytecodeError: Invalid input: expected "safe"
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Version: 1.1.0.next-73],
-  [InvalidBytecodeError: Invalid input: expected "finalized"
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Version: 1.1.0.next-73],
-  [InvalidBytecodeError: Invalid input: expected bigint, received string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Version: 1.1.0.next-73],
-  [InvalidBytecodeError: Invalid input: expected number, received string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Version: 1.1.0.next-73],
-  [InvalidBytecodeError: value must be a hex string
-
-Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
-Version: 1.1.0.next-73],
 ]
 `;
 
@@ -127,6 +95,15 @@ exports[`callHandler > should handle insufficient balance error 1`] = `
     "message": "Insufficientbalance: Account 0x6969696969696969696969696969696969696969 attempted to create a transaction with zero eth. Consider adding eth to account or using a different from or origin address",
     "name": "InsufficientBalance",
   },
+]
+`;
+
+exports[`callHandler > should handle mining failing 1`] = `
+[
+  [MisconfiguredClientError: Syncing not currently implemented
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73],
 ]
 `;
 

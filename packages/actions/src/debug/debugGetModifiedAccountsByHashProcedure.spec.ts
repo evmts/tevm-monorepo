@@ -1,8 +1,8 @@
 import { createTevmNode } from '@tevm/node'
-import { bytesToHex } from '@tevm/utils'
+import { bytesToHex, PREFUNDED_ACCOUNTS } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
+import { callHandler } from '../Call/callHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
-import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { debugGetModifiedAccountsByHashJsonRpcProcedure } from './debugGetModifiedAccountsByHashProcedure.js'
 
 describe('debugGetModifiedAccountsByHashJsonRpcProcedure', () => {
@@ -13,9 +13,8 @@ describe('debugGetModifiedAccountsByHashJsonRpcProcedure', () => {
 		await mineHandler(client)({ blockCount: 2 })
 
 		const vm = await client.getVm()
-		const blocks = Array.from(vm.blockchain.blocksByTag.values())
-		const block0Hash = bytesToHex(blocks[0].hash())
-		const block1Hash = bytesToHex(blocks[1].hash())
+		const block0Hash = bytesToHex((await vm.blockchain.getBlock(0n)).hash())
+		const block1Hash = bytesToHex((await vm.blockchain.getBlock(1n)).hash())
 
 		const procedure = debugGetModifiedAccountsByHashJsonRpcProcedure(client)
 
@@ -52,16 +51,13 @@ describe('debugGetModifiedAccountsByHashJsonRpcProcedure', () => {
 		const initialBlock = vm.blockchain.blocksByTag.get('latest')
 		const initialBlockHash = bytesToHex(initialBlock?.hash() ?? new Uint8Array(32))
 
-		// Modify an account
 		const testAddress = '0x1234567890123456789012345678901234567890'
-		await setAccountHandler(client)({
-			address: testAddress,
-			balance: 200n,
-			throwOnFail: true,
+		await callHandler(client)({
+			from: PREFUNDED_ACCOUNTS[0].address,
+			to: testAddress,
+			value: 200n,
+			addToBlockchain: true,
 		})
-
-		// Mine a new block
-		await mineHandler(client)({ blockCount: 1 })
 
 		const newBlock = vm.blockchain.blocksByTag.get('latest')
 		const newBlockHash = bytesToHex(newBlock?.hash() ?? new Uint8Array(32))
@@ -100,8 +96,7 @@ describe('debugGetModifiedAccountsByHashJsonRpcProcedure', () => {
 		await mineHandler(client)({ blockCount: 1 })
 
 		const vm = await client.getVm()
-		const blocks = Array.from(vm.blockchain.blocksByTag.values())
-		const block0Hash = bytesToHex(blocks[0].hash())
+		const block0Hash = bytesToHex((await vm.blockchain.getBlock(0n)).hash())
 
 		const procedure = debugGetModifiedAccountsByHashJsonRpcProcedure(client)
 
@@ -152,7 +147,7 @@ describe('debugGetModifiedAccountsByHashJsonRpcProcedure', () => {
 		// Should return an error
 		if ('error' in response) {
 			expect(response.error).toBeDefined()
-			expect(response.error.code).toBe(-32000)
+			expect(response.error.code).toBe('-32000')
 		}
 	})
 })

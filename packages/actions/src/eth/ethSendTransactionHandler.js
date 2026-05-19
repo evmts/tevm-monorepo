@@ -39,9 +39,10 @@ export const ethSendTransactionHandler = (client) => async (params) => {
 		)
 		tx = createImpersonatedTx(impersonatedTx)
 	}
-	const { errors } = await callHandler(client)({
+	const transactionMode = client.miningConfig.type === 'auto' ? { addToBlockchain: true } : { addToMempool: true }
+	const { errors, txHash } = await callHandler(client)({
 		...params,
-		createTransaction: true,
+		...transactionMode,
 		skipBalance: true,
 	})
 	if (errors?.length === 1) {
@@ -50,5 +51,5 @@ export const ethSendTransactionHandler = (client) => async (params) => {
 	if (errors?.length && errors.length > 1) {
 		throw new AggregateError(errors)
 	}
-	return bytesToHex(tx.hash())
+	return txHash ?? bytesToHex(tx.hash())
 }
