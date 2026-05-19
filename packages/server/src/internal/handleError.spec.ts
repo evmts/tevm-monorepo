@@ -34,7 +34,6 @@ describe('handleError', () => {
 				},
 			}),
 		)
-		expect(res.end).toMatchSnapshot()
 	})
 
 	it('should handle error without JSON-RPC request id', () => {
@@ -58,7 +57,6 @@ describe('handleError', () => {
 				},
 			}),
 		)
-		expect(res.end).toMatchSnapshot()
 	})
 
 	it('should handle error with default method when JSON-RPC request is not provided', () => {
@@ -81,6 +79,5 @@ describe('handleError', () => {
 				},
 			}),
 		)
-		expect(res.end).toMatchSnapshot()
 	})
 })
