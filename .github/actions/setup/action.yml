@@ -48,6 +48,10 @@ runs:
       run: pnpm install --frozen-lockfile
       shell: bash
 
+    - name: Build Zevm workspace
+      run: pnpm --filter @evmts/zevm build
+      shell: bash
+
     - name: Install native dependencies
       shell: bash
       run: |
