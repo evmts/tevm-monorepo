@@ -32,6 +32,13 @@ runs:
         npm i pnpm@10.6.1 --global && pnpm --version
       shell: bash
 
+    - name: Checkout Zevm workspace
+      run: |
+        if [ ! -d ../zevm/npm/zevm ]; then
+          git clone --depth 1 https://github.com/evmts/zevm.git ../zevm
+        fi
+      shell: bash
+
     - name: Install Foundry
       uses: foundry-rs/foundry-toolchain@v1
       with:
