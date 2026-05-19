@@ -1,11 +1,11 @@
 import { rm } from 'node:fs/promises'
 import path from 'node:path'
 import { createMemoryClient } from '@tevm/memory-client'
-import { transports } from '@tevm/test-utils'
-import { type EIP1193RequestFn, type EIP1474Methods, http, numberToHex } from 'viem'
+import { numberToHex } from 'viem'
 import { afterEach, describe, expect, it } from 'vitest'
 import { createTestSnapshotTransport } from './createTestSnapshotTransport.js'
 import { BLOCK_NUMBER } from './test/constants.js'
+import { createMockForkTransport } from './test/mockTransport.js'
 import { assertMethodCached, assertMethodNotCached } from './test/snapshot-utils.js'
 
 describe('createTestSnapshotTransport', () => {
@@ -15,7 +15,7 @@ describe('createTestSnapshotTransport', () => {
 
 	it('should create a transport with all required methods', async () => {
 		const transport = createTestSnapshotTransport({
-			transport: http('https://mainnet.optimism.io')({}),
+			transport: createMockForkTransport(),
 		})
 
 		expect(transport).toHaveProperty('server')
@@ -29,7 +29,7 @@ describe('createTestSnapshotTransport', () => {
 
 	it('should start and stop server correctly', async () => {
 		const { server } = createTestSnapshotTransport({
-			transport: transports.mainnet,
+			transport: createMockForkTransport(),
 		})
 
 		// Initially no rpcUrl
@@ -53,7 +53,7 @@ describe('createTestSnapshotTransport', () => {
 
 	it('should cache RPC requests', async () => {
 		const transport = createTestSnapshotTransport({
-			transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
+			transport: createMockForkTransport(),
 		})
 
 		// Make a cacheable request
@@ -65,7 +65,7 @@ describe('createTestSnapshotTransport', () => {
 		})
 		// Should return the correct result
 		expect(block).toBeDefined()
-		expect(block?.number).toBe(BLOCK_NUMBER)
+		expect((block as { number: typeof BLOCK_NUMBER }).number).toBe(BLOCK_NUMBER)
 
 		// Save to ensure snapshots are written
 		await transport.saveSnapshots()
@@ -76,7 +76,7 @@ describe('createTestSnapshotTransport', () => {
 
 	it('should not cache non-cacheable requests', async () => {
 		const transport = createTestSnapshotTransport({
-			transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
+			transport: createMockForkTransport(),
 		})
 
 		// Make a non-cacheable request (blockNumber is not cached)
@@ -93,7 +93,7 @@ describe('createTestSnapshotTransport', () => {
 
 	it('should save snapshots on stop', async () => {
 		const transport = createTestSnapshotTransport({
-			transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
+			transport: createMockForkTransport(),
 		})
 
 		await transport.request({
@@ -111,7 +111,7 @@ describe('createTestSnapshotTransport', () => {
 
 	it('should save snapshots immediately when autosave is onRequest', async () => {
 		const transport = createTestSnapshotTransport({
-			transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
+			transport: createMockForkTransport(),
 			test: {
 				autosave: 'onRequest',
 			},
@@ -143,7 +143,7 @@ describe('createTestSnapshotTransport', () => {
 
 	it('should not save snapshots immediately when autosave is onStop (default)', async () => {
 		const transport = createTestSnapshotTransport({
-			transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
+			transport: createMockForkTransport(),
 			test: {
 				autosave: 'onStop', // explicit, but this is the default
 			},
@@ -172,7 +172,7 @@ describe('createTestSnapshotTransport', () => {
 		const client = createMemoryClient({
 			fork: {
 				transport: createTestSnapshotTransport({
-					transport: transports.mainnet as { request: EIP1193RequestFn<EIP1474Methods> },
+					transport: createMockForkTransport(),
 					test: { autosave: 'onRequest' },
 				}),
 			},

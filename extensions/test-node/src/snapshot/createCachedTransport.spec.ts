@@ -1,15 +1,19 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { http } from 'viem'
-import { afterEach, assert, describe, expect, it } from 'vitest'
+import { afterEach, assert, beforeEach, describe, expect, it } from 'vitest'
+import { createMockForkTransport } from '../test/mockTransport.js'
 import { createCachedTransport } from './createCachedTransport.js'
 import { SnapshotManager } from './SnapshotManager.js'
 
 describe('createCachedTransport', () => {
 	const testCacheDir = path.join(process.cwd(), '.test-create-cached-transport')
 	const testSnapshotPath = path.join(testCacheDir, 'test.snap.json')
-	const optimismTransport = http('https://mainnet.optimism.io')({})
-	const snapshotManager = new SnapshotManager(() => testSnapshotPath)
+	const mockTransport = createMockForkTransport()
+	let snapshotManager: SnapshotManager
+
+	beforeEach(() => {
+		snapshotManager = new SnapshotManager(() => testSnapshotPath)
+	})
 
 	afterEach(() => {
 		if (fs.existsSync(testCacheDir)) {
@@ -18,7 +22,7 @@ describe('createCachedTransport', () => {
 	})
 
 	it('should pass through non-cacheable methods', async () => {
-		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager, 'onStop')
+		const cachedTransport = createCachedTransport(mockTransport, snapshotManager, 'onStop')
 		const result = await cachedTransport.request({ method: 'eth_blockNumber', params: [] })
 
 		// Should return a valid block number
@@ -28,7 +32,7 @@ describe('createCachedTransport', () => {
 	})
 
 	it('should cache cacheable methods', async () => {
-		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager, 'onStop')
+		const cachedTransport = createCachedTransport(mockTransport, snapshotManager, 'onStop')
 
 		// Use a specific historical block on Optimism
 		const blockNumber = '0x1000000'
@@ -60,7 +64,7 @@ describe('createCachedTransport', () => {
 	})
 
 	it('should create cache key with method and params', async () => {
-		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager, 'onStop')
+		const cachedTransport = createCachedTransport(mockTransport, snapshotManager, 'onStop')
 
 		const blockNumber = '0x1000000'
 		const result = await cachedTransport.request({
@@ -80,7 +84,7 @@ describe('createCachedTransport', () => {
 	})
 
 	it('should not cache on error', async () => {
-		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager, 'onStop')
+		const cachedTransport = createCachedTransport(mockTransport, snapshotManager, 'onStop')
 
 		// Use an invalid block number that will cause an error
 		try {
@@ -96,8 +100,8 @@ describe('createCachedTransport', () => {
 		}
 	})
 
-	it('should handle real transport correctly', async () => {
-		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager, 'onStop')
+	it('should handle transport responses correctly', async () => {
+		const cachedTransport = createCachedTransport(mockTransport, snapshotManager, 'onStop')
 
 		const result = await cachedTransport.request({
 			method: 'eth_getBlockByNumber',
@@ -111,7 +115,7 @@ describe('createCachedTransport', () => {
 	})
 
 	it('should handle non-hex block numbers correctly', async () => {
-		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager, 'onStop')
+		const cachedTransport = createCachedTransport(mockTransport, snapshotManager, 'onStop')
 
 		const result = await cachedTransport.request({
 			method: 'eth_getBlockByNumber',
@@ -125,7 +129,7 @@ describe('createCachedTransport', () => {
 	})
 
 	it('should persist snapshots across transport instances', async () => {
-		const cachedTransport = createCachedTransport(optimismTransport, snapshotManager, 'onStop')
+		const cachedTransport = createCachedTransport(mockTransport, snapshotManager, 'onStop')
 
 		const blockNumber = '0x1000000'
 		const originalResult = await cachedTransport.request({
@@ -138,7 +142,7 @@ describe('createCachedTransport', () => {
 
 		// Create new snapshot manager and transport
 		const newSnapshotManager = new SnapshotManager(() => testSnapshotPath)
-		const newCachedTransport = createCachedTransport(optimismTransport, newSnapshotManager, 'onStop')
+		const newCachedTransport = createCachedTransport(mockTransport, newSnapshotManager, 'onStop')
 
 		const cachedResult = await newCachedTransport.request({
 			method: 'eth_getBlockByNumber',

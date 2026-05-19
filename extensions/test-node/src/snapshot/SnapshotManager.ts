@@ -50,6 +50,10 @@ export class SnapshotManager {
 	private load(): this {
 		if (fs.existsSync(this.snapshotPath)) {
 			const content = fs.readFileSync(this.snapshotPath, 'utf-8')
+			if (content.trim() === '') {
+				this.snapshots = new Map()
+				return this
+			}
 			const data = JSON.parse(content)
 			this.snapshots = new Map(Object.entries(data))
 		} else {
@@ -91,7 +95,9 @@ export class SnapshotManager {
 
 		const data = Object.fromEntries(this.snapshots)
 		const content = JSON.stringify(data, null, 2)
+		const tempPath = `${this.snapshotPath}.${process.pid}.${Date.now()}.${Math.random().toString(36).slice(2)}.tmp`
 
-		await fsPromises.writeFile(this.snapshotPath, content, 'utf-8')
+		await fsPromises.writeFile(tempPath, content, 'utf-8')
+		await fsPromises.rename(tempPath, this.snapshotPath)
 	}
 }

@@ -1,11 +1,11 @@
 import { rm } from 'node:fs/promises'
 import path from 'node:path'
 import { mainnet } from '@tevm/common'
-import { transports } from '@tevm/test-utils'
-import { http, numberToHex } from 'viem'
+import { numberToHex } from 'viem'
 import { afterEach, describe, expect, it } from 'vitest'
 import { createTestSnapshotClient } from './createTestSnapshotClient.js'
 import { BLOCK_NUMBER } from './test/constants.js'
+import { createMockForkTransport } from './test/mockTransport.js'
 import { assertMethodCached, assertMethodNotCached } from './test/snapshot-utils.js'
 
 describe('createTestSnapshotClient', () => {
@@ -31,7 +31,7 @@ describe('createTestSnapshotClient', () => {
 	it('should create a client with all required methods', async () => {
 		const client = createTestSnapshotClient({
 			fork: {
-				transport: http('https://mainnet.optimism.io')({}),
+				transport: createMockForkTransport(),
 			},
 		})
 
@@ -46,7 +46,7 @@ describe('createTestSnapshotClient', () => {
 	it('should start and stop server correctly', async () => {
 		const { server } = createTestSnapshotClient({
 			fork: {
-				transport: transports.mainnet,
+				transport: createMockForkTransport(),
 			},
 			common: mainnet,
 		})
@@ -73,18 +73,19 @@ describe('createTestSnapshotClient', () => {
 	it('should cache RPC requests', async () => {
 		const client = createTestSnapshotClient({
 			fork: {
-				transport: transports.mainnet,
+				transport: createMockForkTransport(),
 			},
 			common: mainnet,
 		})
 
 		// Make a cacheable request
-		const block = await client.getBlock({
-			blockNumber: BigInt(BLOCK_NUMBER),
+		const block = await client.transport.tevm.forkTransport?.request({
+			method: 'eth_getBlockByNumber',
+			params: [BLOCK_NUMBER, false],
 		})
 		// Should return the correct result
 		expect(block).toBeDefined()
-		expect(block.number).toBe(BigInt(BLOCK_NUMBER))
+		expect((block as { number: string }).number).toBe(BLOCK_NUMBER)
 
 		// Save to ensure snapshots are written
 		await client.saveSnapshots()
@@ -96,13 +97,13 @@ describe('createTestSnapshotClient', () => {
 	it('should not cache non-cacheable requests', async () => {
 		const client = createTestSnapshotClient({
 			fork: {
-				transport: transports.mainnet,
+				transport: createMockForkTransport(),
 			},
 			common: mainnet,
 		})
 
 		// Make a non-cacheable request (blockNumber is not cached)
-		await client.getBlockNumber()
+		await client.transport.tevm.forkTransport?.request({ method: 'eth_blockNumber' })
 		await client.saveSnapshots()
 
 		// Check no snapshots were created for this
@@ -112,12 +113,15 @@ describe('createTestSnapshotClient', () => {
 	it('should save snapshots on stop', async () => {
 		const client = createTestSnapshotClient({
 			fork: {
-				transport: transports.mainnet,
+				transport: createMockForkTransport(),
 			},
 			common: mainnet,
 		})
 
-		await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
+		await client.transport.tevm.forkTransport?.request({
+			method: 'eth_getBlockByNumber',
+			params: [BLOCK_NUMBER, false],
+		})
 
 		await client.server.stop()
 
@@ -128,7 +132,7 @@ describe('createTestSnapshotClient', () => {
 	it('should save snapshots immediately when autosave is onRequest', async () => {
 		const client = createTestSnapshotClient({
 			fork: {
-				transport: transports.mainnet,
+				transport: createMockForkTransport(),
 			},
 			common: mainnet,
 			test: {
@@ -139,12 +143,18 @@ describe('createTestSnapshotClient', () => {
 		await client.server.start()
 
 		// Make first cacheable request - should save immediately
-		await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) - 1n })
+		await client.transport.tevm.forkTransport?.request({
+			method: 'eth_getBlockByNumber',
+			params: [numberToHex(BigInt(BLOCK_NUMBER) - 1n), false],
+		})
 		// Check snapshots were saved immediately (without calling save() or stop())
 		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 1n))
 
 		// Make another cacheable request - should add to existing snapshots
-		await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) - 2n })
+		await client.transport.tevm.forkTransport?.request({
+			method: 'eth_getBlockByNumber',
+			params: [numberToHex(BigInt(BLOCK_NUMBER) - 2n), false],
+		})
 		assertMethodCached('eth_getBlockByNumber', (params) => params[0] === numberToHex(BigInt(BLOCK_NUMBER) - 2n))
 
 		await client.server.stop()
@@ -153,7 +163,7 @@ describe('createTestSnapshotClient', () => {
 	it('should not save snapshots immediately when autosave is onStop', async () => {
 		const client = createTestSnapshotClient({
 			fork: {
-				transport: transports.mainnet,
+				transport: createMockForkTransport(),
 			},
 			common: mainnet,
 			test: {
@@ -164,7 +174,10 @@ describe('createTestSnapshotClient', () => {
 		await client.server.start()
 
 		// Make cacheable request
-		await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
+		await client.transport.tevm.forkTransport?.request({
+			method: 'eth_getBlockByNumber',
+			params: [BLOCK_NUMBER, false],
+		})
 
 		// Check snapshots were NOT saved immediately
 		assertMethodNotCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
@@ -178,7 +191,7 @@ describe('createTestSnapshotClient', () => {
 	it('should not save snapshots automatically when autosave is onSave', async () => {
 		const client = createTestSnapshotClient({
 			fork: {
-				transport: transports.mainnet,
+				transport: createMockForkTransport(),
 			},
 			common: mainnet,
 			test: {
@@ -189,7 +202,10 @@ describe('createTestSnapshotClient', () => {
 		await client.server.start()
 
 		// Make cacheable request
-		await client.getBlock({ blockNumber: BigInt(BLOCK_NUMBER) })
+		await client.transport.tevm.forkTransport?.request({
+			method: 'eth_getBlockByNumber',
+			params: [BLOCK_NUMBER, false],
+		})
 
 		// Check snapshots were NOT saved automatically
 		assertMethodNotCached('eth_getBlockByNumber', (params) => params[0] === BLOCK_NUMBER)
