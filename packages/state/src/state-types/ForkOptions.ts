@@ -27,7 +27,7 @@ import { type EIP1193RequestFn, type Transport } from 'viem'
  * ```
  */
 export interface ForkOptions {
-	transport: { request: EIP1193RequestFn } | Transport
+	transport: { request: EIP1193RequestFn<any> } | Transport
 	blockTag?: BlockTag | bigint
 	/**
 	 * Optional chain ID override.

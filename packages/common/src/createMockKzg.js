@@ -34,5 +34,9 @@ export const createMockKzg = () => {
 		computeBlobProof: () => mockHash,
 		verifyProof: () => true,
 		verifyBlobProofBatch: () => true,
+		computeCells: () => [mockHash],
+		computeCellsAndProofs: () => [[mockHash], [mockHash]],
+		recoverCellsAndProofs: () => [[mockHash], [mockHash]],
+		verifyCellKzgProofBatch: () => true,
 	}
 }

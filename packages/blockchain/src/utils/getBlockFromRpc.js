@@ -32,6 +32,9 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 							doWarning(/** @type {any}*/ (tx))
 							return false
 						}
+						if (tx.chainId !== undefined && BigInt(tx.chainId) !== BigInt(common.id)) {
+							return false
+						}
 						if (tx.type === '0x3' && tx.blobVersionedHashes && tx.blobVersionedHashes.length > 6) {
 							console.warn(
 								`Filtering out blob transaction ${tx.hash} with ${tx.blobVersionedHashes.length} blobs (maximum is 6). See https://github.com/evmts/tevm-monorepo/issues/1710`,

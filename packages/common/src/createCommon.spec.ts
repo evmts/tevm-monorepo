@@ -22,10 +22,10 @@ describe(createCommon.name, () => {
 		expect(common.ethjsCommon.isActivatedEIP(2929)).toEqual(true)
 	})
 
-	it('activates EIP 6800 when specified', () => {
-		const customEIPs = [6800]
-		const common = createCommon({ ...optimism, hardfork: 'prague', eips: customEIPs, loggingLevel: 'warn' })
-		expect(common.ethjsCommon.isActivatedEIP(6800)).toEqual(true)
+	it('wraps unsupported EIP errors', () => {
+		expect(() => createCommon({ ...optimism, hardfork: 'prague', eips: [6800], loggingLevel: 'warn' })).toThrow(
+			InvalidParamsError,
+		)
 	})
 
 	it('creates a copy of the common instance', () => {

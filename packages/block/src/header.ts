@@ -14,12 +14,13 @@ import {
 	KECCAK256_RLP_ARRAY,
 	keccak256,
 	numberToHex,
+	setLengthLeft,
 	toBytes,
 } from '@tevm/utils'
 import { CLIQUE_EXTRA_SEAL, CLIQUE_EXTRA_VANITY } from './clique.js'
 import { fakeExponential, valuesArrayToHeaderData } from './helpers.js'
 import type { BlockHeaderBytes, BlockOptions, HeaderData, JsonHeader } from './types.js'
-import { createAddressFromPublicKey, createZeroAddress, getSignatureV, safeToType, zeros } from './utils.js'
+import { createAddressFromPublicKey, createZeroAddress, safeToType, zeros } from './utils.js'
 
 interface HeaderCache {
 	hash: Uint8Array | undefined
@@ -797,13 +798,12 @@ export class BlockHeader {
 		if (!ecSignFunction) {
 			throw new Error('ecsign function must be provided in customCrypto for clique signing')
 		}
-		const signature = ecSignFunction(this.cliqueSigHash(), privateKey)
-		const v = getSignatureV(signature)
-		const vBytes = new Uint8Array([Number(v - 27n)])
-		// Convert signature r and s to Uint8Array
-		const rBytes = toBytes(signature.r)
-		const sBytes = toBytes(signature.s)
-		const signatureB = concatBytes(rBytes, sBytes, vBytes)
+		const signature = ecSignFunction(this.cliqueSigHash(), privateKey, { prehash: false })
+		const signatureB = concatBytes(
+			setLengthLeft(toBytes(signature.r), 32),
+			setLengthLeft(toBytes(signature.s), 32),
+			new Uint8Array([signature.recovery]),
+		)
 
 		const extraDataWithoutSeal = this.extraData.subarray(0, this.extraData.length - CLIQUE_EXTRA_SEAL)
 		const extraData = concatBytes(extraDataWithoutSeal, signatureB)

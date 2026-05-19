@@ -12,6 +12,10 @@ describe('createMockKzg', () => {
 		expect(mockKzg).toHaveProperty('blobToKzgCommitment')
 		expect(mockKzg).toHaveProperty('computeBlobKzgProof')
 		expect(mockKzg).toHaveProperty('verifyBlobKzgProofBatch')
+		expect(mockKzg).toHaveProperty('computeCells')
+		expect(mockKzg).toHaveProperty('computeCellsAndProofs')
+		expect(mockKzg).toHaveProperty('recoverCellsAndProofs')
+		expect(mockKzg).toHaveProperty('verifyCellKzgProofBatch')
 	})
 
 	it('should return 69 from loadTrustedSetup', () => {

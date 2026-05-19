@@ -1,4 +1,4 @@
-import { FeeMarket1559Tx } from '@ethereumjs/tx'
+import { createFeeMarket1559Tx } from '@ethereumjs/tx'
 import { InternalError, InvalidGasLimitError } from '@tevm/errors'
 import { createAddressFromString } from '@tevm/utils'
 import { afterEach, describe, expect, it, type MockedFunction, vi } from 'vitest'
@@ -6,23 +6,23 @@ import { createImpersonatedTx } from './createImpersonatedTx.js'
 
 vi.mock('@ethereumjs/tx', async () => {
 	const actualEthjsTx = (await vi.importActual('@ethereumjs/tx')) as any
-	const mockClass = vi.fn()
-	mockClass.mockImplementation((...args: any[]) => {
-		return new actualEthjsTx.FeeMarket1559Tx(...args)
+	const mockFactory = vi.fn()
+	mockFactory.mockImplementation((...args: any[]) => {
+		return actualEthjsTx.createFeeMarket1559Tx(...args)
 	})
 	return {
 		...actualEthjsTx,
-		FeeMarket1559Tx: mockClass,
+		createFeeMarket1559Tx: mockFactory,
 	}
 })
 
-const FeeMarket1559TxMock = FeeMarket1559Tx as unknown as MockedFunction<any>
+const createFeeMarket1559TxMock = createFeeMarket1559Tx as unknown as MockedFunction<any>
 
 afterEach(async () => {
 	vi.resetAllMocks()
 	const actualEthjsTx = (await vi.importActual('@ethereumjs/tx')) as any
-	FeeMarket1559TxMock.mockImplementation((...args: any[]) => {
-		return new actualEthjsTx.FeeMarket1559Tx(...args)
+	createFeeMarket1559TxMock.mockImplementation((...args: any[]) => {
+		return actualEthjsTx.createFeeMarket1559Tx(...args)
 	})
 })
 
@@ -65,7 +65,7 @@ describe(createImpersonatedTx.name, () => {
 		// Since createCommon always includes EIP-1559, we'll mock the FeeMarket1559Tx
 		// to throw the expected error
 		const expectedError = new Error('EIP-1559 not enabled on Common')
-		FeeMarket1559TxMock.mockImplementation(() => {
+		createFeeMarket1559TxMock.mockImplementation(() => {
 			throw expectedError
 		})
 
@@ -85,7 +85,7 @@ describe(createImpersonatedTx.name, () => {
 		const ethjsError = new Error(
 			'gasLimit cannot exceed MAX_UINT64 (2^64-1), given 374144419156711147060143317175368453031918731001855 (tx type=2 hash=not available (unsigned) nonce=0 value=0 signed=false hf=error maxFeePerGas=undefined maxPriorityFeePerGas=undefined)',
 		)
-		FeeMarket1559TxMock.mockImplementation(() => {
+		createFeeMarket1559TxMock.mockImplementation(() => {
 			throw ethjsError
 		})
 		expect(() => createImpersonatedTx({ impersonatedAddress, data, gasLimit: `0x${'ff'.repeat(21)}` })).toThrow(
@@ -97,7 +97,7 @@ describe(createImpersonatedTx.name, () => {
 		const expectedError = new Error(
 			'maxFeePerGas cannot be less than maxPriorityFeePerGas (The total must be the larger of the two)',
 		)
-		FeeMarket1559TxMock.mockImplementation(() => {
+		createFeeMarket1559TxMock.mockImplementation(() => {
 			throw expectedError
 		})
 		const impersonatedAddress = createAddressFromString(`0x${'42'.repeat(20)}`)
@@ -109,7 +109,7 @@ describe(createImpersonatedTx.name, () => {
 
 	it('should throw an error if FeeMarket1559Tx throws', () => {
 		const expectedError = new Error('Constructor error')
-		FeeMarket1559TxMock.mockImplementation(() => {
+		createFeeMarket1559TxMock.mockImplementation(() => {
 			throw expectedError
 		})
 
@@ -122,7 +122,7 @@ describe(createImpersonatedTx.name, () => {
 
 	it('should throw an error if FeeMarket1559Tx throws non error', () => {
 		const notError = { not: 'error' }
-		FeeMarket1559TxMock.mockImplementation(() => {
+		createFeeMarket1559TxMock.mockImplementation(() => {
 			throw notError
 		})
 		const impersonatedAddress = createAddressFromString(`0x${'42'.repeat(20)}`)

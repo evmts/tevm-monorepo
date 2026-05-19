@@ -100,8 +100,6 @@ const allChains = {
 	etherlinkTestnet: chains.etherlinkTestnet,
 	evmos: chains.evmos,
 	evmosTestnet: chains.evmosTestnet,
-	ekta: chains.ekta,
-	ektaTestnet: chains.ektaTestnet,
 	fantom: chains.fantom,
 	fantomSonicTestnet: chains.fantomSonicTestnet,
 	fantomTestnet: chains.fantomTestnet,
@@ -257,7 +255,6 @@ const allChains = {
 	scroll: chains.scroll,
 	scrollSepolia: chains.scrollSepolia,
 	sei: chains.sei,
-	seiDevnet: chains.seiDevnet,
 	seiTestnet: chains.seiTestnet,
 	sepolia: chains.sepolia,
 	shapeSepolia: chains.shapeSepolia,
@@ -336,7 +333,6 @@ const allChains = {
 	zora: chains.zora,
 	zoraSepolia: chains.zoraSepolia,
 	zoraTestnet: chains.zoraTestnet,
-	zircuitTestnet: chains.zircuitTestnet,
 }
 
 /**

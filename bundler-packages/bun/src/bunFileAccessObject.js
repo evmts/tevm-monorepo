@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, statSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { mkdir, stat, writeFile } from 'node:fs/promises'
 import { file } from './bunFile.js'
 
@@ -74,14 +74,13 @@ export const bunFileAccesObject = {
 	readFileSync,
 
 	/**
-	 * Synchronously writes data to a file using Bun's optimized file API
+	 * Synchronously writes data to a file
 	 * @param {string} filePath - Path to the file
 	 * @param {string} data - Data to write
-	 * @returns {number} - Non 0 if successful
+	 * @returns {void}
 	 */
 	writeFileSync: (filePath, data) => {
-		const bunFile = file(filePath)
-		return bunFile.writer().write(data)
+		writeFileSync(filePath, data)
 	},
 
 	/**
