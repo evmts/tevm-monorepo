@@ -7,6 +7,7 @@ import {
 	decodeFunctionResult,
 	encodeDeployData,
 	encodeFunctionData,
+	getAddress,
 	type Hex,
 	hexToBigInt,
 	parseAbi,
@@ -44,7 +45,7 @@ describe('Tevm.request', async () => {
 				functionName: 'balanceOf',
 			}) satisfies bigint,
 		).toBe(0n)
-		expect(res.executionGasUsed).toEqualHex('0xb23')
+		expect(hexToBigInt(res.executionGasUsed)).toBe(0xb23n)
 		expect(res.logs).toEqual([])
 	})
 
@@ -62,8 +63,8 @@ describe('Tevm.request', async () => {
 			id: 1,
 		} as const satisfies CallJsonRpcRequest
 		const error = await tevm.request(req).catch((e) => e)
-		expect(error.code).toMatchSnapshot()
-		expect(error.message).toMatchSnapshot()
+		expect(error.code).toBe(-32601)
+		expect(error.message).toContain('Unknown method tevm_NotARequest')
 	})
 
 	it('should execute a contractCall request via using tevm_call', { timeout: 90_000 }, async () => {
@@ -212,7 +213,8 @@ describe('Tevm.request', async () => {
 		})
 
 		expect(res.errors).toBeUndefined()
-		expect(res.createdAddress).toEqualAddress('0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c')
+		expect(res.createdAddress).toBeDefined()
+		expect(getAddress(res.createdAddress as Hex)).toBe(getAddress('0xF52CF539DcAc32507F348aa19eb5173EEA3D4e7c'))
 	})
 
 	it('Should get the same account in forked or not forked mode', async () => {

@@ -9,7 +9,7 @@ let c = {
 }
 
 beforeEach(async () => {
-	mc = createMemoryClient().extend(testActions({ mode: 'anvil' }))
+	mc = createMemoryClient({ miningConfig: { type: 'manual' } }).extend(testActions({ mode: 'anvil' }))
 })
 
 describe('mine', () => {

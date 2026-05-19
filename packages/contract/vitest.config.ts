@@ -5,7 +5,7 @@ export default defineConfig({
 	test: {
 		include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
 		environment: 'node',
-		setupFiles: ['@tevm/test-matchers'],
+		setupFiles: ['../../test/vitest-matchers/utils.ts'],
 		coverage: {
 			include: ['src/**/*.js'],
 			provider: 'v8',

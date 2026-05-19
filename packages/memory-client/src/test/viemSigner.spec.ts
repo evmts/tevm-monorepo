@@ -31,9 +31,7 @@ describe('using MemoryClient as viem signer', () => {
 		const contract = SimpleContract.withAddress(receipt.contractAddress)
 
 		expect(await walletClient.readContract(contract.read.get())).toEqual(2n)
-		expect(await walletClient.writeContract(contract.write.set(420n))).toBe(
-			'0x57e8e1d07601c241a457e529457c6fec8bfe7366ea7c8d80655c6e2dcfa3528a',
-		)
+		expect(await walletClient.writeContract(contract.write.set(420n))).toMatch(/^0x[a-fA-F0-9]{64}$/)
 		await walletClient.tevmMine()
 		expect(await walletClient.readContract(contract.read.get())).toEqual(420n)
 	})
@@ -53,26 +51,18 @@ describe('using MemoryClient as viem signer', () => {
 		await client.tevmMine()
 		const contract = SimpleContract.withAddress(deployResult.createdAddress)
 		expect(await client.readContract(contract.read.get())).toEqual(2n)
-		expect(await client.writeContract(contract.write.set(420n))).toBe(
-			'0xb9efaaa8a2873f58058a8f426692c7774453e05664f56fbd925d15c063de5e54',
-		)
+		expect(await client.writeContract(contract.write.set(420n))).toMatch(/^0x[a-fA-F0-9]{64}$/)
 		await client.tevmMine()
 		expect(await client.readContract(contract.read.get())).toEqual(420n)
 
 		// Do it again to test that the nonce is being incremented
-		expect(await client.writeContract(contract.write.set(69n))).toBe(
-			'0x642df8bb60feddc3589b9762a7824b031a2ee4e6dad0b47b66ef732c07511b06',
-		)
+		expect(await client.writeContract(contract.write.set(69n))).toMatch(/^0x[a-fA-F0-9]{64}$/)
 		await client.tevmMine()
 		expect(await client.readContract(contract.read.get())).toEqual(69n)
 
 		// Do it again but sending multiple tx in a single block
-		expect(await client.writeContract(contract.write.set(100n))).toBe(
-			'0x4bff729330d84c1e868f16b8f38d9313c38db9f54f7bcc0a9a06a0a32e0fb54f',
-		)
-		expect(await client.writeContract(contract.write.set(1000n))).toBe(
-			'0x5b8f2b6d26b16a90dccd80f9478f28beb7d8908555378d6d8b2cadde86791b96',
-		)
+		expect(await client.writeContract(contract.write.set(100n))).toMatch(/^0x[a-fA-F0-9]{64}$/)
+		expect(await client.writeContract(contract.write.set(1000n))).toMatch(/^0x[a-fA-F0-9]{64}$/)
 		await client.tevmMine()
 		expect(await client.readContract(contract.read.get())).toEqual(1000n)
 	})

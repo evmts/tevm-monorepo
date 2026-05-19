@@ -24,7 +24,6 @@ beforeEach(async () => {
 	if (!deployResult.txHash) {
 		throw new Error('txHash not found')
 	}
-	await mc.tevmMine()
 })
 
 describe('waitForTransactionReceipt', () => {
@@ -32,15 +31,19 @@ describe('waitForTransactionReceipt', () => {
 		const { txHash } = await mc.tevmCall({
 			to: c.simpleContract.address,
 			data: encodeFunctionData(c.simpleContract.write.set(69n)),
-			createTransaction: true,
+			addToBlockchain: true,
 		})
 		if (!txHash) throw new Error('txHash not found')
-		await mc.mine({ blocks: 1 })
 		const { blockHash, logs, ...receipt } = await mc.waitForTransactionReceipt({ hash: txHash })
 		const vm = await mc.transport.tevm.getVm()
 		const block = await vm.blockchain.getCanonicalHeadBlock()
 		expect(blockHash).toBe(bytesToHex(block.header.hash()))
 		expect(receipt).toMatchSnapshot()
-		expect(logs.map((log) => ({ ...log, blockHash: 'redacted' }))).toMatchSnapshot()
+		expect(
+			logs.map(({ blockHash: _blockHash, blockTimestamp: _blockTimestamp, ...log }) => ({
+				...log,
+				blockHash: 'redacted',
+			})),
+		).toMatchSnapshot()
 	})
 })

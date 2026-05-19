@@ -1,4 +1,4 @@
-import { type Address, createClient, parseEther } from 'viem'
+import { type Address, createClient, padHex, parseEther } from 'viem'
 import { getBalance, getCode, getStorageAt, getTransactionCount } from 'viem/actions'
 import { assert, describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
@@ -68,8 +68,7 @@ describe('Tevm Account Management', () => {
 		// Storage key and value
 		const storageKey = '0x0000000000000000000000000000000000000000000000000000000000000001'
 		const storageValue = '0x000000000000000000000000000000000000000000000000000000000000002a' // hex for 42
-		// Note: getStorageAt may return simplified hex values
-		const simplifiedValue = '0x2a'
+		const expectedValue = padHex('0x2a', { dir: 'right', size: 32 })
 
 		// Set account with storage
 		await tevmSetAccount(client, {
@@ -85,8 +84,7 @@ describe('Tevm Account Management', () => {
 			slot: storageKey,
 		})
 
-		// The value might be simplified in the return value, accept both formats
-		expect([storageValue, simplifiedValue]).toContain(retrievedValue)
+		expect(retrievedValue).toBe(expectedValue)
 	})
 
 	it('should update existing account state', async () => {
@@ -226,7 +224,10 @@ describe('Tevm Account Management', () => {
 			const keyPadding = i.toString(16).padStart(64, '0')
 			const key = `0x${keyPadding}` as `0x${string}`
 
-			const expectedValue = `0x${i.toString(16).padStart(2, '0')}` as `0x${string}`
+			const expectedValue = padHex(`0x${i.toString(16).padStart(2, '0')}` as `0x${string}`, {
+				dir: 'right',
+				size: 32,
+			})
 
 			const actualValue = await getStorageAt(client, {
 				address: testAddress,

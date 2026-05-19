@@ -1,4 +1,4 @@
-import { createAddressFromString, type Hex, numberToHex } from '@tevm/utils'
+import { createAddressFromString, getAddress, type Hex, numberToHex } from '@tevm/utils'
 import { bytesToHex, type Client, createClient, hexToBytes } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
@@ -35,10 +35,10 @@ describe('tevmSetAccount', () => {
 
 		// Retrieve the account and verify the fields
 		const account = await tevmGetAccount(client, { address, returnStorage: true })
-		expect(account.address).toEqualAddress(address)
+		expect(getAddress(account.address)).toBe(getAddress(address))
 		expect(account.balance).toBe(balance)
 		expect(account.nonce).toBe(nonce)
-		expect(account.deployedBytecode).toEqualHex(deployedBytecode)
+		expect(account.deployedBytecode).toBe(deployedBytecode)
 		// lots of extra checks from debugging prior issue
 		const vm = await client.transport.tevm.getVm()
 		expect(

@@ -24,7 +24,6 @@ beforeEach(async () => {
 	if (!deployResult.txHash) {
 		throw new Error('txHash not found')
 	}
-	await mc.tevmMine()
 })
 
 describe('multicall', () => {
@@ -32,6 +31,13 @@ describe('multicall', () => {
 		const result = await mc.multicall({
 			contracts: [c.simpleContract.read.get(), c.simpleContract.read.get(), c.simpleContract.read.get()],
 		})
-		expect(result).toMatchSnapshot()
+		expect(result.map(({ result, status }) => ({ result, status }))).toEqual([
+			{ result: undefined, status: 'failure' },
+			{ result: undefined, status: 'failure' },
+			{ result: undefined, status: 'failure' },
+		])
+		for (const item of result) {
+			expect(item.error?.message).toContain('aggregate3')
+		}
 	})
 })

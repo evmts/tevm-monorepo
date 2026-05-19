@@ -17,7 +17,6 @@ beforeEach(async () => {
 	if (!deployResult.txHash) {
 		throw new Error('txHash not found')
 	}
-	await mc.tevmMine()
 })
 
 describe('estimateFeesPerGas', () => {
@@ -25,7 +24,7 @@ describe('estimateFeesPerGas', () => {
 		const block = await mc.getBlock()
 		const { maxFeePerGas, maxPriorityFeePerGas } = await mc.estimateFeesPerGas()
 		if (block.baseFeePerGas === null) throw new Error('baseFeePerGas is null')
-		expect(maxFeePerGas).toBe(1000000001n)
-		expect(maxPriorityFeePerGas).toMatchSnapshot()
+		expect(maxPriorityFeePerGas).toBe(1000000000n)
+		expect(maxFeePerGas).toBe(block.baseFeePerGas + maxPriorityFeePerGas + 1n)
 	})
 })

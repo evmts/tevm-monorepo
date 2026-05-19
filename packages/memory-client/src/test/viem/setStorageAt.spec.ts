@@ -1,4 +1,4 @@
-import { numberToHex, type TestActions, testActions } from 'viem'
+import { numberToHex, padHex, type TestActions, testActions } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
 import type { MemoryClient } from '../../MemoryClient.js'
@@ -21,6 +21,6 @@ describe('setStorageAt', () => {
 				address: `0x${'0'.repeat(40)}`,
 				slot: numberToHex(1),
 			}),
-		).toEqual(numberToHex(1, { size: 1 }))
+		).toEqual(padHex(numberToHex(1, { size: 1 }), { dir: 'right', size: 32 }))
 	})
 })

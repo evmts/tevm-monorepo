@@ -21,7 +21,6 @@ beforeEach(async () => {
 		throw new Error('txHash not found')
 	}
 	deployTxHash = deployResult.txHash
-	await mc.tevmMine()
 })
 
 describe('getTransaction', () => {

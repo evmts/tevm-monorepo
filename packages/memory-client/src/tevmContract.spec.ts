@@ -1,5 +1,6 @@
 import { SimpleContract } from '@tevm/contract'
 import { SimpleContract as SimpleContractUtils } from '@tevm/test-utils'
+import { isHex } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createMemoryClient } from './createMemoryClient.js'
 import type { MemoryClient } from './MemoryClient.js'
@@ -23,13 +24,13 @@ describe('tevmContract', () => {
 	it('should execute a basic contract call', async () => {
 		const result = await tevmContract(client, contract.read.get())
 		expect(result).toBeDefined()
-		expect(result.rawData).toBeHex()
+		expect(isHex(result.rawData)).toBe(true)
 	})
 
 	it('should handle contract call with arguments', async () => {
 		const result = await tevmContract(client, contract.write.set(42n))
 		expect(result).toBeDefined()
-		expect(result.rawData).toBeHex()
+		expect(isHex(result.rawData)).toBe(true)
 	})
 
 	it('should handle contract call with transaction creation', async () => {
@@ -38,8 +39,8 @@ describe('tevmContract', () => {
 			createTransaction: true,
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toBeHex()
-		expect(result.txHash).toBeHex()
+		expect(isHex(result.rawData)).toBe(true)
+		expect(isHex(result.txHash)).toBe(true)
 	})
 
 	it('should handle errors gracefully', async () => {
@@ -62,6 +63,6 @@ describe('tevmContract', () => {
 			from: senderAddress,
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toBeHex()
+		expect(isHex(result.rawData)).toBe(true)
 	})
 })
