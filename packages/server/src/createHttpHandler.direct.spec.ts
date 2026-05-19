@@ -1,10 +1,11 @@
 import { describe, expect, it, vi } from 'vitest'
+import { createHttpHandler } from './createHttpHandler.js'
 import { ReadRequestBodyError } from './errors/ReadRequestBodyError.js'
 
-// Define mocks outside test scope since vi.mock is hoisted
-const mockError = new ReadRequestBodyError('Test error')
-const mockGetRequestBody = vi.fn().mockResolvedValue(mockError)
-const mockHandleError = vi.fn()
+const { mockGetRequestBody, mockHandleError } = vi.hoisted(() => ({
+	mockGetRequestBody: vi.fn(),
+	mockHandleError: vi.fn(),
+}))
 
 // Mock the required modules
 vi.mock('./internal/getRequestBody.js', () => ({
@@ -18,13 +19,12 @@ vi.mock('./internal/handleError.js', () => ({
 // Direct test for lines 46-47 in createHttpHandler.js
 describe('createHttpHandler direct tests', () => {
 	it('should handle ReadRequestBodyError', async () => {
-		// Import the module after mocks are set up
-		const { createHttpHandler } = await import('./createHttpHandler.js')
-
 		// Create mock client, request, and response
+		const mockError = new ReadRequestBodyError('Test error')
 		const mockClient = { transport: { tevm: { logger: { error: vi.fn() } } } }
 		const mockReq = {}
 		const mockRes = {}
+		mockGetRequestBody.mockResolvedValueOnce(mockError)
 
 		// Create the handler and call it
 		const handler = createHttpHandler(mockClient as any)
@@ -33,8 +33,5 @@ describe('createHttpHandler direct tests', () => {
 		// Verify that handleError was called with the expected arguments
 		expect(mockGetRequestBody).toHaveBeenCalledWith(mockReq)
 		expect(mockHandleError).toHaveBeenCalledWith(mockClient, mockError, mockRes)
-
-		// Reset mocks
-		vi.resetModules()
 	})
 })
