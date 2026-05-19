@@ -77,7 +77,7 @@
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
 		"@tevm/tx": "workspace:^",
-		"ethers": "^6.15.0"
+		"ethers": "^6.16.0"
 	},
 	"peerDependencies": {
 		"ethers": ">6.0.0"

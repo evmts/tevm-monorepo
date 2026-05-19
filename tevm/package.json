@@ -455,10 +455,10 @@
     "@tevm/vite-plugin": "workspace:^",
     "@tevm/vm": "workspace:^",
     "@tevm/webpack-plugin": "workspace:^",
-    "commander": "^14.0.1",
-    "effect": "3.18.1",
-    "glob": "^11.0.3",
-    "solc": "^0.8.30"
+    "commander": "^14.0.3",
+    "effect": "3.21.2",
+    "glob": "^13.0.6",
+    "solc": "^0.8.35"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
@@ -466,7 +466,7 @@
   },
   "peerDependencies": {
     "@tevm/ts-plugin": "workspace:^",
-    "viem": "^2.37.9"
+    "viem": "^2.49.3"
   },
   "publishConfig": {
     "access": "public"

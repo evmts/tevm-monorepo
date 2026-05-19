@@ -63,17 +63,17 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/evm": "^10.0.0",
-		"@ethereumjs/util": "^10.0.0",
+		"@ethereumjs/evm": "^10.1.1",
+		"@ethereumjs/util": "^10.1.1",
 		"@tevm/errors": "workspace:^",
-		"abitype": "^1.1.1"
+		"abitype": "^1.2.4"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.49.3"
 	},
 	"publishConfig": {
 		"access": "public"

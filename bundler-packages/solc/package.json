@@ -66,9 +66,9 @@
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"devDependencies": {
-		"abitype": "^1.1.1",
-		"solc": "0.8.30",
-		"vitest": "^3.2.4"
+		"abitype": "^1.2.4",
+		"solc": "0.8.35",
+		"vitest": "^4.1.6"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -3,6 +3,7 @@
 	"compilerOptions": {
 		"target": "ESNext",
 		"lib": ["esnext"],
+		"ignoreDeprecations": "6.0",
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
 		"declarationMap": true,

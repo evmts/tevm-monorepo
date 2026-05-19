@@ -63,16 +63,16 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/evm": "^10.0.0",
-		"viem": "^2.37.9"
+		"@ethereumjs/evm": "^10.1.1",
+		"viem": "^2.49.3"
 	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"vitest": "^3.2.4"
+		"vitest": "^4.1.6"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.49.3"
 	},
 	"publishConfig": {
 		"access": "public"

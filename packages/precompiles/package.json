@@ -61,7 +61,7 @@
 		"test:run": "vitest run"
 	},
 	"dependencies": {
-		"@noble/curves": "^2.0.1",
+		"@noble/curves": "^2.2.0",
 		"@tevm/address": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/evm": "workspace:^",
@@ -69,7 +69,6 @@
 	},
 	"devDependencies": {
 		"@tevm/bun-plugin": "workspace:^",
-		"@tevm/node": "latest",
 		"@tevm/ts-plugin": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
