@@ -2,6 +2,14 @@
  * Testing utilities for the compiler package
  */
 import { vi } from 'vitest'
+import type { Logger } from './types.js'
+
+type MockFileAccessObject = {
+	readFile: (path: string, encoding?: BufferEncoding) => Promise<string>
+	readFileSync: (path: string, encoding?: BufferEncoding) => string
+	exists: (path: string) => Promise<boolean>
+	existsSync: (path: string) => boolean
+}
 
 /**
  * Creates a mock file access object for testing
@@ -9,7 +17,7 @@ import { vi } from 'vitest'
  * @param fileMap - Map of file paths to file contents
  * @returns The mock file access object
  */
-export function createMockFileAccessObject(fileMap: Record<string, string> = {}) {
+export function createMockFileAccessObject(fileMap: Record<string, string> = {}): MockFileAccessObject {
 	return {
 		readFile: async (path: string) => fileMap[path] || '',
 		readFileSync: (path: string) => fileMap[path] || '',
@@ -23,7 +31,7 @@ export function createMockFileAccessObject(fileMap: Record<string, string> = {})
  *
  * @returns The mock logger object
  */
-export function createMockLogger() {
+export function createMockLogger(): Logger {
 	return {
 		error: vi.fn(),
 		warn: vi.fn(),
@@ -61,7 +69,7 @@ contract SimpleContract {
  * @param outputs - The compiler outputs to return
  * @returns The mock solc compiler
  */
-export function createMockSolc(outputs: any = {}) {
+export function createMockSolc(outputs: any = {}): { compile: (...args: any[]) => any } {
 	return {
 		compile: vi.fn().mockReturnValue(outputs),
 	}

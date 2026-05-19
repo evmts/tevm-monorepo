@@ -32,7 +32,7 @@ export const chainableErrorMatchers = {
 	withErrorNamedArgs: withErrorNamedArgsChainable,
 }
 
-export { toBeReverted, toBeRevertedWithString, toBeRevertedWithError, withErrorArgs, withErrorNamedArgs }
+export { toBeReverted, toBeRevertedWithError, toBeRevertedWithString, withErrorArgs, withErrorNamedArgs }
 
 // TypeScript declaration for vitest
 export interface ErrorMatchers {

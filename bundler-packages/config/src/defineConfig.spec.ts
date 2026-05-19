@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, type MockedFunction, vi } from 'vites
 import { DefineConfigError } from './defineConfig.js'
 import { type CompilerConfig, defaultConfig, defineConfig } from './index.js'
 
-vi.mock('child_process', () => ({
+vi.mock('node:child_process', () => ({
 	execSync: vi.fn(),
 }))
 

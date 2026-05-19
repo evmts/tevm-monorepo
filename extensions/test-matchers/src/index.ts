@@ -37,14 +37,14 @@ import {
 
 export type {
 	BalanceChange,
+	ContainsAddress,
+	ContainsContractAbi,
+	ContainsContractAddressAndOptionalAbi,
+	ContainsTransactionAny,
+	ContainsTransactionLogs,
+	EqualHexOptions,
 	IsAddressOptions,
 	IsHexOptions,
-	EqualHexOptions,
-	ContainsContractAbi,
-	ContainsTransactionLogs,
-	ContainsAddress,
-	ContainsTransactionAny,
-	ContainsContractAddressAndOptionalAbi,
 }
 
 expect.extend({

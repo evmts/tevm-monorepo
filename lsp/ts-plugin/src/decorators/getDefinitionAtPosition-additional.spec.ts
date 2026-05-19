@@ -1,6 +1,6 @@
 import { access, mkdir, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
-import type { FileAccessObject } from '@tevm/base-bundler'
+import type { Bundler, FileAccessObject } from '@tevm/base-bundler'
 import { bundler } from '@tevm/base-bundler'
 import { createCache } from '@tevm/bundler-cache'
 import type { ResolvedCompilerConfig } from '@tevm/config'
@@ -115,6 +115,8 @@ type MockBundler = {
 	resolveEsmModuleSync: Mock<any>
 }
 
+const asBundler = (mockBundler: MockBundler): ReturnType<Bundler> => mockBundler as unknown as ReturnType<Bundler>
+
 describe('getDefinitionServiceDecorator - additional tests', () => {
 	beforeEach(() => {
 		vi.clearAllMocks()
@@ -135,7 +137,7 @@ describe('getDefinitionServiceDecorator - additional tests', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(asBundler(mockBundlerInstance))
 
 		// Setup default findNode mock
 		vi.mocked(findNode).mockReturnValue({
@@ -175,7 +177,7 @@ describe('getDefinitionServiceDecorator - additional tests', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(asBundler(mockBundlerInstance))
 
 		// Mock findAll to return both function and event definitions
 		vi.mocked(findAll).mockImplementation((type) => {
@@ -260,7 +262,7 @@ describe('getDefinitionServiceDecorator - additional tests', () => {
 				solcInput: {},
 			}),
 		}
-		vi.mocked(bundler).mockReturnValue(mockBundlerInstance)
+		vi.mocked(bundler).mockReturnValue(asBundler(mockBundlerInstance))
 
 		// Mock findAll to return functions/events
 		vi.mocked(findAll).mockImplementation((type) => {
