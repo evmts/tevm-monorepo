@@ -1,4 +1,5 @@
 name: Setup
+description: Set up the Tevm CI toolchain and workspace dependencies
 runs:
   using: composite
   steps:
