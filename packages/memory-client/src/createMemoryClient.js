@@ -334,10 +334,12 @@ export const createMemoryClient = (options) => {
 	const memoryClient = createClient({
 		...normalizedOptions,
 		cacheTime: normalizedOptions.cacheTime ?? 0,
-		transport: createTevmTransport({
-			...normalizedOptions,
-			...(common !== undefined ? { common } : {}),
-		}),
+		transport: createTevmTransport(
+			/** @type {import('@tevm/node').TevmNodeOptions} */ ({
+				...normalizedOptions,
+				...(common !== undefined ? { common } : {}),
+			}),
+		),
 		type: 'tevm',
 		...(common !== undefined ? { chain: common } : {}),
 	})
