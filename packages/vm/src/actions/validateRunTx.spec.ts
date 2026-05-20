@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from 'bun:test'
-import { createImpersonatedTx } from '@evmts/zevm/tx'
+import { createEOACodeEIP7702Tx, createImpersonatedTx } from '@evmts/zevm/tx'
 import { Block } from '@tevm/block'
 import { createChain } from '@tevm/blockchain'
 import { type Common, createCommon, mainnet, optimism } from '@tevm/common'
@@ -111,6 +111,38 @@ describe('validateRunTx', () => {
 		const err = await validateRunTx(vm)({ tx, block }).catch((e) => e)
 		expect(err).toBeInstanceOf(EipNotEnabledError)
 		expect(err).toMatchSnapshot()
+	})
+
+	it('should throw EipNotEnabledError if EIP 7702 is not activated for EOA code transaction', async () => {
+		const tx = createEOACodeEIP7702Tx(
+			{
+				nonce: 0,
+				maxFeePerGas: 10n,
+				maxPriorityFeePerGas: 1n,
+				gasLimit: 21064n,
+				chainId: common.ethjsCommon.chainId(),
+				to: createAddressFromString(`0x${'22'.repeat(20)}`),
+				accessList: [],
+				authorizationList: [
+					{
+						chainId: `0x${common.ethjsCommon.chainId().toString(16)}`,
+						address: `0x${'11'.repeat(20)}`,
+						nonce: '0x0',
+						yParity: '0x0',
+						r: `0x${'01'.repeat(32)}`,
+						s: `0x${'02'.repeat(32)}`,
+					},
+				],
+			},
+			{ common: common.ethjsCommon },
+		)
+		const block = Block.fromBlockData({ header: {} }, { common })
+
+		vm.common.ethjsCommon.isActivatedEIP = jest.fn((eip) => eip !== 7702)
+
+		const err = await validateRunTx(vm)({ tx, block }).catch((e) => e)
+		expect(err).toBeInstanceOf(EipNotEnabledError)
+		expect(err.message).toContain('EIP 7702 is not activated')
 	})
 
 	it('should validate options successfully', async () => {

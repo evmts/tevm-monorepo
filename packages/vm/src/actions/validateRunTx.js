@@ -69,6 +69,11 @@ export const validateRunTx = (vm) => {
 				throw new EipNotEnabledError(msg)
 			}
 		}
+		if (_opts.tx.supports(Capability.EIP7702EOACode) && !vm.common.ethjsCommon.isActivatedEIP(7702)) {
+			await vm.evm.journal.revert()
+			const msg = errorMsg('Cannot run transaction: EIP 7702 is not activated.', _opts.block, _opts.tx)
+			throw new EipNotEnabledError(msg)
+		}
 
 		return _opts
 	}
