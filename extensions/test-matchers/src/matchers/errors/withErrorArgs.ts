@@ -2,6 +2,7 @@ import type { AbiParameter, AbiParametersToPrimitiveTypes, ExtractAbiError } fro
 import { type Abi, type ContractErrorName, decodeErrorResult } from 'viem'
 import { parseChainArgs } from '../../chainable/chainable.js'
 import type { ChainState, MatcherResult } from '../../chainable/types.js'
+import { deepEqual } from '../utils/deepEqual.js'
 import type { ToBeRevertedWithState } from './types.js'
 
 export const withErrorArgs = <
@@ -32,7 +33,7 @@ export const withErrorArgs = <
 	const decodedArgs = decodedRevert?.args
 	if (!decodedArgs) throw new Error('Could not decode revert data')
 
-	const argsMatched = args.length <= decodedArgs.length && args.every((arg, i) => decodedArgs[i] === arg)
+	const argsMatched = args.length <= decodedArgs.length && args.every((arg, i) => deepEqual(decodedArgs[i], arg))
 
 	return {
 		pass: argsMatched,

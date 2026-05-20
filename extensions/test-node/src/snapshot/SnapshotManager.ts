@@ -12,6 +12,7 @@ import type { TestOptions } from '../types.js'
 export class SnapshotManager {
 	private snapshots: Map<string, any> = new Map()
 	private snapshotPath: string
+	private savePromise: Promise<void> = Promise.resolve()
 
 	constructor(resolveSnapshotPath?: TestOptions['resolveSnapshotPath']) {
 		this.snapshotPath = this.resolveSnapshotPath(resolveSnapshotPath)
@@ -88,6 +89,12 @@ export class SnapshotManager {
 	 * Write all snapshots to disk
 	 */
 	async save(): Promise<void> {
+		const savePromise = this.savePromise.then(() => this.write())
+		this.savePromise = savePromise.catch(() => {})
+		await savePromise
+	}
+
+	private async write(): Promise<void> {
 		if (this.snapshots.size === 0) return
 
 		const dir = path.dirname(this.snapshotPath)

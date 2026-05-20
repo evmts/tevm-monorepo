@@ -2,6 +2,7 @@ import type { AbiParameter, AbiParametersToPrimitiveTypes, ExtractAbiFunction } 
 import { type Abi, type ContractFunctionName, decodeAbiParameters } from 'viem'
 import { parseChainArgs } from '../../chainable/chainable.js'
 import type { ChainState, MatcherResult } from '../../chainable/types.js'
+import { deepEqual } from '../utils/deepEqual.js'
 import type { ToCallContractFunctionState } from './types.js'
 
 export const withFunctionArgs = <
@@ -38,7 +39,7 @@ export const withFunctionArgs = <
 
 	const argsMatched = actualDecodedArgs
 		? actualDecodedArgs.some((decodedArgs) => {
-				return Array.isArray(decodedArgs) && args.every((arg, i) => decodedArgs[i] === arg)
+				return Array.isArray(decodedArgs) && args.every((arg, i) => deepEqual(decodedArgs[i], arg))
 			})
 		: false
 

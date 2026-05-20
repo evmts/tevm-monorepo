@@ -3,6 +3,7 @@ import { type Abi, type ContractErrorName, decodeErrorResult } from 'viem'
 import { assert } from 'vitest'
 import type { ChainState, MatcherResult } from '../../chainable/types.js'
 import type { AbiInputsToNamedArgs } from '../../common/types.js'
+import { deepEqual } from '../utils/deepEqual.js'
 import type { ToBeRevertedWithState } from './types.js'
 
 export const withErrorNamedArgs = <
@@ -40,7 +41,7 @@ export const withErrorNamedArgs = <
 	)
 
 	const argsMatched = Object.keys(expectedArgs).every(
-		(key) => key in namedArgs && namedArgs[key] === expectedArgs[key as keyof typeof expectedArgs],
+		(key) => key in namedArgs && deepEqual(namedArgs[key], expectedArgs[key as keyof typeof expectedArgs]),
 	)
 
 	return {

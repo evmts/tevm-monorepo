@@ -2,6 +2,7 @@ import type { AbiParameter, ExtractAbiFunction } from 'abitype'
 import { type Abi, type ContractFunctionName, decodeAbiParameters } from 'viem'
 import type { ChainState, MatcherResult } from '../../chainable/types.js'
 import type { AbiInputsToNamedArgs } from '../../common/types.js'
+import { deepEqual } from '../utils/deepEqual.js'
 import type { ToCallContractFunctionState } from './types.js'
 
 export const withFunctionNamedArgs = <
@@ -41,10 +42,10 @@ export const withFunctionNamedArgs = <
 
 	const argsMatched = actualNamedArgs
 		? actualNamedArgs.some((namedArgs) => {
-				return Object.entries(expectedArgs).every(
-					([key, value]) => key in namedArgs && namedArgs[key as keyof typeof namedArgs] === value,
-				)
-			})
+					return Object.entries(expectedArgs).every(
+						([key, value]) => key in namedArgs && deepEqual(namedArgs[key as keyof typeof namedArgs], value),
+					)
+				})
 		: false
 
 	return {

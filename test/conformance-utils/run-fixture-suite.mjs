@@ -358,6 +358,13 @@ const stateRoot = async (state) => {
 
 const logsHash = (logs) => keccak256(Rlp.encode(logs.map((log) => [log[0], log[1], log[2]])))
 
+const expectedException = (post) => {
+	const value = post.expectException ?? post.transactionException ?? post.exception
+	if (Array.isArray(value)) return value.length > 0 ? value : undefined
+	if (value === undefined || value === null || value === false || value === '') return undefined
+	return value
+}
+
 const traceCollector = (vm) => {
 	const trace = { structLogs: [], gas: 0n, returnValue: '0x', failed: false }
 	const onStep = (step, next) => {
@@ -396,9 +403,10 @@ const runVector = async (vector, shouldTrace) => {
 	const evm = await createEvm({ common, stateManager, blockchain })
 	const vm = createVm({ common, evm, stateManager, blockchain, activatePrecompiles: false })
 	const block = makeBlock(vector.env, common)
-	const tx = makeTx(vector.transaction, vector.post, common)
 	const collector = shouldTrace ? traceCollector(vm) : undefined
+	const expectedExceptionValue = expectedException(vector.post)
 	try {
+		const tx = makeTx(vector.transaction, vector.post, common)
 		const runTxResult = await vm.runTx({ tx, block })
 		if (collector) {
 			collector.trace.gas = runTxResult.execResult.executionGasUsed
@@ -425,6 +433,30 @@ const runVector = async (vector, shouldTrace) => {
 			trace: collector?.trace,
 		}
 	} catch (error) {
+		if (expectedExceptionValue !== undefined) {
+			if (collector) collector.trace.failed = true
+			const actualStateRoot = await stateRoot(makeState(vector.pre))
+			const actualLogsHash = logsHash([])
+			const expectedStateRoot = normalizeDataHex(vector.post.hash)
+			const expectedLogsHash = normalizeDataHex(vector.post.logs, actualLogsHash)
+			const failures = []
+			if (expectedStateRoot !== actualStateRoot) failures.push('stateRoot')
+			if (expectedLogsHash !== actualLogsHash) failures.push('logs')
+			return {
+				id: vector.id,
+				name: vector.name,
+				hardfork: vector.hardfork,
+				status: failures.length === 0 ? 'passed' : 'failed',
+				failures,
+				expected: { stateRoot: expectedStateRoot, logs: expectedLogsHash, exception: expectedExceptionValue },
+				actual: {
+					stateRoot: actualStateRoot,
+					logs: actualLogsHash,
+					exception: error instanceof Error ? error.message : String(error),
+				},
+				trace: collector?.trace,
+			}
+		}
 		return {
 			id: vector.id,
 			name: vector.name,

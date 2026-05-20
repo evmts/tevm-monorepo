@@ -33,7 +33,6 @@ export const toBeRevertedWithError = async <
 	const actualSelector = decodedRevertData
 		? AbiItem.getSelector(decodedRevertData.abiItem)
 		: rawRevertData?.slice(0, 10)
-	if (actualSelector === undefined) throw new Error('Could not get selector from revert data')
 
 	// Handle error signature or selector
 	if (typeof contractOrErrorIdentifier === 'string') {
@@ -44,6 +43,20 @@ export const toBeRevertedWithError = async <
 						? contractOrErrorIdentifier
 						: `error ${contractOrErrorIdentifier}`,
 				)
+
+		if (!isRevert || actualSelector === undefined) {
+			return {
+				pass: false,
+				actual: actualSelector,
+				expected: errorSelector,
+				message: () =>
+					`Expected transaction to be reverted with ${contractOrErrorIdentifier.startsWith('0x') ? 'selector' : 'signature'} ${contractOrErrorIdentifier}`,
+				state: {
+					decodedRevertData,
+					rawRevertData,
+				},
+			}
+		}
 
 		const pass = isRevert && actualSelector === errorSelector
 
@@ -71,6 +84,20 @@ export const toBeRevertedWithError = async <
 		throw new Error(
 			`Error ${errorName} not found in contract ABI. Please make sure you've compiled the latest version before running the test.`,
 		)
+
+	if (!isRevert || actualSelector === undefined) {
+		return {
+			pass: false,
+			actual: actualSelector === undefined ? undefined : `error ${decodedRevertData?.errorName ?? actualSelector}`,
+			expected: `error ${errorName}`,
+			message: () => `Expected transaction to be reverted with error ${errorName}`,
+			state: {
+				decodedRevertData,
+				rawRevertData,
+				contract,
+			},
+		}
+	}
 
 	const pass = isRevert && actualSelector === AbiItem.getSelector(errorAbi)
 
