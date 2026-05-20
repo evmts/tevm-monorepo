@@ -2,6 +2,7 @@ import { formatAbi } from 'abitype'
 import { succeed } from 'effect/Effect'
 import { generateDtsBody } from './generateTevmBodyDts.js'
 
+/** @param {string | null | undefined} value */
 const escapeJSDoc = (value) =>
 	String(value ?? '')
 		.replace(/\*\//g, '*\\/')

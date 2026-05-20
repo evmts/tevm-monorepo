@@ -1,6 +1,7 @@
 import { formatAbi } from 'abitype'
 import { succeed } from 'effect/Effect'
 
+/** @param {string | null | undefined} value */
 const escapeJSDoc = (value) =>
 	String(value ?? '')
 		.replace(/\*\//g, '*\\/')

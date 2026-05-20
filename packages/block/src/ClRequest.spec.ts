@@ -27,6 +27,6 @@ describe(ClRequest.name, () => {
 			},
 			{ common: mainnet.copy() },
 		)
-		expect(block.toExecutionPayload().requestsRoot).toBe(block.toJSON().header.requestsRoot)
+		expect(block.toExecutionPayload().requestsRoot).toBe(block.toJSON().header!.requestsRoot)
 	})
 })
