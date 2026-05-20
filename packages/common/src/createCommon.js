@@ -84,6 +84,7 @@ export const createCommon = ({
 					},
 					4844: {
 						targetBlobGasPerBlock: 393216,
+						maxBlobGasPerBlock: 786432,
 						blobGasPerBlob: 131072,
 						minBlobGasPrice: 1,
 						blobGasPriceUpdateFraction: 3338477,

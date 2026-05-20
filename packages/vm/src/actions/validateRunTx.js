@@ -1,4 +1,4 @@
-import { Capability } from '@evmts/zevm/tx'
+import { BlobEIP4844Transaction, Capability } from '@evmts/zevm/tx'
 import { Block } from '@tevm/block'
 import { BlockGasLimitExceededError, EipNotEnabledError, MisconfiguredClientError } from '@tevm/errors'
 import { errorMsg } from './errorMessage.js'
@@ -55,15 +55,22 @@ export const validateRunTx = (vm) => {
 			const msg = errorMsg('tx has a higher gas limit than the block', _opts.block, _opts.tx)
 			throw new BlockGasLimitExceededError(msg)
 		}
+		if (_opts.tx.supports(Capability.EIP2718TypedTransaction) && !vm.common.ethjsCommon.isActivatedEIP(2718)) {
+			const msg = errorMsg('Cannot run transaction: EIP 2718 is not activated.', _opts.block, _opts.tx)
+			throw new EipNotEnabledError(msg)
+		}
 		// Typed transaction specific setup tasks
-		if (_opts.tx.supports(Capability.EIP2718TypedTransaction) && vm.common.ethjsCommon.isActivatedEIP(2718)) {
-			// Is it an Access List transaction?
-			if (!vm.common.ethjsCommon.isActivatedEIP(2930)) {
+		if (_opts.tx.supports(Capability.EIP2718TypedTransaction)) {
+			if (_opts.tx.supports(Capability.EIP2930AccessLists) && !vm.common.ethjsCommon.isActivatedEIP(2930)) {
 				const msg = errorMsg('Cannot run transaction: EIP 2930 is not activated.', _opts.block, _opts.tx)
 				throw new EipNotEnabledError(msg)
 			}
 			if (_opts.tx.supports(Capability.EIP1559FeeMarket) && !vm.common.ethjsCommon.isActivatedEIP(1559)) {
 				const msg = errorMsg('Cannot run transaction: EIP 1559 is not activated.', _opts.block, _opts.tx)
+				throw new EipNotEnabledError(msg)
+			}
+			if (_opts.tx instanceof BlobEIP4844Transaction && !vm.common.ethjsCommon.isActivatedEIP(4844)) {
+				const msg = errorMsg('Cannot run transaction: EIP 4844 is not activated.', _opts.block, _opts.tx)
 				throw new EipNotEnabledError(msg)
 			}
 		}

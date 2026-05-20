@@ -83,6 +83,9 @@ export class BlockBuilder {
 			gasLimit: opts.headerData?.gasLimit ?? opts.parentBlock.header.gasLimit,
 			timestamp: opts.headerData?.timestamp ?? BigInt(Math.round(Date.now() / 1000)),
 		}
+		if (opts.withdrawals !== undefined && this.vm.common.ethjsCommon.isActivatedEIP(4895) !== true) {
+			throw new EipNotEnabledError('eip4895 not activated yet for building a block with withdrawals')
+		}
 		this.withdrawals = opts.withdrawals?.map((w) => (Withdrawal as any).fromWithdrawalData(w))
 
 		if (
@@ -317,7 +320,9 @@ export class BlockBuilder {
 		if (consensusType === ConsensusType.ProofOfWork) {
 			await this.rewardMiner()
 		}
-		await this.processWithdrawals()
+		if (this.vm.common.ethjsCommon.isActivatedEIP(4895) === true) {
+			await this.processWithdrawals()
+		}
 
 		const stateRoot = await this.vm.stateManager.getStateRoot()
 		const transactionsTrie = await this.transactionsTrie()
@@ -356,7 +361,7 @@ export class BlockBuilder {
 		const blockData = {
 			header: headerData,
 			transactions: this.transactions,
-			withdrawals: this.withdrawals ?? [],
+			...(this.vm.common.ethjsCommon.isActivatedEIP(4895) === true ? { withdrawals: this.withdrawals ?? [] } : {}),
 		}
 		const block = Block.fromBlockData(blockData, blockOpts)
 
