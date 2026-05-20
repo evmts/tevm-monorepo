@@ -1,5 +1,7 @@
+import { createImpersonatedTx } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
 import { bytesToHex, hexToBigInt } from '@tevm/utils'
+import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
 
 /**
  * Returns a range of storage slots for an account at a specific block
@@ -31,7 +33,7 @@ export const debugStorageRangeAtHandler = (client) =>
 			const { logger, getVm } = client
 			logger.debug(params, 'debugStorageRangeAtHandler: executing storage range at with params')
 
-			const vm = await getVm()
+			let vm = await getVm()
 			const { blockTag, txIndex, address, startKey, maxResult } = params
 
 			// Normalize blockTag to bigint or tag string
@@ -67,13 +69,63 @@ export const debugStorageRangeAtHandler = (client) =>
 				'debugStorageRangeAtHandler: got block',
 			)
 
+			if (!Number.isInteger(txIndex) || txIndex < 0 || txIndex >= block.transactions.length) {
+				throw new Error(`Transaction index ${txIndex} is out of range for block ${block.header.number}`)
+			}
+
+			const parentBlock = await vm.blockchain.getBlock(block.header.parentHash)
+			const hasStateRoot = await vm.stateManager.hasStateRoot(parentBlock.header.stateRoot)
+			if (!hasStateRoot && client.forkTransport) {
+				vm = await forkAndCacheBlock(client, parentBlock)
+			} else if (!hasStateRoot) {
+				throw new Error('State root not available for parent block')
+			}
+
+			const vmClone = await vm.deepCopy()
+			await vmClone.stateManager.setStateRoot(parentBlock.header.stateRoot)
+
+			for (let i = 0; i <= txIndex; i++) {
+				const tx = block.transactions[i]
+				if (!tx) continue
+
+				await vmClone.runTx({
+					block,
+					skipNonce: true,
+					skipBalance: true,
+					skipHardForkValidation: true,
+					skipBlockGasLimitValidation: true,
+					tx: createImpersonatedTx(
+						{
+							nonce: tx.nonce,
+							gasLimit: tx.gasLimit,
+							value: tx.value,
+							data: tx.data,
+							impersonatedAddress: createAddress(tx.getSenderAddress()),
+							...(tx.to !== undefined ? { to: tx.to } : {}),
+							...('accessList' in tx && tx.accessList !== undefined ? { accessList: tx.accessList } : {}),
+							...('maxFeePerGas' in tx
+								? { maxFeePerGas: tx.maxFeePerGas }
+								: 'gasPrice' in tx
+									? { maxFeePerGas: tx.gasPrice }
+									: {}),
+							...('maxPriorityFeePerGas' in tx ? { maxPriorityFeePerGas: tx.maxPriorityFeePerGas } : {}),
+						},
+						{
+							freeze: false,
+							common: vmClone.common.ethjsCommon,
+							allowUnlimitedInitCodeSize: true,
+						},
+					),
+				})
+			}
+
 			// Convert address to Address type
 			const addressObj = createAddress(address)
 
 			// Use the state manager's dumpStorageRange method
-			if ('dumpStorageRange' in vm.stateManager) {
+			if ('dumpStorageRange' in vmClone.stateManager) {
 				const startKeyBigInt = hexToBigInt(startKey)
-				const result = await vm.stateManager.dumpStorageRange(addressObj, startKeyBigInt, maxResult)
+				const result = await vmClone.stateManager.dumpStorageRange(addressObj, startKeyBigInt, maxResult)
 
 				logger.debug(
 					{ storageCount: Object.keys(result.storage).length, hasNextKey: result.nextKey !== null },

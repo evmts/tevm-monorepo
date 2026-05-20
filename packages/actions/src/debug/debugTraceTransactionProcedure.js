@@ -90,6 +90,17 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 				method: request.method,
 			}
 		}
+		if (transactionByHashResponse.result === null) {
+			return {
+				error: {
+					code: '-32602',
+					message: 'Transaction not found',
+				},
+				...(request.id !== undefined ? { id: request.id } : {}),
+				jsonrpc: '2.0',
+				method: request.method,
+			}
+		}
 
 		let vm = await client.getVm()
 		const block = await vm.blockchain.getBlock(hexToBytes(transactionByHashResponse.result.blockHash))

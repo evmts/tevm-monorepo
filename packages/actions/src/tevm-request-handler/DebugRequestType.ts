@@ -1,6 +1,19 @@
 import type {
+	DebugDumpBlockJsonRpcRequest,
+	DebugGetModifiedAccountsByHashJsonRpcRequest,
+	DebugGetModifiedAccountsByNumberJsonRpcRequest,
+	DebugGetRawBlockJsonRpcRequest,
+	DebugGetRawHeaderJsonRpcRequest,
+	DebugGetRawReceiptsJsonRpcRequest,
+	DebugGetRawTransactionJsonRpcRequest,
+	DebugIntermediateRootsJsonRpcRequest,
+	DebugPreimageJsonRpcRequest,
+	DebugStorageRangeAtJsonRpcRequest,
+	DebugTraceBlockByHashJsonRpcRequest,
+	DebugTraceBlockByNumberJsonRpcRequest,
 	DebugTraceBlockJsonRpcRequest,
 	DebugTraceCallJsonRpcRequest,
+	DebugTraceChainJsonRpcRequest,
 	DebugTraceStateJsonRpcRequest,
 	DebugTraceTransactionJsonRpcRequest,
 } from '../debug/DebugJsonRpcRequest.js'
@@ -12,5 +25,18 @@ export type DebugRequestType = {
 	debug_traceTransaction: DebugTraceTransactionJsonRpcRequest
 	debug_traceCall: DebugTraceCallJsonRpcRequest
 	debug_traceBlock: DebugTraceBlockJsonRpcRequest
+	debug_traceBlockByNumber: DebugTraceBlockByNumberJsonRpcRequest
+	debug_traceBlockByHash: DebugTraceBlockByHashJsonRpcRequest
 	debug_traceState: DebugTraceStateJsonRpcRequest
+	debug_traceChain: DebugTraceChainJsonRpcRequest
+	debug_dumpBlock: DebugDumpBlockJsonRpcRequest
+	debug_getModifiedAccountsByNumber: DebugGetModifiedAccountsByNumberJsonRpcRequest
+	debug_getModifiedAccountsByHash: DebugGetModifiedAccountsByHashJsonRpcRequest
+	debug_storageRangeAt: DebugStorageRangeAtJsonRpcRequest
+	debug_intermediateRoots: DebugIntermediateRootsJsonRpcRequest
+	debug_preimage: DebugPreimageJsonRpcRequest
+	debug_getRawBlock: DebugGetRawBlockJsonRpcRequest
+	debug_getRawHeader: DebugGetRawHeaderJsonRpcRequest
+	debug_getRawTransaction: DebugGetRawTransactionJsonRpcRequest
+	debug_getRawReceipts: DebugGetRawReceiptsJsonRpcRequest
 }
