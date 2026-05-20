@@ -17,7 +17,9 @@ This repo exposes ticket-sized parity entry points for CI, local runs, and Smith
   - Full/manual: `pnpm test:parity:full`
 - Hardfork and state conformance:
   - Fast/PR: `pnpm test:conformance:fast`
-  - Full/manual: `pnpm test:conformance:gst:all`, `pnpm test:conformance:execspec:all`, `pnpm test:conformance:verkle:all`
+  - Full/manual: `pnpm test:conformance:gst:all`, `pnpm test:conformance:execspec:all`
+  - Current status: these commands do not run synthetic conformance coverage; without a real upstream corpus/runner they emit skipped artifacts with `coverage: "none"`.
+  - Verkle/EIP-6800 witness execution is intentionally unsupported and is not part of parity coverage.
 - Hive compatibility:
   - Fast/PR: `pnpm test:hive:smoke`
   - Full/manual: `pnpm test:hive`
@@ -36,7 +38,6 @@ This repo exposes ticket-sized parity entry points for CI, local runs, and Smith
 - `pnpm test:hive`
 - `pnpm test:conformance:gst:all`
 - `pnpm test:conformance:execspec:all`
-- `pnpm test:conformance:verkle:all`
 
 ## Smithers-focused commands
 

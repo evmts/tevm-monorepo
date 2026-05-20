@@ -86,32 +86,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_mo
 
 ***
 
-### initBinaryTreeExecutionWitness?
-
-> `optional` **initBinaryTreeExecutionWitness?**: (`blockNum`, `executionWitness?`) => `void`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:125
-
-#### Parameters
-
-##### blockNum
-
-`bigint`
-
-##### executionWitness?
-
-`BinaryTreeExecutionWitness` \| `null`
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-`Omit.initBinaryTreeExecutionWitness`
-
-***
-
 ### originalStorageCache
 
 > **originalStorageCache**: `object`

@@ -14,7 +14,7 @@
     "hive:rpc-compat": "cd .. && pnpm test:hive:smithers:rpc-compat",
     "parity:rpc": "cd .. && pnpm test:parity:rpc",
     "conformance:fast": "cd .. && pnpm test:conformance:fast",
-    "conformance:full": "cd .. && pnpm test:conformance:gst:all && pnpm test:conformance:execspec:all && pnpm test:conformance:verkle:all",
+    "conformance:full": "cd .. && pnpm test:conformance:gst:all && pnpm test:conformance:execspec:all",
     "state-tests:gst": "cd .. && pnpm test:conformance:gst",
     "state-tests:gst:all": "cd .. && pnpm test:conformance:gst:all",
     "state-tests:execspec": "cd .. && pnpm test:conformance:execspec",

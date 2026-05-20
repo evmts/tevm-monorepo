@@ -1,19 +1,10 @@
-# Hardfork Conformance: Verkle Transition Vectors
+# Hardfork Conformance
 
-Run a scoped Osaka Verkle subset:
+Verkle/EIP-6800 witness execution is intentionally unsupported in Tevm.
 
-```bash
-pnpm test:conformance:verkle
-```
+This directory does not contain Verkle transition vectors, and there is no
+`test:conformance:verkle` command. Do not add synthetic Verkle coverage here.
 
-Run all Verkle vectors (including negative witness cases):
-
-```bash
-pnpm test:conformance:verkle:all
-```
-
-Artifacts are written to `artifacts/verkle-conformance/*.json` for Smithers debugging workflows.
-Each vector result includes hardfork and EIP context.
-
-Known upstream Osaka/Verkle parity gaps are tracked in
-`test/hardfork-conformance/vectors/verkle/KNOWN_GAPS.md`.
+If EIP-6800 is activated accidentally, VM block execution rejects it with an
+explicit unsupported Verkle/state-witness error rather than attempting partial
+or placeholder execution.

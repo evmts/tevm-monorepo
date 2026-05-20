@@ -67,11 +67,12 @@ export interface BlockOptions {
 }
 
 /**
- * Represents a Verkle proof used for state verification
+ * Represents a Verkle proof payload shape used by upstream specs.
  *
- * Verkle trees are an upgrade to Merkle Patricia trees that use vector commitments
+ * Verkle trees are an upgrade to Merkle Patricia tries that use vector commitments
  * instead of hash-based commitments, resulting in smaller proof sizes.
- * This interface contains the elements needed for Verkle proof verification.
+ * Tevm models this payload shape but does not execute or verify Verkle/EIP-6800
+ * state-witness blocks.
  *
  * @see https://eips.ethereum.org/EIPS/eip-6800 for more details on Verkle trees in Ethereum
  *
@@ -79,9 +80,9 @@ export interface BlockOptions {
  * ```typescript
  * import { VerkleProof } from '@tevm/block'
  *
- * // Example of verifying a Verkle proof
+ * // Example shape for a downstream verifier.
  * function verifyProof(proof: VerkleProof, key: Hex, value: Hex, commitment: Hex): boolean {
- *   // Verkle proof verification implementation would go here
+ *   // Verkle proof verification is intentionally outside Tevm's execution path.
  *   return true
  * }
  * ```
@@ -99,14 +100,14 @@ export interface VerkleProof {
 }
 
 /**
- * Represents the state differences in a Verkle tree between two states
+ * Represents the state differences payload shape for a Verkle tree.
  *
  * Used to describe state changes between blocks in a more efficient way than
  * recording the entire state. Contains a mapping of stems (path prefixes) to
  * their corresponding state changes, along with proofs to verify these changes.
  *
- * Part of Ethereum's statelessness roadmap, enabling clients to validate blocks
- * without storing the entire state.
+ * Tevm models this payload shape but does not execute or verify Verkle/EIP-6800
+ * state-witness blocks.
  *
  * @example
  * ```typescript
@@ -143,7 +144,8 @@ export interface VerkleStateDiff {
 
 /**
  * Experimental, object format could eventual change.
- * An object that provides the state and proof necessary for verkle stateless execution
+ * An object that provides Verkle state-witness payload data.
+ * Tevm preserves the type for payload parsing, but Verkle/EIP-6800 execution is unsupported.
  * */
 export interface VerkleExecutionWitness {
 	/**
@@ -200,7 +202,8 @@ export interface BlockData {
 	withdrawals?: Array<WithdrawalData>
 	requests?: Array<ClRequest>
 	/**
-	 * EIP-6800: Verkle Proof Data (experimental)
+	 * EIP-6800: Verkle proof data payload shape (experimental).
+	 * Tevm does not execute Verkle/state-witness blocks.
 	 */
 	executionWitness?: VerkleExecutionWitness | null
 }
@@ -258,20 +261,17 @@ export type WithdrawalsBytes = Uint8Array[]
  */
 export type RequestsBytes = Uint8Array[]
 /**
- * Represents the serialized form of execution witness data
+ * Represents the serialized form of execution witness payload data.
  *
- * Used in stateless Ethereum to provide witnesses (proofs) needed for
- * transaction execution without requiring the full state. Contains
- * Verkle proofs and state differences needed to validate state transitions.
- *
- * Part of Ethereum's roadmap towards statelessness with Verkle trees.
- *
+ * Used by upstream stateless Ethereum specs to provide witnesses (proofs).
+ * Tevm models this serialized shape but does not execute or verify
+ * Verkle/EIP-6800 state-witness blocks.
  * @example
  * ```typescript
  * import { ExecutionWitnessBytes, VerkleExecutionWitness } from '@tevm/block'
  * import { decode } from '@evmts/zevm/rlp'
  *
- * // Decode execution witness from its serialized form
+ * // Decode execution witness from its serialized form for a downstream verifier.
  * function decodeWitness(witnessBytes: ExecutionWitnessBytes): VerkleExecutionWitness {
  *   const decoded = decode(witnessBytes) as unknown[]
  *
@@ -489,7 +489,7 @@ export interface JsonRpcBlock {
 	blobGasUsed?: Hex | string // If EIP-4844 is enabled for this block, returns the blob gas used for the block
 	excessBlobGas?: Hex | string // If EIP-4844 is enabled for this block, returns the excess blob gas for the block
 	parentBeaconBlockRoot?: Hex | string // If EIP-4788 is enabled for this block, returns parent beacon block root
-	executionWitness?: VerkleExecutionWitness | null // If Verkle is enabled for this block
+	executionWitness?: VerkleExecutionWitness | null // Verkle payload shape only; Tevm execution is unsupported
 	requestsRoot?: Hex | string // If EIP-7685 is enabled for this block, returns the requests root
 	requests?: Array<Hex | string> // If EIP-7685 is enabled for this block, array of serialized CL requests
 }
@@ -543,7 +543,7 @@ export type WithdrawalV1 = {
  * - The Merge (Paris): Basic structure with transactions
  * - Shanghai: Added withdrawals field
  * - Cancun: Added blobGasUsed, excessBlobGas, parentBeaconBlockRoot
- * - Prague (planned): Will add verkle-related fields
+ * - Verkle/EIP-6800 payload fields are modeled only; Tevm execution is unsupported
  *
  * @see https://github.com/ethereum/execution-apis/blob/main/src/engine/shanghai.md
  *
@@ -591,7 +591,7 @@ export type ExecutionPayload = {
 	blobGasUsed?: Hex | string // QUANTITY, 64 Bits
 	excessBlobGas?: Hex | string // QUANTITY, 64 Bits
 	parentBeaconBlockRoot?: Hex | string // QUANTITY, 64 Bits
-	// VerkleExecutionWitness is already a hex serialized object
-	executionWitness?: VerkleExecutionWitness | null // QUANTITY, 64 Bits, null implies not available
+	// VerkleExecutionWitness is a payload shape only; Tevm execution is unsupported.
+	executionWitness?: VerkleExecutionWitness | null
 	requestsRoot?: Hex | string | null // DATA, 32 bytes, null implies EIP 7685 not active yet
 }

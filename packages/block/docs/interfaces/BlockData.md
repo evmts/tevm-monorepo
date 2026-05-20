@@ -18,7 +18,8 @@ A block's data.
 
 Defined in: [packages/block/src/types.ts:205](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L205)
 
-EIP-6800: Verkle Proof Data (experimental)
+EIP-6800: Verkle proof data payload shape (experimental).
+Tevm does not execute Verkle/state-witness blocks.
 
 ***
 

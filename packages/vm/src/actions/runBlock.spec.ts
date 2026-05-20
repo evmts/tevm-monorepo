@@ -1,7 +1,7 @@
 // @ts-nocheck - Disable type checking for this test file
 import { describe, expect, it, mock } from 'bun:test'
 import { Block } from '@tevm/block'
-import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+import { InvalidParamsError } from '@tevm/errors'
 import type { BaseVm } from '../BaseVm.js'
 import type { RunBlockOpts } from '../utils/index.js'
 import { runBlock } from './runBlock.js'
@@ -224,88 +224,7 @@ describe('runBlock', () => {
 		}
 	})
 
-	it('should initialize execution witness when EIP-6800 is activated', async () => {
-		const executionWitness = { stateDiff: [], verkleProof: {} as any }
-		const initBinaryTreeExecutionWitness = mock()
-		const stateManager = {
-			setStateRoot: mock().mockResolvedValue(undefined),
-			getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
-			initBinaryTreeExecutionWitness,
-		}
-		const journal = {
-			checkpoint: mock().mockResolvedValue(undefined),
-			commit: mock().mockResolvedValue(undefined),
-			revert: mock().mockResolvedValue(undefined),
-		}
-		const vm = {
-			stateManager,
-			evm: { journal },
-			_emit: mock().mockResolvedValue(undefined),
-			common: {
-				ethjsCommon: {
-					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
-					isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
-				},
-			},
-			ready: mock().mockResolvedValue(undefined),
-		} as unknown as BaseVm
-		const block = {
-			header: {
-				number: 10n,
-				receiptTrie: new Uint8Array(32),
-				logsBloom: new Uint8Array(256),
-				gasUsed: 100n,
-				stateRoot: new Uint8Array(32),
-			},
-			executionWitness,
-			common: {
-				ethjsCommon: {
-					consensusType: mock().mockReturnValue(1),
-					isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
-				},
-			},
-			validateData: mock().mockResolvedValue(undefined),
-			transactions: [],
-			uncleHeaders: [],
-		} as unknown as Block
-		const runBlockFunction = runBlock(vm)
-		await runBlockFunction({ block, generate: false } as RunBlockOpts)
-		expect(initBinaryTreeExecutionWitness).toHaveBeenCalledWith(10n, executionWitness)
-	})
-
-	it('should throw InvalidParamsError if EIP-6800 is activated and execution witness is missing', async () => {
-		const stateManager = {
-			setStateRoot: mock().mockResolvedValue(undefined),
-			getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
-		}
-		const vm = {
-			stateManager,
-			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
-			_emit: mock().mockResolvedValue(undefined),
-			common: {
-				ethjsCommon: {
-					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
-					isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
-				},
-			},
-			ready: mock().mockResolvedValue(undefined),
-		} as unknown as BaseVm
-		const block = {
-			header: { number: 10n, receiptTrie: new Uint8Array(32), logsBloom: new Uint8Array(256), gasUsed: 100n, stateRoot: new Uint8Array(32) },
-			executionWitness: null,
-			common: {
-				ethjsCommon: {
-					isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
-				},
-			},
-			transactions: [],
-			uncleHeaders: [],
-		} as unknown as Block
-		const runBlockFunction = runBlock(vm)
-		await expect(runBlockFunction({ block, generate: false } as RunBlockOpts)).rejects.toBeInstanceOf(InvalidParamsError)
-	})
-
-	it('should throw MisconfiguredClientError if EIP-6800 is activated and state manager lacks witness initializer', async () => {
+	it('should reject EIP-6800 Verkle execution as unsupported', async () => {
 		const stateManager = {
 			setStateRoot: mock().mockResolvedValue(undefined),
 			getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
@@ -334,91 +253,9 @@ describe('runBlock', () => {
 			uncleHeaders: [],
 		} as unknown as Block
 		const runBlockFunction = runBlock(vm)
-		await expect(runBlockFunction({ block, generate: false } as RunBlockOpts)).rejects.toBeInstanceOf(
-			MisconfiguredClientError,
-		)
-	})
-
-	it('should throw InvalidParamsError for malformed execution witness when EIP-6800 is activated', async () => {
-		const stateManager = {
-			setStateRoot: mock().mockResolvedValue(undefined),
-			getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
-			initBinaryTreeExecutionWitness: mock(),
-		}
-		const vm = {
-			stateManager,
-			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
-			_emit: mock().mockResolvedValue(undefined),
-			common: {
-				ethjsCommon: {
-					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
-					isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
-				},
-			},
-			ready: mock().mockResolvedValue(undefined),
-		} as unknown as BaseVm
-		const block = {
-			header: { number: 10n, receiptTrie: new Uint8Array(32), logsBloom: new Uint8Array(256), gasUsed: 100n, stateRoot: new Uint8Array(32) },
-			executionWitness: { stateDiff: 'invalid', verkleProof: {} },
-			common: {
-				ethjsCommon: {
-					isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
-				},
-			},
-			transactions: [],
-			uncleHeaders: [],
-		} as unknown as Block
-		const runBlockFunction = runBlock(vm)
-		await expect(runBlockFunction({ block, generate: false } as RunBlockOpts)).rejects.toBeInstanceOf(InvalidParamsError)
-	})
-
-	it('should not initialize execution witness when EIP-6800 is not activated', async () => {
-		const initBinaryTreeExecutionWitness = mock()
-		const stateManager = {
-			setStateRoot: mock().mockResolvedValue(undefined),
-			getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
-			initBinaryTreeExecutionWitness,
-		}
-		const journal = {
-			checkpoint: mock().mockResolvedValue(undefined),
-			commit: mock().mockResolvedValue(undefined),
-			revert: mock().mockResolvedValue(undefined),
-		}
-		const vm = {
-			stateManager,
-			evm: { journal },
-			_emit: mock().mockResolvedValue(undefined),
-			common: {
-				ethjsCommon: {
-					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
-					isActivatedEIP: mock().mockReturnValue(false),
-				},
-			},
-			ready: mock().mockResolvedValue(undefined),
-		} as unknown as BaseVm
-		const block = {
-			header: {
-				number: 10n,
-				receiptTrie: new Uint8Array(32),
-				logsBloom: new Uint8Array(256),
-				gasUsed: 100n,
-				stateRoot: new Uint8Array(32),
-			},
-			common: {
-				ethjsCommon: {
-					consensusType: mock().mockReturnValue(1),
-					isActivatedEIP: mock().mockReturnValue(false),
-				},
-			},
-			executionWitness: { stateDiff: [], verkleProof: {} as any },
-			transactions: [],
-			uncleHeaders: [],
-		} as unknown as Block
-		const runBlockFunction = runBlock(vm)
-		try {
-			await runBlockFunction({ block, generate: false } as RunBlockOpts)
-		} catch {}
-		expect(initBinaryTreeExecutionWitness).not.toHaveBeenCalled()
+		const promise = runBlockFunction({ block, generate: false } as RunBlockOpts)
+		await expect(promise).rejects.toThrow(InvalidParamsError)
+		await expect(promise).rejects.toThrow('Verkle/state-witness')
 	})
 
 	it.skip('should handle skipBlockValidation option', async () => {

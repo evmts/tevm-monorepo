@@ -253,7 +253,8 @@ Defined in: [packages/block/src/block.ts:52](https://github.com/evmts/tevm-monor
 
 EIP-6800: Verkle Proof Data (experimental)
 null implies that the non default executionWitness might exist but not available
-and will not lead to execution of the block via vm with verkle stateless manager
+and will not lead to execution of the block via VM Verkle state-witness support.
+Tevm intentionally does not support Verkle/EIP-6800 execution.
 
 ***
 

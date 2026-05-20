@@ -31,13 +31,11 @@ run_fast() {
     cd "$ROOT_DIR"
     pnpm test:conformance:gst
     pnpm test:conformance:execspec
-    pnpm test:conformance:verkle
     pnpm test:hive:smoke
   )
 
-  cp -f "$ROOT_DIR/artifacts/general-state-tests/fast-berlin.json" "$ARTIFACT_DIR/state-tests/fast-berlin.json" || true
-  cp -f "$ROOT_DIR/artifacts/execution-spec-tests/fast-shanghai.json" "$ARTIFACT_DIR/state-tests/fast-shanghai.json" || true
-  cp -f "$ROOT_DIR/artifacts/verkle-conformance/osaka-verkle.json" "$ARTIFACT_DIR/state-tests/osaka-verkle.json" || true
+  cp -f "$ROOT_DIR/artifacts/general-state-tests/boundary-frontier.json" "$ARTIFACT_DIR/state-tests/boundary-frontier.json" || true
+  cp -f "$ROOT_DIR/artifacts/execution-spec-tests/eip-shanghai.json" "$ARTIFACT_DIR/state-tests/eip-shanghai.json" || true
   cp -f "$ROOT_DIR/test/hive/artifacts/tevm-hive-smoke.log" "$ARTIFACT_DIR/hive/tevm-hive-smoke.log" || true
   cp -f "$ROOT_DIR/test/hive/artifacts/tevm-hive-smoke.json" "$ARTIFACT_DIR/hive/tevm-hive-smoke.json" || true
 
@@ -50,13 +48,11 @@ run_full() {
     cd "$ROOT_DIR"
     pnpm test:conformance:gst:all
     pnpm test:conformance:execspec:all
-    pnpm test:conformance:verkle:all
     pnpm test:hive
   )
 
   cp -f "$ROOT_DIR/artifacts/general-state-tests/all.json" "$ARTIFACT_DIR/state-tests/all-gst.json" || true
   cp -f "$ROOT_DIR/artifacts/execution-spec-tests/all.json" "$ARTIFACT_DIR/state-tests/all-execspec.json" || true
-  cp -f "$ROOT_DIR/artifacts/verkle-conformance/all.json" "$ARTIFACT_DIR/state-tests/all-verkle.json" || true
   cp -f "$ROOT_DIR/test/hive/artifacts/tevm-hive-rpc-compat.log" "$ARTIFACT_DIR/hive/tevm-hive-rpc-compat.log" || true
   cp -f "$ROOT_DIR/test/hive/artifacts/tevm-hive-rpc-compat.json" "$ARTIFACT_DIR/hive/tevm-hive-rpc-compat.json" || true
 

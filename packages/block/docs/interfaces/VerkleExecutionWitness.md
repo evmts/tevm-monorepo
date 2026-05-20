@@ -9,7 +9,8 @@
 Defined in: [packages/block/src/types.ts:148](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L148)
 
 Experimental, object format could eventual change.
-An object that provides the state and proof necessary for verkle stateless execution
+An object that provides Verkle state-witness payload data.
+Tevm preserves the type for payload parsing, but Verkle/EIP-6800 execution is unsupported.
 
 ## Properties
 

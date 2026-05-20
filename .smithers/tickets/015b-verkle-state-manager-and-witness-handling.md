@@ -1,28 +1,27 @@
 ---
 id: 015b
-status: todo
+status: done
 priority: P1
 area: hardforks
 depends_on: [015]
 ---
 
-# Verkle-Aware State Manager And Block Witness Handling
+# Document Verkle As Unsupported
 
 ## Problem
 
-Tevm currently parses Verkle witness payload shapes in block types, but the VM/state pipeline does not execute with Verkle-aware state transitions. This blocks EIP-6800-family execution parity for Osaka-era paths.
+Tevm should not claim or attempt Verkle/state-witness execution support. EIP-6800-family execution is intentionally outside current Tevm scope.
 
 ## Scope
 
-- Add a Verkle-aware state manager implementation path for VM execution.
-- Implement execution witness ingestion/validation hooks for block processing.
-- Wire block-level execution witness data through execution entry points where required.
-- Ensure feature-gating is aligned with `@evmts/zevm/common` hardfork/EIP activation.
-- Return explicit, typed errors when Verkle execution is requested but unsupported prerequisites are missing.
+- Document Verkle/EIP-6800 witness execution as unsupported.
+- Ensure VM block execution rejects EIP-6800 activation explicitly.
+- Keep block-level witness parsing/types separate from any execution-support claim.
+- Do not add a Verkle-aware state manager path.
 
 ## Acceptance Criteria
 
-- Verkle execution paths can be enabled via hardfork/EIP feature activation without fallback to unsupported behavior.
-- Block witness data required for EIP-6800-family execution is validated and applied in the state pipeline.
-- Tests cover success and failure paths for witness handling and state transition integration.
+- Verkle execution is called out as unsupported in parity docs.
+- EIP-6800 block execution fails with a typed unsupported-parameter error.
+- State manager APIs do not expose a placeholder Verkle witness initializer.
 - Non-Verkle execution behavior remains unchanged.

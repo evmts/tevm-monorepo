@@ -20,7 +20,7 @@ The structure has evolved over time with various Ethereum upgrades:
 - The Merge (Paris): Basic structure with transactions
 - Shanghai: Added withdrawals field
 - Cancun: Added blobGasUsed, excessBlobGas, parentBeaconBlockRoot
-- Prague (planned): Will add verkle-related fields
+- Verkle/EIP-6800 payload fields are modeled only; Tevm execution is unsupported
 
 ## See
 
