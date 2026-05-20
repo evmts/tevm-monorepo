@@ -56,6 +56,39 @@ test('reports first EIP-3155 divergence', () => {
 	})
 })
 
+test('reports final summary divergence after matching steps', () => {
+	const actual = normalizeTraceDocument([
+		{ pc: 0, opName: 'STOP', gas: '0x2', gasCost: '0x0' },
+		{ output: '0x01', gasUsed: '0x2', pass: true },
+	])
+	const reference = normalizeTraceDocument([
+		{ pc: 0, opName: 'STOP', gas: '0x2', gasCost: '0x0' },
+		{ output: '0x02', gasUsed: '0x2', pass: true },
+	])
+	const result = compareNormalizedTraces({ actual, reference })
+
+	assert.equal(result.status, 'failed')
+	assert.deepEqual(result.firstDivergence, {
+		index: 'summary',
+		field: 'output',
+		actual: '0x01',
+		reference: '0x02',
+	})
+})
+
+test('normalizes numeric string opcodes and opcode aliases canonically', () => {
+	const trace = normalizeTraceDocument([
+		{ pc: 0, op: '0x60', gas: '0x2', gasCost: '0x3' },
+		{ pc: 1, op: 'SHA3', gas: '0x1', gasCost: '0x1' },
+		{ pc: 2, op: 'DIFFICULTY', gas: '0x1', gasCost: '0x1' },
+	])
+
+	assert.equal(trace.steps[0].op, 96)
+	assert.equal(trace.steps[0].opName, 'PUSH1')
+	assert.equal(trace.steps[1].opName, 'KECCAK256')
+	assert.equal(trace.steps[2].opName, 'PREVRANDAO')
+})
+
 test('normalizes nested trace artifacts without treating metadata as opcodes', () => {
 	const trace = normalizeTraceDocument({
 		suite: 'general-state-tests',
@@ -86,6 +119,24 @@ test('compares JSONL trace files', () => {
 
 	assert.equal(result.status, 'passed')
 	assert.equal(JSON.parse(readFileSync(out, 'utf8')).status, 'passed')
+})
+
+test('compares zero-step trace summaries', () => {
+	const dir = mkdtempSync(join(tmpdir(), 'tevm-eip3155-'))
+	const actual = join(dir, 'actual.jsonl')
+	const reference = join(dir, 'reference.jsonl')
+	writeFileSync(actual, '{"output":"0x01","gasUsed":"0x2","pass":true}\n')
+	writeFileSync(reference, '{"output":"0x02","gasUsed":"0x2","pass":true}\n')
+
+	const result = compareTraceFiles({ actualFile: actual, referenceFile: reference })
+
+	assert.equal(result.status, 'failed')
+	assert.deepEqual(result.firstDivergence, {
+		index: 'summary',
+		field: 'output',
+		actual: '0x01',
+		reference: '0x02',
+	})
 })
 
 test('missing reference writes skipped/no-coverage result', () => {

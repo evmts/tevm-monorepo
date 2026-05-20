@@ -157,6 +157,8 @@ const opcodeName = (op) => {
 	return OPCODE_NAMES.get(op)
 }
 
+const isNumericString = (value) => typeof value === 'string' && value.trim() !== '' && Number.isFinite(Number(value))
+
 const readTraceDocument = (file) => {
 	const text = readFileSync(file, 'utf8').trim()
 	if (text.length === 0) return []
@@ -192,13 +194,16 @@ const extractTrace = (document) => {
 	if (document.trace?.structLogs) return { steps: document.trace.structLogs, summary: document.trace }
 	if (document.structLogs) return { steps: document.structLogs, summary: document }
 	if ('pc' in document) return { steps: [document], summary: null }
-	return { steps: [], summary: document.summary ?? null }
+	return { steps: [], summary: document.summary ?? document }
 }
 
 export const normalizeTraceStep = (step) => {
-	const opName = String(step.opName ?? (typeof step.op === 'string' ? step.op : opcodeName(step.op)) ?? '').toUpperCase()
-	const op = typeof step.op === 'number' ? step.op : opcodeNumber(opName)
+	const opName = String(
+		step.opName ?? (typeof step.op === 'string' && !isNumericString(step.op) ? step.op : opcodeName(step.op)) ?? '',
+	).toUpperCase()
+	const op = typeof step.op === 'number' || isNumericString(step.op) ? Number(step.op) : opcodeNumber(opName)
 	if (op === undefined) throw new Error(`Unable to map opcode ${String(step.op ?? step.opName)}`)
+	const canonicalOpName = opcodeName(op)
 	const memory = step.memory === undefined ? undefined : normalizeHexData(step.memory)
 	const output = {
 		pc: Number(step.pc ?? 0),
@@ -211,7 +216,7 @@ export const normalizeTraceStep = (step) => {
 		depth: Number(step.depth ?? 0),
 		refund: Number(step.refund ?? 0),
 		error: step.error === undefined ? null : step.error,
-		opName: opName || opcodeName(op),
+		opName: canonicalOpName ?? opName,
 	}
 	if (memory !== undefined) output.memory = memory
 	if (step.storage !== undefined) output.storage = step.storage
@@ -264,8 +269,17 @@ const firstDivergence = (actual, reference) => {
 			}
 		}
 	}
+	const actualSummary = actual.summary ?? {}
+	const referenceSummary = reference.summary ?? {}
+	for (const field of new Set([...Object.keys(actualSummary), ...Object.keys(referenceSummary)])) {
+		if (JSON.stringify(actualSummary[field]) !== JSON.stringify(referenceSummary[field])) {
+			return { index: 'summary', field, actual: actualSummary[field] ?? null, reference: referenceSummary[field] ?? null }
+		}
+	}
 	return null
 }
+
+const hasSummary = (trace) => Object.keys(trace.summary ?? {}).length > 0
 
 export const compareNormalizedTraces = ({ actual, reference }) => {
 	const divergence = firstDivergence(actual, reference)
@@ -299,7 +313,7 @@ export const compareTraceFiles = ({ actualFile, referenceFile, outFile, allowMis
 	}
 	const actual = readNormalizedTrace(actualFile)
 	const reference = readNormalizedTrace(referenceFile)
-	if (actual.steps.length === 0 || reference.steps.length === 0) {
+	if (actual.steps.length === 0 && reference.steps.length === 0 && !hasSummary(actual) && !hasSummary(reference)) {
 		const result = {
 			format: 'eip3155',
 			status: 'skipped',

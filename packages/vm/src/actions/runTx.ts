@@ -423,13 +423,13 @@ const _runTx =
 
 		// Process any gas refund (including EIP-7702 refund accumulated above)
 		gasRefund += results.execResult.gasRefund ?? BIGINT_0
-		results.gasRefund = gasRefund
 		const maxRefundQuotient = BigInt(vm.common.ethjsCommon.param('maxRefundQuotient'))
 		if (gasRefund !== BIGINT_0) {
 			const maxRefund = results.totalGasSpent / maxRefundQuotient
 			gasRefund = gasRefund < maxRefund ? gasRefund : maxRefund
 			results.totalGasSpent -= gasRefund
 		}
+		results.gasRefund = gasRefund
 		results.amountSpent = results.totalGasSpent * gasPrice
 
 		// Update sender's balance
