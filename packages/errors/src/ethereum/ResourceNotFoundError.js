@@ -57,8 +57,8 @@ export class ResourceNotFoundError extends BaseError {
 			message,
 			{
 				...args,
-				docsBaseUrl: 'https://tevm.sh',
-				docsPath: '/reference/tevm/errors/classes/resourcenotfounderror/',
+				docsBaseUrl: args.docsBaseUrl ?? 'https://tevm.sh',
+				docsPath: args.docsPath ?? '/reference/tevm/errors/classes/resourcenotfounderror/',
 			},
 			tag,
 			ResourceNotFoundError.code,

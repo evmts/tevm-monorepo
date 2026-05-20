@@ -55,7 +55,7 @@ export type CommonOptions = ViemChain & {
 	 * Custom crypto implementations
 	 * For EIP-4844 support kzg must be passed
 	 * @warning KZG can add a significant amount of bundle size to an app
-	 * In future a stub will be provided that that automatically returns valid without checking the kzg proof
+	 * A mock KZG implementation is available via createMockKzg but must be passed explicitly
 	 * @example
 	 * ```typescript
 	 * import  { createMemoryClient } from 'tevm'

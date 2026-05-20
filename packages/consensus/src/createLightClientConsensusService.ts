@@ -28,7 +28,7 @@ export const createLightClientConsensusService = (options: LightClientConsensusO
 		const optimisticSlot = status.optimisticSlot
 		const safeSlot = status.safeSlot > optimisticSlot ? optimisticSlot : status.safeSlot
 		const finalizedSlot = status.finalizedSlot > safeSlot ? safeSlot : status.finalizedSlot
-		return { ...status, optimisticSlot, safeSlot, finalizedSlot }
+		return { ...status, ready: status.status === 'ready', optimisticSlot, safeSlot, finalizedSlot }
 	}
 	lightSyncStatus = normalize(lightSyncStatus)
 	const getLightSyncStatus = () => normalize({ ...lightSyncStatus })

@@ -4,7 +4,7 @@
 /**
  * The interface of the custom crypto for KZG implemented by `createMockKzg`.
  * The real KZG commitment implementation can add significant bundle size,
- * so this is a useful alternative for smaller bundles and the default.
+ * so this is a useful explicit opt-in alternative for smaller bundles.
  * @example
  * ```typescript
  * import { createCommon, createMockKzg, mainnet, type MockKzg } from 'tevm/common'

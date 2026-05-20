@@ -3,7 +3,7 @@
  * Utility function to get the version.
  * @returns {string} The version string.
  */
-const getVersion = () => '1.1.0.next-73'
+const getVersion = () => '1.0.0-next.148'
 
 /**
  * @typedef {Object} BaseErrorParameters

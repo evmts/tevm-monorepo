@@ -2,6 +2,6 @@
 
 exports[`createMockKzg > should return 69 from loadTrustedSetup 1`] = `69`;
 
-exports[`createMockKzg > should return keccak256 hash from blobToKzgCommitment 1`] = `"0xea00237ef11bd9615a3b6d2629f2c6259d67b19bb94947a1bd739bae3415141c"`;
+exports[`createMockKzg > should return a bytes48 mock commitment from blobToKzgCommitment 1`] = `"0xea00237ef11bd9615a3b6d2629f2c6259d67b19bb94947a1bd739bae3415141cea00237ef11bd9615a3b6d2629f2c625"`;
 
-exports[`createMockKzg > should return keccak256 hash from computeBlobKzgProof 1`] = `"0xea00237ef11bd9615a3b6d2629f2c6259d67b19bb94947a1bd739bae3415141c"`;
+exports[`createMockKzg > should return a bytes48 mock proof from computeBlobKzgProof 1`] = `"0xea00237ef11bd9615a3b6d2629f2c6259d67b19bb94947a1bd739bae3415141cea00237ef11bd9615a3b6d2629f2c625"`;

@@ -30,13 +30,13 @@ describe('BaseError', () => {
 		expect(error.docsPath).toBe('/errors/custom-error')
 		expect(error.metaMessages).toEqual(['Meta message 1', 'Meta message 2'])
 		expect(error.details).toBe('An internal cause')
-		expect(error.version).toBe('1.1.0.next-73')
+		expect(error.version).toBe('1.0.0-next.148')
 		expect(error.message).toContain('Short message')
 		expect(error.message).toContain('Meta message 1')
 		expect(error.message).toContain('Meta message 2')
 		expect(error.message).toContain('Docs: https://docs.example.com/errors/custom-error#details')
 		expect(error.message).toContain('Details: An internal cause')
-		expect(error.message).toContain('Version: 1.1.0.next-73')
+		expect(error.message).toContain('Version: 1.0.0-next.148')
 	})
 
 	it('should handle cause as an instance of BaseError', () => {
@@ -63,7 +63,7 @@ describe('BaseError', () => {
 		expect(error.message).toContain('Short message')
 		expect(error.message).toContain('Docs: https://tevm.sh/errors/cause-error')
 		expect(error.message).toContain('Details: /errors/cause-error')
-		expect(error.message).toContain('Version: 1.1.0.next-73')
+		expect(error.message).toContain('Version: 1.0.0-next.148')
 	})
 
 	it('should handle cause as an instance of Error', () => {
@@ -88,7 +88,7 @@ describe('BaseError', () => {
 		expect(error.message).toContain('Short message')
 		expect(error.message).toContain('Docs: https://tevm.sh/errors/custom-error')
 		expect(error.message).toContain('Details: Standard error message')
-		expect(error.message).toContain('Version: 1.1.0.next-73')
+		expect(error.message).toContain('Version: 1.0.0-next.148')
 	})
 
 	it('should handle cause as a string', () => {
@@ -111,7 +111,7 @@ describe('BaseError', () => {
 		expect(error.message).toContain('Short message')
 		expect(error.message).toContain('Docs: https://tevm.sh/errors/custom-error')
 		expect(error.message).toContain('Details: String cause')
-		expect(error.message).toContain('Version: 1.1.0.next-73')
+		expect(error.message).toContain('Version: 1.0.0-next.148')
 	})
 
 	it('should handle cause as an unknown type', () => {
@@ -136,7 +136,7 @@ describe('BaseError', () => {
 		expect(error.message).toContain('Short message')
 		expect(error.message).toContain('Docs: https://tevm.sh/errors/custom-error')
 		expect(error.message).toContain('Details: {"some":"unknown object"}')
-		expect(error.message).toContain('Version: 1.1.0.next-73')
+		expect(error.message).toContain('Version: 1.0.0-next.148')
 	})
 
 	it('should walk through the error chain', () => {

@@ -1,7 +1,6 @@
 import { createCustomCommon, Mainnet } from '@evmts/zevm/common'
 import { InvalidParamsError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
-import { createMockKzg } from './createMockKzg.js'
 
 const normalizeHardfork = (hardfork) =>
 	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
@@ -62,12 +61,6 @@ export const createCommon = ({
 			throw new TypeError('eips must be an array of EIP numbers')
 		}
 
-		// Create Common instance using createCustomCommon
-		const finalCustomCrypto =
-			customCrypto && Object.keys(customCrypto).length > 0
-				? { kzg: createMockKzg(), ...customCrypto }
-				: { kzg: createMockKzg() }
-
 		const ethjsCommon = createCustomCommon(
 			{
 				chainId: chain.id,
@@ -78,7 +71,7 @@ export const createCommon = ({
 				hardfork: ethjsHardfork,
 				// Respect hardfork-native feature gates by default and only opt-in explicit EIPs.
 				eips: [...eips],
-				customCrypto: finalCustomCrypto,
+				customCrypto,
 				params: {
 					1559: {
 						elasticityMultiplier: 2,
