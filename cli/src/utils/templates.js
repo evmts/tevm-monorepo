@@ -183,11 +183,14 @@ const client = createPublicClient({
 
 client.${formattedViemParams}
   .then(console.log)
-  .catch(console.error)
+  .catch((error) => {
+    console.error(error)
+    process.exitCode = 1
+  })
 `
-	} else {
-		// For TEVM actions
-		return `import { createMemoryClient } from '@tevm/memory-client'
+		} else {
+			// For TEVM actions
+			return `import { createMemoryClient } from '@tevm/memory-client'
 import { http } from '@tevm/jsonrpc'
 ${needsERC20 ? "import { ERC20 } from '@tevm/contract'" : ''}
 
@@ -197,10 +200,13 @@ const client = createMemoryClient({
 
 client.${functionCall}
   .then(console.log)
-  .catch(console.error)
+  .catch((error) => {
+    console.error(error)
+    process.exitCode = 1
+  })
 `
+		}
 	}
-}
 
 /**
  * Generate the package.json template

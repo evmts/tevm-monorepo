@@ -1,3 +1,4 @@
+import { writeFileSync } from 'node:fs'
 import type { DumpStateParams, DumpStateResult } from '@tevm/actions'
 import { option } from 'pastel'
 import { z } from 'zod'
@@ -100,23 +101,19 @@ export default function DumpState({ options }: Props) {
 
 		// Inlined executeAction function
 		executeAction: async (client: any, params: DumpStateParams): Promise<DumpStateResult> => {
-			const result = await client.tevmDumpState(params)
+            const result = await client.tevmDumpState(params)
 
-			// If output file is specified, save the state to a file
-			// This would require fs in Node.js environment
-			const outputFile = options.outputFile
-			if (outputFile && result.state) {
-				try {
-					// In a Node.js environment, we'd use fs.writeFileSync here
-					// For now, we'll just log that we would save to a file
-					console.log(`State would be saved to ${outputFile}`)
-					// fs.writeFileSync(outputFile, JSON.stringify(result.state, null, 2));
-				} catch (error) {
-					console.error(`Failed to write state to file: ${error}`)
-				}
-			}
+            const outputFile = options.outputFile
+            if (outputFile && result.state) {
+                try {
+                    writeFileSync(outputFile, `${JSON.stringify(result.state, null, 2)}\n`)
+                } catch (error) {
+                    const message = error instanceof Error ? error.message : String(error)
+                    throw new Error(`Failed to write state to file ${outputFile}: ${message}`)
+                }
+            }
 
-			return result
+            return result
 		},
 	})
 

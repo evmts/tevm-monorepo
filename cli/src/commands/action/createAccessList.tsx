@@ -166,6 +166,15 @@ const parseBigInt = (value?: string): bigint | undefined => {
 	}
 }
 
+const parseBlockNumber = (blockNumber?: string): bigint | undefined => {
+	if (!blockNumber) return undefined
+	try {
+		return BigInt(blockNumber)
+	} catch (_e) {
+		throw new Error(`Invalid block number "${blockNumber}"`)
+	}
+}
+
 export default function CreateAccessList({ options }: Props) {
 	// Use the action hook
 	const actionResult = useAction({
@@ -183,10 +192,10 @@ export default function CreateAccessList({ options }: Props) {
 				params['account'] = enhancedOptions['account']
 			}
 
-			// Block identifier - only one should be used
-			if (enhancedOptions['blockNumber']) {
-				params['blockNumber'] = parseBigInt(enhancedOptions['blockNumber'])
-			} else if (enhancedOptions['blockTag']) {
+				// Block identifier - only one should be used
+				if (enhancedOptions['blockNumber']) {
+					params['blockNumber'] = parseBlockNumber(enhancedOptions['blockNumber'])
+				} else if (enhancedOptions['blockTag']) {
 				params['blockTag'] = enhancedOptions['blockTag']
 			}
 

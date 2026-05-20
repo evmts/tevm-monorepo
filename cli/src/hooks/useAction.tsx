@@ -114,15 +114,18 @@ export function useAction<TParams, TResult>({
 				// Store the project directory for cleanup and reuse
 				projectDirRef.current = projectDir
 
-				// THIS IS CRITICAL: Set the editor active flag before opening the editor
-				// to prevent any React UI rendering during the editor session
-				setEditorActive(true)
-				editorInProgressRef.current = true
+                // THIS IS CRITICAL: Set the editor active flag before opening the editor
+                // to prevent any React UI rendering during the editor session
+                setEditorActive(true)
+                editorInProgressRef.current = true
 
-				// Open the editor and wait for it to close
-				await openEditor(projectDir)
+                // Open the editor and wait for it to close
+                const editorExitCode = await openEditor(projectDir)
+                if (editorExitCode !== 0) {
+                    throw new Error(`Editor exited with code ${editorExitCode}`)
+                }
 
-				// Editor is now closed
+                // Editor is now closed
 				editorInProgressRef.current = false
 				setEditorActive(false)
 

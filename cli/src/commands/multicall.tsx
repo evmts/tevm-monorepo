@@ -162,8 +162,7 @@ const parseBlockNumber = (blockNumber?: string): bigint | undefined => {
 	try {
 		return BigInt(blockNumber)
 	} catch (_e) {
-		console.warn(`Could not convert "${blockNumber}" to BigInt`)
-		return undefined
+		throw new Error(`Invalid block number "${blockNumber}"`)
 	}
 }
 
