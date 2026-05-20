@@ -34,8 +34,10 @@ This repo exposes ticket-sized parity entry points for CI, local runs, and Smith
   - Fast/PR: `pnpm test:hive:smoke`
   - Full/manual: `pnpm test:hive`
 - EIP-3155 trace divergence:
-  - Manual: `pnpm test:conformance:gst:trace:compare`
-  - Output: `artifacts/parity/traces/trace-diff.json` (when produced)
+  - Convert: `pnpm test:eip3155:convert -- --input=<tevm-trace.json> --out=artifacts/eip3155/trace.jsonl`
+  - Compare: `pnpm test:eip3155:compare -- --actual=artifacts/eip3155/trace.jsonl --reference=<reference.jsonl> --out=artifacts/eip3155/trace-diff.json`
+  - State-test hook: `pnpm test:conformance:gst:trace:compare`
+  - Output: `artifacts/eip3155/trace-diff.json`, copied to `artifacts/parity/traces/trace-diff.json` by parity suites when present.
 
 ## Fast subsets (PR-safe)
 
@@ -48,6 +50,7 @@ This repo exposes ticket-sized parity entry points for CI, local runs, and Smith
 - `pnpm test:hive`
 - `pnpm test:conformance:gst:all`
 - `pnpm test:conformance:execspec:all`
+- `pnpm test:eip3155:compare -- --actual=<actual.jsonl> --reference=<reference.jsonl> --out=artifacts/eip3155/trace-diff.json`
 
 ## Smithers-focused commands
 
@@ -63,3 +66,8 @@ Artifacts are written under `artifacts/parity/` with stable paths:
 - `artifacts/parity/state-tests/*`
 - `artifacts/parity/traces/trace-diff.json` (if present)
 - `artifacts/parity/engine/payload-failures.json` (if present)
+
+## Runtime Baseline
+
+CI and parity suites expect Node 24. The authoritative version is `.nvmrc`, and
+the root `engines.node` range is restricted to Node 24.

@@ -41,6 +41,9 @@
 		"sort-package-json:check": "sort-package-json package.json docs/package.json configs/*/package.json examples/*/package.json experimental/*/package.json extensions/*/package.json packages/*/package.json && git diff --exit-code tevm/package.json",
 		"test": "bun test:run",
 		"test:coverage": "nx run-many --target=test:coverage",
+		"test:eip3155": "node --test test/eip3155/trace-tools.test.mjs",
+		"test:eip3155:compare": "node test/eip3155/trace-tools.mjs compare",
+		"test:eip3155:convert": "node test/eip3155/trace-tools.mjs convert",
 		"test:run": "nx run-many --target=test:run",
 		"up": "bun x npm-check-updates -ui -ws",
 		"test:conformance:gst": "node test/ethereum-state-tests/run-general-state-tests.mjs --group=boundary --hardfork=frontier --out=artifacts/general-state-tests/boundary-frontier.json",
@@ -48,7 +51,7 @@
 		"test:conformance:execspec": "node test/execution-spec-tests/run-execution-spec-tests.mjs --group=eip --hardfork=shanghai --out=artifacts/execution-spec-tests/eip-shanghai.json",
 		"test:conformance:execspec:all": "node test/execution-spec-tests/run-execution-spec-tests.mjs --out=artifacts/execution-spec-tests/all.json",
 		"test:conformance:gst:isolate": "node test/ethereum-state-tests/run-general-state-tests.mjs --isolate=gst-frontier-upstream-state-root --trace-out=artifacts/general-state-tests/isolate-trace.json --out=artifacts/general-state-tests/isolate.json",
-		"test:conformance:gst:trace:compare": "node test/ethereum-state-tests/run-general-state-tests.mjs --group=eip --trace-out=artifacts/general-state-tests/actual-trace.json --trace-compare=true --trace-reference=artifacts/general-state-tests/reference-trace.json --out=artifacts/general-state-tests/trace-compare.json",
+		"test:conformance:gst:trace:compare": "node test/ethereum-state-tests/run-general-state-tests.mjs --group=eip --trace-out=artifacts/general-state-tests/actual-trace.json --trace-compare=true --trace-reference=artifacts/general-state-tests/reference-trace.json --trace-diff-out=artifacts/eip3155/trace-diff.json --out=artifacts/general-state-tests/trace-compare.json",
 		"test:conformance:execspec:isolate": "node test/execution-spec-tests/run-execution-spec-tests.mjs --isolate=est-shanghai-eip4895-header-validation --trace-out=artifacts/execution-spec-tests/isolate-trace.json --out=artifacts/execution-spec-tests/isolate.json",
 		"test:conformance:targets": "node test/conformance-utils/generate-target-groups.mjs --out=artifacts/conformance-target-groups/frontier-osaka.json",
 		"test:conformance:fast": "pnpm test:conformance:gst && pnpm test:conformance:execspec",
@@ -89,8 +92,8 @@
 	},
 	"packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3",
 	"engines": {
-		"_comment": "Tevm CI and parity suites support current LTS lines plus Node 24.",
-		"node": "^20.19.0 || ^22.12.0 || ^24.0.0"
+		"_comment": "Tevm CI and parity suites are validated on Node 24 via .nvmrc.",
+		"node": "^24.0.0"
 	},
 	"pnpm": {
 		"patchedDependencies": {

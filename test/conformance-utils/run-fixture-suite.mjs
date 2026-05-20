@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { dirname } from 'node:path'
+import { compareTraceFiles } from '../eip3155/trace-tools.mjs'
 
 const args = new Map(process.argv.slice(2).map((arg) => {
   const [k, ...rest] = arg.split('=')
@@ -16,6 +17,8 @@ const outFile = args.get('--out') ?? `artifacts/${suite}/latest.json`
 const isolate = args.get('--isolate')
 const traceOutFile = args.get('--trace-out')
 const traceCompare = args.get('--trace-compare') === 'true'
+const traceReferenceFile = args.get('--trace-reference')
+const traceDiffOutFile = args.get('--trace-diff-out') ?? 'artifacts/eip3155/trace-diff.json'
 
 const summary = {
   suite,
@@ -46,6 +49,14 @@ if (fixturesPath && existsSync(fixturesPath)) {
 if (traceOutFile) {
   mkdirSync(dirname(traceOutFile), { recursive: true })
   writeFileSync(traceOutFile, JSON.stringify({ suite, status: summary.status, traces: [] }, null, 2))
+}
+
+if (traceCompare) {
+  summary.traceDiff = compareTraceFiles({
+    actualFile: traceOutFile,
+    referenceFile: traceReferenceFile,
+    outFile: traceDiffOutFile,
+  })
 }
 
 mkdirSync(dirname(outFile), { recursive: true })
