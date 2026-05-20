@@ -91,14 +91,14 @@ console.log(result)
 An ethers TevmProvider supports the tevm [JSON-RPC methods](../json-rpc). For example you can use `tevm_account` to set account
 
 ```typescript
-await provider.send('tevm_setAccount', {
+await provider.send('tevm_setAccount', [{
   address: `0x${'69'.repeat(20)}`,
   nonce: toHex(1n),
   balance: toHex(420n),
-}),
-console.log(await provider.send('tevm_getAccount', {
+}]),
+console.log(await provider.send('tevm_getAccount', [{
   address: `0x${'69'.repeat(20)}`,
-}))
+}]))
 //	address: '0x6969696969696969696969696969696969696969',
 //	balance: toHex(420n),
 //	deployedBytecode: '0x00',

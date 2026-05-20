@@ -256,8 +256,8 @@ describe('ethers.Contract', () => {
 
 		expectTypeOf(await c.name()).toBeString()
 		expectTypeOf(await c.symbol()).toBeString()
-		expectTypeOf(await c.decimals()).toBeNumber()
-		assertType<BigInt>(await c.totalSupply({ blockTag: 132873940 }))
+		assertType<bigint>(await c.decimals())
+		assertType<bigint>(await c.totalSupply({ blockTag: 132873940 }))
 	})
 
 	test('Should be typesafe with arguments', async () => {

@@ -22,6 +22,12 @@ type TypesafeEthersContractConstructor = {
 		runner?: null | ContractRunner,
 		_deployTx?: null | TransactionResponse,
 	): TypesafeEthersContract<TAbi> & EthersContract
+	new (
+		target: string | Addressable,
+		abi: EthersInterface | InterfaceAbi,
+		runner?: null | ContractRunner,
+		_deployTx?: null | TransactionResponse,
+	): EthersContract
 }
 
 export const Contract: TypesafeEthersContractConstructor

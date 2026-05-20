@@ -89,14 +89,14 @@ import { JsonRpcApiProvider } from 'ethers'
  *
  * @example
  * ```typescript
- * await provider.send('tevm_setAccount', {
+ * await provider.send('tevm_setAccount', [{
  *   address: `0x${'69'.repeat(20)}`,
  *   nonce: toHex(1n),
  *   balance: toHex(420n),
- * }),
- * console.log(await provider.send('tevm_getAccount', {
+ * }]),
+ * console.log(await provider.send('tevm_getAccount', [{
  *   address: `0x${'69'.repeat(20)}`,
- * }))
+ * }]))
  * //	address: '0x6969696969696969696969696969696969696969',
  * //	balance: toHex(420n),
  * //	deployedBytecode: '0x00',
@@ -178,6 +178,7 @@ export class TevmProvider extends JsonRpcApiProvider {
 			cacheTimeout: -1,
 		})
 		this.tevm = 'tevm' in client ? client.tevm : client
+		this._start()
 	}
 
 	/**
