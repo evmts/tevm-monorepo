@@ -1,7 +1,7 @@
-import { InvalidAddressError } from '@tevm/errors'
 import { EthjsAddress, keccak256, toRlp } from '@tevm/utils'
 import { numberToBytes } from 'viem'
 import { Address } from './Address.js'
+import { assertAddress } from './assertAddress.js'
 import { createAddress } from './createAddress.js'
 
 /**
@@ -67,9 +67,7 @@ import { createAddress } from './createAddress.js'
  * @see {@link https://eips.ethereum.org/EIPS/eip-161|EIP-161: State trie clearing} for nonce rules
  */
 export const createContractAddress = (from, nonce) => {
-	if (!(from.bytes instanceof Uint8Array)) {
-		throw new InvalidAddressError('Expected from to be an Address or ethereumjs Address')
-	}
+	assertAddress(from)
 	if (nonce === 0n) {
 		return createAddress(keccak256(toRlp([from.bytes, Uint8Array.from([])]), 'bytes').subarray(-20))
 	}

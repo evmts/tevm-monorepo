@@ -49,8 +49,34 @@ Object.defineProperties(immutableStateRoot, {
 		},
 	},
 })
+const isArrayIndex = (property) => {
+	return typeof property === 'string' && /^(0|[1-9]\d*)$/.test(property)
+}
 
 /**
  * @type {Uint8Array}
  */
-export const EMPTY_STATE_ROOT = immutableStateRoot
+export const EMPTY_STATE_ROOT = new Proxy(immutableStateRoot, {
+	defineProperty(target, property, descriptor) {
+		if (isArrayIndex(property)) {
+			return throwImmutable()
+		}
+		return Reflect.defineProperty(target, property, descriptor)
+	},
+	deleteProperty(target, property) {
+		if (isArrayIndex(property)) {
+			return throwImmutable()
+		}
+		return Reflect.deleteProperty(target, property)
+	},
+	get(target, property) {
+		const value = Reflect.get(target, property, target)
+		return typeof value === 'function' ? value.bind(target) : value
+	},
+	set(target, property, value) {
+		if (isArrayIndex(property)) {
+			return throwImmutable()
+		}
+		return Reflect.set(target, property, value, target)
+	},
+})

@@ -1,6 +1,7 @@
 import { InvalidSaltError } from '@tevm/errors'
 import { concatBytes, EthjsAddress, hexToBytes, keccak256 } from '@tevm/utils'
 import { Address } from './Address.js'
+import { assertAddress } from './assertAddress.js'
 import { createAddress } from './createAddress.js'
 
 /**
@@ -84,6 +85,7 @@ import { createAddress } from './createAddress.js'
  * @see {@link https://solidity-by-example.org/app/create2/|CREATE2 Usage Example in Solidity}
  */
 export const create2ContractAddress = (from, salt, code) => {
+	assertAddress(from)
 	const saltBytes = hexToBytes(salt)
 	if (saltBytes.length !== 32) {
 		throw new InvalidSaltError('Expected salt to be of length 32 bytes')
