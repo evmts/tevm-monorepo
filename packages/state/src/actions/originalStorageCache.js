@@ -41,6 +41,8 @@ export const originalStorageCache = (baseState) => {
 			put(address, key, value)
 			return value
 		},
-		clear() {},
+		clear() {
+			state.clear()
+		},
 	}
 }

@@ -17,18 +17,18 @@ export const dumpStorageRange = (state) => (_address, _startKey, _limit) => {
 	 * @type {import("viem").Hex | null}
 	 */
 	let nextKey = null
-	let started = false
-	for (const [storageKey, storageValue] of storage.entries()) {
+	const sortedStorage = [...storage.entries()].sort(([a], [b]) => {
+		const aBigInt = hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (a))
+		const bBigInt = hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (b))
+		return aBigInt < bBigInt ? -1 : aBigInt > bBigInt ? 1 : 0
+	})
+	for (const [storageKey, storageValue] of sortedStorage) {
+		if (hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (storageKey)) < _startKey) {
+			continue
+		}
 		if (entries.length === _limit) {
 			nextKey = /** @type {import("@tevm/utils").Hex}*/ (storageKey)
 			break
-		}
-		if (!started) {
-			if (hexToBigInt(/** @type {import('@tevm/utils').Hex}*/ (storageKey)) === _startKey) {
-				started = true
-			} else {
-				continue
-			}
 		}
 		const key = /** @type {import("@tevm/utils").Hex}*/ (storageKey)
 		const value = bytesToHex(storageValue)

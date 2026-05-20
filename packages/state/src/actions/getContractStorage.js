@@ -34,6 +34,10 @@ export const getContractStorage = (baseState) => async (address, key) => {
 		)
 	}
 
+	if (baseState.tombstones.accounts.has(address.toString())) {
+		return new Uint8Array()
+	}
+
 	// First check main cache
 	const cachedValue = storageCache.get(address, key)
 	if (cachedValue !== undefined) {
