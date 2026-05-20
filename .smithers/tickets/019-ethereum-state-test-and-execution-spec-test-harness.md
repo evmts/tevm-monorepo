@@ -1,6 +1,6 @@
 ---
 id: 019
-status: todo
+status: done
 priority: P0
 area: testing
 depends_on: [015, 016]
@@ -31,3 +31,9 @@ Tevm needs real `ethereum/tests` and `execution-spec-tests` conformance coverage
 - Hardfork filters exist for Frontier, Berlin, Shanghai, Cancun, Prague, and Osaka.
 - CI can run a fast subset, while full suites remain available locally/Smithers.
 - No synthetic fixture metadata is reported as conformance coverage.
+
+## Implementation Notes
+
+- `test/conformance-utils/run-fixture-suite.mjs` executes upstream JSON state-test vectors through Tevm's VM/state/block pipeline when a real fixture corpus is configured.
+- `TEVM_GENERAL_STATE_TESTS_FIXTURES` and `TEVM_EXECUTION_SPEC_TESTS_FIXTURES` select real upstream fixture roots; unconfigured runs emit skipped artifacts with `coverage: "none"`.
+- The runner recomputes Ethereum state trie roots and logs hashes for executed vectors and reports `coverage: "upstream"` only for executed upstream-format fixtures.

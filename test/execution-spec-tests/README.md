@@ -1,8 +1,11 @@
 # Execution Spec Tests Harness
 
 No synthetic execution-spec-tests coverage is shipped in this repo. The
-commands below currently emit skipped artifacts with `coverage: "none"` unless
-a real upstream runner and fixture corpus are wired in.
+commands below emit skipped artifacts with `coverage: "none"` unless
+`TEVM_EXECUTION_SPEC_TESTS_FIXTURES` points at real upstream JSON fixtures.
+The supported executable subset is execution-spec-tests output materialized in
+the `ethereum/tests` GeneralStateTests JSON shape; matching vectors run through
+Tevm's VM/state/block pipeline and compare Ethereum state/log hashes.
 
 Fast subset entry point:
 
@@ -19,12 +22,11 @@ pnpm test:conformance:execspec:all
 Direct runner usage:
 
 ```bash
-TEVM_EXECUTION_SPEC_TESTS_FIXTURES=/path/to/execution-spec-tests node test/execution-spec-tests/run-execution-spec-tests.mjs --hardfork=osaka --pattern='smoke' --out=artifacts/execution-spec-tests/osaka.json
+TEVM_EXECUTION_SPEC_TESTS_FIXTURES=/path/to/execution-spec-tests/fixtures/state_tests node test/execution-spec-tests/run-execution-spec-tests.mjs --hardfork=osaka --pattern='smoke' --out=artifacts/execution-spec-tests/osaka.json
 ```
 
-The runner intentionally fails if a fixture path is supplied before real
-upstream-format execution support is implemented. This prevents local metadata
-fixtures from being mistaken for conformance coverage.
+Fast commands use `--limit` so PR and Smithers jobs can stay bounded. Full
+commands omit the limit and run every matching upstream vector.
 
 Isolate one test and request an EIP-3155 trace artifact:
 
@@ -38,7 +40,7 @@ Supported hardfork filters: `frontier`, `homestead`, `dao`, `tangerinewhistle`, 
 
 ## Fixture Strategy
 
-- Local synthetic vectors are intentionally not used.
-- Upstream target mapping must come from real `execution-spec-tests` or EELS-linked fixtures.
+- Local synthetic vectors are intentionally not used or reported as coverage.
+- Upstream target mapping comes from real generated execution-spec-tests state fixtures.
 - Failure artifacts are written to `artifacts/execution-spec-tests/*.json` for Smithers debugging.
 - Frontier→Osaka hardfork target groups can be generated with `pnpm test:conformance:targets`.

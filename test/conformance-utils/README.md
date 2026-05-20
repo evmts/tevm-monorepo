@@ -31,17 +31,23 @@ Hardfork filter keys currently implemented:
 - `prague`
 - `osaka`
 
-Generate Frontier-through-Osaka target groups from current fixture sets:
+Generate Frontier-through-Osaka target groups:
 
 ```bash
 pnpm test:conformance:targets
 ```
 
-This writes `artifacts/conformance-target-groups/frontier-osaka.json` with per-suite vectors grouped by hardfork for CI/local/Smithers orchestration.
+This writes `artifacts/conformance-target-groups/frontier-osaka.json` for CI/local/Smithers orchestration. Without a configured upstream corpus the artifact is explicitly marked `coverage: "none"`.
 
 ## Coverage Policy
 
-Synthetic local conformance fixtures are intentionally disabled. Until a real
-upstream-format runner is implemented, conformance entry points write skipped
-artifacts with `coverage: "none"` and do not claim Ethereum state-test or
-execution-spec-test coverage.
+Synthetic local conformance fixtures are intentionally disabled. With no real
+fixture corpus configured, conformance entry points write skipped artifacts with
+`coverage: "none"`.
+
+When `TEVM_GENERAL_STATE_TESTS_FIXTURES` or
+`TEVM_EXECUTION_SPEC_TESTS_FIXTURES` points at upstream JSON fixtures in the
+`ethereum/tests` GeneralStateTests format, `run-fixture-suite.mjs` executes the
+selected vectors through Tevm's VM/state/block pipeline, recomputes Ethereum
+state/log hashes, and reports `coverage: "upstream"` only for executed upstream
+vectors.

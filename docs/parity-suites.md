@@ -28,7 +28,7 @@ This repo exposes ticket-sized parity entry points for CI, local runs, and Smith
 - Hardfork and state conformance:
   - Fast/PR: `pnpm test:conformance:fast`
   - Full/manual: `pnpm test:conformance:gst:all`, `pnpm test:conformance:execspec:all`
-  - Current status: these commands do not run synthetic conformance coverage; without a real upstream corpus/runner they emit skipped artifacts with `coverage: "none"`.
+  - Current status: these commands do not run synthetic conformance coverage; without a real upstream corpus they emit skipped artifacts with `coverage: "none"`. With `TEVM_GENERAL_STATE_TESTS_FIXTURES` or `TEVM_EXECUTION_SPEC_TESTS_FIXTURES` set, matching upstream JSON state-test vectors execute through Tevm and report `coverage: "upstream"`.
   - Verkle/EIP-6800 witness execution is intentionally unsupported and is not part of parity coverage.
 - Hive compatibility:
   - Fast/PR: `pnpm test:hive:smoke`

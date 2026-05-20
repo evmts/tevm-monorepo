@@ -1,6 +1,6 @@
 ---
 id: 021
-status: todo
+status: done
 priority: P1
 area: testing
 depends_on: [018, 019, 020]
@@ -31,3 +31,9 @@ The new RPC, Engine API, light client, hardfork, Hive, and state-test work needs
 - Full suites are runnable manually or by Smithers.
 - Artifacts are stable enough for agents to inspect and retry.
 - Conformance jobs do not pass by executing synthetic coverage.
+
+## Implementation Notes
+
+- `docs/parity-suites.md` documents RPC, Engine API, light-client, Hive, state-test, and EIP-3155 commands plus stable artifact paths.
+- `.github/workflows/parity-suites.yml` runs fast RPC, conformance, Hive, and aggregate parity subsets and uploads artifacts.
+- `test:parity:smithers:*`, `test:hive:smithers:*`, and the conformance scripts provide Smithers/local entry points.

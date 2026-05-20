@@ -1,6 +1,6 @@
 ---
 id: 020
-status: todo
+status: done
 priority: P1
 area: testing
 depends_on: [019]
@@ -26,3 +26,8 @@ Tevm has debug trace APIs, but the ZEVM/Guillotine Mini testing workflow uses EI
 - Trace tooling works across multiple hardforks.
 - Debug trace API behavior remains backward compatible.
 
+## Implementation Notes
+
+- `pnpm test:conformance:gst:isolate` and `pnpm test:conformance:execspec:isolate` emit trace artifacts for selected upstream-format vectors.
+- `pnpm test:eip3155:convert` normalizes Tevm `structLogs` into EIP-3155-shaped JSONL/JSON.
+- `pnpm test:eip3155:compare` and `pnpm test:conformance:gst:trace:compare` write first-divergence JSON under `artifacts/eip3155/`.
