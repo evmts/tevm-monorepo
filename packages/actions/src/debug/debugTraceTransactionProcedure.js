@@ -128,8 +128,19 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 				skipBlockGasLimitValidation: true,
 				tx: createImpersonatedTx(
 					{
-						...tx,
+						nonce: tx.nonce,
+						gasLimit: tx.gasLimit,
+						value: tx.value,
+						data: tx.data,
 						impersonatedAddress: createAddress(tx.getSenderAddress()),
+						...(tx.to !== undefined ? { to: tx.to } : {}),
+						...('accessList' in tx && tx.accessList !== undefined ? { accessList: tx.accessList } : {}),
+						...('maxFeePerGas' in tx
+							? { maxFeePerGas: tx.maxFeePerGas }
+							: 'gasPrice' in tx
+								? { maxFeePerGas: tx.gasPrice }
+								: {}),
+						...('maxPriorityFeePerGas' in tx ? { maxPriorityFeePerGas: tx.maxPriorityFeePerGas } : {}),
 					},
 					{
 						freeze: false,

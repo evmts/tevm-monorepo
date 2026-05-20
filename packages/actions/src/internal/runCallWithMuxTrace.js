@@ -44,8 +44,12 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 	// Track default trace state (structLogs)
 	/** @type {Array<{pc: number, op: string, gas: bigint, gasCost: bigint, depth: number, stack: import('../common/Hex.js').Hex[]}>} */
 	const structLogs = []
-	/** @type {Array<[string, (...args: any[]) => void]>} */
+	/** @type {Array<[('newContract' | 'beforeMessage' | 'afterMessage' | 'step'), (...args: any[]) => void]>} */
 	const listeners = []
+	/**
+	 * @param {'newContract' | 'beforeMessage' | 'afterMessage' | 'step'} event
+	 * @param {(...args: any[]) => void} handler
+	 */
 	const on = (event, handler) => {
 		vm.evm.events?.on(event, handler)
 		listeners.push([event, handler])
@@ -57,7 +61,13 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 
 	// callTracer events
 	if (enabledTracers.includes('callTracer')) {
-		on('beforeMessage', async (message, next) => {
+		on(
+			'beforeMessage',
+			/**
+			 * @param {import('@evmts/zevm/evm').Message} message
+			 * @param {() => void} [next]
+			 */
+			async (message, next) => {
 			/** @type {import('../common/TraceType.js').TraceType} */
 			let traceType = 'CALL'
 			if (message.to === undefined) {
@@ -106,9 +116,16 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 			}
 
 			next?.()
-		})
+			},
+		)
 
-		on('afterMessage', async (result, next) => {
+		on(
+			'afterMessage',
+			/**
+			 * @param {import('@evmts/zevm/evm').EvmResult} result
+			 * @param {() => void} [next]
+			 */
+			async (result, next) => {
 			const currentCall = callStack.pop()
 			if (currentCall) {
 				currentCall.gasUsed = result.execResult.executionGasUsed ?? 0n
@@ -126,12 +143,19 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 				}
 			}
 			next?.()
-		})
+			},
+		)
 	}
 
 	// flatCallTracer events
 	if (enabledTracers.includes('flatCallTracer')) {
-		on('beforeMessage', async (message, next) => {
+		on(
+			'beforeMessage',
+			/**
+			 * @param {import('@evmts/zevm/evm').Message} message
+			 * @param {() => void} [next]
+			 */
+			async (message, next) => {
 			const isCreate = message.to === undefined
 
 			/** @type {'call' | 'delegatecall' | 'staticcall' | undefined} */
@@ -203,9 +227,16 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 			flatTraceStack.push({ traceAddress, index: traceIndex })
 
 			next?.()
-		})
+			},
+		)
 
-		on('afterMessage', async (result, next) => {
+		on(
+			'afterMessage',
+			/**
+			 * @param {import('@evmts/zevm/evm').EvmResult} result
+			 * @param {() => void} [next]
+			 */
+			async (result, next) => {
 			const stackEntry = flatTraceStack.pop()
 			if (!stackEntry) {
 				next?.()
@@ -250,12 +281,19 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 			}
 
 			next?.()
-		})
+			},
+		)
 	}
 
 	// 4byteTracer events
 	if (enabledTracers.includes('4byteTracer')) {
-		on('beforeMessage', async (message, next) => {
+		on(
+			'beforeMessage',
+			/**
+			 * @param {import('@evmts/zevm/evm').Message} message
+			 * @param {() => void} [next]
+			 */
+			async (message, next) => {
 			const callData = message.data
 			if (callData && callData.length >= 4) {
 				const selector = bytesToHex(callData.slice(0, 4))
@@ -282,12 +320,19 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 				}
 			}
 			next?.()
-		})
+			},
+		)
 	}
 
 	// default tracer events (structLogs)
 	if (enabledTracers.includes('default')) {
-		on('step', async (step, next) => {
+		on(
+			'step',
+			/**
+			 * @param {import('@evmts/zevm/evm').InterpreterStep} step
+			 * @param {() => void} [next]
+			 */
+			async (step, next) => {
 			/** @type {import('../common/Hex.js').Hex[]} */
 			const stackItems = step.stack.map(
 				(item) => /** @type {import('../common/Hex.js').Hex} */ (`0x${item.toString(16).padStart(64, '0')}`),
@@ -303,7 +348,8 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 			})
 
 			next?.()
-		})
+			},
+		)
 	}
 
 	// Execute the call

@@ -25,6 +25,8 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 
 	/**
 	 * On every step push a struct log
+	 * @param {import('@evmts/zevm/evm').InterpreterStep} step
+	 * @param {() => void} [next]
 	 */
 	const onStep = async (step, next) => {
 		logger.debug(step, 'runCallWithTrace: new evm step')
@@ -42,6 +44,8 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 
 	/**
 	 * After any internal call push error if any
+	 * @param {import('@evmts/zevm/evm').EvmResult} data
+	 * @param {() => void} [next]
 	 */
 	const onAfterMessage = (data, next) => {
 		logger.debug(data.execResult, 'runCallWithTrace: new message result')

@@ -49,6 +49,8 @@ export const runCallWithFourbyteTrace = async (vm, logger, params, lazilyRun = f
 	 *
 	 * This will capture inner-contract calls if they generate a "CALL" opcode (i.e. `this.function()`);
 	 * which is not the case for a "JUMP" opcode (i.e. `function()`)
+	 * @param {import('@evmts/zevm/evm').Message} message
+	 * @param {() => void} [next]
 	 */
 	const onBeforeMessage = async (message, next) => {
 		logger.debug(message, 'runCallWithFourbyteTrace: beforeMessage event')

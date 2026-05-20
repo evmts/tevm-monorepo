@@ -27,6 +27,8 @@ export const runCallWithCallTrace = async (vm, logger, params, lazilyRun = false
 
 	/**
 	 * Before each call/create - build call tree entry
+	 * @param {import('@evmts/zevm/evm').Message} message
+	 * @param {() => void} [next]
 	 */
 	const onBeforeMessage = async (message, next) => {
 		logger.debug(message, 'runCallWithCallTrace: beforeMessage event')
@@ -91,6 +93,8 @@ export const runCallWithCallTrace = async (vm, logger, params, lazilyRun = false
 
 	/**
 	 * After each call/create - capture results and gas usage
+	 * @param {import('@evmts/zevm/evm').EvmResult} result
+	 * @param {() => void} [next]
 	 */
 	const onAfterMessage = async (result, next) => {
 		logger.debug(result, 'runCallWithCallTrace: afterMessage event')

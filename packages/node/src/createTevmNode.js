@@ -362,6 +362,9 @@ export const createTevmNode = (options = {}) => {
 		// TODO handle other moving block tags like `safe`
 		// we need to fetch the latest block number and return that otherwise we may have inconsistencies from block number changing
 		if (options.fork.blockTag === undefined || options.fork.blockTag === 'latest') {
+			if (!transport) {
+				return 0n
+			}
 			const latestBlockNumber = await getBlockNumber(transport)
 			logger.debug({ latestBlockNumber }, 'fetched fork block number from provided forkurl')
 			return latestBlockNumber

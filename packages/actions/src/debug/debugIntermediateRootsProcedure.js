@@ -97,8 +97,19 @@ export const debugIntermediateRootsJsonRpcProcedure = (client) => {
 
 			const impersonatedTx = createImpersonatedTx(
 				{
-					...blockTx,
+					nonce: blockTx.nonce,
+					gasLimit: blockTx.gasLimit,
+					value: blockTx.value,
+					data: blockTx.data,
 					impersonatedAddress: createAddress(blockTx.getSenderAddress()),
+					...(blockTx.to !== undefined ? { to: blockTx.to } : {}),
+					...('accessList' in blockTx && blockTx.accessList !== undefined ? { accessList: blockTx.accessList } : {}),
+					...('maxFeePerGas' in blockTx
+						? { maxFeePerGas: blockTx.maxFeePerGas }
+						: 'gasPrice' in blockTx
+							? { maxFeePerGas: blockTx.gasPrice }
+							: {}),
+					...('maxPriorityFeePerGas' in blockTx ? { maxPriorityFeePerGas: blockTx.maxPriorityFeePerGas } : {}),
 				},
 				{
 					freeze: false,

@@ -35,6 +35,8 @@ export const runCallWithFlatCallTrace = async (vm, logger, params, lazilyRun = f
 
 	/**
 	 * Before each call/create - build trace entry
+	 * @param {import('@evmts/zevm/evm').Message} message
+	 * @param {() => void} [next]
 	 */
 	const onBeforeMessage = async (message, next) => {
 		logger.debug(message, 'runCallWithFlatCallTrace: beforeMessage event')
@@ -125,6 +127,8 @@ export const runCallWithFlatCallTrace = async (vm, logger, params, lazilyRun = f
 
 	/**
 	 * After each call/create - capture results and update subtraces count
+	 * @param {import('@evmts/zevm/evm').EvmResult} result
+	 * @param {() => void} [next]
 	 */
 	const onAfterMessage = async (result, next) => {
 		logger.debug(result, 'runCallWithFlatCallTrace: afterMessage event')
