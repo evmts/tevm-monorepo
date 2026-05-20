@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { cacheHash } from './cacheHash.js'
 import { getArtifactsPath } from './getArtifactsPath.js'
 import type { CachedItem } from './types.js'
 
@@ -61,5 +62,13 @@ describe('getArtifactsPath', () => {
 
 		expect(result.dir).toBe('/mock/cwd/.tevm/__external__/mock/cwd-other/contracts/MyContract.sol')
 		expect(result.path).toBe('/mock/cwd/.tevm/__external__/mock/cwd-other/contracts/MyContract.sol/contract.d.ts')
+	})
+
+	it('should namespace absolute cache directories by project root', () => {
+		const projectHash = cacheHash(cwd).slice(0, 16)
+		const result = getArtifactsPath('contracts/MyContract.sol', 'dts', cwd, '/shared/.tevm')
+
+		expect(result.dir).toBe(`/shared/.tevm/__projects__/${projectHash}/contracts/MyContract.sol`)
+		expect(result.path).toBe(`/shared/.tevm/__projects__/${projectHash}/contracts/MyContract.sol/contract.d.ts`)
 	})
 })

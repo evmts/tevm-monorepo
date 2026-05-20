@@ -1,6 +1,27 @@
+import { cacheHash } from './cacheHash.js'
 import { getArtifactsPath } from './getArtifactsPath.js'
 import { getMetadataPath } from './getMetadataPath.js'
 import { version } from './version.js'
+
+/**
+ * @param {string} sourcePath
+ * @param {unknown} metadata
+ * @param {import('./types.js').FileAccessObject} fs
+ */
+const didSourceChange = (sourcePath, metadata, fs) => {
+	if (!metadata || typeof metadata !== 'object') {
+		return true
+	}
+	const fileMetadata = /** @type {{ mtimeMs?: number, size?: number, contentHash?: string }} */ (metadata)
+	const stat = fs.statSync(sourcePath)
+	if (fileMetadata.mtimeMs !== stat.mtimeMs || fileMetadata.size !== stat.size) {
+		return true
+	}
+	if (fileMetadata.contentHash === undefined) {
+		return false
+	}
+	return fileMetadata.contentHash !== cacheHash(fs.readFileSync(sourcePath, 'utf8'))
+}
 
 /**
  * Synchronously reads Solidity compilation artifacts from the cache.
@@ -66,14 +87,16 @@ export const readArtifactsSync = (cacheDir, fs, cwd, entryModuleId, compileFinge
 	const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'))
 
 	// Check if cache is still valid by:
-	// 1. Comparing cache version
-	// 2. Checking if any source files have been modified
-	const didContentChange =
-		metadata.version !== version ||
-		(compileFingerprint !== undefined && compileFingerprint !== metadata.compileFingerprint) ||
-		Object.entries(metadata.files).some(([sourcePath, timestamp]) => {
-			return timestamp !== fs.statSync(sourcePath).mtimeMs
-		})
+		// 1. Comparing cache version
+		// 2. Checking if any source files have been modified
+		const didContentChange =
+			metadata.version !== version ||
+			(compileFingerprint !== undefined && compileFingerprint !== metadata.compileFingerprint) ||
+			!metadata.files ||
+			typeof metadata.files !== 'object' ||
+			Object.entries(metadata.files).some(([sourcePath, fileMetadata]) => {
+				return didSourceChange(sourcePath, fileMetadata, fs)
+			})
 
 	// If any validation fails, return undefined (cache miss)
 	if (didContentChange) {
@@ -82,6 +105,9 @@ export const readArtifactsSync = (cacheDir, fs, cwd, entryModuleId, compileFinge
 
 	// Read and parse artifacts file
 	const content = fs.readFileSync(artifactsPath, 'utf8')
+	if (metadata.artifactsHash !== cacheHash(content)) {
+		return undefined
+	}
 
 	try {
 		return JSON.parse(content)

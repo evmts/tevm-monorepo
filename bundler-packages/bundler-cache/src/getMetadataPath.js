@@ -1,4 +1,5 @@
 import path from 'node:path'
+import { cacheHash } from './cacheHash.js'
 
 /**
  * Resolves the path for the metadata file associated with a Solidity module.
@@ -31,9 +32,12 @@ import path from 'node:path'
  * @internal
  */
 export const getMetadataPath = (entryModuleId, cwd, cacheDir) => {
-	const cacheRoot = path.resolve(cwd, cacheDir)
+	const resolvedCwd = path.resolve(cwd)
+	const cacheRoot = path.isAbsolute(cacheDir)
+		? path.join(path.resolve(cacheDir), '__projects__', cacheHash(resolvedCwd).slice(0, 16))
+		: path.resolve(cwd, cacheDir)
 	const entryPath = path.resolve(cwd, entryModuleId)
-	const relativeEntryPath = path.relative(path.resolve(cwd), entryPath)
+	const relativeEntryPath = path.relative(resolvedCwd, entryPath)
 	const isOutsideCwd = relativeEntryPath === '..' || relativeEntryPath.startsWith(`..${path.sep}`) || path.isAbsolute(relativeEntryPath)
 	const normalizedEntryModuleId =
 		isOutsideCwd

@@ -1,6 +1,27 @@
+import { cacheHash } from './cacheHash.js'
 import { getArtifactsPath } from './getArtifactsPath.js'
 import { getMetadataPath } from './getMetadataPath.js'
 import { version } from './version.js'
+
+/**
+ * @param {string} sourcePath
+ * @param {unknown} metadata
+ * @param {import('./types.js').FileAccessObject} fs
+ */
+const didSourceChange = async (sourcePath, metadata, fs) => {
+	if (!metadata || typeof metadata !== 'object') {
+		return true
+	}
+	const fileMetadata = /** @type {{ mtimeMs?: number, size?: number, contentHash?: string }} */ (metadata)
+	const stat = await fs.stat(sourcePath)
+	if (fileMetadata.mtimeMs !== stat.mtimeMs || fileMetadata.size !== stat.size) {
+		return true
+	}
+	if (fileMetadata.contentHash === undefined) {
+		return false
+	}
+	return fileMetadata.contentHash !== cacheHash(await fs.readFile(sourcePath, 'utf8'))
+}
 
 /**
  * Asynchronously reads Solidity compilation artifacts from the cache.
@@ -69,17 +90,18 @@ export const readArtifacts = async (cacheDir, fs, cwd, entryModuleId, compileFin
 	// Check if cache is still valid by:
 	// 1. Comparing cache version
 	// 2. Checking if any source files have been modified
-	const didContentChange =
-		version !== metadata.version ||
-		(compileFingerprint !== undefined && compileFingerprint !== metadata.compileFingerprint) ||
-		(
-			await Promise.all(
-				Object.entries(metadata.files).map(async ([sourcePath, timestamp]) => {
-					const didChange = timestamp !== (await fs.stat(sourcePath)).mtimeMs
-					return didChange
-				}),
-			)
-		).some((didChange) => didChange)
+		const didContentChange =
+			version !== metadata.version ||
+			(compileFingerprint !== undefined && compileFingerprint !== metadata.compileFingerprint) ||
+			!metadata.files ||
+			typeof metadata.files !== 'object' ||
+			(
+				await Promise.all(
+					Object.entries(metadata.files).map(async ([sourcePath, fileMetadata]) => {
+						return didSourceChange(sourcePath, fileMetadata, fs)
+					}),
+				)
+			).some((didChange) => didChange)
 
 	// If any validation fails, return undefined (cache miss)
 	if (didContentChange) {
@@ -88,6 +110,9 @@ export const readArtifacts = async (cacheDir, fs, cwd, entryModuleId, compileFin
 
 	// Read and parse artifacts file
 	const content = await fs.readFile(artifactsPath, 'utf8')
+	if (metadata.artifactsHash !== cacheHash(content)) {
+		return undefined
+	}
 
 	try {
 		return JSON.parse(content)

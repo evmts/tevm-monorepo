@@ -1,5 +1,5 @@
-import type { mkdirSync, statSync } from 'node:fs'
-import type { mkdir, stat, writeFile } from 'node:fs/promises'
+import type { mkdirSync, renameSync, statSync } from 'node:fs'
+import type { mkdir, rename, stat, writeFile } from 'node:fs/promises'
 import type { ResolvedArtifacts } from '@tevm/compiler'
 
 /**
@@ -17,6 +17,8 @@ export type FileAccessObject = {
 	stat: typeof stat
 	mkdirSync: typeof mkdirSync
 	mkdir: typeof mkdir
+	renameSync?: typeof renameSync
+	rename?: typeof rename
 }
 
 export type CachedItem = 'artifactsJson' | 'dts' | 'mjs'

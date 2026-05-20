@@ -83,6 +83,21 @@ describe('readCache', () => {
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
+	it('should return undefined if bytecode object has no bytecode content', async () => {
+		const mockArtifacts = {
+			artifacts: {
+				Contract1: { evm: { deployedBytecode: { sourceMap: '0:1:0' } } },
+			},
+		}
+		mockCache.readArtifacts.mockResolvedValueOnce(mockArtifacts)
+
+		const result = await readCache(mockLogger, mockCache, 'test/path', false, true)
+
+		expect(result).toBeUndefined()
+		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path')
+		expect(mockLogger.error).not.toHaveBeenCalled()
+	})
+
 	it('should handle case where artifacts is undefined when checking bytecode', async () => {
 		const mockArtifacts = { asts: { 'test.sol': {} } }
 		mockCache.readArtifacts.mockResolvedValueOnce(mockArtifacts)
