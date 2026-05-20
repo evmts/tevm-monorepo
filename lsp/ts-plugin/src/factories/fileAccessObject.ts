@@ -1,4 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import type { PathLike, Stats } from 'node:fs'
 import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
 import type { FileAccessObject } from '@tevm/base-bundler'
 import path from 'node:path'
@@ -138,28 +139,30 @@ export const createRealFileAccessObject = (
 		existsSync,
 		readFileSync,
 		writeFileSync,
-		statSync: (fileName) => {
-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
+		statSync: ((fileName: PathLike): Stats => {
+			const filePath = fileName.toString()
+			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
 			if (virtualMtimeMs === undefined) {
-				return statSync(fileName)
+				return statSync(filePath)
 			}
 			try {
-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
+				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
 			} catch (_e) {
-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
+				return { mtimeMs: virtualMtimeMs } as Stats
 			}
-		},
-		stat: async (fileName) => {
-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
+		}) as typeof statSync,
+		stat: (async (fileName: PathLike): Promise<Stats> => {
+			const filePath = fileName.toString()
+			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
 			if (virtualMtimeMs === undefined) {
-				return stat(fileName)
+				return stat(filePath)
 			}
 			try {
-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
+				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
 			} catch (_e) {
-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
+				return { mtimeMs: virtualMtimeMs } as Stats
 			}
-		},
+		}) as typeof stat,
 		mkdirSync,
 		mkdir,
 		writeFile,
