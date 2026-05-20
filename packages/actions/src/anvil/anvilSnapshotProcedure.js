@@ -26,22 +26,32 @@ export const anvilSnapshotJsonRpcProcedure = (client) => {
 	return async (request) => {
 		try {
 			const vm = await client.getVm()
-			const stateRoot = bytesToHex(vm.stateManager._baseState.getCurrentStateRoot())
+			const stateRoot = vm.stateManager._baseState.getCurrentStateRoot()
 			const state = await vm.stateManager.dumpCanonicalGenesis()
 			const txPool = await client.getTxPool()
 			const txs = await txPool.txsByPriceAndNonce()
-			const snapshotId = client.addSnapshot(stateRoot, state, {
+			/** @type {import('@tevm/node').SnapshotMetadata} */
+			const metadata = {
 				version: 1,
-				impersonatedAccount: client.getImpersonatedAccount()?.toString(),
 				autoImpersonate: client.getAutoImpersonate(),
 				miningConfig: client.miningConfig,
-				nextBlockTimestamp: client.getNextBlockTimestamp()?.toString(),
-				nextBlockGasLimit: client.getNextBlockGasLimit()?.toString(),
-				nextBlockBaseFeePerGas: client.getNextBlockBaseFeePerGas()?.toString(),
-				minGasPrice: client.getMinGasPrice()?.toString(),
-				blockTimestampInterval: client.getBlockTimestampInterval()?.toString(),
 				txHashes: txs.map((tx) => bytesToHex(tx.hash())),
-			})
+			}
+			const impersonatedAccount = client.getImpersonatedAccount()
+			if (impersonatedAccount !== undefined) metadata.impersonatedAccount = impersonatedAccount
+			const nextBlockTimestamp = client.getNextBlockTimestamp()
+			if (nextBlockTimestamp !== undefined) metadata.nextBlockTimestamp = nextBlockTimestamp
+			const nextBlockGasLimit = client.getNextBlockGasLimit()
+			if (nextBlockGasLimit !== undefined) metadata.nextBlockGasLimit = nextBlockGasLimit
+			const nextBlockBaseFeePerGas = client.getNextBlockBaseFeePerGas()
+			if (nextBlockBaseFeePerGas !== undefined) metadata.nextBlockBaseFeePerGas = nextBlockBaseFeePerGas
+			const nextBlockPrevRandao = client.getNextBlockPrevRandao()
+			if (nextBlockPrevRandao !== undefined) metadata.nextBlockPrevRandao = nextBlockPrevRandao
+			const minGasPrice = client.getMinGasPrice()
+			if (minGasPrice !== undefined) metadata.minGasPrice = minGasPrice
+			const blockTimestampInterval = client.getBlockTimestampInterval()
+			if (blockTimestampInterval !== undefined) metadata.blockTimestampInterval = blockTimestampInterval
+			const snapshotId = client.addSnapshot(stateRoot, state, metadata)
 
 			client.logger.debug({ snapshotId, stateRoot }, 'Created snapshot')
 

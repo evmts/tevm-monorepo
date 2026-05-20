@@ -73,11 +73,13 @@ export const ethSignTransactionHandler = ({ getChainId, accounts }) => {
 						: params.accessList
 							? 'eip2930'
 							: 'legacy'
-		return account.signTransaction({
-			...params,
-			type: txType,
-			chainId: Number(await getChainId()),
-			...(typeof nonce === 'bigint' ? { nonce: Number(nonce) } : {}),
-		})
+		return account.signTransaction(
+			/** @type {any} */ ({
+				...params,
+				type: txType,
+				chainId: Number(await getChainId()),
+				...(typeof nonce === 'bigint' ? { nonce: Number(nonce) } : {}),
+			}),
+		)
 	}
 }

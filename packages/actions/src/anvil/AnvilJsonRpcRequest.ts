@@ -8,6 +8,7 @@ import type {
 	AnvilGetAutomineParams,
 	AnvilGetIntervalMiningParams,
 	AnvilLoadStateParams,
+	AnvilResetParams,
 } from './index.js'
 
 // anvil_impersonateAccount
@@ -72,7 +73,10 @@ export type AnvilMineJsonRpcRequest = JsonRpcRequest<'anvil_mine', readonly [blo
 /**
  * JSON-RPC request for `anvil_reset` method
  */
-export type AnvilResetJsonRpcRequest = JsonRpcRequest<'anvil_reset', readonly []>
+export type AnvilResetJsonRpcRequest = JsonRpcRequest<
+	'anvil_reset',
+	readonly [] | readonly [SerializeToJson<AnvilResetParams>]
+>
 // anvil_dropTransaction
 /**
  * JSON-RPC request for `anvil_dropTransaction` method

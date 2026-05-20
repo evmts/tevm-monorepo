@@ -8,10 +8,30 @@ import type { Address, Hex } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
 import type { EIP1193RequestFn } from 'viem'
 import type { EIP1193EventEmitter } from './EIP1193EventEmitterTypes.js'
-import type { Filter } from './Filter.js'
-import type { MiningConfig } from './MiningConfig.js'
-import type { LightSyncStatus } from './lightSync.js'
 import type { ExExEvent, ExExHook } from './ExEx.js'
+import type { Filter } from './Filter.js'
+import type { LightSyncStatus } from './lightSync.js'
+import type { MiningConfig } from './MiningConfig.js'
+
+export type SnapshotMetadata = {
+	miningConfig?: MiningConfig
+	version?: number
+	nextBlockTimestamp?: bigint
+	blockTimestampInterval?: bigint
+	nextBlockGasLimit?: bigint
+	nextBlockBaseFeePerGas?: bigint
+	nextBlockPrevRandao?: bigint
+	minGasPrice?: bigint
+	impersonatedAccount?: Address
+	autoImpersonate?: boolean
+	txHashes?: readonly Hex[]
+	receiptEntries?: readonly (readonly [unknown, unknown])[]
+}
+
+export type TevmSnapshot = SnapshotMetadata & {
+	readonly stateRoot: string
+	readonly state: TevmState
+}
 
 /**
  * The base client used by Tevm. Add extensions to add additional functionality
@@ -181,17 +201,17 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	/**
 	 * Gets all stored snapshots for evm_snapshot/evm_revert
 	 */
-	readonly getSnapshots: () => Map<string, any>
+	readonly getSnapshots: () => Map<string, TevmSnapshot>
 	/**
 	 * Adds a new snapshot and returns its ID (hex string like "0x1")
 	 * Used by evm_snapshot RPC method
 	 */
-	readonly addSnapshot: (snapshot: any) => string
+	readonly addSnapshot: (stateRoot: string, state: TevmState, metadata?: SnapshotMetadata) => string
 	/**
 	 * Gets a snapshot by ID
 	 * Used by evm_revert RPC method
 	 */
-	readonly getSnapshot: (snapshotId: string) => any | undefined
+	readonly getSnapshot: (snapshotId: string) => TevmSnapshot | undefined
 	/**
 	 * Deletes snapshots with IDs greater than or equal to the given ID
 	 * This is needed because reverting invalidates all subsequent snapshots

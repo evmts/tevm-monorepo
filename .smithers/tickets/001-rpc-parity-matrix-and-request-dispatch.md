@@ -1,6 +1,6 @@
 ---
 id: 001
-status: todo
+status: done
 priority: P0
 area: rpc
 ---
@@ -28,3 +28,9 @@ Tevm should support every Ethereum/ZEVM-compatible RPC method that is practical 
 - The matrix excludes Voltaire primitives and any Guillotine Mini engine swap work.
 - Follow-up tickets exist for each missing method group.
 
+## Evidence
+
+- `packages/actions/src/rpcMethodMatrix.ts` defines the checked-in method matrix and classifies runtime, typed-missing, intentionally unsupported, and blocked methods.
+- `packages/actions/src/requestProcedure.js` uses the matrix for missing and intentionally unsupported method dispatch behavior.
+- `packages/actions/src/rpcMethodMatrix.spec.ts` and `packages/actions/src/requestProcedure.spec.ts` cover runtime/type agreement and dispatch behavior.
+- Verified with `pnpm --filter @tevm/actions typecheck` and `pnpm --filter @tevm/actions test:run`.

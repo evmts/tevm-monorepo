@@ -15,7 +15,10 @@ export const getStorageAtHandler = (client) => async (params) => {
 		ensureLightReady(client, 'eth_getStorageAt')
 		const selector = asLightSelector(params.blockTag ?? 'latest')
 		const { proof } = await getLightProof(client, params.address, [normalizedPosition], selector)
-		const hit = proof.storageProof.find((entry) => bytesToHex(hexToBytes(entry.key, { size: 32 })) === normalizedPosition)
+		const hit = proof.storageProof.find(
+			/** @param {{ key: import('@tevm/utils').Hex, value?: import('@tevm/utils').Hex }} entry */
+			(entry) => bytesToHex(hexToBytes(entry.key, { size: 32 })) === normalizedPosition,
+		)
 		if (!hit) throw new Error('LIGHT_CLIENT_MALFORMED_UPSTREAM_PROOF: requested storage key missing from proof payload')
 		return bytesToHex(hexToBytes(hit.value ?? '0x', { size: 32 }))
 	}

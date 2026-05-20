@@ -1,4 +1,6 @@
+import { createAddress } from '@tevm/address'
 import { MethodNotSupportedError } from '@tevm/errors'
+import { bytesToHex, keccak256, numberToHex } from '@tevm/utils'
 import { anvilAddBalanceJsonRpcProcedure } from './anvil/anvilAddBalanceProcedure.js'
 import { anvilAutoImpersonateAccountJsonRpcProcedure } from './anvil/anvilAutoImpersonateAccountProcedure.js'
 import { anvilDealErc20JsonRpcProcedure } from './anvil/anvilDealErc20Procedure.js'
@@ -30,10 +32,10 @@ import { anvilSetErc20AllowanceJsonRpcProcedure } from './anvil/anvilSetErc20All
 import { anvilSetIntervalMiningJsonRpcProcedure } from './anvil/anvilSetIntervalMiningProcedure.js'
 import { anvilSetLoggingEnabledJsonRpcProcedure } from './anvil/anvilSetLoggingEnabledProcedure.js'
 import { anvilSetMinGasPriceJsonRpcProcedure } from './anvil/anvilSetMinGasPriceProcedure.js'
-import { anvilSetPrevRandaoJsonRpcProcedure } from './anvil/anvilSetPrevRandaoProcedure.js'
 import { anvilSetNextBlockBaseFeePerGasJsonRpcProcedure } from './anvil/anvilSetNextBlockBaseFeePerGasProcedure.js'
 import { anvilSetNextBlockTimestampJsonRpcProcedure } from './anvil/anvilSetNextBlockTimestampProcedure.js'
 import { anvilSetNonceJsonRpcProcedure } from './anvil/anvilSetNonceProcedure.js'
+import { anvilSetPrevRandaoJsonRpcProcedure } from './anvil/anvilSetPrevRandaoProcedure.js'
 import { anvilSetRpcUrlJsonRpcProcedure } from './anvil/anvilSetRpcUrlProcedure.js'
 import { anvilSetStorageAtJsonRpcProcedure } from './anvil/anvilSetStorageAtProcedure.js'
 import { anvilSetTimeJsonRpcProcedure } from './anvil/anvilSetTimeProcedure.js'
@@ -58,12 +60,38 @@ import { debugTraceCallJsonRpcProcedure } from './debug/debugTraceCallProcedure.
 import { debugTraceChainJsonRpcProcedure } from './debug/debugTraceChainProcedure.js'
 import { debugTraceStateJsonRpcProcedure } from './debug/debugTraceStateProcedure.js'
 import { debugTraceTransactionJsonRpcProcedure } from './debug/debugTraceTransactionProcedure.js'
+import {
+	clearEngineState,
+	engineExchangeCapabilitiesProcedure,
+	engineExchangeTransitionConfigurationV1Procedure,
+	engineForkchoiceUpdatedProcedure,
+	engineGetBlobsProcedure,
+	engineGetClientVersionV1Procedure,
+	engineGetPayloadBodiesByHashProcedure,
+	engineGetPayloadBodiesByRangeProcedure,
+	engineGetPayloadProcedure,
+	engineNewPayloadProcedure,
+	testingBuildBlockV1Procedure,
+} from './engine/engineProcedures.js'
 import { blockNumberProcedure } from './eth/blockNumberProcedure.js'
 import { chainIdProcedure } from './eth/chainIdProcedure.js'
 import { ethAccountsProcedure } from './eth/ethAccountsProcedure.js'
 import { ethBlobBaseFeeJsonRpcProcedure } from './eth/ethBlobBaseFeeProcedure.js'
 import { ethCallProcedure } from './eth/ethCallProcedure.js'
 import { ethCoinbaseJsonRpcProcedure } from './eth/ethCoinbaseProcedure.js'
+import {
+	debugGetBadBlocksJsonRpcProcedure,
+	ethGetBlockAccessListJsonRpcProcedure,
+	ethGetStorageValuesJsonRpcProcedure,
+	ethGetUncleByBlockHashAndIndexJsonRpcProcedure,
+	ethGetUncleByBlockNumberAndIndexJsonRpcProcedure,
+	ethGetUncleCountByBlockHashJsonRpcProcedure,
+	ethGetUncleCountByBlockNumberJsonRpcProcedure,
+	ethGetWorkJsonRpcProcedure,
+	ethHashrateJsonRpcProcedure,
+	ethSubmitHashrateJsonRpcProcedure,
+	ethSubmitWorkJsonRpcProcedure,
+} from './eth/ethCompatibilityNoopsProcedure.js'
 import { ethCreateAccessListProcedure } from './eth/ethCreateAccessListProcedure.js'
 import { ethEstimateGasJsonRpcProcedure } from './eth/ethEstimateGasProcedure.js'
 import { ethFeeHistoryProcedure } from './eth/ethFeeHistoryProcedure.js'
@@ -94,25 +122,11 @@ import { ethSimulateV2Procedure } from './eth/ethSimulateV2Procedure.js'
 import { ethSubscribeJsonRpcProcedure } from './eth/ethSubscribeProcedure.js'
 import { ethUninstallFilterJsonRpcProcedure } from './eth/ethUninstallFilterProcedure.js'
 import { ethUnsubscribeJsonRpcProcedure } from './eth/ethUnsubscribeProcedure.js'
-import { clearEngineState, engineExchangeCapabilitiesProcedure, engineExchangeTransitionConfigurationV1Procedure, engineForkchoiceUpdatedProcedure, engineGetBlobsProcedure, engineGetClientVersionV1Procedure, engineGetPayloadBodiesByHashProcedure, engineGetPayloadBodiesByRangeProcedure, engineGetPayloadProcedure, engineNewPayloadProcedure, testingBuildBlockV1Procedure } from './engine/engineProcedures.js'
 import { gasPriceProcedure } from './eth/gasPriceProcedure.js'
 import { getBalanceProcedure } from './eth/getBalanceProcedure.js'
 import { getCodeProcedure } from './eth/getCodeProcedure.js'
 import { getStorageAtProcedure } from './eth/getStorageAtProcedure.js'
 import { maxPriorityFeePerGasProcedure } from './eth/maxPriorityFeePerGasProcedure.js'
-import {
-	debugGetBadBlocksJsonRpcProcedure,
-	ethGetBlockAccessListJsonRpcProcedure,
-	ethGetStorageValuesJsonRpcProcedure,
-	ethGetUncleByBlockHashAndIndexJsonRpcProcedure,
-	ethGetUncleByBlockNumberAndIndexJsonRpcProcedure,
-	ethGetUncleCountByBlockHashJsonRpcProcedure,
-	ethGetUncleCountByBlockNumberJsonRpcProcedure,
-	ethGetWorkJsonRpcProcedure,
-	ethHashrateJsonRpcProcedure,
-	ethSubmitHashrateJsonRpcProcedure,
-	ethSubmitWorkJsonRpcProcedure,
-} from './eth/ethCompatibilityNoopsProcedure.js'
 import { testAccounts } from './eth/utils/testAccounts.js'
 import { getAccountProcedure } from './GetAccount/getAccountProcedure.js'
 import { loadStateProcedure } from './LoadState/loadStateProcedure.js'
@@ -120,11 +134,10 @@ import { mineProcedure } from './Mine/mineProcedure.js'
 import { setAccountProcedure } from './SetAccount/setAccountProcedure.js'
 import { tevmLightSyncStatusProcedure } from './tevm/tevmLightSyncStatusProcedure.js'
 import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
-import { createAddress } from '@tevm/address'
-import { keccak256, numberToHex } from '@tevm/utils'
 
 /**
  * @typedef {ReturnType<typeof createHandlers>} RequestHandlers
+ * @typedef {Record<string, Record<string, any>>} TxpoolBucket
  */
 
 /**
@@ -135,7 +148,7 @@ import { keccak256, numberToHex } from '@tevm/utils'
  * @example
  */
 export const createHandlers = (client) => {
-	const engineEnabled = client?.config?.engineApi !== false
+	const engineEnabled = /** @type {any} */ (client).config?.engineApi !== false
 	/** @type {ReturnType<typeof setInterval> | undefined} */
 	let intervalMiningTimer
 	const stopIntervalMiningTimer = () => {
@@ -144,12 +157,15 @@ export const createHandlers = (client) => {
 			intervalMiningTimer = undefined
 		}
 	}
+	/**
+	 * @param {number} blockTime
+	 */
 	const startIntervalMiningTimer = (blockTime) => {
 		stopIntervalMiningTimer()
 		if (blockTime <= 0) return
 		intervalMiningTimer = setInterval(async () => {
 			if (client.miningConfig.type !== 'interval' || client.miningConfig.blockTime <= 0) return
-			await mineProcedure(client)({ jsonrpc: '2.0', method: 'anvil_mine', params: ['0x1', '0x0'] })
+			await mineProcedure(client)(/** @type {any} */ ({ jsonrpc: '2.0', method: 'anvil_mine', params: ['0x1', '0x0'] }))
 		}, blockTime * 1000)
 	}
 	if (client.miningConfig.type === 'interval' && client.miningConfig.blockTime > 0) {
@@ -276,17 +292,23 @@ export const createHandlers = (client) => {
 		}),
 	}
 
+	/**
+	 * @param {string | undefined} [senderFilter]
+	 * @returns {Promise<{ pending: TxpoolBucket, queued: TxpoolBucket }>}
+	 */
 	const classifyTxpool = async (senderFilter) => {
 		const txPool = await client.getTxPool()
 		const vm = await client.getVm()
+		/** @type {TxpoolBucket} */
 		const pending = {}
+		/** @type {TxpoolBucket} */
 		const queued = {}
 		for (const [sender, txs] of txPool.pool) {
 			if (senderFilter && sender.toLowerCase() !== senderFilter.toLowerCase()) continue
 			const account = await vm.stateManager.getAccount(createAddress(sender))
 			let nextNonce = account?.nonce ?? 0n
 			for (const tx of txs) {
-				const innerTx = tx.tx ?? tx
+				const innerTx = /** @type {any} */ (tx.tx ?? tx)
 				const txNonce = BigInt(innerTx.nonce ?? innerTx.txData?.nonce ?? 0n)
 				const isPending = txNonce === nextNonce
 				const bucket = isPending ? pending : queued
@@ -298,17 +320,21 @@ export const createHandlers = (client) => {
 		return { pending, queued }
 	}
 
+	/**
+	 * @param {string | undefined} [senderFilter]
+	 */
 	const toContentResult = async (senderFilter) => {
 		const { pending, queued } = await classifyTxpool(senderFilter)
 		const vm = await client.getVm()
 		const block = await vm.blockchain.getCanonicalHeadBlock()
+		/**
+		 * @param {TxpoolBucket} bucket
+		 */
 		const mapBucket = (bucket) =>
 			Object.fromEntries(
 				Object.entries(bucket).map(([sender, byNonce]) => [
 					sender,
-					Object.fromEntries(
-						Object.entries(byNonce).map(([nonce, tx]) => [nonce, txToJsonRpcTx(tx, block)]),
-					),
+					Object.fromEntries(Object.entries(byNonce).map(([nonce, tx]) => [nonce, txToJsonRpcTx(tx, block)])),
 				]),
 			)
 		return { pending: mapBucket(pending), queued: mapBucket(queued) }
@@ -355,7 +381,10 @@ export const createHandlers = (client) => {
 		anvil_getIntervalMining: anvilGetIntervalMiningJsonRpcProcedure(client),
 		anvil_impersonateAccount: anvilImpersonateAccountJsonRpcProcedure(client),
 		anvil_increaseTime: anvilIncreaseTimeJsonRpcProcedure(client),
-		anvil_loadState: async (request) => {
+		anvil_loadState: async (
+			/** @type {any} */
+			request,
+		) => {
 			clearEngineState(client)
 			return anvilLoadStateJsonRpcProcedure(client)(request)
 		},
@@ -365,7 +394,10 @@ export const createHandlers = (client) => {
 		anvil_nodeInfo: anvilNodeInfoJsonRpcProcedure(client),
 		anvil_removeBlockTimestampInterval: anvilRemoveBlockTimestampIntervalJsonRpcProcedure(client),
 		anvil_removePoolTransactions: anvilRemovePoolTransactionsJsonRpcProcedure(client),
-		anvil_reset: async (request) => {
+		anvil_reset: async (
+			/** @type {any} */
+			request,
+		) => {
 			clearEngineState(client)
 			return anvilResetJsonRpcProcedure(client)(request)
 		},
@@ -393,12 +425,18 @@ export const createHandlers = (client) => {
 	}
 	const anvilHandlers = {
 		...rawAnvilHandlers,
-		anvil_setAutomine: async (request) => {
+		anvil_setAutomine: async (
+			/** @type {any} */
+			request,
+		) => {
 			const response = await rawAnvilHandlers.anvil_setAutomine(request)
 			stopIntervalMiningTimer()
 			return response
 		},
-		anvil_setIntervalMining: async (request) => {
+		anvil_setIntervalMining: async (
+			/** @type {any} */
+			request,
+		) => {
 			const response = await rawAnvilHandlers.anvil_setIntervalMining(request)
 			const config = client.miningConfig
 			if (config.type === 'interval') startIntervalMiningTimer(config.blockTime)
@@ -485,20 +523,29 @@ export const createHandlers = (client) => {
 			const txPool = await client.getTxPool()
 			const txs = await txPool.txsByPriceAndNonce()
 			const receiptManager = await client.getReceiptsManager()
-			const receiptEntries = [...(/** @type {Map<any, any>} */ (receiptManager.mapDb?.cache ?? new Map())).entries()]
-			const snapshotId = client.addSnapshot(stateRoot, state, {
+			const receiptEntries = [.../** @type {Map<any, any>} */ (receiptManager.mapDb?._cache ?? new Map()).entries()]
+			/** @type {import('@tevm/node').SnapshotMetadata} */
+			const metadata = {
 				miningConfig: client.miningConfig,
-				nextBlockTimestamp: client.getNextBlockTimestamp(),
-				blockTimestampInterval: client.getBlockTimestampInterval(),
-				nextBlockGasLimit: client.getNextBlockGasLimit(),
-				nextBlockBaseFeePerGas: client.getNextBlockBaseFeePerGas(),
-				nextBlockPrevRandao: client.getNextBlockPrevRandao(),
-				minGasPrice: client.getMinGasPrice(),
-				impersonatedAccount: client.getImpersonatedAccount(),
 				autoImpersonate: client.getAutoImpersonate(),
 				txHashes: txs.map((tx) => bytesToHex(tx.hash())),
 				receiptEntries,
-			})
+			}
+			const nextBlockTimestamp = client.getNextBlockTimestamp()
+			if (nextBlockTimestamp !== undefined) metadata.nextBlockTimestamp = nextBlockTimestamp
+			const blockTimestampInterval = client.getBlockTimestampInterval()
+			if (blockTimestampInterval !== undefined) metadata.blockTimestampInterval = blockTimestampInterval
+			const nextBlockGasLimit = client.getNextBlockGasLimit()
+			if (nextBlockGasLimit !== undefined) metadata.nextBlockGasLimit = nextBlockGasLimit
+			const nextBlockBaseFeePerGas = client.getNextBlockBaseFeePerGas()
+			if (nextBlockBaseFeePerGas !== undefined) metadata.nextBlockBaseFeePerGas = nextBlockBaseFeePerGas
+			const nextBlockPrevRandao = client.getNextBlockPrevRandao()
+			if (nextBlockPrevRandao !== undefined) metadata.nextBlockPrevRandao = nextBlockPrevRandao
+			const minGasPrice = client.getMinGasPrice()
+			if (minGasPrice !== undefined) metadata.minGasPrice = minGasPrice
+			const impersonatedAccount = client.getImpersonatedAccount()
+			if (impersonatedAccount !== undefined) metadata.impersonatedAccount = impersonatedAccount
+			const snapshotId = client.addSnapshot(stateRoot, state, metadata)
 			return {
 				method: request.method,
 				result: snapshotId,
@@ -533,7 +580,7 @@ export const createHandlers = (client) => {
 				await vm.stateManager.setStateRoot(
 					/** @type {any} */ (Uint8Array.from(Buffer.from(snapshot.stateRoot.slice(2), 'hex'))),
 				)
-				client.miningConfig = snapshot.miningConfig
+				if (snapshot.miningConfig !== undefined) client.miningConfig = snapshot.miningConfig
 				client.setNextBlockTimestamp(snapshot.nextBlockTimestamp)
 				client.setBlockTimestampInterval(snapshot.blockTimestampInterval)
 				client.setNextBlockGasLimit(snapshot.nextBlockGasLimit)
@@ -544,9 +591,12 @@ export const createHandlers = (client) => {
 				client.setAutoImpersonate(snapshot.autoImpersonate ?? false)
 				const txPool = await client.getTxPool()
 				const currentTxs = await txPool.txsByPriceAndNonce()
-				currentTxs.forEach((tx) => txPool.removeByHash(bytesToHex(tx.hash())))
+				for (const tx of currentTxs) {
+					txPool.removeByHash(bytesToHex(tx.hash()))
+				}
 				const receiptManager = await client.getReceiptsManager()
-				receiptManager.mapDb.cache = new Map(snapshot.receiptEntries ?? [])
+				const receiptMapDb = /** @type {any} */ (receiptManager.mapDb)
+				receiptMapDb._cache = new Map(snapshot.receiptEntries ?? [])
 				// Delete all snapshots from this ID onwards (they are now invalid)
 				client.deleteSnapshotsFrom(snapshotId)
 				return {
@@ -568,9 +618,9 @@ export const createHandlers = (client) => {
 	}
 	const engineHandlers = engineEnabled
 		? {
-				engine_exchangeCapabilities: engineExchangeCapabilitiesProcedure(client),
-				engine_exchangeTransitionConfigurationV1: engineExchangeTransitionConfigurationV1Procedure(client),
-				engine_getClientVersionV1: engineGetClientVersionV1Procedure(client),
+				engine_exchangeCapabilities: engineExchangeCapabilitiesProcedure(),
+				engine_exchangeTransitionConfigurationV1: engineExchangeTransitionConfigurationV1Procedure(),
+				engine_getClientVersionV1: engineGetClientVersionV1Procedure(),
 				engine_forkchoiceUpdatedV1: engineForkchoiceUpdatedProcedure(client),
 				engine_forkchoiceUpdatedV2: engineForkchoiceUpdatedProcedure(client),
 				engine_forkchoiceUpdatedV3: engineForkchoiceUpdatedProcedure(client),
@@ -586,13 +636,13 @@ export const createHandlers = (client) => {
 				engine_getPayloadV4: engineGetPayloadProcedure(client),
 				engine_getPayloadV5: engineGetPayloadProcedure(client),
 				engine_getPayloadV6: engineGetPayloadProcedure(client),
-				engine_getPayloadBodiesByHashV1: engineGetPayloadBodiesByHashProcedure(client),
-				engine_getPayloadBodiesByHashV2: engineGetPayloadBodiesByHashProcedure(client),
-				engine_getPayloadBodiesByRangeV1: engineGetPayloadBodiesByRangeProcedure(client),
-				engine_getPayloadBodiesByRangeV2: engineGetPayloadBodiesByRangeProcedure(client),
-				engine_getBlobsV1: engineGetBlobsProcedure(client),
-				engine_getBlobsV2: engineGetBlobsProcedure(client),
-				engine_getBlobsV3: engineGetBlobsProcedure(client),
+				engine_getPayloadBodiesByHashV1: engineGetPayloadBodiesByHashProcedure(),
+				engine_getPayloadBodiesByHashV2: engineGetPayloadBodiesByHashProcedure(),
+				engine_getPayloadBodiesByRangeV1: engineGetPayloadBodiesByRangeProcedure(),
+				engine_getPayloadBodiesByRangeV2: engineGetPayloadBodiesByRangeProcedure(),
+				engine_getBlobsV1: engineGetBlobsProcedure(),
+				engine_getBlobsV2: engineGetBlobsProcedure(),
+				engine_getBlobsV3: engineGetBlobsProcedure(),
 				testing_buildBlockV1: testingBuildBlockV1Procedure(client),
 			}
 		: {}
@@ -622,24 +672,29 @@ export const createHandlers = (client) => {
 		...debugHandlers,
 		...evmHandlers,
 		...engineHandlers,
+		/** @param {any} request */
 		txpool_content: async (request) => ({
 			method: request.method,
 			result: await toContentResult(),
 			jsonrpc: '2.0',
 			...(request.id ? { id: request.id } : {}),
 		}),
+		/** @param {any} request */
 		txpool_contentFrom: async (request) => ({
 			method: request.method,
 			result: await toContentResult(request.params?.[0]),
 			jsonrpc: '2.0',
 			...(request.id ? { id: request.id } : {}),
 		}),
+		/** @param {any} request */
 		txpool_inspect: async (request) => {
 			const { pending, queued } = await classifyTxpool()
+			/** @param {any} tx */
 			const inspectTx = (tx) =>
 				`${tx.to ? tx.to.toString() : 'contract creation'}: ${tx.value ? numberToHex(tx.value) : '0x0'} wei + ${
 					tx.gasLimit ? numberToHex(tx.gasLimit) : '0x0'
 				} gas × ${tx.maxFeePerGas ? numberToHex(tx.maxFeePerGas) : tx.gasPrice ? numberToHex(tx.gasPrice) : '0x0'} wei`
+			/** @param {TxpoolBucket} bucket */
 			const mapBucket = (bucket) =>
 				Object.fromEntries(
 					Object.entries(bucket).map(([sender, byNonce]) => [
@@ -654,8 +709,10 @@ export const createHandlers = (client) => {
 				...(request.id ? { id: request.id } : {}),
 			}
 		},
+		/** @param {any} request */
 		txpool_status: async (request) => {
 			const { pending, queued } = await classifyTxpool()
+			/** @param {TxpoolBucket} bucket */
 			const count = (bucket) => Object.values(bucket).reduce((sum, byNonce) => sum + Object.keys(byNonce).length, 0)
 			return {
 				method: request.method,
@@ -664,12 +721,14 @@ export const createHandlers = (client) => {
 				...(request.id ? { id: request.id } : {}),
 			}
 		},
+		/** @param {any} request */
 		web3_clientVersion: (request) => ({
 			method: request.method,
 			result: 'tevm/1.0.0',
 			jsonrpc: '2.0',
 			...(request.id ? { id: request.id } : {}),
 		}),
+		/** @param {any} request */
 		web3_sha3: (request) => {
 			const value = request?.params?.[0]
 			if (typeof value !== 'string' || !value.startsWith('0x')) {
@@ -682,11 +741,12 @@ export const createHandlers = (client) => {
 			}
 			return {
 				method: request.method,
-				result: keccak256(value),
+				result: keccak256(/** @type {import('@tevm/utils').Hex} */ (value)),
 				jsonrpc: '2.0',
 				...(request.id ? { id: request.id } : {}),
 			}
 		},
+		/** @param {any} request */
 		net_version: async (request) => {
 			const vm = await client.getVm()
 			const chainId = vm.common.ethjsCommon.chainId()
@@ -697,18 +757,21 @@ export const createHandlers = (client) => {
 				...(request.id ? { id: request.id } : {}),
 			}
 		},
+		/** @param {any} request */
 		net_listening: (request) => ({
 			method: request.method,
 			result: client.status !== 'STOPPED',
 			jsonrpc: '2.0',
 			...(request.id ? { id: request.id } : {}),
 		}),
+		/** @param {any} request */
 		net_peerCount: (request) => ({
 			method: request.method,
 			result: '0x0',
 			jsonrpc: '2.0',
 			...(request.id ? { id: request.id } : {}),
 		}),
+		/** @param {any} request */
 		rpc_modules: (request) => ({
 			method: request.method,
 			result: Object.fromEntries(
@@ -719,7 +782,9 @@ export const createHandlers = (client) => {
 			jsonrpc: '2.0',
 			...(request.id ? { id: request.id } : {}),
 		}),
+		/** @param {any} request */
 		miner_start: (request) => anvilSetAutomineJsonRpcProcedure(client)({ ...request, params: [true] }),
+		/** @param {any} request */
 		miner_stop: (request) => anvilSetAutomineJsonRpcProcedure(client)({ ...request, params: [false] }),
 	}
 

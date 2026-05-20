@@ -1,6 +1,6 @@
 ---
 id: 002
-status: todo
+status: done
 priority: P0
 area: consensus
 ---
@@ -28,3 +28,9 @@ Light client support should be implemented as a new `tevm/consensus` package tha
 - The light-client implementation can be wired without changing state manager APIs directly.
 - Unit tests cover injection, defaults, and node copy behavior.
 
+## Evidence
+
+- `packages/consensus` exists as `@tevm/consensus`, and `tevm/package.json` exports `./consensus`.
+- `packages/node/src/createTevmNode.js` accepts `options.consensus`, defaults to `createNoopConsensusService`, and preserves consensus on node copy.
+- `packages/node/src/TevmNodeOptions.ts` and `packages/node/src/TevmNode.ts` expose the consensus injection surface.
+- Verified with `pnpm --filter @tevm/consensus typecheck`, `pnpm --filter @tevm/node typecheck`, `pnpm --filter @tevm/consensus exec vitest run src/createConsensusService.spec.ts`, and `pnpm --filter @tevm/node exec vitest run src/createTevmNode.spec.ts`.

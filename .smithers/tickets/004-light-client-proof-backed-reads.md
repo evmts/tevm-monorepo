@@ -1,6 +1,6 @@
 ---
 id: 004
-status: todo
+status: done
 priority: P0
 area: consensus
 depends_on: [002, 003]
@@ -35,3 +35,9 @@ Light client mode needs proof-backed execution reads served through Tevm's norma
 - Numeric selector behavior is tested for genesis, retained history, and outside-window cases.
 - Trusted/devnet mode behavior is unchanged.
 
+## Evidence
+
+- `packages/actions/src/eth/lightClientRead.js` centralizes selector handling, readiness gates, state-root lookup, proof fetch, payload validation, and proof verification errors.
+- Light mode paths are wired into `eth_chainId`, `eth_blockNumber`, `eth_getBalance`, `eth_getCode`, `eth_getStorageAt`, and `eth_getTransactionCount`.
+- `packages/actions/src/requestProcedure.js` allows `eth_chainId`, `tevm_lightSyncStatus`, and `zevm_lightSyncStatus` before light-client readiness while gating other reads.
+- Verified with `packages/actions/src/eth/lightClientRead.spec.ts`, handler-specific light-client tests, `pnpm --filter @tevm/actions typecheck`, and full `@tevm/actions` tests.

@@ -1,6 +1,6 @@
 ---
 id: 008
-status: todo
+status: done
 priority: P0
 area: txpool
 ---
@@ -28,3 +28,9 @@ Tevm has a txpool package and many transaction submission features, but the runt
 - Tests cover empty pool, multiple senders, pending versus queued txs, filtering by sender, dropped transactions, mined transactions, and replacement transactions.
 - `txpool_status` counts match `txpool_content`.
 
+## Evidence
+
+- `packages/actions/src/createHandlers.js` registers `txpool_content`, `txpool_contentFrom`, `txpool_inspect`, and `txpool_status`.
+- Txpool RPC output is built from the Tevm txpool and classifies pending versus queued transactions by sender nonce.
+- `packages/actions/src/requestProcedure.spec.ts` covers empty pool, multiple senders, pending/queued classification, filtering, mined/dropped tx removal, replacement transactions, unsigned tx metadata, and status counts.
+- Verified with focused request tests and full `pnpm --filter @tevm/actions test:run`.

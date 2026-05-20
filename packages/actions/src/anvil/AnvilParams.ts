@@ -90,7 +90,12 @@ export type AnvilMineParams = {
 /**
  * Params for `anvil_reset` handler
  */
-export type AnvilResetParams = {}
+export type AnvilResetParams = {
+	readonly forking?: {
+		readonly jsonRpcUrl?: string
+		readonly blockNumber?: Hex
+	}
+}
 
 // anvil_dropTransaction
 /**

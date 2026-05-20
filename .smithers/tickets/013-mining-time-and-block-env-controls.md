@@ -1,6 +1,6 @@
 ---
 id: 013
-status: todo
+status: done
 priority: P1
 area: mining
 ---
@@ -37,3 +37,9 @@ Tevm has several Anvil-style mining and time controls, but the semantics need to
 - `setPrevRandao` is implemented or explicitly scoped if unsupported by the current block model.
 - Tests cover mode switches, pending tx inclusion, empty blocks, timestamp monotonicity, and block environment overrides.
 
+## Evidence
+
+- `packages/actions/src/createHandlers.js` wires automine, interval mining, manual mining, time, timestamp, block gas limit, base fee, prevRandao, coinbase, and min gas price controls.
+- `packages/actions/src/Mine/mineHandler.js` applies timestamp precedence and block environment overrides while clearing one-shot overrides after use.
+- `packages/actions/src/anvil/anvilSetPrevRandaoProcedure.js` implements `anvil_setPrevRandao`.
+- Verified with `packages/actions/src/Mine/mineHandler.spec.ts`, Anvil control procedure tests, `packages/actions/src/createHandlers.spec.ts`, and full `@tevm/actions` tests.

@@ -1,6 +1,6 @@
 ---
 id: 006
-status: todo
+status: done
 priority: P0
 area: engine-api
 ---
@@ -34,3 +34,9 @@ Tevm should support the Engine API RPC surface for execution-client interoperabi
 - The implementation can be enabled/disabled through node/server config.
 - The implementation is compatible with Tevm's block, tx, state, and receipt managers.
 
+## Evidence
+
+- `packages/actions/src/createHandlers.js` registers the Engine API method surface behind `engineEnabled !== false`.
+- `packages/actions/src/engine/engineProcedures.js` implements forkchoice, payload build/import/get, body/blob lookups, client metadata, and transition configuration.
+- `packages/actions/src/engine/engineProcedures.spec.ts` covers forkchoice/getPayload lifecycle, valid payload import, unknown parent, invalid payload, malformed params, unknown payload IDs, and lookup limits.
+- Verified with focused engine tests and full `pnpm --filter @tevm/actions test:run`.

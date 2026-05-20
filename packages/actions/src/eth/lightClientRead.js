@@ -1,5 +1,9 @@
 import { numberToHex } from '@tevm/utils'
 
+/**
+ * @param {unknown} blockTag
+ * @returns {import('@tevm/consensus').LightReadSelector}
+ */
 export const asLightSelector = (blockTag) => {
 	if (
 		blockTag === undefined ||
@@ -10,16 +14,22 @@ export const asLightSelector = (blockTag) => {
 	) {
 		return blockTag === 'earliest' ? 0n : (blockTag ?? 'latest')
 	}
-	if (blockTag === 'pending') throw new Error('LIGHT_CLIENT_UNSUPPORTED_SELECTOR: pending is not supported for proof-backed reads')
+	if (blockTag === 'pending')
+		throw new Error('LIGHT_CLIENT_UNSUPPORTED_SELECTOR: pending is not supported for proof-backed reads')
 	if (typeof blockTag === 'bigint') return blockTag
 	if (typeof blockTag === 'string' && blockTag.startsWith('0x')) {
 		// Block hashes are not supported selectors for proof-backed light reads.
-		if (blockTag.length === 66) throw new Error('LIGHT_CLIENT_UNSUPPORTED_SELECTOR: block hash selectors are not supported')
+		if (blockTag.length === 66)
+			throw new Error('LIGHT_CLIENT_UNSUPPORTED_SELECTOR: block hash selectors are not supported')
 		return BigInt(blockTag)
 	}
 	throw new Error(`LIGHT_CLIENT_UNSUPPORTED_SELECTOR: unsupported selector ${blockTag}`)
 }
 
+/**
+ * @param {import('@tevm/node').TevmNode} client
+ * @param {string} method
+ */
 export const ensureLightReady = (client, method) => {
 	if (client.consensus.mode !== 'light-client') return
 	if (client.consensus.isReady?.() === false || client.getLightSyncStatus().ready === false) {
@@ -27,6 +37,12 @@ export const ensureLightReady = (client, method) => {
 	}
 }
 
+/**
+ * @param {import('@tevm/node').TevmNode} client
+ * @param {import('@tevm/utils').Address} address
+ * @param {readonly import('@tevm/utils').Hex[]} storageKeys
+ * @param {import('@tevm/consensus').LightReadSelector} selector
+ */
 export const getLightProof = async (client, address, storageKeys, selector) => {
 	const stateRoot = await client.consensus.resolveStateRoot?.(selector)
 	if (!stateRoot) throw new Error('LIGHT_CLIENT_UNSUPPORTED_SELECTOR: selector is outside retained history window')
@@ -38,7 +54,9 @@ export const getLightProof = async (client, address, storageKeys, selector) => {
 	const ok = await client.consensus.verifyRead?.({
 		account: address,
 		stateRoot,
-		selector: typeof selector === 'bigint' ? numberToHex(selector) : selector,
+		selector: /** @type {'latest' | 'safe' | 'finalized' | import('@tevm/utils').Hex} */ (
+			typeof selector === 'bigint' ? numberToHex(selector) : selector
+		),
 		proof,
 	})
 	if (ok === false) throw new Error('LIGHT_CLIENT_PROOF_VERIFICATION_FAILED: proof verification failed')

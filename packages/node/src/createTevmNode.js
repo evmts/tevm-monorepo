@@ -14,8 +14,8 @@ import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { GENESIS_STATE } from './GENESIS_STATE.js'
 import { getBlockNumber } from './getBlockNumber.js'
 import { getChainId } from './getChainId.js'
-import { statePersister } from './statePersister.js'
 import { chainIdToLightSyncNetwork, normalizeSlots, selectStartupCheckpoint } from './lightSync.js'
+import { statePersister } from './statePersister.js'
 
 // TODO the common code is not very good and should be moved to common package
 // it has rotted from a previous implementation where the chainId was not used by vm
@@ -29,7 +29,11 @@ import { chainIdToLightSyncNetwork, normalizeSlots, selectStartupCheckpoint } fr
  *  ```
  */
 export const createTevmNode = (options = {}) => {
+	/** @type {import('./ExEx.js').ExExHook[]} */
 	const exExHooks = [...(options.exExHooks ?? [])]
+	/**
+	 * @param {import('./ExEx.js').ExExHook} hook
+	 */
 	const registerExExHook = (hook) => {
 		exExHooks.push(hook)
 		return () => {
@@ -37,6 +41,9 @@ export const createTevmNode = (options = {}) => {
 			if (i >= 0) exExHooks.splice(i, 1)
 		}
 	}
+	/**
+	 * @param {import('./ExEx.js').ExExEvent} event
+	 */
 	const emitExExEvent = async (event) => {
 		for (const hook of exExHooks) {
 			try {
@@ -141,6 +148,7 @@ export const createTevmNode = (options = {}) => {
 	 * @type {bigint | undefined}
 	 */
 	let nextBlockBaseFeePerGas
+	/** @type {bigint | undefined} */
 	let nextBlockPrevRandao
 	/**
 	 * Sets the base fee per gas for the next block (EIP-1559)
@@ -154,9 +162,15 @@ export const createTevmNode = (options = {}) => {
 	 * @returns {bigint | undefined}
 	 */
 	const getNextBlockBaseFeePerGas = () => nextBlockBaseFeePerGas
+	/**
+	 * @param {bigint | undefined} prevRandao
+	 */
 	const setNextBlockPrevRandao = (prevRandao) => {
 		nextBlockPrevRandao = prevRandao
 	}
+	/**
+	 * @returns {bigint | undefined}
+	 */
 	const getNextBlockPrevRandao = () => nextBlockPrevRandao
 
 	/**
@@ -215,7 +229,9 @@ export const createTevmNode = (options = {}) => {
 
 	/**
 	 * Adds a new snapshot and returns its ID
-	 * @param {any} snapshot
+	 * @param {string} stateRoot
+	 * @param {import('@tevm/state').TevmState} state
+	 * @param {import('./TevmNode.js').SnapshotMetadata} [metadata]
 	 * @returns {string} - The snapshot ID in hex format (e.g., "0x1")
 	 */
 	const addSnapshot = (stateRoot, state, metadata = {}) => {
@@ -619,6 +635,7 @@ export const createTevmNode = (options = {}) => {
 		 * @type {bigint | undefined}
 		 */
 		let copiedNextBlockBaseFeePerGas = baseClient.getNextBlockBaseFeePerGas()
+		/** @type {bigint | undefined} */
 		let copiedNextBlockPrevRandao = baseClient.getNextBlockPrevRandao()
 		/**
 		 * @param {bigint | undefined} baseFeePerGas
@@ -626,6 +643,9 @@ export const createTevmNode = (options = {}) => {
 		const setCopiedNextBlockBaseFeePerGas = (baseFeePerGas) => {
 			copiedNextBlockBaseFeePerGas = baseFeePerGas
 		}
+		/**
+		 * @param {bigint | undefined} prevRandao
+		 */
 		const setCopiedNextBlockPrevRandao = (prevRandao) => {
 			copiedNextBlockPrevRandao = prevRandao
 		}
@@ -653,7 +673,7 @@ export const createTevmNode = (options = {}) => {
 		}
 		/**
 		 * Copy snapshots from the parent client
-		 * @type {Map<string, { stateRoot: string, state: import('@tevm/state').TevmState }>}
+		 * @type {Map<string, import('./TevmNode.js').TevmSnapshot>}
 		 */
 		const copiedSnapshots = new Map(baseClient.getSnapshots())
 		let copiedSnapshotIdCounter = copiedSnapshots.size + 1
@@ -662,17 +682,18 @@ export const createTevmNode = (options = {}) => {
 		/**
 		 * @param {string} stateRoot
 		 * @param {import('@tevm/state').TevmState} state
+		 * @param {import('./TevmNode.js').SnapshotMetadata} [metadata]
 		 * @returns {string}
 		 */
-		const addCopiedSnapshot = (stateRoot, state) => {
+		const addCopiedSnapshot = (stateRoot, state, metadata = {}) => {
 			const id = `0x${copiedSnapshotIdCounter.toString(16)}`
-			copiedSnapshots.set(id, { stateRoot, state })
+			copiedSnapshots.set(id, { stateRoot, state, ...metadata })
 			copiedSnapshotIdCounter++
 			return id
 		}
 		/**
 		 * @param {string} snapshotId
-		 * @returns {{ stateRoot: string, state: import('@tevm/state').TevmState } | undefined}
+		 * @returns {import('./TevmNode.js').TevmSnapshot | undefined}
 		 */
 		const getCopiedSnapshot = (snapshotId) => copiedSnapshots.get(snapshotId)
 		/**

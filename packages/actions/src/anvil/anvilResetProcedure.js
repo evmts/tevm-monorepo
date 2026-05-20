@@ -14,7 +14,7 @@ import { bytesToHex } from 'viem'
  */
 export const anvilResetJsonRpcProcedure = (node) => {
 	return async (request) => {
-		const resetParams = request.params?.[0]
+		const resetParams = /** @type {any} */ (request.params?.[0])
 		const newForkUrl = resetParams?.forking?.jsonRpcUrl
 		if (newForkUrl !== undefined) {
 			if (!node.forkTransport || !('url' in node.forkTransport)) {
@@ -28,7 +28,8 @@ export const anvilResetJsonRpcProcedure = (node) => {
 					...(request.id ? { id: request.id } : {}),
 				}
 			}
-			/** @type {any} */ (node.forkTransport).url = newForkUrl
+			/** @type {any} */
+			node.forkTransport.url = newForkUrl
 		}
 
 		// reset filters

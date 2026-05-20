@@ -1,6 +1,6 @@
 ---
 id: 003
-status: todo
+status: done
 priority: P0
 area: consensus
 depends_on: [002]
@@ -32,3 +32,9 @@ Tevm needs light client mode with explicit sync status, checkpoint selection, an
 - Startup handles missing, malformed, unreadable, stale, and explicit checkpoint inputs deterministically.
 - Tests cover all checkpoint-source paths and readiness transitions.
 
+## Evidence
+
+- `packages/consensus/src/createLightClientConsensusService.ts` owns readiness and normalized light sync status.
+- `packages/node/src/lightSync.ts` handles explicit, persisted, default, stale, malformed, unreadable, and strict checkpoint selection.
+- `packages/actions/src/createHandlers.js` registers `tevm_lightSyncStatus` and the compatibility `zevm_lightSyncStatus` alias.
+- Verified with `packages/consensus/src/createConsensusService.spec.ts`, `packages/node/src/lightSync.spec.ts`, `packages/node/src/createTevmNode.spec.ts`, and full `@tevm/actions` tests.

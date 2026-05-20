@@ -86,13 +86,18 @@ export const anvilRevertJsonRpcProcedure = (client) => {
 			client.setNextBlockBaseFeePerGas(
 				snapshot.nextBlockBaseFeePerGas !== undefined ? BigInt(snapshot.nextBlockBaseFeePerGas) : undefined,
 			)
+			client.setNextBlockPrevRandao(
+				snapshot.nextBlockPrevRandao !== undefined ? BigInt(snapshot.nextBlockPrevRandao) : undefined,
+			)
 			client.setMinGasPrice(snapshot.minGasPrice !== undefined ? BigInt(snapshot.minGasPrice) : undefined)
 			client.setBlockTimestampInterval(
 				snapshot.blockTimestampInterval !== undefined ? BigInt(snapshot.blockTimestampInterval) : undefined,
 			)
 
 			const txs = await txPool.txsByPriceAndNonce()
-			txs.forEach((tx) => txPool.removeByHash(bytesToHex(tx.hash())))
+			for (const tx of txs) {
+				txPool.removeByHash(bytesToHex(tx.hash()))
+			}
 
 			// Delete all snapshots from this ID onwards (they are now invalid)
 			client.deleteSnapshotsFrom(snapshotId)

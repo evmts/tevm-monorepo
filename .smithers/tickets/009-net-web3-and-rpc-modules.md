@@ -1,6 +1,6 @@
 ---
 id: 009
-status: todo
+status: done
 priority: P1
 area: rpc
 ---
@@ -30,3 +30,9 @@ Several cheap compatibility methods are missing from Tevm's runtime RPC surface.
 - Tests cover param validation and exact return formats.
 - `rpc_modules` changes when optional Engine API/light-client features are disabled.
 
+## Evidence
+
+- `packages/actions/src/createHandlers.js` registers `rpc_modules`, `net_version`, `net_listening`, `net_peerCount`, `web3_clientVersion`, and `web3_sha3`.
+- `web3_sha3` uses Keccak-256 and validates hex input.
+- `rpc_modules` reflects enabled namespaces and omits Engine API when disabled.
+- Verified with `packages/actions/src/createHandlers.spec.ts`, `packages/actions/src/requestProcedure.spec.ts`, and full `@tevm/actions` tests.

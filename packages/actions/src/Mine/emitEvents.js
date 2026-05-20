@@ -78,10 +78,11 @@ export const emitEvents = async (client, newBlocks, newReceipts, params = {}) =>
 			// @ts-expect-error - Handler types are defined in MineEvents.ts
 			await callHandler(onReceipt, receipt, blockHash)
 			await client.emitExExEvent({ type: 'receipt', phase: 'created', blockHash, receipt })
+			const txHash = /** @type {any} */ (receipt).txHash
 			await client.emitExExEvent({
 				type: 'transaction',
 				phase: 'executed',
-				txHash: receipt.txHash ? bytesToHex(receipt.txHash) : '0x',
+				txHash: txHash ? bytesToHex(txHash) : '0x',
 				blockHash,
 				receipt,
 			})

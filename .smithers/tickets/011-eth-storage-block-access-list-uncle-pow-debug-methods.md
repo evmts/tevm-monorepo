@@ -1,6 +1,6 @@
 ---
 id: 011
-status: todo
+status: done
 priority: P1
 area: rpc
 ---
@@ -34,3 +34,9 @@ Several supportable Ethereum compatibility methods are missing from Tevm's runti
 - Tests cover malformed params, unknown blocks, post-merge zero/null behavior, and batch storage reads.
 - `eth_getStorageValues` preserves requested address and slot ordering.
 
+## Evidence
+
+- `packages/actions/src/createHandlers.js` registers `eth_getStorageValues`, `eth_getBlockAccessList`, uncle queries, PoW/hashrate no-ops, and `debug_getBadBlocks`.
+- `packages/actions/src/eth/ethCompatibilityNoopsProcedure.js` implements post-merge empty/null/zero behavior and storage batch reads through the existing storage handler.
+- `packages/actions/src/eth/ethCompatibilityNoopsProcedure.spec.ts` covers malformed/unknown block behavior, post-merge return values, and storage value ordering.
+- Verified with focused compatibility tests and full `@tevm/actions` tests.
