@@ -300,9 +300,10 @@ import { tevmViemActions } from './tevmViemActions.js'
  * for details.
  *
  * @param {import('./MemoryClientOptions.js').MemoryClientOptions} [options] - The options to configure the MemoryClient.
- * @type {import('./CreateMemoryClientFn.js').CreateMemoryClientFn}
  */
-export const createMemoryClient = (options) => {
+export const createMemoryClient = /** @type {import('./CreateMemoryClientFn.js').CreateMemoryClientFn} */ (
+	/** @param {any} options */
+	(options) => {
 	const miningConfig = (() => {
 		if (options?.miningConfig !== undefined) {
 			return options.miningConfig
@@ -371,4 +372,4 @@ export const createMemoryClient = (options) => {
 		.extend(walletActions)
 		.extend(testActions({ mode: 'anvil' }))
 	return /** @type {any} */ (memoryClient)
-}
+})
