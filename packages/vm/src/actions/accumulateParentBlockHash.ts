@@ -6,8 +6,6 @@ import type { BaseVm } from '../BaseVm.js'
  * This method runs the logic of EIP 2935 (save blockhashes to state)
  * It will put the `parentHash` of the block to the storage slot of `block.number - 1` of the history storage contract.
  * This contract is used to retrieve BLOCKHASHes in EVM if EIP 2935 is activated.
- * In case that the previous block of `block` is pre-EIP-2935 (so we are on the EIP 2935 fork block), additionally
- * also add the currently available past blockhashes which are available by BLOCKHASH (so, the past 256 block hashes)
  * @param vm The VM to run on
  * @returns Function that accumulates parent block hash
  */
@@ -15,17 +13,8 @@ export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumb
 	if (!(vm.common as any).ethjsCommon.isActivatedEIP(2935)) {
 		throw new EipNotEnabledError('Cannot call `accumulateParentBlockHash`: EIP 2935 is not active')
 	}
-	// TODO: Fix param loading from common
-	const historyAddress = createAddressFromString(
-		'0x0aae40965e6800cd9b1f4b05ff21581047e3f91e', // numberToHex(vm.common.ethjsCommon.param('vm', 'historyStorageAddress')),
-	)
-	const historyServeWindow = 8192n // vm.common.ethjsCommon.param('vm', 'historyServeWindow')
-
-	// Is this the fork block?
-	const forkTime = (vm.common as any).ethjsCommon.eipTimestamp(2935)
-	if (forkTime === null) {
-		throw new EipNotEnabledError('EIP 2935 should be activated by timestamp')
-	}
+	const historyAddress = createAddressFromString(getHistoryStorageAddress(vm))
+	const historyServeWindow = getHistoryServeWindow(vm)
 
 	if ((await vm.stateManager.getAccount(historyAddress)) === undefined) {
 		await vm.evm.journal.putAccount(historyAddress, createAccount({}) as any)
@@ -38,19 +27,25 @@ export const accumulateParentBlockHash = (vm: BaseVm) => async (currentBlockNumb
 		await vm.stateManager.putStorage(historyAddress, key, hash)
 	}
 	await putBlockHash(vm, parentHash, currentBlockNumber - 1n)
+}
 
-	const parentBlock = await vm.blockchain.getBlock(parentHash)
+const defaultHistoryStorageAddress = '0x0000F90827F1C53a10cb7A02335B175320002935'
+const defaultHistoryServeWindow = 8191n
 
-	// If on the fork block, store the old block hashes as well
-	if (parentBlock.header.timestamp < forkTime) {
-		let ancestor = parentBlock
-		for (let i = 0; i < Number(historyServeWindow) - 1; i++) {
-			if (ancestor.header.number === 0n) {
-				break
-			}
+const getHistoryStorageAddress = (vm: BaseVm) => {
+	try {
+		const address = (vm.common as any).ethjsCommon.param('historyStorageAddress')
+		return typeof address === 'string' ? address : defaultHistoryStorageAddress
+	} catch {
+		return defaultHistoryStorageAddress
+	}
+}
 
-			ancestor = await vm.blockchain.getBlock(ancestor.header.parentHash)
-			await putBlockHash(vm, ancestor.hash(), ancestor.header.number)
-		}
+const getHistoryServeWindow = (vm: BaseVm) => {
+	try {
+		const window = (vm.common as any).ethjsCommon.param('historyServeWindow')
+		return typeof window === 'bigint' || typeof window === 'number' ? BigInt(window) : defaultHistoryServeWindow
+	} catch {
+		return defaultHistoryServeWindow
 	}
 }

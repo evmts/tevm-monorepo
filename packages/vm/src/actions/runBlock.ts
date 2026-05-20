@@ -13,6 +13,44 @@ export type RunBlock = (opts: RunBlockOpts) => Promise<RunBlockResult>
 const UNSUPPORTED_VERKLE_EXECUTION_MESSAGE =
 	'Verkle/state-witness execution paths (EIP-6800 family) are intentionally unsupported in Tevm'
 
+const setRunBlockHardfork = (vm: BaseVm, block: Block, setHardfork: RunBlockOpts['setHardfork']) => {
+	if (setHardfork === undefined || setHardfork === false) {
+		return
+	}
+
+	const previousVmHardfork = vm.common.ethjsCommon.hardfork()
+	const evmCommon = vm.evm.common
+	const previousEvmHardfork = evmCommon !== vm.common.ethjsCommon ? evmCommon?.hardfork?.() : undefined
+	const previousBlockHardfork =
+		block.common.ethjsCommon !== vm.common.ethjsCommon ? block.common.ethjsCommon.hardfork() : undefined
+	const hardforkOpts: any = {
+		blockNumber: block.header.number,
+		timestamp: block.header.timestamp,
+	}
+	if (typeof setHardfork !== 'boolean') {
+		hardforkOpts.totalDifficulty = setHardfork
+	}
+
+	vm.common.ethjsCommon.setHardforkBy(hardforkOpts)
+	const hardfork = vm.common.ethjsCommon.hardfork()
+	if (evmCommon !== vm.common.ethjsCommon) {
+		evmCommon?.setHardfork?.(hardfork)
+	}
+	if (block.common.ethjsCommon !== vm.common.ethjsCommon) {
+		block.common.ethjsCommon.setHardfork(hardfork)
+	}
+
+	return () => {
+		vm.common.ethjsCommon.setHardfork(previousVmHardfork)
+		if (previousEvmHardfork !== undefined) {
+			evmCommon.setHardfork(previousEvmHardfork)
+		}
+		if (previousBlockHardfork !== undefined) {
+			block.common.ethjsCommon.setHardfork(previousBlockHardfork)
+		}
+	}
+}
+
 /**
  * @ignore
  */
@@ -27,41 +65,46 @@ export const runBlock =
 		let { block } = opts
 		const generateFields = opts.generate === true
 
-		/**
-		 * The `beforeBlock` event.
-		 *
-		 * @event Event: beforeBlock
-		 * @type {Object}
-		 * @property {Block} block emits the block that is about to be processed
-		 */
-		await vm._emit('beforeBlock', block)
-
-		// Set state root if provided
-		if (root) {
-			await state.setStateRoot(root, clearCache)
-		}
-
-		// check for DAO support and if we should apply the DAO fork
-		if (
-			vm.common.ethjsCommon.hardforkIsActiveOnBlock('dao', block.header.number) === true &&
-			block.header.number === vm.common.ethjsCommon.hardforkBlock('dao')
-		) {
-			await vm.evm.journal.checkpoint()
-			await applyDAOHardfork(vm.evm)
-			await vm.evm.journal.commit()
-		}
-
-		const isVerkleExecutionEnabled = block.common.ethjsCommon.isActivatedEIP(6800)
-		if (isVerkleExecutionEnabled) {
-			throw new InvalidParamsError(UNSUPPORTED_VERKLE_EXECUTION_MESSAGE)
-		}
-
-		// Checkpoint state
-		await vm.evm.journal.checkpoint()
+		const restoreHardfork = setRunBlockHardfork(vm, block, opts.setHardfork)
 
 		let result: ApplyBlockResult
+		let previousRoot: Uint8Array | undefined
+		let checkpointed = false
+		let isVerkleExecutionEnabled = false
 
 		try {
+			/**
+			 * The `beforeBlock` event.
+			 *
+			 * @event Event: beforeBlock
+			 * @type {Object}
+			 * @property {Block} block emits the block that is about to be processed
+			 */
+			await vm._emit('beforeBlock', block)
+
+			// Set state root if provided
+			if (root) {
+				previousRoot = await state.getStateRoot()
+				await state.setStateRoot(root, clearCache)
+			}
+
+			// Checkpoint state
+			await vm.evm.journal.checkpoint()
+			checkpointed = true
+
+			// check for DAO support and if we should apply the DAO fork
+			if (
+				vm.common.ethjsCommon.hardforkIsActiveOnBlock('dao', block.header.number) === true &&
+				block.header.number === vm.common.ethjsCommon.hardforkBlock('dao')
+			) {
+				await applyDAOHardfork(vm.evm)
+			}
+
+			isVerkleExecutionEnabled = block.common.ethjsCommon.isActivatedEIP(6800)
+			if (isVerkleExecutionEnabled) {
+				throw new InvalidParamsError(UNSUPPORTED_VERKLE_EXECUTION_MESSAGE)
+			}
+
 			result = await applyBlock(vm)(block, opts)
 
 			const stateRoot = await state.getStateRoot()
@@ -107,9 +150,17 @@ export const runBlock =
 
 			// Persist state only after all post-execution validation passes.
 			await vm.evm.journal.commit()
+			checkpointed = false
 		} catch (err: any) {
-			await vm.evm.journal.revert()
+			if (checkpointed) {
+				await vm.evm.journal.revert()
+			}
+			if (previousRoot !== undefined) {
+				await state.setStateRoot(previousRoot, clearCache)
+			}
 			throw err
+		} finally {
+			restoreHardfork?.()
 		}
 
 		const stateRoot = await state.getStateRoot()

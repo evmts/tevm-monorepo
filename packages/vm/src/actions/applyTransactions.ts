@@ -42,7 +42,7 @@ export const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunB
 		}
 
 		// Run the tx through the VM
-		const { skipBalance = false, skipNonce = false, skipHardForkValidation = true, reportPreimages = false } = opts
+		const { skipBalance = false, skipNonce = false, skipHardForkValidation = false, reportPreimages = false } = opts
 
 		const txRes = await runTx(vm)({
 			tx,
