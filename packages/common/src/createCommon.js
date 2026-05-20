@@ -2,6 +2,10 @@ import { createCustomCommon, Mainnet } from '@evmts/zevm/common'
 import { InvalidParamsError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
 
+/**
+ * @param {string} hardfork
+ * @returns {string}
+ */
 const normalizeHardfork = (hardfork) =>
 	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
 

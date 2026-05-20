@@ -14,7 +14,7 @@ import { match } from 'effect/Either'
 
 /**
  * Expected shape of tsconfig.json or jsconfig.json
- * @typedef {{ compilerOptions?: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } | undefined }} TsConfig
+ * @typedef {{ compilerOptions: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } }} TsConfig
  * @internal
  */
 
@@ -84,7 +84,7 @@ export const loadTsConfig = (configFilePath) => {
 	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
 	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
 
-	return tryEffect({
+	return /** @type {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} */ (tryEffect({
 		try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
 		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
 	}).pipe(
@@ -111,7 +111,7 @@ export const loadTsConfig = (configFilePath) => {
 				onRight: (right) => succeed(right),
 			})
 		}),
-		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+		catchTag('ParseJsonError', (cause) => fail(new InvalidTsConfigError({ cause }))),
 		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
-	)
+	))
 }

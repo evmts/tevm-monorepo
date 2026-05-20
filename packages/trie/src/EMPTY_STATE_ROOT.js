@@ -49,6 +49,10 @@ Object.defineProperties(immutableStateRoot, {
 		},
 	},
 })
+/**
+ * @param {PropertyKey} property
+ * @returns {boolean}
+ */
 const isArrayIndex = (property) => {
 	return typeof property === 'string' && /^(0|[1-9]\d*)$/.test(property)
 }
