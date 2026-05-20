@@ -6,11 +6,13 @@ export type LightClientConsensusOptions = {
 	readonly getBlockNumber?: ConsensusService['getBlockNumber']
 	readonly resolveStateRoot?: ConsensusService['resolveStateRoot']
 	readonly getProof?: ConsensusService['getProof']
-	readonly initialLightSyncStatus?: NonNullable<ConsensusService['getLightSyncStatus']> extends () => infer T ? T : never
+	readonly initialLightSyncStatus?: NonNullable<ConsensusService['getLightSyncStatus']> extends () => infer T
+		? T
+		: never
 }
 
 export const createLightClientConsensusService = (options: LightClientConsensusOptions): ConsensusService => {
-	let lightSyncStatus = {
+	let lightSyncStatus: LightSyncStatus = {
 		ready: false,
 		status: 'idle',
 		network: 'unknown',
@@ -21,6 +23,7 @@ export const createLightClientConsensusService = (options: LightClientConsensusO
 		finalizedSlot: 0n,
 		...options.initialLightSyncStatus,
 	}
+
 	const normalize = (status: LightSyncStatus): LightSyncStatus => {
 		const optimisticSlot = status.optimisticSlot
 		const safeSlot = status.safeSlot > optimisticSlot ? optimisticSlot : status.safeSlot
@@ -36,12 +39,12 @@ export const createLightClientConsensusService = (options: LightClientConsensusO
 	return {
 		mode: 'light-client',
 		verifyRead: options.verifyRead,
-		getChainId: options.getChainId,
-		getBlockNumber: options.getBlockNumber,
-		resolveStateRoot: options.resolveStateRoot,
-		getProof: options.getProof,
 		getLightSyncStatus,
 		updateLightSyncStatus,
 		isReady: () => getLightSyncStatus().ready,
+		...(options.getChainId ? { getChainId: options.getChainId } : {}),
+		...(options.getBlockNumber ? { getBlockNumber: options.getBlockNumber } : {}),
+		...(options.resolveStateRoot ? { resolveStateRoot: options.resolveStateRoot } : {}),
+		...(options.getProof ? { getProof: options.getProof } : {}),
 	}
 }

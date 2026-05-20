@@ -47,20 +47,20 @@ export const selectStartupCheckpoint = (opts: {
 		if (!fsOps.existsSync(opts.persistedCheckpointPath)) {
 			if (strict) return { checkpointSource: 'none', checkpoint: null }
 		} else {
-		try {
-			const raw = fsOps.readFileSync(opts.persistedCheckpointPath, 'utf8')
-			const parsed = JSON.parse(raw)
-			if (typeof parsed?.checkpoint === 'string') {
-				const updatedAt = Number(parsed?.updatedAtMs ?? 0)
-				const isStale = updatedAt > 0 && nowMs - updatedAt > maxAge
-				if (!isStale) return { checkpointSource: 'persisted', checkpoint: parsed.checkpoint }
+			try {
+				const raw = fsOps.readFileSync(opts.persistedCheckpointPath, 'utf8')
+				const parsed = JSON.parse(raw)
+				if (typeof parsed?.checkpoint === 'string') {
+					const updatedAt = Number(parsed?.updatedAtMs ?? 0)
+					const isStale = updatedAt > 0 && nowMs - updatedAt > maxAge
+					if (!isStale) return { checkpointSource: 'persisted', checkpoint: parsed.checkpoint }
+					if (strict) return { checkpointSource: 'none', checkpoint: null }
+				} else if (strict) {
+					return { checkpointSource: 'none', checkpoint: null }
+				}
+			} catch {
 				if (strict) return { checkpointSource: 'none', checkpoint: null }
-			} else if (strict) {
-				return { checkpointSource: 'none', checkpoint: null }
 			}
-		} catch {
-			if (strict) return { checkpointSource: 'none', checkpoint: null }
-		}
 		}
 	}
 	if (opts.defaultCheckpoint) return { checkpointSource: 'default', checkpoint: opts.defaultCheckpoint }
