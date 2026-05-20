@@ -104,18 +104,18 @@ export type JsonRpcSchemaPublic = {
 		Parameters?: undefined
 		ReturnType: Quantity
 	}
-	/**
-	 * @description Returns the current blob price of gas expressed in wei
-	 *
-	 * @example
-	 * provider.request({ method: 'eth_blobGasPrice' })
-	 * // => '0x09184e72a000'
-	 */
-	eth_blobGasPrice: {
-		Method: 'eth_blobGasPrice'
-		Parameters?: undefined
-		ReturnType: Quantity
-	}
+		/**
+		 * @description Returns the current blob price of gas expressed in wei
+		 *
+		 * @example
+		 * provider.request({ method: 'eth_blobBaseFee' })
+		 * // => '0x09184e72a000'
+		 */
+		eth_blobBaseFee: {
+			Method: 'eth_blobBaseFee'
+			Parameters?: undefined
+			ReturnType: Quantity
+		}
 	/**
 	 * @description Returns the number of the most recent block seen by this client
 	 *

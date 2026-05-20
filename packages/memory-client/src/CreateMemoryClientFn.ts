@@ -5,6 +5,14 @@ import type { MemoryClient } from './MemoryClient.js'
 import type { MemoryClientOptions } from './MemoryClientOptions.js'
 import type { TevmRpcSchema } from './TevmRpcSchema.js'
 
+type ForkedMemoryClientOptions<
+	TAccountOrAddress extends Account | Address | undefined = undefined,
+	TRpcSchema extends RpcSchema | undefined = TevmRpcSchema,
+> = Omit<MemoryClientOptions<Common & Chain, TAccountOrAddress, TRpcSchema>, 'common' | 'fork'> & {
+	readonly common?: undefined
+	readonly fork: NonNullable<MemoryClientOptions<Common & Chain, TAccountOrAddress, TRpcSchema>['fork']>
+}
+
 /**
  * Type definition for the function that creates a {@link MemoryClient}.
  *
@@ -81,10 +89,18 @@ import type { TevmRpcSchema } from './TevmRpcSchema.js'
  * @see {@link MemoryClientOptions} - For detailed configuration options
  * @see [Client Guide](https://tevm.sh/learn/clients/) - Complete documentation
  */
-export type CreateMemoryClientFn = <
-	TCommon extends Common & Chain = Common & Chain,
-	TAccountOrAddress extends Account | Address | undefined = undefined,
-	TRpcSchema extends RpcSchema | undefined = TevmRpcSchema,
->(
-	options?: MemoryClientOptions<TCommon, TAccountOrAddress, TRpcSchema>,
-) => MemoryClient<TCommon, TAccountOrAddress>
+export type CreateMemoryClientFn = {
+	<
+		TAccountOrAddress extends Account | Address | undefined = undefined,
+		TRpcSchema extends RpcSchema | undefined = TevmRpcSchema,
+	>(
+		options: ForkedMemoryClientOptions<TAccountOrAddress, TRpcSchema>,
+	): MemoryClient<undefined, TAccountOrAddress>
+	<
+		TCommon extends Common & Chain = Common & Chain,
+		TAccountOrAddress extends Account | Address | undefined = undefined,
+		TRpcSchema extends RpcSchema | undefined = TevmRpcSchema,
+	>(
+		options?: MemoryClientOptions<TCommon, TAccountOrAddress, TRpcSchema>,
+	): MemoryClient<TCommon, TAccountOrAddress>
+}

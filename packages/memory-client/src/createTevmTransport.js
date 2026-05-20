@@ -116,7 +116,7 @@ export const createTevmTransport = (options = {}) => {
 						createCommon({ ...chain, hardfork: 'prague', loggingLevel: 'warn' })
 					: undefined
 		const common = options.common ?? dynamicChain
-		const id = common?.id ?? -1
+		const id = options.fork?.chainId ?? common?.id ?? -1
 		const tevm =
 			tevmMap.get(id) ??
 			createTevmNode({ ...options, ...(common !== undefined ? { common } : {}) })
