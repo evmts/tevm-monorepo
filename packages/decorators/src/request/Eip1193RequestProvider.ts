@@ -19,6 +19,7 @@ export type Eip1193RequestProvider = {
 			JsonRpcSchemaTevm['tevm_loadState'],
 			JsonRpcSchemaTevm['tevm_getAccount'],
 			JsonRpcSchemaTevm['tevm_setAccount'],
+			JsonRpcSchemaTevm['tevm_mine'],
 		]
 	>
 }

@@ -1,1 +1,4 @@
-console.log('@tevm/procedures has been merged with @tevm/actions. Please use @tevm/actions instead.')
+/**
+ * @deprecated @tevm/procedures has been merged into @tevm/actions. Import from @tevm/actions directly.
+ */
+export * from '@tevm/actions'

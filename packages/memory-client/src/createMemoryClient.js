@@ -32,7 +32,7 @@ import { tevmViemActions } from './tevmViemActions.js'
  *     transport: http("https://mainnet.optimism.io")({}),
  *   },
  *   common: optimism,
- *   mining: { auto: true }, // Automatically mine blocks after transactions
+ *   miningConfig: { type: 'auto' }, // Automatically mine blocks after transactions
  * });
  *
  * // Wait for fork initialization to complete
@@ -68,9 +68,9 @@ import { tevmViemActions } from './tevmViemActions.js'
  *   },
  *
  *   // Mining configuration
- *   mining: {
- *     auto: true,      // Auto-mine after each transaction
- *     interval: 5000,  // Mine blocks every 5 seconds (in ms)
+ *   miningConfig: {
+ *     type: 'interval',
+ *     blockTime: 5, // Mine blocks every 5 seconds
  *   },
  *
  *   // State persistence
@@ -174,17 +174,17 @@ import { tevmViemActions } from './tevmViemActions.js'
  *
  * ```typescript
  * // 1. Manual mining (default)
- * const client = createMemoryClient({ mining: { auto: false } });
+ * const client = createMemoryClient({ miningConfig: { type: 'manual' } });
  * await client.sendTransaction(...);  // Transaction is pending
  * await client.tevmMine();            // Now transaction is processed
  *
  * // 2. Auto-mining (mine after every transaction)
- * const autoClient = createMemoryClient({ mining: { auto: true } });
+ * const autoClient = createMemoryClient({ miningConfig: { type: 'auto' } });
  * await autoClient.sendTransaction(...);  // Automatically mined
  *
  * // 3. Interval mining (mine periodically)
  * const intervalClient = createMemoryClient({
- *   mining: { interval: 5000 }  // Mine every 5 seconds
+ *   miningConfig: { type: 'interval', blockTime: 5 } // Mine every 5 seconds
  * });
  * ```
  *
@@ -300,11 +300,31 @@ import { tevmViemActions } from './tevmViemActions.js'
  * for details.
  */
 export const createMemoryClient = (options) => {
-	const common = (() => {
-		if (options?.common !== undefined) {
-			return options.common
+	const miningConfig = (() => {
+		if (options?.miningConfig !== undefined) {
+			return options.miningConfig
 		}
-		if (options?.fork?.transport) {
+		const mining = options?.mining
+		if (mining === undefined) {
+			return undefined
+		}
+		if (typeof mining.interval === 'number') {
+			return { type: 'interval', blockTime: mining.interval / 1000 }
+		}
+		if (typeof mining.auto === 'boolean') {
+			return { type: mining.auto ? 'auto' : 'manual' }
+		}
+		return undefined
+	})()
+	const normalizedOptions = {
+		...options,
+		...(miningConfig !== undefined ? { miningConfig } : {}),
+	}
+	const common = (() => {
+		if (normalizedOptions?.common !== undefined) {
+			return normalizedOptions.common
+		}
+		if (normalizedOptions?.fork?.transport) {
 			// we don't want to return default chain if forking because we don't know chain id yet
 			return undefined
 		}
@@ -312,10 +332,10 @@ export const createMemoryClient = (options) => {
 		return tevmDefault
 	})()
 	const memoryClient = createClient({
-		...options,
-		cacheTime: 0,
+		...normalizedOptions,
+		cacheTime: normalizedOptions.cacheTime ?? 0,
 		transport: createTevmTransport({
-			...options,
+			...normalizedOptions,
 			...(common !== undefined ? { common } : {}),
 		}),
 		type: 'tevm',

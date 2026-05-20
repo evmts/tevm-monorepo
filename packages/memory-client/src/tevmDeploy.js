@@ -34,7 +34,7 @@ import { deployHandler } from '@tevm/actions'
  * const client = createClient({
  *   transport: createTevmTransport({
  *     fork: { transport: http('https://mainnet.optimism.io')({}) },
- *     mining: { auto: true } // Optional: enable auto-mining for convenience
+ *     miningConfig: { type: 'auto' } // Optional: enable auto-mining for convenience
  *   }),
  *   chain: optimism,
  * })
