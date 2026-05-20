@@ -76,12 +76,19 @@ export const createHttpHandler = (client, options = {}) => {
 		const body = await getRequestBody(req, { maxBodySize })
 		if (body instanceof ReadRequestBodyError) {
 			if (body.shortMessage === 'Request body exceeds configured max body size') {
-				return void res.writeHead(413).end()
+				return void res.writeHead(413, { Connection: 'close' }).end()
 			}
 			return handleError(client, body, res)
 		}
+		if (body instanceof InvalidRequestError) {
+			return handleError(client, body, res)
+		}
 
-		const parsedRequest = parseRequest(body, { allowEmptyBatch: !compatibility, maxBatchSize })
+		const parsedRequest = parseRequest(body, {
+			allowEmptyBatch: !compatibility,
+			maxBatchSize,
+			requireJsonrpc: compatibility,
+		})
 		if (parsedRequest instanceof InvalidJsonError || parsedRequest instanceof InvalidRequestError) {
 			return handleError(client, parsedRequest, res)
 		}

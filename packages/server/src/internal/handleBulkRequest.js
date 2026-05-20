@@ -13,11 +13,18 @@ export const handleBulkRequest = async (client, requests, options = {}) => {
 	const { send } = client.transport.tevm.extend(tevmSend())
 	const responses = await Promise.allSettled(
 		requests.map((request) => {
+			if (/** @type {any} */ (request).__invalidJsonRpcRequest === true) {
+				return Promise.resolve(request)
+			}
 			return send(/** @type any*/ (request))
 		}),
 	)
 	return responses.flatMap((response, i) => {
 		const request = /** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (requests[i])
+		if (/** @type {any} */ (request).__invalidJsonRpcRequest === true) {
+			const { __invalidJsonRpcRequest, ...invalidRequestResponse } = /** @type {any} */ (request)
+			return [invalidRequestResponse]
+		}
 		if (suppressNotifications && request.id === undefined) {
 			return []
 		}

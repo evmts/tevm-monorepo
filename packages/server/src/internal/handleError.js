@@ -11,7 +11,7 @@ export const handleError = (client, error, res, jsonRpcReq = { method: 'unknown'
 	res.writeHead(400, { 'Content-Type': 'application/json' })
 	res.end(
 		JSON.stringify({
-			...(jsonRpcReq.id ? { id: jsonRpcReq.id } : {}),
+			...(jsonRpcReq.id !== undefined ? { id: jsonRpcReq.id } : {}),
 			method: jsonRpcReq.method,
 			jsonrpc: '2.0',
 			error: {

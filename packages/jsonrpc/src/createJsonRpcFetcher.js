@@ -23,6 +23,7 @@ export const createJsonRpcFetcher = (client) => {
 				const result = await client.request(request)
 				return {
 					jsonrpc: '2.0',
+					method: request.method,
 					result,
 					...(request.id !== undefined ? { id: request.id } : {}),
 				}
@@ -33,6 +34,7 @@ export const createJsonRpcFetcher = (client) => {
 					const code = typeof e.code === 'number' ? e.code : Number(e.code)
 					return {
 						jsonrpc: '2.0',
+						method: request.method,
 						error: {
 							code: Number.isFinite(code) ? code : -32000,
 							message,
@@ -43,6 +45,7 @@ export const createJsonRpcFetcher = (client) => {
 				}
 				return {
 					jsonrpc: '2.0',
+					method: request.method,
 					error: {
 						code: -32000,
 						message: e instanceof Error ? e.message : 'Unknown error in jsonrpc request',
