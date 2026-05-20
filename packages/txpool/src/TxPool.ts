@@ -66,10 +66,15 @@ export class TxPool extends ZevmTxPool {
 		pool.normalizedGasPrice = (tx, baseFee) => {
 			if (typeof baseFee === 'bigint' && baseFee !== 0n) {
 				if (isFeeMarketLikeTx(tx)) {
-					return tx.maxPriorityFeePerGas
+					const priorityFeeCap = tx.maxFeePerGas - baseFee
+					if (priorityFeeCap <= 0n) {
+						return 0n
+					}
+					return tx.maxPriorityFeePerGas < priorityFeeCap ? tx.maxPriorityFeePerGas : priorityFeeCap
 				}
 				if (isLegacyLikeTx(tx)) {
-					return tx.gasPrice - baseFee
+					const priorityFee = tx.gasPrice - baseFee
+					return priorityFee > 0n ? priorityFee : 0n
 				}
 				throw new Error(`tx of type ${txType(tx)} unknown`)
 			}

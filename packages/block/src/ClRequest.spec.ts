@@ -6,8 +6,8 @@ import { ClRequest } from './ClRequest.js'
 
 describe(ClRequest.name, () => {
 	it('should serialize', () => {
-		const clRequest = new ClRequest(420, new Uint8Array([1, 2, 3]))
-		expect(clRequest.type).toBe(420)
+		const clRequest = new ClRequest(164, new Uint8Array([1, 2, 3]))
+		expect(clRequest.type).toBe(164)
 		expect(clRequest.bytes).toEqual(new Uint8Array([1, 2, 3]))
 		expect(clRequest.serialize()).toMatchSnapshot()
 	})
