@@ -1,5 +1,5 @@
 import { createMapDb } from '@evmts/zevm/receipt-manager'
-import { bytesToHex } from 'viem'
+import { clearTxPool } from '../internal/snapshotMetadata.js'
 
 /**
  * Request handler for anvil_reset JSON-RPC requests.
@@ -48,12 +48,8 @@ export const anvilResetJsonRpcProcedure = (node) => {
 		node.setNextBlockPrevRandao(undefined)
 		node.setMinGasPrice(undefined)
 
-		// TODO we should add a txPool.reset() method
 		const txPool = await node.getTxPool()
-		const txs = await txPool.txsByPriceAndNonce()
-		txs.forEach((/** @type {any} */ tx) => {
-			txPool.removeByHash(bytesToHex(tx.hash()))
-		})
+		await clearTxPool(txPool)
 
 		const vm = await node.getVm()
 		const newStateManager = vm.stateManager.shallowCopy()

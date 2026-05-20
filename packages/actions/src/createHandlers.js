@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { MethodNotSupportedError } from '@tevm/errors'
-import { bytesToHex, keccak256, numberToHex } from '@tevm/utils'
+import { keccak256, numberToHex } from '@tevm/utils'
 import { anvilAddBalanceJsonRpcProcedure } from './anvil/anvilAddBalanceProcedure.js'
 import { anvilAutoImpersonateAccountJsonRpcProcedure } from './anvil/anvilAutoImpersonateAccountProcedure.js'
 import { anvilDealErc20JsonRpcProcedure } from './anvil/anvilDealErc20Procedure.js'
@@ -129,6 +129,7 @@ import { getStorageAtProcedure } from './eth/getStorageAtProcedure.js'
 import { maxPriorityFeePerGasProcedure } from './eth/maxPriorityFeePerGasProcedure.js'
 import { testAccounts } from './eth/utils/testAccounts.js'
 import { getAccountProcedure } from './GetAccount/getAccountProcedure.js'
+import { captureSnapshotMetadata, restoreSnapshotState } from './internal/snapshotMetadata.js'
 import { loadStateProcedure } from './LoadState/loadStateProcedure.js'
 import { mineProcedure } from './Mine/mineProcedure.js'
 import { setAccountProcedure } from './SetAccount/setAccountProcedure.js'
@@ -520,31 +521,7 @@ export const createHandlers = (client) => {
 			const vm = await client.getVm()
 			const stateRoot = vm.stateManager._baseState.getCurrentStateRoot()
 			const state = await vm.stateManager.dumpCanonicalGenesis()
-			const txPool = await client.getTxPool()
-			const txs = await txPool.txsByPriceAndNonce()
-			const receiptManager = await client.getReceiptsManager()
-			const receiptEntries = [.../** @type {Map<any, any>} */ (receiptManager.mapDb?._cache ?? new Map()).entries()]
-			/** @type {import('@tevm/node').SnapshotMetadata} */
-			const metadata = {
-				miningConfig: client.miningConfig,
-				autoImpersonate: client.getAutoImpersonate(),
-				txHashes: txs.map((tx) => bytesToHex(tx.hash())),
-				receiptEntries,
-			}
-			const nextBlockTimestamp = client.getNextBlockTimestamp()
-			if (nextBlockTimestamp !== undefined) metadata.nextBlockTimestamp = nextBlockTimestamp
-			const blockTimestampInterval = client.getBlockTimestampInterval()
-			if (blockTimestampInterval !== undefined) metadata.blockTimestampInterval = blockTimestampInterval
-			const nextBlockGasLimit = client.getNextBlockGasLimit()
-			if (nextBlockGasLimit !== undefined) metadata.nextBlockGasLimit = nextBlockGasLimit
-			const nextBlockBaseFeePerGas = client.getNextBlockBaseFeePerGas()
-			if (nextBlockBaseFeePerGas !== undefined) metadata.nextBlockBaseFeePerGas = nextBlockBaseFeePerGas
-			const nextBlockPrevRandao = client.getNextBlockPrevRandao()
-			if (nextBlockPrevRandao !== undefined) metadata.nextBlockPrevRandao = nextBlockPrevRandao
-			const minGasPrice = client.getMinGasPrice()
-			if (minGasPrice !== undefined) metadata.minGasPrice = minGasPrice
-			const impersonatedAccount = client.getImpersonatedAccount()
-			if (impersonatedAccount !== undefined) metadata.impersonatedAccount = impersonatedAccount
+			const metadata = await captureSnapshotMetadata(client, vm)
 			const snapshotId = client.addSnapshot(stateRoot, state, metadata)
 			return {
 				method: request.method,
@@ -571,32 +548,7 @@ export const createHandlers = (client) => {
 			}
 			try {
 				const vm = await client.getVm()
-				// Save the state root with its associated state
-				vm.stateManager.saveStateRoot(
-					/** @type {any} */ (Uint8Array.from(Buffer.from(snapshot.stateRoot.slice(2), 'hex'))),
-					snapshot.state,
-				)
-				// Set the state root to revert to that state
-				await vm.stateManager.setStateRoot(
-					/** @type {any} */ (Uint8Array.from(Buffer.from(snapshot.stateRoot.slice(2), 'hex'))),
-				)
-				if (snapshot.miningConfig !== undefined) client.miningConfig = snapshot.miningConfig
-				client.setNextBlockTimestamp(snapshot.nextBlockTimestamp)
-				client.setBlockTimestampInterval(snapshot.blockTimestampInterval)
-				client.setNextBlockGasLimit(snapshot.nextBlockGasLimit)
-				client.setNextBlockBaseFeePerGas(snapshot.nextBlockBaseFeePerGas)
-				client.setNextBlockPrevRandao(snapshot.nextBlockPrevRandao)
-				client.setMinGasPrice(snapshot.minGasPrice)
-				client.setImpersonatedAccount(snapshot.impersonatedAccount)
-				client.setAutoImpersonate(snapshot.autoImpersonate ?? false)
-				const txPool = await client.getTxPool()
-				const currentTxs = await txPool.txsByPriceAndNonce()
-				for (const tx of currentTxs) {
-					txPool.removeByHash(bytesToHex(tx.hash()))
-				}
-				const receiptManager = await client.getReceiptsManager()
-				const receiptMapDb = /** @type {any} */ (receiptManager.mapDb)
-				receiptMapDb._cache = new Map(snapshot.receiptEntries ?? [])
+				await restoreSnapshotState(client, snapshot, vm)
 				// Delete all snapshots from this ID onwards (they are now invalid)
 				client.deleteSnapshotsFrom(snapshotId)
 				return {

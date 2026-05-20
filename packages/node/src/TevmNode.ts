@@ -25,7 +25,13 @@ export type SnapshotMetadata = {
 	impersonatedAccount?: Address
 	autoImpersonate?: boolean
 	txHashes?: readonly Hex[]
+	txPoolTransactions?: readonly unknown[]
 	receiptEntries?: readonly (readonly [unknown, unknown])[]
+	blockchain?: {
+		readonly blocks: readonly (readonly [unknown, unknown])[]
+		readonly blocksByNumber: readonly (readonly [unknown, unknown])[]
+		readonly blocksByTag: readonly (readonly [unknown, unknown])[]
+	}
 }
 
 export type TevmSnapshot = SnapshotMetadata & {

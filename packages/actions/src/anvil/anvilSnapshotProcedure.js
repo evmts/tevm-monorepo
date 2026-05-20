@@ -1,4 +1,4 @@
-import { bytesToHex } from '@tevm/utils'
+import { captureSnapshotMetadata } from '../internal/snapshotMetadata.js'
 
 /**
  * Request handler for anvil_snapshot JSON-RPC requests.
@@ -28,29 +28,7 @@ export const anvilSnapshotJsonRpcProcedure = (client) => {
 			const vm = await client.getVm()
 			const stateRoot = vm.stateManager._baseState.getCurrentStateRoot()
 			const state = await vm.stateManager.dumpCanonicalGenesis()
-			const txPool = await client.getTxPool()
-			const txs = await txPool.txsByPriceAndNonce()
-			/** @type {import('@tevm/node').SnapshotMetadata} */
-			const metadata = {
-				version: 1,
-				autoImpersonate: client.getAutoImpersonate(),
-				miningConfig: client.miningConfig,
-				txHashes: txs.map((tx) => bytesToHex(tx.hash())),
-			}
-			const impersonatedAccount = client.getImpersonatedAccount()
-			if (impersonatedAccount !== undefined) metadata.impersonatedAccount = impersonatedAccount
-			const nextBlockTimestamp = client.getNextBlockTimestamp()
-			if (nextBlockTimestamp !== undefined) metadata.nextBlockTimestamp = nextBlockTimestamp
-			const nextBlockGasLimit = client.getNextBlockGasLimit()
-			if (nextBlockGasLimit !== undefined) metadata.nextBlockGasLimit = nextBlockGasLimit
-			const nextBlockBaseFeePerGas = client.getNextBlockBaseFeePerGas()
-			if (nextBlockBaseFeePerGas !== undefined) metadata.nextBlockBaseFeePerGas = nextBlockBaseFeePerGas
-			const nextBlockPrevRandao = client.getNextBlockPrevRandao()
-			if (nextBlockPrevRandao !== undefined) metadata.nextBlockPrevRandao = nextBlockPrevRandao
-			const minGasPrice = client.getMinGasPrice()
-			if (minGasPrice !== undefined) metadata.minGasPrice = minGasPrice
-			const blockTimestampInterval = client.getBlockTimestampInterval()
-			if (blockTimestampInterval !== undefined) metadata.blockTimestampInterval = blockTimestampInterval
+			const metadata = await captureSnapshotMetadata(client, vm)
 			const snapshotId = client.addSnapshot(stateRoot, state, metadata)
 
 			client.logger.debug({ snapshotId, stateRoot }, 'Created snapshot')

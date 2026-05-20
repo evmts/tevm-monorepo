@@ -2,7 +2,9 @@ import { createAddress } from '@tevm/address'
 import { createTevmNode } from '@tevm/node'
 import { numberToHex, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
+import { testAccounts } from '../eth/utils/testAccounts.js'
 import { getAccountProcedure } from '../GetAccount/getAccountProcedure.js'
+import { requestProcedure } from '../requestProcedure.js'
 import { anvilRevertJsonRpcProcedure } from './anvilRevertProcedure.js'
 import { anvilSetBalanceJsonRpcProcedure } from './anvilSetBalanceProcedure.js'
 import { anvilSnapshotJsonRpcProcedure } from './anvilSnapshotProcedure.js'
@@ -95,6 +97,149 @@ describe('anvilRevertJsonRpcProcedure', () => {
 			result: false,
 			id: 1,
 		})
+	})
+
+	it('restores pending txpool contents from a snapshot', async () => {
+		const client = createTevmNode({ miningConfig: { type: 'manual' } })
+		await client.ready()
+		const request = requestProcedure(client)
+		const from = testAccounts[0].address
+		const to = testAccounts[1].address
+
+		await request({
+			jsonrpc: '2.0',
+			method: 'eth_sendTransaction',
+			id: 1,
+			params: [{ from, to, value: '0x1', nonce: '0x0' }] as any,
+		})
+		const snapshot = await request({ jsonrpc: '2.0', method: 'anvil_snapshot', id: 2, params: [] })
+
+		await request({
+			jsonrpc: '2.0',
+			method: 'eth_sendTransaction',
+			id: 3,
+			params: [{ from, to, value: '0x2', nonce: '0x1' }] as any,
+		})
+		let status = await request({ jsonrpc: '2.0', method: 'txpool_status', id: 4 })
+		expect(status.result).toEqual({ pending: '0x2', queued: '0x0' })
+
+		const revert = await request({ jsonrpc: '2.0', method: 'anvil_revert', id: 5, params: [snapshot.result] as any })
+		expect(revert.result).toBe(true)
+
+		status = await request({ jsonrpc: '2.0', method: 'txpool_status', id: 6 })
+		expect(status.result).toEqual({ pending: '0x1', queued: '0x0' })
+		const content = await request({ jsonrpc: '2.0', method: 'txpool_content', id: 7 })
+		const sender = Object.keys(content.result.pending)[0] as string
+		expect(Object.keys(content.result.pending[sender])).toEqual(['0x0'])
+	})
+
+	it('restores local chain head and receipt indexes from a snapshot', async () => {
+		const client = createTevmNode()
+		await client.ready()
+		const request = requestProcedure(client)
+		const from = testAccounts[0].address
+		const to = testAccounts[1].address
+
+		const firstTx = await request({
+			jsonrpc: '2.0',
+			method: 'eth_sendTransaction',
+			id: 1,
+			params: [{ from, to, value: '0x1', nonce: '0x0' }] as any,
+		})
+		const firstReceipt = await request({
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionReceipt',
+			id: 2,
+			params: [firstTx.result] as any,
+		})
+		expect(firstReceipt.result?.transactionHash).toBe(firstTx.result)
+		const headAfterFirst = await request({ jsonrpc: '2.0', method: 'eth_blockNumber', id: 3 })
+		const snapshot = await request({ jsonrpc: '2.0', method: 'anvil_snapshot', id: 4, params: [] })
+
+		const secondTx = await request({
+			jsonrpc: '2.0',
+			method: 'eth_sendTransaction',
+			id: 5,
+			params: [{ from, to, value: '0x2', nonce: '0x1' }] as any,
+		})
+		const secondReceipt = await request({
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionReceipt',
+			id: 6,
+			params: [secondTx.result] as any,
+		})
+		expect(secondReceipt.result?.transactionHash).toBe(secondTx.result)
+		const headAfterSecond = await request({ jsonrpc: '2.0', method: 'eth_blockNumber', id: 7 })
+		expect(headAfterSecond.result).not.toBe(headAfterFirst.result)
+
+		const revert = await request({ jsonrpc: '2.0', method: 'anvil_revert', id: 8, params: [snapshot.result] as any })
+		expect(revert.result).toBe(true)
+		const headAfterRevert = await request({ jsonrpc: '2.0', method: 'eth_blockNumber', id: 9 })
+		expect(headAfterRevert.result).toBe(headAfterFirst.result)
+		const firstReceiptAfterRevert = await request({
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionReceipt',
+			id: 10,
+			params: [firstTx.result] as any,
+		})
+		expect(firstReceiptAfterRevert.result?.transactionHash).toBe(firstTx.result)
+		const secondReceiptAfterRevert = await request({
+			jsonrpc: '2.0',
+			method: 'eth_getTransactionReceipt',
+			id: 11,
+			params: [secondTx.result] as any,
+		})
+		expect(secondReceiptAfterRevert.result).toBeNull()
+	})
+
+	it('restores mining, block environment, impersonation, and time controls', async () => {
+		const client = createTevmNode({ miningConfig: { type: 'manual' } })
+		const snapshotProcedure = anvilSnapshotJsonRpcProcedure(client)
+		const revertProcedure = anvilRevertJsonRpcProcedure(client)
+
+		client.miningConfig = { type: 'interval', blockTime: 7 }
+		client.setAutoImpersonate(true)
+		client.setImpersonatedAccount(testAccounts[1].address)
+		client.setNextBlockTimestamp(123n)
+		client.setNextBlockGasLimit(30_000_001n)
+		client.setNextBlockBaseFeePerGas(100n)
+		client.setNextBlockPrevRandao(456n)
+		client.setMinGasPrice(789n)
+		client.setBlockTimestampInterval(12n)
+
+		const snapshot = await snapshotProcedure({
+			jsonrpc: '2.0',
+			method: 'anvil_snapshot',
+			params: [],
+			id: 1,
+		})
+
+		client.miningConfig = { type: 'manual' }
+		client.setAutoImpersonate(false)
+		client.setImpersonatedAccount(undefined)
+		client.setNextBlockTimestamp(undefined)
+		client.setNextBlockGasLimit(undefined)
+		client.setNextBlockBaseFeePerGas(undefined)
+		client.setNextBlockPrevRandao(undefined)
+		client.setMinGasPrice(undefined)
+		client.setBlockTimestampInterval(undefined)
+
+		const revert = await revertProcedure({
+			jsonrpc: '2.0',
+			method: 'anvil_revert',
+			params: [snapshot.result],
+			id: 2,
+		})
+		expect(revert.result).toBe(true)
+		expect(client.miningConfig).toEqual({ type: 'interval', blockTime: 7 })
+		expect(client.getAutoImpersonate()).toBe(true)
+		expect(client.getImpersonatedAccount()).toBe(testAccounts[1].address)
+		expect(client.getNextBlockTimestamp()).toBe(123n)
+		expect(client.getNextBlockGasLimit()).toBe(30_000_001n)
+		expect(client.getNextBlockBaseFeePerGas()).toBe(100n)
+		expect(client.getNextBlockPrevRandao()).toBe(456n)
+		expect(client.getMinGasPrice()).toBe(789n)
+		expect(client.getBlockTimestampInterval()).toBe(12n)
 	})
 
 	it('should delete snapshots after revert', async () => {

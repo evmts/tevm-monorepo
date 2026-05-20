@@ -16,6 +16,12 @@ This repo exposes ticket-sized parity entry points for CI, local runs, and Smith
   - Fast/PR: `pnpm test:parity:fast`
   - Full/manual: `pnpm test:parity:full`
   - Output: `artifacts/parity/engine/payload-failures.json` (when produced)
+- Snapshot, reset, and state blob controls:
+  - `anvil_snapshot` and `evm_snapshot` capture state root/state, local chain indexes, pending txpool contents, receipt/log indexes, mining config, block environment overrides, impersonation state, and time controls.
+  - `anvil_revert` and `evm_revert` restore the captured boundary and invalidate the reverted snapshot plus later snapshots.
+  - `anvil_reset` clears filters, impersonation, block/time overrides, pending txs, receipts, and snapshots. It updates `forking.jsonRpcUrl` only for an already-forked node with mutable URL-backed transport; non-forked fork replacement returns an invalid-params error.
+  - `anvil_setRpcUrl` changes an active fork backing URL when the transport exposes a mutable `url` and invalidates snapshots.
+  - `anvil_dumpState` emits deterministic Tevm state objects; `anvil_loadState` accepts Tevm state objects and the documented `zevmState` compatibility alias, rejecting malformed blobs.
 - Light client and consensus-backed RPC behavior:
   - Fast/PR: `pnpm test:parity:fast`
   - Full/manual: `pnpm test:parity:full`
