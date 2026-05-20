@@ -1,3 +1,7 @@
+/**
+ * @param {unknown} value
+ * @returns {unknown}
+ */
 const normalize = (value) => {
 	if (Array.isArray(value)) {
 		return value.map(normalize)
@@ -14,7 +18,7 @@ const normalize = (value) => {
 
 /**
  * @param {import('@tevm/config').ResolvedCompilerConfig} config
- * @param {import('@tevm/solc').Solc} solc
+ * @param {Omit<import('@tevm/solc').Solc, 'version'> & { version: string | (() => string) }} solc
  * @param {boolean} includeAst
  * @param {boolean} includeBytecode
  * @returns {string}

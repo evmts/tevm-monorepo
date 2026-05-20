@@ -1,5 +1,9 @@
 import { isAbsolute, resolve } from 'node:path'
 
+/**
+ * @param {string} filePath
+ * @returns {string}
+ */
 const formatPath = (filePath) => filePath.replace(/\\/g, '/')
 
 /**
