@@ -157,7 +157,7 @@ export type {
     Eip1193RequestProvider,
 } from "@tevm/decorators";
 
-export { createJsonRpcFetcher, http, rateLimit, webSocket, loadBalance } from '@tevm/jsonrpc'
+export { http, rateLimit, webSocket, loadBalance } from '@tevm/jsonrpc'
 export { createAddress } from '@tevm/address'
 
 export {
