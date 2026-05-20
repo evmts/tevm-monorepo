@@ -6,7 +6,7 @@
 export const ethCoinbaseJsonRpcProcedure = (client) => {
 	return async (request) => {
 		return {
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 			method: request.method,
 			jsonrpc: request.jsonrpc,
 			// same default as hardhat

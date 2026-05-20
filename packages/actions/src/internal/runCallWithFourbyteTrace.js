@@ -50,7 +50,7 @@ export const runCallWithFourbyteTrace = async (vm, logger, params, lazilyRun = f
 	 * This will capture inner-contract calls if they generate a "CALL" opcode (i.e. `this.function()`);
 	 * which is not the case for a "JUMP" opcode (i.e. `function()`)
 	 */
-	vm.evm.events?.on('beforeMessage', async (message, next) => {
+	const onBeforeMessage = async (message, next) => {
 		logger.debug(message, 'runCallWithFourbyteTrace: beforeMessage event')
 
 		// Only process CALL, DELEGATECALL, and STATICCALL operations
@@ -82,15 +82,24 @@ export const runCallWithFourbyteTrace = async (vm, logger, params, lazilyRun = f
 		}
 
 		next?.()
-	})
+	}
+	vm.evm.events?.on('beforeMessage', onBeforeMessage)
+	const cleanup = () => {
+		vm.evm.events?.removeListener('beforeMessage', onBeforeMessage)
+	}
 
 	if (lazilyRun) {
 		// Return object with trace without running EVM
-		return /** @type {any} */ ({ trace: selectors })
+		return /** @type {any} */ ({ trace: selectors, cleanup })
 	}
 
 	// Execute the call
-	const runCallResult = await vm.evm.runCall(params)
+	let runCallResult
+	try {
+		runCallResult = await vm.evm.runCall(params)
+	} finally {
+		cleanup()
+	}
 
 	logger.debug(runCallResult, 'runCallWithFourbyteTrace: evm run call complete')
 	logger.debug(selectors, 'runCallWithFourbyteTrace: collected selectors')

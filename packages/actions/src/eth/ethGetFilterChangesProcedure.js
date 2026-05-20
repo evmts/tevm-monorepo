@@ -14,7 +14,7 @@ export const ethGetFilterChangesProcedure = (client) => {
 		const filter = client.getFilters().get(id)
 		if (!filter) {
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {
@@ -30,7 +30,7 @@ export const ethGetFilterChangesProcedure = (client) => {
 				 * @type {import('./EthJsonRpcResponse.js').EthGetFilterChangesJsonRpcResponse}
 				 */
 				const response = {
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 					method: request.method,
 					jsonrpc: request.jsonrpc,
 					result: logs.map((log) => ({
@@ -54,7 +54,7 @@ export const ethGetFilterChangesProcedure = (client) => {
 				 * @type {import('./EthJsonRpcResponse.js').EthGetFilterChangesJsonRpcResponse}
 				 */
 				const response = {
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 					// TODO fix this type
 					result: /** @type {any} */ (blocks.map((block) => numberToHex(block.header.number))),
 					method: request.method,
@@ -69,7 +69,7 @@ export const ethGetFilterChangesProcedure = (client) => {
 				 * @type {import('./EthJsonRpcResponse.js').EthGetFilterChangesJsonRpcResponse}
 				 */
 				const response = {
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 					// TODO fix this type
 					result: /** @type {any} */ (tx.map((tx) => bytesToHex(tx.hash()))),
 					method: request.method,

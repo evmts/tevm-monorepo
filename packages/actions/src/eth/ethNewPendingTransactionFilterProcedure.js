@@ -32,7 +32,7 @@ export const ethNewPendingTransactionFilterProcedure = (client) => {
 			registeredListeners: [listener],
 		})
 		return {
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 			method: request.method,
 			jsonrpc: request.jsonrpc,
 			result: id,

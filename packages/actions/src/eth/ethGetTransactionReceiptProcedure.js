@@ -14,7 +14,7 @@ export const ethGetTransactionReceiptJsonRpcProcedure = (client) => async (req) 
 		 */
 		const out = {
 			jsonrpc: '2.0',
-			...(req.id ? { id: req.id } : {}),
+			...(req.id !== undefined ? { id: req.id } : {}),
 			method: req.method,
 			error: {
 				code: -32602,
@@ -30,7 +30,7 @@ export const ethGetTransactionReceiptJsonRpcProcedure = (client) => async (req) 
 	 */
 	const out = {
 		jsonrpc: '2.0',
-		...(req.id ? { id: req.id } : {}),
+		...(req.id !== undefined ? { id: req.id } : {}),
 		method: req.method,
 		result: res && {
 			blockHash: res.blockHash,

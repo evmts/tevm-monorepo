@@ -16,7 +16,7 @@ export const anvilSetBalanceJsonRpcProcedure = (client) => {
 					balance: request.params[1],
 				},
 			],
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		})
 		if (balanceResult.error) {
 			return {

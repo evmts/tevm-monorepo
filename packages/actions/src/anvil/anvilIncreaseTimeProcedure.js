@@ -26,6 +26,6 @@ export const anvilIncreaseTimeJsonRpcProcedure = (client) => async (request) => 
 		// Return the number of seconds increased (as hex, matching ganache behavior)
 		result: `0x${seconds.toString(16)}`,
 		jsonrpc: '2.0',
-		...(request.id ? { id: request.id } : {}),
+		...(request.id !== undefined ? { id: request.id } : {}),
 	}
 }

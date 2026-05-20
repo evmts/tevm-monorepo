@@ -16,7 +16,7 @@ export const anvilLoadStateJsonRpcProcedure = (client) => {
 			return {
 				jsonrpc: '2.0',
 				method: loadStateRequest.method,
-				...(loadStateRequest.id ? { id: loadStateRequest.id } : {}),
+				...(loadStateRequest.id !== undefined ? { id: loadStateRequest.id } : {}),
 				error: {
 					code: /** @type any*/ (-32602),
 					message: 'Invalid state blob. Expected object with a state record.',
@@ -57,7 +57,7 @@ export const anvilLoadStateJsonRpcProcedure = (client) => {
 					jsonrpc: '2.0',
 					method: loadStateRequest.method,
 					result: null,
-					...(loadStateRequest.id ? { id: loadStateRequest.id } : {}),
+					...(loadStateRequest.id !== undefined ? { id: loadStateRequest.id } : {}),
 				}
 				return response
 			})
@@ -68,7 +68,7 @@ export const anvilLoadStateJsonRpcProcedure = (client) => {
 				const response = {
 					jsonrpc: '2.0',
 					method: loadStateRequest.method,
-					...(loadStateRequest.id ? { id: loadStateRequest.id } : {}),
+					...(loadStateRequest.id !== undefined ? { id: loadStateRequest.id } : {}),
 					error: {
 						// TODO use @tevm/errors
 						code: /** @type any*/ (-32602),

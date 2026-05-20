@@ -23,7 +23,7 @@ export const anvilDropTransactionJsonRpcProcedure = (client) => {
 			method: anvilDropTransactionRequest.method,
 			jsonrpc: '2.0',
 			result: null,
-			...(anvilDropTransactionRequest.id ? { id: anvilDropTransactionRequest.id } : {}),
+			...(anvilDropTransactionRequest.id !== undefined ? { id: anvilDropTransactionRequest.id } : {}),
 		}
 	}
 }

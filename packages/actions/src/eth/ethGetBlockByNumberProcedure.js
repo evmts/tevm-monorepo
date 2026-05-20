@@ -28,14 +28,14 @@ export const ethGetBlockByNumberJsonRpcProcedure = (client) => {
 			})
 			if (res.error) {
 				return {
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 					method: request.method,
 					jsonrpc: request.jsonrpc,
 					error: res.error,
 				}
 			}
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				result: /** @type {any}*/ (res.result),
@@ -43,7 +43,7 @@ export const ethGetBlockByNumberJsonRpcProcedure = (client) => {
 		}
 		if (!block) {
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {
@@ -58,7 +58,7 @@ export const ethGetBlockByNumberJsonRpcProcedure = (client) => {
 			method: request.method,
 			result,
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

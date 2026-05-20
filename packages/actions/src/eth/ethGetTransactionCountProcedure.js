@@ -17,7 +17,7 @@ export const ethGetTransactionCountProcedure = (node) => {
 				const selector = asLightSelector(tag)
 				const { proof } = await getLightProof(node, address, [], selector)
 				return {
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 					method: request.method,
 					jsonrpc: request.jsonrpc,
 					result: numberToHex(hexToBigInt(proof.nonce)),
@@ -34,7 +34,7 @@ export const ethGetTransactionCountProcedure = (node) => {
 								? -32013
 								: -32603
 				return {
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 					method: request.method,
 					jsonrpc: request.jsonrpc,
 					error: { code: explicitCode, message },
@@ -61,7 +61,7 @@ export const ethGetTransactionCountProcedure = (node) => {
 		})()
 		if (!block) {
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {
@@ -98,7 +98,7 @@ export const ethGetTransactionCountProcedure = (node) => {
 				 */
 				const result = await node.forkTransport.request(request)
 				return {
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 					method: request.method,
 					jsonrpc: request.jsonrpc,
 					result: numberToHex(hexToBigInt(result) + pendingCount),
@@ -108,7 +108,7 @@ export const ethGetTransactionCountProcedure = (node) => {
 					cause: /** @type {any}*/ (e),
 				})
 				return {
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 					method: request.method,
 					jsonrpc: request.jsonrpc,
 					error: {
@@ -122,7 +122,7 @@ export const ethGetTransactionCountProcedure = (node) => {
 			const err = new InternalEvmError(`No state root found for block tag ${tag} in eth_getTransactionCountProcedure`)
 			node.logger.error(err)
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {
@@ -133,7 +133,7 @@ export const ethGetTransactionCountProcedure = (node) => {
 		}
 
 		return {
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 			method: request.method,
 			jsonrpc: request.jsonrpc,
 			result: numberToHex(pendingCount + includedCount),

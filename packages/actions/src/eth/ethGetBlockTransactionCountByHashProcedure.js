@@ -14,7 +14,7 @@ export const ethGetBlockTransactionCountByHashJsonRpcProcedure = (client) => {
 			method: request.method,
 			result: numberToHex(result),
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

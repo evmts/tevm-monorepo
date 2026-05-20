@@ -20,25 +20,39 @@ export const ethSendRawTransactionJsonRpcProcedure = (client) => {
 			return {
 				method: request.method,
 				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
+				error: {
+					code: err._tag,
+					message: err.message,
+			},
+			}
+		}
+		const txPool = await client.getTxPool()
+		const addResult = await txPool.add(tx, true)
+		if (addResult.error !== null) {
+			const err = new InvalidParamsError('Invalid transaction. Unable to add transaction to pool', {
+				cause: new Error(addResult.error),
+			})
+			return {
+				method: request.method,
+				jsonrpc: '2.0',
+				...(request.id !== undefined ? { id: request.id } : {}),
 				error: {
 					code: err._tag,
 					message: err.message,
 				},
 			}
 		}
-		const txPool = await client.getTxPool()
-		await txPool.add(tx, true)
 
 		if (client.miningConfig.type === 'auto') {
-			await handleAutomining(client, bytesToHex(tx.hash()), false, true)
+				await handleAutomining(client, bytesToHex(tx.hash()), false, true)
 		}
 
 		return {
 			method: request.method,
 			result: bytesToHex(tx.hash()),
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
+		}
 		}
 	}
-}

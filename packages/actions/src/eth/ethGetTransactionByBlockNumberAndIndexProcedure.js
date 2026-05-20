@@ -18,7 +18,7 @@ export const ethGetTransactionByBlockNumberAndIndexJsonRpcProcedure = (client) =
 		})()
 		if (!block) {
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {
@@ -31,7 +31,7 @@ export const ethGetTransactionByBlockNumberAndIndexJsonRpcProcedure = (client) =
 		const tx = block.transactions[txIndex]
 		if (!tx) {
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {
@@ -44,7 +44,7 @@ export const ethGetTransactionByBlockNumberAndIndexJsonRpcProcedure = (client) =
 			method: request.method,
 			result: txToJsonRpcTx(tx, block, txIndex),
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

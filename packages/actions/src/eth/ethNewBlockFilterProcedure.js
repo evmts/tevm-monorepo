@@ -33,7 +33,7 @@ export const ethNewBlockFilterProcedure = (client) => {
 			registeredListeners: [listener],
 		})
 		return {
-			...(newBlockFilterRequest.id ? { id: newBlockFilterRequest.id } : {}),
+			...(newBlockFilterRequest.id !== undefined ? { id: newBlockFilterRequest.id } : {}),
 			method: newBlockFilterRequest.method,
 			jsonrpc: newBlockFilterRequest.jsonrpc,
 			result: id,

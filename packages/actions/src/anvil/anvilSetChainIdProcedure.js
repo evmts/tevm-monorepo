@@ -11,7 +11,7 @@ export const anvilSetChainIdJsonRpcProcedure = (client) => {
 		const chainId = hexToNumber(request.params[0])
 		if (!Number.isInteger(chainId) || chainId <= 0) {
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {

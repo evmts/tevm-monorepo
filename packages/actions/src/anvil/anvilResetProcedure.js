@@ -25,7 +25,7 @@ export const anvilResetJsonRpcProcedure = (node) => {
 						code: /** @type {const} */ ('-32602'),
 						message: 'Cannot update fork URL on a non-forked node.',
 					},
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 				}
 			}
 			/** @type {any} */
@@ -77,7 +77,7 @@ export const anvilResetJsonRpcProcedure = (node) => {
 			result: null,
 			method: request.method,
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

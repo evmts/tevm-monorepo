@@ -70,7 +70,12 @@ export const emitEvents = async (client, newBlocks, newReceipts, params = {}) =>
 			)
 		}
 
-		for (const receipt of receipts) {
+		let cumulativeLogIndex = 0n
+		for (let txIndex = 0; txIndex < receipts.length; txIndex++) {
+			const receipt = receipts[txIndex]
+			if (!receipt) {
+				continue
+			}
 			// Emit global events
 			client.emit('newReceipt', receipt)
 
@@ -86,10 +91,19 @@ export const emitEvents = async (client, newBlocks, newReceipts, params = {}) =>
 				blockHash,
 				receipt,
 			})
-
+	
+			const tx = block.transactions[txIndex]
+			const transactionHash = tx ? bytesToHex(tx.hash()) : txHash ? bytesToHex(txHash) : '0x'
 			for (const log of receipt.logs) {
 				// Emit global events
-				client.emit('newLog', log)
+				client.emit('newLog', log, {
+					blockHash,
+					blockNumber: block.header.number,
+					transactionHash,
+					transactionIndex: BigInt(txIndex),
+					logIndex: cumulativeLogIndex,
+				})
+				cumulativeLogIndex++
 
 				// Call handler if provided
 				// @ts-expect-error - Handler types are defined in MineEvents.ts

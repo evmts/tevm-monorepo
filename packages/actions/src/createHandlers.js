@@ -224,7 +224,7 @@ export const createHandlers = (client) => {
 					result: client.status === 'MINING',
 					method: request.method,
 					jsonrpc: '2.0',
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 				}
 			},
 		eth_syncing:
@@ -236,7 +236,7 @@ export const createHandlers = (client) => {
 					result: client.status === 'SYNCING',
 					method: request.method,
 					jsonrpc: '2.0',
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 				}
 			},
 		eth_sendTransaction: ethSendTransactionJsonRpcProcedure(client),
@@ -365,7 +365,7 @@ export const createHandlers = (client) => {
 				// Return the number of seconds increased (as hex, matching ganache behavior)
 				result: `0x${seconds.toString(16)}`,
 				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		}
 
@@ -493,7 +493,7 @@ export const createHandlers = (client) => {
 				method: request.method,
 				result: null,
 				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		},
 		evm_increaseTime: createIncreaseTimeHandler('evm_increaseTime'),
@@ -509,7 +509,7 @@ export const createHandlers = (client) => {
 				method: request.method,
 				result: null,
 				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		},
 		/**
@@ -527,7 +527,7 @@ export const createHandlers = (client) => {
 				method: request.method,
 				result: snapshotId,
 				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		},
 		/**
@@ -543,7 +543,7 @@ export const createHandlers = (client) => {
 					method: request.method,
 					result: false,
 					jsonrpc: '2.0',
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 				}
 			}
 			try {
@@ -555,7 +555,7 @@ export const createHandlers = (client) => {
 					method: request.method,
 					result: true,
 					jsonrpc: '2.0',
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 				}
 			} catch (e) {
 				client.logger.error(e, 'evm_revert failed')
@@ -563,7 +563,7 @@ export const createHandlers = (client) => {
 					method: request.method,
 					result: false,
 					jsonrpc: '2.0',
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 				}
 			}
 		},
@@ -629,14 +629,14 @@ export const createHandlers = (client) => {
 			method: request.method,
 			result: await toContentResult(),
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}),
 		/** @param {any} request */
 		txpool_contentFrom: async (request) => ({
 			method: request.method,
 			result: await toContentResult(request.params?.[0]),
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}),
 		/** @param {any} request */
 		txpool_inspect: async (request) => {
@@ -658,7 +658,7 @@ export const createHandlers = (client) => {
 				method: request.method,
 				result: { pending: mapBucket(pending), queued: mapBucket(queued) },
 				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		},
 		/** @param {any} request */
@@ -670,7 +670,7 @@ export const createHandlers = (client) => {
 				method: request.method,
 				result: { pending: numberToHex(count(pending)), queued: numberToHex(count(queued)) },
 				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		},
 		/** @param {any} request */
@@ -678,7 +678,7 @@ export const createHandlers = (client) => {
 			method: request.method,
 			result: 'tevm/1.0.0',
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}),
 		/** @param {any} request */
 		web3_sha3: (request) => {
@@ -688,14 +688,14 @@ export const createHandlers = (client) => {
 					method: request.method,
 					error: { code: -32602, message: 'Invalid params: web3_sha3 expects a single hex string parameter' },
 					jsonrpc: '2.0',
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 				}
 			}
 			return {
 				method: request.method,
 				result: keccak256(/** @type {import('@tevm/utils').Hex} */ (value)),
 				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		},
 		/** @param {any} request */
@@ -706,7 +706,7 @@ export const createHandlers = (client) => {
 				method: request.method,
 				result: numberToHex(typeof chainId === 'bigint' ? chainId : BigInt(chainId)),
 				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		},
 		/** @param {any} request */
@@ -714,14 +714,14 @@ export const createHandlers = (client) => {
 			method: request.method,
 			result: client.status !== 'STOPPED',
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}),
 		/** @param {any} request */
 		net_peerCount: (request) => ({
 			method: request.method,
 			result: '0x0',
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}),
 		/** @param {any} request */
 		rpc_modules: (request) => ({
@@ -732,7 +732,7 @@ export const createHandlers = (client) => {
 					.map(([namespace]) => [namespace, '1.0']),
 			),
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}),
 		/** @param {any} request */
 		miner_start: (request) => anvilSetAutomineJsonRpcProcedure(client)({ ...request, params: [true] }),

@@ -64,7 +64,7 @@ export const anvilNodeInfoJsonRpcProcedure = (client) => {
 			jsonrpc: '2.0',
 			method: request.method,
 			result: nodeInfo,
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

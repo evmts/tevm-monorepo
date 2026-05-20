@@ -10,7 +10,7 @@ export const ethProtocolVersionJsonRpcProcedure = () => {
 			result: stringToHex('tevm@1.x.x'),
 			jsonrpc: '2.0',
 			method: 'eth_protocolVersion',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

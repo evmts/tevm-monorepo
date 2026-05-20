@@ -10,7 +10,7 @@ export const anvilStopImpersonatingAccountJsonRpcProcedure = (client) => {
 			jsonrpc: '2.0',
 			method: request.method,
 			result: null,
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

@@ -16,7 +16,7 @@ export const ethGetBlockByHashJsonRpcProcedure = (client) => {
 			method: request.method,
 			result,
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

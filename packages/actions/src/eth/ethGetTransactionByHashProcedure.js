@@ -22,14 +22,14 @@ export const ethGetTransactionByHashJsonRpcProcedure = (client) => {
 			})
 			if (res.error) {
 				return {
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 					method: request.method,
 					jsonrpc: request.jsonrpc,
 					error: res.error,
 				}
 			}
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				result: /** @type any*/ (res.result),
 				jsonrpc: '2.0',
@@ -39,7 +39,7 @@ export const ethGetTransactionByHashJsonRpcProcedure = (client) => {
 			// Per Ethereum JSON-RPC spec, return null when transaction is not found
 			// (e.g., pending transaction not yet mined, or non-existent transaction)
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: '2.0',
 				result: null,
@@ -51,7 +51,7 @@ export const ethGetTransactionByHashJsonRpcProcedure = (client) => {
 		if (!tx) {
 			// Per Ethereum JSON-RPC spec, return null when transaction is not found
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: '2.0',
 				result: null,
@@ -61,7 +61,7 @@ export const ethGetTransactionByHashJsonRpcProcedure = (client) => {
 			method: request.method,
 			result: txToJsonRpcTx(tx, block, txIndex),
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

@@ -5,7 +5,7 @@ import { getCodeHandler } from './getCodeHandler.js'
  * @returns {import('./EthProcedure.js').EthGetCodeJsonRpcProcedure}
  */
 export const getCodeProcedure = (baseClient) => async (req) => ({
-	...(req.id ? { id: req.id } : {}),
+	...(req.id !== undefined ? { id: req.id } : {}),
 	jsonrpc: '2.0',
 	method: req.method,
 	result: await getCodeHandler(baseClient)({

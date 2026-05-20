@@ -80,10 +80,7 @@ export const setAccountHandler =
 
 		const address = createAddress(params.address)
 
-		/**
-		 * @type {Array<Promise<any>>}
-		 */
-		const promises = []
+		let checkpointed = false
 		try {
 			const vm = await client.getVm()
 
@@ -93,24 +90,24 @@ export const setAccountHandler =
 				client.logger.error({ errors: account.errors }, 'there was an unexpected error getting account')
 				throw account.errors.length > 1 ? new AggregateError(account.errors) : account.errors[0]
 			}
-
+	
 			// Build account data object with proper handling of optional properties
 			/** @type {Parameters<typeof createAccount>[0]} */
 			const accountData = {
 				nonce: params.nonce ?? account?.nonce,
 				balance: params.balance ?? account?.balance,
 			}
-
+	
 			const storageRoot =
 				(params.storageRoot && hexToBytes(params.storageRoot)) ??
 				(account?.storageRoot !== undefined && account?.storageRoot !== '0x'
 					? hexToBytes(account.storageRoot)
 					: undefined)
-
+	
 			const codeHash =
 				(params.deployedBytecode && hexToBytes(keccak256(params.deployedBytecode))) ??
 				(account?.deployedBytecode !== undefined ? hexToBytes(keccak256(account.deployedBytecode)) : undefined)
-
+	
 			// Only add optional properties if they are not undefined
 			if (storageRoot !== undefined) {
 				accountData.storageRoot = storageRoot
@@ -119,9 +116,11 @@ export const setAccountHandler =
 				accountData.codeHash = codeHash
 			}
 
-			promises.push(vm.stateManager.putAccount(address, createAccount(accountData)))
+			await vm.stateManager.checkpoint()
+			checkpointed = true
+			await vm.stateManager.putAccount(address, createAccount(accountData))
 			if (params.deployedBytecode) {
-				promises.push(vm.stateManager.putCode(address, hexToBytes(params.deployedBytecode)))
+				await vm.stateManager.putCode(address, hexToBytes(params.deployedBytecode))
 			}
 			// state clears state first stateDiff does not
 			if (params.state) {
@@ -130,31 +129,27 @@ export const setAccountHandler =
 			const state = params.state ?? params.stateDiff
 			if (state) {
 				for (const [key, value] of Object.entries(state)) {
-					promises.push(
-						vm.stateManager.putStorage(
-							address,
-							hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (key), { size: 32 }),
-							hexToBytes(value),
-						),
+					await vm.stateManager.putStorage(
+						address,
+						hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (key), { size: 32 }),
+						hexToBytes(value),
 					)
 				}
 			}
-			const results = await Promise.allSettled(promises)
-			for (const result of results) {
-				if (result.status === 'rejected') {
-					errors.push(new InternalError('Unable to put storage', { cause: result.reason }))
-				}
-			}
-
-			if (errors.length > 0) {
-				return maybeThrowOnFail(throwOnFail, { errors })
-			}
-			await vm.stateManager.checkpoint()
 			await vm.stateManager.commit(false)
+			checkpointed = false
 
 			return {}
 		} catch (e) {
+			if (checkpointed) {
+				try {
+					const vm = await client.getVm()
+					await vm.stateManager.revert()
+				} catch (revertError) {
+					client.logger.error({ revertError }, 'there was an error reverting setAccount state')
+				}
+			}
 			errors.push(new InternalError('Unexpected error setting account', { cause: e }))
 			return maybeThrowOnFail(throwOnFail, { errors })
 		}
-	}
+		}

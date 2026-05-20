@@ -32,6 +32,8 @@ export const executeCall = async (client, evmInput, params, events) => {
 	 * @type {import('../common/TraceResult.js').TraceResult | undefined}
 	 */
 	let trace
+	/** @type {(() => void) | undefined} */
+	let cleanupTrace
 	/**
 	 * evm returns an access list without the 0x prefix
 	 * @type {Map<string, Set<string>> | undefined}
@@ -52,7 +54,9 @@ export const executeCall = async (client, evmInput, params, events) => {
 		})(evmInput, params.maxFeePerGas, params.maxPriorityFeePerGas)
 		if (params.createTrace) {
 			// this trace will be filled in when the tx runs
-			trace = await runCallWithTrace(vm, client.logger, evmInput, true).then(({ trace }) => trace)
+			const traceResult = await runCallWithTrace(vm, client.logger, evmInput, true)
+			trace = traceResult.trace
+			cleanupTrace = /** @type {{cleanup?: () => void}} */ (traceResult).cleanup
 		}
 
 		// Always create access list for optimization purposes even if not explicitly requested
@@ -124,5 +128,6 @@ export const executeCall = async (client, evmInput, params, events) => {
 		if (events?.onNewContract) vm.evm.events?.off('newContract', events.onNewContract)
 		if (events?.onBeforeMessage) vm.evm.events?.off('beforeMessage', events.onBeforeMessage)
 		if (events?.onAfterMessage) vm.evm.events?.off('afterMessage', events.onAfterMessage)
+		cleanupTrace?.()
 	}
 }

@@ -12,7 +12,7 @@ export const getBalanceProcedure = (baseClient) => async (req) => {
 		)
 	}
 	return {
-		...(req.id ? { id: req.id } : {}),
+		...(req.id !== undefined ? { id: req.id } : {}),
 		jsonrpc: '2.0',
 		method: req.method,
 		result: numberToHex(

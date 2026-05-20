@@ -5,7 +5,7 @@ import { hexToBigInt } from '@tevm/utils'
  * @param {string} message
  */
 const invalidParams = (request, message) => ({
-	...(request.id ? { id: request.id } : {}),
+	...(request.id !== undefined ? { id: request.id } : {}),
 	method: request.method,
 	jsonrpc: request.jsonrpc,
 	error: { code: -32602, message },
@@ -16,7 +16,7 @@ const invalidParams = (request, message) => ({
  * @param {any} result
  */
 const ok = (request, result) => ({
-	...(request.id ? { id: request.id } : {}),
+	...(request.id !== undefined ? { id: request.id } : {}),
 	method: request.method,
 	jsonrpc: '2.0',
 	result,

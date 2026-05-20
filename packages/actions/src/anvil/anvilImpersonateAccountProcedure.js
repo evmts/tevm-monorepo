@@ -12,14 +12,14 @@ export const anvilImpersonateAccountJsonRpcProcedure = (client) => {
 			return {
 				jsonrpc: '2.0',
 				method: request.method,
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				result: null,
 			}
 		} catch (e) {
 			return {
 				jsonrpc: '2.0',
 				method: request.method,
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				// TODO use @tevm/errors
 				error: {
 					code: /** @type any*/ (-32602),

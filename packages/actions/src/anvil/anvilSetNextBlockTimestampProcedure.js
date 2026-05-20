@@ -21,6 +21,6 @@ export const anvilSetNextBlockTimestampJsonRpcProcedure = (client) => async (req
 		method: request.method,
 		result: null,
 		jsonrpc: /** @type {const} */ ('2.0'),
-		...(request.id ? { id: request.id } : {}),
+		...(request.id !== undefined ? { id: request.id } : {}),
 	}
 }

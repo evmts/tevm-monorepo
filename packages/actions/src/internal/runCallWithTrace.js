@@ -57,18 +57,21 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 		next?.()
 	}
 	vm.evm.events?.on('afterMessage', onAfterMessage)
+	const cleanup = () => {
+		vm.evm.events?.removeListener('step', onStep)
+		vm.evm.events?.removeListener('afterMessage', onAfterMessage)
+	}
 
 	if (lazilyRun) {
 		// TODO internally used function is not typesafe here
-		return /** @type any*/ ({ trace })
+		return /** @type any*/ ({ trace, cleanup })
 	}
 
 	let runCallResult
 	try {
 		runCallResult = await vm.evm.runCall(params)
 	} finally {
-		vm.evm.events?.removeListener('step', onStep)
-		vm.evm.events?.removeListener('afterMessage', onAfterMessage)
+		cleanup()
 	}
 
 	logger.debug(runCallResult, 'runCallWithTrace: evm run call complete')

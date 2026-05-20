@@ -12,7 +12,7 @@ export const anvilDumpStateJsonRpcProcedure = (client) => {
 	return async (request) => {
 		return /** @type any*/ ({
 			...(await dumpStateProcedure(client)({
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				jsonrpc: '2.0',
 				method: 'tevm_dumpState',
 			})),

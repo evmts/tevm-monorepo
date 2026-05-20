@@ -6,7 +6,7 @@ import { ethSignTransactionHandler } from './ethSignTransactionHandler.js'
  * @returns {import('./EthProcedure.js').EthSignTransactionJsonRpcProcedure}
  */
 export const ethSignTransactionProcedure = (options) => async (req) => ({
-	...(req.id ? { id: req.id } : {}),
+	...(req.id !== undefined ? { id: req.id } : {}),
 	jsonrpc: '2.0',
 	method: req.method,
 	result: await ethSignTransactionHandler(options)({

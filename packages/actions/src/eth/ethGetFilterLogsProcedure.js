@@ -11,7 +11,7 @@ export const ethGetFilterLogsProcedure = (client) => {
 		const filter = client.getFilters().get(request.params[0])
 		if (!filter) {
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {
@@ -44,14 +44,14 @@ export const ethGetFilterLogsProcedure = (client) => {
 				removed: log.removed,
 			}))
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				result: jsonRpcResult,
 			}
 		} catch (e) {
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {

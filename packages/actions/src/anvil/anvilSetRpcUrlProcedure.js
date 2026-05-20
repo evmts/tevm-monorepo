@@ -35,7 +35,7 @@ export const anvilSetRpcUrlJsonRpcProcedure = (client) => {
 					code: /** @type {const} */ ('-32602'),
 					message: 'Invalid RPC URL.',
 				},
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		}
 
@@ -47,7 +47,7 @@ export const anvilSetRpcUrlJsonRpcProcedure = (client) => {
 					code: /** @type {const} */ ('-32602'),
 					message: 'Cannot set RPC URL on a non-forked node. Create the node with fork configuration.',
 				},
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		}
 
@@ -64,7 +64,7 @@ export const anvilSetRpcUrlJsonRpcProcedure = (client) => {
 			jsonrpc: '2.0',
 			method: request.method,
 			result: null,
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

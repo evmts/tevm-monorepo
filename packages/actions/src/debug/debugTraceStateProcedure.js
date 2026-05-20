@@ -153,7 +153,7 @@ export const debugTraceStateJsonRpcProcedure = (client) => {
 			method: request.method,
 			result: /** @type {any} */ (trace),
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

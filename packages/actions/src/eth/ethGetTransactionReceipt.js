@@ -47,14 +47,14 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 		/**
 		 * @type {import('./EthResult.js').EthGetTransactionReceiptResult }
 		 */
-		return (
-			r && {
-				blockHash: r.hex,
-				blockNumber: BigInt(r.blockNumber),
-				cumulativeGasUsed: BigInt(r.cumulativeBlockGasUsed),
-				effectiveGasPrice: BigInt(r.effectiveGasPrice),
-				from: r.from,
-				gasUsed: BigInt(r.gasUsed),
+			return (
+				r && {
+					blockHash: r.blockHash,
+					blockNumber: BigInt(r.blockNumber),
+					cumulativeGasUsed: BigInt(r.cumulativeGasUsed),
+					effectiveGasPrice: BigInt(r.effectiveGasPrice),
+					from: r.from,
+					gasUsed: BigInt(r.gasUsed),
 				to: r.to,
 				transactionHash: r.transactionHash,
 				transactionIndex: BigInt(r.transactionIndex),
@@ -74,7 +74,7 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 						blockHash: log.blockHash,
 						blockNumber: BigInt(log.blockNumber),
 						data: log.data,
-						logIndex: log.logIndex,
+							logIndex: BigInt(log.logIndex),
 						removed: log.removed,
 						topics: log.topics,
 						transactionIndex: BigInt(log.transactionIndex),
@@ -107,11 +107,15 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 			message: 'No tx found',
 		}
 	}
-	// TODO handle legacy tx
-	const effectiveGasPrice =
-		/** @type any*/ (tx).maxPriorityFeePerGas < /** @type any*/ (tx).maxFeePerGas - (block.header.baseFeePerGas ?? 0n)
-			? /** @type any*/ (tx).maxPriorityFeePerGas
-			: /** @type any*/ (tx).maxFeePerGas - (block.header.baseFeePerGas ?? 0n) + (block.header.baseFeePerGas ?? 0n)
+		/** @type {any} */
+		const txAny = tx
+		const baseFeePerGas = block.header.baseFeePerGas ?? 0n
+		const effectiveGasPrice =
+			txAny.maxFeePerGas !== undefined && txAny.maxPriorityFeePerGas !== undefined
+				? txAny.maxFeePerGas < baseFeePerGas + txAny.maxPriorityFeePerGas
+					? txAny.maxFeePerGas
+					: baseFeePerGas + txAny.maxPriorityFeePerGas
+				: txAny.gasPrice
 
 	vm.common.ethjsCommon.setHardfork(tx.common.hardfork())
 	await vm.stateManager.setStateRoot(parentBlock.header.stateRoot)
