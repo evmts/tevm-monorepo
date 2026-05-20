@@ -55,7 +55,22 @@ jobs:
             echo "Processing $file..."
             
             # Run Claude Code with the update file contents.
-            claude --print --permission-mode bypassPermissions < "$file"
+            CLAUDE_OUTPUT=$(mktemp)
+            if ! claude --print --permission-mode bypassPermissions < "$file" > "$CLAUDE_OUTPUT" 2>&1; then
+              cat "$CLAUDE_OUTPUT"
+
+              if grep -qi "Credit balance is too low" "$CLAUDE_OUTPUT"; then
+                echo "::warning title=Claude auto-update skipped::Claude API credit balance is too low; skipping automated updates."
+                CHANGES_MADE=0
+                rm -f "$CLAUDE_OUTPUT"
+                break
+              fi
+
+              rm -f "$CLAUDE_OUTPUT"
+              exit 1
+            fi
+            cat "$CLAUDE_OUTPUT"
+            rm -f "$CLAUDE_OUTPUT"
             
             # Check if changes were made
             if [ -n "$(git status --porcelain)" ]; then
