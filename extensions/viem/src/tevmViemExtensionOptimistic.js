@@ -1,5 +1,42 @@
+import { encodeFunctionData, numberToHex } from 'viem'
 import { waitForTransactionReceipt } from 'viem/actions'
 import { tevmViemExtension } from './tevmViemExtension.js'
+
+/**
+ * @param {any} action
+ */
+const getOptimisticCallArgs = (action) => {
+	const account = /** @type {any} */ (action.account)
+	const from = typeof account === 'string' ? account : account?.address
+	const data = encodeFunctionData(
+		/** @type any */ ({
+			abi: action.abi,
+			functionName: action.functionName,
+			args: action.args,
+		}),
+	)
+	const dataSuffix = /** @type {any} */ (action).dataSuffix
+	return {
+		to: action.address,
+		data: dataSuffix !== undefined ? /** @type {`0x${string}`} */ (`${data}${dataSuffix.slice(2)}`) : data,
+		...(from !== undefined ? { from } : {}),
+		...(action.value !== undefined ? { value: numberToHex(action.value) } : {}),
+		...(action.gas !== undefined ? { gas: numberToHex(action.gas) } : {}),
+		...(action.gasPrice !== undefined ? { gasPrice: numberToHex(action.gasPrice) } : {}),
+		...(action.maxFeePerGas !== undefined ? { maxFeePerGas: numberToHex(action.maxFeePerGas) } : {}),
+		...(action.maxPriorityFeePerGas !== undefined ? { maxPriorityFeePerGas: numberToHex(action.maxPriorityFeePerGas) } : {}),
+		...(action.nonce !== undefined ? { nonce: numberToHex(action.nonce) } : {}),
+		...(/** @type {any} */ (action).createTransaction !== undefined
+			? { createTransaction: /** @type {any} */ (action).createTransaction }
+			: {}),
+		...(/** @type {any} */ (action).addToMempool !== undefined
+			? { addToMempool: /** @type {any} */ (action).addToMempool }
+			: {}),
+		...(/** @type {any} */ (action).addToBlockchain !== undefined
+			? { addToBlockchain: /** @type {any} */ (action).addToBlockchain }
+			: {}),
+	}
+}
 
 // TODO handle the transaction reverting
 /**
@@ -31,8 +68,8 @@ import { tevmViemExtension } from './tevmViemExtension.js'
  *			tag: 'OPTIMISTIC_RESULT',
  *		})
  *		expect((client.request as jest.Mock).mock.lastCall[0]).toEqual({
- *			method: 'tevm_contract',
-          params: params,
+ *			method: 'tevm_call',
+ *			params: [params],
  *			jsonrpc: '2.0',
  *		})
  *		expect((client.writeContract as jest.Mock).mock.lastCall[0]).toEqual({
@@ -82,8 +119,8 @@ export const tevmViemExtensionOptimistic = () => {
 			const writeContractResult = client.writeContract(/** @type any*/ (action))
 			const optimisticResult = client.request({
 				jsonrpc: '2.0',
-				method: /** @type {any}*/ ('tevm_contract'),
-				params: /** @type {any}*/ (action),
+				method: /** @type {any}*/ ('tevm_call'),
+				params: /** @type {any}*/ ([getOptimisticCallArgs(action)]),
 			})
 
 			try {
