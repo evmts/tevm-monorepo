@@ -8,19 +8,23 @@ import { InternalError } from '@tevm/errors'
  * @returns {Promise<ReadonlyArray<import("@tevm/jsonrpc").JsonRpcResponse<any, any, any>>>}
  * @throws {never} never throws
  */
-export const handleBulkRequest = async (client, requests) => {
+export const handleBulkRequest = async (client, requests, options = {}) => {
+	const { suppressNotifications = false } = options
 	const { send } = client.transport.tevm.extend(tevmSend())
 	const responses = await Promise.allSettled(
 		requests.map((request) => {
 			return send(/** @type any*/ (request))
 		}),
 	)
-	return responses.map((response, i) => {
+	return responses.flatMap((response, i) => {
 		const request = /** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (requests[i])
+		if (suppressNotifications && request.id === undefined) {
+			return []
+		}
 		if (response.status === 'rejected') {
 			client.transport.tevm.logger.error(response.reason)
 			const err = new InternalError(request.method, { cause: response.reason })
-			return {
+			return [{
 				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: '2.0',
@@ -28,8 +32,8 @@ export const handleBulkRequest = async (client, requests) => {
 					code: err.code,
 					message: err.message,
 				},
-			}
+			}]
 		}
-		return response.value
+		return [response.value]
 	})
 }

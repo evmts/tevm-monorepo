@@ -17,7 +17,8 @@ const zBulkRequest = z.array(zJsonRpcRequest)
  * @param {string} body
  * @throws {never} returns errors as values
  */
-export const parseRequest = (body) => {
+export const parseRequest = (body, options = {}) => {
+	const { allowEmptyBatch = true } = options
 	/**
 	 * @type {unknown}
 	 */
@@ -30,6 +31,9 @@ export const parseRequest = (body) => {
 	}
 
 	if (Array.isArray(raw)) {
+		if (!allowEmptyBatch && raw.length === 0) {
+			return new InvalidRequestError('Empty batch requests are invalid')
+		}
 		const parsedRequest = zBulkRequest.safeParse(raw)
 		if (!parsedRequest.success) {
 			return new InvalidRequestError(JSON.stringify(treeifyError(parsedRequest.error)))

@@ -1,3 +1,5 @@
+import { bytesToHex } from '@tevm/utils'
+
 /**
  * Request handler for anvil_revert JSON-RPC requests.
  * Reverts the state to a previous snapshot.
@@ -46,19 +48,51 @@ export const anvilRevertJsonRpcProcedure = (client) => {
 				}
 				return response
 			}
+			const snapshotStateRoot =
+				typeof snapshot.stateRoot === 'string'
+					? snapshot.stateRoot
+					: bytesToHex(/** @type {Uint8Array} */ (snapshot.stateRoot ?? new Uint8Array()))
+			if (!snapshot.state || typeof snapshotStateRoot !== 'string' || !snapshotStateRoot.startsWith('0x')) {
+				throw new Error('Invalid snapshot payload')
+			}
 
 			const vm = await client.getVm()
 
+			const txPool = await client.getTxPool()
 			// Save the state root with its associated state
 			vm.stateManager.saveStateRoot(
-				/** @type {any} */ (Uint8Array.from(Buffer.from(snapshot.stateRoot.slice(2), 'hex'))),
+				/** @type {any} */ (Uint8Array.from(Buffer.from(snapshotStateRoot.slice(2), 'hex'))),
 				snapshot.state,
 			)
 
 			// Set the state root to revert to that state
 			await vm.stateManager.setStateRoot(
-				/** @type {any} */ (Uint8Array.from(Buffer.from(snapshot.stateRoot.slice(2), 'hex'))),
+				/** @type {any} */ (Uint8Array.from(Buffer.from(snapshotStateRoot.slice(2), 'hex'))),
 			)
+
+			if (snapshot.impersonatedAccount) {
+				client.setImpersonatedAccount(snapshot.impersonatedAccount)
+			} else {
+				client.setImpersonatedAccount(undefined)
+			}
+			client.setAutoImpersonate(Boolean(snapshot.autoImpersonate))
+			client.miningConfig = snapshot.miningConfig ?? client.miningConfig
+			client.setNextBlockTimestamp(
+				snapshot.nextBlockTimestamp !== undefined ? BigInt(snapshot.nextBlockTimestamp) : undefined,
+			)
+			client.setNextBlockGasLimit(
+				snapshot.nextBlockGasLimit !== undefined ? BigInt(snapshot.nextBlockGasLimit) : undefined,
+			)
+			client.setNextBlockBaseFeePerGas(
+				snapshot.nextBlockBaseFeePerGas !== undefined ? BigInt(snapshot.nextBlockBaseFeePerGas) : undefined,
+			)
+			client.setMinGasPrice(snapshot.minGasPrice !== undefined ? BigInt(snapshot.minGasPrice) : undefined)
+			client.setBlockTimestampInterval(
+				snapshot.blockTimestampInterval !== undefined ? BigInt(snapshot.blockTimestampInterval) : undefined,
+			)
+
+			const txs = await txPool.txsByPriceAndNonce()
+			txs.forEach((tx) => txPool.removeByHash(bytesToHex(tx.hash())))
 
 			// Delete all snapshots from this ID onwards (they are now invalid)
 			client.deleteSnapshotsFrom(snapshotId)

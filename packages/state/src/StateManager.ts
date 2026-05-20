@@ -7,6 +7,7 @@ import type { TevmState } from './state-types/index.js'
 
 export interface StateManager
 	extends Omit<EvmStateManagerInterface, 'getAccount' | 'putAccount' | 'modifyAccountFields' | 'shallowCopy'> {
+	initBinaryTreeExecutionWitness?: (blockNum: bigint, executionWitness?: unknown) => void
 	/**
 	 * The internal state representation
 	 */

@@ -42,4 +42,32 @@ describe('anvilLoadStateJsonRpcProcedure', () => {
 			id: 1,
 		})
 	})
+
+	it('returns error for malformed state blob', async () => {
+		const client = createTevmNode()
+		const loadStateProcedure = anvilLoadStateJsonRpcProcedure(client)
+
+		const result = await loadStateProcedure({
+			method: 'anvil_loadState',
+			params: [{ state: '0x1234' as any }],
+			jsonrpc: '2.0',
+			id: 2,
+		} as const)
+
+		expect(result.error?.code).toBe(-32602)
+	})
+
+	it('supports zevmState alias blob', async () => {
+		const client = createTevmNode()
+		const loadStateProcedure = anvilLoadStateJsonRpcProcedure(client)
+		const testAddress = createAddress('0x1234567890123456789012345678901234567890')
+		const account = createAccount({ balance: 5n, nonce: 2n })
+		const result = await loadStateProcedure({
+			method: 'anvil_loadState',
+			params: [{ zevmState: { [testAddress.toString()]: bytesToHex(account.serialize()) } } as any],
+			jsonrpc: '2.0',
+			id: 3,
+		} as const)
+		expect(result.result).toBeNull()
+	})
 })

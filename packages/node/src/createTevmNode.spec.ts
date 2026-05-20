@@ -1,5 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { createCommon, mainnet } from '@tevm/common'
+import { createLightClientConsensusService } from '@tevm/consensus'
 import { P256_VERIFY_ADDRESS } from '@tevm/precompiles'
 import { definePredeploy } from '@tevm/predeploys'
 import { CacheType, ContractCache, StorageCache } from '@tevm/state'
@@ -74,6 +75,27 @@ describe('createTevmNode', () => {
 		expect(await getTxPool().then((pool) => pool.pool)).toEqual(new Map())
 		expect(miningConfig).toEqual({ type: 'auto' })
 		expect(await getReceiptsManager().then((manager) => manager.getReceipts)).toBeInstanceOf(Function)
+		expect(createTevmNode().consensus.mode).toBe('noop')
+	})
+
+	it('Accepts injected consensus service', () => {
+		const consensus = createLightClientConsensusService({
+			verifyRead: async () => true,
+		})
+		const client = createTevmNode({ consensus })
+		expect(client.consensus).toBe(consensus)
+		expect(client.consensus.mode).toBe('light-client')
+	})
+
+	it('exposes light sync status from consensus without node-level mutator', async () => {
+		const consensus = createLightClientConsensusService({
+			verifyRead: async () => true,
+		})
+		const client = createTevmNode({ consensus, lightSync: { explicitCheckpoint: '0xabc' } })
+		await client.ready()
+		const status = client.getLightSyncStatus()
+		expect(status.checkpointSource).toBeTypeOf('string')
+		expect('updateLightSyncStatus' in client).toBe(false)
 	})
 
 	it('Can be extended', async () => {
@@ -284,6 +306,7 @@ describe('createTevmNode', () => {
 			expect((await client.getVm()).stateManager._baseState.getCurrentStateRoot()).toEqual(
 				(await copy.getVm()).stateManager._baseState.getCurrentStateRoot(),
 			)
+			expect(copy.consensus).toBe(client.consensus)
 		})
 	})
 

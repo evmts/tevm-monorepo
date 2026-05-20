@@ -1,5 +1,5 @@
 import { Block } from '@tevm/block'
-import { InternalError } from '@tevm/errors'
+import { InternalError, InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 import { bytesToHex, equalsBytes } from '@tevm/utils'
 import type { BaseVm } from '../BaseVm.js'
 import type { AfterBlockEvent, ApplyBlockResult, RunBlockOpts, RunBlockResult } from '../utils/index.js'
@@ -9,6 +9,17 @@ import { errorMsg } from './errorMsg.js'
 import { genTxTrie } from './genTxTrie.js'
 
 export type RunBlock = (opts: RunBlockOpts) => Promise<RunBlockResult>
+
+const isValidExecutionWitness = (executionWitness: unknown): executionWitness is {
+	stateDiff: unknown[]
+	verkleProof: Record<string, unknown>
+} => {
+	if (typeof executionWitness !== 'object' || executionWitness === null) {
+		return false
+	}
+	const witness = executionWitness as { stateDiff?: unknown; verkleProof?: unknown }
+	return Array.isArray(witness.stateDiff) && typeof witness.verkleProof === 'object' && witness.verkleProof !== null
+}
 
 /**
  * @ignore
@@ -51,6 +62,25 @@ export const runBlock =
 		// Checkpoint state
 		await vm.evm.journal.checkpoint()
 
+		const isVerkleExecutionEnabled = block.common.ethjsCommon.isActivatedEIP(6800)
+		if (isVerkleExecutionEnabled) {
+			const executionWitness = block.executionWitness
+			if (executionWitness === undefined || executionWitness === null) {
+				throw new InvalidParamsError('Missing execution witness for EIP-6800 activated block execution')
+			}
+			if (!isValidExecutionWitness(executionWitness)) {
+				throw new InvalidParamsError(
+					'Invalid execution witness for EIP-6800 activated block execution: expected { stateDiff: [], verkleProof: {} }',
+				)
+			}
+			if (typeof vm.stateManager.initBinaryTreeExecutionWitness !== 'function') {
+				throw new MisconfiguredClientError(
+					'State manager does not support Verkle execution witness initialization for EIP-6800 activated block execution',
+				)
+			}
+			vm.stateManager.initBinaryTreeExecutionWitness(block.header.number, executionWitness)
+		}
+
 		let result: ApplyBlockResult
 
 		try {
@@ -82,7 +112,7 @@ export const runBlock =
 			}
 			// TODO remove as any just being lazy here this error is from tevm stricter ts config compared to ethereumjs
 			block = Block.fromBlockData(blockData as any, { common: vm.common })
-		} else if (vm.common.ethjsCommon.isActivatedEIP(6800) === false) {
+		} else if (isVerkleExecutionEnabled === false) {
 			// Only validate the following headers if verkle blocks aren't activated
 			if (equalsBytes(result.receiptsRoot, block.header.receiptTrie) === false) {
 				const msg = errorMsg('invalid receiptTrie', vm, block)

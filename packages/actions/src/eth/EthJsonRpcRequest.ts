@@ -288,10 +288,17 @@ export type EthSignTransactionJsonRpcRequest = JsonRpcRequest<
 			to?: Address
 			gas?: Hex
 			gasPrice?: Hex
+			maxFeePerGas?: Hex
+			maxPriorityFeePerGas?: Hex
+			maxFeePerBlobGas?: Hex
 			value?: Hex
 			data?: Hex
 			nonce?: Hex
 			chainId?: Hex
+			accessList?: readonly { address: Address; storageKeys: readonly Hex[] }[]
+			authorizationList?: readonly unknown[]
+			blobVersionedHashes?: readonly Hex[]
+			type?: Hex
 		},
 	]
 >

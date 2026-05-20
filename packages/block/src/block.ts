@@ -32,6 +32,9 @@ import type {
 	VerkleExecutionWitness,
 } from './types.js'
 
+const UNSUPPORTED_VERKLE_EXECUTION_MESSAGE =
+	'Verkle/state-witness execution paths (EIP-6800 family) are not supported in the current Tevm VM/state pipeline'
+
 /**
  * An object that represents the block.
  */
@@ -307,7 +310,7 @@ export class Block {
 			block.common.ethjsCommon.isActivatedEIP(6800) &&
 			(executionWitness === undefined || executionWitness === null)
 		) {
-			throw Error('Missing executionWitness for EIP-6800 activated executionPayload')
+			throw Error(UNSUPPORTED_VERKLE_EXECUTION_MESSAGE)
 		}
 		// Verify blockHash matches payload
 		if (!equalsBytes(block.hash(), hexToBytes(payload.blockHash as Hex))) {
@@ -607,10 +610,10 @@ export class Block {
 		// Unnecessary in this implementation since we're providing defaults if those fields are undefined
 		if (this.common.ethjsCommon.isActivatedEIP(6800)) {
 			if (this.executionWitness === undefined) {
-				throw new Error('Invalid block: missing executionWitness')
+				throw new Error(UNSUPPORTED_VERKLE_EXECUTION_MESSAGE)
 			}
 			if (this.executionWitness === null) {
-				throw new Error('Invalid block: ethereumjs stateless client needs executionWitness')
+				throw new Error(UNSUPPORTED_VERKLE_EXECUTION_MESSAGE)
 			}
 		}
 	}

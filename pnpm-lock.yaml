@@ -1821,6 +1821,15 @@ importers:
         specifier: workspace:^
         version: link:../../configs/tsupconfig
 
+  packages/consensus:
+    devDependencies:
+      '@tevm/tsconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
+      '@tevm/tsupconfig':
+        specifier: workspace:^
+        version: link:../../configs/tsupconfig
+
   packages/contract:
     dependencies:
       '@tevm/errors':
@@ -2084,6 +2093,9 @@ importers:
       '@tevm/common':
         specifier: workspace:^
         version: link:../common
+      '@tevm/consensus':
+        specifier: workspace:^
+        version: link:../consensus
       '@tevm/evm':
         specifier: workspace:^
         version: link:../evm
@@ -2717,6 +2729,9 @@ importers:
       '@tevm/config':
         specifier: workspace:^
         version: link:../bundler-packages/config
+      '@tevm/consensus':
+        specifier: workspace:^
+        version: link:../packages/consensus
       '@tevm/contract':
         specifier: workspace:^
         version: link:../packages/contract

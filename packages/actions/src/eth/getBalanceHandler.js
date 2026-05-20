@@ -3,6 +3,7 @@ import { NoForkUrlSetError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { bytesToHex, hexToBigInt, numberToHex } from '@tevm/utils'
 import { getPendingClient } from '../internal/getPendingClient.js'
+import { asLightSelector, ensureLightReady, getLightProof } from './lightClientRead.js'
 
 /**
  * @param {import('@tevm/node').TevmNode} baseClient
@@ -11,6 +12,12 @@ import { getPendingClient } from '../internal/getPendingClient.js'
 export const getBalanceHandler =
 	(baseClient) =>
 	async ({ address, blockTag = 'latest' }) => {
+		if (baseClient.consensus?.mode === 'light-client') {
+			ensureLightReady(baseClient, 'eth_getBalance')
+			const selector = asLightSelector(blockTag)
+			const { proof } = await getLightProof(baseClient, address, [], selector)
+			return hexToBigInt(proof.balance)
+		}
 		const vm = await baseClient.getVm()
 
 		if (blockTag === 'latest') {

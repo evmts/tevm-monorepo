@@ -1,0 +1,13 @@
+# {props.granularity === "feature" ? "Feature" : "Feature Group"} Task
+
+Group: {props.groupName}
+Granularity: {props.granularity}
+
+Features:
+{props.features.map((feature) => `- ${feature}`).join("\n")}
+
+REQUEST:
+{props.prompt}
+
+REQUIRED OUTPUT:
+{props.schema}

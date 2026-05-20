@@ -36,6 +36,11 @@ import type { PublicRpcSchema, TestRpcSchema } from 'viem'
 export type TevmRpcSchema = [
 	...PublicRpcSchema,
 	...TestRpcSchema<'anvil' | 'ganache' | 'hardhat'>,
+	{
+		Method: 'testing_buildBlockV1'
+		Parameters: [parentHash: `0x${string}`, payloadAttributes: Record<string, unknown>, transactions: `0x${string}`[] | null, extraData?: `0x${string}`]
+		ReturnType: Record<string, unknown>
+	},
 	JsonRpcSchemaTevm['tevm_call'],
 	JsonRpcSchemaTevm['tevm_dumpState'],
 	JsonRpcSchemaTevm['tevm_loadState'],

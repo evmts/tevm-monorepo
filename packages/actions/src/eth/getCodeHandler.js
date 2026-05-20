@@ -2,12 +2,19 @@ import { UnknownBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { bytesToHex, getAddress, hexToBytes, isHex } from '@tevm/utils'
 import { getPendingClient } from '../internal/getPendingClient.js'
+import { asLightSelector, ensureLightReady, getLightProof } from './lightClientRead.js'
 
 /**
  * @param {import('@tevm/node').TevmNode} baseClient
  * @returns {import('./EthHandler.js').EthGetCodeHandler}
  */
 export const getCodeHandler = (baseClient) => async (params) => {
+	if (baseClient.consensus?.mode === 'light-client') {
+		ensureLightReady(baseClient, 'eth_getCode')
+		const selector = asLightSelector(params.blockTag ?? 'latest')
+		const { proof } = await getLightProof(baseClient, params.address, [], selector)
+		return proof.code ?? '0x'
+	}
 	const vm = await baseClient.getVm()
 	const tag = params.blockTag ?? 'latest'
 

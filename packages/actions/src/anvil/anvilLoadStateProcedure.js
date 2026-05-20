@@ -9,11 +9,28 @@ import { createAccount, fromRlp, hexToBytes } from '@tevm/utils'
 export const anvilLoadStateJsonRpcProcedure = (client) => {
 	return async (request) => {
 		const loadStateRequest = /** @type {import('./AnvilJsonRpcRequest.js').AnvilLoadStateJsonRpcRequest}*/ (request)
+		const blob = loadStateRequest.params[0]
+		const zevmBlob = blob && typeof blob === 'object' ? blob['zevmState'] : undefined
+		const stateRecord = blob?.state ?? zevmBlob
+		if (!blob || typeof blob !== 'object' || typeof stateRecord !== 'object' || Array.isArray(stateRecord)) {
+			return {
+				jsonrpc: '2.0',
+				method: loadStateRequest.method,
+				...(loadStateRequest.id ? { id: loadStateRequest.id } : {}),
+				error: {
+					code: /** @type any*/ (-32602),
+					message: 'Invalid state blob. Expected object with a state record.',
+				},
+			}
+		}
 
 		const vm = await client.getVm()
 
 		return Promise.all(
-			Object.entries(loadStateRequest.params[0].state).map(([address, rlpEncodedAccount]) => {
+			Object.entries(stateRecord).map(([address, rlpEncodedAccount]) => {
+				if (typeof rlpEncodedAccount !== 'string' || !rlpEncodedAccount.startsWith('0x')) {
+					throw new Error('Invalid RLP encoded account value')
+				}
 				const rlpBytes = hexToBytes(rlpEncodedAccount)
 				const decoded = fromRlp(rlpBytes)
 				if (!Array.isArray(decoded) || decoded.length !== 4) {

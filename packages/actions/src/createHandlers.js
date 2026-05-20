@@ -30,6 +30,7 @@ import { anvilSetErc20AllowanceJsonRpcProcedure } from './anvil/anvilSetErc20All
 import { anvilSetIntervalMiningJsonRpcProcedure } from './anvil/anvilSetIntervalMiningProcedure.js'
 import { anvilSetLoggingEnabledJsonRpcProcedure } from './anvil/anvilSetLoggingEnabledProcedure.js'
 import { anvilSetMinGasPriceJsonRpcProcedure } from './anvil/anvilSetMinGasPriceProcedure.js'
+import { anvilSetPrevRandaoJsonRpcProcedure } from './anvil/anvilSetPrevRandaoProcedure.js'
 import { anvilSetNextBlockBaseFeePerGasJsonRpcProcedure } from './anvil/anvilSetNextBlockBaseFeePerGasProcedure.js'
 import { anvilSetNextBlockTimestampJsonRpcProcedure } from './anvil/anvilSetNextBlockTimestampProcedure.js'
 import { anvilSetNonceJsonRpcProcedure } from './anvil/anvilSetNonceProcedure.js'
@@ -86,21 +87,41 @@ import { ethNewPendingTransactionFilterProcedure } from './eth/ethNewPendingTran
 import { ethProtocolVersionJsonRpcProcedure } from './eth/ethProtocolVersionProcedure.js'
 import { ethSendRawTransactionJsonRpcProcedure } from './eth/ethSendRawTransactionProcedure.js'
 import { ethSendTransactionJsonRpcProcedure } from './eth/ethSendTransactionProcedure.js'
+import { ethSignProcedure } from './eth/ethSignProcedure.js'
+import { ethSignTransactionProcedure } from './eth/ethSignTransactionProcedure.js'
 import { ethSimulateV1Procedure } from './eth/ethSimulateV1Procedure.js'
 import { ethSimulateV2Procedure } from './eth/ethSimulateV2Procedure.js'
 import { ethSubscribeJsonRpcProcedure } from './eth/ethSubscribeProcedure.js'
 import { ethUninstallFilterJsonRpcProcedure } from './eth/ethUninstallFilterProcedure.js'
 import { ethUnsubscribeJsonRpcProcedure } from './eth/ethUnsubscribeProcedure.js'
+import { clearEngineState, engineExchangeCapabilitiesProcedure, engineExchangeTransitionConfigurationV1Procedure, engineForkchoiceUpdatedProcedure, engineGetBlobsProcedure, engineGetClientVersionV1Procedure, engineGetPayloadBodiesByHashProcedure, engineGetPayloadBodiesByRangeProcedure, engineGetPayloadProcedure, engineNewPayloadProcedure, testingBuildBlockV1Procedure } from './engine/engineProcedures.js'
 import { gasPriceProcedure } from './eth/gasPriceProcedure.js'
 import { getBalanceProcedure } from './eth/getBalanceProcedure.js'
 import { getCodeProcedure } from './eth/getCodeProcedure.js'
 import { getStorageAtProcedure } from './eth/getStorageAtProcedure.js'
 import { maxPriorityFeePerGasProcedure } from './eth/maxPriorityFeePerGasProcedure.js'
+import {
+	debugGetBadBlocksJsonRpcProcedure,
+	ethGetBlockAccessListJsonRpcProcedure,
+	ethGetStorageValuesJsonRpcProcedure,
+	ethGetUncleByBlockHashAndIndexJsonRpcProcedure,
+	ethGetUncleByBlockNumberAndIndexJsonRpcProcedure,
+	ethGetUncleCountByBlockHashJsonRpcProcedure,
+	ethGetUncleCountByBlockNumberJsonRpcProcedure,
+	ethGetWorkJsonRpcProcedure,
+	ethHashrateJsonRpcProcedure,
+	ethSubmitHashrateJsonRpcProcedure,
+	ethSubmitWorkJsonRpcProcedure,
+} from './eth/ethCompatibilityNoopsProcedure.js'
 import { testAccounts } from './eth/utils/testAccounts.js'
 import { getAccountProcedure } from './GetAccount/getAccountProcedure.js'
 import { loadStateProcedure } from './LoadState/loadStateProcedure.js'
 import { mineProcedure } from './Mine/mineProcedure.js'
 import { setAccountProcedure } from './SetAccount/setAccountProcedure.js'
+import { tevmLightSyncStatusProcedure } from './tevm/tevmLightSyncStatusProcedure.js'
+import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
+import { createAddress } from '@tevm/address'
+import { keccak256, numberToHex } from '@tevm/utils'
 
 /**
  * @typedef {ReturnType<typeof createHandlers>} RequestHandlers
@@ -114,6 +135,26 @@ import { setAccountProcedure } from './SetAccount/setAccountProcedure.js'
  * @example
  */
 export const createHandlers = (client) => {
+	const engineEnabled = client?.config?.engineApi !== false
+	/** @type {ReturnType<typeof setInterval> | undefined} */
+	let intervalMiningTimer
+	const stopIntervalMiningTimer = () => {
+		if (intervalMiningTimer !== undefined) {
+			clearInterval(intervalMiningTimer)
+			intervalMiningTimer = undefined
+		}
+	}
+	const startIntervalMiningTimer = (blockTime) => {
+		stopIntervalMiningTimer()
+		if (blockTime <= 0) return
+		intervalMiningTimer = setInterval(async () => {
+			if (client.miningConfig.type !== 'interval' || client.miningConfig.blockTime <= 0) return
+			await mineProcedure(client)({ jsonrpc: '2.0', method: 'anvil_mine', params: ['0x1', '0x0'] })
+		}, blockTime * 1000)
+	}
+	if (client.miningConfig.type === 'interval' && client.miningConfig.blockTime > 0) {
+		startIntervalMiningTimer(client.miningConfig.blockTime)
+	}
 	const tevmHandlers = {
 		tevm_call: callProcedure(client),
 		/**
@@ -137,7 +178,11 @@ export const createHandlers = (client) => {
 		tevm_setAccount: setAccountProcedure(client),
 		tevm_dumpState: dumpStateProcedure(client),
 		tevm_loadState: loadStateProcedure(client),
+		tevm_mine: mineProcedure(client),
+		// Backward-compatible alias for callers using the historical typo.
 		tevm_miner: mineProcedure(client),
+		tevm_lightSyncStatus: tevmLightSyncStatusProcedure(client),
+		zevm_lightSyncStatus: tevmLightSyncStatusProcedure(client),
 	}
 
 	const ethHandlers = {
@@ -178,6 +223,11 @@ export const createHandlers = (client) => {
 				}
 			},
 		eth_sendTransaction: ethSendTransactionJsonRpcProcedure(client),
+		eth_sign: ethSignProcedure(testAccounts),
+		eth_signTransaction: ethSignTransactionProcedure({
+			accounts: testAccounts,
+			getChainId: async () => Number((await client.getVm()).common.ethjsCommon.chainId()),
+		}),
 		eth_sendRawTransaction: ethSendRawTransactionJsonRpcProcedure(client),
 		eth_estimateGas: ethEstimateGasJsonRpcProcedure(client),
 		eth_getTransactionReceipt: ethGetTransactionReceiptJsonRpcProcedure(client),
@@ -201,9 +251,67 @@ export const createHandlers = (client) => {
 		eth_getFilterChanges: ethGetFilterChangesProcedure(client),
 		eth_newPendingTransactionFilter: ethNewPendingTransactionFilterProcedure(client),
 		eth_blobBaseFee: ethBlobBaseFeeJsonRpcProcedure(client),
+		eth_blobGasPrice: ethBlobBaseFeeJsonRpcProcedure(client),
 		eth_getProof: ethGetProofProcedure(client),
 		eth_simulateV1: ethSimulateV1Procedure(client),
 		eth_simulateV2: ethSimulateV2Procedure(client),
+		eth_getStorageValues: ethGetStorageValuesJsonRpcProcedure(client),
+		eth_getBlockAccessList: ethGetBlockAccessListJsonRpcProcedure(client),
+		eth_getUncleCountByBlockHash: ethGetUncleCountByBlockHashJsonRpcProcedure(client),
+		eth_getUncleCountByBlockNumber: ethGetUncleCountByBlockNumberJsonRpcProcedure(client),
+		eth_getUncleByBlockHashAndIndex: ethGetUncleByBlockHashAndIndexJsonRpcProcedure(client),
+		eth_getUncleByBlockNumberAndIndex: ethGetUncleByBlockNumberAndIndexJsonRpcProcedure(client),
+		eth_getWork: ethGetWorkJsonRpcProcedure(),
+		eth_hashrate: ethHashrateJsonRpcProcedure(),
+		eth_submitHashrate: ethSubmitHashrateJsonRpcProcedure(),
+		eth_submitWork: ethSubmitWorkJsonRpcProcedure(),
+		/**
+		 * @param {any} request
+		 */
+		eth_sendUnsignedTransaction: (request) => ({
+			method: request.method,
+			error: { code: -32004, message: 'Unsupported method: eth_sendUnsignedTransaction is not implemented in Tevm.' },
+			jsonrpc: '2.0',
+			...(request.id !== undefined ? { id: request.id } : {}),
+		}),
+	}
+
+	const classifyTxpool = async (senderFilter) => {
+		const txPool = await client.getTxPool()
+		const vm = await client.getVm()
+		const pending = {}
+		const queued = {}
+		for (const [sender, txs] of txPool.pool) {
+			if (senderFilter && sender.toLowerCase() !== senderFilter.toLowerCase()) continue
+			const account = await vm.stateManager.getAccount(createAddress(sender))
+			let nextNonce = account?.nonce ?? 0n
+			for (const tx of txs) {
+				const innerTx = tx.tx ?? tx
+				const txNonce = BigInt(innerTx.nonce ?? innerTx.txData?.nonce ?? 0n)
+				const isPending = txNonce === nextNonce
+				const bucket = isPending ? pending : queued
+				if (!bucket[sender]) bucket[sender] = {}
+				bucket[sender][numberToHex(txNonce)] = innerTx
+				if (isPending) nextNonce++
+			}
+		}
+		return { pending, queued }
+	}
+
+	const toContentResult = async (senderFilter) => {
+		const { pending, queued } = await classifyTxpool(senderFilter)
+		const vm = await client.getVm()
+		const block = await vm.blockchain.getCanonicalHeadBlock()
+		const mapBucket = (bucket) =>
+			Object.fromEntries(
+				Object.entries(bucket).map(([sender, byNonce]) => [
+					sender,
+					Object.fromEntries(
+						Object.entries(byNonce).map(([nonce, tx]) => [nonce, txToJsonRpcTx(tx, block)]),
+					),
+				]),
+			)
+		return { pending: mapBucket(pending), queued: mapBucket(queued) }
 	}
 
 	/**
@@ -222,7 +330,7 @@ export const createHandlers = (client) => {
 			const seconds = BigInt(request.params[0])
 			const vm = await client.getVm()
 			const latestBlock = await vm.blockchain.getCanonicalHeadBlock()
-			const currentTimestamp = latestBlock.header.timestamp
+			const currentTimestamp = client.getNextBlockTimestamp() ?? latestBlock.header.timestamp
 			const newTimestamp = currentTimestamp + seconds
 			client.setNextBlockTimestamp(newTimestamp)
 			return {
@@ -234,7 +342,7 @@ export const createHandlers = (client) => {
 			}
 		}
 
-	const anvilHandlers = {
+	const rawAnvilHandlers = {
 		anvil_addBalance: anvilAddBalanceJsonRpcProcedure(client),
 		anvil_autoImpersonateAccount: anvilAutoImpersonateAccountJsonRpcProcedure(client),
 		anvil_deal: anvilDealJsonRpcProcedure(client),
@@ -247,14 +355,20 @@ export const createHandlers = (client) => {
 		anvil_getIntervalMining: anvilGetIntervalMiningJsonRpcProcedure(client),
 		anvil_impersonateAccount: anvilImpersonateAccountJsonRpcProcedure(client),
 		anvil_increaseTime: anvilIncreaseTimeJsonRpcProcedure(client),
-		anvil_loadState: anvilLoadStateJsonRpcProcedure(client),
+		anvil_loadState: async (request) => {
+			clearEngineState(client)
+			return anvilLoadStateJsonRpcProcedure(client)(request)
+		},
 		anvil_metadata: anvilMetadataJsonRpcProcedure(client),
 		anvil_mine: mineProcedure(client),
 		anvil_mineDetailed: anvilMineDetailedJsonRpcProcedure(client),
 		anvil_nodeInfo: anvilNodeInfoJsonRpcProcedure(client),
 		anvil_removeBlockTimestampInterval: anvilRemoveBlockTimestampIntervalJsonRpcProcedure(client),
 		anvil_removePoolTransactions: anvilRemovePoolTransactionsJsonRpcProcedure(client),
-		anvil_reset: anvilResetJsonRpcProcedure(client),
+		anvil_reset: async (request) => {
+			clearEngineState(client)
+			return anvilResetJsonRpcProcedure(client)(request)
+		},
 		anvil_revert: anvilRevertJsonRpcProcedure(client),
 		anvil_setAutomine: anvilSetAutomineJsonRpcProcedure(client),
 		anvil_setBalance: anvilSetBalanceJsonRpcProcedure(client),
@@ -267,6 +381,7 @@ export const createHandlers = (client) => {
 		anvil_setIntervalMining: anvilSetIntervalMiningJsonRpcProcedure(client),
 		anvil_setLoggingEnabled: anvilSetLoggingEnabledJsonRpcProcedure(client),
 		anvil_setMinGasPrice: anvilSetMinGasPriceJsonRpcProcedure(client),
+		anvil_setPrevRandao: anvilSetPrevRandaoJsonRpcProcedure(client),
 		anvil_setNextBlockBaseFeePerGas: anvilSetNextBlockBaseFeePerGasJsonRpcProcedure(client),
 		anvil_setNextBlockTimestamp: anvilSetNextBlockTimestampJsonRpcProcedure(client),
 		anvil_setNonce: anvilSetNonceJsonRpcProcedure(client),
@@ -275,6 +390,20 @@ export const createHandlers = (client) => {
 		anvil_setTime: anvilSetTimeJsonRpcProcedure(client),
 		anvil_snapshot: anvilSnapshotJsonRpcProcedure(client),
 		anvil_stopImpersonatingAccount: anvilStopImpersonatingAccountJsonRpcProcedure(client),
+	}
+	const anvilHandlers = {
+		...rawAnvilHandlers,
+		anvil_setAutomine: async (request) => {
+			const response = await rawAnvilHandlers.anvil_setAutomine(request)
+			stopIntervalMiningTimer()
+			return response
+		},
+		anvil_setIntervalMining: async (request) => {
+			const response = await rawAnvilHandlers.anvil_setIntervalMining(request)
+			const config = client.miningConfig
+			if (config.type === 'interval') startIntervalMiningTimer(config.blockTime)
+			return response
+		},
 	}
 	const tevmAnvilHandlers = Object.fromEntries(
 		Object.entries(anvilHandlers).map(([key, value]) => {
@@ -310,9 +439,11 @@ export const createHandlers = (client) => {
 		debug_getRawHeader: debugGetRawHeaderJsonRpcProcedure(client),
 		debug_getRawTransaction: debugGetRawTransactionJsonRpcProcedure(client),
 		debug_getRawReceipts: debugGetRawReceiptsJsonRpcProcedure(client),
+		debug_getBadBlocks: debugGetBadBlocksJsonRpcProcedure(),
 	}
 
 	const evmHandlers = {
+		evm_mine: mineProcedure(client),
 		/**
 		 * @param {any} request
 		 */
@@ -327,6 +458,7 @@ export const createHandlers = (client) => {
 			}
 		},
 		evm_increaseTime: createIncreaseTimeHandler('evm_increaseTime'),
+		evm_setIntervalMining: anvilSetIntervalMiningJsonRpcProcedure(client),
 		/**
 		 * Sets the block gas limit for the next block
 		 * @param {any} request
@@ -350,7 +482,23 @@ export const createHandlers = (client) => {
 			const vm = await client.getVm()
 			const stateRoot = vm.stateManager._baseState.getCurrentStateRoot()
 			const state = await vm.stateManager.dumpCanonicalGenesis()
-			const snapshotId = client.addSnapshot(stateRoot, state)
+			const txPool = await client.getTxPool()
+			const txs = await txPool.txsByPriceAndNonce()
+			const receiptManager = await client.getReceiptsManager()
+			const receiptEntries = [...(/** @type {Map<any, any>} */ (receiptManager.mapDb?.cache ?? new Map())).entries()]
+			const snapshotId = client.addSnapshot(stateRoot, state, {
+				miningConfig: client.miningConfig,
+				nextBlockTimestamp: client.getNextBlockTimestamp(),
+				blockTimestampInterval: client.getBlockTimestampInterval(),
+				nextBlockGasLimit: client.getNextBlockGasLimit(),
+				nextBlockBaseFeePerGas: client.getNextBlockBaseFeePerGas(),
+				nextBlockPrevRandao: client.getNextBlockPrevRandao(),
+				minGasPrice: client.getMinGasPrice(),
+				impersonatedAccount: client.getImpersonatedAccount(),
+				autoImpersonate: client.getAutoImpersonate(),
+				txHashes: txs.map((tx) => bytesToHex(tx.hash())),
+				receiptEntries,
+			})
 			return {
 				method: request.method,
 				result: snapshotId,
@@ -385,6 +533,20 @@ export const createHandlers = (client) => {
 				await vm.stateManager.setStateRoot(
 					/** @type {any} */ (Uint8Array.from(Buffer.from(snapshot.stateRoot.slice(2), 'hex'))),
 				)
+				client.miningConfig = snapshot.miningConfig
+				client.setNextBlockTimestamp(snapshot.nextBlockTimestamp)
+				client.setBlockTimestampInterval(snapshot.blockTimestampInterval)
+				client.setNextBlockGasLimit(snapshot.nextBlockGasLimit)
+				client.setNextBlockBaseFeePerGas(snapshot.nextBlockBaseFeePerGas)
+				client.setNextBlockPrevRandao(snapshot.nextBlockPrevRandao)
+				client.setMinGasPrice(snapshot.minGasPrice)
+				client.setImpersonatedAccount(snapshot.impersonatedAccount)
+				client.setAutoImpersonate(snapshot.autoImpersonate ?? false)
+				const txPool = await client.getTxPool()
+				const currentTxs = await txPool.txsByPriceAndNonce()
+				currentTxs.forEach((tx) => txPool.removeByHash(bytesToHex(tx.hash())))
+				const receiptManager = await client.getReceiptsManager()
+				receiptManager.mapDb.cache = new Map(snapshot.receiptEntries ?? [])
 				// Delete all snapshots from this ID onwards (they are now invalid)
 				client.deleteSnapshotsFrom(snapshotId)
 				return {
@@ -404,6 +566,51 @@ export const createHandlers = (client) => {
 			}
 		},
 	}
+	const engineHandlers = engineEnabled
+		? {
+				engine_exchangeCapabilities: engineExchangeCapabilitiesProcedure(client),
+				engine_exchangeTransitionConfigurationV1: engineExchangeTransitionConfigurationV1Procedure(client),
+				engine_getClientVersionV1: engineGetClientVersionV1Procedure(client),
+				engine_forkchoiceUpdatedV1: engineForkchoiceUpdatedProcedure(client),
+				engine_forkchoiceUpdatedV2: engineForkchoiceUpdatedProcedure(client),
+				engine_forkchoiceUpdatedV3: engineForkchoiceUpdatedProcedure(client),
+				engine_forkchoiceUpdatedV4: engineForkchoiceUpdatedProcedure(client),
+				engine_newPayloadV1: engineNewPayloadProcedure(client),
+				engine_newPayloadV2: engineNewPayloadProcedure(client),
+				engine_newPayloadV3: engineNewPayloadProcedure(client),
+				engine_newPayloadV4: engineNewPayloadProcedure(client),
+				engine_newPayloadV5: engineNewPayloadProcedure(client),
+				engine_getPayloadV1: engineGetPayloadProcedure(client),
+				engine_getPayloadV2: engineGetPayloadProcedure(client),
+				engine_getPayloadV3: engineGetPayloadProcedure(client),
+				engine_getPayloadV4: engineGetPayloadProcedure(client),
+				engine_getPayloadV5: engineGetPayloadProcedure(client),
+				engine_getPayloadV6: engineGetPayloadProcedure(client),
+				engine_getPayloadBodiesByHashV1: engineGetPayloadBodiesByHashProcedure(client),
+				engine_getPayloadBodiesByHashV2: engineGetPayloadBodiesByHashProcedure(client),
+				engine_getPayloadBodiesByRangeV1: engineGetPayloadBodiesByRangeProcedure(client),
+				engine_getPayloadBodiesByRangeV2: engineGetPayloadBodiesByRangeProcedure(client),
+				engine_getBlobsV1: engineGetBlobsProcedure(client),
+				engine_getBlobsV2: engineGetBlobsProcedure(client),
+				engine_getBlobsV3: engineGetBlobsProcedure(client),
+				testing_buildBlockV1: testingBuildBlockV1Procedure(client),
+			}
+		: {}
+
+	const rpcNamespaces = {
+		anvil: anvilHandlers,
+		debug: debugHandlers,
+		engine: engineHandlers,
+		eth: ethHandlers,
+		evm: evmHandlers,
+		ganache: ganacheHandlers,
+		hardhat: hardhatHandlers,
+		tevm: { ...tevmHandlers, ...tevmAnvilHandlers },
+		txpool: { txpool_content: true, txpool_contentFrom: true, txpool_inspect: true, txpool_status: true },
+		web3: { web3_clientVersion: true, web3_sha3: true },
+		net: { net_version: true, net_listening: true, net_peerCount: true },
+		rpc: { rpc_modules: true },
+	}
 
 	const allHandlers = {
 		...tevmHandlers,
@@ -414,6 +621,106 @@ export const createHandlers = (client) => {
 		...hardhatHandlers,
 		...debugHandlers,
 		...evmHandlers,
+		...engineHandlers,
+		txpool_content: async (request) => ({
+			method: request.method,
+			result: await toContentResult(),
+			jsonrpc: '2.0',
+			...(request.id ? { id: request.id } : {}),
+		}),
+		txpool_contentFrom: async (request) => ({
+			method: request.method,
+			result: await toContentResult(request.params?.[0]),
+			jsonrpc: '2.0',
+			...(request.id ? { id: request.id } : {}),
+		}),
+		txpool_inspect: async (request) => {
+			const { pending, queued } = await classifyTxpool()
+			const inspectTx = (tx) =>
+				`${tx.to ? tx.to.toString() : 'contract creation'}: ${tx.value ? numberToHex(tx.value) : '0x0'} wei + ${
+					tx.gasLimit ? numberToHex(tx.gasLimit) : '0x0'
+				} gas × ${tx.maxFeePerGas ? numberToHex(tx.maxFeePerGas) : tx.gasPrice ? numberToHex(tx.gasPrice) : '0x0'} wei`
+			const mapBucket = (bucket) =>
+				Object.fromEntries(
+					Object.entries(bucket).map(([sender, byNonce]) => [
+						sender,
+						Object.fromEntries(Object.entries(byNonce).map(([nonce, tx]) => [nonce, inspectTx(tx)])),
+					]),
+				)
+			return {
+				method: request.method,
+				result: { pending: mapBucket(pending), queued: mapBucket(queued) },
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
+		},
+		txpool_status: async (request) => {
+			const { pending, queued } = await classifyTxpool()
+			const count = (bucket) => Object.values(bucket).reduce((sum, byNonce) => sum + Object.keys(byNonce).length, 0)
+			return {
+				method: request.method,
+				result: { pending: numberToHex(count(pending)), queued: numberToHex(count(queued)) },
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
+		},
+		web3_clientVersion: (request) => ({
+			method: request.method,
+			result: 'tevm/1.0.0',
+			jsonrpc: '2.0',
+			...(request.id ? { id: request.id } : {}),
+		}),
+		web3_sha3: (request) => {
+			const value = request?.params?.[0]
+			if (typeof value !== 'string' || !value.startsWith('0x')) {
+				return {
+					method: request.method,
+					error: { code: -32602, message: 'Invalid params: web3_sha3 expects a single hex string parameter' },
+					jsonrpc: '2.0',
+					...(request.id ? { id: request.id } : {}),
+				}
+			}
+			return {
+				method: request.method,
+				result: keccak256(value),
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
+		},
+		net_version: async (request) => {
+			const vm = await client.getVm()
+			const chainId = vm.common.ethjsCommon.chainId()
+			return {
+				method: request.method,
+				result: numberToHex(typeof chainId === 'bigint' ? chainId : BigInt(chainId)),
+				jsonrpc: '2.0',
+				...(request.id ? { id: request.id } : {}),
+			}
+		},
+		net_listening: (request) => ({
+			method: request.method,
+			result: client.status !== 'STOPPED',
+			jsonrpc: '2.0',
+			...(request.id ? { id: request.id } : {}),
+		}),
+		net_peerCount: (request) => ({
+			method: request.method,
+			result: '0x0',
+			jsonrpc: '2.0',
+			...(request.id ? { id: request.id } : {}),
+		}),
+		rpc_modules: (request) => ({
+			method: request.method,
+			result: Object.fromEntries(
+				Object.entries(rpcNamespaces)
+					.filter(([, handlers]) => Object.keys(handlers).length > 0)
+					.map(([namespace]) => [namespace, '1.0']),
+			),
+			jsonrpc: '2.0',
+			...(request.id ? { id: request.id } : {}),
+		}),
+		miner_start: (request) => anvilSetAutomineJsonRpcProcedure(client)({ ...request, params: [true] }),
+		miner_stop: (request) => anvilSetAutomineJsonRpcProcedure(client)({ ...request, params: [false] }),
 	}
 
 	return allHandlers

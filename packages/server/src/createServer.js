@@ -5,6 +5,7 @@ import { createHttpHandler } from './createHttpHandler.js'
  * Creates a lightweight http server for handling requests
  * @param {import('@tevm/memory-client').MemoryClient} client
  * @param {import('http').ServerOptions} [serverOptions] - Optional options to pass to the http server
+ * @param {{ compatibility?: boolean; maxBodySize?: number; maxHeaderSize?: number }} [handlerOptions] - Optional HTTP handler transport compatibility options
  * @returns {import('http').Server}
  * To use pass in the Tevm['request'] request handler
  * @throws {CreateServerError}
@@ -29,6 +30,6 @@ import { createHttpHandler } from './createHttpHandler.js'
  * const client = createTevmClient()
  * ```
  */
-export const createServer = (client, serverOptions = {}) => {
-	return httpCreateServer(serverOptions, createHttpHandler(client))
+export const createServer = (client, serverOptions = {}, handlerOptions = {}) => {
+	return httpCreateServer(serverOptions, createHttpHandler(client, handlerOptions))
 }

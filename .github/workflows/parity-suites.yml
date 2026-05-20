@@ -1,0 +1,81 @@
+name: Parity Suites
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  TEVM_TEST_ALCHEMY_KEY: ${{ secrets.TEVM_TEST_ALCHEMY_KEY }}
+  TEVM_RPC_URLS_MAINNET: ${{ secrets.TEVM_RPC_URLS_MAINNET }}
+  TEVM_RPC_URLS_OPTIMISM: ${{ secrets.TEVM_RPC_URLS_OPTIMISM }}
+
+jobs:
+  parity-rpc-fast:
+    name: Parity RPC Fast
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Run RPC parity fast subset
+        run: PARITY_ARTIFACT_DIR=artifacts/parity pnpm test:parity:rpc
+      - name: Upload parity RPC artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: parity-rpc-fast-artifacts
+          path: artifacts/parity/rpc
+          if-no-files-found: warn
+
+  parity-conformance-fast:
+    name: Parity Conformance Fast
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Run conformance fast subset
+        run: PARITY_ARTIFACT_DIR=artifacts/parity pnpm test:conformance:fast
+      - name: Upload parity state-test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: parity-state-tests-fast-artifacts
+          path: artifacts/parity/state-tests
+          if-no-files-found: warn
+
+  parity-hive-smoke:
+    name: Parity Hive Smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Run Hive smoke subset
+        run: PARITY_ARTIFACT_DIR=artifacts/parity pnpm test:hive:smoke
+      - name: Upload parity Hive artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: parity-hive-fast-artifacts
+          path: |
+            artifacts/parity/hive
+            test/hive/artifacts
+          if-no-files-found: warn
+
+  parity-fast-aggregate:
+    name: Parity Fast Aggregate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Run fast parity subsets
+        run: PARITY_ARTIFACT_DIR=artifacts/parity pnpm test:parity:fast
+      - name: Upload parity fast artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: parity-fast-artifacts
+          path: artifacts/parity
+          if-no-files-found: warn

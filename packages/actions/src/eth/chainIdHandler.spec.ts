@@ -59,4 +59,11 @@ describe(chainIdHandler.name, () => {
 		const chainId = await chainIdHandler(node)({})
 		expect(chainId).toBe(42069n)
 	})
+
+	it('uses consensus chain id in light mode before readiness', async () => {
+		const chainId = await chainIdHandler({
+			consensus: { mode: 'light-client', getChainId: async () => 11155111n },
+		} as any)({})
+		expect(chainId).toBe(11155111n)
+	})
 })

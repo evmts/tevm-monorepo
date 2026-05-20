@@ -1,0 +1,21 @@
+# Feature Inventory Refine
+
+Refine the existing feature inventory by analyzing recent changes.
+
+{props.lastCommitHash ? `Compare with the previous inventory at commit ${props.lastCommitHash}. Check what changed.` : "This is the first delta check — review the existing features against the codebase structure below."}
+
+CURRENT FEATURE GROUPS:
+{JSON.stringify(props.existingFeatures ?? {}, null, 2)}
+
+CODEBASE STRUCTURE:
+{props.codebaseSummary}
+
+Checklist:
+1. Add any concrete missing features based on the codebase structure.
+2. Remove entries not supported by the current codebase.
+3. Preserve naming discipline: SCREAMING_SNAKE_CASE groups and features.
+4. lastCommitHash should be "{props.currentHead}".
+5. markdownBody should summarize what changed.
+
+REQUIRED OUTPUT:
+{props.schema}

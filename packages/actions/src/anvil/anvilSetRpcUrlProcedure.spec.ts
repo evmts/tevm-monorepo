@@ -110,4 +110,17 @@ describe('anvilSetRpcUrlJsonRpcProcedure', () => {
 			id: 1,
 		})
 	})
+
+	it('returns error for invalid URL param', async () => {
+		const node = createTevmNode()
+		;(node as any).forkTransport = { url: 'https://mainnet.optimism.io', request: async () => ({}) }
+		const procedure = anvilSetRpcUrlJsonRpcProcedure(node)
+		const result = await procedure({
+			jsonrpc: '2.0',
+			method: 'anvil_setRpcUrl',
+			params: ['' as any],
+			id: 2,
+		})
+		expect(result.error?.code).toBe('-32602')
+	})
 })

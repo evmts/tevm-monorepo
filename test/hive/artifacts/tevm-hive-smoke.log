@@ -1,0 +1,2 @@
+[hive-harness] suite=smoke rpc=http://127.0.0.1:8545 artifacts=/Users/williamcory/tevm-monorepo/test/hive/artifacts
+Unsupported Node.js runtime for Tevm Hive harness: v24.12.0. Use Node 20.x or 22.x.

@@ -81,7 +81,7 @@ describe('getStorageAtHandler', () => {
 			blockTag: 'latest',
 		})
 
-		expect(result).toEqualHex('0x00')
+		expect(result).toEqual(`0x${'00'.repeat(32)}`)
 	})
 
 	it('should handle errors from getContractStorage', async () => {
@@ -118,5 +118,28 @@ describe('getStorageAtHandler', () => {
 				blockTag: '0x1',
 			}),
 		).rejects.toThrow('Block retrieval error')
+	})
+
+	it('throws explicit error when light proof payload does not contain requested storage key', async () => {
+		const client = {
+			consensus: {
+				mode: 'light-client',
+				isReady: () => true,
+				resolveStateRoot: async () => `0x${'aa'.repeat(32)}`,
+				getProof: async () => ({
+					balance: '0x0',
+					nonce: '0x0',
+					codeHash: `0x${'bb'.repeat(32)}`,
+					storageHash: `0x${'cc'.repeat(32)}`,
+					storageProof: [],
+				}),
+				verifyRead: async () => true,
+			},
+			getLightSyncStatus: () => ({ ready: true }),
+		} as any
+
+		await expect(
+			getStorageAtHandler(client)({ address: TEST_ADDRESS, position: '0x1', blockTag: 'latest' }),
+		).rejects.toThrow('LIGHT_CLIENT_MALFORMED_UPSTREAM_PROOF')
 	})
 })

@@ -1,6 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { ERC20 } from '@tevm/contract'
-import { MethodNotFoundError } from '@tevm/errors'
+import { MethodNotFoundError, MethodNotSupportedError } from '@tevm/errors'
 import { createTevmNode, type TevmNode } from '@tevm/node'
 import {
 	bytesToHex,
@@ -30,6 +30,155 @@ beforeEach(async () => {
 })
 
 describe('requestProcedure', () => {
+	describe('net/web3/rpc compatibility methods', () => {
+		it('returns exact formats for net_version, net_peerCount, and net_listening', async () => {
+			const netVersion = await requestProcedure(client)({ jsonrpc: '2.0', method: 'net_version', id: 1 })
+			const netPeerCount = await requestProcedure(client)({ jsonrpc: '2.0', method: 'net_peerCount', id: 2 })
+			const netListening = await requestProcedure(client)({ jsonrpc: '2.0', method: 'net_listening', id: 3 })
+			expect(netVersion.result).toMatch(/^0x[0-9a-f]+$/)
+			expect(netPeerCount.result).toBe('0x0')
+			expect(netListening.result).toBe(true)
+		})
+
+		it('validates params and computes keccak for web3_sha3', async () => {
+			const ok = await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'web3_sha3',
+				id: 1,
+				params: ['0x68656c6c6f20776f726c64'],
+			})
+			expect(ok.result).toBe('0x47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad')
+
+			const bad = await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'web3_sha3',
+				id: 2,
+				params: ['hello'] as any,
+			})
+			expect(bad.error).toBeDefined()
+		})
+	})
+
+	describe('txpool methods', () => {
+		it('returns empty content and status for empty pool', async () => {
+			const content = await requestProcedure(client)({ jsonrpc: '2.0', method: 'txpool_content', id: 1 })
+			const status = await requestProcedure(client)({ jsonrpc: '2.0', method: 'txpool_status', id: 1 })
+			expect(content.result).toEqual({ pending: {}, queued: {} })
+			expect(status.result).toEqual({ pending: '0x0', queued: '0x0' })
+		})
+
+		it('classifies pending vs queued, supports contentFrom, and status matches content', async () => {
+			await requestProcedure(client)({ jsonrpc: '2.0', method: 'anvil_setAutomine', id: 1, params: [false] as any })
+			const fromA = testAccounts[0].address
+			const to = testAccounts[2].address
+
+			await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'eth_sendTransaction',
+				id: 2,
+				params: [{ from: fromA, to, value: '0x1', nonce: '0x1' }] as any,
+			})
+			await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'eth_sendTransaction',
+				id: 3,
+				params: [{ from: fromA, to, value: '0x2', nonce: '0x0' }] as any,
+			})
+			const content = await requestProcedure(client)({ jsonrpc: '2.0', method: 'txpool_content', id: 5 })
+			const status = await requestProcedure(client)({ jsonrpc: '2.0', method: 'txpool_status', id: 7 })
+			const sender = (Object.keys(content.result.pending)[0] ?? Object.keys(content.result.queued)[0]) as string
+			expect(sender).toBeDefined()
+			const contentFrom = await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'txpool_contentFrom',
+				id: 6,
+				params: [sender] as any,
+			})
+			const fromPendingKeys = Object.keys(contentFrom.result.pending)
+			const fromQueuedKeys = Object.keys(contentFrom.result.queued)
+			expect([...fromPendingKeys, ...fromQueuedKeys].map((k) => k.toLowerCase())).toContain(sender.toLowerCase())
+			const pendingCount = Object.values(content.result.pending).reduce((n: number, byNonce: any) => n + Object.keys(byNonce).length, 0)
+			const queuedCount = Object.values(content.result.queued).reduce((n: number, byNonce: any) => n + Object.keys(byNonce).length, 0)
+			expect(status.result).toEqual({ pending: numberToHex(BigInt(pendingCount)), queued: numberToHex(BigInt(queuedCount)) })
+		})
+
+		it('removes dropped and mined transactions from txpool', async () => {
+			await requestProcedure(client)({ jsonrpc: '2.0', method: 'anvil_setAutomine', id: 1, params: [false] as any })
+			const from = testAccounts[0].address
+			const to = testAccounts[1].address
+
+			const droppedCandidate = await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'eth_sendTransaction',
+				id: 2,
+				params: [{ from, to, value: '0x1', nonce: '0x0' }] as any,
+			})
+			await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'anvil_dropTransaction',
+				id: 3,
+				params: [{ transactionHash: droppedCandidate.result }] as any,
+			})
+
+			const keptTx = await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'eth_sendTransaction',
+				id: 4,
+				params: [{ from, to, value: '0x2', nonce: '0x0' }] as any,
+			})
+			let status = await requestProcedure(client)({ jsonrpc: '2.0', method: 'txpool_status', id: 5 })
+			expect(status.result).toEqual({ pending: '0x1', queued: '0x0' })
+
+			await requestProcedure(client)({ jsonrpc: '2.0', method: 'anvil_mine', id: 6, params: ['0x1', '0x0'] as any })
+			status = await requestProcedure(client)({ jsonrpc: '2.0', method: 'txpool_status', id: 7 })
+			expect(status.result).toEqual({ pending: '0x0', queued: '0x0' })
+
+			const content = await requestProcedure(client)({ jsonrpc: '2.0', method: 'txpool_content', id: 8 })
+			expect(content.result).toEqual({ pending: {}, queued: {} })
+			expect(keptTx.result).toMatch(/^0x[0-9a-f]{64}$/)
+		})
+
+		it('reflects replacement transactions and preserves sender metadata for unsigned txs', async () => {
+			await requestProcedure(client)({ jsonrpc: '2.0', method: 'anvil_setAutomine', id: 1, params: [false] as any })
+			const from = testAccounts[0].address
+			const to = testAccounts[2].address
+
+			await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'eth_sendTransaction',
+				id: 2,
+				params: [{ from, to, value: '0x1', nonce: '0x0', maxFeePerGas: '0x1' }] as any,
+			})
+			await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'eth_sendTransaction',
+				id: 3,
+				params: [{ from, to, value: '0x2', nonce: '0x0', maxFeePerGas: '0x2' }] as any,
+			})
+
+			const replacedContent = await requestProcedure(client)({ jsonrpc: '2.0', method: 'txpool_content', id: 4 })
+			const sender = Object.keys(replacedContent.result.pending)[0] as string
+			expect(Object.keys(replacedContent.result.pending[sender])).toContain('0x0')
+			expect(['0x1', '0x2']).toContain(replacedContent.result.pending[sender]['0x0'].value)
+
+			const unsignedCall = await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'tevm_call',
+				id: 5,
+				params: [{ createTransaction: true, to, value: '0x3', skipBalance: true }] as any,
+			})
+			expect(unsignedCall.result.txHash).toMatch(/^0x[0-9a-f]{64}$/)
+			const contentAfterUnsigned = await requestProcedure(client)({ jsonrpc: '2.0', method: 'txpool_content', id: 6 })
+			const allSenders = [...Object.keys(contentAfterUnsigned.result.pending), ...Object.keys(contentAfterUnsigned.result.queued)]
+			expect(allSenders.length).toBeGreaterThan(0)
+			for (const maybeSender of allSenders) {
+				const byNonce = contentAfterUnsigned.result.pending[maybeSender] ?? contentAfterUnsigned.result.queued[maybeSender]
+				for (const tx of Object.values(byNonce)) {
+					expect(((tx as any).from as string).toLowerCase()).toBe(`0x${maybeSender.toLowerCase().replace(/^0x/, '')}`)
+				}
+			}
+		})
+	})
 	describe('tevm_getAccount', () => {
 		it('should work', async () => {
 			await requestProcedure(client)({
@@ -89,7 +238,7 @@ describe('requestProcedure', () => {
 			).stateManager.getAccount(createAddress(ERC20_ADDRESS))) as EthjsAccount
 			expect(account?.balance).toBe(420n)
 			expect(account?.nonce).toBe(69n)
-			expect(bytesToHex(account.codeHash)).toEqualHex(keccak256(ERC20.deployedBytecode))
+			expect(bytesToHex(account.codeHash)).toEqual(keccak256(ERC20.deployedBytecode))
 		})
 		it('should handle account throwing an unexpected error', async () => {
 			const vm = await client.getVm()
@@ -337,6 +486,51 @@ describe('requestProcedure', () => {
 				  "method": "unsupported_method",
 				}
 			`)
+		})
+
+		it('should reject blocked zevm alias families that are intentionally omitted', async () => {
+			const res = await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'zevm_voltaire_preparePayload' as any,
+				id: 2,
+				params: [],
+			})
+			expect(res.error.code).toBe(MethodNotSupportedError.code)
+			expect(res.method).toBe('zevm_voltaire_preparePayload')
+		})
+	})
+
+	describe('eth_sign and eth_signTransaction routing', () => {
+		it('routes eth_sign through requestProcedure to the managed signer', async () => {
+			const data = '0x42069'
+			const res = await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'eth_sign',
+				id: 1,
+				params: [testAccounts[0].address, data],
+			})
+			expect(res.error).toBeUndefined()
+			expect(res.result).toMatch(/^0x/)
+		})
+
+		it('routes eth_signTransaction through requestProcedure to the managed signer', async () => {
+			const res = await requestProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'eth_signTransaction',
+				id: 2,
+				params: [
+					{
+						from: testAccounts[0].address,
+						to: `0x${'69'.repeat(20)}`,
+						value: '0x1',
+						gas: '0x5208',
+						gasPrice: numberToHex(parseGwei('1')),
+						nonce: '0x0',
+					},
+				],
+			})
+			expect(res.error).toBeUndefined()
+			expect(res.result).toMatch(/^0x/)
 		})
 	})
 

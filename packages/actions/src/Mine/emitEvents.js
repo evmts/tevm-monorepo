@@ -62,6 +62,7 @@ export const emitEvents = async (client, newBlocks, newReceipts, params = {}) =>
 		await callHandler(onBlock, block)
 
 		const blockHash = bytesToHex(block.hash())
+		await client.emitExExEvent({ type: 'block', phase: 'imported', block, blockHash })
 		const receipts = newReceipts.get(blockHash)
 		if (!receipts) {
 			throw new Error(
@@ -76,6 +77,14 @@ export const emitEvents = async (client, newBlocks, newReceipts, params = {}) =>
 			// Call handler if provided
 			// @ts-expect-error - Handler types are defined in MineEvents.ts
 			await callHandler(onReceipt, receipt, blockHash)
+			await client.emitExExEvent({ type: 'receipt', phase: 'created', blockHash, receipt })
+			await client.emitExExEvent({
+				type: 'transaction',
+				phase: 'executed',
+				txHash: receipt.txHash ? bytesToHex(receipt.txHash) : '0x',
+				blockHash,
+				receipt,
+			})
 
 			for (const log of receipt.logs) {
 				// Emit global events
@@ -84,7 +93,21 @@ export const emitEvents = async (client, newBlocks, newReceipts, params = {}) =>
 				// Call handler if provided
 				// @ts-expect-error - Handler types are defined in MineEvents.ts
 				await callHandler(onLog, log, receipt)
+				await client.emitExExEvent({ type: 'log', phase: 'created', blockHash, receipt, log })
 			}
 		}
+		await client.emitExExEvent({
+			type: 'state',
+			phase: 'committed',
+			blockHash,
+			stateRoot: bytesToHex(block.header.stateRoot),
+		})
+		await client.emitExExEvent({
+			type: 'canonical',
+			phase: 'headChanged',
+			headHash: blockHash,
+			headNumber: block.header.number,
+			reorged: false,
+		})
 	}
 }

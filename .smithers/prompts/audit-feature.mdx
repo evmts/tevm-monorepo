@@ -1,0 +1,17 @@
+# Audit Feature Group
+
+Audit the feature group below for the requested focus area.
+
+Group: {props.groupName}
+Focus: {props.focus}
+
+Features:
+{(props.features ?? []).map((feature) => `- ${feature}`).join("\n")}
+
+{props.additionalContext ? `ADDITIONAL CONTEXT:\n${props.additionalContext}\n` : ""}
+
+Review the code paths that implement these features. Identify concrete gaps,
+risks, missing safeguards, and the most important follow-up actions.
+
+REQUIRED OUTPUT:
+{props.schema}

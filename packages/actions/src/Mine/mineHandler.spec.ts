@@ -380,4 +380,51 @@ describe(mineHandler.name, () => {
 		// Verify the transactions were removed from mempool
 		expect(await client.getTxPool().then((pool) => [...pool.pool.keys()].length)).toBe(0)
 	})
+
+	it('should mine explicit multi-block requests as empty blocks', async () => {
+		const client = createTevmNode()
+		expect(await client.getTxPool().then((pool) => [...pool.pool.values()].flat().length)).toBe(0)
+
+		const result = await mineHandler(client)({ blockCount: 3, interval: 0 })
+		expect(result.errors).toBeUndefined()
+		expect(result.blockHashes).toHaveLength(3)
+		expect(await getBlockNumber(client)).toBe(3n)
+	})
+
+	it('should apply timestamp precedence as nextBlockTimestamp > blockTimestampInterval > mine interval', async () => {
+		const client = createTevmNode()
+		const vm = await client.getVm()
+		const parent = await vm.blockchain.getCanonicalHeadBlock()
+		const base = parent.header.timestamp
+
+		client.setNextBlockTimestamp(base + 100n)
+		client.setBlockTimestampInterval(7n)
+
+		await mineHandler(client)({ blockCount: 3, interval: 2 })
+
+		const block1 = await vm.blockchain.getCanonicalHeadBlock()
+		const block0 = await vm.blockchain.getBlock(block1.header.parentHash)
+		const blockNeg1 = await vm.blockchain.getBlock(block0.header.parentHash)
+
+		expect(blockNeg1.header.timestamp).toBe(base + 100n)
+		expect(block0.header.timestamp).toBe(base + 107n)
+		expect(block1.header.timestamp).toBe(base + 114n)
+	})
+
+	it('should consume next block prevRandao only once', async () => {
+		const client = createTevmNode()
+		const vm = await client.getVm()
+		const expectedPrevRandao = 0x1234n
+
+		client.setNextBlockPrevRandao?.(expectedPrevRandao)
+		await mineHandler(client)({ blockCount: 2, interval: 0 })
+
+		const latest = await vm.blockchain.getCanonicalHeadBlock()
+		const previous = await vm.blockchain.getBlock(latest.header.parentHash)
+
+		expect(previous.header.mixHash).toBeDefined()
+		expect(latest.header.mixHash).toBeDefined()
+		expect(previous.header.mixHash).not.toEqual(latest.header.mixHash)
+		expect(client.getNextBlockPrevRandao?.()).toBeUndefined()
+	})
 })

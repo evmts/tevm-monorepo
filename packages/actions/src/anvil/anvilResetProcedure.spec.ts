@@ -7,6 +7,7 @@ import { createAccount } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { anvilResetJsonRpcProcedure } from './anvilResetProcedure.js'
+import { anvilSnapshotJsonRpcProcedure } from './anvilSnapshotProcedure.js'
 
 describe('anvilResetJsonRpcProcedure', () => {
 	it('should reset the blockchain and state manager', async () => {
@@ -61,6 +62,16 @@ describe('anvilResetJsonRpcProcedure', () => {
 			jsonrpc: '2.0',
 			id: 1,
 		})
+	})
+
+	it('invalidates snapshots on reset', async () => {
+		const client = createTevmNode()
+		const snapshot = anvilSnapshotJsonRpcProcedure(client)
+		const reset = anvilResetJsonRpcProcedure(client)
+		const res = await snapshot({ method: 'anvil_snapshot', params: [], jsonrpc: '2.0', id: 1 })
+		expect(client.getSnapshot(res.result)).toBeDefined()
+		await reset({ method: 'anvil_reset', params: [], jsonrpc: '2.0', id: 2 })
+		expect(client.getSnapshots().size).toBe(0)
 	})
 
 	it.skipIf(!process.env['TEVM_RUN_LIVE_FORK_TESTS'])('should reset a forked blockchain', async () => {

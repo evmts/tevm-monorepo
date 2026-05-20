@@ -50,6 +50,16 @@
         "types": "./common/index.d.ts",
         "default": "./common/index.js"
       },
+      "./consensus": {
+        "import": {
+          "types": "./consensus/index.d.ts",
+          "default": "./consensus/index.js"
+        },
+        "require": {
+          "types": "./consensus/index.d.cts",
+          "default": "./consensus/index.cjs"
+        }
+      },
       "require": {
         "types": "./common/index.d.cts",
         "default": "./common/index.cjs"
@@ -354,6 +364,16 @@
         "types": "./bundler/solc/index.d.cts",
         "default": "./bundler/solc/index.cjs"
       }
+    },
+    "./consensus": {
+      "import": {
+        "types": "./consensus/index.d.ts",
+        "default": "./consensus/index.js"
+      },
+      "require": {
+        "types": "./consensus/index.d.cts",
+        "default": "./consensus/index.cjs"
+      }
     }
   },
   "main": "index.cjs",
@@ -373,6 +393,7 @@
     "receipt-manager",
     "contract",
     "common",
+    "consensus",
     "tx",
     "vm",
     "txpool",
@@ -458,7 +479,8 @@
     "commander": "^14.0.3",
     "effect": "3.21.2",
     "glob": "^13.0.6",
-    "solc": "^0.8.35"
+    "solc": "^0.8.35",
+    "@tevm/consensus": "workspace:^"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",

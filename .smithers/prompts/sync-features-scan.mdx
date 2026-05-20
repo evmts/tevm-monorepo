@@ -1,0 +1,18 @@
+# Feature Inventory Scan
+
+Produce an exhaustive feature inventory for this Smithers orchestrator codebase.
+You have the full file tree below — DO NOT read any files yourself. Analyze the structure
+and produce the feature groups directly.
+
+Rules:
+1. Group features by domain using SCREAMING_SNAKE_CASE group names.
+2. Use SCREAMING_SNAKE_CASE feature names that are specific and code-backed.
+3. Split broad buckets into concrete, independently auditable features.
+4. lastCommitHash should be "{props.currentHead}".
+5. Include a markdownBody that explains the grouping.
+
+CODEBASE STRUCTURE:
+{props.codebaseSummary}
+
+REQUIRED OUTPUT:
+{props.schema}

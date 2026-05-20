@@ -71,7 +71,8 @@ export const createCommon = ({
 			Mainnet,
 			{
 				hardfork,
-				eips: [...eipsArray, 1559, 4895, 4844, 4788, 2935],
+				// Respect hardfork-native feature gates by default and only opt-in explicit EIPs.
+				eips: [...eipsArray],
 				customCrypto: finalCustomCrypto,
 				params: {
 					1559: {

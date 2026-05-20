@@ -1,0 +1,25 @@
+# Feature Enum Refine
+
+Refine the existing feature inventory. Find missing features, split overly
+broad items into concrete code-backed features, and keep the grouping stable
+unless there is a strong repo-backed reason to reorganize it.
+
+Iteration: {props.iteration}
+
+{props.lastCommitHash ? `A previous inventory exists. Inspect repo deltas with:\ngit log --oneline ${props.lastCommitHash}..HEAD\n` : ""}
+
+CURRENT FEATURE GROUPS:
+```json
+{JSON.stringify(props.existingFeatures ?? {}, null, 2)}
+```
+
+Checklist:
+
+1. Add any concrete missing features you can prove from the code.
+2. Decompose vague or overloaded feature names into auditable units.
+3. Preserve naming discipline: SCREAMING_SNAKE_CASE groups and features.
+4. Remove only entries that are clearly unsupported by the current codebase.
+5. Keep `lastCommitHash` current by running `git rev-parse HEAD`.
+
+REQUIRED OUTPUT:
+{props.schema}

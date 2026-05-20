@@ -297,6 +297,9 @@ export type EthSignTransactionParams = {
 	 * If not provided tevm will default to the eth_gasPrice value
 	 */
 	readonly gasPrice?: bigint
+	readonly maxFeePerGas?: bigint
+	readonly maxPriorityFeePerGas?: bigint
+	readonly maxFeePerBlobGas?: bigint
 	/**
 	 * Integer of the value sent with this transaction, in Wei.
 	 */
@@ -310,6 +313,10 @@ export type EthSignTransactionParams = {
 	 * Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
 	 */
 	readonly nonce?: bigint
+	readonly accessList?: readonly { readonly address: Address; readonly storageKeys: readonly Hex[] }[]
+	readonly authorizationList?: readonly unknown[]
+	readonly blobVersionedHashes?: readonly Hex[]
+	readonly type?: 'legacy' | 'eip2930' | 'eip1559' | 'eip4844' | 'eip7702'
 }
 
 // eth_syncing

@@ -18,7 +18,7 @@ export const anvilIncreaseTimeJsonRpcProcedure = (client) => async (request) => 
 	const seconds = BigInt(request.params[0])
 	const vm = await client.getVm()
 	const latestBlock = await vm.blockchain.getCanonicalHeadBlock()
-	const currentTimestamp = latestBlock.header.timestamp
+	const currentTimestamp = client.getNextBlockTimestamp() ?? latestBlock.header.timestamp
 	const newTimestamp = currentTimestamp + seconds
 	client.setNextBlockTimestamp(newTimestamp)
 	return {

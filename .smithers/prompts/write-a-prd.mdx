@@ -1,0 +1,60 @@
+# Write a PRD
+
+You are writing a Product Requirements Document. Follow these steps,
+skipping any you consider unnecessary:
+
+1. Ask the user for a long, detailed description of the problem they
+   want to solve and any potential ideas for solutions.
+
+2. Explore the repo to verify their assertions and understand the
+   current state of the codebase.
+
+3. Interview the user relentlessly about every aspect of this plan
+   until you reach a shared understanding. Walk down each branch of
+   the design tree, resolving dependencies between decisions
+   one-by-one. Ask questions one at a time. For each question,
+   provide your recommended answer. If a question can be answered
+   by exploring the codebase, explore the codebase instead.
+
+4. Sketch out the major modules you will need to build or modify.
+   Actively look for opportunities to extract deep modules that can
+   be tested in isolation. A deep module (as opposed to a shallow
+   module) is one which encapsulates a lot of functionality in a
+   simple, testable interface which rarely changes. Check with the
+   user that these modules match their expectations and which ones
+   they want tests written for.
+
+5. Once you have a complete understanding, write the PRD using the
+   template below.
+
+{props.additionalInstructions}
+
+CONTEXT:
+{props.context}
+
+## PRD Template
+
+### Problem Statement
+The problem from the user's perspective.
+
+### Solution
+The solution from the user's perspective.
+
+### User Stories
+A LONG numbered list. Format: As an <actor>, I want a <feature>,
+so that <benefit>. Be extremely extensive.
+
+### Implementation Decisions
+Modules to build/modify, interfaces, technical clarifications,
+architectural decisions, schema changes, API contracts, and
+specific interactions. Do NOT include file paths or code snippets.
+
+### Testing Decisions
+What makes a good test (external behavior, not implementation
+details), which modules will be tested, and prior art for tests.
+
+### Out of Scope
+What is explicitly not covered.
+
+### Further Notes
+Any additional context.

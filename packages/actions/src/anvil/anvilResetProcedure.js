@@ -14,6 +14,23 @@ import { bytesToHex } from 'viem'
  */
 export const anvilResetJsonRpcProcedure = (node) => {
 	return async (request) => {
+		const resetParams = request.params?.[0]
+		const newForkUrl = resetParams?.forking?.jsonRpcUrl
+		if (newForkUrl !== undefined) {
+			if (!node.forkTransport || !('url' in node.forkTransport)) {
+				return {
+					jsonrpc: '2.0',
+					method: request.method,
+					error: {
+						code: /** @type {const} */ ('-32602'),
+						message: 'Cannot update fork URL on a non-forked node.',
+					},
+					...(request.id ? { id: request.id } : {}),
+				}
+			}
+			/** @type {any} */ (node.forkTransport).url = newForkUrl
+		}
+
 		// reset filters
 		const filters = node.getFilters()
 		filters.forEach((/** @type {any} */ filter) => {
@@ -22,6 +39,13 @@ export const anvilResetJsonRpcProcedure = (node) => {
 
 		// reset impersonated account
 		node.setImpersonatedAccount(undefined)
+		node.setAutoImpersonate(false)
+		node.setNextBlockTimestamp(undefined)
+		node.setBlockTimestampInterval(undefined)
+		node.setNextBlockGasLimit(undefined)
+		node.setNextBlockBaseFeePerGas(undefined)
+		node.setNextBlockPrevRandao(undefined)
+		node.setMinGasPrice(undefined)
 
 		// TODO we should add a txPool.reset() method
 		const txPool = await node.getTxPool()
@@ -50,6 +74,7 @@ export const anvilResetJsonRpcProcedure = (node) => {
 		// TODO we should add a receiptManager.reset() method
 		receiptManager.mapDb = createMapDb({ cache: new Map() })
 		receiptManager.chain = newBlockchain
+		node.getSnapshots().clear()
 
 		return {
 			result: null,

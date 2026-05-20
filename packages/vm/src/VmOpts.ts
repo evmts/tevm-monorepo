@@ -14,7 +14,7 @@ export interface VmOpts {
 	 * ### Possible Values
 	 *
 	 * - `chain`: all chains supported by `Common` or a custom chain
-	 * - `hardfork`: `mainnet` hardforks up to the `Paris` hardfork
+	 * - `hardfork`: `mainnet` hardforks from `chainstart` (Frontier) through `osaka`
 	 * - `eips`: `1559` (usage e.g. `eips: [ 1559, ]`)
 	 *
 	 * Note: check the associated EVM instance options
