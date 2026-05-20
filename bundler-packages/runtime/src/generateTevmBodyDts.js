@@ -42,8 +42,8 @@ const escapeJSDoc = (value) =>
 export const generateDtsBody = (artifacts, includeBytecode) => {
 	return succeed(
 		`
-		${Object.entries(artifacts)
-			.flatMap(([contractName, { abi, userdoc = {} }]) => {
+			${Object.entries(artifacts)
+				.flatMap(([contractName, { abi, userdoc = {}, evm }]) => {
 				// Create contract metadata
 				const contract = {
 					name: contractName,
@@ -62,6 +62,12 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 
 				// Generate type declaration for contracts with bytecode
 				if (includeBytecode) {
+					const bytecodeType =
+						evm?.bytecode?.object && evm.bytecode.object !== '' ? '`0x${string}`' : 'undefined'
+					const deployedBytecodeType =
+						evm?.deployedBytecode?.object && evm.deployedBytecode.object !== '' ? '`0x${string}`' : 'undefined'
+					const bytecodeLabel =
+						bytecodeType === 'undefined' && deployedBytecodeType === 'undefined' ? 'no bytecode' : 'with bytecode'
 					return [
 						// Define constants for name and ABI with const assertions for type safety
 						`declare const _name${contractName}: ${JSON.stringify(contractName, null, 2)};`,
@@ -69,7 +75,7 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 
 						// JSDoc comments for the contract
 						'/**',
-						` * ${contractName} Contract (with bytecode)`,
+						` * ${contractName} Contract (${bytecodeLabel})`,
 						...natspec,
 						' * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation',
 						' */',
@@ -79,8 +85,8 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 						`  typeof _name${contractName},`, // Contract name
 						`  typeof _abi${contractName},`, // ABI
 						'  undefined,', // Address placeholder
-						'  `0x${string}`,', // Bytecode
-						'  `0x${string}`,', // Deployed bytecode
+						`  ${bytecodeType},`, // Bytecode
+						`  ${deployedBytecodeType},`, // Deployed bytecode
 						'  undefined', // Additional data - removed trailing comma
 						'>;',
 					].filter(Boolean)

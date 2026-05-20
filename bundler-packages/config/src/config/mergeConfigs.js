@@ -15,11 +15,13 @@ import { succeed } from 'effect/Effect'
  * ````
  * @internal
  */
-export const mergeConfigs = (configs) =>
-	succeed({
+export const mergeConfigs = (configs) => {
+	const configsByPrecedence = [...configs].reverse()
+	return succeed({
 		remappings: Object.fromEntries(configs.flatMap((config) => Object.entries(config.remappings ?? {}))),
-		foundryProject: configs.reverse().find((config) => config.foundryProject !== undefined)?.foundryProject,
+		foundryProject: configsByPrecedence.find((config) => config.foundryProject !== undefined)?.foundryProject,
 		libs: [...new Set(configs.flatMap((config) => config.libs ?? []))],
-		debug: configs.reverse().find((config) => config.debug !== undefined)?.debug,
-		cacheDir: configs.reverse().find((config) => config.cacheDir !== undefined)?.cacheDir,
+		debug: configsByPrecedence.find((config) => config.debug !== undefined)?.debug,
+		cacheDir: configsByPrecedence.find((config) => config.cacheDir !== undefined)?.cacheDir,
 	})
+}

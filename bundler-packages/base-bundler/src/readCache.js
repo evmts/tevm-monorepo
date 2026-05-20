@@ -1,4 +1,19 @@
 /**
+ * @param {unknown} bytecode
+ * @returns {boolean}
+ */
+const hasBytecodeObject = (bytecode) => {
+	if (typeof bytecode === 'string') {
+		return bytecode.length > 0
+	}
+	if (!bytecode || typeof bytecode !== 'object') {
+		return false
+	}
+	const object = /** @type {{ object?: unknown }} */ (bytecode).object
+	return typeof object === 'string' && object.length > 0
+}
+
+/**
  * Reads Solidity compilation artifacts from the cache asynchronously.
  * This function checks if cached artifacts exist and if they satisfy the requested
  * AST and bytecode inclusion requirements.
@@ -38,11 +53,13 @@
  */
 export const readCache = async (logger, cache, modulePath, includeAst, includeBytecode, compileFingerprint) => {
 	try {
-		const cachedArtifacts = await cache.readArtifacts(modulePath, compileFingerprint)
+			const cachedArtifacts = await cache.readArtifacts(modulePath, compileFingerprint)
 
-		const isCachedAsts = () => cachedArtifacts?.asts && Object.keys(cachedArtifacts.asts).length > 0
-		const isCachedBytecode = () =>
-			Object.values(cachedArtifacts?.artifacts ?? {}).some((artifact) => artifact.evm.deployedBytecode)
+			const isCachedAsts = () => cachedArtifacts?.asts && Object.keys(cachedArtifacts.asts).length > 0
+			const isCachedBytecode = () =>
+				Object.values(cachedArtifacts?.artifacts ?? {}).some(
+					(artifact) => hasBytecodeObject(artifact.evm?.bytecode) || hasBytecodeObject(artifact.evm?.deployedBytecode),
+				)
 
 		if (!cachedArtifacts) {
 			return undefined
