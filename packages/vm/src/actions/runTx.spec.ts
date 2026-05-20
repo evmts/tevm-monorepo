@@ -7,9 +7,9 @@ EventEmitter.defaultMaxListeners = 100
 import { BlobEIP4844Transaction, createEOACodeEIP7702Tx, createImpersonatedTx } from '@evmts/zevm/tx'
 import { Block } from '@tevm/block'
 import { createChain } from '@tevm/blockchain'
-import { mainnet } from '@tevm/common'
+import { createCommon, mainnet } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { InsufficientFundsError, InvalidGasPriceError, NonceTooLowError } from '@tevm/errors'
+import { InsufficientFundsError, InvalidGasPriceError, InvalidTransactionError, NonceTooLowError } from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
 import {
@@ -452,6 +452,48 @@ describe('runTx', () => {
 			'0x000000000000000000000000000000000000000000000000000000000000002a',
 		)
 		expect(bytesToHex(await vm.stateManager.getCode(authority))).toBe(`0xef0100${'02'.repeat(20)}`)
+	})
+
+	it('should not treat arbitrary code with the EIP-7702 prefix as delegated EOA code', async () => {
+		const common = createCommon({ ...mainnet, eips: [3607, 7702] })
+		const stateManager = createStateManager({})
+		const blockchain = await createChain({ common })
+		const evm = await createEvm({ common, stateManager, blockchain })
+		const localVm = createVm({
+			common,
+			evm,
+			stateManager,
+			blockchain,
+			activatePrecompiles: false,
+		})
+		const sender = createAddressFromString(PREFUNDED_ACCOUNTS[0].address)
+		await localVm.stateManager.putAccount(
+			sender,
+			createAccount({
+				balance: parseEther('100'),
+				nonce: 0n,
+			}),
+		)
+		await localVm.stateManager.putCode(sender, hexToBytes(`0xef0100${'02'.repeat(21)}`))
+
+		const tx = createImpersonatedTx({
+			impersonatedAddress: sender,
+			nonce: 0,
+			gasLimit: 21064,
+			maxFeePerGas: 8n,
+			maxPriorityFeePerGas: 1n,
+			to: createAddressFromString(`0x${'69'.repeat(20)}`),
+			value: 1n,
+		})
+
+		const err = await runTx(localVm)({
+			tx,
+			block: new Block({ common }),
+			skipNonce: false,
+			skipBalance: false,
+		}).catch((e) => e)
+
+		expect(err).toBeInstanceOf(InvalidTransactionError)
 	})
 
 	it('should execute a transaction with selfdestruct', async () => {})

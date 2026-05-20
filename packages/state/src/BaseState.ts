@@ -18,6 +18,14 @@ export type BaseState = {
 	caches: StateCache
 	// Cache that only stores items forked from fork url. Normal cache is source of truth if the value changed after
 	forkCache: StateCache
+	tombstones: {
+		accounts: Set<string>
+		storageCleared: Set<string>
+		checkpoints: Array<{
+			accounts: Set<string>
+			storageCleared: Set<string>
+		}>
+	}
 	getCurrentStateRoot: () => Hex
 	setCurrentStateRoot: (newStateRoot: Hex) => void
 }

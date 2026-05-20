@@ -1,15 +1,6 @@
-import type { TevmClient } from '@tevm/client-types'
+import type { createHttpClient } from './createHttpClient.js'
 
 /**
- * @deprecated a new http client will be created in a future version. For now it's recomended to use viem
+ * @deprecated a new http client will be created in a future version. For now it's recommended to use viem
  */
-export type HttpClient = TevmClient & {
-	/**
-	 * The url being used to connect to the remote Tevm backend
-	 */
-	url: string
-	/**
-	 * Name of the client
-	 */
-	name: string
-}
+export type HttpClient = ReturnType<typeof createHttpClient>

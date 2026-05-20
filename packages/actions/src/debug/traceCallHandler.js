@@ -38,34 +38,39 @@ export const traceCallHandler =
 			...(params.gas ? { gasLimit: params.gas } : {}),
 			...(params.value ? { value: params.value } : {}),
 		}
+		const getTraceVm = async () => {
+			const vm = await getVm()
+			const vmCopy = await vm.deepCopy()
+			if (params.blockTag !== undefined) {
+				const block = await vmCopy.blockchain.getBlockByTag(params.blockTag)
+				await vmCopy.stateManager.setStateRoot(block.header.stateRoot)
+			}
+			return vmCopy
+		}
 
 		if (params.tracer === 'prestateTracer') {
 			const tracerConfig = /** @type {{diffMode?: boolean} | undefined} */ (params.tracerConfig)
 			const diffMode = tracerConfig?.diffMode === true
 			logger.debug({ diffMode }, 'traceCallHandler: using prestateTracer')
 
-			return getVm()
-				.then((vm) => vm.deepCopy())
+			return getTraceVm()
 				.then((vm) => runCallWithPrestateTrace({ ...client, getVm: () => Promise.resolve(vm) }, callParams, diffMode))
 				.then((res) => /** @type {any} */ (res.trace))
 		}
 		if (params.tracer === 'callTracer') {
-			return getVm()
-				.then((vm) => vm.deepCopy())
+			return getTraceVm()
 				.then((vm) => runCallWithCallTrace(vm, logger, callParams))
 				.then((res) => /** @type {any} */ (res.trace))
 		}
 		if (params.tracer === '4byteTracer') {
 			logger.debug('traceCallHandler: using 4byteTracer')
-			return getVm()
-				.then((vm) => vm.deepCopy())
+			return getTraceVm()
 				.then((vm) => runCallWithFourbyteTrace(vm, logger, callParams))
 				.then((res) => /** @type {any} */ (res.trace))
 		}
 		if (params.tracer === 'flatCallTracer') {
 			logger.debug('traceCallHandler: using flatCallTracer')
-			return getVm()
-				.then((vm) => vm.deepCopy())
+			return getTraceVm()
 				.then((vm) => runCallWithFlatCallTrace(vm, logger, callParams))
 				.then((res) => /** @type {any} */ (res.trace))
 		}
@@ -74,13 +79,11 @@ export const traceCallHandler =
 			const tracerConfig = /** @type {import('../common/MuxTraceResult.js').MuxTracerConfiguration} */ (
 				params.tracerConfig ?? {}
 			)
-			return getVm()
-				.then((vm) => vm.deepCopy())
+			return getTraceVm()
 				.then((vm) => runCallWithMuxTrace(vm, logger, callParams, tracerConfig))
 				.then((res) => /** @type {any} */ (res.trace))
 		}
-		return getVm()
-			.then((vm) => vm.deepCopy())
+		return getTraceVm()
 			.then((vm) => runCallWithTrace(vm, logger, callParams))
 			.then((res) => /** @type {any} */ (res.trace))
 	}

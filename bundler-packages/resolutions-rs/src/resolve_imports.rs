@@ -25,6 +25,10 @@ pub enum ResolveImportsError {
         context_path: PathBuf,
         cause: ResolveImportPathError,
     },
+    ReadError {
+        context_path: PathBuf,
+        message: String,
+    },
 }
 
 /// This function scans the provided code for import statements and resolves each import

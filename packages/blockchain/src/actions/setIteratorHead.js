@@ -1,3 +1,4 @@
+import { InvalidBlockError } from '@tevm/errors'
 import { bytesToHex } from 'viem'
 
 /**
@@ -5,6 +6,10 @@ import { bytesToHex } from 'viem'
  * @returns {import('../Chain.js').Chain['setIteratorHead']}
  */
 export const setIteratorHead = (baseChain) => (tag, headHash) => {
-	baseChain.blocksByTag.set(/** @type {import('viem').BlockTag}*/ (tag), baseChain.blocks.get(bytesToHex(headHash)))
+	const block = baseChain.blocks.get(bytesToHex(headHash))
+	if (!block) {
+		return Promise.reject(new InvalidBlockError(`No block with hash ${bytesToHex(headHash)} exists`))
+	}
+	baseChain.blocksByTag.set(/** @type {import('viem').BlockTag}*/ (tag), block)
 	return Promise.resolve()
 }

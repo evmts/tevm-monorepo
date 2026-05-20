@@ -153,7 +153,6 @@ export const debugTraceChainJsonRpcProcedure = (client) => {
 				const impersonatedTx = createImpersonatedTx(
 					{
 						...blockTx,
-						gasPrice: null,
 						impersonatedAddress: createAddress(blockTx.getSenderAddress()),
 					},
 					{

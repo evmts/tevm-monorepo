@@ -76,4 +76,56 @@ export class TxPool extends ZevmTxPool {
 			return pool.txGasPrice(tx).maxFee
 		}
 	}
+
+	cleanup(): void {
+		const pool = this as unknown as {
+			pool: Map<string, Array<{ hash: string; tx: unknown }>>
+			handled: Map<string, unknown>
+			txsByHash: Map<string, unknown>
+			txsByNonce: Map<string, Map<bigint, unknown>>
+			txsInNonceOrder: Map<string, unknown[]>
+		}
+		const before = new Set([...pool.pool.values()].flatMap((objects) => objects.map((obj) => obj.hash)))
+
+		super.cleanup()
+
+		const liveTxs = new Set<unknown>()
+		const after = new Set<string>()
+		for (const objects of pool.pool.values()) {
+			for (const obj of objects) {
+				after.add(obj.hash)
+				liveTxs.add(obj.tx)
+			}
+		}
+
+		for (const hash of before) {
+			if (!after.has(hash)) {
+				pool.handled.delete(hash)
+			}
+		}
+
+		for (const [hash, tx] of pool.txsByHash) {
+			if (!liveTxs.has(tx)) {
+				pool.txsByHash.delete(hash)
+			}
+		}
+		for (const [address, nonceMap] of pool.txsByNonce) {
+			for (const [nonce, tx] of nonceMap) {
+				if (!liveTxs.has(tx)) {
+					nonceMap.delete(nonce)
+				}
+			}
+			if (nonceMap.size === 0) {
+				pool.txsByNonce.delete(address)
+			}
+		}
+		for (const [address, txs] of pool.txsInNonceOrder) {
+			const live = txs.filter((tx) => liveTxs.has(tx))
+			if (live.length === 0) {
+				pool.txsInNonceOrder.delete(address)
+			} else if (live.length !== txs.length) {
+				pool.txsInNonceOrder.set(address, live)
+			}
+		}
+	}
 }

@@ -55,4 +55,11 @@ describe('getArtifactsPath', () => {
 		expect(result.dir).toBe('/mock/cwd/.tevm/contracts/nested/deep/MyContract.sol')
 		expect(result.path).toBe('/mock/cwd/.tevm/contracts/nested/deep/MyContract.sol/contract.d.ts')
 	})
+
+	it('should not strip cwd-like path prefixes outside the project', () => {
+		const result = getArtifactsPath('/mock/cwd-other/contracts/MyContract.sol', 'dts', cwd, cacheDir)
+
+		expect(result.dir).toBe('/mock/cwd/.tevm/__external__/mock/cwd-other/contracts/MyContract.sol')
+		expect(result.path).toBe('/mock/cwd/.tevm/__external__/mock/cwd-other/contracts/MyContract.sol/contract.d.ts')
+	})
 })

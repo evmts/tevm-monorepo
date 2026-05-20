@@ -22,35 +22,42 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 	 * @returns {[Block, import('viem').RpcBlock<import('viem').BlockTag, true>]}
 	 */
 	const asEthjsBlock = (rpcBlock) => {
+		const transactions = rpcBlock.transactions?.filter((tx) => {
+			if (customTxTypes.includes(tx.type)) {
+				doWarning(/** @type {any}*/ (tx))
+				return false
+			}
+			if (tx.chainId !== undefined && BigInt(tx.chainId) !== BigInt(common.id)) {
+				return false
+			}
+			if (tx.type === '0x3' && tx.blobVersionedHashes && tx.blobVersionedHashes.length > 6) {
+				console.warn(
+					`Filtering out blob transaction ${tx.hash} with ${tx.blobVersionedHashes.length} blobs (maximum is 6). See https://github.com/evmts/tevm-monorepo/issues/1710`,
+				)
+				return false
+			}
+			return true
+		})
+		const block = blockFromRpc(
+			{
+				.../** @type {any}*/ (rpcBlock),
+				// filter out transactions we don't support as a hack
+				transactions,
+			},
+			{
+				common,
+				setHardfork: false,
+				freeze: false,
+				skipConsensusFormatValidation: true,
+			},
+		)
+		Object.defineProperty(block, '__tevmJsonRpcBlockHash', {
+			value: rpcBlock.hash,
+			enumerable: false,
+			configurable: true,
+		})
 		return [
-			blockFromRpc(
-				{
-					.../** @type {any}*/ (rpcBlock),
-					// filter out transactions we don't support as a hack
-					transactions: rpcBlock.transactions?.filter((tx) => {
-						if (customTxTypes.includes(tx.type)) {
-							doWarning(/** @type {any}*/ (tx))
-							return false
-						}
-						if (tx.chainId !== undefined && BigInt(tx.chainId) !== BigInt(common.id)) {
-							return false
-						}
-						if (tx.type === '0x3' && tx.blobVersionedHashes && tx.blobVersionedHashes.length > 6) {
-							console.warn(
-								`Filtering out blob transaction ${tx.hash} with ${tx.blobVersionedHashes.length} blobs (maximum is 6). See https://github.com/evmts/tevm-monorepo/issues/1710`,
-							)
-							return false
-						}
-						return true
-					}),
-				},
-				{
-					common,
-					setHardfork: false,
-					freeze: false,
-					skipConsensusFormatValidation: true,
-				},
-			),
+			block,
 			rpcBlock,
 		]
 	}

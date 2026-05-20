@@ -22,7 +22,8 @@ export const plugin: LanguageServerPlugin = () => {
 			config.services ??= {}
 			config.services.sol ??= (context) => ({
 				provideDiagnostics(document) {
-					console.log(document, context)
+					void document
+					void context
 					return []
 				},
 			})

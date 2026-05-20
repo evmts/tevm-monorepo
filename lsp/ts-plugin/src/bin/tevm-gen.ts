@@ -62,7 +62,7 @@ Options:
  * @param {string[]} include - Array of glob patterns to match Solidity files
  * @throws {Error} If no matching files are found
  */
-const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
+const generate = async (cwd = process.cwd(), include = ['src/**/*.sol']) => {
 	console.log('Generating types from contracts...', { dir: cwd, include })
 	const files = glob.sync(include, {
 		cwd,
@@ -70,16 +70,15 @@ const generate = (cwd = process.cwd(), include = ['src/**/*.sol']) => {
 	if (files.length === 0) {
 		throw new Error('No files found')
 	}
-	files.forEach(async (file) => {
+	const config = runSync(loadConfig(cwd))
+	const solcCache = createCache(config.cacheDir, fao, cwd)
+	const plugin = bundler(config, console, fao, solc, solcCache, '@tevm/contract')
+	await Promise.all(files.map(async (file) => {
 		const fileName = file.split('/').at(-1) as string
 		const fileDir = file.split('/').slice(0, -1).join('/')
-		const config = runSync(loadConfig(cwd))
-		const solcCache = createCache(config.cacheDir, fao, cwd)
-		const plugin = bundler(config, console, fao, solc, solcCache, '@tevm/contract')
-		plugin
-			.resolveTsModule(`./${file}`, cwd, false, true)
-			.then((tsContent) => writeFile(path.join(fileDir, `${fileName}.ts`), tsContent.code))
-	})
+		const tsContent = await plugin.resolveTsModule(`./${file}`, cwd, false, true)
+		await writeFile(path.join(cwd, fileDir, `${fileName}.ts`), tsContent.code)
+	}))
 }
 
 const args = process.argv.slice(2)
@@ -93,4 +92,7 @@ const [userCwd, userInclude] = args
 const cwd = userCwd || process.cwd()
 const include = userInclude ? userInclude.split(',') : ['src/**/*.sol']
 
-generate(cwd, include)
+generate(cwd, include).catch((e) => {
+	console.error(e)
+	process.exit(1)
+})

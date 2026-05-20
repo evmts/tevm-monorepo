@@ -269,12 +269,41 @@ describe('ethMethodToCacheKey', () => {
 		const request = {
 			jsonrpc: '2.0' as const,
 			method: 'eth_getLogs' as const,
-			params: [{ fromBlock: '0x1', toBlock: 'latest' }],
+			params: [
+				{
+					fromBlock: '0x1',
+					toBlock: 'latest',
+					address: '0x742d35Cc6634C0532925a3b844Bc9e7595f93b7a',
+					topics: ['0x0'],
+				},
+			],
 		} as const satisfies Request<'eth_getLogs'>
 
 		const cacheKeyFn = ethMethodToCacheKey('eth_getLogs')
 		const result = cacheKeyFn(request)
-		expect(result).toBe('["2.0","eth_getLogs","0x1","latest"]')
+		expect(result).toBe(
+			'["2.0","eth_getLogs","0x1","latest","0x742d35cc6634c0532925a3b844bc9e7595f93b7a",["0x0"]]',
+		)
+	})
+
+	it('should generate distinct eth_getLogs cache keys for different filters over the same range', () => {
+		const cacheKeyFn = ethMethodToCacheKey('eth_getLogs')
+		const base = {
+			jsonrpc: '2.0' as const,
+			method: 'eth_getLogs' as const,
+			params: [{ fromBlock: '0x1', toBlock: '0x2', address: '0x0000000000000000000000000000000000000001' }],
+		} as const satisfies Request<'eth_getLogs'>
+		const withDifferentAddress = {
+			...base,
+			params: [{ ...base.params[0], address: '0x0000000000000000000000000000000000000002' }],
+		} as const satisfies Request<'eth_getLogs'>
+		const withDifferentTopic = {
+			...base,
+			params: [{ ...base.params[0], topics: ['0x1234'] }],
+		} as const satisfies Request<'eth_getLogs'>
+
+		expect(cacheKeyFn(base)).not.toBe(cacheKeyFn(withDifferentAddress))
+		expect(cacheKeyFn(base)).not.toBe(cacheKeyFn(withDifferentTopic))
 	})
 
 	it('should generate cache key for eth_getProof', () => {

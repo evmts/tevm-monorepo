@@ -1,6 +1,8 @@
 import { createEVM, EVM, getActivePrecompiles } from '@evmts/zevm/evm'
 import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 
+const precompileAddress = (precompile) => precompile.address.toString().toLowerCase()
+
 /**
  * The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
  * The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
@@ -33,7 +35,13 @@ export class Evm extends EVM {
 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
 			)
 		}
-		this._customPrecompiles.push(precompile)
+		const address = precompileAddress(precompile)
+		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+		if (index === -1) {
+			this._customPrecompiles.push(precompile)
+		} else {
+			this._customPrecompiles[index] = precompile
+		}
 		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
 
@@ -49,7 +57,8 @@ export class Evm extends EVM {
 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
 			)
 		}
-		const index = this._customPrecompiles.indexOf(precompile)
+		const address = precompileAddress(precompile)
+		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
 		if (index === -1) {
 			throw new InvalidParamsError('Precompile not found')
 		}

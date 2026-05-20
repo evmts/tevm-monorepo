@@ -179,6 +179,10 @@ describe('signature', () => {
 			const hash = hashMessage(longMessage)
 			expect(hash).toMatch(/^0x[0-9a-f]{64}$/i)
 		})
+
+		it('should use the UTF-8 byte length for non-ASCII EIP-191 messages', () => {
+			expect(hashMessage('😀')).toBe('0x586edc2050be4b099d9d4d05361fa0cf25aa7283b6f79b579f7ab703e7eb51f3')
+		})
 	})
 
 	describe('recoverMessageAddress', () => {

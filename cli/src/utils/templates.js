@@ -214,6 +214,9 @@ function generatePackageJson(actionName) {
   "private": true,
   "type": "module",
   "dependencies": {
+    "@tevm/contract": "latest",
+    "@tevm/jsonrpc": "latest",
+    "@tevm/memory-client": "latest",
     "tevm": "latest",
     "viem": "latest"
   },

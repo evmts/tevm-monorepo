@@ -327,7 +327,7 @@ describe(mineHandler.name, () => {
 		expect(await client.getTxPool().then((pool) => [...pool.pool.keys()].length)).toBe(0)
 	})
 
-	it('should skip nonce when mining transactions', async () => {
+	it('should reject nonce gaps when mining transactions', async () => {
 		const client = createTevmNode()
 		const from = `0x${'42'.repeat(20)}` as const
 		const to = `0x${'69'.repeat(20)}` as const
@@ -361,24 +361,35 @@ describe(mineHandler.name, () => {
 		expect(callResultA.txHash).toBeDefined()
 		expect(callResultB.txHash).toBeDefined()
 		expect(await client.getTxPool().then((pool) => [...pool.pool.values()].flat().length)).toBe(2)
-		client.getTxPool().then((pool) => pool.removeByHash(callResultA.txHash as Hex))
+		await client.getTxPool().then((pool) => pool.removeByHash(callResultA.txHash as Hex))
 		expect(await client.getTxPool().then((pool) => [...pool.pool.values()].flat().length)).toBe(1)
 
-		const { blockHashes, errors } = await mineHandler(client)({})
+		const { blockHashes, errors } = await mineHandler(client)({ throwOnFail: false })
 
-		expect(errors).toBeUndefined()
-		expect(blockHashes).toHaveLength(1)
-		expect(await getBlockNumber(client)).toBe(1n)
+		expect(errors?.[0]?.message).toContain("the tx doesn't have the correct nonce")
+		expect(blockHashes).toBeUndefined()
+		expect(await getBlockNumber(client)).toBe(0n)
 
-		// Verify the transaction was mined successfully
 		const receiptsManager = await client.getReceiptsManager()
 		const receiptA = await receiptsManager.getReceiptByTxHash(hexToBytes(callResultA.txHash as Hex))
 		const receiptB = await receiptsManager.getReceiptByTxHash(hexToBytes(callResultB.txHash as Hex))
-		expect(receiptA).toBeNull() // tx A was dropped
-		expect(receiptB).not.toBeNull()
+		expect(receiptA).toBeNull()
+		expect(receiptB).toBeNull()
 
-		// Verify the transactions were removed from mempool
-		expect(await client.getTxPool().then((pool) => [...pool.pool.keys()].length)).toBe(0)
+		// Failed block construction must not silently drop the remaining transaction.
+		expect(await client.getTxPool().then((pool) => [...pool.pool.values()].flat().length)).toBe(1)
+	})
+
+	it('should reject an explicit transaction hash that is not in the pool', async () => {
+		const client = createTevmNode()
+		const result = await mineHandler(client)({
+			tx: `0x${'12'.repeat(32)}`,
+			throwOnFail: false,
+		})
+
+		expect(result.blockHashes).toBeUndefined()
+		expect(result.errors?.[0]?.message).toContain('does not exist in the transaction pool')
+		expect(await getBlockNumber(client)).toBe(0n)
 	})
 
 	it('should mine explicit multi-block requests as empty blocks', async () => {

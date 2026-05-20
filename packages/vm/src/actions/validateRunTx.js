@@ -59,18 +59,15 @@ export const validateRunTx = (vm) => {
 		if (_opts.tx.supports(Capability.EIP2718TypedTransaction) && vm.common.ethjsCommon.isActivatedEIP(2718)) {
 			// Is it an Access List transaction?
 			if (!vm.common.ethjsCommon.isActivatedEIP(2930)) {
-				await vm.evm.journal.revert()
 				const msg = errorMsg('Cannot run transaction: EIP 2930 is not activated.', _opts.block, _opts.tx)
 				throw new EipNotEnabledError(msg)
 			}
 			if (_opts.tx.supports(Capability.EIP1559FeeMarket) && !vm.common.ethjsCommon.isActivatedEIP(1559)) {
-				await vm.evm.journal.revert()
 				const msg = errorMsg('Cannot run transaction: EIP 1559 is not activated.', _opts.block, _opts.tx)
 				throw new EipNotEnabledError(msg)
 			}
 		}
 		if (_opts.tx.supports(Capability.EIP7702EOACode) && !vm.common.ethjsCommon.isActivatedEIP(7702)) {
-			await vm.evm.journal.revert()
 			const msg = errorMsg('Cannot run transaction: EIP 7702 is not activated.', _opts.block, _opts.tx)
 			throw new EipNotEnabledError(msg)
 		}

@@ -155,9 +155,8 @@ const parseAbi = (abiString?: string): any => {
 	if (!abiString) return DEFAULT_EVENT_ABI
 	try {
 		return JSON.parse(abiString)
-	} catch (_e) {
-		console.warn('Warning: ABI is not valid JSON, using default Transfer event ABI')
-		return DEFAULT_EVENT_ABI
+	} catch (e) {
+		throw new Error(`Invalid ABI JSON: ${(e as Error).message}`)
 	}
 }
 
@@ -165,10 +164,13 @@ const parseAbi = (abiString?: string): any => {
 const parseArgs = (argsString?: string): any[] => {
 	if (!argsString) return []
 	try {
-		return JSON.parse(argsString)
-	} catch (_e) {
-		console.warn('Warning: Args is not valid JSON, using empty array')
-		return []
+		const args = JSON.parse(argsString)
+		if (!Array.isArray(args)) {
+			throw new Error('Args must be a JSON array')
+		}
+		return args
+	} catch (e) {
+		throw new Error(`Invalid args JSON: ${(e as Error).message}`)
 	}
 }
 
@@ -187,8 +189,7 @@ const parseBlockIdentifier = (blockId?: string): string | bigint | undefined => 
 	try {
 		return BigInt(blockId)
 	} catch (_e) {
-		console.warn(`Could not parse block identifier "${blockId}", using undefined`)
-		return undefined
+		throw new Error(`Invalid block identifier "${blockId}"`)
 	}
 }
 

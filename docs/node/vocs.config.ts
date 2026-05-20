@@ -70,7 +70,6 @@ export default defineConfig({
 					link: '/getting-started/ethers',
 				},
 				{ text: 'Bundler Quickstart', link: '/getting-started/bundler' },
-				{ text: 'CLI Quickstart', link: '/getting-started/cli' },
 				{ text: 'What is Tevm Node?', link: '/introduction/what-is-tevm-node' },
 				{
 					text: 'Architecture Overview',
@@ -148,10 +147,6 @@ export default defineConfig({
 					text: 'Client & Communication',
 					collapsed: true,
 					items: [
-						{
-							text: 'CLI (tevm)',
-							link: '/reference/cli',
-						},
 						{
 							text: 'Memory Client (@tevm/memory-client)',
 							link: '/reference/memory-client',

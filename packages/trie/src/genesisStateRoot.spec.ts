@@ -6,4 +6,10 @@ describe('EMPTY_STATE_ROOT', () => {
 	it('should generate state root for empty state', async () => {
 		expect(await genesisStateRoot({})).toEqual(EMPTY_STATE_ROOT)
 	})
+
+	it('should not allow mutating the exported empty state root', () => {
+		expect(() => EMPTY_STATE_ROOT.set([0], 0)).toThrow('EMPTY_STATE_ROOT is immutable')
+		expect(() => EMPTY_STATE_ROOT.fill(0)).toThrow('EMPTY_STATE_ROOT is immutable')
+		expect(EMPTY_STATE_ROOT[0]).toBe(86)
+	})
 })

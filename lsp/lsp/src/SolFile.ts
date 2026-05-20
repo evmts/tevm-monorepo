@@ -4,6 +4,7 @@ import { bundler, createCache } from '@tevm/base-bundler'
 import { loadConfig } from '@tevm/config'
 import { FileCapabilities, FileKind, type VirtualFile } from '@volar/language-core'
 import { runSync } from 'effect/Effect'
+import path from 'node:path'
 // @ts-expect-error
 import solc from 'solc'
 import type ts from 'typescript/lib/tsserverlibrary.js'
@@ -33,7 +34,8 @@ export class SolFile implements VirtualFile {
 
 	public update(newSnapshot: ts.IScriptSnapshot) {
 		this.snapshot = newSnapshot
-		const c = runSync(loadConfig(process.cwd()))
+		const projectRoot = path.dirname(this.fileName)
+		const c = runSync(loadConfig(projectRoot))
 		const cache = createCache(console)
 		const b = bundler(
 			c,
@@ -46,7 +48,7 @@ export class SolFile implements VirtualFile {
 			solc,
 			cache,
 		)
-		const tsFile = b.resolveTsModuleSync(this.fileName, process.cwd(), false, false)
+		const tsFile = b.resolveTsModuleSync(this.fileName, projectRoot, false, false)
 		this.embeddedFiles = [
 			{
 				fileName: `${this.fileName}.ts`,

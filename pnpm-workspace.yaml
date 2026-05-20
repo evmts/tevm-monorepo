@@ -4,7 +4,6 @@ packages:
   - bundler-packages/runtime-rs/npm/*
   - bundler
   - configs/*
-  - cli
   - docs/*
   - examples/*
   - extensions/*

@@ -23,18 +23,20 @@ export async function activate(context: vscode.ExtensionContext) {
 		},
 	}
 	const initializationOptions: InitializationOptions = {
-		// no need tsdk because html1 language server do not needed TS support, you can uncomment this line if needed
+		// no need tsdk because the bundled language server does not need TS support from VS Code
 		// typescript: { tsdk: require('path').join(vscode.env.appRoot, 'extensions/node_modules/typescript/lib') },
 	}
 	const clientOptions: lsp.LanguageClientOptions = {
-		documentSelector: [{ language: 'html1' }],
+		documentSelector: [{ language: 'solidity' }, { language: 'typescript' }, { language: 'javascript' }],
 		initializationOptions,
 	}
-	client = new lsp.LanguageClient('html1-language-server', 'HTML1 Language Server', serverOptions, clientOptions)
+	client = new lsp.LanguageClient('tevm-language-server', 'Tevm Language Server', serverOptions, clientOptions)
 	await client.start()
 
 	// support for auto close tag
-	activateAutoInsertion([client], (document) => document.languageId === 'html1')
+	activateAutoInsertion([client], (document) =>
+		['solidity', 'typescript', 'javascript'].includes(document.languageId),
+	)
 
 	// support for https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volarjs-labs
 	// ref: https://twitter.com/johnsoncodehk/status/1656126976774791168

@@ -34,12 +34,7 @@ export const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunB
 	for (let txIdx = 0; txIdx < block.transactions.length; txIdx++) {
 		const tx = block.transactions[txIdx] as TypedTransaction
 
-		let maxGasLimit: bigint
-		if (vm.common.ethjsCommon.isActivatedEIP(1559) === true) {
-			maxGasLimit = block.header.gasLimit * BigInt(vm.common.ethjsCommon.param('elasticityMultiplier'))
-		} else {
-			maxGasLimit = block.header.gasLimit
-		}
+		const maxGasLimit = block.header.gasLimit
 		const gasLimitIsHigherThanBlock = maxGasLimit < tx.gasLimit + gasUsed
 		if (gasLimitIsHigherThanBlock) {
 			const msg = errorMsg('tx has a higher gas limit than the block', vm, block)

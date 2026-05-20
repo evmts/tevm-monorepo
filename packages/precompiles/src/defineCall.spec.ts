@@ -32,4 +32,27 @@ describe(defineCall.name, () => {
 			}),
 		).toEqual({ returnValue: toBytes(10n, { size: 32 }), executionGasUsed: 0n })
 	})
+
+	it('should propagate handler-declared errors as EVM exception errors', async () => {
+		const call = defineCall(SimpleContract.abi, {
+			get: async () => ({
+				returnValue: 0n,
+				executionGasUsed: 0n,
+				error: {
+					_tag: 'TestError',
+					name: 'TestError',
+					message: 'handler failed',
+				},
+			}),
+			set: async () => ({ returnValue: undefined, executionGasUsed: 0n }),
+		})
+
+		const result = await call({
+			gasLimit: 1n,
+			data: encodeFunctionData(SimpleContract.read.get()),
+		})
+
+		expect(result.exceptionError).toMatchObject({ message: 'handler failed' })
+		expect('exeptionError' in result).toBe(false)
+	})
 })

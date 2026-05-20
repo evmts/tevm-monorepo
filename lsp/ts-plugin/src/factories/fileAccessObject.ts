@@ -25,7 +25,10 @@ export const createFileAccessObject = (lsHost: typescript.LanguageServiceHost): 
 			return file
 		},
 		writeFileSync: (fileName, data) => {
-			lsHost.writeFile?.(fileName, data)
+			if (!lsHost.writeFile) {
+				throw new Error(`@tevm/ts-plugin: host cannot write file ${fileName}`)
+			}
+			lsHost.writeFile(fileName, data)
 		},
 		// TODO clean this up. This works fine only because only the cache needs them and the cache is operating on a real file system and not a virtual one
 		// These are just stubs to match interface since making multiple interfaces is tedious atm

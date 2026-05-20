@@ -21,11 +21,13 @@ export type ProviderMessage = {
 export class ProviderRpcError extends Error {
 	code: number
 	details: string
+	data: unknown | undefined
 
-	constructor(code: number, message: string) {
+	constructor(code: number, message: string, data?: unknown) {
 		super(message)
 		this.code = code
 		this.details = message
+		this.data = data
 	}
 }
 

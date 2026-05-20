@@ -98,7 +98,6 @@ export const debugIntermediateRootsJsonRpcProcedure = (client) => {
 			const impersonatedTx = createImpersonatedTx(
 				{
 					...blockTx,
-					gasPrice: null,
 					impersonatedAddress: createAddress(blockTx.getSenderAddress()),
 				},
 				{

@@ -71,7 +71,7 @@ export const defineCall = <TAbi extends Abi>(
 			})
 			return {
 				executionGasUsed,
-				...(error ? { exeptionError: error } : {}),
+				...(error ? { exceptionError: error } : {}),
 				...(selfdestruct ? { selfdestruct } : {}),
 				...(blobGasUsed ? { blobGasUsed } : {}),
 				...(logs

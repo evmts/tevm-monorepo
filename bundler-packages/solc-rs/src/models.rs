@@ -34,6 +34,7 @@ pub type SolcRemapping = Vec<String>;
 
 // Yul optimizer settings
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcYulDetails {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub stack_allocation: Option<bool>,
@@ -43,6 +44,7 @@ pub struct SolcYulDetails {
 
 // Optimizer details configuration
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcOptimizerDetails {
     pub peephole: Option<bool>,
     pub inliner: Option<bool>,
@@ -72,6 +74,7 @@ pub type SolcModelCheckerContracts = HashMap<String, Vec<String>>;
 
 // Model checker configuration
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcModelChecker {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub contracts: Option<SolcModelCheckerContracts>,
@@ -99,6 +102,7 @@ pub struct SolcModelChecker {
 
 // Debug settings configuration
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcDebugSettings {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub revert_strings: Option<String>,
@@ -108,6 +112,7 @@ pub struct SolcDebugSettings {
 
 // Metadata settings configuration
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcMetadataSettings {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub append_cbor: Option<bool>,
@@ -119,6 +124,7 @@ pub struct SolcMetadataSettings {
 
 // Compiler settings configuration
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcSettings {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub stop_after: Option<String>,
@@ -129,6 +135,7 @@ pub struct SolcSettings {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub evm_version: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "viaIR")]
     pub via_ir: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub debug: Option<SolcDebugSettings>,
@@ -153,6 +160,7 @@ pub struct SolcInputDescription {
 
 // Error entry in solc output
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcErrorEntry {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub source_location: Option<SolcSourceLocation>,
@@ -195,6 +203,7 @@ pub struct SolcSourceEntry {
 
 // Contract output in solc result
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcContractOutput {
     pub abi: serde_json::Value,
     pub metadata: String,
@@ -218,6 +227,7 @@ pub struct SolcStorageLayout {
 
 // Storage layout item in solc output
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcStorageLayoutItem {
     pub ast_id: u32,
     pub contract: String,
@@ -230,6 +240,7 @@ pub struct SolcStorageLayoutItem {
 
 // EVM output in solc result
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcEVMOutput {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub assembly: Option<String>,
@@ -245,6 +256,7 @@ pub struct SolcEVMOutput {
 
 // Bytecode output in solc result
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcBytecodeOutput {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub function_debug_data: Option<HashMap<String, SolcFunctionDebugData>>,
@@ -261,6 +273,7 @@ pub struct SolcBytecodeOutput {
 
 // Deployed bytecode output in solc result
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcDeployedBytecodeOutput {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub function_debug_data: Option<HashMap<String, SolcFunctionDebugData>>,
@@ -293,6 +306,7 @@ pub struct SolcImmutableReference {
 
 // Function debug data in solc output
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcFunctionDebugData {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub entry_point: Option<u32>,
@@ -326,6 +340,7 @@ pub struct SolcGasEstimates {
 
 // Gas estimates creation data in solc output
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
 pub struct SolcGasEstimatesCreation {
     pub code_deposit_cost: String,
     pub execution_cost: String,

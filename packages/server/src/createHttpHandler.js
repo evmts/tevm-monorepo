@@ -9,13 +9,15 @@ import { parseRequest } from './internal/parseRequest.js'
 
 const DEFAULT_MAX_BODY_SIZE = 1024 * 1024
 const DEFAULT_MAX_HEADER_SIZE = 16 * 1024
+const DEFAULT_MAX_BATCH_SIZE = 100
+const DEFAULT_REQUEST_TIMEOUT = 30_000
 
 /**
  * Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
  * Any unimplemented methods will be proxied to the given proxyUrl
  * This handler works for any server that supports the Node.js http module
  * @param {import('./Client.js').Client} client
- * @param {{ compatibility?: boolean; maxBodySize?: number; maxHeaderSize?: number }} [options]
+ * @param {{ compatibility?: boolean; maxBodySize?: number; maxHeaderSize?: number; maxBatchSize?: number; requestTimeout?: number; cors?: boolean }} [options]
  * @returns {import('http').RequestListener}
  * @throws {never}
  * @example
@@ -28,7 +30,14 @@ const DEFAULT_MAX_HEADER_SIZE = 16 * 1024
  * ```
  */
 export const createHttpHandler = (client, options = {}) => {
-	const { compatibility = false, maxBodySize = DEFAULT_MAX_BODY_SIZE, maxHeaderSize = DEFAULT_MAX_HEADER_SIZE } = options
+	const {
+		compatibility = false,
+		maxBodySize = DEFAULT_MAX_BODY_SIZE,
+		maxHeaderSize = DEFAULT_MAX_HEADER_SIZE,
+		maxBatchSize = DEFAULT_MAX_BATCH_SIZE,
+		requestTimeout = DEFAULT_REQUEST_TIMEOUT,
+		cors = false,
+	} = options
 
 	/** @param {import('http').IncomingMessage} req */
 	const getHeaderSize = (req) => {
@@ -39,6 +48,18 @@ export const createHttpHandler = (client, options = {}) => {
 	}
 
 	return async (req, res) => {
+		if (cors) {
+			res.setHeader('Access-Control-Allow-Origin', '*')
+			res.setHeader('Access-Control-Allow-Headers', 'content-type')
+			res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+			if (req.method === 'OPTIONS') return void res.writeHead(204).end()
+		}
+		if (requestTimeout > 0 && typeof req.setTimeout === 'function') {
+			req.setTimeout(requestTimeout, () => {
+				if (!res.headersSent) res.writeHead(408).end()
+				if (typeof req.destroy === 'function') req.destroy()
+			})
+		}
 		if (compatibility) {
 			const pathname = new URL(req.url ?? '/', 'http://localhost').pathname
 			if (pathname !== '/') return void res.writeHead(404).end()
@@ -52,15 +73,15 @@ export const createHttpHandler = (client, options = {}) => {
 			}
 		}
 
-		const body = await getRequestBody(req, { maxBodySize: compatibility ? maxBodySize : undefined })
+		const body = await getRequestBody(req, { maxBodySize })
 		if (body instanceof ReadRequestBodyError) {
-			if (compatibility && body.shortMessage === 'Request body exceeds configured max body size') {
+			if (body.shortMessage === 'Request body exceeds configured max body size') {
 				return void res.writeHead(413).end()
 			}
 			return handleError(client, body, res)
 		}
 
-		const parsedRequest = parseRequest(body, { allowEmptyBatch: !compatibility })
+		const parsedRequest = parseRequest(body, { allowEmptyBatch: !compatibility, maxBatchSize })
 		if (parsedRequest instanceof InvalidJsonError || parsedRequest instanceof InvalidRequestError) {
 			return handleError(client, parsedRequest, res)
 		}

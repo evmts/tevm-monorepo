@@ -4,6 +4,8 @@ import { getAccount } from './getAccount.js'
 import { getForkBlockTag } from './getForkBlockTag.js'
 import { getForkClient } from './getForkClient.js'
 import { putContractStorage } from './putContractStorage.js'
+import { stripZeros } from '../utils/stripZeros.js'
+import { resolveForkBlockTag } from './resolveForkBlockTag.js'
 
 /**
  * Gets the storage value associated with the provided `address` and `key`. This method returns
@@ -38,6 +40,10 @@ export const getContractStorage = (baseState) => async (address, key) => {
 		return cachedValue
 	}
 
+	if (baseState.tombstones.storageCleared.has(address.toString())) {
+		return new Uint8Array()
+	}
+
 	// Then check fork cache if we have a fork
 	if (baseState.options.fork?.transport) {
 		const forkedValue = forkStorageCache.get(address, key)
@@ -52,15 +58,16 @@ export const getContractStorage = (baseState) => async (address, key) => {
 	const isContractAtAddress = (await getAccount(baseState)(address))?.isContract()
 	if (!isContractAtAddress) {
 		baseState.logger.debug(`No contract found at address ${address}. Cannot getContractStorage if there is no contract`)
-		return hexToBytes('0x0')
+		return new Uint8Array()
 	}
 
 	if (!baseState.options.fork?.transport) {
-		return hexToBytes('0x0')
+		return new Uint8Array()
 	}
 
 	baseState.logger.debug({ address, key }, 'Fetching storage from remote RPC')
 
+	await resolveForkBlockTag(baseState)
 	const client = getForkClient(baseState)
 	const blockTag = getForkBlockTag(baseState)
 
@@ -69,7 +76,7 @@ export const getContractStorage = (baseState) => async (address, key) => {
 		slot: bytesToHex(key),
 		...blockTag,
 	})
-	const value = hexToBytes(storage ?? '0x0')
+	const value = stripZeros(hexToBytes(storage ?? '0x0'))
 
 	// Store in both caches
 	await putContractStorage(baseState)(address, key, value)

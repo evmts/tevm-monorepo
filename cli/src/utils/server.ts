@@ -1,4 +1,4 @@
-import { Server } from 'node:http'
+import type { Server as HttpServer } from 'node:http'
 import {
 	anvil,
 	arbitrum,
@@ -20,7 +20,7 @@ import {
 	zksync,
 } from '@tevm/common'
 import { http } from '@tevm/jsonrpc'
-import { createMemoryClient, MemoryClient } from '@tevm/memory-client'
+import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
 import { createServer } from '@tevm/server'
 import { createLoggingRequestProxy } from '../stores/logStore.js'
 
@@ -30,6 +30,8 @@ export async function initializeServer({
 	chainId,
 	verbose,
 	fork,
+	forkBlockNumber,
+	loggingLevel,
 }: {
 	port: number
 	host: string
@@ -38,7 +40,7 @@ export async function initializeServer({
 	forkBlockNumber: string
 	loggingLevel: string
 	verbose: boolean
-}): Promise<{ client: MemoryClient; server: Server }> {
+}): Promise<{ client: MemoryClient; server: HttpServer }> {
 	const chains: Record<number, any> = {
 		[base.id]: base,
 		[mainnet.id]: mainnet,
@@ -71,8 +73,12 @@ export async function initializeServer({
 	}
 
 	const client = createMemoryClient({
-		...(fork?.length ? { fork: { transport: http(fork) } } : {}),
-	})
+		common: chain,
+		loggingLevel: loggingLevel as any,
+		...(fork?.length
+			? { fork: { transport: http(fork), ...(forkBlockNumber ? { blockTag: BigInt(forkBlockNumber) } : {}) } }
+			: {}),
+	}) as unknown as MemoryClient
 
 	// Add request logging if verbose mode is enabled
 	if (verbose) {
@@ -82,7 +88,7 @@ export async function initializeServer({
 	}
 
 	// Create and start the server
-	const server = createServer(client)
+	const server = createServer(client as any) as unknown as HttpServer
 
 	// Handle graceful shutdown
 	const handleShutdown = () => {

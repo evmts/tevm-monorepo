@@ -4,8 +4,11 @@ import { ConsensusAlgorithm } from '@tevm/common'
  * Minimal proof-of-stake consensus implementation used by Tevm's custom chain.
  */
 export class CasperConsensus {
-	constructor() {
-		this.algorithm = ConsensusAlgorithm.Casper
+	/**
+	 * @param {import('@tevm/common').ConsensusAlgorithm | string} [algorithm]
+	 */
+	constructor(algorithm = ConsensusAlgorithm.Casper) {
+		this.algorithm = algorithm
 	}
 
 	/**
@@ -33,7 +36,7 @@ export class CasperConsensus {
 	 * @returns {Promise<void>}
 	 */
 	async validateDifficulty(header) {
-		if (header.difficulty !== 0n) {
+		if (this.algorithm === ConsensusAlgorithm.Casper && header.difficulty !== 0n) {
 			const message = 'invalid difficulty. PoS blocks must have difficulty 0'
 			throw new Error(`${message} ${header.errorStr()}`)
 		}

@@ -51,7 +51,10 @@ export const getLightProof = async (client, address, storageKeys, selector) => {
 	if (!proof.balance || !proof.nonce || !proof.codeHash || !proof.storageHash || !Array.isArray(proof.storageProof)) {
 		throw new Error('LIGHT_CLIENT_MALFORMED_UPSTREAM_PROOF: malformed proof payload')
 	}
-	const ok = await client.consensus.verifyRead?.({
+	if (typeof client.consensus.verifyRead !== 'function') {
+		throw new Error('LIGHT_CLIENT_PROOF_VERIFICATION_FAILED: proof verification is not configured')
+	}
+	const ok = await client.consensus.verifyRead({
 		account: address,
 		stateRoot,
 		selector: /** @type {'latest' | 'safe' | 'finalized' | import('@tevm/utils').Hex} */ (
@@ -59,6 +62,6 @@ export const getLightProof = async (client, address, storageKeys, selector) => {
 		),
 		proof,
 	})
-	if (ok === false) throw new Error('LIGHT_CLIENT_PROOF_VERIFICATION_FAILED: proof verification failed')
+	if (ok !== true) throw new Error('LIGHT_CLIENT_PROOF_VERIFICATION_FAILED: proof verification failed')
 	return { proof, stateRoot }
 }

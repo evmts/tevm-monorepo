@@ -362,7 +362,7 @@ export const createTevmNode = (options = {}) => {
 		// TODO handle other moving block tags like `safe`
 		// we need to fetch the latest block number and return that otherwise we may have inconsistencies from block number changing
 		if (options.fork.blockTag === undefined || options.fork.blockTag === 'latest') {
-			const latestBlockNumber = await getBlockNumber(options.fork.transport)
+			const latestBlockNumber = await getBlockNumber(transport)
 			logger.debug({ latestBlockNumber }, 'fetched fork block number from provided forkurl')
 			return latestBlockNumber
 		}
@@ -399,15 +399,10 @@ export const createTevmNode = (options = {}) => {
 		return createChain({
 			loggingLevel,
 			common,
-			...(options.fork?.transport !== undefined
+			...(transport !== undefined
 				? {
 						fork: {
-							transport: {
-								request:
-									typeof options.fork.transport === 'function'
-										? options.fork.transport({}).request
-										: options.fork.transport.request,
-							},
+							transport,
 							blockTag,
 						},
 					}
@@ -564,7 +559,8 @@ export const createTevmNode = (options = {}) => {
 		await blockchainPromise.then((b) => b.ready())
 		await stateManagerPromise.then((b) => b.ready())
 		await vmPromise.then((vm) => vm.ready())
-		eventEmitter.emit('connect')
+		const chainId = await chainIdPromise
+		eventEmitter.emit('connect', { chainId: `0x${chainId.toString(16)}` })
 		return /** @type {true}*/ (true)
 	})()
 
@@ -676,7 +672,7 @@ export const createTevmNode = (options = {}) => {
 		 * @type {Map<string, import('./TevmNode.js').TevmSnapshot>}
 		 */
 		const copiedSnapshots = new Map(baseClient.getSnapshots())
-		let copiedSnapshotIdCounter = copiedSnapshots.size + 1
+		let copiedSnapshotIdCounter = Math.max(0, ...[...copiedSnapshots.keys()].map((id) => Number.parseInt(id, 16))) + 1
 
 		const getCopiedSnapshots = () => copiedSnapshots
 		/**
@@ -739,7 +735,7 @@ export const createTevmNode = (options = {}) => {
 						},
 					}
 				: {}),
-			extend: (extension) => extend(baseClient)(extension),
+			extend: (extension) => extend(copiedClient)(extension),
 			deepCopy: () => deepCopy(copiedClient)(),
 			ready: () => Promise.resolve(true),
 			getFilters: () => newFilters,

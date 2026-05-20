@@ -24,7 +24,12 @@ pub async fn process_module(
     let code = if let Some(c) = code_opt {
         c
     } else {
-        fs::read_to_string(&path).await.unwrap()
+        fs::read_to_string(&path)
+            .await
+            .map_err(|err| vec![ResolveImportsError::ReadError {
+                context_path: path.clone(),
+                message: err.to_string(),
+            }])?
     };
 
     state.graph.lock().await.insert(

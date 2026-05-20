@@ -47,6 +47,7 @@ export const commit =
 		baseState.caches.accounts.commit()
 		baseState.caches.contracts.commit()
 		baseState.caches.storage.commit()
+		baseState.tombstones.checkpoints.pop()
 
 		baseState.logger.debug('State roots are comitted successfully')
 

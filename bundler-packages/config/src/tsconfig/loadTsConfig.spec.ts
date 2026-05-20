@@ -106,16 +106,11 @@ describe(loadTsConfig.name, () => {
 		expect(() => runSync(loadTsConfig(join(__dirname, '../fixtures/doesntexist')))).toThrowError()
 	})
 
-	it('should handle errors when writing config file (plugin missing case)', () => {
+	it('should not write config files when the plugin is missing', () => {
 		const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
 		// Mock existsSync to behave correctly
 		vi.mocked(existsSync).mockReturnValue(true)
-
-		// Mock writeFileSync to throw an error
-		vi.mocked(writeFileSync).mockImplementation(() => {
-			throw new Error('Failed to write file')
-		})
 
 		// Mock readFileSync to return a simple config
 		const configStr = JSON.stringify({
@@ -125,33 +120,21 @@ describe(loadTsConfig.name, () => {
 		})
 		vi.mocked(readFileSync).mockReturnValue(configStr)
 
-		// Run the function and continue despite error
-		try {
-			runSync(loadTsConfig('/mock/path'))
-		} catch (_e) {
-			// Ignore error - we just want to test the console.error calls
-		}
+		const result = runSync(loadTsConfig('/mock/path'))
 
-		// Verify console.error was called
-		expect(consoleSpy).toHaveBeenCalledWith(expect.any(Error))
-		expect(consoleSpy).toHaveBeenCalledWith(
-			'Missing @tevm/ts-plugin in tsconfig.json and unable to add it automatically. Please add it manually.',
-		)
+		expect(result.compilerOptions.baseUrl).toBe('./src')
+		expect(writeFileSync).not.toHaveBeenCalled()
+		expect(consoleSpy).not.toHaveBeenCalled()
 
 		// Clean up
 		consoleSpy.mockRestore()
 	})
 
-	it('should handle errors when writing config file (plugin exists but not tevm plugin case)', () => {
+	it('should not write config files when another plugin exists without the tevm plugin', () => {
 		const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 
 		// Mock existsSync to behave correctly
 		vi.mocked(existsSync).mockReturnValue(true)
-
-		// Mock writeFileSync to throw an error
-		vi.mocked(writeFileSync).mockImplementation(() => {
-			throw new Error('Failed to write file')
-		})
 
 		// Mock readFileSync to return config with other plugins
 		const configStr = JSON.stringify({
@@ -161,18 +144,11 @@ describe(loadTsConfig.name, () => {
 		})
 		vi.mocked(readFileSync).mockReturnValue(configStr)
 
-		// Run the function and continue despite error
-		try {
-			runSync(loadTsConfig('/mock/path'))
-		} catch (_e) {
-			// Ignore error - we just want to test the console.error calls
-		}
+		const result = runSync(loadTsConfig('/mock/path'))
 
-		// Verify console.error was called
-		expect(consoleSpy).toHaveBeenCalledWith(expect.any(Error))
-		expect(consoleSpy).toHaveBeenCalledWith(
-			'Missing @tevm/ts-plugin in tsconfig.json and unable to add it automatically. Please add it manually.',
-		)
+		expect(result.compilerOptions.plugins?.[0]?.name).toBe('some-other-plugin')
+		expect(writeFileSync).not.toHaveBeenCalled()
+		expect(consoleSpy).not.toHaveBeenCalled()
 
 		// Clean up
 		consoleSpy.mockRestore()
@@ -186,7 +162,7 @@ describe(loadTsConfig.name, () => {
 		expect(() => runSync(loadTsConfig('/mock/path'))).toThrowError(/Invalid tsconfig/)
 	})
 
-	it('should add @tevm/ts-plugin automatically', () => {
+	it('should return configs without plugins without mutating them', () => {
 		// Mock a basic tsconfig with no plugins
 		const configWithoutPlugins = {
 			compilerOptions: {
@@ -198,31 +174,11 @@ describe(loadTsConfig.name, () => {
 		vi.mocked(existsSync).mockReturnValue(true)
 		vi.mocked(readFileSync).mockReturnValue(JSON.stringify(configWithoutPlugins))
 
-		// Create a variable to store written content
-		let savedContent = ''
+		const result = runSync(loadTsConfig('/mock/path'))
 
-		// Mock writeFileSync
-		vi.mocked(writeFileSync).mockImplementation((_ignoredPath, content) => {
-			savedContent = content.toString()
-		})
-
-		try {
-			// Run the function but handle any errors as it might throw
-			runSync(loadTsConfig('/mock/path'))
-		} catch (_e) {
-			// Continue the test even if the function throws
-		}
-
-		// Verify writeFileSync was called
-		expect(writeFileSync).toHaveBeenCalled()
-
-		// Parse the written content if it exists
-		if (savedContent) {
-			const writtenConfig = JSON.parse(savedContent)
-			expect(writtenConfig.compilerOptions).toBeDefined()
-			expect(writtenConfig.compilerOptions.plugins).toBeDefined()
-			expect(writtenConfig.compilerOptions.plugins).toEqual([{ name: '@tevm/ts-plugin' }])
-		}
+		expect(writeFileSync).not.toHaveBeenCalled()
+		expect(result.compilerOptions.baseUrl).toBe('./src')
+		expect(result.compilerOptions.plugins).toBeUndefined()
 	})
 
 	it('should not modify config if @tevm/ts-plugin already exists', () => {
@@ -247,7 +203,7 @@ describe(loadTsConfig.name, () => {
 		expect(result.compilerOptions?.plugins?.[0]?.name).toBe('@tevm/ts-plugin')
 	})
 
-	it('should add @tevm/ts-plugin to plugins in written config file', () => {
+	it('should return other plugins without mutating them', () => {
 		// Mock a config with some other plugins but not the tevm plugin
 		const configWithOtherPlugins = {
 			compilerOptions: {
@@ -259,27 +215,10 @@ describe(loadTsConfig.name, () => {
 		vi.mocked(existsSync).mockReturnValue(true)
 		vi.mocked(readFileSync).mockReturnValue(JSON.stringify(configWithOtherPlugins))
 
-		// Create a variable to store written content
-		let savedContent = ''
-
-		// Mock writeFileSync without unused parameters
-		vi.mocked(writeFileSync).mockImplementation((_ignoredPath, content) => {
-			savedContent = content.toString()
-		})
-
 		// Run the function
-		runSync(loadTsConfig('/mock/path'))
+		const result = runSync(loadTsConfig('/mock/path'))
 
-		// Verify writeFileSync was called to add the tevm plugin
-		expect(writeFileSync).toHaveBeenCalled()
-
-		// Parse the written content
-		const writtenConfig = JSON.parse(savedContent)
-
-		// Verify that @tevm/ts-plugin is the first plugin in the array
-		expect(writtenConfig.compilerOptions.plugins[0]).toEqual({ name: '@tevm/ts-plugin' })
-
-		// Verify that the original plugin is still there
-		expect(writtenConfig.compilerOptions.plugins[1]).toEqual({ name: 'some-other-plugin' })
+		expect(writeFileSync).not.toHaveBeenCalled()
+		expect(result.compilerOptions.plugins?.[0]).toEqual({ name: 'some-other-plugin' })
 	})
 })

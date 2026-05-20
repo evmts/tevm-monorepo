@@ -41,16 +41,16 @@ export const p256VerifyPrecompile = () => {
 
 			try {
 				// Parse the 160-byte input according to RIP-7212:
-				// - r: bytes 0-32
-				// - s: bytes 32-64
-				// - x: bytes 64-96
-				// - y: bytes 96-128
-				// - msgHash: bytes 128-160
-				const r = input.data.slice(0, 32)
-				const s = input.data.slice(32, 64)
-				const x = input.data.slice(64, 96)
-				const y = input.data.slice(96, 128)
-				const msgHash = input.data.slice(128, 160)
+				// - msgHash: bytes 0-32
+				// - r: bytes 32-64
+				// - s: bytes 64-96
+				// - x: bytes 96-128
+				// - y: bytes 128-160
+				const msgHash = input.data.slice(0, 32)
+				const r = input.data.slice(32, 64)
+				const s = input.data.slice(64, 96)
+				const x = input.data.slice(96, 128)
+				const y = input.data.slice(128, 160)
 
 				// Construct the signature as a 64-byte compact (r, s) format
 				const signature = new Uint8Array(64)

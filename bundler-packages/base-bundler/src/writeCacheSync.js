@@ -53,9 +53,9 @@ export const writeCacheSync = (
 		cache.writeArtifactsSync(modulePath, artifacts)
 	}
 	if (moduleType === 'dts') {
-		cache.writeDts(modulePath, code)
+		cache.writeDtsSync(modulePath, code)
 	} else if (moduleType === 'mjs') {
-		cache.writeMjs(modulePath, code)
+		cache.writeMjsSync(modulePath, code)
 	} else {
 		logger.warn(`No caching for module type ${moduleType}} implemented yet`)
 	}

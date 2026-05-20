@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, statSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { mkdir, readFile, stat, writeFile } from 'node:fs/promises'
 
 /**
@@ -83,8 +83,7 @@ export const requirejsFileAccessObject = {
 	 * @returns {void}
 	 */
 	writeFileSync: (filePath, data) => {
-		const fs = require('node:fs')
-		fs.writeFileSync(filePath, data, 'utf8')
+		writeFileSync(filePath, data, 'utf8')
 	},
 
 	/**

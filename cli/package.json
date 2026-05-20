@@ -81,7 +81,7 @@
 			"tsx": "module"
 		},
 		"nodeArguments": [
-			"--loader=ts-node/esm"
+			"--import=tsx"
 		]
 	},
 	"xo": {

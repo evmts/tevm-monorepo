@@ -46,4 +46,30 @@ describe('lightClientRead', () => {
 			}),
 		)
 	})
+
+	it('rejects missing or indeterminate proof verification', async () => {
+		const client = {
+			consensus: {
+				resolveStateRoot: async () => `0x${'aa'.repeat(32)}`,
+				getProof: async () => ({
+					balance: '0x1',
+					nonce: '0x0',
+					codeHash: `0x${'bb'.repeat(32)}`,
+					storageHash: `0x${'cc'.repeat(32)}`,
+					storageProof: [],
+				}),
+			},
+		}
+		await expect(getLightProof(client, `0x${'12'.repeat(20)}`, [], 'latest')).rejects.toThrow(
+			'LIGHT_CLIENT_PROOF_VERIFICATION_FAILED',
+		)
+		await expect(
+			getLightProof(
+				{ consensus: { ...client.consensus, verifyRead: async () => undefined } },
+				`0x${'12'.repeat(20)}`,
+				[],
+				'latest',
+			),
+		).rejects.toThrow('LIGHT_CLIENT_PROOF_VERIFICATION_FAILED')
+	})
 })

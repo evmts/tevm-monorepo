@@ -58,8 +58,9 @@ export const createCommon = ({
 		const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
 		const ethjsHardfork = normalizeHardfork(hardfork)
 
-		// Ensure eips is an array
-		const eipsArray = Array.isArray(eips) ? eips : []
+		if (!Array.isArray(eips)) {
+			throw new TypeError('eips must be an array of EIP numbers')
+		}
 
 		// Create Common instance using createCustomCommon
 		const finalCustomCrypto =
@@ -76,7 +77,7 @@ export const createCommon = ({
 			{
 				hardfork: ethjsHardfork,
 				// Respect hardfork-native feature gates by default and only opt-in explicit EIPs.
-				eips: [...eipsArray],
+				eips: [...eips],
 				customCrypto: finalCustomCrypto,
 				params: {
 					1559: {

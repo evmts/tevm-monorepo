@@ -1,6 +1,11 @@
 import { formatAbi } from 'abitype'
 import { succeed } from 'effect/Effect'
 
+const escapeJSDoc = (value) =>
+	String(value ?? '')
+		.replace(/\*\//g, '*\\/')
+		.replace(/\r?\n/g, '\n * ')
+
 /**
  * Generates TypeScript declaration file (.d.ts) content for Tevm contracts.
  *
@@ -46,12 +51,12 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 
 				// Generate JSDoc from NatSpec comments
 				const natspec = Object.entries(userdoc.methods ?? {}).map(
-					([method, { notice }]) => ` * @property ${method} ${notice}`,
+					([method, { notice }]) => ` * @property ${escapeJSDoc(method)} ${escapeJSDoc(notice)}`,
 				)
 
 				// Add contract-level notice if available
 				if (userdoc.notice) {
-					natspec.unshift(` * @notice ${userdoc.notice}`)
+					natspec.unshift(` * @notice ${escapeJSDoc(userdoc.notice)}`)
 				}
 
 				// Generate type declaration for contracts with bytecode

@@ -86,6 +86,10 @@ describe(createCommon.name, () => {
 		)
 	})
 
+	it('rejects malformed EIP options', () => {
+		expect(() => createCommon({ ...optimism, hardfork: 'prague', eips: 1559 as any })).toThrow(InvalidParamsError)
+	})
+
 	it('creates a copy of the common instance', () => {
 		const common = createCommon({ ...optimism, hardfork: 'prague', loggingLevel: 'debug' })
 		const commonCopy = common.copy()

@@ -2,6 +2,11 @@ import { formatAbi } from 'abitype'
 import { succeed } from 'effect/Effect'
 import { generateDtsBody } from './generateTevmBodyDts.js'
 
+const escapeJSDoc = (value) =>
+	String(value ?? '')
+		.replace(/\*\//g, '*\\/')
+		.replace(/\r?\n/g, '\n * ')
+
 /**
  * Generates the body of a JavaScript/TypeScript module for Tevm contracts.
  *
@@ -73,12 +78,12 @@ export const generateTevmBody = (artifacts, moduleType, includeBytecode) => {
 
 				// Generate JSDoc documentation from NatSpec comments
 				const natspec = Object.entries(userdoc.methods ?? {}).map(
-					([method, { notice }]) => ` * @property ${method} ${notice}`,
+					([method, { notice }]) => ` * @property ${escapeJSDoc(method)} ${escapeJSDoc(notice)}`,
 				)
 
 				// Add contract-level documentation if available
 				if (userdoc.notice) {
-					natspec.unshift(` * ${userdoc.notice}`)
+					natspec.unshift(` * ${escapeJSDoc(userdoc.notice)}`)
 				}
 
 				// Add link to additional documentation

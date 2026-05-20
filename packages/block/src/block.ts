@@ -181,8 +181,8 @@ export class Block {
 	 * @deprecated Use createBlockFromValuesArray() instead - this method is kept for compatibility
 	 */
 	public static fromValuesArray(values: BlockBytes, opts: BlockOptions) {
-		if (values.length > 5) {
-			throw new Error(`invalid block. More values=${values.length} than expected were received (at most 5)`)
+		if (values.length > 6) {
+			throw new Error(`invalid block. More values=${values.length} than expected were received (at most 6)`)
 		}
 
 		// First try to load header so that we can use its common (in case of setHardfork being activated)
@@ -237,6 +237,9 @@ export class Block {
 
 		let requests: ClRequest[] = []
 		if (header.common.ethjsCommon.isActivatedEIP(7685)) {
+			if (requestBytes === undefined || !Array.isArray(requestBytes)) {
+				throw new Error('Invalid serialized block input: EIP-7685 is active, and no requests were provided as array')
+			}
 			requests = (requestBytes as Uint8Array[]).map((bytes) => new ClRequest(bytes[0] as number, bytes.slice(1)))
 		}
 		// executionWitness are not part of the EL fetched blocks via eth_ bodies method
@@ -427,6 +430,9 @@ export class Block {
 		if (withdrawalsRaw) {
 			bytesArray.push(withdrawalsRaw)
 		}
+		if (this.requests !== undefined) {
+			bytesArray.push(this.requests.map((request) => request.serialize()))
+		}
 		if (this.executionWitness !== undefined && this.executionWitness !== null) {
 			const executionWitnessBytes = Rlp.encode(JSON.stringify(this.executionWitness))
 			bytesArray.push(executionWitnessBytes as any)
@@ -604,6 +610,11 @@ export class Block {
 
 		if (this.common.ethjsCommon.isActivatedEIP(4895) && !(await this.withdrawalsTrieIsValid())) {
 			const msg = this._errorMsg('invalid withdrawals trie')
+			throw new Error(msg)
+		}
+
+		if (this.common.ethjsCommon.isActivatedEIP(7685) && !(await this.requestsTrieIsValid())) {
+			const msg = this._errorMsg('invalid requests trie')
 			throw new Error(msg)
 		}
 
@@ -795,6 +806,7 @@ export class Block {
 			transactions,
 			...withdrawalsArr,
 			parentBeaconBlockRoot: header.parentBeaconBlockRoot,
+			requestsRoot: header.requestsRoot,
 			executionWitness: this.executionWitness,
 		} as ExecutionPayload
 

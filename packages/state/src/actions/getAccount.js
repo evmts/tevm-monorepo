@@ -1,5 +1,6 @@
 import { fromRlpSerializedAccount } from '../utils/accountHelpers.js'
 import { getAccountFromProvider } from './getAccountFromProvider.js'
+import { resolveForkBlockTag } from './resolveForkBlockTag.js'
 
 /**
  * Gets the account corresponding to the provided `address`.
@@ -20,6 +21,10 @@ export const getAccount =
 			caches: { accounts },
 			forkCache: { accounts: forkAccounts },
 		} = baseState
+
+		if (baseState.tombstones.accounts.has(address.toString())) {
+			return undefined
+		}
 
 		// First check main cache
 		const elem = accounts.get(address)
@@ -53,6 +58,7 @@ export const getAccount =
 			return undefined
 		}
 
+		await resolveForkBlockTag(baseState)
 		baseState.logger.debug({ address }, 'fetching account from remote RPC')
 		const account = await getAccountFromProvider(baseState)(address)
 

@@ -49,7 +49,7 @@ describe('getContractStorage', () => {
 
 	it('should return empty Uint8Array if the storage does not exist', async () => {
 		const newKey = hexToBytes(`0x${'03'.repeat(32)}`)
-		expect(await getContractStorage(baseState)(address, newKey)).toEqual(Uint8Array.from([0]))
+		expect(await getContractStorage(baseState)(address, newKey)).toEqual(new Uint8Array())
 	})
 
 	it('should throw an error if the key is not 32 bytes long', async () => {
@@ -62,7 +62,7 @@ describe('getContractStorage', () => {
 	it('should return empty Uint8Array if the account is not a contract', async () => {
 		const newAddress = createAddressFromString(`0x${'02'.repeat(20)}`)
 		await putAccount(baseState)(newAddress, createAccount({ balance: 100n, nonce: 1n }))
-		expect(await getContractStorage(baseState)(newAddress, key)).toEqual(Uint8Array.from([0]))
+		expect(await getContractStorage(baseState)(newAddress, key)).toEqual(new Uint8Array())
 	})
 
 	it('should return empty Uint8Array when contract exists but forking is disabled', async () => {
@@ -85,7 +85,7 @@ describe('getContractStorage', () => {
 		expect(baseState.options.fork?.transport).toBeUndefined()
 
 		// Should return empty storage since we're not in fork mode
-		expect(await getContractStorage(baseState)(contractAddress, key)).toEqual(Uint8Array.from([0]))
+		expect(await getContractStorage(baseState)(contractAddress, key)).toEqual(new Uint8Array())
 	})
 })
 
@@ -125,22 +125,20 @@ describe('getContractStorage forking', () => {
 		expect(result).toBeDefined()
 
 		// Verify the value using inline snapshot, let the test runner fill it in
-		expect(result[0]).toMatchInlineSnapshot('0')
+		expect(result).toEqual(new Uint8Array())
 
 		// Second call - should use cache
 		const cachedResult = await getContractStorage(baseState)(knownContractAddress, knownStorageKey)
 
 		// The second result should match the first
-		expect(cachedResult[0]).toMatchInlineSnapshot('0')
+		expect(cachedResult).toEqual(new Uint8Array())
 	})
 
 	it('should return empty Uint8Array if the account does not exist and no fork transport', async () => {
 		const noForkBaseState = createBaseState({
 			loggingLevel: 'warn',
 		})
-		expect(await getContractStorage(noForkBaseState)(knownContractAddress, knownStorageKey)).toEqual(
-			Uint8Array.from([0]),
-		)
+		expect(await getContractStorage(noForkBaseState)(knownContractAddress, knownStorageKey)).toEqual(new Uint8Array())
 	})
 
 	it('should store fetched storage value in both main and fork caches', async () => {
@@ -209,8 +207,8 @@ describe('getContractStorage forking', () => {
 		// Call getContractStorage - it should handle the null response
 		const result = await getContractStorage(testState)(testAddress, testKey)
 
-		// Verify the result is equivalent to hexToBytes('0x0')
-		expect(result).toEqual(hexToBytes('0x0'))
+		// Verify the result is the canonical empty storage value.
+		expect(result).toEqual(new Uint8Array())
 
 		// Verify our mock was called
 		expect(mockForkClient.getStorageAt).toHaveBeenCalled()

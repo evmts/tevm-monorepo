@@ -44,6 +44,12 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 	// Track default trace state (structLogs)
 	/** @type {Array<{pc: number, op: string, gas: bigint, gasCost: bigint, depth: number, stack: import('../common/Hex.js').Hex[]}>} */
 	const structLogs = []
+	/** @type {Array<[string, (...args: any[]) => void]>} */
+	const listeners = []
+	const on = (event, handler) => {
+		vm.evm.events?.on(event, handler)
+		listeners.push([event, handler])
+	}
 
 	// =========================================
 	// Set up event handlers for all enabled tracers
@@ -51,7 +57,7 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 
 	// callTracer events
 	if (enabledTracers.includes('callTracer')) {
-		vm.evm.events?.on('beforeMessage', async (message, next) => {
+		on('beforeMessage', async (message, next) => {
 			/** @type {import('../common/TraceType.js').TraceType} */
 			let traceType = 'CALL'
 			if (message.to === undefined) {
@@ -102,7 +108,7 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 			next?.()
 		})
 
-		vm.evm.events?.on('afterMessage', async (result, next) => {
+		on('afterMessage', async (result, next) => {
 			const currentCall = callStack.pop()
 			if (currentCall) {
 				currentCall.gasUsed = result.execResult.executionGasUsed ?? 0n
@@ -125,7 +131,7 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 
 	// flatCallTracer events
 	if (enabledTracers.includes('flatCallTracer')) {
-		vm.evm.events?.on('beforeMessage', async (message, next) => {
+		on('beforeMessage', async (message, next) => {
 			const isCreate = message.to === undefined
 
 			/** @type {'call' | 'delegatecall' | 'staticcall' | undefined} */
@@ -199,7 +205,7 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 			next?.()
 		})
 
-		vm.evm.events?.on('afterMessage', async (result, next) => {
+		on('afterMessage', async (result, next) => {
 			const stackEntry = flatTraceStack.pop()
 			if (!stackEntry) {
 				next?.()
@@ -249,7 +255,7 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 
 	// 4byteTracer events
 	if (enabledTracers.includes('4byteTracer')) {
-		vm.evm.events?.on('beforeMessage', async (message, next) => {
+		on('beforeMessage', async (message, next) => {
 			const callData = message.data
 			if (callData && callData.length >= 4) {
 				const selector = bytesToHex(callData.slice(0, 4))
@@ -281,7 +287,7 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 
 	// default tracer events (structLogs)
 	if (enabledTracers.includes('default')) {
-		vm.evm.events?.on('step', async (step, next) => {
+		on('step', async (step, next) => {
 			/** @type {import('../common/Hex.js').Hex[]} */
 			const stackItems = step.stack.map(
 				(item) => /** @type {import('../common/Hex.js').Hex} */ (`0x${item.toString(16).padStart(64, '0')}`),
@@ -301,7 +307,14 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 	}
 
 	// Execute the call
-	const runCallResult = await vm.evm.runCall(params)
+	let runCallResult
+	try {
+		runCallResult = await vm.evm.runCall(params)
+	} finally {
+		for (const [event, handler] of listeners) {
+			vm.evm.events?.removeListener(event, handler)
+		}
+	}
 
 	logger.debug(runCallResult, 'runCallWithMuxTrace: evm run call complete')
 

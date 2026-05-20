@@ -2,7 +2,7 @@ import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
 import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 import { createStateManager } from '@tevm/state'
-import { createAddressFromString } from '@tevm/utils'
+import { bytesToHex, createAddressFromString } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { createEvm } from './createEvm.js'
 import { Evm } from './Evm.js'
@@ -98,6 +98,20 @@ describe(createEvm.name, () => {
 		expect(evm.getPrecompile(address)).toEqual(precompileFunction)
 	})
 
+	it('should install customPredeploys into state', async () => {
+		const stateManager = createStateManager({})
+		const address = `0x${'22'.repeat(20)}` as const
+		const deployedBytecode = '0x6001600055' as const
+		await createEvm({
+			common: mainnet,
+			blockchain: await createChain({ common: mainnet }),
+			stateManager,
+			customPredeploys: [{ contract: { address, deployedBytecode } }] as any,
+		})
+
+		expect(bytesToHex(await stateManager.getCode(createAddressFromString(address)))).toBe(deployedBytecode)
+	})
+
 	describe('addCustomPrecompile', () => {
 		it('Should add a custom precompile', async () => {
 			const evm = await createEvm({
@@ -155,6 +169,23 @@ describe(createEvm.name, () => {
 			expect(typeof evm.addCustomPrecompile).toBe('function')
 		})
 
+		it('should replace an existing custom precompile at the same address', async () => {
+			const evm = await createEvm({
+				common: mainnet,
+				blockchain: await createChain({ common: mainnet }),
+				stateManager: createStateManager({}),
+			})
+			const address = createAddressFromString(`0x${'69'.repeat(20)}`)
+			const first = () => ({ executionGasUsed: 1n, returnValue: new Uint8Array([1]) })
+			const second = () => ({ executionGasUsed: 1n, returnValue: new Uint8Array([2]) })
+
+			evm.addCustomPrecompile({ address, function: first })
+			evm.addCustomPrecompile({ address, function: second })
+
+			expect(evm.getPrecompile(address)).toEqual(second)
+			expect((evm as any)._customPrecompiles.filter((precompile: any) => precompile.address.equals(address))).toHaveLength(1)
+		})
+
 		it('should use fallback binding for custom precompile methods', async () => {
 			// Create a mock object that simulates an EVM instance without the addCustomPrecompile and removeCustomPrecompile methods
 			const mockEvm = {
@@ -197,7 +228,7 @@ describe(createEvm.name, () => {
 				function: precompileFunction,
 			}
 			evm.addCustomPrecompile(precompile)
-			evm.removeCustomPrecompile(precompile)
+			evm.removeCustomPrecompile({ address, function: () => ({ executionGasUsed: 1n, returnValue: new Uint8Array(0) }) })
 			expect(evm.getPrecompile(address)).toBeUndefined()
 		})
 

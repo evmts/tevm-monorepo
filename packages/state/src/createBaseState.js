@@ -63,19 +63,20 @@ export const createBaseState = (options) => {
 				}),
 		},
 		forkCache: {
-			contracts: options.contractCache ?? new ContractCache(new StorageCache({ size: 100_000, type: CacheType.LRU })),
-			accounts:
-				options.accountsCache ??
-				new AccountCache({
-					size: 100_000,
-					type: CacheType.LRU,
-				}),
-			storage:
-				options.storageCache ??
-				new StorageCache({
-					size: 100_000,
-					type: CacheType.LRU,
-				}),
+			contracts: new ContractCache(new StorageCache({ size: 100_000, type: CacheType.LRU })),
+			accounts: new AccountCache({
+				size: 100_000,
+				type: CacheType.LRU,
+			}),
+			storage: new StorageCache({
+				size: 100_000,
+				type: CacheType.LRU,
+			}),
+		},
+		tombstones: {
+			accounts: new Set(),
+			storageCleared: new Set(),
+			checkpoints: [],
 		},
 		ready: () => genesisPromise.then(() => true),
 	}

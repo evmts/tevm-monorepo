@@ -45,8 +45,12 @@ import { txLogsBloom } from './txLogsBloom.js'
 import { validateRunTx } from './validateRunTx.js'
 import { warmAddresses2929 } from './warmAddresses2929.js'
 
-// EIP-7702 flag: if contract code starts with these 3 bytes, it is a 7702-delegated EOA
+// EIP-7702 delegation designator: 0xef0100 followed by exactly one 20-byte delegate address.
 const DELEGATION_7702_FLAG = new Uint8Array([0xef, 0x01, 0x00])
+const DELEGATION_7702_CODE_SIZE = DELEGATION_7702_FLAG.length + 20
+
+const isEip7702DelegationCode = (code: Uint8Array) =>
+	code.length === DELEGATION_7702_CODE_SIZE && equalsBytes(code.slice(0, DELEGATION_7702_FLAG.length), DELEGATION_7702_FLAG)
 
 const eip7702BytesToBigInt = (bytes: Uint8Array) => (bytes.length === 0 ? BIGINT_0 : bytesToBigInt(bytes))
 
@@ -162,7 +166,7 @@ const _runTx =
 			if (isActive7702) {
 				const code = await vm.stateManager.getCode(caller)
 				// If the EOA is 7702-delegated, sending txs from this EOA is fine
-				if (!equalsBytes(code.slice(0, 3), DELEGATION_7702_FLAG)) {
+				if (!isEip7702DelegationCode(code)) {
 					// Trying to send TX from account with code (which is not 7702-delegated)
 					const msg = errorMsg('invalid sender address, address is not EOA (EIP-3607)', block, tx)
 					throw new InvalidTransactionError(msg)
@@ -350,7 +354,7 @@ const _runTx =
 
 				if (account.isContract()) {
 					const code = await vm.stateManager.getCode(authority)
-					if (!equalsBytes(code.slice(0, 3), DELEGATION_7702_FLAG)) {
+					if (!isEip7702DelegationCode(code)) {
 						// Account is a "normal" contract
 						continue
 					}

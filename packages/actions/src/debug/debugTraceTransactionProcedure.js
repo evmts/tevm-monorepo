@@ -129,7 +129,6 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 				tx: createImpersonatedTx(
 					{
 						...tx,
-						gasPrice: null,
 						impersonatedAddress: createAddress(tx.getSenderAddress()),
 					},
 					{

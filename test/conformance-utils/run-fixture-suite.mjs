@@ -71,6 +71,11 @@ const skippedSummary = (reason) => ({
 	results: [],
 })
 
+const failedInputSummary = (reason) => ({
+	...skippedSummary(reason),
+	status: 'failed',
+})
+
 const normalizeHex = (value, fallback = '0x0') => {
 	if (value === undefined || value === null || value === '') return fallback
 	if (typeof value === 'bigint') return `0x${value.toString(16)}`
@@ -437,7 +442,7 @@ const runVector = async (vector, shouldTrace) => {
 
 const main = async () => {
 	if (!fixturesPath || !existsSync(fixturesPath)) {
-		const summary = skippedSummary(
+		const summary = failedInputSummary(
 			fixturesPath
 				? `Configured upstream fixture path does not exist: ${fixturesPath}`
 				: 'No upstream fixture corpus configured.',
@@ -451,8 +456,8 @@ const main = async () => {
 			})
 		}
 		writeJson(outFile, summary)
-		console.log(`${suite} skipped: ${summary.reason}`)
-		return 0
+		console.error(`${suite} failed: ${summary.reason}`)
+		return 1
 	}
 
 	const vectors = loadVectors(fixturesPath).filter(vectorMatches)

@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
+import { ProviderRpcError } from '@tevm/node'
 import { requestEip1193 } from './requestEip1193.js'
 
 // Mock the external modules that are imported in requestEip1193.js
@@ -13,7 +14,8 @@ vi.mock('@tevm/actions', () => ({
 	}),
 }))
 
-vi.mock('viem', () => ({
+vi.mock('viem', async (importOriginal) => ({
+	...(await importOriginal<typeof import('viem')>()),
 	withRetry: vi.fn().mockImplementation((fn, _options) => fn()),
 }))
 
@@ -72,6 +74,11 @@ describe('requestEip1193', () => {
 			extended.request({
 				method: 'error_method' as any,
 			}),
-		).rejects.toEqual({ code: -32000, message: 'Error message' })
+		).rejects.toBeInstanceOf(ProviderRpcError)
+		await expect(
+			extended.request({
+				method: 'error_method' as any,
+			}),
+		).rejects.toMatchObject({ code: -32000, message: 'Error message' })
 	})
 })

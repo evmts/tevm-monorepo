@@ -18,7 +18,7 @@ const zBulkRequest = z.array(zJsonRpcRequest)
  * @throws {never} returns errors as values
  */
 export const parseRequest = (body, options = {}) => {
-	const { allowEmptyBatch = true } = options
+	const { allowEmptyBatch = true, maxBatchSize = 100 } = options
 	/**
 	 * @type {unknown}
 	 */
@@ -33,6 +33,9 @@ export const parseRequest = (body, options = {}) => {
 	if (Array.isArray(raw)) {
 		if (!allowEmptyBatch && raw.length === 0) {
 			return new InvalidRequestError('Empty batch requests are invalid')
+		}
+		if (raw.length > maxBatchSize) {
+			return new InvalidRequestError(`Batch request exceeds configured max batch size of ${maxBatchSize}`)
 		}
 		const parsedRequest = zBulkRequest.safeParse(raw)
 		if (!parsedRequest.success) {

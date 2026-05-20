@@ -125,6 +125,16 @@
         "default": "./predeploys/index.cjs"
       }
     },
+    "./precompiles": {
+      "import": {
+        "types": "./precompiles/index.d.ts",
+        "default": "./precompiles/index.js"
+      },
+      "require": {
+        "types": "./precompiles/index.d.cts",
+        "default": "./precompiles/index.cjs"
+      }
+    },
     "./http-client": {
       "import": {
         "types": "./http-client/index.d.ts",
@@ -369,9 +379,6 @@
   "main": "index.cjs",
   "module": "index.js",
   "types": "index.d.ts",
-  "bin": {
-    "tevm": "./cli.js"
-  },
   "files": [
     "index*",
     "actions",
@@ -391,6 +398,7 @@
     "errors",
     "memory-client",
     "predeploys",
+    "precompiles",
     "http-client",
     "server",
     "utils",
@@ -407,7 +415,6 @@
     "bundler/rspack-plugin",
     "bundler/vite-plugin",
     "bundler/webpack-plugin",
-    "bin",
     "JSR.md",
     "jsr.json"
   ],
@@ -416,7 +423,7 @@
     "build": "nx run-many --targets=build:dist,build:types --projects=tevm",
     "build:dist": "bun run generate:dist && git status --porcelain",
     "build:types": "bun run generate:types && git status --porcelain",
-    "clean": "rm -rf node_modules artifacts dist cache && find . -name '*.js' -not -name 'tsup.config.js' -not -name 'cli.js' -not -path './node_modules/*' -delete && rm -f **/*.d.ts **/*.d.cts **/*.cjs **/*.cjs.map",
+    "clean": "rm -rf node_modules artifacts dist cache && find . -name '*.js' -not -name 'tsup.config.js' -not -path './node_modules/*' -delete && rm -f **/*.d.ts **/*.d.cts **/*.cjs **/*.cjs.map",
     "generate": "nx run-many --targets=generate:dist,generate:types --projects=tevm && bun generate:docs",
     "generate:dist": "tsup",
     "generate:docs": "typedoc",
@@ -435,7 +442,6 @@
     "@tevm/blockchain": "workspace:^",
     "@tevm/bun-plugin": "workspace:^",
     "@tevm/bundler-cache": "workspace:^",
-    "@tevm/cli": "workspace:^",
     "@tevm/client-types": "workspace:^",
     "@tevm/common": "workspace:^",
     "@tevm/compiler": "workspace:^",

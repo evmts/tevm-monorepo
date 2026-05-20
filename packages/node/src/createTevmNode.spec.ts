@@ -105,6 +105,13 @@ describe('createTevmNode', () => {
 		expect(client.hello).toBe('world')
 	})
 
+	it('Emits EIP-1193 connect with chain id', async () => {
+		const client = createTevmNode({ common: mainnet })
+		const connect = new Promise((resolve) => client.on('connect', resolve as any))
+		await client.ready()
+		expect(await connect).toEqual({ chainId: '0x1' })
+	})
+
 	it('Sets and gets impersonated account', () => {
 		const client = createTevmNode()
 		const address = '0x0000000000000000000000000000000000000001'
@@ -307,6 +314,15 @@ describe('createTevmNode', () => {
 				(await copy.getVm()).stateManager._baseState.getCurrentStateRoot(),
 			)
 			expect(copy.consensus).toBe(client.consensus)
+		})
+
+		it('extends the copied client without mutating the original', async () => {
+			const client = createTevmNode()
+			const copy = await client.deepCopy()
+			const extended = copy.extend(() => ({ copiedOnly: true }))
+			expect(extended).toBe(copy)
+			expect((copy as any).copiedOnly).toBe(true)
+			expect((client as any).copiedOnly).toBeUndefined()
 		})
 	})
 

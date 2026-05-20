@@ -1,3 +1,5 @@
+import path from 'node:path'
+
 /**
  * Resolves the path for a cached artifact file based on the Solidity module path.
  *
@@ -39,16 +41,17 @@ export const getArtifactsPath = (entryModuleId, item, cwd, cacheDir) => {
 		mjs: 'contract.mjs', // ES module JavaScript file
 	}[item]
 
-	// Normalize the module path relative to current working directory
-	let normalizedEntryModuleId = entryModuleId.replace(cwd, '')
-	if (normalizedEntryModuleId.startsWith('/')) {
-		normalizedEntryModuleId = normalizedEntryModuleId.slice(1)
-	}
+	const cacheRoot = path.resolve(cwd, cacheDir)
+	const entryPath = path.resolve(cwd, entryModuleId)
+	const relativeEntryPath = path.relative(path.resolve(cwd), entryPath)
+	const isOutsideCwd = relativeEntryPath === '..' || relativeEntryPath.startsWith(`..${path.sep}`) || path.isAbsolute(relativeEntryPath)
+	const normalizedEntryModuleId =
+		isOutsideCwd
+			? path.join('__external__', entryPath.replace(/^[A-Za-z]:/, '').split(path.sep).filter(Boolean).join(path.sep))
+			: relativeEntryPath
 
-	// TODO: Fix path handling for Windows
-	// Create the cache directory path and full file path
-	const dir = [cwd, cacheDir, normalizedEntryModuleId].join('/')
-	const path = [dir, fileName].join('/')
+	const dir = path.resolve(cacheRoot, normalizedEntryModuleId)
+	const resolvedPath = path.join(dir, fileName)
 
-	return { dir, path }
+	return { dir, path: resolvedPath }
 }

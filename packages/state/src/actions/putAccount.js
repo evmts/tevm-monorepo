@@ -4,8 +4,10 @@
  */
 export const putAccount = (baseState) => async (address, account) => {
 	if (account !== undefined) {
+		baseState.tombstones.accounts.delete(address.toString())
 		baseState.caches.accounts?.put(address, /** @type {any} */ (account))
 	} else {
-		baseState.caches.accounts?.del(address)
+		baseState.tombstones.accounts.add(address.toString())
+		baseState.caches.accounts?.put(address, undefined)
 	}
 }

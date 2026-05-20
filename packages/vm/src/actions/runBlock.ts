@@ -63,55 +63,56 @@ export const runBlock =
 
 		try {
 			result = await applyBlock(vm)(block, opts)
-			// Persist state
+
+			const stateRoot = await state.getStateRoot()
+
+			// Given the generate option, either set resulting header
+			// values to the current block, or validate the resulting
+			// header values against the current block.
+			if (generateFields) {
+				const bloom = result.bloom.bitvector
+				const gasUsed = result.gasUsed
+				const receiptTrie = result.receiptsRoot
+				const transactionsTrie = await genTxTrie(block)
+				const generatedFields = { stateRoot, bloom, gasUsed, receiptTrie, transactionsTrie }
+				const blockData = {
+					...block,
+					header: { ...block.header, ...generatedFields },
+				}
+				// TODO remove as any just being lazy here this error is from tevm stricter ts config compared to ethereumjs
+				block = Block.fromBlockData(blockData as any, { common: vm.common })
+			} else if (isVerkleExecutionEnabled === false) {
+				// Only validate the following headers if verkle blocks aren't activated
+				if (equalsBytes(result.receiptsRoot, block.header.receiptTrie) === false) {
+					const msg = errorMsg('invalid receiptTrie', vm, block)
+					throw new InternalError(msg)
+				}
+				if (!(equalsBytes(result.bloom.bitvector, block.header.logsBloom) === true)) {
+					const msg = errorMsg('invalid bloom', vm, block)
+					throw new InternalError(msg)
+				}
+				if (result.gasUsed !== block.header.gasUsed) {
+					const msg = errorMsg('invalid gasUsed', vm, block)
+					throw new InternalError(msg)
+				}
+				if (!(equalsBytes(stateRoot, block.header.stateRoot) === true)) {
+					const msg = errorMsg(
+						`invalid block stateRoot, got: ${bytesToHex(stateRoot)}, want: ${bytesToHex(block.header.stateRoot)}`,
+						vm,
+						block,
+					)
+					throw new InternalError(msg)
+				}
+			}
+
+			// Persist state only after all post-execution validation passes.
 			await vm.evm.journal.commit()
 		} catch (err: any) {
 			await vm.evm.journal.revert()
 			throw err
 		}
 
-		await state.setStateRoot(block.header.stateRoot)
-
 		const stateRoot = await state.getStateRoot()
-
-		// Given the generate option, either set resulting header
-		// values to the current block, or validate the resulting
-		// header values against the current block.
-		if (generateFields) {
-			const bloom = result.bloom.bitvector
-			const gasUsed = result.gasUsed
-			const receiptTrie = result.receiptsRoot
-			const transactionsTrie = await genTxTrie(block)
-			const generatedFields = { stateRoot, bloom, gasUsed, receiptTrie, transactionsTrie }
-			const blockData = {
-				...block,
-				header: { ...block.header, ...generatedFields },
-			}
-			// TODO remove as any just being lazy here this error is from tevm stricter ts config compared to ethereumjs
-			block = Block.fromBlockData(blockData as any, { common: vm.common })
-		} else if (isVerkleExecutionEnabled === false) {
-			// Only validate the following headers if verkle blocks aren't activated
-			if (equalsBytes(result.receiptsRoot, block.header.receiptTrie) === false) {
-				const msg = errorMsg('invalid receiptTrie', vm, block)
-				throw new InternalError(msg)
-			}
-			if (!(equalsBytes(result.bloom.bitvector, block.header.logsBloom) === true)) {
-				const msg = errorMsg('invalid bloom', vm, block)
-				throw new InternalError(msg)
-			}
-			if (result.gasUsed !== block.header.gasUsed) {
-				const msg = errorMsg('invalid gasUsed', vm, block)
-				throw new InternalError(msg)
-			}
-			if (!(equalsBytes(stateRoot, block.header.stateRoot) === true)) {
-				const msg = errorMsg(
-					`invalid block stateRoot, got: ${bytesToHex(stateRoot)}, want: ${bytesToHex(block.header.stateRoot)}`,
-					vm,
-					block,
-				)
-				throw new InternalError(msg)
-			}
-		}
 
 		const results: RunBlockResult = {
 			receipts: result.receipts,

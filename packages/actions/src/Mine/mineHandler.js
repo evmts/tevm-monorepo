@@ -1,4 +1,4 @@
-import { InternalError, MisconfiguredClientError, UnreachableCodeError } from '@tevm/errors'
+import { InternalError, InvalidParamsError, MisconfiguredClientError, UnreachableCodeError } from '@tevm/errors'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { emitEvents } from './emitEvents.js'
@@ -135,18 +135,23 @@ export const mineHandler =
 					},
 				})
 				// TODO create a Log manager
-				const orderedTx =
-					tx !== undefined
-						? [
-								(() => {
-									const mempoolTx = pool.getByHash(tx)
-									pool.removeByHash(tx)
-									return mempoolTx
-								})(),
-							]
-						: await pool.txsByPriceAndNonce({
-								baseFee: baseFeePerGas,
+				const orderedTx = await (async () => {
+					if (tx !== undefined) {
+						const mempoolTx = pool.getByHash(tx)
+						if (mempoolTx == null) {
+							return maybeThrowOnFail(throwOnFail, {
+								errors: [new InvalidParamsError(`Transaction ${tx} does not exist in the transaction pool`)],
 							})
+						}
+						return [mempoolTx]
+					}
+					return pool.txsByPriceAndNonce({
+						baseFee: baseFeePerGas,
+					})
+				})()
+				if ('errors' in orderedTx) {
+					return orderedTx
+				}
 
 				let index = 0
 				// TODO we need to actually handle this
@@ -159,9 +164,9 @@ export const mineHandler =
 					const nextTx = /** @type {import('@evmts/zevm/tx').TypedTransaction}*/ (orderedTx[index])
 					client.logger.debug({ hash: bytesToHex(nextTx.hash()) }, 'new tx added')
 					const txResult = await blockBuilder.addTransaction(nextTx, {
-						skipBalance: true,
-						skipNonce: true,
-						skipHardForkValidation: true,
+						skipBalance: false,
+						skipNonce: false,
+						skipHardForkValidation: false,
 					})
 					receipts.push(txResult.receipt)
 					index++

@@ -5,7 +5,7 @@ import type { Hardfork } from './Hardfork.js'
 
 /**
  * @property {Hardfork} [hardfork='prague'] - Hardfork to use
- * @property {ReadonlyArray<number>} [eips=[1559, 4895]] - EIPs to enable
+ * @property {ReadonlyArray<number>} [eips=[]] - EIPs to enable in addition to hardfork-native EIPs
  * @property {LogOptions['level']} loggingLevel - Tevm logger instance
  * @property {CustomCrypto} [customCrypto] - Custom crypto implementations
  * Options for creating a Tevm Common instance
@@ -42,8 +42,8 @@ export type CommonOptions = ViemChain & {
 	 */
 	hardfork?: Hardfork | undefined
 	/**
-	 * Eips to enable. Defaults to `[1559, 4895]`
-	 * @default [1559, 4895]
+	 * EIPs to enable in addition to hardfork-native EIPs. Defaults to `[]`.
+	 * @default []
 	 */
 	eips?: ReadonlyArray<number> | undefined
 	/**

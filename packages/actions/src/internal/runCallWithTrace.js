@@ -26,7 +26,7 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 	/**
 	 * On every step push a struct log
 	 */
-	vm.evm.events?.on('step', async (step, next) => {
+	const onStep = async (step, next) => {
 		logger.debug(step, 'runCallWithTrace: new evm step')
 		trace.structLogs.push({
 			pc: step.pc,
@@ -37,12 +37,13 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 			stack: step.stack.map((code) => numberToHex(code)),
 		})
 		next?.()
-	})
+	}
+	vm.evm.events?.on('step', onStep)
 
 	/**
 	 * After any internal call push error if any
 	 */
-	vm.evm.events?.on('afterMessage', (data, next) => {
+	const onAfterMessage = (data, next) => {
 		logger.debug(data.execResult, 'runCallWithTrace: new message result')
 		if (data.execResult.exceptionError !== undefined && trace.structLogs.length > 0) {
 			// Mark last opcode trace as error if exception occurs
@@ -54,14 +55,21 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 			})
 		}
 		next?.()
-	})
+	}
+	vm.evm.events?.on('afterMessage', onAfterMessage)
 
 	if (lazilyRun) {
 		// TODO internally used function is not typesafe here
 		return /** @type any*/ ({ trace })
 	}
 
-	const runCallResult = await vm.evm.runCall(params)
+	let runCallResult
+	try {
+		runCallResult = await vm.evm.runCall(params)
+	} finally {
+		vm.evm.events?.removeListener('step', onStep)
+		vm.evm.events?.removeListener('afterMessage', onAfterMessage)
+	}
 
 	logger.debug(runCallResult, 'runCallWithTrace: evm run call complete')
 

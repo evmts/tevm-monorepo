@@ -1,4 +1,5 @@
 import { createLogger } from '@tevm/logger'
+import { createAddressFromString, hexToBytes } from '@tevm/utils'
 import { Evm } from './Evm.js'
 
 /**
@@ -32,6 +33,7 @@ export const createEvm = async ({
 	stateManager,
 	blockchain,
 	customPrecompiles,
+	customPredeploys,
 	profiler,
 	allowUnlimitedContractSize,
 	loggingLevel,
@@ -44,7 +46,11 @@ export const createEvm = async ({
 		allowUnlimitedContractSize,
 		profiler,
 		customPrecompiles: customPrecompiles?.map((c) => c.address.toString()),
+		customPredeploys: customPredeploys?.map((p) => p.contract.address),
 	})
+	for (const predeploy of customPredeploys ?? []) {
+		await stateManager.putCode(createAddressFromString(predeploy.contract.address), hexToBytes(predeploy.contract.deployedBytecode))
+	}
 	const evm = await Evm.create({
 		common: common.ethjsCommon,
 		stateManager: /** @type {NonNullable<import('@evmts/zevm/evm').EVMOpts['stateManager']>} */ (

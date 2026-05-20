@@ -32,7 +32,7 @@ export const createChain = async (options) => {
 				delBlock: delBlock(baseChain),
 				getIteratorHead: getIteratorHead(baseChain),
 				setIteratorHead: setIteratorHead(baseChain),
-				consensus: new CasperConsensus(),
+				consensus: new CasperConsensus(baseChain.common.ethjsCommon.consensusAlgorithm()),
 				iterator: () => {
 					throw new Error('iterator is not implemented')
 				},

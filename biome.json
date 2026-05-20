@@ -71,7 +71,6 @@
 			"!**/lcov.info",
 			"!**/*.log",
 			"!**/debuglogs.txt",
-			"!**/tevm",
 			"!**/fixtures",
 			"!**/tevm.json",
 			"!**/fixtures/*",

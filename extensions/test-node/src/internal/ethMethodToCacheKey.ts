@@ -9,6 +9,12 @@ type CacheKeyParamsSelector<TMethod extends EIP1193Parameters<EIP1474Methods>['m
 	req: Extract<EIP1193Parameters<EIP1474Methods>, { method: TMethod }>,
 ) => unknown[]
 
+const normalizeLogAddress = (address: Hex | Hex[] | undefined) =>
+	Array.isArray(address) ? address.map(normalizeHex).sort() : address === undefined ? undefined : normalizeHex(address)
+
+const normalizeLogTopics = (topics: unknown[] | undefined) =>
+	topics?.map((topic) => (Array.isArray(topic) ? topic.map((item) => (item ? normalizeHex(item as Hex) : item)).sort() : topic))
+
 const paramSelectors: {
 	[TMethod in EIP1193Parameters<EIP1474Methods>['method']]?: CacheKeyParamsSelector<TMethod>
 } = {
@@ -23,10 +29,15 @@ const paramSelectors: {
 	eth_getBlockTransactionCountByHash: (req) => [normalizeHex(req.params[0])],
 	eth_getBlockTransactionCountByNumber: (req) => [normalizeBlockTag(req.params[0])],
 	eth_getCode: (req) => [normalizeHex(req.params[0]), normalizeBlockTag(req.params[1])],
-	eth_getLogs: (req) => [
-		normalizeBlockTag(req.params[0].fromBlock as BlockTag | Hex | undefined),
-		normalizeBlockTag(req.params[0].toBlock as BlockTag | Hex | undefined),
-	],
+	eth_getLogs: (req) => {
+		const address = normalizeLogAddress(req.params[0].address as Hex | Hex[] | undefined)
+		const topics = normalizeLogTopics(req.params[0].topics as unknown[] | undefined)
+		const params = [
+			normalizeBlockTag(req.params[0].fromBlock as BlockTag | Hex | undefined),
+			normalizeBlockTag(req.params[0].toBlock as BlockTag | Hex | undefined),
+		]
+		return address === undefined && topics === undefined ? params : [...params, address, topics]
+	},
 	eth_getProof: (req) => [
 		normalizeHex(req.params[0]),
 		req.params[1].map(normalizeHex),

@@ -102,7 +102,7 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 		expect(response.result).toMatchSnapshot()
 	})
 
-	it('should handle error responses when using stateOverrides', async () => {
+	it('should forward stateOverrides without duplicating positional params', async () => {
 		const request: EthEstimateGasJsonRpcRequest = {
 			jsonrpc: '2.0',
 			method: 'eth_estimateGas',
@@ -123,15 +123,13 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 		}
 
 		const response = await ethEstimateGasJsonRpcProcedure(client)(request)
-		expect(response.error).toBeDefined()
-		expect(response.result).toBeUndefined()
+		expect(response.error).toBeUndefined()
+		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_estimateGas')
 		expect(response.id).toBe(2)
-		expect(response.error?.code).toBeDefined()
-		expect(response.error?.message).toBeDefined()
 	})
 
-	it('should handle error responses when using stateOverrides and blockOverrides', async () => {
+	it('should forward stateOverrides and blockOverrides without duplicating positional params', async () => {
 		const request: EthEstimateGasJsonRpcRequest = {
 			jsonrpc: '2.0',
 			method: 'eth_estimateGas',
@@ -149,18 +147,16 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 					},
 				},
 				{
-					baseFee: '0x1000',
+					baseFee: '0x1',
 				},
 			],
 		}
 
 		const response = await ethEstimateGasJsonRpcProcedure(client)(request)
-		expect(response.error).toBeDefined()
-		expect(response.result).toBeUndefined()
+		expect(response.error).toBeUndefined()
+		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_estimateGas')
 		expect(response.id).toBe(3)
-		expect(response.error?.code).toBeDefined()
-		expect(response.error?.message).toBeDefined()
 	})
 
 	it('should handle basic error decoding when a contract call reverts', async () => {

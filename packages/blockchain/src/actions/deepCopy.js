@@ -8,8 +8,10 @@ export const deepCopy = (baseChain) => async () => {
 	baseChain.logger.debug('deep copying blockchain...')
 	await baseChain.ready()
 	const chain = createBaseChain({
+		...baseChain.options,
 		common: baseChain.common.copy(),
 	})
+	await chain.ready()
 	chain.blocksByTag = new Map(baseChain.blocksByTag.entries())
 	chain.blocks = new Map(baseChain.blocks.entries())
 	chain.blocksByNumber = new Map(baseChain.blocksByNumber.entries())

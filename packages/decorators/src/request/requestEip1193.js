@@ -1,4 +1,5 @@
 import { requestProcedure } from '@tevm/actions'
+import { ProviderRpcError } from '@tevm/node'
 // TODO this is too simple of a function to be using from an external library
 // Write this internally in @tevm/utils
 import { withRetry } from 'viem'
@@ -28,7 +29,13 @@ export const requestEip1193 = () => (client) => {
 					}),
 				)
 				if (result.error) {
-					throw result.error
+					const error = typeof result.error === 'object' && result.error !== null ? result.error : {}
+					const code = typeof error.code === 'number' ? error.code : Number(error.code)
+					throw new ProviderRpcError(
+						Number.isFinite(code) ? code : -32000,
+						typeof error.message === 'string' ? error.message : 'Unknown provider error',
+						'data' in error ? error.data : result.error,
+					)
 				}
 				return /** @type {any}*/ (result.result)
 			}, options)

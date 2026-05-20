@@ -22,9 +22,8 @@ export const ethEstimateGasJsonRpcProcedure = (client) => {
 			]
 			if (blockOverrides !== undefined) {
 				params.push(stateOverrides ?? {}, blockOverrides)
-			}
-			if (stateOverrides !== undefined) {
-				params.push(...params, stateOverrides)
+			} else if (stateOverrides !== undefined) {
+				params.push(stateOverrides)
 			}
 			return params
 		}
@@ -51,7 +50,7 @@ export const ethEstimateGasJsonRpcProcedure = (client) => {
 			method: estimateGasRequest.method,
 			result: callResult.result.totalGasSpent ?? callResult.result.executionGasUsed,
 			jsonrpc: '2.0',
-			...(estimateGasRequest.id ? { id: estimateGasRequest.id } : {}),
+			...(estimateGasRequest.id === undefined ? {} : { id: estimateGasRequest.id }),
 		}
 	}
 }
