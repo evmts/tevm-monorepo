@@ -103,11 +103,6 @@ pub async fn module_factory(
 
                 for imp in imported_ids.iter() {
                     let imp2 = imp.to_path_buf();
-                    let mut seen = state.seen.lock().await;
-                    if !seen.insert(imp2.to_string_lossy().to_string()) {
-                        continue;
-                    }
-                    drop(seen);
                     let state2 = state.clone();
                     let cfg2 = cfg.clone();
                     let permit = state2.sem.clone().acquire_owned().await.unwrap();
@@ -251,7 +246,7 @@ mod tests {
             let abs_path_str = absolute_path.to_string_lossy().to_string();
             assert!(module_map.contains_key(&abs_path_str));
             let main_module = &module_map[&abs_path_str];
-            assert_eq!(main_module.code, raw_code);
+            assert_eq!(main_module.raw_code, raw_code);
 
             // If helper module was processed (environment-dependent), check it
             let helper_path = root_dir.join("src/utils/helper.js").display().to_string();

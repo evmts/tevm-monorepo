@@ -1,6 +1,7 @@
 use crate::resolve_import_path::resolve_import_path;
 use crate::resolve_import_path::ResolveImportPathError;
 use crate::Config;
+use crate::ResolvedImport;
 use once_cell::sync::Lazy;
 use solar::{
     interface::{diagnostics::ErrorGuaranteed, source_map::FileName, Session},
@@ -48,8 +49,25 @@ pub fn resolve_imports(
     code: &str,
     cfg: &Config,
 ) -> Result<Vec<PathBuf>, Vec<ResolveImportsError>> {
-    let mut imports = Vec::new();
     let mut unique_imports = std::collections::HashSet::new();
+    Ok(resolve_imports_detailed(context_path, code, cfg)?
+        .into_iter()
+        .filter_map(|import| {
+            if unique_imports.insert(import.absolute.clone()) {
+                Some(PathBuf::from(import.absolute))
+            } else {
+                None
+            }
+        })
+        .collect())
+}
+
+pub fn resolve_imports_detailed(
+    context_path: &Path,
+    code: &str,
+    cfg: &Config,
+) -> Result<Vec<ResolvedImport>, Vec<ResolveImportsError>> {
+    let mut imports = Vec::new();
     let mut errors = vec![];
 
     let arena = solar::ast::Arena::new();
@@ -71,11 +89,12 @@ pub fn resolve_imports(
                         cfg,
                     ) {
                         Ok(p) => {
-                            // Only add the import if it hasn't been seen before
                             let path_str = p.to_string_lossy().to_string();
-                            if unique_imports.insert(path_str) {
-                                imports.push(p);
-                            }
+                            imports.push(ResolvedImport {
+                                original: import_dir.path.value.to_string(),
+                                absolute: path_str.clone(),
+                                updated: path_str,
+                            });
                         },
                         Err(cause) => errors.push(ResolveImportsError::PathResolutionError {
                             context_path: context_path.to_path_buf(),
@@ -93,20 +112,7 @@ pub fn resolve_imports(
             })
         });
 
-    // If we have errors or if we didn't find any imports when we expected to,
-    // return an error
-    if !errors.is_empty() || (imports.is_empty() && code.contains("import ")) {
-        // If we have no explicit errors but failed to find imports that exist in the code,
-        // create a generic error
-        if errors.is_empty() && imports.is_empty() && code.contains("import ") {
-            errors.push(ResolveImportsError::PathResolutionError {
-                context_path: context_path.to_path_buf(),
-                cause: crate::resolve_import_path::ResolveImportPathError::NotFoundAbsolutePath {
-                    import_path: "No imports could be resolved".to_string(),
-                    causes: vec![],
-                },
-            });
-        }
+    if !errors.is_empty() {
         return Err(errors);
     }
     Ok(imports)

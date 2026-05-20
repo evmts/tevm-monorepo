@@ -198,22 +198,28 @@ pub struct SolcSecondarySourceLocation {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct SolcSourceEntry {
     pub id: u32,
-    pub ast: serde_json::Value,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ast: Option<serde_json::Value>,
 }
 
 // Contract output in solc result
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct SolcContractOutput {
-    pub abi: serde_json::Value,
-    pub metadata: String,
-    pub userdoc: serde_json::Value,
-    pub devdoc: serde_json::Value,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub abi: Option<serde_json::Value>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub userdoc: Option<serde_json::Value>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub devdoc: Option<serde_json::Value>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ir: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub storage_layout: Option<SolcStorageLayout>,
-    pub evm: SolcEVMOutput,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub evm: Option<SolcEVMOutput>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ewasm: Option<SolcEwasmOutput>,
 }
@@ -246,8 +252,10 @@ pub struct SolcEVMOutput {
     pub assembly: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub legacy_assembly: Option<serde_json::Value>,
-    pub bytecode: SolcBytecodeOutput,
-    pub deployed_bytecode: SolcDeployedBytecodeOutput,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bytecode: Option<SolcBytecodeOutput>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub deployed_bytecode: Option<SolcDeployedBytecodeOutput>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub method_identifiers: Option<HashMap<String, String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -260,7 +268,8 @@ pub struct SolcEVMOutput {
 pub struct SolcBytecodeOutput {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub function_debug_data: Option<HashMap<String, SolcFunctionDebugData>>,
-    pub object: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub object: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub opcodes: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -277,7 +286,8 @@ pub struct SolcBytecodeOutput {
 pub struct SolcDeployedBytecodeOutput {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub function_debug_data: Option<HashMap<String, SolcFunctionDebugData>>,
-    pub object: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub object: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub opcodes: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
