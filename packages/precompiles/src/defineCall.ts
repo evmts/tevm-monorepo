@@ -59,12 +59,15 @@ export const defineCall = <TAbi extends Abi>(
 	},
 ) => {
 	return async ({ data, gasLimit }: { data: `0x${string}`; gasLimit: bigint }): Promise<ExecResult> => {
-		const d = decodeFunctionData({
-			abi: abi,
-			data: data,
-		})
-		const handler = handlers[d.functionName]
 		try {
+			const d = decodeFunctionData({
+				abi: abi,
+				data: data,
+			})
+			const handler = handlers[d.functionName]
+			if (!handler) {
+				throw new Error(`No precompile handler found for ${d.functionName}`)
+			}
 			const { returnValue, executionGasUsed, logs, error, blobGasUsed, selfdestruct } = await handler({
 				gasLimit: gasLimit,
 				args: d.args as any,

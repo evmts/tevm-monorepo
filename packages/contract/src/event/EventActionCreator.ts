@@ -20,14 +20,11 @@ import type {
 export type MaybeExtractEventArgsFromAbi<
 	TAbi extends Abi | readonly unknown[] | undefined,
 	TEventName extends string | undefined,
-> = Exclude<
-	TAbi extends Abi | readonly unknown[]
-		? TEventName extends string
-			? GetEventArgs<TAbi, TEventName>
-			: undefined
-		: undefined,
-	readonly unknown[] | Record<string, unknown>
->
+> = TAbi extends Abi | readonly unknown[]
+	? TEventName extends string
+		? GetEventArgs<TAbi, TEventName>
+		: undefined
+	: undefined
 
 /**
  * Utility type to get the value type of an object.

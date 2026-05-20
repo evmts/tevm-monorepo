@@ -18,6 +18,16 @@ export type ContractEventName<TAbi extends Abi | readonly unknown[] = Abi> =
 			: TEventName
 		: string
 
+type CallReturnValue<TAbi extends Abi, TFunctionName extends string> =
+	AbiParametersToPrimitiveTypes<ExtractAbiFunction<TAbi, TFunctionName>['outputs']> extends infer TOutputs extends
+		readonly unknown[]
+		? TOutputs extends readonly []
+			? undefined
+			: TOutputs extends readonly [infer TOutput]
+				? TOutput
+				: TOutputs
+		: never
+
 /**
  * A result of a precompile javascript call
  */
@@ -29,7 +39,7 @@ export type CallResult<TAbi extends Abi, TFunctionName extends string> = {
 	/**
 	 * The return value of the call. Required even on exceptions
 	 */
-	returnValue: AbiParametersToPrimitiveTypes<ExtractAbiFunction<TAbi, TFunctionName>['outputs']>[0]
+	returnValue: CallReturnValue<TAbi, TFunctionName>
 	/**
 	 * Any Error thrown during execution
 	 */

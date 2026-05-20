@@ -121,7 +121,7 @@ export type Contract<
 	 * const logs = await tevm.eth.getLogs(transferFilter)
 	 * ```
 	 */
-	events: EventActionCreator<THumanReadableAbi, TAddress, TBytecode, TDeployedBytecode>
+	events: EventActionCreator<THumanReadableAbi, TBytecode, TDeployedBytecode, TAddress>
 
 	/**
 	 * Action creators for contract view and pure functions.
