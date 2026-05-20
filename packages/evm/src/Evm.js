@@ -38,9 +38,9 @@ export class Evm extends EVM {
 		const address = precompileAddress(precompile)
 		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
 		if (index === -1) {
-			this._customPrecompiles.push(precompile)
+			this._customPrecompiles = [...this._customPrecompiles, precompile]
 		} else {
-			this._customPrecompiles[index] = precompile
+			this._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
 		}
 		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
@@ -62,7 +62,7 @@ export class Evm extends EVM {
 		if (index === -1) {
 			throw new InvalidParamsError('Precompile not found')
 		}
-		this._customPrecompiles.splice(index, 1)
+		this._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
 		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
 
@@ -71,7 +71,12 @@ export class Evm extends EVM {
 	 * @returns {Promise<import('./EvmType.js').Evm>}
 	 */
 	static create = async (options) => {
-		const evm = /** @type {any}*/ (await createEVM(options))
+		const evm = /** @type {any}*/ (
+			await createEVM({
+				...options,
+				customPrecompiles: [...(options?.customPrecompiles ?? [])],
+			})
+		)
 		evm.addCustomPrecompile = Evm.prototype.addCustomPrecompile.bind(evm)
 		evm.removeCustomPrecompile = Evm.prototype.removeCustomPrecompile.bind(evm)
 		return evm

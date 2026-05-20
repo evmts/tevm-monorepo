@@ -63,16 +63,24 @@ export const createEvm = async ({
 		// TODO uncomment the mapping once we make the api correct
 		// Edit: nvm not letting this block a stable release maybe update it next major
 		// @warning Always pass in an empty array if no precompiles as `addPrecompile` method assumes it's there
-		customPrecompiles: customPrecompiles ?? [],
+		customPrecompiles: [...(customPrecompiles ?? [])],
 		profiler: {
 			enabled: profiler ?? false,
 		},
 	})
 	if (loggingLevel === 'trace') {
-		// we are hacking ethereumjs logger into working with our logger
-		const evmAny = /** @type {any} */ (evm)
-		evmAny.DEBUG = true
-		evmAny._debug = logger
+		evm.events?.on('step', (step) => {
+			logger.trace(
+				{
+					pc: step.pc,
+					op: step.opcode.name,
+					gas: step.gasLeft.toString(),
+					gasCost: step.opcode.dynamicFee.toString(),
+					depth: step.depth,
+				},
+				'EVM step',
+			)
+		})
 	}
 	evm.addCustomPrecompile = evm.addCustomPrecompile?.bind(evm) ?? Evm.prototype.addCustomPrecompile.bind(evm)
 	evm.removeCustomPrecompile = evm.removeCustomPrecompile?.bind(evm) ?? Evm.prototype.removeCustomPrecompile.bind(evm)

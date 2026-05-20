@@ -36,7 +36,7 @@ describe(createEvm.name, () => {
 			}),
 			stateManager: createStateManager({}),
 		})
-		expect((evm as any).DEBUG).toBe(true)
+		expect((evm as any).events.listenerCount('step')).toBeGreaterThan(0)
 	})
 
 	it('should use default logging level when not specified', async () => {
@@ -96,6 +96,30 @@ describe(createEvm.name, () => {
 
 		// Verify the precompile is available
 		expect(evm.getPrecompile(address)).toEqual(precompileFunction)
+	})
+
+	it('should not mutate the customPrecompiles array passed by the caller', async () => {
+		const address = createAddressFromString(`0x${'42'.repeat(20)}`)
+		const customPrecompiles = [
+			{
+				address,
+				function: () => ({ executionGasUsed: 1n, returnValue: new Uint8Array([0x42]) }),
+			},
+		]
+
+		const evm = await createEvm({
+			common: mainnet,
+			blockchain: await createChain({ common: mainnet }),
+			stateManager: createStateManager({}),
+			customPrecompiles,
+		})
+
+		evm.addCustomPrecompile({
+			address: createAddressFromString(`0x${'43'.repeat(20)}`),
+			function: () => ({ executionGasUsed: 1n, returnValue: new Uint8Array([0x43]) }),
+		})
+
+		expect(customPrecompiles).toHaveLength(1)
 	})
 
 	it('should install customPredeploys into state', async () => {
@@ -167,6 +191,21 @@ describe(createEvm.name, () => {
 
 			// Verify the method exists
 			expect(typeof evm.addCustomPrecompile).toBe('function')
+		})
+
+		it('should have a functioning addCustomPrecompile method when created directly', async () => {
+			const evm = await Evm.create({
+				common: mainnet.ethjsCommon,
+			})
+			const address = createAddressFromString(`0x${'69'.repeat(20)}`)
+			const precompileFunction = () => ({ executionGasUsed: 1n, returnValue: new Uint8Array(0) })
+
+			evm.addCustomPrecompile({
+				address,
+				function: precompileFunction,
+			})
+
+			expect(evm.getPrecompile(address)).toEqual(precompileFunction)
 		})
 
 		it('should replace an existing custom precompile at the same address', async () => {
