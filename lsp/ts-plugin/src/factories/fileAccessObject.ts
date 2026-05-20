@@ -1,7 +1,55 @@
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
 import type { FileAccessObject } from '@tevm/base-bundler'
+import path from 'node:path'
 import type typescript from 'typescript/lib/tsserverlibrary.js'
+
+const hashText = (text: string): number => {
+	let hash = 0
+	for (let i = 0; i < text.length; i++) {
+		hash = (hash * 31 + text.charCodeAt(i)) >>> 0
+	}
+	return hash
+}
+
+const getScriptSnapshotText = (lsHost: typescript.LanguageServiceHost, fileName: string, cwd: string): string | undefined => {
+	const candidates = [fileName, path.resolve(cwd, fileName)]
+	for (const candidate of candidates) {
+		try {
+			const snapshot = lsHost.getScriptSnapshot?.(candidate)
+			if (snapshot) {
+				return snapshot.getText(0, snapshot.getLength())
+			}
+		} catch (_e) {
+			// Fall through to the next candidate.
+		}
+	}
+	return undefined
+}
+
+const getScriptVersion = (lsHost: typescript.LanguageServiceHost, fileName: string, cwd: string): string | undefined => {
+	const candidates = [fileName, path.resolve(cwd, fileName)]
+	for (const candidate of candidates) {
+		try {
+			const version = lsHost.getScriptVersion?.(candidate)
+			if (version !== undefined) {
+				return version
+			}
+		} catch (_e) {
+			// Fall through to the next candidate.
+		}
+	}
+	return undefined
+}
+
+const getVirtualMtimeMs = (lsHost: typescript.LanguageServiceHost, fileName: string, cwd: string): number | undefined => {
+	const snapshotText = getScriptSnapshotText(lsHost, fileName, cwd)
+	const version = getScriptVersion(lsHost, fileName, cwd)
+	if (snapshotText === undefined) {
+		return undefined
+	}
+	return hashText(`${version ?? ''}:${snapshotText}`)
+}
 
 /**
  * Creates a FileAccessObject implementation that uses the TypeScript LanguageServiceHost
@@ -60,14 +108,58 @@ export const createFileAccessObject = (lsHost: typescript.LanguageServiceHost): 
  *
  * @returns A FileAccessObject implementation using real filesystem access
  */
-export const createRealFileAccessObject = (): FileAccessObject => {
+export const createRealFileAccessObject = (
+	lsHost?: typescript.LanguageServiceHost,
+	cwd = process.cwd(),
+): FileAccessObject => {
+	if (!lsHost) {
+		return {
+			readFile,
+			existsSync,
+			readFileSync,
+			writeFileSync,
+			statSync,
+			stat,
+			mkdirSync,
+			mkdir,
+			writeFile,
+			exists: async (fileName) => {
+				try {
+					await access(fileName)
+					return true
+				} catch (_e) {
+					return false
+				}
+			},
+		}
+	}
 	return {
 		readFile,
 		existsSync,
 		readFileSync,
 		writeFileSync,
-		statSync,
-		stat,
+		statSync: (fileName) => {
+			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
+			if (virtualMtimeMs === undefined) {
+				return statSync(fileName)
+			}
+			try {
+				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
+			} catch (_e) {
+				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
+			}
+		},
+		stat: async (fileName) => {
+			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
+			if (virtualMtimeMs === undefined) {
+				return stat(fileName)
+			}
+			try {
+				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
+			} catch (_e) {
+				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
+			}
+		},
 		mkdirSync,
 		mkdir,
 		writeFile,
