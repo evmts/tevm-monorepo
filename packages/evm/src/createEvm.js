@@ -75,7 +75,7 @@ export const createEvm = async ({
 					pc: step.pc,
 					op: step.opcode.name,
 					gas: step.gasLeft.toString(),
-					gasCost: step.opcode.dynamicFee.toString(),
+					gasCost: step.opcode.dynamicFee?.toString(),
 					depth: step.depth,
 				},
 				'EVM step',

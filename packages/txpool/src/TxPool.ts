@@ -82,7 +82,7 @@ export class TxPool extends ZevmTxPool {
 		}
 	}
 
-	cleanup(): void {
+	override cleanup(): void {
 		const pool = this as unknown as {
 			pool: Map<string, Array<{ hash: string; tx: unknown }>>
 			handled: Map<string, unknown>
