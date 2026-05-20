@@ -48,6 +48,8 @@ import { warmAddresses2929 } from './warmAddresses2929.js'
 // EIP-7702 flag: if contract code starts with these 3 bytes, it is a 7702-delegated EOA
 const DELEGATION_7702_FLAG = new Uint8Array([0xef, 0x01, 0x00])
 
+const eip7702BytesToBigInt = (bytes: Uint8Array) => (bytes.length === 0 ? BIGINT_0 : bytesToBigInt(bytes))
+
 export type RunTx = (opts: RunTxOpts) => Promise<RunTxResult>
 
 /**
@@ -307,7 +309,7 @@ const _runTx =
 				const authTuple = authorizationList[i]
 				if (!authTuple) continue
 				const authChainId = authTuple[0]
-				const authChainIdBN = bytesToBigInt(authChainId)
+				const authChainIdBN = eip7702BytesToBigInt(authChainId)
 				if (authChainIdBN !== BIGINT_0 && authChainIdBN !== BigInt(vm.common.ethjsCommon.chainId())) {
 					// Chain id does not match, continue
 					continue
@@ -315,17 +317,18 @@ const _runTx =
 				// Address to take code from
 				const delegateAddress = authTuple[1]
 				const authNonce = authTuple[2]
-				if (bytesToBigInt(authNonce) >= MAX_UINT64) {
+				const authNonceBN = eip7702BytesToBigInt(authNonce)
+				if (authNonceBN >= MAX_UINT64) {
 					// authority nonce >= 2^64 - 1. Bumping this nonce by one will not make this fit in an uint64.
 					continue
 				}
 				const authS = authTuple[5]
-				if (bytesToBigInt(authS) > SECP256K1_ORDER_DIV_2) {
+				if (eip7702BytesToBigInt(authS) > SECP256K1_ORDER_DIV_2) {
 					// Malleability protection to avoid "flipping" a valid signature to get
 					// another valid signature (which yields the same account on `ecrecover`)
 					continue
 				}
-				const yParity = bytesToBigInt(authTuple[3])
+				const yParity = eip7702BytesToBigInt(authTuple[3])
 				if (yParity > BIGINT_1) {
 					continue
 				}
@@ -355,12 +358,12 @@ const _runTx =
 
 				// Nonce check
 				if (caller.toString() === authority.toString()) {
-					if (account.nonce + BIGINT_1 !== bytesToBigInt(authNonce)) {
+					if (account.nonce + BIGINT_1 !== authNonceBN) {
 						// Edge case: caller is the authority, so is self-signing the delegation
 						// In this case, we "virtually" bump the account nonce by one
 						continue
 					}
-				} else if (account.nonce !== bytesToBigInt(authNonce)) {
+				} else if (account.nonce !== authNonceBN) {
 					continue
 				}
 

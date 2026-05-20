@@ -2123,6 +2123,9 @@ importers:
       '@tevm/sync-storage-persister':
         specifier: workspace:^
         version: link:../sync-storage-persister
+      '@tevm/txpool':
+        specifier: workspace:^
+        version: link:../txpool
       '@tevm/utils':
         specifier: workspace:^
         version: link:../utils

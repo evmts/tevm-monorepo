@@ -1,4 +1,4 @@
-import { createImpersonatedTx, createTxFromRLP, isBlobEIP4844Tx } from '@evmts/zevm/tx'
+import { Capability, createImpersonatedTx, createTxFromRLP, isBlobEIP4844Tx } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
 import { BlobGasLimitExceededError, InvalidTransactionError } from '@tevm/errors'
 import { prefundedAccounts } from '@tevm/node'
@@ -84,6 +84,18 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 			impersonatedAccount ?? /** @type {import('@tevm/utils').Address} */ (prefundedAccounts[0]),
 		)
 		tx = createImpersonatedTx(impersonatedTx)
+	}
+	if (tx.supports(Capability.EIP7702EOACode)) {
+		const txPool = await client.getTxPool()
+		const txHash = bytesToHex(tx.hash())
+		const addResult = await txPool.add(tx, true)
+		if (addResult.error !== null) {
+			throw new InvalidTransactionError('Invalid transaction. Unable to add transaction to pool', {
+				cause: new Error(addResult.error),
+			})
+		}
+		client.emit('newPendingTransaction', tx)
+		return txHash
 	}
 	/**
 	 * @type {import('../Call/CallResult.js').CallResult}

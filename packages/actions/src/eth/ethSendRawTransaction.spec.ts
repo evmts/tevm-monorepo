@@ -1,4 +1,4 @@
-import { TransactionFactory } from '@evmts/zevm/tx'
+import { createEOACodeEIP7702Tx, TransactionFactory } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
 import { tevmDefault } from '@tevm/common'
 import { BlobGasLimitExceededError, InvalidTransactionError } from '@tevm/errors'
@@ -8,6 +8,7 @@ import { describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { ethSendRawTransactionHandler } from './ethSendRawTransactionHandler.js'
+import { ethGetTransactionReceiptHandler } from './ethGetTransactionReceipt.js'
 
 describe('ethSendRawTransactionHandler', () => {
 	it('should handle a valid signed transaction', async () => {
@@ -100,6 +101,51 @@ describe('ethSendRawTransactionHandler', () => {
 
 		const result = await handler({ data: bytesToHex(serializedTx) })
 		expect(result).toBeTruthy()
+	})
+
+	it('should preserve EIP-7702 raw transactions in the txpool and receipts', async () => {
+		const client = createTevmNode({ common: tevmDefault })
+		const handler = ethSendRawTransactionHandler(client)
+		const chainId = tevmDefault.ethjsCommon.chainId()
+
+		const tx = createEOACodeEIP7702Tx(
+			{
+				nonce: 0,
+				maxFeePerGas: 2000000000n,
+				maxPriorityFeePerGas: 1000000000n,
+				gasLimit: 100000n,
+				to: createAddress(`0x${'42'.repeat(20)}`),
+				value: 0n,
+				data: '0x',
+				chainId,
+				accessList: [],
+				authorizationList: [
+					{
+						chainId: `0x${chainId.toString(16)}`,
+						address: `0x${'42'.repeat(20)}`,
+						nonce: '0x0',
+						yParity: '0x0',
+						r: `0x${'01'.repeat(32)}`,
+						s: `0x${'02'.repeat(32)}`,
+					},
+				],
+			},
+			{ common: tevmDefault.ethjsCommon },
+		)
+		const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
+		const txHash = bytesToHex(signedTx.hash())
+
+		const result = await handler({ data: bytesToHex(signedTx.serialize()) })
+
+		expect(result).toBe(txHash)
+		const txPool = await client.getTxPool()
+		const pooledTx = txPool.getByHash(txHash)
+		expect(pooledTx?.type).toBe(4)
+		expect((pooledTx as any).authorizationList).toHaveLength(1)
+
+		await mineHandler(client)()
+		const receipt = await ethGetTransactionReceiptHandler(client)({ hash: txHash })
+		expect(receipt?.transactionHash).toBe(txHash)
 	})
 
 	it('should throw an error for an invalid transaction', async () => {

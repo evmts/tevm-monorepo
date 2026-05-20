@@ -4,9 +4,9 @@
 // We copy it here for easier developer experience internally and also
 // to lock in these types independent of viem potentially making changes
 import type { TypedTransaction } from '@evmts/zevm/tx'
-import type { ImpersonatedTx } from '@evmts/zevm/txpool'
 import type { Block } from '@tevm/block'
 import type { TxReceipt } from '@tevm/receipt-manager'
+import type { ImpersonatedTx } from '@tevm/txpool'
 import type { Address, EthjsLog } from '@tevm/utils'
 
 export type ProviderConnectInfo = {
