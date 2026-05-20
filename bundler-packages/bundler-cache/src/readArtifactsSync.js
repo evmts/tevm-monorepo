@@ -17,6 +17,7 @@ import { version } from './version.js'
  * @param {import('./types.js').FileAccessObject} fs - File system interface for reading files
  * @param {string} cwd - Current working directory
  * @param {string} entryModuleId - Path to the Solidity file
+ * @param {string} [compileFingerprint] - Fingerprint of compiler/config inputs
  * @returns {import('@tevm/compiler').ResolvedArtifacts | undefined}
  *   The cached artifacts if found and valid, undefined otherwise
  * @throws {Error} If the cached artifacts exist but cannot be parsed as valid JSON
@@ -51,7 +52,7 @@ import { version } from './version.js'
  *
  * @internal
  */
-export const readArtifactsSync = (cacheDir, fs, cwd, entryModuleId) => {
+export const readArtifactsSync = (cacheDir, fs, cwd, entryModuleId, compileFingerprint) => {
 	// Get paths to artifacts and metadata files
 	const { path: artifactsPath } = getArtifactsPath(entryModuleId, 'artifactsJson', cwd, cacheDir)
 	const { path: metadataPath } = getMetadataPath(entryModuleId, cwd, cacheDir)
@@ -69,6 +70,7 @@ export const readArtifactsSync = (cacheDir, fs, cwd, entryModuleId) => {
 	// 2. Checking if any source files have been modified
 	const didContentChange =
 		metadata.version !== version ||
+		(compileFingerprint !== undefined && compileFingerprint !== metadata.compileFingerprint) ||
 		Object.entries(metadata.files).some(([sourcePath, timestamp]) => {
 			return timestamp !== fs.statSync(sourcePath).mtimeMs
 		})

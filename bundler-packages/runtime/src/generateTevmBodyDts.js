@@ -63,8 +63,8 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 				if (includeBytecode) {
 					return [
 						// Define constants for name and ABI with const assertions for type safety
-						`const _name${contractName} = ${JSON.stringify(contractName, null, 2)} as const;`,
-						`const _abi${contractName} = ${JSON.stringify(contract.humanReadableAbi, null, 2)} as const;`,
+						`declare const _name${contractName}: ${JSON.stringify(contractName, null, 2)};`,
+						`declare const _abi${contractName}: readonly ${JSON.stringify(contract.humanReadableAbi, null, 2)};`,
 
 						// JSDoc comments for the contract
 						'/**',
@@ -88,8 +88,8 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 				// Generate type declaration for interface-only contracts (no bytecode)
 				return [
 					// Define constants for ABI and name with const assertions
-					`const _abi${contractName} = ${JSON.stringify(contract.humanReadableAbi)} as const;`,
-					`const _name${contractName} = ${JSON.stringify(contractName)} as const;`,
+					`declare const _abi${contractName}: readonly ${JSON.stringify(contract.humanReadableAbi)};`,
+					`declare const _name${contractName}: ${JSON.stringify(contractName)};`,
 
 					// JSDoc comments for the contract
 					'/**',
@@ -105,7 +105,7 @@ export const generateDtsBody = (artifacts, includeBytecode) => {
 			})
 			.join('\n')}
 // solc artifacts of compilation
-export const artifacts = ${JSON.stringify(artifacts, null, 2)};
+export declare const artifacts: ${JSON.stringify(artifacts, null, 2)};
 `,
 	)
 }

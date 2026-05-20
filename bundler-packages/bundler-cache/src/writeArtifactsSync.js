@@ -16,6 +16,7 @@ import { version } from './version.js'
  * @param {string} entryModuleId - Path to the Solidity file
  * @param {import('@tevm/compiler').ResolvedArtifacts} resolvedArtifacts - Compilation results to cache
  * @param {import('./types.js').FileAccessObject} fs - File system interface for writing files
+ * @param {string} [compileFingerprint] - Fingerprint of compiler/config inputs
  * @returns {string} Path where artifacts were written
  * @throws {Error} If directory creation or file writing fails
  *
@@ -47,7 +48,7 @@ import { version } from './version.js'
  *
  * @internal
  */
-export const writeArtifactsSync = (cwd, cacheDir, entryModuleId, resolvedArtifacts, fs) => {
+export const writeArtifactsSync = (cwd, cacheDir, entryModuleId, resolvedArtifacts, fs, compileFingerprint) => {
 	// Get paths for artifacts and metadata files
 	const { dir, path } = getArtifactsPath(entryModuleId, 'artifactsJson', cwd, cacheDir)
 	const { path: metadataPath } = getMetadataPath(entryModuleId, cwd, cacheDir)
@@ -67,6 +68,7 @@ export const writeArtifactsSync = (cwd, cacheDir, entryModuleId, resolvedArtifac
 			{
 				// Current cache version for compatibility checks
 				version,
+				compileFingerprint,
 
 				// File modification timestamps for dependency tracking
 				files: Object.fromEntries(

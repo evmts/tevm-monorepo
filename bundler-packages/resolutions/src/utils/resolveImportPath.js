@@ -42,7 +42,7 @@ export class CouldNotResolveImportError extends Error {
  */
 export const resolveImportPath = (absolutePath, importPath, remappings, libs, sync) => {
 	// Remappings
-	for (const [key, value] of Object.entries(remappings)) {
+	for (const [key, value] of Object.entries(remappings).sort(([a], [b]) => b.length - a.length)) {
 		if (importPath.startsWith(key)) {
 			return succeed(formatPath(pathResolve(importPath.replace(key, value))))
 		}

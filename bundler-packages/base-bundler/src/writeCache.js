@@ -13,6 +13,7 @@
  * @param {boolean} writeArtifacts - Whether to write compilation artifacts to cache
  *   This is typically set to false if there was a compilation error, but we still
  *   want to cache error messages in the generated files.
+ * @param {string} [compileFingerprint] - Fingerprint of compiler/config inputs
  * @returns {Promise<void>} - A promise that resolves when writing is complete
  * @throws {Error} - Doesn't directly throw, but logs warnings for unsupported module types
  *
@@ -48,13 +49,14 @@ export const writeCache = async (
 	// but still write dts and mjs files since they always
 	// fall back to generating an empty file with error messages
 	writeArtifacts,
+	compileFingerprint,
 ) => {
 	/**
 	 * @type {Array<Promise<any>>}
 	 */
 	const promises = []
 	if (writeArtifacts) {
-		promises.push(cache.writeArtifacts(modulePath, artifacts))
+		promises.push(cache.writeArtifacts(modulePath, artifacts, compileFingerprint))
 	}
 	if (moduleType === 'dts') {
 		promises.push(cache.writeDts(modulePath, code))

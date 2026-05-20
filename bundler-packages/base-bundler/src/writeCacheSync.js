@@ -13,6 +13,7 @@
  * @param {boolean} writeArtifacts - Whether to write compilation artifacts to cache
  *   This is typically set to false if there was a compilation error, but we still
  *   want to cache error messages in the generated files.
+ * @param {string} [compileFingerprint] - Fingerprint of compiler/config inputs
  * @returns {void} - No return value
  * @throws {Error} - May throw if cache operations fail, also logs warnings for unsupported module types
  *
@@ -48,9 +49,10 @@ export const writeCacheSync = (
 	// but still write dts and mjs files since they always
 	// fall back to generating an empty file with error messages
 	writeArtifacts,
+	compileFingerprint,
 ) => {
 	if (writeArtifacts) {
-		cache.writeArtifactsSync(modulePath, artifacts)
+		cache.writeArtifactsSync(modulePath, artifacts, compileFingerprint)
 	}
 	if (moduleType === 'dts') {
 		cache.writeDtsSync(modulePath, code)

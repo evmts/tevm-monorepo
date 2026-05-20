@@ -2,6 +2,7 @@ import { moduleFactory } from '@tevm/resolutions'
 import { solcCompile } from '@tevm/solc'
 import { runSync } from 'effect/Effect'
 import resolve from 'resolve'
+import { formatPath } from '../utils/formatPath.js'
 import { invariant } from '../utils/invariant.js'
 
 /**
@@ -29,24 +30,24 @@ import { invariant } from '../utils/invariant.js'
  *  )
  */
 export function compileContractSync(filePath, basedir, config, includeAst, includeBytecode, fao, logger, solc) {
+	const resolvedFilePath = formatPath(
+		resolve.sync(filePath, {
+			basedir,
+			readFileSync: (file) => fao.readFileSync(file, 'utf8'),
+			isFile: fao.existsSync,
+		}),
+	)
 	const moduleMap = runSync(
 		moduleFactory(
-			filePath,
-			fao.readFileSync(
-				resolve.sync(filePath, {
-					basedir,
-					readFileSync: (file) => fao.readFileSync(file, 'utf8'),
-					isFile: fao.existsSync,
-				}),
-				'utf8',
-			),
+			resolvedFilePath,
+			fao.readFileSync(resolvedFilePath, 'utf8'),
 			config.remappings,
 			config.libs,
 			fao,
 			true,
 		),
 	)
-	const entryModule = moduleMap.get(filePath)
+	const entryModule = moduleMap.get(resolvedFilePath)
 	invariant(entryModule, 'Entry module should exist')
 
 	/** @type {Record<string, import('../types.js').ModuleInfo>} */

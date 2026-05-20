@@ -45,7 +45,7 @@ export const resolveContractUri = async (contractUri, config) => {
 		transport: http(parsedUri.rpcUrl),
 		chain,
 	})
-	const explorerUrl = parsedUri.etherscanBaseUrl ?? chain.blockExplorers?.default.url
+	const explorerUrl = parsedUri.etherscanBaseUrl ?? chain?.blockExplorers?.default.url
 
 	const whatsabiResult = await loadAbi({
 		client,

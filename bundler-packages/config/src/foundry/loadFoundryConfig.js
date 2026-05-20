@@ -1,5 +1,5 @@
 // TODO would be nice to break this up into composable effects
-import { execSync } from 'node:child_process'
+import { execFileSync } from 'node:child_process'
 import * as path from 'node:path'
 import { fail, logDebug, succeed, tap } from 'effect/Effect'
 
@@ -85,7 +85,7 @@ export const loadFoundryConfig = (foundryProject, configFilePath) => {
 	const forgeCommand = typeof foundryProject === 'string' ? foundryProject : 'forge'
 	let stdout
 	try {
-		stdout = execSync(`${forgeCommand} config --json`, {
+		stdout = execFileSync(forgeCommand, ['config', '--json'], {
 			cwd: configFilePath,
 		}).toString()
 	} catch (cause) {
