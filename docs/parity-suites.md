@@ -8,6 +8,10 @@ This repo exposes ticket-sized parity entry points for CI, local runs, and Smith
   - Fast/PR: `pnpm test:parity:rpc`
   - Full/manual: `pnpm test:parity:full`
   - Smithers: `pnpm test:parity:smithers:fast` or `pnpm test:parity:smithers:full`
+- RPC namespace policy:
+  - Tevm-specific RPCs use `tevm_*` as the canonical namespace.
+  - `zevm_lightSyncStatus` is kept as a narrow compatibility alias for light-client status checks.
+  - `zevm_voltaire_*` and `zevm_guillotineMini_*` are intentionally blocked because those semantics are outside Tevm's RPC scope.
 - Engine API payload handling:
   - Fast/PR: `pnpm test:parity:fast`
   - Full/manual: `pnpm test:parity:full`

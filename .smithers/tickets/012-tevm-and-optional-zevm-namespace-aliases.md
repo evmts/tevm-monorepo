@@ -1,6 +1,6 @@
 ---
 id: 012
-status: todo
+status: done
 priority: P2
 area: rpc
 ---
@@ -25,3 +25,10 @@ Tevm should use `tevm_*` as its canonical extension namespace. Some ZEVM method 
 - Runtime aliases have tests.
 - Incompatible aliases are intentionally rejected or omitted with a documented reason.
 
+## Evidence
+
+- `packages/actions/src/rpcNamespacePolicy.ts` defines `tevm_*` as canonical, records `zevm_lightSyncStatus` as the only compatibility alias, and records rejected `zevm_voltaire_*` and `zevm_guillotineMini_*` families with reasons.
+- `docs/parity-suites.md` documents the namespace policy beside the parity suite commands.
+- `packages/actions/src/createHandlers.js` registers canonical `tevm_lightSyncStatus` and the low-risk `zevm_lightSyncStatus` alias.
+- `packages/actions/src/requestProcedure.js` blocks intentionally rejected alias families through the RPC method matrix.
+- `packages/actions/src/createHandlers.spec.ts` and `packages/actions/src/requestProcedure.spec.ts` cover the runtime alias and rejected-family behavior.

@@ -158,7 +158,7 @@ const buildBlockForPayloadJob = async (client, job) => {
 		if (typeof rawTx !== 'string' || !rawTx.startsWith('0x')) {
 			throw new InvalidParamsError('Invalid transaction encoding')
 		}
-		const tx = createTxFromRLP(hexToBytes(/** @type {Hex} */ (rawTx)), { common: vm.common })
+		const tx = createTxFromRLP(hexToBytes(/** @type {Hex} */ (rawTx)), { common: vm.common.ethjsCommon })
 		await blockBuilder.addTransaction(tx)
 	}
 	return blockBuilder.build()

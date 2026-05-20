@@ -1,6 +1,7 @@
 import { createTevmNode } from '@tevm/node'
 import { bytesToHex, numberToHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { testAccounts } from '../eth/utils/testAccounts.js'
 import { requestProcedure } from '../requestProcedure.js'
 
 let client: any
@@ -152,6 +153,36 @@ describe('engine procedures', () => {
 		expect(res.result.executionPayload.parentHash).toBe(parentHash)
 		expect(res.result.executionPayload.blockHash).toMatch(/^0x[0-9a-f]{64}$/)
 		expect(res.result.executionPayload.stateRoot).toMatch(/^0x[0-9a-f]{64}$/)
+	})
+
+	it('builds block with supplied transactions via testing_buildBlockV1', async () => {
+		const { parentHash, payloadAttributes } = await payloadAttributesForHead()
+		const signed = await requestProcedure(client)({
+			jsonrpc: '2.0',
+			id: 14,
+			method: 'eth_signTransaction',
+			params: [
+				{
+					from: testAccounts[0].address,
+					to: testAccounts[1].address,
+					value: '0x1',
+					gas: '0x5208',
+					gasPrice: '0x3b9aca00',
+					nonce: '0x0',
+				},
+			],
+		} as any)
+		expect(signed.error).toBeUndefined()
+
+		const res = await requestProcedure(client)({
+			jsonrpc: '2.0',
+			id: 15,
+			method: 'testing_buildBlockV1',
+			params: [parentHash, payloadAttributes, [signed.result], '0x'],
+		} as any)
+		expect(res.error).toBeUndefined()
+		expect(res.result.executionPayload.parentHash).toBe(parentHash)
+		expect(res.result.executionPayload.transactions).toEqual([signed.result])
 	})
 
 	it('rejects malformed testing_buildBlockV1 params', async () => {

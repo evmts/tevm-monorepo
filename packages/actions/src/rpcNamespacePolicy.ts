@@ -18,4 +18,3 @@ export const rpcNamespacePolicy = {
 		},
 	] as const,
 } as const
-

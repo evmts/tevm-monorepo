@@ -1,6 +1,6 @@
 ---
 id: 007
-status: todo
+status: done
 priority: P1
 area: engine-api
 depends_on: [006]
@@ -26,3 +26,9 @@ ZEVM exposes `testing_buildBlockV1` as a builder/testing RPC method. Tevm should
 - Tests cover successful empty block, supplied transactions, malformed params, unknown parent, and transaction application failure.
 - The method is usable by Hive/execution-spec style harnesses.
 
+## Evidence
+
+- `packages/actions/src/createHandlers.js` registers `testing_buildBlockV1` through the Engine API handler map.
+- `packages/actions/src/engine/engineProcedures.js` builds the payload envelope from parent hash, payload attributes, optional transactions, and extra data. Supplied transactions are decoded against `vm.common.ethjsCommon`.
+- `packages/actions/src/engine/engineProcedures.spec.ts` covers successful empty blocks, supplied transactions, malformed params, unknown parents, and transaction application failure.
+- Verified with `pnpm --filter @tevm/actions exec vitest run src/engine/engineProcedures.spec.ts`.

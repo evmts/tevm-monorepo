@@ -4,7 +4,7 @@ This harness lets Tevm run in a Hive-style execution client flow and saves artif
 
 ## Dependencies
 
-- Node.js `^20.19.0 || ^22.12.0 || ^24.0.0` and pnpm workspace dependencies installed.
+- Node.js 24 is used by CI and Hive container tests. Local harness runs also accept `^20.19.0 || ^22.12.0 || ^24.0.0`.
 - `curl` and `jq`.
 - Optional: `hive` binary in PATH for simulator-backed runs.
 
