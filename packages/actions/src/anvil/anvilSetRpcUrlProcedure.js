@@ -1,3 +1,5 @@
+import { resetForkState } from '../internal/resetForkState.js'
+
 /**
  * Request handler for anvil_setRpcUrl JSON-RPC requests.
  * Sets a new RPC URL for forking mode. This method is primarily used to change
@@ -58,6 +60,7 @@ export const anvilSetRpcUrlJsonRpcProcedure = (client) => {
 			/** @type {any} */
 			client.forkTransport.url = newUrl
 		}
+		await resetForkState(client, 'latest')
 		client.getSnapshots().clear()
 
 		return {

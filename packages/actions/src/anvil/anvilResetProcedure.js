@@ -1,5 +1,7 @@
 import { createMapDb } from '@evmts/zevm/receipt-manager'
-import { captureSnapshotMetadata, restoreSnapshotState } from '../internal/snapshotMetadata.js'
+import { hexToBigInt } from '@tevm/utils'
+import { resetForkState } from '../internal/resetForkState.js'
+import { captureSnapshotMetadata, clearTxPool, restoreSnapshotState } from '../internal/snapshotMetadata.js'
 
 /**
  * Request handler for anvil_reset JSON-RPC requests.
@@ -21,6 +23,7 @@ export const anvilResetJsonRpcProcedure = (node) => {
 	return async (request) => {
 		const resetParams = /** @type {any} */ (request.params?.[0])
 		const newForkUrl = resetParams?.forking?.jsonRpcUrl
+		const newForkBlockNumber = resetParams?.forking?.blockNumber
 		if (newForkUrl !== undefined) {
 			if (!node.forkTransport || !('url' in node.forkTransport)) {
 				return {
@@ -46,8 +49,19 @@ export const anvilResetJsonRpcProcedure = (node) => {
 		// reset impersonated account
 		node.setImpersonatedAccount(undefined)
 		node.setAutoImpersonate(false)
-		const vm = await node.getVm()
-		await restoreSnapshotState(node, await initialSnapshotPromise, vm)
+		const resetBlockTag =
+			newForkBlockNumber !== undefined
+				? hexToBigInt(/** @type {import('@tevm/utils').Hex} */ (newForkBlockNumber))
+				: newForkUrl !== undefined
+					? 'latest'
+					: undefined
+		const forkReset = await resetForkState(node, resetBlockTag)
+		const vm = forkReset?.vm ?? (await node.getVm())
+		if (!forkReset) {
+			await restoreSnapshotState(node, await initialSnapshotPromise, vm)
+		} else {
+			await clearTxPool(await node.getTxPool())
+		}
 
 		// reset receipts manager
 		/**

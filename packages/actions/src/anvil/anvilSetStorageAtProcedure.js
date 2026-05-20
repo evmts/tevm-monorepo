@@ -36,3 +36,4 @@ export const anvilSetStorageAtJsonRpcProcedure = (client) => {
 			result: true,
 		}
 	}
+}

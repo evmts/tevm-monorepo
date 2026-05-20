@@ -13,7 +13,13 @@ export const anvilLoadStateJsonRpcProcedure = (client) => {
 		const blob = /** @type {any} */ (loadStateRequest.params[0])
 		const zevmBlob = blob && typeof blob === 'object' ? blob['zevmState'] : undefined
 		const stateRecord = blob?.state ?? zevmBlob
-		if (!blob || typeof blob !== 'object' || typeof stateRecord !== 'object' || Array.isArray(stateRecord)) {
+		if (
+			!blob ||
+			typeof blob !== 'object' ||
+			stateRecord === null ||
+			typeof stateRecord !== 'object' ||
+			Array.isArray(stateRecord)
+		) {
 			return {
 				jsonrpc: '2.0',
 				method: loadStateRequest.method,
