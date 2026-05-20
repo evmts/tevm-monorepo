@@ -1,0 +1,3104 @@
+OpenAI Codex v0.132.0
+--------
+workdir: /Users/williamcory/tevm-monorepo
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019e473d-e04b-79b0-8e0a-2f1f653bd5c2
+--------
+user
+You are conducting a DEEP, opinionated code review of ONE slice of the Tevm monorepo
+(tevm.sh — an in-browser & Node.js EVM). Project context, briefly:
+- Mostly JavaScript with JSDoc for runtime packages (still 100% typechecked via checkJs).
+- Heavily broken up: ~30 packages under packages/, bundler-packages/, extensions/, lsp/.
+- The "tevm/" top-level package is the public barrel. Per-package src/index.js is the per-package barrel.
+- DO NOT run tests, builds, or installs. Read-only review.
+
+SLICE ID:    H08
+SLICE NAME:  JSON-RPC transport (jsonrpc + http-client + server)
+SLICE TYPE:  horizontal
+SCOPE PATHS: packages/jsonrpc packages/http-client packages/server
+HINTS:       Wire-format, request/response framing, batching, server middleware, error mapping.
+
+Your job:
+1. READ the source under the scope paths (src/ trees primarily; consult tests only when load-bearing).
+2. Find REAL issues: correctness bugs, broken invariants, security gaps, perf hazards, type-safety holes,
+   leaky abstractions, dead code, misleading docs/jsdoc, public-API footguns.
+3. Severity discipline:
+   CRITICAL = silent corruption, consensus divergence, security, money-on-the-line, data loss
+   HIGH     = likely real bug, broken invariant, race, footgun in public API
+   MEDIUM   = design smell, fragile coupling, latent under load, weak validation
+   LOW      = maintainability, missing/wrong jsdoc, naming, style
+   NIT      = trivial
+4. SKIP entirely: generic advice, restating what code does, praise, "consider adding more tests"
+   without a concrete missing case, anything you cannot tie to a specific file:line.
+
+OUTPUT: write your full report to '.review-slices/H08.md' using EXACTLY this skeleton (omit empty severity buckets):
+
+# JSON-RPC transport (jsonrpc + http-client + server) review
+
+**Slice:** H08
+**Type:** horizontal
+**Scope:** packages/jsonrpc packages/http-client packages/server
+**Reviewed by:** codex (GPT-5.4)
+
+## Summary
+
+<3-6 sentences. Lead with the most important takeaway. No fluff.>
+
+## Findings
+
+### [SEVERITY] One-line headline
+**Location:** path/to/file.ext:LINE
+**Issue:** <what is wrong>
+**Why it matters:** <impact, blast radius, who hits this>
+**Suggested fix:** <concrete>
+
+<...repeat per finding, worst-first within each severity bucket...>
+
+## Architectural observations
+
+<Optional. Only if you have substantive multi-file design notes worth a maintainer's
+attention. Skip the section entirely if you have nothing to say.>
+
+CONSTRAINTS:
+- Modify ONLY the file '.review-slices/H08.md'. Do not touch any source files.
+- Do not run shell commands beyond reading files. No tests/builds/installs.
+- A short report with 5 real bugs beats 5 pages of nits.
+- If a scope path doesn't exist, note it briefly in the Summary and proceed with what's there.
+
+codex
+I’ll review only the requested transport slice and keep the workspace changes limited to `.review-slices/H08.md`. I’m starting by mapping the package structure and then I’ll drill into the request/response paths.
+  → Map scoped package files
+  • Review JSON-RPC framing and types
+  • Review HTTP client behavior
+  • Review server middleware/error mapping
+  • Write H08 report
+exec
+/bin/zsh -lc 'find packages/jsonrpc packages/http-client packages/server -maxdepth 3 -type d' in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc 'rg --files packages/jsonrpc packages/http-client packages/server' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+packages/jsonrpc/src/JsonRpcRequest.ts
+packages/jsonrpc/src/createJsonRpcFetcher.js
+packages/jsonrpc/src/createJsonRpcFetcher.spec.ts
+packages/jsonrpc/src/index.ts
+packages/jsonrpc/src/JsonRpcProcedure.ts
+packages/jsonrpc/src/JsonRpcResponse.ts
+packages/jsonrpc/src/JsonRpcClient.ts
+packages/jsonrpc/src/index.js
+packages/jsonrpc/src/HeadersInit.ts
+packages/jsonrpc/vitest.config.ts
+packages/jsonrpc/biome.json
+packages/jsonrpc/tsconfig.json
+packages/jsonrpc/typedoc.json
+packages/jsonrpc/package.json
+packages/jsonrpc/README.md
+packages/http-client/src/__snapshots__/createRemoteClient.spec.ts.snap
+packages/http-client/src/__snapshots__/createHttpClient.spec.ts.snap
+packages/http-client/src/__snapshots__/createClient.spec.ts.snap
+packages/http-client/src/__snapshots__/createTevmClient.spec.ts.snap
+packages/http-client/src/HttpClient.ts
+packages/http-client/src/index.ts
+packages/http-client/src/createHttpClient.spec.ts
+packages/http-client/src/index.js
+packages/http-client/src/HttpClientOptions.ts
+packages/server/src/__snapshots__/createServer.spec.ts.snap
+packages/server/src/__snapshots__/createHttpHandler.spec.ts.snap
+packages/http-client/src/test/Add.s.sol.ts
+packages/http-client/src/test/ERC20.sol.ts
+packages/http-client/src/createHttpClient.js
+packages/jsonrpc/docs/globals.md
+packages/http-client/biome.json
+packages/http-client/tsconfig.json
+packages/http-client/typedoc.json
+packages/http-client/package.json
+packages/http-client/README.md
+packages/jsonrpc/docs/functions/webSocket.md
+packages/jsonrpc/docs/functions/createJsonRpcFetcher.md
+packages/jsonrpc/docs/functions/http.md
+packages/http-client/docs/globals.md
+packages/server/src/errors/ReadRequestBodyError.spec.ts
+packages/jsonrpc/docs/variables/rateLimit.md
+packages/jsonrpc/docs/variables/loadBalance.md
+packages/server/src/errors/ReadRequestBodyError.js
+packages/server/src/errors/InvalidJsonError.js
+packages/server/src/index.ts
+packages/server/src/Client.ts
+packages/http-client/docs/functions/createHttpClient.md
+packages/jsonrpc/docs/_media/LICENSE
+packages/jsonrpc/docs/README.md
+packages/jsonrpc/docs/type-aliases/JsonRpcProcedure.md
+packages/jsonrpc/docs/type-aliases/JsonRpcClient.md
+packages/jsonrpc/docs/type-aliases/JsonRpcResponse.md
+packages/jsonrpc/docs/type-aliases/JsonRpcRequest.md
+packages/jsonrpc/docs/type-aliases/HeadersInit.md
+packages/jsonrpc/CHANGELOG.md
+packages/jsonrpc/LICENSE
+packages/jsonrpc/tsup.config.js
+packages/http-client/CHANGELOG.md
+packages/http-client/LICENSE
+packages/http-client/tsup.config.js
+packages/http-client/docs/_media/LICENSE
+packages/http-client/docs/README.md
+packages/server/src/createHttpHandler.js
+packages/server/src/createHttpHandler.direct.spec.ts
+packages/server/vitest.config.ts
+packages/server/biome.json
+packages/server/tsconfig.json
+packages/server/typedoc.json
+packages/server/tsup.config.ts
+packages/server/package.json
+packages/server/README.md
+packages/http-client/docs/type-aliases/HttpClient.md
+packages/http-client/docs/type-aliases/HttpClientOptions.md
+packages/server/src/adapters/__snapshots__/createNextApiHandler.spec.ts.snap
+packages/server/src/adapters/__snapshots__/createExpressMiddleware.spec.ts.snap
+packages/server/src/adapters/createExpressMiddleware.spec.ts
+packages/server/src/adapters/createExpressMiddleware.js
+packages/server/src/adapters/index.js
+packages/server/src/adapters/createNextApiHandler.spec.ts
+packages/server/src/adapters/createNextApiHandler.js
+packages/server/src/adapters/index.spec.ts
+packages/server/src/createHttpHandler.spec.ts
+packages/server/src/index.js
+packages/server/docs/globals.md
+packages/server/bin/tevm-server.js
+packages/server/LICENSE
+packages/server/docs/interfaces/ReadRequestBodyErrorParameters.md
+packages/server/docs/interfaces/InvalidJsonErrorParameters.md
+packages/server/docs/type-aliases/Client.md
+packages/server/docs/type-aliases/Tevm.md
+packages/server/docs/functions/createHttpHandler.md
+packages/server/docs/functions/createServer.md
+packages/server/docs/functions/createNextApiHandler.md
+packages/server/docs/functions/createExpressMiddleware.md
+packages/server/src/internal/__snapshots__/handleBulkRequest.spec.ts.snap
+packages/server/src/internal/__snapshots__/parseRequest.spec.ts.snap
+packages/server/src/internal/parseRequest.spec.ts
+packages/server/src/internal/getRequestBody.spec.ts
+packages/server/src/internal/handleBulkRequest.spec.ts
+packages/server/src/internal/handleError.js
+packages/server/src/internal/handleError.spec.ts
+packages/server/src/internal/parseRequest.js
+packages/server/src/internal/handleBulkRequest.js
+packages/server/src/internal/getRequestBody.js
+packages/server/src/createServer.js
+packages/server/src/coverage.spec.ts
+packages/server/src/createServer.spec.ts
+packages/server/src/index.spec.ts
+packages/server/CHANGELOG.md
+packages/server/docs/README.md
+packages/server/docs/classes/InvalidJsonError.md
+packages/server/docs/classes/ReadRequestBodyError.md
+packages/server/docs/_media/createExpressMiddleware.js
+packages/server/docs/_media/createServer.js
+packages/server/docs/_media/LICENSE
+packages/server/docs/_media/createHttpHandler.js
+
+ succeeded in 0ms:
+packages/jsonrpc
+packages/jsonrpc/types
+packages/jsonrpc/dist
+packages/jsonrpc/node_modules
+packages/jsonrpc/node_modules/.bin
+packages/jsonrpc/node_modules/.vite-temp
+packages/jsonrpc/node_modules/@ponder
+packages/jsonrpc/node_modules/.vite
+packages/jsonrpc/node_modules/.vite/vitest
+packages/jsonrpc/node_modules/@tevm
+packages/jsonrpc/docs
+packages/jsonrpc/docs/type-aliases
+packages/jsonrpc/docs/_media
+packages/jsonrpc/docs/variables
+packages/jsonrpc/docs/functions
+packages/jsonrpc/coverage
+packages/jsonrpc/src
+packages/http-client
+packages/http-client/types
+packages/http-client/types/test
+packages/http-client/dist
+packages/http-client/node_modules
+packages/http-client/node_modules/.bin
+packages/http-client/node_modules/.vite
+packages/http-client/node_modules/.vite/vitest
+packages/http-client/node_modules/@tevm
+packages/http-client/docs
+packages/http-client/docs/type-aliases
+packages/http-client/docs/_media
+packages/http-client/docs/functions
+packages/http-client/coverage
+packages/http-client/src
+packages/http-client/src/test
+packages/http-client/src/__snapshots__
+packages/server
+packages/server/types
+packages/server/types/internal
+packages/server/types/adapters
+packages/server/types/errors
+packages/server/bin
+packages/server/dist
+packages/server/node_modules
+packages/server/node_modules/@types
+packages/server/node_modules/.bin
+packages/server/node_modules/.vite-temp
+packages/server/node_modules/.vite
+packages/server/node_modules/.vite/vitest
+packages/server/node_modules/@tevm
+packages/server/docs
+packages/server/docs/classes
+packages/server/docs/type-aliases
+packages/server/docs/_media
+packages/server/docs/functions
+packages/server/docs/interfaces
+packages/server/coverage
+packages/server/src
+packages/server/src/internal
+packages/server/src/internal/__snapshots__
+packages/server/src/adapters
+packages/server/src/adapters/__snapshots__
+packages/server/src/errors
+packages/server/src/__snapshots__
+
+exec
+/bin/zsh -lc 'git status --short .review-slices/H08.md packages/jsonrpc packages/http-client packages/server' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+codex
+The three scope paths exist. I’m focusing on `src/` implementation files first, with tests only as needed to confirm expected behavior around edge cases.
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/http-client/src/createHttpClient.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/jsonrpc/src/createJsonRpcFetcher.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/jsonrpc/src/index.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { tevmViemExtension } from '@tevm/viem'
+import { createPublicClient, http } from 'viem'
+
+/**
+ * @deprecated a new version of HttpClient will be built in a future version
+ * For now we suggest you use viem
+ * @param {import('./HttpClientOptions.js').HttpClientOptions} params
+ * @returns {import('./HttpClient.js').HttpClient}
+ * @example
+ */
+export const createHttpClient = ({ url, name = `TevmClient:${url}` }) => {
+	// This is a shortcut. We are simply reusing viem to create this client so we can
+	// reuse all of viems transport related error handling. We should implement a client
+	// using only `@tevm/jsonrpc` package to make requests once it is as robust as viem
+	const { tevm } = createPublicClient({
+		name: `TevmRemoteClient:${url}`,
+		transport: http(url),
+	}).extend(tevmViemExtension())
+	return {
+		...tevm,
+		url,
+		name,
+	}
+}
+
+ succeeded in 0ms:
+/**
+ * @deprecated
+ * Makes a JSON-RPC request to a url
+ * Returns the entire JSON-RPC response rather than throwing and only returning result
+ * Used currently as an adapter to avoid refactoring existing code
+ * @see https://ethereum.org/en/developers/docs/apis/json-rpc/
+ * @param {{request: import('viem').EIP1193RequestFn}} client
+ * @returns {import("./JsonRpcClient.js").JsonRpcClient} the `result` field from the JSON-RPC response
+ * @example
+ * ```typescript
+ * const url = 'https://mainnet.optimism.io'
+ * const params = {
+ *   method: 'eth_getBlockByNumber',
+ *   params: ['latest', false],
+ * }
+ * const {result: block} = await fetchJsonRpc(url, params)
+ * ```
+ */
+export const createJsonRpcFetcher = (client) => {
+	return {
+		request: async (request) => {
+			try {
+				const result = await client.request(request)
+				return {
+					jsonrpc: '2.0',
+					result,
+					...(request.id !== undefined ? { id: request.id } : {}),
+				}
+			} catch (e) {
+				if (typeof e === 'object' && e !== null && 'code' in e) {
+					const message =
+						'message' in e && typeof e.message === 'string' ? e.message : 'Unknown error in jsonrpc request'
+					const code = typeof e.code === 'number' ? e.code : Number(e.code)
+					return {
+						jsonrpc: '2.0',
+						error: {
+							code: Number.isFinite(code) ? code : -32000,
+							message,
+							...('data' in e ? { data: e.data } : {}),
+						},
+						...(request.id !== undefined ? { id: request.id } : {}),
+					}
+				}
+				return {
+					jsonrpc: '2.0',
+					error: {
+						code: -32000,
+						message: e instanceof Error ? e.message : 'Unknown error in jsonrpc request',
+					},
+					...(request.id !== undefined ? { id: request.id } : {}),
+				}
+			}
+		},
+	}
+}
+
+ succeeded in 0ms:
+export { createJsonRpcFetcher } from './createJsonRpcFetcher.js'
+
+exec
+/bin/zsh -lc "sed -n '1,260p' packages/server/src/createHttpHandler.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { tevmSend } from '@tevm/decorators'
+import { InternalError, InvalidRequestError, MethodNotFoundError, UnsupportedProviderMethodError } from '@tevm/errors'
+import { InvalidJsonError } from './errors/InvalidJsonError.js'
+import { ReadRequestBodyError } from './errors/ReadRequestBodyError.js'
+import { getRequestBody } from './internal/getRequestBody.js'
+import { handleBulkRequest } from './internal/handleBulkRequest.js'
+import { handleError } from './internal/handleError.js'
+import { parseRequest } from './internal/parseRequest.js'
+
+const DEFAULT_MAX_BODY_SIZE = 1024 * 1024
+const DEFAULT_MAX_HEADER_SIZE = 16 * 1024
+const DEFAULT_MAX_BATCH_SIZE = 100
+const DEFAULT_REQUEST_TIMEOUT = 30_000
+
+/**
+ * Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
+ * Any unimplemented methods will be proxied to the given proxyUrl
+ * This handler works for any server that supports the Node.js http module
+ * @param {import('./Client.js').Client} client
+ * @param {{ compatibility?: boolean; maxBodySize?: number; maxHeaderSize?: number; maxBatchSize?: number; requestTimeout?: number; cors?: boolean }} [options]
+ * @returns {import('http').RequestListener}
+ * @throws {never}
+ * @example
+ * ```ts
+ * const handler = createHttpHandler(client, {
+ *   compatibility: true,
+ *   maxBodySize: 1024 * 1024,
+ *   maxHeaderSize: 16 * 1024,
+ * })
+ * ```
+ */
+export const createHttpHandler = (client, options = {}) => {
+	const {
+		compatibility = false,
+		maxBodySize = DEFAULT_MAX_BODY_SIZE,
+		maxHeaderSize = DEFAULT_MAX_HEADER_SIZE,
+		maxBatchSize = DEFAULT_MAX_BATCH_SIZE,
+		requestTimeout = DEFAULT_REQUEST_TIMEOUT,
+		cors = false,
+	} = options
+
+	/** @param {import('http').IncomingMessage} req */
+	const getHeaderSize = (req) => {
+		if (Array.isArray(req.rawHeaders) && req.rawHeaders.length > 0) {
+			return Buffer.byteLength(req.rawHeaders.join('\r\n'), 'utf8')
+		}
+		return Buffer.byteLength(JSON.stringify(req.headers ?? {}), 'utf8')
+	}
+
+	return async (req, res) => {
+		if (cors) {
+			res.setHeader('Access-Control-Allow-Origin', '*')
+			res.setHeader('Access-Control-Allow-Headers', 'content-type')
+			res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+			if (req.method === 'OPTIONS') return void res.writeHead(204).end()
+		}
+		if (requestTimeout > 0 && typeof req.setTimeout === 'function') {
+			req.setTimeout(requestTimeout, () => {
+				if (!res.headersSent) res.writeHead(408).end()
+				if (typeof req.destroy === 'function') req.destroy()
+			})
+		}
+		if (compatibility) {
+			const pathname = new URL(req.url ?? '/', 'http://localhost').pathname
+			if (pathname !== '/') return void res.writeHead(404).end()
+			if (req.method !== 'POST') return void res.writeHead(405, { Allow: 'POST' }).end()
+			if (getHeaderSize(req) > maxHeaderSize) return void res.writeHead(431).end()
+
+			const contentType = req.headers['content-type']
+			const parsedContentType = contentType?.split(';')[0]?.trim()?.toLowerCase()
+			if (parsedContentType !== 'application/json') {
+				return void res.writeHead(415).end()
+			}
+		}
+
+		const body = await getRequestBody(req, { maxBodySize })
+		if (body instanceof ReadRequestBodyError) {
+			if (body.shortMessage === 'Request body exceeds configured max body size') {
+				return void res.writeHead(413).end()
+			}
+			return handleError(client, body, res)
+		}
+
+		const parsedRequest = parseRequest(body, { allowEmptyBatch: !compatibility, maxBatchSize })
+		if (parsedRequest instanceof InvalidJsonError || parsedRequest instanceof InvalidRequestError) {
+			return handleError(client, parsedRequest, res)
+		}
+
+		if (Array.isArray(parsedRequest)) {
+			const responses = await handleBulkRequest(client, /** @type {any} */ (parsedRequest), {
+				suppressNotifications: compatibility,
+			})
+			if (compatibility && responses.length === 0) return void res.writeHead(204).end()
+			res.writeHead(200, { 'Content-Type': 'application/json' })
+			return void res.end(JSON.stringify(responses))
+		}
+
+		const response = await client.transport.tevm
+			.extend(tevmSend())
+			.send(/** @type any */ (parsedRequest))
+			.catch((e) => ('code' in e ? e : new InternalError('Unexpected error', { cause: e })))
+
+		if (compatibility && parsedRequest.id === undefined) return void res.writeHead(204).end()
+		if ('code' in response && 'message' in response) return handleError(client, response, res, parsedRequest)
+		if (response.error?.code === UnsupportedProviderMethodError.code || response.error?.code === MethodNotFoundError.code) {
+			return handleError(client, response.error, res, parsedRequest)
+		}
+
+		res.writeHead(200, { 'Content-Type': 'application/json' })
+		return void res.end(JSON.stringify(response))
+	}
+}
+
+exec
+/bin/zsh -lc "sed -n '1,260p' packages/server/src/internal/getRequestBody.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,260p' packages/server/src/internal/handleBulkRequest.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,280p' packages/server/src/internal/handleError.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,260p' packages/server/src/internal/parseRequest.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { InvalidRequestError } from '@tevm/errors'
+import { treeifyError, z } from 'zod'
+import { InvalidJsonError } from '../errors/InvalidJsonError.js'
+
+const zJsonRpcRequest = z.object({
+	jsonrpc: z.literal('2.0').optional(),
+	id: z.union([z.string(), z.number(), z.null()]).optional(),
+	method: z.string(),
+	params: z.unknown().optional(),
+})
+
+const zBulkRequest = z.array(zJsonRpcRequest)
+
+/**
+ * Parses a request body into a JSON-RPC request object.
+ * Returns error if any
+ * @param {string} body
+ * @throws {never} returns errors as values
+ */
+export const parseRequest = (body, options = {}) => {
+	const { allowEmptyBatch = true, maxBatchSize = 100 } = options
+	/**
+	 * @type {unknown}
+	 */
+	let raw
+	try {
+		raw = JSON.parse(body)
+	} catch (e) {
+		const err = /** @type {Error} */ (e)
+		return new InvalidJsonError(err.message, { cause: err })
+	}
+
+	if (Array.isArray(raw)) {
+		if (!allowEmptyBatch && raw.length === 0) {
+			return new InvalidRequestError('Empty batch requests are invalid')
+		}
+		if (raw.length > maxBatchSize) {
+			return new InvalidRequestError(`Batch request exceeds configured max batch size of ${maxBatchSize}`)
+		}
+		const parsedRequest = zBulkRequest.safeParse(raw)
+		if (!parsedRequest.success) {
+			return new InvalidRequestError(JSON.stringify(treeifyError(parsedRequest.error)))
+		}
+		return parsedRequest.data
+	} else {
+		const parsedRequest = zJsonRpcRequest.safeParse(raw)
+		if (!parsedRequest.success) {
+			return new InvalidRequestError(JSON.stringify(treeifyError(parsedRequest.error)))
+		}
+		return parsedRequest.data
+	}
+}
+
+ succeeded in 0ms:
+/**
+ * @param {import('../Client.js').Client} client
+ * @param {import('@tevm/errors').BaseError} error
+ * @param {import('http').ServerResponse} res
+ * @param {{method: string, id?: string | undefined | null | number}} [jsonRpcReq]
+ * @returns {void}
+ * @throws {never}
+ */
+export const handleError = (client, error, res, jsonRpcReq = { method: 'unknown' }) => {
+	client.transport.tevm.logger.error(error)
+	res.writeHead(400, { 'Content-Type': 'application/json' })
+	res.end(
+		JSON.stringify({
+			...(jsonRpcReq.id ? { id: jsonRpcReq.id } : {}),
+			method: jsonRpcReq.method,
+			jsonrpc: '2.0',
+			error: {
+				code: error.code,
+				message: error.message,
+			},
+		}),
+	)
+}
+
+ succeeded in 0ms:
+import { tevmSend } from '@tevm/decorators'
+import { InternalError } from '@tevm/errors'
+
+/**
+ * Handles a bulk request. Does not throw returns errors as json-rpc error responses
+ * @param {import('../Client.js').Client} client
+ * @param {ReadonlyArray<import("@tevm/jsonrpc").JsonRpcRequest<string, any>>} requests
+ * @returns {Promise<ReadonlyArray<import("@tevm/jsonrpc").JsonRpcResponse<any, any, any>>>}
+ * @throws {never} never throws
+ */
+export const handleBulkRequest = async (client, requests, options = {}) => {
+	const { suppressNotifications = false } = options
+	const { send } = client.transport.tevm.extend(tevmSend())
+	const responses = await Promise.allSettled(
+		requests.map((request) => {
+			return send(/** @type any*/ (request))
+		}),
+	)
+	return responses.flatMap((response, i) => {
+		const request = /** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (requests[i])
+		if (suppressNotifications && request.id === undefined) {
+			return []
+		}
+		if (response.status === 'rejected') {
+			client.transport.tevm.logger.error(response.reason)
+			const err = new InternalError(request.method, { cause: response.reason })
+			return [{
+				...(request.id !== undefined ? { id: request.id } : {}),
+				method: request.method,
+				jsonrpc: '2.0',
+				error: {
+					code: err.code,
+					message: err.message,
+				},
+			}]
+		}
+		return [response.value]
+	})
+}
+
+ succeeded in 0ms:
+import { ReadRequestBodyError } from '../errors/ReadRequestBodyError.js'
+
+/**
+ * Gets request body from an http request.
+ * @param {import('http').IncomingMessage|{body: string}} req The request object
+ * @param {{ maxBodySize?: number }} [options] Optional body reading options
+ * @returns {Promise<string | ReadRequestBodyError>} Request body as a promise
+ * @throws {never} returns errors as value
+ */
+export const getRequestBody = (req, options = {}) => {
+	const { maxBodySize = Number.POSITIVE_INFINITY } = options
+	// If the request already has a body property, return it
+	if ('body' in req && req.body !== undefined) {
+		return Promise.resolve(req.body)
+	}
+
+	// Otherwise, read from the stream
+	return new Promise((resolve) => {
+		let body = ''
+
+		if ('on' in req) {
+			req.on('error', (err) => {
+				resolve(new ReadRequestBodyError(err.message, { cause: err }))
+			})
+			req.on('data', (chunk) => {
+				body += chunk.toString()
+				if (Buffer.byteLength(body, 'utf8') > maxBodySize) {
+					resolve(new ReadRequestBodyError('Request body exceeds configured max body size'))
+				}
+			})
+
+			req.on('end', () => {
+				return resolve(body)
+			})
+		} else {
+			// Should never happen, but needed for type safety
+			resolve(new ReadRequestBodyError('Request object is not a valid stream', {}))
+		}
+	})
+}
+
+exec
+/bin/zsh -lc "sed -n '1,260p' packages/server/src/adapters/createNextApiHandler.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,240p' packages/server/src/createServer.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { createHttpHandler } from '../createHttpHandler.js'
+
+/**
+ * Creates a Next.js API handler for a Tevm JSON-RPC server
+ * @param {import('../Client.js').Client} client
+ * @returns {import('next').NextApiHandler}
+ * @example
+ * ```typescript
+ * import { createNextApiHandler } from 'tevm/server'
+ * import { createMemoryClient } from 'tevm'
+ *
+ * const tevm = createMemoryClient()
+ * export default createNextApiHandler({ request: tevm.request })
+ * ```
+ */
+export const createNextApiHandler = (client) => {
+	const handler = createHttpHandler(client)
+	return async (req, res) => {
+		handler(req, res)
+	}
+}
+
+ succeeded in 0ms:
+import { createServer as httpCreateServer } from 'node:http'
+import { createHttpHandler } from './createHttpHandler.js'
+
+/**
+ * Creates a lightweight http server for handling requests
+ * @param {import('@tevm/memory-client').MemoryClient} client
+ * @param {import('http').ServerOptions} [serverOptions] - Optional options to pass to the http server
+ * @param {{ compatibility?: boolean; maxBodySize?: number; maxHeaderSize?: number; maxBatchSize?: number; requestTimeout?: number; cors?: boolean }} [handlerOptions] - Optional HTTP handler transport compatibility options
+ * @returns {import('http').Server}
+ * To use pass in the Tevm['request'] request handler
+ * @throws {CreateServerError}
+ * @example
+ * ```typescript
+ * import { createMemoryClient } from 'tevm'
+ * import { createServer } from 'tevm/server'
+ *
+ * const tevm = createMemoryClient()
+ *
+ * const server = createServer({
+ *   request: tevm.request,
+ * })
+ *
+ * server.listen(8080, () => console.log('listening on 8080'))
+ * ```
+ * To interact with the HTTP server you can create a Tevm client
+ * @example
+ * ```typescript
+ * import { createTevmClient } from '@tevm/client'
+ *
+ * const client = createTevmClient()
+ * ```
+ */
+export const createServer = (client, serverOptions = {}, handlerOptions = {}) => {
+	return httpCreateServer(serverOptions, createHttpHandler(client, handlerOptions))
+}
+
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/server/src/adapters/createExpressMiddleware.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { createHttpHandler } from '../createHttpHandler.js'
+
+/**
+ * Creates express middleware for a Tevm JSON-RPC server
+ * @param {import('../Client.js').Client} client
+ * @returns {import('express').RequestHandler}
+ * @example
+ * ```typescript
+ * import express from 'express'
+ * import { createExpressMiddleware } from 'tevm/server'
+ * import { createMemoryClient } from 'tevm'
+ *
+ * const tevm = createMemoryClient()
+ *
+ * const app = express()
+ * app.use(express.json())
+ * app.use(createExpressMiddleware({ request: tevm.request }))
+ * app.listen(8080, () => console.log('listening on 8080'))
+ * ```
+ *
+ * After creating an express server it can be interacted with using any JSON-RPC client
+ * including viem, ethers or the built in tevm client
+ * ```typescript
+ * import { createClient } from 'tevm/client'
+ *
+ * const client = createClient({
+ *  url: 'http://localhost:8080'
+ *  })
+ *
+ *  const blockNumber = await client.eth.getBlockNumber()
+ *  const chainId = await client.eth.getChainId()
+ *  ```
+ */
+export function createExpressMiddleware(client) {
+	const handler = createHttpHandler(client)
+	return async (req, res) => {
+		handler(req, res)
+	}
+}
+
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/server/src/errors/InvalidJsonError.js && sed -n '1,220p' packages/server/src/errors/ReadRequestBodyError.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { BaseError } from '@tevm/errors'
+
+/**
+ * Parameters for constructing an {@link InvalidJsonError}.
+ * @typedef {Object} InvalidJsonErrorParameters
+ * @property {string} [docsBaseUrl] - Base URL for the documentation.
+ * @property {string} [docsPath] - Path to the documentation.
+ * @property {string} [docsSlug] - Slug for the documentation.
+ * @property {string[]} [metaMessages] - Additional meta messages.
+ * @property {import('@tevm/errors').BaseError|Error} [cause] - The cause of the error.
+ * @property {string} [details] - Details of the error.
+ * @property {object} [meta] - Optional object containing additional information about the error.
+ */
+
+/**
+ * Represents an error that occurs when parsing JSON fails.
+ *
+ * This error is typically encountered when there is an issue with the JSON structure, such as a syntax error or malformed JSON.
+ *
+ * @example
+ * try {
+ *   const data = parseJsonWithSomeTevmMethod(someString)
+ * } catch (error) {
+ *   if (error instanceof InvalidJsonError) {
+ *     console.error(error.message);
+ *     // Handle the invalid JSON error
+ *   }
+ * }
+ *
+ * @param {string} message - A human-readable error message.
+ * @param {InvalidJsonErrorParameters} [args={}] - Additional parameters for the InvalidJsonError.
+ * @property {'InvalidJsonError'} _tag - Same as name, used internally.
+ * @property {'InvalidJsonError'} name - The name of the error, used to discriminate errors.
+ * @property {string} message - Human-readable error message.
+ * @property {object} [meta] - Optional object containing additional information about the error.
+ * @property {number} code - Error code, analogous to the code in JSON RPC error.
+ * @property {string} docsPath - Path to the documentation for this error.
+ * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ */
+export class InvalidJsonError extends BaseError {
+	/**
+	 * Constructs an InvalidJsonError.
+	 *
+	 * @param {string} message - Human-readable error message.
+	 * @param {InvalidJsonErrorParameters} [args={}] - Additional parameters for the InvalidJsonError.
+	 */
+	constructor(message, args = {}) {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/invalidjsonerror/',
+			},
+			'InvalidJsonError',
+			-32700,
+		)
+	}
+}
+import { BaseError } from '@tevm/errors'
+
+/**
+ * Parameters for constructing a {@link ReadRequestBodyError}.
+ * @typedef {Object} ReadRequestBodyErrorParameters
+ * @property {string} [docsBaseUrl] - Base URL for the documentation.
+ * @property {string} [docsPath] - Path to the documentation.
+ * @property {string} [docsSlug] - Slug for the documentation.
+ * @property {string[]} [metaMessages] - Additional meta messages.
+ * @property {import('@tevm/errors').BaseError|Error} [cause] - The cause of the error.
+ * @property {string} [details] - Details of the error.
+ * @property {object} [meta] - Optional object containing additional information about the error.
+ */
+
+/**
+ * Represents an error that occurs when reading the request body from an HTTP request fails.
+ *
+ * This error is typically encountered when there is an issue with reading the request body, such as a network error or a problem with the incoming request stream.
+ * @param {string} message - A human-readable error message.
+ * @param {ReadRequestBodyErrorParameters} [args={}] - Additional parameters for the ReadRequestBodyError.
+ * @property {'ReadRequestBodyError'} _tag - Same as name, used internally.
+ * @property {'ReadRequestBodyError'} name - The name of the error, used to discriminate errors.
+ * @property {string} message - Human-readable error message.
+ * @property {object} [meta] - Optional object containing additional information about the error.
+ * @property {number} code - Error code, analogous to the code in JSON RPC error.
+ * @property {string} docsPath - Path to the documentation for this error.
+ * @property {string[]} [metaMessages] - Additional meta messages for more context.
+ */
+export class ReadRequestBodyError extends BaseError {
+	/**
+	 * Constructs a ReadRequestBodyError.
+	 *
+	 * @param {string} message - Human-readable error message.
+	 * @param {ReadRequestBodyErrorParameters} [args={}] - Additional parameters for the ReadRequestBodyError.
+	 */
+	constructor(message, args = {}) {
+		super(
+			message,
+			{
+				...args,
+				docsBaseUrl: 'https://tevm.sh',
+				docsPath: '/reference/tevm/errors/classes/readrequestbodyerror/',
+			},
+			'ReadRequestBodyError',
+		)
+	}
+}
+
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/jsonrpc/src/JsonRpcRequest.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/jsonrpc/src/JsonRpcResponse.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+/**
+ * Helper type for creating JSON-RPC request types
+ */
+export type JsonRpcRequest<TMethod extends string, TParams> = {
+	readonly jsonrpc: '2.0'
+	readonly method: TMethod
+	readonly id?: string | number | null
+} & (TParams extends readonly [] ? { readonly params?: TParams } : { readonly params: TParams })
+
+ succeeded in 0ms:
+export type JsonRpcResponse<TMethod extends string, TResult, TErrorCode extends string | number> =
+	| {
+			jsonrpc: '2.0'
+			method: TMethod
+			result: TResult
+			id?: string | number | null
+			error?: never
+	  }
+	| {
+			jsonrpc: '2.0'
+			method: TMethod
+			error: {
+				code: TErrorCode
+				message: string
+			}
+			id?: string | number | null
+			result?: never
+	  }
+
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/jsonrpc/src/JsonRpcClient.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/jsonrpc/src/JsonRpcProcedure.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import type { JsonRpcProcedure } from './JsonRpcProcedure.js'
+
+/**
+ * A client for making JsonRpc requests over http
+ */
+export type JsonRpcClient = {
+	request: JsonRpcProcedure<string, unknown, unknown, string | number>
+}
+
+ succeeded in 0ms:
+import type { JsonRpcRequest } from './JsonRpcRequest.js'
+import type { JsonRpcResponse } from './JsonRpcResponse.js'
+
+export type JsonRpcProcedure<TMethod extends string, TParams, TResult, TErrorCode extends string | number> = (
+	request: JsonRpcRequest<TMethod, TParams>,
+) => Promise<JsonRpcResponse<TMethod, TResult, TErrorCode>>
+
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/http-client/src/index.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/http-client/src/index.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/http-client/src/HttpClient.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/http-client/src/HttpClientOptions.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+export { createHttpClient } from './createHttpClient.js'
+export type { HttpClient } from './HttpClient.js'
+export type { HttpClientOptions } from './HttpClientOptions.js'
+
+ succeeded in 0ms:
+/**
+ * @deprecated
+ * Options for a HttpClient
+ */
+export type HttpClientOptions = {
+	/**
+	 * Remote URL to connect to
+	 */
+	readonly url: string
+	/**
+	 * Optional name for the client
+	 */
+	readonly name?: string
+}
+
+ succeeded in 0ms:
+import type { createHttpClient } from './createHttpClient.js'
+
+/**
+ * @deprecated a new http client will be created in a future version. For now it's recommended to use viem
+ */
+export type HttpClient = ReturnType<typeof createHttpClient>
+
+ succeeded in 0ms:
+export { createHttpClient } from './createHttpClient.js'
+
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/server/src/index.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/server/src/Client.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+export {
+	createExpressMiddleware,
+	createNextApiHandler,
+} from './adapters/index.js'
+export { createHttpHandler } from './createHttpHandler.js'
+export { createServer } from './createServer.js'
+export * from './errors/InvalidJsonError.js'
+export * from './errors/ReadRequestBodyError.js'
+
+ succeeded in 0ms:
+import type { MemoryClient } from '@tevm/memory-client'
+
+export type Tevm = MemoryClient<any, any>['transport']['tevm']
+
+export type Client = {
+	transport: {
+		tevm: MemoryClient<any, any>['transport']['tevm']
+	}
+}
+
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/server/src/index.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/server/src/adapters/index.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+export { createExpressMiddleware } from './createExpressMiddleware.js'
+export { createNextApiHandler } from './createNextApiHandler.js'
+
+ succeeded in 0ms:
+export {
+	createExpressMiddleware,
+	createNextApiHandler,
+} from './adapters/index.js'
+export * from './Client.js'
+export { createHttpHandler } from './createHttpHandler.js'
+export { createServer } from './createServer.js'
+export * from './errors/InvalidJsonError.js'
+export * from './errors/ReadRequestBodyError.js'
+
+codex
+The main implementation is small but there are several protocol-sensitive spots: request validation, notification handling, batch response shape, and adapter control flow. I’m checking tests and shared error conventions only where they clarify whether behavior is intentional or accidental.
+exec
+/bin/zsh -lc "sed -n '1,280p' packages/server/src/internal/parseRequest.spec.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,320p' packages/server/src/internal/handleBulkRequest.spec.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { InvalidRequestError } from '@tevm/errors'
+import { describe, expect, it } from 'vitest'
+import { InvalidJsonError } from '../errors/InvalidJsonError.js'
+import { parseRequest } from './parseRequest.js'
+
+describe('parseRequest', () => {
+	const validJsonRpcRequest = {
+		jsonrpc: '2.0',
+		method: 'tevm_call',
+		params: [],
+		id: 1,
+	} as const
+
+	const invalidJsonRpcRequest = {
+		jsonrpc: '2.0',
+		id: 1,
+	} as const
+
+	it('should parse a valid single JSON-RPC request', () => {
+		const body = JSON.stringify(validJsonRpcRequest)
+		const result = parseRequest(body)
+		expect(result).toEqual(validJsonRpcRequest)
+	})
+
+	it('should parse a valid bulk JSON-RPC request', () => {
+		const body = JSON.stringify([validJsonRpcRequest, validJsonRpcRequest])
+		const result = parseRequest(body)
+		expect(result).toEqual([validJsonRpcRequest, validJsonRpcRequest])
+	})
+
+	it('should return InvalidJsonError for invalid JSON', () => {
+		const body = '{ "jsonrpc": "2.0", "method": "tevm_call", "params": [ ] ' // Malformed JSON
+		const result = parseRequest(body)
+		expect(result).toBeInstanceOf(InvalidJsonError)
+		expect((result as InvalidJsonError).message).toContain(
+			`Expected ',' or '}' after property value in JSON at position 57`,
+		)
+	})
+
+	it('should return InvalidRequestError for invalid JSON-RPC request', () => {
+		const body = JSON.stringify(invalidJsonRpcRequest)
+		const result = parseRequest(body)
+		expect(result).toBeInstanceOf(InvalidRequestError)
+		expect((result as InvalidRequestError).message).toMatchSnapshot()
+	})
+
+	it('should return InvalidRequestError for invalid bulk JSON-RPC request', () => {
+		const body = JSON.stringify([validJsonRpcRequest, invalidJsonRpcRequest])
+		const result = parseRequest(body)
+		expect(result).toBeInstanceOf(InvalidRequestError)
+		expect((result as InvalidRequestError).message).toMatchSnapshot()
+	})
+})
+
+ succeeded in 0ms:
+import { optimism } from '@tevm/common'
+import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
+import { transports } from '@tevm/test-utils'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { handleBulkRequest } from './handleBulkRequest.js'
+
+describe('handleBulkRequest', () => {
+	let client: MemoryClient<any, any>
+
+	beforeEach(() => {
+		client = createMemoryClient({
+			common: optimism,
+			fork: {
+				transport: transports.optimism,
+				blockTag: 141866019n,
+			},
+		})
+	})
+
+	it('should handle valid requests and return responses', async () => {
+		const requests = [
+			{ jsonrpc: '2.0', method: 'eth_chainId', params: [], id: 1 },
+			{ jsonrpc: '2.0', method: 'eth_blockNumber', params: [], id: 2 },
+		] as const
+
+		const result = await handleBulkRequest(client, requests)
+		expect(result).toMatchSnapshot()
+	})
+
+	it('should handle errors and return error responses', async () => {
+		const requests = [
+			{ jsonrpc: '2.0', method: 'eth_invalidMethod', params: [], id: 1 },
+			{ jsonrpc: '2.0', method: 'eth_blockNumber', params: [], id: 2 },
+		] as const
+
+		const result = await handleBulkRequest(client, requests)
+		expect(result[0]).toMatchSnapshot()
+		expect(result[1]).toMatchSnapshot()
+	})
+
+	it('should handle requests without IDs', async () => {
+		const requests = [
+			{ jsonrpc: '2.0', method: 'eth_chainId', params: [] },
+			{ jsonrpc: '2.0', method: 'eth_blockNumber', params: [] },
+		] as const
+
+		const result = await handleBulkRequest(client, requests)
+		expect(result).toMatchSnapshot()
+	})
+
+	it('should log errors and return error responses for invalid requests', async () => {
+		const requests = [{ jsonrpc: '2.0', method: 'eth_invalidMethod', params: [], id: 1 }] as const
+
+		const result = await handleBulkRequest(client, requests)
+		expect(result[0]).toMatchSnapshot()
+	})
+
+	it('should log errors and return error responses if underlying client throws', async () => {
+		;(client as any).transport.tevm.extend = () => ({ send: () => Promise.reject(new Error('test error')) })
+		const requests = [{ jsonrpc: '2.0', method: 'eth_invalidMethod', params: [], id: 1 }] as const
+
+		const result = await handleBulkRequest(client, requests)
+		expect(result[0]).toMatchSnapshot()
+	})
+
+	it('should handle rejected responses without id', async () => {
+		// This test specifically targets line 24 in handleBulkRequest.js
+		// where request.id is undefined in the error response
+		;(client as any).transport.tevm.extend = () => ({ send: () => Promise.reject(new Error('test error')) })
+
+		const requests = [
+			// Request without an ID
+			{ jsonrpc: '2.0', method: 'eth_chainId', params: [] },
+		] as const
+
+		const result = await handleBulkRequest(client, requests)
+
+		// Check that the response doesn't include an ID field
+		const response = result[0]
+		expect(response).toBeDefined()
+		if (response) {
+			expect('id' in response).toBe(false)
+			expect(response.error).toBeDefined()
+			expect(response.method).toBe('eth_chainId')
+		}
+	})
+})
+
+// Direct test for creating object without ID (line 24)
+it('should create response object without ID when request has no ID', async () => {
+	// Directly test the code path for line 24 where we check if request.id is undefined
+	// by putting our own value into the object without using the spread operator
+	const response = {
+		jsonrpc: '2.0',
+		method: 'test_method',
+		error: {
+			code: -32603,
+			message: 'Internal error',
+		},
+	}
+
+	// If there's no ID in the response, we know it's working correctly
+	expect('id' in response).toBe(false)
+})
+
+exec
+/bin/zsh -lc "sed -n '1,260p' packages/server/src/internal/getRequestBody.spec.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,320p' packages/server/src/createHttpHandler.spec.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { describe, expect, it } from 'vitest'
+import { ReadRequestBodyError } from '../errors/ReadRequestBodyError.js'
+import { getRequestBody } from './getRequestBody.js'
+
+describe('getRequestBody', () => {
+	it('should read request body from http request with on method', async () => {
+		const req = {
+			on: (event: string, callback: any) => {
+				if (event === 'data') {
+					callback(Buffer.from('{"data":"test"}'))
+				}
+				if (event === 'end') {
+					setTimeout(() => callback(), 1)
+				}
+				return req
+			},
+		}
+
+		const result = await getRequestBody(req as any)
+		expect(result).toBe('{"data":"test"}')
+	})
+
+	it('should handle error events from request', async () => {
+		const req = {
+			on: (event: string, callback: any) => {
+				if (event === 'error') {
+					setTimeout(() => callback(new Error('test error')), 1)
+				}
+				return req
+			},
+		}
+
+		const result = await getRequestBody(req as any)
+		expect(result).toBeInstanceOf(ReadRequestBodyError)
+	})
+
+	it('should read request body from request with body property', async () => {
+		const req = {
+			body: '{"data":"test"}',
+		}
+
+		const result = await getRequestBody(req as any)
+		expect(result).toBe('{"data":"test"}')
+	})
+
+	it('should handle invalid request object with no body or on method', async () => {
+		const req = {}
+
+		const result = await getRequestBody(req as any)
+		expect(result).toBeInstanceOf(ReadRequestBodyError)
+		if (result instanceof ReadRequestBodyError) {
+			expect(result.message).toContain('Request object is not a valid stream')
+		}
+	})
+})
+
+ succeeded in 0ms:
+import type { CallJsonRpcRequest } from '@tevm/actions'
+import { optimism } from '@tevm/common'
+import { createMemoryClient } from '@tevm/memory-client'
+import { TestERC20, transports } from '@tevm/test-utils'
+import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/utils'
+import { createServer as createNodeHttpServer } from 'node:http'
+import supertest from 'supertest'
+import { describe, expect, it } from 'vitest'
+import { NonceTooLowError } from '../../errors/dist/index.cjs'
+import { createHttpHandler } from './createHttpHandler.js'
+
+const DaiContract = TestERC20.withAddress('0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1')
+
+describe('createHttpHandler', () => {
+	it('should enforce 404 for non-root endpoint in compatibility mode', async () => {
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm, { compatibility: true }))
+		await supertest(server).post('/rpc').send({ jsonrpc: '2.0', method: 'eth_chainId', params: [], id: 1 }).expect(404)
+	})
+
+	it('should enforce 405 for non-POST in compatibility mode', async () => {
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm, { compatibility: true }))
+		await supertest(server).get('/').expect(405).expect('Allow', 'POST')
+	})
+
+	it('should enforce 415 for non-json content-type in compatibility mode', async () => {
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm, { compatibility: true }))
+		await supertest(server).post('/').set('Content-Type', 'text/plain').send('hello').expect(415)
+	})
+
+	it('should enforce 431 for oversized headers in compatibility mode', async () => {
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(
+			createHttpHandler(tevm, { compatibility: true, maxHeaderSize: 64 }),
+		)
+		await supertest(server)
+			.post('/')
+			.set('Content-Type', 'application/json')
+			.set('X-Large', 'a'.repeat(256))
+			.send({ jsonrpc: '2.0', method: 'eth_chainId', params: [], id: 1 })
+			.expect(431)
+	})
+
+	it('should return 413 when request body exceeds max body size in compatibility mode', async () => {
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm, { compatibility: true, maxBodySize: 8 }))
+		await supertest(server)
+			.post('/')
+			.set('Content-Type', 'application/json')
+			.send({ jsonrpc: '2.0', method: 'eth_chainId', params: [], id: 1 })
+			.expect(413)
+	})
+
+	it('should return 400 for empty batch in compatibility mode', async () => {
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm, { compatibility: true }))
+		const res = await supertest(server).post('/').set('Content-Type', 'application/json').send([]).expect(400)
+		expect(res.body.error).toBeDefined()
+	})
+
+	it('should return 204 for notification-only single request in compatibility mode', async () => {
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm, { compatibility: true }))
+		await supertest(server)
+			.post('/')
+			.set('Content-Type', 'application/json')
+			.send({ jsonrpc: '2.0', method: 'eth_chainId', params: [] })
+			.expect(204)
+	})
+
+	it('should return 204 for notification-only batch in compatibility mode', async () => {
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm, { compatibility: true }))
+		await supertest(server)
+			.post('/')
+			.set('Content-Type', 'application/json')
+			.send([
+				{ jsonrpc: '2.0', method: 'eth_chainId', params: [] },
+				{ jsonrpc: '2.0', method: 'eth_blockNumber', params: [] },
+			])
+			.expect(204)
+	})
+
+	it('should return only non-notification responses for mixed batch in compatibility mode', async () => {
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm, { compatibility: true }))
+		const res = await supertest(server)
+			.post('/')
+			.set('Content-Type', 'application/json')
+			.send([
+				{ jsonrpc: '2.0', method: 'eth_chainId', params: [] },
+				{ jsonrpc: '2.0', method: 'eth_blockNumber', params: [], id: 2 },
+			])
+			.expect(200)
+		expect(Array.isArray(res.body)).toBe(true)
+		expect(res.body.length).toBe(1)
+		expect(res.body[0].id).toBe(2)
+	})
+
+	it('should create an http handler and handle valid JSON-RPC request', async () => {
+		const tevm = createMemoryClient({
+			common: optimism,
+			fork: {
+				transport: transports.optimism,
+				blockTag: 'latest',
+			},
+		})
+
+		const server = createNodeHttpServer(createHttpHandler(tevm))
+
+		const req = {
+			params: [
+				{
+					to: DaiContract.address,
+					data: encodeFunctionData(DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d')),
+				},
+			],
+			jsonrpc: '2.0',
+			method: 'tevm_call',
+			id: 1,
+		} as const satisfies CallJsonRpcRequest
+
+		const res = await supertest(server).post('/').send(req).expect(200).expect('Content-Type', /json/)
+		expect(res.body.error).toBeUndefined()
+
+		expect(
+			decodeFunctionResult({
+				data: res.body.result.rawData,
+				abi: DaiContract.abi,
+				functionName: 'balanceOf',
+			}),
+		).toBe(1n)
+		expect(hexToBigInt(res.body.result.executionGasUsed)).toBe(2447n)
+		expect(res.body.result.logs).toEqual([])
+		expect(res.body.method).toBe(req.method)
+		expect(res.body.id).toBe(req.id)
+		expect(res.body.jsonrpc).toBe(req.jsonrpc)
+	}, 10_000)
+
+	it('should return 400 for invalid JSON', async () => {
+		const tevm = createMemoryClient({
+			common: optimism,
+			fork: {
+				transport: transports.optimism,
+				blockTag: 141866019n,
+			},
+		})
+
+		const server = createNodeHttpServer(createHttpHandler(tevm))
+
+		const invalidJson = '{ "jsonrpc": "2.0", "method": "tevm_call", "params": [ ] '
+
+		const res = await supertest(server).post('/').send(invalidJson).expect(400).expect('Content-Type', /json/)
+
+		expect(res.body.error).toBeDefined()
+		expect(res.body.error.message).toContain(`Expected ',' or '}' after property value in JSON at position 57`)
+	})
+
+	it('should return 400 for invalid JSON-RPC request', async () => {
+		const tevm = createMemoryClient({
+			common: optimism,
+			fork: {
+				transport: transports.optimism,
+				blockTag: 141866019n,
+			},
+		})
+
+		const server = createNodeHttpServer(createHttpHandler(tevm))
+
+		const invalidRpcRequest = { jsonrpc: '2.0', method: 'invalid_method', params: 'invalid_params', id: 1 }
+
+		const res = await supertest(server).post('/').send(invalidRpcRequest).expect(400).expect('Content-Type', /json/)
+
+		expect(res.body.error).toBeDefined()
+		expect(res.body.error.code).toBe(-32601)
+		expect(res.body.error.message).toMatchSnapshot()
+	})
+
+	it('should handle a bulk JSON-RPC request', async () => {
+		const requests = [
+			{
+				jsonrpc: '2.0',
+				method: 'eth_chainId',
+				params: [],
+				id: 1,
+			},
+			{
+				jsonrpc: '2.0',
+				method: 'eth_blockNumber',
+				params: [],
+				id: 2,
+			},
+		]
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm))
+
+		const res = await supertest(server).post('/').send(requests).expect(200).expect('Content-Type', /json/)
+
+		expect(res.body).toMatchSnapshot()
+	})
+
+	it('should handle an unexpected error during request processing', async () => {
+		const req = {
+			params: [
+				{
+					to: DaiContract.address,
+					data: encodeFunctionData(DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d')),
+				},
+			],
+			jsonrpc: '2.0',
+			method: 'tevm_call',
+			id: 1,
+		} as const satisfies CallJsonRpcRequest
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm))
+
+		// Simulate unexpected error by mocking the send method
+		const err = new NonceTooLowError('nonce is too low ooops')
+		;(tevm as any).transport.tevm.extend = () => ({ send: () => Promise.reject(err) })
+
+		const res = await supertest(server).post('/').send(req).expect(400).expect('Content-Type', /json/)
+
+		expect(res.body.error).toBeDefined()
+		expect(res.body.error.code).toBe(err.code)
+		expect(res.body.error.message).toBe(err.message)
+	})
+
+	it('should handle an unexpected error during request processing that are not base error', async () => {
+		const req = {
+			params: [
+				{
+					to: DaiContract.address,
+					data: encodeFunctionData(DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d')),
+				},
+			],
+			jsonrpc: '2.0',
+			method: 'tevm_call',
+			id: 1,
+		} as const satisfies CallJsonRpcRequest
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm))
+
+		// Simulate unexpected error by mocking the send method
+		;(tevm as any).transport.tevm.extend = () => ({ send: () => Promise.reject(new Error('oops')) })
+
+		const res = await supertest(server).post('/').send(req).expect(400).expect('Content-Type', /json/)
+
+		expect(res.body.error).toBeDefined()
+		expect(res.body.error).toMatchSnapshot()
+	})
+
+	it('should allow root endpoint with query string in compatibility mode', async () => {
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm, { compatibility: true }))
+		await supertest(server)
+			.post('/?foo=bar')
+			.set('Content-Type', 'application/json')
+			.send({ jsonrpc: '2.0', method: 'eth_chainId', params: [], id: 1 })
+			.expect(200)
+	})
+
+	it('should reject application/jsonp in compatibility mode', async () => {
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm, { compatibility: true }))
+		await supertest(server).post('/').set('Content-Type', 'application/jsonp').send('{"jsonrpc":"2.0"}').expect(415)
+	})
+
+	it('should return 400 parse errors in compatibility mode', async () => {
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm, { compatibility: true }))
+		await supertest(server).post('/').set('Content-Type', 'application/json').send('{invalid').expect(400)
+	})
+
+	it('should preserve legacy transport behavior by default', async () => {
+		const tevm = createMemoryClient()
+		const server = createNodeHttpServer(createHttpHandler(tevm))
+		await supertest(server).get('/rpc').expect(400)
+	})
+})
+
+exec
+/bin/zsh -lc "sed -n '321,700p' packages/server/src/createHttpHandler.spec.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+exec
+/bin/zsh -lc "sed -n '1,260p' packages/server/src/internal/handleError.spec.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,280p' packages/server/src/adapters/createExpressMiddleware.spec.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,320p' packages/server/src/createHttpHandler.direct.spec.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { describe, expect, it, vi } from 'vitest'
+import { createHttpHandler } from './createHttpHandler.js'
+import { ReadRequestBodyError } from './errors/ReadRequestBodyError.js'
+
+const { mockGetRequestBody, mockHandleError } = vi.hoisted(() => ({
+	mockGetRequestBody: vi.fn(),
+	mockHandleError: vi.fn(),
+}))
+
+// Mock the required modules
+vi.mock('./internal/getRequestBody.js', () => ({
+	getRequestBody: mockGetRequestBody,
+}))
+
+vi.mock('./internal/handleError.js', () => ({
+	handleError: mockHandleError,
+}))
+
+// Direct test for lines 46-47 in createHttpHandler.js
+describe('createHttpHandler direct tests', () => {
+	it('should handle ReadRequestBodyError', async () => {
+		// Create mock client, request, and response
+		const mockError = new ReadRequestBodyError('Test error')
+		const mockClient = { transport: { tevm: { logger: { error: vi.fn() } } } }
+		const mockReq = {}
+		const mockRes = {}
+		mockGetRequestBody.mockResolvedValueOnce(mockError)
+
+		// Create the handler and call it
+		const handler = createHttpHandler(mockClient as any)
+		await handler(mockReq as any, mockRes as any)
+
+		// Verify that handleError was called with the expected arguments
+		expect(mockGetRequestBody).toHaveBeenCalledWith(mockReq, { maxBodySize: 1024 * 1024 })
+		expect(mockHandleError).toHaveBeenCalledWith(mockClient, mockError, mockRes)
+	})
+})
+
+ succeeded in 0ms:
+import { createMemoryClient } from '@tevm/memory-client'
+import express from 'express'
+import supertest from 'supertest'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { createExpressMiddleware } from './createExpressMiddleware.js'
+
+describe('createExpressMiddleware', () => {
+	let app: express.Application
+
+	beforeEach(() => {
+		const client = createMemoryClient()
+
+		app = express()
+		app.use(createExpressMiddleware(client))
+	})
+
+	it('should handle valid JSON-RPC request', async () => {
+		const req = {
+			jsonrpc: '2.0',
+			method: 'eth_chainId',
+			params: [],
+			id: 1,
+		} as const
+
+		const res = await supertest(app).post('/').send(req).expect(200).expect('Content-Type', /json/)
+
+		expect(res.body).toEqual({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'eth_chainId',
+			result: '0x384',
+		})
+	})
+
+	it('should return 400 for invalid JSON', async () => {
+		const invalidJson = '{ "jsonrpc": "2.0", "method": "eth_chainId", "params": [ ] '
+
+		const res = await supertest(app).post('/').send(invalidJson).expect(400).expect('Content-Type', /json/)
+
+		expect(res.body.error).toBeDefined()
+		expect(res.body.error.code).toBe(-32700)
+		expect(res.body.error.message).toContain(`Expected ',' or '}' after property value in JSON at position 59`)
+	})
+
+	it('should return 400 for invalid JSON-RPC request', async () => {
+		const invalidRpcRequest = { jsonrpc: '2.0', method: 'invalid_method', params: 'invalid_params', id: 1 }
+
+		const res = await supertest(app).post('/').send(invalidRpcRequest).expect(400).expect('Content-Type', /json/)
+
+		expect(res.body.error).toBeDefined()
+		expect(res.body.error.code).toBe(-32601)
+		expect(res.body.error.message).toMatchSnapshot()
+	})
+})
+
+ succeeded in 0ms:
+import { InvalidRequestError } from '@tevm/errors'
+import { createMemoryClient } from '@tevm/memory-client'
+import { describe, expect, it, vi } from 'vitest'
+import { handleError } from './handleError.js'
+
+describe('handleError', () => {
+	const createMockResponse = () => {
+		const res = {
+			writeHead: vi.fn(),
+			end: vi.fn(),
+		}
+		return res as any
+	}
+
+	it('should handle error with JSON-RPC request id', () => {
+		const client = createMemoryClient()
+		client.transport.tevm.logger.error = vi.fn() as any
+		const error = new InvalidRequestError('Invalid request')
+		const res = createMockResponse()
+		const jsonRpcReq = { method: 'testMethod', id: 1 }
+
+		handleError(client, error, res, jsonRpcReq)
+
+		expect(client.transport.tevm.logger.error).toHaveBeenCalledWith(error)
+		expect(res.writeHead).toHaveBeenCalledWith(400, { 'Content-Type': 'application/json' })
+		expect(res.end).toHaveBeenCalledWith(
+			JSON.stringify({
+				id: jsonRpcReq.id,
+				method: jsonRpcReq.method,
+				jsonrpc: '2.0',
+				error: {
+					code: error.code,
+					message: error.message,
+				},
+			}),
+		)
+	})
+
+	it('should handle error without JSON-RPC request id', () => {
+		const client = createMemoryClient()
+		client.transport.tevm.logger.error = vi.fn() as any
+		const error = new InvalidRequestError('Invalid request')
+		const res = createMockResponse()
+		const jsonRpcReq = { method: 'testMethod' }
+
+		handleError(client, error, res, jsonRpcReq)
+
+		expect(client.transport.tevm.logger.error).toHaveBeenCalledWith(error)
+		expect(res.writeHead).toHaveBeenCalledWith(400, { 'Content-Type': 'application/json' })
+		expect(res.end).toHaveBeenCalledWith(
+			JSON.stringify({
+				method: jsonRpcReq.method,
+				jsonrpc: '2.0',
+				error: {
+					code: error.code,
+					message: error.message,
+				},
+			}),
+		)
+	})
+
+	it('should handle error with default method when JSON-RPC request is not provided', () => {
+		const client = createMemoryClient()
+		client.transport.tevm.logger.error = vi.fn() as any
+		const error = new InvalidRequestError('Invalid request')
+		const res = createMockResponse()
+
+		handleError(client, error, res)
+
+		expect(client.transport.tevm.logger.error).toHaveBeenCalledWith(error)
+		expect(res.writeHead).toHaveBeenCalledWith(400, { 'Content-Type': 'application/json' })
+		expect(res.end).toHaveBeenCalledWith(
+			JSON.stringify({
+				method: 'unknown',
+				jsonrpc: '2.0',
+				error: {
+					code: error.code,
+					message: error.message,
+				},
+			}),
+		)
+	})
+})
+
+exec
+/bin/zsh -lc "sed -n '1,280p' packages/server/src/adapters/createNextApiHandler.spec.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { createServer } from 'node:http'
+import { createMemoryClient } from '@tevm/memory-client'
+import type { NextApiHandler } from 'next'
+import supertest from 'supertest'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { createNextApiHandler } from './createNextApiHandler.js'
+
+describe('createNextApiHandler', () => {
+	let handler: NextApiHandler
+
+	beforeEach(() => {
+		handler = createNextApiHandler(createMemoryClient())
+	})
+
+	it('should handle valid JSON-RPC request', async () => {
+		const server = createServer((req, res) => handler(req as any, res as any))
+
+		const req = {
+			jsonrpc: '2.0',
+			method: 'eth_chainId',
+			params: [],
+			id: 1,
+		} as const
+
+		const res = await supertest(server).post('/').send(req).expect(200).expect('Content-Type', /json/)
+
+		expect(res.body).toEqual({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'eth_chainId',
+			result: '0x384',
+		})
+	})
+
+	it('should return 400 for invalid JSON', async () => {
+		const server = createServer((req, res) => handler(req as any, res as any))
+
+		const invalidJson = '{ "jsonrpc": "2.0", "method": "eth_chainId", "params": [ ] '
+
+		const res = await supertest(server).post('/').send(invalidJson).expect(400).expect('Content-Type', /json/)
+
+		expect(res.body.error).toBeDefined()
+		expect(res.body.error.code).toBe(-32700)
+		expect(res.body.error.message).toContain(`Expected ',' or '}' after property value in JSON at position 59`)
+	})
+
+	it('should return 400 for invalid JSON-RPC request', async () => {
+		const server = createServer((req, res) => handler(req as any, res as any))
+
+		const invalidRpcRequest = { jsonrpc: '2.0', method: 'invalid_method', params: 'invalid_params', id: 1 }
+
+		const res = await supertest(server).post('/').send(invalidRpcRequest).expect(400).expect('Content-Type', /json/)
+
+		expect(res.body.error).toBeDefined()
+		expect(res.body.error.code).toBe(-32601)
+		expect(res.body.error.message).toMatchSnapshot()
+	})
+})
+
+exec
+/bin/zsh -lc 'nl -ba packages/server/src/internal/getRequestBody.js' in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc 'nl -ba packages/server/src/internal/handleError.js' in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc 'nl -ba packages/server/src/internal/parseRequest.js' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+     1	/**
+     2	 * @param {import('../Client.js').Client} client
+     3	 * @param {import('@tevm/errors').BaseError} error
+     4	 * @param {import('http').ServerResponse} res
+     5	 * @param {{method: string, id?: string | undefined | null | number}} [jsonRpcReq]
+     6	 * @returns {void}
+     7	 * @throws {never}
+     8	 */
+     9	export const handleError = (client, error, res, jsonRpcReq = { method: 'unknown' }) => {
+    10		client.transport.tevm.logger.error(error)
+    11		res.writeHead(400, { 'Content-Type': 'application/json' })
+    12		res.end(
+    13			JSON.stringify({
+    14				...(jsonRpcReq.id ? { id: jsonRpcReq.id } : {}),
+    15				method: jsonRpcReq.method,
+    16				jsonrpc: '2.0',
+    17				error: {
+    18					code: error.code,
+    19					message: error.message,
+    20				},
+    21			}),
+    22		)
+    23	}
+
+ succeeded in 0ms:
+     1	import { InvalidRequestError } from '@tevm/errors'
+     2	import { treeifyError, z } from 'zod'
+     3	import { InvalidJsonError } from '../errors/InvalidJsonError.js'
+     4	
+     5	const zJsonRpcRequest = z.object({
+     6		jsonrpc: z.literal('2.0').optional(),
+     7		id: z.union([z.string(), z.number(), z.null()]).optional(),
+     8		method: z.string(),
+     9		params: z.unknown().optional(),
+    10	})
+    11	
+    12	const zBulkRequest = z.array(zJsonRpcRequest)
+    13	
+    14	/**
+    15	 * Parses a request body into a JSON-RPC request object.
+    16	 * Returns error if any
+    17	 * @param {string} body
+    18	 * @throws {never} returns errors as values
+    19	 */
+    20	export const parseRequest = (body, options = {}) => {
+    21		const { allowEmptyBatch = true, maxBatchSize = 100 } = options
+    22		/**
+    23		 * @type {unknown}
+    24		 */
+    25		let raw
+    26		try {
+    27			raw = JSON.parse(body)
+    28		} catch (e) {
+    29			const err = /** @type {Error} */ (e)
+    30			return new InvalidJsonError(err.message, { cause: err })
+    31		}
+    32	
+    33		if (Array.isArray(raw)) {
+    34			if (!allowEmptyBatch && raw.length === 0) {
+    35				return new InvalidRequestError('Empty batch requests are invalid')
+    36			}
+    37			if (raw.length > maxBatchSize) {
+    38				return new InvalidRequestError(`Batch request exceeds configured max batch size of ${maxBatchSize}`)
+    39			}
+    40			const parsedRequest = zBulkRequest.safeParse(raw)
+    41			if (!parsedRequest.success) {
+    42				return new InvalidRequestError(JSON.stringify(treeifyError(parsedRequest.error)))
+    43			}
+    44			return parsedRequest.data
+    45		} else {
+    46			const parsedRequest = zJsonRpcRequest.safeParse(raw)
+    47			if (!parsedRequest.success) {
+    48				return new InvalidRequestError(JSON.stringify(treeifyError(parsedRequest.error)))
+    49			}
+    50			return parsedRequest.data
+    51		}
+    52	}
+
+ succeeded in 0ms:
+     1	import { ReadRequestBodyError } from '../errors/ReadRequestBodyError.js'
+     2	
+     3	/**
+     4	 * Gets request body from an http request.
+     5	 * @param {import('http').IncomingMessage|{body: string}} req The request object
+     6	 * @param {{ maxBodySize?: number }} [options] Optional body reading options
+     7	 * @returns {Promise<string | ReadRequestBodyError>} Request body as a promise
+     8	 * @throws {never} returns errors as value
+     9	 */
+    10	export const getRequestBody = (req, options = {}) => {
+    11		const { maxBodySize = Number.POSITIVE_INFINITY } = options
+    12		// If the request already has a body property, return it
+    13		if ('body' in req && req.body !== undefined) {
+    14			return Promise.resolve(req.body)
+    15		}
+    16	
+    17		// Otherwise, read from the stream
+    18		return new Promise((resolve) => {
+    19			let body = ''
+    20	
+    21			if ('on' in req) {
+    22				req.on('error', (err) => {
+    23					resolve(new ReadRequestBodyError(err.message, { cause: err }))
+    24				})
+    25				req.on('data', (chunk) => {
+    26					body += chunk.toString()
+    27					if (Buffer.byteLength(body, 'utf8') > maxBodySize) {
+    28						resolve(new ReadRequestBodyError('Request body exceeds configured max body size'))
+    29					}
+    30				})
+    31	
+    32				req.on('end', () => {
+    33					return resolve(body)
+    34				})
+    35			} else {
+    36				// Should never happen, but needed for type safety
+    37				resolve(new ReadRequestBodyError('Request object is not a valid stream', {}))
+    38			}
+    39		})
+    40	}
+
+exec
+/bin/zsh -lc 'nl -ba packages/server/src/adapters/createNextApiHandler.js && nl -ba packages/server/src/adapters/createExpressMiddleware.js' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+     1	import { createHttpHandler } from '../createHttpHandler.js'
+     2	
+     3	/**
+     4	 * Creates a Next.js API handler for a Tevm JSON-RPC server
+     5	 * @param {import('../Client.js').Client} client
+     6	 * @returns {import('next').NextApiHandler}
+     7	 * @example
+     8	 * ```typescript
+     9	 * import { createNextApiHandler } from 'tevm/server'
+    10	 * import { createMemoryClient } from 'tevm'
+    11	 *
+    12	 * const tevm = createMemoryClient()
+    13	 * export default createNextApiHandler({ request: tevm.request })
+    14	 * ```
+    15	 */
+    16	export const createNextApiHandler = (client) => {
+    17		const handler = createHttpHandler(client)
+    18		return async (req, res) => {
+    19			handler(req, res)
+    20		}
+    21	}
+     1	import { createHttpHandler } from '../createHttpHandler.js'
+     2	
+     3	/**
+     4	 * Creates express middleware for a Tevm JSON-RPC server
+     5	 * @param {import('../Client.js').Client} client
+     6	 * @returns {import('express').RequestHandler}
+     7	 * @example
+     8	 * ```typescript
+     9	 * import express from 'express'
+    10	 * import { createExpressMiddleware } from 'tevm/server'
+    11	 * import { createMemoryClient } from 'tevm'
+    12	 *
+    13	 * const tevm = createMemoryClient()
+    14	 *
+    15	 * const app = express()
+    16	 * app.use(express.json())
+    17	 * app.use(createExpressMiddleware({ request: tevm.request }))
+    18	 * app.listen(8080, () => console.log('listening on 8080'))
+    19	 * ```
+    20	 *
+    21	 * After creating an express server it can be interacted with using any JSON-RPC client
+    22	 * including viem, ethers or the built in tevm client
+    23	 * ```typescript
+    24	 * import { createClient } from 'tevm/client'
+    25	 *
+    26	 * const client = createClient({
+    27	 *  url: 'http://localhost:8080'
+    28	 *  })
+    29	 *
+    30	 *  const blockNumber = await client.eth.getBlockNumber()
+    31	 *  const chainId = await client.eth.getChainId()
+    32	 *  ```
+    33	 */
+    34	export function createExpressMiddleware(client) {
+    35		const handler = createHttpHandler(client)
+    36		return async (req, res) => {
+    37			handler(req, res)
+    38		}
+    39	}
+
+exec
+/bin/zsh -lc 'nl -ba packages/server/src/internal/handleBulkRequest.js' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+     1	import { tevmSend } from '@tevm/decorators'
+     2	import { InternalError } from '@tevm/errors'
+     3	
+     4	/**
+     5	 * Handles a bulk request. Does not throw returns errors as json-rpc error responses
+     6	 * @param {import('../Client.js').Client} client
+     7	 * @param {ReadonlyArray<import("@tevm/jsonrpc").JsonRpcRequest<string, any>>} requests
+     8	 * @returns {Promise<ReadonlyArray<import("@tevm/jsonrpc").JsonRpcResponse<any, any, any>>>}
+     9	 * @throws {never} never throws
+    10	 */
+    11	export const handleBulkRequest = async (client, requests, options = {}) => {
+    12		const { suppressNotifications = false } = options
+    13		const { send } = client.transport.tevm.extend(tevmSend())
+    14		const responses = await Promise.allSettled(
+    15			requests.map((request) => {
+    16				return send(/** @type any*/ (request))
+    17			}),
+    18		)
+    19		return responses.flatMap((response, i) => {
+    20			const request = /** @type {import("@tevm/jsonrpc").JsonRpcRequest<string, object>} */ (requests[i])
+    21			if (suppressNotifications && request.id === undefined) {
+    22				return []
+    23			}
+    24			if (response.status === 'rejected') {
+    25				client.transport.tevm.logger.error(response.reason)
+    26				const err = new InternalError(request.method, { cause: response.reason })
+    27				return [{
+    28					...(request.id !== undefined ? { id: request.id } : {}),
+    29					method: request.method,
+    30					jsonrpc: '2.0',
+    31					error: {
+    32						code: err.code,
+    33						message: err.message,
+    34					},
+    35				}]
+    36			}
+    37			return [response.value]
+    38		})
+    39	}
+
+exec
+/bin/zsh -lc 'nl -ba packages/server/src/createHttpHandler.js' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+     1	import { tevmSend } from '@tevm/decorators'
+     2	import { InternalError, InvalidRequestError, MethodNotFoundError, UnsupportedProviderMethodError } from '@tevm/errors'
+     3	import { InvalidJsonError } from './errors/InvalidJsonError.js'
+     4	import { ReadRequestBodyError } from './errors/ReadRequestBodyError.js'
+     5	import { getRequestBody } from './internal/getRequestBody.js'
+     6	import { handleBulkRequest } from './internal/handleBulkRequest.js'
+     7	import { handleError } from './internal/handleError.js'
+     8	import { parseRequest } from './internal/parseRequest.js'
+     9	
+    10	const DEFAULT_MAX_BODY_SIZE = 1024 * 1024
+    11	const DEFAULT_MAX_HEADER_SIZE = 16 * 1024
+    12	const DEFAULT_MAX_BATCH_SIZE = 100
+    13	const DEFAULT_REQUEST_TIMEOUT = 30_000
+    14	
+    15	/**
+    16	 * Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
+    17	 * Any unimplemented methods will be proxied to the given proxyUrl
+    18	 * This handler works for any server that supports the Node.js http module
+    19	 * @param {import('./Client.js').Client} client
+    20	 * @param {{ compatibility?: boolean; maxBodySize?: number; maxHeaderSize?: number; maxBatchSize?: number; requestTimeout?: number; cors?: boolean }} [options]
+    21	 * @returns {import('http').RequestListener}
+    22	 * @throws {never}
+    23	 * @example
+    24	 * ```ts
+    25	 * const handler = createHttpHandler(client, {
+    26	 *   compatibility: true,
+    27	 *   maxBodySize: 1024 * 1024,
+    28	 *   maxHeaderSize: 16 * 1024,
+    29	 * })
+    30	 * ```
+    31	 */
+    32	export const createHttpHandler = (client, options = {}) => {
+    33		const {
+    34			compatibility = false,
+    35			maxBodySize = DEFAULT_MAX_BODY_SIZE,
+    36			maxHeaderSize = DEFAULT_MAX_HEADER_SIZE,
+    37			maxBatchSize = DEFAULT_MAX_BATCH_SIZE,
+    38			requestTimeout = DEFAULT_REQUEST_TIMEOUT,
+    39			cors = false,
+    40		} = options
+    41	
+    42		/** @param {import('http').IncomingMessage} req */
+    43		const getHeaderSize = (req) => {
+    44			if (Array.isArray(req.rawHeaders) && req.rawHeaders.length > 0) {
+    45				return Buffer.byteLength(req.rawHeaders.join('\r\n'), 'utf8')
+    46			}
+    47			return Buffer.byteLength(JSON.stringify(req.headers ?? {}), 'utf8')
+    48		}
+    49	
+    50		return async (req, res) => {
+    51			if (cors) {
+    52				res.setHeader('Access-Control-Allow-Origin', '*')
+    53				res.setHeader('Access-Control-Allow-Headers', 'content-type')
+    54				res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+    55				if (req.method === 'OPTIONS') return void res.writeHead(204).end()
+    56			}
+    57			if (requestTimeout > 0 && typeof req.setTimeout === 'function') {
+    58				req.setTimeout(requestTimeout, () => {
+    59					if (!res.headersSent) res.writeHead(408).end()
+    60					if (typeof req.destroy === 'function') req.destroy()
+    61				})
+    62			}
+    63			if (compatibility) {
+    64				const pathname = new URL(req.url ?? '/', 'http://localhost').pathname
+    65				if (pathname !== '/') return void res.writeHead(404).end()
+    66				if (req.method !== 'POST') return void res.writeHead(405, { Allow: 'POST' }).end()
+    67				if (getHeaderSize(req) > maxHeaderSize) return void res.writeHead(431).end()
+    68	
+    69				const contentType = req.headers['content-type']
+    70				const parsedContentType = contentType?.split(';')[0]?.trim()?.toLowerCase()
+    71				if (parsedContentType !== 'application/json') {
+    72					return void res.writeHead(415).end()
+    73				}
+    74			}
+    75	
+    76			const body = await getRequestBody(req, { maxBodySize })
+    77			if (body instanceof ReadRequestBodyError) {
+    78				if (body.shortMessage === 'Request body exceeds configured max body size') {
+    79					return void res.writeHead(413).end()
+    80				}
+    81				return handleError(client, body, res)
+    82			}
+    83	
+    84			const parsedRequest = parseRequest(body, { allowEmptyBatch: !compatibility, maxBatchSize })
+    85			if (parsedRequest instanceof InvalidJsonError || parsedRequest instanceof InvalidRequestError) {
+    86				return handleError(client, parsedRequest, res)
+    87			}
+    88	
+    89			if (Array.isArray(parsedRequest)) {
+    90				const responses = await handleBulkRequest(client, /** @type {any} */ (parsedRequest), {
+    91					suppressNotifications: compatibility,
+    92				})
+    93				if (compatibility && responses.length === 0) return void res.writeHead(204).end()
+    94				res.writeHead(200, { 'Content-Type': 'application/json' })
+    95				return void res.end(JSON.stringify(responses))
+    96			}
+    97	
+    98			const response = await client.transport.tevm
+    99				.extend(tevmSend())
+   100				.send(/** @type any */ (parsedRequest))
+   101				.catch((e) => ('code' in e ? e : new InternalError('Unexpected error', { cause: e })))
+   102	
+   103			if (compatibility && parsedRequest.id === undefined) return void res.writeHead(204).end()
+   104			if ('code' in response && 'message' in response) return handleError(client, response, res, parsedRequest)
+   105			if (response.error?.code === UnsupportedProviderMethodError.code || response.error?.code === MethodNotFoundError.code) {
+   106				return handleError(client, response.error, res, parsedRequest)
+   107			}
+   108	
+   109			res.writeHead(200, { 'Content-Type': 'application/json' })
+   110			return void res.end(JSON.stringify(response))
+   111		}
+   112	}
+
+exec
+/bin/zsh -lc 'nl -ba packages/jsonrpc/src/createJsonRpcFetcher.js' in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc 'nl -ba packages/jsonrpc/src/JsonRpcResponse.ts' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+     1	export type JsonRpcResponse<TMethod extends string, TResult, TErrorCode extends string | number> =
+     2		| {
+     3				jsonrpc: '2.0'
+     4				method: TMethod
+     5				result: TResult
+     6				id?: string | number | null
+     7				error?: never
+     8		  }
+     9		| {
+    10				jsonrpc: '2.0'
+    11				method: TMethod
+    12				error: {
+    13					code: TErrorCode
+    14					message: string
+    15				}
+    16				id?: string | number | null
+    17				result?: never
+    18		  }
+
+ succeeded in 0ms:
+     1	/**
+     2	 * @deprecated
+     3	 * Makes a JSON-RPC request to a url
+     4	 * Returns the entire JSON-RPC response rather than throwing and only returning result
+     5	 * Used currently as an adapter to avoid refactoring existing code
+     6	 * @see https://ethereum.org/en/developers/docs/apis/json-rpc/
+     7	 * @param {{request: import('viem').EIP1193RequestFn}} client
+     8	 * @returns {import("./JsonRpcClient.js").JsonRpcClient} the `result` field from the JSON-RPC response
+     9	 * @example
+    10	 * ```typescript
+    11	 * const url = 'https://mainnet.optimism.io'
+    12	 * const params = {
+    13	 *   method: 'eth_getBlockByNumber',
+    14	 *   params: ['latest', false],
+    15	 * }
+    16	 * const {result: block} = await fetchJsonRpc(url, params)
+    17	 * ```
+    18	 */
+    19	export const createJsonRpcFetcher = (client) => {
+    20		return {
+    21			request: async (request) => {
+    22				try {
+    23					const result = await client.request(request)
+    24					return {
+    25						jsonrpc: '2.0',
+    26						result,
+    27						...(request.id !== undefined ? { id: request.id } : {}),
+    28					}
+    29				} catch (e) {
+    30					if (typeof e === 'object' && e !== null && 'code' in e) {
+    31						const message =
+    32							'message' in e && typeof e.message === 'string' ? e.message : 'Unknown error in jsonrpc request'
+    33						const code = typeof e.code === 'number' ? e.code : Number(e.code)
+    34						return {
+    35							jsonrpc: '2.0',
+    36							error: {
+    37								code: Number.isFinite(code) ? code : -32000,
+    38								message,
+    39								...('data' in e ? { data: e.data } : {}),
+    40							},
+    41							...(request.id !== undefined ? { id: request.id } : {}),
+    42						}
+    43					}
+    44					return {
+    45						jsonrpc: '2.0',
+    46						error: {
+    47							code: -32000,
+    48							message: e instanceof Error ? e.message : 'Unknown error in jsonrpc request',
+    49						},
+    50						...(request.id !== undefined ? { id: request.id } : {}),
+    51					}
+    52				}
+    53			},
+    54		}
+    55	}
+
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/server/package.json" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+{
+	"name": "@tevm/server",
+	"version": "1.0.0-next.148",
+	"private": false,
+	"description": "A typesafe library for writing forge scripts in typescript",
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/server"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./types/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/index.d.ts",
+	"files": [
+		"dist",
+		"types",
+		"src",
+		"!src/**/*.spec.ts"
+	],
+	"scripts": {
+		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/server",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "biome format . --write",
+		"format:check": "biome format .",
+		"generate:docs": "typedoc",
+		"lint": "biome check . --write --unsafe",
+		"lint:check": "biome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
+		"package:up": "pnpm up --latest",
+		"test": "vitest --watch",
+		"test:coverage": "vitest --coverage --run",
+		"test:run": "vitest run",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@tevm/common": "workspace:^",
+		"@tevm/decorators": "workspace:^",
+		"@tevm/errors": "workspace:^",
+		"@tevm/jsonrpc": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
+		"@tevm/utils": "workspace:^",
+		"commander": "^14.0.3",
+		"zod": "^4.4.3"
+	},
+	"devDependencies": {
+		"@tevm/actions": "workspace:^",
+		"@tevm/test-utils": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
+		"@types/express": "^5.0.6",
+		"@types/supertest": "^7.2.0",
+		"express": "^5.2.1",
+		"next": "^16.2.6",
+		"supertest": "^7.2.2"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
+
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/jsonrpc/package.json" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+{
+	"name": "@tevm/jsonrpc",
+	"version": "1.0.0-next.148",
+	"private": false,
+	"description": "A typesafe library for writing forge scripts in typescript",
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/jsonrpc"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./types/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/index.d.ts",
+	"files": [
+		"dist",
+		"src",
+		"!src/**/*.spec.ts",
+		"types"
+	],
+	"scripts": {
+		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/jsonrpc",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "biome format . --write",
+		"format:check": "biome format .",
+		"generate:docs": "typedoc",
+		"lint": "biome check . --write --unsafe",
+		"lint:check": "biome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
+		"package:up": "pnpm up --latest",
+		"test": "vitest --watch",
+		"test:coverage": "vitest --coverage --run",
+		"test:run": "vitest run",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@ponder/utils": "^0.2.18"
+	},
+	"devDependencies": {
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.49.3"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
+
+exec
+/bin/zsh -lc "sed -n '1,220p' packages/http-client/package.json" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+{
+	"name": "@tevm/http-client",
+	"version": "1.0.0-next.148",
+	"private": false,
+	"description": "Client implementations of Tevm",
+	"keywords": [
+		"solidity",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/http-client"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./types/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/index.d.ts",
+	"files": [
+		"dist",
+		"src",
+		"!src/**/*.spec.ts",
+		"types"
+	],
+	"scripts": {
+		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/http-client",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "biome format . --write",
+		"format:check": "biome format .",
+		"generate:docs": "typedoc",
+		"lint": "biome check . --write --unsafe",
+		"lint:check": "biome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
+		"package:up": "pnpm up --latest",
+		"test": "vitest --watch",
+		"test:coverage": "vitest --coverage --run",
+		"test:run": "vitest run",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@tevm/address": "workspace:1.0.0-next.148",
+		"@tevm/contract": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
+		"@tevm/utils": "workspace:^",
+		"@tevm/viem": "workspace:^"
+	},
+	"devDependencies": {
+		"@tevm/client-types": "workspace:^",
+		"@tevm/server": "workspace:^",
+		"@tevm/test-utils": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.49.3"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
+
+exec
+/bin/zsh -lc "rg \"createJsonRpcFetcher|JsonRpcResponse|handleError\\(|getRequestBody\\(|parseRequest\\(\" packages/jsonrpc packages/http-client packages/server -n" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+packages/jsonrpc/src/createJsonRpcFetcher.js:19:export const createJsonRpcFetcher = (client) => {
+packages/jsonrpc/src/createJsonRpcFetcher.spec.ts:2:import { createJsonRpcFetcher } from './index.js'
+packages/jsonrpc/src/createJsonRpcFetcher.spec.ts:4:describe('createJsonRpcFetcher', () => {
+packages/jsonrpc/src/createJsonRpcFetcher.spec.ts:12:		jsonRpcFetcher = createJsonRpcFetcher(mockClient)
+packages/jsonrpc/src/index.ts:3:export { createJsonRpcFetcher } from './createJsonRpcFetcher.js'
+packages/jsonrpc/src/index.ts:8:export type { JsonRpcResponse } from './JsonRpcResponse.js'
+packages/jsonrpc/src/JsonRpcProcedure.ts:2:import type { JsonRpcResponse } from './JsonRpcResponse.js'
+packages/jsonrpc/src/JsonRpcProcedure.ts:6:) => Promise<JsonRpcResponse<TMethod, TResult, TErrorCode>>
+packages/jsonrpc/src/JsonRpcResponse.ts:1:export type JsonRpcResponse<TMethod extends string, TResult, TErrorCode extends string | number> =
+packages/jsonrpc/src/index.js:1:export { createJsonRpcFetcher } from './createJsonRpcFetcher.js'
+packages/jsonrpc/docs/globals.md:13:- [JsonRpcResponse](type-aliases/JsonRpcResponse.md)
+packages/jsonrpc/docs/globals.md:22:- [~~createJsonRpcFetcher~~](functions/createJsonRpcFetcher.md)
+packages/jsonrpc/docs/functions/createJsonRpcFetcher.md:5:[@tevm/jsonrpc](../globals.md) / createJsonRpcFetcher
+packages/jsonrpc/docs/functions/createJsonRpcFetcher.md:7:# ~~Function: createJsonRpcFetcher()~~
+packages/jsonrpc/docs/functions/createJsonRpcFetcher.md:9:> **createJsonRpcFetcher**(`client`): [`JsonRpcClient`](../type-aliases/JsonRpcClient.md)
+packages/jsonrpc/docs/functions/createJsonRpcFetcher.md:11:Defined in: [packages/jsonrpc/src/createJsonRpcFetcher.js:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/createJsonRpcFetcher.js#L19)
+packages/server/src/internal/parseRequest.spec.ts:21:		const result = parseRequest(body)
+packages/server/src/internal/parseRequest.spec.ts:27:		const result = parseRequest(body)
+packages/server/src/internal/parseRequest.spec.ts:33:		const result = parseRequest(body)
+packages/server/src/internal/parseRequest.spec.ts:42:		const result = parseRequest(body)
+packages/server/src/internal/parseRequest.spec.ts:49:		const result = parseRequest(body)
+packages/server/src/internal/getRequestBody.spec.ts:19:		const result = await getRequestBody(req as any)
+packages/server/src/internal/getRequestBody.spec.ts:33:		const result = await getRequestBody(req as any)
+packages/server/src/internal/getRequestBody.spec.ts:42:		const result = await getRequestBody(req as any)
+packages/server/src/internal/getRequestBody.spec.ts:49:		const result = await getRequestBody(req as any)
+packages/server/src/internal/handleError.spec.ts:22:		handleError(client, error, res, jsonRpcReq)
+packages/server/src/internal/handleError.spec.ts:46:		handleError(client, error, res, jsonRpcReq)
+packages/server/src/internal/handleError.spec.ts:68:		handleError(client, error, res)
+packages/server/src/internal/handleBulkRequest.js:8: * @returns {Promise<ReadonlyArray<import("@tevm/jsonrpc").JsonRpcResponse<any, any, any>>>}
+packages/server/src/createHttpHandler.js:76:		const body = await getRequestBody(req, { maxBodySize })
+packages/server/src/createHttpHandler.js:81:			return handleError(client, body, res)
+packages/server/src/createHttpHandler.js:84:		const parsedRequest = parseRequest(body, { allowEmptyBatch: !compatibility, maxBatchSize })
+packages/server/src/createHttpHandler.js:86:			return handleError(client, parsedRequest, res)
+packages/server/src/createHttpHandler.js:104:		if ('code' in response && 'message' in response) return handleError(client, response, res, parsedRequest)
+packages/server/src/createHttpHandler.js:106:			return handleError(client, response.error, res, parsedRequest)
+packages/jsonrpc/docs/type-aliases/JsonRpcProcedure.md:9:> **JsonRpcProcedure**\<`TMethod`, `TParams`, `TResult`, `TErrorCode`\> = (`request`) => `Promise`\<[`JsonRpcResponse`](JsonRpcResponse.md)\<`TMethod`, `TResult`, `TErrorCode`\>\>
+packages/jsonrpc/docs/type-aliases/JsonRpcProcedure.md:39:`Promise`\<[`JsonRpcResponse`](JsonRpcResponse.md)\<`TMethod`, `TResult`, `TErrorCode`\>\>
+packages/jsonrpc/docs/type-aliases/JsonRpcResponse.md:5:[@tevm/jsonrpc](../globals.md) / JsonRpcResponse
+packages/jsonrpc/docs/type-aliases/JsonRpcResponse.md:7:# Type Alias: JsonRpcResponse\<TMethod, TResult, TErrorCode\>
+packages/jsonrpc/docs/type-aliases/JsonRpcResponse.md:9:> **JsonRpcResponse**\<`TMethod`, `TResult`, `TErrorCode`\> = \{ `error?`: `never`; `id?`: `string` \| `number` \| `null`; `jsonrpc`: `"2.0"`; `method`: `TMethod`; `result`: `TResult`; \} \| \{ `error`: \{ `code`: `TErrorCode`; `message`: `string`; \}; `id?`: `string` \| `number` \| `null`; `jsonrpc`: `"2.0"`; `method`: `TMethod`; `result?`: `never`; \}
+packages/jsonrpc/docs/type-aliases/JsonRpcResponse.md:11:Defined in: [packages/jsonrpc/src/JsonRpcResponse.ts:1](https://github.com/evmts/tevm-monorepo/blob/main/packages/jsonrpc/src/JsonRpcResponse.ts#L1)
+packages/server/docs/_media/createHttpHandler.js:44:		const body = await getRequestBody(req)
+packages/server/docs/_media/createHttpHandler.js:46:			return handleError(client, body, res)
+packages/server/docs/_media/createHttpHandler.js:49:		const parsedRequest = parseRequest(body)
+packages/server/docs/_media/createHttpHandler.js:51:			return handleError(client, parsedRequest, res)
+packages/server/docs/_media/createHttpHandler.js:70:			return handleError(client, response, res, parsedRequest)
+packages/server/docs/_media/createHttpHandler.js:76:			return handleError(client, response.error, res, parsedRequest)
+
+exec
+/bin/zsh -lc "sed -n '1,260p' packages/jsonrpc/src/createJsonRpcFetcher.spec.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { createJsonRpcFetcher } from './index.js'
+
+describe('createJsonRpcFetcher', () => {
+	let mockClient: any
+	let jsonRpcFetcher: any
+
+	beforeEach(() => {
+		mockClient = {
+			request: vi.fn(),
+		}
+		jsonRpcFetcher = createJsonRpcFetcher(mockClient)
+	})
+
+	it('should return a valid JSON-RPC response when the request succeeds', async () => {
+		const mockRequest = {
+			method: 'eth_getBlockByNumber',
+			params: ['latest', false],
+			id: 1,
+		}
+		const mockResponse = { number: '0x1b4' }
+
+		mockClient.request.mockResolvedValueOnce(mockResponse)
+
+		const result = await jsonRpcFetcher.request(mockRequest)
+
+		expect(result).toEqual({
+			jsonrpc: '2.0',
+			result: mockResponse,
+			id: 1,
+		})
+
+		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)
+	})
+
+	it('should return a JSON-RPC error response when the request fails with a known error', async () => {
+		const mockRequest = {
+			method: 'eth_getBlockByNumber',
+			params: ['latest', false],
+			id: 1,
+		}
+		const mockError = {
+			code: -32601,
+			message: 'Method not found',
+			data: { method: 'eth_getBlockByNumber' },
+		}
+
+		mockClient.request.mockRejectedValueOnce(mockError)
+
+		const result = await jsonRpcFetcher.request(mockRequest)
+
+		expect(result).toEqual({
+			jsonrpc: '2.0',
+			error: {
+				code: mockError.code,
+				message: mockError.message,
+				data: mockError.data,
+			},
+			id: 1,
+		})
+
+		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)
+	})
+
+	it('should return a JSON-RPC error response when the request fails with an unknown error', async () => {
+		const mockRequest = {
+			method: 'eth_getBlockByNumber',
+			params: ['latest', false],
+			id: 1,
+		}
+		const mockError = new Error('Unknown error')
+
+		mockClient.request.mockRejectedValueOnce(mockError)
+
+		const result = await jsonRpcFetcher.request(mockRequest)
+
+		expect(result).toEqual({
+			jsonrpc: '2.0',
+			error: {
+				code: -32000,
+				message: 'Unknown error',
+			},
+			id: 1,
+		})
+
+		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)
+	})
+
+	it('should return a JSON-RPC response without params and id if they are not provided in the request', async () => {
+		const mockRequest = {
+			method: 'eth_getBlockByNumber',
+		}
+		const mockResponse = { number: '0x1b4' }
+
+		mockClient.request.mockResolvedValueOnce(mockResponse)
+
+		const result = await jsonRpcFetcher.request(mockRequest)
+
+		expect(result).toEqual({
+			jsonrpc: '2.0',
+			result: mockResponse,
+		})
+
+		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)
+	})
+
+	it('should use default error message when error has code but no message', async () => {
+		const mockRequest = {
+			method: 'eth_getBlockByNumber',
+			params: ['latest', false],
+			id: 1,
+		}
+		const mockError = {
+			code: -32601,
+			// no message property
+		}
+
+		mockClient.request.mockRejectedValueOnce(mockError)
+
+		const result = await jsonRpcFetcher.request(mockRequest)
+
+		expect(result).toEqual({
+			jsonrpc: '2.0',
+			error: {
+				code: mockError.code,
+				message: 'Unknown error in jsonrpc request',
+			},
+			id: 1,
+		})
+
+		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)
+	})
+
+	it('should handle errors correctly with minimal request parameters', async () => {
+		const mockRequest = {
+			method: 'eth_getBlockByNumber',
+			// no params or id
+		}
+		const mockError = {
+			code: -32000,
+			message: 'Some error',
+		}
+
+		mockClient.request.mockRejectedValueOnce(mockError)
+
+		const result = await jsonRpcFetcher.request(mockRequest)
+
+		expect(result).toEqual({
+			jsonrpc: '2.0',
+			error: {
+				code: mockError.code,
+				message: mockError.message,
+			},
+		})
+
+		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)
+	})
+
+	it('should handle unknown errors correctly with minimal request parameters', async () => {
+		const mockRequest = {
+			method: 'eth_getBlockByNumber',
+			// no params or id
+		}
+		// An error that doesn't have the code property
+		const mockError = new Error('Some unexpected error')
+
+		mockClient.request.mockRejectedValueOnce(mockError)
+
+		const result = await jsonRpcFetcher.request(mockRequest)
+
+		expect(result).toEqual({
+			jsonrpc: '2.0',
+			error: {
+				code: -32000,
+				message: 'Some unexpected error',
+			},
+		})
+
+		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)
+	})
+})
+
+codex
+I’ve got enough evidence for a concise report. The strongest issues are in server request framing: parsed-body adapters, falsy JSON-RPC ids, body-limit enforcement, and batch validation behavior.
+  ✓ Map scoped package files
+  ✓ Review JSON-RPC framing and types
+  ✓ Review HTTP client behavior
+  ✓ Review server middleware/error mapping
+  → Write H08 report
+exec
+/bin/zsh -lc "ls -ld .review-slices || true; test -f .review-slices/H08.md && sed -n '1,220p' .review-slices/H08.md || true" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+drwxr-xr-x@ 55 williamcory  staff  1760 May 20 17:14 .review-slices
+
+codex
+I’m writing the review file now and keeping it constrained to `.review-slices/H08.md` as requested.
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/.review-slices/H08.md
+diff --git a/.review-slices/H08.md b/.review-slices/H08.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..f850ad7fab3ee89424ccaaf1d586fe06bed3bc5d
+--- /dev/null
++++ b/.review-slices/H08.md
+@@ -0,0 +1,54 @@
++# JSON-RPC transport (jsonrpc + http-client + server) review
++
++**Slice:** H08
++**Type:** horizontal
++**Scope:** packages/jsonrpc packages/http-client packages/server
++**Reviewed by:** codex (GPT-5.4)
++
++## Summary
++
++The main risk in this slice is that the server transport is only partially JSON-RPC-compatible: several request/response framing details fail for common clients or edge-case ids. The Express and Next adapters are especially fragile because they pass pre-parsed `req.body` values into code that expects a raw JSON string, which breaks the documented Express setup and the default Next API route behavior. Body-size enforcement also returns a 413 without stopping the stream or clearing listeners, so an oversized request can still keep appending to memory after the limit fires. The HTTP client package is mostly a thin viem wrapper; I did not find a distinct transport bug there in the reviewed source.
++
++## Findings
++
++### [HIGH] Express and Next handlers break when the framework has already parsed JSON
++**Location:** packages/server/src/internal/getRequestBody.js:13
++**Issue:** `getRequestBody` returns `req.body` as-is whenever it exists, but `parseRequest` later calls `JSON.parse(body)`. In real Express setups using the documented `app.use(express.json())`, and in Next API routes with the default body parser enabled, `req.body` is already an object, not a JSON string. That object path produces an invalid JSON error instead of handling the JSON-RPC request.
++**Why it matters:** The public adapters fail in normal framework configurations, including the Express example in `packages/server/src/adapters/createExpressMiddleware.js:16`. Users following the docs can get 400 responses for valid JSON-RPC calls.
++**Suggested fix:** Make `getRequestBody` return a discriminated raw-or-parsed value, or normalize `req.body` with `typeof req.body === 'string' ? req.body : JSON.stringify(req.body)` before parsing. Add explicit handling for Buffers and reject unsupported body types with `InvalidRequestError`, not `InvalidJsonError`.
++
++### [HIGH] Error responses drop valid falsy JSON-RPC ids
++**Location:** packages/server/src/internal/handleError.js:14
++**Issue:** `handleError` includes the request id only when `jsonRpcReq.id` is truthy. JSON-RPC ids may legally be `0`, `""`, or `null`, and those are omitted from error responses.
++**Why it matters:** Clients correlate responses by id. A request such as `{ "jsonrpc": "2.0", "id": 0, "method": "bad_method" }` receives an error without `id`, which can be treated as an unmatchable response or notification-like error.
++**Suggested fix:** Use `jsonRpcReq.id !== undefined` instead of a truthiness check. Preserve `null` when it came from the request; for parse errors where no id is knowable, emit `id: null` if strict JSON-RPC compatibility is desired.
++
++### [HIGH] Oversized bodies continue buffering after the size limit fires
++**Location:** packages/server/src/internal/getRequestBody.js:25
++**Issue:** When `Buffer.byteLength(body, 'utf8') > maxBodySize`, the promise resolves with `ReadRequestBodyError`, but the request stream is not destroyed, paused, or detached. The `data` listener keeps appending chunks to `body` until the client stops sending.
++**Why it matters:** The configured body limit does not actually cap memory usage for hostile or buggy clients. A large upload can trigger a 413 and still continue growing the in-process string behind the already-resolved promise.
++**Suggested fix:** Track a `done` flag, remove listeners, and destroy or pause the request once the limit is exceeded. Avoid appending additional chunks after the limit, and make the handler close the connection consistently for 413 responses.
++
++### [MEDIUM] One malformed batch element rejects the whole batch
++**Location:** packages/server/src/internal/parseRequest.js:40
++**Issue:** Batch parsing validates the entire array with `zBulkRequest.safeParse(raw)`. If any element is malformed, `parseRequest` returns one `InvalidRequestError` for the whole batch instead of processing valid entries and returning per-element errors for invalid entries.
++**Why it matters:** JSON-RPC batch callers can lose valid responses because a single bad element poisons the entire batch. This is especially visible for wallets or tooling that coalesce unrelated RPC calls into one HTTP request.
++**Suggested fix:** Parse batch items independently. Return a normalized internal representation that can carry either a valid request or an item-level JSON-RPC error, then have `handleBulkRequest` execute valid requests and include item errors in the response array.
++
++### [MEDIUM] The compatibility parser accepts requests without `jsonrpc: "2.0"`
++**Location:** packages/server/src/internal/parseRequest.js:6
++**Issue:** `jsonrpc` is optional in the Zod schema even when `createHttpHandler` runs in compatibility mode. A payload with only `{ "method": "eth_chainId" }` passes transport validation and is executed as JSON-RPC 2.0.
++**Why it matters:** Compatibility mode enforces HTTP method, path, content type, batch size, and notification semantics, but still accepts non-JSON-RPC request envelopes. That weakens the mode that is otherwise positioned as strict transport compatibility.
++**Suggested fix:** Make `jsonrpc: z.literal('2.0')` required for compatibility mode. If legacy Tevm behavior needs the optional field, pass a parser option and keep that looseness only outside compatibility mode.
++
++### [MEDIUM] Framework adapters drop the handler promise
++**Location:** packages/server/src/adapters/createNextApiHandler.js:19
++**Issue:** The Next and Express adapters call `handler(req, res)` without returning or awaiting it. Any synchronous throw before the handler's own awaits, or any rejected promise outside the local catches, becomes detached from the framework handler.
++**Why it matters:** Next can consider the API route resolved before the response is written, and both adapters make unexpected transport failures harder for the framework to observe or report. The same pattern appears in `packages/server/src/adapters/createExpressMiddleware.js:37`.
++**Suggested fix:** `return handler(req, res)` in both adapters. For Express, either return the promise or catch and pass failures to `next` by accepting the third middleware argument.
++
++### [LOW] `createJsonRpcFetcher` violates its exported response type
++**Location:** packages/jsonrpc/src/createJsonRpcFetcher.js:24
++**Issue:** `createJsonRpcFetcher` is declared to return `JsonRpcClient`, whose `JsonRpcResponse` type requires a `method` field, but the runtime success and error responses omit `method`. The tests assert the method-less shape, so the type and runtime contract disagree.
++**Why it matters:** Consumers using the package types can write code that assumes `response.method` exists, then receive `undefined` at runtime. This is a public API footgun even though the helper is deprecated.
++**Suggested fix:** Either remove `method` from `JsonRpcResponse` if the package intends to model standard JSON-RPC responses, or add `method: request.method` to every `createJsonRpcFetcher` response and keep the nonstandard Tevm response shape consistent.
+
+diff --git a/.review-slices/H08.md b/.review-slices/H08.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..f850ad7fab3ee89424ccaaf1d586fe06bed3bc5d
+--- /dev/null
++++ b/.review-slices/H08.md
+@@ -0,0 +1,54 @@
++# JSON-RPC transport (jsonrpc + http-client + server) review
++
++**Slice:** H08
++**Type:** horizontal
++**Scope:** packages/jsonrpc packages/http-client packages/server
++**Reviewed by:** codex (GPT-5.4)
++
++## Summary
++
++The main risk in this slice is that the server transport is only partially JSON-RPC-compatible: several request/response framing details fail for common clients or edge-case ids. The Express and Next adapters are especially fragile because they pass pre-parsed `req.body` values into code that expects a raw JSON string, which breaks the documented Express setup and the default Next API route behavior. Body-size enforcement also returns a 413 without stopping the stream or clearing listeners, so an oversized request can still keep appending to memory after the limit fires. The HTTP client package is mostly a thin viem wrapper; I did not find a distinct transport bug there in the reviewed source.
++
++## Findings
++
++### [HIGH] Express and Next handlers break when the framework has already parsed JSON
++**Location:** packages/server/src/internal/getRequestBody.js:13
++**Issue:** `getRequestBody` returns `req.body` as-is whenever it exists, but `parseRequest` later calls `JSON.parse(body)`. In real Express setups using the documented `app.use(express.json())`, and in Next API routes with the default body parser enabled, `req.body` is already an object, not a JSON string. That object path produces an invalid JSON error instead of handling the JSON-RPC request.
++**Why it matters:** The public adapters fail in normal framework configurations, including the Express example in `packages/server/src/adapters/createExpressMiddleware.js:16`. Users following the docs can get 400 responses for valid JSON-RPC calls.
++**Suggested fix:** Make `getRequestBody` return a discriminated raw-or-parsed value, or normalize `req.body` with `typeof req.body === 'string' ? req.body : JSON.stringify(req.body)` before parsing. Add explicit handling for Buffers and reject unsupported body types with `InvalidRequestError`, not `InvalidJsonError`.
++
++### [HIGH] Error responses drop valid falsy JSON-RPC ids
++**Location:** packages/server/src/internal/handleError.js:14
++**Issue:** `handleError` includes the request id only when `jsonRpcReq.id` is truthy. JSON-RPC ids may legally be `0`, `""`, or `null`, and those are omitted from error responses.
++**Why it matters:** Clients correlate responses by id. A request such as `{ "jsonrpc": "2.0", "id": 0, "method": "bad_method" }` receives an error without `id`, which can be treated as an unmatchable response or notification-like error.
++**Suggested fix:** Use `jsonRpcReq.id !== undefined` instead of a truthiness check. Preserve `null` when it came from the request; for parse errors where no id is knowable, emit `id: null` if strict JSON-RPC compatibility is desired.
++
++### [HIGH] Oversized bodies continue buffering after the size limit fires
++**Location:** packages/server/src/internal/getRequestBody.js:25
++**Issue:** When `Buffer.byteLength(body, 'utf8') > maxBodySize`, the promise resolves with `ReadRequestBodyError`, but the request stream is not destroyed, paused, or detached. The `data` listener keeps appending chunks to `body` until the client stops sending.
++**Why it matters:** The configured body limit does not actually cap memory usage for hostile or buggy clients. A large upload can trigger a 413 and still continue growing the in-process string behind the already-resolved promise.
++**Suggested fix:** Track a `done` flag, remove listeners, and destroy or pause the request once the limit is exceeded. Avoid appending additional chunks after the limit, and make the handler close the connection consistently for 413 responses.
++
++### [MEDIUM] One malformed batch element rejects the whole batch
++**Location:** packages/server/src/internal/parseRequest.js:40
++**Issue:** Batch parsing validates the entire array with `zBulkRequest.safeParse(raw)`. If any element is malformed, `parseRequest` returns one `InvalidRequestError` for the whole batch instead of processing valid entries and returning per-element errors for invalid entries.
++**Why it matters:** JSON-RPC batch callers can lose valid responses because a single bad element poisons the entire batch. This is especially visible for wallets or tooling that coalesce unrelated RPC calls into one HTTP request.
++**Suggested fix:** Parse batch items independently. Return a normalized internal representation that can carry either a valid request or an item-level JSON-RPC error, then have `handleBulkRequest` execute valid requests and include item errors in the response array.
++
++### [MEDIUM] The compatibility parser accepts requests without `jsonrpc: "2.0"`
++**Location:** packages/server/src/internal/parseRequest.js:6
++**Issue:** `jsonrpc` is optional in the Zod schema even when `createHttpHandler` runs in compatibility mode. A payload with only `{ "method": "eth_chainId" }` passes transport validation and is executed as JSON-RPC 2.0.
++**Why it matters:** Compatibility mode enforces HTTP method, path, content type, batch size, and notification semantics, but still accepts non-JSON-RPC request envelopes. That weakens the mode that is otherwise positioned as strict transport compatibility.
++**Suggested fix:** Make `jsonrpc: z.literal('2.0')` required for compatibility mode. If legacy Tevm behavior needs the optional field, pass a parser option and keep that looseness only outside compatibility mode.
++
++### [MEDIUM] Framework adapters drop the handler promise
++**Location:** packages/server/src/adapters/createNextApiHandler.js:19
++**Issue:** The Next and Express adapters call `handler(req, res)` without returning or awaiting it. Any synchronous throw before the handler's own awaits, or any rejected promise outside the local catches, becomes detached from the framework handler.
++**Why it matters:** Next can consider the API route resolved before the response is written, and both adapters make unexpected transport failures harder for the framework to observe or report. The same pattern appears in `packages/server/src/adapters/createExpressMiddleware.js:37`.
++**Suggested fix:** `return handler(req, res)` in both adapters. For Express, either return the promise or catch and pass failures to `next` by accepting the third middleware argument.
++
++### [LOW] `createJsonRpcFetcher` violates its exported response type
++**Location:** packages/jsonrpc/src/createJsonRpcFetcher.js:24
++**Issue:** `createJsonRpcFetcher` is declared to return `JsonRpcClient`, whose `JsonRpcResponse` type requires a `method` field, but the runtime success and error responses omit `method`. The tests assert the method-less shape, so the type and runtime contract disagree.
++**Why it matters:** Consumers using the package types can write code that assumes `response.method` exists, then receive `undefined` at runtime. This is a public API footgun even though the helper is deprecated.
++**Suggested fix:** Either remove `method` from `JsonRpcResponse` if the package intends to model standard JSON-RPC responses, or add `method: request.method` to every `createJsonRpcFetcher` response and keep the nonstandard Tevm response shape consistent.
+
+exec
+/bin/zsh -lc 'git diff -- .review-slices/H08.md' in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,260p' .review-slices/H08.md" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+ succeeded in 0ms:
+# JSON-RPC transport (jsonrpc + http-client + server) review
+
+**Slice:** H08
+**Type:** horizontal
+**Scope:** packages/jsonrpc packages/http-client packages/server
+**Reviewed by:** codex (GPT-5.4)
+
+## Summary
+
+The main risk in this slice is that the server transport is only partially JSON-RPC-compatible: several request/response framing details fail for common clients or edge-case ids. The Express and Next adapters are especially fragile because they pass pre-parsed `req.body` values into code that expects a raw JSON string, which breaks the documented Express setup and the default Next API route behavior. Body-size enforcement also returns a 413 without stopping the stream or clearing listeners, so an oversized request can still keep appending to memory after the limit fires. The HTTP client package is mostly a thin viem wrapper; I did not find a distinct transport bug there in the reviewed source.
+
+## Findings
+
+### [HIGH] Express and Next handlers break when the framework has already parsed JSON
+**Location:** packages/server/src/internal/getRequestBody.js:13
+**Issue:** `getRequestBody` returns `req.body` as-is whenever it exists, but `parseRequest` later calls `JSON.parse(body)`. In real Express setups using the documented `app.use(express.json())`, and in Next API routes with the default body parser enabled, `req.body` is already an object, not a JSON string. That object path produces an invalid JSON error instead of handling the JSON-RPC request.
+**Why it matters:** The public adapters fail in normal framework configurations, including the Express example in `packages/server/src/adapters/createExpressMiddleware.js:16`. Users following the docs can get 400 responses for valid JSON-RPC calls.
+**Suggested fix:** Make `getRequestBody` return a discriminated raw-or-parsed value, or normalize `req.body` with `typeof req.body === 'string' ? req.body : JSON.stringify(req.body)` before parsing. Add explicit handling for Buffers and reject unsupported body types with `InvalidRequestError`, not `InvalidJsonError`.
+
+### [HIGH] Error responses drop valid falsy JSON-RPC ids
+**Location:** packages/server/src/internal/handleError.js:14
+**Issue:** `handleError` includes the request id only when `jsonRpcReq.id` is truthy. JSON-RPC ids may legally be `0`, `""`, or `null`, and those are omitted from error responses.
+**Why it matters:** Clients correlate responses by id. A request such as `{ "jsonrpc": "2.0", "id": 0, "method": "bad_method" }` receives an error without `id`, which can be treated as an unmatchable response or notification-like error.
+**Suggested fix:** Use `jsonRpcReq.id !== undefined` instead of a truthiness check. Preserve `null` when it came from the request; for parse errors where no id is knowable, emit `id: null` if strict JSON-RPC compatibility is desired.
+
+### [HIGH] Oversized bodies continue buffering after the size limit fires
+**Location:** packages/server/src/internal/getRequestBody.js:25
+**Issue:** When `Buffer.byteLength(body, 'utf8') > maxBodySize`, the promise resolves with `ReadRequestBodyError`, but the request stream is not destroyed, paused, or detached. The `data` listener keeps appending chunks to `body` until the client stops sending.
+**Why it matters:** The configured body limit does not actually cap memory usage for hostile or buggy clients. A large upload can trigger a 413 and still continue growing the in-process string behind the already-resolved promise.
+**Suggested fix:** Track a `done` flag, remove listeners, and destroy or pause the request once the limit is exceeded. Avoid appending additional chunks after the limit, and make the handler close the connection consistently for 413 responses.
+
+### [MEDIUM] One malformed batch element rejects the whole batch
+**Location:** packages/server/src/internal/parseRequest.js:40
+**Issue:** Batch parsing validates the entire array with `zBulkRequest.safeParse(raw)`. If any element is malformed, `parseRequest` returns one `InvalidRequestError` for the whole batch instead of processing valid entries and returning per-element errors for invalid entries.
+**Why it matters:** JSON-RPC batch callers can lose valid responses because a single bad element poisons the entire batch. This is especially visible for wallets or tooling that coalesce unrelated RPC calls into one HTTP request.
+**Suggested fix:** Parse batch items independently. Return a normalized internal representation that can carry either a valid request or an item-level JSON-RPC error, then have `handleBulkRequest` execute valid requests and include item errors in the response array.
+
+### [MEDIUM] The compatibility parser accepts requests without `jsonrpc: "2.0"`
+**Location:** packages/server/src/internal/parseRequest.js:6
+**Issue:** `jsonrpc` is optional in the Zod schema even when `createHttpHandler` runs in compatibility mode. A payload with only `{ "method": "eth_chainId" }` passes transport validation and is executed as JSON-RPC 2.0.
+**Why it matters:** Compatibility mode enforces HTTP method, path, content type, batch size, and notification semantics, but still accepts non-JSON-RPC request envelopes. That weakens the mode that is otherwise positioned as strict transport compatibility.
+**Suggested fix:** Make `jsonrpc: z.literal('2.0')` required for compatibility mode. If legacy Tevm behavior needs the optional field, pass a parser option and keep that looseness only outside compatibility mode.
+
+### [MEDIUM] Framework adapters drop the handler promise
+**Location:** packages/server/src/adapters/createNextApiHandler.js:19
+**Issue:** The Next and Express adapters call `handler(req, res)` without returning or awaiting it. Any synchronous throw before the handler's own awaits, or any rejected promise outside the local catches, becomes detached from the framework handler.
+**Why it matters:** Next can consider the API route resolved before the response is written, and both adapters make unexpected transport failures harder for the framework to observe or report. The same pattern appears in `packages/server/src/adapters/createExpressMiddleware.js:37`.
+**Suggested fix:** `return handler(req, res)` in both adapters. For Express, either return the promise or catch and pass failures to `next` by accepting the third middleware argument.
+
+### [LOW] `createJsonRpcFetcher` violates its exported response type
+**Location:** packages/jsonrpc/src/createJsonRpcFetcher.js:24
+**Issue:** `createJsonRpcFetcher` is declared to return `JsonRpcClient`, whose `JsonRpcResponse` type requires a `method` field, but the runtime success and error responses omit `method`. The tests assert the method-less shape, so the type and runtime contract disagree.
+**Why it matters:** Consumers using the package types can write code that assumes `response.method` exists, then receive `undefined` at runtime. This is a public API footgun even though the helper is deprecated.
+**Suggested fix:** Either remove `method` from `JsonRpcResponse` if the package intends to model standard JSON-RPC responses, or add `method: request.method` to every `createJsonRpcFetcher` response and keep the nonstandard Tevm response shape consistent.
+
+exec
+/bin/zsh -lc 'git status --short .review-slices/H08.md' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+?? .review-slices/H08.md
+
+diff --git a/.review-slices/H08.md b/.review-slices/H08.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..f850ad7fab3ee89424ccaaf1d586fe06bed3bc5d
+--- /dev/null
++++ b/.review-slices/H08.md
+@@ -0,0 +1,54 @@
++# JSON-RPC transport (jsonrpc + http-client + server) review
++
++**Slice:** H08
++**Type:** horizontal
++**Scope:** packages/jsonrpc packages/http-client packages/server
++**Reviewed by:** codex (GPT-5.4)
++
++## Summary
++
++The main risk in this slice is that the server transport is only partially JSON-RPC-compatible: several request/response framing details fail for common clients or edge-case ids. The Express and Next adapters are especially fragile because they pass pre-parsed `req.body` values into code that expects a raw JSON string, which breaks the documented Express setup and the default Next API route behavior. Body-size enforcement also returns a 413 without stopping the stream or clearing listeners, so an oversized request can still keep appending to memory after the limit fires. The HTTP client package is mostly a thin viem wrapper; I did not find a distinct transport bug there in the reviewed source.
++
++## Findings
++
++### [HIGH] Express and Next handlers break when the framework has already parsed JSON
++**Location:** packages/server/src/internal/getRequestBody.js:13
++**Issue:** `getRequestBody` returns `req.body` as-is whenever it exists, but `parseRequest` later calls `JSON.parse(body)`. In real Express setups using the documented `app.use(express.json())`, and in Next API routes with the default body parser enabled, `req.body` is already an object, not a JSON string. That object path produces an invalid JSON error instead of handling the JSON-RPC request.
++**Why it matters:** The public adapters fail in normal framework configurations, including the Express example in `packages/server/src/adapters/createExpressMiddleware.js:16`. Users following the docs can get 400 responses for valid JSON-RPC calls.
++**Suggested fix:** Make `getRequestBody` return a discriminated raw-or-parsed value, or normalize `req.body` with `typeof req.body === 'string' ? req.body : JSON.stringify(req.body)` before parsing. Add explicit handling for Buffers and reject unsupported body types with `InvalidRequestError`, not `InvalidJsonError`.
++
++### [HIGH] Error responses drop valid falsy JSON-RPC ids
++**Location:** packages/server/src/internal/handleError.js:14
++**Issue:** `handleError` includes the request id only when `jsonRpcReq.id` is truthy. JSON-RPC ids may legally be `0`, `""`, or `null`, and those are omitted from error responses.
++**Why it matters:** Clients correlate responses by id. A request such as `{ "jsonrpc": "2.0", "id": 0, "method": "bad_method" }` receives an error without `id`, which can be treated as an unmatchable response or notification-like error.
++**Suggested fix:** Use `jsonRpcReq.id !== undefined` instead of a truthiness check. Preserve `null` when it came from the request; for parse errors where no id is knowable, emit `id: null` if strict JSON-RPC compatibility is desired.
++
++### [HIGH] Oversized bodies continue buffering after the size limit fires
++**Location:** packages/server/src/internal/getRequestBody.js:25
++**Issue:** When `Buffer.byteLength(body, 'utf8') > maxBodySize`, the promise resolves with `ReadRequestBodyError`, but the request stream is not destroyed, paused, or detached. The `data` listener keeps appending chunks to `body` until the client stops sending.
++**Why it matters:** The configured body limit does not actually cap memory usage for hostile or buggy clients. A large upload can trigger a 413 and still continue growing the in-process string behind the already-resolved promise.
++**Suggested fix:** Track a `done` flag, remove listeners, and destroy or pause the request once the limit is exceeded. Avoid appending additional chunks after the limit, and make the handler close the connection consistently for 413 responses.
++
++### [MEDIUM] One malformed batch element rejects the whole batch
++**Location:** packages/server/src/internal/parseRequest.js:40
++**Issue:** Batch parsing validates the entire array with `zBulkRequest.safeParse(raw)`. If any element is malformed, `parseRequest` returns one `InvalidRequestError` for the whole batch instead of processing valid entries and returning per-element errors for invalid entries.
++**Why it matters:** JSON-RPC batch callers can lose valid responses because a single bad element poisons the entire batch. This is especially visible for wallets or tooling that coalesce unrelated RPC calls into one HTTP request.
++**Suggested fix:** Parse batch items independently. Return a normalized internal representation that can carry either a valid request or an item-level JSON-RPC error, then have `handleBulkRequest` execute valid requests and include item errors in the response array.
++
++### [MEDIUM] The compatibility parser accepts requests without `jsonrpc: "2.0"`
++**Location:** packages/server/src/internal/parseRequest.js:6
++**Issue:** `jsonrpc` is optional in the Zod schema even when `createHttpHandler` runs in compatibility mode. A payload with only `{ "method": "eth_chainId" }` passes transport validation and is executed as JSON-RPC 2.0.
++**Why it matters:** Compatibility mode enforces HTTP method, path, content type, batch size, and notification semantics, but still accepts non-JSON-RPC request envelopes. That weakens the mode that is otherwise positioned as strict transport compatibility.
++**Suggested fix:** Make `jsonrpc: z.literal('2.0')` required for compatibility mode. If legacy Tevm behavior needs the optional field, pass a parser option and keep that looseness only outside compatibility mode.
++
++### [MEDIUM] Framework adapters drop the handler promise
++**Location:** packages/server/src/adapters/createNextApiHandler.js:19
++**Issue:** The Next and Express adapters call `handler(req, res)` without returning or awaiting it. Any synchronous throw before the handler's own awaits, or any rejected promise outside the local catches, becomes detached from the framework handler.
++**Why it matters:** Next can consider the API route resolved before the response is written, and both adapters make unexpected transport failures harder for the framework to observe or report. The same pattern appears in `packages/server/src/adapters/createExpressMiddleware.js:37`.
++**Suggested fix:** `return handler(req, res)` in both adapters. For Express, either return the promise or catch and pass failures to `next` by accepting the third middleware argument.
++
++### [LOW] `createJsonRpcFetcher` violates its exported response type
++**Location:** packages/jsonrpc/src/createJsonRpcFetcher.js:24
++**Issue:** `createJsonRpcFetcher` is declared to return `JsonRpcClient`, whose `JsonRpcResponse` type requires a `method` field, but the runtime success and error responses omit `method`. The tests assert the method-less shape, so the type and runtime contract disagree.
++**Why it matters:** Consumers using the package types can write code that assumes `response.method` exists, then receive `undefined` at runtime. This is a public API footgun even though the helper is deprecated.
++**Suggested fix:** Either remove `method` from `JsonRpcResponse` if the package intends to model standard JSON-RPC responses, or add `method: request.method` to every `createJsonRpcFetcher` response and keep the nonstandard Tevm response shape consistent.
+
+  ✓ Map scoped package files
+  ✓ Review JSON-RPC framing and types
+  ✓ Review HTTP client behavior
+  ✓ Review server middleware/error mapping
+  ✓ Write H08 report
+diff --git a/.review-slices/H08.md b/.review-slices/H08.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..f850ad7fab3ee89424ccaaf1d586fe06bed3bc5d
+--- /dev/null
++++ b/.review-slices/H08.md
+@@ -0,0 +1,54 @@
++# JSON-RPC transport (jsonrpc + http-client + server) review
++
++**Slice:** H08
++**Type:** horizontal
++**Scope:** packages/jsonrpc packages/http-client packages/server
++**Reviewed by:** codex (GPT-5.4)
++
++## Summary
++
++The main risk in this slice is that the server transport is only partially JSON-RPC-compatible: several request/response framing details fail for common clients or edge-case ids. The Express and Next adapters are especially fragile because they pass pre-parsed `req.body` values into code that expects a raw JSON string, which breaks the documented Express setup and the default Next API route behavior. Body-size enforcement also returns a 413 without stopping the stream or clearing listeners, so an oversized request can still keep appending to memory after the limit fires. The HTTP client package is mostly a thin viem wrapper; I did not find a distinct transport bug there in the reviewed source.
++
++## Findings
++
++### [HIGH] Express and Next handlers break when the framework has already parsed JSON
++**Location:** packages/server/src/internal/getRequestBody.js:13
++**Issue:** `getRequestBody` returns `req.body` as-is whenever it exists, but `parseRequest` later calls `JSON.parse(body)`. In real Express setups using the documented `app.use(express.json())`, and in Next API routes with the default body parser enabled, `req.body` is already an object, not a JSON string. That object path produces an invalid JSON error instead of handling the JSON-RPC request.
++**Why it matters:** The public adapters fail in normal framework configurations, including the Express example in `packages/server/src/adapters/createExpressMiddleware.js:16`. Users following the docs can get 400 responses for valid JSON-RPC calls.
++**Suggested fix:** Make `getRequestBody` return a discriminated raw-or-parsed value, or normalize `req.body` with `typeof req.body === 'string' ? req.body : JSON.stringify(req.body)` before parsing. Add explicit handling for Buffers and reject unsupported body types with `InvalidRequestError`, not `InvalidJsonError`.
++
++### [HIGH] Error responses drop valid falsy JSON-RPC ids
++**Location:** packages/server/src/internal/handleError.js:14
++**Issue:** `handleError` includes the request id only when `jsonRpcReq.id` is truthy. JSON-RPC ids may legally be `0`, `""`, or `null`, and those are omitted from error responses.
++**Why it matters:** Clients correlate responses by id. A request such as `{ "jsonrpc": "2.0", "id": 0, "method": "bad_method" }` receives an error without `id`, which can be treated as an unmatchable response or notification-like error.
++**Suggested fix:** Use `jsonRpcReq.id !== undefined` instead of a truthiness check. Preserve `null` when it came from the request; for parse errors where no id is knowable, emit `id: null` if strict JSON-RPC compatibility is desired.
++
++### [HIGH] Oversized bodies continue buffering after the size limit fires
++**Location:** packages/server/src/internal/getRequestBody.js:25
++**Issue:** When `Buffer.byteLength(body, 'utf8') > maxBodySize`, the promise resolves with `ReadRequestBodyError`, but the request stream is not destroyed, paused, or detached. The `data` listener keeps appending chunks to `body` until the client stops sending.
++**Why it matters:** The configured body limit does not actually cap memory usage for hostile or buggy clients. A large upload can trigger a 413 and still continue growing the in-process string behind the already-resolved promise.
++**Suggested fix:** Track a `done` flag, remove listeners, and destroy or pause the request once the limit is exceeded. Avoid appending additional chunks after the limit, and make the handler close the connection consistently for 413 responses.
++
++### [MEDIUM] One malformed batch element rejects the whole batch
++**Location:** packages/server/src/internal/parseRequest.js:40
++**Issue:** Batch parsing validates the entire array with `zBulkRequest.safeParse(raw)`. If any element is malformed, `parseRequest` returns one `InvalidRequestError` for the whole batch instead of processing valid entries and returning per-element errors for invalid entries.
++**Why it matters:** JSON-RPC batch callers can lose valid responses because a single bad element poisons the entire batch. This is especially visible for wallets or tooling that coalesce unrelated RPC calls into one HTTP request.
++**Suggested fix:** Parse batch items independently. Return a normalized internal representation that can carry either a valid request or an item-level JSON-RPC error, then have `handleBulkRequest` execute valid requests and include item errors in the response array.
++
++### [MEDIUM] The compatibility parser accepts requests without `jsonrpc: "2.0"`
++**Location:** packages/server/src/internal/parseRequest.js:6
++**Issue:** `jsonrpc` is optional in the Zod schema even when `createHttpHandler` runs in compatibility mode. A payload with only `{ "method": "eth_chainId" }` passes transport validation and is executed as JSON-RPC 2.0.
++**Why it matters:** Compatibility mode enforces HTTP method, path, content type, batch size, and notification semantics, but still accepts non-JSON-RPC request envelopes. That weakens the mode that is otherwise positioned as strict transport compatibility.
++**Suggested fix:** Make `jsonrpc: z.literal('2.0')` required for compatibility mode. If legacy Tevm behavior needs the optional field, pass a parser option and keep that looseness only outside compatibility mode.
++
++### [MEDIUM] Framework adapters drop the handler promise
++**Location:** packages/server/src/adapters/createNextApiHandler.js:19
++**Issue:** The Next and Express adapters call `handler(req, res)` without returning or awaiting it. Any synchronous throw before the handler's own awaits, or any rejected promise outside the local catches, becomes detached from the framework handler.
++**Why it matters:** Next can consider the API route resolved before the response is written, and both adapters make unexpected transport failures harder for the framework to observe or report. The same pattern appears in `packages/server/src/adapters/createExpressMiddleware.js:37`.
++**Suggested fix:** `return handler(req, res)` in both adapters. For Express, either return the promise or catch and pass failures to `next` by accepting the third middleware argument.
++
++### [LOW] `createJsonRpcFetcher` violates its exported response type
++**Location:** packages/jsonrpc/src/createJsonRpcFetcher.js:24
++**Issue:** `createJsonRpcFetcher` is declared to return `JsonRpcClient`, whose `JsonRpcResponse` type requires a `method` field, but the runtime success and error responses omit `method`. The tests assert the method-less shape, so the type and runtime contract disagree.
++**Why it matters:** Consumers using the package types can write code that assumes `response.method` exists, then receive `undefined` at runtime. This is a public API footgun even though the helper is deprecated.
++**Suggested fix:** Either remove `method` from `JsonRpcResponse` if the package intends to model standard JSON-RPC responses, or add `method: request.method` to every `createJsonRpcFetcher` response and keep the nonstandard Tevm response shape consistent.
+
+codex
+Wrote the full review to [.review-slices/H08.md](/Users/williamcory/tevm-monorepo/.review-slices/H08.md).
+
+I only read files and created that report file. No tests, builds, installs, or source changes were run/made.
+diff --git a/.review-slices/H08.md b/.review-slices/H08.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..f850ad7fab3ee89424ccaaf1d586fe06bed3bc5d
+--- /dev/null
++++ b/.review-slices/H08.md
+@@ -0,0 +1,54 @@
++# JSON-RPC transport (jsonrpc + http-client + server) review
++
++**Slice:** H08
++**Type:** horizontal
++**Scope:** packages/jsonrpc packages/http-client packages/server
++**Reviewed by:** codex (GPT-5.4)
++
++## Summary
++
++The main risk in this slice is that the server transport is only partially JSON-RPC-compatible: several request/response framing details fail for common clients or edge-case ids. The Express and Next adapters are especially fragile because they pass pre-parsed `req.body` values into code that expects a raw JSON string, which breaks the documented Express setup and the default Next API route behavior. Body-size enforcement also returns a 413 without stopping the stream or clearing listeners, so an oversized request can still keep appending to memory after the limit fires. The HTTP client package is mostly a thin viem wrapper; I did not find a distinct transport bug there in the reviewed source.
++
++## Findings
++
++### [HIGH] Express and Next handlers break when the framework has already parsed JSON
++**Location:** packages/server/src/internal/getRequestBody.js:13
++**Issue:** `getRequestBody` returns `req.body` as-is whenever it exists, but `parseRequest` later calls `JSON.parse(body)`. In real Express setups using the documented `app.use(express.json())`, and in Next API routes with the default body parser enabled, `req.body` is already an object, not a JSON string. That object path produces an invalid JSON error instead of handling the JSON-RPC request.
++**Why it matters:** The public adapters fail in normal framework configurations, including the Express example in `packages/server/src/adapters/createExpressMiddleware.js:16`. Users following the docs can get 400 responses for valid JSON-RPC calls.
++**Suggested fix:** Make `getRequestBody` return a discriminated raw-or-parsed value, or normalize `req.body` with `typeof req.body === 'string' ? req.body : JSON.stringify(req.body)` before parsing. Add explicit handling for Buffers and reject unsupported body types with `InvalidRequestError`, not `InvalidJsonError`.
++
++### [HIGH] Error responses drop valid falsy JSON-RPC ids
++**Location:** packages/server/src/internal/handleError.js:14
++**Issue:** `handleError` includes the request id only when `jsonRpcReq.id` is truthy. JSON-RPC ids may legally be `0`, `""`, or `null`, and those are omitted from error responses.
++**Why it matters:** Clients correlate responses by id. A request such as `{ "jsonrpc": "2.0", "id": 0, "method": "bad_method" }` receives an error without `id`, which can be treated as an unmatchable response or notification-like error.
++**Suggested fix:** Use `jsonRpcReq.id !== undefined` instead of a truthiness check. Preserve `null` when it came from the request; for parse errors where no id is knowable, emit `id: null` if strict JSON-RPC compatibility is desired.
++
++### [HIGH] Oversized bodies continue buffering after the size limit fires
++**Location:** packages/server/src/internal/getRequestBody.js:25
++**Issue:** When `Buffer.byteLength(body, 'utf8') > maxBodySize`, the promise resolves with `ReadRequestBodyError`, but the request stream is not destroyed, paused, or detached. The `data` listener keeps appending chunks to `body` until the client stops sending.
++**Why it matters:** The configured body limit does not actually cap memory usage for hostile or buggy clients. A large upload can trigger a 413 and still continue growing the in-process string behind the already-resolved promise.
++**Suggested fix:** Track a `done` flag, remove listeners, and destroy or pause the request once the limit is exceeded. Avoid appending additional chunks after the limit, and make the handler close the connection consistently for 413 responses.
++
++### [MEDIUM] One malformed batch element rejects the whole batch
++**Location:** packages/server/src/internal/parseRequest.js:40
++**Issue:** Batch parsing validates the entire array with `zBulkRequest.safeParse(raw)`. If any element is malformed, `parseRequest` returns one `InvalidRequestError` for the whole batch instead of processing valid entries and returning per-element errors for invalid entries.
++**Why it matters:** JSON-RPC batch callers can lose valid responses because a single bad element poisons the entire batch. This is especially visible for wallets or tooling that coalesce unrelated RPC calls into one HTTP request.
++**Suggested fix:** Parse batch items independently. Return a normalized internal representation that can carry either a valid request or an item-level JSON-RPC error, then have `handleBulkRequest` execute valid requests and include item errors in the response array.
++
++### [MEDIUM] The compatibility parser accepts requests without `jsonrpc: "2.0"`
++**Location:** packages/server/src/internal/parseRequest.js:6
++**Issue:** `jsonrpc` is optional in the Zod schema even when `createHttpHandler` runs in compatibility mode. A payload with only `{ "method": "eth_chainId" }` passes transport validation and is executed as JSON-RPC 2.0.
++**Why it matters:** Compatibility mode enforces HTTP method, path, content type, batch size, and notification semantics, but still accepts non-JSON-RPC request envelopes. That weakens the mode that is otherwise positioned as strict transport compatibility.
++**Suggested fix:** Make `jsonrpc: z.literal('2.0')` required for compatibility mode. If legacy Tevm behavior needs the optional field, pass a parser option and keep that looseness only outside compatibility mode.
++
++### [MEDIUM] Framework adapters drop the handler promise
++**Location:** packages/server/src/adapters/createNextApiHandler.js:19
++**Issue:** The Next and Express adapters call `handler(req, res)` without returning or awaiting it. Any synchronous throw before the handler's own awaits, or any rejected promise outside the local catches, becomes detached from the framework handler.
++**Why it matters:** Next can consider the API route resolved before the response is written, and both adapters make unexpected transport failures harder for the framework to observe or report. The same pattern appears in `packages/server/src/adapters/createExpressMiddleware.js:37`.
++**Suggested fix:** `return handler(req, res)` in both adapters. For Express, either return the promise or catch and pass failures to `next` by accepting the third middleware argument.
++
++### [LOW] `createJsonRpcFetcher` violates its exported response type
++**Location:** packages/jsonrpc/src/createJsonRpcFetcher.js:24
++**Issue:** `createJsonRpcFetcher` is declared to return `JsonRpcClient`, whose `JsonRpcResponse` type requires a `method` field, but the runtime success and error responses omit `method`. The tests assert the method-less shape, so the type and runtime contract disagree.
++**Why it matters:** Consumers using the package types can write code that assumes `response.method` exists, then receive `undefined` at runtime. This is a public API footgun even though the helper is deprecated.
++**Suggested fix:** Either remove `method` from `JsonRpcResponse` if the package intends to model standard JSON-RPC responses, or add `method: request.method` to every `createJsonRpcFetcher` response and keep the nonstandard Tevm response shape consistent.
+
+tokens used
+63,013
+Wrote the full review to [.review-slices/H08.md](/Users/williamcory/tevm-monorepo/.review-slices/H08.md).
+
+I only read files and created that report file. No tests, builds, installs, or source changes were run/made.
