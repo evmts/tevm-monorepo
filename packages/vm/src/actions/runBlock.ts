@@ -63,13 +63,12 @@ export const runBlock =
 
 		try {
 			result = await applyBlock(vm)(block, opts)
+			// Persist state
+			await vm.evm.journal.commit()
 		} catch (err: any) {
 			await vm.evm.journal.revert()
 			throw err
 		}
-
-		// Persist state
-		await vm.evm.journal.commit()
 
 		await state.setStateRoot(block.header.stateRoot)
 

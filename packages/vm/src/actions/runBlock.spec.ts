@@ -23,10 +23,12 @@ const mockApplyBlockResult = {
 	preimages: new Map(),
 }
 
+let applyBlockImpl = () => Promise.resolve(mockApplyBlockResult)
+
 // Mock the applyBlock dependency
 mock('./applyBlock.js', {
 	applyBlock: mock().mockImplementation(() => {
-		return () => Promise.resolve(mockApplyBlockResult)
+		return () => applyBlockImpl()
 	}),
 })
 
@@ -168,11 +170,7 @@ describe('runBlock', () => {
 	it('should revert on error and rethrow', async () => {
 		// Create a separate mock for applyBlock that throws
 		const mockApplyBlockError = new Error('Apply block failed')
-		mock('./applyBlock.js', {
-			applyBlock: mock().mockImplementation(() => {
-				return () => Promise.reject(mockApplyBlockError)
-			}),
-		})
+		applyBlockImpl = () => Promise.reject(mockApplyBlockError)
 
 		const stateManager = {
 			setStateRoot: mock().mockResolvedValue(undefined),
@@ -208,6 +206,11 @@ describe('runBlock', () => {
 				gasUsed: 100n,
 				stateRoot: new Uint8Array(32),
 			},
+			common: {
+				ethjsCommon: {
+					isActivatedEIP: mock().mockReturnValue(false),
+				},
+			},
 			transactions: [],
 			uncleHeaders: [],
 		} as unknown as Block
@@ -221,6 +224,8 @@ describe('runBlock', () => {
 			// The error message depends on the implementation, so we only check that an error was thrown
 			expect(error).toBeTruthy()
 			expect(journalRevert).toHaveBeenCalled()
+		} finally {
+			applyBlockImpl = () => Promise.resolve(mockApplyBlockResult)
 		}
 	})
 
