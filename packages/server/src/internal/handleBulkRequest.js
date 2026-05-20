@@ -5,6 +5,7 @@ import { InternalError } from '@tevm/errors'
  * Handles a bulk request. Does not throw returns errors as json-rpc error responses
  * @param {import('../Client.js').Client} client
  * @param {ReadonlyArray<import("@tevm/jsonrpc").JsonRpcRequest<string, any>>} requests
+ * @param {{ suppressNotifications?: boolean }} options
  * @returns {Promise<ReadonlyArray<import("@tevm/jsonrpc").JsonRpcResponse<any, any, any>>>}
  * @throws {never} never throws
  */

@@ -61,6 +61,7 @@ const createInvalidBatchRequest = (raw, error) => ({
  * Parses a request body into a JSON-RPC request object.
  * Returns error if any
  * @param {string} body
+ * @param {{ allowEmptyBatch?: boolean, maxBatchSize?: number, requireJsonrpc?: boolean }} options
  * @throws {never} returns errors as values
  */
 export const parseRequest = (body, options = {}) => {
