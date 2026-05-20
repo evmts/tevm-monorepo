@@ -99,11 +99,16 @@ export const tevmViemExtension = () => {
 		 */
 		const getAccount = async (params) => {
 			return formatResult(
-				await request({
+				await request(/** @type {import('@tevm/actions').GetAccountJsonRpcRequest} */ ({
 					method: 'tevm_getAccount',
 					jsonrpc: '2.0',
-					params: [params],
-				}),
+					params: [
+						{
+							...params,
+							...(params.blockTag !== undefined ? { blockTag: formatBlockTag(params.blockTag) } : {}),
+						},
+					],
+				})),
 			)
 		}
 
