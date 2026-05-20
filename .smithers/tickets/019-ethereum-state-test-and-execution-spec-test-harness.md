@@ -1,6 +1,6 @@
 ---
 id: 019
-status: done
+status: todo
 priority: P0
 area: testing
 depends_on: [015, 016]
@@ -10,7 +10,7 @@ depends_on: [015, 016]
 
 ## Problem
 
-Tevm needs the ethereum/tests and execution-spec-tests style conformance coverage used by ZEVM and Guillotine Mini.
+Tevm needs real `ethereum/tests` and `execution-spec-tests` conformance coverage used by ZEVM and Guillotine Mini. Synthetic local vectors must not be counted as coverage.
 
 ## Scope
 
@@ -22,6 +22,7 @@ Tevm needs the ethereum/tests and execution-spec-tests style conformance coverag
 - Support hardfork and pattern filtering.
 - Add generated or scripted target groups for Frontier through Osaka.
 - Save failure outputs in a form useful for debugging and Smithers agents.
+- Keep current entry points as skipped/no-coverage until a real upstream-format runner exists.
 
 ## Acceptance Criteria
 
@@ -29,3 +30,4 @@ Tevm needs the ethereum/tests and execution-spec-tests style conformance coverag
 - A documented command runs execution-spec-tests or a scoped subset.
 - Hardfork filters exist for Frontier, Berlin, Shanghai, Cancun, Prague, and Osaka.
 - CI can run a fast subset, while full suites remain available locally/Smithers.
+- No synthetic fixture metadata is reported as conformance coverage.

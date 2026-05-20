@@ -1,6 +1,6 @@
 ---
 id: 021
-status: done
+status: todo
 priority: P1
 area: testing
 depends_on: [018, 019, 020]
@@ -30,3 +30,4 @@ The new RPC, Engine API, light client, hardfork, Hive, and state-test work needs
 - Fast subsets are suitable for PR validation.
 - Full suites are runnable manually or by Smithers.
 - Artifacts are stable enough for agents to inspect and retry.
+- Conformance jobs do not pass by executing synthetic coverage.

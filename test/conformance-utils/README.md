@@ -38,3 +38,10 @@ pnpm test:conformance:targets
 ```
 
 This writes `artifacts/conformance-target-groups/frontier-osaka.json` with per-suite vectors grouped by hardfork for CI/local/Smithers orchestration.
+
+## Coverage Policy
+
+Synthetic local conformance fixtures are intentionally disabled. Until a real
+upstream-format runner is implemented, conformance entry points write skipped
+artifacts with `coverage: "none"` and do not claim Ethereum state-test or
+execution-spec-test coverage.
