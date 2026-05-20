@@ -298,6 +298,9 @@ import { tevmViemActions } from './tevmViemActions.js'
  * For UI applications concerned with bundle size, use tree-shakeable actions with `createTevmNode()`
  * and individual actions from `tevm/actions`. See the [actions API guide](https://tevm.sh/learn/actions/)
  * for details.
+ *
+ * @param {import('./MemoryClientOptions.js').MemoryClientOptions} [options] - The options to configure the MemoryClient.
+ * @type {import('./CreateMemoryClientFn.js').CreateMemoryClientFn}
  */
 export const createMemoryClient = (options) => {
 	const miningConfig = (() => {
@@ -359,7 +362,11 @@ export const createMemoryClient = (options) => {
 		type: 'tevm',
 		...(chain !== undefined ? { chain } : {}),
 	})
-		.extend(tevmViemActions())
+		.extend(
+			/** @type {(client: import('viem').Client<import('viem').Transport, undefined, undefined>) => import('./TevmViemActionsApi.js').TevmViemActionsApi} */ (
+				tevmViemActions()
+			),
+		)
 		.extend(publicActions)
 		.extend(walletActions)
 		.extend(testActions({ mode: 'anvil' }))
