@@ -72,17 +72,8 @@ export const defineCall = <TAbi extends Abi>(
 				gasLimit: gasLimit,
 				args: d.args as any,
 			})
-			return {
+			const result: ExecResult = {
 				executionGasUsed,
-				...(error ? { exceptionError: error } : {}),
-				...(selfdestruct ? { selfdestruct } : {}),
-				...(blobGasUsed ? { blobGasUsed } : {}),
-				...(logs
-					? // This logs part of the ternary is not covered
-						{
-							logs: logs.map((logs) => logToEthjsLog(abi, logs)),
-						}
-					: {}),
 				returnValue: hexToBytes(
 					encodeFunctionResult({
 						abi: abi,
@@ -91,6 +82,23 @@ export const defineCall = <TAbi extends Abi>(
 					} as any),
 				),
 			}
+			if (error) {
+				result.exceptionError = {
+					...new EvmError('revert' as any),
+					...{ message: error.message },
+				}
+			}
+			if (selfdestruct) {
+				result.selfdestruct = selfdestruct
+			}
+			if (blobGasUsed) {
+				result.blobGasUsed = blobGasUsed
+			}
+			if (logs) {
+				// This logs block is not covered
+				result.logs = logs.map((logs) => logToEthjsLog(abi, logs))
+			}
+			return result
 			// This entire catch block is not covered
 		} catch (e) {
 			return {

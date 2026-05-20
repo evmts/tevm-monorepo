@@ -4,11 +4,11 @@ import { getBlock } from './getBlock.js'
 
 /**
  * @param {import('@tevm/block').Block} block
- * @returns {string | undefined}
+ * @returns {`0x${string}` | undefined}
  */
 const getJsonRpcBlockHash = (block) => {
 	const hash = /** @type {{ __tevmJsonRpcBlockHash?: unknown }} */ (block).__tevmJsonRpcBlockHash
-	return typeof hash === 'string' ? hash : undefined
+	return typeof hash === 'string' ? /** @type {`0x${string}`} */ (hash) : undefined
 }
 
 /**
@@ -44,6 +44,9 @@ export const delBlock = (baseChain) => async (blockHash) => {
 		foundDescendant = false
 		const deletedHashes = new Set([...blocksToDelete].flatMap(getBlockHashes))
 		for (const candidate of new Set(baseChain.blocks.values())) {
+			if (!candidate) {
+				continue
+			}
 			if (!blocksToDelete.has(candidate) && deletedHashes.has(bytesToHex(candidate.header.parentHash))) {
 				blocksToDelete.add(candidate)
 				foundDescendant = true
@@ -53,7 +56,7 @@ export const delBlock = (baseChain) => async (blockHash) => {
 
 	const parent = await getBlock(baseChain)(block.header.parentHash).catch(() => undefined)
 	for (const [tag, taggedBlock] of baseChain.blocksByTag) {
-		if (blocksToDelete.has(taggedBlock)) {
+		if (taggedBlock && blocksToDelete.has(taggedBlock)) {
 			if (parent) {
 				baseChain.blocksByTag.set(tag, parent)
 			} else {

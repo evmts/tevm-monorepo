@@ -3,11 +3,11 @@ import { validateHeader } from './validateHeader.js'
 
 /**
  * @param {import('@tevm/block').Block} block
- * @returns {string | undefined}
+ * @returns {`0x${string}` | undefined}
  */
 const getJsonRpcBlockHash = (block) => {
 	const hash = /** @type {{ __tevmJsonRpcBlockHash?: unknown }} */ (block).__tevmJsonRpcBlockHash
-	return typeof hash === 'string' ? hash : undefined
+	return typeof hash === 'string' ? /** @type {`0x${string}`} */ (hash) : undefined
 }
 
 /**
