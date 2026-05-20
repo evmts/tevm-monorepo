@@ -135,10 +135,24 @@ const defaultValues: Record<string, any> = {
 const parseContracts = (contractsStr?: string): any[] => {
 	if (!contractsStr) return []
 	try {
-		return JSON.parse(contractsStr)
+		const contracts = JSON.parse(contractsStr)
+		if (!Array.isArray(contracts)) {
+			throw new Error('Contracts must be a JSON array')
+		}
+		return contracts
+	} catch (e) {
+		if (e instanceof SyntaxError) {
+			throw new Error('Contracts must be valid JSON')
+		}
+		throw e
+	}
+}
+
+const getContractCount = (contractsStr?: string): number => {
+	try {
+		return parseContracts(contractsStr).length
 	} catch (_e) {
-		console.warn('Warning: Contracts is not valid JSON, using empty array')
-		return []
+		return 0
 	}
 }
 
@@ -175,7 +189,7 @@ export default function Multicall({ options }: Props) {
 			}
 
 			// Process contracts array to ensure each has an ABI
-			const contracts = enhancedOptions['contracts'] || defaultValues['contracts']
+			const contracts = parseContracts(enhancedOptions['contracts'] || defaultValues['contracts'])
 			const processedContracts = contracts.map((contract: Record<string, any>) => {
 				if (!contract['abi']) {
 					return { ...contract, abi }
@@ -220,7 +234,7 @@ export default function Multicall({ options }: Props) {
 	return (
 		<CliAction
 			{...actionResult}
-			targetName={`${parseContracts(actionResult.options['contracts']).length} contract calls`}
+			targetName={`${getContractCount(actionResult.options['contracts'])} contract calls`}
 			successMessage="Multicall executed successfully!"
 		/>
 	)

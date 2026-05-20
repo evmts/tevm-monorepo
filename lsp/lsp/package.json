@@ -28,6 +28,8 @@
 		"tevm-lsp": "./bin/tevm-lsp.cjs"
 	},
 	"dependencies": {
+		"@tevm/base-bundler": "workspace:^",
+		"@tevm/bundler-cache": "workspace:^",
 		"@tevm/config": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
@@ -44,7 +46,6 @@
 		"zod": "^4.4.3"
 	},
 	"devDependencies": {
-		"@tevm/base-bundler": "workspace:^",
 		"tsup": "^8.5.1",
 		"typedoc": "^0.28.19",
 		"typedoc-plugin-markdown": "^4.11.0",

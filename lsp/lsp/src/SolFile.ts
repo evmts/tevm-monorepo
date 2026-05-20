@@ -1,6 +1,7 @@
-import { existsSync, readFileSync } from 'node:fs'
-import { readFile } from 'node:fs/promises'
-import { bundler, createCache } from '@tevm/base-bundler'
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+import { bundler, type FileAccessObject } from '@tevm/base-bundler'
+import { createCache } from '@tevm/bundler-cache'
 import { loadConfig } from '@tevm/config'
 import { FileCapabilities, FileKind, type VirtualFile } from '@volar/language-core'
 import { runSync } from 'effect/Effect'
@@ -36,15 +37,23 @@ export class SolFile implements VirtualFile {
 		this.snapshot = newSnapshot
 		const projectRoot = path.dirname(this.fileName)
 		const c = runSync(loadConfig(projectRoot))
-		const cache = createCache(console)
+		const fao = {
+			exists: async (fileName) => existsSync(fileName),
+			existsSync,
+			mkdir,
+			mkdirSync,
+			readFile: (fileName, encoding) => readFile(fileName, { encoding }),
+			readFileSync: (fileName, encoding) => readFileSync(fileName, { encoding }),
+			stat,
+			statSync,
+			writeFile,
+			writeFileSync,
+		} satisfies FileAccessObject
+		const cache = createCache(c.cacheDir, fao, projectRoot)
 		const b = bundler(
 			c,
 			console,
-			{
-				existsSync: existsSync,
-				readFile: readFile,
-				readFileSync: readFileSync,
-			},
+			fao,
 			solc,
 			cache,
 		)

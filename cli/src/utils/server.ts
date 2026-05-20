@@ -24,6 +24,14 @@ import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
 import { createServer } from '@tevm/server'
 import { createLoggingRequestProxy } from '../stores/logStore.js'
 
+const parseForkBlock = (forkBlockNumber: string) => {
+	try {
+		return BigInt(forkBlockNumber)
+	} catch (_e) {
+		return forkBlockNumber
+	}
+}
+
 export async function initializeServer({
 	port,
 	host,
@@ -76,7 +84,7 @@ export async function initializeServer({
 		common: chain,
 		loggingLevel: loggingLevel as any,
 		...(fork?.length
-			? { fork: { transport: http(fork), ...(forkBlockNumber ? { blockTag: BigInt(forkBlockNumber) } : {}) } }
+			? { fork: { transport: http(fork), ...(forkBlockNumber ? { blockTag: parseForkBlock(forkBlockNumber) } : {}) } }
 			: {}),
 	}) as unknown as MemoryClient
 

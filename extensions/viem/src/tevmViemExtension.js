@@ -100,7 +100,7 @@ export const tevmViemExtension = () => {
 		const getAccount = async (params) => {
 			return formatResult(
 				await request({
-					method: 'tevm_setAccount',
+					method: 'tevm_getAccount',
 					jsonrpc: '2.0',
 					params: [params],
 				}),
@@ -118,8 +118,8 @@ export const tevmViemExtension = () => {
 					params: [
 						{
 							address: params.address,
-							...(params.balance ? { balance: numberToHex(params.balance) } : {}),
-							...(params.nonce ? { nonce: numberToHex(params.nonce) } : {}),
+							...(params.balance !== undefined ? { balance: numberToHex(params.balance) } : {}),
+							...(params.nonce !== undefined ? { nonce: numberToHex(params.nonce) } : {}),
 							...(params.storageRoot ? { storageRoot: params.storageRoot } : {}),
 							...(params.deployedBytecode ? { deployedBytecode: params.deployedBytecode } : {}),
 						},
