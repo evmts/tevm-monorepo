@@ -26,7 +26,7 @@ const getSourceMetadata = (resolvedArtifacts, fs) => {
 	return Object.fromEntries(
 		Object.entries(resolvedArtifacts.solcInput?.sources || {}).map(([sourcePath, source]) => {
 			const stat = fs.statSync(sourcePath)
-			const content = typeof source?.content === 'string' ? source.content : undefined
+			const content = 'content' in source && typeof source.content === 'string' ? source.content : undefined
 			return [
 				sourcePath,
 				{
