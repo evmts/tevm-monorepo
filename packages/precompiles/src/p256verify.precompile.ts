@@ -1,6 +1,7 @@
 import { p256 } from '@noble/curves/nist.js'
+import { EvmError } from '@evmts/zevm/evm'
 import { createAddress } from '@tevm/address'
-import { toBytes } from '@tevm/utils'
+import { bytesToBigInt, toBytes } from '@tevm/utils'
 
 /**
  * RIP-7212 p256verify precompile implementation
@@ -11,7 +12,9 @@ import { toBytes } from '@tevm/utils'
  * The gas cost for the p256verify precompile (RIP-7212)
  * This is a fixed cost regardless of success or failure
  */
-export const P256_VERIFY_GAS_COST = 3450n
+export const P256_VERIFY_GAS_COST = 6900n
+
+const P256_ORDER = BigInt('0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551')
 
 /**
  * The address of the p256verify precompile (RIP-7212)
@@ -27,14 +30,22 @@ export const P256_VERIFY_ADDRESS = createAddress('0x0000000000000000000000000000
 export const p256VerifyPrecompile = () => {
 	return {
 		address: P256_VERIFY_ADDRESS,
-		function: (input: { data: Uint8Array }) => {
+		function: (input: { data: Uint8Array; gasLimit: bigint }) => {
 			// Always consume the fixed gas amount
 			const executionGasUsed = P256_VERIFY_GAS_COST
+
+			if (input.gasLimit < P256_VERIFY_GAS_COST) {
+				return {
+					returnValue: new Uint8Array(),
+					executionGasUsed: input.gasLimit,
+					exceptionError: new EvmError('out of gas' as any),
+				}
+			}
 
 			// Input validation: must be exactly 160 bytes
 			if (input.data.length !== 160) {
 				return {
-					returnValue: toBytes(0, { size: 32 }),
+					returnValue: new Uint8Array(),
 					executionGasUsed,
 				}
 			}
@@ -51,6 +62,15 @@ export const p256VerifyPrecompile = () => {
 				const s = input.data.slice(64, 96)
 				const x = input.data.slice(96, 128)
 				const y = input.data.slice(128, 160)
+				const rValue = bytesToBigInt(r)
+				const sValue = bytesToBigInt(s)
+
+				if (rValue <= 0n || rValue >= P256_ORDER || sValue <= 0n || sValue >= P256_ORDER) {
+					return {
+						returnValue: new Uint8Array(),
+						executionGasUsed,
+					}
+				}
 
 				// Construct the signature as a 64-byte compact (r, s) format
 				const signature = new Uint8Array(64)
@@ -74,15 +94,15 @@ export const p256VerifyPrecompile = () => {
 						executionGasUsed,
 					}
 				}
-				// Return 32-byte padded 0 for invalid signature
+				// Return empty bytes for invalid signature
 				return {
-					returnValue: toBytes(0, { size: 32 }),
+					returnValue: new Uint8Array(),
 					executionGasUsed,
 				}
 			} catch (_error) {
 				// Any exception during verification results in failure
 				return {
-					returnValue: toBytes(0, { size: 32 }),
+					returnValue: new Uint8Array(),
 					executionGasUsed,
 				}
 			}

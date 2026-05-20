@@ -72,6 +72,20 @@ export const defineCall = <TAbi extends Abi>(
 				gasLimit: gasLimit,
 				args: d.args as any,
 			})
+			if (error) {
+				const result: ExecResult = {
+					executionGasUsed,
+					returnValue: returnValue instanceof Uint8Array ? returnValue : new Uint8Array(),
+					exceptionError: {
+						...new EvmError('revert' as any),
+						...{ message: error.message },
+					},
+				}
+				if (blobGasUsed) {
+					result.blobGasUsed = blobGasUsed
+				}
+				return result
+			}
 			const result: ExecResult = {
 				executionGasUsed,
 				returnValue: hexToBytes(
@@ -81,12 +95,6 @@ export const defineCall = <TAbi extends Abi>(
 						result: returnValue as any,
 					} as any),
 				),
-			}
-			if (error) {
-				result.exceptionError = {
-					...new EvmError('revert' as any),
-					...{ message: error.message },
-				}
 			}
 			if (selfdestruct) {
 				result.selfdestruct = selfdestruct
