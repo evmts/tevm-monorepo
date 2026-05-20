@@ -3,16 +3,16 @@ import { createChain } from '@tevm/blockchain'
 import { createCommon, tevmDefault } from '@tevm/common'
 import { createNoopConsensusService } from '@tevm/consensus'
 import { createEvm } from '@tevm/evm'
+import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { createLogger } from '@tevm/logger'
 import { p256VerifyPrecompile } from '@tevm/precompiles'
 import { ReceiptsManager } from '@tevm/receipt-manager'
 import { createStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
-import { bytesToHex, getAddress, hexToBigInt, KECCAK256_RLP, keccak256 } from '@tevm/utils'
+import { bytesToHex, getAddress, hexToBigInt, KECCAK256_RLP, keccak256, numberToHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { GENESIS_STATE } from './GENESIS_STATE.js'
-import { getBlockNumber } from './getBlockNumber.js'
 import { getChainId } from './getChainId.js'
 import { chainIdToLightSyncNetwork, normalizeSlots, selectStartupCheckpoint } from './lightSync.js'
 import { statePersister } from './statePersister.js'
@@ -275,7 +275,7 @@ export const createTevmNode = (options = {}) => {
 	const getStateManagerOpts = async () => {
 		if (transport) {
 			// if the user passed in latest we must use an explicit block tag
-			const blockTag = await blockTagPromise
+			const { blockTag, blockHash } = await forkAnchorPromise
 			return {
 				loggingLevel,
 				...(options.persister ? { onCommit: statePersister(options.persister, logger) } : {}),
@@ -283,6 +283,7 @@ export const createTevmNode = (options = {}) => {
 					...options.fork,
 					transport,
 					blockTag,
+					...(blockHash !== undefined ? { blockHash } : {}),
 				},
 			}
 		}
@@ -354,22 +355,44 @@ export const createTevmNode = (options = {}) => {
 			},
 		)
 
-	const blockTagPromise = (async () => {
+	/**
+	 * @param {{ request: import('viem').EIP1193RequestFn }} transport
+	 * @param {import('@tevm/utils').BlockTag | bigint} blockTag
+	 */
+	const fetchForkAnchor = async (transport, blockTag) => {
+		if (blockTag === 'pending') {
+			throw new Error('Cannot use pending as a fork block tag')
+		}
+		const fetcher = createJsonRpcFetcher(transport)
+		const { result, error } = await fetcher.request({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'eth_getBlockByNumber',
+			params: [typeof blockTag === 'bigint' ? numberToHex(blockTag) : blockTag, false],
+		})
+		if (error) {
+			throw error
+		}
+		if (!result?.number || !result.hash) {
+			throw new Error(`Unable to resolve fork block ${blockTag}`)
+		}
+		return {
+			blockTag: hexToBigInt(/** @type {import('@tevm/utils').Hex} */ (result.number)),
+			blockHash: /** @type {import('@tevm/utils').Hex} */ (result.hash),
+		}
+	}
+
+	const forkAnchorPromise = (async () => {
 		if (options.fork === undefined) {
 			// this is ultimately unused
-			return 0n
+			return { blockTag: 0n }
 		}
-		// TODO handle other moving block tags like `safe`
-		// we need to fetch the latest block number and return that otherwise we may have inconsistencies from block number changing
-		if (options.fork.blockTag === undefined || options.fork.blockTag === 'latest') {
-			if (!transport) {
-				return 0n
-			}
-			const latestBlockNumber = await getBlockNumber(transport)
-			logger.debug({ latestBlockNumber }, 'fetched fork block number from provided forkurl')
-			return latestBlockNumber
+		if (!transport) {
+			return { blockTag: 0n }
 		}
-		return options.fork.blockTag
+		const anchor = await fetchForkAnchor(transport, options.fork.blockTag ?? 'latest')
+		logger.debug(anchor, 'fetched fork block anchor from provided forkurl')
+		return anchor
 	})()
 
 	const chainCommonPromise = chainIdPromise
@@ -398,7 +421,7 @@ export const createTevmNode = (options = {}) => {
 			return copy
 		})
 
-	const blockchainPromise = Promise.all([chainCommonPromise, blockTagPromise]).then(([common, blockTag]) => {
+	const blockchainPromise = Promise.all([chainCommonPromise, forkAnchorPromise]).then(([common, forkAnchor]) => {
 		return createChain({
 			loggingLevel,
 			common,
@@ -406,7 +429,7 @@ export const createTevmNode = (options = {}) => {
 				? {
 						fork: {
 							transport,
-							blockTag,
+							blockTag: forkAnchor.blockHash ?? forkAnchor.blockTag,
 						},
 					}
 				: {}),

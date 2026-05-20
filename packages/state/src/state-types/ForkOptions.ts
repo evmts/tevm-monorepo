@@ -1,4 +1,4 @@
-import { type BlockTag } from '@tevm/utils'
+import { type BlockTag, type Hex } from '@tevm/utils'
 import { type EIP1193RequestFn, type Transport } from 'viem'
 
 /**
@@ -29,6 +29,7 @@ import { type EIP1193RequestFn, type Transport } from 'viem'
 export interface ForkOptions {
 	transport: { request: EIP1193RequestFn<any> } | Transport
 	blockTag?: BlockTag | bigint
+	blockHash?: Hex
 	/**
 	 * Optional chain ID override.
 	 * When set, this chain ID will be used instead of the one fetched from the fork RPC.

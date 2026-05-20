@@ -101,9 +101,9 @@ export const ethNewFilterHandler = (tevmNode) => {
 			}
 			filter.logs.push(formattedLog)
 		}
-		tevmNode.on('newLog', listener)
-		// populate with past blocks
-		const receiptsManager = await tevmNode.getReceiptsManager()
+			tevmNode.on('newLog', listener)
+			// populate with past blocks
+			const receiptsManager = await tevmNode.getReceiptsManager()
 			const pastLogs = await receiptsManager.getLogs(
 				_fromBlock,
 				_toBlock,
