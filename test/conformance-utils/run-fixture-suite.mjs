@@ -131,7 +131,7 @@ const commonHardfork = (value) => {
 		london: 'london',
 		arrowglacier: 'arrowGlacier',
 		grayglacier: 'grayGlacier',
-		mergeforkidtransition: 'mergeForkIdTransition',
+		mergeforkidtransition: 'mergeNetsplitBlock',
 		merge: 'paris',
 		paris: 'paris',
 		shanghai: 'shanghai',

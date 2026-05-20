@@ -29,6 +29,7 @@ export type Hardfork =
 	| 'london'
 	| 'arrowGlacier'
 	| 'grayGlacier'
+	| 'mergeNetsplitBlock'
 	| 'mergeForkIdTransition'
 	| 'paris'
 	| 'shanghai'

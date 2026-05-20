@@ -4,6 +4,30 @@ import { createCommon } from './createCommon.js'
 import { createMockKzg } from './createMockKzg.js'
 import { optimism } from './presets/index.js'
 
+const frontierToOsakaHardforks = [
+	'chainstart',
+	'homestead',
+	'dao',
+	'tangerineWhistle',
+	'spuriousDragon',
+	'byzantium',
+	'constantinople',
+	'petersburg',
+	'istanbul',
+	'muirGlacier',
+	'berlin',
+	'london',
+	'arrowGlacier',
+	'grayGlacier',
+	'mergeNetsplitBlock',
+	'mergeForkIdTransition',
+	'paris',
+	'shanghai',
+	'cancun',
+	'prague',
+	'osaka',
+] as const
+
 describe(createCommon.name, () => {
 	it('uses hardfork-native EIP activation by default', () => {
 		const frontier = createCommon({ ...optimism, hardfork: 'chainstart', loggingLevel: 'warn' })
@@ -22,6 +46,12 @@ describe(createCommon.name, () => {
 	})
 
 	it('covers frontier-to-osaka hardfork boundaries', () => {
+		for (const hardfork of frontierToOsakaHardforks) {
+			const common = createCommon({ ...optimism, hardfork, loggingLevel: 'warn' })
+			const expected = hardfork === 'mergeForkIdTransition' ? 'mergeNetsplitBlock' : hardfork
+			expect(common.ethjsCommon.hardfork()).toBe(expected)
+		}
+
 		const london = createCommon({ ...optimism, hardfork: 'london', loggingLevel: 'warn' })
 		expect(london.ethjsCommon.isActivatedEIP(1559)).toBe(true)
 		expect(london.ethjsCommon.isActivatedEIP(4895)).toBe(false)

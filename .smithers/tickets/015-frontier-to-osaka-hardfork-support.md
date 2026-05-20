@@ -1,6 +1,6 @@
 ---
 id: 015
-status: todo
+status: done
 priority: P0
 area: hardforks
 ---
@@ -32,3 +32,9 @@ Tevm should support execution behavior from Frontier through Osaka, including al
 - Unsupported EIPs are documented with blocking tickets.
 - Default hardfork behavior remains backward compatible unless intentionally changed.
 
+## Resolution Notes
+
+- `@tevm/common` now configures every EthereumJS hardfork from `chainstart` through `osaka`.
+- The legacy `mergeForkIdTransition` fixture/filter name is accepted and normalized to EthereumJS `mergeNetsplitBlock`.
+- Conformance filtering enumerates Frontier through Osaka without synthetic coverage; upstream fixture execution reports only `coverage: "upstream"`.
+- Verkle/EIP-6800 remains explicitly unsupported and documented outside parity coverage.

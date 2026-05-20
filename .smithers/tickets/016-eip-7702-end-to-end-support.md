@@ -1,6 +1,6 @@
 ---
 id: 016
-status: todo
+status: done
 priority: P0
 area: hardforks
 depends_on: [015]
@@ -27,3 +27,8 @@ Tevm has EIP-7702 utilities and transaction types, but block ingestion currently
 - Tests cover signing, raw transaction decode, txpool admission, block inclusion, forked block ingestion, delegated code execution, receipts, and error cases.
 - EIP-7702 is gated by the correct hardfork.
 
+## Resolution Notes
+
+- `0x04` is no longer treated as a custom unsupported L2 transaction type.
+- RPC signing, raw transaction submission, txpool admission, mining/receipt lookup, hardfork gating, and delegated-code execution are covered by focused tests.
+- EIP-7702 execution is gated through `Capability.EIP7702EOACode` and EIP-7702 activation checks.

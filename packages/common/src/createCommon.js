@@ -3,6 +3,9 @@ import { InvalidParamsError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
 import { createMockKzg } from './createMockKzg.js'
 
+const normalizeHardfork = (hardfork) =>
+	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
+
 /**
  * Common is the main representation of chain specific configuration for tevm clients.
  *
@@ -53,6 +56,7 @@ export const createCommon = ({
 }) => {
 	try {
 		const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
+		const ethjsHardfork = normalizeHardfork(hardfork)
 
 		// Ensure eips is an array
 		const eipsArray = Array.isArray(eips) ? eips : []
@@ -70,7 +74,7 @@ export const createCommon = ({
 			},
 			Mainnet,
 			{
-				hardfork,
+				hardfork: ethjsHardfork,
 				// Respect hardfork-native feature gates by default and only opt-in explicit EIPs.
 				eips: [...eipsArray],
 				customCrypto: finalCustomCrypto,

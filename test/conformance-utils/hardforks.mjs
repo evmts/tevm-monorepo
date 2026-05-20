@@ -13,7 +13,7 @@ export const HARD_FORK_GROUPS = {
 	london: ['london', 'arrowglacier', 'grayglacier', 'mergeforkidtransition', 'paris'],
 	arrowglacier: ['arrowglacier'],
 	grayglacier: ['grayglacier'],
-	mergeforkidtransition: ['mergeforkidtransition'],
+	mergeforkidtransition: ['mergeforkidtransition', 'mergenetsplitblock'],
 	paris: ['paris'],
 	shanghai: ['shanghai'],
 	cancun: ['cancun'],
@@ -37,6 +37,8 @@ const HARD_FORK_ALIASES = {
 	merge: 'paris',
 	mergeforkidtransition: 'mergeforkidtransition',
 	mergeForkIdTransition: 'mergeforkidtransition',
+	mergeNetsplitBlock: 'mergeforkidtransition',
+	mergenetsplitblock: 'mergeforkidtransition',
 }
 
 export const normalizeHardfork = (value) => {

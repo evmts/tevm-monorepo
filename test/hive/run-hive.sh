@@ -43,8 +43,8 @@ preflight() {
 
   local node_major
   node_major="$(node -p "process.versions.node.split('.')[0]")"
-  if [[ "$node_major" != "20" && "$node_major" != "22" && "$node_major" != "24" ]]; then
-    echo "Unsupported Node.js runtime for Tevm Hive harness: $(node -v). Use Node 20.x, 22.x, or 24.x." | tee -a "$LOG_FILE"
+  if [[ "$node_major" != "24" ]]; then
+    echo "Unsupported Node.js runtime for Tevm Hive harness: $(node -v). Use Node 24.x." | tee -a "$LOG_FILE"
     return 1
   fi
 
