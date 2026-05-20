@@ -23,6 +23,9 @@
   ],
   "sideEffects": false,
   "type": "module",
+  "bin": {
+    "tevm": "./cli.js"
+  },
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -381,6 +384,7 @@
   "types": "index.d.ts",
   "files": [
     "index*",
+    "cli.js",
     "actions",
     "address",
     "node",

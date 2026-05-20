@@ -200,7 +200,7 @@ const vectorMatches = (vector) => {
 	if (isolate && vector.id !== isolate && vector.name !== isolate && !id.includes(isolate.toLowerCase())) return false
 	if (hardfork && !isHardforkSelected(vector.hardfork, hardfork)) return false
 	if (pattern && !id.includes(pattern.toLowerCase())) return false
-	if (group && group !== 'boundary' && group !== 'eip' && !id.includes(group.toLowerCase())) return false
+	if (group && !id.includes(group.toLowerCase())) return false
 	return true
 }
 

@@ -3,11 +3,9 @@ import { spawnSync } from 'node:child_process'
 import { resolve } from 'node:path'
 
 const argv = process.argv.slice(2)
-const passThrough = argv.join(' ')
 const fixtures = process.env.TEVM_GENERAL_STATE_TESTS_FIXTURES
 const script = resolve('test/conformance-utils/run-fixture-suite.mjs')
-const fixtureArg = fixtures ? `--fixtures=${fixtures}` : ''
-const cmd = `node ${script} --suite=general-state-tests ${fixtureArg} ${passThrough}`.trim()
+const args = [script, '--suite=general-state-tests', ...(fixtures ? [`--fixtures=${fixtures}`] : []), ...argv]
 
-const proc = spawnSync(cmd, { shell: true, stdio: 'inherit' })
+const proc = spawnSync(process.execPath, args, { stdio: 'inherit' })
 process.exit(proc.status ?? 1)
