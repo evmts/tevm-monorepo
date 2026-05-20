@@ -319,7 +319,7 @@ export class ReceiptsManager {
 			const block = await getBlock(this.chain)(blockHash)
 			receipts = (receipts as TxReceiptWithType[]).map((r, i) => {
 				const type = block.transactions[i]?.type
-				if (type) {
+				if (type !== undefined) {
 					r.txType = type
 				}
 				return r
@@ -387,6 +387,10 @@ export class ReceiptsManager {
 		addresses?: Uint8Array[],
 		topics: (Uint8Array | Uint8Array[] | null)[] = [],
 	): Promise<GetLogsReturn> {
+		const blockRange = to.header.number - from.header.number + 1n
+		if (blockRange > BigInt(this.GET_LOGS_BLOCK_RANGE_LIMIT)) {
+			throw new Error(`getLogs block range exceeds limit of ${this.GET_LOGS_BLOCK_RANGE_LIMIT}`)
+		}
 		const returnedLogs: GetLogsReturn = []
 		let returnedLogsSize = 0
 		for (let i = from.header.number; i <= to.header.number; i++) {
@@ -469,8 +473,11 @@ export class ReceiptsManager {
 						await this.mapDb.put('TxHash', tx.hash(), encoded)
 					}
 				} else if (operation === IndexOperation.Delete) {
-					for (const tx of block.transactions) {
-						await this.mapDb.delete('TxHash', tx.hash())
+					for (const [i, tx] of block.transactions.entries()) {
+						const currentIndex = await this.getIndex(IndexType.TxHash, tx.hash())
+						if (currentIndex && equalsBytes(currentIndex[0], block.hash()) && currentIndex[1] === i) {
+							await this.mapDb.delete('TxHash', tx.hash())
+						}
 					}
 				}
 				break

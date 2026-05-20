@@ -30,29 +30,30 @@ export const createSyncStoragePersister = ({
 			return /** @type {Error}*/ (error)
 		}
 	}
+	const persistTevmState = throttle((persistedState, onError) => {
+		if (!persistedState) {
+			return
+		}
+		// TODO make this configurable
+		const retries = 3
+		let error = trySave(persistedState)
+		let errorCount = 0
+		while (error && errorCount < retries) {
+			errorCount++
+			error = trySave(persistedState)
+		}
+		if (onError && error) {
+			onError(error)
+		}
+		return error
+	}, throttleTime)
 	return {
 		/**
 		 * @param {import('@tevm/state').SerializableTevmState | undefined} persistedState
 		 * @param {(error: Error | undefined) => void} [onError]
 		 * @returns {Error | undefined}
 		 */
-		persistTevmState: throttle((persistedState, onError) => {
-			if (!persistedState) {
-				return
-			}
-			// TODO make this configurable
-			const retries = 3
-			let error = trySave(persistedState)
-			let errorCount = 0
-			while (error && errorCount < retries) {
-				errorCount++
-				error = trySave(persistedState)
-			}
-			if (onError && error) {
-				onError(error)
-			}
-			return error
-		}, throttleTime),
+		persistTevmState,
 		/**
 		 * @returns {import('@tevm/state').SerializableTevmState | undefined}
 		 */
@@ -68,6 +69,7 @@ export const createSyncStoragePersister = ({
 		 */
 		removePersistedState: () => {
 			try {
+				persistTevmState.cancel()
 				storage.removeItem(key)
 				return undefined
 			} catch (e) {

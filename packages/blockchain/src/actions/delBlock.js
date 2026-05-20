@@ -1,7 +1,6 @@
 import { InvalidBlockError } from '@tevm/errors'
 import { bytesToHex } from 'viem'
 import { getBlock } from './getBlock.js'
-import { getCanonicalHeadBlock } from './getCanonicalHeadBlock.js'
 
 /**
  * @param {import('@tevm/block').Block} block
@@ -32,12 +31,10 @@ const getBlockHashes = (block) => {
  */
 export const delBlock = (baseChain) => async (blockHash) => {
 	const block = await getBlock(baseChain)(blockHash)
-	const hexHash = bytesToHex(blockHash)
 
-	const latest = await getCanonicalHeadBlock(baseChain)()
 	const forkedBlock = baseChain.blocksByTag.get('forked')
 
-	if (forkedBlock && hexHash === bytesToHex(forkedBlock.hash())) {
+	if (forkedBlock && block === forkedBlock) {
 		throw new InvalidBlockError('Cannot delete the forked block!')
 	}
 
@@ -54,9 +51,15 @@ export const delBlock = (baseChain) => async (blockHash) => {
 		}
 	}
 
-	if (blocksToDelete.has(latest)) {
-		const parent = await getBlock(baseChain)(block.header.parentHash).catch(() => undefined)
-		baseChain.blocksByTag.set('latest', parent)
+	const parent = await getBlock(baseChain)(block.header.parentHash).catch(() => undefined)
+	for (const [tag, taggedBlock] of baseChain.blocksByTag) {
+		if (blocksToDelete.has(taggedBlock)) {
+			if (parent) {
+				baseChain.blocksByTag.set(tag, parent)
+			} else {
+				baseChain.blocksByTag.delete(tag)
+			}
+		}
 	}
 	for (const blockToDelete of blocksToDelete) {
 		for (const [hash, cachedBlock] of baseChain.blocks) {

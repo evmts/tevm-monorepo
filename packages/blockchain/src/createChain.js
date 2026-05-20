@@ -39,5 +39,7 @@ export const createChain = async (options) => {
 			})
 		)
 	}
-	return decorate(createBaseChain(options))
+	const baseChain = createBaseChain(options)
+	await baseChain.ready()
+	return decorate(baseChain)
 }

@@ -13,7 +13,7 @@ export const throttle = (func, wait = 100) => {
 	 */
 	let params
 	/**
-	 * @param {...any[]} args
+	 * @type {((...args: any[]) => void) & { cancel?: () => void }}
 	 */
 	const throttledFn = (...args) => {
 		// set the latest args
@@ -26,6 +26,12 @@ export const throttle = (func, wait = 100) => {
 				timer = null
 				return res
 			}, wait)
+		}
+	}
+	throttledFn.cancel = () => {
+		if (timer !== null) {
+			clearTimeout(timer)
+			timer = null
 		}
 	}
 	return /** @type any*/ (throttledFn)
