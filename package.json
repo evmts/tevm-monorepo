@@ -91,8 +91,8 @@
 	},
 	"packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3",
 	"engines": {
-		"_comment": "Node v24 causes heap memory crashes during pnpm install due to inefficient handling of large package files during crypto hash verification. Use Node v20.19+ or Node 22.12+.",
-		"node": "^20.19.0 || >=22.12 <23"
+		"_comment": "Tevm CI and parity suites support current LTS lines plus Node 24.",
+		"node": "^20.19.0 || ^22.12.0 || ^24.0.0"
 	},
 	"pnpm": {
 		"patchedDependencies": {
