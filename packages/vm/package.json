@@ -32,6 +32,16 @@
 				"types": "./dist/index.d.cts",
 				"default": "./dist/index.cjs"
 			}
+		},
+		"./actions": {
+			"import": {
+				"types": "./types/actions/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./types/actions/index.d.ts",
+				"default": "./dist/index.cjs"
+			}
 		}
 	},
 	"main": "dist/index.cjs",

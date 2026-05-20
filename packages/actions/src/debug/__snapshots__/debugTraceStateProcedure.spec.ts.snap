@@ -8,13 +8,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace state related to specifi
   "result": {
     "evm": {
       "common": {
-        "eips": [
-          1559,
-          4895,
-          4844,
-          4788,
-          2935,
-        ],
+        "eips": [],
       },
     },
     "node": {
@@ -309,11 +303,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         7685,
         7691,
         7702,
-        1559,
-        4895,
-        4844,
-        4788,
-        2935,
       ],
       "_chainParams": {
         "bootstrapNodes": [
@@ -489,13 +478,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         "name": "tevm-devnet",
         "url": "https://ethstats.net/",
       },
-      "_eips": [
-        1559,
-        4895,
-        4844,
-        4788,
-        2935,
-      ],
+      "_eips": [],
       "_hardfork": "prague",
       "_params": {
         "1": {
@@ -1244,11 +1227,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         7685,
         7691,
         7702,
-        1559,
-        4895,
-        4844,
-        4788,
-        2935,
       ],
       "_chainParams": {
         "bootstrapNodes": [
@@ -1424,13 +1402,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         "name": "tevm-devnet",
         "url": "https://ethstats.net/",
       },
-      "_eips": [
-        1559,
-        4895,
-        4844,
-        4788,
-        2935,
-      ],
+      "_eips": [],
       "_hardfork": "prague",
       "_params": {
         "1": {
@@ -2692,11 +2664,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         7685,
         7691,
         7702,
-        1559,
-        4895,
-        4844,
-        4788,
-        2935,
       ],
       "_chainParams": {
         "bootstrapNodes": [
@@ -2872,13 +2839,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         "name": "tevm-devnet",
         "url": "https://ethstats.net/",
       },
-      "_eips": [
-        1559,
-        4895,
-        4844,
-        4788,
-        2935,
-      ],
+      "_eips": [],
       "_hardfork": "prague",
       "_params": {
         "1559": {
@@ -3311,11 +3272,6 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         7685,
         7691,
         7702,
-        1559,
-        4895,
-        4844,
-        4788,
-        2935,
       ],
       "_chainParams": {
         "bootstrapNodes": [
@@ -3491,13 +3447,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
         "name": "tevm-devnet",
         "url": "https://ethstats.net/",
       },
-      "_eips": [
-        1559,
-        4895,
-        4844,
-        4788,
-        2935,
-      ],
+      "_eips": [],
       "_hardfork": "prague",
       "_params": {
         "1559": {
@@ -4209,13 +4159,7 @@ exports[`debugTraceStateJsonRpcProcedure > should trace the entire state if no f
       "algorithm": "casper",
       "type": "pos",
     },
-    "eips": [
-      1559,
-      4895,
-      4844,
-      4788,
-      2935,
-    ],
+    "eips": [],
     "hardfork": "prague",
   },
   "opcodes": Map {

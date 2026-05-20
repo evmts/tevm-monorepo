@@ -8,6 +8,7 @@ const dirs = [
   'memory-client',
   'errors',
   'common',
+  'consensus',
   'precompiles',
   'predeploys',
   'http-client',

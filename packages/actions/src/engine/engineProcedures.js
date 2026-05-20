@@ -99,12 +99,11 @@ export const testingBuildBlockV1Procedure = (client) => async (request) => {
         number: parentHeader.number + 1n,
         timestamp: payloadAttributes.timestamp ? BigInt(payloadAttributes.timestamp) : parentHeader.timestamp + 1n,
         gasLimit: parentHeader.gasLimit,
-        baseFeePerGas: parentHeader.calcNextBaseFee(),
         extraData: extraData ? hexToBytes(extraData) : undefined,
         coinbase: payloadAttributes.suggestedFeeRecipient ? hexToBytes(payloadAttributes.suggestedFeeRecipient) : undefined,
         mixHash: payloadAttributes.prevRandao ? hexToBytes(payloadAttributes.prevRandao) : undefined,
       },
-      blockOpts: { freeze: false, putBlockIntoBlockchain: false, skipConsensusFormatValidation: true, setHardfork: true },
+      blockOpts: { freeze: false, putBlockIntoBlockchain: false, skipConsensusFormatValidation: true, setHardfork: false },
     })
     const applied = []
     for (const rawTx of transactions ?? []) {

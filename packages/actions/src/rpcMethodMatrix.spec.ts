@@ -5,9 +5,9 @@ import { createHandlers } from './createHandlers.js'
 import { buildRpcMethodMatrix, intentionallyUnsupportedRuntimeMethods, typedButMissingMethods } from './rpcMethodMatrix.js'
 
 const typedSchemaFiles = [
-  'packages/decorators/src/eip1193/JsonRpcSchemaPublic.ts',
-  'packages/decorators/src/eip1193/JsonRpcSchemaTest.ts',
-  'packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts',
+  new URL('../../decorators/src/eip1193/JsonRpcSchemaPublic.ts', import.meta.url),
+  new URL('../../decorators/src/eip1193/JsonRpcSchemaTest.ts', import.meta.url),
+  new URL('../../decorators/src/eip1193/JsonRpcSchemaTevm.ts', import.meta.url),
 ] as const
 
 const getTypedMethods = () => {

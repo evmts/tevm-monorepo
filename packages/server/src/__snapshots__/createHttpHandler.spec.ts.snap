@@ -20,7 +20,7 @@ exports[`createHttpHandler > should handle a bulk JSON-RPC request 1`] = `
 exports[`createHttpHandler > should handle an unexpected error during request processing that are not base error 1`] = `
 {
   "code": -32603,
-  "message": "Unexpeced error
+  "message": "Unexpected error
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Details: oops

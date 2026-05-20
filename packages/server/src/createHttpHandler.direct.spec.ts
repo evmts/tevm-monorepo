@@ -31,7 +31,7 @@ describe('createHttpHandler direct tests', () => {
 		await handler(mockReq as any, mockRes as any)
 
 		// Verify that handleError was called with the expected arguments
-		expect(mockGetRequestBody).toHaveBeenCalledWith(mockReq)
+		expect(mockGetRequestBody).toHaveBeenCalledWith(mockReq, { maxBodySize: undefined })
 		expect(mockHandleError).toHaveBeenCalledWith(mockClient, mockError, mockRes)
 	})
 })

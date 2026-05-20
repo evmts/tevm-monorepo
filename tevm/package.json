@@ -50,16 +50,6 @@
         "types": "./common/index.d.ts",
         "default": "./common/index.js"
       },
-      "./consensus": {
-        "import": {
-          "types": "./consensus/index.d.ts",
-          "default": "./consensus/index.js"
-        },
-        "require": {
-          "types": "./consensus/index.d.cts",
-          "default": "./consensus/index.cjs"
-        }
-      },
       "require": {
         "types": "./common/index.d.cts",
         "default": "./common/index.cjs"
@@ -450,6 +440,7 @@
     "@tevm/common": "workspace:^",
     "@tevm/compiler": "workspace:^",
     "@tevm/config": "workspace:^",
+    "@tevm/consensus": "workspace:^",
     "@tevm/contract": "workspace:^",
     "@tevm/decorators": "workspace:^",
     "@tevm/errors": "workspace:^",
@@ -479,8 +470,7 @@
     "commander": "^14.0.3",
     "effect": "3.21.2",
     "glob": "^13.0.6",
-    "solc": "^0.8.35",
-    "@tevm/consensus": "workspace:^"
+    "solc": "^0.8.35"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",

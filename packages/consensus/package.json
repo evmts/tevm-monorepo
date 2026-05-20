@@ -14,7 +14,7 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": ["dist", "types", "src", "!src/**/*.spec.ts"],
-  "scripts": {"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/consensus", "build:dist": "tsup", "build:types": "tsup --dts-only", "test:run": "vitest run", "typecheck": "tsc --noEmit"},
+  "scripts": {"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/consensus", "build:dist": "tsup", "build:types": "tsup --dts-only", "test:run": "vitest run --passWithNoTests", "typecheck": "tsc --noEmit"},
   "devDependencies": {"@tevm/tsconfig": "workspace:^", "@tevm/tsupconfig": "workspace:^"},
   "publishConfig": {"access": "public"}
 }

@@ -54,7 +54,9 @@ export const createHttpHandler = (client, options = {}) => {
 
 		const body = await getRequestBody(req, { maxBodySize: compatibility ? maxBodySize : undefined })
 		if (body instanceof ReadRequestBodyError) {
-			if (compatibility && body.message === 'Request body exceeds configured max body size') return void res.writeHead(413).end()
+			if (compatibility && body.shortMessage === 'Request body exceeds configured max body size') {
+				return void res.writeHead(413).end()
+			}
 			return handleError(client, body, res)
 		}
 

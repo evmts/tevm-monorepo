@@ -55,6 +55,9 @@ preflight() {
   if [[ "$START_LOCAL_TEVM" == "true" ]]; then
     (
       cd "$ROOT_DIR"
+      pnpm --filter @tevm/actions build:dist
+      pnpm --filter @tevm/decorators build:dist
+      pnpm --filter @tevm/memory-client build:dist
       pnpm --filter @tevm/server build:dist
     ) >>"$LOG_FILE" 2>&1
   fi
@@ -101,7 +104,7 @@ run_smoke_suite() {
       payload="{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"$method\",\"params\":[]}"
       response="$(curl -sS -H 'content-type: application/json' -d "$payload" "$TEVM_RPC_URL" || true)"
       ok="false"
-      if [[ "$response" == *'"result"'* || "$response" == *'"error"'* ]]; then
+      if [[ "$response" == *'"result"'* ]]; then
         ok="true"
       else
         failed=1

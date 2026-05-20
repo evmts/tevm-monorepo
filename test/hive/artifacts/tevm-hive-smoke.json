@@ -1,1 +1,10 @@
-{"suite":"smoke","ok":false,"exitCode":1,"log":"/Users/williamcory/tevm-monorepo/test/hive/artifacts/tevm-hive-smoke.log"}
+{
+  "suite": "smoke",
+  "rpc": "http://127.0.0.1:8545",
+  "checks": [
+    {"method":"web3_clientVersion","ok":true,"response":"{\"method\":\"web3_clientVersion\",\"result\":\"tevm/1.0.0\",\"jsonrpc\":\"2.0\",\"id\":1}\n"},
+    {"method":"eth_chainId","ok":true,"response":"{\"id\":1,\"jsonrpc\":\"2.0\",\"method\":\"eth_chainId\",\"result\":\"0x384\"}\n"},
+    {"method":"eth_blockNumber","ok":true,"response":"{\"id\":1,\"jsonrpc\":\"2.0\",\"method\":\"eth_blockNumber\",\"result\":\"0x0\"}\n"},
+    {"method":"engine_exchangeCapabilities","ok":true,"response":"{\"id\":1,\"jsonrpc\":\"2.0\",\"method\":\"engine_exchangeCapabilities\",\"result\":[]}\n"}
+  ]
+}
