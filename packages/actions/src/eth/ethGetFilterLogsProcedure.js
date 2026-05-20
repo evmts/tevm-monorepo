@@ -21,14 +21,14 @@ export const ethGetFilterLogsProcedure = (client) => {
 			}
 		}
 		try {
-			const ethGetLogsResult = await ethGetLogsHandler(client)({
-				filterParams: {
-					fromBlock: filter.logsCriteria.fromBlock?.header?.number ?? 0n,
-					toBlock: filter.logsCriteria.toBlock?.header?.number ?? 'latest',
-					address: filter.logsCriteria.address,
-					topics: filter.logsCriteria.topics,
-				},
-			})
+				const ethGetLogsResult = await ethGetLogsHandler(client)({
+					filterParams: {
+						fromBlock: filter.logsCriteria.fromBlock?.header?.number ?? filter.logsCriteria.fromBlock ?? 0n,
+						toBlock: filter.logsCriteria.toBlock?.header?.number ?? filter.logsCriteria.toBlock ?? 'latest',
+						address: filter.logsCriteria.address,
+						topics: filter.logsCriteria.topics,
+					},
+				})
 			/**
 			 * @type {Required<import('./EthJsonRpcResponse.js').EthGetFilterLogsJsonRpcResponse>['result']}
 			 */

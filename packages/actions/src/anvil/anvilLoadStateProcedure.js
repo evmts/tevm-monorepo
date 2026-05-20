@@ -1,5 +1,6 @@
 import { createAddress } from '@tevm/address'
 import { createAccount, fromRlp, hexToBytes } from '@tevm/utils'
+import { loadStateProcedure } from '../LoadState/loadStateProcedure.js'
 
 /**
  * Request handler for anvil_loadState JSON-RPC requests.
@@ -25,6 +26,29 @@ export const anvilLoadStateJsonRpcProcedure = (client) => {
 		}
 
 		const vm = await client.getVm()
+		const [firstAccount] = Object.values(stateRecord)
+		if (firstAccount && typeof firstAccount === 'object' && !Array.isArray(firstAccount)) {
+			const result = await loadStateProcedure(client)({
+				jsonrpc: '2.0',
+				method: 'tevm_loadState',
+				...(loadStateRequest.id !== undefined ? { id: loadStateRequest.id } : {}),
+				params: [{ state: stateRecord }],
+			})
+			if (result.error) {
+				return {
+					jsonrpc: '2.0',
+					method: loadStateRequest.method,
+					...(loadStateRequest.id !== undefined ? { id: loadStateRequest.id } : {}),
+					error: /** @type {any} */ (result.error),
+				}
+			}
+			return {
+				jsonrpc: '2.0',
+				method: loadStateRequest.method,
+				result: null,
+				...(loadStateRequest.id !== undefined ? { id: loadStateRequest.id } : {}),
+			}
+		}
 
 		return Promise.all(
 			Object.entries(stateRecord).map(([address, rlpEncodedAccount]) => {

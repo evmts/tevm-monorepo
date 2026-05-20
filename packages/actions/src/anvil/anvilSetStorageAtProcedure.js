@@ -33,7 +33,6 @@ export const anvilSetStorageAtJsonRpcProcedure = (client) => {
 			jsonrpc: '2.0',
 			method: request.method,
 			...(request.id !== undefined ? { id: request.id } : {}),
-			result: null,
+			result: true,
 		}
 	}
-}

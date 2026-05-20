@@ -19,6 +19,7 @@ export const txToJsonRpcTx = (tx, block, txIndex) => {
 		maxPriorityFeePerGas: txJSON.maxPriorityFeePerGas,
 		type: numberToHex(tx.type),
 		...(txJSON.accessList !== undefined ? { accessList: txJSON.accessList } : {}),
+		...(txJSON.authorizationList !== undefined ? { authorizationList: txJSON.authorizationList } : {}),
 		hash: bytesToHex(tx.hash()),
 		input: /** @type {import('@tevm/utils').Hex} */ (txJSON.data),
 		nonce: /** @type {import('@tevm/utils').Hex}*/ (txJSON.nonce),

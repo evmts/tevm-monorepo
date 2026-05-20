@@ -4,6 +4,7 @@ import { BlobGasLimitExceededError, InvalidTransactionError } from '@tevm/errors
 import { prefundedAccounts } from '@tevm/node'
 import { bytesToHex, EthjsAddress, hexToBytes } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
+import { handleAutomining } from '../Call/handleAutomining.js'
 
 const txType = {
 	LEGACY: 0x00,
@@ -95,6 +96,15 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 			})
 		}
 		client.emit('newPendingTransaction', tx)
+		if (client.miningConfig.type === 'auto') {
+			const autominingResult = await handleAutomining(client, txHash, false, true)
+			if (autominingResult?.errors?.length === 1) {
+				throw autominingResult.errors[0]
+			}
+			if ((autominingResult?.errors?.length ?? 0) > 0) {
+				throw new AggregateError(autominingResult?.errors ?? [])
+			}
+		}
 		return txHash
 	}
 	/**

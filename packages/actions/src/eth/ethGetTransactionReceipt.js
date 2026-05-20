@@ -36,53 +36,57 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 	 */
 	if (!result && client.forkTransport) {
 		const fetcher = createJsonRpcFetcher(client.forkTransport)
-		const { result } = await fetcher.request({
+		const { result, error } = await fetcher.request({
 			method: 'eth_getTransactionReceipt',
 			params: [params.hash],
 			id: 1,
 			jsonrpc: '2.0',
 		})
+		if (error) {
+			throw error
+		}
 		// TODO type this
 		const r = /** @type {any}*/ (result)
+		if (!r) {
+			return null
+		}
 		/**
 		 * @type {import('./EthResult.js').EthGetTransactionReceiptResult }
 		 */
-			return (
-				r && {
-					blockHash: r.blockHash,
-					blockNumber: BigInt(r.blockNumber),
-					cumulativeGasUsed: BigInt(r.cumulativeGasUsed),
-					effectiveGasPrice: BigInt(r.effectiveGasPrice),
-					from: r.from,
-					gasUsed: BigInt(r.gasUsed),
-				to: r.to,
-				transactionHash: r.transactionHash,
-				transactionIndex: BigInt(r.transactionIndex),
-				contractAddress: r.contractAddress,
-				logsBloom: r.logsBloom,
-				blobGasUsed: r.blobGasUsed ? BigInt(r.blobGasUsed) : undefined,
-				blobGasPrice: r.blobGasPrice ? BigInt(r.blobGasPrice) : undefined,
-				root: r.root,
-				status: r.status,
-				logs: r.logs.map(
-					/**
-					 * TODO type this
-					 * @param {any} log
-					 */
-					(log) => ({
-						address: log.address,
-						blockHash: log.blockHash,
-						blockNumber: BigInt(log.blockNumber),
-						data: log.data,
-							logIndex: BigInt(log.logIndex),
-						removed: log.removed,
-						topics: log.topics,
-						transactionIndex: BigInt(log.transactionIndex),
-						transactionHash: log.transactionHash,
-					}),
-				),
-			}
-		)
+		return {
+			blockHash: r.blockHash,
+			blockNumber: BigInt(r.blockNumber),
+			cumulativeGasUsed: BigInt(r.cumulativeGasUsed),
+			effectiveGasPrice: BigInt(r.effectiveGasPrice),
+			from: r.from,
+			gasUsed: BigInt(r.gasUsed),
+			to: r.to,
+			transactionHash: r.transactionHash,
+			transactionIndex: BigInt(r.transactionIndex),
+			contractAddress: r.contractAddress,
+			logsBloom: r.logsBloom,
+			blobGasUsed: r.blobGasUsed ? BigInt(r.blobGasUsed) : undefined,
+			blobGasPrice: r.blobGasPrice ? BigInt(r.blobGasPrice) : undefined,
+			root: r.root,
+			status: r.status,
+			logs: r.logs.map(
+				/**
+				 * TODO type this
+				 * @param {any} log
+				 */
+				(log) => ({
+					address: log.address,
+					blockHash: log.blockHash,
+					blockNumber: BigInt(log.blockNumber),
+					data: log.data,
+					logIndex: BigInt(log.logIndex),
+					removed: log.removed,
+					topics: log.topics,
+					transactionIndex: BigInt(log.transactionIndex),
+					transactionHash: log.transactionHash,
+				}),
+			),
+		}
 	}
 
 	if (!result) {

@@ -27,6 +27,14 @@ export type TransactionResult = {
 		readonly address: Hex
 		readonly storageKeys: ReadonlyArray<Hex>
 	}>
+	readonly authorizationList?: ReadonlyArray<{
+		readonly chainId: Hex
+		readonly address: Hex
+		readonly nonce: Hex
+		readonly yParity: Hex
+		readonly r: Hex
+		readonly s: Hex
+	}>
 	readonly maxFeePerBlobGas?: Hex
 	readonly blobVersionedHashes?: ReadonlyArray<Hex>
 	readonly isImpersonated?: boolean

@@ -1,6 +1,6 @@
 import { UnknownBlockError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
-import { bytesToHex, getAddress, hexToBytes, isHex } from '@tevm/utils'
+import { bytesToHex, getAddress } from '@tevm/utils'
 import { getPendingClient } from '../internal/getPendingClient.js'
 import { asLightSelector, ensureLightReady, getLightProof } from './lightClientRead.js'
 
@@ -30,10 +30,7 @@ export const getCodeHandler = (baseClient) => async (params) => {
 		if (tag === 'latest' || tag === 'earliest' || tag === 'safe' || tag === 'finalized') {
 			return vm.blockchain.blocksByTag.get(tag)
 		}
-		if (isHex(tag)) {
-			return vm.blockchain.getBlock(hexToBytes(tag))
-		}
-		return vm.blockchain.getBlock(tag)
+		return vm.blockchain.getBlockByTag(/** @type {any} */ (tag))
 	})()
 
 	if (!block) {

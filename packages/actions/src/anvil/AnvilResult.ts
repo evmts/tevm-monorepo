@@ -27,7 +27,7 @@ export type AnvilSetCodeResult = null
 // anvil_setNonce
 export type AnvilSetNonceResult = null
 // anvil_setStorageAt
-export type AnvilSetStorageAtResult = null
+export type AnvilSetStorageAtResult = boolean
 // anvil_setChainId
 export type AnvilSetChainIdResult = null
 // TODO make this the same as our dump state

@@ -19,7 +19,7 @@ export const getBalanceProcedure = (baseClient) => async (req) => {
 			await getBalanceHandler(baseClient)({
 				address: req.params[0],
 				...(req.params[1].startsWith('0x')
-					? { blockNumber: BigInt(req.params[1]) }
+					? { blockTag: BigInt(req.params[1]) }
 					: {
 							blockTag: /** @type {import('@tevm/utils').BlockTag}*/ (req.params[1]),
 						}),

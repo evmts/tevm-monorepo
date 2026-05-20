@@ -1,5 +1,5 @@
 import { createMapDb } from '@evmts/zevm/receipt-manager'
-import { clearTxPool } from '../internal/snapshotMetadata.js'
+import { captureSnapshotMetadata, restoreSnapshotState } from '../internal/snapshotMetadata.js'
 
 /**
  * Request handler for anvil_reset JSON-RPC requests.
@@ -13,6 +13,11 @@ import { clearTxPool } from '../internal/snapshotMetadata.js'
  * console.log(result) // { result: null, method: 'anvil_reset', jsonrpc: '2.0', id: 1 }
  */
 export const anvilResetJsonRpcProcedure = (node) => {
+	const initialSnapshotPromise = node.getVm().then(async (vm) => ({
+		stateRoot: vm.stateManager._baseState.getCurrentStateRoot(),
+		state: await vm.stateManager.dumpCanonicalGenesis(),
+		...(await captureSnapshotMetadata(node, vm)),
+	}))
 	return async (request) => {
 		const resetParams = /** @type {any} */ (request.params?.[0])
 		const newForkUrl = resetParams?.forking?.jsonRpcUrl
@@ -41,27 +46,8 @@ export const anvilResetJsonRpcProcedure = (node) => {
 		// reset impersonated account
 		node.setImpersonatedAccount(undefined)
 		node.setAutoImpersonate(false)
-		node.setNextBlockTimestamp(undefined)
-		node.setBlockTimestampInterval(undefined)
-		node.setNextBlockGasLimit(undefined)
-		node.setNextBlockBaseFeePerGas(undefined)
-		node.setNextBlockPrevRandao(undefined)
-		node.setMinGasPrice(undefined)
-
-		const txPool = await node.getTxPool()
-		await clearTxPool(txPool)
-
 		const vm = await node.getVm()
-		const newStateManager = vm.stateManager.shallowCopy()
-		const newBlockchain = vm.blockchain.shallowCopy()
-		const forkedBlock = vm.blockchain.blocksByTag.get('forked')
-		if (forkedBlock) {
-			await newBlockchain.putBlock(forkedBlock)
-		}
-		vm.stateManager = /** @type {any}*/ (newStateManager)
-		vm.evm.stateManager = /** @type {any}*/ (newStateManager)
-		vm.blockchain = newBlockchain
-		vm.evm.blockchain = newBlockchain
+		await restoreSnapshotState(node, await initialSnapshotPromise, vm)
 
 		// reset receipts manager
 		/**
@@ -70,7 +56,7 @@ export const anvilResetJsonRpcProcedure = (node) => {
 		const receiptManager = await node.getReceiptsManager()
 		// TODO we should add a receiptManager.reset() method
 		receiptManager.mapDb = createMapDb({ cache: new Map() })
-		receiptManager.chain = newBlockchain
+		receiptManager.chain = vm.blockchain
 		node.getSnapshots().clear()
 
 		return {

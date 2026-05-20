@@ -31,10 +31,14 @@ export const getBalanceHandler =
 			}
 			return getBalanceHandler(mineResult.pendingClient)({ address, blockTag: 'latest' })
 		}
-		const block =
-			vm.blockchain.blocks.get(/** @type any*/ (blockTag)) ??
-			vm.blockchain.blocksByTag.get(/** @type any*/ (blockTag)) ??
-			vm.blockchain.blocksByNumber.get(/** @type any*/ (blockTag))
+		let block
+		try {
+			block = await vm.blockchain.getBlockByTag(/** @type any*/ (blockTag))
+		} catch (e) {
+			if (baseClient.forkTransport) {
+				throw e
+			}
+		}
 		const hasStateRoot = block && (await vm.stateManager.hasStateRoot(block.header.stateRoot))
 		if (hasStateRoot) {
 			const root = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))

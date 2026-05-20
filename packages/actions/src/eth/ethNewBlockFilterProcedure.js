@@ -14,16 +14,17 @@ export const ethNewBlockFilterProcedure = (client) => {
 		/**
 		 * @param {import('@tevm/block').Block} block
 		 */
-		const listener = (block) => {
-			const filter = client.getFilters().get(id)
-			if (!filter) {
-				return
+			const listener = (block) => {
+				const filter = client.getFilters().get(id)
+				if (!filter) {
+					return
+				}
+				filter.blocks.push(block)
 			}
-			filter.blocks.push(block)
-		}
-		client.setFilter({
-			id,
-			type: 'Block',
+			client.on('newBlock', listener)
+			client.setFilter({
+				id,
+				type: 'Block',
 			created: Date.now(),
 			logs: [],
 			tx: [],

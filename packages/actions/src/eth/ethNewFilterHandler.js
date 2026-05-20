@@ -104,12 +104,15 @@ export const ethNewFilterHandler = (tevmNode) => {
 		tevmNode.on('newLog', listener)
 		// populate with past blocks
 		const receiptsManager = await tevmNode.getReceiptsManager()
-		const pastLogs = await receiptsManager.getLogs(
-			_fromBlock,
-			_toBlock,
-			address !== undefined ? [createAddress(address).bytes] : [],
-			topics?.map((topic) => (isArray(topic) ? topic.map(hexToBytes) : hexToBytes(topic))),
-		)
+			const pastLogs = await receiptsManager.getLogs(
+				_fromBlock,
+				_toBlock,
+				address !== undefined ? [createAddress(address).bytes] : [],
+				topics?.map((topic) => {
+					if (topic === null) return null
+					return isArray(topic) ? topic.map(hexToBytes) : hexToBytes(topic)
+				}),
+			)
 		tevmNode.setFilter({
 			id,
 			type: 'Log',

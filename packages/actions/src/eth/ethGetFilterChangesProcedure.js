@@ -56,7 +56,7 @@ export const ethGetFilterChangesProcedure = (client) => {
 				const response = {
 					...(request.id !== undefined ? { id: request.id } : {}),
 					// TODO fix this type
-					result: /** @type {any} */ (blocks.map((block) => numberToHex(block.header.number))),
+					result: /** @type {any} */ (blocks.map((block) => bytesToHex(block.hash()))),
 					method: request.method,
 					jsonrpc: request.jsonrpc,
 				}

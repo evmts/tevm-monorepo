@@ -83,7 +83,7 @@ export type AnvilResetJsonRpcRequest = JsonRpcRequest<
  */
 export type AnvilDropTransactionJsonRpcRequest = JsonRpcRequest<
 	'anvil_dropTransaction',
-	[SerializeToJson<AnvilDropTransactionParams>]
+	readonly [transactionHash: Hex] | [SerializeToJson<AnvilDropTransactionParams>]
 >
 // anvil_setBalance
 /**

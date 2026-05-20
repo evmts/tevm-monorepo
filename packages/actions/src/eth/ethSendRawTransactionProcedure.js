@@ -24,7 +24,7 @@ export const ethSendRawTransactionJsonRpcProcedure = (client) => {
 				error: {
 					code: err._tag,
 					message: err.message,
-			},
+				},
 			}
 		}
 		const txPool = await client.getTxPool()
@@ -45,7 +45,22 @@ export const ethSendRawTransactionJsonRpcProcedure = (client) => {
 		}
 
 		if (client.miningConfig.type === 'auto') {
-				await handleAutomining(client, bytesToHex(tx.hash()), false, true)
+			const autominingResult = await handleAutomining(client, bytesToHex(tx.hash()), false, true)
+			if (autominingResult?.errors?.length) {
+				const error = autominingResult.errors[0]
+				return {
+					method: request.method,
+					jsonrpc: '2.0',
+					...(request.id !== undefined ? { id: request.id } : {}),
+					error: {
+						code: error.code,
+						message: error.message,
+						data: {
+							errors: autominingResult.errors.map(({ message }) => message),
+						},
+					},
+				}
+			}
 		}
 
 		return {
@@ -54,5 +69,5 @@ export const ethSendRawTransactionJsonRpcProcedure = (client) => {
 			jsonrpc: '2.0',
 			...(request.id !== undefined ? { id: request.id } : {}),
 		}
-		}
 	}
+}

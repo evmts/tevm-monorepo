@@ -9,7 +9,21 @@ import { txToJsonRpcTx } from '../utils/txToJsonRpcTx.js'
 export const ethGetTransactionByBlockHashAndIndexJsonRpcProcedure = (client) => {
 	return async (request) => {
 		const vm = await client.getVm()
-		const block = await vm.blockchain.getBlock(hexToBytes(request.params[0]))
+		const blockHash = hexToBytes(request.params[0])
+		let block
+		try {
+			block = await vm.blockchain.getBlock(blockHash)
+		} catch (_e) {
+			block = undefined
+		}
+		if (!block) {
+			return {
+				...(request.id !== undefined ? { id: request.id } : {}),
+				method: request.method,
+				jsonrpc: request.jsonrpc,
+				result: null,
+			}
+		}
 		const txIndex = hexToNumber(request.params[1])
 		const tx = block.transactions[txIndex]
 		if (!tx) {
@@ -17,10 +31,7 @@ export const ethGetTransactionByBlockHashAndIndexJsonRpcProcedure = (client) => 
 				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
-				error: {
-					code: -32602,
-					message: 'Transaction not found',
-				},
+				result: null,
 			}
 		}
 		return {
