@@ -39,10 +39,12 @@ export const getBalanceHandler =
 				throw e
 			}
 		}
-		const hasStateRoot = block && (await vm.stateManager.hasStateRoot(block.header.stateRoot))
-		if (hasStateRoot) {
-			const root = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
-			if (root?.[address]) return root[address].balance
+		if (block) {
+			const hasStateRoot = await vm.stateManager.hasStateRoot(block.header.stateRoot)
+			if (hasStateRoot) {
+				const root = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
+				if (root?.[address]) return root[address].balance
+			}
 		}
 		// at this point the block doesn't exist or doesn't have state so we must be in forked mode
 		if (!baseClient.forkTransport) {

@@ -24,7 +24,7 @@ export const anvilDropTransactionJsonRpcProcedure = (client) => {
 			}
 		}
 		const txPool = await client.getTxPool()
-		if (/** @type {any[]}*/ (txPool.getByHash([hexToBytes(txHash)])).length > 0) {
+		if (/** @type {any[]}*/ (txPool.getByHash([hexToBytes(/** @type {import('@tevm/utils').Hex} */ (txHash))])).length > 0) {
 			txPool.removeByHash(txHash)
 		} else {
 			return {

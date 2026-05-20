@@ -48,6 +48,9 @@ export const ethSendRawTransactionJsonRpcProcedure = (client) => {
 			const autominingResult = await handleAutomining(client, bytesToHex(tx.hash()), false, true)
 			if (autominingResult?.errors?.length) {
 				const error = autominingResult.errors[0]
+				if (!error) {
+					throw new Error('Automining failed without error details')
+				}
 				return {
 					method: request.method,
 					jsonrpc: '2.0',

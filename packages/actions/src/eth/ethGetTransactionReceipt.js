@@ -23,7 +23,9 @@ const uintEquals = (a, b) => {
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./EthHandler.js').EthGetTransactionReceiptHandler}
  */
-export const ethGetTransactionReceiptHandler = (client) => async (params) => {
+export const ethGetTransactionReceiptHandler = (client) =>
+	/** @type {import('./EthHandler.js').EthGetTransactionReceiptHandler} */ (
+		async (params) => {
 	const receiptsManager = await client.getReceiptsManager()
 	const vm = await client.getVm().then((vm) => vm.deepCopy())
 
@@ -177,4 +179,5 @@ export const ethGetTransactionReceiptHandler = (client) => async (params) => {
 			})),
 		),
 	}
-}
+		}
+	)

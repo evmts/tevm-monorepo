@@ -275,15 +275,15 @@ export const createTevmNode = (options = {}) => {
 	const getStateManagerOpts = async () => {
 		if (transport) {
 			// if the user passed in latest we must use an explicit block tag
-			const { blockTag, blockHash } = await forkAnchorPromise
+			const fork = await forkAnchorPromise
 			return {
 				loggingLevel,
 				...(options.persister ? { onCommit: statePersister(options.persister, logger) } : {}),
 				fork: {
 					...options.fork,
 					transport,
-					blockTag,
-					...(blockHash !== undefined ? { blockHash } : {}),
+					blockTag: fork.blockTag,
+					...('blockHash' in fork ? { blockHash: fork.blockHash } : {}),
 				},
 			}
 		}
@@ -373,12 +373,13 @@ export const createTevmNode = (options = {}) => {
 		if (error) {
 			throw error
 		}
-		if (!result?.number || !result.hash) {
+		const block = /** @type {{ number?: import('@tevm/utils').Hex; hash?: import('@tevm/utils').Hex }} */ (result ?? {})
+		if (!block.number || !block.hash) {
 			throw new Error(`Unable to resolve fork block ${blockTag}`)
 		}
 		return {
-			blockTag: hexToBigInt(/** @type {import('@tevm/utils').Hex} */ (result.number)),
-			blockHash: /** @type {import('@tevm/utils').Hex} */ (result.hash),
+			blockTag: hexToBigInt(block.number),
+			blockHash: block.hash,
 		}
 	}
 
@@ -429,7 +430,7 @@ export const createTevmNode = (options = {}) => {
 				? {
 						fork: {
 							transport,
-							blockTag: forkAnchor.blockHash ?? forkAnchor.blockTag,
+							blockTag: 'blockHash' in forkAnchor ? forkAnchor.blockHash : forkAnchor.blockTag,
 						},
 					}
 				: {}),

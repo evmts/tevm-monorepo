@@ -7,38 +7,40 @@ import { txToJsonRpcTx } from '../utils/txToJsonRpcTx.js'
  * @returns {import('./EthProcedure.js').EthGetTransactionByBlockHashAndIndexJsonRpcProcedure}
  */
 export const ethGetTransactionByBlockHashAndIndexJsonRpcProcedure = (client) => {
-	return async (request) => {
-		const vm = await client.getVm()
-		const blockHash = hexToBytes(request.params[0])
-		let block
-		try {
-			block = await vm.blockchain.getBlock(blockHash)
-		} catch (_e) {
-			block = undefined
-		}
-		if (!block) {
+	return /** @type {import('./EthProcedure.js').EthGetTransactionByBlockHashAndIndexJsonRpcProcedure} */ (
+		async (request) => {
+			const vm = await client.getVm()
+			const blockHash = hexToBytes(request.params[0])
+			let block
+			try {
+				block = await vm.blockchain.getBlock(blockHash)
+			} catch (_e) {
+				block = undefined
+			}
+			if (!block) {
+				return {
+					...(request.id !== undefined ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					result: null,
+				}
+			}
+			const txIndex = hexToNumber(request.params[1])
+			const tx = block.transactions[txIndex]
+			if (!tx) {
+				return {
+					...(request.id !== undefined ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					result: null,
+				}
+			}
 			return {
-				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
-				jsonrpc: request.jsonrpc,
-				result: null,
+				result: txToJsonRpcTx(tx, block, txIndex),
+				jsonrpc: '2.0',
+				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		}
-		const txIndex = hexToNumber(request.params[1])
-		const tx = block.transactions[txIndex]
-		if (!tx) {
-			return {
-				...(request.id !== undefined ? { id: request.id } : {}),
-				method: request.method,
-				jsonrpc: request.jsonrpc,
-				result: null,
-			}
-		}
-		return {
-			method: request.method,
-			result: txToJsonRpcTx(tx, block, txIndex),
-			jsonrpc: '2.0',
-			...(request.id !== undefined ? { id: request.id } : {}),
-		}
-	}
+	)
 }
