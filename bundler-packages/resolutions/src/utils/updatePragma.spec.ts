@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { updatePragma } from './updatePragma.js'
 
 describe(updatePragma.name, () => {
-	it('should update the pragma of a solidity file', () => {
+	it('should validate and preserve the pragma of a solidity file', () => {
 		const file = `
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -11,13 +11,13 @@ pragma solidity ^0.8.0;
 contract Foo {}
 `
 		expect(runSync(updatePragma(file))).toMatchInlineSnapshot(`
-      "
-      // SPDX-License-Identifier: MIT
-      pragma solidity >=0.8.0;
+			"
+			// SPDX-License-Identifier: MIT
+			pragma solidity ^0.8.0;
 
-      contract Foo {}
-      "
-    `)
+			contract Foo {}
+			"
+		`)
 	})
 
 	it('should error if no pragma is found', () => {
@@ -42,7 +42,7 @@ contract Foo {}
 		'^0.8.0 ',
 	]
 
-	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
+	it.each(pragmaStyles)("should validate and preserve pragma style '%s'", (style) => {
 		const file = `
     // SPDX-License-Identifier: MIT
     pragma solidity ${style};
@@ -51,10 +51,10 @@ contract Foo {}
     `
 
 		const result = runSync(updatePragma(file))
-		expect(result).includes('pragma solidity >=0.8.0;')
+		expect(result).toBe(file)
 	})
 
-	it('should handle custom version override', () => {
+	it('should ignore legacy custom version override', () => {
 		const file = `
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -62,10 +62,10 @@ pragma solidity ^0.8.0;
 contract Foo {}
 `
 		const result = runSync(updatePragma(file, '0.8.20'))
-		expect(result).includes('pragma solidity >=0.8.20;')
+		expect(result).toBe(file)
 	})
 
-	it('should handle custom version override with bounds pattern', () => {
+	it('should ignore legacy custom version override with bounds pattern', () => {
 		const file = `
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
@@ -73,10 +73,10 @@ pragma solidity >=0.8.0 <0.9.0;
 contract Foo {}
 `
 		const result = runSync(updatePragma(file, '0.8.20'))
-		expect(result).includes('pragma solidity >=0.8.20;')
+		expect(result).toBe(file)
 	})
 
-	it('should handle multiple pragma directives', () => {
+	it('should preserve multiple pragma directives', () => {
 		const file = `
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -85,11 +85,10 @@ pragma experimental ABIEncoderV2;
 contract Foo {}
 `
 		const result = runSync(updatePragma(file, '0.8.20'))
-		expect(result).includes('pragma solidity >=0.8.20;')
-		expect(result).includes('pragma experimental ABIEncoderV2;')
+		expect(result).toBe(file)
 	})
 
-	it('should handle comments before pragma', () => {
+	it('should preserve comments before pragma', () => {
 		const file = `
 // SPDX-License-Identifier: MIT
 // This is a comment
@@ -98,11 +97,10 @@ pragma solidity ^0.8.0;
 contract Foo {}
 `
 		const result = runSync(updatePragma(file, '0.8.20'))
-		expect(result).includes('// This is a comment')
-		expect(result).includes('pragma solidity >=0.8.20;')
+		expect(result).toBe(file)
 	})
 
-	it('should preserve style when updating pragma', () => {
+	it('should preserve pragma style', () => {
 		const styles = {
 			'^': 'pragma solidity ^0.8.0;',
 			'': 'pragma solidity 0.8.0;',
@@ -123,9 +121,7 @@ contract Foo {}
 			const customVersion = '0.8.20'
 			const result = runSync(updatePragma(file, customVersion))
 
-			// The actual implementation doesn't preserve style but converts to >=
-			// This test might need to change if implementation changes
-			expect(result).includes('pragma solidity >=0.8.20;')
+			expect(result).toBe(file)
 		}
 	})
 })
