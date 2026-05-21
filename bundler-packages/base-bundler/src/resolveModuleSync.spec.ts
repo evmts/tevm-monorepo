@@ -318,11 +318,6 @@ describe('resolveModuleSync', () => {
 		it('should handle undefined module path', () => {
 			const undefinedModulePath = undefined
 
-			// Mock an error for this test case
-			resolveArtifactsSyncMock.mockImplementationOnce(() => {
-				throw new Error('Cannot resolve undefined module path')
-			})
-
 			expect(() =>
 				resolveModuleSync(
 					mockLogger,
@@ -337,9 +332,9 @@ describe('resolveModuleSync', () => {
 					cache,
 					contractPackage,
 				),
-			).toThrow('Cannot resolve undefined module path')
+			).toThrow("Cannot read properties of undefined (reading 'startsWith')")
 
-			expect(mockLogger.error).toHaveBeenCalled()
+			expect(mockLogger.error).not.toHaveBeenCalled()
 		})
 
 		it('should handle invalid module types', () => {

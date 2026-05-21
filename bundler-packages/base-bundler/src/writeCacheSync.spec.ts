@@ -49,7 +49,7 @@ describe('writeCacheSync', () => {
 	it('should write artifacts when writeArtifacts is true', () => {
 		writeCacheSync(mockLogger, mockCache, mockArtifacts, mockCode, modulePath, 'dts', true)
 
-		expect(mockCache.writeArtifactsSync).toHaveBeenCalledWith(modulePath, mockArtifacts)
+		expect(mockCache.writeArtifactsSync).toHaveBeenCalledWith(modulePath, mockArtifacts, undefined)
 		expect(mockCache.writeDtsSync).toHaveBeenCalledWith(modulePath, mockCode)
 		expect(mockCache.writeMjs).not.toHaveBeenCalled()
 		expect(mockLogger.warn).not.toHaveBeenCalled()
@@ -83,7 +83,7 @@ describe('writeCacheSync', () => {
 	it('should log a warning for unsupported module types', () => {
 		writeCacheSync(mockLogger, mockCache, mockArtifacts, mockCode, modulePath, 'cjs', true)
 
-		expect(mockCache.writeArtifactsSync).toHaveBeenCalledWith(modulePath, mockArtifacts)
+		expect(mockCache.writeArtifactsSync).toHaveBeenCalledWith(modulePath, mockArtifacts, undefined)
 		expect(mockCache.writeDts).not.toHaveBeenCalled()
 		expect(mockCache.writeMjs).not.toHaveBeenCalled()
 		expect(mockLogger.warn).toHaveBeenCalledWith(expect.stringContaining('No caching for module type cjs'))
@@ -101,7 +101,7 @@ describe('writeCacheSync', () => {
 			writeCacheSync(mockLogger, mockCache, mockArtifacts, mockCode, modulePath, 'dts', true)
 		}).toThrow(mockError)
 
-		expect(mockCache.writeArtifactsSync).toHaveBeenCalledWith(modulePath, mockArtifacts)
+		expect(mockCache.writeArtifactsSync).toHaveBeenCalledWith(modulePath, mockArtifacts, undefined)
 		expect(mockCache.writeDts).not.toHaveBeenCalled()
 	})
 
@@ -116,7 +116,7 @@ describe('writeCacheSync', () => {
 			writeCacheSync(mockLogger, mockCache, mockArtifacts, mockCode, modulePath, 'dts', true)
 		}).toThrow(mockError)
 
-		expect(mockCache.writeArtifactsSync).toHaveBeenCalledWith(modulePath, mockArtifacts)
+		expect(mockCache.writeArtifactsSync).toHaveBeenCalledWith(modulePath, mockArtifacts, undefined)
 		expect(mockCache.writeDtsSync).toHaveBeenCalledWith(modulePath, mockCode)
 	})
 
@@ -131,7 +131,7 @@ describe('writeCacheSync', () => {
 			writeCacheSync(mockLogger, mockCache, mockArtifacts, mockCode, modulePath, 'mjs', true)
 		}).toThrow(mockError)
 
-		expect(mockCache.writeArtifactsSync).toHaveBeenCalledWith(modulePath, mockArtifacts)
+		expect(mockCache.writeArtifactsSync).toHaveBeenCalledWith(modulePath, mockArtifacts, undefined)
 		expect(mockCache.writeMjsSync).toHaveBeenCalledWith(modulePath, mockCode)
 	})
 
@@ -152,6 +152,6 @@ describe('writeCacheSync', () => {
 			}
 		}).toThrow(mockError)
 
-		expect(mockCache.writeArtifactsSync).toHaveBeenCalledWith(modulePath, mockArtifacts)
+		expect(mockCache.writeArtifactsSync).toHaveBeenCalledWith(modulePath, mockArtifacts, undefined)
 	})
 })

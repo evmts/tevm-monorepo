@@ -16,7 +16,7 @@ describe('readCache', () => {
 		const result = await readCache(mockLogger, mockCache, 'test/path', false, false)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -27,7 +27,7 @@ describe('readCache', () => {
 		const result = await readCache(mockLogger, mockCache, 'test/path', false, false)
 
 		expect(result).toBe(mockArtifacts)
-		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -38,7 +38,7 @@ describe('readCache', () => {
 		const result = await readCache(mockLogger, mockCache, 'test/path', true, false)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -49,7 +49,7 @@ describe('readCache', () => {
 		const result = await readCache(mockLogger, mockCache, 'test/path', true, false)
 
 		expect(result).toBe(mockArtifacts)
-		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -64,7 +64,7 @@ describe('readCache', () => {
 		const result = await readCache(mockLogger, mockCache, 'test/path', false, true)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -79,7 +79,7 @@ describe('readCache', () => {
 		const result = await readCache(mockLogger, mockCache, 'test/path', false, true)
 
 		expect(result).toBe(mockArtifacts)
-		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -94,7 +94,7 @@ describe('readCache', () => {
 		const result = await readCache(mockLogger, mockCache, 'test/path', false, true)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -105,7 +105,7 @@ describe('readCache', () => {
 		const result = await readCache(mockLogger, mockCache, 'test/path', false, true)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -115,7 +115,7 @@ describe('readCache', () => {
 		const result = await readCache(mockLogger, mockCache, 'test/path', false, false)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifacts).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).toHaveBeenCalledTimes(2)
 	})
 })

@@ -52,7 +52,7 @@ describe('writeCache', () => {
 	it('should write artifacts when writeArtifacts is true', async () => {
 		await writeCache(mockLogger, mockCache, mockArtifacts, mockCode, modulePath, 'dts', true)
 
-		expect(mockCache.writeArtifacts).toHaveBeenCalledWith(modulePath, mockArtifacts)
+		expect(mockCache.writeArtifacts).toHaveBeenCalledWith(modulePath, mockArtifacts, undefined)
 		expect(mockCache.writeDts).toHaveBeenCalledWith(modulePath, mockCode)
 		expect(mockCache.writeMjs).not.toHaveBeenCalled()
 		expect(mockLogger.warn).not.toHaveBeenCalled()
@@ -86,7 +86,7 @@ describe('writeCache', () => {
 	it('should log a warning for unsupported module types', async () => {
 		await writeCache(mockLogger, mockCache, mockArtifacts, mockCode, modulePath, 'cjs', true)
 
-		expect(mockCache.writeArtifacts).toHaveBeenCalledWith(modulePath, mockArtifacts)
+		expect(mockCache.writeArtifacts).toHaveBeenCalledWith(modulePath, mockArtifacts, undefined)
 		expect(mockCache.writeDts).not.toHaveBeenCalled()
 		expect(mockCache.writeMjs).not.toHaveBeenCalled()
 		expect(mockLogger.warn).toHaveBeenCalledWith(expect.stringContaining('No caching for module type cjs'))
@@ -96,7 +96,7 @@ describe('writeCache', () => {
 		// This test just verifies the normal path without errors
 		await writeCache(mockLogger, mockCache, mockArtifacts, mockCode, modulePath, 'dts', true)
 
-		expect(mockCache.writeArtifacts).toHaveBeenCalledWith(modulePath, mockArtifacts)
+		expect(mockCache.writeArtifacts).toHaveBeenCalledWith(modulePath, mockArtifacts, undefined)
 		expect(mockCache.writeDts).toHaveBeenCalledWith(modulePath, mockCode)
 	})
 
@@ -119,7 +119,7 @@ describe('writeCache', () => {
 		// This test may be flaky in CI environments with unpredictable timing
 		expect(endTime - startTime).toBeLessThan(20)
 
-		expect(mockCache.writeArtifacts).toHaveBeenCalledWith(modulePath, mockArtifacts)
+		expect(mockCache.writeArtifacts).toHaveBeenCalledWith(modulePath, mockArtifacts, undefined)
 		expect(mockCache.writeDts).toHaveBeenCalledWith(modulePath, mockCode)
 	})
 })
