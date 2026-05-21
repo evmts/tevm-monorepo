@@ -30,7 +30,7 @@ describe('debugGetRawTransactionJsonRpcProcedure', () => {
 		})
 
 		expect(response.error).toBeDefined()
-		expect(response.error.code).toBe(-32602)
+		expect(response.error.code).toBe('-32602')
 		expect(response.error.message).toContain('transaction hash is required')
 	})
 
@@ -52,7 +52,7 @@ describe('debugGetRawTransactionJsonRpcProcedure', () => {
 		})
 
 		expect(response.error).toBeDefined()
-		expect(response.error.code).toBe(-32603)
+		expect(response.error.code).toBe('-32603')
 	})
 
 	it('should return raw transaction for existing transaction', async () => {

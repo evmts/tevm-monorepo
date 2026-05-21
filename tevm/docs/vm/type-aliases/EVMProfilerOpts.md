@@ -8,7 +8,7 @@
 
 > **EVMProfilerOpts** = `object`
 
-Defined in: packages/vm/types/utils/EVMProfileOpts.d.ts:13
+Defined in: tevm-monorepo/packages/vm/types/utils/EVMProfileOpts.d.ts:13
 
 Configuration options for EVM code execution profiling.
 Controls whether detailed execution metrics are collected.
@@ -29,4 +29,4 @@ const value: EVMProfilerOpts = {
 
 > **enabled**: `boolean`
 
-Defined in: packages/vm/types/utils/EVMProfileOpts.d.ts:14
+Defined in: tevm-monorepo/packages/vm/types/utils/EVMProfileOpts.d.ts:14

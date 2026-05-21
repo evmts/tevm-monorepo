@@ -1,0 +1,26 @@
+{
+	"name": "@tevm/memory-client-integration",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"test": "vitest --watch",
+		"test:coverage": "vitest --coverage --run",
+		"test:run": "vitest run",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@tevm/actions": "workspace:^",
+		"@tevm/address": "workspace:^",
+		"@tevm/common": "workspace:^",
+		"@tevm/contract": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
+		"@tevm/test-node": "workspace:^",
+		"@tevm/test-utils": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/utils": "workspace:^",
+		"kzg-wasm": "^1.0.0",
+		"viem": "^2.49.3",
+		"vitest": "^4.1.6"
+	}
+}

@@ -8,7 +8,7 @@
 
 > **DebugStorageRangeAtResult** = `object`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:160
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:160
 
 Result from `debug_storageRangeAt`
 
@@ -18,7 +18,7 @@ Result from `debug_storageRangeAt`
 
 > **nextKey**: [`Hex`](Hex.md) \| `null`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:168
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:168
 
 Next storage key for pagination (null if no more entries)
 
@@ -28,6 +28,6 @@ Next storage key for pagination (null if no more entries)
 
 > **storage**: `Record`\<[`Hex`](Hex.md), [`DebugStorageEntry`](DebugStorageEntry.md)\>
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:164
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:164
 
 Storage entries

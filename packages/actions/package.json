@@ -65,33 +65,30 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@evmts/zevm": "workspace:*",
 		"@tevm/address": "workspace:^",
 		"@tevm/block": "workspace:^",
 		"@tevm/blockchain": "workspace:^",
 		"@tevm/common": "workspace:^",
+		"@tevm/consensus": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/errors": "workspace:^",
-		"@tevm/evm": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/node": "workspace:^",
 		"@tevm/receipt-manager": "workspace:^",
-		"@tevm/rlp": "workspace:^",
 		"@tevm/state": "workspace:^",
-		"@tevm/tx": "workspace:^",
-		"@tevm/txpool": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"@tevm/vm": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/decorators": "latest",
-		"@tevm/test-matchers": "latest",
+		"@tevm/evm": "workspace:^",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"abitype": "^1.1.1"
+		"abitype": "^1.2.4"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9",
+		"viem": "^2.49.3",
 		"zod": "^4.1.11"
 	},
 	"publishConfig": {

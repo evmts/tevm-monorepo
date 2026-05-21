@@ -19,7 +19,7 @@ export const loadAbi = async ({ address, client, explorerUrl, followProxies, eth
 			}),
 			...(explorerUrl !== undefined
 				? [
-						new loaders.EtherscanABILoader({
+						new loaders.EtherscanV1ABILoader({
 							baseURL: explorerUrl,
 							...(etherscanApiKey !== undefined ? { apiKey: etherscanApiKey } : {}),
 						}),

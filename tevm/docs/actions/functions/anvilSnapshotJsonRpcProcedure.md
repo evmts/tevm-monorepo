@@ -8,7 +8,7 @@
 
 > **anvilSnapshotJsonRpcProcedure**(`client`): [`AnvilSnapshotProcedure`](../type-aliases/AnvilSnapshotProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSnapshotProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSnapshotProcedure.d.ts:1
 
 ## Parameters
 

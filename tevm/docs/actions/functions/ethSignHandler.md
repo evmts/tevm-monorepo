@@ -8,7 +8,7 @@
 
 > **ethSignHandler**(`__namedParameters`): [`EthSignHandler`](../type-aliases/EthSignHandler.md)
 
-Defined in: packages/actions/types/eth/ethSignHandler.d.ts:12
+Defined in: tevm-monorepo/packages/actions/types/eth/ethSignHandler.d.ts:12
 
 ## Parameters
 

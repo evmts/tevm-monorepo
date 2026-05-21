@@ -8,7 +8,7 @@
 
 > **BaseState** = `object`
 
-Defined in: packages/state/dist/index.d.ts:160
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:160
 
 **`Internal`**
 
@@ -20,7 +20,7 @@ The core data structure powering the state manager internally
 
 > **caches**: [`StateCache`](StateCache.md)
 
-Defined in: packages/state/dist/index.d.ts:168
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:168
 
 ***
 
@@ -28,15 +28,15 @@ Defined in: packages/state/dist/index.d.ts:168
 
 > **forkCache**: [`StateCache`](StateCache.md)
 
-Defined in: packages/state/dist/index.d.ts:169
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:169
 
 ***
 
-### getCurrentStateRoot()
+### getCurrentStateRoot
 
 > **getCurrentStateRoot**: () => [`Hex`](../../index/type-aliases/Hex.md)
 
-Defined in: packages/state/dist/index.d.ts:170
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:170
 
 #### Returns
 
@@ -48,7 +48,7 @@ Defined in: packages/state/dist/index.d.ts:170
 
 > **logger**: `Logger`
 
-Defined in: packages/state/dist/index.d.ts:162
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:162
 
 ***
 
@@ -56,15 +56,15 @@ Defined in: packages/state/dist/index.d.ts:162
 
 > **options**: [`StateOptions`](../../index/type-aliases/StateOptions.md)
 
-Defined in: packages/state/dist/index.d.ts:167
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:167
 
 ***
 
-### ready()
+### ready
 
 > **ready**: () => `Promise`\<`true`\>
 
-Defined in: packages/state/dist/index.d.ts:161
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:161
 
 #### Returns
 
@@ -72,11 +72,11 @@ Defined in: packages/state/dist/index.d.ts:161
 
 ***
 
-### setCurrentStateRoot()
+### setCurrentStateRoot
 
 > **setCurrentStateRoot**: (`newStateRoot`) => `void`
 
-Defined in: packages/state/dist/index.d.ts:171
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:171
 
 #### Parameters
 
@@ -94,6 +94,6 @@ Defined in: packages/state/dist/index.d.ts:171
 
 > **stateRoots**: [`StateRoots`](StateRoots.md)
 
-Defined in: packages/state/dist/index.d.ts:166
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:166
 
 Mapping of hashes to State roots

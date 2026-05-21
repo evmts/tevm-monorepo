@@ -8,4 +8,4 @@
 
 > **Create2ContractAddressError** = [`InvalidSaltError`](../../errors/classes/InvalidSaltError.md) \| [`InvalidAddressError`](../../errors/classes/InvalidAddressError.md)
 
-Defined in: packages/address/types/create2ContractAddress.d.ts:2
+Defined in: tevm-monorepo/packages/address/types/create2ContractAddress.d.ts:2

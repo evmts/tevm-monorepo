@@ -8,4 +8,4 @@
 
 > `const` **resolveArtifactsSync**: `ResolveArtifactsSync`
 
-Defined in: bundler-packages/compiler/types/src/resolveArtifactsSync.d.ts:4
+Defined in: tevm-monorepo/bundler-packages/compiler/types/src/resolveArtifactsSync.d.ts:4

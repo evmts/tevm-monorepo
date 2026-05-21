@@ -1,13 +1,26 @@
+import { Rlp } from '@evmts/zevm/rlp'
+import { Trie } from '@evmts/zevm/trie'
+import type {
+	FeeMarketEIP1559Transaction,
+	LegacyTransaction,
+	TransactionType,
+	TxData,
+	TypedTransaction,
+} from '@evmts/zevm/tx'
+import {
+	BlobEIP4844Transaction,
+	Capability,
+	createTxFromBlockBodyData,
+	createTxFromRLP,
+	TransactionFactory,
+} from '@evmts/zevm/tx'
 import type { Common } from '@tevm/common'
 import { ConsensusType } from '@tevm/common'
-import { Rlp } from '@tevm/rlp'
-import { Trie } from '@tevm/trie'
-import type { FeeMarketEIP1559Transaction, LegacyTransaction, TypedTransaction } from '@tevm/tx'
-import { BlobEIP4844Transaction, Capability, createTxFromBlockBodyData, createTxFromRLP } from '@tevm/tx'
 import {
 	type AddressLike,
 	bytesToHex,
 	bytesToUtf8,
+	concatBytes,
 	createWithdrawal,
 	equalsBytes,
 	type Hex,
@@ -32,6 +45,110 @@ import type {
 	VerkleExecutionWitness,
 } from './types.js'
 
+const UNSUPPORTED_VERKLE_EXECUTION_MESSAGE =
+	'Verkle/state-witness execution paths (EIP-6800 family) are not supported in the current Tevm VM/state pipeline'
+
+const SHA256_EMPTY = Uint8Array.from([
+	0xe3, 0xb0, 0xc4, 0x42, 0x98, 0xfc, 0x1c, 0x14, 0x9a, 0xfb, 0xf4, 0xc8, 0x99, 0x6f, 0xb9, 0x24, 0x27, 0xae, 0x41,
+	0xe4, 0x64, 0x9b, 0x93, 0x4c, 0xa4, 0x95, 0x99, 0x1b, 0x78, 0x52, 0xb8, 0x55,
+])
+
+const SHA256_K = Uint32Array.from([
+	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98,
+	0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786,
+	0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8,
+	0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967, 0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
+	0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85, 0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819,
+	0xd6990624, 0xf40e3585, 0x106aa070, 0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a,
+	0x5b9cca4f, 0x682e6ff3, 0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7,
+	0xc67178f2,
+])
+
+const rotr = (word: number, bits: number) => (word >>> bits) | (word << (32 - bits))
+
+const sha256 = (message: Uint8Array) => {
+	if (message.length === 0) {
+		return SHA256_EMPTY.slice()
+	}
+
+	const bitLength = message.length * 8
+	const paddedLength = Math.ceil((message.length + 9) / 64) * 64
+	const padded = new Uint8Array(paddedLength)
+	padded.set(message)
+	padded[message.length] = 0x80
+
+	const view = new DataView(padded.buffer, padded.byteOffset, padded.byteLength)
+	view.setUint32(paddedLength - 8, Math.floor(bitLength / 0x100000000))
+	view.setUint32(paddedLength - 4, bitLength >>> 0)
+
+	const hash = Uint32Array.from([
+		0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19,
+	])
+	const words = new Uint32Array(64)
+
+	for (let offset = 0; offset < paddedLength; offset += 64) {
+		for (let i = 0; i < 16; i++) {
+			words[i] = view.getUint32(offset + i * 4)
+		}
+		for (let i = 16; i < 64; i++) {
+			const s0 =
+				rotr(words[i - 15] as number, 7) ^ rotr(words[i - 15] as number, 18) ^ ((words[i - 15] as number) >>> 3)
+			const s1 = rotr(words[i - 2] as number, 17) ^ rotr(words[i - 2] as number, 19) ^ ((words[i - 2] as number) >>> 10)
+			words[i] = (((words[i - 16] as number) + s0 + (words[i - 7] as number) + s1) >>> 0) as number
+		}
+
+		let a = hash[0] as number
+		let b = hash[1] as number
+		let c = hash[2] as number
+		let d = hash[3] as number
+		let e = hash[4] as number
+		let f = hash[5] as number
+		let g = hash[6] as number
+		let h = hash[7] as number
+
+		for (let i = 0; i < 64; i++) {
+			const s1 = rotr(e, 6) ^ rotr(e, 11) ^ rotr(e, 25)
+			const ch = (e & f) ^ (~e & g)
+			const temp1 = (h + s1 + ch + (SHA256_K[i] as number) + (words[i] as number)) >>> 0
+			const s0 = rotr(a, 2) ^ rotr(a, 13) ^ rotr(a, 22)
+			const maj = (a & b) ^ (a & c) ^ (b & c)
+			const temp2 = (s0 + maj) >>> 0
+			h = g
+			g = f
+			f = e
+			e = (d + temp1) >>> 0
+			d = c
+			c = b
+			b = a
+			a = (temp1 + temp2) >>> 0
+		}
+
+		hash[0] = ((hash[0] as number) + a) >>> 0
+		hash[1] = ((hash[1] as number) + b) >>> 0
+		hash[2] = ((hash[2] as number) + c) >>> 0
+		hash[3] = ((hash[3] as number) + d) >>> 0
+		hash[4] = ((hash[4] as number) + e) >>> 0
+		hash[5] = ((hash[5] as number) + f) >>> 0
+		hash[6] = ((hash[6] as number) + g) >>> 0
+		hash[7] = ((hash[7] as number) + h) >>> 0
+	}
+
+	const output = new Uint8Array(32)
+	const outputView = new DataView(output.buffer)
+	for (let i = 0; i < 8; i++) {
+		outputView.setUint32(i * 4, hash[i] as number)
+	}
+	return output
+}
+
+const isTypedTransaction = (tx: unknown): tx is TypedTransaction =>
+	typeof tx === 'object' &&
+	tx !== null &&
+	'serialize' in tx &&
+	typeof tx.serialize === 'function' &&
+	'supports' in tx &&
+	typeof tx.supports === 'function'
+
 /**
  * An object that represents the block.
  */
@@ -47,7 +164,8 @@ export class Block {
 	/**
 	 * EIP-6800: Verkle Proof Data (experimental)
 	 * null implies that the non default executionWitness might exist but not available
-	 * and will not lead to execution of the block via vm with verkle stateless manager
+	 * and will not lead to execution of the block via VM Verkle state-witness support.
+	 * Tevm intentionally does not support Verkle/EIP-6800 execution.
 	 */
 	public readonly executionWitness?: VerkleExecutionWitness | null | undefined
 
@@ -84,19 +202,29 @@ export class Block {
 	}
 
 	/**
-	 * Returns the requests trie root for an array of CLRequests
+	 * Returns the EIP-7685 requests hash for an array of CLRequests.
 	 * @param requests - an array of CLRequests
-	 * @param emptyTrie optional empty trie used to generate the root
-	 * @returns a 32 byte Uint8Array representing the requests trie root
+	 * @returns a 32 byte Uint8Array representing the requests hash
 	 */
-	public static async genRequestsTrieRoot(requests: ClRequest[], emptyTrie?: Trie) {
-		// TODO validate that Requests should be sorted in monotonically ascending order based on type
-		// and whatever internal sorting logic is defined by each request type
-		const trie = emptyTrie ?? new Trie()
-		for (const [i, req] of requests.entries()) {
-			await trie.put(Rlp.encode(i), req.serialize())
+	public static computeRequestsHash(requests: ClRequest[]) {
+		const nonEmptyRequestHashes: Uint8Array[] = []
+		let previousRequestType = -1
+		for (const request of requests) {
+			if (request.type < previousRequestType) {
+				throw new Error('requests are not sorted in ascending order')
+			}
+			previousRequestType = request.type
+
+			const serializedRequest = request.serialize()
+			if (serializedRequest.length > 1) {
+				nonEmptyRequestHashes.push(sha256(serializedRequest))
+			}
 		}
-		return trie.root()
+		return nonEmptyRequestHashes.length === 0 ? SHA256_EMPTY.slice() : sha256(concatBytes(...nonEmptyRequestHashes))
+	}
+
+	public static async genRequestsTrieRoot(requests: ClRequest[], _emptyTrie?: Trie) {
+		return Block.computeRequestsHash(requests)
 	}
 
 	/**
@@ -121,9 +249,14 @@ export class Block {
 		// parse transactions
 		const transactions: TypedTransaction[] = []
 		for (const txData of txsData ?? []) {
-			// We should make a new tx using header common in case of setHardfork being activated
-			// We aren't doing that atm because it causes a bug with impersonated transactions
-			transactions.push(txData as any)
+			transactions.push(
+				isTypedTransaction(txData)
+					? txData
+					: TransactionFactory(txData as TxData[TransactionType], {
+							...opts,
+							common: header.common.ethjsCommon,
+						}),
+			)
 		}
 
 		// parse uncle headers
@@ -177,8 +310,8 @@ export class Block {
 	 * @deprecated Use createBlockFromValuesArray() instead - this method is kept for compatibility
 	 */
 	public static fromValuesArray(values: BlockBytes, opts: BlockOptions) {
-		if (values.length > 5) {
-			throw new Error(`invalid block. More values=${values.length} than expected were received (at most 5)`)
+		if (values.length > 6) {
+			throw new Error(`invalid block. More values=${values.length} than expected were received (at most 6)`)
 		}
 
 		// First try to load header so that we can use its common (in case of setHardfork being activated)
@@ -233,6 +366,9 @@ export class Block {
 
 		let requests: ClRequest[] = []
 		if (header.common.ethjsCommon.isActivatedEIP(7685)) {
+			if (requestBytes === undefined || !Array.isArray(requestBytes)) {
+				throw new Error('Invalid serialized block input: EIP-7685 is active, and no requests were provided as array')
+			}
 			requests = (requestBytes as Uint8Array[]).map((bytes) => new ClRequest(bytes[0] as number, bytes.slice(1)))
 		}
 		// executionWitness are not part of the EL fetched blocks via eth_ bodies method
@@ -307,7 +443,7 @@ export class Block {
 			block.common.ethjsCommon.isActivatedEIP(6800) &&
 			(executionWitness === undefined || executionWitness === null)
 		) {
-			throw Error('Missing executionWitness for EIP-6800 activated executionPayload')
+			throw Error(UNSUPPORTED_VERKLE_EXECUTION_MESSAGE)
 		}
 		// Verify blockHash matches payload
 		if (!equalsBytes(block.hash(), hexToBytes(payload.blockHash as Hex))) {
@@ -423,6 +559,9 @@ export class Block {
 		if (withdrawalsRaw) {
 			bytesArray.push(withdrawalsRaw)
 		}
+		if (this.requests !== undefined) {
+			bytesArray.push(this.requests.map((request) => request.serialize()))
+		}
 		if (this.executionWitness !== undefined && this.executionWitness !== null) {
 			const executionWitnessBytes = Rlp.encode(JSON.stringify(this.executionWitness))
 			bytesArray.push(executionWitnessBytes as any)
@@ -484,12 +623,12 @@ export class Block {
 
 		let result: boolean
 		if (this.requests?.length === 0) {
-			result = equalsBytes(this.header.requestsRoot as Uint8Array, KECCAK256_RLP)
+			result = equalsBytes(this.header.requestsRoot as Uint8Array, SHA256_EMPTY)
 			return result
 		}
 
 		if (this.cache.requestsRoot === undefined) {
-			this.cache.requestsRoot = await Block.genRequestsTrieRoot(this.requests ?? [])
+			this.cache.requestsRoot = Block.computeRequestsHash(this.requests ?? [])
 		}
 
 		result = equalsBytes(this.cache.requestsRoot, this.header.requestsRoot as Uint8Array)
@@ -603,14 +742,19 @@ export class Block {
 			throw new Error(msg)
 		}
 
+		if (this.common.ethjsCommon.isActivatedEIP(7685) && !(await this.requestsTrieIsValid())) {
+			const msg = this._errorMsg('invalid requests trie')
+			throw new Error(msg)
+		}
+
 		// Validation for Verkle blocks
 		// Unnecessary in this implementation since we're providing defaults if those fields are undefined
 		if (this.common.ethjsCommon.isActivatedEIP(6800)) {
 			if (this.executionWitness === undefined) {
-				throw new Error('Invalid block: missing executionWitness')
+				throw new Error(UNSUPPORTED_VERKLE_EXECUTION_MESSAGE)
 			}
 			if (this.executionWitness === null) {
-				throw new Error('Invalid block: ethereumjs stateless client needs executionWitness')
+				throw new Error(UNSUPPORTED_VERKLE_EXECUTION_MESSAGE)
 			}
 		}
 	}
@@ -791,6 +935,7 @@ export class Block {
 			transactions,
 			...withdrawalsArr,
 			parentBeaconBlockRoot: header.parentBeaconBlockRoot,
+			requestsRoot: header.requestsRoot,
 			executionWitness: this.executionWitness,
 		} as ExecutionPayload
 

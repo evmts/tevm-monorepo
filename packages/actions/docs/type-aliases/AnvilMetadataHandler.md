@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilMetadataHandler
 
-# Type Alias: AnvilMetadataHandler()
+# Type Alias: AnvilMetadataHandler
 
 > **AnvilMetadataHandler** = (`params`) => `Promise`\<[`AnvilMetadataResult`](AnvilMetadataResult.md)\>
 

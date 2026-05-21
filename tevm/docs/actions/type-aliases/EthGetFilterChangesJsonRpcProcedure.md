@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetFilterChangesJsonRpcProcedure
 
-# Type Alias: EthGetFilterChangesJsonRpcProcedure()
+# Type Alias: EthGetFilterChangesJsonRpcProcedure
 
 > **EthGetFilterChangesJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetFilterChangesJsonRpcResponse`](EthGetFilterChangesJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:20
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:20
 
 ## Parameters
 

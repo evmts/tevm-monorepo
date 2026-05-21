@@ -6,7 +6,7 @@
 
 # Class: BlockHeader
 
-Defined in: packages/block/types/header.d.ts:10
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:10
 
 An object that represents the block header.
 
@@ -16,7 +16,7 @@ An object that represents the block header.
 
 > **new BlockHeader**(`headerData`, `opts`): `BlockHeader`
 
-Defined in: packages/block/types/header.d.ts:67
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:67
 
 This constructor takes the values, validates them, assigns them and freezes the object.
 
@@ -43,17 +43,17 @@ varying data types. For a default empty header, use [BlockHeader.fromHeaderData]
 
 ### baseFeePerGas?
 
-> `readonly` `optional` **baseFeePerGas**: `bigint`
+> `readonly` `optional` **baseFeePerGas?**: `bigint`
 
-Defined in: packages/block/types/header.d.ts:26
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:26
 
 ***
 
 ### blobGasUsed?
 
-> `readonly` `optional` **blobGasUsed**: `bigint`
+> `readonly` `optional` **blobGasUsed?**: `bigint`
 
-Defined in: packages/block/types/header.d.ts:28
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:28
 
 ***
 
@@ -61,7 +61,7 @@ Defined in: packages/block/types/header.d.ts:28
 
 > `protected` **cache**: `HeaderCache`
 
-Defined in: packages/block/types/header.d.ts:34
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:34
 
 ***
 
@@ -69,7 +69,7 @@ Defined in: packages/block/types/header.d.ts:34
 
 > `readonly` **coinbase**: [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-Defined in: packages/block/types/header.d.ts:13
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:13
 
 ***
 
@@ -77,11 +77,11 @@ Defined in: packages/block/types/header.d.ts:13
 
 > `readonly` **common**: `object`
 
-Defined in: packages/block/types/header.d.ts:32
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:32
 
 #### blockExplorers?
 
-> `optional` **blockExplorers**: `object`
+> `optional` **blockExplorers?**: `object`
 
 Collection of block explorers
 
@@ -95,53 +95,57 @@ Collection of block explorers
 
 #### blockTime?
 
-> `optional` **blockTime**: `number`
+> `optional` **blockTime?**: `number`
 
 Block time in milliseconds.
 
 #### contracts?
 
-> `optional` **contracts**: `object`
+> `optional` **contracts?**: `object`
 
 Collection of contracts
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
+\[`key`: `string`\]: `ChainContract` \| \{\[`sourceId`: `number`\]: `ChainContract` \| `undefined`; \} \| `undefined`
 
 ##### contracts.ensRegistry?
 
-> `optional` **ensRegistry**: `ChainContract`
+> `optional` **ensRegistry?**: `ChainContract`
 
 ##### contracts.ensUniversalResolver?
 
-> `optional` **ensUniversalResolver**: `ChainContract`
+> `optional` **ensUniversalResolver?**: `ChainContract`
 
 ##### contracts.erc6492Verifier?
 
-> `optional` **erc6492Verifier**: `ChainContract`
+> `optional` **erc6492Verifier?**: `ChainContract`
 
 ##### contracts.multicall3?
 
-> `optional` **multicall3**: `ChainContract`
+> `optional` **multicall3?**: `ChainContract`
 
-#### copy()
+#### copy
 
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
 
 ##### Returns
 
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
 
-#### custom?
+#### ~~custom?~~
 
-> `optional` **custom**: `Record`\<`string`, `unknown`\>
+> `optional` **custom?**: `Record`\<`string`, `unknown`\>
 
 Custom chain data.
 
+##### Deprecated
+
+use `.extend` instead.
+
 #### ensTlds?
 
-> `optional` **ensTlds**: readonly `string`[]
+> `optional` **ensTlds?**: readonly `string`[]
 
 Collection of ENS TLDs for the chain.
 
@@ -151,19 +155,25 @@ Collection of ENS TLDs for the chain.
 
 #### experimental\_preconfirmationTime?
 
-> `optional` **experimental\_preconfirmationTime**: `number`
+> `optional` **experimental\_preconfirmationTime?**: `number`
 
 Preconfirmation time in milliseconds.
 
+#### extendSchema?
+
+> `optional` **extendSchema?**: `Record`\<`string`, `unknown`\>
+
+Extend schema.
+
 #### fees?
 
-> `optional` **fees**: `ChainFees`\<`undefined` \| `ChainFormatters`\>
+> `optional` **fees?**: `ChainFees`\<`ChainFormatters` \| `undefined`\>
 
 Modifies how fees are derived.
 
 #### formatters?
 
-> `optional` **formatters**: `ChainFormatters`
+> `optional` **formatters?**: `ChainFormatters`
 
 Modifies how data is formatted and typed (e.g. blocks and transactions)
 
@@ -185,6 +195,12 @@ Human-readable name
 
 Currency used by chain
 
+#### prepareTransactionRequest?
+
+> `optional` **prepareTransactionRequest?**: `PrepareTransactionRequestFn` \| \[`PrepareTransactionRequestFn`, `object`\]
+
+Function to prepare a transaction request. Runs before the transaction is filled.
+
 #### rpcUrls
 
 > **rpcUrls**: `object`
@@ -201,21 +217,27 @@ Collection of RPC endpoints
 
 #### serializers?
 
-> `optional` **serializers**: `ChainSerializers`\<`undefined` \| `ChainFormatters`, `TransactionSerializable`\>
+> `optional` **serializers?**: `ChainSerializers`\<`ChainFormatters` \| `undefined`, `TransactionSerializable`\>
 
 Modifies how data is serialized (e.g. transactions).
 
 #### sourceId?
 
-> `optional` **sourceId**: `number`
+> `optional` **sourceId?**: `number`
 
 Source Chain ID (ie. the L1 chain)
 
 #### testnet?
 
-> `optional` **testnet**: `boolean`
+> `optional` **testnet?**: `boolean`
 
 Flag for test networks
+
+#### verifyHash?
+
+> `optional` **verifyHash?**: `ChainVerifyHashFn`
+
+Chain-specific signature verification.
 
 ***
 
@@ -223,15 +245,15 @@ Flag for test networks
 
 > `readonly` **difficulty**: `bigint`
 
-Defined in: packages/block/types/header.d.ts:18
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:18
 
 ***
 
 ### excessBlobGas?
 
-> `readonly` `optional` **excessBlobGas**: `bigint`
+> `readonly` `optional` **excessBlobGas?**: `bigint`
 
-Defined in: packages/block/types/header.d.ts:29
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:29
 
 ***
 
@@ -239,7 +261,7 @@ Defined in: packages/block/types/header.d.ts:29
 
 > `readonly` **extraData**: `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:23
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:23
 
 ***
 
@@ -247,7 +269,7 @@ Defined in: packages/block/types/header.d.ts:23
 
 > `readonly` **gasLimit**: `bigint`
 
-Defined in: packages/block/types/header.d.ts:20
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:20
 
 ***
 
@@ -255,15 +277,15 @@ Defined in: packages/block/types/header.d.ts:20
 
 > `readonly` **gasUsed**: `bigint`
 
-Defined in: packages/block/types/header.d.ts:21
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:21
 
 ***
 
-### keccakFunction()
+### keccakFunction
 
 > `protected` **keccakFunction**: (`msg`) => `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:33
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:33
 
 #### Parameters
 
@@ -281,7 +303,7 @@ Defined in: packages/block/types/header.d.ts:33
 
 > `readonly` **logsBloom**: `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:17
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:17
 
 ***
 
@@ -289,7 +311,7 @@ Defined in: packages/block/types/header.d.ts:17
 
 > `readonly` **mixHash**: `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:24
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:24
 
 ***
 
@@ -297,7 +319,7 @@ Defined in: packages/block/types/header.d.ts:24
 
 > `readonly` **nonce**: `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:25
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:25
 
 ***
 
@@ -305,15 +327,15 @@ Defined in: packages/block/types/header.d.ts:25
 
 > `readonly` **number**: `bigint`
 
-Defined in: packages/block/types/header.d.ts:19
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:19
 
 ***
 
 ### parentBeaconBlockRoot?
 
-> `readonly` `optional` **parentBeaconBlockRoot**: `Uint8Array`\<`ArrayBufferLike`\>
+> `readonly` `optional` **parentBeaconBlockRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/header.d.ts:30
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:30
 
 ***
 
@@ -321,7 +343,7 @@ Defined in: packages/block/types/header.d.ts:30
 
 > `readonly` **parentHash**: `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:11
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:11
 
 ***
 
@@ -329,15 +351,15 @@ Defined in: packages/block/types/header.d.ts:11
 
 > `readonly` **receiptTrie**: `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:16
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:16
 
 ***
 
 ### requestsRoot?
 
-> `readonly` `optional` **requestsRoot**: `Uint8Array`\<`ArrayBufferLike`\>
+> `readonly` `optional` **requestsRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/header.d.ts:31
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:31
 
 ***
 
@@ -345,7 +367,7 @@ Defined in: packages/block/types/header.d.ts:31
 
 > `readonly` **stateRoot**: `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:14
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:14
 
 ***
 
@@ -353,7 +375,7 @@ Defined in: packages/block/types/header.d.ts:14
 
 > `readonly` **timestamp**: `bigint`
 
-Defined in: packages/block/types/header.d.ts:22
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:22
 
 ***
 
@@ -361,7 +383,7 @@ Defined in: packages/block/types/header.d.ts:22
 
 > `readonly` **transactionsTrie**: `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:15
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:15
 
 ***
 
@@ -369,15 +391,15 @@ Defined in: packages/block/types/header.d.ts:15
 
 > `readonly` **uncleHash**: `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:12
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:12
 
 ***
 
 ### withdrawalsRoot?
 
-> `readonly` `optional` **withdrawalsRoot**: `Uint8Array`\<`ArrayBufferLike`\>
+> `readonly` `optional` **withdrawalsRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/header.d.ts:27
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:27
 
 ## Accessors
 
@@ -387,7 +409,7 @@ Defined in: packages/block/types/header.d.ts:27
 
 > **get** **prevRandao**(): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/header.d.ts:38
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:38
 
 EIP-4399: After merge to PoS, `mixHash` supplanted as `prevRandao`
 
@@ -401,7 +423,7 @@ EIP-4399: After merge to PoS, `mixHash` supplanted as `prevRandao`
 
 > `protected` **\_consensusFormatValidation**(): `void`
 
-Defined in: packages/block/types/header.d.ts:76
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:76
 
 Checks static parameters related to consensus algorithm
 
@@ -419,7 +441,7 @@ if any check fails
 
 > `protected` **\_genericFormatValidation**(): `void`
 
-Defined in: packages/block/types/header.d.ts:71
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:71
 
 Validates correct buffer lengths, throws if invalid.
 
@@ -433,7 +455,7 @@ Validates correct buffer lengths, throws if invalid.
 
 > `protected` **\_requireClique**(`name`): `void`
 
-Defined in: packages/block/types/header.d.ts:126
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:126
 
 #### Parameters
 
@@ -451,7 +473,7 @@ Defined in: packages/block/types/header.d.ts:126
 
 > `protected` **\_validateDAOExtraData**(): `void`
 
-Defined in: packages/block/types/header.d.ts:190
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:190
 
 Validates extra data is DAO_ExtraData for DAO_ForceExtraDataRange blocks after DAO
 activation block (see: https://blog.slock.it/hard-fork-specification-24b889e70703)
@@ -466,7 +488,7 @@ activation block (see: https://blog.slock.it/hard-fork-specification-24b889e7070
 
 > **calcDataFee**(`numBlobs`): `bigint`
 
-Defined in: packages/block/types/header.d.ts:104
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:104
 
 Returns the total fee for blob gas spent for including blobs in block.
 
@@ -490,7 +512,7 @@ the total blob gas fee for numBlobs blobs
 
 > **calcNextBaseFee**(): `bigint`
 
-Defined in: packages/block/types/header.d.ts:87
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:87
 
 Calculates the base fee for a potential next block
 
@@ -504,7 +526,7 @@ Calculates the base fee for a potential next block
 
 > **calcNextBlobGasPrice**(): `bigint`
 
-Defined in: packages/block/types/header.d.ts:113
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:113
 
 Calculate the blob gas price of the block built on top of this one
 
@@ -520,7 +542,7 @@ The blob gas price
 
 > **calcNextExcessBlobGas**(): `bigint`
 
-Defined in: packages/block/types/header.d.ts:108
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:108
 
 Calculates the excess blob gas for next (hopefully) post EIP 4844 block.
 
@@ -534,7 +556,7 @@ Calculates the excess blob gas for next (hopefully) post EIP 4844 block.
 
 > **cliqueEpochTransitionSigners**(): [`EthjsAddress`](../../utils/classes/EthjsAddress.md)[]
 
-Defined in: packages/block/types/header.d.ts:166
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:166
 
 Returns a list of signers
 (only clique PoA, throws otherwise)
@@ -553,7 +575,7 @@ in conjunction with [BlockHeader.cliqueIsEpochTransition](#cliqueisepochtransiti
 
 > **cliqueExtraSeal**(): `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:151
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:151
 
 Returns extra seal data
 (only clique PoA, throws otherwise)
@@ -568,7 +590,7 @@ Returns extra seal data
 
 > **cliqueExtraVanity**(): `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:146
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:146
 
 Returns extra vanity data
 (only clique PoA, throws otherwise)
@@ -583,7 +605,7 @@ Returns extra vanity data
 
 > **cliqueIsEpochTransition**(): `boolean`
 
-Defined in: packages/block/types/header.d.ts:141
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:141
 
 Checks if the block header is an epoch transition
 header (only clique PoA, throws otherwise)
@@ -598,7 +620,7 @@ header (only clique PoA, throws otherwise)
 
 > **cliqueSigHash**(): `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/block/types/header.d.ts:136
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:136
 
 PoA clique signature hash without the seal.
 
@@ -612,7 +634,7 @@ PoA clique signature hash without the seal.
 
 > **cliqueSigner**(): [`EthjsAddress`](../../utils/classes/EthjsAddress.md)
 
-Defined in: packages/block/types/header.d.ts:177
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:177
 
 Returns the signer address
 
@@ -626,7 +648,7 @@ Returns the signer address
 
 > **cliqueVerifySignature**(`signerList`): `boolean`
 
-Defined in: packages/block/types/header.d.ts:173
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:173
 
 Verifies the signature of the block (last 65 bytes of extraData field)
 (only clique PoA, throws otherwise)
@@ -649,7 +671,7 @@ Verifies the signature of the block (last 65 bytes of extraData field)
 
 > **errorStr**(): `string`
 
-Defined in: packages/block/types/header.d.ts:194
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:194
 
 Return a compact error string representation of the object
 
@@ -663,7 +685,7 @@ Return a compact error string representation of the object
 
 > **ethashCanonicalDifficulty**(`parentBlockHeader`): `bigint`
 
-Defined in: packages/block/types/header.d.ts:132
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:132
 
 Returns the canonical difficulty for this block.
 
@@ -685,7 +707,7 @@ the header from the parent `Block` of this header
 
 > **getBlobGasPrice**(): `bigint`
 
-Defined in: packages/block/types/header.d.ts:92
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:92
 
 Returns the price per unit of blob gas for a blob transaction in the current/pending block
 
@@ -701,7 +723,7 @@ the price in gwei per unit of blob gas spent
 
 > **hash**(): `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:121
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:121
 
 Returns the hash of the block header.
 
@@ -715,7 +737,7 @@ Returns the hash of the block header.
 
 > **isGenesis**(): `boolean`
 
-Defined in: packages/block/types/header.d.ts:125
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:125
 
 Checks if the block header is a genesis header.
 
@@ -729,7 +751,7 @@ Checks if the block header is a genesis header.
 
 > **raw**(): [`BlockHeaderBytes`](../type-aliases/BlockHeaderBytes.md)
 
-Defined in: packages/block/types/header.d.ts:117
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:117
 
 Returns a Uint8Array Array of the raw Bytes in this header, in order.
 
@@ -743,7 +765,7 @@ Returns a Uint8Array Array of the raw Bytes in this header, in order.
 
 > **serialize**(): `Uint8Array`
 
-Defined in: packages/block/types/header.d.ts:181
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:181
 
 Returns the rlp encoding of the block header.
 
@@ -757,7 +779,7 @@ Returns the rlp encoding of the block header.
 
 > **toJSON**(): [`JsonHeader`](../interfaces/JsonHeader.md)
 
-Defined in: packages/block/types/header.d.ts:185
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:185
 
 Returns the block header in JSON format.
 
@@ -771,7 +793,7 @@ Returns the block header in JSON format.
 
 > **validateGasLimit**(`parentBlockHeader`): `void`
 
-Defined in: packages/block/types/header.d.ts:83
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:83
 
 Validates if the block gasLimit remains in the boundaries set by the protocol.
 Throws if out of bounds.
@@ -794,7 +816,7 @@ the header from the parent `Block` of this header
 
 > `static` **fromHeaderData**(`headerData`, `opts`): `BlockHeader`
 
-Defined in: packages/block/types/header.d.ts:45
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:45
 
 Static constructor to create a block header from a header data dictionary
 
@@ -818,7 +840,7 @@ Static constructor to create a block header from a header data dictionary
 
 > `static` **fromRLPSerializedHeader**(`serializedHeaderData`, `opts`): `BlockHeader`
 
-Defined in: packages/block/types/header.d.ts:52
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:52
 
 Static constructor to create a block header from a RLP-serialized header
 
@@ -842,7 +864,7 @@ Static constructor to create a block header from a RLP-serialized header
 
 > `static` **fromValuesArray**(`values`, `opts`): `BlockHeader`
 
-Defined in: packages/block/types/header.d.ts:59
+Defined in: tevm-monorepo/packages/block/types/header.d.ts:59
 
 Static constructor to create a block header from an array of Bytes values
 

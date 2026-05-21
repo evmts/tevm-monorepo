@@ -8,7 +8,7 @@
 
 > **TevmReturnType** = `object`
 
-Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:10
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:10
 
 A mapping of `tevm_*` method names to their return type
 
@@ -18,7 +18,7 @@ A mapping of `tevm_*` method names to their return type
 
 > **tevm\_call**: [`CallJsonRpcResponse`](CallJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:11
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:11
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:11
 
 > **tevm\_dumpState**: [`DumpStateJsonRpcResponse`](DumpStateJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:16
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:16
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:16
 
 > **tevm\_getAccount**: [`GetAccountJsonRpcResponse`](GetAccountJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:17
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:17
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:17
 
 > **tevm\_loadState**: [`LoadStateJsonRpcResponse`](LoadStateJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:15
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:15
 
 #### Deprecated
 
@@ -52,7 +52,7 @@ Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:15
 
 > **tevm\_mine**: [`MineJsonRpcResponse`](MineJsonRpcResponse.md)
 
-Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:19
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:19
 
 ***
 
@@ -60,4 +60,4 @@ Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:19
 
 > **tevm\_setAccount**: `SetAccountJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:18
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmReturnType.d.ts:18

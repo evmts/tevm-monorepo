@@ -70,15 +70,20 @@ export const debugGetModifiedAccountsByNumberHandler = (client) => async (params
 	const startStateRootHex = bytesToHex(startBlock.header.stateRoot)
 	const endStateRootHex = bytesToHex(endBlock.header.stateRoot)
 
-	let startState = {}
-	let endState = {}
-
-	if (await vm.stateManager.hasStateRoot(startBlock.header.stateRoot)) {
-		startState = vm.stateManager._baseState.stateRoots.get(startStateRootHex) ?? {}
+	if (!(await vm.stateManager.hasStateRoot(startBlock.header.stateRoot))) {
+		throw new Error(`State root not available for start block ${startBlock.header.number}`)
+	}
+	if (!(await vm.stateManager.hasStateRoot(endBlock.header.stateRoot))) {
+		throw new Error(`State root not available for end block ${endBlock.header.number}`)
 	}
 
-	if (await vm.stateManager.hasStateRoot(endBlock.header.stateRoot)) {
-		endState = vm.stateManager._baseState.stateRoots.get(endStateRootHex) ?? {}
+	const startState = vm.stateManager._baseState.stateRoots.get(startStateRootHex)
+	const endState = vm.stateManager._baseState.stateRoots.get(endStateRootHex)
+	if (startState === undefined) {
+		throw new Error(`State root not cached for start block ${startBlock.header.number}`)
+	}
+	if (endState === undefined) {
+		throw new Error(`State root not cached for end block ${endBlock.header.number}`)
 	}
 
 	// Find modified accounts

@@ -26,7 +26,7 @@ The address of the account to get the proof for
 
 ### blockTag?
 
-> `readonly` `optional` **blockTag**: [`BlockParam`](BlockParam.md)
+> `readonly` `optional` **blockTag?**: [`BlockParam`](BlockParam.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:356](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L356)
 

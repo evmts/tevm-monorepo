@@ -8,7 +8,7 @@
 
 > **VMProfilerOpts** = `object`
 
-Defined in: packages/vm/types/utils/VMProfileOpts.d.ts:14
+Defined in: tevm-monorepo/packages/vm/types/utils/VMProfileOpts.d.ts:14
 
 Configuration options for VM profiling and performance reporting.
 Controls when and how profiling data is reported during VM execution.
@@ -28,14 +28,14 @@ const value: VMProfilerOpts = {
 
 ### reportAfterBlock?
 
-> `optional` **reportAfterBlock**: `boolean`
+> `optional` **reportAfterBlock?**: `boolean`
 
-Defined in: packages/vm/types/utils/VMProfileOpts.d.ts:16
+Defined in: tevm-monorepo/packages/vm/types/utils/VMProfileOpts.d.ts:16
 
 ***
 
 ### reportAfterTx?
 
-> `optional` **reportAfterTx**: `boolean`
+> `optional` **reportAfterTx?**: `boolean`
 
-Defined in: packages/vm/types/utils/VMProfileOpts.d.ts:15
+Defined in: tevm-monorepo/packages/vm/types/utils/VMProfileOpts.d.ts:15

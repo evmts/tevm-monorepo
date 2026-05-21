@@ -22,7 +22,7 @@ The base parameters shared across all actions
 
 ### throwOnFail?
 
-> `readonly` `optional` **throwOnFail**: `TThrowOnFail`
+> `readonly` `optional` **throwOnFail?**: `TThrowOnFail`
 
 Defined in: [packages/actions/src/common/BaseParams.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/BaseParams.ts#L9)
 

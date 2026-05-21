@@ -22,17 +22,17 @@ Creates an CallHandler for handling call params with Ethereumjs EVM
 
 ### txHash
 
-`undefined` | `` `0x${string}` ``
+`` `0x${string}` `` \| `undefined`
 
 ### trace
 
-`undefined` | [`TraceResult`](../type-aliases/TraceResult.md)
+[`TraceResult`](../type-aliases/TraceResult.md) \| `undefined`
 
 ### accessList
 
-returned by the evm
+`Map`\<`string`, `Set`\<`string`\>\> \| `undefined`
 
-`undefined` | `Map`\<`string`, `Set`\<`string`\>\>
+returned by the evm
 
 ## Returns
 

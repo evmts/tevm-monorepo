@@ -1,9 +1,9 @@
 use crate::error::SolcError;
 use crate::models::{SolcInputDescription, SolcOutput};
 use std::path::PathBuf;
-use std::process::Command;
-use std::sync::Arc;
 use std::io::Write;
+use std::process::{Command, Stdio};
+use std::sync::Arc;
 
 /// The Solc compiler interface
 #[derive(Debug, Clone)]
@@ -35,20 +35,24 @@ pub fn solc_compile(solc: &Solc, input: &SolcInputDescription) -> Result<SolcOut
     let input_json = serde_json::to_string(input)
         .map_err(|e| SolcError::SerializationError(e.to_string()))?;
     
-    // Create a temporary file for the input
-    let mut input_file = tempfile::NamedTempFile::new()
-        .map_err(|e| SolcError::TempFileError(e))?;
-    
-    // Write the input JSON to the file
-    input_file.write_all(input_json.as_bytes())
-        .map_err(|e| SolcError::TempFileError(e))?;
-    
-    // Run the solc compiler
-    let output = Command::new(&*solc.path)
+    let mut child = Command::new(&*solc.path)
         .arg("--standard-json")
-        .arg(input_file.path())
-        .output()
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
         .map_err(|e| SolcError::CompilationError(format!("Failed to execute solc: {}", e)))?;
+
+    child
+        .stdin
+        .as_mut()
+        .ok_or_else(|| SolcError::CompilationError("Failed to open solc stdin".to_string()))?
+        .write_all(input_json.as_bytes())
+        .map_err(|e| SolcError::CompilationError(format!("Failed to write solc standard JSON input: {}", e)))?;
+
+    let output = child
+        .wait_with_output()
+        .map_err(|e| SolcError::CompilationError(format!("Failed to read solc output: {}", e)))?;
     
     // Check if the command executed successfully
     if !output.status.success() {

@@ -30,7 +30,7 @@ import {
 	StopError,
 	ValueOverflowError,
 } from '@tevm/errors'
-// import { EvmErrorMessage } from '@tevm/evm' // No longer exported
+// import { EvmErrorMessage } from '@evmts/zevm/evm' // No longer exported
 import { describe, expect, it } from 'vitest'
 import { createEvmError } from './createEvmError.js'
 

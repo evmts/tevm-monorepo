@@ -8,7 +8,7 @@
 
 > **DebugGetRawBlockResult** = [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:219
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:219
 
 Result from `debug_getRawBlock`
 

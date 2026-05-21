@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilDealHandler
 
-# Type Alias: AnvilDealHandler()
+# Type Alias: AnvilDealHandler
 
 > **AnvilDealHandler** = (`params`) => `Promise`\<[`AnvilDealResult`](AnvilDealResult.md)\>
 

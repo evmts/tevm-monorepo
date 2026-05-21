@@ -8,5 +8,6 @@ export const stripZeros = (bytes) => {
 	if (!(bytes instanceof Uint8Array)) {
 		throw new InternalError('Unexpected type')
 	}
-	return bytes.slice(bytes.findIndex(/** @param {number} entry*/ (entry) => entry !== 0))
+	const firstNonZero = bytes.findIndex(/** @param {number} entry*/ (entry) => entry !== 0)
+	return firstNonZero === -1 ? new Uint8Array() : bytes.slice(firstNonZero)
 }

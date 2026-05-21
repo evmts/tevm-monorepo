@@ -21,6 +21,7 @@ export const ethNewBlockFilterProcedure = (client) => {
 			}
 			filter.blocks.push(block)
 		}
+		client.on('newBlock', listener)
 		client.setFilter({
 			id,
 			type: 'Block',
@@ -33,7 +34,7 @@ export const ethNewBlockFilterProcedure = (client) => {
 			registeredListeners: [listener],
 		})
 		return {
-			...(newBlockFilterRequest.id ? { id: newBlockFilterRequest.id } : {}),
+			...(newBlockFilterRequest.id !== undefined ? { id: newBlockFilterRequest.id } : {}),
 			method: newBlockFilterRequest.method,
 			jsonrpc: newBlockFilterRequest.jsonrpc,
 			result: id,

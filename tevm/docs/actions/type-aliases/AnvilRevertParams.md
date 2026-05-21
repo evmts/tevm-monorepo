@@ -8,7 +8,7 @@
 
 > **AnvilRevertParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:268
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:268
 
 Params for `anvil_revert` handler
 
@@ -18,6 +18,6 @@ Params for `anvil_revert` handler
 
 > `readonly` **snapshotId**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:272
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:272
 
 The snapshot ID to revert to

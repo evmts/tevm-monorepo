@@ -8,6 +8,6 @@
 
 > `const` **deleteAccount**: [`StateAction`](../type-aliases/StateAction.md)\<`"deleteAccount"`\>
 
-Defined in: packages/state/dist/index.d.ts:396
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:400
 
 Deletes an account from state under the provided `address`.

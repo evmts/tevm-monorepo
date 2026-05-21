@@ -8,7 +8,7 @@
 
 > `const` **definePredeploy**: [`DefinePredeployFn`](../../predeploys/type-aliases/DefinePredeployFn.md)
 
-Defined in: packages/predeploys/types/definePredeploy.d.ts:25
+Defined in: tevm-monorepo/packages/predeploys/types/definePredeploy.d.ts:25
 
 Defines a predeploy contract to use in the tevm vm
 

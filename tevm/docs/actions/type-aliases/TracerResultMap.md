@@ -8,7 +8,7 @@
 
 > **TracerResultMap**\<`TDiffMode`\> = `object`
 
-Defined in: packages/actions/types/common/MuxTraceResult.d.ts:13
+Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:13
 
 Maps tracer type to its result type
 
@@ -24,7 +24,7 @@ Maps tracer type to its result type
 
 > **4byteTracer**: [`FourbyteTraceResult`](FourbyteTraceResult.md)
 
-Defined in: packages/actions/types/common/MuxTraceResult.d.ts:16
+Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:16
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: packages/actions/types/common/MuxTraceResult.d.ts:16
 
 > **callTracer**: [`CallTraceResult`](CallTraceResult.md)
 
-Defined in: packages/actions/types/common/MuxTraceResult.d.ts:14
+Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:14
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: packages/actions/types/common/MuxTraceResult.d.ts:14
 
 > **default**: [`TraceResult`](../../index/type-aliases/TraceResult.md)
 
-Defined in: packages/actions/types/common/MuxTraceResult.d.ts:18
+Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:18
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: packages/actions/types/common/MuxTraceResult.d.ts:18
 
 > **flatCallTracer**: [`FlatCallTraceResult`](FlatCallTraceResult.md)
 
-Defined in: packages/actions/types/common/MuxTraceResult.d.ts:17
+Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:17
 
 ***
 
@@ -56,4 +56,4 @@ Defined in: packages/actions/types/common/MuxTraceResult.d.ts:17
 
 > **prestateTracer**: [`PrestateTraceResult`](../../index/type-aliases/PrestateTraceResult.md)\<`TDiffMode`\>
 
-Defined in: packages/actions/types/common/MuxTraceResult.d.ts:15
+Defined in: tevm-monorepo/packages/actions/types/common/MuxTraceResult.d.ts:15

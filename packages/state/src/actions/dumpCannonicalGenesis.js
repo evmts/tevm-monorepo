@@ -1,6 +1,5 @@
 import { createAddress } from '@tevm/address'
 import { bytesToHex, getAddress, toHex } from '@tevm/utils'
-import { fromAccountData } from '../utils/accountHelpers.js'
 import { dumpStorage } from './dumpStorage.js'
 import { getAccount } from './getAccount.js'
 import { getAccountAddresses } from './getAccountAddresses.js'
@@ -23,7 +22,10 @@ export const dumpCanonicalGenesis = (baseState) => async () => {
 	for (const address of accountAddresses) {
 		const hexAddress = getAddress(address.startsWith('0x') ? address : `0x${address}`)
 		const ethAddress = createAddress(hexAddress)
-		const account = (await getAccount(baseState, true)(ethAddress)) ?? fromAccountData({})
+		const account = await getAccount(baseState, true)(ethAddress)
+		if (account === undefined) {
+			continue
+		}
 
 		const storage = await dumpStorage(baseState)(ethAddress)
 

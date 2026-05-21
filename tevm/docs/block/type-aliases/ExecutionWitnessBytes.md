@@ -8,7 +8,7 @@
 
 > **ExecutionWitnessBytes** = `Uint8Array`
 
-Defined in: packages/block/types/types.d.ts:277
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:277
 
 Represents the serialized form of execution witness data
 
@@ -22,7 +22,7 @@ Part of Ethereum's roadmap towards statelessness with Verkle trees.
 
 ```typescript
 import { ExecutionWitnessBytes, VerkleExecutionWitness } from '@tevm/block'
-import { decode } from '@tevm/rlp'
+import { decode } from '@evmts/zevm/rlp'
 
 // Decode execution witness from its serialized form
 function decodeWitness(witnessBytes: ExecutionWitnessBytes): VerkleExecutionWitness {

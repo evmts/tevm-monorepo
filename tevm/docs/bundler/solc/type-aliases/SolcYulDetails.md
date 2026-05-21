@@ -8,7 +8,7 @@
 
 > **SolcYulDetails** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:14
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:14
 
 ## Properties
 
@@ -16,12 +16,12 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:14
 
 > **optimizerSteps**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:16
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:16
 
 ***
 
 ### stackAllocation?
 
-> `optional` **stackAllocation**: `boolean`
+> `optional` **stackAllocation?**: `boolean`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:15
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:15

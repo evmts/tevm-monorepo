@@ -1,0 +1,17 @@
+# Merge Tickets
+
+Merge the completed ticket branches back into the main branch.
+
+The following tickets were implemented in worktree branches:
+
+{props.ticketSummary}
+
+For each branch with status "success":
+1. git merge the branch into the current branch (main)
+2. If there are merge conflicts, resolve them sensibly
+3. If a branch cannot be cleanly merged, skip it and note it as conflicted
+
+Report which branches were merged and which had conflicts.
+
+REQUIRED OUTPUT:
+{props.schema}

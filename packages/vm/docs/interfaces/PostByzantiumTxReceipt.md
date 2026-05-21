@@ -51,7 +51,7 @@ Cumulative gas used in the block including this tx
 
 ### logs
 
-> **logs**: `Log`[]
+> **logs**: `ReceiptLog`[]
 
 Defined in: [packages/vm/src/utils/BaseTxReceipt.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/BaseTxReceipt.ts#L18)
 

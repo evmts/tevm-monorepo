@@ -8,7 +8,7 @@
 
 > **getContractCode**(`baseState`, `skipFetchingFromFork?`): (`address`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/state/dist/index.d.ts:452
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:456
 
 ## Parameters
 
@@ -22,14 +22,4 @@ Defined in: packages/state/dist/index.d.ts:452
 
 ## Returns
 
-> (`address`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
-
-### Parameters
-
-#### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-### Returns
-
-`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+(`address`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>

@@ -512,8 +512,8 @@ describe(bundler.name, () => {
 				const result = await resolver.resolveDts('module', 'basedir', false, false)
 
 				// Check that both the concrete contract and the library are included
-				expect(result.code).toContain('const _nameImplementor = "Implementor"')
-				expect(result.code).toContain('const _nameMyLib = "MyLib"')
+				expect(result.code).toContain('declare const _nameImplementor: "Implementor"')
+				expect(result.code).toContain('declare const _nameMyLib: "MyLib"')
 			})
 		})
 	})
@@ -568,8 +568,8 @@ describe(bundler.name, () => {
 				  },
 				  "code": "import type { Contract } from '@tevm/contract'
 
-						const _abiTestContract = [] as const;
-				const _nameTestContract = "TestContract" as const;
+							declare const _abiTestContract: readonly [];
+				declare const _nameTestContract: "TestContract";
 				/**
 				 * TestContract Contract (no bytecode)
 				 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
@@ -577,7 +577,7 @@ describe(bundler.name, () => {
 				 */
 				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined, undefined, undefined>;
 				// solc artifacts of compilation
-				export const artifacts = {
+				export declare const artifacts: {
 				  "TestContract": {
 				    "contractName": "TestContract",
 				    "abi": []
@@ -664,8 +664,8 @@ describe(bundler.name, () => {
 				  },
 				  "code": "import type { Contract } from '@tevm/contract'
 
-						const _abiTestContract = [] as const;
-				const _nameTestContract = "TestContract" as const;
+							declare const _abiTestContract: readonly [];
+				declare const _nameTestContract: "TestContract";
 				/**
 				 * TestContract Contract (no bytecode)
 				 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
@@ -673,7 +673,7 @@ describe(bundler.name, () => {
 				 */
 				export const TestContract: Contract<typeof _nameTestContract, typeof _abiTestContract, undefined, undefined, undefined, undefined>;
 				// solc artifacts of compilation
-				export const artifacts = {
+				export declare const artifacts: {
 				  "TestContract": {
 				    "contractName": "TestContract",
 				    "abi": []

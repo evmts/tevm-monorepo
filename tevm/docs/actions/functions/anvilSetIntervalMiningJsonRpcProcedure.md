@@ -8,7 +8,7 @@
 
 > **anvilSetIntervalMiningJsonRpcProcedure**(`client`): [`AnvilSetIntervalMiningProcedure`](../type-aliases/AnvilSetIntervalMiningProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetIntervalMiningProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetIntervalMiningProcedure.d.ts:1
 
 ## Parameters
 

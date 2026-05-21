@@ -16,7 +16,7 @@ export const anvilSetNonceJsonRpcProcedure = (client) => {
 					nonce: request.params[1],
 				},
 			],
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		})
 		if (balanceResult.error) {
 			return {

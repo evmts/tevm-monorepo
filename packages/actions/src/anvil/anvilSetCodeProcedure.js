@@ -11,11 +11,11 @@ export const anvilSetCodeJsonRpcProcedure = (client) => {
 			jsonrpc: request.jsonrpc,
 			method: 'tevm_setAccount',
 			params: [{ address: request.params[0], deployedBytecode: request.params[1] }],
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		})
 		if (result.error) {
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {
@@ -25,7 +25,7 @@ export const anvilSetCodeJsonRpcProcedure = (client) => {
 			}
 		}
 		return {
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 			method: request.method,
 			jsonrpc: request.jsonrpc,
 			result: null,

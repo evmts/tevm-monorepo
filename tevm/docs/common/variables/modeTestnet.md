@@ -8,7 +8,7 @@
 
 > `const` **modeTestnet**: [`Common`](../type-aliases/Common.md)
 
-Defined in: packages/common/types/presets/modeTestnet.d.ts:21
+Defined in: tevm-monorepo/packages/common/types/presets/modeTestnet.d.ts:21
 
 Creates a common configuration for the modeTestnet chain.
 

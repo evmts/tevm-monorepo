@@ -37,4 +37,13 @@ describe(blockNumberHandler.name, () => {
 		}
 		expect(await blockNumberHandler({ getVm: () => ({ blockchain }) } as any)()).toBe(9999999999n)
 	})
+
+	it('gates light-client blockNumber on readiness', async () => {
+		await expect(
+			blockNumberHandler({
+				consensus: { mode: 'light-client', isReady: () => false },
+				getLightSyncStatus: () => ({ ready: false }),
+			} as any)(),
+		).rejects.toThrow('LIGHT_CLIENT_NOT_READY')
+	})
 })

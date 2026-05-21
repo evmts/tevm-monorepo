@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / LoadStateHandler
 
-# Type Alias: LoadStateHandler()
+# Type Alias: LoadStateHandler
 
 > **LoadStateHandler** = (`params`) => `Promise`\<[`LoadStateResult`](LoadStateResult.md)\>
 

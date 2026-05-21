@@ -81,6 +81,124 @@ describe('ethSignTransactionProcedure', () => {
 		expect(response.result).toMatch(/^0x/)
 	})
 
+	it('should sign EIP-1559 style transaction params', async () => {
+		const request: EthSignTransactionJsonRpcRequest = {
+			id: 3,
+			jsonrpc: '2.0',
+			method: 'eth_signTransaction',
+			params: [
+				{
+					from: testAccounts[0].address,
+					to: `0x${'69'.repeat(20)}`,
+					maxFeePerGas: '0x3b9aca00',
+					maxPriorityFeePerGas: '0x1',
+				},
+			],
+		}
+		const response = await ethSignTransactionProcedure({
+			accounts: testAccounts,
+			getChainId: async () => 10,
+		})(request)
+		expect(response.result).toMatch(/^0x/)
+	})
+
+	it('should reject malformed numeric hex params', async () => {
+		const request = {
+			id: 4,
+			jsonrpc: '2.0',
+			method: 'eth_signTransaction',
+			params: [{ from: testAccounts[0].address, gas: '0xz' }],
+		} as unknown as EthSignTransactionJsonRpcRequest
+		await expect(
+			ethSignTransactionProcedure({
+				accounts: testAccounts,
+				getChainId: async () => 10,
+			})(request),
+		).rejects.toThrow()
+	})
+
+	it('should sign EIP-2930 style transaction params (accessList)', async () => {
+		const request: EthSignTransactionJsonRpcRequest = {
+			id: 5,
+			jsonrpc: '2.0',
+			method: 'eth_signTransaction',
+			params: [
+				{
+					from: testAccounts[0].address,
+					to: `0x${'69'.repeat(20)}`,
+					gas: '0x5208',
+					gasPrice: '0x3b9aca00',
+					nonce: '0x0',
+					accessList: [
+						{
+							address: `0x${'69'.repeat(20)}`,
+							storageKeys: [`0x${'00'.repeat(32)}`],
+						},
+					],
+				},
+			],
+		}
+		const response = await ethSignTransactionProcedure({
+			accounts: testAccounts,
+			getChainId: async () => 10,
+		})(request)
+		expect(response.result).toMatch(/^0x01/) // EIP-2930 envelope prefix
+	})
+
+	it('should sign EIP-7702 style transaction params (authorizationList)', async () => {
+		const request: EthSignTransactionJsonRpcRequest = {
+			id: 6,
+			jsonrpc: '2.0',
+			method: 'eth_signTransaction',
+			params: [
+				{
+					from: testAccounts[0].address,
+					to: `0x${'69'.repeat(20)}`,
+					gas: '0x5208',
+					maxFeePerGas: '0x3b9aca00',
+					maxPriorityFeePerGas: '0x1',
+					nonce: '0x0',
+					authorizationList: [
+						{
+							chainId: '0xa',
+							address: `0x${'69'.repeat(20)}`,
+							nonce: '0x0',
+							yParity: '0x0',
+							r: `0x${'01'.repeat(32)}`,
+							s: `0x${'02'.repeat(32)}`,
+						},
+					] as readonly unknown[],
+				},
+			],
+		}
+		const response = await ethSignTransactionProcedure({
+			accounts: testAccounts,
+			getChainId: async () => 10,
+		})(request)
+		expect(response.result).toMatch(/^0x04/) // EIP-7702 envelope prefix
+	})
+
+	it('should reject unmanaged accounts (account not in signer set)', async () => {
+		const request: EthSignTransactionJsonRpcRequest = {
+			id: 7,
+			jsonrpc: '2.0',
+			method: 'eth_signTransaction',
+			params: [
+				{
+					from: `0x${'69'.repeat(20)}`,
+					to: `0x${'42'.repeat(20)}`,
+					gasPrice: '0x3b9aca00',
+				},
+			],
+		}
+		await expect(
+			ethSignTransactionProcedure({
+				accounts: testAccounts,
+				getChainId: async () => 10,
+			})(request),
+		).rejects.toThrow(/not found/i)
+	})
+
 	/**
 	 * TODO: Add the following test cases for more robust coverage:
 	 *

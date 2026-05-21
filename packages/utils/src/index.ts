@@ -1,4 +1,4 @@
-export type { Log as EthjsLog } from '@ethereumjs/evm'
+export type { ReceiptLog as EthjsLog } from '@evmts/zevm/receipt'
 export type {
 	AddressLike,
 	BatchDBOp as BatchDbOp,
@@ -9,7 +9,7 @@ export type {
 	EncodingOpts,
 	JSONRPCWithdrawal as JsonRpcWithdrawal,
 	WithdrawalData,
-} from '@ethereumjs/util'
+} from '@evmts/zevm/util'
 export type {
 	Abi,
 	AbiConstructor,
@@ -141,11 +141,11 @@ export {
 	toHex,
 	toRlp,
 } from './viem.js'
-// GenesisState is now in @ethereumjs/common, but we need the account-based GenesisState
+// GenesisState moved to the common package, but we need the account-based GenesisState
 // which seems to have been removed. Let's define it here for backward compatibility.
 export type GenesisState = Record<string, string | Record<string, any>>
 
-// AsyncEventEmitter was removed from @ethereumjs/util
+// AsyncEventEmitter is kept here for backward compatibility with older callers.
 // Define a compatible type for backward compatibility
 export type AsyncEventEmitter<T extends Record<string, any> = {}> = {
 	on<K extends keyof T>(event: K, listener: T[K]): void

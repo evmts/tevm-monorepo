@@ -8,7 +8,7 @@
 
 > **ethGetFilterLogsProcedure**(`client`): [`EthGetFilterLogsJsonRpcProcedure`](../type-aliases/EthGetFilterLogsJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethGetFilterLogsProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethGetFilterLogsProcedure.d.ts:1
 
 ## Parameters
 

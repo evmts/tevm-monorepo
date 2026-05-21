@@ -1,6 +1,6 @@
+import { Rlp } from '@evmts/zevm/rlp'
 import type { CliqueConfig } from '@tevm/common'
 import { type Common, ConsensusAlgorithm, ConsensusType, tevmDefault } from '@tevm/common'
-import { Rlp } from '@tevm/rlp'
 import {
 	bytesToBigInt,
 	bytesToHex,
@@ -14,21 +14,26 @@ import {
 	KECCAK256_RLP_ARRAY,
 	keccak256,
 	numberToHex,
+	setLengthLeft,
 	toBytes,
 } from '@tevm/utils'
 import { CLIQUE_EXTRA_SEAL, CLIQUE_EXTRA_VANITY } from './clique.js'
 import { fakeExponential, valuesArrayToHeaderData } from './helpers.js'
 import type { BlockHeaderBytes, BlockOptions, HeaderData, JsonHeader } from './types.js'
-import { createAddressFromPublicKey, createZeroAddress, getSignatureV, safeToType, zeros } from './utils.js'
+import { createAddressFromPublicKey, createZeroAddress, safeToType, zeros } from './utils.js'
 
 interface HeaderCache {
 	hash: Uint8Array | undefined
 }
 
 const DEFAULT_GAS_LIMIT = BigInt('0xffffffffffffff')
+const SHA256_EMPTY = Uint8Array.from([
+	0xe3, 0xb0, 0xc4, 0x42, 0x98, 0xfc, 0x1c, 0x14, 0x9a, 0xfb, 0xf4, 0xc8, 0x99, 0x6f, 0xb9, 0x24, 0x27, 0xae, 0x41,
+	0xe4, 0x64, 0x9b, 0x93, 0x4c, 0xa4, 0x95, 0x99, 0x1b, 0x78, 0x52, 0xb8, 0x55,
+])
 
 const bigIntToUnpaddedBytes = (n: bigint) => {
-	return toBytes(n).slice(2)
+	return n === 0n ? new Uint8Array() : toBytes(n)
 }
 /**
  * An object that represents the block header.
@@ -107,13 +112,14 @@ export class BlockHeader {
 	 */
 	public static fromValuesArray(values: BlockHeaderBytes, opts: BlockOptions) {
 		const headerData = valuesArrayToHeaderData(values)
-		const { number, baseFeePerGas, excessBlobGas, blobGasUsed, parentBeaconBlockRoot, requestsRoot } = headerData
+		const { baseFeePerGas, withdrawalsRoot, excessBlobGas, blobGasUsed, parentBeaconBlockRoot, requestsRoot } =
+			headerData
 		const header = BlockHeader.fromHeaderData(headerData, opts)
 		if (header.common.ethjsCommon.isActivatedEIP(1559) && baseFeePerGas === undefined) {
-			const eip1559ActivationBlock = toBytes(header.common.ethjsCommon.eipBlock(1559) as bigint)
-			if (eip1559ActivationBlock !== undefined && equalsBytes(eip1559ActivationBlock, number as Uint8Array)) {
-				throw new Error('invalid header. baseFeePerGas should be provided')
-			}
+			throw new Error('invalid header. baseFeePerGas should be provided')
+		}
+		if (header.common.ethjsCommon.isActivatedEIP(4895) && withdrawalsRoot === undefined) {
+			throw new Error('invalid header. withdrawalsRoot should be provided')
 		}
 		if (header.common.ethjsCommon.isActivatedEIP(4844)) {
 			if (excessBlobGas === undefined) {
@@ -207,7 +213,7 @@ export class BlockHeader {
 			blobGasUsed: this.common.ethjsCommon.isActivatedEIP(4844) ? 0n : undefined,
 			excessBlobGas: this.common.ethjsCommon.isActivatedEIP(4844) ? 0n : undefined,
 			parentBeaconBlockRoot: this.common.ethjsCommon.isActivatedEIP(4788) ? zeros(32) : undefined,
-			requestsRoot: this.common.ethjsCommon.isActivatedEIP(7685) ? KECCAK256_RLP : undefined,
+			requestsRoot: this.common.ethjsCommon.isActivatedEIP(7685) ? SHA256_EMPTY.slice() : undefined,
 		}
 
 		const baseFeePerGas = safeToType(headerData.baseFeePerGas, 1) ?? hardforkDefaults.baseFeePerGas
@@ -797,13 +803,16 @@ export class BlockHeader {
 		if (!ecSignFunction) {
 			throw new Error('ecsign function must be provided in customCrypto for clique signing')
 		}
-		const signature = ecSignFunction(this.cliqueSigHash(), privateKey)
-		const v = getSignatureV(signature)
-		const vBytes = new Uint8Array([Number(v - 27n)])
-		// Convert signature r and s to Uint8Array
-		const rBytes = toBytes(signature.r)
-		const sBytes = toBytes(signature.s)
-		const signatureB = concatBytes(rBytes, sBytes, vBytes)
+		const signature = ecSignFunction(this.cliqueSigHash(), privateKey, { prehash: false }) as unknown as {
+			r: bigint
+			s: bigint
+			recovery: number
+		}
+		const signatureB = concatBytes(
+			setLengthLeft(toBytes(signature.r), 32),
+			setLengthLeft(toBytes(signature.s), 32),
+			new Uint8Array([signature.recovery]),
+		)
 
 		const extraDataWithoutSeal = this.extraData.subarray(0, this.extraData.length - CLIQUE_EXTRA_SEAL)
 		const extraData = concatBytes(extraDataWithoutSeal, signatureB)

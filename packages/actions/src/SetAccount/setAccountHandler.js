@@ -80,10 +80,7 @@ export const setAccountHandler =
 
 		const address = createAddress(params.address)
 
-		/**
-		 * @type {Array<Promise<any>>}
-		 */
-		const promises = []
+		let checkpointed = false
 		try {
 			const vm = await client.getVm()
 
@@ -119,9 +116,11 @@ export const setAccountHandler =
 				accountData.codeHash = codeHash
 			}
 
-			promises.push(vm.stateManager.putAccount(address, createAccount(accountData)))
+			await vm.stateManager.checkpoint()
+			checkpointed = true
+			await vm.stateManager.putAccount(address, createAccount(accountData))
 			if (params.deployedBytecode) {
-				promises.push(vm.stateManager.putCode(address, hexToBytes(params.deployedBytecode)))
+				await vm.stateManager.putCode(address, hexToBytes(params.deployedBytecode))
 			}
 			// state clears state first stateDiff does not
 			if (params.state) {
@@ -130,30 +129,26 @@ export const setAccountHandler =
 			const state = params.state ?? params.stateDiff
 			if (state) {
 				for (const [key, value] of Object.entries(state)) {
-					promises.push(
-						vm.stateManager.putStorage(
-							address,
-							hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (key), { size: 32 }),
-							hexToBytes(value),
-						),
+					await vm.stateManager.putStorage(
+						address,
+						hexToBytes(/** @type {import('@tevm/utils').Hex}*/ (key), { size: 32 }),
+						hexToBytes(value),
 					)
 				}
 			}
-			const results = await Promise.allSettled(promises)
-			for (const result of results) {
-				if (result.status === 'rejected') {
-					errors.push(new InternalError('Unable to put storage', { cause: result.reason }))
-				}
-			}
-
-			if (errors.length > 0) {
-				return maybeThrowOnFail(throwOnFail, { errors })
-			}
-			await vm.stateManager.checkpoint()
 			await vm.stateManager.commit(false)
+			checkpointed = false
 
 			return {}
 		} catch (e) {
+			if (checkpointed) {
+				try {
+					const vm = await client.getVm()
+					await vm.stateManager.revert()
+				} catch (revertError) {
+					client.logger.error({ revertError }, 'there was an error reverting setAccount state')
+				}
+			}
 			errors.push(new InternalError('Unexpected error setting account', { cause: e }))
 			return maybeThrowOnFail(throwOnFail, { errors })
 		}

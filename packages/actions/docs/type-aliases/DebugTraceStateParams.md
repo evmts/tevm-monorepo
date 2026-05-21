@@ -22,7 +22,7 @@ Params taken by `debug_traceState` handler
 
 ### filters?
 
-> `readonly` `optional` **filters**: `TStateFilters`
+> `readonly` `optional` **filters?**: `TStateFilters`
 
 Defined in: [packages/actions/src/debug/DebugParams.ts:216](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L216)
 
@@ -32,7 +32,7 @@ Filters to apply to the state
 
 ### timeout?
 
-> `readonly` `optional` **timeout**: `string`
+> `readonly` `optional` **timeout?**: `string`
 
 Defined in: [packages/actions/src/debug/DebugParams.ts:220](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L220)
 

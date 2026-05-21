@@ -27,7 +27,7 @@ export const ethCreateAccessListProcedure = (client) => async (req) => {
 		],
 	})
 
-	if (!response.result || !response.result.accessList) {
+	if (!response.result?.accessList) {
 		/**
 		 * @type {import('./EthJsonRpcResponse.js').EthCreateAccessListJsonRpcResponse}
 		 */

@@ -5,9 +5,9 @@ import { bytesToHex, invariant, numberToHex } from '@tevm/utils'
  * Prepares a trace to be listened to. If laizlyRun is true, it will return an object with the trace and not run the evm internally
  * @param {import('@tevm/vm').Vm} vm
  * @param {import('@tevm/node').TevmNode['logger']} logger
- * @param {import('@tevm/evm').EvmRunCallOpts} params
+ * @param {import('@evmts/zevm/evm').EvmRunCallOpts} params
  * @param {boolean} [lazilyRun]
- * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../common/TraceResult.js').TraceResult}>}
+ * @returns {Promise<import('@evmts/zevm/evm').EvmResult & {trace: import('../common/TraceResult.js').TraceResult}>}
  * @throws {never}
  */
 export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) => {
@@ -25,8 +25,10 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 
 	/**
 	 * On every step push a struct log
+	 * @param {import('@evmts/zevm/evm').InterpreterStep} step
+	 * @param {() => void} [next]
 	 */
-	vm.evm.events?.on('step', async (step, next) => {
+	const onStep = async (step, next) => {
 		logger.debug(step, 'runCallWithTrace: new evm step')
 		trace.structLogs.push({
 			pc: step.pc,
@@ -37,12 +39,15 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 			stack: step.stack.map((code) => numberToHex(code)),
 		})
 		next?.()
-	})
+	}
+	vm.evm.events?.on('step', onStep)
 
 	/**
 	 * After any internal call push error if any
+	 * @param {import('@evmts/zevm/evm').EvmResult} data
+	 * @param {() => void} [next]
 	 */
-	vm.evm.events?.on('afterMessage', (data, next) => {
+	const onAfterMessage = (data, next) => {
 		logger.debug(data.execResult, 'runCallWithTrace: new message result')
 		if (data.execResult.exceptionError !== undefined && trace.structLogs.length > 0) {
 			// Mark last opcode trace as error if exception occurs
@@ -54,14 +59,24 @@ export const runCallWithTrace = async (vm, logger, params, lazilyRun = false) =>
 			})
 		}
 		next?.()
-	})
+	}
+	vm.evm.events?.on('afterMessage', onAfterMessage)
+	const cleanup = () => {
+		vm.evm.events?.removeListener('step', onStep)
+		vm.evm.events?.removeListener('afterMessage', onAfterMessage)
+	}
 
 	if (lazilyRun) {
 		// TODO internally used function is not typesafe here
-		return /** @type any*/ ({ trace })
+		return /** @type any*/ ({ trace, cleanup })
 	}
 
-	const runCallResult = await vm.evm.runCall(params)
+	let runCallResult
+	try {
+		runCallResult = await vm.evm.runCall(params)
+	} finally {
+		cleanup()
+	}
 
 	logger.debug(runCallResult, 'runCallWithTrace: evm run call complete')
 

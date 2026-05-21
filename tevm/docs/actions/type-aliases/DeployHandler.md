@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DeployHandler
 
-# Type Alias: DeployHandler()
+# Type Alias: DeployHandler
 
 > **DeployHandler** = \<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\>(`action`) => `Promise`\<[`DeployResult`](DeployResult.md)\>
 
-Defined in: packages/actions/types/Deploy/DeployHandlerType.d.ts:44
+Defined in: tevm-monorepo/packages/actions/types/Deploy/DeployHandlerType.d.ts:44
 
 Handler for deploying contracts on TEVM.
 This handler is used to deploy a contract by specifying the deployment parameters, ABI, and constructor arguments.

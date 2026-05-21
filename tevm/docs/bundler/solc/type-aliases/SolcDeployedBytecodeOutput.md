@@ -8,7 +8,7 @@
 
 > **SolcDeployedBytecodeOutput** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:288
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:288
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:288
 
 > **immutableReferences**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:289
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:289
 
 #### Index Signature
 

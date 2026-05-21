@@ -8,7 +8,7 @@
 
 > **getAccountHandler**(`client`, `options?`): [`GetAccountHandler`](../type-aliases/GetAccountHandler.md)
 
-Defined in: packages/actions/types/GetAccount/getAccountHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/getAccountHandler.d.ts:1
 
 ## Parameters
 

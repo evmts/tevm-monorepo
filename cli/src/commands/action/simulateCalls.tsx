@@ -190,13 +190,13 @@ export default function SimulateCalls({ options }: Props) {
 			}
 
 			// Block identifier - only one should be used
-			if (enhancedOptions['blockNumber']) {
-				try {
-					params['blockNumber'] = BigInt(enhancedOptions['blockNumber'])
-				} catch (_e) {
-					console.warn(`Could not convert "${enhancedOptions['blockNumber']}" to BigInt`)
-				}
-			} else if (enhancedOptions['blockTag']) {
+				if (enhancedOptions['blockNumber']) {
+					try {
+						params['blockNumber'] = BigInt(enhancedOptions['blockNumber'])
+					} catch (_e) {
+						throw new Error(`Invalid block number "${enhancedOptions['blockNumber']}"`)
+					}
+				} else if (enhancedOptions['blockTag']) {
 				params['blockTag'] = enhancedOptions['blockTag']
 			}
 

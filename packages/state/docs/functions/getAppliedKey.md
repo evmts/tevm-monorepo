@@ -6,9 +6,9 @@
 
 # ~~Function: getAppliedKey()~~
 
-> **getAppliedKey**(`baseState`, `skipFetchingFromFork?`): `undefined` \| (`address`) => `Uint8Array`
+> **getAppliedKey**(`baseState`, `skipFetchingFromFork?`): ((`address`) => `Uint8Array`) \| `undefined`
 
-Defined in: [packages/state/src/actions/getAppliedKey.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAppliedKey.js#L9)
+Defined in: [tevm-monorepo/packages/state/src/actions/getAppliedKey.js:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getAppliedKey.js#L9)
 
 ## Parameters
 
@@ -22,7 +22,7 @@ Defined in: [packages/state/src/actions/getAppliedKey.js:9](https://github.com/e
 
 ## Returns
 
-`undefined` \| (`address`) => `Uint8Array`
+((`address`) => `Uint8Array`) \| `undefined`
 
 ## Deprecated
 

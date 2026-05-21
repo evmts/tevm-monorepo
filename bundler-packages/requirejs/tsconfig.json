@@ -3,7 +3,8 @@
 	"compilerOptions": {
 		"rootDir": "src",
 		"outDir": "types",
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"types": ["node"]
 	},
 	"include": ["src", "src/**/*.json"]
 }

@@ -4,11 +4,11 @@
 
 [@tevm/esbuild-plugin](../globals.md) / esbuildPluginTevm
 
-# Variable: esbuildPluginTevm()
+# Variable: esbuildPluginTevm
 
 > `const` **esbuildPluginTevm**: (`options?`) => `Plugin`
 
-Defined in: [bundler-packages/esbuild/src/esbuildPluginTevm.js:113](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/esbuild/src/esbuildPluginTevm.js#L113)
+Defined in: [esbuild/src/esbuildPluginTevm.js:113](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/esbuild/src/esbuildPluginTevm.js#L113)
 
 Creates an esbuild plugin for Tevm that enables direct Solidity imports in JavaScript
 and TypeScript code.

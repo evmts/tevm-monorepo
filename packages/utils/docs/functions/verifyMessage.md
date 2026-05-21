@@ -8,7 +8,7 @@
 
 > **verifyMessage**(`params`): `boolean`
 
-Defined in: [packages/utils/src/signature.js:162](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/signature.js#L162)
+Defined in: [tevm-monorepo/packages/utils/src/signature.js:162](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/signature.js#L162)
 
 Verifies a message signature
 

@@ -24,7 +24,7 @@ import { maxPriorityFeePerGasHandler } from './maxPriorityFeePerGasHandler.js'
 export const maxPriorityFeePerGasProcedure =
 	({ getVm, forkTransport }) =>
 	async (req) => ({
-		...(req.id ? { id: req.id } : {}),
+		...(req.id !== undefined ? { id: req.id } : {}),
 		jsonrpc: '2.0',
 		method: req.method,
 		result: await maxPriorityFeePerGasHandler(/** @type any*/ ({ getVm, forkTransport }))({}).then(numberToHex),

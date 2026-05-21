@@ -4,7 +4,7 @@
 
 [@tevm/contract](../globals.md) / CreateContractFn
 
-# Type Alias: CreateContractFn()
+# Type Alias: CreateContractFn
 
 > **CreateContractFn** = \<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`, `THumanReadableAbi`\>(`{
 	name,

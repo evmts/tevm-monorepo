@@ -1,4 +1,4 @@
-import { ecrecover } from './ethereumjs.js'
+import { concatBytes, ecrecover } from './ethereumjs.js'
 import { getAddress, keccak256, toBytes, toHex } from './viem.js'
 
 /**
@@ -107,8 +107,9 @@ export function recoverAddress({ hash, signature }) {
  * ```
  */
 export function hashMessage(message) {
-	const prefix = `\x19Ethereum Signed Message:\n${message.length}`
-	return keccak256(toBytes(prefix + message))
+	const messageBytes = toBytes(message)
+	const prefix = `\x19Ethereum Signed Message:\n${messageBytes.length}`
+	return keccak256(concatBytes(toBytes(prefix), messageBytes))
 }
 
 /**

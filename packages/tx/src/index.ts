@@ -7,6 +7,7 @@ export {
 	createEOACode7702Tx as createEOACodeEIP7702Tx,
 	createEOACode7702TxFromBytesArray as createEOACodeEIP7702TxFromBytesArray,
 	createEOACode7702TxFromRLP as createEOACodeEIP7702TxFromRLP,
+	createImpersonatedTx,
 	createTx as TransactionFactory,
 	createTxFromBlockBodyData,
 	createTxFromRLP,
@@ -16,6 +17,8 @@ export {
 	EOACode7702Tx as EOACodeEIP7702Transaction,
 	type EOACode7702TxData as EOACodeEIP7702TxData,
 	FeeMarket1559Tx as FeeMarketEIP1559Transaction,
+	type ImpersonatedTx,
+	type ImpersonatedTxData,
 	isAccessList2930Tx as isAccessListEIP2930Tx,
 	isBlob4844Tx as isBlobEIP4844Tx,
 	isEOACode7702Tx as isEOACodeEIP7702Tx,
@@ -28,6 +31,4 @@ export {
 	type TxData,
 	type TxOptions,
 	type TypedTransaction,
-} from '@ethereumjs/tx'
-export { createImpersonatedTx } from './createImpersonatedTx.js'
-export type { ImpersonatedTx } from './ImpersonatedTx.js'
+} from '@evmts/zevm/tx'

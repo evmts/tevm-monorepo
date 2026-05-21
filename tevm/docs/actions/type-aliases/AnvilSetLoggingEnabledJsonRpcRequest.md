@@ -8,6 +8,6 @@
 
 > **AnvilSetLoggingEnabledJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_setLoggingEnabled"`, readonly \[`boolean`\]\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:137
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:137
 
 JSON-RPC request for `anvil_setLoggingEnabled` method

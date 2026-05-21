@@ -8,7 +8,7 @@
 
 > **AnvilAutoImpersonateAccountParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:26
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:26
 
 Params for `anvil_autoImpersonateAccount` handler
 
@@ -18,7 +18,7 @@ Params for `anvil_autoImpersonateAccount` handler
 
 > `readonly` **enabled**: `boolean`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:31
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:31
 
 Whether to enable automatic impersonation of accounts.
 When true, all transactions will have their sender automatically impersonated.

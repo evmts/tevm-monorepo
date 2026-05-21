@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / ContractHandler
 
-# Type Alias: ContractHandler()
+# Type Alias: ContractHandler
 
 > **ContractHandler** = \<`TAbi`, `TFunctionName`\>(`action`) => `Promise`\<[`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
-Defined in: packages/actions/types/Contract/ContractHandlerType.d.ts:49
+Defined in: tevm-monorepo/packages/actions/types/Contract/ContractHandlerType.d.ts:49
 
 Handler for executing contract interactions with the TEVM.
 

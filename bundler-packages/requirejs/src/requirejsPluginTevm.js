@@ -144,6 +144,23 @@ export const requirejsPluginTevm = ({ solc = defaultSolc.version } = {}) => {
 		initialized = true
 	}
 
+	/**
+	 * @param {string} contents
+	 * @returns {string}
+	 */
+	const wrapCjsAsAmd = (contents) => `
+define(['@tevm/contract'], function(tevmContract) {
+  const module = { exports: {} };
+  const exports = module.exports;
+  const require = function(id) {
+    if (id === '@tevm/contract' || id === 'tevm/contract') return tevmContract;
+    throw new Error('Unsupported dependency in Tevm RequireJS module: ' + id);
+  };
+${contents}
+  return module.exports;
+});
+`
+
 	return {
 		/**
 		 * Normalizes the resource name for optimal caching and optimization.
@@ -197,7 +214,7 @@ export const requirejsPluginTevm = ({ solc = defaultSolc.version } = {}) => {
 				if (!moduleResolver) {
 					throw new Error('Module resolver not initialized')
 				}
-				const { code: contents } = await moduleResolver.resolveEsmModule(
+				const { code: contents } = await moduleResolver.resolveCjsModule(
 					fullPath,
 					process.cwd(),
 					false, // Don't include AST
@@ -205,7 +222,7 @@ export const requirejsPluginTevm = ({ solc = defaultSolc.version } = {}) => {
 				)
 
 				// Use onload.fromText to evaluate the compiled module code
-				onload.fromText(contents)
+				onload.fromText(wrapCjsAsAmd(contents))
 			} catch (error) {
 				// RequireJS error handling - call onload.error
 				onload.error(error instanceof Error ? error : new Error(String(error)))

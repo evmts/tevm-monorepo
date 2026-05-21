@@ -8,7 +8,7 @@
 
 > **handlePendingTransactionsWarning**(`client`, `params`, `code`, `deployedBytecode`): `Promise`\<`void`\>
 
-Defined in: packages/actions/types/Call/handlePendingTransactionsWarning.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Call/handlePendingTransactionsWarning.d.ts:1
 
 ## Parameters
 
@@ -22,11 +22,11 @@ Defined in: packages/actions/types/Call/handlePendingTransactionsWarning.d.ts:1
 
 ### code
 
-`undefined` | `string`
+`string` \| `undefined`
 
 ### deployedBytecode
 
-`undefined` | `string`
+`string` \| `undefined`
 
 ## Returns
 

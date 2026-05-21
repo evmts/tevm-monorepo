@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DebugStorageRangeAtHandler
 
-# Type Alias: DebugStorageRangeAtHandler()
+# Type Alias: DebugStorageRangeAtHandler
 
 > **DebugStorageRangeAtHandler** = (`params`) => `Promise`\<[`DebugStorageRangeAtResult`](DebugStorageRangeAtResult.md)\>
 
-Defined in: packages/actions/types/debug/DebugHandler.d.ts:11
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:11
 
 ## Parameters
 

@@ -6,13 +6,13 @@
 
 # Function: bytesToUtf8()
 
-> **bytesToUtf8**(`data`): `string`
+> **bytesToUtf8**(`bytes`): `string`
 
-Defined in: node\_modules/.pnpm/ethereum-cryptography@3.2.0/node\_modules/ethereum-cryptography/esm/utils.d.ts:5
+Defined in: zevm/npm/zevm/dist/util.d.ts:151
 
 ## Parameters
 
-### data
+### bytes
 
 `Uint8Array`
 

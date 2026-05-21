@@ -116,7 +116,7 @@ More discriminated version of name. Can be used to discriminate between errors w
 
 ### docsPath
 
-> **docsPath**: `undefined` \| `string`
+> **docsPath**: `string` \| `undefined`
 
 #### Inherited from
 
@@ -126,7 +126,7 @@ More discriminated version of name. Can be used to discriminate between errors w
 
 ### metaMessages
 
-> **metaMessages**: `undefined` \| `string`[]
+> **metaMessages**: `string`[] \| `undefined`
 
 #### Inherited from
 

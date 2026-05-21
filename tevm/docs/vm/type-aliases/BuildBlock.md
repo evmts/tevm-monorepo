@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [vm](../README.md) / BuildBlock
 
-# Type Alias: BuildBlock()
+# Type Alias: BuildBlock
 
 > **BuildBlock** = (`opts`) => `Promise`\<[`BlockBuilder`](../classes/BlockBuilder.md)\>
 
-Defined in: packages/vm/types/actions/buildBlock.d.ts:4
+Defined in: tevm-monorepo/packages/vm/types/actions/buildBlock.d.ts:4
 
 ## Parameters
 

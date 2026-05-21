@@ -8,7 +8,7 @@
 
 > **SolcOptimizer** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:29
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:29
 
 ## Properties
 
@@ -16,15 +16,15 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:29
 
 > **details**: [`SolcOptimizerDetails`](SolcOptimizerDetails.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:32
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:32
 
 ***
 
 ### enabled?
 
-> `optional` **enabled**: `boolean`
+> `optional` **enabled?**: `boolean`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:30
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:30
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:30
 
 > **runs**: `number`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:31
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:31

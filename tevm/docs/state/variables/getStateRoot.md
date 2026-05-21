@@ -8,6 +8,6 @@
 
 > `const` **getStateRoot**: [`StateAction`](../type-aliases/StateAction.md)\<`"getStateRoot"`\>
 
-Defined in: packages/state/dist/index.d.ts:470
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:474
 
 Gets the current state root

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilNodeInfoHandler
 
-# Type Alias: AnvilNodeInfoHandler()
+# Type Alias: AnvilNodeInfoHandler
 
 > **AnvilNodeInfoHandler** = (`params`) => `Promise`\<[`AnvilNodeInfoResult`](AnvilNodeInfoResult.md)\>
 

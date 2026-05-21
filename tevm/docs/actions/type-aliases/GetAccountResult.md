@@ -8,7 +8,7 @@
 
 > **GetAccountResult**\<`ErrorType`\> = `object`
 
-Defined in: packages/actions/types/GetAccount/GetAccountResult.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountResult.d.ts:6
 
 Result of GetAccount Action
 
@@ -24,7 +24,7 @@ Result of GetAccount Action
 
 > **address**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/GetAccount/GetAccountResult.d.ts:14
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountResult.d.ts:14
 
 Address of account
 
@@ -34,7 +34,7 @@ Address of account
 
 > **balance**: `bigint`
 
-Defined in: packages/actions/types/GetAccount/GetAccountResult.d.ts:22
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountResult.d.ts:22
 
 Balance to set account to
 
@@ -44,7 +44,7 @@ Balance to set account to
 
 > **codeHash**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/GetAccount/GetAccountResult.d.ts:34
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountResult.d.ts:34
 
 Code hash to set account to
 
@@ -54,7 +54,7 @@ Code hash to set account to
 
 > **deployedBytecode**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/GetAccount/GetAccountResult.d.ts:26
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountResult.d.ts:26
 
 Contract bytecode to set account to
 
@@ -62,9 +62,9 @@ Contract bytecode to set account to
 
 ### errors?
 
-> `optional` **errors**: `ErrorType`[]
+> `optional` **errors?**: `ErrorType`[]
 
-Defined in: packages/actions/types/GetAccount/GetAccountResult.d.ts:10
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountResult.d.ts:10
 
 Description of the exception, if any occurred
 
@@ -74,7 +74,7 @@ Description of the exception, if any occurred
 
 > **isContract**: `boolean`
 
-Defined in: packages/actions/types/GetAccount/GetAccountResult.d.ts:38
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountResult.d.ts:38
 
 True if account is a contract
 
@@ -84,7 +84,7 @@ True if account is a contract
 
 > **isEmpty**: `boolean`
 
-Defined in: packages/actions/types/GetAccount/GetAccountResult.d.ts:42
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountResult.d.ts:42
 
 True if account is empty
 
@@ -94,7 +94,7 @@ True if account is empty
 
 > **nonce**: `bigint`
 
-Defined in: packages/actions/types/GetAccount/GetAccountResult.d.ts:18
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountResult.d.ts:18
 
 Nonce to set account to
 
@@ -102,9 +102,9 @@ Nonce to set account to
 
 ### storage?
 
-> `optional` **storage**: `object`
+> `optional` **storage?**: `object`
 
-Defined in: packages/actions/types/GetAccount/GetAccountResult.d.ts:47
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountResult.d.ts:47
 
 Contract storage for the account
 only included if `returnStorage` is set to true in the request
@@ -119,6 +119,6 @@ only included if `returnStorage` is set to true in the request
 
 > **storageRoot**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/GetAccount/GetAccountResult.d.ts:30
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountResult.d.ts:30
 
 Storage root to set account to

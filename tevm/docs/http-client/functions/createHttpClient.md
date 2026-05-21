@@ -8,7 +8,7 @@
 
 > **createHttpClient**(`__namedParameters`): [`HttpClient`](../type-aliases/HttpClient.md)
 
-Defined in: packages/http-client/types/createHttpClient.d.ts:1
+Defined in: tevm-monorepo/packages/http-client/types/createHttpClient.d.ts:1
 
 ## Parameters
 

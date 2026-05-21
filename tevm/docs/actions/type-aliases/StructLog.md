@@ -8,7 +8,7 @@
 
 > **StructLog** = `object`
 
-Defined in: packages/actions/types/common/StructLog.d.ts:2
+Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:2
 
 ## Properties
 
@@ -16,15 +16,15 @@ Defined in: packages/actions/types/common/StructLog.d.ts:2
 
 > `readonly` **depth**: `number`
 
-Defined in: packages/actions/types/common/StructLog.d.ts:3
+Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:3
 
 ***
 
 ### error?
 
-> `readonly` `optional` **error**: `object`
+> `readonly` `optional` **error?**: `object`
 
-Defined in: packages/actions/types/common/StructLog.d.ts:9
+Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:9
 
 #### error
 
@@ -40,7 +40,7 @@ Defined in: packages/actions/types/common/StructLog.d.ts:9
 
 > `readonly` **gas**: `bigint`
 
-Defined in: packages/actions/types/common/StructLog.d.ts:4
+Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:4
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: packages/actions/types/common/StructLog.d.ts:4
 
 > `readonly` **gasCost**: `bigint`
 
-Defined in: packages/actions/types/common/StructLog.d.ts:5
+Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:5
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: packages/actions/types/common/StructLog.d.ts:5
 
 > `readonly` **op**: `string`
 
-Defined in: packages/actions/types/common/StructLog.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:6
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: packages/actions/types/common/StructLog.d.ts:6
 
 > `readonly` **pc**: `number`
 
-Defined in: packages/actions/types/common/StructLog.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:7
 
 ***
 
@@ -72,4 +72,4 @@ Defined in: packages/actions/types/common/StructLog.d.ts:7
 
 > `readonly` **stack**: [`Hex`](Hex.md)[]
 
-Defined in: packages/actions/types/common/StructLog.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/common/StructLog.d.ts:8

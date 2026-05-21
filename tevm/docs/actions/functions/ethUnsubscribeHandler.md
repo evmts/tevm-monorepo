@@ -8,7 +8,7 @@
 
 > **ethUnsubscribeHandler**(`tevmNode`): [`EthUnsubscribeHandler`](../type-aliases/EthUnsubscribeHandler.md)
 
-Defined in: packages/actions/types/eth/ethUnsubscribeHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethUnsubscribeHandler.d.ts:1
 
 ## Parameters
 

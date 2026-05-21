@@ -84,11 +84,11 @@ describe('normalizeTx', () => {
 		const result = normalizeTx(tx)
 
 		expect(result).toContain('0x3') // type
-		expect(result).toContain('0xblob123') // first blob hash
-		expect(result).toContain('0xblob456') // second blob hash
+		expect(result).toContainEqual(['blobVersionedHash', '0xblob123']) // first blob hash
+		expect(result).toContainEqual(['blobVersionedHash', '0xblob456']) // second blob hash
 		expect(result).toContain('0xccc') // maxFeePerBlobGas
-		expect(result).toContain('0xblobdata1') // first blob
-		expect(result).toContain('0xblobdata2') // second blob
+		expect(result).toContainEqual(['blob', '0xblobdata1']) // first blob
+		expect(result).toContainEqual(['blob', '0xblobdata2']) // second blob
 	})
 
 	it('should normalize authorization list', () => {
@@ -185,8 +185,8 @@ describe('normalizeTx', () => {
 
 		const result = normalizeTx(tx)
 
-		expect(result).toContain('0x010203') // Uint8Array converted to hex
-		expect(result).toContain('0x040506') // string blob normalized
+		expect(result).toContainEqual(['blob', '0x010203']) // Uint8Array converted to hex
+		expect(result).toContainEqual(['blob', '0x040506']) // Uint8Array converted to hex
 	})
 
 	it('should handle empty arrays gracefully', () => {

@@ -3,9 +3,10 @@
 // Copied from viem commit a098c98231d47ccac9bda1a944880b034020a1b5
 // We copy it here for easier developer experience internally and also
 // to lock in these types independent of viem potentially making changes
+import type { TypedTransaction } from '@evmts/zevm/tx'
 import type { Block } from '@tevm/block'
 import type { TxReceipt } from '@tevm/receipt-manager'
-import type { ImpersonatedTx, TypedTransaction } from '@tevm/tx'
+import type { ImpersonatedTx } from '@tevm/txpool'
 import type { Address, EthjsLog } from '@tevm/utils'
 
 export type ProviderConnectInfo = {
@@ -20,11 +21,13 @@ export type ProviderMessage = {
 export class ProviderRpcError extends Error {
 	code: number
 	details: string
+	data: unknown | undefined
 
-	constructor(code: number, message: string) {
+	constructor(code: number, message: string, data?: unknown) {
 		super(message)
 		this.code = code
 		this.details = message
+		this.data = data
 	}
 }
 

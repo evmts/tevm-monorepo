@@ -8,7 +8,7 @@
 
 > **equalsBytes**(`a`, `b`): `boolean`
 
-Defined in: node\_modules/.pnpm/ethereum-cryptography@3.2.0/node\_modules/ethereum-cryptography/esm/utils.d.ts:7
+Defined in: zevm/npm/zevm/dist/util.d.ts:153
 
 ## Parameters
 

@@ -8,7 +8,7 @@
 
 > **anvilMineDetailedJsonRpcProcedure**(`client`): [`AnvilMineDetailedProcedure`](../type-aliases/AnvilMineDetailedProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilMineDetailedProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilMineDetailedProcedure.d.ts:1
 
 ## Parameters
 

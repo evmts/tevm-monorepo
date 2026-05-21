@@ -47,7 +47,7 @@ export type Logger = {
 	log: (...message: string[]) => void
 }
 
-export type { ModuleInfo, SolcInputDescription, SolcOutput, SolcContractOutput }
+export type { ModuleInfo, SolcContractOutput, SolcInputDescription, SolcOutput }
 
 export type CompiledContracts<TIncludeAsts extends boolean = boolean> = {
 	artifacts: SolcOutput['contracts'][string] | undefined

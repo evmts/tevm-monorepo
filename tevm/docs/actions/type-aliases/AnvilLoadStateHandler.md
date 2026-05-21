@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilLoadStateHandler
 
-# Type Alias: AnvilLoadStateHandler()
+# Type Alias: AnvilLoadStateHandler
 
 > **AnvilLoadStateHandler** = (`params`) => `Promise`\<[`AnvilLoadStateResult`](AnvilLoadStateResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:15
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:15
 
 ## Parameters
 

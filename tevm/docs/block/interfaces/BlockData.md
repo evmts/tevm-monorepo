@@ -6,7 +6,7 @@
 
 # Interface: BlockData
 
-Defined in: packages/block/types/types.d.ts:185
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:185
 
 A block's data.
 
@@ -14,9 +14,9 @@ A block's data.
 
 ### executionWitness?
 
-> `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
+> `optional` **executionWitness?**: [`VerkleExecutionWitness`](VerkleExecutionWitness.md) \| `null`
 
-Defined in: packages/block/types/types.d.ts:197
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:197
 
 EIP-6800: Verkle Proof Data (experimental)
 
@@ -24,9 +24,9 @@ EIP-6800: Verkle Proof Data (experimental)
 
 ### header?
 
-> `optional` **header**: [`HeaderData`](HeaderData.md)
+> `optional` **header?**: [`HeaderData`](HeaderData.md)
 
-Defined in: packages/block/types/types.d.ts:189
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:189
 
 Header data for the block
 
@@ -34,30 +34,30 @@ Header data for the block
 
 ### requests?
 
-> `optional` **requests**: [`ClRequest`](../classes/ClRequest.md)[]
+> `optional` **requests?**: [`ClRequest`](../classes/ClRequest.md)[]
 
-Defined in: packages/block/types/types.d.ts:193
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:193
 
 ***
 
 ### transactions?
 
-> `optional` **transactions**: (`LegacyTxData` \| `AccessList2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData` \| [`EOACodeEIP7702TxData`](../../tx/interfaces/EOACodeEIP7702TxData.md))[]
+> `optional` **transactions?**: (`LegacyTxData` \| `AccessList2930TxData` \| `FeeMarketEIP1559TxData` \| `BlobEIP4844TxData` \| [`EOACodeEIP7702TxData`](../../tx/interfaces/EOACodeEIP7702TxData.md))[]
 
-Defined in: packages/block/types/types.d.ts:190
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:190
 
 ***
 
 ### uncleHeaders?
 
-> `optional` **uncleHeaders**: [`HeaderData`](HeaderData.md)[]
+> `optional` **uncleHeaders?**: [`HeaderData`](HeaderData.md)[]
 
-Defined in: packages/block/types/types.d.ts:191
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:191
 
 ***
 
 ### withdrawals?
 
-> `optional` **withdrawals**: [`WithdrawalData`](../../utils/type-aliases/WithdrawalData.md)[]
+> `optional` **withdrawals?**: [`WithdrawalData`](../../utils/type-aliases/WithdrawalData.md)[]
 
-Defined in: packages/block/types/types.d.ts:192
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:192

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetIntervalMiningProcedure
 
-# Type Alias: AnvilSetIntervalMiningProcedure()
+# Type Alias: AnvilSetIntervalMiningProcedure
 
 > **AnvilSetIntervalMiningProcedure** = (`request`) => `Promise`\<[`AnvilSetIntervalMiningJsonRpcResponse`](AnvilSetIntervalMiningJsonRpcResponse.md)\>
 

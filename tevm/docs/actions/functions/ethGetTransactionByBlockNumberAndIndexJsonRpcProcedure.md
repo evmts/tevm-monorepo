@@ -8,7 +8,7 @@
 
 > **ethGetTransactionByBlockNumberAndIndexJsonRpcProcedure**(`client`): [`EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure`](../type-aliases/EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethGetTransactionByBlockNumberAndIndexProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethGetTransactionByBlockNumberAndIndexProcedure.d.ts:1
 
 ## Parameters
 

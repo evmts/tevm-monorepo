@@ -6,7 +6,7 @@
 
 # Interface: PostByzantiumTxReceipt
 
-Defined in: packages/vm/types/utils/PostByzantiumTxReceipt.d.ts:6
+Defined in: tevm-monorepo/packages/vm/types/utils/PostByzantiumTxReceipt.d.ts:6
 
 Receipt type for Byzantium and beyond replacing the intermediary
 state root field with a status code field (EIP-658)
@@ -25,7 +25,7 @@ state root field with a status code field (EIP-658)
 
 > **bitvector**: `Uint8Array`
 
-Defined in: packages/vm/types/utils/BaseTxReceipt.d.ts:13
+Defined in: tevm-monorepo/packages/vm/types/utils/BaseTxReceipt.d.ts:13
 
 Bloom bitvector
 
@@ -39,7 +39,7 @@ Bloom bitvector
 
 > **cumulativeBlockGasUsed**: `bigint`
 
-Defined in: packages/vm/types/utils/BaseTxReceipt.d.ts:9
+Defined in: tevm-monorepo/packages/vm/types/utils/BaseTxReceipt.d.ts:9
 
 Cumulative gas used in the block including this tx
 
@@ -51,9 +51,9 @@ Cumulative gas used in the block including this tx
 
 ### logs
 
-> **logs**: [`Log`](../../evm/type-aliases/Log.md)[]
+> **logs**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[]
 
-Defined in: packages/vm/types/utils/BaseTxReceipt.d.ts:17
+Defined in: tevm-monorepo/packages/vm/types/utils/BaseTxReceipt.d.ts:17
 
 Logs emitted
 
@@ -67,6 +67,6 @@ Logs emitted
 
 > **status**: `0` \| `1`
 
-Defined in: packages/vm/types/utils/PostByzantiumTxReceipt.d.ts:10
+Defined in: tevm-monorepo/packages/vm/types/utils/PostByzantiumTxReceipt.d.ts:10
 
 Status of transaction, `1` if successful, `0` if an exception occurred

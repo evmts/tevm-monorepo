@@ -8,7 +8,7 @@
 
 > **validateMineEvents**(`events`): `object`
 
-Defined in: packages/actions/types/Mine/validateMineEvents.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Mine/validateMineEvents.d.ts:1
 
 ## Parameters
 

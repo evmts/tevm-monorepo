@@ -8,7 +8,7 @@
 
 > **EthGetCodeParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:132
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:132
 
 Based on the JSON-RPC request for `eth_getCode` procedure
 
@@ -18,12 +18,12 @@ Based on the JSON-RPC request for `eth_getCode` procedure
 
 > `readonly` **address**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:133
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:133
 
 ***
 
 ### blockTag?
 
-> `readonly` `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> `readonly` `optional` **blockTag?**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:134
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:134

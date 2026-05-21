@@ -7,9 +7,9 @@ import { decodeRevertReason } from './decodeRevertReason.js'
  * Prepares a trace to be listened to. If laizlyRun is true, it will return an object with the trace and not run the evm internally
  * @param {import('@tevm/vm').Vm} vm
  * @param {import('@tevm/node').TevmNode['logger']} logger
- * @param {import('@tevm/evm').EvmRunCallOpts} params
+ * @param {import('@evmts/zevm/evm').EvmRunCallOpts} params
  * @param {boolean} [lazilyRun]
- * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../common/CallTraceResult.js').CallTraceResult}>}
+ * @returns {Promise<import('@evmts/zevm/evm').EvmResult & {trace: import('../common/CallTraceResult.js').CallTraceResult}>}
  * @throws {never}
  */
 export const runCallWithCallTrace = async (vm, logger, params, lazilyRun = false) => {
@@ -27,8 +27,10 @@ export const runCallWithCallTrace = async (vm, logger, params, lazilyRun = false
 
 	/**
 	 * Before each call/create - build call tree entry
+	 * @param {import('@evmts/zevm/evm').Message} message
+	 * @param {() => void} [next]
 	 */
-	vm.evm.events?.on('beforeMessage', async (message, next) => {
+	const onBeforeMessage = async (message, next) => {
 		logger.debug(message, 'runCallWithCallTrace: beforeMessage event')
 
 		// Determine the trace type based on message properties
@@ -86,12 +88,15 @@ export const runCallWithCallTrace = async (vm, logger, params, lazilyRun = false
 		}
 
 		next?.()
-	})
+	}
+	vm.evm.events?.on('beforeMessage', onBeforeMessage)
 
 	/**
 	 * After each call/create - capture results and gas usage
+	 * @param {import('@evmts/zevm/evm').EvmResult} result
+	 * @param {() => void} [next]
 	 */
-	vm.evm.events?.on('afterMessage', async (result, next) => {
+	const onAfterMessage = async (result, next) => {
 		logger.debug(result, 'runCallWithCallTrace: afterMessage event')
 
 		const currentCall = callStack.pop()
@@ -126,15 +131,25 @@ export const runCallWithCallTrace = async (vm, logger, params, lazilyRun = false
 		}
 
 		next?.()
-	})
+	}
+	vm.evm.events?.on('afterMessage', onAfterMessage)
+	const cleanup = () => {
+		vm.evm.events?.removeListener('beforeMessage', onBeforeMessage)
+		vm.evm.events?.removeListener('afterMessage', onAfterMessage)
+	}
 
 	if (lazilyRun) {
 		// Return object with trace without running EVM
-		return /** @type {any} */ ({ trace: rootTrace })
+		return /** @type {any} */ ({ trace: rootTrace, cleanup })
 	}
 
 	// Execute the call
-	const runCallResult = await vm.evm.runCall(params)
+	let runCallResult
+	try {
+		runCallResult = await vm.evm.runCall(params)
+	} finally {
+		cleanup()
+	}
 
 	logger.debug(runCallResult, 'runCallWithCallTrace: evm run call complete')
 

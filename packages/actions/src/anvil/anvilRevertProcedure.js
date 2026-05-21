@@ -1,3 +1,5 @@
+import { restoreSnapshotState } from '../internal/snapshotMetadata.js'
+
 /**
  * Request handler for anvil_revert JSON-RPC requests.
  * Reverts the state to a previous snapshot.
@@ -46,19 +48,8 @@ export const anvilRevertJsonRpcProcedure = (client) => {
 				}
 				return response
 			}
-
 			const vm = await client.getVm()
-
-			// Save the state root with its associated state
-			vm.stateManager.saveStateRoot(
-				/** @type {any} */ (Uint8Array.from(Buffer.from(snapshot.stateRoot.slice(2), 'hex'))),
-				snapshot.state,
-			)
-
-			// Set the state root to revert to that state
-			await vm.stateManager.setStateRoot(
-				/** @type {any} */ (Uint8Array.from(Buffer.from(snapshot.stateRoot.slice(2), 'hex'))),
-			)
+			await restoreSnapshotState(client, snapshot, vm)
 
 			// Delete all snapshots from this ID onwards (they are now invalid)
 			client.deleteSnapshotsFrom(snapshotId)

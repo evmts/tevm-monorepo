@@ -6,7 +6,7 @@
 
 # Interface: AccountStorage
 
-Defined in: packages/state/dist/index.d.ts:27
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:27
 
 Represents an Ethereum account storage with native bigint values.
 Used for internal state management and account manipulation.
@@ -30,7 +30,7 @@ const value: AccountStorage = {
 
 > **balance**: `bigint`
 
-Defined in: packages/state/dist/index.d.ts:29
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:29
 
 ***
 
@@ -38,15 +38,15 @@ Defined in: packages/state/dist/index.d.ts:29
 
 > **codeHash**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:31
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:31
 
 ***
 
 ### deployedBytecode?
 
-> `optional` **deployedBytecode**: `` `0x${string}` ``
+> `optional` **deployedBytecode?**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:32
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:32
 
 ***
 
@@ -54,15 +54,15 @@ Defined in: packages/state/dist/index.d.ts:32
 
 > **nonce**: `bigint`
 
-Defined in: packages/state/dist/index.d.ts:28
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:28
 
 ***
 
 ### storage?
 
-> `optional` **storage**: [`StorageDump`](../../common/interfaces/StorageDump.md)
+> `optional` **storage?**: [`StorageDump`](../../common/interfaces/StorageDump.md)
 
-Defined in: packages/state/dist/index.d.ts:33
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:33
 
 ***
 
@@ -70,4 +70,4 @@ Defined in: packages/state/dist/index.d.ts:33
 
 > **storageRoot**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:30
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:30

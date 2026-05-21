@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DebugGetRawBlockHandler
 
-# Type Alias: DebugGetRawBlockHandler()
+# Type Alias: DebugGetRawBlockHandler
 
 > **DebugGetRawBlockHandler** = (`params`) => `Promise`\<[`DebugGetRawBlockResult`](DebugGetRawBlockResult.md)\>
 
-Defined in: packages/actions/types/debug/DebugHandler.d.ts:4
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:4
 
 ## Parameters
 

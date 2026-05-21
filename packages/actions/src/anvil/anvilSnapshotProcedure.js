@@ -1,3 +1,5 @@
+import { captureSnapshotMetadata } from '../internal/snapshotMetadata.js'
+
 /**
  * Request handler for anvil_snapshot JSON-RPC requests.
  * Snapshots the current state and returns a unique snapshot ID.
@@ -26,7 +28,8 @@ export const anvilSnapshotJsonRpcProcedure = (client) => {
 			const vm = await client.getVm()
 			const stateRoot = vm.stateManager._baseState.getCurrentStateRoot()
 			const state = await vm.stateManager.dumpCanonicalGenesis()
-			const snapshotId = client.addSnapshot(stateRoot, state)
+			const metadata = await captureSnapshotMetadata(client, vm)
+			const snapshotId = client.addSnapshot(stateRoot, state, metadata)
 
 			client.logger.debug({ snapshotId, stateRoot }, 'Created snapshot')
 

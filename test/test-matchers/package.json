@@ -1,0 +1,27 @@
+{
+	"name": "@tevm/test-matchers-integration",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"test": "vitest --watch",
+		"test:coverage": "vitest --coverage --run",
+		"test:run": "vitest run",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@tevm/actions": "workspace:^",
+		"@tevm/common": "workspace:^",
+		"@tevm/contract": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
+		"@tevm/node": "workspace:^",
+		"@tevm/test-matchers": "workspace:^",
+		"@tevm/utils": "workspace:^",
+		"ox": "^0.14.22",
+		"viem": "^2.49.3",
+		"vitest": "^4.1.6"
+	},
+	"devDependencies": {
+		"@tevm/tsconfig": "workspace:^"
+	}
+}

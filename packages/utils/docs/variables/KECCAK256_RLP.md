@@ -8,6 +8,4 @@
 
 > `const` **KECCAK256\_RLP**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/constants.d.ts:44
-
-Keccak-256 hash of the RLP of null
+Defined in: zevm/npm/zevm/dist/util.d.ts:160

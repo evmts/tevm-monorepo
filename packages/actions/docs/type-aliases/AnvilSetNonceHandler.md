@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetNonceHandler
 
-# Type Alias: AnvilSetNonceHandler()
+# Type Alias: AnvilSetNonceHandler
 
 > **AnvilSetNonceHandler** = (`params`) => `Promise`\<[`AnvilSetNonceResult`](AnvilSetNonceResult.md)\>
 

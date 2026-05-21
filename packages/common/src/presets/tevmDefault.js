@@ -4,6 +4,7 @@ import { createCommon } from '../createCommon.js'
 
 /**
  * The default chain if no fork url is passed
+ * @type {import('../Common.js').Common}
  */
 export const tevmDefault = createCommon({
 	...defineChain({

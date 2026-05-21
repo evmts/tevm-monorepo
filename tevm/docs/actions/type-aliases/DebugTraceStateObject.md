@@ -8,7 +8,7 @@
 
 > **DebugTraceStateObject** = `object`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:43
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:43
 
 Complete state object structure
 
@@ -18,7 +18,7 @@ Complete state object structure
 
 > `readonly` **blockchain**: `object`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:44
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:44
 
 #### blocksByNumber
 
@@ -34,7 +34,7 @@ Defined in: packages/actions/types/debug/DebugResult.d.ts:44
 
 > `readonly` **evm**: `object`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:48
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:48
 
 #### common
 
@@ -74,7 +74,7 @@ Defined in: packages/actions/types/debug/DebugResult.d.ts:48
 
 > `readonly` **node**: `object`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:69
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:69
 
 #### filters
 
@@ -102,7 +102,7 @@ Defined in: packages/actions/types/debug/DebugResult.d.ts:69
 
 > `readonly` **pool**: `object`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:76
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:76
 
 #### pool
 
@@ -130,7 +130,7 @@ Defined in: packages/actions/types/debug/DebugResult.d.ts:76
 
 > `readonly` **stateManager**: `object`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:83
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:83
 
 #### stateRoots
 

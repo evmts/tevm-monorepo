@@ -8,4 +8,4 @@
 
 > **AnvilRemoveBlockTimestampIntervalResult** = `boolean`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:71
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:71

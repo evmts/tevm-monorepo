@@ -8,7 +8,7 @@
 
 > **DebugTraceBlockParams**\<`TTracer`, `TDiffMode`\> = [`TraceParams`](TraceParams.md)\<`TTracer`, `TDiffMode`\> & `ExactlyOne`\<\{ `block`: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint` \| [`BlockTag`](BlockTag.md); `blockHash`: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint`; `blockNumber`: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint`; `blockTag`: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint` \| [`BlockTag`](BlockTag.md); \}, `"block"` \| `"blockTag"` \| `"blockHash"` \| `"blockNumber"`\>
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:59
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:59
 
 Params taken by `debug_traceBlock` handler
 

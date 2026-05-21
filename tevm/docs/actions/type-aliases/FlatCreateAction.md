@@ -8,7 +8,7 @@
 
 > **FlatCreateAction** = `object`
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:23
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:23
 
 Action details for a create trace entry
 
@@ -18,7 +18,7 @@ Action details for a create trace entry
 
 > **from**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:25
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:25
 
 Sender address
 
@@ -28,7 +28,7 @@ Sender address
 
 > **gas**: `bigint`
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:27
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:27
 
 Gas provided
 
@@ -38,7 +38,7 @@ Gas provided
 
 > **init**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:29
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:29
 
 Init code
 
@@ -48,6 +48,6 @@ Init code
 
 > **value**: `bigint`
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:31
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:31
 
 Value transferred

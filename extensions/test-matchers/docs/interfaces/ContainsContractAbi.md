@@ -26,6 +26,6 @@ Defined in: [extensions/test-matchers/src/common/types.ts:6](https://github.com/
 
 ### address?
 
-> `optional` **address**: `` `0x${string}` ``
+> `optional` **address?**: `` `0x${string}` ``
 
 Defined in: [extensions/test-matchers/src/common/types.ts:7](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/common/types.ts#L7)

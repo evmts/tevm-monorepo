@@ -18,7 +18,6 @@ beforeEach(async () => {
 	if (!deployResult.txHash) {
 		throw new Error('txHash not found')
 	}
-	await mc.tevmMine()
 })
 
 describe('getBlockTransactionCount', () => {

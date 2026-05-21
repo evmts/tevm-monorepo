@@ -1,5 +1,6 @@
 import type { ResolvedArtifacts } from '@tevm/compiler'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { cacheHash } from './cacheHash.js'
 import type { FileAccessObject } from './types.js'
 import * as versionModule from './version.js'
 import { writeArtifactsSync } from './writeArtifactsSync.js'
@@ -55,7 +56,7 @@ describe('writeArtifactsSync', () => {
 		vi.resetAllMocks()
 		vi.spyOn(versionModule, 'version', 'get').mockReturnValue('1.x.x')
 		mockFs.existsSync.mockReturnValue(false)
-		mockFs.statSync.mockReturnValue({ mtimeMs: 123456789 })
+		mockFs.statSync.mockReturnValue({ mtimeMs: 123456789, size: 22 })
 	})
 
 	it('should create directory if it does not exist', () => {
@@ -88,9 +89,18 @@ describe('writeArtifactsSync', () => {
 
 		const expectedMetadata = {
 			version: '1.x.x',
+			artifactsHash: cacheHash(JSON.stringify(mockArtifacts, null, 2)),
 			files: {
-				'/mock/cwd/contracts/MyContract.sol': 123456789,
-				'/mock/cwd/contracts/AnotherContract.sol': 123456789,
+				'/mock/cwd/contracts/MyContract.sol': {
+					mtimeMs: 123456789,
+					size: 22,
+					contentHash: cacheHash('contract MyContract {}'),
+				},
+				'/mock/cwd/contracts/AnotherContract.sol': {
+					mtimeMs: 123456789,
+					size: 22,
+					contentHash: cacheHash('contract AnotherContract {}'),
+				},
 			},
 		}
 

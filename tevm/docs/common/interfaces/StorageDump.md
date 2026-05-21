@@ -6,8 +6,8 @@
 
 # Interface: StorageDump
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.0.0/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:5
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:5
 
 ## Indexable
 
-\[`key`: `string`\]: `string`
+> \[`key`: `string`\]: `string`

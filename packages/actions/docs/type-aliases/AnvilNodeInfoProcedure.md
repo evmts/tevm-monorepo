@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilNodeInfoProcedure
 
-# Type Alias: AnvilNodeInfoProcedure()
+# Type Alias: AnvilNodeInfoProcedure
 
 > **AnvilNodeInfoProcedure** = (`request`) => `Promise`\<[`AnvilNodeInfoJsonRpcResponse`](AnvilNodeInfoJsonRpcResponse.md)\>
 

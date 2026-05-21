@@ -8,6 +8,6 @@
 
 > **AnvilDumpStateJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"anvil_dumpState"`, `SerializeToJson`\<[`AnvilDumpStateResult`](AnvilDumpStateResult.md)\>, `AnvilError`\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:73
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcResponse.d.ts:73
 
 JSON-RPC response for `anvil_dumpState` procedure

@@ -9,6 +9,8 @@ use std::path::PathBuf;
 pub struct ModuleInfo {
     /// The code after transformed to correctly resolve remappings and node_module imports
     pub code: String,
+    /// The original, unmodified module source
+    pub raw_code: String,
     /// The module ids statically imported by this module - using Arc to avoid cloning PathBufs
     pub imported_ids: Vec<PathBuf>,
 }

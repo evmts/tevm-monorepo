@@ -8,4 +8,4 @@
 
 > **AnvilAutoImpersonateAccountResult** = `null`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:4
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:4

@@ -8,7 +8,7 @@
 
 > **DebugTraceTransactionResult**\<`TTracer`, `TDiffMode`\> = `TTracer` *extends* `"callTracer"` ? [`CallTraceResult`](CallTraceResult.md) : `TTracer` *extends* `"prestateTracer"` ? [`PrestateTraceResult`](../../index/type-aliases/PrestateTraceResult.md)\<`TDiffMode`\> : `TTracer` *extends* `"4byteTracer"` ? [`FourbyteTraceResult`](FourbyteTraceResult.md) : `TTracer` *extends* `"flatCallTracer"` ? [`FlatCallTraceResult`](FlatCallTraceResult.md) : `TTracer` *extends* `"muxTracer"` ? [`MuxTraceResult`](MuxTraceResult.md) : [`TraceResult`](../../index/type-aliases/TraceResult.md)
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:16
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:16
 
 Result from `debug_traceTransaction`
 

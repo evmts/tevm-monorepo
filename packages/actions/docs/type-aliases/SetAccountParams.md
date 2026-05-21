@@ -23,37 +23,37 @@ Address of account
 
 ### balance?
 
-> `readonly` `optional` **balance**: `bigint`
+> `readonly` `optional` **balance?**: `bigint`
 
 Balance to set account to
 
 ### deployedBytecode?
 
-> `readonly` `optional` **deployedBytecode**: `Hex`
+> `readonly` `optional` **deployedBytecode?**: `Hex`
 
 Contract bytecode to set account to
 
 ### nonce?
 
-> `readonly` `optional` **nonce**: `bigint`
+> `readonly` `optional` **nonce?**: `bigint`
 
 Nonce to set account to
 
 ### state?
 
-> `readonly` `optional` **state**: `Record`\<`Hex`, `Hex`\>
+> `readonly` `optional` **state?**: `Record`\<`Hex`, `Hex`\>
 
 key-value mapping to override all slots in the account storage before executing the calls
 
 ### stateDiff?
 
-> `readonly` `optional` **stateDiff**: `Record`\<`Hex`, `Hex`\>
+> `readonly` `optional` **stateDiff?**: `Record`\<`Hex`, `Hex`\>
 
 key-value mapping to override individual slots in the account storage before executing the calls
 
 ### storageRoot?
 
-> `readonly` `optional` **storageRoot**: `Hex`
+> `readonly` `optional` **storageRoot?**: `Hex`
 
 Storage root to set account to
 

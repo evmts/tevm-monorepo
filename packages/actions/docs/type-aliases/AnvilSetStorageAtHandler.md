@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetStorageAtHandler
 
-# Type Alias: AnvilSetStorageAtHandler()
+# Type Alias: AnvilSetStorageAtHandler
 
 > **AnvilSetStorageAtHandler** = (`params`) => `Promise`\<[`AnvilSetStorageAtResult`](AnvilSetStorageAtResult.md)\>
 

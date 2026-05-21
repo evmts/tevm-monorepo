@@ -24,7 +24,7 @@ describe(mineHandler.name, () => {
 		expect(await getBlockNumber(client)).toBe(1n)
 	})
 
-	it('should work in forked mode too', { timeout: 20_000 }, async () => {
+	it.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('should work in forked mode too', { timeout: 20_000 }, async () => {
 		const node = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
 		const bn = await getBlockNumber(node)
 		expect(bn).toBeGreaterThan(119504797n)
@@ -94,11 +94,11 @@ describe(mineHandler.name, () => {
 			[InternalError: Invalid input: expected number, received string
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/invalidnonceerror/
-			Version: 1.1.0.next-73
+			Version: 1.0.0-next.148
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/invalidnonceerror/
 			Details: /reference/tevm/errors/classes/invalidnonceerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -122,7 +122,7 @@ describe(mineHandler.name, () => {
 			[MisconfiguredClientError: Client is stopped
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -134,7 +134,7 @@ describe(mineHandler.name, () => {
 			[UnreachableCodeError: Unreachable code executed with value: "BOGUS_STATUS"
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -146,7 +146,7 @@ describe(mineHandler.name, () => {
 			[MisconfiguredClientError: Syncing not currently implemented
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -162,7 +162,7 @@ describe(mineHandler.name, () => {
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 			Details: Mining error
-			Version: 1.1.0.next-73"
+			Version: 1.0.0-next.148"
 		`)
 	})
 
@@ -174,7 +174,7 @@ describe(mineHandler.name, () => {
 			[MisconfiguredClientError: Mining is already in progress
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -198,7 +198,7 @@ describe(mineHandler.name, () => {
 			[MisconfiguredClientError: Client is stopped
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -210,7 +210,7 @@ describe(mineHandler.name, () => {
 			[UnreachableCodeError: Unreachable code executed with value: "BOGUS_STATUS"
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -222,7 +222,7 @@ describe(mineHandler.name, () => {
 			[MisconfiguredClientError: Syncing not currently implemented
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -238,7 +238,7 @@ describe(mineHandler.name, () => {
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 			Details: Mining error
-			Version: 1.1.0.next-73"
+			Version: 1.0.0-next.148"
 		`)
 	})
 
@@ -327,7 +327,7 @@ describe(mineHandler.name, () => {
 		expect(await client.getTxPool().then((pool) => [...pool.pool.keys()].length)).toBe(0)
 	})
 
-	it('should skip nonce when mining transactions', async () => {
+	it('should reject nonce gaps when mining transactions', async () => {
 		const client = createTevmNode()
 		const from = `0x${'42'.repeat(20)}` as const
 		const to = `0x${'69'.repeat(20)}` as const
@@ -361,23 +361,81 @@ describe(mineHandler.name, () => {
 		expect(callResultA.txHash).toBeDefined()
 		expect(callResultB.txHash).toBeDefined()
 		expect(await client.getTxPool().then((pool) => [...pool.pool.values()].flat().length)).toBe(2)
-		client.getTxPool().then((pool) => pool.removeByHash(callResultA.txHash as Hex))
+		await client.getTxPool().then((pool) => pool.removeByHash(callResultA.txHash as Hex))
 		expect(await client.getTxPool().then((pool) => [...pool.pool.values()].flat().length)).toBe(1)
 
-		const { blockHashes, errors } = await mineHandler(client)({})
+		const { blockHashes, errors } = await mineHandler(client)({ throwOnFail: false })
 
-		expect(errors).toBeUndefined()
-		expect(blockHashes).toHaveLength(1)
-		expect(await getBlockNumber(client)).toBe(1n)
+		expect(errors?.[0]?.message).toContain("the tx doesn't have the correct nonce")
+		expect(blockHashes).toBeUndefined()
+		expect(await getBlockNumber(client)).toBe(0n)
 
-		// Verify the transaction was mined successfully
 		const receiptsManager = await client.getReceiptsManager()
 		const receiptA = await receiptsManager.getReceiptByTxHash(hexToBytes(callResultA.txHash as Hex))
 		const receiptB = await receiptsManager.getReceiptByTxHash(hexToBytes(callResultB.txHash as Hex))
-		expect(receiptA).toBeNull() // tx A was dropped
-		expect(receiptB).not.toBeNull()
+		expect(receiptA).toBeNull()
+		expect(receiptB).toBeNull()
 
-		// Verify the transactions were removed from mempool
-		expect(await client.getTxPool().then((pool) => [...pool.pool.keys()].length)).toBe(0)
+		// Failed block construction must not silently drop the remaining transaction.
+		expect(await client.getTxPool().then((pool) => [...pool.pool.values()].flat().length)).toBe(1)
+	})
+
+	it('should reject an explicit transaction hash that is not in the pool', async () => {
+		const client = createTevmNode()
+		const result = await mineHandler(client)({
+			tx: `0x${'12'.repeat(32)}`,
+			throwOnFail: false,
+		})
+
+		expect(result.blockHashes).toBeUndefined()
+		expect(result.errors?.[0]?.message).toContain('does not exist in the transaction pool')
+		expect(await getBlockNumber(client)).toBe(0n)
+	})
+
+	it('should mine explicit multi-block requests as empty blocks', async () => {
+		const client = createTevmNode()
+		expect(await client.getTxPool().then((pool) => [...pool.pool.values()].flat().length)).toBe(0)
+
+		const result = await mineHandler(client)({ blockCount: 3, interval: 0 })
+		expect(result.errors).toBeUndefined()
+		expect(result.blockHashes).toHaveLength(3)
+		expect(await getBlockNumber(client)).toBe(3n)
+	})
+
+	it('should apply timestamp precedence as nextBlockTimestamp > blockTimestampInterval > mine interval', async () => {
+		const client = createTevmNode()
+		const vm = await client.getVm()
+		const parent = await vm.blockchain.getCanonicalHeadBlock()
+		const base = parent.header.timestamp
+
+		client.setNextBlockTimestamp(base + 100n)
+		client.setBlockTimestampInterval(7n)
+
+		await mineHandler(client)({ blockCount: 3, interval: 2 })
+
+		const block1 = await vm.blockchain.getCanonicalHeadBlock()
+		const block0 = await vm.blockchain.getBlock(block1.header.parentHash)
+		const blockNeg1 = await vm.blockchain.getBlock(block0.header.parentHash)
+
+		expect(blockNeg1.header.timestamp).toBe(base + 100n)
+		expect(block0.header.timestamp).toBe(base + 107n)
+		expect(block1.header.timestamp).toBe(base + 114n)
+	})
+
+	it('should consume next block prevRandao only once', async () => {
+		const client = createTevmNode()
+		const vm = await client.getVm()
+		const expectedPrevRandao = 0x1234n
+
+		client.setNextBlockPrevRandao?.(expectedPrevRandao)
+		await mineHandler(client)({ blockCount: 2, interval: 0 })
+
+		const latest = await vm.blockchain.getCanonicalHeadBlock()
+		const previous = await vm.blockchain.getBlock(latest.header.parentHash)
+
+		expect(previous.header.mixHash).toBeDefined()
+		expect(latest.header.mixHash).toBeDefined()
+		expect(previous.header.mixHash).not.toEqual(latest.header.mixHash)
+		expect(client.getNextBlockPrevRandao?.()).toBeUndefined()
 	})
 })

@@ -1,7 +1,7 @@
 import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
-import supertest from 'supertest'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createServer as createHttpServer } from './createServer.js'
+import { createTestClient as supertest } from './testUtils/createTestClient.js'
 
 describe('createServer', () => {
 	let client: MemoryClient

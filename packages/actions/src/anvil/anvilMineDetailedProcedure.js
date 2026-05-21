@@ -107,13 +107,17 @@ export const anvilMineDetailedJsonRpcProcedure = (client) => {
 				const overrideTimestamp = count === 0 ? client.getNextBlockTimestamp() : undefined
 				// Get the automatic interval if set
 				const automaticInterval = client.getBlockTimestampInterval()
-				let timestamp =
-					overrideTimestamp !== undefined
-						? Number(overrideTimestamp)
-						: Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
-				// Apply interval (prefer automatic interval over manual interval parameter)
 				const intervalToUse = automaticInterval !== undefined ? Number(automaticInterval) : interval
-				timestamp = count === 0 ? timestamp : timestamp + intervalToUse
+				let timestamp
+				if (overrideTimestamp !== undefined) {
+					timestamp = Number(overrideTimestamp)
+				} else if (count === 0) {
+					timestamp = Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
+				} else {
+					timestamp = Number(parentBlock.header.timestamp) + intervalToUse
+				}
+				// Keep block timestamps monotonic.
+				timestamp = Math.max(timestamp, Number(parentBlock.header.timestamp) + 1)
 				// Clear the timestamp override after using it
 				if (count === 0 && overrideTimestamp !== undefined) {
 					client.setNextBlockTimestamp(undefined)
@@ -131,11 +135,21 @@ export const anvilMineDetailedJsonRpcProcedure = (client) => {
 					client.setNextBlockBaseFeePerGas(undefined)
 				}
 
+				const overridePrevRandao = count === 0 ? client.getNextBlockPrevRandao?.() : undefined
+				if (count === 0 && overridePrevRandao !== undefined && client.setNextBlockPrevRandao) {
+					client.setNextBlockPrevRandao(undefined)
+				}
+				const mixHash =
+					overridePrevRandao !== undefined
+						? hexToBytes(`0x${overridePrevRandao.toString(16).padStart(64, '0')}`)
+						: undefined
+
 				const blockBuilder = await vm.buildBlock({
 					parentBlock,
 					headerData: {
 						timestamp,
 						number: parentBlock.header.number + 1n,
+						...(mixHash ? { mixHash } : {}),
 						gasLimit,
 						baseFeePerGas,
 					},
@@ -158,12 +172,12 @@ export const anvilMineDetailedJsonRpcProcedure = (client) => {
 				 */
 				const receipts = []
 				/**
-				 * @type {Array<{tx: import('@tevm/tx').TypedTransaction, receipt: import('@tevm/receipt-manager').TxReceipt, result: any}>}
+				 * @type {Array<{tx: import('@evmts/zevm/tx').TypedTransaction, receipt: import('@tevm/receipt-manager').TxReceipt, result: any}>}
 				 */
 				const txResults = []
 
 				while (index < orderedTx.length && !blockFull) {
-					const nextTx = /** @type {import('@tevm/tx').TypedTransaction}*/ (orderedTx[index])
+					const nextTx = /** @type {import('@evmts/zevm/tx').TypedTransaction}*/ (orderedTx[index])
 					client.logger.debug({ hash: bytesToHex(nextTx.hash()) }, 'new tx added')
 					const txResult = await blockBuilder.addTransaction(nextTx, {
 						skipBalance: true,

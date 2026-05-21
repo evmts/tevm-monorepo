@@ -8,6 +8,6 @@
 
 > **FileAccessObject** = `FileAccessObject`
 
-Defined in: bundler-packages/compiler/types/src/index.d.ts:14
+Defined in: tevm-monorepo/bundler-packages/compiler/types/src/index.d.ts:14
 
 ./types.ts

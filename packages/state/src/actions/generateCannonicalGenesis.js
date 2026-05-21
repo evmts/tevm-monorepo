@@ -1,4 +1,4 @@
-import { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
+import { AccountCache, CacheType, StorageCache } from '@evmts/zevm/statemanager'
 import { createAddress } from '@tevm/address'
 import { InternalError } from '@tevm/errors'
 import { createAccount, hexToBytes, isHex } from '@tevm/utils'
@@ -17,7 +17,7 @@ export const generateCanonicalGenesis = (baseState) => async (state) => {
 	) {
 		throw new InternalError('Attempted to generateCanonicalGenesis state with uncommitted checkpoints')
 	}
-	const { caches: oldCaches } = baseState
+	const { caches: oldCaches, tombstones: oldTombstones } = baseState
 	baseState.caches = {
 		contracts: new ContractCache(),
 		accounts: new AccountCache({
@@ -28,6 +28,11 @@ export const generateCanonicalGenesis = (baseState) => async (state) => {
 			size: 100_000,
 			type: CacheType.LRU,
 		}),
+	}
+	baseState.tombstones = {
+		accounts: new Set(),
+		storageCleared: new Set(),
+		checkpoints: [],
 	}
 	try {
 		for (const [k, v] of Object.entries(/** @type {import('../state-types/TevmState.js').TevmState}*/ (state))) {
@@ -40,7 +45,7 @@ export const generateCanonicalGenesis = (baseState) => async (state) => {
 			})
 			const address = createAddress(k)
 
-			baseState.caches.accounts?.put(address, account)
+			baseState.caches.accounts?.put(address, /** @type {any} */ (account))
 			if (deployedBytecode) {
 				baseState.caches.contracts.put(address, hexToBytes(deployedBytecode))
 			}
@@ -56,6 +61,7 @@ export const generateCanonicalGenesis = (baseState) => async (state) => {
 		baseState.logger.debug(state)
 		baseState.logger.error(e, 'There was an error generating cannonical genesis. Reverting back to old state')
 		baseState.caches = oldCaches
+		baseState.tombstones = oldTombstones
 		throw e
 	}
 }

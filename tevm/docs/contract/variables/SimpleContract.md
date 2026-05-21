@@ -8,7 +8,7 @@
 
 > `const` **SimpleContract**: [`Contract`](../../index/type-aliases/Contract.md)
 
-Defined in: packages/contract/types/contract-lib/SimpleContract.s.sol.d.ts:36
+Defined in: tevm-monorepo/packages/contract/types/contract-lib/SimpleContract.s.sol.d.ts:36
 
 Bytecode and ABI for a simple contract with a single state variable.
 This constant represents a basic contract that can get and set a uint256 value.

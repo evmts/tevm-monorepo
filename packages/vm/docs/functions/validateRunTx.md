@@ -18,14 +18,4 @@ Defined in: [packages/vm/src/actions/validateRunTx.js:10](https://github.com/evm
 
 ## Returns
 
-> (`opts`): `Promise`\<\{ `block`: `Block`; `blockGasUsed?`: `bigint`; `preserveJournal`: `boolean`; `reportAccessList?`: `boolean`; `reportPreimages?`: `boolean`; `skipBalance?`: `boolean`; `skipBlockGasLimitValidation?`: `boolean`; `skipHardForkValidation?`: `boolean`; `skipNonce?`: `boolean`; `tx`: `TypedTransaction`; \}\>
-
-### Parameters
-
-#### opts
-
-[`RunTxOpts`](../interfaces/RunTxOpts.md)
-
-### Returns
-
-`Promise`\<\{ `block`: `Block`; `blockGasUsed?`: `bigint`; `preserveJournal`: `boolean`; `reportAccessList?`: `boolean`; `reportPreimages?`: `boolean`; `skipBalance?`: `boolean`; `skipBlockGasLimitValidation?`: `boolean`; `skipHardForkValidation?`: `boolean`; `skipNonce?`: `boolean`; `tx`: `TypedTransaction`; \}\>
+(`opts`) => `Promise`\<\{ `block`: `Block`; `blockGasUsed?`: `bigint`; `preserveJournal`: `boolean`; `reportAccessList?`: `boolean`; `reportPreimages?`: `boolean`; `skipBalance?`: `boolean`; `skipBlockGasLimitValidation?`: `boolean`; `skipHardForkValidation?`: `boolean`; `skipNonce?`: `boolean`; `tx`: `TypedTransaction`; \}\>

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGasPriceHandler
 
-# Type Alias: EthGasPriceHandler()
+# Type Alias: EthGasPriceHandler
 
 > **EthGasPriceHandler** = (`request?`) => `Promise`\<[`EthGasPriceResult`](EthGasPriceResult.md)\>
 

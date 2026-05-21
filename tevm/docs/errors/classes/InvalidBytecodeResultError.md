@@ -6,7 +6,7 @@
 
 # Class: InvalidBytecodeResultError
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:46
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:46
 
 Represents a calldata/creation error that occurs when invalid bytecode is deployed during EVM execution.
 
@@ -50,7 +50,7 @@ Additional parameters for the BaseError.
 
 > **new InvalidBytecodeResultError**(`message?`, `args?`, `tag?`): `InvalidBytecodeResultError`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:64
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:64
 
 Constructs an InvalidBytecodeResultError.
 Represents a calldata/creation error that occurs when invalid bytecode is deployed during EVM execution.
@@ -97,7 +97,7 @@ The tag for the error.
 
 > **\_tag**: `string`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:40
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:40
 
 Same as name, used internally.
 
@@ -111,7 +111,7 @@ Same as name, used internally.
 
 > **cause**: `any`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:65
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:65
 
 #### Inherited from
 
@@ -123,7 +123,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:65
 
 > **code**: `number`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:64
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:64
 
 #### Inherited from
 
@@ -135,7 +135,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:64
 
 > **details**: `string`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:44
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:44
 
 #### Inherited from
 
@@ -145,9 +145,9 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:44
 
 ### docsPath
 
-> **docsPath**: `undefined` \| `string`
+> **docsPath**: `string` \| `undefined`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:48
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:48
 
 Path to the documentation for this error.
 
@@ -161,7 +161,7 @@ Path to the documentation for this error.
 
 > **message**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1077
+Defined in: tevm-monorepo/node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1075
 
 Human-readable error message.
 
@@ -173,9 +173,9 @@ Human-readable error message.
 
 ### metaMessages
 
-> **metaMessages**: `undefined` \| `string`[]
+> **metaMessages**: `string`[] \| `undefined`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:52
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:52
 
 Additional meta messages for more context.
 
@@ -189,7 +189,7 @@ Additional meta messages for more context.
 
 > **name**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
+Defined in: tevm-monorepo/node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1074
 
 The name of the error, used to discriminate errors.
 
@@ -203,7 +203,7 @@ The name of the error, used to discriminate errors.
 
 > **shortMessage**: `string`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:56
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:56
 
 #### Inherited from
 
@@ -213,9 +213,9 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:56
 
 ### stack?
 
-> `optional` **stack**: `string`
+> `optional` **stack?**: `string`
 
-Defined in: node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.es5.d.ts:1078
+Defined in: tevm-monorepo/node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.es5.d.ts:1076
 
 #### Inherited from
 
@@ -227,7 +227,7 @@ Defined in: node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/li
 
 > **version**: `string`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:60
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:60
 
 #### Inherited from
 
@@ -239,7 +239,7 @@ Defined in: packages/errors/types/ethereum/BaseError.d.ts:60
 
 > `static` **code**: `number`
 
-Defined in: packages/errors/types/ethereum/ExecutionErrorError.d.ts:43
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ExecutionErrorError.d.ts:43
 
 Error code, analogous to the code in JSON RPC error.
 
@@ -253,7 +253,7 @@ Error code, analogous to the code in JSON RPC error.
 
 > `static` **EVMErrorMessage**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:47
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:47
 
 ***
 
@@ -261,7 +261,7 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError
 
 > `static` **stackTraceLimit**: `number`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.1/node\_modules/@types/node/globals.d.ts:68
+Defined in: tevm-monorepo/node\_modules/.pnpm/@types+node@25.9.0/node\_modules/@types/node/globals.d.ts:67
 
 The `Error.stackTraceLimit` property specifies the number of stack frames
 collected by a stack trace (whether generated by `new Error().stack` or
@@ -283,7 +283,7 @@ not capture any frames.
 
 > **walk**(`fn?`): `unknown`
 
-Defined in: packages/errors/types/ethereum/BaseError.d.ts:71
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:71
 
 Walks through the error chain.
 
@@ -311,7 +311,7 @@ The first error that matches the function, or the original error.
 
 > `static` **captureStackTrace**(`targetObject`, `constructorOpt?`): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.1/node\_modules/@types/node/globals.d.ts:52
+Defined in: tevm-monorepo/node\_modules/.pnpm/@types+node@25.9.0/node\_modules/@types/node/globals.d.ts:51
 
 Creates a `.stack` property on `targetObject`, which when accessed returns
 a string representing the location in the code at which
@@ -381,7 +381,7 @@ a();
 
 > `static` **isError**(`error`): `error is Error`
 
-Defined in: node\_modules/.pnpm/typescript@5.9.3/node\_modules/typescript/lib/lib.esnext.error.d.ts:23
+Defined in: tevm-monorepo/node\_modules/.pnpm/typescript@6.0.3/node\_modules/typescript/lib/lib.esnext.error.d.ts:21
 
 Indicates whether the argument provided is a built-in Error instance or not.
 
@@ -405,7 +405,7 @@ Indicates whether the argument provided is a built-in Error instance or not.
 
 > `static` **prepareStackTrace**(`err`, `stackTraces`): `any`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.1/node\_modules/@types/node/globals.d.ts:56
+Defined in: tevm-monorepo/node\_modules/.pnpm/@types+node@25.9.0/node\_modules/@types/node/globals.d.ts:55
 
 #### Parameters
 

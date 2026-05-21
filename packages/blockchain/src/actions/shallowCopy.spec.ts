@@ -10,5 +10,8 @@ describe(shallowCopy.name, () => {
 		})
 		const copiedChain = shallowCopy(originalChain)()
 		expect(copiedChain.options).toEqual(originalChain.options)
+		expect(copiedChain.blocks).toBe(originalChain.blocks)
+		expect(copiedChain.blocksByTag).toBe(originalChain.blocksByTag)
+		expect(copiedChain.blocksByNumber).toBe(originalChain.blocksByNumber)
 	})
 })

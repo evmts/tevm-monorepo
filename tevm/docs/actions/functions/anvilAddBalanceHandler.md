@@ -8,7 +8,7 @@
 
 > **anvilAddBalanceHandler**(`node`): [`AnvilAddBalanceHandler`](../type-aliases/AnvilAddBalanceHandler.md)
 
-Defined in: packages/actions/types/anvil/anvilAddBalanceHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilAddBalanceHandler.d.ts:1
 
 ## Parameters
 

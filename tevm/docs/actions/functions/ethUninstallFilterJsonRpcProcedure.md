@@ -8,7 +8,7 @@
 
 > **ethUninstallFilterJsonRpcProcedure**(`client`): [`EthUninstallFilterJsonRpcProcedure`](../type-aliases/EthUninstallFilterJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethUninstallFilterProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethUninstallFilterProcedure.d.ts:1
 
 ## Parameters
 

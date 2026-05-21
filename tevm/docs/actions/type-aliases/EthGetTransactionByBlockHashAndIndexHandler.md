@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetTransactionByBlockHashAndIndexHandler
 
-# Type Alias: EthGetTransactionByBlockHashAndIndexHandler()
+# Type Alias: EthGetTransactionByBlockHashAndIndexHandler
 
 > **EthGetTransactionByBlockHashAndIndexHandler** = (`request`) => `Promise`\<[`EthGetTransactionByBlockHashAndIndexResult`](EthGetTransactionByBlockHashAndIndexResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:27
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:27
 
 ## Parameters
 

@@ -6,7 +6,7 @@
 
 # Interface: SealBlockOpts
 
-Defined in: packages/vm/types/utils/SealBlockOpts.d.ts:4
+Defined in: tevm-monorepo/packages/vm/types/utils/SealBlockOpts.d.ts:4
 
 Options for sealing a block.
 
@@ -14,9 +14,9 @@ Options for sealing a block.
 
 ### mixHash?
 
-> `optional` **mixHash**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **mixHash?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/vm/types/utils/SealBlockOpts.d.ts:14
+Defined in: tevm-monorepo/packages/vm/types/utils/SealBlockOpts.d.ts:14
 
 For PoW, the mixHash.
 Overrides the value passed in the constructor.
@@ -25,9 +25,9 @@ Overrides the value passed in the constructor.
 
 ### nonce?
 
-> `optional` **nonce**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **nonce?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/vm/types/utils/SealBlockOpts.d.ts:9
+Defined in: tevm-monorepo/packages/vm/types/utils/SealBlockOpts.d.ts:9
 
 For PoW, the nonce.
 Overrides the value passed in the constructor.

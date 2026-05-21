@@ -14,7 +14,7 @@ Defined in: [bundler-packages/unplugin/src/tevmUnplugin.js:37](https://github.co
 
 ### options
 
-`undefined` | \{ `solc?`: `SolcVersions`; \}
+\{ `solc?`: `SolcVersions`; \} \| `undefined`
 
 ### meta
 

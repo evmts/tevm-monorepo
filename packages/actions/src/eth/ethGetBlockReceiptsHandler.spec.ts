@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { createTevmNode } from '@tevm/node'
+import { bytesToHex } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { callHandler } from '../Call/callHandler.js'
 import { mineHandler } from '../Mine/mineHandler.js'
@@ -94,14 +95,12 @@ describe('ethGetBlockReceiptsHandler', () => {
 			createTransaction: true,
 			to: to1,
 			value: 100n,
-			skipBalance: true,
 		})
 
 		const callResult2 = await callHandler(client)({
 			createTransaction: true,
 			to: to2,
 			value: 200n,
-			skipBalance: true,
 		})
 
 		// Mine a block to include both transactions
@@ -180,7 +179,6 @@ describe('ethGetBlockReceiptsHandler', () => {
 			createTransaction: true,
 			to,
 			value: 300n,
-			skipBalance: true,
 		})
 
 		// Mine a block
@@ -205,7 +203,6 @@ describe('ethGetBlockReceiptsHandler', () => {
 			createTransaction: true,
 			to,
 			value: 400n,
-			skipBalance: true,
 		})
 
 		// Mine a block
@@ -214,7 +211,7 @@ describe('ethGetBlockReceiptsHandler', () => {
 		// Get the block to retrieve its hash
 		const vm = await client.getVm()
 		const block = await vm.blockchain.getBlock(1n)
-		const blockHash = `0x${block.hash().toString('hex')}`
+		const blockHash = bytesToHex(block.hash())
 
 		const handler = ethGetBlockReceiptsHandler(client)
 		const receipts = await handler({ blockHash })
@@ -237,7 +234,6 @@ describe('ethGetBlockReceiptsHandler', () => {
 			createTransaction: true,
 			to,
 			value: 500n,
-			skipBalance: true,
 		})
 
 		// Mine a block
@@ -268,14 +264,12 @@ describe('ethGetBlockReceiptsHandler', () => {
 			createTransaction: true,
 			to: to1,
 			value: 100n,
-			skipBalance: true,
 		})
 
 		await callHandler(client)({
 			createTransaction: true,
 			to: to2,
 			value: 200n,
-			skipBalance: true,
 		})
 
 		// Mine a block to include both transactions
@@ -297,15 +291,12 @@ describe('ethGetBlockReceiptsHandler', () => {
 	})
 
 	it('should handle fork transport when block not found locally', async () => {
-		const client = createTevmNode({
-			fork: {
-				transport: {
-					request: async () => {
-						throw new Error('Should use mock')
-					},
-				},
+		const client = createTevmNode()
+		;(client as any).forkTransport = {
+			request: async () => {
+				throw new Error('Should use mock')
 			},
-		})
+		}
 
 		const handler = ethGetBlockReceiptsHandler(client)
 		const receipts = await handler({ blockTag: '0x5' })
@@ -329,14 +320,12 @@ describe('ethGetBlockReceiptsHandler', () => {
 			createTransaction: true,
 			to: to1,
 			value: 600n,
-			skipBalance: true,
 		})
 
 		await callHandler(client)({
 			createTransaction: true,
 			to: to2,
 			value: 700n,
-			skipBalance: true,
 		})
 
 		// Mine a block
@@ -368,6 +357,8 @@ describe('ethGetBlockReceiptsHandler', () => {
 
 		// Mine a genesis block
 		await mineHandler(client)({})
+		const vm = await client.getVm()
+		vm.blockchain.blocksByTag.set('earliest', await vm.blockchain.getBlock(0n))
 
 		const handler = ethGetBlockReceiptsHandler(client)
 		const receipts = await handler({ blockTag: 'earliest' })

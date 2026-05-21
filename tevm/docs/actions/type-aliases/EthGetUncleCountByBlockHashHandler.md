@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetUncleCountByBlockHashHandler
 
-# Type Alias: EthGetUncleCountByBlockHashHandler()
+# Type Alias: EthGetUncleCountByBlockHashHandler
 
 > **EthGetUncleCountByBlockHashHandler** = (`request`) => `Promise`\<[`EthGetUncleCountByBlockHashResult`](EthGetUncleCountByBlockHashResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:24
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:24
 
 ## Parameters
 

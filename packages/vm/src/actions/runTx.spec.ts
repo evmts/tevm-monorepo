@@ -4,22 +4,24 @@ import { EventEmitter } from 'node:events'
 // Increase max listeners globally to prevent warnings
 EventEmitter.defaultMaxListeners = 100
 
+import { BlobEIP4844Transaction, createEOACodeEIP7702Tx, createImpersonatedTx } from '@evmts/zevm/tx'
 import { Block } from '@tevm/block'
 import { createChain } from '@tevm/blockchain'
-import { mainnet } from '@tevm/common'
+import { createCommon, mainnet } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { InsufficientFundsError, InvalidGasPriceError, NonceTooLowError } from '@tevm/errors'
+import { InsufficientFundsError, InvalidGasPriceError, InvalidTransactionError, NonceTooLowError } from '@tevm/errors'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import { BlobEIP4844Transaction, createImpersonatedTx } from '@tevm/tx'
 import {
 	bytesToHex,
 	createAccount,
 	createAddressFromString,
 	encodeFunctionData,
+	eoaCode7702SignAuthorization,
 	type Hex,
 	hexToBytes,
 	PREFUNDED_ACCOUNTS,
+	PREFUNDED_PRIVATE_KEYS,
 	parseEther,
 	randomBytes,
 } from '@tevm/utils'
@@ -397,6 +399,101 @@ describe('runTx', () => {
 		})
 
 		expect(emptyAccessListResult.execResult.exceptionError).toBeUndefined()
+	})
+
+	it('should execute EIP-7702 delegated code for an authorized EOA', async () => {
+		const sender = createAddressFromString(PREFUNDED_ACCOUNTS[0].address)
+		const authority = createAddressFromString(PREFUNDED_ACCOUNTS[1].address)
+		const delegateAddress = createAddressFromString(`0x${'02'.repeat(20)}`)
+
+		await vm.stateManager.putAccount(
+			sender,
+			createAccount({
+				balance: parseEther('100'),
+				nonce: 0n,
+			}),
+		)
+		await vm.stateManager.putCode(delegateAddress, hexToBytes('0x602a60005260206000f3'))
+
+		const authorization = eoaCode7702SignAuthorization(
+			{
+				chainId: `0x${mainnet.ethjsCommon.chainId().toString(16)}`,
+				address: delegateAddress.toString(),
+				nonce: '0x0',
+			},
+			hexToBytes(PREFUNDED_PRIVATE_KEYS[1]),
+		)
+
+		const tx = createEOACodeEIP7702Tx(
+			{
+				nonce: 0n,
+				maxFeePerGas: 10n,
+				maxPriorityFeePerGas: 1n,
+				gasLimit: 100000n,
+				to: authority,
+				value: 0n,
+				data: '0x',
+				chainId: mainnet.ethjsCommon.chainId(),
+				accessList: [],
+				authorizationList: [authorization],
+			},
+			{ common: mainnet.ethjsCommon },
+		).sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
+
+		const result = await runTx(vm)({
+			tx,
+			block: new Block({ common: mainnet }),
+			skipNonce: false,
+			skipBalance: false,
+		})
+
+		expect(result.execResult.exceptionError).toBeUndefined()
+		expect(bytesToHex(result.execResult.returnValue)).toBe(
+			'0x000000000000000000000000000000000000000000000000000000000000002a',
+		)
+		expect(bytesToHex(await vm.stateManager.getCode(authority))).toBe(`0xef0100${'02'.repeat(20)}`)
+	})
+
+	it('should not treat arbitrary code with the EIP-7702 prefix as delegated EOA code', async () => {
+		const common = createCommon({ ...mainnet, eips: [3607, 7702] })
+		const stateManager = createStateManager({})
+		const blockchain = await createChain({ common })
+		const evm = await createEvm({ common, stateManager, blockchain })
+		const localVm = createVm({
+			common,
+			evm,
+			stateManager,
+			blockchain,
+			activatePrecompiles: false,
+		})
+		const sender = createAddressFromString(PREFUNDED_ACCOUNTS[0].address)
+		await localVm.stateManager.putAccount(
+			sender,
+			createAccount({
+				balance: parseEther('100'),
+				nonce: 0n,
+			}),
+		)
+		await localVm.stateManager.putCode(sender, hexToBytes(`0xef0100${'02'.repeat(21)}`))
+
+		const tx = createImpersonatedTx({
+			impersonatedAddress: sender,
+			nonce: 0,
+			gasLimit: 21064,
+			maxFeePerGas: 8n,
+			maxPriorityFeePerGas: 1n,
+			to: createAddressFromString(`0x${'69'.repeat(20)}`),
+			value: 1n,
+		})
+
+		const err = await runTx(localVm)({
+			tx,
+			block: new Block({ common }),
+			skipNonce: false,
+			skipBalance: false,
+		}).catch((e) => e)
+
+		expect(err).toBeInstanceOf(InvalidTransactionError)
 	})
 
 	it('should execute a transaction with selfdestruct', async () => {})

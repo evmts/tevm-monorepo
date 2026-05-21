@@ -8,7 +8,7 @@
 
 > **signMessage**(`params`): `Promise`\<`Signature`\>
 
-Defined in: packages/utils/types/signature.d.ts:139
+Defined in: tevm-monorepo/packages/utils/types/signature.d.ts:139
 
 Signs a message with a private key
 

@@ -8,7 +8,7 @@
 
 > **InvalidMaxFeePerGasErrorParameters** = `object`
 
-Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:52
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:52
 
 Parameters for constructing an InvalidMaxFeePerGasError.
 
@@ -16,9 +16,9 @@ Parameters for constructing an InvalidMaxFeePerGasError.
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause?**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:72
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:72
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:72
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:76
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:76
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:76
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:56
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:56
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:56
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:60
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:60
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:60
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:64
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:64
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:64
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:80
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:80
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:80
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:68
+Defined in: tevm-monorepo/packages/errors/types/input/InvalidMaxFeePerGaserror.d.ts:68
 
 - Additional meta messages.

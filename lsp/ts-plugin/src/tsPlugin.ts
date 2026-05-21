@@ -49,9 +49,7 @@ export const tsPlugin: typescript.server.PluginModuleFactory = (modules) => {
 			const fao = createFileAccessObject(createInfo.languageServiceHost)
 			const cache = createCache(
 				config.cacheDir,
-				// this fao uses real file system
-				// TODO we want to handle the case where fs doesn't exist
-				createRealFileAccessObject(),
+				createRealFileAccessObject(createInfo.languageServiceHost, createInfo.project.getCurrentDirectory()),
 				createInfo.project.getCurrentDirectory(),
 			)
 			const service = getDefinitionServiceDecorator(

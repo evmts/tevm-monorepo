@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { cacheHash } from './cacheHash.js'
 import { readArtifacts } from './readArtifacts.js'
 import type { FileAccessObject } from './types.js'
 import * as versionModule from './version.js'
@@ -51,8 +52,13 @@ describe('readArtifacts', () => {
 
 	const mockMetadata = {
 		version: '1.x.x',
+		artifactsHash: cacheHash(JSON.stringify(mockArtifacts)),
 		files: {
-			'/mock/cwd/contracts/MyContract.sol': 123456789,
+			'/mock/cwd/contracts/MyContract.sol': {
+				mtimeMs: 123456789,
+				size: 22,
+				contentHash: cacheHash('contract MyContract {}'),
+			},
 		},
 	}
 
@@ -67,9 +73,12 @@ describe('readArtifacts', () => {
 			if (path.includes('artifacts.json')) {
 				return Promise.resolve(JSON.stringify(mockArtifacts))
 			}
+			if (path === '/mock/cwd/contracts/MyContract.sol') {
+				return Promise.resolve('contract MyContract {}')
+			}
 			return Promise.resolve('')
 		})
-		mockFs.stat.mockImplementation(() => Promise.resolve({ mtimeMs: 123456789 }))
+		mockFs.stat.mockImplementation(() => Promise.resolve({ mtimeMs: 123456789, size: 22 }))
 	})
 
 	it('should return undefined if artifacts path does not exist', async () => {
@@ -124,10 +133,13 @@ describe('readArtifacts', () => {
 	it('should throw an error if artifacts file contains invalid JSON', async () => {
 		mockFs.readFile.mockImplementation((path) => {
 			if (path.includes('metadata.json')) {
-				return Promise.resolve(JSON.stringify(mockMetadata))
+				return Promise.resolve(JSON.stringify({ ...mockMetadata, artifactsHash: cacheHash('invalid json') }))
 			}
 			if (path.includes('artifacts.json')) {
 				return Promise.resolve('invalid json')
+			}
+			if (path === '/mock/cwd/contracts/MyContract.sol') {
+				return Promise.resolve('contract MyContract {}')
 			}
 			return Promise.resolve('')
 		})

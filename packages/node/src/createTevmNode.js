@@ -1,17 +1,20 @@
+import { createMapDb } from '@evmts/zevm/receipt-manager'
 import { createChain } from '@tevm/blockchain'
 import { createCommon, tevmDefault } from '@tevm/common'
+import { createNoopConsensusService } from '@tevm/consensus'
 import { createEvm } from '@tevm/evm'
+import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { createLogger } from '@tevm/logger'
 import { p256VerifyPrecompile } from '@tevm/precompiles'
-import { createMapDb, ReceiptsManager } from '@tevm/receipt-manager'
+import { ReceiptsManager } from '@tevm/receipt-manager'
 import { createStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
-import { bytesToHex, getAddress, hexToBigInt, KECCAK256_RLP, keccak256 } from '@tevm/utils'
+import { bytesToHex, getAddress, hexToBigInt, KECCAK256_RLP, keccak256, numberToHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { GENESIS_STATE } from './GENESIS_STATE.js'
-import { getBlockNumber } from './getBlockNumber.js'
 import { getChainId } from './getChainId.js'
+import { chainIdToLightSyncNetwork, normalizeSlots, selectStartupCheckpoint } from './lightSync.js'
 import { statePersister } from './statePersister.js'
 
 // TODO the common code is not very good and should be moved to common package
@@ -26,6 +29,30 @@ import { statePersister } from './statePersister.js'
  *  ```
  */
 export const createTevmNode = (options = {}) => {
+	/** @type {import('./ExEx.js').ExExHook[]} */
+	const exExHooks = [...(options.exExHooks ?? [])]
+	/**
+	 * @param {import('./ExEx.js').ExExHook} hook
+	 */
+	const registerExExHook = (hook) => {
+		exExHooks.push(hook)
+		return () => {
+			const i = exExHooks.indexOf(hook)
+			if (i >= 0) exExHooks.splice(i, 1)
+		}
+	}
+	/**
+	 * @param {import('./ExEx.js').ExExEvent} event
+	 */
+	const emitExExEvent = async (event) => {
+		for (const hook of exExHooks) {
+			try {
+				await hook(event)
+			} catch (e) {
+				logger.error(e, 'ExEx hook failed')
+			}
+		}
+	}
 	// for now we just only work with eip-1193 provider but later
 	// we can consider dynamically passing in chain retries etc
 	const transport = (() => {
@@ -121,6 +148,8 @@ export const createTevmNode = (options = {}) => {
 	 * @type {bigint | undefined}
 	 */
 	let nextBlockBaseFeePerGas
+	/** @type {bigint | undefined} */
+	let nextBlockPrevRandao
 	/**
 	 * Sets the base fee per gas for the next block (EIP-1559)
 	 * @param {bigint | undefined} baseFeePerGas
@@ -133,6 +162,16 @@ export const createTevmNode = (options = {}) => {
 	 * @returns {bigint | undefined}
 	 */
 	const getNextBlockBaseFeePerGas = () => nextBlockBaseFeePerGas
+	/**
+	 * @param {bigint | undefined} prevRandao
+	 */
+	const setNextBlockPrevRandao = (prevRandao) => {
+		nextBlockPrevRandao = prevRandao
+	}
+	/**
+	 * @returns {bigint | undefined}
+	 */
+	const getNextBlockPrevRandao = () => nextBlockPrevRandao
 
 	/**
 	 * Minimum gas price for transactions
@@ -172,8 +211,8 @@ export const createTevmNode = (options = {}) => {
 
 	/**
 	 * Snapshot storage for evm_snapshot/evm_revert
-	 * Maps snapshot ID (hex string) to { stateRoot, state }
-	 * @type {Map<string, { stateRoot: string, state: import('@tevm/state').TevmState }>}
+	 * Maps snapshot ID (hex string) to a full snapshot blob.
+	 * @type {Map<string, any>}
 	 */
 	const snapshots = new Map()
 	/**
@@ -184,7 +223,7 @@ export const createTevmNode = (options = {}) => {
 
 	/**
 	 * Gets all stored snapshots
-	 * @returns {Map<string, { stateRoot: string, state: import('@tevm/state').TevmState }>}
+	 * @returns {Map<string, any>}
 	 */
 	const getSnapshots = () => snapshots
 
@@ -192,11 +231,12 @@ export const createTevmNode = (options = {}) => {
 	 * Adds a new snapshot and returns its ID
 	 * @param {string} stateRoot
 	 * @param {import('@tevm/state').TevmState} state
+	 * @param {import('./TevmNode.js').SnapshotMetadata} [metadata]
 	 * @returns {string} - The snapshot ID in hex format (e.g., "0x1")
 	 */
-	const addSnapshot = (stateRoot, state) => {
+	const addSnapshot = (stateRoot, state, metadata = {}) => {
 		const id = `0x${snapshotIdCounter.toString(16)}`
-		snapshots.set(id, { stateRoot, state })
+		snapshots.set(id, { stateRoot, state, ...metadata })
 		snapshotIdCounter++
 		return id
 	}
@@ -204,7 +244,7 @@ export const createTevmNode = (options = {}) => {
 	/**
 	 * Gets a snapshot by ID
 	 * @param {string} snapshotId
-	 * @returns {{ stateRoot: string, state: import('@tevm/state').TevmState } | undefined}
+	 * @returns {any | undefined}
 	 */
 	const getSnapshot = (snapshotId) => snapshots.get(snapshotId)
 
@@ -223,6 +263,7 @@ export const createTevmNode = (options = {}) => {
 	}
 
 	const loggingLevel = options.loggingLevel ?? 'warn'
+	const consensus = options.consensus ?? createNoopConsensusService()
 	const logger = createLogger({
 		name: 'TevmClient',
 		level: loggingLevel,
@@ -234,14 +275,15 @@ export const createTevmNode = (options = {}) => {
 	const getStateManagerOpts = async () => {
 		if (transport) {
 			// if the user passed in latest we must use an explicit block tag
-			const blockTag = await blockTagPromise
+			const fork = await forkAnchorPromise
 			return {
 				loggingLevel,
 				...(options.persister ? { onCommit: statePersister(options.persister, logger) } : {}),
 				fork: {
 					...options.fork,
 					transport,
-					blockTag,
+					blockTag: fork.blockTag,
+					...('blockHash' in fork ? { blockHash: fork.blockHash } : {}),
 				},
 			}
 		}
@@ -288,19 +330,78 @@ export const createTevmNode = (options = {}) => {
 		return BigInt(chainId)
 	})
 
-	const blockTagPromise = (async () => {
+	chainIdPromise.then((chainId) => {
+		if (consensus.mode !== 'light-client' || !consensus.updateLightSyncStatus) return
+		const checkpoint = selectStartupCheckpoint(options.lightSync ?? {})
+		consensus.updateLightSyncStatus({
+			network: chainIdToLightSyncNetwork(Number(chainId)),
+			checkpointSource: checkpoint.checkpointSource,
+			lastCheckpoint: checkpoint.checkpoint,
+			status: checkpoint.checkpoint ? 'starting' : 'idle',
+		})
+	})
+
+	const getLightSyncStatus = () =>
+		normalizeSlots(
+			consensus.getLightSyncStatus?.() ?? {
+				ready: true,
+				status: 'ready',
+				network: 'unknown',
+				checkpointSource: 'none',
+				lastCheckpoint: null,
+				optimisticSlot: 0n,
+				safeSlot: 0n,
+				finalizedSlot: 0n,
+			},
+		)
+
+	/**
+	 * @param {{ request: import('viem').EIP1193RequestFn }} transport
+	 * @param {import('@tevm/utils').BlockTag | bigint} blockTag
+	 */
+	const fetchForkAnchor = async (transport, blockTag) => {
+		if (blockTag === 'pending') {
+			throw new Error('Cannot use pending as a fork block tag')
+		}
+		const fetcher = createJsonRpcFetcher(transport)
+		const { result, error } = await fetcher.request({
+			jsonrpc: '2.0',
+			id: 1,
+			method: 'eth_getBlockByNumber',
+			params: [typeof blockTag === 'bigint' ? numberToHex(blockTag) : blockTag, false],
+		})
+		if (error) {
+			throw error
+		}
+		const block = /** @type {{ number?: import('@tevm/utils').Hex; hash?: import('@tevm/utils').Hex }} */ (result ?? {})
+		if (
+			!block.number ||
+			!block.hash ||
+			typeof block.number !== 'string' ||
+			!block.number.startsWith('0x') ||
+			typeof block.hash !== 'string'
+		) {
+			// Mock transports / non-conforming providers may not honor eth_getBlockByNumber
+			// Fall back to using the supplied blockTag verbatim so we don't crash.
+			return { blockTag: typeof blockTag === 'bigint' ? blockTag : 0n }
+		}
+		return {
+			blockTag: hexToBigInt(block.number),
+			blockHash: block.hash,
+		}
+	}
+
+	const forkAnchorPromise = (async () => {
 		if (options.fork === undefined) {
 			// this is ultimately unused
-			return 0n
+			return { blockTag: 0n }
 		}
-		// TODO handle other moving block tags like `safe`
-		// we need to fetch the latest block number and return that otherwise we may have inconsistencies from block number changing
-		if (options.fork.blockTag === undefined || options.fork.blockTag === 'latest') {
-			const latestBlockNumber = await getBlockNumber(options.fork.transport)
-			logger.debug({ latestBlockNumber }, 'fetched fork block number from provided forkurl')
-			return latestBlockNumber
+		if (!transport) {
+			return { blockTag: 0n }
 		}
-		return options.fork.blockTag
+		const anchor = await fetchForkAnchor(transport, options.fork.blockTag ?? 'latest')
+		logger.debug(anchor, 'fetched fork block anchor from provided forkurl')
+		return anchor
 	})()
 
 	const chainCommonPromise = chainIdPromise
@@ -329,20 +430,15 @@ export const createTevmNode = (options = {}) => {
 			return copy
 		})
 
-	const blockchainPromise = Promise.all([chainCommonPromise, blockTagPromise]).then(([common, blockTag]) => {
+	const blockchainPromise = Promise.all([chainCommonPromise, forkAnchorPromise]).then(([common, forkAnchor]) => {
 		return createChain({
 			loggingLevel,
 			common,
-			...(options.fork?.transport !== undefined
+			...(transport !== undefined
 				? {
 						fork: {
-							transport: {
-								request:
-									typeof options.fork.transport === 'function'
-										? options.fork.transport({}).request
-										: options.fork.transport.request,
-							},
-							blockTag,
+							transport,
+							blockTag: 'blockHash' in forkAnchor ? forkAnchor.blockHash : forkAnchor.blockTag,
 						},
 					}
 				: {}),
@@ -498,7 +594,8 @@ export const createTevmNode = (options = {}) => {
 		await blockchainPromise.then((b) => b.ready())
 		await stateManagerPromise.then((b) => b.ready())
 		await vmPromise.then((vm) => vm.ready())
-		eventEmitter.emit('connect')
+		const chainId = await chainIdPromise
+		eventEmitter.emit('connect', { chainId: `0x${chainId.toString(16)}` })
 		return /** @type {true}*/ (true)
 	})()
 
@@ -569,11 +666,19 @@ export const createTevmNode = (options = {}) => {
 		 * @type {bigint | undefined}
 		 */
 		let copiedNextBlockBaseFeePerGas = baseClient.getNextBlockBaseFeePerGas()
+		/** @type {bigint | undefined} */
+		let copiedNextBlockPrevRandao = baseClient.getNextBlockPrevRandao()
 		/**
 		 * @param {bigint | undefined} baseFeePerGas
 		 */
 		const setCopiedNextBlockBaseFeePerGas = (baseFeePerGas) => {
 			copiedNextBlockBaseFeePerGas = baseFeePerGas
+		}
+		/**
+		 * @param {bigint | undefined} prevRandao
+		 */
+		const setCopiedNextBlockPrevRandao = (prevRandao) => {
+			copiedNextBlockPrevRandao = prevRandao
 		}
 		/**
 		 * Minimum gas price for transactions
@@ -599,26 +704,27 @@ export const createTevmNode = (options = {}) => {
 		}
 		/**
 		 * Copy snapshots from the parent client
-		 * @type {Map<string, { stateRoot: string, state: import('@tevm/state').TevmState }>}
+		 * @type {Map<string, import('./TevmNode.js').TevmSnapshot>}
 		 */
 		const copiedSnapshots = new Map(baseClient.getSnapshots())
-		let copiedSnapshotIdCounter = copiedSnapshots.size + 1
+		let copiedSnapshotIdCounter = Math.max(0, ...[...copiedSnapshots.keys()].map((id) => Number.parseInt(id, 16))) + 1
 
 		const getCopiedSnapshots = () => copiedSnapshots
 		/**
 		 * @param {string} stateRoot
 		 * @param {import('@tevm/state').TevmState} state
+		 * @param {import('./TevmNode.js').SnapshotMetadata} [metadata]
 		 * @returns {string}
 		 */
-		const addCopiedSnapshot = (stateRoot, state) => {
+		const addCopiedSnapshot = (stateRoot, state, metadata = {}) => {
 			const id = `0x${copiedSnapshotIdCounter.toString(16)}`
-			copiedSnapshots.set(id, { stateRoot, state })
+			copiedSnapshots.set(id, { stateRoot, state, ...metadata })
 			copiedSnapshotIdCounter++
 			return id
 		}
 		/**
 		 * @param {string} snapshotId
-		 * @returns {{ stateRoot: string, state: import('@tevm/state').TevmState } | undefined}
+		 * @returns {import('./TevmNode.js').TevmSnapshot | undefined}
 		 */
 		const getCopiedSnapshot = (snapshotId) => copiedSnapshots.get(snapshotId)
 		/**
@@ -651,6 +757,7 @@ export const createTevmNode = (options = {}) => {
 		const copiedClient = {
 			...eventEmitter,
 			logger: baseClient.logger,
+			consensus: baseClient.consensus,
 			getReceiptsManager: async () => Promise.resolve(receiptsManager),
 			getTxPool: async () => Promise.resolve(txPool),
 			getVm: async () => Promise.resolve(vm),
@@ -663,7 +770,7 @@ export const createTevmNode = (options = {}) => {
 						},
 					}
 				: {}),
-			extend: (extension) => extend(baseClient)(extension),
+			extend: (extension) => extend(copiedClient)(extension),
 			deepCopy: () => deepCopy(copiedClient)(),
 			ready: () => Promise.resolve(true),
 			getFilters: () => newFilters,
@@ -681,6 +788,8 @@ export const createTevmNode = (options = {}) => {
 			setNextBlockGasLimit: setCopiedNextBlockGasLimit,
 			getNextBlockBaseFeePerGas: () => copiedNextBlockBaseFeePerGas,
 			setNextBlockBaseFeePerGas: setCopiedNextBlockBaseFeePerGas,
+			getNextBlockPrevRandao: () => copiedNextBlockPrevRandao,
+			setNextBlockPrevRandao: setCopiedNextBlockPrevRandao,
 			getMinGasPrice: () => copiedMinGasPrice,
 			setMinGasPrice: setCopiedMinGasPrice,
 			getBlockTimestampInterval: () => copiedBlockTimestampInterval,
@@ -696,6 +805,9 @@ export const createTevmNode = (options = {}) => {
 				newFilters.delete(filterId)
 			},
 			status: 'READY',
+			getLightSyncStatus: baseClient.getLightSyncStatus,
+			registerExExHook: baseClient.registerExExHook,
+			emitExExEvent: baseClient.emitExExEvent,
 		}
 		return copiedClient
 	}
@@ -709,6 +821,7 @@ export const createTevmNode = (options = {}) => {
 	const baseClient = {
 		...eventEmitter,
 		logger,
+		consensus,
 		getReceiptsManager: async () => {
 			await readyPromise
 			return receiptManagerPromise
@@ -744,6 +857,8 @@ export const createTevmNode = (options = {}) => {
 		setNextBlockGasLimit,
 		getNextBlockBaseFeePerGas,
 		setNextBlockBaseFeePerGas,
+		getNextBlockPrevRandao,
+		setNextBlockPrevRandao,
 		getMinGasPrice,
 		setMinGasPrice,
 		getBlockTimestampInterval,
@@ -760,6 +875,9 @@ export const createTevmNode = (options = {}) => {
 			filters.delete(filterId)
 		},
 		status: 'INITIALIZING',
+		getLightSyncStatus,
+		registerExExHook,
+		emitExExEvent,
 		deepCopy: () => deepCopy(baseClient)(),
 		debug: async () => {
 			const txPool = await txPoolPromise

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthMaxPriorityFeePerGasJsonRpcProcedure
 
-# Type Alias: EthMaxPriorityFeePerGasJsonRpcProcedure()
+# Type Alias: EthMaxPriorityFeePerGasJsonRpcProcedure
 
 > **EthMaxPriorityFeePerGasJsonRpcProcedure** = (`request`) => `Promise`\<[`EthMaxPriorityFeePerGasJsonRpcResponse`](EthMaxPriorityFeePerGasJsonRpcResponse.md)\>
 

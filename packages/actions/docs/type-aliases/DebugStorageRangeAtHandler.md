@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / DebugStorageRangeAtHandler
 
-# Type Alias: DebugStorageRangeAtHandler()
+# Type Alias: DebugStorageRangeAtHandler
 
 > **DebugStorageRangeAtHandler** = (`params`) => `Promise`\<[`DebugStorageRangeAtResult`](DebugStorageRangeAtResult.md)\>
 

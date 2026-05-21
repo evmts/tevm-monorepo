@@ -8,7 +8,7 @@
 
 > **CallEvents** = `object`
 
-Defined in: packages/actions/types/common/CallEvents.d.ts:63
+Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:63
 
 Event handlers for EVM execution during a call
 
@@ -32,11 +32,11 @@ const result = await tevmCall(client, {
 
 ## Properties
 
-### onAfterMessage()?
+### onAfterMessage?
 
-> `optional` **onAfterMessage**: (`data`, `next?`) => `void`
+> `optional` **onAfterMessage?**: (`data`, `next?`) => `void`
 
-Defined in: packages/actions/types/common/CallEvents.d.ts:87
+Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:87
 
 Handler called after a message (call) is processed
 
@@ -60,11 +60,11 @@ Function to continue execution - must be called to proceed
 
 ***
 
-### onBeforeMessage()?
+### onBeforeMessage?
 
-> `optional` **onBeforeMessage**: (`data`, `next?`) => `void`
+> `optional` **onBeforeMessage?**: (`data`, `next?`) => `void`
 
-Defined in: packages/actions/types/common/CallEvents.d.ts:81
+Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:81
 
 Handler called before a message (call) is processed
 
@@ -88,11 +88,11 @@ Function to continue execution - must be called to proceed
 
 ***
 
-### onNewContract()?
+### onNewContract?
 
-> `optional` **onNewContract**: (`data`, `next?`) => `void`
+> `optional` **onNewContract?**: (`data`, `next?`) => `void`
 
-Defined in: packages/actions/types/common/CallEvents.d.ts:75
+Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:75
 
 Handler called when a new contract is created
 
@@ -116,11 +116,11 @@ Function to continue execution - must be called to proceed
 
 ***
 
-### onStep()?
+### onStep?
 
-> `optional` **onStep**: (`data`, `next?`) => `void`
+> `optional` **onStep?**: (`data`, `next?`) => `void`
 
-Defined in: packages/actions/types/common/CallEvents.d.ts:69
+Defined in: tevm-monorepo/packages/actions/types/common/CallEvents.d.ts:69
 
 Handler called on each EVM step (instruction execution)
 

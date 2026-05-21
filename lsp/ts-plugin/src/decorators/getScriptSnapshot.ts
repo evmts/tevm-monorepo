@@ -30,7 +30,8 @@ export const getScriptSnapshotDecorator = (solcCache: Cache) =>
 				try {
 					const plugin = bundler(config, logger as any, fao, solc, solcCache)
 					const resolveBytecode = filePath.endsWith('.s.sol')
-					const snapshot = plugin.resolveDtsSync(filePath, process.cwd(), false, resolveBytecode)
+					const projectRoot = languageServiceHost.getCurrentDirectory?.() ?? process.cwd()
+					const snapshot = plugin.resolveDtsSync(filePath, projectRoot, false, resolveBytecode)
 					if (config.debug) {
 						writeFileSync(
 							`${filePath}.debug.d.ts`,

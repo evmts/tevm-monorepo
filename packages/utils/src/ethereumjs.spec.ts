@@ -14,7 +14,7 @@ import {
 
 describe('ethereumjs re-exports', () => {
 	it('should properly export EthjsAddress', () => {
-		const address = new EthjsAddress(new Uint8Array(Buffer.from('1234567890123456789012345678901234567890', 'hex')))
+		const address = new EthjsAddress(Buffer.from('1234567890123456789012345678901234567890', 'hex'))
 		expect(address).toBeDefined()
 		expect(address.bytes).toBeInstanceOf(Uint8Array)
 	})
@@ -71,7 +71,7 @@ describe('ethereumjs re-exports', () => {
 		expect(str).toBe('Hello')
 	})
 
-	// zeros was removed in @ethereumjs/util v10
+	// zeros is intentionally no longer exported.
 	it.skip('should properly export zeros', () => {
 		// const zeroBytes = zeros(3)
 		// expect(zeroBytes).toEqual(new Uint8Array([0, 0, 0]))

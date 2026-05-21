@@ -49,7 +49,7 @@ Use the static factory methods to assist in creating a Block object from varying
 
 ##### executionWitness?
 
-`null` | [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
+[`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
 
 #### Returns
 
@@ -65,15 +65,15 @@ Defined in: [packages/block/src/block.ts:54](https://github.com/evmts/tevm-monor
 
 #### requestsRoot?
 
-> `optional` **requestsRoot**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **requestsRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
 
 #### txTrieRoot?
 
-> `optional` **txTrieRoot**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **txTrieRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
 
 #### withdrawalsTrieRoot?
 
-> `optional` **withdrawalsTrieRoot**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **withdrawalsTrieRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
 
 ***
 
@@ -85,7 +85,7 @@ Defined in: [packages/block/src/block.ts:44](https://github.com/evmts/tevm-monor
 
 #### blockExplorers?
 
-> `optional` **blockExplorers**: `object`
+> `optional` **blockExplorers?**: `object`
 
 Collection of block explorers
 
@@ -99,53 +99,57 @@ Collection of block explorers
 
 #### blockTime?
 
-> `optional` **blockTime**: `number`
+> `optional` **blockTime?**: `number`
 
 Block time in milliseconds.
 
 #### contracts?
 
-> `optional` **contracts**: `object`
+> `optional` **contracts?**: `object`
 
 Collection of contracts
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
+\[`key`: `string`\]: `ChainContract` \| \{\[`sourceId`: `number`\]: `ChainContract` \| `undefined`; \} \| `undefined`
 
 ##### contracts.ensRegistry?
 
-> `optional` **ensRegistry**: `ChainContract`
+> `optional` **ensRegistry?**: `ChainContract`
 
 ##### contracts.ensUniversalResolver?
 
-> `optional` **ensUniversalResolver**: `ChainContract`
+> `optional` **ensUniversalResolver?**: `ChainContract`
 
 ##### contracts.erc6492Verifier?
 
-> `optional` **erc6492Verifier**: `ChainContract`
+> `optional` **erc6492Verifier?**: `ChainContract`
 
 ##### contracts.multicall3?
 
-> `optional` **multicall3**: `ChainContract`
+> `optional` **multicall3?**: `ChainContract`
 
-#### copy()
+#### copy
 
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
 
 ##### Returns
 
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
 
-#### custom?
+#### ~~custom?~~
 
-> `optional` **custom**: `Record`\<`string`, `unknown`\>
+> `optional` **custom?**: `Record`\<`string`, `unknown`\>
 
 Custom chain data.
 
+##### Deprecated
+
+use `.extend` instead.
+
 #### ensTlds?
 
-> `optional` **ensTlds**: readonly `string`[]
+> `optional` **ensTlds?**: readonly `string`[]
 
 Collection of ENS TLDs for the chain.
 
@@ -155,19 +159,25 @@ Collection of ENS TLDs for the chain.
 
 #### experimental\_preconfirmationTime?
 
-> `optional` **experimental\_preconfirmationTime**: `number`
+> `optional` **experimental\_preconfirmationTime?**: `number`
 
 Preconfirmation time in milliseconds.
 
+#### extendSchema?
+
+> `optional` **extendSchema?**: `Record`\<`string`, `unknown`\>
+
+Extend schema.
+
 #### fees?
 
-> `optional` **fees**: `ChainFees`\<`undefined` \| `ChainFormatters`\>
+> `optional` **fees?**: `ChainFees`\<`ChainFormatters` \| `undefined`\>
 
 Modifies how fees are derived.
 
 #### formatters?
 
-> `optional` **formatters**: `ChainFormatters`
+> `optional` **formatters?**: `ChainFormatters`
 
 Modifies how data is formatted and typed (e.g. blocks and transactions)
 
@@ -189,6 +199,12 @@ Human-readable name
 
 Currency used by chain
 
+#### prepareTransactionRequest?
+
+> `optional` **prepareTransactionRequest?**: `PrepareTransactionRequestFn` \| \[`PrepareTransactionRequestFn`, `object`\]
+
+Function to prepare a transaction request. Runs before the transaction is filled.
+
 #### rpcUrls
 
 > **rpcUrls**: `object`
@@ -205,33 +221,40 @@ Collection of RPC endpoints
 
 #### serializers?
 
-> `optional` **serializers**: `ChainSerializers`\<`undefined` \| `ChainFormatters`, `TransactionSerializable`\>
+> `optional` **serializers?**: `ChainSerializers`\<`ChainFormatters` \| `undefined`, `TransactionSerializable`\>
 
 Modifies how data is serialized (e.g. transactions).
 
 #### sourceId?
 
-> `optional` **sourceId**: `number`
+> `optional` **sourceId?**: `number`
 
 Source Chain ID (ie. the L1 chain)
 
 #### testnet?
 
-> `optional` **testnet**: `boolean`
+> `optional` **testnet?**: `boolean`
 
 Flag for test networks
+
+#### verifyHash?
+
+> `optional` **verifyHash?**: `ChainVerifyHashFn`
+
+Chain-specific signature verification.
 
 ***
 
 ### executionWitness?
 
-> `readonly` `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
+> `readonly` `optional` **executionWitness?**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
 
 Defined in: [packages/block/src/block.ts:52](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L52)
 
 EIP-6800: Verkle Proof Data (experimental)
 null implies that the non default executionWitness might exist but not available
-and will not lead to execution of the block via vm with verkle stateless manager
+and will not lead to execution of the block via VM Verkle state-witness support.
+Tevm intentionally does not support Verkle/EIP-6800 execution.
 
 ***
 
@@ -243,7 +266,7 @@ Defined in: [packages/block/src/block.ts:39](https://github.com/evmts/tevm-monor
 
 ***
 
-### keccakFunction()
+### keccakFunction
 
 > `protected` **keccakFunction**: (`msg`) => `Uint8Array`
 
@@ -263,7 +286,7 @@ Defined in: [packages/block/src/block.ts:45](https://github.com/evmts/tevm-monor
 
 ### requests?
 
-> `readonly` `optional` **requests**: [`ClRequest`](ClRequest.md)[]
+> `readonly` `optional` **requests?**: [`ClRequest`](ClRequest.md)[]
 
 Defined in: [packages/block/src/block.ts:43](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L43)
 
@@ -287,7 +310,7 @@ Defined in: [packages/block/src/block.ts:41](https://github.com/evmts/tevm-monor
 
 ### withdrawals?
 
-> `readonly` `optional` **withdrawals**: `Withdrawal`[]
+> `readonly` `optional` **withdrawals?**: `Withdrawal`[]
 
 Defined in: [packages/block/src/block.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L42)
 
@@ -528,7 +551,7 @@ header of parent block
 
 ### validateData()
 
-> **validateData**(`onlyHeader`, `verifyTxs`): `Promise`\<`void`\>
+> **validateData**(`onlyHeader?`, `verifyTxs?`): `Promise`\<`void`\>
 
 Defined in: [packages/block/src/block.ts:569](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/block.ts#L569)
 
@@ -541,13 +564,13 @@ It checks:
 
 #### Parameters
 
-##### onlyHeader
+##### onlyHeader?
 
 `boolean` = `false`
 
 if only passed the header, skip validating txTrie and unclesHash (default: false)
 
-##### verifyTxs
+##### verifyTxs?
 
 `boolean` = `true`
 

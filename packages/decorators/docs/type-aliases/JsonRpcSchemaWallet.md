@@ -52,7 +52,7 @@ Defined in: [eip1193/JsonRpcSchemaWallet.ts:49](https://github.com/evmts/tevm-mo
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -87,7 +87,7 @@ Defined in: [eip1193/JsonRpcSchemaWallet.ts:60](https://github.com/evmts/tevm-mo
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -152,7 +152,7 @@ Defined in: [eip1193/JsonRpcSchemaWallet.ts:87](https://github.com/evmts/tevm-mo
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -362,7 +362,7 @@ Defined in: [eip1193/JsonRpcSchemaWallet.ts:169](https://github.com/evmts/tevm-m
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 
@@ -467,7 +467,7 @@ Defined in: [eip1193/JsonRpcSchemaWallet.ts:210](https://github.com/evmts/tevm-m
 
 #### Parameters?
 
-> `optional` **Parameters**: `undefined`
+> `optional` **Parameters?**: `undefined`
 
 #### ReturnType
 

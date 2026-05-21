@@ -4,7 +4,7 @@
 
 [@tevm/memory-client](../globals.md) / TevmContract
 
-# Type Alias: TevmContract()
+# Type Alias: TevmContract
 
 > **TevmContract** = \<`TAbi`, `TFunctionName`\>(`client`, `params`) => `Promise`\<`ContractResult`\<`TAbi`, `TFunctionName`\>\>
 

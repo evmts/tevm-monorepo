@@ -8,7 +8,7 @@
 
 > **debugTraceTransactionJsonRpcProcedure**(`client`): `DebugTraceTransactionProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"`, `boolean`\>
 
-Defined in: packages/actions/types/debug/debugTraceTransactionProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/debug/debugTraceTransactionProcedure.d.ts:1
 
 ## Parameters
 

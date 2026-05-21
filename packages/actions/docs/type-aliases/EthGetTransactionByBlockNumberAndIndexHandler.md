@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetTransactionByBlockNumberAndIndexHandler
 
-# Type Alias: EthGetTransactionByBlockNumberAndIndexHandler()
+# Type Alias: EthGetTransactionByBlockNumberAndIndexHandler
 
 > **EthGetTransactionByBlockNumberAndIndexHandler** = (`request`) => `Promise`\<[`EthGetTransactionByBlockNumberAndIndexResult`](EthGetTransactionByBlockNumberAndIndexResult.md)\>
 

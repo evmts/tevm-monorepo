@@ -8,6 +8,6 @@
 
 > **EthGetTransactionByHashResult** = [`TransactionResult`](../../index/type-aliases/TransactionResult.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:124
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:124
 
 JSON-RPC response for `eth_getTransactionByHash` procedure

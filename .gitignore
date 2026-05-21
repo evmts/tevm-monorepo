@@ -98,6 +98,11 @@ TODO.md
 
 execution-specs/
 
+# Smithers runtime artifacts
+/.worktrees/
+/artifacts/
+/smithers.db*
+
 g/
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md

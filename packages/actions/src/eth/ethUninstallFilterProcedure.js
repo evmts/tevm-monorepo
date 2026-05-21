@@ -12,7 +12,7 @@ export const ethUninstallFilterJsonRpcProcedure = (client) => {
 		const filter = client.getFilters().get(filterId)
 		if (!filter) {
 			return {
-				...(uninstallFilterRequest.id ? { id: uninstallFilterRequest.id } : {}),
+				...(uninstallFilterRequest.id !== undefined ? { id: uninstallFilterRequest.id } : {}),
 				method: uninstallFilterRequest.method,
 				jsonrpc: uninstallFilterRequest.jsonrpc,
 				result: false,
@@ -29,7 +29,7 @@ export const ethUninstallFilterJsonRpcProcedure = (client) => {
 		}
 		client.removeFilter(filterId)
 		return {
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 			method: request.method,
 			jsonrpc: request.jsonrpc,
 			result: true,

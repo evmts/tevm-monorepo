@@ -100,7 +100,7 @@ export const ethSimulateV1Handler = (client) => {
 			// Execute each call in the block
 			for (let callIndex = 0; callIndex < (calls ?? []).length; callIndex++) {
 				const call = /** @type {import('./EthParams.js').EthSimulateV1Call} */ (calls?.[callIndex])
-				/** @type {import('@tevm/evm').EvmRunCallOpts} */
+				/** @type {import('@evmts/zevm/evm').EvmRunCallOpts} */
 				const callParams = {
 					...(call.from !== undefined ? { caller: createAddress(call.from), origin: createAddress(call.from) } : {}),
 					...(call.to !== undefined ? { to: createAddress(call.to) } : {}),

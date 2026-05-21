@@ -2,6 +2,7 @@ export {
 	deepCopy,
 	delBlock,
 	getBlock,
+	getBlockByTag,
 	getCanonicalHeadBlock,
 	getIteratorHead,
 	putBlock,

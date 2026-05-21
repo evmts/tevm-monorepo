@@ -8,16 +8,13 @@
 
 > **eoaCode7702SignAuthorization**(`input`, `privateKey`, `ecSign?`): `EOACode7702AuthorizationListBytesItem`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/authorization.d.ts:37
-
-Signs an authorization list item and returns it in `bytes` format.
-To get the JSON format, use `authorizationListBytesToJSON([signed])[0] to convert it`
+Defined in: zevm/npm/zevm/dist/util.d.ts:216
 
 ## Parameters
 
 ### input
 
-`EOACode7702AuthorizationListItemUnsigned` | `EOACode7702AuthorizationListBytesItemUnsigned`
+`EOACode7702AuthorizationListItemUnsigned` \| `EOACode7702AuthorizationListBytesItemUnsigned`
 
 ### privateKey
 
@@ -25,7 +22,7 @@ To get the JSON format, use `authorizationListBytesToJSON([signed])[0] to conver
 
 ### ecSign?
 
-(`msg`, `pk`, `ecSignOpts?`) => `Pick`\<`ReturnType`\<*typeof* `secp256k1.sign`\>, `"recovery"` \| `"r"` \| `"s"`\>
+(`msg`, `pk`, `ecSignOpts?`) => `RecoveredSignature`
 
 ## Returns
 

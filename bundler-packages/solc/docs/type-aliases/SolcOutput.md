@@ -26,7 +26,7 @@ Defined in: [solcTypes.ts:342](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### errors?
 
-> `optional` **errors**: [`SolcErrorEntry`](SolcErrorEntry.md)[]
+> `optional` **errors?**: [`SolcErrorEntry`](SolcErrorEntry.md)[]
 
 Defined in: [solcTypes.ts:332](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L332)
 

@@ -8,7 +8,7 @@
 
 > **ethSimulateV1Procedure**(`client`): [`EthSimulateV1JsonRpcProcedure`](../type-aliases/EthSimulateV1JsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethSimulateV1Procedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethSimulateV1Procedure.d.ts:1
 
 ## Parameters
 

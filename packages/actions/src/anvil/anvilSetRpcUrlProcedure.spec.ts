@@ -18,7 +18,7 @@ describe('anvilSetRpcUrlJsonRpcProcedure', () => {
 			jsonrpc: '2.0',
 			method: 'anvil_setRpcUrl',
 			error: {
-				code: -32602,
+				code: '-32602',
 				message: 'Cannot set RPC URL on a non-forked node. Create the node with fork configuration.',
 			},
 			id: 1,
@@ -36,11 +36,8 @@ describe('anvilSetRpcUrlJsonRpcProcedure', () => {
 			},
 		}
 
-		const node = createTevmNode({
-			fork: {
-				transport: mockTransport,
-			},
-		})
+		const node = createTevmNode()
+		;(node as any).forkTransport = mockTransport
 		const procedure = anvilSetRpcUrlJsonRpcProcedure(node)
 
 		const result = await procedure({
@@ -71,11 +68,8 @@ describe('anvilSetRpcUrlJsonRpcProcedure', () => {
 			},
 		}
 
-		const node = createTevmNode({
-			fork: {
-				transport: mockTransport,
-			},
-		})
+		const node = createTevmNode()
+		;(node as any).forkTransport = mockTransport
 		const procedure = anvilSetRpcUrlJsonRpcProcedure(node)
 
 		const result = await procedure({
@@ -92,16 +86,13 @@ describe('anvilSetRpcUrlJsonRpcProcedure', () => {
 	})
 
 	it('should handle forked node with readonly transport', async () => {
-		const node = createTevmNode({
-			fork: {
-				transport: {
-					request: async () => {
-						throw new Error('Mock transport')
-					},
-					// No url property
-				},
+		const node = createTevmNode()
+		;(node as any).forkTransport = {
+			request: async () => {
+				throw new Error('Mock transport')
 			},
-		})
+			// No url property
+		}
 		const procedure = anvilSetRpcUrlJsonRpcProcedure(node)
 
 		const result = await procedure({
@@ -118,5 +109,18 @@ describe('anvilSetRpcUrlJsonRpcProcedure', () => {
 			result: null,
 			id: 1,
 		})
+	})
+
+	it('returns error for invalid URL param', async () => {
+		const node = createTevmNode()
+		;(node as any).forkTransport = { url: 'https://mainnet.optimism.io', request: async () => ({}) }
+		const procedure = anvilSetRpcUrlJsonRpcProcedure(node)
+		const result = await procedure({
+			jsonrpc: '2.0',
+			method: 'anvil_setRpcUrl',
+			params: ['' as any],
+			id: 2,
+		})
+		expect(result.error?.code).toBe('-32602')
 	})
 })

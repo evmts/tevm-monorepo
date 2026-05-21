@@ -30,7 +30,14 @@ export const validateHeader = (baseChain) => async (header, height) => {
 		}
 	}
 
-	header.validateGasLimit(parentHeader)
+	try {
+		header.validateGasLimit(parentHeader)
+	} catch (e) {
+		if (!(e instanceof Error) || !e.message.includes('Missing parameter value for gasLimitBoundDivisor')) {
+			throw e
+		}
+		baseChain.logger.debug(e, 'Skipping gas limit validation because the chain config is missing gasLimitBoundDivisor')
+	}
 
 	if (height !== undefined) {
 		const dif = height - parentHeader.number

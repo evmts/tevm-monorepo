@@ -6,7 +6,7 @@
 
 # Interface: JsonHeader
 
-Defined in: packages/block/types/types.d.ts:419
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:419
 
 An object with the block header's data represented as 0x-prefixed hex strings.
 
@@ -14,166 +14,166 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ### baseFeePerGas?
 
-> `optional` **baseFeePerGas**: `string`
+> `optional` **baseFeePerGas?**: `string`
 
-Defined in: packages/block/types/types.d.ts:435
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:435
 
 ***
 
 ### blobGasUsed?
 
-> `optional` **blobGasUsed**: `string`
+> `optional` **blobGasUsed?**: `string`
 
-Defined in: packages/block/types/types.d.ts:437
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:437
 
 ***
 
 ### coinbase?
 
-> `optional` **coinbase**: `string`
+> `optional` **coinbase?**: `string`
 
-Defined in: packages/block/types/types.d.ts:422
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:422
 
 ***
 
 ### difficulty?
 
-> `optional` **difficulty**: `string`
+> `optional` **difficulty?**: `string`
 
-Defined in: packages/block/types/types.d.ts:427
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:427
 
 ***
 
 ### excessBlobGas?
 
-> `optional` **excessBlobGas**: `string`
+> `optional` **excessBlobGas?**: `string`
 
-Defined in: packages/block/types/types.d.ts:438
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:438
 
 ***
 
 ### extraData?
 
-> `optional` **extraData**: `string`
+> `optional` **extraData?**: `string`
 
-Defined in: packages/block/types/types.d.ts:432
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:432
 
 ***
 
 ### gasLimit?
 
-> `optional` **gasLimit**: `string`
+> `optional` **gasLimit?**: `string`
 
-Defined in: packages/block/types/types.d.ts:429
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:429
 
 ***
 
 ### gasUsed?
 
-> `optional` **gasUsed**: `string`
+> `optional` **gasUsed?**: `string`
 
-Defined in: packages/block/types/types.d.ts:430
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:430
 
 ***
 
 ### logsBloom?
 
-> `optional` **logsBloom**: `string`
+> `optional` **logsBloom?**: `string`
 
-Defined in: packages/block/types/types.d.ts:426
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:426
 
 ***
 
 ### mixHash?
 
-> `optional` **mixHash**: `string`
+> `optional` **mixHash?**: `string`
 
-Defined in: packages/block/types/types.d.ts:433
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:433
 
 ***
 
 ### nonce?
 
-> `optional` **nonce**: `string`
+> `optional` **nonce?**: `string`
 
-Defined in: packages/block/types/types.d.ts:434
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:434
 
 ***
 
 ### number?
 
-> `optional` **number**: `string`
+> `optional` **number?**: `string`
 
-Defined in: packages/block/types/types.d.ts:428
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:428
 
 ***
 
 ### parentBeaconBlockRoot?
 
-> `optional` **parentBeaconBlockRoot**: `string`
+> `optional` **parentBeaconBlockRoot?**: `string`
 
-Defined in: packages/block/types/types.d.ts:439
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:439
 
 ***
 
 ### parentHash?
 
-> `optional` **parentHash**: `string`
+> `optional` **parentHash?**: `string`
 
-Defined in: packages/block/types/types.d.ts:420
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:420
 
 ***
 
 ### receiptTrie?
 
-> `optional` **receiptTrie**: `string`
+> `optional` **receiptTrie?**: `string`
 
-Defined in: packages/block/types/types.d.ts:425
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:425
 
 ***
 
 ### requestsRoot?
 
-> `optional` **requestsRoot**: `string`
+> `optional` **requestsRoot?**: `string`
 
-Defined in: packages/block/types/types.d.ts:440
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:440
 
 ***
 
 ### stateRoot?
 
-> `optional` **stateRoot**: `string`
+> `optional` **stateRoot?**: `string`
 
-Defined in: packages/block/types/types.d.ts:423
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:423
 
 ***
 
 ### timestamp?
 
-> `optional` **timestamp**: `string`
+> `optional` **timestamp?**: `string`
 
-Defined in: packages/block/types/types.d.ts:431
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:431
 
 ***
 
 ### transactionsTrie?
 
-> `optional` **transactionsTrie**: `string`
+> `optional` **transactionsTrie?**: `string`
 
-Defined in: packages/block/types/types.d.ts:424
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:424
 
 ***
 
 ### uncleHash?
 
-> `optional` **uncleHash**: `string`
+> `optional` **uncleHash?**: `string`
 
-Defined in: packages/block/types/types.d.ts:421
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:421
 
 ***
 
 ### withdrawalsRoot?
 
-> `optional` **withdrawalsRoot**: `string`
+> `optional` **withdrawalsRoot?**: `string`
 
-Defined in: packages/block/types/types.d.ts:436
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:436

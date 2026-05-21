@@ -1,4 +1,4 @@
-export { AccountCache, CacheType, StorageCache } from '@ethereumjs/statemanager'
+export { AccountCache, CacheType, StorageCache } from '@evmts/zevm/statemanager'
 export {
 	checkpoint,
 	clearCaches,

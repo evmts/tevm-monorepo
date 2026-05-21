@@ -62,11 +62,24 @@ export const ethSignTransactionHandler = ({ getChainId, accounts }) => {
 		if (!account) {
 			throw new MissingAccountError(`Account ${params.from} not found`)
 		}
-		return account.signTransaction({
-			...params,
-			type: 'eip2930',
-			chainId: Number(await getChainId()),
-			...(typeof nonce === 'bigint' ? { nonce: Number(nonce) } : {}),
-		})
+		const txType = params.type
+			? params.type
+			: params.maxFeePerBlobGas || params.blobVersionedHashes
+				? 'eip4844'
+				: params.authorizationList
+					? 'eip7702'
+					: params.maxFeePerGas || params.maxPriorityFeePerGas
+						? 'eip1559'
+						: params.accessList
+							? 'eip2930'
+							: 'legacy'
+		return account.signTransaction(
+			/** @type {any} */ ({
+				...params,
+				type: txType,
+				chainId: Number(await getChainId()),
+				...(typeof nonce === 'bigint' ? { nonce: Number(nonce) } : {}),
+			}),
+		)
 	}
 }

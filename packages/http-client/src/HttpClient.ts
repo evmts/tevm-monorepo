@@ -1,15 +1,9 @@
 import type { TevmClient } from '@tevm/client-types'
 
 /**
- * @deprecated a new http client will be created in a future version. For now it's recomended to use viem
+ * @deprecated a new http client will be created in a future version. For now it's recommended to use viem
  */
-export type HttpClient = TevmClient & {
-	/**
-	 * The url being used to connect to the remote Tevm backend
-	 */
+export interface HttpClient extends TevmClient {
 	url: string
-	/**
-	 * Name of the client
-	 */
 	name: string
 }

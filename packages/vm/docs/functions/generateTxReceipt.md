@@ -20,30 +20,4 @@ Returns the tx receipt.
 
 ## Returns
 
-> (`tx`, `txResult`, `cumulativeGasUsed`, `blobGasUsed?`, `blobGasPrice?`): `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)\>
-
-### Parameters
-
-#### tx
-
-`TypedTransaction`
-
-#### txResult
-
-[`RunTxResult`](../interfaces/RunTxResult.md)
-
-#### cumulativeGasUsed
-
-`bigint`
-
-#### blobGasUsed?
-
-`bigint`
-
-#### blobGasPrice?
-
-`bigint`
-
-### Returns
-
-`Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)\>
+(`tx`, `txResult`, `cumulativeGasUsed`, `blobGasUsed?`, `blobGasPrice?`) => `Promise`\<[`TxReceipt`](../type-aliases/TxReceipt.md)\>

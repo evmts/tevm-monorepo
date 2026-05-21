@@ -76,7 +76,7 @@ Stores logs
 
 ### logsCriteria?
 
-> `optional` **logsCriteria**: `TODO`
+> `optional` **logsCriteria?**: `TODO`
 
 Defined in: [packages/node/src/Filter.ts:73](https://github.com/evmts/tevm-monorepo/blob/main/packages/node/src/Filter.ts#L73)
 

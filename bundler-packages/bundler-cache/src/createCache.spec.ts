@@ -1,7 +1,9 @@
 import type { ResolvedArtifacts } from '@tevm/compiler'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { cacheHash } from './cacheHash.js'
 import { createCache } from './createCache.js'
 import type { FileAccessObject } from './types.js'
+import { version } from './version.js'
 
 // Mock the path modules
 vi.mock('./getArtifactsPath.js', () => ({
@@ -60,18 +62,44 @@ describe('createCache', () => {
 
 	beforeEach(() => {
 		vi.resetAllMocks()
+		const artifactsContent = '{"abi":[],"bytecode":"0x123","deployedBytecode":"0x456"}'
+		const metadataContent = JSON.stringify({
+			version,
+			artifactsHash: cacheHash(artifactsContent),
+			files: {
+				'test/Contract.sol': {
+					mtimeMs: 1234567890,
+					size: 16,
+					contentHash: cacheHash('contract Test {}'),
+				},
+			},
+		})
 		mockFs.writeFileSync.mockImplementation(() => {})
 		mockFs.writeFile.mockImplementation(() => Promise.resolve())
 		mockFs.exists.mockImplementation(() => Promise.resolve(true))
 		mockFs.existsSync.mockImplementation(() => true)
-		mockFs.readFileSync.mockImplementation(() => '{"abi":[],"bytecode":"0x123","deployedBytecode":"0x456"}')
-		mockFs.readFile.mockImplementation(() =>
-			Promise.resolve('{"abi":[],"bytecode":"0x123","deployedBytecode":"0x456"}'),
-		)
+		mockFs.readFileSync.mockImplementation((path) => {
+			if (path.includes('metadata.json')) {
+				return metadataContent
+			}
+			if (path === 'test/Contract.sol') {
+				return 'contract Test {}'
+			}
+			return artifactsContent
+		})
+		mockFs.readFile.mockImplementation((path) => {
+			if (path.includes('metadata.json')) {
+				return Promise.resolve(metadataContent)
+			}
+			if (path === 'test/Contract.sol') {
+				return Promise.resolve('contract Test {}')
+			}
+			return Promise.resolve(artifactsContent)
+		})
 		mockFs.mkdirSync.mockImplementation(() => {})
 		mockFs.mkdir.mockImplementation(() => Promise.resolve())
-		mockFs.statSync.mockImplementation(() => ({ mtimeMs: 1234567890 }))
-		mockFs.stat.mockImplementation(() => Promise.resolve({ mtimeMs: 1234567890 }))
+		mockFs.statSync.mockImplementation(() => ({ mtimeMs: 1234567890, size: 16 }))
+		mockFs.stat.mockImplementation(() => Promise.resolve({ mtimeMs: 1234567890, size: 16 }))
 	})
 
 	it('should create a cache object with all expected methods', () => {

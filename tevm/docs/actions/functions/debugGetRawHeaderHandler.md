@@ -8,7 +8,7 @@
 
 > **debugGetRawHeaderHandler**(`client`): [`DebugGetRawHeaderHandler`](../type-aliases/DebugGetRawHeaderHandler.md)
 
-Defined in: packages/actions/types/debug/debugGetRawHeaderHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/debug/debugGetRawHeaderHandler.d.ts:1
 
 ## Parameters
 

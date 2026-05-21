@@ -16,7 +16,7 @@ A block of calls to simulate with optional block and state overrides
 
 ### blockOverrides?
 
-> `readonly` `optional` **blockOverrides**: [`BlockOverrideSet`](BlockOverrideSet.md)
+> `readonly` `optional` **blockOverrides?**: [`BlockOverrideSet`](BlockOverrideSet.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:437](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L437)
 
@@ -36,7 +36,7 @@ Calls to simulate in this block
 
 ### stateOverrides?
 
-> `readonly` `optional` **stateOverrides**: [`StateOverrideSet`](StateOverrideSet.md)
+> `readonly` `optional` **stateOverrides?**: [`StateOverrideSet`](StateOverrideSet.md)
 
 Defined in: [packages/actions/src/eth/EthParams.ts:441](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthParams.ts#L441)
 

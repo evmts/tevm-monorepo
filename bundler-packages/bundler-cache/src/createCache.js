@@ -60,38 +60,42 @@ export const createCache = (cacheDir, fs, cwd) => {
 		 * Synchronously writes compiled Solidity artifacts to the cache
 		 * @param {string} entryModuleId - Path to the Solidity file being cached
 		 * @param {import('@tevm/compiler').ResolvedArtifacts} compiledContracts - Compilation result
+		 * @param {string} [compileFingerprint] - Fingerprint of compiler/config inputs
 		 * @returns {string} Path where artifacts were written
 		 */
-		writeArtifactsSync: (entryModuleId, compiledContracts) => {
-			return writeArtifactsSync(cwd, cacheDir, entryModuleId, compiledContracts, fs)
+		writeArtifactsSync: (entryModuleId, compiledContracts, compileFingerprint) => {
+			return writeArtifactsSync(cwd, cacheDir, entryModuleId, compiledContracts, fs, compileFingerprint)
 		},
 
 		/**
 		 * Asynchronously writes compiled Solidity artifacts to the cache
 		 * @param {string} entryModuleId - Path to the Solidity file being cached
 		 * @param {import('@tevm/compiler').ResolvedArtifacts} compiledContracts - Compilation result
+		 * @param {string} [compileFingerprint] - Fingerprint of compiler/config inputs
 		 * @returns {Promise<string>} Path where artifacts were written
 		 */
-		writeArtifacts: async (entryModuleId, compiledContracts) => {
-			return writeArtifacts(cwd, cacheDir, entryModuleId, compiledContracts, fs)
+		writeArtifacts: async (entryModuleId, compiledContracts, compileFingerprint) => {
+			return writeArtifacts(cwd, cacheDir, entryModuleId, compiledContracts, fs, compileFingerprint)
 		},
 
 		/**
 		 * Synchronously reads compiled Solidity artifacts from the cache
 		 * @param {string} entryModuleId - Path to the Solidity file
+		 * @param {string} [compileFingerprint] - Fingerprint of compiler/config inputs
 		 * @returns {import('@tevm/compiler').ResolvedArtifacts|undefined} Cached artifacts if found
 		 */
-		readArtifactsSync: (entryModuleId) => {
-			return readArtifactsSync(cacheDir, fs, cwd, entryModuleId)
+		readArtifactsSync: (entryModuleId, compileFingerprint) => {
+			return readArtifactsSync(cacheDir, fs, cwd, entryModuleId, compileFingerprint)
 		},
 
 		/**
 		 * Asynchronously reads compiled Solidity artifacts from the cache
 		 * @param {string} entryModuleId - Path to the Solidity file
+		 * @param {string} [compileFingerprint] - Fingerprint of compiler/config inputs
 		 * @returns {Promise<import('@tevm/compiler').ResolvedArtifacts|undefined>} Cached artifacts if found
 		 */
-		readArtifacts: async (entryModuleId) => {
-			return readArtifacts(cacheDir, fs, cwd, entryModuleId)
+		readArtifacts: async (entryModuleId, compileFingerprint) => {
+			return readArtifacts(cacheDir, fs, cwd, entryModuleId, compileFingerprint)
 		},
 
 		/**

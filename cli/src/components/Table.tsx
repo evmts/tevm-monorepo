@@ -6,6 +6,10 @@ type Props = {
 }
 
 export default function Table({ data }: Props) {
+	if (data.length === 0) {
+		return <Text>No rows</Text>
+	}
+
 	const columns = Object.keys(data[0] as Record<string, string>)
 	const columnWidths = columns.map((col) => Math.max(col.length, ...data.map((row) => String(row[col]).length)) + 2)
 

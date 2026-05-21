@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilStopImpersonatingAccountHandler
 
-# Type Alias: AnvilStopImpersonatingAccountHandler()
+# Type Alias: AnvilStopImpersonatingAccountHandler
 
 > **AnvilStopImpersonatingAccountHandler** = (`params`) => `Promise`\<[`AnvilStopImpersonatingAccountResult`](AnvilStopImpersonatingAccountResult.md)\>
 

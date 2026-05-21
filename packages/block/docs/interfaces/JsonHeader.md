@@ -14,7 +14,7 @@ An object with the block header's data represented as 0x-prefixed hex strings.
 
 ### baseFeePerGas?
 
-> `optional` **baseFeePerGas**: `string`
+> `optional` **baseFeePerGas?**: `string`
 
 Defined in: [packages/block/src/types.ts:453](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L453)
 
@@ -22,7 +22,7 @@ Defined in: [packages/block/src/types.ts:453](https://github.com/evmts/tevm-mono
 
 ### blobGasUsed?
 
-> `optional` **blobGasUsed**: `string`
+> `optional` **blobGasUsed?**: `string`
 
 Defined in: [packages/block/src/types.ts:455](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L455)
 
@@ -30,7 +30,7 @@ Defined in: [packages/block/src/types.ts:455](https://github.com/evmts/tevm-mono
 
 ### coinbase?
 
-> `optional` **coinbase**: `string`
+> `optional` **coinbase?**: `string`
 
 Defined in: [packages/block/src/types.ts:440](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L440)
 
@@ -38,7 +38,7 @@ Defined in: [packages/block/src/types.ts:440](https://github.com/evmts/tevm-mono
 
 ### difficulty?
 
-> `optional` **difficulty**: `string`
+> `optional` **difficulty?**: `string`
 
 Defined in: [packages/block/src/types.ts:445](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L445)
 
@@ -46,7 +46,7 @@ Defined in: [packages/block/src/types.ts:445](https://github.com/evmts/tevm-mono
 
 ### excessBlobGas?
 
-> `optional` **excessBlobGas**: `string`
+> `optional` **excessBlobGas?**: `string`
 
 Defined in: [packages/block/src/types.ts:456](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L456)
 
@@ -54,7 +54,7 @@ Defined in: [packages/block/src/types.ts:456](https://github.com/evmts/tevm-mono
 
 ### extraData?
 
-> `optional` **extraData**: `string`
+> `optional` **extraData?**: `string`
 
 Defined in: [packages/block/src/types.ts:450](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L450)
 
@@ -62,7 +62,7 @@ Defined in: [packages/block/src/types.ts:450](https://github.com/evmts/tevm-mono
 
 ### gasLimit?
 
-> `optional` **gasLimit**: `string`
+> `optional` **gasLimit?**: `string`
 
 Defined in: [packages/block/src/types.ts:447](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L447)
 
@@ -70,7 +70,7 @@ Defined in: [packages/block/src/types.ts:447](https://github.com/evmts/tevm-mono
 
 ### gasUsed?
 
-> `optional` **gasUsed**: `string`
+> `optional` **gasUsed?**: `string`
 
 Defined in: [packages/block/src/types.ts:448](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L448)
 
@@ -78,7 +78,7 @@ Defined in: [packages/block/src/types.ts:448](https://github.com/evmts/tevm-mono
 
 ### logsBloom?
 
-> `optional` **logsBloom**: `string`
+> `optional` **logsBloom?**: `string`
 
 Defined in: [packages/block/src/types.ts:444](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L444)
 
@@ -86,7 +86,7 @@ Defined in: [packages/block/src/types.ts:444](https://github.com/evmts/tevm-mono
 
 ### mixHash?
 
-> `optional` **mixHash**: `string`
+> `optional` **mixHash?**: `string`
 
 Defined in: [packages/block/src/types.ts:451](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L451)
 
@@ -94,7 +94,7 @@ Defined in: [packages/block/src/types.ts:451](https://github.com/evmts/tevm-mono
 
 ### nonce?
 
-> `optional` **nonce**: `string`
+> `optional` **nonce?**: `string`
 
 Defined in: [packages/block/src/types.ts:452](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L452)
 
@@ -102,7 +102,7 @@ Defined in: [packages/block/src/types.ts:452](https://github.com/evmts/tevm-mono
 
 ### number?
 
-> `optional` **number**: `string`
+> `optional` **number?**: `string`
 
 Defined in: [packages/block/src/types.ts:446](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L446)
 
@@ -110,7 +110,7 @@ Defined in: [packages/block/src/types.ts:446](https://github.com/evmts/tevm-mono
 
 ### parentBeaconBlockRoot?
 
-> `optional` **parentBeaconBlockRoot**: `string`
+> `optional` **parentBeaconBlockRoot?**: `string`
 
 Defined in: [packages/block/src/types.ts:457](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L457)
 
@@ -118,7 +118,7 @@ Defined in: [packages/block/src/types.ts:457](https://github.com/evmts/tevm-mono
 
 ### parentHash?
 
-> `optional` **parentHash**: `string`
+> `optional` **parentHash?**: `string`
 
 Defined in: [packages/block/src/types.ts:438](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L438)
 
@@ -126,7 +126,7 @@ Defined in: [packages/block/src/types.ts:438](https://github.com/evmts/tevm-mono
 
 ### receiptTrie?
 
-> `optional` **receiptTrie**: `string`
+> `optional` **receiptTrie?**: `string`
 
 Defined in: [packages/block/src/types.ts:443](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L443)
 
@@ -134,7 +134,7 @@ Defined in: [packages/block/src/types.ts:443](https://github.com/evmts/tevm-mono
 
 ### requestsRoot?
 
-> `optional` **requestsRoot**: `string`
+> `optional` **requestsRoot?**: `string`
 
 Defined in: [packages/block/src/types.ts:458](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L458)
 
@@ -142,7 +142,7 @@ Defined in: [packages/block/src/types.ts:458](https://github.com/evmts/tevm-mono
 
 ### stateRoot?
 
-> `optional` **stateRoot**: `string`
+> `optional` **stateRoot?**: `string`
 
 Defined in: [packages/block/src/types.ts:441](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L441)
 
@@ -150,7 +150,7 @@ Defined in: [packages/block/src/types.ts:441](https://github.com/evmts/tevm-mono
 
 ### timestamp?
 
-> `optional` **timestamp**: `string`
+> `optional` **timestamp?**: `string`
 
 Defined in: [packages/block/src/types.ts:449](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L449)
 
@@ -158,7 +158,7 @@ Defined in: [packages/block/src/types.ts:449](https://github.com/evmts/tevm-mono
 
 ### transactionsTrie?
 
-> `optional` **transactionsTrie**: `string`
+> `optional` **transactionsTrie?**: `string`
 
 Defined in: [packages/block/src/types.ts:442](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L442)
 
@@ -166,7 +166,7 @@ Defined in: [packages/block/src/types.ts:442](https://github.com/evmts/tevm-mono
 
 ### uncleHash?
 
-> `optional` **uncleHash**: `string`
+> `optional` **uncleHash?**: `string`
 
 Defined in: [packages/block/src/types.ts:439](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L439)
 
@@ -174,6 +174,6 @@ Defined in: [packages/block/src/types.ts:439](https://github.com/evmts/tevm-mono
 
 ### withdrawalsRoot?
 
-> `optional` **withdrawalsRoot**: `string`
+> `optional` **withdrawalsRoot?**: `string`
 
 Defined in: [packages/block/src/types.ts:454](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L454)

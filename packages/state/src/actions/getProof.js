@@ -1,12 +1,13 @@
 import { bytesToHex, toHex } from '@tevm/utils'
 import { getForkBlockTag } from './getForkBlockTag.js'
 import { getForkClient } from './getForkClient.js'
+import { resolveForkBlockTag } from './resolveForkBlockTag.js'
 
 // TODO only works in forked mode
 /**
  * Get an EIP-1186 proof from the provider
  * @param {import('../BaseState.js').BaseState} baseState
- * @returns {(address: import('@tevm/utils').EthjsAddress, storageSlots?: Uint8Array[]) => Promise<import('@ethereumjs/statemanager').Proof>}
+ * @returns {(address: import('@tevm/utils').EthjsAddress, storageSlots?: Uint8Array[]) => Promise<import('@evmts/zevm/statemanager').Proof>}
  */
 export const getProof =
 	(baseState) =>
@@ -16,6 +17,7 @@ export const getProof =
 				'getProof only implemented in fork mode atm because tevm at this moment does not merkilize the state',
 			)
 		}
+		await resolveForkBlockTag(baseState)
 		const client = getForkClient(baseState)
 		const blockTag = getForkBlockTag(baseState)
 		const proof = await client.getProof({

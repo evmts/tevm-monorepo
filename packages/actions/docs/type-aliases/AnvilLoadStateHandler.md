@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilLoadStateHandler
 
-# Type Alias: AnvilLoadStateHandler()
+# Type Alias: AnvilLoadStateHandler
 
 > **AnvilLoadStateHandler** = (`params`) => `Promise`\<[`AnvilLoadStateResult`](AnvilLoadStateResult.md)\>
 

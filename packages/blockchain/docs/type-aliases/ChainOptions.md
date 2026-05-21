@@ -26,7 +26,7 @@ A Common instance
 
 ### fork?
 
-> `optional` **fork**: `object`
+> `optional` **fork?**: `object`
 
 Defined in: [packages/blockchain/src/ChainOptions.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L26)
 
@@ -34,7 +34,7 @@ Optional fork config for forking a live chain
 
 #### blockTag?
 
-> `optional` **blockTag**: `BlockTag` \| `bigint` \| `` `0x${string}` ``
+> `optional` **blockTag?**: `BlockTag` \| `bigint` \| `` `0x${string}` ``
 
 Optional block tag to fork
 Defaults to 'latest'
@@ -53,7 +53,7 @@ EIP-1193 request function to fetch forked blocks with
 
 ### genesisBlock?
 
-> `optional` **genesisBlock**: `Block`
+> `optional` **genesisBlock?**: `Block`
 
 Defined in: [packages/blockchain/src/ChainOptions.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L21)
 
@@ -63,7 +63,7 @@ Override the genesis block. If fork is provided it will be fetched from fork. Ot
 
 ### genesisStateRoot?
 
-> `optional` **genesisStateRoot**: `Uint8Array`
+> `optional` **genesisStateRoot?**: `Uint8Array`
 
 Defined in: [packages/blockchain/src/ChainOptions.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L22)
 
@@ -71,7 +71,7 @@ Defined in: [packages/blockchain/src/ChainOptions.ts:22](https://github.com/evmt
 
 ### loggingLevel?
 
-> `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
+> `optional` **loggingLevel?**: `LogOptions`\[`"level"`\]
 
 Defined in: [packages/blockchain/src/ChainOptions.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/ChainOptions.ts#L13)
 

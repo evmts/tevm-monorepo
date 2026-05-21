@@ -1,4 +1,4 @@
-import { Rlp } from '@tevm/rlp'
+import { Rlp } from '@evmts/zevm/rlp'
 import { bytesToHex, hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
 
 /**

@@ -1,7 +1,7 @@
 import { bytesToHex, numberToHex } from '@tevm/utils'
 
 /**
- * @param {import('@tevm/tx').TypedTransaction | import('@tevm/tx').ImpersonatedTx} tx
+ * @param {import('@evmts/zevm/tx').TypedTransaction | import('@evmts/zevm/tx').ImpersonatedTx} tx
  * @param {import('@tevm/block').Block} block
  * @param {number} [txIndex]
  * @returns {import('../common/TransactionResult.js').TransactionResult}
@@ -19,6 +19,7 @@ export const txToJsonRpcTx = (tx, block, txIndex) => {
 		maxPriorityFeePerGas: txJSON.maxPriorityFeePerGas,
 		type: numberToHex(tx.type),
 		...(txJSON.accessList !== undefined ? { accessList: txJSON.accessList } : {}),
+		...(txJSON.authorizationList !== undefined ? { authorizationList: txJSON.authorizationList } : {}),
 		hash: bytesToHex(tx.hash()),
 		input: /** @type {import('@tevm/utils').Hex} */ (txJSON.data),
 		nonce: /** @type {import('@tevm/utils').Hex}*/ (txJSON.nonce),

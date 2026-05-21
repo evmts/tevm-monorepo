@@ -1,5 +1,7 @@
-import { type ethers, JsonRpcProvider } from 'ethers'
+import { ERC20 } from '@tevm/contract'
+import { type ethers } from 'ethers'
 import { assertType, describe, expect, expectTypeOf, test } from 'vitest'
+import { TevmProvider } from '../TevmProvider.js'
 import { Contract } from './Contract.js'
 
 const abi = [
@@ -245,23 +247,31 @@ const abi = [
 	},
 ] as const
 
-const provider = new JsonRpcProvider('https://mainnet.optimism.io', 10)
-const addresses = { 10: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1' } as const
+const addresses = { 10: `0x${'da'.repeat(20)}` } as const
+
+const createErc20Contract = async () => {
+	const provider = await TevmProvider.createMemoryProvider({})
+	const deployResult = await provider.tevm.deploy({ ...ERC20.deploy('Dai Stablecoin', 'DAI'), addToBlockchain: true })
+	if (!deployResult.createdAddress) {
+		throw new Error('contract never deployed')
+	}
+	return new Contract(deployResult.createdAddress, abi, provider)
+}
 
 describe('ethers.Contract', () => {
-	test('Should be typesafe with return types', async () => {
-		const c = new Contract(addresses[10], abi, provider)
+	test('Should be typesafe with return types', () => {
+		const c = new Contract(addresses[10], abi, null)
 
 		assertType<ethers.Contract>(c)
 
-		expectTypeOf(await c.name()).toBeString()
-		expectTypeOf(await c.symbol()).toBeString()
-		expectTypeOf(await c.decimals()).toBeNumber()
-		assertType<BigInt>(await c.totalSupply({ blockTag: 132873940 }))
+		expectTypeOf<Awaited<ReturnType<typeof c.name>>>().toBeString()
+		expectTypeOf<Awaited<ReturnType<typeof c.symbol>>>().toBeString()
+		expectTypeOf<Awaited<ReturnType<typeof c.decimals>>>().toEqualTypeOf<bigint>()
+		expectTypeOf<Awaited<ReturnType<typeof c.totalSupply>>>().toEqualTypeOf<bigint>()
 	})
 
 	test('Should be typesafe with arguments', async () => {
-		const c = new Contract(addresses[10], abi, provider)
+		const c = new Contract(addresses[10], abi, null)
 
 		assertType<Parameters<typeof c.totalSupply>>([])
 		assertType<Parameters<typeof c.totalSupply>>([{ blockTag: 132873940, chainId: 25 }])
@@ -287,26 +297,22 @@ describe('ethers.Contract', () => {
 	})
 
 	test('should work', async () => {
-		const c = new Contract(addresses[10], abi, provider)
+		const c = await createErc20Contract()
 		expect(c).toBeInstanceOf(Contract)
 		expect(await c.name()).toMatchInlineSnapshot('"Dai Stablecoin"')
 		expect(await c.symbol()).toMatchInlineSnapshot('"DAI"')
 		expect(await c.decimals()).toMatchInlineSnapshot('18n')
-		expect(await c.totalSupply({ blockTag: 132873940 })).toMatchInlineSnapshot('17805468002779884407766788n')
+		expect(await c.totalSupply()).toMatchInlineSnapshot('0n')
 		expect(await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE')).toMatchInlineSnapshot('0n')
 	})
 
 	test('should work with custom address', async () => {
-		const c = new Contract(addresses[10], abi, provider)
+		const c = await createErc20Contract()
 		expect(c).toBeInstanceOf(Contract)
 		expect(await c.name()).toMatchInlineSnapshot('"Dai Stablecoin"')
 		expect(await c.symbol()).toMatchInlineSnapshot('"DAI"')
 		expect(await c.decimals()).toMatchInlineSnapshot('18n')
-		expect(
-			await c.totalSupply({
-				blockTag: 132873940,
-			}),
-		).toMatchInlineSnapshot('17805468002779884407766788n')
+		expect(await c.totalSupply()).toMatchInlineSnapshot('0n')
 		expect(await c.balanceOf('0x32307adfFE088e383AFAa721b06436aDaBA47DBE')).toMatchInlineSnapshot('0n')
 	})
 })

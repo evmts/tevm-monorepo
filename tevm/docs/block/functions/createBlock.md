@@ -8,7 +8,7 @@
 
 > **createBlock**(`blockData`, `opts`): [`Block`](../classes/Block.md)
 
-Defined in: packages/block/types/index.d.ts:19
+Defined in: tevm-monorepo/packages/block/types/index.d.ts:19
 
 Creates a block from a block data dictionary
 

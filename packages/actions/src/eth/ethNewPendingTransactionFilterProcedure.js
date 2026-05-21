@@ -10,7 +10,7 @@ export const ethNewPendingTransactionFilterProcedure = (client) => {
 		await client.ready()
 		const id = generateRandomId()
 		/**
-		 * @param {import('@tevm/tx').TypedTransaction} tx
+		 * @param {import('@evmts/zevm/tx').TypedTransaction} tx
 		 */
 		const listener = (tx) => {
 			const filter = client.getFilters().get(id)
@@ -32,7 +32,7 @@ export const ethNewPendingTransactionFilterProcedure = (client) => {
 			registeredListeners: [listener],
 		})
 		return {
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 			method: request.method,
 			jsonrpc: request.jsonrpc,
 			result: id,

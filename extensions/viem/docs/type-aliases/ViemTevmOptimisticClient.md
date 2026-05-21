@@ -58,7 +58,7 @@ Defined in: [extensions/viem/src/ViemTevmOptimisticClient.ts:15](https://github.
 
 ###### TChainOverride
 
-`TChainOverride` *extends* `undefined` \| `Chain` = `undefined` \| `Chain`
+`TChainOverride` *extends* `Chain` \| `undefined` = `Chain` \| `undefined`
 
 ###### Parameters
 

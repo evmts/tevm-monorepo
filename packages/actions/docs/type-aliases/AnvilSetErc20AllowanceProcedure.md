@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetErc20AllowanceProcedure
 
-# Type Alias: AnvilSetErc20AllowanceProcedure()
+# Type Alias: AnvilSetErc20AllowanceProcedure
 
 > **AnvilSetErc20AllowanceProcedure** = (`request`) => `Promise`\<[`AnvilSetErc20AllowanceJsonRpcResponse`](AnvilSetErc20AllowanceJsonRpcResponse.md)\>
 

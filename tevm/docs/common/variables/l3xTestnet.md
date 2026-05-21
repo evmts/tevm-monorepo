@@ -8,7 +8,7 @@
 
 > `const` **l3xTestnet**: [`Common`](../type-aliases/Common.md)
 
-Defined in: packages/common/types/presets/l3xTestnet.d.ts:21
+Defined in: tevm-monorepo/packages/common/types/presets/l3xTestnet.d.ts:21
 
 Creates a common configuration for the l3xTestnet chain.
 

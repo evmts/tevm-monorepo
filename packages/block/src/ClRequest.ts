@@ -70,6 +70,9 @@ export class ClRequest implements CLRequestType {
 	bytes: Uint8Array
 	constructor(type: number, bytes: Uint8Array) {
 		if (type === undefined) throw new InternalError('request type is required')
+		if (!Number.isInteger(type) || type < 0 || type > 255) {
+			throw new InternalError('request type must be an integer between 0 and 255')
+		}
 		this.type = type
 		this.bytes = bytes
 	}

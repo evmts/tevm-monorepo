@@ -16,7 +16,7 @@ A block of calls for simulateV2 (uses V2 transactions)
 
 ### blockOverrides?
 
-> `optional` **blockOverrides**: [`JsonRpcBlockOverride`](JsonRpcBlockOverride.md)
+> `optional` **blockOverrides?**: [`JsonRpcBlockOverride`](JsonRpcBlockOverride.md)
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:425](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L425)
 
@@ -24,7 +24,7 @@ Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:425](https://github.c
 
 ### calls?
 
-> `optional` **calls**: [`JsonRpcSimulateV2Transaction`](JsonRpcSimulateV2Transaction.md)[]
+> `optional` **calls?**: [`JsonRpcSimulateV2Transaction`](JsonRpcSimulateV2Transaction.md)[]
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:427](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L427)
 
@@ -32,6 +32,6 @@ Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:427](https://github.c
 
 ### stateOverrides?
 
-> `optional` **stateOverrides**: [`JsonRpcStateOverride`](JsonRpcStateOverride.md)
+> `optional` **stateOverrides?**: [`JsonRpcStateOverride`](JsonRpcStateOverride.md)
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:426](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L426)

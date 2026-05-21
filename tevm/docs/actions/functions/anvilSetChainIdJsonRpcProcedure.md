@@ -8,7 +8,7 @@
 
 > **anvilSetChainIdJsonRpcProcedure**(`client`): [`AnvilSetChainIdProcedure`](../type-aliases/AnvilSetChainIdProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetChainIdProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetChainIdProcedure.d.ts:1
 
 ## Parameters
 

@@ -9,4 +9,4 @@
  * @type {string}
  * @internal
  */
-export const version = '1.x.x'
+export const version = '2.x.x'

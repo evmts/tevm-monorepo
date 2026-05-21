@@ -40,7 +40,7 @@ export const anvilSetCoinbaseJsonRpcProcedure = (client) => {
 			method: request.method,
 			result: coinbase,
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

@@ -347,7 +347,7 @@ describe('tevmViemExtension', () => {
 				...originalClient.tevm,
 				getAccount: async (params: { address: `0x${string}` }) => {
 					await mockClient.request({
-						method: 'tevm_setAccount',
+						method: 'tevm_getAccount',
 						jsonrpc: '2.0',
 						params: [params],
 					})
@@ -384,7 +384,7 @@ describe('tevmViemExtension', () => {
 
 		// Verify the request was made
 		expect(mockClient.request).toHaveBeenCalledWith({
-			method: 'tevm_setAccount',
+			method: 'tevm_getAccount',
 			jsonrpc: '2.0',
 			params: [{ address: `0x${'e5'.repeat(20)}` }],
 		})
@@ -484,7 +484,7 @@ describe('tevmViemExtension', () => {
 						let formattedBlockTag: string
 
 						if (params.blockTag === undefined) {
-							formattedBlockTag = 'pending'
+							formattedBlockTag = 'latest'
 						} else if (typeof params.blockTag === 'bigint') {
 							// Convert bigint to hex string with '0x' prefix
 							formattedBlockTag = `0x${params.blockTag.toString(16)}`
@@ -539,11 +539,11 @@ describe('tevmViemExtension', () => {
 			address: '0xc1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1',
 		})
 
-		// Verify it defaulted to 'pending'
+		// Verify it defaulted to 'latest'
 		expect(mockRequest).toHaveBeenCalledWith({
 			method: 'eth_getBalance',
 			jsonrpc: '2.0',
-			params: ['0xc1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1', 'pending'],
+			params: ['0xc1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1', 'latest'],
 		})
 	})
 })

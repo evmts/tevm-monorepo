@@ -30,7 +30,7 @@ A base viem client
 
 ### config?
 
-> `optional` **config**: `TConfig`
+> `optional` **config?**: `TConfig`
 
 Defined in: [createOptimisticHandler.ts:57](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L57)
 
@@ -40,7 +40,7 @@ The store config
 
 ### loggingLevel?
 
-> `optional` **loggingLevel**: `"debug"` \| `"error"` \| `"fatal"` \| `"info"` \| `"trace"` \| `"warn"`
+> `optional` **loggingLevel?**: `"debug"` \| `"error"` \| `"fatal"` \| `"info"` \| `"trace"` \| `"warn"`
 
 Defined in: [createOptimisticHandler.ts:59](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L59)
 
@@ -70,7 +70,7 @@ The address of the store contract
 
 ### sync?
 
-> `optional` **sync**: `object`
+> `optional` **sync?**: `object`
 
 Defined in: [createOptimisticHandler.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L48)
 
@@ -78,12 +78,12 @@ Sync options
 
 #### enabled?
 
-> `optional` **enabled**: `boolean`
+> `optional` **enabled?**: `boolean`
 
 Whether to enable sync (default: true)
 
 #### startBlock?
 
-> `optional` **startBlock**: `bigint`
+> `optional` **startBlock?**: `bigint`
 
 The block number to start syncing from (default: 0n)

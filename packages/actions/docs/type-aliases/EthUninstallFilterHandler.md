@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthUninstallFilterHandler
 
-# Type Alias: EthUninstallFilterHandler()
+# Type Alias: EthUninstallFilterHandler
 
 > **EthUninstallFilterHandler** = (`request`) => `Promise`\<[`EthUninstallFilterResult`](EthUninstallFilterResult.md)\>
 

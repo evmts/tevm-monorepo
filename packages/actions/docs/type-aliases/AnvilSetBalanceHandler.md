@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetBalanceHandler
 
-# Type Alias: AnvilSetBalanceHandler()
+# Type Alias: AnvilSetBalanceHandler
 
 > **AnvilSetBalanceHandler** = (`params`) => `Promise`\<[`AnvilSetBalanceResult`](AnvilSetBalanceResult.md)\>
 

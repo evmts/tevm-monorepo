@@ -10,21 +10,19 @@
 
 Defined in: [packages/block/src/types.ts:286](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L286)
 
-Represents the serialized form of execution witness data
+Represents the serialized form of execution witness payload data.
 
-Used in stateless Ethereum to provide witnesses (proofs) needed for
-transaction execution without requiring the full state. Contains
-Verkle proofs and state differences needed to validate state transitions.
-
-Part of Ethereum's roadmap towards statelessness with Verkle trees.
+Used by upstream stateless Ethereum specs to provide witnesses (proofs).
+Tevm models this serialized shape but does not execute or verify
+Verkle/EIP-6800 state-witness blocks.
 
 ## Example
 
 ```typescript
 import { ExecutionWitnessBytes, VerkleExecutionWitness } from '@tevm/block'
-import { decode } from '@tevm/rlp'
+import { decode } from '@evmts/zevm/rlp'
 
-// Decode execution witness from its serialized form
+// Decode execution witness from its serialized form for a downstream verifier.
 function decodeWitness(witnessBytes: ExecutionWitnessBytes): VerkleExecutionWitness {
   const decoded = decode(witnessBytes) as unknown[]
 

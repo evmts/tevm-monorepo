@@ -8,7 +8,7 @@
 
 > **JsonRpcReturnTypeFromMethod**\<`TMethod`\> = [`EthReturnType`](EthReturnType.md) & [`TevmReturnType`](TevmReturnType.md) & [`AnvilReturnType`](AnvilReturnType.md) & [`DebugReturnType`](DebugReturnType.md)\[`TMethod`\]
 
-Defined in: packages/actions/types/tevm-request-handler/JsonRpcReturnTypeFromMethod.d.ts:12
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/JsonRpcReturnTypeFromMethod.d.ts:12
 
 Utility type to get the return type given a method name
 

@@ -1,5 +1,10 @@
+import { bytesToHex } from '@tevm/utils'
 import { fromRlpSerializedAccount } from '../utils/accountHelpers.js'
 import { getAccountFromProvider } from './getAccountFromProvider.js'
+import { resolveForkBlockTag } from './resolveForkBlockTag.js'
+
+const EMPTY_CODE_HASH = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+const EMPTY_STORAGE_ROOT = '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
 
 /**
  * Gets the account corresponding to the provided `address`.
@@ -21,10 +26,14 @@ export const getAccount =
 			forkCache: { accounts: forkAccounts },
 		} = baseState
 
+		if (baseState.tombstones.accounts.has(address.toString())) {
+			return undefined
+		}
+
 		// First check main cache
 		const elem = accounts.get(address)
 		if (elem !== undefined) {
-			return elem.accountRLP !== undefined ? fromRlpSerializedAccount(elem.accountRLP) : undefined
+			return /** @type {any} */ (elem.accountRLP !== undefined ? fromRlpSerializedAccount(elem.accountRLP) : undefined)
 		}
 
 		// Then check fork cache if we have a fork
@@ -34,9 +43,9 @@ export const getAccount =
 				// Convert to account and update main cache with value from fork cache
 				if (forkElem.accountRLP !== undefined) {
 					const account = fromRlpSerializedAccount(forkElem.accountRLP)
-					accounts.put(address, account)
+					accounts.put(address, /** @type {any} */ (account))
 					baseState.logger.debug({ address }, 'Retrieved account from fork cache')
-					return account
+					return /** @type {any} */ (account)
 				}
 				// Handle undefined account case
 				accounts.put(address, undefined)
@@ -53,14 +62,15 @@ export const getAccount =
 			return undefined
 		}
 
+		await resolveForkBlockTag(baseState)
 		baseState.logger.debug({ address }, 'fetching account from remote RPC')
 		const account = await getAccountFromProvider(baseState)(address)
 
 		if (
 			account.nonce === 0n &&
 			account.balance === 0n &&
-			account.codeHash.every((/** @type {number} */ d) => d === 0) &&
-			account.storageRoot.every((/** @type {number} */ d) => d === 0)
+			bytesToHex(account.codeHash) === EMPTY_CODE_HASH &&
+			bytesToHex(account.storageRoot) === EMPTY_STORAGE_ROOT
 		) {
 			// Store empty account in both caches
 			accounts.put(address, undefined)
@@ -69,9 +79,9 @@ export const getAccount =
 		}
 
 		// Store in both caches
-		accounts.put(address, account)
-		forkAccounts.put(address, account)
+		accounts.put(address, /** @type {any} */ (account))
+		forkAccounts.put(address, /** @type {any} */ (account))
 
 		baseState.logger.debug({ address, account }, 'Cached forked account in state manager and fork cache')
-		return account
+		return /** @type {any} */ (account)
 	}

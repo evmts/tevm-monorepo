@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / DebugTraceCallHandler
 
-# Type Alias: DebugTraceCallHandler()
+# Type Alias: DebugTraceCallHandler
 
 > **DebugTraceCallHandler** = \<`TTracer`, `TDiffMode`\>(`params`) => `Promise`\<[`DebugTraceCallResult`](DebugTraceCallResult.md)\<`TTracer`, `TDiffMode`\>\>
 

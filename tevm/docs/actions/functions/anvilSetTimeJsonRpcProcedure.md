@@ -8,7 +8,7 @@
 
 > **anvilSetTimeJsonRpcProcedure**(`client`): [`AnvilSetTimeProcedure`](../type-aliases/AnvilSetTimeProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetTimeProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetTimeProcedure.d.ts:1
 
 ## Parameters
 

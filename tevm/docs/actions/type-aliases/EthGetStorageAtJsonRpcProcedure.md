@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetStorageAtJsonRpcProcedure
 
-# Type Alias: EthGetStorageAtJsonRpcProcedure()
+# Type Alias: EthGetStorageAtJsonRpcProcedure
 
 > **EthGetStorageAtJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetStorageAtJsonRpcResponse`](EthGetStorageAtJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:23
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:23
 
 ## Parameters
 

@@ -114,8 +114,14 @@ describe('tevmViemExtensionOptimistic', () => {
 		// Verify the mocks were called
 		expect(walletClient.request).toHaveBeenCalledWith(
 			expect.objectContaining({
-				method: 'tevm_contract',
+				method: 'tevm_call',
 				jsonrpc: '2.0',
+				params: [
+					expect.objectContaining({
+						to: contractParams.address,
+						data: expect.any(String),
+					}),
+				],
 			}),
 		)
 

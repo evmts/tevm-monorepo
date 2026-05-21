@@ -8,9 +8,9 @@ import { decodeRevertReason } from './decodeRevertReason.js'
  * This format is similar to Parity/OpenEthereum trace format and is useful for indexing.
  * @param {import('@tevm/vm').Vm} vm
  * @param {import('@tevm/node').TevmNode['logger']} logger
- * @param {import('@tevm/evm').EvmRunCallOpts} params
+ * @param {import('@evmts/zevm/evm').EvmRunCallOpts} params
  * @param {boolean} [lazilyRun]
- * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../common/FlatCallTraceResult.js').FlatCallTraceResult}>}
+ * @returns {Promise<import('@evmts/zevm/evm').EvmResult & {trace: import('../common/FlatCallTraceResult.js').FlatCallTraceResult}>}
  * @throws {never}
  */
 export const runCallWithFlatCallTrace = async (vm, logger, params, lazilyRun = false) => {
@@ -35,8 +35,10 @@ export const runCallWithFlatCallTrace = async (vm, logger, params, lazilyRun = f
 
 	/**
 	 * Before each call/create - build trace entry
+	 * @param {import('@evmts/zevm/evm').Message} message
+	 * @param {() => void} [next]
 	 */
-	vm.evm.events?.on('beforeMessage', async (message, next) => {
+	const onBeforeMessage = async (message, next) => {
 		logger.debug(message, 'runCallWithFlatCallTrace: beforeMessage event')
 
 		// Determine if this is a create or call
@@ -120,12 +122,15 @@ export const runCallWithFlatCallTrace = async (vm, logger, params, lazilyRun = f
 		traceStack.push({ traceAddress, index: traceIndex })
 
 		next?.()
-	})
+	}
+	vm.evm.events?.on('beforeMessage', onBeforeMessage)
 
 	/**
 	 * After each call/create - capture results and update subtraces count
+	 * @param {import('@evmts/zevm/evm').EvmResult} result
+	 * @param {() => void} [next]
 	 */
-	vm.evm.events?.on('afterMessage', async (result, next) => {
+	const onAfterMessage = async (result, next) => {
 		logger.debug(result, 'runCallWithFlatCallTrace: afterMessage event')
 
 		const stackEntry = traceStack.pop()
@@ -181,15 +186,25 @@ export const runCallWithFlatCallTrace = async (vm, logger, params, lazilyRun = f
 		}
 
 		next?.()
-	})
+	}
+	vm.evm.events?.on('afterMessage', onAfterMessage)
+	const cleanup = () => {
+		vm.evm.events?.removeListener('beforeMessage', onBeforeMessage)
+		vm.evm.events?.removeListener('afterMessage', onAfterMessage)
+	}
 
 	if (lazilyRun) {
 		// Return object with trace without running EVM
-		return /** @type {any} */ ({ trace: traces })
+		return /** @type {any} */ ({ trace: traces, cleanup })
 	}
 
 	// Execute the call
-	const runCallResult = await vm.evm.runCall(params)
+	let runCallResult
+	try {
+		runCallResult = await vm.evm.runCall(params)
+	} finally {
+		cleanup()
+	}
 
 	logger.debug(runCallResult, 'runCallWithFlatCallTrace: evm run call complete')
 

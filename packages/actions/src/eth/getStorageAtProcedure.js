@@ -5,7 +5,7 @@ import { getStorageAtHandler } from './getStorageAtHandler.js'
  * @returns {import('./EthProcedure.js').EthGetStorageAtJsonRpcProcedure}
  */
 export const getStorageAtProcedure = (client) => async (req) => ({
-	...(req.id ? { id: req.id } : {}),
+	...(req.id !== undefined ? { id: req.id } : {}),
 	jsonrpc: '2.0',
 	method: req.method,
 	result: await getStorageAtHandler(client)({

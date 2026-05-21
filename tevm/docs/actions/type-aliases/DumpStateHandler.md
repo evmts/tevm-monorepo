@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DumpStateHandler
 
-# Type Alias: DumpStateHandler()
+# Type Alias: DumpStateHandler
 
 > **DumpStateHandler** = (`params?`) => `Promise`\<[`DumpStateResult`](DumpStateResult.md)\>
 
-Defined in: packages/actions/types/DumpState/DumpStateHandlerType.d.ts:28
+Defined in: tevm-monorepo/packages/actions/types/DumpState/DumpStateHandlerType.d.ts:28
 
 Dumps the current state of the VM into a JSON-serializable object.
 

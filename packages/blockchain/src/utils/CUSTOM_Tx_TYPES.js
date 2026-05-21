@@ -29,7 +29,6 @@
  * ```
  */
 export const customTxTypes = [
-	'0x4', // EIP-7702 EOA Code tx (not yet supported)
 	'0x7e', // Optimism deposit tx
 	'0x6a', // ArbitrumDepositTxType
 	'0x6b', // ArbitrumUnsignedTxType

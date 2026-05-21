@@ -34,7 +34,7 @@ Client version (e.g., "tevm/1.0.0")
 
 ### forked?
 
-> `optional` **forked**: `object`
+> `optional` **forked?**: `object`
 
 Defined in: [packages/actions/src/anvil/AnvilResult.ts:77](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/anvil/AnvilResult.ts#L77)
 

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetFilterLogsHandler
 
-# Type Alias: EthGetFilterLogsHandler()
+# Type Alias: EthGetFilterLogsHandler
 
 > **EthGetFilterLogsHandler** = (`request`) => `Promise`\<[`EthGetFilterLogsResult`](EthGetFilterLogsResult.md)\>
 

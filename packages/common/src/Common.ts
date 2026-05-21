@@ -1,4 +1,4 @@
-import { type Common as EthjsCommon } from '@ethereumjs/common'
+import { type Common as EthjsCommon } from '@evmts/zevm/common'
 import { type Prettify, type Chain as ViemChain } from 'viem/chains'
 
 /**

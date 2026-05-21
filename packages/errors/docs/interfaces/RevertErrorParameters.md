@@ -10,7 +10,7 @@
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error` \| `EVMError`
+> `optional` **cause?**: [`BaseError`](../classes/BaseError.md) \| `Error` \| `EVMError`
 
 The cause of the error.
 
@@ -18,7 +18,7 @@ The cause of the error.
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
 Details of the error.
 
@@ -26,7 +26,7 @@ Details of the error.
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
 Base URL for the documentation.
 
@@ -34,7 +34,7 @@ Base URL for the documentation.
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
 Path to the documentation.
 
@@ -42,7 +42,7 @@ Path to the documentation.
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
 Slug for the documentation.
 
@@ -50,7 +50,7 @@ Slug for the documentation.
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
 Optional object containing additional information about the error.
 
@@ -58,7 +58,7 @@ Optional object containing additional information about the error.
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
 Additional meta messages.
 
@@ -66,6 +66,6 @@ Additional meta messages.
 
 ### raw?
 
-> `optional` **raw**: `` `0x${string}` ``
+> `optional` **raw?**: `` `0x${string}` ``
 
 The raw data of the revert.

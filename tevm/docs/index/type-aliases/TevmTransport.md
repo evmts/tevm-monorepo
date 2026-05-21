@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmTransport
 
-# Type Alias: TevmTransport()\<TName\>
+# Type Alias: TevmTransport\<TName\>
 
 > **TevmTransport**\<`TName`\> = \<`TChain`\>(`{ chain, pollingInterval, retryCount, timeout, }`) => `object`
 
-Defined in: packages/memory-client/types/TevmTransport.d.ts:17
+Defined in: tevm-monorepo/packages/memory-client/types/TevmTransport.d.ts:17
 
 A type representing a custom TEVM Transport for viem.
 

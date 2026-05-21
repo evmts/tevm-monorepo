@@ -9,7 +9,7 @@ export const anvilGetAutomineJsonRpcProcedure = (client) => {
 			jsonrpc: '2.0',
 			method: request.method,
 			result: client.miningConfig.type === 'auto',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

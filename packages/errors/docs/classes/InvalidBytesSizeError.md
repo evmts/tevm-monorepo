@@ -124,7 +124,7 @@ Same as name, used internally.
 
 ### docsPath
 
-> **docsPath**: `undefined` \| `string`
+> **docsPath**: `string` \| `undefined`
 
 #### Inherited from
 
@@ -142,7 +142,7 @@ The expected size of the bytes.
 
 ### meta
 
-> **meta**: `undefined` \| `object`
+> **meta**: `object` \| `undefined`
 
 Optional object containing additional information about the error.
 
@@ -154,7 +154,7 @@ Optional object containing additional information about the error.
 
 ### metaMessages
 
-> **metaMessages**: `undefined` \| `string`[]
+> **metaMessages**: `string`[] \| `undefined`
 
 #### Inherited from
 

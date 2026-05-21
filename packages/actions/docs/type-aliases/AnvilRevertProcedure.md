@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilRevertProcedure
 
-# Type Alias: AnvilRevertProcedure()
+# Type Alias: AnvilRevertProcedure
 
 > **AnvilRevertProcedure** = (`request`) => `Promise`\<[`AnvilRevertJsonRpcResponse`](AnvilRevertJsonRpcResponse.md)\>
 

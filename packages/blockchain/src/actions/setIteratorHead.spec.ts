@@ -14,4 +14,10 @@ describe(setIteratorHead.name, async () => {
 		await setIteratorHead(chain)('myTag', blocks[0].hash())
 		expect(chain.blocksByTag.get('myTag' as any)).toBe(blocks[0])
 	})
+
+	it('should reject unknown hashes', async () => {
+		const chain = createBaseChain({ common: optimism.copy() })
+		await expect(setIteratorHead(chain)('myTag', blocks[0].hash())).rejects.toThrow('No block with hash')
+		expect(chain.blocksByTag.has('myTag' as any)).toBe(false)
+	})
 })

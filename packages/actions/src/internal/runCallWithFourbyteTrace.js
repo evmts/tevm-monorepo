@@ -9,9 +9,9 @@ import { bytesToHex, getAddress } from '@tevm/utils'
  * Prepares a trace to collect 4-byte function selectors from contract calls
  * @param {import('@tevm/vm').Vm} vm
  * @param {import('@tevm/node').TevmNode['logger']} logger
- * @param {import('@tevm/evm').EvmRunCallOpts} params
+ * @param {import('@evmts/zevm/evm').EvmRunCallOpts} params
  * @param {boolean} [lazilyRun]
- * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../common/FourbyteTraceResult.js').FourbyteTraceResult}>}
+ * @returns {Promise<import('@evmts/zevm/evm').EvmResult & {trace: import('../common/FourbyteTraceResult.js').FourbyteTraceResult}>}
  * @throws {never}
  */
 export const runCallWithFourbyteTrace = async (vm, logger, params, lazilyRun = false) => {
@@ -49,8 +49,10 @@ export const runCallWithFourbyteTrace = async (vm, logger, params, lazilyRun = f
 	 *
 	 * This will capture inner-contract calls if they generate a "CALL" opcode (i.e. `this.function()`);
 	 * which is not the case for a "JUMP" opcode (i.e. `function()`)
+	 * @param {import('@evmts/zevm/evm').Message} message
+	 * @param {() => void} [next]
 	 */
-	vm.evm.events?.on('beforeMessage', async (message, next) => {
+	const onBeforeMessage = async (message, next) => {
 		logger.debug(message, 'runCallWithFourbyteTrace: beforeMessage event')
 
 		// Only process CALL, DELEGATECALL, and STATICCALL operations
@@ -82,15 +84,24 @@ export const runCallWithFourbyteTrace = async (vm, logger, params, lazilyRun = f
 		}
 
 		next?.()
-	})
+	}
+	vm.evm.events?.on('beforeMessage', onBeforeMessage)
+	const cleanup = () => {
+		vm.evm.events?.removeListener('beforeMessage', onBeforeMessage)
+	}
 
 	if (lazilyRun) {
 		// Return object with trace without running EVM
-		return /** @type {any} */ ({ trace: selectors })
+		return /** @type {any} */ ({ trace: selectors, cleanup })
 	}
 
 	// Execute the call
-	const runCallResult = await vm.evm.runCall(params)
+	let runCallResult
+	try {
+		runCallResult = await vm.evm.runCall(params)
+	} finally {
+		cleanup()
+	}
 
 	logger.debug(runCallResult, 'runCallWithFourbyteTrace: evm run call complete')
 	logger.debug(selectors, 'runCallWithFourbyteTrace: collected selectors')

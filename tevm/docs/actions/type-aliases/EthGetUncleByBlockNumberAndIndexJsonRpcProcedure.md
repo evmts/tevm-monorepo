@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetUncleByBlockNumberAndIndexJsonRpcProcedure
 
-# Type Alias: EthGetUncleByBlockNumberAndIndexJsonRpcProcedure()
+# Type Alias: EthGetUncleByBlockNumberAndIndexJsonRpcProcedure
 
 > **EthGetUncleByBlockNumberAndIndexJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetUncleByBlockNumberAndIndexJsonRpcResponse`](EthGetUncleByBlockNumberAndIndexJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:33
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:33
 
 ## Parameters
 

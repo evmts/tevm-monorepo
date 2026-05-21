@@ -8,6 +8,6 @@
 
 > **EthEstimateGasResult** = `bigint`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:31
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:31
 
 JSON-RPC response for `eth_estimateGas` procedure

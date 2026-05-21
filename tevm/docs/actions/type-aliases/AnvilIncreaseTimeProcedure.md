@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilIncreaseTimeProcedure
 
-# Type Alias: AnvilIncreaseTimeProcedure()
+# Type Alias: AnvilIncreaseTimeProcedure
 
 > **AnvilIncreaseTimeProcedure** = (`request`) => `Promise`\<[`AnvilIncreaseTimeJsonRpcResponse`](AnvilIncreaseTimeJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:135
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:135
 
 JSON-RPC procedure for `anvil_increaseTime`
 

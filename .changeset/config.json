@@ -9,6 +9,10 @@
   "ignore": [
     "@tevm/example*",
     "@tevm/node-docs",
+    "@tevm/memory-client-integration",
+    "@tevm/precompiles-integration",
+    "@tevm/test-matchers-integration",
+    "mud-template-react",
     "svelte-ethers",
     "mdt-repro",
     "@tevm/bench",

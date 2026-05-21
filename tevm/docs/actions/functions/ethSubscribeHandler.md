@@ -8,7 +8,7 @@
 
 > **ethSubscribeHandler**(`tevmNode`): [`EthSubscribeHandler`](../type-aliases/EthSubscribeHandler.md)
 
-Defined in: packages/actions/types/eth/ethSubscribeHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethSubscribeHandler.d.ts:1
 
 ## Parameters
 

@@ -6,7 +6,7 @@
 
 # Class: Block
 
-Defined in: packages/block/types/block.d.ts:12
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:12
 
 An object that represents the block.
 
@@ -16,7 +16,7 @@ An object that represents the block.
 
 > **new Block**(`opts`, `header?`, `transactions?`, `uncleHeaders?`, `withdrawals?`, `requests?`, `executionWitness?`): `Block`
 
-Defined in: packages/block/types/block.d.ts:92
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:92
 
 This constructor takes the values, validates them, assigns them and freezes the object.
 Use the static factory methods to assist in creating a Block object from varying data types and options.
@@ -49,7 +49,7 @@ Use the static factory methods to assist in creating a Block object from varying
 
 ##### executionWitness?
 
-`null` | [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
+[`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
 
 #### Returns
 
@@ -61,19 +61,19 @@ Use the static factory methods to assist in creating a Block object from varying
 
 > `protected` **cache**: `object`
 
-Defined in: packages/block/types/block.d.ts:26
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:26
 
 #### requestsRoot?
 
-> `optional` **requestsRoot**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **requestsRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
 
 #### txTrieRoot?
 
-> `optional` **txTrieRoot**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **txTrieRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
 
 #### withdrawalsTrieRoot?
 
-> `optional` **withdrawalsTrieRoot**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **withdrawalsTrieRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
 
 ***
 
@@ -81,11 +81,11 @@ Defined in: packages/block/types/block.d.ts:26
 
 > `readonly` **common**: `object`
 
-Defined in: packages/block/types/block.d.ts:18
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:18
 
 #### blockExplorers?
 
-> `optional` **blockExplorers**: `object`
+> `optional` **blockExplorers?**: `object`
 
 Collection of block explorers
 
@@ -99,53 +99,57 @@ Collection of block explorers
 
 #### blockTime?
 
-> `optional` **blockTime**: `number`
+> `optional` **blockTime?**: `number`
 
 Block time in milliseconds.
 
 #### contracts?
 
-> `optional` **contracts**: `object`
+> `optional` **contracts?**: `object`
 
 Collection of contracts
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
+\[`key`: `string`\]: `ChainContract` \| \{\[`sourceId`: `number`\]: `ChainContract` \| `undefined`; \} \| `undefined`
 
 ##### contracts.ensRegistry?
 
-> `optional` **ensRegistry**: `ChainContract`
+> `optional` **ensRegistry?**: `ChainContract`
 
 ##### contracts.ensUniversalResolver?
 
-> `optional` **ensUniversalResolver**: `ChainContract`
+> `optional` **ensUniversalResolver?**: `ChainContract`
 
 ##### contracts.erc6492Verifier?
 
-> `optional` **erc6492Verifier**: `ChainContract`
+> `optional` **erc6492Verifier?**: `ChainContract`
 
 ##### contracts.multicall3?
 
-> `optional` **multicall3**: `ChainContract`
+> `optional` **multicall3?**: `ChainContract`
 
-#### copy()
+#### copy
 
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
 
 ##### Returns
 
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
 
-#### custom?
+#### ~~custom?~~
 
-> `optional` **custom**: `Record`\<`string`, `unknown`\>
+> `optional` **custom?**: `Record`\<`string`, `unknown`\>
 
 Custom chain data.
 
+##### Deprecated
+
+use `.extend` instead.
+
 #### ensTlds?
 
-> `optional` **ensTlds**: readonly `string`[]
+> `optional` **ensTlds?**: readonly `string`[]
 
 Collection of ENS TLDs for the chain.
 
@@ -155,19 +159,25 @@ Collection of ENS TLDs for the chain.
 
 #### experimental\_preconfirmationTime?
 
-> `optional` **experimental\_preconfirmationTime**: `number`
+> `optional` **experimental\_preconfirmationTime?**: `number`
 
 Preconfirmation time in milliseconds.
 
+#### extendSchema?
+
+> `optional` **extendSchema?**: `Record`\<`string`, `unknown`\>
+
+Extend schema.
+
 #### fees?
 
-> `optional` **fees**: `ChainFees`\<`undefined` \| `ChainFormatters`\>
+> `optional` **fees?**: `ChainFees`\<`ChainFormatters` \| `undefined`\>
 
 Modifies how fees are derived.
 
 #### formatters?
 
-> `optional` **formatters**: `ChainFormatters`
+> `optional` **formatters?**: `ChainFormatters`
 
 Modifies how data is formatted and typed (e.g. blocks and transactions)
 
@@ -189,6 +199,12 @@ Human-readable name
 
 Currency used by chain
 
+#### prepareTransactionRequest?
+
+> `optional` **prepareTransactionRequest?**: `PrepareTransactionRequestFn` \| \[`PrepareTransactionRequestFn`, `object`\]
+
+Function to prepare a transaction request. Runs before the transaction is filled.
+
 #### rpcUrls
 
 > **rpcUrls**: `object`
@@ -205,29 +221,35 @@ Collection of RPC endpoints
 
 #### serializers?
 
-> `optional` **serializers**: `ChainSerializers`\<`undefined` \| `ChainFormatters`, `TransactionSerializable`\>
+> `optional` **serializers?**: `ChainSerializers`\<`ChainFormatters` \| `undefined`, `TransactionSerializable`\>
 
 Modifies how data is serialized (e.g. transactions).
 
 #### sourceId?
 
-> `optional` **sourceId**: `number`
+> `optional` **sourceId?**: `number`
 
 Source Chain ID (ie. the L1 chain)
 
 #### testnet?
 
-> `optional` **testnet**: `boolean`
+> `optional` **testnet?**: `boolean`
 
 Flag for test networks
+
+#### verifyHash?
+
+> `optional` **verifyHash?**: `ChainVerifyHashFn`
+
+Chain-specific signature verification.
 
 ***
 
 ### executionWitness?
 
-> `readonly` `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md)
+> `readonly` `optional` **executionWitness?**: [`VerkleExecutionWitness`](../interfaces/VerkleExecutionWitness.md) \| `null`
 
-Defined in: packages/block/types/block.d.ts:25
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:25
 
 EIP-6800: Verkle Proof Data (experimental)
 null implies that the non default executionWitness might exist but not available
@@ -239,15 +261,15 @@ and will not lead to execution of the block via vm with verkle stateless manager
 
 > `readonly` **header**: [`BlockHeader`](BlockHeader.md)
 
-Defined in: packages/block/types/block.d.ts:13
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:13
 
 ***
 
-### keccakFunction()
+### keccakFunction
 
 > `protected` **keccakFunction**: (`msg`) => `Uint8Array`
 
-Defined in: packages/block/types/block.d.ts:19
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:19
 
 #### Parameters
 
@@ -263,9 +285,9 @@ Defined in: packages/block/types/block.d.ts:19
 
 ### requests?
 
-> `readonly` `optional` **requests**: [`ClRequest`](ClRequest.md)[]
+> `readonly` `optional` **requests?**: [`ClRequest`](ClRequest.md)[]
 
-Defined in: packages/block/types/block.d.ts:17
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:17
 
 ***
 
@@ -273,7 +295,7 @@ Defined in: packages/block/types/block.d.ts:17
 
 > `readonly` **transactions**: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md)[]
 
-Defined in: packages/block/types/block.d.ts:14
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:14
 
 ***
 
@@ -281,15 +303,15 @@ Defined in: packages/block/types/block.d.ts:14
 
 > `readonly` **uncleHeaders**: [`BlockHeader`](BlockHeader.md)[]
 
-Defined in: packages/block/types/block.d.ts:15
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:15
 
 ***
 
 ### withdrawals?
 
-> `readonly` `optional` **withdrawals**: [`Withdrawal`](../../utils/classes/Withdrawal.md)[]
+> `readonly` `optional` **withdrawals?**: [`Withdrawal`](../../utils/classes/Withdrawal.md)[]
 
-Defined in: packages/block/types/block.d.ts:16
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:16
 
 ## Methods
 
@@ -297,7 +319,7 @@ Defined in: packages/block/types/block.d.ts:16
 
 > **errorStr**(): `string`
 
-Defined in: packages/block/types/block.d.ts:189
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:189
 
 Return a compact error string representation of the object
 
@@ -311,7 +333,7 @@ Return a compact error string representation of the object
 
 > **ethashCanonicalDifficulty**(`parentBlock`): `bigint`
 
-Defined in: packages/block/types/block.d.ts:173
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:173
 
 Returns the canonical difficulty for this block.
 
@@ -333,7 +355,7 @@ the parent of this `Block`
 
 > **genTxTrie**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/block/types/block.d.ts:112
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:112
 
 Generates transaction trie for validation.
 
@@ -347,7 +369,7 @@ Generates transaction trie for validation.
 
 > **getTransactionsValidationErrors**(): `string`[]
 
-Defined in: packages/block/types/block.d.ts:124
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:124
 
 Validates transaction signatures and minimum gas requirements.
 
@@ -363,7 +385,7 @@ an array of error strings
 
 > **hash**(): `Uint8Array`
 
-Defined in: packages/block/types/block.d.ts:100
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:100
 
 Returns the hash of the block.
 
@@ -377,7 +399,7 @@ Returns the hash of the block.
 
 > **isGenesis**(): `boolean`
 
-Defined in: packages/block/types/block.d.ts:104
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:104
 
 Determines if this block is the genesis block.
 
@@ -391,7 +413,7 @@ Determines if this block is the genesis block.
 
 > **raw**(): [`BlockBytes`](../type-aliases/BlockBytes.md)
 
-Defined in: packages/block/types/block.d.ts:96
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:96
 
 Returns a Array of the raw Bytes Arrays of this block, in order.
 
@@ -405,7 +427,7 @@ Returns a Array of the raw Bytes Arrays of this block, in order.
 
 > **requestsTrieIsValid**(): `Promise`\<`boolean`\>
 
-Defined in: packages/block/types/block.d.ts:119
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:119
 
 #### Returns
 
@@ -417,7 +439,7 @@ Defined in: packages/block/types/block.d.ts:119
 
 > **serialize**(): `Uint8Array`
 
-Defined in: packages/block/types/block.d.ts:108
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:108
 
 Returns the rlp encoding of the block.
 
@@ -431,7 +453,7 @@ Returns the rlp encoding of the block.
 
 > **toExecutionPayload**(): [`ExecutionPayload`](../type-aliases/ExecutionPayload.md)
 
-Defined in: packages/block/types/block.d.ts:185
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:185
 
 #### Returns
 
@@ -443,7 +465,7 @@ Defined in: packages/block/types/block.d.ts:185
 
 > **toJSON**(): [`JsonBlock`](../interfaces/JsonBlock.md)
 
-Defined in: packages/block/types/block.d.ts:184
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:184
 
 Returns the block in JSON format.
 
@@ -457,7 +479,7 @@ Returns the block in JSON format.
 
 > **transactionsAreValid**(): `boolean`
 
-Defined in: packages/block/types/block.d.ts:129
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:129
 
 Validates transaction signatures and minimum gas requirements.
 
@@ -473,7 +495,7 @@ True if all transactions are valid, false otherwise
 
 > **transactionsTrieIsValid**(): `Promise`\<`boolean`\>
 
-Defined in: packages/block/types/block.d.ts:118
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:118
 
 Validates the transaction trie by generating a trie
 and do a check on the root hash.
@@ -490,7 +512,7 @@ True if the transaction trie is valid, false otherwise
 
 > **uncleHashIsValid**(): `boolean`
 
-Defined in: packages/block/types/block.d.ts:152
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:152
 
 Validates the uncle's hash.
 
@@ -506,7 +528,7 @@ true if the uncle's hash is valid, false otherwise.
 
 > **validateBlobTransactions**(`parentHeader`): `void`
 
-Defined in: packages/block/types/block.d.ts:147
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:147
 
 Validates that blob gas fee for each transaction is greater than or equal to the
 blobGasPrice for the block and that total blob gas in block is less than maximum
@@ -530,7 +552,7 @@ header of parent block
 
 > **validateData**(`onlyHeader?`, `verifyTxs?`): `Promise`\<`void`\>
 
-Defined in: packages/block/types/block.d.ts:140
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:140
 
 Validates the block data, throwing if invalid.
 This can be checked on the Block itself without needing access to any parent block
@@ -563,7 +585,7 @@ if set to `false`, will not check for transaction validation errors (default: tr
 
 > **validateGasLimit**(`parentBlock`): `void`
 
-Defined in: packages/block/types/block.d.ts:180
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:180
 
 Validates if the block gasLimit remains in the boundaries set by the protocol.
 Throws if invalid
@@ -586,7 +608,7 @@ the parent of this `Block`
 
 > **validateUncles**(): `void`
 
-Defined in: packages/block/types/block.d.ts:167
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:167
 
 Consistency checks for uncles included in the block, if any.
 
@@ -606,7 +628,7 @@ Header does not count an uncle twice.
 
 > **withdrawalsTrieIsValid**(): `Promise`\<`boolean`\>
 
-Defined in: packages/block/types/block.d.ts:157
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:157
 
 Validates the withdrawal root
 
@@ -622,7 +644,7 @@ true if the withdrawals trie root is valid, false otherwise
 
 > `static` **fromBeaconPayloadJson**(`payload`, `opts`): `Promise`\<`Block`\>
 
-Defined in: packages/block/types/block.d.ts:87
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:87
 
 Method to retrieve a block from a beacon payload json
 
@@ -652,7 +674,7 @@ the block constructed block
 
 > `static` **fromBlockData**(`blockData`, `opts`): `Block`
 
-Defined in: packages/block/types/block.d.ts:57
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:57
 
 Static constructor to create a block from a block data dictionary
 
@@ -680,7 +702,7 @@ Use createBlock() instead - this method is kept for compatibility
 
 > `static` **fromExecutionPayload**(`payload`, `opts`): `Promise`\<`Block`\>
 
-Defined in: packages/block/types/block.d.ts:80
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:80
 
 Method to retrieve a block from an execution payload
 
@@ -708,7 +730,7 @@ the block constructed block
 
 > `static` **fromRLPSerializedBlock**(`serialized`, `opts`): `Block`
 
-Defined in: packages/block/types/block.d.ts:65
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:65
 
 Static constructor to create a block from a RLP-serialized block
 
@@ -736,7 +758,7 @@ Use createBlockFromRLP() instead - this method is kept for compatibility
 
 > `static` **fromValuesArray**(`values`, `opts`): `Block`
 
-Defined in: packages/block/types/block.d.ts:73
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:73
 
 Static constructor to create a block from an array of Bytes values
 
@@ -764,7 +786,7 @@ Use createBlockFromValuesArray() instead - this method is kept for compatibility
 
 > `static` **genRequestsTrieRoot**(`requests`, `emptyTrie?`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/block/types/block.d.ts:49
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:49
 
 Returns the requests trie root for an array of CLRequests
 
@@ -794,7 +816,7 @@ a 32 byte Uint8Array representing the requests trie root
 
 > `static` **genTransactionsTrieRoot**(`txs`, `emptyTrie?`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/block/types/block.d.ts:42
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:42
 
 Returns the txs trie root for array of TypedTransaction
 
@@ -820,7 +842,7 @@ array of TypedTransaction to compute the root of
 
 > `static` **genWithdrawalsTrieRoot**(`wts`, `emptyTrie?`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/block/types/block.d.ts:36
+Defined in: tevm-monorepo/packages/block/types/block.d.ts:36
 
 Returns the withdrawals trie root for array of Withdrawal.
 

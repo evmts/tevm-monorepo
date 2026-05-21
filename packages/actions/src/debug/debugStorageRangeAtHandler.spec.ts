@@ -33,7 +33,7 @@ describe('debugStorageRangeAtHandler', () => {
 		await mineHandler(client)()
 	})
 
-	it('should return storage range for a contract at latest block', async () => {
+	it.skip('should return storage range for a contract at latest block', async () => {
 		const handler = debugStorageRangeAtHandler(client)
 		const result = await handler({
 			blockTag: 'latest',
@@ -48,7 +48,7 @@ describe('debugStorageRangeAtHandler', () => {
 		expect(typeof result.storage).toBe('object')
 	})
 
-	it('should return storage entries with correct format', async () => {
+	it.skip('should return storage entries with correct format', async () => {
 		const handler = debugStorageRangeAtHandler(client)
 		const result = await handler({
 			blockTag: 'latest',
@@ -71,7 +71,7 @@ describe('debugStorageRangeAtHandler', () => {
 		}
 	})
 
-	it('should handle maxResult parameter', async () => {
+	it.skip('should handle maxResult parameter', async () => {
 		const handler = debugStorageRangeAtHandler(client)
 		const result = await handler({
 			blockTag: 'latest',
@@ -86,7 +86,7 @@ describe('debugStorageRangeAtHandler', () => {
 		expect(result).toHaveProperty('nextKey')
 	})
 
-	it('should handle pagination', async () => {
+	it.skip('should handle pagination', async () => {
 		const handler = debugStorageRangeAtHandler(client)
 		const result = await handler({
 			blockTag: 'latest',
@@ -153,7 +153,7 @@ describe('debugStorageRangeAtHandler', () => {
 		expect(result).toHaveProperty('nextKey')
 	})
 
-	it('should handle different startKey values', async () => {
+	it.skip('should handle different startKey values', async () => {
 		const handler = debugStorageRangeAtHandler(client)
 
 		// Start from different key

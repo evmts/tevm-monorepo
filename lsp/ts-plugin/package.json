@@ -66,17 +66,18 @@
 	"dependencies": {
 		"@tevm/base-bundler": "workspace:^",
 		"@tevm/bundler-cache": "workspace:^",
-		"effect": "3.18.1",
-		"glob": "^11.0.3",
-		"minimatch": "^10.0.3",
-		"solc": "0.8.30",
-		"solidity-ast": "^0.4.61"
+		"effect": "3.21.2",
+		"glob": "^13.0.6",
+		"minimatch": "^10.2.5",
+		"solc": "0.8.35",
+		"solidity-ast": "^0.4.62"
 	},
 	"devDependencies": {
 		"@tevm/config": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"typescript": "^5.9.3"
+		"@types/node": "^25.9.0",
+		"typescript": "^6.0.3"
 	},
 	"peerDependencies": {
 		"typescript": ">=5.0.0"

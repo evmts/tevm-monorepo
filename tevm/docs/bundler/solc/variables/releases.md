@@ -8,4 +8,4 @@
 
 > `const` **releases**: [`Releases`](../type-aliases/Releases.md)
 
-Defined in: bundler-packages/solc/types/src/solc.d.ts:8
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solc.d.ts:8

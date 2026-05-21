@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetChainIdHandler
 
-# Type Alias: AnvilSetChainIdHandler()
+# Type Alias: AnvilSetChainIdHandler
 
 > **AnvilSetChainIdHandler** = (`params`) => `Promise`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>
 

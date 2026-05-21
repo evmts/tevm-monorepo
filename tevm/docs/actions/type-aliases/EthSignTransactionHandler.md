@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthSignTransactionHandler
 
-# Type Alias: EthSignTransactionHandler()
+# Type Alias: EthSignTransactionHandler
 
 > **EthSignTransactionHandler** = (`request`) => `Promise`\<[`EthSignTransactionResult`](EthSignTransactionResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:38
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:38
 
 ## Parameters
 

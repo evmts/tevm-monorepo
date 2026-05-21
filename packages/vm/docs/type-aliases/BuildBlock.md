@@ -4,7 +4,7 @@
 
 [@tevm/vm](../globals.md) / BuildBlock
 
-# Type Alias: BuildBlock()
+# Type Alias: BuildBlock
 
 > **BuildBlock** = (`opts`) => `Promise`\<[`BlockBuilder`](../classes/BlockBuilder.md)\>
 

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilResetHandler
 
-# Type Alias: AnvilResetHandler()
+# Type Alias: AnvilResetHandler
 
 > **AnvilResetHandler** = (`params`) => `Promise`\<[`AnvilResetResult`](AnvilResetResult.md)\>
 

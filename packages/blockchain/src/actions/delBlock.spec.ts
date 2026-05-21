@@ -40,6 +40,24 @@ describe(delBlock.name, async () => {
 		expect(await getCanonicalHeadBlock(chain)()).toBe(blocks[0])
 	})
 
+	it('should delete descendants when deleting an ancestor', async () => {
+		const chain = createBaseChain({
+			common: optimism.copy(),
+		})
+		const blocks = await getMockBlocks()
+		await putBlock(chain)(blocks[0])
+		await putBlock(chain)(blocks[1])
+		await putBlock(chain)(blocks[2])
+
+		await delBlock(chain)(blocks[1].hash())
+
+		expect(chain.blocks.get(bytesToHex(blocks[1].hash()))).toBeUndefined()
+		expect(chain.blocks.get(bytesToHex(blocks[2].hash()))).toBeUndefined()
+		expect(chain.blocksByNumber.get(blocks[1].header.number)).toBeUndefined()
+		expect(chain.blocksByNumber.get(blocks[2].header.number)).toBeUndefined()
+		expect(await getCanonicalHeadBlock(chain)()).toBe(blocks[0])
+	})
+
 	it('should throw an InvalidBlockError if we attempt to delete the fork block', async () => {
 		const chain = createBaseChain({
 			common: optimism.copy(),

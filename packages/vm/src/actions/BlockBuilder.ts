@@ -1,6 +1,8 @@
-// Originally from ethjs
-
-import { Bloom, encodeReceipt } from '@ethereumjs/vm'
+import { Bloom, encodeReceipt } from '@evmts/zevm/receipt'
+import { Rlp } from '@evmts/zevm/rlp'
+import { Trie } from '@evmts/zevm/trie'
+import type { ImpersonatedTx, TypedTransaction } from '@evmts/zevm/tx'
+import { BlobEIP4844Transaction } from '@evmts/zevm/tx'
 import type { HeaderData } from '@tevm/block'
 import { Block } from '@tevm/block'
 import { ConsensusType } from '@tevm/common'
@@ -11,10 +13,6 @@ import {
 	InvalidBlobVersionedHashesError,
 	InvalidGasLimitError,
 } from '@tevm/errors'
-import { Rlp } from '@tevm/rlp'
-import { Trie } from '@tevm/trie'
-import type { ImpersonatedTx, TypedTransaction } from '@tevm/tx'
-import { BlobEIP4844Transaction } from '@tevm/tx'
 import {
 	EthjsAddress,
 	type Hex,
@@ -84,6 +82,9 @@ export class BlockBuilder {
 			number: opts.headerData?.number ?? opts.parentBlock.header.number + 1n,
 			gasLimit: opts.headerData?.gasLimit ?? opts.parentBlock.header.gasLimit,
 			timestamp: opts.headerData?.timestamp ?? BigInt(Math.round(Date.now() / 1000)),
+		}
+		if (opts.withdrawals !== undefined && this.vm.common.ethjsCommon.isActivatedEIP(4895) !== true) {
+			throw new EipNotEnabledError('eip4895 not activated yet for building a block with withdrawals')
 		}
 		this.withdrawals = opts.withdrawals?.map((w) => (Withdrawal as any).fromWithdrawalData(w))
 
@@ -197,11 +198,6 @@ export class BlockBuilder {
 	private async processWithdrawals() {
 		for (const withdrawal of this.withdrawals ?? []) {
 			const { address, amount } = withdrawal
-			// If there is no amount to add, skip touching the account
-			// as per the implementation of other clients geth/nethermind
-			// although this should never happen as no withdrawals with 0
-			// amount should ever land up here.
-			if (amount === 0n) continue
 			// Withdrawal amount is represented in Gwei so needs to be
 			// converted to wei
 			await rewardAccount(this.vm.evm, address, parseGwei(amount.toString()))
@@ -235,7 +231,7 @@ export class BlockBuilder {
 		const gasLimit = this.headerData.gasLimit ?? 0n
 		const blockGasLimit = toType(gasLimit as any, TypeOutput.BigInt) ?? 0n
 
-		const blobGasLimit = this.vm.common.ethjsCommon.param('targetBlobGasPerBlock')
+		const blobGasLimit = this.vm.common.ethjsCommon.getBlobGasSchedule().maxBlobGasPerBlock
 		const blobGasPerBlob = this.vm.common.ethjsCommon.param('blobGasPerBlob')
 
 		const blockGasRemaining = blockGasLimit - this.gasUsed
@@ -324,7 +320,9 @@ export class BlockBuilder {
 		if (consensusType === ConsensusType.ProofOfWork) {
 			await this.rewardMiner()
 		}
-		await this.processWithdrawals()
+		if (this.vm.common.ethjsCommon.isActivatedEIP(4895) === true) {
+			await this.processWithdrawals()
+		}
 
 		const stateRoot = await this.vm.stateManager.getStateRoot()
 		const transactionsTrie = await this.transactionsTrie()
@@ -363,7 +361,7 @@ export class BlockBuilder {
 		const blockData = {
 			header: headerData,
 			transactions: this.transactions,
-			withdrawals: this.withdrawals ?? [],
+			...(this.vm.common.ethjsCommon.isActivatedEIP(4895) === true ? { withdrawals: this.withdrawals ?? [] } : {}),
 		}
 		const block = Block.fromBlockData(blockData, blockOpts)
 

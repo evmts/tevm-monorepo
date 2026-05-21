@@ -8,4 +8,4 @@
 
 > **Tevm** = [`MemoryClient`](../../index/type-aliases/MemoryClient.md)\<`any`, `any`\>\[`"transport"`\]\[`"tevm"`\]
 
-Defined in: packages/server/types/Client.d.ts:2
+Defined in: tevm-monorepo/packages/server/types/Client.d.ts:2

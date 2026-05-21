@@ -37,7 +37,7 @@ import {
  */
 
 /**
- * @param {import('@tevm/evm').EvmError} error
+ * @param {import('@evmts/zevm/evm').EvmError} error
  */
 export const createEvmError = (error) => {
 	// make it so we can always override it for now

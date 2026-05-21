@@ -10,10 +10,7 @@
 
 > **toType**\<`T`\>(`input`, `outputType`): `null`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:35
-
-Convert an input to a specified type.
-Input of null/undefined returns null/undefined regardless of the output type.
+Defined in: zevm/npm/zevm/dist/util.d.ts:155
 
 ### Type Parameters
 
@@ -27,13 +24,9 @@ Input of null/undefined returns null/undefined regardless of the output type.
 
 `null`
 
-value to convert
-
 #### outputType
 
 `T`
-
-type to output
 
 ### Returns
 
@@ -43,10 +36,7 @@ type to output
 
 > **toType**\<`T`\>(`input`, `outputType`): `undefined`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:36
-
-Convert an input to a specified type.
-Input of null/undefined returns null/undefined regardless of the output type.
+Defined in: zevm/npm/zevm/dist/util.d.ts:156
 
 ### Type Parameters
 
@@ -60,13 +50,9 @@ Input of null/undefined returns null/undefined regardless of the output type.
 
 `undefined`
 
-value to convert
-
 #### outputType
 
 `T`
-
-type to output
 
 ### Returns
 
@@ -76,10 +62,7 @@ type to output
 
 > **toType**\<`T`\>(`input`, `outputType`): `TypeOutputReturnType`\[`T`\]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/types.d.ts:37
-
-Convert an input to a specified type.
-Input of null/undefined returns null/undefined regardless of the output type.
+Defined in: zevm/npm/zevm/dist/util.d.ts:157
 
 ### Type Parameters
 
@@ -93,13 +76,9 @@ Input of null/undefined returns null/undefined regardless of the output type.
 
 `ToBytesInputTypes`
 
-value to convert
-
 #### outputType
 
 `T`
-
-type to output
 
 ### Returns
 

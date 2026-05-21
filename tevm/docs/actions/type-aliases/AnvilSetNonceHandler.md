@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilSetNonceHandler
 
-# Type Alias: AnvilSetNonceHandler()
+# Type Alias: AnvilSetNonceHandler
 
 > **AnvilSetNonceHandler** = (`params`) => `Promise`\<[`AnvilSetNonceResult`](AnvilSetNonceResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:11
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:11
 
 ## Parameters
 

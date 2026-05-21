@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetBalanceProcedure
 
-# Type Alias: AnvilSetBalanceProcedure()
+# Type Alias: AnvilSetBalanceProcedure
 
 > **AnvilSetBalanceProcedure** = (`request`) => `Promise`\<[`AnvilSetBalanceJsonRpcResponse`](AnvilSetBalanceJsonRpcResponse.md)\>
 

@@ -8,7 +8,7 @@
 
 > **createSolc**(`release`): `Promise`\<[`Solc`](../interfaces/Solc.md)\>
 
-Defined in: bundler-packages/solc/types/src/solc.d.ts:10
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solc.d.ts:10
 
 ## Parameters
 

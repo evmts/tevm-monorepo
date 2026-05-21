@@ -1,13 +1,13 @@
+import { FeeMarketEIP1559Transaction } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
 import { getBlockFromRpc } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
-import { FeeMarketEIP1559Transaction } from '@tevm/tx'
 import { describe, expect, it } from 'vitest'
 import { txToJsonRpcTx } from './txToJsonRpcTx.js'
 
-describe(txToJsonRpcTx.name, () => {
+describe.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)(txToJsonRpcTx.name, () => {
 	it('should work', async () => {
 		const tx = new FeeMarketEIP1559Transaction({
 			to: createAddress(`0x${'a'.repeat(40)}`),

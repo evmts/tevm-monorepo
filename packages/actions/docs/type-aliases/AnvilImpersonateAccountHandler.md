@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilImpersonateAccountHandler
 
-# Type Alias: AnvilImpersonateAccountHandler()
+# Type Alias: AnvilImpersonateAccountHandler
 
 > **AnvilImpersonateAccountHandler** = (`params`) => `Promise`\<[`AnvilImpersonateAccountResult`](AnvilImpersonateAccountResult.md)\>
 

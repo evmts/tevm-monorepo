@@ -70,6 +70,7 @@ pub fn resolve_import_path(
     // Try resolving remappings
     for (k, v) in cfg.remappings.iter() {
         if let Some(rest) = import_path.strip_prefix(k) {
+            let rest = rest.trim_start_matches(&['/', '\\'][..]);
             return Ok(PathBuf::from(v).join(rest));
         }
     }

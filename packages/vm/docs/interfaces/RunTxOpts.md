@@ -14,18 +14,18 @@ Options for the `runTx` method.
 
 ### block?
 
-> `optional` **block**: `Block`
+> `optional` **block?**: `Block`
 
 Defined in: [packages/vm/src/utils/RunTxOpts.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L13)
 
-The `@ethereumjs/block` the `tx` belongs to.
+The block the transaction belongs to.
 If omitted, a default blank block will be used.
 
 ***
 
 ### blockGasUsed?
 
-> `optional` **blockGasUsed**: `bigint`
+> `optional` **blockGasUsed?**: `bigint`
 
 Defined in: [packages/vm/src/utils/RunTxOpts.ts:61](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L61)
 
@@ -35,7 +35,7 @@ To obtain an accurate tx receipt input the block gas used up until this tx.
 
 ### preserveJournal?
 
-> `optional` **preserveJournal**: `boolean`
+> `optional` **preserveJournal?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunTxOpts.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L67)
 
@@ -47,7 +47,7 @@ If true, doesn't cleanup journal or commit state changes. Default is false.
 
 ### reportAccessList?
 
-> `optional` **reportAccessList**: `boolean`
+> `optional` **reportAccessList?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunTxOpts.ts:50](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L50)
 
@@ -64,7 +64,7 @@ StateManager.generateAccessList must be implemented.
 
 ### reportPreimages?
 
-> `optional` **reportPreimages**: `boolean`
+> `optional` **reportPreimages?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunTxOpts.ts:56](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L56)
 
@@ -75,7 +75,7 @@ to the `RunTxResult` returned.
 
 ### skipBalance?
 
-> `optional` **skipBalance**: `boolean`
+> `optional` **skipBalance?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunTxOpts.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L26)
 
@@ -85,7 +85,7 @@ Skip balance checks if true. Adds transaction cost to balance to ensure executio
 
 ### skipBlockGasLimitValidation?
 
-> `optional` **skipBlockGasLimitValidation**: `boolean`
+> `optional` **skipBlockGasLimitValidation?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunTxOpts.ts:32](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L32)
 
@@ -96,7 +96,7 @@ against the block's gas limit.
 
 ### skipHardForkValidation?
 
-> `optional` **skipHardForkValidation**: `boolean`
+> `optional` **skipHardForkValidation?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunTxOpts.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L38)
 
@@ -107,7 +107,7 @@ and tx
 
 ### skipNonce?
 
-> `optional` **skipNonce**: `boolean`
+> `optional` **skipNonce?**: `boolean`
 
 Defined in: [packages/vm/src/utils/RunTxOpts.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L21)
 
@@ -121,4 +121,4 @@ If true, skips the nonce check
 
 Defined in: [packages/vm/src/utils/RunTxOpts.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunTxOpts.ts#L17)
 
-An `@ethereumjs/tx` to run
+The transaction to run.

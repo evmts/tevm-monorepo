@@ -2,10 +2,9 @@
 	"name": "@tevm/blockchain",
 	"version": "1.0.0-next.148",
 	"private": false,
-	"description": "A custom implementation of ethereumjs blockchain",
+	"description": "A custom implementation of Ethereum blockchain helpers",
 	"keywords": [
 		"solidity",
-		"ethereumjs",
 		"typescript",
 		"web3",
 		"blockchain"
@@ -63,23 +62,21 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/blockchain": "^10.0.0",
+		"@evmts/zevm": "workspace:*",
 		"@tevm/block": "workspace:^",
 		"@tevm/common": "workspace:^",
 		"@tevm/errors": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/logger": "workspace:^",
-		"@tevm/trie": "workspace:^",
 		"@tevm/utils": "workspace:^"
 	},
 	"devDependencies": {
-		"@tevm/test-matchers": "latest",
 		"@tevm/test-utils": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.49.3"
 	},
 	"publishConfig": {
 		"access": "public"

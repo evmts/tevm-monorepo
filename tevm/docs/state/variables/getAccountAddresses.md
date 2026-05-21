@@ -8,4 +8,4 @@
 
 > `const` **getAccountAddresses**: [`StateAction`](../type-aliases/StateAction.md)\<`"getAccountAddresses"`\>
 
-Defined in: packages/state/dist/index.d.ts:440
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:444

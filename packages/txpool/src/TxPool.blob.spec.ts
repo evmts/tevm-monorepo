@@ -8,7 +8,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { TxPool } from './TxPool.js'
 
 // Mock the BlobEIP4844Transaction class
-vi.mock('@tevm/tx', async (importOriginal) => {
+vi.mock('@evmts/zevm/tx', async (importOriginal) => {
 	const originalModule = (await importOriginal()) as any
 	return {
 		...originalModule,
@@ -65,7 +65,7 @@ describe('TxPool with Blob Transactions', () => {
 		class TestPool extends TxPool {
 			async testWithMockBlob(allowedBlobs = 1) {
 				// Create a mock blob transaction
-				const { BlobEIP4844Transaction } = await import('@tevm/tx')
+				const { BlobEIP4844Transaction } = await import('@evmts/zevm/tx')
 				const mockBlob = new BlobEIP4844Transaction({
 					nonce: 0n,
 					blobs: [new Uint8Array(100)],

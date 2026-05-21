@@ -112,7 +112,7 @@ Additional parameters for the error.
 
 ### docsPath
 
-> **docsPath**: `undefined` \| `string`
+> **docsPath**: `string` \| `undefined`
 
 #### Inherited from
 
@@ -122,7 +122,7 @@ Additional parameters for the error.
 
 ### metaMessages
 
-> **metaMessages**: `undefined` \| `string`[]
+> **metaMessages**: `string`[] \| `undefined`
 
 #### Inherited from
 

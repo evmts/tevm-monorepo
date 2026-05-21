@@ -81,8 +81,8 @@
 		"@tevm/memory-client": "workspace:^",
 		"@tevm/node": "workspace:^",
 		"@tevm/server": "workspace:^",
-		"viem": "^2.37.9",
-		"vitest": "^3.2.4"
+		"viem": "^2.49.3",
+		"vitest": "^4.1.6"
 	},
 	"devDependencies": {
 		"@tevm/common": "workspace:^",
@@ -92,7 +92,7 @@
 		"@tevm/utils": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.49.3"
 	},
 	"publishConfig": {
 		"access": "public"

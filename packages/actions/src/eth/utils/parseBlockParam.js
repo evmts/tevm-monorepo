@@ -44,7 +44,7 @@ export const parseBlockParam = async (blockchain, blockParam) => {
 		)
 	}
 	if (blockParam === 'earliest') {
-		return BigInt(1)
+		return 0n
 	}
 	if (blockParam === 'finalized') {
 		throw new InvalidBlockError('finalized noet yet supported for this feature')

@@ -16,7 +16,7 @@ Params taken by `debug_getModifiedAccountsByHash` handler
 
 ### endBlockHash?
 
-> `readonly` `optional` **endBlockHash**: [`Hex`](Hex.md) \| `Uint8Array`
+> `readonly` `optional` **endBlockHash?**: [`Hex`](Hex.md) \| `Uint8Array`
 
 Defined in: [packages/actions/src/debug/DebugParams.ts:258](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugParams.ts#L258)
 

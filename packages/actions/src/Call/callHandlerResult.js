@@ -4,7 +4,7 @@ import { createEvmError } from '../internal/createEvmError.js'
 /**
  * @internal
  * Creates an CallHandler for handling call params with Ethereumjs EVM
- * @param {import('@tevm/vm').RunTxResult & import('@tevm/evm').EvmResult} evmResult
+ * @param {import('@tevm/vm').RunTxResult & import('@evmts/zevm/evm').EvmResult} evmResult
  * @param {import('@tevm/utils').Hex | undefined} txHash
  * @param {import('../common/TraceResult.js').TraceResult | undefined} trace
  * @param {Map<string, Set<string>> | undefined} accessList returned by the evm

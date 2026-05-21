@@ -9,7 +9,9 @@ import { resolveVitestTestSnapshotPath } from '../internal/resolveVitestTestSnap
 export const getSnapshotEntries = (): Record<string, any> => {
 	const snapshotPath = resolveVitestTestSnapshotPath()
 	if (!fs.existsSync(snapshotPath)) return {}
-	return JSON.parse(fs.readFileSync(snapshotPath, 'utf-8'))
+	const content = fs.readFileSync(snapshotPath, 'utf-8')
+	if (content.trim() === '') return {}
+	return JSON.parse(content)
 }
 
 /**

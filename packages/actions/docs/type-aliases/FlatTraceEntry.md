@@ -26,7 +26,7 @@ Action details
 
 ### blockHash?
 
-> `optional` **blockHash**: [`Hex`](Hex.md)
+> `optional` **blockHash?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/common/FlatCallTraceResult.ts:65](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L65)
 
@@ -36,7 +36,7 @@ Block hash where the transaction occurred
 
 ### blockNumber?
 
-> `optional` **blockNumber**: `bigint`
+> `optional` **blockNumber?**: `bigint`
 
 Defined in: [packages/actions/src/common/FlatCallTraceResult.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L67)
 
@@ -46,7 +46,7 @@ Block number where the transaction occurred
 
 ### error?
 
-> `optional` **error**: `string`
+> `optional` **error?**: `string`
 
 Defined in: [packages/actions/src/common/FlatCallTraceResult.ts:69](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L69)
 
@@ -66,7 +66,7 @@ Result of the action (null if call failed)
 
 ### revertReason?
 
-> `optional` **revertReason**: `string`
+> `optional` **revertReason?**: `string`
 
 Defined in: [packages/actions/src/common/FlatCallTraceResult.ts:71](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L71)
 
@@ -96,7 +96,7 @@ Position in the trace tree as an array of indices
 
 ### transactionHash?
 
-> `optional` **transactionHash**: [`Hex`](Hex.md)
+> `optional` **transactionHash?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/common/FlatCallTraceResult.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L79)
 
@@ -106,7 +106,7 @@ Transaction hash
 
 ### transactionPosition?
 
-> `optional` **transactionPosition**: `number`
+> `optional` **transactionPosition?**: `number`
 
 Defined in: [packages/actions/src/common/FlatCallTraceResult.ts:81](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L81)
 

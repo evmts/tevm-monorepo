@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DumpStateJsonRpcProcedure
 
-# Type Alias: DumpStateJsonRpcProcedure()
+# Type Alias: DumpStateJsonRpcProcedure
 
 > **DumpStateJsonRpcProcedure** = (`request`) => `Promise`\<[`DumpStateJsonRpcResponse`](DumpStateJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/DumpState/DumpStateJsonRpcProcedure.d.ts:15
+Defined in: tevm-monorepo/packages/actions/types/DumpState/DumpStateJsonRpcProcedure.d.ts:15
 
 Procedure for handling tevm_dumpState JSON-RPC requests
 

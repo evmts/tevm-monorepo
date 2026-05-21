@@ -8,7 +8,7 @@
 
 > **GetAccountParams**\<`TThrowOnFail`\> = [`BaseParams`](../../index/type-aliases/BaseParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: packages/actions/types/GetAccount/GetAccountParams.d.ts:10
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountParams.d.ts:10
 
 Tevm params to get an account
 
@@ -22,7 +22,7 @@ Address of account
 
 ### blockTag?
 
-> `readonly` `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> `readonly` `optional` **blockTag?**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
 Block tag to fetch account from
 - bigint for block number
@@ -31,7 +31,7 @@ Block tag to fetch account from
 
 ### returnStorage?
 
-> `readonly` `optional` **returnStorage**: `boolean`
+> `readonly` `optional` **returnStorage?**: `boolean`
 
 If true the handler will return the contract storage
 It only returns storage that happens to be cached in the vm

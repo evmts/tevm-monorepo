@@ -1,9 +1,10 @@
+import { Capability, createImpersonatedTx, createTxFromRLP, isBlobEIP4844Tx } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
 import { BlobGasLimitExceededError, InvalidTransactionError } from '@tevm/errors'
 import { prefundedAccounts } from '@tevm/node'
-import { createImpersonatedTx, createTxFromRLP, isBlobEIP4844Tx } from '@tevm/tx'
 import { bytesToHex, EthjsAddress, hexToBytes } from '@tevm/utils'
 import { callHandler } from '../Call/callHandler.js'
+import { handleAutomining } from '../Call/handleAutomining.js'
 
 const txType = {
 	LEGACY: 0x00,
@@ -54,7 +55,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 	const vm = await client.getVm()
 	const txBuf = hexToBytes(params.data)
 	/**
-	 * @type {import('@tevm/tx').BlobEIP4844Transaction | import('@tevm/tx').LegacyTransaction | import('@tevm/tx').AccessListEIP2930Transaction | import('@tevm/tx').FeeMarketEIP1559Transaction}
+	 * @type {import('@evmts/zevm/tx').BlobEIP4844Transaction | import('@evmts/zevm/tx').LegacyTransaction | import('@evmts/zevm/tx').AccessListEIP2930Transaction | import('@evmts/zevm/tx').FeeMarketEIP1559Transaction}
 	 */
 	let tx
 	try {
@@ -67,7 +68,7 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 	const impersonatedAccount = client.getImpersonatedAccount()
 	if (!tx.isSigned() && impersonatedAccount !== undefined) {
 		/**
-		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
+		 * @type {import("@evmts/zevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
 		impersonatedTx.impersonatedAddress = createAddress(impersonatedAccount)
@@ -77,13 +78,34 @@ export const ethSendRawTransactionHandler = (client) => async (params) => {
 			'Raw Transaction is not signed. Consider calling impersonate endpoint. In future versions unsigned transactions will be rejected.',
 		)
 		/**
-		 * @type {import("@tevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
+		 * @type {import("@evmts/zevm/tx").FeeMarketEIP1559Transaction & {impersonatedAddress: EthjsAddress} }
 		 **/
 		const impersonatedTx = /** @type {any}*/ (tx)
 		impersonatedTx.impersonatedAddress = createAddress(
 			impersonatedAccount ?? /** @type {import('@tevm/utils').Address} */ (prefundedAccounts[0]),
 		)
 		tx = createImpersonatedTx(impersonatedTx)
+	}
+	if (tx.supports(Capability.EIP7702EOACode)) {
+		const txPool = await client.getTxPool()
+		const txHash = bytesToHex(tx.hash())
+		const addResult = await txPool.add(tx, true)
+		if (addResult.error !== null) {
+			throw new InvalidTransactionError('Invalid transaction. Unable to add transaction to pool', {
+				cause: new Error(addResult.error),
+			})
+		}
+		client.emit('newPendingTransaction', tx)
+		if (client.miningConfig.type === 'auto') {
+			const autominingResult = await handleAutomining(client, txHash, false, true)
+			if (autominingResult?.errors?.length === 1) {
+				throw autominingResult.errors[0]
+			}
+			if ((autominingResult?.errors?.length ?? 0) > 0) {
+				throw new AggregateError(autominingResult?.errors ?? [])
+			}
+		}
+		return txHash
 	}
 	/**
 	 * @type {import('../Call/CallResult.js').CallResult}

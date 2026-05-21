@@ -37,7 +37,7 @@ export const debugTraceCallJsonRpcProcedure = (client) => {
 			method: request.method,
 			result: /** @type {any} */ (serializeTraceResult(traceResult)),
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

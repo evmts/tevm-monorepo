@@ -6,9 +6,7 @@
 
 # Class: EthjsAddress
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:5
-
-Handling and generating Ethereum addresses
+Defined in: zevm/npm/zevm/dist/util.d.ts:161
 
 ## Extended by
 
@@ -20,7 +18,7 @@ Handling and generating Ethereum addresses
 
 > **new EthjsAddress**(`bytes`): `Address`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:7
+Defined in: zevm/npm/zevm/dist/util.d.ts:163
 
 #### Parameters
 
@@ -36,9 +34,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 ### bytes
 
-> `readonly` **bytes**: `Uint8Array`
+> **bytes**: `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:6
+Defined in: zevm/npm/zevm/dist/util.d.ts:162
 
 ## Methods
 
@@ -46,9 +44,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 > **equals**(`address`): `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:11
-
-Is address equal to another.
+Defined in: zevm/npm/zevm/dist/util.d.ts:166
 
 #### Parameters
 
@@ -66,10 +62,7 @@ Is address equal to another.
 
 > **isPrecompileOrSystemAddress**(): `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:20
-
-True if address is in the address range defined
-by EIP-1352
+Defined in: zevm/npm/zevm/dist/util.d.ts:168
 
 #### Returns
 
@@ -81,9 +74,7 @@ by EIP-1352
 
 > **isZero**(): `boolean`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:15
-
-Is address zero.
+Defined in: zevm/npm/zevm/dist/util.d.ts:167
 
 #### Returns
 
@@ -95,9 +86,7 @@ Is address zero.
 
 > **toBytes**(): `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:28
-
-Returns a new Uint8Array representation of address.
+Defined in: zevm/npm/zevm/dist/util.d.ts:170
 
 #### Returns
 
@@ -109,10 +98,38 @@ Returns a new Uint8Array representation of address.
 
 > **toString**(): `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/address.d.ts:24
-
-Returns hex encoding of address.
+Defined in: zevm/npm/zevm/dist/util.d.ts:169
 
 #### Returns
 
 `` `0x${string}` ``
+
+***
+
+### fromString()
+
+> `static` **fromString**(`str`): `Address`
+
+Defined in: zevm/npm/zevm/dist/util.d.ts:164
+
+#### Parameters
+
+##### str
+
+`string`
+
+#### Returns
+
+`Address`
+
+***
+
+### zero()
+
+> `static` **zero**(): `Address`
+
+Defined in: zevm/npm/zevm/dist/util.d.ts:165
+
+#### Returns
+
+`Address`

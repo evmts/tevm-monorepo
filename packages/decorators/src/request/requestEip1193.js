@@ -1,7 +1,5 @@
 import { requestProcedure } from '@tevm/actions'
-// TODO this is too simple of a function to be using from an external library
-// Write this internally in @tevm/utils
-import { withRetry } from 'viem'
+import { ProviderRpcError } from '@tevm/node'
 
 // TODO we want to split up these requests into seperate decorators and
 // have typescript correctly merge the schemas as they go
@@ -16,22 +14,27 @@ import { withRetry } from 'viem'
  * @returns {import('@tevm/node').Extension<import('./Eip1193RequestProvider.js').Eip1193RequestProvider>}
  */
 export const requestEip1193 = () => (client) => {
+	const handleRequest = requestProcedure(client)
 	return {
-		request: async (args, options) => {
-			return withRetry(async () => {
-				const result = await requestProcedure(client)(
-					/** @type any*/ ({
-						jsonrpc: '2.0',
-						id: 1,
-						method: args.method,
-						...(args.params ? { params: args.params } : {}),
-					}),
+		request: async (args) => {
+			const result = await handleRequest(
+				/** @type any*/ ({
+					jsonrpc: '2.0',
+					id: 1,
+					method: args.method,
+					...(args.params ? { params: args.params } : {}),
+				}),
+			)
+			if (result.error) {
+				const error = typeof result.error === 'object' && result.error !== null ? result.error : {}
+				const code = typeof error.code === 'number' ? error.code : Number(error.code)
+				throw new ProviderRpcError(
+					Number.isFinite(code) ? code : -32000,
+					typeof error.message === 'string' ? error.message : 'Unknown provider error',
+					'data' in error ? error.data : result.error,
 				)
-				if (result.error) {
-					throw result.error
-				}
-				return /** @type {any}*/ (result.result)
-			}, options)
+			}
+			return /** @type {any}*/ (result.result)
 		},
 	}
 }

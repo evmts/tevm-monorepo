@@ -6,9 +6,7 @@
 
 # Interface: MetaDBManagerOptions
 
-Defined in: packages/receipt-manager/types/MapDb.d.ts:9
-
-Options for creating a MapDb instance
+Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:3
 
 ## Properties
 
@@ -16,6 +14,4 @@ Options for creating a MapDb instance
 
 > **cache**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/receipt-manager/types/MapDb.d.ts:13
-
-Map used as the cache for the database
+Defined in: zevm/npm/zevm/dist/receipt-manager.d.ts:4

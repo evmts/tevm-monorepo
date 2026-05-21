@@ -1,3 +1,4 @@
+import { rmSync } from 'node:fs'
 import * as fsPromises from 'node:fs/promises'
 import { join } from 'node:path'
 import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest'
@@ -97,18 +98,13 @@ describe('bunFileAccessObject', () => {
 
 	describe(bunFileAccesObject.writeFileSync.name, () => {
 		it('writes data to a file', () => {
-			// Setup mock file writer
-			const mockWriter = {
-				write: vi.fn().mockReturnValue(1),
-			}
-			mockFile.mockImplementation(() => ({
-				writer: () => mockWriter,
-			}))
+			const testPath = join(__dirname, '../test.txt')
+			rmSync(testPath, { force: true })
 
-			const result = bunFileAccesObject.writeFileSync('test.txt', 'test content')
-			expect(result).toBe(1)
-			expect(mockFile).toHaveBeenCalledWith('test.txt')
-			expect(mockWriter.write).toHaveBeenCalledWith('test content')
+			const result = bunFileAccesObject.writeFileSync(testPath, 'test content')
+			expect(result).toBeUndefined()
+			expect(bunFileAccesObject.readFileSync(testPath, 'utf8')).toBe('test content')
+			rmSync(testPath, { force: true })
 		})
 	})
 })

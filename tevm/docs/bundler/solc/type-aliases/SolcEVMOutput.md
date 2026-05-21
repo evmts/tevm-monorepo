@@ -8,7 +8,7 @@
 
 > **SolcEVMOutput** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:261
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:261
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:261
 
 > **assembly**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:262
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:262
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:262
 
 > **bytecode**: [`SolcBytecodeOutput`](SolcBytecodeOutput.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:264
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:264
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:264
 
 > **deployedBytecode**: [`SolcBytecodeOutput`](SolcBytecodeOutput.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:265
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:265
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:265
 
 > **gasEstimates**: [`SolcGasEstimates`](SolcGasEstimates.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:269
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:269
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:269
 
 > **legacyAssembly**: `any`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:263
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:263
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:263
 
 > **methodIdentifiers**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:266
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:266
 
 #### Index Signature
 

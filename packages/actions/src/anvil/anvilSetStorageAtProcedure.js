@@ -10,7 +10,7 @@ export const anvilSetStorageAtJsonRpcProcedure = (client) => {
 		request
 		const result = await setAccountProcedure(client)({
 			method: 'tevm_setAccount',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 			jsonrpc: '2.0',
 			params: [
 				{
@@ -26,14 +26,14 @@ export const anvilSetStorageAtJsonRpcProcedure = (client) => {
 				error: /** @type {any}*/ (result.error),
 				jsonrpc: '2.0',
 				method: request.method,
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		}
 		return {
 			jsonrpc: '2.0',
 			method: request.method,
-			...(request.id ? { id: request.id } : {}),
-			result: null,
+			...(request.id !== undefined ? { id: request.id } : {}),
+			result: true,
 		}
 	}
 }

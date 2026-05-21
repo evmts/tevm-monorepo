@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetNonceProcedure
 
-# Type Alias: AnvilSetNonceProcedure()
+# Type Alias: AnvilSetNonceProcedure
 
 > **AnvilSetNonceProcedure** = (`request`) => `Promise`\<[`AnvilSetNonceJsonRpcResponse`](AnvilSetNonceJsonRpcResponse.md)\>
 

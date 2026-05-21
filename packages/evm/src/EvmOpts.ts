@@ -1,4 +1,4 @@
-import type { EVMOpts as EthereumjsEVMOpts } from '@ethereumjs/evm'
+import type { EVMOpts as EthereumjsEVMOpts } from '@evmts/zevm/evm'
 
 /**
  * The options available to pass to the EVM. Inferred from ethereumjs/evm

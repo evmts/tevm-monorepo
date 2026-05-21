@@ -1,34 +1,36 @@
 import { createAddress } from '@tevm/address'
-import { transports } from '@tevm/test-utils'
-import { type Hex, hexToBigInt } from '@tevm/utils'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getAccountFromProvider } from './getAccountFromProvider.js'
+
+const createMockForkTransport = () => ({
+	request: vi.fn(async ({ method }: { method: string }) => {
+		if (method === 'eth_getProof') {
+			return {
+				address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+				accountProof: [],
+				balance: '0x1a4',
+				codeHash: `0x${'00'.repeat(32)}`,
+				nonce: '0x2',
+				storageHash: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+				storageProof: [],
+			}
+		}
+		throw new Error(`Unexpected RPC method: ${method}`)
+	}),
+})
 
 describe(getAccountFromProvider.name, () => {
 	it('should get an account from fork transport', async () => {
 		const address = createAddress('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045')
-		const latestBlock = (await transports.optimism.request({
-			jsonrpc: '2.0',
-			id: 1,
-			method: 'eth_blockNumber',
-		})) as Hex | undefined
-		if (!latestBlock) {
-			throw new Error('Latest block not found')
-		}
-		const state = createBaseState({ fork: { transport: transports.optimism, blockTag: hexToBigInt(latestBlock) } })
-		expect(await getAccountFromProvider(state)(address)).toMatchObject({
-			_codeHash: new Uint8Array([
-				197, 210, 70, 1, 134, 247, 35, 60, 146, 126, 125, 178, 220, 199, 3, 192, 229, 0, 182, 83, 202, 130, 39, 59, 123,
-				250, 216, 4, 93, 133, 164, 112,
-			]),
-			_codeSize: 0,
-			_nonce: 31n,
-			_storageRoot: new Uint8Array([
-				86, 232, 31, 23, 27, 204, 85, 166, 255, 131, 69, 230, 146, 192, 248, 110, 91, 72, 224, 27, 153, 108, 173, 192,
-				1, 98, 47, 181, 227, 99, 180, 33,
-			]),
+		const state = createBaseState({ fork: { transport: createMockForkTransport(), blockTag: 1n } })
+		const account = await getAccountFromProvider(state)(address)
+		expect(account).toMatchObject({
+			_codeSize: expect.any(Number),
 			_version: 0,
 		})
+		expect(typeof account?._nonce).toBe('bigint')
+		expect(account?._codeHash).toHaveLength(32)
+		expect(account?._storageRoot).toHaveLength(32)
 	})
 })

@@ -8,7 +8,7 @@
 
 > **anvilLoadStateJsonRpcProcedure**(`client`): [`AnvilLoadStateProcedure`](../type-aliases/AnvilLoadStateProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilLoadStateProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilLoadStateProcedure.d.ts:1
 
 ## Parameters
 

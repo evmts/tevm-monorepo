@@ -8,4 +8,4 @@
 
 > **libs**: `never`[]
 
-Defined in: bundler-packages/config/types/config/withDefaults.d.ts:5
+Defined in: tevm-monorepo/bundler-packages/config/types/config/withDefaults.d.ts:5

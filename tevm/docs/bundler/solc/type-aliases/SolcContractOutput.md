@@ -8,7 +8,7 @@
 
 > **SolcContractOutput** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:126
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:126
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:126
 
 > **abi**: [`Abi`](../../../index/type-aliases/Abi.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:127
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:127
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:127
 
 > **devdoc**: `any`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:137
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:137
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:137
 
 > **evm**: [`SolcEVMOutput`](SolcEVMOutput.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:140
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:140
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:140
 
 > **ewasm**: [`SolcEwasmOutput`](SolcEwasmOutput.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:141
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:141
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:141
 
 > **ir**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:138
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:138
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:138
 
 > **metadata**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:128
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:128
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:128
 
 > **storageLayout**: [`SolcStorageLayout`](SolcStorageLayout.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:139
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:139
 
 ***
 
@@ -72,7 +72,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:139
 
 > **userdoc**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:129
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:129
 
 #### kind
 
@@ -80,11 +80,11 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:129
 
 #### methods?
 
-> `optional` **methods**: `Record`\<`string`, \{ `notice`: `string`; \}\>
+> `optional` **methods?**: `Record`\<`string`, \{ `notice`: `string`; \}\>
 
 #### notice?
 
-> `optional` **notice**: `string`
+> `optional` **notice?**: `string`
 
 #### version
 

@@ -21,14 +21,4 @@ the updated balances of their accounts to state.
 
 ## Returns
 
-> (`block`): `Promise`\<`void`\>
-
-### Parameters
-
-#### block
-
-`Block`
-
-### Returns
-
-`Promise`\<`void`\>
+(`block`) => `Promise`\<`void`\>

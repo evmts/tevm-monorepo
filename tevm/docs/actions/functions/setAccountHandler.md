@@ -8,7 +8,7 @@
 
 > **setAccountHandler**(`client`, `options?`): [`SetAccountHandler`](../type-aliases/SetAccountHandler.md)
 
-Defined in: packages/actions/types/SetAccount/setAccountHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/SetAccount/setAccountHandler.d.ts:1
 
 ## Parameters
 

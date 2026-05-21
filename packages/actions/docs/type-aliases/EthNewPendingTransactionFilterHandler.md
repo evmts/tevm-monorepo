@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthNewPendingTransactionFilterHandler
 
-# Type Alias: EthNewPendingTransactionFilterHandler()
+# Type Alias: EthNewPendingTransactionFilterHandler
 
 > **EthNewPendingTransactionFilterHandler** = (`request`) => `Promise`\<[`EthNewPendingTransactionFilterResult`](EthNewPendingTransactionFilterResult.md)\>
 

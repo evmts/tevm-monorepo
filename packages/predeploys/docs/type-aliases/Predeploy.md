@@ -32,7 +32,7 @@ Defined in: [Predeploy.ts:8](https://github.com/evmts/tevm-monorepo/blob/main/pa
 
 ***
 
-### predeploy()
+### predeploy
 
 > `readonly` **predeploy**: () => `object`
 

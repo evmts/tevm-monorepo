@@ -1,4 +1,5 @@
 name: Setup
+description: Set up the Tevm CI toolchain and workspace dependencies
 runs:
   using: composite
   steps:
@@ -32,13 +33,24 @@ runs:
         npm i pnpm@10.6.1 --global && pnpm --version
       shell: bash
 
+    - name: Checkout Zevm workspace
+      run: |
+        if [ ! -d ../zevm/npm/zevm ]; then
+          git clone --depth 1 https://github.com/evmts/zevm.git ../zevm
+        fi
+      shell: bash
+
     - name: Install Foundry
       uses: foundry-rs/foundry-toolchain@v1
       with:
-        version: nightly
+        version: v1.7.1
 
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
+      shell: bash
+
+    - name: Build Zevm workspace
+      run: pnpm --filter @evmts/zevm build
       shell: bash
 
     - name: Install native dependencies

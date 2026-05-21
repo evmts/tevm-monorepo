@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilDropTransactionHandler
 
-# Type Alias: AnvilDropTransactionHandler()
+# Type Alias: AnvilDropTransactionHandler
 
 > **AnvilDropTransactionHandler** = (`params`) => `Promise`\<[`AnvilDropTransactionResult`](AnvilDropTransactionResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:8
 
 ## Parameters
 

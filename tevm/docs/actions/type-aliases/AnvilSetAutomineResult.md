@@ -8,4 +8,4 @@
 
 > **AnvilSetAutomineResult** = `null`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:6

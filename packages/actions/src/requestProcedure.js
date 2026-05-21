@@ -1,5 +1,6 @@
-import { MethodNotFoundError } from '@tevm/errors'
+import { MethodNotFoundError, MethodNotSupportedError } from '@tevm/errors'
 import { createHandlers } from './createHandlers.js'
+import { isBlockedMethod, rpcMethodStatusByMethod } from './rpcMethodMatrix.js'
 
 /**
  * Request handler for JSON-RPC requests to Tevm.
@@ -29,9 +30,43 @@ import { createHandlers } from './createHandlers.js'
 export const requestProcedure = (client) => {
 	const handlers = createHandlers(client)
 	return async (request) => {
-		await client.ready()
+		const method = /** @type {string} */ (request.method)
+		const isLightPreReadyAllowed =
+			client.consensus?.mode === 'light-client' &&
+			(method === 'eth_chainId' || method === 'tevm_lightSyncStatus' || method === 'zevm_lightSyncStatus')
+		if (!isLightPreReadyAllowed) {
+			await client.ready()
+		}
 		client.logger.debug({ request }, 'JSON-RPC request received')
-		if (!(request.method in handlers)) {
+		if (!(method in handlers)) {
+			if (isBlockedMethod(method)) {
+				const err = new MethodNotSupportedError(
+					`UnsupportedMethodError: Method ${/** @type any*/ (request).method} is blocked by scope`,
+				)
+				return /** @type {any}*/ ({
+					id: /** @type any*/ (request).id ?? null,
+					method: /** @type any*/ (request).method,
+					jsonrpc: '2.0',
+					error: {
+						code: err.code,
+						message: err.message,
+					},
+				})
+			}
+			if (rpcMethodStatusByMethod.get(method) === 'missing') {
+				const err = new MethodNotFoundError(
+					`UnimplementedMethodError: Method ${/** @type any*/ (request).method} is typed but not yet implemented`,
+				)
+				return /** @type {any}*/ ({
+					id: /** @type any*/ (request).id ?? null,
+					method: /** @type any*/ (request).method,
+					jsonrpc: '2.0',
+					error: {
+						code: err.code,
+						message: err.message,
+					},
+				})
+			}
 			const err = new MethodNotFoundError(`UnsupportedMethodError: Unknown method ${/**@type any*/ (request).method}`)
 			return /** @type {any}*/ ({
 				id: /** @type any*/ (request).id ?? null,
@@ -43,6 +78,6 @@ export const requestProcedure = (client) => {
 				},
 			})
 		}
-		return handlers[/** @type {keyof typeof handlers}*/ (request.method)](request)
+		return /** @type {(request: any) => any} */ (handlers[/** @type {keyof typeof handlers} */ (method)])(request)
 	}
 }

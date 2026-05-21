@@ -1,12 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ethGetBlockByNumberJsonRpcProcedure > should handle invalid block tag 1`] = `
-{
-  "code": -32602,
-  "message": "Invalid block tag invalidTag",
-}
-`;
-
 exports[`ethGetBlockByNumberJsonRpcProcedure > should handle requests without an id 1`] = `
 {
   "baseFeePerGas": "0x7",
@@ -23,10 +16,10 @@ exports[`ethGetBlockByNumberJsonRpcProcedure > should handle requests without an
   "nonce": "0x0000000000000000",
   "number": "0x1",
   "parentBeaconBlockRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "parentHash": "0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534",
+  "parentHash": "0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d",
   "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
   "requests": [],
-  "requestsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+  "requestsRoot": "0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
   "size": "0x65e",
   "stateRoot": "0x[STATE_ROOT]",
@@ -56,10 +49,10 @@ exports[`ethGetBlockByNumberJsonRpcProcedure > should include transactions if re
   "nonce": "0x0000000000000000",
   "number": "0x1",
   "parentBeaconBlockRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "parentHash": "0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534",
+  "parentHash": "0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d",
   "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
   "requests": [],
-  "requestsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+  "requestsRoot": "0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
   "size": "0x65e",
   "stateRoot": "0x[STATE_ROOT]",
@@ -89,10 +82,10 @@ exports[`ethGetBlockByNumberJsonRpcProcedure > should return block details by nu
   "nonce": "0x0000000000000000",
   "number": "0x1",
   "parentBeaconBlockRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "parentHash": "0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534",
+  "parentHash": "0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d",
   "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
   "requests": [],
-  "requestsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+  "requestsRoot": "0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
   "size": "0x65e",
   "stateRoot": "0x[STATE_ROOT]",

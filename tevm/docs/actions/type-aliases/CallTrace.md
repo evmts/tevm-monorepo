@@ -8,7 +8,7 @@
 
 > **CallTrace** = `object`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:403
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:403
 
 Call trace for V2 debugging
 
@@ -16,9 +16,9 @@ Call trace for V2 debugging
 
 ### calls?
 
-> `optional` **calls**: `CallTrace`[]
+> `optional` **calls?**: `CallTrace`[]
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:443
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:443
 
 Sub-calls made during this call
 
@@ -26,9 +26,9 @@ Sub-calls made during this call
 
 ### error?
 
-> `optional` **error**: `string`
+> `optional` **error?**: `string`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:439
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:439
 
 Error message if the call failed
 
@@ -38,7 +38,7 @@ Error message if the call failed
 
 > **from**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:411
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:411
 
 The sender address
 
@@ -48,7 +48,7 @@ The sender address
 
 > **gas**: `bigint`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:423
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:423
 
 The gas provided
 
@@ -58,7 +58,7 @@ The gas provided
 
 > **gasUsed**: `bigint`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:427
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:427
 
 The gas used
 
@@ -68,7 +68,7 @@ The gas used
 
 > **input**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:431
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:431
 
 The input data
 
@@ -78,7 +78,7 @@ The input data
 
 > **output**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:435
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:435
 
 The output/return data
 
@@ -86,9 +86,9 @@ The output/return data
 
 ### to?
 
-> `optional` **to**: [`Address`](Address.md)
+> `optional` **to?**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:415
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:415
 
 The recipient address (or created contract address)
 
@@ -98,7 +98,7 @@ The recipient address (or created contract address)
 
 > **type**: `string`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:407
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:407
 
 The type of call (CALL, DELEGATECALL, STATICCALL, CREATE, CREATE2)
 
@@ -106,8 +106,8 @@ The type of call (CALL, DELEGATECALL, STATICCALL, CREATE, CREATE2)
 
 ### value?
 
-> `optional` **value**: `bigint`
+> `optional` **value?**: `bigint`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:419
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:419
 
 The value transferred

@@ -8,7 +8,7 @@
 
 > **shallowCopy**(`baseState`): () => [`BaseState`](../type-aliases/BaseState.md)
 
-Defined in: packages/state/dist/index.d.ts:516
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:520
 
 ## Parameters
 
@@ -18,8 +18,4 @@ Defined in: packages/state/dist/index.d.ts:516
 
 ## Returns
 
-> (): [`BaseState`](../type-aliases/BaseState.md)
-
-### Returns
-
-[`BaseState`](../type-aliases/BaseState.md)
+() => [`BaseState`](../type-aliases/BaseState.md)

@@ -8,7 +8,7 @@
 
 > **MisconfiguredClientErrorParameters** = `object`
 
-Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:57
+Defined in: tevm-monorepo/packages/errors/types/client/MisconfiguredClient.d.ts:57
 
 Parameters for constructing a [MisconfiguredClientError](../classes/MisconfiguredClientError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing a [MisconfiguredClientError](../classes/Misconfigure
 
 ### cause?
 
-> `optional` **cause**: [`InternalError`](../classes/InternalError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
+> `optional` **cause?**: [`InternalError`](../classes/InternalError.md) \| `EVMError`
 
-Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:77
+Defined in: tevm-monorepo/packages/errors/types/client/MisconfiguredClient.d.ts:77
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:77
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:81
+Defined in: tevm-monorepo/packages/errors/types/client/MisconfiguredClient.d.ts:81
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:81
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:61
+Defined in: tevm-monorepo/packages/errors/types/client/MisconfiguredClient.d.ts:61
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:61
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:65
+Defined in: tevm-monorepo/packages/errors/types/client/MisconfiguredClient.d.ts:65
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:65
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:69
+Defined in: tevm-monorepo/packages/errors/types/client/MisconfiguredClient.d.ts:69
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:69
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:85
+Defined in: tevm-monorepo/packages/errors/types/client/MisconfiguredClient.d.ts:85
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:85
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/client/MisconfiguredClient.d.ts:73
+Defined in: tevm-monorepo/packages/errors/types/client/MisconfiguredClient.d.ts:73
 
 - Additional meta messages.

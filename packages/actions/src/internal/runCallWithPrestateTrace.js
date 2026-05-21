@@ -8,9 +8,9 @@ import { evmInputToImpersonatedTx } from './evmInputToImpersonatedTx.js'
  * Executes a call with prestate tracer, which captures account state before and after execution
  * @template {boolean} TDiffMode
  * @param {import('@tevm/node').TevmNode} client
- * @param {import('@tevm/evm').EvmRunCallOpts} evmInput
+ * @param {import('@evmts/zevm/evm').EvmRunCallOpts} evmInput
  * @param {TDiffMode} diffMode If true, only returns state that changed between pre and post execution
- * @returns {Promise<import('@tevm/evm').EvmResult & {trace: import('../common/PrestateTraceResult.js').PrestateTraceResult<TDiffMode>}>}
+ * @returns {Promise<import('@evmts/zevm/evm').EvmResult & {trace: import('../common/PrestateTraceResult.js').PrestateTraceResult<TDiffMode>}>}
  * @throws {never}
  */
 export const runCallWithPrestateTrace = async (client, evmInput, diffMode = /** @type {TDiffMode} */ (false)) => {

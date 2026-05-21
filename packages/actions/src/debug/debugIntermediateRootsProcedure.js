@@ -1,5 +1,5 @@
+import { createImpersonatedTx } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
-import { createImpersonatedTx } from '@tevm/tx'
 import { bytesToHex } from '@tevm/utils'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
 
@@ -97,9 +97,19 @@ export const debugIntermediateRootsJsonRpcProcedure = (client) => {
 
 			const impersonatedTx = createImpersonatedTx(
 				{
-					...blockTx,
-					gasPrice: null,
+					nonce: blockTx.nonce,
+					gasLimit: blockTx.gasLimit,
+					value: blockTx.value,
+					data: blockTx.data,
 					impersonatedAddress: createAddress(blockTx.getSenderAddress()),
+					...(blockTx.to !== undefined ? { to: blockTx.to } : {}),
+					...('accessList' in blockTx && blockTx.accessList !== undefined ? { accessList: blockTx.accessList } : {}),
+					...('maxFeePerGas' in blockTx
+						? { maxFeePerGas: blockTx.maxFeePerGas }
+						: 'gasPrice' in blockTx
+							? { maxFeePerGas: blockTx.gasPrice }
+							: {}),
+					...('maxPriorityFeePerGas' in blockTx ? { maxPriorityFeePerGas: blockTx.maxPriorityFeePerGas } : {}),
 				},
 				{
 					freeze: false,
@@ -117,6 +127,8 @@ export const debugIntermediateRootsJsonRpcProcedure = (client) => {
 				skipBlockGasLimitValidation: true,
 				tx: impersonatedTx,
 			})
+			await vmClone.stateManager.checkpoint()
+			await vmClone.stateManager.commit(true)
 
 			// Get the state root after this transaction
 			const stateRoot = vmClone.stateManager._baseState.getCurrentStateRoot()

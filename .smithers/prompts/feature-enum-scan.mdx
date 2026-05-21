@@ -1,0 +1,49 @@
+# Feature Enum Scan
+
+Analyze the entire repository and produce an exhaustive feature inventory.
+Scan routes, services, CLI commands, UI views, SDK modules, jobs, workflows,
+and any other shipped or materially stubbed product surface you can find.
+
+Rules:
+
+1. Be exhaustive. Prefer missing nothing over being overly concise.
+2. Group features by domain using SCREAMING_SNAKE_CASE group names.
+3. Use SCREAMING_SNAKE_CASE feature names that are specific and code-backed.
+4. Split broad buckets into concrete, independently auditable features.
+5. Run `git rev-parse HEAD` and include the commit hash in `lastCommitHash`.
+6. Include a markdownBody that explains the grouping and notable edge cases.
+
+{props.additionalContext ? `ADDITIONAL CONTEXT:\n${props.additionalContext}\n` : ""}
+
+Example format (truncated from a larger production feature enum):
+
+```ts
+export const FeatureGroups = {
+  PLATFORM_RUNTIME: [
+    "PLATFORM_SERVER_BOOTSTRAP",
+    "PLATFORM_DB_INITIALIZATION",
+    "PLATFORM_SERVICE_REGISTRY_INITIALIZATION",
+    "PLATFORM_HTTP_MIDDLEWARE_REQUEST_ID",
+    "PLATFORM_HEALTHCHECK_ENDPOINTS",
+  ],
+
+  AUTH_AND_IDENTITY: [
+    "AUTH_SIGN_IN_WITH_GITHUB_OAUTH",
+    "AUTH_SIGN_IN_WITH_PERSONAL_ACCESS_TOKEN",
+    "AUTH_SESSION_COOKIE_ISSUANCE",
+    "AUTH_PERSONAL_ACCESS_TOKEN_CREATE",
+    "AUTH_CLI_BROWSER_LOGIN",
+  ],
+
+  USER_ACCOUNT_AND_SETTINGS: [
+    "USER_SELF_PROFILE_VIEW",
+    "USER_PROFILE_UPDATE",
+    "USER_SSH_KEY_ADD",
+    "USER_NOTIFICATION_SETTINGS_UPDATE",
+    "USER_API_TOKENS_UI",
+  ],
+};
+```
+
+REQUIRED OUTPUT:
+{props.schema}

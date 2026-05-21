@@ -6,7 +6,7 @@
 
 # Interface: VMOpts
 
-Defined in: packages/vm/types/utils/VMOpts.d.ts:10
+Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:10
 
 Options for instantiating a VM.
 
@@ -14,9 +14,9 @@ Options for instantiating a VM.
 
 ### activatePrecompiles?
 
-> `optional` **activatePrecompiles**: `boolean`
+> `optional` **activatePrecompiles?**: `boolean`
 
-Defined in: packages/vm/types/utils/VMOpts.d.ts:54
+Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:54
 
 If true, create entries in the state tree for the precompiled contracts, saving some gas the
 first time each of them is called.
@@ -34,9 +34,9 @@ Default: `false`
 
 ### blockchain?
 
-> `optional` **blockchain**: [`Chain`](../../blockchain/type-aliases/Chain.md)
+> `optional` **blockchain?**: [`Chain`](../../blockchain/type-aliases/Chain.md)
 
-Defined in: packages/vm/types/utils/VMOpts.d.ts:40
+Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:40
 
 A Blockchain object for storing/retrieving blocks
 
@@ -44,9 +44,9 @@ A Blockchain object for storing/retrieving blocks
 
 ### common?
 
-> `optional` **common**: `object`
+> `optional` **common?**: `object`
 
-Defined in: packages/vm/types/utils/VMOpts.d.ts:32
+Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:32
 
 Use a [Common](../../common/type-aliases/Common.md) instance
 if you want to change the chain setup.
@@ -57,7 +57,7 @@ if you want to change the chain setup.
 - `hardfork`: `mainnet` hardforks up to the `Paris` hardfork
 - `eips`: `2537` (usage e.g. `eips: [ 2537, ]`)
 
-Note: check the associated `@ethereumjs/evm` instance options
+Note: check the associated EVM instance options
 documentation for supported EIPs.
 
 ### Default Setup
@@ -70,7 +70,7 @@ Default setup if no `Common` instance is provided:
 
 #### blockExplorers?
 
-> `optional` **blockExplorers**: `object`
+> `optional` **blockExplorers?**: `object`
 
 Collection of block explorers
 
@@ -84,53 +84,57 @@ Collection of block explorers
 
 #### blockTime?
 
-> `optional` **blockTime**: `number`
+> `optional` **blockTime?**: `number`
 
 Block time in milliseconds.
 
 #### contracts?
 
-> `optional` **contracts**: `object`
+> `optional` **contracts?**: `object`
 
 Collection of contracts
 
 ##### Index Signature
 
-\[`key`: `string`\]: `undefined` \| `ChainContract` \| \{\[`sourceId`: `number`\]: `undefined` \| `ChainContract`; \}
+\[`key`: `string`\]: `ChainContract` \| \{\[`sourceId`: `number`\]: `ChainContract` \| `undefined`; \} \| `undefined`
 
 ##### contracts.ensRegistry?
 
-> `optional` **ensRegistry**: `ChainContract`
+> `optional` **ensRegistry?**: `ChainContract`
 
 ##### contracts.ensUniversalResolver?
 
-> `optional` **ensUniversalResolver**: `ChainContract`
+> `optional` **ensUniversalResolver?**: `ChainContract`
 
 ##### contracts.erc6492Verifier?
 
-> `optional` **erc6492Verifier**: `ChainContract`
+> `optional` **erc6492Verifier?**: `ChainContract`
 
 ##### contracts.multicall3?
 
-> `optional` **multicall3**: `ChainContract`
+> `optional` **multicall3?**: `ChainContract`
 
-#### copy()
+#### copy
 
-> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
+> **copy**: () => \{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
 
 ##### Returns
 
-\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 13 more ...; copy: () =\> ...; \}
+\{ blockExplorers?: \{ \[key: string\]: ChainBlockExplorer; default: ChainBlockExplorer; \} \| undefined; blockTime?: number \| undefined; contracts?: \{ ...; \} \| undefined; ... 16 more ...; copy: () =\> ...; \}
 
-#### custom?
+#### ~~custom?~~
 
-> `optional` **custom**: `Record`\<`string`, `unknown`\>
+> `optional` **custom?**: `Record`\<`string`, `unknown`\>
 
 Custom chain data.
 
+##### Deprecated
+
+use `.extend` instead.
+
 #### ensTlds?
 
-> `optional` **ensTlds**: readonly `string`[]
+> `optional` **ensTlds?**: readonly `string`[]
 
 Collection of ENS TLDs for the chain.
 
@@ -140,19 +144,25 @@ Collection of ENS TLDs for the chain.
 
 #### experimental\_preconfirmationTime?
 
-> `optional` **experimental\_preconfirmationTime**: `number`
+> `optional` **experimental\_preconfirmationTime?**: `number`
 
 Preconfirmation time in milliseconds.
 
+#### extendSchema?
+
+> `optional` **extendSchema?**: `Record`\<`string`, `unknown`\>
+
+Extend schema.
+
 #### fees?
 
-> `optional` **fees**: `ChainFees`\<`undefined` \| `ChainFormatters`\>
+> `optional` **fees?**: `ChainFees`\<`ChainFormatters` \| `undefined`\>
 
 Modifies how fees are derived.
 
 #### formatters?
 
-> `optional` **formatters**: `ChainFormatters`
+> `optional` **formatters?**: `ChainFormatters`
 
 Modifies how data is formatted and typed (e.g. blocks and transactions)
 
@@ -174,6 +184,12 @@ Human-readable name
 
 Currency used by chain
 
+#### prepareTransactionRequest?
+
+> `optional` **prepareTransactionRequest?**: `PrepareTransactionRequestFn` \| \[`PrepareTransactionRequestFn`, `object`\]
+
+Function to prepare a transaction request. Runs before the transaction is filled.
+
 #### rpcUrls
 
 > **rpcUrls**: `object`
@@ -190,29 +206,35 @@ Collection of RPC endpoints
 
 #### serializers?
 
-> `optional` **serializers**: `ChainSerializers`\<`undefined` \| `ChainFormatters`, `TransactionSerializable`\>
+> `optional` **serializers?**: `ChainSerializers`\<`ChainFormatters` \| `undefined`, `TransactionSerializable`\>
 
 Modifies how data is serialized (e.g. transactions).
 
 #### sourceId?
 
-> `optional` **sourceId**: `number`
+> `optional` **sourceId?**: `number`
 
 Source Chain ID (ie. the L1 chain)
 
 #### testnet?
 
-> `optional` **testnet**: `boolean`
+> `optional` **testnet?**: `boolean`
 
 Flag for test networks
+
+#### verifyHash?
+
+> `optional` **verifyHash?**: `ChainVerifyHashFn`
+
+Chain-specific signature verification.
 
 ***
 
 ### evm?
 
-> `optional` **evm**: [`Evm`](../../evm/classes/Evm.md)
+> `optional` **evm?**: [`Evm`](../../evm/classes/Evm.md)
 
-Defined in: packages/vm/types/utils/VMOpts.d.ts:73
+Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:73
 
 Use a custom EVM to run Messages on. If this is not present, use the default EVM.
 
@@ -220,9 +242,9 @@ Use a custom EVM to run Messages on. If this is not present, use the default EVM
 
 ### genesisState?
 
-> `optional` **genesisState**: [`GenesisState`](../../utils/type-aliases/GenesisState.md)
+> `optional` **genesisState?**: [`GenesisState`](../../utils/type-aliases/GenesisState.md)
 
-Defined in: packages/vm/types/utils/VMOpts.d.ts:59
+Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:59
 
 A genesisState to generate canonical genesis for the "in-house" created stateManager if external
 stateManager not provided for the VM, defaults to an empty state
@@ -231,17 +253,17 @@ stateManager not provided for the VM, defaults to an empty state
 
 ### profilerOpts?
 
-> `optional` **profilerOpts**: [`VMProfilerOpts`](../type-aliases/VMProfilerOpts.md)
+> `optional` **profilerOpts?**: [`VMProfilerOpts`](../type-aliases/VMProfilerOpts.md)
 
-Defined in: packages/vm/types/utils/VMOpts.d.ts:74
+Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:74
 
 ***
 
 ### setHardfork?
 
-> `optional` **setHardfork**: `boolean` \| [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
+> `optional` **setHardfork?**: `boolean` \| [`BigIntLike`](../../utils/type-aliases/BigIntLike.md)
 
-Defined in: packages/vm/types/utils/VMOpts.d.ts:69
+Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:69
 
 Set the hardfork either by timestamp (for HFs from Shanghai onwards) or by block number
 for older Hfs.
@@ -255,8 +277,8 @@ Default: `false` (HF is set to whatever default HF is set by the [Common](../../
 
 ### stateManager?
 
-> `optional` **stateManager**: [`StateManager`](../../state/interfaces/StateManager.md)
+> `optional` **stateManager?**: [`StateManager`](../../state/interfaces/StateManager.md)
 
-Defined in: packages/vm/types/utils/VMOpts.d.ts:36
+Defined in: tevm-monorepo/packages/vm/types/utils/VMOpts.d.ts:36
 
 A [StateManager](../../state/interfaces/StateManager.md) instance to use as the state store

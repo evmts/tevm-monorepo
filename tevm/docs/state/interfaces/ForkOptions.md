@@ -6,7 +6,7 @@
 
 # Interface: ForkOptions
 
-Defined in: packages/state/dist/index.d.ts:61
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:61
 
 Configuration options for forking from an existing blockchain network.
 Used to specify the RPC endpoint and block number to fork from.
@@ -38,17 +38,17 @@ const value: ForkOptions = {
 
 ### blockTag?
 
-> `optional` **blockTag**: `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)
+> `optional` **blockTag?**: `bigint` \| [`BlockTag`](../../index/type-aliases/BlockTag.md)
 
-Defined in: packages/state/dist/index.d.ts:65
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:65
 
 ***
 
 ### chainId?
 
-> `optional` **chainId**: `number`
+> `optional` **chainId?**: `number`
 
-Defined in: packages/state/dist/index.d.ts:81
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:81
 
 Optional chain ID override.
 When set, this chain ID will be used instead of the one fetched from the fork RPC.
@@ -70,6 +70,6 @@ const client = createMemoryClient({
 
 ### transport
 
-> **transport**: `Transport` \| \{ `request`: `EIP1193RequestFn`; \}
+> **transport**: `Transport` \| \{ `request`: `EIP1193RequestFn`\<`any`\>; \}
 
-Defined in: packages/state/dist/index.d.ts:62
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:62

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetStorageAtJsonRpcProcedure
 
-# Type Alias: EthGetStorageAtJsonRpcProcedure()
+# Type Alias: EthGetStorageAtJsonRpcProcedure
 
 > **EthGetStorageAtJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetStorageAtJsonRpcResponse`](EthGetStorageAtJsonRpcResponse.md)\>
 

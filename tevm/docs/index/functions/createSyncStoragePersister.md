@@ -8,7 +8,7 @@
 
 > **createSyncStoragePersister**(`__namedParameters`): [`SyncStoragePersister`](../type-aliases/SyncStoragePersister.md)
 
-Defined in: packages/sync-storage-persister/types/createSyncStoragePersister.d.ts:1
+Defined in: tevm-monorepo/packages/sync-storage-persister/types/createSyncStoragePersister.d.ts:1
 
 ## Parameters
 

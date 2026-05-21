@@ -3,6 +3,7 @@ import { type Abi, type ContractEventName, decodeEventLog } from 'viem'
 import { assert } from 'vitest'
 import type { ChainState, MatcherResult } from '../../chainable/types.js'
 import type { AbiInputsToNamedArgs } from '../../common/types.js'
+import { deepEqual } from '../utils/deepEqual.js'
 import type { ToEmitState } from './types.js'
 
 export const withEventNamedArgs = <
@@ -43,8 +44,8 @@ export const withEventNamedArgs = <
 		actualNamedArgsFromLogs.push(decodedArgs)
 
 		// Check if all expected args match
-		const allArgsMatch = Object.entries(expectedArgs).every(
-			([argName, expectedValue]) => decodedArgs[argName] === expectedValue,
+		const allArgsMatch = Object.entries(expectedArgs).every(([argName, expectedValue]) =>
+			deepEqual(decodedArgs[argName], expectedValue),
 		)
 		if (allArgsMatch) {
 			argsMatched = true

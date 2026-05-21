@@ -54,7 +54,7 @@
 		"generate:docs": "typedoc",
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
-		"lint:deps": "bunx depcheck",
+		"lint:deps": "bunx depcheck --ignores=@tevm/contract",
 		"lint:package": "bunx publint --strict && attw --pack",
 		"test": "vitest --coverage",
 		"test:coverage": "vitest run --coverage",
@@ -66,14 +66,14 @@
 		"@tevm/bundler-cache": "workspace:^",
 		"@tevm/config": "workspace:^",
 		"@tevm/solc": "workspace:^",
-		"effect": "3.18.1",
-		"solc": "0.8.30"
+		"effect": "3.21.2",
+		"solc": "0.8.35"
 	},
 	"devDependencies": {
 		"@tevm/contract": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^24.6.1"
+		"@types/node": "^25.9.0"
 	},
 	"publishConfig": {
 		"access": "public"

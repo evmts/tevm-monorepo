@@ -16,7 +16,7 @@ JSON-RPC call trace for eth_simulateV2
 
 ### calls?
 
-> `optional` **calls**: `JsonRpcCallTrace`[]
+> `optional` **calls?**: `JsonRpcCallTrace`[]
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:523](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L523)
 
@@ -26,7 +26,7 @@ Sub-calls
 
 ### error?
 
-> `optional` **error**: `string`
+> `optional` **error?**: `string`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:521](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L521)
 
@@ -86,7 +86,7 @@ Output data
 
 ### to?
 
-> `optional` **to**: `Address`
+> `optional` **to?**: `Address`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:509](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L509)
 
@@ -106,7 +106,7 @@ Call type (CALL, DELEGATECALL, STATICCALL, CREATE, CREATE2)
 
 ### value?
 
-> `optional` **value**: `Hex`
+> `optional` **value?**: `Hex`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:511](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L511)
 

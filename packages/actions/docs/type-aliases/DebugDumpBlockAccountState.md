@@ -26,7 +26,7 @@ Account balance in hex
 
 ### code?
 
-> `optional` **code**: [`Hex`](Hex.md)
+> `optional` **code?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/debug/DebugResult.ts:188](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L188)
 
@@ -66,7 +66,7 @@ Account storage root
 
 ### storage?
 
-> `optional` **storage**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
+> `optional` **storage?**: `Record`\<[`Hex`](Hex.md), [`Hex`](Hex.md)\>
 
 Defined in: [packages/actions/src/debug/DebugResult.ts:192](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/debug/DebugResult.ts#L192)
 

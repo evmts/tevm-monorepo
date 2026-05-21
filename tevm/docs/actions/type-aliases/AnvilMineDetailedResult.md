@@ -8,7 +8,7 @@
 
 > **AnvilMineDetailedResult** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:73
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:73
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: packages/actions/types/anvil/AnvilResult.d.ts:73
 
 > **blocks**: `object`[]
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:75
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:75
 
 Array of mined blocks with detailed information
 

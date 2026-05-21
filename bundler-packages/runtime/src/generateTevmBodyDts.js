@@ -1,6 +1,12 @@
 import { formatAbi } from 'abitype'
 import { succeed } from 'effect/Effect'
 
+/** @param {string | null | undefined} value */
+const escapeJSDoc = (value) =>
+	String(value ?? '')
+		.replace(/\*\//g, '*\\/')
+		.replace(/\r?\n/g, '\n * ')
+
 /**
  * Generates TypeScript declaration file (.d.ts) content for Tevm contracts.
  *
@@ -36,71 +42,76 @@ import { succeed } from 'effect/Effect'
 export const generateDtsBody = (artifacts, includeBytecode) => {
 	return succeed(
 		`
-		${Object.entries(artifacts)
-			.flatMap(([contractName, { abi, userdoc = {} }]) => {
-				// Create contract metadata
-				const contract = {
-					name: contractName,
-					humanReadableAbi: formatAbi(abi),
-				}
+			${Object.entries(artifacts)
+				.flatMap(([contractName, { abi, userdoc = {}, evm }]) => {
+					// Create contract metadata
+					const contract = {
+						name: contractName,
+						humanReadableAbi: formatAbi(abi),
+					}
 
-				// Generate JSDoc from NatSpec comments
-				const natspec = Object.entries(userdoc.methods ?? {}).map(
-					([method, { notice }]) => ` * @property ${method} ${notice}`,
-				)
+					// Generate JSDoc from NatSpec comments
+					const natspec = Object.entries(userdoc.methods ?? {}).map(
+						([method, { notice }]) => ` * @property ${escapeJSDoc(method)} ${escapeJSDoc(notice)}`,
+					)
 
-				// Add contract-level notice if available
-				if (userdoc.notice) {
-					natspec.unshift(` * @notice ${userdoc.notice}`)
-				}
+					// Add contract-level notice if available
+					if (userdoc.notice) {
+						natspec.unshift(` * @notice ${escapeJSDoc(userdoc.notice)}`)
+					}
 
-				// Generate type declaration for contracts with bytecode
-				if (includeBytecode) {
+					// Generate type declaration for contracts with bytecode
+					if (includeBytecode) {
+						const bytecodeType = evm?.bytecode?.object && evm.bytecode.object !== '' ? '`0x${string}`' : 'undefined'
+						const deployedBytecodeType =
+							evm?.deployedBytecode?.object && evm.deployedBytecode.object !== '' ? '`0x${string}`' : 'undefined'
+						const bytecodeLabel =
+							bytecodeType === 'undefined' && deployedBytecodeType === 'undefined' ? 'no bytecode' : 'with bytecode'
+						return [
+							// Define constants for name and ABI with const assertions for type safety
+							`declare const _name${contractName}: ${JSON.stringify(contractName, null, 2)};`,
+							`declare const _abi${contractName}: readonly ${JSON.stringify(contract.humanReadableAbi, null, 2)};`,
+
+							// JSDoc comments for the contract
+							'/**',
+							` * ${contractName} Contract (${bytecodeLabel})`,
+							...natspec,
+							' * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation',
+							' */',
+
+							// Type declaration for the contract
+							`export const ${contractName}: Contract<`,
+							`  typeof _name${contractName},`, // Contract name
+							`  typeof _abi${contractName},`, // ABI
+							'  undefined,', // Address placeholder
+							`  ${bytecodeType},`, // Bytecode
+							`  ${deployedBytecodeType},`, // Deployed bytecode
+							'  undefined', // Additional data - removed trailing comma
+							'>;',
+						].filter(Boolean)
+					}
+
+					// Generate type declaration for interface-only contracts (no bytecode)
 					return [
-						// Define constants for name and ABI with const assertions for type safety
-						`const _name${contractName} = ${JSON.stringify(contractName, null, 2)} as const;`,
-						`const _abi${contractName} = ${JSON.stringify(contract.humanReadableAbi, null, 2)} as const;`,
+						// Define constants for ABI and name with const assertions
+						`declare const _abi${contractName}: readonly ${JSON.stringify(contract.humanReadableAbi)};`,
+						`declare const _name${contractName}: ${JSON.stringify(contractName)};`,
 
 						// JSDoc comments for the contract
 						'/**',
-						` * ${contractName} Contract (with bytecode)`,
-						...natspec,
+						` * ${contractName} Contract (no bytecode)`,
+						` * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode`,
 						' * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation',
+						...natspec,
 						' */',
 
-						// Type declaration for the contract
-						`export const ${contractName}: Contract<`,
-						`  typeof _name${contractName},`, // Contract name
-						`  typeof _abi${contractName},`, // ABI
-						'  undefined,', // Address placeholder
-						'  `0x${string}`,', // Bytecode
-						'  `0x${string}`,', // Deployed bytecode
-						'  undefined', // Additional data - removed trailing comma
-						'>;',
+						// Type declaration for the contract (without bytecode)
+						`export const ${contractName}: Contract<typeof _name${contractName}, typeof _abi${contractName}, undefined, undefined, undefined, undefined>;`,
 					].filter(Boolean)
-				}
-
-				// Generate type declaration for interface-only contracts (no bytecode)
-				return [
-					// Define constants for ABI and name with const assertions
-					`const _abi${contractName} = ${JSON.stringify(contract.humanReadableAbi)} as const;`,
-					`const _name${contractName} = ${JSON.stringify(contractName)} as const;`,
-
-					// JSDoc comments for the contract
-					'/**',
-					` * ${contractName} Contract (no bytecode)`,
-					` * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode`,
-					' * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation',
-					...natspec,
-					' */',
-
-					// Type declaration for the contract (without bytecode)
-					`export const ${contractName}: Contract<typeof _name${contractName}, typeof _abi${contractName}, undefined, undefined, undefined, undefined>;`,
-				].filter(Boolean)
-			})
-			.join('\n')}
+				})
+				.join('\n')}
 // solc artifacts of compilation
-export const artifacts = ${JSON.stringify(artifacts, null, 2)};
+export declare const artifacts: ${JSON.stringify(artifacts, null, 2)};
 `,
 	)
 }

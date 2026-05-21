@@ -6,7 +6,7 @@
 
 # Interface: ApplyBlockResult
 
-Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:8
+Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:8
 
 Result of [applyBlock](../variables/applyBlock.md)
 
@@ -14,9 +14,9 @@ Result of [applyBlock](../variables/applyBlock.md)
 
 ### bloom
 
-> **bloom**: `Bloom`
+> **bloom**: [`Bloom`](../../utils/classes/Bloom.md)
 
-Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:12
+Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:12
 
 The Bloom filter
 
@@ -26,7 +26,7 @@ The Bloom filter
 
 > **gasUsed**: `bigint`
 
-Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:16
+Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:16
 
 The gas used after executing the block
 
@@ -34,9 +34,9 @@ The gas used after executing the block
 
 ### preimages?
 
-> `optional` **preimages**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
+> `optional` **preimages?**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:32
+Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:32
 
 Preimages mapping of the touched accounts from the block (see reportPreimages option)
 
@@ -46,7 +46,7 @@ Preimages mapping of the touched accounts from the block (see reportPreimages op
 
 > **receipts**: [`TxReceipt`](../type-aliases/TxReceipt.md)[]
 
-Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:24
+Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:24
 
 Receipts generated for transactions in the block
 
@@ -56,7 +56,7 @@ Receipts generated for transactions in the block
 
 > **receiptsRoot**: `Uint8Array`
 
-Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:20
+Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:20
 
 The receipt root after executing the block
 
@@ -66,6 +66,6 @@ The receipt root after executing the block
 
 > **results**: [`RunTxResult`](RunTxResult.md)[]
 
-Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:28
+Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:28
 
 Results of executing the transactions in the block

@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilAddBalanceHandler
 
-# Type Alias: AnvilAddBalanceHandler()
+# Type Alias: AnvilAddBalanceHandler
 
 > **AnvilAddBalanceHandler** = (`params`) => `Promise`\<[`AnvilAddBalanceResult`](AnvilAddBalanceResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:23
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:23
 
 ## Parameters
 

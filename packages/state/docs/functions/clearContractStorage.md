@@ -8,7 +8,7 @@
 
 > **clearContractStorage**(`baseState`): (`address`) => `Promise`\<`void`\>
 
-Defined in: [packages/state/src/actions/clearContractStorage.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/clearContractStorage.js#L6)
+Defined in: [tevm-monorepo/packages/state/src/actions/clearContractStorage.js:6](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/clearContractStorage.js#L6)
 
 Clears all storage entries for the account corresponding to `address`.
 
@@ -20,14 +20,4 @@ Clears all storage entries for the account corresponding to `address`.
 
 ## Returns
 
-> (`address`): `Promise`\<`void`\>
-
-### Parameters
-
-#### address
-
-`Address`
-
-### Returns
-
-`Promise`\<`void`\>
+(`address`) => `Promise`\<`void`\>

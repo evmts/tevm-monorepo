@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthCoinbaseJsonRpcProcedure
 
-# Type Alias: EthCoinbaseJsonRpcProcedure()
+# Type Alias: EthCoinbaseJsonRpcProcedure
 
 > **EthCoinbaseJsonRpcProcedure** = (`request`) => `Promise`\<[`EthCoinbaseJsonRpcResponse`](EthCoinbaseJsonRpcResponse.md)\>
 

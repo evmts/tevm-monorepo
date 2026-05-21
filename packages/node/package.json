@@ -63,10 +63,12 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@evmts/zevm": "workspace:*",
 		"@tevm/address": "workspace:^",
 		"@tevm/block": "workspace:^",
 		"@tevm/blockchain": "workspace:^",
 		"@tevm/common": "workspace:^",
+		"@tevm/consensus": "workspace:^",
 		"@tevm/evm": "workspace:^",
 		"@tevm/jsonrpc": "workspace:^",
 		"@tevm/logger": "workspace:^",
@@ -75,7 +77,6 @@
 		"@tevm/receipt-manager": "workspace:^",
 		"@tevm/state": "workspace:^",
 		"@tevm/sync-storage-persister": "workspace:^",
-		"@tevm/tx": "workspace:^",
 		"@tevm/txpool": "workspace:^",
 		"@tevm/utils": "workspace:^",
 		"@tevm/vm": "workspace:^"
@@ -86,7 +87,7 @@
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.49.3"
 	},
 	"publishConfig": {
 		"access": "public"

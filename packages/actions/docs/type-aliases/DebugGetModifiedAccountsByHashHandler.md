@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / DebugGetModifiedAccountsByHashHandler
 
-# Type Alias: DebugGetModifiedAccountsByHashHandler()
+# Type Alias: DebugGetModifiedAccountsByHashHandler
 
 > **DebugGetModifiedAccountsByHashHandler** = (`params`) => `Promise`\<[`DebugGetModifiedAccountsByHashResult`](DebugGetModifiedAccountsByHashResult.md)\>
 

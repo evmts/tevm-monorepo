@@ -8,7 +8,7 @@
 
 > **ethCallHandler**(`client`): [`EthCallHandler`](../type-aliases/EthCallHandler.md)
 
-Defined in: packages/actions/types/eth/ethCallHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethCallHandler.d.ts:1
 
 ## Parameters
 

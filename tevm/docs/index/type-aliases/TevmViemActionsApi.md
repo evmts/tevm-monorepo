@@ -8,7 +8,7 @@
 
 > **TevmViemActionsApi** = `object`
 
-Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:15
+Defined in: tevm-monorepo/packages/memory-client/types/TevmViemActionsApi.d.ts:15
 
 A custom [viem extension](https://viem.sh/docs/clients/custom#extending-with-actions-or-configuration) for adding powerful
 Tevm specific actions to the client. These actions come preloaded with [MemoryClient](https://tevm.sh/reference/tevm/memory-client/type-aliases/memoryclient/)
@@ -29,7 +29,7 @@ const client = createTevmClient()
 
 > **tevmCall**: [`TevmActionsApi`](TevmActionsApi.md)\[`"call"`\]
 
-Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:17
+Defined in: tevm-monorepo/packages/memory-client/types/TevmViemActionsApi.d.ts:17
 
 ***
 
@@ -37,7 +37,7 @@ Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:17
 
 > **tevmContract**: [`TevmActionsApi`](TevmActionsApi.md)\[`"contract"`\]
 
-Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:18
+Defined in: tevm-monorepo/packages/memory-client/types/TevmViemActionsApi.d.ts:18
 
 ***
 
@@ -45,7 +45,7 @@ Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:18
 
 > **tevmDeal**: [`TevmActionsApi`](TevmActionsApi.md)\[`"deal"`\]
 
-Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:25
+Defined in: tevm-monorepo/packages/memory-client/types/TevmViemActionsApi.d.ts:25
 
 ***
 
@@ -53,7 +53,7 @@ Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:25
 
 > **tevmDeploy**: [`TevmActionsApi`](TevmActionsApi.md)\[`"deploy"`\]
 
-Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:19
+Defined in: tevm-monorepo/packages/memory-client/types/TevmViemActionsApi.d.ts:19
 
 ***
 
@@ -61,7 +61,7 @@ Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:19
 
 > **tevmDumpState**: [`TevmActionsApi`](TevmActionsApi.md)\[`"dumpState"`\]
 
-Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:22
+Defined in: tevm-monorepo/packages/memory-client/types/TevmViemActionsApi.d.ts:22
 
 ***
 
@@ -69,7 +69,7 @@ Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:22
 
 > **tevmGetAccount**: [`TevmActionsApi`](TevmActionsApi.md)\[`"getAccount"`\]
 
-Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:24
+Defined in: tevm-monorepo/packages/memory-client/types/TevmViemActionsApi.d.ts:24
 
 ***
 
@@ -77,7 +77,7 @@ Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:24
 
 > **tevmLoadState**: [`TevmActionsApi`](TevmActionsApi.md)\[`"loadState"`\]
 
-Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:21
+Defined in: tevm-monorepo/packages/memory-client/types/TevmViemActionsApi.d.ts:21
 
 ***
 
@@ -85,7 +85,7 @@ Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:21
 
 > **tevmMine**: [`TevmActionsApi`](TevmActionsApi.md)\[`"mine"`\]
 
-Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:20
+Defined in: tevm-monorepo/packages/memory-client/types/TevmViemActionsApi.d.ts:20
 
 ***
 
@@ -93,7 +93,7 @@ Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:20
 
 > **tevmReady**: [`TevmNode`](TevmNode.md)\[`"ready"`\]
 
-Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:16
+Defined in: tevm-monorepo/packages/memory-client/types/TevmViemActionsApi.d.ts:16
 
 ***
 
@@ -101,4 +101,4 @@ Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:16
 
 > **tevmSetAccount**: [`TevmActionsApi`](TevmActionsApi.md)\[`"setAccount"`\]
 
-Defined in: packages/memory-client/types/TevmViemActionsApi.d.ts:23
+Defined in: tevm-monorepo/packages/memory-client/types/TevmViemActionsApi.d.ts:23

@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import type { LoadStateParams, LoadStateResult } from '@tevm/actions'
 import { option } from 'pastel'
 import { z } from 'zod'
@@ -94,12 +95,10 @@ const parseState = (options: Record<string, any>): Record<string, any> => {
 	// Then try stateFile - in Node.js environment
 	if (options['stateFile']) {
 		try {
-			// In a Node.js environment, we'd use fs here
-			// For the CLI, we'll use a simplified approach
-			// This is a placeholder for actual file reading logic
-			throw new Error('File reading not implemented in this context')
-		} catch (_e) {
-			throw new Error(`Could not read state file: ${options['stateFile']}`)
+			return JSON.parse(readFileSync(options['stateFile'], 'utf8'))
+		} catch (error) {
+			const message = error instanceof Error ? error.message : String(error)
+			throw new Error(`Could not read state file ${options['stateFile']}: ${message}`)
 		}
 	}
 

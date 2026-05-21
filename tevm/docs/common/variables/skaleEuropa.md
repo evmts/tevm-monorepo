@@ -8,7 +8,7 @@
 
 > `const` **skaleEuropa**: [`Common`](../type-aliases/Common.md)
 
-Defined in: packages/common/types/presets/skaleEuropa.d.ts:21
+Defined in: tevm-monorepo/packages/common/types/presets/skaleEuropa.d.ts:21
 
 Creates a common configuration for the skaleEuropa chain.
 

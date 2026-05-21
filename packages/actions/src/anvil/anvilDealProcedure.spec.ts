@@ -8,7 +8,7 @@ import { anvilDealJsonRpcProcedure } from './anvilDealProcedure.js'
 describe('anvilDealJsonRpcProcedure', () => {
 	it('should deal ERC20 tokens', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress('0x0000000000000000000000000000000000066a44').toString())
 
 		// Deploy contract
 		await setAccountHandler(client)({

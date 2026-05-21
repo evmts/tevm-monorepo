@@ -14,7 +14,7 @@ Defined in: [packages/actions/src/DumpState/DumpStateParams.ts:4](https://github
 
 ### blockTag?
 
-> `readonly` `optional` **blockTag**: [`BlockParam`](BlockParam.md)
+> `readonly` `optional` **blockTag?**: [`BlockParam`](BlockParam.md)
 
 Block tag to fetch account from
 - bigint for block number

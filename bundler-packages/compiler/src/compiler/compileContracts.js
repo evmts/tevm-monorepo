@@ -2,7 +2,7 @@ import { moduleFactory } from '@tevm/resolutions'
 import { solcCompile } from '@tevm/solc'
 import { Effect } from 'effect'
 import { runPromise } from 'effect/Effect'
-import { invariant, resolveEffect } from '../utils/index.js'
+import { formatPath, invariant, resolveEffect } from '../utils/index.js'
 
 /**
  * Compile the Solidity contract and return its ABI.
@@ -29,21 +29,20 @@ import { invariant, resolveEffect } from '../utils/index.js'
  * )
  */
 export const compileContract = async (filePath, basedir, config, includeAst, includeBytecode, fao, logger, solc) => {
+	const resolvedFilePath = formatPath(await Effect.runPromise(resolveEffect(filePath, basedir, fao, logger)))
 	const moduleMap = await runPromise(
 		moduleFactory(
-			filePath,
-			await fao
-				.readFile(await Effect.runPromise(resolveEffect(filePath, basedir, fao, logger)), 'utf8')
-				.then((code) => {
-					return code
-				}),
+			resolvedFilePath,
+			await fao.readFile(resolvedFilePath, 'utf8').then((code) => {
+				return code
+			}),
 			config.remappings,
 			config.libs,
 			fao,
 			false,
 		),
 	)
-	const entryModule = moduleMap.get(filePath)
+	const entryModule = moduleMap.get(resolvedFilePath)
 	invariant(entryModule, 'Entry module should exist')
 
 	/**

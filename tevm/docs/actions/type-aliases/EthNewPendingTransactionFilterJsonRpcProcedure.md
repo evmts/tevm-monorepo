@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthNewPendingTransactionFilterJsonRpcProcedure
 
-# Type Alias: EthNewPendingTransactionFilterJsonRpcProcedure()
+# Type Alias: EthNewPendingTransactionFilterJsonRpcProcedure
 
 > **EthNewPendingTransactionFilterJsonRpcProcedure** = (`request`) => `Promise`\<[`EthNewPendingTransactionFilterJsonRpcResponse`](EthNewPendingTransactionFilterJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:43
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:43
 
 ## Parameters
 

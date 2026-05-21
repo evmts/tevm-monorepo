@@ -7,6 +7,11 @@ export const revert = (baseState) => () => {
 	baseState.caches.accounts.revert()
 	baseState.caches.storage.revert()
 	baseState.caches.contracts.revert()
+	const tombstoneCheckpoint = baseState.tombstones.checkpoints.pop()
+	if (tombstoneCheckpoint !== undefined) {
+		baseState.tombstones.accounts = tombstoneCheckpoint.accounts
+		baseState.tombstones.storageCleared = tombstoneCheckpoint.storageCleared
+	}
 	baseState.logger.debug('State reverted')
 	return Promise.resolve()
 }

@@ -8,7 +8,7 @@
 
 > **HttpClient** = [`TevmClient`](../../index/type-aliases/TevmClient.md) & `object`
 
-Defined in: packages/http-client/types/HttpClient.d.ts:5
+Defined in: tevm-monorepo/packages/http-client/types/HttpClient.d.ts:5
 
 ## Type Declaration
 

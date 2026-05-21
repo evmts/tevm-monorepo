@@ -8,7 +8,7 @@
 
 > **MiningConfig** = [`ManualMining`](ManualMining.md) \| [`AutoMining`](AutoMining.md) \| [`IntervalMining`](../../node/type-aliases/IntervalMining.md)
 
-Defined in: packages/node/dist/index.d.ts:105
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:99
 
 Configuration options for controlling block mining behavior.
 Union of all mining strategy types.

@@ -203,16 +203,14 @@ describe('chainable type system (exhaustive)', () => {
 
 	it('type: conditional return types based on TAsync', () => {
 		// Test that conditional types work correctly
-		type SyncResult = VitestMatcherFunction<unknown, false, unknown> extends VitestMatcherFunction<any, true, any>
-			? ChainableAssertion
-			: Assertion
-		type AsyncResult = VitestMatcherFunction<
-			Promise<string>,
-			true,
-			{ resolved: boolean }
-		> extends VitestMatcherFunction<any, true, any>
-			? ChainableAssertion
-			: Assertion
+		type SyncResult =
+			VitestMatcherFunction<unknown, false, unknown> extends VitestMatcherFunction<any, true, any>
+				? ChainableAssertion
+				: Assertion
+		type AsyncResult =
+			VitestMatcherFunction<Promise<string>, true, { resolved: boolean }> extends VitestMatcherFunction<any, true, any>
+				? ChainableAssertion
+				: Assertion
 
 		expectTypeOf<SyncResult>().toEqualTypeOf<Assertion>()
 		expectTypeOf<AsyncResult>().toEqualTypeOf<ChainableAssertion>()

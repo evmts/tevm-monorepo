@@ -2,11 +2,11 @@ import { rm } from 'node:fs/promises'
 import path from 'node:path'
 import { blockNumberProcedure, ethGetBlockByNumberJsonRpcProcedure } from '@tevm/actions'
 import { mainnet } from '@tevm/common'
-import { transports } from '@tevm/test-utils'
-import { http, numberToHex } from 'viem'
+import { numberToHex } from 'viem'
 import { afterEach, describe, expect, it } from 'vitest'
 import { createTestSnapshotNode } from './createTestSnapshotNode.js'
 import { BLOCK_NUMBER } from './test/constants.js'
+import { createMockForkTransport } from './test/mockTransport.js'
 import { assertMethodCached, assertMethodNotCached } from './test/snapshot-utils.js'
 
 describe('createTestSnapshotNode', () => {
@@ -32,7 +32,7 @@ describe('createTestSnapshotNode', () => {
 	it('should create a client with all required methods', async () => {
 		const client = createTestSnapshotNode({
 			fork: {
-				transport: http('https://mainnet.optimism.io')({}),
+				transport: createMockForkTransport(),
 			},
 		})
 
@@ -47,7 +47,7 @@ describe('createTestSnapshotNode', () => {
 	it('should start and stop server correctly', async () => {
 		const { server } = createTestSnapshotNode({
 			fork: {
-				transport: transports.mainnet,
+				transport: createMockForkTransport(),
 			},
 			common: mainnet,
 		})
@@ -74,7 +74,7 @@ describe('createTestSnapshotNode', () => {
 	it('should cache RPC requests', async () => {
 		const client = createTestSnapshotNode({
 			fork: {
-				transport: transports.mainnet,
+				transport: createMockForkTransport(),
 			},
 			common: mainnet,
 		})
@@ -99,7 +99,7 @@ describe('createTestSnapshotNode', () => {
 	it('should not cache non-cacheable requests', async () => {
 		const client = createTestSnapshotNode({
 			fork: {
-				transport: transports.mainnet,
+				transport: createMockForkTransport(),
 			},
 			common: mainnet,
 		})
@@ -120,7 +120,7 @@ describe('createTestSnapshotNode', () => {
 	it('should save snapshots on stop', async () => {
 		const client = createTestSnapshotNode({
 			fork: {
-				transport: transports.mainnet,
+				transport: createMockForkTransport(),
 			},
 			common: mainnet,
 		})
@@ -140,7 +140,7 @@ describe('createTestSnapshotNode', () => {
 	it('should save snapshots immediately when autosave is onRequest', async () => {
 		const client = createTestSnapshotNode({
 			fork: {
-				transport: transports.mainnet,
+				transport: createMockForkTransport(),
 			},
 			common: mainnet,
 			test: {
@@ -175,7 +175,7 @@ describe('createTestSnapshotNode', () => {
 	it('should not save snapshots immediately when autosave is onStop (default)', async () => {
 		const client = createTestSnapshotNode({
 			fork: {
-				transport: transports.mainnet,
+				transport: createMockForkTransport(),
 			},
 			common: mainnet,
 			test: {

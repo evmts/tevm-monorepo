@@ -109,9 +109,15 @@ const parseBlockNumber = (blockNumber?: string): bigint | undefined => {
 	try {
 		return BigInt(blockNumber)
 	} catch (_e) {
-		console.warn(`Could not convert "${blockNumber}" to BigInt`)
-		return undefined
+		throw new Error(`Invalid block number "${blockNumber}"`)
 	}
+}
+
+const parseSlot = (slot: string): string => {
+	if (!/^0x[0-9a-fA-F]+$/.test(slot)) {
+		throw new Error(`Invalid storage slot "${slot}". Expected a hex value like 0x0.`)
+	}
+	return slot
 }
 
 export default function GetStorageAt({ options }: Props) {
@@ -122,12 +128,12 @@ export default function GetStorageAt({ options }: Props) {
 		defaultValues,
 		optionDescriptions,
 
-		// Create params
-		createParams: (enhancedOptions: Record<string, any>) => {
-			const params: Record<string, any> = {
-				address: enhancedOptions['address'] || defaultValues['address'],
-				slot: enhancedOptions['slot'] || defaultValues['slot'],
-			}
+			// Create params
+			createParams: (enhancedOptions: Record<string, any>) => {
+				const params: Record<string, any> = {
+					address: enhancedOptions['address'] || defaultValues['address'],
+					position: parseSlot(enhancedOptions['slot'] || defaultValues['slot']),
+				}
 
 			// Add block identifier - only one should be used
 			if (enhancedOptions['blockNumber']) {

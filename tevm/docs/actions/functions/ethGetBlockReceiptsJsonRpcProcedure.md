@@ -8,7 +8,7 @@
 
 > **ethGetBlockReceiptsJsonRpcProcedure**(`client`): [`EthGetBlockReceiptsJsonRpcProcedure`](../type-aliases/EthGetBlockReceiptsJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethGetBlockReceiptsProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethGetBlockReceiptsProcedure.d.ts:1
 
 ## Parameters
 

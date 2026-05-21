@@ -1,4 +1,14 @@
-// Originally from ethjs
+import {
+	type AccessList,
+	type AccessListEIP2930Transaction,
+	type AccessListItem,
+	BlobEIP4844Transaction,
+	Capability,
+	type EOACodeEIP7702Transaction,
+	type FeeMarketEIP1559Transaction,
+	isBlobEIP4844Tx,
+	type LegacyTransaction,
+} from '@evmts/zevm/tx'
 import { ConsensusType } from '@tevm/common'
 import {
 	EipNotEnabledError,
@@ -12,15 +22,6 @@ import {
 	NonceTooHighError,
 	NonceTooLowError,
 } from '@tevm/errors'
-import type {
-	AccessList,
-	AccessListEIP2930Transaction,
-	AccessListItem,
-	EOACodeEIP7702Transaction,
-	FeeMarketEIP1559Transaction,
-	LegacyTransaction,
-} from '@tevm/tx'
-import { BlobEIP4844Transaction, Capability, isBlobEIP4844Tx } from '@tevm/tx'
 import {
 	BIGINT_0,
 	BIGINT_1,
@@ -44,8 +45,15 @@ import { txLogsBloom } from './txLogsBloom.js'
 import { validateRunTx } from './validateRunTx.js'
 import { warmAddresses2929 } from './warmAddresses2929.js'
 
-// EIP-7702 flag: if contract code starts with these 3 bytes, it is a 7702-delegated EOA
+// EIP-7702 delegation designator: 0xef0100 followed by exactly one 20-byte delegate address.
 const DELEGATION_7702_FLAG = new Uint8Array([0xef, 0x01, 0x00])
+const DELEGATION_7702_CODE_SIZE = DELEGATION_7702_FLAG.length + 20
+
+const isEip7702DelegationCode = (code: Uint8Array) =>
+	code.length === DELEGATION_7702_CODE_SIZE &&
+	equalsBytes(code.slice(0, DELEGATION_7702_FLAG.length), DELEGATION_7702_FLAG)
+
+const eip7702BytesToBigInt = (bytes: Uint8Array) => (bytes.length === 0 ? BIGINT_0 : bytesToBigInt(bytes))
 
 export type RunTx = (opts: RunTxOpts) => Promise<RunTxResult>
 
@@ -147,7 +155,7 @@ const _runTx =
 			}
 		}
 		// Check from account's balance and nonce
-		let fromAccount = await vm.stateManager.getAccount(caller)
+		let fromAccount = (await vm.stateManager.getAccount(caller)) as EthjsAccount | undefined
 		if (fromAccount === undefined) {
 			fromAccount = new EthjsAccount()
 		}
@@ -159,7 +167,7 @@ const _runTx =
 			if (isActive7702) {
 				const code = await vm.stateManager.getCode(caller)
 				// If the EOA is 7702-delegated, sending txs from this EOA is fine
-				if (!equalsBytes(code.slice(0, 3), DELEGATION_7702_FLAG)) {
+				if (!isEip7702DelegationCode(code)) {
 					// Trying to send TX from account with code (which is not 7702-delegated)
 					const msg = errorMsg('invalid sender address, address is not EOA (EIP-3607)', block, tx)
 					throw new InvalidTransactionError(msg)
@@ -181,7 +189,7 @@ const _runTx =
 				if (tx.supports(Capability.EIP1559FeeMarket) === false) {
 					// if skipBalance and not EIP1559 transaction, ensure caller balance is enough to run transaction
 					fromAccount.balance = upFrontCost
-					await vm.evm.journal.putAccount(caller, fromAccount)
+					await vm.evm.journal.putAccount(caller, fromAccount as any)
 				}
 			} else {
 				const msg = errorMsg(
@@ -236,7 +244,7 @@ const _runTx =
 			if (opts.skipBalance === true && fromAccount.balance < maxCost) {
 				// if skipBalance, ensure caller balance is enough to run transaction
 				fromAccount.balance = maxCost
-				await vm.evm.journal.putAccount(caller, fromAccount)
+				await vm.evm.journal.putAccount(caller, fromAccount as any)
 			} else {
 				const msg = errorMsg(
 					`sender doesn't have enough funds to send tx. The max cost is: ${maxCost} and the sender's account (${caller}) only has: ${balance}`,
@@ -293,7 +301,7 @@ const _runTx =
 		if (opts.skipBalance === true && fromAccount.balance < 0n) {
 			fromAccount.balance = 0n
 		}
-		await vm.evm.journal.putAccount(caller, fromAccount)
+		await vm.evm.journal.putAccount(caller, fromAccount as any)
 
 		// EIP-7702: Process authorization list for EOA code transactions
 		let gasRefund = BIGINT_0
@@ -306,7 +314,7 @@ const _runTx =
 				const authTuple = authorizationList[i]
 				if (!authTuple) continue
 				const authChainId = authTuple[0]
-				const authChainIdBN = bytesToBigInt(authChainId)
+				const authChainIdBN = eip7702BytesToBigInt(authChainId)
 				if (authChainIdBN !== BIGINT_0 && authChainIdBN !== BigInt(vm.common.ethjsCommon.chainId())) {
 					// Chain id does not match, continue
 					continue
@@ -314,17 +322,18 @@ const _runTx =
 				// Address to take code from
 				const delegateAddress = authTuple[1]
 				const authNonce = authTuple[2]
-				if (bytesToBigInt(authNonce) >= MAX_UINT64) {
+				const authNonceBN = eip7702BytesToBigInt(authNonce)
+				if (authNonceBN >= MAX_UINT64) {
 					// authority nonce >= 2^64 - 1. Bumping this nonce by one will not make this fit in an uint64.
 					continue
 				}
 				const authS = authTuple[5]
-				if (bytesToBigInt(authS) > SECP256K1_ORDER_DIV_2) {
+				if (eip7702BytesToBigInt(authS) > SECP256K1_ORDER_DIV_2) {
 					// Malleability protection to avoid "flipping" a valid signature to get
 					// another valid signature (which yields the same account on `ecrecover`)
 					continue
 				}
-				const yParity = bytesToBigInt(authTuple[3])
+				const yParity = eip7702BytesToBigInt(authTuple[3])
 				if (yParity > BIGINT_1) {
 					continue
 				}
@@ -337,7 +346,7 @@ const _runTx =
 					continue
 				}
 
-				const accountMaybeUndefined = await vm.stateManager.getAccount(authority)
+				const accountMaybeUndefined = (await vm.stateManager.getAccount(authority)) as EthjsAccount | undefined
 				const accountExists = accountMaybeUndefined !== undefined
 				const account = accountMaybeUndefined ?? new EthjsAccount()
 
@@ -346,7 +355,7 @@ const _runTx =
 
 				if (account.isContract()) {
 					const code = await vm.stateManager.getCode(authority)
-					if (!equalsBytes(code.slice(0, 3), DELEGATION_7702_FLAG)) {
+					if (!isEip7702DelegationCode(code)) {
 						// Account is a "normal" contract
 						continue
 					}
@@ -354,12 +363,12 @@ const _runTx =
 
 				// Nonce check
 				if (caller.toString() === authority.toString()) {
-					if (account.nonce + BIGINT_1 !== bytesToBigInt(authNonce)) {
+					if (account.nonce + BIGINT_1 !== authNonceBN) {
 						// Edge case: caller is the authority, so is self-signing the delegation
 						// In this case, we "virtually" bump the account nonce by one
 						continue
 					}
-				} else if (account.nonce !== bytesToBigInt(authNonce)) {
+				} else if (account.nonce !== authNonceBN) {
 					continue
 				}
 
@@ -370,7 +379,7 @@ const _runTx =
 					gasRefund += refund
 				}
 				account.nonce++
-				await vm.evm.journal.putAccount(authority, account)
+				await vm.evm.journal.putAccount(authority, account as any)
 
 				if (equalsBytes(delegateAddress, new Uint8Array(20))) {
 					// Special case: If delegated to the zero address, clear the delegation of authority
@@ -415,24 +424,24 @@ const _runTx =
 
 		// Process any gas refund (including EIP-7702 refund accumulated above)
 		gasRefund += results.execResult.gasRefund ?? BIGINT_0
-		results.gasRefund = gasRefund
 		const maxRefundQuotient = BigInt(vm.common.ethjsCommon.param('maxRefundQuotient'))
 		if (gasRefund !== BIGINT_0) {
 			const maxRefund = results.totalGasSpent / maxRefundQuotient
 			gasRefund = gasRefund < maxRefund ? gasRefund : maxRefund
 			results.totalGasSpent -= gasRefund
 		}
+		results.gasRefund = gasRefund
 		results.amountSpent = results.totalGasSpent * gasPrice
 
 		// Update sender's balance
-		fromAccount = await vm.stateManager.getAccount(caller)
+		fromAccount = (await vm.stateManager.getAccount(caller)) as EthjsAccount | undefined
 		if (fromAccount === undefined) {
 			fromAccount = new EthjsAccount()
 		}
 		const actualTxCost = results.totalGasSpent * gasPrice
 		const txCostDiff = txCost - actualTxCost
 		fromAccount.balance += txCostDiff
-		await vm.evm.journal.putAccount(caller, fromAccount)
+		await vm.evm.journal.putAccount(caller, fromAccount as any)
 
 		// Update miner's balance
 		let miner: EthjsAddress
@@ -442,7 +451,7 @@ const _runTx =
 			miner = block.header.coinbase
 		}
 
-		let minerAccount = await vm.stateManager.getAccount(miner)
+		let minerAccount = (await vm.stateManager.getAccount(miner)) as EthjsAccount | undefined
 		if (minerAccount === undefined) {
 			minerAccount = new EthjsAccount()
 		}
@@ -455,7 +464,7 @@ const _runTx =
 		// Put the miner account into the state. If the balance of the miner account remains zero, note that
 		// the state.putAccount function puts this into the "touched" accounts. This will thus be removed when
 		// we clean the touched accounts below in case we are in a fork >= SpuriousDragon
-		await vm.evm.journal.putAccount(miner, minerAccount)
+		await vm.evm.journal.putAccount(miner, minerAccount as any)
 
 		/*
 		 * Cleanup accounts

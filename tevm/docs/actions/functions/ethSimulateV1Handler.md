@@ -8,7 +8,7 @@
 
 > **ethSimulateV1Handler**(`client`): [`EthSimulateV1Handler`](../type-aliases/EthSimulateV1Handler.md)
 
-Defined in: packages/actions/types/eth/ethSimulateV1Handler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethSimulateV1Handler.d.ts:1
 
 ## Parameters
 

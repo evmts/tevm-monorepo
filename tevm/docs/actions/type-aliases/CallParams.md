@@ -8,7 +8,7 @@
 
 > **CallParams**\<`TThrowOnFail`\> = [`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\> & `object`
 
-Defined in: packages/actions/types/Call/CallParams.d.ts:30
+Defined in: tevm-monorepo/packages/actions/types/Call/CallParams.d.ts:30
 
 TEVM parameters to execute a call on the VM.
 `Call` is the lowest level method to interact with the VM, and other methods such as `contract` and `script` use `call` under the hood.
@@ -17,7 +17,7 @@ TEVM parameters to execute a call on the VM.
 
 ### code?
 
-> `readonly` `optional` **code**: [`Hex`](Hex.md)
+> `readonly` `optional` **code?**: [`Hex`](Hex.md)
 
 The encoded code to deploy with for a deployless call. Code is encoded with constructor arguments, unlike `deployedBytecode`.
 
@@ -65,13 +65,13 @@ await tevmContract(client, script.read.get()) // 420n
 
 ### data?
 
-> `readonly` `optional` **data**: [`Hex`](Hex.md)
+> `readonly` `optional` **data?**: [`Hex`](Hex.md)
 
 The input data for the call.
 
 ### deployedBytecode?
 
-> `readonly` `optional` **deployedBytecode**: [`Hex`](Hex.md)
+> `readonly` `optional` **deployedBytecode?**: [`Hex`](Hex.md)
 
 The code to put into the state before executing the call. If you wish to call the constructor, use `code` instead.
 
@@ -97,7 +97,7 @@ await tevmCall(client, callParams)
 
 ### salt?
 
-> `readonly` `optional` **salt**: [`Hex`](Hex.md)
+> `readonly` `optional` **salt?**: [`Hex`](Hex.md)
 
 An optional CREATE2 salt.
 

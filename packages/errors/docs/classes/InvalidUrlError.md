@@ -110,7 +110,7 @@ Same as name, used internally.
 
 ### docsPath
 
-> **docsPath**: `undefined` \| `string`
+> **docsPath**: `string` \| `undefined`
 
 #### Inherited from
 
@@ -120,7 +120,7 @@ Same as name, used internally.
 
 ### metaMessages
 
-> **metaMessages**: `undefined` \| `string`[]
+> **metaMessages**: `string`[] \| `undefined`
 
 #### Inherited from
 

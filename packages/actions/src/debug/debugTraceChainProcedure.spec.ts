@@ -3,9 +3,12 @@ import { createTevmNode, type TevmNode } from '@tevm/node'
 import { transports } from '@tevm/test-utils'
 import { parseEther } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { callHandler } from '../Call/callHandler.js'
+import { mineHandler } from '../Mine/mineHandler.js'
+import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { debugTraceChainJsonRpcProcedure } from './debugTraceChainProcedure.js'
 
-describe('debugTraceChainProcedure', () => {
+describe.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('debugTraceChainProcedure', () => {
 	let client: TevmNode
 
 	beforeEach(async () => {
@@ -24,32 +27,32 @@ describe('debugTraceChainProcedure', () => {
 		const to1 = createAddress('0x2000000000000000000000000000000000000000').toString()
 		const to2 = createAddress('0x3000000000000000000000000000000000000000').toString()
 
-		await client.setAccount({
+		await setAccountHandler(client)({
 			address: from,
 			balance: parseEther('10'),
 		})
 
 		// Create first block with one transaction
-		await client.tevmCall({
+		await callHandler(client)({
 			from,
 			to: to1,
 			value: parseEther('1'),
 			createTransaction: true,
 		})
-		await client.tevmMine()
+		await mineHandler(client)()
 
 		const vm = await client.getVm()
 		const firstBlock = await vm.blockchain.getCanonicalHeadBlock()
 		const startBlockNumber = Number(firstBlock.header.number)
 
 		// Create second block with one transaction
-		await client.tevmCall({
+		await callHandler(client)({
 			from,
 			to: to2,
 			value: parseEther('1'),
 			createTransaction: true,
 		})
-		await client.tevmMine()
+		await mineHandler(client)()
 
 		const lastBlock = await vm.blockchain.getCanonicalHeadBlock()
 		const endBlockNumber = Number(lastBlock.header.number)
@@ -102,18 +105,18 @@ describe('debugTraceChainProcedure', () => {
 		const from = createAddress('0x1000000000000000000000000000000000000000').toString()
 		const to = createAddress('0x2000000000000000000000000000000000000000').toString()
 
-		await client.setAccount({
+		await setAccountHandler(client)({
 			address: from,
 			balance: parseEther('10'),
 		})
 
-		await client.tevmCall({
+		await callHandler(client)({
 			from,
 			to,
 			value: parseEther('1'),
 			createTransaction: true,
 		})
-		await client.tevmMine()
+		await mineHandler(client)()
 
 		const vm = await client.getVm()
 		const block = await vm.blockchain.getCanonicalHeadBlock()
@@ -141,13 +144,13 @@ describe('debugTraceChainProcedure', () => {
 		const procedure = debugTraceChainJsonRpcProcedure(client)
 
 		// Mine empty block
-		await client.tevmMine()
+		await mineHandler(client)()
 		const vm = await client.getVm()
 		const block1 = await vm.blockchain.getCanonicalHeadBlock()
 		const startBlockNumber = Number(block1.header.number)
 
 		// Mine another empty block
-		await client.tevmMine()
+		await mineHandler(client)()
 		const block2 = await vm.blockchain.getCanonicalHeadBlock()
 		const endBlockNumber = Number(block2.header.number)
 
@@ -201,18 +204,18 @@ describe('debugTraceChainProcedure', () => {
 		const from = createAddress('0x1000000000000000000000000000000000000000').toString()
 		const to = createAddress('0x2000000000000000000000000000000000000000').toString()
 
-		await client.setAccount({
+		await setAccountHandler(client)({
 			address: from,
 			balance: parseEther('10'),
 		})
 
-		await client.tevmCall({
+		await callHandler(client)({
 			from,
 			to,
 			value: parseEther('1'),
 			createTransaction: true,
 		})
-		await client.tevmMine()
+		await mineHandler(client)()
 
 		const vm = await client.getVm()
 		const block = await vm.blockchain.getCanonicalHeadBlock()
@@ -241,8 +244,8 @@ describe('debugTraceChainProcedure', () => {
 		const procedure = debugTraceChainJsonRpcProcedure(client)
 
 		// Mine some blocks
-		await client.tevmMine()
-		await client.tevmMine()
+		await mineHandler(client)()
+		await mineHandler(client)()
 
 		// Call debug_traceChain with 'latest' tag
 		const response = await procedure({

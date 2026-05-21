@@ -7,7 +7,7 @@ import type { BigIntLike } from '@tevm/utils'
  */
 export interface RunBlockOpts {
 	/**
-	 * The @ethereumjs/block to process
+	 * The block to process.
 	 */
 	block: Block
 	/**

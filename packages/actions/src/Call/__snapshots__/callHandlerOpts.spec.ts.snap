@@ -19,7 +19,7 @@ exports[`callHandlerOpts > should handle empty params 1`] = `
       "parentBeaconBlockRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
       "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
       "receiptTrie": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-      "requestsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "requestsRoot": "0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "stateRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
       "timestamp": "0x0",
       "transactionsTrie": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
@@ -88,7 +88,7 @@ exports[`callHandlerOpts > should return an error for unknown block tag 1`] = `
   [InvalidBlockError: Unknown blocktag unknown
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -97,9 +97,9 @@ exports[`callHandlerOpts > should return an error if no block is found 1`] = `
   [UnknownBlock: Block number 100 does not exist
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
-Version: 1.1.0.next-73
+Version: 1.0.0-next.148
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;

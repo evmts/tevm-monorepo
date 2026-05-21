@@ -8,7 +8,7 @@
 
 > **SerializedParams** = `object`
 
-Defined in: packages/actions/types/LoadState/LoadStateJsonRpcRequest.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/LoadState/LoadStateJsonRpcRequest.d.ts:7
 
 The parameters for the `tevm_loadState` method
 
@@ -18,4 +18,4 @@ The parameters for the `tevm_loadState` method
 
 > **state**: `SerializeToJson`\<[`ParameterizedTevmState`](../../state/type-aliases/ParameterizedTevmState.md)\>
 
-Defined in: packages/actions/types/LoadState/LoadStateJsonRpcRequest.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/LoadState/LoadStateJsonRpcRequest.d.ts:8

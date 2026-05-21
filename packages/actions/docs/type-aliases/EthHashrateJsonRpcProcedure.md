@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthHashrateJsonRpcProcedure
 
-# Type Alias: EthHashrateJsonRpcProcedure()
+# Type Alias: EthHashrateJsonRpcProcedure
 
 > **EthHashrateJsonRpcProcedure** = (`request`) => `Promise`\<[`EthHashrateJsonRpcResponse`](EthHashrateJsonRpcResponse.md)\>
 

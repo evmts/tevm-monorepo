@@ -8,7 +8,7 @@
 
 > **chainIdHandler**(`client`): [`EthChainIdHandler`](../type-aliases/EthChainIdHandler.md)
 
-Defined in: packages/actions/types/eth/chainIdHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/chainIdHandler.d.ts:1
 
 ## Parameters
 

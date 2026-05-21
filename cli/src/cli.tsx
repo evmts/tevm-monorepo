@@ -1,9 +1,12 @@
 #!/usr/bin/env node
+import { createRequire } from 'node:module'
 import Pastel from 'pastel'
+
+const packageJson = createRequire(import.meta.url)('../package.json') as { version: string }
 
 const app = new Pastel({
 	name: 'tevm',
-	version: '0.0.0',
+	version: packageJson.version,
 	description: 'Tevm CLI tool',
 	importMeta: import.meta,
 })

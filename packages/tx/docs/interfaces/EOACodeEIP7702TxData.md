@@ -6,7 +6,7 @@
 
 # Interface: EOACodeEIP7702TxData
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:302
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:366
 
 [EOACode7702Tx](../classes/EOACodeEIP7702Transaction.md) data.
 
@@ -18,9 +18,9 @@ Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/
 
 ### accessList?
 
-> `optional` **accessList**: `null` \| `AccessListBytes` \| [`AccessList`](../type-aliases/AccessList.md)
+> `optional` **accessList?**: `AccessListBytes` \| [`AccessList`](../type-aliases/AccessList.md) \| `null`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:250
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:310
 
 The access list which contains the addresses/storage slots which the transaction wishes to access
 
@@ -32,17 +32,17 @@ The access list which contains the addresses/storage slots which the transaction
 
 ### authorizationList?
 
-> `optional` **authorizationList**: `EOACode7702AuthorizationListBytes` \| `EOACode7702AuthorizationList`
+> `optional` **authorizationList?**: `EOACode7702AuthorizationListBytes` \| `EOACode7702AuthorizationList`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:303
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:367
 
 ***
 
 ### chainId?
 
-> `optional` **chainId**: `BigIntLike`
+> `optional` **chainId?**: `BigIntLike`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:246
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:306
 
 The transaction's chain ID
 
@@ -54,9 +54,9 @@ The transaction's chain ID
 
 ### data?
 
-> `optional` **data**: `""` \| `BytesLike`
+> `optional` **data?**: `""` \| `BytesLike`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:221
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:281
 
 This will contain the data of the message or the init of a contract.
 
@@ -68,9 +68,9 @@ This will contain the data of the message or the init of a contract.
 
 ### gasLimit?
 
-> `optional` **gasLimit**: `BigIntLike`
+> `optional` **gasLimit?**: `BigIntLike`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:209
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:269
 
 The transaction's gas limit.
 
@@ -82,9 +82,9 @@ The transaction's gas limit.
 
 ### gasPrice?
 
-> `optional` **gasPrice**: `null`
+> `optional` **gasPrice?**: `null`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:260
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:320
 
 The transaction's gas price, inherited from Transaction.  This property is not used for EIP1559
 transactions and should always be undefined for this specific transaction type.
@@ -97,9 +97,9 @@ transactions and should always be undefined for this specific transaction type.
 
 ### maxFeePerGas?
 
-> `optional` **maxFeePerGas**: `BigIntLike`
+> `optional` **maxFeePerGas?**: `BigIntLike`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:268
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:328
 
 The maximum total fee
 
@@ -111,9 +111,9 @@ The maximum total fee
 
 ### maxPriorityFeePerGas?
 
-> `optional` **maxPriorityFeePerGas**: `BigIntLike`
+> `optional` **maxPriorityFeePerGas?**: `BigIntLike`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:264
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:324
 
 The maximum inclusion fee per gas (this fee is given to the miner)
 
@@ -125,9 +125,9 @@ The maximum inclusion fee per gas (this fee is given to the miner)
 
 ### nonce?
 
-> `optional` **nonce**: `BigIntLike`
+> `optional` **nonce?**: `BigIntLike`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:201
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:261
 
 The transaction's nonce.
 
@@ -139,9 +139,9 @@ The transaction's nonce.
 
 ### r?
 
-> `optional` **r**: `BigIntLike`
+> `optional` **r?**: `BigIntLike`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:229
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:289
 
 EC signature parameter.
 
@@ -153,9 +153,9 @@ EC signature parameter.
 
 ### s?
 
-> `optional` **s**: `BigIntLike`
+> `optional` **s?**: `BigIntLike`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:233
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:293
 
 EC signature parameter.
 
@@ -167,9 +167,9 @@ EC signature parameter.
 
 ### to?
 
-> `optional` **to**: `""` \| `AddressLike`
+> `optional` **to?**: `""` \| `AddressLike`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:213
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:273
 
 The transaction's the address is sent to.
 
@@ -181,9 +181,9 @@ The transaction's the address is sent to.
 
 ### type?
 
-> `optional` **type**: `BigIntLike`
+> `optional` **type?**: `BigIntLike`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:237
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:297
 
 The transaction type
 
@@ -195,9 +195,9 @@ The transaction type
 
 ### v?
 
-> `optional` **v**: `BigIntLike`
+> `optional` **v?**: `BigIntLike`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:225
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:285
 
 EC recovery ID.
 
@@ -209,9 +209,9 @@ EC recovery ID.
 
 ### value?
 
-> `optional` **value**: `BigIntLike`
+> `optional` **value?**: `BigIntLike`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:217
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:277
 
 The amount of Ether sent.
 

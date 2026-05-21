@@ -20,7 +20,10 @@ const encodeKey = (bytes) => {
  * @throws {never}
  */
 export const createMemoryDb = (initialDb) => {
-	const db = initialDb ?? new Map()
+	const db = new Map()
+	for (const [key, value] of initialDb ?? []) {
+		db.set(encodeKey(key), value)
+	}
 
 	return {
 		get: (key) => {

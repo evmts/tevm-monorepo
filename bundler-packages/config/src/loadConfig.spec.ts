@@ -1,8 +1,19 @@
 import { join } from 'node:path'
 import { flip, runSync } from 'effect/Effect'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { loadConfig } from './index.js'
 import { LoadConfigError } from './loadConfig.js'
+
+vi.mock('node:child_process', () => ({
+	execFileSync: vi.fn(() =>
+		Buffer.from(
+			JSON.stringify({
+				libs: ['lib'],
+				remappings: ['@solmate-utils/=lib/solmate/src/utils/'],
+			}),
+		),
+	),
+}))
 
 describe(loadConfig.name, () => {
 	it('should work in basic case', () => {

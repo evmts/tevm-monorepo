@@ -34,16 +34,13 @@ describe('anvilNodeInfoJsonRpcProcedure', () => {
 
 	it.skipIf(!process.env.TEVM_RPC_URLS_OPTIMISM)('should include forkUrl for a forked node', async () => {
 		const forkUrl = process.env.TEVM_RPC_URLS_OPTIMISM ?? 'https://mainnet.optimism.io'
-		const node = createTevmNode({
-			fork: {
-				transport: {
-					request: async () => {
-						throw new Error('Mock transport should not be called in this test')
-					},
-					url: forkUrl,
-				},
+		const node = createTevmNode()
+		;(node as any).forkTransport = {
+			request: async () => {
+				throw new Error('Mock transport should not be called in this test')
 			},
-		})
+			url: forkUrl,
+		}
 		const procedure = anvilNodeInfoJsonRpcProcedure(node)
 
 		const result = await procedure({

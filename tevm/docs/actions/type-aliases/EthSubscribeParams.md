@@ -8,7 +8,7 @@
 
 > **EthSubscribeParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:340
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:340
 
 Based on the JSON-RPC request for `eth_subscribe` procedure
 
@@ -16,19 +16,19 @@ Based on the JSON-RPC request for `eth_subscribe` procedure
 
 ### filterParams?
 
-> `readonly` `optional` **filterParams**: `object`
+> `readonly` `optional` **filterParams?**: `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:348
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:348
 
 Optional filter parameters for logs subscriptions
 
 #### address?
 
-> `readonly` `optional` **address**: [`Address`](Address.md) \| readonly [`Address`](Address.md)[]
+> `readonly` `optional` **address?**: [`Address`](Address.md) \| readonly [`Address`](Address.md)[]
 
 #### topics?
 
-> `readonly` `optional` **topics**: readonly ([`Hex`](Hex.md) \| readonly [`Hex`](Hex.md)[] \| `null`)[]
+> `readonly` `optional` **topics?**: readonly ([`Hex`](Hex.md) \| readonly [`Hex`](Hex.md)[] \| `null`)[]
 
 ***
 
@@ -36,6 +36,6 @@ Optional filter parameters for logs subscriptions
 
 > `readonly` **subscriptionType**: `"newHeads"` \| `"logs"` \| `"newPendingTransactions"` \| `"syncing"`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:344
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:344
 
 The subscription type to subscribe to

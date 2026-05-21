@@ -18,7 +18,7 @@ Defined in: [extensions/test-matchers/src/common/types.ts:11](https://github.com
 
 ### abi?
 
-> `optional` **abi**: `TAbi`
+> `optional` **abi?**: `TAbi`
 
 Defined in: [extensions/test-matchers/src/common/types.ts:12](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/common/types.ts#L12)
 

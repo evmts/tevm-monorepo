@@ -8,4 +8,4 @@
 
 > **AnvilSnapshotResult** = [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:62
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:62

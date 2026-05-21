@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthNewFilterHandler
 
-# Type Alias: EthNewFilterHandler()
+# Type Alias: EthNewFilterHandler
 
 > **EthNewFilterHandler** = (`request`) => `Promise`\<[`EthNewFilterResult`](EthNewFilterResult.md)\>
 

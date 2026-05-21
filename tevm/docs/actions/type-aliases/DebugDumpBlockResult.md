@@ -8,7 +8,7 @@
 
 > **DebugDumpBlockResult** = `object`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:126
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:126
 
 Result from `debug_dumpBlock`
 
@@ -18,7 +18,7 @@ Result from `debug_dumpBlock`
 
 > **accounts**: `Record`\<[`Hex`](Hex.md), [`DebugDumpBlockAccountState`](DebugDumpBlockAccountState.md)\>
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:134
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:134
 
 Accounts in the state
 
@@ -28,6 +28,6 @@ Accounts in the state
 
 > **root**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:130
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:130
 
 State root hash

@@ -1,6 +1,6 @@
+import { Rlp } from '@evmts/zevm/rlp'
+import { Trie } from '@evmts/zevm/trie'
 import { Block } from '@tevm/block'
-import { Rlp } from '@tevm/rlp'
-import { Trie } from '@tevm/trie'
 import { KECCAK256_RLP } from '@tevm/utils'
 
 /**

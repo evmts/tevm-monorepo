@@ -24,7 +24,7 @@ export const putContractCode = (baseState) => async (address, value) => {
 		accountData.storageRoot = account.storageRoot
 	}
 
-	await putAccount(baseState)(address, createAccount(accountData))
+	await putAccount(baseState)(address, /** @type {any} */ (createAccount(accountData)))
 	baseState.caches.contracts.put(address, value)
 	return
 }

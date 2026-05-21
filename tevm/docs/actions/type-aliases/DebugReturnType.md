@@ -8,7 +8,7 @@
 
 > **DebugReturnType** = `object`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:5
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:5
 
 A mapping of `debug_*` method names to their return type
 
@@ -18,7 +18,7 @@ A mapping of `debug_*` method names to their return type
 
 > **debug\_dumpBlock**: `DebugDumpBlockJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:13
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:13
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:13
 
 > **debug\_getModifiedAccountsByHash**: `DebugGetModifiedAccountsByHashJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:15
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:15
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:15
 
 > **debug\_getModifiedAccountsByNumber**: `DebugGetModifiedAccountsByNumberJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:14
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:14
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:14
 
 > **debug\_getRawBlock**: `DebugGetRawBlockJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:19
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:19
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:19
 
 > **debug\_getRawHeader**: `DebugGetRawHeaderJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:20
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:20
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:20
 
 > **debug\_getRawReceipts**: `DebugGetRawReceiptsJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:22
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:22
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:22
 
 > **debug\_getRawTransaction**: `DebugGetRawTransactionJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:21
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:21
 
 ***
 
@@ -74,7 +74,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:21
 
 > **debug\_intermediateRoots**: `DebugIntermediateRootsJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:17
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:17
 
 ***
 
@@ -82,7 +82,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:17
 
 > **debug\_preimage**: `DebugPreimageJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:18
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:18
 
 ***
 
@@ -90,7 +90,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:18
 
 > **debug\_storageRangeAt**: `DebugStorageRangeAtJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:16
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:16
 
 ***
 
@@ -98,7 +98,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:16
 
 > **debug\_traceBlock**: `DebugTraceBlockJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:8
 
 ***
 
@@ -106,7 +106,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:8
 
 > **debug\_traceBlockByHash**: `DebugTraceBlockByHashJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:10
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:10
 
 ***
 
@@ -114,7 +114,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:10
 
 > **debug\_traceBlockByNumber**: `DebugTraceBlockByNumberJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:9
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:9
 
 ***
 
@@ -122,7 +122,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:9
 
 > **debug\_traceCall**: `DebugTraceCallJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:7
 
 ***
 
@@ -130,7 +130,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:7
 
 > **debug\_traceChain**: `DebugTraceChainJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:12
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:12
 
 ***
 
@@ -138,7 +138,7 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:12
 
 > **debug\_traceState**: `DebugTraceStateJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:11
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:11
 
 ***
 
@@ -146,4 +146,4 @@ Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:11
 
 > **debug\_traceTransaction**: `DebugTraceTransactionJsonRpcResponse`
 
-Defined in: packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/DebugReturnType.d.ts:6

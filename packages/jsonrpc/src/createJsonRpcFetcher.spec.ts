@@ -26,9 +26,8 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			result: mockResponse,
-			method: 'eth_getBlockByNumber',
-			params: ['latest', false],
 			id: 1,
 		})
 
@@ -44,6 +43,7 @@ describe('createJsonRpcFetcher', () => {
 		const mockError = {
 			code: -32601,
 			message: 'Method not found',
+			data: { method: 'eth_getBlockByNumber' },
 		}
 
 		mockClient.request.mockRejectedValueOnce(mockError)
@@ -52,12 +52,12 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			error: {
 				code: mockError.code,
 				message: mockError.message,
+				data: mockError.data,
 			},
-			method: 'eth_getBlockByNumber',
-			params: ['latest', false],
 			id: 1,
 		})
 
@@ -78,12 +78,11 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			error: {
 				code: -32000,
-				message: 'Unknown error in jsonrpc request',
+				message: 'Unknown error',
 			},
-			method: 'eth_getBlockByNumber',
-			params: ['latest', false],
 			id: 1,
 		})
 
@@ -102,8 +101,8 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			result: mockResponse,
-			method: 'eth_getBlockByNumber',
 		})
 
 		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)
@@ -126,12 +125,11 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			error: {
 				code: mockError.code,
 				message: 'Unknown error in jsonrpc request',
 			},
-			method: 'eth_getBlockByNumber',
-			params: ['latest', false],
 			id: 1,
 		})
 
@@ -154,11 +152,11 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			error: {
 				code: mockError.code,
 				message: mockError.message,
 			},
-			method: 'eth_getBlockByNumber',
 		})
 
 		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)
@@ -178,11 +176,11 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			error: {
 				code: -32000,
-				message: 'Unknown error in jsonrpc request',
+				message: 'Some unexpected error',
 			},
-			method: 'eth_getBlockByNumber',
 		})
 
 		expect(mockClient.request).toHaveBeenCalledWith(mockRequest)

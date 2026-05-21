@@ -18,11 +18,10 @@ beforeEach(async () => {
 	if (!deployResult.txHash) {
 		throw new Error('txHash not found')
 	}
-	await mc.tevmMine()
 })
 
 describe('estimateMaxPriorityFeePerGas', () => {
 	it('should work', async () => {
-		expect(await mc.estimateMaxPriorityFeePerGas()).toMatchSnapshot()
+		expect(await mc.estimateMaxPriorityFeePerGas()).toBe(1000000000n)
 	})
 })

@@ -7,6 +7,7 @@ on:
     
 env:
   NODE_OPTIONS: "--max_old_space_size=4096"
+  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
   TEVM_RPC_URLS_MAINNET: ${{ secrets.TEVM_RPC_URLS_MAINNET }}
   TEVM_RPC_URLS_OPTIMISM: ${{ secrets.TEVM_RPC_URLS_OPTIMISM }}
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -15,6 +16,8 @@ jobs:
   update:
     name: Run Claude Updates
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,68 +28,81 @@ jobs:
       - name: Install Claude Code
         run: npm install -g @anthropic-ai/claude-code
         shell: bash
-      
-      - name: Create new branch for updates
+
+      - name: Configure Git
         run: |
-          DATE=$(date +%Y-%m-%d)
-          BRANCH_NAME="auto-update-${DATE}"
-          git checkout -b ${BRANCH_NAME}
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         shell: bash
       
       - name: Run Claude Code on update files
         id: claude
         run: |
+          set -euo pipefail
+
           # Set up flag to track if any changes were made
           CHANGES_MADE=0
           
           # Find all update-* files in the .claude/commands directory
-          UPDATE_FILES=$(find .claude/commands -name "update-*")
+          UPDATE_FILES=$(find .claude/commands -maxdepth 1 -type f -name "update-*" | sort)
           
           # Process each update file
-          for file in $UPDATE_FILES; do
+          while IFS= read -r file; do
+            if [ -z "$file" ]; then
+              continue
+            fi
+
             echo "Processing $file..."
             
-            # Run Claude Code with the update file
-            claude code --print "$file"
+            # Run Claude Code with the update file contents.
+            CLAUDE_OUTPUT=$(mktemp)
+            if ! claude --print --permission-mode bypassPermissions < "$file" > "$CLAUDE_OUTPUT" 2>&1; then
+              cat "$CLAUDE_OUTPUT"
+
+              if grep -qi "Credit balance is too low" "$CLAUDE_OUTPUT"; then
+                echo "::warning title=Claude auto-update skipped::Claude API credit balance is too low; skipping automated updates."
+                CHANGES_MADE=0
+                rm -f "$CLAUDE_OUTPUT"
+                break
+              fi
+
+              rm -f "$CLAUDE_OUTPUT"
+              exit 1
+            fi
+            cat "$CLAUDE_OUTPUT"
+            rm -f "$CLAUDE_OUTPUT"
             
             # Check if changes were made
             if [ -n "$(git status --porcelain)" ]; then
               CHANGES_MADE=1
-              
-              # Run the commit command using Claude
-              claude code --print .claude/commands/commit.md
             else
               echo "No changes from processing $file"
             fi
-          done
+          done <<< "$UPDATE_FILES"
           
           # Set output for use in later steps
-          echo "CHANGES_MADE=$CHANGES_MADE" >> $GITHUB_OUTPUT
+          echo "CHANGES_MADE=$CHANGES_MADE" >> "$GITHUB_OUTPUT"
         shell: bash
       
-      - name: Create PR if changes were made
+      - name: Push changes to main
         if: steps.claude.outputs.CHANGES_MADE == '1'
         run: |
-          DATE=$(date +%Y-%m-%d)
-          BRANCH_NAME="auto-update-${DATE}"
-          
-          # Push the branch
-          git push -u origin ${BRANCH_NAME}
-          
-          # Create PR
-          gh pr create \
-            --title "Auto Update: ${DATE}" \
-            --body "This PR contains automatic updates applied by Claude Code on ${DATE}" \
-            --base main \
-            --head ${BRANCH_NAME}
+          set -euo pipefail
+
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No staged changes to commit"
+            exit 0
+          fi
+
+          git commit -m "chore: apply daily Claude updates"
+          git pull --rebase origin main
+          git push origin HEAD:main
         shell: bash
       
       - name: Cleanup if no changes
         if: steps.claude.outputs.CHANGES_MADE == '0'
         run: |
-          git checkout main
-          DATE=$(date +%Y-%m-%d)
-          BRANCH_NAME="auto-update-${DATE}"
-          git branch -D ${BRANCH_NAME}
-          echo "No changes were made, branch deleted"
+          echo "No changes were made"
         shell: bash

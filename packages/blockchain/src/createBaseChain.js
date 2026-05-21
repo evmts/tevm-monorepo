@@ -1,18 +1,8 @@
+import { KECCAK256_RLP } from '@evmts/zevm/util'
 import { createBlock } from '@tevm/block'
 import { createLogger } from '@tevm/logger'
-import { EMPTY_STATE_ROOT } from '@tevm/trie'
-import { hexToBytes } from 'viem'
 import { putBlock } from './actions/putBlock.js'
 import { getBlockFromRpc } from './utils/getBlockFromRpc.js'
-
-/**
- * Keccak-256 hash of the RLP of null
- */
-const KECCAK256_RLP_S = '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
-/**
- * Keccak-256 hash of the RLP of null
- */
-const KECCAK256_RLP = hexToBytes(KECCAK256_RLP_S)
 
 /**
  * Creates a genesis {@link Block} for the blockchain with params from {@link Common.genesis}
@@ -73,7 +63,7 @@ export const createBaseChain = (options) => {
 			}
 		} else {
 			await putBlock(chain)(
-				options.genesisBlock ?? createGenesisBlock(options.genesisStateRoot ?? EMPTY_STATE_ROOT, options.common),
+				options.genesisBlock ?? createGenesisBlock(options.genesisStateRoot ?? KECCAK256_RLP, options.common),
 			)
 		}
 	})()

@@ -8,7 +8,7 @@
 
 > **callHandlerOpts**(`client`, `params`): `Promise`\<\{ `data`: [`EvmRunCallOpts`](../../evm/interfaces/EvmRunCallOpts.md); `errors?`: `undefined`; \} \| \{ `data?`: `undefined`; `errors`: [`CallHandlerOptsError`](../type-aliases/CallHandlerOptsError.md)[]; \}\>
 
-Defined in: packages/actions/types/Call/callHandlerOpts.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Call/callHandlerOpts.d.ts:1
 
 ## Parameters
 

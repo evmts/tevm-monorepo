@@ -1,11 +1,53 @@
 import { createAddress } from '@tevm/address'
-import { transports } from '@tevm/test-utils'
-import { createAccount, createAddressFromString, EthjsAccount, EthjsAddress, type Hex, hexToBigInt } from '@tevm/utils'
+import { createAccount, createAddressFromString, EthjsAccount, EthjsAddress, hexToBytes } from '@tevm/utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getAccount } from './getAccount.js'
 import * as getAccountFromProviderModule from './getAccountFromProvider.js'
 import { putAccount } from './putAccount.js'
+
+const mockBlock = {
+	hash: `0x${'11'.repeat(32)}`,
+	parentHash: `0x${'00'.repeat(32)}`,
+	sha3Uncles: `0x${'00'.repeat(32)}`,
+	miner: `0x${'00'.repeat(20)}`,
+	stateRoot: `0x${'00'.repeat(32)}`,
+	transactionsRoot: `0x${'00'.repeat(32)}`,
+	receiptsRoot: `0x${'00'.repeat(32)}`,
+	logsBloom: `0x${'00'.repeat(256)}`,
+	difficulty: '0x0',
+	number: '0x1',
+	gasLimit: '0x1',
+	gasUsed: '0x0',
+	timestamp: '0x1',
+	extraData: '0x',
+	mixHash: `0x${'00'.repeat(32)}`,
+	nonce: '0x0000000000000000',
+	transactions: [],
+	uncles: [],
+}
+const mockProof = {
+	address: '0xd8da6bf26964af9d7eed9e03e53415d37aa96045',
+	accountProof: [],
+	balance: '0x1a4',
+	codeHash: `0x${'00'.repeat(32)}`,
+	nonce: '0x2',
+	storageHash: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+	storageProof: [],
+}
+const emptyCodeHash = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'
+const emptyStorageRoot = '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'
+const createMockForkTransport = () => ({
+	request: vi.fn(async ({ method }: { method: string }) => {
+		if (method === 'eth_getBlockByNumber') {
+			return mockBlock
+		}
+		if (method === 'eth_getProof') {
+			return mockProof
+		}
+		throw new Error(`Unexpected RPC method: ${method}`)
+	}),
+})
 
 afterEach(() => {
 	vi.restoreAllMocks()
@@ -39,21 +81,11 @@ describe(`${getAccount.name} forking`, () => {
 	const knownAccount = createAddress('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045')
 
 	beforeEach(async () => {
-		// Get the latest block for a reasonable proof window
-		const latestBlock = (await transports.optimism.request({
-			jsonrpc: '2.0',
-			id: 1,
-			method: 'eth_blockNumber',
-		})) as Hex | undefined
-		if (!latestBlock) {
-			throw new Error('Latest block not found')
-		}
-
 		baseState = createBaseState({
 			loggingLevel: 'warn',
 			fork: {
-				transport: transports.optimism,
-				blockTag: hexToBigInt(latestBlock) - 1n,
+				transport: createMockForkTransport(),
+				blockTag: 1n,
 			},
 		})
 
@@ -155,8 +187,8 @@ describe(`${getAccount.name} forking`, () => {
 		const mockEmptyAccount = createAccount({
 			balance: 0n,
 			nonce: 0n,
-			codeHash: new Uint8Array(32).fill(0),
-			storageRoot: new Uint8Array(32).fill(0),
+			codeHash: hexToBytes(emptyCodeHash),
+			storageRoot: hexToBytes(emptyStorageRoot),
 		})
 
 		const mockGetAccountFromProvider = vi.spyOn(getAccountFromProviderModule, 'getAccountFromProvider')

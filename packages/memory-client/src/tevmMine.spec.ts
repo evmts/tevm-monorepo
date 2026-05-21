@@ -13,7 +13,7 @@ let contractAddress: Address
 
 beforeEach(async () => {
 	client = createClient({
-		transport: createTevmTransport(),
+		transport: createTevmTransport({ miningConfig: { type: 'manual' } }),
 	})
 })
 

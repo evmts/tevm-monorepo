@@ -22,7 +22,7 @@ export const accumulateParentBeaconBlockRoot = (vm: BaseVm) => async (root: Uint
 	 */
 
 	if ((await vm.stateManager.getAccount(parentBeaconBlockRootAddress)) === undefined) {
-		await vm.evm.journal.putAccount(parentBeaconBlockRootAddress, new EthjsAccount())
+		await vm.evm.journal.putAccount(parentBeaconBlockRootAddress, new EthjsAccount() as any)
 	}
 
 	await vm.stateManager.putStorage(

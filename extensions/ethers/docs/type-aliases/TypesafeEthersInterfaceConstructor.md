@@ -4,7 +4,7 @@
 
 [@tevm/ethers](../globals.md) / TypesafeEthersInterfaceConstructor
 
-# Type Alias: TypesafeEthersInterfaceConstructor()
+# Type Alias: TypesafeEthersInterfaceConstructor
 
 > **TypesafeEthersInterfaceConstructor** = \<`TAbi`\>(`abi`) => `Omit`\<`Interface`, `"fragments"`\> & `object`
 

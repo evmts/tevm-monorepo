@@ -32,9 +32,9 @@ const result = await tevmCall(client, {
 
 ## Properties
 
-### onAfterMessage()?
+### onAfterMessage?
 
-> `optional` **onAfterMessage**: (`data`, `next?`) => `void`
+> `optional` **onAfterMessage?**: (`data`, `next?`) => `void`
 
 Defined in: [packages/actions/src/common/CallEvents.ts:93](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L93)
 
@@ -60,9 +60,9 @@ Function to continue execution - must be called to proceed
 
 ***
 
-### onBeforeMessage()?
+### onBeforeMessage?
 
-> `optional` **onBeforeMessage**: (`data`, `next?`) => `void`
+> `optional` **onBeforeMessage?**: (`data`, `next?`) => `void`
 
 Defined in: [packages/actions/src/common/CallEvents.ts:86](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L86)
 
@@ -88,9 +88,9 @@ Function to continue execution - must be called to proceed
 
 ***
 
-### onNewContract()?
+### onNewContract?
 
-> `optional` **onNewContract**: (`data`, `next?`) => `void`
+> `optional` **onNewContract?**: (`data`, `next?`) => `void`
 
 Defined in: [packages/actions/src/common/CallEvents.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L79)
 
@@ -116,9 +116,9 @@ Function to continue execution - must be called to proceed
 
 ***
 
-### onStep()?
+### onStep?
 
-> `optional` **onStep**: (`data`, `next?`) => `void`
+> `optional` **onStep?**: (`data`, `next?`) => `void`
 
 Defined in: [packages/actions/src/common/CallEvents.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallEvents.ts#L72)
 

@@ -1,8 +1,8 @@
+import { BlobEIP4844Transaction, LegacyTransaction } from '@evmts/zevm/tx'
 import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import { BlobEIP4844Transaction, LegacyTransaction } from '@tevm/tx'
 import {
 	bytesToUnprefixedHex,
 	createAccount,

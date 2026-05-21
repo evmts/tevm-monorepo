@@ -8,7 +8,7 @@
 
 > **SolcGeneratedSource** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:302
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:302
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:302
 
 > **ast**: `any`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:303
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:303
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:303
 
 > **contents**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:304
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:304
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:304
 
 > **id**: `number`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:305
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:305
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:305
 
 > **language**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:306
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:306
 
 ***
 
@@ -48,4 +48,4 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:306
 
 > **name**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:307
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:307

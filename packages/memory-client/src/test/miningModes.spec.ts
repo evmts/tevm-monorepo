@@ -29,7 +29,7 @@ describe('Mining modes', () => {
 					to: address2,
 					value: toHex(transferAmount),
 					origin: address1,
-					createTransaction: true,
+					addToBlockchain: true,
 				},
 			],
 			id: 1,

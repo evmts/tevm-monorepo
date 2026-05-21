@@ -8,7 +8,7 @@
 
 > **blockFromRpc**(`blockParams`, `options`, `uncles?`): [`Block`](../classes/Block.md)
 
-Defined in: packages/block/types/from-rpc.d.ts:11
+Defined in: tevm-monorepo/packages/block/types/from-rpc.d.ts:11
 
 Creates a new block object from Ethereum JSON RPC.
 

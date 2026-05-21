@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilDealProcedure
 
-# Type Alias: AnvilDealProcedure()
+# Type Alias: AnvilDealProcedure
 
 > **AnvilDealProcedure** = (`request`) => `Promise`\<[`AnvilDealJsonRpcResponse`](AnvilDealJsonRpcResponse.md)\>
 

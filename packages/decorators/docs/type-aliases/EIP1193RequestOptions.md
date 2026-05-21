@@ -37,7 +37,7 @@ await node.request({
 
 ### retryCount?
 
-> `optional` **retryCount**: `number`
+> `optional` **retryCount?**: `number`
 
 Defined in: [eip1193/EIP1993RequestOptions.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1993RequestOptions.ts#L33)
 
@@ -45,6 +45,6 @@ Defined in: [eip1193/EIP1993RequestOptions.ts:33](https://github.com/evmts/tevm-
 
 ### retryDelay?
 
-> `optional` **retryDelay**: `number`
+> `optional` **retryDelay?**: `number`
 
 Defined in: [eip1193/EIP1993RequestOptions.ts:31](https://github.com/evmts/tevm-monorepo/blob/main/packages/decorators/src/eip1193/EIP1993RequestOptions.ts#L31)

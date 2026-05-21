@@ -8,7 +8,7 @@
 
 > **getContractStorage**(`baseState`): (`address`, `key`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/state/dist/index.d.ts:454
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:458
 
 ## Parameters
 
@@ -18,18 +18,4 @@ Defined in: packages/state/dist/index.d.ts:454
 
 ## Returns
 
-> (`address`, `key`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
-
-### Parameters
-
-#### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-#### key
-
-`Uint8Array`
-
-### Returns
-
-`Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
+(`address`, `key`) => `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>

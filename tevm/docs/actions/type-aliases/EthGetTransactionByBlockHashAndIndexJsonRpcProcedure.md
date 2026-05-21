@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetTransactionByBlockHashAndIndexJsonRpcProcedure
 
-# Type Alias: EthGetTransactionByBlockHashAndIndexJsonRpcProcedure()
+# Type Alias: EthGetTransactionByBlockHashAndIndexJsonRpcProcedure
 
 > **EthGetTransactionByBlockHashAndIndexJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetTransactionByBlockHashAndIndexJsonRpcResponse`](EthGetTransactionByBlockHashAndIndexJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:28
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:28
 
 ## Parameters
 

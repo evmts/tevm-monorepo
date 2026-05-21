@@ -1,3 +1,4 @@
+import { EvmError } from '@evmts/zevm/evm'
 import {
 	GasLimitExceededError,
 	InsufficientBalanceError,
@@ -9,7 +10,6 @@ import {
 	InvalidNonceError,
 	MisconfiguredClientError,
 } from '@tevm/errors'
-import { EvmError } from '@tevm/evm'
 
 import { describe, expect, it } from 'vitest'
 import { handleRunTxError } from './handleEvmError.js'
@@ -62,12 +62,12 @@ describe('handleRunTxError', () => {
 		expect(result).toBeInstanceOf(InsufficientBalanceError)
 		expect(result.cause).toBe(error)
 		expect(result.message).toMatchInlineSnapshot(`
-"sender doesn't have enough funds to send tx. The upfront cost is 1000 wei
+			"sender doesn't have enough funds to send tx. The upfront cost is 1000 wei
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientbalanceerror/
-Details: sender doesn't have enough funds to send tx. The upfront cost is 1000 wei
-Version: 1.1.0.next-73"
-`)
+			Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientbalanceerror/
+			Details: sender doesn't have enough funds to send tx. The upfront cost is 1000 wei
+			Version: 1.0.0-next.148"
+		`)
 	})
 
 	it('should handle unknown EvmError subclasses', () => {

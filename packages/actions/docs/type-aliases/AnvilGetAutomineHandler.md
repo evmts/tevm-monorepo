@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilGetAutomineHandler
 
-# Type Alias: AnvilGetAutomineHandler()
+# Type Alias: AnvilGetAutomineHandler
 
 > **AnvilGetAutomineHandler** = (`params`) => `Promise`\<[`AnvilGetAutomineResult`](AnvilGetAutomineResult.md)\>
 

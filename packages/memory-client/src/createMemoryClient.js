@@ -1,4 +1,4 @@
-import { tevmDefault } from '@tevm/common'
+import { createCommon, tevmDefault } from '@tevm/common'
 import { createClient, publicActions, testActions, walletActions } from 'viem'
 import { createTevmTransport } from './createTevmTransport.js'
 import { tevmViemActions } from './tevmViemActions.js'
@@ -32,7 +32,7 @@ import { tevmViemActions } from './tevmViemActions.js'
  *     transport: http("https://mainnet.optimism.io")({}),
  *   },
  *   common: optimism,
- *   mining: { auto: true }, // Automatically mine blocks after transactions
+ *   miningConfig: { type: 'auto' }, // Automatically mine blocks after transactions
  * });
  *
  * // Wait for fork initialization to complete
@@ -68,9 +68,9 @@ import { tevmViemActions } from './tevmViemActions.js'
  *   },
  *
  *   // Mining configuration
- *   mining: {
- *     auto: true,      // Auto-mine after each transaction
- *     interval: 5000,  // Mine blocks every 5 seconds (in ms)
+ *   miningConfig: {
+ *     type: 'interval',
+ *     blockTime: 5, // Mine blocks every 5 seconds
  *   },
  *
  *   // State persistence
@@ -173,18 +173,18 @@ import { tevmViemActions } from './tevmViemActions.js'
  * TEVM supports three mining modes:
  *
  * ```typescript
- * // 1. Manual mining (default)
- * const client = createMemoryClient({ mining: { auto: false } });
+ * // 1. Manual mining
+ * const client = createMemoryClient({ miningConfig: { type: 'manual' } });
  * await client.sendTransaction(...);  // Transaction is pending
  * await client.tevmMine();            // Now transaction is processed
  *
  * // 2. Auto-mining (mine after every transaction)
- * const autoClient = createMemoryClient({ mining: { auto: true } });
+ * const autoClient = createMemoryClient({ miningConfig: { type: 'auto' } });
  * await autoClient.sendTransaction(...);  // Automatically mined
  *
  * // 3. Interval mining (mine periodically)
  * const intervalClient = createMemoryClient({
- *   mining: { interval: 5000 }  // Mine every 5 seconds
+ *   miningConfig: { type: 'interval', blockTime: 5 } // Mine every 5 seconds
  * });
  * ```
  *
@@ -298,32 +298,79 @@ import { tevmViemActions } from './tevmViemActions.js'
  * For UI applications concerned with bundle size, use tree-shakeable actions with `createTevmNode()`
  * and individual actions from `tevm/actions`. See the [actions API guide](https://tevm.sh/learn/actions/)
  * for details.
+ *
+ * @param {import('./MemoryClientOptions.js').MemoryClientOptions} [options] - The options to configure the MemoryClient.
  */
-export const createMemoryClient = (options) => {
-	const common = (() => {
-		if (options?.common !== undefined) {
-			return options.common
-		}
-		if (options?.fork?.transport) {
-			// we don't want to return default chain if forking because we don't know chain id yet
+export const createMemoryClient = /** @type {import('./CreateMemoryClientFn.js').CreateMemoryClientFn} */ (
+	/** @param {any} options */
+	(options) => {
+		const miningConfig = (() => {
+			if (options?.miningConfig !== undefined) {
+				return options.miningConfig
+			}
+			const mining = options?.mining
+			if (mining === undefined) {
+				return undefined
+			}
+			if (typeof mining.interval === 'number') {
+				return { type: 'interval', blockTime: mining.interval / 1000 }
+			}
+			if (typeof mining.auto === 'boolean') {
+				return { type: mining.auto ? 'auto' : 'manual' }
+			}
 			return undefined
-		}
-		// but if not forking we know common will be default
-		return tevmDefault
-	})()
-	const memoryClient = createClient({
-		...options,
-		cacheTime: 0,
-		transport: createTevmTransport({
+		})()
+		const normalizedOptions = {
 			...options,
-			...(common !== undefined ? { common } : {}),
-		}),
-		type: 'tevm',
-		...(common !== undefined ? { chain: common } : {}),
-	})
-		.extend(tevmViemActions())
-		.extend(publicActions)
-		.extend(walletActions)
-		.extend(testActions({ mode: 'anvil' }))
-	return /** @type {any} */ (memoryClient)
-}
+			...(miningConfig !== undefined ? { miningConfig } : {}),
+		}
+		const common = (() => {
+			if (normalizedOptions?.common !== undefined) {
+				return normalizedOptions.common
+			}
+			if (normalizedOptions?.fork?.transport) {
+				// we don't want to return default chain if forking because we don't know chain id yet
+				return undefined
+			}
+			// but if not forking we know common will be default
+			return tevmDefault
+		})()
+		const chain = (() => {
+			if (common === undefined) {
+				return undefined
+			}
+			if (normalizedOptions?.fork?.chainId === undefined) {
+				return common
+			}
+			return createCommon({
+				...common,
+				id: normalizedOptions.fork.chainId,
+				loggingLevel: normalizedOptions.loggingLevel ?? 'warn',
+				hardfork: common.ethjsCommon.hardfork() ?? 'prague',
+				eips: common.ethjsCommon.eips(),
+				customCrypto: common.ethjsCommon.customCrypto,
+			})
+		})()
+		const memoryClient = createClient({
+			...normalizedOptions,
+			cacheTime: normalizedOptions.cacheTime ?? 0,
+			transport: createTevmTransport(
+				/** @type {import('@tevm/node').TevmNodeOptions} */ ({
+					...normalizedOptions,
+					...(chain !== undefined ? { common: chain } : {}),
+				}),
+			),
+			type: 'tevm',
+			...(chain !== undefined ? { chain } : {}),
+		})
+			.extend(
+				/** @type {(client: import('viem').Client<import('viem').Transport, undefined, undefined>) => import('./TevmViemActionsApi.js').TevmViemActionsApi} */ (
+					tevmViemActions()
+				),
+			)
+			.extend(publicActions)
+			.extend(walletActions)
+			.extend(testActions({ mode: 'anvil' }))
+		return /** @type {any} */ (memoryClient)
+	}
+)

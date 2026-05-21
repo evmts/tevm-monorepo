@@ -1,7 +1,22 @@
-import { type BlockchainEvent, type Consensus, type OnBlock } from '@ethereumjs/blockchain'
 import type { Block, BlockHeader } from '@tevm/block'
+import type { ConsensusAlgorithm } from '@tevm/common'
 import type { AsyncEventEmitter, BlockTag, Hex } from '@tevm/utils'
 import type { BaseChain } from './BaseChain.js'
+
+export type OnBlock = (block: Block, reorg: boolean) => Promise<void> | void
+
+export type BlockchainEvent = {
+	deletedCanonicalBlocks: (data: Block[], resolve?: (result?: unknown) => void) => void
+}
+
+export interface Consensus {
+	algorithm: ConsensusAlgorithm | string
+	genesisInit(genesisBlock: Block): Promise<void>
+	setup(options: { blockchain: Chain }): Promise<void>
+	validateConsensus(block: Block): Promise<void>
+	validateDifficulty(header: BlockHeader): Promise<void>
+	newBlock(block: Block, commonAncestor?: BlockHeader, ancientHeaders?: BlockHeader[]): Promise<void>
+}
 
 /**
 VM:

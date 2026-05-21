@@ -1,8 +1,8 @@
 import { createServer } from 'node:http'
 import { createMemoryClient } from '@tevm/memory-client'
 import type { NextApiHandler } from 'next'
-import supertest from 'supertest'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { createTestClient as supertest } from '../testUtils/createTestClient.js'
 import { createNextApiHandler } from './createNextApiHandler.js'
 
 describe('createNextApiHandler', () => {

@@ -50,7 +50,7 @@ test('should handle block not found', async () => {
 		  [UnknownBlock: Block number 1 does not exist
 
 		Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
-		Version: 1.1.0.next-73],
+		Version: 1.0.0-next.148],
 		]
 	`)
 })

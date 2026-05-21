@@ -8,7 +8,7 @@
 
 > **NonceTooLowErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:66
+Defined in: tevm-monorepo/packages/errors/types/ethereum/NonceTooLowError.d.ts:66
 
 Parameters for constructing a NonceTooLowError.
 
@@ -16,9 +16,9 @@ Parameters for constructing a NonceTooLowError.
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause?**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:86
+Defined in: tevm-monorepo/packages/errors/types/ethereum/NonceTooLowError.d.ts:86
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:86
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:90
+Defined in: tevm-monorepo/packages/errors/types/ethereum/NonceTooLowError.d.ts:90
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:90
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:70
+Defined in: tevm-monorepo/packages/errors/types/ethereum/NonceTooLowError.d.ts:70
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:70
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:74
+Defined in: tevm-monorepo/packages/errors/types/ethereum/NonceTooLowError.d.ts:74
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:74
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:78
+Defined in: tevm-monorepo/packages/errors/types/ethereum/NonceTooLowError.d.ts:78
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:78
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:94
+Defined in: tevm-monorepo/packages/errors/types/ethereum/NonceTooLowError.d.ts:94
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:94
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/NonceTooLowError.d.ts:82
+Defined in: tevm-monorepo/packages/errors/types/ethereum/NonceTooLowError.d.ts:82
 
 - Additional meta messages.

@@ -59,9 +59,9 @@ describe(getTevmConfigFromTsConfig, () => {
 		expect(runSync(getTevmConfigFromTsConfig(config, configPath))).toEqual({
 			...tevmConfig,
 			remappings: {
-				'@/': `${configPath}/`,
+				'@/': `${configPath}/src/`,
 			},
-			libs: [config.compilerOptions.baseUrl, ...tevmConfig.libs],
+			libs: [`${configPath}/src`, ...tevmConfig.libs],
 		})
 	})
 	it('should add paths to lib if it exists', async () => {
@@ -86,9 +86,9 @@ describe(getTevmConfigFromTsConfig, () => {
 		expect(runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toEqual({
 			...tevmConfig,
 			remappings: {
-				'@/': '/path/to/config/',
+				'@/': '/path/to/config/src/',
 			},
-			libs: [config.compilerOptions.baseUrl, ...tevmConfig.libs],
+			libs: ['/path/to/config/src', ...tevmConfig.libs],
 		})
 	})
 
@@ -127,10 +127,10 @@ describe(getTevmConfigFromTsConfig, () => {
 
 		// The actual implementation doesn't transform ../styles to /styles
 		// It preserves the path structure from the original config
-		expect(result.remappings?.['@styles/']).toEqual('/path/to/config./styles/')
+		expect(result.remappings?.['@styles/']).toEqual('/path/to/config/styles/')
 
 		// Check that components/ was properly processed (trailing wildcard removed, line 41)
-		expect(result.remappings?.['components/']).toEqual('/path/to/config/components/')
+		expect(result.remappings?.['components/']).toEqual('/path/to/config/src/components/')
 
 		// For line 61 - cases with undefined values
 		expect(result.remappings?.['unknown/']).toEqual('') // undefined value
@@ -155,7 +155,7 @@ describe(getTevmConfigFromTsConfig, () => {
 		expect(runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toEqual({
 			...tevmConfig,
 			remappings: {},
-			libs: [config.compilerOptions.baseUrl, ...tevmConfig.libs],
+			libs: ['/path/to/config/src', ...tevmConfig.libs],
 		})
 	})
 
@@ -173,7 +173,7 @@ describe(getTevmConfigFromTsConfig, () => {
 		expect(runSync(getTevmConfigFromTsConfig(config, '/path/to/config'))).toEqual({
 			...tevmConfig,
 			remappings: { 'existing/': '/path/to/existing/' },
-			libs: ['./src'],
+			libs: ['/path/to/config/src'],
 		})
 	})
 	it(`should throw a ${NoPluginInTsConfigFoundError} if there is no plugins`, async () => {

@@ -1,4 +1,19 @@
 /**
+ * @param {unknown} bytecode
+ * @returns {boolean}
+ */
+const hasBytecodeObject = (bytecode) => {
+	if (typeof bytecode === 'string') {
+		return bytecode.length > 0
+	}
+	if (!bytecode || typeof bytecode !== 'object') {
+		return false
+	}
+	const object = /** @type {{ object?: unknown }} */ (bytecode).object
+	return typeof object === 'string' && object.length > 0
+}
+
+/**
  * Reads Solidity compilation artifacts from the cache synchronously.
  * This function checks if cached artifacts exist and if they satisfy the requested
  * AST and bytecode inclusion requirements. Use this instead of the async version
@@ -9,6 +24,7 @@
  * @param {string} modulePath - Path to the Solidity module
  * @param {boolean} includeAst - Whether to include AST in the result
  * @param {boolean} includeBytecode - Whether to include bytecode in the result
+ * @param {string} [compileFingerprint] - Fingerprint of compiler/config inputs
  * @returns {ReturnType<import('@tevm/bundler-cache').Cache['readArtifactsSync']>} - The cached artifacts if found and valid, otherwise undefined
  * @throws {Error} - Doesn't throw, but logs errors and returns undefined on failure
  *
@@ -36,13 +52,15 @@
  * }
  * ```
  */
-export const readCacheSync = (logger, cache, modulePath, includeAst, includeBytecode) => {
+export const readCacheSync = (logger, cache, modulePath, includeAst, includeBytecode, compileFingerprint) => {
 	try {
-		const cachedArtifacts = cache.readArtifactsSync(modulePath)
+		const cachedArtifacts = cache.readArtifactsSync(modulePath, compileFingerprint)
 
 		const isCachedAsts = () => cachedArtifacts?.asts && Object.keys(cachedArtifacts.asts).length > 0
 		const isCachedBytecode = () =>
-			Object.values(cachedArtifacts?.artifacts ?? {}).some((artifact) => artifact.evm.deployedBytecode)
+			Object.values(cachedArtifacts?.artifacts ?? {}).some(
+				(artifact) => hasBytecodeObject(artifact.evm?.bytecode) || hasBytecodeObject(artifact.evm?.deployedBytecode),
+			)
 
 		if (!cachedArtifacts) {
 			return undefined

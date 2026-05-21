@@ -1,6 +1,4 @@
-import { optimism } from '@tevm/common'
 import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
-import { transports } from '@tevm/test-utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { handleBulkRequest } from './handleBulkRequest.js'
 
@@ -8,13 +6,7 @@ describe('handleBulkRequest', () => {
 	let client: MemoryClient<any, any>
 
 	beforeEach(() => {
-		client = createMemoryClient({
-			common: optimism,
-			fork: {
-				transport: transports.optimism,
-				blockTag: 141866019n,
-			},
-		})
+		client = createMemoryClient()
 	})
 
 	it('should handle valid requests and return responses', async () => {

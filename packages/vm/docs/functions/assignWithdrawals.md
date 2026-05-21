@@ -18,14 +18,4 @@ Defined in: [packages/vm/src/actions/assignWithdrawals.ts:8](https://github.com/
 
 ## Returns
 
-> (`block`): `Promise`\<`void`\>
-
-### Parameters
-
-#### block
-
-`Block`
-
-### Returns
-
-`Promise`\<`void`\>
+(`block`) => `Promise`\<`void`\>

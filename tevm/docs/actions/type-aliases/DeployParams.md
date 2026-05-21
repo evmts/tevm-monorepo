@@ -8,7 +8,7 @@
 
 > **DeployParams**\<`TThrowOnFail`, `TAbi`, `THasConstructor`, `TAllArgs`\> = `Omit`\<[`BaseCallParams`](BaseCallParams.md)\<`TThrowOnFail`\>, `"to"`\> & `object` & [`EncodeDeployDataParameters`](../../utils/type-aliases/EncodeDeployDataParameters.md)\<`TAbi`, `THasConstructor`, `TAllArgs`\>
 
-Defined in: packages/actions/types/Deploy/DeployParams.d.ts:46
+Defined in: tevm-monorepo/packages/actions/types/Deploy/DeployParams.d.ts:46
 
 Defines the parameters used for deploying a contract on TEVM.
 This type extends the base call parameters used for typical TEVM calls,
@@ -21,7 +21,7 @@ The `salt` parameter supports the use of CREATE2, allowing for deterministic add
 
 ### salt?
 
-> `readonly` `optional` **salt**: [`Hex`](Hex.md)
+> `readonly` `optional` **salt?**: [`Hex`](Hex.md)
 
 An optional CREATE2 salt, if deploying with CREATE2 for a predictable contract address.
 

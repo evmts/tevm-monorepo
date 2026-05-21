@@ -6,7 +6,7 @@
 
 # Interface: ParameterizedAccountStorage
 
-Defined in: packages/state/dist/index.d.ts:99
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:99
 
 Represents an Ethereum account storage with hexadecimal string values.
 Used to serialize account data for storage and RPC responses.
@@ -30,7 +30,7 @@ const value: ParameterizedAccountStorage = {
 
 > **balance**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:101
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:101
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: packages/state/dist/index.d.ts:101
 
 > **codeHash**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:103
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:103
 
 ***
 
@@ -46,15 +46,15 @@ Defined in: packages/state/dist/index.d.ts:103
 
 > **nonce**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:100
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:100
 
 ***
 
 ### storage?
 
-> `optional` **storage**: [`StorageDump`](../../common/interfaces/StorageDump.md)
+> `optional` **storage?**: [`StorageDump`](../../common/interfaces/StorageDump.md)
 
-Defined in: packages/state/dist/index.d.ts:104
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:104
 
 ***
 
@@ -62,4 +62,4 @@ Defined in: packages/state/dist/index.d.ts:104
 
 > **storageRoot**: `` `0x${string}` ``
 
-Defined in: packages/state/dist/index.d.ts:102
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:102

@@ -8,7 +8,7 @@
 
 > **debugGetRawReceiptsHandler**(`client`): [`DebugGetRawReceiptsHandler`](../type-aliases/DebugGetRawReceiptsHandler.md)
 
-Defined in: packages/actions/types/debug/debugGetRawReceiptsHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/debug/debugGetRawReceiptsHandler.d.ts:1
 
 ## Parameters
 

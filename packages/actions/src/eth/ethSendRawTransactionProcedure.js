@@ -1,5 +1,5 @@
+import { createTxFromRLP } from '@evmts/zevm/tx'
 import { InvalidParamsError } from '@tevm/errors'
-import { createTxFromRLP } from '@tevm/tx'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { handleAutomining } from '../Call/handleAutomining.js'
 
@@ -20,7 +20,7 @@ export const ethSendRawTransactionJsonRpcProcedure = (client) => {
 			return {
 				method: request.method,
 				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				error: {
 					code: err._tag,
 					message: err.message,
@@ -28,17 +28,49 @@ export const ethSendRawTransactionJsonRpcProcedure = (client) => {
 			}
 		}
 		const txPool = await client.getTxPool()
-		await txPool.add(tx, true)
+		const addResult = await txPool.add(tx, true)
+		if (addResult.error !== null) {
+			const err = new InvalidParamsError('Invalid transaction. Unable to add transaction to pool', {
+				cause: new Error(addResult.error),
+			})
+			return {
+				method: request.method,
+				jsonrpc: '2.0',
+				...(request.id !== undefined ? { id: request.id } : {}),
+				error: {
+					code: err._tag,
+					message: err.message,
+				},
+			}
+		}
 
 		if (client.miningConfig.type === 'auto') {
-			await handleAutomining(client, bytesToHex(tx.hash()), false, true)
+			const autominingResult = await handleAutomining(client, bytesToHex(tx.hash()), false, true)
+			if (autominingResult?.errors?.length) {
+				const error = autominingResult.errors[0]
+				if (!error) {
+					throw new Error('Automining failed without error details')
+				}
+				return {
+					method: request.method,
+					jsonrpc: '2.0',
+					...(request.id !== undefined ? { id: request.id } : {}),
+					error: {
+						code: error.code,
+						message: error.message,
+						data: {
+							errors: autominingResult.errors.map(({ message }) => message),
+						},
+					},
+				}
+			}
 		}
 
 		return {
 			method: request.method,
 			result: bytesToHex(tx.hash()),
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

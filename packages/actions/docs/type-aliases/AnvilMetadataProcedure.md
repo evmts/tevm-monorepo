@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilMetadataProcedure
 
-# Type Alias: AnvilMetadataProcedure()
+# Type Alias: AnvilMetadataProcedure
 
 > **AnvilMetadataProcedure** = (`request`) => `Promise`\<[`AnvilMetadataJsonRpcResponse`](AnvilMetadataJsonRpcResponse.md)\>
 

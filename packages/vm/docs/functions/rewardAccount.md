@@ -14,7 +14,7 @@ Defined in: [packages/vm/src/actions/rewardAccount.ts:4](https://github.com/evmt
 
 ### evm
 
-`Evm`
+`Evm$1`
 
 ### address
 

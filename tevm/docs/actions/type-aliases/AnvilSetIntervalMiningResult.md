@@ -8,4 +8,4 @@
 
 > **AnvilSetIntervalMiningResult** = `null`
 
-Defined in: packages/actions/types/anvil/AnvilResult.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilResult.d.ts:7

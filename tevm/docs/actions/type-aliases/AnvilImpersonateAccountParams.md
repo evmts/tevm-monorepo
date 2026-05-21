@@ -8,7 +8,7 @@
 
 > **AnvilImpersonateAccountParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:8
 
 Params fro `anvil_impersonateAccount` handler
 
@@ -18,6 +18,6 @@ Params fro `anvil_impersonateAccount` handler
 
 > `readonly` **address**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:12
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:12
 
 The address to impersonate

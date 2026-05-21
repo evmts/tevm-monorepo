@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { catchTag, die, fail, logDebug, map, tap } from 'effect/Effect'
 import { validateUserConfig } from '../config/index.js'
 
@@ -35,10 +36,12 @@ export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 		return fail(new NoPluginInTsConfigFoundError())
 	}
 	const { baseUrl, paths } = tsConfig.compilerOptions
+	const configDir = path.resolve(configPath)
+	const baseDir = baseUrl ? path.resolve(configDir, baseUrl) : configDir
 	const pathRemappings = Object.fromEntries(
 		Object.entries(paths ?? {}).map(([key, value]) => [
 			key.replace(/\/\*$/, '/'),
-			value?.[0]?.replace(/^\./, configPath).replace(/\/\*$/, '/') ?? '',
+			value?.[0] ? `${path.resolve(baseDir, value[0].replace(/\/\*$/, '')).replace(/\\/g, '/')}/` : '',
 		]),
 	)
 	return validateUserConfig(() => plugin).pipe(
@@ -58,7 +61,7 @@ export const getTevmConfigFromTsConfig = (tsConfig, configPath) => {
 							...pathRemappings,
 							...config.remappings,
 						},
-						libs: [...new Set([baseUrl, ...(config.libs ?? [])])],
+						libs: [...new Set([baseDir, ...(config.libs ?? [])])],
 					}
 				: config,
 		),

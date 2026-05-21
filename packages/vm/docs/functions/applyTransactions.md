@@ -22,18 +22,4 @@ side-effect free (it doesn't modify the block nor the state).
 
 ## Returns
 
-> (`block`, `opts`): `Promise`\<\{ `bloom`: `Bloom`; `gasUsed`: `bigint`; `preimages`: `Map`\<`string`, `Uint8Array`\<`ArrayBufferLike`\>\>; `receipts`: [`TxReceipt`](../type-aliases/TxReceipt.md)[]; `receiptsRoot`: `Uint8Array`\<`ArrayBufferLike`\>; `results`: [`RunTxResult`](../interfaces/RunTxResult.md)[]; \}\>
-
-### Parameters
-
-#### block
-
-`Block`
-
-#### opts
-
-[`RunBlockOpts`](../interfaces/RunBlockOpts.md)
-
-### Returns
-
-`Promise`\<\{ `bloom`: `Bloom`; `gasUsed`: `bigint`; `preimages`: `Map`\<`string`, `Uint8Array`\<`ArrayBufferLike`\>\>; `receipts`: [`TxReceipt`](../type-aliases/TxReceipt.md)[]; `receiptsRoot`: `Uint8Array`\<`ArrayBufferLike`\>; `results`: [`RunTxResult`](../interfaces/RunTxResult.md)[]; \}\>
+(`block`, `opts`) => `Promise`\<\{ `bloom`: `Bloom`; `gasUsed`: `bigint`; `preimages`: `Map`\<`string`, `Uint8Array`\<`ArrayBufferLike`\>\>; `receipts`: [`TxReceipt`](../type-aliases/TxReceipt.md)[]; `receiptsRoot`: `Uint8Array`\<`ArrayBufferLike`\>; `results`: [`RunTxResult`](../interfaces/RunTxResult.md)[]; \}\>

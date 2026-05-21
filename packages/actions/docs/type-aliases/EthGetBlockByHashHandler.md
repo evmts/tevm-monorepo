@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetBlockByHashHandler
 
-# Type Alias: EthGetBlockByHashHandler()
+# Type Alias: EthGetBlockByHashHandler
 
 > **EthGetBlockByHashHandler** = (`request`) => `Promise`\<[`EthGetBlockByHashResult`](EthGetBlockByHashResult.md)\>
 

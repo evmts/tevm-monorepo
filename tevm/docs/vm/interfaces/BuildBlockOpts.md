@@ -6,7 +6,7 @@
 
 # Interface: BuildBlockOpts
 
-Defined in: packages/vm/types/utils/BuildBlockOpts.d.ts:7
+Defined in: tevm-monorepo/packages/vm/types/utils/BuildBlockOpts.d.ts:7
 
 Options for building a block.
 
@@ -14,9 +14,9 @@ Options for building a block.
 
 ### blockOpts?
 
-> `optional` **blockOpts**: [`BuilderOpts`](BuilderOpts.md)
+> `optional` **blockOpts?**: [`BuilderOpts`](BuilderOpts.md)
 
-Defined in: packages/vm/types/utils/BuildBlockOpts.d.ts:21
+Defined in: tevm-monorepo/packages/vm/types/utils/BuildBlockOpts.d.ts:21
 
 The block and builder options to use.
 
@@ -24,9 +24,9 @@ The block and builder options to use.
 
 ### headerData?
 
-> `optional` **headerData**: [`HeaderData`](../../block/interfaces/HeaderData.md)
+> `optional` **headerData?**: [`HeaderData`](../../block/interfaces/HeaderData.md)
 
-Defined in: packages/vm/types/utils/BuildBlockOpts.d.ts:16
+Defined in: tevm-monorepo/packages/vm/types/utils/BuildBlockOpts.d.ts:16
 
 The block header data to use.
 Defaults used for any values not provided.
@@ -37,7 +37,7 @@ Defaults used for any values not provided.
 
 > **parentBlock**: [`Block`](../../block/classes/Block.md)
 
-Defined in: packages/vm/types/utils/BuildBlockOpts.d.ts:11
+Defined in: tevm-monorepo/packages/vm/types/utils/BuildBlockOpts.d.ts:11
 
 The parent block
 
@@ -45,6 +45,6 @@ The parent block
 
 ### withdrawals?
 
-> `optional` **withdrawals**: [`WithdrawalData`](../../utils/type-aliases/WithdrawalData.md)[]
+> `optional` **withdrawals?**: [`WithdrawalData`](../../utils/type-aliases/WithdrawalData.md)[]
 
-Defined in: packages/vm/types/utils/BuildBlockOpts.d.ts:17
+Defined in: tevm-monorepo/packages/vm/types/utils/BuildBlockOpts.d.ts:17

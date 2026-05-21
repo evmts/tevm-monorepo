@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthUninstallFilterJsonRpcProcedure
 
-# Type Alias: EthUninstallFilterJsonRpcProcedure()
+# Type Alias: EthUninstallFilterJsonRpcProcedure
 
 > **EthUninstallFilterJsonRpcProcedure** = (`request`) => `Promise`\<[`EthUninstallFilterJsonRpcResponse`](EthUninstallFilterJsonRpcResponse.md)\>
 

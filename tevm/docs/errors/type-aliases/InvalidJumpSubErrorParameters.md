@@ -8,7 +8,7 @@
 
 > **InvalidJumpSubErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:81
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:81
 
 Parameters for constructing a [InvalidJumpSubError](../classes/InvalidJumpSubError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing a [InvalidJumpSubError](../classes/InvalidJumpSubErr
 
 ### cause?
 
-> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
+> `optional` **cause?**: [`ExecutionError`](../classes/ExecutionError.md) \| `EVMError`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:101
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:101
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:1
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:105
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:105
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:1
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:85
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:85
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:8
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:89
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:89
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:8
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:93
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:93
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:9
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:109
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:109
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:1
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:97
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:97
 
 - Additional meta messages.

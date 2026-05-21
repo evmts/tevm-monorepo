@@ -22,6 +22,6 @@ Defined in: [solcTypes.ts:314](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### keccak256?
 
-> `optional` **keccak256**: `HexNumber`
+> `optional` **keccak256?**: `HexNumber`
 
 Defined in: [solcTypes.ts:312](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L312)

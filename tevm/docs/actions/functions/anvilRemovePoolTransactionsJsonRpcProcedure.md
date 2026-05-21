@@ -8,7 +8,7 @@
 
 > **anvilRemovePoolTransactionsJsonRpcProcedure**(`client`): [`AnvilRemovePoolTransactionsProcedure`](../type-aliases/AnvilRemovePoolTransactionsProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilRemovePoolTransactionsProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilRemovePoolTransactionsProcedure.d.ts:1
 
 ## Parameters
 

@@ -8,7 +8,7 @@
 
 > **anvilSetNonceJsonRpcProcedure**(`client`): [`AnvilSetNonceProcedure`](../type-aliases/AnvilSetNonceProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetNonceProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetNonceProcedure.d.ts:1
 
 ## Parameters
 

@@ -28,7 +28,7 @@ describe(createContract.name, () => {
 			bytecode: '0x420',
 			deployedBytecode: '0x69',
 		})
-		expect(contractWithDeployedBytecode.deployedBytecode).toEqualHex('0x69')
+		expect(contractWithDeployedBytecode.deployedBytecode).toBe('0x69')
 	})
 
 	it('should contain the ABI', () => {
@@ -333,7 +333,7 @@ describe(createContract.name, () => {
 			[InvalidParams: Must provide either humanReadableAbi or abi
 
 			Docs: https://tevm.sh/learn/contracts/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -405,6 +405,6 @@ describe(createContract.name, () => {
 			name: 'DummyContract',
 		})
 		const updatedContract = contract.withCode('0xabcdef')
-		expect(updatedContract.code).toEqualHex('0xabcdef')
+		expect(updatedContract.code).toBe('0xabcdef')
 	})
 })

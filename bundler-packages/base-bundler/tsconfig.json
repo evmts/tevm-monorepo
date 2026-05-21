@@ -5,6 +5,7 @@
 		"skipLibCheck": true,
 		"allowSyntheticDefaultImports": true,
 		"resolveJsonModule": true,
+		"types": ["node"],
 		"incremental": false
 	},
 	"include": ["src", "src/**/*.json", "package.json"]

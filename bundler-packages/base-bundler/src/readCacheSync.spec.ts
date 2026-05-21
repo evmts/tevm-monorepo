@@ -16,7 +16,7 @@ describe('readCacheSync', () => {
 		const result = readCacheSync(mockLogger, mockCache, 'test/path', false, false)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -27,7 +27,7 @@ describe('readCacheSync', () => {
 		const result = readCacheSync(mockLogger, mockCache, 'test/path', false, false)
 
 		expect(result).toBe(mockArtifacts)
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -38,7 +38,7 @@ describe('readCacheSync', () => {
 		const result = readCacheSync(mockLogger, mockCache, 'test/path', true, false)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -49,7 +49,7 @@ describe('readCacheSync', () => {
 		const result = readCacheSync(mockLogger, mockCache, 'test/path', true, false)
 
 		expect(result).toBe(mockArtifacts)
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -64,7 +64,7 @@ describe('readCacheSync', () => {
 		const result = readCacheSync(mockLogger, mockCache, 'test/path', false, true)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -79,7 +79,22 @@ describe('readCacheSync', () => {
 		const result = readCacheSync(mockLogger, mockCache, 'test/path', false, true)
 
 		expect(result).toBe(mockArtifacts)
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path', undefined)
+		expect(mockLogger.error).not.toHaveBeenCalled()
+	})
+
+	it('should return undefined if bytecode object has no bytecode content', () => {
+		const mockArtifacts = {
+			artifacts: {
+				Contract1: { evm: { deployedBytecode: { sourceMap: '0:1:0' } } },
+			},
+		}
+		mockCache.readArtifactsSync.mockReturnValueOnce(mockArtifacts)
+
+		const result = readCacheSync(mockLogger, mockCache, 'test/path', false, true)
+
+		expect(result).toBeUndefined()
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -90,7 +105,7 @@ describe('readCacheSync', () => {
 		const result = readCacheSync(mockLogger, mockCache, 'test/path', false, true)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).not.toHaveBeenCalled()
 	})
 
@@ -102,7 +117,7 @@ describe('readCacheSync', () => {
 		const result = readCacheSync(mockLogger, mockCache, 'test/path', false, false)
 
 		expect(result).toBeUndefined()
-		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path')
+		expect(mockCache.readArtifactsSync).toHaveBeenCalledWith('test/path', undefined)
 		expect(mockLogger.error).toHaveBeenCalledTimes(2)
 	})
 })

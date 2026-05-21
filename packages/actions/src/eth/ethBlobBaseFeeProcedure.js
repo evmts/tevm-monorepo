@@ -13,7 +13,7 @@ export const ethBlobBaseFeeJsonRpcProcedure = (client) => {
 			result: numberToHex(headBlock.header.calcNextBlobGasPrice()),
 			jsonrpc: '2.0',
 			method: request.method,
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

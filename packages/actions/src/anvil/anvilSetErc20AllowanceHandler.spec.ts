@@ -6,10 +6,13 @@ import { contractHandler } from '../Contract/contractHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { setErc20AllowanceHandler } from './anvilSetErc20AllowanceHandler.js'
 
+const erc20Address = '0x0000000000000000000000000000000000066a44'
+const erc20Address2 = '0x0000000000000000000000000000000000077b55'
+
 describe('setErc20AllowanceHandler', () => {
 	it('should set ERC20 allowance', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const owner = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const spender = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 
@@ -42,7 +45,7 @@ describe('setErc20AllowanceHandler', () => {
 
 	it('should set allowance to zero', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const owner = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const spender = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 
@@ -103,7 +106,7 @@ describe('setErc20AllowanceHandler', () => {
 
 	it('should set different allowances for different spenders', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const owner = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const spender1 = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 		const spender2 = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC'
@@ -153,7 +156,7 @@ describe('setErc20AllowanceHandler', () => {
 
 	it('should overwrite existing allowance', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const owner = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const spender = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 
@@ -194,7 +197,7 @@ describe('setErc20AllowanceHandler', () => {
 
 	it('should handle very large allowance amounts', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const owner = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const spender = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 
@@ -228,7 +231,7 @@ describe('setErc20AllowanceHandler', () => {
 
 	it('should handle different owners independently', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const owner1 = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const owner2 = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 		const spender = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC'
@@ -276,8 +279,8 @@ describe('setErc20AllowanceHandler', () => {
 
 	it('should handle multiple ERC20 tokens independently', async () => {
 		const client = createTevmNode()
-		const erc20_1 = TestERC20.withAddress(createAddress('0x66a44').toString())
-		const erc20_2 = TestERC20.withAddress(createAddress('0x77b55').toString())
+		const erc20_1 = TestERC20.withAddress(createAddress(erc20Address).toString())
+		const erc20_2 = TestERC20.withAddress(createAddress(erc20Address2).toString())
 		const owner = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const spender = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 
@@ -345,7 +348,7 @@ describe('setErc20AllowanceHandler', () => {
 
 	it('should handle setting allowance multiple times in sequence', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const owner = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const spender = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 
@@ -379,7 +382,7 @@ describe('setErc20AllowanceHandler', () => {
 
 	it('should properly manipulate storage without affecting balances', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const owner = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const spender = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 
@@ -429,7 +432,7 @@ describe('setErc20AllowanceHandler', () => {
 
 	it('should handle setting max uint256 allowance (infinite approval)', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const owner = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const spender = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 

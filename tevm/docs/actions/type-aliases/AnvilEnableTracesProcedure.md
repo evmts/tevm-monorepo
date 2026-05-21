@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilEnableTracesProcedure
 
-# Type Alias: AnvilEnableTracesProcedure()
+# Type Alias: AnvilEnableTracesProcedure
 
 > **AnvilEnableTracesProcedure** = (`request`) => `Promise`\<[`AnvilEnableTracesJsonRpcResponse`](AnvilEnableTracesJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:155
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:155
 
 JSON-RPC procedure for `anvil_enableTraces`
 

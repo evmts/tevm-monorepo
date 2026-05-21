@@ -25,7 +25,7 @@ describe('anvilDropTransactionJsonRpcProcedure', () => {
 
 		// Verify the transaction is in the pool
 		const txPool = await node.getTxPool()
-		expect(txPool.getByHash([hexToBytes(txHash)])).toMatchInlineSnapshot(`[]`)
+		expect(txPool.getByHash([hexToBytes(txHash)])).toHaveLength(1)
 
 		const procedure = anvilDropTransactionJsonRpcProcedure(node)
 		const result = await procedure({
@@ -44,18 +44,18 @@ describe('anvilDropTransactionJsonRpcProcedure', () => {
 		expect(await txPool.getByHash([hexToBytes(txHash)])).toMatchInlineSnapshot('[]')
 	})
 
-	it('should throw an error if the transaction is not in the pool', async () => {
+	it('should return an error if the transaction is not in the pool', async () => {
 		const nonExistentTxHash = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
 
 		const procedure = anvilDropTransactionJsonRpcProcedure(node)
 
-		await expect(
-			procedure({
-				method: 'anvil_dropTransaction',
-				params: [{ transactionHash: nonExistentTxHash }],
-				jsonrpc: '2.0',
-			}),
-		).rejects.toThrow('Only tx in the txpool are allowed to be dropped')
+		const result = await procedure({
+			method: 'anvil_dropTransaction',
+			params: [{ transactionHash: nonExistentTxHash }],
+			jsonrpc: '2.0',
+		})
+
+		expect(result.error?.message).toContain('Only tx in the txpool are allowed to be dropped')
 	})
 
 	it('should handle requests with id', async () => {

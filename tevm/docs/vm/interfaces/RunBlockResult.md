@@ -6,7 +6,7 @@
 
 # Interface: RunBlockResult
 
-Defined in: packages/vm/types/utils/RunBlockResult.d.ts:6
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockResult.d.ts:6
 
 Result of runBlock
 
@@ -24,7 +24,7 @@ Result of runBlock
 
 > **gasUsed**: `bigint`
 
-Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:16
+Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:16
 
 The gas used after executing the block
 
@@ -38,7 +38,7 @@ The gas used after executing the block
 
 > **logsBloom**: `Uint8Array`
 
-Defined in: packages/vm/types/utils/RunBlockResult.d.ts:14
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockResult.d.ts:14
 
 The bloom filter of the LOGs (events) after executing the block
 
@@ -46,9 +46,9 @@ The bloom filter of the LOGs (events) after executing the block
 
 ### preimages?
 
-> `optional` **preimages**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
+> `optional` **preimages?**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:32
+Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:32
 
 Preimages mapping of the touched accounts from the block (see reportPreimages option)
 
@@ -62,7 +62,7 @@ Preimages mapping of the touched accounts from the block (see reportPreimages op
 
 > **receipts**: [`TxReceipt`](../type-aliases/TxReceipt.md)[]
 
-Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:24
+Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:24
 
 Receipts generated for transactions in the block
 
@@ -76,7 +76,7 @@ Receipts generated for transactions in the block
 
 > **receiptsRoot**: `Uint8Array`
 
-Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:20
+Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:20
 
 The receipt root after executing the block
 
@@ -88,9 +88,9 @@ The receipt root after executing the block
 
 ### requests?
 
-> `optional` **requests**: [`ClRequest`](../../block/classes/ClRequest.md)[]
+> `optional` **requests?**: [`ClRequest`](../../block/classes/ClRequest.md)[]
 
-Defined in: packages/vm/types/utils/RunBlockResult.d.ts:22
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockResult.d.ts:22
 
 Any CL requests that were processed in the course of this block
 
@@ -98,9 +98,9 @@ Any CL requests that were processed in the course of this block
 
 ### requestsRoot?
 
-> `optional` **requestsRoot**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **requestsRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: packages/vm/types/utils/RunBlockResult.d.ts:18
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockResult.d.ts:18
 
 The requestsRoot for any CL requests in the block
 
@@ -110,7 +110,7 @@ The requestsRoot for any CL requests in the block
 
 > **results**: [`RunTxResult`](RunTxResult.md)[]
 
-Defined in: packages/vm/types/utils/ApplyBlockResult.d.ts:28
+Defined in: tevm-monorepo/packages/vm/types/utils/ApplyBlockResult.d.ts:28
 
 Results of executing the transactions in the block
 
@@ -124,6 +124,6 @@ Results of executing the transactions in the block
 
 > **stateRoot**: `Uint8Array`
 
-Defined in: packages/vm/types/utils/RunBlockResult.d.ts:10
+Defined in: tevm-monorepo/packages/vm/types/utils/RunBlockResult.d.ts:10
 
 The stateRoot after executing the block

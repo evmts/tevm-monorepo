@@ -23,18 +23,4 @@ them on state (but doesn't persist the changes).
 
 ## Returns
 
-> (`block`, `opts`): `Promise`\<[`ApplyBlockResult`](../interfaces/ApplyBlockResult.md)\>
-
-### Parameters
-
-#### block
-
-`Block`
-
-#### opts
-
-[`RunBlockOpts`](../interfaces/RunBlockOpts.md)
-
-### Returns
-
-`Promise`\<[`ApplyBlockResult`](../interfaces/ApplyBlockResult.md)\>
+(`block`, `opts`) => `Promise`\<[`ApplyBlockResult`](../interfaces/ApplyBlockResult.md)\>

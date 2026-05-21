@@ -8,9 +8,7 @@
 
 > **eoaCode7702AuthorizationListBytesItemToJSON**(`authorizationList`): `EOACode7702AuthorizationListItem`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/authorization.d.ts:10
-
-Converts an authorization list to a JSON format
+Defined in: zevm/npm/zevm/dist/util.d.ts:212
 
 ## Parameters
 
@@ -21,5 +19,3 @@ Converts an authorization list to a JSON format
 ## Returns
 
 `EOACode7702AuthorizationListItem`
-
-authorizationList in JSON format

@@ -8,7 +8,7 @@
 
 > **hashMessage**(`message`): `` `0x${string}` ``
 
-Defined in: packages/utils/types/signature.d.ts:70
+Defined in: tevm-monorepo/packages/utils/types/signature.d.ts:70
 
 Hashes a message according to EIP-191
 

@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetUncleByBlockHashAndIndexHandler
 
-# Type Alias: EthGetUncleByBlockHashAndIndexHandler()
+# Type Alias: EthGetUncleByBlockHashAndIndexHandler
 
 > **EthGetUncleByBlockHashAndIndexHandler** = (`request`) => `Promise`\<[`EthGetUncleByBlockHashAndIndexResult`](EthGetUncleByBlockHashAndIndexResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:31
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:31
 
 ## Parameters
 

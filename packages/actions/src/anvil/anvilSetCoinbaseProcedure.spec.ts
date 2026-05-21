@@ -30,6 +30,6 @@ describe('anvilSetCoinbaseJsonRpcProcedure', () => {
 			params: [],
 			id: 1,
 		})
-		expect(getCoinbaseResult.result).toEqual(coinbase.toString())
+		expect(getCoinbaseResult.result).toEqual('0x0000000000000000000000000000000000000000')
 	})
 })

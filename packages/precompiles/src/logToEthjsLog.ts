@@ -22,12 +22,29 @@ export const logToEthjsLog = <TAbi extends Abi>(
 		address: Address
 	},
 ): EthjsLog => {
-	const topics = encodeEventTopics({
+	const topicHexes = encodeEventTopics({
 		abi,
 		eventName: log.eventName,
 		args: log.args,
-	} as any).map((topics) => hexToBytes(topics as `0x${string}`))
-	const eventItem = abi.find((item) => item.type === 'event' && item.name === log.eventName) as AbiEvent
+	} as any)
+	const topics = topicHexes.map((topics) => hexToBytes(topics as `0x${string}`))
+	const eventItems = abi.filter((item) => item.type === 'event' && item.name === log.eventName) as AbiEvent[]
+	const eventItem = (
+		eventItems.length === 1
+			? eventItems[0]
+			: eventItems.find((item) => {
+					try {
+						const itemTopics = encodeEventTopics({
+							abi: [item],
+							eventName: log.eventName,
+							args: log.args,
+						} as any)
+						return itemTopics[0] === topicHexes[0]
+					} catch (_e) {
+						return false
+					}
+				}) || (eventItems[0] as AbiEvent)
+	) as AbiEvent
 	const inputs = eventItem.inputs ?? []
 	const argsArray = Array.isArray(log.args)
 		? log.args

@@ -8,7 +8,7 @@
 
 > **EthSimulateV1CallResult** = `object`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:290
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:290
 
 Result of a single simulated call
 
@@ -16,9 +16,9 @@ Result of a single simulated call
 
 ### error?
 
-> `optional` **error**: [`SimulateCallError`](SimulateCallError.md)
+> `optional` **error?**: [`SimulateCallError`](SimulateCallError.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:310
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:310
 
 Error information if the call failed
 
@@ -28,7 +28,7 @@ Error information if the call failed
 
 > **gasUsed**: `bigint`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:302
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:302
 
 Gas used by the call
 
@@ -38,7 +38,7 @@ Gas used by the call
 
 > **logs**: [`FilterLog`](FilterLog.md)[]
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:298
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:298
 
 Logs emitted during the call execution
 
@@ -48,7 +48,7 @@ Logs emitted during the call execution
 
 > **returnData**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:294
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:294
 
 The return data from the call
 
@@ -58,6 +58,6 @@ The return data from the call
 
 > **status**: `bigint`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:306
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:306
 
 Status of the call (1 = success, 0 = failure)

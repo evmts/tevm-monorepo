@@ -33,17 +33,7 @@ Note: If you are building a frontend application, you should use the tree-shakab
 
 A viem extension function that adds TEVM actions
 
-> (`client`): [`TevmViemActionsApi`](../type-aliases/TevmViemActionsApi.md)
-
-### Parameters
-
-#### client
-
-`Client`\<[`TevmTransport`](../type-aliases/TevmTransport.md)\<`string`\>, `undefined` \| `Chain`, `undefined` \| `Account`, `undefined`, `undefined` \| \{\[`key`: `string`\]: `unknown`; `account?`: `undefined`; `batch?`: `undefined`; `cacheTime?`: `undefined`; `ccipRead?`: `undefined`; `chain?`: `undefined`; `experimental_blockTag?`: `undefined`; `key?`: `undefined`; `name?`: `undefined`; `pollingInterval?`: `undefined`; `request?`: `undefined`; `transport?`: `undefined`; `type?`: `undefined`; `uid?`: `undefined`; \}\>
-
-### Returns
-
-[`TevmViemActionsApi`](../type-aliases/TevmViemActionsApi.md)
+(`client`) => [`TevmViemActionsApi`](../type-aliases/TevmViemActionsApi.md)
 
 ## Throws
 

@@ -46,7 +46,7 @@ The gas cost of this operation
 
 ### memory?
 
-> `optional` **memory**: [`Hex`](Hex.md)
+> `optional` **memory?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/eth/EthResult.ts:480](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L480)
 
@@ -76,7 +76,7 @@ The program counter
 
 ### stack?
 
-> `optional` **stack**: [`Hex`](Hex.md)[]
+> `optional` **stack?**: [`Hex`](Hex.md)[]
 
 Defined in: [packages/actions/src/eth/EthResult.ts:476](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L476)
 

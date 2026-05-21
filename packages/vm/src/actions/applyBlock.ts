@@ -44,13 +44,13 @@ export const applyBlock =
 				await block.validateData()
 			}
 		}
-		if (vm.common.ethjsCommon.isActivatedEIP(4788)) {
+		if (block.common.ethjsCommon.isActivatedEIP(4788)) {
 			await accumulateParentBeaconBlockRoot(vm)(
 				block.header.parentBeaconBlockRoot as Uint8Array,
 				block.header.timestamp,
 			)
 		}
-		if (vm.common.ethjsCommon.isActivatedEIP(2935)) {
+		if (block.common.ethjsCommon.isActivatedEIP(2935)) {
 			await accumulateParentBlockHash(vm)(block.header.number, block.header.parentHash)
 		}
 
@@ -78,7 +78,7 @@ export const applyBlock =
 			}
 		}
 
-		if (vm.common.ethjsCommon.isActivatedEIP(4895)) {
+		if (block.common.ethjsCommon.isActivatedEIP(4895)) {
 			if (opts.reportPreimages === true) vm.evm.journal.startReportingPreimages?.()
 			await assignWithdrawals(vm)(block)
 			if (opts.reportPreimages === true && vm.evm.journal.preimages !== undefined) {

@@ -8,7 +8,7 @@
 
 > **BlobGasLimitExceededErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:46
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:46
 
 Parameters for constructing a BlobGasLimitExceededError.
 
@@ -16,9 +16,9 @@ Parameters for constructing a BlobGasLimitExceededError.
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause?**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:66
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:66
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:66
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:70
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:70
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:70
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:50
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:50
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:50
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:54
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:54
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:54
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:58
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:58
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:58
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:74
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:74
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:74
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:62
+Defined in: tevm-monorepo/packages/errors/types/ethereum/BlobGasLimitExceededError.d.ts:62
 
 - Additional meta messages.

@@ -8,7 +8,7 @@
 
 > **FlatCallAction** = `object`
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:6
 
 Action details for a call trace entry
 
@@ -16,9 +16,9 @@ Action details for a call trace entry
 
 ### callType?
 
-> `optional` **callType**: `"call"` \| `"delegatecall"` \| `"staticcall"`
+> `optional` **callType?**: `"call"` \| `"delegatecall"` \| `"staticcall"`
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:8
 
 The type of call
 
@@ -28,7 +28,7 @@ The type of call
 
 > **from**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:10
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:10
 
 Sender address
 
@@ -38,7 +38,7 @@ Sender address
 
 > **gas**: `bigint`
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:14
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:14
 
 Gas provided
 
@@ -48,7 +48,7 @@ Gas provided
 
 > **input**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:16
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:16
 
 Input data
 
@@ -58,7 +58,7 @@ Input data
 
 > **to**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:12
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:12
 
 Recipient address
 
@@ -68,6 +68,6 @@ Recipient address
 
 > **value**: `bigint`
 
-Defined in: packages/actions/types/common/FlatCallTraceResult.d.ts:18
+Defined in: tevm-monorepo/packages/actions/types/common/FlatCallTraceResult.d.ts:18
 
 Value transferred

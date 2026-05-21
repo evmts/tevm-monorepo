@@ -8,4 +8,4 @@
 
 > **EthAccountsResult** = [`Address`](Address.md)[]
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:11
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:11

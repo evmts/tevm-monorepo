@@ -102,7 +102,7 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 		expect(response.result).toMatchSnapshot()
 	})
 
-	it('should handle error responses when using stateOverrides', async () => {
+	it('should forward stateOverrides without duplicating positional params', async () => {
 		const request: EthEstimateGasJsonRpcRequest = {
 			jsonrpc: '2.0',
 			method: 'eth_estimateGas',
@@ -123,15 +123,13 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 		}
 
 		const response = await ethEstimateGasJsonRpcProcedure(client)(request)
-		expect(response.error).toBeDefined()
-		expect(response.result).toBeUndefined()
+		expect(response.error).toBeUndefined()
+		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_estimateGas')
 		expect(response.id).toBe(2)
-		expect(response.error?.code).toBeDefined()
-		expect(response.error?.message).toBeDefined()
 	})
 
-	it('should handle error responses when using stateOverrides and blockOverrides', async () => {
+	it('should forward stateOverrides and blockOverrides without duplicating positional params', async () => {
 		const request: EthEstimateGasJsonRpcRequest = {
 			jsonrpc: '2.0',
 			method: 'eth_estimateGas',
@@ -149,22 +147,20 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 					},
 				},
 				{
-					baseFee: '0x1000',
+					baseFee: '0x1',
 				},
 			],
 		}
 
 		const response = await ethEstimateGasJsonRpcProcedure(client)(request)
-		expect(response.error).toBeDefined()
-		expect(response.result).toBeUndefined()
+		expect(response.error).toBeUndefined()
+		expect(response.result).toBeDefined()
 		expect(response.method).toBe('eth_estimateGas')
 		expect(response.id).toBe(3)
-		expect(response.error?.code).toBeDefined()
-		expect(response.error?.message).toBeDefined()
 	})
 
 	it('should handle basic error decoding when a contract call reverts', async () => {
-		const contractAddress = createAddress('0x1234')
+		const contractAddress = createAddress('0x0000000000000000000000000000000000001234')
 		await setAccountHandler(client)({
 			address: contractAddress.toString(),
 			deployedBytecode: ErrorContract.deployedBytecode,
@@ -199,7 +195,7 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 						'\n' +
 						'Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/\n' +
 						'Details: {"error":"revert","errorType":"EVMError"}\n' +
-						'Version: 1.1.0.next-73',
+						'Version: 1.0.0-next.148',
 				],
 			},
 		})

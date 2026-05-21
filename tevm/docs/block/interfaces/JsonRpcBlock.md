@@ -6,23 +6,23 @@
 
 # Interface: JsonRpcBlock
 
-Defined in: packages/block/types/types.d.ts:442
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:442
 
 ## Properties
 
 ### baseFeePerGas?
 
-> `optional` **baseFeePerGas**: `string`
+> `optional` **baseFeePerGas?**: `string`
 
-Defined in: packages/block/types/types.d.ts:463
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:463
 
 ***
 
 ### blobGasUsed?
 
-> `optional` **blobGasUsed**: `string`
+> `optional` **blobGasUsed?**: `string`
 
-Defined in: packages/block/types/types.d.ts:466
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:466
 
 ***
 
@@ -30,23 +30,23 @@ Defined in: packages/block/types/types.d.ts:466
 
 > **difficulty**: `string`
 
-Defined in: packages/block/types/types.d.ts:454
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:454
 
 ***
 
 ### excessBlobGas?
 
-> `optional` **excessBlobGas**: `string`
+> `optional` **excessBlobGas?**: `string`
 
-Defined in: packages/block/types/types.d.ts:467
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:467
 
 ***
 
 ### executionWitness?
 
-> `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
+> `optional` **executionWitness?**: [`VerkleExecutionWitness`](VerkleExecutionWitness.md) \| `null`
 
-Defined in: packages/block/types/types.d.ts:469
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:469
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: packages/block/types/types.d.ts:469
 
 > **extraData**: `string`
 
-Defined in: packages/block/types/types.d.ts:456
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:456
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: packages/block/types/types.d.ts:456
 
 > **gasLimit**: `string`
 
-Defined in: packages/block/types/types.d.ts:458
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:458
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: packages/block/types/types.d.ts:458
 
 > **gasUsed**: `string`
 
-Defined in: packages/block/types/types.d.ts:459
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:459
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: packages/block/types/types.d.ts:459
 
 > **hash**: `string`
 
-Defined in: packages/block/types/types.d.ts:444
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:444
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: packages/block/types/types.d.ts:444
 
 > **logsBloom**: `string`
 
-Defined in: packages/block/types/types.d.ts:449
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:449
 
 ***
 
@@ -94,15 +94,15 @@ Defined in: packages/block/types/types.d.ts:449
 
 > **miner**: `string`
 
-Defined in: packages/block/types/types.d.ts:453
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:453
 
 ***
 
 ### mixHash?
 
-> `optional` **mixHash**: `string`
+> `optional` **mixHash?**: `string`
 
-Defined in: packages/block/types/types.d.ts:446
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:446
 
 ***
 
@@ -110,7 +110,7 @@ Defined in: packages/block/types/types.d.ts:446
 
 > **nonce**: `string`
 
-Defined in: packages/block/types/types.d.ts:447
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:447
 
 ***
 
@@ -118,15 +118,15 @@ Defined in: packages/block/types/types.d.ts:447
 
 > **number**: `string`
 
-Defined in: packages/block/types/types.d.ts:443
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:443
 
 ***
 
 ### parentBeaconBlockRoot?
 
-> `optional` **parentBeaconBlockRoot**: `string`
+> `optional` **parentBeaconBlockRoot?**: `string`
 
-Defined in: packages/block/types/types.d.ts:468
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:468
 
 ***
 
@@ -134,7 +134,7 @@ Defined in: packages/block/types/types.d.ts:468
 
 > **parentHash**: `string`
 
-Defined in: packages/block/types/types.d.ts:445
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:445
 
 ***
 
@@ -142,23 +142,23 @@ Defined in: packages/block/types/types.d.ts:445
 
 > **receiptsRoot**: `string`
 
-Defined in: packages/block/types/types.d.ts:452
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:452
 
 ***
 
 ### requests?
 
-> `optional` **requests**: `string`[]
+> `optional` **requests?**: `string`[]
 
-Defined in: packages/block/types/types.d.ts:471
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:471
 
 ***
 
 ### requestsRoot?
 
-> `optional` **requestsRoot**: `string`
+> `optional` **requestsRoot?**: `string`
 
-Defined in: packages/block/types/types.d.ts:470
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:470
 
 ***
 
@@ -166,7 +166,7 @@ Defined in: packages/block/types/types.d.ts:470
 
 > **sha3Uncles**: `string`
 
-Defined in: packages/block/types/types.d.ts:448
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:448
 
 ***
 
@@ -174,7 +174,7 @@ Defined in: packages/block/types/types.d.ts:448
 
 > **size**: `string`
 
-Defined in: packages/block/types/types.d.ts:457
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:457
 
 ***
 
@@ -182,7 +182,7 @@ Defined in: packages/block/types/types.d.ts:457
 
 > **stateRoot**: `string`
 
-Defined in: packages/block/types/types.d.ts:451
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:451
 
 ***
 
@@ -190,7 +190,7 @@ Defined in: packages/block/types/types.d.ts:451
 
 > **timestamp**: `string`
 
-Defined in: packages/block/types/types.d.ts:460
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:460
 
 ***
 
@@ -198,7 +198,7 @@ Defined in: packages/block/types/types.d.ts:460
 
 > **totalDifficulty**: `string`
 
-Defined in: packages/block/types/types.d.ts:455
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:455
 
 ***
 
@@ -206,7 +206,7 @@ Defined in: packages/block/types/types.d.ts:455
 
 > **transactions**: (`string` \| [`JsonRpcTx`](../../tx/interfaces/JsonRpcTx.md))[]
 
-Defined in: packages/block/types/types.d.ts:461
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:461
 
 ***
 
@@ -214,7 +214,7 @@ Defined in: packages/block/types/types.d.ts:461
 
 > **transactionsRoot**: `string`
 
-Defined in: packages/block/types/types.d.ts:450
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:450
 
 ***
 
@@ -222,20 +222,20 @@ Defined in: packages/block/types/types.d.ts:450
 
 > **uncles**: `` `0x${string}` ``[] \| `string`[]
 
-Defined in: packages/block/types/types.d.ts:462
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:462
 
 ***
 
 ### withdrawals?
 
-> `optional` **withdrawals**: [`JsonRpcWithdrawal`](../../utils/interfaces/JsonRpcWithdrawal.md)[]
+> `optional` **withdrawals?**: [`JsonRpcWithdrawal`](../../utils/interfaces/JsonRpcWithdrawal.md)[]
 
-Defined in: packages/block/types/types.d.ts:464
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:464
 
 ***
 
 ### withdrawalsRoot?
 
-> `optional` **withdrawalsRoot**: `string`
+> `optional` **withdrawalsRoot?**: `string`
 
-Defined in: packages/block/types/types.d.ts:465
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:465

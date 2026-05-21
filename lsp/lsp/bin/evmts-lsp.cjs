@@ -3,5 +3,5 @@ if (process.argv.includes('--version')) {
 	const pkgJSON = require('../package.json')
 	console.log(`${pkgJSON.version}`)
 } else {
-	require('../out/index.js')
+	import('../dist/index.js')
 }

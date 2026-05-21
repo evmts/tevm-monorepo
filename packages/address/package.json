@@ -2,10 +2,10 @@
 	"name": "@tevm/address",
 	"version": "1.0.0-next.148",
 	"private": false,
-	"description": "A custom implementation of ethereumjs blockchain",
+	"description": "Tevm address utilities backed by zevm primitives",
 	"keywords": [
 		"solidity",
-		"ethereumjs",
+		"zevm",
 		"typescript",
 		"web3",
 		"blockchain"
@@ -71,7 +71,7 @@
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.49.3"
 	},
 	"publishConfig": {
 		"access": "public"

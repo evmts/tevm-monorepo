@@ -19,6 +19,8 @@ import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { ethGetLogsHandler } from './ethGetLogsHandler.js'
 
+const hasLiveOptimismFork = Boolean(process.env['TEVM_RPC_URLS_OPTIMISM'] && process.env['TEVM_RUN_LIVE_FORK_TESTS'])
+
 describe(ethGetLogsHandler.name, () => {
 	const getValueSetTopic = () => {
 		const eventAbi = SimpleContract.events.ValueSet.abi[0]
@@ -234,7 +236,7 @@ describe(ethGetLogsHandler.name, () => {
 		})
 	})
 
-	it('should work for past blocks in forked mode', { timeout: 20_000 }, async () => {
+	it.skipIf(!hasLiveOptimismFork)('should work for past blocks in forked mode', { timeout: 20_000 }, async () => {
 		const node = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
 		const logs = await ethGetLogsHandler(node)({
 			filterParams: {

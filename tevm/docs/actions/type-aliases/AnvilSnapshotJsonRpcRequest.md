@@ -8,6 +8,6 @@
 
 > **AnvilSnapshotJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"anvil_snapshot"`, readonly \[\]\>
 
-Defined in: packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:157
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilJsonRpcRequest.d.ts:157
 
 JSON-RPC request for `anvil_snapshot` method

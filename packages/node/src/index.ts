@@ -9,6 +9,7 @@ export {
 	type ProviderMessage,
 	ProviderRpcError,
 } from './EIP1193EventEmitterTypes.js'
+export type { ExExEvent, ExExHook } from './ExEx.js'
 export type { Extension } from './Extension.js'
 export type { Filter, FilterLog, FilterType } from './Filter.js'
 export { GENESIS_STATE, prefundedAccounts } from './GENESIS_STATE.js'
@@ -19,5 +20,5 @@ export type {
 	ManualMining,
 	MiningConfig,
 } from './MiningConfig.js'
-export type { TevmNode } from './TevmNode.js'
+export type { SnapshotMetadata, TevmNode, TevmSnapshot } from './TevmNode.js'
 export type { TevmNodeOptions } from './TevmNodeOptions.js'

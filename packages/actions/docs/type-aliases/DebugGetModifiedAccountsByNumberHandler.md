@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / DebugGetModifiedAccountsByNumberHandler
 
-# Type Alias: DebugGetModifiedAccountsByNumberHandler()
+# Type Alias: DebugGetModifiedAccountsByNumberHandler
 
 > **DebugGetModifiedAccountsByNumberHandler** = (`params`) => `Promise`\<[`DebugGetModifiedAccountsByNumberResult`](DebugGetModifiedAccountsByNumberResult.md)\>
 

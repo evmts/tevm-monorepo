@@ -8,6 +8,6 @@
 
 > **EthGasPriceResult** = `bigint`
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:39
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:39
 
 JSON-RPC response for `eth_gasPrice` procedure

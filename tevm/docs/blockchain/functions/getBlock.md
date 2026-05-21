@@ -8,7 +8,7 @@
 
 > **getBlock**(`baseChain`): (`blockId`) => `Promise`\<[`Block`](../../block/classes/Block.md)\>
 
-Defined in: packages/blockchain/types/actions/getBlock.d.ts:1
+Defined in: tevm-monorepo/packages/blockchain/types/actions/getBlock.d.ts:1
 
 ## Parameters
 
@@ -26,7 +26,7 @@ Returns a block by its hash or number.
 
 #### blockId
 
-`number` | `bigint` | `Uint8Array`\<`ArrayBufferLike`\>
+`number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
 ### Returns
 

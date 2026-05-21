@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { bundler, type FileAccessObject } from '@tevm/base-bundler'
 import type { Cache } from '@tevm/bundler-cache'
 import type { ResolvedCompilerConfig } from '@tevm/config'
@@ -54,7 +55,19 @@ export const getDefinitionServiceDecorator = (
 		}
 		const plugin = bundler(config, logger as any, fao, solc, solcCache)
 		const includedAst = true
-		const { asts, solcInput } = plugin.resolveDtsSync(ContractPath, process.cwd(), includedAst, false)
+		const configFilePath = service.getProgram()?.getCompilerOptions?.().configFilePath
+		const projectRoot = typeof configFilePath === 'string' ? path.dirname(configFilePath) : path.dirname(fileName)
+		let asts: Record<string, Node> | undefined
+		let solcInput: any
+		try {
+			const resolved = plugin.resolveDtsSync(ContractPath, projectRoot, includedAst, false)
+			asts = resolved.asts
+			solcInput = resolved.solcInput
+		} catch (e) {
+			logger.error(`@tevm/ts-plugin: getDefinitionAtPositionDecorator was unable to resolve asts for ${ContractPath}`)
+			logger.error(e as any)
+			return definition
+		}
 		if (!asts) {
 			logger.error(`@tevm/ts-plugin: getDefinitionAtPositionDecorator was unable to resolve asts for ${ContractPath}`)
 			return definition

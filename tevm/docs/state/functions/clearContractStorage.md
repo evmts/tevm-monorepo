@@ -8,7 +8,7 @@
 
 > **clearContractStorage**(`baseState`): (`address`) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:381
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:385
 
 ## Parameters
 
@@ -18,14 +18,4 @@ Defined in: packages/state/dist/index.d.ts:381
 
 ## Returns
 
-> (`address`): `Promise`\<`void`\>
-
-### Parameters
-
-#### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-### Returns
-
-`Promise`\<`void`\>
+(`address`) => `Promise`\<`void`\>

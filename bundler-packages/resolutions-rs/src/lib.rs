@@ -67,23 +67,21 @@ pub async fn resolve_imports_js(
 ) -> Result<Vec<JsResolvedImport>> {
     let config = Config::from((libs, remappings));
 
-    let paths = resolve_imports::resolve_imports(&PathBuf::from(&file_path), &code, &config)
-        .map_err(|err| {
+    let imports =
+        resolve_imports::resolve_imports_detailed(&PathBuf::from(&file_path), &code, &config)
+            .map_err(|err| {
             Error::new(
                 Status::GenericFailure,
                 format!("Failed to resolve imports: {:?}", err),
             )
         })?;
 
-    Ok(paths
+    Ok(imports
         .into_iter()
-        .map(|path| {
-            let path_str = path.to_string_lossy().to_string();
-            JsResolvedImport {
-                original: path_str.clone(),
-                absolute: path_str.clone(),
-                updated: path_str,
-            }
+        .map(|import| JsResolvedImport {
+            original: import.original,
+            absolute: import.absolute,
+            updated: import.updated,
         })
         .collect())
 }
@@ -123,7 +121,7 @@ pub async fn module_factory_js(
             JsModule {
                 id: path,
                 code: module_info.code.clone(),
-                raw_code: module_info.code, // Reuse the same string instead of cloning again
+                raw_code: module_info.raw_code,
                 imported_ids: imported_paths,
             },
         );

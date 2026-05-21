@@ -8,7 +8,7 @@
 
 > **DumpStateResult**\<`ErrorType`\> = `object`
 
-Defined in: packages/actions/types/DumpState/DumpStateResult.d.ts:9
+Defined in: tevm-monorepo/packages/actions/types/DumpState/DumpStateResult.d.ts:9
 
 Result of the dumpState method.
 
@@ -25,9 +25,9 @@ It includes the serialized TEVM state and any errors that may have occurred.
 
 ### errors?
 
-> `optional` **errors**: `ErrorType`[]
+> `optional` **errors?**: `ErrorType`[]
 
-Defined in: packages/actions/types/DumpState/DumpStateResult.d.ts:23
+Defined in: tevm-monorepo/packages/actions/types/DumpState/DumpStateResult.d.ts:23
 
 Description of the exception, if any occurred.
 
@@ -40,7 +40,7 @@ of the `dumpState` method. Each error provides detailed information about what w
 
 > **state**: [`SerializableTevmState`](../../state/type-aliases/SerializableTevmState.md)
 
-Defined in: packages/actions/types/DumpState/DumpStateResult.d.ts:16
+Defined in: tevm-monorepo/packages/actions/types/DumpState/DumpStateResult.d.ts:16
 
 The serialized TEVM state.
 

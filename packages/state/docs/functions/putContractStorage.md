@@ -8,7 +8,7 @@
 
 > **putContractStorage**(`baseState`): (`address`, `key`, `value`) => `Promise`\<`void`\>
 
-Defined in: [packages/state/src/actions/putContractStorage.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractStorage.js#L13)
+Defined in: [tevm-monorepo/packages/state/src/actions/putContractStorage.js:13](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractStorage.js#L13)
 
 Adds value to the cache for the `account`
 corresponding to `address` at the provided `key`.
@@ -23,22 +23,4 @@ If it is empty or filled with zeros, deletes the value.
 
 ## Returns
 
-> (`address`, `key`, `value`): `Promise`\<`void`\>
-
-### Parameters
-
-#### address
-
-`Address`
-
-#### key
-
-`Uint8Array`
-
-#### value
-
-`Uint8Array`
-
-### Returns
-
-`Promise`\<`void`\>
+(`address`, `key`, `value`) => `Promise`\<`void`\>

@@ -16,7 +16,7 @@ Result of a simulated block containing multiple call results
 
 ### baseFeePerGas?
 
-> `optional` **baseFeePerGas**: `bigint`
+> `optional` **baseFeePerGas?**: `bigint`
 
 Defined in: [packages/actions/src/eth/EthResult.ts:435](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L435)
 

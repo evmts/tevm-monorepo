@@ -47,7 +47,7 @@ The EVM is normally encapsolated by both `@tevm/vm` Vm, TevmNode, and MemoryClie
 
 ### allowUnlimitedContractSize?
 
-> `optional` **allowUnlimitedContractSize**: `boolean`
+> `optional` **allowUnlimitedContractSize?**: `boolean`
 
 Defined in: [packages/evm/src/CreateEvmOptions.ts:120](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CreateEvmOptions.ts#L120)
 
@@ -75,7 +75,7 @@ Ethereumjs common object
 
 ### customPrecompiles?
 
-> `optional` **customPrecompiles**: [`CustomPrecompile`](CustomPrecompile.md)[]
+> `optional` **customPrecompiles?**: [`CustomPrecompile`](CustomPrecompile.md)[]
 
 Defined in: [packages/evm/src/CreateEvmOptions.ts:98](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CreateEvmOptions.ts#L98)
 
@@ -130,7 +130,7 @@ const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
 
 ### customPredeploys?
 
-> `optional` **customPredeploys**: `ReadonlyArray`\<`Predeploy`\<`any`, `any`\>\>
+> `optional` **customPredeploys?**: `ReadonlyArray`\<`Predeploy`\<`any`, `any`\>\>
 
 Defined in: [packages/evm/src/CreateEvmOptions.ts:116](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CreateEvmOptions.ts#L116)
 
@@ -154,7 +154,7 @@ const tevm = createMemoryClient({
 
 ### loggingLevel?
 
-> `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
+> `optional` **loggingLevel?**: `LogOptions`\[`"level"`\]
 
 Defined in: [packages/evm/src/CreateEvmOptions.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CreateEvmOptions.ts#L41)
 
@@ -164,7 +164,7 @@ The logging level to run the evm at. Defaults to 'warn'
 
 ### profiler?
 
-> `optional` **profiler**: `boolean`
+> `optional` **profiler?**: `boolean`
 
 Defined in: [packages/evm/src/CreateEvmOptions.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CreateEvmOptions.ts#L53)
 

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetBlockTransactionCountByHashJsonRpcProcedure
 
-# Type Alias: EthGetBlockTransactionCountByHashJsonRpcProcedure()
+# Type Alias: EthGetBlockTransactionCountByHashJsonRpcProcedure
 
 > **EthGetBlockTransactionCountByHashJsonRpcProcedure** = (`request`) => `Promise`\<[`EthGetBlockTransactionCountByHashJsonRpcResponse`](EthGetBlockTransactionCountByHashJsonRpcResponse.md)\>
 

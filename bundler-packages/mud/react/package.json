@@ -1,0 +1,5 @@
+{
+	"main": "../dist/react/index.cjs",
+	"module": "../dist/react/index.js",
+	"types": "../types/src/react/index.d.ts"
+}

@@ -2,6 +2,7 @@ import { bytesToHex } from '@tevm/utils'
 import { hexToBytes } from 'viem'
 import { getForkBlockTag } from './getForkBlockTag.js'
 import { getForkClient } from './getForkClient.js'
+import { resolveForkBlockTag } from './resolveForkBlockTag.js'
 
 const EMPTY_CODE = Object.freeze(new Uint8Array())
 
@@ -53,6 +54,7 @@ export const getContractCode =
 			return EMPTY_CODE
 		}
 
+		await resolveForkBlockTag(baseState)
 		baseState.logger.debug({ address }, 'Fetching contract code from remote RPC...')
 
 		const client = getForkClient(baseState)

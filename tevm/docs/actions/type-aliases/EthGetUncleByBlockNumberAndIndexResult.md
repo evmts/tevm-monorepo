@@ -8,6 +8,6 @@
 
 > **EthGetUncleByBlockNumberAndIndexResult** = [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:149
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:149
 
 JSON-RPC response for `eth_getUncleByBlockNumberAndIndex` procedure

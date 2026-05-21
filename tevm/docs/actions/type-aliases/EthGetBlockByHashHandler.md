@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthGetBlockByHashHandler
 
-# Type Alias: EthGetBlockByHashHandler()
+# Type Alias: EthGetBlockByHashHandler
 
 > **EthGetBlockByHashHandler** = (`request`) => `Promise`\<[`EthGetBlockByHashResult`](EthGetBlockByHashResult.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:14
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:14
 
 ## Parameters
 

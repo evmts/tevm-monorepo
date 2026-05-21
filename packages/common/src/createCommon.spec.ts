@@ -4,14 +4,72 @@ import { createCommon } from './createCommon.js'
 import { createMockKzg } from './createMockKzg.js'
 import { optimism } from './presets/index.js'
 
+const frontierToOsakaHardforks = [
+	'chainstart',
+	'homestead',
+	'dao',
+	'tangerineWhistle',
+	'spuriousDragon',
+	'byzantium',
+	'constantinople',
+	'petersburg',
+	'istanbul',
+	'muirGlacier',
+	'berlin',
+	'london',
+	'arrowGlacier',
+	'grayGlacier',
+	'mergeNetsplitBlock',
+	'mergeForkIdTransition',
+	'paris',
+	'shanghai',
+	'cancun',
+	'prague',
+	'osaka',
+] as const
+
 describe(createCommon.name, () => {
-	it('wraps ethereumjs common with default eips', () => {
-		const common = createCommon({ ...optimism, hardfork: 'prague', loggingLevel: 'warn' })
-		expect(common.ethjsCommon.hardfork()).toBe('prague')
-		expect(common.ethjsCommon.isActivatedEIP(1559)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4788)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4844)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4895)).toEqual(true)
+	it('uses hardfork-native EIP activation by default', () => {
+		const frontier = createCommon({ ...optimism, hardfork: 'chainstart', loggingLevel: 'warn' })
+		expect(frontier.ethjsCommon.hardfork()).toBe('chainstart')
+		expect(frontier.ethjsCommon.isActivatedEIP(1559)).toBe(false)
+		expect(frontier.ethjsCommon.isActivatedEIP(4895)).toBe(false)
+		expect(frontier.ethjsCommon.isActivatedEIP(4844)).toBe(false)
+		expect(frontier.ethjsCommon.isActivatedEIP(4788)).toBe(false)
+
+		const prague = createCommon({ ...optimism, hardfork: 'prague', loggingLevel: 'warn' })
+		expect(prague.ethjsCommon.hardfork()).toBe('prague')
+		expect(prague.ethjsCommon.isActivatedEIP(1559)).toBe(true)
+		expect(prague.ethjsCommon.isActivatedEIP(4895)).toBe(true)
+		expect(prague.ethjsCommon.isActivatedEIP(4844)).toBe(true)
+		expect(prague.ethjsCommon.isActivatedEIP(4788)).toBe(true)
+	})
+
+	it('covers frontier-to-osaka hardfork boundaries', () => {
+		for (const hardfork of frontierToOsakaHardforks) {
+			const common = createCommon({ ...optimism, hardfork, loggingLevel: 'warn' })
+			const expected = hardfork === 'mergeForkIdTransition' ? 'mergeNetsplitBlock' : hardfork
+			expect(common.ethjsCommon.hardfork()).toBe(expected)
+		}
+
+		const london = createCommon({ ...optimism, hardfork: 'london', loggingLevel: 'warn' })
+		expect(london.ethjsCommon.isActivatedEIP(1559)).toBe(true)
+		expect(london.ethjsCommon.isActivatedEIP(4895)).toBe(false)
+
+		const shanghai = createCommon({ ...optimism, hardfork: 'shanghai', loggingLevel: 'warn' })
+		expect(shanghai.ethjsCommon.isActivatedEIP(1559)).toBe(true)
+		expect(shanghai.ethjsCommon.isActivatedEIP(4895)).toBe(true)
+		expect(shanghai.ethjsCommon.isActivatedEIP(4844)).toBe(false)
+
+		const cancun = createCommon({ ...optimism, hardfork: 'cancun', loggingLevel: 'warn' })
+		expect(cancun.ethjsCommon.isActivatedEIP(1559)).toBe(true)
+		expect(cancun.ethjsCommon.isActivatedEIP(4895)).toBe(true)
+		expect(cancun.ethjsCommon.isActivatedEIP(4844)).toBe(true)
+		expect(cancun.ethjsCommon.isActivatedEIP(4788)).toBe(true)
+
+		const osaka = createCommon({ ...optimism, hardfork: 'osaka', loggingLevel: 'warn' })
+		expect(osaka.ethjsCommon.hardfork()).toBe('osaka')
+		expect(osaka.ethjsCommon.isActivatedEIP(1559)).toBe(true)
 	})
 
 	it('creates a common instance with custom EIPs', () => {
@@ -22,10 +80,14 @@ describe(createCommon.name, () => {
 		expect(common.ethjsCommon.isActivatedEIP(2929)).toEqual(true)
 	})
 
-	it('activates EIP 6800 when specified', () => {
-		const customEIPs = [6800]
-		const common = createCommon({ ...optimism, hardfork: 'prague', eips: customEIPs, loggingLevel: 'warn' })
-		expect(common.ethjsCommon.isActivatedEIP(6800)).toEqual(true)
+	it('wraps unsupported EIP errors', () => {
+		expect(() => createCommon({ ...optimism, hardfork: 'prague', eips: [6800], loggingLevel: 'warn' })).toThrow(
+			InvalidParamsError,
+		)
+	})
+
+	it('rejects malformed EIP options', () => {
+		expect(() => createCommon({ ...optimism, hardfork: 'prague', eips: 1559 as any })).toThrow(InvalidParamsError)
 	})
 
 	it('creates a copy of the common instance', () => {
@@ -54,11 +116,8 @@ describe(createCommon.name, () => {
 
 	it('handles missing optional parameters', () => {
 		const common = createCommon({ ...optimism, loggingLevel: 'info', hardfork: 'prague' })
-		expect(common.ethjsCommon.hardfork()).toBe('prague') // default hardfork
+		expect(common.ethjsCommon.hardfork()).toBe('prague')
 		expect(common.ethjsCommon.isActivatedEIP(1559)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4788)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4844)).toEqual(true)
-		expect(common.ethjsCommon.isActivatedEIP(4895)).toEqual(true)
 	})
 
 	it('should handle invalid hardfork errors', () => {
@@ -74,12 +133,6 @@ describe(createCommon.name, () => {
 		expect(err).toMatchSnapshot()
 	})
 
-	it.skip('should handle missing chain ID error', () => {
-		// This test is difficult to make work consistently
-		// The test framework environment seems to handle the errors differently
-		// But we're still getting good coverage without it
-	})
-
 	it('should default hardfork to prague', () => {
 		const common = createCommon({ ...optimism, loggingLevel: 'info' })
 		expect(common.ethjsCommon.hardfork()).toBe('prague')
@@ -89,23 +142,20 @@ describe(createCommon.name, () => {
 		expect(common.ethjsCommon.isActivatedEIP(4895)).toEqual(true)
 	})
 
-	it('should merge default EIPs with custom EIPs', () => {
-		const customEIPs = [2537, 3855] // Add some custom EIPs (3855 is PUSH0 from Shanghai)
-		const common = createCommon({ ...optimism, eips: customEIPs })
+	it('does not force-enable post-frontier EIPs on old hardforks', () => {
+		const customEIPs = [2537, 3855]
+		const common = createCommon({ ...optimism, hardfork: 'byzantium', eips: customEIPs })
 
-		// Check default EIPs are still activated
-		expect(common.ethjsCommon.isActivatedEIP(1559)).toBe(true)
-		expect(common.ethjsCommon.isActivatedEIP(4788)).toBe(true)
-		expect(common.ethjsCommon.isActivatedEIP(4844)).toBe(true)
-		expect(common.ethjsCommon.isActivatedEIP(4895)).toBe(true)
+		expect(common.ethjsCommon.isActivatedEIP(1559)).toBe(false)
+		expect(common.ethjsCommon.isActivatedEIP(4895)).toBe(false)
+		expect(common.ethjsCommon.isActivatedEIP(4844)).toBe(false)
+		expect(common.ethjsCommon.isActivatedEIP(4788)).toBe(false)
 
-		// Check custom EIPs are also activated
 		expect(common.ethjsCommon.isActivatedEIP(2537)).toBe(true)
 		expect(common.ethjsCommon.isActivatedEIP(3855)).toBe(true)
 	})
 
 	it('wraps errors in InvalidParamsError', () => {
-		// Create an intentionally invalid hardfork
 		const invalidHardfork = 'not-a-valid-hardfork'
 
 		let err: any

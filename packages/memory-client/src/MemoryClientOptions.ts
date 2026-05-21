@@ -69,6 +69,7 @@ import type { TevmRpcSchema } from './TevmRpcSchema.js'
  * @property {string|number|bigint} [fork.blockTag] - The specific block tag to fork from (can be number, hash, or named tag like 'latest').
  * @property {Object} [miningConfig] - Configuration for how blocks are mined.
  * @property {'manual'|'auto'} [miningConfig.type] - The mining mode (manual requires calling mine(), auto mines after each tx).
+ * @property {Object} [mining] - Deprecated compatibility mining configuration. Use miningConfig instead.
  * @property {import('@tevm/utils').SyncStoragePersister} [persister] - Handler for persisting and restoring state.
  * @property {boolean} [allowUnlimitedContractSize] - Whether to remove the EIP-170 contract size limit (default: false).
  * @property {'error'|'warn'|'info'|'debug'|'trace'} [loggingLevel] - Controls logging verbosity (default: 'info').
@@ -83,4 +84,12 @@ export type MemoryClientOptions<
 	Pick<
 		ClientConfig<Transport, TCommon, TAccountOrAddress, TRpcSchema>,
 		'type' | 'key' | 'name' | 'account' | 'pollingInterval' | 'cacheTime'
-	>
+	> & {
+		/**
+		 * @deprecated Use miningConfig instead. Interval values are interpreted as milliseconds for compatibility.
+		 */
+		readonly mining?: {
+			readonly auto?: boolean
+			readonly interval?: number
+		}
+	}

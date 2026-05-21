@@ -33,7 +33,7 @@ export const debugGetRawTransactionJsonRpcProcedure = (client) => {
 			return {
 				method: request.method,
 				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				error: {
 					code: /** @type {string} */ ('-32602'),
 					message: 'Invalid params: transaction hash is required',
@@ -48,14 +48,14 @@ export const debugGetRawTransactionJsonRpcProcedure = (client) => {
 				method: request.method,
 				result,
 				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 			}
 		} catch (error) {
 			client.logger.error(error, 'debugGetRawTransactionJsonRpcProcedure: error getting raw transaction')
 			return {
 				method: request.method,
 				jsonrpc: '2.0',
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				error: {
 					code: /** @type {string} */ ('-32603'),
 					message: error instanceof Error ? error.message : 'Internal error',

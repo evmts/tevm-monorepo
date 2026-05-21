@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilSetChainIdProcedure
 
-# Type Alias: AnvilSetChainIdProcedure()
+# Type Alias: AnvilSetChainIdProcedure
 
 > **AnvilSetChainIdProcedure** = (`request`) => `Promise`\<[`AnvilSetChainIdJsonRpcResponse`](AnvilSetChainIdJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:63
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:63
 
 JSON-RPC procedure for `anvil_setChainId`
 

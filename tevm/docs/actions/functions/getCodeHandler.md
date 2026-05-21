@@ -8,7 +8,7 @@
 
 > **getCodeHandler**(`baseClient`): [`EthGetCodeHandler`](../type-aliases/EthGetCodeHandler.md)
 
-Defined in: packages/actions/types/eth/getCodeHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/getCodeHandler.d.ts:1
 
 ## Parameters
 

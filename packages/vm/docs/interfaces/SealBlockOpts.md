@@ -14,7 +14,7 @@ Options for sealing a block.
 
 ### mixHash?
 
-> `optional` **mixHash**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **mixHash?**: `Uint8Array`\<`ArrayBufferLike`\>
 
 Defined in: [packages/vm/src/utils/SealBlockOpts.ts:15](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/SealBlockOpts.ts#L15)
 
@@ -25,7 +25,7 @@ Overrides the value passed in the constructor.
 
 ### nonce?
 
-> `optional` **nonce**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **nonce?**: `Uint8Array`\<`ArrayBufferLike`\>
 
 Defined in: [packages/vm/src/utils/SealBlockOpts.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/SealBlockOpts.ts#L9)
 

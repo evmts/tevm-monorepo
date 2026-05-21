@@ -86,10 +86,7 @@ describe('ethGetTransactionByBlockHashAndIndexJsonRpcProcedure', () => {
 			id: 1,
 			jsonrpc: '2.0',
 			method: 'eth_getTransactionByBlockHashAndIndex',
-			error: {
-				code: -32602,
-				message: 'Transaction not found',
-			},
+			result: null,
 		})
 	})
 })

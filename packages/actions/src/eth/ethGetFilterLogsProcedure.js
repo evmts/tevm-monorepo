@@ -11,7 +11,7 @@ export const ethGetFilterLogsProcedure = (client) => {
 		const filter = client.getFilters().get(request.params[0])
 		if (!filter) {
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {
@@ -23,8 +23,8 @@ export const ethGetFilterLogsProcedure = (client) => {
 		try {
 			const ethGetLogsResult = await ethGetLogsHandler(client)({
 				filterParams: {
-					fromBlock: filter.logsCriteria.fromBlock?.header?.number ?? 0n,
-					toBlock: filter.logsCriteria.toBlock?.header?.number ?? 'latest',
+					fromBlock: filter.logsCriteria.fromBlock?.header?.number ?? filter.logsCriteria.fromBlock ?? 0n,
+					toBlock: filter.logsCriteria.toBlock?.header?.number ?? filter.logsCriteria.toBlock ?? 'latest',
 					address: filter.logsCriteria.address,
 					topics: filter.logsCriteria.topics,
 				},
@@ -44,14 +44,14 @@ export const ethGetFilterLogsProcedure = (client) => {
 				removed: log.removed,
 			}))
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				result: jsonRpcResult,
 			}
 		} catch (e) {
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {

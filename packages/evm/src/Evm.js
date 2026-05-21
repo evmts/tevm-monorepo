@@ -1,11 +1,15 @@
-import { createEVM, EVM, getActivePrecompiles } from '@ethereumjs/evm'
+import { createEVM, EVM, getActivePrecompiles } from '@evmts/zevm/evm'
 import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+
+/**
+ * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
+ */
+const precompileAddress = (precompile) => precompile.address.toString().toLowerCase()
 
 /**
  * The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
  * The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
  * provide custom typing to the blockchain or common objects.
- * @type {typeof import('./EvmType.js').Evm}
  * @example
  * ```typescript
  * import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
@@ -34,7 +38,14 @@ export class Evm extends EVM {
 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
 			)
 		}
-		this._customPrecompiles.push(precompile)
+		const address = precompileAddress(precompile)
+		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+		const self = /** @type {any} */ (this)
+		if (index === -1) {
+			self._customPrecompiles = [...this._customPrecompiles, precompile]
+		} else {
+			self._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+		}
 		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
 
@@ -50,19 +61,27 @@ export class Evm extends EVM {
 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
 			)
 		}
-		const index = this._customPrecompiles.indexOf(precompile)
+		const address = precompileAddress(precompile)
+		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
 		if (index === -1) {
 			throw new InvalidParamsError('Precompile not found')
 		}
-		this._customPrecompiles.splice(index, 1)
+		const self = /** @type {any} */ (this)
+		self._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
 		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
 
 	/**
-	 * @type {(typeof import('./EvmType.js').Evm)['create']}
+	 * @param {import('./EvmOpts.js').EVMOpts} [options]
+	 * @returns {Promise<import('./EvmType.js').Evm>}
 	 */
 	static create = async (options) => {
-		const evm = /** @type {any}*/ (await createEVM(options))
+		const evm = /** @type {any}*/ (
+			await createEVM({
+				...options,
+				customPrecompiles: [...(options?.customPrecompiles ?? [])],
+			})
+		)
 		evm.addCustomPrecompile = Evm.prototype.addCustomPrecompile.bind(evm)
 		evm.removeCustomPrecompile = Evm.prototype.removeCustomPrecompile.bind(evm)
 		return evm

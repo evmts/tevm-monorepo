@@ -8,7 +8,7 @@
 
 > `const` **funkiSepolia**: [`Common`](../type-aliases/Common.md)
 
-Defined in: packages/common/types/presets/funkiSepolia.d.ts:21
+Defined in: tevm-monorepo/packages/common/types/presets/funkiSepolia.d.ts:21
 
 Creates a common configuration for the funkiSepolia chain.
 

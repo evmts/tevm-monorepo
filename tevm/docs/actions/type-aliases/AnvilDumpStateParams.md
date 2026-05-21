@@ -8,6 +8,6 @@
 
 > **AnvilDumpStateParams** = \{ \} \| `undefined` \| `never`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:153
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:153
 
 Params for `anvil_dumpState` handler

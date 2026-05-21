@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthAccountsHandler
 
-# Type Alias: EthAccountsHandler()
+# Type Alias: EthAccountsHandler
 
 > **EthAccountsHandler** = (`request?`) => `Promise`\<[`EthAccountsResult`](EthAccountsResult.md)\>
 

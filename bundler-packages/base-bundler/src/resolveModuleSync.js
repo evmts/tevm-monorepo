@@ -1,7 +1,9 @@
 import { resolveArtifactsSync } from '@tevm/compiler'
 import { generateRuntime } from '@tevm/runtime'
 import { runSync } from 'effect/Effect'
+import { createCompileFingerprint } from './createCompileFingerprint.js'
 import { readCacheSync } from './readCacheSync.js'
+import { resolveCacheKey } from './resolveCacheKey.js'
 import { writeCacheSync } from './writeCacheSync.js'
 
 /**
@@ -86,10 +88,13 @@ export const resolveModuleSync = (
 	cache,
 	contractPackage,
 ) => {
-	const cachedResult = readCacheSync(logger, cache, modulePath, includeAst, includeBytecode)
+	const cacheModulePath = resolveCacheKey(modulePath, basedir)
+	const compileFingerprint = createCompileFingerprint(config, solc, includeAst, includeBytecode)
+	const cachedResult = readCacheSync(logger, cache, cacheModulePath, includeAst, includeBytecode, compileFingerprint)
 	try {
 		const { solcInput, solcOutput, asts, artifacts, modules } =
-			cachedResult ?? resolveArtifactsSync(modulePath, basedir, logger, config, includeAst, includeBytecode, fao, solc)
+			cachedResult ??
+			resolveArtifactsSync(cacheModulePath, basedir, logger, config, includeAst, includeBytecode, fao, solc)
 		let code = ''
 		const artifactsExist = artifacts && Object.keys(artifacts).length > 0
 		if (artifactsExist) {
@@ -105,13 +110,14 @@ export const resolveModuleSync = (
 			cache,
 			{ solcInput, solcOutput, asts, artifacts, modules },
 			code,
-			modulePath,
+			cacheModulePath,
 			moduleType,
 			// This is kinda quick and dirty but works for now
 			// We are skipping writing artifacts if there is an error
 			// But still write dts and mjs files since they always
 			// fall back to generating an empty file with error messages
 			artifactsExist,
+			compileFingerprint,
 		)
 
 		return {

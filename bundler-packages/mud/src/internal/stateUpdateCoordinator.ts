@@ -10,7 +10,7 @@ type QueuedUpdate = { type: 'optimistic'; fn: () => Promise<void> } | { type: 'c
  * Solution: queue all updates and let canonical updates clear pending optimistic ones since
  * canonical updates naturally trigger fresh optimistic calculations via stash subscribers.
  */
-class StateUpdateCoordinator {
+export class StateUpdateCoordinator {
 	private isRunning = false
 	private queue: QueuedUpdate[] = []
 
@@ -49,4 +49,5 @@ class StateUpdateCoordinator {
 	}
 }
 
-export const stateUpdateCoordinator = new StateUpdateCoordinator()
+export const createStateUpdateCoordinator = () => new StateUpdateCoordinator()
+export const stateUpdateCoordinator = createStateUpdateCoordinator()

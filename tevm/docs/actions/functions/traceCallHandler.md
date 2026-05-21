@@ -8,7 +8,7 @@
 
 > **traceCallHandler**(`client`): [`DebugTraceCallHandler`](../type-aliases/DebugTraceCallHandler.md)
 
-Defined in: packages/actions/types/debug/traceCallHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/debug/traceCallHandler.d.ts:1
 
 ## Parameters
 

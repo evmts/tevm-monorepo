@@ -2,7 +2,6 @@
 	"name": "@tevm/test-utils",
 	"version": "1.0.0-next.148",
 	"private": false,
-	"sideEffects": false,
 	"description": "Testing utils and fixtures for tevm",
 	"keywords": [
 		"solidity",
@@ -22,6 +21,7 @@
 	"contributors": [
 		"Will Cory <willcory10@gmail.com>"
 	],
+	"sideEffects": false,
 	"type": "module",
 	"exports": {
 		"./package.json": "./package.json",
@@ -47,40 +47,40 @@
 	],
 	"scripts": {
 		"all": "bun run build && bun run bench:run && bun run lint && bun run format && bun lint:deps",
-		"generate:contracts": "bun run node_modules/@tevm/ts-plugin/dist/bin/tevm-gen.js",
+		"bench": "vitest bench",
+		"bench:run": "vitest bench run",
+		"bench:ui": "vitest bench --ui",
 		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/bench ",
 		"build:dist": "tsup",
 		"build:types": "tsup --dts-only",
 		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
 		"format": "biome format . --write",
 		"format:check": "biome format .",
+		"generate:contracts": "bun run node_modules/@tevm/ts-plugin/dist/bin/tevm-gen.js",
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
-		"lint:deps": "bunx depcheck",
-		"bench": "vitest bench",
-		"bench:run": "vitest bench run",
-		"bench:ui": "vitest bench --ui"
-	},
-	"devDependencies": {
-		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^",
-		"@types/node": "^24.6.1"
-	},
-	"publishConfig": {
-		"access": "public"
+		"lint:deps": "bunx depcheck --ignores=@latticexyz/schema-type,@latticexyz/store,@latticexyz/world,@openzeppelin/contracts,@tevm/common"
 	},
 	"dependencies": {
-		"@latticexyz/schema-type": "^2.2.21",
-		"@latticexyz/store": "^2.2.21",
-		"@latticexyz/world": "^2.2.21",
-		"@openzeppelin/contracts": "5.4.0",
-		"@ponder/utils": "^0.2.13",
+		"@latticexyz/schema-type": "^2.2.23",
+		"@latticexyz/store": "^2.2.23",
+		"@latticexyz/world": "^2.2.23",
+		"@openzeppelin/contracts": "5.6.1",
+		"@ponder/utils": "^0.2.18",
 		"@tevm/common": "workspace:^",
 		"@tevm/contract": "workspace:^",
 		"@tevm/esbuild-plugin": "workspace:^",
 		"@tevm/ts-plugin": "workspace:^"
 	},
+	"devDependencies": {
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
+		"@types/node": "^25.9.0"
+	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.49.3"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

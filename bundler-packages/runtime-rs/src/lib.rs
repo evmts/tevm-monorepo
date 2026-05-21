@@ -51,13 +51,129 @@ pub struct TevmContract {
     pub human_readable_abi: Vec<String>,
 }
 
+fn format_abi_type(param: &serde_json::Value) -> String {
+    let ty = param
+        .get("type")
+        .and_then(serde_json::Value::as_str)
+        .unwrap_or_default();
+    if let Some(suffix) = ty.strip_prefix("tuple") {
+        let components = format_abi_params(
+            param.get("components")
+                .and_then(serde_json::Value::as_array),
+        );
+        format!("({}){}", components, suffix)
+    } else {
+        ty.to_string()
+    }
+}
+
+fn format_abi_param(param: &serde_json::Value) -> String {
+    let ty = format_abi_type(param);
+    let indexed = if param
+        .get("indexed")
+        .and_then(serde_json::Value::as_bool)
+        .unwrap_or(false)
+    {
+        " indexed"
+    } else {
+        ""
+    };
+    let name = param
+        .get("name")
+        .and_then(serde_json::Value::as_str)
+        .unwrap_or_default();
+
+    if name.is_empty() {
+        format!("{}{}", ty, indexed)
+    } else {
+        format!("{}{} {}", ty, indexed, name)
+    }
+}
+
+fn format_abi_params(params: Option<&Vec<serde_json::Value>>) -> String {
+    params
+        .map(|params| {
+            params
+                .iter()
+                .map(format_abi_param)
+                .collect::<Vec<_>>()
+                .join(", ")
+        })
+        .unwrap_or_default()
+}
+
+fn format_abi_item(item: &serde_json::Value) -> Option<String> {
+    let item_type = item.get("type").and_then(serde_json::Value::as_str)?;
+    let inputs = format_abi_params(item.get("inputs").and_then(serde_json::Value::as_array));
+    let state_mutability = item
+        .get("stateMutability")
+        .and_then(serde_json::Value::as_str)
+        .unwrap_or_default();
+
+    match item_type {
+        "function" => {
+            let name = item.get("name").and_then(serde_json::Value::as_str)?;
+            let outputs = format_abi_params(item.get("outputs").and_then(serde_json::Value::as_array));
+            let mut signature = format!("function {}({})", name, inputs);
+            if matches!(state_mutability, "view" | "pure" | "payable") {
+                signature.push_str(&format!(" {}", state_mutability));
+            }
+            if !outputs.is_empty() {
+                signature.push_str(&format!(" returns ({})", outputs));
+            }
+            Some(signature)
+        }
+        "event" => {
+            let name = item.get("name").and_then(serde_json::Value::as_str)?;
+            Some(format!("event {}({})", name, inputs))
+        }
+        "error" => {
+            let name = item.get("name").and_then(serde_json::Value::as_str)?;
+            Some(format!("error {}({})", name, inputs))
+        }
+        "constructor" => {
+            let mut signature = format!("constructor({})", inputs);
+            if state_mutability == "payable" {
+                signature.push_str(" payable");
+            }
+            Some(signature)
+        }
+        "fallback" => {
+            let mut signature = "fallback() external".to_string();
+            if state_mutability == "payable" {
+                signature.push_str(" payable");
+            }
+            Some(signature)
+        }
+        "receive" => Some("receive() external payable".to_string()),
+        _ => None,
+    }
+}
+
 /// Formats a contract ABI into a human-readable form
 fn format_abi(abi: &serde_json::Value) -> Vec<String> {
-    // For now just convert the ABI items to strings
     match abi.as_array() {
-        Some(items) => items.iter().map(|item| item.to_string()).collect(),
+        Some(items) => items.iter().filter_map(format_abi_item).collect(),
         None => vec![],
     }
+}
+
+fn contract_bytecode(contract: &Contract) -> Option<Bytes> {
+    contract
+        .evm
+        .as_ref()
+        .and_then(|evm| evm.bytecode.as_ref())
+        .and_then(|bytecode| bytecode.object.as_bytes())
+        .cloned()
+}
+
+fn contract_deployed_bytecode(contract: &Contract) -> Option<Bytes> {
+    contract
+        .evm
+        .as_ref()
+        .and_then(|evm| evm.deployed_bytecode.as_ref())
+        .and_then(|bytecode| bytecode.bytes())
+        .cloned()
 }
 
 /// Generates runtime code for Tevm contracts
@@ -65,6 +181,7 @@ pub fn generate_runtime(
     contracts: Vec<(String, Contract)>,
     module_type: ModuleType,
     contract_package: ContractPackage,
+    include_bytecode: bool,
 ) -> String {
     let package = contract_package.to_string();
     
@@ -72,11 +189,16 @@ pub fn generate_runtime(
     let mut tevm_contracts = HashMap::new();
     
     for (name, contract) in contracts {
-        // Extract bytecode - using the Contract fields that actually exist
-        let bytecode_hex: Option<Bytes> = None; // We'll update this when we know the fields
-        
-        // Extract deployed bytecode
-        let deployed_bytecode_hex: Option<Bytes> = None; // We'll update this when we know the fields
+        let bytecode = if include_bytecode {
+            contract_bytecode(&contract)
+        } else {
+            None
+        };
+        let deployed_bytecode = if include_bytecode {
+            contract_deployed_bytecode(&contract)
+        } else {
+            None
+        };
         
         // Create tevm contract - convert foundry JsonAbi to serde_json::Value for format_abi
         let abi_value = contract.abi.as_ref()
@@ -84,8 +206,8 @@ pub fn generate_runtime(
             .unwrap_or(serde_json::Value::Array(vec![]));
             
         let tevm_contract = TevmContract {
-            bytecode: bytecode_hex,
-            deployed_bytecode: deployed_bytecode_hex,
+            bytecode,
+            deployed_bytecode,
             name: name.clone(),
             human_readable_abi: format_abi(&abi_value),
         };
@@ -281,6 +403,7 @@ mod tests {
                 contracts.clone(),
                 module_type.clone(),
                 ContractPackage::TevmContractScoped,
+                false,
             );
 
             // Basic assertions for all module types
@@ -310,6 +433,7 @@ mod tests {
             contracts,
             ModuleType::Cjs,
             ContractPackage::TevmContractScoped,
+            false,
         );
 
         // No contracts should result in a comment
@@ -334,7 +458,7 @@ mod tests {
 
         // Test with TevmContract package
         let result_tevm =
-            generate_runtime(contracts.clone(), ModuleType::Ts, ContractPackage::TevmContract);
+            generate_runtime(contracts.clone(), ModuleType::Ts, ContractPackage::TevmContract, false);
         assert!(result_tevm.contains("import { createContract } from 'tevm/contract'"));
         assert!(!result_tevm.contains("import { createContract } from '@tevm/contract'"));
 
@@ -343,6 +467,7 @@ mod tests {
             contracts,
             ModuleType::Ts,
             ContractPackage::TevmContractScoped,
+            false,
         );
         assert!(result_scoped.contains("import { createContract } from '@tevm/contract'"));
         assert!(!result_scoped.contains("import { createContract } from 'tevm/contract'"));
@@ -368,6 +493,7 @@ mod tests {
             contracts,
             ModuleType::Cjs,
             ContractPackage::TevmContractScoped,
+            false,
         );
 
         // Assert expected CommonJS format
@@ -397,6 +523,7 @@ mod tests {
             contracts,
             ModuleType::Ts,
             ContractPackage::TevmContractScoped,
+            false,
         );
 
         // Assert expected TypeScript format
@@ -427,6 +554,7 @@ mod tests {
             contracts,
             ModuleType::Mjs,
             ContractPackage::TevmContractScoped,
+            false,
         );
 
         // Assert expected MJS format
@@ -457,6 +585,7 @@ mod tests {
             contracts,
             ModuleType::Dts,
             ContractPackage::TevmContractScoped,
+            false,
         );
 
         // Assert expected DTS format
@@ -513,6 +642,7 @@ mod tests {
             contracts,
             ModuleType::Ts,
             ContractPackage::TevmContractScoped,
+            false,
         );
 
         // Assert both contracts are included
@@ -569,6 +699,7 @@ mod tests {
             contracts,
             ModuleType::Ts,
             ContractPackage::TevmContractScoped,
+            false,
         );
 
         // The complex ABI should be in the output
@@ -596,6 +727,7 @@ mod tests {
             contracts,
             ModuleType::Ts,
             ContractPackage::TevmContractScoped,
+            false,
         );
 
         // The contract should be included with null bytecode
@@ -633,10 +765,13 @@ mod tests {
 pub fn generate_runtime_js(
     contracts_json: String,
     module_type: String,
-    use_scoped_package: bool,
+    include_bytecode: bool,
+    contract_package: String,
 ) -> napi::Result<String> {
-    // Parse contracts from JSON into foundry Contract format
-    let contracts: Vec<(String, Contract)> = serde_json::from_str(&contracts_json)?;
+    let contracts = match serde_json::from_str::<HashMap<String, Contract>>(&contracts_json) {
+        Ok(contracts) => contracts.into_iter().collect(),
+        Err(_) => serde_json::from_str::<Vec<(String, Contract)>>(&contracts_json)?,
+    };
 
     // Parse module type
     let module_type = match module_type.to_lowercase().as_str() {
@@ -652,15 +787,15 @@ pub fn generate_runtime_js(
         }
     };
 
-    // Determine package type
-    let contract_package = if use_scoped_package {
-        ContractPackage::TevmContractScoped
-    } else {
-        ContractPackage::TevmContract
-    };
+    let contract_package = ContractPackage::from_str(&contract_package).ok_or_else(|| {
+        napi::Error::new(
+            napi::Status::InvalidArg,
+            format!("Invalid contract package: {}", contract_package),
+        )
+    })?;
 
     // Generate the runtime code with the new type
-    let result = generate_runtime(contracts, module_type, contract_package);
+    let result = generate_runtime(contracts, module_type, contract_package, include_bytecode);
 
     Ok(result)
 }

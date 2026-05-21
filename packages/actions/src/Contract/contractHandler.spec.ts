@@ -190,7 +190,7 @@ describe('contractHandler', () => {
 		expect(result.errors).toMatchSnapshot()
 	})
 
-	it('should return op stack info if forking', async () => {
+	it.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('should return op stack info if forking', async () => {
 		const node = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
 		const to = `0x${'33'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(node)({
@@ -322,7 +322,7 @@ describe('contractHandler', () => {
 		expect(result.errors).toMatchSnapshot()
 	})
 
-	it('should handle op stack info if forking', async () => {
+	it.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('should handle op stack info if forking', async () => {
 		const node = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
 		const to = `0x${'33'.repeat(20)}` as const
 		const { errors } = await setAccountHandler(node)({

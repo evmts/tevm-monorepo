@@ -8,7 +8,7 @@
 
 > **SolcGasEstimates** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:309
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:309
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:309
 
 > **creation**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:310
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:310
 
 #### codeDepositCost
 
@@ -36,7 +36,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:310
 
 > **external**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:315
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:315
 
 #### Index Signature
 
@@ -48,7 +48,7 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:315
 
 > **internal**: `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:318
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:318
 
 #### Index Signature
 

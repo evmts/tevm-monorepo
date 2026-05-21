@@ -8,13 +8,16 @@
 
 > **createImpersonatedTx**(`txData`, `opts?`): [`ImpersonatedTx`](../interfaces/ImpersonatedTx.md)
 
-Defined in: packages/tx/types/createImpersonatedTx.d.ts:1
+Defined in: zevm/npm/zevm/dist/tx.d.ts:26
+
+Creates an unsigned EIP-1559 transaction that behaves as if it were signed by
+`impersonatedAddress`.
 
 ## Parameters
 
 ### txData
 
-`FeeMarketEIP1559TxData` & `object`
+[`ImpersonatedTxData`](../type-aliases/ImpersonatedTxData.md)
 
 ### opts?
 

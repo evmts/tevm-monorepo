@@ -61,7 +61,7 @@
 		"generate:docs": "bun run typedoc",
 		"lint": "biome check . --write --unsafe",
 		"lint:check": "biome check . --verbose",
-		"lint:deps": "bunx depcheck",
+		"lint:deps": "bunx depcheck --ignores=@tevm/common",
 		"lint:package": "bunx publint --strict && attw --pack",
 		"package:up": "pnpm up --latest",
 		"test": "vitest --watch",
@@ -75,19 +75,18 @@
 		"@tevm/errors": "workspace:^",
 		"@tevm/node": "workspace:^",
 		"@tevm/utils": "workspace:^",
-		"abitype": "^1.1.1",
-		"ox": "^0.9.8",
-		"viem": "^2.37.9",
-		"vitest": "^3.2.4"
+		"abitype": "^1.2.4",
+		"ox": "^0.14.22",
+		"viem": "^2.49.3",
+		"vitest": "^4.1.6"
 	},
 	"devDependencies": {
 		"@tevm/common": "workspace:^",
-		"@tevm/memory-client": "workspace:^",
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.49.3"
 	},
 	"publishConfig": {
 		"access": "public"

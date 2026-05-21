@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DebugGetModifiedAccountsByNumberHandler
 
-# Type Alias: DebugGetModifiedAccountsByNumberHandler()
+# Type Alias: DebugGetModifiedAccountsByNumberHandler
 
 > **DebugGetModifiedAccountsByNumberHandler** = (`params`) => `Promise`\<[`DebugGetModifiedAccountsByNumberResult`](DebugGetModifiedAccountsByNumberResult.md)\>
 
-Defined in: packages/actions/types/debug/DebugHandler.d.ts:9
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:9
 
 ## Parameters
 

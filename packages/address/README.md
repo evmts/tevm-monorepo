@@ -1,6 +1,6 @@
 # @tevm/address
 
-Utils for dealing with ethereum addresses. Wraps [`@ethereumjs/utils` address](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/util/src/address.ts)
+Utils for dealing with ethereum addresses. Wraps the shared Tevm address implementation.
 
 ## Visit [Docs](https://tevm.sh/) for docs, guides, API and more!
 

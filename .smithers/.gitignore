@@ -1,0 +1,17 @@
+# Ephemeral data (never commit)
+node_modules/
+executions/
+runs/
+sandboxes/
+state/
+tmp/
+*.db
+*.sqlite
+*.db-shm
+*.db-wal
+dist/
+.DS_Store
+
+# Log files
+*.log
+logs/

@@ -26,23 +26,23 @@ allowing for type-safe and easy-to-use contract interfaces.
 
 ### TAddress
 
-`TAddress` *extends* `undefined` \| `` `0x${string}` `` = `undefined`
+`TAddress` *extends* `` `0x${string}` `` \| `undefined` = `undefined`
 
 ### TBytecode
 
-`TBytecode` *extends* `undefined` \| `` `0x${string}` `` = `undefined`
+`TBytecode` *extends* `` `0x${string}` `` \| `undefined` = `undefined`
 
 ### TDeployedBytecode
 
-`TDeployedBytecode` *extends* `undefined` \| `` `0x${string}` `` = `undefined`
+`TDeployedBytecode` *extends* `` `0x${string}` `` \| `undefined` = `undefined`
 
 ### TCode
 
-`TCode` *extends* `undefined` \| `` `0x${string}` `` = `undefined`
+`TCode` *extends* `` `0x${string}` `` \| `undefined` = `undefined`
 
 ### THumanReadableAbi
 
-`THumanReadableAbi` *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi`\<`TAbi`\> : `TAbi` *extends* `Abi` ? `FormatAbi`\<`TAbi`\<`TAbi`\>\> : `never`
+`THumanReadableAbi` *extends* readonly `string`[] = `TAbi` *extends* readonly `string`[] ? `TAbi` : `TAbi` *extends* `Abi` ? `FormatAbi`\<`TAbi`\> : `never`
 
 ## Parameters
 

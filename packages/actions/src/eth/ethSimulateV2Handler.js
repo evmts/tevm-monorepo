@@ -121,7 +121,7 @@ export const ethSimulateV2Handler = (client) => {
 				const call = /** @type {import('./EthParams.js').EthSimulateV2Call} */ (calls?.[callIndex])
 				const isContractCreation = call.to === undefined
 
-				/** @type {import('@tevm/evm').EvmRunCallOpts} */
+				/** @type {import('@evmts/zevm/evm').EvmRunCallOpts} */
 				const callParams = {
 					...(call.from !== undefined ? { caller: createAddress(call.from), origin: createAddress(call.from) } : {}),
 					...(call.to !== undefined ? { to: createAddress(call.to) } : {}),

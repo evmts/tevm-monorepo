@@ -8,4 +8,4 @@
 
 > **jsonAsConst**: `never`[]
 
-Defined in: bundler-packages/config/types/config/withDefaults.d.ts:2
+Defined in: tevm-monorepo/bundler-packages/config/types/config/withDefaults.d.ts:2

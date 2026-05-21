@@ -8,7 +8,7 @@
 
 > **RequestsBytes** = `Uint8Array`[]
 
-Defined in: packages/block/types/types.d.ts:250
+Defined in: tevm-monorepo/packages/block/types/types.d.ts:250
 
 Represents serialized consensus layer requests in byte format
 

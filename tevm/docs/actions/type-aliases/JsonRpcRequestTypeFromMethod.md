@@ -8,7 +8,7 @@
 
 > **JsonRpcRequestTypeFromMethod**\<`TMethod`\> = [`EthRequestType`](EthRequestType.md) & [`TevmRequestType`](TevmRequestType.md) & [`AnvilRequestType`](AnvilRequestType.md) & [`DebugRequestType`](DebugRequestType.md)\[`TMethod`\]
 
-Defined in: packages/actions/types/tevm-request-handler/JsonRpcRequestTypeFromMethod.d.ts:12
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/JsonRpcRequestTypeFromMethod.d.ts:12
 
 Utility type to get the request type given a method name
 

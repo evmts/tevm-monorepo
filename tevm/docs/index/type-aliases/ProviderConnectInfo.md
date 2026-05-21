@@ -8,7 +8,7 @@
 
 > **ProviderConnectInfo** = `object`
 
-Defined in: packages/node/dist/index.d.ts:230
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:224
 
 ## Properties
 
@@ -16,4 +16,4 @@ Defined in: packages/node/dist/index.d.ts:230
 
 > **chainId**: `string`
 
-Defined in: packages/node/dist/index.d.ts:231
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:225

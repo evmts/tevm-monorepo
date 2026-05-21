@@ -8,7 +8,7 @@
 
 > **anvilDealJsonRpcProcedure**(`client`): [`AnvilDealProcedure`](../type-aliases/AnvilDealProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilDealProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilDealProcedure.d.ts:1
 
 ## Parameters
 

@@ -46,7 +46,7 @@ The bloom filter of the LOGs (events) after executing the block
 
 ### preimages?
 
-> `optional` **preimages**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
+> `optional` **preimages?**: `Map`\<`` `0x${string}` ``, `Uint8Array`\<`ArrayBufferLike`\>\>
 
 Defined in: [packages/vm/src/utils/ApplyBlockResult.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/ApplyBlockResult.ts#L33)
 
@@ -88,7 +88,7 @@ The receipt root after executing the block
 
 ### requests?
 
-> `optional` **requests**: `ClRequest`[]
+> `optional` **requests?**: `ClRequest`[]
 
 Defined in: [packages/vm/src/utils/RunBlockResult.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockResult.ts#L24)
 
@@ -98,7 +98,7 @@ Any CL requests that were processed in the course of this block
 
 ### requestsRoot?
 
-> `optional` **requestsRoot**: `Uint8Array`\<`ArrayBufferLike`\>
+> `optional` **requestsRoot?**: `Uint8Array`\<`ArrayBufferLike`\>
 
 Defined in: [packages/vm/src/utils/RunBlockResult.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/vm/src/utils/RunBlockResult.ts#L20)
 

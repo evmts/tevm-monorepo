@@ -1,5 +1,6 @@
-import { Box, Text } from 'ink'
+import { Box, Text, useApp } from 'ink'
 import Spinner from 'ink-spinner'
+import { useEffect } from 'react'
 
 export interface CliActionProps {
 	// Results
@@ -35,6 +36,19 @@ export default function CliAction({
 	targetName,
 	editorActive = false,
 }: CliActionProps) {
+	const { exit } = useApp()
+	const error = interactiveError || actionError
+
+	useEffect(() => {
+		if (!error) {
+			return
+		}
+
+		process.exitCode = 1
+		const timeout = setTimeout(() => exit(error), 0)
+		return () => clearTimeout(timeout)
+	}, [error, exit])
+
 	// If editor is active, render absolutely nothing
 	if (editorActive) {
 		return null
@@ -63,8 +77,7 @@ export default function CliAction({
 	}
 
 	// Priority 3: Show errors if present
-	if (interactiveError || actionError) {
-		const error = interactiveError || actionError
+	if (error) {
 		return (
 			<Box>
 				<Text color="red">{(error as Error).message || 'An error occurred'}</Text>

@@ -8,7 +8,7 @@
 
 > **genTxTrie**(`block`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: packages/vm/types/actions/genTxTrie.d.ts:9
+Defined in: tevm-monorepo/packages/vm/types/actions/genTxTrie.d.ts:9
 
 Generate the transaction trie for a block.
 This is an intermediate step for computing the block header's

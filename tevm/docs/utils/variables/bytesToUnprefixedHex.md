@@ -4,10 +4,8 @@
 
 [tevm](../../modules.md) / [utils](../README.md) / bytesToUnprefixedHex
 
-# ~~Variable: bytesToUnprefixedHex~~
+# Variable: bytesToUnprefixedHex
 
-> `const` **bytesToUnprefixedHex**: *typeof* `_bytesToUnprefixedHex`
+> `const` **bytesToUnprefixedHex**: *typeof* `nobleBytesToHex`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/bytes.d.ts:6
-
-## Deprecated
+Defined in: zevm/npm/zevm/dist/util.d.ts:131

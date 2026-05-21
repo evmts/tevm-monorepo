@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / TevmJsonRpcRequestHandler
 
-# Type Alias: TevmJsonRpcRequestHandler()
+# Type Alias: TevmJsonRpcRequestHandler
 
 > **TevmJsonRpcRequestHandler** = \<`TRequest`\>(`request`) => `Promise`\<[`JsonRpcReturnTypeFromMethod`](JsonRpcReturnTypeFromMethod.md)\<`TRequest`\[`"method"`\]\>\>
 

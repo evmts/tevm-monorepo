@@ -35,7 +35,7 @@ export const ethGetBlockReceiptsJsonRpcProcedure = (client) => async (req) => {
 		 */
 		const out = {
 			jsonrpc: '2.0',
-			...(req.id ? { id: req.id } : {}),
+			...(req.id !== undefined ? { id: req.id } : {}),
 			method: req.method,
 			error: {
 				code: -32602,

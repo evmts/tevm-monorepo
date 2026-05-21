@@ -2,9 +2,9 @@
 // @see https://github.com/paulmillr/trusted-setups/tree/main
 // @see wait for https://github.com/ethereumjs/ethereumjs-monorepo/issues/3662
 /**
- * The interface of the custom crypto for kzg implemented by `createMockKzg``
- * The real kzg commitmenet is over 500kb added to bundle size
- * so this is useful alternative for smaller bundles and the default
+ * The interface of the custom crypto for KZG implemented by `createMockKzg`.
+ * The real KZG commitment implementation can add significant bundle size,
+ * so this is a useful explicit opt-in alternative for smaller bundles.
  * @example
  * ```typescript
  * import { createCommon, createMockKzg, mainnet, type MockKzg } from 'tevm/common'
@@ -14,7 +14,7 @@
  * const common = createCommon({
  *   ...mainnet,
  *   customCrypto: {
- *     kzg:,
+ *     kzg,
  *   },
  * })
  * ```
@@ -33,4 +33,8 @@ export type MockKzg = {
 	computeBlobProof: (blob: string, commitment: string) => string
 	verifyProof: (commitment: string, z: string, y: string, proof: string) => boolean
 	verifyBlobProofBatch: (blobs: string[], commitments: string[], proofs: string[]) => boolean
+	computeCells: (blob: string) => string[]
+	computeCellsAndProofs: (blob: string) => [string[], string[]]
+	recoverCellsAndProofs: (indices: number[], cells: string[]) => [string[], string[]]
+	verifyCellKzgProofBatch: (commitments: string[], indices: number[], cells: string[], proofs: string[]) => boolean
 }

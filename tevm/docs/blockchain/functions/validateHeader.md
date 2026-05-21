@@ -8,7 +8,7 @@
 
 > **validateHeader**(`baseChain`): (`header`, `height?`) => `Promise`\<`void`\>
 
-Defined in: packages/blockchain/types/actions/validateHeader.d.ts:1
+Defined in: tevm-monorepo/packages/blockchain/types/actions/validateHeader.d.ts:1
 
 ## Parameters
 

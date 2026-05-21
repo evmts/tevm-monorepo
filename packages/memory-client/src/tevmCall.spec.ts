@@ -1,5 +1,5 @@
 import { SimpleContract } from '@tevm/contract'
-import { type Client, createClient, encodeFunctionData } from 'viem'
+import { type Client, createClient, encodeFunctionData, isHex } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createTevmTransport } from './createTevmTransport.js'
 import type { TevmTransport } from './TevmTransport.js'
@@ -33,7 +33,7 @@ describe('tevmCall', () => {
 			data: '0x',
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toEqualHex('0x')
+		expect(result.rawData).toBe('0x')
 	})
 
 	it('should execute a call with a specific from address', async () => {
@@ -44,7 +44,7 @@ describe('tevmCall', () => {
 			from: fromAddress,
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toEqualHex('0x')
+		expect(result.rawData).toBe('0x')
 	})
 
 	it('should handle call with deprecated createTransaction option', async () => {
@@ -54,7 +54,7 @@ describe('tevmCall', () => {
 			createTransaction: true,
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toEqualHex('0x')
+		expect(result.rawData).toBe('0x')
 		await tevmMine(client)
 	})
 
@@ -65,7 +65,7 @@ describe('tevmCall', () => {
 			addToBlockchain: true,
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toEqualHex('0x')
+		expect(result.rawData).toBe('0x')
 		await tevmMine(client)
 	})
 
@@ -76,8 +76,8 @@ describe('tevmCall', () => {
 			addToMempool: true,
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toEqualHex('0x')
-		expect(result.txHash).toBeHex()
+		expect(result.rawData).toBe('0x')
+		expect(isHex(result.txHash)).toBe(true)
 		await tevmMine(client)
 	})
 
@@ -127,7 +127,7 @@ describe('tevmCall', () => {
 			skipBalance: true,
 		})
 		expect(result).toBeDefined()
-		expect(result.rawData).toEqualHex('0x')
+		expect(result.rawData).toBe('0x')
 	})
 
 	it('should execute call to contract with function data and return results', async () => {

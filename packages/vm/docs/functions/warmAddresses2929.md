@@ -22,7 +22,7 @@ Defined in: [packages/vm/src/actions/warmAddresses2929.js:9](https://github.com/
 
 ### to
 
-`undefined` | `Address`
+`Address` \| `undefined`
 
 ### coinbase
 

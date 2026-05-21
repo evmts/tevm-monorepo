@@ -8,7 +8,7 @@
 
 > **EthGetUncleCountByBlockNumberParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:178
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:178
 
 Based on the JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
@@ -16,6 +16,6 @@ Based on the JSON-RPC request for `eth_getUncleCountByBlockNumber` procedure
 
 ### blockTag?
 
-> `readonly` `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> `readonly` `optional` **blockTag?**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:179
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:179

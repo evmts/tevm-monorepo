@@ -70,7 +70,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         if let Some(file_contracts) = contracts.get("SimpleStorage.sol") {
             if let Some(contract) = file_contracts.get("SimpleStorage") {
                 println!("Contract ABI: {}", serde_json::to_string_pretty(&contract.abi)?);
-                println!("Bytecode: {}", &contract.evm.bytecode.object[..64]); // Print first 64 chars of bytecode
+                if let Some(object) = contract
+                    .evm
+                    .as_ref()
+                    .and_then(|evm| evm.bytecode.as_ref())
+                    .and_then(|bytecode| bytecode.object.as_ref())
+                {
+                    println!("Bytecode: {}", &object[..64]); // Print first 64 chars of bytecode
+                }
             }
         }
     }

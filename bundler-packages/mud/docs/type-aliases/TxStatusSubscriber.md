@@ -4,7 +4,7 @@
 
 [@tevm/mud](../globals.md) / TxStatusSubscriber
 
-# Type Alias: TxStatusSubscriber()
+# Type Alias: TxStatusSubscriber
 
 > **TxStatusSubscriber** = (`status`) => `void`
 

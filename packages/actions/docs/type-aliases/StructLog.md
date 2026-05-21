@@ -22,7 +22,7 @@ Defined in: [packages/actions/src/common/StructLog.ts:4](https://github.com/evmt
 
 ### error?
 
-> `readonly` `optional` **error**: `object`
+> `readonly` `optional` **error?**: `object`
 
 Defined in: [packages/actions/src/common/StructLog.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/StructLog.ts#L10)
 

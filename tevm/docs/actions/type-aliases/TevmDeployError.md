@@ -8,4 +8,4 @@
 
 > **TevmDeployError** = [`TevmCallError`](TevmCallError.md) \| [`InvalidRequestError`](../../errors/classes/InvalidRequestError.md)
 
-Defined in: packages/actions/types/Deploy/TevmDeployError.d.ts:3
+Defined in: tevm-monorepo/packages/actions/types/Deploy/TevmDeployError.d.ts:3

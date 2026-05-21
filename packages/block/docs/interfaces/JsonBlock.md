@@ -14,7 +14,7 @@ An object with the block's data represented as strings.
 
 ### executionWitness?
 
-> `optional` **executionWitness**: `null` \| [`VerkleExecutionWitness`](VerkleExecutionWitness.md)
+> `optional` **executionWitness?**: [`VerkleExecutionWitness`](VerkleExecutionWitness.md) \| `null`
 
 Defined in: [packages/block/src/types.ts:430](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L430)
 
@@ -22,7 +22,7 @@ Defined in: [packages/block/src/types.ts:430](https://github.com/evmts/tevm-mono
 
 ### header?
 
-> `optional` **header**: [`JsonHeader`](JsonHeader.md)
+> `optional` **header?**: [`JsonHeader`](JsonHeader.md)
 
 Defined in: [packages/block/src/types.ts:425](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L425)
 
@@ -32,7 +32,7 @@ Header data for the block
 
 ### requests?
 
-> `optional` **requests**: `null` \| `` `0x${string}` ``[]
+> `optional` **requests?**: `` `0x${string}` ``[] \| `null`
 
 Defined in: [packages/block/src/types.ts:429](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L429)
 
@@ -40,7 +40,7 @@ Defined in: [packages/block/src/types.ts:429](https://github.com/evmts/tevm-mono
 
 ### transactions?
 
-> `optional` **transactions**: `JSONTx`[]
+> `optional` **transactions?**: `JSONTx`[]
 
 Defined in: [packages/block/src/types.ts:426](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L426)
 
@@ -48,7 +48,7 @@ Defined in: [packages/block/src/types.ts:426](https://github.com/evmts/tevm-mono
 
 ### uncleHeaders?
 
-> `optional` **uncleHeaders**: [`JsonHeader`](JsonHeader.md)[]
+> `optional` **uncleHeaders?**: [`JsonHeader`](JsonHeader.md)[]
 
 Defined in: [packages/block/src/types.ts:427](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L427)
 
@@ -56,6 +56,6 @@ Defined in: [packages/block/src/types.ts:427](https://github.com/evmts/tevm-mono
 
 ### withdrawals?
 
-> `optional` **withdrawals**: `JSONRPCWithdrawal`[]
+> `optional` **withdrawals?**: `JSONRPCWithdrawal`[]
 
 Defined in: [packages/block/src/types.ts:428](https://github.com/evmts/tevm-monorepo/blob/main/packages/block/src/types.ts#L428)

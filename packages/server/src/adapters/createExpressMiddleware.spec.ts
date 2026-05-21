@@ -1,17 +1,15 @@
 import { createMemoryClient } from '@tevm/memory-client'
-import express from 'express'
-import supertest from 'supertest'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { createTestClient as supertest } from '../testUtils/createTestClient.js'
 import { createExpressMiddleware } from './createExpressMiddleware.js'
 
 describe('createExpressMiddleware', () => {
-	let app: express.Application
+	let app: ReturnType<typeof createExpressMiddleware>
 
 	beforeEach(() => {
 		const client = createMemoryClient()
 
-		app = express()
-		app.use(createExpressMiddleware(client))
+		app = createExpressMiddleware(client)
 	})
 
 	it('should handle valid JSON-RPC request', async () => {

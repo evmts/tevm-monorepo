@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [contract](../README.md) / CreateContractFn
 
-# Type Alias: CreateContractFn()
+# Type Alias: CreateContractFn
 
 > **CreateContractFn** = \<`TName`, `TAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`, `THumanReadableAbi`\>(`{ name, humanReadableAbi, bytecode, deployedBytecode, code, }`) => [`Contract`](../../index/type-aliases/Contract.md)\<`TName`, `THumanReadableAbi`, `TAddress`, `TBytecode`, `TDeployedBytecode`, `TCode`\>
 
-Defined in: packages/contract/types/CreateContractFn.d.ts:76
+Defined in: tevm-monorepo/packages/contract/types/CreateContractFn.d.ts:76
 
 Type of `createContract` factory function.
 Creates a tevm Contract instance from a human readable ABI or JSON ABI.

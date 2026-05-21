@@ -1,8 +1,8 @@
+import { createEOACodeEIP7702Tx, LegacyTransaction, TransactionFactory } from '@evmts/zevm/tx'
 import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import { LegacyTransaction, TransactionFactory } from '@tevm/tx'
 import { createAccount, createAddressFromString, EthjsAddress, hexToBytes, parseEther } from '@tevm/utils'
 import { createVm, type Vm } from '@tevm/vm'
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -101,6 +101,43 @@ describe('TxPool.txGasPrice', () => {
 		expect(gasPrice.tip).toBe(1000000000n)
 	})
 
+	it('should handle EIP-7702 transaction gas price and pool admission', async () => {
+		const tx = createEOACodeEIP7702Tx(
+			{
+				nonce: 0,
+				maxFeePerGas: 2000000000n,
+				maxPriorityFeePerGas: 1000000000n,
+				gasLimit: 100000n,
+				to: '0x3535353535353535353535353535353535353535',
+				value: 10000,
+				data: '0x',
+				chainId: 10,
+				accessList: [],
+				authorizationList: [
+					{
+						chainId: '0xa',
+						address: '0x3535353535353535353535353535353535353535',
+						nonce: '0x0',
+						yParity: '0x0',
+						r: `0x${'01'.repeat(32)}`,
+						s: `0x${'02'.repeat(32)}`,
+					},
+				],
+			},
+			{ common: optimism.ethjsCommon },
+		)
+		const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
+
+		const gasPrice = (txPool as any).txGasPrice(signedTx)
+
+		expect(gasPrice.maxFee).toBe(2000000000n)
+		expect(gasPrice.tip).toBe(1000000000n)
+		await expect(txPool.add(signedTx)).resolves.toEqual({
+			error: null,
+			hash: expect.stringMatching(/^0x/),
+		})
+	})
+
 	it('should handle impersonated transaction gas price correctly', async () => {
 		// Create a mock impersonated transaction
 		const impersonatedTx = {
@@ -163,6 +200,38 @@ describe('TxPool.txGasPrice', () => {
 			const normalizedPrice = (txPool as any).normalizedGasPrice(signedTx, 500000000n)
 
 			// Should return maxPriorityFeePerGas
+			expect(normalizedPrice).toBe(1000000000n)
+		})
+
+		it('should return priority fee when baseFee is provided for EIP-7702 transaction', async () => {
+			const tx = createEOACodeEIP7702Tx(
+				{
+					nonce: 0,
+					maxFeePerGas: 2000000000n,
+					maxPriorityFeePerGas: 1000000000n,
+					gasLimit: 100000n,
+					to: '0x3535353535353535353535353535353535353535',
+					value: 10000,
+					data: '0x',
+					chainId: 10,
+					accessList: [],
+					authorizationList: [
+						{
+							chainId: '0xa',
+							address: '0x3535353535353535353535353535353535353535',
+							nonce: '0x0',
+							yParity: '0x0',
+							r: `0x${'01'.repeat(32)}`,
+							s: `0x${'02'.repeat(32)}`,
+						},
+					],
+				},
+				{ common: optimism.ethjsCommon },
+			)
+			const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
+
+			const normalizedPrice = (txPool as any).normalizedGasPrice(signedTx, 500000000n)
+
 			expect(normalizedPrice).toBe(1000000000n)
 		})
 

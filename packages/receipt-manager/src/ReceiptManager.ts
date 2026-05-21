@@ -1,12 +1,17 @@
-// this is from ethereumjs and carries the same license as the original
-// https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/client/src/execution/receipt.ts
-
+import {
+	Bloom,
+	decodeReceiptLogs,
+	decodeStoredReceipts,
+	decodeTxHashIndex,
+	encodeReceiptLogs,
+	encodeStoredReceipts,
+	encodeTxHashIndex,
+} from '@evmts/zevm/receipt'
+import type { TransactionType, TypedTransaction } from '@evmts/zevm/tx'
 import type { Block } from '@tevm/block'
 import { type Chain, getBlock } from '@tevm/blockchain'
-import { Rlp } from '@tevm/rlp'
-import type { TransactionType, TypedTransaction } from '@tevm/tx'
 import type { EthjsLog } from '@tevm/utils'
-import { Bloom, bytesToBigInt, bytesToNumber, equalsBytes, hexToBytes, numberToHex, stringToHex } from '@tevm/utils'
+import { equalsBytes, hexToBytes, stringToHex } from '@tevm/utils'
 import type { MapDb } from './MapDb.js'
 
 // Some of these types are actually from the Vm package but they are better to live here imo
@@ -173,12 +178,6 @@ enum IndexOperation {
 /** Type alias for log entries in RLP format */
 type rlpLog = EthjsLog
 
-/** RLP format for receipt entries: [status/stateRoot, gasUsed, logs] */
-type rlpReceipt = [postStateOrStatus: Uint8Array, cumulativeGasUsed: Uint8Array, logs: rlpLog[]]
-
-/** RLP format for txHash index entries: [blockHash, txIndex] */
-type rlpTxHash = [blockHash: Uint8Array, txIndex: Uint8Array]
-
 /**
  * Enum for RLP conversion operations
  */
@@ -320,7 +319,7 @@ export class ReceiptsManager {
 			const block = await getBlock(this.chain)(blockHash)
 			receipts = (receipts as TxReceiptWithType[]).map((r, i) => {
 				const type = block.transactions[i]?.type
-				if (type) {
+				if (type !== undefined) {
 					r.txType = type
 				}
 				return r
@@ -388,6 +387,10 @@ export class ReceiptsManager {
 		addresses?: Uint8Array[],
 		topics: (Uint8Array | Uint8Array[] | null)[] = [],
 	): Promise<GetLogsReturn> {
+		const blockRange = to.header.number - from.header.number + 1n
+		if (blockRange > BigInt(this.GET_LOGS_BLOCK_RANGE_LIMIT)) {
+			throw new Error(`getLogs block range exceeds limit of ${this.GET_LOGS_BLOCK_RANGE_LIMIT}`)
+		}
 		const returnedLogs: GetLogsReturn = []
 		let returnedLogsSize = 0
 		for (let i = from.header.number; i <= to.header.number; i++) {
@@ -421,14 +424,15 @@ export class ReceiptsManager {
 				//  * [[A, B], [A, B]] - (A OR B) in first position AND (A OR B) in second position (and anything after)
 				logs = logs.filter((l) => {
 					for (const [i, topic] of topics.entries()) {
+						const logTopic = l.log[1][i]
 						if (Array.isArray(topic)) {
 							// Can match any items in this array
-							if (!topic.find((t) => equalsBytes(t, l.log[1][i] as Uint8Array))) return false
+							if (!logTopic || !topic.find((t) => t && equalsBytes(t, logTopic))) return false
 						} else if (!topic) {
 							// If null then can match any
 						} else {
 							// If a value is specified then it must match
-							if (!equalsBytes(topic, l.log[1][i] as Uint8Array)) return false
+							if (!logTopic || !equalsBytes(topic, logTopic)) return false
 						}
 					}
 					// All topic conditions passed, accept the log
@@ -436,8 +440,12 @@ export class ReceiptsManager {
 				})
 			}
 			returnedLogs.push(...logs)
-			// TODO add stringToBytes to utils
-			returnedLogsSize += hexToBytes(stringToHex(JSON.stringify(logs))).byteLength
+			const logsForSizing = logs.map(({ log, txIndex, logIndex }) => ({ log, txIndex, logIndex }))
+			returnedLogsSize += hexToBytes(
+				stringToHex(
+					JSON.stringify(logsForSizing, (_key, value) => (typeof value === 'bigint' ? value.toString() : value)),
+				),
+			).byteLength
 			if (returnedLogs.length >= this.GET_LOGS_LIMIT || returnedLogsSize >= this.GET_LOGS_LIMIT_MEGABYTES * 1048576) {
 				break
 			}
@@ -467,8 +475,11 @@ export class ReceiptsManager {
 						await this.mapDb.put('TxHash', tx.hash(), encoded)
 					}
 				} else if (operation === IndexOperation.Delete) {
-					for (const tx of block.transactions) {
-						await this.mapDb.delete('TxHash', tx.hash())
+					for (const [i, tx] of block.transactions.entries()) {
+						const currentIndex = await this.getIndex(IndexType.TxHash, tx.hash())
+						if (currentIndex && equalsBytes(currentIndex[0], block.hash()) && currentIndex[1] === i) {
+							await this.mapDb.delete('TxHash', tx.hash())
+						}
 					}
 				}
 				break
@@ -518,50 +529,20 @@ export class ReceiptsManager {
 		switch (type) {
 			case RlpType.Receipts: {
 				if (conversion === RlpConvert.Encode) {
-					return Rlp.encode(
-						(value as TxReceipt[]).map((r) => [
-							(r as PreByzantiumTxReceipt).stateRoot ??
-								// TODO add numberToBytes to utils
-								hexToBytes(numberToHex((r as PostByzantiumTxReceipt).status)),
-							// TODO add numberToBytes to utils
-							hexToBytes(numberToHex(r.cumulativeBlockGasUsed)),
-							this.rlp(RlpConvert.Encode, RlpType.Logs, r.logs),
-						]),
-					)
+					return encodeStoredReceipts(value as TxReceipt[])
 				}
-				const decoded = Rlp.decode(value as Uint8Array) as unknown as rlpReceipt[]
-				return decoded.map((r) => {
-					const gasUsed = r[1]
-					const logs = this.rlp(RlpConvert.Decode, RlpType.Logs, r[2])
-					if (r[0].length === 32) {
-						// Pre-Byzantium Receipt
-						return {
-							stateRoot: r[0],
-							cumulativeBlockGasUsed: bytesToBigInt(gasUsed),
-							logs,
-						} as PreByzantiumTxReceipt
-					}
-					// Post-Byzantium Receipt
-					return {
-						status: bytesToNumber(r[0]),
-						cumulativeBlockGasUsed: bytesToBigInt(gasUsed),
-						logs,
-					} as PostByzantiumTxReceipt
-				})
+				return decodeStoredReceipts(value as Uint8Array) as TxReceipt[]
 			}
 			case RlpType.Logs:
 				if (conversion === RlpConvert.Encode) {
-					return Rlp.encode(value as EthjsLog[])
+					return encodeReceiptLogs(value as EthjsLog[])
 				}
-				return Rlp.decode(value as Uint8Array) as EthjsLog[]
+				return decodeReceiptLogs(value as Uint8Array)
 			case RlpType.TxHash: {
 				if (conversion === RlpConvert.Encode) {
-					const [blockHash, txIndex] = value as TxHashIndex
-					// TODO add numberToBytes to utils
-					return Rlp.encode([blockHash, hexToBytes(numberToHex(txIndex))])
+					return encodeTxHashIndex(value as TxHashIndex)
 				}
-				const [blockHash, txIndex] = Rlp.decode(value as Uint8Array) as unknown as rlpTxHash
-				return [blockHash, bytesToNumber(txIndex)] as TxHashIndex
+				return decodeTxHashIndex(value as Uint8Array)
 			}
 			default:
 				throw new Error('Unknown rlp conversion')

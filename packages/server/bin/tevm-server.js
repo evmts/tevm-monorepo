@@ -2,7 +2,7 @@
 
 import { base, mainnet, optimism, tevmDefault } from '@tevm/common'
 import { http } from '@tevm/jsonrpc'
-import { createTevmTransport } from '@tevm/memory-client'
+import { createMemoryClient } from '@tevm/memory-client'
 import { PREFUNDED_ACCOUNTS, PREFUNDED_PRIVATE_KEYS } from '@tevm/utils'
 import { Command } from 'commander'
 import { createServer } from '../src/createServer.js'
@@ -46,16 +46,20 @@ if (!chain) {
 	)
 }
 
-export const transport = createTevmTransport({
+export const client = createMemoryClient({
 	common: chain,
-	fork: {
-		blockTag: options.forkBlockNumber,
-		transport: http(options.forkUrl ?? chain.rpcUrls.default.http[0])({}),
-	},
+	...(options.forkUrl
+		? {
+				fork: {
+					blockTag: options.forkBlockNumber,
+					transport: http(options.forkUrl)({}),
+				},
+			}
+		: {}),
 	loggingLevel: options.loggingLevel,
 })
 
-const server = createServer(transport)
+const server = createServer(client)
 
 // Display ASCII art and information
 function displayStartupInfo() {

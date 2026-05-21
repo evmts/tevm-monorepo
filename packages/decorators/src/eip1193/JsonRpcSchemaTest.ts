@@ -340,6 +340,17 @@ export type TestRpcSchema<TMode extends string> = [
 		}
 	},
 	/**
+	 * @link https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-txpool#txpool-contentfrom
+	 */
+	txpool_contentFrom: {
+		Method: 'txpool_contentFrom'
+		Parameters: [address: Address]
+		ReturnType: {
+			pending: Record<Address, Record<string, Transaction>>
+			queued: Record<Address, Record<string, Transaction>>
+		}
+	},
+	/**
 	 * @link https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-txpool#txpool-inspect
 	 */
 	txpool_inspect: {

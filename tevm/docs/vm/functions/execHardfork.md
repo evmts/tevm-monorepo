@@ -8,7 +8,7 @@
 
 > **execHardfork**(`hardfork`, `preMergeHf`): `string`
 
-Defined in: packages/vm/types/actions/execHardfork.d.ts:1
+Defined in: tevm-monorepo/packages/vm/types/actions/execHardfork.d.ts:1
 
 ## Parameters
 

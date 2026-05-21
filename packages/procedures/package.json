@@ -59,6 +59,9 @@
 		"package:up": "pnpm up --latest",
 		"typecheck": "tsc --noEmit"
 	},
+	"dependencies": {
+		"@tevm/actions": "workspace:^"
+	},
 	"devDependencies": {
 		"@tevm/tsconfig": "workspace:^",
 		"@tevm/tsupconfig": "workspace:^"

@@ -8,6 +8,6 @@
 
 > **EthBlobBaseFeeJsonRpcRequest** = [`JsonRpcRequest`](../../index/type-aliases/JsonRpcRequest.md)\<`"eth_blobBaseFee"`, readonly \[\]\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcRequest.d.ts:46
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcRequest.d.ts:46
 
 JSON-RPC request for `eth_blobBaseFee` procedure

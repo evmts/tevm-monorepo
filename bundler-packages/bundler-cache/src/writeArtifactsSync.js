@@ -1,6 +1,43 @@
+import { cacheHash } from './cacheHash.js'
 import { getArtifactsPath } from './getArtifactsPath.js'
 import { getMetadataPath } from './getMetadataPath.js'
 import { version } from './version.js'
+
+/**
+ * @param {string} path
+ * @param {string} content
+ * @param {import('./types.js').FileAccessObject} fs
+ */
+const writeFileAtomically = (path, content, fs) => {
+	if (typeof fs.renameSync !== 'function') {
+		fs.writeFileSync(path, content)
+		return
+	}
+	const tmpPath = `${path}.${process.pid}.${Date.now()}.${Math.random().toString(16).slice(2)}.tmp`
+	fs.writeFileSync(tmpPath, content)
+	fs.renameSync(tmpPath, path)
+}
+
+/**
+ * @param {import('@tevm/compiler').ResolvedArtifacts} resolvedArtifacts
+ * @param {import('./types.js').FileAccessObject} fs
+ */
+const getSourceMetadata = (resolvedArtifacts, fs) => {
+	return Object.fromEntries(
+		Object.entries(resolvedArtifacts.solcInput?.sources || {}).map(([sourcePath, source]) => {
+			const stat = fs.statSync(sourcePath)
+			const content = 'content' in source && typeof source.content === 'string' ? source.content : undefined
+			return [
+				sourcePath,
+				{
+					mtimeMs: stat.mtimeMs,
+					size: stat.size,
+					...(content === undefined ? {} : { contentHash: cacheHash(content) }),
+				},
+			]
+		}),
+	)
+}
 
 /**
  * Synchronously writes Solidity compilation artifacts to the cache.
@@ -16,6 +53,7 @@ import { version } from './version.js'
  * @param {string} entryModuleId - Path to the Solidity file
  * @param {import('@tevm/compiler').ResolvedArtifacts} resolvedArtifacts - Compilation results to cache
  * @param {import('./types.js').FileAccessObject} fs - File system interface for writing files
+ * @param {string} [compileFingerprint] - Fingerprint of compiler/config inputs
  * @returns {string} Path where artifacts were written
  * @throws {Error} If directory creation or file writing fails
  *
@@ -47,7 +85,7 @@ import { version } from './version.js'
  *
  * @internal
  */
-export const writeArtifactsSync = (cwd, cacheDir, entryModuleId, resolvedArtifacts, fs) => {
+export const writeArtifactsSync = (cwd, cacheDir, entryModuleId, resolvedArtifacts, fs, compileFingerprint) => {
 	// Get paths for artifacts and metadata files
 	const { dir, path } = getArtifactsPath(entryModuleId, 'artifactsJson', cwd, cacheDir)
 	const { path: metadataPath } = getMetadataPath(entryModuleId, cwd, cacheDir)
@@ -57,29 +95,23 @@ export const writeArtifactsSync = (cwd, cacheDir, entryModuleId, resolvedArtifac
 		fs.mkdirSync(dir, { recursive: true })
 	}
 
-	// Write artifacts.json with the full compilation results
-	fs.writeFileSync(path, JSON.stringify(resolvedArtifacts, null, 2))
+	const artifactsContent = JSON.stringify(resolvedArtifacts, null, 2)
+	const metadataContent = JSON.stringify(
+		{
+			// Current cache version for compatibility checks
+			version,
+			compileFingerprint,
+			artifactsHash: cacheHash(artifactsContent),
 
-	// Write metadata.json with cache validation information
-	fs.writeFileSync(
-		metadataPath,
-		JSON.stringify(
-			{
-				// Current cache version for compatibility checks
-				version,
-
-				// File modification timestamps for dependency tracking
-				files: Object.fromEntries(
-					Object.keys(resolvedArtifacts.solcInput?.sources || {}).map((sourcePath) => {
-						// For efficiency, only store the last modified timestamp of each file
-						return [sourcePath, fs.statSync(sourcePath).mtimeMs]
-					}),
-				),
-			},
-			null,
-			2,
-		),
+			// File metadata for dependency tracking
+			files: getSourceMetadata(resolvedArtifacts, fs),
+		},
+		null,
+		2,
 	)
+
+	writeFileAtomically(path, artifactsContent, fs)
+	writeFileAtomically(metadataPath, metadataContent, fs)
 
 	return path
 }

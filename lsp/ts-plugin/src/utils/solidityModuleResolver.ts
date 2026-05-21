@@ -26,19 +26,36 @@ export const solidityModuleResolver = (
 	ts: typeof typescript,
 	createInfo: typescript.server.PluginCreateInfo,
 	containingFile: string,
+	options: { isRemapped?: boolean; projectRoot?: string } = {},
 ): typescript.ResolvedModuleFull | undefined => {
 	if (isRelativeSolidity(moduleName)) {
+		const basedir = options.isRemapped
+			? (options.projectRoot ?? createInfo.project.getCurrentDirectory?.() ?? path.dirname(containingFile))
+			: path.dirname(containingFile)
 		return {
 			extension: ts.Extension.Dts,
 			isExternalLibraryImport: false,
-			resolvedFileName: path.resolve(path.dirname(containingFile), moduleName),
+			resolvedFileName: path.resolve(basedir, moduleName),
 		}
 	}
 	if (isSolidity(moduleName)) {
+		const isPathLikeRemap =
+			options.isRemapped &&
+			(path.isAbsolute(moduleName) ||
+				moduleName.startsWith('node_modules/') ||
+				moduleName.startsWith('lib/') ||
+				moduleName.startsWith('src/') ||
+				moduleName.startsWith('contracts/'))
+
 		return {
 			extension: ts.Extension.Dts,
 			isExternalLibraryImport: false,
-			resolvedFileName: createRequire(path.dirname(containingFile)).resolve(moduleName),
+			resolvedFileName: isPathLikeRemap
+				? path.resolve(
+						options.projectRoot ?? createInfo.project.getCurrentDirectory?.() ?? path.dirname(containingFile),
+						moduleName,
+					)
+				: createRequire(path.dirname(containingFile)).resolve(moduleName),
 		}
 	}
 

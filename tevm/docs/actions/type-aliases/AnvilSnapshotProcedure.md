@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilSnapshotProcedure
 
-# Type Alias: AnvilSnapshotProcedure()
+# Type Alias: AnvilSnapshotProcedure
 
 > **AnvilSnapshotProcedure** = (`request`) => `Promise`\<[`AnvilSnapshotJsonRpcResponse`](AnvilSnapshotJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:95
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:95
 
 JSON-RPC procedure for `anvil_snapshot`
 

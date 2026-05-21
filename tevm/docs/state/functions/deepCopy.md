@@ -8,7 +8,7 @@
 
 > **deepCopy**(`baseState`): () => `Promise`\<[`BaseState`](../type-aliases/BaseState.md)\>
 
-Defined in: packages/state/dist/index.d.ts:390
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:394
 
 ## Parameters
 
@@ -18,8 +18,4 @@ Defined in: packages/state/dist/index.d.ts:390
 
 ## Returns
 
-> (): `Promise`\<[`BaseState`](../type-aliases/BaseState.md)\>
-
-### Returns
-
-`Promise`\<[`BaseState`](../type-aliases/BaseState.md)\>
+() => `Promise`\<[`BaseState`](../type-aliases/BaseState.md)\>

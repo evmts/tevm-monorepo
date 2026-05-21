@@ -8,6 +8,6 @@
 
 > **CompiledContracts** = `CompiledContracts`
 
-Defined in: bundler-packages/compiler/types/src/index.d.ts:10
+Defined in: tevm-monorepo/bundler-packages/compiler/types/src/index.d.ts:10
 
 ./types.ts

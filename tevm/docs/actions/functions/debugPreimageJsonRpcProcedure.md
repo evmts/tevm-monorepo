@@ -8,7 +8,7 @@
 
 > **debugPreimageJsonRpcProcedure**(`client`): `DebugPreimageProcedure`
 
-Defined in: packages/actions/types/debug/debugPreimageProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/debug/debugPreimageProcedure.d.ts:1
 
 ## Parameters
 

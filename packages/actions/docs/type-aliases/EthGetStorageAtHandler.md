@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetStorageAtHandler
 
-# Type Alias: EthGetStorageAtHandler()
+# Type Alias: EthGetStorageAtHandler
 
 > **EthGetStorageAtHandler** = (`request`) => `Promise`\<[`EthGetStorageAtResult`](EthGetStorageAtResult.md)\>
 

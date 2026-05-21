@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilSetChainIdHandler
 
-# Type Alias: AnvilSetChainIdHandler()
+# Type Alias: AnvilSetChainIdHandler
 
 > **AnvilSetChainIdHandler** = (`params`) => `Promise`\<[`AnvilSetChainIdResult`](AnvilSetChainIdResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:13
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:13
 
 ## Parameters
 

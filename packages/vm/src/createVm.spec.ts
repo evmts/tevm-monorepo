@@ -6,7 +6,7 @@ import { createStateManager } from '@tevm/state'
 import { createVm } from './createVm.js'
 
 describe(createVm.name, () => {
-	it('wraps ethereumjs vm', async () => {
+	it('creates a VM capable of building blocks', async () => {
 		const common = createCommon({ ...optimism, eips: [], hardfork: 'prague', loggingLevel: 'warn' })
 		const stateManager = createStateManager({})
 		const blockchain = await createChain({
@@ -46,12 +46,12 @@ describe(createVm.name, () => {
 				number: '0x1',
 				parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
 				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-				parentHash: '0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534',
+				parentHash: '0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d',
 				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
 				uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
 				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
 				stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-				requestsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+				requestsRoot: '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
 				// timestamp: "0x66384299",
 			},
 			requests: [],

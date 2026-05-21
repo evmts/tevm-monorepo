@@ -1,11 +1,11 @@
-import type { CustomCrypto } from '@ethereumjs/common'
+import type { CustomCrypto } from '@evmts/zevm/common'
 import type { LogOptions } from '@tevm/logger'
 import type { Chain as ViemChain } from 'viem/chains'
 import type { Hardfork } from './Hardfork.js'
 
 /**
  * @property {Hardfork} [hardfork='prague'] - Hardfork to use
- * @property {ReadonlyArray<number>} [eips=[1559, 4895]] - EIPs to enable
+ * @property {ReadonlyArray<number>} [eips=[]] - EIPs to enable in addition to hardfork-native EIPs
  * @property {LogOptions['level']} loggingLevel - Tevm logger instance
  * @property {CustomCrypto} [customCrypto] - Custom crypto implementations
  * Options for creating a Tevm Common instance
@@ -42,8 +42,8 @@ export type CommonOptions = ViemChain & {
 	 */
 	hardfork?: Hardfork | undefined
 	/**
-	 * Eips to enable. Defaults to `[1559, 4895]`
-	 * @default [1559, 4895]
+	 * EIPs to enable in addition to hardfork-native EIPs. Defaults to `[]`.
+	 * @default []
 	 */
 	eips?: ReadonlyArray<number> | undefined
 	/**
@@ -55,7 +55,7 @@ export type CommonOptions = ViemChain & {
 	 * Custom crypto implementations
 	 * For EIP-4844 support kzg must be passed
 	 * @warning KZG can add a significant amount of bundle size to an app
-	 * In future a stub will be provided that that automatically returns valid without checking the kzg proof
+	 * A mock KZG implementation is available via createMockKzg but must be passed explicitly
 	 * @example
 	 * ```typescript
 	 * import  { createMemoryClient } from 'tevm'

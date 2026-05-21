@@ -12,12 +12,12 @@ import { hexToBytes } from '@tevm/utils'
  * Parses user provided params into ethereumjs options to pass into the EVM
  * @param {import('@tevm/node').TevmNode} client
  * @param {import('./CallParams.js').CallParams} params
- * @returns {Promise<{data: Parameters<import('@tevm/evm').Evm['runCall']>[0], errors?: never} | {data?: never, errors: Array<CallHandlerOptsError>}>}
+ * @returns {Promise<{data: Parameters<import('@evmts/zevm/evm').EVM['runCall']>[0], errors?: never} | {data?: never, errors: Array<CallHandlerOptsError>}>}
  * @throws { never } Returns all errors as values
  */
 export const callHandlerOpts = async (client, params) => {
 	/**
-	 * @type {Parameters<import('@tevm/evm').Evm['runCall']>[0]}
+	 * @type {Parameters<import('@evmts/zevm/evm').EVM['runCall']>[0]}
 	 */
 	const opts = {}
 	const vm = await client.getVm()

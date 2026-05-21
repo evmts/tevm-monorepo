@@ -8,7 +8,7 @@
 
 > **ParseErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:61
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ParseErrorError.d.ts:61
 
 Parameters for constructing a ParseError.
 
@@ -16,9 +16,9 @@ Parameters for constructing a ParseError.
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../classes/BaseError.md) \| `Error`
+> `optional` **cause?**: [`BaseError`](../classes/BaseError.md) \| `Error`
 
-Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:81
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ParseErrorError.d.ts:81
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:81
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:85
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ParseErrorError.d.ts:85
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:85
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:65
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ParseErrorError.d.ts:65
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:65
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:69
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ParseErrorError.d.ts:69
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:69
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:73
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ParseErrorError.d.ts:73
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:73
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:89
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ParseErrorError.d.ts:89
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:89
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/ParseErrorError.d.ts:77
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ParseErrorError.d.ts:77
 
 - Additional meta messages.

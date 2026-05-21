@@ -7,7 +7,7 @@ exports[`handleBulkRequest > should handle errors and return error responses 1`]
     "message": "UnsupportedMethodError: Unknown method eth_invalidMethod
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
-Version: 1.1.0.next-73",
+Version: 1.0.0-next.148",
   },
   "id": 1,
   "jsonrpc": "2.0",
@@ -20,7 +20,7 @@ exports[`handleBulkRequest > should handle errors and return error responses 2`]
   "id": 2,
   "jsonrpc": "2.0",
   "method": "eth_blockNumber",
-  "result": "0x874b423",
+  "result": "0x0",
 }
 `;
 
@@ -29,12 +29,12 @@ exports[`handleBulkRequest > should handle requests without IDs 1`] = `
   {
     "jsonrpc": "2.0",
     "method": "eth_chainId",
-    "result": "0xa",
+    "result": "0x384",
   },
   {
     "jsonrpc": "2.0",
     "method": "eth_blockNumber",
-    "result": "0x874b423",
+    "result": "0x0",
   },
 ]
 `;
@@ -45,13 +45,13 @@ exports[`handleBulkRequest > should handle valid requests and return responses 1
     "id": 1,
     "jsonrpc": "2.0",
     "method": "eth_chainId",
-    "result": "0xa",
+    "result": "0x384",
   },
   {
     "id": 2,
     "jsonrpc": "2.0",
     "method": "eth_blockNumber",
-    "result": "0x874b423",
+    "result": "0x0",
   },
 ]
 `;
@@ -63,7 +63,7 @@ exports[`handleBulkRequest > should log errors and return error responses for in
     "message": "UnsupportedMethodError: Unknown method eth_invalidMethod
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
-Version: 1.1.0.next-73",
+Version: 1.0.0-next.148",
   },
   "id": 1,
   "jsonrpc": "2.0",
@@ -79,7 +79,7 @@ exports[`handleBulkRequest > should log errors and return error responses if und
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Details: test error
-Version: 1.1.0.next-73",
+Version: 1.0.0-next.148",
   },
   "id": 1,
   "jsonrpc": "2.0",

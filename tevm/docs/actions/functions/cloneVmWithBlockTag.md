@@ -8,7 +8,7 @@
 
 > **cloneVmWithBlockTag**(`client`, `block`): `Promise`\<[`Vm`](../../vm/type-aliases/Vm.md) \| [`InternalError`](../../errors/classes/InternalError.md) \| [`ForkError`](../../errors/classes/ForkError.md)\>
 
-Defined in: packages/actions/types/Call/cloneVmWithBlock.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Call/cloneVmWithBlock.d.ts:1
 
 ## Parameters
 

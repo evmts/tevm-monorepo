@@ -8,6 +8,6 @@
 
 > **Bundler** = `Bundler`
 
-Defined in: bundler-packages/base-bundler/types/src/index.d.ts:10
+Defined in: tevm-monorepo/bundler-packages/base-bundler/types/src/index.d.ts:10
 
 ./types.ts

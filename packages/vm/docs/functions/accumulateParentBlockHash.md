@@ -28,18 +28,4 @@ The VM to run on
 
 Function that accumulates parent block hash
 
-> (`currentBlockNumber`, `parentHash`): `Promise`\<`void`\>
-
-### Parameters
-
-#### currentBlockNumber
-
-`bigint`
-
-#### parentHash
-
-`Uint8Array`
-
-### Returns
-
-`Promise`\<`void`\>
+(`currentBlockNumber`, `parentHash`) => `Promise`\<`void`\>

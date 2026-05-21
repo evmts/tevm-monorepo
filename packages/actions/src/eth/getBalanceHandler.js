@@ -3,6 +3,7 @@ import { NoForkUrlSetError } from '@tevm/errors'
 import { createJsonRpcFetcher } from '@tevm/jsonrpc'
 import { bytesToHex, hexToBigInt, numberToHex } from '@tevm/utils'
 import { getPendingClient } from '../internal/getPendingClient.js'
+import { asLightSelector, ensureLightReady, getLightProof } from './lightClientRead.js'
 
 /**
  * @param {import('@tevm/node').TevmNode} baseClient
@@ -11,6 +12,12 @@ import { getPendingClient } from '../internal/getPendingClient.js'
 export const getBalanceHandler =
 	(baseClient) =>
 	async ({ address, blockTag = 'latest' }) => {
+		if (baseClient.consensus?.mode === 'light-client') {
+			ensureLightReady(baseClient, 'eth_getBalance')
+			const selector = asLightSelector(blockTag)
+			const { proof } = await getLightProof(baseClient, address, [], selector)
+			return hexToBigInt(proof.balance)
+		}
 		const vm = await baseClient.getVm()
 
 		if (blockTag === 'latest') {
@@ -24,14 +31,20 @@ export const getBalanceHandler =
 			}
 			return getBalanceHandler(mineResult.pendingClient)({ address, blockTag: 'latest' })
 		}
-		const block =
-			vm.blockchain.blocks.get(/** @type any*/ (blockTag)) ??
-			vm.blockchain.blocksByTag.get(/** @type any*/ (blockTag)) ??
-			vm.blockchain.blocksByNumber.get(/** @type any*/ (blockTag))
-		const hasStateRoot = block && (await vm.stateManager.hasStateRoot(block.header.stateRoot))
-		if (hasStateRoot) {
-			const root = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
-			if (root?.[address]) return root[address].balance
+		let block
+		try {
+			block = await vm.blockchain.getBlockByTag(/** @type any*/ (blockTag))
+		} catch (e) {
+			if (baseClient.forkTransport) {
+				throw e
+			}
+		}
+		if (block) {
+			const hasStateRoot = await vm.stateManager.hasStateRoot(block.header.stateRoot)
+			if (hasStateRoot) {
+				const root = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
+				if (root?.[address]) return root[address].balance
+			}
 		}
 		// at this point the block doesn't exist or doesn't have state so we must be in forked mode
 		if (!baseClient.forkTransport) {

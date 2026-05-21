@@ -1,9 +1,9 @@
-import { Bloom, encodeReceipt } from '@ethereumjs/vm'
+import { Bloom, encodeReceipt } from '@evmts/zevm/receipt'
+import { Rlp } from '@evmts/zevm/rlp'
+import { Trie } from '@evmts/zevm/trie'
+import { type TypedTransaction } from '@evmts/zevm/tx'
 import { Block } from '@tevm/block'
 import { GasLimitExceededError } from '@tevm/errors'
-import { Rlp } from '@tevm/rlp'
-import { Trie } from '@tevm/trie'
-import { type TypedTransaction } from '@tevm/tx'
 import { KECCAK256_RLP } from '@tevm/utils'
 import type { BaseVm } from '../BaseVm.js'
 import type { RunBlockOpts, RunTxResult, TxReceipt } from '../utils/index.js'
@@ -34,12 +34,7 @@ export const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunB
 	for (let txIdx = 0; txIdx < block.transactions.length; txIdx++) {
 		const tx = block.transactions[txIdx] as TypedTransaction
 
-		let maxGasLimit: bigint
-		if (vm.common.ethjsCommon.isActivatedEIP(1559) === true) {
-			maxGasLimit = block.header.gasLimit * BigInt(vm.common.ethjsCommon.param('elasticityMultiplier'))
-		} else {
-			maxGasLimit = block.header.gasLimit
-		}
+		const maxGasLimit = block.header.gasLimit
 		const gasLimitIsHigherThanBlock = maxGasLimit < tx.gasLimit + gasUsed
 		if (gasLimitIsHigherThanBlock) {
 			const msg = errorMsg('tx has a higher gas limit than the block', vm, block)
@@ -47,7 +42,7 @@ export const applyTransactions = (vm: BaseVm) => async (block: Block, opts: RunB
 		}
 
 		// Run the tx through the VM
-		const { skipBalance = false, skipNonce = false, skipHardForkValidation = true, reportPreimages = false } = opts
+		const { skipBalance = false, skipNonce = false, skipHardForkValidation = false, reportPreimages = false } = opts
 
 		const txRes = await runTx(vm)({
 			tx,

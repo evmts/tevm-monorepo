@@ -6,7 +6,7 @@
 
 # Interface: PostByzantiumTxReceipt
 
-Defined in: [ReceiptManager.ts:42](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L42)
+Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:47](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L47)
 
 Receipt type for Byzantium and beyond (EIP-658)
 Replaces the intermediary state root field with a status code field
@@ -26,7 +26,7 @@ Introduced in the Byzantium hard fork
 
 > **bitvector**: `Uint8Array`
 
-Defined in: [ReceiptManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L28)
+Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L33)
 
 Bloom filter bitvector containing indexed log data
 Used for efficient searching of logs in the blockchain
@@ -41,7 +41,7 @@ Used for efficient searching of logs in the blockchain
 
 > **cumulativeBlockGasUsed**: `bigint`
 
-Defined in: [ReceiptManager.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L22)
+Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L27)
 
 Cumulative gas used in the block including this transaction
 Represented as a bigint to handle large gas values accurately
@@ -54,9 +54,9 @@ Represented as a bigint to handle large gas values accurately
 
 ### logs
 
-> **logs**: `Log`[]
+> **logs**: `ReceiptLog`[]
 
-Defined in: [ReceiptManager.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L34)
+Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L39)
 
 Array of logs emitted during transaction execution
 Each log contains address, topics, and data fields
@@ -71,7 +71,7 @@ Each log contains address, topics, and data fields
 
 > **status**: `0` \| `1`
 
-Defined in: [ReceiptManager.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L48)
+Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L53)
 
 Status of transaction execution
 - `1` if successful

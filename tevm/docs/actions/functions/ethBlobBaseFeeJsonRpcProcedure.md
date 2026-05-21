@@ -8,7 +8,7 @@
 
 > **ethBlobBaseFeeJsonRpcProcedure**(`client`): [`EthBlobBaseFeeJsonRpcProcedure`](../type-aliases/EthBlobBaseFeeJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/eth/ethBlobBaseFeeProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethBlobBaseFeeProcedure.d.ts:1
 
 ## Parameters
 

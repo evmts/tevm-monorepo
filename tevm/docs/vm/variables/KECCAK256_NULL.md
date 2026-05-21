@@ -8,4 +8,4 @@
 
 > `const` **KECCAK256\_NULL**: `ByteArray`
 
-Defined in: packages/vm/types/actions/constants.d.ts:1
+Defined in: tevm-monorepo/packages/vm/types/actions/constants.d.ts:1

@@ -2,10 +2,10 @@
 	"name": "@tevm/common",
 	"version": "1.0.0-next.148",
 	"private": false,
-	"description": "A custom implementation of ethereumjs common",
+	"description": "Tevm common facade backed by zevm",
 	"keywords": [
 		"solidity",
-		"ethereumjs",
+		"zevm",
 		"typescript",
 		"web3",
 		"blockchain"
@@ -63,7 +63,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@ethereumjs/common": "^10.0.0",
+		"@evmts/zevm": "workspace:*",
 		"@tevm/errors": "workspace:^",
 		"@tevm/logger": "workspace:^",
 		"@tevm/utils": "workspace:^"
@@ -73,7 +73,7 @@
 		"@tevm/tsupconfig": "workspace:^"
 	},
 	"peerDependencies": {
-		"viem": "^2.37.9"
+		"viem": "^2.49.3"
 	},
 	"publishConfig": {
 		"access": "public"

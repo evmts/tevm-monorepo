@@ -8,7 +8,7 @@
 
 > **anvilSetLoggingEnabledJsonRpcProcedure**(`client`): [`AnvilSetLoggingEnabledProcedure`](../type-aliases/AnvilSetLoggingEnabledProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetLoggingEnabledProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetLoggingEnabledProcedure.d.ts:1
 
 ## Parameters
 

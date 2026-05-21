@@ -65,6 +65,6 @@ describe('putContractStorage', () => {
 	it('should delete the value if it is filled with zeros', async () => {
 		const zeroValue = hexToBytes(`0x${'00'.repeat(32)}`)
 		await putContractStorage(baseState)(address, key, zeroValue)
-		expect(await getContractStorage(baseState)(address, key)).toEqual(Uint8Array.from([0]))
+		expect(await getContractStorage(baseState)(address, key)).toEqual(new Uint8Array())
 	})
 })

@@ -32,7 +32,7 @@ import { ethjsLogToAbiLog } from './internal/ethjsLogToAbiLog.js'
 import { applyStashUpdates, notifyStashSubscribers, type PendingStashUpdate } from './internal/mud/applyUpdates.js'
 import { createStorageAdapter } from './internal/mud/createStorageAdapter.js'
 import { createSyncAdapter } from './internal/mud/createSyncAdapter.js'
-import { stateUpdateCoordinator } from './internal/stateUpdateCoordinator.js'
+import { createStateUpdateCoordinator } from './internal/stateUpdateCoordinator.js'
 import { matchOptimisticTxCounterpart } from './internal/txIdentifier.js'
 import { subscribeTxStatus, type TxStatusSubscriber } from './subscribeTx.js'
 import type { SessionClient } from './types.js'
@@ -107,6 +107,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 
 	// Optimistic hashes of transactions already handled while syncing their incoming canonical counterpart
 	const syncedOptimisticHashes: Set<Hex> = new Set()
+	const stateUpdateCoordinator = createStateUpdateCoordinator()
 
 	// View function that applies optimistic or internal logs on top of the canonical state
 	function getStateView(logs: PendingStashUpdate[]): State<TConfig> {
@@ -147,6 +148,31 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 
 		if (txPool.txsInPool === 0) {
 			logger.debug('No txs in pool, clearing logs and returning canonical state.')
+			if (optimisticLogs.length > 0) {
+				const previousOptimisticState = getOptimisticView()
+				const canonicalState = stash.get()
+				const updatesToCanonical = optimisticLogs.map(({ table, key }) => ({
+					table,
+					key,
+					value: getRecord({ state: canonicalState, table, key }) ?? undefined,
+				}))
+				optimisticLogs = []
+				internalLogs = []
+
+				const notificationStash = {
+					get: () => previousOptimisticState,
+					_: {
+						state: previousOptimisticState,
+						tableSubscribers: optimisticTableSubscribers,
+						storeSubscribers: optimisticStoreSubscribers,
+						derivedTables: {},
+					},
+				} satisfies Stash
+
+				notifyStashSubscribers({ stash: notificationStash, updates: updatesToCanonical })
+			} else {
+				internalLogs = []
+			}
 			return
 		}
 
@@ -325,6 +351,7 @@ export const createOptimisticHandler = <TConfig extends StoreConfig = StoreConfi
 		subscribeTx: ({ subscriber }) => subscribeTxStatus(txStatusSubscribers)(subscriber),
 		syncAdapter: createSyncAdapter({
 			stash,
+			stateUpdateCoordinator,
 			onTx: async ({ hash }) => {
 				if (!hash) return
 				const txPool = await optimisticClient.transport.tevm.getTxPool()

@@ -6,9 +6,9 @@
 
 # Function: handleAutomining()
 
-> **handleAutomining**(`client`, `txHash?`, `_reserved?`, `mineAllTx?`): `Promise`\<`undefined` \| \{ `blockHashes?`: `undefined`; `errors?`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \}\>
+> **handleAutomining**(`client`, `txHash?`, `_reserved?`, `mineAllTx?`): `Promise`\<\{ `blockHashes?`: `undefined`; `errors?`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \} \| `undefined`\>
 
-Defined in: packages/actions/types/Call/handleAutomining.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Call/handleAutomining.d.ts:1
 
 ## Parameters
 
@@ -30,4 +30,4 @@ Defined in: packages/actions/types/Call/handleAutomining.d.ts:1
 
 ## Returns
 
-`Promise`\<`undefined` \| \{ `blockHashes?`: `undefined`; `errors?`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \}\>
+`Promise`\<\{ `blockHashes?`: `undefined`; `errors?`: [`TevmMineError`](../type-aliases/TevmMineError.md)[]; \} \| `undefined`\>

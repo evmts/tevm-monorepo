@@ -8,7 +8,7 @@
 
 > **EthSignTransactionParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:264
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:264
 
 **`Experimental`**
 
@@ -18,9 +18,9 @@ Based on the JSON-RPC request for `eth_signTransaction` procedure
 
 ### data?
 
-> `readonly` `optional` **data**: [`Hex`](Hex.md)
+> `readonly` `optional` **data?**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:292
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:292
 
 The compiled code of a contract OR the hash of the invoked method signature and encoded parameters.
 Optional if creating a contract.
@@ -31,7 +31,7 @@ Optional if creating a contract.
 
 > `readonly` **from**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:268
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:268
 
 The address from which the transaction is sent from
 
@@ -39,9 +39,9 @@ The address from which the transaction is sent from
 
 ### gas?
 
-> `readonly` `optional` **gas**: `bigint`
+> `readonly` `optional` **gas?**: `bigint`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:278
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:278
 
 The gas provded for transaction execution. It will return unused gas.
 Default value is 90000
@@ -50,9 +50,9 @@ Default value is 90000
 
 ### gasPrice?
 
-> `readonly` `optional` **gasPrice**: `bigint`
+> `readonly` `optional` **gasPrice?**: `bigint`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:283
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:283
 
 Integer of the gasPrice used for each paid gas, in Wei.
 If not provided tevm will default to the eth_gasPrice value
@@ -61,9 +61,9 @@ If not provided tevm will default to the eth_gasPrice value
 
 ### nonce?
 
-> `readonly` `optional` **nonce**: `bigint`
+> `readonly` `optional` **nonce?**: `bigint`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:296
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:296
 
 Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.
 
@@ -71,9 +71,9 @@ Integer of a nonce. This allows to overwrite your own pending transactions that 
 
 ### to?
 
-> `readonly` `optional` **to**: [`Address`](Address.md)
+> `readonly` `optional` **to?**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:273
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:273
 
 The address the transaction is directed to. Optional if
 creating a contract
@@ -82,8 +82,8 @@ creating a contract
 
 ### value?
 
-> `readonly` `optional` **value**: `bigint`
+> `readonly` `optional` **value?**: `bigint`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:287
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:287
 
 Integer of the value sent with this transaction, in Wei.

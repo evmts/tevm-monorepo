@@ -8,7 +8,7 @@
 
 > **getProof**(`baseState`): (`address`, `storageSlots?`) => `Promise`\<`Proof`\>
 
-Defined in: [packages/state/src/actions/getProof.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getProof.js#L12)
+Defined in: [tevm-monorepo/packages/state/src/actions/getProof.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/getProof.js#L12)
 
 Get an EIP-1186 proof from the provider
 
@@ -20,18 +20,4 @@ Get an EIP-1186 proof from the provider
 
 ## Returns
 
-> (`address`, `storageSlots?`): `Promise`\<`Proof`\>
-
-### Parameters
-
-#### address
-
-`Address`
-
-#### storageSlots?
-
-`Uint8Array`\<`ArrayBufferLike`\>[]
-
-### Returns
-
-`Promise`\<`Proof`\>
+(`address`, `storageSlots?`) => `Promise`\<`Proof`\>

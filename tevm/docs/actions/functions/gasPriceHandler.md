@@ -8,7 +8,7 @@
 
 > **gasPriceHandler**(`__namedParameters`): [`EthGasPriceHandler`](../type-aliases/EthGasPriceHandler.md)
 
-Defined in: packages/actions/types/eth/gasPriceHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/gasPriceHandler.d.ts:1
 
 ## Parameters
 

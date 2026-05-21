@@ -6,7 +6,7 @@
 
 # Class: EvmError
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:33
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:33
 
 ## Constructors
 
@@ -14,7 +14,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **new EvmError**(`error`): `EVMError`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:37
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:37
 
 #### Parameters
 
@@ -32,7 +32,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **error**: `EVMErrorType`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:34
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:34
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **errorType**: `string`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:35
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:35
 
 ***
 
@@ -48,4 +48,4 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > `static` **errorMessages**: `Record`\<keyof *typeof* `EVMErrorMessage`, `EVMErrorType`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:36
+Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/errors.d.ts:36

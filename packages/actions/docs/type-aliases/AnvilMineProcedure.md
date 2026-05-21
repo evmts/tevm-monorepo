@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilMineProcedure
 
-# Type Alias: AnvilMineProcedure()
+# Type Alias: AnvilMineProcedure
 
 > **AnvilMineProcedure** = (`request`) => `Promise`\<[`AnvilMineJsonRpcResponse`](AnvilMineJsonRpcResponse.md)\>
 

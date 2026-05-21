@@ -6,10 +6,12 @@ import { contractHandler } from '../Contract/contractHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { anvilSetErc20AllowanceJsonRpcProcedure } from './anvilSetErc20AllowanceProcedure.js'
 
+const erc20Address = '0x0000000000000000000000000000000000066a44'
+
 describe('anvilSetErc20AllowanceJsonRpcProcedure', () => {
 	it('should set ERC20 allowance', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const owner = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const spender = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 
@@ -76,7 +78,7 @@ describe('anvilSetErc20AllowanceJsonRpcProcedure', () => {
 
 	it('should handle request without id', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const owner = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const spender = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 
@@ -109,7 +111,7 @@ describe('anvilSetErc20AllowanceJsonRpcProcedure', () => {
 
 	it('should set different allowances for different spenders', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const owner = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const spender1 = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 		const spender2 = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC'
@@ -171,7 +173,7 @@ describe('anvilSetErc20AllowanceJsonRpcProcedure', () => {
 
 	it('should set allowance to zero', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const owner = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const spender = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 

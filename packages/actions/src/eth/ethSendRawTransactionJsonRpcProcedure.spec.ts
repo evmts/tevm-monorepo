@@ -1,7 +1,7 @@
+import { TransactionFactory } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
 import { tevmDefault } from '@tevm/common'
 import { createTevmNode } from '@tevm/node'
-import { TransactionFactory } from '@tevm/tx'
 import { bytesToHex, hexToBytes, PREFUNDED_PRIVATE_KEYS, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { ethSendRawTransactionJsonRpcProcedure } from './ethSendRawTransactionProcedure.js'
@@ -16,7 +16,7 @@ describe('ethSendRawTransactionJsonRpcProcedure', () => {
 				nonce: '0x00',
 				maxFeePerGas: '0x09184e72a000',
 				maxPriorityFeePerGas: '0x09184e72a000',
-				gasLimit: '0x2710',
+				gasLimit: '0x5208',
 				to: createAddress(`0x${'42'.repeat(20)}`),
 				value: parseEther('1'),
 				data: '0x',
@@ -46,7 +46,7 @@ describe('ethSendRawTransactionJsonRpcProcedure', () => {
 			{
 				nonce: '0x00',
 				gasPrice: '0x09184e72a000',
-				gasLimit: '0x2710',
+				gasLimit: '0x5208',
 				to: createAddress(`0x${'42'.repeat(20)}`),
 				value: parseEther('1'),
 				data: '0x',

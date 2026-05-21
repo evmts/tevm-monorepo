@@ -8,7 +8,7 @@
 
 > **SetAccountResult**\<`ErrorType`\> = `object`
 
-Defined in: packages/actions/types/SetAccount/SetAccountResult.d.ts:5
+Defined in: tevm-monorepo/packages/actions/types/SetAccount/SetAccountResult.d.ts:5
 
 Result of SetAccount Action
 
@@ -22,8 +22,8 @@ Result of SetAccount Action
 
 ### errors?
 
-> `optional` **errors**: `ErrorType`[]
+> `optional` **errors?**: `ErrorType`[]
 
-Defined in: packages/actions/types/SetAccount/SetAccountResult.d.ts:9
+Defined in: tevm-monorepo/packages/actions/types/SetAccount/SetAccountResult.d.ts:9
 
 Description of the exception, if any occurred

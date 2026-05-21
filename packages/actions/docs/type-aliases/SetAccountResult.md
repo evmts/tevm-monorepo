@@ -22,7 +22,7 @@ Result of SetAccount Action
 
 ### errors?
 
-> `optional` **errors**: `ErrorType`[]
+> `optional` **errors?**: `ErrorType`[]
 
 Defined in: [packages/actions/src/SetAccount/SetAccountResult.ts:10](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/SetAccount/SetAccountResult.ts#L10)
 

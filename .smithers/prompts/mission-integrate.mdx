@@ -1,0 +1,21 @@
+# Mission Integrate
+
+You are integrating feature-worker results for one milestone.
+
+{props.useWorktrees ? "The feature work may live on per-feature worktree branches. Inspect the branches, merge successful work back into the main workspace, resolve conflicts carefully, and leave conflicted or unsafe branches unmerged with a clear explanation." : "Feature workers ran in the main workspace. Inspect their results and make any small integration fixes needed before validation."}
+
+MISSION GOAL:
+{props.missionGoal}
+
+MILESTONE:
+```json
+{JSON.stringify(props.milestone, null, 2)}
+```
+
+FEATURE RESULTS:
+```json
+{JSON.stringify(props.results, null, 2)}
+```
+
+REQUIRED OUTPUT:
+{props.schema}

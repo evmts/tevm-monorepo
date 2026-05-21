@@ -5,8 +5,8 @@ const ethjsTxToTevmTx = (tx) => {
 }
 
 /**
- * Transoforms an ethjs block to a tevm Block
- * @param {import("@ethereumjs/block").Block} block
+ * Transforms a block to a Tevm Block
+ * @param {import("@tevm/block").Block} block
  * @param {boolean} includeTransactions
  * @returns {Promise<import("@tevm/actions").Block>}
  */

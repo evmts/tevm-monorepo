@@ -8,7 +8,7 @@
 
 > **putContractCode**(`baseState`): (`address`, `value`) => `Promise`\<`void`\>
 
-Defined in: packages/state/dist/index.d.ts:499
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:503
 
 ## Parameters
 
@@ -18,18 +18,4 @@ Defined in: packages/state/dist/index.d.ts:499
 
 ## Returns
 
-> (`address`, `value`): `Promise`\<`void`\>
-
-### Parameters
-
-#### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-#### value
-
-`Uint8Array`
-
-### Returns
-
-`Promise`\<`void`\>
+(`address`, `value`) => `Promise`\<`void`\>

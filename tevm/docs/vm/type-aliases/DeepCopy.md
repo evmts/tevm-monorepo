@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [vm](../README.md) / DeepCopy
 
-# Type Alias: DeepCopy()
+# Type Alias: DeepCopy
 
 > **DeepCopy** = () => `Promise`\<`BaseVm`\>
 
-Defined in: packages/vm/types/actions/deepCopy.d.ts:3
+Defined in: tevm-monorepo/packages/vm/types/actions/deepCopy.d.ts:3
 
 ## Returns
 

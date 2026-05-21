@@ -42,10 +42,10 @@ Whether to include bytecode in the output,
 
 ### tevmPackage
 
+`"tevm/contract"` \| `"@tevm/contract"`
+
 Package name to import
   the createContract function from
-
-`"tevm/contract"` | `"@tevm/contract"`
 
 ## Returns
 

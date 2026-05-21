@@ -16,7 +16,7 @@ the transaction call object for methods like `eth_call`
 
 ### data?
 
-> `optional` **data**: `Hex`
+> `optional` **data?**: `Hex`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L34)
 
@@ -26,7 +26,7 @@ The hash of the method signature and encoded parameters. For more information, s
 
 ### from?
 
-> `optional` **from**: `Address`
+> `optional` **from?**: `Address`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:14](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L14)
 
@@ -36,7 +36,7 @@ The address from which the transaction is sent
 
 ### gas?
 
-> `optional` **gas**: `Hex`
+> `optional` **gas?**: `Hex`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L22)
 
@@ -46,7 +46,7 @@ The integer of gas provided for the transaction execution
 
 ### gasPrice?
 
-> `optional` **gasPrice**: `Hex`
+> `optional` **gasPrice?**: `Hex`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L26)
 
@@ -56,7 +56,7 @@ The integer of gasPrice used for each paid gas encoded as hexadecimal
 
 ### nonce?
 
-> `optional` **nonce**: `Hex`
+> `optional` **nonce?**: `Hex`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:38](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L38)
 
@@ -66,7 +66,7 @@ The integer of the nonce. If not provided a nonce will automatically be generate
 
 ### to?
 
-> `optional` **to**: `Address`
+> `optional` **to?**: `Address`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L18)
 
@@ -76,7 +76,7 @@ The address to which the transaction is addressed
 
 ### value?
 
-> `optional` **value**: `Hex`
+> `optional` **value?**: `Hex`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcRequest.ts:30](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcRequest.ts#L30)
 

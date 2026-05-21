@@ -68,13 +68,12 @@ export async function createEditorProject(actionName, options, createParams) {
 		{
 			cwd: projectDir,
 			stdio: 'ignore',
-			shell: true,
 			detached: true,
 		},
 	)
 
 	// When the install completes, remove the waiting file
-	bunInstallProcess.on('exit', () => {
+	const handleInstallExit = () => {
 		try {
 			if (fs.existsSync(waitingPath)) {
 				fs.unlinkSync(waitingPath)
@@ -84,7 +83,8 @@ export async function createEditorProject(actionName, options, createParams) {
 		} catch (error) {
 			console.error('Failed to update installation status:', error)
 		}
-	})
+	}
+	bunInstallProcess.on('exit', handleInstallExit)
 
 	// Don't wait for it to complete - let it run in the background
 	bunInstallProcess.unref()
@@ -109,21 +109,29 @@ export async function openEditor(projectDir) {
 	console.log(`Opening ${scriptPath} with ${editor}...`)
 
 	return new Promise((resolve) => {
-		const editorProcess = spawn(editor, [scriptPath], {
+		const editorParts = editor.split(/\s+/).filter(Boolean)
+		const editorCommand = editorParts[0] || (os.platform() === 'win32' ? 'notepad' : 'vim')
+		const editorArgs = editorParts.slice(1)
+		const editorProcess = spawn(editorCommand, [...editorArgs, scriptPath], {
 			stdio: 'inherit', // This ensures terminal control is passed to the editor
-			shell: true,
 		})
+		const handleEditorExit = /** @type {(code: number | null) => void} */ (
+			(code) => {
+				resolve(code ?? 0)
+			}
+		)
+		const handleEditorError = /** @type {(err: Error) => void} */ (
+			(err) => {
+				console.error('Failed to start editor:', err)
+				resolve(1)
+			}
+		)
 
 		// Handle process completion
-		editorProcess.on('exit', (code) => {
-			resolve(code || 0)
-		})
+		editorProcess.on('exit', handleEditorExit)
 
 		// Handle process errors
-		editorProcess.on('error', (err) => {
-			console.error('Failed to start editor:', err)
-			resolve(1)
-		})
+		editorProcess.on('error', handleEditorError)
 	})
 }
 
@@ -142,35 +150,50 @@ export async function executeTsFile(projectDir) {
 		const bunProcess = spawn('bun', ['run', scriptPath], {
 			cwd: projectDir,
 			stdio: ['ignore', 'pipe', 'pipe'],
-			shell: true,
 		})
-
-		bunProcess.stdout.on('data', (data) => {
-			stdout += data.toString()
-		})
-
-		bunProcess.stderr.on('data', (data) => {
-			stderr += data.toString()
-		})
-
-		bunProcess.on('exit', (code) => {
-			if (code === 0) {
-				try {
-					// Try to parse the output as JSON
-					const result = JSON.parse(stdout.trim())
-					resolve(result)
-				} catch (_error) {
-					// If parsing fails, return the raw output
-					resolve(stdout.trim())
-				}
-			} else {
-				reject(new Error(`Execution failed (code ${code}): ${stderr}`))
+		const handleStdoutData = /** @type {(data: any) => void} */ (
+			(data) => {
+				stdout += data.toString()
 			}
-		})
+		)
+		const handleStderrData = /** @type {(data: any) => void} */ (
+			(data) => {
+				stderr += data.toString()
+			}
+        )
+        const handleBunExit = /** @type {(code: number | null) => void} */ (
+            (code) => {
+                if (code === 0) {
+                    if (stderr.trim()) {
+                        reject(new Error(`Execution wrote to stderr: ${stderr}`))
+                        return
+                    }
+                    try {
+                        // Try to parse the output as JSON
+                        const result = JSON.parse(stdout.trim())
+                        resolve(result)
+                    } catch (_error) {
+                        // If parsing fails, return the raw output
+                        resolve(stdout.trim())
+                    }
+                } else {
+                    reject(new Error(`Execution failed (code ${code}): ${stderr}`))
+                }
+            }
+			)
+		const handleBunError = /** @type {(error: Error) => void} */ (
+			(error) => {
+				reject(new Error(`Failed to execute: ${error.message}`))
+			}
+		)
 
-		bunProcess.on('error', (error) => {
-			reject(new Error(`Failed to execute: ${error.message}`))
-		})
+		bunProcess.stdout.on('data', handleStdoutData)
+
+		bunProcess.stderr.on('data', handleStderrData)
+
+		bunProcess.on('exit', handleBunExit)
+
+		bunProcess.on('error', handleBunError)
 	})
 }
 

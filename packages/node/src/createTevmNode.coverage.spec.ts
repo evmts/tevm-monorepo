@@ -1,9 +1,59 @@
 import { createAddress } from '@tevm/address'
 import { createCommon } from '@tevm/common'
-import { transports } from '@tevm/test-utils'
-import { hexToBigInt } from '@tevm/utils'
+import { type Hex, hexToBigInt } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { createTevmNode } from './createTevmNode.js'
+
+const mockForkBlock = {
+	number: '0x874a823',
+	hash: `0x${'12'.repeat(32)}` as Hex,
+	parentHash: `0x${'00'.repeat(32)}` as Hex,
+	nonce: '0x0000000000000000',
+	sha3Uncles: `0x${'00'.repeat(32)}` as Hex,
+	logsBloom: `0x${'00'.repeat(256)}` as Hex,
+	transactionsRoot: `0x${'00'.repeat(32)}` as Hex,
+	stateRoot: `0x${'00'.repeat(32)}` as Hex,
+	receiptsRoot: `0x${'00'.repeat(32)}` as Hex,
+	miner: '0x4200000000000000000000000000000000000011',
+	difficulty: '0x0',
+	totalDifficulty: '0x0',
+	extraData: '0x',
+	size: '0x1',
+	gasLimit: '0x1c9c380',
+	gasUsed: '0x0',
+	timestamp: '0x1',
+	transactions: [],
+	uncles: [],
+	baseFeePerGas: '0x1',
+	withdrawals: [],
+	withdrawalsRoot: `0x${'00'.repeat(32)}` as Hex,
+	blobGasUsed: '0x0',
+	excessBlobGas: '0x0',
+	parentBeaconBlockRoot: `0x${'00'.repeat(32)}` as Hex,
+	requestsRoot: `0x${'00'.repeat(32)}` as Hex,
+	requests: [],
+}
+
+const createMockForkTransport = (chainId = '0xa') => ({
+	request: vi.fn(async ({ method, params }) => {
+		if (method === 'eth_chainId') {
+			return chainId
+		}
+		if (method === 'eth_blockNumber') {
+			return mockForkBlock.number
+		}
+		if (method === 'eth_getBlockByNumber') {
+			return {
+				...mockForkBlock,
+				number: params?.[0] === 'latest' ? mockForkBlock.number : params?.[0],
+			}
+		}
+		if (method === 'eth_getBlockByHash') {
+			return mockForkBlock
+		}
+		throw new Error(`Unexpected RPC method: ${method}`)
+	}),
+})
 
 describe('createTevmNode coverage tests', () => {
 	it('Handles event emitter correctly', async () => {
@@ -42,7 +92,8 @@ describe('createTevmNode coverage tests', () => {
 	})
 
 	it('Handles fork transport as a function', async () => {
-		const transportFn = () => transports.optimism
+		const transport = createMockForkTransport()
+		const transportFn = () => transport
 
 		const client = createTevmNode({
 			fork: {
@@ -61,7 +112,7 @@ describe('createTevmNode coverage tests', () => {
 	it('Handles fork with specific blockTag', async () => {
 		const client = createTevmNode({
 			fork: {
-				transport: transports.optimism,
+				transport: createMockForkTransport(),
 				blockTag: 141866019n, // Testing a specific block tag that's not 'latest'
 			},
 		})
@@ -184,14 +235,15 @@ describe('createTevmNode coverage tests', () => {
 	})
 
 	it('Tests forkTransport in deepCopy', async () => {
+		const transport = createMockForkTransport()
 		const client = createTevmNode({
 			fork: {
-				transport: transports.optimism,
+				transport,
 			},
 		})
 
 		await client.ready()
-		expect(client.forkTransport).toBe(transports.optimism)
+		expect(client.forkTransport).toBe(transport)
 
 		const copiedClient = await client.deepCopy()
 		expect(copiedClient.forkTransport).toBeDefined()
@@ -272,7 +324,7 @@ describe('createTevmNode coverage tests', () => {
 		// Create a client with all possible state manager options
 		const client = createTevmNode({
 			fork: {
-				transport: transports.optimism,
+				transport: createMockForkTransport(),
 				blockTag: 141866019n,
 			},
 			storageCache: new Map() as any,

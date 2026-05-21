@@ -128,18 +128,16 @@ export default function Generate({ args, options }: Props) {
 				if (type === 'contract') {
 					await generateContractTypes()
 				} else if (type === 'test') {
-					// Implementation for test generation
 					setResult({
-						success: true,
-						files: ['Test generation not yet implemented'],
-						errors: [],
+						success: false,
+						files: [],
+						errors: ['Test generation is not implemented yet'],
 					})
 				} else if (type === 'script') {
-					// Implementation for script generation
 					setResult({
-						success: true,
-						files: ['Script generation not yet implemented'],
-						errors: [],
+						success: false,
+						files: [],
+						errors: ['Script generation is not implemented yet'],
 					})
 				} else if (type === 'all') {
 					await generateContractTypes()
@@ -158,7 +156,7 @@ export default function Generate({ args, options }: Props) {
 		}
 
 		const generateContractTypes = async () => {
-			const cwd = options.dir
+			const cwd = path.resolve(options.dir)
 			const includePatterns = options.include.split(',')
 			const errors: string[] = []
 			const generatedFiles: string[] = []
@@ -195,9 +193,10 @@ export default function Generate({ args, options }: Props) {
 					try {
 						const fileName = path.basename(file)
 						const fileDir = path.dirname(file)
+						const sourcePath = path.resolve(cwd, file)
 						const outputPath = options.output
-							? path.join(options.output, `${fileName}.ts`)
-							: path.join(fileDir, `${fileName}.ts`)
+							? path.resolve(cwd, options.output, `${fileName}.ts`)
+							: path.resolve(cwd, fileDir, `${fileName}.ts`)
 
 						if (!options.force && fs.existsSync(outputPath)) {
 							errors.push(`File already exists: ${outputPath}. Use --force to overwrite.`)
@@ -214,7 +213,7 @@ export default function Generate({ args, options }: Props) {
 
 							setCurrentTask(`Bundling ${fileName}...`)
 							const plugin = bundler(config as any, console, fao, solc, solcCache, 'tevm/contract')
-							const tsContent = await plugin.resolveTsModule(`./${file}`, cwd, false, true)
+							const tsContent = await plugin.resolveTsModule(sourcePath, cwd, false, true)
 
 							// Ensure directory exists
 							const dir = path.dirname(outputPath)

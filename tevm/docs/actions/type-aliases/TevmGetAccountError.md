@@ -8,4 +8,4 @@
 
 > **TevmGetAccountError** = [`AccountNotFoundError`](../../errors/classes/AccountNotFoundError.md) \| [`ValidateGetAccountParamsError`](ValidateGetAccountParamsError.md)
 
-Defined in: packages/actions/types/GetAccount/TevmGetAccountError.d.ts:3
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/TevmGetAccountError.d.ts:3

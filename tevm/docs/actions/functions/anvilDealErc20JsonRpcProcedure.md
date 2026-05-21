@@ -8,7 +8,7 @@
 
 > **anvilDealErc20JsonRpcProcedure**(`client`): [`AnvilDealErc20Procedure`](../type-aliases/AnvilDealErc20Procedure.md)
 
-Defined in: packages/actions/types/anvil/anvilDealErc20Procedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilDealErc20Procedure.d.ts:1
 
 ## Parameters
 

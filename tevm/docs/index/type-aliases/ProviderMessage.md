@@ -8,7 +8,7 @@
 
 > **ProviderMessage** = `object`
 
-Defined in: packages/node/dist/index.d.ts:233
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:227
 
 ## Properties
 
@@ -16,7 +16,7 @@ Defined in: packages/node/dist/index.d.ts:233
 
 > **data**: `unknown`
 
-Defined in: packages/node/dist/index.d.ts:235
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:229
 
 ***
 
@@ -24,4 +24,4 @@ Defined in: packages/node/dist/index.d.ts:235
 
 > **type**: `string`
 
-Defined in: packages/node/dist/index.d.ts:234
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:228

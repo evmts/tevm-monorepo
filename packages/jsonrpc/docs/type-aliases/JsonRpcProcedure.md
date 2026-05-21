@@ -4,7 +4,7 @@
 
 [@tevm/jsonrpc](../globals.md) / JsonRpcProcedure
 
-# Type Alias: JsonRpcProcedure()\<TMethod, TParams, TResult, TErrorCode\>
+# Type Alias: JsonRpcProcedure\<TMethod, TParams, TResult, TErrorCode\>
 
 > **JsonRpcProcedure**\<`TMethod`, `TParams`, `TResult`, `TErrorCode`\> = (`request`) => `Promise`\<[`JsonRpcResponse`](JsonRpcResponse.md)\<`TMethod`, `TResult`, `TErrorCode`\>\>
 

@@ -8,7 +8,7 @@
 
 > **hexToBool**(`hex_`, `opts?`): `boolean`
 
-Defined in: node\_modules/.pnpm/viem@2.37.9\_bufferutil@4.0.9\_typescript@5.9.3\_utf-8-validate@5.0.10\_zod@4.1.11/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:99
+Defined in: tevm-monorepo/node\_modules/.pnpm/viem@2.49.3\_bufferutil@4.1.0\_typescript@6.0.3\_utf-8-validate@5.0.10\_zod@4.4.3/node\_modules/viem/\_types/utils/encoding/fromHex.d.ts:99
 
 Decodes a hex value into a boolean.
 

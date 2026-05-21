@@ -41,7 +41,7 @@ describe(createStateManager.name, () => {
 
 	it('should allow deep copying a state manager', async () => {
 		const stateManager = createStateManager({})
-		const address = createAddress('0x1')
+		const address = createAddress(`0x${'01'.repeat(20)}`)
 		const account = createAccount({ balance: 100n })
 
 		// Setup original state
@@ -64,7 +64,7 @@ describe(createStateManager.name, () => {
 
 	it('should allow shallow copying a state manager', async () => {
 		const stateManager = createStateManager({})
-		const address = createAddress('0x1')
+		const address = createAddress(`0x${'01'.repeat(20)}`)
 		const account = createAccount({ balance: 100n })
 
 		// Setup original state

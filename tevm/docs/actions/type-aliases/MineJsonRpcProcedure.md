@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / MineJsonRpcProcedure
 
-# Type Alias: MineJsonRpcProcedure()
+# Type Alias: MineJsonRpcProcedure
 
 > **MineJsonRpcProcedure** = (`request`) => `Promise`\<[`MineJsonRpcResponse`](MineJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/Mine/MineJsonRpcProcedure.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/Mine/MineJsonRpcProcedure.d.ts:6
 
 Mine JSON-RPC tevm procedure mines 1 or more blocks
 

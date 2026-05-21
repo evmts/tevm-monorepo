@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthBlobBaseFeeJsonRpcProcedure
 
-# Type Alias: EthBlobBaseFeeJsonRpcProcedure()
+# Type Alias: EthBlobBaseFeeJsonRpcProcedure
 
 > **EthBlobBaseFeeJsonRpcProcedure** = (`request`) => `Promise`\<[`EthBlobBaseFeeJsonRpcResponse`](EthBlobBaseFeeJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/eth/EthProcedure.d.ts:4
+Defined in: tevm-monorepo/packages/actions/types/eth/EthProcedure.d.ts:4
 
 ## Parameters
 

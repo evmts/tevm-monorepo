@@ -22,9 +22,7 @@
 
 # @tevm/rlp
 
-ethereumjs rlp wrapper.
-
-Some files are adapted from [ethereumjs](https://github.com/ethereumjs/ethereumjs-monorepo) and are thus licensed under [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
+Zevm-backed RLP utilities.
 
 ## Visit [Docs](https://tevm.sh/) for docs, guides, API and more!
 

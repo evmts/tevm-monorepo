@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / DebugGetModifiedAccountsByHashHandler
 
-# Type Alias: DebugGetModifiedAccountsByHashHandler()
+# Type Alias: DebugGetModifiedAccountsByHashHandler
 
 > **DebugGetModifiedAccountsByHashHandler** = (`params`) => `Promise`\<[`DebugGetModifiedAccountsByHashResult`](DebugGetModifiedAccountsByHashResult.md)\>
 
-Defined in: packages/actions/types/debug/DebugHandler.d.ts:10
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugHandler.d.ts:10
 
 ## Parameters
 

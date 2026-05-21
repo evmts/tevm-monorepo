@@ -16,7 +16,7 @@ JSON-RPC response call result for eth_simulateV1
 
 ### error?
 
-> `optional` **error**: `object`
+> `optional` **error?**: `object`
 
 Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:460](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthJsonRpcResponse.ts#L460)
 
@@ -26,7 +26,7 @@ Defined in: [packages/actions/src/eth/EthJsonRpcResponse.ts:460](https://github.
 
 #### data?
 
-> `optional` **data**: `Hex`
+> `optional` **data?**: `Hex`
 
 #### message
 

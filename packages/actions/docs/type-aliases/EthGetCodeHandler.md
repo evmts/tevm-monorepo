@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetCodeHandler
 
-# Type Alias: EthGetCodeHandler()
+# Type Alias: EthGetCodeHandler
 
 > **EthGetCodeHandler** = (`request`) => `Promise`\<[`EthGetCodeResult`](EthGetCodeResult.md)\>
 

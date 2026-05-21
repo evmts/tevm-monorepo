@@ -8,4 +8,4 @@
 
 > **remappings**: `object`
 
-Defined in: bundler-packages/config/types/config/withDefaults.d.ts:4
+Defined in: tevm-monorepo/bundler-packages/config/types/config/withDefaults.d.ts:4

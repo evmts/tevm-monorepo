@@ -4,11 +4,11 @@
 
 [tevm](../../../modules.md) / [bundler/rspack-plugin](../README.md) / rspackPluginTevm
 
-# Variable: rspackPluginTevm()
+# Variable: rspackPluginTevm
 
 > `const` **rspackPluginTevm**: (`options?`) => `RspackPluginInstance`
 
-Defined in: bundler-packages/rspack/types/rspackPluginTevm.d.ts:140
+Defined in: tevm-monorepo/bundler-packages/rspack/types/rspackPluginTevm.d.ts:140
 
 Creates an Rspack plugin for Tevm that enables direct Solidity imports in JavaScript
 and TypeScript code.

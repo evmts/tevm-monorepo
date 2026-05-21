@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [predeploys](../README.md) / DefinePredeployFn
 
-# Type Alias: DefinePredeployFn()
+# Type Alias: DefinePredeployFn
 
 > **DefinePredeployFn** = \<`TName`, `THumanReadableAbi`\>(`contract`) => [`Predeploy`](../../index/type-aliases/Predeploy.md)\<`TName`, `THumanReadableAbi`\>
 
-Defined in: packages/predeploys/types/DefinePredeployFn.d.ts:27
+Defined in: tevm-monorepo/packages/predeploys/types/DefinePredeployFn.d.ts:27
 
 Defines a predeploy contract to use in the tevm vm
 

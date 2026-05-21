@@ -6,7 +6,7 @@
 
 # Interface: EIP4844BlobTxReceipt
 
-Defined in: [ReceiptManager.ts:67](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L67)
+Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:72](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L72)
 
 Receipt type for EIP-4844 blob transactions
 Extends the post-Byzantium receipt with additional blob gas fields
@@ -21,7 +21,7 @@ Extends the post-Byzantium receipt with additional blob gas fields
 
 > **bitvector**: `Uint8Array`
 
-Defined in: [ReceiptManager.ts:28](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L28)
+Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:33](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L33)
 
 Bloom filter bitvector containing indexed log data
 Used for efficient searching of logs in the blockchain
@@ -36,7 +36,7 @@ Used for efficient searching of logs in the blockchain
 
 > **blobGasPrice**: `bigint`
 
-Defined in: [ReceiptManager.ts:82](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L82)
+Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:87](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L87)
 
 Price of blob gas for the block the transaction was included in
 
@@ -49,7 +49,7 @@ and is only provided as part of receipt metadata.
 
 > **blobGasUsed**: `bigint`
 
-Defined in: [ReceiptManager.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L74)
+Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:79](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L79)
 
 Amount of blob gas consumed by the transaction
 
@@ -62,7 +62,7 @@ and is only provided as part of receipt metadata.
 
 > **cumulativeBlockGasUsed**: `bigint`
 
-Defined in: [ReceiptManager.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L22)
+Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:27](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L27)
 
 Cumulative gas used in the block including this transaction
 Represented as a bigint to handle large gas values accurately
@@ -75,9 +75,9 @@ Represented as a bigint to handle large gas values accurately
 
 ### logs
 
-> **logs**: `Log`[]
+> **logs**: `ReceiptLog`[]
 
-Defined in: [ReceiptManager.ts:34](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L34)
+Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L39)
 
 Array of logs emitted during transaction execution
 Each log contains address, topics, and data fields
@@ -92,7 +92,7 @@ Each log contains address, topics, and data fields
 
 > **status**: `0` \| `1`
 
-Defined in: [ReceiptManager.ts:48](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L48)
+Defined in: [tevm-monorepo/packages/receipt-manager/src/ReceiptManager.ts:53](https://github.com/evmts/tevm-monorepo/blob/main/packages/receipt-manager/src/ReceiptManager.ts#L53)
 
 Status of transaction execution
 - `1` if successful

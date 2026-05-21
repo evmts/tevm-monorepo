@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [vm](../README.md) / RunTx
 
-# Type Alias: RunTx()
+# Type Alias: RunTx
 
 > **RunTx** = (`opts`) => `Promise`\<[`RunTxResult`](../interfaces/RunTxResult.md)\>
 
-Defined in: packages/vm/types/actions/runTx.d.ts:3
+Defined in: tevm-monorepo/packages/vm/types/actions/runTx.d.ts:3
 
 ## Parameters
 

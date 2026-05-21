@@ -8,7 +8,7 @@
 
 > **anvilAutoImpersonateAccountJsonRpcProcedure**(`client`): [`AnvilAutoImpersonateAccountProcedure`](../type-aliases/AnvilAutoImpersonateAccountProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilAutoImpersonateAccountProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilAutoImpersonateAccountProcedure.d.ts:1
 
 ## Parameters
 

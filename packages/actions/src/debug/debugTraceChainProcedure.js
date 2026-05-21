@@ -1,5 +1,5 @@
+import { createImpersonatedTx } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
-import { createImpersonatedTx } from '@tevm/tx'
 import { bytesToHex } from '@tevm/utils'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
 import { serializeTraceResult } from '../internal/serializeTraceResult.js'
@@ -152,9 +152,19 @@ export const debugTraceChainJsonRpcProcedure = (client) => {
 
 				const impersonatedTx = createImpersonatedTx(
 					{
-						...blockTx,
-						gasPrice: null,
+						nonce: blockTx.nonce,
+						gasLimit: blockTx.gasLimit,
+						value: blockTx.value,
+						data: blockTx.data,
 						impersonatedAddress: createAddress(blockTx.getSenderAddress()),
+						...(blockTx.to !== undefined ? { to: blockTx.to } : {}),
+						...('accessList' in blockTx && blockTx.accessList !== undefined ? { accessList: blockTx.accessList } : {}),
+						...('maxFeePerGas' in blockTx
+							? { maxFeePerGas: blockTx.maxFeePerGas }
+							: 'gasPrice' in blockTx
+								? { maxFeePerGas: blockTx.gasPrice }
+								: {}),
+						...('maxPriorityFeePerGas' in blockTx ? { maxPriorityFeePerGas: blockTx.maxPriorityFeePerGas } : {}),
 					},
 					{
 						freeze: false,
@@ -168,7 +178,6 @@ export const debugTraceChainJsonRpcProcedure = (client) => {
 				const traceResult = await traceCallHandler({ ...client, getVm: () => Promise.resolve(vmClone) })({
 					tracer,
 					from: impersonatedTx.getSenderAddress().toString(),
-					blockTag: bytesToHex(block.header.hash()),
 					...(txParams.to !== undefined ? { to: txParams.to } : {}),
 					...(txParams.gasLimit !== undefined ? { gas: BigInt(txParams.gasLimit) } : {}),
 					...(txParams.gasPrice !== undefined ? { gasPrice: BigInt(txParams.gasPrice) } : {}),

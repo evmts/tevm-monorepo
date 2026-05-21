@@ -1,18 +1,18 @@
+import type { TypedTransaction } from '@evmts/zevm/tx'
 import type { Block } from '@tevm/block'
 import type { StateManager } from '@tevm/state'
-import type { TypedTransaction } from '@tevm/tx'
 
 /**
  * Options for the `runTx` method.
  */
 export interface RunTxOpts {
 	/**
-	 * The `@ethereumjs/block` the `tx` belongs to.
+	 * The block the transaction belongs to.
 	 * If omitted, a default blank block will be used.
 	 */
 	block?: Block
 	/**
-	 * An `@ethereumjs/tx` to run
+	 * The transaction to run.
 	 */
 	tx: TypedTransaction
 	/**

@@ -1,5 +1,7 @@
-import { createMapDb } from '@tevm/receipt-manager'
-import { bytesToHex } from 'viem'
+import { createMapDb } from '@evmts/zevm/receipt-manager'
+import { hexToBigInt } from '@tevm/utils'
+import { resetForkState } from '../internal/resetForkState.js'
+import { captureSnapshotMetadata, clearTxPool, restoreSnapshotState } from '../internal/snapshotMetadata.js'
 
 /**
  * Request handler for anvil_reset JSON-RPC requests.
@@ -13,7 +15,31 @@ import { bytesToHex } from 'viem'
  * console.log(result) // { result: null, method: 'anvil_reset', jsonrpc: '2.0', id: 1 }
  */
 export const anvilResetJsonRpcProcedure = (node) => {
+	const initialSnapshotPromise = node.getVm().then(async (vm) => ({
+		stateRoot: vm.stateManager._baseState.getCurrentStateRoot(),
+		state: await vm.stateManager.dumpCanonicalGenesis(),
+		...(await captureSnapshotMetadata(node, vm)),
+	}))
 	return async (request) => {
+		const resetParams = /** @type {any} */ (request.params?.[0])
+		const newForkUrl = resetParams?.forking?.jsonRpcUrl
+		const newForkBlockNumber = resetParams?.forking?.blockNumber
+		if (newForkUrl !== undefined) {
+			if (!node.forkTransport || !('url' in node.forkTransport)) {
+				return {
+					jsonrpc: '2.0',
+					method: request.method,
+					error: {
+						code: /** @type {const} */ ('-32602'),
+						message: 'Cannot update fork URL on a non-forked node.',
+					},
+					...(request.id !== undefined ? { id: request.id } : {}),
+				}
+			}
+			/** @type {any} */
+			node.forkTransport.url = newForkUrl
+		}
+
 		// reset filters
 		const filters = node.getFilters()
 		filters.forEach((/** @type {any} */ filter) => {
@@ -22,25 +48,20 @@ export const anvilResetJsonRpcProcedure = (node) => {
 
 		// reset impersonated account
 		node.setImpersonatedAccount(undefined)
-
-		// TODO we should add a txPool.reset() method
-		const txPool = await node.getTxPool()
-		const txs = await txPool.txsByPriceAndNonce()
-		txs.forEach((/** @type {any} */ tx) => {
-			txPool.removeByHash(bytesToHex(tx.hash()))
-		})
-
-		const vm = await node.getVm()
-		const newStateManager = vm.stateManager.shallowCopy()
-		const newBlockchain = vm.blockchain.shallowCopy()
-		const forkedBlock = vm.blockchain.blocksByTag.get('forked')
-		if (forkedBlock) {
-			await newBlockchain.putBlock(forkedBlock)
+		node.setAutoImpersonate(false)
+		const resetBlockTag =
+			newForkBlockNumber !== undefined
+				? hexToBigInt(/** @type {import('@tevm/utils').Hex} */ (newForkBlockNumber))
+				: newForkUrl !== undefined
+					? 'latest'
+					: undefined
+		const forkReset = await resetForkState(node, resetBlockTag)
+		const vm = forkReset?.vm ?? (await node.getVm())
+		if (!forkReset) {
+			await restoreSnapshotState(node, await initialSnapshotPromise, vm)
+		} else {
+			await clearTxPool(await node.getTxPool())
 		}
-		vm.stateManager = /** @type {any}*/ (newStateManager)
-		vm.evm.stateManager = /** @type {any}*/ (newStateManager)
-		vm.blockchain = newBlockchain
-		vm.evm.blockchain = newBlockchain
 
 		// reset receipts manager
 		/**
@@ -49,13 +70,14 @@ export const anvilResetJsonRpcProcedure = (node) => {
 		const receiptManager = await node.getReceiptsManager()
 		// TODO we should add a receiptManager.reset() method
 		receiptManager.mapDb = createMapDb({ cache: new Map() })
-		receiptManager.chain = newBlockchain
+		receiptManager.chain = vm.blockchain
+		node.getSnapshots().clear()
 
 		return {
 			result: null,
 			method: request.method,
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

@@ -14,8 +14,8 @@ Defined in: [solcTypes.ts:13](https://github.com/evmts/tevm-monorepo/blob/main/b
 
 ### ast?
 
-> `optional` **ast**: `SolcAst`
+> `optional` **ast?**: `SolcAst`
 
 ### keccak256?
 
-> `optional` **keccak256**: `HexNumber`
+> `optional` **keccak256?**: `HexNumber`

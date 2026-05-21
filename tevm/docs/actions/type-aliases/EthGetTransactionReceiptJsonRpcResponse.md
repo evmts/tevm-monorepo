@@ -8,6 +8,6 @@
 
 > **EthGetTransactionReceiptJsonRpcResponse** = [`JsonRpcResponse`](../../index/type-aliases/JsonRpcResponse.md)\<`"eth_getTransactionReceipt"`, `SerializeToJson`\<[`TransactionReceiptResult`](TransactionReceiptResult.md)\> \| `null`, `string` \| `number`\>
 
-Defined in: packages/actions/types/eth/EthJsonRpcResponse.d.ts:141
+Defined in: tevm-monorepo/packages/actions/types/eth/EthJsonRpcResponse.d.ts:141
 
 JSON-RPC response for `eth_getTransactionReceipt` procedure

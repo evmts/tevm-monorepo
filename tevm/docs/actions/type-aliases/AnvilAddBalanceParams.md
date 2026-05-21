@@ -8,7 +8,7 @@
 
 > **AnvilAddBalanceParams** = `object`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:238
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:238
 
 Params for `anvil_addBalance` handler
 
@@ -18,7 +18,7 @@ Params for `anvil_addBalance` handler
 
 > `readonly` **address**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:242
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:242
 
 The address to add balance to
 
@@ -28,6 +28,6 @@ The address to add balance to
 
 > `readonly` **amount**: [`Hex`](Hex.md) \| `BigInt`
 
-Defined in: packages/actions/types/anvil/AnvilParams.d.ts:246
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilParams.d.ts:246
 
 The amount to add to the balance

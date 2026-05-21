@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilSetAutomineProcedure
 
-# Type Alias: AnvilSetAutomineProcedure()
+# Type Alias: AnvilSetAutomineProcedure
 
 > **AnvilSetAutomineProcedure** = (`request`) => `Promise`\<[`AnvilSetAutomineJsonRpcResponse`](AnvilSetAutomineJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:23
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:23
 
 JSON-RPC procedure for `anvil_setAutomine`
 

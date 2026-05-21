@@ -17,8 +17,8 @@ describe('ethSendTransactionJsonRpcProcedure', () => {
 	})
 
 	it('should handle a simple transaction request', async () => {
-		const from = createAddress('0x1234')
-		const to = createAddress('0x5678')
+		const from = createAddress('0x0000000000000000000000000000000000001234')
+		const to = createAddress('0x0000000000000000000000000000000000005678')
 		const value = parseEther('1')
 
 		// Set up the sender's account

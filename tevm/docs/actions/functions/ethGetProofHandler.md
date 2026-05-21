@@ -8,7 +8,7 @@
 
 > **ethGetProofHandler**(`client`): [`EthGetProofHandler`](../type-aliases/EthGetProofHandler.md)
 
-Defined in: packages/actions/types/eth/ethGetProofHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethGetProofHandler.d.ts:1
 
 ## Parameters
 

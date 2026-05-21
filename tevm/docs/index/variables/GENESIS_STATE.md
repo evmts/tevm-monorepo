@@ -8,4 +8,4 @@
 
 > `const` **GENESIS\_STATE**: [`TevmState`](../type-aliases/TevmState.md)
 
-Defined in: packages/node/dist/index.d.ts:603
+Defined in: tevm-monorepo/packages/node/dist/index.d.ts:597

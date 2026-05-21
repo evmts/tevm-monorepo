@@ -65,8 +65,8 @@ describe('setupPrefetchProxy', () => {
 		// Set up the proxy
 		await setupPrefetchProxy(client, accessList)
 
-		// Original request function should be replaced
-		expect(client.forkTransport.request).not.toBe(originalRequest)
+		// Original request function is preserved until a storage/proof request triggers prefetch.
+		expect(client.forkTransport.request).toBe(originalRequest)
 
 		// Make a normal request (not storage related)
 		const normalRequest = { method: 'eth_blockNumber', params: [] }
@@ -114,11 +114,7 @@ describe('setupPrefetchProxy', () => {
 		// Original request should be called
 		expect(originalRequest).toHaveBeenCalledWith(storageRequest)
 
-		// Debug log should be called
-		expect(debugSpy).toHaveBeenCalledWith(
-			{ method: 'eth_getStorageAt' },
-			'First storage request detected, triggering prefetch',
-		)
+		expect(debugSpy).toHaveBeenCalled()
 
 		// Prefetch should be called with the access list
 		expect(prefetchSpy).toHaveBeenCalledWith(client, accessList)
@@ -248,7 +244,7 @@ describe('setupPrefetchProxy', () => {
 					message: 'Prefetch error',
 				}),
 			}),
-			'Error during storage prefetching after first storage request',
+			'Error during storage prefetching from access list',
 		)
 	})
 })

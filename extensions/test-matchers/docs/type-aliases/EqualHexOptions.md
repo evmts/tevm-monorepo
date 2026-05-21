@@ -14,7 +14,7 @@ Defined in: [extensions/test-matchers/src/matchers/utils/toEqualHex.ts:4](https:
 
 ### exact?
 
-> `optional` **exact**: `boolean`
+> `optional` **exact?**: `boolean`
 
 Defined in: [extensions/test-matchers/src/matchers/utils/toEqualHex.ts:11](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-matchers/src/matchers/utils/toEqualHex.ts#L11)
 

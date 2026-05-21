@@ -28,7 +28,7 @@ Returns a block by its hash or number.
 
 #### blockId
 
-`number` | `bigint` | `Uint8Array`\<`ArrayBufferLike`\>
+`number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
 ### Returns
 

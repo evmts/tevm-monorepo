@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilSetRpcUrlHandler
 
-# Type Alias: AnvilSetRpcUrlHandler()
+# Type Alias: AnvilSetRpcUrlHandler
 
 > **AnvilSetRpcUrlHandler** = (`params`) => `Promise`\<[`AnvilSetRpcUrlResult`](AnvilSetRpcUrlResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:21
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:21
 
 ## Parameters
 

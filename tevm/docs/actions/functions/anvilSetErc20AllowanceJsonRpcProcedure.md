@@ -8,7 +8,7 @@
 
 > **anvilSetErc20AllowanceJsonRpcProcedure**(`client`): [`AnvilSetErc20AllowanceProcedure`](../type-aliases/AnvilSetErc20AllowanceProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilSetErc20AllowanceProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilSetErc20AllowanceProcedure.d.ts:1
 
 ## Parameters
 

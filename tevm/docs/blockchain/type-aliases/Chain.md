@@ -8,7 +8,7 @@
 
 > **Chain** = `object` & `BaseChain` & `object`
 
-Defined in: packages/blockchain/types/Chain.d.ts:14
+Defined in: tevm-monorepo/packages/blockchain/types/Chain.d.ts:28
 
 Blockchain
 
@@ -18,7 +18,7 @@ Blockchain
 
 > **consensus**: `Consensus`
 
-### deepCopy()
+### deepCopy
 
 > **deepCopy**: () => `Promise`\<`Chain`\>
 
@@ -28,11 +28,11 @@ Blockchain
 
 ### events?
 
-> `optional` **events**: [`AsyncEventEmitter`](../../utils/type-aliases/AsyncEventEmitter.md)\<`BlockchainEvent`\>
+> `optional` **events?**: [`AsyncEventEmitter`](../../utils/type-aliases/AsyncEventEmitter.md)\<`BlockchainEvent`\>
 
 Optional events emitter
 
-### shallowCopy()
+### shallowCopy
 
 > **shallowCopy**: () => `Chain`
 
@@ -71,7 +71,7 @@ Returns a block by its hash or number.
 
 ##### blockId
 
-`number` | `bigint` | `Uint8Array`\<`ArrayBufferLike`\>
+`number` \| `bigint` \| `Uint8Array`\<`ArrayBufferLike`\>
 
 #### Returns
 
@@ -94,7 +94,7 @@ Gets block given one of the following inputs:
 
 ##### blockTag
 
-`number` | `bigint` | `` `0x${string}` `` | `Uint8Array`\<`ArrayBufferLike`\> | [`BlockTag`](../../index/type-aliases/BlockTag.md)
+`number` \| `bigint` \| `` `0x${string}` `` \| `Uint8Array`\<`ArrayBufferLike`\> \| [`BlockTag`](../../index/type-aliases/BlockTag.md)
 
 #### Returns
 

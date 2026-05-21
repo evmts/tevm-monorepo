@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / EthSimulateV2Handler
 
-# Type Alias: EthSimulateV2Handler()
+# Type Alias: EthSimulateV2Handler
 
 > **EthSimulateV2Handler** = (`request`) => `Promise`\<[`EthSimulateV2Result`](EthSimulateV2Result.md)\>
 
-Defined in: packages/actions/types/eth/EthHandler.d.ts:48
+Defined in: tevm-monorepo/packages/actions/types/eth/EthHandler.d.ts:48
 
 ## Parameters
 

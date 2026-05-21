@@ -1,4 +1,5 @@
 import type { JsonHeader } from '@tevm/block'
+import type { ConsensusService } from '@tevm/consensus'
 import type { Logger } from '@tevm/logger'
 import type { ReceiptsManager } from '@tevm/receipt-manager'
 import type { TevmState } from '@tevm/state'
@@ -7,8 +8,36 @@ import type { Address, Hex } from '@tevm/utils'
 import type { Vm } from '@tevm/vm'
 import type { EIP1193RequestFn } from 'viem'
 import type { EIP1193EventEmitter } from './EIP1193EventEmitterTypes.js'
+import type { ExExEvent, ExExHook } from './ExEx.js'
 import type { Filter } from './Filter.js'
+import type { LightSyncStatus } from './lightSync.js'
 import type { MiningConfig } from './MiningConfig.js'
+
+export type SnapshotMetadata = {
+	miningConfig?: MiningConfig
+	version?: number
+	nextBlockTimestamp?: bigint
+	blockTimestampInterval?: bigint
+	nextBlockGasLimit?: bigint
+	nextBlockBaseFeePerGas?: bigint
+	nextBlockPrevRandao?: bigint
+	minGasPrice?: bigint
+	impersonatedAccount?: Address
+	autoImpersonate?: boolean
+	txHashes?: readonly Hex[]
+	txPoolTransactions?: readonly unknown[]
+	receiptEntries?: readonly (readonly [unknown, unknown])[]
+	blockchain?: {
+		readonly blocks: readonly (readonly [unknown, unknown])[]
+		readonly blocksByNumber: readonly (readonly [unknown, unknown])[]
+		readonly blocksByTag: readonly (readonly [unknown, unknown])[]
+	}
+}
+
+export type TevmSnapshot = SnapshotMetadata & {
+	readonly stateRoot: string
+	readonly state: TevmState
+}
 
 /**
  * The base client used by Tevm. Add extensions to add additional functionality
@@ -22,6 +51,10 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 * Interface for querying receipts and historical state
 	 */
 	readonly getReceiptsManager: () => Promise<ReceiptsManager>
+	/**
+	 * Consensus service used for trust assumptions and proof-backed reads.
+	 */
+	readonly consensus: ConsensusService
 	/**
 	 * The configuration for mining. Defaults to 'auto'
 	 * - 'auto' will mine a block on every transaction
@@ -139,6 +172,16 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 */
 	readonly setNextBlockBaseFeePerGas: (baseFeePerGas: bigint | undefined) => void
 	/**
+	 * Gets the prevRandao to use for the next block
+	 * If undefined, the parent block's mixHash will be used
+	 */
+	readonly getNextBlockPrevRandao: () => bigint | undefined
+	/**
+	 * Sets the prevRandao for the next block.
+	 * This only affects the immediate next block, then is cleared.
+	 */
+	readonly setNextBlockPrevRandao: (prevRandao: bigint | undefined) => void
+	/**
 	 * Gets the minimum gas price for transactions
 	 * If undefined, no minimum gas price is enforced
 	 */
@@ -164,17 +207,17 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	/**
 	 * Gets all stored snapshots for evm_snapshot/evm_revert
 	 */
-	readonly getSnapshots: () => Map<string, { stateRoot: string; state: TevmState }>
+	readonly getSnapshots: () => Map<string, TevmSnapshot>
 	/**
 	 * Adds a new snapshot and returns its ID (hex string like "0x1")
 	 * Used by evm_snapshot RPC method
 	 */
-	readonly addSnapshot: (stateRoot: string, state: TevmState) => string
+	readonly addSnapshot: (stateRoot: string, state: TevmState, metadata?: SnapshotMetadata) => string
 	/**
 	 * Gets a snapshot by ID
 	 * Used by evm_revert RPC method
 	 */
-	readonly getSnapshot: (snapshotId: string) => { stateRoot: string; state: TevmState } | undefined
+	readonly getSnapshot: (snapshotId: string) => TevmSnapshot | undefined
 	/**
 	 * Deletes snapshots with IDs greater than or equal to the given ID
 	 * This is needed because reverting invalidates all subsequent snapshots
@@ -207,10 +250,13 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 * - MINING: The client is mining a block
 	 */
 	status: 'INITIALIZING' | 'READY' | 'SYNCING' | 'MINING' | 'STOPPED'
+	readonly getLightSyncStatus: () => Readonly<LightSyncStatus>
 	/**
 	 * Copies the current client state into a new client
 	 */
 	readonly deepCopy: () => Promise<TevmNode<TMode, TExtended>>
+	readonly registerExExHook: (hook: ExExHook) => () => void
+	readonly emitExExEvent: (event: ExExEvent) => Promise<void>
 	/**
 	 * Returns debug information about the current node state
 	 * including chain details, status, mode, mining config, filters,

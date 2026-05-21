@@ -128,19 +128,16 @@ export default function ReadContract({ options }: Props) {
 
 		// Create params for readContract
 		createParams: (enhancedOptions: Record<string, any>): ReadContractParams => {
-			// Parse ABI from string
 			let abi
 			try {
 				abi =
 					typeof (enhancedOptions as any).abi === 'string'
 						? JSON.parse((enhancedOptions as any).abi)
 						: (enhancedOptions as any).abi || fallbackERC20Abi
-			} catch (_e) {
-				console.warn('Failed to parse ABI, using fallback ERC20 ABI')
-				abi = fallbackERC20Abi
+			} catch (e) {
+				throw new Error(`Invalid ABI JSON: ${(e as Error).message}`)
 			}
 
-			// Parse arguments if provided
 			let args = []
 			if ((enhancedOptions as any).args) {
 				try {
@@ -154,7 +151,7 @@ export default function ReadContract({ options }: Props) {
 						args = [args]
 					}
 				} catch (e) {
-					console.warn(`Invalid arguments format: ${(e as any).message}`)
+					throw new Error(`Invalid arguments JSON: ${(e as Error).message}`)
 				}
 			}
 

@@ -6,7 +6,7 @@
 
 # Interface: EIP4844BlobTxReceipt
 
-Defined in: packages/vm/types/utils/EIP4844BlobTxReceipt.d.ts:19
+Defined in: tevm-monorepo/packages/vm/types/utils/EIP4844BlobTxReceipt.d.ts:19
 
 Transaction receipt format for EIP-4844 blob transactions.
 Extends PostByzantiumTxReceipt with additional blob gas information.
@@ -36,7 +36,7 @@ const receipt: EIP4844BlobTxReceipt = {
 
 > **bitvector**: `Uint8Array`
 
-Defined in: packages/vm/types/utils/BaseTxReceipt.d.ts:13
+Defined in: tevm-monorepo/packages/vm/types/utils/BaseTxReceipt.d.ts:13
 
 Bloom bitvector
 
@@ -50,7 +50,7 @@ Bloom bitvector
 
 > **blobGasPrice**: `bigint`
 
-Defined in: packages/vm/types/utils/EIP4844BlobTxReceipt.d.ts:33
+Defined in: tevm-monorepo/packages/vm/types/utils/EIP4844BlobTxReceipt.d.ts:33
 
 blob gas price for block transaction was included in
 
@@ -63,7 +63,7 @@ and is only provided as part of receipt metadata.
 
 > **blobGasUsed**: `bigint`
 
-Defined in: packages/vm/types/utils/EIP4844BlobTxReceipt.d.ts:26
+Defined in: tevm-monorepo/packages/vm/types/utils/EIP4844BlobTxReceipt.d.ts:26
 
 blob gas consumed by a transaction
 
@@ -76,7 +76,7 @@ and is only provided as part of receipt metadata.
 
 > **cumulativeBlockGasUsed**: `bigint`
 
-Defined in: packages/vm/types/utils/BaseTxReceipt.d.ts:9
+Defined in: tevm-monorepo/packages/vm/types/utils/BaseTxReceipt.d.ts:9
 
 Cumulative gas used in the block including this tx
 
@@ -88,9 +88,9 @@ Cumulative gas used in the block including this tx
 
 ### logs
 
-> **logs**: [`Log`](../../evm/type-aliases/Log.md)[]
+> **logs**: [`EthjsLog`](../../utils/type-aliases/EthjsLog.md)[]
 
-Defined in: packages/vm/types/utils/BaseTxReceipt.d.ts:17
+Defined in: tevm-monorepo/packages/vm/types/utils/BaseTxReceipt.d.ts:17
 
 Logs emitted
 
@@ -104,7 +104,7 @@ Logs emitted
 
 > **status**: `0` \| `1`
 
-Defined in: packages/vm/types/utils/PostByzantiumTxReceipt.d.ts:10
+Defined in: tevm-monorepo/packages/vm/types/utils/PostByzantiumTxReceipt.d.ts:10
 
 Status of transaction, `1` if successful, `0` if an exception occurred
 

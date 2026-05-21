@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / ContractHandler
 
-# Type Alias: ContractHandler()
+# Type Alias: ContractHandler
 
 > **ContractHandler** = \<`TAbi`, `TFunctionName`\>(`action`) => `Promise`\<[`ContractResult`](ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 

@@ -8,7 +8,7 @@
 
 > **SolcStorageLayoutItem**\<`T`\> = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:162
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:162
 
 An item present in the contract's storage
 
@@ -28,7 +28,7 @@ An item present in the contract's storage
 
 > **astId**: `number`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:166
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:166
 
 The id of the AST node of the state variable's declaration
 
@@ -38,7 +38,7 @@ The id of the AST node of the state variable's declaration
 
 > **contract**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:170
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:170
 
 The name of the contract including its path as prefix
 
@@ -48,7 +48,7 @@ The name of the contract including its path as prefix
 
 > **label**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:174
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:174
 
 The name of the state variable
 
@@ -58,7 +58,7 @@ The name of the state variable
 
 > **offset**: `number`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:178
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:178
 
 The offset in bytes within the storage slot according to the encoding
 
@@ -68,7 +68,7 @@ The offset in bytes within the storage slot according to the encoding
 
 > **slot**: `string`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:182
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:182
 
 The storage slot where the state variable resides or starts
 
@@ -78,6 +78,6 @@ The storage slot where the state variable resides or starts
 
 > **type**: keyof `T`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:186
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:186
 
 The identifier used as a key to the variable's type information in the [SolcStorageLayoutTypes](SolcStorageLayoutTypes.md) record

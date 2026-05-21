@@ -1,6 +1,7 @@
 // @ts-nocheck - Disable type checking for this test file
 import { describe, expect, it, mock } from 'bun:test'
 import { Block } from '@tevm/block'
+import { InvalidParamsError } from '@tevm/errors'
 import type { BaseVm } from '../BaseVm.js'
 import type { RunBlockOpts } from '../utils/index.js'
 import { runBlock } from './runBlock.js'
@@ -22,10 +23,12 @@ const mockApplyBlockResult = {
 	preimages: new Map(),
 }
 
+let applyBlockImpl = () => Promise.resolve(mockApplyBlockResult)
+
 // Mock the applyBlock dependency
 mock('./applyBlock.js', {
 	applyBlock: mock().mockImplementation(() => {
-		return () => Promise.resolve(mockApplyBlockResult)
+		return () => applyBlockImpl()
 	}),
 })
 
@@ -167,11 +170,7 @@ describe('runBlock', () => {
 	it('should revert on error and rethrow', async () => {
 		// Create a separate mock for applyBlock that throws
 		const mockApplyBlockError = new Error('Apply block failed')
-		mock('./applyBlock.js', {
-			applyBlock: mock().mockImplementation(() => {
-				return () => Promise.reject(mockApplyBlockError)
-			}),
-		})
+		applyBlockImpl = () => Promise.reject(mockApplyBlockError)
 
 		const stateManager = {
 			setStateRoot: mock().mockResolvedValue(undefined),
@@ -207,6 +206,11 @@ describe('runBlock', () => {
 				gasUsed: 100n,
 				stateRoot: new Uint8Array(32),
 			},
+			common: {
+				ethjsCommon: {
+					isActivatedEIP: mock().mockReturnValue(false),
+				},
+			},
 			transactions: [],
 			uncleHeaders: [],
 		} as unknown as Block
@@ -220,7 +224,54 @@ describe('runBlock', () => {
 			// The error message depends on the implementation, so we only check that an error was thrown
 			expect(error).toBeTruthy()
 			expect(journalRevert).toHaveBeenCalled()
+		} finally {
+			applyBlockImpl = () => Promise.resolve(mockApplyBlockResult)
 		}
+	})
+
+	it('should reject EIP-6800 Verkle execution as unsupported', async () => {
+		const stateManager = {
+			setStateRoot: mock().mockResolvedValue(undefined),
+			getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
+		}
+		const vm = {
+			stateManager,
+			evm: {
+				journal: {
+					checkpoint: mock().mockResolvedValue(undefined),
+					revert: mock().mockResolvedValue(undefined),
+				},
+			},
+			_emit: mock().mockResolvedValue(undefined),
+			common: {
+				ethjsCommon: {
+					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
+					isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
+				},
+			},
+			ready: mock().mockResolvedValue(undefined),
+		} as unknown as BaseVm
+		const block = {
+			header: {
+				number: 10n,
+				receiptTrie: new Uint8Array(32),
+				logsBloom: new Uint8Array(256),
+				gasUsed: 100n,
+				stateRoot: new Uint8Array(32),
+			},
+			executionWitness: { stateDiff: [], verkleProof: {} as any },
+			common: {
+				ethjsCommon: {
+					isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
+				},
+			},
+			transactions: [],
+			uncleHeaders: [],
+		} as unknown as Block
+		const runBlockFunction = runBlock(vm)
+		const promise = runBlockFunction({ block, generate: false } as RunBlockOpts)
+		await expect(promise).rejects.toThrow(InvalidParamsError)
+		await expect(promise).rejects.toThrow('Verkle/state-witness')
 	})
 
 	it.skip('should handle skipBlockValidation option', async () => {

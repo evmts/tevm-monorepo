@@ -52,29 +52,49 @@ export const ethNewFilterHandler = (tevmNode) => {
 		const id = generateRandomId()
 		/**
 		 * The newLog event emits raw EthjsLog which is a tuple: [address, topics, data]
+		 * and may include mined log metadata as a second argument.
 		 * @param {import('@tevm/utils').EthjsLog} rawLog
+		 * @param {{blockNumber: bigint, transactionHash: import('@tevm/utils').Hex, logIndex: bigint, blockHash: import('@tevm/utils').Hex, transactionIndex: bigint}} [metadata]
 		 */
-		const listener = (rawLog) => {
+		const listener = (rawLog, metadata) => {
 			const filter = tevmNode.getFilters().get(id)
 			if (!filter) {
 				return
 			}
 			// EthjsLog is a tuple [address, topics, data]
 			const [addressBytes, topicsBytes, dataBytes] = rawLog
+			const logAddress = bytesToHex(addressBytes)
+			const logTopics = topicsBytes.map((topic) => bytesToHex(topic))
+			if (address !== undefined && logAddress.toLowerCase() !== address.toLowerCase()) {
+				return
+			}
+			if (topics !== undefined) {
+				const topicsMatch = topics.every((topicFilter, index) => {
+					if (topicFilter === null || topicFilter === undefined) {
+						return true
+					}
+					const logTopic = logTopics[index]
+					if (!logTopic) {
+						return false
+					}
+					return isArray(topicFilter)
+						? topicFilter.some((topic) => topic.toLowerCase() === logTopic.toLowerCase())
+						: topicFilter.toLowerCase() === logTopic.toLowerCase()
+				})
+				if (!topicsMatch) {
+					return
+				}
+			}
 			/** @type {import('@tevm/node').FilterLog} */
 			const formattedLog = {
-				topics: /** @type {[import('@tevm/utils').Hex, ...Array<import('@tevm/utils').Hex>]}*/ (
-					topicsBytes.map((topic) => bytesToHex(topic))
-				),
-				address: bytesToHex(addressBytes),
+				topics: /** @type {[import('@tevm/utils').Hex, ...Array<import('@tevm/utils').Hex>]}*/ (logTopics),
+				address: logAddress,
 				data: bytesToHex(dataBytes),
-				// Note: These fields are not available from the raw log event
-				// They should be populated when the log is retrieved via eth_getFilterChanges
-				blockNumber: 0n,
-				transactionHash: '0x',
-				logIndex: 0n,
-				blockHash: '0x',
-				transactionIndex: 0n,
+				blockNumber: metadata?.blockNumber ?? 0n,
+				transactionHash: metadata?.transactionHash ?? '0x',
+				logIndex: metadata?.logIndex ?? 0n,
+				blockHash: metadata?.blockHash ?? '0x',
+				transactionIndex: metadata?.transactionIndex ?? 0n,
 				removed: false,
 			}
 			filter.logs.push(formattedLog)
@@ -86,7 +106,10 @@ export const ethNewFilterHandler = (tevmNode) => {
 			_fromBlock,
 			_toBlock,
 			address !== undefined ? [createAddress(address).bytes] : [],
-			topics?.map((topic) => (isArray(topic) ? topic.map(hexToBytes) : hexToBytes(topic))),
+			topics?.map((topic) => {
+				if (topic === null) return null
+				return isArray(topic) ? topic.map(hexToBytes) : hexToBytes(topic)
+			}),
 		)
 		tevmNode.setFilter({
 			id,

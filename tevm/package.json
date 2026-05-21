@@ -23,6 +23,9 @@
   ],
   "sideEffects": false,
   "type": "module",
+  "bin": {
+    "tevm": "./cli.js"
+  },
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -123,6 +126,16 @@
       "require": {
         "types": "./predeploys/index.d.cts",
         "default": "./predeploys/index.cjs"
+      }
+    },
+    "./precompiles": {
+      "import": {
+        "types": "./precompiles/index.d.ts",
+        "default": "./precompiles/index.js"
+      },
+      "require": {
+        "types": "./precompiles/index.d.cts",
+        "default": "./precompiles/index.cjs"
       }
     },
     "./http-client": {
@@ -354,16 +367,24 @@
         "types": "./bundler/solc/index.d.cts",
         "default": "./bundler/solc/index.cjs"
       }
+    },
+    "./consensus": {
+      "import": {
+        "types": "./consensus/index.d.ts",
+        "default": "./consensus/index.js"
+      },
+      "require": {
+        "types": "./consensus/index.d.cts",
+        "default": "./consensus/index.cjs"
+      }
     }
   },
   "main": "index.cjs",
   "module": "index.js",
   "types": "index.d.ts",
-  "bin": {
-    "tevm": "./cli.js"
-  },
   "files": [
     "index*",
+    "cli.js",
     "actions",
     "address",
     "node",
@@ -373,6 +394,7 @@
     "receipt-manager",
     "contract",
     "common",
+    "consensus",
     "tx",
     "vm",
     "txpool",
@@ -380,6 +402,7 @@
     "errors",
     "memory-client",
     "predeploys",
+    "precompiles",
     "http-client",
     "server",
     "utils",
@@ -396,7 +419,6 @@
     "bundler/rspack-plugin",
     "bundler/vite-plugin",
     "bundler/webpack-plugin",
-    "bin",
     "JSR.md",
     "jsr.json"
   ],
@@ -405,7 +427,7 @@
     "build": "nx run-many --targets=build:dist,build:types --projects=tevm",
     "build:dist": "bun run generate:dist && git status --porcelain",
     "build:types": "bun run generate:types && git status --porcelain",
-    "clean": "rm -rf node_modules artifacts dist cache && find . -name '*.js' -not -name 'tsup.config.js' -not -name 'cli.js' -not -path './node_modules/*' -delete && rm -f **/*.d.ts **/*.d.cts **/*.cjs **/*.cjs.map",
+    "clean": "rm -rf node_modules artifacts dist cache && find . -name '*.js' -not -name 'tsup.config.js' -not -path './node_modules/*' -delete && rm -f **/*.d.ts **/*.d.cts **/*.cjs **/*.cjs.map",
     "generate": "nx run-many --targets=generate:dist,generate:types --projects=tevm && bun generate:docs",
     "generate:dist": "tsup",
     "generate:docs": "typedoc",
@@ -424,11 +446,11 @@
     "@tevm/blockchain": "workspace:^",
     "@tevm/bun-plugin": "workspace:^",
     "@tevm/bundler-cache": "workspace:^",
-    "@tevm/cli": "workspace:^",
     "@tevm/client-types": "workspace:^",
     "@tevm/common": "workspace:^",
     "@tevm/compiler": "workspace:^",
     "@tevm/config": "workspace:^",
+    "@tevm/consensus": "workspace:^",
     "@tevm/contract": "workspace:^",
     "@tevm/decorators": "workspace:^",
     "@tevm/errors": "workspace:^",
@@ -455,10 +477,10 @@
     "@tevm/vite-plugin": "workspace:^",
     "@tevm/vm": "workspace:^",
     "@tevm/webpack-plugin": "workspace:^",
-    "commander": "^14.0.1",
-    "effect": "3.18.1",
-    "glob": "^11.0.3",
-    "solc": "^0.8.30"
+    "commander": "^14.0.3",
+    "effect": "3.21.2",
+    "glob": "^13.0.6",
+    "solc": "^0.8.35"
   },
   "devDependencies": {
     "@tevm/tsconfig": "workspace:^",
@@ -466,7 +488,7 @@
   },
   "peerDependencies": {
     "@tevm/ts-plugin": "workspace:^",
-    "viem": "^2.37.9"
+    "viem": "^2.49.3"
   },
   "publishConfig": {
     "access": "public"

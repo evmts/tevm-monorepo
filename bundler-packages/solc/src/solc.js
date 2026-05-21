@@ -131,12 +131,8 @@ export const releases = {
  * @returns {import("./solcTypes.js").SolcOutput}
  */
 export const solcCompile = (solc, input) => {
-	try {
-		return JSON.parse(solc.compile(JSON.stringify(input)))
-	} catch (_e) {
-		// temporary hack to fix a bug in ts-plugin
-		return JSON.parse(_solc.compile(JSON.stringify(input)))
-	}
+	const output = solc.compile(JSON.stringify(input))
+	return typeof output === 'string' ? JSON.parse(output) : output
 }
 
 /**
@@ -155,6 +151,9 @@ export const createSolc = async (release) => {
 	)
 	return {
 		...s,
-		compile: (input) => solcCompile(s, input),
+		compile: (input) => {
+			const output = s.compile(typeof input === 'string' ? input : JSON.stringify(input))
+			return typeof input === 'string' ? output : JSON.parse(output)
+		},
 	}
 }

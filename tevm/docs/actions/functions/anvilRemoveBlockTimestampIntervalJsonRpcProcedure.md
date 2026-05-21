@@ -8,7 +8,7 @@
 
 > **anvilRemoveBlockTimestampIntervalJsonRpcProcedure**(`client`): [`AnvilRemoveBlockTimestampIntervalProcedure`](../type-aliases/AnvilRemoveBlockTimestampIntervalProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilRemoveBlockTimestampIntervalProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilRemoveBlockTimestampIntervalProcedure.d.ts:1
 
 ## Parameters
 

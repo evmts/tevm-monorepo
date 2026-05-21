@@ -28,7 +28,7 @@ Defined in: [extensions/test-node/src/types.ts:96](https://github.com/evmts/tevm
 
 ### test?
 
-> `optional` **test**: [`TestOptions`](TestOptions.md)
+> `optional` **test?**: [`TestOptions`](TestOptions.md)
 
 Defined in: [extensions/test-node/src/types.ts:102](https://github.com/evmts/tevm-monorepo/blob/main/extensions/test-node/src/types.ts#L102)
 

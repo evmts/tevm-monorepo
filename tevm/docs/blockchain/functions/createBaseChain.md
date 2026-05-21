@@ -8,7 +8,7 @@
 
 > **createBaseChain**(`options`): `BaseChain`
 
-Defined in: packages/blockchain/types/createBaseChain.d.ts:1
+Defined in: tevm-monorepo/packages/blockchain/types/createBaseChain.d.ts:1
 
 ## Parameters
 

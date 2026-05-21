@@ -8,7 +8,7 @@
 
 > **getAccountFromProvider**(`baseState`): (`address`) => `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
 
-Defined in: packages/state/dist/index.d.ts:442
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:446
 
 ## Parameters
 
@@ -18,14 +18,4 @@ Defined in: packages/state/dist/index.d.ts:442
 
 ## Returns
 
-> (`address`): `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
-
-### Parameters
-
-#### address
-
-[`EthjsAddress`](../../utils/classes/EthjsAddress.md)
-
-### Returns
-
-`Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>
+(`address`) => `Promise`\<[`EthjsAccount`](../../utils/classes/EthjsAccount.md)\>

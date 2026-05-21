@@ -7,6 +7,8 @@ import type {
 	GetAccountResult,
 	LoadStateJsonRpcRequest,
 	LoadStateResult,
+	MineJsonRpcRequest,
+	MineResult,
 	SetAccountJsonRpcRequest,
 	SetAccountResult,
 } from '@tevm/actions'
@@ -96,5 +98,14 @@ r  */
 		Method: 'tevm_setAccount'
 		Parameters: SetAccountJsonRpcRequest['params']
 		ReturnType: SerializeToJson<SetAccountResult<never>>
+	}
+	/**
+	 * @description Mines one or more blocks.
+	 * @link https://tevm.sh/learn/json-rpc/#tevm-methods
+	 */
+	tevm_mine: {
+		Method: 'tevm_mine'
+		Parameters: MineJsonRpcRequest['params']
+		ReturnType: SerializeToJson<MineResult>
 	}
 }

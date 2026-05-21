@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetNextBlockBaseFeePerGasProcedure
 
-# Type Alias: AnvilSetNextBlockBaseFeePerGasProcedure()
+# Type Alias: AnvilSetNextBlockBaseFeePerGasProcedure
 
 > **AnvilSetNextBlockBaseFeePerGasProcedure** = (`request`) => `Promise`\<[`AnvilSetNextBlockBaseFeePerGasJsonRpcResponse`](AnvilSetNextBlockBaseFeePerGasJsonRpcResponse.md)\>
 

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthGetTransactionCountHandler
 
-# Type Alias: EthGetTransactionCountHandler()
+# Type Alias: EthGetTransactionCountHandler
 
 > **EthGetTransactionCountHandler** = (`request`) => `Promise`\<[`EthGetTransactionCountResult`](EthGetTransactionCountResult.md)\>
 

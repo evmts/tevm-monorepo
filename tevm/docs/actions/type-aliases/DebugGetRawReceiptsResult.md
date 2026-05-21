@@ -8,7 +8,7 @@
 
 > **DebugGetRawReceiptsResult** = [`Hex`](Hex.md)[]
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:237
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:237
 
 Result from `debug_getRawReceipts`
 

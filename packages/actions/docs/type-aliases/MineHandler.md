@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / MineHandler
 
-# Type Alias: MineHandler()
+# Type Alias: MineHandler
 
 > **MineHandler** = (`params?`) => `Promise`\<[`MineResult`](MineResult.md)\>
 

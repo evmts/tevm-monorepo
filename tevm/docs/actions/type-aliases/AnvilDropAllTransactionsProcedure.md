@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilDropAllTransactionsProcedure
 
-# Type Alias: AnvilDropAllTransactionsProcedure()
+# Type Alias: AnvilDropAllTransactionsProcedure
 
 > **AnvilDropAllTransactionsProcedure** = (`request`) => `Promise`\<[`AnvilDropAllTransactionsJsonRpcResponse`](AnvilDropAllTransactionsJsonRpcResponse.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilProcedure.d.ts:87
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilProcedure.d.ts:87
 
 JSON-RPC procedure for `anvil_dropAllTransactions`
 

@@ -59,7 +59,7 @@ describe('anvilSetStorageAtJsonRpcProcedure', () => {
 		expect(result).toEqual({
 			jsonrpc: '2.0',
 			method: 'anvil_setStorageAt',
-			result: null,
+			result: true,
 			id: 1,
 		})
 	})
@@ -102,7 +102,7 @@ describe('anvilSetStorageAtJsonRpcProcedure', () => {
 		expect(result).toEqual({
 			jsonrpc: '2.0',
 			method: 'anvil_setStorageAt',
-			result: null,
+			result: true,
 		})
 
 		// Verify ID is not present

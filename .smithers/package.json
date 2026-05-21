@@ -1,0 +1,37 @@
+{
+  "name": "smithers-workflows",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "gateway": "bun ./gateway.ts",
+    "workflow:list": "smithers workflow list",
+    "workflow:run": "smithers workflow run",
+    "workflow:implement": "smithers workflow implement",
+    "parity:fast": "cd .. && pnpm test:parity:smithers:fast",
+    "parity:full": "cd .. && pnpm test:parity:smithers:full",
+    "hive:smoke": "cd .. && pnpm test:hive:smithers:smoke",
+    "hive:rpc-compat": "cd .. && pnpm test:hive:smithers:rpc-compat",
+    "parity:rpc": "cd .. && pnpm test:parity:rpc",
+    "conformance:fast": "cd .. && pnpm test:conformance:fast",
+    "conformance:full": "cd .. && pnpm test:conformance:gst:all && pnpm test:conformance:execspec:all",
+    "state-tests:gst": "cd .. && pnpm test:conformance:gst",
+    "state-tests:gst:all": "cd .. && pnpm test:conformance:gst:all",
+    "state-tests:execspec": "cd .. && pnpm test:conformance:execspec",
+    "state-tests:execspec:all": "cd .. && pnpm test:conformance:execspec:all",
+    "trace:3155:compare": "cd .. && pnpm test:conformance:gst:trace:compare"
+  },
+  "dependencies": {
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
+    "smithers-orchestrator": "^0.20.3",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@types/mdx": "2.0.13",
+    "@types/node": "25.6.0"
+  }
+}

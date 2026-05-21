@@ -48,7 +48,7 @@ export interface UseActionOptions<TParams, TResult> {
 	optionDescriptions: Record<string, string>
 
 	/** Function to create action parameters from options */
-	createParams: (options: Record<string, any>) => TParams
+	createParams: (options: Record<string, any>) => TParams | Promise<TParams>
 
 	/** Function to execute the action using the client */
 	executeAction: (client: any, params: TParams) => Promise<TResult>
@@ -77,7 +77,7 @@ export function useAction<TParams, TResult>({
 		// Add environment variable fallbacks for each option
 		Object.keys(optionDescriptions).forEach((key) => {
 			const envKey = key.replace(/([A-Z])/g, '_$1').toLowerCase() // Convert camelCase to snake_case for env vars
-			enhancedOptions[key] = options[key] || envVar(envKey) || defaultValues[key] || undefined
+			enhancedOptions[key] = options[key] ?? envVar(envKey) ?? defaultValues[key] ?? undefined
 		})
 
 		return enhancedOptions
@@ -114,15 +114,18 @@ export function useAction<TParams, TResult>({
 				// Store the project directory for cleanup and reuse
 				projectDirRef.current = projectDir
 
-				// THIS IS CRITICAL: Set the editor active flag before opening the editor
-				// to prevent any React UI rendering during the editor session
-				setEditorActive(true)
-				editorInProgressRef.current = true
+                // THIS IS CRITICAL: Set the editor active flag before opening the editor
+                // to prevent any React UI rendering during the editor session
+                setEditorActive(true)
+                editorInProgressRef.current = true
 
-				// Open the editor and wait for it to close
-				await openEditor(projectDir)
+                // Open the editor and wait for it to close
+                const editorExitCode = await openEditor(projectDir)
+                if (editorExitCode !== 0) {
+                    throw new Error(`Editor exited with code ${editorExitCode}`)
+                }
 
-				// Editor is now closed
+                // Editor is now closed
 				editorInProgressRef.current = false
 				setEditorActive(false)
 
@@ -166,7 +169,7 @@ export function useAction<TParams, TResult>({
 			}
 
 			// Create the parameters and execute the action
-			const params = createParams(baseOptions)
+			const params = await createParams(baseOptions)
 			return await executeAction(client, params)
 		},
 		enabled: options['run'] === true,
@@ -183,7 +186,13 @@ export function useAction<TParams, TResult>({
 	}, [])
 
 	// Determine the final result based on either interactive or direct execution
-	const finalResult = interactiveResult || result
+	const finalResult = interactiveResult ?? result
+	const formattedResult =
+		finalResult === undefined || finalResult === null
+			? undefined
+			: baseOptions['formatJson'] === false
+				? String(finalResult)
+				: JSON_BIG.stringify(finalResult, null, 2)
 
 	// If editor is active, return an object indicating not to render anything
 	if (editorActive || editorInProgressRef.current) {
@@ -203,7 +212,7 @@ export function useAction<TParams, TResult>({
 	return {
 		// Results
 		result: finalResult,
-		formattedResult: finalResult ? JSON.stringify(finalResult, null, 2) : undefined,
+		formattedResult,
 
 		// Loading states
 		isInteractiveLoading: isInteractiveLoading && !editorActive,

@@ -22,7 +22,7 @@ The `@tevm/block` package provides:
 - Block header management
 - RLP serialization/deserialization
 - JSON-RPC block formatting
-- Verkle tree support
+- Verkle witness payload types only; Verkle/EIP-6800 execution is intentionally unsupported
 
 ## API Reference
 
@@ -41,11 +41,14 @@ The `@tevm/block` package provides:
 - [JsonHeader](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/JsonHeader.md) - JSON representation of a header
 - [JsonRpcBlock](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/JsonRpcBlock.md) - JSON-RPC block format
 
-### Verkle Tree Types
+### Verkle Payload Types
 
-- [VerkleExecutionWitness](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/VerkleExecutionWitness.md) - Verkle execution witness
+These types model payload shapes only. Tevm does not execute Verkle/EIP-6800
+state-witness blocks.
+
+- [VerkleExecutionWitness](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/VerkleExecutionWitness.md) - Verkle witness payload shape
 - [VerkleProof](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/VerkleProof.md) - Verkle proof structure
-- [VerkleStateDiff](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/VerkleStateDiff.md) - Verkle state difference
+- [VerkleStateDiff](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/VerkleStateDiff.md) - Verkle state-diff payload shape
 
 ### Block Types
 

@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [vm](../README.md) / accumulateParentBeaconBlockRoot
 
-# Variable: accumulateParentBeaconBlockRoot()
+# Variable: accumulateParentBeaconBlockRoot
 
 > `const` **accumulateParentBeaconBlockRoot**: (`vm`) => (`root`, `timestamp`) => `Promise`\<`void`\>
 
-Defined in: packages/vm/types/actions/accumulateParentBeaconBlockRoot.d.ts:2
+Defined in: tevm-monorepo/packages/vm/types/actions/accumulateParentBeaconBlockRoot.d.ts:2
 
 ## Parameters
 
@@ -18,18 +18,4 @@ Defined in: packages/vm/types/actions/accumulateParentBeaconBlockRoot.d.ts:2
 
 ## Returns
 
-> (`root`, `timestamp`): `Promise`\<`void`\>
-
-### Parameters
-
-#### root
-
-`Uint8Array`
-
-#### timestamp
-
-`bigint`
-
-### Returns
-
-`Promise`\<`void`\>
+(`root`, `timestamp`) => `Promise`\<`void`\>

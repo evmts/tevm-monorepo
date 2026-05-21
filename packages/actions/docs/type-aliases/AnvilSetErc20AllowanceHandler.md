@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSetErc20AllowanceHandler
 
-# Type Alias: AnvilSetErc20AllowanceHandler()
+# Type Alias: AnvilSetErc20AllowanceHandler
 
 > **AnvilSetErc20AllowanceHandler** = (`params`) => `Promise`\<[`AnvilSetErc20AllowanceResult`](AnvilSetErc20AllowanceResult.md)\>
 

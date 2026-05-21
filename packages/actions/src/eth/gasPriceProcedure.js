@@ -8,7 +8,7 @@ import { gasPriceHandler } from './gasPriceHandler.js'
 export const gasPriceProcedure =
 	({ getVm, forkTransport }) =>
 	async (req) => ({
-		...(req.id ? { id: req.id } : {}),
+		...(req.id !== undefined ? { id: req.id } : {}),
 		jsonrpc: '2.0',
 		method: req.method,
 		// TODO pass in a client instead

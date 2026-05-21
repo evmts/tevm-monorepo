@@ -8,7 +8,7 @@
 
 > **TevmRequestType** = `object`
 
-Defined in: packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:10
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:10
 
 A mapping of `tevm_*` method names to their request type
 
@@ -18,7 +18,7 @@ A mapping of `tevm_*` method names to their request type
 
 > **tevm\_call**: [`CallJsonRpcRequest`](CallJsonRpcRequest.md)
 
-Defined in: packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:11
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:11
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:11
 
 > **tevm\_dumpState**: [`DumpStateJsonRpcRequest`](DumpStateJsonRpcRequest.md)
 
-Defined in: packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:13
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:13
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:13
 
 > **tevm\_getAccount**: [`GetAccountJsonRpcRequest`](GetAccountJsonRpcRequest.md)
 
-Defined in: packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:14
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:14
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:14
 
 > **tevm\_loadState**: [`LoadStateJsonRpcRequest`](LoadStateJsonRpcRequest.md)
 
-Defined in: packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:12
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:12
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:12
 
 > **tevm\_mine**: [`MineJsonRpcRequest`](MineJsonRpcRequest.md)
 
-Defined in: packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:16
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:16
 
 ***
 
@@ -58,4 +58,4 @@ Defined in: packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:16
 
 > **tevm\_setAccount**: [`SetAccountJsonRpcRequest`](SetAccountJsonRpcRequest.md)
 
-Defined in: packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:15
+Defined in: tevm-monorepo/packages/actions/types/tevm-request-handler/TevmRequestType.d.ts:15

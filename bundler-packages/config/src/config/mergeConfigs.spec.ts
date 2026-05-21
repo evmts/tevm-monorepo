@@ -12,7 +12,7 @@ describe(mergeConfigs.name, () => {
 
 		expect(result).toEqual({
 			remappings: { key1: 'value1', key2: 'value2' },
-			libs: ['lib3', 'lib1', 'lib2'],
+			libs: ['lib1', 'lib2', 'lib3'],
 			foundryProject: 'forge',
 			debug: true,
 			cacheDir: 'cache',
@@ -40,8 +40,10 @@ describe(mergeConfigs.name, () => {
 
 		expect(result).toEqual({
 			remappings: {},
-			libs: ['lib1', 'lib2', 'lib3', 'lib4'],
+			libs: ['lib3', 'lib4', 'lib1', 'lib2'],
 			foundryProject: undefined,
+			debug: undefined,
+			cacheDir: undefined,
 		})
 	})
 })

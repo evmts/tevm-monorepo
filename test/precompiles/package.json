@@ -1,0 +1,22 @@
+{
+	"name": "@tevm/precompiles-integration",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"test": "vitest --watch",
+		"test:coverage": "vitest --coverage --run",
+		"test:run": "vitest run",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@tevm/address": "workspace:^",
+		"@tevm/node": "workspace:^",
+		"@tevm/precompiles": "workspace:^",
+		"@tevm/utils": "workspace:^",
+		"vitest": "^4.1.6"
+	},
+	"devDependencies": {
+		"@tevm/tsconfig": "workspace:^"
+	}
+}

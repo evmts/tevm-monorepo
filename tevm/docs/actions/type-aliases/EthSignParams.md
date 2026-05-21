@@ -8,7 +8,7 @@
 
 > **EthSignParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:256
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:256
 
 **`Experimental`**
 
@@ -20,7 +20,7 @@ Based on the JSON-RPC request for `eth_sign` procedure
 
 > `readonly` **address**: [`Address`](Address.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:257
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:257
 
 ***
 
@@ -28,4 +28,4 @@ Defined in: packages/actions/types/eth/EthParams.d.ts:257
 
 > `readonly` **data**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:258
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:258

@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilGetAutomineProcedure
 
-# Type Alias: AnvilGetAutomineProcedure()
+# Type Alias: AnvilGetAutomineProcedure
 
 > **AnvilGetAutomineProcedure** = (`request`) => `Promise`\<[`AnvilGetAutomineJsonRpcResponse`](AnvilGetAutomineJsonRpcResponse.md)\>
 

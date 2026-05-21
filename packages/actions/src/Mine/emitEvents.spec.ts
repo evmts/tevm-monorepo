@@ -9,11 +9,13 @@ describe('emitEvents', () => {
 		// Mock TevmNode client
 		const client = {
 			emit: vi.fn(),
+			emitExExEvent: vi.fn(),
 		}
 
 		// Mock block and receipt data
 		const mockBlock = {
 			hash: () => new Uint8Array([1, 2, 3]),
+			header: { number: 1n, stateRoot: new Uint8Array([4, 5, 6]) },
 		} as Block
 
 		const mockReceipt = {
@@ -27,16 +29,30 @@ describe('emitEvents', () => {
 
 		expect(client.emit).toHaveBeenCalledWith('newBlock', mockBlock)
 		expect(client.emit).toHaveBeenCalledWith('newReceipt', mockReceipt)
-		expect(client.emit).toHaveBeenCalledWith('newLog', mockReceipt.logs[0])
+		expect(client.emit).toHaveBeenCalledWith('newLog', mockReceipt.logs[0], {
+			blockHash: '0x010203',
+			blockNumber: 1n,
+			transactionHash: '0x',
+			transactionIndex: 0n,
+			logIndex: 0n,
+		})
+		expect(client.emitExExEvent).toHaveBeenCalledWith({
+			type: 'block',
+			phase: 'imported',
+			block: mockBlock,
+			blockHash: '0x010203',
+		})
 	})
 
 	it('should throw an error if receipts are not found', async () => {
 		const client = {
 			emit: vi.fn(),
+			emitExExEvent: vi.fn(),
 		}
 
 		const mockBlock = {
 			hash: () => new Uint8Array([1, 2, 3]),
+			header: { number: 1n, stateRoot: new Uint8Array([4, 5, 6]) },
 		} as Block
 
 		const newBlocks = [mockBlock]

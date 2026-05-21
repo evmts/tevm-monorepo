@@ -1,9 +1,15 @@
-import type { EvmStateManagerInterface } from '@tevm/common'
+import type { Proof } from '@evmts/zevm/statemanager'
+import type { AccountFields, EvmStateManagerInterface } from '@tevm/common'
+import type { EthjsAccount, EthjsAddress } from '@tevm/utils'
 import type { Address } from 'viem'
 import type { BaseState } from './BaseState.js'
 import type { TevmState } from './state-types/index.js'
 
-export interface StateManager extends EvmStateManagerInterface {
+export interface StateManager
+	extends Omit<
+		EvmStateManagerInterface,
+		'getAccount' | 'putAccount' | 'modifyAccountFields' | 'shallowCopy' | 'initBinaryTreeExecutionWitness'
+	> {
 	/**
 	 * The internal state representation
 	 */
@@ -13,10 +19,14 @@ export interface StateManager extends EvmStateManagerInterface {
 	 * Returns contract addresses
 	 */
 	getAccountAddresses: () => Set<Address>
+	getAccount(address: EthjsAddress): Promise<EthjsAccount | undefined>
+	putAccount(address: EthjsAddress, account?: EthjsAccount): Promise<void>
+	modifyAccountFields(address: EthjsAddress, accountFields: AccountFields): Promise<void>
 	/**
 	 * Returns a new instance of the ForkStateManager with the same opts and all storage copied over
 	 */
 	deepCopy(): Promise<StateManager>
+	shallowCopy(): StateManager
 	/**
 	 * Dumps the state of the state manager as a {@link TevmState}
 	 */
@@ -69,8 +79,5 @@ export interface StateManager extends EvmStateManagerInterface {
 	 * @param storageSlots - Storage slots to include in the proof
 	 * @returns The account and storage proof
 	 */
-	getProof(
-		address: import('@tevm/utils').EthjsAddress,
-		storageSlots?: Uint8Array[],
-	): Promise<import('@ethereumjs/statemanager').Proof>
+	getProof(address: import('@tevm/utils').EthjsAddress, storageSlots?: Uint8Array[]): Promise<Proof>
 }

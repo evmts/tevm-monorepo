@@ -8,7 +8,7 @@
 
 > **recoverPublicKey**(`params`): `` `0x${string}` ``
 
-Defined in: packages/utils/types/signature.d.ts:29
+Defined in: tevm-monorepo/packages/utils/types/signature.d.ts:29
 
 Recovers the public key from a signature
 

@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilImpersonateAccountHandler
 
-# Type Alias: AnvilImpersonateAccountHandler()
+# Type Alias: AnvilImpersonateAccountHandler
 
 > **AnvilImpersonateAccountHandler** = (`params`) => `Promise`\<[`AnvilImpersonateAccountResult`](AnvilImpersonateAccountResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:3
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:3
 
 ## Parameters
 

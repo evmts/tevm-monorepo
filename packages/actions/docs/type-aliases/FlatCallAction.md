@@ -16,7 +16,7 @@ Action details for a call trace entry
 
 ### callType?
 
-> `optional` **callType**: `"call"` \| `"delegatecall"` \| `"staticcall"`
+> `optional` **callType?**: `"call"` \| `"delegatecall"` \| `"staticcall"`
 
 Defined in: [packages/actions/src/common/FlatCallTraceResult.ts:9](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/FlatCallTraceResult.ts#L9)
 

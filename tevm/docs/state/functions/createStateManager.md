@@ -8,7 +8,7 @@
 
 > **createStateManager**(`options`): [`StateManager`](../interfaces/StateManager.md)
 
-Defined in: packages/state/dist/index.d.ts:520
+Defined in: tevm-monorepo/packages/state/dist/index.d.ts:524
 
 ## Parameters
 

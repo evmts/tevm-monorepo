@@ -1,15 +1,24 @@
 import { type Common } from '@tevm/common'
+import type { ConsensusService } from '@tevm/consensus'
 import type { LogOptions } from '@tevm/logger'
 import type { Predeploy } from '@tevm/predeploys'
 import type { StateOptions } from '@tevm/state'
 import type { SyncStoragePersister } from '@tevm/sync-storage-persister'
 import type { CustomPrecompile } from './CustomPrecompile.js'
+import type { ExExHook } from './ExEx.js'
 import type { MiningConfig } from './MiningConfig.js'
 
 /**
  * Options for creating an Tevm MemoryClient instance
  */
 export type TevmNodeOptions<TCommon extends Common = Common> = StateOptions & {
+	readonly lightSync?: {
+		readonly explicitCheckpoint?: string
+		readonly persistedCheckpointPath?: string
+		readonly defaultCheckpoint?: string
+		readonly strictCheckpointAge?: boolean
+		readonly maxCheckpointAgeMs?: number
+	}
 	/**
 	 * The common used of the blockchain. Defaults to tevmDevnet. Required for some APIs such as `getEnsAddress` to work. If not specified and a fork is provided the common chainId will be fetched from the fork
 	 * Highly recomended you always set this in fork mode as it will speed up client creation via not having to fetch the chain info
@@ -122,4 +131,10 @@ export type TevmNodeOptions<TCommon extends Common = Common> = StateOptions & {
 	 * ```
 	 */
 	readonly persister?: SyncStoragePersister
+	/**
+	 * Consensus service used for trust assumptions and proof-backed reads.
+	 * Defaults to a no-op trusted service in normal in-memory mode.
+	 */
+	readonly consensus?: ConsensusService
+	readonly exExHooks?: readonly ExExHook[]
 }

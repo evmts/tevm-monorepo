@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / CallHandler
 
-# Type Alias: CallHandler()
+# Type Alias: CallHandler
 
 > **CallHandler** = (`action`) => `Promise`\<[`CallResult`](CallResult.md)\>
 
-Defined in: packages/actions/types/Call/CallHandlerType.d.ts:48
+Defined in: tevm-monorepo/packages/actions/types/Call/CallHandlerType.d.ts:48
 
 Executes a call against the VM, similar to `eth_call` but with more options for controlling the execution environment.
 

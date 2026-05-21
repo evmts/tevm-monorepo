@@ -8,7 +8,7 @@
 
 > **DebugIntermediateRootsParams** = `object`
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:179
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:179
 
 Params taken by `debug_intermediateRoots` handler
 
@@ -18,6 +18,6 @@ Params taken by `debug_intermediateRoots` handler
 
 > `readonly` **block**: [`Hex`](Hex.md) \| `Uint8Array` \| `number` \| `bigint` \| [`BlockTag`](BlockTag.md)
 
-Defined in: packages/actions/types/debug/DebugParams.d.ts:183
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugParams.d.ts:183
 
 Block number, hash, or tag to get intermediate roots for

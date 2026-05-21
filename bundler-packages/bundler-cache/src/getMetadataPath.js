@@ -1,3 +1,6 @@
+import path from 'node:path'
+import { cacheHash } from './cacheHash.js'
+
 /**
  * Resolves the path for the metadata file associated with a Solidity module.
  *
@@ -29,16 +32,27 @@
  * @internal
  */
 export const getMetadataPath = (entryModuleId, cwd, cacheDir) => {
-	// Normalize the module path relative to current working directory
-	let normalizedEntryModuleId = entryModuleId.replace(cwd, '')
-	if (normalizedEntryModuleId.startsWith('/')) {
-		normalizedEntryModuleId = normalizedEntryModuleId.slice(1)
-	}
+	const resolvedCwd = path.resolve(cwd)
+	const cacheRoot = path.isAbsolute(cacheDir)
+		? path.join(path.resolve(cacheDir), '__projects__', cacheHash(resolvedCwd).slice(0, 16))
+		: path.resolve(cwd, cacheDir)
+	const entryPath = path.resolve(cwd, entryModuleId)
+	const relativeEntryPath = path.relative(resolvedCwd, entryPath)
+	const isOutsideCwd =
+		relativeEntryPath === '..' || relativeEntryPath.startsWith(`..${path.sep}`) || path.isAbsolute(relativeEntryPath)
+	const normalizedEntryModuleId = isOutsideCwd
+		? path.join(
+				'__external__',
+				entryPath
+					.replace(/^[A-Za-z]:/, '')
+					.split(path.sep)
+					.filter(Boolean)
+					.join(path.sep),
+			)
+		: relativeEntryPath
 
-	// TODO: Fix path handling for Windows
-	// Create the cache directory path and full file path for metadata
-	const dir = [cwd, cacheDir, normalizedEntryModuleId].join('/')
-	const path = [dir, 'metadata.json'].join('/')
+	const dir = path.resolve(cacheRoot, normalizedEntryModuleId)
+	const resolvedPath = path.join(dir, 'metadata.json')
 
-	return { dir, path }
+	return { dir, path: resolvedPath }
 }

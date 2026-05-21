@@ -8,6 +8,6 @@
 
 > **EthCoinbaseResult** = [`Address`](Address.md)
 
-Defined in: packages/actions/types/eth/EthResult.d.ts:27
+Defined in: tevm-monorepo/packages/actions/types/eth/EthResult.d.ts:27
 
 JSON-RPC response for `eth_coinbase` procedure

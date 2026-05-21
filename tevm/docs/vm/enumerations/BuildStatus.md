@@ -6,7 +6,7 @@
 
 # Enumeration: BuildStatus
 
-Defined in: packages/vm/types/actions/BuildStatus.d.ts:1
+Defined in: tevm-monorepo/packages/vm/types/actions/BuildStatus.d.ts:1
 
 ## Enumeration Members
 
@@ -14,7 +14,7 @@ Defined in: packages/vm/types/actions/BuildStatus.d.ts:1
 
 > **Build**: `"build"`
 
-Defined in: packages/vm/types/actions/BuildStatus.d.ts:3
+Defined in: tevm-monorepo/packages/vm/types/actions/BuildStatus.d.ts:3
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: packages/vm/types/actions/BuildStatus.d.ts:3
 
 > **Pending**: `"pending"`
 
-Defined in: packages/vm/types/actions/BuildStatus.d.ts:4
+Defined in: tevm-monorepo/packages/vm/types/actions/BuildStatus.d.ts:4
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: packages/vm/types/actions/BuildStatus.d.ts:4
 
 > **Reverted**: `"reverted"`
 
-Defined in: packages/vm/types/actions/BuildStatus.d.ts:2
+Defined in: tevm-monorepo/packages/vm/types/actions/BuildStatus.d.ts:2

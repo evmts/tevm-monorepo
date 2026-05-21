@@ -8,7 +8,7 @@
 
 > **callHandler**(`client`, `__namedParameters?`): [`CallHandler`](../type-aliases/CallHandler.md)
 
-Defined in: packages/actions/types/Call/callHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Call/callHandler.d.ts:1
 
 ## Parameters
 

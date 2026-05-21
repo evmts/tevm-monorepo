@@ -1,5 +1,5 @@
+import { createImpersonatedTx } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
-import { createImpersonatedTx } from '@tevm/tx'
 import { hexToBigInt, hexToBytes, hexToNumber } from '@tevm/utils'
 import { forkAndCacheBlock } from '../internal/forkAndCacheBlock.js'
 import { serializeTraceResult } from '../internal/serializeTraceResult.js'
@@ -90,6 +90,17 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 				method: request.method,
 			}
 		}
+		if (transactionByHashResponse.result === null) {
+			return {
+				error: {
+					code: '-32602',
+					message: 'Transaction not found',
+				},
+				...(request.id !== undefined ? { id: request.id } : {}),
+				jsonrpc: '2.0',
+				method: request.method,
+			}
+		}
 
 		let vm = await client.getVm()
 		const block = await vm.blockchain.getBlock(hexToBytes(transactionByHashResponse.result.blockHash))
@@ -128,9 +139,19 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 				skipBlockGasLimitValidation: true,
 				tx: createImpersonatedTx(
 					{
-						...tx,
-						gasPrice: null,
+						nonce: tx.nonce,
+						gasLimit: tx.gasLimit,
+						value: tx.value,
+						data: tx.data,
 						impersonatedAddress: createAddress(tx.getSenderAddress()),
+						...(tx.to !== undefined ? { to: tx.to } : {}),
+						...('accessList' in tx && tx.accessList !== undefined ? { accessList: tx.accessList } : {}),
+						...('maxFeePerGas' in tx
+							? { maxFeePerGas: tx.maxFeePerGas }
+							: 'gasPrice' in tx
+								? { maxFeePerGas: tx.gasPrice }
+								: {}),
+						...('maxPriorityFeePerGas' in tx ? { maxPriorityFeePerGas: tx.maxPriorityFeePerGas } : {}),
 					},
 					{
 						freeze: false,
@@ -156,9 +177,6 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 				? { value: hexToBigInt(transactionByHashResponse.result.value) }
 				: {}),
 			...(transactionByHashResponse.result.input !== undefined ? { data: transactionByHashResponse.result.input } : {}),
-			...(transactionByHashResponse.result.blockHash !== undefined
-				? { blockTag: transactionByHashResponse.result.blockHash }
-				: {}),
 			...(timeout !== undefined ? { timeout } : {}),
 			.../** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
 		})
@@ -167,7 +185,7 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 			method: request.method,
 			result: /** @type {any} */ (serializeTraceResult(traceResult)),
 			jsonrpc: '2.0',
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 		}
 	}
 }

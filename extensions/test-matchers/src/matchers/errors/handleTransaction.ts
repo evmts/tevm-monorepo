@@ -135,13 +135,16 @@ const extractRevertData = (error: unknown): DecodeErrorResultReturnType | Hex | 
 			: error instanceof ViemBaseError || error instanceof BaseError
 				? error.walk?.(isRevertError) || error.walk?.()
 				: {}
-	) as ContractFunctionRevertedError | RevertError | { data: { data: Hex } } | undefined
+	) as ContractFunctionRevertedError | RevertError | { data: { data: Hex } } | Hex | undefined
 
 	if (!revertError) return undefined
+	if (typeof revertError === 'string' && isHex(revertError)) return revertError
 
-	const revertData = ('data' in revertError && !!revertError.data ? revertError.data : revertError) as
+	const revertData = ('data' in revertError && revertError.data ? revertError.data : revertError) as
 		| DecodeErrorResultReturnType
 		| { data: Hex }
+		| Hex
+	if (typeof revertData === 'string' && isHex(revertData)) return revertData
 	return ('data' in revertData ? revertData.data : revertData) ?? ('raw' in revertError ? revertError.raw : undefined)
 }
 

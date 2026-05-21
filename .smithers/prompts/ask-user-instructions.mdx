@@ -1,0 +1,16 @@
+## Asking the User Questions
+
+When you need to ask the user a question, run this command in bash:
+
+```bash
+bun .smithers/scripts/ask-user.ts "Your question here" --recommended "Your recommended answer"
+```
+
+The command will block and return the user's answer on stdout.
+You MUST use this tool to ask questions — do not just print questions to the output.
+Ask one question at a time, wait for the answer, then proceed.
+
+Options:
+  --recommended, -r  Your recommended answer (shown to the user)
+  --branch, -b       Which decision branch this question relates to
+  --timeout, -t      Seconds to wait for answer (default: 300)

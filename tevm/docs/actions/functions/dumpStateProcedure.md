@@ -8,7 +8,7 @@
 
 > **dumpStateProcedure**(`client`): [`DumpStateJsonRpcProcedure`](../type-aliases/DumpStateJsonRpcProcedure.md)
 
-Defined in: packages/actions/types/DumpState/dumpStateProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/DumpState/dumpStateProcedure.d.ts:1
 
 ## Parameters
 

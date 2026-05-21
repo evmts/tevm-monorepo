@@ -8,7 +8,7 @@
 
 > **EthGetBlockTransactionCountByHashParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:120
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:120
 
 Based on the JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
@@ -18,4 +18,4 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByHash` procedure
 
 > **hash**: [`Hex`](Hex.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:121
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:121

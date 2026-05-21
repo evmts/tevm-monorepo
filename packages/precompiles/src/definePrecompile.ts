@@ -1,5 +1,5 @@
+import type { ExecResult } from '@evmts/zevm/evm'
 import type { Contract } from '@tevm/contract'
-import type { ExecResult } from '@tevm/evm'
 import type { Address, Hex } from '@tevm/utils'
 import { Precompile } from './Precompile.js'
 

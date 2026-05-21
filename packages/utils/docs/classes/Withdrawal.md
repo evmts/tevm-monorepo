@@ -6,9 +6,7 @@
 
 # Class: Withdrawal
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:33
-
-Representation of EIP-4895 withdrawal data
+Defined in: zevm/npm/zevm/dist/util.d.ts:223
 
 ## Constructors
 
@@ -16,11 +14,7 @@ Representation of EIP-4895 withdrawal data
 
 > **new Withdrawal**(`index`, `validatorIndex`, `address`, `amount`): `Withdrawal`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:43
-
-This constructor assigns and validates the values.
-Use the static factory methods to assist in creating a Withdrawal object from varying data types.
-Its amount is in Gwei to match CL representation and for eventual ssz withdrawalsRoot
+Defined in: zevm/npm/zevm/dist/util.d.ts:228
 
 #### Parameters
 
@@ -50,7 +44,7 @@ Its amount is in Gwei to match CL representation and for eventual ssz withdrawal
 
 > `readonly` **address**: [`EthjsAddress`](EthjsAddress.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:36
+Defined in: zevm/npm/zevm/dist/util.d.ts:226
 
 ***
 
@@ -58,7 +52,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 > `readonly` **amount**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:37
+Defined in: zevm/npm/zevm/dist/util.d.ts:227
 
 ***
 
@@ -66,7 +60,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 > `readonly` **index**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:34
+Defined in: zevm/npm/zevm/dist/util.d.ts:224
 
 ***
 
@@ -74,7 +68,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 > `readonly` **validatorIndex**: `bigint`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:35
+Defined in: zevm/npm/zevm/dist/util.d.ts:225
 
 ## Methods
 
@@ -82,7 +76,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 > **raw**(): `WithdrawalBytes`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:44
+Defined in: zevm/npm/zevm/dist/util.d.ts:230
 
 #### Returns
 
@@ -92,29 +86,13 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 ### toJSON()
 
-> **toJSON**(): `object`
+> **toJSON**(): [`JsonRpcWithdrawal`](../interfaces/JsonRpcWithdrawal.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:51
+Defined in: zevm/npm/zevm/dist/util.d.ts:237
 
 #### Returns
 
-`object`
-
-##### address
-
-> **address**: `` `0x${string}` ``
-
-##### amount
-
-> **amount**: `` `0x${string}` ``
-
-##### index
-
-> **index**: `` `0x${string}` ``
-
-##### validatorIndex
-
-> **validatorIndex**: `` `0x${string}` ``
+[`JsonRpcWithdrawal`](../interfaces/JsonRpcWithdrawal.md)
 
 ***
 
@@ -122,7 +100,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 > **toValue**(): `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumjs/util/dist/esm/withdrawal.d.ts:45
+Defined in: zevm/npm/zevm/dist/util.d.ts:231
 
 #### Returns
 
@@ -130,7 +108,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 
 ##### address
 
-> **address**: `Uint8Array`\<`ArrayBufferLike`\>
+> **address**: `Uint8Array`
 
 ##### amount
 
@@ -143,3 +121,21 @@ Defined in: node\_modules/.pnpm/@ethereumjs+util@10.0.0/node\_modules/@ethereumj
 ##### validatorIndex
 
 > **validatorIndex**: `bigint`
+
+***
+
+### fromWithdrawalData()
+
+> `static` **fromWithdrawalData**(`withdrawalData`): `Withdrawal`
+
+Defined in: zevm/npm/zevm/dist/util.d.ts:229
+
+#### Parameters
+
+##### withdrawalData
+
+[`WithdrawalData`](../type-aliases/WithdrawalData.md)
+
+#### Returns
+
+`Withdrawal`

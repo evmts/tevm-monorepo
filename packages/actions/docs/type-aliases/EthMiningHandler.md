@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthMiningHandler
 
-# Type Alias: EthMiningHandler()
+# Type Alias: EthMiningHandler
 
 > **EthMiningHandler** = (`request`) => `Promise`\<[`EthMiningResult`](EthMiningResult.md)\>
 

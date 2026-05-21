@@ -71,19 +71,25 @@ import { Address } from './Address.js'
 export const createAddress = (address) => {
 	try {
 		if (address instanceof EthjsAddress) {
-			return new Address(address.bytes)
+			return new Address(Uint8Array.from(address.bytes))
 		}
 		if (address instanceof Uint8Array) {
-			return new Address(address)
+			return new Address(Uint8Array.from(address))
 		}
 		if (typeof address === 'number' || typeof address === 'bigint') {
 			return new Address(numberToBytes(address, { size: 20 }))
 		}
 		if (typeof address === 'string' && address.startsWith('0x')) {
-			return new Address(hexToBytes(/** @type {import('viem').Hex}*/ (address), { size: 20 }))
+			if (!/^0x[0-9a-fA-F]{40}$/.test(address)) {
+				throw new Error('Address hex string must be 20 bytes')
+			}
+			return new Address(hexToBytes(/** @type {import('viem').Hex}*/ (address)))
 		}
 		if (typeof address === 'string') {
-			return new Address(hexToBytes(`0x${address}`, { size: 20 }))
+			if (!/^[0-9a-fA-F]{40}$/.test(address)) {
+				throw new Error('Address hex string must be 20 bytes')
+			}
+			return new Address(hexToBytes(`0x${address}`))
 		}
 		throw new UnreachableCodeError(address, `Received an unexpected input for createAddress ${address}`)
 	} catch (e) {

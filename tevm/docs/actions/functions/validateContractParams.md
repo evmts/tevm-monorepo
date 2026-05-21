@@ -8,7 +8,7 @@
 
 > **validateContractParams**(`action`): [`ValidateContractParamsError`](../type-aliases/ValidateContractParamsError.md)[]
 
-Defined in: packages/actions/types/Contract/validateContractParams.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Contract/validateContractParams.d.ts:1
 
 ## Parameters
 

@@ -80,7 +80,7 @@ describe('loadStateHandler', () => {
 			"Invalid state: Invalid input: expected record, received number
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-			Version: 1.1.0.next-73"
+			Version: 1.0.0-next.148"
 		`)
 	})
 
@@ -94,12 +94,12 @@ describe('loadStateHandler', () => {
 
 		const result = await handler({ state: {}, throwOnFail: false })
 		expect(result.errors?.[0]?.message).toMatchInlineSnapshot(`
-"UnexpectedError
+			"UnexpectedError
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: Unsupported state manager. Must use a Tevm state manager from \`@tevm/state\` package. This may indicate a bug in tevm internal code.
-Version: 1.1.0.next-73"
-`)
+			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+			Details: Unsupported state manager. Must use a Tevm state manager from \`@tevm/state\` package. This may indicate a bug in tevm internal code.
+			Version: 1.0.0-next.148"
+		`)
 	})
 
 	test('should handle error when generating genesis fails', async () => {
@@ -119,12 +119,12 @@ Version: 1.1.0.next-73"
 		expect(result.errors).toBeDefined()
 		expect(result.errors?.length).toBe(1)
 		expect(result.errors?.[0]?.message).toMatchInlineSnapshot(`
-"UnexpectedError
+			"UnexpectedError
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: Genesis generation failed
-Version: 1.1.0.next-73"
-`)
+			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+			Details: Genesis generation failed
+			Version: 1.0.0-next.148"
+		`)
 		expect(result.errors?.[0]?.cause?.message).toMatchInlineSnapshot(`"Genesis generation failed"`)
 	})
 })

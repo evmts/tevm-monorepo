@@ -8,7 +8,7 @@
 
 > **anvilMetadataJsonRpcProcedure**(`client`): [`AnvilMetadataProcedure`](../type-aliases/AnvilMetadataProcedure.md)
 
-Defined in: packages/actions/types/anvil/anvilMetadataProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilMetadataProcedure.d.ts:1
 
 ## Parameters
 

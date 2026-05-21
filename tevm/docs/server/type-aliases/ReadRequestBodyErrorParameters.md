@@ -8,7 +8,7 @@
 
 > **ReadRequestBodyErrorParameters** = `object`
 
-Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:38
+Defined in: tevm-monorepo/packages/server/types/errors/ReadRequestBodyError.d.ts:38
 
 Parameters for constructing a [ReadRequestBodyError](../classes/ReadRequestBodyError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing a [ReadRequestBodyError](../classes/ReadRequestBodyE
 
 ### cause?
 
-> `optional` **cause**: [`BaseError`](../../errors/classes/BaseError.md) \| `Error`
+> `optional` **cause?**: [`BaseError`](../../errors/classes/BaseError.md) \| `Error`
 
-Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:58
+Defined in: tevm-monorepo/packages/server/types/errors/ReadRequestBodyError.d.ts:58
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:58
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:62
+Defined in: tevm-monorepo/packages/server/types/errors/ReadRequestBodyError.d.ts:62
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:62
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:42
+Defined in: tevm-monorepo/packages/server/types/errors/ReadRequestBodyError.d.ts:42
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:42
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:46
+Defined in: tevm-monorepo/packages/server/types/errors/ReadRequestBodyError.d.ts:46
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:46
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:50
+Defined in: tevm-monorepo/packages/server/types/errors/ReadRequestBodyError.d.ts:50
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:50
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:66
+Defined in: tevm-monorepo/packages/server/types/errors/ReadRequestBodyError.d.ts:66
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:66
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/server/types/errors/ReadRequestBodyError.d.ts:54
+Defined in: tevm-monorepo/packages/server/types/errors/ReadRequestBodyError.d.ts:54
 
 - Additional meta messages.

@@ -8,4 +8,4 @@
 
 > **ValidateCallParamsError** = [`InvalidSaltError`](../../errors/classes/InvalidSaltError.md) \| [`InvalidDataError`](../../errors/classes/InvalidDataError.md) \| [`InvalidBytecodeError`](../../errors/classes/InvalidBytecodeError.md) \| `ValidateBaseCallParamsError`
 
-Defined in: packages/actions/types/Call/validateCallParams.d.ts:2
+Defined in: tevm-monorepo/packages/actions/types/Call/validateCallParams.d.ts:2

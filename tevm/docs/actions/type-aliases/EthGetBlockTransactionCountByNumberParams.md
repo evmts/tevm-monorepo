@@ -8,7 +8,7 @@
 
 > **EthGetBlockTransactionCountByNumberParams** = `object`
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:126
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:126
 
 Based on the JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedure
 
@@ -16,6 +16,6 @@ Based on the JSON-RPC request for `eth_getBlockTransactionCountByNumber` procedu
 
 ### blockTag?
 
-> `readonly` `optional` **blockTag**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
+> `readonly` `optional` **blockTag?**: [`BlockParam`](../../index/type-aliases/BlockParam.md)
 
-Defined in: packages/actions/types/eth/EthParams.d.ts:127
+Defined in: tevm-monorepo/packages/actions/types/eth/EthParams.d.ts:127

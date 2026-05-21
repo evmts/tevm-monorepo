@@ -8,7 +8,7 @@
 
 > **hashMessage**(`message`): `` `0x${string}` ``
 
-Defined in: [packages/utils/src/signature.js:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/signature.js#L109)
+Defined in: [tevm-monorepo/packages/utils/src/signature.js:109](https://github.com/evmts/tevm-monorepo/blob/main/packages/utils/src/signature.js#L109)
 
 Hashes a message according to EIP-191
 

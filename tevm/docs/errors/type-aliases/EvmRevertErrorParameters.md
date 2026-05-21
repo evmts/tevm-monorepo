@@ -8,7 +8,7 @@
 
 > **EvmRevertErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:79
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:79
 
 Parameters for constructing a [EvmRevertError](../classes/EvmRevertError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing a [EvmRevertError](../classes/EvmRevertError.md).
 
 ### cause?
 
-> `optional` **cause**: [`EVMError`](../../evm/classes/EVMError.md)
+> `optional` **cause?**: `EVMError`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:99
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:99
 
 - The cause of the error. From running ethereumjs EVM.runCall
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:99
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:103
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:103
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:103
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:83
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:83
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:83
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:87
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:87
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:87
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:91
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:91
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:91
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:107
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:107
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:107
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:95
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:95
 
 - Additional meta messages.

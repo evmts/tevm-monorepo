@@ -18,8 +18,4 @@ Defined in: [packages/blockchain/src/actions/deepCopy.js:7](https://github.com/e
 
 ## Returns
 
-> (): `Promise`\<`BaseChain`\>
-
-### Returns
-
-`Promise`\<`BaseChain`\>
+() => `Promise`\<`BaseChain`\>

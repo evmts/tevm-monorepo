@@ -12,18 +12,21 @@ const serializeState = (state) => {
 	/** @type {import('@tevm/state').SerializableTevmState} */
 	const serializedState = {}
 
-	for (const [address, account] of Object.entries(state)) {
+	for (const [address, account] of Object.entries(state).sort(([a], [b]) => a.localeCompare(b))) {
+		const sortedStorage = account.storage
+			? Object.fromEntries(
+					Object.entries(account.storage)
+						.sort(([a], [b]) => a.localeCompare(b))
+						.map(([key, value]) => [`0x${key}`, value]),
+				)
+			: undefined
 		serializedState[address] = {
 			nonce: numberToHex(account.nonce),
 			balance: numberToHex(account.balance),
 			storageRoot: account.storageRoot,
 			codeHash: account.codeHash,
 			...(account.deployedBytecode && { deployedBytecode: account.deployedBytecode }),
-			...(account.storage && {
-				storage: {
-					...Object.fromEntries(Object.entries(account.storage).map(([key, value]) => [`0x${key}`, value])),
-				},
-			}),
+			...(sortedStorage && { storage: sortedStorage }),
 		}
 	}
 

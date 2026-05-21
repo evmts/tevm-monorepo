@@ -202,8 +202,8 @@ describe('cache handling edge cases', () => {
 
 			// Verify correct calls based on module type
 			expect(mockCache.writeArtifactsSync).toHaveBeenCalledTimes(3) // Once for each module type
-			expect(mockCache.writeDts).toHaveBeenCalledTimes(1) // Only for 'dts'
-			expect(mockCache.writeMjs).toHaveBeenCalledTimes(1) // Only for 'mjs'
+			expect(mockCache.writeDtsSync).toHaveBeenCalledTimes(1) // Only for 'dts'
+			expect(mockCache.writeMjsSync).toHaveBeenCalledTimes(1) // Only for 'mjs'
 			expect(mockLogger.warn).toHaveBeenCalledTimes(1) // Only for 'unknown'
 		})
 	})

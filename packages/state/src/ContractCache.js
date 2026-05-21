@@ -1,4 +1,4 @@
-import { CacheType, StorageCache } from '@ethereumjs/statemanager'
+import { CacheType, StorageCache } from '@evmts/zevm/statemanager'
 import { bytesToUnprefixedHex } from '@tevm/utils'
 
 const oneBytes = Uint8Array.from([1])

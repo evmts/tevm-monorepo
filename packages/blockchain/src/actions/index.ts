@@ -1,6 +1,7 @@
 export { deepCopy } from './deepCopy.js'
 export { delBlock } from './delBlock.js'
 export { getBlock } from './getBlock.js'
+export { getBlockByTag } from './getBlockByTag.js'
 export { getCanonicalHeadBlock } from './getCanonicalHeadBlock.js'
 export { getIteratorHead } from './getIteratorHead.js'
 export { putBlock } from './putBlock.js'

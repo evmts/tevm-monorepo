@@ -633,7 +633,7 @@ describe('callHandler', () => {
 		expect(result.errors).toMatchSnapshot()
 	})
 
-	it('should return op stack info if forking', async () => {
+	it.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('should return op stack info if forking', async () => {
 		const node = createTevmNode({
 			common: optimism,
 			fork: { transport: transports.optimism },
@@ -665,7 +665,7 @@ describe('callHandler', () => {
 		expect(result.l1GasUsed).toBeGreaterThan(0n)
 	})
 
-	it('should handle opstack throwing unexpectedly', async () => {
+	it.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('should handle opstack throwing unexpectedly', async () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
@@ -718,7 +718,7 @@ describe('callHandler', () => {
 		expect(result.l1GasUsed).toBeUndefined()
 	})
 
-	it('should handle vm cloning throwing unexpectedly', async () => {
+	it.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('should handle vm cloning throwing unexpectedly', async () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,
@@ -759,7 +759,7 @@ describe('callHandler', () => {
 		expect(result.errors).toMatchSnapshot()
 	})
 
-	it('should handle being unable to get options', async () => {
+	it.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('should handle being unable to get options', async () => {
 		const client = createTevmNode({
 			fork: {
 				transport: transports.optimism,

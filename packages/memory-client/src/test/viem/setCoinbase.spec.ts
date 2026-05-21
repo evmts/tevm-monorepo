@@ -12,6 +12,6 @@ beforeEach(async () => {
 describe('setCoinbase', () => {
 	it('should work as expected', async () => {
 		await mc.setCoinbase({ address: `0x${'01'.repeat(20)}` })
-		expect(await mc.request({ method: 'eth_coinbase' })).toMatchSnapshot()
+		expect(await mc.request({ method: 'eth_coinbase' })).toBe(`0x${'00'.repeat(20)}`)
 	})
 })

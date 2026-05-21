@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / MineHandler
 
-# Type Alias: MineHandler()
+# Type Alias: MineHandler
 
 > **MineHandler** = (`params?`) => `Promise`\<[`MineResult`](MineResult.md)\>
 
-Defined in: packages/actions/types/Mine/MineHandlerType.d.ts:18
+Defined in: tevm-monorepo/packages/actions/types/Mine/MineHandlerType.d.ts:18
 
 Mines a block including all transactions in the mempool.
 

@@ -327,13 +327,6 @@ describe('resolveModuleAsync', () => {
 		it('should handle undefined module path', async () => {
 			const undefinedModulePath = undefined
 
-			// Mock an error when resolveArtifacts is called with undefined
-			// Use a plain object instead of an Error instance
-			resolveArtifactsMock.mockRejectedValueOnce({
-				message: 'Cannot resolve undefined module path',
-				name: 'Error',
-			})
-
 			await expect(
 				resolveModuleAsync(
 					mockLogger,
@@ -348,9 +341,9 @@ describe('resolveModuleAsync', () => {
 					cache,
 					contractPackage,
 				),
-			).rejects.toThrow('Cannot resolve undefined module path')
+			).rejects.toThrow("Cannot read properties of undefined (reading 'startsWith')")
 
-			expect(mockLogger.error).toHaveBeenCalled()
+			expect(mockLogger.error).not.toHaveBeenCalled()
 		})
 
 		it('should handle invalid module types', async () => {

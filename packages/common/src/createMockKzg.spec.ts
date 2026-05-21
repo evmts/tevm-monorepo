@@ -12,6 +12,10 @@ describe('createMockKzg', () => {
 		expect(mockKzg).toHaveProperty('blobToKzgCommitment')
 		expect(mockKzg).toHaveProperty('computeBlobKzgProof')
 		expect(mockKzg).toHaveProperty('verifyBlobKzgProofBatch')
+		expect(mockKzg).toHaveProperty('computeCells')
+		expect(mockKzg).toHaveProperty('computeCellsAndProofs')
+		expect(mockKzg).toHaveProperty('recoverCellsAndProofs')
+		expect(mockKzg).toHaveProperty('verifyCellKzgProofBatch')
 	})
 
 	it('should return 69 from loadTrustedSetup', () => {
@@ -36,16 +40,20 @@ describe('createMockKzg', () => {
 		expect(mockKzg.verifyBlobKzgProof()).toBe(true)
 	})
 
-	it('should return keccak256 hash from blobToKzgCommitment', () => {
+	it('should return a bytes48 mock commitment from blobToKzgCommitment', () => {
 		const mockKzg = createMockKzg()
 		// @ts-expect-error
-		expect(mockKzg.blobToKzgCommitment()).toMatchSnapshot()
+		const commitment = mockKzg.blobToKzgCommitment()
+		expect(commitment).toHaveLength(98)
+		expect(commitment).toMatchSnapshot()
 	})
 
-	it('should return keccak256 hash from computeBlobKzgProof', () => {
+	it('should return a bytes48 mock proof from computeBlobKzgProof', () => {
 		const mockKzg = createMockKzg()
 		// @ts-expect-error
-		expect(mockKzg.computeBlobKzgProof()).toMatchSnapshot()
+		const proof = mockKzg.computeBlobKzgProof()
+		expect(proof).toHaveLength(98)
+		expect(proof).toMatchSnapshot()
 	})
 
 	it('should return true from verifyBlobKzgProofBatch', () => {

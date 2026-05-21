@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / EthBlockNumberJsonRpcProcedure
 
-# Type Alias: EthBlockNumberJsonRpcProcedure()
+# Type Alias: EthBlockNumberJsonRpcProcedure
 
 > **EthBlockNumberJsonRpcProcedure** = (`request`) => `Promise`\<[`EthBlockNumberJsonRpcResponse`](EthBlockNumberJsonRpcResponse.md)\>
 

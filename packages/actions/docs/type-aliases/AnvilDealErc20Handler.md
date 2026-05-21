@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilDealErc20Handler
 
-# Type Alias: AnvilDealErc20Handler()
+# Type Alias: AnvilDealErc20Handler
 
 > **AnvilDealErc20Handler** = (`params`) => `Promise`\<[`AnvilDealErc20Result`](AnvilDealErc20Result.md)\>
 

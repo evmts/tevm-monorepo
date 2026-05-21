@@ -8,4 +8,4 @@
 
 > **cacheDir**: `string`
 
-Defined in: bundler-packages/config/types/config/withDefaults.d.ts:7
+Defined in: tevm-monorepo/bundler-packages/config/types/config/withDefaults.d.ts:7

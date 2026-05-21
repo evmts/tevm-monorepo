@@ -61,7 +61,7 @@ export type CreateEvmOptions = {
 	 * Below example shows how to make a precompile so you can call `fs.writeFile` and `fs.readFile` in your contracts.
 	 * Note: this specific precompile is also provided in the standard library
 	 *
-	 * For security precompiles can only be added statically when the vm is created.
+	 * Precompiles can be added when the VM is created or later via `addCustomPrecompile`.
 	 * @example
 	 * ```ts
 	 * import { createMemoryClient, defineCall, definePrecompile } from 'tevm'
@@ -103,12 +103,9 @@ export type CreateEvmOptions = {
 	 * ```typescript
 	 * const tevm = createMemoryClient({
 	 *   customPredeploys: [
-	 *     // can pass a `tevm Script` here as well
-	 *     {
-	 *        address: '0x420420...',
-	 *        abi: [...],
-	 *        deployedBytecode: '0x420420...',
-	 *     }
+	 *     definePredeploy(
+	 *       MyContract.withAddress('0x4204200000000000000000000000000000000000'),
+	 *     ),
 	 *   ],
 	 * })
 	 * ```

@@ -1,5 +1,5 @@
-import type { TypedTransaction } from '@tevm/tx'
-import { BlobEIP4844Transaction } from '@tevm/tx'
+import type { TypedTransaction } from '@evmts/zevm/tx'
+import { BlobEIP4844Transaction } from '@evmts/zevm/tx'
 import { type Hex, isHex } from '@tevm/utils'
 import type { BlockHeaderBytes, HeaderData } from './types.js'
 import { safeToType } from './utils.js'

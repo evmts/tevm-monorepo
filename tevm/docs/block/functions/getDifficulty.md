@@ -6,9 +6,9 @@
 
 # Function: getDifficulty()
 
-> **getDifficulty**(`headerData`): `null` \| `bigint`
+> **getDifficulty**(`headerData`): `bigint` \| `null`
 
-Defined in: packages/block/types/helpers.d.ts:38
+Defined in: tevm-monorepo/packages/block/types/helpers.d.ts:38
 
 Extracts the difficulty value from block header data
 
@@ -22,7 +22,7 @@ The header data object to extract difficulty from
 
 ## Returns
 
-`null` \| `bigint`
+`bigint` \| `null`
 
 The difficulty as a bigint, or null if not present
 

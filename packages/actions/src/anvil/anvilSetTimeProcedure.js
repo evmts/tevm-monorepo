@@ -22,6 +22,6 @@ export const anvilSetTimeJsonRpcProcedure = (client) => async (request) => {
 		method: request.method,
 		result: /** @type {`0x${string}`} */ (`0x${timestamp.toString(16)}`),
 		jsonrpc: /** @type {const} */ ('2.0'),
-		...(request.id ? { id: request.id } : {}),
+		...(request.id !== undefined ? { id: request.id } : {}),
 	}
 }

@@ -6,7 +6,7 @@
 
 # Interface: JsonTx
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:404
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:475
 
 Generic interface for all tx types with a
 JSON representation of a transaction.
@@ -19,142 +19,142 @@ and not all the values are present on all tx types
 
 ### accessList?
 
-> `optional` **accessList**: `JSONAccessListItem`[]
+> `optional` **accessList?**: `JSONAccessListItem`[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:415
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:486
 
 ***
 
 ### authorizationList?
 
-> `optional` **authorizationList**: `EOACode7702AuthorizationList`
+> `optional` **authorizationList?**: `EOACode7702AuthorizationList`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:416
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:487
 
 ***
 
 ### blobVersionedHashes?
 
-> `optional` **blobVersionedHashes**: `` `0x${string}` ``[]
+> `optional` **blobVersionedHashes?**: `` `0x${string}` ``[]
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:421
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:492
 
 ***
 
 ### chainId?
 
-> `optional` **chainId**: `` `0x${string}` ``
+> `optional` **chainId?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:414
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:485
 
 ***
 
 ### data?
 
-> `optional` **data**: `` `0x${string}` ``
+> `optional` **data?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:409
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:480
 
 ***
 
 ### gasLimit?
 
-> `optional` **gasLimit**: `` `0x${string}` ``
+> `optional` **gasLimit?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:407
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:478
 
 ***
 
 ### gasPrice?
 
-> `optional` **gasPrice**: `` `0x${string}` ``
+> `optional` **gasPrice?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:406
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:477
 
 ***
 
 ### maxFeePerBlobGas?
 
-> `optional` **maxFeePerBlobGas**: `` `0x${string}` ``
+> `optional` **maxFeePerBlobGas?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:420
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:491
 
 ***
 
 ### maxFeePerGas?
 
-> `optional` **maxFeePerGas**: `` `0x${string}` ``
+> `optional` **maxFeePerGas?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:419
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:490
 
 ***
 
 ### maxPriorityFeePerGas?
 
-> `optional` **maxPriorityFeePerGas**: `` `0x${string}` ``
+> `optional` **maxPriorityFeePerGas?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:418
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:489
 
 ***
 
 ### nonce?
 
-> `optional` **nonce**: `` `0x${string}` ``
+> `optional` **nonce?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:405
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:476
 
 ***
 
 ### r?
 
-> `optional` **r**: `` `0x${string}` ``
+> `optional` **r?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:411
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:482
 
 ***
 
 ### s?
 
-> `optional` **s**: `` `0x${string}` ``
+> `optional` **s?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:412
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:483
 
 ***
 
 ### to?
 
-> `optional` **to**: `` `0x${string}` ``
+> `optional` **to?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:408
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:479
 
 ***
 
 ### type?
 
-> `optional` **type**: `` `0x${string}` ``
+> `optional` **type?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:417
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:488
 
 ***
 
 ### v?
 
-> `optional` **v**: `` `0x${string}` ``
+> `optional` **v?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:410
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:481
 
 ***
 
 ### value?
 
-> `optional` **value**: `` `0x${string}` ``
+> `optional` **value?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:413
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:484
 
 ***
 
 ### yParity?
 
-> `optional` **yParity**: `` `0x${string}` ``
+> `optional` **yParity?**: `` `0x${string}` ``
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:422
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:493

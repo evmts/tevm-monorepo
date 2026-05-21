@@ -5277,5 +5277,11 @@
     ],
     "withdrawalsRoot": "0x1f366e19f9aca32cf4050600877cdb07bf64c0be3a1a78609b67c41b422627d8"
   },
-  "[null,\"eth_getBlockTransactionCountByHash\",\"0x509357d3abe2ee3e6dbbeaefc00aece314ab411aaed0f2ba709488a23f73a5ae\"]": "0x10a"
+  "[null,\"eth_getBlockTransactionCountByHash\",\"0x509357d3abe2ee3e6dbbeaefc00aece314ab411aaed0f2ba709488a23f73a5ae\"]": "0x10a",
+  "[\"2.0\",\"eth_getBlockByNumber\",\"0x15b9a23\",false]": {
+    "number": "0x15b9a23",
+    "hash": "0x1212121212121212121212121212121212121212121212121212121212121212",
+    "transactions": []
+  },
+  "[\"2.0\",\"eth_getBlockByHash\",\"0x1212121212121212121212121212121212121212121212121212121212121212\",true]": "0x1"
 }

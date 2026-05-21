@@ -8,4 +8,4 @@
 
 > `const` **PREFUNDED\_ACCOUNTS**: \[`PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`, `PrivateKeyAccount`\]
 
-Defined in: packages/utils/types/prefundedAccounts.d.ts:4
+Defined in: tevm-monorepo/packages/utils/types/prefundedAccounts.d.ts:4

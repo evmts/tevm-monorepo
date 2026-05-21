@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / GetAccountHandler
 
-# Type Alias: GetAccountHandler()
+# Type Alias: GetAccountHandler
 
 > **GetAccountHandler** = (`params`) => `Promise`\<[`GetAccountResult`](GetAccountResult.md)\>
 
-Defined in: packages/actions/types/GetAccount/GetAccountHandlerType.d.ts:20
+Defined in: tevm-monorepo/packages/actions/types/GetAccount/GetAccountHandlerType.d.ts:20
 
 Gets the state of a specific Ethereum address.
 This handler is for use with a low-level TEVM `TevmNode`, unlike `tevmGetAccount`.

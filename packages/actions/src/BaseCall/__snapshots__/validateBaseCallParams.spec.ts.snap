@@ -5,87 +5,87 @@ exports[`should match snapshot for invalid parameters 1`] = `
   [InvalidSkipBalanceError: Invalid input: expected boolean, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidskipbalanceerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidGasRefundError: Invalid input: expected bigint, received number
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgasrefunderror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidBlockError: Invalid input: expected "latest"
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidBlockError: Invalid input: expected "earliest"
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidBlockError: Invalid input: expected "pending"
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidBlockError: Invalid input: expected "safe"
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidBlockError: Invalid input: expected "finalized"
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidBlockError: Invalid input: expected bigint, received boolean
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidBlockError: Invalid input: expected number, received boolean
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidBlockError: Invalid input: expected string, received boolean
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblockerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidGasPrice: Invalid input: expected bigint, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidOriginError: Invalid Address invalid address
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidoriginerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidCallerError: Invalid input: expected string, received number
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidcallererror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidGasPrice: Invalid input: expected bigint, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidValueError: Invalid input: expected bigint, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidvalueerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidDepthError: Too small: expected number to be >=0
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invaliddeptherror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidSelfdestructError: Invalid input: expected set, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidselfdestructerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidToError: Invalid input: expected string, received number
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtoerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidBlobVersionedHashesError: value must be a hex string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidblobversionedhasheserror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidMaxFeePerGasError: Invalid input: expected bigint, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidmaxfeepergaserror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidMaxPriorityFeePerGasError: Invalid input: expected bigint, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidmaxpriorityfeepergaserror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -94,6 +94,6 @@ exports[`should validate if top level is wrong 1`] = `
   [InvalidParams: Invalid input: expected object, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;

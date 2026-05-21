@@ -8,7 +8,7 @@
 
 > **ethFeeHistoryHandler**(`client`): [`EthFeeHistoryHandler`](../type-aliases/EthFeeHistoryHandler.md)
 
-Defined in: packages/actions/types/eth/ethFeeHistoryHandler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/eth/ethFeeHistoryHandler.d.ts:1
 
 ## Parameters
 

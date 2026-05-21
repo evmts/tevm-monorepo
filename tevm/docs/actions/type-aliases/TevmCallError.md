@@ -8,7 +8,7 @@
 
 > **TevmCallError** = [`ValidateCallParamsError`](ValidateCallParamsError.md) \| [`CallHandlerOptsError`](CallHandlerOptsError.md) \| [`InternalError`](../../errors/classes/InternalError.md) \| [`ExecutionError`](../../errors/classes/ExecutionError.md) \| [`RevertError`](../../errors/classes/RevertError.md) \| [`HandleRunTxError`](HandleRunTxError.md) \| [`ExecuteCallError`](ExecuteCallError.md)
 
-Defined in: packages/actions/types/Call/TevmCallError.d.ts:61
+Defined in: tevm-monorepo/packages/actions/types/Call/TevmCallError.d.ts:61
 
 All errors that can occur during a TEVM call.
 This type is strongly typed if using `throwOnFail: false`.

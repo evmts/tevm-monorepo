@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [actions](../README.md) / AnvilSetCodeHandler
 
-# Type Alias: AnvilSetCodeHandler()
+# Type Alias: AnvilSetCodeHandler
 
 > **AnvilSetCodeHandler** = (`params`) => `Promise`\<[`AnvilSetCodeResult`](AnvilSetCodeResult.md)\>
 
-Defined in: packages/actions/types/anvil/AnvilHandler.d.ts:10
+Defined in: tevm-monorepo/packages/actions/types/anvil/AnvilHandler.d.ts:10
 
 ## Parameters
 

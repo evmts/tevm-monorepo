@@ -8,7 +8,7 @@
 
 > **InsufficientBalanceErrorParameters** = `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:71
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:71
 
 Parameters for constructing a [InsufficientBalanceError](../classes/InsufficientBalanceError.md).
 
@@ -16,9 +16,9 @@ Parameters for constructing a [InsufficientBalanceError](../classes/Insufficient
 
 ### cause?
 
-> `optional` **cause**: [`ExecutionError`](../classes/ExecutionError.md) \| [`EVMError`](../../evm/classes/EVMError.md)
+> `optional` **cause?**: [`ExecutionError`](../classes/ExecutionError.md) \| `EVMError`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:91
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:91
 
 - The cause of the error.
 
@@ -26,9 +26,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d
 
 ### details?
 
-> `optional` **details**: `string`
+> `optional` **details?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:95
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:95
 
 - Details of the error.
 
@@ -36,9 +36,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d
 
 ### docsBaseUrl?
 
-> `optional` **docsBaseUrl**: `string`
+> `optional` **docsBaseUrl?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:75
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:75
 
 - Base URL for the documentation.
 
@@ -46,9 +46,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d
 
 ### docsPath?
 
-> `optional` **docsPath**: `string`
+> `optional` **docsPath?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:79
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:79
 
 - Path to the documentation.
 
@@ -56,9 +56,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d
 
 ### docsSlug?
 
-> `optional` **docsSlug**: `string`
+> `optional` **docsSlug?**: `string`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:83
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:83
 
 - Slug for the documentation.
 
@@ -66,9 +66,9 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d
 
 ### meta?
 
-> `optional` **meta**: `object`
+> `optional` **meta?**: `object`
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:99
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:99
 
 - Optional object containing additional information about the error.
 
@@ -76,8 +76,8 @@ Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d
 
 ### metaMessages?
 
-> `optional` **metaMessages**: `string`[]
+> `optional` **metaMessages?**: `string`[]
 
-Defined in: packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:87
+Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:87
 
 - Additional meta messages.

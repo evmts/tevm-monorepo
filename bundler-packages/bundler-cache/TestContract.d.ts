@@ -1,4 +1,5 @@
 import type { Contract } from '@tevm/contract'
+
 const _abiTestContract = [
 	{
 		constant: true,

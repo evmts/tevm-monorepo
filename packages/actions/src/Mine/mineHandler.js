@@ -1,4 +1,4 @@
-import { InternalError, MisconfiguredClientError, UnreachableCodeError } from '@tevm/errors'
+import { InternalError, InvalidParamsError, MisconfiguredClientError, UnreachableCodeError } from '@tevm/errors'
 import { bytesToHex, hexToBytes } from '@tevm/utils'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { emitEvents } from './emitEvents.js'
@@ -73,13 +73,17 @@ export const mineHandler =
 				const overrideTimestamp = count === 0 ? client.getNextBlockTimestamp() : undefined
 				// Get the automatic interval if set
 				const automaticInterval = client.getBlockTimestampInterval()
-				let timestamp =
-					overrideTimestamp !== undefined
-						? Number(overrideTimestamp)
-						: Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
-				// Apply interval (prefer automatic interval over manual interval parameter)
 				const intervalToUse = automaticInterval !== undefined ? Number(automaticInterval) : interval
-				timestamp = count === 0 ? timestamp : timestamp + intervalToUse
+				let timestamp
+				if (overrideTimestamp !== undefined) {
+					timestamp = Number(overrideTimestamp)
+				} else if (count === 0) {
+					timestamp = Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
+				} else {
+					timestamp = Number(parentBlock.header.timestamp) + intervalToUse
+				}
+				// Keep block timestamps monotonic.
+				timestamp = Math.max(timestamp, Number(parentBlock.header.timestamp) + 1)
 				// Clear the timestamp override after using it
 				if (count === 0 && overrideTimestamp !== undefined) {
 					client.setNextBlockTimestamp(undefined)
@@ -97,11 +101,21 @@ export const mineHandler =
 					client.setNextBlockBaseFeePerGas(undefined)
 				}
 
+				const overridePrevRandao = count === 0 ? client.getNextBlockPrevRandao?.() : undefined
+				if (count === 0 && overridePrevRandao !== undefined && client.setNextBlockPrevRandao) {
+					client.setNextBlockPrevRandao(undefined)
+				}
+				const mixHash =
+					overridePrevRandao !== undefined
+						? hexToBytes(`0x${overridePrevRandao.toString(16).padStart(64, '0')}`)
+						: undefined
+
 				const blockBuilder = await vm.buildBlock({
 					parentBlock,
 					headerData: {
 						timestamp,
 						number: parentBlock.header.number + 1n,
+						...(mixHash ? { mixHash } : {}),
 						// The following 2 are currently not supported
 						// difficulty: undefined,
 						// coinbase,
@@ -121,18 +135,23 @@ export const mineHandler =
 					},
 				})
 				// TODO create a Log manager
-				const orderedTx =
-					tx !== undefined
-						? [
-								(() => {
-									const mempoolTx = pool.getByHash(tx)
-									pool.removeByHash(tx)
-									return mempoolTx
-								})(),
-							]
-						: await pool.txsByPriceAndNonce({
-								baseFee: baseFeePerGas,
+				const orderedTx = await (async () => {
+					if (tx !== undefined) {
+						const mempoolTx = pool.getByHash(tx)
+						if (mempoolTx == null) {
+							return maybeThrowOnFail(throwOnFail, {
+								errors: [new InvalidParamsError(`Transaction ${tx} does not exist in the transaction pool`)],
 							})
+						}
+						return [mempoolTx]
+					}
+					return pool.txsByPriceAndNonce({
+						baseFee: baseFeePerGas,
+					})
+				})()
+				if ('errors' in orderedTx) {
+					return orderedTx
+				}
 
 				let index = 0
 				// TODO we need to actually handle this
@@ -142,12 +161,12 @@ export const mineHandler =
 				 */
 				const receipts = []
 				while (index < orderedTx.length && !blockFull) {
-					const nextTx = /** @type {import('@tevm/tx').TypedTransaction}*/ (orderedTx[index])
+					const nextTx = /** @type {import('@evmts/zevm/tx').TypedTransaction}*/ (orderedTx[index])
 					client.logger.debug({ hash: bytesToHex(nextTx.hash()) }, 'new tx added')
 					const txResult = await blockBuilder.addTransaction(nextTx, {
-						skipBalance: true,
-						skipNonce: true,
-						skipHardForkValidation: true,
+						skipBalance: false,
+						skipNonce: false,
+						skipHardForkValidation: false,
 					})
 					receipts.push(txResult.receipt)
 					index++

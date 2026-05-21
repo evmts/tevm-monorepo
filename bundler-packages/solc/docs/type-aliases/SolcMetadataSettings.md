@@ -14,7 +14,7 @@ Defined in: [solcTypes.ts:223](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### appendCBOR?
 
-> `optional` **appendCBOR**: `boolean`
+> `optional` **appendCBOR?**: `boolean`
 
 Defined in: [solcTypes.ts:226](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L226)
 
@@ -22,7 +22,7 @@ Defined in: [solcTypes.ts:226](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### bytecodeHash?
 
-> `optional` **bytecodeHash**: `"ipfs"` \| `"bzzr1"` \| `"none"`
+> `optional` **bytecodeHash?**: `"ipfs"` \| `"bzzr1"` \| `"none"`
 
 Defined in: [solcTypes.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L233)
 
@@ -30,6 +30,6 @@ Defined in: [solcTypes.ts:233](https://github.com/evmts/tevm-monorepo/blob/main/
 
 ### useLiteralContent?
 
-> `optional` **useLiteralContent**: `boolean`
+> `optional` **useLiteralContent?**: `boolean`
 
 Defined in: [solcTypes.ts:228](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/solc/src/solcTypes.ts#L228)

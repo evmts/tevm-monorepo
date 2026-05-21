@@ -1,9 +1,9 @@
+import { LegacyTransaction } from '@evmts/zevm/tx'
 import { Block } from '@tevm/block'
 import { createChain } from '@tevm/blockchain'
 import { optimism } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
-import { LegacyTransaction } from '@tevm/tx'
 import { bytesToHex, createAccount, createAddressFromString, EthjsAddress, hexToBytes, parseEther } from '@tevm/utils'
 import { createVm, type Vm } from '@tevm/vm'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -86,6 +86,11 @@ describe('TxPool final coverage', () => {
 			// Check that the transaction was removed
 			expect(txPool.txsInPool).toBe(0)
 			expect((txPool as any).pool.size).toBe(0)
+			expect(txPool.getByHash(txHash)).toBeNull()
+			expect(await txPool.getTransactionStatus(`0x${txHash}`)).toBe('unknown')
+			expect((txPool as any).txsByHash.has(txHash)).toBe(false)
+			expect((txPool as any).txsByNonce.has(address)).toBe(false)
+			expect((txPool as any).txsInNonceOrder.has(address)).toBe(false)
 
 			// Add a handled entry that's very old
 			const veryOldTimestamp = Date.now() - (txPool.HANDLED_CLEANUP_TIME_LIMIT * 60 * 1000 + 5000)

@@ -8,7 +8,7 @@
 
 > **DebugPreimageResult** = [`Hex`](Hex.md) \| `null`
 
-Defined in: packages/actions/types/debug/DebugResult.d.ts:181
+Defined in: tevm-monorepo/packages/actions/types/debug/DebugResult.d.ts:181
 
 Result from `debug_preimage`
 

@@ -1,12 +1,12 @@
+import { createImpersonatedTx } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
-import { createImpersonatedTx } from '@tevm/tx'
 
 /**
  * @param {import('@tevm/node').TevmNode} client
  */
 export const evmInputToImpersonatedTx = (client) => {
 	/**
-	 * @param {import('@tevm/evm').EvmRunCallOpts} evmInput
+	 * @param {import('@evmts/zevm/evm').EvmRunCallOpts} evmInput
 	 * @param {bigint } [maxFeePerGas]
 	 * @param {bigint } [maxPriorityFeePerGas]
 	 */

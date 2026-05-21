@@ -8,7 +8,7 @@
 
 > **SolcInputDescription** = `object`
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:88
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:88
 
 ## Properties
 
@@ -16,15 +16,15 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:88
 
 > **language**: [`SolcLanguage`](SolcLanguage.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:89
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:89
 
 ***
 
 ### settings?
 
-> `optional` **settings**: [`SolcSettings`](SolcSettings.md)
+> `optional` **settings?**: [`SolcSettings`](SolcSettings.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:91
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:91
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:91
 
 > **sources**: [`SolcInputSources`](SolcInputSources.md)
 
-Defined in: bundler-packages/solc/types/src/solcTypes.d.ts:90
+Defined in: tevm-monorepo/bundler-packages/solc/types/src/solcTypes.d.ts:90

@@ -8,7 +8,7 @@
 
 > **debugTraceBlockByHashJsonRpcProcedure**(`client`): `DebugTraceBlockByHashProcedure`\<`"callTracer"` \| `"prestateTracer"` \| `"4byteTracer"` \| `"flatCallTracer"` \| `"muxTracer"`, `boolean`\>
 
-Defined in: packages/actions/types/debug/debugTraceBlockByHashProcedure.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/debug/debugTraceBlockByHashProcedure.d.ts:1
 
 ## Parameters
 

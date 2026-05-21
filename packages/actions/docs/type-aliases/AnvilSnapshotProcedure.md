@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilSnapshotProcedure
 
-# Type Alias: AnvilSnapshotProcedure()
+# Type Alias: AnvilSnapshotProcedure
 
 > **AnvilSnapshotProcedure** = (`request`) => `Promise`\<[`AnvilSnapshotJsonRpcResponse`](AnvilSnapshotJsonRpcResponse.md)\>
 

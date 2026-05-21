@@ -16,7 +16,7 @@ Result from `debug_*` with `callTracer`
 
 ### calls?
 
-> `optional` **calls**: [`TraceCall`](TraceCall.md)[]
+> `optional` **calls?**: [`TraceCall`](TraceCall.md)[]
 
 Defined in: [packages/actions/src/common/CallTraceResult.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/CallTraceResult.ts#L16)
 

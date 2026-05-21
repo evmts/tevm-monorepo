@@ -24,7 +24,7 @@ Defined in: [createOptimisticHandler.ts:62](https://github.com/evmts/tevm-monore
 
 Defined in: [createOptimisticHandler.ts:74](https://github.com/evmts/tevm-monorepo/blob/main/bundler-packages/mud/src/createOptimisticHandler.ts#L74)
 
-#### cleanup()
+#### cleanup
 
 > **cleanup**: () => `Promise`\<`void`\>
 
@@ -50,7 +50,7 @@ Defined in: [createOptimisticHandler.ts:74](https://github.com/evmts/tevm-monore
 
 ***
 
-### getOptimisticRecord()
+### getOptimisticRecord
 
 > **getOptimisticRecord**: \<`TTable`, `TDefaultValue`\>(`args`) => `GetRecordResult`\<`TTable`, `TDefaultValue`\>
 
@@ -78,7 +78,7 @@ Defined in: [createOptimisticHandler.ts:64](https://github.com/evmts/tevm-monore
 
 ***
 
-### getOptimisticRecords()
+### getOptimisticRecords
 
 > **getOptimisticRecords**: \<`TTable`\>(`args`) => `GetRecordsResult`\<`TTable`\>
 
@@ -102,7 +102,7 @@ Defined in: [createOptimisticHandler.ts:70](https://github.com/evmts/tevm-monore
 
 ***
 
-### getOptimisticState()
+### getOptimisticState
 
 > **getOptimisticState**: () => `State`\<`TConfig`\>
 
@@ -114,7 +114,7 @@ Defined in: [createOptimisticHandler.ts:63](https://github.com/evmts/tevm-monore
 
 ***
 
-### subscribeOptimisticState()
+### subscribeOptimisticState
 
 > **subscribeOptimisticState**: (`args`) => `Unsubscribe`
 
@@ -134,7 +134,7 @@ Defined in: [createOptimisticHandler.ts:71](https://github.com/evmts/tevm-monore
 
 ***
 
-### subscribeTx()
+### subscribeTx
 
 > **subscribeTx**: (`args`) => `Unsubscribe`
 

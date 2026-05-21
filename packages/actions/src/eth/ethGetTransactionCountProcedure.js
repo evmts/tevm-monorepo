@@ -1,6 +1,7 @@
 import { createAddress } from '@tevm/address'
 import { ForkError, InternalEvmError } from '@tevm/errors'
 import { hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
+import { asLightSelector, ensureLightReady, getLightProof } from './lightClientRead.js'
 
 /**
  * Request handler for eth_getFilterLogs JSON-RPC requests.
@@ -10,6 +11,36 @@ import { hexToBigInt, hexToBytes, numberToHex } from '@tevm/utils'
 export const ethGetTransactionCountProcedure = (node) => {
 	return async (request) => {
 		const [address, tag] = request.params
+		if (node.consensus?.mode === 'light-client') {
+			try {
+				ensureLightReady(node, 'eth_getTransactionCount')
+				const selector = asLightSelector(tag)
+				const { proof } = await getLightProof(node, address, [], selector)
+				return {
+					...(request.id !== undefined ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					result: numberToHex(hexToBigInt(proof.nonce)),
+				}
+			} catch (err) {
+				const message = /** @type {Error} */ (err).message
+				const explicitCode = message.startsWith('LIGHT_CLIENT_UNSUPPORTED_SELECTOR')
+					? -32010
+					: message.startsWith('LIGHT_CLIENT_NOT_READY')
+						? -32011
+						: message.startsWith('LIGHT_CLIENT_MALFORMED_UPSTREAM_PROOF')
+							? -32012
+							: message.startsWith('LIGHT_CLIENT_PROOF_VERIFICATION_FAILED')
+								? -32013
+								: -32603
+				return {
+					...(request.id !== undefined ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: request.jsonrpc,
+					error: { code: explicitCode, message },
+				}
+			}
+		}
 
 		const block = await (async () => {
 			const vm = await node.getVm()
@@ -30,7 +61,7 @@ export const ethGetTransactionCountProcedure = (node) => {
 		})()
 		if (!block) {
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {
@@ -67,7 +98,7 @@ export const ethGetTransactionCountProcedure = (node) => {
 				 */
 				const result = await node.forkTransport.request(request)
 				return {
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 					method: request.method,
 					jsonrpc: request.jsonrpc,
 					result: numberToHex(hexToBigInt(result) + pendingCount),
@@ -77,7 +108,7 @@ export const ethGetTransactionCountProcedure = (node) => {
 					cause: /** @type {any}*/ (e),
 				})
 				return {
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 					method: request.method,
 					jsonrpc: request.jsonrpc,
 					error: {
@@ -91,7 +122,7 @@ export const ethGetTransactionCountProcedure = (node) => {
 			const err = new InternalEvmError(`No state root found for block tag ${tag} in eth_getTransactionCountProcedure`)
 			node.logger.error(err)
 			return {
-				...(request.id ? { id: request.id } : {}),
+				...(request.id !== undefined ? { id: request.id } : {}),
 				method: request.method,
 				jsonrpc: request.jsonrpc,
 				error: {
@@ -102,7 +133,7 @@ export const ethGetTransactionCountProcedure = (node) => {
 		}
 
 		return {
-			...(request.id ? { id: request.id } : {}),
+			...(request.id !== undefined ? { id: request.id } : {}),
 			method: request.method,
 			jsonrpc: request.jsonrpc,
 			result: numberToHex(pendingCount + includedCount),

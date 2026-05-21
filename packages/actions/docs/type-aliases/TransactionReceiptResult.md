@@ -16,7 +16,7 @@ Transaction receipt result type for eth JSON-RPC procedures
 
 ### blobGasPrice?
 
-> `readonly` `optional` **blobGasPrice**: `bigint`
+> `readonly` `optional` **blobGasPrice?**: `bigint`
 
 Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L23)
 
@@ -24,7 +24,7 @@ Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:23](https:/
 
 ### blobGasUsed?
 
-> `readonly` `optional` **blobGasUsed**: `bigint`
+> `readonly` `optional` **blobGasUsed?**: `bigint`
 
 Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L22)
 
@@ -104,7 +104,7 @@ Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:16](https:/
 
 ### root?
 
-> `readonly` `optional` **root**: [`Hex`](Hex.md)
+> `readonly` `optional` **root?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L18)
 
@@ -112,7 +112,7 @@ Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:18](https:/
 
 ### status?
 
-> `readonly` `optional` **status**: [`Hex`](Hex.md)
+> `readonly` `optional` **status?**: [`Hex`](Hex.md)
 
 Defined in: [packages/actions/src/common/TransactionReceiptResult.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/common/TransactionReceiptResult.ts#L17)
 

@@ -8,13 +8,13 @@
 
 > **CommonOptions** = `ViemChain` & `object`
 
-Defined in: packages/common/types/CommonOptions.d.ts:37
+Defined in: tevm-monorepo/packages/common/types/CommonOptions.d.ts:37
 
 ## Type Declaration
 
 ### customCrypto?
 
-> `optional` **customCrypto**: [`CustomCrypto`](../interfaces/CustomCrypto.md)
+> `optional` **customCrypto?**: [`CustomCrypto`](../interfaces/CustomCrypto.md)
 
 Custom crypto implementations
 For EIP-4844 support kzg must be passed
@@ -42,7 +42,7 @@ const common = createCommon({
 
 ### eips?
 
-> `optional` **eips**: `ReadonlyArray`\<`number`\>
+> `optional` **eips?**: `ReadonlyArray`\<`number`\>
 
 Eips to enable. Defaults to `[1559, 4895]`
 
@@ -54,7 +54,7 @@ Eips to enable. Defaults to `[1559, 4895]`
 
 ### hardfork?
 
-> `optional` **hardfork**: [`Hardfork`](Hardfork.md)
+> `optional` **hardfork?**: [`Hardfork`](Hardfork.md)
 
 Hardfork to use. Defaults to `prague`
 
@@ -66,7 +66,7 @@ Hardfork to use. Defaults to `prague`
 
 ### loggingLevel?
 
-> `optional` **loggingLevel**: `LogOptions`\[`"level"`\]
+> `optional` **loggingLevel?**: `LogOptions`\[`"level"`\]
 
 Logging level of the Tevm logger instance
 

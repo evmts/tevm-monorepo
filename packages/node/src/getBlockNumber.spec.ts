@@ -1,21 +1,25 @@
-import { http } from '@tevm/jsonrpc'
-import { transports } from '@tevm/test-utils'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { getBlockNumber } from './getBlockNumber.js'
 
 describe('getBlockNumber', () => {
 	it('should return the block number when successful', async () => {
-		const blockNumber = await getBlockNumber(transports.optimism)
-		expect(blockNumber).toBeGreaterThan(122494824n)
+		const transport = {
+			request: vi.fn().mockResolvedValue('0x74d5c68'),
+		}
+		const blockNumber = await getBlockNumber(transport)
+		expect(blockNumber).toBe(122510440n)
 	})
 
 	it('should throw an error when there is an error or blockNumber is undefined', async () => {
-		const url = 'https://typo.mainnet.optimism.io'
-		const err = await getBlockNumber(http(url)({})).catch((e) => e)
-		expect(err).toEqual({
+		const transport = {
+			request: vi.fn().mockRejectedValue({
+				code: -32000,
+				message: 'Unknown error in jsonrpc request',
+			}),
+		}
+		await expect(getBlockNumber(transport)).rejects.toEqual({
 			code: -32000,
 			message: 'Unknown error in jsonrpc request',
 		})
-		expect(err).toMatchSnapshot()
 	})
 })

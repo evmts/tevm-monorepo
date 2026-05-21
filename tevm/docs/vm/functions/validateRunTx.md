@@ -8,7 +8,7 @@
 
 > **validateRunTx**(`vm`): (`opts`) => `Promise`\<\{ `block`: [`Block`](../../block/classes/Block.md); `blockGasUsed?`: `bigint`; `preserveJournal`: `boolean`; `reportAccessList?`: `boolean`; `reportPreimages?`: `boolean`; `skipBalance?`: `boolean`; `skipBlockGasLimitValidation?`: `boolean`; `skipHardForkValidation?`: `boolean`; `skipNonce?`: `boolean`; `tx`: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md); \}\>
 
-Defined in: packages/vm/types/actions/validateRunTx.d.ts:1
+Defined in: tevm-monorepo/packages/vm/types/actions/validateRunTx.d.ts:1
 
 ## Parameters
 
@@ -18,14 +18,4 @@ Defined in: packages/vm/types/actions/validateRunTx.d.ts:1
 
 ## Returns
 
-> (`opts`): `Promise`\<\{ `block`: [`Block`](../../block/classes/Block.md); `blockGasUsed?`: `bigint`; `preserveJournal`: `boolean`; `reportAccessList?`: `boolean`; `reportPreimages?`: `boolean`; `skipBalance?`: `boolean`; `skipBlockGasLimitValidation?`: `boolean`; `skipHardForkValidation?`: `boolean`; `skipNonce?`: `boolean`; `tx`: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md); \}\>
-
-### Parameters
-
-#### opts
-
-[`RunTxOpts`](../interfaces/RunTxOpts.md)
-
-### Returns
-
-`Promise`\<\{ `block`: [`Block`](../../block/classes/Block.md); `blockGasUsed?`: `bigint`; `preserveJournal`: `boolean`; `reportAccessList?`: `boolean`; `reportPreimages?`: `boolean`; `skipBalance?`: `boolean`; `skipBlockGasLimitValidation?`: `boolean`; `skipHardForkValidation?`: `boolean`; `skipNonce?`: `boolean`; `tx`: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md); \}\>
+(`opts`) => `Promise`\<\{ `block`: [`Block`](../../block/classes/Block.md); `blockGasUsed?`: `bigint`; `preserveJournal`: `boolean`; `reportAccessList?`: `boolean`; `reportPreimages?`: `boolean`; `skipBalance?`: `boolean`; `skipBlockGasLimitValidation?`: `boolean`; `skipHardForkValidation?`: `boolean`; `skipNonce?`: `boolean`; `tx`: [`TypedTransaction`](../../tx/type-aliases/TypedTransaction.md); \}\>

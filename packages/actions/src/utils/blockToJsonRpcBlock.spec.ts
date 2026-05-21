@@ -5,7 +5,10 @@ import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { blockToJsonRpcBlock } from './blockToJsonRpcBlock.js'
 
-describe('blockToJsonRpcBlock', async () => {
+if (!process.env.TEVM_RUN_LIVE_FORK_TESTS) {
+	describe.skip('blockToJsonRpcBlock', () => {})
+} else {
+	describe('blockToJsonRpcBlock', async () => {
 	const client = createTevmNode({ common: optimism, fork: { transport: transports.optimism } })
 	const transport = client.forkTransport
 	if (!transport) throw new Error('Transport is not defined')
@@ -19,4 +22,5 @@ describe('blockToJsonRpcBlock', async () => {
 	it('should convert block to JSON-RPC block format without transactions', async () => {
 		expect(await blockToJsonRpcBlock(block, false)).toMatchSnapshot()
 	})
-})
+	})
+}

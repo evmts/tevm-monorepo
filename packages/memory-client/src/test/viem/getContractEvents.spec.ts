@@ -35,7 +35,7 @@ describe('getContractEvents', () => {
 		await mc.tevmCall({
 			to: c.simpleContract.address,
 			data: encodeFunctionData(c.simpleContract.write.set(69n)),
-			createTransaction: true,
+			addToBlockchain: true,
 		})
 		const events = mc.getContractEvents({
 			address: c.simpleContract.address,

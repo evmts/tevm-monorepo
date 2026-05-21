@@ -2,6 +2,7 @@ import type { AbiEventParameter, AbiParametersToPrimitiveTypes, ExtractAbiEvent 
 import { type Abi, type ContractEventName, decodeEventLog } from 'viem'
 import { parseChainArgs } from '../../chainable/chainable.js'
 import type { ChainState, MatcherResult } from '../../chainable/types.js'
+import { deepEqual } from '../utils/deepEqual.js'
 import type { ToEmitState } from './types.js'
 
 export const withEventArgs = <
@@ -46,7 +47,7 @@ export const withEventArgs = <
 		actualArgsFromLogs.push(decodedArgs)
 
 		if (decodedArgs.length === args.length) {
-			const allArgsMatch = decodedArgs.every((actual, i) => actual === args[i])
+			const allArgsMatch = decodedArgs.every((actual, i) => deepEqual(actual, args[i]))
 			if (allArgsMatch) {
 				argsMatched = true
 				break

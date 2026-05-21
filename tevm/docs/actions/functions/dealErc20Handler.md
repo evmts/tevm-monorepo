@@ -8,7 +8,7 @@
 
 > **dealErc20Handler**(`node`): [`AnvilDealErc20Handler`](../type-aliases/AnvilDealErc20Handler.md)
 
-Defined in: packages/actions/types/anvil/anvilDealErc20Handler.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/anvil/anvilDealErc20Handler.d.ts:1
 
 ## Parameters
 

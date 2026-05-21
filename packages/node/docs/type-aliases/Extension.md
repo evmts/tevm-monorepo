@@ -4,7 +4,7 @@
 
 [@tevm/node](../globals.md) / Extension
 
-# Type Alias: Extension()\<TExtended\>
+# Type Alias: Extension\<TExtended\>
 
 > **Extension**\<`TExtended`\> = (`client`) => `TExtended`
 

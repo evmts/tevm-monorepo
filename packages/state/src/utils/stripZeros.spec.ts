@@ -14,9 +14,9 @@ describe('stripZeros', () => {
 		expect(stripZeros(input)).toEqual(input)
 	})
 
-	it('should return an 1 0 if all elements are zero', () => {
+	it('should return an empty array if all elements are zero', () => {
 		const input = new Uint8Array([0, 0, 0])
-		const expected = new Uint8Array([0])
+		const expected = new Uint8Array()
 		expect(stripZeros(input)).toEqual(expected)
 	})
 

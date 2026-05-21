@@ -8,7 +8,7 @@
 
 > **callHandlerResult**(`evmResult`, `txHash`, `trace`, `accessList`): [`CallResult`](../type-aliases/CallResult.md)\<[`TevmCallError`](../type-aliases/TevmCallError.md)\>
 
-Defined in: packages/actions/types/Call/callHandlerResult.d.ts:1
+Defined in: tevm-monorepo/packages/actions/types/Call/callHandlerResult.d.ts:1
 
 ## Parameters
 
@@ -18,15 +18,15 @@ Defined in: packages/actions/types/Call/callHandlerResult.d.ts:1
 
 ### txHash
 
-`undefined` | `` `0x${string}` ``
+`` `0x${string}` `` \| `undefined`
 
 ### trace
 
-`undefined` | [`TraceResult`](../../index/type-aliases/TraceResult.md)
+[`TraceResult`](../../index/type-aliases/TraceResult.md) \| `undefined`
 
 ### accessList
 
-`undefined` | `Map`\<`string`, `Set`\<`string`\>\>
+`Map`\<`string`, `Set`\<`string`\>\> \| `undefined`
 
 ## Returns
 

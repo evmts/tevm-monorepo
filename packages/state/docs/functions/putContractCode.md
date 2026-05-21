@@ -8,7 +8,7 @@
 
 > **putContractCode**(`baseState`): (`address`, `value`) => `Promise`\<`void`\>
 
-Defined in: [packages/state/src/actions/putContractCode.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractCode.js#L11)
+Defined in: [tevm-monorepo/packages/state/src/actions/putContractCode.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/state/src/actions/putContractCode.js#L11)
 
 Adds `value` to the state trie as code, and sets `codeHash` on the account
 corresponding to `address` to reference this.
@@ -21,18 +21,4 @@ corresponding to `address` to reference this.
 
 ## Returns
 
-> (`address`, `value`): `Promise`\<`void`\>
-
-### Parameters
-
-#### address
-
-`Address`
-
-#### value
-
-`Uint8Array`
-
-### Returns
-
-`Promise`\<`void`\>
+(`address`, `value`) => `Promise`\<`void`\>

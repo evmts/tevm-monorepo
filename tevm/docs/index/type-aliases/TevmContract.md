@@ -4,11 +4,11 @@
 
 [tevm](../../modules.md) / [index](../README.md) / TevmContract
 
-# Type Alias: TevmContract()
+# Type Alias: TevmContract
 
 > **TevmContract** = \<`TAbi`, `TFunctionName`\>(`client`, `params`) => `Promise`\<[`ContractResult`](../../actions/type-aliases/ContractResult.md)\<`TAbi`, `TFunctionName`\>\>
 
-Defined in: packages/memory-client/types/TevmContractType.d.ts:47
+Defined in: tevm-monorepo/packages/memory-client/types/TevmContractType.d.ts:47
 
 A type representing the handler for a TEVM contract procedure.
 

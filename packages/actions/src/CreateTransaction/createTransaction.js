@@ -1,9 +1,7 @@
+import { createImpersonatedTx } from '@evmts/zevm/tx'
 import { createAddress } from '@tevm/address'
-import { createImpersonatedTx } from '@tevm/tx'
 import { bytesToHex, EthjsAccount } from '@tevm/utils'
-import { getAccountHandler } from '../GetAccount/getAccountHandler.js'
 import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
-import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 
 // TODO tevm_call should optionally take a signature too
 // When it takes a real signature (like in case of eth.sendRawTransaction) we should
@@ -17,8 +15,8 @@ const requireSig = false
 export const createTransaction = (client, defaultThrowOnFail = true) => {
 	/**
 	 * @param {object} params
-	 * @param {import('@tevm/evm').EvmRunCallOpts} params.evmInput
-	 * @param {import('@tevm/evm').EvmResult} params.evmOutput
+	 * @param {import('@evmts/zevm/evm').EvmRunCallOpts} params.evmInput
+	 * @param {import('@evmts/zevm/evm').EvmResult} params.evmOutput
 	 * @param {bigint | undefined} [params.maxFeePerGas]
 	 * @param {bigint | undefined} [params.maxPriorityFeePerGas]
 	 * @param {boolean} [params.throwOnFail]
@@ -27,6 +25,7 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 	return async ({ evmInput, evmOutput, throwOnFail = defaultThrowOnFail, nonceOverride, ...priorityFeeOpts }) => {
 		const vm = await client.getVm()
 		const pool = await client.getTxPool()
+		const poolVm = /** @type {any} */ (pool).vm ?? vm
 
 		const accountAddress = evmInput.origin ?? createAddress(0)
 		const account = await vm.stateManager.getAccount(accountAddress).catch(() => new EthjsAccount(0n, 0n))
@@ -132,23 +131,29 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 			 * @type {Promise<{error: null; hash: `0x${string}`;} | {error: string; hash: `0x${string}`;}>}
 			 */
 			(Promise.resolve({}))
+		let checkpointed = false
 		try {
-			client.logger.debug({ requireSig, skipBalance: evmInput.skipBalance }, 'callHandler: Adding tx to mempool')
-			poolPromise = pool.add(tx, requireSig, evmInput.skipBalance ?? false)
 			const txHash = bytesToHex(tx.hash())
 			client.logger.debug({ txHash }, 'callHandler: received txHash')
-			const account = await getAccountHandler(client)({
-				address: /** @type {import('@tevm/utils').Hex}*/ (sender.toString()),
-			})
+			const account = (await poolVm.stateManager.getAccount(sender)) ?? new EthjsAccount()
 			const balanceNeeded = tx.value + gasLimitWithExecutionBuffer * tx.maxFeePerGas
 			const hasBalance = balanceNeeded <= account.balance
-			if (evmInput?.skipBalance && !hasBalance) {
-				await setAccountHandler(client)({
-					address: /** @type {import('@tevm/utils').Hex}*/ (sender.toString()),
-					balance: balanceNeeded,
-				})
+			client.logger.debug({ requireSig, skipBalance: evmInput.skipBalance }, 'callHandler: Adding tx to mempool')
+			poolPromise = pool.add(tx, requireSig, evmInput.skipBalance ?? false)
+			const poolResult = await poolPromise
+			if (poolResult.error) {
+				throw new Error(poolResult.error)
 			}
-			await poolPromise
+			if (evmInput?.skipBalance && !hasBalance) {
+				await poolVm.stateManager.checkpoint()
+				checkpointed = true
+				account.balance = balanceNeeded
+				await poolVm.stateManager.putAccount(sender, account)
+			}
+			if (checkpointed) {
+				await poolVm.stateManager.commit()
+				checkpointed = false
+			}
 			client.emit('newPendingTransaction', tx)
 			return {
 				txHash,
@@ -176,8 +181,10 @@ export const createTransaction = (client, defaultThrowOnFail = true) => {
 				'callHandler: Unexpected error adding transaction to mempool and checkpointing state. Removing transaction from mempool and reverting state',
 			)
 			pool.removeByHash(bytesToHex(tx.hash()))
-			// don't expect this to ever happen at this point but being defensive
-			await vm.stateManager.revert()
+			if (checkpointed) {
+				await poolVm.stateManager.revert()
+				checkpointed = false
+			}
 			return maybeThrowOnFail(throwOnFail ?? defaultThrowOnFail, {
 				errors: [
 					{

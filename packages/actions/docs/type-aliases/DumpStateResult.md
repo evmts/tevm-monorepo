@@ -25,7 +25,7 @@ It includes the serialized TEVM state and any errors that may have occurred.
 
 ### errors?
 
-> `optional` **errors**: `ErrorType`[]
+> `optional` **errors?**: `ErrorType`[]
 
 Defined in: [packages/actions/src/DumpState/DumpStateResult.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/DumpState/DumpStateResult.ts#L24)
 

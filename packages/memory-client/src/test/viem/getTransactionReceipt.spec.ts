@@ -25,9 +25,11 @@ beforeEach(async () => {
 })
 
 describe('getTransactionReceipt', () => {
-	it('should work', async () => {
-		const { blockHash, ...receipt } = await mc.getTransactionReceipt({ hash: deployTxHash })
-		expect(blockHash.startsWith('0x')).toBe(true)
-		expect(receipt).toMatchSnapshot()
+	it('should return receipts with empty block state roots', async () => {
+		await expect(mc.getTransactionReceipt({ hash: deployTxHash })).resolves.toMatchObject({
+			root: '0x',
+			status: 'success',
+			transactionHash: deployTxHash,
+		})
 	})
 })

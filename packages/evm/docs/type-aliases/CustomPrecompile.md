@@ -6,7 +6,7 @@
 
 # Type Alias: CustomPrecompile
 
-> **CustomPrecompile** = `Exclude`\<`Exclude`\<`Parameters`\<*typeof* [`EvmType`](../interfaces/EvmType.md)\[`"create"`\]\>\[`0`\], `undefined`\>\[`"customPrecompiles"`\], `undefined`\>\[`number`\]
+> **CustomPrecompile** = `Exclude`\<`NonNullable`\<[`EVMOpts`](EVMOpts.md)\[`"customPrecompiles"`\]\>, `undefined`\>\[`number`\]
 
 Defined in: [packages/evm/src/CustomPrecompile.ts:41](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CustomPrecompile.ts#L41)
 

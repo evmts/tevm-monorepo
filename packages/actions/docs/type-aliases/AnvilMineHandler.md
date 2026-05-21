@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / AnvilMineHandler
 
-# Type Alias: AnvilMineHandler()
+# Type Alias: AnvilMineHandler
 
 > **AnvilMineHandler** = (`params`) => `Promise`\<[`AnvilMineResult`](AnvilMineResult.md)\>
 

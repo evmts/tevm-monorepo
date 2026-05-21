@@ -36,9 +36,8 @@ import { createTransport } from 'viem'
  *       transport: http('https://mainnet.optimism.io')({}),
  *       blockTag: 'latest' // Optional: specify block number or hash
  *     },
- *     mining: {
- *       auto: true,        // Optional: enable auto-mining after transactions
- *       interval: 0        // Optional: mine blocks at regular intervals (ms)
+ *     miningConfig: {
+ *       type: 'auto', // Optional: enable auto-mining after transactions
  *     }
  *   }),
  *   chain: optimism,
@@ -84,9 +83,9 @@ import { createTransport } from 'viem'
  * - `fork` (optional): Configuration for forking from an existing network
  *   - `transport`: An EIP-1193 compatible transport (e.g., from viem's http function)
  *   - `blockTag` (optional): Block number/hash to fork from (defaults to 'latest')
- * - `mining` (optional): Mining configuration
- *   - `auto` (boolean): Whether to automatically mine after transactions
- *   - `interval` (number): Milliseconds between automatic block mining (0 = disabled)
+ * - `miningConfig` (optional): Mining configuration
+ *   - `type` ('auto' | 'manual' | 'interval'): How blocks are mined
+ *   - `blockTime` (number): Seconds between automatic blocks for interval mining
  * - `common` (optional): Chain configuration (recommended for optimal performance)
  * - `persister` (optional): For state persistence between sessions
  *
@@ -117,7 +116,7 @@ export const createTevmTransport = (options = {}) => {
 						createCommon({ ...chain, hardfork: 'prague', loggingLevel: 'warn' })
 					: undefined
 		const common = options.common ?? dynamicChain
-		const id = common?.id ?? -1
+		const id = options.fork?.chainId ?? common?.id ?? -1
 		const tevm =
 			tevmMap.get(id) ??
 			createTevmNode({ ...options, ...(common !== undefined ? { common } : {}) })

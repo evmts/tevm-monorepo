@@ -17,7 +17,7 @@ Extends V1 with streamlined output
 
 ### baseFeePerGas?
 
-> `optional` **baseFeePerGas**: `bigint`
+> `optional` **baseFeePerGas?**: `bigint`
 
 Defined in: [packages/actions/src/eth/EthResult.ts:597](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L597)
 
@@ -37,7 +37,7 @@ Results of the simulated calls in this block
 
 ### feeRecipient?
 
-> `optional` **feeRecipient**: [`Address`](Address.md)
+> `optional` **feeRecipient?**: [`Address`](Address.md)
 
 Defined in: [packages/actions/src/eth/EthResult.ts:601](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/eth/EthResult.ts#L601)
 

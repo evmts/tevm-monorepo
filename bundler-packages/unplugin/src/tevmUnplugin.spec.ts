@@ -84,7 +84,6 @@ describe('unpluginFn', () => {
 			    "config": "mockedConfig",
 			  },
 			  Console {
-			    "Console": [Function],
 			    "assert": [Function],
 			    "clear": [Function],
 			    "count": [Function],
@@ -107,7 +106,7 @@ describe('unpluginFn', () => {
 			  },
 			  {
 			    "exists": [Function],
-			    "existsSync": [MockFunction spy],
+			    "existsSync": [MockFunction],
 			    "mkdir": [Function],
 			    "mkdirSync": [Function],
 			    "readFile": [Function],

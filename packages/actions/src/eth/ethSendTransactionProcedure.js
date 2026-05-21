@@ -23,7 +23,7 @@ export const ethSendTransactionJsonRpcProcedure = (client) => {
 			method: sendTransactionRequest.method,
 			result: txHash,
 			jsonrpc: '2.0',
-			...(sendTransactionRequest.id ? { id: sendTransactionRequest.id } : {}),
+			...(sendTransactionRequest.id !== undefined ? { id: sendTransactionRequest.id } : {}),
 		}
 	}
 }

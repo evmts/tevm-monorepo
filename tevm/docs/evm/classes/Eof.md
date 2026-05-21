@@ -6,7 +6,7 @@
 
 # Class: Eof
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:62
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:62
 
 Main constructor for the EOFContainer
 
@@ -16,7 +16,7 @@ Main constructor for the EOFContainer
 
 > **new Eof**(`buf`, `eofMode?`, `dataSectionAllowedSmaller?`): `EOFContainer`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:73
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:73
 
 #### Parameters
 
@@ -48,7 +48,7 @@ Container mode to validate the container on
 
 > **body**: `EOFBody`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:64
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:64
 
 ***
 
@@ -56,7 +56,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **buffer**: `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:65
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:65
 
 ***
 
@@ -64,7 +64,7 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **eofMode**: `EOFContainerMode`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:66
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:66
 
 ***
 
@@ -72,4 +72,4 @@ Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs
 
 > **header**: `EOFHeader`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+evm@10.0.0/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:63
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:63

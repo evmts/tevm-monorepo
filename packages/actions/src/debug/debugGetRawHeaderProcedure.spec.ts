@@ -76,7 +76,7 @@ describe('debugGetRawHeaderJsonRpcProcedure', () => {
 		})
 
 		expect(response.error).toBeDefined()
-		expect(response.error.code).toBe(-32603)
+		expect(response.error.code).toBe('-32603')
 	})
 
 	it('should use default latest when no params provided', async () => {

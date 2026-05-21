@@ -1,10 +1,9 @@
+import { KECCAK256_RLP } from '@evmts/zevm/util'
 import { Block } from '@tevm/block'
 import { optimism } from '@tevm/common'
-import { transports } from '@tevm/test-utils'
-import { EMPTY_STATE_ROOT } from '@tevm/trie'
 import { describe, expect, it } from 'vitest'
 import { createBaseChain } from './createBaseChain.js'
-import { getMockBlocks } from './test/getBlocks.js'
+import { getMockBlocks, mockTransport } from './test/getBlocks.js'
 
 describe(createBaseChain.name, () => {
 	it('has state', () => {
@@ -34,7 +33,7 @@ describe(createBaseChain.name, () => {
 		const forkOptions = {
 			common,
 			fork: {
-				transport: transports.optimism,
+				transport: mockTransport,
 				blockTag: mockBlocks[0].header.number,
 			},
 		}
@@ -56,7 +55,7 @@ describe(createBaseChain.name, () => {
 			{
 				header: {
 					number: 0,
-					stateRoot: EMPTY_STATE_ROOT,
+					stateRoot: KECCAK256_RLP,
 					gasLimit: 30_000_000n,
 					timestamp: 0,
 					difficulty: 1,

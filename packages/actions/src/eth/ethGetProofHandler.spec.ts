@@ -3,8 +3,8 @@ import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { ethGetProofHandler } from './ethGetProofHandler.js'
 
-const hasMainnetRpc = !!process.env['TEVM_RPC_URLS_MAINNET']
-const hasOptimismRpc = !!process.env['TEVM_RPC_URLS_OPTIMISM']
+const hasMainnetRpc = Boolean(process.env['TEVM_RPC_URLS_MAINNET'] && process.env['TEVM_RUN_LIVE_FORK_TESTS'])
+const hasOptimismRpc = Boolean(process.env['TEVM_RPC_URLS_OPTIMISM'] && process.env['TEVM_RUN_LIVE_FORK_TESTS'])
 
 describe(ethGetProofHandler.name, () => {
 	it('should throw NoForkUrlSetError when not in fork mode', async () => {

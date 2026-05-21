@@ -8,7 +8,7 @@
 
 > **createEOACodeEIP7702TxFromRLP**(`serialized`, `opts?`): [`EOACodeEIP7702Transaction`](../classes/EOACodeEIP7702Transaction.md)
 
-Defined in: node\_modules/.pnpm/@ethereumjs+tx@10.0.0/node\_modules/@ethereumjs/tx/dist/esm/7702/constructors.d.ts:28
+Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/7702/constructors.d.ts:28
 
 Instantiate a transaction from a RLP serialized tx.
 

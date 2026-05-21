@@ -43,7 +43,7 @@ export const debugGetModifiedAccountsByHashJsonRpcProcedure = (client) => {
 					method: request.method,
 					result,
 					jsonrpc: '2.0',
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 				}
 			} catch (error) {
 				const err = /** @type {Error} */ (error)
@@ -56,7 +56,7 @@ export const debugGetModifiedAccountsByHashJsonRpcProcedure = (client) => {
 						message: err.message,
 					},
 					jsonrpc: '2.0',
-					...(request.id ? { id: request.id } : {}),
+					...(request.id !== undefined ? { id: request.id } : {}),
 				}
 			}
 		}

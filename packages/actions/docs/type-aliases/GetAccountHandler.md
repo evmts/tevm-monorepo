@@ -4,7 +4,7 @@
 
 [@tevm/actions](../globals.md) / GetAccountHandler
 
-# Type Alias: GetAccountHandler()
+# Type Alias: GetAccountHandler
 
 > **GetAccountHandler** = (`params`) => `Promise`\<[`GetAccountResult`](GetAccountResult.md)\>
 

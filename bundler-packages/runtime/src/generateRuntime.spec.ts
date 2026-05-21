@@ -95,8 +95,8 @@ describe('generateRuntime', () => {
 		expect(result).toMatchInlineSnapshot(`
 			"import type { Contract } from '@tevm/contract'
 
-					const _abiMyContract = ["constructor() payable"] as const;
-			const _nameMyContract = "MyContract" as const;
+						declare const _abiMyContract: readonly ["constructor() payable"];
+			declare const _nameMyContract: "MyContract";
 			/**
 			 * MyContract Contract (no bytecode)
 			 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
@@ -106,7 +106,7 @@ describe('generateRuntime', () => {
 			 */
 			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
 			// solc artifacts of compilation
-			export const artifacts = {
+			export declare const artifacts: {
 			  "MyContract": {
 			    "abi": [
 			      {

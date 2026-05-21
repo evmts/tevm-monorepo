@@ -8,7 +8,7 @@
 
 > **AccountState** = `object`
 
-Defined in: packages/actions/types/common/AccountState.d.ts:5
+Defined in: tevm-monorepo/packages/actions/types/common/AccountState.d.ts:5
 
 The state of an account as captured by `debug_` traces
 
@@ -18,7 +18,7 @@ The state of an account as captured by `debug_` traces
 
 > `readonly` **balance**: [`Hex`](../../actions/type-aliases/Hex.md)
 
-Defined in: packages/actions/types/common/AccountState.d.ts:6
+Defined in: tevm-monorepo/packages/actions/types/common/AccountState.d.ts:6
 
 ***
 
@@ -26,7 +26,7 @@ Defined in: packages/actions/types/common/AccountState.d.ts:6
 
 > `readonly` **code**: [`Hex`](../../actions/type-aliases/Hex.md)
 
-Defined in: packages/actions/types/common/AccountState.d.ts:8
+Defined in: tevm-monorepo/packages/actions/types/common/AccountState.d.ts:8
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: packages/actions/types/common/AccountState.d.ts:8
 
 > `readonly` **nonce**: `number`
 
-Defined in: packages/actions/types/common/AccountState.d.ts:7
+Defined in: tevm-monorepo/packages/actions/types/common/AccountState.d.ts:7
 
 ***
 
@@ -42,4 +42,4 @@ Defined in: packages/actions/types/common/AccountState.d.ts:7
 
 > `readonly` **storage**: `Record`\<[`Hex`](../../actions/type-aliases/Hex.md), [`Hex`](../../actions/type-aliases/Hex.md)\>
 
-Defined in: packages/actions/types/common/AccountState.d.ts:9
+Defined in: tevm-monorepo/packages/actions/types/common/AccountState.d.ts:9

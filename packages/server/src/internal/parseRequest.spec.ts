@@ -47,7 +47,6 @@ describe('parseRequest', () => {
 	it('should return InvalidRequestError for invalid bulk JSON-RPC request', () => {
 		const body = JSON.stringify([validJsonRpcRequest, invalidJsonRpcRequest])
 		const result = parseRequest(body)
-		expect(result).toBeInstanceOf(InvalidRequestError)
-		expect((result as InvalidRequestError).message).toMatchSnapshot()
+		expect(result).toMatchSnapshot()
 	})
 })

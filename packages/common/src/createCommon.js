@@ -1,12 +1,18 @@
-import { createCustomCommon, Mainnet } from '@ethereumjs/common'
+import { createCustomCommon, Mainnet } from '@evmts/zevm/common'
 import { InvalidParamsError } from '@tevm/errors'
 import { createLogger } from '@tevm/logger'
-import { createMockKzg } from './createMockKzg.js'
+
+/**
+ * @param {string} hardfork
+ * @returns {string}
+ */
+const normalizeHardfork = (hardfork) =>
+	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
 
 /**
  * Common is the main representation of chain specific configuration for tevm clients.
  *
- * createCommon creates a typesafe ethereumjs Common object used by the EVM
+ * createCommon creates a typesafe Common object used by the EVM
  * to access chain and hardfork parameters and to provide
  * a unified and shared view on the network and hardfork state.
  * Tevm common extends the [viem chain](https://github.com/wevm/viem/blob/main/src/chains/index.ts) interface
@@ -36,17 +42,11 @@ import { createMockKzg } from './createMockKzg.js'
  * const commonCopy = common.copy()
  * ```
  *
- * To use with ethereumjs use the ethjsCommon property
+ * To access the underlying Common instance, use the ethjsCommon property.
  * @example
  * ```typescript
- * import { VM } from '@ethereumjs/vm'
- * import { createMemoryClient } from 'tevm'
- *
  * const common = createCommon({ ... })
- *
- * const vm = new VM({
- *   common: common.ethjsCommon,
- * })
+ * const ethjsCommon = common.ethjsCommon
  * ```
  * @see [Tevm client docs](https://tevm.sh/learn/clients/)
  */
@@ -59,15 +59,11 @@ export const createCommon = ({
 }) => {
 	try {
 		const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
+		const ethjsHardfork = normalizeHardfork(hardfork)
 
-		// Ensure eips is an array
-		const eipsArray = Array.isArray(eips) ? eips : []
-
-		// Create Common instance using createCustomCommon
-		const finalCustomCrypto =
-			customCrypto && Object.keys(customCrypto).length > 0
-				? { kzg: createMockKzg(), ...customCrypto }
-				: { kzg: createMockKzg() }
+		if (!Array.isArray(eips)) {
+			throw new TypeError('eips must be an array of EIP numbers')
+		}
 
 		const ethjsCommon = createCustomCommon(
 			{
@@ -76,9 +72,10 @@ export const createCommon = ({
 			},
 			Mainnet,
 			{
-				hardfork,
-				eips: [...eipsArray, 1559, 4895, 4844, 4788, 2935],
-				customCrypto: finalCustomCrypto,
+				hardfork: ethjsHardfork,
+				// Respect hardfork-native feature gates by default and only opt-in explicit EIPs.
+				eips: [...eips],
+				customCrypto,
 				params: {
 					1559: {
 						elasticityMultiplier: 2,
@@ -87,6 +84,7 @@ export const createCommon = ({
 					},
 					4844: {
 						targetBlobGasPerBlock: 393216,
+						maxBlobGasPerBlock: 786432,
 						blobGasPerBlob: 131072,
 						minBlobGasPrice: 1,
 						blobGasPriceUpdateFraction: 3338477,

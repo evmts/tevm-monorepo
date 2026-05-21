@@ -4,8 +4,8 @@ import { type IsHexOptions, toBeHex } from './toBeHex.js'
 import { toEqualAddress } from './toEqualAddress.js'
 import { type EqualHexOptions, toEqualHex } from './toEqualHex.js'
 
+export type { EqualHexOptions, IsAddressOptions, IsHexOptions }
 export { toBeAddress, toBeHex, toEqualAddress, toEqualHex }
-export type { IsAddressOptions, IsHexOptions, EqualHexOptions }
 
 export interface UtilsMatchers {
 	/**
