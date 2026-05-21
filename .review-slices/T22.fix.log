@@ -1,0 +1,985 @@
+OpenAI Codex v0.132.0
+--------
+workdir: /Users/williamcory/tevm-monorepo
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019e47f1-50bf-7671-9c93-323d7bd2e1b3
+--------
+user
+You are fixing TypeScript test regressions in the Tevm monorepo. Earlier, parallel codex agents
+applied source-code fixes for ~210 review findings (see review.md, fix-report.md). Those fixes are
+all committed and the source code now reflects CORRECT behavior. The remaining problem is that
+the existing test suite still asserts the OLD (buggy) behavior in many places.
+
+YOUR PACKAGE: tevm-run test fixes
+SCOPE PATHS:  bundler-packages/tevm-run
+HINTS:        H13 plugin changes
+
+PROCESS:
+1. cd into the scope path. Run `pnpm test:run` (NOT pnpm nx — direct package script) to see the
+   failures. You may run that, vitest, or vitest -u as many times as needed inside your scope.
+2. For each failing test:
+   a. STALE ASSERTION (most common): the test is asserting old buggy behavior. Update the test
+      to match the new (correct) source behavior. For snapshot tests, run `pnpm test:run -u`
+      to update the .snap files. For inline assertions, edit the .spec.ts/.spec.js file.
+   b. REAL REGRESSION (rare): the source fix introduced a real bug. In that case you may fix the
+      source code WITHIN YOUR SCOPE PATHS. Be conservative — prefer to update the test first.
+   c. MOCK UPDATE (common in config/foundry): the source switched APIs (e.g. execSync →
+      execFileSync). Update the test's vi.mock() to include the new export.
+3. Re-run `pnpm test:run` until green. If you can't get green, capture what's left in the report.
+
+HARD CONSTRAINTS:
+- Modify ONLY files under: bundler-packages/tevm-run.
+- Do NOT touch files in other packages.
+- Do NOT run `pnpm install`, `pnpm nx`, `bun`, `cargo`, or `git`. The dispatcher will commit.
+- vitest, pnpm test:run (the local script), pnpm typecheck, pnpm build:types are all allowed
+  WITHIN your scope directory only.
+- If updating a snapshot, run vitest with -u flag (allowed).
+- Prefer the smallest test changes. A 1-line assertion update beats restructuring a test file.
+
+OUTPUT REPORT: '.review-slices/T22.fix.md' with structure:
+
+# tevm-run test fixes test fixes
+
+**Package:** T22
+**Scope:** bundler-packages/tevm-run
+
+## Summary
+<2-4 sentences>
+
+## Tests passing
+<count or 'all'>
+
+## Tests still failing
+<count and short list, if any>
+
+## Changes
+- path:line - <one-line description>
+- ...
+
+Be ruthless about distinguishing stale assertions (update test) from real regressions (rare; fix source).
+
+codex
+I’ll stay inside `bundler-packages/tevm-run`, run the package’s direct test script, and only touch files in that subtree plus the required slice report if the report path exists in scope constraints. First I’m checking the package layout and test failures.
+exec
+/bin/zsh -lc "pwd && rg --files bundler-packages/tevm-run | sed -n '1,120p'" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+/Users/williamcory/tevm-monorepo
+bundler-packages/tevm-run/src/__snapshots__/tevm-run.spec.ts.snap
+bundler-packages/tevm-run/src/tevm-run.js
+bundler-packages/tevm-run/src/tevm-run.spec.ts
+bundler-packages/tevm-run/src/run.spec.ts
+bundler-packages/tevm-run/src/parseArgs.spec.ts
+bundler-packages/tevm-run/src/argsSchema.js
+bundler-packages/tevm-run/src/configPath.js
+bundler-packages/tevm-run/src/index.js
+bundler-packages/tevm-run/src/run.js
+bundler-packages/tevm-run/src/parseArgs.js
+bundler-packages/tevm-run/src/configPath.spec.ts
+bundler-packages/tevm-run/biome.json
+bundler-packages/tevm-run/tsconfig.json
+bundler-packages/tevm-run/package.json
+bundler-packages/tevm-run/readme.md
+bundler-packages/tevm-run/bunfig.toml
+bundler-packages/tevm-run/plugins.js
+bundler-packages/tevm-run/example/vanilla.ts
+bundler-packages/tevm-run/example/example.ts
+bundler-packages/tevm-run/example/SimpleContract.s.sol
+bundler-packages/tevm-run/CHANGELOG.md
+
+exec
+/bin/zsh -lc "ls -la bundler-packages/tevm-run && find bundler-packages/tevm-run -maxdepth 2 -type f -name 'package.json' -o -name 'vitest.config.*' -o -name '*.spec.ts' | sed -n '1,160p'" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+total 80
+drwxr-xr-x@ 15 williamcory  staff   480 May 18 19:39 .
+drwxr-xr-x@ 23 williamcory  staff   736 May  2 20:22 ..
+-rw-r--r--@  1 williamcory  staff   537 May  2 20:22 .gitignore
+-rw-r--r--@  1 williamcory  staff     5 May  2 20:22 .prettierignore
+drwxr-xr-x@  3 williamcory  staff    96 May 18 19:39 .tevm
+-rw-r--r--@  1 williamcory  staff  4881 May  2 20:22 CHANGELOG.md
+-rw-r--r--@  1 williamcory  staff    92 May 18 18:42 biome.json
+-rw-r--r--@  1 williamcory  staff    89 May  2 20:22 bunfig.toml
+drwxr-xr-x@  5 williamcory  staff   160 May  2 20:22 example
+drwxr-xr-x@  7 williamcory  staff   224 May 18 19:02 node_modules
+-rw-r--r--@  1 williamcory  staff  1206 May  2 20:22 package.json
+-rw-r--r--@  1 williamcory  staff   105 May  2 20:22 plugins.js
+-rw-r--r--@  1 williamcory  staff    77 May  2 20:22 readme.md
+drwxr-xr-x@ 13 williamcory  staff   416 May 18 18:42 src
+-rw-r--r--@  1 williamcory  staff   336 May  2 20:22 tsconfig.json
+bundler-packages/tevm-run/package.json
+bundler-packages/tevm-run/src/configPath.spec.ts
+bundler-packages/tevm-run/src/parseArgs.spec.ts
+bundler-packages/tevm-run/src/run.spec.ts
+bundler-packages/tevm-run/src/tevm-run.spec.ts
+
+exec
+/bin/zsh -lc 'pnpm test:run' in /Users/williamcory/tevm-monorepo/bundler-packages/tevm-run
+ exited 1 in 4849ms:
+
+> tevm-run@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/bundler-packages/tevm-run
+> bun test
+
+bun test v1.2.5 (013fdddc)
+
+src/configPath.spec.ts:
+[tevm-run] bun run --bun --config=/Users/williamcory/tevm-monorepo/bundler-packages/tevm-run/bunfig.toml --install=fallback ./example/vanilla.ts 
+(pass) should return config path
+
+src/parseArgs.spec.ts:
+(pass) parseArgs > should parse the arguments
+Usage: tevm-run <scriptPath> [positionals...]
+(pass) parseArgs > should throw if no positional argument is provided
+
+src/run.spec.ts:
+success
+(pass) run > should run the `tevm run` command to run a script [555.81ms]
+(pass) run > should log success output
+23 | 	it('should have both success and error code paths', () => {
+24 | 		// Read the actual source code of the run.js file
+25 | 		const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+26 | 
+27 | 		// Verify that both the success path (return) and error path (throw) exist
+28 | 		expect(sourceCode).toContain('return $`')
+                          ^
+error: expect(received).toContain(expected)
+
+Expected to contain: "return $`"
+Received: "import { $ } from 'bun'\nimport { configPath } from './configPath.js'\nimport { parseArgs } from './parseArgs.js'\n\n/**\n * Executes the provided script using Bun with the specified configuration.\n * @param {string} scriptPath - The path to the script to execute.\n * @param {...string} positionals - The positional arguments to pass to the script.\n * @returns {Promise<void>}\n */\nexport const run = async ([scriptPath, ...positionals] = parseArgs(process.argv).positionals) => {\n\ttry {\n\t\tconst command = `[tevm-run] bun run --bun --config=${configPath} --install=fallback ${scriptPath} ${positionals.join(' ')}`\n\t\tconsole.log(command)\n\t\treturn await $`bun run --config=${configPath} --install=fallback ${scriptPath} ${positionals}`\n\t} catch (err) {\n\t\t// Changed 'error' to 'err' to match usage below\n\t\tconsole.log('error')\n\t\tconsole.log(err.stdout.toString())\n\t\tconsole.error(`Failed with code ${err.exitCode}`)\n\t\tconsole.error(err.stderr.toString())\n\t\tthrow new Error(`Error executing the script: ${err instanceof Error ? err.message : err.stderr.toString()}`, {\n\t\t\tcause: err,\n\t\t})\n\t}\n}\n"
+
+      at <anonymous> (/Users/williamcory/tevm-monorepo/bundler-packages/tevm-run/src/run.spec.ts:28:22)
+(fail) run > should have both success and error code paths
+(pass) run > should include error details in thrown errors [0.40ms]
+(pass) run > should have consistent catch parameter naming
+
+src/tevm-run.spec.ts:
+(pass) should run a cli [2373.89ms]
+
+ 8 pass
+ 1 fail
+ 23 expect() calls
+Ran 9 tests across 4 files. [3.70s]
+ ELIFECYCLE  Command failed with exit code 1.
+
+codex
+The first run has one failure in `src/run.spec.ts`: a source-text assertion is still looking for the old `return $\`` shape, while the implementation now awaits the Bun command inside the return. I’m reading that test and the adjacent implementation before making the smallest assertion update.
+exec
+/bin/zsh -lc "nl -ba src/run.spec.ts | sed -n '1,220p'" in /Users/williamcory/tevm-monorepo/bundler-packages/tevm-run
+ succeeded in 0ms:
+     1	import { describe, expect, it } from 'bun:test'
+     2	import fs from 'node:fs'
+     3	import { run } from './run.js'
+     4	
+     5	describe(run.name, () => {
+     6		it('should run the `tevm run` command to run a script', async () => {
+     7			expect((await run(['./example/vanilla.ts'])).text()).toBe('success\n')
+     8		})
+     9	
+    10		// Let's create tests that don't rely on the actual error handling mechanism
+    11		// but instead verify the existence of error handling code
+    12		it('should log success output', () => {
+    13			// Read the actual source code of the run.js file
+    14			const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+    15	
+    16			// Verify error handling patterns exist in the code
+    17			expect(sourceCode).toContain('try {')
+    18			expect(sourceCode).toContain('catch (err)')
+    19			expect(sourceCode).toContain('console.error')
+    20			expect(sourceCode).toContain('throw new Error')
+    21		})
+    22	
+    23		it('should have both success and error code paths', () => {
+    24			// Read the actual source code of the run.js file
+    25			const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+    26	
+    27			// Verify that both the success path (return) and error path (throw) exist
+    28			expect(sourceCode).toContain('return $`')
+    29			expect(sourceCode).toContain('throw new Error')
+    30	
+    31			// Check for specific error handling patterns
+    32			expect(sourceCode).toContain("console.log('error')")
+    33			expect(sourceCode).toContain('err.stdout.toString()')
+    34			expect(sourceCode).toContain('err.stderr.toString()')
+    35			expect(sourceCode).toContain('`Failed with code ${err.exitCode}`')
+    36		})
+    37	
+    38		it('should include error details in thrown errors', () => {
+    39			// Read the actual source code of the run.js file
+    40			const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+    41	
+    42			// Verify error details are captured
+    43			expect(sourceCode).toContain(
+    44				'`Error executing the script: ${err instanceof Error ? err.message : err.stderr.toString()}`',
+    45			)
+    46			expect(sourceCode).toContain('cause: err')
+    47		})
+    48	
+    49		it('should have consistent catch parameter naming', () => {
+    50			// Read the actual source code of the run.js file
+    51			const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+    52	
+    53			// Verify that we use the same parameter name in the catch clause as in the error handling
+    54			expect(sourceCode).toContain('catch (err)')
+    55			expect(sourceCode).not.toContain('catch (error)')
+    56	
+    57			// Verify the parameter 'err' is used consistently
+    58			expect(sourceCode).toContain('err.stdout')
+    59			expect(sourceCode).toContain('err.stderr')
+    60			expect(sourceCode).toContain('err.exitCode')
+    61			expect(sourceCode).toContain('err instanceof Error')
+    62			expect(sourceCode).toContain('cause: err')
+    63		})
+    64	})
+
+exec
+/bin/zsh -lc "nl -ba src/tevm-run.spec.ts | sed -n '1,220p'" in /Users/williamcory/tevm-monorepo/bundler-packages/tevm-run
+ succeeded in 0ms:
+     1	import { expect, it } from 'bun:test'
+     2	import { dirname, join } from 'node:path'
+     3	import { fileURLToPath } from 'node:url'
+     4	
+     5	const isCI = process.env.CI === 'true'
+     6	
+     7	it(
+     8		'should run a cli',
+     9		async () => {
+    10			// Get directory path in a TypeScript-compatible way
+    11			const __dirname = dirname(fileURLToPath(import.meta.url))
+    12	
+    13			// Use Bun.spawn directly for better control in CI
+    14			const proc = Bun.spawn(['bun', join(__dirname, 'tevm-run.js'), './example/example.ts'], {
+    15				cwd: __dirname.replace('/src', ''),
+    16				env: { ...process.env },
+    17				stdout: 'pipe',
+    18				stderr: 'pipe',
+    19			})
+    20	
+    21			// Set up timeout to prevent hanging (longer in CI)
+    22			const timeoutId = setTimeout(
+    23				() => {
+    24					proc.kill()
+    25				},
+    26				isCI ? 30000 : 12000,
+    27			)
+    28	
+    29			try {
+    30				// Wait for process to complete
+    31				const exited = await proc.exited
+    32	
+    33				// Clear timeout if process completes
+    34				clearTimeout(timeoutId)
+    35	
+    36				// Read output
+    37				const output = await new Response(proc.stdout).text()
+    38				const errorOutput = await new Response(proc.stderr).text()
+    39	
+    40				// Process the result
+    41				const result = output
+    42					.split('\n')
+    43					.map((line) => line.replace(process.cwd(), '').trim())
+    44					.join('\n')
+    45	
+    46				// Check exit code
+    47				if (exited !== 0) {
+    48					console.error('Error output:', errorOutput)
+    49					throw new Error(`Process exited with code ${exited}`)
+    50				}
+    51	
+    52				// Check for the command with flexible config path matching
+    53				expect(result).toMatch(
+    54					/\[tevm-run\] bun run --bun --config=.*bunfig\.toml --install=fallback \.\/example\/example\.ts/,
+    55				)
+    56				expect(result).toInclude('success')
+    57				expect(result).toInclude('address:  0x5FbDB2315678afecb367f032d93F642f64180aa3')
+    58				expect(result).toInclude('SimpleContract.get()')
+    59				expect(result).toInclude('20n')
+    60			} finally {
+    61				clearTimeout(timeoutId)
+    62				// Ensure process is killed if still running
+    63				try {
+    64					proc.kill()
+    65				} catch {
+    66					// Ignore errors if process already exited
+    67				}
+    68			}
+    69		},
+    70		isCI ? 35000 : 15000,
+    71	)
+
+exec
+/bin/zsh -lc "nl -ba src/run.js | sed -n '1,200p'" in /Users/williamcory/tevm-monorepo/bundler-packages/tevm-run
+ succeeded in 0ms:
+     1	import { $ } from 'bun'
+     2	import { configPath } from './configPath.js'
+     3	import { parseArgs } from './parseArgs.js'
+     4	
+     5	/**
+     6	 * Executes the provided script using Bun with the specified configuration.
+     7	 * @param {string} scriptPath - The path to the script to execute.
+     8	 * @param {...string} positionals - The positional arguments to pass to the script.
+     9	 * @returns {Promise<void>}
+    10	 */
+    11	export const run = async ([scriptPath, ...positionals] = parseArgs(process.argv).positionals) => {
+    12		try {
+    13			const command = `[tevm-run] bun run --bun --config=${configPath} --install=fallback ${scriptPath} ${positionals.join(' ')}`
+    14			console.log(command)
+    15			return await $`bun run --config=${configPath} --install=fallback ${scriptPath} ${positionals}`
+    16		} catch (err) {
+    17			// Changed 'error' to 'err' to match usage below
+    18			console.log('error')
+    19			console.log(err.stdout.toString())
+    20			console.error(`Failed with code ${err.exitCode}`)
+    21			console.error(err.stderr.toString())
+    22			throw new Error(`Error executing the script: ${err instanceof Error ? err.message : err.stderr.toString()}`, {
+    23				cause: err,
+    24			})
+    25		}
+    26	}
+
+codex
+I’m going to change the stale source-text expectation from `return $\`` to `return await $\``. That keeps the test’s intent, while matching the corrected implementation’s async error propagation behavior.
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/bundler-packages/tevm-run/src/run.spec.ts
+diff --git a/bundler-packages/tevm-run/src/run.spec.ts b/bundler-packages/tevm-run/src/run.spec.ts
+index d25245a15490ab017b9f335cdfd167d989efec0e..51f4cebd694a3c6b91458b6c288b6ac5a8ed00d2
+--- a/bundler-packages/tevm-run/src/run.spec.ts
++++ b/bundler-packages/tevm-run/src/run.spec.ts
+@@ -25,7 +25,7 @@
+ 		const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+ 
+ 		// Verify that both the success path (return) and error path (throw) exist
+-		expect(sourceCode).toContain('return $`')
++		expect(sourceCode).toContain('return await $`')
+ 		expect(sourceCode).toContain('throw new Error')
+ 
+ 		// Check for specific error handling patterns
+
+diff --git a/bundler-packages/tevm-run/src/run.spec.ts b/bundler-packages/tevm-run/src/run.spec.ts
+index d25245a15490ab017b9f335cdfd167d989efec0e..51f4cebd694a3c6b91458b6c288b6ac5a8ed00d2
+--- a/bundler-packages/tevm-run/src/run.spec.ts
++++ b/bundler-packages/tevm-run/src/run.spec.ts
+@@ -25,7 +25,7 @@
+ 		const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+ 
+ 		// Verify that both the success path (return) and error path (throw) exist
+-		expect(sourceCode).toContain('return $`')
++		expect(sourceCode).toContain('return await $`')
+ 		expect(sourceCode).toContain('throw new Error')
+ 
+ 		// Check for specific error handling patterns
+
+exec
+/bin/zsh -lc 'pnpm test:run' in /Users/williamcory/tevm-monorepo/bundler-packages/tevm-run
+diff --git a/bundler-packages/tevm-run/src/run.spec.ts b/bundler-packages/tevm-run/src/run.spec.ts
+index d25245a15490ab017b9f335cdfd167d989efec0e..51f4cebd694a3c6b91458b6c288b6ac5a8ed00d2
+--- a/bundler-packages/tevm-run/src/run.spec.ts
++++ b/bundler-packages/tevm-run/src/run.spec.ts
+@@ -25,7 +25,7 @@
+ 		const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+ 
+ 		// Verify that both the success path (return) and error path (throw) exist
+-		expect(sourceCode).toContain('return $`')
++		expect(sourceCode).toContain('return await $`')
+ 		expect(sourceCode).toContain('throw new Error')
+ 
+ 		// Check for specific error handling patterns
+
+ succeeded in 2321ms:
+
+> tevm-run@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/bundler-packages/tevm-run
+> bun test
+
+bun test v1.2.5 (013fdddc)
+
+src/configPath.spec.ts:
+(pass) should return config path [0.03ms]
+
+src/parseArgs.spec.ts:
+(pass) parseArgs > should parse the arguments
+Usage: tevm-run <scriptPath> [positionals...]
+(pass) parseArgs > should throw if no positional argument is provided [0.21ms]
+
+src/run.spec.ts:
+[tevm-run] bun run --bun --config=/Users/williamcory/tevm-monorepo/bundler-packages/tevm-run/bunfig.toml --install=fallback ./example/vanilla.ts 
+success
+(pass) run > should run the `tevm run` command to run a script [339.20ms]
+(pass) run > should log success output [0.05ms]
+(pass) run > should have both success and error code paths [0.03ms]
+(pass) run > should include error details in thrown errors [0.04ms]
+(pass) run > should have consistent catch parameter naming [0.05ms]
+
+src/tevm-run.spec.ts:
+(pass) should run a cli [1257.22ms]
+
+ 9 pass
+ 0 fail
+ 28 expect() calls
+Ran 9 tests across 4 files. [1.93s]
+
+codex
+The inline assertion is fixed and the second test run is down to the longer CLI integration test. I’m waiting for that process to finish before deciding whether anything else needs changing.
+diff --git a/bundler-packages/tevm-run/src/run.spec.ts b/bundler-packages/tevm-run/src/run.spec.ts
+index d25245a15490ab017b9f335cdfd167d989efec0e..51f4cebd694a3c6b91458b6c288b6ac5a8ed00d2
+--- a/bundler-packages/tevm-run/src/run.spec.ts
++++ b/bundler-packages/tevm-run/src/run.spec.ts
+@@ -25,7 +25,7 @@
+ 		const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+ 
+ 		// Verify that both the success path (return) and error path (throw) exist
+-		expect(sourceCode).toContain('return $`')
++		expect(sourceCode).toContain('return await $`')
+ 		expect(sourceCode).toContain('throw new Error')
+ 
+ 		// Check for specific error handling patterns
+
+codex
+`pnpm test:run` is green now: 9 tests passing. I’m checking the report location and then I’ll write the required concise fix report.
+exec
+/bin/zsh -lc "nl -ba bundler-packages/tevm-run/src/run.spec.ts | sed -n '20,34p'" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+    20			expect(sourceCode).toContain('throw new Error')
+    21		})
+    22	
+    23		it('should have both success and error code paths', () => {
+    24			// Read the actual source code of the run.js file
+    25			const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+    26	
+    27			// Verify that both the success path (return) and error path (throw) exist
+    28			expect(sourceCode).toContain('return await $`')
+    29			expect(sourceCode).toContain('throw new Error')
+    30	
+    31			// Check for specific error handling patterns
+    32			expect(sourceCode).toContain("console.log('error')")
+    33			expect(sourceCode).toContain('err.stdout.toString()')
+    34			expect(sourceCode).toContain('err.stderr.toString()')
+
+exec
+/bin/zsh -lc 'ls -la .review-slices 2>/dev/null || true' in /Users/williamcory/tevm-monorepo
+diff --git a/bundler-packages/tevm-run/src/run.spec.ts b/bundler-packages/tevm-run/src/run.spec.ts
+index d25245a15490ab017b9f335cdfd167d989efec0e..51f4cebd694a3c6b91458b6c288b6ac5a8ed00d2
+--- a/bundler-packages/tevm-run/src/run.spec.ts
++++ b/bundler-packages/tevm-run/src/run.spec.ts
+@@ -25,7 +25,7 @@
+ 		const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+ 
+ 		// Verify that both the success path (return) and error path (throw) exist
+-		expect(sourceCode).toContain('return $`')
++		expect(sourceCode).toContain('return await $`')
+ 		expect(sourceCode).toContain('throw new Error')
+ 
+ 		// Check for specific error handling patterns
+
+ succeeded in 141ms:
+   353 May 20 20:23 T04.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff    12729 May 20 20:23 T04.fix.log
+-rw-r--r--@   1 williamcory  staff     2326 May 20 20:22 T04.fix.prompt
+-rw-r--r--@   1 williamcory  staff        5 May 20 20:23 T04.fix.status
+-rw-r--r--@   1 williamcory  staff       10 May 20 20:23 T05.fix.commit
+-rw-r--r--@   1 williamcory  staff      367 May 20 20:23 T05.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff  1108238 May 20 20:23 T05.fix.log
+-rw-r--r--@   1 williamcory  staff     2367 May 20 20:22 T05.fix.prompt
+-rw-r--r--@   1 williamcory  staff        5 May 20 20:23 T05.fix.status
+-rw-r--r--@   1 williamcory  staff       10 May 20 20:25 T06.fix.commit
+-rw-r--r--@   1 williamcory  staff      683 May 20 20:25 T06.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   154897 May 20 20:25 T06.fix.log
+-rw-r--r--@   1 williamcory  staff     1390 May 20 20:24 T06.fix.md
+-rw-r--r--@   1 williamcory  staff     2357 May 20 20:22 T06.fix.prompt
+-rw-r--r--@   1 williamcory  staff        5 May 20 20:25 T06.fix.status
+-rw-r--r--@   1 williamcory  staff       10 May 20 20:23 T07.fix.commit
+-rw-r--r--@   1 williamcory  staff      359 May 20 20:23 T07.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff    13842 May 20 20:23 T07.fix.log
+-rw-r--r--@   1 williamcory  staff     2339 May 20 20:22 T07.fix.prompt
+-rw-r--r--@   1 williamcory  staff        5 May 20 20:23 T07.fix.status
+-rw-r--r--@   1 williamcory  staff       10 May 20 20:25 T08.fix.commit
+-rw-r--r--@   1 williamcory  staff      375 May 20 20:25 T08.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   414344 May 20 20:25 T08.fix.log
+-rw-r--r--@   1 williamcory  staff     2378 May 20 20:22 T08.fix.prompt
+-rw-r--r--@   1 williamcory  staff        5 May 20 20:25 T08.fix.status
+-rw-r--r--@   1 williamcory  staff       10 May 20 20:23 T09.fix.commit
+-rw-r--r--@   1 williamcory  staff      357 May 20 20:23 T09.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff    45067 May 20 20:23 T09.fix.log
+-rw-r--r--@   1 williamcory  staff     2335 May 20 20:22 T09.fix.prompt
+-rw-r--r--@   1 williamcory  staff        5 May 20 20:23 T09.fix.status
+-rw-r--r--@   1 williamcory  staff       10 May 20 20:28 T10.fix.commit
+-rw-r--r--@   1 williamcory  staff      353 May 20 20:28 T10.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   657789 May 20 20:28 T10.fix.log
+-rw-r--r--@   1 williamcory  staff     2365 May 20 20:22 T10.fix.prompt
+-rw-r--r--@   1 williamcory  staff        6 May 20 20:28 T10.fix.status
+-rw-r--r--@   1 williamcory  staff       10 May 20 20:24 T11.fix.commit
+-rw-r--r--@   1 williamcory  staff      347 May 20 20:24 T11.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff    77436 May 20 20:24 T11.fix.log
+-rw-r--r--@   1 williamcory  staff     2351 May 20 20:22 T11.fix.prompt
+-rw-r--r--@   1 williamcory  staff        5 May 20 20:24 T11.fix.status
+-rw-r--r--@   1 williamcory  staff       10 May 20 20:23 T12.fix.commit
+-rw-r--r--@   1 williamcory  staff      618 May 20 20:23 T12.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff    25709 May 20 20:23 T12.fix.log
+-rw-r--r--@   1 williamcory  staff      859 May 20 20:23 T12.fix.md
+-rw-r--r--@   1 williamcory  staff     2345 May 20 20:22 T12.fix.prompt
+-rw-r--r--@   1 williamcory  staff        5 May 20 20:23 T12.fix.status
+-rw-r--r--@   1 williamcory  staff       10 May 20 20:30 T13.fix.commit
+-rw-r--r--@   1 williamcory  staff      363 May 20 20:30 T13.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff  1028817 May 20 20:30 T13.fix.log
+-rw-r--r--@   1 williamcory  staff     2370 May 20 20:22 T13.fix.prompt
+-rw-r--r--@   1 williamcory  staff        6 May 20 20:30 T13.fix.status
+-rw-r--r--@   1 williamcory  staff       10 May 20 20:28 T14.fix.commit
+-rw-r--r--@   1 williamcory  staff      351 May 20 20:28 T14.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   765561 May 20 20:28 T14.fix.log
+-rw-r--r--@   1 williamcory  staff     2351 May 20 20:22 T14.fix.prompt
+-rw-r--r--@   1 williamcory  staff        5 May 20 20:28 T14.fix.status
+-rw-r--r--@   1 williamcory  staff       10 May 20 20:28 T15.fix.commit
+-rw-r--r--@   1 williamcory  staff      801 May 20 20:28 T15.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   719335 May 20 20:28 T15.fix.log
+-rw-r--r--@   1 williamcory  staff     2779 May 20 20:27 T15.fix.md
+-rw-r--r--@   1 williamcory  staff     2325 May 20 20:22 T15.fix.prompt
+-rw-r--r--@   1 williamcory  staff        6 May 20 20:28 T15.fix.status
+-rw-r--r--@   1 williamcory  staff       10 May 20 20:28 T16.fix.commit
+-rw-r--r--@   1 williamcory  staff      369 May 20 20:28 T16.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff  1138044 May 20 20:28 T16.fix.log
+-rw-r--r--@   1 williamcory  staff     2357 May 20 20:22 T16.fix.prompt
+-rw-r--r--@   1 williamcory  staff        6 May 20 20:28 T16.fix.status
+-rw-r--r--@   1 williamcory  staff   112188 May 20 20:31 T17.fix.log
+-rw-r--r--@   1 williamcory  staff     2336 May 20 20:30 T17.fix.prompt
+-rw-r--r--@   1 williamcory  staff        8 May 20 20:30 T17.fix.status
+-rw-r--r--@   1 williamcory  staff   396661 May 20 20:31 T18.fix.log
+-rw-r--r--@   1 williamcory  staff     2354 May 20 20:30 T18.fix.prompt
+-rw-r--r--@   1 williamcory  staff        8 May 20 20:30 T18.fix.status
+-rw-r--r--@   1 williamcory  staff    54716 May 20 20:31 T19.fix.log
+-rw-r--r--@   1 williamcory  staff     2334 May 20 20:30 T19.fix.prompt
+-rw-r--r--@   1 williamcory  staff        8 May 20 20:30 T19.fix.status
+-rw-r--r--@   1 williamcory  staff    80023 May 20 20:31 T20.fix.log
+-rw-r--r--@   1 williamcory  staff     2357 May 20 20:30 T20.fix.prompt
+-rw-r--r--@   1 williamcory  staff        8 May 20 20:30 T20.fix.status
+-rw-r--r--@   1 williamcory  staff    65214 May 20 20:31 T21.fix.log
+-rw-r--r--@   1 williamcory  staff     2350 May 20 20:30 T21.fix.prompt
+-rw-r--r--@   1 williamcory  staff        8 May 20 20:30 T21.fix.status
+-rw-r--r--@   1 williamcory  staff    20232 May 20 20:31 T22.fix.log
+-rw-r--r--@   1 williamcory  staff     2361 May 20 20:30 T22.fix.prompt
+-rw-r--r--@   1 williamcory  staff        8 May 20 20:30 T22.fix.status
+-rw-r--r--@   1 williamcory  staff    16508 May 20 20:31 T23.fix.log
+-rw-r--r--@   1 williamcory  staff     2314 May 20 20:30 T23.fix.prompt
+-rw-r--r--@   1 williamcory  staff        8 May 20 20:30 T23.fix.status
+-rw-r--r--@   1 williamcory  staff    98924 May 20 20:31 T24.fix.log
+-rw-r--r--@   1 williamcory  staff     2368 May 20 20:30 T24.fix.prompt
+-rw-r--r--@   1 williamcory  staff        8 May 20 20:30 T24.fix.status
+-rw-r--r--@   1 williamcory  staff     4032 May 20 20:31 T25.fix.log
+-rw-r--r--@   1 williamcory  staff     2358 May 20 20:30 T25.fix.prompt
+-rw-r--r--@   1 williamcory  staff        8 May 20 20:30 T25.fix.status
+-rw-r--r--@   1 williamcory  staff  1244538 May 20 17:27 V01.codex.log
+-rw-r--r--@   1 williamcory  staff     9171 May 20 19:29 V01.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:29 V01.fix.commit
+-rw-r--r--@   1 williamcory  staff      879 May 20 19:29 V01.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   747359 May 20 19:29 V01.fix.log
+-rw-r--r--@   1 williamcory  staff     3789 May 20 19:29 V01.fix.md
+-rw-r--r--@   1 williamcory  staff       15 May 20 19:29 V01.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     3079 May 20 19:20 V01.fix.prompt
+-rw-r--r--@   1 williamcory  staff    44188 May 20 19:20 V01.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        7 May 20 19:29 V01.fix.status
+-rw-r--r--@   1 williamcory  staff     6906 May 20 17:26 V01.md
+-rw-r--r--@   1 williamcory  staff     2849 May 20 17:21 V01.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:27 V01.status
+-rw-r--r--@   1 williamcory  staff   415128 May 20 17:25 V02.codex.log
+-rw-r--r--@   1 williamcory  staff     8973 May 20 19:30 V02.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:30 V02.fix.commit
+-rw-r--r--@   1 williamcory  staff      858 May 20 19:30 V02.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   771971 May 20 19:30 V02.fix.log
+-rw-r--r--@   1 williamcory  staff     4315 May 20 19:30 V02.fix.md
+-rw-r--r--@   1 williamcory  staff       15 May 20 19:30 V02.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     3001 May 20 19:20 V02.fix.prompt
+-rw-r--r--@   1 williamcory  staff    10388 May 20 19:20 V02.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        7 May 20 19:30 V02.fix.status
+-rw-r--r--@   1 williamcory  staff     8093 May 20 17:25 V02.md
+-rw-r--r--@   1 williamcory  staff     2771 May 20 17:21 V02.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:25 V02.status
+-rw-r--r--@   1 williamcory  staff   523203 May 20 17:27 V03.codex.log
+-rw-r--r--@   1 williamcory  staff    10516 May 20 19:28 V03.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:28 V03.fix.commit
+-rw-r--r--@   1 williamcory  staff      912 May 20 19:28 V03.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   659448 May 20 19:28 V03.fix.log
+-rw-r--r--@   1 williamcory  staff     3734 May 20 19:27 V03.fix.md
+-rw-r--r--@   1 williamcory  staff     1804 May 20 19:28 V03.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     2949 May 20 19:20 V03.fix.prompt
+-rw-r--r--@   1 williamcory  staff     5820 May 20 19:20 V03.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 19:28 V03.fix.status
+-rw-r--r--@   1 williamcory  staff     6146 May 20 17:27 V03.md
+-rw-r--r--@   1 williamcory  staff     2719 May 20 17:21 V03.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:27 V03.status
+-rw-r--r--@   1 williamcory  staff   392807 May 20 17:25 V04.codex.log
+-rw-r--r--@   1 williamcory  staff    11217 May 20 19:24 V04.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:24 V04.fix.commit
+-rw-r--r--@   1 williamcory  staff      897 May 20 19:24 V04.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   336737 May 20 19:24 V04.fix.log
+-rw-r--r--@   1 williamcory  staff     3766 May 20 19:24 V04.fix.md
+-rw-r--r--@   1 williamcory  staff     3722 May 20 19:24 V04.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     3087 May 20 19:20 V04.fix.prompt
+-rw-r--r--@   1 williamcory  staff     5008 May 20 19:20 V04.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 19:24 V04.fix.status
+-rw-r--r--@   1 williamcory  staff     8578 May 20 17:25 V04.md
+-rw-r--r--@   1 williamcory  staff     2857 May 20 17:21 V04.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:25 V04.status
+-rw-r--r--@   1 williamcory  staff   329966 May 20 17:25 V05.codex.log
+-rw-r--r--@   1 williamcory  staff    11380 May 20 19:25 V05.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:25 V05.fix.commit
+-rw-r--r--@   1 williamcory  staff      914 May 20 19:25 V05.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   478258 May 20 19:25 V05.fix.log
+-rw-r--r--@   1 williamcory  staff     3213 May 20 19:25 V05.fix.md
+-rw-r--r--@   1 williamcory  staff     3640 May 20 19:25 V05.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     3211 May 20 19:20 V05.fix.prompt
+-rw-r--r--@   1 williamcory  staff    39330 May 20 19:20 V05.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 19:25 V05.fix.status
+-rw-r--r--@   1 williamcory  staff     6735 May 20 17:25 V05.md
+-rw-r--r--@   1 williamcory  staff     2981 May 20 17:21 V05.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:25 V05.status
+-rw-r--r--@   1 williamcory  staff   574608 May 20 17:24 V06.codex.log
+-rw-r--r--@   1 williamcory  staff    10371 May 20 19:28 V06.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:28 V06.fix.commit
+-rw-r--r--@   1 williamcory  staff      755 May 20 19:28 V06.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff  1827309 May 20 19:28 V06.fix.log
+-rw-r--r--@   1 williamcory  staff     4460 May 20 19:28 V06.fix.md
+-rw-r--r--@   1 williamcory  staff      865 May 20 19:28 V06.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     2968 May 20 19:20 V06.fix.prompt
+-rw-r--r--@   1 williamcory  staff    10459 May 20 19:20 V06.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        9 May 20 19:28 V06.fix.status
+-rw-r--r--@   1 williamcory  staff     5997 May 20 17:24 V06.md
+-rw-r--r--@   1 williamcory  staff     2738 May 20 17:21 V06.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:24 V06.status
+-rw-r--r--@   1 williamcory  staff   530996 May 20 17:27 V07.codex.log
+-rw-r--r--@   1 williamcory  staff    10509 May 20 19:26 V07.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:26 V07.fix.commit
+-rw-r--r--@   1 williamcory  staff      793 May 20 19:26 V07.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   350400 May 20 19:26 V07.fix.log
+-rw-r--r--@   1 williamcory  staff     2817 May 20 19:25 V07.fix.md
+-rw-r--r--@   1 williamcory  staff     2621 May 20 19:26 V07.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     3014 May 20 19:20 V07.fix.prompt
+-rw-r--r--@   1 williamcory  staff    77614 May 20 19:20 V07.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 19:26 V07.fix.status
+-rw-r--r--@   1 williamcory  staff     5767 May 20 17:26 V07.md
+-rw-r--r--@   1 williamcory  staff     2784 May 20 17:21 V07.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:27 V07.status
+-rw-r--r--@   1 williamcory  staff   592319 May 20 17:27 V08.codex.log
+-rw-r--r--@   1 williamcory  staff    11307 May 20 19:25 V08.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:25 V08.fix.commit
+-rw-r--r--@   1 williamcory  staff      942 May 20 19:25 V08.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   385096 May 20 19:25 V08.fix.log
+-rw-r--r--@   1 williamcory  staff     3138 May 20 19:25 V08.fix.md
+-rw-r--r--@   1 williamcory  staff     2499 May 20 19:25 V08.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     3143 May 20 19:20 V08.fix.prompt
+-rw-r--r--@   1 williamcory  staff   139781 May 20 19:20 V08.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        9 May 20 19:25 V08.fix.status
+-rw-r--r--@   1 williamcory  staff     6337 May 20 17:27 V08.md
+-rw-r--r--@   1 williamcory  staff     2913 May 20 17:21 V08.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:27 V08.status
+-rw-r--r--@   1 williamcory  staff   695263 May 20 17:25 V09.codex.log
+-rw-r--r--@   1 williamcory  staff     9854 May 20 19:24 V09.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:24 V09.fix.commit
+-rw-r--r--@   1 williamcory  staff      751 May 20 19:24 V09.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   197219 May 20 19:24 V09.fix.log
+-rw-r--r--@   1 williamcory  staff     2519 May 20 19:23 V09.fix.md
+-rw-r--r--@   1 williamcory  staff     2859 May 20 19:24 V09.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     2967 May 20 19:20 V09.fix.prompt
+-rw-r--r--@   1 williamcory  staff     3997 May 20 19:20 V09.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 19:24 V09.fix.status
+-rw-r--r--@   1 williamcory  staff     4976 May 20 17:25 V09.md
+-rw-r--r--@   1 williamcory  staff     2737 May 20 17:21 V09.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:25 V09.status
+-rw-r--r--@   1 williamcory  staff   311218 May 20 17:27 V10.codex.log
+-rw-r--r--@   1 williamcory  staff    10708 May 20 19:27 V10.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:27 V10.fix.commit
+-rw-r--r--@   1 williamcory  staff      876 May 20 19:27 V10.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   662848 May 20 19:27 V10.fix.log
+-rw-r--r--@   1 williamcory  staff     3271 May 20 19:27 V10.fix.md
+-rw-r--r--@   1 williamcory  staff     2323 May 20 19:27 V10.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     3021 May 20 19:20 V10.fix.prompt
+-rw-r--r--@   1 williamcory  staff    12054 May 20 19:20 V10.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 19:27 V10.fix.status
+-rw-r--r--@   1 williamcory  staff     7607 May 20 17:27 V10.md
+-rw-r--r--@   1 williamcory  staff     2791 May 20 17:21 V10.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:27 V10.status
+-rw-r--r--@   1 williamcory  staff   552135 May 20 17:24 V11.codex.log
+-rw-r--r--@   1 williamcory  staff    10743 May 20 19:26 V11.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:26 V11.fix.commit
+-rw-r--r--@   1 williamcory  staff      790 May 20 19:26 V11.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   730753 May 20 19:26 V11.fix.log
+-rw-r--r--@   1 williamcory  staff     3666 May 20 19:26 V11.fix.md
+-rw-r--r--@   1 williamcory  staff     2044 May 20 19:26 V11.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     3183 May 20 19:20 V11.fix.prompt
+-rw-r--r--@   1 williamcory  staff    40661 May 20 19:20 V11.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        9 May 20 19:26 V11.fix.status
+-rw-r--r--@   1 williamcory  staff     6424 May 20 17:24 V11.md
+-rw-r--r--@   1 williamcory  staff     2953 May 20 17:21 V11.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:24 V11.status
+-rw-r--r--@   1 williamcory  staff   349215 May 20 17:26 V12.codex.log
+-rw-r--r--@   1 williamcory  staff    10868 May 20 19:24 V12.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:24 V12.fix.commit
+-rw-r--r--@   1 williamcory  staff      767 May 20 19:24 V12.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   991629 May 20 19:24 V12.fix.log
+-rw-r--r--@   1 williamcory  staff     2856 May 20 19:24 V12.fix.md
+-rw-r--r--@   1 williamcory  staff     3589 May 20 19:24 V12.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     3017 May 20 19:20 V12.fix.prompt
+-rw-r--r--@   1 williamcory  staff    25275 May 20 19:20 V12.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 19:24 V12.fix.status
+-rw-r--r--@   1 williamcory  staff     6972 May 20 17:26 V12.md
+-rw-r--r--@   1 williamcory  staff     2787 May 20 17:21 V12.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:26 V12.status
+-rw-r--r--@   1 williamcory  staff   413302 May 20 17:24 V13.codex.log
+-rw-r--r--@   1 williamcory  staff    11398 May 20 19:25 V13.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:25 V13.fix.commit
+-rw-r--r--@   1 williamcory  staff      807 May 20 19:25 V13.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   287186 May 20 19:25 V13.fix.log
+-rw-r--r--@   1 williamcory  staff     3974 May 20 19:24 V13.fix.md
+-rw-r--r--@   1 williamcory  staff     3951 May 20 19:25 V13.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     2958 May 20 19:20 V13.fix.prompt
+-rw-r--r--@   1 williamcory  staff     5369 May 20 19:20 V13.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 19:25 V13.fix.status
+-rw-r--r--@   1 williamcory  staff     7202 May 20 17:24 V13.md
+-rw-r--r--@   1 williamcory  staff     2728 May 20 17:21 V13.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:24 V13.status
+-rw-r--r--@   1 williamcory  staff   649722 May 20 17:25 V14.codex.log
+-rw-r--r--@   1 williamcory  staff    10612 May 20 19:27 V14.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:27 V14.fix.commit
+-rw-r--r--@   1 williamcory  staff      756 May 20 19:27 V14.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   922272 May 20 19:27 V14.fix.log
+-rw-r--r--@   1 williamcory  staff     3576 May 20 19:27 V14.fix.md
+-rw-r--r--@   1 williamcory  staff     2088 May 20 19:27 V14.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     2954 May 20 19:20 V14.fix.prompt
+-rw-r--r--@   1 williamcory  staff    25908 May 20 19:20 V14.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 19:27 V14.fix.status
+-rw-r--r--@   1 williamcory  staff     6667 May 20 17:25 V14.md
+-rw-r--r--@   1 williamcory  staff     2724 May 20 17:21 V14.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:25 V14.status
+-rw-r--r--@   1 williamcory  staff   302664 May 20 17:24 V15.codex.log
+-rw-r--r--@   1 williamcory  staff    10784 May 20 19:26 V15.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:26 V15.fix.commit
+-rw-r--r--@   1 williamcory  staff      689 May 20 19:26 V15.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   297629 May 20 19:26 V15.fix.log
+-rw-r--r--@   1 williamcory  staff     3362 May 20 19:26 V15.fix.md
+-rw-r--r--@   1 williamcory  staff     2677 May 20 19:26 V15.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     2886 May 20 19:20 V15.fix.prompt
+-rw-r--r--@   1 williamcory  staff     1943 May 20 19:20 V15.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 19:26 V15.fix.status
+-rw-r--r--@   1 williamcory  staff     6336 May 20 17:24 V15.md
+-rw-r--r--@   1 williamcory  staff     2656 May 20 17:21 V15.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:24 V15.status
+-rw-r--r--@   1 williamcory  staff  1081599 May 20 17:25 V16.codex.log
+-rw-r--r--@   1 williamcory  staff     9571 May 20 19:29 V16.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 19:29 V16.fix.commit
+-rw-r--r--@   1 williamcory  staff      771 May 20 19:29 V16.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   950054 May 20 19:29 V16.fix.log
+-rw-r--r--@   1 williamcory  staff     3726 May 20 19:28 V16.fix.md
+-rw-r--r--@   1 williamcory  staff      352 May 20 19:29 V16.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     2831 May 20 19:20 V16.fix.prompt
+-rw-r--r--@   1 williamcory  staff     2369 May 20 19:20 V16.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 19:29 V16.fix.status
+-rw-r--r--@   1 williamcory  staff     7807 May 20 17:25 V16.md
+-rw-r--r--@   1 williamcory  staff     2601 May 20 17:21 V16.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:25 V16.status
+-rwxr-xr-x@   1 williamcory  staff     4223 May 20 17:13 _aggregate.sh
+-rw-r--r--@   1 williamcory  staff     2550 May 20 17:27 _dispatch.log
+-rwxr-xr-x@   1 williamcory  staff     3515 May 20 17:14 _dispatch.sh
+-rwxr-xr-x@   1 williamcory  staff     4297 May 20 20:03 _fix_aggregate.sh
+-rw-r--r--@   1 williamcory  staff     4367 May 20 19:30 _fix_dispatch.log
+-rwxr-xr-x@   1 williamcory  staff     8681 May 20 17:54 _fix_dispatch.sh
+-rw-r--r--@   1 williamcory  staff     1662 May 20 18:11 _repair1.fix.md
+-rw-r--r--@   1 williamcory  staff    90761 May 20 18:11 _repair1.log
+-rw-r--r--@   1 williamcory  staff     3678 May 20 18:08 _repair1.prompt
+-rw-r--r--@   1 williamcory  staff      449 May 20 19:02 _repair10.fix.md
+-rw-r--r--@   1 williamcory  staff    79770 May 20 19:02 _repair10.log
+-rw-r--r--@   1 williamcory  staff     1043 May 20 19:00 _repair10.prompt
+-rw-r--r--@   1 williamcory  staff      539 May 20 18:14 _repair2.fix.md
+-rw-r--r--@   1 williamcory  staff    45804 May 20 18:14 _repair2.log
+-rw-r--r--@   1 williamcory  staff     1608 May 20 18:13 _repair2.prompt
+-rw-r--r--@   1 williamcory  staff      494 May 20 18:18 _repair3.fix.md
+-rw-r--r--@   1 williamcory  staff   322649 May 20 18:18 _repair3.log
+-rw-r--r--@   1 williamcory  staff     1925 May 20 18:16 _repair3.prompt
+-rw-r--r--@   1 williamcory  staff      810 May 20 18:24 _repair4.fix.md
+-rw-r--r--@   1 williamcory  staff   178291 May 20 18:25 _repair4.log
+-rw-r--r--@   1 williamcory  staff     3080 May 20 18:20 _repair4.prompt
+-rw-r--r--@   1 williamcory  staff      676 May 20 18:29 _repair5.fix.md
+-rw-r--r--@   1 williamcory  staff    69790 May 20 18:29 _repair5.log
+-rw-r--r--@   1 williamcory  staff     2428 May 20 18:28 _repair5.prompt
+-rw-r--r--@   1 williamcory  staff      880 May 20 18:37 _repair6.fix.md
+-rw-r--r--@   1 williamcory  staff   642116 May 20 18:37 _repair6.log
+-rw-r--r--@   1 williamcory  staff     3747 May 20 18:31 _repair6.prompt
+-rw-r--r--@   1 williamcory  staff      329 May 20 18:45 _repair7.fix.md
+-rw-r--r--@   1 williamcory  staff    28830 May 20 18:45 _repair7.log
+-rw-r--r--@   1 williamcory  staff     2127 May 20 18:44 _repair7.prompt
+-rw-r--r--@   1 williamcory  staff      421 May 20 18:49 _repair8.fix.md
+-rw-r--r--@   1 williamcory  staff    40983 May 20 18:50 _repair8.log
+-rw-r--r--@   1 williamcory  staff     1603 May 20 18:49 _repair8.prompt
+-rw-r--r--@   1 williamcory  staff      277 May 20 18:55 _repair9.fix.md
+-rw-r--r--@   1 williamcory  staff    31650 May 20 18:55 _repair9.log
+-rw-r--r--@   1 williamcory  staff     1310 May 20 18:53 _repair9.prompt
+-rw-r--r--@   1 williamcory  staff      496 May 20 19:33 _repair_w2_1.fix.md
+-rw-r--r--@   1 williamcory  staff    31025 May 20 19:33 _repair_w2_1.log
+-rw-r--r--@   1 williamcory  staff     1867 May 20 19:32 _repair_w2_1.prompt
+-rw-r--r--@   1 williamcory  staff      686 May 20 19:37 _repair_w2_2.fix.md
+-rw-r--r--@   1 williamcory  staff   105768 May 20 19:38 _repair_w2_2.log
+-rw-r--r--@   1 williamcory  staff     2098 May 20 19:35 _repair_w2_2.prompt
+-rw-r--r--@   1 williamcory  staff     1665 May 20 19:44 _repair_w2_3.fix.md
+-rw-r--r--@   1 williamcory  staff   399171 May 20 19:44 _repair_w2_3.log
+-rw-r--r--@   1 williamcory  staff     3247 May 20 19:40 _repair_w2_3.prompt
+-rw-r--r--@   1 williamcory  staff      405 May 20 19:51 _repair_w2_4.fix.md
+-rw-r--r--@   1 williamcory  staff   136779 May 20 19:52 _repair_w2_4.log
+-rw-r--r--@   1 williamcory  staff     1264 May 20 19:49 _repair_w2_4.prompt
+-rw-r--r--@   1 williamcory  staff     6558 May 20 17:10 _slices.tsv
+-rw-r--r--@   1 williamcory  staff     2145 May 20 20:30 _test_fix_dispatch.log
+-rwxr-xr-x@   1 williamcory  staff     5073 May 20 20:22 _test_fix_dispatch.sh
+-rw-r--r--@   1 williamcory  staff     2023 May 20 20:21 _test_packages.tsv
+-rw-r--r--@   1 williamcory  staff     1363 May 20 20:22 _test_wave1.tsv
+-rw-r--r--@   1 williamcory  staff      660 May 20 20:30 _test_wave2.tsv
+drwxr-xr-x@  40 williamcory  staff     1280 May 20 20:02 _typecheck
+drwxr-xr-x@  12 williamcory  staff      384 May 20 20:13 _validation
+-rw-r--r--@   1 williamcory  staff     3099 May 20 17:13 _wave1.tsv
+-rw-r--r--@   1 williamcory  staff     3459 May 20 17:21 _wave2.tsv
+
+exec
+/bin/zsh -lc 'ls -l .review-slices/T22.fix.md 2>/dev/null || true' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+diff --git a/bundler-packages/tevm-run/src/run.spec.ts b/bundler-packages/tevm-run/src/run.spec.ts
+index d25245a15490ab017b9f335cdfd167d989efec0e..51f4cebd694a3c6b91458b6c288b6ac5a8ed00d2
+--- a/bundler-packages/tevm-run/src/run.spec.ts
++++ b/bundler-packages/tevm-run/src/run.spec.ts
+@@ -25,7 +25,7 @@
+ 		const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+ 
+ 		// Verify that both the success path (return) and error path (throw) exist
+-		expect(sourceCode).toContain('return $`')
++		expect(sourceCode).toContain('return await $`')
+ 		expect(sourceCode).toContain('throw new Error')
+ 
+ 		// Check for specific error handling patterns
+
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/.review-slices/T22.fix.md
+diff --git a/.review-slices/T22.fix.md b/.review-slices/T22.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..5402ff616c1e6326ea6accc47ed17e9a72db4d27
+--- /dev/null
++++ b/.review-slices/T22.fix.md
+@@ -0,0 +1,16 @@
++# tevm-run test fixes test fixes
++
++**Package:** T22
++**Scope:** bundler-packages/tevm-run
++
++## Summary
++Updated one stale source-text assertion in the tevm-run tests to match the corrected async command execution behavior. No source changes were needed.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- bundler-packages/tevm-run/src/run.spec.ts:28 - Expect the corrected `return await $\`` command path instead of the old `return $\`` path.
+diff --git a/bundler-packages/tevm-run/src/run.spec.ts b/bundler-packages/tevm-run/src/run.spec.ts
+index d25245a15490ab017b9f335cdfd167d989efec0e..51f4cebd694a3c6b91458b6c288b6ac5a8ed00d2
+--- a/bundler-packages/tevm-run/src/run.spec.ts
++++ b/bundler-packages/tevm-run/src/run.spec.ts
+@@ -25,7 +25,7 @@
+ 		const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+ 
+ 		// Verify that both the success path (return) and error path (throw) exist
+-		expect(sourceCode).toContain('return $`')
++		expect(sourceCode).toContain('return await $`')
+ 		expect(sourceCode).toContain('throw new Error')
+ 
+ 		// Check for specific error handling patterns
+
+diff --git a/.review-slices/T22.fix.md b/.review-slices/T22.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..5402ff616c1e6326ea6accc47ed17e9a72db4d27
+--- /dev/null
++++ b/.review-slices/T22.fix.md
+@@ -0,0 +1,16 @@
++# tevm-run test fixes test fixes
++
++**Package:** T22
++**Scope:** bundler-packages/tevm-run
++
++## Summary
++Updated one stale source-text assertion in the tevm-run tests to match the corrected async command execution behavior. No source changes were needed.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- bundler-packages/tevm-run/src/run.spec.ts:28 - Expect the corrected `return await $\`` command path instead of the old `return $\`` path.
+diff --git a/bundler-packages/tevm-run/src/run.spec.ts b/bundler-packages/tevm-run/src/run.spec.ts
+index d25245a15490ab017b9f335cdfd167d989efec0e..51f4cebd694a3c6b91458b6c288b6ac5a8ed00d2
+--- a/bundler-packages/tevm-run/src/run.spec.ts
++++ b/bundler-packages/tevm-run/src/run.spec.ts
+@@ -25,7 +25,7 @@
+ 		const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+ 
+ 		// Verify that both the success path (return) and error path (throw) exist
+-		expect(sourceCode).toContain('return $`')
++		expect(sourceCode).toContain('return await $`')
+ 		expect(sourceCode).toContain('throw new Error')
+ 
+ 		// Check for specific error handling patterns
+
+codex
+Implemented the tevm-run test fix.
+
+Changed [run.spec.ts](/Users/williamcory/tevm-monorepo/bundler-packages/tevm-run/src/run.spec.ts:28) to expect `return await $\`` instead of the old `return $\`` source shape.
+
+Wrote the required report at [.review-slices/T22.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/T22.fix.md).
+
+Verification: `pnpm test:run` passes with `9 pass, 0 fail`.
+diff --git a/.review-slices/T22.fix.md b/.review-slices/T22.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..5402ff616c1e6326ea6accc47ed17e9a72db4d27
+--- /dev/null
++++ b/.review-slices/T22.fix.md
+@@ -0,0 +1,16 @@
++# tevm-run test fixes test fixes
++
++**Package:** T22
++**Scope:** bundler-packages/tevm-run
++
++## Summary
++Updated one stale source-text assertion in the tevm-run tests to match the corrected async command execution behavior. No source changes were needed.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- bundler-packages/tevm-run/src/run.spec.ts:28 - Expect the corrected `return await $\`` command path instead of the old `return $\`` path.
+diff --git a/bundler-packages/tevm-run/src/run.spec.ts b/bundler-packages/tevm-run/src/run.spec.ts
+index d25245a15490ab017b9f335cdfd167d989efec0e..51f4cebd694a3c6b91458b6c288b6ac5a8ed00d2
+--- a/bundler-packages/tevm-run/src/run.spec.ts
++++ b/bundler-packages/tevm-run/src/run.spec.ts
+@@ -25,7 +25,7 @@
+ 		const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
+ 
+ 		// Verify that both the success path (return) and error path (throw) exist
+-		expect(sourceCode).toContain('return $`')
++		expect(sourceCode).toContain('return await $`')
+ 		expect(sourceCode).toContain('throw new Error')
+ 
+ 		// Check for specific error handling patterns
+
+tokens used
+31,076
+Implemented the tevm-run test fix.
+
+Changed [run.spec.ts](/Users/williamcory/tevm-monorepo/bundler-packages/tevm-run/src/run.spec.ts:28) to expect `return await $\`` instead of the old `return $\`` source shape.
+
+Wrote the required report at [.review-slices/T22.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/T22.fix.md).
+
+Verification: `pnpm test:run` passes with `9 pass, 0 fail`.
+[main a300751c1] 🧪 fix(T22): update tests after review fix wave (tevm-run test fixes)
+ 2 files changed, 17 insertions(+), 1 deletion(-)
+ create mode 100644 .review-slices/T22.fix.md

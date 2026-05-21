@@ -1,0 +1,10 @@
+🧪 fix(T19): update tests after review fix wave (Test-node fixes)
+
+Scope: extensions/test-node
+
+Updated stale test expectations for the new collision-resistant `normalizeTx` cache-key shape. Switched the test-node Vitest setup to use local mock transports and a mocked HTTP server factory so tests no longer depend on live QuickNode DNS/network access or local socket permissions.
+
+<prompt>when all tickets are implemented do a full check of tests hive tests lint etc. everything make sure everything passes.</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

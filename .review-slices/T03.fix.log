@@ -1,0 +1,2511 @@
+OpenAI Codex v0.132.0
+--------
+workdir: /Users/williamcory/tevm-monorepo
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019e47e9-ad6e-7702-b276-8bd1d45b98e4
+--------
+user
+You are fixing TypeScript test regressions in the Tevm monorepo. Earlier, parallel codex agents
+applied source-code fixes for ~210 review findings (see review.md, fix-report.md). Those fixes are
+all committed and the source code now reflects CORRECT behavior. The remaining problem is that
+the existing test suite still asserts the OLD (buggy) behavior in many places.
+
+YOUR PACKAGE: Resolutions test fixes
+SCOPE PATHS:  bundler-packages/resolutions
+HINTS:        V05 bundler pipeline fixes may have changed return shapes.
+
+PROCESS:
+1. cd into the scope path. Run `pnpm test:run` (NOT pnpm nx — direct package script) to see the
+   failures. You may run that, vitest, or vitest -u as many times as needed inside your scope.
+2. For each failing test:
+   a. STALE ASSERTION (most common): the test is asserting old buggy behavior. Update the test
+      to match the new (correct) source behavior. For snapshot tests, run `pnpm test:run -u`
+      to update the .snap files. For inline assertions, edit the .spec.ts/.spec.js file.
+   b. REAL REGRESSION (rare): the source fix introduced a real bug. In that case you may fix the
+      source code WITHIN YOUR SCOPE PATHS. Be conservative — prefer to update the test first.
+   c. MOCK UPDATE (common in config/foundry): the source switched APIs (e.g. execSync →
+      execFileSync). Update the test's vi.mock() to include the new export.
+3. Re-run `pnpm test:run` until green. If you can't get green, capture what's left in the report.
+
+HARD CONSTRAINTS:
+- Modify ONLY files under: bundler-packages/resolutions.
+- Do NOT touch files in other packages.
+- Do NOT run `pnpm install`, `pnpm nx`, `bun`, `cargo`, or `git`. The dispatcher will commit.
+- vitest, pnpm test:run (the local script), pnpm typecheck, pnpm build:types are all allowed
+  WITHIN your scope directory only.
+- If updating a snapshot, run vitest with -u flag (allowed).
+- Prefer the smallest test changes. A 1-line assertion update beats restructuring a test file.
+
+OUTPUT REPORT: '.review-slices/T03.fix.md' with structure:
+
+# Resolutions test fixes test fixes
+
+**Package:** T03
+**Scope:** bundler-packages/resolutions
+
+## Summary
+<2-4 sentences>
+
+## Tests passing
+<count or 'all'>
+
+## Tests still failing
+<count and short list, if any>
+
+## Changes
+- path:line - <one-line description>
+- ...
+
+Be ruthless about distinguishing stale assertions (update test) from real regressions (rare; fix source).
+
+codex
+I’ll work only inside `bundler-packages/resolutions`, first running the package test script to identify the stale assertions, then I’ll patch the smallest set of tests or snapshots needed. After it’s green or clearly blocked, I’ll write the requested report under the scope path if that directory exists there, or note if path creation is needed under the allowed scope.
+  → Run resolutions package tests
+  • Patch stale tests or scoped source bugs
+  • Re-run tests until resolved
+  • Write T03 report
+exec
+/bin/zsh -lc 'pnpm test:run' in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+ exited 1 in 1393ms:
+
+> @tevm/resolutions@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+> vitest run
+
+
+ RUN  v4.1.6 /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+
+ ❯ src/utils/updatePragma.spec.ts (17 tests | 15 failed) 10ms
+     × should update the pragma of a solidity file 4ms
+     × should update the pragma of a solidity file with style '^0.8.0' 1ms
+     × should update the pragma of a solidity file with style '0.8.0' 0ms
+     × should update the pragma of a solidity file with style '>0.8.0' 0ms
+     × should update the pragma of a solidity file with style '<0.8.0' 0ms
+     × should update the pragma of a solidity file with style '<=0.8.0' 0ms
+     × should update the pragma of a solidity file with style '~0.8.0' 0ms
+     × should update the pragma of a solidity file with style '>=0.8.0 <0.8.9' 0ms
+     × should update the pragma of a solidity file with style ' >=0.8.0  <0.8.9 ' 0ms
+     × should update the pragma of a solidity file with style '^0.8.0 ' 0ms
+     × should handle custom version override 0ms
+     × should handle custom version override with bounds pattern 0ms
+     × should handle multiple pragma directives 0ms
+     × should handle comments before pragma 0ms
+     × should preserve style when updating pragma 0ms
+ ❯ src/moduleFactory.spec.ts (12 tests | 8 failed | 4 skipped) 17ms
+     × should resolve correctly for case basic 12ms
+     × should resolve correctly for case withlib 1ms
+     × should resolve correctly for case withremappings 1ms
+     × should resolve correctly for case noimports 1ms
+     × should resolve correctly for case unusualpaths 1ms
+     × should resolve correctly for case multilevel 1ms
+     × should resolve correctly for case withcomments 0ms
+     × should resolve correctly for case differentpragma 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 23 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/moduleFactory.spec.ts > moduleFactory > should resolve correctly for case basic
+Error: Snapshot `moduleFactory > should resolve correctly for case basic 2` mismatched
+
+- Expected
++ Received
+
+@@ -3,7 +3,7 @@
+    "rawCode": "// SPDX-License-Identifier: MIT\npragma solidity >0.8.16;\n\nimport \"@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol\";\nimport \"@openzeppelin/contracts/token/ERC721/ERC721.sol\";\n\n// import \"this shouldn't be imorted\";\n\n/// @author Wagmi\n/// @author Tevm\n/// @title  WagmiMintExample\n/// @notice An example token original from the wagmi template\ncontract WagmiMintExample is ERC721 {\n    uint256 public totalSupply;\n\n    // import \"@openzeppelin/contracts/utils/Base64.sol\";\n    uint256 private nextTokenId = 0;\n\n    constructor() ERC721(\"wagmi\", \"WAGMI\") {}\n\n    /// @notice Allows an address to mint\n    function mint() external {\n        uint256 tokenId = nextTokenId;\n        while (_ownerOf(tokenId) != address(0)) {\n            unchecked {\n                tokenId++;\n            }\n        }\n        _safeMint(msg.sender, tokenId);\n        unchecked {\n            totalSupply++;\n            nextTokenId = tokenId + 1;\n        }\n    }\n\n    /// @notice Returns the token URI for a given token by ID\n    /// @param tokenId Token ID to mint.\n    function mint(uint256 tokenId) external {\n        require(_ownerOf(tokenId) == address(0), \"Token ID is taken\");\n        _safeMint(msg.sender, tokenId);\n        unchecked {\n            totalSupply++;\n        }\n    }\n\n    /// @notice Returns the token URI for a given token by ID\n    /// @param tokenId Token ID to query.\n    /// @return uri_ Token URI for the given token by ID.\n    function tokenURI(\n        uint256 tokenId\n    ) public pure override returns (string memory) {\n        uint256 foregroundHue = uint256(\n            keccak256(abi.encodePacked(\"foreground\", tokenId))\n        ) % 360;\n        uint256 backgroundHue = uint256(\n            keccak256(abi.encodePacked(\"background\", tokenId))\n        ) % 360;\n        string memory json = Base64.encode(\n            bytes(\n                abi.encodePacked(\n                    '{\"name\": \"wagmi #',\n                    toString(tokenId),\n                    '\", \"image\": \"data:image/svg+xml;base64,',\n                    Base64.encode(\n                        bytes(\n                            abi.encodePacked(\n                                '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1024\" height=\"1024\" fill=\"none\"><path fill=\"hsl(',\n                                toString(foregroundHue),\n                                ', 100%, 10%)\" d=\"M0 0h1024v1024H0z\" /><g fill=\"hsl(',\n                                toString(backgroundHue),\n                                ', 100%, 90%)\"><path d=\"M903 437.5c0 9.113-7.388 16.5-16.5 16.5s-16.5-7.387-16.5-16.5 7.388-16.5 16.5-16.5 16.5 7.387 16.5 16.5zM698.529 566c6.921 0 12.53-5.596 12.53-12.5v-50c0-6.904 5.609-12.5 12.529-12.5h25.059c6.92 0 12.529 5.596 12.529 12.5v50c0 6.904 5.609 12.5 12.53 12.5s12.529-5.596 12.529-12.5v-50c0-6.904 5.609-12.5 12.53-12.5h25.059c6.92 0 12.529 5.596 12.529 12.5v50c0 6.904 5.609 12.5 12.529 12.5h37.589c6.92 0 12.529-5.596 12.529-12.5v-75c0-6.904-5.609-12.5-12.529-12.5s-12.53 5.596-12.53 12.5v56.25a6.264 6.264 0 1 1-12.529 0V478.5c0-6.904-5.609-12.5-12.53-12.5H698.529c-6.92 0-12.529 5.596-12.529 12.5v75c0 6.904 5.609 12.5 12.529 12.5z\" /><path d=\"M157.655 541c-6.932 0-12.552-5.596-12.552-12.5v-50c0-6.904-5.619-12.5-12.551-12.5S120 471.596 120 478.5v75c0 6.904 5.62 12.5 12.552 12.5h150.62c6.933 0 12.552-5.596 12.552-12.5v-50c0-6.904 5.619-12.5 12.552-12.5h144.345c3.465 0 6.276 2.798 6.276 6.25s-2.811 6.25-6.276 6.25H320.828c-6.933 0-12.552 5.596-12.552 12.5v37.5c0 6.904 5.619 12.5 12.552 12.5h150.62c6.933 0 12.552-5.596 12.552-12.5v-75c0-6.904-5.619-12.5-12.552-12.5H283.172c-6.932 0-12.551 5.596-12.551 12.5v50c0 6.904-5.619 12.5-12.552 12.5h-25.103c-6.933 0-12.552-5.596-12.552-12.5v-50c0-6.904-5.62-12.5-12.552-12.5s-12.552 5.596-12.552 12.5v50c0 6.904-5.619 12.5-12.551 12.5h-25.104zm301.242-6.25c0 3.452-2.811 6.25-6.276 6.25H339.655c-3.465 0-6.276-2.798-6.276-6.25s2.811-6.25 6.276-6.25h112.966c3.465 0 6.276 2.798 6.276 6.25zM497 553.818c0 6.929 5.628 12.546 12.571 12.546h132a6.28 6.28 0 0 1 6.286 6.272 6.28 6.28 0 0 1-6.286 6.273h-132c-6.943 0-12.571 5.616-12.571 12.546A12.56 12.56 0 0 0 509.571 604h150.858c6.943 0 12.571-5.616 12.571-12.545v-112.91c0-6.928-5.628-12.545-12.571-12.545H509.571c-6.943 0-12.571 5.617-12.571 12.545v75.273zm37.714-62.727c-6.943 0-12.571 5.617-12.571 12.545v25.091c0 6.929 5.628 12.546 12.571 12.546h100.572c6.943 0 12.571-5.617 12.571-12.546v-25.091c0-6.928-5.628-12.545-12.571-12.545H534.714z\" fill-rule=\"evenodd\" /></g></svg>'\n                            )\n                        )\n                    ),\n                    '\"}'\n                )\n            )\n        );\n        string memory output = string(\n            abi.encodePacked(\"data:application/json;base64,\", json)\n        );\n        return output;\n    }\n\n    function toString(uint256 value) internal pure returns (string memory) {\n        // Inspired by OraclizeAPI's implementation - MIT licence\n        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol\n\n        if (value == 0) {\n            return \"0\";\n        }\n        uint256 temp = value;\n        uint256 digits;\n        while (temp != 0) {\n            digits++;\n            temp /= 10;\n        }\n        bytes memory buffer = new bytes(digits);\n        while (value != 0) {\n            digits -= 1;\n            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));\n            value /= 10;\n        }\n        return string(buffer);\n    }\n}\n",
+    "importedIds": [
+      "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+      "/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol"
+    ],
+-   "code": "// SPDX-License-Identifier: MIT\npragma solidity >=0.8.16;\n\nimport \"/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol\";\nimport \"/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol\";\n\n// import \"this shouldn't be imorted\";\n\n/// @author Wagmi\n/// @author Tevm\n/// @title  WagmiMintExample\n/// @notice An example token original from the wagmi template\ncontract WagmiMintExample is ERC721 {\n    uint256 public totalSupply;\n\n    // import \"@openzeppelin/contracts/utils/Base64.sol\";\n    uint256 private nextTokenId = 0;\n\n    constructor() ERC721(\"wagmi\", \"WAGMI\") {}\n\n    /// @notice Allows an address to mint\n    function mint() external {\n        uint256 tokenId = nextTokenId;\n        while (_ownerOf(tokenId) != address(0)) {\n            unchecked {\n                tokenId++;\n            }\n        }\n        _safeMint(msg.sender, tokenId);\n        unchecked {\n            totalSupply++;\n            nextTokenId = tokenId + 1;\n        }\n    }\n\n    /// @notice Returns the token URI for a given token by ID\n    /// @param tokenId Token ID to mint.\n    function mint(uint256 tokenId) external {\n        require(_ownerOf(tokenId) == address(0), \"Token ID is taken\");\n        _safeMint(msg.sender, tokenId);\n        unchecked {\n            totalSupply++;\n        }\n    }\n\n    /// @notice Returns the token URI for a given token by ID\n    /// @param tokenId Token ID to query.\n    /// @return uri_ Token URI for the given token by ID.\n    function tokenURI(\n        uint256 tokenId\n    ) public pure override returns (string memory) {\n        uint256 foregroundHue = uint256(\n            keccak256(abi.encodePacked(\"foreground\", tokenId))\n        ) % 360;\n        uint256 backgroundHue = uint256(\n            keccak256(abi.encodePacked(\"background\", tokenId))\n        ) % 360;\n        string memory json = Base64.encode(\n            bytes(\n                abi.encodePacked(\n                    '{\"name\": \"wagmi #',\n                    toString(tokenId),\n                    '\", \"image\": \"data:image/svg+xml;base64,',\n                    Base64.encode(\n                        bytes(\n                            abi.encodePacked(\n                                '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1024\" height=\"1024\" fill=\"none\"><path fill=\"hsl(',\n                                toString(foregroundHue),\n                                ', 100%, 10%)\" d=\"M0 0h1024v1024H0z\" /><g fill=\"hsl(',\n                                toString(backgroundHue),\n                                ', 100%, 90%)\"><path d=\"M903 437.5c0 9.113-7.388 16.5-16.5 16.5s-16.5-7.387-16.5-16.5 7.388-16.5 16.5-16.5 16.5 7.387 16.5 16.5zM698.529 566c6.921 0 12.53-5.596 12.53-12.5v-50c0-6.904 5.609-12.5 12.529-12.5h25.059c6.92 0 12.529 5.596 12.529 12.5v50c0 6.904 5.609 12.5 12.53 12.5s12.529-5.596 12.529-12.5v-50c0-6.904 5.609-12.5 12.53-12.5h25.059c6.92 0 12.529 5.596 12.529 12.5v50c0 6.904 5.609 12.5 12.529 12.5h37.589c6.92 0 12.529-5.596 12.529-12.5v-75c0-6.904-5.609-12.5-12.529-12.5s-12.53 5.596-12.53 12.5v56.25a6.264 6.264 0 1 1-12.529 0V478.5c0-6.904-5.609-12.5-12.53-12.5H698.529c-6.92 0-12.529 5.596-12.529 12.5v75c0 6.904 5.609 12.5 12.529 12.5z\" /><path d=\"M157.655 541c-6.932 0-12.552-5.596-12.552-12.5v-50c0-6.904-5.619-12.5-12.551-12.5S120 471.596 120 478.5v75c0 6.904 5.62 12.5 12.552 12.5h150.62c6.933 0 12.552-5.596 12.552-12.5v-50c0-6.904 5.619-12.5 12.552-12.5h144.345c3.465 0 6.276 2.798 6.276 6.25s-2.811 6.25-6.276 6.25H320.828c-6.933 0-12.552 5.596-12.552 12.5v37.5c0 6.904 5.619 12.5 12.552 12.5h150.62c6.933 0 12.552-5.596 12.552-12.5v-75c0-6.904-5.619-12.5-12.552-12.5H283.172c-6.932 0-12.551 5.596-12.551 12.5v50c0 6.904-5.619 12.5-12.552 12.5h-25.103c-6.933 0-12.552-5.596-12.552-12.5v-50c0-6.904-5.62-12.5-12.552-12.5s-12.552 5.596-12.552 12.5v50c0 6.904-5.619 12.5-12.551 12.5h-25.104zm301.242-6.25c0 3.452-2.811 6.25-6.276 6.25H339.655c-3.465 0-6.276-2.798-6.276-6.25s2.811-6.25 6.276-6.25h112.966c3.465 0 6.276 2.798 6.276 6.25zM497 553.818c0 6.929 5.628 12.546 12.571 12.546h132a6.28 6.28 0 0 1 6.286 6.272 6.28 6.28 0 0 1-6.286 6.273h-132c-6.943 0-12.571 5.616-12.571 12.546A12.56 12.56 0 0 0 509.571 604h150.858c6.943 0 12.571-5.616 12.571-12.545v-112.91c0-6.928-5.628-12.545-12.571-12.545H509.571c-6.943 0-12.571 5.617-12.571 12.545v75.273zm37.714-62.727c-6.943 0-12.571 5.617-12.571 12.545v25.091c0 6.929 5.628 12.546 12.571 12.546h100.572c6.943 0 12.571-5.617 12.571-12.546v-25.091c0-6.928-5.628-12.545-12.571-12.545H534.714z\" fill-rule=\"evenodd\" /></g></svg>'\n                            )\n                        )\n                    ),\n                    '\"}'\n                )\n            )\n        );\n        string memory output = string(\n            abi.encodePacked(\"data:application/json;base64,\", json)\n        );\n        return output;\n    }\n\n    function toString(uint256 value) internal pure returns (string memory) {\n        // Inspired by OraclizeAPI's implementation - MIT licence\n        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol\n\n        if (value == 0) {\n            return \"0\";\n        }\n        uint256 temp = value;\n        uint256 digits;\n        while (temp != 0) {\n            digits++;\n            temp /= 10;\n        }\n        bytes memory buffer = new bytes(digits);\n        while (value != 0) {\n            digits -= 1;\n            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));\n            value /= 10;\n        }\n        return string(buffer);\n    }\n}\n"
++   "code": "// SPDX-License-Identifier: MIT\npragma solidity >0.8.16;\n\nimport \"/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol\";\nimport \"/bundler-packages/resolutions/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol\";\n\n// import \"this shouldn't be imorted\";\n\n/// @author Wagmi\n/// @author Tevm\n/// @title  WagmiMintExample\n/// @notice An example token original from the wagmi template\ncontract WagmiMintExample is ERC721 {\n    uint256 public totalSupply;\n\n    // import \"@openzeppelin/contracts/utils/Base64.sol\";\n    uint256 private nextTokenId = 0;\n\n    constructor() ERC721(\"wagmi\", \"WAGMI\") {}\n\n    /// @notice Allows an address to mint\n    function mint() external {\n        uint256 tokenId = nextTokenId;\n        while (_ownerOf(tokenId) != address(0)) {\n            unchecked {\n                tokenId++;\n            }\n        }\n        _safeMint(msg.sender, tokenId);\n        unchecked {\n            totalSupply++;\n            nextTokenId = tokenId + 1;\n        }\n    }\n\n    /// @notice Returns the token URI for a given token by ID\n    /// @param tokenId Token ID to mint.\n    function mint(uint256 tokenId) external {\n        require(_ownerOf(tokenId) == address(0), \"Token ID is taken\");\n        _safeMint(msg.sender, tokenId);\n        unchecked {\n            totalSupply++;\n        }\n    }\n\n    /// @notice Returns the token URI for a given token by ID\n    /// @param tokenId Token ID to query.\n    /// @return uri_ Token URI for the given token by ID.\n    function tokenURI(\n        uint256 tokenId\n    ) public pure override returns (string memory) {\n        uint256 foregroundHue = uint256(\n            keccak256(abi.encodePacked(\"foreground\", tokenId))\n        ) % 360;\n        uint256 backgroundHue = uint256(\n            keccak256(abi.encodePacked(\"background\", tokenId))\n        ) % 360;\n        string memory json = Base64.encode(\n            bytes(\n                abi.encodePacked(\n                    '{\"name\": \"wagmi #',\n                    toString(tokenId),\n                    '\", \"image\": \"data:image/svg+xml;base64,',\n                    Base64.encode(\n                        bytes(\n                            abi.encodePacked(\n                                '<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1024\" height=\"1024\" fill=\"none\"><path fill=\"hsl(',\n                                toString(foregroundHue),\n                                ', 100%, 10%)\" d=\"M0 0h1024v1024H0z\" /><g fill=\"hsl(',\n                                toString(backgroundHue),\n                                ', 100%, 90%)\"><path d=\"M903 437.5c0 9.113-7.388 16.5-16.5 16.5s-16.5-7.387-16.5-16.5 7.388-16.5 16.5-16.5 16.5 7.387 16.5 16.5zM698.529 566c6.921 0 12.53-5.596 12.53-12.5v-50c0-6.904 5.609-12.5 12.529-12.5h25.059c6.92 0 12.529 5.596 12.529 12.5v50c0 6.904 5.609 12.5 12.53 12.5s12.529-5.596 12.529-12.5v-50c0-6.904 5.609-12.5 12.53-12.5h25.059c6.92 0 12.529 5.596 12.529 12.5v50c0 6.904 5.609 12.5 12.529 12.5h37.589c6.92 0 12.529-5.596 12.529-12.5v-75c0-6.904-5.609-12.5-12.529-12.5s-12.53 5.596-12.53 12.5v56.25a6.264 6.264 0 1 1-12.529 0V478.5c0-6.904-5.609-12.5-12.53-12.5H698.529c-6.92 0-12.529 5.596-12.529 12.5v75c0 6.904 5.609 12.5 12.529 12.5z\" /><path d=\"M157.655 541c-6.932 0-12.552-5.596-12.552-12.5v-50c0-6.904-5.619-12.5-12.551-12.5S120 471.596 120 478.5v75c0 6.904 5.62 12.5 12.552 12.5h150.62c6.933 0 12.552-5.596 12.552-12.5v-50c0-6.904 5.619-12.5 12.552-12.5h144.345c3.465 0 6.276 2.798 6.276 6.25s-2.811 6.25-6.276 6.25H320.828c-6.933 0-12.552 5.596-12.552 12.5v37.5c0 6.904 5.619 12.5 12.552 12.5h150.62c6.933 0 12.552-5.596 12.552-12.5v-75c0-6.904-5.619-12.5-12.552-12.5H283.172c-6.932 0-12.551 5.596-12.551 12.5v50c0 6.904-5.619 12.5-12.552 12.5h-25.103c-6.933 0-12.552-5.596-12.552-12.5v-50c0-6.904-5.62-12.5-12.552-12.5s-12.552 5.596-12.552 12.5v50c0 6.904-5.619 12.5-12.551 12.5h-25.104zm301.242-6.25c0 3.452-2.811 6.25-6.276 6.25H339.655c-3.465 0-6.276-2.798-6.276-6.25s2.811-6.25 6.276-6.25h112.966c3.465 0 6.276 2.798 6.276 6.25zM497 553.818c0 6.929 5.628 12.546 12.571 12.546h132a6.28 6.28 0 0 1 6.286 6.272 6.28 6.28 0 0 1-6.286 6.273h-132c-6.943 0-12.571 5.616-12.571 12.546A12.56 12.56 0 0 0 509.571 604h150.858c6.943 0 12.571-5.616 12.571-12.545v-112.91c0-6.928-5.628-12.545-12.571-12.545H509.571c-6.943 0-12.571 5.617-12.571 12.545v75.273zm37.714-62.727c-6.943 0-12.571 5.617-12.571 12.545v25.091c0 6.929 5.628 12.546 12.571 12.546h100.572c6.943 0 12.571-5.617 12.571-12.546v-25.091c0-6.928-5.628-12.545-12.571-12.545H534.714z\" fill-rule=\"evenodd\" /></g></svg>'\n                            )\n                        )\n                    ),\n                    '\"}'\n                )\n            )\n        );\n        string memory output = string(\n            abi.encodePacked(\"data:application/json;base64,\", json)\n        );\n        return output;\n    }\n\n    function toString(uint256 value) internal pure returns (string memory) {\n        // Inspired by OraclizeAPI's implementation - MIT licence\n        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol\n\n        if (value == 0) {\n            return \"0\";\n        }\n        uint256 temp = value;\n        uint256 digits;\n        while (temp != 0) {\n            digits++;\n            temp /= 10;\n        }\n        bytes memory buffer = new bytes(digits);\n        while (value != 0) {\n            digits -= 1;\n            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));\n            value /= 10;\n        }\n        return string(buffer);\n    }\n}\n"
+  }"
+
+ ❯ src/moduleFactory.spec.ts:83:5
+     81|   expect(
+     82|    JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, …
+     83|   ).toMatchSnapshot()
+       |     ^
+     84|   runSyncronously = false
+     85|   modules = await runPromise(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/23]⎯
+
+ FAIL  src/moduleFactory.spec.ts > moduleFactory > should resolve correctly for case withlib
+Error: Snapshot `moduleFactory > should resolve correctly for case withlib 2` mismatched
+
+- Expected
++ Received
+
+@@ -2,7 +2,7 @@
+    "id": "/bundler-packages/resolutions/src/fixtures/withlib/Contract.sol",
+    "rawCode": "// SPDX-License-Identifier: MIT\npragma solidity >0.8.0;\n\nimport {BaseContract} from \"mylib/BaseContract.sol\"\n\n// Derived contract that inherits from BaseContract\ncontract DerivedContract is BaseContract {\n\n    // This variable is additional to the one in the BaseContract\n    string public name;\n\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\n        name = _name;\n    }\n\n    function setName(string memory _name) public {\n        name = _name;\n    }\n}\n\n",
+    "importedIds": [
+      "/bundler-packages/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol"
+    ],
+-   "code": "// SPDX-License-Identifier: MIT\npragma solidity >=0.8.0;\n\nimport {BaseContract} from \"/bundler-packages/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol\"\n\n// Derived contract that inherits from BaseContract\ncontract DerivedContract is BaseContract {\n\n    // This variable is additional to the one in the BaseContract\n    string public name;\n\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\n        name = _name;\n    }\n\n    function setName(string memory _name) public {\n        name = _name;\n    }\n}\n\n"
++   "code": "// SPDX-License-Identifier: MIT\npragma solidity >0.8.0;\n\nimport {BaseContract} from \"/bundler-packages/resolutions/src/fixtures/withlib/lib/mylib/BaseContract.sol\"\n\n// Derived contract that inherits from BaseContract\ncontract DerivedContract is BaseContract {\n\n    // This variable is additional to the one in the BaseContract\n    string public name;\n\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\n        name = _name;\n    }\n\n    function setName(string memory _name) public {\n        name = _name;\n    }\n}\n\n"
+  }"
+
+ ❯ src/moduleFactory.spec.ts:83:5
+     81|   expect(
+     82|    JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, …
+     83|   ).toMatchSnapshot()
+       |     ^
+     84|   runSyncronously = false
+     85|   modules = await runPromise(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/23]⎯
+
+ FAIL  src/moduleFactory.spec.ts > moduleFactory > should resolve correctly for case withremappings
+Error: Snapshot `moduleFactory > should resolve correctly for case withremappings 2` mismatched
+
+- Expected
++ Received
+
+@@ -2,7 +2,7 @@
+    "id": "/bundler-packages/resolutions/src/fixtures/withremappings/Contract.sol",
+    "rawCode": "// SPDX-License-Identifier: MIT\npragma solidity >0.8.0;\n\nimport {BaseContract} from \"mylib/BaseContract.sol\"\n\n// Derived contract that inherits from BaseContract\ncontract DerivedContract is BaseContract {\n\n    // This variable is additional to the one in the BaseContract\n    string public name;\n\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\n        name = _name;\n    }\n\n    function setName(string memory _name) public {\n        name = _name;\n    }\n}\n\n",
+    "importedIds": [
+      "/bundler-packages/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol"
+    ],
+-   "code": "// SPDX-License-Identifier: MIT\npragma solidity >=0.8.0;\n\nimport {BaseContract} from \"/bundler-packages/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol\"\n\n// Derived contract that inherits from BaseContract\ncontract DerivedContract is BaseContract {\n\n    // This variable is additional to the one in the BaseContract\n    string public name;\n\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\n        name = _name;\n    }\n\n    function setName(string memory _name) public {\n        name = _name;\n    }\n}\n\n"
++   "code": "// SPDX-License-Identifier: MIT\npragma solidity >0.8.0;\n\nimport {BaseContract} from \"/bundler-packages/resolutions/src/fixtures/withremappings/lib/mylib/BaseContract.sol\"\n\n// Derived contract that inherits from BaseContract\ncontract DerivedContract is BaseContract {\n\n    // This variable is additional to the one in the BaseContract\n    string public name;\n\n    constructor(uint256 _value, string memory _name) BaseContract(_value) {\n        name = _name;\n    }\n\n    function setName(string memory _name) public {\n        name = _name;\n    }\n}\n\n"
+  }"
+
+ ❯ src/moduleFactory.spec.ts:83:5
+     81|   expect(
+     82|    JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, …
+     83|   ).toMatchSnapshot()
+       |     ^
+     84|   runSyncronously = false
+     85|   modules = await runPromise(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/23]⎯
+
+ FAIL  src/moduleFactory.spec.ts > moduleFactory > should resolve correctly for case noimports
+Error: Snapshot `moduleFactory > should resolve correctly for case noimports 2` mismatched
+
+- Expected
++ Received
+
+  "{
+    "id": "/bundler-packages/resolutions/src/fixtures/noimports/Contract.sol",
+    "rawCode": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.17;\n\ncontract SimpleStorage {\n    uint256 private value;\n    \n    event ValueChanged(uint256 newValue);\n    \n    function setValue(uint256 newValue) public {\n        value = newValue;\n        emit ValueChanged(newValue);\n    }\n    \n    function getValue() public view returns (uint256) {\n        return value;\n    }\n    \n    function increment() public {\n        value += 1;\n        emit ValueChanged(value);\n    }\n}",
+    "importedIds": [],
+-   "code": "// SPDX-License-Identifier: MIT\npragma solidity >=0.8.17;\n\ncontract SimpleStorage {\n    uint256 private value;\n    \n    event ValueChanged(uint256 newValue);\n    \n    function setValue(uint256 newValue) public {\n        value = newValue;\n        emit ValueChanged(newValue);\n    }\n    \n    function getValue() public view returns (uint256) {\n        return value;\n    }\n    \n    function increment() public {\n        value += 1;\n        emit ValueChanged(value);\n    }\n}"
++   "code": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.17;\n\ncontract SimpleStorage {\n    uint256 private value;\n    \n    event ValueChanged(uint256 newValue);\n    \n    function setValue(uint256 newValue) public {\n        value = newValue;\n        emit ValueChanged(newValue);\n    }\n    \n    function getValue() public view returns (uint256) {\n        return value;\n    }\n    \n    function increment() public {\n        value += 1;\n        emit ValueChanged(value);\n    }\n}"
+  }"
+
+ ❯ src/moduleFactory.spec.ts:83:5
+     81|   expect(
+     82|    JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, …
+     83|   ).toMatchSnapshot()
+       |     ^
+     84|   runSyncronously = false
+     85|   modules = await runPromise(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/23]⎯
+
+ FAIL  src/moduleFactory.spec.ts > moduleFactory > should resolve correctly for case unusualpaths
+Error: Snapshot `moduleFactory > should resolve correctly for case unusualpaths 2` mismatched
+
+- Expected
++ Received
+
+@@ -2,7 +2,7 @@
+    "id": "/bundler-packages/resolutions/src/fixtures/unusualpaths/Contract.sol",
+    "rawCode": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.17;\n\nimport \"./Path With Spaces.sol\";\n\ncontract UnusualPathUser {\n    UnusualPathContract private pathContract;\n    \n    constructor() {\n        pathContract = new UnusualPathContract();\n    }\n    \n    function getMessage() public view returns (string memory) {\n        return pathContract.getMessage();\n    }\n}",
+    "importedIds": [
+      "/bundler-packages/resolutions/src/fixtures/unusualpaths/Path With Spaces.sol"
+    ],
+-   "code": "// SPDX-License-Identifier: MIT\npragma solidity >=0.8.17;\n\nimport \"/bundler-packages/resolutions/src/fixtures/unusualpaths/Path With Spaces.sol\";\n\ncontract UnusualPathUser {\n    UnusualPathContract private pathContract;\n    \n    constructor() {\n        pathContract = new UnusualPathContract();\n    }\n    \n    function getMessage() public view returns (string memory) {\n        return pathContract.getMessage();\n    }\n}"
++   "code": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.17;\n\nimport \"/bundler-packages/resolutions/src/fixtures/unusualpaths/Path With Spaces.sol\";\n\ncontract UnusualPathUser {\n    UnusualPathContract private pathContract;\n    \n    constructor() {\n        pathContract = new UnusualPathContract();\n    }\n    \n    function getMessage() public view returns (string memory) {\n        return pathContract.getMessage();\n    }\n}"
+  }"
+
+ ❯ src/moduleFactory.spec.ts:83:5
+     81|   expect(
+     82|    JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, …
+     83|   ).toMatchSnapshot()
+       |     ^
+     84|   runSyncronously = false
+     85|   modules = await runPromise(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/23]⎯
+
+ FAIL  src/moduleFactory.spec.ts > moduleFactory > should resolve correctly for case multilevel
+Error: Snapshot `moduleFactory > should resolve correctly for case multilevel 2` mismatched
+
+- Expected
++ Received
+
+@@ -2,7 +2,7 @@
+    "id": "/bundler-packages/resolutions/src/fixtures/multilevel/Contract.sol",
+    "rawCode": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.17;\n\nimport \"./level1/ContractLevel1.sol\";\n\ncontract MainContract {\n    ContractLevel1 private level1Contract;\n    \n    constructor() {\n        level1Contract = new ContractLevel1();\n    }\n    \n    function getMessageChain() public view returns (string memory) {\n        return level1Contract.getLevel1AndBelowMessages();\n    }\n}",
+    "importedIds": [
+      "/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol"
+    ],
+-   "code": "// SPDX-License-Identifier: MIT\npragma solidity >=0.8.17;\n\nimport \"/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol\";\n\ncontract MainContract {\n    ContractLevel1 private level1Contract;\n    \n    constructor() {\n        level1Contract = new ContractLevel1();\n    }\n    \n    function getMessageChain() public view returns (string memory) {\n        return level1Contract.getLevel1AndBelowMessages();\n    }\n}"
++   "code": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.17;\n\nimport \"/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol\";\n\ncontract MainContract {\n    ContractLevel1 private level1Contract;\n    \n    constructor() {\n        level1Contract = new ContractLevel1();\n    }\n    \n    function getMessageChain() public view returns (string memory) {\n        return level1Contract.getLevel1AndBelowMessages();\n    }\n}"
+  }"
+
+ ❯ src/moduleFactory.spec.ts:83:5
+     81|   expect(
+     82|    JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, …
+     83|   ).toMatchSnapshot()
+       |     ^
+     84|   runSyncronously = false
+     85|   modules = await runPromise(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/23]⎯
+
+ FAIL  src/moduleFactory.spec.ts > moduleFactory > should resolve correctly for case withcomments
+Error: Snapshot `moduleFactory > should resolve correctly for case withcomments 2` mismatched
+
+- Expected
++ Received
+
+@@ -2,7 +2,7 @@
+    "id": "/bundler-packages/resolutions/src/fixtures/withcomments/Contract.sol",
+    "rawCode": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.17;\n\n// import \"./ShouldNotBeImported.sol\";\nimport \"./ImportedContract.sol\";\n\ncontract ContractWithCommentedImports {\n    ImportedContract private importedContract;\n    \n    constructor() {\n        importedContract = new ImportedContract();\n    }\n    \n    function getImportedMessage() public view returns (string memory) {\n        return importedContract.getMessage();\n    }\n    \n    /* This is a multi-line comment\n       import \"./AlsoShouldNotBeImported.sol\";\n       This should be ignored\n    */\n    \n    function getMessage() public pure returns (string memory) {\n        // Here's another commented import:\n        // import \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n        return \"Hello from main contract\";\n    }\n}",
+    "importedIds": [
+      "/bundler-packages/resolutions/src/fixtures/withcomments/ImportedContract.sol"
+    ],
+-   "code": "// SPDX-License-Identifier: MIT\npragma solidity >=0.8.17;\n\n// import \"./ShouldNotBeImported.sol\";\nimport \"/bundler-packages/resolutions/src/fixtures/withcomments/ImportedContract.sol\";\n\ncontract ContractWithCommentedImports {\n    ImportedContract private importedContract;\n    \n    constructor() {\n        importedContract = new ImportedContract();\n    }\n    \n    function getImportedMessage() public view returns (string memory) {\n        return importedContract.getMessage();\n    }\n    \n    /* This is a multi-line comment\n       import \"./AlsoShouldNotBeImported.sol\";\n       This should be ignored\n    */\n    \n    function getMessage() public pure returns (string memory) {\n        // Here's another commented import:\n        // import \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n        return \"Hello from main contract\";\n    }\n}"
++   "code": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.17;\n\n// import \"./ShouldNotBeImported.sol\";\nimport \"/bundler-packages/resolutions/src/fixtures/withcomments/ImportedContract.sol\";\n\ncontract ContractWithCommentedImports {\n    ImportedContract private importedContract;\n    \n    constructor() {\n        importedContract = new ImportedContract();\n    }\n    \n    function getImportedMessage() public view returns (string memory) {\n        return importedContract.getMessage();\n    }\n    \n    /* This is a multi-line comment\n       import \"./AlsoShouldNotBeImported.sol\";\n       This should be ignored\n    */\n    \n    function getMessage() public pure returns (string memory) {\n        // Here's another commented import:\n        // import \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\n        return \"Hello from main contract\";\n    }\n}"
+  }"
+
+ ❯ src/moduleFactory.spec.ts:83:5
+     81|   expect(
+     82|    JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, …
+     83|   ).toMatchSnapshot()
+       |     ^
+     84|   runSyncronously = false
+     85|   modules = await runPromise(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/23]⎯
+
+ FAIL  src/moduleFactory.spec.ts > moduleFactory > should resolve correctly for case differentpragma
+Error: Snapshot `moduleFactory > should resolve correctly for case differentpragma 2` mismatched
+
+- Expected
++ Received
+
+@@ -2,7 +2,7 @@
+    "id": "/bundler-packages/resolutions/src/fixtures/differentpragma/Contract.sol",
+    "rawCode": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.17;\n\nimport \"./OlderContract.sol\";\n\ncontract NewerContract {\n    OlderContract private olderContract;\n    \n    constructor() {\n        olderContract = new OlderContract();\n    }\n    \n    function getOlderContractMessage() public view returns (string memory) {\n        return olderContract.getMessage();\n    }\n    \n    function getNewerMessage() public pure returns (string memory) {\n        return \"I'm using a newer Solidity version\";\n    }\n}",
+    "importedIds": [
+      "/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol"
+    ],
+-   "code": "// SPDX-License-Identifier: MIT\npragma solidity >=0.8.17;\n\nimport \"/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol\";\n\ncontract NewerContract {\n    OlderContract private olderContract;\n    \n    constructor() {\n        olderContract = new OlderContract();\n    }\n    \n    function getOlderContractMessage() public view returns (string memory) {\n        return olderContract.getMessage();\n    }\n    \n    function getNewerMessage() public pure returns (string memory) {\n        return \"I'm using a newer Solidity version\";\n    }\n}"
++   "code": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.17;\n\nimport \"/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol\";\n\ncontract NewerContract {\n    OlderContract private olderContract;\n    \n    constructor() {\n        olderContract = new OlderContract();\n    }\n    \n    function getOlderContractMessage() public view returns (string memory) {\n        return olderContract.getMessage();\n    }\n    \n    function getNewerMessage() public pure returns (string memory) {\n        return \"I'm using a newer Solidity version\";\n    }\n}"
+  }"
+
+ ❯ src/moduleFactory.spec.ts:83:5
+     81|   expect(
+     82|    JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, …
+     83|   ).toMatchSnapshot()
+       |     ^
+     84|   runSyncronously = false
+     85|   modules = await runPromise(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/23]⎯
+
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file
+
+  Snapshots  9 failed
+ Test Files  2 failed | 12 passed (14)
+      Tests  23 failed | 65 passed | 4 skipped (92)
+   Start at  20:23:01
+   Duration  670ms (transform 475ms, setup 0ms, import 2.39s, tests 96ms, environment 1ms)
+
+Error: Snapshot `updatePragma > should update the pragma of a solidity file 1` mismatched
+
+- Expected
++ Received
+
+  "
+  // SPDX-License-Identifier: MIT
+- pragma solidity >=0.8.0;
++ pragma solidity ^0.8.0;
+
+  contract Foo {}
+  "
+
+ ❯ src/utils/updatePragma.spec.ts:13:39
+     11| contract Foo {}
+     12| `
+     13|   expect(runSync(updatePragma(file))).toMatchInlineSnapshot(`
+       |                                       ^
+     14|       "
+     15|       // SPDX-License-Identifier: MIT
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/23]⎯
+
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '^0.8.0'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '0.8.0'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '>0.8.0'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '<0.8.0'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '<=0.8.0'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '~0.8.0'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '>=0.8.0 <0.8.9'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style ' >=0.8.0  <0.8.9 '
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '^0.8.0 '
+AssertionError: expected '\n    // SPDX-License-Identifier: MIT…' to include 'pragma solidity >=0.8.0;'
+ ❯ src/utils/updatePragma.spec.ts:54:18
+     52|
+     53|   const result = runSync(updatePragma(file))
+     54|   expect(result).includes('pragma solidity >=0.8.0;')
+       |                  ^
+     55|  })
+     56|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/23]⎯
+
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should handle custom version override
+AssertionError: expected '\n// SPDX-License-Identifier: MIT\npr…' to include 'pragma solidity >=0.8.20;'
+ ❯ src/utils/updatePragma.spec.ts:65:18
+     63| `
+     64|   const result = runSync(updatePragma(file, '0.8.20'))
+     65|   expect(result).includes('pragma solidity >=0.8.20;')
+       |                  ^
+     66|  })
+     67|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/23]⎯
+
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should handle custom version override with bounds pattern
+AssertionError: expected '\n// SPDX-License-Identifier: MIT\npr…' to include 'pragma solidity >=0.8.20;'
+ ❯ src/utils/updatePragma.spec.ts:76:18
+     74| `
+     75|   const result = runSync(updatePragma(file, '0.8.20'))
+     76|   expect(result).includes('pragma solidity >=0.8.20;')
+       |                  ^
+     77|  })
+     78|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/23]⎯
+
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should handle multiple pragma directives
+AssertionError: expected '\n// SPDX-License-Identifier: MIT\npr…' to include 'pragma solidity >=0.8.20;'
+ ❯ src/utils/updatePragma.spec.ts:88:18
+     86| `
+     87|   const result = runSync(updatePragma(file, '0.8.20'))
+     88|   expect(result).includes('pragma solidity >=0.8.20;')
+       |                  ^
+     89|   expect(result).includes('pragma experimental ABIEncoderV2;')
+     90|  })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/23]⎯
+
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should handle comments before pragma
+AssertionError: expected '\n// SPDX-License-Identifier: MIT\n//…' to include 'pragma solidity >=0.8.20;'
+ ❯ src/utils/updatePragma.spec.ts:102:18
+    100|   const result = runSync(updatePragma(file, '0.8.20'))
+    101|   expect(result).includes('// This is a comment')
+    102|   expect(result).includes('pragma solidity >=0.8.20;')
+       |                  ^
+    103|  })
+    104|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/23]⎯
+
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should preserve style when updating pragma
+AssertionError: expected '\n// SPDX-License-Identifier: MIT\npr…' to include 'pragma solidity >=0.8.20;'
+ ❯ src/utils/updatePragma.spec.ts:128:19
+    126|    // The actual implementation doesn't preserve style but converts to…
+    127|    // This test might need to change if implementation changes
+    128|    expect(result).includes('pragma solidity >=0.8.20;')
+       |                   ^
+    129|   }
+    130|  })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/23]⎯
+
+ ELIFECYCLE  Command failed with exit code 1.
+
+codex
+The failures are concentrated in `updatePragma` expectations and `moduleFactory` snapshots. The current source is preserving or emitting caret pragmas where the old tests expected `>=`, so I’m reading those tests and snapshots before deciding whether this is stale assertion cleanup or a scoped source bug.
+exec
+/bin/zsh -lc "sed -n '1,180p' src/utils/updatePragma.ts" in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+ exited 1 in 0ms:
+sed: src/utils/updatePragma.ts: No such file or directory
+
+exec
+/bin/zsh -lc "sed -n '1,220p' src/utils/updatePragma.spec.ts" in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+ succeeded in 0ms:
+import { flip, runSync } from 'effect/Effect'
+import { describe, expect, it } from 'vitest'
+import { updatePragma } from './updatePragma.js'
+
+describe(updatePragma.name, () => {
+	it('should update the pragma of a solidity file', () => {
+		const file = `
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Foo {}
+`
+		expect(runSync(updatePragma(file))).toMatchInlineSnapshot(`
+      "
+      // SPDX-License-Identifier: MIT
+      pragma solidity >=0.8.0;
+
+      contract Foo {}
+      "
+    `)
+	})
+
+	it('should error if no pragma is found', () => {
+		const file = `
+contract Foo {}
+`
+		expect(runSync(flip(updatePragma(file)))).toMatchInlineSnapshot(
+			'[NoPragmaFoundError: No valid pragma statement found.]',
+		)
+	})
+
+	const pragmaStyles = [
+		'^0.8.0',
+		'0.8.0',
+		'>0.8.0',
+		'>=0.8.0',
+		'<0.8.0',
+		'<=0.8.0',
+		'~0.8.0',
+		'>=0.8.0 <0.8.9',
+		' >=0.8.0  <0.8.9 ',
+		'^0.8.0 ',
+	]
+
+	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
+		const file = `
+    // SPDX-License-Identifier: MIT
+    pragma solidity ${style};
+
+    contract Foo {}
+    `
+
+		const result = runSync(updatePragma(file))
+		expect(result).includes('pragma solidity >=0.8.0;')
+	})
+
+	it('should handle custom version override', () => {
+		const file = `
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Foo {}
+`
+		const result = runSync(updatePragma(file, '0.8.20'))
+		expect(result).includes('pragma solidity >=0.8.20;')
+	})
+
+	it('should handle custom version override with bounds pattern', () => {
+		const file = `
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.8.0 <0.9.0;
+
+contract Foo {}
+`
+		const result = runSync(updatePragma(file, '0.8.20'))
+		expect(result).includes('pragma solidity >=0.8.20;')
+	})
+
+	it('should handle multiple pragma directives', () => {
+		const file = `
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+pragma experimental ABIEncoderV2;
+
+contract Foo {}
+`
+		const result = runSync(updatePragma(file, '0.8.20'))
+		expect(result).includes('pragma solidity >=0.8.20;')
+		expect(result).includes('pragma experimental ABIEncoderV2;')
+	})
+
+	it('should handle comments before pragma', () => {
+		const file = `
+// SPDX-License-Identifier: MIT
+// This is a comment
+pragma solidity ^0.8.0;
+
+contract Foo {}
+`
+		const result = runSync(updatePragma(file, '0.8.20'))
+		expect(result).includes('// This is a comment')
+		expect(result).includes('pragma solidity >=0.8.20;')
+	})
+
+	it('should preserve style when updating pragma', () => {
+		const styles = {
+			'^': 'pragma solidity ^0.8.0;',
+			'': 'pragma solidity 0.8.0;',
+			'>': 'pragma solidity >0.8.0;',
+			'>=': 'pragma solidity >=0.8.0;',
+			'<': 'pragma solidity <0.8.0;',
+			'<=': 'pragma solidity <=0.8.0;',
+			'~': 'pragma solidity ~0.8.0;',
+		}
+
+		for (const [_, pragma] of Object.entries(styles)) {
+			const file = `
+// SPDX-License-Identifier: MIT
+${pragma}
+
+contract Foo {}
+`
+			const customVersion = '0.8.20'
+			const result = runSync(updatePragma(file, customVersion))
+
+			// The actual implementation doesn't preserve style but converts to >=
+			// This test might need to change if implementation changes
+			expect(result).includes('pragma solidity >=0.8.20;')
+		}
+	})
+})
+
+exec
+/bin/zsh -lc "sed -n '1,140p' src/moduleFactory.spec.ts" in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+ succeeded in 0ms:
+import { existsSync, readFileSync } from 'node:fs'
+import { access, readFile } from 'node:fs/promises'
+import { join } from 'node:path'
+import { runPromise } from 'effect/Effect'
+import { describe, expect, it } from 'vitest'
+import { moduleFactory } from './moduleFactory.js'
+import type { FileAccessObject } from './types.js'
+
+const fao: FileAccessObject = {
+	existsSync: existsSync,
+	readFile: readFile,
+	readFileSync: readFileSync,
+	exists: async (file: string) => {
+		try {
+			await access(file)
+			return true
+		} catch (_e) {
+			return false
+		}
+	},
+}
+
+class Fixture {
+	constructor(public readonly name: string) {}
+	dir = () => join(__dirname, 'fixtures', this.name)
+	entrypoint = () => join(this.dir(), 'Contract.sol')
+	rawCode = () => readFileSync(this.entrypoint(), 'utf8')
+	remappings = () => {
+		if (existsSync(join(this.dir(), 'remappings.json'))) {
+			return JSON.parse(readFileSync(join(this.dir(), 'remappings.json'), 'utf8'))
+		}
+		return {}
+	}
+	libs = () => {
+		if (existsSync(join(this.dir(), 'lib'))) {
+			return [join(this.dir(), 'lib')]
+		}
+		return []
+	}
+}
+const fixtures = {
+	basic: new Fixture('basic'),
+	withlib: new Fixture('withlib'),
+	withremappings: new Fixture('withremappings'),
+	noimports: new Fixture('noimports'),
+	circular: new Fixture('circular'),
+	unusualpaths: new Fixture('unusualpaths'),
+	multilevel: new Fixture('multilevel'),
+	withcomments: new Fixture('withcomments'),
+	differentpragma: new Fixture('differentpragma'),
+}
+
+const absolutePathToNormalize = join(__dirname, '..', '..', '..')
+
+describe('moduleFactory', () => {
+	const cases: Array<Array<keyof typeof fixtures>> = [
+		['basic'],
+		['withlib'],
+		['withremappings'],
+		['noimports'],
+		// ['circular'],
+		['unusualpaths'],
+		['multilevel'],
+		['withcomments'],
+		['differentpragma'],
+	]
+
+	it.each(cases)('should resolve correctly for case %s', async (testCase: keyof typeof fixtures) => {
+		let runSyncronously = true
+		let modules = await runPromise(
+			moduleFactory(
+				fixtures[testCase].entrypoint(),
+				fixtures[testCase].rawCode(),
+				fixtures[testCase].remappings(),
+				fixtures[testCase].libs(),
+				fao,
+				runSyncronously,
+			),
+		)
+		expect([...modules.keys()].map((key) => key.replace(absolutePathToNormalize, ''))).toMatchSnapshot()
+		expect(
+			JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, 2).replaceAll(absolutePathToNormalize, ''),
+		).toMatchSnapshot()
+		runSyncronously = false
+		modules = await runPromise(
+			moduleFactory(
+				fixtures[testCase].entrypoint(),
+				fixtures[testCase].rawCode(),
+				fixtures[testCase].remappings(),
+				fixtures[testCase].libs(),
+				fao,
+				runSyncronously,
+			),
+		)
+		expect([...modules.keys()].map((key) => key.replace(absolutePathToNormalize, ''))).toMatchSnapshot()
+		expect(
+			JSON.stringify(modules.get(fixtures[testCase].entrypoint()), null, 2).replaceAll(absolutePathToNormalize, ''),
+		).toMatchSnapshot()
+	})
+
+	it.skip('should throw when importing a non-existent file', async () => {
+		const nonexistentFixture = new Fixture('nonexistent')
+		expect(
+			await moduleFactory(
+				nonexistentFixture.entrypoint(),
+				nonexistentFixture.rawCode(),
+				nonexistentFixture.remappings(),
+				nonexistentFixture.libs(),
+				fao,
+				true,
+			),
+		).rejects.toThrow()
+	})
+
+	it.skip('should throw when resolving absolute imports to non-existent files', async () => {
+		const absoluteFixture = new Fixture('absolute')
+		expect(
+			await moduleFactory(
+				absoluteFixture.entrypoint(),
+				absoluteFixture.rawCode(),
+				absoluteFixture.remappings(),
+				absoluteFixture.libs(),
+				fao,
+				true,
+			),
+		).rejects.toThrow()
+	})
+
+	it.skip('should handle absolute imports with custom fs function', async () => {
+		const absoluteFixture = new Fixture('absolute')
+		const customFao: FileAccessObject = {
+			...fao,
+			readFileSync: (path: string, encoding: BufferEncoding) => {
+				if (path === '/Users/williamcory/absolute/path/to/some/contract.sol') {
+					return '// SPDX-License-Identifier: MIT\npragma solidity ^0.8.17;\n\ncontract AbsoluteContract {}'
+				}
+				return readFileSync(path, encoding)
+			},
+			readFile: async (path: string, encoding: BufferEncoding) => {
+				if (path === '/Users/williamcory/absolute/path/to/some/contract.sol') {
+
+exec
+/bin/zsh -lc "rg --files src | rg 'snap"'$|spec'"\\.ts"'$'"'" in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+ succeeded in 0ms:
+src/__snapshots__/moduleFactory.spec.ts.snap
+src/index.spec.ts
+src/resolveImports.spec.ts
+src/moduleFactory.spec.ts
+src/utils/isRelativeSolidity.spec.ts
+src/utils/isSolidity.spec.ts
+src/utils/resolveImportPath.spec.ts
+src/utils/invariant.spec.ts
+src/utils/updateImportPath.spec.ts
+src/utils/formatPath.spec.ts
+src/utils/safeFao.spec.ts
+src/utils/isImportLocal.spec.ts
+src/utils/index.spec.ts
+src/utils/updatePragma.spec.ts
+src/utils/resolveSafe.spec.ts
+
+exec
+/bin/zsh -lc 'rg "function updatePragma|const updatePragma|export.*updatePragma" src' in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+exec
+/bin/zsh -lc "rg --files src | rg 'updatePragma'" in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+ succeeded in 0ms:
+src/utils/updatePragma.js:export const updatePragma = (solidityCode, version) => {
+
+ succeeded in 0ms:
+src/utils/updatePragma.js
+src/utils/updatePragma.spec.ts
+
+exec
+/bin/zsh -lc "sed -n '1,220p' src/utils/updatePragma.js" in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+ succeeded in 0ms:
+import { fail, succeed } from 'effect/Effect'
+
+export class NoPragmaFoundError extends Error {
+	/**
+	 * @type {'NoPragmaFoundError'}
+	 */
+	_tag = 'NoPragmaFoundError'
+	/**
+	 * @type {'NoPragmaFoundError'}
+	 * @override
+	 */
+	name = 'NoPragmaFoundError'
+}
+
+const pragmaPattern = /pragma\s+solidity\s+((\^|~|>|>=|<|<=)?\s*(\d+\.\d+\.\d+)\s*);/
+const pragmaPatternWithBounds = /pragma\s+solidity\s+(>=?\d+\.\d+\.\d+)\s*<\s*(\d+\.\d+\.\d+)\s*;/
+
+/**
+ * Validates that a Solidity file has a pragma without changing its version constraints.
+ * @param {string} solidityCode The Solidity code to update.
+ * @param {string} [version] Unused legacy override.
+ * @returns {import("effect/Effect").Effect<string, NoPragmaFoundError, never>} The Solidity code.
+ */
+export const updatePragma = (solidityCode, version) => {
+	void version
+	let match = solidityCode.match(pragmaPattern)
+	if (match?.[3]) {
+		return succeed(solidityCode)
+	}
+	match = solidityCode.match(pragmaPatternWithBounds)
+	if (match?.[1]) {
+		return succeed(solidityCode)
+	}
+	return fail(new NoPragmaFoundError('No valid pragma statement found.'))
+}
+
+codex
+This looks like stale test behavior: `updatePragma` is now intentionally a validator/no-op and marks the override as legacy, so the old `>=` rewrite assertions are no longer correct. I’m going to let Vitest update the affected inline and external snapshots, then I’ll inspect any remaining failures for hand edits.
+exec
+/bin/zsh -lc 'pnpm test:run -u' in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+ exited 1 in 955ms:
+
+> @tevm/resolutions@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+> vitest run -u
+
+
+ RUN  v4.1.6 /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+
+ ❯ src/utils/updatePragma.spec.ts (17 tests | 14 failed) 8ms
+     × should update the pragma of a solidity file with style '^0.8.0' 1ms
+     × should update the pragma of a solidity file with style '0.8.0' 0ms
+     × should update the pragma of a solidity file with style '>0.8.0' 0ms
+     × should update the pragma of a solidity file with style '<0.8.0' 0ms
+     × should update the pragma of a solidity file with style '<=0.8.0' 0ms
+     × should update the pragma of a solidity file with style '~0.8.0' 0ms
+     × should update the pragma of a solidity file with style '>=0.8.0 <0.8.9' 0ms
+     × should update the pragma of a solidity file with style ' >=0.8.0  <0.8.9 ' 0ms
+     × should update the pragma of a solidity file with style '^0.8.0 ' 0ms
+     × should handle custom version override 0ms
+     × should handle custom version override with bounds pattern 0ms
+     × should handle multiple pragma directives 0ms
+     × should handle comments before pragma 0ms
+     × should preserve style when updating pragma 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 14 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '^0.8.0'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '0.8.0'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '>0.8.0'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '<0.8.0'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '<=0.8.0'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '~0.8.0'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '>=0.8.0 <0.8.9'
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style ' >=0.8.0  <0.8.9 '
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should update the pragma of a solidity file with style '^0.8.0 '
+AssertionError: expected '\n    // SPDX-License-Identifier: MIT…' to include 'pragma solidity >=0.8.0;'
+ ❯ src/utils/updatePragma.spec.ts:54:18
+     52|
+     53|   const result = runSync(updatePragma(file))
+     54|   expect(result).includes('pragma solidity >=0.8.0;')
+       |                  ^
+     55|  })
+     56|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/14]⎯
+
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should handle custom version override
+AssertionError: expected '\n// SPDX-License-Identifier: MIT\npr…' to include 'pragma solidity >=0.8.20;'
+ ❯ src/utils/updatePragma.spec.ts:65:18
+     63| `
+     64|   const result = runSync(updatePragma(file, '0.8.20'))
+     65|   expect(result).includes('pragma solidity >=0.8.20;')
+       |                  ^
+     66|  })
+     67|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/14]⎯
+
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should handle custom version override with bounds pattern
+AssertionError: expected '\n// SPDX-License-Identifier: MIT\npr…' to include 'pragma solidity >=0.8.20;'
+ ❯ src/utils/updatePragma.spec.ts:76:18
+     74| `
+     75|   const result = runSync(updatePragma(file, '0.8.20'))
+     76|   expect(result).includes('pragma solidity >=0.8.20;')
+       |                  ^
+     77|  })
+     78|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/14]⎯
+
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should handle multiple pragma directives
+AssertionError: expected '\n// SPDX-License-Identifier: MIT\npr…' to include 'pragma solidity >=0.8.20;'
+ ❯ src/utils/updatePragma.spec.ts:88:18
+     86| `
+     87|   const result = runSync(updatePragma(file, '0.8.20'))
+     88|   expect(result).includes('pragma solidity >=0.8.20;')
+       |                  ^
+     89|   expect(result).includes('pragma experimental ABIEncoderV2;')
+     90|  })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/14]⎯
+
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should handle comments before pragma
+AssertionError: expected '\n// SPDX-License-Identifier: MIT\n//…' to include 'pragma solidity >=0.8.20;'
+ ❯ src/utils/updatePragma.spec.ts:102:18
+    100|   const result = runSync(updatePragma(file, '0.8.20'))
+    101|   expect(result).includes('// This is a comment')
+    102|   expect(result).includes('pragma solidity >=0.8.20;')
+       |                  ^
+    103|  })
+    104|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/14]⎯
+
+ FAIL  src/utils/updatePragma.spec.ts > updatePragma > should preserve style when updating pragma
+AssertionError: expected '\n// SPDX-License-Identifier: MIT\npr…' to include 'pragma solidity >=0.8.20;'
+ ❯ src/utils/updatePragma.spec.ts:128:19
+    126|    // The actual implementation doesn't preserve style but converts to…
+    127|    // This test might need to change if implementation changes
+    128|    expect(result).includes('pragma solidity >=0.8.20;')
+       |                   ^
+    129|   }
+    130|  })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/14]⎯
+
+
+  Snapshots  17 updated 
+ Test Files  1 failed | 13 passed (14)
+      Tests  14 failed | 74 passed | 4 skipped (92)
+   Start at  20:23:27
+   Duration  351ms (transform 403ms, setup 0ms, import 1.29s, tests 84ms, environment 1ms)
+
+ ELIFECYCLE  Command failed with exit code 1.
+
+codex
+The snapshot update cleared the moduleFactory regressions and inline snapshot cases; the remaining failures are explicit `.includes('>=...')` checks in `updatePragma.spec.ts`. I’m replacing those with no-op validation assertions that the Solidity source is preserved, including the legacy version override path.
+exec
+/bin/zsh -lc "sed -n '1,180p' src/utils/updatePragma.spec.ts" in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+ succeeded in 0ms:
+import { flip, runSync } from 'effect/Effect'
+import { describe, expect, it } from 'vitest'
+import { updatePragma } from './updatePragma.js'
+
+describe(updatePragma.name, () => {
+	it('should update the pragma of a solidity file', () => {
+		const file = `
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Foo {}
+`
+		expect(runSync(updatePragma(file))).toMatchInlineSnapshot(`
+			"
+			// SPDX-License-Identifier: MIT
+			pragma solidity ^0.8.0;
+
+			contract Foo {}
+			"
+		`)
+	})
+
+	it('should error if no pragma is found', () => {
+		const file = `
+contract Foo {}
+`
+		expect(runSync(flip(updatePragma(file)))).toMatchInlineSnapshot(
+			'[NoPragmaFoundError: No valid pragma statement found.]',
+		)
+	})
+
+	const pragmaStyles = [
+		'^0.8.0',
+		'0.8.0',
+		'>0.8.0',
+		'>=0.8.0',
+		'<0.8.0',
+		'<=0.8.0',
+		'~0.8.0',
+		'>=0.8.0 <0.8.9',
+		' >=0.8.0  <0.8.9 ',
+		'^0.8.0 ',
+	]
+
+	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
+		const file = `
+    // SPDX-License-Identifier: MIT
+    pragma solidity ${style};
+
+    contract Foo {}
+    `
+
+		const result = runSync(updatePragma(file))
+		expect(result).includes('pragma solidity >=0.8.0;')
+	})
+
+	it('should handle custom version override', () => {
+		const file = `
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Foo {}
+`
+		const result = runSync(updatePragma(file, '0.8.20'))
+		expect(result).includes('pragma solidity >=0.8.20;')
+	})
+
+	it('should handle custom version override with bounds pattern', () => {
+		const file = `
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.8.0 <0.9.0;
+
+contract Foo {}
+`
+		const result = runSync(updatePragma(file, '0.8.20'))
+		expect(result).includes('pragma solidity >=0.8.20;')
+	})
+
+	it('should handle multiple pragma directives', () => {
+		const file = `
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+pragma experimental ABIEncoderV2;
+
+contract Foo {}
+`
+		const result = runSync(updatePragma(file, '0.8.20'))
+		expect(result).includes('pragma solidity >=0.8.20;')
+		expect(result).includes('pragma experimental ABIEncoderV2;')
+	})
+
+	it('should handle comments before pragma', () => {
+		const file = `
+// SPDX-License-Identifier: MIT
+// This is a comment
+pragma solidity ^0.8.0;
+
+contract Foo {}
+`
+		const result = runSync(updatePragma(file, '0.8.20'))
+		expect(result).includes('// This is a comment')
+		expect(result).includes('pragma solidity >=0.8.20;')
+	})
+
+	it('should preserve style when updating pragma', () => {
+		const styles = {
+			'^': 'pragma solidity ^0.8.0;',
+			'': 'pragma solidity 0.8.0;',
+			'>': 'pragma solidity >0.8.0;',
+			'>=': 'pragma solidity >=0.8.0;',
+			'<': 'pragma solidity <0.8.0;',
+			'<=': 'pragma solidity <=0.8.0;',
+			'~': 'pragma solidity ~0.8.0;',
+		}
+
+		for (const [_, pragma] of Object.entries(styles)) {
+			const file = `
+// SPDX-License-Identifier: MIT
+${pragma}
+
+contract Foo {}
+`
+			const customVersion = '0.8.20'
+			const result = runSync(updatePragma(file, customVersion))
+
+			// The actual implementation doesn't preserve style but converts to >=
+			// This test might need to change if implementation changes
+			expect(result).includes('pragma solidity >=0.8.20;')
+		}
+	})
+})
+
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+diff --git a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+index d2ae1cf9f32b121cd7b62f7d70e647179e080c53..cfc52bb243bda466059b47893c778ce2b598b73a
+--- a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
++++ b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+@@ -3,7 +3,7 @@
+ import { updatePragma } from './updatePragma.js'
+ 
+ describe(updatePragma.name, () => {
+-	it('should update the pragma of a solidity file', () => {
++	it('should validate and preserve the pragma of a solidity file', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -42,7 +42,7 @@
+ 		'^0.8.0 ',
+ 	]
+ 
+-	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
++	it.each(pragmaStyles)("should validate and preserve pragma style '%s'", (style) => {
+ 		const file = `
+     // SPDX-License-Identifier: MIT
+     pragma solidity ${style};
+@@ -51,10 +51,10 @@
+     `
+ 
+ 		const result = runSync(updatePragma(file))
+-		expect(result).includes('pragma solidity >=0.8.0;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override', () => {
++	it('should ignore legacy custom version override', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -62,10 +62,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override with bounds pattern', () => {
++	it('should ignore legacy custom version override with bounds pattern', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity >=0.8.0 <0.9.0;
+@@ -73,10 +73,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle multiple pragma directives', () => {
++	it('should preserve multiple pragma directives', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -85,11 +85,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
+-		expect(result).includes('pragma experimental ABIEncoderV2;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle comments before pragma', () => {
++	it('should preserve comments before pragma', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ // This is a comment
+@@ -98,11 +97,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('// This is a comment')
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should preserve style when updating pragma', () => {
++	it('should preserve pragma style', () => {
+ 		const styles = {
+ 			'^': 'pragma solidity ^0.8.0;',
+ 			'': 'pragma solidity 0.8.0;',
+@@ -123,9 +121,7 @@
+ 			const customVersion = '0.8.20'
+ 			const result = runSync(updatePragma(file, customVersion))
+ 
+-			// The actual implementation doesn't preserve style but converts to >=
+-			// This test might need to change if implementation changes
+-			expect(result).includes('pragma solidity >=0.8.20;')
++			expect(result).toBe(file)
+ 		}
+ 	})
+ })
+
+diff --git a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+index d2ae1cf9f32b121cd7b62f7d70e647179e080c53..cfc52bb243bda466059b47893c778ce2b598b73a
+--- a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
++++ b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+@@ -3,7 +3,7 @@
+ import { updatePragma } from './updatePragma.js'
+ 
+ describe(updatePragma.name, () => {
+-	it('should update the pragma of a solidity file', () => {
++	it('should validate and preserve the pragma of a solidity file', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -42,7 +42,7 @@
+ 		'^0.8.0 ',
+ 	]
+ 
+-	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
++	it.each(pragmaStyles)("should validate and preserve pragma style '%s'", (style) => {
+ 		const file = `
+     // SPDX-License-Identifier: MIT
+     pragma solidity ${style};
+@@ -51,10 +51,10 @@
+     `
+ 
+ 		const result = runSync(updatePragma(file))
+-		expect(result).includes('pragma solidity >=0.8.0;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override', () => {
++	it('should ignore legacy custom version override', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -62,10 +62,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override with bounds pattern', () => {
++	it('should ignore legacy custom version override with bounds pattern', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity >=0.8.0 <0.9.0;
+@@ -73,10 +73,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle multiple pragma directives', () => {
++	it('should preserve multiple pragma directives', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -85,11 +85,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
+-		expect(result).includes('pragma experimental ABIEncoderV2;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle comments before pragma', () => {
++	it('should preserve comments before pragma', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ // This is a comment
+@@ -98,11 +97,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('// This is a comment')
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should preserve style when updating pragma', () => {
++	it('should preserve pragma style', () => {
+ 		const styles = {
+ 			'^': 'pragma solidity ^0.8.0;',
+ 			'': 'pragma solidity 0.8.0;',
+@@ -123,9 +121,7 @@
+ 			const customVersion = '0.8.20'
+ 			const result = runSync(updatePragma(file, customVersion))
+ 
+-			// The actual implementation doesn't preserve style but converts to >=
+-			// This test might need to change if implementation changes
+-			expect(result).includes('pragma solidity >=0.8.20;')
++			expect(result).toBe(file)
+ 		}
+ 	})
+ })
+
+  ✓ Run resolutions package tests
+  ✓ Patch stale tests or scoped source bugs
+  → Re-run tests until resolved
+  • Write T03 report
+diff --git a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+index d2ae1cf9f32b121cd7b62f7d70e647179e080c53..cfc52bb243bda466059b47893c778ce2b598b73a
+--- a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
++++ b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+@@ -3,7 +3,7 @@
+ import { updatePragma } from './updatePragma.js'
+ 
+ describe(updatePragma.name, () => {
+-	it('should update the pragma of a solidity file', () => {
++	it('should validate and preserve the pragma of a solidity file', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -42,7 +42,7 @@
+ 		'^0.8.0 ',
+ 	]
+ 
+-	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
++	it.each(pragmaStyles)("should validate and preserve pragma style '%s'", (style) => {
+ 		const file = `
+     // SPDX-License-Identifier: MIT
+     pragma solidity ${style};
+@@ -51,10 +51,10 @@
+     `
+ 
+ 		const result = runSync(updatePragma(file))
+-		expect(result).includes('pragma solidity >=0.8.0;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override', () => {
++	it('should ignore legacy custom version override', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -62,10 +62,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override with bounds pattern', () => {
++	it('should ignore legacy custom version override with bounds pattern', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity >=0.8.0 <0.9.0;
+@@ -73,10 +73,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle multiple pragma directives', () => {
++	it('should preserve multiple pragma directives', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -85,11 +85,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
+-		expect(result).includes('pragma experimental ABIEncoderV2;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle comments before pragma', () => {
++	it('should preserve comments before pragma', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ // This is a comment
+@@ -98,11 +97,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('// This is a comment')
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should preserve style when updating pragma', () => {
++	it('should preserve pragma style', () => {
+ 		const styles = {
+ 			'^': 'pragma solidity ^0.8.0;',
+ 			'': 'pragma solidity 0.8.0;',
+@@ -123,9 +121,7 @@
+ 			const customVersion = '0.8.20'
+ 			const result = runSync(updatePragma(file, customVersion))
+ 
+-			// The actual implementation doesn't preserve style but converts to >=
+-			// This test might need to change if implementation changes
+-			expect(result).includes('pragma solidity >=0.8.20;')
++			expect(result).toBe(file)
+ 		}
+ 	})
+ })
+
+exec
+/bin/zsh -lc 'pnpm test:run' in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+diff --git a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+index d2ae1cf9f32b121cd7b62f7d70e647179e080c53..cfc52bb243bda466059b47893c778ce2b598b73a
+--- a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
++++ b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+@@ -3,7 +3,7 @@
+ import { updatePragma } from './updatePragma.js'
+ 
+ describe(updatePragma.name, () => {
+-	it('should update the pragma of a solidity file', () => {
++	it('should validate and preserve the pragma of a solidity file', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -42,7 +42,7 @@
+ 		'^0.8.0 ',
+ 	]
+ 
+-	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
++	it.each(pragmaStyles)("should validate and preserve pragma style '%s'", (style) => {
+ 		const file = `
+     // SPDX-License-Identifier: MIT
+     pragma solidity ${style};
+@@ -51,10 +51,10 @@
+     `
+ 
+ 		const result = runSync(updatePragma(file))
+-		expect(result).includes('pragma solidity >=0.8.0;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override', () => {
++	it('should ignore legacy custom version override', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -62,10 +62,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override with bounds pattern', () => {
++	it('should ignore legacy custom version override with bounds pattern', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity >=0.8.0 <0.9.0;
+@@ -73,10 +73,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle multiple pragma directives', () => {
++	it('should preserve multiple pragma directives', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -85,11 +85,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
+-		expect(result).includes('pragma experimental ABIEncoderV2;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle comments before pragma', () => {
++	it('should preserve comments before pragma', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ // This is a comment
+@@ -98,11 +97,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('// This is a comment')
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should preserve style when updating pragma', () => {
++	it('should preserve pragma style', () => {
+ 		const styles = {
+ 			'^': 'pragma solidity ^0.8.0;',
+ 			'': 'pragma solidity 0.8.0;',
+@@ -123,9 +121,7 @@
+ 			const customVersion = '0.8.20'
+ 			const result = runSync(updatePragma(file, customVersion))
+ 
+-			// The actual implementation doesn't preserve style but converts to >=
+-			// This test might need to change if implementation changes
+-			expect(result).includes('pragma solidity >=0.8.20;')
++			expect(result).toBe(file)
+ 		}
+ 	})
+ })
+
+ succeeded in 901ms:
+
+> @tevm/resolutions@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+> vitest run
+
+
+ RUN  v4.1.6 /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+
+
+ Test Files  14 passed (14)
+      Tests  88 passed | 4 skipped (92)
+   Start at  20:24:00
+   Duration  334ms (transform 398ms, setup 0ms, import 1.26s, tests 78ms, environment 1ms)
+
+
+codex
+`pnpm test:run` is green now: 14 files passed, 88 tests passed, 4 skipped. I’m doing a quick scoped inspection of the changed assertions/snapshots and then I’ll write the required report inside `bundler-packages/resolutions/.review-slices/T03.fix.md`.
+exec
+/bin/zsh -lc "nl -ba src/utils/updatePragma.spec.ts | sed -n '1,170p'" in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+ succeeded in 0ms:
+     1	import { flip, runSync } from 'effect/Effect'
+     2	import { describe, expect, it } from 'vitest'
+     3	import { updatePragma } from './updatePragma.js'
+     4	
+     5	describe(updatePragma.name, () => {
+     6		it('should validate and preserve the pragma of a solidity file', () => {
+     7			const file = `
+     8	// SPDX-License-Identifier: MIT
+     9	pragma solidity ^0.8.0;
+    10	
+    11	contract Foo {}
+    12	`
+    13			expect(runSync(updatePragma(file))).toMatchInlineSnapshot(`
+    14				"
+    15				// SPDX-License-Identifier: MIT
+    16				pragma solidity ^0.8.0;
+    17	
+    18				contract Foo {}
+    19				"
+    20			`)
+    21		})
+    22	
+    23		it('should error if no pragma is found', () => {
+    24			const file = `
+    25	contract Foo {}
+    26	`
+    27			expect(runSync(flip(updatePragma(file)))).toMatchInlineSnapshot(
+    28				'[NoPragmaFoundError: No valid pragma statement found.]',
+    29			)
+    30		})
+    31	
+    32		const pragmaStyles = [
+    33			'^0.8.0',
+    34			'0.8.0',
+    35			'>0.8.0',
+    36			'>=0.8.0',
+    37			'<0.8.0',
+    38			'<=0.8.0',
+    39			'~0.8.0',
+    40			'>=0.8.0 <0.8.9',
+    41			' >=0.8.0  <0.8.9 ',
+    42			'^0.8.0 ',
+    43		]
+    44	
+    45		it.each(pragmaStyles)("should validate and preserve pragma style '%s'", (style) => {
+    46			const file = `
+    47	    // SPDX-License-Identifier: MIT
+    48	    pragma solidity ${style};
+    49	
+    50	    contract Foo {}
+    51	    `
+    52	
+    53			const result = runSync(updatePragma(file))
+    54			expect(result).toBe(file)
+    55		})
+    56	
+    57		it('should ignore legacy custom version override', () => {
+    58			const file = `
+    59	// SPDX-License-Identifier: MIT
+    60	pragma solidity ^0.8.0;
+    61	
+    62	contract Foo {}
+    63	`
+    64			const result = runSync(updatePragma(file, '0.8.20'))
+    65			expect(result).toBe(file)
+    66		})
+    67	
+    68		it('should ignore legacy custom version override with bounds pattern', () => {
+    69			const file = `
+    70	// SPDX-License-Identifier: MIT
+    71	pragma solidity >=0.8.0 <0.9.0;
+    72	
+    73	contract Foo {}
+    74	`
+    75			const result = runSync(updatePragma(file, '0.8.20'))
+    76			expect(result).toBe(file)
+    77		})
+    78	
+    79		it('should preserve multiple pragma directives', () => {
+    80			const file = `
+    81	// SPDX-License-Identifier: MIT
+    82	pragma solidity ^0.8.0;
+    83	pragma experimental ABIEncoderV2;
+    84	
+    85	contract Foo {}
+    86	`
+    87			const result = runSync(updatePragma(file, '0.8.20'))
+    88			expect(result).toBe(file)
+    89		})
+    90	
+    91		it('should preserve comments before pragma', () => {
+    92			const file = `
+    93	// SPDX-License-Identifier: MIT
+    94	// This is a comment
+    95	pragma solidity ^0.8.0;
+    96	
+    97	contract Foo {}
+    98	`
+    99			const result = runSync(updatePragma(file, '0.8.20'))
+   100			expect(result).toBe(file)
+   101		})
+   102	
+   103		it('should preserve pragma style', () => {
+   104			const styles = {
+   105				'^': 'pragma solidity ^0.8.0;',
+   106				'': 'pragma solidity 0.8.0;',
+   107				'>': 'pragma solidity >0.8.0;',
+   108				'>=': 'pragma solidity >=0.8.0;',
+   109				'<': 'pragma solidity <0.8.0;',
+   110				'<=': 'pragma solidity <=0.8.0;',
+   111				'~': 'pragma solidity ~0.8.0;',
+   112			}
+   113	
+   114			for (const [_, pragma] of Object.entries(styles)) {
+   115				const file = `
+   116	// SPDX-License-Identifier: MIT
+   117	${pragma}
+   118	
+   119	contract Foo {}
+   120	`
+   121				const customVersion = '0.8.20'
+   122				const result = runSync(updatePragma(file, customVersion))
+   123	
+   124				expect(result).toBe(file)
+   125			}
+   126		})
+   127	})
+
+exec
+/bin/zsh -lc "find . -path './node_modules' -prune -o -path './.review-slices' -print -o -name 'T03.fix.md' -print" in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+exec
+/bin/zsh -lc "rg -n \"pragma solidity \\"'^|pragma solidity >=|Snapshot|exports" src/__snapshots__/moduleFactory.spec.ts.snap' in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+ succeeded in 0ms:
+ succeeded in 0ms:
+1:// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+3:exports[`moduleFactory > should resolve correctly for case basic 1`] = `
+26:exports[`moduleFactory > should resolve correctly for case basic 2`] = `
+38:exports[`moduleFactory > should resolve correctly for case basic 3`] = `
+61:exports[`moduleFactory > should resolve correctly for case basic 4`] = `
+73:exports[`moduleFactory > should resolve correctly for case differentpragma 1`] = `
+80:exports[`moduleFactory > should resolve correctly for case differentpragma 2`] = `
+83:  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./OlderContract.sol\\";\\n\\ncontract NewerContract {\\n    OlderContract private olderContract;\\n    \\n    constructor() {\\n        olderContract = new OlderContract();\\n    }\\n    \\n    function getOlderContractMessage() public view returns (string memory) {\\n        return olderContract.getMessage();\\n    }\\n    \\n    function getNewerMessage() public pure returns (string memory) {\\n        return \\"I'm using a newer Solidity version\\";\\n    }\\n}",
+87:  "code": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol\\";\\n\\ncontract NewerContract {\\n    OlderContract private olderContract;\\n    \\n    constructor() {\\n        olderContract = new OlderContract();\\n    }\\n    \\n    function getOlderContractMessage() public view returns (string memory) {\\n        return olderContract.getMessage();\\n    }\\n    \\n    function getNewerMessage() public pure returns (string memory) {\\n        return \\"I'm using a newer Solidity version\\";\\n    }\\n}"
+91:exports[`moduleFactory > should resolve correctly for case differentpragma 3`] = `
+98:exports[`moduleFactory > should resolve correctly for case differentpragma 4`] = `
+101:  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./OlderContract.sol\\";\\n\\ncontract NewerContract {\\n    OlderContract private olderContract;\\n    \\n    constructor() {\\n        olderContract = new OlderContract();\\n    }\\n    \\n    function getOlderContractMessage() public view returns (string memory) {\\n        return olderContract.getMessage();\\n    }\\n    \\n    function getNewerMessage() public pure returns (string memory) {\\n        return \\"I'm using a newer Solidity version\\";\\n    }\\n}",
+105:  "code": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/differentpragma/OlderContract.sol\\";\\n\\ncontract NewerContract {\\n    OlderContract private olderContract;\\n    \\n    constructor() {\\n        olderContract = new OlderContract();\\n    }\\n    \\n    function getOlderContractMessage() public view returns (string memory) {\\n        return olderContract.getMessage();\\n    }\\n    \\n    function getNewerMessage() public pure returns (string memory) {\\n        return \\"I'm using a newer Solidity version\\";\\n    }\\n}"
+109:exports[`moduleFactory > should resolve correctly for case multilevel 1`] = `
+118:exports[`moduleFactory > should resolve correctly for case multilevel 2`] = `
+121:  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./level1/ContractLevel1.sol\\";\\n\\ncontract MainContract {\\n    ContractLevel1 private level1Contract;\\n    \\n    constructor() {\\n        level1Contract = new ContractLevel1();\\n    }\\n    \\n    function getMessageChain() public view returns (string memory) {\\n        return level1Contract.getLevel1AndBelowMessages();\\n    }\\n}",
+125:  "code": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol\\";\\n\\ncontract MainContract {\\n    ContractLevel1 private level1Contract;\\n    \\n    constructor() {\\n        level1Contract = new ContractLevel1();\\n    }\\n    \\n    function getMessageChain() public view returns (string memory) {\\n        return level1Contract.getLevel1AndBelowMessages();\\n    }\\n}"
+129:exports[`moduleFactory > should resolve correctly for case multilevel 3`] = `
+138:exports[`moduleFactory > should resolve correctly for case multilevel 4`] = `
+141:  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./level1/ContractLevel1.sol\\";\\n\\ncontract MainContract {\\n    ContractLevel1 private level1Contract;\\n    \\n    constructor() {\\n        level1Contract = new ContractLevel1();\\n    }\\n    \\n    function getMessageChain() public view returns (string memory) {\\n        return level1Contract.getLevel1AndBelowMessages();\\n    }\\n}",
+145:  "code": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/multilevel/level1/ContractLevel1.sol\\";\\n\\ncontract MainContract {\\n    ContractLevel1 private level1Contract;\\n    \\n    constructor() {\\n        level1Contract = new ContractLevel1();\\n    }\\n    \\n    function getMessageChain() public view returns (string memory) {\\n        return level1Contract.getLevel1AndBelowMessages();\\n    }\\n}"
+149:exports[`moduleFactory > should resolve correctly for case noimports 1`] = `
+155:exports[`moduleFactory > should resolve correctly for case noimports 2`] = `
+158:  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\ncontract SimpleStorage {\\n    uint256 private value;\\n    \\n    event ValueChanged(uint256 newValue);\\n    \\n    function setValue(uint256 newValue) public {\\n        value = newValue;\\n        emit ValueChanged(newValue);\\n    }\\n    \\n    function getValue() public view returns (uint256) {\\n        return value;\\n    }\\n    \\n    function increment() public {\\n        value += 1;\\n        emit ValueChanged(value);\\n    }\\n}",
+160:  "code": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\ncontract SimpleStorage {\\n    uint256 private value;\\n    \\n    event ValueChanged(uint256 newValue);\\n    \\n    function setValue(uint256 newValue) public {\\n        value = newValue;\\n        emit ValueChanged(newValue);\\n    }\\n    \\n    function getValue() public view returns (uint256) {\\n        return value;\\n    }\\n    \\n    function increment() public {\\n        value += 1;\\n        emit ValueChanged(value);\\n    }\\n}"
+164:exports[`moduleFactory > should resolve correctly for case noimports 3`] = `
+170:exports[`moduleFactory > should resolve correctly for case noimports 4`] = `
+173:  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\ncontract SimpleStorage {\\n    uint256 private value;\\n    \\n    event ValueChanged(uint256 newValue);\\n    \\n    function setValue(uint256 newValue) public {\\n        value = newValue;\\n        emit ValueChanged(newValue);\\n    }\\n    \\n    function getValue() public view returns (uint256) {\\n        return value;\\n    }\\n    \\n    function increment() public {\\n        value += 1;\\n        emit ValueChanged(value);\\n    }\\n}",
+175:  "code": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\ncontract SimpleStorage {\\n    uint256 private value;\\n    \\n    event ValueChanged(uint256 newValue);\\n    \\n    function setValue(uint256 newValue) public {\\n        value = newValue;\\n        emit ValueChanged(newValue);\\n    }\\n    \\n    function getValue() public view returns (uint256) {\\n        return value;\\n    }\\n    \\n    function increment() public {\\n        value += 1;\\n        emit ValueChanged(value);\\n    }\\n}"
+179:exports[`moduleFactory > should resolve correctly for case unusualpaths 1`] = `
+186:exports[`moduleFactory > should resolve correctly for case unusualpaths 2`] = `
+189:  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./Path With Spaces.sol\\";\\n\\ncontract UnusualPathUser {\\n    UnusualPathContract private pathContract;\\n    \\n    constructor() {\\n        pathContract = new UnusualPathContract();\\n    }\\n    \\n    function getMessage() public view returns (string memory) {\\n        return pathContract.getMessage();\\n    }\\n}",
+193:  "code": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/unusualpaths/Path With Spaces.sol\\";\\n\\ncontract UnusualPathUser {\\n    UnusualPathContract private pathContract;\\n    \\n    constructor() {\\n        pathContract = new UnusualPathContract();\\n    }\\n    \\n    function getMessage() public view returns (string memory) {\\n        return pathContract.getMessage();\\n    }\\n}"
+197:exports[`moduleFactory > should resolve correctly for case unusualpaths 3`] = `
+204:exports[`moduleFactory > should resolve correctly for case unusualpaths 4`] = `
+207:  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"./Path With Spaces.sol\\";\\n\\ncontract UnusualPathUser {\\n    UnusualPathContract private pathContract;\\n    \\n    constructor() {\\n        pathContract = new UnusualPathContract();\\n    }\\n    \\n    function getMessage() public view returns (string memory) {\\n        return pathContract.getMessage();\\n    }\\n}",
+211:  "code": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\nimport \\"/bundler-packages/resolutions/src/fixtures/unusualpaths/Path With Spaces.sol\\";\\n\\ncontract UnusualPathUser {\\n    UnusualPathContract private pathContract;\\n    \\n    constructor() {\\n        pathContract = new UnusualPathContract();\\n    }\\n    \\n    function getMessage() public view returns (string memory) {\\n        return pathContract.getMessage();\\n    }\\n}"
+215:exports[`moduleFactory > should resolve correctly for case withcomments 1`] = `
+222:exports[`moduleFactory > should resolve correctly for case withcomments 2`] = `
+225:  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\n// import \\"./ShouldNotBeImported.sol\\";\\nimport \\"./ImportedContract.sol\\";\\n\\ncontract ContractWithCommentedImports {\\n    ImportedContract private importedContract;\\n    \\n    constructor() {\\n        importedContract = new ImportedContract();\\n    }\\n    \\n    function getImportedMessage() public view returns (string memory) {\\n        return importedContract.getMessage();\\n    }\\n    \\n    /* This is a multi-line comment\\n       import \\"./AlsoShouldNotBeImported.sol\\";\\n       This should be ignored\\n    */\\n    \\n    function getMessage() public pure returns (string memory) {\\n        // Here's another commented import:\\n        // import \\"@openzeppelin/contracts/token/ERC20/ERC20.sol\\";\\n        return \\"Hello from main contract\\";\\n    }\\n}",
+229:  "code": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\n// import \\"./ShouldNotBeImported.sol\\";\\nimport \\"/bundler-packages/resolutions/src/fixtures/withcomments/ImportedContract.sol\\";\\n\\ncontract ContractWithCommentedImports {\\n    ImportedContract private importedContract;\\n    \\n    constructor() {\\n        importedContract = new ImportedContract();\\n    }\\n    \\n    function getImportedMessage() public view returns (string memory) {\\n        return importedContract.getMessage();\\n    }\\n    \\n    /* This is a multi-line comment\\n       import \\"./AlsoShouldNotBeImported.sol\\";\\n       This should be ignored\\n    */\\n    \\n    function getMessage() public pure returns (string memory) {\\n        // Here's another commented import:\\n        // import \\"@openzeppelin/contracts/token/ERC20/ERC20.sol\\";\\n        return \\"Hello from main contract\\";\\n    }\\n}"
+233:exports[`moduleFactory > should resolve correctly for case withcomments 3`] = `
+240:exports[`moduleFactory > should resolve correctly for case withcomments 4`] = `
+243:  "rawCode": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\n// import \\"./ShouldNotBeImported.sol\\";\\nimport \\"./ImportedContract.sol\\";\\n\\ncontract ContractWithCommentedImports {\\n    ImportedContract private importedContract;\\n    \\n    constructor() {\\n        importedContract = new ImportedContract();\\n    }\\n    \\n    function getImportedMessage() public view returns (string memory) {\\n        return importedContract.getMessage();\\n    }\\n    \\n    /* This is a multi-line comment\\n       import \\"./AlsoShouldNotBeImported.sol\\";\\n       This should be ignored\\n    */\\n    \\n    function getMessage() public pure returns (string memory) {\\n        // Here's another commented import:\\n        // import \\"@openzeppelin/contracts/token/ERC20/ERC20.sol\\";\\n        return \\"Hello from main contract\\";\\n    }\\n}",
+247:  "code": "// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.17;\\n\\n// import \\"./ShouldNotBeImported.sol\\";\\nimport \\"/bundler-packages/resolutions/src/fixtures/withcomments/ImportedContract.sol\\";\\n\\ncontract ContractWithCommentedImports {\\n    ImportedContract private importedContract;\\n    \\n    constructor() {\\n        importedContract = new ImportedContract();\\n    }\\n    \\n    function getImportedMessage() public view returns (string memory) {\\n        return importedContract.getMessage();\\n    }\\n    \\n    /* This is a multi-line comment\\n       import \\"./AlsoShouldNotBeImported.sol\\";\\n       This should be ignored\\n    */\\n    \\n    function getMessage() public pure returns (string memory) {\\n        // Here's another commented import:\\n        // import \\"@openzeppelin/contracts/token/ERC20/ERC20.sol\\";\\n        return \\"Hello from main contract\\";\\n    }\\n}"
+251:exports[`moduleFactory > should resolve correctly for case withlib 1`] = `
+258:exports[`moduleFactory > should resolve correctly for case withlib 2`] = `
+269:exports[`moduleFactory > should resolve correctly for case withlib 3`] = `
+276:exports[`moduleFactory > should resolve correctly for case withlib 4`] = `
+287:exports[`moduleFactory > should resolve correctly for case withremappings 1`] = `
+294:exports[`moduleFactory > should resolve correctly for case withremappings 2`] = `
+305:exports[`moduleFactory > should resolve correctly for case withremappings 3`] = `
+312:exports[`moduleFactory > should resolve correctly for case withremappings 4`] = `
+
+diff --git a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+index d2ae1cf9f32b121cd7b62f7d70e647179e080c53..cfc52bb243bda466059b47893c778ce2b598b73a
+--- a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
++++ b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+@@ -3,7 +3,7 @@
+ import { updatePragma } from './updatePragma.js'
+ 
+ describe(updatePragma.name, () => {
+-	it('should update the pragma of a solidity file', () => {
++	it('should validate and preserve the pragma of a solidity file', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -42,7 +42,7 @@
+ 		'^0.8.0 ',
+ 	]
+ 
+-	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
++	it.each(pragmaStyles)("should validate and preserve pragma style '%s'", (style) => {
+ 		const file = `
+     // SPDX-License-Identifier: MIT
+     pragma solidity ${style};
+@@ -51,10 +51,10 @@
+     `
+ 
+ 		const result = runSync(updatePragma(file))
+-		expect(result).includes('pragma solidity >=0.8.0;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override', () => {
++	it('should ignore legacy custom version override', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -62,10 +62,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override with bounds pattern', () => {
++	it('should ignore legacy custom version override with bounds pattern', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity >=0.8.0 <0.9.0;
+@@ -73,10 +73,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle multiple pragma directives', () => {
++	it('should preserve multiple pragma directives', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -85,11 +85,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
+-		expect(result).includes('pragma experimental ABIEncoderV2;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle comments before pragma', () => {
++	it('should preserve comments before pragma', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ // This is a comment
+@@ -98,11 +97,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('// This is a comment')
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should preserve style when updating pragma', () => {
++	it('should preserve pragma style', () => {
+ 		const styles = {
+ 			'^': 'pragma solidity ^0.8.0;',
+ 			'': 'pragma solidity 0.8.0;',
+@@ -123,9 +121,7 @@
+ 			const customVersion = '0.8.20'
+ 			const result = runSync(updatePragma(file, customVersion))
+ 
+-			// The actual implementation doesn't preserve style but converts to >=
+-			// This test might need to change if implementation changes
+-			expect(result).includes('pragma solidity >=0.8.20;')
++			expect(result).toBe(file)
+ 		}
+ 	})
+ })
+
+exec
+/bin/zsh -lc "rg -n \"pragma solidity >=0\\.8\\.(16|17)|>=0\\.8\\.20\" src/__snapshots__/moduleFactory.spec.ts.snap src/utils/updatePragma.spec.ts" in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+ exited 1 in 0ms:
+diff --git a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+index d2ae1cf9f32b121cd7b62f7d70e647179e080c53..cfc52bb243bda466059b47893c778ce2b598b73a
+--- a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
++++ b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+@@ -3,7 +3,7 @@
+ import { updatePragma } from './updatePragma.js'
+ 
+ describe(updatePragma.name, () => {
+-	it('should update the pragma of a solidity file', () => {
++	it('should validate and preserve the pragma of a solidity file', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -42,7 +42,7 @@
+ 		'^0.8.0 ',
+ 	]
+ 
+-	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
++	it.each(pragmaStyles)("should validate and preserve pragma style '%s'", (style) => {
+ 		const file = `
+     // SPDX-License-Identifier: MIT
+     pragma solidity ${style};
+@@ -51,10 +51,10 @@
+     `
+ 
+ 		const result = runSync(updatePragma(file))
+-		expect(result).includes('pragma solidity >=0.8.0;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override', () => {
++	it('should ignore legacy custom version override', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -62,10 +62,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override with bounds pattern', () => {
++	it('should ignore legacy custom version override with bounds pattern', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity >=0.8.0 <0.9.0;
+@@ -73,10 +73,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle multiple pragma directives', () => {
++	it('should preserve multiple pragma directives', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -85,11 +85,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
+-		expect(result).includes('pragma experimental ABIEncoderV2;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle comments before pragma', () => {
++	it('should preserve comments before pragma', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ // This is a comment
+@@ -98,11 +97,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('// This is a comment')
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should preserve style when updating pragma', () => {
++	it('should preserve pragma style', () => {
+ 		const styles = {
+ 			'^': 'pragma solidity ^0.8.0;',
+ 			'': 'pragma solidity 0.8.0;',
+@@ -123,9 +121,7 @@
+ 			const customVersion = '0.8.20'
+ 			const result = runSync(updatePragma(file, customVersion))
+ 
+-			// The actual implementation doesn't preserve style but converts to >=
+-			// This test might need to change if implementation changes
+-			expect(result).includes('pragma solidity >=0.8.20;')
++			expect(result).toBe(file)
+ 		}
+ 	})
+ })
+
+exec
+/bin/zsh -lc 'mkdir -p .review-slices' in /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+ succeeded in 0ms:
+diff --git a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+index d2ae1cf9f32b121cd7b62f7d70e647179e080c53..cfc52bb243bda466059b47893c778ce2b598b73a
+--- a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
++++ b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+@@ -3,7 +3,7 @@
+ import { updatePragma } from './updatePragma.js'
+ 
+ describe(updatePragma.name, () => {
+-	it('should update the pragma of a solidity file', () => {
++	it('should validate and preserve the pragma of a solidity file', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -42,7 +42,7 @@
+ 		'^0.8.0 ',
+ 	]
+ 
+-	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
++	it.each(pragmaStyles)("should validate and preserve pragma style '%s'", (style) => {
+ 		const file = `
+     // SPDX-License-Identifier: MIT
+     pragma solidity ${style};
+@@ -51,10 +51,10 @@
+     `
+ 
+ 		const result = runSync(updatePragma(file))
+-		expect(result).includes('pragma solidity >=0.8.0;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override', () => {
++	it('should ignore legacy custom version override', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -62,10 +62,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override with bounds pattern', () => {
++	it('should ignore legacy custom version override with bounds pattern', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity >=0.8.0 <0.9.0;
+@@ -73,10 +73,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle multiple pragma directives', () => {
++	it('should preserve multiple pragma directives', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -85,11 +85,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
+-		expect(result).includes('pragma experimental ABIEncoderV2;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle comments before pragma', () => {
++	it('should preserve comments before pragma', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ // This is a comment
+@@ -98,11 +97,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('// This is a comment')
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should preserve style when updating pragma', () => {
++	it('should preserve pragma style', () => {
+ 		const styles = {
+ 			'^': 'pragma solidity ^0.8.0;',
+ 			'': 'pragma solidity 0.8.0;',
+@@ -123,9 +121,7 @@
+ 			const customVersion = '0.8.20'
+ 			const result = runSync(updatePragma(file, customVersion))
+ 
+-			// The actual implementation doesn't preserve style but converts to >=
+-			// This test might need to change if implementation changes
+-			expect(result).includes('pragma solidity >=0.8.20;')
++			expect(result).toBe(file)
+ 		}
+ 	})
+ })
+
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/bundler-packages/resolutions/.review-slices/T03.fix.md
+diff --git a/bundler-packages/resolutions/.review-slices/T03.fix.md b/bundler-packages/resolutions/.review-slices/T03.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..92e399cf3584081a87349d858a2703471686d50a
+--- /dev/null
++++ b/bundler-packages/resolutions/.review-slices/T03.fix.md
+@@ -0,0 +1,21 @@
++# Resolutions test fixes test fixes
++
++**Package:** T03
++**Scope:** bundler-packages/resolutions
++
++## Summary
++Updated stale pragma expectations to match the corrected no-op validation behavior in `updatePragma`.
++Refreshed module factory snapshots so resolved module output preserves source pragma constraints while still rewriting import paths.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- src/utils/updatePragma.spec.ts:6 - Updated the inline pragma snapshot and test name to validate preservation instead of rewriting.
++- src/utils/updatePragma.spec.ts:45 - Replaced pragma rewrite assertions with exact source preservation checks across supported pragma styles.
++- src/utils/updatePragma.spec.ts:57 - Updated legacy custom version override tests to assert the input source remains unchanged.
++- src/utils/updatePragma.spec.ts:79 - Updated multi-pragma and commented-pragma tests to assert unchanged source preservation.
++- src/__snapshots__/moduleFactory.spec.ts.snap:26 - Refreshed module factory snapshots for preserved pragma return shapes.
+diff --git a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+index d2ae1cf9f32b121cd7b62f7d70e647179e080c53..cfc52bb243bda466059b47893c778ce2b598b73a
+--- a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
++++ b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+@@ -3,7 +3,7 @@
+ import { updatePragma } from './updatePragma.js'
+ 
+ describe(updatePragma.name, () => {
+-	it('should update the pragma of a solidity file', () => {
++	it('should validate and preserve the pragma of a solidity file', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -42,7 +42,7 @@
+ 		'^0.8.0 ',
+ 	]
+ 
+-	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
++	it.each(pragmaStyles)("should validate and preserve pragma style '%s'", (style) => {
+ 		const file = `
+     // SPDX-License-Identifier: MIT
+     pragma solidity ${style};
+@@ -51,10 +51,10 @@
+     `
+ 
+ 		const result = runSync(updatePragma(file))
+-		expect(result).includes('pragma solidity >=0.8.0;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override', () => {
++	it('should ignore legacy custom version override', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -62,10 +62,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override with bounds pattern', () => {
++	it('should ignore legacy custom version override with bounds pattern', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity >=0.8.0 <0.9.0;
+@@ -73,10 +73,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle multiple pragma directives', () => {
++	it('should preserve multiple pragma directives', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -85,11 +85,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
+-		expect(result).includes('pragma experimental ABIEncoderV2;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle comments before pragma', () => {
++	it('should preserve comments before pragma', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ // This is a comment
+@@ -98,11 +97,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('// This is a comment')
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should preserve style when updating pragma', () => {
++	it('should preserve pragma style', () => {
+ 		const styles = {
+ 			'^': 'pragma solidity ^0.8.0;',
+ 			'': 'pragma solidity 0.8.0;',
+@@ -123,9 +121,7 @@
+ 			const customVersion = '0.8.20'
+ 			const result = runSync(updatePragma(file, customVersion))
+ 
+-			// The actual implementation doesn't preserve style but converts to >=
+-			// This test might need to change if implementation changes
+-			expect(result).includes('pragma solidity >=0.8.20;')
++			expect(result).toBe(file)
+ 		}
+ 	})
+ })
+
+diff --git a/bundler-packages/resolutions/.review-slices/T03.fix.md b/bundler-packages/resolutions/.review-slices/T03.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..92e399cf3584081a87349d858a2703471686d50a
+--- /dev/null
++++ b/bundler-packages/resolutions/.review-slices/T03.fix.md
+@@ -0,0 +1,21 @@
++# Resolutions test fixes test fixes
++
++**Package:** T03
++**Scope:** bundler-packages/resolutions
++
++## Summary
++Updated stale pragma expectations to match the corrected no-op validation behavior in `updatePragma`.
++Refreshed module factory snapshots so resolved module output preserves source pragma constraints while still rewriting import paths.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- src/utils/updatePragma.spec.ts:6 - Updated the inline pragma snapshot and test name to validate preservation instead of rewriting.
++- src/utils/updatePragma.spec.ts:45 - Replaced pragma rewrite assertions with exact source preservation checks across supported pragma styles.
++- src/utils/updatePragma.spec.ts:57 - Updated legacy custom version override tests to assert the input source remains unchanged.
++- src/utils/updatePragma.spec.ts:79 - Updated multi-pragma and commented-pragma tests to assert unchanged source preservation.
++- src/__snapshots__/moduleFactory.spec.ts.snap:26 - Refreshed module factory snapshots for preserved pragma return shapes.
+diff --git a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+index d2ae1cf9f32b121cd7b62f7d70e647179e080c53..cfc52bb243bda466059b47893c778ce2b598b73a
+--- a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
++++ b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+@@ -3,7 +3,7 @@
+ import { updatePragma } from './updatePragma.js'
+ 
+ describe(updatePragma.name, () => {
+-	it('should update the pragma of a solidity file', () => {
++	it('should validate and preserve the pragma of a solidity file', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -42,7 +42,7 @@
+ 		'^0.8.0 ',
+ 	]
+ 
+-	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
++	it.each(pragmaStyles)("should validate and preserve pragma style '%s'", (style) => {
+ 		const file = `
+     // SPDX-License-Identifier: MIT
+     pragma solidity ${style};
+@@ -51,10 +51,10 @@
+     `
+ 
+ 		const result = runSync(updatePragma(file))
+-		expect(result).includes('pragma solidity >=0.8.0;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override', () => {
++	it('should ignore legacy custom version override', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -62,10 +62,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override with bounds pattern', () => {
++	it('should ignore legacy custom version override with bounds pattern', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity >=0.8.0 <0.9.0;
+@@ -73,10 +73,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle multiple pragma directives', () => {
++	it('should preserve multiple pragma directives', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -85,11 +85,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
+-		expect(result).includes('pragma experimental ABIEncoderV2;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle comments before pragma', () => {
++	it('should preserve comments before pragma', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ // This is a comment
+@@ -98,11 +97,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('// This is a comment')
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should preserve style when updating pragma', () => {
++	it('should preserve pragma style', () => {
+ 		const styles = {
+ 			'^': 'pragma solidity ^0.8.0;',
+ 			'': 'pragma solidity 0.8.0;',
+@@ -123,9 +121,7 @@
+ 			const customVersion = '0.8.20'
+ 			const result = runSync(updatePragma(file, customVersion))
+ 
+-			// The actual implementation doesn't preserve style but converts to >=
+-			// This test might need to change if implementation changes
+-			expect(result).includes('pragma solidity >=0.8.20;')
++			expect(result).toBe(file)
+ 		}
+ 	})
+ })
+
+  ✓ Run resolutions package tests
+  ✓ Patch stale tests or scoped source bugs
+  ✓ Re-run tests until resolved
+  ✓ Write T03 report
+diff --git a/bundler-packages/resolutions/.review-slices/T03.fix.md b/bundler-packages/resolutions/.review-slices/T03.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..92e399cf3584081a87349d858a2703471686d50a
+--- /dev/null
++++ b/bundler-packages/resolutions/.review-slices/T03.fix.md
+@@ -0,0 +1,21 @@
++# Resolutions test fixes test fixes
++
++**Package:** T03
++**Scope:** bundler-packages/resolutions
++
++## Summary
++Updated stale pragma expectations to match the corrected no-op validation behavior in `updatePragma`.
++Refreshed module factory snapshots so resolved module output preserves source pragma constraints while still rewriting import paths.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- src/utils/updatePragma.spec.ts:6 - Updated the inline pragma snapshot and test name to validate preservation instead of rewriting.
++- src/utils/updatePragma.spec.ts:45 - Replaced pragma rewrite assertions with exact source preservation checks across supported pragma styles.
++- src/utils/updatePragma.spec.ts:57 - Updated legacy custom version override tests to assert the input source remains unchanged.
++- src/utils/updatePragma.spec.ts:79 - Updated multi-pragma and commented-pragma tests to assert unchanged source preservation.
++- src/__snapshots__/moduleFactory.spec.ts.snap:26 - Refreshed module factory snapshots for preserved pragma return shapes.
+diff --git a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+index d2ae1cf9f32b121cd7b62f7d70e647179e080c53..cfc52bb243bda466059b47893c778ce2b598b73a
+--- a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
++++ b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+@@ -3,7 +3,7 @@
+ import { updatePragma } from './updatePragma.js'
+ 
+ describe(updatePragma.name, () => {
+-	it('should update the pragma of a solidity file', () => {
++	it('should validate and preserve the pragma of a solidity file', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -42,7 +42,7 @@
+ 		'^0.8.0 ',
+ 	]
+ 
+-	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
++	it.each(pragmaStyles)("should validate and preserve pragma style '%s'", (style) => {
+ 		const file = `
+     // SPDX-License-Identifier: MIT
+     pragma solidity ${style};
+@@ -51,10 +51,10 @@
+     `
+ 
+ 		const result = runSync(updatePragma(file))
+-		expect(result).includes('pragma solidity >=0.8.0;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override', () => {
++	it('should ignore legacy custom version override', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -62,10 +62,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override with bounds pattern', () => {
++	it('should ignore legacy custom version override with bounds pattern', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity >=0.8.0 <0.9.0;
+@@ -73,10 +73,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle multiple pragma directives', () => {
++	it('should preserve multiple pragma directives', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -85,11 +85,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
+-		expect(result).includes('pragma experimental ABIEncoderV2;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle comments before pragma', () => {
++	it('should preserve comments before pragma', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ // This is a comment
+@@ -98,11 +97,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('// This is a comment')
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should preserve style when updating pragma', () => {
++	it('should preserve pragma style', () => {
+ 		const styles = {
+ 			'^': 'pragma solidity ^0.8.0;',
+ 			'': 'pragma solidity 0.8.0;',
+@@ -123,9 +121,7 @@
+ 			const customVersion = '0.8.20'
+ 			const result = runSync(updatePragma(file, customVersion))
+ 
+-			// The actual implementation doesn't preserve style but converts to >=
+-			// This test might need to change if implementation changes
+-			expect(result).includes('pragma solidity >=0.8.20;')
++			expect(result).toBe(file)
+ 		}
+ 	})
+ })
+
+codex
+Implemented the Resolutions test fixes under `bundler-packages/resolutions` only.
+
+Updated:
+- [updatePragma.spec.ts](/Users/williamcory/tevm-monorepo/bundler-packages/resolutions/src/utils/updatePragma.spec.ts:6) to assert the corrected no-op pragma validation behavior.
+- [moduleFactory.spec.ts.snap](/Users/williamcory/tevm-monorepo/bundler-packages/resolutions/src/__snapshots__/moduleFactory.spec.ts.snap:26) via `pnpm test:run -u`.
+- [T03.fix.md](/Users/williamcory/tevm-monorepo/bundler-packages/resolutions/.review-slices/T03.fix.md:1) with the requested report.
+
+Verification: `pnpm test:run` passes: 14 test files, 88 tests passed, 4 skipped.
+diff --git a/bundler-packages/resolutions/.review-slices/T03.fix.md b/bundler-packages/resolutions/.review-slices/T03.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..92e399cf3584081a87349d858a2703471686d50a
+--- /dev/null
++++ b/bundler-packages/resolutions/.review-slices/T03.fix.md
+@@ -0,0 +1,21 @@
++# Resolutions test fixes test fixes
++
++**Package:** T03
++**Scope:** bundler-packages/resolutions
++
++## Summary
++Updated stale pragma expectations to match the corrected no-op validation behavior in `updatePragma`.
++Refreshed module factory snapshots so resolved module output preserves source pragma constraints while still rewriting import paths.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- src/utils/updatePragma.spec.ts:6 - Updated the inline pragma snapshot and test name to validate preservation instead of rewriting.
++- src/utils/updatePragma.spec.ts:45 - Replaced pragma rewrite assertions with exact source preservation checks across supported pragma styles.
++- src/utils/updatePragma.spec.ts:57 - Updated legacy custom version override tests to assert the input source remains unchanged.
++- src/utils/updatePragma.spec.ts:79 - Updated multi-pragma and commented-pragma tests to assert unchanged source preservation.
++- src/__snapshots__/moduleFactory.spec.ts.snap:26 - Refreshed module factory snapshots for preserved pragma return shapes.
+diff --git a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+index d2ae1cf9f32b121cd7b62f7d70e647179e080c53..cfc52bb243bda466059b47893c778ce2b598b73a
+--- a/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
++++ b/bundler-packages/resolutions/src/utils/updatePragma.spec.ts
+@@ -3,7 +3,7 @@
+ import { updatePragma } from './updatePragma.js'
+ 
+ describe(updatePragma.name, () => {
+-	it('should update the pragma of a solidity file', () => {
++	it('should validate and preserve the pragma of a solidity file', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -42,7 +42,7 @@
+ 		'^0.8.0 ',
+ 	]
+ 
+-	it.each(pragmaStyles)("should update the pragma of a solidity file with style '%s'", (style) => {
++	it.each(pragmaStyles)("should validate and preserve pragma style '%s'", (style) => {
+ 		const file = `
+     // SPDX-License-Identifier: MIT
+     pragma solidity ${style};
+@@ -51,10 +51,10 @@
+     `
+ 
+ 		const result = runSync(updatePragma(file))
+-		expect(result).includes('pragma solidity >=0.8.0;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override', () => {
++	it('should ignore legacy custom version override', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -62,10 +62,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle custom version override with bounds pattern', () => {
++	it('should ignore legacy custom version override with bounds pattern', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity >=0.8.0 <0.9.0;
+@@ -73,10 +73,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle multiple pragma directives', () => {
++	it('should preserve multiple pragma directives', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ pragma solidity ^0.8.0;
+@@ -85,11 +85,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('pragma solidity >=0.8.20;')
+-		expect(result).includes('pragma experimental ABIEncoderV2;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should handle comments before pragma', () => {
++	it('should preserve comments before pragma', () => {
+ 		const file = `
+ // SPDX-License-Identifier: MIT
+ // This is a comment
+@@ -98,11 +97,10 @@
+ contract Foo {}
+ `
+ 		const result = runSync(updatePragma(file, '0.8.20'))
+-		expect(result).includes('// This is a comment')
+-		expect(result).includes('pragma solidity >=0.8.20;')
++		expect(result).toBe(file)
+ 	})
+ 
+-	it('should preserve style when updating pragma', () => {
++	it('should preserve pragma style', () => {
+ 		const styles = {
+ 			'^': 'pragma solidity ^0.8.0;',
+ 			'': 'pragma solidity 0.8.0;',
+@@ -123,9 +121,7 @@
+ 			const customVersion = '0.8.20'
+ 			const result = runSync(updatePragma(file, customVersion))
+ 
+-			// The actual implementation doesn't preserve style but converts to >=
+-			// This test might need to change if implementation changes
+-			expect(result).includes('pragma solidity >=0.8.20;')
++			expect(result).toBe(file)
+ 		}
+ 	})
+ })
+
+tokens used
+42,999
+Implemented the Resolutions test fixes under `bundler-packages/resolutions` only.
+
+Updated:
+- [updatePragma.spec.ts](/Users/williamcory/tevm-monorepo/bundler-packages/resolutions/src/utils/updatePragma.spec.ts:6) to assert the corrected no-op pragma validation behavior.
+- [moduleFactory.spec.ts.snap](/Users/williamcory/tevm-monorepo/bundler-packages/resolutions/src/__snapshots__/moduleFactory.spec.ts.snap:26) via `pnpm test:run -u`.
+- [T03.fix.md](/Users/williamcory/tevm-monorepo/bundler-packages/resolutions/.review-slices/T03.fix.md:1) with the requested report.
+
+Verification: `pnpm test:run` passes: 14 test files, 88 tests passed, 4 skipped.
+fatal: pathspec '.review-slices/T03.fix.md' did not match any files
+[main 4b2a71869] 🧪 fix(T03): update tests after review fix wave (Resolutions test fixes)
+ 3 files changed, 56 insertions(+), 39 deletions(-)
+ create mode 100644 bundler-packages/resolutions/.review-slices/T03.fix.md

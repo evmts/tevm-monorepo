@@ -1,0 +1,1812 @@
+OpenAI Codex v0.132.0
+--------
+workdir: /Users/williamcory/tevm-monorepo
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019e47e9-aced-7581-9f33-33b263e6bed8
+--------
+user
+You are fixing TypeScript test regressions in the Tevm monorepo. Earlier, parallel codex agents
+applied source-code fixes for ~210 review findings (see review.md, fix-report.md). Those fixes are
+all committed and the source code now reflects CORRECT behavior. The remaining problem is that
+the existing test suite still asserts the OLD (buggy) behavior in many places.
+
+YOUR PACKAGE: VM test fixes
+SCOPE PATHS:  packages/vm
+HINTS:        H02 VM block-execution fixes (EIP-2935, runBlock root restore)
+
+PROCESS:
+1. cd into the scope path. Run `pnpm test:run` (NOT pnpm nx — direct package script) to see the
+   failures. You may run that, vitest, or vitest -u as many times as needed inside your scope.
+2. For each failing test:
+   a. STALE ASSERTION (most common): the test is asserting old buggy behavior. Update the test
+      to match the new (correct) source behavior. For snapshot tests, run `pnpm test:run -u`
+      to update the .snap files. For inline assertions, edit the .spec.ts/.spec.js file.
+   b. REAL REGRESSION (rare): the source fix introduced a real bug. In that case you may fix the
+      source code WITHIN YOUR SCOPE PATHS. Be conservative — prefer to update the test first.
+   c. MOCK UPDATE (common in config/foundry): the source switched APIs (e.g. execSync →
+      execFileSync). Update the test's vi.mock() to include the new export.
+3. Re-run `pnpm test:run` until green. If you can't get green, capture what's left in the report.
+
+HARD CONSTRAINTS:
+- Modify ONLY files under: packages/vm.
+- Do NOT touch files in other packages.
+- Do NOT run `pnpm install`, `pnpm nx`, `bun`, `cargo`, or `git`. The dispatcher will commit.
+- vitest, pnpm test:run (the local script), pnpm typecheck, pnpm build:types are all allowed
+  WITHIN your scope directory only.
+- If updating a snapshot, run vitest with -u flag (allowed).
+- Prefer the smallest test changes. A 1-line assertion update beats restructuring a test file.
+
+OUTPUT REPORT: '.review-slices/T11.fix.md' with structure:
+
+# VM test fixes test fixes
+
+**Package:** T11
+**Scope:** packages/vm
+
+## Summary
+<2-4 sentences>
+
+## Tests passing
+<count or 'all'>
+
+## Tests still failing
+<count and short list, if any>
+
+## Changes
+- path:line - <one-line description>
+- ...
+
+Be ruthless about distinguishing stale assertions (update test) from real regressions (rare; fix source).
+
+codex
+I’ll stay inside `packages/vm`, run the package test script directly, and treat failures as stale tests unless the new source behavior is clearly broken. I’ll write the required report under `packages/vm/.review-slices/T11.fix.md` unless that directory already indicates a different in-scope convention.
+exec
+/bin/zsh -lc 'pwd && pnpm test:run' in /Users/williamcory/tevm-monorepo/packages/vm
+ exited 1 in 1609ms:
+
+> @tevm/vm@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/packages/vm
+> bun test
+
+bun test v1.3.12 (700fc117)
+
+src/createVm.spec.ts:
+27 | 			.buildBlock({
+28 | 				parentBlock: await blockchain.getCanonicalHeadBlock(),
+29 | 			})
+30 | 			.then((b) => b.build())
+31 | 			.then((b) => b.toJSON())
+32 | 		expect(newBlock).toMatchObject({
+                        ^
+error: expect(received).toMatchObject(expected)
+
+@@ -15,7 +15,7 @@
+      "parentBeaconBlockRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+-     "parentHash": "0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534",
++     "parentHash": "0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d",
+      "receiptTrie": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+-     "requestsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
++     "requestsRoot": "0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stateRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
++     "timestamp": "0x6a0e5060",
+      "transactionsTrie": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+
+- Expected  - 2
++ Received  + 3
+
+      at <anonymous> (/Users/williamcory/tevm-monorepo/packages/vm/src/createVm.spec.ts:32:20)
+(fail) createVm > creates a VM capable of building blocks [6.75ms]
+
+src/actions/runTx.spec.ts:
+147 | 			to: createAddressFromString(`0x${'69'.repeat(20)}`),
+148 | 			value: 1n,
+149 | 		})
+150 | 		const err = await runTx(vm)({ tx, block: undefined as any }).catch((e) => e)
+151 | 		expect(err).toBeInstanceOf(Error)
+152 | 		expect(err).toMatchSnapshot()
+                    ^
+error: expect(received).toMatchSnapshot(expected)
+
+- [_InsufficientFundsError: sender doesn't have enough funds to send tx. The upfront cost is: 168513 and the sender's account (0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266) only has: 0 -> block number=0 hash=0x4f3d139a80e0ebb8a4a67165405bb0b27187a5be1ab7084163cd4d79a1910eac hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x30150fa581c7b6766b48ea665b4051ee71967b1bcc2387c4b7bf1c481f953cad nonce=0 value=1 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
++ [_InsufficientFundsError: sender doesn't have enough funds to send tx. The upfront cost is: 168513 and the sender's account (0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266) only has: 0 -> block number=0 hash=0xfdb18b56e8416ec1445ff49d598817a12842674fa687af9e75ce8eae60e6bd27 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x30150fa581c7b6766b48ea665b4051ee71967b1bcc2387c4b7bf1c481f953cad nonce=0 value=1 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+  
+  Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
+- Version: 1.1.0.next-73]
++ Version: 1.0.0-next.148]
+
+- Expected  - 2
++ Received  + 2
+
+      at <anonymous> (/Users/williamcory/tevm-monorepo/packages/vm/src/actions/runTx.spec.ts:152:15)
+(fail) runTx > should throw error for invalid block parameter [2.04ms]
+170 | 			skipNonce: true,
+171 | 			skipBalance: false,
+172 | 		}).catch((e) => e)
+173 | 
+174 | 		expect(err).toBeInstanceOf(InsufficientFundsError)
+175 | 		expect(err).toMatchSnapshot()
+                    ^
+error: expect(received).toMatchSnapshot(expected)
+
+- [_InsufficientFundsError: sender doesn't have enough funds to send tx. The upfront cost is: 1000000000000000000168512 and the sender's account (0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266) only has: 0 -> block number=0 hash=0x4f3d139a80e0ebb8a4a67165405bb0b27187a5be1ab7084163cd4d79a1910eac hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x039eeafaefd19b89ad985c0b9d77c12eb678210672e376ebd1ed29dd89a99b39 nonce=0 value=1000000000000000000000000 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
++ [_InsufficientFundsError: sender doesn't have enough funds to send tx. The upfront cost is: 1000000000000000000168512 and the sender's account (0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266) only has: 0 -> block number=0 hash=0xfdb18b56e8416ec1445ff49d598817a12842674fa687af9e75ce8eae60e6bd27 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x039eeafaefd19b89ad985c0b9d77c12eb678210672e376ebd1ed29dd89a99b39 nonce=0 value=1000000000000000000000000 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+  
+  Docs: https://tevm.sh/reference/tevm/errors/classes/insufficientfundserror/
+- Version: 1.1.0.next-73]
++ Version: 1.0.0-next.148]
+
+- Expected  - 2
++ Received  + 2
+
+      at <anonymous> (/Users/williamcory/tevm-monorepo/packages/vm/src/actions/runTx.spec.ts:175:15)
+(fail) runTx > should throw InsufficientFundsError [1.20ms]
+200 | 			skipNonce: false,
+201 | 			skipBalance: true,
+202 | 		}).catch((e) => e)
+203 | 
+204 | 		expect(err).toBeInstanceOf(NonceTooLowError)
+205 | 		expect(err).toMatchSnapshot()
+                    ^
+error: expect(received).toMatchSnapshot(expected)
+
+- [_NonceTooLowError: the tx doesn't have the correct nonce. account has nonce of: 5 tx has nonce of: 0 -> block number=0 hash=0x4f3d139a80e0ebb8a4a67165405bb0b27187a5be1ab7084163cd4d79a1910eac hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x30150fa581c7b6766b48ea665b4051ee71967b1bcc2387c4b7bf1c481f953cad nonce=0 value=1 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
++ [_NonceTooLowError: the tx doesn't have the correct nonce. account has nonce of: 5 tx has nonce of: 0 -> block number=0 hash=0xfdb18b56e8416ec1445ff49d598817a12842674fa687af9e75ce8eae60e6bd27 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x30150fa581c7b6766b48ea665b4051ee71967b1bcc2387c4b7bf1c481f953cad nonce=0 value=1 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+  
+  Docs: https://tevm.sh/reference/tevm/errors/classes/noncetoolowerror/
+- Version: 1.1.0.next-73]
++ Version: 1.0.0-next.148]
+
+- Expected  - 2
++ Received  + 2
+
+      at <anonymous> (/Users/williamcory/tevm-monorepo/packages/vm/src/actions/runTx.spec.ts:205:15)
+(fail) runTx > should throw NonceTooLowError [0.94ms]
+
+src/actions/validateRunTx.spec.ts:
+49 | 
+50 | 		vm.common.ethjsCommon.hardforks = jest.fn().mockReturnValue([])
+51 | 
+52 | 		const err = await validateRunTx(vm)({ tx, block }).catch((e) => e)
+53 | 		expect(err).toBeInstanceOf(MisconfiguredClientError)
+54 | 		expect(err).toMatchSnapshot()
+                   ^
+error: expect(received).toMatchSnapshot(expected)
+
+- [MisconfiguredClientError: no preMerge hardfork found -> block number=0 hash=0x262a8ccb4cc9e4943360ed14f1266920bd1c50d21fb59559a5b86334c167679a hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
++ [MisconfiguredClientError: no preMerge hardfork found -> block number=0 hash=0x43b719a390d632e9638619466421eb47cbfe49dca5018ff9f6ec2d97f4e3cf1d hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+  
+  Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+- Version: 1.1.0.next-73]
++ Version: 1.0.0-next.148]
+
+- Expected  - 2
++ Received  + 2
+
+      at <anonymous> (/Users/williamcory/tevm-monorepo/packages/vm/src/actions/validateRunTx.spec.ts:54:15)
+(fail) validateRunTx > should throw MisconfiguredClientError if no preMerge hardfork is found [3.56ms]
+65 | 
+66 | 		const block = Block.fromBlockData({ header: { gasLimit: 21000 } }, { common })
+67 | 
+68 | 		const err = await validateRunTx(vm)({ tx, block }).catch((e) => e)
+69 | 		expect(err).toBeInstanceOf(BlockGasLimitExceededError)
+70 | 		expect(err).toMatchSnapshot()
+                   ^
+error: expect(received).toMatchSnapshot(expected)
+
+- [_BlockGasLimitExceededError: tx has a higher gas limit than the block -> block number=0 hash=0x1f45a694fc46961550b257edefe76f963680fac09b3955ab0aa8c61583c87b90 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
++ [_BlockGasLimitExceededError: tx has a higher gas limit than the block -> block number=0 hash=0x5de407bc1e49be7bd9a146405f443dd6c9dede90e5b4a13a002ff978dac82fbd hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+  
+  Docs: https://tevm.sh/reference/tevm/errors/classes/blockgaslimitexceedederror/
+- Version: 1.1.0.next-73]
++ Version: 1.0.0-next.148]
+
+- Expected  - 2
++ Received  + 2
+
+      at <anonymous> (/Users/williamcory/tevm-monorepo/packages/vm/src/actions/validateRunTx.spec.ts:70:15)
+(fail) validateRunTx > should throw BlockGasLimitExceededError if tx gas limit exceeds block gas limit [3.32ms]
+89 | 
+90 | 		vm.common.ethjsCommon.isActivatedEIP = jest.fn((eip) => eip !== 2930)
+91 | 
+92 | 		const err = await validateRunTx(vm)({ tx, block }).catch((e) => e)
+93 | 		expect(err).toBeInstanceOf(EipNotEnabledError)
+94 | 		expect(err).toMatchSnapshot()
+                   ^
+error: expect(received).toMatchSnapshot(expected)
+
+- [EipNotEnabledError: Cannot run transaction: EIP 2930 is not activated. -> block number=0 hash=0x4f3d139a80e0ebb8a4a67165405bb0b27187a5be1ab7084163cd4d79a1910eac hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
++ [EipNotEnabledError: Cannot run transaction: EIP 2930 is not activated. -> block number=0 hash=0xfdb18b56e8416ec1445ff49d598817a12842674fa687af9e75ce8eae60e6bd27 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+  
+  Docs: https://tevm.sh/reference/tevm/errors/classes/eipnotenablederror/
+- Version: 1.1.0.next-73]
++ Version: 1.0.0-next.148]
+
+- Expected  - 2
++ Received  + 2
+
+      at <anonymous> (/Users/williamcory/tevm-monorepo/packages/vm/src/actions/validateRunTx.spec.ts:94:15)
+(fail) validateRunTx > should throw EipNotEnabledError if EIP 2930 is not activated for Access List transaction [2.43ms]
+108 | 
+109 | 		vm.common.ethjsCommon.isActivatedEIP = jest.fn((eip) => eip !== 1559)
+110 | 
+111 | 		const err = await validateRunTx(vm)({ tx, block }).catch((e) => e)
+112 | 		expect(err).toBeInstanceOf(EipNotEnabledError)
+113 | 		expect(err).toMatchSnapshot()
+                    ^
+error: expect(received).toMatchSnapshot(expected)
+
+- [EipNotEnabledError: Cannot run transaction: EIP 1559 is not activated. -> block number=0 hash=0x4f3d139a80e0ebb8a4a67165405bb0b27187a5be1ab7084163cd4d79a1910eac hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0xd927b750e60fd928bdd343ee0b9883acf2d01b84cf076e361419884c03d56c55 nonce=0 value=0 signed=true hf=prague maxFeePerGas=10 maxPriorityFeePerGas=1)
++ [EipNotEnabledError: Cannot run transaction: EIP 1559 is not activated. -> block number=0 hash=0xfdb18b56e8416ec1445ff49d598817a12842674fa687af9e75ce8eae60e6bd27 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0xd927b750e60fd928bdd343ee0b9883acf2d01b84cf076e361419884c03d56c55 nonce=0 value=0 signed=true hf=prague maxFeePerGas=10 maxPriorityFeePerGas=1)
+  
+  Docs: https://tevm.sh/reference/tevm/errors/classes/eipnotenablederror/
+- Version: 1.1.0.next-73]
++ Version: 1.0.0-next.148]
+
+- Expected  - 2
++ Received  + 2
+
+      at <anonymous> (/Users/williamcory/tevm-monorepo/packages/vm/src/actions/validateRunTx.spec.ts:113:15)
+(fail) validateRunTx > should throw EipNotEnabledError if EIP 1559 is not activated for Fee Market transaction [1.13ms]
+222 | 			throw new Error('Expected error to be an instance of Error')
+223 | 		}
+224 | 
+225 | 		expect(err).toBeInstanceOf(Error)
+226 | 		expect(err).toBeInstanceOf(MisconfiguredClientError)
+227 | 		expect(err).toMatchSnapshot()
+                    ^
+error: expect(received).toMatchSnapshot(expected)
+
+- [MisconfiguredClientError: block has a different hardfork than the vm -> block number=0 hash=0x262a8ccb4cc9e4943360ed14f1266920bd1c50d21fb59559a5b86334c167679a hf=shanghai baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=shanghai maxFeePerGas=8 maxPriorityFeePerGas=1)
++ [MisconfiguredClientError: block has a different hardfork than the vm -> block number=0 hash=0x43b719a390d632e9638619466421eb47cbfe49dca5018ff9f6ec2d97f4e3cf1d hf=shanghai baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=shanghai maxFeePerGas=8 maxPriorityFeePerGas=1)
+  
+  Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+- Version: 1.1.0.next-73]
++ Version: 1.0.0-next.148]
+
+- Expected  - 2
++ Received  + 2
+
+      at <anonymous> (/Users/williamcory/tevm-monorepo/packages/vm/src/actions/validateRunTx.spec.ts:227:15)
+(fail) validateRunTx > should throw if hardfork doesn not match [1.15ms]
+
+src/actions/runBlock.spec.ts:
+Skipping header validation: blockchain has no validateHeader method
+263 | 			transactions: [],
+264 | 			uncleHeaders: [],
+265 | 		} as unknown as Block
+266 | 		const runBlockFunction = runBlock(vm)
+267 | 		const promise = runBlockFunction({ block, generate: false } as RunBlockOpts)
+268 | 		await expect(promise).rejects.toThrow(InvalidParamsError)
+                                      ^
+error: expect(received).toThrow(expected)
+
+Expected constructor: _InvalidParamsError
+Received constructor: TypeError
+
+Received message: "vm.evm.journal.revert is not a function. (In 'vm.evm.journal.revert()', 'vm.evm.journal.revert' is undefined)"
+
+      at <anonymous> (/Users/williamcory/tevm-monorepo/packages/vm/src/actions/runBlock.spec.ts:268:33)
+(fail) runBlock > should reject EIP-6800 Verkle execution as unsupported [0.21ms]
+
+ 56 pass
+ 4 skip
+ 3 todo
+ 10 fail
+snapshots: 11 passed, 8 failed
+ 154 expect() calls
+Ran 73 tests across 21 files. [640.00ms]
+ ELIFECYCLE  Command failed with exit code 1.
+
+codex
+The first run is mostly snapshot drift from deterministic block/header changes and version strings. One inline test is now missing a mocked `journal.revert`, so I’m going to inspect the relevant specs and snapshots before making the smallest edits.
+exec
+/bin/zsh -lc "sed -n '1,120p' src/createVm.spec.ts" in /Users/williamcory/tevm-monorepo/packages/vm
+ succeeded in 0ms:
+import { describe, expect, it } from 'bun:test'
+import { createChain } from '@tevm/blockchain'
+import { createCommon, optimism } from '@tevm/common'
+import { createEvm } from '@tevm/evm'
+import { createStateManager } from '@tevm/state'
+import { createVm } from './createVm.js'
+
+describe(createVm.name, () => {
+	it('creates a VM capable of building blocks', async () => {
+		const common = createCommon({ ...optimism, eips: [], hardfork: 'prague', loggingLevel: 'warn' })
+		const stateManager = createStateManager({})
+		const blockchain = await createChain({
+			common,
+		})
+		const evm = await createEvm({
+			stateManager,
+			blockchain,
+			common,
+		})
+		const vm = createVm({
+			evm,
+			common,
+			blockchain,
+			stateManager,
+		})
+		const newBlock = await vm
+			.buildBlock({
+				parentBlock: await blockchain.getCanonicalHeadBlock(),
+			})
+			.then((b) => b.build())
+			.then((b) => b.toJSON())
+		expect(newBlock).toMatchObject({
+			header: {
+				baseFeePerGas: '0x7',
+				blobGasUsed: '0x0',
+				coinbase: '0x0000000000000000000000000000000000000000',
+				difficulty: '0x0',
+				excessBlobGas: '0x0',
+				extraData: '0x',
+				gasLimit: '0x1c9c380',
+				gasUsed: '0x0',
+				logsBloom:
+					'0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
+				mixHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
+				nonce: '0x0000000000000000',
+				number: '0x1',
+				parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+				parentHash: '0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534',
+				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+				uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+				stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+				requestsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+				// timestamp: "0x66384299",
+			},
+			requests: [],
+			transactions: [],
+			uncleHeaders: [],
+			withdrawals: [],
+		})
+	})
+})
+
+exec
+/bin/zsh -lc 'find . -maxdepth 2 -type d -name .review-slices -print' in /Users/williamcory/tevm-monorepo/packages/vm
+ succeeded in 0ms:
+exec
+/bin/zsh -lc "sed -n '230,285p' src/actions/runBlock.spec.ts" in /Users/williamcory/tevm-monorepo/packages/vm
+ succeeded in 0ms:
+	})
+
+	it('should reject EIP-6800 Verkle execution as unsupported', async () => {
+		const stateManager = {
+			setStateRoot: mock().mockResolvedValue(undefined),
+			getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
+		}
+		const vm = {
+			stateManager,
+			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
+			_emit: mock().mockResolvedValue(undefined),
+			common: {
+				ethjsCommon: {
+					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
+					isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
+				},
+			},
+			ready: mock().mockResolvedValue(undefined),
+		} as unknown as BaseVm
+		const block = {
+			header: {
+				number: 10n,
+				receiptTrie: new Uint8Array(32),
+				logsBloom: new Uint8Array(256),
+				gasUsed: 100n,
+				stateRoot: new Uint8Array(32),
+			},
+			executionWitness: { stateDiff: [], verkleProof: {} as any },
+			common: {
+				ethjsCommon: {
+					isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
+				},
+			},
+			transactions: [],
+			uncleHeaders: [],
+		} as unknown as Block
+		const runBlockFunction = runBlock(vm)
+		const promise = runBlockFunction({ block, generate: false } as RunBlockOpts)
+		await expect(promise).rejects.toThrow(InvalidParamsError)
+		await expect(promise).rejects.toThrow('Verkle/state-witness')
+	})
+
+	it.skip('should handle skipBlockValidation option', async () => {
+		// Reset the mock
+		const validationMock = mock().mockImplementation((options: any) => {
+			// Check if skipBlockValidation was passed correctly
+			expect(options.skipBlockValidation).toBe(true)
+			return mockApplyBlockResult
+		})
+
+		mock('./applyBlock.js', {
+			applyBlock: mock().mockImplementation(() => {
+				return () => Promise.resolve(validationMock)
+			}),
+		})
+
+
+exec
+/bin/zsh -lc "rg --files src | rg '__snapshots__|snap'" in /Users/williamcory/tevm-monorepo/packages/vm
+ succeeded in 0ms:
+src/actions/__snapshots__/deepCopy.spec.ts.snap
+src/actions/__snapshots__/validateRunTx.spec.ts.snap
+src/actions/__snapshots__/runTx.spec.ts.snap
+
+exec
+/bin/zsh -lc "sed -n '1,220p' src/actions/runBlock.ts" in /Users/williamcory/tevm-monorepo/packages/vm
+exec
+/bin/zsh -lc "sed -n '1,260p' src/actions/runBlock.spec.ts" in /Users/williamcory/tevm-monorepo/packages/vm
+ succeeded in 0ms:
+// @ts-nocheck - Disable type checking for this test file
+import { describe, expect, it, mock } from 'bun:test'
+import { Block } from '@tevm/block'
+import { InvalidParamsError } from '@tevm/errors'
+import type { BaseVm } from '../BaseVm.js'
+import type { RunBlockOpts } from '../utils/index.js'
+import { runBlock } from './runBlock.js'
+
+// Create mock for applyBlock
+const mockApplyBlockResult = {
+	receipts: [],
+	results: [],
+	gasUsed: 100n,
+	bloom: {
+		bitvector: new Uint8Array(256),
+		keccakFunction: () => new Uint8Array(32),
+		add: () => {},
+		check: () => false,
+		multiCheck: () => false,
+		or: () => {},
+	},
+	receiptsRoot: new Uint8Array(32),
+	preimages: new Map(),
+}
+
+let applyBlockImpl = () => Promise.resolve(mockApplyBlockResult)
+
+// Mock the applyBlock dependency
+mock('./applyBlock.js', {
+	applyBlock: mock().mockImplementation(() => {
+		return () => applyBlockImpl()
+	}),
+})
+
+describe('runBlock', () => {
+	it.skip('should emit events and execute a block', async () => {
+		// Create mocks
+		const setStateRootMock = mock().mockResolvedValue(undefined)
+		const getStateRootMock = mock().mockResolvedValue(new Uint8Array(32).fill(1))
+		const checkpointMock = mock().mockResolvedValue(undefined)
+		const commitMock = mock().mockResolvedValue(undefined)
+		const revertMock = mock().mockResolvedValue(undefined)
+		const emitSpy = mock()
+		const hardforkIsActiveOnBlockMock = mock().mockReturnValue(false)
+		const isActivatedEIPMock = mock().mockReturnValue(false)
+		const readyMock = mock().mockResolvedValue(undefined)
+
+		const stateManager = {
+			setStateRoot: setStateRootMock,
+			getStateRoot: getStateRootMock,
+		}
+
+		const journal = {
+			checkpoint: checkpointMock,
+			commit: commitMock,
+			revert: revertMock,
+		}
+
+		const evm = {
+			journal,
+		}
+
+		// Create a minimal block
+		const block = {
+			header: {
+				number: 10n,
+				receiptTrie: new Uint8Array(32),
+				logsBloom: new Uint8Array(256),
+				gasUsed: 100n,
+				stateRoot: new Uint8Array(32).fill(1),
+			},
+			transactions: [],
+			uncleHeaders: [],
+		} as unknown as Block
+
+		// Create VM mock
+		const vm = {
+			stateManager,
+			evm,
+			blockchain: {
+				validateHeader: mock().mockResolvedValue(undefined),
+			},
+			_emit: emitSpy,
+			common: {
+				ethjsCommon: {
+					hardforkIsActiveOnBlock: hardforkIsActiveOnBlockMock,
+					isActivatedEIP: isActivatedEIPMock,
+				},
+			},
+			ready: readyMock,
+		} as unknown as BaseVm
+
+		// Execute runBlock
+		const runBlockFunction = runBlock(vm)
+		const result = await runBlockFunction({ block, generate: false } as RunBlockOpts)
+
+		// Verify basic events and methods were called
+		expect(emitSpy).toHaveBeenCalledTimes(2)
+		expect(emitSpy).toHaveBeenNthCalledWith(1, 'beforeBlock', block)
+		expect(emitSpy).toHaveBeenNthCalledWith(
+			2,
+			'afterBlock',
+			expect.objectContaining({
+				block,
+				receipts: [],
+				gasUsed: 100n,
+			}),
+		)
+
+		expect(checkpointMock).toHaveBeenCalled()
+		expect(commitMock).toHaveBeenCalled()
+		expect(setStateRootMock).toHaveBeenCalled()
+		expect(setStateRootMock).toHaveBeenCalledWith(block.header.stateRoot)
+		expect(getStateRootMock).toHaveBeenCalled()
+
+		// Verify result structure
+		expect(result.receipts).toEqual([])
+		expect(result.gasUsed).toBe(100n)
+	})
+
+	it.skip('should set state root if provided', async () => {
+		const customStateRoot = new Uint8Array(32).fill(5)
+
+		const stateManager = {
+			setStateRoot: mock().mockResolvedValue(undefined),
+			getStateRoot: mock().mockResolvedValue(customStateRoot),
+		}
+
+		const journal = {
+			checkpoint: mock().mockResolvedValue(undefined),
+			commit: mock().mockResolvedValue(undefined),
+			revert: mock().mockResolvedValue(undefined),
+		}
+
+		const vm = {
+			stateManager,
+			evm: { journal },
+			_emit: mock(),
+			common: {
+				ethjsCommon: {
+					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
+					isActivatedEIP: mock().mockReturnValue(false),
+				},
+			},
+			ready: mock().mockResolvedValue(undefined),
+		} as unknown as BaseVm
+
+		const block = {
+			header: {
+				number: 10n,
+				receiptTrie: new Uint8Array(32),
+				logsBloom: new Uint8Array(256),
+				gasUsed: 100n,
+				stateRoot: new Uint8Array(32).fill(1),
+			},
+			transactions: [],
+			uncleHeaders: [],
+		} as unknown as Block
+
+		const runBlockFunction = runBlock(vm)
+		await runBlockFunction({
+			block,
+			root: customStateRoot,
+			generate: false,
+		} as RunBlockOpts)
+
+		expect(stateManager.setStateRoot).toHaveBeenCalledWith(customStateRoot)
+	})
+
+	it('should revert on error and rethrow', async () => {
+		// Create a separate mock for applyBlock that throws
+		const mockApplyBlockError = new Error('Apply block failed')
+		applyBlockImpl = () => Promise.reject(mockApplyBlockError)
+
+		const stateManager = {
+			setStateRoot: mock().mockResolvedValue(undefined),
+			getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
+		}
+
+		const journalRevert = mock().mockResolvedValue(undefined)
+		const journalCheckpoint = mock().mockResolvedValue(undefined)
+
+		const journal = {
+			checkpoint: journalCheckpoint,
+			revert: journalRevert,
+		}
+
+		const vm = {
+			stateManager,
+			evm: { journal },
+			_emit: mock(),
+			common: {
+				ethjsCommon: {
+					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
+					isActivatedEIP: mock().mockReturnValue(false),
+				},
+			},
+			ready: mock().mockResolvedValue(undefined),
+		} as unknown as BaseVm
+
+		const block = {
+			header: {
+				number: 10n,
+				receiptTrie: new Uint8Array(32),
+				logsBloom: new Uint8Array(256),
+				gasUsed: 100n,
+				stateRoot: new Uint8Array(32),
+			},
+			common: {
+				ethjsCommon: {
+					isActivatedEIP: mock().mockReturnValue(false),
+				},
+			},
+			transactions: [],
+			uncleHeaders: [],
+		} as unknown as Block
+
+		const runBlockFunction = runBlock(vm)
+
+		try {
+			await runBlockFunction({ block, generate: false } as RunBlockOpts)
+			expect(true).toBe(false) // Should not reach here
+		} catch (error: any) {
+			// The error message depends on the implementation, so we only check that an error was thrown
+			expect(error).toBeTruthy()
+			expect(journalRevert).toHaveBeenCalled()
+		} finally {
+			applyBlockImpl = () => Promise.resolve(mockApplyBlockResult)
+		}
+	})
+
+	it('should reject EIP-6800 Verkle execution as unsupported', async () => {
+		const stateManager = {
+			setStateRoot: mock().mockResolvedValue(undefined),
+			getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
+		}
+		const vm = {
+			stateManager,
+			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
+			_emit: mock().mockResolvedValue(undefined),
+			common: {
+				ethjsCommon: {
+					hardforkIsActiveOnBlock: mock().mockReturnValue(false),
+					isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
+				},
+			},
+			ready: mock().mockResolvedValue(undefined),
+		} as unknown as BaseVm
+		const block = {
+			header: {
+				number: 10n,
+				receiptTrie: new Uint8Array(32),
+				logsBloom: new Uint8Array(256),
+				gasUsed: 100n,
+				stateRoot: new Uint8Array(32),
+			},
+			executionWitness: { stateDiff: [], verkleProof: {} as any },
+			common: {
+				ethjsCommon: {
+					isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
+
+ succeeded in 0ms:
+import { Block } from '@tevm/block'
+import { InternalError, InvalidParamsError } from '@tevm/errors'
+import { bytesToHex, equalsBytes } from '@tevm/utils'
+import type { BaseVm } from '../BaseVm.js'
+import type { AfterBlockEvent, ApplyBlockResult, RunBlockOpts, RunBlockResult } from '../utils/index.js'
+import { applyBlock } from './applyBlock.js'
+import { applyDAOHardfork } from './applyDAOHardfork.js'
+import { errorMsg } from './errorMsg.js'
+import { genTxTrie } from './genTxTrie.js'
+
+export type RunBlock = (opts: RunBlockOpts) => Promise<RunBlockResult>
+
+const UNSUPPORTED_VERKLE_EXECUTION_MESSAGE =
+	'Verkle/state-witness execution paths (EIP-6800 family) are intentionally unsupported in Tevm'
+
+const setRunBlockHardfork = (vm: BaseVm, block: Block, setHardfork: RunBlockOpts['setHardfork']) => {
+	if (setHardfork === undefined || setHardfork === false) {
+		return
+	}
+
+	const previousVmHardfork = vm.common.ethjsCommon.hardfork()
+	const evmCommon = vm.evm.common
+	const previousEvmHardfork = evmCommon !== vm.common.ethjsCommon ? evmCommon?.hardfork?.() : undefined
+	const previousBlockHardfork =
+		block.common.ethjsCommon !== vm.common.ethjsCommon ? block.common.ethjsCommon.hardfork() : undefined
+	const hardforkOpts: any = {
+		blockNumber: block.header.number,
+		timestamp: block.header.timestamp,
+	}
+	if (typeof setHardfork !== 'boolean') {
+		hardforkOpts.totalDifficulty = setHardfork
+	}
+
+	vm.common.ethjsCommon.setHardforkBy(hardforkOpts)
+	const hardfork = vm.common.ethjsCommon.hardfork()
+	if (evmCommon !== vm.common.ethjsCommon) {
+		evmCommon?.setHardfork?.(hardfork)
+	}
+	if (block.common.ethjsCommon !== vm.common.ethjsCommon) {
+		block.common.ethjsCommon.setHardfork(hardfork)
+	}
+
+	return () => {
+		vm.common.ethjsCommon.setHardfork(previousVmHardfork)
+		if (previousEvmHardfork !== undefined) {
+			evmCommon.setHardfork(previousEvmHardfork)
+		}
+		if (previousBlockHardfork !== undefined) {
+			block.common.ethjsCommon.setHardfork(previousBlockHardfork)
+		}
+	}
+}
+
+/**
+ * @ignore
+ */
+export const runBlock =
+	(vm: BaseVm): RunBlock =>
+	async (opts) => {
+		await vm.ready()
+		const state = vm.stateManager
+
+		const { root } = opts
+		const clearCache = opts.clearCache ?? true
+		let { block } = opts
+		const generateFields = opts.generate === true
+
+		const restoreHardfork = setRunBlockHardfork(vm, block, opts.setHardfork)
+
+		let result: ApplyBlockResult
+		let previousRoot: Uint8Array | undefined
+		let checkpointed = false
+		let isVerkleExecutionEnabled = false
+
+		try {
+			/**
+			 * The `beforeBlock` event.
+			 *
+			 * @event Event: beforeBlock
+			 * @type {Object}
+			 * @property {Block} block emits the block that is about to be processed
+			 */
+			await vm._emit('beforeBlock', block)
+
+			// Set state root if provided
+			if (root) {
+				previousRoot = await state.getStateRoot()
+				await state.setStateRoot(root, clearCache)
+			}
+
+			// Checkpoint state
+			await vm.evm.journal.checkpoint()
+			checkpointed = true
+
+			// check for DAO support and if we should apply the DAO fork
+			if (
+				vm.common.ethjsCommon.hardforkIsActiveOnBlock('dao', block.header.number) === true &&
+				block.header.number === vm.common.ethjsCommon.hardforkBlock('dao')
+			) {
+				await applyDAOHardfork(vm.evm)
+			}
+
+			isVerkleExecutionEnabled = block.common.ethjsCommon.isActivatedEIP(6800)
+			if (isVerkleExecutionEnabled) {
+				throw new InvalidParamsError(UNSUPPORTED_VERKLE_EXECUTION_MESSAGE)
+			}
+
+			result = await applyBlock(vm)(block, opts)
+
+			const stateRoot = await state.getStateRoot()
+
+			// Given the generate option, either set resulting header
+			// values to the current block, or validate the resulting
+			// header values against the current block.
+			if (generateFields) {
+				const bloom = result.bloom.bitvector
+				const gasUsed = result.gasUsed
+				const receiptTrie = result.receiptsRoot
+				const transactionsTrie = await genTxTrie(block)
+				const generatedFields = { stateRoot, bloom, gasUsed, receiptTrie, transactionsTrie }
+				const blockData = {
+					...block,
+					header: { ...block.header, ...generatedFields },
+				}
+				// TODO remove as any just being lazy here this error is from tevm stricter ts config compared to ethereumjs
+				block = Block.fromBlockData(blockData as any, { common: vm.common })
+			} else if (isVerkleExecutionEnabled === false) {
+				// Only validate the following headers if verkle blocks aren't activated
+				if (equalsBytes(result.receiptsRoot, block.header.receiptTrie) === false) {
+					const msg = errorMsg('invalid receiptTrie', vm, block)
+					throw new InternalError(msg)
+				}
+				if (!(equalsBytes(result.bloom.bitvector, block.header.logsBloom) === true)) {
+					const msg = errorMsg('invalid bloom', vm, block)
+					throw new InternalError(msg)
+				}
+				if (result.gasUsed !== block.header.gasUsed) {
+					const msg = errorMsg('invalid gasUsed', vm, block)
+					throw new InternalError(msg)
+				}
+				if (!(equalsBytes(stateRoot, block.header.stateRoot) === true)) {
+					const msg = errorMsg(
+						`invalid block stateRoot, got: ${bytesToHex(stateRoot)}, want: ${bytesToHex(block.header.stateRoot)}`,
+						vm,
+						block,
+					)
+					throw new InternalError(msg)
+				}
+			}
+
+			// Persist state only after all post-execution validation passes.
+			await vm.evm.journal.commit()
+			checkpointed = false
+		} catch (err: any) {
+			if (checkpointed) {
+				await vm.evm.journal.revert()
+			}
+			if (previousRoot !== undefined) {
+				await state.setStateRoot(previousRoot, clearCache)
+			}
+			throw err
+		} finally {
+			restoreHardfork?.()
+		}
+
+		const stateRoot = await state.getStateRoot()
+
+		const results: RunBlockResult = {
+			receipts: result.receipts,
+			logsBloom: result.bloom.bitvector,
+			results: result.results,
+			stateRoot,
+			gasUsed: result.gasUsed,
+			receiptsRoot: result.receiptsRoot,
+			...(result.preimages !== undefined ? { preimages: result.preimages } : {}),
+		}
+
+		const afterBlockEvent: AfterBlockEvent = { ...results, block }
+
+		/**
+		 * The `afterBlock` event
+		 *
+		 * @event Event: afterBlock
+		 * @type {AfterBlockEvent}
+		 * @property {AfterBlockEvent} result emits the results of processing a block
+		 */
+		await vm._emit('afterBlock', afterBlockEvent)
+		return results
+	}
+
+exec
+/bin/zsh -lc "sed -n '1,220p' src/actions/__snapshots__/runTx.spec.ts.snap" in /Users/williamcory/tevm-monorepo/packages/vm
+exec
+/bin/zsh -lc "sed -n '1,280p' src/actions/__snapshots__/validateRunTx.spec.ts.snap" in /Users/williamcory/tevm-monorepo/packages/vm
+ succeeded in 0ms:
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+
+exports[`runTx should execute a transaction successfully 1`] = `
+{
+  "amountSpent": 168000n,
+  "bloom": Bloom {
+    "bitvector": Uint8Array [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+
+ succeeded in 0ms:
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`validateRunTx should throw MisconfiguredClientError if no preMerge hardfork is found 1`] = `[MisconfiguredClientError: no preMerge hardfork found -> block number=0 hash=0x262a8ccb4cc9e4943360ed14f1266920bd1c50d21fb59559a5b86334c167679a hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73]`;
+
+exports[`validateRunTx should throw BlockGasLimitExceededError if tx gas limit exceeds block gas limit 1`] = `[_BlockGasLimitExceededError: tx has a higher gas limit than the block -> block number=0 hash=0x1f45a694fc46961550b257edefe76f963680fac09b3955ab0aa8c61583c87b90 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/blockgaslimitexceedederror/
+Version: 1.1.0.next-73]`;
+
+exports[`validateRunTx should throw EipNotEnabledError if EIP 2930 is not activated for Access List transaction 1`] = `[EipNotEnabledError: Cannot run transaction: EIP 2930 is not activated. -> block number=0 hash=0x4f3d139a80e0ebb8a4a67165405bb0b27187a5be1ab7084163cd4d79a1910eac hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/eipnotenablederror/
+Version: 1.1.0.next-73]`;
+
+exports[`validateRunTx should throw EipNotEnabledError if EIP 1559 is not activated for Fee Market transaction 1`] = `[EipNotEnabledError: Cannot run transaction: EIP 1559 is not activated. -> block number=0 hash=0x4f3d139a80e0ebb8a4a67165405bb0b27187a5be1ab7084163cd4d79a1910eac hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0xd927b750e60fd928bdd343ee0b9883acf2d01b84cf076e361419884c03d56c55 nonce=0 value=0 signed=true hf=prague maxFeePerGas=10 maxPriorityFeePerGas=1)
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/eipnotenablederror/
+Version: 1.1.0.next-73]`;
+
+exports[`validateRunTx should validate options successfully with no block 1`] = `0n`;
+
+exports[`validateRunTx should validate options successfully with no block 2`] = `[Function: hash]`;
+
+exports[`validateRunTx should validate options successfully with no block 3`] = `
+{
+  "preserveJournal": false,
+  "tx": {
+ "type": "0x2",
+ "nonce": "0x0",
+ "gasLimit": "0x5248",
+ "value": "0x0",
+ "data": "0x",
+ "chainId": "0x1",
+ "maxPriorityFeePerGas": "0x1",
+ "maxFeePerGas": "0x8",
+ "accessList": []
+},
+}
+`;
+
+exports[`validateRunTx should throw if hardfork doesn not match 1`] = `[MisconfiguredClientError: block has a different hardfork than the vm -> block number=0 hash=0x262a8ccb4cc9e4943360ed14f1266920bd1c50d21fb59559a5b86334c167679a hf=shanghai baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=shanghai maxFeePerGas=8 maxPriorityFeePerGas=1)
+
+Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
+Version: 1.1.0.next-73]`;
+
+codex
+I found the `runBlock` change is intentional: failed block execution now reverts the EVM journal before rethrowing. The Verkle rejection test was only mocking `checkpoint`, so I’m adding the missing `revert` mock and updating the `createVm` expected header fields to the new block serialization.
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/packages/vm/src/actions/runBlock.spec.ts
+/Users/williamcory/tevm-monorepo/packages/vm/src/createVm.spec.ts
+diff --git a/packages/vm/src/actions/runBlock.spec.ts b/packages/vm/src/actions/runBlock.spec.ts
+index f0336962e385b27ba9360c70a174e41b7342ea45..66934cfa15b8bd3697e450fcb1db54f1b14f3599
+--- a/packages/vm/src/actions/runBlock.spec.ts
++++ b/packages/vm/src/actions/runBlock.spec.ts
+@@ -236,7 +236,12 @@
+ 		}
+ 		const vm = {
+ 			stateManager,
+-			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
++			evm: {
++				journal: {
++					checkpoint: mock().mockResolvedValue(undefined),
++					revert: mock().mockResolvedValue(undefined),
++				},
++			},
+ 			_emit: mock().mockResolvedValue(undefined),
+ 			common: {
+ 				ethjsCommon: {
+diff --git a/packages/vm/src/createVm.spec.ts b/packages/vm/src/createVm.spec.ts
+index 7a773b5ae9541bd9181cac1908d5ddd7238d75b5..4f8e275aadc0bd7f3505209bc9378bc1d5e31306
+--- a/packages/vm/src/createVm.spec.ts
++++ b/packages/vm/src/createVm.spec.ts
+@@ -46,12 +46,12 @@
+ 				number: '0x1',
+ 				parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+ 				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				parentHash: '0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534',
++				parentHash: '0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d',
+ 				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+ 				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				requestsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
++				requestsRoot: '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+ 				// timestamp: "0x66384299",
+ 			},
+ 			requests: [],
+
+diff --git a/packages/vm/src/actions/runBlock.spec.ts b/packages/vm/src/actions/runBlock.spec.ts
+index f0336962e385b27ba9360c70a174e41b7342ea45..66934cfa15b8bd3697e450fcb1db54f1b14f3599
+--- a/packages/vm/src/actions/runBlock.spec.ts
++++ b/packages/vm/src/actions/runBlock.spec.ts
+@@ -236,7 +236,12 @@
+ 		}
+ 		const vm = {
+ 			stateManager,
+-			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
++			evm: {
++				journal: {
++					checkpoint: mock().mockResolvedValue(undefined),
++					revert: mock().mockResolvedValue(undefined),
++				},
++			},
+ 			_emit: mock().mockResolvedValue(undefined),
+ 			common: {
+ 				ethjsCommon: {
+diff --git a/packages/vm/src/createVm.spec.ts b/packages/vm/src/createVm.spec.ts
+index 7a773b5ae9541bd9181cac1908d5ddd7238d75b5..4f8e275aadc0bd7f3505209bc9378bc1d5e31306
+--- a/packages/vm/src/createVm.spec.ts
++++ b/packages/vm/src/createVm.spec.ts
+@@ -46,12 +46,12 @@
+ 				number: '0x1',
+ 				parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+ 				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				parentHash: '0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534',
++				parentHash: '0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d',
+ 				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+ 				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				requestsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
++				requestsRoot: '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+ 				// timestamp: "0x66384299",
+ 			},
+ 			requests: [],
+
+codex
+The inline failures are patched. I’m going to update the Bun snapshots now so the error snapshots reflect the corrected block roots/hashes and current package version, then rerun normally.
+exec
+/bin/zsh -lc 'pnpm test:run -u' in /Users/williamcory/tevm-monorepo/packages/vm
+diff --git a/packages/vm/src/actions/runBlock.spec.ts b/packages/vm/src/actions/runBlock.spec.ts
+index f0336962e385b27ba9360c70a174e41b7342ea45..66934cfa15b8bd3697e450fcb1db54f1b14f3599
+--- a/packages/vm/src/actions/runBlock.spec.ts
++++ b/packages/vm/src/actions/runBlock.spec.ts
+@@ -236,7 +236,12 @@
+ 		}
+ 		const vm = {
+ 			stateManager,
+-			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
++			evm: {
++				journal: {
++					checkpoint: mock().mockResolvedValue(undefined),
++					revert: mock().mockResolvedValue(undefined),
++				},
++			},
+ 			_emit: mock().mockResolvedValue(undefined),
+ 			common: {
+ 				ethjsCommon: {
+diff --git a/packages/vm/src/createVm.spec.ts b/packages/vm/src/createVm.spec.ts
+index 7a773b5ae9541bd9181cac1908d5ddd7238d75b5..4f8e275aadc0bd7f3505209bc9378bc1d5e31306
+--- a/packages/vm/src/createVm.spec.ts
++++ b/packages/vm/src/createVm.spec.ts
+@@ -46,12 +46,12 @@
+ 				number: '0x1',
+ 				parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+ 				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				parentHash: '0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534',
++				parentHash: '0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d',
+ 				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+ 				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				requestsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
++				requestsRoot: '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+ 				// timestamp: "0x66384299",
+ 			},
+ 			requests: [],
+
+ succeeded in 661ms:
+
+> @tevm/vm@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/packages/vm
+> bun test -u
+
+bun test v1.3.12 (700fc117)
+
+src/actions/runBlock.spec.ts:
+Skipping header validation: blockchain has no validateHeader method
+
+ 66 pass
+ 4 skip
+ 3 todo
+ 0 fail
+snapshots: +19 added
+ 155 expect() calls
+Ran 73 tests across 21 files. [284.00ms]
+
+exec
+/bin/zsh -lc 'pnpm test:run' in /Users/williamcory/tevm-monorepo/packages/vm
+diff --git a/packages/vm/src/actions/runBlock.spec.ts b/packages/vm/src/actions/runBlock.spec.ts
+index f0336962e385b27ba9360c70a174e41b7342ea45..66934cfa15b8bd3697e450fcb1db54f1b14f3599
+--- a/packages/vm/src/actions/runBlock.spec.ts
++++ b/packages/vm/src/actions/runBlock.spec.ts
+@@ -236,7 +236,12 @@
+ 		}
+ 		const vm = {
+ 			stateManager,
+-			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
++			evm: {
++				journal: {
++					checkpoint: mock().mockResolvedValue(undefined),
++					revert: mock().mockResolvedValue(undefined),
++				},
++			},
+ 			_emit: mock().mockResolvedValue(undefined),
+ 			common: {
+ 				ethjsCommon: {
+diff --git a/packages/vm/src/createVm.spec.ts b/packages/vm/src/createVm.spec.ts
+index 7a773b5ae9541bd9181cac1908d5ddd7238d75b5..4f8e275aadc0bd7f3505209bc9378bc1d5e31306
+--- a/packages/vm/src/createVm.spec.ts
++++ b/packages/vm/src/createVm.spec.ts
+@@ -46,12 +46,12 @@
+ 				number: '0x1',
+ 				parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+ 				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				parentHash: '0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534',
++				parentHash: '0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d',
+ 				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+ 				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				requestsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
++				requestsRoot: '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+ 				// timestamp: "0x66384299",
+ 			},
+ 			requests: [],
+
+ succeeded in 676ms:
+
+> @tevm/vm@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/packages/vm
+> bun test
+
+bun test v1.3.12 (700fc117)
+
+src/actions/runBlock.spec.ts:
+Skipping header validation: blockchain has no validateHeader method
+
+ 66 pass
+ 4 skip
+ 3 todo
+ 0 fail
+ 19 snapshots, 155 expect() calls
+Ran 73 tests across 21 files. [300.00ms]
+
+codex
+The package tests are green after snapshot refresh. I’m doing a quick in-scope check for stale snapshot strings and collecting exact line references for the report.
+exec
+/bin/zsh -lc "nl -ba src/createVm.spec.ts | sed -n '45,70p'" in /Users/williamcory/tevm-monorepo/packages/vm
+ succeeded in 0ms:
+    45					nonce: '0x0000000000000000',
+    46					number: '0x1',
+    47					parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+    48					receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+    49					parentHash: '0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d',
+    50					transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+    51					uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+    52					withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+    53					stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+    54					requestsRoot: '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    55					// timestamp: "0x66384299",
+    56				},
+    57				requests: [],
+    58				transactions: [],
+    59				uncleHeaders: [],
+    60				withdrawals: [],
+    61			})
+    62		})
+    63	})
+
+exec
+/bin/zsh -lc "rg \"1\\.1\\.0\\.next-73|0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534|0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421'\" src" in /Users/williamcory/tevm-monorepo/packages/vm
+ succeeded in 0ms:
+src/actions/__snapshots__/deepCopy.spec.ts.snap:Version: 1.1.0.next-73]`;
+src/createVm.spec.ts:				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+src/createVm.spec.ts:				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+src/createVm.spec.ts:				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+src/createVm.spec.ts:				stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+
+exec
+/bin/zsh -lc "nl -ba src/actions/runBlock.spec.ts | sed -n '245,260p'" in /Users/williamcory/tevm-monorepo/packages/vm
+ succeeded in 0ms:
+   245				_emit: mock().mockResolvedValue(undefined),
+   246				common: {
+   247					ethjsCommon: {
+   248						hardforkIsActiveOnBlock: mock().mockReturnValue(false),
+   249						isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
+   250					},
+   251				},
+   252				ready: mock().mockResolvedValue(undefined),
+   253			} as unknown as BaseVm
+   254			const block = {
+   255				header: {
+   256					number: 10n,
+   257					receiptTrie: new Uint8Array(32),
+   258					logsBloom: new Uint8Array(256),
+   259					gasUsed: 100n,
+   260					stateRoot: new Uint8Array(32),
+
+exec
+/bin/zsh -lc "rg -n \"Version: 1\\.0\\.0-next\\.148|0xfdb18b56|0x43b719a|0x5de407\" src/actions/__snapshots__" in /Users/williamcory/tevm-monorepo/packages/vm
+ succeeded in 0ms:
+src/actions/__snapshots__/validateRunTx.spec.ts.snap:3:exports[`validateRunTx should throw MisconfiguredClientError if no preMerge hardfork is found 1`] = `[MisconfiguredClientError: no preMerge hardfork found -> block number=0 hash=0x43b719a390d632e9638619466421eb47cbfe49dca5018ff9f6ec2d97f4e3cf1d hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+src/actions/__snapshots__/validateRunTx.spec.ts.snap:6:Version: 1.0.0-next.148]`;
+src/actions/__snapshots__/validateRunTx.spec.ts.snap:8:exports[`validateRunTx should throw BlockGasLimitExceededError if tx gas limit exceeds block gas limit 1`] = `[_BlockGasLimitExceededError: tx has a higher gas limit than the block -> block number=0 hash=0x5de407bc1e49be7bd9a146405f443dd6c9dede90e5b4a13a002ff978dac82fbd hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+src/actions/__snapshots__/validateRunTx.spec.ts.snap:11:Version: 1.0.0-next.148]`;
+src/actions/__snapshots__/validateRunTx.spec.ts.snap:13:exports[`validateRunTx should throw EipNotEnabledError if EIP 2930 is not activated for Access List transaction 1`] = `[EipNotEnabledError: Cannot run transaction: EIP 2930 is not activated. -> block number=0 hash=0xfdb18b56e8416ec1445ff49d598817a12842674fa687af9e75ce8eae60e6bd27 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+src/actions/__snapshots__/validateRunTx.spec.ts.snap:16:Version: 1.0.0-next.148]`;
+src/actions/__snapshots__/validateRunTx.spec.ts.snap:18:exports[`validateRunTx should throw EipNotEnabledError if EIP 1559 is not activated for Fee Market transaction 1`] = `[EipNotEnabledError: Cannot run transaction: EIP 1559 is not activated. -> block number=0 hash=0xfdb18b56e8416ec1445ff49d598817a12842674fa687af9e75ce8eae60e6bd27 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0xd927b750e60fd928bdd343ee0b9883acf2d01b84cf076e361419884c03d56c55 nonce=0 value=0 signed=true hf=prague maxFeePerGas=10 maxPriorityFeePerGas=1)
+src/actions/__snapshots__/validateRunTx.spec.ts.snap:21:Version: 1.0.0-next.148]`;
+src/actions/__snapshots__/validateRunTx.spec.ts.snap:44:exports[`validateRunTx should throw if hardfork doesn not match 1`] = `[MisconfiguredClientError: block has a different hardfork than the vm -> block number=0 hash=0x43b719a390d632e9638619466421eb47cbfe49dca5018ff9f6ec2d97f4e3cf1d hf=shanghai baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x080c04e4589f4b33d25453d7df933093014b4114ac307fa4020d2214560a12f7 nonce=0 value=0 signed=true hf=shanghai maxFeePerGas=8 maxPriorityFeePerGas=1)
+src/actions/__snapshots__/validateRunTx.spec.ts.snap:47:Version: 1.0.0-next.148]`;
+src/actions/__snapshots__/runTx.spec.ts.snap:681:exports[`runTx should throw error for invalid block parameter 1`] = `[_InsufficientFundsError: sender doesn't have enough funds to send tx. The upfront cost is: 168513 and the sender's account (0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266) only has: 0 -> block number=0 hash=0xfdb18b56e8416ec1445ff49d598817a12842674fa687af9e75ce8eae60e6bd27 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x30150fa581c7b6766b48ea665b4051ee71967b1bcc2387c4b7bf1c481f953cad nonce=0 value=1 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+src/actions/__snapshots__/runTx.spec.ts.snap:684:Version: 1.0.0-next.148]`;
+src/actions/__snapshots__/runTx.spec.ts.snap:686:exports[`runTx should throw InsufficientFundsError 1`] = `[_InsufficientFundsError: sender doesn't have enough funds to send tx. The upfront cost is: 1000000000000000000168512 and the sender's account (0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266) only has: 0 -> block number=0 hash=0xfdb18b56e8416ec1445ff49d598817a12842674fa687af9e75ce8eae60e6bd27 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x039eeafaefd19b89ad985c0b9d77c12eb678210672e376ebd1ed29dd89a99b39 nonce=0 value=1000000000000000000000000 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+src/actions/__snapshots__/runTx.spec.ts.snap:689:Version: 1.0.0-next.148]`;
+src/actions/__snapshots__/runTx.spec.ts.snap:691:exports[`runTx should throw NonceTooLowError 1`] = `[_NonceTooLowError: the tx doesn't have the correct nonce. account has nonce of: 5 tx has nonce of: 0 -> block number=0 hash=0xfdb18b56e8416ec1445ff49d598817a12842674fa687af9e75ce8eae60e6bd27 hf=prague baseFeePerGas=7 txs=0 uncles=0 -> tx type=2 hash=0x30150fa581c7b6766b48ea665b4051ee71967b1bcc2387c4b7bf1c481f953cad nonce=0 value=1 signed=true hf=prague maxFeePerGas=8 maxPriorityFeePerGas=1)
+src/actions/__snapshots__/runTx.spec.ts.snap:694:Version: 1.0.0-next.148]`;
+
+diff --git a/packages/vm/src/actions/runBlock.spec.ts b/packages/vm/src/actions/runBlock.spec.ts
+index f0336962e385b27ba9360c70a174e41b7342ea45..66934cfa15b8bd3697e450fcb1db54f1b14f3599
+--- a/packages/vm/src/actions/runBlock.spec.ts
++++ b/packages/vm/src/actions/runBlock.spec.ts
+@@ -236,7 +236,12 @@
+ 		}
+ 		const vm = {
+ 			stateManager,
+-			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
++			evm: {
++				journal: {
++					checkpoint: mock().mockResolvedValue(undefined),
++					revert: mock().mockResolvedValue(undefined),
++				},
++			},
+ 			_emit: mock().mockResolvedValue(undefined),
+ 			common: {
+ 				ethjsCommon: {
+diff --git a/packages/vm/src/createVm.spec.ts b/packages/vm/src/createVm.spec.ts
+index 7a773b5ae9541bd9181cac1908d5ddd7238d75b5..4f8e275aadc0bd7f3505209bc9378bc1d5e31306
+--- a/packages/vm/src/createVm.spec.ts
++++ b/packages/vm/src/createVm.spec.ts
+@@ -46,12 +46,12 @@
+ 				number: '0x1',
+ 				parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+ 				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				parentHash: '0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534',
++				parentHash: '0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d',
+ 				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+ 				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				requestsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
++				requestsRoot: '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+ 				// timestamp: "0x66384299",
+ 			},
+ 			requests: [],
+
+exec
+/bin/zsh -lc "nl -ba src/actions/runBlock.spec.ts | sed -n '235,252p'" in /Users/williamcory/tevm-monorepo/packages/vm
+ succeeded in 0ms:
+   235				getStateRoot: mock().mockResolvedValue(new Uint8Array(32)),
+   236			}
+   237			const vm = {
+   238				stateManager,
+   239				evm: {
+   240					journal: {
+   241						checkpoint: mock().mockResolvedValue(undefined),
+   242						revert: mock().mockResolvedValue(undefined),
+   243					},
+   244				},
+   245				_emit: mock().mockResolvedValue(undefined),
+   246				common: {
+   247					ethjsCommon: {
+   248						hardforkIsActiveOnBlock: mock().mockReturnValue(false),
+   249						isActivatedEIP: mock().mockImplementation((eip: number) => eip === 6800),
+   250					},
+   251				},
+   252				ready: mock().mockResolvedValue(undefined),
+
+diff --git a/packages/vm/src/actions/runBlock.spec.ts b/packages/vm/src/actions/runBlock.spec.ts
+index f0336962e385b27ba9360c70a174e41b7342ea45..66934cfa15b8bd3697e450fcb1db54f1b14f3599
+--- a/packages/vm/src/actions/runBlock.spec.ts
++++ b/packages/vm/src/actions/runBlock.spec.ts
+@@ -236,7 +236,12 @@
+ 		}
+ 		const vm = {
+ 			stateManager,
+-			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
++			evm: {
++				journal: {
++					checkpoint: mock().mockResolvedValue(undefined),
++					revert: mock().mockResolvedValue(undefined),
++				},
++			},
+ 			_emit: mock().mockResolvedValue(undefined),
+ 			common: {
+ 				ethjsCommon: {
+diff --git a/packages/vm/src/createVm.spec.ts b/packages/vm/src/createVm.spec.ts
+index 7a773b5ae9541bd9181cac1908d5ddd7238d75b5..4f8e275aadc0bd7f3505209bc9378bc1d5e31306
+--- a/packages/vm/src/createVm.spec.ts
++++ b/packages/vm/src/createVm.spec.ts
+@@ -46,12 +46,12 @@
+ 				number: '0x1',
+ 				parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+ 				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				parentHash: '0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534',
++				parentHash: '0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d',
+ 				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+ 				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				requestsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
++				requestsRoot: '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+ 				// timestamp: "0x66384299",
+ 			},
+ 			requests: [],
+
+exec
+/bin/zsh -lc 'mkdir -p .review-slices' in /Users/williamcory/tevm-monorepo/packages/vm
+ succeeded in 0ms:
+diff --git a/packages/vm/src/actions/runBlock.spec.ts b/packages/vm/src/actions/runBlock.spec.ts
+index f0336962e385b27ba9360c70a174e41b7342ea45..66934cfa15b8bd3697e450fcb1db54f1b14f3599
+--- a/packages/vm/src/actions/runBlock.spec.ts
++++ b/packages/vm/src/actions/runBlock.spec.ts
+@@ -236,7 +236,12 @@
+ 		}
+ 		const vm = {
+ 			stateManager,
+-			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
++			evm: {
++				journal: {
++					checkpoint: mock().mockResolvedValue(undefined),
++					revert: mock().mockResolvedValue(undefined),
++				},
++			},
+ 			_emit: mock().mockResolvedValue(undefined),
+ 			common: {
+ 				ethjsCommon: {
+diff --git a/packages/vm/src/createVm.spec.ts b/packages/vm/src/createVm.spec.ts
+index 7a773b5ae9541bd9181cac1908d5ddd7238d75b5..4f8e275aadc0bd7f3505209bc9378bc1d5e31306
+--- a/packages/vm/src/createVm.spec.ts
++++ b/packages/vm/src/createVm.spec.ts
+@@ -46,12 +46,12 @@
+ 				number: '0x1',
+ 				parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+ 				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				parentHash: '0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534',
++				parentHash: '0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d',
+ 				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+ 				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				requestsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
++				requestsRoot: '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+ 				// timestamp: "0x66384299",
+ 			},
+ 			requests: [],
+
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/packages/vm/.review-slices/T11.fix.md
+diff --git a/packages/vm/.review-slices/T11.fix.md b/packages/vm/.review-slices/T11.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..178ad2979191df4920975e43e4d88d8180e050e3
+--- /dev/null
++++ b/packages/vm/.review-slices/T11.fix.md
+@@ -0,0 +1,20 @@
++# VM test fixes test fixes
++
++**Package:** T11
++**Scope:** packages/vm
++
++## Summary
++Updated stale VM test expectations for corrected block header serialization and runBlock journal restoration behavior. Refreshed failing Bun snapshots so transaction validation errors now match the corrected block hashes and current package version.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- src/createVm.spec.ts:49 - Updated expected built-block parent hash for the corrected header data.
++- src/createVm.spec.ts:54 - Updated expected requests root to the empty requests hash.
++- src/actions/runBlock.spec.ts:239 - Added the missing journal revert mock for Verkle rejection after runBlock started reverting checkpointed state on errors.
++- src/actions/__snapshots__/runTx.spec.ts.snap:681 - Refreshed runTx error snapshots for corrected block hashes and package version.
++- src/actions/__snapshots__/validateRunTx.spec.ts.snap:3 - Refreshed validateRunTx error snapshots for corrected block hashes and package version.
+diff --git a/packages/vm/src/actions/runBlock.spec.ts b/packages/vm/src/actions/runBlock.spec.ts
+index f0336962e385b27ba9360c70a174e41b7342ea45..66934cfa15b8bd3697e450fcb1db54f1b14f3599
+--- a/packages/vm/src/actions/runBlock.spec.ts
++++ b/packages/vm/src/actions/runBlock.spec.ts
+@@ -236,7 +236,12 @@
+ 		}
+ 		const vm = {
+ 			stateManager,
+-			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
++			evm: {
++				journal: {
++					checkpoint: mock().mockResolvedValue(undefined),
++					revert: mock().mockResolvedValue(undefined),
++				},
++			},
+ 			_emit: mock().mockResolvedValue(undefined),
+ 			common: {
+ 				ethjsCommon: {
+diff --git a/packages/vm/src/createVm.spec.ts b/packages/vm/src/createVm.spec.ts
+index 7a773b5ae9541bd9181cac1908d5ddd7238d75b5..4f8e275aadc0bd7f3505209bc9378bc1d5e31306
+--- a/packages/vm/src/createVm.spec.ts
++++ b/packages/vm/src/createVm.spec.ts
+@@ -46,12 +46,12 @@
+ 				number: '0x1',
+ 				parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+ 				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				parentHash: '0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534',
++				parentHash: '0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d',
+ 				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+ 				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				requestsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
++				requestsRoot: '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+ 				// timestamp: "0x66384299",
+ 			},
+ 			requests: [],
+
+diff --git a/packages/vm/.review-slices/T11.fix.md b/packages/vm/.review-slices/T11.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..178ad2979191df4920975e43e4d88d8180e050e3
+--- /dev/null
++++ b/packages/vm/.review-slices/T11.fix.md
+@@ -0,0 +1,20 @@
++# VM test fixes test fixes
++
++**Package:** T11
++**Scope:** packages/vm
++
++## Summary
++Updated stale VM test expectations for corrected block header serialization and runBlock journal restoration behavior. Refreshed failing Bun snapshots so transaction validation errors now match the corrected block hashes and current package version.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- src/createVm.spec.ts:49 - Updated expected built-block parent hash for the corrected header data.
++- src/createVm.spec.ts:54 - Updated expected requests root to the empty requests hash.
++- src/actions/runBlock.spec.ts:239 - Added the missing journal revert mock for Verkle rejection after runBlock started reverting checkpointed state on errors.
++- src/actions/__snapshots__/runTx.spec.ts.snap:681 - Refreshed runTx error snapshots for corrected block hashes and package version.
++- src/actions/__snapshots__/validateRunTx.spec.ts.snap:3 - Refreshed validateRunTx error snapshots for corrected block hashes and package version.
+diff --git a/packages/vm/src/actions/runBlock.spec.ts b/packages/vm/src/actions/runBlock.spec.ts
+index f0336962e385b27ba9360c70a174e41b7342ea45..66934cfa15b8bd3697e450fcb1db54f1b14f3599
+--- a/packages/vm/src/actions/runBlock.spec.ts
++++ b/packages/vm/src/actions/runBlock.spec.ts
+@@ -236,7 +236,12 @@
+ 		}
+ 		const vm = {
+ 			stateManager,
+-			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
++			evm: {
++				journal: {
++					checkpoint: mock().mockResolvedValue(undefined),
++					revert: mock().mockResolvedValue(undefined),
++				},
++			},
+ 			_emit: mock().mockResolvedValue(undefined),
+ 			common: {
+ 				ethjsCommon: {
+diff --git a/packages/vm/src/createVm.spec.ts b/packages/vm/src/createVm.spec.ts
+index 7a773b5ae9541bd9181cac1908d5ddd7238d75b5..4f8e275aadc0bd7f3505209bc9378bc1d5e31306
+--- a/packages/vm/src/createVm.spec.ts
++++ b/packages/vm/src/createVm.spec.ts
+@@ -46,12 +46,12 @@
+ 				number: '0x1',
+ 				parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+ 				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				parentHash: '0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534',
++				parentHash: '0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d',
+ 				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+ 				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				requestsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
++				requestsRoot: '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+ 				// timestamp: "0x66384299",
+ 			},
+ 			requests: [],
+
+codex
+The report is written in the package scope. I’ve already rerun `pnpm test:run` after the test edits and snapshot update, and it passed with 66 passing, 4 skipped, 3 todo, 0 failures.
+codex
+Done in `packages/vm`.
+
+Updated stale expectations in:
+- [src/createVm.spec.ts](/Users/williamcory/tevm-monorepo/packages/vm/src/createVm.spec.ts:49)
+- [src/actions/runBlock.spec.ts](/Users/williamcory/tevm-monorepo/packages/vm/src/actions/runBlock.spec.ts:239)
+- [src/actions/__snapshots__/runTx.spec.ts.snap](/Users/williamcory/tevm-monorepo/packages/vm/src/actions/__snapshots__/runTx.spec.ts.snap:681)
+- [src/actions/__snapshots__/validateRunTx.spec.ts.snap](/Users/williamcory/tevm-monorepo/packages/vm/src/actions/__snapshots__/validateRunTx.spec.ts.snap:3)
+
+Wrote the required report at [.review-slices/T11.fix.md](/Users/williamcory/tevm-monorepo/packages/vm/.review-slices/T11.fix.md).
+
+Verification: `pnpm test:run` passes with `66 pass`, `4 skip`, `3 todo`, `0 fail`.
+diff --git a/packages/vm/.review-slices/T11.fix.md b/packages/vm/.review-slices/T11.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..178ad2979191df4920975e43e4d88d8180e050e3
+--- /dev/null
++++ b/packages/vm/.review-slices/T11.fix.md
+@@ -0,0 +1,20 @@
++# VM test fixes test fixes
++
++**Package:** T11
++**Scope:** packages/vm
++
++## Summary
++Updated stale VM test expectations for corrected block header serialization and runBlock journal restoration behavior. Refreshed failing Bun snapshots so transaction validation errors now match the corrected block hashes and current package version.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- src/createVm.spec.ts:49 - Updated expected built-block parent hash for the corrected header data.
++- src/createVm.spec.ts:54 - Updated expected requests root to the empty requests hash.
++- src/actions/runBlock.spec.ts:239 - Added the missing journal revert mock for Verkle rejection after runBlock started reverting checkpointed state on errors.
++- src/actions/__snapshots__/runTx.spec.ts.snap:681 - Refreshed runTx error snapshots for corrected block hashes and package version.
++- src/actions/__snapshots__/validateRunTx.spec.ts.snap:3 - Refreshed validateRunTx error snapshots for corrected block hashes and package version.
+diff --git a/packages/vm/src/actions/runBlock.spec.ts b/packages/vm/src/actions/runBlock.spec.ts
+index f0336962e385b27ba9360c70a174e41b7342ea45..66934cfa15b8bd3697e450fcb1db54f1b14f3599
+--- a/packages/vm/src/actions/runBlock.spec.ts
++++ b/packages/vm/src/actions/runBlock.spec.ts
+@@ -236,7 +236,12 @@
+ 		}
+ 		const vm = {
+ 			stateManager,
+-			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
++			evm: {
++				journal: {
++					checkpoint: mock().mockResolvedValue(undefined),
++					revert: mock().mockResolvedValue(undefined),
++				},
++			},
+ 			_emit: mock().mockResolvedValue(undefined),
+ 			common: {
+ 				ethjsCommon: {
+diff --git a/packages/vm/src/createVm.spec.ts b/packages/vm/src/createVm.spec.ts
+index 7a773b5ae9541bd9181cac1908d5ddd7238d75b5..4f8e275aadc0bd7f3505209bc9378bc1d5e31306
+--- a/packages/vm/src/createVm.spec.ts
++++ b/packages/vm/src/createVm.spec.ts
+@@ -46,12 +46,12 @@
+ 				number: '0x1',
+ 				parentBeaconBlockRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
+ 				receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				parentHash: '0x1d230d3c25232b8bb73be506cb871ccb88ec60dfe77b5f58e1794293a0d62534',
++				parentHash: '0x04f3224bc7809708a4b860e9fdd4588b38f4bcadb994f9ae1793a2ed2c38011d',
+ 				transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+ 				withdrawalsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+ 				stateRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+-				requestsRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
++				requestsRoot: '0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+ 				// timestamp: "0x66384299",
+ 			},
+ 			requests: [],
+
+tokens used
+56,945
+Done in `packages/vm`.
+
+Updated stale expectations in:
+- [src/createVm.spec.ts](/Users/williamcory/tevm-monorepo/packages/vm/src/createVm.spec.ts:49)
+- [src/actions/runBlock.spec.ts](/Users/williamcory/tevm-monorepo/packages/vm/src/actions/runBlock.spec.ts:239)
+- [src/actions/__snapshots__/runTx.spec.ts.snap](/Users/williamcory/tevm-monorepo/packages/vm/src/actions/__snapshots__/runTx.spec.ts.snap:681)
+- [src/actions/__snapshots__/validateRunTx.spec.ts.snap](/Users/williamcory/tevm-monorepo/packages/vm/src/actions/__snapshots__/validateRunTx.spec.ts.snap:3)
+
+Wrote the required report at [.review-slices/T11.fix.md](/Users/williamcory/tevm-monorepo/packages/vm/.review-slices/T11.fix.md).
+
+Verification: `pnpm test:run` passes with `66 pass`, `4 skip`, `3 todo`, `0 fail`.
+fatal: pathspec '.review-slices/T11.fix.md' did not match any files
+[main 4b609429d] 🧪 fix(T11): update tests after review fix wave (VM test fixes)
+ 5 files changed, 45 insertions(+), 20 deletions(-)
+ create mode 100644 packages/vm/.review-slices/T11.fix.md

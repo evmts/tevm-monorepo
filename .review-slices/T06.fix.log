@@ -1,0 +1,3394 @@
+OpenAI Codex v0.132.0
+--------
+workdir: /Users/williamcory/tevm-monorepo
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019e47e9-acef-7832-8ae7-27a09af0f399
+--------
+user
+You are fixing TypeScript test regressions in the Tevm monorepo. Earlier, parallel codex agents
+applied source-code fixes for ~210 review findings (see review.md, fix-report.md). Those fixes are
+all committed and the source code now reflects CORRECT behavior. The remaining problem is that
+the existing test suite still asserts the OLD (buggy) behavior in many places.
+
+YOUR PACKAGE: Runtime test fixes
+SCOPE PATHS:  bundler-packages/runtime
+HINTS:        H12 runtime changes
+
+PROCESS:
+1. cd into the scope path. Run `pnpm test:run` (NOT pnpm nx — direct package script) to see the
+   failures. You may run that, vitest, or vitest -u as many times as needed inside your scope.
+2. For each failing test:
+   a. STALE ASSERTION (most common): the test is asserting old buggy behavior. Update the test
+      to match the new (correct) source behavior. For snapshot tests, run `pnpm test:run -u`
+      to update the .snap files. For inline assertions, edit the .spec.ts/.spec.js file.
+   b. REAL REGRESSION (rare): the source fix introduced a real bug. In that case you may fix the
+      source code WITHIN YOUR SCOPE PATHS. Be conservative — prefer to update the test first.
+   c. MOCK UPDATE (common in config/foundry): the source switched APIs (e.g. execSync →
+      execFileSync). Update the test's vi.mock() to include the new export.
+3. Re-run `pnpm test:run` until green. If you can't get green, capture what's left in the report.
+
+HARD CONSTRAINTS:
+- Modify ONLY files under: bundler-packages/runtime.
+- Do NOT touch files in other packages.
+- Do NOT run `pnpm install`, `pnpm nx`, `bun`, `cargo`, or `git`. The dispatcher will commit.
+- vitest, pnpm test:run (the local script), pnpm typecheck, pnpm build:types are all allowed
+  WITHIN your scope directory only.
+- If updating a snapshot, run vitest with -u flag (allowed).
+- Prefer the smallest test changes. A 1-line assertion update beats restructuring a test file.
+
+OUTPUT REPORT: '.review-slices/T06.fix.md' with structure:
+
+# Runtime test fixes test fixes
+
+**Package:** T06
+**Scope:** bundler-packages/runtime
+
+## Summary
+<2-4 sentences>
+
+## Tests passing
+<count or 'all'>
+
+## Tests still failing
+<count and short list, if any>
+
+## Changes
+- path:line - <one-line description>
+- ...
+
+Be ruthless about distinguishing stale assertions (update test) from real regressions (rare; fix source).
+
+codex
+I’ll work only inside `bundler-packages/runtime`, run the package test script directly, then update stale test expectations or local mocks as needed. I’ll also write the required slice report under the scope if that path exists there; otherwise I’ll flag the constraint conflict before writing outside scope.
+exec
+/bin/zsh -lc "pwd && rg --files bundler-packages/runtime | sed -n '1,80p' && find bundler-packages/runtime -maxdepth 2 -type f \\( -name 'package.json' -o -name 'review.md' -o -name 'fix-report.md' \\) -print" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+/Users/williamcory/tevm-monorepo
+bundler-packages/runtime/src/__snapshots__/extended-tests.spec.ts.snap
+bundler-packages/runtime/src/__snapshots__/generateRuntime.spec.ts.snap
+bundler-packages/runtime/src/generateRuntime.spec.ts
+bundler-packages/runtime/src/generateTevmBodyDts.js
+bundler-packages/runtime/src/generateRuntime.js
+bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+bundler-packages/runtime/src/types.ts
+bundler-packages/runtime/src/index.js
+bundler-packages/runtime/src/source/TestContract.spec.ts
+bundler-packages/runtime/src/source/source.spec.ts
+bundler-packages/runtime/src/types.spec.ts
+bundler-packages/runtime/src/generateTevmBody.js
+bundler-packages/runtime/src/index.spec.ts
+bundler-packages/runtime/src/generateTevmBody.spec.ts
+bundler-packages/runtime/src/extended-tests.spec.ts
+bundler-packages/runtime/vitest.config.ts
+bundler-packages/runtime/biome.json
+bundler-packages/runtime/tsconfig.json
+bundler-packages/runtime/TestContract.js
+bundler-packages/runtime/typedoc.json
+bundler-packages/runtime/tsup.config.ts
+bundler-packages/runtime/package.json
+bundler-packages/runtime/README.md
+bundler-packages/runtime/docs/globals.md
+bundler-packages/runtime/docs/functions/generateRuntime.md
+bundler-packages/runtime/docs/_media/docs/globals.md
+bundler-packages/runtime/docs/_media/docs/functions/generateRuntime.md
+bundler-packages/runtime/docs/_media/docs/README.md
+bundler-packages/runtime/docs/_media/docs/type-aliases/ModuleType.md
+bundler-packages/runtime/docs/_media/LICENSE
+bundler-packages/runtime/docs/README.md
+bundler-packages/runtime/docs/type-aliases/ModuleType.md
+bundler-packages/runtime/CHANGELOG.md
+bundler-packages/runtime/LICENSE
+bundler-packages/runtime/source.ts
+bundler-packages/runtime/package.json
+
+  → Run runtime package tests
+  • Inspect failing assertions and source behavior
+  • Patch runtime tests or scoped source only
+  • Re-run tests until green or documented
+  • Write T06 report
+exec
+/bin/zsh -lc 'pnpm test:run' in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+ exited 1 in 1329ms:
+
+> @tevm/runtime@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+> vitest run
+
+
+ RUN  v4.1.6 /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+
+ ❯ src/generateTevmBodyDts.spec.ts (6 tests | 6 failed) 13ms
+     × should generate correct body without bytecode 7ms
+     × should generate correct body with bytecode 2ms
+     × should handle complex ABI correctly in declaration files 1ms
+     × should handle artifacts with no userdoc property in declaration files 0ms
+     × should handle contracts with methods documentation but no method notice 1ms
+     × should handle contracts with empty ABI in declaration files 1ms
+ ❯ src/generateRuntime.spec.ts (14 tests | 1 failed) 15ms
+     × should handle dts module type 6ms
+ ❯ src/extended-tests.spec.ts (10 tests | 1 failed) 18ms
+     × should handle complex nested structs and arrays in ABI 5ms
+ ❯ src/generateTevmBody.spec.ts (18 tests | 2 failed) 11ms
+     × should generate correct body for dts module 3ms
+     × should handle artifacts with userdoc.methods but no method notice 1ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/extended-tests.spec.ts > Advanced Code Generation Tests > should handle complex nested structs and arrays in ABI
+AssertionError: expected '\n\t\t\tdeclare const _nameComplexStr…' to contain 'const _nameComplexStructsContract = "…'
+
+- Expected
++ Received
+
+- const _nameComplexStructsContract = "ComplexStructsContract" as const
++
++ 			declare const _nameComplexStructsContract: "ComplexStructsContract";
++ declare const _abiComplexStructsContract: readonly [
++   "function complexStructFunction((uint256 value, string name, (bool flag, uint256[] values) nestedStruct) structParam, (uint256 id, bool enabled)[] structArrayParam) returns (bool)"
++ ];
++ /**
++  * ComplexStructsContract Contract (with bytecode)
++  * @notice Contract with complex nested structs
++  * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
++  */
++ export const ComplexStructsContract: Contract<
++   typeof _nameComplexStructsContract,
++   typeof _abiComplexStructsContract,
++   undefined,
++   `0x${string}`,
++   `0x${string}`,
++   undefined
++ >;
++ // solc artifacts of compilation
++ export declare const artifacts: {
++   "ComplexStructsContract": {
++     "abi": [
++       {
++         "type": "function",
++         "name": "complexStructFunction",
++         "inputs": [
++           {
++             "name": "structParam",
++             "type": "tuple",
++             "components": [
++               {
++                 "name": "value",
++                 "type": "uint256"
++               },
++               {
++                 "name": "name",
++                 "type": "string"
++               },
++               {
++                 "name": "nestedStruct",
++                 "type": "tuple",
++                 "components": [
++                   {
++                     "name": "flag",
++                     "type": "bool"
++                   },
++                   {
++                     "name": "values",
++                     "type": "uint256[]"
++                   }
++                 ]
++               }
++             ]
++           },
++           {
++             "name": "structArrayParam",
++             "type": "tuple[]",
++             "components": [
++               {
++                 "name": "id",
++                 "type": "uint256"
++               },
++               {
++                 "name": "enabled",
++                 "type": "bool"
++               }
++             ]
++           }
++         ],
++         "outputs": [
++           {
++             "type": "bool"
++           }
++         ],
++         "stateMutability": "nonpayable"
++       }
++     ],
++     "evm": {
++       "bytecode": {
++         "object": "complexStructsBytecode"
++       },
++       "deployedBytecode": {
++         "object": "complexStructsDeployedBytecode"
++       }
++     },
++     "userdoc": {
++       "kind": "user",
++       "version": 1,
++       "notice": "Contract with complex nested structs"
++     },
++     "contractName": "ComplexStructsContract"
++   }
++ };
++
+
+ ❯ src/extended-tests.spec.ts:103:21
+    101|   // Also test DTS generation with complex structs
+    102|   const dtsResult = runSync(generateDtsBody(complexStructsArtifact, tr…
+    103|   expect(dtsResult).toContain('const _nameComplexStructsContract = "Co…
+       |                     ^
+    104|   expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+    105|  })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/10]⎯
+
+ FAIL  src/generateRuntime.spec.ts > generateRuntime > should handle dts module type
+Error: Snapshot `generateRuntime > should handle dts module type 1` mismatched
+
+- Expected
++ Received
+
+@@ -1,19 +1,19 @@
+  "import type { Contract } from '@tevm/contract'
+
+- 		const _abiMyContract = ["constructor() payable"] as const;
+- const _nameMyContract = "MyContract" as const;
++ 			declare const _abiMyContract: readonly ["constructor() payable"];
++ declare const _nameMyContract: "MyContract";
+  /**
+   * MyContract Contract (no bytecode)
+   * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+   * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+   * @notice MyContract
+   * @property balanceOf(address) Returns the amount of tokens owned by account
+   */
+  export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
+  // solc artifacts of compilation
+- export const artifacts = {
++ export declare const artifacts: {
+    "MyContract": {
+      "abi": [
+        {
+          "type": "constructor",
+          "inputs": [],
+
+ ❯ src/generateRuntime.spec.ts:95:18
+     93|  it('should handle dts module type', () => {
+     94|   const result = runSync(generateRuntime(artifacts, 'dts', false, '@te…
+     95|   expect(result).toMatchInlineSnapshot(`
+       |                  ^
+     96|    "import type { Contract } from '@tevm/contract'
+     97|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/10]⎯
+
+ FAIL  src/generateTevmBody.spec.ts > generateTevmBody > should generate correct body for dts module
+Error: Snapshot `generateTevmBody > should generate correct body for dts module 1` mismatched
+
+- Expected
++ Received
+
+@@ -1,27 +1,27 @@
+  "
+- 		const _abiMyContract = [] as const;
+- const _nameMyContract = "MyContract" as const;
++ 			declare const _abiMyContract: readonly [];
++ declare const _nameMyContract: "MyContract";
+  /**
+   * MyContract Contract (no bytecode)
+   * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+   * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+   * @notice MyContract
+   * @property balanceOf(address) Returns the amount of tokens owned by account
+   */
+  export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
+- const _abiAnotherContract = [] as const;
+- const _nameAnotherContract = "AnotherContract" as const;
++ declare const _abiAnotherContract: readonly [];
++ declare const _nameAnotherContract: "AnotherContract";
+  /**
+   * AnotherContract Contract (no bytecode)
+   * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+   * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+   * @notice MyContract
+   */
+  export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined, undefined, undefined>;
+  // solc artifacts of compilation
+- export const artifacts = {
++ export declare const artifacts: {
+    "MyContract": {
+      "abi": [],
+      "evm": {
+        "bytecode": {
+          "object": "1234"
+
+ ❯ src/generateTevmBody.spec.ts:255:18
+    253|  it('should generate correct body for dts module', () => {
+    254|   const result = runSync(generateTevmBody(artifacts, 'dts', false))
+    255|   expect(result).toMatchInlineSnapshot(`
+       |                  ^
+    256|    "
+    257|      const _abiMyContract = [] as const;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/10]⎯
+
+ FAIL  src/generateTevmBody.spec.ts > generateTevmBody > should handle artifacts with userdoc.methods but no method notice
+AssertionError: expected 'const _PartialDocsContract = {\n  "na…' to contain '* @property setValue(uint256) undefin…'
+
+- Expected
++ Received
+
+- * @property setValue(uint256) undefined
++ const _PartialDocsContract = {
++   "name": "PartialDocsContract",
++   "humanReadableAbi": [
++     "function setValue(uint256 newValue)"
++   ],
++   "bytecode": "0xpartialBytecode",
++   "deployedBytecode": "0xpartialDeployedBytecode"
++ } as const
++ /**
++  * @property setValue(uint256) 
++  * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
++  */
++ export const PartialDocsContract = createContract(_PartialDocsContract);
++ export const artifacts = {
++   "PartialDocsContract": {
++     "abi": [
++       {
++         "type": "function",
++         "name": "setValue",
++         "inputs": [
++           {
++             "name": "newValue",
++             "type": "uint256"
++           }
++         ],
++         "outputs": [],
++         "stateMutability": "nonpayable"
++       }
++     ],
++     "evm": {
++       "bytecode": {
++         "object": "partialBytecode"
++       },
++       "deployedBytecode": {
++         "object": "partialDeployedBytecode"
++       }
++     },
++     "userdoc": {
++       "kind": "user",
++       "version": 1,
++       "methods": {
++         "setValue(uint256)": {}
++       }
++     },
++     "contractName": "PartialDocsContract"
++   }
++ };
+
+ ❯ src/generateTevmBody.spec.ts:614:19
+    612|   // This is actually expected in the implementation, because the meth…
+    613|   if (result.includes('* @property setValue(uint256)')) {
+    614|    expect(result).toContain('* @property setValue(uint256) undefined')
+       |                   ^
+    615|   }
+    616|  })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/10]⎯
+
+ FAIL  src/generateTevmBodyDts.spec.ts > generateDtsBody > should generate correct body without bytecode
+Error: Snapshot `generateDtsBody > should generate correct body without bytecode 1` mismatched
+
+- Expected
++ Received
+
+@@ -1,37 +1,37 @@
+  "
+- 		const _abiMyContract = ["constructor() payable"] as const;
+- const _nameMyContract = "MyContract" as const;
++ 			declare const _abiMyContract: readonly ["constructor() payable"];
++ declare const _nameMyContract: "MyContract";
+  /**
+   * MyContract Contract (no bytecode)
+   * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+   * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+   * @notice MyContract
+   * @property balanceOf(address) Returns the amount of tokens owned by account
+   */
+  export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
+- const _abiAnotherContract = [] as const;
+- const _nameAnotherContract = "AnotherContract" as const;
++ declare const _abiAnotherContract: readonly [];
++ declare const _nameAnotherContract: "AnotherContract";
+  /**
+   * AnotherContract Contract (no bytecode)
+   * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+   * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+   * @notice MyContract
+   */
+  export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined, undefined, undefined>;
+- const _abiMissingContract = [] as const;
+- const _nameMissingContract = "MissingContract" as const;
++ declare const _abiMissingContract: readonly [];
++ declare const _nameMissingContract: "MissingContract";
+  /**
+   * MissingContract Contract (no bytecode)
+   * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+   * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+   * @notice MyContract
+   * @property balanceOf(address) Returns the amount of tokens owned by account
+   */
+  export const MissingContract: Contract<typeof _nameMissingContract, typeof _abiMissingContract, undefined, undefined, undefined, undefined>;
+  // solc artifacts of compilation
+- export const artifacts = {
++ export declare const artifacts: {
+    "MyContract": {
+      "abi": [
+        {
+          "type": "constructor",
+          "inputs": [],
+
+ ❯ src/generateTevmBodyDts.spec.ts:60:54
+     58|
+     59|  it('should generate correct body without bytecode', () => {
+     60|   expect(runSync(generateDtsBody(artifacts, false))).toMatchInlineSnap…
+       |                                                      ^
+     61|    "
+     62|      const _abiMyContract = ["constructor() payable"] as const;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/10]⎯
+
+ FAIL  src/generateTevmBodyDts.spec.ts > generateDtsBody > should generate correct body with bytecode
+Error: Snapshot `generateDtsBody > should generate correct body with bytecode 1` mismatched
+
+- Expected
++ Received
+
+@@ -1,57 +1,57 @@
+  "
+- 		const _nameMyContract = "MyContract" as const;
+- const _abiMyContract = [
++ 			declare const _nameMyContract: "MyContract";
++ declare const _abiMyContract: readonly [
+    "constructor() payable"
+- ] as const;
++ ];
+  /**
+-  * MyContract Contract (with bytecode)
++  * MyContract Contract (no bytecode)
+   * @notice MyContract
+   * @property balanceOf(address) Returns the amount of tokens owned by account
+   * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+   */
+  export const MyContract: Contract<
+    typeof _nameMyContract,
+    typeof _abiMyContract,
+    undefined,
+-   `0x${string}`,
+-   `0x${string}`,
++   undefined,
++   undefined,
+    undefined
+  >;
+- const _nameAnotherContract = "AnotherContract" as const;
+- const _abiAnotherContract = [] as const;
++ declare const _nameAnotherContract: "AnotherContract";
++ declare const _abiAnotherContract: readonly [];
+  /**
+-  * AnotherContract Contract (with bytecode)
++  * AnotherContract Contract (no bytecode)
+   * @notice MyContract
+   * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+   */
+  export const AnotherContract: Contract<
+    typeof _nameAnotherContract,
+    typeof _abiAnotherContract,
+    undefined,
+-   `0x${string}`,
+-   `0x${string}`,
++   undefined,
++   undefined,
+    undefined
+  >;
+- const _nameMissingContract = "MissingContract" as const;
+- const _abiMissingContract = [] as const;
++ declare const _nameMissingContract: "MissingContract";
++ declare const _abiMissingContract: readonly [];
+  /**
+-  * MissingContract Contract (with bytecode)
++  * MissingContract Contract (no bytecode)
+   * @notice MyContract
+   * @property balanceOf(address) Returns the amount of tokens owned by account
+   * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+   */
+  export const MissingContract: Contract<
+    typeof _nameMissingContract,
+    typeof _abiMissingContract,
+    undefined,
+-   `0x${string}`,
+-   `0x${string}`,
++   undefined,
++   undefined,
+    undefined
+  >;
+  // solc artifacts of compilation
+- export const artifacts = {
++ export declare const artifacts: {
+    "MyContract": {
+      "abi": [
+        {
+          "type": "constructor",
+          "inputs": [],
+
+ ❯ src/generateTevmBodyDts.spec.ts:151:53
+    149|
+    150|  it('should generate correct body with bytecode', () => {
+    151|   expect(runSync(generateDtsBody(artifacts, true))).toMatchInlineSnaps…
+       |                                                     ^
+    152|    "
+    153|      const _nameMyContract = "MyContract" as const;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/10]⎯
+
+ FAIL  src/generateTevmBodyDts.spec.ts > generateDtsBody > should handle complex ABI correctly in declaration files
+AssertionError: expected '\n\t\t\tdeclare const _nameComplexCon…' to contain 'const _nameComplexContract = "Complex…'
+
+- Expected
++ Received
+
+- const _nameComplexContract = "ComplexContract" as const
++
++ 			declare const _nameComplexContract: "ComplexContract";
++ declare const _abiComplexContract: readonly [
++   "function transfer(address to, uint256 amount) returns (bool)",
++   "event Transfer(address indexed from, address indexed to, uint256 amount)"
++ ];
++ /**
++  * ComplexContract Contract (with bytecode)
++  * @notice A complex ERC20-like contract
++  * @property transfer(address,uint256) Transfers tokens to the specified address
++  * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
++  */
++ export const ComplexContract: Contract<
++   typeof _nameComplexContract,
++   typeof _abiComplexContract,
++   undefined,
++   `0x${string}`,
++   `0x${string}`,
++   undefined
++ >;
++ // solc artifacts of compilation
++ export declare const artifacts: {
++   "ComplexContract": {
++     "abi": [
++       {
++         "type": "function",
++         "name": "transfer",
++         "inputs": [
++           {
++             "name": "to",
++             "type": "address"
++           },
++           {
++             "name": "amount",
++             "type": "uint256"
++           }
++         ],
++         "outputs": [
++           {
++             "type": "bool"
++           }
++         ],
++         "stateMutability": "nonpayable"
++       },
++       {
++         "type": "event",
++         "name": "Transfer",
++         "inputs": [
++           {
++             "name": "from",
++             "type": "address",
++             "indexed": true
++           },
++           {
++             "name": "to",
++             "type": "address",
++             "indexed": true
++           },
++           {
++             "name": "amount",
++             "type": "uint256",
++             "indexed": false
++           }
++         ],
++         "anonymous": false
++       }
++     ],
++     "evm": {
++       "bytecode": {
++         "object": "complexBytecode"
++       },
++       "deployedBytecode": {
++         "object": "complexDeployedBytecode"
++       }
++     },
++     "userdoc": {
++       "kind": "user",
++       "version": 1,
++       "notice": "A complex ERC20-like contract",
++       "methods": {
++         "transfer(address,uint256)": {
++           "notice": "Transfers tokens to the specified address"
++         }
++       }
++     },
++     "contractName": "ComplexContract"
++   }
++ };
++
+
+ ❯ src/generateTevmBodyDts.spec.ts:305:18
+    303|
+    304|   const result = runSync(generateDtsBody(complexArtifacts, true))
+    305|   expect(result).toContain('const _nameComplexContract = "ComplexContr…
+       |                  ^
+    306|   expect(result).toContain('const _abiComplexContract = [')
+    307|   // The formatted ABI strings may be different from what we expect, s…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/10]⎯
+
+ FAIL  src/generateTevmBodyDts.spec.ts > generateDtsBody > should handle artifacts with no userdoc property in declaration files
+AssertionError: expected '\n\t\t\tdeclare const _abiSimpleContr…' to contain 'const _abiSimpleContract = ['
+
+- Expected
++ Received
+
+- const _abiSimpleContract = [
++
++ 			declare const _abiSimpleContract: readonly ["function getValue() view returns (uint256)"];
++ declare const _nameSimpleContract: "SimpleContract";
++ /**
++  * SimpleContract Contract (no bytecode)
++  * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
++  * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
++  */
++ export const SimpleContract: Contract<typeof _nameSimpleContract, typeof _abiSimpleContract, undefined, undefined, undefined, undefined>;
++ // solc artifacts of compilation
++ export declare const artifacts: {
++   "SimpleContract": {
++     "abi": [
++       {
++         "type": "function",
++         "name": "getValue",
++         "inputs": [],
++         "outputs": [
++           {
++             "type": "uint256"
++           }
++         ],
++         "stateMutability": "view"
++       }
++     ],
++     "evm": {
++       "bytecode": {
++         "object": "simpleBytecode"
++       },
++       "deployedBytecode": {
++         "object": "simpleDeployedBytecode"
++       }
++     },
++     "contractName": "SimpleContract"
++   }
++ };
++
+
+ ❯ src/generateTevmBodyDts.spec.ts:336:18
+    334|
+    335|   const result = runSync(generateDtsBody(noDocsArtifact, false))
+    336|   expect(result).toContain('const _abiSimpleContract = [')
+       |                  ^
+    337|   // The exact format of the ABI may be different, so check for functi…
+    338|   expect(result).toContain('function getValue')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/10]⎯
+
+ FAIL  src/generateTevmBodyDts.spec.ts > generateDtsBody > should handle contracts with methods documentation but no method notice
+AssertionError: expected '\n\t\t\tdeclare const _namePartialDoc…' to contain 'const _namePartialDocsContract = "Par…'
+
+- Expected
++ Received
+
+- const _namePartialDocsContract = "PartialDocsContract" as const
++
++ 			declare const _namePartialDocsContract: "PartialDocsContract";
++ declare const _abiPartialDocsContract: readonly [
++   "function setValue(uint256 newValue)"
++ ];
++ /**
++  * PartialDocsContract Contract (with bytecode)
++  * @notice Contract with partial docs
++  * @property setValue(uint256) 
++  * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
++  */
++ export const PartialDocsContract: Contract<
++   typeof _namePartialDocsContract,
++   typeof _abiPartialDocsContract,
++   undefined,
++   `0x${string}`,
++   `0x${string}`,
++   undefined
++ >;
++ // solc artifacts of compilation
++ export declare const artifacts: {
++   "PartialDocsContract": {
++     "abi": [
++       {
++         "type": "function",
++         "name": "setValue",
++         "inputs": [
++           {
++             "name": "newValue",
++             "type": "uint256"
++           }
++         ],
++         "outputs": [],
++         "stateMutability": "nonpayable"
++       }
++     ],
++     "evm": {
++       "bytecode": {
++         "object": "partialBytecode"
++       },
++       "deployedBytecode": {
++         "object": "partialDeployedBytecode"
++       }
++     },
++     "userdoc": {
++       "kind": "user",
++       "version": 1,
++       "notice": "Contract with partial docs",
++       "methods": {
++         "setValue(uint256)": {}
++       }
++     },
++     "contractName": "PartialDocsContract"
++   }
++ };
++
+
+ ❯ src/generateTevmBodyDts.spec.ts:374:18
+    372|
+    373|   const result = runSync(generateDtsBody(partialDocsArtifact, true))
+    374|   expect(result).toContain('const _namePartialDocsContract = "PartialD…
+       |                  ^
+    375|   expect(result).toContain('* @notice Contract with partial docs')
+    376|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/10]⎯
+
+ FAIL  src/generateTevmBodyDts.spec.ts > generateDtsBody > should handle contracts with empty ABI in declaration files
+AssertionError: expected '\n\t\t\tdeclare const _nameEmptyAbiCo…' to contain 'const _abiEmptyAbiContract = [] as co…'
+
+- Expected
++ Received
+
+- const _abiEmptyAbiContract = [] as const
++
++ 			declare const _nameEmptyAbiContract: "EmptyAbiContract";
++ declare const _abiEmptyAbiContract: readonly [];
++ /**
++  * EmptyAbiContract Contract (with bytecode)
++  * @notice A contract with no functions
++  * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
++  */
++ export const EmptyAbiContract: Contract<
++   typeof _nameEmptyAbiContract,
++   typeof _abiEmptyAbiContract,
++   undefined,
++   `0x${string}`,
++   `0x${string}`,
++   undefined
++ >;
++ // solc artifacts of compilation
++ export declare const artifacts: {
++   "EmptyAbiContract": {
++     "abi": [],
++     "evm": {
++       "bytecode": {
++         "object": "emptyBytecode"
++       },
++       "deployedBytecode": {
++         "object": "emptyDeployedBytecode"
++       }
++     },
++     "userdoc": {
++       "kind": "user",
++       "version": 1,
++       "notice": "A contract with no functions"
++     },
++     "contractName": "EmptyAbiContract"
++   }
++ };
++
+
+ ❯ src/generateTevmBodyDts.spec.ts:401:30
+    399|
+    400|   const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact,…
+    401|   expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = […
+       |                              ^
+    402|   expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (w…
+    403|   expect(resultWithBytecode).toContain('* @notice A contract with no f…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/10]⎯
+
+
+  Snapshots  4 failed
+ Test Files  4 failed | 4 passed (8)
+      Tests  10 failed | 46 passed (56)
+   Start at  20:23:06
+   Duration  403ms (transform 515ms, setup 0ms, import 1.19s, tests 68ms, environment 1ms)
+
+ ELIFECYCLE  Command failed with exit code 1.
+
+codex
+The failures are concentrated in declaration output expectations: `.d.ts` generation now emits `declare const ...: readonly ...` and `export declare const artifacts`, while tests still expect runtime-style `const ... = ... as const`. I’m going to let Vitest update the inline snapshots, then patch the remaining explicit `toContain` checks by hand.
+exec
+/bin/zsh -lc 'pnpm test:run -u' in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+ exited 1 in 924ms:
+
+> @tevm/runtime@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+> vitest run -u
+
+
+ RUN  v4.1.6 /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+
+ ❯ src/extended-tests.spec.ts (10 tests | 1 failed) 8ms
+     × should handle complex nested structs and arrays in ABI 4ms
+ ❯ src/generateTevmBody.spec.ts (18 tests | 1 failed) 10ms
+     × should handle artifacts with userdoc.methods but no method notice 3ms
+ ❯ src/generateTevmBodyDts.spec.ts (6 tests | 4 failed) 10ms
+     × should handle complex ABI correctly in declaration files 3ms
+     × should handle artifacts with no userdoc property in declaration files 1ms
+     × should handle contracts with methods documentation but no method notice 1ms
+     × should handle contracts with empty ABI in declaration files 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/extended-tests.spec.ts > Advanced Code Generation Tests > should handle complex nested structs and arrays in ABI
+AssertionError: expected '\n\t\t\tdeclare const _nameComplexStr…' to contain 'const _nameComplexStructsContract = "…'
+
+- Expected
++ Received
+
+- const _nameComplexStructsContract = "ComplexStructsContract" as const
++
++ 			declare const _nameComplexStructsContract: "ComplexStructsContract";
++ declare const _abiComplexStructsContract: readonly [
++   "function complexStructFunction((uint256 value, string name, (bool flag, uint256[] values) nestedStruct) structParam, (uint256 id, bool enabled)[] structArrayParam) returns (bool)"
++ ];
++ /**
++  * ComplexStructsContract Contract (with bytecode)
++  * @notice Contract with complex nested structs
++  * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
++  */
++ export const ComplexStructsContract: Contract<
++   typeof _nameComplexStructsContract,
++   typeof _abiComplexStructsContract,
++   undefined,
++   `0x${string}`,
++   `0x${string}`,
++   undefined
++ >;
++ // solc artifacts of compilation
++ export declare const artifacts: {
++   "ComplexStructsContract": {
++     "abi": [
++       {
++         "type": "function",
++         "name": "complexStructFunction",
++         "inputs": [
++           {
++             "name": "structParam",
++             "type": "tuple",
++             "components": [
++               {
++                 "name": "value",
++                 "type": "uint256"
++               },
++               {
++                 "name": "name",
++                 "type": "string"
++               },
++               {
++                 "name": "nestedStruct",
++                 "type": "tuple",
++                 "components": [
++                   {
++                     "name": "flag",
++                     "type": "bool"
++                   },
++                   {
++                     "name": "values",
++                     "type": "uint256[]"
++                   }
++                 ]
++               }
++             ]
++           },
++           {
++             "name": "structArrayParam",
++             "type": "tuple[]",
++             "components": [
++               {
++                 "name": "id",
++                 "type": "uint256"
++               },
++               {
++                 "name": "enabled",
++                 "type": "bool"
++               }
++             ]
++           }
++         ],
++         "outputs": [
++           {
++             "type": "bool"
++           }
++         ],
++         "stateMutability": "nonpayable"
++       }
++     ],
++     "evm": {
++       "bytecode": {
++         "object": "complexStructsBytecode"
++       },
++       "deployedBytecode": {
++         "object": "complexStructsDeployedBytecode"
++       }
++     },
++     "userdoc": {
++       "kind": "user",
++       "version": 1,
++       "notice": "Contract with complex nested structs"
++     },
++     "contractName": "ComplexStructsContract"
++   }
++ };
++
+
+ ❯ src/extended-tests.spec.ts:103:21
+    101|   // Also test DTS generation with complex structs
+    102|   const dtsResult = runSync(generateDtsBody(complexStructsArtifact, tr…
+    103|   expect(dtsResult).toContain('const _nameComplexStructsContract = "Co…
+       |                     ^
+    104|   expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+    105|  })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  src/generateTevmBody.spec.ts > generateTevmBody > should handle artifacts with userdoc.methods but no method notice
+AssertionError: expected 'const _PartialDocsContract = {\n  "na…' to contain '* @property setValue(uint256) undefin…'
+
+- Expected
++ Received
+
+- * @property setValue(uint256) undefined
++ const _PartialDocsContract = {
++   "name": "PartialDocsContract",
++   "humanReadableAbi": [
++     "function setValue(uint256 newValue)"
++   ],
++   "bytecode": "0xpartialBytecode",
++   "deployedBytecode": "0xpartialDeployedBytecode"
++ } as const
++ /**
++  * @property setValue(uint256) 
++  * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
++  */
++ export const PartialDocsContract = createContract(_PartialDocsContract);
++ export const artifacts = {
++   "PartialDocsContract": {
++     "abi": [
++       {
++         "type": "function",
++         "name": "setValue",
++         "inputs": [
++           {
++             "name": "newValue",
++             "type": "uint256"
++           }
++         ],
++         "outputs": [],
++         "stateMutability": "nonpayable"
++       }
++     ],
++     "evm": {
++       "bytecode": {
++         "object": "partialBytecode"
++       },
++       "deployedBytecode": {
++         "object": "partialDeployedBytecode"
++       }
++     },
++     "userdoc": {
++       "kind": "user",
++       "version": 1,
++       "methods": {
++         "setValue(uint256)": {}
++       }
++     },
++     "contractName": "PartialDocsContract"
++   }
++ };
+
+ ❯ src/generateTevmBody.spec.ts:614:19
+    612|   // This is actually expected in the implementation, because the meth…
+    613|   if (result.includes('* @property setValue(uint256)')) {
+    614|    expect(result).toContain('* @property setValue(uint256) undefined')
+       |                   ^
+    615|   }
+    616|  })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  src/generateTevmBodyDts.spec.ts > generateDtsBody > should handle complex ABI correctly in declaration files
+AssertionError: expected '\n\t\t\tdeclare const _nameComplexCon…' to contain 'const _nameComplexContract = "Complex…'
+
+- Expected
++ Received
+
+- const _nameComplexContract = "ComplexContract" as const
++
++ 			declare const _nameComplexContract: "ComplexContract";
++ declare const _abiComplexContract: readonly [
++   "function transfer(address to, uint256 amount) returns (bool)",
++   "event Transfer(address indexed from, address indexed to, uint256 amount)"
++ ];
++ /**
++  * ComplexContract Contract (with bytecode)
++  * @notice A complex ERC20-like contract
++  * @property transfer(address,uint256) Transfers tokens to the specified address
++  * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
++  */
++ export const ComplexContract: Contract<
++   typeof _nameComplexContract,
++   typeof _abiComplexContract,
++   undefined,
++   `0x${string}`,
++   `0x${string}`,
++   undefined
++ >;
++ // solc artifacts of compilation
++ export declare const artifacts: {
++   "ComplexContract": {
++     "abi": [
++       {
++         "type": "function",
++         "name": "transfer",
++         "inputs": [
++           {
++             "name": "to",
++             "type": "address"
++           },
++           {
++             "name": "amount",
++             "type": "uint256"
++           }
++         ],
++         "outputs": [
++           {
++             "type": "bool"
++           }
++         ],
++         "stateMutability": "nonpayable"
++       },
++       {
++         "type": "event",
++         "name": "Transfer",
++         "inputs": [
++           {
++             "name": "from",
++             "type": "address",
++             "indexed": true
++           },
++           {
++             "name": "to",
++             "type": "address",
++             "indexed": true
++           },
++           {
++             "name": "amount",
++             "type": "uint256",
++             "indexed": false
++           }
++         ],
++         "anonymous": false
++       }
++     ],
++     "evm": {
++       "bytecode": {
++         "object": "complexBytecode"
++       },
++       "deployedBytecode": {
++         "object": "complexDeployedBytecode"
++       }
++     },
++     "userdoc": {
++       "kind": "user",
++       "version": 1,
++       "notice": "A complex ERC20-like contract",
++       "methods": {
++         "transfer(address,uint256)": {
++           "notice": "Transfers tokens to the specified address"
++         }
++       }
++     },
++     "contractName": "ComplexContract"
++   }
++ };
++
+
+ ❯ src/generateTevmBodyDts.spec.ts:305:18
+    303|
+    304|   const result = runSync(generateDtsBody(complexArtifacts, true))
+    305|   expect(result).toContain('const _nameComplexContract = "ComplexContr…
+       |                  ^
+    306|   expect(result).toContain('const _abiComplexContract = [')
+    307|   // The formatted ABI strings may be different from what we expect, s…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  src/generateTevmBodyDts.spec.ts > generateDtsBody > should handle artifacts with no userdoc property in declaration files
+AssertionError: expected '\n\t\t\tdeclare const _abiSimpleContr…' to contain 'const _abiSimpleContract = ['
+
+- Expected
++ Received
+
+- const _abiSimpleContract = [
++
++ 			declare const _abiSimpleContract: readonly ["function getValue() view returns (uint256)"];
++ declare const _nameSimpleContract: "SimpleContract";
++ /**
++  * SimpleContract Contract (no bytecode)
++  * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
++  * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
++  */
++ export const SimpleContract: Contract<typeof _nameSimpleContract, typeof _abiSimpleContract, undefined, undefined, undefined, undefined>;
++ // solc artifacts of compilation
++ export declare const artifacts: {
++   "SimpleContract": {
++     "abi": [
++       {
++         "type": "function",
++         "name": "getValue",
++         "inputs": [],
++         "outputs": [
++           {
++             "type": "uint256"
++           }
++         ],
++         "stateMutability": "view"
++       }
++     ],
++     "evm": {
++       "bytecode": {
++         "object": "simpleBytecode"
++       },
++       "deployedBytecode": {
++         "object": "simpleDeployedBytecode"
++       }
++     },
++     "contractName": "SimpleContract"
++   }
++ };
++
+
+ ❯ src/generateTevmBodyDts.spec.ts:336:18
+    334|
+    335|   const result = runSync(generateDtsBody(noDocsArtifact, false))
+    336|   expect(result).toContain('const _abiSimpleContract = [')
+       |                  ^
+    337|   // The exact format of the ABI may be different, so check for functi…
+    338|   expect(result).toContain('function getValue')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  src/generateTevmBodyDts.spec.ts > generateDtsBody > should handle contracts with methods documentation but no method notice
+AssertionError: expected '\n\t\t\tdeclare const _namePartialDoc…' to contain 'const _namePartialDocsContract = "Par…'
+
+- Expected
++ Received
+
+- const _namePartialDocsContract = "PartialDocsContract" as const
++
++ 			declare const _namePartialDocsContract: "PartialDocsContract";
++ declare const _abiPartialDocsContract: readonly [
++   "function setValue(uint256 newValue)"
++ ];
++ /**
++  * PartialDocsContract Contract (with bytecode)
++  * @notice Contract with partial docs
++  * @property setValue(uint256) 
++  * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
++  */
++ export const PartialDocsContract: Contract<
++   typeof _namePartialDocsContract,
++   typeof _abiPartialDocsContract,
++   undefined,
++   `0x${string}`,
++   `0x${string}`,
++   undefined
++ >;
++ // solc artifacts of compilation
++ export declare const artifacts: {
++   "PartialDocsContract": {
++     "abi": [
++       {
++         "type": "function",
++         "name": "setValue",
++         "inputs": [
++           {
++             "name": "newValue",
++             "type": "uint256"
++           }
++         ],
++         "outputs": [],
++         "stateMutability": "nonpayable"
++       }
++     ],
++     "evm": {
++       "bytecode": {
++         "object": "partialBytecode"
++       },
++       "deployedBytecode": {
++         "object": "partialDeployedBytecode"
++       }
++     },
++     "userdoc": {
++       "kind": "user",
++       "version": 1,
++       "notice": "Contract with partial docs",
++       "methods": {
++         "setValue(uint256)": {}
++       }
++     },
++     "contractName": "PartialDocsContract"
++   }
++ };
++
+
+ ❯ src/generateTevmBodyDts.spec.ts:374:18
+    372|
+    373|   const result = runSync(generateDtsBody(partialDocsArtifact, true))
+    374|   expect(result).toContain('const _namePartialDocsContract = "PartialD…
+       |                  ^
+    375|   expect(result).toContain('* @notice Contract with partial docs')
+    376|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  src/generateTevmBodyDts.spec.ts > generateDtsBody > should handle contracts with empty ABI in declaration files
+AssertionError: expected '\n\t\t\tdeclare const _nameEmptyAbiCo…' to contain 'const _abiEmptyAbiContract = [] as co…'
+
+- Expected
++ Received
+
+- const _abiEmptyAbiContract = [] as const
++
++ 			declare const _nameEmptyAbiContract: "EmptyAbiContract";
++ declare const _abiEmptyAbiContract: readonly [];
++ /**
++  * EmptyAbiContract Contract (with bytecode)
++  * @notice A contract with no functions
++  * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
++  */
++ export const EmptyAbiContract: Contract<
++   typeof _nameEmptyAbiContract,
++   typeof _abiEmptyAbiContract,
++   undefined,
++   `0x${string}`,
++   `0x${string}`,
++   undefined
++ >;
++ // solc artifacts of compilation
++ export declare const artifacts: {
++   "EmptyAbiContract": {
++     "abi": [],
++     "evm": {
++       "bytecode": {
++         "object": "emptyBytecode"
++       },
++       "deployedBytecode": {
++         "object": "emptyDeployedBytecode"
++       }
++     },
++     "userdoc": {
++       "kind": "user",
++       "version": 1,
++       "notice": "A contract with no functions"
++     },
++     "contractName": "EmptyAbiContract"
++   }
++ };
++
+
+ ❯ src/generateTevmBodyDts.spec.ts:401:30
+    399|
+    400|   const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact,…
+    401|   expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = […
+       |                              ^
+    402|   expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (w…
+    403|   expect(resultWithBytecode).toContain('* @notice A contract with no f…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+  Snapshots  4 updated 
+ Test Files  3 failed | 5 passed (8)
+      Tests  6 failed | 50 passed (56)
+   Start at  20:23:19
+   Duration  242ms (transform 239ms, setup 0ms, import 599ms, tests 45ms, environment 0ms)
+
+ ELIFECYCLE  Command failed with exit code 1.
+
+exec
+/bin/zsh -lc "nl -ba src/extended-tests.spec.ts | sed -n '80,115p'" in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+exec
+/bin/zsh -lc "nl -ba src/generateTevmBodyDts.spec.ts | sed -n '280,420p'" in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+ succeeded in 0ms:
+    80					],
+    81					evm: {
+    82						bytecode: { object: 'complexStructsBytecode' },
+    83						deployedBytecode: { object: 'complexStructsDeployedBytecode' },
+    84					},
+    85					userdoc: {
+    86						kind: 'user',
+    87						version: 1,
+    88						notice: 'Contract with complex nested structs',
+    89					},
+    90					contractName: 'ComplexStructsContract',
+    91				},
+    92			})
+    93	
+    94			const result = runSync(generateTevmBody(complexStructsArtifact, 'ts', true))
+    95			expect(result).toContain('"name": "ComplexStructsContract"')
+    96			expect(result).toContain('function complexStructFunction(')
+    97			expect(result).toContain('structParam')
+    98			expect(result).toContain('structArrayParam')
+    99			expect(result).toContain('* Contract with complex nested structs')
+   100	
+   101			// Also test DTS generation with complex structs
+   102			const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+   103			expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
+   104			expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+   105		})
+   106	
+   107		it('should handle overloaded functions in ABI', () => {
+   108			const overloadedFunctionsArtifact = createTestArtifacts({
+   109				OverloadedContract: {
+   110					abi: [
+   111						{
+   112							type: 'function',
+   113							name: 'transfer',
+   114							inputs: [
+   115								{ name: 'to', type: 'address' },
+
+ succeeded in 0ms:
+   280								{ name: 'to', type: 'address', indexed: true },
+   281								{ name: 'amount', type: 'uint256', indexed: false },
+   282							],
+   283							anonymous: false,
+   284						},
+   285					],
+   286					evm: {
+   287						bytecode: { object: 'complexBytecode' },
+   288						deployedBytecode: { object: 'complexDeployedBytecode' },
+   289					},
+   290					userdoc: {
+   291						kind: 'user',
+   292						version: 1,
+   293						notice: 'A complex ERC20-like contract',
+   294						methods: {
+   295							'transfer(address,uint256)': {
+   296								notice: 'Transfers tokens to the specified address',
+   297							},
+   298						},
+   299					},
+   300					contractName: 'ComplexContract',
+   301				},
+   302			})
+   303	
+   304			const result = runSync(generateDtsBody(complexArtifacts, true))
+   305			expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+   306			expect(result).toContain('const _abiComplexContract = [')
+   307			// The formatted ABI strings may be different from what we expect, so check for contained parts
+   308			expect(result).toContain('function transfer')
+   309			expect(result).toContain('event Transfer')
+   310			expect(result).toContain('* @notice A complex ERC20-like contract')
+   311			expect(result).toContain('* @property transfer(address,uint256) Transfers tokens to the specified address')
+   312		})
+   313	
+   314		it('should handle artifacts with no userdoc property in declaration files', () => {
+   315			const noDocsArtifact = createTestArtifacts({
+   316				SimpleContract: {
+   317					abi: [
+   318						{
+   319							type: 'function',
+   320							name: 'getValue',
+   321							inputs: [],
+   322							outputs: [{ type: 'uint256' }],
+   323							stateMutability: 'view',
+   324						},
+   325					],
+   326					evm: {
+   327						bytecode: { object: 'simpleBytecode' },
+   328						deployedBytecode: { object: 'simpleDeployedBytecode' },
+   329					},
+   330					// No userdoc property
+   331					contractName: 'SimpleContract',
+   332				},
+   333			})
+   334	
+   335			const result = runSync(generateDtsBody(noDocsArtifact, false))
+   336			expect(result).toContain('const _abiSimpleContract = [')
+   337			// The exact format of the ABI may be different, so check for function name instead
+   338			expect(result).toContain('function getValue')
+   339			expect(result).toContain('* SimpleContract Contract (no bytecode)')
+   340			expect(result).not.toContain('* @notice')
+   341			expect(result).not.toContain('* @property')
+   342		})
+   343	
+   344		it('should handle contracts with methods documentation but no method notice', () => {
+   345			const partialDocsArtifact = createTestArtifacts({
+   346				PartialDocsContract: {
+   347					abi: [
+   348						{
+   349							type: 'function',
+   350							name: 'setValue',
+   351							inputs: [{ name: 'newValue', type: 'uint256' }],
+   352							outputs: [],
+   353							stateMutability: 'nonpayable',
+   354						},
+   355					],
+   356					evm: {
+   357						bytecode: { object: 'partialBytecode' },
+   358						deployedBytecode: { object: 'partialDeployedBytecode' },
+   359					},
+   360					userdoc: {
+   361						kind: 'user',
+   362						version: 1,
+   363						notice: 'Contract with partial docs',
+   364						methods: {
+   365							// Method exists but has no notice property
+   366							'setValue(uint256)': {},
+   367						},
+   368					},
+   369					contractName: 'PartialDocsContract',
+   370				},
+   371			})
+   372	
+   373			const result = runSync(generateDtsBody(partialDocsArtifact, true))
+   374			expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
+   375			expect(result).toContain('* @notice Contract with partial docs')
+   376	
+   377			// The implementation will include @property with undefined, let's accept both outcomes
+   378			if (result.includes('* @property setValue(uint256)')) {
+   379				expect(result).toContain('* @property setValue(uint256) undefined')
+   380			}
+   381		})
+   382	
+   383		it('should handle contracts with empty ABI in declaration files', () => {
+   384			const emptyAbiArtifact = createTestArtifacts({
+   385				EmptyAbiContract: {
+   386					abi: [], // Empty ABI
+   387					evm: {
+   388						bytecode: { object: 'emptyBytecode' },
+   389						deployedBytecode: { object: 'emptyDeployedBytecode' },
+   390					},
+   391					userdoc: {
+   392						kind: 'user',
+   393						version: 1,
+   394						notice: 'A contract with no functions',
+   395					},
+   396					contractName: 'EmptyAbiContract',
+   397				},
+   398			})
+   399	
+   400			const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+   401			expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
+   402			expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+   403			expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+   404			expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+   405			expect(resultWithBytecode).toContain('`0x${string}`')
+   406	
+   407			const resultWithoutBytecode = runSync(generateDtsBody(emptyAbiArtifact, false))
+   408			expect(resultWithoutBytecode).toContain('* EmptyAbiContract Contract (no bytecode)')
+   409			expect(resultWithoutBytecode).toContain("change file name or add file that ends in '.s.sol' extension")
+   410			expect(resultWithoutBytecode).toContain('undefined, undefined, undefined')
+   411		})
+   412	})
+
+exec
+/bin/zsh -lc 'rg -n "as const|undefined|const _name|const _abi|export const artifacts|declare const" src/*.spec.ts src/__snapshots__' in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+ succeeded in 0ms:
+src/extended-tests.spec.ts:103:		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
+src/generateRuntime.spec.ts:98:						declare const _abiMyContract: readonly ["constructor() payable"];
+src/generateRuntime.spec.ts:99:			declare const _nameMyContract: "MyContract";
+src/generateRuntime.spec.ts:107:			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
+src/generateRuntime.spec.ts:109:			export declare const artifacts: {
+src/generateRuntime.spec.ts:148:			} as const
+src/generateRuntime.spec.ts:155:			export const artifacts = {
+src/generateRuntime.spec.ts:200:			export const artifacts = {
+src/generateRuntime.spec.ts:402:		expect(result).toContain('as const')
+src/generateTevmBodyDts.spec.ts:57:	} as const
+src/generateTevmBodyDts.spec.ts:62:						declare const _abiMyContract: readonly ["constructor() payable"];
+src/generateTevmBodyDts.spec.ts:63:			declare const _nameMyContract: "MyContract";
+src/generateTevmBodyDts.spec.ts:71:			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
+src/generateTevmBodyDts.spec.ts:72:			declare const _abiAnotherContract: readonly [];
+src/generateTevmBodyDts.spec.ts:73:			declare const _nameAnotherContract: "AnotherContract";
+src/generateTevmBodyDts.spec.ts:80:			export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined, undefined, undefined>;
+src/generateTevmBodyDts.spec.ts:81:			declare const _abiMissingContract: readonly [];
+src/generateTevmBodyDts.spec.ts:82:			declare const _nameMissingContract: "MissingContract";
+src/generateTevmBodyDts.spec.ts:90:			export const MissingContract: Contract<typeof _nameMissingContract, typeof _abiMissingContract, undefined, undefined, undefined, undefined>;
+src/generateTevmBodyDts.spec.ts:92:			export declare const artifacts: {
+src/generateTevmBodyDts.spec.ts:153:						declare const _nameMyContract: "MyContract";
+src/generateTevmBodyDts.spec.ts:154:			declare const _abiMyContract: readonly [
+src/generateTevmBodyDts.spec.ts:166:			  undefined,
+src/generateTevmBodyDts.spec.ts:167:			  undefined,
+src/generateTevmBodyDts.spec.ts:168:			  undefined,
+src/generateTevmBodyDts.spec.ts:169:			  undefined
+src/generateTevmBodyDts.spec.ts:171:			declare const _nameAnotherContract: "AnotherContract";
+src/generateTevmBodyDts.spec.ts:172:			declare const _abiAnotherContract: readonly [];
+src/generateTevmBodyDts.spec.ts:181:			  undefined,
+src/generateTevmBodyDts.spec.ts:182:			  undefined,
+src/generateTevmBodyDts.spec.ts:183:			  undefined,
+src/generateTevmBodyDts.spec.ts:184:			  undefined
+src/generateTevmBodyDts.spec.ts:186:			declare const _nameMissingContract: "MissingContract";
+src/generateTevmBodyDts.spec.ts:187:			declare const _abiMissingContract: readonly [];
+src/generateTevmBodyDts.spec.ts:197:			  undefined,
+src/generateTevmBodyDts.spec.ts:198:			  undefined,
+src/generateTevmBodyDts.spec.ts:199:			  undefined,
+src/generateTevmBodyDts.spec.ts:200:			  undefined
+src/generateTevmBodyDts.spec.ts:203:			export declare const artifacts: {
+src/generateTevmBodyDts.spec.ts:305:		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+src/generateTevmBodyDts.spec.ts:306:		expect(result).toContain('const _abiComplexContract = [')
+src/generateTevmBodyDts.spec.ts:336:		expect(result).toContain('const _abiSimpleContract = [')
+src/generateTevmBodyDts.spec.ts:374:		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
+src/generateTevmBodyDts.spec.ts:377:		// The implementation will include @property with undefined, let's accept both outcomes
+src/generateTevmBodyDts.spec.ts:379:			expect(result).toContain('* @property setValue(uint256) undefined')
+src/generateTevmBodyDts.spec.ts:401:		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
+src/generateTevmBodyDts.spec.ts:410:		expect(resultWithoutBytecode).toContain('undefined, undefined, undefined')
+src/generateTevmBody.spec.ts:50:	} as const
+src/generateTevmBody.spec.ts:132:			export const artifacts = {
+src/generateTevmBody.spec.ts:192:			} as const
+src/generateTevmBody.spec.ts:199:			export const artifacts = {
+src/generateTevmBody.spec.ts:243:			} as const
+src/generateTevmBody.spec.ts:257:						declare const _abiMyContract: readonly [];
+src/generateTevmBody.spec.ts:258:			declare const _nameMyContract: "MyContract";
+src/generateTevmBody.spec.ts:266:			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
+src/generateTevmBody.spec.ts:267:			declare const _abiAnotherContract: readonly [];
+src/generateTevmBody.spec.ts:268:			declare const _nameAnotherContract: "AnotherContract";
+src/generateTevmBody.spec.ts:275:			export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined, undefined, undefined>;
+src/generateTevmBody.spec.ts:277:			export declare const artifacts: {
+src/generateTevmBody.spec.ts:337:			export const artifacts = {
+src/generateTevmBody.spec.ts:399:		expect(result).toContain('as const')
+src/generateTevmBody.spec.ts:464:		// Should not include undefined bytecode
+src/generateTevmBody.spec.ts:465:		expect(result).not.toContain('"bytecode": undefined')
+src/generateTevmBody.spec.ts:466:		expect(result).not.toContain('"deployedBytecode": undefined')
+src/generateTevmBody.spec.ts:538:		expect(tsResult).toContain('as const')
+src/generateTevmBody.spec.ts:574:		expect(result).not.toContain('undefined')
+src/generateTevmBody.spec.ts:611:		// Check if property doc exists with undefined value - either way is fine
+src/generateTevmBody.spec.ts:614:			expect(result).toContain('* @property setValue(uint256) undefined')
+src/__snapshots__/extended-tests.spec.ts.snap:11:} as const
+src/__snapshots__/extended-tests.spec.ts.snap:19:export const artifacts = {
+
+exec
+/bin/zsh -lc "nl -ba src/generateTevmBody.spec.ts | sed -n '590,620p'" in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+ succeeded in 0ms:
+   590						bytecode: { object: 'partialBytecode' },
+   591						deployedBytecode: { object: 'partialDeployedBytecode' },
+   592					},
+   593					userdoc: {
+   594						kind: 'user',
+   595						version: 1,
+   596						methods: {
+   597							// Method exists but has no notice property
+   598							'setValue(uint256)': {},
+   599						},
+   600					},
+   601					contractName: 'PartialDocsContract',
+   602				},
+   603			})
+   604	
+   605			const result = runSync(generateTevmBody(incompleteDocsArtifact, 'ts', true))
+   606			// Should not crash due to missing notice
+   607			expect(result).toContain('"name": "PartialDocsContract"')
+   608			expect(result).toContain('"humanReadableAbi": [')
+   609			expect(result).toContain('function setValue(uint256 newValue)')
+   610	
+   611			// Check if property doc exists with undefined value - either way is fine
+   612			// This is actually expected in the implementation, because the method exists with an empty notice
+   613			if (result.includes('* @property setValue(uint256)')) {
+   614				expect(result).toContain('* @property setValue(uint256) undefined')
+   615			}
+   616		})
+   617	})
+   618	
+   619	it('should handle contracts with special characters in names', () => {
+   620		const specialCharsArtifact = createTestArtifacts({
+
+codex
+The snapshot refresh handled four inline snapshots. The remaining failures are all hard-coded substring checks, so I’m narrowing those to the new declaration output and removing expectations that missing NatSpec notices render as the literal string `undefined`.
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/bundler-packages/runtime/src/extended-tests.spec.ts
+/Users/williamcory/tevm-monorepo/bundler-packages/runtime/src/generateTevmBody.spec.ts
+/Users/williamcory/tevm-monorepo/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+  ✓ Run runtime package tests
+  ✓ Inspect failing assertions and source behavior
+  ✓ Patch runtime tests or scoped source only
+  → Re-run tests until green or documented
+  • Write T06 report
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+exec
+/bin/zsh -lc 'pnpm test:run' in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+ succeeded in 820ms:
+
+> @tevm/runtime@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+> vitest run
+
+
+ RUN  v4.1.6 /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+
+
+ Test Files  8 passed (8)
+      Tests  56 passed (56)
+   Start at  20:23:54
+   Duration  220ms (transform 276ms, setup 0ms, import 620ms, tests 34ms, environment 0ms)
+
+
+codex
+`pnpm test:run` is now green: 8 files and 56 tests pass. I’m collecting the exact changed line references for the report; the only remaining wrinkle is that the requested report path is outside the declared package scope, but the report itself is part of the dispatcher contract.
+exec
+/bin/zsh -lc "find . -path './node_modules' -prune -o -path './.review-slices' -type d -print -o -path './bundler-packages/runtime/.review-slices' -type d -print" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "nl -ba src/extended-tests.spec.ts | sed -n '98,106p'" in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+exec
+/bin/zsh -lc "nl -ba src/generateTevmBodyDts.spec.ts | sed -n '304,410p'" in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+exec
+/bin/zsh -lc "nl -ba src/generateTevmBody.spec.ts | sed -n '605,616p'" in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+ succeeded in 0ms:
+   605			const result = runSync(generateTevmBody(incompleteDocsArtifact, 'ts', true))
+   606			// Should not crash due to missing notice
+   607			expect(result).toContain('"name": "PartialDocsContract"')
+   608			expect(result).toContain('"humanReadableAbi": [')
+   609			expect(result).toContain('function setValue(uint256 newValue)')
+   610	
+   611			// Missing method notices should not be rendered as the literal string "undefined".
+   612			if (result.includes('* @property setValue(uint256)')) {
+   613				expect(result).not.toContain('* @property setValue(uint256) undefined')
+   614			}
+   615		})
+   616	})
+
+ succeeded in 0ms:
+   304			const result = runSync(generateDtsBody(complexArtifacts, true))
+   305			expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
+   306			expect(result).toContain('declare const _abiComplexContract: readonly [')
+   307			// The formatted ABI strings may be different from what we expect, so check for contained parts
+   308			expect(result).toContain('function transfer')
+   309			expect(result).toContain('event Transfer')
+   310			expect(result).toContain('* @notice A complex ERC20-like contract')
+   311			expect(result).toContain('* @property transfer(address,uint256) Transfers tokens to the specified address')
+   312		})
+   313	
+   314		it('should handle artifacts with no userdoc property in declaration files', () => {
+   315			const noDocsArtifact = createTestArtifacts({
+   316				SimpleContract: {
+   317					abi: [
+   318						{
+   319							type: 'function',
+   320							name: 'getValue',
+   321							inputs: [],
+   322							outputs: [{ type: 'uint256' }],
+   323							stateMutability: 'view',
+   324						},
+   325					],
+   326					evm: {
+   327						bytecode: { object: 'simpleBytecode' },
+   328						deployedBytecode: { object: 'simpleDeployedBytecode' },
+   329					},
+   330					// No userdoc property
+   331					contractName: 'SimpleContract',
+   332				},
+   333			})
+   334	
+   335			const result = runSync(generateDtsBody(noDocsArtifact, false))
+   336			expect(result).toContain('declare const _abiSimpleContract: readonly')
+   337			// The exact format of the ABI may be different, so check for function name instead
+   338			expect(result).toContain('function getValue')
+   339			expect(result).toContain('* SimpleContract Contract (no bytecode)')
+   340			expect(result).not.toContain('* @notice')
+   341			expect(result).not.toContain('* @property')
+   342		})
+   343	
+   344		it('should handle contracts with methods documentation but no method notice', () => {
+   345			const partialDocsArtifact = createTestArtifacts({
+   346				PartialDocsContract: {
+   347					abi: [
+   348						{
+   349							type: 'function',
+   350							name: 'setValue',
+   351							inputs: [{ name: 'newValue', type: 'uint256' }],
+   352							outputs: [],
+   353							stateMutability: 'nonpayable',
+   354						},
+   355					],
+   356					evm: {
+   357						bytecode: { object: 'partialBytecode' },
+   358						deployedBytecode: { object: 'partialDeployedBytecode' },
+   359					},
+   360					userdoc: {
+   361						kind: 'user',
+   362						version: 1,
+   363						notice: 'Contract with partial docs',
+   364						methods: {
+   365							// Method exists but has no notice property
+   366							'setValue(uint256)': {},
+   367						},
+   368					},
+   369					contractName: 'PartialDocsContract',
+   370				},
+   371			})
+   372	
+   373			const result = runSync(generateDtsBody(partialDocsArtifact, true))
+   374			expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+   375			expect(result).toContain('* @notice Contract with partial docs')
+   376	
+   377			// Missing method notices should not be rendered as the literal string "undefined".
+   378			if (result.includes('* @property setValue(uint256)')) {
+   379				expect(result).not.toContain('* @property setValue(uint256) undefined')
+   380			}
+   381		})
+   382	
+   383		it('should handle contracts with empty ABI in declaration files', () => {
+   384			const emptyAbiArtifact = createTestArtifacts({
+   385				EmptyAbiContract: {
+   386					abi: [], // Empty ABI
+   387					evm: {
+   388						bytecode: { object: 'emptyBytecode' },
+   389						deployedBytecode: { object: 'emptyDeployedBytecode' },
+   390					},
+   391					userdoc: {
+   392						kind: 'user',
+   393						version: 1,
+   394						notice: 'A contract with no functions',
+   395					},
+   396					contractName: 'EmptyAbiContract',
+   397				},
+   398			})
+   399	
+   400			const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+   401			expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+   402			expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+   403			expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+   404			expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+   405			expect(resultWithBytecode).toContain('`0x${string}`')
+   406	
+   407			const resultWithoutBytecode = runSync(generateDtsBody(emptyAbiArtifact, false))
+   408			expect(resultWithoutBytecode).toContain('* EmptyAbiContract Contract (no bytecode)')
+   409			expect(resultWithoutBytecode).toContain("change file name or add file that ends in '.s.sol' extension")
+   410			expect(resultWithoutBytecode).toContain('undefined, undefined, undefined')
+
+ succeeded in 0ms:
+    98			expect(result).toContain('structArrayParam')
+    99			expect(result).toContain('* Contract with complex nested structs')
+   100	
+   101			// Also test DTS generation with complex structs
+   102			const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+   103			expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+   104			expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+   105		})
+   106	
+
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+ succeeded in 5664ms:
+./.review-slices
+
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+exec
+/bin/zsh -lc 'find . -type f -mmin -10 -print | sort' in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+ succeeded in 0ms:
+./node_modules/.vite/vitest/da39a3ee5e6b4b0d3255bfef95601890afd80709/results.json
+./src/extended-tests.spec.ts
+./src/generateRuntime.spec.ts
+./src/generateTevmBody.spec.ts
+./src/generateTevmBodyDts.spec.ts
+
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+exec
+/bin/zsh -lc "test -f .review-slices/T06.fix.md && nl -ba .review-slices/T06.fix.md | sed -n '1,120p' || true" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+exec
+/bin/zsh -lc "nl -ba src/generateTevmBody.spec.ts | sed -n '250,285p'" in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+exec
+/bin/zsh -lc "nl -ba src/generateRuntime.spec.ts | sed -n '90,115p'" in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+ succeeded in 0ms:
+    90			`)
+    91		})
+    92	
+    93		it('should handle dts module type', () => {
+    94			const result = runSync(generateRuntime(artifacts, 'dts', false, '@tevm/contract'))
+    95			expect(result).toMatchInlineSnapshot(`
+    96				"import type { Contract } from '@tevm/contract'
+    97	
+    98							declare const _abiMyContract: readonly ["constructor() payable"];
+    99				declare const _nameMyContract: "MyContract";
+   100				/**
+   101				 * MyContract Contract (no bytecode)
+   102				 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+   103				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+   104				 * @notice MyContract
+   105				 * @property balanceOf(address) Returns the amount of tokens owned by account
+   106				 */
+   107				export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
+   108				// solc artifacts of compilation
+   109				export declare const artifacts: {
+   110				  "MyContract": {
+   111				    "abi": [
+   112				      {
+   113				        "type": "constructor",
+   114				        "inputs": [],
+   115				        "stateMutability": "payable"
+
+ succeeded in 0ms:
+   250			`)
+   251		})
+   252	
+   253		it('should generate correct body for dts module', () => {
+   254			const result = runSync(generateTevmBody(artifacts, 'dts', false))
+   255			expect(result).toMatchInlineSnapshot(`
+   256				"
+   257							declare const _abiMyContract: readonly [];
+   258				declare const _nameMyContract: "MyContract";
+   259				/**
+   260				 * MyContract Contract (no bytecode)
+   261				 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+   262				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+   263				 * @notice MyContract
+   264				 * @property balanceOf(address) Returns the amount of tokens owned by account
+   265				 */
+   266				export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
+   267				declare const _abiAnotherContract: readonly [];
+   268				declare const _nameAnotherContract: "AnotherContract";
+   269				/**
+   270				 * AnotherContract Contract (no bytecode)
+   271				 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+   272				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+   273				 * @notice MyContract
+   274				 */
+   275				export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined, undefined, undefined>;
+   276				// solc artifacts of compilation
+   277				export declare const artifacts: {
+   278				  "MyContract": {
+   279				    "abi": [],
+   280				    "evm": {
+   281				      "bytecode": {
+   282				        "object": "1234"
+   283				      },
+   284				      "deployedBytecode": {
+   285				        "object": "5678"
+
+exec
+/bin/zsh -lc "nl -ba src/generateTevmBodyDts.spec.ts | sed -n '58,80p;148,175p'" in /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+ succeeded in 0ms:
+    58	
+    59		it('should generate correct body without bytecode', () => {
+    60			expect(runSync(generateDtsBody(artifacts, false))).toMatchInlineSnapshot(`
+    61				"
+    62							declare const _abiMyContract: readonly ["constructor() payable"];
+    63				declare const _nameMyContract: "MyContract";
+    64				/**
+    65				 * MyContract Contract (no bytecode)
+    66				 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+    67				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+    68				 * @notice MyContract
+    69				 * @property balanceOf(address) Returns the amount of tokens owned by account
+    70				 */
+    71				export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
+    72				declare const _abiAnotherContract: readonly [];
+    73				declare const _nameAnotherContract: "AnotherContract";
+    74				/**
+    75				 * AnotherContract Contract (no bytecode)
+    76				 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
+    77				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+    78				 * @notice MyContract
+    79				 */
+    80				export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined, undefined, undefined>;
+   148		})
+   149	
+   150		it('should generate correct body with bytecode', () => {
+   151			expect(runSync(generateDtsBody(artifacts, true))).toMatchInlineSnapshot(`
+   152				"
+   153							declare const _nameMyContract: "MyContract";
+   154				declare const _abiMyContract: readonly [
+   155				  "constructor() payable"
+   156				];
+   157				/**
+   158				 * MyContract Contract (no bytecode)
+   159				 * @notice MyContract
+   160				 * @property balanceOf(address) Returns the amount of tokens owned by account
+   161				 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
+   162				 */
+   163				export const MyContract: Contract<
+   164				  typeof _nameMyContract,
+   165				  typeof _abiMyContract,
+   166				  undefined,
+   167				  undefined,
+   168				  undefined,
+   169				  undefined
+   170				>;
+   171				declare const _nameAnotherContract: "AnotherContract";
+   172				declare const _abiAnotherContract: readonly [];
+   173				/**
+   174				 * AnotherContract Contract (no bytecode)
+   175				 * @notice MyContract
+
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/.review-slices/T06.fix.md
+diff --git a/.review-slices/T06.fix.md b/.review-slices/T06.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..3934d8d7db0758d0f675724b792c652c96624596
+--- /dev/null
++++ b/.review-slices/T06.fix.md
+@@ -0,0 +1,22 @@
++# Runtime test fixes test fixes
++
++**Package:** T06
++**Scope:** bundler-packages/runtime
++
++## Summary
++Updated stale runtime package tests to match the corrected `.d.ts` generation behavior. Declaration snapshots and substring assertions now expect `declare const` readonly declarations and `export declare const artifacts`, and tests no longer require missing method notices to render as the literal string `undefined`.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- bundler-packages/runtime/src/generateRuntime.spec.ts:95 - Updated inline dts runtime snapshot to declaration-style output.
++- bundler-packages/runtime/src/generateTevmBody.spec.ts:255 - Updated inline dts body snapshot to declaration-style output.
++- bundler-packages/runtime/src/generateTevmBody.spec.ts:611 - Assert missing method notices do not render as `undefined`.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:60 - Updated dts body inline snapshots for readonly declaration output.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:305 - Updated dts substring assertions for declaration-style contract names and ABIs.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:377 - Assert missing method notices do not render as `undefined`.
++- bundler-packages/runtime/src/extended-tests.spec.ts:103 - Updated complex struct dts expectation to declaration-style contract name output.
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+diff --git a/.review-slices/T06.fix.md b/.review-slices/T06.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..3934d8d7db0758d0f675724b792c652c96624596
+--- /dev/null
++++ b/.review-slices/T06.fix.md
+@@ -0,0 +1,22 @@
++# Runtime test fixes test fixes
++
++**Package:** T06
++**Scope:** bundler-packages/runtime
++
++## Summary
++Updated stale runtime package tests to match the corrected `.d.ts` generation behavior. Declaration snapshots and substring assertions now expect `declare const` readonly declarations and `export declare const artifacts`, and tests no longer require missing method notices to render as the literal string `undefined`.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- bundler-packages/runtime/src/generateRuntime.spec.ts:95 - Updated inline dts runtime snapshot to declaration-style output.
++- bundler-packages/runtime/src/generateTevmBody.spec.ts:255 - Updated inline dts body snapshot to declaration-style output.
++- bundler-packages/runtime/src/generateTevmBody.spec.ts:611 - Assert missing method notices do not render as `undefined`.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:60 - Updated dts body inline snapshots for readonly declaration output.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:305 - Updated dts substring assertions for declaration-style contract names and ABIs.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:377 - Assert missing method notices do not render as `undefined`.
++- bundler-packages/runtime/src/extended-tests.spec.ts:103 - Updated complex struct dts expectation to declaration-style contract name output.
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+  ✓ Run runtime package tests
+  ✓ Inspect failing assertions and source behavior
+  ✓ Patch runtime tests or scoped source only
+  ✓ Re-run tests until green or documented
+  → Write T06 report
+diff --git a/.review-slices/T06.fix.md b/.review-slices/T06.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..3934d8d7db0758d0f675724b792c652c96624596
+--- /dev/null
++++ b/.review-slices/T06.fix.md
+@@ -0,0 +1,22 @@
++# Runtime test fixes test fixes
++
++**Package:** T06
++**Scope:** bundler-packages/runtime
++
++## Summary
++Updated stale runtime package tests to match the corrected `.d.ts` generation behavior. Declaration snapshots and substring assertions now expect `declare const` readonly declarations and `export declare const artifacts`, and tests no longer require missing method notices to render as the literal string `undefined`.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- bundler-packages/runtime/src/generateRuntime.spec.ts:95 - Updated inline dts runtime snapshot to declaration-style output.
++- bundler-packages/runtime/src/generateTevmBody.spec.ts:255 - Updated inline dts body snapshot to declaration-style output.
++- bundler-packages/runtime/src/generateTevmBody.spec.ts:611 - Assert missing method notices do not render as `undefined`.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:60 - Updated dts body inline snapshots for readonly declaration output.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:305 - Updated dts substring assertions for declaration-style contract names and ABIs.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:377 - Assert missing method notices do not render as `undefined`.
++- bundler-packages/runtime/src/extended-tests.spec.ts:103 - Updated complex struct dts expectation to declaration-style contract name output.
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+exec
+/bin/zsh -lc "nl -ba .review-slices/T06.fix.md | sed -n '1,80p'" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+     1	# Runtime test fixes test fixes
+     2	
+     3	**Package:** T06
+     4	**Scope:** bundler-packages/runtime
+     5	
+     6	## Summary
+     7	Updated stale runtime package tests to match the corrected `.d.ts` generation behavior. Declaration snapshots and substring assertions now expect `declare const` readonly declarations and `export declare const artifacts`, and tests no longer require missing method notices to render as the literal string `undefined`.
+     8	
+     9	## Tests passing
+    10	all
+    11	
+    12	## Tests still failing
+    13	0
+    14	
+    15	## Changes
+    16	- bundler-packages/runtime/src/generateRuntime.spec.ts:95 - Updated inline dts runtime snapshot to declaration-style output.
+    17	- bundler-packages/runtime/src/generateTevmBody.spec.ts:255 - Updated inline dts body snapshot to declaration-style output.
+    18	- bundler-packages/runtime/src/generateTevmBody.spec.ts:611 - Assert missing method notices do not render as `undefined`.
+    19	- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:60 - Updated dts body inline snapshots for readonly declaration output.
+    20	- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:305 - Updated dts substring assertions for declaration-style contract names and ABIs.
+    21	- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:377 - Assert missing method notices do not render as `undefined`.
+    22	- bundler-packages/runtime/src/extended-tests.spec.ts:103 - Updated complex struct dts expectation to declaration-style contract name output.
+
+diff --git a/.review-slices/T06.fix.md b/.review-slices/T06.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..3934d8d7db0758d0f675724b792c652c96624596
+--- /dev/null
++++ b/.review-slices/T06.fix.md
+@@ -0,0 +1,22 @@
++# Runtime test fixes test fixes
++
++**Package:** T06
++**Scope:** bundler-packages/runtime
++
++## Summary
++Updated stale runtime package tests to match the corrected `.d.ts` generation behavior. Declaration snapshots and substring assertions now expect `declare const` readonly declarations and `export declare const artifacts`, and tests no longer require missing method notices to render as the literal string `undefined`.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- bundler-packages/runtime/src/generateRuntime.spec.ts:95 - Updated inline dts runtime snapshot to declaration-style output.
++- bundler-packages/runtime/src/generateTevmBody.spec.ts:255 - Updated inline dts body snapshot to declaration-style output.
++- bundler-packages/runtime/src/generateTevmBody.spec.ts:611 - Assert missing method notices do not render as `undefined`.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:60 - Updated dts body inline snapshots for readonly declaration output.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:305 - Updated dts substring assertions for declaration-style contract names and ABIs.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:377 - Assert missing method notices do not render as `undefined`.
++- bundler-packages/runtime/src/extended-tests.spec.ts:103 - Updated complex struct dts expectation to declaration-style contract name output.
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+  ✓ Run runtime package tests
+  ✓ Inspect failing assertions and source behavior
+  ✓ Patch runtime tests or scoped source only
+  ✓ Re-run tests until green or documented
+  ✓ Write T06 report
+diff --git a/.review-slices/T06.fix.md b/.review-slices/T06.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..3934d8d7db0758d0f675724b792c652c96624596
+--- /dev/null
++++ b/.review-slices/T06.fix.md
+@@ -0,0 +1,22 @@
++# Runtime test fixes test fixes
++
++**Package:** T06
++**Scope:** bundler-packages/runtime
++
++## Summary
++Updated stale runtime package tests to match the corrected `.d.ts` generation behavior. Declaration snapshots and substring assertions now expect `declare const` readonly declarations and `export declare const artifacts`, and tests no longer require missing method notices to render as the literal string `undefined`.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- bundler-packages/runtime/src/generateRuntime.spec.ts:95 - Updated inline dts runtime snapshot to declaration-style output.
++- bundler-packages/runtime/src/generateTevmBody.spec.ts:255 - Updated inline dts body snapshot to declaration-style output.
++- bundler-packages/runtime/src/generateTevmBody.spec.ts:611 - Assert missing method notices do not render as `undefined`.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:60 - Updated dts body inline snapshots for readonly declaration output.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:305 - Updated dts substring assertions for declaration-style contract names and ABIs.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:377 - Assert missing method notices do not render as `undefined`.
++- bundler-packages/runtime/src/extended-tests.spec.ts:103 - Updated complex struct dts expectation to declaration-style contract name output.
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+codex
+Fixed the runtime test regressions.
+
+Updated stale assertions and inline snapshots under `bundler-packages/runtime` for the corrected `.d.ts` output:
+- `declare const ...: readonly ...`
+- `export declare const artifacts`
+- missing NatSpec method notices no longer asserted as literal `undefined`
+
+Verification: `pnpm test:run` passes with `8` test files and `56` tests.
+
+Report written to [.review-slices/T06.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/T06.fix.md).
+diff --git a/.review-slices/T06.fix.md b/.review-slices/T06.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..3934d8d7db0758d0f675724b792c652c96624596
+--- /dev/null
++++ b/.review-slices/T06.fix.md
+@@ -0,0 +1,22 @@
++# Runtime test fixes test fixes
++
++**Package:** T06
++**Scope:** bundler-packages/runtime
++
++## Summary
++Updated stale runtime package tests to match the corrected `.d.ts` generation behavior. Declaration snapshots and substring assertions now expect `declare const` readonly declarations and `export declare const artifacts`, and tests no longer require missing method notices to render as the literal string `undefined`.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- bundler-packages/runtime/src/generateRuntime.spec.ts:95 - Updated inline dts runtime snapshot to declaration-style output.
++- bundler-packages/runtime/src/generateTevmBody.spec.ts:255 - Updated inline dts body snapshot to declaration-style output.
++- bundler-packages/runtime/src/generateTevmBody.spec.ts:611 - Assert missing method notices do not render as `undefined`.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:60 - Updated dts body inline snapshots for readonly declaration output.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:305 - Updated dts substring assertions for declaration-style contract names and ABIs.
++- bundler-packages/runtime/src/generateTevmBodyDts.spec.ts:377 - Assert missing method notices do not render as `undefined`.
++- bundler-packages/runtime/src/extended-tests.spec.ts:103 - Updated complex struct dts expectation to declaration-style contract name output.
+diff --git a/bundler-packages/runtime/src/extended-tests.spec.ts b/bundler-packages/runtime/src/extended-tests.spec.ts
+index e98de92bb315a50653fe2f2badcde3d450c5dfda..0eadc5df096ab09c825b10cd2b1d3525d47d6e9b
+--- a/bundler-packages/runtime/src/extended-tests.spec.ts
++++ b/bundler-packages/runtime/src/extended-tests.spec.ts
+@@ -100,7 +100,7 @@
+ 
+ 		// Also test DTS generation with complex structs
+ 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
+-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
++		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
+ 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
+ 	})
+ 
+diff --git a/bundler-packages/runtime/src/generateTevmBody.spec.ts b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+index 95d0f6b59f6876c5be91d6f3ec1550281ab36308..0b6c12f8168aba198be0ddfced88341a030cfaeb
+--- a/bundler-packages/runtime/src/generateTevmBody.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBody.spec.ts
+@@ -608,10 +608,9 @@
+ 		expect(result).toContain('"humanReadableAbi": [')
+ 		expect(result).toContain('function setValue(uint256 newValue)')
+ 
+-		// Check if property doc exists with undefined value - either way is fine
+-		// This is actually expected in the implementation, because the method exists with an empty notice
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ })
+diff --git a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+index 7d0d43261c5a6f11e8bda7b0fb680201026eeacd..e214b6c4b6671e1a016cb7651165f025732ff7db
+--- a/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
++++ b/bundler-packages/runtime/src/generateTevmBodyDts.spec.ts
+@@ -302,8 +302,8 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(complexArtifacts, true))
+-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
+-		expect(result).toContain('const _abiComplexContract = [')
++		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
++		expect(result).toContain('declare const _abiComplexContract: readonly [')
+ 		// The formatted ABI strings may be different from what we expect, so check for contained parts
+ 		expect(result).toContain('function transfer')
+ 		expect(result).toContain('event Transfer')
+@@ -333,7 +333,7 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(noDocsArtifact, false))
+-		expect(result).toContain('const _abiSimpleContract = [')
++		expect(result).toContain('declare const _abiSimpleContract: readonly')
+ 		// The exact format of the ABI may be different, so check for function name instead
+ 		expect(result).toContain('function getValue')
+ 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
+@@ -371,12 +371,12 @@
+ 		})
+ 
+ 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
+-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
++		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
+ 		expect(result).toContain('* @notice Contract with partial docs')
+ 
+-		// The implementation will include @property with undefined, let's accept both outcomes
++		// Missing method notices should not be rendered as the literal string "undefined".
+ 		if (result.includes('* @property setValue(uint256)')) {
+-			expect(result).toContain('* @property setValue(uint256) undefined')
++			expect(result).not.toContain('* @property setValue(uint256) undefined')
+ 		}
+ 	})
+ 
+@@ -398,7 +398,7 @@
+ 		})
+ 
+ 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
+-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
++		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
+ 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
+ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+
+tokens used
+62,395
+Fixed the runtime test regressions.
+
+Updated stale assertions and inline snapshots under `bundler-packages/runtime` for the corrected `.d.ts` output:
+- `declare const ...: readonly ...`
+- `export declare const artifacts`
+- missing NatSpec method notices no longer asserted as literal `undefined`
+
+Verification: `pnpm test:run` passes with `8` test files and `56` tests.
+
+Report written to [.review-slices/T06.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/T06.fix.md).
+[main 436060bf7] 🧪 fix(T06): update tests after review fix wave (Runtime test fixes)
+ 5 files changed, 64 insertions(+), 43 deletions(-)
+ create mode 100644 .review-slices/T06.fix.md

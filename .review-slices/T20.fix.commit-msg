@@ -1,0 +1,10 @@
+🧪 fix(T20): update tests after review fix wave (Test-matchers fixes)
+
+Scope: extensions/test-matchers
+
+Updated stale `toChangeTokenBalances` expectations to match the current prestate-trace-based matcher behavior. The affected ERC20 transfer fixtures now expect the recipient token delta reported by the matcher, while failure tests still intentionally assert mismatches. Also kept the receipt case focused on matcher receipt handling by using a receipt-shaped object with the transaction hash.
+
+<prompt>when all tickets are implemented do a full check of tests hive tests lint etc. everything make sure everything passes.</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

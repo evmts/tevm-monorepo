@@ -1,0 +1,657 @@
+OpenAI Codex v0.132.0
+--------
+workdir: /Users/williamcory/tevm-monorepo
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019e47e9-afe1-7e20-9d44-25c7c9789f1e
+--------
+user
+You are fixing TypeScript test regressions in the Tevm monorepo. Earlier, parallel codex agents
+applied source-code fixes for ~210 review findings (see review.md, fix-report.md). Those fixes are
+all committed and the source code now reflects CORRECT behavior. The remaining problem is that
+the existing test suite still asserts the OLD (buggy) behavior in many places.
+
+YOUR PACKAGE: Consensus test fixes
+SCOPE PATHS:  packages/consensus
+HINTS:        H07 consensus changes
+
+PROCESS:
+1. cd into the scope path. Run `pnpm test:run` (NOT pnpm nx — direct package script) to see the
+   failures. You may run that, vitest, or vitest -u as many times as needed inside your scope.
+2. For each failing test:
+   a. STALE ASSERTION (most common): the test is asserting old buggy behavior. Update the test
+      to match the new (correct) source behavior. For snapshot tests, run `pnpm test:run -u`
+      to update the .snap files. For inline assertions, edit the .spec.ts/.spec.js file.
+   b. REAL REGRESSION (rare): the source fix introduced a real bug. In that case you may fix the
+      source code WITHIN YOUR SCOPE PATHS. Be conservative — prefer to update the test first.
+   c. MOCK UPDATE (common in config/foundry): the source switched APIs (e.g. execSync →
+      execFileSync). Update the test's vi.mock() to include the new export.
+3. Re-run `pnpm test:run` until green. If you can't get green, capture what's left in the report.
+
+HARD CONSTRAINTS:
+- Modify ONLY files under: packages/consensus.
+- Do NOT touch files in other packages.
+- Do NOT run `pnpm install`, `pnpm nx`, `bun`, `cargo`, or `git`. The dispatcher will commit.
+- vitest, pnpm test:run (the local script), pnpm typecheck, pnpm build:types are all allowed
+  WITHIN your scope directory only.
+- If updating a snapshot, run vitest with -u flag (allowed).
+- Prefer the smallest test changes. A 1-line assertion update beats restructuring a test file.
+
+OUTPUT REPORT: '.review-slices/T12.fix.md' with structure:
+
+# Consensus test fixes test fixes
+
+**Package:** T12
+**Scope:** packages/consensus
+
+## Summary
+<2-4 sentences>
+
+## Tests passing
+<count or 'all'>
+
+## Tests still failing
+<count and short list, if any>
+
+## Changes
+- path:line - <one-line description>
+- ...
+
+Be ruthless about distinguishing stale assertions (update test) from real regressions (rare; fix source).
+
+codex
+I’ll work only under `packages/consensus`, start with the package’s direct test script, then update stale expectations and write the requested slice report.
+exec
+/bin/zsh -lc 'pwd && rg --files' in /Users/williamcory/tevm-monorepo/packages/consensus
+ succeeded in 0ms:
+/Users/williamcory/tevm-monorepo/packages/consensus
+src/createLightClientConsensusService.ts
+src/index.ts
+src/ConsensusService.ts
+src/createNoopConsensusService.ts
+src/createConsensusService.spec.ts
+vitest.config.ts
+biome.json
+tsconfig.json
+typedoc.json
+tsup.config.ts
+package.json
+README.md
+LICENSE
+
+exec
+/bin/zsh -lc 'pnpm test:run' in /Users/williamcory/tevm-monorepo/packages/consensus
+ exited 1 in 1542ms:
+
+> @tevm/consensus@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/packages/consensus
+> vitest run
+
+
+ RUN  v4.1.6 /Users/williamcory/tevm-monorepo/packages/consensus
+
+ ❯ src/createConsensusService.spec.ts (5 tests | 1 failed) 6ms
+     × updates status without exposing mutable internal state 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/createConsensusService.spec.ts > createLightClientConsensusService > updates status without exposing mutable internal state
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/createConsensusService.spec.ts:70:33
+
+     68|   mutableCopy.safeSlot = 100n
+     69|
+     70|   expect(consensus.isReady?.()).toBe(true)
+       |                                 ^
+     71|   expect(consensus.getLightSyncStatus?.()).toMatchObject({
+     72|    ready: true,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  20:22:56
+   Duration  152ms (transform 20ms, setup 0ms, import 29ms, tests 6ms, environment 0ms)
+
+ ELIFECYCLE  Command failed with exit code 1.
+
+codex
+There is one failing assertion in the consensus test. I’m reading the service and spec together now to confirm whether this is stale test behavior or a real source regression.
+exec
+/bin/zsh -lc "sed -n '1,220p' src/createConsensusService.spec.ts" in /Users/williamcory/tevm-monorepo/packages/consensus
+ succeeded in 0ms:
+import { describe, expect, it } from 'vitest'
+import { createLightClientConsensusService } from './createLightClientConsensusService.js'
+import { createNoopConsensusService } from './createNoopConsensusService.js'
+
+describe('createNoopConsensusService', () => {
+	it('preserves trusted local-mode read verification', async () => {
+		const consensus = createNoopConsensusService()
+
+		expect(consensus.mode).toBe('noop')
+		await expect(consensus.verifyRead?.({})).resolves.toBe(true)
+	})
+})
+
+describe('createLightClientConsensusService', () => {
+	it('starts from an idle, not-ready light sync status by default', () => {
+		const consensus = createLightClientConsensusService({ verifyRead: async () => true })
+
+		expect(consensus.mode).toBe('light-client')
+		expect(consensus.isReady?.()).toBe(false)
+		expect(consensus.getLightSyncStatus?.()).toEqual({
+			ready: false,
+			status: 'idle',
+			network: 'unknown',
+			checkpointSource: 'none',
+			lastCheckpoint: null,
+			optimisticSlot: 0n,
+			safeSlot: 0n,
+			finalizedSlot: 0n,
+		})
+	})
+
+	it('normalizes safe and finalized slots against the optimistic head', () => {
+		const consensus = createLightClientConsensusService({
+			verifyRead: async () => true,
+			initialLightSyncStatus: {
+				ready: true,
+				status: 'ready',
+				network: 'mainnet',
+				checkpointSource: 'explicit',
+				lastCheckpoint: '0xabc',
+				optimisticSlot: 10n,
+				safeSlot: 12n,
+				finalizedSlot: 20n,
+			},
+		})
+
+		expect(consensus.getLightSyncStatus?.()).toMatchObject({
+			optimisticSlot: 10n,
+			safeSlot: 10n,
+			finalizedSlot: 10n,
+		})
+	})
+
+	it('updates status without exposing mutable internal state', () => {
+		const consensus = createLightClientConsensusService({ verifyRead: async () => true })
+
+		const updated = consensus.updateLightSyncStatus?.({
+			ready: true,
+			status: 'syncing',
+			optimisticSlot: 32n,
+			safeSlot: 31n,
+			finalizedSlot: 30n,
+		})
+		if (!updated) throw new Error('expected updateLightSyncStatus')
+
+		const mutableCopy = updated as { ready: boolean; safeSlot: bigint }
+		mutableCopy.ready = false
+		mutableCopy.safeSlot = 100n
+
+		expect(consensus.isReady?.()).toBe(true)
+		expect(consensus.getLightSyncStatus?.()).toMatchObject({
+			ready: true,
+			status: 'syncing',
+			optimisticSlot: 32n,
+			safeSlot: 31n,
+			finalizedSlot: 30n,
+		})
+	})
+
+	it('delegates proof verification and optional chain readers', async () => {
+		const consensus = createLightClientConsensusService({
+			verifyRead: async ({ selector }) => selector === 'safe',
+			getChainId: async () => 11155111n,
+			getBlockNumber: async () => 123n,
+			resolveStateRoot: async () => `0x${'11'.repeat(32)}`,
+			getProof: async () => ({
+				balance: '0x1',
+				nonce: '0x2',
+				codeHash: `0x${'00'.repeat(32)}`,
+				storageHash: `0x${'22'.repeat(32)}`,
+				storageProof: [{ key: `0x${'00'.repeat(32)}`, value: '0x3' }],
+			}),
+		})
+
+		await expect(consensus.verifyRead?.({ selector: 'safe' })).resolves.toBe(true)
+		await expect(consensus.verifyRead?.({ selector: 'finalized' })).resolves.toBe(false)
+		await expect(consensus.getChainId?.()).resolves.toBe(11155111n)
+		await expect(consensus.getBlockNumber?.()).resolves.toBe(123n)
+		await expect(consensus.resolveStateRoot?.('latest')).resolves.toBe(`0x${'11'.repeat(32)}`)
+		await expect(
+			consensus.getProof?.({
+				address: `0x${'12'.repeat(20)}`,
+				storageKeys: [`0x${'00'.repeat(32)}`],
+				selector: 'latest',
+			}),
+		).resolves.toMatchObject({ balance: '0x1', nonce: '0x2' })
+	})
+})
+
+exec
+/bin/zsh -lc "sed -n '1,220p' src/ConsensusService.ts" in /Users/williamcory/tevm-monorepo/packages/consensus
+ succeeded in 0ms:
+export type ConsensusMode = 'noop' | 'light-client'
+
+export type LightReadSelector = 'latest' | 'safe' | 'finalized' | bigint
+export type LightSyncNetwork = 'mainnet' | 'sepolia' | 'holesky' | 'unknown'
+export type CheckpointSource = 'explicit' | 'persisted' | 'default' | 'none'
+export type LightSyncLifecycleStatus = 'idle' | 'starting' | 'syncing' | 'ready' | 'error'
+export type LightSyncStatus = {
+	ready: boolean
+	status: LightSyncLifecycleStatus
+	network: LightSyncNetwork
+	checkpointSource: CheckpointSource
+	lastCheckpoint: string | null
+	optimisticSlot: bigint
+	safeSlot: bigint
+	finalizedSlot: bigint
+}
+
+export type ConsensusService = {
+	readonly mode: ConsensusMode
+	readonly getLightSyncStatus?: () => Readonly<LightSyncStatus>
+	readonly updateLightSyncStatus?: (next: Partial<LightSyncStatus>) => Readonly<LightSyncStatus>
+	readonly isReady?: () => boolean
+	readonly getChainId?: () => Promise<bigint>
+	readonly getBlockNumber?: () => Promise<bigint>
+	readonly resolveStateRoot?: (selector: LightReadSelector) => Promise<`0x${string}` | undefined>
+	readonly getProof?: (params: {
+		readonly address: `0x${string}`
+		readonly storageKeys: readonly `0x${string}`[]
+		readonly selector: LightReadSelector
+	}) => Promise<{
+		readonly balance: `0x${string}`
+		readonly nonce: `0x${string}`
+		readonly codeHash: `0x${string}`
+		readonly storageHash: `0x${string}`
+		readonly storageProof: readonly { readonly key: `0x${string}`; readonly value: `0x${string}` }[]
+		readonly code?: `0x${string}`
+	}>
+	readonly verifyRead?: (params: {
+		readonly blockHash?: `0x${string}`
+		readonly account?: `0x${string}`
+		readonly stateRoot?: `0x${string}`
+		readonly selector?: 'latest' | 'safe' | 'finalized' | `0x${string}`
+		readonly proof?: unknown
+	}) => Promise<boolean>
+}
+
+exec
+/bin/zsh -lc "sed -n '1,220p' src/createLightClientConsensusService.ts" in /Users/williamcory/tevm-monorepo/packages/consensus
+ succeeded in 0ms:
+import type { ConsensusService, LightSyncStatus } from './ConsensusService.js'
+
+export type LightClientConsensusOptions = {
+	readonly verifyRead: NonNullable<ConsensusService['verifyRead']>
+	readonly getChainId?: ConsensusService['getChainId']
+	readonly getBlockNumber?: ConsensusService['getBlockNumber']
+	readonly resolveStateRoot?: ConsensusService['resolveStateRoot']
+	readonly getProof?: ConsensusService['getProof']
+	readonly initialLightSyncStatus?: NonNullable<ConsensusService['getLightSyncStatus']> extends () => infer T
+		? T
+		: never
+}
+
+export const createLightClientConsensusService = (options: LightClientConsensusOptions): ConsensusService => {
+	let lightSyncStatus: LightSyncStatus = {
+		ready: false,
+		status: 'idle',
+		network: 'unknown',
+		checkpointSource: 'none',
+		lastCheckpoint: null,
+		optimisticSlot: 0n,
+		safeSlot: 0n,
+		finalizedSlot: 0n,
+		...options.initialLightSyncStatus,
+	}
+
+	const normalize = (status: LightSyncStatus): LightSyncStatus => {
+		const optimisticSlot = status.optimisticSlot
+		const safeSlot = status.safeSlot > optimisticSlot ? optimisticSlot : status.safeSlot
+		const finalizedSlot = status.finalizedSlot > safeSlot ? safeSlot : status.finalizedSlot
+		return { ...status, ready: status.status === 'ready', optimisticSlot, safeSlot, finalizedSlot }
+	}
+	lightSyncStatus = normalize(lightSyncStatus)
+	const getLightSyncStatus = () => normalize({ ...lightSyncStatus })
+	const updateLightSyncStatus = (next: Partial<LightSyncStatus>) => {
+		lightSyncStatus = normalize({ ...lightSyncStatus, ...next })
+		return getLightSyncStatus()
+	}
+	return {
+		mode: 'light-client',
+		verifyRead: options.verifyRead,
+		getLightSyncStatus,
+		updateLightSyncStatus,
+		isReady: () => getLightSyncStatus().ready,
+		...(options.getChainId ? { getChainId: options.getChainId } : {}),
+		...(options.getBlockNumber ? { getBlockNumber: options.getBlockNumber } : {}),
+		...(options.resolveStateRoot ? { resolveStateRoot: options.resolveStateRoot } : {}),
+		...(options.getProof ? { getProof: options.getProof } : {}),
+	}
+}
+
+exec
+/bin/zsh -lc "sed -n '1,180p' src/createNoopConsensusService.ts" in /Users/williamcory/tevm-monorepo/packages/consensus
+ succeeded in 0ms:
+import type { ConsensusService } from './ConsensusService.js'
+
+export const createNoopConsensusService = (): ConsensusService => ({
+	mode: 'noop',
+	verifyRead: async () => true,
+})
+
+codex
+The source normalizes readiness from lifecycle status: `status: 'ready'` is the only ready state. This test is still asserting that a `ready: true` flag can make a syncing client ready, so I’m updating that stale expectation while keeping the defensive-copy coverage intact.
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/packages/consensus/src/createConsensusService.spec.ts
+diff --git a/packages/consensus/src/createConsensusService.spec.ts b/packages/consensus/src/createConsensusService.spec.ts
+index 87c9dd7d3128d2f8d085a69813ab483133adba5a..2e04f161be0aa59ca87255956f4ddbf35c1448d9
+--- a/packages/consensus/src/createConsensusService.spec.ts
++++ b/packages/consensus/src/createConsensusService.spec.ts
+@@ -64,12 +64,12 @@
+ 		if (!updated) throw new Error('expected updateLightSyncStatus')
+ 
+ 		const mutableCopy = updated as { ready: boolean; safeSlot: bigint }
+-		mutableCopy.ready = false
++		mutableCopy.ready = true
+ 		mutableCopy.safeSlot = 100n
+ 
+-		expect(consensus.isReady?.()).toBe(true)
++		expect(consensus.isReady?.()).toBe(false)
+ 		expect(consensus.getLightSyncStatus?.()).toMatchObject({
+-			ready: true,
++			ready: false,
+ 			status: 'syncing',
+ 			optimisticSlot: 32n,
+ 			safeSlot: 31n,
+
+diff --git a/packages/consensus/src/createConsensusService.spec.ts b/packages/consensus/src/createConsensusService.spec.ts
+index 87c9dd7d3128d2f8d085a69813ab483133adba5a..2e04f161be0aa59ca87255956f4ddbf35c1448d9
+--- a/packages/consensus/src/createConsensusService.spec.ts
++++ b/packages/consensus/src/createConsensusService.spec.ts
+@@ -64,12 +64,12 @@
+ 		if (!updated) throw new Error('expected updateLightSyncStatus')
+ 
+ 		const mutableCopy = updated as { ready: boolean; safeSlot: bigint }
+-		mutableCopy.ready = false
++		mutableCopy.ready = true
+ 		mutableCopy.safeSlot = 100n
+ 
+-		expect(consensus.isReady?.()).toBe(true)
++		expect(consensus.isReady?.()).toBe(false)
+ 		expect(consensus.getLightSyncStatus?.()).toMatchObject({
+-			ready: true,
++			ready: false,
+ 			status: 'syncing',
+ 			optimisticSlot: 32n,
+ 			safeSlot: 31n,
+
+exec
+/bin/zsh -lc 'pnpm test:run' in /Users/williamcory/tevm-monorepo/packages/consensus
+diff --git a/packages/consensus/src/createConsensusService.spec.ts b/packages/consensus/src/createConsensusService.spec.ts
+index 87c9dd7d3128d2f8d085a69813ab483133adba5a..2e04f161be0aa59ca87255956f4ddbf35c1448d9
+--- a/packages/consensus/src/createConsensusService.spec.ts
++++ b/packages/consensus/src/createConsensusService.spec.ts
+@@ -64,12 +64,12 @@
+ 		if (!updated) throw new Error('expected updateLightSyncStatus')
+ 
+ 		const mutableCopy = updated as { ready: boolean; safeSlot: bigint }
+-		mutableCopy.ready = false
++		mutableCopy.ready = true
+ 		mutableCopy.safeSlot = 100n
+ 
+-		expect(consensus.isReady?.()).toBe(true)
++		expect(consensus.isReady?.()).toBe(false)
+ 		expect(consensus.getLightSyncStatus?.()).toMatchObject({
+-			ready: true,
++			ready: false,
+ 			status: 'syncing',
+ 			optimisticSlot: 32n,
+ 			safeSlot: 31n,
+
+ succeeded in 778ms:
+
+> @tevm/consensus@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/packages/consensus
+> vitest run
+
+
+ RUN  v4.1.6 /Users/williamcory/tevm-monorepo/packages/consensus
+
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  20:23:26
+   Duration  127ms (transform 16ms, setup 0ms, import 22ms, tests 3ms, environment 0ms)
+
+
+codex
+The package test is now green: 5 tests passed. I’m grabbing the exact line references and then I’ll write the required `T12` report.
+exec
+/bin/zsh -lc "nl -ba src/createConsensusService.spec.ts | sed -n '55,82p'" in /Users/williamcory/tevm-monorepo/packages/consensus
+exec
+/bin/zsh -lc 'ls -d /Users/williamcory/tevm-monorepo/.review-slices' in /Users/williamcory/tevm-monorepo/packages/consensus
+ succeeded in 0ms:
+/Users/williamcory/tevm-monorepo/.review-slices
+
+ succeeded in 0ms:
+    55			const consensus = createLightClientConsensusService({ verifyRead: async () => true })
+    56	
+    57			const updated = consensus.updateLightSyncStatus?.({
+    58				ready: true,
+    59				status: 'syncing',
+    60				optimisticSlot: 32n,
+    61				safeSlot: 31n,
+    62				finalizedSlot: 30n,
+    63			})
+    64			if (!updated) throw new Error('expected updateLightSyncStatus')
+    65	
+    66			const mutableCopy = updated as { ready: boolean; safeSlot: bigint }
+    67			mutableCopy.ready = true
+    68			mutableCopy.safeSlot = 100n
+    69	
+    70			expect(consensus.isReady?.()).toBe(false)
+    71			expect(consensus.getLightSyncStatus?.()).toMatchObject({
+    72				ready: false,
+    73				status: 'syncing',
+    74				optimisticSlot: 32n,
+    75				safeSlot: 31n,
+    76				finalizedSlot: 30n,
+    77			})
+    78		})
+    79	
+    80		it('delegates proof verification and optional chain readers', async () => {
+    81			const consensus = createLightClientConsensusService({
+    82				verifyRead: async ({ selector }) => selector === 'safe',
+
+diff --git a/packages/consensus/src/createConsensusService.spec.ts b/packages/consensus/src/createConsensusService.spec.ts
+index 87c9dd7d3128d2f8d085a69813ab483133adba5a..2e04f161be0aa59ca87255956f4ddbf35c1448d9
+--- a/packages/consensus/src/createConsensusService.spec.ts
++++ b/packages/consensus/src/createConsensusService.spec.ts
+@@ -64,12 +64,12 @@
+ 		if (!updated) throw new Error('expected updateLightSyncStatus')
+ 
+ 		const mutableCopy = updated as { ready: boolean; safeSlot: bigint }
+-		mutableCopy.ready = false
++		mutableCopy.ready = true
+ 		mutableCopy.safeSlot = 100n
+ 
+-		expect(consensus.isReady?.()).toBe(true)
++		expect(consensus.isReady?.()).toBe(false)
+ 		expect(consensus.getLightSyncStatus?.()).toMatchObject({
+-			ready: true,
++			ready: false,
+ 			status: 'syncing',
+ 			optimisticSlot: 32n,
+ 			safeSlot: 31n,
+
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/.review-slices/T12.fix.md
+diff --git a/.review-slices/T12.fix.md b/.review-slices/T12.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..c023a61b71aa781df7ad019a95c850ccb711f905
+--- /dev/null
++++ b/.review-slices/T12.fix.md
+@@ -0,0 +1,18 @@
++# Consensus test fixes test fixes
++
++**Package:** T12
++**Scope:** packages/consensus
++
++## Summary
++Updated the stale consensus light-client readiness assertion to match the corrected behavior: readiness is derived from the lifecycle status, so a syncing client is not ready even if an input patch includes `ready: true`. The package test suite now passes.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- packages/consensus/src/createConsensusService.spec.ts:67 - mutate the returned copy's `ready` flag to `true` so defensive-copy coverage still proves internal state is not exposed.
++- packages/consensus/src/createConsensusService.spec.ts:70 - expect syncing status to report `isReady()` as `false`.
++- packages/consensus/src/createConsensusService.spec.ts:72 - expect normalized light sync status to keep `ready: false` while `status` is `syncing`.
+diff --git a/packages/consensus/src/createConsensusService.spec.ts b/packages/consensus/src/createConsensusService.spec.ts
+index 87c9dd7d3128d2f8d085a69813ab483133adba5a..2e04f161be0aa59ca87255956f4ddbf35c1448d9
+--- a/packages/consensus/src/createConsensusService.spec.ts
++++ b/packages/consensus/src/createConsensusService.spec.ts
+@@ -64,12 +64,12 @@
+ 		if (!updated) throw new Error('expected updateLightSyncStatus')
+ 
+ 		const mutableCopy = updated as { ready: boolean; safeSlot: bigint }
+-		mutableCopy.ready = false
++		mutableCopy.ready = true
+ 		mutableCopy.safeSlot = 100n
+ 
+-		expect(consensus.isReady?.()).toBe(true)
++		expect(consensus.isReady?.()).toBe(false)
+ 		expect(consensus.getLightSyncStatus?.()).toMatchObject({
+-			ready: true,
++			ready: false,
+ 			status: 'syncing',
+ 			optimisticSlot: 32n,
+ 			safeSlot: 31n,
+
+diff --git a/.review-slices/T12.fix.md b/.review-slices/T12.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..c023a61b71aa781df7ad019a95c850ccb711f905
+--- /dev/null
++++ b/.review-slices/T12.fix.md
+@@ -0,0 +1,18 @@
++# Consensus test fixes test fixes
++
++**Package:** T12
++**Scope:** packages/consensus
++
++## Summary
++Updated the stale consensus light-client readiness assertion to match the corrected behavior: readiness is derived from the lifecycle status, so a syncing client is not ready even if an input patch includes `ready: true`. The package test suite now passes.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- packages/consensus/src/createConsensusService.spec.ts:67 - mutate the returned copy's `ready` flag to `true` so defensive-copy coverage still proves internal state is not exposed.
++- packages/consensus/src/createConsensusService.spec.ts:70 - expect syncing status to report `isReady()` as `false`.
++- packages/consensus/src/createConsensusService.spec.ts:72 - expect normalized light sync status to keep `ready: false` while `status` is `syncing`.
+diff --git a/packages/consensus/src/createConsensusService.spec.ts b/packages/consensus/src/createConsensusService.spec.ts
+index 87c9dd7d3128d2f8d085a69813ab483133adba5a..2e04f161be0aa59ca87255956f4ddbf35c1448d9
+--- a/packages/consensus/src/createConsensusService.spec.ts
++++ b/packages/consensus/src/createConsensusService.spec.ts
+@@ -64,12 +64,12 @@
+ 		if (!updated) throw new Error('expected updateLightSyncStatus')
+ 
+ 		const mutableCopy = updated as { ready: boolean; safeSlot: bigint }
+-		mutableCopy.ready = false
++		mutableCopy.ready = true
+ 		mutableCopy.safeSlot = 100n
+ 
+-		expect(consensus.isReady?.()).toBe(true)
++		expect(consensus.isReady?.()).toBe(false)
+ 		expect(consensus.getLightSyncStatus?.()).toMatchObject({
+-			ready: true,
++			ready: false,
+ 			status: 'syncing',
+ 			optimisticSlot: 32n,
+ 			safeSlot: 31n,
+
+codex
+Implemented the consensus test fix and wrote the report.
+
+Changed [createConsensusService.spec.ts](/Users/williamcory/tevm-monorepo/packages/consensus/src/createConsensusService.spec.ts:67) so the stale readiness assertion matches corrected behavior: `status: 'syncing'` normalizes to `ready: false`, even if the update input includes `ready: true`.
+
+Verification: `pnpm test:run` in `packages/consensus` passes: 1 file, 5 tests.
+
+Report written to [.review-slices/T12.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/T12.fix.md).
+diff --git a/.review-slices/T12.fix.md b/.review-slices/T12.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..c023a61b71aa781df7ad019a95c850ccb711f905
+--- /dev/null
++++ b/.review-slices/T12.fix.md
+@@ -0,0 +1,18 @@
++# Consensus test fixes test fixes
++
++**Package:** T12
++**Scope:** packages/consensus
++
++## Summary
++Updated the stale consensus light-client readiness assertion to match the corrected behavior: readiness is derived from the lifecycle status, so a syncing client is not ready even if an input patch includes `ready: true`. The package test suite now passes.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- packages/consensus/src/createConsensusService.spec.ts:67 - mutate the returned copy's `ready` flag to `true` so defensive-copy coverage still proves internal state is not exposed.
++- packages/consensus/src/createConsensusService.spec.ts:70 - expect syncing status to report `isReady()` as `false`.
++- packages/consensus/src/createConsensusService.spec.ts:72 - expect normalized light sync status to keep `ready: false` while `status` is `syncing`.
+diff --git a/packages/consensus/src/createConsensusService.spec.ts b/packages/consensus/src/createConsensusService.spec.ts
+index 87c9dd7d3128d2f8d085a69813ab483133adba5a..2e04f161be0aa59ca87255956f4ddbf35c1448d9
+--- a/packages/consensus/src/createConsensusService.spec.ts
++++ b/packages/consensus/src/createConsensusService.spec.ts
+@@ -64,12 +64,12 @@
+ 		if (!updated) throw new Error('expected updateLightSyncStatus')
+ 
+ 		const mutableCopy = updated as { ready: boolean; safeSlot: bigint }
+-		mutableCopy.ready = false
++		mutableCopy.ready = true
+ 		mutableCopy.safeSlot = 100n
+ 
+-		expect(consensus.isReady?.()).toBe(true)
++		expect(consensus.isReady?.()).toBe(false)
+ 		expect(consensus.getLightSyncStatus?.()).toMatchObject({
+-			ready: true,
++			ready: false,
+ 			status: 'syncing',
+ 			optimisticSlot: 32n,
+ 			safeSlot: 31n,
+
+tokens used
+29,218
+Implemented the consensus test fix and wrote the report.
+
+Changed [createConsensusService.spec.ts](/Users/williamcory/tevm-monorepo/packages/consensus/src/createConsensusService.spec.ts:67) so the stale readiness assertion matches corrected behavior: `status: 'syncing'` normalizes to `ready: false`, even if the update input includes `ready: true`.
+
+Verification: `pnpm test:run` in `packages/consensus` passes: 1 file, 5 tests.
+
+Report written to [.review-slices/T12.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/T12.fix.md).
+[main 36244cfe4] 🧪 fix(T12): update tests after review fix wave (Consensus test fixes)
+ 2 files changed, 21 insertions(+), 3 deletions(-)
+ create mode 100644 .review-slices/T12.fix.md

@@ -1,0 +1,1254 @@
+OpenAI Codex v0.132.0
+--------
+workdir: /Users/williamcory/tevm-monorepo
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019e4802-6635-7ac0-9d42-970c823fac5d
+--------
+user
+You are fixing TypeScript test regressions in the Tevm monorepo. Earlier, parallel codex agents
+applied source-code fixes for ~210 review findings (see review.md, fix-report.md). Those fixes are
+all committed and the source code now reflects CORRECT behavior. The remaining problem is that
+the existing test suite still asserts the OLD (buggy) behavior in many places.
+
+YOUR PACKAGE: Ethers remaining 2 tests
+SCOPE PATHS:  extensions/ethers
+HINTS:        src/jsonRpcAutomining.spec.ts - tests expect rejection but promise resolves
+
+PROCESS:
+1. cd into the scope path. Run `pnpm test:run` (NOT pnpm nx — direct package script) to see the
+   failures. You may run that, vitest, or vitest -u as many times as needed inside your scope.
+2. For each failing test:
+   a. STALE ASSERTION (most common): the test is asserting old buggy behavior. Update the test
+      to match the new (correct) source behavior. For snapshot tests, run `pnpm test:run -u`
+      to update the .snap files. For inline assertions, edit the .spec.ts/.spec.js file.
+   b. REAL REGRESSION (rare): the source fix introduced a real bug. In that case you may fix the
+      source code WITHIN YOUR SCOPE PATHS. Be conservative — prefer to update the test first.
+   c. MOCK UPDATE (common in config/foundry): the source switched APIs (e.g. execSync →
+      execFileSync). Update the test's vi.mock() to include the new export.
+3. Re-run `pnpm test:run` until green. If you can't get green, capture what's left in the report.
+
+HARD CONSTRAINTS:
+- Modify ONLY files under: extensions/ethers.
+- Do NOT touch files in other packages.
+- Do NOT run `pnpm install`, `pnpm nx`, `bun`, `cargo`, or `git`. The dispatcher will commit.
+- vitest, pnpm test:run (the local script), pnpm typecheck, pnpm build:types are all allowed
+  WITHIN your scope directory only.
+- If updating a snapshot, run vitest with -u flag (allowed).
+- Prefer the smallest test changes. A 1-line assertion update beats restructuring a test file.
+
+OUTPUT REPORT: '.review-slices/T26.fix.md' with structure:
+
+# Ethers remaining 2 tests test fixes
+
+**Package:** T26
+**Scope:** extensions/ethers
+
+## Summary
+<2-4 sentences>
+
+## Tests passing
+<count or 'all'>
+
+## Tests still failing
+<count and short list, if any>
+
+## Changes
+- path:line - <one-line description>
+- ...
+
+Be ruthless about distinguishing stale assertions (update test) from real regressions (rare; fix source).
+
+codex
+I’ll stay inside `extensions/ethers`, run the package test script directly, and update only stale expectations unless the failures show an actual in-scope source regression.
+exec
+/bin/zsh -lc 'pnpm test:run' in /Users/williamcory/tevm-monorepo/extensions/ethers
+ exited 1 in 1623ms:
+
+> @tevm/ethers@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/extensions/ethers
+> vitest run
+
+
+ RUN  v4.1.6 /Users/williamcory/tevm-monorepo/extensions/ethers
+
+{"level":20,"time":1779324587995,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","chainId":900,"msg":"Creating client with chainId"}
+{"level":20,"time":1779324587996,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324587996,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324587996,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324587996,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324587996,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/blockchain","0":4,"1":243,"2":34,"3":75,"4":199,"5":128,"6":151,"7":8,"8":164,"9":184,"10":96,"11":233,"12":253,"13":212,"14":88,"15":139,"16":56,"17":244,"18":188,"19":173,"20":185,"21":148,"22":249,"23":174,"24":23,"25":147,"26":162,"27":237,"28":44,"29":56,"30":1,"31":29,"msg":"Saved new block"}
+{"level":20,"time":1779324587996,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/evm","allowUnlimitedContractSize":false,"profiler":false,"customPrecompiles":["0x0000000000000000000000000000000000000100"]}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"checkpointed state!"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","msg":"initializing receipts manager..."}
+{"level":20,"time":1779324587996,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/blockchain","msg":"0x0"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x0000000000000000000000000000000000000000","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x70997970C51812dc3A010C7d01b50e0d17dc79C8","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x90F79bf6EB2c4f870365E785982E1f101E93b906","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x976EA74026E726554dB657fA54763abd0C3a0aa9","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x14dC79964da2C08b23698B3D3cc7Ca32193d9955","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xa0Ee7A142d267C1f36714E4a8F75612F20a79720","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"Comitting to existing state root..."}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","stateRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","msg":"Saving state roots..."}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"State roots are comitted successfully"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"StateManager is ready"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","request":{"method":"eth_chainId","params":[],"id":1,"jsonrpc":"2.0"},"msg":"JSON-RPC request received"}
+{"level":20,"time":1779324587997,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","request":{"method":"eth_blockNumber","params":[],"id":2,"jsonrpc":"2.0"},"msg":"JSON-RPC request received"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/blockchain","msg":"deep copying blockchain..."}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/blockchain","0":4,"1":243,"2":34,"3":75,"4":199,"5":128,"6":151,"7":8,"8":164,"9":184,"10":96,"11":233,"12":253,"13":212,"14":88,"15":139,"16":56,"17":244,"18":188,"19":173,"20":185,"21":148,"22":249,"23":174,"24":23,"25":147,"26":162,"27":237,"28":44,"29":56,"30":1,"31":29,"msg":"Saved new block"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x0000000000000000000000000000000000000000","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"checkpointed state!"}
+{"level":20,"time":1779324587998,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","request":{"method":"eth_estimateGas","params":[{"value":"0x16345785d8a0000","from":"0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266","to":"0x4242424242424242424242424242424242424242","data":"0x"}],"id":3,"jsonrpc":"2.0"},"msg":"JSON-RPC request received"}
+{"level":20,"time":1779324587998,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","throwOnFail":false,"data":"0x","to":"0x4242424242424242424242424242424242424242","value":100000000000000000,"addToBlockchain":false,"from":"0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266","msg":"callHandler: Executing call with params"}
+{"level":20,"time":1779324587999,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","block":{"parentHash":"0x0000000000000000000000000000000000000000000000000000000000000000","uncleHash":"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347","coinbase":"0x0000000000000000000000000000000000000000","stateRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","transactionsTrie":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","withdrawalsRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","receiptTrie":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","logsBloom":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","difficulty":"0x400000000","number":"0x0","gasLimit":"0x1c9c380","gasUsed":"0x0","timestamp":"0x0","extraData":"0x11bbe8db4e347b4e8c937c1c8370e4b5ed33adb3db69cbdb7a38e1e50b1b82fa","mixHash":"0x0000000000000000000000000000000000000000000000000000000000000000","nonce":"0x0000000000000042","baseFeePerGas":"0x7","blobGasUsed":"0x0","excessBlobGas":"0x0","parentBeaconBlockRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","requestsRoot":"0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},"msg":"Using block"}
+{"level":20,"time":1779324587999,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","msg":"Preparing vm to execute a call with block..."}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","to":"0x4242424242424242424242424242424242424242","origin":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","caller":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","value":"100000000000000000","data":{},"msg":"callHandler: Executing runCall with params"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","nonce":0,"sender":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","msg":"creating tx with nonce"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","returnValue":"0x","executionGasUsed":0,"msg":"callHandler: runCall result"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/blockchain","msg":"0x0"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x70997970C51812dc3A010C7d01b50e0d17dc79C8","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x90F79bf6EB2c4f870365E785982E1f101E93b906","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x976EA74026E726554dB657fA54763abd0C3a0aa9","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x14dC79964da2C08b23698B3D3cc7Ca32193d9955","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xa0Ee7A142d267C1f36714E4a8F75612F20a79720","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"Sharing fork cache reference between original and copied state"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"Successfully deepCopy'd StateManager with shared fork cache"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x0000000000000000000000000000000000000000","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588000,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x70997970C51812dc3A010C7d01b50e0d17dc79C8","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x90F79bf6EB2c4f870365E785982E1f101E93b906","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x976EA74026E726554dB657fA54763abd0C3a0aa9","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x14dC79964da2C08b23698B3D3cc7Ca32193d9955","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xa0Ee7A142d267C1f36714E4a8F75612F20a79720","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"Comitting to existing state root..."}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","stateRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","msg":"Saving state roots..."}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"State roots are comitted successfully"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"StateManager is ready"}
+{"level":20,"time":1779324588001,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","oldStateRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","newStateRoot":{"0":86,"1":232,"2":31,"3":23,"4":27,"5":204,"6":85,"7":166,"8":255,"9":131,"10":69,"11":230,"12":146,"13":192,"14":248,"15":110,"16":91,"17":72,"18":224,"19":27,"20":153,"21":108,"22":173,"23":192,"24":1,"25":98,"26":47,"27":181,"28":227,"29":99,"30":180,"31":33},"msg":"state root changed"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"checkpointed state!"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"checkpointed state!"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x0000000000000000000000000000000000000000","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x70997970C51812dc3A010C7d01b50e0d17dc79C8","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x90F79bf6EB2c4f870365E785982E1f101E93b906","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x976EA74026E726554dB657fA54763abd0C3a0aa9","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x14dC79964da2C08b23698B3D3cc7Ca32193d9955","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xa0Ee7A142d267C1f36714E4a8F75612F20a79720","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","nonce":1,"balance":999899999999790000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x4242424242424242424242424242424242424242","nonce":0,"balance":100000000000000000,"storageRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","codeHash":"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"Comitting to existing state root..."}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","stateRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","msg":"Saving state roots..."}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"State roots are comitted successfully"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x70997970C51812dc3A010C7d01b50e0d17dc79C8","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x90F79bf6EB2c4f870365E785982E1f101E93b906","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x976EA74026E726554dB657fA54763abd0C3a0aa9","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x14dC79964da2C08b23698B3D3cc7Ca32193d9955","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xa0Ee7A142d267C1f36714E4a8F75612F20a79720","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","nonce":1,"balance":999899999999999853000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x4242424242424242424242424242424242424242","nonce":0,"balance":100000000000000000,"storageRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","codeHash":"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x0000000000000000000000000000000000000000","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"Comitting to existing state root..."}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","stateRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","msg":"Saving state roots..."}
+{"level":20,"time":1779324588002,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"State roots are comitted successfully"}
+{"level":20,"time":1779324588004,"pid":56939,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","request":{"method":"eth_blockNumber","params":[],"id":4,"jsonrpc":"2.0"},"msg":"JSON-RPC request received"}
+ ❯ src/jsonRpcAutomining.spec.ts (5 tests | 2 failed) 114ms
+       × should automine transaction when automining is enabled via ethers provider 70ms
+       × should use user-provided nonce in ethers transactions 14ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/jsonRpcAutomining.spec.ts > Ethers Extension JSON-RPC Automining Integration Tests > eth_sendRawTransaction should trigger automining when enabled > should automine transaction when automining is enabled via ethers provider
+AssertionError: promise resolved "TransactionReceipt{ …(17) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ TransactionReceipt {
++   "blobGasPrice": null,
++   "blobGasUsed": null,
++   "blockHash": "0x219108fc24876e0424114ab16bae07e177df7dc3ffc75e6423e7ed927955b0f7",
++   "blockNumber": 1,
++   "contractAddress": null,
++   "cumulativeGasUsed": 21000n,
++   "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
++   "gasPrice": 10000000000000n,
++   "gasUsed": 21000n,
++   "hash": "0x8e6543ff189875f59b154f88dc23472349bdea683a18a8e19ceb454d86668d85",
++   "index": 0,
++   "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
++   "provider": TevmProvider {
++     "_send": [Function _send],
++     "tevm": {
++       "addSnapshot": [Function addSnapshot],
++       "call": [Function anonymous],
++       "consensus": {
++         "mode": "noop",
++         "verifyRead": [Function verifyRead],
++       },
++       "contract": [Function anonymous],
++       "deal": [Function anonymous],
++       "debug": [Function debug],
++       "deepCopy": [Function deepCopy],
++       "deleteSnapshotsFrom": [Function deleteSnapshotsFrom],
++       "deploy": [Function anonymous],
++       "dumpState": [Function anonymous],
++       "emit": [Function emit],
++       "emitExExEvent": [Function emitExExEvent],
++       "extend": [Function extend],
++       "getAccount": [Function anonymous],
++       "getAutoImpersonate": [Function getAutoImpersonate],
++       "getBlockTimestampInterval": [Function getBlockTimestampInterval],
++       "getFilters": [Function getFilters],
++       "getImpersonatedAccount": [Function getImpersonatedAccount],
++       "getLightSyncStatus": [Function getLightSyncStatus],
++       "getMinGasPrice": [Function getMinGasPrice],
++       "getNextBlockBaseFeePerGas": [Function getNextBlockBaseFeePerGas],
++       "getNextBlockGasLimit": [Function getNextBlockGasLimit],
++       "getNextBlockPrevRandao": [Function getNextBlockPrevRandao],
++       "getNextBlockTimestamp": [Function getNextBlockTimestamp],
++       "getReceiptsManager": [Function getReceiptsManager],
++       "getSnapshot": [Function getSnapshot],
++       "getSnapshots": [Function getSnapshots],
++       "getTracesEnabled": [Function getTracesEnabled],
++       "getTxPool": [Function getTxPool],
++       "getVm": [Function getVm],
++       "loadState": [Function anonymous],
++       "logger": Pino {
++         "debug": [Function noop],
++         "error": [Function LOG],
++         "fatal": [Function anonymous],
++         "info": [Function noop],
++         "levels": {
++           "labels": {
++             "10": "trace",
++             "20": "debug",
++             "30": "info",
++             "40": "warn",
++             "50": "error",
++             "60": "fatal",
++           },
++           "values": {
++             "debug": 20,
++             "error": 50,
++             "fatal": 60,
++             "info": 30,
++             "trace": 10,
++             "warn": 40,
++           },
++         },
++         "onChild": [Function noop],
++         "silent": [Function noop],
++         "trace": [Function noop],
++         "warn": [Function LOG],
++         Symbol(pino.levelComp): [Function bound compareLevel],
++         Symbol(pino.useOnlyCustomLevels): false,
++         Symbol(pino.stream): SonicBoom {
++           "_actualWrite": [Function actualWrite],
++           "_asyncDrainScheduled": false,
++           "_bufs": [],
++           "_ending": false,
++           "_events": {
++             "close": [Function anonymous],
++             "error": [Function filterBrokenPipe],
++             "newListener": [Function anonymous],
++           },
++           "_eventsCount": 3,
++           "_flushPending": false,
++           "_fsync": false,
++           "_hwm": 16387,
++           "_len": 0,
++           "_lens": [],
++           "_periodicFlush": 0,
++           "_periodicFlushTimer": undefined,
++           "_reopening": false,
++           "_writing": false,
++           "_writingBuf": "",
++           "append": true,
++           "destroyed": false,
++           "fd": 1,
++           "file": null,
++           "flush": [Function flush],
++           "flushSync": [Function flushSync],
++           "maxLength": 0,
++           "maxWrite": 16384,
++           "minLength": 0,
++           "mkdir": false,
++           "mode": undefined,
++           "release": [Function anonymous],
++           "retryEAGAIN": [Function anonymous],
++           "sync": false,
++           "writable": true,
++           "write": [Function write],
++         },
++         Symbol(pino.time): [Function epochTime],
++         Symbol(pino.timeSliceIndex): 8,
++         Symbol(pino.stringify): [Function stringify],
++         Symbol(pino.stringifySafe): [Function stringify],
++         Symbol(pino.stringifiers): {},
++         Symbol(pino.end): "}
++ ",
++         Symbol(pino.formatOpts): {
++           "stringify": [Function bound stringify],
++         },
++         Symbol(pino.messageKey): "msg",
++         Symbol(pino.errorKey): "err",
++         Symbol(pino.nestedKey): null,
++         Symbol(pino.nestedKeyStr): "",
++         Symbol(pino.serializers): {
++           "err": [Function errSerializer],
++         },
++         Symbol(pino.mixin): undefined,
++         Symbol(pino.mixinMergeStrategy): undefined,
++         Symbol(pino.chindings): ",\"pid\":56939,\"hostname\":\"Williams-MacBook-Pro-2.local\",\"name\":\"TevmClient\"",
++         Symbol(pino.formatters): {
++           "bindings": [Function bindings],
++           "level": [Function level],
++           "log": undefined,
++         },
++         Symbol(pino.hooks): {
++           "logMethod": undefined,
++           "streamWrite": undefined,
++         },
++         Symbol(pino.msgPrefix): undefined,
++         Symbol(pino.lsCache): {
++           "10": "{\"level\":10",
++           "20": "{\"level\":20",
++           "30": "{\"level\":30",
++           "40": "{\"level\":40",
++           "50": "{\"level\":50",
++           "60": "{\"level\":60",
++         },
++         Symbol(pino.levelVal): 40,
++       },
++       "mine": [Function anonymous],
++       "miningConfig": {
++         "type": "auto",
++       },
++       "mode": "normal",
++       "on": [Function on],
++       "ready": [Function ready],
++       "registerExExHook": [Function registerExExHook],
++       "removeFilter": [Function removeFilter],
++       "removeListener": [Function removeListener],
++       "send": [Function anonymous],
++       "sendBulk": [Function anonymous],
++       "setAccount": [Function anonymous],
++       "setAutoImpersonate": [Function setAutoImpersonate],
++       "setBlockTimestampInterval": [Function setBlockTimestampInterval],
++       "setFilter": [Function setFilter],
++       "setImpersonatedAccount": [Function setImpersonatedAccount],
++       "setMinGasPrice": [Function setMinGasPrice],
++       "setNextBlockBaseFeePerGas": [Function setNextBlockBaseFeePerGas],
++       "setNextBlockGasLimit": [Function setNextBlockGasLimit],
++       "setNextBlockPrevRandao": [Function setNextBlockPrevRandao],
++       "setNextBlockTimestamp": [Function setNextBlockTimestamp],
++       "setTracesEnabled": [Function setTracesEnabled],
++       "status": "READY",
++     },
++   },
++   "root": "0x",
++   "status": 1,
++   "to": "0x4242424242424242424242424242424242424242",
++   "type": 0,
+  }
+
+ ❯ src/jsonRpcAutomining.spec.ts:49:55
+     47|    expect(txHash).toBe(bytesToHex(signedTx.hash()))
+     48|
+     49|    await expect(provider.getTransactionReceipt(txHash)).rejects.toThro…
+       |                                                       ^
+     50|
+     51|    // Check that block number increased (new block was mined)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/jsonRpcAutomining.spec.ts > Ethers Extension JSON-RPC Automining Integration Tests > nonce handling should preserve user-provided nonces > should use user-provided nonce in ethers transactions
+AssertionError: promise resolved "TransactionReceipt{ …(17) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ TransactionReceipt {
++   "blobGasPrice": null,
++   "blobGasUsed": null,
++   "blockHash": "0xd2a6151c102f1707c69e49bdbea94d76d710f6ffcad36bed5ddcadd26226384a",
++   "blockNumber": 1,
++   "contractAddress": null,
++   "cumulativeGasUsed": 21000n,
++   "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
++   "gasPrice": 10000000000000n,
++   "gasUsed": 21000n,
++   "hash": "0x8e6543ff189875f59b154f88dc23472349bdea683a18a8e19ceb454d86668d85",
++   "index": 0,
++   "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
++   "provider": TevmProvider {
++     "_send": [Function _send],
++     "tevm": {
++       "addSnapshot": [Function addSnapshot],
++       "call": [Function anonymous],
++       "consensus": {
++         "mode": "noop",
++         "verifyRead": [Function verifyRead],
++       },
++       "contract": [Function anonymous],
++       "deal": [Function anonymous],
++       "debug": [Function debug],
++       "deepCopy": [Function deepCopy],
++       "deleteSnapshotsFrom": [Function deleteSnapshotsFrom],
++       "deploy": [Function anonymous],
++       "dumpState": [Function anonymous],
++       "emit": [Function emit],
++       "emitExExEvent": [Function emitExExEvent],
++       "extend": [Function extend],
++       "getAccount": [Function anonymous],
++       "getAutoImpersonate": [Function getAutoImpersonate],
++       "getBlockTimestampInterval": [Function getBlockTimestampInterval],
++       "getFilters": [Function getFilters],
++       "getImpersonatedAccount": [Function getImpersonatedAccount],
++       "getLightSyncStatus": [Function getLightSyncStatus],
++       "getMinGasPrice": [Function getMinGasPrice],
++       "getNextBlockBaseFeePerGas": [Function getNextBlockBaseFeePerGas],
++       "getNextBlockGasLimit": [Function getNextBlockGasLimit],
++       "getNextBlockPrevRandao": [Function getNextBlockPrevRandao],
++       "getNextBlockTimestamp": [Function getNextBlockTimestamp],
++       "getReceiptsManager": [Function getReceiptsManager],
++       "getSnapshot": [Function getSnapshot],
++       "getSnapshots": [Function getSnapshots],
++       "getTracesEnabled": [Function getTracesEnabled],
++       "getTxPool": [Function getTxPool],
++       "getVm": [Function getVm],
++       "loadState": [Function anonymous],
++       "logger": Pino {
++         "debug": [Function noop],
++         "error": [Function LOG],
++         "fatal": [Function anonymous],
++         "info": [Function noop],
++         "levels": {
++           "labels": {
++             "10": "trace",
++             "20": "debug",
++             "30": "info",
++             "40": "warn",
++             "50": "error",
++             "60": "fatal",
++           },
++           "values": {
++             "debug": 20,
++             "error": 50,
++             "fatal": 60,
++             "info": 30,
++             "trace": 10,
++             "warn": 40,
++           },
++         },
++         "onChild": [Function noop],
++         "silent": [Function noop],
++         "trace": [Function noop],
++         "warn": [Function LOG],
++         Symbol(pino.levelComp): [Function bound compareLevel],
++         Symbol(pino.useOnlyCustomLevels): false,
++         Symbol(pino.stream): SonicBoom {
++           "_actualWrite": [Function actualWrite],
++           "_asyncDrainScheduled": false,
++           "_bufs": [],
++           "_ending": false,
++           "_events": {
++             "close": [Function anonymous],
++             "error": [Function filterBrokenPipe],
++             "newListener": [Function anonymous],
++           },
++           "_eventsCount": 3,
++           "_flushPending": false,
++           "_fsync": false,
++           "_hwm": 16387,
++           "_len": 0,
++           "_lens": [],
++           "_periodicFlush": 0,
++           "_periodicFlushTimer": undefined,
++           "_reopening": false,
++           "_writing": false,
++           "_writingBuf": "",
++           "append": true,
++           "destroyed": false,
++           "fd": 1,
++           "file": null,
++           "flush": [Function flush],
++           "flushSync": [Function flushSync],
++           "maxLength": 0,
++           "maxWrite": 16384,
++           "minLength": 0,
++           "mkdir": false,
++           "mode": undefined,
++           "release": [Function anonymous],
++           "retryEAGAIN": [Function anonymous],
++           "sync": false,
++           "writable": true,
++           "write": [Function write],
++         },
++         Symbol(pino.time): [Function epochTime],
++         Symbol(pino.timeSliceIndex): 8,
++         Symbol(pino.stringify): [Function stringify],
++         Symbol(pino.stringifySafe): [Function stringify],
++         Symbol(pino.stringifiers): {},
++         Symbol(pino.end): "}
++ ",
++         Symbol(pino.formatOpts): {
++           "stringify": [Function bound stringify],
++         },
++         Symbol(pino.messageKey): "msg",
++         Symbol(pino.errorKey): "err",
++         Symbol(pino.nestedKey): null,
++         Symbol(pino.nestedKeyStr): "",
++         Symbol(pino.serializers): {
++           "err": [Function errSerializer],
++         },
++         Symbol(pino.mixin): undefined,
++         Symbol(pino.mixinMergeStrategy): undefined,
++         Symbol(pino.chindings): ",\"pid\":56939,\"hostname\":\"Williams-MacBook-Pro-2.local\",\"name\":\"TevmClient\"",
++         Symbol(pino.formatters): {
++           "bindings": [Function bindings],
++           "level": [Function level],
++           "log": undefined,
++         },
++         Symbol(pino.hooks): {
++           "logMethod": undefined,
++           "streamWrite": undefined,
++         },
++         Symbol(pino.msgPrefix): undefined,
++         Symbol(pino.lsCache): {
++           "10": "{\"level\":10",
++           "20": "{\"level\":20",
++           "30": "{\"level\":30",
++           "40": "{\"level\":40",
++           "50": "{\"level\":50",
++           "60": "{\"level\":60",
++         },
++         Symbol(pino.levelVal): 40,
++       },
++       "mine": [Function anonymous],
++       "miningConfig": {
++         "type": "auto",
++       },
++       "mode": "normal",
++       "on": [Function on],
++       "ready": [Function ready],
++       "registerExExHook": [Function registerExExHook],
++       "removeFilter": [Function removeFilter],
++       "removeListener": [Function removeListener],
++       "send": [Function anonymous],
++       "sendBulk": [Function anonymous],
++       "setAccount": [Function anonymous],
++       "setAutoImpersonate": [Function setAutoImpersonate],
++       "setBlockTimestampInterval": [Function setBlockTimestampInterval],
++       "setFilter": [Function setFilter],
++       "setImpersonatedAccount": [Function setImpersonatedAccount],
++       "setMinGasPrice": [Function setMinGasPrice],
++       "setNextBlockBaseFeePerGas": [Function setNextBlockBaseFeePerGas],
++       "setNextBlockGasLimit": [Function setNextBlockGasLimit],
++       "setNextBlockPrevRandao": [Function setNextBlockPrevRandao],
++       "setNextBlockTimestamp": [Function setNextBlockTimestamp],
++       "setTracesEnabled": [Function setTracesEnabled],
++       "status": "READY",
++     },
++   },
++   "root": "0x",
++   "status": 1,
++   "to": "0x4242424242424242424242424242424242424242",
++   "type": 0,
+  }
+
+ ❯ src/jsonRpcAutomining.spec.ts:180:55
+    178|    const txHash = response.hash
+    179|
+    180|    await expect(provider.getTransactionReceipt(txHash)).rejects.toThro…
+       |                                                       ^
+    181|    // The raw transaction already contains the nonce, so it should be …
+    182|    expect(signedTx.nonce).toBe(nextNonce)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  2 failed | 13 passed (15)
+   Start at  20:49:47
+   Duration  976ms (transform 537ms, setup 0ms, import 2.30s, tests 259ms, environment 0ms)
+
+ ELIFECYCLE  Command failed with exit code 1.
+
+codex
+The failures are exactly the hinted stale assertions: both tests now receive a mined `TransactionReceipt`, which matches automining being fixed. I’m reading the spec around those assertions and will change only the expectations that still assume “receipt unavailable.”
+exec
+/bin/zsh -lc "sed -n '1,230p' src/jsonRpcAutomining.spec.ts" in /Users/williamcory/tevm-monorepo/extensions/ethers
+ succeeded in 0ms:
+import { tevmDefault } from '@tevm/common'
+import { tevmActions, tevmSend } from '@tevm/decorators'
+import { createTevmNode } from '@tevm/node'
+import { TransactionFactory } from '@tevm/tx'
+import {
+	bytesToHex,
+	createAddressFromString,
+	hexToBytes,
+	numberToHex,
+	PREFUNDED_ACCOUNTS,
+	PREFUNDED_PRIVATE_KEYS,
+	parseEther,
+} from '@tevm/utils'
+import { describe, expect, it } from 'vitest'
+import { TevmProvider } from './TevmProvider.js'
+
+describe('Ethers Extension JSON-RPC Automining Integration Tests', () => {
+	describe('eth_sendRawTransaction should trigger automining when enabled', () => {
+		it('should automine transaction when automining is enabled via ethers provider', async () => {
+			const provider = await TevmProvider.createMemoryProvider({
+				miningConfig: { type: 'auto' },
+			})
+
+			// Get initial block number
+			const initialBlockNumber = await provider.getBlockNumber()
+
+			// Create and sign transaction
+			const tx = TransactionFactory(
+				{
+					maxFeePerGas: '0x09184e72a000',
+					maxPriorityFeePerGas: '0x09184e72a000',
+					gasLimit: '0x5208',
+					to: createAddressFromString(`0x${'42'.repeat(20)}`),
+					value: parseEther('0.1'),
+					data: '0x',
+					type: 2,
+				},
+				{ common: tevmDefault.ethjsCommon },
+			)
+			const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
+			const serializedTx = signedTx.serialize()
+
+			// Send transaction via ethers provider
+			const response = await provider.broadcastTransaction(bytesToHex(serializedTx))
+			const txHash = response.hash
+
+			expect(txHash).toBe(bytesToHex(signedTx.hash()))
+
+			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
+
+			// Check that block number increased (new block was mined)
+			const finalBlockNumber = await provider.getBlockNumber()
+			expect(finalBlockNumber).toBeGreaterThan(initialBlockNumber)
+		})
+
+		it('should not automine when automining is disabled', async () => {
+			const node = createTevmNode({ miningConfig: { type: 'manual' } })
+			const provider = new TevmProvider(node.extend(tevmActions()).extend(tevmSend()))
+
+			// Get initial block number
+			const initialBlockNumber = await provider.getBlockNumber()
+
+			// Create and send transaction
+			const tx = TransactionFactory(
+				{
+					nonce: '0x00',
+					maxFeePerGas: '0x09184e72a000',
+					maxPriorityFeePerGas: '0x09184e72a000',
+					gasLimit: '0x2710',
+					to: createAddressFromString(`0x${'42'.repeat(20)}`),
+					value: parseEther('0.1'),
+					data: '0x',
+					type: 2,
+				},
+				{ common: tevmDefault.ethjsCommon },
+			)
+			const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
+			const serializedTx = signedTx.serialize()
+
+			const response = await provider.broadcastTransaction(bytesToHex(serializedTx))
+			const txHash = response.hash
+
+			// Transaction should be added to txPool but not mined
+			const receipt = await provider.getTransactionReceipt(txHash)
+
+			expect(receipt).toBeNull() // No receipt = not mined
+
+			// Block number should remain the same
+			const finalBlockNumber = await provider.getBlockNumber()
+			expect(finalBlockNumber).toBe(initialBlockNumber)
+
+			// Verify transaction is in txPool via client access
+			const txPool = await node.getTxPool()
+			const pooledTxs = await txPool.getBySenderAddress(createAddressFromString(PREFUNDED_ACCOUNTS[0].address))
+			expect(pooledTxs).toHaveLength(1)
+			if (!pooledTxs[0]) throw new Error('Transaction not found in pool')
+			expect(bytesToHex(pooledTxs[0].tx.hash())).toBe(txHash)
+		})
+	})
+
+	describe('estimateGas should NOT trigger automining', () => {
+		it('should not mine blocks during gas estimation via ethers provider', async () => {
+			const node = createTevmNode({ miningConfig: { type: 'auto' }, loggingLevel: 'debug' })
+			const provider = new TevmProvider(node.extend(tevmActions()).extend(tevmSend()))
+
+			// Get initial block number
+			const initialBlockNumber = await provider.getBlockNumber()
+
+			// Estimate gas for transaction
+			const gasEstimate = await provider.estimateGas({
+				from: PREFUNDED_ACCOUNTS[0].address,
+				to: `0x${'42'.repeat(20)}`,
+				value: parseEther('0.1'),
+				data: '0x',
+			})
+
+			expect(gasEstimate).toBeTruthy()
+			expect(gasEstimate.toString()).toMatch(/^\d+$/) // Should be a number
+
+			// Block number should not have changed
+			const finalBlockNumber = await provider.getBlockNumber()
+			expect(finalBlockNumber).toBe(initialBlockNumber)
+
+			// TxPool should be empty (no transaction created)
+			const txPool = await node.getTxPool()
+			const pooledTxs = await txPool.getBySenderAddress(createAddressFromString(PREFUNDED_ACCOUNTS[0].address))
+			expect(pooledTxs).toHaveLength(0)
+		})
+
+		it('should not create transactions during multiple gas estimations', async () => {
+			const node = createTevmNode({ miningConfig: { type: 'auto' } })
+			const provider = new TevmProvider(node.extend(tevmActions()).extend(tevmSend()))
+
+			// Estimate gas multiple times
+			for (let i = 0; i < 3; i++) {
+				const gasEstimate = await provider.estimateGas({
+					from: PREFUNDED_ACCOUNTS[0].address,
+					to: `0x${'42'.repeat(20)}`,
+					value: parseEther('0.1'),
+					data: '0x',
+				})
+
+				expect(gasEstimate).toBeTruthy()
+			}
+
+			// TxPool should still be empty after multiple estimates
+			const txPool = await node.getTxPool()
+			const pooledTxs = await txPool.getBySenderAddress(createAddressFromString(PREFUNDED_ACCOUNTS[0].address))
+			expect(pooledTxs).toHaveLength(0)
+		})
+	})
+
+	describe('nonce handling should preserve user-provided nonces', () => {
+		it('should use user-provided nonce in ethers transactions', async () => {
+			const provider = await TevmProvider.createMemoryProvider({
+				miningConfig: { type: 'auto' },
+			})
+
+			// Send transaction with explicit nonce
+			const nextNonce = BigInt(await provider.getTransactionCount(PREFUNDED_ACCOUNTS[0].address))
+			const tx = TransactionFactory(
+				{
+					nonce: numberToHex(nextNonce),
+					maxFeePerGas: '0x09184e72a000',
+					maxPriorityFeePerGas: '0x09184e72a000',
+					gasLimit: '0x5208',
+					to: createAddressFromString(`0x${'42'.repeat(20)}`),
+					value: parseEther('0.1'),
+					data: '0x',
+					type: 2,
+				},
+				{ common: tevmDefault.ethjsCommon },
+			)
+			const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
+			const serializedTx = signedTx.serialize()
+
+			const response = await provider.broadcastTransaction(bytesToHex(serializedTx))
+			const txHash = response.hash
+
+			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
+			// The raw transaction already contains the nonce, so it should be preserved
+			expect(signedTx.nonce).toBe(nextNonce)
+		})
+	})
+})
+
+exec
+/bin/zsh -lc pwd in /Users/williamcory/tevm-monorepo/extensions/ethers
+ succeeded in 0ms:
+/Users/williamcory/tevm-monorepo/extensions/ethers
+
+exec
+/bin/zsh -lc "rg --files -g 'review.md' -g 'fix-report.md' -g '.review-slices/**'" in /Users/williamcory/tevm-monorepo/extensions/ethers
+ exited 1 in 0ms:
+codex
+I’m replacing the two rejection checks with receipt assertions. The surrounding block-number and nonce checks already validate the intended behavior, so this can stay small.
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/extensions/ethers/src/jsonRpcAutomining.spec.ts
+diff --git a/extensions/ethers/src/jsonRpcAutomining.spec.ts b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+index 51839baff8814b8ef73f74f63f89f439cb51cfcc..5239e50b4fea417286e18b2e40d663992e95556c
+--- a/extensions/ethers/src/jsonRpcAutomining.spec.ts
++++ b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+@@ -46,7 +46,8 @@
+ 
+ 			expect(txHash).toBe(bytesToHex(signedTx.hash()))
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 
+ 			// Check that block number increased (new block was mined)
+ 			const finalBlockNumber = await provider.getBlockNumber()
+@@ -177,7 +178,8 @@
+ 			const response = await provider.broadcastTransaction(bytesToHex(serializedTx))
+ 			const txHash = response.hash
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 			// The raw transaction already contains the nonce, so it should be preserved
+ 			expect(signedTx.nonce).toBe(nextNonce)
+ 		})
+
+diff --git a/extensions/ethers/src/jsonRpcAutomining.spec.ts b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+index 51839baff8814b8ef73f74f63f89f439cb51cfcc..5239e50b4fea417286e18b2e40d663992e95556c
+--- a/extensions/ethers/src/jsonRpcAutomining.spec.ts
++++ b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+@@ -46,7 +46,8 @@
+ 
+ 			expect(txHash).toBe(bytesToHex(signedTx.hash()))
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 
+ 			// Check that block number increased (new block was mined)
+ 			const finalBlockNumber = await provider.getBlockNumber()
+@@ -177,7 +178,8 @@
+ 			const response = await provider.broadcastTransaction(bytesToHex(serializedTx))
+ 			const txHash = response.hash
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 			// The raw transaction already contains the nonce, so it should be preserved
+ 			expect(signedTx.nonce).toBe(nextNonce)
+ 		})
+
+codex
+The stale assertions are updated. I’m rerunning the direct package test now to confirm there aren’t additional hidden failures.
+exec
+/bin/zsh -lc 'pnpm test:run' in /Users/williamcory/tevm-monorepo/extensions/ethers
+diff --git a/extensions/ethers/src/jsonRpcAutomining.spec.ts b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+index 51839baff8814b8ef73f74f63f89f439cb51cfcc..5239e50b4fea417286e18b2e40d663992e95556c
+--- a/extensions/ethers/src/jsonRpcAutomining.spec.ts
++++ b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+@@ -46,7 +46,8 @@
+ 
+ 			expect(txHash).toBe(bytesToHex(signedTx.hash()))
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 
+ 			// Check that block number increased (new block was mined)
+ 			const finalBlockNumber = await provider.getBlockNumber()
+@@ -177,7 +178,8 @@
+ 			const response = await provider.broadcastTransaction(bytesToHex(serializedTx))
+ 			const txHash = response.hash
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 			// The raw transaction already contains the nonce, so it should be preserved
+ 			expect(signedTx.nonce).toBe(nextNonce)
+ 		})
+
+ succeeded in 1565ms:
+
+> @tevm/ethers@1.0.0-next.148 test:run /Users/williamcory/tevm-monorepo/extensions/ethers
+> vitest run
+
+
+ RUN  v4.1.6 /Users/williamcory/tevm-monorepo/extensions/ethers
+
+{"level":20,"time":1779324607995,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","chainId":900,"msg":"Creating client with chainId"}
+{"level":20,"time":1779324607996,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324607996,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324607996,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324607996,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324607996,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/blockchain","0":4,"1":243,"2":34,"3":75,"4":199,"5":128,"6":151,"7":8,"8":164,"9":184,"10":96,"11":233,"12":253,"13":212,"14":88,"15":139,"16":56,"17":244,"18":188,"19":173,"20":185,"21":148,"22":249,"23":174,"24":23,"25":147,"26":162,"27":237,"28":44,"29":56,"30":1,"31":29,"msg":"Saved new block"}
+{"level":20,"time":1779324607996,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/evm","allowUnlimitedContractSize":false,"profiler":false,"customPrecompiles":["0x0000000000000000000000000000000000000100"]}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"checkpointed state!"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","msg":"initializing receipts manager..."}
+{"level":20,"time":1779324607996,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/blockchain","msg":"0x0"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x0000000000000000000000000000000000000000","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x70997970C51812dc3A010C7d01b50e0d17dc79C8","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x90F79bf6EB2c4f870365E785982E1f101E93b906","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x976EA74026E726554dB657fA54763abd0C3a0aa9","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x14dC79964da2C08b23698B3D3cc7Ca32193d9955","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xa0Ee7A142d267C1f36714E4a8F75612F20a79720","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"Comitting to existing state root..."}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","stateRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","msg":"Saving state roots..."}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"State roots are comitted successfully"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"StateManager is ready"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","request":{"method":"eth_chainId","params":[],"id":1,"jsonrpc":"2.0"},"msg":"JSON-RPC request received"}
+{"level":20,"time":1779324607997,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","request":{"method":"eth_blockNumber","params":[],"id":2,"jsonrpc":"2.0"},"msg":"JSON-RPC request received"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/blockchain","msg":"deep copying blockchain..."}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/common","msg":"Created common with eips enabled"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/blockchain","0":4,"1":243,"2":34,"3":75,"4":199,"5":128,"6":151,"7":8,"8":164,"9":184,"10":96,"11":233,"12":253,"13":212,"14":88,"15":139,"16":56,"17":244,"18":188,"19":173,"20":185,"21":148,"22":249,"23":174,"24":23,"25":147,"26":162,"27":237,"28":44,"29":56,"30":1,"31":29,"msg":"Saved new block"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x0000000000000000000000000000000000000000","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"checkpointed state!"}
+{"level":20,"time":1779324607998,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","request":{"method":"eth_estimateGas","params":[{"value":"0x16345785d8a0000","from":"0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266","to":"0x4242424242424242424242424242424242424242","data":"0x"}],"id":3,"jsonrpc":"2.0"},"msg":"JSON-RPC request received"}
+{"level":20,"time":1779324607998,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","throwOnFail":false,"data":"0x","to":"0x4242424242424242424242424242424242424242","value":100000000000000000,"addToBlockchain":false,"from":"0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266","msg":"callHandler: Executing call with params"}
+{"level":20,"time":1779324607999,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","block":{"parentHash":"0x0000000000000000000000000000000000000000000000000000000000000000","uncleHash":"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347","coinbase":"0x0000000000000000000000000000000000000000","stateRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","transactionsTrie":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","withdrawalsRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","receiptTrie":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","logsBloom":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","difficulty":"0x400000000","number":"0x0","gasLimit":"0x1c9c380","gasUsed":"0x0","timestamp":"0x0","extraData":"0x11bbe8db4e347b4e8c937c1c8370e4b5ed33adb3db69cbdb7a38e1e50b1b82fa","mixHash":"0x0000000000000000000000000000000000000000000000000000000000000000","nonce":"0x0000000000000042","baseFeePerGas":"0x7","blobGasUsed":"0x0","excessBlobGas":"0x0","parentBeaconBlockRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","requestsRoot":"0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},"msg":"Using block"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","msg":"Preparing vm to execute a call with block..."}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","to":"0x4242424242424242424242424242424242424242","origin":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","caller":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","value":"100000000000000000","data":{},"msg":"callHandler: Executing runCall with params"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","nonce":0,"sender":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","msg":"creating tx with nonce"}
+{"level":20,"time":1779324608003,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","returnValue":"0x","executionGasUsed":0,"msg":"callHandler: runCall result"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/blockchain","msg":"0x0"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x70997970C51812dc3A010C7d01b50e0d17dc79C8","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x90F79bf6EB2c4f870365E785982E1f101E93b906","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x976EA74026E726554dB657fA54763abd0C3a0aa9","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x14dC79964da2C08b23698B3D3cc7Ca32193d9955","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608000,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xa0Ee7A142d267C1f36714E4a8F75612F20a79720","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"Sharing fork cache reference between original and copied state"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"Successfully deepCopy'd StateManager with shared fork cache"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x0000000000000000000000000000000000000000","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x70997970C51812dc3A010C7d01b50e0d17dc79C8","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x90F79bf6EB2c4f870365E785982E1f101E93b906","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x976EA74026E726554dB657fA54763abd0C3a0aa9","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x14dC79964da2C08b23698B3D3cc7Ca32193d9955","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xa0Ee7A142d267C1f36714E4a8F75612F20a79720","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"Comitting to existing state root..."}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","stateRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","msg":"Saving state roots..."}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"State roots are comitted successfully"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"StateManager is ready"}
+{"level":20,"time":1779324608001,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","oldStateRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","newStateRoot":{"0":86,"1":232,"2":31,"3":23,"4":27,"5":204,"6":85,"7":166,"8":255,"9":131,"10":69,"11":230,"12":146,"13":192,"14":248,"15":110,"16":91,"17":72,"18":224,"19":27,"20":153,"21":108,"22":173,"23":192,"24":1,"25":98,"26":47,"27":181,"28":227,"29":99,"30":180,"31":33},"msg":"state root changed"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"checkpointed state!"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"checkpointed state!"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x0000000000000000000000000000000000000000","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x70997970C51812dc3A010C7d01b50e0d17dc79C8","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x90F79bf6EB2c4f870365E785982E1f101E93b906","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x976EA74026E726554dB657fA54763abd0C3a0aa9","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x14dC79964da2C08b23698B3D3cc7Ca32193d9955","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xa0Ee7A142d267C1f36714E4a8F75612F20a79720","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","nonce":1,"balance":999899999999790000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x4242424242424242424242424242424242424242","nonce":0,"balance":100000000000000000,"storageRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","codeHash":"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"Comitting to existing state root..."}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","stateRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","msg":"Saving state roots..."}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"State roots are comitted successfully"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x70997970C51812dc3A010C7d01b50e0d17dc79C8","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x90F79bf6EB2c4f870365E785982E1f101E93b906","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x976EA74026E726554dB657fA54763abd0C3a0aa9","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608002,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x14dC79964da2C08b23698B3D3cc7Ca32193d9955","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608003,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608003,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xa0Ee7A142d267C1f36714E4a8F75612F20a79720","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608003,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","nonce":1,"balance":999899999999999853000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608003,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x4242424242424242424242424242424242424242","nonce":0,"balance":100000000000000000,"storageRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","codeHash":"0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608003,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","address":"0x0000000000000000000000000000000000000000","nonce":0,"balance":1000000000000000000000,"storageRoot":"0x0000000000000000000000000000000000000000000000000000000000000000","codeHash":"0x0000000000000000000000000000000000000000000000000000000000000000","storage":{},"msg":"dumping address"}
+{"level":20,"time":1779324608003,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"Comitting to existing state root..."}
+{"level":20,"time":1779324608003,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","stateRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","msg":"Saving state roots..."}
+{"level":20,"time":1779324608003,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"@tevm/state-manager","msg":"State roots are comitted successfully"}
+{"level":20,"time":1779324608004,"pid":57203,"hostname":"Williams-MacBook-Pro-2.local","name":"TevmClient","request":{"method":"eth_blockNumber","params":[],"id":4,"jsonrpc":"2.0"},"msg":"JSON-RPC request received"}
+
+ Test Files  3 passed (3)
+      Tests  15 passed (15)
+   Start at  20:50:07
+   Duration  985ms (transform 573ms, setup 0ms, import 2.31s, tests 259ms, environment 0ms)
+
+
+codex
+The direct package run is green: 3 files and 15 tests passed. I’m adding the required slice report under the ethers scope now.
+exec
+/bin/zsh -lc "nl -ba src/jsonRpcAutomining.spec.ts | sed -n '40,60p'" in /Users/williamcory/tevm-monorepo/extensions/ethers
+exec
+/bin/zsh -lc "nl -ba src/jsonRpcAutomining.spec.ts | sed -n '172,188p'" in /Users/williamcory/tevm-monorepo/extensions/ethers
+ succeeded in 0ms:
+    40				const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
+    41				const serializedTx = signedTx.serialize()
+    42	
+    43				// Send transaction via ethers provider
+    44				const response = await provider.broadcastTransaction(bytesToHex(serializedTx))
+    45				const txHash = response.hash
+    46	
+    47				expect(txHash).toBe(bytesToHex(signedTx.hash()))
+    48	
+    49				const receipt = await provider.getTransactionReceipt(txHash)
+    50				expect(receipt?.hash).toBe(txHash)
+    51	
+    52				// Check that block number increased (new block was mined)
+    53				const finalBlockNumber = await provider.getBlockNumber()
+    54				expect(finalBlockNumber).toBeGreaterThan(initialBlockNumber)
+    55			})
+    56	
+    57			it('should not automine when automining is disabled', async () => {
+    58				const node = createTevmNode({ miningConfig: { type: 'manual' } })
+    59				const provider = new TevmProvider(node.extend(tevmActions()).extend(tevmSend()))
+    60	
+
+ succeeded in 0ms:
+   172					},
+   173					{ common: tevmDefault.ethjsCommon },
+   174				)
+   175				const signedTx = tx.sign(hexToBytes(PREFUNDED_PRIVATE_KEYS[0]))
+   176				const serializedTx = signedTx.serialize()
+   177	
+   178				const response = await provider.broadcastTransaction(bytesToHex(serializedTx))
+   179				const txHash = response.hash
+   180	
+   181				const receipt = await provider.getTransactionReceipt(txHash)
+   182				expect(receipt?.hash).toBe(txHash)
+   183				// The raw transaction already contains the nonce, so it should be preserved
+   184				expect(signedTx.nonce).toBe(nextNonce)
+   185			})
+   186		})
+   187	})
+
+exec
+/bin/zsh -lc 'mkdir -p .review-slices' in /Users/williamcory/tevm-monorepo/extensions/ethers
+ succeeded in 0ms:
+diff --git a/extensions/ethers/src/jsonRpcAutomining.spec.ts b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+index 51839baff8814b8ef73f74f63f89f439cb51cfcc..5239e50b4fea417286e18b2e40d663992e95556c
+--- a/extensions/ethers/src/jsonRpcAutomining.spec.ts
++++ b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+@@ -46,7 +46,8 @@
+ 
+ 			expect(txHash).toBe(bytesToHex(signedTx.hash()))
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 
+ 			// Check that block number increased (new block was mined)
+ 			const finalBlockNumber = await provider.getBlockNumber()
+@@ -177,7 +178,8 @@
+ 			const response = await provider.broadcastTransaction(bytesToHex(serializedTx))
+ 			const txHash = response.hash
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 			// The raw transaction already contains the nonce, so it should be preserved
+ 			expect(signedTx.nonce).toBe(nextNonce)
+ 		})
+
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/extensions/ethers/.review-slices/T26.fix.md
+diff --git a/extensions/ethers/.review-slices/T26.fix.md b/extensions/ethers/.review-slices/T26.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..0c7e5b72be963b737b3d4c57f40746b55272fbf3
+--- /dev/null
++++ b/extensions/ethers/.review-slices/T26.fix.md
+@@ -0,0 +1,17 @@
++# Ethers remaining 2 tests test fixes
++
++**Package:** T26
++**Scope:** extensions/ethers
++
++## Summary
++Updated two stale automining assertions in `src/jsonRpcAutomining.spec.ts`. The tests now expect `getTransactionReceipt` to resolve with the mined transaction receipt, matching the corrected source behavior.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- src/jsonRpcAutomining.spec.ts:49 - Assert the automined transaction receipt resolves and matches the broadcast transaction hash.
++- src/jsonRpcAutomining.spec.ts:181 - Assert the explicit-nonce transaction receipt resolves and matches the broadcast transaction hash.
+diff --git a/extensions/ethers/src/jsonRpcAutomining.spec.ts b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+index 51839baff8814b8ef73f74f63f89f439cb51cfcc..5239e50b4fea417286e18b2e40d663992e95556c
+--- a/extensions/ethers/src/jsonRpcAutomining.spec.ts
++++ b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+@@ -46,7 +46,8 @@
+ 
+ 			expect(txHash).toBe(bytesToHex(signedTx.hash()))
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 
+ 			// Check that block number increased (new block was mined)
+ 			const finalBlockNumber = await provider.getBlockNumber()
+@@ -177,7 +178,8 @@
+ 			const response = await provider.broadcastTransaction(bytesToHex(serializedTx))
+ 			const txHash = response.hash
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 			// The raw transaction already contains the nonce, so it should be preserved
+ 			expect(signedTx.nonce).toBe(nextNonce)
+ 		})
+
+diff --git a/extensions/ethers/.review-slices/T26.fix.md b/extensions/ethers/.review-slices/T26.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..0c7e5b72be963b737b3d4c57f40746b55272fbf3
+--- /dev/null
++++ b/extensions/ethers/.review-slices/T26.fix.md
+@@ -0,0 +1,17 @@
++# Ethers remaining 2 tests test fixes
++
++**Package:** T26
++**Scope:** extensions/ethers
++
++## Summary
++Updated two stale automining assertions in `src/jsonRpcAutomining.spec.ts`. The tests now expect `getTransactionReceipt` to resolve with the mined transaction receipt, matching the corrected source behavior.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- src/jsonRpcAutomining.spec.ts:49 - Assert the automined transaction receipt resolves and matches the broadcast transaction hash.
++- src/jsonRpcAutomining.spec.ts:181 - Assert the explicit-nonce transaction receipt resolves and matches the broadcast transaction hash.
+diff --git a/extensions/ethers/src/jsonRpcAutomining.spec.ts b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+index 51839baff8814b8ef73f74f63f89f439cb51cfcc..5239e50b4fea417286e18b2e40d663992e95556c
+--- a/extensions/ethers/src/jsonRpcAutomining.spec.ts
++++ b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+@@ -46,7 +46,8 @@
+ 
+ 			expect(txHash).toBe(bytesToHex(signedTx.hash()))
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 
+ 			// Check that block number increased (new block was mined)
+ 			const finalBlockNumber = await provider.getBlockNumber()
+@@ -177,7 +178,8 @@
+ 			const response = await provider.broadcastTransaction(bytesToHex(serializedTx))
+ 			const txHash = response.hash
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 			// The raw transaction already contains the nonce, so it should be preserved
+ 			expect(signedTx.nonce).toBe(nextNonce)
+ 		})
+
+codex
+Fixed the two stale Ethers test assertions.
+
+Changed [jsonRpcAutomining.spec.ts](/Users/williamcory/tevm-monorepo/extensions/ethers/src/jsonRpcAutomining.spec.ts:49) and [jsonRpcAutomining.spec.ts](/Users/williamcory/tevm-monorepo/extensions/ethers/src/jsonRpcAutomining.spec.ts:181) so automined transactions now assert a resolved receipt hash instead of expecting `getTransactionReceipt` to reject.
+
+Added the required report at [T26.fix.md](/Users/williamcory/tevm-monorepo/extensions/ethers/.review-slices/T26.fix.md).
+
+Verification: `pnpm test:run` passes in `extensions/ethers` with 3 test files and 15 tests passing.
+diff --git a/extensions/ethers/.review-slices/T26.fix.md b/extensions/ethers/.review-slices/T26.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..0c7e5b72be963b737b3d4c57f40746b55272fbf3
+--- /dev/null
++++ b/extensions/ethers/.review-slices/T26.fix.md
+@@ -0,0 +1,17 @@
++# Ethers remaining 2 tests test fixes
++
++**Package:** T26
++**Scope:** extensions/ethers
++
++## Summary
++Updated two stale automining assertions in `src/jsonRpcAutomining.spec.ts`. The tests now expect `getTransactionReceipt` to resolve with the mined transaction receipt, matching the corrected source behavior.
++
++## Tests passing
++all
++
++## Tests still failing
++0
++
++## Changes
++- src/jsonRpcAutomining.spec.ts:49 - Assert the automined transaction receipt resolves and matches the broadcast transaction hash.
++- src/jsonRpcAutomining.spec.ts:181 - Assert the explicit-nonce transaction receipt resolves and matches the broadcast transaction hash.
+diff --git a/extensions/ethers/src/jsonRpcAutomining.spec.ts b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+index 51839baff8814b8ef73f74f63f89f439cb51cfcc..5239e50b4fea417286e18b2e40d663992e95556c
+--- a/extensions/ethers/src/jsonRpcAutomining.spec.ts
++++ b/extensions/ethers/src/jsonRpcAutomining.spec.ts
+@@ -46,7 +46,8 @@
+ 
+ 			expect(txHash).toBe(bytesToHex(signedTx.hash()))
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 
+ 			// Check that block number increased (new block was mined)
+ 			const finalBlockNumber = await provider.getBlockNumber()
+@@ -177,7 +178,8 @@
+ 			const response = await provider.broadcastTransaction(bytesToHex(serializedTx))
+ 			const txHash = response.hash
+ 
+-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
++			const receipt = await provider.getTransactionReceipt(txHash)
++			expect(receipt?.hash).toBe(txHash)
+ 			// The raw transaction already contains the nonce, so it should be preserved
+ 			expect(signedTx.nonce).toBe(nextNonce)
+ 		})
+
+tokens used
+45,916
+Fixed the two stale Ethers test assertions.
+
+Changed [jsonRpcAutomining.spec.ts](/Users/williamcory/tevm-monorepo/extensions/ethers/src/jsonRpcAutomining.spec.ts:49) and [jsonRpcAutomining.spec.ts](/Users/williamcory/tevm-monorepo/extensions/ethers/src/jsonRpcAutomining.spec.ts:181) so automined transactions now assert a resolved receipt hash instead of expecting `getTransactionReceipt` to reject.
+
+Added the required report at [T26.fix.md](/Users/williamcory/tevm-monorepo/extensions/ethers/.review-slices/T26.fix.md).
+
+Verification: `pnpm test:run` passes in `extensions/ethers` with 3 test files and 15 tests passing.
+fatal: pathspec '.review-slices/T26.fix.md' did not match any files
+[main 828e5d56f] 🧪 fix(T26): update tests after review fix wave (Ethers remaining 2 tests)
+ 2 files changed, 21 insertions(+), 2 deletions(-)
+ create mode 100644 extensions/ethers/.review-slices/T26.fix.md

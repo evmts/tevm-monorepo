@@ -1,0 +1,10 @@
+🧪 fix(T22): update tests after review fix wave (tevm-run test fixes)
+
+Scope: bundler-packages/tevm-run
+
+Updated one stale source-text assertion in the tevm-run tests to match the corrected async command execution behavior. No source changes were needed.
+
+<prompt>when all tickets are implemented do a full check of tests hive tests lint etc. everything make sure everything passes.</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

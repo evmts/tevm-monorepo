@@ -1,0 +1,4071 @@
+
+> @tevm/root@0.0.0 lint:check /Users/williamcory/tevm-monorepo
+> nx run-many --target=lint:check
+
+
+ NX   Running target lint:check for 56 projects:
+
+- @tevm/sync-storage-persister
+- @tevm/bundler-cache
+- @tevm/base-bundler
+- @tevm/resolutions
+- @tevm/requirejs-plugin
+- @tevm/compiler
+- @tevm/unplugin
+- @tevm/whatsabi
+- tevm-run
+- @tevm/esbuild-plugin
+- @tevm/receipt-manager
+- @tevm/runtime
+- @tevm/test-matchers
+- @tevm/webpack-plugin
+- @tevm/config
+- @tevm/rollup-plugin
+- @tevm/rspack-plugin
+- @tevm/memory-client
+- @tevm/client-types
+- @tevm/solc
+- @tevm/vite-plugin
+- @tevm/bun-plugin
+- @tevm/http-client
+- @tevm/mud
+- @tevm/precompiles
+- @tevm/test-node
+- @tevm/blockchain
+- @tevm/decorators
+- @tevm/predeploys
+- @tevm/procedures
+- @tevm/tsupconfig
+- @tevm/contract
+- @tevm/ethers
+- @tevm/actions
+- @tevm/address
+- @tevm/jsonrpc
+- @tevm/common
+- @tevm/effect
+- @tevm/errors
+- @tevm/logger
+- @tevm/server
+- @tevm/test-utils
+- @tevm/txpool
+- @tevm/viem
+- @tevm/block
+- @tevm/state
+- @tevm/utils
+- @tevm/example-vite
+- @tevm/node
+- @tevm/trie
+- @tevm/ts-plugin
+- @tevm/evm
+- @tevm/rlp
+- @tevm/tx
+- @tevm/vm
+- @tevm/bench
+
+
+
+> nx run @tevm/tsupconfig:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/tsupconfig@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/configs/tsupconfig
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - package.json
+  - tsconfig.json
+  - src/browser.js
+  - src/createTsupOptions.js
+  - src/index.js
+  - src/js.js
+  - src/node.js
+  - src/targets.js
+  - tsup.config.ts
+  - typedoc.json
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 4ms.
+Checked 10 files in 54ms. No fixes applied.
+
+> nx run @tevm/errors:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/errors@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/errors
+> biome check . --verbose
+
+src/errors.spec.ts:136:29 lint/performance/noDynamicNamespaceImportAccess ━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Avoid accessing namespace imports dynamically, it can prevent efficient tree shaking and increase bundle size.
+  
+    134 │ 			}
+    135 │ 
+  > 136 │ 			const ErrorConstructor = errors[errorName as keyof typeof errors] as new (message: string, args: any) => Error
+        │ 			                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    137 │ 
+    138 │ 			// Create an instance with basic arguments
+  
+  i Prefer static property access or use named imports instead.
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - scripts/generate.ts
+  - src/client/MisconfiguredClient.js
+  - src/client/index.ts
+  - src/common/CommonMismatchError.js
+  - src/common/EipNotEnabledError.js
+  - src/common/index.js
+  - src/data/InvalidByteSizeError.js
+  - src/data/index.ts
+  - src/defensive/DefensiveNullCheckError.js
+  - src/defensive/UnreachableCodeError.js
+  - src/defensive/defensive.spec.ts
+  - src/defensive/index.js
+  - src/errors.spec.ts
+  - src/ethereum/AccountLockedError.js
+  - src/ethereum/AccountNotFoundError.js
+  - src/ethereum/BaseError.additional.spec.ts
+  - src/ethereum/BaseError.js
+  - src/ethereum/BaseError.spec.ts
+  - src/ethereum/BlobGasLimitExceededError.js
+  - src/ethereum/BlockGasLimitExceededError.js
+  - src/ethereum/ChainIdMismatchError.js
+  - src/ethereum/ContractExecutionFailedError.js
+  - src/ethereum/ExecutionErrorError.js
+  - src/ethereum/GasLimitExceededError.js
+  - src/ethereum/InsufficientFundsError.js
+  - src/ethereum/InsufficientPermissionsError.js
+  - src/ethereum/InternalErrorError.js
+  - src/ethereum/InvalidAddressError.js
+  - src/ethereum/InvalidGasPriceError.js
+  - src/ethereum/InvalidParamsError.js
+  - src/ethereum/InvalidRequestError.js
+  - src/ethereum/InvalidSignatureError.js
+  - src/ethereum/InvalidTransactionError.js
+  - src/ethereum/LimitExceededError.js
+  - src/ethereum/MethodNotFoundError.js
+  - src/ethereum/MethodNotSupportedError.js
+  - src/ethereum/NonceAlreadyUsedError.js
+  - src/ethereum/NonceTooHighError.js
+  - src/ethereum/NonceTooLowError.js
+  - src/ethereum/ParseErrorError.js
+  - src/ethereum/PendingTransactionTimeoutError.js
+  - src/ethereum/RateLimitExceededError.js
+  - src/ethereum/ResourceNotFoundError.js
+  - src/ethereum/ResourceUnavailableError.js
+  - src/ethereum/RevertError.js
+  - src/ethereum/TransactionRejectedError.js
+  - src/ethereum/TransactionTooLargeError.js
+  - src/ethereum/TransactionUnderpricedError.js
+  - src/ethereum/UnknownBlockError.js
+  - src/ethereum/UnsupportedChainError.js
+  - src/ethereum/ethereumjs/AuthCallUnsetError.js
+  - src/ethereum/ethereumjs/BLS12381FpNotInFieldError.js
+  - src/ethereum/ethereumjs/BLS12381InputEmptyError.js
+  - src/ethereum/ethereumjs/BLS12381InvalidInputLengthError.js
+  - src/ethereum/ethereumjs/BLS12381PointNotOnCurveError.js
+  - src/ethereum/ethereumjs/CodeSizeExceedsMaximumError.js
+  - src/ethereum/ethereumjs/CodeStoreOutOfGasError.js
+  - src/ethereum/ethereumjs/CreateCollisionError.js
+  - src/ethereum/ethereumjs/EvmRevertError.js
+  - src/ethereum/ethereumjs/InitcodeSizeViolationError.js
+  - src/ethereum/ethereumjs/InsufficientBalanceError.js
+  - src/ethereum/ethereumjs/InternalEvmError.js
+  - src/ethereum/ethereumjs/InvalidBeginSubError.js
+  - src/ethereum/ethereumjs/InvalidBytecodeResultError.js
+  - src/ethereum/ethereumjs/InvalidCommitmentError.js
+  - src/ethereum/ethereumjs/InvalidEofFormatError.js
+  - src/ethereum/ethereumjs/InvalidInputLengthError.js
+  - src/ethereum/ethereumjs/InvalidJumpError.js
+  - src/ethereum/ethereumjs/InvalidJumpSubError.js
+  - src/ethereum/ethereumjs/InvalidKzgInputsError.js
+  - src/ethereum/ethereumjs/InvalidOpcodeError.js
+  - src/ethereum/ethereumjs/InvalidProofError.js
+  - src/ethereum/ethereumjs/InvalidReturnSubError.js
+  - src/ethereum/ethereumjs/OutOfGasError.js
+  - src/ethereum/ethereumjs/OutOfRangeError.js
+  - src/ethereum/ethereumjs/RefundExhausted.js
+  - src/ethereum/ethereumjs/StackOverflowError.js
+  - src/ethereum/ethereumjs/StackUnderflowError.js
+  - src/ethereum/ethereumjs/StaticStateChangeError.js
+  - src/ethereum/ethereumjs/StopErrorError.js
+  - src/ethereum/ethereumjs/ValueOverflowError.js
+  - src/ethereum/ethereumjs/ethereumjs.spec.ts
+  - src/ethereum/ethereumjs/index.ts
+  - src/ethereum/index.ts
+  - src/fork/ForkError.js
+  - src/fork/NoForkUriSetError.js
+  - src/fork/NoForkUrlSetError.js
+  - src/fork/fork.spec.ts
+  - src/fork/index.ts
+  - src/index.ts
+  - src/input/InvalidAbiError.js
+  - src/input/InvalidAddToBlockchainError.js
+  - src/input/InvalidAddToMempoolError.js
+  - src/input/InvalidArgsError.js
+  - src/input/InvalidBalanceError.js
+  - src/input/InvalidBlobVersionedHashesError.js
+  - src/input/InvalidBlockError.js
+  - src/input/InvalidBytecodeError.js
+  - src/input/InvalidCallerError.js
+  - src/input/InvalidDataError.js
+  - src/input/InvalidDeployedBytecodeError.js
+  - src/input/InvalidDepthError.js
+  - src/input/InvalidFunctionNameError.js
+  - src/input/InvalidGasLimitError.js
+  - src/input/InvalidGasRefundError.js
+  - src/input/InvalidMaxFeePerGaserror.js
+  - src/input/InvalidMaxPriorityFeePerGas.js
+  - src/input/InvalidNonceError.js
+  - src/input/InvalidOriginError.js
+  - src/input/InvalidSaltError.js
+  - src/input/InvalidSelfdestructError.js
+  - src/input/InvalidSkipBalanceError.js
+  - src/input/InvalidStorageRootError.js
+  - src/input/InvalidToError.js
+  - src/input/InvalidUrlError.js
+  - src/input/InvalidValueError.js
+  - src/input/index.ts
+  - src/input/input.spec.ts
+  - src/requestErrors.ts
+  - src/rpcErrorToMessage.js
+  - src/rpcErrors.spec.ts
+  - src/utils/DecodeFunctionDataError.js
+  - src/utils/EncodeFunctionReturnDataError.js
+  - src/utils/index.ts
+  - src/utils/utils.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 4ms.
+Checked 131 files in 57ms. No fixes applied.
+Found 1 warning.
+
+> nx run @tevm/utils:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/utils@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/utils
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/Bloom.spec.ts
+  - src/Bloom.ts
+  - src/CreateMemoryDbFn.ts
+  - src/MemoryDb.ts
+  - src/SerializeToJson.ts
+  - src/abitype.ts
+  - src/createMemoryDb.js
+  - src/createMemoryDb.spec.ts
+  - src/ethereumjs.js
+  - src/ethereumjs.spec.ts
+  - src/index.ts
+  - src/invariant.spec.ts
+  - src/invariant.ts
+  - src/prefundedAccounts.spec.ts
+  - src/prefundedAccounts.ts
+  - src/signature.js
+  - src/signature.spec.ts
+  - src/viem.js
+  - src/viem.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1807µs.
+Checked 25 files in 8ms. No fixes applied.
+
+> nx run @tevm/solc:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/solc@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/solc
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - TestContract.d.ts
+  - scripts/version/index.cjs
+  - source.ts
+  - src/index.js
+  - src/index.spec.ts
+  - src/index.ts
+  - src/solc.js
+  - src/solc.spec.ts
+  - src/solcTypes.spec.ts
+  - src/solcTypes.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1619µs.
+Checked 16 files in 7ms. No fixes applied.
+
+> nx run @tevm/compiler:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/compiler@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/compiler
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - TestContract.d.ts
+  - source.spec.ts
+  - source.ts
+  - src/compiler/compileContracts.js
+  - src/compiler/compileContracts.spec.ts
+  - src/compiler/compileContractsSync.js
+  - src/compiler/compileContractsSync.spec.ts
+  - src/compiler/index.js
+  - src/compiler/index.spec.ts
+  - src/index.js
+  - src/index.spec.ts
+  - src/resolveArtifacts.js
+  - src/resolveArtifacts.spec.ts
+  - src/resolveArtifactsSync.js
+  - src/resolveArtifactsSync.spec.ts
+  - src/testing-utils.spec.ts
+  - src/testing-utils.ts
+  - src/types.spec.ts
+  - src/types.ts
+  - src/utils/formatPath.js
+  - src/utils/formatPath.spec.ts
+  - src/utils/index.js
+  - src/utils/invariant.d.ts
+  - src/utils/invariant.js
+  - src/utils/invariant.spec.ts
+  - src/utils/isImportLocal.js
+  - src/utils/isImportLocal.spec.ts
+  - src/utils/isRelativeSolidity.js
+  - src/utils/isRelativeSolidity.spec.ts
+  - src/utils/isSolidity.js
+  - src/utils/isSolidity.spec.ts
+  - src/utils/resolvePromise.js
+  - src/utils/resolvePromise.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 39 files in 10ms. No fixes applied.
+
+> nx run @tevm/contract:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/contract@1.0.0-next.149 lint:check /Users/williamcory/tevm-monorepo/packages/contract
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/Contract.ts
+  - src/CreateContractFn.ts
+  - src/CreateContractParams.ts
+  - src/contract-lib/AdvancedContract.s.sol.ts
+  - src/contract-lib/ERC20.ts
+  - src/contract-lib/ERC721.ts
+  - src/contract-lib/ErrorContract.s.sol.ts
+  - src/contract-lib/SimpleContract.s.sol.ts
+  - src/contract-lib/index.ts
+  - src/createContract.js
+  - src/createContract.spec.ts
+  - src/event/EventActionCreator.ts
+  - src/event/eventFactory.js
+  - src/event/eventFactory.spec.ts
+  - src/index.ts
+  - src/read/ReadActionCreator.ts
+  - src/read/readFactory.js
+  - src/read/readFactory.spec.ts
+  - src/test/fixtures.ts
+  - src/write/WriteActionCreator.ts
+  - src/write/writeFactory.js
+  - src/write/writeFactory.spec.ts
+  - tsup.config.js
+  - typedoc.json
+  - vite.config.ts
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 29 files in 7ms. No fixes applied.
+
+> nx run @tevm/unplugin:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/unplugin@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/unplugin
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/fao.js
+  - src/fao.spec.ts
+  - src/index.js
+  - src/index.spec.ts
+  - src/index.ts
+  - src/tevmUnplugin.js
+  - src/tevmUnplugin.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1562µs.
+Checked 13 files in 7ms. No fixes applied.
+
+> nx run @tevm/esbuild-plugin:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/esbuild-plugin@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/esbuild
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/esbuildPluginTevm.js
+  - src/esbuildPluginTevm.spec.ts
+  - src/index.js
+  - src/index.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  - vitest.config.ts.timestamp-1695021753373-5bf7ac413c15.mjs
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 6ms.
+Checked 11 files in 3ms. No fixes applied.
+
+> nx run @tevm/logger:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/logger@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/logger
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/LogOptions.ts
+  - src/Logger.ts
+  - src/createLogger.js
+  - src/createLogger.spec.ts
+  - src/index.ts
+  - tsup.config.js
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1598µs.
+Checked 11 files in 3ms. No fixes applied.
+
+> nx run @tevm/common:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/common@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/common
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/Common.ts
+  - src/CommonOptions.ts
+  - src/Hardfork.ts
+  - src/MockKzg.ts
+  - src/createCommon.js
+  - src/createCommon.spec.ts
+  - src/createMockKzg.js
+  - src/createMockKzg.spec.ts
+  - src/index.ts
+  - src/presets/__GENERATE_CHAIN_PRESETS__.js
+  - src/presets/abstractTestnet.js
+  - src/presets/acala.js
+  - src/presets/ancient8.js
+  - src/presets/ancient8Sepolia.js
+  - src/presets/anvil.js
+  - src/presets/apexTestnet.js
+  - src/presets/arbitrum.js
+  - src/presets/arbitrumGoerli.js
+  - src/presets/arbitrumNova.js
+  - src/presets/arbitrumSepolia.js
+  - src/presets/areonNetwork.js
+  - src/presets/areonNetworkTestnet.js
+  - src/presets/artelaTestnet.js
+  - src/presets/assetChainTestnet.js
+  - src/presets/astar.js
+  - src/presets/astarZkEVM.js
+  - src/presets/astarZkyoto.js
+  - src/presets/atletaOlympia.js
+  - src/presets/aurora.js
+  - src/presets/auroraTestnet.js
+  - src/presets/auroria.js
+  - src/presets/avalanche.js
+  - src/presets/avalancheFuji.js
+  - src/presets/b3.js
+  - src/presets/b3Sepolia.js
+  - src/presets/bahamut.js
+  - src/presets/base.js
+  - src/presets/baseGoerli.js
+  - src/presets/baseSepolia.js
+  - src/presets/beam.js
+  - src/presets/beamTestnet.js
+  - src/presets/bearNetworkChainMainnet.js
+  - src/presets/bearNetworkChainTestnet.js
+  - src/presets/berachainTestnet.js
+  - src/presets/berachainTestnetbArtio.js
+  - src/presets/bevmMainnet.js
+  - src/presets/bitTorrent.js
+  - src/presets/bitTorrentTestnet.js
+  - src/presets/bitkub.js
+  - src/presets/bitkubTestnet.js
+  - src/presets/blast.js
+  - src/presets/blastSepolia.js
+  - src/presets/bob.js
+  - src/presets/bobSepolia.js
+  - src/presets/boba.js
+  - src/presets/bobaSepolia.js
+  - src/presets/botanixTestnet.js
+  - src/presets/bronos.js
+  - src/presets/bronosTestnet.js
+  - src/presets/bsc.js
+  - src/presets/bscGreenfield.js
+  - src/presets/bscTestnet.js
+  - src/presets/btr.js
+  - src/presets/btrTestnet.js
+  - src/presets/bxn.js
+  - src/presets/bxnTestnet.js
+  - src/presets/canto.js
+  - src/presets/celo.js
+  - src/presets/celoAlfajores.js
+  - src/presets/chiliz.js
+  - src/presets/chips.js
+  - src/presets/classic.js
+  - src/presets/confluxESpace.js
+  - src/presets/confluxESpaceTestnet.js
+  - src/presets/coreDao.js
+  - src/presets/crab.js
+  - src/presets/cronos.js
+  - src/presets/cronosTestnet.js
+  - src/presets/cronoszkEVM.js
+  - src/presets/cronoszkEVMTestnet.js
+  - src/presets/crossbell.js
+  - src/presets/curtis.js
+  - src/presets/cyber.js
+  - src/presets/cyberTestnet.js
+  - src/presets/darwinia.js
+  - src/presets/dchain.js
+  - src/presets/dchainTestnet.js
+  - src/presets/defichainEvm.js
+  - src/presets/defichainEvmTestnet.js
+  - src/presets/degen.js
+  - src/presets/dfk.js
+  - src/presets/dodochainTestnet.js
+  - src/presets/dogechain.js
+  - src/presets/dreyerxMainnet.js
+  - src/presets/dreyerxTestnet.js
+  - src/presets/edgeless.js
+  - src/presets/edgelessTestnet.js
+  - src/presets/edgeware.js
+  - src/presets/edgewareTestnet.js
+  - src/presets/eon.js
+  - src/presets/eos.js
+  - src/presets/eosTestnet.js
+  - src/presets/etherlink.js
+  - src/presets/etherlinkTestnet.js
+  - src/presets/evmos.js
+  - src/presets/evmosTestnet.js
+  - src/presets/fantom.js
+  - src/presets/fantomSonicTestnet.js
+  - src/presets/fantomTestnet.js
+  - src/presets/fibo.js
+  - src/presets/filecoin.js
+  - src/presets/filecoinCalibration.js
+  - src/presets/filecoinHyperspace.js
+  - src/presets/flare.js
+  - src/presets/flareTestnet.js
+  - src/presets/flowMainnet.js
+  - src/presets/flowPreviewnet.js
+  - src/presets/flowTestnet.js
+  - src/presets/fluence.js
+  - src/presets/fluenceStage.js
+  - src/presets/fluenceTestnet.js
+  - src/presets/forma.js
+  - src/presets/foundry.js
+  - src/presets/fraxtal.js
+  - src/presets/fraxtalTestnet.js
+  - src/presets/funkiMainnet.js
+  - src/presets/funkiSepolia.js
+  - src/presets/fuse.js
+  - src/presets/fuseSparknet.js
+  - src/presets/gnosis.js
+  - src/presets/gnosisChiado.js
+  - src/presets/gobi.js
+  - src/presets/goerli.js
+  - src/presets/gravity.js
+  - src/presets/ham.js
+  - src/presets/haqqMainnet.js
+  - src/presets/haqqTestedge2.js
+  - src/presets/hardhat.js
+  - src/presets/harmonyOne.js
+  - src/presets/hashkeyTestnet.js
+  - src/presets/hedera.js
+  - src/presets/hederaPreviewnet.js
+  - src/presets/hederaTestnet.js
+  - src/presets/holesky.js
+  - src/presets/immutableZkEvm.js
+  - src/presets/immutableZkEvmTestnet.js
+  - src/presets/inEVM.js
+  - src/presets/index.ts
+  - src/presets/iota.js
+  - src/presets/iotaTestnet.js
+  - src/presets/iotex.js
+  - src/presets/iotexTestnet.js
+  - src/presets/jbc.js
+  - src/presets/jbcTestnet.js
+  - src/presets/kaia.js
+  - src/presets/kairos.js
+  - src/presets/kakarotSepolia.js
+  - src/presets/karura.js
+  - src/presets/kava.js
+  - src/presets/kavaTestnet.js
+  - src/presets/kcc.js
+  - src/presets/klaytn.js
+  - src/presets/klaytnBaobab.js
+  - src/presets/koi.js
+  - src/presets/kroma.js
+  - src/presets/kromaSepolia.js
+  - src/presets/l3x.js
+  - src/presets/l3xTestnet.js
+  - src/presets/lightlinkPegasus.js
+  - src/presets/lightlinkPhoenix.js
+  - src/presets/linea.js
+  - src/presets/lineaGoerli.js
+  - src/presets/lineaSepolia.js
+  - src/presets/lineaTestnet.js
+  - src/presets/lisk.js
+  - src/presets/liskSepolia.js
+  - src/presets/localhost.js
+  - src/presets/lukso.js
+  - src/presets/luksoTestnet.js
+  - src/presets/lycan.js
+  - src/presets/lyra.js
+  - src/presets/mainnet.js
+  - src/presets/mandala.js
+  - src/presets/manta.js
+  - src/presets/mantaSepoliaTestnet.js
+  - src/presets/mantaTestnet.js
+  - src/presets/mantle.js
+  - src/presets/mantleSepoliaTestnet.js
+  - src/presets/mantleTestnet.js
+  - src/presets/merlin.js
+  - src/presets/metachain.js
+  - src/presets/metachainIstanbul.js
+  - src/presets/metalL2.js
+  - src/presets/meter.js
+  - src/presets/meterTestnet.js
+  - src/presets/metis.js
+  - src/presets/metisGoerli.js
+  - src/presets/mev.js
+  - src/presets/mevTestnet.js
+  - src/presets/mintSepoliaTestnet.js
+  - src/presets/mode.js
+  - src/presets/modeTestnet.js
+  - src/presets/moonbaseAlpha.js
+  - src/presets/moonbeam.js
+  - src/presets/moonbeamDev.js
+  - src/presets/moonriver.js
+  - src/presets/morphHolesky.js
+  - src/presets/morphSepolia.js
+  - src/presets/nautilus.js
+  - src/presets/neonDevnet.js
+  - src/presets/neonMainnet.js
+  - src/presets/nexi.js
+  - src/presets/nexilix.js
+  - src/presets/oasisTestnet.js
+  - src/presets/oasys.js
+  - src/presets/okc.js
+  - src/presets/oortMainnetDev.js
+  - src/presets/opBNB.js
+  - src/presets/opBNBTestnet.js
+  - src/presets/optimism.js
+  - src/presets/optimismGoerli.js
+  - src/presets/optimismSepolia.js
+  - src/presets/otimDevnet.js
+  - src/presets/palm.js
+  - src/presets/palmTestnet.js
+  - src/presets/pgn.js
+  - src/presets/pgnTestnet.js
+  - src/presets/phoenix.js
+  - src/presets/playfiAlbireo.js
+  - src/presets/plinga.js
+  - src/presets/plumeTestnet.js
+  - src/presets/polygon.js
+  - src/presets/polygonAmoy.js
+  - src/presets/polygonMumbai.js
+  - src/presets/polygonZkEvm.js
+  - src/presets/polygonZkEvmCardona.js
+  - src/presets/polygonZkEvmTestnet.js
+  - src/presets/pulsechain.js
+  - src/presets/pulsechainV4.js
+  - src/presets/qMainnet.js
+  - src/presets/qTestnet.js
+  - src/presets/real.js
+  - src/presets/redbellyTestnet.js
+  - src/presets/redstone.js
+  - src/presets/reyaNetwork.js
+  - src/presets/rollux.js
+  - src/presets/rolluxTestnet.js
+  - src/presets/ronin.js
+  - src/presets/root.js
+  - src/presets/rootPorcini.js
+  - src/presets/rootstock.js
+  - src/presets/rootstockTestnet.js
+  - src/presets/rss3.js
+  - src/presets/rss3Sepolia.js
+  - src/presets/saigon.js
+  - src/presets/sapphire.js
+  - src/presets/sapphireTestnet.js
+  - src/presets/satoshiVM.js
+  - src/presets/satoshiVMTestnet.js
+  - src/presets/scroll.js
+  - src/presets/scrollSepolia.js
+  - src/presets/sei.js
+  - src/presets/seiTestnet.js
+  - src/presets/sepolia.js
+  - src/presets/shapeSepolia.js
+  - src/presets/shardeumSphinx.js
+  - src/presets/shibarium.js
+  - src/presets/shibariumTestnet.js
+  - src/presets/shimmer.js
+  - src/presets/shimmerTestnet.js
+  - src/presets/skaleBlockBrawlers.js
+  - src/presets/skaleCalypso.js
+  - src/presets/skaleCalypsoTestnet.js
+  - src/presets/skaleCryptoBlades.js
+  - src/presets/skaleCryptoColosseum.js
+  - src/presets/skaleEuropa.js
+  - src/presets/skaleEuropaTestnet.js
+  - src/presets/skaleExorde.js
+  - src/presets/skaleHumanProtocol.js
+  - src/presets/skaleNebula.js
+  - src/presets/skaleNebulaTestnet.js
+  - src/presets/skaleRazor.js
+  - src/presets/skaleTitan.js
+  - src/presets/skaleTitanTestnet.js
+  - src/presets/sketchpad.js
+  - src/presets/soneiumMinato.js
+  - src/presets/songbird.js
+  - src/presets/songbirdTestnet.js
+  - src/presets/sophonTestnet.js
+  - src/presets/spicy.js
+  - src/presets/storyTestnet.js
+  - src/presets/stratis.js
+  - src/presets/syscoin.js
+  - src/presets/syscoinTestnet.js
+  - src/presets/taiko.js
+  - src/presets/taikoHekla.js
+  - src/presets/taikoJolnir.js
+  - src/presets/taikoKatla.js
+  - src/presets/taikoTestnetSepolia.js
+  - src/presets/taraxa.js
+  - src/presets/taraxaTestnet.js
+  - src/presets/telcoinTestnet.js
+  - src/presets/telos.js
+  - src/presets/telosTestnet.js
+  - src/presets/tenet.js
+  - src/presets/tevmDefault.js
+  - src/presets/thaiChain.js
+  - src/presets/thunderTestnet.js
+  - src/presets/tron.js
+  - src/presets/unreal.js
+  - src/presets/vechain.js
+  - src/presets/wanchain.js
+  - src/presets/wanchainTestnet.js
+  - src/presets/wemix.js
+  - src/presets/wemixTestnet.js
+  - src/presets/x1Testnet.js
+  - src/presets/xLayer.js
+  - src/presets/xLayerTestnet.js
+  - src/presets/xai.js
+  - src/presets/xaiTestnet.js
+  - src/presets/xdc.js
+  - src/presets/xdcTestnet.js
+  - src/presets/xrSepolia.js
+  - src/presets/yooldoVerse.js
+  - src/presets/yooldoVerseTestnet.js
+  - src/presets/zetachain.js
+  - src/presets/zetachainAthensTestnet.js
+  - src/presets/zhejiang.js
+  - src/presets/zilliqa.js
+  - src/presets/zilliqaTestnet.js
+  - src/presets/zkFair.js
+  - src/presets/zkFairTestnet.js
+  - src/presets/zkLinkNova.js
+  - src/presets/zkLinkNovaSepoliaTestnet.js
+  - src/presets/zksync.js
+  - src/presets/zksyncInMemoryNode.js
+  - src/presets/zksyncLocalNode.js
+  - src/presets/zksyncSepoliaTestnet.js
+  - src/presets/zora.js
+  - src/presets/zoraSepolia.js
+  - src/presets/zoraTestnet.js
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 4ms.
+Checked 347 files in 55ms. No fixes applied.
+
+> nx run @tevm/test-utils:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/test-utils@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/test/test-utils
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/AdvancedContract.s.sol.ts
+  - src/BlockReader.s.sol.ts
+  - src/ErrorContract.s.sol.ts
+  - src/MUDTestSystem.s.sol.ts
+  - src/MUDTestTable.sol.ts
+  - src/OZ.s.sol.ts
+  - src/SimpleContract.s.sol.ts
+  - src/getAlchemyUrl.ts
+  - src/index.ts
+  - src/simpleContract.ts
+  - src/transports.ts
+  - tsup.config.js
+  - typedoc.json
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1754µs.
+Checked 16 files in 7ms. No fixes applied.
+
+> nx run @tevm/address:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/address@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/address
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/Address.js
+  - src/Address.spec.ts
+  - src/assertAddress.js
+  - src/create2ContractAddress.js
+  - src/create2ContractAddress.spec.ts
+  - src/createAddress.js
+  - src/createAddress.spec.ts
+  - src/createContractAddress.js
+  - src/createContractAddress.spec.ts
+  - src/index.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1939µs.
+Checked 16 files in 5ms. No fixes applied.
+
+> nx run @tevm/jsonrpc:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/jsonrpc@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/jsonrpc
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/HeadersInit.ts
+  - src/JsonRpcClient.ts
+  - src/JsonRpcProcedure.ts
+  - src/JsonRpcRequest.ts
+  - src/JsonRpcResponse.ts
+  - src/createJsonRpcFetcher.js
+  - src/createJsonRpcFetcher.spec.ts
+  - src/index.js
+  - src/index.ts
+  - tsup.config.js
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1636µs.
+Checked 15 files in 5ms. No fixes applied.
+
+> nx run @tevm/predeploys:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/predeploys@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/predeploys
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/DefinePredeployFn.ts
+  - src/Predeploy.ts
+  - src/definePredeploy.js
+  - src/index.ts
+  - src/predeploy.spec.ts
+  - src/test/DaiContract.sol.ts
+  - tsup.config.js
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1843µs.
+Checked 12 files in 4ms. No fixes applied.
+
+> nx run @tevm/bun-plugin:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/bun-plugin@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/bun
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/bunFile.js
+  - src/bunFile.spec.ts
+  - src/bunFileAccessObject.js
+  - src/bunFileAccessObject.spec.ts
+  - src/bunPluginTevm.js
+  - src/bunPluginTevm.spec.ts
+  - src/index.js
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1526µs.
+Checked 13 files in 8ms. No fixes applied.
+
+> nx run @tevm/sync-storage-persister:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/sync-storage-persister@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/sync-storage-persister
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/CreateSyncStoragePersisterOptions.ts
+  - src/Storage.ts
+  - src/SyncStoragePersister.ts
+  - src/ThrottleFn.ts
+  - src/createSyncStoragePersister.js
+  - src/createSyncStoragePersister.spec.ts
+  - src/index.js
+  - src/index.spec.ts
+  - src/index.ts
+  - src/noopPersister.js
+  - src/noopPersister.spec.ts
+  - src/throttle.js
+  - src/throttle.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1465µs.
+Checked 19 files in 6ms. No fixes applied.
+
+> nx run @tevm/client-types:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/client-types@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/client-types
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/TevmClient.ts
+  - src/index.ts
+  - tsup.config.ts
+  - typedoc.json
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1673µs.
+Checked 7 files in 2ms. No fixes applied.
+
+> nx run @tevm/vite-plugin:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/vite-plugin@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/vite
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/index.js
+  - src/vitePluginTevm.js
+  - tsup.config.js
+  - typedoc.json
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1641µs.
+Checked 7 files in 2ms. No fixes applied.
+
+> nx run @tevm/tx:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/tx@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/tx
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/ImpersonatedTx.ts
+  - src/createImpersonatedTx.js
+  - src/createImpersonatedTx.spec.ts
+  - src/index.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1469µs.
+Checked 10 files in 3ms. No fixes applied.
+
+> nx run @tevm/webpack-plugin:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/webpack-plugin@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/webpack
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/TevmWebpackConstructor.ts
+  - src/WebpackPluginTevm.js
+  - src/index.js
+  - src/index.spec.ts
+  - src/unplugin.js
+  - tsup.config.ts
+  - typedoc.json
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1432µs.
+Checked 10 files in 3ms. No fixes applied.
+
+> nx run @tevm/rollup-plugin:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/rollup-plugin@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/rollup
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/index.js
+  - src/index.spec.ts
+  - src/rollupPluginTevm.js
+  - src/rollupPluginTevm.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1453µs.
+Checked 9 files in 3ms. No fixes applied.
+
+> nx run @tevm/http-client:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/http-client@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/http-client
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/HttpClient.ts
+  - src/HttpClientOptions.ts
+  - src/createHttpClient.js
+  - src/createHttpClient.spec.ts
+  - src/index.js
+  - src/index.ts
+  - src/test/Add.s.sol.ts
+  - src/test/ERC20.sol.ts
+  - tsup.config.js
+  - typedoc.json
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1727µs.
+Checked 13 files in 5ms. No fixes applied.
+
+> nx run @tevm/rspack-plugin:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/rspack-plugin@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/rspack
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/index.js
+  - src/index.spec.ts
+  - src/rspackPluginTevm.js
+  - src/rspackPluginTevm.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1609µs.
+Checked 9 files in 3ms. No fixes applied.
+
+> nx run tevm-run:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> tevm-run@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/tevm-run
+> biome check . --verbose
+
+src/run.spec.ts:35:51 lint/suspicious/noTemplateCurlyInString ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Unexpected template string placeholder.
+  
+    33 │ 		expect(sourceCode).toContain('err.stdout.toString()')
+    34 │ 		expect(sourceCode).toContain('err.stderr.toString()')
+  > 35 │ 		expect(sourceCode).toContain('`Failed with code ${err.exitCode}`')
+       │ 		                                                ^^^^^^^^^^^^^^^
+    36 │ 	})
+    37 │ 
+  
+  i Turn the string into a template string.
+  
+
+src/run.spec.ts:44:34 lint/suspicious/noTemplateCurlyInString ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Unexpected template string placeholder.
+  
+    42 │ 		// Verify error details are captured
+    43 │ 		expect(sourceCode).toContain(
+  > 44 │ 			'`Error executing the script: ${err instanceof Error ? err.message : err.stderr.toString()}`',
+       │ 			                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    45 │ 		)
+    46 │ 		expect(sourceCode).toContain('cause: err')
+  
+  i Turn the string into a template string.
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - example/example.ts
+  - example/vanilla.ts
+  - plugins.js
+  - src/argsSchema.js
+  - src/configPath.js
+  - src/configPath.spec.ts
+  - src/index.js
+  - src/parseArgs.js
+  - src/parseArgs.spec.ts
+  - src/run.js
+  - src/run.spec.ts
+  - src/tevm-run.js
+  - src/tevm-run.spec.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1612µs.
+Checked 16 files in 5ms. No fixes applied.
+Found 2 warnings.
+
+> nx run @tevm/example-vite:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/example-vite@0.0.1 lint:check /Users/williamcory/tevm-monorepo/examples/vite
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - index.html
+  - src/App.tsx
+  - src/EthersExample.tsx
+  - src/SolEditor.tsx
+  - src/SolcWorker.ts
+  - src/addresses.ts
+  - src/foo.json
+  - src/hooks/useDebounce.ts
+  - src/main.tsx
+  - src/utils/getRandomInt.ts
+  - src/utils/stringify.spec.ts
+  - src/utils/stringify.ts
+  - src/vite-env.d.ts
+  - src/vm/Pure.tsx
+  - src/vm/run.ts
+  - src/wagmi/WagmiEvents.tsx
+  - src/wagmi/WagmiReads.tsx
+  - src/wagmi/WagmiWrites.tsx
+  - src/wagmi.ts
+  - tevm.config.json
+  - vite.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1809µs.
+Checked 24 files in 7ms. No fixes applied.
+
+> nx run @tevm/procedures:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/procedures@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/procedures
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/index.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1883µs.
+Checked 7 files in 2ms. No fixes applied.
+
+> nx run @tevm/whatsabi:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/whatsabi@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/whatsabi
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/ContractUri.ts
+  - src/KnownChainIds.ts
+  - src/KnownChainsType.ts
+  - src/ParsedUri.ts
+  - src/contractUriPattern.js
+  - src/index.ts
+  - src/knownChains.js
+  - src/loadAbi.js
+  - src/parseUri.js
+  - src/resolveContractUri.js
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1613µs.
+Checked 16 files in 6ms. No fixes applied.
+
+> nx run @tevm/bench:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/bench@0.0.0-next.39 lint:check /Users/williamcory/tevm-monorepo/test/bench
+> biome check . --verbose
+
+src/bundler/bundler-comparison.bench.ts:329:6 lint/correctness/noUnusedVariables ━━━━━━━━━━━━━━━━━━━
+
+  ! This variable ModuleType is unused.
+  
+    328 │ // Module type enum that mirrors the Rust implementation's ModuleType
+  > 329 │ enum ModuleType {
+        │      ^^^^^^^^^^
+    330 │ 	Ts = 'ts',
+    331 │ 	Cjs = 'cjs',
+  
+  i Unused variables are often the result of typos, incomplete refactors, or other sources of bugs.
+  
+
+src/resolutions/debug-exports.mjs:8:39 lint/performance/noDynamicNamespaceImportAccess ━━━━━━━━━━━━━
+
+  ! Avoid accessing namespace imports dynamically, it can prevent efficient tree shaking and increase bundle size.
+  
+     6 │ console.log('\nTesting exports:')
+     7 │ for (const key of Object.keys(resolutionsRs)) {
+   > 8 │ 	console.log(`- ${key} type:`, typeof resolutionsRs[key])
+       │ 	                                     ^^^^^^^^^^^^^^^^^^
+     9 │ }
+    10 │ 
+  
+  i Prefer static property access or use named imports instead.
+  
+
+src/resolutions/generate-contracts.ts:10:9 lint/correctness/noUnusedVariables ━━━━━━━━━━━━━━━━━━━━━━
+
+  ! This variable moduleFactoryJs is unused.
+  
+     9 │ // Extract the moduleFactoryJs function
+  > 10 │ const { moduleFactoryJs } = resolutionsRs
+       │         ^^^^^^^^^^^^^^^
+    11 │ 
+    12 │ // Paths to our test fixtures
+  
+  i Unused variables are often the result of typos, incomplete refactors, or other sources of bugs.
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - copy.js
+  - src/arbitrum.spec.ts
+  - src/bundler/bundler-comparison.bench.ts
+  - src/deployment/deployContract.bench.ts
+  - src/deployment/deployContract.ts
+  - src/examples/apiexample.ts
+  - src/gasFailing.ts
+  - src/index.ts
+  - src/lotsOfMemoryAccess/constants.ts
+  - src/lotsOfMemoryAccess/lotsOfMemoryAccess.bench.ts
+  - src/lotsOfMemoryAccess/lotsOfMemoryAccess.ts
+  - src/precompiles/DaiContract.sol.ts
+  - src/precompiles/Fs.spec.ts
+  - src/precompiles/FsPrecompile.ts
+  - src/pureComputation/fibts.ts
+  - src/pureComputation/pureComputation.bench.ts
+  - src/pureComputation/pureComputation.ts
+  - src/resolutions/debug-exports.cjs
+  - src/resolutions/debug-exports.js
+  - src/resolutions/debug-exports.mjs
+  - src/resolutions/generate-contracts.ts
+  - src/resolutions/resolutions-module-graph.bench.ts
+  - src/resolutions/rust-wrapper.ts
+  - src/resolutions/test-module.ts
+  - src/runtime-rs/direct-benchmark.cjs
+  - src/runtime-rs/runtime-code-generation.bench.ts
+  - src/runtime-rs/rust-wrapper.ts
+  - src/runtime-rs/test-import.ts
+  - src/runtime-rs/test-runtime.cjs
+  - src/script/script.test.ts
+  - src/server.spec.ts
+  - src/slowCallRepo/slowCallRepo.bench.ts
+  - src/slowCallRepo/slowCallRepo.ts
+  - src/wagmi/doStuffWithWagmi.spec.ts
+  - src/wagmi/fib.s.sol.ts
+  - src/wagmi/fibts.ts
+  - src/wagmi/wagmiConfig.ts
+  - tsup.config.js
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1822µs.
+Checked 43 files in 11ms. No fixes applied.
+Found 3 warnings.
+
+> nx run @tevm/rlp:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/rlp@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/rlp
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/Rlp.spec.ts
+  - src/Rlp.ts
+  - src/index.ts
+  - tsup.config.js
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1763µs.
+Checked 9 files in 2ms. No fixes applied.
+
+> nx run @tevm/requirejs-plugin:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/requirejs-plugin@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/requirejs
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/index.js
+  - src/index.spec.ts
+  - src/requirejsFileAccessObject.js
+  - src/requirejsFileAccessObject.spec.ts
+  - src/requirejsPluginTevm.js
+  - src/requirejsPluginTevm.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1445µs.
+Checked 11 files in 4ms. No fixes applied.
+
+> nx run @tevm/mud:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/mud@1.0.0-next.142 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/mud
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - react/package.json
+  - tsconfig.json
+  - src/createOptimisticHandler.spec.ts
+  - src/createOptimisticHandler.ts
+  - src/index.ts
+  - src/internal/FieldLayout.spec.ts
+  - src/internal/FieldLayout.ts
+  - src/internal/decorators/mudStoreGetStorageAtOverride.spec.ts
+  - src/internal/decorators/mudStoreGetStorageAtOverride.ts
+  - src/internal/decorators/mudStoreWriteRequestOverride.spec.ts
+  - src/internal/decorators/mudStoreWriteRequestOverride.ts
+  - src/internal/ethjsLogToAbiLog.spec.ts
+  - src/internal/ethjsLogToAbiLog.ts
+  - src/internal/mud/applyUpdates.ts
+  - src/internal/mud/createStorageAdapter.ts
+  - src/internal/mud/createSyncAdapter.ts
+  - src/internal/stateUpdateCoordinator.ts
+  - src/internal/txIdentifier.ts
+  - src/internal/utils/deepEqual.spec.ts
+  - src/internal/utils/deepEqual.ts
+  - src/internal/utils/memoize.spec.ts
+  - src/internal/utils/memoize.ts
+  - src/react/index.ts
+  - src/react/useOptimisticRecord.spec.tsx
+  - src/react/useOptimisticRecord.tsx
+  - src/react/useOptimisticRecords.spec.tsx
+  - src/react/useOptimisticRecords.tsx
+  - src/react/useOptimisticState.spec.tsx
+  - src/react/useOptimisticState.tsx
+  - src/react/useOptimisticWrapper.spec.tsx
+  - src/react/useOptimisticWrapper.tsx
+  - src/subscribeTx.spec.ts
+  - src/subscribeTx.ts
+  - src/types.ts
+  - test/config.ts
+  - test/prepare.ts
+  - test/state.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1169µs.
+Checked 42 files in 10ms. No fixes applied.
+
+> nx run @tevm/trie:"lint:check"  [existing outputs match the cache, left as is]
+
+
+> @tevm/trie@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/trie
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/EMPTY_STATE_ROOT.js
+  - src/genesisStateRoot.spec.ts
+  - src/index.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1925µs.
+Checked 9 files in 3ms. No fixes applied.
+
+> nx run @tevm/config:"lint:check"
+
+
+> @tevm/config@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/config
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - scripts/dev.ts
+  - scripts/fixture.ts
+  - scripts/runFixture.ts
+  - src/config/index.js
+  - src/config/mergeConfigs.js
+  - src/config/mergeConfigs.spec.ts
+  - src/config/validateUserConfig.js
+  - src/config/validateUserConfig.spec.ts
+  - src/config/withDefaults.js
+  - src/config/withDefaults.spec.ts
+  - src/defineConfig.js
+  - src/defineConfig.spec.ts
+  - src/foundry/index.js
+  - src/foundry/loadFoundryConfig.js
+  - src/foundry/loadFoundryConfig.spec.ts
+  - src/index.js
+  - src/json/loadJsonConfig.js
+  - src/json/loadRemappingstxt.js
+  - src/json/loadRemappingstxt.spec.ts
+  - src/loadConfig.js
+  - src/loadConfig.spec.ts
+  - src/tsconfig/getTevmConfigFromTsConfig.js
+  - src/tsconfig/getTevmConfigFromTsConfig.spec.ts
+  - src/tsconfig/index.js
+  - src/tsconfig/loadTsConfig.js
+  - src/tsconfig/loadTsConfig.mocks.spec.ts
+  - src/tsconfig/loadTsConfig.spec.ts
+  - src/types.spec.ts
+  - src/types.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 35 files in 13ms. No fixes applied.
+
+> nx run @tevm/effect:"lint:check"
+
+
+> @tevm/effect@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/effect
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/createRequireEffect.js
+  - src/createRequireEffect.spec.ts
+  - src/fileExists.js
+  - src/fileExists.spec.ts
+  - src/index.js
+  - src/index.spec.ts
+  - src/logAllErrors.js
+  - src/logAllErrors.spec.ts
+  - src/parseJson.js
+  - src/parseJson.spec.ts
+  - src/resolve.js
+  - src/resolve.spec.ts
+  - tsup.config.js
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 18 files in 11ms. No fixes applied.
+
+> nx run @tevm/resolutions:"lint:check"
+
+
+> @tevm/resolutions@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - TestContract.d.ts
+  - src/index.js
+  - src/index.spec.ts
+  - src/moduleFactory.js
+  - src/moduleFactory.spec.ts
+  - src/resolveImports.js
+  - src/resolveImports.spec.ts
+  - src/types.ts
+  - src/utils/formatPath.js
+  - src/utils/formatPath.spec.ts
+  - src/utils/index.js
+  - src/utils/index.spec.ts
+  - src/utils/invariant.d.ts
+  - src/utils/invariant.js
+  - src/utils/invariant.spec.ts
+  - src/utils/isImportLocal.js
+  - src/utils/isImportLocal.spec.ts
+  - src/utils/isRelativeSolidity.js
+  - src/utils/isRelativeSolidity.spec.ts
+  - src/utils/isSolidity.js
+  - src/utils/isSolidity.spec.ts
+  - src/utils/resolveImportPath.js
+  - src/utils/resolveImportPath.spec.ts
+  - src/utils/resolveSafe.js
+  - src/utils/resolveSafe.spec.ts
+  - src/utils/safeFao.js
+  - src/utils/safeFao.spec.ts
+  - src/utils/updateImportPath.js
+  - src/utils/updateImportPath.spec.ts
+  - src/utils/updatePragma.js
+  - src/utils/updatePragma.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 37 files in 13ms. No fixes applied.
+
+> nx run @tevm/runtime:"lint:check"
+
+
+> @tevm/runtime@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+> biome check . --verbose
+
+src/generateTevmBodyDts.js:65:86 lint/suspicious/noTemplateCurlyInString ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Unexpected template string placeholder.
+  
+    63 │ 					// Generate type declaration for contracts with bytecode
+    64 │ 					if (includeBytecode) {
+  > 65 │ 						const bytecodeType = evm?.bytecode?.object && evm.bytecode.object !== '' ? '`0x${string}`' : 'undefined'
+       │ 						                                                                               ^^^^^^^^^
+    66 │ 						const deployedBytecodeType =
+    67 │ 							evm?.deployedBytecode?.object && evm.deployedBytecode.object !== '' ? '`0x${string}`' : 'undefined'
+  
+  i Turn the string into a template string.
+  
+
+src/generateTevmBodyDts.js:67:82 lint/suspicious/noTemplateCurlyInString ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Unexpected template string placeholder.
+  
+    65 │ 						const bytecodeType = evm?.bytecode?.object && evm.bytecode.object !== '' ? '`0x${string}`' : 'undefined'
+    66 │ 						const deployedBytecodeType =
+  > 67 │ 							evm?.deployedBytecode?.object && evm.deployedBytecode.object !== '' ? '`0x${string}`' : 'undefined'
+       │ 							                                                                          ^^^^^^^^^
+    68 │ 						const bytecodeLabel =
+    69 │ 							bytecodeType === 'undefined' && deployedBytecodeType === 'undefined' ? 'no bytecode' : 'with bytecode'
+  
+  i Turn the string into a template string.
+  
+
+src/generateTevmBodyDts.spec.ts:405:44 lint/suspicious/noTemplateCurlyInString ━━━━━━━━━━━━━━━━━━━━━
+
+  ! Unexpected template string placeholder.
+  
+    403 │ 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
+    404 │ 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')
+  > 405 │ 		expect(resultWithBytecode).toContain('`0x${string}`')
+        │ 		                                         ^^^^^^^^^
+    406 │ 
+    407 │ 		const resultWithoutBytecode = runSync(generateDtsBody(emptyAbiArtifact, false))
+  
+  i Turn the string into a template string.
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - TestContract.js
+  - source.ts
+  - src/extended-tests.spec.ts
+  - src/generateRuntime.js
+  - src/generateRuntime.spec.ts
+  - src/generateTevmBody.js
+  - src/generateTevmBody.spec.ts
+  - src/generateTevmBodyDts.js
+  - src/generateTevmBodyDts.spec.ts
+  - src/index.js
+  - src/index.spec.ts
+  - src/source/TestContract.spec.ts
+  - src/source/source.spec.ts
+  - src/types.spec.ts
+  - src/types.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 21 files in 15ms. No fixes applied.
+Found 3 warnings.
+
+> nx run @tevm/bundler-cache:"lint:check"
+
+
+> @tevm/bundler-cache@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/bundler-cache
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - TestContract.d.ts
+  - source.ts
+  - src/cacheHash.js
+  - src/createCache.js
+  - src/createCache.spec.ts
+  - src/getArtifactsPath.js
+  - src/getArtifactsPath.spec.ts
+  - src/getMetadataPath.js
+  - src/getMetadataPath.spec.ts
+  - src/index.js
+  - src/index.spec.ts
+  - src/readArtifacts.js
+  - src/readArtifacts.spec.ts
+  - src/readArtifactsSync.js
+  - src/readArtifactsSync.spec.ts
+  - src/types.spec.ts
+  - src/types.ts
+  - src/version.js
+  - src/writeArtifacts.js
+  - src/writeArtifacts.spec.ts
+  - src/writeArtifactsSync.js
+  - src/writeArtifactsSync.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 28 files in 16ms. No fixes applied.
+
+> nx run @tevm/base-bundler:"lint:check"
+
+
+> @tevm/base-bundler@1.0.0-next.149 lint:check /Users/williamcory/tevm-monorepo/bundler-packages/base-bundler
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - TestContract.d.ts
+  - src/bundler.js
+  - src/bundler.spec.ts
+  - src/bundlerConcurrency.spec.ts
+  - src/cacheHandling.spec.ts
+  - src/createCompileFingerprint.js
+  - src/getContractPath.js
+  - src/getContractPath.spec.ts
+  - src/index.js
+  - src/index.spec.ts
+  - src/moduleInputValidation.spec.ts
+  - src/readCache.js
+  - src/readCache.spec.ts
+  - src/readCacheSync.js
+  - src/readCacheSync.spec.ts
+  - src/resolveCacheKey.js
+  - src/resolveModuleAsync.js
+  - src/resolveModuleAsync.spec.ts
+  - src/resolveModuleSync.js
+  - src/resolveModuleSync.spec.ts
+  - src/types.ts
+  - src/writeCache.js
+  - src/writeCache.spec.ts
+  - src/writeCacheSync.js
+  - src/writeCacheSync.spec.ts
+  - tsup.config.js
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 31 files in 16ms. No fixes applied.
+
+> nx run @tevm/block:"lint:check"
+
+
+> @tevm/block@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/block
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/ClRequest.spec.ts
+  - src/ClRequest.ts
+  - src/block.ts
+  - src/clique.ts
+  - src/from-beacon-payload.ts
+  - src/from-rpc.ts
+  - src/header-from-rpc.ts
+  - src/header.ts
+  - src/helpers.ts
+  - src/index.ts
+  - src/types.ts
+  - src/utils.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1998µs.
+Checked 18 files in 17ms. No fixes applied.
+
+> nx run @tevm/state:"lint:check"
+
+
+> @tevm/state@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/state
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/BaseState.ts
+  - src/ContractCache.js
+  - src/ContractCache.spec.ts
+  - src/Foo.ts
+  - src/StateManager.ts
+  - src/actions/checkpoint.js
+  - src/actions/checkpoint.spec.ts
+  - src/actions/clearCaches.js
+  - src/actions/clearCaches.spec.ts
+  - src/actions/clearContractStorage.js
+  - src/actions/clearContractStorage.spec.ts
+  - src/actions/commit.js
+  - src/actions/commit.spec.ts
+  - src/actions/deepCopy.js
+  - src/actions/deepCopy.spec.ts
+  - src/actions/deleteAccount.js
+  - src/actions/deleteAccount.spec.ts
+  - src/actions/dumpCannonicalGenesis.js
+  - src/actions/dumpCannonicalGenesis.spec.ts
+  - src/actions/dumpStorage.js
+  - src/actions/dumpStorage.spec.ts
+  - src/actions/dumpStorageRange.js
+  - src/actions/dumpStorageRange.spec.ts
+  - src/actions/generateCannonicalGenesis.js
+  - src/actions/generateCannonicalGenesis.spec.ts
+  - src/actions/getAccount.js
+  - src/actions/getAccount.spec.ts
+  - src/actions/getAccountAddresses.js
+  - src/actions/getAccountAddresses.spec.ts
+  - src/actions/getAccountFromProvider.js
+  - src/actions/getAccountFromProvider.spec.ts
+  - src/actions/getAppliedKey.js
+  - src/actions/getAppliedKey.spec.ts
+  - src/actions/getContractCode.js
+  - src/actions/getContractCode.spec.ts
+  - src/actions/getContractStorage.js
+  - src/actions/getContractStorage.spec.ts
+  - src/actions/getForkBlockTag.js
+  - src/actions/getForkBlockTag.spec.ts
+  - src/actions/getForkClient.js
+  - src/actions/getForkClient.spec.ts
+  - src/actions/getProof.js
+  - src/actions/getProof.spec.ts
+  - src/actions/getStateRoot.js
+  - src/actions/getStateRoot.spec.ts
+  - src/actions/hasStateRoot.js
+  - src/actions/hasStateRoot.spec.ts
+  - src/actions/index.js
+  - src/actions/modifyAccountFields.js
+  - src/actions/modifyAccountFields.spec.ts
+  - src/actions/originalStorageCache.js
+  - src/actions/originalStorageCache.spec.ts
+  - src/actions/putAccount.js
+  - src/actions/putAccount.spec.ts
+  - src/actions/putContractCode.js
+  - src/actions/putContractCode.spec.ts
+  - src/actions/putContractStorage.js
+  - src/actions/putContractStorage.spec.ts
+  - src/actions/resolveForkBlockTag.js
+  - src/actions/revert.js
+  - src/actions/revert.spec.ts
+  - src/actions/saveStateRoot.js
+  - src/actions/saveStateRoot.spec.ts
+  - src/actions/setStateRoot.js
+  - src/actions/setStateRoot.spec.ts
+  - src/actions/shallowCopy.js
+  - src/actions/shallowCopy.spec.ts
+  - src/createBaseState.js
+  - src/createBaseState.spec.ts
+  - src/createStateManager.js
+  - src/createStateManager.spec.ts
+  - src/index.js
+  - src/index.spec.ts
+  - src/index.ts
+  - src/state-types/AccountStorage.ts
+  - src/state-types/ForkOptions.ts
+  - src/state-types/ParameterizedAccountStorage.ts
+  - src/state-types/ParameterizedTevmState.ts
+  - src/state-types/SerializableTevmState.ts
+  - src/state-types/StateAction.ts
+  - src/state-types/StateCache.ts
+  - src/state-types/StateOptions.ts
+  - src/state-types/StateRoots.ts
+  - src/state-types/TevmState.ts
+  - src/state-types/index.ts
+  - src/utils/accountHelpers.js
+  - src/utils/stripZeros.js
+  - src/utils/stripZeros.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 94 files in 26ms. No fixes applied.
+
+> nx run @tevm/ts-plugin:"lint:check"
+
+
+> @tevm/ts-plugin@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/lsp/ts-plugin
+> biome check . --verbose
+
+src/manual-coverage.cjs:48:71 lint/suspicious/noTemplateCurlyInString ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Unexpected template string placeholder.
+  
+    46 │ 		console.log('Directly testing the line that handles .s.sol files:')
+    47 │ 		console.log(
+  > 48 │ 			'if (!isSolidity(filePath) || !existsSync(filePath) || existsSync(`${filePath}.d.ts`) || existsSync(`${filePath}.ts`)) {',
+       │ 			                                                                   ^^^^^^^^^^^
+    49 │ 		)
+    50 │ 		console.log('  return languageServiceHost.getScriptSnapshot(filePath)')
+  
+  i Turn the string into a template string.
+  
+
+src/manual-coverage.cjs:149:21 lint/suspicious/noTemplateCurlyInString ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Unexpected template string placeholder.
+  
+    147 │ 		console.log('if (config.debug) {')
+    148 │ 		console.log('  writeFileSync(')
+  > 149 │ 		console.log('    `${filePath}.debug.d.ts`,')
+        │ 		                  ^^^^^^^^^^^
+    150 │ 		console.log('    `// Debug: the following snapshot is what tevm resolves ${filePath} to\n${snapshot.code}`,')
+    151 │ 		console.log('  )')
+  
+  i Turn the string into a template string.
+  
+
+src/manual-coverage.cjs:150:76 lint/suspicious/noTemplateCurlyInString ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Unexpected template string placeholder.
+  
+    148 │ 		console.log('  writeFileSync(')
+    149 │ 		console.log('    `${filePath}.debug.d.ts`,')
+  > 150 │ 		console.log('    `// Debug: the following snapshot is what tevm resolves ${filePath} to\n${snapshot.code}`,')
+        │ 		                                                                         ^^^^^^^^^^^
+    151 │ 		console.log('  )')
+    152 │ 		console.log('}')
+  
+  i Turn the string into a template string.
+  
+
+src/manual-coverage.js:48:71 lint/suspicious/noTemplateCurlyInString ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Unexpected template string placeholder.
+  
+    46 │ 		console.log('Directly testing the line that handles .s.sol files:')
+    47 │ 		console.log(
+  > 48 │ 			'if (!isSolidity(filePath) || !existsSync(filePath) || existsSync(`${filePath}.d.ts`) || existsSync(`${filePath}.ts`)) {',
+       │ 			                                                                   ^^^^^^^^^^^
+    49 │ 		)
+    50 │ 		console.log('  return languageServiceHost.getScriptSnapshot(filePath)')
+  
+  i Turn the string into a template string.
+  
+
+src/manual-coverage.js:149:21 lint/suspicious/noTemplateCurlyInString ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Unexpected template string placeholder.
+  
+    147 │ 		console.log('if (config.debug) {')
+    148 │ 		console.log('  writeFileSync(')
+  > 149 │ 		console.log('    `${filePath}.debug.d.ts`,')
+        │ 		                  ^^^^^^^^^^^
+    150 │ 		console.log('    `// Debug: the following snapshot is what tevm resolves ${filePath} to\n${snapshot.code}`,')
+    151 │ 		console.log('  )')
+  
+  i Turn the string into a template string.
+  
+
+src/manual-coverage.js:150:76 lint/suspicious/noTemplateCurlyInString ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Unexpected template string placeholder.
+  
+    148 │ 		console.log('  writeFileSync(')
+    149 │ 		console.log('    `${filePath}.debug.d.ts`,')
+  > 150 │ 		console.log('    `// Debug: the following snapshot is what tevm resolves ${filePath} to\n${snapshot.code}`,')
+        │ 		                                                                         ^^^^^^^^^^^
+    151 │ 		console.log('  )')
+    152 │ 		console.log('}')
+  
+  i Turn the string into a template string.
+  
+
+src/utils/findNode.spec.ts:124:29 lint/suspicious/noTemplateCurlyInString ━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Unexpected template string placeholder.
+  
+    122 │ 		const sourceFile = ts.createSourceFile(
+    123 │ 			'test.ts',
+  > 124 │ 			'const message = `Hello, ${name}!`;',
+        │ 			                         ^^^^^^^
+    125 │ 			ts.ScriptTarget.ES2015,
+    126 │ 			true,
+  
+  i Turn the string into a template string.
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - coverage-test.ts
+  - src/bin/tevm-gen-basic.spec.ts
+  - src/bin/tevm-gen-coverage.spec.ts
+  - src/bin/tevm-gen-integration-simple.spec.ts
+  - src/bin/tevm-gen.spec.ts
+  - src/bin/tevm-gen.ts
+  - src/decorators/getDefinitionAtPosition-additional.spec.ts
+  - src/decorators/getDefinitionAtPosition.spec.ts
+  - src/decorators/getDefinitionAtPosition.ts
+  - src/decorators/getScriptKind.spec.ts
+  - src/decorators/getScriptKind.ts
+  - src/decorators/getScriptSnapshot-debug.spec.ts
+  - src/decorators/getScriptSnapshot-full.spec.ts
+  - src/decorators/getScriptSnapshot-minimal.spec.ts
+  - src/decorators/getScriptSnapshot.extra.spec.ts
+  - src/decorators/getScriptSnapshot.spec.ts
+  - src/decorators/getScriptSnapshot.ts
+  - src/decorators/index.ts
+  - src/decorators/resolveModuleNameLiterals.spec.ts
+  - src/decorators/resolveModuleNameLiterals.ts
+  - src/factories/decorator.spec.ts
+  - src/factories/decorator.ts
+  - src/factories/fileAccessObject.spec.ts
+  - src/factories/fileAccessObject.ts
+  - src/factories/index.ts
+  - src/factories/logger.spec.ts
+  - src/factories/logger.ts
+  - src/getScriptSnapshot-test.ts
+  - src/index.ts
+  - src/manual-coverage.cjs
+  - src/manual-coverage.js
+  - src/tsPlugin.mock.spec.ts
+  - src/tsPlugin.spec.ts
+  - src/tsPlugin.ts
+  - src/utils/convertSolcAstToTsDefinitionInfo.spec.ts
+  - src/utils/convertSolcAstToTsDefinitionInfo.ts
+  - src/utils/findContractDefinitionFileNameFromTevmNode.spec.ts
+  - src/utils/findContractDefinitionFileNameFromTevmNode.ts
+  - src/utils/findNode.spec.ts
+  - src/utils/findNode.ts
+  - src/utils/index.ts
+  - src/utils/invariant.spec.ts
+  - src/utils/invariant.ts
+  - src/utils/isRelativeSolidity.spec.ts
+  - src/utils/isRelativeSolidity.ts
+  - src/utils/isSolidity.spec.ts
+  - src/utils/isSolidity.ts
+  - src/utils/resolveJsonAsConst-enhanced.spec.ts
+  - src/utils/resolveJsonAsConst.spec.ts
+  - src/utils/resolveJsonAsConst.ts
+  - src/utils/solidityModuleResolver.spec.ts
+  - src/utils/solidityModuleResolver.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  - vitest.config.ts.timestamp-1695021753373-c9c064001bd1a.mjs
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 59 files in 24ms. No fixes applied.
+Found 7 warnings.
+
+> nx run @tevm/evm:"lint:check"
+
+
+> @tevm/evm@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/evm
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/CreateEvmOptions.ts
+  - src/CustomPrecompile.ts
+  - src/Evm.js
+  - src/EvmOpts.ts
+  - src/EvmType.ts
+  - src/createEvm.js
+  - src/createEvm.spec.ts
+  - src/index.ts
+  - tsup.config.js
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1860µs.
+Checked 14 files in 10ms. No fixes applied.
+
+> nx run @tevm/blockchain:"lint:check"
+
+
+> @tevm/blockchain@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/blockchain
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/BaseChain.ts
+  - src/CasperConsensus.js
+  - src/Chain.ts
+  - src/ChainOptions.ts
+  - src/actions/deepCopy.js
+  - src/actions/deepCopy.spec.ts
+  - src/actions/delBlock.js
+  - src/actions/delBlock.spec.ts
+  - src/actions/getBlock.js
+  - src/actions/getBlock.spec.ts
+  - src/actions/getBlockByTag.js
+  - src/actions/getBlockByTag.spec.ts
+  - src/actions/getCanonicalHeadBlock.js
+  - src/actions/getCanonicalHeadBlock.spec.ts
+  - src/actions/getIteratorHead.js
+  - src/actions/getIteratorHead.spec.ts
+  - src/actions/index.ts
+  - src/actions/putBlock.js
+  - src/actions/putBlock.spec.ts
+  - src/actions/setIteratorHead.js
+  - src/actions/setIteratorHead.spec.ts
+  - src/actions/shallowCopy.js
+  - src/actions/shallowCopy.spec.ts
+  - src/actions/validateHeader.js
+  - src/actions/validateHeader.spec.ts
+  - src/createBaseChain.js
+  - src/createBaseChain.spec.ts
+  - src/createChain.js
+  - src/createChain.spec.ts
+  - src/index.ts
+  - src/test/getBlocks.ts
+  - src/utils/CUSTOM_Tx_TYPES.js
+  - src/utils/CUSTOM_Tx_TYPES.spec.ts
+  - src/utils/getBlockFromRpc.js
+  - src/utils/getBlockFromRpc.spec.ts
+  - src/utils/isTevmBlockTag.js
+  - src/utils/isTevmBlockTag.spec.ts
+  - src/utils/warnOnce.js
+  - src/utils/warnOnce.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 45 files in 18ms. No fixes applied.
+
+> nx run @tevm/vm:"lint:check"
+
+
+> @tevm/vm@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/vm
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/BaseVm.ts
+  - src/CreateVmOptions.ts
+  - src/Vm.ts
+  - src/VmOpts.ts
+  - src/actions/BlockBuilder.ts
+  - src/actions/BlockStatus.ts
+  - src/actions/BuildStatus.ts
+  - src/actions/DAOConfig.ts
+  - src/actions/accumulateParentBeaconBlockRoot.ts
+  - src/actions/accumulateParentBlockHash.spec.ts
+  - src/actions/accumulateParentBlockHash.ts
+  - src/actions/applyBlock.spec.ts
+  - src/actions/applyBlock.ts
+  - src/actions/applyDAOHardfork.spec.ts
+  - src/actions/applyDAOHardfork.ts
+  - src/actions/applyTransactions.spec.ts
+  - src/actions/applyTransactions.ts
+  - src/actions/assignBlockRewards.spec.ts
+  - src/actions/assignBlockRewards.ts
+  - src/actions/assignWithdrawals.spec.ts
+  - src/actions/assignWithdrawals.ts
+  - src/actions/buildBlock.spec.ts
+  - src/actions/buildBlock.ts
+  - src/actions/calculateMinerReward.spec.ts
+  - src/actions/calculateMinerReward.ts
+  - src/actions/calculateOmmerReward.spec.ts
+  - src/actions/calculateOmmerReward.ts
+  - src/actions/constants.js
+  - src/actions/deepCopy.js
+  - src/actions/deepCopy.spec.ts
+  - src/actions/errorMessage.js
+  - src/actions/errorMsg.spec.ts
+  - src/actions/errorMsg.ts
+  - src/actions/execHardfork.js
+  - src/actions/execHardfork.spec.ts
+  - src/actions/genTxTrie.spec.ts
+  - src/actions/genTxTrie.ts
+  - src/actions/generateTxResult.spec.ts
+  - src/actions/generateTxResult.ts
+  - src/actions/index.ts
+  - src/actions/parentBeaconBlockRootAddress.ts
+  - src/actions/rewardAccount.spec.ts
+  - src/actions/rewardAccount.ts
+  - src/actions/runBlock.spec.ts
+  - src/actions/runBlock.ts
+  - src/actions/runTx.spec.ts
+  - src/actions/runTx.ts
+  - src/actions/txLogsBloom.js
+  - src/actions/validateRunTx.js
+  - src/actions/validateRunTx.spec.ts
+  - src/actions/warmAddresses2929.js
+  - src/actions/warmAddresses2929.spec.ts
+  - src/createBaseVm.js
+  - src/createBaseVm.spec.ts
+  - src/createVm.js
+  - src/createVm.spec.ts
+  - src/index.ts
+  - src/test/artifacts.ts
+  - src/utils/AfterTxEvent.ts
+  - src/utils/AfterblockEvent.ts
+  - src/utils/ApplyBlockResult.ts
+  - src/utils/BaseTxReceipt.ts
+  - src/utils/BuildBlockOpts.ts
+  - src/utils/BuilderOpts.ts
+  - src/utils/EIP4844BlobTxReceipt.ts
+  - src/utils/EVMProfileOpts.ts
+  - src/utils/PostByzantiumTxReceipt.ts
+  - src/utils/PrebyzantiumTxReceipt.ts
+  - src/utils/RunBlockOpts.ts
+  - src/utils/RunBlockResult.ts
+  - src/utils/RunTxOpts.ts
+  - src/utils/RunTxResult.ts
+  - src/utils/SealBlockOpts.ts
+  - src/utils/TxReceipt.ts
+  - src/utils/VMEvents.ts
+  - src/utils/VMOpts.ts
+  - src/utils/VMProfileOpts.ts
+  - src/utils/index.ts
+  - tsup.config.ts
+  - typedoc.json
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 83 files in 22ms. No fixes applied.
+
+> nx run @tevm/precompiles:"lint:check"
+
+
+> @tevm/precompiles@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/precompiles
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - plugins.js
+  - src/CallResult.ts
+  - src/ConstructorArgument.ts
+  - src/CustomPrecompile.ts
+  - src/Precompile.ts
+  - src/TypedError.ts
+  - src/defineCall.spec.ts
+  - src/defineCall.ts
+  - src/definePrecompile.spec.ts
+  - src/definePrecompile.ts
+  - src/index.ts
+  - src/logToEthjsLog.spec.ts
+  - src/logToEthjsLog.ts
+  - src/p256verify.precompile.ts
+  - tsup.config.js
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1963µs.
+Checked 20 files in 7ms. No fixes applied.
+
+> nx run @tevm/receipt-manager:"lint:check"
+
+
+> @tevm/receipt-manager@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/receipt-manager
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/MapDb.ts
+  - src/ReceiptManager.coverage.test.ts
+  - src/ReceiptManager.spec.ts
+  - src/ReceiptManager.ts
+  - src/createMapDb.js
+  - src/index.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  - vitest.coverage.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1949µs.
+Checked 13 files in 14ms. No fixes applied.
+
+> nx run @tevm/txpool:"lint:check"
+
+
+> @tevm/txpool@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/txpool
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/Qheap.d.ts
+  - src/TxPool.additionalCoverage.spec.ts
+  - src/TxPool.blob.spec.ts
+  - src/TxPool.blobfinal.spec.ts
+  - src/TxPool.blockAdd.spec.ts
+  - src/TxPool.comparBefore.spec.ts
+  - src/TxPool.coverage.spec.ts
+  - src/TxPool.final.spec.ts
+  - src/TxPool.final2.spec.ts
+  - src/TxPool.finalCoverage.spec.ts
+  - src/TxPool.heap.spec.ts
+  - src/TxPool.lasttest.spec.ts
+  - src/TxPool.lines.spec.ts
+  - src/TxPool.logStats.spec.ts
+  - src/TxPool.missing.spec.ts
+  - src/TxPool.reorg.spec.ts
+  - src/TxPool.simple.spec.ts
+  - src/TxPool.spec.ts
+  - src/TxPool.ts
+  - src/TxPool.txGasPrice.spec.ts
+  - src/TxPool.txnonce.spec.ts
+  - src/TxPool.txsByPrice.spec.ts
+  - src/index.spec.ts
+  - src/index.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 30 files in 18ms. No fixes applied.
+
+> nx run @tevm/decorators:"lint:check"
+
+
+> @tevm/decorators@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/decorators
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/actions/EthActionsApi.ts
+  - src/actions/TevmActionsApi.ts
+  - src/actions/ethActions.js
+  - src/actions/ethActions.spec.ts
+  - src/actions/index.js
+  - src/actions/index.spec.ts
+  - src/actions/index.ts
+  - src/actions/tevmActions.js
+  - src/actions/tevmActions.spec.ts
+  - src/eip1193/AddEthereumChainParameter.ts
+  - src/eip1193/DerivedRpcSchema.ts
+  - src/eip1193/EIP1193Parameters.ts
+  - src/eip1193/EIP1993RequestFn.ts
+  - src/eip1193/EIP1993RequestOptions.ts
+  - src/eip1193/JsonRpcSchemaPublic.ts
+  - src/eip1193/JsonRpcSchemaTest.ts
+  - src/eip1193/JsonRpcSchemaTevm.ts
+  - src/eip1193/JsonRpcSchemaWallet.ts
+  - src/eip1193/NetworkSync.ts
+  - src/eip1193/RpcSchema.ts
+  - src/eip1193/RpcSchemaOverride.ts
+  - src/eip1193/WalletPermission.ts
+  - src/eip1193/WalletPermissionCaveat.ts
+  - src/eip1193/WatchAssetParams.ts
+  - src/eip1193/index.ts
+  - src/eip1193/misc.ts
+  - src/index.js
+  - src/index.spec.ts
+  - src/index.ts
+  - src/request/Eip1193RequestProvider.spec.ts
+  - src/request/Eip1193RequestProvider.ts
+  - src/request/TevmSendApi.ts
+  - src/request/index.js
+  - src/request/index.spec.ts
+  - src/request/index.ts
+  - src/request/requestEip1193.js
+  - src/request/requestEip1193.spec.ts
+  - src/request/tevmSend.js
+  - src/request/tevmSend.spec.ts
+  - tsup.config.js
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 45 files in 16ms. No fixes applied.
+
+> nx run @tevm/node:"lint:check"
+
+
+> @tevm/node@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/node
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/BaseClientOptions.ts
+  - src/CustomPrecompile.ts
+  - src/DEFAULT_CHAIN_ID.js
+  - src/EIP1193EventEmitterTypes.ts
+  - src/ExEx.ts
+  - src/Extension.ts
+  - src/Filter.ts
+  - src/GENESIS_STATE.js
+  - src/GENESIS_STATE.spec.ts
+  - src/Hardfork.ts
+  - src/MiningConfig.ts
+  - src/TevmNode.ts
+  - src/TevmNodeOptions.ts
+  - src/addPredeploy.js
+  - src/addPredeploy.spec.ts
+  - src/createTevmNode.coverage.spec.ts
+  - src/createTevmNode.js
+  - src/createTevmNode.spec.ts
+  - src/getBlockNumber.js
+  - src/getBlockNumber.spec.ts
+  - src/getChainId.js
+  - src/getChainId.spec.ts
+  - src/index.ts
+  - src/jsonRpcAutomining.spec.ts
+  - src/lightSync.spec.ts
+  - src/lightSync.ts
+  - src/statePersister.js
+  - src/statePersister.spec.ts
+  - tsup.config.js
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 34 files in 18ms. No fixes applied.
+
+> nx run @tevm/actions:"lint:check"
+
+
+> @tevm/actions@1.0.0-next.149 lint:check /Users/williamcory/tevm-monorepo/packages/actions
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/BaseCall/BaseCallParams.ts
+  - src/BaseCall/index.ts
+  - src/BaseCall/validateBaseCallParams.js
+  - src/BaseCall/validateBaseCallParams.spec.ts
+  - src/BaseCall/zBaseCallParams.js
+  - src/BaseCall/zBaseCallParams.spec.ts
+  - src/BaseCall/zBaseParams.js
+  - src/Call/CallHandlerType.ts
+  - src/Call/CallJsonRpcProcedure.ts
+  - src/Call/CallJsonRpcRequest.ts
+  - src/Call/CallJsonRpcResponse.ts
+  - src/Call/CallParams.ts
+  - src/Call/CallResult.ts
+  - src/Call/TevmCallError.ts
+  - src/Call/callEvents.spec.ts
+  - src/Call/callHandler.js
+  - src/Call/callHandler.spec.ts
+  - src/Call/callHandlerOpts.js
+  - src/Call/callHandlerOpts.spec.ts
+  - src/Call/callHandlerResult.js
+  - src/Call/callHandlerResult.spec.ts
+  - src/Call/callProcedure.js
+  - src/Call/callProcedure.spec.ts
+  - src/Call/cloneVmWithBlock.js
+  - src/Call/cloneVmWithBlock.spec.ts
+  - src/Call/executeCall.js
+  - src/Call/executeCall.spec.ts
+  - src/Call/handleAutomining.js
+  - src/Call/handleAutomining.spec.ts
+  - src/Call/handleEvmError.js
+  - src/Call/handleEvmError.spec.ts
+  - src/Call/handlePendingTransactionWarning.spec.ts
+  - src/Call/handlePendingTransactionsWarning.js
+  - src/Call/handleStateOverrides.js
+  - src/Call/handleStateOverrides.spec.ts
+  - src/Call/handleTransactionCreation.js
+  - src/Call/handleTransactionCreation.spec.ts
+  - src/Call/index.ts
+  - src/Call/shouldAddToBlockchain.spec.ts
+  - src/Call/shouldCreateTransaction.js
+  - src/Call/shouldCreateTransaction.spec.ts
+  - src/Call/validateCallParams.js
+  - src/Call/validateCallParams.spec.ts
+  - src/Call/zCallParams.js
+  - src/Call/zCallParams.spec.ts
+  - src/Contract/ContractHandlerType.spec.ts
+  - src/Contract/ContractHandlerType.ts
+  - src/Contract/ContractParams.ts
+  - src/Contract/ContractResult.ts
+  - src/Contract/TevmContractError.ts
+  - src/Contract/contractHandler.js
+  - src/Contract/contractHandler.spec.ts
+  - src/Contract/createScript.js
+  - src/Contract/createScript.spec.ts
+  - src/Contract/index.ts
+  - src/Contract/validateContractParams.js
+  - src/Contract/validateContractParams.spec.ts
+  - src/Contract/zContractParams.js
+  - src/Contract/zContractParams.spec.ts
+  - src/CreateTransaction/createTransaction.js
+  - src/CreateTransaction/createTransaction.spec.ts
+  - src/Deploy/DeployHandlerType.ts
+  - src/Deploy/DeployParams.ts
+  - src/Deploy/DeployResult.ts
+  - src/Deploy/TevmDeployError.ts
+  - src/Deploy/deployHandler.js
+  - src/Deploy/deployHandler.spec.ts
+  - src/Deploy/index.ts
+  - src/DumpState/DumpStateHandlerType.ts
+  - src/DumpState/DumpStateJsonRpcProcedure.ts
+  - src/DumpState/DumpStateJsonRpcRequest.ts
+  - src/DumpState/DumpStateJsonRpcResponse.ts
+  - src/DumpState/DumpStateParams.ts
+  - src/DumpState/DumpStateResult.ts
+  - src/DumpState/TevmDumpStateError.ts
+  - src/DumpState/dumpStateHandler.js
+  - src/DumpState/dumpStateHandler.spec.ts
+  - src/DumpState/dumpStateProcedure.js
+  - src/DumpState/dumpStateProcedure.spec.ts
+  - src/DumpState/index.ts
+  - src/GetAccount/GetAccountHandlerType.ts
+  - src/GetAccount/GetAccountJsonRpcProcedure.ts
+  - src/GetAccount/GetAccountJsonRpcRequest.ts
+  - src/GetAccount/GetAccountJsonRpcResponse.ts
+  - src/GetAccount/GetAccountParams.ts
+  - src/GetAccount/GetAccountResult.ts
+  - src/GetAccount/TevmGetAccountError.ts
+  - src/GetAccount/getAccountHandler.js
+  - src/GetAccount/getAccountHandler.spec.ts
+  - src/GetAccount/getAccountProcedure.js
+  - src/GetAccount/getAccountProcedure.spec.ts
+  - src/GetAccount/index.ts
+  - src/GetAccount/validateGetAccountParams.js
+  - src/GetAccount/validateGetAccountParams.spec.ts
+  - src/GetAccount/zGetAccountParams.js
+  - src/LoadState/LoadStateHandlerType.ts
+  - src/LoadState/LoadStateJsonRpcProcedure.ts
+  - src/LoadState/LoadStateJsonRpcRequest.ts
+  - src/LoadState/LoadStateJsonRpcResponse.ts
+  - src/LoadState/LoadStateParams.ts
+  - src/LoadState/LoadStateResult.ts
+  - src/LoadState/TevmLoadStateError.ts
+  - src/LoadState/index.ts
+  - src/LoadState/loadStateHandler.js
+  - src/LoadState/loadStateHandler.spec.ts
+  - src/LoadState/loadStateProcedure.js
+  - src/LoadState/loadStateProcedure.spec.ts
+  - src/LoadState/validateLoadStateParams.js
+  - src/LoadState/zLoadStateParams.js
+  - src/LoadState/zLoadStateParms.spec.ts
+  - src/Mine/MineEvents.ts
+  - src/Mine/MineHandlerType.ts
+  - src/Mine/MineJsonRpcProcedure.ts
+  - src/Mine/MineJsonRpcRequest.ts
+  - src/Mine/MineJsonRpcResponse.ts
+  - src/Mine/MineParams.ts
+  - src/Mine/MineResult.ts
+  - src/Mine/TevmMineError.ts
+  - src/Mine/emitEvents.js
+  - src/Mine/emitEvents.spec.ts
+  - src/Mine/exexHooks.spec.ts
+  - src/Mine/index.ts
+  - src/Mine/mineEvents.spec.ts
+  - src/Mine/mineHandler.js
+  - src/Mine/mineHandler.spec.ts
+  - src/Mine/mineProcedure.js
+  - src/Mine/mineProcedure.spec.ts
+  - src/Mine/processTx.js
+  - src/Mine/processTx.spec.ts
+  - src/Mine/validateMineEvents.js
+  - src/Mine/validateMineHandler.spec.ts
+  - src/Mine/validateMineParams.js
+  - src/Mine/zMineParams.js
+  - src/SetAccount/SetAccountHandlerType.ts
+  - src/SetAccount/SetAccountJsonRpcProcedure.ts
+  - src/SetAccount/SetAccountJsonRpcRequest.ts
+  - src/SetAccount/SetAccountJsonRpcResponse.ts
+  - src/SetAccount/SetAccountParams.ts
+  - src/SetAccount/SetAccountResult.ts
+  - src/SetAccount/TevmSetAccountError.ts
+  - src/SetAccount/index.ts
+  - src/SetAccount/setAccountHandler.js
+  - src/SetAccount/setAccountHandler.spec.ts
+  - src/SetAccount/setAccountProcedure.js
+  - src/SetAccount/setAccountProcedure.spec.ts
+  - src/SetAccount/validateSetAccountParams.js
+  - src/SetAccount/validateSetAccountParams.spec.ts
+  - src/SetAccount/zSetAccountParams.js
+  - src/SetAccount/zSetAccountParams.spec.ts
+  - src/TevmJsonRpcRequest.ts
+  - src/anvil/AnvilHandler.ts
+  - src/anvil/AnvilJsonRpcRequest.ts
+  - src/anvil/AnvilJsonRpcResponse.ts
+  - src/anvil/AnvilParams.ts
+  - src/anvil/AnvilProcedure.ts
+  - src/anvil/AnvilResult.ts
+  - src/anvil/anvilAddBalanceHandler.js
+  - src/anvil/anvilAddBalanceHandler.spec.ts
+  - src/anvil/anvilAddBalanceProcedure.js
+  - src/anvil/anvilAddBalanceProcedure.spec.ts
+  - src/anvil/anvilAutoImpersonateAccountProcedure.js
+  - src/anvil/anvilAutoImpersonateAccountProcedure.spec.ts
+  - src/anvil/anvilDealErc20Handler.js
+  - src/anvil/anvilDealErc20Handler.spec.ts
+  - src/anvil/anvilDealErc20Procedure.js
+  - src/anvil/anvilDealErc20Procedure.spec.ts
+  - src/anvil/anvilDealHandler.js
+  - src/anvil/anvilDealHandler.spec.ts
+  - src/anvil/anvilDealProcedure.js
+  - src/anvil/anvilDealProcedure.spec.ts
+  - src/anvil/anvilDropAllTransactionsProcedure.js
+  - src/anvil/anvilDropAllTransactionsProcedure.spec.ts
+  - src/anvil/anvilDropTransactionProcedure.js
+  - src/anvil/anvilDropTransactionProcedure.spec.ts
+  - src/anvil/anvilDumpStateProcedure.js
+  - src/anvil/anvilDumpStateProcedure.spec.ts
+  - src/anvil/anvilEnableTracesProcedure.js
+  - src/anvil/anvilEnableTracesProcedure.spec.ts
+  - src/anvil/anvilGetAutomineProcedure.js
+  - src/anvil/anvilGetAutomineProcedure.spec.ts
+  - src/anvil/anvilGetIntervalMiningProcedure.js
+  - src/anvil/anvilGetIntervalMiningProcedure.spec.ts
+  - src/anvil/anvilImpersonateAccount.spec.ts
+  - src/anvil/anvilImpersonateAccountProcedure.js
+  - src/anvil/anvilIncreaseTimeProcedure.js
+  - src/anvil/anvilIncreaseTimeProcedure.spec.ts
+  - src/anvil/anvilLoadStateProcedure.js
+  - src/anvil/anvilLoadStateProcedure.spec.ts
+  - src/anvil/anvilMetadataProcedure.js
+  - src/anvil/anvilMetadataProcedure.spec.ts
+  - src/anvil/anvilMineDetailedProcedure.js
+  - src/anvil/anvilMineDetailedProcedure.spec.ts
+  - src/anvil/anvilNodeInfoProcedure.js
+  - src/anvil/anvilNodeInfoProcedure.spec.ts
+  - src/anvil/anvilRemoveBlockTimestampIntervalProcedure.js
+  - src/anvil/anvilRemoveBlockTimestampIntervalProcedure.spec.ts
+  - src/anvil/anvilRemovePoolTransactionsProcedure.js
+  - src/anvil/anvilRemovePoolTransactionsProcedure.spec.ts
+  - src/anvil/anvilResetProcedure.js
+  - src/anvil/anvilResetProcedure.spec.ts
+  - src/anvil/anvilRevertProcedure.js
+  - src/anvil/anvilRevertProcedure.spec.ts
+  - src/anvil/anvilSetAutomineProcedure.js
+  - src/anvil/anvilSetAutomineProcedure.spec.ts
+  - src/anvil/anvilSetBalance.spec.ts
+  - src/anvil/anvilSetBalanceProcedure.js
+  - src/anvil/anvilSetBlockGasLimitProcedure.js
+  - src/anvil/anvilSetBlockGasLimitProcedure.spec.ts
+  - src/anvil/anvilSetBlockTimestampIntervalProcedure.js
+  - src/anvil/anvilSetBlockTimestampIntervalProcedure.spec.ts
+  - src/anvil/anvilSetChainIdHandler.spec.ts
+  - src/anvil/anvilSetChainIdProcedure.js
+  - src/anvil/anvilSetCodeProcedure.js
+  - src/anvil/anvilSetCodeProcedure.spec.ts
+  - src/anvil/anvilSetCoinbaseProcedure.js
+  - src/anvil/anvilSetCoinbaseProcedure.spec.ts
+  - src/anvil/anvilSetErc20AllowanceHandler.js
+  - src/anvil/anvilSetErc20AllowanceHandler.spec.ts
+  - src/anvil/anvilSetErc20AllowanceProcedure.js
+  - src/anvil/anvilSetErc20AllowanceProcedure.spec.ts
+  - src/anvil/anvilSetIntervalMiningProcedure.js
+  - src/anvil/anvilSetIntervalMiningProcedure.spec.ts
+  - src/anvil/anvilSetLoggingEnabledProcedure.js
+  - src/anvil/anvilSetLoggingEnabledProcedure.spec.ts
+  - src/anvil/anvilSetMinGasPriceProcedure.js
+  - src/anvil/anvilSetMinGasPriceProcedure.spec.ts
+  - src/anvil/anvilSetNextBlockBaseFeePerGasProcedure.js
+  - src/anvil/anvilSetNextBlockBaseFeePerGasProcedure.spec.ts
+  - src/anvil/anvilSetNextBlockTimestampProcedure.js
+  - src/anvil/anvilSetNextBlockTimestampProcedure.spec.ts
+  - src/anvil/anvilSetNonceProcedure.js
+  - src/anvil/anvilSetNonceProcedure.spec.ts
+  - src/anvil/anvilSetPrevRandaoProcedure.js
+  - src/anvil/anvilSetRpcUrlProcedure.js
+  - src/anvil/anvilSetRpcUrlProcedure.spec.ts
+  - src/anvil/anvilSetStorageAtProcedure.js
+  - src/anvil/anvilSetStorageAtProcedure.spec.ts
+  - src/anvil/anvilSetTimeProcedure.js
+  - src/anvil/anvilSetTimeProcedure.spec.ts
+  - src/anvil/anvilSnapshotProcedure.js
+  - src/anvil/anvilSnapshotProcedure.spec.ts
+  - src/anvil/anvilStopImpersonatingAccountProcedure.js
+  - src/anvil/anvilStopImpersonatingAccountProcedure.spec.ts
+  - src/anvil/index.ts
+  - src/common/Abi.ts
+  - src/common/AccountState.ts
+  - src/common/Address.ts
+  - src/common/BaseParams.ts
+  - src/common/Block.ts
+  - src/common/BlockOverrideSet.ts
+  - src/common/BlockParam.ts
+  - src/common/BlockResult.ts
+  - src/common/BlockTag.ts
+  - src/common/CallEvents.ts
+  - src/common/CallTraceResult.ts
+  - src/common/EmptyParams.ts
+  - src/common/FilterLog.ts
+  - src/common/FilterParams.ts
+  - src/common/FlatCallTraceResult.ts
+  - src/common/FourbyteTraceResult.ts
+  - src/common/Hex.ts
+  - src/common/Log.ts
+  - src/common/MuxTraceResult.ts
+  - src/common/NetworkConfig.ts
+  - src/common/PrestateTraceResult.ts
+  - src/common/StateOverrideSet.ts
+  - src/common/StructLog.ts
+  - src/common/TraceCall.ts
+  - src/common/TraceResult.ts
+  - src/common/TraceType.ts
+  - src/common/TransactionParams.ts
+  - src/common/TransactionReceiptResult.ts
+  - src/common/TransactionResult.ts
+  - src/common/index.ts
+  - src/common/zCallEvents.js
+  - src/createHandlers.js
+  - src/createHandlers.spec.ts
+  - src/debug/DebugHandler.ts
+  - src/debug/DebugJsonRpcRequest.ts
+  - src/debug/DebugJsonRpcResponse.ts
+  - src/debug/DebugParams.ts
+  - src/debug/DebugProcedure.ts
+  - src/debug/DebugResult.ts
+  - src/debug/debugDumpBlockHandler.js
+  - src/debug/debugDumpBlockHandler.spec.ts
+  - src/debug/debugDumpBlockProcedure.js
+  - src/debug/debugDumpBlockProcedure.spec.ts
+  - src/debug/debugGetModifiedAccountsByHashHandler.js
+  - src/debug/debugGetModifiedAccountsByHashHandler.spec.ts
+  - src/debug/debugGetModifiedAccountsByHashProcedure.js
+  - src/debug/debugGetModifiedAccountsByHashProcedure.spec.ts
+  - src/debug/debugGetModifiedAccountsByNumberHandler.js
+  - src/debug/debugGetModifiedAccountsByNumberHandler.spec.ts
+  - src/debug/debugGetModifiedAccountsByNumberProcedure.js
+  - src/debug/debugGetModifiedAccountsByNumberProcedure.spec.ts
+  - src/debug/debugGetRawBlockHandler.js
+  - src/debug/debugGetRawBlockHandler.spec.ts
+  - src/debug/debugGetRawBlockProcedure.js
+  - src/debug/debugGetRawBlockProcedure.spec.ts
+  - src/debug/debugGetRawHeaderHandler.js
+  - src/debug/debugGetRawHeaderHandler.spec.ts
+  - src/debug/debugGetRawHeaderProcedure.js
+  - src/debug/debugGetRawHeaderProcedure.spec.ts
+  - src/debug/debugGetRawReceiptsHandler.js
+  - src/debug/debugGetRawReceiptsHandler.spec.ts
+  - src/debug/debugGetRawReceiptsProcedure.js
+  - src/debug/debugGetRawReceiptsProcedure.spec.ts
+  - src/debug/debugGetRawTransactionHandler.js
+  - src/debug/debugGetRawTransactionHandler.spec.ts
+  - src/debug/debugGetRawTransactionProcedure.js
+  - src/debug/debugGetRawTransactionProcedure.spec.ts
+  - src/debug/debugIntermediateRootsProcedure.js
+  - src/debug/debugIntermediateRootsProcedure.spec.ts
+  - src/debug/debugPreimageProcedure.js
+  - src/debug/debugPreimageProcedure.spec.ts
+  - src/debug/debugStorageRangeAtHandler.js
+  - src/debug/debugStorageRangeAtHandler.spec.ts
+  - src/debug/debugStorageRangeAtProcedure.js
+  - src/debug/debugStorageRangeAtProcedure.spec.ts
+  - src/debug/debugTraceBlockByHashProcedure.js
+  - src/debug/debugTraceBlockByHashProcedure.spec.ts
+  - src/debug/debugTraceBlockByNumberProcedure.js
+  - src/debug/debugTraceBlockByNumberProcedure.spec.ts
+  - src/debug/debugTraceBlockProcedure.js
+  - src/debug/debugTraceBlockProcedure.spec.ts
+  - src/debug/debugTraceCallProcedure.js
+  - src/debug/debugTraceCallProcedure.spec.ts
+  - src/debug/debugTraceChainProcedure.js
+  - src/debug/debugTraceChainProcedure.spec.ts
+  - src/debug/debugTraceStateProcedure.js
+  - src/debug/debugTraceStateProcedure.spec.ts
+  - src/debug/debugTraceTransactionProcedure.js
+  - src/debug/debugTraceTransactionProcedure.spec.ts
+  - src/debug/index.ts
+  - src/debug/traceCallHandler.js
+  - src/debug/traceCallHandler.spec.json
+  - src/debug/traceCallHandler.spec.ts
+  - src/engine/engineProcedures.js
+  - src/engine/engineProcedures.spec.ts
+  - src/eth/EthHandler.ts
+  - src/eth/EthJsonRpcRequest.ts
+  - src/eth/EthJsonRpcResponse.ts
+  - src/eth/EthParams.ts
+  - src/eth/EthProcedure.ts
+  - src/eth/EthResult.ts
+  - src/eth/EthSubscribeParams.ts
+  - src/eth/EthSubscribeResult.ts
+  - src/eth/EthUnsubscribeParams.ts
+  - src/eth/EthUnsubscribeResult.ts
+  - src/eth/blockNumberHandler.js
+  - src/eth/blockNumberHandler.spec.ts
+  - src/eth/blockNumberProcedure.js
+  - src/eth/blockNumberProcedure.spec.ts
+  - src/eth/chainIdHandler.js
+  - src/eth/chainIdHandler.spec.ts
+  - src/eth/chainIdProcedure.js
+  - src/eth/chainIdProcedure.spec.ts
+  - src/eth/ethAccountsHandler.js
+  - src/eth/ethAccountsHandler.spec.ts
+  - src/eth/ethAccountsProcedure.js
+  - src/eth/ethAccountsProcedure.spec.ts
+  - src/eth/ethBlobBaseFeeProcedure.js
+  - src/eth/ethBlobBaseFeeProcedure.spec.ts
+  - src/eth/ethCallHandler.js
+  - src/eth/ethCallHandler.spec.ts
+  - src/eth/ethCallProcedure.js
+  - src/eth/ethCallProcedure.spec.ts
+  - src/eth/ethCoinbaseProcedure.js
+  - src/eth/ethCoinbaseProcedure.spec.ts
+  - src/eth/ethCompatibilityNoopsProcedure.js
+  - src/eth/ethCompatibilityNoopsProcedure.spec.ts
+  - src/eth/ethCreateAccessListProcedure.js
+  - src/eth/ethCreateAccessListProcedure.spec.ts
+  - src/eth/ethEstimateGasProcedure.js
+  - src/eth/ethEstimateGasProcedure.spec.ts
+  - src/eth/ethFeeHistoryHandler.js
+  - src/eth/ethFeeHistoryHandler.spec.ts
+  - src/eth/ethFeeHistoryProcedure.js
+  - src/eth/ethFeeHistoryProcedure.spec.ts
+  - src/eth/ethGetBlockByHashProcedure.js
+  - src/eth/ethGetBlockByHashProcedure.spec.ts
+  - src/eth/ethGetBlockByNumberProcedure.js
+  - src/eth/ethGetBlockByNumberProcedure.spec.ts
+  - src/eth/ethGetBlockReceiptsHandler.js
+  - src/eth/ethGetBlockReceiptsHandler.spec.ts
+  - src/eth/ethGetBlockReceiptsProcedure.js
+  - src/eth/ethGetBlockReceiptsProcedure.spec.ts
+  - src/eth/ethGetBlockTransactionCountByHashProcedure.js
+  - src/eth/ethGetBlockTransactionCountByHashProcedure.spec.ts
+  - src/eth/ethGetBlockTransactionCountByNumberProcedure.js
+  - src/eth/ethGetBlockTransactionCountByNumberProcedure.spec.ts
+  - src/eth/ethGetFilterChangesProcedure.js
+  - src/eth/ethGetFilterChangesProcedure.spec.ts
+  - src/eth/ethGetFilterLogsProcedure.js
+  - src/eth/ethGetFilterLogsProcedure.spec.ts
+  - src/eth/ethGetLogsHandler.js
+  - src/eth/ethGetLogsHandler.spec.ts
+  - src/eth/ethGetLogsProcedure.js
+  - src/eth/ethGetLogsProcedure.spec.ts
+  - src/eth/ethGetProofHandler.js
+  - src/eth/ethGetProofHandler.spec.ts
+  - src/eth/ethGetProofProcedure.js
+  - src/eth/ethGetProofProcedure.spec.ts
+  - src/eth/ethGetTransactionByBlockHashAndIndexProcedure.js
+  - src/eth/ethGetTransactionByBlockHashAndIndexProcedure.spec.ts
+  - src/eth/ethGetTransactionByBlockNumberAndIndexProcedure.js
+  - src/eth/ethGetTransactionByBlockNumberAndIndexProcedure.spec.ts
+  - src/eth/ethGetTransactionByHashProcedure.js
+  - src/eth/ethGetTransactionByHashProcedure.spec.ts
+  - src/eth/ethGetTransactionCountProcedure.js
+  - src/eth/ethGetTransactionCountProcedure.spec.ts
+  - src/eth/ethGetTransactionREceiptProcedure.spec.ts
+  - src/eth/ethGetTransactionReceipt.js
+  - src/eth/ethGetTransactionReceipt.spec.ts
+  - src/eth/ethGetTransactionReceiptProcedure.js
+  - src/eth/ethJsonRpcAutomining.spec.ts
+  - src/eth/ethNewBlockFilterProcedure.js
+  - src/eth/ethNewBlockFilterProcedure.spec.ts
+  - src/eth/ethNewFilterHandler.js
+  - src/eth/ethNewFilterHandler.spec.ts
+  - src/eth/ethNewFilterProcedure.js
+  - src/eth/ethNewFilterProcedure.spec.ts
+  - src/eth/ethNewPendingTransactionFilterProcedure.js
+  - src/eth/ethNewPendingTransactionFilterProcedure.spec.ts
+  - src/eth/ethProtocolVersionProcedure.js
+  - src/eth/ethProtocolVersionProcedure.spec.ts
+  - src/eth/ethSendRawTransaction.spec.ts
+  - src/eth/ethSendRawTransactionHandler.js
+  - src/eth/ethSendRawTransactionJsonRpcProcedure.spec.ts
+  - src/eth/ethSendRawTransactionProcedure.js
+  - src/eth/ethSendTransactionHandler.js
+  - src/eth/ethSendTransactionHandler.spec.ts
+  - src/eth/ethSendTransactionProcedure.js
+  - src/eth/ethSendTransactionProcedure.spec.ts
+  - src/eth/ethSignHandler.js
+  - src/eth/ethSignHandler.spec.ts
+  - src/eth/ethSignProcedure.js
+  - src/eth/ethSignProcedure.spec.ts
+  - src/eth/ethSignTransactionHandler.js
+  - src/eth/ethSignTransactionHandler.spec.ts
+  - src/eth/ethSignTransactionProcedure.js
+  - src/eth/ethSignTransactionProcedure.spec.ts
+  - src/eth/ethSimulateV1Handler.js
+  - src/eth/ethSimulateV1Handler.spec.ts
+  - src/eth/ethSimulateV1Procedure.js
+  - src/eth/ethSimulateV1Procedure.spec.ts
+  - src/eth/ethSimulateV2Handler.js
+  - src/eth/ethSimulateV2Handler.spec.ts
+  - src/eth/ethSimulateV2Procedure.js
+  - src/eth/ethSubscribeHandler.js
+  - src/eth/ethSubscribeHandler.spec.ts
+  - src/eth/ethSubscribeProcedure.js
+  - src/eth/ethSubscribeProcedure.spec.ts
+  - src/eth/ethUninstallFilterProcedure.js
+  - src/eth/ethUninstallFilterProcedure.spec.ts
+  - src/eth/ethUnsubscribeHandler.js
+  - src/eth/ethUnsubscribeHandler.spec.ts
+  - src/eth/ethUnsubscribeProcedure.js
+  - src/eth/ethUnsubscribeProcedure.spec.ts
+  - src/eth/gasPriceHandler.js
+  - src/eth/gasPriceHandler.spec.ts
+  - src/eth/gasPriceProcedure.js
+  - src/eth/gasPriceProcedure.spec.ts
+  - src/eth/getBalanceHandler.js
+  - src/eth/getBalanceHandler.spec.ts
+  - src/eth/getBalanceProcedure.js
+  - src/eth/getBalanceProcedure.spec.ts
+  - src/eth/getCodeHandler.js
+  - src/eth/getCodeHandler.spec.ts
+  - src/eth/getCodeProcedure.js
+  - src/eth/getCodeProcedure.spec.ts
+  - src/eth/getStorageAtHandler.js
+  - src/eth/getStorageAtHandler.spec.ts
+  - src/eth/getStorageAtProcedure.js
+  - src/eth/getStorageAtProcedure.spec.ts
+  - src/eth/index.ts
+  - src/eth/lightClientRead.js
+  - src/eth/lightClientRead.spec.ts
+  - src/eth/maxPriorityFeePerGasHandler.js
+  - src/eth/maxPriorityFeePerGasHandler.spec.ts
+  - src/eth/maxPriorityFeePerGasProcedure.js
+  - src/eth/maxPriorityFeePerGasProcedure.spec.ts
+  - src/eth/utils/generateRandomId.js
+  - src/eth/utils/generateRandomId.spec.ts
+  - src/eth/utils/parseBlockParam.js
+  - src/eth/utils/parseBlockParam.spec.ts
+  - src/eth/utils/parseBlockTag.js
+  - src/eth/utils/parseBlockTag.spec.ts
+  - src/eth/utils/testAccounts.js
+  - src/index.ts
+  - src/internal/createEvmError.js
+  - src/internal/createEvmError.spec.ts
+  - src/internal/decodeRevertReason.js
+  - src/internal/decodeRevertReason.spec.ts
+  - src/internal/evmInputToImpersonatedTx.js
+  - src/internal/evmInputToImpersonatedTx.spec.ts
+  - src/internal/forkAndCacheBlock.js
+  - src/internal/forkAndCacheBlock.spec.ts
+  - src/internal/getL1FeeInformationOpStack.js
+  - src/internal/getL1FeeInformationOpStack.spec.ts
+  - src/internal/getPendingClient.js
+  - src/internal/getPendingClient.spec.ts
+  - src/internal/maybeThrowOnFail.js
+  - src/internal/maybeThrowOnFail.spec.ts
+  - src/internal/prefetchStorageFromAccessList.js
+  - src/internal/prefetchStorageFromAccessList.spec.ts
+  - src/internal/resetForkState.js
+  - src/internal/runCallWithCallTrace.js
+  - src/internal/runCallWithCallTrace.spec.ts
+  - src/internal/runCallWithFlatCallTrace.js
+  - src/internal/runCallWithFlatCallTrace.spec.ts
+  - src/internal/runCallWithFourbyteTrace.js
+  - src/internal/runCallWithFourbyteTrace.spec.ts
+  - src/internal/runCallWithMuxTrace.js
+  - src/internal/runCallWithPrestateTrace.js
+  - src/internal/runCallWithPrestateTrace.spec.ts
+  - src/internal/runCallWithTrace.js
+  - src/internal/runCallWithTrace.spec.ts
+  - src/internal/serializeTraceResult.js
+  - src/internal/serializeTraceResult.spec.ts
+  - src/internal/setupPrefetchProxy.js
+  - src/internal/setupPrefetchProxy.spec.ts
+  - src/internal/snapshotMetadata.js
+  - src/internal/zod/index.js
+  - src/internal/zod/zAbi.js
+  - src/internal/zod/zAbi.spec.ts
+  - src/internal/zod/zAddress.js
+  - src/internal/zod/zAddress.spec.ts
+  - src/internal/zod/zBlock.js
+  - src/internal/zod/zBlock.spec.ts
+  - src/internal/zod/zBlockOverrideSet.js
+  - src/internal/zod/zBlockParam.js
+  - src/internal/zod/zBytecode.js
+  - src/internal/zod/zBytecode.spec.ts
+  - src/internal/zod/zHex.js
+  - src/internal/zod/zHex.spec.ts
+  - src/internal/zod/zStateOverrideSet.js
+  - src/internal/zod/zStorageRoot.js
+  - src/internal/zod/zStorageRoot.spec.ts
+  - src/requestBulkProcedure.js
+  - src/requestBulkProcedure.spec.ts
+  - src/requestProcedure.js
+  - src/requestProcedure.spec.ts
+  - src/rpcMethodMatrix.spec.ts
+  - src/rpcMethodMatrix.ts
+  - src/rpcNamespacePolicy.ts
+  - src/test/contractConstants.ts
+  - src/test/memoryClient.ts
+  - src/tevm/tevmLightSyncStatusProcedure.js
+  - src/tevm-request-handler/AnvilRequestType.ts
+  - src/tevm-request-handler/AnvilReturnType.ts
+  - src/tevm-request-handler/DebugRequestType.ts
+  - src/tevm-request-handler/DebugReturnType.ts
+  - src/tevm-request-handler/EIP1193.ts
+  - src/tevm-request-handler/EthRequestType.ts
+  - src/tevm-request-handler/EthReturnType.ts
+  - src/tevm-request-handler/JsonRpcRequestTypeFromMethod.ts
+  - src/tevm-request-handler/JsonRpcReturnTypeFromMethod.ts
+  - src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts
+  - src/tevm-request-handler/TevmJsonRpcRequestHandler.ts
+  - src/tevm-request-handler/TevmRequestType.ts
+  - src/tevm-request-handler/TevmReturnType.ts
+  - src/tevm-request-handler/index.ts
+  - src/utils/ExactlyOne.ts
+  - src/utils/GetPath.ts
+  - src/utils/SerializeToJson.ts
+  - src/utils/UnionToIntersection.ts
+  - src/utils/blockToJsonRpcBlock.js
+  - src/utils/blockToJsonRpcBlock.spec.ts
+  - src/utils/generateRandomId.js
+  - src/utils/generateRandomId.spec.ts
+  - src/utils/index.ts
+  - src/utils/isArray.js
+  - src/utils/isArray.spec.ts
+  - src/utils/parseBlockTag.js
+  - src/utils/parseBlockTag.spec.ts
+  - src/utils/txToJsonRpcTx.js
+  - src/utils/txToJsonRpcTx.spec.ts
+  - test/setup.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 3ms.
+Checked 585 files in 102ms. No fixes applied.
+
+> nx run @tevm/memory-client:"lint:check"
+
+
+> @tevm/memory-client@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/memory-client
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/CreateMemoryClientFn.ts
+  - src/MemoryClient.ts
+  - src/MemoryClientOptions.ts
+  - src/TevmActions.ts
+  - src/TevmContractType.ts
+  - src/TevmRpcSchema.ts
+  - src/TevmTransport.ts
+  - src/TevmViemActionsApi.ts
+  - src/createClient.js
+  - src/createMemoryClient.js
+  - src/createMemoryClient.spec.ts
+  - src/createTevmTransport.js
+  - src/createTevmTransport.spec.ts
+  - src/index.js
+  - src/index.ts
+  - src/jsonRpcAutomining.spec.ts
+  - src/repro-2008.spec.ts
+  - src/test/DaiContract.sol.ts
+  - src/test/allowUnlimitedContractSize.spec.ts
+  - src/test/miningModes.spec.ts
+  - src/test/precompiles.spec.ts
+  - src/test/predeploy.spec.ts
+  - src/test/requests.spec.ts
+  - src/test/tevm.spec.ts
+  - src/test/transactionMiningBehavior.spec.ts
+  - src/test/viem/call.spec.ts
+  - src/test/viem/createBlockFilter.spec.ts
+  - src/test/viem/createContractEventFilter.spec.ts
+  - src/test/viem/createEventFilter.spec.ts
+  - src/test/viem/createPendingTransactionFilter.spec.ts
+  - src/test/viem/dumpState.spec.ts
+  - src/test/viem/estimateFeesPerGas.spec.ts
+  - src/test/viem/estimateGas.spec.ts
+  - src/test/viem/estimateMaxPriorityFeePerGas.spec.ts
+  - src/test/viem/eth_accounts.spec.ts
+  - src/test/viem/getAutomine.spec.ts
+  - src/test/viem/getBlobBaseFee.spec.ts
+  - src/test/viem/getBlock.spec.ts
+  - src/test/viem/getBlockNumber.spec.ts
+  - src/test/viem/getBlockTransactionCount.spec.ts
+  - src/test/viem/getBytecode.spec.ts
+  - src/test/viem/getChainId.spec.ts
+  - src/test/viem/getContractEvents.spec.ts
+  - src/test/viem/getFilterChanges.spec.ts
+  - src/test/viem/getFilterLogs.spec.ts
+  - src/test/viem/getGasPrice.spec.ts
+  - src/test/viem/getLogs.spec.ts
+  - src/test/viem/getProof.spec.ts
+  - src/test/viem/getStorageAt.spec.ts
+  - src/test/viem/getTransaction.spec.ts
+  - src/test/viem/getTransactionConfirmations.spec.ts
+  - src/test/viem/getTransactionCount.spec.ts
+  - src/test/viem/getTransactionReceipt.spec.ts
+  - src/test/viem/impersonateAccount.spec.ts
+  - src/test/viem/increaseTime.spec.ts
+  - src/test/viem/mine.spec.ts
+  - src/test/viem/multicall.spec.ts
+  - src/test/viem/readContract.spec.ts
+  - src/test/viem/removeBlockTimestampInterval.spec.ts
+  - src/test/viem/sendRawTransaction.spec.ts
+  - src/test/viem/setAutomine.spec.ts
+  - src/test/viem/setBalance.spec.ts
+  - src/test/viem/setBlockGasLimit.spec.ts
+  - src/test/viem/setBlockTimestampInterval.spec.ts
+  - src/test/viem/setCode.spec.ts
+  - src/test/viem/setCoinbase.spec.ts
+  - src/test/viem/setNextBlockTimestamp.spec.ts
+  - src/test/viem/setNonce.spec.ts
+  - src/test/viem/setRpcUrl.spec.ts
+  - src/test/viem/setStorageAt.spec.ts
+  - src/test/viem/simulateContract.spec.ts
+  - src/test/viem/snapshot.spec.ts
+  - src/test/viem/stopImpersonatingAccount.spec.ts
+  - src/test/viem/uninstallFilter.spec.ts
+  - src/test/viem/verifyMessage.spec.ts
+  - src/test/viem/verifySiweMessage.spec.ts
+  - src/test/viem/verifyTypedData.spec.ts
+  - src/test/viem/waitForTransactionReceipt.spec.ts
+  - src/test/viem/watchBlockNumber.spec.ts
+  - src/test/viem/watchBlocks.spec.ts
+  - src/test/viem/watchContractEvent.spec.ts
+  - src/test/viem/watchEvent.spec.ts
+  - src/test/viem/watchPendingTransactions.spec.ts
+  - src/test/viemPublicActions.spec.ts
+  - src/test/viemSigner.spec.ts
+  - src/test/viemTestActions.spec.ts
+  - src/tevmAccountManagement.spec.ts
+  - src/tevmCall.js
+  - src/tevmCall.spec.ts
+  - src/tevmContract.js
+  - src/tevmContract.spec.ts
+  - src/tevmContractIntegration.spec.ts
+  - src/tevmDeal.ts
+  - src/tevmDeploy.js
+  - src/tevmDumpState.js
+  - src/tevmGetAccount.js
+  - src/tevmLoadState.js
+  - src/tevmMine.js
+  - src/tevmMine.spec.ts
+  - src/tevmMiningModes.spec.ts
+  - src/tevmReady.js
+  - src/tevmReady.spec.ts
+  - src/tevmSetAccount.js
+  - src/tevmSetAccount.spec.ts
+  - src/tevmStateCheckpoints.spec.ts
+  - src/tevmStatePersistence.spec.ts
+  - src/tevmViemActions.js
+  - src/tevmViemActions.spec.ts
+  - tsup.config.js
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 114 files in 24ms. No fixes applied.
+
+> nx run @tevm/server:"lint:check"
+
+
+> @tevm/server@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/packages/server
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - bin/tevm-server.js
+  - src/Client.ts
+  - src/adapters/createExpressMiddleware.js
+  - src/adapters/createExpressMiddleware.spec.ts
+  - src/adapters/createNextApiHandler.js
+  - src/adapters/createNextApiHandler.spec.ts
+  - src/adapters/index.js
+  - src/adapters/index.spec.ts
+  - src/coverage.spec.ts
+  - src/createHttpHandler.direct.spec.ts
+  - src/createHttpHandler.js
+  - src/createHttpHandler.spec.ts
+  - src/createServer.js
+  - src/createServer.spec.ts
+  - src/errors/InvalidJsonError.js
+  - src/errors/ReadRequestBodyError.js
+  - src/errors/ReadRequestBodyError.spec.ts
+  - src/index.js
+  - src/index.spec.ts
+  - src/index.ts
+  - src/internal/getRequestBody.js
+  - src/internal/getRequestBody.spec.ts
+  - src/internal/handleBulkRequest.js
+  - src/internal/handleBulkRequest.spec.ts
+  - src/internal/handleError.js
+  - src/internal/handleError.spec.ts
+  - src/internal/parseRequest.js
+  - src/internal/parseRequest.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 9ms.
+Checked 34 files in 8ms. No fixes applied.
+
+> nx run @tevm/viem:"lint:check"
+
+
+> @tevm/viem@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/extensions/viem
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - fix_ts_errors.cjs
+  - fix_ts_errors.js
+  - src/GenError.ts
+  - src/GenResult.ts
+  - src/OptimisticResult.spec.ts
+  - src/OptimisticResult.ts
+  - src/TypedError.ts
+  - src/ViemTevmClient.spec.ts
+  - src/ViemTevmClient.ts
+  - src/ViemTevmClientDecorator.ts
+  - src/ViemTevmExtension.ts
+  - src/ViemTevmOptimisticClient.spec.ts
+  - src/ViemTevmOptimisticClient.ts
+  - src/ViemTevmOptimisticClientDecorator.ts
+  - src/ViemTevmOptimisticExtension.ts
+  - src/index.js
+  - src/index.spec.ts
+  - src/index.ts
+  - src/testAccounts.js
+  - src/tests/ERC20.sol.ts
+  - src/tevmTransport.js
+  - src/tevmTransport.spec.ts
+  - src/tevmViemExtension.js
+  - src/tevmViemExtension.spec.ts
+  - src/tevmViemExtensionOptimistic.js
+  - src/tevmViemExtensionOptimistic.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1895µs.
+Checked 32 files in 11ms. No fixes applied.
+
+> nx run @tevm/ethers:"lint:check"
+
+
+> @tevm/ethers@1.0.0-next.148 lint:check /Users/williamcory/tevm-monorepo/extensions/ethers
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/TevmProvider.js
+  - src/TevmProvider.spec.ts
+  - src/contract/BaseContractMethod.ts
+  - src/contract/Contract.d.ts
+  - src/contract/Contract.js
+  - src/contract/Contract.spec.ts
+  - src/contract/ContractMethodArgs.ts
+  - src/contract/TypesafeEthersContract.ts
+  - src/contract/index.js
+  - src/contract/index.ts
+  - src/index.js
+  - src/index.ts
+  - src/jsonRpcAutomining.spec.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1871µs.
+Checked 19 files in 11ms. No fixes applied.
+
+> nx run @tevm/test-matchers:"lint:check"
+
+
+> @tevm/test-matchers@1.0.0-next.149 lint:check /Users/williamcory/tevm-monorepo/extensions/test-matchers
+> biome check . --verbose
+
+src/chainable/chainable.spec.ts:42:2 suppressions/unused ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Suppression comment has no effect. Remove the suppression or make sure you are suppressing the correct rule.
+  
+    40 │ // Augment vitest's Assertion - this preserves ALL existing functionality including 'not'
+    41 │ declare module 'vitest' {
+  > 42 │ 	// biome-ignore lint/correctness/noUnusedVariables: we need to match exactly the base vitest Assertion type
+       │ 	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    43 │ 	interface Assertion<T = any> extends CustomMatchers {}
+    44 │ }
+  
+
+src/index.ts:71:2 suppressions/unused ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Suppression comment has no effect. Remove the suppression or make sure you are suppressing the correct rule.
+  
+    70 │ declare module 'vitest' {
+  > 71 │ 	// biome-ignore lint/correctness/noUnusedVariables: we need to match exactly the base vitest Assertion type
+       │ 	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    72 │ 	interface Assertion<T = any>
+    73 │ 		extends UtilsMatchers,
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/chainable/chainable.spec.ts
+  - src/chainable/chainable.ts
+  - src/chainable/chainable.type-spec.ts
+  - src/chainable/types.ts
+  - src/common/handleTransaction.ts
+  - src/common/types.ts
+  - src/index.ts
+  - src/matchers/balance/getBalanceChange.ts
+  - src/matchers/balance/getDiffMethodsFromPrestateTrace.ts
+  - src/matchers/balance/getTokenBalanceChange.ts
+  - src/matchers/balance/handleTransaction.ts
+  - src/matchers/balance/index.ts
+  - src/matchers/balance/toChangeBalance.ts
+  - src/matchers/balance/toChangeBalances.ts
+  - src/matchers/balance/toChangeTokenBalance.ts
+  - src/matchers/balance/toChangeTokenBalances.spec.ts
+  - src/matchers/balance/toChangeTokenBalances.ts
+  - src/matchers/balance/types.ts
+  - src/matchers/contract/getSelectorToCalldataMap.ts
+  - src/matchers/contract/index.ts
+  - src/matchers/contract/toCallContractFunction.ts
+  - src/matchers/contract/types.ts
+  - src/matchers/contract/withFunctionArgs.ts
+  - src/matchers/contract/withFunctionNamedArgs.ts
+  - src/matchers/errors/handleTransaction.ts
+  - src/matchers/errors/index.ts
+  - src/matchers/errors/toBeReverted.ts
+  - src/matchers/errors/toBeRevertedWithError.ts
+  - src/matchers/errors/toBeRevertedWithString.ts
+  - src/matchers/errors/types.ts
+  - src/matchers/errors/withErrorArgs.ts
+  - src/matchers/errors/withErrorNamedArgs.ts
+  - src/matchers/events/index.ts
+  - src/matchers/events/toEmit.ts
+  - src/matchers/events/types.ts
+  - src/matchers/events/withEventArgs.ts
+  - src/matchers/events/withEventNamedArgs.ts
+  - src/matchers/state/index.ts
+  - src/matchers/state/toBeInitializedAccount.ts
+  - src/matchers/state/toHaveState.ts
+  - src/matchers/state/toHaveStorageAt.ts
+  - src/matchers/state/types.ts
+  - src/matchers/utils/deepEqual.ts
+  - src/matchers/utils/index.ts
+  - src/matchers/utils/toBeAddress.spec.ts
+  - src/matchers/utils/toBeAddress.ts
+  - src/matchers/utils/toBeHex.spec.ts
+  - src/matchers/utils/toBeHex.ts
+  - src/matchers/utils/toEqualAddress.spec.ts
+  - src/matchers/utils/toEqualAddress.ts
+  - src/matchers/utils/toEqualHex.spec.ts
+  - src/matchers/utils/toEqualHex.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 2ms.
+Checked 58 files in 14ms. No fixes applied.
+Found 2 warnings.
+
+> nx run @tevm/test-node:"lint:check"
+
+
+> @tevm/test-node@1.0.0-next.150 lint:check /Users/williamcory/tevm-monorepo/extensions/test-node
+> biome check . --verbose
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files processed:
+  
+  - biome.json
+  - package.json
+  - tsconfig.json
+  - src/createTestSnapshotClient.spec.ts
+  - src/createTestSnapshotClient.ts
+  - src/createTestSnapshotNode.spec.ts
+  - src/createTestSnapshotNode.ts
+  - src/createTestSnapshotTransport.spec.ts
+  - src/createTestSnapshotTransport.ts
+  - src/index.ts
+  - src/internal/ethMethodToCacheKey.spec.ts
+  - src/internal/ethMethodToCacheKey.ts
+  - src/internal/isCachedJsonRpcMethod.spec.ts
+  - src/internal/isCachedJsonRpcMethod.ts
+  - src/internal/normalizeBlockTag.spec.ts
+  - src/internal/normalizeBlockTag.ts
+  - src/internal/normalizeHex.spec.ts
+  - src/internal/normalizeHex.ts
+  - src/internal/normalizeTx.spec.ts
+  - src/internal/normalizeTx.ts
+  - src/internal/normalizeUserOperation.spec.ts
+  - src/internal/normalizeUserOperation.ts
+  - src/internal/resolveBunTestSnapshotPath.spec.ts
+  - src/internal/resolveBunTestSnapshotPath.ts
+  - src/internal/resolveVitestTestSnapshotPath.spec.ts
+  - src/internal/resolveVitestTestSnapshotPath.ts
+  - src/snapshot/SnapshotManager.spec.ts
+  - src/snapshot/SnapshotManager.ts
+  - src/snapshot/createCachedTransport.spec.ts
+  - src/snapshot/createCachedTransport.ts
+  - src/test/constants.ts
+  - src/test/methods/eth_accounts.spec.ts
+  - src/test/methods/eth_blobBaseFee.spec.ts
+  - src/test/methods/eth_blockNumber.spec.ts
+  - src/test/methods/eth_call.spec.ts
+  - src/test/methods/eth_chainId.spec.ts
+  - src/test/methods/eth_coinbase.spec.ts
+  - src/test/methods/eth_createAccessList.spec.ts
+  - src/test/methods/eth_estimateGas.spec.ts
+  - src/test/methods/eth_feeHistory.spec.ts
+  - src/test/methods/eth_gasPrice.spec.ts
+  - src/test/methods/eth_getBalance.spec.ts
+  - src/test/methods/eth_getBlockByHash.spec.ts
+  - src/test/methods/eth_getBlockByNumber.spec.ts
+  - src/test/methods/eth_getBlockTransactionCountByHash.spec.ts
+  - src/test/methods/eth_getBlockTransactionCountByNumber.spec.ts
+  - src/test/methods/eth_getCode.spec.ts
+  - src/test/methods/eth_getFilterChanges.spec.ts
+  - src/test/methods/eth_getFilterLogs.spec.ts
+  - src/test/methods/eth_getLogs.spec.ts
+  - src/test/methods/eth_getProof.spec.ts
+  - src/test/methods/eth_getStorageAt.spec.ts
+  - src/test/methods/eth_getTransactionByBlockHashAndIndex.spec.ts
+  - src/test/methods/eth_getTransactionByBlockNumberAndIndex.spec.ts
+  - src/test/methods/eth_getTransactionByHash.spec.ts
+  - src/test/methods/eth_getTransactionCount.spec.ts
+  - src/test/methods/eth_getTransactionReceipt.spec.ts
+  - src/test/methods/eth_getUncleByBlockHashAndIndex.spec.ts
+  - src/test/methods/eth_getUncleByBlockNumberAndIndex.spec.ts
+  - src/test/methods/eth_getUncleCountByBlockHash.spec.ts
+  - src/test/methods/eth_getUncleCountByBlockNumber.spec.ts
+  - src/test/methods/eth_getUserOperationByHash.spec.ts
+  - src/test/methods/eth_getUserOperationReceipt.spec.ts
+  - src/test/methods/eth_maxPriorityFeePerGas.spec.ts
+  - src/test/methods/eth_newBlockFilter.spec.ts
+  - src/test/methods/eth_newFilter.spec.ts
+  - src/test/methods/eth_newPendingTransactionFilter.spec.ts
+  - src/test/methods/eth_protocolVersion.spec.ts
+  - src/test/methods/eth_sendRawTransaction.spec.ts
+  - src/test/methods/eth_sendTransaction.spec.ts
+  - src/test/methods/eth_sign.spec.ts
+  - src/test/methods/eth_simulateV1.spec.ts
+  - src/test/methods/eth_supportedEntryPoints.spec.ts
+  - src/test/methods/eth_syncing.spec.ts
+  - src/test/methods/eth_uninstallFilter.spec.ts
+  - src/test/mockTransport.ts
+  - src/test/snapshot-utils.ts
+  - src/test/vitest.setup.ts
+  - src/types.ts
+  - tsup.config.ts
+  - typedoc.json
+  - vitest.config.ts
+  
+
+ VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Files fixed:
+  
+  ! The list is empty.
+  
+
+Scanned project folder in 1925µs.
+Checked 82 files in 16ms. No fixes applied.
+
+
+
+ NX   Successfully ran target lint:check for 56 projects
+
+Nx read the output from the cache instead of running the command for 32 out of 56 tasks.
+
+View logs and investigate cache misses at https://nx.app/runs/n2JVidG36W
+
