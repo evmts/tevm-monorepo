@@ -26,6 +26,7 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			result: mockResponse,
 			id: 1,
 		})
@@ -51,6 +52,7 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			error: {
 				code: mockError.code,
 				message: mockError.message,
@@ -76,6 +78,7 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			error: {
 				code: -32000,
 				message: 'Unknown error',
@@ -98,6 +101,7 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			result: mockResponse,
 		})
 
@@ -121,6 +125,7 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			error: {
 				code: mockError.code,
 				message: 'Unknown error in jsonrpc request',
@@ -147,6 +152,7 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			error: {
 				code: mockError.code,
 				message: mockError.message,
@@ -170,6 +176,7 @@ describe('createJsonRpcFetcher', () => {
 
 		expect(result).toEqual({
 			jsonrpc: '2.0',
+			method: mockRequest.method,
 			error: {
 				code: -32000,
 				message: 'Some unexpected error',
