@@ -825,6 +825,7 @@ export const createTevmNode = (options = {}) => {
 	}
 
 	// Create interval miner instance before baseClient so we can reference it
+	/** @type {ReturnType<typeof createIntervalMiner> | null} */
 	let intervalMiner = null
 
 	/**
