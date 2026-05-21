@@ -33,6 +33,7 @@ describe('compileFilesWithShadow', () => {
 				sourceLanguage: 'Solidity',
 				shadowLanguage: 'Solidity',
 				solcVersion: '0.8.20',
+				hardfork: 'paris',
 				injectIntoContractPath: SIMPLE_CONTRACT_PATH,
 				injectIntoContractName: 'SimpleContract',
 				shadowMergeStrategy: 'safe',
@@ -54,6 +55,7 @@ describe('compileFilesWithShadow', () => {
 				sourceLanguage: 'Solidity',
 				shadowLanguage: 'Solidity',
 				solcVersion: '0.8.20',
+				hardfork: 'paris',
 				injectIntoContractPath: SIMPLE_CONTRACT_PATH,
 				injectIntoContractName: 'SimpleContract',
 				shadowMergeStrategy: 'replace',
@@ -73,6 +75,7 @@ describe('compileFilesWithShadow', () => {
 			const result = await compileFilesWithShadow([SIMPLE_CONTRACT_PATH], shadow, {
 				sourceLanguage: 'Solidity',
 				solcVersion: '0.8.20',
+				hardfork: 'paris',
 				// Only provide contract name, not path
 				injectIntoContractName: 'SimpleContract',
 				shadowMergeStrategy: 'safe',
@@ -92,6 +95,7 @@ describe('compileFilesWithShadow', () => {
 			const result = await compileFilesWithShadow([SIMPLE_CONTRACT_PATH], shadow, {
 				sourceLanguage: 'Solidity',
 				solcVersion: '0.8.20',
+				hardfork: 'paris',
 				injectIntoContractPath: SIMPLE_CONTRACT_PATH,
 				injectIntoContractName: 'SimpleContract',
 				throwOnCompilationError: false,
@@ -118,6 +122,7 @@ describe('compileFilesWithShadow', () => {
 				compileFilesWithShadow([SIMPLE_CONTRACT_PATH], shadow, {
 					sourceLanguage: 'Solidity',
 					solcVersion: '0.8.20',
+					hardfork: 'paris',
 					injectIntoContractName: 'NonExistentContract',
 				}),
 			).rejects.toThrowError(/Contract 'NonExistentContract' not found in file/)

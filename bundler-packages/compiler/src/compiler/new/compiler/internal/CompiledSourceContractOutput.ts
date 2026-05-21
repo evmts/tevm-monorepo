@@ -37,8 +37,5 @@ export type CompiledSourceContractOutput<
  * @template Path - The path to check in the selection (e.g., 'abi', 'evm', 'metadata')
  * @template Output - The object to include if the path is selected
  */
-type WithCompilationOutput<
-	TOutputSelection extends readonly string[],
-	Path extends string,
-	Output extends object,
-> = Extract<TOutputSelection[number], Path | `${Path}.${string}`> extends never ? {} : Output
+type WithCompilationOutput<TOutputSelection extends readonly string[], Path extends string, Output extends object> =
+	Extract<TOutputSelection[number], Path | `${Path}.${string}`> extends never ? {} : Output

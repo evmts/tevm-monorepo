@@ -61,7 +61,7 @@ describe('validateShadowOptions', () => {
 
 			expect(result.injectIntoContractPath).toBe('ComprehensiveContract.sol')
 			expect(result.injectIntoContractName).toBe('ComprehensiveContract')
-				expect(mockLogger.debug).toHaveBeenCalledWith(
+			expect(mockLogger.debug).toHaveBeenCalledWith(
 				'Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code',
 			)
 		})
@@ -368,7 +368,7 @@ describe('validateShadowOptions', () => {
 
 			expect(result.injectIntoContractName).toBe('ComprehensiveContract')
 			expect(mockLogger.debug).toHaveBeenCalledWith(
-				"Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code",
+				'Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code',
 			)
 			expect(mockLogger.debug).toHaveBeenCalledWith(
 				'Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code',
@@ -434,7 +434,7 @@ describe('validateShadowOptions', () => {
 			validateShadowOptions(astSources, options, 'Solidity', mockLogger)
 
 			expect(mockLogger.debug).toHaveBeenCalledWith(
-				"Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code",
+				'Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code',
 			)
 			expect(mockLogger.debug).toHaveBeenCalledWith(
 				'Using contract ComprehensiveContract in ComprehensiveContract.sol to inject shadow code',
@@ -446,8 +446,7 @@ describe('validateShadowOptions', () => {
 			const options: CompileSourceWithShadowOptions = {}
 
 			validateShadowOptions(astSources, options, 'Solidity', mockLogger)
-
-			})
+		})
 
 		it('should log error before throwing NotSupportedError', () => {
 			const astSources = [comprehensiveUnit]

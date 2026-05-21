@@ -24,13 +24,13 @@ const { compilationResult, errors, solcInput, solcOutput } = compiler.compileSou
 	},
 )
 // Compile files
-const filesResult = await compiler.compileFiles(['./contracts/Counter.sol'])
+const _filesResult = await compiler.compileFiles(['./contracts/Counter.sol'])
 // or
-const filesResultSync = compiler.compileFilesSync(['./contracts/Counter.sol'])
+const _filesResultSync = compiler.compileFilesSync(['./contracts/Counter.sol'])
 
 /* ----------------------------- Fetch contracts ---------------------------- */
 // API is still TBD but likely it would return the same output format as compileSource or compileFiles
-const contract = await compiler.fetchVerifiedSource('0x1234567890123456789012345678901234567890', {
+const _contract = await compiler.fetchVerifiedSource('0x1234567890123456789012345678901234567890', {
 	chainId: 1,
 	// ... api keys and explorer links for Etherscan, Blockscout; default provider is Sourcify
 })
@@ -42,7 +42,7 @@ const counterContract = `
     contract Counter { uint256 private count; function increment() internal { count++; } }
   `
 // 1. Quick easy way to access internal variables and functions (this works with compileFiles as well)
-const result = compiler.compileSource(counterContract, {
+const _result = compiler.compileSource(counterContract, {
 	exposeInternalFunctions: true,
 	exposeInternalVariables: true,
 })
@@ -67,10 +67,10 @@ counterContractNode?.vStateVariables.forEach((variableNode) => {
 // https://github.com/ConsenSysDiligence/solc-typed-ast/blob/56dd8fe42f6f0e8b67e1e76ecc8589ce65bdd32d/src/ast/implementation/declaration/contract_definition.ts#L25
 // If you would like to display the instrumented code in Solidity
 const { sources: instrumentedSources } = compiler.extractContractsFromAstNodes(sourceUnits)
-const instrumentedCounterContract = Object.values(instrumentedSources)[0]
+const _instrumentedCounterContract = Object.values(instrumentedSources)[0]
 
 // 3. Or just use shadow functions instead
-const result = compiler.compileSourceWithShadow(
+const _result = compiler.compileSourceWithShadow(
 	counterContract,
 	`
     function getCount() public view returns (uint256) {
@@ -86,7 +86,7 @@ const result = compiler.compileSourceWithShadow(
 )
 
 // 4. You can also just override the increment function to make it public (or completely change its implementation)
-const result = compiler.compileSourceWithShadow(
+const _result = compiler.compileSourceWithShadow(
 	counterContract,
 	`
     function increment() public override {
@@ -106,4 +106,4 @@ const { contract } = compiler.compileSourcesWithShadow(sources, `shadow methods`
 const ShadowContract = contract.withAddress(contractAddress)
 
 const client = createMemoryClient({ fork: { transport: http() } })
-const res = await client.tevmContract(ShadowContract.read.someShadowFunction())
+const _res = await client.tevmContract(ShadowContract.read.someShadowFunction())

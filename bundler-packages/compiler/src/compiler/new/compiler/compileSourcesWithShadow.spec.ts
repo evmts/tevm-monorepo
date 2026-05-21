@@ -15,6 +15,7 @@ describe('compileSourcesWithShadow', () => {
 				{
 					sourceLanguage: 'Solidity',
 					solcVersion: '0.8.20',
+					hardfork: 'paris',
 					injectIntoContractName: 'SimpleContract',
 					shadowMergeStrategy: 'safe',
 				},
@@ -38,6 +39,7 @@ describe('compileSourcesWithShadow', () => {
 				{
 					sourceLanguage: 'Solidity',
 					solcVersion: '0.8.20',
+					hardfork: 'paris',
 					injectIntoContractName: 'SimpleContract',
 					shadowMergeStrategy: 'replace',
 				},
@@ -59,7 +61,7 @@ describe('compileSourcesWithShadow', () => {
 						'B.sol': SimpleContract.source,
 					},
 					'function test() public {}',
-					{ sourceLanguage: 'Solidity', solcVersion: '0.8.20' },
+					{ sourceLanguage: 'Solidity', solcVersion: '0.8.20', hardfork: 'paris' },
 				),
 			).rejects.toThrow('injectIntoContractPath is required')
 		})
@@ -73,6 +75,7 @@ describe('compileSourcesWithShadow', () => {
 				{
 					sourceLanguage: 'Solidity',
 					solcVersion: '0.8.20',
+					hardfork: 'paris',
 					injectIntoContractName: 'SimpleContract',
 				},
 			)
@@ -94,6 +97,7 @@ describe('compileSourcesWithShadow', () => {
 					{
 						sourceLanguage: 'Solidity',
 						solcVersion: '0.8.20',
+						hardfork: 'paris',
 						injectIntoContractPath: 'B.sol',
 					},
 				),
@@ -109,6 +113,7 @@ describe('compileSourcesWithShadow', () => {
 				{
 					sourceLanguage: 'Solidity',
 					solcVersion: '0.8.20',
+					hardfork: 'paris',
 					injectIntoContractName: 'SimpleContract',
 				},
 			)
@@ -127,6 +132,7 @@ describe('compileSourcesWithShadow', () => {
 				{
 					sourceLanguage: 'Solidity',
 					solcVersion: '0.8.20',
+					hardfork: 'paris',
 					injectIntoContractName: 'SimpleContract',
 					shadowMergeStrategy: 'safe',
 				},
@@ -148,6 +154,7 @@ describe('compileSourcesWithShadow', () => {
 				{
 					sourceLanguage: 'Solidity',
 					solcVersion: '0.8.20',
+					hardfork: 'paris',
 					injectIntoContractName: 'SimpleContract',
 					shadowMergeStrategy: 'replace',
 				},
@@ -171,6 +178,7 @@ describe('compileSourcesWithShadow', () => {
 				{
 					sourceLanguage: 'Solidity',
 					solcVersion: '0.8.20',
+					hardfork: 'paris',
 					injectIntoContractName: 'SimpleContract',
 					throwOnCompilationError: false,
 				},
@@ -192,6 +200,7 @@ describe('compileSourcesWithShadow', () => {
 				{
 					sourceLanguage: 'Solidity',
 					solcVersion: '0.8.20',
+					hardfork: 'paris',
 					injectIntoContractName: 'SimpleContract',
 				},
 			)

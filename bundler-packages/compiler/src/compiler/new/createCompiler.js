@@ -179,7 +179,7 @@ export const createCompiler = (options) => {
 			return /** @type {any} */ (
 				compileSourcesWithShadowInternal(
 					solc,
-					sources,
+					/** @type {any} */ (sources),
 					shadow,
 					validatedOptions,
 					{ shadowLanguage, injectIntoContractPath, injectIntoContractName },

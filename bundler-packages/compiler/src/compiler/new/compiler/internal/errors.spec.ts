@@ -480,11 +480,11 @@ describe('AstParseError', () => {
 
 		it('should create error with parse_failed code', () => {
 			const error = new AstParseError('Failed to parse AST', {
-				meta: { code: 'parse_failed', sources: 'Contract.sol' },
+				meta: { code: 'parse_failed', sources: ['Contract.sol'] },
 			})
 
 			expect(error.meta?.code).toBe('parse_failed')
-			expect(error.meta?.sources).toBe('Contract.sol')
+			expect(error.meta?.sources).toEqual(['Contract.sol'])
 		})
 
 		it('should create error with empty_ast code', () => {
@@ -497,11 +497,11 @@ describe('AstParseError', () => {
 
 		it('should create error with invalid_source_ast code', () => {
 			const error = new AstParseError('Invalid source AST', {
-				meta: { code: 'invalid_source_ast', sources: 'Bad.sol' },
+				meta: { code: 'invalid_source_ast', sources: ['Bad.sol'] },
 			})
 
 			expect(error.meta?.code).toBe('invalid_source_ast')
-			expect(error.meta?.sources).toBe('Bad.sol')
+			expect(error.meta?.sources).toEqual(['Bad.sol'])
 		})
 
 		it('should create error with invalid_instrumented_ast code', () => {

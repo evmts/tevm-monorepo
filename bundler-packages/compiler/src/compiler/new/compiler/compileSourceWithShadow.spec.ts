@@ -27,6 +27,7 @@ describe('compileSourceWithShadow', () => {
 				sourceLanguage: 'Solidity',
 				shadowLanguage: 'Solidity',
 				solcVersion: '0.8.20',
+				hardfork: 'paris',
 				injectIntoContractName: 'SimpleContract',
 				shadowMergeStrategy: 'safe',
 			})
@@ -48,6 +49,7 @@ describe('compileSourceWithShadow', () => {
 				sourceLanguage: 'Solidity',
 				shadowLanguage: 'Solidity',
 				solcVersion: '0.8.20',
+				hardfork: 'paris',
 				injectIntoContractName: 'SimpleContract',
 				shadowMergeStrategy: 'replace',
 			})
@@ -68,6 +70,7 @@ describe('compileSourceWithShadow', () => {
 			const result = await compileSourceWithShadow(SimpleContract.source, shadow, {
 				sourceLanguage: 'Solidity',
 				solcVersion: '0.8.20',
+				hardfork: 'paris',
 				injectIntoContractName: 'SimpleContract',
 				throwOnCompilationError: false,
 			})
@@ -106,6 +109,7 @@ describe('compileSourceWithShadow', () => {
 				compileSourceWithShadow(SimpleContract.source, shadow, {
 					sourceLanguage: 'Solidity',
 					solcVersion: '0.8.20',
+					hardfork: 'paris',
 					injectIntoContractName: 'SimpleContract',
 					throwOnCompilationError: true,
 				}),
@@ -121,6 +125,7 @@ describe('compileSourceWithShadow', () => {
 			const result = await compileSourceWithShadow(SimpleContract.source, shadow, {
 				sourceLanguage: 'Solidity',
 				solcVersion: '0.8.20',
+				hardfork: 'paris',
 				injectIntoContractName: 'SimpleContract',
 				shadowMergeStrategy: 'safe',
 				throwOnCompilationError: false,
@@ -172,6 +177,7 @@ describe('compileSourceWithShadow', () => {
 			const result = await compileSourceWithShadow(SimpleContract.source, shadow, {
 				sourceLanguage: 'Solidity',
 				solcVersion: '0.8.20',
+				hardfork: 'paris',
 				injectIntoContractName: 'SimpleContract',
 				shadowMergeStrategy: 'replace',
 				throwOnCompilationError: false,
@@ -222,6 +228,7 @@ describe('compileSourceWithShadow', () => {
 			const result = await compileSourceWithShadow(SimpleContract.source, shadow, {
 				sourceLanguage: 'Solidity',
 				solcVersion: '0.8.20',
+				hardfork: 'paris',
 				injectIntoContractName: 'SimpleContract',
 				shadowMergeStrategy: 'replace',
 			})
