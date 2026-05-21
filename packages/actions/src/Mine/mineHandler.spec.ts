@@ -24,7 +24,7 @@ describe(mineHandler.name, () => {
 		expect(await getBlockNumber(client)).toBe(1n)
 	})
 
-	it('should work in forked mode too', { timeout: 20_000 }, async () => {
+	it.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('should work in forked mode too', { timeout: 20_000 }, async () => {
 		const node = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
 		const bn = await getBlockNumber(node)
 		expect(bn).toBeGreaterThan(119504797n)
@@ -94,11 +94,11 @@ describe(mineHandler.name, () => {
 			[InternalError: Invalid input: expected number, received string
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/invalidnonceerror/
-			Version: 1.1.0.next-73
+			Version: 1.0.0-next.148
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/invalidnonceerror/
 			Details: /reference/tevm/errors/classes/invalidnonceerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -122,7 +122,7 @@ describe(mineHandler.name, () => {
 			[MisconfiguredClientError: Client is stopped
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -134,7 +134,7 @@ describe(mineHandler.name, () => {
 			[UnreachableCodeError: Unreachable code executed with value: "BOGUS_STATUS"
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -146,7 +146,7 @@ describe(mineHandler.name, () => {
 			[MisconfiguredClientError: Syncing not currently implemented
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -162,7 +162,7 @@ describe(mineHandler.name, () => {
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 			Details: Mining error
-			Version: 1.1.0.next-73"
+			Version: 1.0.0-next.148"
 		`)
 	})
 
@@ -174,7 +174,7 @@ describe(mineHandler.name, () => {
 			[MisconfiguredClientError: Mining is already in progress
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -198,7 +198,7 @@ describe(mineHandler.name, () => {
 			[MisconfiguredClientError: Client is stopped
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -210,7 +210,7 @@ describe(mineHandler.name, () => {
 			[UnreachableCodeError: Unreachable code executed with value: "BOGUS_STATUS"
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -222,7 +222,7 @@ describe(mineHandler.name, () => {
 			[MisconfiguredClientError: Syncing not currently implemented
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-			Version: 1.1.0.next-73]
+			Version: 1.0.0-next.148]
 		`)
 	})
 
@@ -238,7 +238,7 @@ describe(mineHandler.name, () => {
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 			Details: Mining error
-			Version: 1.1.0.next-73"
+			Version: 1.0.0-next.148"
 		`)
 	})
 

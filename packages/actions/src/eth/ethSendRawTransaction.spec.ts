@@ -104,7 +104,7 @@ describe('ethSendRawTransactionHandler', () => {
 	})
 
 	it('should preserve EIP-7702 raw transactions in the txpool and receipts', async () => {
-		const client = createTevmNode({ common: tevmDefault })
+		const client = createTevmNode({ common: tevmDefault, miningConfig: { type: 'manual' } })
 		const handler = ethSendRawTransactionHandler(client)
 		const chainId = tevmDefault.ethjsCommon.chainId()
 
@@ -139,7 +139,7 @@ describe('ethSendRawTransactionHandler', () => {
 
 		expect(result).toBe(txHash)
 		const txPool = await client.getTxPool()
-		const pooledTx = txPool.getByHash(txHash)
+		const [pooledTx] = txPool.getByHash([hexToBytes(txHash)])
 		expect(pooledTx?.type).toBe(4)
 		expect((pooledTx as any).authorizationList).toHaveLength(1)
 

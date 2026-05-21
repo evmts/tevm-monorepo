@@ -29,7 +29,7 @@ describe('anvilDealHandler', () => {
 
 	it('should deal ERC20 tokens by finding and updating the correct storage slot', async () => {
 		const node = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress('0x0000000000000000000000000000000000066a44').toString())
 		const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const amount = 1000000n // 1 token with 6 decimals
 

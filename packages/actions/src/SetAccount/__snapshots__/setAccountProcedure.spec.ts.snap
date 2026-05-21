@@ -8,13 +8,13 @@ exports[`setAccountProcedure > should handle errors correctly 1`] = `
       "Invalid Address 0xInvalidAddress
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
-Version: 1.1.0.next-73",
+Version: 1.0.0-next.148",
     ],
   },
   "message": "Invalid Address 0xInvalidAddress
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
-Version: 1.1.0.next-73",
+Version: 1.0.0-next.148",
 }
 `;
 
@@ -27,13 +27,13 @@ exports[`setAccountProcedure > should return an error when stateManager fails 1`
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Details: unexpected error
-Version: 1.1.0.next-73",
+Version: 1.0.0-next.148",
     ],
   },
   "message": "Unexpected error setting account
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Details: unexpected error
-Version: 1.1.0.next-73",
+Version: 1.0.0-next.148",
 }
 `;

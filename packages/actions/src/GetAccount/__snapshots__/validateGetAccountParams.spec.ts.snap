@@ -5,7 +5,7 @@ exports[`validateGetAccountParams > should handle additional errors in the forma
   [InvalidRequest: Test error
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -14,7 +14,7 @@ exports[`validateGetAccountParams > should return InvalidAddressError for an inv
   [InvalidAddress: Invalid address param. Invalid Address invalidAddress
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -23,7 +23,7 @@ exports[`validateGetAccountParams > should return InvalidRequestError for an inv
   [InvalidRequest: Invalid returnStorage param. returnStorage must be a boolean or not provided. Invalid input: expected boolean, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -32,7 +32,7 @@ exports[`validateGetAccountParams > should return InvalidRequestError for an inv
   [InvalidRequest: Invalid throwOnFail param. throwOnFail must be a boolean or not provided. Invalid input: expected boolean, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -41,14 +41,14 @@ exports[`validateGetAccountParams > should return multiple errors for multiple i
   [InvalidRequest: Invalid throwOnFail param. throwOnFail must be a boolean or not provided. Invalid input: expected boolean, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidRequest: Invalid returnStorage param. returnStorage must be a boolean or not provided. Invalid input: expected boolean, received string
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidrequesterror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidAddress: Invalid address param. Invalid Address invalidAddress
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;

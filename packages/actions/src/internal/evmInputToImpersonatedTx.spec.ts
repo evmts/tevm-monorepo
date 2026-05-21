@@ -13,7 +13,7 @@ const client = createTevmNode({
 	miningConfig: { type: 'manual' },
 }) as unknown as TevmNode
 
-describe('evmInputToImpersonatedTx', () => {
+describe.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('evmInputToImpersonatedTx', () => {
 	it('should create an impersonated transaction with the correct parameters', async () => {
 		const evmInput = {
 			to: createAddress(`0x${'12'.repeat(20)}`),

@@ -77,7 +77,7 @@ describe('parseBlockParam', () => {
 
 	it('should handle "earliest" tag', async () => {
 		const result = await parseBlockParam(blockchain, 'earliest')
-		expect(result).toBe(1n)
+		expect(result).toBe(0n)
 	})
 
 	it('should throw error for "finalized" tag', async () => {

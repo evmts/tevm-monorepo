@@ -492,7 +492,7 @@ describe('requestProcedure', () => {
 				    "message": "UnsupportedMethodError: Unknown method unsupported_method
 
 				Docs: https://tevm.sh/reference/tevm/errors/classes/methodnotfounderror/
-				Version: 1.1.0.next-73",
+				Version: 1.0.0-next.148",
 				  },
 				  "id": 1,
 				  "jsonrpc": "2.0",

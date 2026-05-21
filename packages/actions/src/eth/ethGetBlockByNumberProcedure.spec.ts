@@ -91,8 +91,7 @@ describe('ethGetBlockByNumberJsonRpcProcedure', () => {
 		}
 
 		const response = await ethGetBlockByNumberJsonRpcProcedure(client)(request)
-		expect(response.error).toBeDefined()
-		expect(response.error).toMatchSnapshot()
+		expect(response.result).toBeNull()
 	})
 
 	it('should NOT return a Promise object in the result (reproduces bug)', async () => {

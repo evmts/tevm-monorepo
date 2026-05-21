@@ -8,7 +8,7 @@ import { cloneVmWithBlockTag } from './cloneVmWithBlock.js'
 
 const node = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
 
-describe('cloneVmWithBfockTag', () => {
+describe.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('cloneVmWithBfockTag', () => {
 	it('should clone the VM and set the state root successfully', async () => {
 		const block = await node.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 

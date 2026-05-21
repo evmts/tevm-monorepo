@@ -6,10 +6,13 @@ import { contractHandler } from '../Contract/contractHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { dealErc20Handler } from './anvilDealErc20Handler.js'
 
+const erc20Address = '0x0000000000000000000000000000000000066a44'
+const erc20Address2 = '0x0000000000000000000000000000000000077b55'
+
 describe('dealErc20Handler', () => {
 	it('should set ERC20 token balance', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 
 		// Deploy contract
@@ -40,7 +43,7 @@ describe('dealErc20Handler', () => {
 
 	it('should handle setting balance to zero', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 
 		// Deploy contract
@@ -97,7 +100,7 @@ describe('dealErc20Handler', () => {
 
 	it('should set different amounts for different accounts', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const account1 = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const account2 = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 
@@ -144,7 +147,7 @@ describe('dealErc20Handler', () => {
 
 	it('should overwrite existing balance', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 
 		// Deploy contract
@@ -182,7 +185,7 @@ describe('dealErc20Handler', () => {
 
 	it('should handle very large amounts', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 
 		// Deploy contract
@@ -214,8 +217,8 @@ describe('dealErc20Handler', () => {
 
 	it('should handle multiple ERC20 tokens independently', async () => {
 		const client = createTevmNode()
-		const erc20_1 = TestERC20.withAddress(createAddress('0x66a44').toString())
-		const erc20_2 = TestERC20.withAddress(createAddress('0x77b55').toString())
+		const erc20_1 = TestERC20.withAddress(createAddress(erc20Address).toString())
+		const erc20_2 = TestERC20.withAddress(createAddress(erc20Address2).toString())
 		const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 
 		// Deploy both contracts
@@ -278,7 +281,7 @@ describe('dealErc20Handler', () => {
 
 	it('should handle setting balance multiple times in sequence', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const account = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 
 		// Deploy contract
@@ -310,7 +313,7 @@ describe('dealErc20Handler', () => {
 
 	it('should properly manipulate storage without affecting other storage slots', async () => {
 		const client = createTevmNode()
-		const erc20 = TestERC20.withAddress(createAddress('0x66a44').toString())
+		const erc20 = TestERC20.withAddress(createAddress(erc20Address).toString())
 		const account1 = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		const account2 = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 

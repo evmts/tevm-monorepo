@@ -10,12 +10,16 @@ import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { ethSendTransactionHandler } from './ethSendTransactionHandler.js'
 
+const fromAddress = '0x0000000000000000000000000000000000001234'
+const toAddress = '0x0000000000000000000000000000000000005678'
+const impersonatedTestAddress = '0x000000000000000000000000000000000000abcd'
+
 describe('ethSendTransactionHandler', () => {
 	it('should send a simple transaction', async () => {
 		const client = createTevmNode()
 		const handler = ethSendTransactionHandler(client)
-		const from = createAddress('0x1234')
-		const to = createAddress('0x5678')
+		const from = createAddress(fromAddress)
+		const to = createAddress(toAddress)
 		const value = parseEther('1')
 
 		await setAccountHandler(client)({
@@ -40,8 +44,8 @@ describe('ethSendTransactionHandler', () => {
 	it('should handle contract interaction', async () => {
 		const client = createTevmNode()
 		const handler = ethSendTransactionHandler(client)
-		const from = createAddress('0x1234')
-		const contractAddress = createAddress('0x5678')
+		const from = createAddress(fromAddress)
+		const contractAddress = createAddress(toAddress)
 
 		await setAccountHandler(client)({
 			address: from.toString(),
@@ -82,8 +86,8 @@ describe('ethSendTransactionHandler', () => {
 	it('should handle transaction with impersonated account', async () => {
 		const client = createTevmNode()
 		const handler = ethSendTransactionHandler(client)
-		const impersonatedAddress = createAddress('0xabcd')
-		const to = createAddress('0x5678')
+		const impersonatedAddress = createAddress(impersonatedTestAddress)
+		const to = createAddress(toAddress)
 		const value = parseEther('1')
 
 		// Set impersonated account
@@ -111,7 +115,7 @@ describe('ethSendTransactionHandler', () => {
 	it('should use default prefunded account when no impersonation is set', async () => {
 		const client = createTevmNode()
 		const handler = ethSendTransactionHandler(client)
-		const to = createAddress('0x5678')
+		const to = createAddress(toAddress)
 		const value = parseEther('1')
 
 		// Don't set any impersonation
@@ -131,8 +135,8 @@ describe('ethSendTransactionHandler', () => {
 	it('should handle transaction with gas parameters', async () => {
 		const client = createTevmNode()
 		const handler = ethSendTransactionHandler(client)
-		const from = createAddress('0x1234')
-		const to = createAddress('0x5678')
+		const from = createAddress(fromAddress)
+		const to = createAddress(toAddress)
 
 		await setAccountHandler(client)({
 			address: from.toString(),
@@ -154,8 +158,8 @@ describe('ethSendTransactionHandler', () => {
 	it('should handle transaction with nonce', async () => {
 		const client = createTevmNode()
 		const handler = ethSendTransactionHandler(client)
-		const from = createAddress('0x1234')
-		const to = createAddress('0x5678')
+		const from = createAddress(fromAddress)
+		const to = createAddress(toAddress)
 
 		await setAccountHandler(client)({
 			address: from.toString(),
@@ -188,8 +192,8 @@ describe('ethSendTransactionHandler', () => {
 	it('should handle transaction with data field', async () => {
 		const client = createTevmNode()
 		const handler = ethSendTransactionHandler(client)
-		const from = createAddress('0x1234')
-		const to = createAddress('0x5678')
+		const from = createAddress(fromAddress)
+		const to = createAddress(toAddress)
 
 		await setAccountHandler(client)({
 			address: from.toString(),
@@ -209,7 +213,7 @@ describe('ethSendTransactionHandler', () => {
 	it('should handle contract deployment (no to address)', async () => {
 		const client = createTevmNode()
 		const handler = ethSendTransactionHandler(client)
-		const from = createAddress('0x1234')
+		const from = createAddress(fromAddress)
 
 		await setAccountHandler(client)({
 			address: from.toString(),
@@ -231,8 +235,8 @@ describe('ethSendTransactionHandler', () => {
 	it('should throw error on transaction failure', async () => {
 		const client = createTevmNode()
 		const handler = ethSendTransactionHandler(client)
-		const from = createAddress('0x1234')
-		const to = createAddress('0x5678')
+		const from = createAddress(fromAddress)
+		const to = createAddress(toAddress)
 
 		// Don't fund the account - transaction should fail due to insufficient balance
 		// But since we use skipBalance, this will fail in a different way
@@ -265,8 +269,8 @@ describe('ethSendTransactionHandler', () => {
 	it('should handle transaction with chainId', async () => {
 		const client = createTevmNode()
 		const handler = ethSendTransactionHandler(client)
-		const from = createAddress('0x1234')
-		const to = createAddress('0x5678')
+		const from = createAddress(fromAddress)
+		const to = createAddress(toAddress)
 
 		await setAccountHandler(client)({
 			address: from.toString(),
@@ -286,8 +290,8 @@ describe('ethSendTransactionHandler', () => {
 	it('should return consistent hash for same transaction', async () => {
 		const client = createTevmNode()
 		const handler = ethSendTransactionHandler(client)
-		const from = createAddress('0x1234')
-		const to = createAddress('0x5678')
+		const from = createAddress(fromAddress)
+		const to = createAddress(toAddress)
 
 		await setAccountHandler(client)({
 			address: from.toString(),

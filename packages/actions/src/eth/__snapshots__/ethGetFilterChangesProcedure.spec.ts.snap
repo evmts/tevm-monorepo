@@ -9,7 +9,7 @@ exports[`ethGetFilterChangesProcedure > should return an error if the filter is 
 
 exports[`ethGetFilterChangesProcedure > should return block changes for Block type filter 1`] = `
 [
-  "0x1",
+  "0x7992530397ae6e41cd38df940c24275e78ca057ae7b8d891d0afabf95802f129",
 ]
 `;
 

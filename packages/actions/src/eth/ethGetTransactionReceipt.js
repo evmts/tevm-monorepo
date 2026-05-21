@@ -130,6 +130,7 @@ export const ethGetTransactionReceiptHandler = (client) =>
 				block,
 				root: parentBlock.header.stateRoot,
 				skipBlockValidation: true,
+				generate: true,
 			})
 
 			const res = runBlockResult.results[txIndex]

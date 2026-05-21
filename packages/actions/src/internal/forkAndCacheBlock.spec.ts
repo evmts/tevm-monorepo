@@ -13,7 +13,9 @@ describe('forkAndCacheBlock', () => {
 		await expect(forkAndCacheBlock(client, block)).rejects.toThrow('Cannot forkAndCacheBlock without a fork url')
 	})
 
-	it('should fork a block and save the state root without executing block transactions', async () => {
+	it.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)(
+		'should fork a block and save the state root without executing block transactions',
+		async () => {
 		const client = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
 		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
@@ -21,7 +23,8 @@ describe('forkAndCacheBlock', () => {
 
 		expect(await vm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
 		expect(await vm.evm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
-	})
+		},
+	)
 
 	// TODO this test broke for no reason
 	it.todo('should fork a block, execute transactions, and save the state root', { timeout: 30_000 }, async () => {
@@ -34,7 +37,7 @@ describe('forkAndCacheBlock', () => {
 		expect(stateRoot).toEqual(block.header.stateRoot)
 	})
 
-	it('should process block transactions', { timeout: 30_000 }, async () => {
+	it.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('should process block transactions', { timeout: 30_000 }, async () => {
 		const client = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
 		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 

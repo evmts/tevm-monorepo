@@ -8,11 +8,11 @@ exports[`createScript > should handle script creation failure due to EVM error 1
 
 exports[`createScript > should handle setAccount failing unexpecdedly 1`] = `
 [
-  [InternalError: Unable to put storage
+  [InternalError: Unexpected error setting account
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
 Details: Unexpected error
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -21,7 +21,7 @@ exports[`createScript > should handle the case where the code property did not p
   [InternalEvmError: Failed to create script
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -29,8 +29,8 @@ exports[`createScript > should handle the unlikely case we are unable to get the
 [
   [AccountNotFound: account 0x0000000000000000000000000000003AcBAd8fAD not found
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
-Version: 1.1.0.next-73],
+Docs: https://tevm.sh/reference/tevm/errors/classes/accountnotfounderror/
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -40,7 +40,7 @@ exports[`createScript > should handle vm errors 1`] = `
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidbytecodeerror/
 Details: {"error":"revert","errorType":"EVMError"}
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -49,7 +49,7 @@ exports[`createScript > should return an error for invalid bytecode 1`] = `
   [InvalidDeployedBytecodeError: InvalidLength
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invaliddeployedbytecodeerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -58,6 +58,6 @@ exports[`createScript > should return an error when neither code nor deployed by
   [InternalError: Cannot create script without code or deployedBytecode
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;

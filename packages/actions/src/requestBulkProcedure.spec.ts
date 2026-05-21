@@ -129,15 +129,11 @@ describe('requestBulkProcedure', () => {
 		expect(res[1].error).toBeDefined()
 		expect(res[1].error?.code).toBe(-32013)
 		expect(res[1].error?.message).toMatchInlineSnapshot(`
-			"Received an invalid address input: Invalid byte sequence ("gg" in "gggggggggggggggggggggggggggggggggggggggg").
-
-			Version: viem@2.49.3
+			"Received an invalid address input: Address hex string must be 20 bytes
 
 			Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
-			Details: Invalid byte sequence ("gg" in "gggggggggggggggggggggggggggggggggggggggg").
-
-			Version: viem@2.49.3
-			Version: 1.1.0.next-73"
+			Details: Address hex string must be 20 bytes
+			Version: 1.0.0-next.148"
 		`)
 	})
 })

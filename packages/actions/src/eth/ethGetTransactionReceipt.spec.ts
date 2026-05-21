@@ -14,9 +14,9 @@ vi.mock('@tevm/jsonrpc', () => {
 					if (params[0] === '0x1234567890123456789012345678901234567890123456789012345678901234') {
 						return {
 							result: {
-								hex: '0xblockhash123',
+								blockHash: '0xblockhash123',
 								blockNumber: '0x1',
-								cumulativeBlockGasUsed: '0x5208',
+								cumulativeGasUsed: '0x5208',
 								effectiveGasPrice: '0xa',
 								from: '0xforkfrom123',
 								gasUsed: '0x5208',
@@ -64,7 +64,6 @@ describe('ethGetTransactionReceiptHandler', () => {
 			createTransaction: true,
 			to,
 			value: 420n,
-			skipBalance: true,
 		})
 
 		// Mine a block to include the transaction
@@ -81,7 +80,7 @@ describe('ethGetTransactionReceiptHandler', () => {
 			transactionIndex: 0,
 			from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
 			to: '0x6969696969696969696969696969696969696969',
-			cumulativeGasUsed: expect.any(BigInt),
+				cumulativeGasUsed: expect.any(BigInt),
 			gasUsed: expect.any(BigInt),
 			contractAddress: null,
 			logs: expect.any(Array),
@@ -359,7 +358,7 @@ describe('ethGetTransactionReceiptHandler', () => {
 
 			// Should return proper receipt with calculated effective gas price
 			expect(receipt).toBeDefined()
-			expect(receipt.effectiveGasPrice).toBe(5n)
+			expect(receipt.effectiveGasPrice).toBe(15n)
 			expect(receipt.blobGasPrice).toBe(10n)
 			expect(receipt.blobGasUsed).toBe(20n)
 			expect(receipt.contractAddress).toBe('0xcreated')

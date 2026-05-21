@@ -8,7 +8,7 @@ import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { debugIntermediateRootsJsonRpcProcedure } from './debugIntermediateRootsProcedure.js'
 
-describe('debugIntermediateRootsProcedure', () => {
+describe.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('debugIntermediateRootsProcedure', () => {
 	let client: TevmNode
 
 	beforeEach(async () => {

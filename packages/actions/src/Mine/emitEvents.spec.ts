@@ -29,7 +29,13 @@ describe('emitEvents', () => {
 
 		expect(client.emit).toHaveBeenCalledWith('newBlock', mockBlock)
 		expect(client.emit).toHaveBeenCalledWith('newReceipt', mockReceipt)
-		expect(client.emit).toHaveBeenCalledWith('newLog', mockReceipt.logs[0])
+		expect(client.emit).toHaveBeenCalledWith('newLog', mockReceipt.logs[0], {
+			blockHash: '0x010203',
+			blockNumber: 1n,
+			transactionHash: '0x',
+			transactionIndex: 0n,
+			logIndex: 0n,
+		})
 		expect(client.emitExExEvent).toHaveBeenCalledWith({
 			type: 'block',
 			phase: 'imported',

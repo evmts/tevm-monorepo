@@ -169,6 +169,7 @@ export const ethGetBlockReceiptsHandler = (client) => async (params) => {
 		block,
 		root: parentBlock.header.stateRoot,
 		skipBlockValidation: true,
+		generate: true,
 	})
 
 	/**

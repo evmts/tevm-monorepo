@@ -5,7 +5,7 @@ import { numberToBytes } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { getL1FeeInformationOpStack } from './getL1FeeInformationOpStack.js'
 
-describe(getL1FeeInformationOpStack.name, () => {
+describe.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)(getL1FeeInformationOpStack.name, () => {
 	it('should work', async () => {
 		const node = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
 		const vm = await node.getVm()

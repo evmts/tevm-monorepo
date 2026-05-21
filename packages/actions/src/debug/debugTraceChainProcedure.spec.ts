@@ -8,7 +8,7 @@ import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
 import { debugTraceChainJsonRpcProcedure } from './debugTraceChainProcedure.js'
 
-describe('debugTraceChainProcedure', () => {
+describe.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('debugTraceChainProcedure', () => {
 	let client: TevmNode
 
 	beforeEach(async () => {

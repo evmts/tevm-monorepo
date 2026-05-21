@@ -27,7 +27,7 @@ Contract Call:
 
 Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
 Version: viem@2.49.3
-Version: 1.1.0.next-73]
+Version: 1.0.0-next.148]
 `;
 
 exports[`contractHandler > should handle error during EVM call 1`] = `
@@ -78,7 +78,7 @@ Contract Call:
 
 Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
 Version: viem@2.49.3
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -96,7 +96,7 @@ Make sure you are using the correct ABI and that the function exists on it.
 
 Docs: https://viem.sh/docs/contract/encodeFunctionData
 Version: viem@2.49.3
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -105,15 +105,15 @@ exports[`contractHandler > should handle invalid params 1`] = `
   [InvalidToError: Invalid Address 0x123
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidtoerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidAddress: Invalid Address 0x123
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidAddress: Invalid Address 0x123
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -155,7 +155,7 @@ Contract Call:
 
 Docs: https://viem.sh/reference/tevm/errors/classes/reverterror/
 Version: viem@2.49.3
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -164,15 +164,15 @@ exports[`contractHandler > should handle unexpected errors during param conversi
   [InvalidGasPrice: Too small: expected bigint to be >=0
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidGasPrice: Too small: expected bigint to be >=0
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidgaspriceerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidParams: Must have either code or to
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidparamserror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -181,10 +181,10 @@ exports[`contractHandler > should handle unexpected errors during script creatio
   [InvalidAbiError: Invalid input: expected array, received undefined
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidabierror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
   [InvalidFunctionNameError: Invalid input: expected string, received undefined
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidfunctionnameerror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;

@@ -95,14 +95,12 @@ describe('ethGetBlockReceiptsHandler', () => {
 			createTransaction: true,
 			to: to1,
 			value: 100n,
-			skipBalance: true,
 		})
 
 		const callResult2 = await callHandler(client)({
 			createTransaction: true,
 			to: to2,
 			value: 200n,
-			skipBalance: true,
 		})
 
 		// Mine a block to include both transactions
@@ -181,7 +179,6 @@ describe('ethGetBlockReceiptsHandler', () => {
 			createTransaction: true,
 			to,
 			value: 300n,
-			skipBalance: true,
 		})
 
 		// Mine a block
@@ -206,7 +203,6 @@ describe('ethGetBlockReceiptsHandler', () => {
 			createTransaction: true,
 			to,
 			value: 400n,
-			skipBalance: true,
 		})
 
 		// Mine a block
@@ -238,7 +234,6 @@ describe('ethGetBlockReceiptsHandler', () => {
 			createTransaction: true,
 			to,
 			value: 500n,
-			skipBalance: true,
 		})
 
 		// Mine a block
@@ -269,14 +264,12 @@ describe('ethGetBlockReceiptsHandler', () => {
 			createTransaction: true,
 			to: to1,
 			value: 100n,
-			skipBalance: true,
 		})
 
 		await callHandler(client)({
 			createTransaction: true,
 			to: to2,
 			value: 200n,
-			skipBalance: true,
 		})
 
 		// Mine a block to include both transactions
@@ -327,14 +320,12 @@ describe('ethGetBlockReceiptsHandler', () => {
 			createTransaction: true,
 			to: to1,
 			value: 600n,
-			skipBalance: true,
 		})
 
 		await callHandler(client)({
 			createTransaction: true,
 			to: to2,
 			value: 700n,
-			skipBalance: true,
 		})
 
 		// Mine a block

@@ -85,10 +85,7 @@ describe('ethGetTransactionByBlockNumberAndIndexJsonRpcProcedure', () => {
 			id: 1,
 			jsonrpc: '2.0',
 			method: 'eth_getTransactionByBlockNumberAndIndex',
-			error: {
-				code: -32602,
-				message: 'Transaction not found',
-			},
+			result: null,
 		})
 	})
 })

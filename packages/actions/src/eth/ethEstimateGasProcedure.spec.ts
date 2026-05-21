@@ -160,7 +160,7 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 	})
 
 	it('should handle basic error decoding when a contract call reverts', async () => {
-		const contractAddress = createAddress('0x1234')
+		const contractAddress = createAddress('0x0000000000000000000000000000000000001234')
 		await setAccountHandler(client)({
 			address: contractAddress.toString(),
 			deployedBytecode: ErrorContract.deployedBytecode,
@@ -195,7 +195,7 @@ describe('ethEstimateGasJsonRpcProcedure', () => {
 						'\n' +
 						'Docs: https://tevm.sh/reference/tevm/errors/classes/reverterror/\n' +
 						'Details: {"error":"revert","errorType":"EVMError"}\n' +
-						'Version: 1.1.0.next-73',
+						'Version: 1.0.0-next.148',
 				],
 			},
 		})

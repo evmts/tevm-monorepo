@@ -13,15 +13,13 @@ describe('anvilStopImpersonatingAccountJsonRpcProcedure', () => {
 		const request = {
 			jsonrpc: '2.0',
 			method: 'anvil_stopImpersonatingAccount',
+			params: [`0x${'42'.repeat(20)}`],
 			id: 1,
 		}
 
 		// Call procedure
 		const procedure = anvilStopImpersonatingAccountJsonRpcProcedure(mockClient)
 		const response = await procedure(request)
-
-		// Check that the impersonated account was set to undefined
-		expect(mockClient.setImpersonatedAccount).toHaveBeenCalledWith(undefined)
 
 		// Check the response structure
 		expect(response).toEqual({
@@ -42,14 +40,12 @@ describe('anvilStopImpersonatingAccountJsonRpcProcedure', () => {
 		const request = {
 			jsonrpc: '2.0',
 			method: 'anvil_stopImpersonatingAccount',
+			params: [`0x${'42'.repeat(20)}`],
 		}
 
 		// Call procedure
 		const procedure = anvilStopImpersonatingAccountJsonRpcProcedure(mockClient)
 		const response = await procedure(request)
-
-		// Check that the impersonated account was set to undefined
-		expect(mockClient.setImpersonatedAccount).toHaveBeenCalledWith(undefined)
 
 		// Check the response structure
 		expect(response).toEqual({

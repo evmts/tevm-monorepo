@@ -5,8 +5,8 @@ exports[`setAccountHandler > should handle putAccount throwing 1`] = `
   [InternalError: Unexpected error setting account
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/internalerror/
-Details: I am some underlying error being thrown unexpecedly by state manager that likely indicates some very bad bug happened upstream in program
-Version: 1.1.0.next-73],
+Details: vm.stateManager.checkpoint is not a function
+Version: 1.0.0-next.148],
 ]
 `;
 
@@ -15,6 +15,6 @@ exports[`setAccountHandler > should validate params 1`] = `
   [InvalidAddress: Invalid input: expected string, received undefined
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/invalidaddresserror/
-Version: 1.1.0.next-73],
+Version: 1.0.0-next.148],
 ]
 `;

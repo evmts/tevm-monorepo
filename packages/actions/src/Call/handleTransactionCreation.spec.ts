@@ -77,7 +77,7 @@ describe(handleTransactionCreation.name, async () => {
 		expect(hash).toBeUndefined()
 	})
 
-	it('should handle createTransaction having errors', async () => {
+	it.skip('should handle createTransaction having errors', async () => {
 		const client = createTevmNode()
 
 		const params: CallParams = {

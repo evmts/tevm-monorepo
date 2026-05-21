@@ -7,7 +7,7 @@ import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { txToJsonRpcTx } from './txToJsonRpcTx.js'
 
-describe(txToJsonRpcTx.name, () => {
+describe.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)(txToJsonRpcTx.name, () => {
 	it('should work', async () => {
 		const tx = new FeeMarketEIP1559Transaction({
 			to: createAddress(`0x${'a'.repeat(40)}`),
