@@ -1,4 +1,4 @@
-import { execSync } from 'node:child_process'
+import { execFileSync } from 'node:child_process'
 import { join } from 'node:path'
 import { runSync } from 'effect/Effect'
 import { beforeEach, describe, expect, it, type MockedFunction, vi } from 'vitest'
@@ -10,10 +10,10 @@ import {
 } from './loadFoundryConfig.js'
 
 vi.mock('node:child_process', async () => ({
-	execSync: vi.fn(),
+	execFileSync: vi.fn(),
 }))
 
-const mockExecSync = execSync as MockedFunction<typeof execSync>
+const mockExecFileSync = execFileSync as MockedFunction<typeof execFileSync>
 const foundryFixture = join(__dirname, '..', 'fixtures', 'withFoundry')
 const foundryConfigOutput = JSON.stringify({
 	libs: ['lib'],
@@ -22,24 +22,24 @@ const foundryConfigOutput = JSON.stringify({
 
 describe(loadFoundryConfig.name, () => {
 	beforeEach(() => {
-		mockExecSync.mockReset()
+		mockExecFileSync.mockReset()
 	})
 	it('should return the remappings from foundry', () => {
-		mockExecSync.mockReturnValueOnce(Buffer.from(foundryConfigOutput))
+		mockExecFileSync.mockReturnValueOnce(Buffer.from(foundryConfigOutput))
 		let res = runSync(loadFoundryConfig('forge', foundryFixture))
 		expect(res.libs).toEqual(['lib'])
 		expect(res.remappings?.['@solmate-utils/']).toContain('lib/solmate/src/utils/')
-		expect(mockExecSync).lastCalledWith('forge config --json', {
+		expect(mockExecFileSync).lastCalledWith('forge', ['config', '--json'], {
 			cwd: foundryFixture,
 		})
-		mockExecSync.mockReturnValueOnce(Buffer.from(foundryConfigOutput))
+		mockExecFileSync.mockReturnValueOnce(Buffer.from(foundryConfigOutput))
 		res = runSync(loadFoundryConfig(true, foundryFixture))
 		expect(res.libs).toEqual(['lib'])
 		expect(res.remappings?.['@solmate-utils/']).toContain('lib/solmate/src/utils/')
-		expect(mockExecSync).lastCalledWith('forge config --json', {
+		expect(mockExecFileSync).lastCalledWith('forge', ['config', '--json'], {
 			cwd: foundryFixture,
 		})
-		expect(mockExecSync).lastCalledWith('forge config --json', {
+		expect(mockExecFileSync).lastCalledWith('forge', ['config', '--json'], {
 			cwd: foundryFixture,
 		})
 	})
@@ -50,7 +50,7 @@ describe(loadFoundryConfig.name, () => {
 	})
 
 	it(`should throw ${FoundryNotFoundError.name} if command is not found`, () => {
-		mockExecSync.mockImplementationOnce(() => {
+		mockExecFileSync.mockImplementationOnce(() => {
 			throw new Error('forge not found')
 		})
 		expect(() => runSync(loadFoundryConfig('notforgecommand', foundryFixture))).toThrowErrorMatchingInlineSnapshot(`
@@ -61,7 +61,7 @@ describe(loadFoundryConfig.name, () => {
 	})
 
 	it(`should throw ${FoundryConfigError.name} in unlikely event foundry returns invalid json`, () => {
-		mockExecSync.mockImplementationOnce(() => {
+		mockExecFileSync.mockImplementationOnce(() => {
 			return `
 [profile.default]
 not-a-json
@@ -74,7 +74,7 @@ not-a-json
 
 	it(`should throw ${InvalidRemappingsError.name} in unlikey event foundry returns remappings not formatted as expected`, () => {
 		const remap = 'not-fromatted-as-expected'
-		mockExecSync.mockImplementationOnce(() => {
+		mockExecFileSync.mockImplementationOnce(() => {
 			return JSON.stringify({
 				remappings: [remap],
 			})

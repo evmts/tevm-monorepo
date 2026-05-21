@@ -5,7 +5,7 @@ import { loadConfig } from './index.js'
 import { LoadConfigError } from './loadConfig.js'
 
 vi.mock('node:child_process', () => ({
-	execSync: vi.fn(() =>
+	execFileSync: vi.fn(() =>
 		Buffer.from(
 			JSON.stringify({
 				libs: ['lib'],

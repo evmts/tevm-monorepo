@@ -1,18 +1,18 @@
-import { execSync } from 'node:child_process'
+import { execFileSync } from 'node:child_process'
 import { flip, runSync } from 'effect/Effect'
 import { beforeEach, describe, expect, it, type MockedFunction, vi } from 'vitest'
 import { DefineConfigError } from './defineConfig.js'
 import { type CompilerConfig, defaultConfig, defineConfig } from './index.js'
 
 vi.mock('node:child_process', () => ({
-	execSync: vi.fn(),
+	execFileSync: vi.fn(),
 }))
 
-const mockExecSync = execSync as MockedFunction<typeof execSync>
+const mockExecFileSync = execFileSync as MockedFunction<typeof execFileSync>
 
 describe(defineConfig.name, () => {
 	beforeEach(() => {
-		mockExecSync.mockReset()
+		mockExecFileSync.mockReset()
 	})
 
 	it('should return a valid config when no config is provided', () => {
@@ -28,7 +28,7 @@ describe(defineConfig.name, () => {
 			remappings: [],
 			libs: ['lib1', 'lib2'],
 		})
-		mockExecSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
+		mockExecFileSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
 
 		const configFactory = () =>
 			({
@@ -45,7 +45,7 @@ describe(defineConfig.name, () => {
 			debug: false,
 			cacheDir: defaultConfig.cacheDir,
 		})
-		expect(mockExecSync).toHaveBeenCalledWith('forge config --json', {
+		expect(mockExecFileSync).toHaveBeenCalledWith('forge', ['config', '--json'], {
 			cwd: './',
 		})
 	})
@@ -56,7 +56,7 @@ describe(defineConfig.name, () => {
 			remappings: [],
 			libs: ['lib1', 'lib2'],
 		})
-		mockExecSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
+		mockExecFileSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
 
 		const configFactory = () => ({
 			foundryProject: true,
@@ -72,7 +72,7 @@ describe(defineConfig.name, () => {
 			debug: false,
 			cacheDir: defaultConfig.cacheDir,
 		})
-		expect(mockExecSync).toHaveBeenCalledWith('forge config --json', {
+		expect(mockExecFileSync).toHaveBeenCalledWith('forge', ['config', '--json'], {
 			cwd: './',
 		})
 	})
@@ -81,7 +81,7 @@ describe(defineConfig.name, () => {
 		const forgeCommandOutput = JSON.stringify({
 			remappings: ['key=value'],
 		})
-		mockExecSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
+		mockExecFileSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
 
 		const configFactory = () => ({
 			foundryProject: 'forge',
@@ -91,7 +91,7 @@ describe(defineConfig.name, () => {
 
 		const res = runSync(resolvedConfig).remappings
 
-		expect(mockExecSync).toBeCalledTimes(1)
+		expect(mockExecFileSync).toBeCalledTimes(1)
 
 		expect(res).toEqual({
 			key: '/config/value',
@@ -119,7 +119,7 @@ describe(defineConfig.name, () => {
 	})
 
 	it('should throw FoundryNotFoundError when forge command fails', () => {
-		mockExecSync.mockImplementationOnce(() => {
+		mockExecFileSync.mockImplementationOnce(() => {
 			throw new Error()
 		})
 
@@ -142,7 +142,7 @@ describe(defineConfig.name, () => {
 	})
 
 	it('should throw FoundryConfigError when forge command output is not valid JSON', () => {
-		mockExecSync.mockReturnValue('{"invalid JSON`{')
+		mockExecFileSync.mockReturnValue('{"invalid JSON`{')
 		const configFactory = () => ({
 			foundryProject: 'forge',
 		})
@@ -163,7 +163,7 @@ describe(defineConfig.name, () => {
 		const forgeCommandOutput = JSON.stringify({
 			remappings: ['invalid=remapping=format'],
 		})
-		mockExecSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
+		mockExecFileSync.mockReturnValueOnce(Buffer.from(forgeCommandOutput))
 
 		const configFactory = () => ({
 			foundryProject: 'forge',
