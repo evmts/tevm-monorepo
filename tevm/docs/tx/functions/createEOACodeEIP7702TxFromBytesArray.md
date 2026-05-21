@@ -8,8 +8,6 @@
 
 > **createEOACodeEIP7702TxFromBytesArray**(`values`, `opts?`): [`EOACodeEIP7702Transaction`](../classes/EOACodeEIP7702Transaction.md)
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/7702/constructors.d.ts:21
-
 Create a transaction from an array of byte encoded values ordered according to the devp2p network encoding - format noted below.
 
 Format: `[chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data,

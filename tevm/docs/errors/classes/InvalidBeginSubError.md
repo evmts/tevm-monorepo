@@ -6,8 +6,6 @@
 
 # Class: InvalidBeginSubError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:46
-
 Represents an invalid bytecode/contract error that occurs when an invalid BEGINSUB operation is executed within the EVM.
 
 Invalid BEGINSUB errors can occur due to:
@@ -49,8 +47,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InvalidBeginSubError**(`message?`, `args?`, `tag?`): `InvalidBeginSubError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBeginSubError.d.ts:63
 
 Constructs an InvalidBeginSubError.
 Represents an invalid bytecode/contract error that occurs when an invalid BEGINSUB operation is executed within the EVM.

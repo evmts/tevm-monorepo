@@ -8,8 +8,6 @@
 
 > **TransactionType**: `object`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:110
-
 ## Type Declaration
 
 ### AccessListEIP2930

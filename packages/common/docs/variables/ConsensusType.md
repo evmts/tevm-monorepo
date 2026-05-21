@@ -8,8 +8,6 @@
 
 > **ConsensusType**: `object`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/enums.d.ts:52
-
 ## Type Declaration
 
 ### ProofOfAuthority

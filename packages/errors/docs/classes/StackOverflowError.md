@@ -19,7 +19,6 @@ To debug a stack overflow error:
 2. **Optimize Stack Usage**: Refactor your code to reduce stack usage, such as minimizing the depth of recursive calls.
 3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the transaction and inspect stack changes.
 4. **Use Other Tools**: Use other tools with tracing such as [Foundry](https://book.getfoundry.sh/forge/traces).
-- **Ethereumjs Source**: Refer to the [source file](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/evm/src/stack.ts) where this error can occur.
 
 ## Example
 
@@ -66,7 +65,6 @@ To debug a stack overflow error:
 2. **Optimize Stack Usage**: Refactor your code to reduce stack usage, such as minimizing the depth of recursive calls.
 3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the transaction and inspect stack changes.
 4. **Use Other Tools**: Use other tools with tracing such as [Foundry](https://book.getfoundry.sh/forge/traces).
-- **Ethereumjs Source**: Refer to the [source file](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/evm/src/stack.ts) where this error can occur.
 
 #### Parameters
 

@@ -13,7 +13,7 @@ Defined in: [packages/actions/src/requestProcedure.js:29](https://github.com/evm
 Request handler for JSON-RPC requests to Tevm.
 
 This implementation of the Tevm requestProcedure spec
-implements it via the ethereumjs VM.
+implements it via the Tevm VM.
 
 ## Parameters
 

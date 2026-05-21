@@ -28,8 +28,6 @@ The internal state representation
 
 > `optional` **checkChunkWitnessPresent?**: (`contract`, `programCounter`) => `Promise`\<`boolean`\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:127
-
 #### Parameters
 
 ##### contract
@@ -68,8 +66,6 @@ Returns contract addresses
 
 > `optional` **getAppliedKey?**: (`address`) => `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:128
-
 #### Parameters
 
 ##### address
@@ -89,8 +85,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_mo
 ### initBinaryTreeExecutionWitness?
 
 > `optional` **initBinaryTreeExecutionWitness?**: (`blockNum`, `executionWitness?`) => `void`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:125
 
 #### Parameters
 
@@ -115,8 +109,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_mo
 ### originalStorageCache
 
 > **originalStorageCache**: `object`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:120
 
 #### clear()
 
@@ -166,8 +158,6 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:179
 
 > `optional` **verifyBinaryTreePostState?**: (`accessWitness`) => `Promise`\<`boolean`\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:126
-
 #### Parameters
 
 ##### accessWitness
@@ -187,8 +177,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_mo
 ### checkpoint()
 
 > **checkpoint**(): `Promise`\<`void`\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:112
 
 #### Returns
 
@@ -241,8 +229,6 @@ Clears all storage entries for the account
 ### clearStorage()
 
 > **clearStorage**(`address`): `Promise`\<`void`\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:111
 
 #### Parameters
 
@@ -307,8 +293,6 @@ Returns a new instance of the ForkStateManager with the same opts and all storag
 ### deleteAccount()
 
 > **deleteAccount**(`address`): `Promise`\<`void`\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:104
 
 #### Parameters
 
@@ -442,8 +426,6 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:184
 
 > **getCode**(`address`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:107
-
 #### Parameters
 
 ##### address
@@ -463,8 +445,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_mo
 ### getCodeSize()
 
 > **getCodeSize**(`address`): `Promise`\<`number`\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:108
 
 #### Parameters
 
@@ -516,8 +496,6 @@ The account and storage proof
 
 > **getStateRoot**(): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:115
-
 #### Returns
 
 `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
@@ -531,8 +509,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_mo
 ### getStorage()
 
 > **getStorage**(`address`, `key`): `Promise`\<`Uint8Array`\<`ArrayBufferLike`\>\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:109
 
 #### Parameters
 
@@ -557,8 +533,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_mo
 ### hasStateRoot()
 
 > **hasStateRoot**(`root`): `Promise`\<`boolean`\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:117
 
 #### Parameters
 
@@ -624,8 +598,6 @@ Defined in: tevm-monorepo/packages/state/dist/index.d.ts:185
 
 > **putCode**(`address`, `value`): `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:106
-
 #### Parameters
 
 ##### address
@@ -649,8 +621,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_mo
 ### putStorage()
 
 > **putStorage**(`address`, `key`, `value`): `Promise`\<`void`\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:110
 
 #### Parameters
 
@@ -679,8 +649,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_mo
 ### revert()
 
 > **revert**(): `Promise`\<`void`\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:114
 
 #### Returns
 
@@ -722,8 +690,6 @@ THis API is considered unstable
 ### setStateRoot()
 
 > **setStateRoot**(`stateRoot`, `clearCache?`): `Promise`\<`void`\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:116
 
 #### Parameters
 

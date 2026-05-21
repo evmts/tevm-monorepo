@@ -18,7 +18,6 @@ To debug a stack underflow error:
 1. **Review Contract Logic**: Ensure that your smart contract logic correctly handles stack operations, especially in loops and conditional branches.
 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the transaction and inspect stack changes.
 3. **Use Other Tools**: Use other tools with tracing such as [Foundry](https://book.getfoundry.sh/forge/traces).
-- **Ethereumjs Source**: Refer to the [source file](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/evm/src/stack.ts) where this error can occur.
 
 ## Example
 
@@ -63,7 +62,6 @@ To debug a stack underflow error:
 1. **Review Contract Logic**: Ensure that your smart contract logic correctly handles stack operations, especially in loops and conditional branches.
 2. **Use TEVM Tracing**: Utilize TEVM tracing to step through the transaction and inspect stack changes.
 3. **Use Other Tools**: Use other tools with tracing such as [Foundry](https://book.getfoundry.sh/forge/traces).
-- **Ethereumjs Source**: Refer to the [source file](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/evm/src/stack.ts) where this error can occur.
 
 #### Parameters
 

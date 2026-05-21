@@ -8,8 +8,6 @@
 
 > **InvalidKzgInputsErrorParameters** = `object`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:60
-
 Parameters for constructing a [InvalidKzgInputsError](../classes/InvalidKzgInputsError.md).
 
 ## Properties
@@ -17,8 +15,6 @@ Parameters for constructing a [InvalidKzgInputsError](../classes/InvalidKzgInput
 ### cause?
 
 > `optional` **cause?**: [`ExecutionError`](../classes/ExecutionError.md) \| `EVMError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:80
 
 - The cause of the error.
 
@@ -28,8 +24,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgIn
 
 > `optional` **details?**: `string`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:84
-
 - Details of the error.
 
 ***
@@ -37,8 +31,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgIn
 ### docsBaseUrl?
 
 > `optional` **docsBaseUrl?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:64
 
 - Base URL for the documentation.
 
@@ -48,8 +40,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgIn
 
 > `optional` **docsPath?**: `string`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:68
-
 - Path to the documentation.
 
 ***
@@ -57,8 +47,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgIn
 ### docsSlug?
 
 > `optional` **docsSlug?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:72
 
 - Slug for the documentation.
 
@@ -68,8 +56,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgIn
 
 > `optional` **meta?**: `object`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:88
-
 - Optional object containing additional information about the error.
 
 ***
@@ -77,7 +63,5 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgIn
 ### metaMessages?
 
 > `optional` **metaMessages?**: `string`[]
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:76
 
 - Additional meta messages.

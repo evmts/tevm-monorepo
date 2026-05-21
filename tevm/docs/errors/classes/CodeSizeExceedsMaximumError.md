@@ -6,8 +6,6 @@
 
 # Class: CodeSizeExceedsMaximumError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:56
-
 Represents an calldata/creation error that occurs when the code size exceeds the maximum limit.
 This error is typically encountered when the contract size to be deployed exceeds the maximum allowed size.
 
@@ -59,8 +57,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new CodeSizeExceedsMaximumError**(`message?`, `args?`, `tag?`): `CodeSizeExceedsMaximumError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:85
 
 Constructs a CodeSizeExceedsMaximumError.
 Represents an calldata/creation error that occurs when the code size exceeds the maximum limit.
@@ -272,8 +268,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeSizeExceedsMaximumError.d.ts:57
 
 ***
 

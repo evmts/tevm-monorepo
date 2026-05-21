@@ -6,8 +6,6 @@
 
 # Class: InvalidOpcodeError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidOpcodeError.d.ts:49
-
 Represents an invalid bytecode/contract error that occurs when an invalid opcode is encountered during EVM execution.
 This error is typically encountered when the bytecode contains an opcode that is not recognized by the EVM.
 
@@ -52,8 +50,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InvalidOpcodeError**(`message?`, `args?`, `tag?`): `InvalidOpcodeError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidOpcodeError.d.ts:70
 
 Constructs an InvalidOpcodeError.
 Represents an invalid bytecode/contract error that occurs when an invalid opcode is encountered during EVM execution.
@@ -258,8 +254,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidOpcodeError.d.ts:50
 
 ***
 

@@ -12,7 +12,7 @@ Defined in: [tevm-monorepo/packages/utils/src/createMemoryDb.js:22](https://gith
 
 **`Internal`**
 
-A simple ethereumjs DB instance that uses an in memory Map as it's backend
+A simple EVM-compatible DB instance that uses an in-memory Map as its backend
 Pass in an initial DB optionally to prepoulate the DB.
 
 ## Parameters

@@ -6,8 +6,6 @@
 
 # Class: CodeStoreOutOfGasError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:54
-
 Represents an error that occurs when a transaction runs out of gas during code storage.
 This error is typically encountered when the gas provided for storing code is insufficient to complete its execution.
 EVM transaction execution metadata level error
@@ -24,7 +22,7 @@ To debug a code store out of gas error:
 2. **Optimize Contract Code**: Refactor your smart contract code to reduce gas consumption during deployment. Consider simplifying complex initialization code.
 3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the deployment process and inspect gas usage.
 4. **Estimate Gas Multiple Times**: If using TEVM gas estimations, it might make sense to estimate gas many times and take the worst case to set `gasPrice`. Most nodes execute `eth_estimateGas` 10 times, while TEVM runs it only once.
-5. **Use Other Tools**: Use other tools such as [Foundry](https://book.getfoundry.sh/forge/gas). If it works in Foundry, consider [opening a bug report](https://github.com/ethereumjs/ethereumjs-monorepo/issues).
+5. **Use Other Tools**: Use other tools such as [Foundry](https://book.getfoundry.sh/forge/gas). If it works in Foundry, consider [opening a Tevm bug report](https://github.com/evmts/tevm-monorepo/issues).
 
 ## Example
 
@@ -57,8 +55,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new CodeStoreOutOfGasError**(`message?`, `args?`, `tag?`): `CodeStoreOutOfGasError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:73
 
 Constructs a CodeStoreOutOfGasError.
 Represents an error that occurs when a transaction runs out of gas during code storage.
@@ -261,8 +257,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:55
 
 ***
 

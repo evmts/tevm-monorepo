@@ -6,15 +6,11 @@
 
 # Interface: CustomCrypto
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:65
-
 ## Properties
 
 ### ecdsaRecover?
 
 > `optional` **ecdsaRecover?**: (`sig`, `recId`, `hash`) => `Uint8Array`
-
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:73
 
 #### Parameters
 
@@ -39,8 +35,6 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereu
 ### ecrecover?
 
 > `optional` **ecrecover?**: (`msgHash`, `v`, `r`, `s`, `chainId?`) => `Uint8Array`
-
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:70
 
 #### Parameters
 
@@ -74,8 +68,6 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereu
 
 > `optional` **ecsign?**: (`message`, `secretKey`, `opts?`) => `Uint8Array`\<`ArrayBufferLike`\> & `Uint8Array`\<`ArrayBuffer`\>
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:72
-
 #### Parameters
 
 ##### message
@@ -100,8 +92,6 @@ Defined in: node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereu
 
 > `optional` **keccak256?**: (`msg`) => `Uint8Array`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:69
-
 Interface for providing custom cryptographic primitives in place of `ethereum-cryptography` variants
 
 #### Parameters
@@ -120,15 +110,11 @@ Interface for providing custom cryptographic primitives in place of `ethereum-cr
 
 > `optional` **kzg?**: `KZG`
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:74
-
 ***
 
 ### sha256?
 
 > `optional` **sha256?**: (`msg`) => `Uint8Array`
-
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/types.d.ts:71
 
 #### Parameters
 

@@ -8,8 +8,6 @@
 
 > **EvmRevertErrorParameters** = `object`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:79
-
 Parameters for constructing a [EvmRevertError](../classes/EvmRevertError.md).
 
 ## Properties
@@ -18,17 +16,13 @@ Parameters for constructing a [EvmRevertError](../classes/EvmRevertError.md).
 
 > `optional` **cause?**: `EVMError`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:99
-
-- The cause of the error. From running ethereumjs EVM.runCall
+- The cause of the error. From running Tevm EVM.runCall
 
 ***
 
 ### details?
 
 > `optional` **details?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:103
 
 - Details of the error.
 
@@ -38,8 +32,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertErr
 
 > `optional` **docsBaseUrl?**: `string`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:83
-
 - Base URL for the documentation.
 
 ***
@@ -47,8 +39,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertErr
 ### docsPath?
 
 > `optional` **docsPath?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:87
 
 - Path to the documentation.
 
@@ -58,8 +48,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertErr
 
 > `optional` **docsSlug?**: `string`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:91
-
 - Slug for the documentation.
 
 ***
@@ -68,8 +56,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertErr
 
 > `optional` **meta?**: `object`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:107
-
 - Optional object containing additional information about the error.
 
 ***
@@ -77,7 +63,5 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertErr
 ### metaMessages?
 
 > `optional` **metaMessages?**: `string`[]
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:95
 
 - Additional meta messages.

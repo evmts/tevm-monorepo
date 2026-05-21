@@ -6,8 +6,6 @@
 
 # Class: BlobEIP4844Transaction
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:22
-
 Typed transaction with a new gas fee market mechanism for transactions that include "blobs" of data
 
 - TransactionType: 3
@@ -26,8 +24,6 @@ If blobs are passed in the tx automatically switches to "Network Wrapper" format
 ### Constructor
 
 > **new BlobEIP4844Transaction**(`txData`, `opts?`): `Blob4844Tx`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:65
 
 This constructor takes the values, validates them, assigns them and freezes the object.
 
@@ -55,15 +51,11 @@ varying data types.
 
 > `readonly` **accessList**: `AccessListBytes`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:29
-
 ***
 
 ### activeCapabilities
 
 > `protected` **activeCapabilities**: `number`[]
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:57
 
 List of tx type defining EIPs,
 e.g. 1559 (fee market) and 2930 (access lists)
@@ -75,23 +67,17 @@ for FeeMarket1559Tx objects
 
 > `optional` **blobs?**: `` `0x${string}` ``[]
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:46
-
 ***
 
 ### blobVersionedHashes
 
 > **blobVersionedHashes**: `` `0x${string}` ``[]
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:34
-
 ***
 
 ### cache
 
 > `readonly` **cache**: `TransactionCache`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:51
 
 #### Implementation of
 
@@ -103,15 +89,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **chainId**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:30
-
 ***
 
 ### common
 
 > `readonly` **common**: `Common`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:49
 
 #### Implementation of
 
@@ -123,8 +105,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **data**: `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:27
-
 #### Implementation of
 
 [`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`data`](../interfaces/EIP4844CompatibleTx.md#data)
@@ -134,8 +114,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### gasLimit
 
 > `readonly` **gasLimit**: `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:25
 
 #### Implementation of
 
@@ -147,15 +125,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `optional` **kzgCommitments?**: `` `0x${string}` ``[]
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:47
-
 ***
 
 ### kzgProofs?
 
 > `optional` **kzgProofs?**: `` `0x${string}` ``[]
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:48
 
 ***
 
@@ -163,15 +137,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **maxFeePerBlobGas**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:33
-
 ***
 
 ### maxFeePerGas
 
 > `readonly` **maxFeePerGas**: `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:32
 
 ***
 
@@ -179,15 +149,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **maxPriorityFeePerGas**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:31
-
 ***
 
 ### networkWrapperVersion?
 
 > `optional` **networkWrapperVersion?**: `NetworkWrapperType`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:45
 
 This property is set if the tx is in "Network Wrapper" format.
 
@@ -201,8 +167,6 @@ Possible values:
 
 > `readonly` **nonce**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:24
-
 #### Implementation of
 
 [`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`nonce`](../interfaces/EIP4844CompatibleTx.md#nonce)
@@ -212,8 +176,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### r?
 
 > `readonly` `optional` **r?**: `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:36
 
 #### Implementation of
 
@@ -225,8 +187,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` `optional` **s?**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:37
-
 #### Implementation of
 
 [`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`s`](../interfaces/EIP4844CompatibleTx.md#s)
@@ -236,8 +196,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### to?
 
 > `readonly` `optional` **to?**: `Address`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:28
 
 #### Implementation of
 
@@ -249,8 +207,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **txOptions**: [`TxOptions`](../interfaces/TxOptions.md)
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:50
-
 #### Implementation of
 
 [`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`txOptions`](../interfaces/EIP4844CompatibleTx.md#txoptions)
@@ -260,8 +216,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### type
 
 > **type**: `3`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:23
 
 #### Implementation of
 
@@ -273,8 +227,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` `optional` **v?**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:35
-
 #### Implementation of
 
 [`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`v`](../interfaces/EIP4844CompatibleTx.md#v)
@@ -285,8 +237,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **value**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:26
-
 #### Implementation of
 
 [`EIP4844CompatibleTx`](../interfaces/EIP4844CompatibleTx.md).[`value`](../interfaces/EIP4844CompatibleTx.md#value)
@@ -296,8 +246,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### addSignature()
 
 > **addSignature**(`v`, `r`, `s`): `Blob4844Tx`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:191
 
 Adds signature values (and optional network wrapper fields) and returns a new transaction.
 
@@ -337,8 +285,6 @@ New `Blob4844Tx` instance containing the signature
 
 > **errorStr**(): `string`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:227
-
 Return a compact error string representation of the object
 
 #### Returns
@@ -357,8 +303,6 @@ Human-readable error summary
 
 > **getDataGas**(): `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:91
-
 The amount of gas paid for the data in this tx
 
 #### Returns
@@ -374,8 +318,6 @@ The amount of gas paid for the data in this tx
 ### getEffectivePriorityFee()
 
 > **getEffectivePriorityFee**(`baseFee`): `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:87
 
 Returns the minimum of calculated priority fee (from maxFeePerGas and baseFee) and maxPriorityFeePerGas
 
@@ -396,8 +338,6 @@ Base fee retrieved from block
 ### getHashedMessageToSign()
 
 > **getHashedMessageToSign**(): `Uint8Array`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:160
 
 Returns the hashed serialized unsigned tx, which can be used
 to sign the transaction (e.g. for sending to a hardware wallet).
@@ -421,8 +361,6 @@ Keccak hash of the unsigned transaction payload
 
 > **getIntrinsicGas**(): `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:107
-
 The minimum gas limit which the tx to have to be valid.
 This covers costs as the standard fee (21000 gas), the data fee (paid for each calldata byte),
 the optional creation fee (if the transaction creates a contract), and if relevant the gas
@@ -441,8 +379,6 @@ to be paid for access lists (EIP-2930) and authority lists (EIP-7702).
 ### getMessageToSign()
 
 > **getMessageToSign**(): `Uint8Array`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:151
 
 Returns the raw serialized unsigned tx, which can be used
 to sign the transaction (e.g. for sending to a hardware wallet).
@@ -470,8 +406,6 @@ Serialized unsigned transaction payload
 
 > **getMessageToVerifySignature**(): `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:173
-
 Returns the hashed unsigned transaction that should be used for signature verification.
 
 #### Returns
@@ -489,8 +423,6 @@ Hash of the unsigned transaction payload
 ### getSenderAddress()
 
 > **getSenderAddress**(): `Address`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:210
 
 Returns the recovered sender address.
 
@@ -510,8 +442,6 @@ Sender Address
 
 > **getSenderPublicKey**(): `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:178
-
 Returns the public key of the sender
 
 #### Returns
@@ -529,8 +459,6 @@ Sender public key
 ### getUpfrontCost()
 
 > **getUpfrontCost**(`baseFee?`): `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:96
 
 The up front amount that an account must have for this transaction to be valid
 
@@ -556,8 +484,6 @@ The base fee of the block (will be set to 0 if not provided)
 
 > **getValidationErrors**(): `string`[]
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:196
-
 Returns validation errors for this transaction, if any.
 
 #### Returns
@@ -575,8 +501,6 @@ Array of validation error messages
 ### hash()
 
 > **hash**(): `Uint8Array`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:168
 
 Computes a sha3-256 hash of the serialized tx.
 
@@ -599,8 +523,6 @@ Hash of the serialized signed transaction
 
 > **isSigned**(): `boolean`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:222
-
 Indicates whether the transaction already carries signature values.
 
 #### Returns
@@ -619,8 +541,6 @@ true if signature parts are present
 
 > **isValid**(): `boolean`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:200
-
 #### Returns
 
 `boolean`
@@ -637,8 +557,6 @@ true if the transaction has no validation errors
 
 > **numBlobs**(): `number`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:231
-
 #### Returns
 
 `number`
@@ -650,8 +568,6 @@ the number of blobs included with this transaction
 ### raw()
 
 > **raw**(): `BlobEIP4844TxValuesArray`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:121
 
 Returns a Uint8Array Array of the raw Bytes of the EIP-4844 transaction, in order.
 
@@ -679,8 +595,6 @@ representation for external signing use [Blob4844Tx.getMessageToSign](#getmessag
 
 > **serialize**(): `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:132
-
 Returns the serialized encoding of the EIP-4844 transaction.
 
 Format: `0x03 || rlp([chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data,
@@ -704,8 +618,6 @@ the RLP encoding of the values.
 
 > **serializeNetworkWrapper**(): `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:138
-
 #### Returns
 
 `Uint8Array`
@@ -719,8 +631,6 @@ submitting a transaction via RPC.
 ### sign()
 
 > **sign**(`privateKey`, `extraEntropy?`): `Blob4844Tx`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:217
 
 Signs the transaction with the provided private key and returns the signed instance.
 
@@ -753,8 +663,6 @@ Newly signed transaction
 ### supports()
 
 > **supports**(`capability`): `boolean`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:82
 
 Checks if a tx type defining capability is active
 on a tx, for example the EIP-1559 fee market mechanism
@@ -791,8 +699,6 @@ on all supported capabilities.
 
 > **toCreationAddress**(): `never`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:100
-
 Blob4844Tx cannot create contracts
 
 #### Returns
@@ -808,8 +714,6 @@ Blob4844Tx cannot create contracts
 ### toJSON()
 
 > **toJSON**(): [`JsonTx`](../interfaces/JsonTx.md)
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:183
 
 Produces a JSON representation compliant with the execution API.
 
@@ -828,8 +732,6 @@ JSON encoding of the transaction
 ### verifySignature()
 
 > **verifySignature**(): `boolean`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/4844/tx.d.ts:205
 
 Verifies whether the attached signature is valid.
 

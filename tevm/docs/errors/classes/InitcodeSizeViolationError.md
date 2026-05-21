@@ -6,8 +6,6 @@
 
 # Class: InitcodeSizeViolationError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InitcodeSizeViolationError.d.ts:46
-
 Represents a calldata/creation error that occurs when initcode exceeds the maximum allowable size during EVM execution.
 
 Initcode size violation errors can occur due to:
@@ -49,8 +47,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InitcodeSizeViolationError**(`message?`, `args?`, `tag?`): `InitcodeSizeViolationError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InitcodeSizeViolationError.d.ts:64
 
 Constructs an InitcodeSizeViolationError.
 Represents a calldata/creation error that occurs when initcode exceeds the maximum allowable size during EVM execution.
@@ -252,8 +248,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InitcodeSizeViolationError.d.ts:47
 
 ***
 

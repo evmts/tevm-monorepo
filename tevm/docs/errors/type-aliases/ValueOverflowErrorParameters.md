@@ -8,8 +8,6 @@
 
 > **ValueOverflowErrorParameters** = `object`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:67
-
 Parameters for constructing a [ValueOverflowError](../classes/ValueOverflowError.md).
 
 ## Properties
@@ -17,8 +15,6 @@ Parameters for constructing a [ValueOverflowError](../classes/ValueOverflowError
 ### cause?
 
 > `optional` **cause?**: [`ExecutionError`](../classes/ExecutionError.md) \| `EVMError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:87
 
 - The cause of the error.
 
@@ -28,8 +24,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflo
 
 > `optional` **details?**: `string`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:91
-
 - Details of the error.
 
 ***
@@ -37,8 +31,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflo
 ### docsBaseUrl?
 
 > `optional` **docsBaseUrl?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:71
 
 - Base URL for the documentation.
 
@@ -48,8 +40,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflo
 
 > `optional` **docsPath?**: `string`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:75
-
 - Path to the documentation.
 
 ***
@@ -57,8 +47,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflo
 ### docsSlug?
 
 > `optional` **docsSlug?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:79
 
 - Slug for the documentation.
 
@@ -68,8 +56,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflo
 
 > `optional` **meta?**: `object`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:95
-
 - Optional object containing additional information about the error.
 
 ***
@@ -77,7 +63,5 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflo
 ### metaMessages?
 
 > `optional` **metaMessages?**: `string`[]
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:83
 
 - Additional meta messages.

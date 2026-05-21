@@ -69,7 +69,7 @@ Defined in: [packages/evm/src/CreateEvmOptions.ts:54](https://github.com/evmts/t
 
 Defined in: [packages/evm/src/CreateEvmOptions.ts:45](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/CreateEvmOptions.ts#L45)
 
-Ethereumjs common object
+Tevm common object backed by ZEVM common primitives
 
 ***
 

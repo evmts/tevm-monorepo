@@ -6,8 +6,6 @@
 
 # Class: InternalEvmError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InternalEvmError.d.ts:45
-
 Represents an internal error within the EVM. This error should not typically happen
 This error is typically encountered when there is an unexpected issue within the EVM execution or client.
 
@@ -48,8 +46,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InternalEvmError**(`message?`, `args?`, `tag?`): `InternalEvmError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InternalEvmError.d.ts:62
 
 Constructs an InternalEvmError.
 Represents an internal error within the EVM. This error should not typically happen
@@ -238,8 +234,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/BaseError.d.ts:60
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InternalEvmError.d.ts:46
 
 ***
 

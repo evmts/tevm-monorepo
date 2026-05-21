@@ -6,8 +6,6 @@
 
 # Class: InvalidCommitmentError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidCommitmentError.d.ts:41
-
 Represents an EIP-4844 specific error that occurs when a KZG commitment does not match the versioned hash.
 
 Invalid commitment errors can occur due to:
@@ -44,8 +42,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InvalidCommitmentError**(`message?`, `args?`, `tag?`): `InvalidCommitmentError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidCommitmentError.d.ts:67
 
 Constructs an InvalidCommitmentError.
 Represents an EIP-4844 specific error that occurs when a KZG commitment does not match the versioned hash.
@@ -256,8 +252,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidCommitmentError.d.ts:42
 
 ***
 

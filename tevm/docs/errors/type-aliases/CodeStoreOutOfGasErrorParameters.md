@@ -8,8 +8,6 @@
 
 > **CodeStoreOutOfGasErrorParameters** = `object`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:78
-
 Parameters for constructing a [CodeStoreOutOfGasError](../classes/CodeStoreOutOfGasError.md).
 
 ## Properties
@@ -17,8 +15,6 @@ Parameters for constructing a [CodeStoreOutOfGasError](../classes/CodeStoreOutOf
 ### cause?
 
 > `optional` **cause?**: [`GasLimitExceededError`](../classes/GasLimitExceededError.md) \| `EVMError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:98
 
 - The cause of the error.
 
@@ -28,8 +24,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOut
 
 > `optional` **details?**: `string`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:102
-
 - Details of the error.
 
 ***
@@ -37,8 +31,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOut
 ### docsBaseUrl?
 
 > `optional` **docsBaseUrl?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:82
 
 - Base URL for the documentation.
 
@@ -48,8 +40,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOut
 
 > `optional` **docsPath?**: `string`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:86
-
 - Path to the documentation.
 
 ***
@@ -57,8 +47,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOut
 ### docsSlug?
 
 > `optional` **docsSlug?**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:90
 
 - Slug for the documentation.
 
@@ -68,8 +56,6 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOut
 
 > `optional` **meta?**: `object`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:106
-
 - Optional object containing additional information about the error.
 
 ***
@@ -77,7 +63,5 @@ Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOut
 ### metaMessages?
 
 > `optional` **metaMessages?**: `string`[]
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CodeStoreOutOfGasError.d.ts:94
 
 - Additional meta messages.

@@ -6,8 +6,6 @@
 
 # Interface: StorageDump
 
-Defined in: node\_modules/.pnpm/@ethereumjs+common@10.1.1/node\_modules/@ethereumjs/common/dist/esm/interfaces.d.ts:5
-
 ## Indexable
 
 > \[`key`: `string`\]: `string`

@@ -6,8 +6,6 @@
 
 # Class: InvalidProofError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidProofError.d.ts:41
-
 Represents an EIP-4844 specific error that occurs when a KZG proof is invalid.
 
 Invalid proof errors can occur due to:
@@ -44,8 +42,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InvalidProofError**(`message?`, `args?`, `tag?`): `InvalidProofError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidProofError.d.ts:54
 
 Constructs an InvalidProofError.
 Represents an EIP-4844 specific error that occurs when a KZG proof is invalid.
@@ -242,8 +238,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidProofError.d.ts:42
 
 ***
 

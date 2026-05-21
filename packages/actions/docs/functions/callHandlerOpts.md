@@ -12,7 +12,7 @@ Defined in: [packages/actions/src/Call/callHandlerOpts.js:18](https://github.com
 
 **`Internal`**
 
-Parses user provided params into ethereumjs options to pass into the EVM
+Parses user-provided params into EVM call options
 
 ## Parameters
 

@@ -6,8 +6,6 @@
 
 # Class: InvalidInputLengthError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidInputLengthError.d.ts:45
-
 Represents a calldata/creation error that occurs when an invalid input length is encountered during EVM execution.
 
 Invalid input length errors can occur due to:
@@ -48,8 +46,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InvalidInputLengthError**(`message?`, `args?`, `tag?`): `InvalidInputLengthError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidInputLengthError.d.ts:62
 
 Constructs an InvalidInputLengthError.
 Represents a calldata/creation error that occurs when an invalid input length is encountered during EVM execution.
@@ -250,8 +246,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidInputLengthError.d.ts:46
 
 ***
 

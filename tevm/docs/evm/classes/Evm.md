@@ -8,7 +8,7 @@
 
 Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:217
 
-The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
+The Tevm EVM is in charge of executing bytecode. It is a light wrapper around ZEVM EVM primitives
 The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
 provide custom typing to the blockchain or common objects.
 
@@ -42,8 +42,6 @@ const evm = createEvm({
 
 > **new Evm**(`opts`): `Evm`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:111
-
 Creates new EVM object
 
 #### Parameters
@@ -74,8 +72,6 @@ use the async createEVM constructor instead (same API).
 
 > `protected` `optional` **\_block?**: `Block`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:66
-
 #### Inherited from
 
 `EVM._block`
@@ -85,8 +81,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### \_bls?
 
 > `protected` `readonly` `optional` **\_bls?**: `EVMBLSInterface`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:88
 
 #### Inherited from
 
@@ -98,8 +92,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `protected` `readonly` `optional` **\_customOpcodes?**: `CustomOpcode`[]
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:78
-
 #### Inherited from
 
 `EVM._customOpcodes`
@@ -109,8 +101,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### \_customPrecompiles?
 
 > `protected` `readonly` `optional` **\_customPrecompiles?**: `CustomPrecompile`[]
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:79
 
 #### Inherited from
 
@@ -122,8 +112,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `protected` **\_dynamicGasHandlers**: `Map`\<`number`, `AsyncDynamicGasHandler` \| `SyncDynamicGasHandler`\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:81
-
 #### Inherited from
 
 `EVM._dynamicGasHandlers`
@@ -133,8 +121,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### \_emit
 
 > `protected` `readonly` **\_emit**: (`topic`, `data`) => `Promise`\<`void`\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:98
 
 #### Parameters
 
@@ -160,8 +146,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `protected` **\_handlers**: `Map`\<`number`, `OpHandler`\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:80
-
 #### Inherited from
 
 `EVM._handlers`
@@ -171,8 +155,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### \_opcodeMap
 
 > `protected` **\_opcodeMap**: `OpcodeMap`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:82
 
 #### Inherited from
 
@@ -184,8 +166,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `protected` **\_opcodes**: `OpcodeList`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:75
-
 #### Inherited from
 
 `EVM._opcodes`
@@ -195,8 +175,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### \_optsCached
 
 > `protected` `readonly` **\_optsCached**: `EVMOpts`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:84
 
 #### Inherited from
 
@@ -208,8 +186,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `protected` **\_precompiles**: `Map`\<`string`, `PrecompileFunc`\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:83
-
 #### Inherited from
 
 `EVM._precompiles`
@@ -219,8 +195,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### \_tx?
 
 > `protected` `optional` **\_tx?**: `object`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:62
 
 #### gasPrice
 
@@ -240,8 +214,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `readonly` **allowUnlimitedContractSize**: `boolean`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:76
-
 #### Inherited from
 
 `EVM.allowUnlimitedContractSize`
@@ -251,8 +223,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### allowUnlimitedInitCodeSize
 
 > `readonly` **allowUnlimitedInitCodeSize**: `boolean`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:77
 
 #### Inherited from
 
@@ -264,8 +234,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `optional` **binaryAccessWitness?**: `BinaryTreeAccessWitness`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:72
-
 #### Inherited from
 
 `EVM.binaryAccessWitness`
@@ -275,8 +243,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### blockchain
 
 > **blockchain**: `EVMMockBlockchainInterface`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:70
 
 #### Inherited from
 
@@ -288,8 +254,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `readonly` **common**: `Common`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:67
-
 #### Inherited from
 
 `EVM.common`
@@ -299,8 +263,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### events
 
 > `readonly` **events**: `EventEmitter`\<`EVMEvent`\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:68
 
 #### Inherited from
 
@@ -312,8 +274,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > **journal**: `Journal`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:71
-
 #### Inherited from
 
 `EVM.journal`
@@ -323,8 +283,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### performanceLogger
 
 > `protected` **performanceLogger**: `EVMPerformanceLogger`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:85
 
 #### Inherited from
 
@@ -336,8 +294,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > **stateManager**: [`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md)
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:69
-
 #### Inherited from
 
 `EVM.stateManager`
@@ -348,8 +304,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `optional` **systemBinaryAccessWitness?**: `BinaryTreeAccessWitness`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:73
-
 #### Inherited from
 
 `EVM.systemBinaryAccessWitness`
@@ -359,8 +313,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### transientStorage
 
 > `readonly` **transientStorage**: `TransientStorage`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:74
 
 #### Inherited from
 
@@ -390,8 +342,6 @@ Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:222
 
 > `protected` `static` **supportedHardforks**: (`"chainstart"` \| `"homestead"` \| `"dao"` \| `"tangerineWhistle"` \| `"spuriousDragon"` \| `"byzantium"` \| `"constantinople"` \| `"petersburg"` \| `"istanbul"` \| `"muirGlacier"` \| `"berlin"` \| `"london"` \| `"arrowGlacier"` \| `"grayGlacier"` \| `"paris"` \| `"shanghai"` \| `"cancun"` \| `"prague"` \| `"osaka"` \| `"mergeNetsplitBlock"` \| `"bpo1"` \| `"bpo2"` \| `"bpo3"` \| `"bpo4"` \| `"bpo5"` \| `"amsterdam"`)[]
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:61
-
 #### Inherited from
 
 `EVM.supportedHardforks`
@@ -403,8 +353,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 #### Get Signature
 
 > **get** **opcodes**(): `OpcodeList`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:87
 
 ##### Returns
 
@@ -422,8 +370,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > **get** **precompiles**(): `Map`\<`string`, `PrecompileFunc`\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:86
-
 ##### Returns
 
 `Map`\<`string`, `PrecompileFunc`\>
@@ -437,8 +383,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### \_addToBalance()
 
 > `protected` **\_addToBalance**(`toAccount`, `message`): `Promise`\<`void`\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:146
 
 #### Parameters
 
@@ -464,8 +408,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `protected` **\_executeCall**(`message`): `Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:117
-
 #### Parameters
 
 ##### message
@@ -485,8 +427,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### \_executeCreate()
 
 > `protected` **\_executeCreate**(`message`): `Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:118
 
 #### Parameters
 
@@ -508,8 +448,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `protected` **\_generateAddress**(`message`): `Promise`\<`Address`\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:144
-
 #### Parameters
 
 ##### message
@@ -530,8 +468,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `protected` **\_loadCode**(`message`): `Promise`\<`void`\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:143
-
 #### Parameters
 
 ##### message
@@ -551,8 +487,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### \_reduceSenderBalance()
 
 > `protected` **\_reduceSenderBalance**(`account`, `message`): `Promise`\<`void`\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:145
 
 #### Parameters
 
@@ -600,8 +534,6 @@ Adds a custom precompile to the EVM.
 
 > **clearPerformanceLogs**(): `void`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:165
-
 #### Returns
 
 `void`
@@ -615,8 +547,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### getActiveOpcodes()
 
 > **getActiveOpcodes**(): `OpcodeList`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:116
 
 Returns a list with the currently activated opcodes
 available for EVM execution
@@ -634,8 +564,6 @@ available for EVM execution
 ### getPerformanceLogs()
 
 > **getPerformanceLogs**(): `object`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:161
 
 #### Returns
 
@@ -658,8 +586,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 ### getPrecompile()
 
 > **getPrecompile**(`address`): `PrecompileFunc` \| `undefined`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:138
 
 Returns code for precompile at the given address, or undefined
 if no such precompile exists.
@@ -708,8 +634,6 @@ Removes a custom precompile from the EVM.
 
 > **runCall**(`opts`): `Promise`\<[`EvmResult`](../interfaces/EvmResult.md)\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:128
-
 Executes an EVM message, determining whether it's a call or create
 based on the `to` address. It checkpoints the state and reverts changes
 if an exception happens during the message execution.
@@ -734,8 +658,6 @@ if an exception happens during the message execution.
 
 > **runCode**(`opts`): `Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:133
-
 Bound to the global VM and therefore
 shouldn't be used directly from the evm class
 
@@ -758,8 +680,6 @@ shouldn't be used directly from the evm class
 ### runInterpreter()
 
 > `protected` **runInterpreter**(`message`, `opts?`): `Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:122
 
 Starts the actual bytecode processing for a CALL or CREATE
 
@@ -786,8 +706,6 @@ Starts the actual bytecode processing for a CALL or CREATE
 ### runPrecompile()
 
 > `protected` **runPrecompile**(`code`, `data`, `gasLimit`): [`ExecResult`](../interfaces/ExecResult.md) \| `Promise`\<[`ExecResult`](../interfaces/ExecResult.md)\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:142
 
 Executes a precompiled contract with given data and gas limit.
 
@@ -818,8 +736,6 @@ Executes a precompiled contract with given data and gas limit.
 ### shallowCopy()
 
 > **shallowCopy**(): `EVM`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/evm.d.ts:160
 
 This method copies the EVM, current HF and EIP settings
 and returns a new EVM instance.

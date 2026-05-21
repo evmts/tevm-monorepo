@@ -8,8 +8,6 @@
 
 > **isFeeMarketEIP1559Tx**(`tx`): `tx is FeeMarketEIP1559Transaction`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:143
-
 Type guard to check if transaction is a Fee Market EIP-1559 transaction
 
 ## Parameters

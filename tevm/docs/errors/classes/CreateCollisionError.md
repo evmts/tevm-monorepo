@@ -6,8 +6,6 @@
 
 # Class: CreateCollisionError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CreateCollisionError.d.ts:46
-
 Represents an execution error that occurs when a contract creation results in a collision.
 
 Create collision errors can occur due to:
@@ -49,8 +47,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new CreateCollisionError**(`message?`, `args?`, `tag?`): `CreateCollisionError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CreateCollisionError.d.ts:64
 
 Constructs a CreateCollisionError.
 Represents an execution error that occurs when a contract creation results in a collision.
@@ -252,8 +248,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/CreateCollisionError.d.ts:47
 
 ***
 

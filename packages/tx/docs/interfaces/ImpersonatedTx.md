@@ -23,8 +23,6 @@ Typed transaction with a new gas fee market mechanism
 
 > `readonly` **accessList**: `AccessListBytes`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:20
-
 #### Inherited from
 
 [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`accessList`](../classes/FeeMarketEIP1559Transaction.md#accesslist)
@@ -34,8 +32,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### activeCapabilities
 
 > `protected` **activeCapabilities**: `number`[]
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:35
 
 List of tx type defining EIPs,
 e.g. 1559 (fee market) and 2930 (access lists)
@@ -51,8 +47,6 @@ for FeeMarket1559Tx objects
 
 > `readonly` **cache**: `TransactionCache`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:29
-
 #### Inherited from
 
 [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`cache`](../classes/FeeMarketEIP1559Transaction.md#cache)
@@ -62,8 +56,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### chainId
 
 > `readonly` **chainId**: `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:21
 
 #### Inherited from
 
@@ -75,8 +67,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **common**: `Common`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:27
-
 #### Inherited from
 
 [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`common`](../classes/FeeMarketEIP1559Transaction.md#common)
@@ -87,8 +77,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **data**: `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:18
-
 #### Inherited from
 
 [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`data`](../classes/FeeMarketEIP1559Transaction.md#data)
@@ -98,8 +86,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### gasLimit
 
 > `readonly` **gasLimit**: `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:16
 
 #### Inherited from
 
@@ -119,8 +105,6 @@ Defined in: zevm/npm/zevm/dist/tx.d.ts:6
 
 > `readonly` **maxFeePerGas**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:23
-
 #### Inherited from
 
 [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`maxFeePerGas`](../classes/FeeMarketEIP1559Transaction.md#maxfeepergas)
@@ -130,8 +114,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### maxPriorityFeePerGas
 
 > `readonly` **maxPriorityFeePerGas**: `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:22
 
 #### Inherited from
 
@@ -143,8 +125,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **nonce**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:15
-
 #### Inherited from
 
 [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`nonce`](../classes/FeeMarketEIP1559Transaction.md#nonce)
@@ -154,8 +134,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### r?
 
 > `readonly` `optional` **r?**: `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:25
 
 #### Inherited from
 
@@ -167,8 +145,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` `optional` **s?**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:26
-
 #### Inherited from
 
 [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`s`](../classes/FeeMarketEIP1559Transaction.md#s)
@@ -178,8 +154,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### to?
 
 > `readonly` `optional` **to?**: `Address`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:19
 
 #### Inherited from
 
@@ -191,8 +165,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **txOptions**: [`TxOptions`](TxOptions.md)
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:28
-
 #### Inherited from
 
 [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`txOptions`](../classes/FeeMarketEIP1559Transaction.md#txoptions)
@@ -202,8 +174,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### type
 
 > **type**: `2`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:14
 
 #### Inherited from
 
@@ -215,8 +185,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` `optional` **v?**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:24
-
 #### Inherited from
 
 [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`v`](../classes/FeeMarketEIP1559Transaction.md#v)
@@ -227,8 +195,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **value**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:17
-
 #### Inherited from
 
 [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md).[`value`](../classes/FeeMarketEIP1559Transaction.md#value)
@@ -238,8 +204,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### addSignature()
 
 > **addSignature**(`v`, `r`, `s`): [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md)
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:158
 
 Adds signature values and returns a new EIP-1559 transaction instance.
 
@@ -279,8 +243,6 @@ Newly created transaction that includes the signature
 
 > **errorStr**(): `string`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:199
-
 Return a compact error string representation of the object
 
 #### Returns
@@ -299,8 +261,6 @@ Human-readable error summary
 
 > **getDataGas**(): `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:64
-
 The amount of gas paid for the data in this tx
 
 #### Returns
@@ -316,8 +276,6 @@ The amount of gas paid for the data in this tx
 ### getEffectivePriorityFee()
 
 > **getEffectivePriorityFee**(`baseFee`): `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:69
 
 Returns the minimum of calculated priority fee (from maxFeePerGas and baseFee) and maxPriorityFeePerGas
 
@@ -343,8 +301,6 @@ Base fee retrieved from block
 
 > **getHashedMessageToSign**(): `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:132
-
 Returns the hashed serialized unsigned tx, which can be used
 to sign the transaction (e.g. for sending to a hardware wallet).
 
@@ -367,8 +323,6 @@ Keccak hash of the unsigned transaction payload
 
 > **getIntrinsicGas**(): `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:81
-
 The minimum gas limit which the tx to have to be valid.
 This covers costs as the standard fee (21000 gas), the data fee (paid for each calldata byte),
 the optional creation fee (if the transaction creates a contract), and if relevant the gas
@@ -387,8 +341,6 @@ to be paid for access lists (EIP-2930) and authority lists (EIP-7702).
 ### getMessageToSign()
 
 > **getMessageToSign**(): `Uint8Array`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:123
 
 Returns the raw serialized unsigned tx, which can be used
 to sign the transaction (e.g. for sending to a hardware wallet).
@@ -416,8 +368,6 @@ Serialized unsigned transaction payload
 
 > **getMessageToVerifySignature**(): `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:145
-
 Computes a sha3-256 hash which can be used to verify the signature
 
 #### Returns
@@ -435,8 +385,6 @@ Hash used when verifying the signature
 ### getSenderAddress()
 
 > **getSenderAddress**(): `Address`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:182
 
 Recovers the sender address from the signature.
 
@@ -456,8 +404,6 @@ Sender Address
 
 > **getSenderPublicKey**(): `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:150
-
 Returns the public key of the sender
 
 #### Returns
@@ -475,8 +421,6 @@ Sender public key
 ### getUpfrontCost()
 
 > **getUpfrontCost**(`baseFee?`): `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:74
 
 The up front amount that an account must have for this transaction to be valid
 
@@ -502,8 +446,6 @@ The base fee of the block (will be set to 0 if not provided)
 
 > **getValidationErrors**(): `string`[]
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:168
-
 Runs validation logic and returns encountered errors, if any.
 
 #### Returns
@@ -521,8 +463,6 @@ Array of validation error messages.
 ### hash()
 
 > **hash**(): `Uint8Array`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:140
 
 Computes a sha3-256 hash of the serialized tx.
 
@@ -545,8 +485,6 @@ Hash of the serialized signed transaction
 
 > **isSigned**(): `boolean`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:194
-
 Reports whether the transaction already contains `v`, `r`, and `s`.
 
 #### Returns
@@ -565,8 +503,6 @@ true if signature parts are present
 
 > **isValid**(): `boolean`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:172
-
 #### Returns
 
 `boolean`
@@ -582,8 +518,6 @@ true if the transaction passes validation
 ### raw()
 
 > **raw**(): `FeeMarketEIP1559TxValuesArray`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:99
 
 Returns a Uint8Array Array of the raw Bytes of the EIP-1559 transaction, in order.
 
@@ -611,8 +545,6 @@ representation for external signing use [FeeMarket1559Tx.getMessageToSign](../cl
 
 > **serialize**(): `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:110
-
 Returns the serialized encoding of the EIP-1559 transaction.
 
 Format: `0x02 || rlp([chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data,
@@ -635,8 +567,6 @@ the RLP encoding of the values.
 ### sign()
 
 > **sign**(`privateKey`, `extraEntropy?`): [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md)
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:189
 
 Signs the transaction with the provided private key and returns the signed instance.
 
@@ -669,8 +599,6 @@ Newly signed transaction
 ### supports()
 
 > **supports**(`capability`): `boolean`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:60
 
 Checks if a tx type defining capability is active
 on a tx, for example the EIP-1559 fee market mechanism
@@ -707,8 +635,6 @@ on all supported capabilities.
 
 > **toCreationAddress**(): `boolean`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:85
-
 If the tx's `to` is to the creation address
 
 #### Returns
@@ -724,8 +650,6 @@ If the tx's `to` is to the creation address
 ### toJSON()
 
 > **toJSON**(): [`JsonTx`](JsonTx.md)
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:163
 
 Returns an object with the JSON representation of the transaction
 
@@ -744,8 +668,6 @@ JSON encoding of the transaction
 ### verifySignature()
 
 > **verifySignature**(): `boolean`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/1559/tx.d.ts:177
 
 Verifies the embedded signature.
 

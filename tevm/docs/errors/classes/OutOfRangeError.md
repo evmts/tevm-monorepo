@@ -6,8 +6,6 @@
 
 # Class: OutOfRangeError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/OutOfRangeError.d.ts:50
-
 Represents an invalid bytecode/contract error that occurs when a value is out of the allowable range during EVM execution.
 This error is typically encountered when an operation results in a value that exceeds the allowed limits.
 
@@ -53,8 +51,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new OutOfRangeError**(`message?`, `args?`, `tag?`): `OutOfRangeError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/OutOfRangeError.d.ts:72
 
 Constructs an OutOfRangeError.
 Represents an invalid bytecode/contract error that occurs when a value is out of the allowable range during EVM execution.
@@ -260,8 +256,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/OutOfRangeError.d.ts:51
 
 ***
 

@@ -10,7 +10,7 @@
 
 Defined in: [packages/blockchain/src/actions/getBlock.js:12](https://github.com/evmts/tevm-monorepo/blob/main/packages/blockchain/src/actions/getBlock.js#L12)
 
-An ethereumjs interface method that accepts a block id number or hash and returns the block
+A blockchain interface method that accepts a block id number or hash and returns the block
 
 ## Parameters
 

@@ -6,8 +6,6 @@
 
 # Class: StaticStateChangeError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/StaticStateChangeError.d.ts:50
-
 Represents an invalid bytecode/contract error that occurs when a state-changing operation is attempted in a static context.
 This error is typically encountered when a contract attempts to modify the state during a static call.
 
@@ -53,8 +51,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new StaticStateChangeError**(`message?`, `args?`, `tag?`): `StaticStateChangeError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/StaticStateChangeError.d.ts:72
 
 Constructs a StaticStateChangeError.
 Represents an invalid bytecode/contract error that occurs when a state-changing operation is attempted in a static context.
@@ -260,8 +256,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/StaticStateChangeError.d.ts:51
 
 ***
 

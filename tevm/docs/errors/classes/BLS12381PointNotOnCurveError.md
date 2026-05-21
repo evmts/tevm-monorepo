@@ -6,8 +6,6 @@
 
 # Class: BLS12381PointNotOnCurveError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381PointNotOnCurveError.d.ts:41
-
 Represents an EIP-2537 specific error that occurs when a point is not on the curve during BLS12-381 operations.
 
 Point not on curve errors can occur due to:
@@ -44,8 +42,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new BLS12381PointNotOnCurveError**(`message?`, `args?`, `tag?`): `BLS12381PointNotOnCurveError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381PointNotOnCurveError.d.ts:54
 
 Constructs a BLS12381PointNotOnCurveError.
 Represents an EIP-2537 specific error that occurs when a point is not on the curve during BLS12-381 operations.
@@ -242,8 +238,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381PointNotOnCurveError.d.ts:42
 
 ***
 

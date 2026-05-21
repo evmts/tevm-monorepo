@@ -11,7 +11,7 @@
 Defined in: [packages/server/src/createHttpHandler.js:37](https://github.com/evmts/tevm-monorepo/blob/main/packages/server/src/createHttpHandler.js#L37)
 
 /**
-* Creates a Node.js http handler for handling JSON-RPC requests with Ethereumjs EVM
+* Creates a Node.js HTTP handler for handling JSON-RPC requests with a Tevm node
 * Any unimplemented methods will be proxied to the given proxyUrl
 * This handler works for any server that supports the Node.js http module
 *

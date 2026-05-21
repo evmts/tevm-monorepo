@@ -6,8 +6,6 @@
 
 # Class: StopError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/StopErrorError.d.ts:45
-
 Represents a contract/bytecode error that occurs when a STOP operation is executed.
 
 Stop errors can occur due to:
@@ -48,8 +46,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new StopError**(`message?`, `args?`, `tag?`): `StopError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/StopErrorError.d.ts:63
 
 Constructs a StopError.
 Represents a contract/bytecode error that occurs when a STOP operation is executed.
@@ -250,8 +246,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/StopErrorError.d.ts:46
 
 ***
 

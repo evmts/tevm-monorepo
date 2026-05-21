@@ -6,8 +6,6 @@
 
 # Class: Eof
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:62
-
 Main constructor for the EOFContainer
 
 ## Constructors
@@ -15,8 +13,6 @@ Main constructor for the EOFContainer
 ### Constructor
 
 > **new Eof**(`buf`, `eofMode?`, `dataSectionAllowedSmaller?`): `EOFContainer`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:73
 
 #### Parameters
 
@@ -48,15 +44,11 @@ Container mode to validate the container on
 
 > **body**: `EOFBody`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:64
-
 ***
 
 ### buffer
 
 > **buffer**: `Uint8Array`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:65
 
 ***
 
@@ -64,12 +56,8 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > **eofMode**: `EOFContainerMode`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:66
-
 ***
 
 ### header
 
 > **header**: `EOFHeader`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/eof/container.d.ts:63

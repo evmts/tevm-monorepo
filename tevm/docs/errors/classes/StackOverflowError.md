@@ -6,8 +6,6 @@
 
 # Class: StackOverflowError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/StackOverflowError.d.ts:50
-
 Represents an invalid bytecode error that occurs when there is a stack overflow during execution.
 This error is typically encountered when an operation causes the stack to exceed its limit.
 
@@ -21,7 +19,6 @@ To debug a stack overflow error:
 2. **Optimize Stack Usage**: Refactor your code to reduce stack usage, such as minimizing the depth of recursive calls.
 3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the transaction and inspect stack changes.
 4. **Use Other Tools**: Use other tools with tracing such as [Foundry](https://book.getfoundry.sh/forge/traces).
-- **Ethereumjs Source**: Refer to the [source file](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/evm/src/stack.ts) where this error can occur.
 
 ## Example
 
@@ -54,8 +51,6 @@ Additional parameters for the BaseError.
 
 > **new StackOverflowError**(`message?`, `args?`, `tag?`): `StackOverflowError`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/StackOverflowError.d.ts:73
-
 Constructs a StackOverflowError.
 Represents an invalid bytecode error that occurs when there is a stack overflow during execution.
 This error is typically encountered when an operation causes the stack to exceed its limit.
@@ -70,7 +65,6 @@ To debug a stack overflow error:
 2. **Optimize Stack Usage**: Refactor your code to reduce stack usage, such as minimizing the depth of recursive calls.
 3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the transaction and inspect stack changes.
 4. **Use Other Tools**: Use other tools with tracing such as [Foundry](https://book.getfoundry.sh/forge/traces).
-- **Ethereumjs Source**: Refer to the [source file](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/evm/src/stack.ts) where this error can occur.
 
 #### Parameters
 
@@ -261,8 +255,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/StackOverflowError.d.ts:51
 
 ***
 

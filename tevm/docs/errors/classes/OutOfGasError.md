@@ -6,8 +6,6 @@
 
 # Class: OutOfGasError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/OutOfGasError.d.ts:52
-
 Represents an execution error that occurs when a transaction runs out of gas during execution.
 This error is typically encountered when the gas provided for a transaction is insufficient to complete its execution.
 
@@ -55,8 +53,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new OutOfGasError**(`message?`, `args?`, `tag?`): `OutOfGasError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/OutOfGasError.d.ts:77
 
 Constructs an OutOfGasError.
 Represents an execution error that occurs when a transaction runs out of gas during execution.
@@ -265,8 +261,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/OutOfGasError.d.ts:53
 
 ***
 

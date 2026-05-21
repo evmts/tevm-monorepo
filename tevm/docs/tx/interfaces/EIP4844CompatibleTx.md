@@ -6,8 +6,6 @@
 
 # Interface: EIP4844CompatibleTx\<T\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:204
-
 ## Extends
 
 - [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md)\<`T`\>
@@ -24,8 +22,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **accessList**: `AccessListBytes`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:198
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`accessList`](EIP1559CompatibleTx.md#accesslist)
@@ -36,23 +32,17 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `optional` **blobs?**: `Uint8Array`\<`ArrayBufferLike`\>[]
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:207
-
 ***
 
 ### blobVersionedHashes
 
 > **blobVersionedHashes**: `Uint8Array`\<`ArrayBufferLike`\>[]
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:206
-
 ***
 
 ### cache
 
 > `readonly` **cache**: `TransactionCache`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:166
 
 #### Inherited from
 
@@ -64,8 +54,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **chainId**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:194
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`chainId`](EIP1559CompatibleTx.md#chainid)
@@ -75,8 +63,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### common
 
 > `readonly` **common**: `Common`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:157
 
 #### Inherited from
 
@@ -88,8 +74,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **data**: `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:162
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`data`](EIP1559CompatibleTx.md#data)
@@ -99,8 +83,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### gasLimit
 
 > `readonly` **gasLimit**: `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:159
 
 #### Inherited from
 
@@ -112,15 +94,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `optional` **kzgCommitments?**: `Uint8Array`\<`ArrayBufferLike`\>[]
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:208
-
 ***
 
 ### kzgProofs?
 
 > `optional` **kzgProofs?**: `Uint8Array`\<`ArrayBufferLike`\>[]
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:209
 
 ***
 
@@ -128,15 +106,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **maxFeePerBlobGas**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:205
-
 ***
 
 ### maxFeePerGas
 
 > `readonly` **maxFeePerGas**: `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:202
 
 #### Inherited from
 
@@ -148,8 +122,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **maxPriorityFeePerGas**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:201
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`maxPriorityFeePerGas`](EIP1559CompatibleTx.md#maxpriorityfeepergas)
@@ -159,8 +131,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### nonce
 
 > `readonly` **nonce**: `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:158
 
 #### Inherited from
 
@@ -172,8 +142,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` `optional` **r?**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:164
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`r`](EIP1559CompatibleTx.md#r)
@@ -183,8 +151,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### s?
 
 > `readonly` `optional` **s?**: `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:165
 
 #### Inherited from
 
@@ -196,8 +162,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` `optional` **to?**: `Address`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:160
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`to`](EIP1559CompatibleTx.md#to)
@@ -207,8 +171,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### txOptions
 
 > **txOptions**: [`TxOptions`](TxOptions.md)
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:169
 
 #### Inherited from
 
@@ -220,8 +182,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **type**: [`TransactionType`](../type-aliases/TransactionType.md)
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:168
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`type`](EIP1559CompatibleTx.md#type)
@@ -231,8 +191,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### v?
 
 > `readonly` `optional` **v?**: `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:163
 
 #### Inherited from
 
@@ -244,8 +202,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > `readonly` **value**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:161
-
 #### Inherited from
 
 [`EIP1559CompatibleTx`](EIP1559CompatibleTx.md).[`value`](EIP1559CompatibleTx.md#value)
@@ -255,8 +211,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### addSignature()
 
 > **addSignature**(`v`, `r`, `s`, `convertV?`): `Transaction`\[`T`\]
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:189
 
 #### Parameters
 
@@ -290,8 +244,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **errorStr**(): `string`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:188
-
 #### Returns
 
 `string`
@@ -305,8 +257,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### getDataGas()
 
 > **getDataGas**(): `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:171
 
 #### Returns
 
@@ -322,8 +272,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **getHashedMessageToSign**(): `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:177
-
 #### Returns
 
 `Uint8Array`
@@ -337,8 +285,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### getIntrinsicGas()
 
 > **getIntrinsicGas**(): `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:170
 
 #### Returns
 
@@ -354,8 +300,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **getMessageToSign**(): `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:195
-
 #### Returns
 
 `Uint8Array`
@@ -369,8 +313,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### getMessageToVerifySignature()
 
 > **getMessageToVerifySignature**(): `Uint8Array`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:179
 
 #### Returns
 
@@ -386,8 +328,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **getSenderAddress**(): `Address`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:184
-
 #### Returns
 
 `Address`
@@ -401,8 +341,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### getSenderPublicKey()
 
 > **getSenderPublicKey**(): `Uint8Array`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:185
 
 #### Returns
 
@@ -418,8 +356,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **getUpfrontCost**(): `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:172
-
 #### Returns
 
 `bigint`
@@ -433,8 +369,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### getValidationErrors()
 
 > **getValidationErrors**(): `string`[]
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:180
 
 #### Returns
 
@@ -450,8 +384,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **hash**(): `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:178
-
 #### Returns
 
 `Uint8Array`
@@ -465,8 +397,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### isSigned()
 
 > **isSigned**(): `boolean`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:181
 
 #### Returns
 
@@ -482,8 +412,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **isValid**(): `boolean`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:182
-
 #### Returns
 
 `boolean`
@@ -498,8 +426,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **numBlobs**(): `number`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:211
-
 #### Returns
 
 `number`
@@ -509,8 +435,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### raw()
 
 > **raw**(): `TxValuesArray`\[`T`\]
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:174
 
 #### Returns
 
@@ -526,8 +450,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **serialize**(): `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:175
-
 #### Returns
 
 `Uint8Array`
@@ -542,8 +464,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **serializeNetworkWrapper**(): `Uint8Array`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:210
-
 #### Returns
 
 `Uint8Array`
@@ -553,8 +473,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### sign()
 
 > **sign**(`privateKey`, `extraEntropy?`): `Transaction`\[`T`\]
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:186
 
 #### Parameters
 
@@ -580,8 +498,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **supports**(`capability`): `boolean`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:167
-
 #### Parameters
 
 ##### capability
@@ -602,8 +518,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **toCreationAddress**(): `boolean`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:173
-
 #### Returns
 
 `boolean`
@@ -618,8 +532,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 
 > **toJSON**(): [`JsonTx`](JsonTx.md)
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:187
-
 #### Returns
 
 [`JsonTx`](JsonTx.md)
@@ -633,8 +545,6 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_module
 ### verifySignature()
 
 > **verifySignature**(): `boolean`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:183
 
 #### Returns
 

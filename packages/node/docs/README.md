@@ -4,7 +4,7 @@
 
 # @tevm/node
 
-The internal node implementation for tevm. Based on the ethereumjs api and uses the following subpackages
+The internal node implementation for Tevm. It composes the ZEVM-backed Tevm runtime packages and exposes the base node API used by MemoryClient and JSON-RPC transports.
 
 - [@tevm/vm](https://github.com/evmts/tevm-monorepo/tree/main/packages/vm)
 - [@tevm/evm](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm)

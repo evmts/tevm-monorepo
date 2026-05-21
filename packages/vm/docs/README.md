@@ -28,7 +28,7 @@
 
 Tevm vm state package for holding tevm state.
 
-Some files are adapted from [ethereumjs](https://github.com/ethereumjs/ethereumjs-monorepo) and are thus licensed under [mozilla public license 2.0](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/statemanager/LICENSE)
+Runtime primitives are backed by [`@evmts/zevm`](https://github.com/evmts/zevm). Check source-level notices for any historical per-file attribution.
 
 ## Visit [Docs](https://tevm.sh/) for docs, guides, API and more!
 

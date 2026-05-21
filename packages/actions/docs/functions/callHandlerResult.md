@@ -12,7 +12,7 @@ Defined in: [packages/actions/src/Call/callHandlerResult.js:14](https://github.c
 
 **`Internal`**
 
-Creates an CallHandler for handling call params with Ethereumjs EVM
+Creates a CallHandler for handling call params with the Tevm EVM
 
 ## Parameters
 

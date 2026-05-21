@@ -6,8 +6,6 @@
 
 # Class: InvalidJumpSubError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:46
-
 Represents an invalid bytecode/contract error that occurs when an invalid JUMPSUB operation is executed within the EVM.
 
 Invalid JUMPSUB errors can occur due to:
@@ -49,8 +47,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InvalidJumpSubError**(`message?`, `args?`, `tag?`): `InvalidJumpSubError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidJumpSubError.d.ts:76
 
 Constructs an InvalidJumpSubError.
 Represents an invalid bytecode/contract error that occurs when an invalid JUMPSUB operation is executed within the EVM.

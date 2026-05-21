@@ -6,8 +6,6 @@
 
 # Class: RefundExhaustedError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:46
-
 Represents an invalid bytecode error that occurs when the gas refund limit is exhausted.
 EVM transaction execution metadata level error
 
@@ -49,8 +47,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new RefundExhaustedError**(`message?`, `args?`, `tag?`): `RefundExhaustedError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:65
 
 Constructs a RefundExhaustedError.
 Represents an invalid bytecode error that occurs when the gas refund limit is exhausted.
@@ -252,8 +248,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/RefundExhausted.d.ts:47
 
 ***
 

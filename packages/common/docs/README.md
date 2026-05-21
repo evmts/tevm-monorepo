@@ -26,7 +26,7 @@
 
 # @tevm/common
 
-Tevm wrapper around [@ethereumjs/common](https://github.com/ethereumjs/ethereumjs-monorepo)
+Tevm chain configuration facade backed by `@evmts/zevm/common` and viem chain definitions.
 
 ## Visit [Docs](https://tevm.sh/) for docs, guides, API and more!
 

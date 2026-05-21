@@ -8,8 +8,6 @@
 
 > **createEOACodeEIP7702TxFromRLP**(`serialized`, `opts?`): [`EOACodeEIP7702Transaction`](../classes/EOACodeEIP7702Transaction.md)
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/7702/constructors.d.ts:28
-
 Instantiate a transaction from a RLP serialized tx.
 
 Format: `0x04 || rlp([chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, data,

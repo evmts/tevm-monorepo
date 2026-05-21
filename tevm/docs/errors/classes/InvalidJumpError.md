@@ -6,8 +6,6 @@
 
 # Class: InvalidJumpError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidJumpError.d.ts:49
-
 Represents an invalid bytecode/contract error that occurs when an invalid JUMP operation is executed within the EVM.
 This error is typically encountered when the jump destination in the bytecode is invalid or does not exist.
 
@@ -52,8 +50,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InvalidJumpError**(`message?`, `args?`, `tag?`): `InvalidJumpError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidJumpError.d.ts:71
 
 Constructs an InvalidJumpError.
 Represents an invalid bytecode/contract error that occurs when an invalid JUMP operation is executed within the EVM.
@@ -258,8 +254,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidJumpError.d.ts:50
 
 ***
 

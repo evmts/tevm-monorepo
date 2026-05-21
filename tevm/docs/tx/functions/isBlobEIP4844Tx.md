@@ -8,8 +8,6 @@
 
 > **isBlobEIP4844Tx**(`tx`): `tx is BlobEIP4844Transaction`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/types.d.ts:149
-
 Type guard to check if transaction is a Blob EIP-4844 transaction
 
 ## Parameters

@@ -6,8 +6,6 @@
 
 # Class: InvalidBytecodeResultError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:46
-
 Represents a calldata/creation error that occurs when invalid bytecode is deployed during EVM execution.
 
 Invalid bytecode result errors can occur due to:
@@ -49,8 +47,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InvalidBytecodeResultError**(`message?`, `args?`, `tag?`): `InvalidBytecodeResultError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:64
 
 Constructs an InvalidBytecodeResultError.
 Represents a calldata/creation error that occurs when invalid bytecode is deployed during EVM execution.
@@ -252,8 +248,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidBytecodeResultError.d.ts:47
 
 ***
 

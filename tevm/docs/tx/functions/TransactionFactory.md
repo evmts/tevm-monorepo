@@ -8,8 +8,6 @@
 
 > **TransactionFactory**\<`T`\>(`txData`, `txOptions?`): `Transaction`\[`T`\]
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:10
-
 Create a transaction from a `txData` object
 
 ## Type Parameters

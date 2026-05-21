@@ -22,7 +22,7 @@
 
 # @tevm/server
 
-Creates a JSON RPC server for serving tevm\_ requests from an ethereumjs evm.
+Creates a JSON-RPC server for serving Tevm requests from a Tevm node.
 
 - [`createHttpHandler`](./src/createHttpHandler.js) Creates a generic http handler
 - [`createServer`](./src/createServer.js) Creates a simple vanilla node.js server to serve TEVM json-rpc api

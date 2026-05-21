@@ -10,7 +10,7 @@
 
 Defined in: [packages/actions/src/Contract/contractHandler.js:39](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/Contract/contractHandler.js#L39)
 
-Creates a tree-shakable instance of `contractHandler` for handling contract interactions with the Ethereumjs EVM.
+Creates a tree-shakable instance of `contractHandler` for handling contract interactions with the Tevm EVM.
 This function uses `callHandler` under the hood to execute contract calls.
 
 Note: This is the internal logic used by higher-level APIs such as `tevmContract`.

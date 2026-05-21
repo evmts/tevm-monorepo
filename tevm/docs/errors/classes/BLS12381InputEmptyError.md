@@ -6,8 +6,6 @@
 
 # Class: BLS12381InputEmptyError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:41
-
 Represents an EIP-2537 specific error that occurs when an input is empty during BLS12-381 operations.
 
 Input empty errors can occur due to:
@@ -44,8 +42,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new BLS12381InputEmptyError**(`message?`, `args?`, `tag?`): `BLS12381InputEmptyError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:55
 
 Constructs a BLS12381InputEmptyError.
 Represents an EIP-2537 specific error that occurs when an input is empty during BLS12-381 operations.
@@ -242,8 +238,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381InputEmptyError.d.ts:42
 
 ***
 

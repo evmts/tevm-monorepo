@@ -12,7 +12,7 @@
 
 > `optional` **cause?**: `EVMError`
 
-The cause of the error. From running ethereumjs EVM.runCall
+The cause of the error. From running Tevm EVM.runCall
 
 ***
 

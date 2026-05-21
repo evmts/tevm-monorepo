@@ -6,15 +6,11 @@
 
 # Interface: InterpreterStep
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:78
-
 ## Properties
 
 ### account
 
 > **account**: `Account`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:92
 
 ***
 
@@ -22,15 +18,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > **address**: `Address`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:93
-
 ***
 
 ### codeAddress
 
 > **codeAddress**: `Address`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:96
 
 ***
 
@@ -38,15 +30,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > **depth**: `number`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:84
-
 ***
 
 ### eofFunctionDepth?
 
 > `optional` **eofFunctionDepth?**: `number`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:99
 
 ***
 
@@ -54,15 +42,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `optional` **eofSection?**: `number`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:97
-
 ***
 
 ### error?
 
 > `optional` **error?**: `Uint8Array`\<`ArrayBufferLike`\>
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:100
 
 ***
 
@@ -70,15 +54,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > **gasLeft**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:79
-
 ***
 
 ### gasRefund
 
 > **gasRefund**: `bigint`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:80
 
 ***
 
@@ -86,15 +66,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > `optional` **immediate?**: `Uint8Array`\<`ArrayBufferLike`\>
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:98
-
 ***
 
 ### memory
 
 > **memory**: `Uint8Array`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:94
 
 ***
 
@@ -102,15 +78,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > **memoryWordCount**: `bigint`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:95
-
 ***
 
 ### opcode
 
 > **opcode**: `object`
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:85
 
 #### code
 
@@ -138,15 +110,11 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > **pc**: `number`
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:83
-
 ***
 
 ### stack
 
 > **stack**: `bigint`[]
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:82
 
 ***
 
@@ -154,12 +122,8 @@ Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modul
 
 > **stateManager**: [`EvmStateManagerInterface`](../../common/interfaces/EvmStateManagerInterface.md)
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:81
-
 ***
 
 ### storage?
 
 > `optional` **storage?**: \[`` `0x${string}` ``, `` `0x${string}` ``\][]
-
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+evm@10.1.1/node\_modules/@ethereumjs/evm/dist/esm/interpreter.d.ts:101

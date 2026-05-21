@@ -6,8 +6,6 @@
 
 # Class: InvalidReturnSubError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:46
-
 Represents an invalid bytecode/contract error that occurs when an invalid RETURNSUB operation is executed within the EVM.
 
 Invalid RETURNSUB errors can occur due to:
@@ -49,8 +47,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InvalidReturnSubError**(`message?`, `args?`, `tag?`): `InvalidReturnSubError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidReturnSubError.d.ts:63
 
 Constructs an InvalidReturnSubError.
 Represents an invalid bytecode/contract error that occurs when an invalid RETURNSUB operation is executed within the EVM.

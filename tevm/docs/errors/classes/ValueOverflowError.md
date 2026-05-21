@@ -6,8 +6,6 @@
 
 # Class: ValueOverflowError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:45
-
 Represents an invalid bytecode/contract error that occurs when a value overflow happens during EVM execution.
 
 Value overflow errors can occur due to:
@@ -48,8 +46,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new ValueOverflowError**(`message?`, `args?`, `tag?`): `ValueOverflowError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:62
 
 Constructs a ValueOverflowError.
 Represents an invalid bytecode/contract error that occurs when a value overflow happens during EVM execution.
@@ -250,8 +246,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/ValueOverflowError.d.ts:46
 
 ***
 

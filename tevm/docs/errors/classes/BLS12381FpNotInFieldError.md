@@ -6,8 +6,6 @@
 
 # Class: BLS12381FpNotInFieldError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381FpNotInFieldError.d.ts:41
-
 Represents an EIP-2537 specific error that occurs when an fp point is not in the field during BLS12-381 operations.
 
 Fp point not in field errors can occur due to:
@@ -44,8 +42,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new BLS12381FpNotInFieldError**(`message?`, `args?`, `tag?`): `BLS12381FpNotInFieldError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381FpNotInFieldError.d.ts:55
 
 Constructs a BLS12381FpNotInFieldError.
 Represents an EIP-2537 specific error that occurs when an fp point is not in the field during BLS12-381 operations.
@@ -165,8 +161,6 @@ Human-readable error message.
 
 > **meta**: `object` \| `undefined`
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381FpNotInFieldError.d.ts:59
-
 Optional object containing additional information about the error.
 
 ***
@@ -252,8 +246,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/BLS12381FpNotInFieldError.d.ts:42
 
 ***
 

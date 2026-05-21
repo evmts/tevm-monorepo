@@ -40,5 +40,6 @@
   "plugin": [
     "typedoc-plugin-markdown"
   ],
-  "gitRevision": "main"
+  "gitRevision": "main",
+  "disableSources": true
 }

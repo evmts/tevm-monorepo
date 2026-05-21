@@ -10,7 +10,7 @@
 
 Defined in: [packages/actions/src/GetAccount/getAccountHandler.js:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/src/GetAccount/getAccountHandler.js#L17)
 
-Creates an GetAccountHandler for handling account params with Ethereumjs VM
+Creates a GetAccountHandler for handling account params with the Tevm VM
 
 ## Parameters
 

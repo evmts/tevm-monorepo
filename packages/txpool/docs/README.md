@@ -26,7 +26,7 @@
 
 # @tevm/txpool
 
-Manages a pool of pending tx within tevm
+ZEVM-backed transaction pool facade for pending Tevm transactions, including fee-market-shaped, EIP-7702, and impersonated transactions.
 
 ## Visit [Docs](https://tevm.sh/) for docs, guides, API and more!
 

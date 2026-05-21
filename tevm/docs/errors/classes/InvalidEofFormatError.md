@@ -6,8 +6,6 @@
 
 # Class: InvalidEofFormatError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidEofFormatError.d.ts:48
-
 Represents an error that occurs when an invalid EOF format is encountered during EVM execution.
 
 This error is specific to EOF
@@ -51,8 +49,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InvalidEofFormatError**(`message?`, `args?`, `tag?`): `InvalidEofFormatError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidEofFormatError.d.ts:68
 
 Constructs an InvalidEofFormatError.
 Represents an error that occurs when an invalid EOF format is encountered during EVM execution.
@@ -256,8 +252,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidEofFormatError.d.ts:49
 
 ***
 

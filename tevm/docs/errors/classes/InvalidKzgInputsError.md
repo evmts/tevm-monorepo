@@ -6,8 +6,6 @@
 
 # Class: InvalidKzgInputsError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:41
-
 Represents an EIP-4844 specific error that occurs when KZG inputs are invalid.
 
 Invalid inputs errors can occur due to:
@@ -44,8 +42,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InvalidKzgInputsError**(`message?`, `args?`, `tag?`): `InvalidKzgInputsError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:55
 
 Constructs an InvalidKzgInputsError.
 Represents an EIP-4844 specific error that occurs when KZG inputs are invalid.
@@ -242,8 +238,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InvalidKzgInputsError.d.ts:42
 
 ***
 

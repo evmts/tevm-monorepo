@@ -69,7 +69,7 @@ Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:116
 
 Defined in: tevm-monorepo/packages/evm/dist/index.d.ts:107
 
-Ethereumjs common object
+Tevm common object backed by ZEVM common primitives
 
 ***
 

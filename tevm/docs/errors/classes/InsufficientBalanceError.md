@@ -6,8 +6,6 @@
 
 # Class: InsufficientBalanceError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:47
-
 Represents an error that occurs when an account has insufficient balance to perform a transaction.
 EVM transaction execution metadata level error
 
@@ -50,8 +48,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new InsufficientBalanceError**(`message?`, `args?`, `tag?`): `InsufficientBalanceError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:66
 
 Constructs an InsufficientBalanceError.
 Represents an error that occurs when an account has insufficient balance to perform a transaction.
@@ -254,8 +250,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/InsufficientBalanceError.d.ts:48
 
 ***
 

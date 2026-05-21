@@ -6,15 +6,11 @@
 
 # Type Alias: EVMOpts
 
-> **EVMOpts** = `EthereumjsEVMOpts`
+> **EVMOpts** = `ZevmEVMOpts`
 
 Defined in: [packages/evm/src/EvmOpts.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/evm/src/EvmOpts.ts#L21)
 
-The options available to pass to the EVM. Inferred from ethereumjs/evm
-
-## See
-
-https://github.com/ethereumjs/ethereumjs-monorepo/pull/3334
+The options available to pass to the EVM. Inferred from ZEVM.
 
 ## Example
 

@@ -6,8 +6,6 @@
 
 # Class: EvmRevertError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:51
-
 Represents an execution error that occurs when a transaction is reverted during EVM execution.
 This error is typically encountered when a smart contract execution is reverted due to unmet conditions or failed assertions.
 
@@ -54,8 +52,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new EvmRevertError**(`message?`, `args?`, `tag?`): `EvmRevertError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:74
 
 Constructs a EvmRevertError.
 Represents an execution error that occurs when a transaction is reverted during EVM execution.
@@ -276,8 +272,6 @@ Error code, analogous to the code in JSON RPC error.
 ### EVMErrorMessage
 
 > `static` **EVMErrorMessage**: `string`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/EvmRevertError.d.ts:52
 
 ***
 

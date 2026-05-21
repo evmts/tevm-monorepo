@@ -8,8 +8,6 @@
 
 > **createTxFromBlockBodyData**(`data`, `txOptions?`): [`LegacyTransaction`](../classes/LegacyTransaction.md) \| [`AccessListEIP2930Transaction`](../classes/AccessListEIP2930Transaction.md) \| [`FeeMarketEIP1559Transaction`](../classes/FeeMarketEIP1559Transaction.md) \| [`BlobEIP4844Transaction`](../classes/BlobEIP4844Transaction.md) \| [`EOACodeEIP7702Transaction`](../classes/EOACodeEIP7702Transaction.md)
 
-Defined in: tevm-monorepo/node\_modules/.pnpm/@ethereumjs+tx@10.1.1/node\_modules/@ethereumjs/tx/dist/esm/transactionFactory.d.ts:27
-
 When decoding a BlockBody, in the transactions field, a field is either:
 A Uint8Array (a TypedTransaction - encoded as TransactionType || rlp(TransactionPayload))
 A Uint8Array[] (Legacy Transaction)

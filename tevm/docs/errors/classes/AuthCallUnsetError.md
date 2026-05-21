@@ -6,8 +6,6 @@
 
 # Class: AuthCallUnsetError
 
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:45
-
 Represents an EIP-3074 specific error that occurs when attempting to AUTHCALL without AUTH set.
 
 AuthCallUnset errors can occur due to:
@@ -48,8 +46,6 @@ Additional parameters for the BaseError.
 ### Constructor
 
 > **new AuthCallUnsetError**(`message?`, `args?`, `tag?`): `AuthCallUnsetError`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:61
 
 Constructs an AuthCallUnsetError.
 Represents an EIP-3074 specific error that occurs when attempting to AUTHCALL without AUTH set.
@@ -172,8 +168,6 @@ Human-readable error message.
 ### meta
 
 > **meta**: `object` \| `undefined`
-
-Defined in: tevm-monorepo/packages/errors/types/ethereum/ethereumjs/AuthCallUnsetError.d.ts:65
 
 Optional object containing additional information about the error.
 
