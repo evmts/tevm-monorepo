@@ -30,7 +30,7 @@ runs:
 
     - name: Install pnpm
       run: |
-        npm i pnpm@10.6.1 --global && pnpm --version
+        npm i pnpm@10.33.4 --global && pnpm --version
       shell: bash
 
     - name: Checkout Zevm workspace

@@ -33,7 +33,7 @@
 		"lint:deps": "bunx depcheck && nx run-many --target=lint:deps",
 		"lint:package": "nx run-many --target=lint:package",
 		"release:check": "changeset status --verbose --since=origin/main",
-		"release:publish": "pnpm install && nx run-many --target=build:app,build:dist,build:types --skip-nx-cache && cd bundler-packages/resolutions-rs && bun run build:release && cd ../../ && changeset publish",
+		"release:publish": "pnpm install && nx run-many --target=build:app,build:dist,build:types --skip-nx-cache && cd bundler-packages/resolutions-rs && bun run build:release && cd ../../ && node scripts/prepare-changeset-publish.mjs && changeset publish",
 		"release:publish:jsr": "cd tevm && pnpm publish:jsr",
 		"release:publish:jsr:dry-run": "cd tevm && pnpm publish:jsr:dry",
 		"release:version": "changeset version && pnpm install --lockfile-only",
@@ -99,7 +99,7 @@
 		"vite": "^8.0.13",
 		"vitest": "^4.1.6"
 	},
-	"packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3",
+	"packageManager": "pnpm@10.33.4+sha512.HGezs1my1AgRm6HtKJ80uPw8aHNBK+xv0mT73IJInlEPy+y5zp0i2ufzt2Jp2EQQRgFL3KU7mXnNelYa1jG4AA==",
 	"engines": {
 		"_comment": "Tevm CI and parity suites are validated on Node 24 via .nvmrc.",
 		"node": "^24.0.0"
