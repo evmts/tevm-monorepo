@@ -78,7 +78,6 @@
 		"@tevm/common": "workspace:1.0.0-next.148",
 		"@tevm/evm": "workspace:1.0.0-next.148",
 		"@tevm/state": "workspace:1.0.0-next.148",
-		"@tevm/tx": "workspace:1.0.0-next.148",
 		"@tevm/utils": "workspace:1.0.0-next.148",
 		"@tevm/vm": "workspace:1.0.0-next.148",
 		"@vitest/coverage-v8": "^4.1.6",
