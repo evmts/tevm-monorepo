@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { spawnSync } from 'node:child_process'
 import { promises as fs } from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -15,9 +16,10 @@ Usage:
   node scripts/configure-npm-trusted-publishers.mjs [options]
 
 Authentication:
-  Set NPM_TOKEN or NODE_AUTH_TOKEN to an npm user/granular token with write
-  access to the packages, or run npm login so ~/.npmrc contains a valid token.
-  Set NPM_OTP to your current npm 2FA code, or the script will prompt for it.
+  For real runs, the script starts npm's browser login flow before configuring
+  packages. Set NPM_TOKEN or NODE_AUTH_TOKEN to skip browser login and use that
+  token instead. Set NPM_OTP if your npm account requires an OTP for trust API
+  writes; otherwise the script prompts only if npm asks for one.
 
 Options:
   --repo <owner/repo>        GitHub repository claim. Default: evmts/tevm-monorepo
@@ -28,6 +30,7 @@ Options:
   --registry <url>           npm registry. Default: ${defaultRegistry}
   --replace                  Delete different existing trust configs first.
   --dry-run                  Print the package list and planned requests only.
+  --skip-login               Do not start npm browser login before API calls.
   --yes                      Do not ask for confirmation.
   --help                     Show this help.
 `
@@ -73,11 +76,10 @@ try {
 		}
 	}
 
+	await ensureNpmBrowserLogin(options)
+
 	const token = await resolveToken(options)
 	let otp = options.otp || process.env.NPM_OTP || ''
-	if (!otp) {
-		otp = await promptSecret('npm OTP: ')
-	}
 
 	const results = {
 		configured: [],
@@ -127,6 +129,7 @@ function parseArgs(args) {
 		packageFiles: [],
 		replace: false,
 		dryRun: false,
+		skipLogin: false,
 		yes: false,
 		help: false,
 		otp: '',
@@ -164,6 +167,9 @@ function parseArgs(args) {
 				break
 			case '--dry-run':
 				parsed.dryRun = true
+				break
+			case '--skip-login':
+				parsed.skipLogin = true
 				break
 			case '--yes':
 			case '-y':
@@ -325,6 +331,26 @@ function expandEnv(value) {
 	return value.replace(/\$\{([^}]+)\}/g, (_, name) => process.env[name] || '')
 }
 
+async function ensureNpmBrowserLogin(opts) {
+	if (opts.skipLogin || process.env.NPM_TOKEN || process.env.NODE_AUTH_TOKEN) {
+		return
+	}
+
+	console.log('\nStarting npm browser login...')
+	const result = spawnSync('npm', ['login', '--auth-type=web', `--registry=${opts.registry}`], {
+		cwd: repoRoot,
+		env: process.env,
+		stdio: 'inherit',
+	})
+
+	if (result.error) {
+		throw result.error
+	}
+	if (result.status !== 0) {
+		throw new Error(`npm browser login failed with exit code ${result.status}`)
+	}
+}
+
 async function configurePackage(packageName, token, otp, opts) {
 	const existing = await requestWithOtpRefresh({
 		method: 'GET',
@@ -434,13 +460,16 @@ async function requestWithOtpRefresh(request) {
 
 async function registryRequest({ method, packageName, configId, token, otp, opts, body }) {
 	const url = trustUrl(opts.registry, packageName, configId)
+	const headers = {
+		Authorization: `Bearer ${token}`,
+		'Content-Type': 'application/json',
+	}
+	if (otp) {
+		headers['npm-otp'] = otp
+	}
 	const response = await fetch(url, {
 		method,
-		headers: {
-			Authorization: `Bearer ${token}`,
-			'Content-Type': 'application/json',
-			'npm-otp': otp,
-		},
+		headers,
 		body: body === undefined ? undefined : JSON.stringify(body),
 	})
 
