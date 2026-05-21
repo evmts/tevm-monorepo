@@ -46,7 +46,8 @@ describe('Ethers Extension JSON-RPC Automining Integration Tests', () => {
 
 			expect(txHash).toBe(bytesToHex(signedTx.hash()))
 
-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
+			const receipt = await provider.getTransactionReceipt(txHash)
+			expect(receipt?.hash).toBe(txHash)
 
 			// Check that block number increased (new block was mined)
 			const finalBlockNumber = await provider.getBlockNumber()
@@ -177,7 +178,8 @@ describe('Ethers Extension JSON-RPC Automining Integration Tests', () => {
 			const response = await provider.broadcastTransaction(bytesToHex(serializedTx))
 			const txHash = response.hash
 
-			await expect(provider.getTransactionReceipt(txHash)).rejects.toThrow('invalid block stateRoot')
+			const receipt = await provider.getTransactionReceipt(txHash)
+			expect(receipt?.hash).toBe(txHash)
 			// The raw transaction already contains the nonce, so it should be preserved
 			expect(signedTx.nonce).toBe(nextNonce)
 		})
