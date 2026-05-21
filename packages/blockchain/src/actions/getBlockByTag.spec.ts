@@ -1,9 +1,8 @@
 import { optimism } from '@tevm/common'
 import { UnknownBlockError } from '@tevm/errors'
-import { transports } from '@tevm/test-utils'
 import { describe, expect, it } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
-import { getMockBlocks } from '../test/getBlocks.js'
+import { getMockBlocks, mockTransport } from '../test/getBlocks.js'
 import { getBlockByTag } from './getBlockByTag.js'
 import { putBlock } from './putBlock.js'
 
@@ -55,7 +54,7 @@ describe(getBlockByTag.name, async () => {
 		const chain = createBaseChain({
 			common: optimism.copy(),
 			fork: {
-				transport: transports.optimism,
+				transport: mockTransport,
 				blockTag: blocks[0].header.number,
 			},
 		})

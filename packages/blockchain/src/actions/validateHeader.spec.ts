@@ -1,8 +1,7 @@
 import { ConsensusAlgorithm, optimism } from '@tevm/common'
-import { transports } from '@tevm/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
-import { getMockBlocks } from '../test/getBlocks.js'
+import { getMockBlocks, mockTransport } from '../test/getBlocks.js'
 import * as getBlockModule from './getBlock.js'
 import { getBlock } from './getBlock.js'
 import { getCanonicalHeadBlock } from './getCanonicalHeadBlock.js'
@@ -19,7 +18,7 @@ describe(validateHeader.name, async () => {
 	it('should validate a valid header', async () => {
 		const chain = createBaseChain({
 			common: optimism.copy(),
-			fork: { transport: transports.optimism },
+			fork: { transport: mockTransport, blockTag: blocks[1].header.number },
 		})
 		const cannonicalHead = await getCanonicalHeadBlock(chain)()
 		const parentBlock = await getBlock(chain)(cannonicalHead.header.parentHash)

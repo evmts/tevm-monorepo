@@ -3,26 +3,26 @@
 exports[`getBlockByTag > should fetch and cache the block from rpc if it does not exist 1`] = `
 {
   "header": {
-    "baseFeePerGas": "0x7",
+    "baseFeePerGas": "0x1",
     "blobGasUsed": "0x0",
-    "coinbase": "0x0000000000000000000000000000000000000000",
-    "difficulty": "0x1",
+    "coinbase": "0x4200000000000000000000000000000000000011",
+    "difficulty": "0x0",
     "excessBlobGas": "0x0",
-    "extraData": "0x000000000000000000000000000000000000000000000000000000000000000000000398232e2064f896018496b4b44b3d62751f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "gasLimit": "0xe4e1c0",
+    "extraData": "0x",
+    "gasLimit": "0x1c9c380",
     "gasUsed": "0x0",
     "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
     "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
     "nonce": "0x0000000000000000",
-    "number": "0x0",
-    "parentBeaconBlockRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "number": "0x7510430",
+    "parentBeaconBlockRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
     "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
     "receiptTrie": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
     "requestsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-    "stateRoot": "0xeddb4c1786789419153a27c4c80ff44a2226b6eda04f7e22ce5bae892ea568eb",
-    "timestamp": "0x0",
+    "stateRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+    "timestamp": "0x7510430",
     "transactionsTrie": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-    "uncleHash": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+    "uncleHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
     "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
   },
   "requests": [],
@@ -36,19 +36,19 @@ exports[`getBlockByTag > should throw UnknownBlockError if tag doesn not exist 1
 [UnknownBlock: safe
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
-Version: 1.1.0.next-73]
+Version: 1.0.0-next.148]
 `;
 
 exports[`getBlockByTag > should throw an error if the block does not exist 1`] = `
 [UnknownBlock: Block number 69 does not exist
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
-Version: 1.1.0.next-73]
+Version: 1.0.0-next.148]
 `;
 
 exports[`getBlockByTag > should throw an error if the block does not exist 2`] = `
-[UnknownBlock: Block with hash 0xd28815595bbd6c13b091aa46b91cc3c9cfe2cf9ad72a38d0974d1f12477dfba3 does not exist
+[UnknownBlock: Block with hash 0x99de01954c5e3e1b93fb66d009727468b8feca45c0bb373535eafedc2cb1bfdf does not exist
 
 Docs: https://tevm.sh/reference/tevm/errors/classes/unknownblockerror/
-Version: 1.1.0.next-73]
+Version: 1.0.0-next.148]
 `;

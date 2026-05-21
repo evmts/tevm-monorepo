@@ -1,10 +1,9 @@
 import { optimism } from '@tevm/common'
 import { InvalidBlockError, UnknownBlockError } from '@tevm/errors'
-import { transports } from '@tevm/test-utils'
 import { hexToBytes } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createBaseChain } from '../createBaseChain.js'
-import { getMockBlocks } from '../test/getBlocks.js'
+import { getMockBlocks, mockRpcHashes, mockTransport } from '../test/getBlocks.js'
 import { getBlock } from './getBlock.js'
 import { putBlock } from './putBlock.js'
 
@@ -44,33 +43,32 @@ describe(getBlock.name, async () => {
 		const chain = createBaseChain({
 			common: optimism.copy(),
 			fork: {
-				transport: transports.optimism,
-				blockTag: 141866019n,
+				transport: mockTransport,
+				blockTag: blocks[0].header.number,
 			},
 		})
 		await chain.ready()
-		expect(
-			await getBlock(chain)(hexToBytes('0x5ce84d97d2f387431ab6f11b909181b3e46e50c7e345b6ba256b36f20ee53fc2')),
-		).toMatchSnapshot()
+		expect(await getBlock(chain)(hexToBytes(mockRpcHashes[0]))).toMatchSnapshot()
 	})
 
 	it('should fetch and cache the block by number from rpc if it does not exist', async () => {
 		const chain = createBaseChain({
 			common: optimism.copy(),
 			fork: {
-				transport: transports.optimism,
+				transport: mockTransport,
+				blockTag: blocks[1].header.number,
 			},
 		})
 		await chain.ready()
-		expect((await getBlock(chain)(blocks[1].header.number)).hash()).toEqual(blocks[1].hash())
-		expect(chain.blocksByNumber.get(blocks[1].header.number)?.hash()).toEqual(blocks[1].hash())
+		expect((await getBlock(chain)(blocks[0].header.number)).hash()).toEqual(blocks[0].hash())
+		expect(chain.blocksByNumber.get(blocks[0].header.number)?.hash()).toEqual(blocks[0].hash())
 	})
 
 	it('should throw an error if attempting to fetch a block newer than the forked block', async () => {
 		const chain = createBaseChain({
 			common: optimism.copy(),
 			fork: {
-				transport: transports.optimism,
+				transport: mockTransport,
 				blockTag: blocks[0].header.number,
 			},
 		})
