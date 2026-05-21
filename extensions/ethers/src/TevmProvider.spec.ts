@@ -1,6 +1,4 @@
-import { optimism } from '@tevm/common'
 import { createContract, ERC20 } from '@tevm/contract'
-import { transports } from '@tevm/test-utils'
 import { encodeDeployData, toHex } from '@tevm/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { Interface } from './contract/index.js'
@@ -10,20 +8,14 @@ describe(TevmProvider.name, () => {
 	let provider: TevmProvider
 
 	beforeEach(async () => {
-		provider = await TevmProvider.createMemoryProvider({
-			fork: {
-				transport: transports.optimism,
-				blockTag: 'latest',
-			},
-			common: optimism,
-		})
+		provider = await TevmProvider.createMemoryProvider({})
 	})
 
 	it('should be able to use like a normal JsonRpcProvider', async () => {
-		expect(await provider.send('eth_chainId', [])).toBe('0xa')
+		expect(await provider.send('eth_chainId', [])).toBe('0x384')
 	})
 
-	describe('should be able to do tevm specific requests', async () => {
+	describe('should be able to do tevm specific requests', () => {
 		it('provider.send', async () => {
 			expect(
 				await provider.send('tevm_setAccount', [
@@ -87,7 +79,7 @@ describe(TevmProvider.name, () => {
 			const iface = new Interface(daiContract.abi)
 			const data = iface.encodeFunctionData('balanceOf', [`0x${'69'.repeat(20)}`]) as `0x${string}`
 			const result = await provider.tevm.call({
-				to: '0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1',
+				deployedBytecode: ERC20.deployedBytecode,
 				data,
 				caller: `0x${'69'.repeat(20)}`,
 			})
@@ -102,12 +94,8 @@ describe(TevmProvider.name, () => {
 		}, 15_000)
 
 		it('provider.tevm.contract', async () => {
-			const daiContract = createContract({
-				name: 'Dai',
-				humanReadableAbi: ['function balanceOf(address account) public view returns (uint256)'],
-			} as const)
 			const result = await provider.tevm.contract(
-				daiContract.withAddress('0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1').read.balanceOf(`0x${'69'.repeat(20)}`),
+				ERC20.withCode(encodeDeployData(ERC20.deploy('name', 'SYMBOL'))).read.balanceOf(`0x${'69'.repeat(20)}`),
 			)
 			expect(result).toMatchObject({
 				createdAddresses: new Set(),
