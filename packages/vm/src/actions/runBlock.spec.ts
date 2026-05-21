@@ -236,7 +236,12 @@ describe('runBlock', () => {
 		}
 		const vm = {
 			stateManager,
-			evm: { journal: { checkpoint: mock().mockResolvedValue(undefined) } },
+			evm: {
+				journal: {
+					checkpoint: mock().mockResolvedValue(undefined),
+					revert: mock().mockResolvedValue(undefined),
+				},
+			},
 			_emit: mock().mockResolvedValue(undefined),
 			common: {
 				ethjsCommon: {
