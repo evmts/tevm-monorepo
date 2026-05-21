@@ -828,7 +828,7 @@ exports[`Error Classes > should have all error classes available with expected s
 Meta message 1
 Meta message 2
 
-Docs: https://tevm.sh/reference/tevm/errors/classes/resourcenotfounderror/
+Docs: https://tevm.sh/errors/test-error
 Version: 1.0.0-next.148]
 `;
 
