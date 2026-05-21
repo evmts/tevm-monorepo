@@ -64,12 +64,12 @@ describe('createLightClientConsensusService', () => {
 		if (!updated) throw new Error('expected updateLightSyncStatus')
 
 		const mutableCopy = updated as { ready: boolean; safeSlot: bigint }
-		mutableCopy.ready = false
+		mutableCopy.ready = true
 		mutableCopy.safeSlot = 100n
 
-		expect(consensus.isReady?.()).toBe(true)
+		expect(consensus.isReady?.()).toBe(false)
 		expect(consensus.getLightSyncStatus?.()).toMatchObject({
-			ready: true,
+			ready: false,
 			status: 'syncing',
 			optimisticSlot: 32n,
 			safeSlot: 31n,
