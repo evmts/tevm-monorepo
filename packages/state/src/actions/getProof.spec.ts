@@ -1,24 +1,60 @@
 import { createAddress } from '@tevm/address'
-import { transports } from '@tevm/test-utils'
-import { type Hex, hexToBigInt } from '@tevm/utils'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { createBaseState } from '../createBaseState.js'
 import { getProof } from './getProof.js'
 
+const mockBlock = {
+	hash: `0x${'11'.repeat(32)}`,
+	parentHash: `0x${'00'.repeat(32)}`,
+	sha3Uncles: `0x${'00'.repeat(32)}`,
+	miner: `0x${'00'.repeat(20)}`,
+	stateRoot: `0x${'00'.repeat(32)}`,
+	transactionsRoot: `0x${'00'.repeat(32)}`,
+	receiptsRoot: `0x${'00'.repeat(32)}`,
+	logsBloom: `0x${'00'.repeat(256)}`,
+	difficulty: '0x0',
+	number: '0x1',
+	gasLimit: '0x1',
+	gasUsed: '0x0',
+	timestamp: '0x1',
+	extraData: '0x',
+	mixHash: `0x${'00'.repeat(32)}`,
+	nonce: '0x0000000000000000',
+	transactions: [],
+	uncles: [],
+}
+const createMockForkTransport = () => ({
+	request: vi.fn(async ({ method }: { method: string }) => {
+		if (method === 'eth_getBlockByNumber') {
+			return mockBlock
+		}
+		if (method === 'eth_getProof') {
+			return {
+				address: '0x0000000000000000000000000000000000000000',
+				accountProof: ['0x01'],
+				balance: '0x1',
+				codeHash: `0x${'22'.repeat(32)}`,
+				nonce: '0x2',
+				storageHash: `0x${'33'.repeat(32)}`,
+				storageProof: [
+					{
+						key: `0x${'01'.repeat(32)}`,
+						value: '0x3',
+						proof: ['0x04'],
+					},
+				],
+			}
+		}
+		throw new Error(`Unexpected RPC method: ${method}`)
+	}),
+})
+
 describe(getProof.name, () => {
 	it('getProof from fork url with storage slots', async () => {
-		const latestBlock = (await transports.optimism.request({
-			jsonrpc: '2.0',
-			id: 1,
-			method: 'eth_blockNumber',
-		})) as Hex | undefined
-		if (!latestBlock) {
-			throw new Error('Latest block not found')
-		}
 		const state = createBaseState({
 			fork: {
-				transport: transports.optimism,
-				blockTag: hexToBigInt(latestBlock),
+				transport: createMockForkTransport(),
+				blockTag: 1n,
 			},
 		})
 		await state.ready()

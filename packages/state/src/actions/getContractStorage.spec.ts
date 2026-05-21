@@ -1,12 +1,9 @@
 import { createAddress } from '@tevm/address'
-import { transports } from '@tevm/test-utils'
 import {
 	createAccount,
 	createAddressFromString,
 	EthjsAccount,
 	EthjsAddress,
-	type Hex,
-	hexToBigInt,
 	hexToBytes,
 	toBytes,
 } from '@tevm/utils'
@@ -15,9 +12,51 @@ import type { BaseState } from '../BaseState.js'
 import { createBaseState } from '../createBaseState.js'
 import * as getAccountModule from './getAccount.js'
 import { getContractStorage } from './getContractStorage.js'
-import * as getForkClientModule from './getForkClient.js'
 import { putAccount } from './putAccount.js'
 import { putContractStorage } from './putContractStorage.js'
+
+const mockBlock = {
+	hash: `0x${'11'.repeat(32)}`,
+	parentHash: `0x${'00'.repeat(32)}`,
+	sha3Uncles: `0x${'00'.repeat(32)}`,
+	miner: `0x${'00'.repeat(20)}`,
+	stateRoot: `0x${'00'.repeat(32)}`,
+	transactionsRoot: `0x${'00'.repeat(32)}`,
+	receiptsRoot: `0x${'00'.repeat(32)}`,
+	logsBloom: `0x${'00'.repeat(256)}`,
+	difficulty: '0x0',
+	number: '0x1',
+	gasLimit: '0x1',
+	gasUsed: '0x0',
+	timestamp: '0x1',
+	extraData: '0x',
+	mixHash: `0x${'00'.repeat(32)}`,
+	nonce: '0x0000000000000000',
+	transactions: [],
+	uncles: [],
+}
+const createMockForkTransport = (storage: string | null = '0x1234') => ({
+	request: vi.fn(async ({ method }: { method: string }) => {
+		if (method === 'eth_getBlockByNumber') {
+			return mockBlock
+		}
+		if (method === 'eth_getProof') {
+			return {
+				address: '0x4200000000000000000000000000000000000010',
+				accountProof: [],
+				balance: '0x0',
+				codeHash: `0x${'11'.repeat(32)}`,
+				nonce: '0x1',
+				storageHash: `0x${'22'.repeat(32)}`,
+				storageProof: [],
+			}
+		}
+		if (method === 'eth_getStorageAt') {
+			return storage
+		}
+		throw new Error(`Unexpected RPC method: ${method}`)
+	}),
+})
 
 describe('getContractStorage', () => {
 	let baseState: BaseState
@@ -95,21 +134,11 @@ describe('getContractStorage forking', () => {
 	let knownStorageKey: Uint8Array
 
 	beforeEach(async () => {
-		// Get the latest block for a reasonable proof window
-		const latestBlock = (await transports.optimism.request({
-			jsonrpc: '2.0',
-			id: 1,
-			method: 'eth_blockNumber',
-		})) as Hex | undefined
-		if (!latestBlock) {
-			throw new Error('Latest block not found')
-		}
-
 		baseState = createBaseState({
 			loggingLevel: 'warn',
 			fork: {
-				transport: transports.optimism,
-				blockTag: hexToBigInt(latestBlock),
+				transport: createMockForkTransport(),
+				blockTag: 1n,
 			},
 		})
 
@@ -122,16 +151,13 @@ describe('getContractStorage forking', () => {
 	it('should fetch storage from remote provider if not in cache and fork transport is provided', async () => {
 		// First call - should fetch from remote provider
 		const result = await getContractStorage(baseState)(knownContractAddress, knownStorageKey)
-		expect(result).toBeDefined()
-
-		// Verify the value using inline snapshot, let the test runner fill it in
-		expect(result).toEqual(new Uint8Array())
+		expect(result).toEqual(hexToBytes('0x1234'))
 
 		// Second call - should use cache
 		const cachedResult = await getContractStorage(baseState)(knownContractAddress, knownStorageKey)
 
 		// The second result should match the first
-		expect(cachedResult).toEqual(new Uint8Array())
+		expect(cachedResult).toEqual(result)
 	})
 
 	it('should return empty Uint8Array if the account does not exist and no fork transport', async () => {
@@ -181,28 +207,10 @@ describe('getContractStorage forking', () => {
 		// Create a state with fork configuration
 		const testState = createBaseState({
 			fork: {
-				transport: transports.optimism,
-				blockTag: 141866019n,
+				transport: createMockForkTransport(null),
+				blockTag: 1n,
 			},
 		})
-
-		// Mock getAccount to return our contract account
-		// Use a factory approach for isContract to avoid the error
-		const mockAccount = {
-			isContract: () => true,
-		}
-
-		// Mock the getAccount module
-		const getAccountSpy = vi.spyOn(getAccountModule, 'getAccount')
-		getAccountSpy.mockImplementation(() => () => Promise.resolve(mockAccount) as any)
-
-		// Mock getForkClient to return a client that returns null from getStorageAt
-		const mockForkClient = {
-			getStorageAt: vi.fn().mockResolvedValue(null),
-		}
-
-		const getForkClientSpy = vi.spyOn(getForkClientModule, 'getForkClient')
-		getForkClientSpy.mockReturnValue(mockForkClient as any)
 
 		// Call getContractStorage - it should handle the null response
 		const result = await getContractStorage(testState)(testAddress, testKey)
@@ -210,11 +218,6 @@ describe('getContractStorage forking', () => {
 		// Verify the result is the canonical empty storage value.
 		expect(result).toEqual(new Uint8Array())
 
-		// Verify our mock was called
-		expect(mockForkClient.getStorageAt).toHaveBeenCalled()
-
-		// Restore original implementations
-		getForkClientSpy.mockRestore()
-		getAccountSpy.mockRestore()
+		expect(testState.options.fork?.transport.request).toHaveBeenCalled()
 	})
 })
