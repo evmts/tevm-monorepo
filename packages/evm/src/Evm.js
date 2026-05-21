@@ -40,10 +40,11 @@ export class Evm extends EVM {
 		}
 		const address = precompileAddress(precompile)
 		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+		const self = /** @type {any} */ (this)
 		if (index === -1) {
-			this._customPrecompiles = [...this._customPrecompiles, precompile]
+			self._customPrecompiles = [...this._customPrecompiles, precompile]
 		} else {
-			this._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+			self._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
 		}
 		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
@@ -65,7 +66,8 @@ export class Evm extends EVM {
 		if (index === -1) {
 			throw new InvalidParamsError('Precompile not found')
 		}
-		this._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
+		const self = /** @type {any} */ (this)
+		self._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
 		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
 
