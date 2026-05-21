@@ -63,12 +63,12 @@
 	},
 	"dependencies": {
 		"@tevm/tsconfig": "workspace:^",
-		"@tevm/tsupconfig": "workspace:^"
+		"@tevm/tsupconfig": "workspace:^",
+		"abitype": "^1.2.4",
+		"solidity-ast": "^0.4.61"
 	},
 	"devDependencies": {
-		"abitype": "^1.2.4",
 		"solc": "0.8.35",
-		"solidity-ast": "^0.4.61",
 		"vitest": "^4.1.6"
 	},
 	"publishConfig": {

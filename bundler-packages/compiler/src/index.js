@@ -9,3 +9,16 @@
  */
 export { resolveArtifacts } from './resolveArtifacts.js'
 export { resolveArtifactsSync } from './resolveArtifactsSync.js'
+
+export {
+	compileFiles,
+	compileFilesWithShadow,
+	compileSource,
+	compileSources,
+	compileSourcesWithShadow,
+	compileSourceWithShadow,
+	createCompiler,
+	extractContractsFromAstNodes,
+	extractContractsFromSolcOutput,
+	solcSourcesToAstNodes,
+} from './compiler/new/index.js'

@@ -15,6 +15,17 @@ export const readSourceFiles = async (filePaths, language, logger) => {
 	const validatedPaths = validateFiles(filePaths, language, logger)
 	logger.debug(`Preparing to read ${validatedPaths.length} files`)
 
+	// Infer language from file extension when not explicitly provided so that
+	// `.json` (SolidityAST) and `.yul` files are handled correctly downstream.
+	const effectiveLanguage =
+		language ??
+		(() => {
+			const first = validatedPaths[0] ?? ''
+			const lastDot = first.lastIndexOf('.')
+			const ext = lastDot === -1 ? '' : first.slice(lastDot)
+			return ext === '.json' ? 'SolidityAST' : ext === '.yul' ? 'Yul' : 'Solidity'
+		})()
+
 	/** @type {{[filePath: string]: string | import('@tevm/solc').SolcAst}} */
 	const sources = {}
 
@@ -39,7 +50,7 @@ export const readSourceFiles = async (filePaths, language, logger) => {
 			throw err
 		}
 
-		if (language === 'SolidityAST') {
+		if (effectiveLanguage === 'SolidityAST') {
 			try {
 				sources[filePath] = JSON.parse(content)
 			} catch (error) {

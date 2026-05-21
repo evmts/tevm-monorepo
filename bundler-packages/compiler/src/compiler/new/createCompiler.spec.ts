@@ -137,8 +137,8 @@ describe('createCompiler', () => {
 
 			await compiler.loadSolc()
 
-			// Should load successfully with default version
-			expect(() => compiler.compileSource(SimpleContract.source, { solcVersion: '0.8.20' })).not.toThrow()
+			// Should load successfully with default version (no per-call override)
+			expect(() => compiler.compileSource(SimpleContract.source)).not.toThrow()
 		})
 	})
 
@@ -149,14 +149,14 @@ describe('createCompiler', () => {
 			expect(() => compiler.compileSource(SimpleContract.source, { solcVersion: '0.8.20' })).toThrow(SolcError)
 		})
 
-		it('should throw when compileSourceWithShadow called before loadSolc', () => {
+		it('should throw when compileSourceWithShadow called before loadSolc', async () => {
 			const compiler = createCompiler()
 
-			expect(() =>
+			await expect(
 				compiler.compileSourceWithShadow(SimpleContract.source, 'function test() public { }', {
 					solcVersion: '0.8.20',
 				}),
-			).toThrow(SolcError)
+			).rejects.toThrow(SolcError)
 		})
 
 		it('should throw when compileFiles called before loadSolc', async () => {
@@ -294,10 +294,10 @@ describe('createCompiler', () => {
 	})
 
 	describe('compileSourceWithShadow', () => {
-		it('should compile source with shadow code', () => {
+		it('should compile source with shadow code', async () => {
 			const compiler = createCompiler({ solc: mockSolc })
 
-			const result = compiler.compileSourceWithShadow(
+			const result = await compiler.compileSourceWithShadow(
 				SimpleContract.source,
 				'function testShadow() public pure returns (uint) { return 42; }',
 				{
@@ -312,13 +312,13 @@ describe('createCompiler', () => {
 			expect(result.compilationResult).toBeDefined()
 		})
 
-		it('should apply factory defaults to shadow compilation', () => {
+		it('should apply factory defaults to shadow compilation', async () => {
 			const compiler = createCompiler({
 				solc: mockSolc,
 				optimizer: { enabled: true, runs: 200 },
 			})
 
-			compiler.compileSourceWithShadow(
+			await compiler.compileSourceWithShadow(
 				SimpleContract.source,
 				'function testShadow() public pure returns (uint) { return 42; }',
 				{

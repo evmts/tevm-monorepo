@@ -34,13 +34,15 @@ export const validateBaseOptions = (source, options = {}, logger) => {
 	}
 
 	if (language === 'SolidityAST') {
-		const isValidAstSource =
-			typeof source === 'object' &&
+		const isSourceUnit = (/** @type {unknown} */ entry) =>
+			typeof entry === 'object' &&
+			entry !== null &&
 			// modern syntax
-			(('nodeType' in source && source.nodeType === 'SourceUnit') ||
+			((/** @type {{nodeType?: string}} */ (entry).nodeType === 'SourceUnit') ||
 				// legacy syntax
-				('name' in source && source.name === 'SourceUnit'))
-		if (!isValidAstSource) {
+				(/** @type {{name?: string}} */ (entry).name === 'SourceUnit'))
+		const astEntries = Array.isArray(source) ? source : [source]
+		if (!astEntries.every(isSourceUnit)) {
 			const err = new AstParseError(`Invalid AST source, expected a SourceUnit`, {
 				meta: { code: 'invalid_source_ast' },
 			})

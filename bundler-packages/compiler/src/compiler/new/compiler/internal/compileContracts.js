@@ -67,7 +67,8 @@ export const compileContracts = (solc, sources, options, logger) => {
 			}
 		})
 
-		if (options.throwOnCompilationError) {
+		const hasFatalError = solcOutput.errors.some((e) => e.severity === 'error')
+		if (options.throwOnCompilationError && hasFatalError) {
 			throw new CompilerOutputError(`Compilation errors occurred`, {
 				meta: {
 					code: 'compilation_errors',

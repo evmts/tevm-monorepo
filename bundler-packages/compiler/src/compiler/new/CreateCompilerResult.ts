@@ -92,7 +92,7 @@ export interface CreateCompilerResult {
 		options?:
 			| (CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>)
 			| undefined,
-	) => CompileSourceResult<TCompilationOutput>
+	) => Promise<CompileSourceResult<TCompilationOutput>>
 
 	/**
 	 * Compiles multiple sources with shadow code injection.
@@ -121,7 +121,7 @@ export interface CreateCompilerResult {
 		options?:
 			| (CompileBaseOptions<TLanguage, TCompilationOutput> & CompileSourceWithShadowOptions<TLanguage>)
 			| undefined,
-	) => CompileSourcesResult<TCompilationOutput, TSourcePaths>
+	) => Promise<CompileSourcesResult<TCompilationOutput, TSourcePaths>>
 
 	/**
 	 * Compiles multiple source files from the filesystem.

@@ -59,6 +59,8 @@ export const createCompiler = (options) => {
 	const logger =
 		options?.logger ?? createLogger({ name: '@tevm/compiler', level: options?.loggingLevel ?? defaults.loggingLevel })
 	let _solcInstance = options?.solc
+	/** @type {string | undefined} */
+	let _solcVersion = options?.solc?.semver
 
 	/**
 	 * @returns {import('@tevm/solc').Solc}
@@ -73,25 +75,64 @@ export const createCompiler = (options) => {
 		throw err
 	}
 
+	/**
+	 * Ensure the loaded solc matches the requested version. The stateful compiler
+	 * lazily reloads solc when callers pass a per-call `solcVersion` override that
+	 * differs from the currently-loaded instance.
+	 *
+	 * @param {string | undefined} requestedVersion
+	 * @returns {Promise<import('@tevm/solc').Solc>}
+	 */
+	const requireSolcLoadedAsync = async (requestedVersion) => {
+		if (requestedVersion && requestedVersion !== _solcVersion) {
+			logger.debug(`Loading solc ${requestedVersion} (currently loaded: ${_solcVersion ?? 'none'})`)
+			_solcInstance = await getSolc(/** @type {any} */ (requestedVersion), logger)
+			_solcVersion = requestedVersion
+		}
+		return requireSolcLoaded()
+	}
+
+	/**
+	 * Sync variant: assert the loaded solc matches. Throws if a per-call solcVersion
+	 * was passed that requires re-loading (callers must use loadSolc() up front).
+	 *
+	 * @param {string | undefined} requestedVersion
+	 * @returns {import('@tevm/solc').Solc}
+	 */
+	const requireSolcLoadedSync = (requestedVersion) => {
+		const solc = requireSolcLoaded()
+		if (requestedVersion && _solcVersion && requestedVersion !== _solcVersion) {
+			const err = new SolcError(
+				`Requested solc version ${requestedVersion} differs from loaded ${_solcVersion}. Call loadSolc(${requestedVersion}) before sync compilation, or use the async equivalent.`,
+				{ meta: { code: 'version_mismatch_sync' } },
+			)
+			logger.error(err.message)
+			throw err
+		}
+		return solc
+	}
+
 	return {
 		compileSource: (source, compileOptions) => {
-			const solc = requireSolcLoaded()
+			requireSolcLoaded()
 			const validatedOptions = validateBaseOptions(source, mergeOptions(options, compileOptions), logger)
+			const solc = requireSolcLoadedSync(validatedOptions.solcVersion)
 			return compileSourceInternal(solc, source, validatedOptions, logger)
 		},
 
 		compileSources: (sources, compileOptions) => {
-			const solc = requireSolcLoaded()
+			requireSolcLoaded()
 			const validatedOptions = validateBaseOptions(
 				Object.values(sources),
 				mergeOptions(options, compileOptions),
 				logger,
 			)
+			const solc = requireSolcLoadedSync(validatedOptions.solcVersion)
 			return compileContracts(solc, sources, validatedOptions, logger)
 		},
 
-		compileSourceWithShadow: (source, shadow, compileOptions) => {
-			const solc = requireSolcLoaded()
+		compileSourceWithShadow: async (source, shadow, compileOptions) => {
+			requireSolcLoaded()
 			const { sourceLanguage, shadowLanguage, injectIntoContractPath, injectIntoContractName, ...baseOptions } =
 				compileOptions ?? {}
 			const validatedOptions = validateBaseOptions(
@@ -99,6 +140,7 @@ export const createCompiler = (options) => {
 				{ ...mergeOptions(options, baseOptions), language: sourceLanguage },
 				logger,
 			)
+			const solc = await requireSolcLoadedAsync(validatedOptions.solcVersion)
 			return compileSourceWithShadowInternal(
 				solc,
 				source,
@@ -109,8 +151,8 @@ export const createCompiler = (options) => {
 			)
 		},
 
-		compileSourcesWithShadow: (sources, shadow, compileOptions) => {
-			const solc = requireSolcLoaded()
+		compileSourcesWithShadow: async (sources, shadow, compileOptions) => {
+			requireSolcLoaded()
 			const { sourceLanguage, shadowLanguage, injectIntoContractPath, injectIntoContractName, ...baseOptions } =
 				compileOptions ?? {}
 			const validatedOptions = validateBaseOptions(
@@ -118,6 +160,7 @@ export const createCompiler = (options) => {
 				{ ...mergeOptions(options, baseOptions), language: sourceLanguage },
 				logger,
 			)
+			const solc = await requireSolcLoadedAsync(validatedOptions.solcVersion)
 			return compileSourcesWithShadowInternal(
 				solc,
 				sources,
@@ -129,23 +172,25 @@ export const createCompiler = (options) => {
 		},
 
 		compileFiles: async (files, compileOptions) => {
-			const solc = requireSolcLoaded()
+			requireSolcLoaded()
 			const mergedOptions = mergeOptions(options, compileOptions)
 			const sources = await readSourceFiles(files, mergedOptions?.language, logger)
 			const validatedOptions = validateBaseOptions(Object.values(sources), mergedOptions, logger)
+			const solc = await requireSolcLoadedAsync(validatedOptions.solcVersion)
 			return /** @type {any} */ (compileContracts(solc, /** @type {any} */ (sources), validatedOptions, logger))
 		},
 
 		compileFilesSync: (files, compileOptions) => {
-			const solc = requireSolcLoaded()
+			requireSolcLoaded()
 			const mergedOptions = mergeOptions(options, compileOptions)
 			const sources = readSourceFilesSync(files, mergedOptions?.language, logger)
 			const validatedOptions = validateBaseOptions(Object.values(sources), mergedOptions, logger)
+			const solc = requireSolcLoadedSync(validatedOptions.solcVersion)
 			return /** @type {any} */ (compileContracts(solc, /** @type {any} */ (sources), validatedOptions, logger))
 		},
 
 		compileFilesWithShadow: async (filePaths, shadow, compileOptions) => {
-			const solc = requireSolcLoaded()
+			requireSolcLoaded()
 			const { sourceLanguage, shadowLanguage, injectIntoContractPath, injectIntoContractName, ...baseOptions } =
 				compileOptions ?? {}
 			const sources = await readSourceFiles(filePaths, sourceLanguage, logger)
@@ -154,6 +199,7 @@ export const createCompiler = (options) => {
 				{ ...mergeOptions(options, baseOptions), language: sourceLanguage },
 				logger,
 			)
+			const solc = await requireSolcLoadedAsync(validatedOptions.solcVersion)
 			return /** @type {any} */ (
 				compileSourcesWithShadowInternal(
 					solc,
@@ -167,7 +213,7 @@ export const createCompiler = (options) => {
 		},
 
 		compileFilesWithShadowSync: (filePaths, shadow, compileOptions) => {
-			const solc = requireSolcLoaded()
+			requireSolcLoaded()
 			const { sourceLanguage, shadowLanguage, injectIntoContractPath, injectIntoContractName, ...baseOptions } =
 				compileOptions ?? {}
 			const sources = readSourceFilesSync(filePaths, sourceLanguage, logger)
@@ -176,6 +222,7 @@ export const createCompiler = (options) => {
 				{ ...mergeOptions(options, baseOptions), language: sourceLanguage },
 				logger,
 			)
+			const solc = requireSolcLoadedSync(validatedOptions.solcVersion)
 			return /** @type {any} */ (
 				compileSourcesWithShadowInternal(
 					solc,
@@ -209,7 +256,9 @@ export const createCompiler = (options) => {
 		},
 
 		loadSolc: async (version) => {
-			_solcInstance = await getSolc(version ?? defaults.solcVersion, logger)
+			const resolved = version ?? defaults.solcVersion
+			_solcInstance = await getSolc(resolved, logger)
+			_solcVersion = resolved
 		},
 
 		clearCache: async () => {
