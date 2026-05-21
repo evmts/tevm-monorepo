@@ -5277,5 +5277,11 @@
     ],
     "withdrawalsRoot": "0x1f366e19f9aca32cf4050600877cdb07bf64c0be3a1a78609b67c41b422627d8"
   },
-  "[null,\"eth_protocolVersion\"]": "0x42"
+  "[null,\"eth_protocolVersion\"]": "0x42",
+  "[\"2.0\",\"eth_getBlockByNumber\",\"0x15b9a23\",false]": {
+    "number": "0x15b9a23",
+    "hash": "0x1212121212121212121212121212121212121212121212121212121212121212",
+    "transactions": []
+  },
+  "[\"2.0\",\"eth_getBlockByHash\",\"0x1212121212121212121212121212121212121212121212121212121212121212\",true]": "0x1"
 }
