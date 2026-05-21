@@ -11,7 +11,7 @@ Status terms:
 - Missing: no current Tevm runtime handler, package export, or first-class API found.
 - Alias-only: Tevm has a differently named Anvil/Hardhat/Ganache/EVM/Tevm method, but not ZEVM's canonical method name.
 - Partial: Tevm has lower-level types or related behavior, but not the full feature contract.
-- Needs verification: Tevm likely has some backing support through EthereumJS/ZEVM utilities, but no Tevm-facing contract or tests matching the compared project were found.
+- Needs verification: Tevm likely has some backing support through ZEVM utilities, but no Tevm-facing contract or tests matching the compared project were found.
 
 Primary Tevm runtime authority:
 
@@ -41,7 +41,7 @@ For ZEVM RPC specifically, the local ZEVM JSON-RPC contract currently names 135 
 
 Guillotine Mini overlaps with Tevm at the EVM execution layer, but its unsupported features in Tevm are mostly packaging, execution-engine, conformance, and diagnostics features: native Zig/WASM engine usage, C ABI/FFI execution API, async yield/resume storage injection, EIP-3155 trace capture/comparison, ethereum/tests and execution-specs based target matrix, and explicit Frontier-through-Osaka spec targets.
 
-Voltaire is broader than Tevm's current utility surface. Tevm reexports useful viem/EthereumJS/ZEVM utilities, but it does not provide Voltaire's cross-language primitive library, native/WASM acceleration package, C API, Effect service stack, first-class branded primitive modules, broad crypto suite, stream/provider service ecosystem, bytecode/fork-backend primitives, or standalone standard helpers.
+Voltaire is broader than Tevm's current utility surface. Tevm reexports useful viem/ZEVM utilities, but it does not provide Voltaire's cross-language primitive library, native/WASM acceleration package, C API, Effect service stack, first-class branded primitive modules, broad crypto suite, stream/provider service ecosystem, bytecode/fork-backend primitives, or standalone standard helpers.
 
 ## ZEVM Gaps
 
@@ -343,7 +343,7 @@ Specific Guillotine Mini target families Tevm does not currently mirror:
 
 Partial or needs verification:
 
-- Tevm's types and EthereumJS/ZEVM-derived utilities include many modern hardfork capabilities, but Tevm does not publish a Guillotine Mini equivalent "Full hardfork support Frontier -> Osaka" execution test contract.
+- Tevm's types and ZEVM-derived utilities include many modern hardfork capabilities, but Tevm does not publish a Guillotine Mini equivalent "Full hardfork support Frontier -> Osaka" execution test contract.
 - Tevm has EIP-7702 utilities and transaction types, but `packages/blockchain/src/utils/CUSTOM_Tx_TYPES.js` explicitly comments `0x4` as "EIP-7702 EOA Code tx (not yet supported)" for custom transaction type handling.
 - Full Prague EIP-7702 set-code transaction execution, delegated-code handling, and fork/block ingestion parity should be treated as partial.
 - Prague BLS12-381 and EIP-2537 behavior may be available through the underlying EVM stack, but Tevm does not expose Guillotine Mini's explicit BLS spec target matrix as a Tevm conformance feature.
@@ -415,7 +415,7 @@ Missing:
   - HD wallet derivation.
   - state manager and blockchain fork caches.
 
-Tevm has JS/TS utilities and some ZEVM/EthereumJS reexports, but not this native/WASM/C ABI surface.
+Tevm has JS/TS utilities and some ZEVM reexports, but not this native/WASM/C ABI surface.
 
 ### Branded Primitive Modules
 
@@ -485,7 +485,7 @@ Missing or partial as Tevm-first APIs:
 - `X25519`.
 - `signers`.
 
-Partial overlap exists in `@tevm/utils` through viem and EthereumJS helpers for keccak, RLP, ABI encode/decode, message signing, mnemonic-to-account, and EIP-7702 authorization helpers. That is not the same as Voltaire's broad crypto module set, native/WASM acceleration, typed error model, or C ABI.
+Partial overlap exists in `@tevm/utils` through viem and ZEVM helpers for keccak, RLP, ABI encode/decode, message signing, mnemonic-to-account, and EIP-7702 authorization helpers. That is not the same as Voltaire's broad crypto module set, native/WASM acceleration, typed error model, or C ABI.
 
 ### Effect.ts Application Layer
 

@@ -80,7 +80,7 @@ The `newLog` event emits `EthjsLog` which is a tuple `[address, topics, data]` (
 ## Technical Notes
 
 ### EthjsLog Format
-The `@ethereumjs/evm` package defines `Log` as:
+The `@evmts/zevm/evm` package defines `Log` as:
 ```typescript
 type Log = [address: Uint8Array, topics: Uint8Array[], data: Uint8Array]
 ```
