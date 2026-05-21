@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+real_pnpm="${TEVM_REAL_PNPM:-}"
+if [ -z "${real_pnpm}" ]; then
+	real_pnpm="$(command -v pnpm)"
+fi
+
+if [ "${1:-}" != "publish" ]; then
+	exec "${real_pnpm}" "$@"
+fi
+
+shift
+
+tmpdir="$(mktemp -d)"
+cleanup() {
+	rm -rf "${tmpdir}"
+}
+trap cleanup EXIT
+
+"${real_pnpm}" pack --pack-destination "${tmpdir}" >/dev/null
+tarball="$(find "${tmpdir}" -maxdepth 1 -name '*.tgz' -print -quit)"
+if [ -z "${tarball}" ]; then
+	echo "pnpm publish wrapper could not find a packed tarball" >&2
+	exit 1
+fi
+
+npm_args=("publish" "${tarball}")
+provenance=false
+
+while [ "$#" -gt 0 ]; do
+	case "$1" in
+		--no-git-checks)
+			shift
+			;;
+		--provenance)
+			provenance=true
+			npm_args+=("$1")
+			shift
+			;;
+		--access | --tag | --otp)
+			if [ "$#" -lt 2 ]; then
+				echo "Missing value for $1" >&2
+				exit 1
+			fi
+			npm_args+=("$1" "$2")
+			shift 2
+			;;
+		*)
+			npm_args+=("$1")
+			shift
+			;;
+	esac
+done
+
+if [ "${provenance}" = false ] && [ "${NPM_CONFIG_PROVENANCE:-}" = "true" ]; then
+	npm_args+=("--provenance")
+fi
+
+exec npm "${npm_args[@]}"
