@@ -19,7 +19,7 @@ Authentication:
   For real runs, the script starts npm's browser login flow before configuring
   packages. Set NPM_TOKEN or NODE_AUTH_TOKEN to skip browser login and use that
   token instead. Set NPM_OTP if your npm account requires an OTP for trust API
-  writes; otherwise the script prompts only if npm asks for one.
+  writes; otherwise the script prompts before the first trust API request.
 
 Options:
   --repo <owner/repo>        GitHub repository claim. Default: evmts/tevm-monorepo
@@ -80,6 +80,10 @@ try {
 
 	const token = await resolveToken(options)
 	let otp = options.otp || process.env.NPM_OTP || ''
+	if (!otp) {
+		otp = await promptOptionalOtp()
+	}
+	otp = await verifyTrustApiAccess(packages[0], token, otp, options)
 
 	const results = {
 		configured: [],
@@ -115,6 +119,9 @@ try {
 		}
 		process.exit(1)
 	}
+} catch (error) {
+	console.error(error.message)
+	process.exitCode = 1
 } finally {
 	rl?.close()
 }
@@ -408,6 +415,32 @@ async function configurePackage(packageName, token, otp, opts) {
 	}
 }
 
+async function verifyTrustApiAccess(packageName, token, otp, opts) {
+	try {
+		const response = await requestWithOtpRefresh({
+			method: 'GET',
+			packageName,
+			token,
+			otp,
+			opts,
+		})
+		return response.otp || otp
+	} catch (error) {
+		if (/npm registry returned (401|403):/.test(error.message)) {
+			throw new Error(`Unable to authorize npm trusted-publisher API for ${packageName}.
+
+npm rejected the token or OTP for the trust API. Retry with a current npm OTP.
+If it still returns 401, create a granular npm access token with read/write
+access to the Tevm packages and rerun:
+
+  NPM_TOKEN=... NPM_OTP=... node scripts/configure-npm-trusted-publishers.mjs --skip-login --yes
+
+Original error: ${error.message}`)
+		}
+		throw error
+	}
+}
+
 function createGithubConfig(opts) {
 	const claims = {
 		repository: opts.repo,
@@ -538,6 +571,13 @@ function labelFor(status) {
 async function prompt(question) {
 	rl ||= createInterface({ input: process.stdin, output: process.stdout })
 	return rl.question(question)
+}
+
+async function promptOptionalOtp() {
+	if (!process.stdin.isTTY) {
+		return ''
+	}
+	return promptSecret('npm OTP for trusted-publisher API (press Enter if not required): ')
 }
 
 async function promptSecret(question) {
