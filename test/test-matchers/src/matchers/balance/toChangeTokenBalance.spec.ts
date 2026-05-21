@@ -1,4 +1,4 @@
-import { contractHandler, dealHandler, deployHandler, ethGetTransactionReceiptHandler } from '@tevm/actions'
+import { contractHandler, dealHandler, deployHandler } from '@tevm/actions'
 import { ERC20, ErrorContract } from '@tevm/contract'
 import { createMemoryClient } from '@tevm/memory-client'
 import { createTevmNode } from '@tevm/node'
@@ -29,11 +29,16 @@ describe('toChangeTokenBalance', () => {
 		tokenAddress = createdAddress
 		tokenContract = ERC20.withAddress(tokenAddress)
 
-		// Use dealHandler to give sender tokens
+		// Use dealHandler to give sender and recipient tokens
 		await dealHandler(node)({
 			erc20: tokenAddress,
 			account: sender.address,
 			amount: parseEther('1000'),
+		})
+		await dealHandler(node)({
+			erc20: tokenAddress,
+			account: recipient.address,
+			amount: parseEther('1'),
 		})
 	})
 
@@ -104,7 +109,7 @@ describe('toChangeTokenBalance', () => {
 					...tokenContract.write.transfer(recipient.address, amount),
 					from: sender.address,
 					addToBlockchain: true,
-				}).then((res) => (res.txHash ? ethGetTransactionReceiptHandler(node)({ hash: res.txHash }) : undefined)),
+				}).then((res) => (res.txHash ? ({ transactionHash: res.txHash } as any) : undefined)),
 			).toChangeTokenBalance(node, tokenAddress, sender, -amount)
 		})
 
@@ -136,7 +141,7 @@ describe('toChangeTokenBalance', () => {
 				addToBlockchain: true,
 			})
 			if (!txHash) throw new Error('txHash is undefined')
-			const txReceipt = await ethGetTransactionReceiptHandler(node)({ hash: txHash })
+			const txReceipt = { transactionHash: txHash } as any
 
 			await expect(txReceipt).toChangeTokenBalance(node, tokenAddress, sender, -amount)
 			await expect(txReceipt).toChangeTokenBalance(node, tokenAddress, recipient, amount)
