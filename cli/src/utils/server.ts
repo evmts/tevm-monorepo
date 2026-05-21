@@ -22,13 +22,19 @@ import {
 import { http } from '@tevm/jsonrpc'
 import { createMemoryClient, type MemoryClient } from '@tevm/memory-client'
 import { createServer } from '@tevm/server'
+import type { BlockTag } from '@tevm/utils'
 import { createLoggingRequestProxy } from '../stores/logStore.js'
 
-const parseForkBlock = (forkBlockNumber: string) => {
+const blockTags = new Set<BlockTag>(['earliest', 'finalized', 'latest', 'pending', 'safe'])
+
+const parseForkBlock = (forkBlockNumber: string): bigint | BlockTag => {
 	try {
 		return BigInt(forkBlockNumber)
 	} catch (_e) {
-		return forkBlockNumber
+		if (blockTags.has(forkBlockNumber as BlockTag)) {
+			return forkBlockNumber as BlockTag
+		}
+		throw new Error(`Invalid fork block number or tag: ${forkBlockNumber}`)
 	}
 }
 
