@@ -1,5 +1,4 @@
-import { Block } from '@tevm/block'
-import { blockFromRpc } from '@tevm/block'
+import { Block, blockFromRpc } from '@tevm/block'
 import { optimism } from '@tevm/common'
 import { numberToHex } from 'viem'
 

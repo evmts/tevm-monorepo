@@ -24,7 +24,11 @@ describe('getBlockFromRpc', () => {
 	it('should fetch a block by number', async () => {
 		const common = optimism.copy()
 
-		const [block, rpcBlock] = await getBlockFromRpc(baseChain, { transport: mockTransport, blockTag: blockNumber }, common)
+		const [block, rpcBlock] = await getBlockFromRpc(
+			baseChain,
+			{ transport: mockTransport, blockTag: blockNumber },
+			common,
+		)
 		expect(block).toBeInstanceOf(Block)
 		expect(block.header.number).toBe(blockNumber)
 		expect(rpcBlock.hash).toBe(blockHash)
@@ -35,7 +39,11 @@ describe('getBlockFromRpc', () => {
 	it('should fetch a block by hash', async () => {
 		const common = optimism.copy()
 
-		const [block, rpcBlock] = await getBlockFromRpc(baseChain, { transport: mockTransport, blockTag: blockHash }, common)
+		const [block, rpcBlock] = await getBlockFromRpc(
+			baseChain,
+			{ transport: mockTransport, blockTag: blockHash },
+			common,
+		)
 		expect(block).toBeInstanceOf(Block)
 		expect(block.header.number).toBe(blockNumber)
 		expect(rpcBlock.hash).toBe(blockHash)
@@ -46,9 +54,11 @@ describe('getBlockFromRpc', () => {
 		const common = optimism.copy()
 		const invalidBlockTag = '0x420420430d3c6d32d4391353b2de38d335443d6399eccd7f639cd73027420420'
 
-		const err = await getBlockFromRpc(baseChain, { transport: mockTransport, blockTag: invalidBlockTag as any }, common).catch(
-			(e) => e,
-		)
+		const err = await getBlockFromRpc(
+			baseChain,
+			{ transport: mockTransport, blockTag: invalidBlockTag as any },
+			common,
+		).catch((e) => e)
 		expect(err).toBeInstanceOf(UnknownBlockError)
 		expect(err).toMatchSnapshot()
 	})
@@ -89,9 +99,11 @@ describe('getBlockFromRpc', () => {
 		const common = optimism.copy()
 		const nonExistingBlockNumber = 99999999999999999n
 
-		const err = await getBlockFromRpc(baseChain, { transport: mockTransport, blockTag: nonExistingBlockNumber }, common).catch(
-			(e) => e,
-		)
+		const err = await getBlockFromRpc(
+			baseChain,
+			{ transport: mockTransport, blockTag: nonExistingBlockNumber },
+			common,
+		).catch((e) => e)
 
 		expect(err).toBeInstanceOf(UnknownBlockError)
 		expect(err).toMatchSnapshot()
@@ -101,9 +113,11 @@ describe('getBlockFromRpc', () => {
 		const common = optimism.copy()
 		const nonExistingBlockHash = `0x${'0'.repeat(64)}` as const
 
-		const err = await getBlockFromRpc(baseChain, { transport: mockTransport, blockTag: nonExistingBlockHash }, common).catch(
-			(e) => e,
-		)
+		const err = await getBlockFromRpc(
+			baseChain,
+			{ transport: mockTransport, blockTag: nonExistingBlockHash },
+			common,
+		).catch((e) => e)
 		expect(err).toBeInstanceOf(UnknownBlockError)
 		expect(err).toMatchSnapshot()
 	})

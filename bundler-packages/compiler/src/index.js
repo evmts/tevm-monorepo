@@ -7,8 +7,6 @@
  * @typedef {import('./types.js').ModuleInfo} ModuleInfo
  * @typedef {import('./types.js').ResolvedArtifacts} ResolvedArtifacts
  */
-export { resolveArtifacts } from './resolveArtifacts.js'
-export { resolveArtifactsSync } from './resolveArtifactsSync.js'
 
 export {
 	compileFiles,
@@ -22,3 +20,5 @@ export {
 	extractContractsFromSolcOutput,
 	solcSourcesToAstNodes,
 } from './compiler/new/index.js'
+export { resolveArtifacts } from './resolveArtifacts.js'
+export { resolveArtifactsSync } from './resolveArtifactsSync.js'

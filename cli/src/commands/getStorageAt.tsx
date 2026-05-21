@@ -128,12 +128,12 @@ export default function GetStorageAt({ options }: Props) {
 		defaultValues,
 		optionDescriptions,
 
-			// Create params
-			createParams: (enhancedOptions: Record<string, any>) => {
-				const params: Record<string, any> = {
-					address: enhancedOptions['address'] || defaultValues['address'],
-					position: parseSlot(enhancedOptions['slot'] || defaultValues['slot']),
-				}
+		// Create params
+		createParams: (enhancedOptions: Record<string, any>) => {
+			const params: Record<string, any> = {
+				address: enhancedOptions['address'] || defaultValues['address'],
+				position: parseSlot(enhancedOptions['slot'] || defaultValues['slot']),
+			}
 
 			// Add block identifier - only one should be used
 			if (enhancedOptions['blockNumber']) {

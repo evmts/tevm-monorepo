@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createTevmNode } from './createTevmNode.js'
 import type { TevmNode } from './TevmNode.js'
 
@@ -14,12 +14,12 @@ describe('TevmNode interval mining integration', () => {
 	describe('initialization', () => {
 		it('should create client with interval mining config', async () => {
 			client = createTevmNode({
-				miningConfig: { type: 'interval', blockTime: 5 }
+				miningConfig: { type: 'interval', blockTime: 5 },
 			})
 
 			expect(client.miningConfig).toEqual({
 				type: 'interval',
-				blockTime: 5
+				blockTime: 5,
 			})
 
 			await client.ready()
@@ -28,7 +28,7 @@ describe('TevmNode interval mining integration', () => {
 
 		it('should not start interval mining immediately if blockTime is 0', async () => {
 			client = createTevmNode({
-				miningConfig: { type: 'interval', blockTime: 0 }
+				miningConfig: { type: 'interval', blockTime: 0 },
 			})
 
 			await client.ready()
@@ -46,7 +46,7 @@ describe('TevmNode interval mining integration', () => {
 	describe('setMiningConfig', () => {
 		beforeEach(async () => {
 			client = createTevmNode({
-				miningConfig: { type: 'manual' }
+				miningConfig: { type: 'manual' },
 			})
 			await client.ready()
 		})
@@ -71,7 +71,7 @@ describe('TevmNode interval mining integration', () => {
 
 			expect(client.miningConfig).toEqual({
 				type: 'interval',
-				blockTime: 10
+				blockTime: 10,
 			})
 		})
 
@@ -93,19 +93,19 @@ describe('TevmNode interval mining integration', () => {
 	describe('close method', () => {
 		it('should stop interval mining when closed', async () => {
 			client = createTevmNode({
-				miningConfig: { type: 'interval', blockTime: 1 }
+				miningConfig: { type: 'interval', blockTime: 1 },
 			})
 			await client.ready()
 
 			expect(client.status).toBe('READY')
-			
+
 			client.close()
 			expect(client.status).toBe('STOPPED')
 		})
 
 		it('should handle close on non-interval mining', async () => {
 			client = createTevmNode({
-				miningConfig: { type: 'auto' }
+				miningConfig: { type: 'auto' },
 			})
 			await client.ready()
 
@@ -115,7 +115,7 @@ describe('TevmNode interval mining integration', () => {
 
 		it('should be idempotent', async () => {
 			client = createTevmNode({
-				miningConfig: { type: 'interval', blockTime: 1 }
+				miningConfig: { type: 'interval', blockTime: 1 },
 			})
 			await client.ready()
 
@@ -130,7 +130,7 @@ describe('TevmNode interval mining integration', () => {
 			const setTimeoutSpy = vi.spyOn(globalThis, 'setTimeout')
 
 			client = createTevmNode({
-				miningConfig: { type: 'interval', blockTime: 0.001 }
+				miningConfig: { type: 'interval', blockTime: 0.001 },
 			})
 			const ready = client.ready()
 
@@ -155,7 +155,7 @@ describe('TevmNode interval mining integration', () => {
 	describe('deepCopy', () => {
 		it('should copy interval mining config', async () => {
 			client = createTevmNode({
-				miningConfig: { type: 'interval', blockTime: 3 }
+				miningConfig: { type: 'interval', blockTime: 3 },
 			})
 			await client.ready()
 
@@ -163,13 +163,13 @@ describe('TevmNode interval mining integration', () => {
 
 			expect(copied.miningConfig).toEqual({
 				type: 'interval',
-				blockTime: 3
+				blockTime: 3,
 			})
 		})
 
 		it('should allow copied client to update mining config independently', async () => {
 			client = createTevmNode({
-				miningConfig: { type: 'interval', blockTime: 1 }
+				miningConfig: { type: 'interval', blockTime: 1 },
 			})
 			await client.ready()
 
@@ -185,7 +185,7 @@ describe('TevmNode interval mining integration', () => {
 
 		it('should handle close on copied client', async () => {
 			client = createTevmNode({
-				miningConfig: { type: 'interval', blockTime: 1 }
+				miningConfig: { type: 'interval', blockTime: 1 },
 			})
 			await client.ready()
 
@@ -201,7 +201,7 @@ describe('TevmNode interval mining integration', () => {
 	describe('transaction handling with interval mining', () => {
 		it('should add transactions to mempool with interval mining', async () => {
 			client = createTevmNode({
-				miningConfig: { type: 'interval', blockTime: 10 } // Long interval so we can test mempool
+				miningConfig: { type: 'interval', blockTime: 10 }, // Long interval so we can test mempool
 			})
 			await client.ready()
 
@@ -219,7 +219,7 @@ describe('TevmNode interval mining integration', () => {
 	describe('status transitions', () => {
 		it('should transition from INITIALIZING to READY', async () => {
 			client = createTevmNode({
-				miningConfig: { type: 'interval', blockTime: 1 }
+				miningConfig: { type: 'interval', blockTime: 1 },
 			})
 
 			expect(client.status).toBe('INITIALIZING')
@@ -230,7 +230,7 @@ describe('TevmNode interval mining integration', () => {
 
 		it('should transition from READY to STOPPED when closed', async () => {
 			client = createTevmNode({
-				miningConfig: { type: 'interval', blockTime: 1 }
+				miningConfig: { type: 'interval', blockTime: 1 },
 			})
 			await client.ready()
 

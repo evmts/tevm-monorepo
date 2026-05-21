@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { parseEther } from 'viem'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createMemoryClient } from '../createMemoryClient.js'
 import type { MemoryClient } from '../MemoryClient.js'
 
@@ -24,7 +24,7 @@ describe('Interval Mining Behavior', () => {
 	beforeEach(async () => {
 		// Set up account with ETH
 		client = createMemoryClient({
-			miningConfig: { type: 'manual' }
+			miningConfig: { type: 'manual' },
 		})
 		await client.tevmSetAccount({
 			address: testAccount,
@@ -64,7 +64,7 @@ describe('Interval Mining Behavior', () => {
 			expect(currentBlockNumber).toBe(initialBlockNumber)
 
 			// Wait for at least one interval to pass
-			await new Promise(resolve => setTimeout(resolve, 150))
+			await new Promise((resolve) => setTimeout(resolve, 150))
 
 			// Block should have been mined automatically
 			currentBlockNumber = await client.getBlockNumber()
@@ -163,7 +163,7 @@ describe('Interval Mining Behavior', () => {
 			const initialBlockNumber = await client.getBlockNumber()
 
 			// Wait for multiple intervals without adding transactions
-			await new Promise(resolve => setTimeout(resolve, 250))
+			await new Promise((resolve) => setTimeout(resolve, 250))
 
 			// Block number should remain the same (no transactions, no mining)
 			const currentBlockNumber = await client.getBlockNumber()
@@ -196,7 +196,7 @@ describe('Interval Mining Behavior', () => {
 			})
 
 			// Wait a bit, then send another transaction
-			await new Promise(resolve => setTimeout(resolve, 50))
+			await new Promise((resolve) => setTimeout(resolve, 50))
 
 			const tx2 = await client.sendTransaction({
 				account: testAccount,
@@ -205,7 +205,7 @@ describe('Interval Mining Behavior', () => {
 			})
 
 			// Wait for mining to occur
-			await new Promise(resolve => setTimeout(resolve, 200))
+			await new Promise((resolve) => setTimeout(resolve, 200))
 
 			const finalBlockNumber = await client.getBlockNumber()
 			expect(finalBlockNumber).toBeGreaterThan(initialBlockNumber)
@@ -240,14 +240,14 @@ describe('Interval Mining Behavior', () => {
 
 			// Add a transaction
 			const initialBlockNumber = await client.getBlockNumber()
-			const txHash = await client.sendTransaction({
+			const _txHash = await client.sendTransaction({
 				account: testAccount,
 				to: recipientAccount,
 				value: parseEther('1'),
 			})
 
 			// Wait for mining
-			await new Promise(resolve => setTimeout(resolve, 150))
+			await new Promise((resolve) => setTimeout(resolve, 150))
 
 			let currentBlockNumber = await client.getBlockNumber()
 			expect(currentBlockNumber).toBeGreaterThan(initialBlockNumber)
@@ -267,7 +267,7 @@ describe('Interval Mining Behavior', () => {
 			})
 
 			// Wait - this transaction should NOT be automatically mined
-			await new Promise(resolve => setTimeout(resolve, 200))
+			await new Promise((resolve) => setTimeout(resolve, 200))
 
 			currentBlockNumber = await client.getBlockNumber()
 			expect(currentBlockNumber).toBe(beforeManualBlock)
@@ -301,7 +301,7 @@ describe('Interval Mining Behavior', () => {
 			const initialBlockNumber = await client.getBlockNumber()
 
 			// Send transaction - should mine immediately
-			const tx1 = await client.sendTransaction({
+			const _tx1 = await client.sendTransaction({
 				account: testAccount,
 				to: recipientAccount,
 				value: parseEther('1'),
@@ -330,7 +330,7 @@ describe('Interval Mining Behavior', () => {
 			expect(currentBlockNumber).toBe(beforeIntervalBlock)
 
 			// Wait for interval mining
-			await new Promise(resolve => setTimeout(resolve, 150))
+			await new Promise((resolve) => setTimeout(resolve, 150))
 
 			currentBlockNumber = await client.getBlockNumber()
 			expect(currentBlockNumber).toBeGreaterThan(beforeIntervalBlock)
@@ -363,9 +363,9 @@ describe('Interval Mining Behavior', () => {
 				value: parseEther('1'),
 			})
 
-			await new Promise(resolve => setTimeout(resolve, 150))
+			await new Promise((resolve) => setTimeout(resolve, 150))
 
-			let receipt = await client.getTransactionReceipt({ hash: txHash })
+			const receipt = await client.getTransactionReceipt({ hash: txHash })
 			expect(receipt).toBeDefined()
 
 			// Close the client
@@ -381,16 +381,20 @@ describe('Interval Mining Behavior', () => {
 	describe('error handling', () => {
 		it('should handle invalid interval values gracefully', async () => {
 			// Negative values should work (treated as 0)
-			await expect(client.request({
-				method: 'anvil_setIntervalMining',
-				params: [-1],
-			})).resolves.toBeDefined()
+			await expect(
+				client.request({
+					method: 'anvil_setIntervalMining',
+					params: [-1],
+				}),
+			).resolves.toBeDefined()
 
 			// Very large values should work
-			await expect(client.request({
-				method: 'anvil_setIntervalMining',
-				params: [1000],
-			})).resolves.toBeDefined()
+			await expect(
+				client.request({
+					method: 'anvil_setIntervalMining',
+					params: [1000],
+				}),
+			).resolves.toBeDefined()
 		})
 	})
 })

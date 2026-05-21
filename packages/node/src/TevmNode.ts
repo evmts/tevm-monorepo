@@ -69,10 +69,10 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 * @example
 	 * ```ts
 	 * const client = createTevmNode()
-	 * 
+	 *
 	 * // Switch to interval mining
 	 * client.setMiningConfig({ type: 'interval', blockTime: 5 })
-	 * 
+	 *
 	 * // Switch to manual mining
 	 * client.setMiningConfig({ type: 'manual' })
 	 * ```
@@ -303,9 +303,9 @@ export type TevmNode<TMode extends 'fork' | 'normal' = 'fork' | 'normal', TExten
 	 * const client = createTevmNode({
 	 *   miningConfig: { type: 'interval', blockTime: 5 }
 	 * })
-	 * 
+	 *
 	 * // Use the client...
-	 * 
+	 *
 	 * // Clean up when done
 	 * client.close()
 	 * ```

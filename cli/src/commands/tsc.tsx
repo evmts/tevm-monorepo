@@ -1,4 +1,4 @@
-import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process'
+import { type ChildProcessWithoutNullStreams, spawn } from 'node:child_process'
 import { Box, Text } from 'ink'
 import Spinner from 'ink-spinner'
 import { option } from 'pastel'

@@ -36,11 +36,11 @@
 		"./actions": {
 			"import": {
 				"types": "./types/actions/index.d.ts",
-				"default": "./dist/index.js"
+				"default": "./dist/actions/index.js"
 			},
 			"require": {
-				"types": "./types/actions/index.d.ts",
-				"default": "./dist/index.cjs"
+				"types": "./dist/actions/index.d.cts",
+				"default": "./dist/actions/index.cjs"
 			}
 		}
 	},
@@ -48,6 +48,7 @@
 	"module": "dist/index.js",
 	"types": "types/index.d.ts",
 	"files": [
+		"actions",
 		"dist",
 		"types",
 		"src",

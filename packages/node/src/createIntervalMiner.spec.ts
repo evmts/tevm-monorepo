@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
-import { createTevmNode } from './createTevmNode.js'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createIntervalMiner } from './createIntervalMiner.js'
+import { createTevmNode } from './createTevmNode.js'
 import type { TevmNode } from './TevmNode.js'
 
 describe('createIntervalMiner', () => {
@@ -13,7 +13,7 @@ describe('createIntervalMiner', () => {
 
 	beforeEach(async () => {
 		client = createTevmNode({
-			miningConfig: { type: 'manual' }
+			miningConfig: { type: 'manual' },
 		})
 		await client.ready()
 
@@ -27,7 +27,7 @@ describe('createIntervalMiner', () => {
 	afterEach(() => {
 		setMiningConfigWithoutStartingNodeMiner({ type: 'manual' })
 		client.close()
-		
+
 		// Restore timers
 		global.setTimeout = originalSetTimeout
 		global.clearTimeout = originalClearTimeout
@@ -112,7 +112,7 @@ describe('createIntervalMiner', () => {
 
 		it('should not restart if was not running', () => {
 			const miner = createIntervalMiner(client)
-			
+
 			setMiningConfigWithoutStartingNodeMiner({ type: 'interval', blockTime: 2 })
 			miner.updateConfig()
 
@@ -130,12 +130,12 @@ describe('createIntervalMiner', () => {
 			const originalGetTxPool = client.getTxPool
 			client.getTxPool = vi.fn().mockResolvedValue({ txsInPool: 1 }) as any
 			const miningCallback = vi.fn().mockResolvedValue(undefined)
-			
+
 			const miner = createIntervalMiner(client)
 			miner.setMiningCallback(miningCallback)
 			miner.start()
 
-			await new Promise(resolve => setTimeout(resolve, 25))
+			await new Promise((resolve) => setTimeout(resolve, 25))
 
 			miner.stop()
 			client.getTxPool = originalGetTxPool
@@ -174,7 +174,7 @@ describe('createIntervalMiner', () => {
 				miner.start()
 
 				expect(global.setTimeout).toHaveBeenCalledWith(expect.any(Function), expectedTimeout)
-				
+
 				miner.stop()
 			})
 		})

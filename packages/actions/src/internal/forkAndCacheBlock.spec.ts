@@ -16,13 +16,16 @@ describe('forkAndCacheBlock', () => {
 	it.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)(
 		'should fork a block and save the state root without executing block transactions',
 		async () => {
-		const client = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
-		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+			const client = createTevmNode({
+				common: optimism,
+				fork: { transport: transports.optimism },
+			}) as unknown as TevmNode
+			const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
-		const vm = await forkAndCacheBlock(client, block, false)
+			const vm = await forkAndCacheBlock(client, block, false)
 
-		expect(await vm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
-		expect(await vm.evm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
+			expect(await vm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
+			expect(await vm.evm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
 		},
 	)
 
@@ -37,13 +40,20 @@ describe('forkAndCacheBlock', () => {
 		expect(stateRoot).toEqual(block.header.stateRoot)
 	})
 
-	it.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)('should process block transactions', { timeout: 30_000 }, async () => {
-		const client = createTevmNode({ common: optimism, fork: { transport: transports.optimism } }) as unknown as TevmNode
-		const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
+	it.skipIf(!process.env.TEVM_RUN_LIVE_FORK_TESTS)(
+		'should process block transactions',
+		{ timeout: 30_000 },
+		async () => {
+			const client = createTevmNode({
+				common: optimism,
+				fork: { transport: transports.optimism },
+			}) as unknown as TevmNode
+			const block = await client.getVm().then((vm) => vm.blockchain.getCanonicalHeadBlock())
 
-		const vm = await forkAndCacheBlock(client, block, false)
+			const vm = await forkAndCacheBlock(client, block, false)
 
-		expect(await vm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
-		expect(await vm.evm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
-	})
+			expect(await vm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
+			expect(await vm.evm.stateManager.getStateRoot()).toEqual(block.header.stateRoot)
+		},
+	)
 })

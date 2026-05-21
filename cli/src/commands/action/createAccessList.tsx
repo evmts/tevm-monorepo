@@ -192,10 +192,10 @@ export default function CreateAccessList({ options }: Props) {
 				params['account'] = enhancedOptions['account']
 			}
 
-				// Block identifier - only one should be used
-				if (enhancedOptions['blockNumber']) {
-					params['blockNumber'] = parseBlockNumber(enhancedOptions['blockNumber'])
-				} else if (enhancedOptions['blockTag']) {
+			// Block identifier - only one should be used
+			if (enhancedOptions['blockNumber']) {
+				params['blockNumber'] = parseBlockNumber(enhancedOptions['blockNumber'])
+			} else if (enhancedOptions['blockTag']) {
 				params['blockTag'] = enhancedOptions['blockTag']
 			}
 

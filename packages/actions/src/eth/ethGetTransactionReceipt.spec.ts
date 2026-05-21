@@ -80,7 +80,7 @@ describe('ethGetTransactionReceiptHandler', () => {
 			transactionIndex: 0,
 			from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
 			to: '0x6969696969696969696969696969696969696969',
-				cumulativeGasUsed: expect.any(BigInt),
+			cumulativeGasUsed: expect.any(BigInt),
 			gasUsed: expect.any(BigInt),
 			contractAddress: null,
 			logs: expect.any(Array),

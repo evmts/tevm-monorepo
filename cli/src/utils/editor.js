@@ -160,27 +160,27 @@ export async function executeTsFile(projectDir) {
 			(data) => {
 				stderr += data.toString()
 			}
-        )
-        const handleBunExit = /** @type {(code: number | null) => void} */ (
-            (code) => {
-                if (code === 0) {
-                    if (stderr.trim()) {
-                        reject(new Error(`Execution wrote to stderr: ${stderr}`))
-                        return
-                    }
-                    try {
-                        // Try to parse the output as JSON
-                        const result = JSON.parse(stdout.trim())
-                        resolve(result)
-                    } catch (_error) {
-                        // If parsing fails, return the raw output
-                        resolve(stdout.trim())
-                    }
-                } else {
-                    reject(new Error(`Execution failed (code ${code}): ${stderr}`))
-                }
-            }
-			)
+		)
+		const handleBunExit = /** @type {(code: number | null) => void} */ (
+			(code) => {
+				if (code === 0) {
+					if (stderr.trim()) {
+						reject(new Error(`Execution wrote to stderr: ${stderr}`))
+						return
+					}
+					try {
+						// Try to parse the output as JSON
+						const result = JSON.parse(stdout.trim())
+						resolve(result)
+					} catch (_error) {
+						// If parsing fails, return the raw output
+						resolve(stdout.trim())
+					}
+				} else {
+					reject(new Error(`Execution failed (code ${code}): ${stderr}`))
+				}
+			}
+		)
 		const handleBunError = /** @type {(error: Error) => void} */ (
 			(error) => {
 				reject(new Error(`Failed to execute: ${error.message}`))

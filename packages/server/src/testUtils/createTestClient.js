@@ -8,14 +8,15 @@
  */
 
 /**
- * @param {Function | { listeners(event: 'request'): Function[] }} target
+ * @param {unknown} target
  * @returns {Function}
  */
 const getHandler = (target) => {
 	if (typeof target === 'function') {
 		return target
 	}
-	const [handler] = target.listeners('request')
+	const listenerTarget = /** @type {{ listeners(event: string): Function[] }} */ (target)
+	const [handler] = listenerTarget.listeners('request')
 	if (!handler) {
 		throw new Error('No request handler found')
 	}
@@ -84,8 +85,10 @@ const invokeHandler = async (handler, options) => {
 		},
 	}
 
-	const headers = Object.fromEntries(Object.entries(options.headers).map(([name, value]) => [name.toLowerCase(), value]))
-	const rawHeaders = Object.entries(options.headers).flatMap(([name, value]) => [name, value])
+	const headers = Object.fromEntries(
+		Object.entries(options.headers).map(([name, value]) => [name.toLowerCase(), value]),
+	)
+	const rawHeaders = Object.entries(options.headers).flat()
 	const req = {
 		method: options.method,
 		url: options.url,
@@ -148,7 +151,12 @@ class TestRequest {
 	 */
 	send(body) {
 		this.#body = body
-		if (body !== undefined && typeof body !== 'string' && !this.#headers['Content-Type'] && !this.#headers['content-type']) {
+		if (
+			body !== undefined &&
+			typeof body !== 'string' &&
+			!this.#headers['Content-Type'] &&
+			!this.#headers['content-type']
+		) {
 			this.#headers['Content-Type'] = 'application/json'
 		}
 		return this
@@ -189,6 +197,7 @@ class TestRequest {
 	 * @param {((reason: any) => TResult2 | PromiseLike<TResult2>) | null} [onrejected]
 	 * @returns {Promise<TResult1 | TResult2>}
 	 */
+	// biome-ignore lint/suspicious/noThenProperty: This test request helper intentionally supports await.
 	then(onfulfilled, onrejected) {
 		return this.#run().then(onfulfilled, onrejected)
 	}
@@ -227,7 +236,7 @@ class TestRequest {
 }
 
 /**
- * @param {Function | { listeners(event: 'request'): Function[] }} target
+ * @param {unknown} target
  */
 export const createTestClient = (target) => {
 	const handler = getHandler(target)

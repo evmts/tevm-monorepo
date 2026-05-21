@@ -19,14 +19,14 @@
  * @example
  * ```js
  * import { createIntervalMiner } from '@tevm/node'
- * 
+ *
  * const client = createTevmNode({
  *   miningConfig: { type: 'interval', blockTime: 5 }
  * })
- * 
+ *
  * const miner = createIntervalMiner(client)
  * miner.start() // Start mining every 5 seconds
- * 
+ *
  * // Later...
  * miner.stop() // Stop mining
  * ```
@@ -35,7 +35,7 @@ export const createIntervalMiner = (client) => {
 	/**
 	 * @type {NodeJS.Timeout | undefined}
 	 */
-	let timeoutId = undefined
+	let timeoutId
 
 	/**
 	 * @type {boolean}
@@ -68,11 +68,11 @@ export const createIntervalMiner = (client) => {
 
 		try {
 			client.logger.debug('Interval mining: Starting block mining cycle')
-			
+
 			// Read mempool state synchronously at the beginning to prevent race conditions
 			const txPool = await client.getTxPool()
 			const txsInPool = txPool.txsInPool
-			
+
 			client.logger.debug({ txsInPool }, 'Interval mining: Mempool state captured')
 
 			// Only mine if there are transactions in the pool and we have a mining callback
@@ -106,7 +106,7 @@ export const createIntervalMiner = (client) => {
 		}
 
 		const blockTime = client.miningConfig.blockTime * 1000 // Convert to milliseconds
-		
+
 		// Don't schedule if blockTime is 0 (manual mining only)
 		if (blockTime <= 0) {
 			client.logger.debug('Interval mining: Block time is 0, stopping automatic mining')
@@ -152,7 +152,7 @@ export const createIntervalMiner = (client) => {
 		}
 
 		isRunning = false
-		
+
 		if (timeoutId) {
 			clearTimeout(timeoutId)
 			timeoutId = undefined
@@ -168,7 +168,7 @@ export const createIntervalMiner = (client) => {
 	const updateConfig = () => {
 		const wasRunning = isRunning
 		stop()
-		
+
 		if (wasRunning && client.miningConfig.type === 'interval') {
 			start()
 		}

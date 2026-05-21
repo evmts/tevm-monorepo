@@ -1,8 +1,8 @@
-import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
 import { SimpleContract } from '@tevm/contract'
 import { encodeFunctionData, parseEther } from 'viem'
-import type { MemoryClient } from '../../MemoryClient.js'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { createMemoryClient } from '../../createMemoryClient.js'
+import type { MemoryClient } from '../../MemoryClient.js'
 
 let mc: MemoryClient
 const testAccount = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
@@ -10,9 +10,9 @@ const recipientAccount = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 
 beforeEach(async () => {
 	mc = createMemoryClient({
-		miningConfig: { type: 'manual' }
+		miningConfig: { type: 'manual' },
 	})
-	
+
 	// Set up an account with some ETH
 	await mc.tevmSetAccount({
 		address: testAccount,
@@ -38,7 +38,7 @@ describe('setIntervalMining (anvil_setIntervalMining)', () => {
 			method: 'anvil_getIntervalMining',
 			params: [],
 		})
-		
+
 		expect(intervalMining).toBe(5)
 	})
 
@@ -59,7 +59,7 @@ describe('setIntervalMining (anvil_setIntervalMining)', () => {
 			method: 'anvil_getIntervalMining',
 			params: [],
 		})
-		
+
 		expect(intervalMining).toBe(0)
 	})
 
@@ -74,7 +74,7 @@ describe('setIntervalMining (anvil_setIntervalMining)', () => {
 			method: 'anvil_getIntervalMining',
 			params: [],
 		})
-		
+
 		expect(intervalMining).toBe(0.5)
 	})
 
@@ -168,7 +168,7 @@ describe('setIntervalMining (anvil_setIntervalMining)', () => {
 			args: [420n],
 			addToBlockchain: true, // Deploy immediately
 		})
-		
+
 		expect(deployResult.createdAddress).toBeDefined()
 		const contractAddress = deployResult.createdAddress!
 

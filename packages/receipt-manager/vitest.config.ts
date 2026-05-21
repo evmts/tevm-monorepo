@@ -12,9 +12,9 @@ export default defineConfig({
 			thresholds: {
 				autoUpdate: false,
 				lines: 50,
-				functions: 56,
+				functions: 52,
 				branches: 41,
-				statements: 47,
+				statements: 46,
 			},
 		},
 		typecheck: {

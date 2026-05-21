@@ -1,12 +1,5 @@
 import { createAddress } from '@tevm/address'
-import {
-	createAccount,
-	createAddressFromString,
-	EthjsAccount,
-	EthjsAddress,
-	hexToBytes,
-	toBytes,
-} from '@tevm/utils'
+import { createAccount, createAddressFromString, EthjsAccount, EthjsAddress, hexToBytes, toBytes } from '@tevm/utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { BaseState } from '../BaseState.js'
 import { createBaseState } from '../createBaseState.js'

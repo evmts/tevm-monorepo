@@ -930,7 +930,9 @@ export const createTevmNode = (options = {}) => {
 			client.setNextBlockPrevRandao(undefined)
 		}
 		const mixHash =
-			overridePrevRandao !== undefined ? hexToBytes(`0x${overridePrevRandao.toString(16).padStart(64, '0')}`) : undefined
+			overridePrevRandao !== undefined
+				? hexToBytes(`0x${overridePrevRandao.toString(16).padStart(64, '0')}`)
+				: undefined
 
 		const blockBuilder = await vm.buildBlock({
 			parentBlock,
@@ -974,7 +976,10 @@ export const createTevmNode = (options = {}) => {
 		await originalVm.stateManager.setStateRoot(hexToBytes(vm.stateManager._baseState.getCurrentStateRoot()))
 
 		await emitMinedBlockEvents(client, block, receipts)
-		client.logger.debug({ blockNumber: block.header.number, txCount: orderedTxs.length }, 'Block mined via interval mining')
+		client.logger.debug(
+			{ blockNumber: block.header.number, txCount: orderedTxs.length },
+			'Block mined via interval mining',
+		)
 	}
 
 	/**
@@ -1004,12 +1009,12 @@ export const createTevmNode = (options = {}) => {
 			const oldConfig = baseClient.miningConfig
 			baseClient.miningConfig = config
 			logger.debug({ oldConfig, newConfig: config }, 'Mining configuration updated')
-			
+
 			// Handle interval mining state changes
 			if (oldConfig.type === 'interval' && intervalMiner) {
 				intervalMiner.stop()
 			}
-			
+
 			if (config.type === 'interval') {
 				if (!intervalMiner) {
 					intervalMiner = createIntervalMiner(baseClient)
@@ -1109,11 +1114,11 @@ export const createTevmNode = (options = {}) => {
 			return
 		}
 		baseClient.status = 'READY'
-		
+
 		// Start interval mining if configured
 		if (baseClient.miningConfig.type === 'interval') {
 			intervalMiner = createIntervalMiner(baseClient)
-			
+
 			// Set up the mining callback to handle block creation
 			intervalMiner.setMiningCallback(async () => {
 				try {
@@ -1122,7 +1127,7 @@ export const createTevmNode = (options = {}) => {
 					baseClient.logger.error(error, 'Failed to mine block in interval mining')
 				}
 			})
-			
+
 			intervalMiner.start()
 		}
 	})
