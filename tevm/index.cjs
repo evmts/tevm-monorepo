@@ -225,10 +225,6 @@ Object.defineProperty(exports, "http", {
   enumerable: true,
   get: function () { return jsonrpc.http; }
 });
-Object.defineProperty(exports, "createJsonRpcFetcher", {
-  enumerable: true,
-  get: function () { return jsonrpc.createJsonRpcFetcher; }
-});
 Object.defineProperty(exports, "loadBalance", {
   enumerable: true,
   get: function () { return jsonrpc.loadBalance; }
