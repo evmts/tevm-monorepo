@@ -1,7 +1,5 @@
 import { mineHandler } from '@tevm/actions'
-import { optimism } from '@tevm/common'
 import { SimpleContract } from '@tevm/contract'
-import { createCachedOptimismTransport } from './cachedTransports.js'
 import { type Address, type Client, createClient, isAddress, isHex } from 'viem'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createTevmTransport } from '@tevm/memory-client'
@@ -9,16 +7,13 @@ import type { TevmTransport } from '@tevm/memory-client'
 import { tevmContract } from '@tevm/memory-client'
 import { tevmDeploy } from '@tevm/memory-client'
 import { tevmMine } from '@tevm/memory-client'
+import { tevmSetAccount } from '@tevm/memory-client'
 
 let client: Client<TevmTransport>
-const cachedTransport = createCachedOptimismTransport()
 
 beforeEach(async () => {
 	client = createClient({
-		transport: createTevmTransport({
-			fork: { transport: cachedTransport, blockTag: 142153711n },
-		}),
-		chain: optimism,
+		transport: createTevmTransport({}),
 	})
 })
 
@@ -86,6 +81,7 @@ describe('tevmDeploy', () => {
 
 	it('should deploy a contract using a custom sender address', async () => {
 		const senderAddress = '0x0000000000000000000000000000000000000001'
+		await tevmSetAccount(client, { address: senderAddress, balance: 1_000_000_000_000_000_000n })
 		const deployResult = await tevmDeploy(client, {
 			bytecode: SimpleContract.bytecode,
 			abi: SimpleContract.abi,

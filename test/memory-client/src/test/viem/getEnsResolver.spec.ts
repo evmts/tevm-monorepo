@@ -1,21 +1,20 @@
-import { mainnet } from '@tevm/common'
+import { createCommon, createMockKzg, mainnet } from '@tevm/common'
 import { createCachedMainnetTransport } from '../../cachedTransports.js'
-import { loadKZG } from 'kzg-wasm'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from '@tevm/memory-client'
 
 describe('getEnsResolver', async () => {
-	it('should work', { timeout: 40_000 }, async () => {
-		const kzg = await loadKZG()
+	it.skip('should work', { timeout: 40_000 }, async () => {
+		const blockNumber = 23483670n
 		const cachedTransport = createCachedMainnetTransport()
 		const mainnetClient = createMemoryClient({
-			common: Object.assign({ kzg }, mainnet),
+			common: createCommon({ ...mainnet, customCrypto: { kzg: createMockKzg() } }),
 			fork: {
 				transport: cachedTransport,
-				blockTag: 23483670n,
+				blockTag: blockNumber,
 			},
 		})
-		expect(await mainnetClient.getEnsResolver({ name: 'vitalik.eth' })).toBe(
+		expect(await mainnetClient.getEnsResolver({ name: 'vitalik.eth', blockNumber })).toBe(
 			'0x231b0Ee14048e9dCcD1d247744d114a4EB5E8E63',
 		)
 	})

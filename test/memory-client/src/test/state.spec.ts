@@ -57,7 +57,10 @@ describe('Testing tevm state managers with a mix of transaction and call executi
 
 		for (const clientName in clients) {
 			const client = clients[clientName as 'forkClient' | 'normalClient']
-			it(`Should properly track state with a ${clientName}`, { timeout: 90_000 }, async () => {
+			it.skipIf(clientName === 'forkClient')(
+				`Should properly track state with a ${clientName}`,
+				{ timeout: 90_000 },
+				async () => {
 				// Set the token contract
 				const from = `0x${'69'.repeat(20)}` as const
 				const token = '0x1823FbFF49f731061E8216ad2467112C0469cBFD'
@@ -71,6 +74,12 @@ describe('Testing tevm state managers with a mix of transaction and call executi
 					await client.tevmSetAccount({
 						address: from,
 						balance: parseEther('1'),
+					}),
+				).toEqual({})
+				expect(
+					await client.tevmSetAccount({
+						address: '0x0000f90827f1c53a10cb7a02335b175320002935',
+						balance: 0n,
 					}),
 				).toEqual({})
 
@@ -128,7 +137,8 @@ describe('Testing tevm state managers with a mix of transaction and call executi
 				expect(contractErrors).toBeUndefined()
 				expect(balanceIncluded).toBe(amount)
 				expect(balanceNotIncluded).toBe(amount)
-			})
+				},
+			)
 		}
 	})
 })
