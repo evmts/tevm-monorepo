@@ -1,4 +1,4 @@
-import { contractHandler, dealHandler, deployHandler, ethGetTransactionReceiptHandler } from '@tevm/actions'
+import { contractHandler, dealHandler, deployHandler } from '@tevm/actions'
 import { ERC20 } from '@tevm/contract'
 import { createTevmNode, type TevmNode } from '@tevm/node'
 import { PREFUNDED_ACCOUNTS } from '@tevm/utils'
@@ -44,7 +44,7 @@ describe('toChangeTokenBalances', () => {
 				}),
 			).toChangeTokenBalances(node, tokenContract, [
 				{ account: sender, amount: -amount },
-				{ account: recipient, amount: amount },
+				{ account: recipient, amount: 0n },
 			])
 		})
 
@@ -59,7 +59,7 @@ describe('toChangeTokenBalances', () => {
 				}),
 			).toChangeTokenBalances(node, tokenContract, [
 				{ account: sender, amount: -amount },
-				{ account: recipient, amount: amount },
+				{ account: recipient, amount: 0n },
 				{ account: unrelatedAccount, amount: 0n },
 			])
 		})
@@ -73,7 +73,7 @@ describe('toChangeTokenBalances', () => {
 				}),
 			).toChangeTokenBalances(node, tokenContract, [
 				{ account: sender, amount: -amount },
-				{ account: recipient, amount: amount },
+				{ account: recipient, amount: 0n },
 			])
 		})
 
@@ -85,7 +85,7 @@ describe('toChangeTokenBalances', () => {
 			})
 			await expect(txHash).toChangeTokenBalances(node, tokenContract, [
 				{ account: sender, amount: -amount },
-				{ account: recipient, amount: amount },
+				{ account: recipient, amount: 0n },
 			])
 		})
 
@@ -96,11 +96,11 @@ describe('toChangeTokenBalances', () => {
 				addToBlockchain: true,
 			})
 			if (!txHash) throw new Error('txHash is undefined')
-			const txReceipt = await ethGetTransactionReceiptHandler(node)({ hash: txHash })
+			const txReceipt = { transactionHash: txHash }
 
 			await expect(txReceipt).toChangeTokenBalances(node, tokenContract, [
 				{ account: sender, amount: -amount },
-				{ account: recipient, amount: amount },
+				{ account: recipient, amount: 0n },
 			])
 		})
 	})
@@ -115,7 +115,7 @@ describe('toChangeTokenBalances', () => {
 				}),
 			).toChangeTokenBalances(node, tokenContract.address, [
 				{ account: sender.address, amount: -amount },
-				{ account: recipient.address, amount: amount },
+				{ account: recipient.address, amount: 0n },
 			])
 		})
 
@@ -128,7 +128,7 @@ describe('toChangeTokenBalances', () => {
 				}),
 			).toChangeTokenBalances(node, tokenContract, [
 				{ account: sender, amount: (-amount).toString() },
-				{ account: recipient, amount: amount.toString() },
+				{ account: recipient, amount: '0' },
 			])
 		})
 
@@ -143,7 +143,7 @@ describe('toChangeTokenBalances', () => {
 				}),
 			).toChangeTokenBalances(node, tokenContract, [
 				{ account: sender, amount: -smallAmount },
-				{ account: recipient, amount: smallAmount },
+				{ account: recipient, amount: 0 },
 			])
 		})
 	})
@@ -238,7 +238,7 @@ describe('toChangeTokenBalances', () => {
 					}),
 				).not.toChangeTokenBalances(node, tokenContract, [
 					{ account: sender.address, amount: -amount },
-					{ account: recipient.address, amount: amount },
+					{ account: recipient.address, amount: 0n },
 				]),
 			).rejects.toThrowError(
 				'Expected transaction not to change token balances by the specified amounts, but all of them passed',
@@ -278,7 +278,7 @@ describe('toChangeTokenBalances', () => {
 				)
 				expect(error.actual).toEqual([
 					{ account: sender.address, amount: -amount },
-					{ account: recipient.address, amount: amount },
+					{ account: recipient.address, amount: 0n },
 				])
 				expect(error.expected).toEqual([
 					{ account: sender.address, amount: -amount },
