@@ -14,7 +14,7 @@
 	"scripts": {
 		"all": "nx run-many --targets=generate:docs,build:types,typecheck,test:coverage,build:dist,dev:run,build:app,build:rust,lint:check,lint:deps,lint:package",
 		"all:clean": "bun clean && bun allz",
-		"allz": "pnpm i && pnpm concurrently 'bun lint' 'bun sort-package-json' && bun all && pnpm test:conformance:fast && pnpm test:hive:smoke",
+		"allz": "pnpm i && pnpm concurrently 'bun lint' 'bun sort-package-json' && bun all && pnpm test:conformance:all && pnpm test:hive:smoke",
 		"build": "nx run-many --targets=build:dist,build:app,build:types",
 		"build:app": "nx run-many --target=build:app",
 		"build:dist": "nx run-many --target=build:dist",
@@ -55,6 +55,7 @@
 		"test:conformance:execspec:isolate": "node test/execution-spec-tests/run-execution-spec-tests.mjs --isolate=est-shanghai-eip4895-header-validation --trace-out=artifacts/execution-spec-tests/isolate-trace.json --out=artifacts/execution-spec-tests/isolate.json",
 		"test:conformance:targets": "node test/conformance-utils/generate-target-groups.mjs --out=artifacts/conformance-target-groups/frontier-osaka.json",
 		"test:conformance:fast": "pnpm test:conformance:gst && pnpm test:conformance:execspec",
+		"test:conformance:all": "pnpm test:conformance:gst:all && pnpm test:conformance:execspec:all",
 		"test:hive": "HIVE_SUITE=rpc-compat bash test/hive/run-hive.sh",
 		"test:hive:smoke": "HIVE_SUITE=smoke bash test/hive/run-hive.sh",
 		"test:parity:fast": "bash scripts/parity/run-suite.sh fast",

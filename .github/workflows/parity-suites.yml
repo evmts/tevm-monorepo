@@ -27,21 +27,25 @@ jobs:
           path: artifacts/parity/rpc
           if-no-files-found: warn
 
-  parity-conformance-fast:
-    name: Parity Conformance Fast
+  parity-conformance-all:
+    name: Parity Conformance (all)
     runs-on: ubuntu-latest
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
       - name: Setup
         uses: ./.github/actions/setup
-      - name: Run conformance fast subset
-        run: PARITY_ARTIFACT_DIR=artifacts/parity pnpm test:conformance:fast
+      - name: Run full conformance suite (general-state-tests + execution-spec-tests, all hardforks/groups)
+        run: PARITY_ARTIFACT_DIR=artifacts/parity pnpm test:conformance:all
       - name: Upload parity state-test artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: parity-state-tests-fast-artifacts
-          path: artifacts/parity/state-tests
+          name: parity-state-tests-all-artifacts
+          path: |
+            artifacts/parity/state-tests
+            artifacts/general-state-tests
+            artifacts/execution-spec-tests
           if-no-files-found: warn
 
   parity-hive-smoke:
@@ -57,25 +61,13 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: parity-hive-fast-artifacts
+          name: parity-hive-smoke-artifacts
           path: |
             artifacts/parity/hive
             test/hive/artifacts
           if-no-files-found: warn
 
-  parity-fast-aggregate:
-    name: Parity Fast Aggregate
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup
-        uses: ./.github/actions/setup
-      - name: Run fast parity subsets
-        run: PARITY_ARTIFACT_DIR=artifacts/parity pnpm test:parity:fast
-      - name: Upload parity fast artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: parity-fast-artifacts
-          path: artifacts/parity
-          if-no-files-found: warn
+  # parity-fast-aggregate removed: superseded by parity-conformance-all which
+  # runs the full general-state-tests + execution-spec-tests suites (no subset).
+  # If hive is installed in CI, restore a parity-full-aggregate job that runs
+  # `pnpm test:parity:full` (state-tests:all + execspec:all + hive rpc-compat).
