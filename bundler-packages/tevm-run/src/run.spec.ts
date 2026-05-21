@@ -25,7 +25,7 @@ describe(run.name, () => {
 		const sourceCode = fs.readFileSync(new URL('./run.js', import.meta.url), 'utf-8')
 
 		// Verify that both the success path (return) and error path (throw) exist
-		expect(sourceCode).toContain('return $`')
+		expect(sourceCode).toContain('return await $`')
 		expect(sourceCode).toContain('throw new Error')
 
 		// Check for specific error handling patterns
