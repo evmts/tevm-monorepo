@@ -13,9 +13,8 @@ describe('precompiles option', () => {
 		const precompile: CustomPrecompile = {
 			// TODO modify the api to take a hex address instead of ethjs address
 			address: new EthjsAddress(hexToBytes(address)),
-			// Note ethereumjs fails if you don't include the args here because it checks code.length for some reason
+			// Include args because the EVM runtime validates code.length for this precompile.
 			// code.length returns the number of arguments in the case of a function
-			// see https://github.com/ethereumjs/ethereumjs-monorepo/pull/3158/files
 			function: (_) => {
 				return {
 					executionGasUsed: expectedGas,

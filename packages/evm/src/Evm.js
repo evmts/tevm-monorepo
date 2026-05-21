@@ -7,7 +7,7 @@ import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
 const precompileAddress = (precompile) => precompile.address.toString().toLowerCase()
 
 /**
- * The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
+ * The Tevm EVM is in charge of executing bytecode. It is a light wrapper around ZEVM EVM primitives.
  * The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
  * provide custom typing to the blockchain or common objects.
  * @example

@@ -3,8 +3,8 @@ import { createAddressFromString, hexToBytes } from '@tevm/utils'
 import { Evm } from './Evm.js'
 
 /**
- * Creates the Tevm Evm to execute ethereum bytecode internally.
- * Wraps [ethereumjs EVM](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
+ * Creates the Tevm EVM to execute Ethereum bytecode internally.
+ * Wraps ZEVM EVM primitives with Tevm defaults.
  * @example
  * ```typescript
  * import { createEvm } from '@tevm/evm'

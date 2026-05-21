@@ -8,7 +8,7 @@ import { createEvm } from './createEvm.js'
 import { Evm } from './Evm.js'
 
 describe(createEvm.name, () => {
-	it('wraps ethereumjs EVM', async () => {
+	it('wraps the ZEVM EVM facade', async () => {
 		const evm = await createEvm({
 			common: mainnet,
 			blockchain: await createChain({

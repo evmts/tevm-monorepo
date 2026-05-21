@@ -3,7 +3,7 @@ import { hexToNumber } from '@tevm/utils'
 import { mineHandler } from './mineHandler.js'
 
 /**
- * Creates an Mine JSON-RPC Procedure for handling tevm_mine requests with Ethereumjs VM
+ * Creates a Mine JSON-RPC Procedure for handling tevm_mine requests with the Tevm VM.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./MineJsonRpcProcedure.js').MineJsonRpcProcedure}
  */

@@ -7,7 +7,7 @@ import { maybeThrowOnFail } from '../internal/maybeThrowOnFail.js'
 import { validateContractParams } from './validateContractParams.js'
 
 /**
- * Creates a tree-shakable instance of `contractHandler` for handling contract interactions with the Ethereumjs EVM.
+ * Creates a tree-shakable instance of `contractHandler` for handling contract interactions with the Tevm EVM.
  * This function uses `callHandler` under the hood to execute contract calls.
  *
  * Note: This is the internal logic used by higher-level APIs such as `tevmContract`.

@@ -57,9 +57,8 @@ export const debugPreimageJsonRpcProcedure = (client) => {
 			const vm = await client.getVm()
 			const hashBytes = hexToBytes(hash)
 
-			// Try to get the preimage from the state manager
-			// The ethereumjs state manager doesn't have built-in preimage tracking,
-			// so we need to check if it's available in the trie
+			// Try to get the preimage from the state manager.
+			// Preimage tracking is optional, so custom implementations may expose it.
 			let preimage = null
 
 			// Check if the state manager has a preimage method

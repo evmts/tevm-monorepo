@@ -25,5 +25,5 @@ The remaining uncovered branches are mostly in edge case error handling in BaseE
 
 To further improve coverage:
 
-1. Add tests for the remaining error classes in the ethereumjs directory if they become important to the codebase
+1. Add tests for the remaining legacy EVM error classes if they become important to the codebase
 2. Consider adding tests for error situations that might be hard to trigger through normal code paths

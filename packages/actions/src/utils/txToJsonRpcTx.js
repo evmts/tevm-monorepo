@@ -23,7 +23,7 @@ export const txToJsonRpcTx = (tx, block, txIndex) => {
 		hash: bytesToHex(tx.hash()),
 		input: /** @type {import('@tevm/utils').Hex} */ (txJSON.data),
 		nonce: /** @type {import('@tevm/utils').Hex}*/ (txJSON.nonce),
-		// these toString existed in ethereumjs but I don't think are necessary
+		// Preserve compatibility with transaction JSON shapes that expose toString().
 		...(txJSON.to !== undefined ? { to: /** @type {import('@tevm/utils').Address} */ (txJSON.to.toString()) } : {}),
 		...(txIndex !== undefined ? { transactionIndex: numberToHex(txIndex) } : {}),
 		...(txJSON.value !== undefined

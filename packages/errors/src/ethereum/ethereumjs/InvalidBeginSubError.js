@@ -47,7 +47,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InvalidBeginSubError extends ExecutionError {
-	// Note: INVALID_BEGINSUB was removed from ethereumjs
+	// Note: INVALID_BEGINSUB was removed from newer EVM runtimes.
 	/** @type {string} */ // static EVMErrorMessage = EVMError.errorMessages.INVALID_BEGINSUB
 	/**
 	 * Constructs an InvalidBeginSubError.

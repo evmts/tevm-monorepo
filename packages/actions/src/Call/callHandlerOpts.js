@@ -9,7 +9,7 @@ import { hexToBytes } from '@tevm/utils'
 
 /**
  * @internal
- * Parses user provided params into ethereumjs options to pass into the EVM
+ * Parses user-provided params into EVM call options.
  * @param {import('@tevm/node').TevmNode} client
  * @param {import('./CallParams.js').CallParams} params
  * @returns {Promise<{data: Parameters<import('@evmts/zevm/evm').EVM['runCall']>[0], errors?: never} | {data?: never, errors: Array<CallHandlerOptsError>}>}

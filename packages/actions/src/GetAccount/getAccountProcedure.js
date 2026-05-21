@@ -2,7 +2,7 @@ import { numberToHex } from '@tevm/utils'
 import { getAccountHandler } from './getAccountHandler.js'
 
 /**
- * Creates an GetAccount JSON-RPC Procedure for handling account requests with Ethereumjs VM
+ * Creates a GetAccount JSON-RPC Procedure for handling account requests with the Tevm VM.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./GetAccountJsonRpcProcedure.js').GetAccountJsonRpcProcedure}
  */

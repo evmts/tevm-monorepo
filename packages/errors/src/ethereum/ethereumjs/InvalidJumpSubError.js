@@ -47,7 +47,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InvalidJumpSubError extends ExecutionError {
-	// Note: INVALID_JUMPSUB was removed from ethereumjs
+	// Note: INVALID_JUMPSUB was removed from newer EVM runtimes.
 	/** @type {string} */ // static EVMErrorMessage = EVMError.errorMessages.INVALID_JUMPSUB
 	/**
 	 * Constructs an InvalidJumpSubError.

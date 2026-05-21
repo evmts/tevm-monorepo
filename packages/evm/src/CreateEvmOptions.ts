@@ -40,7 +40,7 @@ export type CreateEvmOptions = {
 	 */
 	loggingLevel?: LogOptions['level']
 	/**
-	 * Ethereumjs common object
+	 * Tevm common object backed by ZEVM common primitives
 	 */
 	common: Common
 	/**

@@ -1,8 +1,7 @@
-import type { EVMOpts as EthereumjsEVMOpts } from '@evmts/zevm/evm'
+import type { EVMOpts as ZevmEVMOpts } from '@evmts/zevm/evm'
 
 /**
- * The options available to pass to the EVM. Inferred from ethereumjs/evm
- * @see https://github.com/ethereumjs/ethereumjs-monorepo/pull/3334
+ * The options available to pass to the EVM. Inferred from ZEVM.
  * @example
  * ```typescript
  * import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
@@ -18,4 +17,4 @@ import type { EVMOpts as EthereumjsEVMOpts } from '@evmts/zevm/evm'
  * })
  * ```
  */
-export type EVMOpts = EthereumjsEVMOpts
+export type EVMOpts = ZevmEVMOpts

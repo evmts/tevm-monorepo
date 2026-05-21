@@ -1,7 +1,7 @@
 import { loadStateHandler } from './loadStateHandler.js'
 
 /**
- * Creates a LoadState JSON-RPC Procedure for handling LoadState requests with Ethereumjs EVM
+ * Creates a LoadState JSON-RPC Procedure for handling LoadState requests with the Tevm EVM.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./LoadStateJsonRpcProcedure.js').LoadStateJsonRpcProcedure}
  */

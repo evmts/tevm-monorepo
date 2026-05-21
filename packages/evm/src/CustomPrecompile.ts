@@ -1,8 +1,7 @@
 import type { EVMOpts } from './EvmOpts.js'
 /**
- * TODO This should be publically exported from ethereumjs but isn't
- * Typing this by hand is tedious so we are using some typescript inference to get it
- * do a pr to export this from ethereumjs and then replace this with an import
+ * TODO This should be publicly exported by the backing EVM package.
+ * Typing this by hand is tedious so we are using TypeScript inference to get it.
  * TODO this should be modified to take a hex address rather than an ethjs address to be consistent with rest of Tevm
  */
 /**

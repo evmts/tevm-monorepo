@@ -1,7 +1,7 @@
 import { dumpStateHandler } from './dumpStateHandler.js'
 
 /**
- * Creates a DumpState JSON-RPC Procedure for handling dumpState requests with Ethereumjs EVM
+ * Creates a DumpState JSON-RPC Procedure for handling dumpState requests with the Tevm EVM.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./DumpStateJsonRpcProcedure.js').DumpStateJsonRpcProcedure}
  */

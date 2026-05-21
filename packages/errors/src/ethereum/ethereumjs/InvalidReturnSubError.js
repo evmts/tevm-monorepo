@@ -47,7 +47,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class InvalidReturnSubError extends ExecutionError {
-	// Note: INVALID_RETURNSUB was removed from ethereumjs
+	// Note: INVALID_RETURNSUB was removed from newer EVM runtimes.
 	/** @type {string} */ // static EVMErrorMessage = EVMError.errorMessages.INVALID_RETURNSUB
 	/**
 	 * Constructs an InvalidReturnSubError.

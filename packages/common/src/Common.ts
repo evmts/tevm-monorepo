@@ -4,9 +4,9 @@ import { type Prettify, type Chain as ViemChain } from 'viem/chains'
 /**
  * Common is the main representation of chain specific configuration for tevm clients.
  *
- * Tevm specific chain configuration wrapping viem chain and ethereumjs commmon
+ * Tevm specific chain configuration wrapping a viem chain and ZEVM common.
  * Common contains the common configuration set between all chains such as fee information, hardfork information, eip information, predeployed contracts, default block explorers and more.
- * extends ethereumjs Common class with the Viem Chain type
+ * Extends the Viem Chain type with the ZEVM-backed Common instance used by the VM.
  * @example
  * ```typescript
  * import { optimism, Common } from 'tevm/common'

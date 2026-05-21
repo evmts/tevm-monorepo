@@ -2,7 +2,7 @@ import { hexToBigInt } from '@tevm/utils'
 import { setAccountHandler } from './setAccountHandler.js'
 
 /**
- * Creates an SetAccount JSON-RPC Procedure for handling tevm_setAccount requests with Ethereumjs VM
+ * Creates a SetAccount JSON-RPC Procedure for handling tevm_setAccount requests with the Tevm VM.
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./SetAccountJsonRpcProcedure.js').SetAccountJsonRpcProcedure}
  */

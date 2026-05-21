@@ -28,7 +28,6 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * 2. **Optimize Stack Usage**: Refactor your code to reduce stack usage, such as minimizing the depth of recursive calls.
  * 3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the transaction and inspect stack changes.
  * 4. **Use Other Tools**: Use other tools with tracing such as [Foundry](https://book.getfoundry.sh/forge/traces).
- * - **Ethereumjs Source**: Refer to the [source file](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/evm/src/stack.ts) where this error can occur.
  *
  * @example
  * ```typescript
@@ -69,7 +68,6 @@ export class StackOverflowError extends ExecutionError {
 	 * 2. **Optimize Stack Usage**: Refactor your code to reduce stack usage, such as minimizing the depth of recursive calls.
 	 * 3. **Use TEVM Tracing**: Utilize TEVM tracing to step through the transaction and inspect stack changes.
 	 * 4. **Use Other Tools**: Use other tools with tracing such as [Foundry](https://book.getfoundry.sh/forge/traces).
-	 * - **Ethereumjs Source**: Refer to the [source file](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/evm/src/stack.ts) where this error can occur.
 	 *
 	 * @param {string} [message='Stack overflow error occurred.'] - Human-readable error message.
 	 * @param {StackOverflowErrorParameters} [args={}] - Additional parameters for the BaseError.

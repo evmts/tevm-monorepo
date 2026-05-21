@@ -14,7 +14,7 @@ const encodeKey = (bytes) => {
 
 /**
  * @internal
- * A simple ethereumjs DB instance that uses an in memory Map as it's backend
+ * A simple EVM-compatible DB instance that uses an in-memory Map as its backend
  * Pass in an initial DB optionally to prepoulate the DB.
  * @type {import('./CreateMemoryDbFn.js').CreateMemoryDbFn}
  * @throws {never}

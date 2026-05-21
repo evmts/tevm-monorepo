@@ -1,4 +1,4 @@
-// Note: EVMError import removed as AUTHCALL_UNSET was removed from ethereumjs
+// Note: EVMError import removed as AUTHCALL_UNSET was removed from newer EVM runtimes.
 // import { EVMError } from '@evmts/zevm/evm-error'
 import { ExecutionError } from '../ExecutionErrorError.js'
 
@@ -48,7 +48,7 @@ import { ExecutionError } from '../ExecutionErrorError.js'
  * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class AuthCallUnsetError extends ExecutionError {
-	// Note: AUTHCALL_UNSET was removed from ethereumjs
+	// Note: AUTHCALL_UNSET was removed from newer EVM runtimes.
 	/** @type {string} */ // static EVMErrorMessage = EVMError.errorMessages.AUTHCALL_UNSET
 	/**
 	 * Constructs an AuthCallUnsetError.

@@ -1,6 +1,5 @@
 // TODO improve the trusted setup type
 // @see https://github.com/paulmillr/trusted-setups/tree/main
-// @see wait for https://github.com/ethereumjs/ethereumjs-monorepo/issues/3662
 /**
  * The interface of the custom crypto for KZG implemented by `createMockKzg`.
  * The real KZG commitment implementation can add significant bundle size,
@@ -29,7 +28,7 @@ export type MockKzg = {
 	verifyBlobKzgProofBatch: (blobs: string[], commitments: string[], proofs: string[]) => boolean
 	verifyKzgProof: (commitment: string, z: string, y: string, proof: string) => boolean
 	verifyBlobKzgProof: (blob: string, commitment: string, proof: string) => boolean
-	// New methods required by ethereumjs v10
+	// Newer KZG method aliases required by the EVM runtime.
 	computeBlobProof: (blob: string, commitment: string) => string
 	verifyProof: (commitment: string, z: string, y: string, proof: string) => boolean
 	verifyBlobProofBatch: (blobs: string[], commitments: string[], proofs: string[]) => boolean

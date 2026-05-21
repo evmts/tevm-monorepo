@@ -5,7 +5,7 @@ import { getCanonicalHeadBlock } from './getCanonicalHeadBlock.js'
 import { putBlock } from './putBlock.js'
 
 /**
- * An ethereumjs interface method that accepts a block id number or hash and returns the block
+ * A blockchain interface method that accepts a block id number or hash and returns the block
  * @param {import('../BaseChain.js').BaseChain} baseChain
  * @returns {import('../Chain.js').Chain['getBlock']}
  */

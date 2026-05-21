@@ -6,7 +6,7 @@ import { isBlockedMethod, rpcMethodStatusByMethod } from './rpcMethodMatrix.js'
  * Request handler for JSON-RPC requests to Tevm.
  *
  * This implementation of the Tevm requestProcedure spec
- * implements it via the ethereumjs VM.
+ * implements it via the Tevm VM.
  *
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./tevm-request-handler/TevmJsonRpcRequestHandler.js').TevmJsonRpcRequestHandler}

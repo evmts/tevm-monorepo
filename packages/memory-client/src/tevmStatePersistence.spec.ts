@@ -77,7 +77,7 @@ describe('Tevm State Persistence', () => {
 
 		// Verify dumped state has essential properties
 		expect(dumpedState).toHaveProperty('state')
-		// The state should have data structure from ethereumjs, which includes accounts
+		// The state should have the EVM state data structure, including accounts.
 		// but we don't want to be too strict about the exact structure
 
 		// 4. Load state into the targetClient
