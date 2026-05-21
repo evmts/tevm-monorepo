@@ -55,7 +55,7 @@ jobs:
       - name: Tests Rust
         id: tests-rust
         if: always() && steps.setup.conclusion == 'success' && steps.build-dist.conclusion == 'success'
-        run: pnpm -r test:rust
+        run: pnpm -r --if-present test:rust
 
       - name: Typecheck
         id: typecheck
