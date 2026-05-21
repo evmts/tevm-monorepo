@@ -13,6 +13,10 @@ jobs:
     name: Version 🔖
     if: github.repository == 'evmts/tevm-monorepo'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
         name: Checkout Repo
@@ -29,15 +33,16 @@ jobs:
         with:
           files: ".changeset/pre.json"
 
-      - name: Configure npm registry token
+      - name: Prepare npm trusted publishing
         run: |
-          if [ -z "${NODE_AUTH_TOKEN}" ]; then
-            echo "::error::NPM_TOKEN is not configured"
-            exit 1
+          if [ -n "${NPM_CONFIG_USERCONFIG:-}" ]; then
+            rm -f "${NPM_CONFIG_USERCONFIG}"
           fi
-          printf '\n//registry.npmjs.org/:_authToken=%s\n' "${NODE_AUTH_TOKEN}" >> ~/.npmrc
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          {
+            echo "NPM_CONFIG_PROVENANCE=true"
+            echo "NPM_CONFIG_USERCONFIG="
+            echo "NODE_AUTH_TOKEN="
+          } >> "${GITHUB_ENV}"
 
       - name: Handle Release Pull Request or Publish to npm
         id: changesets
@@ -50,5 +55,4 @@ jobs:
           version: bun release:version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"
