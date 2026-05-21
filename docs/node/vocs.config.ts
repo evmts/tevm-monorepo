@@ -47,9 +47,10 @@ export default defineConfig({
 			items: [
 				{ text: 'Viem', link: 'https://viem.sh/' },
 				{
-					text: 'Ethereumjs',
-					link: 'https://github.com/ethereumjs/ethereumjs-monorepo',
+					text: 'ZEVM Docs',
+					link: 'https://zevm.sh/docs',
 				},
+				{ text: 'ZEVM GitHub', link: 'https://github.com/evmts/zevm' },
 				{ text: 'Krome', link: 'https://github.com/evmts/krome' },
 			],
 		},
@@ -86,6 +87,7 @@ export default defineConfig({
 			collapsed: true,
 			items: [
 				{ text: 'Creating a Node', link: '/core/create-tevm-node' },
+				{ text: 'Runtime Model and ZEVM', link: '/core/runtime-model' },
 				{ text: 'Using with Viem', link: '/examples/viem' },
 				{ text: 'Using with Ethers', link: '/examples/ethers' },
 				{ text: 'Forking & Reforking', link: '/core/forking' },

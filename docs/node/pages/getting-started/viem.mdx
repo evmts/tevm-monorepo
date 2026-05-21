@@ -415,7 +415,7 @@ For production applications, especially in browser environments, you may want to
 
 ```ts showLineNumbers {1-3,6-11}
 import { createClient, http } from "viem";
-import { createTevmTransport } from "tevm/transport"; // [!code focus]
+import { createTevmTransport } from "tevm"; // [!code focus]
 import { tevmCall, tevmDumpState } from "tevm/actions"; // [!code focus]
 
 // Create a standard viem client with Tevm transport

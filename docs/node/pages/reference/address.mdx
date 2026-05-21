@@ -1,6 +1,6 @@
 # @tevm/address
 
-The `@tevm/address` package provides utilities for handling Ethereum addresses. It wraps the functionality from [`@ethereumjs/utils` address](https://github.com/ethereumjs/ethereumjs-monorepo/blob/master/packages/util/src/address.ts) with a Tevm-style API.
+The `@tevm/address` package provides utilities for handling Ethereum addresses. It wraps ZEVM-compatible address primitives with a Tevm-style API and returns EIP-55 checksummed address strings.
 
 ## Installation
 
@@ -22,7 +22,7 @@ This package provides a set of utilities for working with Ethereum addresses, in
 
 #### `Address`
 
-A utility class for Ethereum addresses that extends `EthjsAddress`. It provides a more user-friendly API and ensures checksummed address output.
+A utility class for Ethereum addresses that extends the ZEVM-compatible `EthjsAddress` export from `@tevm/utils`. It provides a more user-friendly API and ensures checksummed address output.
 
 ```typescript
 import { createAddress } from '@tevm/address'

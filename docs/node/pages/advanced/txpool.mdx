@@ -5,7 +5,7 @@ description: A powerful transaction pool (mempool) for managing pending Ethereum
 
 # Transaction Pool
 
-The Transaction Pool (TxPool) is a crucial component that manages pending transactions before they're included in blocks. It handles transaction ordering, replacement, validation, and lifecycle management.
+The Transaction Pool (TxPool) manages pending transactions before they're included in blocks. Tevm's txpool facade is backed by `@evmts/zevm/txpool` and adds Tevm-specific fee handling for modern fee-market-shaped transactions.
 
 ## Quick Start
 
@@ -39,6 +39,8 @@ await txPool.addUnverified(tx)
 - 📊 **Nonce Ordering** - Maintains correct transaction sequence per account
 - 🧹 **Automatic Pruning** - Removes old transactions to prevent memory bloat
 - ⚡ **Performance Optimized** - Efficient handling of large transaction volumes
+- 🧾 **Modern Transaction Support** - Handles legacy, EIP-2930, EIP-1559, EIP-4844, EIP-7702, and Tevm impersonated transactions
+- 🔌 **JSON-RPC Access** - Exposes `txpool_content`, `txpool_contentFrom`, `txpool_inspect`, and `txpool_status`
 
 ## Core Concepts
 
@@ -162,6 +164,7 @@ The pool supports all Ethereum transaction types:
 - EIP-2930 (Access Lists)
 - EIP-1559 (Fee Market)
 - EIP-4844 (Blob Transactions)
+- EIP-7702 (EOA Code Transactions)
 - Tevm Impersonated Transactions
 
 ## Best Practices

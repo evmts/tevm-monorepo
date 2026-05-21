@@ -18,7 +18,7 @@ npm install tevm
 // Import from the main package
 import { createTevmNode } from 'tevm'
 import { callHandler } from 'tevm/actions'
-import { http } from 'tevm/transport'
+import { http } from 'tevm'
 ```
 
 ### Individual Packages
@@ -47,20 +47,20 @@ import { callHandler } from '@tevm/actions'
 
 ### EVM & Execution
 - **@tevm/vm** - Virtual Machine implementation
-  - EVM execution environment
-  - Opcode handling
-  - State transitions
+  - Coordinates EVM execution, block building, receipts, and state transitions
+  - Backed by ZEVM-compatible EVM, tx, common, and block primitives
+  - Emits VM and EVM lifecycle events
 
 - **@tevm/evm** - Low-level EVM operations
-  - Bytecode execution
-  - Gas calculation
-  - Stack management
+  - ZEVM-backed bytecode execution
+  - Gas accounting, step events, custom precompiles, and profiling
+  - Direct `runCall` access for advanced tooling
 
 ### State & Storage
 - **@tevm/state** - State management
   - Account state handling
   - Storage manipulation
-  - State transitions
+  - Fork-backed reads, snapshots, state roots, and proof support
 
 - **@tevm/blockchain** - Blockchain implementation
   - Block management
@@ -71,14 +71,15 @@ import { callHandler } from '@tevm/actions'
 
 ### Transaction Processing
 - **@tevm/tx** - Transaction utilities
-  - Transaction signing
-  - Gas estimation
-  - Receipt generation
+  - ZEVM-backed transaction facade
+  - Legacy, EIP-2930, EIP-1559, EIP-4844, and EIP-7702 helpers
+  - Tevm impersonated transactions for local execution and fork testing
 
 - **@tevm/txpool** - Transaction pool management
   - Pending transaction queue
   - Transaction ordering
   - Replacement handling
+  - `txpool_*` JSON-RPC support
 
 ### Block & Receipt Management
 - **@tevm/block** - Block utilities
@@ -90,6 +91,7 @@ import { callHandler } from '@tevm/actions'
   - Receipt storage
   - Event logging
   - Gas usage tracking
+  - `eth_getTransactionReceipt`, `eth_getBlockReceipts`, filters, and subscriptions
 
 ## Client Integration
 
@@ -98,6 +100,7 @@ import { callHandler } from '@tevm/actions'
   - Standard Ethereum methods
   - Custom Tevm methods
   - Error handling
+  - HTTP, WebSocket, rate-limit, and load-balance transports
 
 - **@tevm/http-client** - HTTP client
   - Remote node communication
@@ -109,6 +112,7 @@ import { callHandler } from '@tevm/actions'
   - Contract interaction
   - Account management
   - State queries
+  - `eth_*`, `tevm_*`, `debug_*`, `engine_*`, `txpool_*`, `anvil_*`, `hardhat_*`, `ganache_*`, and `evm_*` handlers
 
 - **@tevm/procedures** - Common operations
   - State manipulation
@@ -141,11 +145,12 @@ import { callHandler } from '@tevm/actions'
   - Address handling
   - Data encoding
   - Type conversion
+  - ZEVM-backed utilities and EIP-7702 authorization helpers
 
 - **@tevm/common** - Shared constants
   - Chain configurations
   - Network parameters
-  - Common types
+  - ZEVM-backed Common object plus viem chain definitions
 
 ### Development Tools
 - **@tevm/decorators** - Function decorators
@@ -163,11 +168,13 @@ import { callHandler } from '@tevm/actions'
   - Data serialization
   - Network protocol
   - Storage format
+  - ZEVM-backed RLP implementation
 
 - **@tevm/trie** - Merkle Patricia Tree
   - State storage
   - Proof verification
   - Tree manipulation
+  - ZEVM-backed trie implementation
 
 ## Development & Debugging
 

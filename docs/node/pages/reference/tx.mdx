@@ -1,8 +1,13 @@
+---
+title: Transactions
+description: ZEVM-backed transaction facade, transaction types, and Tevm impersonated transactions
+---
+
 # @tevm/tx
 
-> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/tx/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs) folder.
+The `@tevm/tx` package is Tevm's transaction facade backed by `@evmts/zevm/tx`. It exports typed Ethereum transaction constructors, helpers, type guards, and Tevm's impersonated transaction helper for local execution and fork testing.
 
-The `@tevm/tx` package provides a custom implementation of Ethereum transactions, extending the functionality of `@ethereumjs/tx`. It includes support for various transaction types and introduces impersonated transactions unique to Tevm.
+> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/tx/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs) folder.
 
 ## Installation
 
@@ -12,204 +17,105 @@ npm install @tevm/tx
 
 ## API Reference
 
-### Enumerations
-- [Capability](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/enumerations/Capability.md) - Transaction capabilities
-- [TransactionType](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/enumerations/TransactionType.md) - Supported transaction types
-
-### Classes
-- [AccessListEIP2930Transaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/AccessListEIP2930Transaction.md) - Type 1 transaction implementation
-- [BlobEIP4844Transaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/BlobEIP4844Transaction.md) - Type 3 transaction implementation
-- [FeeMarketEIP1559Transaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/FeeMarketEIP1559Transaction.md) - Type 2 transaction implementation
-- [LegacyTransaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/LegacyTransaction.md) - Legacy transaction implementation
-- [TransactionFactory](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/TransactionFactory.md) - Factory for creating transactions
-
-### Interfaces
-- [EIP1559CompatibleTx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/interfaces/EIP1559CompatibleTx.md) - EIP-1559 transaction interface
-- [EIP4844CompatibleTx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/interfaces/EIP4844CompatibleTx.md) - EIP-4844 transaction interface
-- [ImpersonatedTx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/interfaces/ImpersonatedTx.md) - Impersonated transaction interface
-- [JsonRpcTx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/interfaces/JsonRpcTx.md) - JSON-RPC transaction format
-- [JsonTx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/interfaces/JsonTx.md) - JSON transaction format
-- [TxData](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/interfaces/TxData.md) - Transaction data interface
-- [TxOptions](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/interfaces/TxOptions.md) - Transaction options interface
-
-### Type Aliases
-- [AccessList](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/type-aliases/AccessList.md) - Access list type definition
-- [AccessListItem](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/type-aliases/AccessListItem.md) - Access list item type
-- [TypedTransaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/type-aliases/TypedTransaction.md) - Union type of all transaction types
-
-### Functions
-- [createImpersonatedTx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/functions/createImpersonatedTx.md) - Create an impersonated transaction
-- [isAccessListEIP2930Tx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/functions/isAccessListEIP2930Tx.md) - Type guard for EIP-2930 transactions
-- [isBlobEIP4844Tx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/functions/isBlobEIP4844Tx.md) - Type guard for EIP-4844 transactions
-- [isFeeMarketEIP1559Tx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/functions/isFeeMarketEIP1559Tx.md) - Type guard for EIP-1559 transactions
-- [isLegacyTx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/functions/isLegacyTx.md) - Type guard for legacy transactions
-
-## Main Components
-
 ### Transaction Types
 
-The package supports multiple transaction types:
+- [LegacyTransaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/LegacyTransaction.md) - Legacy pre-EIP-2718 transactions.
+- [AccessListEIP2930Transaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/AccessListEIP2930Transaction.md) - EIP-2930 access-list transactions.
+- [FeeMarketEIP1559Transaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/FeeMarketEIP1559Transaction.md) - EIP-1559 fee-market transactions.
+- [BlobEIP4844Transaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/BlobEIP4844Transaction.md) - EIP-4844 blob transactions.
+- `EOACodeEIP7702Transaction` - EIP-7702 EOA code transactions.
+- [ImpersonatedTx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/interfaces/ImpersonatedTx.md) - Tevm-specific transaction shape for executing as an address without a private key.
 
-- **LegacyTransaction**: Pre-EIP-2718 transactions
-- **AccessListEIP2930Transaction**: Type 1 transactions with access lists (EIP-2930)
-- **FeeMarketEIP1559Transaction**: Type 2 transactions with fee market (EIP-1559)
-- **BlobEIP4844Transaction**: Type 3 transactions with blob data (EIP-4844)
-- **ImpersonatedTx**: Tevm-specific transaction type for impersonating accounts
+### Helpers
 
-### TransactionFactory
+- `TransactionFactory` - Alias for ZEVM's `createTx` helper.
+- `createTxFromRLP` - Decode a serialized transaction.
+- `createTxFromBlockBodyData` - Create a transaction from block body data.
+- `createImpersonatedTx` - Create an unsigned EIP-1559-shaped transaction that executes as `impersonatedAddress`.
+- `createEOACodeEIP7702Tx`, `createEOACodeEIP7702TxFromBytesArray`, and `createEOACodeEIP7702TxFromRLP` - EIP-7702 helpers.
+- `isLegacyTx`, `isAccessListEIP2930Tx`, `isFeeMarketEIP1559Tx`, `isBlobEIP4844Tx`, and `isEOACodeEIP7702Tx` - Transaction type guards.
 
-A utility class for creating transactions from various data formats:
+## Creating Transactions
 
 ```typescript
-import { TransactionFactory } from '@tevm/tx'
+import {
+  TransactionFactory,
+  createImpersonatedTx,
+  createTxFromRLP,
+  isBlobEIP4844Tx,
+  isEOACodeEIP7702Tx,
+} from '@tevm/tx'
+import { createAddress } from '@tevm/address'
 
-// Create from serialized data
-const tx = TransactionFactory.fromSerializedTx(serializedData)
+const tx = TransactionFactory({
+  nonce: 0n,
+  gasLimit: 21000n,
+  maxFeePerGas: 20_000_000_000n,
+  maxPriorityFeePerGas: 2_000_000_000n,
+  to: createAddress('0x1234567890123456789012345678901234567890'),
+  value: 1_000_000_000_000_000_000n,
+})
 
-// Create from RPC data
-const tx = await TransactionFactory.fromRPC(rpcTxData)
+const decoded = createTxFromRLP(tx.serialize())
 
-// Create from block body data
-const tx = TransactionFactory.fromBlockBodyData(blockData)
+if (isBlobEIP4844Tx(decoded) || isEOACodeEIP7702Tx(decoded)) {
+  // Handle modern typed transaction fields.
+}
 ```
 
-### Impersonated Transactions
+## Impersonated Transactions
 
-A unique feature of Tevm that allows simulating transactions as if they were sent from any address:
+Impersonated transactions are a Tevm convenience for simulation, fork testing, and local development. They let the VM execute as an address without requiring a signature from that address.
 
 ```typescript
 import { createImpersonatedTx } from '@tevm/tx'
+import { createAddress } from '@tevm/address'
 
 const tx = createImpersonatedTx({
-  impersonatedAddress: address,
-  to: recipient,
-  value: value,
-  data: data,
-  // ... other EIP-1559 transaction fields
-})
-```
-
-## Transaction Types
-
-### Legacy Transactions
-
-Pre-EIP-2718 transactions with basic fields:
-
-```typescript
-interface LegacyTxData {
-  nonce: bigint
-  gasPrice: bigint
-  gasLimit: bigint
-  to?: Address
-  value: bigint
-  data: Uint8Array
-  v?: bigint
-  r?: bigint
-  s?: bigint
-}
-```
-
-### EIP-2930 Transactions
-
-Type 1 transactions with access lists:
-
-```typescript
-interface AccessListEIP2930TxData extends LegacyTxData {
-  chainId: bigint
-  accessList: AccessList
-}
-```
-
-### EIP-1559 Transactions
-
-Type 2 transactions with fee market:
-
-```typescript
-interface FeeMarketEIP1559TxData extends AccessListEIP2930TxData {
-  maxFeePerGas: bigint
-  maxPriorityFeePerGas: bigint
-}
-```
-
-### EIP-4844 Transactions
-
-Type 3 transactions with blob data:
-
-```typescript
-interface BlobEIP4844TxData extends FeeMarketEIP1559TxData {
-  maxFeePerBlobGas: bigint
-  blobVersionedHashes: Uint8Array[]
-  blobs?: Uint8Array[]
-  kzgCommitments?: Uint8Array[]
-  kzgProofs?: Uint8Array[]
-}
-```
-
-## Common Operations
-
-### Creating Transactions
-
-```typescript
-import { TransactionFactory, LegacyTransaction } from '@tevm/tx'
-
-// Using factory
-const tx = TransactionFactory.fromTxData({
+  impersonatedAddress: createAddress('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266'),
+  to: createAddress('0x70997970c51812dc3a010c7d01b50e0d17dc79c8'),
+  value: 1_000_000_000_000_000_000n,
+  gasLimit: 21_000n,
+  maxFeePerGas: 20_000_000_000n,
+  maxPriorityFeePerGas: 2_000_000_000n,
   nonce: 0n,
-  gasPrice: 20000000000n,
-  gasLimit: 21000n,
-  to: '0x...',
-  value: 1000000000000000000n,
-  data: new Uint8Array()
 })
 
-// Direct instantiation
-const legacyTx = new LegacyTransaction({
-  nonce: 0n,
-  gasPrice: 20000000000n,
-  gasLimit: 21000n,
-  to: '0x...',
-  value: 1000000000000000000n,
-  data: new Uint8Array()
-})
+const vm = await node.getVm()
+const result = await vm.runTx({ tx, skipBalance: true, skipNonce: true })
 ```
 
-### Signing Transactions
+For app-level impersonation, prefer the JSON-RPC or MemoryClient helpers such as `anvil_impersonateAccount`, `tevm_impersonateAccount`, and `setImpersonatedAccount`.
 
-```typescript
-const signedTx = tx.sign(privateKey)
-```
+## Transaction Type Coverage
 
-### Transaction Methods
+The package supports:
 
-All transaction types provide common methods:
+- Legacy transactions
+- EIP-2930 access-list transactions
+- EIP-1559 fee-market transactions
+- EIP-4844 blob transactions
+- EIP-7702 EOA code transactions
+- Tevm impersonated transactions
 
-- `hash()`: Get transaction hash
-- `getBaseFee()`: Get minimum required gas
-- `getDataFee()`: Get gas cost for data
-- `getUpfrontCost()`: Get total required balance
-- `isSigned()`: Check if transaction is signed
-- `serialize()`: Get RLP encoded transaction
-- `toJSON()`: Get JSON representation
+## Common Methods
 
-## Error Handling
+Typed transaction instances expose the standard transaction helpers from the underlying ZEVM transaction implementation:
 
-The package includes custom error types:
-
-```typescript
-import { InvalidGasLimitError } from '@tevm/tx'
-
-try {
-  const tx = createImpersonatedTx(txData)
-} catch (e) {
-  if (e instanceof InvalidGasLimitError) {
-    // Handle invalid gas limit
-  }
-}
-```
+- `hash()` - Get the transaction hash.
+- `getBaseFee()` - Get intrinsic gas.
+- `getDataFee()` - Get calldata or blob-related gas cost.
+- `getUpfrontCost()` - Get total required account balance.
+- `isSigned()` - Check whether the transaction is signed.
+- `serialize()` - Return the encoded transaction.
+- `toJSON()` - Return the JSON representation.
 
 ## See Also
 
+- [Transaction Pool](../advanced/txpool)
+- [VM & Submodules](../api/vm-and-submodules)
 - [EIP-2718: Typed Transaction Envelope](https://eips.ethereum.org/EIPS/eip-2718)
 - [EIP-2930: Optional access lists](https://eips.ethereum.org/EIPS/eip-2930)
 - [EIP-1559: Fee market change](https://eips.ethereum.org/EIPS/eip-1559)
 - [EIP-4844: Shard Blob Transactions](https://eips.ethereum.org/EIPS/eip-4844)
+- [EIP-7702: Set EOA account code](https://eips.ethereum.org/EIPS/eip-7702)

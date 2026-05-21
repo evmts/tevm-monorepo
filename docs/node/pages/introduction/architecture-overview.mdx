@@ -20,6 +20,8 @@ import { TabGroup, FileTree, Card } from "../../components";
 
 Tevm's architecture is designed to be modular, extensible, and compatible with the broader JavaScript ecosystem. This guide explains the core components and how they work together to create a complete Ethereum execution environment.
 
+For the native ZEVM client's ownership boundary between ZEVM, Voltaire, and Guillotine Mini, see ZEVM's [Architecture and Upstream Ownership](https://zevm.sh/docs/concepts/architecture-and-upstream-ownership/) docs. Tevm's boundary is different: Tevm owns the JavaScript APIs, transports, package facades, and integration behavior described below while using ZEVM-backed primitives where noted.
+
 ## Design Philosophy: Objects and Actions
 
 At its core, Tevm follows a clear separation between **Objects** (stateful components) and **Actions** (pure functions that operate on those objects). This pattern, inspired by [viem](https://viem.sh/), enables tree-shaking and a composable API. This pattern was originally created by [`viem`](https://viem.sh) and Tevm follows it even for it's internals to be maximally compatable with Viem.
@@ -136,7 +138,7 @@ Tevm offers two main approaches for using its functionality:
   <div data-title="Tree-Shakable: Optimized">
     ```ts showLineNumbers {1-4,7-12,15-16,19-22} filename="tree-shakable.ts"
     import { createClient, http } from 'viem'
-    import { createTevmTransport } from 'tevm/transport'
+    import { createTevmTransport } from 'tevm'
     import { getBlock, getBlockNumber } from 'viem/actions' // [!code focus]
     import { tevmSetAccount, tevmMine } from 'tevm/actions' // [!code focus]
     
@@ -196,15 +198,15 @@ Tevm's modular architecture comprises several key components that work together 
 
 ### VM
 
-The most important component of Tevm is the VM which itself is made up of many components including the Interpreter, StateManager, Blockchain, and Common.
+The most important component of Tevm is the VM which itself is made up of the ZEVM-backed interpreter facade, StateManager, Blockchain, Common, TxPool, and ReceiptsManager.
 
-The EVM's job is to run transactions and build blocks. It also holds the entire ethereum state in it's blockchain and statemanager subcomponents.
+The VM's job is to run transactions and build blocks. It coordinates Ethereum state through its blockchain, state manager, transaction pool, and receipt manager subcomponents.
 
 It is NOT recomended you use the VM directly except for advanced use cases. Instead use the `viem` api.
 
 ### Interpreter (EVM)
 
-The execution engine that runs EVM bytecode with full support for all opcodes and precompiles.
+The execution engine runs EVM bytecode with full support for active hardfork opcodes, built-in precompiles, and Tevm custom precompiles. Tevm's public EVM facade is backed by `@evmts/zevm/evm`, then wrapped with Tevm-specific state, tracing, predeploy, logging, and profiling hooks.
 
 ```ts
 // Access via
@@ -220,13 +222,13 @@ evm.events.on("step", (data, next) => {
 // Control execution gas limits, precompiles, etc.
 ```
 
-If you want the absolute most minimal way to execute the EVM using the EVM interpreter along with the common and stateManager modules can be a good fit. For most use cases, however, it is recomended to use the viem api.
+If you want the absolute most minimal way to execute bytecode, using the EVM facade with the common and stateManager modules can be a good fit. For most use cases, however, it is recomended to use the viem API or MemoryClient API.
 
-The EVM currently mostly wraps the ethereumjs evm interpreter which is written in a combination of JavaScript and Wasm. Tevm will be getting a pure wasm implementation to replace it in future.
+The EVM currently wraps ZEVM's JavaScript/Wasm-compatible EVM primitives rather than the older pre-ZEVM implementation. This keeps Tevm's low-level types aligned with the `@evmts/zevm` package family while preserving Tevm's higher-level viem-style API.
 
 ### State Manager
 
-Maintains account balances, contract code, and storage state with forking capability from live networks.
+Maintains account balances, contract code, and storage state with forking capability from live networks. The StateManager is Tevm's custom state layer built around ZEVM-compatible account, trie, and utility primitives.
 
 ```ts
 // Access via
@@ -240,11 +242,11 @@ await stateManager.checkpoint(); // Create state snapshot
 await stateManager.revert(checkpointId); // Revert to snapshot
 ```
 
-The StateManager is ethereumjs compatable following the same interface despite being a fully custom implementation. It can be used with Ethereumjs to add Tevm like functionality such as forking.
+The StateManager keeps the low-level methods Tevm's VM needs while adding Tevm-specific behavior such as fork-backed reads, snapshots, and state dumping.
 
 ### Blockchain
 
-Manages blocks, chain state, and handles block production with various mining strategies.
+Manages blocks, chain state, forked block lookup, and block production with auto, interval, and manual mining strategies.
 
 ```ts
 // Access via
@@ -257,7 +259,7 @@ await blockchain.putBlock(block);
 await blockchain.getLatestBlock();
 ```
 
-Like the state manager the blockchain component is fully custom but ethereumjs compatable. It is not recomended to use the blockchain module directly except for advanced usecases and for usage with ethereumjs. Ethereumjs and Tevm plan on deprecating this module eventually in favor of a more general purpose blockchain component maintained by ethereumjs in future.
+Like the state manager, the blockchain component is a Tevm implementation backed by Tevm block types and ZEVM-compatible primitives. It is not recomended to use the blockchain module directly except for advanced use cases; prefer viem actions, MemoryClient methods, or JSON-RPC unless you are building Tevm extensions.
 
 ### Common
 

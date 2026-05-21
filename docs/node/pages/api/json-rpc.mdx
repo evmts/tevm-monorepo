@@ -26,52 +26,330 @@ const blockNum = await node.request({
 
 ## Supported Methods
 
-### Core Ethereum Methods
+For Tevm's runtime model and the mapping to ZEVM's native trusted/light-mode docs, see [Runtime Model and ZEVM](../core/runtime-model). Native ZEVM has its own mode-gated [JSON-RPC Overview](https://zevm.sh/docs/reference/json-rpc/overview/) and [Verified Light-Mode Reads](https://zevm.sh/docs/reference/json-rpc/verified-light-mode-reads/) contract; the index below is the Tevm source of truth.
 
-- **Block & Chain**
-  - [`eth_blockNumber`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/blockNumberHandler.md) - Get current block number
-  - [`eth_getBlockByHash`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetBlockByHashProcedure.md) - Get block by hash
-  - [`eth_getBlockByNumber`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetBlockByNumberProcedure.md) - Get block by number
-  - [`eth_chainId`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/chainIdHandler.md) - Get current chain ID
+This index lists every JSON-RPC method registered by Tevm Node's request handler. Engine API methods are registered only when `engineApi` is enabled. The generated `tevm_*`, `hardhat_*`, and `ganache_*` development-control aliases share the same implementations as the matching `anvil_*` methods. `tevm_contract` and `eth_sendUnsignedTransaction` are registered compatibility stubs that return unsupported-method errors.
 
-- **State & Account**
-  - [`eth_getBalance`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/getBalanceHandler.md) - Get account balance
-  - [`eth_getCode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/getCodeHandler.md) - Get contract code
-  - [`eth_getStorageAt`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/getStorageAtHandler.md) - Get storage value
-  - [`eth_getTransactionCount`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetTransactionCountProcedure.md) - Get account nonce
+### Tevm and ZEVM compatibility
 
-- **Transaction**
-  - [`eth_call`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethCallHandler.md) - Execute contract call
-  - [`eth_estimateGas`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethEstimateGasProcedure.md) - Estimate gas usage
-  - [`eth_sendTransaction`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethSendTransactionHandler.md) - Send transaction
-  - [`eth_sendRawTransaction`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethSendRawTransaction.md) - Send signed transaction
-  - [`eth_getTransactionByHash`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetTransactionByHashProcedure.md) - Get transaction details
-  - [`eth_getTransactionReceipt`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetTransactionReceipt.md) - Get transaction receipt
+Native Tevm methods:
 
-- **Logs & Events**
-  - [`eth_getLogs`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetLogsHandler.md) - Get event logs
-  - [`eth_newFilter`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethNewFilterProcedure.md) - Create new filter
-  - [`eth_newBlockFilter`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethNewBlockFilterProcedure.md) - Create block filter
-  - [`eth_getFilterChanges`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetFilterChangesProcedure.md) - Get filter updates
-  - [`eth_getFilterLogs`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethGetFilterLogsProcedure.md) - Get all filter logs
-  - [`eth_uninstallFilter`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/ethUninstallFilterProcedure.md) - Remove filter
+- `tevm_call`
+- `tevm_contract`
+- `tevm_dumpState`
+- `tevm_getAccount`
+- `tevm_lightSyncStatus`
+- `tevm_loadState`
+- `tevm_mine`
+- `tevm_miner`
+- `tevm_setAccount`
+- `zevm_lightSyncStatus`
 
-### Extended Methods
+Tevm aliases for development controls:
 
-Tevm also supports additional methods commonly found in development environments:
+- `tevm_addBalance`
+- `tevm_autoImpersonateAccount`
+- `tevm_deal`
+- `tevm_dealErc20`
+- `tevm_dropAllTransactions`
+- `tevm_dropTransaction`
+- `tevm_enableTraces`
+- `tevm_getAutomine`
+- `tevm_getIntervalMining`
+- `tevm_impersonateAccount`
+- `tevm_increaseTime`
+- `tevm_metadata`
+- `tevm_mineDetailed`
+- `tevm_nodeInfo`
+- `tevm_removeBlockTimestampInterval`
+- `tevm_removePoolTransactions`
+- `tevm_reset`
+- `tevm_revert`
+- `tevm_setAutomine`
+- `tevm_setBalance`
+- `tevm_setBlockGasLimit`
+- `tevm_setBlockTimestampInterval`
+- `tevm_setChainId`
+- `tevm_setCode`
+- `tevm_setCoinbase`
+- `tevm_setErc20Allowance`
+- `tevm_setIntervalMining`
+- `tevm_setLoggingEnabled`
+- `tevm_setMinGasPrice`
+- `tevm_setNextBlockBaseFeePerGas`
+- `tevm_setNextBlockTimestamp`
+- `tevm_setNonce`
+- `tevm_setPrevRandao`
+- `tevm_setRpcUrl`
+- `tevm_setStorageAt`
+- `tevm_setTime`
+- `tevm_snapshot`
+- `tevm_stopImpersonatingAccount`
 
-- **Debug Methods**
-  - [`debug_traceTransaction`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/debugTraceTransactionProcedure.md) - Trace transaction execution
-  - [`debug_dumpState`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/debugDumpStateProcedure.md) - Dump current state
+### Ethereum
 
-- **Anvil Methods** (For [Foundry](https://book.getfoundry.sh/reference/anvil/) compatibility)
-  - [`anvil_setCode`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetCodeProcedure.md) - Set contract code
-  - [`anvil_setBalance`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetBalance.md) - Set account balance
-  - [`anvil_setNonce`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetNonceProcedure.md) - Set account nonce
-  - [`anvil_setStorageAt`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilSetStorageAtProcedure.md) - Set storage value
-  - [`anvil_deal`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilDealHandler.md) - Add native ETH or ERC20 tokens to an account
-  - [`anvil_impersonateAccount`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilImpersonateAccount.md) - Impersonate account
-  - [`anvil_stopImpersonatingAccount`](https://github.com/evmts/tevm-monorepo/blob/main/packages/actions/docs/functions/anvilStopImpersonatingAccountProcedure.md) - Stop impersonating
+- `eth_accounts`
+- `eth_blobBaseFee`
+- `eth_blobGasPrice`
+- `eth_blockNumber`
+- `eth_call`
+- `eth_chainId`
+- `eth_coinbase`
+- `eth_createAccessList`
+- `eth_estimateGas`
+- `eth_feeHistory`
+- `eth_gasPrice`
+- `eth_getBalance`
+- `eth_getBlockAccessList`
+- `eth_getBlockByHash`
+- `eth_getBlockByNumber`
+- `eth_getBlockReceipts`
+- `eth_getBlockTransactionCountByHash`
+- `eth_getBlockTransactionCountByNumber`
+- `eth_getCode`
+- `eth_getFilterChanges`
+- `eth_getFilterLogs`
+- `eth_getLogs`
+- `eth_getProof`
+- `eth_getStorageAt`
+- `eth_getStorageValues`
+- `eth_getTransactionByBlockHashAndIndex`
+- `eth_getTransactionByBlockNumberAndIndex`
+- `eth_getTransactionByHash`
+- `eth_getTransactionCount`
+- `eth_getTransactionReceipt`
+- `eth_getUncleByBlockHashAndIndex`
+- `eth_getUncleByBlockNumberAndIndex`
+- `eth_getUncleCountByBlockHash`
+- `eth_getUncleCountByBlockNumber`
+- `eth_getWork`
+- `eth_hashrate`
+- `eth_maxPriorityFeePerGas`
+- `eth_mining`
+- `eth_newBlockFilter`
+- `eth_newFilter`
+- `eth_newPendingTransactionFilter`
+- `eth_protocolVersion`
+- `eth_sendRawTransaction`
+- `eth_sendTransaction`
+- `eth_sendUnsignedTransaction`
+- `eth_sign`
+- `eth_signTransaction`
+- `eth_simulateV1`
+- `eth_simulateV2`
+- `eth_submitHashrate`
+- `eth_submitWork`
+- `eth_subscribe`
+- `eth_syncing`
+- `eth_uninstallFilter`
+- `eth_unsubscribe`
+
+### Anvil
+
+- `anvil_addBalance`
+- `anvil_autoImpersonateAccount`
+- `anvil_deal`
+- `anvil_dealErc20`
+- `anvil_dropAllTransactions`
+- `anvil_dropTransaction`
+- `anvil_dumpState`
+- `anvil_enableTraces`
+- `anvil_getAutomine`
+- `anvil_getIntervalMining`
+- `anvil_impersonateAccount`
+- `anvil_increaseTime`
+- `anvil_loadState`
+- `anvil_metadata`
+- `anvil_mine`
+- `anvil_mineDetailed`
+- `anvil_nodeInfo`
+- `anvil_removeBlockTimestampInterval`
+- `anvil_removePoolTransactions`
+- `anvil_reset`
+- `anvil_revert`
+- `anvil_setAutomine`
+- `anvil_setBalance`
+- `anvil_setBlockGasLimit`
+- `anvil_setBlockTimestampInterval`
+- `anvil_setChainId`
+- `anvil_setCode`
+- `anvil_setCoinbase`
+- `anvil_setErc20Allowance`
+- `anvil_setIntervalMining`
+- `anvil_setLoggingEnabled`
+- `anvil_setMinGasPrice`
+- `anvil_setNextBlockBaseFeePerGas`
+- `anvil_setNextBlockTimestamp`
+- `anvil_setNonce`
+- `anvil_setPrevRandao`
+- `anvil_setRpcUrl`
+- `anvil_setStorageAt`
+- `anvil_setTime`
+- `anvil_snapshot`
+- `anvil_stopImpersonatingAccount`
+
+### Hardhat
+
+- `hardhat_addBalance`
+- `hardhat_autoImpersonateAccount`
+- `hardhat_deal`
+- `hardhat_dealErc20`
+- `hardhat_dropAllTransactions`
+- `hardhat_dropTransaction`
+- `hardhat_dumpState`
+- `hardhat_enableTraces`
+- `hardhat_getAutomine`
+- `hardhat_getIntervalMining`
+- `hardhat_impersonateAccount`
+- `hardhat_increaseTime`
+- `hardhat_loadState`
+- `hardhat_metadata`
+- `hardhat_mine`
+- `hardhat_mineDetailed`
+- `hardhat_nodeInfo`
+- `hardhat_removeBlockTimestampInterval`
+- `hardhat_removePoolTransactions`
+- `hardhat_reset`
+- `hardhat_revert`
+- `hardhat_setAutomine`
+- `hardhat_setBalance`
+- `hardhat_setBlockGasLimit`
+- `hardhat_setBlockTimestampInterval`
+- `hardhat_setChainId`
+- `hardhat_setCode`
+- `hardhat_setCoinbase`
+- `hardhat_setErc20Allowance`
+- `hardhat_setIntervalMining`
+- `hardhat_setLoggingEnabled`
+- `hardhat_setMinGasPrice`
+- `hardhat_setNextBlockBaseFeePerGas`
+- `hardhat_setNextBlockTimestamp`
+- `hardhat_setNonce`
+- `hardhat_setPrevRandao`
+- `hardhat_setRpcUrl`
+- `hardhat_setStorageAt`
+- `hardhat_setTime`
+- `hardhat_snapshot`
+- `hardhat_stopImpersonatingAccount`
+
+### Ganache
+
+- `ganache_addBalance`
+- `ganache_autoImpersonateAccount`
+- `ganache_deal`
+- `ganache_dealErc20`
+- `ganache_dropAllTransactions`
+- `ganache_dropTransaction`
+- `ganache_dumpState`
+- `ganache_enableTraces`
+- `ganache_getAutomine`
+- `ganache_getIntervalMining`
+- `ganache_impersonateAccount`
+- `ganache_increaseTime`
+- `ganache_loadState`
+- `ganache_metadata`
+- `ganache_mine`
+- `ganache_mineDetailed`
+- `ganache_nodeInfo`
+- `ganache_removeBlockTimestampInterval`
+- `ganache_removePoolTransactions`
+- `ganache_reset`
+- `ganache_revert`
+- `ganache_setAutomine`
+- `ganache_setBalance`
+- `ganache_setBlockGasLimit`
+- `ganache_setBlockTimestampInterval`
+- `ganache_setChainId`
+- `ganache_setCode`
+- `ganache_setCoinbase`
+- `ganache_setErc20Allowance`
+- `ganache_setIntervalMining`
+- `ganache_setLoggingEnabled`
+- `ganache_setMinGasPrice`
+- `ganache_setNextBlockBaseFeePerGas`
+- `ganache_setNextBlockTimestamp`
+- `ganache_setNonce`
+- `ganache_setPrevRandao`
+- `ganache_setRpcUrl`
+- `ganache_setStorageAt`
+- `ganache_setTime`
+- `ganache_snapshot`
+- `ganache_stopImpersonatingAccount`
+
+### Debug
+
+- `debug_dumpBlock`
+- `debug_getBadBlocks`
+- `debug_getModifiedAccountsByHash`
+- `debug_getModifiedAccountsByNumber`
+- `debug_getRawBlock`
+- `debug_getRawHeader`
+- `debug_getRawReceipts`
+- `debug_getRawTransaction`
+- `debug_intermediateRoots`
+- `debug_preimage`
+- `debug_storageRangeAt`
+- `debug_traceBlock`
+- `debug_traceBlockByHash`
+- `debug_traceBlockByNumber`
+- `debug_traceCall`
+- `debug_traceChain`
+- `debug_traceState`
+- `debug_traceTransaction`
+
+### EVM test-runner compatibility
+
+- `evm_increaseTime`
+- `evm_mine`
+- `evm_revert`
+- `evm_setBlockGasLimit`
+- `evm_setIntervalMining`
+- `evm_setNextBlockTimestamp`
+- `evm_snapshot`
+
+### Engine API
+
+- `engine_exchangeCapabilities`
+- `engine_exchangeTransitionConfigurationV1`
+- `engine_forkchoiceUpdatedV1`
+- `engine_forkchoiceUpdatedV2`
+- `engine_forkchoiceUpdatedV3`
+- `engine_forkchoiceUpdatedV4`
+- `engine_getBlobsV1`
+- `engine_getBlobsV2`
+- `engine_getBlobsV3`
+- `engine_getClientVersionV1`
+- `engine_getPayloadBodiesByHashV1`
+- `engine_getPayloadBodiesByHashV2`
+- `engine_getPayloadBodiesByRangeV1`
+- `engine_getPayloadBodiesByRangeV2`
+- `engine_getPayloadV1`
+- `engine_getPayloadV2`
+- `engine_getPayloadV3`
+- `engine_getPayloadV4`
+- `engine_getPayloadV5`
+- `engine_getPayloadV6`
+- `engine_newPayloadV1`
+- `engine_newPayloadV2`
+- `engine_newPayloadV3`
+- `engine_newPayloadV4`
+- `engine_newPayloadV5`
+- `testing_buildBlockV1`
+
+### Txpool, web3, net, rpc, and miner compatibility
+
+- `miner_start`
+- `miner_stop`
+- `net_listening`
+- `net_peerCount`
+- `net_version`
+- `rpc_modules`
+- `txpool_content`
+- `txpool_contentFrom`
+- `txpool_inspect`
+- `txpool_status`
+- `web3_clientVersion`
+- `web3_sha3`
 
 ## Client Integration
 
@@ -80,7 +358,7 @@ Tevm also supports additional methods commonly found in development environments
 For more information, see the [Viem Documentation](https://viem.sh/docs/clients/custom.html).
 
 ```ts
-import { createTevmTransport } from 'tevm/memory-client'
+import { createTevmTransport } from 'tevm'
 import { createPublicClient, custom } from 'viem'
 import { requestEip1193 } from 'tevm/decorators'
 

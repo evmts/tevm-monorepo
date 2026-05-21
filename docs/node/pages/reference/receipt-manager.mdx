@@ -1,6 +1,6 @@
 # @tevm/receipt-manager
 
-The `@tevm/receipt-manager` package provides a robust transaction receipt management system for the Tevm blockchain. It handles the storage, retrieval, and management of transaction receipts, logs, and related data.
+The `@tevm/receipt-manager` package provides ZEVM-backed transaction receipt storage and lookup utilities for Tevm. It handles the storage, retrieval, and management of transaction receipts, logs, bloom data, and transaction-hash indexes.
 
 ## Installation
 
@@ -15,6 +15,7 @@ The receipt manager package is responsible for:
 - Handling transaction logs and bloom filters
 - Supporting different receipt types (Pre-Byzantium, Post-Byzantium, EIP4844)
 - Providing efficient receipt lookup and retrieval
+- Supporting Tevm's `eth_getTransactionReceipt`, `eth_getBlockReceipts`, `eth_getLogs`, filter, and subscription flows
 
 ## Core Components
 
@@ -158,4 +159,4 @@ type DbType = "Receipts" | "TxHash" | "SkeletonBlock" | "SkeletonBlockHashToNumb
 
 ## License
 
-This package is licensed under the MIT License. Some files are adapted from [ethereumjs](https://github.com/ethereumjs/ethereumjs-monorepo) and are licensed under the Mozilla Public License 2.0.
+This package is licensed under the MIT License. Check source-level notices for any historical per-file attribution.

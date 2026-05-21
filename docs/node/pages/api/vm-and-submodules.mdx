@@ -1,257 +1,174 @@
 ---
 title: VM & Submodules
-description: Overview of the internal EVM, blockchain, state, receipts, and more
+description: Overview of the internal EVM, blockchain, state, receipts, transaction pool, and ZEVM-backed primitives
+---
 
 # VM & Submodules
 
-[Tevm Node](https://github.com/evmts/tevm-monorepo) is built on a modular architecture that separates concerns into distinct submodules. This guide covers the internal components and their APIs.
+[Tevm Node](https://github.com/evmts/tevm-monorepo) is built from small submodules that can be used together as an in-memory Ethereum node or directly by advanced users. The high-level APIs are `createMemoryClient`, viem actions, and JSON-RPC; these modules are the lower-level pieces under those APIs.
 
 ## Overview
 
-The main submodules are:
+The main runtime submodules are:
 
-1. **EVM (Ethereum Virtual Machine)** - Core [execution engine](https://ethereum.org/en/developers/docs/evm/)
-2. **Blockchain** - [Block and chain state](https://ethereum.org/en/developers/docs/blocks/) management
-3. **StateManager** - [Account and storage state](https://ethereum.org/en/developers/docs/accounts/) management
-4. **TxPool** - [Transaction mempool](https://ethereum.org/en/developers/docs/transactions/)
-5. **ReceiptsManager** - [Transaction receipts and logs](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionreceipt)
+1. **VM** - Coordinates transaction execution, block building, state changes, receipts, and event hooks.
+2. **EVM** - Runs EVM bytecode through Tevm's `@evmts/zevm/evm` facade.
+3. **Blockchain** - Stores local blocks, resolves forked blocks, and tracks canonical heads.
+4. **StateManager** - Manages account state, contract code, storage, snapshots, and fork-backed reads.
+5. **TxPool** - Stores and orders pending transactions, including EIP-4844 and EIP-7702-shaped transactions.
+6. **ReceiptsManager** - Stores receipts and logs for JSON-RPC queries, filters, and subscriptions.
+7. **Common, RLP, Trie, Tx, and Utils** - Tevm facades over ZEVM-compatible primitives used by the VM.
+
+## ZEVM Backing
+
+Tevm migrated its low-level EVM, transaction, receipt, txpool, common, RLP, trie, and utility primitives to `@evmts/zevm`. Tevm keeps its own public package boundaries and viem-style ergonomics, but current low-level docs should be read as Tevm facades over ZEVM-backed primitives rather than as wrappers around the older runtime.
 
 ## EVM Module
 
-The EVM module handles bytecode execution and state transitions. It is based on [`@ethereumjs/evm`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm).
+The EVM module handles bytecode execution and state transitions. It is exported from `tevm/evm` and backed by `@evmts/zevm/evm`.
 
 ```ts
+import { createImpersonatedTx } from 'tevm/tx'
+
 const vm = await node.getVm()
-const evm = await vm.evm
+const evm = vm.evm
 
-// Direct EVM execution
+// Direct EVM execution for advanced use cases
 const result = await evm.runCall({
-  to: '0x...',
-  data: '0x...',
+  to,
+  data,
   value: 0n,
-  caller: '0x...',
+  caller,
 })
 
-// Full transaction execution (recommended)
-// Use createImpersonatedTx to create transactions
-import { createImpersonatedTx } from "tevm/tx";
-
-const transaction = createImpersonatedTx({
-  to: "0x1234567890123456789012345678901234567890",
-  data: "0x...",
-});
-
-const txResult = await vm.runTx({
-  tx: transaction,
-  block: block,
+// Full transaction execution through the VM
+const tx = createImpersonatedTx({
+  impersonatedAddress: caller,
+  to,
+  data,
+  gasLimit: 1_000_000n,
 })
+
+const txResult = await vm.runTx({ tx })
 ```
 
 ### Key Features
 
-- **State Management**: Handles [account state](https://ethereum.org/en/developers/docs/accounts/), storage, and code execution
-- **Gas Metering**: Tracks [gas consumption](https://ethereum.org/en/developers/docs/gas/) during execution
-- **Precompiles**: [Built-in contract implementations](https://www.evm.codes/precompiled)
-- **EIP Support**: Implements various [Ethereum Improvement Proposals](https://eips.ethereum.org/)
-
-### Common Operations
-
-```ts
-// Check execution result
-if (result.execResult.exceptionError) {
-  console.error('Execution failed:', result.execResult.exceptionError)
-} else {
-  console.log('Return value:', result.execResult.returnValue)
-  console.log('Gas used:', result.execResult.executionGasUsed)
-}
-
-// Access logs from execution
-for (const log of result.execResult.logs) {
-  console.log('Event:', {
-    address: log.address,
-    topics: log.topics,
-    data: log.data
-  })
-}
-```
+- **State management**: Executes against Tevm's account, code, and storage state.
+- **Gas metering**: Tracks execution gas, intrinsic gas, refunds, and fee behavior.
+- **Precompiles**: Supports built-in precompiles and Tevm custom precompiles.
+- **Tracing**: Exposes step, message, call trace, prestate trace, flat trace, mux trace, and four-byte trace paths.
+- **EIP support**: Includes modern transaction support such as EIP-4844 blob transactions and EIP-7702 EOA code transactions through the `tevm/tx` facade.
 
 ## Blockchain Module
 
-The blockchain module manages blocks and chain state. It is based on [`@ethereumjs/blockchain`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/blockchain).
+The blockchain module manages block lookup, canonical heads, forked block resolution, and local block writes. It is a Tevm implementation that works with Tevm block types and ZEVM-compatible constants/utilities.
 
 ```ts
 const chain = (await node.getVm()).blockchain
 
-// Get block by number or hash
-const block = await chain.getBlock('latest')
+const latest = await chain.getCanonicalHeadBlock()
+const blockByNumber = await chain.getBlock(1234n)
 const blockByHash = await chain.getBlock(blockHash)
 
-// Add new block
-await chain.putBlock(block)
-
-// Delete block
+await chain.putBlock(localBlock)
 await chain.delBlock(blockHash)
-
-// Get block details
-console.log({
-  number: block.header.number,
-  hash: block.hash(),
-  parentHash: block.header.parentHash,
-  stateRoot: block.header.stateRoot
-})
 ```
 
 ### Fork Support
 
 ```ts
-// When forking, blocks are fetched from the parent chain
 const forkedBlock = await chain.getBlock(blockNumber)
 
-// Local blocks override forked blocks
+// Local blocks override forked blocks once written.
 await chain.putBlock(localBlock)
 ```
 
 ## StateManager
 
-The StateManager handles account state and storage. It is based on [`@ethereumjs/statemanager`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/statemanager).
+The StateManager handles accounts, storage, contract code, state roots, snapshots, and fork-backed reads.
 
 ```ts
 const state = (await node.getVm()).stateManager
 
-// Account operations
 const account = await state.getAccount(address)
 await state.putAccount(address, account)
 
-// Contract operations
 await state.putContractCode(address, bytecode)
 const code = await state.getContractCode(address)
 
-// Storage operations
 await state.putContractStorage(address, key, value)
-const value = await state.getContractStorage(address, key)
+const storageValue = await state.getContractStorage(address, key)
 
-// State snapshots
-const snapshot = await state.dumpCanonicalGenesis()
+await state.checkpoint()
 await state.commit()
 await state.revert()
 ```
 
-### Working with Accounts
-
-```ts
-// Create or update account
-const account = {
-  nonce: 1n,
-  balance: 100n,
-  storageRoot: EMPTY_ROOT,
-  codeHash: EMPTY_HASH
-}
-await state.putAccount(address, account)
-
-// Delete account
-await state.deleteAccount(address)
-```
-
 ## Transaction Pool
 
-The TxPool manages pending transactions. It is based on [`@ethereumjs/tx-pool`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/tx-pool).
+The TxPool manages pending transactions before they are included in blocks. Tevm's txpool facade is backed by `@evmts/zevm/txpool` and broadens fee classification for fee-market-shaped transactions, including EIP-7702.
 
 ```ts
 const pool = await node.getTxPool()
 
-// Add transaction
-await pool.add(transaction)
+await pool.add(tx)
+await pool.addUnverified(tx)
 
-// Get pending transactions
-const pending = await pool.getPendingTransactions()
+const senderTxs = await pool.getBySenderAddress(sender)
+const byHash = pool.getByHash([txHash])
 
-// Remove transaction
-await pool.removeByHash(txHash)
-
-// Get transactions ordered by price
 const ordered = await pool.txsByPriceAndNonce({
-  baseFee: 10n
+  baseFee: 10n,
+  allowedBlobs: 6,
 })
 ```
 
-### Transaction Validation
-
-```ts
-// Validate transaction before adding
-try {
-  await pool.validateTx(transaction)
-  await pool.add(transaction)
-} catch (error) {
-  console.error('Invalid transaction:', error)
-}
-```
+The JSON-RPC layer also exposes `txpool_content`, `txpool_contentFrom`, `txpool_inspect`, and `txpool_status`.
 
 ## ReceiptsManager
 
-The ReceiptsManager handles [transaction receipts](https://ethereum.org/en/developers/docs/apis/json-rpc/#eth_gettransactionreceipt) and event logs.
+The ReceiptsManager handles transaction receipts, block receipt lookup, and event logs.
 
 ```ts
 const receipts = await node.getReceiptsManager()
 
-// Get receipts for block
 const blockReceipts = await receipts.getReceipts(blockHash)
-
-// Get receipt by transaction hash
-const txReceipt = await receipts.getReceiptByTxHash(txHash)
-
-// Query logs
-const logs = await receipts.getLogs({
-  fromBlock: 0n,
-  toBlock: 'latest',
-  address: contractAddress,
-  topics: [eventSignature]
-})
+const receiptResult = await receipts.getReceiptByTxHash(txHash)
+const logs = await receipts.getLogs(fromBlock, toBlock, addresses, topics)
 ```
 
-### Working with Logs
+Receipts support pre-Byzantium, post-Byzantium, and EIP-4844 blob receipt shapes.
 
-```ts
-// Process event logs
-for (const log of logs) {
-  console.log({
-    address: log.address,
-    topics: log.topics,
-    data: log.data,
-    blockNumber: log.blockNumber,
-    transactionHash: log.transactionHash,
-    logIndex: log.logIndex
-  })
-}
-```
+## JSON-RPC Integration
+
+The submodules power Tevm's RPC handlers:
+
+- `eth_*` for standard Ethereum JSON-RPC, including `eth_getProof`, `eth_blobBaseFee`, `eth_simulateV1`, and `eth_simulateV2`.
+- `tevm_*` for Tevm-native calls, account/state management, mining, and light sync status.
+- `debug_*` for trace, raw block/header/receipt/transaction, storage range, preimage, and modified account methods.
+- `anvil_*`, `hardhat_*`, `ganache_*`, and `evm_*` for development-node compatibility.
+- `engine_*` for Engine API payload and forkchoice methods when `engineApi` is enabled.
+- `txpool_*`, `web3_*`, `net_*`, and `rpc_modules` for broader client compatibility.
 
 ## Best Practices
 
-1. **Use High-Level APIs**: Prefer `vm.runTx()` over direct EVM execution for full transaction support.
-
-2. **State Management**: 
-   - Use checkpoints for atomic operations
-   - Clean up state after tests
-   - Handle reverts properly
-
-3. **Gas Optimization**:
-   - [Estimate gas](https://ethereum.org/en/developers/docs/gas/#why-are-gas-fees-necessary) before execution
-   - Monitor gas usage in hot paths
-   - Use appropriate gas limits
-
-4. **Error Handling**:
-   - Check execution results
-   - Handle exceptions gracefully
-   - Validate inputs
+1. **Use high-level APIs first**: Prefer `createMemoryClient`, viem actions, or JSON-RPC for application code.
+2. **Drop down deliberately**: Use `vm.runTx`, `evm.runCall`, txpool, or receipts directly when building tooling, debuggers, or Tevm extensions.
+3. **Handle snapshots carefully**: Use checkpoints and `evm_snapshot`/`evm_revert` style flows for test isolation.
+4. **Choose the right trace**: Use `debug_traceCall` or `debug_traceTransaction` for RPC-compatible tracing; use `onStep`, `onBeforeMessage`, and `onAfterMessage` for in-process instrumentation.
 
 ## Related Topics
+
 - [JSON-RPC Support](./json-rpc)
 - [Managing State](../core/managing-state)
 - [Transaction Pool](../advanced/txpool)
 - [Receipts & Logs](../advanced/receipts-and-logs)
+- [EVM Events](./evm-events)
 - [EVM Opcodes Reference](https://www.evm.codes/)
 - [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf)
-- [ethereumjs/ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo)
 
-**Up Next**  
+**Up Next**
+
 - [JSON-RPC Guide](./json-rpc)
-- [Advanced Usage](../advanced/txpool) 
+- [Advanced Usage](../advanced/txpool)

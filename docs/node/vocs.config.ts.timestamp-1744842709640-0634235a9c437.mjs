@@ -48,8 +48,8 @@ var vocs_config_default = defineConfig({
 			items: [
 				{ text: 'Viem', link: 'https://viem.sh/' },
 				{
-					text: 'Ethereumjs',
-					link: 'https://github.com/ethereumjs/ethereumjs-monorepo',
+					text: 'ZEVM',
+					link: 'https://github.com/evmts/zevm',
 				},
 				{ text: 'Krome', link: 'https://github.com/evmts/krome' },
 			],

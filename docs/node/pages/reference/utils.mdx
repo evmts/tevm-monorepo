@@ -5,7 +5,7 @@ description: Core utility functions such as createAddress, createContractAddress
 
 # Utilities & Addresses
 
-Tevm exports a set of lightweight utility functions and classes. Many of these build upon lower-level packages like [`tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils) and [`viem`](https://viem.sh) while standardizing usage for Tevm Node. Below are the most commonly used.
+Tevm exports a set of lightweight utility functions and classes. Many of these build upon lower-level packages like [`tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils), [`@evmts/zevm`](https://github.com/evmts/zevm), and [`viem`](https://viem.sh) while standardizing usage for Tevm Node. Below are the most commonly used.
 
 ## createAddress
 
@@ -38,7 +38,7 @@ declare function createAddress(
 
 ## Address Class
 
-A thin wrapper around [`EthjsAddress`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/util) offering a simple, consistent shape for Tevm Node. Created by `createAddress` or by forging your own:
+A thin wrapper around the ZEVM-compatible `EthjsAddress` utility export offering a simple, consistent shape for Tevm Node. Created by `createAddress` or by constructing your own:
 
 ```ts
 import { Address } from 'tevm/address'
@@ -78,7 +78,7 @@ const contractAddr = createContractAddress(from, nonce)
 
 ## Other Handy Utilities
 
-Some additional lower-level utility re-exports from [`tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils) or [`viem`](https://viem.sh):
+Some additional lower-level utility re-exports from [`tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils), ZEVM, or [`viem`](https://viem.sh):
 
 - `hexToBytes(hex: string): Uint8Array`
   Convert a hex string to raw bytes (with optional size checks).
@@ -86,6 +86,7 @@ Some additional lower-level utility re-exports from [`tevm/utils`](https://githu
   A standard [keccak256](https://ethereum.org/en/developers/docs/smart-contracts/security/#keccak256-and-sha-3) hasher.
 - `encodeFunctionData(...)`, `toRlp(...)`, etc.
   Various encoding helpers used by Tevm Node internally.
+- EIP-7702 helpers such as `eoaCode7702SignAuthorization`, `eoaCode7702RecoverAuthority`, and authorization-list encoders.
 
 > **Tip:** If you are building higher-level code in the browser or Node, you may prefer [`viem`](https://viem.sh)'s standardized utilities for bytes conversions, hashing, and ABIs. Tevm re-exports many of these for convenience.
 
@@ -93,7 +94,7 @@ Some additional lower-level utility re-exports from [`tevm/utils`](https://githu
 
 > **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/utils/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils/docs) folder.
 
-The `@tevm/utils` package provides a comprehensive collection of utility functions and types for working with Ethereum data structures, encoding/decoding, and common operations. It combines functionality from various Ethereum libraries and adds Tevm-specific utilities.
+The `@tevm/utils` package provides a comprehensive collection of utility functions and types for working with Ethereum data structures, encoding/decoding, and common operations. It combines ZEVM-backed primitives, viem utilities, and Tevm-specific helpers.
 
 ## Installation
 
@@ -348,5 +349,5 @@ invariant(condition, 'Error message')
 ## See Also
 
 - [Viem Documentation](https://viem.sh/docs/utilities/fromBytes)
-- [EthereumJS Util Documentation](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/util)
+- [ZEVM](https://github.com/evmts/zevm)
 - [ABI Specification](https://docs.soliditylang.org/en/latest/abi-spec.html)

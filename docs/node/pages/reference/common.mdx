@@ -5,7 +5,7 @@ description: "Chain-specific configuration and utilities for Tevm clients"
 
 # @tevm/common
 
-The `@tevm/common` package provides chain-specific configuration and utilities for Tevm clients. It extends the functionality of `ethereumjs/common` and integrates with Viem's chain definitions.
+The `@tevm/common` package provides chain-specific configuration and utilities for Tevm clients. It combines viem chain definitions with a ZEVM-backed Common instance that the VM uses for hardfork, EIP, consensus, and gas-parameter lookups.
 
 > **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/common/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs) folder.
 
@@ -23,6 +23,7 @@ The `@tevm/common` package provides:
 - Consensus algorithm configuration
 - Network-specific settings
 - Extensive chain definitions
+- Custom crypto hooks such as KZG support for blob transaction testing
 
 ## API Reference
 
@@ -103,8 +104,7 @@ import { createCommon } from '@tevm/common'
 
 const common = createCommon({
   name: 'Custom Chain',
-  chainId: 1337,
-  networkId: 1337,
+  id: 1337,
   defaultHardfork: 'shanghai',
   consensus: {
     type: 'poa',
@@ -116,6 +116,11 @@ const common = createCommon({
   }
 })
 ```
+
+The returned `Common` object is a viem chain object plus:
+
+- `ethjsCommon` - the ZEVM-backed Common instance used internally by the VM.
+- `copy()` - creates an isolated copy for a new VM or client.
 
 ### Using with Custom Crypto
 
@@ -166,6 +171,6 @@ try {
 
 ## See Also
 
-- [EthereumJS Common Documentation](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/common)
+- [VM & Submodules](../api/vm-and-submodules)
 - [Viem Chains Documentation](https://viem.sh/docs/chains/introduction.html)
 - [Full API Reference](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/globals.md)

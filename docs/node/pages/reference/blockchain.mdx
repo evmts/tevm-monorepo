@@ -1,6 +1,6 @@
 # @tevm/blockchain
 
-The `@tevm/blockchain` package provides a custom implementation of the Ethereum blockchain, extending the functionality of `ethereumjs/blockchain`. It's responsible for managing blocks, handling chain reorganizations, and maintaining the blockchain state.
+The `@tevm/blockchain` package provides Tevm's block and chain-state implementation. It manages local blocks, fork-backed block lookup, canonical heads, iterator heads, and chain validation using Tevm block types and ZEVM-compatible primitives.
 
 > **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/blockchain/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/blockchain/docs) folder.
 
@@ -18,6 +18,7 @@ The blockchain package provides:
 - Support for forking from live networks
 - Block iteration and traversal
 - Chain state management
+- Deep and shallow copy helpers for simulations and snapshots
 
 ## API Reference
 
@@ -238,7 +239,7 @@ await chain.iterator('vm', async (block, reorg) => {
 
 ## See Also
 
-- [EthereumJS Blockchain Documentation](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/blockchain)
+- [VM & Submodules](../api/vm-and-submodules)
 - [Block Package Documentation](https://tevm.sh/reference/tevm/block/)
 - [Common Package Documentation](https://tevm.sh/reference/tevm/common/)
 - [Full API Reference](https://github.com/evmts/tevm-monorepo/tree/main/packages/blockchain/docs/globals.md)

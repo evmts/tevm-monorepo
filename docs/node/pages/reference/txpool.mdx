@@ -1,6 +1,6 @@
 # @tevm/txpool
 
-The `@tevm/txpool` package provides a transaction pool (mempool) implementation for Tevm, managing pending transactions and their lifecycle within the Ethereum Virtual Machine.
+The `@tevm/txpool` package exposes Tevm's transaction pool facade. It is backed by `@evmts/zevm/txpool` and adds Tevm-specific fee classification for fee-market-shaped transactions, including EIP-7702 and impersonated transactions.
 
 ## Installation
 
@@ -10,187 +10,77 @@ npm install @tevm/txpool
 
 ## Overview
 
-The transaction pool is responsible for:
-- Managing pending transactions
-- Validating transaction requirements
-- Ordering transactions by price and nonce
-- Handling transaction replacement
-- Cleaning up stale transactions
-- Supporting transaction lifecycle management
+The transaction pool stores pending transactions before they are mined. It tracks transactions by sender, nonce, and hash; validates sender nonce and balance against a VM copy; orders transactions by effective gas price; and cleans up stale or already-mined transactions.
 
-## API Reference
+Tevm normally manages this for you through `TevmNode`, `MemoryClient`, and the JSON-RPC layer. Use `@tevm/txpool` directly when you are building custom VM tooling or need low-level pending transaction control.
 
-### Core Class
+## API
 
-#### TxPool
-[`TxPool`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts) - The main transaction pool class with the following key features:
+### TxPool
 
-##### Constructor
-```typescript
-new TxPool(options: TxPoolOptions)
-```
+[`TxPool`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts) extends the ZEVM txpool implementation.
 
-##### Properties
-- `BLOCKS_BEFORE_TARGET_HEIGHT_ACTIVATION`: Number of blocks before chain head to start tx pool preparation
-- `POOLED_STORAGE_TIME_LIMIT`: Number of minutes to keep txs in the pool
-- `HANDLED_CLEANUP_TIME_LIMIT`: Number of minutes to forget about handled txs
-- `pool`: The central pool dataset mapping addresses to transactions
-- `running`: Boolean indicating if the pool is running
-- `txsInPool`: Number of transactions currently in the pool
+```ts
+import { TxPool, type TxPoolOptions } from '@tevm/txpool'
 
-##### Methods
-- [`add`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L310) - Adds a transaction to the pool
-- [`addUnverified`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L280) - Adds an unverified transaction to the pool
-- [`getByHash`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L320) - Retrieves transactions by their hashes
-- [`removeByHash`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L341) - Removes a transaction by its hash
-- [`txsByPriceAndNonce`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L477) - Returns transactions sorted by price and nonce
-- [`cleanup`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L374) - Performs pool cleanup
-- [`open`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L141) - Opens the transaction pool
-- [`close`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L581) - Closes the transaction pool
-- [`start`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L153) - Starts transaction processing
-- [`stop`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L570) - Stops transaction processing
-- [`deepCopy`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts#L128) - Creates a deep copy of the pool
-
-## Usage Examples
-
-### Creating and Managing a Transaction Pool
-
-```typescript
-import { TxPool } from '@tevm/txpool'
-import { createCommon } from '@tevm/common'
-
-const common = createCommon({ chain: 'mainnet' })
 const txPool = new TxPool({
-  common,
-  maxPoolSize: 5000,
-  minGasPriceBump: 10 // 10% price bump for replacement
-})
-
-// Start the pool
-txPool.open()
-txPool.start()
+  vm,
+  maxSize: 5000,
+  maxPerSender: 100,
+} satisfies TxPoolOptions)
 ```
 
-### Adding Transactions
+### Options
 
-```typescript
-// Add a new transaction
-await txPool.add(transaction, {
-  requireSignature: true,
-  skipBalance: false
-})
-
-// Add an unverified transaction
-await txPool.addUnverified(transaction)
-```
-
-### Retrieving Transactions
-
-```typescript
-// Get transactions by hash
-const txs = txPool.getByHash(txHashes)
-
-// Get transactions by sender
-const senderTxs = await txPool.getBySenderAddress(senderAddress)
-
-// Get transactions ordered by price and nonce
-const orderedTxs = await txPool.txsByPriceAndNonce({
-  baseFee: 1000000000n,
-  allowedBlobs: 3
-})
-```
-
-### Managing Transaction Lifecycle
-
-```typescript
-// Remove a transaction
-txPool.removeByHash(txHash)
-
-// Remove transactions included in new blocks
-txPool.removeNewBlockTxs(newBlocks)
-
-// Perform cleanup of stale transactions
-txPool.cleanup()
-```
-
-### Pool Lifecycle Management
-
-```typescript
-// Start the pool
-txPool.open()
-txPool.start()
-
-// Stop the pool
-txPool.stop()
-txPool.close()
-
-// Create a copy of the pool
-const poolCopy = txPool.deepCopy(options)
-```
-
-## Configuration
-
-The transaction pool can be configured with various options:
-
-```typescript
-interface TxPoolOptions {
-  common: Common
-  maxPoolSize?: number
-  minGasPriceBump?: number
-  minFeeBump?: number
-  maxPendingTotal?: number
-  maxPendingPerAccount?: number
-  maxQueuedTotal?: number
-  maxQueuedPerAccount?: number
-  minPendingNodeBalance?: bigint
-  minRemainingGasLimit?: bigint
+```ts
+type TxPoolOptions = {
+  vm: TxPoolVm
+  maxSize?: number
+  maxPerSender?: number
 }
 ```
 
-### Configuration Options
+- `vm` - VM facade with `blockchain`, `stateManager`, and `deepCopy()` support.
+- `maxSize` - Maximum number of transactions held by the pool.
+- `maxPerSender` - Maximum number of transactions held for one sender.
 
-- `maxPoolSize`: Maximum number of transactions in the pool
-- `minGasPriceBump`: Minimum price bump percentage for transaction replacement
-- `minFeeBump`: Minimum fee bump for transaction replacement
-- `maxPendingTotal`: Maximum number of pending transactions
-- `maxPendingPerAccount`: Maximum pending transactions per account
-- `maxQueuedTotal`: Maximum number of queued transactions
-- `maxQueuedPerAccount`: Maximum queued transactions per account
-- `minPendingNodeBalance`: Minimum balance required for pending transactions
-- `minRemainingGasLimit`: Minimum gas limit for remaining transactions
+### Methods
 
-## Error Handling
+- `open()` / `close()` - Open or clear the pool.
+- `start()` / `stop()` - Start or stop background cleanup.
+- `add(tx, requireSignature?, skipBalance?)` - Validate and add a transaction.
+- `addUnverified(tx)` - Add a transaction without validation.
+- `getByHash(hashOrHashes)` - Look up one transaction by hex hash, or many by byte hashes.
+- `removeByHash(hash)` - Remove a transaction from all pool indexes.
+- `txsByPriceAndNonce({ baseFee, allowedBlobs })` - Return transactions ordered for block building.
+- `cleanup()` - Remove stale transactions and synchronize auxiliary indexes.
+- `deepCopy(options)` - Create a copy with another VM/options object.
 
-The transaction pool throws specific errors for various failure scenarios:
+## JSON-RPC
 
-```typescript
-try {
-  await txPool.add(transaction)
-} catch (error) {
-  if (error.code === 'POOL_FULL') {
-    console.error('Transaction pool is full')
-  } else if (error.code === 'UNDERPRICED') {
-    console.error('Transaction is underpriced')
-  } else if (error.code === 'NONCE_TOO_LOW') {
-    console.error('Transaction nonce is too low')
-  }
-}
-```
+When used through Tevm's JSON-RPC layer, txpool state is exposed through:
 
-## Best Practices
+- `txpool_content`
+- `txpool_contentFrom`
+- `txpool_inspect`
+- `txpool_status`
 
-1. **Regular Cleanup**: Call `cleanup()` periodically to remove stale transactions
-2. **Transaction Replacement**: Use appropriate gas price bumps for replacement transactions
-3. **Pool Size Management**: Monitor and adjust pool size limits based on network conditions
-4. **Error Handling**: Implement proper error handling for transaction additions and removals
-5. **Lifecycle Management**: Properly manage pool lifecycle with `open()`, `start()`, `stop()`, and `close()`
+Development-node methods such as `anvil_impersonateAccount`, `tevm_impersonateAccount`, and `evm_mine` can all interact with pending transactions managed by the same node.
+
+## Transaction Support
+
+The pool accepts ZEVM transaction objects and Tevm impersonated transactions, including:
+
+- Legacy transactions
+- EIP-2930 access-list transactions
+- EIP-1559 fee-market transactions
+- EIP-4844 blob transactions
+- EIP-7702 EOA-code transactions
+- Tevm impersonated EIP-1559-shaped transactions
 
 ## Related Packages
 
-- [@tevm/vm](./vm) - Virtual Machine implementation
-- [@tevm/state](./state) - State management
-- [@tevm/common](./common) - Chain configuration
-
-## License
-
-MIT
+- [@tevm/vm](./vm) - VM execution facade
+- [@tevm/tx](./tx) - Transaction constructors and helpers
+- [@tevm/common](./common) - Chain and hardfork configuration
+- [JSON-RPC](../api/json-rpc) - RPC namespace support
