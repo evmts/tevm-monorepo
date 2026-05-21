@@ -1368,7 +1368,7 @@ importers:
         specifier: workspace:^
         version: link:../../packages/client-types
       '@tevm/common':
-        specifier: workspace:1.0.0-next.148
+        specifier: workspace:1.0.0-next.151
         version: link:../../packages/common
       '@tevm/contract':
         specifier: workspace:^
@@ -1991,7 +1991,7 @@ importers:
   packages/http-client:
     dependencies:
       '@tevm/address':
-        specifier: workspace:1.0.0-next.148
+        specifier: workspace:1.0.0-next.151
         version: link:../address
       '@tevm/contract':
         specifier: workspace:^

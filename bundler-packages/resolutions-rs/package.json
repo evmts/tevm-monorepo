@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/resolutions-rs",
-	"version": "1.0.0-next.148",
+	"version": "1.0.0-next.151",
 	"private": false,
 	"description": "Rust implementation of solidity resolution",
 	"repository": {

@@ -1,6 +1,6 @@
 {
 	"name": "@tevm/resolutions-rs-freebsd-x64",
-	"version": "0.0.0",
+	"version": "1.0.0-next.151",
 	"cpu": [
 		"x64"
 	],
