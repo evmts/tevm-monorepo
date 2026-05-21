@@ -124,6 +124,32 @@ describe('TevmNode interval mining integration', () => {
 
 			expect(client.status).toBe('STOPPED')
 		})
+
+		it('should not start interval mining when closed before ready resolves', async () => {
+			vi.useFakeTimers()
+			const setTimeoutSpy = vi.spyOn(globalThis, 'setTimeout')
+
+			client = createTevmNode({
+				miningConfig: { type: 'interval', blockTime: 0.001 }
+			})
+			const ready = client.ready()
+
+			expect(() => client.close()).not.toThrow()
+			expect(client.status).toBe('STOPPED')
+
+			await ready
+			const vm = await client.getVm()
+			const blockBeforeTimers = await vm.blockchain.getCanonicalHeadBlock()
+
+			await vi.advanceTimersByTimeAsync(10)
+
+			const blockAfterTimers = await vm.blockchain.getCanonicalHeadBlock()
+			expect(blockAfterTimers.header.number).toBe(blockBeforeTimers.header.number)
+			expect(setTimeoutSpy).not.toHaveBeenCalledWith(expect.any(Function), 1)
+
+			setTimeoutSpy.mockRestore()
+			vi.useRealTimers()
+		})
 	})
 
 	describe('deepCopy', () => {

@@ -828,6 +828,66 @@ export const createTevmNode = (options = {}) => {
 	let intervalMiner = null
 
 	/**
+	 * Emits the same block import events as manual mining without depending on
+	 * @tevm/actions from @tevm/node.
+	 * @param {import('./TevmNode.js').TevmNode} client
+	 * @param {import('@tevm/block').Block} block
+	 * @param {Array<import('@tevm/receipt-manager').TxReceipt>} receipts
+	 * @returns {Promise<void>}
+	 */
+	const emitMinedBlockEvents = async (client, block, receipts) => {
+		const blockHash = bytesToHex(block.hash())
+		client.emit('newBlock', block)
+		await client.emitExExEvent({ type: 'block', phase: 'imported', block, blockHash })
+
+		let cumulativeLogIndex = 0n
+		for (let txIndex = 0; txIndex < receipts.length; txIndex++) {
+			const receipt = receipts[txIndex]
+			if (!receipt) {
+				continue
+			}
+			client.emit('newReceipt', receipt)
+			await client.emitExExEvent({ type: 'receipt', phase: 'created', blockHash, receipt })
+			const txHash = /** @type {any} */ (receipt).txHash
+			await client.emitExExEvent({
+				type: 'transaction',
+				phase: 'executed',
+				txHash: txHash ? bytesToHex(txHash) : '0x',
+				blockHash,
+				receipt,
+			})
+
+			const tx = block.transactions?.[txIndex]
+			const transactionHash = tx ? bytesToHex(tx.hash()) : txHash ? bytesToHex(txHash) : '0x'
+			for (const log of receipt.logs) {
+				client.emit('newLog', log, {
+					blockHash,
+					blockNumber: block.header.number,
+					transactionHash,
+					transactionIndex: BigInt(txIndex),
+					logIndex: cumulativeLogIndex,
+				})
+				cumulativeLogIndex++
+				await client.emitExExEvent({ type: 'log', phase: 'created', blockHash, receipt, log })
+			}
+		}
+
+		await client.emitExExEvent({
+			type: 'state',
+			phase: 'committed',
+			blockHash,
+			stateRoot: bytesToHex(block.header.stateRoot),
+		})
+		await client.emitExExEvent({
+			type: 'canonical',
+			phase: 'headChanged',
+			headHash: blockHash,
+			headNumber: block.header.number,
+			reorged: false,
+		})
+	}
+
+	/**
 	 * Mines all currently pending transactions using the same state, receipt, and
 	 * txpool updates as manual mining.
 	 * @param {import('./TevmNode.js').TevmNode} client
@@ -839,16 +899,30 @@ export const createTevmNode = (options = {}) => {
 		const vm = await originalVm.deepCopy()
 		const receiptsManager = await client.getReceiptsManager()
 		const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
-		const baseFeePerGas = client.getNextBlockBaseFeePerGas() ?? parentBlock.header.calcNextBaseFee()
+		const overrideBaseFee = client.getNextBlockBaseFeePerGas()
+		const baseFeePerGas = overrideBaseFee ?? parentBlock.header.calcNextBaseFee()
 		const orderedTxs = await pool.txsByPriceAndNonce({ baseFee: baseFeePerGas })
 		if (orderedTxs.length === 0) {
 			client.logger.debug('Interval mining: No transactions to mine')
 			return
 		}
+		if (overrideBaseFee !== undefined) {
+			client.setNextBlockBaseFeePerGas(undefined)
+		}
 
-		const currentTimestamp = BigInt(Math.floor(Date.now() / 1000))
-		const timestamp =
-			currentTimestamp > parentBlock.header.timestamp ? currentTimestamp : parentBlock.header.timestamp + 1n
+		const overrideTimestamp = client.getNextBlockTimestamp()
+		const timestampInterval = client.getBlockTimestampInterval()
+		let timestamp
+		if (overrideTimestamp !== undefined) {
+			timestamp = overrideTimestamp
+			client.setNextBlockTimestamp(undefined)
+		} else if (timestampInterval !== undefined) {
+			timestamp = parentBlock.header.timestamp + timestampInterval
+		} else {
+			const currentTimestamp = BigInt(Math.floor(Date.now() / 1000))
+			timestamp = currentTimestamp > parentBlock.header.timestamp ? currentTimestamp : parentBlock.header.timestamp + 1n
+		}
+		timestamp = timestamp > parentBlock.header.timestamp ? timestamp : parentBlock.header.timestamp + 1n
 		const gasLimit = client.getNextBlockGasLimit() ?? parentBlock.header.gasLimit
 		const overridePrevRandao = client.getNextBlockPrevRandao?.()
 		if (overridePrevRandao !== undefined && client.setNextBlockPrevRandao) {
@@ -898,6 +972,7 @@ export const createTevmNode = (options = {}) => {
 		receiptsManager.chain = vm.evm.blockchain
 		await originalVm.stateManager.setStateRoot(hexToBytes(vm.stateManager._baseState.getCurrentStateRoot()))
 
+		await emitMinedBlockEvents(client, block, receipts)
 		client.logger.debug({ blockNumber: block.header.number, txCount: orderedTxs.length }, 'Block mined via interval mining')
 	}
 
@@ -995,12 +1070,8 @@ export const createTevmNode = (options = {}) => {
 		emitExExEvent,
 		deepCopy: () => deepCopy(baseClient)(),
 		close: () => {
-			// Stop interval mining if running
-			if (baseClient.miningConfig.type === 'interval') {
-				intervalMiner.stop()
-			}
-			// Set status to stopped
 			baseClient.status = 'STOPPED'
+			intervalMiner?.stop()
 			logger.debug('TevmNode closed')
 		},
 		debug: async () => {

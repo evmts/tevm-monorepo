@@ -7,6 +7,17 @@ const testAccount = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 const recipientAccount = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 const secondRecipientAccount = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC'
 
+const waitForBlockNumberGreaterThan = async (client: MemoryClient, blockNumber: bigint) => {
+	for (let i = 0; i < 20; i++) {
+		const currentBlockNumber = await client.getBlockNumber()
+		if (currentBlockNumber > blockNumber) {
+			return currentBlockNumber
+		}
+		await new Promise((resolve) => setTimeout(resolve, 50))
+	}
+	throw new Error(`Timed out waiting for block number to exceed ${blockNumber}`)
+}
+
 describe('Interval Mining Behavior', () => {
 	let client: MemoryClient
 
@@ -65,6 +76,74 @@ describe('Interval Mining Behavior', () => {
 			expect(receipt.blockNumber).toBeGreaterThan(initialBlockNumber)
 
 			// Clean up - disable interval mining
+			await client.request({
+				method: 'anvil_setIntervalMining',
+				params: [0],
+			})
+
+			vi.useFakeTimers()
+		})
+
+		it('should notify block filters when an interval block is mined', async () => {
+			vi.useRealTimers()
+
+			const filterId = await client.request({
+				method: 'eth_newBlockFilter',
+				params: [],
+			})
+			await client.request({
+				method: 'anvil_setIntervalMining',
+				params: [0.1],
+			})
+			const initialBlockNumber = await client.getBlockNumber()
+
+			await client.sendTransaction({
+				account: testAccount,
+				to: recipientAccount,
+				value: parseEther('1'),
+			})
+			await waitForBlockNumberGreaterThan(client, initialBlockNumber)
+
+			const changes = await client.request({
+				method: 'eth_getFilterChanges',
+				params: [filterId],
+			})
+			expect(changes).toHaveLength(1)
+			expect(changes[0]).toMatch(/^0x[a-fA-F0-9]{64}$/)
+
+			await client.request({
+				method: 'anvil_setIntervalMining',
+				params: [0],
+			})
+
+			vi.useFakeTimers()
+		})
+
+		it('should honor anvil_setNextBlockTimestamp for the next interval block', async () => {
+			vi.useRealTimers()
+
+			const initialBlock = await client.getBlock()
+			const targetTimestamp = initialBlock.timestamp + 3600n
+			await client.request({
+				method: 'anvil_setNextBlockTimestamp',
+				params: [`0x${targetTimestamp.toString(16)}`],
+			})
+			await client.request({
+				method: 'anvil_setIntervalMining',
+				params: [0.1],
+			})
+			const initialBlockNumber = await client.getBlockNumber()
+
+			await client.sendTransaction({
+				account: testAccount,
+				to: recipientAccount,
+				value: parseEther('1'),
+			})
+			await waitForBlockNumberGreaterThan(client, initialBlockNumber)
+
+			const minedBlock = await client.getBlock()
+			expect(minedBlock.timestamp).toBe(targetTimestamp)
+
 			await client.request({
 				method: 'anvil_setIntervalMining',
 				params: [0],
