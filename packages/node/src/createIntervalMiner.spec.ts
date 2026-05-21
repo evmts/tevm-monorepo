@@ -7,10 +7,13 @@ describe('createIntervalMiner', () => {
 	let client: TevmNode
 	let originalSetTimeout: typeof setTimeout
 	let originalClearTimeout: typeof clearTimeout
+	const setMiningConfigWithoutStartingNodeMiner = (config: TevmNode['miningConfig']) => {
+		;(client as any).miningConfig = config
+	}
 
 	beforeEach(async () => {
 		client = createTevmNode({
-			miningConfig: { type: 'interval', blockTime: 1 }
+			miningConfig: { type: 'manual' }
 		})
 		await client.ready()
 
@@ -22,6 +25,7 @@ describe('createIntervalMiner', () => {
 	})
 
 	afterEach(() => {
+		setMiningConfigWithoutStartingNodeMiner({ type: 'manual' })
 		client.close()
 		
 		// Restore timers
@@ -31,6 +35,7 @@ describe('createIntervalMiner', () => {
 
 	describe('start', () => {
 		it('should start interval mining when mining type is interval', () => {
+			setMiningConfigWithoutStartingNodeMiner({ type: 'interval', blockTime: 1 })
 			const miner = createIntervalMiner(client)
 			miner.start()
 
@@ -46,6 +51,7 @@ describe('createIntervalMiner', () => {
 		})
 
 		it('should not start multiple times if already running', () => {
+			setMiningConfigWithoutStartingNodeMiner({ type: 'interval', blockTime: 1 })
 			const miner = createIntervalMiner(client)
 			miner.start()
 			miner.start()
@@ -54,7 +60,7 @@ describe('createIntervalMiner', () => {
 		})
 
 		it('should not schedule next mining cycle when blockTime is 0', () => {
-			client.setMiningConfig({ type: 'interval', blockTime: 0 })
+			setMiningConfigWithoutStartingNodeMiner({ type: 'interval', blockTime: 0 })
 			const miner = createIntervalMiner(client)
 			miner.start()
 
@@ -66,6 +72,7 @@ describe('createIntervalMiner', () => {
 		it('should stop interval mining and clear timeout', () => {
 			const mockTimeoutId = 123
 			;(global.setTimeout as any).mockReturnValue(mockTimeoutId)
+			setMiningConfigWithoutStartingNodeMiner({ type: 'interval', blockTime: 1 })
 
 			const miner = createIntervalMiner(client)
 			miner.start()
@@ -75,6 +82,10 @@ describe('createIntervalMiner', () => {
 		})
 
 		it('should handle multiple stop calls gracefully', () => {
+			const mockTimeoutId = 123
+			;(global.setTimeout as any).mockReturnValue(mockTimeoutId)
+			setMiningConfigWithoutStartingNodeMiner({ type: 'interval', blockTime: 1 })
+
 			const miner = createIntervalMiner(client)
 			miner.start()
 			miner.stop()
@@ -87,10 +98,11 @@ describe('createIntervalMiner', () => {
 
 	describe('updateConfig', () => {
 		it('should restart mining when config changes and was running', () => {
+			setMiningConfigWithoutStartingNodeMiner({ type: 'interval', blockTime: 1 })
 			const miner = createIntervalMiner(client)
 			miner.start()
 
-			client.setMiningConfig({ type: 'interval', blockTime: 2 })
+			setMiningConfigWithoutStartingNodeMiner({ type: 'interval', blockTime: 2 })
 			miner.updateConfig()
 
 			// Should have been called twice - once for start, once for restart
@@ -101,7 +113,7 @@ describe('createIntervalMiner', () => {
 		it('should not restart if was not running', () => {
 			const miner = createIntervalMiner(client)
 			
-			client.setMiningConfig({ type: 'interval', blockTime: 2 })
+			setMiningConfigWithoutStartingNodeMiner({ type: 'interval', blockTime: 2 })
 			miner.updateConfig()
 
 			expect(global.setTimeout).not.toHaveBeenCalled()
@@ -110,32 +122,27 @@ describe('createIntervalMiner', () => {
 
 	describe('mining cycle', () => {
 		it('should mine blocks when transactions are in mempool', async () => {
-			// Use real timers for this test
+			global.setTimeout = originalSetTimeout
+			global.clearTimeout = originalClearTimeout
 			vi.useRealTimers()
+			setMiningConfigWithoutStartingNodeMiner({ type: 'interval', blockTime: 0.01 })
 
-			client = createTevmNode({
-				miningConfig: { type: 'interval', blockTime: 0.1 } // 100ms for fast test
-			})
-			await client.ready()
-
-			const initialBlockNumber = BigInt(0)
-
-			// Add a transaction to mempool
-			const txPool = await client.getTxPool()
-			const vm = await client.getVm()
+			const originalGetTxPool = client.getTxPool
+			client.getTxPool = vi.fn().mockResolvedValue({ txsInPool: 1 }) as any
+			const miningCallback = vi.fn().mockResolvedValue(undefined)
 			
-			// Start interval mining
 			const miner = createIntervalMiner(client)
+			miner.setMiningCallback(miningCallback)
 			miner.start()
 
-			// Wait for mining cycle
-			await new Promise(resolve => setTimeout(resolve, 150))
+			await new Promise(resolve => setTimeout(resolve, 25))
 
-			// Stop mining
 			miner.stop()
-			client.close()
+			client.getTxPool = originalGetTxPool
+			expect(miningCallback).toHaveBeenCalled()
 
-			vi.useFakeTimers()
+			global.setTimeout = vi.fn() as any
+			global.clearTimeout = vi.fn()
 		})
 
 		it('should handle mining errors gracefully', async () => {
@@ -162,7 +169,7 @@ describe('createIntervalMiner', () => {
 			]
 
 			configs.forEach(({ blockTime, expectedTimeout }) => {
-				client.setMiningConfig({ type: 'interval', blockTime })
+				setMiningConfigWithoutStartingNodeMiner({ type: 'interval', blockTime })
 				const miner = createIntervalMiner(client)
 				miner.start()
 
@@ -173,7 +180,7 @@ describe('createIntervalMiner', () => {
 		})
 
 		it('should not mine when blockTime is 0', () => {
-			client.setMiningConfig({ type: 'interval', blockTime: 0 })
+			setMiningConfigWithoutStartingNodeMiner({ type: 'interval', blockTime: 0 })
 			const miner = createIntervalMiner(client)
 			miner.start()
 

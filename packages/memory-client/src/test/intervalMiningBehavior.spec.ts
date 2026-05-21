@@ -3,6 +3,10 @@ import { parseEther } from 'viem'
 import { createMemoryClient } from '../createMemoryClient.js'
 import type { MemoryClient } from '../MemoryClient.js'
 
+const testAccount = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
+const recipientAccount = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
+const secondRecipientAccount = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC'
+
 describe('Interval Mining Behavior', () => {
 	let client: MemoryClient
 
@@ -12,13 +16,14 @@ describe('Interval Mining Behavior', () => {
 			miningConfig: { type: 'manual' }
 		})
 		await client.tevmSetAccount({
-			address: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+			address: testAccount,
 			balance: parseEther('100'),
 		})
 	})
 
 	afterEach(() => {
-		client?.close?.()
+		client?.transport?.tevm?.close?.()
+		vi.useRealTimers()
 	})
 
 	describe('automatic interval mining', () => {
@@ -36,8 +41,8 @@ describe('Interval Mining Behavior', () => {
 
 			// Add a transaction to mempool
 			const txHash = await client.sendTransaction({
-				from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-				to: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+				account: testAccount,
+				to: recipientAccount,
 				value: parseEther('1'),
 			})
 
@@ -68,10 +73,7 @@ describe('Interval Mining Behavior', () => {
 			vi.useFakeTimers()
 		})
 
-		it('should mine empty blocks when no transactions are available', async () => {
-			// This test verifies that intervals don't mine empty blocks
-			// (our current implementation only mines when there are transactions)
-			
+		it('should not mine empty blocks when no transactions are available', async () => {
 			vi.useRealTimers()
 
 			await client.request({
@@ -109,8 +111,8 @@ describe('Interval Mining Behavior', () => {
 
 			// Send multiple transactions
 			const tx1 = await client.sendTransaction({
-				from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-				to: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+				account: testAccount,
+				to: recipientAccount,
 				value: parseEther('1'),
 			})
 
@@ -118,8 +120,8 @@ describe('Interval Mining Behavior', () => {
 			await new Promise(resolve => setTimeout(resolve, 50))
 
 			const tx2 = await client.sendTransaction({
-				from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-				to: '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC',
+				account: testAccount,
+				to: secondRecipientAccount,
 				value: parseEther('0.5'),
 			})
 
@@ -160,8 +162,8 @@ describe('Interval Mining Behavior', () => {
 			// Add a transaction
 			const initialBlockNumber = await client.getBlockNumber()
 			const txHash = await client.sendTransaction({
-				from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-				to: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+				account: testAccount,
+				to: recipientAccount,
 				value: parseEther('1'),
 			})
 
@@ -180,8 +182,8 @@ describe('Interval Mining Behavior', () => {
 			// Send another transaction
 			const beforeManualBlock = await client.getBlockNumber()
 			const tx2 = await client.sendTransaction({
-				from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-				to: '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC',
+				account: testAccount,
+				to: secondRecipientAccount,
 				value: parseEther('0.5'),
 			})
 
@@ -221,8 +223,8 @@ describe('Interval Mining Behavior', () => {
 
 			// Send transaction - should mine immediately
 			const tx1 = await client.sendTransaction({
-				from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-				to: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+				account: testAccount,
+				to: recipientAccount,
 				value: parseEther('1'),
 			})
 
@@ -239,8 +241,8 @@ describe('Interval Mining Behavior', () => {
 			// Send another transaction - should go to mempool
 			const beforeIntervalBlock = await client.getBlockNumber()
 			const tx2 = await client.sendTransaction({
-				from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-				to: '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC',
+				account: testAccount,
+				to: secondRecipientAccount,
 				value: parseEther('0.5'),
 			})
 
@@ -277,8 +279,8 @@ describe('Interval Mining Behavior', () => {
 
 			// Verify mining is working
 			const txHash = await client.sendTransaction({
-				from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-				to: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+				account: testAccount,
+				to: recipientAccount,
 				value: parseEther('1'),
 			})
 
@@ -288,10 +290,10 @@ describe('Interval Mining Behavior', () => {
 			expect(receipt).toBeDefined()
 
 			// Close the client
-			client.close()
+			client.transport.tevm.close()
 
 			// Should not cause any issues or memory leaks
-			expect(client.status).toBe('STOPPED')
+			expect(client.transport.tevm.status).toBe('STOPPED')
 
 			vi.useFakeTimers()
 		})

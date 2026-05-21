@@ -9,7 +9,7 @@ import { p256VerifyPrecompile } from '@tevm/precompiles'
 import { ReceiptsManager } from '@tevm/receipt-manager'
 import { createStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
-import { bytesToHex, getAddress, hexToBigInt, KECCAK256_RLP, keccak256, numberToHex } from '@tevm/utils'
+import { bytesToHex, getAddress, hexToBigInt, hexToBytes, KECCAK256_RLP, keccak256, numberToHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
 import { createIntervalMiner } from './createIntervalMiner.js'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
@@ -828,6 +828,80 @@ export const createTevmNode = (options = {}) => {
 	let intervalMiner = null
 
 	/**
+	 * Mines all currently pending transactions using the same state, receipt, and
+	 * txpool updates as manual mining.
+	 * @param {import('./TevmNode.js').TevmNode} client
+	 * @returns {Promise<void>}
+	 */
+	const minePendingTransactions = async (client) => {
+		const pool = await client.getTxPool()
+		const originalVm = await client.getVm()
+		const vm = await originalVm.deepCopy()
+		const receiptsManager = await client.getReceiptsManager()
+		const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
+		const baseFeePerGas = client.getNextBlockBaseFeePerGas() ?? parentBlock.header.calcNextBaseFee()
+		const orderedTxs = await pool.txsByPriceAndNonce({ baseFee: baseFeePerGas })
+		if (orderedTxs.length === 0) {
+			client.logger.debug('Interval mining: No transactions to mine')
+			return
+		}
+
+		const currentTimestamp = BigInt(Math.floor(Date.now() / 1000))
+		const timestamp =
+			currentTimestamp > parentBlock.header.timestamp ? currentTimestamp : parentBlock.header.timestamp + 1n
+		const gasLimit = client.getNextBlockGasLimit() ?? parentBlock.header.gasLimit
+		const overridePrevRandao = client.getNextBlockPrevRandao?.()
+		if (overridePrevRandao !== undefined && client.setNextBlockPrevRandao) {
+			client.setNextBlockPrevRandao(undefined)
+		}
+		const mixHash =
+			overridePrevRandao !== undefined ? hexToBytes(`0x${overridePrevRandao.toString(16).padStart(64, '0')}`) : undefined
+
+		const blockBuilder = await vm.buildBlock({
+			parentBlock,
+			headerData: {
+				timestamp,
+				number: parentBlock.header.number + 1n,
+				...(mixHash ? { mixHash } : {}),
+				gasLimit,
+				baseFeePerGas,
+			},
+			blockOpts: { freeze: false, setHardfork: false, putBlockIntoBlockchain: false, common: vm.common },
+		})
+
+		/**
+		 * @type {Array<import('@tevm/receipt-manager').TxReceipt>}
+		 */
+		const receipts = []
+		for (const tx of orderedTxs) {
+			const txResult = await blockBuilder.addTransaction(tx, {
+				skipBalance: false,
+				skipNonce: false,
+				skipHardForkValidation: false,
+			})
+			receipts.push(txResult.receipt)
+		}
+
+		await vm.stateManager.checkpoint()
+		await vm.stateManager.commit(true)
+		const block = await blockBuilder.build()
+		await Promise.all([receiptsManager.saveReceipts(block, receipts), vm.blockchain.putBlock(block)])
+		pool.removeNewBlockTxs([block])
+
+		const state = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
+		if (state !== undefined) {
+			originalVm.stateManager.saveStateRoot(block.header.stateRoot, state)
+		}
+		originalVm.blockchain = vm.blockchain
+		originalVm.evm.blockchain = vm.evm.blockchain
+		// @ts-expect-error internal receipt manager chain is intentionally updated after mining
+		receiptsManager.chain = vm.evm.blockchain
+		await originalVm.stateManager.setStateRoot(hexToBytes(vm.stateManager._baseState.getCurrentStateRoot()))
+
+		client.logger.debug({ blockNumber: block.header.number, txCount: orderedTxs.length }, 'Block mined via interval mining')
+	}
+
+	/**
 	 * Create and return the baseClient
 	 * It will be syncronously created but some functionality
 	 * will be asyncronously blocked by initialization of vm and chainId
@@ -866,32 +940,7 @@ export const createTevmNode = (options = {}) => {
 					// Set up the mining callback
 					intervalMiner.setMiningCallback(async () => {
 						try {
-							const txPool = await baseClient.getTxPool()
-							const vm = await baseClient.getVm()
-							const orderedTxs = await txPool.txsByPriceAndNonce({ baseFee: 0n })
-							if (orderedTxs.length === 0) return
-
-							const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
-							const timestamp = Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
-
-							const blockBuilder = await vm.buildBlock({
-								parentBlock,
-								headerData: { timestamp, number: parentBlock.header.number + 1n },
-								blockOpts: { freeze: false, setHardfork: false, putBlockIntoBlockchain: false, common: vm.common },
-							})
-
-							for (const tx of orderedTxs) {
-								try {
-									await blockBuilder.addTransaction(tx, { skipBalance: true, skipNonce: true, skipHardForkValidation: true })
-								} catch (txError) {
-									baseClient.logger.debug({ txError }, 'Failed to add transaction to block')
-								}
-							}
-
-							const block = await blockBuilder.build()
-							await vm.blockchain.putBlock(block)
-							txPool.removeNewBlockTxs([block])
-							baseClient.logger.debug({ blockNumber: block.header.number, txCount: orderedTxs.length }, 'Block mined via setMiningConfig')
+							await minePendingTransactions(baseClient)
 						} catch (error) {
 							baseClient.logger.error(error, 'Failed to mine block in setMiningConfig')
 						}
@@ -996,59 +1045,7 @@ export const createTevmNode = (options = {}) => {
 			// Set up the mining callback to handle block creation
 			intervalMiner.setMiningCallback(async () => {
 				try {
-					// Simple mining implementation - mine one block with all pending transactions
-					const txPool = await baseClient.getTxPool()
-					const vm = await baseClient.getVm()
-					
-					// Get ordered transactions from pool
-					const orderedTxs = await txPool.txsByPriceAndNonce({
-						baseFee: 0n, // Use 0 for simplicity
-					})
-
-					if (orderedTxs.length === 0) {
-						baseClient.logger.debug('No transactions to mine')
-						return
-					}
-
-					const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
-					const timestamp = Math.max(Math.floor(Date.now() / 1000), Number(parentBlock.header.timestamp))
-
-					// Build block with transactions
-					const blockBuilder = await vm.buildBlock({
-						parentBlock,
-						headerData: {
-							timestamp,
-							number: parentBlock.header.number + 1n,
-						},
-						blockOpts: {
-							freeze: false,
-							setHardfork: false,
-							putBlockIntoBlockchain: false,
-							common: vm.common,
-						},
-					})
-
-					// Add transactions to block
-					for (const tx of orderedTxs) {
-						try {
-							await blockBuilder.addTransaction(tx, {
-								skipBalance: true,
-								skipNonce: true,
-								skipHardForkValidation: true,
-							})
-						} catch (txError) {
-							baseClient.logger.debug({ txError }, 'Failed to add transaction to block')
-						}
-					}
-
-					// Finalize and commit block
-					const block = await blockBuilder.build()
-					await vm.blockchain.putBlock(block)
-					
-					// Remove mined transactions from pool
-					txPool.removeNewBlockTxs([block])
-
-					baseClient.logger.debug({ blockNumber: block.header.number, txCount: orderedTxs.length }, 'Block mined via interval mining')
+					await minePendingTransactions(baseClient)
 				} catch (error) {
 					baseClient.logger.error(error, 'Failed to mine block in interval mining')
 				}

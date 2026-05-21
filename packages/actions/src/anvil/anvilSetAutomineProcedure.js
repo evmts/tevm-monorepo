@@ -28,10 +28,10 @@ export const anvilSetAutomineJsonRpcProcedure = (client) => {
 
 		// Update the mining configuration
 		if (enabled) {
-			client.miningConfig = { type: 'auto' }
+			client.setMiningConfig({ type: 'auto' })
 		} else {
 			// When disabling automine, switch to manual mining
-			client.miningConfig = { type: 'manual' }
+			client.setMiningConfig({ type: 'manual' })
 		}
 
 		client.logger.debug({ miningConfig: client.miningConfig }, 'anvil_setAutomine: Mining mode updated')
