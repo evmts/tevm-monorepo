@@ -4,7 +4,7 @@ export default defineConfig({
 	test: {
 		globals: true,
 		environment: 'node',
-		include: ['docs/pages/**/*.test.ts'],
+		include: ['tests/**/*.test.ts'],
 		testTimeout: 20000, // Some tests might need more time when forking
 	},
 })

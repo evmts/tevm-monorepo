@@ -27,7 +27,7 @@ Precompiled contracts are special EVM contracts with native implementations at f
 ### Basic Example
 
 ```typescript showLineNumbers {1-6,9-18,21-22,25-32} filename="simple-precompile.ts"
-import { createTevmNode, definePrecompile } from 'tevm'
+import { createTevmNode, definePrecompile, PREFUNDED_ACCOUNTS } from 'tevm'
 import { createAddress } from 'tevm/address'
 import { createContract } from 'tevm/contract'
 import { parseAbi } from 'tevm/utils'
@@ -56,16 +56,25 @@ const node = createTevmNode({ // [!code focus]
 
 // Create a transaction to call the precompile
 const tx = createImpersonatedTx({ // [!code focus]
-  impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'), // [!code focus]
+  impersonatedAddress: createAddress(PREFUNDED_ACCOUNTS[0].address), // [!code focus]
   to: customPrecompile.contract.address, // [!code focus]
   data: '0x00', // [!code focus]
-  gasLimit: 21000n, // [!code focus]
+  gasLimit: 100000n, // [!code focus]
+  maxFeePerGas: 10n, // [!code focus]
+  maxPriorityFeePerGas: 1n, // [!code focus]
 }) // [!code focus]
 
 // Execute the transaction
 const vm = await node.getVm() // [!code focus]
 const result = await vm.runTx({ tx }) // [!code focus]
 ```
+
+<Callout type="warning" title="Modern Gas Rules">
+  When you call <code>vm.runTx()</code> directly, construct a valid transaction
+  for the active hardfork. Prague uses EIP-1559 fees, so the transaction needs a
+  <code>maxFeePerGas</code> at least as high as the block base fee and a gas
+  limit high enough to cover intrinsic calldata gas.
+</Callout>
 
 <Callout type="tip" title="Type Safety">
   The <code>definePrecompile</code> function provides full type safety based on the provided ABI, making your precompiles safer and easier to use.

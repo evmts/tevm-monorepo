@@ -1,10 +1,18 @@
-import { createTevmNode, definePrecompile, Hex, hexToBytes } from 'tevm'
+import { createTevmNode, definePrecompile, Hex, hexToBytes, PREFUNDED_ACCOUNTS } from 'tevm'
 import { createAddress } from 'tevm/address'
 import { createContract } from 'tevm/contract'
 import { EvmError, EvmErrorMessage } from 'tevm/evm'
 import { createImpersonatedTx } from 'tevm/tx'
 import { parseAbi } from 'tevm/utils'
 import { describe, expect, it } from 'vitest'
+
+const txDefaults = {
+	gasLimit: 100000n,
+	maxFeePerGas: 10n,
+	maxPriorityFeePerGas: 1n,
+} as const
+
+const testAddress = (id: number) => createAddress(PREFUNDED_ACCOUNTS[id % PREFUNDED_ACCOUNTS.length].address)
 
 describe('Custom Precompiles', () => {
 	describe('Basic Precompiles', () => {
@@ -29,10 +37,10 @@ describe('Custom Precompiles', () => {
 			})
 
 			const tx = createImpersonatedTx({
-				impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+				...txDefaults,
+				impersonatedAddress: testAddress(1),
 				to: customPrecompile.contract.address,
 				data: '0x00',
-				gasLimit: 21000n,
 			})
 
 			const vm = await node.getVm()
@@ -77,10 +85,10 @@ describe('Custom Precompiles', () => {
 			})
 
 			const tx = createImpersonatedTx({
-				impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+				...txDefaults,
+				impersonatedAddress: testAddress(2),
 				to: statePrecompile.contract.address,
 				data: `0x${'00'.repeat(32)}${'ff'.repeat(32)}` as `0x${string}`,
-				gasLimit: 21000n,
 			})
 
 			const vm = await node.getVm()
@@ -116,10 +124,10 @@ describe('Custom Precompiles', () => {
 			})
 
 			const tx = createImpersonatedTx({
-				impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+				...txDefaults,
+				impersonatedAddress: testAddress(3),
 				to: gasPrecompile.contract.address,
 				data: new Uint8Array(100).fill(0xff), // 100 bytes
-				gasLimit: 21000n,
 			})
 
 			const vm = await node.getVm()
@@ -151,10 +159,10 @@ describe('Custom Precompiles', () => {
 			})
 
 			const tx = createImpersonatedTx({
-				impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+				...txDefaults,
+				impersonatedAddress: testAddress(4),
 				to: errorPrecompile.contract.address,
 				data: '0x',
-				gasLimit: 21000n,
 			})
 
 			const vm = await node.getVm()
@@ -168,10 +176,10 @@ describe('Custom Precompiles', () => {
 
 		it('should handle invalid precompile address', async () => {
 			const tx = createImpersonatedTx({
-				impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+				...txDefaults,
+				impersonatedAddress: testAddress(5),
 				to: createAddress('0x0000000000000000000000000000000000000999'), // Non-existent precompile
 				data: '0x00',
-				gasLimit: 21000n,
 			})
 
 			const node = createTevmNode()
@@ -210,17 +218,17 @@ describe('Custom Precompiles', () => {
 			})
 
 			const txA = createImpersonatedTx({
-				impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+				...txDefaults,
+				impersonatedAddress: testAddress(6),
 				to: precompileA.contract.address,
 				data: '0x00',
-				gasLimit: 21000n,
 			})
 
 			const txB = createImpersonatedTx({
-				impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+				...txDefaults,
+				impersonatedAddress: testAddress(7),
 				to: precompileB.contract.address,
 				data: '0x00',
-				gasLimit: 21000n,
 			})
 
 			const vm = await node.getVm()
@@ -255,10 +263,10 @@ describe('Custom Precompiles', () => {
 
 			const txs = Array.from({ length: 5 }, (_, i) =>
 				createImpersonatedTx({
-					impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
+					...txDefaults,
+					impersonatedAddress: testAddress(8 + i),
 					to: asyncPrecompile.contract.address,
 					data: `0x0${i + 1}` as `0x${string}`,
-					gasLimit: 21000n,
 				}),
 			)
 

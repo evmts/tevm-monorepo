@@ -1,6 +1,6 @@
 ---
 title: Using with Ethers.js
-description: Connect Tevm Node to an Ethers.js provider and leverage Ethers.js functionality
+description: Connect Tevm to an Ethers.js provider and use familiar ethers contracts, wallets, and transactions
 authors:
   - "[William Cory](https://x.com/fucory)"
   - "[Tevm Team](https://github.com/evmts)"
@@ -8,129 +8,150 @@ authors:
 
 # Using with Ethers.js v6
 
-> **Info:** Tevm integrates seamlessly with [Ethers.js v6](https://docs.ethers.org/v6/) allowing you to use your favorite Ethereum library alongside Tevm's powerful in-memory EVM capabilities.
+Tevm works with Ethers.js through Tevm's EIP-1193 provider interface. Use Tevm for local chain control, state setup, and mining, then use ethers for providers, wallets, and contract instances.
 
-This guide demonstrates how to use Tevm Node with Ethers.js to build powerful Ethereum applications with a familiar, developer-friendly API.
-
-## Setup
-
-### 1. Install Dependencies
-
-First, install the required packages:
+## Install
 
 ```bash
 npm install tevm ethers
 ```
 
-**Using Yarn or pnpm?**
+Using another package manager:
+
 ```bash
-# Yarn
-yarn add tevm ethers
-
-# pnpm
 pnpm add tevm ethers
+yarn add tevm ethers
+bun add tevm ethers
 ```
 
-### 2. Create the Tevm Node
+## Create a Provider
 
-Set up a Tevm node with EIP-1193 compatibility:
+Create a memory client, extend its underlying Tevm node with the EIP-1193 request interface, then pass that node to ethers' `BrowserProvider`.
 
 ```ts
-import { createTevmNode } from 'tevm'
+import { createMemoryClient } from 'tevm'
 import { requestEip1193 } from 'tevm/decorators'
-
-// Create a Tevm Node with optional configuration
-const node = createTevmNode({
-  // Configure mining behavior (auto or interval)
-  miningConfig: {
-    type: 'interval',
-    interval: 2000 // Mine blocks every 2 seconds
-  }
-})
-
-// Add EIP-1193 compatibility layer for Ethers.js
-const nodeWithEip1193 = node.extend(requestEip1193())
-
-// Wait for the node to be ready
-await node.ready()
-```
-
-> **Tip:** The `requestEip1193()` decorator is essential - it adds the standard Ethereum provider interface that Ethers.js requires.
-
-### 3. Create an Ethers Provider
-
-Connect Ethers to your Tevm node:
-
-#### BrowserProvider (Recommended)
-
-```ts
 import { BrowserProvider } from 'ethers'
 
-// Create a provider using the EIP-1193 compatible node
-const provider = new BrowserProvider(nodeWithEip1193)
+const client = createMemoryClient()
+client.transport.tevm.extend(requestEip1193())
+await client.tevmReady()
 
-// Test the connection
-const blockNumber = await provider.getBlockNumber()
-console.log(`Connected to block: ${blockNumber}`)
-```
-
-> **Success:** BrowserProvider is recommended for most applications - it's the modern Ethers.js provider and handles all async operations correctly.
-
-#### JsonRpcProvider (Legacy)
-
-```ts
-import { JsonRpcProvider } from 'ethers'
-
-// For legacy code bases that require JsonRpcProvider
-const legacyProvider = new JsonRpcProvider(
-  // Pass the node as an endpoint
-  nodeWithEip1193
-)
-
-// Test the connection
-const network = await legacyProvider.getNetwork()
-console.log(`Connected to network: ${network.name} (${network.chainId})`)
-```
-
-### 4. Set Up a Wallet
-
-Create a wallet for transactions:
-
-```ts
-import { Wallet } from 'ethers'
-
-// Generate a random wallet
-const wallet = Wallet.createRandom()
-console.log(`Generated wallet address: ${wallet.address}`)
-
-// Connect the wallet to your provider
-const signer = wallet.connect(provider)
-
-// The default balance will be zero
-const balance = await provider.getBalance(signer.address)
-console.log(`Initial wallet balance: ${balance} wei (${balance === 0n ? 'empty' : balance})`)
-```
-
-### 5. Fund the Account
-
-Use Tevm's state manipulation to fund your testing wallet:
-
-```ts
-import { parseEther, formatEther } from 'ethers'
-
-// Manipulate blockchain state directly with Tevm
-await node.setAccount({
-  address: signer.address,
-  balance: parseEther('100') // Add 100 ETH
+const provider = new BrowserProvider(client.transport.tevm, undefined, {
+  // Ethers caches JSON-RPC reads briefly by default. Disable that cache for
+  // deterministic local tests where you manually mine blocks.
+  cacheTimeout: -1,
 })
 
-// Verify the new balance
-const newBalance = await provider.getBalance(signer.address)
-console.log(`New wallet balance: ${formatEther(newBalance)} ETH`)
+const blockNumber = await provider.getBlockNumber()
+console.log(`Connected to block ${blockNumber}`)
 ```
 
-> **Tip:** This direct state manipulation is one of Tevm's powerful features - it allows you to set up any testing scenario without complex transactions.
+## Fund a Wallet
 
-## Core Functionality
+Use a normal ethers wallet, then fund it directly with Tevm's test actions.
 
-- **Reading Contracts** -
+```ts
+import { Wallet, formatEther, parseEther } from 'ethers'
+
+const signer = Wallet.createRandom().connect(provider)
+
+await client.setBalance({
+  address: signer.address,
+  value: parseEther('10'),
+})
+
+const balance = await provider.getBalance(signer.address)
+console.log(`Wallet balance: ${formatEther(balance)} ETH`)
+```
+
+## Deploy and Call a Contract
+
+This example deploys a small compiled counter contract, mines the deployment, then calls it through an ethers `Contract` instance.
+
+```ts
+import { ContractFactory } from 'ethers'
+
+const counterAbi = [
+  'function number() view returns (uint256)',
+  'function increment() public',
+] as const
+
+const counterBytecode =
+  '0x608060405234801561001057600080fd5b5060f78061001f6000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80633fb5c1cb1460415780638381f58a146053578063d09de08a14606d575b600080fd5b6051604c3660046083565b600055565b005b605b60005481565b60405190815260200160405180910390f35b6051600080549080607c83609b565b9190505550565b600060208284031215609457600080fd5b5035919050565b60006001820160ba57634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220d5fb46adf6ce0cfd90fa4324ffd8c48b0fc6fb6c4cac9ca2c69c97e25f355c9d64736f6c63430008110033'
+
+const factory = new ContractFactory(counterAbi, counterBytecode, signer)
+const deployment = await factory.deploy()
+
+await client.mine({ blocks: 1 })
+
+const counter = await deployment.waitForDeployment()
+console.log(`Counter deployed at ${await counter.getAddress()}`)
+console.log(`Initial count: ${await counter.number()}`)
+```
+
+## Send a Transaction
+
+Transactions sent by ethers go through `eth_sendRawTransaction` and enter Tevm's mempool. Mine a block before waiting for the receipt.
+
+```ts
+const tx = await counter.increment()
+
+await client.mine({ blocks: 1 })
+await tx.wait()
+
+console.log(`Updated count: ${await counter.number()}`)
+```
+
+## Complete Example
+
+```ts filename="ethers-with-tevm.ts"
+import { createMemoryClient } from 'tevm'
+import { requestEip1193 } from 'tevm/decorators'
+import { BrowserProvider, ContractFactory, Wallet, formatEther, parseEther } from 'ethers'
+
+const client = createMemoryClient()
+client.transport.tevm.extend(requestEip1193())
+await client.tevmReady()
+
+const provider = new BrowserProvider(client.transport.tevm, undefined, {
+  cacheTimeout: -1,
+})
+
+const signer = Wallet.createRandom().connect(provider)
+await client.setBalance({
+  address: signer.address,
+  value: parseEther('10'),
+})
+
+console.log(`Wallet balance: ${formatEther(await provider.getBalance(signer.address))} ETH`)
+
+const counterAbi = [
+  'function number() view returns (uint256)',
+  'function increment() public',
+] as const
+
+const counterBytecode =
+  '0x608060405234801561001057600080fd5b5060f78061001f6000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80633fb5c1cb1460415780638381f58a146053578063d09de08a14606d575b600080fd5b6051604c3660046083565b600055565b005b605b60005481565b60405190815260200160405180910390f35b6051600080549080607c83609b565b9190505550565b600060208284031215609457600080fd5b5035919050565b60006001820160ba57634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220d5fb46adf6ce0cfd90fa4324ffd8c48b0fc6fb6c4cac9ca2c69c97e25f355c9d64736f6c63430008110033'
+
+const factory = new ContractFactory(counterAbi, counterBytecode, signer)
+const deployment = await factory.deploy()
+
+await client.mine({ blocks: 1 })
+
+const counter = await deployment.waitForDeployment()
+console.log(`Counter deployed at ${await counter.getAddress()}`)
+console.log(`Initial count: ${await counter.number()}`)
+
+const tx = await counter.increment()
+await client.mine({ blocks: 1 })
+await tx.wait()
+
+console.log(`Updated count: ${await counter.number()}`)
+```
+
+## Notes
+
+- Use `client.setBalance()`, `client.setStorageAt()`, `client.mine()`, and other Tevm test actions to control the local chain.
+- Use ethers providers, wallets, factories, and contracts for application code that already depends on ethers.
+- Tevm does not mine ethers transactions until you call `client.mine()` unless you configure automining.

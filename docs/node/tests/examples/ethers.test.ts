@@ -1,183 +1,57 @@
-import { Contract } from '@tevm/ethers'
-import { BrowserProvider, ContractFactory, ContractTransactionResponse, parseUnits } from 'ethers'
-import { createTevmNode, parseAbi } from 'tevm'
+import { createMemoryClient } from 'tevm'
 import { requestEip1193 } from 'tevm/decorators'
+import { BrowserProvider, ContractFactory, Wallet, formatEther, parseEther } from 'ethers'
 import { describe, expect, it } from 'vitest'
 
-describe('Ethers Integration', () => {
-	describe('Basic Setup', () => {
-		it('should create ethers provider with Tevm Node', async () => {
-			const node = createTevmNode().extend(requestEip1193())
-			const provider = new BrowserProvider(node)
+const counterAbi = ['function number() view returns (uint256)', 'function increment() public'] as const
 
-			const blockNumber = await provider.getBlockNumber()
-			expect(blockNumber).toBeDefined()
+const counterBytecode =
+	'0x608060405234801561001057600080fd5b5060f78061001f6000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c80633fb5c1cb1460415780638381f58a146053578063d09de08a14606d575b600080fd5b6051604c3660046083565b600055565b005b605b60005481565b60405190815260200160405180910390f35b6051600080549080607c83609b565b9190505550565b600060208284031215609457600080fd5b5035919050565b60006001820160ba57634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220d5fb46adf6ce0cfd90fa4324ffd8c48b0fc6fb6c4cac9ca2c69c97e25f355c9d64736f6c63430008110033'
 
-			const balance = await provider.getBalance('0x1234567890123456789012345678901234567890')
-			expect(balance).toBeDefined()
-		})
+const setupEthersClient = async () => {
+	const client = createMemoryClient()
+	client.transport.tevm.extend(requestEip1193())
+	await client.tevmReady()
+
+	const provider = new BrowserProvider(client.transport.tevm, undefined, {
+		cacheTimeout: -1,
+	})
+	const signer = Wallet.createRandom().connect(provider)
+
+	await client.setBalance({
+		address: signer.address,
+		value: parseEther('10'),
 	})
 
-	describe('Contract Interaction', () => {
-		it('should read contract state', async () => {
-			const node = createTevmNode().extend(requestEip1193())
-			const provider = new BrowserProvider(node)
+	return { client, provider, signer }
+}
 
-			const abi = parseAbi([
-				'function balanceOf(address) view returns (uint256)',
-				'function symbol() view returns (string)',
-				'function decimals() view returns (uint8)',
-			])
+describe('Ethers example docs', () => {
+	it('creates an ethers provider and funds a wallet with Tevm test actions', async () => {
+		const { provider, signer } = await setupEthersClient()
 
-			const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
-			const contract = new Contract(tokenAddress, abi, provider)
-
-			const [balance, symbol, decimals] = await Promise.all([
-				contract.balanceOf('0x1234567890123456789012345678901234567890'),
-				contract.symbol(),
-				contract.decimals(),
-			])
-
-			expect(balance).toBeDefined()
-			expect(symbol).toBeDefined()
-			expect(decimals).toBeDefined()
-		})
-
-		it('should write to contracts', async () => {
-			const node = createTevmNode().extend(requestEip1193())
-			const provider = new BrowserProvider(node)
-			const signer = await provider.getSigner()
-
-			const abi = parseAbi(['function transfer(address to, uint256 amount) returns (bool)'])
-
-			const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
-			const contract = new Contract(tokenAddress, abi, signer)
-
-			const tx = (await contract.transfer(
-				'0x5678901234567890123456789012345678901234',
-				parseUnits('100', 6),
-			)) as ContractTransactionResponse
-
-			const receipt = await tx.wait()
-			expect(receipt?.hash).toBeDefined()
-		})
+		expect(await provider.getBlockNumber()).toBe(0)
+		expect(formatEther(await provider.getBalance(signer.address))).toBe('10.0')
 	})
 
-	describe('Event Handling', () => {
-		it('should listen for events', async () => {
-			const node = createTevmNode().extend(requestEip1193())
-			const provider = new BrowserProvider(node)
-			const signer = await provider.getSigner()
+	it('deploys and writes to a contract through ethers', async () => {
+		const { client, provider, signer } = await setupEthersClient()
+		const factory = new ContractFactory(counterAbi, counterBytecode, signer)
+		const deployment = await factory.deploy()
 
-			const abi = parseAbi([
-				'event Transfer(address indexed from, address indexed to, uint256 value)',
-				'function transfer(address to, uint256 amount) returns (bool)',
-			])
+		await client.mine({ blocks: 1 })
 
-			const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
-			const contract = new Contract(tokenAddress, abi, signer)
+		const counter = await deployment.waitForDeployment()
+		expect(await counter.getAddress()).toMatch(/^0x[a-fA-F0-9]{40}$/)
+		expect(await counter.number()).toBe(0n)
+		expect(await provider.getTransactionCount(signer.address)).toBe(1)
 
-			// Setup event listener
-			const events: Array<{ from: string; to: string; amount: bigint; event: any }> = []
-			contract.on('Transfer', (from, to, amount, event) => {
-				events.push({ from, to, amount, event })
-			})
+		const tx = await counter.increment()
 
-			// Trigger a transfer
-			const tx = (await contract.transfer(
-				'0x5678901234567890123456789012345678901234',
-				parseUnits('100', 6),
-			)) as ContractTransactionResponse
-			await tx.wait()
+		await client.mine({ blocks: 1 })
+		await tx.wait()
 
-			// Cleanup
-			contract.off('Transfer')
-
-			expect(events.length).toBeGreaterThan(0)
-		})
-
-		it('should query past events', async () => {
-			const node = createTevmNode().extend(requestEip1193())
-			const provider = new BrowserProvider(node)
-
-			const abi = parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)'])
-
-			const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
-			const contract = new Contract(tokenAddress, abi, provider)
-
-			const filter = contract.filters.Transfer()
-			const events = await contract.queryFilter(filter, -1000, 'latest')
-
-			expect(Array.isArray(events)).toBe(true)
-		})
-	})
-
-	describe('Advanced Usage', () => {
-		it('should deploy contracts', async () => {
-			const node = createTevmNode().extend(requestEip1193())
-			const provider = new BrowserProvider(node)
-			const signer = await provider.getSigner()
-
-			const abi = parseAbi(['function getValue() view returns (uint256)'])
-			const bytecode = '0x...' // Contract bytecode
-
-			const factory = new ContractFactory(abi, bytecode, signer)
-			const contract = await factory.deploy()
-			await contract.waitForDeployment()
-
-			const address = await contract.getAddress()
-			expect(address).toBeDefined()
-		})
-
-		it('should handle low-level transactions', async () => {
-			const node = createTevmNode().extend(requestEip1193())
-			const provider = new BrowserProvider(node)
-			const signer = await provider.getSigner()
-
-			const tx = {
-				to: '0x1234567890123456789012345678901234567890',
-				value: parseUnits('1', 'ether'),
-				data: '0x',
-			}
-
-			const signedTx = await signer.signTransaction(tx)
-			const hash = await provider.send('eth_sendRawTransaction', [signedTx])
-			const receipt = await provider.waitForTransaction(hash)
-
-			expect(receipt).toBeDefined()
-		})
-	})
-
-	describe('Best Practices', () => {
-		it('should handle errors properly', async () => {
-			const node = createTevmNode().extend(requestEip1193())
-			const provider = new BrowserProvider(node)
-
-			const abi = parseAbi(['function riskyFunction() view returns (uint256)'])
-
-			const contract = new Contract('0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', abi, provider)
-
-			try {
-				await contract.riskyFunction()
-			} catch (error) {
-				expect(error).toBeDefined()
-			}
-		})
-
-		it('should handle gas estimation with buffer', async () => {
-			const node = createTevmNode().extend(requestEip1193())
-			const provider = new BrowserProvider(node)
-
-			const abi = parseAbi(['function transfer(address to, uint256 amount) returns (bool)'])
-
-			const contract = new Contract('0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', abi, provider)
-
-			const gas = await contract.transfer.estimateGas(
-				'0x1234567890123456789012345678901234567890',
-				parseUnits('100', 6),
-			)
-
-			expect((gas * 120n) / 100n).toBeGreaterThan(gas) // 20% buffer
-		})
+		expect(await counter.number()).toBe(1n)
+		expect(await provider.getTransactionCount(signer.address)).toBe(2)
 	})
 })
