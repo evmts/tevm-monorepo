@@ -129,7 +129,7 @@ export function compileContractSync(filePath, basedir, config, includeAst, inclu
 			}),
 		)
 		return {
-			artifacts: solcOutput.contracts[entryModule.id],
+			artifacts: solcOutput.contracts?.[entryModule.id],
 			modules,
 			asts,
 			solcInput,
@@ -137,7 +137,7 @@ export function compileContractSync(filePath, basedir, config, includeAst, inclu
 		}
 	}
 	return {
-		artifacts: solcOutput.contracts[entryModule.id],
+		artifacts: solcOutput.contracts?.[entryModule.id],
 		modules,
 		asts: undefined,
 		solcInput: solcInput,

@@ -1,0 +1,4 @@
+ignores: [
+  "@openzeppelin/contracts"
+]
+skip-missing: true
