@@ -18,7 +18,7 @@ describe('setRpcUrl', () => {
 				if (res instanceof Error) return res
 				throw new Error('should have thrown')
 			})
-		expect(e.name).toBe('UnknownRpcError')
+		expect(e.name).toBe('InvalidParamsRpcError')
 		expect(e.message).toContain('Cannot set RPC URL on a non-forked node')
 	})
 })

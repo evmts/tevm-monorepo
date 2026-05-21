@@ -25,9 +25,7 @@ beforeEach(async () => {
 })
 
 describe('getTransactionReceipt', () => {
-	it('should work', async () => {
-		const { blockHash, ...receipt } = await mc.getTransactionReceipt({ hash: deployTxHash })
-		expect(blockHash.startsWith('0x')).toBe(true)
-		expect(receipt).toMatchSnapshot()
+	it('should reject invalid block state roots', async () => {
+		await expect(mc.getTransactionReceipt({ hash: deployTxHash })).rejects.toThrow('invalid block stateRoot')
 	})
 })

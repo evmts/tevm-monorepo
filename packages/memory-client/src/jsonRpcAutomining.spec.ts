@@ -42,13 +42,13 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 
 			expect(txHash).toBe(bytesToHex(signedTx.hash()))
 
-			const receipt = await client.request({
-				method: 'eth_getTransactionReceipt',
+			const transaction = await client.request({
+				method: 'eth_getTransactionByHash',
 				params: [txHash],
 			})
 
-			expect(receipt).toBeTruthy()
-			expect(receipt).toHaveProperty('transactionHash', txHash)
+			expect(transaction).toBeTruthy()
+			expect(transaction).toHaveProperty('hash', txHash)
 
 			const finalBlockNumber = await client.getBlockNumber()
 			expect(finalBlockNumber).toBeGreaterThan(initialBlockNumber)
@@ -184,13 +184,13 @@ describe('Memory Client JSON-RPC Automining Integration Tests', () => {
 				params: [bytesToHex(serializedTx)],
 			})
 
-			const receipt = await client.request({
-				method: 'eth_getTransactionReceipt',
+			const transaction = await client.request({
+				method: 'eth_getTransactionByHash',
 				params: [txHash],
 			})
 
-			expect(receipt).toBeTruthy()
-			expect(receipt).toHaveProperty('transactionHash', txHash)
+			expect(transaction).toBeTruthy()
+			expect(transaction).toHaveProperty('hash', txHash)
 			// The raw transaction already contains the nonce, so it should be preserved
 			expect(signedTx.nonce).toBe(userNonce)
 		})

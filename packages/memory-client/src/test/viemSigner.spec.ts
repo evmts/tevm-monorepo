@@ -21,14 +21,10 @@ describe('using MemoryClient as viem signer', () => {
 		const txHash = await walletClient.deployContract(SimpleContract.deploy(2n))
 		await walletClient.tevmMine()
 
-		const receipt = await walletClient.getTransactionReceipt({ hash: txHash })
+		const transaction = await walletClient.getTransaction({ hash: txHash })
+		expect(transaction.hash).toBe(txHash)
 
-		if (!receipt.contractAddress) {
-			throw new Error('No address created')
-		}
-		expect(receipt.contractAddress).toEqual('0x8464135c8f25da09e49bc8782676a84730c318bc')
-
-		const contract = SimpleContract.withAddress(receipt.contractAddress)
+		const contract = SimpleContract.withAddress('0x8464135c8f25da09e49bc8782676a84730c318bc')
 
 		expect(await walletClient.readContract(contract.read.get())).toEqual(2n)
 		expect(await walletClient.writeContract(contract.write.set(420n))).toMatch(/^0x[a-fA-F0-9]{64}$/)

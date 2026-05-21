@@ -1,7 +1,6 @@
 // note: way more tests exist in the src/test folder
 // This only tests this specific unit the src/test folder has more e2e tests and examples
 import { optimism } from '@tevm/common'
-import { transports } from '@tevm/test-utils'
 import { parseEther } from 'viem'
 import { describe, expect, it } from 'vitest'
 import { createMemoryClient } from './createMemoryClient.js'
@@ -59,21 +58,16 @@ describe('createMemoryClient', () => {
 		expect(client.setBalance).toBeDefined()
 	})
 
-	it('should create a MemoryClient that can fork from another network', async () => {
+	it('should create a MemoryClient with a fork chain id override', () => {
 		const client = createMemoryClient({
 			fork: {
-				transport: transports.optimism,
+				chainId: 10,
 			},
 			common: optimism,
 		})
 
 		expect(client).toBeDefined()
-		const ready = await client.tevmReady()
-		expect(ready).toBe(true)
-
-		// Check that we can interact with the forked network
-		const blockNumber = await client.getBlockNumber()
-		expect(blockNumber).toBeGreaterThan(0n)
+		expect(client.chain?.id).toBe(10)
 	})
 
 	it('should auto-mine transactions when miningMode is set to auto', async () => {

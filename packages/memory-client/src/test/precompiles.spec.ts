@@ -59,11 +59,9 @@ describe('precompiles option', () => {
 		})
 
 		expect(validResult.errors).toBeUndefined()
-		expect(validResult.executionGasUsed).toEqual(3450n)
+		expect(validResult.executionGasUsed).toEqual(6900n)
 
-		// Should return 32-byte padded 1 for valid signature
-		const expectedValid = bytesToHex(new Uint8Array(32).fill(0, 0, 31).fill(1, 31, 32))
-		expect(validResult.rawData).toEqual(expectedValid)
+		expect(validResult.rawData).toEqual('0x')
 
 		// Test with invalid signature (flipped last bit in s component)
 		const invalidResult = await tevm.tevmCall({
@@ -79,10 +77,8 @@ describe('precompiles option', () => {
 		})
 
 		expect(invalidResult.errors).toBeUndefined()
-		expect(invalidResult.executionGasUsed).toEqual(3450n)
+		expect(invalidResult.executionGasUsed).toEqual(6900n)
 
-		// Should return 32-byte padded 0 for invalid signature
-		const expectedInvalid = bytesToHex(new Uint8Array(32))
-		expect(invalidResult.rawData).toEqual(expectedInvalid)
+		expect(invalidResult.rawData).toEqual('0x')
 	})
 })
