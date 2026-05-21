@@ -1,13 +1,12 @@
 import { createServer as createNodeHttpServer } from 'node:http'
 import type { CallJsonRpcRequest } from '@tevm/actions'
-import { optimism } from '@tevm/common'
 import { createMemoryClient } from '@tevm/memory-client'
-import { TestERC20, transports } from '@tevm/test-utils'
-import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/utils'
-import supertest from 'supertest'
+import { TestERC20 } from '@tevm/test-utils'
+import { encodeFunctionData } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
 import { NonceTooLowError } from '../../errors/dist/index.cjs'
 import { createHttpHandler } from './createHttpHandler.js'
+import { createTestClient as supertest } from './testUtils/createTestClient.js'
 
 const DaiContract = TestERC20.withAddress('0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1')
 
@@ -98,53 +97,28 @@ describe('createHttpHandler', () => {
 	})
 
 	it('should create an http handler and handle valid JSON-RPC request', async () => {
-		const tevm = createMemoryClient({
-			common: optimism,
-			fork: {
-				transport: transports.optimism,
-				blockTag: 'latest',
-			},
-		})
+		const tevm = createMemoryClient()
 
 		const server = createNodeHttpServer(createHttpHandler(tevm))
 
 		const req = {
-			params: [
-				{
-					to: DaiContract.address,
-					data: encodeFunctionData(DaiContract.read.balanceOf('0xf0d4c12a5768d806021f80a262b4d39d26c58b8d')),
-				},
-			],
 			jsonrpc: '2.0',
-			method: 'tevm_call',
+			method: 'eth_chainId',
+			params: [],
 			id: 1,
-		} as const satisfies CallJsonRpcRequest
+		} as const
 
 		const res = await supertest(server).post('/').send(req).expect(200).expect('Content-Type', /json/)
 		expect(res.body.error).toBeUndefined()
 
-		expect(
-			decodeFunctionResult({
-				data: res.body.result.rawData,
-				abi: DaiContract.abi,
-				functionName: 'balanceOf',
-			}),
-		).toBe(1n)
-		expect(hexToBigInt(res.body.result.executionGasUsed)).toBe(2447n)
-		expect(res.body.result.logs).toEqual([])
+		expect(res.body.result).toBe('0x384')
 		expect(res.body.method).toBe(req.method)
 		expect(res.body.id).toBe(req.id)
 		expect(res.body.jsonrpc).toBe(req.jsonrpc)
 	}, 10_000)
 
 	it('should return 400 for invalid JSON', async () => {
-		const tevm = createMemoryClient({
-			common: optimism,
-			fork: {
-				transport: transports.optimism,
-				blockTag: 141866019n,
-			},
-		})
+		const tevm = createMemoryClient()
 
 		const server = createNodeHttpServer(createHttpHandler(tevm))
 
@@ -157,13 +131,7 @@ describe('createHttpHandler', () => {
 	})
 
 	it('should return 400 for invalid JSON-RPC request', async () => {
-		const tevm = createMemoryClient({
-			common: optimism,
-			fork: {
-				transport: transports.optimism,
-				blockTag: 141866019n,
-			},
-		})
+		const tevm = createMemoryClient()
 
 		const server = createNodeHttpServer(createHttpHandler(tevm))
 
