@@ -59,8 +59,8 @@ describe('generateDtsBody', () => {
 	it('should generate correct body without bytecode', () => {
 		expect(runSync(generateDtsBody(artifacts, false))).toMatchInlineSnapshot(`
 			"
-					const _abiMyContract = ["constructor() payable"] as const;
-			const _nameMyContract = "MyContract" as const;
+						declare const _abiMyContract: readonly ["constructor() payable"];
+			declare const _nameMyContract: "MyContract";
 			/**
 			 * MyContract Contract (no bytecode)
 			 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
@@ -69,8 +69,8 @@ describe('generateDtsBody', () => {
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
-			const _abiAnotherContract = [] as const;
-			const _nameAnotherContract = "AnotherContract" as const;
+			declare const _abiAnotherContract: readonly [];
+			declare const _nameAnotherContract: "AnotherContract";
 			/**
 			 * AnotherContract Contract (no bytecode)
 			 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
@@ -78,8 +78,8 @@ describe('generateDtsBody', () => {
 			 * @notice MyContract
 			 */
 			export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined, undefined, undefined>;
-			const _abiMissingContract = [] as const;
-			const _nameMissingContract = "MissingContract" as const;
+			declare const _abiMissingContract: readonly [];
+			declare const _nameMissingContract: "MissingContract";
 			/**
 			 * MissingContract Contract (no bytecode)
 			 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
@@ -89,7 +89,7 @@ describe('generateDtsBody', () => {
 			 */
 			export const MissingContract: Contract<typeof _nameMissingContract, typeof _abiMissingContract, undefined, undefined, undefined, undefined>;
 			// solc artifacts of compilation
-			export const artifacts = {
+			export declare const artifacts: {
 			  "MyContract": {
 			    "abi": [
 			      {
@@ -150,12 +150,12 @@ describe('generateDtsBody', () => {
 	it('should generate correct body with bytecode', () => {
 		expect(runSync(generateDtsBody(artifacts, true))).toMatchInlineSnapshot(`
 			"
-					const _nameMyContract = "MyContract" as const;
-			const _abiMyContract = [
+						declare const _nameMyContract: "MyContract";
+			declare const _abiMyContract: readonly [
 			  "constructor() payable"
-			] as const;
+			];
 			/**
-			 * MyContract Contract (with bytecode)
+			 * MyContract Contract (no bytecode)
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
@@ -164,14 +164,14 @@ describe('generateDtsBody', () => {
 			  typeof _nameMyContract,
 			  typeof _abiMyContract,
 			  undefined,
-			  \`0x\${string}\`,
-			  \`0x\${string}\`,
+			  undefined,
+			  undefined,
 			  undefined
 			>;
-			const _nameAnotherContract = "AnotherContract" as const;
-			const _abiAnotherContract = [] as const;
+			declare const _nameAnotherContract: "AnotherContract";
+			declare const _abiAnotherContract: readonly [];
 			/**
-			 * AnotherContract Contract (with bytecode)
+			 * AnotherContract Contract (no bytecode)
 			 * @notice MyContract
 			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
 			 */
@@ -179,14 +179,14 @@ describe('generateDtsBody', () => {
 			  typeof _nameAnotherContract,
 			  typeof _abiAnotherContract,
 			  undefined,
-			  \`0x\${string}\`,
-			  \`0x\${string}\`,
+			  undefined,
+			  undefined,
 			  undefined
 			>;
-			const _nameMissingContract = "MissingContract" as const;
-			const _abiMissingContract = [] as const;
+			declare const _nameMissingContract: "MissingContract";
+			declare const _abiMissingContract: readonly [];
 			/**
-			 * MissingContract Contract (with bytecode)
+			 * MissingContract Contract (no bytecode)
 			 * @notice MyContract
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 * @see [contract docs](https://tevm.sh/learn/contracts/) for more documentation
@@ -195,12 +195,12 @@ describe('generateDtsBody', () => {
 			  typeof _nameMissingContract,
 			  typeof _abiMissingContract,
 			  undefined,
-			  \`0x\${string}\`,
-			  \`0x\${string}\`,
+			  undefined,
+			  undefined,
 			  undefined
 			>;
 			// solc artifacts of compilation
-			export const artifacts = {
+			export declare const artifacts: {
 			  "MyContract": {
 			    "abi": [
 			      {
@@ -302,8 +302,8 @@ describe('generateDtsBody', () => {
 		})
 
 		const result = runSync(generateDtsBody(complexArtifacts, true))
-		expect(result).toContain('const _nameComplexContract = "ComplexContract" as const')
-		expect(result).toContain('const _abiComplexContract = [')
+		expect(result).toContain('declare const _nameComplexContract: "ComplexContract";')
+		expect(result).toContain('declare const _abiComplexContract: readonly [')
 		// The formatted ABI strings may be different from what we expect, so check for contained parts
 		expect(result).toContain('function transfer')
 		expect(result).toContain('event Transfer')
@@ -333,7 +333,7 @@ describe('generateDtsBody', () => {
 		})
 
 		const result = runSync(generateDtsBody(noDocsArtifact, false))
-		expect(result).toContain('const _abiSimpleContract = [')
+		expect(result).toContain('declare const _abiSimpleContract: readonly')
 		// The exact format of the ABI may be different, so check for function name instead
 		expect(result).toContain('function getValue')
 		expect(result).toContain('* SimpleContract Contract (no bytecode)')
@@ -371,12 +371,12 @@ describe('generateDtsBody', () => {
 		})
 
 		const result = runSync(generateDtsBody(partialDocsArtifact, true))
-		expect(result).toContain('const _namePartialDocsContract = "PartialDocsContract" as const')
+		expect(result).toContain('declare const _namePartialDocsContract: "PartialDocsContract";')
 		expect(result).toContain('* @notice Contract with partial docs')
 
-		// The implementation will include @property with undefined, let's accept both outcomes
+		// Missing method notices should not be rendered as the literal string "undefined".
 		if (result.includes('* @property setValue(uint256)')) {
-			expect(result).toContain('* @property setValue(uint256) undefined')
+			expect(result).not.toContain('* @property setValue(uint256) undefined')
 		}
 	})
 
@@ -398,7 +398,7 @@ describe('generateDtsBody', () => {
 		})
 
 		const resultWithBytecode = runSync(generateDtsBody(emptyAbiArtifact, true))
-		expect(resultWithBytecode).toContain('const _abiEmptyAbiContract = [] as const')
+		expect(resultWithBytecode).toContain('declare const _abiEmptyAbiContract: readonly [];')
 		expect(resultWithBytecode).toContain('* EmptyAbiContract Contract (with bytecode)')
 		expect(resultWithBytecode).toContain('* @notice A contract with no functions')
 		expect(resultWithBytecode).toContain('export const EmptyAbiContract: Contract<')

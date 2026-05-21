@@ -254,8 +254,8 @@ describe('generateTevmBody', () => {
 		const result = runSync(generateTevmBody(artifacts, 'dts', false))
 		expect(result).toMatchInlineSnapshot(`
 			"
-					const _abiMyContract = [] as const;
-			const _nameMyContract = "MyContract" as const;
+						declare const _abiMyContract: readonly [];
+			declare const _nameMyContract: "MyContract";
 			/**
 			 * MyContract Contract (no bytecode)
 			 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
@@ -264,8 +264,8 @@ describe('generateTevmBody', () => {
 			 * @property balanceOf(address) Returns the amount of tokens owned by account
 			 */
 			export const MyContract: Contract<typeof _nameMyContract, typeof _abiMyContract, undefined, undefined, undefined, undefined>;
-			const _abiAnotherContract = [] as const;
-			const _nameAnotherContract = "AnotherContract" as const;
+			declare const _abiAnotherContract: readonly [];
+			declare const _nameAnotherContract: "AnotherContract";
 			/**
 			 * AnotherContract Contract (no bytecode)
 			 * change file name or add file that ends in '.s.sol' extension if you wish to compile the bytecode
@@ -274,7 +274,7 @@ describe('generateTevmBody', () => {
 			 */
 			export const AnotherContract: Contract<typeof _nameAnotherContract, typeof _abiAnotherContract, undefined, undefined, undefined, undefined>;
 			// solc artifacts of compilation
-			export const artifacts = {
+			export declare const artifacts: {
 			  "MyContract": {
 			    "abi": [],
 			    "evm": {
@@ -608,10 +608,9 @@ describe('generateTevmBody', () => {
 		expect(result).toContain('"humanReadableAbi": [')
 		expect(result).toContain('function setValue(uint256 newValue)')
 
-		// Check if property doc exists with undefined value - either way is fine
-		// This is actually expected in the implementation, because the method exists with an empty notice
+		// Missing method notices should not be rendered as the literal string "undefined".
 		if (result.includes('* @property setValue(uint256)')) {
-			expect(result).toContain('* @property setValue(uint256) undefined')
+			expect(result).not.toContain('* @property setValue(uint256) undefined')
 		}
 	})
 })

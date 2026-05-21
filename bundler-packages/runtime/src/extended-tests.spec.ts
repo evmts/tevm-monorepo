@@ -100,7 +100,7 @@ describe('Advanced Code Generation Tests', () => {
 
 		// Also test DTS generation with complex structs
 		const dtsResult = runSync(generateDtsBody(complexStructsArtifact, true))
-		expect(dtsResult).toContain('const _nameComplexStructsContract = "ComplexStructsContract" as const')
+		expect(dtsResult).toContain('declare const _nameComplexStructsContract: "ComplexStructsContract";')
 		expect(dtsResult).toContain('typeof _abiComplexStructsContract')
 	})
 
