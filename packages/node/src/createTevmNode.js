@@ -9,8 +9,9 @@ import { p256VerifyPrecompile } from '@tevm/precompiles'
 import { ReceiptsManager } from '@tevm/receipt-manager'
 import { createStateManager } from '@tevm/state'
 import { TxPool } from '@tevm/txpool'
-import { bytesToHex, getAddress, hexToBigInt, KECCAK256_RLP, keccak256, numberToHex } from '@tevm/utils'
+import { bytesToHex, getAddress, hexToBigInt, hexToBytes, KECCAK256_RLP, keccak256, numberToHex } from '@tevm/utils'
 import { createVm } from '@tevm/vm'
+import { createIntervalMiner } from './createIntervalMiner.js'
 import { DEFAULT_CHAIN_ID } from './DEFAULT_CHAIN_ID.js'
 import { GENESIS_STATE } from './GENESIS_STATE.js'
 import { getChainId } from './getChainId.js'
@@ -762,6 +763,11 @@ export const createTevmNode = (options = {}) => {
 			getTxPool: async () => Promise.resolve(txPool),
 			getVm: async () => Promise.resolve(vm),
 			miningConfig: baseClient.miningConfig,
+			setMiningConfig: (config) => {
+				copiedClient.miningConfig = config
+				baseClient.logger.debug({ newConfig: config }, 'Copied client mining configuration updated')
+				// Copied clients don't manage interval mining independently
+			},
 			mode: baseClient.mode,
 			...('forkTransport' in baseClient
 				? {
@@ -808,8 +814,166 @@ export const createTevmNode = (options = {}) => {
 			getLightSyncStatus: baseClient.getLightSyncStatus,
 			registerExExHook: baseClient.registerExExHook,
 			emitExExEvent: baseClient.emitExExEvent,
+			close: () => {
+				// Copied clients don't manage interval mining independently
+				// They inherit the state but don't start their own timers
+				copiedClient.status = 'STOPPED'
+				baseClient.logger.debug('Copied TevmNode closed')
+			},
 		}
 		return copiedClient
+	}
+
+	// Create interval miner instance before baseClient so we can reference it
+	let intervalMiner = null
+
+	/**
+	 * Emits the same block import events as manual mining without depending on
+	 * @tevm/actions from @tevm/node.
+	 * @param {import('./TevmNode.js').TevmNode} client
+	 * @param {import('@tevm/block').Block} block
+	 * @param {Array<import('@tevm/receipt-manager').TxReceipt>} receipts
+	 * @returns {Promise<void>}
+	 */
+	const emitMinedBlockEvents = async (client, block, receipts) => {
+		const blockHash = bytesToHex(block.hash())
+		client.emit('newBlock', block)
+		await client.emitExExEvent({ type: 'block', phase: 'imported', block, blockHash })
+
+		let cumulativeLogIndex = 0n
+		for (let txIndex = 0; txIndex < receipts.length; txIndex++) {
+			const receipt = receipts[txIndex]
+			if (!receipt) {
+				continue
+			}
+			client.emit('newReceipt', receipt)
+			await client.emitExExEvent({ type: 'receipt', phase: 'created', blockHash, receipt })
+			const txHash = /** @type {any} */ (receipt).txHash
+			await client.emitExExEvent({
+				type: 'transaction',
+				phase: 'executed',
+				txHash: txHash ? bytesToHex(txHash) : '0x',
+				blockHash,
+				receipt,
+			})
+
+			const tx = block.transactions?.[txIndex]
+			const transactionHash = tx ? bytesToHex(tx.hash()) : txHash ? bytesToHex(txHash) : '0x'
+			for (const log of receipt.logs) {
+				client.emit('newLog', log, {
+					blockHash,
+					blockNumber: block.header.number,
+					transactionHash,
+					transactionIndex: BigInt(txIndex),
+					logIndex: cumulativeLogIndex,
+				})
+				cumulativeLogIndex++
+				await client.emitExExEvent({ type: 'log', phase: 'created', blockHash, receipt, log })
+			}
+		}
+
+		await client.emitExExEvent({
+			type: 'state',
+			phase: 'committed',
+			blockHash,
+			stateRoot: bytesToHex(block.header.stateRoot),
+		})
+		await client.emitExExEvent({
+			type: 'canonical',
+			phase: 'headChanged',
+			headHash: blockHash,
+			headNumber: block.header.number,
+			reorged: false,
+		})
+	}
+
+	/**
+	 * Mines all currently pending transactions using the same state, receipt, and
+	 * txpool updates as manual mining.
+	 * @param {import('./TevmNode.js').TevmNode} client
+	 * @returns {Promise<void>}
+	 */
+	const minePendingTransactions = async (client) => {
+		const pool = await client.getTxPool()
+		const originalVm = await client.getVm()
+		const vm = await originalVm.deepCopy()
+		const receiptsManager = await client.getReceiptsManager()
+		const parentBlock = await vm.blockchain.getCanonicalHeadBlock()
+		const overrideBaseFee = client.getNextBlockBaseFeePerGas()
+		const baseFeePerGas = overrideBaseFee ?? parentBlock.header.calcNextBaseFee()
+		const orderedTxs = await pool.txsByPriceAndNonce({ baseFee: baseFeePerGas })
+		if (orderedTxs.length === 0) {
+			client.logger.debug('Interval mining: No transactions to mine')
+			return
+		}
+		if (overrideBaseFee !== undefined) {
+			client.setNextBlockBaseFeePerGas(undefined)
+		}
+
+		const overrideTimestamp = client.getNextBlockTimestamp()
+		const timestampInterval = client.getBlockTimestampInterval()
+		let timestamp
+		if (overrideTimestamp !== undefined) {
+			timestamp = overrideTimestamp
+			client.setNextBlockTimestamp(undefined)
+		} else if (timestampInterval !== undefined) {
+			timestamp = parentBlock.header.timestamp + timestampInterval
+		} else {
+			const currentTimestamp = BigInt(Math.floor(Date.now() / 1000))
+			timestamp = currentTimestamp > parentBlock.header.timestamp ? currentTimestamp : parentBlock.header.timestamp + 1n
+		}
+		timestamp = timestamp > parentBlock.header.timestamp ? timestamp : parentBlock.header.timestamp + 1n
+		const gasLimit = client.getNextBlockGasLimit() ?? parentBlock.header.gasLimit
+		const overridePrevRandao = client.getNextBlockPrevRandao?.()
+		if (overridePrevRandao !== undefined && client.setNextBlockPrevRandao) {
+			client.setNextBlockPrevRandao(undefined)
+		}
+		const mixHash =
+			overridePrevRandao !== undefined ? hexToBytes(`0x${overridePrevRandao.toString(16).padStart(64, '0')}`) : undefined
+
+		const blockBuilder = await vm.buildBlock({
+			parentBlock,
+			headerData: {
+				timestamp,
+				number: parentBlock.header.number + 1n,
+				...(mixHash ? { mixHash } : {}),
+				gasLimit,
+				baseFeePerGas,
+			},
+			blockOpts: { freeze: false, setHardfork: false, putBlockIntoBlockchain: false, common: vm.common },
+		})
+
+		/**
+		 * @type {Array<import('@tevm/receipt-manager').TxReceipt>}
+		 */
+		const receipts = []
+		for (const tx of orderedTxs) {
+			const txResult = await blockBuilder.addTransaction(tx, {
+				skipBalance: false,
+				skipNonce: false,
+				skipHardForkValidation: false,
+			})
+			receipts.push(txResult.receipt)
+		}
+
+		await vm.stateManager.checkpoint()
+		await vm.stateManager.commit(true)
+		const block = await blockBuilder.build()
+		await Promise.all([receiptsManager.saveReceipts(block, receipts), vm.blockchain.putBlock(block)])
+		pool.removeNewBlockTxs([block])
+
+		const state = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
+		if (state !== undefined) {
+			originalVm.stateManager.saveStateRoot(block.header.stateRoot, state)
+		}
+		originalVm.blockchain = vm.blockchain
+		originalVm.evm.blockchain = vm.evm.blockchain
+		// @ts-expect-error internal receipt manager chain is intentionally updated after mining
+		receiptsManager.chain = vm.evm.blockchain
+		await originalVm.stateManager.setStateRoot(hexToBytes(vm.stateManager._baseState.getCurrentStateRoot()))
+
+		await emitMinedBlockEvents(client, block, receipts)
+		client.logger.debug({ blockNumber: block.header.number, txCount: orderedTxs.length }, 'Block mined via interval mining')
 	}
 
 	/**
@@ -835,6 +999,32 @@ export const createTevmNode = (options = {}) => {
 			return vmPromise
 		},
 		miningConfig: options.miningConfig ?? { type: 'auto' },
+		setMiningConfig: (config) => {
+			const oldConfig = baseClient.miningConfig
+			baseClient.miningConfig = config
+			logger.debug({ oldConfig, newConfig: config }, 'Mining configuration updated')
+			
+			// Handle interval mining state changes
+			if (oldConfig.type === 'interval' && intervalMiner) {
+				intervalMiner.stop()
+			}
+			
+			if (config.type === 'interval') {
+				if (!intervalMiner) {
+					intervalMiner = createIntervalMiner(baseClient)
+					// Set up the mining callback
+					intervalMiner.setMiningCallback(async () => {
+						try {
+							await minePendingTransactions(baseClient)
+						} catch (error) {
+							baseClient.logger.error(error, 'Failed to mine block in setMiningConfig')
+						}
+					})
+				}
+				intervalMiner.updateConfig()
+				intervalMiner.start()
+			}
+		},
 		mode: transport ? 'fork' : 'normal',
 		...(transport
 			? {
@@ -879,6 +1069,11 @@ export const createTevmNode = (options = {}) => {
 		registerExExHook,
 		emitExExEvent,
 		deepCopy: () => deepCopy(baseClient)(),
+		close: () => {
+			baseClient.status = 'STOPPED'
+			intervalMiner?.stop()
+			logger.debug('TevmNode closed')
+		},
 		debug: async () => {
 			const txPool = await txPoolPromise
 			const vm = await vmPromise
@@ -913,6 +1108,22 @@ export const createTevmNode = (options = {}) => {
 			return
 		}
 		baseClient.status = 'READY'
+		
+		// Start interval mining if configured
+		if (baseClient.miningConfig.type === 'interval') {
+			intervalMiner = createIntervalMiner(baseClient)
+			
+			// Set up the mining callback to handle block creation
+			intervalMiner.setMiningCallback(async () => {
+				try {
+					await minePendingTransactions(baseClient)
+				} catch (error) {
+					baseClient.logger.error(error, 'Failed to mine block in interval mining')
+				}
+			})
+			
+			intervalMiner.start()
+		}
 	})
 
 	return baseClient

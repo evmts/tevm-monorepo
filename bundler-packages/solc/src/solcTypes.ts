@@ -259,6 +259,8 @@ export type SolcEvmVersion =
 
 // Optional: A list of remappings to apply to the source code.
 export type SolcSettings = {
+	// Optional: Enable experimental compiler inputs such as SolidityAST.
+	experimental?: boolean
 	// Optional: Stop compilation after the given stage. Currently only "parsing" is valid here
 	stopAfter?: 'parsing'
 	// Optional: Sorted list of remappings

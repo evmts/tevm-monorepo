@@ -150,28 +150,6 @@ import { txToJsonRpcTx } from './utils/txToJsonRpcTx.js'
  */
 export const createHandlers = (client) => {
 	const engineEnabled = /** @type {any} */ (client).config?.engineApi !== false
-	/** @type {ReturnType<typeof setInterval> | undefined} */
-	let intervalMiningTimer
-	const stopIntervalMiningTimer = () => {
-		if (intervalMiningTimer !== undefined) {
-			clearInterval(intervalMiningTimer)
-			intervalMiningTimer = undefined
-		}
-	}
-	/**
-	 * @param {number} blockTime
-	 */
-	const startIntervalMiningTimer = (blockTime) => {
-		stopIntervalMiningTimer()
-		if (blockTime <= 0) return
-		intervalMiningTimer = setInterval(async () => {
-			if (client.miningConfig.type !== 'interval' || client.miningConfig.blockTime <= 0) return
-			await mineProcedure(client)(/** @type {any} */ ({ jsonrpc: '2.0', method: 'anvil_mine', params: ['0x1', '0x0'] }))
-		}, blockTime * 1000)
-	}
-	if (client.miningConfig.type === 'interval' && client.miningConfig.blockTime > 0) {
-		startIntervalMiningTimer(client.miningConfig.blockTime)
-	}
 	const tevmHandlers = {
 		tevm_call: callProcedure(client),
 		/**
@@ -431,7 +409,6 @@ export const createHandlers = (client) => {
 			request,
 		) => {
 			const response = await rawAnvilHandlers.anvil_setAutomine(request)
-			stopIntervalMiningTimer()
 			return response
 		},
 		anvil_setIntervalMining: async (
@@ -439,8 +416,6 @@ export const createHandlers = (client) => {
 			request,
 		) => {
 			const response = await rawAnvilHandlers.anvil_setIntervalMining(request)
-			const config = client.miningConfig
-			if (config.type === 'interval') startIntervalMiningTimer(config.blockTime)
 			return response
 		},
 	}

@@ -26,6 +26,7 @@ export const compileContracts = (solc, sources, options, logger) => {
 			},
 		},
 		options.optimizer && { optimizer: options.optimizer },
+		options.language === 'SolidityAST' && { experimental: true },
 		options.viaIR !== undefined && { viaIR: options.viaIR },
 		options.debug && { debug: options.debug },
 		options.metadata && { metadata: options.metadata },

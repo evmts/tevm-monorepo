@@ -325,33 +325,46 @@ describe('createHandlers', () => {
 
 	describe('interval mining timer lifecycle', () => {
 		it('owns a single timer and stops it when switching modes', async () => {
-			const setIntervalSpy = vi.spyOn(globalThis, 'setInterval')
-			const clearIntervalSpy = vi.spyOn(globalThis, 'clearInterval')
+			// Interval mining now runs through the node-level setTimeout miner
+			// (createIntervalMiner) rather than the legacy setInterval(anvil_mine)
+			// path that was previously in createHandlers. Spy on setTimeout/clearTimeout.
+			const setTimeoutSpy = vi.spyOn(globalThis, 'setTimeout')
+			const clearTimeoutSpy = vi.spyOn(globalThis, 'clearTimeout')
 			const localClient = createTevmNode()
 			await localClient.ready()
 			const localHandlers = createHandlers(localClient)
+			const beforeFirst = setTimeoutSpy.mock.calls.length
 			await localHandlers.anvil_setIntervalMining({
 				jsonrpc: '2.0',
 				method: 'anvil_setIntervalMining',
 				id: 1,
 				params: [1],
 			})
+			const afterFirst = setTimeoutSpy.mock.calls.length
 			await localHandlers.anvil_setIntervalMining({
 				jsonrpc: '2.0',
 				method: 'anvil_setIntervalMining',
 				id: 2,
 				params: [2],
 			})
+			const afterSecond = setTimeoutSpy.mock.calls.length
+			const clearedBeforeStop = clearTimeoutSpy.mock.calls.length
 			await localHandlers.anvil_setAutomine({
 				jsonrpc: '2.0',
 				method: 'anvil_setAutomine',
 				id: 3,
 				params: [true],
 			})
-			expect(setIntervalSpy).toHaveBeenCalledTimes(2)
-			expect(clearIntervalSpy).toHaveBeenCalled()
-			setIntervalSpy.mockRestore()
-			clearIntervalSpy.mockRestore()
+			const clearedAfterStop = clearTimeoutSpy.mock.calls.length
+			// Each setIntervalMining call schedules at least one new timer for the next mining cycle.
+			expect(afterFirst).toBeGreaterThan(beforeFirst)
+			expect(afterSecond).toBeGreaterThan(afterFirst)
+			// Reconfiguring (and switching to automine) cancels the prior timer at least once.
+			expect(clearedBeforeStop).toBeGreaterThan(0)
+			expect(clearedAfterStop).toBeGreaterThan(clearedBeforeStop)
+			setTimeoutSpy.mockRestore()
+			clearTimeoutSpy.mockRestore()
+			localClient.close()
 		})
 	})
 

@@ -1,10 +1,12 @@
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
 import { SimpleContract } from '@tevm/contract'
-import { parseEther } from 'viem'
+import { encodeFunctionData, parseEther } from 'viem'
 import type { MemoryClient } from '../../MemoryClient.js'
 import { createMemoryClient } from '../../createMemoryClient.js'
 
 let mc: MemoryClient
+const testAccount = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
+const recipientAccount = '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'
 
 beforeEach(async () => {
 	mc = createMemoryClient({
@@ -13,13 +15,14 @@ beforeEach(async () => {
 	
 	// Set up an account with some ETH
 	await mc.tevmSetAccount({
-		address: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+		address: testAccount,
 		balance: parseEther('100'),
 	})
 })
 
 afterEach(() => {
-	mc?.close?.()
+	mc?.transport?.tevm?.close?.()
+	vi.useRealTimers()
 })
 
 describe('setIntervalMining (anvil_setIntervalMining)', () => {
@@ -131,8 +134,8 @@ describe('setIntervalMining (anvil_setIntervalMining)', () => {
 
 		// Send a raw transaction that will go to mempool
 		const txHash = await mc.sendTransaction({
-			from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-			to: '0x70997970C51812dc3A010C7d01b50e0d17dc79C8',
+			account: testAccount,
+			to: recipientAccount,
 			value: parseEther('1'),
 		})
 
@@ -180,8 +183,8 @@ describe('setIntervalMining (anvil_setIntervalMining)', () => {
 		// Make a contract call that creates a transaction
 		const callResult = await mc.tevmCall({
 			to: contractAddress,
-			data: SimpleContract.write.set(100n).data,
-			from: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+			data: encodeFunctionData(SimpleContract.write.set(100n)),
+			from: testAccount,
 			addToMempool: true,
 		})
 
@@ -204,7 +207,7 @@ describe('setIntervalMining (anvil_setIntervalMining)', () => {
 		// Verify the contract state was updated
 		const readResult = await mc.tevmCall({
 			to: contractAddress,
-			data: SimpleContract.read.get().data,
+			data: encodeFunctionData(SimpleContract.read.get()),
 		})
 
 		expect(readResult.errors).toBeUndefined()
