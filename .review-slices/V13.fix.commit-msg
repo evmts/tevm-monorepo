@@ -1,0 +1,12 @@
+🔒 fix(V13): apply review fixes for Predeploys & precompiles correctness slice (5 fixed, 3 deferred)
+
+Slice: V13 (vertical)
+Scope: packages/predeploys packages/precompiles
+
+
+Addressed five findings with source changes in `packages/precompiles`: P-256 gas/failure/signature handling, handler-declared error handling, and overloaded event log encoding. Two findings were skipped as false positives in the current checkout, and the fork-gated P-256 registration concern was deferred because the required registration wiring is outside this slice's allowed paths.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

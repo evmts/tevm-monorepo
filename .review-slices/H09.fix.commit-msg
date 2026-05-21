@@ -1,0 +1,12 @@
+🐛 fix(H09): apply review fixes for Actions (handlers backing every method) slice (9 fixed, 0 deferred)
+
+Slice: H09 (horizontal)
+Scope: packages/actions
+
+
+All nine findings were verified against the current code and addressed with scoped changes under `packages/actions`. The fixes focus on preserving prepared trace state, making state/RPC mutations transactional or error-aware, correcting receipt fields, enriching log filter events, cleaning up trace listeners, preserving JSON-RPC id `0`, and fixing the `earliest` block tag. No build or test commands were run, per the slice constraints.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

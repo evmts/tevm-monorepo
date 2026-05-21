@@ -87,9 +87,7 @@ export const ethNewFilterHandler = (tevmNode) => {
 			}
 			/** @type {import('@tevm/node').FilterLog} */
 			const formattedLog = {
-				topics: /** @type {[import('@tevm/utils').Hex, ...Array<import('@tevm/utils').Hex>]}*/ (
-					logTopics
-				),
+				topics: /** @type {[import('@tevm/utils').Hex, ...Array<import('@tevm/utils').Hex>]}*/ (logTopics),
 				address: logAddress,
 				data: bytesToHex(dataBytes),
 				blockNumber: metadata?.blockNumber ?? 0n,
@@ -101,18 +99,18 @@ export const ethNewFilterHandler = (tevmNode) => {
 			}
 			filter.logs.push(formattedLog)
 		}
-			tevmNode.on('newLog', listener)
-			// populate with past blocks
-			const receiptsManager = await tevmNode.getReceiptsManager()
-			const pastLogs = await receiptsManager.getLogs(
-				_fromBlock,
-				_toBlock,
-				address !== undefined ? [createAddress(address).bytes] : [],
-				topics?.map((topic) => {
-					if (topic === null) return null
-					return isArray(topic) ? topic.map(hexToBytes) : hexToBytes(topic)
-				}),
-			)
+		tevmNode.on('newLog', listener)
+		// populate with past blocks
+		const receiptsManager = await tevmNode.getReceiptsManager()
+		const pastLogs = await receiptsManager.getLogs(
+			_fromBlock,
+			_toBlock,
+			address !== undefined ? [createAddress(address).bytes] : [],
+			topics?.map((topic) => {
+				if (topic === null) return null
+				return isArray(topic) ? topic.map(hexToBytes) : hexToBytes(topic)
+			}),
+		)
 		tevmNode.setFilter({
 			id,
 			type: 'Log',

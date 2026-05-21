@@ -176,16 +176,16 @@ export const debugTraceTransactionJsonRpcProcedure = (client) => {
 			...(transactionByHashResponse.result.value !== undefined
 				? { value: hexToBigInt(transactionByHashResponse.result.value) }
 				: {}),
-				...(transactionByHashResponse.result.input !== undefined ? { data: transactionByHashResponse.result.input } : {}),
-				...(timeout !== undefined ? { timeout } : {}),
-				.../** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
-			})
+			...(transactionByHashResponse.result.input !== undefined ? { data: transactionByHashResponse.result.input } : {}),
+			...(timeout !== undefined ? { timeout } : {}),
+			.../** @type {any} */ (tracerConfig !== undefined ? { tracerConfig } : {}),
+		})
 
 		return {
-				method: request.method,
-				result: /** @type {any} */ (serializeTraceResult(traceResult)),
-				jsonrpc: '2.0',
-				...(request.id !== undefined ? { id: request.id } : {}),
-			}
+			method: request.method,
+			result: /** @type {any} */ (serializeTraceResult(traceResult)),
+			jsonrpc: '2.0',
+			...(request.id !== undefined ? { id: request.id } : {}),
+		}
 	}
 }

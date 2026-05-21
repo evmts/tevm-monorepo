@@ -50,17 +50,17 @@ describe('readArtifactsSync', () => {
 		},
 	}
 
-		const mockMetadata = {
-			version: '1.x.x',
-			artifactsHash: cacheHash(JSON.stringify(mockArtifacts)),
-			files: {
-				'/mock/cwd/contracts/MyContract.sol': {
-					mtimeMs: 123456789,
-					size: 22,
-					contentHash: cacheHash('contract MyContract {}'),
-				},
+	const mockMetadata = {
+		version: '1.x.x',
+		artifactsHash: cacheHash(JSON.stringify(mockArtifacts)),
+		files: {
+			'/mock/cwd/contracts/MyContract.sol': {
+				mtimeMs: 123456789,
+				size: 22,
+				contentHash: cacheHash('contract MyContract {}'),
 			},
-		}
+		},
+	}
 
 	beforeEach(() => {
 		vi.resetAllMocks()
@@ -70,15 +70,15 @@ describe('readArtifactsSync', () => {
 			if (path.includes('metadata.json')) {
 				return JSON.stringify(mockMetadata)
 			}
-				if (path.includes('artifacts.json')) {
-					return JSON.stringify(mockArtifacts)
-				}
-				if (path === '/mock/cwd/contracts/MyContract.sol') {
-					return 'contract MyContract {}'
-				}
-				return ''
-			})
-			mockFs.statSync.mockImplementation(() => ({ mtimeMs: 123456789, size: 22 }))
+			if (path.includes('artifacts.json')) {
+				return JSON.stringify(mockArtifacts)
+			}
+			if (path === '/mock/cwd/contracts/MyContract.sol') {
+				return 'contract MyContract {}'
+			}
+			return ''
+		})
+		mockFs.statSync.mockImplementation(() => ({ mtimeMs: 123456789, size: 22 }))
 	})
 
 	it('should return undefined if artifacts path does not exist', () => {
@@ -140,18 +140,18 @@ describe('readArtifactsSync', () => {
 	})
 
 	it('should throw an error if artifacts file contains invalid JSON', () => {
-			mockFs.readFileSync.mockImplementation((path) => {
-				if (path.includes('metadata.json')) {
-					return JSON.stringify({ ...mockMetadata, artifactsHash: cacheHash('invalid json') })
-				}
-				if (path.includes('artifacts.json')) {
-					return 'invalid json'
-				}
-				if (path === '/mock/cwd/contracts/MyContract.sol') {
-					return 'contract MyContract {}'
-				}
-				return ''
-			})
+		mockFs.readFileSync.mockImplementation((path) => {
+			if (path.includes('metadata.json')) {
+				return JSON.stringify({ ...mockMetadata, artifactsHash: cacheHash('invalid json') })
+			}
+			if (path.includes('artifacts.json')) {
+				return 'invalid json'
+			}
+			if (path === '/mock/cwd/contracts/MyContract.sol') {
+				return 'contract MyContract {}'
+			}
+			return ''
+		})
 
 		expect(() => readArtifactsSync(mockCacheDir, mockFs, mockCwd, mockEntryModuleId)).toThrow(
 			`Cache miss for ${mockEntryModuleId} because it isn't valid json`,

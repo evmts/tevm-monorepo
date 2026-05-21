@@ -8,7 +8,9 @@ import { bytesToHex } from '@tevm/utils'
  */
 const getBlockHash = (block) => {
 	const jsonRpcHash = /** @type {{ __tevmJsonRpcBlockHash?: unknown }} */ (block).__tevmJsonRpcBlockHash
-	return typeof jsonRpcHash === 'string' ? /** @type {import('@tevm/utils').Hex} */ (jsonRpcHash) : bytesToHex(block.hash())
+	return typeof jsonRpcHash === 'string'
+		? /** @type {import('@tevm/utils').Hex} */ (jsonRpcHash)
+		: bytesToHex(block.hash())
 }
 
 /**
@@ -28,7 +30,8 @@ export const resetForkState = async (node, blockTag) => {
 	}
 
 	const currentForkedBlock = vm.blockchain.blocksByTag.get('forked')
-	const forkBlockTag = blockTag ?? (currentForkedBlock ? getBlockHash(currentForkedBlock) : currentFork.blockTag ?? 'latest')
+	const forkBlockTag =
+		blockTag ?? (currentForkedBlock ? getBlockHash(currentForkedBlock) : (currentFork.blockTag ?? 'latest'))
 	const blockchain = await createChain({
 		common: vm.common,
 		loggingLevel: /** @type {any} */ (node.logger.level),

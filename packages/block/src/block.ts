@@ -49,19 +49,19 @@ const UNSUPPORTED_VERKLE_EXECUTION_MESSAGE =
 	'Verkle/state-witness execution paths (EIP-6800 family) are not supported in the current Tevm VM/state pipeline'
 
 const SHA256_EMPTY = Uint8Array.from([
-	0xe3, 0xb0, 0xc4, 0x42, 0x98, 0xfc, 0x1c, 0x14, 0x9a, 0xfb, 0xf4, 0xc8, 0x99, 0x6f, 0xb9, 0x24,
-	0x27, 0xae, 0x41, 0xe4, 0x64, 0x9b, 0x93, 0x4c, 0xa4, 0x95, 0x99, 0x1b, 0x78, 0x52, 0xb8, 0x55,
+	0xe3, 0xb0, 0xc4, 0x42, 0x98, 0xfc, 0x1c, 0x14, 0x9a, 0xfb, 0xf4, 0xc8, 0x99, 0x6f, 0xb9, 0x24, 0x27, 0xae, 0x41,
+	0xe4, 0x64, 0x9b, 0x93, 0x4c, 0xa4, 0x95, 0x99, 0x1b, 0x78, 0x52, 0xb8, 0x55,
 ])
 
 const SHA256_K = Uint32Array.from([
-	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
-	0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
-	0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
-	0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
-	0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
-	0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
-	0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
-	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
+	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98,
+	0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786,
+	0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8,
+	0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967, 0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
+	0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85, 0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819,
+	0xd6990624, 0xf40e3585, 0x106aa070, 0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a,
+	0x5b9cca4f, 0x682e6ff3, 0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7,
+	0xc67178f2,
 ])
 
 const rotr = (word: number, bits: number) => (word >>> bits) | (word << (32 - bits))
@@ -91,7 +91,8 @@ const sha256 = (message: Uint8Array) => {
 			words[i] = view.getUint32(offset + i * 4)
 		}
 		for (let i = 16; i < 64; i++) {
-			const s0 = rotr(words[i - 15] as number, 7) ^ rotr(words[i - 15] as number, 18) ^ ((words[i - 15] as number) >>> 3)
+			const s0 =
+				rotr(words[i - 15] as number, 7) ^ rotr(words[i - 15] as number, 18) ^ ((words[i - 15] as number) >>> 3)
 			const s1 = rotr(words[i - 2] as number, 17) ^ rotr(words[i - 2] as number, 19) ^ ((words[i - 2] as number) >>> 10)
 			words[i] = (((words[i - 16] as number) + s0 + (words[i - 7] as number) + s1) >>> 0) as number
 		}
@@ -363,12 +364,12 @@ export class Block {
 			}))
 			?.map((w) => createWithdrawal(w))
 
-			let requests: ClRequest[] = []
-			if (header.common.ethjsCommon.isActivatedEIP(7685)) {
-				if (requestBytes === undefined || !Array.isArray(requestBytes)) {
-					throw new Error('Invalid serialized block input: EIP-7685 is active, and no requests were provided as array')
-				}
-				requests = (requestBytes as Uint8Array[]).map((bytes) => new ClRequest(bytes[0] as number, bytes.slice(1)))
+		let requests: ClRequest[] = []
+		if (header.common.ethjsCommon.isActivatedEIP(7685)) {
+			if (requestBytes === undefined || !Array.isArray(requestBytes)) {
+				throw new Error('Invalid serialized block input: EIP-7685 is active, and no requests were provided as array')
+			}
+			requests = (requestBytes as Uint8Array[]).map((bytes) => new ClRequest(bytes[0] as number, bytes.slice(1)))
 		}
 		// executionWitness are not part of the EL fetched blocks via eth_ bodies method
 		// they are currently only available via the engine api constructed blocks

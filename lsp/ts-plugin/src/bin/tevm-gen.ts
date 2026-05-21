@@ -73,12 +73,14 @@ const generate = async (cwd = process.cwd(), include = ['src/**/*.sol']) => {
 	const config = runSync(loadConfig(cwd))
 	const solcCache = createCache(config.cacheDir, fao, cwd)
 	const plugin = bundler(config, console, fao, solc, solcCache, '@tevm/contract')
-	await Promise.all(files.map(async (file) => {
-		const fileName = file.split('/').at(-1) as string
-		const fileDir = file.split('/').slice(0, -1).join('/')
-		const tsContent = await plugin.resolveTsModule(`./${file}`, cwd, false, true)
-		await writeFile(path.join(cwd, fileDir, `${fileName}.ts`), tsContent.code)
-	}))
+	await Promise.all(
+		files.map(async (file) => {
+			const fileName = file.split('/').at(-1) as string
+			const fileDir = file.split('/').slice(0, -1).join('/')
+			const tsContent = await plugin.resolveTsModule(`./${file}`, cwd, false, true)
+			await writeFile(path.join(cwd, fileDir, `${fileName}.ts`), tsContent.code)
+		}),
+	)
 }
 
 const args = process.argv.slice(2)

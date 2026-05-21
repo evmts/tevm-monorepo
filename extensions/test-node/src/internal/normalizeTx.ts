@@ -24,8 +24,11 @@ import { normalizeHex } from './normalizeHex.js'
  * ```
  */
 export const normalizeTx = (tx: ExactPartial<RpcTransactionRequest> & { chainId?: Hex | undefined }) => [
-	...(tx.accessList?.map(({ address, storageKeys }) => ['accessList', normalizeHex(address), ...storageKeys.map(normalizeHex)]) ??
-		[]),
+	...(tx.accessList?.map(({ address, storageKeys }) => [
+		'accessList',
+		normalizeHex(address),
+		...storageKeys.map(normalizeHex),
+	]) ?? []),
 	...(tx.authorizationList?.map((list) =>
 		Object.entries(list)
 			.sort(([a], [b]) => a.localeCompare(b))

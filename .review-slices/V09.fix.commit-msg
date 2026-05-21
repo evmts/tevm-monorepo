@@ -1,0 +1,12 @@
+🐛 fix(V09): apply review fixes for EIP-3155 trace comparison tooling slice (5 fixed, 0 deferred)
+
+Slice: V09 (vertical)
+Scope: test/eip3155 packages/vm/src packages/evm/src
+
+
+All five findings were verified as real and addressed with scoped fixes. The trace comparison tooling now compares final summaries, handles summary-only traces, canonicalizes opcode names, and accepts numeric opcode strings. `RunTxResult.gasRefund` now reports the effective capped refund that is actually applied to gas spent.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

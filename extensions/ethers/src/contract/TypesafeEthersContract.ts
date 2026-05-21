@@ -6,7 +6,15 @@ import type {
 	ExtractAbiFunctionNames,
 	GetEventArgs,
 } from '@tevm/utils'
-import type { BaseContract, BlockTag, ContractEventName, ContractTransactionResponse, EventLog, Log, Result } from 'ethers'
+import type {
+	BaseContract,
+	BlockTag,
+	ContractEventName,
+	ContractTransactionResponse,
+	EventLog,
+	Log,
+	Result,
+} from 'ethers'
 import type { BaseContractMethod } from './BaseContractMethod.js'
 
 type EthersAbiParameter = {
@@ -26,7 +34,10 @@ type EthersAbiParameterToPrimitiveType<TParameter> = TParameter extends {
 			? boolean
 			: TParameter extends { readonly type: 'address' | 'string' | `bytes${string}` | 'bytes' | 'function' }
 				? string
-				: TParameter extends { readonly type: 'tuple'; readonly components: infer TComponents extends readonly EthersAbiParameter[] }
+				: TParameter extends {
+							readonly type: 'tuple'
+							readonly components: infer TComponents extends readonly EthersAbiParameter[]
+						}
 					? Result & EthersAbiParametersToPrimitiveTypes<TComponents>
 					: unknown
 
@@ -75,4 +86,4 @@ export type TypesafeEthersContract<TAbi extends Abi> = BaseContract & {
 			TContractEventName extends ExtractAbiEventNames<TAbi> ? EthersEventLog<TAbi, TContractEventName> : EventLog | Log
 		>
 	>
-	}
+}

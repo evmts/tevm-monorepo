@@ -44,13 +44,13 @@ export const withEventArgs = <
 
 		const decodedArgs = Object.values(decodedLog.args as unknown as Record<string, unknown>)
 		if (!decodedArgs.length) continue
-			actualArgsFromLogs.push(decodedArgs)
+		actualArgsFromLogs.push(decodedArgs)
 
-			if (decodedArgs.length === args.length) {
-				const allArgsMatch = decodedArgs.every((actual, i) => deepEqual(actual, args[i]))
-				if (allArgsMatch) {
-					argsMatched = true
-					break
+		if (decodedArgs.length === args.length) {
+			const allArgsMatch = decodedArgs.every((actual, i) => deepEqual(actual, args[i]))
+			if (allArgsMatch) {
+				argsMatched = true
+				break
 			}
 		}
 	}

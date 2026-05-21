@@ -1,0 +1,12 @@
+🐛 fix(H12): apply review fixes for Bundler core slice (9 fixed, 0 deferred)
+
+Slice: H12 (horizontal)
+Scope: bundler-packages/base-bundler bundler-packages/bundler-cache bundler-packages/compiler bundler-packages/config bundler-packages/resolutions bundler-packages/runtime bundler-packages/solc bundler-packages/whatsabi
+
+
+All nine findings were verified against the cited source and addressed with in-scope source changes. The fixes focus on removing shell execution, preserving requested compiler/version semantics, preventing stale cache hits, keeping entry paths stable, avoiding Solidity source constraint rewrites, and aligning generated/runtime TypeScript surfaces. No findings were skipped or deferred.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

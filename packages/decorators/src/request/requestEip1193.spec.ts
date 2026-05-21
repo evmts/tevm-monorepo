@@ -1,5 +1,5 @@
-import { describe, expect, it, vi } from 'vitest'
 import { ProviderRpcError } from '@tevm/node'
+import { describe, expect, it, vi } from 'vitest'
 import { requestEip1193 } from './requestEip1193.js'
 
 // Mock the external modules that are imported in requestEip1193.js

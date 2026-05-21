@@ -54,10 +54,10 @@ describe('writeArtifacts', () => {
 
 	beforeEach(() => {
 		vi.resetAllMocks()
-			vi.spyOn(versionModule, 'version', 'get').mockReturnValue('1.x.x')
-			mockFs.exists.mockResolvedValue(false)
-			mockFs.writeFile.mockResolvedValue(undefined)
-			mockFs.statSync.mockReturnValue({ mtimeMs: 123456789, size: 22 })
+		vi.spyOn(versionModule, 'version', 'get').mockReturnValue('1.x.x')
+		mockFs.exists.mockResolvedValue(false)
+		mockFs.writeFile.mockResolvedValue(undefined)
+		mockFs.statSync.mockReturnValue({ mtimeMs: 123456789, size: 22 })
 	})
 
 	it('should create directory if it does not exist', async () => {
@@ -88,22 +88,22 @@ describe('writeArtifacts', () => {
 	it('should write metadata file with correct content', async () => {
 		await writeArtifacts(mockCwd, mockCacheDir, mockEntryModuleId, mockArtifacts, mockFs)
 
-			const expectedMetadata = {
-				version: '1.x.x',
-				artifactsHash: cacheHash(JSON.stringify(mockArtifacts, null, 2)),
-				files: {
-					'/mock/cwd/contracts/MyContract.sol': {
-						mtimeMs: 123456789,
-						size: 22,
-						contentHash: cacheHash('contract MyContract {}'),
-					},
-					'/mock/cwd/contracts/AnotherContract.sol': {
-						mtimeMs: 123456789,
-						size: 22,
-						contentHash: cacheHash('contract AnotherContract {}'),
-					},
+		const expectedMetadata = {
+			version: '1.x.x',
+			artifactsHash: cacheHash(JSON.stringify(mockArtifacts, null, 2)),
+			files: {
+				'/mock/cwd/contracts/MyContract.sol': {
+					mtimeMs: 123456789,
+					size: 22,
+					contentHash: cacheHash('contract MyContract {}'),
 				},
-			}
+				'/mock/cwd/contracts/AnotherContract.sol': {
+					mtimeMs: 123456789,
+					size: 22,
+					contentHash: cacheHash('contract AnotherContract {}'),
+				},
+			},
+		}
 
 		expect(mockFs.writeFile).toHaveBeenCalledWith(
 			'/mock/cwd/.tevm/contracts/MyContract.sol/metadata.json',

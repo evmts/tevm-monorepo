@@ -1,10 +1,10 @@
 import { InternalError } from '@tevm/errors'
 import { bytesToHex, hexToBytes } from 'viem'
+import { stripZeros } from '../utils/stripZeros.js'
 import { getAccount } from './getAccount.js'
 import { getForkBlockTag } from './getForkBlockTag.js'
 import { getForkClient } from './getForkClient.js'
 import { putContractStorage } from './putContractStorage.js'
-import { stripZeros } from '../utils/stripZeros.js'
 import { resolveForkBlockTag } from './resolveForkBlockTag.js'
 
 /**

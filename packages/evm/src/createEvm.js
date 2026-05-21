@@ -49,7 +49,10 @@ export const createEvm = async ({
 		customPredeploys: customPredeploys?.map((p) => p.contract.address),
 	})
 	for (const predeploy of customPredeploys ?? []) {
-		await stateManager.putCode(createAddressFromString(predeploy.contract.address), hexToBytes(predeploy.contract.deployedBytecode))
+		await stateManager.putCode(
+			createAddressFromString(predeploy.contract.address),
+			hexToBytes(predeploy.contract.deployedBytecode),
+		)
 	}
 	const evm = await Evm.create({
 		common: common.ethjsCommon,

@@ -7,8 +7,8 @@ import { bytesToHex, hexToBytes, PREFUNDED_PRIVATE_KEYS, PREFUNDED_PUBLIC_KEYS, 
 import { describe, expect, it } from 'vitest'
 import { mineHandler } from '../Mine/mineHandler.js'
 import { setAccountHandler } from '../SetAccount/setAccountHandler.js'
-import { ethSendRawTransactionHandler } from './ethSendRawTransactionHandler.js'
 import { ethGetTransactionReceiptHandler } from './ethGetTransactionReceipt.js'
+import { ethSendRawTransactionHandler } from './ethSendRawTransactionHandler.js'
 
 describe('ethSendRawTransactionHandler', () => {
 	it('should handle a valid signed transaction', async () => {

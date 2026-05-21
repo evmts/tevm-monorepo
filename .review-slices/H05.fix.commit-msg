@@ -1,0 +1,12 @@
+🐛 fix(H05): apply review fixes for Block, Tx, TxPool slice (6 fixed, 0 deferred)
+
+Slice: H05 (horizontal)
+Scope: packages/block packages/tx packages/txpool
+
+
+All six findings were addressed with scoped fixes. The block fixes correct consensus-visible header integer encoding, EIP-7685 request commitments, fork field decoding, transaction construction, and request type validation. The txpool fix corrects effective priority fee ordering for capped fee-market transactions.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

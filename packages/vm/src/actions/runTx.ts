@@ -50,7 +50,8 @@ const DELEGATION_7702_FLAG = new Uint8Array([0xef, 0x01, 0x00])
 const DELEGATION_7702_CODE_SIZE = DELEGATION_7702_FLAG.length + 20
 
 const isEip7702DelegationCode = (code: Uint8Array) =>
-	code.length === DELEGATION_7702_CODE_SIZE && equalsBytes(code.slice(0, DELEGATION_7702_FLAG.length), DELEGATION_7702_FLAG)
+	code.length === DELEGATION_7702_CODE_SIZE &&
+	equalsBytes(code.slice(0, DELEGATION_7702_FLAG.length), DELEGATION_7702_FLAG)
 
 const eip7702BytesToBigInt = (bytes: Uint8Array) => (bytes.length === 0 ? BIGINT_0 : bytesToBigInt(bytes))
 

@@ -13,7 +13,9 @@ const normalizeLogAddress = (address: Hex | Hex[] | undefined) =>
 	Array.isArray(address) ? address.map(normalizeHex).sort() : address === undefined ? undefined : normalizeHex(address)
 
 const normalizeLogTopics = (topics: unknown[] | undefined) =>
-	topics?.map((topic) => (Array.isArray(topic) ? topic.map((item) => (item ? normalizeHex(item as Hex) : item)).sort() : topic))
+	topics?.map((topic) =>
+		Array.isArray(topic) ? topic.map((item) => (item ? normalizeHex(item as Hex) : item)).sort() : topic,
+	)
 
 const paramSelectors: {
 	[TMethod in EIP1193Parameters<EIP1474Methods>['method']]?: CacheKeyParamsSelector<TMethod>

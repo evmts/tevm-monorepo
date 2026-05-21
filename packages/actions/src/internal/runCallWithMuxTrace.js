@@ -68,54 +68,54 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 			 * @param {() => void} [next]
 			 */
 			async (message, next) => {
-			/** @type {import('../common/TraceType.js').TraceType} */
-			let traceType = 'CALL'
-			if (message.to === undefined) {
-				traceType = message.salt !== undefined ? 'CREATE2' : 'CREATE'
-			} else if (message.delegatecall) {
-				traceType = 'DELEGATECALL'
-			} else if (message.isStatic) {
-				traceType = 'STATICCALL'
-			}
+				/** @type {import('../common/TraceType.js').TraceType} */
+				let traceType = 'CALL'
+				if (message.to === undefined) {
+					traceType = message.salt !== undefined ? 'CREATE2' : 'CREATE'
+				} else if (message.delegatecall) {
+					traceType = 'DELEGATECALL'
+				} else if (message.isStatic) {
+					traceType = 'STATICCALL'
+				}
 
-			/** @type {import('../common/TraceCall.js').TraceCall} */
-			const traceCall = {
-				type: traceType,
-				from: message.caller.toString(),
-				to: message.to ? message.to.toString() : `0x${'0'.repeat(40)}`,
-				value: message.value ?? 0n,
-				gas: message.gasLimit,
-				gasUsed: 0n,
-				input: bytesToHex(message.data ?? new Uint8Array(0)),
-				output: '0x',
-				calls: [],
-			}
-
-			if (message.depth === 0) {
-				rootTrace = {
-					type: traceCall.type,
-					from: traceCall.from,
-					to: traceCall.to,
-					value: traceCall.value ?? 0n,
-					gas: traceCall.gas ?? 0n,
-					gasUsed: traceCall.gasUsed ?? 0n,
-					input: traceCall.input,
-					output: traceCall.output,
+				/** @type {import('../common/TraceCall.js').TraceCall} */
+				const traceCall = {
+					type: traceType,
+					from: message.caller.toString(),
+					to: message.to ? message.to.toString() : `0x${'0'.repeat(40)}`,
+					value: message.value ?? 0n,
+					gas: message.gasLimit,
+					gasUsed: 0n,
+					input: bytesToHex(message.data ?? new Uint8Array(0)),
+					output: '0x',
 					calls: [],
 				}
-				callStack.push(/** @type {import('../common/TraceCall.js').TraceCall} */ (rootTrace))
-			} else {
-				const parent = callStack[callStack.length - 1]
-				if (parent) {
-					if (!parent.calls) {
-						parent.calls = []
-					}
-					parent.calls.push(traceCall)
-					callStack.push(traceCall)
-				}
-			}
 
-			next?.()
+				if (message.depth === 0) {
+					rootTrace = {
+						type: traceCall.type,
+						from: traceCall.from,
+						to: traceCall.to,
+						value: traceCall.value ?? 0n,
+						gas: traceCall.gas ?? 0n,
+						gasUsed: traceCall.gasUsed ?? 0n,
+						input: traceCall.input,
+						output: traceCall.output,
+						calls: [],
+					}
+					callStack.push(/** @type {import('../common/TraceCall.js').TraceCall} */ (rootTrace))
+				} else {
+					const parent = callStack[callStack.length - 1]
+					if (parent) {
+						if (!parent.calls) {
+							parent.calls = []
+						}
+						parent.calls.push(traceCall)
+						callStack.push(traceCall)
+					}
+				}
+
+				next?.()
 			},
 		)
 
@@ -126,23 +126,23 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 			 * @param {() => void} [next]
 			 */
 			async (result, next) => {
-			const currentCall = callStack.pop()
-			if (currentCall) {
-				currentCall.gasUsed = result.execResult.executionGasUsed ?? 0n
-				if (result.execResult?.returnValue) {
-					currentCall.output = bytesToHex(result.execResult.returnValue)
-				}
-				if (result.createdAddress && (currentCall.type === 'CREATE' || currentCall.type === 'CREATE2')) {
-					currentCall.to = result.createdAddress.toString()
-				}
-				if (result.execResult?.exceptionError) {
-					currentCall.error = result.execResult.exceptionError.error
-					if (result.execResult.exceptionError.error.includes('revert')) {
-						currentCall.revertReason = decodeRevertReason(bytesToHex(result.execResult.returnValue))
+				const currentCall = callStack.pop()
+				if (currentCall) {
+					currentCall.gasUsed = result.execResult.executionGasUsed ?? 0n
+					if (result.execResult?.returnValue) {
+						currentCall.output = bytesToHex(result.execResult.returnValue)
+					}
+					if (result.createdAddress && (currentCall.type === 'CREATE' || currentCall.type === 'CREATE2')) {
+						currentCall.to = result.createdAddress.toString()
+					}
+					if (result.execResult?.exceptionError) {
+						currentCall.error = result.execResult.exceptionError.error
+						if (result.execResult.exceptionError.error.includes('revert')) {
+							currentCall.revertReason = decodeRevertReason(bytesToHex(result.execResult.returnValue))
+						}
 					}
 				}
-			}
-			next?.()
+				next?.()
 			},
 		)
 	}
@@ -156,77 +156,77 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 			 * @param {() => void} [next]
 			 */
 			async (message, next) => {
-			const isCreate = message.to === undefined
+				const isCreate = message.to === undefined
 
-			/** @type {'call' | 'delegatecall' | 'staticcall' | undefined} */
-			let callType
-			if (!isCreate) {
-				if (message.delegatecall) {
-					callType = 'delegatecall'
-				} else if (message.isStatic) {
-					callType = 'staticcall'
-				} else {
-					callType = 'call'
+				/** @type {'call' | 'delegatecall' | 'staticcall' | undefined} */
+				let callType
+				if (!isCreate) {
+					if (message.delegatecall) {
+						callType = 'delegatecall'
+					} else if (message.isStatic) {
+						callType = 'staticcall'
+					} else {
+						callType = 'call'
+					}
 				}
-			}
 
-			/** @type {number[]} */
-			let traceAddress
-			if (message.depth === 0) {
-				traceAddress = []
-				childCounters.length = 0
-				childCounters.push(0)
-			} else {
-				const parentStackEntry = flatTraceStack[flatTraceStack.length - 1]
-				if (parentStackEntry) {
-					while (childCounters.length <= message.depth) {
-						childCounters.push(0)
-					}
-					const childIndex = childCounters[message.depth] || 0
-					traceAddress = [...parentStackEntry.traceAddress, childIndex]
-					childCounters[message.depth] = childIndex + 1
-					if (childCounters.length > message.depth + 1) {
-						childCounters[message.depth + 1] = 0
-					}
+				/** @type {number[]} */
+				let traceAddress
+				if (message.depth === 0) {
+					traceAddress = []
+					childCounters.length = 0
+					childCounters.push(0)
 				} else {
-					traceAddress = [0]
+					const parentStackEntry = flatTraceStack[flatTraceStack.length - 1]
+					if (parentStackEntry) {
+						while (childCounters.length <= message.depth) {
+							childCounters.push(0)
+						}
+						const childIndex = childCounters[message.depth] || 0
+						traceAddress = [...parentStackEntry.traceAddress, childIndex]
+						childCounters[message.depth] = childIndex + 1
+						if (childCounters.length > message.depth + 1) {
+							childCounters[message.depth + 1] = 0
+						}
+					} else {
+						traceAddress = [0]
+					}
 				}
-			}
 
-			const traceIndex = flatTraces.length
-			/** @type {import('../common/FlatCallTraceResult.js').FlatTraceEntry} */
-			const traceEntry = isCreate
-				? {
-						action: /** @type {import('../common/FlatCallTraceResult.js').FlatCreateAction} */ ({
-							from: message.caller.toString(),
-							gas: message.gasLimit,
-							init: bytesToHex(message.data ?? new Uint8Array(0)),
-							value: message.value ?? 0n,
-						}),
-						result: null,
-						subtraces: 0,
-						traceAddress,
-						type: 'create',
-					}
-				: {
-						action: /** @type {import('../common/FlatCallTraceResult.js').FlatCallAction} */ ({
-							callType,
-							from: message.caller.toString(),
-							to: message.to?.toString() ?? `0x${'0'.repeat(40)}`,
-							gas: message.gasLimit,
-							input: bytesToHex(message.data ?? new Uint8Array(0)),
-							value: message.value ?? 0n,
-						}),
-						result: null,
-						subtraces: 0,
-						traceAddress,
-						type: 'call',
-					}
+				const traceIndex = flatTraces.length
+				/** @type {import('../common/FlatCallTraceResult.js').FlatTraceEntry} */
+				const traceEntry = isCreate
+					? {
+							action: /** @type {import('../common/FlatCallTraceResult.js').FlatCreateAction} */ ({
+								from: message.caller.toString(),
+								gas: message.gasLimit,
+								init: bytesToHex(message.data ?? new Uint8Array(0)),
+								value: message.value ?? 0n,
+							}),
+							result: null,
+							subtraces: 0,
+							traceAddress,
+							type: 'create',
+						}
+					: {
+							action: /** @type {import('../common/FlatCallTraceResult.js').FlatCallAction} */ ({
+								callType,
+								from: message.caller.toString(),
+								to: message.to?.toString() ?? `0x${'0'.repeat(40)}`,
+								gas: message.gasLimit,
+								input: bytesToHex(message.data ?? new Uint8Array(0)),
+								value: message.value ?? 0n,
+							}),
+							result: null,
+							subtraces: 0,
+							traceAddress,
+							type: 'call',
+						}
 
-			flatTraces.push(traceEntry)
-			flatTraceStack.push({ traceAddress, index: traceIndex })
+				flatTraces.push(traceEntry)
+				flatTraceStack.push({ traceAddress, index: traceIndex })
 
-			next?.()
+				next?.()
 			},
 		)
 
@@ -237,50 +237,50 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 			 * @param {() => void} [next]
 			 */
 			async (result, next) => {
-			const stackEntry = flatTraceStack.pop()
-			if (!stackEntry) {
-				next?.()
-				return
-			}
-
-			const traceEntry = flatTraces[stackEntry.index]
-			if (!traceEntry) {
-				next?.()
-				return
-			}
-
-			if (result.execResult?.exceptionError) {
-				traceEntry.error = result.execResult.exceptionError.error
-				if (result.execResult.exceptionError.error.includes('revert') && result.execResult.returnValue) {
-					traceEntry.revertReason = decodeRevertReason(bytesToHex(result.execResult.returnValue))
+				const stackEntry = flatTraceStack.pop()
+				if (!stackEntry) {
+					next?.()
+					return
 				}
-				traceEntry.result = null
-			} else {
-				if (traceEntry.type === 'create') {
-					traceEntry.result = /** @type {import('../common/FlatCallTraceResult.js').FlatCreateResult} */ ({
-						address: result.createdAddress?.toString() ?? `0x${'0'.repeat(40)}`,
-						code: bytesToHex(result.execResult?.returnValue ?? new Uint8Array(0)),
-						gasUsed: result.execResult?.executionGasUsed ?? 0n,
-					})
+
+				const traceEntry = flatTraces[stackEntry.index]
+				if (!traceEntry) {
+					next?.()
+					return
+				}
+
+				if (result.execResult?.exceptionError) {
+					traceEntry.error = result.execResult.exceptionError.error
+					if (result.execResult.exceptionError.error.includes('revert') && result.execResult.returnValue) {
+						traceEntry.revertReason = decodeRevertReason(bytesToHex(result.execResult.returnValue))
+					}
+					traceEntry.result = null
 				} else {
-					traceEntry.result = /** @type {import('../common/FlatCallTraceResult.js').FlatCallResult} */ ({
-						gasUsed: result.execResult?.executionGasUsed ?? 0n,
-						output: bytesToHex(result.execResult?.returnValue ?? new Uint8Array(0)),
-					})
-				}
-			}
-
-			if (flatTraceStack.length > 0) {
-				const parentStackEntry = flatTraceStack[flatTraceStack.length - 1]
-				if (parentStackEntry) {
-					const parentEntry = flatTraces[parentStackEntry.index]
-					if (parentEntry) {
-						parentEntry.subtraces++
+					if (traceEntry.type === 'create') {
+						traceEntry.result = /** @type {import('../common/FlatCallTraceResult.js').FlatCreateResult} */ ({
+							address: result.createdAddress?.toString() ?? `0x${'0'.repeat(40)}`,
+							code: bytesToHex(result.execResult?.returnValue ?? new Uint8Array(0)),
+							gasUsed: result.execResult?.executionGasUsed ?? 0n,
+						})
+					} else {
+						traceEntry.result = /** @type {import('../common/FlatCallTraceResult.js').FlatCallResult} */ ({
+							gasUsed: result.execResult?.executionGasUsed ?? 0n,
+							output: bytesToHex(result.execResult?.returnValue ?? new Uint8Array(0)),
+						})
 					}
 				}
-			}
 
-			next?.()
+				if (flatTraceStack.length > 0) {
+					const parentStackEntry = flatTraceStack[flatTraceStack.length - 1]
+					if (parentStackEntry) {
+						const parentEntry = flatTraces[parentStackEntry.index]
+						if (parentEntry) {
+							parentEntry.subtraces++
+						}
+					}
+				}
+
+				next?.()
 			},
 		)
 	}
@@ -294,32 +294,32 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 			 * @param {() => void} [next]
 			 */
 			async (message, next) => {
-			const callData = message.data
-			if (callData && callData.length >= 4) {
-				const selector = bytesToHex(callData.slice(0, 4))
-				const dataSize = callData.length - 4
-				const key = `${selector}-${dataSize}`
-				selectorCounts.set(key, (selectorCounts.get(key) || 0) + 1)
+				const callData = message.data
+				if (callData && callData.length >= 4) {
+					const selector = bytesToHex(callData.slice(0, 4))
+					const dataSize = callData.length - 4
+					const key = `${selector}-${dataSize}`
+					selectorCounts.set(key, (selectorCounts.get(key) || 0) + 1)
 
-				const contractAddress = message.to?.toString().toLowerCase() ?? ''
-				if (contractAddress) {
-					if (!contractSelectorCalldata.has(contractAddress)) {
-						contractSelectorCalldata.set(contractAddress, new Map())
-					}
-					const contractMap = contractSelectorCalldata.get(contractAddress)
-					if (contractMap) {
-						if (!contractMap.has(selector)) {
-							contractMap.set(selector, [])
+					const contractAddress = message.to?.toString().toLowerCase() ?? ''
+					if (contractAddress) {
+						if (!contractSelectorCalldata.has(contractAddress)) {
+							contractSelectorCalldata.set(contractAddress, new Map())
 						}
-						const calldataArray = contractMap.get(selector)
-						if (calldataArray) {
-							const fullCalldata = bytesToHex(callData)
-							calldataArray.push(fullCalldata)
+						const contractMap = contractSelectorCalldata.get(contractAddress)
+						if (contractMap) {
+							if (!contractMap.has(selector)) {
+								contractMap.set(selector, [])
+							}
+							const calldataArray = contractMap.get(selector)
+							if (calldataArray) {
+								const fullCalldata = bytesToHex(callData)
+								calldataArray.push(fullCalldata)
+							}
 						}
 					}
 				}
-			}
-			next?.()
+				next?.()
 			},
 		)
 	}
@@ -333,21 +333,21 @@ export const runCallWithMuxTrace = async (vm, logger, params, tracerConfig) => {
 			 * @param {() => void} [next]
 			 */
 			async (step, next) => {
-			/** @type {import('../common/Hex.js').Hex[]} */
-			const stackItems = step.stack.map(
-				(item) => /** @type {import('../common/Hex.js').Hex} */ (`0x${item.toString(16).padStart(64, '0')}`),
-			)
+				/** @type {import('../common/Hex.js').Hex[]} */
+				const stackItems = step.stack.map(
+					(item) => /** @type {import('../common/Hex.js').Hex} */ (`0x${item.toString(16).padStart(64, '0')}`),
+				)
 
-			structLogs.push({
-				pc: step.pc,
-				op: step.opcode.name,
-				gas: step.gasLeft,
-				gasCost: BigInt(step.opcode.fee),
-				depth: step.depth + 1,
-				stack: stackItems,
-			})
+				structLogs.push({
+					pc: step.pc,
+					op: step.opcode.name,
+					gas: step.gasLeft,
+					gasCost: BigInt(step.opcode.fee),
+					depth: step.depth + 1,
+					stack: stackItems,
+				})
 
-			next?.()
+				next?.()
 			},
 		)
 	}

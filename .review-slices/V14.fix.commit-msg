@@ -1,0 +1,12 @@
+🐛 fix(V14): apply review fixes for Viem extension integration slice (6 fixed, 1 deferred)
+
+Slice: V14 (vertical)
+Scope: extensions/viem packages/memory-client packages/decorators
+
+
+Six findings were addressed with scoped fixes in the viem extension and memory-client runtime barrel. One high-severity finding was a false positive against the current checkout because `getAccount` already used `tevm_getAccount` and forwarded the supplied params. No build or test commands were run per the slice constraints.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

@@ -1,8 +1,8 @@
 import { UnknownBlockError } from '@tevm/errors'
 import { hexToBytes, hexToNumber, isHex } from '@tevm/utils'
 import { getBlockFromRpc } from '../utils/getBlockFromRpc.js'
-import { getCanonicalHeadBlock } from './getCanonicalHeadBlock.js'
 import { getBlock } from './getBlock.js'
+import { getCanonicalHeadBlock } from './getCanonicalHeadBlock.js'
 import { putBlock } from './putBlock.js'
 
 /**

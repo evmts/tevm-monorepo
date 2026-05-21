@@ -50,4 +50,3 @@ export type ExExEvent =
 	  }
 
 export type ExExHook = (event: ExExEvent) => void | Promise<void>
-

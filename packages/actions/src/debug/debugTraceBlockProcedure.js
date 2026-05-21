@@ -133,12 +133,12 @@ export const debugTraceBlockJsonRpcProcedure = (client) => {
 			)
 			// Trace the transaction
 			const txParams = impersonatedTx.toJSON()
-				const traceResult = await traceCallHandler({ ...client, getVm: () => Promise.resolve(vmClone) })({
-					tracer,
-					from: impersonatedTx.getSenderAddress().toString(),
-					...(txParams.to !== undefined ? { to: txParams.to } : {}),
-					...(txParams.gasLimit !== undefined ? { gas: hexToBigInt(txParams.gasLimit) } : {}),
-					...(txParams.gasPrice !== undefined ? { gasPrice: hexToBigInt(txParams.gasPrice) } : {}),
+			const traceResult = await traceCallHandler({ ...client, getVm: () => Promise.resolve(vmClone) })({
+				tracer,
+				from: impersonatedTx.getSenderAddress().toString(),
+				...(txParams.to !== undefined ? { to: txParams.to } : {}),
+				...(txParams.gasLimit !== undefined ? { gas: hexToBigInt(txParams.gasLimit) } : {}),
+				...(txParams.gasPrice !== undefined ? { gasPrice: hexToBigInt(txParams.gasPrice) } : {}),
 				...(txParams.value !== undefined ? { value: hexToBigInt(txParams.value) } : {}),
 				...(txParams.data !== undefined ? { data: txParams.data } : {}),
 				...(timeout !== undefined ? { timeout } : {}),

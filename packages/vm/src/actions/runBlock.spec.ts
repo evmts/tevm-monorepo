@@ -247,7 +247,13 @@ describe('runBlock', () => {
 			ready: mock().mockResolvedValue(undefined),
 		} as unknown as BaseVm
 		const block = {
-			header: { number: 10n, receiptTrie: new Uint8Array(32), logsBloom: new Uint8Array(256), gasUsed: 100n, stateRoot: new Uint8Array(32) },
+			header: {
+				number: 10n,
+				receiptTrie: new Uint8Array(32),
+				logsBloom: new Uint8Array(256),
+				gasUsed: 100n,
+				stateRoot: new Uint8Array(32),
+			},
 			executionWitness: { stateDiff: [], verkleProof: {} as any },
 			common: {
 				ethjsCommon: {

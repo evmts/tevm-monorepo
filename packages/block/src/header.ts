@@ -28,8 +28,8 @@ interface HeaderCache {
 
 const DEFAULT_GAS_LIMIT = BigInt('0xffffffffffffff')
 const SHA256_EMPTY = Uint8Array.from([
-	0xe3, 0xb0, 0xc4, 0x42, 0x98, 0xfc, 0x1c, 0x14, 0x9a, 0xfb, 0xf4, 0xc8, 0x99, 0x6f, 0xb9, 0x24,
-	0x27, 0xae, 0x41, 0xe4, 0x64, 0x9b, 0x93, 0x4c, 0xa4, 0x95, 0x99, 0x1b, 0x78, 0x52, 0xb8, 0x55,
+	0xe3, 0xb0, 0xc4, 0x42, 0x98, 0xfc, 0x1c, 0x14, 0x9a, 0xfb, 0xf4, 0xc8, 0x99, 0x6f, 0xb9, 0x24, 0x27, 0xae, 0x41,
+	0xe4, 0x64, 0x9b, 0x93, 0x4c, 0xa4, 0x95, 0x99, 0x1b, 0x78, 0x52, 0xb8, 0x55,
 ])
 
 const bigIntToUnpaddedBytes = (n: bigint) => {
@@ -209,12 +209,12 @@ export class BlockHeader {
 					? this.common.ethjsCommon.param('initialBaseFee')
 					: 7n
 				: undefined,
-				withdrawalsRoot: this.common.ethjsCommon.isActivatedEIP(4895) ? KECCAK256_RLP : undefined,
-				blobGasUsed: this.common.ethjsCommon.isActivatedEIP(4844) ? 0n : undefined,
-				excessBlobGas: this.common.ethjsCommon.isActivatedEIP(4844) ? 0n : undefined,
-				parentBeaconBlockRoot: this.common.ethjsCommon.isActivatedEIP(4788) ? zeros(32) : undefined,
-				requestsRoot: this.common.ethjsCommon.isActivatedEIP(7685) ? SHA256_EMPTY.slice() : undefined,
-			}
+			withdrawalsRoot: this.common.ethjsCommon.isActivatedEIP(4895) ? KECCAK256_RLP : undefined,
+			blobGasUsed: this.common.ethjsCommon.isActivatedEIP(4844) ? 0n : undefined,
+			excessBlobGas: this.common.ethjsCommon.isActivatedEIP(4844) ? 0n : undefined,
+			parentBeaconBlockRoot: this.common.ethjsCommon.isActivatedEIP(4788) ? zeros(32) : undefined,
+			requestsRoot: this.common.ethjsCommon.isActivatedEIP(7685) ? SHA256_EMPTY.slice() : undefined,
+		}
 
 		const baseFeePerGas = safeToType(headerData.baseFeePerGas, 1) ?? hardforkDefaults.baseFeePerGas
 		const withdrawalsRoot = safeToType(headerData.withdrawalsRoot, 2) ?? hardforkDefaults.withdrawalsRoot

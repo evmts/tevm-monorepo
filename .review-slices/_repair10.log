@@ -1,0 +1,1501 @@
+OpenAI Codex v0.132.0
+--------
+workdir: /Users/williamcory/tevm-monorepo
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019e479e-8300-7442-b296-8253708ca379
+--------
+user
+You are fixing 2 unique TypeScript errors (circular type) in @tevm/http-client.
+
+CONSTRAINTS:
+- Modify ONLY files under: packages/http-client.
+- No pnpm/bun/nx/git/tsc/vitest.
+- Minimal-diff.
+
+ERRORS:
+
+@tevm/http-client: src/HttpClient.ts:6:13 - error TS2456: Type alias 'HttpClient' circularly references itself.
+@tevm/http-client: src/createHttpClient.js:8:14 - error TS2577: Return type annotation circularly references itself.
+
+H08 likely introduced a type definition that self-references. Open HttpClient.ts:6 and createHttpClient.js:8 to understand the recursion. Likely fix: change one side to an interface (interfaces support lazy self-reference) or break the cycle with a wrapper type. If it's something like `type HttpClient = SomeOther<HttpClient> & {...}`, change to an `interface HttpClient extends ... {}` declaration.
+
+Write to `.review-slices/_repair10.fix.md`:
+
+# Wave 1 typecheck repair (round 10)
+
+## Errors fixed
+- path:line - <description>
+
+IMPORTANT: write the report at the EXACT path `.review-slices/_repair10.fix.md`.
+
+codex
+I’ll inspect the two reported files and the nearby package type patterns first, then make the smallest scoped change under `packages/http-client` and write the repair note at the requested path.
+exec
+/bin/zsh -lc "sed -n '1,160p' packages/http-client/src/HttpClient.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,180p' packages/http-client/src/createHttpClient.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { tevmViemExtension } from '@tevm/viem'
+import { createPublicClient, http } from 'viem'
+
+/**
+ * @deprecated a new version of HttpClient will be built in a future version
+ * For now we suggest you use viem
+ * @param {import('./HttpClientOptions.js').HttpClientOptions} params
+ * @returns {import('./HttpClient.js').HttpClient}
+ * @example
+ */
+export const createHttpClient = ({ url, name = `TevmClient:${url}` }) => {
+	// This is a shortcut. We are simply reusing viem to create this client so we can
+	// reuse all of viems transport related error handling. We should implement a client
+	// using only `@tevm/jsonrpc` package to make requests once it is as robust as viem
+	const { tevm } = createPublicClient({
+		name: `TevmRemoteClient:${url}`,
+		transport: http(url),
+	}).extend(tevmViemExtension())
+	return {
+		...tevm,
+		url,
+		name,
+	}
+}
+
+ succeeded in 0ms:
+import type { createHttpClient } from './createHttpClient.js'
+
+/**
+ * @deprecated a new http client will be created in a future version. For now it's recommended to use viem
+ */
+export type HttpClient = ReturnType<typeof createHttpClient>
+
+exec
+/bin/zsh -lc 'rg "type HttpClient|interface HttpClient|createHttpClient" packages/http-client -n' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+packages/http-client/src/createHttpClient.js:11:export const createHttpClient = ({ url, name = `TevmClient:${url}` }) => {
+packages/http-client/src/index.js:1:export { createHttpClient } from './createHttpClient.js'
+packages/http-client/src/HttpClientOptions.ts:5:export type HttpClientOptions = {
+packages/http-client/src/index.ts:1:export { createHttpClient } from './createHttpClient.js'
+packages/http-client/src/__snapshots__/createRemoteClient.spec.ts.snap:3:exports[`createHttpClient implements a tevm client tevm.setAccount and tevm.getAccount 1`] = `{}`;
+packages/http-client/src/createHttpClient.spec.ts:9:import { createHttpClient } from './createHttpClient.js'
+packages/http-client/src/createHttpClient.spec.ts:11:describe.skip(createHttpClient.name, () => {
+packages/http-client/src/createHttpClient.spec.ts:21:		client = createHttpClient({ url: 'http://localhost:6969' })
+packages/http-client/src/HttpClient.ts:1:import type { createHttpClient } from './createHttpClient.js'
+packages/http-client/src/HttpClient.ts:6:export type HttpClient = ReturnType<typeof createHttpClient>
+packages/http-client/src/__snapshots__/createHttpClient.spec.ts.snap:3:exports[`createHttpClient implements a tevm client tevm.setAccount and tevm.getAccount 1`] = `{}`;
+packages/http-client/src/__snapshots__/createHttpClient.spec.ts.snap:5:exports[`createHttpClient implements a tevm client can use tevm.eth.chainId 1`] = `{}`;
+packages/http-client/docs/globals.md:14:- [~~createHttpClient~~](functions/createHttpClient.md)
+packages/http-client/docs/functions/createHttpClient.md:5:[@tevm/http-client](../globals.md) / createHttpClient
+packages/http-client/docs/functions/createHttpClient.md:7:# ~~Function: createHttpClient()~~
+packages/http-client/docs/functions/createHttpClient.md:9:> **createHttpClient**(`params`): [`HttpClient`](../type-aliases/HttpClient.md)
+packages/http-client/docs/functions/createHttpClient.md:11:Defined in: [createHttpClient.js:11](https://github.com/evmts/tevm-monorepo/blob/main/packages/http-client/src/createHttpClient.js#L11)
+
+codex
+The cycle is exactly between `HttpClient = ReturnType<typeof createHttpClient>` and the JSDoc `@returns {import('./HttpClient.js').HttpClient}` on `createHttpClient`. I’m checking whether there’s an existing concrete Tevm/Viem client type to use, otherwise the lowest-risk repair is to let the function infer its return and keep `HttpClient` as the derived public type.
+exec
+/bin/zsh -lc 'rg --files packages/http-client' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+packages/http-client/src/__snapshots__/createRemoteClient.spec.ts.snap
+packages/http-client/src/__snapshots__/createHttpClient.spec.ts.snap
+packages/http-client/src/__snapshots__/createClient.spec.ts.snap
+packages/http-client/src/__snapshots__/createTevmClient.spec.ts.snap
+packages/http-client/src/HttpClient.ts
+packages/http-client/src/index.ts
+packages/http-client/src/createHttpClient.spec.ts
+packages/http-client/src/index.js
+packages/http-client/src/HttpClientOptions.ts
+packages/http-client/src/test/Add.s.sol.ts
+packages/http-client/src/test/ERC20.sol.ts
+packages/http-client/src/createHttpClient.js
+packages/http-client/biome.json
+packages/http-client/tsconfig.json
+packages/http-client/typedoc.json
+packages/http-client/package.json
+packages/http-client/README.md
+packages/http-client/docs/globals.md
+packages/http-client/docs/functions/createHttpClient.md
+packages/http-client/docs/_media/LICENSE
+packages/http-client/docs/README.md
+packages/http-client/docs/type-aliases/HttpClient.md
+packages/http-client/docs/type-aliases/HttpClientOptions.md
+packages/http-client/CHANGELOG.md
+packages/http-client/LICENSE
+packages/http-client/tsup.config.js
+
+exec
+/bin/zsh -lc 'rg "tevmViemExtension|TevmViem|ViemExtension|ReturnType<typeof .*Extension" packages -n' in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "rg \"@returns \\{import\\('./.*\\.js'\\)\\.[A-Za-z]+\\}\" packages/http-client packages -g \"*.js\" -n" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+packages/http-client/src/createHttpClient.js:8: * @returns {import('./HttpClient.js').HttpClient}
+packages/utils/src/signature.js:17: * @returns {import('./abitype.js').Hex} The uncompressed public key (65 bytes)
+packages/utils/src/signature.js:72: * @returns {import('./abitype.js').Address} The recovered address
+packages/utils/src/signature.js:100: * @returns {import('./abitype.js').Hex} The message hash
+packages/utils/src/signature.js:120: * @returns {import('./abitype.js').Address} The recovered address
+packages/state/src/createStateManager.js:34: * @returns {import('./StateManager.js').StateManager}
+packages/state/src/createStateManager.js:42: * @returns {import('./StateManager.js').StateManager}
+packages/common/src/createCommon.js:20: * @returns {import('./Common.js').Common}
+packages/vm/src/createBaseVm.js:5: * @returns {import('./BaseVm.js').BaseVm}
+packages/http-client/src/createHttpClient.js:8: * @returns {import('./HttpClient.js').HttpClient}
+packages/memory-client/src/createTevmTransport.js:24: * @returns {import('./TevmTransport.js').TevmTransport} A configured TEVM transport factory function.
+packages/memory-client/src/tevmViemActions.js:90:	 * @returns {import('./TevmViemActionsApi.js').TevmViemActionsApi} The TEVM actions API interface with all methods.
+packages/node/src/createTevmNode.js:26: * @returns {import('./TevmNode.js').TevmNode}
+packages/state/src/createBaseState.js:18: * @returns {import('./BaseState.js').BaseState}
+packages/actions/src/debug/debugGetRawBlockHandler.js:6: * @returns {import('./DebugHandler.js').DebugGetRawBlockHandler}
+packages/actions/src/debug/debugTraceCallProcedure.js:8: * @returns {import('./DebugProcedure.js').DebugTraceCallProcedure}
+packages/blockchain/src/createBaseChain.js:34: * @returns {import('./BaseChain.js').BaseChain} Base chain object
+packages/blockchain/src/createChain.js:20:	 * @returns {import('./Chain.js').Chain}
+packages/actions/src/debug/debugIntermediateRootsProcedure.js:14: * @returns {import('./DebugProcedure.js').DebugIntermediateRootsProcedure} A handler function for debug_intermediateRoots requests
+packages/actions/src/debug/traceCallHandler.js:13: * @returns {import('./DebugHandler.js').DebugTraceCallHandler} an execution trace of an {@link eth_call} in the context of a given block execution
+packages/actions/src/debug/debugTraceBlockByNumberProcedure.js:11: * @returns {import('./DebugProcedure.js').DebugTraceBlockByNumberProcedure} A handler function for debug_traceBlockByNumber requests
+packages/actions/src/debug/debugStorageRangeAtProcedure.js:6: * @returns {import('./DebugProcedure.js').DebugStorageRangeAtProcedure}
+packages/actions/src/debug/debugGetModifiedAccountsByHashProcedure.js:6: * @returns {import('./DebugProcedure.js').DebugGetModifiedAccountsByHashProcedure}
+packages/actions/src/debug/debugGetModifiedAccountsByHashHandler.js:6: * @returns {import('./DebugHandler.js').DebugGetModifiedAccountsByHashHandler}
+packages/actions/src/debug/debugGetRawTransactionHandler.js:6: * @returns {import('./DebugHandler.js').DebugGetRawTransactionHandler}
+packages/actions/src/debug/debugGetRawTransactionProcedure.js:6: * @returns {import('./DebugProcedure.js').DebugGetRawTransactionProcedure}
+packages/actions/src/debug/debugTraceBlockByHashProcedure.js:11: * @returns {import('./DebugProcedure.js').DebugTraceBlockByHashProcedure} A handler function for debug_traceBlockByHash requests
+packages/actions/src/debug/debugGetRawHeaderProcedure.js:7: * @returns {import('./DebugProcedure.js').DebugGetRawHeaderProcedure}
+packages/actions/src/debug/debugDumpBlockHandler.js:6: * @returns {import('./DebugHandler.js').DebugDumpBlockHandler}
+packages/actions/src/debug/debugGetRawReceiptsHandler.js:7: * @returns {import('./DebugHandler.js').DebugGetRawReceiptsHandler}
+packages/actions/src/debug/debugGetModifiedAccountsByNumberProcedure.js:6: * @returns {import('./DebugProcedure.js').DebugGetModifiedAccountsByNumberProcedure}
+packages/actions/src/debug/debugTraceBlockProcedure.js:16: * @returns {import('./DebugProcedure.js').DebugTraceBlockProcedure} A handler function for debug_traceBlock requests
+packages/actions/src/debug/debugTraceChainProcedure.js:16: * @returns {import('./DebugProcedure.js').DebugTraceChainProcedure} A handler function for debug_traceChain requests
+packages/actions/src/debug/debugPreimageProcedure.js:16: * @returns {import('./DebugProcedure.js').DebugPreimageProcedure} A handler function for debug_preimage requests
+packages/actions/src/debug/debugTraceTransactionProcedure.js:17: * @returns {import('./DebugProcedure.js').DebugTraceTransactionProcedure} A handler function for debug_traceTransaction requests
+packages/actions/src/debug/debugTraceStateProcedure.js:6: * @returns {import('./DebugProcedure.js').DebugTraceStateProcedure}
+packages/actions/src/debug/debugDumpBlockProcedure.js:6: * @returns {import('./DebugProcedure.js').DebugDumpBlockProcedure}
+packages/actions/src/debug/debugGetModifiedAccountsByNumberHandler.js:6: * @returns {import('./DebugHandler.js').DebugGetModifiedAccountsByNumberHandler}
+packages/logger/src/createLogger.js:7: * @returns {import('./Logger.js').Logger} A logger instance
+packages/actions/src/debug/debugGetRawHeaderHandler.js:6: * @returns {import('./DebugHandler.js').DebugGetRawHeaderHandler}
+packages/actions/src/debug/debugStorageRangeAtHandler.js:7: * @returns {import('./DebugHandler.js').DebugStorageRangeAtHandler}
+packages/actions/src/debug/debugGetRawReceiptsProcedure.js:7: * @returns {import('./DebugProcedure.js').DebugGetRawReceiptsProcedure}
+packages/actions/src/Mine/mineProcedure.js:8: * @returns {import('./MineJsonRpcProcedure.js').MineJsonRpcProcedure}
+packages/actions/src/debug/debugGetRawBlockProcedure.js:7: * @returns {import('./DebugProcedure.js').DebugGetRawBlockProcedure}
+packages/actions/src/Mine/mineHandler.js:13: * @returns {import('./MineHandlerType.js').MineHandler}
+packages/actions/src/anvil/anvilRevertProcedure.js:7: * @returns {import('./AnvilProcedure.js').AnvilRevertProcedure}
+packages/actions/src/anvil/anvilResetProcedure.js:8: * @returns {import('./AnvilProcedure.js').AnvilResetProcedure}
+packages/actions/src/anvil/anvilMineDetailedProcedure.js:8: * @returns {import('./AnvilProcedure.js').AnvilMineDetailedProcedure}
+packages/actions/src/anvil/anvilSetIntervalMiningProcedure.js:4: * @returns {import('./AnvilProcedure.js').AnvilSetIntervalMiningProcedure}
+packages/actions/src/anvil/anvilDealHandler.js:13: * @returns {import('./AnvilHandler.js').AnvilDealHandler}
+packages/actions/src/anvil/anvilSnapshotProcedure.js:7: * @returns {import('./AnvilProcedure.js').AnvilSnapshotProcedure}
+packages/actions/src/Call/callHandler.js:26: * @returns {import('./CallHandlerType.js').CallHandler} The call handler function.
+packages/actions/src/anvil/anvilSetRpcUrlProcedure.js:7: * @returns {import('./AnvilProcedure.js').AnvilSetRpcUrlProcedure}
+packages/actions/src/anvil/anvilGetAutomineProcedure.js:4: * @returns {import('./AnvilProcedure.js').AnvilGetAutomineProcedure}
+packages/actions/src/anvil/anvilLoadStateProcedure.js:7: * @returns {import('./AnvilProcedure.js').AnvilLoadStateProcedure}
+packages/actions/src/anvil/anvilSetCodeProcedure.js:6: * @returns {import('./AnvilProcedure.js').AnvilSetCodeProcedure}
+packages/actions/src/anvil/anvilSetChainIdProcedure.js:7: * @returns {import('./AnvilProcedure.js').AnvilSetChainIdProcedure}
+packages/actions/src/anvil/anvilAutoImpersonateAccountProcedure.js:5: * @returns {import('./AnvilProcedure.js').AnvilAutoImpersonateAccountProcedure}
+packages/actions/src/anvil/anvilDealProcedure.js:8: * @returns {import('./AnvilProcedure.js').AnvilDealProcedure}
+packages/actions/src/anvil/anvilSetNextBlockTimestampProcedure.js:5: * @returns {import('./AnvilProcedure.js').AnvilSetNextBlockTimestampProcedure}
+packages/actions/src/anvil/anvilEnableTracesProcedure.js:7: * @returns {import('./AnvilProcedure.js').AnvilEnableTracesProcedure}
+packages/actions/src/Call/callHandlerResult.js:11: * @returns {import('./CallResult.js').CallResult}
+packages/actions/src/anvil/anvilDropTransactionProcedure.js:6: * @returns {import('./AnvilProcedure.js').AnvilDropTransactionProcedure}
+packages/actions/src/anvil/anvilAddBalanceProcedure.js:8: * @returns {import('./AnvilProcedure.js').AnvilAddBalanceProcedure}
+packages/actions/src/anvil/anvilDropAllTransactionsProcedure.js:5: * @returns {import('./AnvilProcedure.js').AnvilDropAllTransactionsProcedure}
+packages/actions/src/anvil/anvilSetAutomineProcedure.js:4: * @returns {import('./AnvilProcedure.js').AnvilSetAutomineProcedure}
+packages/actions/src/anvil/anvilSetNextBlockBaseFeePerGasProcedure.js:7: * @returns {import('./AnvilProcedure.js').AnvilSetNextBlockBaseFeePerGasProcedure}
+packages/actions/src/anvil/anvilSetBlockGasLimitProcedure.js:6: * @returns {import('./AnvilProcedure.js').AnvilSetBlockGasLimitProcedure}
+packages/actions/src/anvil/anvilSetTimeProcedure.js:6: * @returns {import('./AnvilProcedure.js').AnvilSetTimeProcedure}
+packages/actions/src/requestProcedure.js:12: * @returns {import('./tevm-request-handler/TevmJsonRpcRequestHandler.js').TevmJsonRpcRequestHandler}
+packages/actions/src/anvil/anvilMetadataProcedure.js:6: * @returns {import('./AnvilProcedure.js').AnvilMetadataProcedure}
+packages/actions/src/Call/callProcedure.js:10: * @returns {import('./CallJsonRpcProcedure.js').CallJsonRpcProcedure}
+packages/actions/src/anvil/anvilSetBlockTimestampIntervalProcedure.js:5: * @returns {import('./AnvilProcedure.js').AnvilSetBlockTimestampIntervalProcedure}
+packages/actions/src/LoadState/loadStateHandler.js:42: * @returns {import('./LoadStateHandlerType.js').LoadStateHandler} - The handler function.
+packages/actions/src/LoadState/loadStateProcedure.js:6: * @returns {import('./LoadStateJsonRpcProcedure.js').LoadStateJsonRpcProcedure}
+packages/actions/src/GetAccount/getAccountProcedure.js:7: * @returns {import('./GetAccountJsonRpcProcedure.js').GetAccountJsonRpcProcedure}
+packages/actions/src/anvil/anvilGetIntervalMiningProcedure.js:4: * @returns {import('./AnvilProcedure.js').AnvilGetIntervalMiningProcedure}
+packages/actions/src/DumpState/dumpStateProcedure.js:6: * @returns {import('./DumpStateJsonRpcProcedure.js').DumpStateJsonRpcProcedure}
+packages/actions/src/anvil/anvilSetBalanceProcedure.js:6: * @returns {import('./AnvilProcedure.js').AnvilSetBalanceProcedure}
+packages/actions/src/SetAccount/setAccountHandler.js:23: * @returns {import('./SetAccountHandlerType.js').SetAccountHandler} A handler function for setting account state
+packages/actions/src/SetAccount/setAccountProcedure.js:7: * @returns {import('./SetAccountJsonRpcProcedure.js').SetAccountJsonRpcProcedure}
+packages/actions/src/anvil/anvilDumpStateProcedure.js:9: * @returns {import('./AnvilProcedure.js').AnvilDumpStateProcedure}
+packages/actions/src/requestBulkProcedure.js:5: * @returns {import('./tevm-request-handler/TevmJsonRpcBulkRequestHandler.js').TevmJsonRpcBulkRequestHandler}
+packages/actions/src/anvil/anvilIncreaseTimeProcedure.js:5: * @returns {import('./AnvilProcedure.js').AnvilIncreaseTimeProcedure}
+packages/actions/src/anvil/anvilRemoveBlockTimestampIntervalProcedure.js:5: * @returns {import('./AnvilProcedure.js').AnvilRemoveBlockTimestampIntervalProcedure}
+packages/actions/src/eth/getCodeProcedure.js:5: * @returns {import('./EthProcedure.js').EthGetCodeJsonRpcProcedure}
+packages/actions/src/anvil/anvilImpersonateAccountProcedure.js:6: * @returns {import('./AnvilProcedure.js').AnvilImpersonateAccountProcedure}
+packages/actions/src/anvil/anvilSetLoggingEnabledProcedure.js:6: * @returns {import('./AnvilProcedure.js').AnvilSetLoggingEnabledProcedure}
+packages/actions/src/eth/ethProtocolVersionProcedure.js:5: * @returns {import('./EthProcedure.js').EthProtocolVersionJsonRpcProcedure}
+packages/sync-storage-persister/src/createSyncStoragePersister.js:6: * @returns {import('./SyncStoragePersister.js').SyncStoragePersister}
+packages/actions/src/anvil/anvilNodeInfoProcedure.js:6: * @returns {import('./AnvilProcedure.js').AnvilNodeInfoProcedure}
+packages/actions/src/eth/getStorageAtHandler.js:10: * @returns {import('./EthHandler.js').EthGetStorageAtHandler}
+packages/actions/src/eth/blockNumberHandler.js:4: * @returns {import('./EthHandler.js').EthBlockNumberHandler}
+packages/actions/src/anvil/anvilSetCoinbaseProcedure.js:7: * @returns {import('./AnvilProcedure.js').AnvilSetCoinbaseProcedure}
+packages/actions/src/eth/ethGetTransactionByBlockHashAndIndexProcedure.js:7: * @returns {import('./EthProcedure.js').EthGetTransactionByBlockHashAndIndexJsonRpcProcedure}
+packages/actions/src/eth/ethAccountsProcedure.js:5: * @returns {import('./EthProcedure.js').EthAccountsJsonRpcProcedure}
+packages/actions/src/anvil/anvilSetStorageAtProcedure.js:6: * @returns {import('./AnvilProcedure.js').AnvilSetStorageAtProcedure}
+packages/actions/src/anvil/anvilStopImpersonatingAccountProcedure.js:4: * @returns {import('./AnvilProcedure.js').AnvilStopImpersonatingAccountProcedure}
+packages/actions/src/eth/getBalanceProcedure.js:6: * @returns {import('./EthProcedure.js').EthGetBalanceJsonRpcProcedure}
+packages/actions/src/anvil/anvilSetNonceProcedure.js:6: * @returns {import('./AnvilProcedure.js').AnvilSetNonceProcedure}
+packages/actions/src/eth/ethUninstallFilterProcedure.js:4: * @returns {import('./EthProcedure.js').EthUninstallFilterJsonRpcProcedure}
+packages/actions/src/eth/ethGetBlockTransactionCountByNumberProcedure.js:6: * @returns {import('./EthProcedure.js').EthGetBlockTransactionCountByNumberJsonRpcProcedure}
+packages/actions/src/eth/getBalanceHandler.js:10: * @returns {import('./EthHandler.js').EthGetBalanceHandler}
+packages/actions/src/eth/chainIdProcedure.js:6: * @returns {import('./EthProcedure.js').EthChainIdJsonRpcProcedure}
+packages/actions/src/anvil/anvilRemovePoolTransactionsProcedure.js:7: * @returns {import('./AnvilProcedure.js').AnvilRemovePoolTransactionsProcedure}
+packages/actions/src/eth/ethSendRawTransactionHandler.js:51: * @returns {import('./EthHandler.js').EthSendRawTransactionHandler}
+packages/actions/src/eth/ethNewPendingTransactionFilterProcedure.js:6: * @returns {import('./EthProcedure.js').EthNewPendingTransactionFilterJsonRpcProcedure}
+packages/actions/src/eth/ethBlobBaseFeeProcedure.js:6: * @returns {import('./EthProcedure.js').EthBlobBaseFeeJsonRpcProcedure}
+packages/actions/src/eth/ethSendTransactionProcedure.js:7: * @returns {import('./EthProcedure.js').EthSendTransactionJsonRpcProcedure}
+packages/actions/src/eth/ethGetFilterLogsProcedure.js:7: * @returns {import('./EthProcedure.js').EthGetFilterLogsJsonRpcProcedure}
+packages/actions/src/eth/ethUnsubscribeHandler.js:6: * @returns {import('./EthHandler.js').EthUnsubscribeHandler}
+packages/actions/src/eth/ethNewFilterProcedure.js:6: * @returns {import('./EthProcedure.js').EthNewFilterJsonRpcProcedure}
+packages/actions/src/eth/ethGetTransactionByHashProcedure.js:8: * @returns {import('./EthProcedure.js').EthGetTransactionByHashJsonRpcProcedure}
+packages/actions/src/eth/ethSimulateV2Procedure.js:106:		 * @returns {import('./EthJsonRpcResponse.js').JsonRpcCallTrace}
+packages/actions/src/eth/ethNewBlockFilterProcedure.js:6: * @returns {import('./EthProcedure.js').EthNewBlockFilterJsonRpcProcedure}
+packages/actions/src/anvil/anvilSetMinGasPriceProcedure.js:7: * @returns {import('./AnvilProcedure.js').AnvilSetMinGasPriceProcedure}
+packages/actions/src/eth/ethCallHandler.js:5: * @returns {import('./EthHandler.js').EthCallHandler}
+packages/actions/src/eth/ethGetBlockReceiptsHandler.js:29: * @returns {import('./EthHandler.js').EthGetBlockReceiptsHandler} The handler function
+packages/actions/src/eth/ethGetBlockReceiptsHandler.js:100:			 * @returns {import('./EthResult.js').EthGetTransactionReceiptResult}
+packages/actions/src/eth/ethSubscribeHandler.js:16: * @returns {import('./EthHandler.js').EthSubscribeHandler}
+packages/actions/src/eth/ethCreateAccessListProcedure.js:7: * @returns {import('./EthProcedure.js').EthCreateAccessListJsonRpcProcedure}
+packages/actions/src/anvil/anvilAddBalanceHandler.js:10: * @returns {import('./AnvilHandler.js').AnvilAddBalanceHandler}
+packages/actions/src/eth/ethGetProofProcedure.js:7: * @returns {import('./EthProcedure.js').EthGetProofJsonRpcProcedure}
+packages/actions/src/eth/ethAccountsHandler.js:3: * @returns {import('./EthHandler.js').EthAccountsHandler}
+packages/actions/src/eth/ethFeeHistoryProcedure.js:7: * @returns {import('./EthProcedure.js').EthFeeHistoryJsonRpcProcedure}
+packages/actions/src/eth/ethEstimateGasProcedure.js:6: * @returns {import('./EthProcedure.js').EthEstimateGasJsonRpcProcedure}
+packages/actions/src/eth/ethFeeHistoryHandler.js:9: * @returns {import('./EthHandler.js').EthFeeHistoryHandler}
+packages/actions/src/eth/ethSendTransactionHandler.js:11: * @returns {import('./EthHandler.js').EthSendTransactionHandler}
+packages/actions/src/eth/maxPriorityFeePerGasHandler.js:9: * @returns {import('./EthHandler.js').EthMaxPriorityFeePerGasHandler}
+packages/actions/src/eth/ethSignHandler.js:16: * @returns {import('./EthHandler.js').EthSignHandler}
+packages/actions/src/eth/chainIdHandler.js:4: * @returns {import('./EthHandler.js').EthChainIdHandler}
+packages/actions/src/eth/ethCoinbaseProcedure.js:4: * @returns {import('./EthProcedure.js').EthCoinbaseJsonRpcProcedure}
+packages/actions/src/eth/ethCallProcedure.js:6: * @returns {import('./EthProcedure.js').EthCallJsonRpcProcedure}
+packages/actions/src/eth/ethGetFilterChangesProcedure.js:6: * @returns {import('./EthProcedure.js').EthGetFilterChangesJsonRpcProcedure}
+packages/actions/src/eth/ethGetBlockByNumberProcedure.js:8: * @returns {import('./EthProcedure.js').EthGetBlockByNumberJsonRpcProcedure}
+packages/actions/src/eth/ethGetBlockByHashProcedure.js:7: * @returns {import('./EthProcedure.js').EthGetBlockByHashJsonRpcProcedure}
+packages/actions/src/eth/ethSubscribeProcedure.js:8: * @returns {import('./EthProcedure.js').EthSubscribeJsonRpcProcedure}
+packages/actions/src/eth/ethSignTransactionProcedure.js:6: * @returns {import('./EthProcedure.js').EthSignTransactionJsonRpcProcedure}
+packages/actions/src/eth/ethGetLogsHandler.js:12: * @returns {import('./EthHandler.js').EthGetLogsHandler}
+packages/actions/src/eth/getStorageAtProcedure.js:5: * @returns {import('./EthProcedure.js').EthGetStorageAtJsonRpcProcedure}
+packages/actions/src/eth/ethGetTransactionReceiptProcedure.js:6: * @returns {import('./EthProcedure.js').EthGetTransactionReceiptJsonRpcProcedure}
+packages/actions/src/eth/maxPriorityFeePerGasProcedure.js:7: * @returns {import('./EthProcedure.js').EthMaxPriorityFeePerGasJsonRpcProcedure}
+packages/actions/src/eth/ethGetTransactionByBlockNumberAndIndexProcedure.js:7: * @returns {import('./EthProcedure.js').EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure}
+packages/actions/src/eth/ethSignProcedure.js:5: * @returns {import('./EthProcedure.js').EthSignJsonRpcProcedure}
+packages/actions/src/eth/ethSignTransactionHandler.js:13: * @returns {import('./EthHandler.js').EthSignTransactionHandler} A handler function for eth_signTransaction requests
+packages/actions/src/eth/gasPriceProcedure.js:6: * @returns {import('./EthProcedure.js').EthGasPriceJsonRpcProcedure}
+packages/actions/src/eth/ethGetProofHandler.js:10: * @returns {import('./EthHandler.js').EthGetProofHandler}
+packages/actions/src/eth/ethGetTransactionReceipt.js:24: * @returns {import('./EthHandler.js').EthGetTransactionReceiptHandler}
+packages/actions/src/eth/gasPriceHandler.js:7: * @returns {import('./EthHandler.js').EthGasPriceHandler}
+packages/actions/src/eth/ethSendRawTransactionProcedure.js:9: * @returns {import('./EthProcedure.js').EthSendRawTransactionJsonRpcProcedure}
+packages/actions/src/eth/ethNewFilterHandler.js:14: * @returns {import('./EthHandler.js').EthNewFilterHandler} ethNewFilterHandler
+packages/actions/src/eth/ethGetBlockReceiptsProcedure.js:11: * @returns {import('./EthProcedure.js').EthGetBlockReceiptsJsonRpcProcedure} The JSON-RPC procedure
+packages/actions/src/eth/ethGetLogsProcedure.js:7: * @returns {import('./EthProcedure.js').EthGetLogsJsonRpcProcedure}
+packages/actions/src/eth/ethGetTransactionCountProcedure.js:9: * @returns {import('./EthProcedure.js').EthGetTransactionCountJsonRpcProcedure}
+packages/actions/src/eth/blockNumberProcedure.js:6: * @returns {import('./EthProcedure.js').EthBlockNumberJsonRpcProcedure}
+packages/actions/src/eth/ethGetBlockTransactionCountByHashProcedure.js:6: * @returns {import('./EthProcedure.js').EthGetBlockTransactionCountByHashJsonRpcProcedure}
+packages/actions/src/eth/getCodeHandler.js:9: * @returns {import('./EthHandler.js').EthGetCodeHandler}
+packages/actions/src/eth/ethUnsubscribeProcedure.js:8: * @returns {import('./EthProcedure.js').EthUnsubscribeJsonRpcProcedure}
+
+ succeeded in 200ms:
+packages/server/docs/README.md:65:For viem users you can also use the custom tevm actions such as `tevmSetAccount` even over http via extending any viem client with [tevmViemExtension](https://tevm.sh/reference/tevm/viem/functions/tevmviemextension/).
+packages/server/docs/README.md:70:import { tevmViemExtension } from "tevm/viem";
+packages/server/docs/README.md:75:}).extend(tevmViemExtension());
+packages/memory-client/src/TevmViemActionsApi.ts:16:export type TevmViemActionsApi = {
+packages/memory-client/src/index.ts:11:export type { TevmViemActionsApi } from './TevmViemActionsApi.js'
+packages/memory-client/src/tevmViemActions.js:23: * @returns {(client: import('viem').Client<import('./TevmTransport.js').TevmTransport<string>>) => import('./TevmViemActionsApi.js').TevmViemActionsApi} A viem extension function that adds TEVM actions
+packages/memory-client/src/tevmViemActions.js:80: * @see {@link TevmViemActionsApi} - The API interface this extension implements
+packages/memory-client/src/tevmViemActions.js:90:	 * @returns {import('./TevmViemActionsApi.js').TevmViemActionsApi} The TEVM actions API interface with all methods.
+packages/memory-client/docs/globals.md:16:- [TevmViemActionsApi](type-aliases/TevmViemActionsApi.md)
+packages/memory-client/docs/functions/tevmViemActions.md:9:> **tevmViemActions**(): (`client`) => [`TevmViemActionsApi`](../type-aliases/TevmViemActionsApi.md)
+packages/memory-client/docs/functions/tevmViemActions.md:36:(`client`) => [`TevmViemActionsApi`](../type-aliases/TevmViemActionsApi.md)
+packages/memory-client/docs/functions/tevmViemActions.md:99: - [TevmViemActionsApi](../type-aliases/TevmViemActionsApi.md) - The API interface this extension implements
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:5:[@tevm/memory-client](../globals.md) / TevmViemActionsApi
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:7:# Type Alias: TevmViemActionsApi
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:9:> **TevmViemActionsApi** = `object`
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:11:Defined in: [packages/memory-client/src/TevmViemActionsApi.ts:16](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmViemActionsApi.ts#L16)
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:32:Defined in: [packages/memory-client/src/TevmViemActionsApi.ts:18](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmViemActionsApi.ts#L18)
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:40:Defined in: [packages/memory-client/src/TevmViemActionsApi.ts:19](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmViemActionsApi.ts#L19)
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:48:Defined in: [packages/memory-client/src/TevmViemActionsApi.ts:26](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmViemActionsApi.ts#L26)
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:56:Defined in: [packages/memory-client/src/TevmViemActionsApi.ts:20](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmViemActionsApi.ts#L20)
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:64:Defined in: [packages/memory-client/src/TevmViemActionsApi.ts:23](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmViemActionsApi.ts#L23)
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:72:Defined in: [packages/memory-client/src/TevmViemActionsApi.ts:25](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmViemActionsApi.ts#L25)
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:80:Defined in: [packages/memory-client/src/TevmViemActionsApi.ts:22](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmViemActionsApi.ts#L22)
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:88:Defined in: [packages/memory-client/src/TevmViemActionsApi.ts:21](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmViemActionsApi.ts#L21)
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:96:Defined in: [packages/memory-client/src/TevmViemActionsApi.ts:17](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmViemActionsApi.ts#L17)
+packages/memory-client/docs/type-aliases/TevmViemActionsApi.md:104:Defined in: [packages/memory-client/src/TevmViemActionsApi.ts:24](https://github.com/evmts/tevm-monorepo/blob/main/packages/memory-client/src/TevmViemActionsApi.ts#L24)
+packages/http-client/src/createHttpClient.js:1:import { tevmViemExtension } from '@tevm/viem'
+packages/http-client/src/createHttpClient.js:18:	}).extend(tevmViemExtension())
+
+exec
+/bin/zsh -lc 'rg "export .*tevmViemExtension|function tevmViemExtension|const tevmViemExtension" packages/viem -n' in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,140p' packages/http-client/tsconfig.json" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,160p' packages/http-client/package.json" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+{
+	"extends": "@tevm/tsconfig/base.json",
+	"compilerOptions": {
+		"rootDir": "src",
+		"outDir": "types",
+		"skipLibCheck": true,
+		"types": ["bun-types"]
+	},
+	"include": ["src"]
+}
+
+ exited 2 in 0ms:
+rg: packages/viem: IO error for operation on packages/viem: No such file or directory (os error 2)
+
+ succeeded in 0ms:
+{
+	"name": "@tevm/http-client",
+	"version": "1.0.0-next.148",
+	"private": false,
+	"description": "Client implementations of Tevm",
+	"keywords": [
+		"solidity",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "packages/http-client"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./types/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/index.d.ts",
+	"files": [
+		"dist",
+		"src",
+		"!src/**/*.spec.ts",
+		"types"
+	],
+	"scripts": {
+		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun lint:deps && bun lint:package",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/http-client",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "biome format . --write",
+		"format:check": "biome format .",
+		"generate:docs": "typedoc",
+		"lint": "biome check . --write --unsafe",
+		"lint:check": "biome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
+		"package:up": "pnpm up --latest",
+		"test": "vitest --watch",
+		"test:coverage": "vitest --coverage --run",
+		"test:run": "vitest run",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@tevm/address": "workspace:1.0.0-next.148",
+		"@tevm/contract": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
+		"@tevm/utils": "workspace:^",
+		"@tevm/viem": "workspace:^"
+	},
+	"devDependencies": {
+		"@tevm/client-types": "workspace:^",
+		"@tevm/server": "workspace:^",
+		"@tevm/test-utils": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^"
+	},
+	"peerDependencies": {
+		"viem": "^2.49.3"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
+
+exec
+/bin/zsh -lc "sed -n '1,120p' packages/state/src/StateManager.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import type { Proof } from '@evmts/zevm/statemanager'
+import type { AccountFields, EvmStateManagerInterface } from '@tevm/common'
+import type { EthjsAccount, EthjsAddress } from '@tevm/utils'
+import type { Address } from 'viem'
+import type { BaseState } from './BaseState.js'
+import type { TevmState } from './state-types/index.js'
+
+export interface StateManager
+	extends Omit<
+		EvmStateManagerInterface,
+		'getAccount' | 'putAccount' | 'modifyAccountFields' | 'shallowCopy' | 'initBinaryTreeExecutionWitness'
+	> {
+	/**
+	 * The internal state representation
+	 */
+	_baseState: BaseState
+	ready: BaseState['ready']
+	/**
+	 * Returns contract addresses
+	 */
+	getAccountAddresses: () => Set<Address>
+	getAccount(address: EthjsAddress): Promise<EthjsAccount | undefined>
+	putAccount(address: EthjsAddress, account?: EthjsAccount): Promise<void>
+	modifyAccountFields(address: EthjsAddress, accountFields: AccountFields): Promise<void>
+	/**
+	 * Returns a new instance of the ForkStateManager with the same opts and all storage copied over
+	 */
+	deepCopy(): Promise<StateManager>
+	shallowCopy(): StateManager
+	/**
+	 * Dumps the state of the state manager as a {@link TevmState}
+	 */
+	dumpCanonicalGenesis(): Promise<TevmState>
+	/**
+	 * Resets all internal caches
+	 */
+	clearCaches(): void
+	/**
+	 * @experimental
+	 * Saves a state root to the state root mapping
+	 * THis API is considered unstable
+	 */
+	saveStateRoot(root: Uint8Array, state: TevmState): void
+	/**
+	 * Commits the current state.
+	 */
+	commit(
+		/**
+		 * @experimental
+		 * Whether to create a new state root
+		 * Defaults to true.
+		 * This api is not stable
+		 */
+		createNewStateRoot?: boolean,
+	): Promise<void>
+	/**
+	 * Clears all storage entries for the account
+	 */
+	clearContractStorage(address: import('@tevm/utils').EthjsAddress): Promise<void>
+	/**
+	 * Dumps storage based on the input
+	 */
+	dumpStorage(address: import('@tevm/utils').EthjsAddress): Promise<import('@tevm/common').StorageDump>
+	/**
+	 * Dumps a range of storage values
+	 */
+	dumpStorageRange(
+		address: import('@tevm/utils').EthjsAddress,
+		startKey: bigint,
+		limit: number,
+	): Promise<import('@tevm/common').StorageRange>
+	/**
+	 * Loads a state from a given state root
+	 */
+	generateCanonicalGenesis(state: TevmState): Promise<void>
+	/**
+	 * Get an EIP-1186 proof from the provider
+	 * @param address - The address to get proof for
+	 * @param storageSlots - Storage slots to include in the proof
+	 * @returns The account and storage proof
+	 */
+	getProof(address: import('@tevm/utils').EthjsAddress, storageSlots?: Uint8Array[]): Promise<Proof>
+}
+
+exec
+/bin/zsh -lc "rg --files packages | rg 'tevmViemExtension|viem'" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+packages/utils/src/viem.js
+packages/utils/src/viem.spec.ts
+packages/memory-client/src/test/viemPublicActions.spec.ts
+packages/memory-client/src/test/viem/createPendingTransactionFilter.spec.ts
+packages/memory-client/src/test/viem/sendUnsignedTransaction.spec.ts.todo
+packages/memory-client/src/test/viem/estimateMaxPriorityFeePerGas.spec.ts
+packages/memory-client/src/test/viem/removeBlockTimestampInterval.spec.ts
+packages/memory-client/src/test/viem/dumpState.spec.ts
+packages/memory-client/src/test/viem/setAutomine.spec.ts.todo.bak
+packages/memory-client/src/test/viem/impersonateAccount.spec.ts
+packages/memory-client/src/test/viem/getContractEvents.spec.ts
+packages/memory-client/src/test/viem/getChainId.spec.ts
+packages/memory-client/src/test/viem/reset.spec.ts.todo
+packages/memory-client/src/test/viem/setMinGasPrice.spec.ts.todo
+packages/memory-client/src/test/viem/eth_accounts.spec.ts
+packages/memory-client/src/test/viem/getTransactionReceipt.spec.ts
+packages/memory-client/src/test/viem/getTransactionCount.spec.ts
+packages/memory-client/src/test/viem/mine.spec.ts
+packages/memory-client/src/test/viem/getTxpoolStatus.spec.ts.todo
+packages/memory-client/src/test/viem/setBlockGasLimit.spec.ts
+packages/memory-client/src/test/viem/sendRawTransaction.spec.ts
+packages/memory-client/src/test/viem/setNonce.spec.ts
+packages/memory-client/src/test/viem/watchEvent.spec.ts
+packages/memory-client/src/test/viemSigner.spec.ts
+packages/memory-client/src/test/viemTestActions.spec.ts
+packages/memory-client/src/test/viem/setCode.spec.ts
+packages/memory-client/src/test/viem/snapshot.spec.ts
+packages/memory-client/src/test/viem/inspectTxpool.spec.ts.todo
+packages/memory-client/src/test/viem/getBytecode.spec.ts
+packages/memory-client/src/test/viem/setNextBlockTimestamp.spec.ts
+packages/memory-client/src/test/viem/createBlockFilter.spec.ts
+packages/memory-client/src/test/viem/getStorageAt.spec.ts
+packages/memory-client/src/test/viem/getFilterLogs.spec.ts
+packages/memory-client/src/test/viem/setBlockTimestampInterval.spec.ts
+packages/memory-client/src/test/viem/verifyTypedData.spec.ts
+packages/memory-client/src/test/viem/watchContractEvent.spec.ts
+packages/memory-client/src/test/viem/setStorageAt.spec.ts
+packages/memory-client/src/test/viem/dropTransaction.spec.ts.todo
+packages/memory-client/src/test/viem/setAutomine.spec.ts
+packages/memory-client/src/test/viem/setIntervalMining.spec.ts.todo
+packages/memory-client/src/test/viem/createEventFilter.spec.ts
+packages/memory-client/src/test/viem/getBlobBaseFee.spec.ts
+packages/memory-client/src/test/viem/simulateContract.spec.ts
+packages/memory-client/src/test/viem/setRpcUrl.spec.ts
+packages/memory-client/src/test/viem/waitForTransactionReceipt.spec.ts
+packages/memory-client/src/test/viem/revert.spec.ts.todo
+packages/memory-client/src/test/viem/verifySiweMessage.spec.ts
+packages/memory-client/src/test/viem/setCoinbase.spec.ts
+packages/memory-client/src/test/viem/getProof.spec.ts
+packages/memory-client/src/test/viem/getAutomine.spec.ts
+packages/memory-client/src/test/viem/getTxpoolContent.spec.ts.todo
+packages/memory-client/src/test/viem/verifyMessage.spec.ts
+packages/memory-client/src/test/viem/setNextBlockBaseFeePerGas.spec.ts.todo
+packages/memory-client/src/test/viem/getGasPrice.spec.ts
+packages/memory-client/src/test/viem/uninstallFilter.spec.ts
+packages/memory-client/src/test/viem/estimateGas.spec.ts
+packages/memory-client/src/test/viem/stopImpersonatingAccount.spec.ts
+packages/memory-client/src/test/viem/call.spec.ts
+packages/memory-client/src/test/viem/setLoggingEnabled.spec.ts.todo
+packages/memory-client/src/test/viem/getFilterChanges.spec.ts
+packages/memory-client/src/test/viem/watchPendingTransactions.spec.ts
+packages/memory-client/src/test/viem/increaseTime.spec.ts
+packages/memory-client/src/test/viem/watchBlockNumber.spec.ts
+packages/memory-client/src/test/viem/readContract.spec.ts
+packages/memory-client/src/test/viem/setBalance.spec.ts
+packages/memory-client/src/test/viem/getTransactionConfirmations.spec.ts
+packages/memory-client/src/test/viem/createContractEventFilter.spec.ts
+packages/memory-client/src/test/viem/multicall.spec.ts
+packages/memory-client/src/test/viem/getLogs.spec.ts
+packages/memory-client/src/test/viem/getBlockNumber.spec.ts
+packages/memory-client/src/test/viem/getBlock.spec.ts
+packages/memory-client/src/test/viem/estimateFeesPerGas.spec.ts
+packages/memory-client/src/test/viem/watchBlocks.spec.ts
+packages/memory-client/src/test/viem/getTransaction.spec.ts
+packages/memory-client/src/test/viem/getBlockTransactionCount.spec.ts
+packages/memory-client/src/test/viem/__snapshots__/getTransaction.spec.ts.snap
+packages/memory-client/src/test/viem/__snapshots__/getTransactionReceipt.spec.ts.snap
+packages/memory-client/src/test/viem/__snapshots__/getBlock.spec.ts.snap
+packages/memory-client/src/test/viem/__snapshots__/watchBlocks.spec.ts.snap
+packages/memory-client/src/test/viem/__snapshots__/waitForTransactionReceipt.spec.ts.snap
+packages/memory-client/src/test/viem/__snapshots__/getContractEvents.spec.ts.snap
+packages/memory-client/src/test/viem/__snapshots__/setCoinbase.spec.ts.snap
+packages/memory-client/src/test/viem/__snapshots__/simulateContract.spec.ts.snap
+
+exec
+/bin/zsh -lc "sed -n '1,80p' packages/state/src/createStateManager.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,80p' packages/common/src/Common.ts && sed -n '1,60p' packages/common/src/createCommon.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import {
+	checkpoint,
+	clearCaches,
+	clearContractStorage,
+	commit,
+	deepCopy,
+	deleteAccount,
+	dumpCanonicalGenesis,
+	dumpStorage,
+	dumpStorageRange,
+	generateCanonicalGenesis,
+	getAccount,
+	getAccountAddresses,
+	getAppliedKey,
+	getContractCode,
+	getContractStorage,
+	getProof,
+	getStateRoot,
+	hasStateRoot,
+	modifyAccountFields,
+	putAccount,
+	putContractCode,
+	putContractStorage,
+	revert,
+	setStateRoot,
+	shallowCopy,
+} from './actions/index.js'
+import { originalStorageCache } from './actions/originalStorageCache.js'
+import { saveStateRoot } from './actions/saveStateRoot.js'
+import { createBaseState } from './createBaseState.js'
+
+/**
+ * @param {import('./state-types/StateOptions.js').StateOptions} options
+ * @returns {import('./StateManager.js').StateManager}
+ */
+export const createStateManager = (options) => {
+	return decorate(createBaseState(options))
+}
+
+/**
+ * @param {import('./BaseState.js').BaseState} state
+ * @returns {import('./StateManager.js').StateManager}
+ */
+const decorate = (state) => {
+	/**
+	 * @type {import('./StateManager.js').StateManager}
+	 */
+	const wrappedState = {
+		ready: state.ready,
+		_baseState: state,
+		deepCopy: async () => {
+			return decorate(await deepCopy(state)())
+		},
+		shallowCopy: () => {
+			return decorate(shallowCopy(state)())
+		},
+		dumpCanonicalGenesis: () => dumpCanonicalGenesis(state)(),
+		generateCanonicalGenesis: generateCanonicalGenesis(state),
+		putAccount: putAccount(state),
+		clearCaches: clearCaches(state),
+		commit: commit(state),
+		checkpoint: checkpoint(state),
+		revert: revert(state),
+		getProof: getProof(state),
+		getCode: getContractCode(state),
+		getCodeSize: (address) => getContractCode(state)(address).then((code) => code.length),
+		getAccount: getAccount(state),
+		dumpStorage: dumpStorage(state),
+		getStateRoot: getStateRoot(state),
+		hasStateRoot: hasStateRoot(state),
+		setStateRoot: setStateRoot(state),
+		saveStateRoot: saveStateRoot(state),
+		deleteAccount: deleteAccount(state),
+		putCode: putContractCode(state),
+		dumpStorageRange: dumpStorageRange(state),
+		getStorage: getContractStorage(state),
+		putStorage: putContractStorage(state),
+		clearStorage: clearContractStorage(state),
+		modifyAccountFields: modifyAccountFields(state),
+		clearContractStorage: clearContractStorage(state),
+
+ succeeded in 0ms:
+import { type Common as EthjsCommon } from '@evmts/zevm/common'
+import { type Prettify, type Chain as ViemChain } from 'viem/chains'
+
+/**
+ * Common is the main representation of chain specific configuration for tevm clients.
+ *
+ * Tevm specific chain configuration wrapping viem chain and ethereumjs commmon
+ * Common contains the common configuration set between all chains such as fee information, hardfork information, eip information, predeployed contracts, default block explorers and more.
+ * extends ethereumjs Common class with the Viem Chain type
+ * @example
+ * ```typescript
+ * import { optimism, Common } from 'tevm/common'
+ * import { createMemoryClient } from 'tevm'}
+ *
+ * const createClient = (common: Common) => {
+ *   const client = createMemoryClient({
+ *     common,
+ *   })
+ *   return client
+ * }
+ *
+ * const client = createClient(optimism)
+ * ```
+ * @see [createCommon](https://tevm.sh/reference/tevm/common/functions/createcommon/)
+ * @see [Tevm client docs](https://tevm.sh/learn/clients/)
+ */
+export type Common = Prettify<ViemChain & { ethjsCommon: EthjsCommon; copy: () => Common }>
+import { createCustomCommon, Mainnet } from '@evmts/zevm/common'
+import { InvalidParamsError } from '@tevm/errors'
+import { createLogger } from '@tevm/logger'
+
+/**
+ * @param {string} hardfork
+ * @returns {string}
+ */
+const normalizeHardfork = (hardfork) =>
+	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
+
+/**
+ * Common is the main representation of chain specific configuration for tevm clients.
+ *
+ * createCommon creates a typesafe Common object used by the EVM
+ * to access chain and hardfork parameters and to provide
+ * a unified and shared view on the network and hardfork state.
+ * Tevm common extends the [viem chain](https://github.com/wevm/viem/blob/main/src/chains/index.ts) interface
+ * @param {import('./CommonOptions.js').CommonOptions} options
+ * @returns {import('./Common.js').Common}
+ * @throws {InvalidParamsError} only if invalid params are passed
+ * @example
+ * ```typescript
+ * import { createCommon } from 'tevm/common'
+ *
+ * const common = createCommon({
+ *  customCrypto: {},
+ *  loggingLevel: 'debug',
+ *  hardfork: 'london',
+ *  eips: [420],
+ *  id: 69,
+ *  name: 'MyChain',
+ *  ...
+ * })
+ * ```
+ * Since common are stateful consider copying it before using it
+ * @example
+ * ```typescript
+ * import { createCommon } from 'tevm/common'
+ * const common = createCommon({ ... })
+ *
+ * const commonCopy = common.copy()
+ * ```
+ *
+ * To access the underlying Common instance, use the ethjsCommon property.
+ * @example
+ * ```typescript
+ * const common = createCommon({ ... })
+ * const ethjsCommon = common.ethjsCommon
+ * ```
+ * @see [Tevm client docs](https://tevm.sh/learn/clients/)
+ */
+export const createCommon = ({
+	customCrypto = {},
+	loggingLevel = 'warn',
+	hardfork = 'prague',
+	eips = [],
+	...chain
+}) => {
+	try {
+
+exec
+/bin/zsh -lc 'rg "tevmViemExtension" . -n' in /Users/williamcory/tevm-monorepo
+ succeeded in 371ms:
+./packages/http-client/src/createHttpClient.js:1:import { tevmViemExtension } from '@tevm/viem'
+./packages/http-client/src/createHttpClient.js:18:	}).extend(tevmViemExtension())
+./packages/server/README.md:61:For viem users you can also use the custom tevm actions such as `tevmSetAccount` even over http via extending any viem client with [tevmViemExtension](https://tevm.sh/reference/tevm/viem/functions/tevmviemextension/).
+./packages/server/README.md:66:import { tevmViemExtension } from "tevm/viem";
+./packages/server/README.md:71:}).extend(tevmViemExtension());
+./packages/server/docs/README.md:65:For viem users you can also use the custom tevm actions such as `tevmSetAccount` even over http via extending any viem client with [tevmViemExtension](https://tevm.sh/reference/tevm/viem/functions/tevmviemextension/).
+./packages/server/docs/README.md:70:import { tevmViemExtension } from "tevm/viem";
+./packages/server/docs/README.md:75:}).extend(tevmViemExtension());
+
+exec
+/bin/zsh -lc "sed -n '1,120p' extensions/viem/src/ViemTevmClientDecorator.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,160p' extensions/viem/src/ViemTevmClient.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,80p' extensions/viem/src/index.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,90p' extensions/viem/src/tevmViemExtension.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import type { ViemTevmClient } from './ViemTevmClient.js'
+
+/**
+ * @deprecated in favor of the viem transport
+ * A viem decorator for `tevmViemExtension`
+ */
+export type ViemTevmClientDecorator = (client: any) => ViemTevmClient
+
+ succeeded in 0ms:
+import type { TevmClient } from '@tevm/client-types'
+
+/**
+ * @deprecated in favor of the viem transport
+ * The decorated properties added by the `tevmViemExtension`
+ */
+export type ViemTevmClient = {
+	tevm: TevmClient
+}
+
+ succeeded in 0ms:
+export type { GenError } from './GenError.js'
+export type { GenResult } from './GenResult.js'
+export type { OptimisticResult } from './OptimisticResult.js'
+export type { TypedError } from './TypedError.js'
+export { tevmTransport } from './tevmTransport.js'
+export { tevmViemExtension } from './tevmViemExtension.js'
+export { tevmViemExtensionOptimistic } from './tevmViemExtensionOptimistic.js'
+export type { ViemTevmClient } from './ViemTevmClient.js'
+export type { ViemTevmClientDecorator } from './ViemTevmClientDecorator.js'
+export type { ViemTevmExtension } from './ViemTevmExtension.js'
+export type { ViemTevmOptimisticClient } from './ViemTevmOptimisticClient.js'
+export type { ViemTevmOptimisticClientDecorator } from './ViemTevmOptimisticClientDecorator.js'
+export type { ViemTevmOptimisticExtension } from './ViemTevmOptimisticExtension.js'
+
+ succeeded in 0ms:
+import { decodeFunctionResult, encodeFunctionData, hexToBigInt, numberToHex } from 'viem'
+import { testAccounts } from './testAccounts.js'
+
+/**
+ * @param {import('@tevm/actions').BlockParam|undefined} blockTag
+ * @returns {import('@tevm/actions').BlockTag | import('@tevm/actions').Hex}
+ */
+const formatBlockTag = (blockTag) => {
+	if (blockTag === undefined) {
+		return 'pending'
+	}
+	if (typeof blockTag === 'bigint') {
+		return numberToHex(blockTag)
+	}
+	return blockTag
+}
+
+/**
+ * Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/)
+ * @type {import('./ViemTevmExtension.js').ViemTevmExtension}
+ * @example
+ * ```js
+ * import { createClient, parseEth } from 'viem'
+ * import { tevmViemExtension } from '@tevm/viem-extension'
+ *
+ * const client = createClient('https://mainnet.optimism.io')
+ *   .extend(tevmViemExtension())
+ *
+ * await client.transport.tevm.account({
+ *   address: `0x${'12'.repeat(20)}`,
+ *   balance: parseEth('420'),
+ * })
+ * ```
+ * @see [@tevm/server](https://tevm.sh/generated/tevm/server/functions/createserver) for documentation on creating a tevm backend
+ */
+export const tevmViemExtension = () => {
+	return (client) => {
+		/**
+		 * @param {import('@tevm/jsonrpc').JsonRpcResponse<any, any, any>} response
+		 * @returns {any}
+		 */
+		const formatResult = (response) => {
+			if ('error' in response) {
+				return {
+					errors: [
+						{
+							_tag: response.error.code,
+							name: response.error.code,
+							message: response.error.message,
+						},
+					],
+				}
+			}
+			return response.result
+		}
+
+		/**
+		 * @type {import('@tevm/client-types').TevmClient['request']}
+		 */
+		const request = async (req) => {
+			try {
+				const result = await client.request(/** @type any*/ (req))
+				return /** @type any */ ({
+					jsonrpc: '2.0',
+					method: req.method,
+					...(req.id ? { id: req.id } : {}),
+					result,
+				})
+			} catch (e) {
+				return /** @type any*/ ({
+					jsonrpc: '2.0',
+					...(req.id ? { id: req.id } : {}),
+					method: req.method,
+					error: {
+						code: /** @type Error */ (e).name,
+						message: /** @type {Error}*/ (e).message,
+					},
+					errors: [
+						{
+							_tag: /** @type Error */ (e).name,
+							message: /** @type {Error}*/ (e).message,
+							name: /** @type {Error}*/ (e).name,
+						},
+					],
+				})
+			}
+		}
+
+		/**
+		 * @type {import('@tevm/client-types').TevmClient['requestBulk']}
+
+exec
+/bin/zsh -lc 'rg "export type TevmClient|interface TevmClient" packages extensions -n' in /Users/williamcory/tevm-monorepo
+ succeeded in 231ms:
+exec
+/bin/zsh -lc "sed -n '120,180p' packages/client-types/src/TevmClient.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+ *
+ * @example
+ * ```typescript
+ * const blockNumber = await tevm.eth.blockNumber()
+ * console.log(blockNumber) // 0n
+ * ```
+ *
+ * #### Anvil hardhat and ganache compatibility
+ *
+ * Will have anvil_* ganache_* and hardhat_* JSON-RPC compatibility in future versions
+ */
+export type TevmClient = {
+	/**
+	 * @experimental
+	 * Bulk request handler for JSON-RPC requests. Takes an array of requests and returns an array of results.
+	 * Bulk requests are currently handled in parallel which can cause issues if the requests are expected to run
+	 * sequentially or interphere with each other. An option for configuring requests sequentially or in parallel
+	 * will be added in the future.
+	 *
+	 * Currently is not very generic with regard to input and output types.
+	 * @example
+	 * ```typescript
+	 * const [blockNumberResponse, gasPriceResponse] = await tevm.requestBulk([{
+	 *  method: 'eth_blockNumber',
+	 *  params: []
+	 *  id: 1
+	 *  jsonrpc: '2.0'
+	 * }, {
+	 *  method: 'eth_gasPrice',
+	 *  params: []
+	 *  id: 1
+	 *  jsonrpc: '2.0'
+	 * }])
+	 * ```
+	 *
+	 * ### tevm_* methods
+	 *
+	 * #### tevm_call
+	 *
+	 * request - {@link CallJsonRpcRequest}
+	 * response - {@link CallJsonRpcResponse}
+	 *
+	 * #### tevm_getAccount
+	 *
+	 * request - {@link GetAccountJsonRpcRequest}
+	 * response - {@link GetAccountJsonRpcResponse}
+	 *
+	 * #### tevm_setAccount
+	 *
+	 * request - {@link SetAccountJsonRpcRequest}
+	 * response - {@link SetAccountJsonRpcResponse}
+	 *
+	 * #### tevm_fork
+	 *
+	 * request - {@link ForkJsonRpcRequest}
+	 * response - {@link ForkJsonRpcResponse}
+	 *
+	 * ### debug_* methods
+	 *
+	 * #### debug_traceCall
+	 *
+
+exec
+/bin/zsh -lc 'tail -n 80 packages/client-types/src/TevmClient.ts' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+	 */
+	// Don't include this feature util someone asks for it with a reasonable use case!!!
+	// For now we expect users to start cliets in fork or proxy mode in constructor and never change back and forth
+	// In fugure we may implement ability to switch between fork and proxy
+	// fork: ForkHandler
+	/**
+	 * Standard JSON-RPC methods for interacting with the VM
+	 * @see {@link https://ethereum.github.io/execution-apis/api-documentation/ | JSON-RPC}
+	 */
+	eth: {
+		/**
+		 * Returns the current block number
+		 * Set the `tag` to a block number or block hash to get the balance at that block
+		 * Block tag defaults to 'pending' tag which is the optimistic state of the VM
+		 * @see {@link https://ethereum.github.io/execution-apis/api-documentation/ | JSON-RPC}
+		 * @example
+		 * const blockNumber = await tevm.eth.blockNumber()
+		 * console.log(blockNumber) // 0n
+		 */
+		blockNumber: EthBlockNumberHandler
+		/**
+		 * Executes a call without modifying the state
+		 * Set the `tag` to a block number or block hash to get the balance at that block
+		 * Block tag defaults to 'pending' tag which is the optimistic state of the VM
+		 * @see {@link https://ethereum.github.io/execution-apis/api-documentation/ | JSON-RPC}
+		 * @example
+		 * const res = await tevm.eth.call({to: '0x123...', data: '0x123...'})
+		 * console.log(res) // "0x..."
+		 */
+		call: EthCallHandler
+		/**
+		 * Returns the current chain id
+		 * Set the `tag` to a block number or block hash to get the balance at that block
+		 * Block tag defaults to 'pending' tag which is the optimistic state of the VM
+		 * @see {@link https://ethereum.github.io/execution-apis/api-documentation/ | JSON-RPC}
+		 * @example
+		 * const chainId = await tevm.eth.chainId()
+		 * console.log(chainId) // 10n
+		 */
+		chainId: EthChainIdHandler
+		/**
+		 * Returns code at a given address
+		 * Set the `tag` to a block number or block hash to get the balance at that block
+		 * Block tag defaults to 'pending' tag which is the optimistic state of the VM
+		 * @see {@link https://ethereum.github.io/execution-apis/api-documentation/ | JSON-RPC}
+		 * @example
+		 * const code = await tevm.eth.getCode({address: '0x123...'})
+		 */
+		getCode: EthGetCodeHandler
+		/**
+		 * Returns storage at a given address and slot
+		 * Set the `tag` to a block number or block hash to get the balance at that block
+		 * Block tag defaults to 'pending' tag which is the optimistic state of the VM
+		 * @see {@link https://ethereum.github.io/execution-apis/api-documentation/ | JSON-RPC}
+		 * @example
+		 * const storageValue = await tevm.eth.getStorageAt({address: '0x123...', position: 0})
+		 */
+		getStorageAt: EthGetStorageAtHandler
+		/**
+		 * Returns the current gas price
+		 * Set the `tag` to a block number or block hash to get the balance at that block
+		 * Block tag defaults to 'pending' tag which is the optimistic state of the VM
+		 * @see {@link https://ethereum.github.io/execution-apis/api-documentation/ | JSON-RPC}
+		 * @example
+		 * const gasPrice = await tevm.eth.gasPrice()
+		 * console.log(gasPrice) // 0n
+		 */
+		gasPrice: EthGasPriceHandler
+		/**
+		 * Returns the balance of a given address
+		 * Set the `tag` to a block number or block hash to get the balance at that block
+		 * Block tag defaults to 'pending' tag which is the optimistic state of the VM
+		 * @see {@link https://ethereum.github.io/execution-apis/api-documentation/ | JSON-RPC}
+		 * @example
+		 * const balance = await tevm.eth.getBalance({address: '0x123...', tag: 'pending'})
+		 * console.log(gasPrice) // 0n
+		 */
+		getBalance: EthGetBalanceHandler
+	}
+}
+
+codex
+I found a concrete public shape already available: `@tevm/client-types` exposes `TevmClient`, and this HTTP client returns that `tevm` object plus `url` and `name`. I’m going to make `HttpClient` that explicit shape so the JSDoc can keep pointing at the public type without feeding back through `ReturnType<typeof createHttpClient>`.
+exec
+/bin/zsh -lc 'ls -la .review-slices' in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,80p' packages/http-client/src/HttpClientOptions.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,40p' packages/client-types/src/index.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+/**
+ * @deprecated
+ * Options for a HttpClient
+ */
+export type HttpClientOptions = {
+	/**
+	 * Remote URL to connect to
+	 */
+	readonly url: string
+	/**
+	 * Optional name for the client
+	 */
+	readonly name?: string
+}
+
+ succeeded in 0ms:
+export type { TevmClient } from './TevmClient.js'
+
+ succeeded in 109ms:
+1 May 20 17:21 V05.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:25 V05.status
+-rw-r--r--@   1 williamcory  staff   574608 May 20 17:24 V06.codex.log
+-rw-r--r--@   1 williamcory  staff     5997 May 20 17:24 V06.md
+-rw-r--r--@   1 williamcory  staff     2738 May 20 17:21 V06.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:24 V06.status
+-rw-r--r--@   1 williamcory  staff   530996 May 20 17:27 V07.codex.log
+-rw-r--r--@   1 williamcory  staff     5767 May 20 17:26 V07.md
+-rw-r--r--@   1 williamcory  staff     2784 May 20 17:21 V07.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:27 V07.status
+-rw-r--r--@   1 williamcory  staff   592319 May 20 17:27 V08.codex.log
+-rw-r--r--@   1 williamcory  staff     6337 May 20 17:27 V08.md
+-rw-r--r--@   1 williamcory  staff     2913 May 20 17:21 V08.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:27 V08.status
+-rw-r--r--@   1 williamcory  staff   695263 May 20 17:25 V09.codex.log
+-rw-r--r--@   1 williamcory  staff     4976 May 20 17:25 V09.md
+-rw-r--r--@   1 williamcory  staff     2737 May 20 17:21 V09.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:25 V09.status
+-rw-r--r--@   1 williamcory  staff   311218 May 20 17:27 V10.codex.log
+-rw-r--r--@   1 williamcory  staff     7607 May 20 17:27 V10.md
+-rw-r--r--@   1 williamcory  staff     2791 May 20 17:21 V10.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:27 V10.status
+-rw-r--r--@   1 williamcory  staff   552135 May 20 17:24 V11.codex.log
+-rw-r--r--@   1 williamcory  staff     6424 May 20 17:24 V11.md
+-rw-r--r--@   1 williamcory  staff     2953 May 20 17:21 V11.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:24 V11.status
+-rw-r--r--@   1 williamcory  staff   349215 May 20 17:26 V12.codex.log
+-rw-r--r--@   1 williamcory  staff     6972 May 20 17:26 V12.md
+-rw-r--r--@   1 williamcory  staff     2787 May 20 17:21 V12.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:26 V12.status
+-rw-r--r--@   1 williamcory  staff   413302 May 20 17:24 V13.codex.log
+-rw-r--r--@   1 williamcory  staff     7202 May 20 17:24 V13.md
+-rw-r--r--@   1 williamcory  staff     2728 May 20 17:21 V13.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:24 V13.status
+-rw-r--r--@   1 williamcory  staff   649722 May 20 17:25 V14.codex.log
+-rw-r--r--@   1 williamcory  staff     6667 May 20 17:25 V14.md
+-rw-r--r--@   1 williamcory  staff     2724 May 20 17:21 V14.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:25 V14.status
+-rw-r--r--@   1 williamcory  staff   302664 May 20 17:24 V15.codex.log
+-rw-r--r--@   1 williamcory  staff     6336 May 20 17:24 V15.md
+-rw-r--r--@   1 williamcory  staff     2656 May 20 17:21 V15.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:24 V15.status
+-rw-r--r--@   1 williamcory  staff  1081599 May 20 17:25 V16.codex.log
+-rw-r--r--@   1 williamcory  staff     7807 May 20 17:25 V16.md
+-rw-r--r--@   1 williamcory  staff     2601 May 20 17:21 V16.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:25 V16.status
+-rwxr-xr-x@   1 williamcory  staff     4223 May 20 17:13 _aggregate.sh
+-rw-r--r--@   1 williamcory  staff     2550 May 20 17:27 _dispatch.log
+-rwxr-xr-x@   1 williamcory  staff     3515 May 20 17:14 _dispatch.sh
+-rw-r--r--@   1 williamcory  staff     2179 May 20 18:04 _fix_dispatch.log
+-rwxr-xr-x@   1 williamcory  staff     8681 May 20 17:54 _fix_dispatch.sh
+-rw-r--r--@   1 williamcory  staff     1662 May 20 18:11 _repair1.fix.md
+-rw-r--r--@   1 williamcory  staff    90761 May 20 18:11 _repair1.log
+-rw-r--r--@   1 williamcory  staff     3678 May 20 18:08 _repair1.prompt
+-rw-r--r--@   1 williamcory  staff    60325 May 20 19:02 _repair10.log
+-rw-r--r--@   1 williamcory  staff     1043 May 20 19:00 _repair10.prompt
+-rw-r--r--@   1 williamcory  staff      539 May 20 18:14 _repair2.fix.md
+-rw-r--r--@   1 williamcory  staff    45804 May 20 18:14 _repair2.log
+-rw-r--r--@   1 williamcory  staff     1608 May 20 18:13 _repair2.prompt
+-rw-r--r--@   1 williamcory  staff      494 May 20 18:18 _repair3.fix.md
+-rw-r--r--@   1 williamcory  staff   322649 May 20 18:18 _repair3.log
+-rw-r--r--@   1 williamcory  staff     1925 May 20 18:16 _repair3.prompt
+-rw-r--r--@   1 williamcory  staff      810 May 20 18:24 _repair4.fix.md
+-rw-r--r--@   1 williamcory  staff   178291 May 20 18:25 _repair4.log
+-rw-r--r--@   1 williamcory  staff     3080 May 20 18:20 _repair4.prompt
+-rw-r--r--@   1 williamcory  staff      676 May 20 18:29 _repair5.fix.md
+-rw-r--r--@   1 williamcory  staff    69790 May 20 18:29 _repair5.log
+-rw-r--r--@   1 williamcory  staff     2428 May 20 18:28 _repair5.prompt
+-rw-r--r--@   1 williamcory  staff      880 May 20 18:37 _repair6.fix.md
+-rw-r--r--@   1 williamcory  staff   642116 May 20 18:37 _repair6.log
+-rw-r--r--@   1 williamcory  staff     3747 May 20 18:31 _repair6.prompt
+-rw-r--r--@   1 williamcory  staff      329 May 20 18:45 _repair7.fix.md
+-rw-r--r--@   1 williamcory  staff    28830 May 20 18:45 _repair7.log
+-rw-r--r--@   1 williamcory  staff     2127 May 20 18:44 _repair7.prompt
+-rw-r--r--@   1 williamcory  staff      421 May 20 18:49 _repair8.fix.md
+-rw-r--r--@   1 williamcory  staff    40983 May 20 18:50 _repair8.log
+-rw-r--r--@   1 williamcory  staff     1603 May 20 18:49 _repair8.prompt
+-rw-r--r--@   1 williamcory  staff      277 May 20 18:55 _repair9.fix.md
+-rw-r--r--@   1 williamcory  staff    31650 May 20 18:55 _repair9.log
+-rw-r--r--@   1 williamcory  staff     1310 May 20 18:53 _repair9.prompt
+-rw-r--r--@   1 williamcory  staff     6558 May 20 17:10 _slices.tsv
+drwxr-xr-x@  22 williamcory  staff      704 May 20 18:59 _typecheck
+-rw-r--r--@   1 williamcory  staff     3099 May 20 17:13 _wave1.tsv
+-rw-r--r--@   1 williamcory  staff     3459 May 20 17:21 _wave2.tsv
+
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/.review-slices/_repair10.fix.md
+/Users/williamcory/tevm-monorepo/packages/http-client/src/HttpClient.ts
+diff --git a/.review-slices/_repair10.fix.md b/.review-slices/_repair10.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..0d2517731829790c6184e77446467ed92a97bf17
+--- /dev/null
++++ b/.review-slices/_repair10.fix.md
+@@ -0,0 +1,5 @@
++# Wave 1 typecheck repair (round 10)
++
++## Errors fixed
++- packages/http-client/src/HttpClient.ts:6 - replaced the `ReturnType<typeof createHttpClient>` alias with an explicit `TevmClient`-based interface so `HttpClient` no longer depends on the factory return type.
++- packages/http-client/src/createHttpClient.js:8 - kept the JSDoc return annotation valid by breaking the recursive `createHttpClient` -> `HttpClient` -> `createHttpClient` type chain.
+diff --git a/packages/http-client/src/HttpClient.ts b/packages/http-client/src/HttpClient.ts
+index 57caeaeef942bab8d86826bab2049f51a939fd2d..d1e0dad19d2c528b198de9667b04e5517199fd9f
+--- a/packages/http-client/src/HttpClient.ts
++++ b/packages/http-client/src/HttpClient.ts
+@@ -1,6 +1,9 @@
+-import type { createHttpClient } from './createHttpClient.js'
++import type { TevmClient } from '@tevm/client-types'
+ 
+ /**
+  * @deprecated a new http client will be created in a future version. For now it's recommended to use viem
+  */
+-export type HttpClient = ReturnType<typeof createHttpClient>
++export interface HttpClient extends TevmClient {
++	url: string
++	name: string
++}
+
+diff --git a/.review-slices/_repair10.fix.md b/.review-slices/_repair10.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..0d2517731829790c6184e77446467ed92a97bf17
+--- /dev/null
++++ b/.review-slices/_repair10.fix.md
+@@ -0,0 +1,5 @@
++# Wave 1 typecheck repair (round 10)
++
++## Errors fixed
++- packages/http-client/src/HttpClient.ts:6 - replaced the `ReturnType<typeof createHttpClient>` alias with an explicit `TevmClient`-based interface so `HttpClient` no longer depends on the factory return type.
++- packages/http-client/src/createHttpClient.js:8 - kept the JSDoc return annotation valid by breaking the recursive `createHttpClient` -> `HttpClient` -> `createHttpClient` type chain.
+diff --git a/packages/http-client/src/HttpClient.ts b/packages/http-client/src/HttpClient.ts
+index 57caeaeef942bab8d86826bab2049f51a939fd2d..d1e0dad19d2c528b198de9667b04e5517199fd9f
+--- a/packages/http-client/src/HttpClient.ts
++++ b/packages/http-client/src/HttpClient.ts
+@@ -1,6 +1,9 @@
+-import type { createHttpClient } from './createHttpClient.js'
++import type { TevmClient } from '@tevm/client-types'
+ 
+ /**
+  * @deprecated a new http client will be created in a future version. For now it's recommended to use viem
+  */
+-export type HttpClient = ReturnType<typeof createHttpClient>
++export interface HttpClient extends TevmClient {
++	url: string
++	name: string
++}
+
+codex
+The source change is in place and the repair note has been written. I’m doing a quick text-level sanity check only, respecting the “no tsc/pnpm/bun/nx/vitest” constraint.
+exec
+/bin/zsh -lc "sed -n '1,80p' packages/http-client/src/HttpClient.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import type { TevmClient } from '@tevm/client-types'
+
+/**
+ * @deprecated a new http client will be created in a future version. For now it's recommended to use viem
+ */
+export interface HttpClient extends TevmClient {
+	url: string
+	name: string
+}
+
+exec
+/bin/zsh -lc "sed -n '1,80p' .review-slices/_repair10.fix.md" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,40p' packages/http-client/src/createHttpClient.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+# Wave 1 typecheck repair (round 10)
+
+## Errors fixed
+- packages/http-client/src/HttpClient.ts:6 - replaced the `ReturnType<typeof createHttpClient>` alias with an explicit `TevmClient`-based interface so `HttpClient` no longer depends on the factory return type.
+- packages/http-client/src/createHttpClient.js:8 - kept the JSDoc return annotation valid by breaking the recursive `createHttpClient` -> `HttpClient` -> `createHttpClient` type chain.
+
+ succeeded in 0ms:
+import { tevmViemExtension } from '@tevm/viem'
+import { createPublicClient, http } from 'viem'
+
+/**
+ * @deprecated a new version of HttpClient will be built in a future version
+ * For now we suggest you use viem
+ * @param {import('./HttpClientOptions.js').HttpClientOptions} params
+ * @returns {import('./HttpClient.js').HttpClient}
+ * @example
+ */
+export const createHttpClient = ({ url, name = `TevmClient:${url}` }) => {
+	// This is a shortcut. We are simply reusing viem to create this client so we can
+	// reuse all of viems transport related error handling. We should implement a client
+	// using only `@tevm/jsonrpc` package to make requests once it is as robust as viem
+	const { tevm } = createPublicClient({
+		name: `TevmRemoteClient:${url}`,
+		transport: http(url),
+	}).extend(tevmViemExtension())
+	return {
+		...tevm,
+		url,
+		name,
+	}
+}
+
+exec
+/bin/zsh -lc "rg \"ReturnType<typeof createHttpClient>|import\\('./HttpClient.js'\\)\\.HttpClient\" packages/http-client/src -n" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+packages/http-client/src/createHttpClient.js:8: * @returns {import('./HttpClient.js').HttpClient}
+
+diff --git a/.review-slices/_repair10.fix.md b/.review-slices/_repair10.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..0d2517731829790c6184e77446467ed92a97bf17
+--- /dev/null
++++ b/.review-slices/_repair10.fix.md
+@@ -0,0 +1,5 @@
++# Wave 1 typecheck repair (round 10)
++
++## Errors fixed
++- packages/http-client/src/HttpClient.ts:6 - replaced the `ReturnType<typeof createHttpClient>` alias with an explicit `TevmClient`-based interface so `HttpClient` no longer depends on the factory return type.
++- packages/http-client/src/createHttpClient.js:8 - kept the JSDoc return annotation valid by breaking the recursive `createHttpClient` -> `HttpClient` -> `createHttpClient` type chain.
+diff --git a/packages/http-client/src/HttpClient.ts b/packages/http-client/src/HttpClient.ts
+index 57caeaeef942bab8d86826bab2049f51a939fd2d..d1e0dad19d2c528b198de9667b04e5517199fd9f
+--- a/packages/http-client/src/HttpClient.ts
++++ b/packages/http-client/src/HttpClient.ts
+@@ -1,6 +1,9 @@
+-import type { createHttpClient } from './createHttpClient.js'
++import type { TevmClient } from '@tevm/client-types'
+ 
+ /**
+  * @deprecated a new http client will be created in a future version. For now it's recommended to use viem
+  */
+-export type HttpClient = ReturnType<typeof createHttpClient>
++export interface HttpClient extends TevmClient {
++	url: string
++	name: string
++}
+
+exec
+/bin/zsh -lc "sed -n '1,140p' extensions/viem/package.json" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+{
+	"name": "@tevm/viem",
+	"version": "1.0.0-next.148",
+	"private": false,
+	"description": "A typesafe library for writing forge scripts in typescript",
+	"keywords": [
+		"solidity",
+		"forge",
+		"foundry",
+		"sol",
+		"typescript",
+		"web3",
+		"blockchain"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "extensions/viem"
+	},
+	"license": "MIT",
+	"contributors": [
+		"Will Cory <willcory10@gmail.com>"
+	],
+	"sideEffects": false,
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./types/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "types/index.d.ts",
+	"files": [
+		"dist",
+		"types",
+		"src",
+		"!src/**/*.spec.ts"
+	],
+	"scripts": {
+		"all": "pnpm i  && bun run build && bun lint && bun format && bun test:run && bun generate:docs && bun run lint:deps && bun run lint:package",
+		"build": "nx run-many --targets=build:dist,build:types --projects=@tevm/viem",
+		"build:dist": "tsup",
+		"build:types": "tsup --dts-only && tsc --emitDeclarationOnly --declaration --skipLibCheck",
+		"clean": "rm -rf node_modules && rm -rf artifacts && rm -rf dist && rm -rf cache",
+		"format": "biome format . --write",
+		"format:check": "biome format .",
+		"generate:docs": "typedoc",
+		"lint": "biome check . --write --unsafe",
+		"lint:check": "biome check . --verbose",
+		"lint:deps": "bunx depcheck",
+		"lint:package": "bunx publint --strict && attw --pack",
+		"package:up": "pnpm up --latest",
+		"test": "vitest --watch",
+		"test:coverage": "vitest --coverage --run",
+		"test:run": "vitest run",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@tevm/decorators": "workspace:^",
+		"@tevm/jsonrpc": "workspace:^",
+		"@tevm/node": "workspace:^"
+	},
+	"devDependencies": {
+		"@tevm/actions": "workspace:^",
+		"@tevm/client-types": "workspace:^",
+		"@tevm/common": "workspace:^",
+		"@tevm/contract": "workspace:^",
+		"@tevm/memory-client": "workspace:^",
+		"@tevm/server": "workspace:^",
+		"@tevm/state": "workspace:^",
+		"@tevm/test-utils": "workspace:^",
+		"@tevm/tsconfig": "workspace:^",
+		"@tevm/tsupconfig": "workspace:^",
+		"@tevm/utils": "workspace:^",
+		"abitype": "^1.2.4"
+	},
+	"peerDependencies": {
+		"viem": "^2.49.3"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
+
+diff --git a/.review-slices/_repair10.fix.md b/.review-slices/_repair10.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..0d2517731829790c6184e77446467ed92a97bf17
+--- /dev/null
++++ b/.review-slices/_repair10.fix.md
+@@ -0,0 +1,5 @@
++# Wave 1 typecheck repair (round 10)
++
++## Errors fixed
++- packages/http-client/src/HttpClient.ts:6 - replaced the `ReturnType<typeof createHttpClient>` alias with an explicit `TevmClient`-based interface so `HttpClient` no longer depends on the factory return type.
++- packages/http-client/src/createHttpClient.js:8 - kept the JSDoc return annotation valid by breaking the recursive `createHttpClient` -> `HttpClient` -> `createHttpClient` type chain.
+diff --git a/packages/http-client/src/HttpClient.ts b/packages/http-client/src/HttpClient.ts
+index 57caeaeef942bab8d86826bab2049f51a939fd2d..d1e0dad19d2c528b198de9667b04e5517199fd9f
+--- a/packages/http-client/src/HttpClient.ts
++++ b/packages/http-client/src/HttpClient.ts
+@@ -1,6 +1,9 @@
+-import type { createHttpClient } from './createHttpClient.js'
++import type { TevmClient } from '@tevm/client-types'
+ 
+ /**
+  * @deprecated a new http client will be created in a future version. For now it's recommended to use viem
+  */
+-export type HttpClient = ReturnType<typeof createHttpClient>
++export interface HttpClient extends TevmClient {
++	url: string
++	name: string
++}
+
+codex
+Fixed the circular type issue by changing [HttpClient.ts](/Users/williamcory/tevm-monorepo/packages/http-client/src/HttpClient.ts) from `ReturnType<typeof createHttpClient>` to an explicit `HttpClient extends TevmClient` interface with `url` and `name`.
+
+Wrote the required report at [.review-slices/_repair10.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/_repair10.fix.md).
+
+I did not run `tsc`, `pnpm`, `bun`, `nx`, `git`, or `vitest`, per the constraints.
+diff --git a/.review-slices/_repair10.fix.md b/.review-slices/_repair10.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..0d2517731829790c6184e77446467ed92a97bf17
+--- /dev/null
++++ b/.review-slices/_repair10.fix.md
+@@ -0,0 +1,5 @@
++# Wave 1 typecheck repair (round 10)
++
++## Errors fixed
++- packages/http-client/src/HttpClient.ts:6 - replaced the `ReturnType<typeof createHttpClient>` alias with an explicit `TevmClient`-based interface so `HttpClient` no longer depends on the factory return type.
++- packages/http-client/src/createHttpClient.js:8 - kept the JSDoc return annotation valid by breaking the recursive `createHttpClient` -> `HttpClient` -> `createHttpClient` type chain.
+diff --git a/packages/http-client/src/HttpClient.ts b/packages/http-client/src/HttpClient.ts
+index 57caeaeef942bab8d86826bab2049f51a939fd2d..d1e0dad19d2c528b198de9667b04e5517199fd9f
+--- a/packages/http-client/src/HttpClient.ts
++++ b/packages/http-client/src/HttpClient.ts
+@@ -1,6 +1,9 @@
+-import type { createHttpClient } from './createHttpClient.js'
++import type { TevmClient } from '@tevm/client-types'
+ 
+ /**
+  * @deprecated a new http client will be created in a future version. For now it's recommended to use viem
+  */
+-export type HttpClient = ReturnType<typeof createHttpClient>
++export interface HttpClient extends TevmClient {
++	url: string
++	name: string
++}
+
+tokens used
+53,983
+Fixed the circular type issue by changing [HttpClient.ts](/Users/williamcory/tevm-monorepo/packages/http-client/src/HttpClient.ts) from `ReturnType<typeof createHttpClient>` to an explicit `HttpClient extends TevmClient` interface with `url` and `name`.
+
+Wrote the required report at [.review-slices/_repair10.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/_repair10.fix.md).
+
+I did not run `tsc`, `pnpm`, `bun`, `nx`, `git`, or `vitest`, per the constraints.

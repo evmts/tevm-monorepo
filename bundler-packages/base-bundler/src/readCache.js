@@ -53,13 +53,13 @@ const hasBytecodeObject = (bytecode) => {
  */
 export const readCache = async (logger, cache, modulePath, includeAst, includeBytecode, compileFingerprint) => {
 	try {
-			const cachedArtifacts = await cache.readArtifacts(modulePath, compileFingerprint)
+		const cachedArtifacts = await cache.readArtifacts(modulePath, compileFingerprint)
 
-			const isCachedAsts = () => cachedArtifacts?.asts && Object.keys(cachedArtifacts.asts).length > 0
-			const isCachedBytecode = () =>
-				Object.values(cachedArtifacts?.artifacts ?? {}).some(
-					(artifact) => hasBytecodeObject(artifact.evm?.bytecode) || hasBytecodeObject(artifact.evm?.deployedBytecode),
-				)
+		const isCachedAsts = () => cachedArtifacts?.asts && Object.keys(cachedArtifacts.asts).length > 0
+		const isCachedBytecode = () =>
+			Object.values(cachedArtifacts?.artifacts ?? {}).some(
+				(artifact) => hasBytecodeObject(artifact.evm?.bytecode) || hasBytecodeObject(artifact.evm?.deployedBytecode),
+			)
 
 		if (!cachedArtifacts) {
 			return undefined

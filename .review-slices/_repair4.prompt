@@ -1,0 +1,37 @@
+You are repairing TypeScript type-check failures in @tevm/blockchain and @tevm/precompiles introduced by earlier review fix waves.
+
+CONSTRAINTS:
+- Modify ONLY files under: packages/blockchain, packages/precompiles.
+- Do NOT touch any other package.
+- Do NOT run pnpm, bun, nx, npm, cargo, node, tsc, or vitest.
+- Do NOT run git. The dispatcher will commit.
+- Minimal-diff principle. Match neighboring style.
+
+TYPE ERRORS TO FIX (deduplicated):
+
+@tevm/blockchain: src/actions/delBlock.js:21:15 - error TS2345: Argument of type 'string' is not assignable to parameter of type '`0x${string}`'.
+@tevm/blockchain: src/actions/delBlock.js:47:28 - error TS2345: Argument of type 'Block | undefined' is not assignable to parameter of type 'Block'.
+@tevm/blockchain: src/actions/delBlock.js:47:71 - error TS18048: 'candidate' is possibly 'undefined'.
+@tevm/blockchain: src/actions/delBlock.js:48:24 - error TS2345: Argument of type 'Block | undefined' is not assignable to parameter of type 'Block'.
+@tevm/blockchain: src/actions/delBlock.js:56:26 - error TS2345: Argument of type 'Block | undefined' is not assignable to parameter of type 'Block'.
+@tevm/blockchain: src/actions/putBlock.js:38:24 - error TS2345: Argument of type 'string' is not assignable to parameter of type '`0x${string}`'.
+@tevm/precompiles: src/defineCall.ts:75:4 - error TS2375: Type '{ returnValue: ByteArray; logs?: ReceiptLog[]; blobGasUsed?: bigint; selfdestruct?: Set<`0x${string}`>; exceptionError?: TypedError<string>; executionGasUsed: bigint; }' is not assignable to type 'ExecResult' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+
+PROCESS:
+1. Open each file end-to-end first. Look at the prior commit to understand the intent of the H04/H11 fix (read-only `git log -p -- <file>` is allowed).
+2. For TS2345 (string vs `0x${string}`): use `/** @type {`0x${string}`} */ ()` cast or the helper that produces a Hex type. If the value is the result of `bytesToHex` or similar, no fix needed — but here the literal is from a hash so cast/branding is the right move.
+3. For TS18048 + TS2345 Block|undefined: the H04 fix probably introduced an optional get; add explicit `if (!candidate) ...` guards or non-null assertions if the surrounding code already proves it's defined.
+4. For TS2375 in precompiles defineCall.ts:75: this is the exactOptionalPropertyTypes issue. The target type allows the field to be present-with-undefined, but the source type uses `?:` so `undefined` is not in the union. Fix by either adding `| undefined` to the source field types, or conditionally spreading the optional fields into the returned object.
+5. Write a brief fix report to '.review-slices/_repair4.fix.md':
+
+# Wave 1 typecheck repair (round 4)
+
+**Scope:** packages/blockchain, packages/precompiles
+
+## Errors fixed
+- path:line - <one-line description of fix>
+
+## Errors deferred
+- path:line - <why, if any>
+
+IMPORTANT: write the report at the path `.review-slices/_repair4.fix.md` (relative to the repo root). Do NOT create new directories inside packages.

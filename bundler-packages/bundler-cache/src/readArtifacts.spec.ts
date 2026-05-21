@@ -50,17 +50,17 @@ describe('readArtifacts', () => {
 		},
 	}
 
-		const mockMetadata = {
-			version: '1.x.x',
-			artifactsHash: cacheHash(JSON.stringify(mockArtifacts)),
-			files: {
-				'/mock/cwd/contracts/MyContract.sol': {
-					mtimeMs: 123456789,
-					size: 22,
-					contentHash: cacheHash('contract MyContract {}'),
-				},
+	const mockMetadata = {
+		version: '1.x.x',
+		artifactsHash: cacheHash(JSON.stringify(mockArtifacts)),
+		files: {
+			'/mock/cwd/contracts/MyContract.sol': {
+				mtimeMs: 123456789,
+				size: 22,
+				contentHash: cacheHash('contract MyContract {}'),
 			},
-		}
+		},
+	}
 
 	beforeEach(() => {
 		vi.resetAllMocks()
@@ -70,15 +70,15 @@ describe('readArtifacts', () => {
 			if (path.includes('metadata.json')) {
 				return Promise.resolve(JSON.stringify(mockMetadata))
 			}
-				if (path.includes('artifacts.json')) {
-					return Promise.resolve(JSON.stringify(mockArtifacts))
-				}
-				if (path === '/mock/cwd/contracts/MyContract.sol') {
-					return Promise.resolve('contract MyContract {}')
-				}
-				return Promise.resolve('')
-			})
-			mockFs.stat.mockImplementation(() => Promise.resolve({ mtimeMs: 123456789, size: 22 }))
+			if (path.includes('artifacts.json')) {
+				return Promise.resolve(JSON.stringify(mockArtifacts))
+			}
+			if (path === '/mock/cwd/contracts/MyContract.sol') {
+				return Promise.resolve('contract MyContract {}')
+			}
+			return Promise.resolve('')
+		})
+		mockFs.stat.mockImplementation(() => Promise.resolve({ mtimeMs: 123456789, size: 22 }))
 	})
 
 	it('should return undefined if artifacts path does not exist', async () => {
@@ -131,18 +131,18 @@ describe('readArtifacts', () => {
 	})
 
 	it('should throw an error if artifacts file contains invalid JSON', async () => {
-			mockFs.readFile.mockImplementation((path) => {
-				if (path.includes('metadata.json')) {
-					return Promise.resolve(JSON.stringify({ ...mockMetadata, artifactsHash: cacheHash('invalid json') }))
-				}
-				if (path.includes('artifacts.json')) {
-					return Promise.resolve('invalid json')
-				}
-				if (path === '/mock/cwd/contracts/MyContract.sol') {
-					return Promise.resolve('contract MyContract {}')
-				}
-				return Promise.resolve('')
-			})
+		mockFs.readFile.mockImplementation((path) => {
+			if (path.includes('metadata.json')) {
+				return Promise.resolve(JSON.stringify({ ...mockMetadata, artifactsHash: cacheHash('invalid json') }))
+			}
+			if (path.includes('artifacts.json')) {
+				return Promise.resolve('invalid json')
+			}
+			if (path === '/mock/cwd/contracts/MyContract.sol') {
+				return Promise.resolve('contract MyContract {}')
+			}
+			return Promise.resolve('')
+		})
 
 		await expect(readArtifacts(mockCacheDir, mockFs, mockCwd, mockEntryModuleId)).rejects.toThrow(
 			`Cache miss for ${mockEntryModuleId} because it isn't valid json`,

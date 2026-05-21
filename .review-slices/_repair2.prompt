@@ -1,0 +1,33 @@
+You are repairing a small set of TypeScript type-check failures introduced by an earlier round of fixes in the Tevm monorepo.
+
+CONSTRAINTS:
+- Modify ONLY files under: packages/block, bundler-packages/runtime.
+- Do NOT touch any other package.
+- Do NOT run pnpm, bun, nx, npm, cargo, node, tsc, or vitest.
+- Do NOT run git. The dispatcher will commit.
+- Minimal-diff principle: a JSDoc `@param {string}` or non-null check beats a refactor.
+- If a fix would require touching a file outside scope, leave it and note it in the fix report.
+
+TYPE ERRORS TO FIX (clean, ANSI-stripped):
+
+@tevm/block: src/ClRequest.spec.ts:30:56 - error TS2532: Object is possibly 'undefined'.
+@tevm/runtime: src/generateTevmBody.js:5:22 - error TS7006: Parameter 'value' implicitly has an 'any' type.
+@tevm/runtime: src/generateTevmBodyDts.js:4:22 - error TS7006: Parameter 'value' implicitly has an 'any' type.
+
+PROCESS:
+1. For each error, open the file, look at surrounding code, and apply the smallest safe annotation:
+   - TS2532 (possibly undefined): nullish check, optional chaining, or non-null assertion based on context. If it's in a test where the value is known to be present, prefer `!` or an explicit assertion.
+   - TS7006 (implicit any): JSDoc `@param {Type}` matching neighboring usage. Look at the function body to infer the right type.
+2. Write a brief fix report to '.review-slices/_repair2.fix.md':
+
+# Wave 1 typecheck repair (round 2)
+
+**Scope:** packages/block, bundler-packages/runtime
+
+## Errors fixed
+- path:line - <one-line description of fix>
+
+## Errors deferred
+- path:line - <why, if any>
+
+Be surgical.

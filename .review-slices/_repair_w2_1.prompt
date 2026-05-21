@@ -1,0 +1,30 @@
+You are fixing TypeScript errors in @tevm/bundler-cache introduced by the V06 fix wave (bundler caching).
+
+CONSTRAINTS:
+- Modify ONLY files under: bundler-packages/bundler-cache.
+- No pnpm/bun/nx/git/tsc/vitest.
+- Minimal-diff.
+
+ERRORS:
+
+@tevm/bundler-cache: src/writeArtifacts.js:29:35 - error TS2339: Property 'content' does not exist on type 'SolcInputSource & { destructible?: SolcInputSourcesDestructibleSettings; }'.
+@tevm/bundler-cache: src/writeArtifacts.js:29:65 - error TS2339: Property 'content' does not exist on type 'SolcInputSource & { destructible?: SolcInputSourcesDestructibleSettings; }'.
+@tevm/bundler-cache: src/writeArtifactsSync.js:29:35 - error TS2339: Property 'content' does not exist on type 'SolcInputSource & { destructible?: SolcInputSourcesDestructibleSettings; }'.
+@tevm/bundler-cache: src/writeArtifactsSync.js:29:65 - error TS2339: Property 'content' does not exist on type 'SolcInputSource & { destructible?: SolcInputSourcesDestructibleSettings; }'.
+
+The V06 fix is iterating solcInput.sources entries but the SolcInputSource type doesn't have `content`. Per solc-js standard input JSON, sources can be either `{ content: string }` OR `{ urls: string[] }`. The narrow type used here probably only allows the urls variant or doesn't unify with content.
+
+Fix:
+- Open both files (writeArtifacts.js, writeArtifactsSync.js) and look at the destructure.
+- Either (a) JSDoc-cast the entry to a union that includes `{ content?: string }`, or (b) check whether `content` exists before reading, or (c) update the JSDoc type annotation for the parameter to use a more accurate union.
+
+Write to `.review-slices/_repair_w2_1.fix.md`:
+
+# Wave 2 typecheck repair (round 1)
+
+**Scope:** bundler-packages/bundler-cache
+
+## Errors fixed
+- path:line - <description>
+
+IMPORTANT: write the report at the EXACT path `.review-slices/_repair_w2_1.fix.md`.

@@ -32,15 +32,17 @@ export const handleBulkRequest = async (client, requests, options = {}) => {
 		if (response.status === 'rejected') {
 			client.transport.tevm.logger.error(response.reason)
 			const err = new InternalError(request.method, { cause: response.reason })
-			return [{
-				...(request.id !== undefined ? { id: request.id } : {}),
-				method: request.method,
-				jsonrpc: '2.0',
-				error: {
-					code: err.code,
-					message: err.message,
+			return [
+				{
+					...(request.id !== undefined ? { id: request.id } : {}),
+					method: request.method,
+					jsonrpc: '2.0',
+					error: {
+						code: err.code,
+						message: err.message,
+					},
 				},
-			}]
+			]
 		}
 		return [response.value]
 	})

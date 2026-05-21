@@ -442,7 +442,9 @@ export class ReceiptsManager {
 			returnedLogs.push(...logs)
 			const logsForSizing = logs.map(({ log, txIndex, logIndex }) => ({ log, txIndex, logIndex }))
 			returnedLogsSize += hexToBytes(
-				stringToHex(JSON.stringify(logsForSizing, (_key, value) => (typeof value === 'bigint' ? value.toString() : value))),
+				stringToHex(
+					JSON.stringify(logsForSizing, (_key, value) => (typeof value === 'bigint' ? value.toString() : value)),
+				),
 			).byteLength
 			if (returnedLogs.length >= this.GET_LOGS_LIMIT || returnedLogsSize >= this.GET_LOGS_LIMIT_MEGABYTES * 1048576) {
 				break

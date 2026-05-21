@@ -1,0 +1,726 @@
+OpenAI Codex v0.132.0
+--------
+workdir: /Users/williamcory/tevm-monorepo
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019e4798-912b-7aa0-ba50-6727d3dd9ac2
+--------
+user
+You are fixing 1 TypeScript error (TS2345) in extensions/viem.
+
+CONSTRAINTS:
+- Modify ONLY files under: extensions/viem.
+- Do NOT touch any other package.
+- No pnpm/bun/nx/git/tsc/vitest commands.
+- Minimal-diff.
+
+ERROR:
+
+extensions/viem/src/tevmViemExtension.js:102:19 - error TS2345:
+Argument of type '{ method: "tevm_getAccount"; jsonrpc: "2.0"; params: [GetAccountParams]; }'
+is not assignable to parameter of type 'TevmJsonRpcRequest | EthJsonRpcRequest | AnvilJsonRpcRequest | DebugJsonRpcRequest'.
+
+The request shape uses `[GetAccountParams]` (array tuple of one) but the union expects a different params shape. Open the file at line 102, look at how the tevm_getAccount request is constructed, and align with the canonical TevmJsonRpcRequest shape (probably params should be `[GetAccountJsonRpcRequestParams]` or similar — check what the @tevm/actions types expect for tevm_getAccount).
+
+A cast like `/** @type {import('@tevm/actions').TevmJsonRpcRequest} */ (...)` is acceptable if the wire-format is correct and only the type narrowing is off.
+
+Write a brief fix report to `.review-slices/_repair9.fix.md`:
+
+# Wave 1 typecheck repair (round 9)
+
+**Scope:** extensions/viem
+
+## Errors fixed
+- path:line - <description>
+
+IMPORTANT: write the report at the EXACT path `.review-slices/_repair9.fix.md`.
+
+codex
+I’ll inspect the viem extension and the local action type definitions, then make the smallest change inside `extensions/viem` plus the requested report.
+exec
+/bin/zsh -lc "sed -n '80,120p' extensions/viem/src/tevmViemExtension.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+							_tag: /** @type Error */ (e).name,
+							message: /** @type {Error}*/ (e).message,
+							name: /** @type {Error}*/ (e).name,
+						},
+					],
+				})
+			}
+		}
+
+		/**
+		 * @type {import('@tevm/client-types').TevmClient['requestBulk']}
+		 */
+		const requestBulk = async () => {
+			// TODO implement this when we refactor the tevm client to using fetch instead of viem
+			throw new Error('Bulk json rpc requests are not yet implemented')
+		}
+
+		/**
+		 * @type {import('@tevm/actions').GetAccountHandler}
+		 */
+		const getAccount = async (params) => {
+			return formatResult(
+				await request({
+					method: 'tevm_getAccount',
+					jsonrpc: '2.0',
+					params: [params],
+				}),
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/actions').SetAccountHandler}
+		 */
+		const setAccount = async (params) => {
+			return formatResult(
+				await request({
+					method: 'tevm_setAccount',
+					jsonrpc: '2.0',
+					params: [
+						{
+							address: params.address,
+
+exec
+/bin/zsh -lc "rg \"tevm_getAccount|GetAccountJsonRpcRequest|GetAccountParams\" extensions/viem packages -g '*.{ts,js,d.ts}'" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+extensions/viem/src/tevmViemExtension.js:					method: 'tevm_getAccount',
+packages/client-types/src/TevmClient.ts:	 * #### tevm_getAccount
+packages/client-types/src/TevmClient.ts:	 * request - {@link GetAccountJsonRpcRequest}
+packages/client-types/src/TevmClient.ts:	 *   method: 'tevm_getAccount',
+packages/decorators/src/request/Eip1193RequestProvider.ts:			JsonRpcSchemaTevm['tevm_getAccount'],
+packages/decorators/src/request/Eip1193RequestProvider.spec.ts:		// tevm_getAccount
+packages/decorators/src/request/Eip1193RequestProvider.spec.ts:			method: 'tevm_getAccount',
+packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts:	GetAccountJsonRpcRequest,
+packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts: *   method: 'tevm_getAccount',
+packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts:	 * provider.request({ method: 'tevm_getAccount', params: [{address: '0x...' }])})
+packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts:	tevm_getAccount: {
+packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts:		Method: 'tevm_getAccount'
+packages/decorators/src/eip1193/JsonRpcSchemaTevm.ts:		Parameters: GetAccountJsonRpcRequest['params']
+packages/actions/src/tevm-request-handler/TevmRequestType.ts:import type { GetAccountJsonRpcRequest } from '../GetAccount/GetAccountJsonRpcRequest.js'
+packages/actions/src/tevm-request-handler/TevmRequestType.ts:	tevm_getAccount: GetAccountJsonRpcRequest
+packages/actions/src/tevm-request-handler/TevmReturnType.ts:	tevm_getAccount: GetAccountJsonRpcResponse
+packages/actions/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts: * #### tevm_getAccount
+packages/actions/src/tevm-request-handler/TevmJsonRpcBulkRequestHandler.ts: * request - {@link GetAccountJsonRpcRequest}
+packages/actions/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts: *  method: 'tevm_getAccount',
+packages/actions/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts: * #### tevm_getAccount
+packages/actions/src/tevm-request-handler/TevmJsonRpcRequestHandler.ts: * request - {@link GetAccountJsonRpcRequest}
+packages/actions/src/createHandlers.js:		tevm_getAccount: getAccountProcedure(client),
+packages/actions/src/requestProcedure.js: *  method: 'tevm_getAccount',
+packages/actions/src/createHandlers.spec.ts:	it('should handle tevm_getAccount', async () => {
+packages/actions/src/createHandlers.spec.ts:		const res = await handlers.tevm_getAccount({
+packages/actions/src/createHandlers.spec.ts:			method: 'tevm_getAccount',
+packages/actions/src/anvil/anvilSetBalance.spec.ts:			method: 'tevm_getAccount',
+packages/actions/src/requestProcedure.spec.ts:	describe('tevm_getAccount', () => {
+packages/actions/src/requestProcedure.spec.ts:				method: 'tevm_getAccount',
+packages/actions/src/requestBulkProcedure.spec.ts:				method: 'tevm_getAccount',
+packages/actions/src/requestBulkProcedure.spec.ts:				method: 'tevm_getAccount',
+packages/actions/src/GetAccount/validateGetAccountParams.js:import { zGetAccountParams } from './zGetAccountParams.js'
+packages/actions/src/GetAccount/validateGetAccountParams.js: * @typedef {InvalidRequestError} ValidateGetAccountParamsError
+packages/actions/src/GetAccount/validateGetAccountParams.js: * @param {import('./GetAccountParams.js').GetAccountParams} action
+packages/actions/src/GetAccount/validateGetAccountParams.js: * @returns {Array<ValidateGetAccountParamsError>}
+packages/actions/src/GetAccount/validateGetAccountParams.js:export const validateGetAccountParams = (action) => {
+packages/actions/src/GetAccount/validateGetAccountParams.js:	 * @type {Array<ValidateGetAccountParamsError>}
+packages/actions/src/GetAccount/validateGetAccountParams.js:	const parsedParams = zGetAccountParams.safeParse(action)
+packages/actions/src/GetAccount/getAccountHandler.js:import { validateGetAccountParams } from './validateGetAccountParams.js'
+packages/actions/src/GetAccount/getAccountHandler.js:		const errors = validateGetAccountParams(params)
+packages/actions/src/GetAccount/index.ts:export * from './GetAccountJsonRpcRequest.js'
+packages/actions/src/GetAccount/index.ts:export * from './GetAccountParams.js'
+packages/actions/src/GetAccount/index.ts:export * from './validateGetAccountParams.js'
+packages/actions/src/GetAccount/index.ts:export * from './zGetAccountParams.js'
+packages/actions/src/GetAccount/getAccountProcedure.spec.ts:import type { GetAccountJsonRpcRequest } from './GetAccountJsonRpcRequest.js'
+packages/actions/src/GetAccount/getAccountProcedure.spec.ts:		const request: GetAccountJsonRpcRequest = {
+packages/actions/src/GetAccount/getAccountProcedure.spec.ts:			method: 'tevm_getAccount',
+packages/actions/src/GetAccount/getAccountProcedure.spec.ts:		expect(response.method).toBe('tevm_getAccount')
+packages/actions/src/GetAccount/getAccountProcedure.spec.ts:		const request: GetAccountJsonRpcRequest = {
+packages/actions/src/GetAccount/getAccountProcedure.spec.ts:			method: 'tevm_getAccount',
+packages/actions/src/GetAccount/getAccountProcedure.spec.ts:		const request: GetAccountJsonRpcRequest = {
+packages/actions/src/GetAccount/getAccountProcedure.spec.ts:			method: 'tevm_getAccount',
+packages/actions/src/GetAccount/getAccountProcedure.spec.ts:		expect(response.method).toBe('tevm_getAccount')
+packages/actions/src/GetAccount/getAccountProcedure.spec.ts:		const request: GetAccountJsonRpcRequest = {
+packages/actions/src/GetAccount/getAccountProcedure.spec.ts:			method: 'tevm_getAccount',
+packages/actions/src/GetAccount/getAccountProcedure.spec.ts:		expect(response.method).toBe('tevm_getAccount')
+packages/actions/src/GetAccount/TevmGetAccountError.ts:import type { ValidateGetAccountParamsError } from './validateGetAccountParams.js'
+packages/actions/src/GetAccount/TevmGetAccountError.ts:export type TevmGetAccountError = AccountNotFoundError | ValidateGetAccountParamsError
+packages/actions/src/GetAccount/GetAccountJsonRpcResponse.ts: * JSON-RPC response for `tevm_getAccount` method
+packages/actions/src/GetAccount/GetAccountJsonRpcResponse.ts:	'tevm_getAccount',
+packages/actions/src/GetAccount/GetAccountHandlerType.ts:import type { GetAccountParams } from './GetAccountParams.js'
+packages/actions/src/GetAccount/GetAccountHandlerType.ts:export type GetAccountHandler = (params: GetAccountParams) => Promise<GetAccountResult>
+packages/actions/src/GetAccount/GetAccountParams.ts: * const getAccountParams: import('@tevm/api').GetAccountParams = {
+packages/actions/src/GetAccount/GetAccountParams.ts:export type GetAccountParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThrowOnFail> & {
+packages/actions/src/GetAccount/zGetAccountParams.js:export const zGetAccountParams = zBaseParams
+packages/actions/src/GetAccount/GetAccountJsonRpcRequest.ts:import type { GetAccountParams } from './GetAccountParams.js'
+packages/actions/src/GetAccount/GetAccountJsonRpcRequest.ts: * JSON-RPC request for `tevm_getAccount` method
+packages/actions/src/GetAccount/GetAccountJsonRpcRequest.ts:export type GetAccountJsonRpcRequest = JsonRpcRequest<'tevm_getAccount', [SerializeToJson<GetAccountParams>]>
+packages/actions/src/GetAccount/validateGetAccountParams.spec.ts:import { validateGetAccountParams } from './validateGetAccountParams.js'
+packages/actions/src/GetAccount/validateGetAccountParams.spec.ts:describe('validateGetAccountParams', () => {
+packages/actions/src/GetAccount/validateGetAccountParams.spec.ts:		const errors = validateGetAccountParams(validParams)
+packages/actions/src/GetAccount/validateGetAccountParams.spec.ts:		const errors = validateGetAccountParams(invalidParams as any)
+packages/actions/src/GetAccount/validateGetAccountParams.spec.ts:		const errors = validateGetAccountParams(invalidParams as any)
+packages/actions/src/GetAccount/validateGetAccountParams.spec.ts:		const errors = validateGetAccountParams(invalidParams as any)
+packages/actions/src/GetAccount/validateGetAccountParams.spec.ts:		const errors = validateGetAccountParams(invalidParams as any)
+packages/actions/src/GetAccount/validateGetAccountParams.spec.ts:		const errors = validateGetAccountParams(invalidParams as any)
+packages/actions/src/GetAccount/getAccountProcedure.js:			method: 'tevm_getAccount',
+packages/actions/src/GetAccount/getAccountProcedure.js:		method: 'tevm_getAccount',
+packages/actions/src/GetAccount/GetAccountJsonRpcProcedure.ts:import type { GetAccountJsonRpcRequest } from './GetAccountJsonRpcRequest.js'
+packages/actions/src/GetAccount/GetAccountJsonRpcProcedure.ts:export type GetAccountJsonRpcProcedure = (request: GetAccountJsonRpcRequest) => Promise<GetAccountJsonRpcResponse>
+packages/actions/src/TevmJsonRpcRequest.ts:import type { GetAccountJsonRpcRequest } from './GetAccount/GetAccountJsonRpcRequest.js'
+packages/actions/src/TevmJsonRpcRequest.ts:	| GetAccountJsonRpcRequest
+packages/actions/src/anvil/anvilRevertProcedure.spec.ts:			method: 'tevm_getAccount',
+packages/actions/src/anvil/anvilRevertProcedure.spec.ts:			method: 'tevm_getAccount',
+packages/memory-client/src/TevmActions.ts:	 * @see [GetAccountParams](https://tevm.sh/reference/tevm/actions/type-aliases/getaccountparams/) for options reference.
+packages/memory-client/src/tevmGetAccount.js: * @param {import('@tevm/actions').GetAccountParams} params - Parameters for retrieving the account information.
+packages/memory-client/src/tevmGetAccount.js: * @see [GetAccountParams](https://tevm.sh/reference/tevm/actions/type-aliases/getaccountparams/) for options reference.
+packages/memory-client/src/TevmRpcSchema.ts:	JsonRpcSchemaTevm['tevm_getAccount'],
+
+codex
+The canonical type is `GetAccountJsonRpcRequest = JsonRpcRequest<'tevm_getAccount', [SerializeToJson<GetAccountParams>]>`. The existing wire shape is already a one-element params tuple, so I’m going to narrow that request object to the canonical action request type at the call site instead of changing runtime behavior.
+exec
+/bin/zsh -lc "sed -n '1,80p' packages/actions/src/GetAccount/GetAccountParams.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,80p' packages/actions/src/GetAccount/GetAccountJsonRpcRequest.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import type { BaseParams } from '../common/BaseParams.js'
+import type { Address, BlockParam } from '../common/index.js'
+
+/**
+ * Tevm params to get an account
+ * @example
+ * const getAccountParams: import('@tevm/api').GetAccountParams = {
+ *   address: '0x...',
+ * }
+ */
+export type GetAccountParams<TThrowOnFail extends boolean = boolean> = BaseParams<TThrowOnFail> & {
+	/**
+	 * Address of account
+	 */
+	readonly address: Address
+	/**
+	 * If true the handler will return the contract storage
+	 * It only returns storage that happens to be cached in the vm
+	 * In fork mode if storage hasn't yet been cached it will not be returned
+	 * This defaults to false
+	 * Be aware that this can be very expensive if a contract has a lot of storage
+	 */
+	readonly returnStorage?: boolean
+	/**
+	 * Block tag to fetch account from
+	 * - bigint for block number
+	 * - hex string for block hash
+	 * - 'latest', 'earliest', 'pending', 'forked' etc. tags
+	 */
+	readonly blockTag?: BlockParam
+}
+
+ succeeded in 0ms:
+import type { JsonRpcRequest } from '@tevm/jsonrpc'
+import type { SerializeToJson } from '../utils/SerializeToJson.js'
+import type { GetAccountParams } from './GetAccountParams.js'
+
+/**
+ * JSON-RPC request for `tevm_getAccount` method
+ */
+export type GetAccountJsonRpcRequest = JsonRpcRequest<'tevm_getAccount', [SerializeToJson<GetAccountParams>]>
+
+exec
+/bin/zsh -lc "sed -n '1,140p' extensions/viem/src/tevmViemExtension.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { decodeFunctionResult, encodeFunctionData, hexToBigInt, numberToHex } from 'viem'
+import { testAccounts } from './testAccounts.js'
+
+/**
+ * @param {import('@tevm/actions').BlockParam|undefined} blockTag
+ * @returns {import('@tevm/actions').BlockTag | import('@tevm/actions').Hex}
+ */
+const formatBlockTag = (blockTag) => {
+	if (blockTag === undefined) {
+		return 'pending'
+	}
+	if (typeof blockTag === 'bigint') {
+		return numberToHex(blockTag)
+	}
+	return blockTag
+}
+
+/**
+ * Decorates a viem [public client](https://viem.sh/) with the [tevm api](https://tevm.sh/generated/tevm/api/type-aliases/tevm/)
+ * @type {import('./ViemTevmExtension.js').ViemTevmExtension}
+ * @example
+ * ```js
+ * import { createClient, parseEth } from 'viem'
+ * import { tevmViemExtension } from '@tevm/viem-extension'
+ *
+ * const client = createClient('https://mainnet.optimism.io')
+ *   .extend(tevmViemExtension())
+ *
+ * await client.transport.tevm.account({
+ *   address: `0x${'12'.repeat(20)}`,
+ *   balance: parseEth('420'),
+ * })
+ * ```
+ * @see [@tevm/server](https://tevm.sh/generated/tevm/server/functions/createserver) for documentation on creating a tevm backend
+ */
+export const tevmViemExtension = () => {
+	return (client) => {
+		/**
+		 * @param {import('@tevm/jsonrpc').JsonRpcResponse<any, any, any>} response
+		 * @returns {any}
+		 */
+		const formatResult = (response) => {
+			if ('error' in response) {
+				return {
+					errors: [
+						{
+							_tag: response.error.code,
+							name: response.error.code,
+							message: response.error.message,
+						},
+					],
+				}
+			}
+			return response.result
+		}
+
+		/**
+		 * @type {import('@tevm/client-types').TevmClient['request']}
+		 */
+		const request = async (req) => {
+			try {
+				const result = await client.request(/** @type any*/ (req))
+				return /** @type any */ ({
+					jsonrpc: '2.0',
+					method: req.method,
+					...(req.id ? { id: req.id } : {}),
+					result,
+				})
+			} catch (e) {
+				return /** @type any*/ ({
+					jsonrpc: '2.0',
+					...(req.id ? { id: req.id } : {}),
+					method: req.method,
+					error: {
+						code: /** @type Error */ (e).name,
+						message: /** @type {Error}*/ (e).message,
+					},
+					errors: [
+						{
+							_tag: /** @type Error */ (e).name,
+							message: /** @type {Error}*/ (e).message,
+							name: /** @type {Error}*/ (e).name,
+						},
+					],
+				})
+			}
+		}
+
+		/**
+		 * @type {import('@tevm/client-types').TevmClient['requestBulk']}
+		 */
+		const requestBulk = async () => {
+			// TODO implement this when we refactor the tevm client to using fetch instead of viem
+			throw new Error('Bulk json rpc requests are not yet implemented')
+		}
+
+		/**
+		 * @type {import('@tevm/actions').GetAccountHandler}
+		 */
+		const getAccount = async (params) => {
+			return formatResult(
+				await request({
+					method: 'tevm_getAccount',
+					jsonrpc: '2.0',
+					params: [params],
+				}),
+			)
+		}
+
+		/**
+		 * @type {import('@tevm/actions').SetAccountHandler}
+		 */
+		const setAccount = async (params) => {
+			return formatResult(
+				await request({
+					method: 'tevm_setAccount',
+					jsonrpc: '2.0',
+					params: [
+						{
+							address: params.address,
+							...(params.balance !== undefined ? { balance: numberToHex(params.balance) } : {}),
+							...(params.nonce !== undefined ? { nonce: numberToHex(params.nonce) } : {}),
+							...(params.storageRoot ? { storageRoot: params.storageRoot } : {}),
+							...(params.deployedBytecode ? { deployedBytecode: params.deployedBytecode } : {}),
+						},
+					],
+				}),
+			)
+		}
+
+		/**
+		 * @param {import('@tevm/actions').CallParams} params
+		 */
+		const getCallArgs = (params) => {
+			return {
+				...(params.code ? { code: params.code } : {}),
+				...(params.blobVersionedHashes ? { blobVersionedHashes: params.blobVersionedHashes } : {}),
+				...(params.caller ? { caller: params.caller } : {}),
+				...('data' in params && params.data ? { data: params.data } : {}),
+				...(params.depth ? { depth: params.depth } : {}),
+
+exec
+/bin/zsh -lc "sed -n '1,120p' packages/actions/src/utils/SerializeToJson.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+// TODO this is duplicated in tevm/utils
+import type { Hex } from '@tevm/utils'
+
+export type JsonSerializable =
+	| bigint
+	| string
+	| number
+	| boolean
+	| null
+	| JsonSerializableArray
+	| JsonSerializableObject
+	| JsonSerializableSet
+	| (Error & { code: number | string })
+export type JsonSerializableArray = ReadonlyArray<JsonSerializable>
+export type JsonSerializableObject = { [key: string]: JsonSerializable }
+export type JsonSerializableSet<T extends bigint | string | number | boolean = bigint | string | number | boolean> =
+	Set<T>
+
+export type BigIntToHex<T> = T extends bigint ? Hex : T
+export type SetToHex<T> = T extends Set<any> ? Hex : T
+
+export type SerializeToJson<T> = T extends Error & { code: infer TCode }
+	? { code: TCode; message: T['message'] }
+	: T extends JsonSerializableSet<infer S>
+		? ReadonlyArray<S>
+		: T extends JsonSerializableObject
+			? { [P in keyof T]: SerializeToJson<T[P]> }
+			: T extends JsonSerializableArray
+				? SerializeToJson<T[number]>[]
+				: BigIntToHex<SetToHex<T>>
+
+exec
+/bin/zsh -lc 'ls -ld .review-slices extensions/viem' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+drwxr-xr-x@ 309 williamcory  staff  9888 May 20 18:54 .review-slices
+drwxr-xr-x@  21 williamcory  staff   672 May 20 18:52 extensions/viem
+
+exec
+/bin/zsh -lc "rg \"@type \\{import\\('@tevm/actions'\\)\\.[A-Za-z]+JsonRpcRequest\\}\" extensions/viem/src/tevmViemExtension.js extensions/viem/src -g '*.js'" in /Users/williamcory/tevm-monorepo
+ exited 1 in 0ms:
+codex
+There is one important runtime detail here: `GetAccountParams` can carry a bigint `blockTag`, while the JSON-RPC request type wants the serialized form. I’m preserving the one-tuple `params` shape and serializing `blockTag` the same way the rest of this extension already does.
+exec
+/bin/zsh -lc "sed -n '1,120p' packages/actions/src/common/BaseParams.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+/**
+ * The base parameters shared across all actions
+ */
+export type BaseParams<TThrowOnFail extends boolean = boolean> = {
+	/**
+	 * Whether to throw on errors or return errors as value on the 'errors' property
+	 * Defaults to `true`
+	 */
+	readonly throwOnFail?: TThrowOnFail
+}
+
+exec
+/bin/zsh -lc "rg \"formatBlockTag\\(|blockTag: formatBlockTag|blockTag\" extensions/viem/src/tevmViemExtension.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+ * @param {import('@tevm/actions').BlockParam|undefined} blockTag
+const formatBlockTag = (blockTag) => {
+	if (blockTag === undefined) {
+	if (typeof blockTag === 'bigint') {
+		return numberToHex(blockTag)
+	return blockTag
+				...(params.blockTag ? { blockTag: formatBlockTag(params.blockTag) } : {}),
+		const ethCall = async ({ blockTag = 'latest', to, gas, data, from = `0x${'0'.repeat(40)}`, value, gasPrice }) => {
+							formatBlockTag(blockTag),
+						params: [params.address, formatBlockTag(params.blockTag)],
+						params: [params.address, formatBlockTag(params.blockTag)],
+						params: [params.address, params.position, formatBlockTag(params.blockTag)],
+
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/extensions/viem/src/tevmViemExtension.js
+diff --git a/extensions/viem/src/tevmViemExtension.js b/extensions/viem/src/tevmViemExtension.js
+index f7a69ef4ff3d664fb73ca70da6fe53d93364716f..0409d950531d3c3cdea7e4dafe5817a6881772c7
+--- a/extensions/viem/src/tevmViemExtension.js
++++ b/extensions/viem/src/tevmViemExtension.js
+@@ -99,11 +99,16 @@
+ 		 */
+ 		const getAccount = async (params) => {
+ 			return formatResult(
+-				await request({
++				await request(/** @type {import('@tevm/actions').GetAccountJsonRpcRequest} */ ({
+ 					method: 'tevm_getAccount',
+ 					jsonrpc: '2.0',
+-					params: [params],
+-				}),
++					params: [
++						{
++							...params,
++							...(params.blockTag !== undefined ? { blockTag: formatBlockTag(params.blockTag) } : {}),
++						},
++					],
++				})),
+ 			)
+ 		}
+ 
+
+diff --git a/extensions/viem/src/tevmViemExtension.js b/extensions/viem/src/tevmViemExtension.js
+index f7a69ef4ff3d664fb73ca70da6fe53d93364716f..0409d950531d3c3cdea7e4dafe5817a6881772c7
+--- a/extensions/viem/src/tevmViemExtension.js
++++ b/extensions/viem/src/tevmViemExtension.js
+@@ -99,11 +99,16 @@
+ 		 */
+ 		const getAccount = async (params) => {
+ 			return formatResult(
+-				await request({
++				await request(/** @type {import('@tevm/actions').GetAccountJsonRpcRequest} */ ({
+ 					method: 'tevm_getAccount',
+ 					jsonrpc: '2.0',
+-					params: [params],
+-				}),
++					params: [
++						{
++							...params,
++							...(params.blockTag !== undefined ? { blockTag: formatBlockTag(params.blockTag) } : {}),
++						},
++					],
++				})),
+ 			)
+ 		}
+ 
+
+codex
+The code change is in place under `extensions/viem`: the request is now typed as `GetAccountJsonRpcRequest` and its optional bigint `blockTag` is converted before dispatch. I’m adding the required repair note next.
+exec
+/bin/zsh -lc "test -f .review-slices/_repair9.fix.md && sed -n '1,80p' .review-slices/_repair9.fix.md || true" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+diff --git a/extensions/viem/src/tevmViemExtension.js b/extensions/viem/src/tevmViemExtension.js
+index f7a69ef4ff3d664fb73ca70da6fe53d93364716f..0409d950531d3c3cdea7e4dafe5817a6881772c7
+--- a/extensions/viem/src/tevmViemExtension.js
++++ b/extensions/viem/src/tevmViemExtension.js
+@@ -99,11 +99,16 @@
+ 		 */
+ 		const getAccount = async (params) => {
+ 			return formatResult(
+-				await request({
++				await request(/** @type {import('@tevm/actions').GetAccountJsonRpcRequest} */ ({
+ 					method: 'tevm_getAccount',
+ 					jsonrpc: '2.0',
+-					params: [params],
+-				}),
++					params: [
++						{
++							...params,
++							...(params.blockTag !== undefined ? { blockTag: formatBlockTag(params.blockTag) } : {}),
++						},
++					],
++				})),
+ 			)
+ 		}
+ 
+
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/.review-slices/_repair9.fix.md
+diff --git a/.review-slices/_repair9.fix.md b/.review-slices/_repair9.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..ca2a5a9c2fdbb4e51d73d5bbdea3262f94fbd862
+--- /dev/null
++++ b/.review-slices/_repair9.fix.md
+@@ -0,0 +1,6 @@
++# Wave 1 typecheck repair (round 9)
++
++**Scope:** extensions/viem
++
++## Errors fixed
++- extensions/viem/src/tevmViemExtension.js:102 - aligned `tevm_getAccount` request with `GetAccountJsonRpcRequest` by serializing `blockTag` before passing the one-item params tuple to `request`.
+diff --git a/extensions/viem/src/tevmViemExtension.js b/extensions/viem/src/tevmViemExtension.js
+index f7a69ef4ff3d664fb73ca70da6fe53d93364716f..0409d950531d3c3cdea7e4dafe5817a6881772c7
+--- a/extensions/viem/src/tevmViemExtension.js
++++ b/extensions/viem/src/tevmViemExtension.js
+@@ -99,11 +99,16 @@
+ 		 */
+ 		const getAccount = async (params) => {
+ 			return formatResult(
+-				await request({
++				await request(/** @type {import('@tevm/actions').GetAccountJsonRpcRequest} */ ({
+ 					method: 'tevm_getAccount',
+ 					jsonrpc: '2.0',
+-					params: [params],
+-				}),
++					params: [
++						{
++							...params,
++							...(params.blockTag !== undefined ? { blockTag: formatBlockTag(params.blockTag) } : {}),
++						},
++					],
++				})),
+ 			)
+ 		}
+ 
+
+diff --git a/.review-slices/_repair9.fix.md b/.review-slices/_repair9.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..ca2a5a9c2fdbb4e51d73d5bbdea3262f94fbd862
+--- /dev/null
++++ b/.review-slices/_repair9.fix.md
+@@ -0,0 +1,6 @@
++# Wave 1 typecheck repair (round 9)
++
++**Scope:** extensions/viem
++
++## Errors fixed
++- extensions/viem/src/tevmViemExtension.js:102 - aligned `tevm_getAccount` request with `GetAccountJsonRpcRequest` by serializing `blockTag` before passing the one-item params tuple to `request`.
+diff --git a/extensions/viem/src/tevmViemExtension.js b/extensions/viem/src/tevmViemExtension.js
+index f7a69ef4ff3d664fb73ca70da6fe53d93364716f..0409d950531d3c3cdea7e4dafe5817a6881772c7
+--- a/extensions/viem/src/tevmViemExtension.js
++++ b/extensions/viem/src/tevmViemExtension.js
+@@ -99,11 +99,16 @@
+ 		 */
+ 		const getAccount = async (params) => {
+ 			return formatResult(
+-				await request({
++				await request(/** @type {import('@tevm/actions').GetAccountJsonRpcRequest} */ ({
+ 					method: 'tevm_getAccount',
+ 					jsonrpc: '2.0',
+-					params: [params],
+-				}),
++					params: [
++						{
++							...params,
++							...(params.blockTag !== undefined ? { blockTag: formatBlockTag(params.blockTag) } : {}),
++						},
++					],
++				})),
+ 			)
+ 		}
+ 
+
+exec
+/bin/zsh -lc "sed -n '1,80p' .review-slices/_repair9.fix.md" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '96,112p' extensions/viem/src/tevmViemExtension.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+
+		/**
+		 * @type {import('@tevm/actions').GetAccountHandler}
+		 */
+		const getAccount = async (params) => {
+			return formatResult(
+				await request(/** @type {import('@tevm/actions').GetAccountJsonRpcRequest} */ ({
+					method: 'tevm_getAccount',
+					jsonrpc: '2.0',
+					params: [
+						{
+							...params,
+							...(params.blockTag !== undefined ? { blockTag: formatBlockTag(params.blockTag) } : {}),
+						},
+					],
+				})),
+			)
+
+ succeeded in 0ms:
+# Wave 1 typecheck repair (round 9)
+
+**Scope:** extensions/viem
+
+## Errors fixed
+- extensions/viem/src/tevmViemExtension.js:102 - aligned `tevm_getAccount` request with `GetAccountJsonRpcRequest` by serializing `blockTag` before passing the one-item params tuple to `request`.
+
+diff --git a/.review-slices/_repair9.fix.md b/.review-slices/_repair9.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..ca2a5a9c2fdbb4e51d73d5bbdea3262f94fbd862
+--- /dev/null
++++ b/.review-slices/_repair9.fix.md
+@@ -0,0 +1,6 @@
++# Wave 1 typecheck repair (round 9)
++
++**Scope:** extensions/viem
++
++## Errors fixed
++- extensions/viem/src/tevmViemExtension.js:102 - aligned `tevm_getAccount` request with `GetAccountJsonRpcRequest` by serializing `blockTag` before passing the one-item params tuple to `request`.
+diff --git a/extensions/viem/src/tevmViemExtension.js b/extensions/viem/src/tevmViemExtension.js
+index f7a69ef4ff3d664fb73ca70da6fe53d93364716f..0409d950531d3c3cdea7e4dafe5817a6881772c7
+--- a/extensions/viem/src/tevmViemExtension.js
++++ b/extensions/viem/src/tevmViemExtension.js
+@@ -99,11 +99,16 @@
+ 		 */
+ 		const getAccount = async (params) => {
+ 			return formatResult(
+-				await request({
++				await request(/** @type {import('@tevm/actions').GetAccountJsonRpcRequest} */ ({
+ 					method: 'tevm_getAccount',
+ 					jsonrpc: '2.0',
+-					params: [params],
+-				}),
++					params: [
++						{
++							...params,
++							...(params.blockTag !== undefined ? { blockTag: formatBlockTag(params.blockTag) } : {}),
++						},
++					],
++				})),
+ 			)
+ 		}
+ 
+
+codex
+Fixed the `tevm_getAccount` request in [tevmViemExtension.js](/Users/williamcory/tevm-monorepo/extensions/viem/src/tevmViemExtension.js:102). It now uses the canonical `GetAccountJsonRpcRequest` shape and serializes optional bigint `blockTag` before sending the one-item params tuple.
+
+Wrote the required report to [.review-slices/_repair9.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/_repair9.fix.md:1).
+
+I did not run typecheck or tests because of the command constraints.
+diff --git a/.review-slices/_repair9.fix.md b/.review-slices/_repair9.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..ca2a5a9c2fdbb4e51d73d5bbdea3262f94fbd862
+--- /dev/null
++++ b/.review-slices/_repair9.fix.md
+@@ -0,0 +1,6 @@
++# Wave 1 typecheck repair (round 9)
++
++**Scope:** extensions/viem
++
++## Errors fixed
++- extensions/viem/src/tevmViemExtension.js:102 - aligned `tevm_getAccount` request with `GetAccountJsonRpcRequest` by serializing `blockTag` before passing the one-item params tuple to `request`.
+diff --git a/extensions/viem/src/tevmViemExtension.js b/extensions/viem/src/tevmViemExtension.js
+index f7a69ef4ff3d664fb73ca70da6fe53d93364716f..0409d950531d3c3cdea7e4dafe5817a6881772c7
+--- a/extensions/viem/src/tevmViemExtension.js
++++ b/extensions/viem/src/tevmViemExtension.js
+@@ -99,11 +99,16 @@
+ 		 */
+ 		const getAccount = async (params) => {
+ 			return formatResult(
+-				await request({
++				await request(/** @type {import('@tevm/actions').GetAccountJsonRpcRequest} */ ({
+ 					method: 'tevm_getAccount',
+ 					jsonrpc: '2.0',
+-					params: [params],
+-				}),
++					params: [
++						{
++							...params,
++							...(params.blockTag !== undefined ? { blockTag: formatBlockTag(params.blockTag) } : {}),
++						},
++					],
++				})),
+ 			)
+ 		}
+ 
+
+tokens used
+24,523
+Fixed the `tevm_getAccount` request in [tevmViemExtension.js](/Users/williamcory/tevm-monorepo/extensions/viem/src/tevmViemExtension.js:102). It now uses the canonical `GetAccountJsonRpcRequest` shape and serializes optional bigint `blockTag` before sending the one-item params tuple.
+
+Wrote the required report to [.review-slices/_repair9.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/_repair9.fix.md:1).
+
+I did not run typecheck or tests because of the command constraints.

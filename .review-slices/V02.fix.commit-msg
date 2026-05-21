@@ -1,0 +1,12 @@
+🐛 fix(V02): apply review fixes for JSON-RPC eth_* method surface slice (7 fixed, 2 deferred)
+
+Slice: V02 (vertical)
+Scope: packages/actions/src/eth packages/procedures/src packages/decorators/src/eip1193
+
+
+Seven findings were addressed with scoped source changes, covering fork receipt error/null handling, filter behavior, nullable lookup results, log filter ranges, topic wildcards, and the public blob fee schema name. Two findings were skipped as false positives in this checkout because the cited code already uses the conformant behavior. No build or test commands were run due to the slice constraints.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

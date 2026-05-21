@@ -26,158 +26,158 @@ const uintEquals = (a, b) => {
 export const ethGetTransactionReceiptHandler = (client) =>
 	/** @type {import('./EthHandler.js').EthGetTransactionReceiptHandler} */ (
 		async (params) => {
-	const receiptsManager = await client.getReceiptsManager()
-	const vm = await client.getVm().then((vm) => vm.deepCopy())
+			const receiptsManager = await client.getReceiptsManager()
+			const vm = await client.getVm().then((vm) => vm.deepCopy())
 
-	const result = await receiptsManager.getReceiptByTxHash(hexToBytes(params.hash))
+			const result = await receiptsManager.getReceiptByTxHash(hexToBytes(params.hash))
 
-	/**
-	 * If we don't have the receipt check the fork for a receipt
-	 * We currently do not cache it in future we may consider fetching
-	 * entire block here and caching it
-	 */
-	if (!result && client.forkTransport) {
-		const fetcher = createJsonRpcFetcher(client.forkTransport)
-		const { result, error } = await fetcher.request({
-			method: 'eth_getTransactionReceipt',
-			params: [params.hash],
-			id: 1,
-			jsonrpc: '2.0',
-		})
-		if (error) {
-			throw error
-		}
-		// TODO type this
-		const r = /** @type {any}*/ (result)
-		if (!r) {
-			return null
-		}
-		/**
-		 * @type {import('./EthResult.js').EthGetTransactionReceiptResult }
-		 */
-		return {
-			blockHash: r.blockHash,
-			blockNumber: BigInt(r.blockNumber),
-			cumulativeGasUsed: BigInt(r.cumulativeGasUsed),
-			effectiveGasPrice: BigInt(r.effectiveGasPrice),
-			from: r.from,
-			gasUsed: BigInt(r.gasUsed),
-			to: r.to,
-			transactionHash: r.transactionHash,
-			transactionIndex: BigInt(r.transactionIndex),
-			contractAddress: r.contractAddress,
-			logsBloom: r.logsBloom,
-			blobGasUsed: r.blobGasUsed ? BigInt(r.blobGasUsed) : undefined,
-			blobGasPrice: r.blobGasPrice ? BigInt(r.blobGasPrice) : undefined,
-			root: r.root,
-			status: r.status,
-			logs: r.logs.map(
+			/**
+			 * If we don't have the receipt check the fork for a receipt
+			 * We currently do not cache it in future we may consider fetching
+			 * entire block here and caching it
+			 */
+			if (!result && client.forkTransport) {
+				const fetcher = createJsonRpcFetcher(client.forkTransport)
+				const { result, error } = await fetcher.request({
+					method: 'eth_getTransactionReceipt',
+					params: [params.hash],
+					id: 1,
+					jsonrpc: '2.0',
+				})
+				if (error) {
+					throw error
+				}
+				// TODO type this
+				const r = /** @type {any}*/ (result)
+				if (!r) {
+					return null
+				}
 				/**
-				 * TODO type this
-				 * @param {any} log
+				 * @type {import('./EthResult.js').EthGetTransactionReceiptResult }
 				 */
-				(log) => ({
-					address: log.address,
-					blockHash: log.blockHash,
-					blockNumber: BigInt(log.blockNumber),
-					data: log.data,
-					logIndex: BigInt(log.logIndex),
-					removed: log.removed,
-					topics: log.topics,
-					transactionIndex: BigInt(log.transactionIndex),
-					transactionHash: log.transactionHash,
-				}),
-			),
-		}
-	}
+				return {
+					blockHash: r.blockHash,
+					blockNumber: BigInt(r.blockNumber),
+					cumulativeGasUsed: BigInt(r.cumulativeGasUsed),
+					effectiveGasPrice: BigInt(r.effectiveGasPrice),
+					from: r.from,
+					gasUsed: BigInt(r.gasUsed),
+					to: r.to,
+					transactionHash: r.transactionHash,
+					transactionIndex: BigInt(r.transactionIndex),
+					contractAddress: r.contractAddress,
+					logsBloom: r.logsBloom,
+					blobGasUsed: r.blobGasUsed ? BigInt(r.blobGasUsed) : undefined,
+					blobGasPrice: r.blobGasPrice ? BigInt(r.blobGasPrice) : undefined,
+					root: r.root,
+					status: r.status,
+					logs: r.logs.map(
+						/**
+						 * TODO type this
+						 * @param {any} log
+						 */
+						(log) => ({
+							address: log.address,
+							blockHash: log.blockHash,
+							blockNumber: BigInt(log.blockNumber),
+							data: log.data,
+							logIndex: BigInt(log.logIndex),
+							removed: log.removed,
+							topics: log.topics,
+							transactionIndex: BigInt(log.transactionIndex),
+							transactionHash: log.transactionHash,
+						}),
+					),
+				}
+			}
 
-	if (!result) {
-		return null
-	}
+			if (!result) {
+				return null
+			}
 
-	const [receipt, blockHash, txIndex, logIndex] = result
-	const block = await vm.blockchain.getBlock(blockHash)
-	// Check if block is in canonical chain
-	const blockByNumber = await vm.blockchain.getBlock(block.header.number)
-	if (!uintEquals(blockByNumber.hash(), block.hash())) {
-		return null
-	}
+			const [receipt, blockHash, txIndex, logIndex] = result
+			const block = await vm.blockchain.getBlock(blockHash)
+			// Check if block is in canonical chain
+			const blockByNumber = await vm.blockchain.getBlock(block.header.number)
+			if (!uintEquals(blockByNumber.hash(), block.hash())) {
+				return null
+			}
 
-	const parentBlock = await vm.blockchain.getBlock(block.header.parentHash)
-	const tx = block.transactions[txIndex]
-	if (!tx) {
-		// TODO check proxy url
-		throw {
-			// TODO wrong code
-			code: -32602,
-			message: 'No tx found',
-		}
-	}
-		/** @type {any} */
-		const txAny = tx
-		const baseFeePerGas = block.header.baseFeePerGas ?? 0n
-		const effectiveGasPrice =
-			txAny.maxFeePerGas !== undefined && txAny.maxPriorityFeePerGas !== undefined
-				? txAny.maxFeePerGas < baseFeePerGas + txAny.maxPriorityFeePerGas
-					? txAny.maxFeePerGas
-					: baseFeePerGas + txAny.maxPriorityFeePerGas
-				: txAny.gasPrice
+			const parentBlock = await vm.blockchain.getBlock(block.header.parentHash)
+			const tx = block.transactions[txIndex]
+			if (!tx) {
+				// TODO check proxy url
+				throw {
+					// TODO wrong code
+					code: -32602,
+					message: 'No tx found',
+				}
+			}
+			/** @type {any} */
+			const txAny = tx
+			const baseFeePerGas = block.header.baseFeePerGas ?? 0n
+			const effectiveGasPrice =
+				txAny.maxFeePerGas !== undefined && txAny.maxPriorityFeePerGas !== undefined
+					? txAny.maxFeePerGas < baseFeePerGas + txAny.maxPriorityFeePerGas
+						? txAny.maxFeePerGas
+						: baseFeePerGas + txAny.maxPriorityFeePerGas
+					: txAny.gasPrice
 
-	vm.common.ethjsCommon.setHardfork(tx.common.hardfork())
-	await vm.stateManager.setStateRoot(parentBlock.header.stateRoot)
-	// Run tx through copied vm to get tx gasUsed and createdAddress
-	const runBlockResult = await vm.runBlock({
-		block,
-		root: parentBlock.header.stateRoot,
-		skipBlockValidation: true,
-	})
+			vm.common.ethjsCommon.setHardfork(tx.common.hardfork())
+			await vm.stateManager.setStateRoot(parentBlock.header.stateRoot)
+			// Run tx through copied vm to get tx gasUsed and createdAddress
+			const runBlockResult = await vm.runBlock({
+				block,
+				root: parentBlock.header.stateRoot,
+				skipBlockValidation: true,
+			})
 
-	const res = runBlockResult.results[txIndex]
-	if (!res) {
-		throw new Error('No result for tx this indicates a bug in the client')
-	}
-	const { totalGasSpent, createdAddress } = res
-	const { blobGasPrice, blobGasUsed } = /** @type {any}*/ (runBlockResult.receipts[txIndex])
-	/**
-	 * @type {import('./EthResult.js').EthGetTransactionReceiptResult}
-	 */
-	return {
-		blockHash: bytesToHex(block.hash()),
-		blockNumber: block.header.number,
-		cumulativeGasUsed: receipt.cumulativeBlockGasUsed,
-		effectiveGasPrice: effectiveGasPrice,
-		from: tx.getSenderAddress().toString(),
-		gasUsed: totalGasSpent,
-		to: tx.to?.toString() ?? null,
-		transactionHash: bytesToHex(tx.hash()),
-		transactionIndex: txIndex,
-		contractAddress: createdAddress?.toString() ?? null,
-		logsBloom: bytesToHex(receipt.bitvector),
-		blobGasUsed: blobGasUsed !== undefined ? blobGasUsed : undefined,
-		blobGasPrice: blobGasPrice !== undefined ? blobGasPrice : undefined,
-		root:
-			/** @type any*/ (receipt).stateRoot instanceof Uint8Array
-				? bytesToHex(/** @type any*/ (receipt).stateRoot)
-				: undefined,
-		status:
-			/** @type any*/ (receipt).status instanceof Uint8Array
-				? numberToHex(/** @type any*/ (receipt).status[0])
-				: typeof (/** @type any*/ (receipt).status) === 'number'
-					? numberToHex(/** @type any*/ (receipt).status)
-					: undefined,
-		logs: await Promise.all(
-			receipt.logs.map((log, i) => ({
-				address: bytesToHex(log[0]),
-				blockHash: block ? bytesToHex(block.hash()) : null,
-				blockNumber: block ? block.header.number : null,
-				data: bytesToHex(log[2]),
-				logIndex: logIndex + i,
-				removed: false,
-				topics: log[1].map((bytes) => bytesToHex(bytes)),
-				transactionIndex: txIndex !== undefined ? txIndex : null,
-				transactionHash: tx !== undefined ? bytesToHex(tx.hash()) : null,
-			})),
-		),
-	}
+			const res = runBlockResult.results[txIndex]
+			if (!res) {
+				throw new Error('No result for tx this indicates a bug in the client')
+			}
+			const { totalGasSpent, createdAddress } = res
+			const { blobGasPrice, blobGasUsed } = /** @type {any}*/ (runBlockResult.receipts[txIndex])
+			/**
+			 * @type {import('./EthResult.js').EthGetTransactionReceiptResult}
+			 */
+			return {
+				blockHash: bytesToHex(block.hash()),
+				blockNumber: block.header.number,
+				cumulativeGasUsed: receipt.cumulativeBlockGasUsed,
+				effectiveGasPrice: effectiveGasPrice,
+				from: tx.getSenderAddress().toString(),
+				gasUsed: totalGasSpent,
+				to: tx.to?.toString() ?? null,
+				transactionHash: bytesToHex(tx.hash()),
+				transactionIndex: txIndex,
+				contractAddress: createdAddress?.toString() ?? null,
+				logsBloom: bytesToHex(receipt.bitvector),
+				blobGasUsed: blobGasUsed !== undefined ? blobGasUsed : undefined,
+				blobGasPrice: blobGasPrice !== undefined ? blobGasPrice : undefined,
+				root:
+					/** @type any*/ (receipt).stateRoot instanceof Uint8Array
+						? bytesToHex(/** @type any*/ (receipt).stateRoot)
+						: undefined,
+				status:
+					/** @type any*/ (receipt).status instanceof Uint8Array
+						? numberToHex(/** @type any*/ (receipt).status[0])
+						: typeof (/** @type any*/ (receipt).status) === 'number'
+							? numberToHex(/** @type any*/ (receipt).status)
+							: undefined,
+				logs: await Promise.all(
+					receipt.logs.map((log, i) => ({
+						address: bytesToHex(log[0]),
+						blockHash: block ? bytesToHex(block.hash()) : null,
+						blockNumber: block ? block.header.number : null,
+						data: bytesToHex(log[2]),
+						logIndex: logIndex + i,
+						removed: false,
+						topics: log[1].map((bytes) => bytesToHex(bytes)),
+						transactionIndex: txIndex !== undefined ? txIndex : null,
+						transactionHash: tx !== undefined ? bytesToHex(tx.hash()) : null,
+					})),
+				),
+			}
 		}
 	)

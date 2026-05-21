@@ -109,7 +109,10 @@ export const createHttpHandler = (client, options = {}) => {
 
 		if (compatibility && parsedRequest.id === undefined) return void res.writeHead(204).end()
 		if ('code' in response && 'message' in response) return handleError(client, response, res, parsedRequest)
-		if (response.error?.code === UnsupportedProviderMethodError.code || response.error?.code === MethodNotFoundError.code) {
+		if (
+			response.error?.code === UnsupportedProviderMethodError.code ||
+			response.error?.code === MethodNotFoundError.code
+		) {
 			return handleError(client, response.error, res, parsedRequest)
 		}
 

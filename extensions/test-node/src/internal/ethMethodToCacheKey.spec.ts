@@ -281,9 +281,7 @@ describe('ethMethodToCacheKey', () => {
 
 		const cacheKeyFn = ethMethodToCacheKey('eth_getLogs')
 		const result = cacheKeyFn(request)
-		expect(result).toBe(
-			'["2.0","eth_getLogs","0x1","latest","0x742d35cc6634c0532925a3b844bc9e7595f93b7a",["0x0"]]',
-		)
+		expect(result).toBe('["2.0","eth_getLogs","0x1","latest","0x742d35cc6634c0532925a3b844bc9e7595f93b7a",["0x0"]]')
 	})
 
 	it('should generate distinct eth_getLogs cache keys for different filters over the same range', () => {

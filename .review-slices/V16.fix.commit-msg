@@ -1,0 +1,12 @@
+🐛 fix(V16): apply review fixes for CLI commands & UX slice (6 fixed, 1 deferred)
+
+Slice: V16 (vertical)
+Scope: cli
+
+
+Six findings were addressed with focused CLI changes, and one finding was skipped as a false positive against the current code. The fixes make action failures propagate to a failing process status, correct the broken storage-slot parameter mapping, implement the advertised state file paths, and tighten several command argument failure paths. No build or test commands were run per the slice constraints.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

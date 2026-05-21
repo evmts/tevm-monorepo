@@ -1,0 +1,12 @@
+🐛 fix(V12): apply review fixes for Memory client public API slice (3 fixed, 3 deferred)
+
+Slice: V12 (vertical)
+Scope: packages/memory-client packages/node packages/decorators packages/client-types
+
+
+Three findings were addressed with narrow changes in `packages/memory-client`: the fork-without-common return type, public chain id coherence for `fork.chainId`, and a stale mining default doc line. Three findings were skipped as false positives against the current tree because the cited behavior is already corrected.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

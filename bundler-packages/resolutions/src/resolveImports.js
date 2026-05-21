@@ -60,9 +60,7 @@ export const resolveImports = (absolutePath, code, remappings, libs, sync) => {
 	if (typeof sync !== 'boolean') {
 		return die(`Type ${typeof sync} is not of type boolean`)
 	}
-	const codeWithoutBlockComments = code.replace(/\/\*[\s\S]*?\*\//g, (comment) =>
-		comment.replace(/[^\n]/g, ' '),
-	)
+	const codeWithoutBlockComments = code.replace(/\/\*[\s\S]*?\*\//g, (comment) => comment.replace(/[^\n]/g, ' '))
 	const allImports =
 		/** @type Array<import("effect/Effect").Effect<import("./types.js").ResolvedImport, import("./utils/resolveImportPath.js").CouldNotResolveImportError, >> */ ([])
 	let foundImport = importRegEx.exec(codeWithoutBlockComments)

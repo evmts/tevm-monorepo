@@ -97,9 +97,18 @@ describe('requestProcedure', () => {
 			const fromPendingKeys = Object.keys(contentFrom.result.pending)
 			const fromQueuedKeys = Object.keys(contentFrom.result.queued)
 			expect([...fromPendingKeys, ...fromQueuedKeys].map((k) => k.toLowerCase())).toContain(sender.toLowerCase())
-			const pendingCount = Object.values(content.result.pending).reduce((n: number, byNonce: any) => n + Object.keys(byNonce).length, 0)
-			const queuedCount = Object.values(content.result.queued).reduce((n: number, byNonce: any) => n + Object.keys(byNonce).length, 0)
-			expect(status.result).toEqual({ pending: numberToHex(BigInt(pendingCount)), queued: numberToHex(BigInt(queuedCount)) })
+			const pendingCount = Object.values(content.result.pending).reduce(
+				(n: number, byNonce: any) => n + Object.keys(byNonce).length,
+				0,
+			)
+			const queuedCount = Object.values(content.result.queued).reduce(
+				(n: number, byNonce: any) => n + Object.keys(byNonce).length,
+				0,
+			)
+			expect(status.result).toEqual({
+				pending: numberToHex(BigInt(pendingCount)),
+				queued: numberToHex(BigInt(queuedCount)),
+			})
 		})
 
 		it('removes dropped and mined transactions from txpool', async () => {
@@ -169,10 +178,14 @@ describe('requestProcedure', () => {
 			})
 			expect(unsignedCall.result.txHash).toMatch(/^0x[0-9a-f]{64}$/)
 			const contentAfterUnsigned = await requestProcedure(client)({ jsonrpc: '2.0', method: 'txpool_content', id: 6 })
-			const allSenders = [...Object.keys(contentAfterUnsigned.result.pending), ...Object.keys(contentAfterUnsigned.result.queued)]
+			const allSenders = [
+				...Object.keys(contentAfterUnsigned.result.pending),
+				...Object.keys(contentAfterUnsigned.result.queued),
+			]
 			expect(allSenders.length).toBeGreaterThan(0)
 			for (const maybeSender of allSenders) {
-				const byNonce = contentAfterUnsigned.result.pending[maybeSender] ?? contentAfterUnsigned.result.queued[maybeSender]
+				const byNonce =
+					contentAfterUnsigned.result.pending[maybeSender] ?? contentAfterUnsigned.result.queued[maybeSender]
 				for (const tx of Object.values(byNonce)) {
 					expect(((tx as any).from as string).toLowerCase()).toBe(`0x${maybeSender.toLowerCase().replace(/^0x/, '')}`)
 				}

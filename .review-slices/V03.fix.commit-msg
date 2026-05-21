@@ -1,0 +1,12 @@
+🐛 fix(V03): apply review fixes for JSON-RPC anvil_* method surface slice (5 fixed, 2 deferred)
+
+Slice: V03 (vertical)
+Scope: packages/actions/src/anvil packages/procedures/src
+
+
+Five findings were addressed with scoped source changes, including reset baseline restoration, dump/load round-trip compatibility, positional dropTransaction parameters, setStorageAt success results, and stopImpersonatingAccount account matching. One finding was a false positive because the Anvil procedures already preserve JSON-RPC id `0`. The remaining multi-account impersonation Set/admission behavior is deferred because the transaction admission checks live outside this slice.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

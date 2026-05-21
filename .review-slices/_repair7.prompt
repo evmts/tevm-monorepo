@@ -1,0 +1,35 @@
+You are fixing one TypeScript error in @tevm/memory-client.
+
+CONSTRAINTS:
+- Modify ONLY files under: packages/memory-client.
+- Do NOT touch any other package.
+- Do NOT run pnpm, bun, nx, npm, cargo, node, tsc, or vitest.
+- Do NOT run git. The dispatcher will commit.
+- Minimal-diff principle.
+
+TYPE ERROR:
+
+@tevm/memory-client: src/createMemoryClient.js:337:34 - error TS2379:
+Argument of type '{ common?: { blockExplorers?: ... | undefined | undefined; ...; copy: () => Common; }; ... 24 more ...; mining?: { readonly auto?: boolean; readonly interval?: number; }; }'
+is not assignable to parameter of type 'TevmNodeOptions<...>' with 'exactOptionalPropertyTypes: true'.
+Consider adding 'undefined' to the types of the target's properties.
+
+This is the exactOptionalPropertyTypes error pattern. The source has fields like `common?: T` (present but possibly undefined) while the target expects `common?: T` without `| undefined`. The common 22-line-long object likely has many optional fields being passed.
+
+FIX OPTIONS (pick the smallest):
+1. If the object literal is passed inline, use a conditional spread for any fields that may be undefined: `...(common !== undefined ? { common } : {})` etc.
+2. If the object is built via spread, wrap with a satisfies clause or cast.
+3. If the receiver TevmNodeOptions can legitimately accept `T | undefined` for these fields, change the TevmNodeOptions type — BUT that file is in packages/node which is out of scope. Avoid this option.
+
+Open packages/memory-client/src/createMemoryClient.js, find line 337, and figure out the smallest possible fix. The `mining?: { readonly auto?...; readonly interval?... }` clue in the error suggests this is constructing a final options object — a conditional spread or a `/** @type {import('@tevm/node').TevmNodeOptions<...>} */ (...)` cast would work.
+
+Write a brief fix report to '.review-slices/_repair7.fix.md':
+
+# Wave 1 typecheck repair (round 7)
+
+**Scope:** packages/memory-client
+
+## Errors fixed
+- path:line - <description>
+
+IMPORTANT: write the report at the EXACT path `.review-slices/_repair7.fix.md`. Do NOT create new directories.

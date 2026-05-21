@@ -24,7 +24,10 @@ export type FileAccessObject = {
 export type CachedItem = 'artifactsJson' | 'dts' | 'mjs'
 
 export type ReadArtifactsSync = (entryModuleId: string, compileFingerprint?: string) => ResolvedArtifacts | undefined
-export type ReadArtifacts = (entryModuleId: string, compileFingerprint?: string) => Promise<ResolvedArtifacts | undefined>
+export type ReadArtifacts = (
+	entryModuleId: string,
+	compileFingerprint?: string,
+) => Promise<ResolvedArtifacts | undefined>
 
 export type ReadDtsSync = (entryModuleId: string) => string | undefined
 export type ReadDts = (entryModuleId: string) => Promise<string | undefined>
@@ -32,8 +35,16 @@ export type ReadDts = (entryModuleId: string) => Promise<string | undefined>
 export type ReadMjsSync = (entryModuleId: string) => string | undefined
 export type ReadMjs = (entryModuleId: string) => Promise<string | undefined>
 
-export type WriteArtifactsSync = (entryModuleId: string, artifacts: ResolvedArtifacts, compileFingerprint?: string) => string
-export type WriteArtifacts = (entryModuleId: string, artifacts: ResolvedArtifacts, compileFingerprint?: string) => Promise<string>
+export type WriteArtifactsSync = (
+	entryModuleId: string,
+	artifacts: ResolvedArtifacts,
+	compileFingerprint?: string,
+) => string
+export type WriteArtifacts = (
+	entryModuleId: string,
+	artifacts: ResolvedArtifacts,
+	compileFingerprint?: string,
+) => Promise<string>
 
 export type WriteDtsSync = (entryModuleId: string, dtsFile: string) => string
 export type WriteDts = (entryModuleId: string, dtsFile: string) => Promise<string>

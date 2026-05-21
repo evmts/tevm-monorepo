@@ -90,24 +90,24 @@ export const setAccountHandler =
 				client.logger.error({ errors: account.errors }, 'there was an unexpected error getting account')
 				throw account.errors.length > 1 ? new AggregateError(account.errors) : account.errors[0]
 			}
-	
+
 			// Build account data object with proper handling of optional properties
 			/** @type {Parameters<typeof createAccount>[0]} */
 			const accountData = {
 				nonce: params.nonce ?? account?.nonce,
 				balance: params.balance ?? account?.balance,
 			}
-	
+
 			const storageRoot =
 				(params.storageRoot && hexToBytes(params.storageRoot)) ??
 				(account?.storageRoot !== undefined && account?.storageRoot !== '0x'
 					? hexToBytes(account.storageRoot)
 					: undefined)
-	
+
 			const codeHash =
 				(params.deployedBytecode && hexToBytes(keccak256(params.deployedBytecode))) ??
 				(account?.deployedBytecode !== undefined ? hexToBytes(keccak256(account.deployedBytecode)) : undefined)
-	
+
 			// Only add optional properties if they are not undefined
 			if (storageRoot !== undefined) {
 				accountData.storageRoot = storageRoot
@@ -152,4 +152,4 @@ export const setAccountHandler =
 			errors.push(new InternalError('Unexpected error setting account', { cause: e }))
 			return maybeThrowOnFail(throwOnFail, { errors })
 		}
-		}
+	}

@@ -11,7 +11,10 @@ describe('lightClientRead', () => {
 	it('throws explicit not-ready error', () => {
 		expect(() =>
 			ensureLightReady(
-				{ consensus: { mode: 'light-client', isReady: () => false }, getLightSyncStatus: () => ({ ready: true }) } as any,
+				{
+					consensus: { mode: 'light-client', isReady: () => false },
+					getLightSyncStatus: () => ({ ready: true }),
+				} as any,
 				'eth_getBalance',
 			),
 		).toThrow('LIGHT_CLIENT_NOT_READY')

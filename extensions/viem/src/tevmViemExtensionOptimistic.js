@@ -24,17 +24,19 @@ const getOptimisticCallArgs = (action) => {
 		...(action.gas !== undefined ? { gas: numberToHex(action.gas) } : {}),
 		...(action.gasPrice !== undefined ? { gasPrice: numberToHex(action.gasPrice) } : {}),
 		...(action.maxFeePerGas !== undefined ? { maxFeePerGas: numberToHex(action.maxFeePerGas) } : {}),
-		...(action.maxPriorityFeePerGas !== undefined ? { maxPriorityFeePerGas: numberToHex(action.maxPriorityFeePerGas) } : {}),
+		...(action.maxPriorityFeePerGas !== undefined
+			? { maxPriorityFeePerGas: numberToHex(action.maxPriorityFeePerGas) }
+			: {}),
 		...(action.nonce !== undefined ? { nonce: numberToHex(action.nonce) } : {}),
-		...(/** @type {any} */ (action).createTransaction !== undefined
-			? { createTransaction: /** @type {any} */ (action).createTransaction }
-			: {}),
-		...(/** @type {any} */ (action).addToMempool !== undefined
-			? { addToMempool: /** @type {any} */ (action).addToMempool }
-			: {}),
-		...(/** @type {any} */ (action).addToBlockchain !== undefined
-			? { addToBlockchain: /** @type {any} */ (action).addToBlockchain }
-			: {}),
+		.../** @type {any} */ (
+			action.createTransaction !== undefined ? { createTransaction: /** @type {any} */ (action).createTransaction } : {}
+		),
+		.../** @type {any} */ (
+			action.addToMempool !== undefined ? { addToMempool: /** @type {any} */ (action).addToMempool } : {}
+		),
+		.../** @type {any} */ (
+			action.addToBlockchain !== undefined ? { addToBlockchain: /** @type {any} */ (action).addToBlockchain } : {}
+		),
 	}
 }
 

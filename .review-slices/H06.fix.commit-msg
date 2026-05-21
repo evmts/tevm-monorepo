@@ -1,0 +1,12 @@
+🐛 fix(H06): apply review fixes for Trie, RLP, utils, address slice (5 fixed, 0 deferred)
+
+Slice: H06 (horizontal)
+Scope: packages/trie packages/rlp packages/utils packages/address
+
+
+All five findings were verified against the cited source and addressed with narrow in-scope fixes. The changes harden address creation and contract address prediction inputs, prevent indexed mutation of the exported empty state root, and normalize seeded memory DB keys. No findings were skipped or deferred.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

@@ -1,0 +1,2309 @@
+OpenAI Codex v0.132.0
+--------
+workdir: /Users/williamcory/tevm-monorepo
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019e47be-880d-77e1-82eb-69df3c7eb6a3
+--------
+user
+You are fixing TypeScript errors in @tevm/ts-plugin from V10 (LSP fix).
+
+CONSTRAINTS:
+- Modify ONLY files under: lsp/ts-plugin.
+- No pnpm/bun/nx/git/tsc/vitest.
+- Minimal-diff.
+
+ERRORS (4 unique, doubled across typecheck/build:types):
+
+@tevm/ts-plugin: src/factories/fileAccessObject.ts:141:3 - error TS2322: Type '(fileName: PathLike) => Stats | BigIntStats | undefined' is not assignable to type '{ (path: PathLike): Stats; ... }'.
+@tevm/ts-plugin: src/factories/fileAccessObject.ts:142:53 - error TS2345: Argument of type 'PathLike' is not assignable to parameter of type 'string'.
+@tevm/ts-plugin: src/factories/fileAccessObject.ts:152:3 - error TS2322: Type '(fileName: PathLike) => Promise<Stats | BigIntStats | undefined>' is not assignable to type '{ (path: PathLike): Promise<Stats>; ... }'.
+@tevm/ts-plugin: src/factories/fileAccessObject.ts:153:53 - error TS2345: Argument of type 'PathLike' is not assignable to parameter of type 'string'.
+
+The V10 fix changed statSync/stat to take PathLike for compatibility but the parent fs.statSync overload set is much narrower than what the new function returns (Stats | BigIntStats | undefined). Two issues to fix:
+
+1. Line 141, 152: The function returns `Stats | BigIntStats | undefined` but the target signature requires returning `Stats` (or its variants). Either:
+   (a) Narrow the return to `Stats` by removing the BigIntStats path or treating undefined as throw.
+   (b) Add proper overloads that match fs.statSync's overload set.
+
+2. Line 142, 153: Pass `fileName.toString()` (or wrap with `String()`) when calling the inner Node API that wants a string.
+
+Open the file and read the surrounding code first. The smallest fix is probably to cast: change the assignment so the explicit type at the assignment site narrows to `Stats`, e.g., by writing the wrapper with a more concrete typed signature.
+
+Write to `.review-slices/_repair_w2_2.fix.md`:
+
+# Wave 2 typecheck repair (round 2)
+
+**Scope:** lsp/ts-plugin
+
+## Errors fixed
+- path:line - <description>
+
+IMPORTANT: write the report at the EXACT path `.review-slices/_repair_w2_2.fix.md`.
+
+codex
+I’ll inspect the plugin file first and keep the patch scoped to `lsp/ts-plugin`, including the requested repair note under that tree if the path exists there.
+exec
+/bin/zsh -lc "sed -n '1,220p' lsp/ts-plugin/src/factories/fileAccessObject.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+import type { FileAccessObject } from '@tevm/base-bundler'
+import path from 'node:path'
+import type typescript from 'typescript/lib/tsserverlibrary.js'
+
+const hashText = (text: string): number => {
+	let hash = 0
+	for (let i = 0; i < text.length; i++) {
+		hash = (hash * 31 + text.charCodeAt(i)) >>> 0
+	}
+	return hash
+}
+
+const getScriptSnapshotText = (lsHost: typescript.LanguageServiceHost, fileName: string, cwd: string): string | undefined => {
+	const candidates = [fileName, path.resolve(cwd, fileName)]
+	for (const candidate of candidates) {
+		try {
+			const snapshot = lsHost.getScriptSnapshot?.(candidate)
+			if (snapshot) {
+				return snapshot.getText(0, snapshot.getLength())
+			}
+		} catch (_e) {
+			// Fall through to the next candidate.
+		}
+	}
+	return undefined
+}
+
+const getScriptVersion = (lsHost: typescript.LanguageServiceHost, fileName: string, cwd: string): string | undefined => {
+	const candidates = [fileName, path.resolve(cwd, fileName)]
+	for (const candidate of candidates) {
+		try {
+			const version = lsHost.getScriptVersion?.(candidate)
+			if (version !== undefined) {
+				return version
+			}
+		} catch (_e) {
+			// Fall through to the next candidate.
+		}
+	}
+	return undefined
+}
+
+const getVirtualMtimeMs = (lsHost: typescript.LanguageServiceHost, fileName: string, cwd: string): number | undefined => {
+	const snapshotText = getScriptSnapshotText(lsHost, fileName, cwd)
+	const version = getScriptVersion(lsHost, fileName, cwd)
+	if (snapshotText === undefined) {
+		return undefined
+	}
+	return hashText(`${version ?? ''}:${snapshotText}`)
+}
+
+/**
+ * Creates a FileAccessObject implementation that uses the TypeScript LanguageServiceHost
+ * to read and write files.
+ *
+ * This adapter allows the Tevm bundler to interact with the TypeScript language service's
+ * virtual file system rather than directly with the real file system. The LSP maintains
+ * its own view of files, which may include unsaved changes not yet written to disk.
+ *
+ * @param lsHost - The TypeScript language service host providing file access
+ * @returns A FileAccessObject implementation that delegates to the LanguageServiceHost
+ */
+export const createFileAccessObject = (lsHost: typescript.LanguageServiceHost): FileAccessObject => {
+	return {
+		existsSync: (fileName) => lsHost.fileExists(fileName),
+		readFileSync: (fileName, encoding) => {
+			const file = lsHost.readFile(fileName, encoding)
+			if (!file) {
+				throw new Error(`@tevm/ts-plugin: unable to read file ${fileName}`)
+			}
+			return file
+		},
+		writeFileSync: (fileName, data) => {
+			if (!lsHost.writeFile) {
+				throw new Error(`@tevm/ts-plugin: host cannot write file ${fileName}`)
+			}
+			lsHost.writeFile(fileName, data)
+		},
+		// TODO clean this up. This works fine only because only the cache needs them and the cache is operating on a real file system and not a virtual one
+		// These are just stubs to match interface since making multiple interfaces is tedious atm
+		exists: async (fileName) => {
+			return lsHost.fileExists(fileName)
+		},
+		readFile: async (fileName, encoding) => {
+			const file = lsHost.readFile(fileName, encoding)
+			if (!file) {
+				throw new Error(`@tevm/ts-plugin: unable to read file ${fileName}`)
+			}
+			return file
+		},
+		stat,
+		statSync,
+		mkdirSync,
+		mkdir,
+		writeFile,
+	}
+}
+
+/**
+ * Creates a FileAccessObject implementation that uses the real filesystem.
+ *
+ * This implementation directly uses Node.js fs/fs.promises APIs to access the
+ * actual filesystem rather than the TypeScript language service's virtual filesystem.
+ * It's primarily used for operations that need to persist outside the language
+ * service context, such as caching.
+ *
+ * @returns A FileAccessObject implementation using real filesystem access
+ */
+export const createRealFileAccessObject = (
+	lsHost?: typescript.LanguageServiceHost,
+	cwd = process.cwd(),
+): FileAccessObject => {
+	if (!lsHost) {
+		return {
+			readFile,
+			existsSync,
+			readFileSync,
+			writeFileSync,
+			statSync,
+			stat,
+			mkdirSync,
+			mkdir,
+			writeFile,
+			exists: async (fileName) => {
+				try {
+					await access(fileName)
+					return true
+				} catch (_e) {
+					return false
+				}
+			},
+		}
+	}
+	return {
+		readFile,
+		existsSync,
+		readFileSync,
+		writeFileSync,
+		statSync: (fileName) => {
+			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
+			if (virtualMtimeMs === undefined) {
+				return statSync(fileName)
+			}
+			try {
+				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
+			} catch (_e) {
+				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
+			}
+		},
+		stat: async (fileName) => {
+			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
+			if (virtualMtimeMs === undefined) {
+				return stat(fileName)
+			}
+			try {
+				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
+			} catch (_e) {
+				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
+			}
+		},
+		mkdirSync,
+		mkdir,
+		writeFile,
+		exists: async (fileName) => {
+			try {
+				await access(fileName)
+				return true
+			} catch (_e) {
+				return false
+			}
+		},
+	}
+}
+
+exec
+/bin/zsh -lc 'pwd && rg -n "statSync|stat:" lsp/ts-plugin/src/factories/fileAccessObject.ts' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+/Users/williamcory/tevm-monorepo
+1:import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+94:		statSync,
+121:			statSync,
+141:		statSync: (fileName) => {
+144:				return statSync(fileName)
+147:				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
+149:				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
+152:		stat: async (fileName) => {
+
+exec
+/bin/zsh -lc 'ls -la lsp/ts-plugin && find lsp/ts-plugin -maxdepth 2 -type d -name .review-slices -print' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+total 200
+drwxr-xr-x@ 23 williamcory  staff    736 May 20 19:34 .
+drwxr-xr-x@  5 williamcory  staff    160 May  2 20:22 ..
+-rw-r--r--@  1 williamcory  staff     51 May  2 20:22 .depcheckrc
+-rw-r--r--@  1 williamcory  staff   1051 May  2 20:22 .gitignore
+-rw-r--r--@  1 williamcory  staff      7 May  2 20:22 .npmignore
+-rw-r--r--@  1 williamcory  staff  36923 May  2 20:22 CHANGELOG.md
+-rw-r--r--@  1 williamcory  staff   1063 May  2 20:22 LICENSE
+-rw-r--r--@  1 williamcory  staff    857 May  2 20:22 README.md
+-rw-r--r--@  1 williamcory  staff     92 May 18 18:42 biome.json
+drwxr-xr-x@  4 williamcory  staff    128 May 19 20:15 coverage
+-rw-r--r--@  1 williamcory  staff   4508 May  2 20:22 coverage-test.ts
+drwxr-xr-x@  9 williamcory  staff    288 May 20 12:44 dist
+drwxr-xr-x@  6 williamcory  staff    192 May 19 19:03 docs
+-rw-r--r--@  1 williamcory  staff    996 May  2 20:22 foundry.toml
+drwxr-xr-x@ 13 williamcory  staff    416 May 18 19:41 node_modules
+-rw-r--r--@  1 williamcory  staff   2120 May 18 19:23 package.json
+drwxr-xr-x@ 15 williamcory  staff    480 May  2 20:22 src
+-rw-r--r--@  1 williamcory  staff    496 May 18 19:23 tsconfig.json
+-rw-r--r--@  1 williamcory  staff    158 May  2 20:22 tsup.config.ts
+-rw-r--r--@  1 williamcory  staff    168 May  2 20:22 typedoc.json
+drwxr-xr-x@ 12 williamcory  staff    384 May 19 18:58 types
+-rw-r--r--@  1 williamcory  staff    454 May 18 18:42 vitest.config.ts
+-rw-r--r--@  1 williamcory  staff   2045 May 18 19:38 vitest.config.ts.timestamp-1695021753373-c9c064001bd1a.mjs
+
+codex
+The reported errors are in the `lsHost`-aware real filesystem adapter. I found the wrappers are inferred from broad `PathLike` inputs and the casts preserve `BigIntStats`/`undefined`; I’m going to make the wrapper signatures concrete and convert the path before passing it into the virtual mtime helpers.
+exec
+/bin/zsh -lc "find lsp/ts-plugin -path '*/.review-slices' -o -path '*/_repair_w2_2.fix.md'" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+exec
+/bin/zsh -lc "rg -n \"export interface FileAccessObject|type FileAccessObject|statSync\" packages lsp src --glob '*.{ts,tsx}'" in /Users/williamcory/tevm-monorepo
+ exited 2 in 0ms:
+rg: src: No such file or directory (os error 2)
+lsp/lsp/src/SolFile.ts:1:import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+lsp/lsp/src/SolFile.ts:3:import { bundler, type FileAccessObject } from '@tevm/base-bundler'
+lsp/lsp/src/SolFile.ts:80:			statSync: (fileName) => {
+lsp/lsp/src/SolFile.ts:82:					return statSync(fileName)
+lsp/lsp/src/SolFile.ts:85:					return { ...statSync(fileName), mtimeMs: snapshotMtimeMs } as ReturnType<typeof statSync>
+lsp/lsp/src/SolFile.ts:87:					return { mtimeMs: snapshotMtimeMs } as ReturnType<typeof statSync>
+lsp/ts-plugin/src/getScriptSnapshot-test.ts:55:		statSync: vi.fn(),
+lsp/ts-plugin/src/factories/decorator.spec.ts:24:	statSync: vi.fn() as any,
+lsp/ts-plugin/src/bin/tevm-gen.ts:2:import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+lsp/ts-plugin/src/bin/tevm-gen.ts:5:import { bundler, type FileAccessObject } from '@tevm/base-bundler'
+lsp/ts-plugin/src/bin/tevm-gen.ts:17:	statSync,
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:1:import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:143:		expect(fao.statSync).toBe(statSync)
+lsp/ts-plugin/src/bin/tevm-gen-coverage.spec.ts:1:import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+lsp/ts-plugin/src/bin/tevm-gen-coverage.spec.ts:83:			statSync,
+lsp/ts-plugin/src/factories/fileAccessObject.ts:1:import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+lsp/ts-plugin/src/factories/fileAccessObject.ts:94:		statSync,
+lsp/ts-plugin/src/factories/fileAccessObject.ts:121:			statSync,
+lsp/ts-plugin/src/factories/fileAccessObject.ts:141:		statSync: (fileName) => {
+lsp/ts-plugin/src/factories/fileAccessObject.ts:144:				return statSync(fileName)
+lsp/ts-plugin/src/factories/fileAccessObject.ts:147:				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
+lsp/ts-plugin/src/factories/fileAccessObject.ts:149:				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
+lsp/ts-plugin/src/decorators/getDefinitionAtPosition.spec.ts:39:	statSync: vi.fn() as any,
+lsp/ts-plugin/src/decorators/getScriptSnapshot-debug.spec.ts:35:		statSync: vi.fn(),
+lsp/ts-plugin/src/decorators/getScriptKind.spec.ts:24:	statSync: vi.fn() as any,
+lsp/ts-plugin/src/decorators/getDefinitionAtPosition.ts:1:import { bundler, type FileAccessObject } from '@tevm/base-bundler'
+lsp/ts-plugin/src/decorators/resolveModuleNameLiterals.spec.ts:1:import { statSync } from 'node:fs'
+lsp/ts-plugin/src/decorators/resolveModuleNameLiterals.spec.ts:22:	statSync: vi.fn().mockImplementation(statSync),
+lsp/ts-plugin/src/decorators/getScriptSnapshot.spec.ts:1:import { mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+lsp/ts-plugin/src/decorators/getScriptSnapshot.spec.ts:34:	statSync,
+lsp/ts-plugin/src/decorators/getDefinitionAtPosition-additional.spec.ts:35:	statSync: vi.fn() as any,
+
+exec
+/bin/zsh -lc 'find . -maxdepth 3 -type d -name .review-slices -print' in /Users/williamcory/tevm-monorepo
+ succeeded in 416ms:
+./.review-slices
+
+exec
+/bin/zsh -lc "sed -n '60,110p' lsp/lsp/src/SolFile.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+					return Promise.resolve(snapshotText)
+				}
+				return readFile(fileName, { encoding })
+			},
+			readFileSync: (fileName, encoding) => {
+				if (isActiveFile(fileName)) {
+					return snapshotText
+				}
+				return readFileSync(fileName, { encoding })
+			},
+			stat: async (fileName) => {
+				if (!isActiveFile(fileName)) {
+					return stat(fileName)
+				}
+				try {
+					return { ...(await stat(fileName)), mtimeMs: snapshotMtimeMs } as Awaited<ReturnType<typeof stat>>
+				} catch (_e) {
+					return { mtimeMs: snapshotMtimeMs } as Awaited<ReturnType<typeof stat>>
+				}
+			},
+			statSync: (fileName) => {
+				if (!isActiveFile(fileName)) {
+					return statSync(fileName)
+				}
+				try {
+					return { ...statSync(fileName), mtimeMs: snapshotMtimeMs } as ReturnType<typeof statSync>
+				} catch (_e) {
+					return { mtimeMs: snapshotMtimeMs } as ReturnType<typeof statSync>
+				}
+			},
+			writeFile,
+			writeFileSync,
+		} satisfies FileAccessObject
+		const cache = createCache(c.cacheDir, fao, projectRoot)
+		const b = bundler(
+			c,
+			console,
+			fao,
+			solc,
+			cache,
+		)
+		const tsFile = b.resolveTsModuleSync(this.fileName, projectRoot, false, false)
+		this.embeddedFiles = [
+			{
+				fileName: `${this.fileName}.ts`,
+				snapshot: {
+					getText(start, end) {
+						return tsFile.code.substring(start, end)
+					},
+					getLength() {
+						return tsFile.code.length
+
+exec
+/bin/zsh -lc "rg -n \"FileAccessObject\" lsp/ts-plugin/node_modules/@tevm/base-bundler lsp/ts-plugin/types lsp/ts-plugin/src --glob '*.{ts,d.ts}'" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+lsp/ts-plugin/node_modules/@tevm/base-bundler/src/bundler.spec.ts:8:import type { Bundler, FileAccessObject, Logger } from './types.js'
+lsp/ts-plugin/node_modules/@tevm/base-bundler/src/bundler.spec.ts:20:const fao: FileAccessObject = {
+lsp/ts-plugin/types/factories/decorator.d.ts:1:import type { FileAccessObject } from '@tevm/base-bundler';
+lsp/ts-plugin/types/factories/decorator.d.ts:16:export type HostDecorator = (createInfo: typescript.server.PluginCreateInfo, ts: typeof typescript, logger: Logger, config: ResolvedCompilerConfig, fao: FileAccessObject) => typescript.LanguageServiceHost;
+lsp/ts-plugin/types/factories/decorator.d.ts:30:export type PartialHostDecorator = (createInfo: typescript.server.PluginCreateInfo, ts: typeof typescript, logger: Logger, config: ResolvedCompilerConfig, fao: FileAccessObject) => Partial<typescript.LanguageServiceHost>;
+lsp/ts-plugin/types/factories/fileAccessObject.d.ts:1:import type { FileAccessObject } from '@tevm/base-bundler';
+lsp/ts-plugin/types/factories/fileAccessObject.d.ts:4: * Creates a FileAccessObject implementation that uses the TypeScript LanguageServiceHost
+lsp/ts-plugin/types/factories/fileAccessObject.d.ts:12: * @returns A FileAccessObject implementation that delegates to the LanguageServiceHost
+lsp/ts-plugin/types/factories/fileAccessObject.d.ts:14:export declare const createFileAccessObject: (lsHost: typescript.LanguageServiceHost) => FileAccessObject;
+lsp/ts-plugin/types/factories/fileAccessObject.d.ts:16: * Creates a FileAccessObject implementation that uses the real filesystem.
+lsp/ts-plugin/types/factories/fileAccessObject.d.ts:23: * @returns A FileAccessObject implementation using real filesystem access
+lsp/ts-plugin/types/factories/fileAccessObject.d.ts:25:export declare const createRealFileAccessObject: () => FileAccessObject;
+lsp/ts-plugin/node_modules/@tevm/base-bundler/src/types.ts:21:export type FileAccessObject = {
+lsp/ts-plugin/node_modules/@tevm/base-bundler/src/types.ts:51:	fao: FileAccessObject,
+lsp/ts-plugin/src/factories/decorator.ts:1:import type { FileAccessObject } from '@tevm/base-bundler'
+lsp/ts-plugin/src/factories/decorator.ts:22:	fao: FileAccessObject,
+lsp/ts-plugin/src/factories/decorator.ts:43:	fao: FileAccessObject,
+lsp/ts-plugin/src/factories/fileAccessObject.ts:3:import type { FileAccessObject } from '@tevm/base-bundler'
+lsp/ts-plugin/src/factories/fileAccessObject.ts:55: * Creates a FileAccessObject implementation that uses the TypeScript LanguageServiceHost
+lsp/ts-plugin/src/factories/fileAccessObject.ts:63: * @returns A FileAccessObject implementation that delegates to the LanguageServiceHost
+lsp/ts-plugin/src/factories/fileAccessObject.ts:65:export const createFileAccessObject = (lsHost: typescript.LanguageServiceHost): FileAccessObject => {
+lsp/ts-plugin/src/factories/fileAccessObject.ts:102: * Creates a FileAccessObject implementation that uses the real filesystem.
+lsp/ts-plugin/src/factories/fileAccessObject.ts:109: * @returns A FileAccessObject implementation using real filesystem access
+lsp/ts-plugin/src/factories/fileAccessObject.ts:111:export const createRealFileAccessObject = (
+lsp/ts-plugin/src/factories/fileAccessObject.ts:114:): FileAccessObject => {
+lsp/ts-plugin/src/factories/decorator.spec.ts:1:import type { FileAccessObject } from '@tevm/base-bundler'
+lsp/ts-plugin/src/factories/decorator.spec.ts:19:const fao: FileAccessObject = {
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:7:import { createFileAccessObject, createRealFileAccessObject } from './fileAccessObject.js'
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:17:describe('createFileAccessObject', () => {
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:21:		const fileAccessObject = createFileAccessObject(lsHost)
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:29:		const fileAccessObject = createFileAccessObject(lsHost)
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:38:		const fileAccessObject = createFileAccessObject(lsHost)
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:47:		const fileAccessObject = createFileAccessObject(lsHost)
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:55:		const fileAccessObject = createFileAccessObject(lsHost)
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:64:		const fileAccessObject = createFileAccessObject(lsHost)
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:72:		const fileAccessObject = createFileAccessObject(lsHost)
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:81:		const fileAccessObject = createFileAccessObject(lsHost)
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:97:		const fileAccessObject = createFileAccessObject(lsHost)
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:118:describe('createRealFileAccessObject', () => {
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:136:		const fao = createRealFileAccessObject()
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:150:		const fao = createRealFileAccessObject()
+lsp/ts-plugin/src/factories/fileAccessObject.spec.ts:166:		const fao = createRealFileAccessObject()
+lsp/ts-plugin/src/tsPlugin.ts:11:import { createFileAccessObject, createRealFileAccessObject } from './factories/fileAccessObject.js'
+lsp/ts-plugin/src/tsPlugin.ts:49:			const fao = createFileAccessObject(createInfo.languageServiceHost)
+lsp/ts-plugin/src/tsPlugin.ts:52:				createRealFileAccessObject(createInfo.languageServiceHost, createInfo.project.getCurrentDirectory()),
+lsp/ts-plugin/types/decorators/getDefinitionAtPosition.d.ts:1:import { type FileAccessObject } from '@tevm/base-bundler';
+lsp/ts-plugin/types/decorators/getDefinitionAtPosition.d.ts:29:export declare const getDefinitionServiceDecorator: (service: typescript.LanguageService, config: ResolvedCompilerConfig, logger: Logger, ts: typeof typescript, fao: FileAccessObject, solcCache: Cache) => typescript.LanguageService;
+lsp/ts-plugin/src/decorators/getDefinitionAtPosition.ts:1:import { bundler, type FileAccessObject } from '@tevm/base-bundler'
+lsp/ts-plugin/src/decorators/getDefinitionAtPosition.ts:45:	fao: FileAccessObject,
+lsp/ts-plugin/src/decorators/getDefinitionAtPosition.spec.ts:3:import type { Bundler, FileAccessObject } from '@tevm/base-bundler'
+lsp/ts-plugin/src/decorators/getDefinitionAtPosition.spec.ts:34:const fao: FileAccessObject = {
+lsp/ts-plugin/src/decorators/getScriptKind.spec.ts:2:import type { FileAccessObject } from '@tevm/base-bundler'
+lsp/ts-plugin/src/decorators/getScriptKind.spec.ts:19:const fao: FileAccessObject = {
+lsp/ts-plugin/src/decorators/resolveModuleNameLiterals.spec.ts:2:import type { FileAccessObject } from '@tevm/base-bundler'
+lsp/ts-plugin/src/decorators/resolveModuleNameLiterals.spec.ts:17:const fao: FileAccessObject = {
+lsp/ts-plugin/src/decorators/getDefinitionAtPosition-additional.spec.ts:3:import type { Bundler, FileAccessObject } from '@tevm/base-bundler'
+lsp/ts-plugin/src/decorators/getDefinitionAtPosition-additional.spec.ts:30:const fao: FileAccessObject = {
+lsp/ts-plugin/src/decorators/getScriptSnapshot.spec.ts:5:import type { FileAccessObject } from '@tevm/base-bundler'
+lsp/ts-plugin/src/decorators/getScriptSnapshot.spec.ts:29:const fao: FileAccessObject = {
+lsp/ts-plugin/src/tsPlugin.mock.spec.ts:47:	createFileAccessObject: vi.fn(() => ({})),
+lsp/ts-plugin/src/tsPlugin.mock.spec.ts:48:	createRealFileAccessObject: vi.fn(() => ({})),
+lsp/ts-plugin/src/bin/tevm-gen-coverage.spec.ts:3:import { bundler, FileAccessObject } from '@tevm/base-bundler'
+lsp/ts-plugin/src/bin/tevm-gen-coverage.spec.ts:78:		const fao: FileAccessObject = {
+lsp/ts-plugin/src/bin/tevm-gen-basic.spec.ts:26:	it('should mock the FileAccessObject exists method', async () => {
+lsp/ts-plugin/src/bin/tevm-gen-basic.spec.ts:27:		// Create a mock implementation of FileAccessObject
+lsp/ts-plugin/src/bin/tevm-gen.ts:5:import { bundler, type FileAccessObject } from '@tevm/base-bundler'
+lsp/ts-plugin/src/bin/tevm-gen.ts:12:const fao: FileAccessObject = {
+
+exec
+/bin/zsh -lc "sed -n '120,210p' lsp/ts-plugin/src/factories/fileAccessObject.spec.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+
+	beforeEach(() => {
+		tempFilePath = path.join(os.tmpdir(), `test-${Date.now()}.txt`)
+	})
+
+	afterEach(() => {
+		try {
+			if (existsSync(tempFilePath)) {
+				require('node:fs').unlinkSync(tempFilePath)
+			}
+		} catch (_e) {
+			// Ignore cleanup errors
+		}
+	})
+
+	it('should create a file access object using real fs functions', async () => {
+		const fao = createRealFileAccessObject()
+
+		// Test that the object contains all expected methods
+		expect(fao.readFile).toBeDefined()
+		expect(fao.existsSync).toBe(existsSync)
+		expect(fao.readFileSync).toBe(readFileSync)
+		expect(fao.writeFileSync).toBe(writeFileSync)
+		expect(fao.statSync).toBe(statSync)
+		expect(fao.mkdirSync).toBe(mkdirSync)
+		expect(fao.mkdir).toBe(mkdir)
+		expect(fao.writeFile).toBe(writeFile)
+	})
+
+	it('should check if file exists using real fs', async () => {
+		const fao = createRealFileAccessObject()
+
+		// Write a test file
+		await fao.writeFile(tempFilePath, 'test content')
+
+		// Check if it exists
+		const exists = await fao.exists(tempFilePath)
+		expect(exists).toBe(true)
+
+		// Check a non-existent file
+		const nonExistentPath = `${tempFilePath}.nonexistent`
+		const nonExists = await fao.exists(nonExistentPath)
+		expect(nonExists).toBe(false)
+	})
+
+	it('should properly create directories and write files to them', async () => {
+		const fao = createRealFileAccessObject()
+
+		// Create a temporary directory path
+		const tempDir = path.join(os.tmpdir(), `tevm-test-dir-${Date.now()}`)
+		const nestedFilePath = path.join(tempDir, 'nested', 'file.txt')
+
+		try {
+			// Create the nested directory structure
+			await fao.mkdir(path.join(tempDir, 'nested'), { recursive: true })
+
+			// Write a file in the nested directory
+			await fao.writeFile(nestedFilePath, 'nested file content')
+
+			// Verify the file exists
+			const exists = await fao.exists(nestedFilePath)
+			expect(exists).toBe(true)
+
+			// Read the file content
+			const content = await fao.readFile(nestedFilePath, 'utf8')
+			expect(content).toBe('nested file content')
+		} finally {
+			// Clean up
+			try {
+				require('node:fs').rmSync(tempDir, { recursive: true, force: true })
+			} catch (_e) {
+				// Ignore cleanup errors
+			}
+		}
+	})
+})
+
+exec
+/bin/zsh -lc "sed -n '1,80p' lsp/ts-plugin/node_modules/@tevm/base-bundler/src/types.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import type { mkdirSync, statSync } from 'node:fs'
+import type { mkdir, stat, writeFile } from 'node:fs/promises'
+import type { Cache } from '@tevm/bundler-cache'
+import type { ModuleInfo } from '@tevm/compiler'
+import type { ResolvedCompilerConfig } from '@tevm/config'
+import type { SolcInputDescription, SolcOutput } from '@tevm/solc'
+import type { Node } from 'solidity-ast/node.js'
+
+export type BundlerResult = {
+	code: string
+	modules: Record<string, ModuleInfo>
+	solcInput: SolcInputDescription | undefined
+	solcOutput: SolcOutput | undefined
+	asts: Record<string, Node> | undefined
+}
+
+/**
+ * Generalized interface for accessing file system
+ * Allows this package to be used in browser environments or otherwise pluggable
+ */
+export type FileAccessObject = {
+	writeFileSync: (path: string, data: string) => void
+	writeFile: typeof writeFile
+	readFile: (path: string, encoding: BufferEncoding) => Promise<string>
+	readFileSync: (path: string, encoding: BufferEncoding) => string
+	exists: (path: string) => Promise<boolean>
+	existsSync: (path: string) => boolean
+	statSync: typeof statSync
+	stat: typeof stat
+	mkdirSync: typeof mkdirSync
+	mkdir: typeof mkdir
+}
+
+export type AsyncBundlerResult = (
+	module: string,
+	basedir: string,
+	includeAst: boolean,
+	includeBytecode: boolean,
+) => Promise<BundlerResult>
+
+export type SyncBundlerResult = (
+	module: string,
+	basedir: string,
+	includeAst: boolean,
+	includeBytecode: boolean,
+) => BundlerResult
+
+export type Bundler = (
+	config: ResolvedCompilerConfig,
+	logger: Logger,
+	fao: FileAccessObject,
+	solc: any,
+	cache: Cache,
+	/**
+	 * The name of the package that contains the contract package
+	 * If not included the bundler will attempt to autodetect the package
+	 */
+	contractPackage?: '@tevm/contract' | 'tevm/contract',
+) => {
+	/**
+	 * The name of the plugin.
+	 */
+	name: string
+	/**
+	 * The configuration of the plugin.
+	 */
+	config: ResolvedCompilerConfig
+	include?: string[]
+	exclude?: string[]
+	/**
+	 * Resolves .d.ts representation of the solidity module
+	 */
+	resolveDts: AsyncBundlerResult
+	/**
+	 * Resolves .d.ts representation of the solidity module
+	 */
+	resolveDtsSync: SyncBundlerResult
+	/**
+	 * Resolves typescript representation of the solidity module
+	 */
+
+codex
+One nuance: the report path named by the prompt is at repo root, but the file modification constraint says only `lsp/ts-plugin`. I’m keeping the report inside `lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md` to satisfy the scope constraint.
+exec
+/bin/zsh -lc 'mkdir -p lsp/ts-plugin/.review-slices' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+codex
+I’m applying a narrow patch now: add a `Stats` type import, force both wrappers to expose `Stats` results, and convert `PathLike` to string before using it for the LSP virtual timestamp lookup and the delegated stat call.
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+/Users/williamcory/tevm-monorepo/lsp/ts-plugin/src/factories/fileAccessObject.ts
+diff --git a/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..dfde660f05e5dc1d2a13526d961f3d8760a4d853
+--- /dev/null
++++ b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to return `Stats` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `statSync` call.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to return `Promise<Stats>` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `stat` call.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..04c5d358b0abdff3ec4dd1ad905ee05bec9e28d7
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -139,25 +140,27 @@
+ 		readFileSync,
+ 		writeFileSync,
+ 		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+ 		},
+ 		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+ 		},
+ 		mkdirSync,
+
+diff --git a/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..dfde660f05e5dc1d2a13526d961f3d8760a4d853
+--- /dev/null
++++ b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to return `Stats` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `statSync` call.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to return `Promise<Stats>` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `stat` call.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..04c5d358b0abdff3ec4dd1ad905ee05bec9e28d7
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -139,25 +140,27 @@
+ 		readFileSync,
+ 		writeFileSync,
+ 		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+ 		},
+ 		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+ 		},
+ 		mkdirSync,
+
+codex
+The first patch preserves the existing behavior, but I’m doing a static sanity check against the overload shape now. Since package typecheck commands are disallowed, I’m checking the resulting source directly and tightening the assignment if the overloaded `typeof statSync` target still needs an explicit cast.
+exec
+/bin/zsh -lc "sed -n '1,180p' lsp/ts-plugin/src/factories/fileAccessObject.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,120p' lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+# Wave 2 typecheck repair (round 2)
+
+**Scope:** lsp/ts-plugin
+
+## Errors fixed
+- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to return `Stats` and avoid the `BigIntStats | undefined` inference path.
+- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `statSync` call.
+- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to return `Promise<Stats>` and avoid the `BigIntStats | undefined` inference path.
+- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `stat` call.
+
+ succeeded in 0ms:
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import type { Stats } from 'node:fs'
+import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+import type { FileAccessObject } from '@tevm/base-bundler'
+import path from 'node:path'
+import type typescript from 'typescript/lib/tsserverlibrary.js'
+
+const hashText = (text: string): number => {
+	let hash = 0
+	for (let i = 0; i < text.length; i++) {
+		hash = (hash * 31 + text.charCodeAt(i)) >>> 0
+	}
+	return hash
+}
+
+const getScriptSnapshotText = (lsHost: typescript.LanguageServiceHost, fileName: string, cwd: string): string | undefined => {
+	const candidates = [fileName, path.resolve(cwd, fileName)]
+	for (const candidate of candidates) {
+		try {
+			const snapshot = lsHost.getScriptSnapshot?.(candidate)
+			if (snapshot) {
+				return snapshot.getText(0, snapshot.getLength())
+			}
+		} catch (_e) {
+			// Fall through to the next candidate.
+		}
+	}
+	return undefined
+}
+
+const getScriptVersion = (lsHost: typescript.LanguageServiceHost, fileName: string, cwd: string): string | undefined => {
+	const candidates = [fileName, path.resolve(cwd, fileName)]
+	for (const candidate of candidates) {
+		try {
+			const version = lsHost.getScriptVersion?.(candidate)
+			if (version !== undefined) {
+				return version
+			}
+		} catch (_e) {
+			// Fall through to the next candidate.
+		}
+	}
+	return undefined
+}
+
+const getVirtualMtimeMs = (lsHost: typescript.LanguageServiceHost, fileName: string, cwd: string): number | undefined => {
+	const snapshotText = getScriptSnapshotText(lsHost, fileName, cwd)
+	const version = getScriptVersion(lsHost, fileName, cwd)
+	if (snapshotText === undefined) {
+		return undefined
+	}
+	return hashText(`${version ?? ''}:${snapshotText}`)
+}
+
+/**
+ * Creates a FileAccessObject implementation that uses the TypeScript LanguageServiceHost
+ * to read and write files.
+ *
+ * This adapter allows the Tevm bundler to interact with the TypeScript language service's
+ * virtual file system rather than directly with the real file system. The LSP maintains
+ * its own view of files, which may include unsaved changes not yet written to disk.
+ *
+ * @param lsHost - The TypeScript language service host providing file access
+ * @returns A FileAccessObject implementation that delegates to the LanguageServiceHost
+ */
+export const createFileAccessObject = (lsHost: typescript.LanguageServiceHost): FileAccessObject => {
+	return {
+		existsSync: (fileName) => lsHost.fileExists(fileName),
+		readFileSync: (fileName, encoding) => {
+			const file = lsHost.readFile(fileName, encoding)
+			if (!file) {
+				throw new Error(`@tevm/ts-plugin: unable to read file ${fileName}`)
+			}
+			return file
+		},
+		writeFileSync: (fileName, data) => {
+			if (!lsHost.writeFile) {
+				throw new Error(`@tevm/ts-plugin: host cannot write file ${fileName}`)
+			}
+			lsHost.writeFile(fileName, data)
+		},
+		// TODO clean this up. This works fine only because only the cache needs them and the cache is operating on a real file system and not a virtual one
+		// These are just stubs to match interface since making multiple interfaces is tedious atm
+		exists: async (fileName) => {
+			return lsHost.fileExists(fileName)
+		},
+		readFile: async (fileName, encoding) => {
+			const file = lsHost.readFile(fileName, encoding)
+			if (!file) {
+				throw new Error(`@tevm/ts-plugin: unable to read file ${fileName}`)
+			}
+			return file
+		},
+		stat,
+		statSync,
+		mkdirSync,
+		mkdir,
+		writeFile,
+	}
+}
+
+/**
+ * Creates a FileAccessObject implementation that uses the real filesystem.
+ *
+ * This implementation directly uses Node.js fs/fs.promises APIs to access the
+ * actual filesystem rather than the TypeScript language service's virtual filesystem.
+ * It's primarily used for operations that need to persist outside the language
+ * service context, such as caching.
+ *
+ * @returns A FileAccessObject implementation using real filesystem access
+ */
+export const createRealFileAccessObject = (
+	lsHost?: typescript.LanguageServiceHost,
+	cwd = process.cwd(),
+): FileAccessObject => {
+	if (!lsHost) {
+		return {
+			readFile,
+			existsSync,
+			readFileSync,
+			writeFileSync,
+			statSync,
+			stat,
+			mkdirSync,
+			mkdir,
+			writeFile,
+			exists: async (fileName) => {
+				try {
+					await access(fileName)
+					return true
+				} catch (_e) {
+					return false
+				}
+			},
+		}
+	}
+	return {
+		readFile,
+		existsSync,
+		readFileSync,
+		writeFileSync,
+		statSync: (fileName) => {
+			const filePath = fileName.toString()
+			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+			if (virtualMtimeMs === undefined) {
+				return statSync(filePath)
+			}
+			try {
+				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+			} catch (_e) {
+				return { mtimeMs: virtualMtimeMs } as Stats
+			}
+		},
+		stat: async (fileName) => {
+			const filePath = fileName.toString()
+			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+			if (virtualMtimeMs === undefined) {
+				return stat(filePath)
+			}
+			try {
+				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+			} catch (_e) {
+				return { mtimeMs: virtualMtimeMs } as Stats
+			}
+		},
+		mkdirSync,
+		mkdir,
+		writeFile,
+		exists: async (fileName) => {
+			try {
+				await access(fileName)
+				return true
+			} catch (_e) {
+				return false
+			}
+		},
+	}
+}
+
+diff --git a/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..dfde660f05e5dc1d2a13526d961f3d8760a4d853
+--- /dev/null
++++ b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to return `Stats` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `statSync` call.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to return `Promise<Stats>` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `stat` call.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..04c5d358b0abdff3ec4dd1ad905ee05bec9e28d7
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -139,25 +140,27 @@
+ 		readFileSync,
+ 		writeFileSync,
+ 		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+ 		},
+ 		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+ 		},
+ 		mkdirSync,
+
+exec
+/bin/zsh -lc 'rg -n "interface BigIntStats|class Stats|mtimeMs" lsp/ts-plugin/node_modules/@types/node/fs.d.ts' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+44:        mtimeMs: T;
+75:     *   mtimeMs: 1318289051000.1,
+99:     *   mtimeMs: 1318289051000n,
+113:    class Stats {
+167:    class StatsFs {}
+168:    interface BigIntStatsFs extends StatsFsBase<bigint> {}
+1111:     *   mtimeMs: 1561174614583.3518,
+1132:     *   mtimeMs: 1561174614584,
+3549:     * to compare `curr.mtimeMs` and `prev.mtimeMs`.
+3600:     * to compare `curr.mtimeMs` and `prev.mtimeMs`.
+4575:    interface BigIntStats extends StatsBase<bigint> {
+
+diff --git a/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..dfde660f05e5dc1d2a13526d961f3d8760a4d853
+--- /dev/null
++++ b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to return `Stats` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `statSync` call.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to return `Promise<Stats>` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `stat` call.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..04c5d358b0abdff3ec4dd1ad905ee05bec9e28d7
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -139,25 +140,27 @@
+ 		readFileSync,
+ 		writeFileSync,
+ 		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+ 		},
+ 		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+ 		},
+ 		mkdirSync,
+
+exec
+/bin/zsh -lc "sed -n '1,140p' lsp/ts-plugin/node_modules/@types/node/fs.d.ts && rg -n \"function statSync|function stat\\(\" lsp/ts-plugin/node_modules/@types/node/fs.d.ts lsp/ts-plugin/node_modules/@types/node/fs/promises.d.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+declare module "node:fs" {
+    import { NonSharedBuffer } from "node:buffer";
+    import { Abortable, EventEmitter, InternalEventEmitter } from "node:events";
+    import { FileHandle } from "node:fs/promises";
+    import * as stream from "node:stream";
+    import { URL } from "node:url";
+    /**
+     * Valid types for path values in "fs".
+     */
+    type PathLike = string | Buffer | URL;
+    type PathOrFileDescriptor = PathLike | number;
+    type TimeLike = string | number | Date;
+    type NoParamCallback = (err: NodeJS.ErrnoException | null) => void;
+    type BufferEncodingOption =
+        | "buffer"
+        | {
+            encoding: "buffer";
+        };
+    interface ObjectEncodingOptions {
+        encoding?: BufferEncoding | null | undefined;
+    }
+    type EncodingOption = ObjectEncodingOptions | BufferEncoding | undefined | null;
+    type OpenMode = number | string;
+    type Mode = number | string;
+    interface StatsBase<T> {
+        isFile(): boolean;
+        isDirectory(): boolean;
+        isBlockDevice(): boolean;
+        isCharacterDevice(): boolean;
+        isSymbolicLink(): boolean;
+        isFIFO(): boolean;
+        isSocket(): boolean;
+        dev: T;
+        ino: T;
+        mode: T;
+        nlink: T;
+        uid: T;
+        gid: T;
+        rdev: T;
+        size: T;
+        blksize: T;
+        blocks: T;
+        atimeMs: T;
+        mtimeMs: T;
+        ctimeMs: T;
+        birthtimeMs: T;
+        atime: Date;
+        mtime: Date;
+        ctime: Date;
+        birthtime: Date;
+    }
+    interface Stats extends StatsBase<number> {}
+    /**
+     * A `fs.Stats` object provides information about a file.
+     *
+     * Objects returned from {@link stat}, {@link lstat}, {@link fstat}, and
+     * their synchronous counterparts are of this type.
+     * If `bigint` in the `options` passed to those methods is true, the numeric values
+     * will be `bigint` instead of `number`, and the object will contain additional
+     * nanosecond-precision properties suffixed with `Ns`. `Stat` objects are not to be created directly using the `new` keyword.
+     *
+     * ```console
+     * Stats {
+     *   dev: 2114,
+     *   ino: 48064969,
+     *   mode: 33188,
+     *   nlink: 1,
+     *   uid: 85,
+     *   gid: 100,
+     *   rdev: 0,
+     *   size: 527,
+     *   blksize: 4096,
+     *   blocks: 8,
+     *   atimeMs: 1318289051000.1,
+     *   mtimeMs: 1318289051000.1,
+     *   ctimeMs: 1318289051000.1,
+     *   birthtimeMs: 1318289051000.1,
+     *   atime: Mon, 10 Oct 2011 23:24:11 GMT,
+     *   mtime: Mon, 10 Oct 2011 23:24:11 GMT,
+     *   ctime: Mon, 10 Oct 2011 23:24:11 GMT,
+     *   birthtime: Mon, 10 Oct 2011 23:24:11 GMT }
+     * ```
+     *
+     * `bigint` version:
+     *
+     * ```console
+     * BigIntStats {
+     *   dev: 2114n,
+     *   ino: 48064969n,
+     *   mode: 33188n,
+     *   nlink: 1n,
+     *   uid: 85n,
+     *   gid: 100n,
+     *   rdev: 0n,
+     *   size: 527n,
+     *   blksize: 4096n,
+     *   blocks: 8n,
+     *   atimeMs: 1318289051000n,
+     *   mtimeMs: 1318289051000n,
+     *   ctimeMs: 1318289051000n,
+     *   birthtimeMs: 1318289051000n,
+     *   atimeNs: 1318289051000000000n,
+     *   mtimeNs: 1318289051000000000n,
+     *   ctimeNs: 1318289051000000000n,
+     *   birthtimeNs: 1318289051000000000n,
+     *   atime: Mon, 10 Oct 2011 23:24:11 GMT,
+     *   mtime: Mon, 10 Oct 2011 23:24:11 GMT,
+     *   ctime: Mon, 10 Oct 2011 23:24:11 GMT,
+     *   birthtime: Mon, 10 Oct 2011 23:24:11 GMT }
+     * ```
+     * @since v0.1.21
+     */
+    class Stats {
+        private constructor();
+    }
+    interface StatsFsBase<T> {
+        /** Type of file system. */
+        type: T;
+        /**  Optimal transfer block size. */
+        bsize: T;
+        /**  Total data blocks in file system. */
+        blocks: T;
+        /** Free blocks in file system. */
+        bfree: T;
+        /** Available blocks for unprivileged users */
+        bavail: T;
+        /** Total file nodes in file system. */
+        files: T;
+        /** Free file nodes in file system. */
+        ffree: T;
+    }
+    interface StatsFs extends StatsFsBase<number> {}
+    /**
+     * Provides information about a mounted file system.
+     *
+     * Objects returned from {@link statfs} and its synchronous counterpart are of
+     * this type. If `bigint` in the `options` passed to those methods is `true`, the
+     * numeric values will be `bigint` instead of `number`.
+     *
+     * ```console
+lsp/ts-plugin/node_modules/@types/node/fs/promises.d.ts:931:    function stat(path: PathLike): Promise<Stats>;
+lsp/ts-plugin/node_modules/@types/node/fs/promises.d.ts:932:    function stat(
+lsp/ts-plugin/node_modules/@types/node/fs/promises.d.ts:939:    function stat(
+lsp/ts-plugin/node_modules/@types/node/fs/promises.d.ts:946:    function stat(
+lsp/ts-plugin/node_modules/@types/node/fs/promises.d.ts:953:    function stat(
+lsp/ts-plugin/node_modules/@types/node/fs/promises.d.ts:960:    function stat(
+lsp/ts-plugin/node_modules/@types/node/fs/promises.d.ts:966:    function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats | undefined>;
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1143:    function stat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1144:    function stat(
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1154:    function stat(
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1162:    function stat(
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1170:    function stat(
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1178:    function stat(
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1185:    function stat(
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1275:    function statSync(path: PathLike): Stats;
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1276:    function statSync(
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1283:    function statSync(
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1290:    function statSync(
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1297:    function statSync(
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1304:    function statSync(
+lsp/ts-plugin/node_modules/@types/node/fs.d.ts:1310:    function statSync(path: PathLike, options?: StatOptions): Stats | BigIntStats | undefined;
+
+diff --git a/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..dfde660f05e5dc1d2a13526d961f3d8760a4d853
+--- /dev/null
++++ b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to return `Stats` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `statSync` call.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to return `Promise<Stats>` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `stat` call.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..04c5d358b0abdff3ec4dd1ad905ee05bec9e28d7
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -139,25 +140,27 @@
+ 		readFileSync,
+ 		writeFileSync,
+ 		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+ 		},
+ 		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+ 		},
+ 		mkdirSync,
+
+exec
+/bin/zsh -lc "sed -n '1268,1314p' lsp/ts-plugin/node_modules/@types/node/fs.d.ts && sed -n '928,970p' lsp/ts-plugin/node_modules/@types/node/fs/promises.d.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+        ): Stats | BigIntStats;
+        (path: PathLike, options?: StatSyncOptions): Stats | BigIntStats | undefined;
+    }
+    /**
+     * Synchronous stat(2) - Get file status.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    function statSync(path: PathLike): Stats;
+    function statSync(
+        path: PathLike,
+        options?: StatOptions & {
+            bigint?: false | undefined;
+            throwIfNoEntry?: true | undefined;
+        },
+    ): Stats;
+    function statSync(
+        path: PathLike,
+        options: StatOptions & {
+            bigint: true;
+            throwIfNoEntry?: true | undefined;
+        },
+    ): BigIntStats;
+    function statSync(
+        path: PathLike,
+        options: StatOptions & {
+            bigint?: false | undefined;
+            throwIfNoEntry: false;
+        },
+    ): Stats | undefined;
+    function statSync(
+        path: PathLike,
+        options: StatOptions & {
+            bigint: true;
+            throwIfNoEntry: false;
+        },
+    ): BigIntStats | undefined;
+    function statSync(
+        path: PathLike,
+        options: StatOptions & {
+            throwIfNoEntry?: true | undefined;
+        },
+    ): Stats | BigIntStats;
+    function statSync(path: PathLike, options?: StatOptions): Stats | BigIntStats | undefined;
+    /**
+     * Invokes the callback with the `fs.Stats` for the file descriptor.
+     *
+     * See the POSIX [`fstat(2)`](http://man7.org/linux/man-pages/man2/fstat.2.html) documentation for more detail.
+     * @since v10.0.0
+     * @return Fulfills with the {fs.Stats} object for the given `path`.
+     */
+    function stat(path: PathLike): Promise<Stats>;
+    function stat(
+        path: PathLike,
+        opts?: StatOptions & {
+            bigint?: false | undefined;
+            throwIfNoEntry?: true | undefined;
+        },
+    ): Promise<Stats>;
+    function stat(
+        path: PathLike,
+        opts: StatOptions & {
+            bigint: true;
+            throwIfNoEntry?: true | undefined;
+        },
+    ): Promise<BigIntStats>;
+    function stat(
+        path: PathLike,
+        opts: StatOptions & {
+            bigint?: false | undefined;
+            throwIfNoEntry: false;
+        },
+    ): Promise<Stats | undefined>;
+    function stat(
+        path: PathLike,
+        opts: StatOptions & {
+            bigint: true;
+            throwIfNoEntry: false;
+        },
+    ): Promise<BigIntStats | undefined>;
+    function stat(
+        path: PathLike,
+        opts: StatOptions & {
+            throwIfNoEntry?: true | undefined;
+        },
+    ): Promise<Stats | BigIntStats>;
+    function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats | undefined>;
+    /**
+     * @since v19.6.0, v18.15.0
+     * @return Fulfills with the {fs.StatFs} object for the given `path`.
+     */
+
+diff --git a/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..dfde660f05e5dc1d2a13526d961f3d8760a4d853
+--- /dev/null
++++ b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to return `Stats` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `statSync` call.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to return `Promise<Stats>` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `stat` call.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..04c5d358b0abdff3ec4dd1ad905ee05bec9e28d7
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -139,25 +140,27 @@
+ 		readFileSync,
+ 		writeFileSync,
+ 		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+ 		},
+ 		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+ 		},
+ 		mkdirSync,
+
+codex
+The overloaded Node signatures can still make an inline object-literal arrow brittle, so I’m tightening the two assignments one step further with concrete wrapper signatures and an assignment-site cast to the Node function types. That keeps the implementation narrow while satisfying the FAO property type.
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/lsp/ts-plugin/src/factories/fileAccessObject.ts
+diff --git a/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..dfde660f05e5dc1d2a13526d961f3d8760a4d853
+--- /dev/null
++++ b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to return `Stats` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `statSync` call.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to return `Promise<Stats>` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `stat` call.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..392ed5619741febd063a700a4d1d1f5a690eecb6
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { PathLike, Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -138,28 +139,30 @@
+ 		existsSync,
+ 		readFileSync,
+ 		writeFileSync,
+-		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		statSync: ((fileName: PathLike): Stats => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
+-		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		}) as typeof statSync,
++		stat: (async (fileName: PathLike): Promise<Stats> => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
++		}) as typeof stat,
+ 		mkdirSync,
+ 		mkdir,
+ 		writeFile,
+
+diff --git a/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..dfde660f05e5dc1d2a13526d961f3d8760a4d853
+--- /dev/null
++++ b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to return `Stats` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `statSync` call.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to return `Promise<Stats>` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `stat` call.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..392ed5619741febd063a700a4d1d1f5a690eecb6
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { PathLike, Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -138,28 +139,30 @@
+ 		existsSync,
+ 		readFileSync,
+ 		writeFileSync,
+-		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		statSync: ((fileName: PathLike): Stats => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
+-		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		}) as typeof statSync,
++		stat: (async (fileName: PathLike): Promise<Stats> => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
++		}) as typeof stat,
+ 		mkdirSync,
+ 		mkdir,
+ 		writeFile,
+
+codex
+The code patch is confined to the plugin source. I’m correcting the repair note location now because the prompt calls out `.review-slices/_repair_w2_2.fix.md` as an exact path.
+exec
+/bin/zsh -lc "ls -la .review-slices | sed -n '1,80p'" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "test -f .review-slices/_repair_w2_2.fix.md && sed -n '1,120p' .review-slices/_repair_w2_2.fix.md || true" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+diff --git a/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..dfde660f05e5dc1d2a13526d961f3d8760a4d853
+--- /dev/null
++++ b/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to return `Stats` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `statSync` call.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to return `Promise<Stats>` and avoid the `BigIntStats | undefined` inference path.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before using it for virtual mtime lookup and the delegated `stat` call.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..392ed5619741febd063a700a4d1d1f5a690eecb6
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { PathLike, Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -138,28 +139,30 @@
+ 		existsSync,
+ 		readFileSync,
+ 		writeFileSync,
+-		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		statSync: ((fileName: PathLike): Stats => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
+-		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		}) as typeof statSync,
++		stat: (async (fileName: PathLike): Promise<Stats> => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
++		}) as typeof stat,
+ 		mkdirSync,
+ 		mkdir,
+ 		writeFile,
+
+ succeeded in 153ms:
+total 78760
+drwxr-xr-x@ 462 williamcory  staff    14784 May 20 19:35 .
+drwxr-xr-x@  72 williamcory  staff     2304 May 20 19:31 ..
+-rw-r--r--@   1 williamcory  staff   232941 May 20 17:19 H01.codex.log
+-rw-r--r--@   1 williamcory  staff    10100 May 20 18:01 H01.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 18:01 H01.fix.commit
+-rw-r--r--@   1 williamcory  staff      715 May 20 18:01 H01.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   448717 May 20 18:01 H01.fix.log
+-rw-r--r--@   1 williamcory  staff     2731 May 20 18:00 H01.fix.md
+-rw-r--r--@   1 williamcory  staff     6383 May 20 18:01 H01.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     2854 May 20 17:55 H01.fix.prompt
+-rw-r--r--@   1 williamcory  staff     1706 May 20 17:55 H01.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        9 May 20 18:01 H01.fix.status
+-rw-r--r--@   1 williamcory  staff     5763 May 20 17:19 H01.md
+-rw-r--r--@   1 williamcory  staff     2624 May 20 17:14 H01.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:19 H01.status
+-rw-r--r--@   1 williamcory  staff   307820 May 20 17:21 H02.codex.log
+-rw-r--r--@   1 williamcory  staff    10161 May 20 18:01 H02.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 18:01 H02.fix.commit
+-rw-r--r--@   1 williamcory  staff      725 May 20 18:01 H02.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   386642 May 20 18:01 H02.fix.log
+-rw-r--r--@   1 williamcory  staff     3437 May 20 18:01 H02.fix.md
+-rw-r--r--@   1 williamcory  staff     6509 May 20 18:01 H02.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     2883 May 20 17:55 H02.fix.prompt
+-rw-r--r--@   1 williamcory  staff    11830 May 20 17:55 H02.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        9 May 20 18:01 H02.fix.status
+-rw-r--r--@   1 williamcory  staff     7533 May 20 17:20 H02.md
+-rw-r--r--@   1 williamcory  staff     2653 May 20 17:14 H02.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:21 H02.status
+-rw-r--r--@   1 williamcory  staff   218392 May 20 17:19 H03.codex.log
+-rw-r--r--@   1 williamcory  staff     5617 May 20 17:58 H03.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 17:58 H03.fix.commit
+-rw-r--r--@   1 williamcory  staff      745 May 20 17:58 H03.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   173450 May 20 17:58 H03.fix.log
+-rw-r--r--@   1 williamcory  staff     3529 May 20 17:58 H03.fix.md
+-rw-r--r--@   1 williamcory  staff     2985 May 20 17:58 H03.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     2843 May 20 17:55 H03.fix.prompt
+-rw-r--r--@   1 williamcory  staff    12807 May 20 17:55 H03.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 17:58 H03.fix.status
+-rw-r--r--@   1 williamcory  staff     7573 May 20 17:19 H03.md
+-rw-r--r--@   1 williamcory  staff     2613 May 20 17:14 H03.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:19 H03.status
+-rw-r--r--@   1 williamcory  staff   241367 May 20 17:18 H04.codex.log
+-rw-r--r--@   1 williamcory  staff    11174 May 20 17:59 H04.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 17:59 H04.fix.commit
+-rw-r--r--@   1 williamcory  staff      743 May 20 17:59 H04.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   261722 May 20 17:59 H04.fix.log
+-rw-r--r--@   1 williamcory  staff     3588 May 20 17:58 H04.fix.md
+-rw-r--r--@   1 williamcory  staff     8236 May 20 17:59 H04.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     3008 May 20 17:55 H04.fix.prompt
+-rw-r--r--@   1 williamcory  staff    13265 May 20 17:55 H04.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        9 May 20 17:59 H04.fix.status
+-rw-r--r--@   1 williamcory  staff     6627 May 20 17:18 H04.md
+-rw-r--r--@   1 williamcory  staff     2778 May 20 17:14 H04.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:18 H04.status
+-rw-r--r--@   1 williamcory  staff   287441 May 20 17:19 H05.codex.log
+-rw-r--r--@   1 williamcory  staff     8826 May 20 18:04 H05.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 18:04 H05.fix.commit
+-rw-r--r--@   1 williamcory  staff      722 May 20 18:04 H05.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   887935 May 20 18:04 H05.fix.log
+-rw-r--r--@   1 williamcory  staff     3327 May 20 18:03 H05.fix.md
+-rw-r--r--@   1 williamcory  staff     4662 May 20 18:04 H05.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     2911 May 20 17:55 H05.fix.prompt
+-rw-r--r--@   1 williamcory  staff    10849 May 20 17:55 H05.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 18:04 H05.fix.status
+-rw-r--r--@   1 williamcory  staff     6695 May 20 17:19 H05.md
+-rw-r--r--@   1 williamcory  staff     2681 May 20 17:14 H05.prompt
+-rw-r--r--@   1 williamcory  staff        3 May 20 17:19 H05.status
+-rw-r--r--@   1 williamcory  staff   225083 May 20 17:18 H06.codex.log
+-rw-r--r--@   1 williamcory  staff     5615 May 20 17:58 H06.fix.changed.txt
+-rw-r--r--@   1 williamcory  staff       10 May 20 17:58 H06.fix.commit
+-rw-r--r--@   1 williamcory  staff      739 May 20 17:58 H06.fix.commit-msg
+-rw-r--r--@   1 williamcory  staff   180926 May 20 17:58 H06.fix.log
+-rw-r--r--@   1 williamcory  staff     2710 May 20 17:58 H06.fix.md
+-rw-r--r--@   1 williamcory  staff     3283 May 20 17:58 H06.fix.out-of-scope.txt
+-rw-r--r--@   1 williamcory  staff     2955 May 20 17:55 H06.fix.prompt
+-rw-r--r--@   1 williamcory  staff    14769 May 20 17:55 H06.fix.scope.before
+-rw-r--r--@   1 williamcory  staff        8 May 20 17:58 H06.fix.status
+-rw-r--r--@   1 williamcory  staff     6359 May 20 17:18 H06.md
+-rw-r--r--@   1 williamcory  staff     2725 May 20 17:14 H06.prompt
+
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/.review-slices/_repair_w2_2.fix.md
+/Users/williamcory/tevm-monorepo/lsp/ts-plugin/.review-slices/_repair_w2_2.fix.md
+diff --git a/.review-slices/_repair_w2_2.fix.md b/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..fad187257fe96bb9df3a61976df2666228e55bf1
+--- /dev/null
++++ b/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to a concrete `Stats` return and assignment-site cast to the Node statSync type.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `statSync`.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to a concrete `Promise<Stats>` return and assignment-site cast to the Node stat type.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `stat`.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..392ed5619741febd063a700a4d1d1f5a690eecb6
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { PathLike, Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -138,28 +139,30 @@
+ 		existsSync,
+ 		readFileSync,
+ 		writeFileSync,
+-		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		statSync: ((fileName: PathLike): Stats => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
+-		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		}) as typeof statSync,
++		stat: (async (fileName: PathLike): Promise<Stats> => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
++		}) as typeof stat,
+ 		mkdirSync,
+ 		mkdir,
+ 		writeFile,
+
+diff --git a/.review-slices/_repair_w2_2.fix.md b/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..fad187257fe96bb9df3a61976df2666228e55bf1
+--- /dev/null
++++ b/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to a concrete `Stats` return and assignment-site cast to the Node statSync type.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `statSync`.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to a concrete `Promise<Stats>` return and assignment-site cast to the Node stat type.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `stat`.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..392ed5619741febd063a700a4d1d1f5a690eecb6
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { PathLike, Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -138,28 +139,30 @@
+ 		existsSync,
+ 		readFileSync,
+ 		writeFileSync,
+-		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		statSync: ((fileName: PathLike): Stats => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
+-		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		}) as typeof statSync,
++		stat: (async (fileName: PathLike): Promise<Stats> => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
++		}) as typeof stat,
+ 		mkdirSync,
+ 		mkdir,
+ 		writeFile,
+
+exec
+/bin/zsh -lc 'rmdir lsp/ts-plugin/.review-slices 2>/dev/null || true' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+diff --git a/.review-slices/_repair_w2_2.fix.md b/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..fad187257fe96bb9df3a61976df2666228e55bf1
+--- /dev/null
++++ b/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to a concrete `Stats` return and assignment-site cast to the Node statSync type.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `statSync`.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to a concrete `Promise<Stats>` return and assignment-site cast to the Node stat type.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `stat`.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..392ed5619741febd063a700a4d1d1f5a690eecb6
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { PathLike, Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -138,28 +139,30 @@
+ 		existsSync,
+ 		readFileSync,
+ 		writeFileSync,
+-		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		statSync: ((fileName: PathLike): Stats => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
+-		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		}) as typeof statSync,
++		stat: (async (fileName: PathLike): Promise<Stats> => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
++		}) as typeof stat,
+ 		mkdirSync,
+ 		mkdir,
+ 		writeFile,
+
+codex
+The exact report path is now in place. I’m doing a final file-level check for the changed snippets and the report content; I won’t run the forbidden package/typecheck commands.
+exec
+/bin/zsh -lc "sed -n '132,166p' lsp/ts-plugin/src/factories/fileAccessObject.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+					return false
+				}
+			},
+		}
+	}
+	return {
+		readFile,
+		existsSync,
+		readFileSync,
+		writeFileSync,
+		statSync: ((fileName: PathLike): Stats => {
+			const filePath = fileName.toString()
+			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+			if (virtualMtimeMs === undefined) {
+				return statSync(filePath)
+			}
+			try {
+				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+			} catch (_e) {
+				return { mtimeMs: virtualMtimeMs } as Stats
+			}
+		}) as typeof statSync,
+		stat: (async (fileName: PathLike): Promise<Stats> => {
+			const filePath = fileName.toString()
+			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+			if (virtualMtimeMs === undefined) {
+				return stat(filePath)
+			}
+			try {
+				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+			} catch (_e) {
+				return { mtimeMs: virtualMtimeMs } as Stats
+			}
+		}) as typeof stat,
+		mkdirSync,
+
+exec
+/bin/zsh -lc "sed -n '1,80p' .review-slices/_repair_w2_2.fix.md" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc 'test ! -e lsp/ts-plugin/.review-slices && echo removed || find lsp/ts-plugin/.review-slices -maxdepth 2 -print' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+# Wave 2 typecheck repair (round 2)
+
+**Scope:** lsp/ts-plugin
+
+## Errors fixed
+- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to a concrete `Stats` return and assignment-site cast to the Node statSync type.
+- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `statSync`.
+- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to a concrete `Promise<Stats>` return and assignment-site cast to the Node stat type.
+- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `stat`.
+
+ succeeded in 0ms:
+removed
+
+diff --git a/.review-slices/_repair_w2_2.fix.md b/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..fad187257fe96bb9df3a61976df2666228e55bf1
+--- /dev/null
++++ b/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to a concrete `Stats` return and assignment-site cast to the Node statSync type.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `statSync`.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to a concrete `Promise<Stats>` return and assignment-site cast to the Node stat type.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `stat`.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..392ed5619741febd063a700a4d1d1f5a690eecb6
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { PathLike, Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -138,28 +139,30 @@
+ 		existsSync,
+ 		readFileSync,
+ 		writeFileSync,
+-		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		statSync: ((fileName: PathLike): Stats => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
+-		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		}) as typeof statSync,
++		stat: (async (fileName: PathLike): Promise<Stats> => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
++		}) as typeof stat,
+ 		mkdirSync,
+ 		mkdir,
+ 		writeFile,
+
+exec
+/bin/zsh -lc "nl -ba lsp/ts-plugin/src/factories/fileAccessObject.ts | sed -n '1,8p;138,164p'" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+     1	import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+     2	import type { PathLike, Stats } from 'node:fs'
+     3	import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+     4	import type { FileAccessObject } from '@tevm/base-bundler'
+     5	import path from 'node:path'
+     6	import type typescript from 'typescript/lib/tsserverlibrary.js'
+     7	
+     8	const hashText = (text: string): number => {
+   138			readFile,
+   139			existsSync,
+   140			readFileSync,
+   141			writeFileSync,
+   142			statSync: ((fileName: PathLike): Stats => {
+   143				const filePath = fileName.toString()
+   144				const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+   145				if (virtualMtimeMs === undefined) {
+   146					return statSync(filePath)
+   147				}
+   148				try {
+   149					return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+   150				} catch (_e) {
+   151					return { mtimeMs: virtualMtimeMs } as Stats
+   152				}
+   153			}) as typeof statSync,
+   154			stat: (async (fileName: PathLike): Promise<Stats> => {
+   155				const filePath = fileName.toString()
+   156				const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+   157				if (virtualMtimeMs === undefined) {
+   158					return stat(filePath)
+   159				}
+   160				try {
+   161					return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+   162				} catch (_e) {
+   163					return { mtimeMs: virtualMtimeMs } as Stats
+   164				}
+
+exec
+/bin/zsh -lc "nl -ba .review-slices/_repair_w2_2.fix.md | sed -n '1,20p'" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+     1	# Wave 2 typecheck repair (round 2)
+     2	
+     3	**Scope:** lsp/ts-plugin
+     4	
+     5	## Errors fixed
+     6	- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to a concrete `Stats` return and assignment-site cast to the Node statSync type.
+     7	- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `statSync`.
+     8	- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to a concrete `Promise<Stats>` return and assignment-site cast to the Node stat type.
+     9	- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `stat`.
+
+diff --git a/.review-slices/_repair_w2_2.fix.md b/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..fad187257fe96bb9df3a61976df2666228e55bf1
+--- /dev/null
++++ b/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to a concrete `Stats` return and assignment-site cast to the Node statSync type.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `statSync`.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to a concrete `Promise<Stats>` return and assignment-site cast to the Node stat type.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `stat`.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..392ed5619741febd063a700a4d1d1f5a690eecb6
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { PathLike, Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -138,28 +139,30 @@
+ 		existsSync,
+ 		readFileSync,
+ 		writeFileSync,
+-		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		statSync: ((fileName: PathLike): Stats => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
+-		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		}) as typeof statSync,
++		stat: (async (fileName: PathLike): Promise<Stats> => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
++		}) as typeof stat,
+ 		mkdirSync,
+ 		mkdir,
+ 		writeFile,
+
+codex
+Implemented the V10 LSP type repair.
+
+Changed [fileAccessObject.ts](/Users/williamcory/tevm-monorepo/lsp/ts-plugin/src/factories/fileAccessObject.ts:142) so the virtual `statSync`/`stat` wrappers use concrete `Stats` / `Promise<Stats>` signatures, cast at the assignment site, and convert `PathLike` to string before virtual mtime lookup and delegated Node calls.
+
+Wrote the requested report at [.review-slices/_repair_w2_2.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/_repair_w2_2.fix.md:1).
+
+I did not run `pnpm`, `bun`, `nx`, `git`, `tsc`, or `vitest`, per your constraints.
+diff --git a/.review-slices/_repair_w2_2.fix.md b/.review-slices/_repair_w2_2.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..fad187257fe96bb9df3a61976df2666228e55bf1
+--- /dev/null
++++ b/.review-slices/_repair_w2_2.fix.md
+@@ -0,0 +1,9 @@
++# Wave 2 typecheck repair (round 2)
++
++**Scope:** lsp/ts-plugin
++
++## Errors fixed
++- src/factories/fileAccessObject.ts:141 - narrowed the virtual `statSync` wrapper to a concrete `Stats` return and assignment-site cast to the Node statSync type.
++- src/factories/fileAccessObject.ts:142 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `statSync`.
++- src/factories/fileAccessObject.ts:152 - narrowed the virtual async `stat` wrapper to a concrete `Promise<Stats>` return and assignment-site cast to the Node stat type.
++- src/factories/fileAccessObject.ts:153 - converted the `PathLike` input to a string before virtual mtime lookup and delegated `stat`.
+diff --git a/lsp/ts-plugin/src/factories/fileAccessObject.ts b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+index 2a96608072aa8372e983f0a44bc5fa9af8a9680e..392ed5619741febd063a700a4d1d1f5a690eecb6
+--- a/lsp/ts-plugin/src/factories/fileAccessObject.ts
++++ b/lsp/ts-plugin/src/factories/fileAccessObject.ts
+@@ -1,4 +1,5 @@
+ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
++import type { PathLike, Stats } from 'node:fs'
+ import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+ import type { FileAccessObject } from '@tevm/base-bundler'
+ import path from 'node:path'
+@@ -138,28 +139,30 @@
+ 		existsSync,
+ 		readFileSync,
+ 		writeFileSync,
+-		statSync: (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		statSync: ((fileName: PathLike): Stats => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return statSync(fileName)
++				return statSync(filePath)
+ 			}
+ 			try {
+-				return { ...statSync(fileName), mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { ...statSync(filePath), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as ReturnType<typeof statSync>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
+-		stat: async (fileName) => {
+-			const virtualMtimeMs = getVirtualMtimeMs(lsHost, fileName, cwd)
++		}) as typeof statSync,
++		stat: (async (fileName: PathLike): Promise<Stats> => {
++			const filePath = fileName.toString()
++			const virtualMtimeMs = getVirtualMtimeMs(lsHost, filePath, cwd)
+ 			if (virtualMtimeMs === undefined) {
+-				return stat(fileName)
++				return stat(filePath)
+ 			}
+ 			try {
+-				return { ...(await stat(fileName)), mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { ...(await stat(filePath)), mtimeMs: virtualMtimeMs } as Stats
+ 			} catch (_e) {
+-				return { mtimeMs: virtualMtimeMs } as Awaited<ReturnType<typeof stat>>
++				return { mtimeMs: virtualMtimeMs } as Stats
+ 			}
+-		},
++		}) as typeof stat,
+ 		mkdirSync,
+ 		mkdir,
+ 		writeFile,
+
+tokens used
+47,625
+Implemented the V10 LSP type repair.
+
+Changed [fileAccessObject.ts](/Users/williamcory/tevm-monorepo/lsp/ts-plugin/src/factories/fileAccessObject.ts:142) so the virtual `statSync`/`stat` wrappers use concrete `Stats` / `Promise<Stats>` signatures, cast at the assignment site, and convert `PathLike` to string before virtual mtime lookup and delegated Node calls.
+
+Wrote the requested report at [.review-slices/_repair_w2_2.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/_repair_w2_2.fix.md:1).
+
+I did not run `pnpm`, `bun`, `nx`, `git`, `tsc`, or `vitest`, per your constraints.

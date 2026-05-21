@@ -1,5 +1,5 @@
-import { p256 } from '@noble/curves/nist.js'
 import { EvmError } from '@evmts/zevm/evm'
+import { p256 } from '@noble/curves/nist.js'
 import { createAddress } from '@tevm/address'
 import { bytesToBigInt, toBytes } from '@tevm/utils'
 

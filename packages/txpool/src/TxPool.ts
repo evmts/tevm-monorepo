@@ -29,8 +29,7 @@ const isFeeMarketLikeTx = (tx: unknown): tx is FeeMarketLikeTx =>
 const isLegacyLikeTx = (tx: unknown): tx is LegacyLikeTx =>
 	typeof tx === 'object' && tx !== null && 'gasPrice' in tx && typeof tx.gasPrice === 'bigint'
 
-const txType = (tx: unknown) =>
-	typeof tx === 'object' && tx !== null && 'type' in tx ? String(tx.type) : 'unknown'
+const txType = (tx: unknown) => (typeof tx === 'object' && tx !== null && 'type' in tx ? String(tx.type) : 'unknown')
 
 /**
  * Tevm txpool facade.

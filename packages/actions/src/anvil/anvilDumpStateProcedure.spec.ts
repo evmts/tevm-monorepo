@@ -1,8 +1,8 @@
 import { createTevmNode } from '@tevm/node'
 import { numberToHex, parseEther } from '@tevm/utils'
 import { describe, expect, it } from 'vitest'
-import { anvilSetBalanceJsonRpcProcedure } from './anvilSetBalanceProcedure.js'
 import { anvilDumpStateJsonRpcProcedure } from './anvilDumpStateProcedure.js'
+import { anvilSetBalanceJsonRpcProcedure } from './anvilSetBalanceProcedure.js'
 
 describe('anvilDumpStateJsonRpcProcedure', () => {
 	it('should dump state correctly', async () => {

@@ -91,7 +91,7 @@ export const emitEvents = async (client, newBlocks, newReceipts, params = {}) =>
 				blockHash,
 				receipt,
 			})
-	
+
 			const tx = block.transactions[txIndex]
 			const transactionHash = tx ? bytesToHex(tx.hash()) : txHash ? bytesToHex(txHash) : '0x'
 			for (const log of receipt.logs) {

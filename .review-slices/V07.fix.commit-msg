@@ -1,0 +1,12 @@
+🐛 fix(V07): apply review fixes for Hardfork readiness, gates, transitions slice (4 fixed, 1 deferred)
+
+Slice: V07 (vertical)
+Scope: packages/common packages/vm packages/evm
+
+
+Four findings were addressed with narrow source changes, and one finding was skipped as already addressed in the current tree. The fixes tighten typed transaction EIP gates, prevent pre-Shanghai withdrawal block data and state mutation, make block-level fork effects follow the block common, and provide the missing max blob gas parameter used by Cancun blob admission.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

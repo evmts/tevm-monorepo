@@ -1,7 +1,7 @@
+import path from 'node:path'
 import { bundler, type FileAccessObject } from '@tevm/base-bundler'
 import type { Cache } from '@tevm/bundler-cache'
 import type { ResolvedCompilerConfig } from '@tevm/config'
-import path from 'node:path'
 import * as solc from 'solc'
 import type { Node } from 'solidity-ast/node.js'
 import type { SolcInput } from 'solidity-ast/solc.js'

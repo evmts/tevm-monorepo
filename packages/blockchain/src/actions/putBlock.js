@@ -39,12 +39,15 @@ export const putBlock = (baseChain) => async (block) => {
 	}
 	baseChain.logger.debug(block.hash(), 'Saved new block')
 	const extendsLatest = latestBlock === undefined || blockHasHash(latestBlock, parentHash)
-	const replacesGenesisBootstrap =
-		latestBlock !== undefined && latestBlock.header.isGenesis() && block.header.number > latestBlock.header.number
+	const replacesGenesisBootstrap = latestBlock?.header.isGenesis() && block.header.number > latestBlock.header.number
 	if (!baseChain.blocksByNumber.has(block.header.number)) {
 		baseChain.blocksByNumber.set(block.header.number, block)
 	}
-	if (isBootstrapBlock || replacesGenesisBootstrap || (extendsLatest && latestBlock.header.number < block.header.number)) {
+	if (
+		isBootstrapBlock ||
+		replacesGenesisBootstrap ||
+		(extendsLatest && latestBlock.header.number < block.header.number)
+	) {
 		baseChain.logger.debug(block.header.toJSON().number, 'New highest block height. Setting block at latest')
 		baseChain.blocksByTag.set('latest', block)
 	}

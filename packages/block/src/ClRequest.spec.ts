@@ -1,5 +1,5 @@
-import { InternalError } from '@tevm/errors'
 import { mainnet } from '@tevm/common'
+import { InternalError } from '@tevm/errors'
 import { describe, expect, it } from 'vitest'
 import { Block } from './block.js'
 import { ClRequest } from './ClRequest.js'

@@ -90,18 +90,18 @@ export const readArtifacts = async (cacheDir, fs, cwd, entryModuleId, compileFin
 	// Check if cache is still valid by:
 	// 1. Comparing cache version
 	// 2. Checking if any source files have been modified
-		const didContentChange =
-			version !== metadata.version ||
-			(compileFingerprint !== undefined && compileFingerprint !== metadata.compileFingerprint) ||
-			!metadata.files ||
-			typeof metadata.files !== 'object' ||
-			(
-				await Promise.all(
-					Object.entries(metadata.files).map(async ([sourcePath, fileMetadata]) => {
-						return didSourceChange(sourcePath, fileMetadata, fs)
-					}),
-				)
-			).some((didChange) => didChange)
+	const didContentChange =
+		version !== metadata.version ||
+		(compileFingerprint !== undefined && compileFingerprint !== metadata.compileFingerprint) ||
+		!metadata.files ||
+		typeof metadata.files !== 'object' ||
+		(
+			await Promise.all(
+				Object.entries(metadata.files).map(async ([sourcePath, fileMetadata]) => {
+					return didSourceChange(sourcePath, fileMetadata, fs)
+				}),
+			)
+		).some((didChange) => didChange)
 
 	// If any validation fails, return undefined (cache miss)
 	if (didContentChange) {

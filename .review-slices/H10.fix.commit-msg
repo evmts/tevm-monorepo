@@ -1,0 +1,12 @@
+🐛 fix(H10): apply review fixes for Procedures, decorators, memory-client, node, client-types slice (6 fixed, 0 deferred)
+
+Slice: H10 (horizontal)
+Scope: packages/procedures packages/decorators packages/memory-client packages/client-types packages/node
+
+
+Addressed all six reviewed findings. The fixes stabilize the EIP-1193 request handler, stop retrying local JSON-RPC semantic errors, make documented/client options behave as advertised, and restore the public procedures compatibility surface. No findings were skipped or deferred.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

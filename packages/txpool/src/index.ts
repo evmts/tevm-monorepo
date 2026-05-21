@@ -1,4 +1,3 @@
-export { TxPool } from './TxPool.js'
 export type {
 	ImpersonatedTx,
 	TxPoolBlock,
@@ -7,3 +6,4 @@ export type {
 	TxPoolTransaction,
 	TxPoolVm,
 } from './TxPool.js'
+export { TxPool } from './TxPool.js'

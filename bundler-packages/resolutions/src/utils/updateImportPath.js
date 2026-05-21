@@ -4,8 +4,7 @@ import { succeed } from 'effect/Effect'
  * @param {string} source
  * @param {number} offset
  */
-const isInBlockComment = (source, offset) =>
-	source.lastIndexOf('/*', offset) > source.lastIndexOf('*/', offset)
+const isInBlockComment = (source, offset) => source.lastIndexOf('/*', offset) > source.lastIndexOf('*/', offset)
 
 /**
  * Updates all the import paths that match the importedIds

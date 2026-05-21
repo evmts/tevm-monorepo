@@ -56,10 +56,7 @@ export const getBlockFromRpc = async (baseChain, { transport, blockTag = 'latest
 			enumerable: false,
 			configurable: true,
 		})
-		return [
-			block,
-			rpcBlock,
-		]
+		return [block, rpcBlock]
 	}
 
 	return withRetry(

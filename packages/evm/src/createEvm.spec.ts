@@ -222,7 +222,9 @@ describe(createEvm.name, () => {
 			evm.addCustomPrecompile({ address, function: second })
 
 			expect(evm.getPrecompile(address)).toEqual(second)
-			expect((evm as any)._customPrecompiles.filter((precompile: any) => precompile.address.equals(address))).toHaveLength(1)
+			expect(
+				(evm as any)._customPrecompiles.filter((precompile: any) => precompile.address.equals(address)),
+			).toHaveLength(1)
 		})
 
 		it('should use fallback binding for custom precompile methods', async () => {
@@ -267,7 +269,10 @@ describe(createEvm.name, () => {
 				function: precompileFunction,
 			}
 			evm.addCustomPrecompile(precompile)
-			evm.removeCustomPrecompile({ address, function: () => ({ executionGasUsed: 1n, returnValue: new Uint8Array(0) }) })
+			evm.removeCustomPrecompile({
+				address,
+				function: () => ({ executionGasUsed: 1n, returnValue: new Uint8Array(0) }),
+			})
 			expect(evm.getPrecompile(address)).toBeUndefined()
 		})
 

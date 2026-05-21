@@ -1,0 +1,40 @@
+You are repairing TypeScript type-check failures in @tevm/evm and @tevm/txpool introduced by earlier review fix waves.
+
+CONSTRAINTS:
+- Modify ONLY files under: packages/evm, packages/txpool.
+- Do NOT touch any other package.
+- Do NOT run pnpm, bun, nx, npm, cargo, node, tsc, or vitest.
+- Do NOT run git. The dispatcher will commit.
+- Minimal-diff principle.
+
+TYPE ERRORS TO FIX:
+
+@tevm/txpool: src/TxPool.ts:85:2 - error TS4114: This member must have an 'override' modifier because it overrides a member in the base class 'TxPool'.
+@tevm/evm: src/createEvm.js:78:15 - error TS18048: 'step.opcode.dynamicFee' is possibly 'undefined'.
+@tevm/evm: src/Evm.js:4:28 - error TS7006: Parameter 'precompile' implicitly has an 'any' type.
+@tevm/evm: src/Evm.js:41:9 - error TS2540: Cannot assign to '_customPrecompiles' because it is a read-only property.
+@tevm/evm: src/Evm.js:43:9 - error TS2540: Cannot assign to '_customPrecompiles' because it is a read-only property.
+@tevm/evm: src/Evm.js:65:8 - error TS2540: Cannot assign to '_customPrecompiles' because it is a read-only property.
+
+PROCESS:
+1. For TS4114 (override modifier missing): the base class declares the same member as the subclass — add `override` keyword.
+2. For TS18048 (possibly undefined): use optional chaining `?.` or a nullish check around the access.
+3. For TS7006 (implicit any): add JSDoc `@param` annotation matching the function signature.
+4. For TS2540 (assign to read-only): the field was likely declared as readonly via JSDoc or class field syntax. Either:
+   (a) Remove the readonly modifier in the type declaration (preferred if the H01 fix legitimately needs to mutate it).
+   (b) Use a mutator approach that doesn't reassign — e.g., assign to `/** @type {any} */(this)._customPrecompiles`.
+   Look at the H01 commit to see the intent; if the fix swaps to a per-instance array (the H01 finding was "Custom precompile state is shared and mutated across EVM instances"), the field needs to be mutable on the instance. Make sure the type declaration reflects that.
+
+5. Write a brief fix report to `.review-slices/_repair5.fix.md`:
+
+# Wave 1 typecheck repair (round 5)
+
+**Scope:** packages/evm, packages/txpool
+
+## Errors fixed
+- path:line - <one-line description of fix>
+
+## Errors deferred
+- path:line - <why, if any>
+
+IMPORTANT: write the report at the EXACT path `.review-slices/_repair5.fix.md` from the repo root. Do NOT create new directories.

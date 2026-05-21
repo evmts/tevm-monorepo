@@ -1,0 +1,2110 @@
+OpenAI Codex v0.132.0
+--------
+workdir: /Users/williamcory/tevm-monorepo
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019e476f-0558-7580-b060-c5badbe2eb1d
+--------
+user
+You are repairing TypeScript type-check failures that were introduced by a prior round of code review fixes in the Tevm monorepo. Your ONLY job is to make the listed type errors go away with the smallest possible diffs while preserving the intent of the original fixes.
+
+CONSTRAINTS:
+- Modify ONLY files under: packages/config, packages/common, packages/trie.
+- Do NOT touch any other package.
+- Do NOT run pnpm, bun, nx, npm, cargo, node, tsc, or vitest. No shell tooling.
+- Do NOT run git. The dispatcher will commit.
+- Minimal-diff principle: a JSDoc `@param {string}` annotation beats a refactor. A nullish check beats restructuring an Effect.
+- If a fix would require touching a file outside scope or would clearly contradict the intent of the surrounding code, leave it and note it in a fix report.
+
+TYPE ERRORS TO FIX (clean, ANSI-stripped):
+
+@tevm/common: src/createCommon.js:5:28 - error TS7006: Parameter 'hardfork' implicitly has an 'any' type.
+@tevm/common: src/createCommon.js:5:28 - error TS7006: Parameter 'hardfork' implicitly has an 'any' type. (duplicate from build:types vs typecheck targets)
+@tevm/config: src/tsconfig/loadTsConfig.js:87:2 - error TS2375: Type 'Effect<TsConfig, any, any>' is not assignable to type 'Effect<TsConfig, LoadTsConfigError, never>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+@tevm/config: src/tsconfig/loadTsConfig.js:114:12 - error TS2769: No overload matches this call.
+@tevm/config: src/tsconfig/loadTsConfig.mocks.spec.ts:36:10 - error TS18048: 'result.compilerOptions' is possibly 'undefined'.
+@tevm/config: src/tsconfig/loadTsConfig.mocks.spec.ts:60:10 - error TS18048: 'result.compilerOptions' is possibly 'undefined'.
+@tevm/config: src/tsconfig/loadTsConfig.mocks.spec.ts:78:10 - error TS18048: 'result.compilerOptions' is possibly 'undefined'.
+@tevm/config: src/tsconfig/loadTsConfig.spec.ts:125:10 - error TS18048: 'result.compilerOptions' is possibly 'undefined'.
+@tevm/config: src/tsconfig/loadTsConfig.spec.ts:149:10 - error TS18048: 'result.compilerOptions' is possibly 'undefined'.
+@tevm/config: src/tsconfig/loadTsConfig.spec.ts:180:10 - error TS18048: 'result.compilerOptions' is possibly 'undefined'.
+@tevm/config: src/tsconfig/loadTsConfig.spec.ts:181:10 - error TS18048: 'result.compilerOptions' is possibly 'undefined'.
+@tevm/config: src/tsconfig/loadTsConfig.spec.ts:222:10 - error TS18048: 'result.compilerOptions' is possibly 'undefined'.
+@tevm/trie: src/EMPTY_STATE_ROOT.js:52:23 - error TS7006: Parameter 'property' implicitly has an 'any' type.
+
+PROCESS:
+1. For each error, open the file, look at the prior wave-1 fix in `git log -p -1 -- <file>` if useful (you may run `git log`/`git show`/`git diff` read-only — no writes).
+2. Apply the smallest change that satisfies the type checker:
+   - TS7006 (implicit any): add a JSDoc @param type or inline type annotation matching the surrounding usage.
+   - TS18048 (possibly undefined): use optional chaining, non-null assertion, or refactor the assertion based on what the test is actually asserting.
+   - TS2375 (Effect type with exactOptionalPropertyTypes): align the function signature/types so the Effect's error and context types are explicit.
+   - TS2769 (no overload matches): inspect the call site and provide whatever type info the overload requires.
+3. After all fixes, write a brief fix report to '.review-slices/_repair1.fix.md':
+
+# Wave 1 typecheck repair
+
+**Scope:** packages/config, packages/common, packages/trie
+
+## Errors fixed
+- path:line - <one-line description of fix>
+
+## Errors deferred
+- path:line - <why, if any>
+
+Be surgical. The smaller the diff, the better.
+
+codex
+I’ll stay inside the three allowed package directories and avoid shell/test/git commands. I’m going to inspect via available non-shell workspace resources first, then make the smallest targeted edits.
+mcp: codex/list_mcp_resources started
+mcp: codex/list_mcp_resources (completed)
+codex
+There are no MCP file resources exposed for this workspace, so I need to read the target files directly to make bounded edits. I’ll limit this to read-only file inspection commands and won’t run git or any package/build/test tooling.
+exec
+/bin/zsh -lc "sed -n '1,140p' packages/common/src/createCommon.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,180p' packages/trie/src/EMPTY_STATE_ROOT.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+/**
+ * A hardcoded state root that represents an empty trie.
+ * Can be dynamically computed using keccak256([]) or genesisStateRoot({})
+ */
+const EMPTY_STATE_ROOT_BYTES = Uint8Array.from([
+	86, 232, 31, 23, 27, 204, 85, 166, 255, 131, 69, 230, 146, 192, 248, 110, 91, 72, 224, 27, 153, 108, 173, 192, 1, 98,
+	47, 181, 227, 99, 180, 33,
+])
+
+const throwImmutable = () => {
+	throw new TypeError('EMPTY_STATE_ROOT is immutable')
+}
+
+const immutableStateRoot = Uint8Array.from(EMPTY_STATE_ROOT_BYTES)
+Object.defineProperties(immutableStateRoot, {
+	buffer: {
+		get() {
+			return immutableStateRoot.slice().buffer
+		},
+	},
+	copyWithin: {
+		value() {
+			return throwImmutable()
+		},
+	},
+	fill: {
+		value() {
+			return throwImmutable()
+		},
+	},
+	reverse: {
+		value() {
+			return throwImmutable()
+		},
+	},
+	set: {
+		value() {
+			return throwImmutable()
+		},
+	},
+	sort: {
+		value() {
+			return throwImmutable()
+		},
+	},
+	subarray: {
+		value() {
+			return immutableStateRoot.slice()
+		},
+	},
+})
+const isArrayIndex = (property) => {
+	return typeof property === 'string' && /^(0|[1-9]\d*)$/.test(property)
+}
+
+/**
+ * @type {Uint8Array}
+ */
+export const EMPTY_STATE_ROOT = new Proxy(immutableStateRoot, {
+	defineProperty(target, property, descriptor) {
+		if (isArrayIndex(property)) {
+			return throwImmutable()
+		}
+		return Reflect.defineProperty(target, property, descriptor)
+	},
+	deleteProperty(target, property) {
+		if (isArrayIndex(property)) {
+			return throwImmutable()
+		}
+		return Reflect.deleteProperty(target, property)
+	},
+	get(target, property) {
+		const value = Reflect.get(target, property, target)
+		return typeof value === 'function' ? value.bind(target) : value
+	},
+	set(target, property, value) {
+		if (isArrayIndex(property)) {
+			return throwImmutable()
+		}
+		return Reflect.set(target, property, value, target)
+	},
+})
+
+ succeeded in 0ms:
+import { createCustomCommon, Mainnet } from '@evmts/zevm/common'
+import { InvalidParamsError } from '@tevm/errors'
+import { createLogger } from '@tevm/logger'
+
+const normalizeHardfork = (hardfork) =>
+	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
+
+/**
+ * Common is the main representation of chain specific configuration for tevm clients.
+ *
+ * createCommon creates a typesafe Common object used by the EVM
+ * to access chain and hardfork parameters and to provide
+ * a unified and shared view on the network and hardfork state.
+ * Tevm common extends the [viem chain](https://github.com/wevm/viem/blob/main/src/chains/index.ts) interface
+ * @param {import('./CommonOptions.js').CommonOptions} options
+ * @returns {import('./Common.js').Common}
+ * @throws {InvalidParamsError} only if invalid params are passed
+ * @example
+ * ```typescript
+ * import { createCommon } from 'tevm/common'
+ *
+ * const common = createCommon({
+ *  customCrypto: {},
+ *  loggingLevel: 'debug',
+ *  hardfork: 'london',
+ *  eips: [420],
+ *  id: 69,
+ *  name: 'MyChain',
+ *  ...
+ * })
+ * ```
+ * Since common are stateful consider copying it before using it
+ * @example
+ * ```typescript
+ * import { createCommon } from 'tevm/common'
+ * const common = createCommon({ ... })
+ *
+ * const commonCopy = common.copy()
+ * ```
+ *
+ * To access the underlying Common instance, use the ethjsCommon property.
+ * @example
+ * ```typescript
+ * const common = createCommon({ ... })
+ * const ethjsCommon = common.ethjsCommon
+ * ```
+ * @see [Tevm client docs](https://tevm.sh/learn/clients/)
+ */
+export const createCommon = ({
+	customCrypto = {},
+	loggingLevel = 'warn',
+	hardfork = 'prague',
+	eips = [],
+	...chain
+}) => {
+	try {
+		const logger = createLogger({ level: loggingLevel, name: '@tevm/common' })
+		const ethjsHardfork = normalizeHardfork(hardfork)
+
+		if (!Array.isArray(eips)) {
+			throw new TypeError('eips must be an array of EIP numbers')
+		}
+
+		const ethjsCommon = createCustomCommon(
+			{
+				chainId: chain.id,
+				name: chain.name || 'TevmCustom',
+			},
+			Mainnet,
+			{
+				hardfork: ethjsHardfork,
+				// Respect hardfork-native feature gates by default and only opt-in explicit EIPs.
+				eips: [...eips],
+				customCrypto,
+				params: {
+					1559: {
+						elasticityMultiplier: 2,
+						baseFeeMaxChangeDenominator: 8,
+						initialBaseFee: 1000000000,
+					},
+					4844: {
+						targetBlobGasPerBlock: 393216,
+						blobGasPerBlob: 131072,
+						minBlobGasPrice: 1,
+						blobGasPriceUpdateFraction: 3338477,
+					},
+					4788: {
+						historicalRootsLength: 8191,
+					},
+					// VM params accessed via param('vm', ...)
+					vm: {
+						historicalRootsLength: 8191,
+						historyStorageAddress: '0x0aae40965e6800cd9b1f4b05ff21581047e3f91e',
+						historyServeWindow: 8192,
+					},
+					gasConfig: {
+						maxRefundQuotient: 5,
+					},
+				},
+			},
+		)
+		if (ethjsCommon.isActivatedEIP(6800)) {
+			logger.warn('verkle state is currently not supported in tevm')
+		}
+		logger.debug(ethjsCommon.eips(), 'Created common with eips enabled')
+		return {
+			...chain,
+			ethjsCommon,
+			copy: () => {
+				const ethjsCommonCopy = ethjsCommon.copy()
+				const newCommon = createCommon({ loggingLevel, hardfork, eips, ...chain })
+				newCommon.ethjsCommon = ethjsCommonCopy
+				return newCommon
+			},
+		}
+	} catch (e) {
+		const err = /** @type {Error} */ (e)
+		throw new InvalidParamsError(err.message, { cause: err })
+	}
+}
+
+exec
+/bin/zsh -lc "sed -n '1,260p' packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,180p' packages/config/src/tsconfig/loadTsConfig.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,280p' packages/config/src/tsconfig/loadTsConfig.spec.ts" in /Users/williamcory/tevm-monorepo
+ exited 1 in 0ms:
+sed: packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts: No such file or directory
+
+ exited 1 in 0ms:
+sed: packages/config/src/tsconfig/loadTsConfig.spec.ts: No such file or directory
+
+ exited 1 in 0ms:
+sed: packages/config/src/tsconfig/loadTsConfig.js: No such file or directory
+
+codex
+The common and trie errors are simple implicit-any JSDoc fixes. The config paths differ from the error text in this checkout, so I’m locating the matching files under `packages/config` without touching anything outside scope.
+exec
+/bin/zsh -lc "find packages/config -path '*loadTsConfig*' -maxdepth 6 -type f" in /Users/williamcory/tevm-monorepo
+ exited 1 in 0ms:
+find: packages/config: No such file or directory
+
+exec
+/bin/zsh -lc 'pwd && find packages -maxdepth 2 -type d | head -80' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+/Users/williamcory/tevm-monorepo
+packages
+packages/sync-storage-persister
+packages/sync-storage-persister/types
+packages/sync-storage-persister/dist
+packages/sync-storage-persister/node_modules
+packages/sync-storage-persister/docs
+packages/sync-storage-persister/coverage
+packages/sync-storage-persister/src
+packages/procedures
+packages/procedures/dist
+packages/procedures/node_modules
+packages/procedures/src
+packages/consensus
+packages/consensus/dist
+packages/consensus/node_modules
+packages/consensus/src
+packages/contract
+packages/contract/types
+packages/contract/dist
+packages/contract/node_modules
+packages/contract/docs
+packages/contract/coverage
+packages/contract/src
+packages/logger
+packages/logger/dist
+packages/logger/node_modules
+packages/logger/docs
+packages/logger/coverage
+packages/logger/src
+packages/decorators
+packages/decorators/types
+packages/decorators/dist
+packages/decorators/node_modules
+packages/decorators/docs
+packages/decorators/coverage
+packages/decorators/src
+packages/precompiles
+packages/precompiles/types
+packages/precompiles/dist
+packages/precompiles/node_modules
+packages/precompiles/docs
+packages/precompiles/coverage
+packages/precompiles/src
+packages/jsonrpc
+packages/jsonrpc/types
+packages/jsonrpc/dist
+packages/jsonrpc/node_modules
+packages/jsonrpc/docs
+packages/jsonrpc/coverage
+packages/jsonrpc/src
+packages/memory-client
+packages/memory-client/types
+packages/memory-client/dist
+packages/memory-client/node_modules
+packages/memory-client/docs
+packages/memory-client/coverage
+packages/memory-client/src
+packages/effect
+packages/effect/types
+packages/effect/dist
+packages/effect/node_modules
+packages/effect/docs
+packages/effect/coverage
+packages/effect/src
+packages/server
+packages/server/types
+packages/server/bin
+packages/server/dist
+packages/server/node_modules
+packages/server/docs
+packages/server/coverage
+packages/server/src
+packages/utils
+packages/utils/types
+packages/utils/dist
+packages/utils/node_modules
+packages/utils/docs
+packages/utils/coverage
+packages/utils/src
+packages/txpool
+
+exec
+/bin/zsh -lc "find . -path '*loadTsConfig*' -type f | head -50" in /Users/williamcory/tevm-monorepo
+2026-05-20T22:09:36.468571Z ERROR codex_core::tools::router: error=write_stdin failed: stdin is closed for this session; rerun exec_command with tty=true to keep stdin open
+ succeeded in 15892ms:
+./bundler-packages/config/types/tsconfig/loadTsConfig.d.ts.map
+./bundler-packages/config/types/tsconfig/loadTsConfig.d.ts
+./bundler-packages/config/types/tsconfig/loadTsConfig.spec.d.ts
+./bundler-packages/config/types/tsconfig/loadTsConfig.mocks.spec.d.ts
+./bundler-packages/config/types/tsconfig/loadTsConfig.spec.d.ts.map
+./bundler-packages/config/types/tsconfig/loadTsConfig.mocks.spec.d.ts.map
+./bundler-packages/config/types/src/tsconfig/loadTsConfig.d.ts.map
+./bundler-packages/config/types/src/tsconfig/loadTsConfig.d.ts
+./bundler-packages/config/types/src/tsconfig/loadTsConfig.spec.d.ts
+./bundler-packages/config/types/src/tsconfig/loadTsConfig.mocks.spec.d.ts
+./bundler-packages/config/types/src/tsconfig/loadTsConfig.spec.d.ts.map
+./bundler-packages/config/types/src/tsconfig/loadTsConfig.mocks.spec.d.ts.map
+./bundler-packages/config/src/tsconfig/loadTsConfig.js
+./bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts
+./bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts
+./node_modules/.pnpm/@tevm+config@1.0.0-next.148/node_modules/@tevm/config/types/tsconfig/loadTsConfig.d.ts.map
+./node_modules/.pnpm/@tevm+config@1.0.0-next.148/node_modules/@tevm/config/types/tsconfig/loadTsConfig.d.ts
+./node_modules/.pnpm/@tevm+config@1.0.0-next.148/node_modules/@tevm/config/types/tsconfig/loadTsConfig.spec.d.ts
+./node_modules/.pnpm/@tevm+config@1.0.0-next.148/node_modules/@tevm/config/types/tsconfig/loadTsConfig.mocks.spec.d.ts
+./node_modules/.pnpm/@tevm+config@1.0.0-next.148/node_modules/@tevm/config/types/tsconfig/loadTsConfig.spec.d.ts.map
+./node_modules/.pnpm/@tevm+config@1.0.0-next.148/node_modules/@tevm/config/types/tsconfig/loadTsConfig.mocks.spec.d.ts.map
+./node_modules/.pnpm/@tevm+config@1.0.0-next.148/node_modules/@tevm/config/src/tsconfig/loadTsConfig.js
+./node_modules/.pnpm/@tevm+config@1.0.0-next.148/node_modules/@tevm/config/src/tsconfig/loadTsConfig.spec.ts
+./node_modules/.pnpm/@tevm+config@1.0.0-next.148/node_modules/@tevm/config/src/tsconfig/loadTsConfig.mocks.spec.ts
+./node_modules/.pnpm/@evmts+config@1.0.0-next.17_bufferutil@4.1.0_esbuild@0.19.5_fast-check@3.23.2_solc@0.8._1a5d81bf1cf589db18fb2366e1eb56a6/node_modules/@evmts/config/types/src/tsconfig/loadTsConfig.d.ts.map
+./node_modules/.pnpm/@evmts+config@1.0.0-next.17_bufferutil@4.1.0_esbuild@0.19.5_fast-check@3.23.2_solc@0.8._1a5d81bf1cf589db18fb2366e1eb56a6/node_modules/@evmts/config/types/src/tsconfig/loadTsConfig.d.ts
+./node_modules/.pnpm/@evmts+config@1.0.0-next.17_bufferutil@4.1.0_esbuild@0.19.5_fast-check@3.23.2_solc@0.8._1a5d81bf1cf589db18fb2366e1eb56a6/node_modules/@evmts/config/types/src/tsconfig/loadTsConfig.spec.d.ts
+./node_modules/.pnpm/@evmts+config@1.0.0-next.17_bufferutil@4.1.0_esbuild@0.19.5_fast-check@3.23.2_solc@0.8._1a5d81bf1cf589db18fb2366e1eb56a6/node_modules/@evmts/config/types/src/tsconfig/loadTsConfig.spec.d.ts.map
+./node_modules/.pnpm/@evmts+config@1.0.0-next.17_bufferutil@4.1.0_esbuild@0.19.5_fast-check@3.23.2_solc@0.8._1a5d81bf1cf589db18fb2366e1eb56a6/node_modules/@evmts/config/src/tsconfig/loadTsConfig.js
+./node_modules/.pnpm/@evmts+config@1.0.0-next.17_bufferutil@4.1.0_esbuild@0.19.5_fast-check@3.23.2_solc@0.8._1a5d81bf1cf589db18fb2366e1eb56a6/node_modules/@evmts/config/src/tsconfig/loadTsConfig.spec.ts
+./node_modules/.pnpm/@evmts+config@1.0.0-next.17_bufferutil@4.1.0_esbuild@0.19.5_fast-check@3.23.2_solc@0.8._3be390171ee69da9f937c09067f63103/node_modules/@evmts/config/types/src/tsconfig/loadTsConfig.d.ts.map
+./node_modules/.pnpm/@evmts+config@1.0.0-next.17_bufferutil@4.1.0_esbuild@0.19.5_fast-check@3.23.2_solc@0.8._3be390171ee69da9f937c09067f63103/node_modules/@evmts/config/types/src/tsconfig/loadTsConfig.d.ts
+./node_modules/.pnpm/@evmts+config@1.0.0-next.17_bufferutil@4.1.0_esbuild@0.19.5_fast-check@3.23.2_solc@0.8._3be390171ee69da9f937c09067f63103/node_modules/@evmts/config/types/src/tsconfig/loadTsConfig.spec.d.ts
+./node_modules/.pnpm/@evmts+config@1.0.0-next.17_bufferutil@4.1.0_esbuild@0.19.5_fast-check@3.23.2_solc@0.8._3be390171ee69da9f937c09067f63103/node_modules/@evmts/config/types/src/tsconfig/loadTsConfig.spec.d.ts.map
+./node_modules/.pnpm/@evmts+config@1.0.0-next.17_bufferutil@4.1.0_esbuild@0.19.5_fast-check@3.23.2_solc@0.8._3be390171ee69da9f937c09067f63103/node_modules/@evmts/config/src/tsconfig/loadTsConfig.js
+./node_modules/.pnpm/@evmts+config@1.0.0-next.17_bufferutil@4.1.0_esbuild@0.19.5_fast-check@3.23.2_solc@0.8._3be390171ee69da9f937c09067f63103/node_modules/@evmts/config/src/tsconfig/loadTsConfig.spec.ts
+./.worktrees/008-txpool-rpc-methods/bundler-packages/config/src/tsconfig/loadTsConfig.js
+./.worktrees/008-txpool-rpc-methods/bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts
+./.worktrees/008-txpool-rpc-methods/bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts
+./.worktrees/020-eip-3155-trace-and-divergence-tools/bundler-packages/config/src/tsconfig/loadTsConfig.js
+./.worktrees/020-eip-3155-trace-and-divergence-tools/bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts
+./.worktrees/020-eip-3155-trace-and-divergence-tools/bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts
+./.worktrees/018-hive-test-harness/bundler-packages/config/src/tsconfig/loadTsConfig.js
+./.worktrees/018-hive-test-harness/bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts
+./.worktrees/018-hive-test-harness/bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts
+./.worktrees/005-json-rpc-transport-compatibility/bundler-packages/config/src/tsconfig/loadTsConfig.js
+./.worktrees/005-json-rpc-transport-compatibility/bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts
+./.worktrees/005-json-rpc-transport-compatibility/bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts
+./.worktrees/016-eip-7702-end-to-end-support/bundler-packages/config/src/tsconfig/loadTsConfig.js
+./.worktrees/016-eip-7702-end-to-end-support/bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts
+
+codex
+In this checkout `@tevm/config` lives at `bundler-packages/config`, not `packages/config`. I’m treating that as the actual config package path for these listed errors; the common and trie paths are under `packages/*` as expected.
+exec
+/bin/zsh -lc "sed -n '1,190p' bundler-packages/config/src/tsconfig/loadTsConfig.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { existsSync, readFileSync } from 'node:fs'
+import * as path from 'node:path'
+import {
+	decodeUnknownEither,
+	optional,
+	Record,
+	Array as SArray,
+	String as SString,
+	Struct,
+} from '@effect/schema/Schema'
+import { parseJson } from '@tevm/effect'
+import { catchTag, fail, flatMap, logDebug, succeed, tap, try as tryEffect } from 'effect/Effect'
+import { match } from 'effect/Either'
+
+/**
+ * Expected shape of tsconfig.json or jsconfig.json
+ * @typedef {{ compilerOptions?: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } | undefined }} TsConfig
+ * @internal
+ */
+
+export class FailedToReadConfigError extends Error {
+	/**
+	 * @type {'FailedToReadConfigError'}
+	 */
+	_tag = 'FailedToReadConfigError'
+	/**
+	 * @param {string} configFilePath
+	 * @param {object} [options]
+	 * @param {unknown} [options.cause]
+	 */
+	constructor(configFilePath, options) {
+		super(`Failed to find ${configFilePath}/tsconfig.json`, options)
+	}
+}
+
+/**
+ * TypeError thrown when the user provided config factory is incorrectly typed
+ * @internal
+ */
+export class InvalidTsConfigError extends TypeError {
+	/**
+	 * @type {'InvalidConfigError'}
+	 */
+	_tag = 'InvalidConfigError'
+	/**
+	 * @param {object} [options]
+	 * @param {unknown} [options.cause]
+	 */
+	constructor(options) {
+		super('Invalid tsconfig.json detected', options)
+	}
+}
+
+/**
+ * schema for tsconfig shape
+ * @internal
+ */
+const STsConfig = Struct({
+	compilerOptions: Struct({
+		baseUrl: optional(SString),
+		plugins: optional(
+			SArray(
+				Struct({
+					name: SString,
+				}),
+			),
+		),
+		paths: optional(Record({ key: SString, value: SArray(SString) })),
+	}),
+})
+
+/**
+ * @typedef {import("@tevm/effect").ParseJsonError | FailedToReadConfigError | InvalidTsConfigError} LoadTsConfigError
+ * @internal
+ */
+
+/**
+ * Syncronously loads an Tevm config from the given path
+ * @param {string} configFilePath
+ * @returns {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} the contents of the tsconfig.json file
+ * @internal
+ */
+export const loadTsConfig = (configFilePath) => {
+	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
+	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
+
+	return tryEffect({
+		try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
+		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
+	}).pipe(
+		// parse the json
+		flatMap(parseJson),
+		// parse the tsconfig without plugins
+		flatMap((unvalidatedConfig) => {
+			const res = decodeUnknownEither(STsConfig)(unvalidatedConfig, {
+				errors: 'all',
+				onExcessProperty: 'ignore',
+			})
+			return match(res, {
+				onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
+				onRight: (right) => succeed(right),
+			})
+		}),
+		flatMap((unvalidatedConfig) => {
+			const res = decodeUnknownEither(STsConfig)(unvalidatedConfig, {
+				errors: 'all',
+				onExcessProperty: 'ignore',
+			})
+			return match(res, {
+				onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
+				onRight: (right) => succeed(right),
+			})
+		}),
+		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
+	)
+}
+
+exec
+/bin/zsh -lc "sed -n '1,290p' bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,260p' bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { runPromise } from 'effect/Effect'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { loadTsConfig } from './loadTsConfig.js'
+
+// Mock fs functions
+vi.mock('node:fs', () => ({
+	readFileSync: vi.fn(),
+	existsSync: vi.fn(),
+	writeFileSync: vi.fn(),
+}))
+
+describe('loadTsConfig with mocks', () => {
+	beforeEach(() => {
+		vi.resetAllMocks()
+	})
+
+	afterEach(() => {
+		vi.restoreAllMocks()
+	})
+
+	it('should not write configs without plugins array', async () => {
+		vi.mocked(existsSync).mockReturnValue(false)
+		vi.mocked(readFileSync).mockReturnValue(
+			JSON.stringify({
+				compilerOptions: {
+					baseUrl: './src',
+				},
+			}),
+		)
+		const originalConsoleError = console.error
+		console.error = vi.fn()
+
+		const result = await runPromise(loadTsConfig('/path/to/project'))
+
+		expect(result.compilerOptions.baseUrl).toBe('./src')
+		expect(vi.mocked(writeFileSync)).not.toHaveBeenCalled()
+
+		console.error = originalConsoleError
+	})
+
+	it('should ignore writeFileSync failures because loading is read-only', async () => {
+		vi.mocked(existsSync).mockReturnValue(true)
+		vi.mocked(readFileSync).mockReturnValue(
+			JSON.stringify({
+				compilerOptions: {
+					baseUrl: './src',
+				},
+			}),
+		)
+		vi.mocked(writeFileSync).mockImplementation(() => {
+			throw new Error('Permission denied')
+		})
+
+		const originalConsoleError = console.error
+		console.error = vi.fn()
+
+		const result = await runPromise(loadTsConfig('/path/to/project'))
+
+		expect(result.compilerOptions.baseUrl).toBe('./src')
+		expect(console.error).not.toHaveBeenCalled()
+
+		console.error = originalConsoleError
+	})
+
+	it('should not write plugins to config', async () => {
+		vi.mocked(existsSync).mockReturnValue(false)
+		vi.mocked(readFileSync).mockReturnValue(
+			JSON.stringify({
+				compilerOptions: {
+					plugins: [{ name: 'some-other-plugin' }],
+				},
+			}),
+		)
+
+		const result = await runPromise(loadTsConfig('/path/to/project'))
+
+		expect(result.compilerOptions.plugins?.[0]?.name).toBe('some-other-plugin')
+		expect(vi.mocked(writeFileSync)).not.toHaveBeenCalled()
+	})
+
+	it('should throw InvalidTsConfigError for a completely invalid tsconfig', async () => {
+		vi.mocked(existsSync).mockReturnValue(false)
+		vi.mocked(readFileSync).mockReturnValue('not valid json')
+
+		await expect(runPromise(loadTsConfig('/path/to/project'))).rejects.toThrow()
+	})
+})
+
+ succeeded in 0ms:
+import { join } from 'node:path'
+import { runSync } from 'effect/Effect'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { FailedToReadConfigError, loadTsConfig } from './loadTsConfig.js'
+
+// Mock fs module
+vi.mock('node:fs', () => ({
+	existsSync: vi.fn().mockReturnValue(true),
+	readFileSync: vi.fn(),
+	writeFileSync: vi.fn(),
+}))
+
+// Import mocked modules after mocking
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+
+describe(loadTsConfig.name, () => {
+	beforeEach(() => {
+		vi.resetAllMocks()
+	})
+
+	it('should correctly load a tsconfig.json', async () => {
+		vi.mocked(existsSync).mockImplementation((path) => path.toString().includes('basic'))
+		vi.mocked(readFileSync).mockImplementation(() =>
+			JSON.stringify({
+				compilerOptions: {
+					paths: { '@/*': ['./*'] },
+					plugins: [{ name: '@tevm/ts-plugin' }],
+				},
+			}),
+		)
+
+		expect(runSync(loadTsConfig(join(__dirname, '../fixtures/basic')))).toMatchInlineSnapshot(`
+			{
+			  "compilerOptions": {
+			    "paths": {
+			      "@/*": [
+			        "./*",
+			      ],
+			    },
+			    "plugins": [
+			      {
+			        "name": "@tevm/ts-plugin",
+			      },
+			    ],
+			  },
+			}
+		`)
+	})
+
+	it('should load a jsconfig.json', async () => {
+		vi.mocked(existsSync).mockImplementation(
+			(path) => path.toString().includes('legacy-js') || path.toString().includes('jsconfig.json'),
+		)
+		vi.mocked(readFileSync).mockImplementation(() =>
+			JSON.stringify({
+				compilerOptions: {
+					plugins: [{ name: '@tevm/ts-plugin' }],
+				},
+			}),
+		)
+
+		expect(runSync(loadTsConfig(join(__dirname, '../fixtures/legacy-js')))).toMatchInlineSnapshot(`
+			{
+			  "compilerOptions": {
+			    "plugins": [
+			      {
+			        "name": "@tevm/ts-plugin",
+			      },
+			    ],
+			  },
+			}
+		`)
+	})
+
+	it('should load a jsonc (json with comments)', async () => {
+		vi.mocked(existsSync).mockImplementation(
+			(path) => path.toString().includes('jsonc') || path.toString().includes('jsconfig.json'),
+		)
+		vi.mocked(readFileSync).mockImplementation(() =>
+			JSON.stringify({
+				compilerOptions: {
+					plugins: [{ name: '@tevm/ts-plugin' }],
+				},
+			}),
+		)
+
+		expect(runSync(loadTsConfig(join(__dirname, '../fixtures/jsonc')))).toMatchInlineSnapshot(`
+			{
+			  "compilerOptions": {
+			    "plugins": [
+			      {
+			        "name": "@tevm/ts-plugin",
+			      },
+			    ],
+			  },
+			}
+		`)
+	})
+
+	it(`should throw ${FailedToReadConfigError.name} if the file doesn't exist`, () => {
+		vi.mocked(existsSync).mockReturnValue(false)
+		vi.mocked(readFileSync).mockImplementation(() => {
+			throw new Error('ENOENT')
+		})
+
+		expect(() => runSync(loadTsConfig(join(__dirname, '../fixtures/doesntexist')))).toThrowError()
+	})
+
+	it('should not write config files when the plugin is missing', () => {
+		const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+		// Mock existsSync to behave correctly
+		vi.mocked(existsSync).mockReturnValue(true)
+
+		// Mock readFileSync to return a simple config
+		const configStr = JSON.stringify({
+			compilerOptions: {
+				baseUrl: './src',
+			},
+		})
+		vi.mocked(readFileSync).mockReturnValue(configStr)
+
+		const result = runSync(loadTsConfig('/mock/path'))
+
+		expect(result.compilerOptions.baseUrl).toBe('./src')
+		expect(writeFileSync).not.toHaveBeenCalled()
+		expect(consoleSpy).not.toHaveBeenCalled()
+
+		// Clean up
+		consoleSpy.mockRestore()
+	})
+
+	it('should not write config files when another plugin exists without the tevm plugin', () => {
+		const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+		// Mock existsSync to behave correctly
+		vi.mocked(existsSync).mockReturnValue(true)
+
+		// Mock readFileSync to return config with other plugins
+		const configStr = JSON.stringify({
+			compilerOptions: {
+				plugins: [{ name: 'some-other-plugin' }],
+			},
+		})
+		vi.mocked(readFileSync).mockReturnValue(configStr)
+
+		const result = runSync(loadTsConfig('/mock/path'))
+
+		expect(result.compilerOptions.plugins?.[0]?.name).toBe('some-other-plugin')
+		expect(writeFileSync).not.toHaveBeenCalled()
+		expect(consoleSpy).not.toHaveBeenCalled()
+
+		// Clean up
+		consoleSpy.mockRestore()
+	})
+
+	it('should throw InvalidTsConfigError for invalid tsconfig structure', () => {
+		// Mock readFileSync to return invalid config structure
+		vi.mocked(readFileSync).mockReturnValue('{"notValidTsConfig": true}')
+
+		// Expect the function to throw with message containing "Invalid tsconfig"
+		expect(() => runSync(loadTsConfig('/mock/path'))).toThrowError(/Invalid tsconfig/)
+	})
+
+	it('should return configs without plugins without mutating them', () => {
+		// Mock a basic tsconfig with no plugins
+		const configWithoutPlugins = {
+			compilerOptions: {
+				baseUrl: './src',
+			},
+		}
+
+		// Set up mocks to simulate normal behavior
+		vi.mocked(existsSync).mockReturnValue(true)
+		vi.mocked(readFileSync).mockReturnValue(JSON.stringify(configWithoutPlugins))
+
+		const result = runSync(loadTsConfig('/mock/path'))
+
+		expect(writeFileSync).not.toHaveBeenCalled()
+		expect(result.compilerOptions.baseUrl).toBe('./src')
+		expect(result.compilerOptions.plugins).toBeUndefined()
+	})
+
+	it('should not modify config if @tevm/ts-plugin already exists', () => {
+		// Mock a config that already has the tevm plugin
+		const configWithTevmPlugin = {
+			compilerOptions: {
+				plugins: [{ name: '@tevm/ts-plugin' }],
+			},
+		}
+
+		// Set up mocks
+		vi.mocked(existsSync).mockReturnValue(true)
+		vi.mocked(readFileSync).mockReturnValue(JSON.stringify(configWithTevmPlugin))
+
+		// Run the function
+		const result = runSync(loadTsConfig('/mock/path'))
+
+		// Verify writeFileSync was not called (no need to modify the config)
+		expect(writeFileSync).not.toHaveBeenCalled()
+
+		// Verify the result has the plugin
+		expect(result.compilerOptions?.plugins?.[0]?.name).toBe('@tevm/ts-plugin')
+	})
+
+	it('should return other plugins without mutating them', () => {
+		// Mock a config with some other plugins but not the tevm plugin
+		const configWithOtherPlugins = {
+			compilerOptions: {
+				plugins: [{ name: 'some-other-plugin' }],
+			},
+		}
+
+		// Set up mocks
+		vi.mocked(existsSync).mockReturnValue(true)
+		vi.mocked(readFileSync).mockReturnValue(JSON.stringify(configWithOtherPlugins))
+
+		// Run the function
+		const result = runSync(loadTsConfig('/mock/path'))
+
+		expect(writeFileSync).not.toHaveBeenCalled()
+		expect(result.compilerOptions.plugins?.[0]).toEqual({ name: 'some-other-plugin' })
+	})
+})
+
+exec
+/bin/zsh -lc "nl -ba bundler-packages/config/src/tsconfig/loadTsConfig.js | sed -n '70,130p'" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+    70	})
+    71	
+    72	/**
+    73	 * @typedef {import("@tevm/effect").ParseJsonError | FailedToReadConfigError | InvalidTsConfigError} LoadTsConfigError
+    74	 * @internal
+    75	 */
+    76	
+    77	/**
+    78	 * Syncronously loads an Tevm config from the given path
+    79	 * @param {string} configFilePath
+    80	 * @returns {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} the contents of the tsconfig.json file
+    81	 * @internal
+    82	 */
+    83	export const loadTsConfig = (configFilePath) => {
+    84		const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
+    85		const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
+    86	
+    87		return tryEffect({
+    88			try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
+    89			catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
+    90		}).pipe(
+    91			// parse the json
+    92			flatMap(parseJson),
+    93			// parse the tsconfig without plugins
+    94			flatMap((unvalidatedConfig) => {
+    95				const res = decodeUnknownEither(STsConfig)(unvalidatedConfig, {
+    96					errors: 'all',
+    97					onExcessProperty: 'ignore',
+    98				})
+    99				return match(res, {
+   100					onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
+   101					onRight: (right) => succeed(right),
+   102				})
+   103			}),
+   104			flatMap((unvalidatedConfig) => {
+   105				const res = decodeUnknownEither(STsConfig)(unvalidatedConfig, {
+   106					errors: 'all',
+   107					onExcessProperty: 'ignore',
+   108				})
+   109				return match(res, {
+   110					onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
+   111					onRight: (right) => succeed(right),
+   112				})
+   113			}),
+   114			catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+   115			tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
+   116		)
+   117	}
+
+exec
+/bin/zsh -lc "sed -n '1,160p' packages/effect/types/parseJson.d.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,200p' packages/effect/src/parseJson.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { try as tryEffect } from 'effect/Effect'
+import { parse } from 'jsonc-parser'
+
+/**
+ * Error thrown when the tsconfig.json file is not valid json
+ * @internal
+ */
+export class ParseJsonError extends Error {
+	/**
+	 * @type {'ParseJsonError'}
+	 */
+	_tag = 'ParseJsonError'
+	/**
+	 * @param {object} [options]
+	 * @param {unknown} [options.cause]
+	 */
+	constructor(options = {}) {
+		super('Failed to parse tsconfig.json', options)
+	}
+}
+
+/**
+ * Parses a json string
+ * @param {string} jsonStr
+ * @returns {import("effect/Effect").Effect<unknown, ParseJsonError, never>}
+ * @throws {ParseJsonError} when the tevm.json file is not valid json
+ * @example
+ * ```ts
+ * const jsonEffect = parseJson('{ "compilerOptions": { "plugins": [{ "name": "@tevm/ts-plugin" }] } }')
+ * ````
+ * @internal
+ */
+export const parseJson = (jsonStr) => {
+	return tryEffect({
+		try: () => {
+			const errors = /** @type {import("jsonc-parser").ParseError[]}*/ ([])
+			const res = parse(jsonStr, errors, {
+				disallowComments: false,
+				allowTrailingComma: true,
+				allowEmptyContent: false,
+			})
+			if (errors.length > 0) {
+				throw new AggregateError(errors)
+			}
+			return res
+		},
+		catch: (cause) => new ParseJsonError({ cause }),
+	})
+}
+
+ succeeded in 0ms:
+/**
+ * Error thrown when the tsconfig.json file is not valid json
+ * @internal
+ */
+export class ParseJsonError extends Error {
+    /**
+     * @param {object} [options]
+     * @param {unknown} [options.cause]
+     */
+    constructor(options?: {
+        cause?: unknown;
+    });
+    /**
+     * @type {'ParseJsonError'}
+     */
+    _tag: "ParseJsonError";
+}
+export function parseJson(jsonStr: string): import("effect/Effect").Effect<unknown, ParseJsonError, never>;
+//# sourceMappingURL=parseJson.d.ts.map
+exec
+/bin/zsh -lc "grep -R \"class ParseJsonError\\|ParseJsonError\" -n packages/effect/src packages/effect/types | head -40" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+packages/effect/src/index.spec.ts:21:			ParseJsonError: expect.any(Function),
+packages/effect/src/parseJson.js:8:export class ParseJsonError extends Error {
+packages/effect/src/parseJson.js:10:	 * @type {'ParseJsonError'}
+packages/effect/src/parseJson.js:12:	_tag = 'ParseJsonError'
+packages/effect/src/parseJson.js:25: * @returns {import("effect/Effect").Effect<unknown, ParseJsonError, never>}
+packages/effect/src/parseJson.js:26: * @throws {ParseJsonError} when the tevm.json file is not valid json
+packages/effect/src/parseJson.js:47:		catch: (cause) => new ParseJsonError({ cause }),
+packages/effect/src/parseJson.spec.ts:3:import { ParseJsonError, parseJson } from './parseJson.js'
+packages/effect/src/parseJson.spec.ts:26:	it(`it should throw a ${ParseJsonError.name} if the json is invalid`, () => {
+packages/effect/types/parseJson.d.ts:5:export class ParseJsonError extends Error {
+packages/effect/types/parseJson.d.ts:14:     * @type {'ParseJsonError'}
+packages/effect/types/parseJson.d.ts:16:    _tag: "ParseJsonError";
+packages/effect/types/parseJson.d.ts:18:export function parseJson(jsonStr: string): import("effect/Effect").Effect<unknown, ParseJsonError, never>;
+
+exec
+/bin/zsh -lc "sed -n '1,120p' bundler-packages/config/types/src/tsconfig/loadTsConfig.d.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+/**
+ * Expected shape of tsconfig.json or jsconfig.json
+ * @typedef {{ compilerOptions?: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } | undefined }} TsConfig
+ * @internal
+ */
+export class FailedToReadConfigError extends Error {
+    /**
+     * @param {string} configFilePath
+     * @param {object} [options]
+     * @param {unknown} [options.cause]
+     */
+    constructor(configFilePath: string, options?: {
+        cause?: unknown;
+    });
+    /**
+     * @type {'FailedToReadConfigError'}
+     */
+    _tag: "FailedToReadConfigError";
+}
+/**
+ * TypeError thrown when the user provided config factory is incorrectly typed
+ * @internal
+ */
+export class InvalidTsConfigError extends TypeError {
+    /**
+     * @param {object} [options]
+     * @param {unknown} [options.cause]
+     */
+    constructor(options?: {
+        cause?: unknown;
+    });
+    /**
+     * @type {'InvalidConfigError'}
+     */
+    _tag: "InvalidConfigError";
+}
+export function loadTsConfig(configFilePath: string): import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>;
+/**
+ * Expected shape of tsconfig.json or jsconfig.json
+ */
+export type TsConfig = {
+    compilerOptions?: {
+        plugins?: ReadonlyArray<{
+            name: string;
+        }> | undefined;
+        baseUrl?: string | undefined;
+        paths?: Record<string, ReadonlyArray<string>> | undefined;
+    } | undefined;
+};
+export type LoadTsConfigError = import("@tevm/effect").ParseJsonError | FailedToReadConfigError | InvalidTsConfigError;
+//# sourceMappingURL=loadTsConfig.d.ts.map
+codex
+I’ve got the target shapes now. The intended config loader schema requires `compilerOptions`, so I’m going to align the JSDoc typedef with that, correct the parse-error tag, and add only the missing parameter types in common/trie.
+exec
+/bin/zsh -lc 'test -d .review-slices && printf yes || printf no' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+yes
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/.review-slices/_repair1.fix.md
+/Users/williamcory/tevm-monorepo/bundler-packages/config/src/tsconfig/loadTsConfig.js
+/Users/williamcory/tevm-monorepo/packages/common/src/createCommon.js
+/Users/williamcory/tevm-monorepo/packages/trie/src/EMPTY_STATE_ROOT.js
+diff --git a/.review-slices/_repair1.fix.md b/.review-slices/_repair1.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..51f22d0d136a93d5a2f7580616137dfe70ebff21
+--- /dev/null
++++ b/.review-slices/_repair1.fix.md
+@@ -0,0 +1,20 @@
++# Wave 1 typecheck repair
++
++**Scope:** packages/config, packages/common, packages/trie
++
++## Errors fixed
++- packages/common/src/createCommon.js:5 - added JSDoc parameter/return types for `normalizeHardfork`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:87 - aligned `TsConfig` JSDoc with the required `compilerOptions` schema.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:114 - changed `catchTag` to match `ParseJsonError`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:36 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:60 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:78 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:125 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:149 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:180 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:181 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:222 - fixed via required `compilerOptions` in the loader result type.
++- packages/trie/src/EMPTY_STATE_ROOT.js:52 - added JSDoc parameter/return types for `isArrayIndex`.
++
++## Errors deferred
++- None.
+diff --git a/bundler-packages/config/src/tsconfig/loadTsConfig.js b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+index 33e0f22133370b19dc6ed18164424cb1d2791115..a6f83be9776aba7acec30af85370b25d44e236b8
+--- a/bundler-packages/config/src/tsconfig/loadTsConfig.js
++++ b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+@@ -14,7 +14,7 @@
+ 
+ /**
+  * Expected shape of tsconfig.json or jsconfig.json
+- * @typedef {{ compilerOptions?: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } | undefined }} TsConfig
++ * @typedef {{ compilerOptions: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } }} TsConfig
+  * @internal
+  */
+ 
+@@ -111,7 +111,7 @@
+ 				onRight: (right) => succeed(right),
+ 			})
+ 		}),
+-		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
++		catchTag('ParseJsonError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+ 		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
+ 	)
+ }
+diff --git a/packages/common/src/createCommon.js b/packages/common/src/createCommon.js
+index 947fbcfd0f9ebedd433a5ac4b4fb9d60c4f4ac85..201f10118450a275f97b83f6d167d11a59554e1a
+--- a/packages/common/src/createCommon.js
++++ b/packages/common/src/createCommon.js
+@@ -2,6 +2,10 @@
+ import { InvalidParamsError } from '@tevm/errors'
+ import { createLogger } from '@tevm/logger'
+ 
++/**
++ * @param {string} hardfork
++ * @returns {string}
++ */
+ const normalizeHardfork = (hardfork) =>
+ 	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
+ 
+diff --git a/packages/trie/src/EMPTY_STATE_ROOT.js b/packages/trie/src/EMPTY_STATE_ROOT.js
+index 524ef9d64566dae5d937798248534a7b2a90fca8..f2cc7479552c6b0ea3cfccab9e2451e996700d45
+--- a/packages/trie/src/EMPTY_STATE_ROOT.js
++++ b/packages/trie/src/EMPTY_STATE_ROOT.js
+@@ -49,6 +49,10 @@
+ 		},
+ 	},
+ })
++/**
++ * @param {PropertyKey} property
++ * @returns {boolean}
++ */
+ const isArrayIndex = (property) => {
+ 	return typeof property === 'string' && /^(0|[1-9]\d*)$/.test(property)
+ }
+
+diff --git a/.review-slices/_repair1.fix.md b/.review-slices/_repair1.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..51f22d0d136a93d5a2f7580616137dfe70ebff21
+--- /dev/null
++++ b/.review-slices/_repair1.fix.md
+@@ -0,0 +1,20 @@
++# Wave 1 typecheck repair
++
++**Scope:** packages/config, packages/common, packages/trie
++
++## Errors fixed
++- packages/common/src/createCommon.js:5 - added JSDoc parameter/return types for `normalizeHardfork`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:87 - aligned `TsConfig` JSDoc with the required `compilerOptions` schema.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:114 - changed `catchTag` to match `ParseJsonError`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:36 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:60 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:78 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:125 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:149 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:180 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:181 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:222 - fixed via required `compilerOptions` in the loader result type.
++- packages/trie/src/EMPTY_STATE_ROOT.js:52 - added JSDoc parameter/return types for `isArrayIndex`.
++
++## Errors deferred
++- None.
+diff --git a/bundler-packages/config/src/tsconfig/loadTsConfig.js b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+index 33e0f22133370b19dc6ed18164424cb1d2791115..a6f83be9776aba7acec30af85370b25d44e236b8
+--- a/bundler-packages/config/src/tsconfig/loadTsConfig.js
++++ b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+@@ -14,7 +14,7 @@
+ 
+ /**
+  * Expected shape of tsconfig.json or jsconfig.json
+- * @typedef {{ compilerOptions?: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } | undefined }} TsConfig
++ * @typedef {{ compilerOptions: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } }} TsConfig
+  * @internal
+  */
+ 
+@@ -111,7 +111,7 @@
+ 				onRight: (right) => succeed(right),
+ 			})
+ 		}),
+-		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
++		catchTag('ParseJsonError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+ 		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
+ 	)
+ }
+diff --git a/packages/common/src/createCommon.js b/packages/common/src/createCommon.js
+index 947fbcfd0f9ebedd433a5ac4b4fb9d60c4f4ac85..201f10118450a275f97b83f6d167d11a59554e1a
+--- a/packages/common/src/createCommon.js
++++ b/packages/common/src/createCommon.js
+@@ -2,6 +2,10 @@
+ import { InvalidParamsError } from '@tevm/errors'
+ import { createLogger } from '@tevm/logger'
+ 
++/**
++ * @param {string} hardfork
++ * @returns {string}
++ */
+ const normalizeHardfork = (hardfork) =>
+ 	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
+ 
+diff --git a/packages/trie/src/EMPTY_STATE_ROOT.js b/packages/trie/src/EMPTY_STATE_ROOT.js
+index 524ef9d64566dae5d937798248534a7b2a90fca8..f2cc7479552c6b0ea3cfccab9e2451e996700d45
+--- a/packages/trie/src/EMPTY_STATE_ROOT.js
++++ b/packages/trie/src/EMPTY_STATE_ROOT.js
+@@ -49,6 +49,10 @@
+ 		},
+ 	},
+ })
++/**
++ * @param {PropertyKey} property
++ * @returns {boolean}
++ */
+ const isArrayIndex = (property) => {
+ 	return typeof property === 'string' && /^(0|[1-9]\d*)$/.test(property)
+ }
+
+codex
+One remaining risk is the Effect pipeline’s context/error generics being inferred too loosely in JS. I’m adding a narrow JSDoc assertion on the returned Effect, which is the smallest way to make the declared `Effect<TsConfig, LoadTsConfigError, never>` explicit without restructuring the pipeline.
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/bundler-packages/config/src/tsconfig/loadTsConfig.js
+diff --git a/.review-slices/_repair1.fix.md b/.review-slices/_repair1.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..51f22d0d136a93d5a2f7580616137dfe70ebff21
+--- /dev/null
++++ b/.review-slices/_repair1.fix.md
+@@ -0,0 +1,20 @@
++# Wave 1 typecheck repair
++
++**Scope:** packages/config, packages/common, packages/trie
++
++## Errors fixed
++- packages/common/src/createCommon.js:5 - added JSDoc parameter/return types for `normalizeHardfork`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:87 - aligned `TsConfig` JSDoc with the required `compilerOptions` schema.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:114 - changed `catchTag` to match `ParseJsonError`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:36 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:60 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:78 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:125 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:149 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:180 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:181 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:222 - fixed via required `compilerOptions` in the loader result type.
++- packages/trie/src/EMPTY_STATE_ROOT.js:52 - added JSDoc parameter/return types for `isArrayIndex`.
++
++## Errors deferred
++- None.
+diff --git a/bundler-packages/config/src/tsconfig/loadTsConfig.js b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+index 33e0f22133370b19dc6ed18164424cb1d2791115..4fb7ad13e27634cf5e572401a8dcae043f9427c5
+--- a/bundler-packages/config/src/tsconfig/loadTsConfig.js
++++ b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+@@ -14,7 +14,7 @@
+ 
+ /**
+  * Expected shape of tsconfig.json or jsconfig.json
+- * @typedef {{ compilerOptions?: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } | undefined }} TsConfig
++ * @typedef {{ compilerOptions: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } }} TsConfig
+  * @internal
+  */
+ 
+@@ -84,7 +84,7 @@
+ 	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
+ 	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
+ 
+-	return tryEffect({
++	return /** @type {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} */ (tryEffect({
+ 		try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
+ 		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
+ 	}).pipe(
+@@ -111,7 +111,7 @@
+ 				onRight: (right) => succeed(right),
+ 			})
+ 		}),
+-		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
++		catchTag('ParseJsonError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+ 		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
+-	)
++	))
+ }
+diff --git a/packages/common/src/createCommon.js b/packages/common/src/createCommon.js
+index 947fbcfd0f9ebedd433a5ac4b4fb9d60c4f4ac85..201f10118450a275f97b83f6d167d11a59554e1a
+--- a/packages/common/src/createCommon.js
++++ b/packages/common/src/createCommon.js
+@@ -2,6 +2,10 @@
+ import { InvalidParamsError } from '@tevm/errors'
+ import { createLogger } from '@tevm/logger'
+ 
++/**
++ * @param {string} hardfork
++ * @returns {string}
++ */
+ const normalizeHardfork = (hardfork) =>
+ 	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
+ 
+diff --git a/packages/trie/src/EMPTY_STATE_ROOT.js b/packages/trie/src/EMPTY_STATE_ROOT.js
+index 524ef9d64566dae5d937798248534a7b2a90fca8..f2cc7479552c6b0ea3cfccab9e2451e996700d45
+--- a/packages/trie/src/EMPTY_STATE_ROOT.js
++++ b/packages/trie/src/EMPTY_STATE_ROOT.js
+@@ -49,6 +49,10 @@
+ 		},
+ 	},
+ })
++/**
++ * @param {PropertyKey} property
++ * @returns {boolean}
++ */
+ const isArrayIndex = (property) => {
+ 	return typeof property === 'string' && /^(0|[1-9]\d*)$/.test(property)
+ }
+
+diff --git a/.review-slices/_repair1.fix.md b/.review-slices/_repair1.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..51f22d0d136a93d5a2f7580616137dfe70ebff21
+--- /dev/null
++++ b/.review-slices/_repair1.fix.md
+@@ -0,0 +1,20 @@
++# Wave 1 typecheck repair
++
++**Scope:** packages/config, packages/common, packages/trie
++
++## Errors fixed
++- packages/common/src/createCommon.js:5 - added JSDoc parameter/return types for `normalizeHardfork`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:87 - aligned `TsConfig` JSDoc with the required `compilerOptions` schema.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:114 - changed `catchTag` to match `ParseJsonError`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:36 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:60 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:78 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:125 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:149 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:180 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:181 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:222 - fixed via required `compilerOptions` in the loader result type.
++- packages/trie/src/EMPTY_STATE_ROOT.js:52 - added JSDoc parameter/return types for `isArrayIndex`.
++
++## Errors deferred
++- None.
+diff --git a/bundler-packages/config/src/tsconfig/loadTsConfig.js b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+index 33e0f22133370b19dc6ed18164424cb1d2791115..4fb7ad13e27634cf5e572401a8dcae043f9427c5
+--- a/bundler-packages/config/src/tsconfig/loadTsConfig.js
++++ b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+@@ -14,7 +14,7 @@
+ 
+ /**
+  * Expected shape of tsconfig.json or jsconfig.json
+- * @typedef {{ compilerOptions?: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } | undefined }} TsConfig
++ * @typedef {{ compilerOptions: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } }} TsConfig
+  * @internal
+  */
+ 
+@@ -84,7 +84,7 @@
+ 	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
+ 	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
+ 
+-	return tryEffect({
++	return /** @type {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} */ (tryEffect({
+ 		try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
+ 		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
+ 	}).pipe(
+@@ -111,7 +111,7 @@
+ 				onRight: (right) => succeed(right),
+ 			})
+ 		}),
+-		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
++		catchTag('ParseJsonError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+ 		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
+-	)
++	))
+ }
+diff --git a/packages/common/src/createCommon.js b/packages/common/src/createCommon.js
+index 947fbcfd0f9ebedd433a5ac4b4fb9d60c4f4ac85..201f10118450a275f97b83f6d167d11a59554e1a
+--- a/packages/common/src/createCommon.js
++++ b/packages/common/src/createCommon.js
+@@ -2,6 +2,10 @@
+ import { InvalidParamsError } from '@tevm/errors'
+ import { createLogger } from '@tevm/logger'
+ 
++/**
++ * @param {string} hardfork
++ * @returns {string}
++ */
+ const normalizeHardfork = (hardfork) =>
+ 	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
+ 
+diff --git a/packages/trie/src/EMPTY_STATE_ROOT.js b/packages/trie/src/EMPTY_STATE_ROOT.js
+index 524ef9d64566dae5d937798248534a7b2a90fca8..f2cc7479552c6b0ea3cfccab9e2451e996700d45
+--- a/packages/trie/src/EMPTY_STATE_ROOT.js
++++ b/packages/trie/src/EMPTY_STATE_ROOT.js
+@@ -49,6 +49,10 @@
+ 		},
+ 	},
+ })
++/**
++ * @param {PropertyKey} property
++ * @returns {boolean}
++ */
+ const isArrayIndex = (property) => {
+ 	return typeof property === 'string' && /^(0|[1-9]\d*)$/.test(property)
+ }
+
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/.review-slices/_repair1.fix.md
+diff --git a/.review-slices/_repair1.fix.md b/.review-slices/_repair1.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..837f7309f11e11898c315f544298ca722f1f51ac
+--- /dev/null
++++ b/.review-slices/_repair1.fix.md
+@@ -0,0 +1,20 @@
++# Wave 1 typecheck repair
++
++**Scope:** packages/config, packages/common, packages/trie
++
++## Errors fixed
++- packages/common/src/createCommon.js:5 - added JSDoc parameter/return types for `normalizeHardfork`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:87 - aligned `TsConfig` JSDoc with the required `compilerOptions` schema and asserted the explicit Effect type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:114 - changed `catchTag` to match `ParseJsonError`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:36 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:60 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:78 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:125 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:149 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:180 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:181 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:222 - fixed via required `compilerOptions` in the loader result type.
++- packages/trie/src/EMPTY_STATE_ROOT.js:52 - added JSDoc parameter/return types for `isArrayIndex`.
++
++## Errors deferred
++- None.
+diff --git a/bundler-packages/config/src/tsconfig/loadTsConfig.js b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+index 33e0f22133370b19dc6ed18164424cb1d2791115..4fb7ad13e27634cf5e572401a8dcae043f9427c5
+--- a/bundler-packages/config/src/tsconfig/loadTsConfig.js
++++ b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+@@ -14,7 +14,7 @@
+ 
+ /**
+  * Expected shape of tsconfig.json or jsconfig.json
+- * @typedef {{ compilerOptions?: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } | undefined }} TsConfig
++ * @typedef {{ compilerOptions: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } }} TsConfig
+  * @internal
+  */
+ 
+@@ -84,7 +84,7 @@
+ 	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
+ 	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
+ 
+-	return tryEffect({
++	return /** @type {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} */ (tryEffect({
+ 		try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
+ 		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
+ 	}).pipe(
+@@ -111,7 +111,7 @@
+ 				onRight: (right) => succeed(right),
+ 			})
+ 		}),
+-		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
++		catchTag('ParseJsonError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+ 		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
+-	)
++	))
+ }
+diff --git a/packages/common/src/createCommon.js b/packages/common/src/createCommon.js
+index 947fbcfd0f9ebedd433a5ac4b4fb9d60c4f4ac85..201f10118450a275f97b83f6d167d11a59554e1a
+--- a/packages/common/src/createCommon.js
++++ b/packages/common/src/createCommon.js
+@@ -2,6 +2,10 @@
+ import { InvalidParamsError } from '@tevm/errors'
+ import { createLogger } from '@tevm/logger'
+ 
++/**
++ * @param {string} hardfork
++ * @returns {string}
++ */
+ const normalizeHardfork = (hardfork) =>
+ 	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
+ 
+diff --git a/packages/trie/src/EMPTY_STATE_ROOT.js b/packages/trie/src/EMPTY_STATE_ROOT.js
+index 524ef9d64566dae5d937798248534a7b2a90fca8..f2cc7479552c6b0ea3cfccab9e2451e996700d45
+--- a/packages/trie/src/EMPTY_STATE_ROOT.js
++++ b/packages/trie/src/EMPTY_STATE_ROOT.js
+@@ -49,6 +49,10 @@
+ 		},
+ 	},
+ })
++/**
++ * @param {PropertyKey} property
++ * @returns {boolean}
++ */
+ const isArrayIndex = (property) => {
+ 	return typeof property === 'string' && /^(0|[1-9]\d*)$/.test(property)
+ }
+
+diff --git a/.review-slices/_repair1.fix.md b/.review-slices/_repair1.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..837f7309f11e11898c315f544298ca722f1f51ac
+--- /dev/null
++++ b/.review-slices/_repair1.fix.md
+@@ -0,0 +1,20 @@
++# Wave 1 typecheck repair
++
++**Scope:** packages/config, packages/common, packages/trie
++
++## Errors fixed
++- packages/common/src/createCommon.js:5 - added JSDoc parameter/return types for `normalizeHardfork`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:87 - aligned `TsConfig` JSDoc with the required `compilerOptions` schema and asserted the explicit Effect type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:114 - changed `catchTag` to match `ParseJsonError`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:36 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:60 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:78 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:125 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:149 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:180 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:181 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:222 - fixed via required `compilerOptions` in the loader result type.
++- packages/trie/src/EMPTY_STATE_ROOT.js:52 - added JSDoc parameter/return types for `isArrayIndex`.
++
++## Errors deferred
++- None.
+diff --git a/bundler-packages/config/src/tsconfig/loadTsConfig.js b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+index 33e0f22133370b19dc6ed18164424cb1d2791115..4fb7ad13e27634cf5e572401a8dcae043f9427c5
+--- a/bundler-packages/config/src/tsconfig/loadTsConfig.js
++++ b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+@@ -14,7 +14,7 @@
+ 
+ /**
+  * Expected shape of tsconfig.json or jsconfig.json
+- * @typedef {{ compilerOptions?: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } | undefined }} TsConfig
++ * @typedef {{ compilerOptions: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } }} TsConfig
+  * @internal
+  */
+ 
+@@ -84,7 +84,7 @@
+ 	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
+ 	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
+ 
+-	return tryEffect({
++	return /** @type {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} */ (tryEffect({
+ 		try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
+ 		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
+ 	}).pipe(
+@@ -111,7 +111,7 @@
+ 				onRight: (right) => succeed(right),
+ 			})
+ 		}),
+-		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
++		catchTag('ParseJsonError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+ 		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
+-	)
++	))
+ }
+diff --git a/packages/common/src/createCommon.js b/packages/common/src/createCommon.js
+index 947fbcfd0f9ebedd433a5ac4b4fb9d60c4f4ac85..201f10118450a275f97b83f6d167d11a59554e1a
+--- a/packages/common/src/createCommon.js
++++ b/packages/common/src/createCommon.js
+@@ -2,6 +2,10 @@
+ import { InvalidParamsError } from '@tevm/errors'
+ import { createLogger } from '@tevm/logger'
+ 
++/**
++ * @param {string} hardfork
++ * @returns {string}
++ */
+ const normalizeHardfork = (hardfork) =>
+ 	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
+ 
+diff --git a/packages/trie/src/EMPTY_STATE_ROOT.js b/packages/trie/src/EMPTY_STATE_ROOT.js
+index 524ef9d64566dae5d937798248534a7b2a90fca8..f2cc7479552c6b0ea3cfccab9e2451e996700d45
+--- a/packages/trie/src/EMPTY_STATE_ROOT.js
++++ b/packages/trie/src/EMPTY_STATE_ROOT.js
+@@ -49,6 +49,10 @@
+ 		},
+ 	},
+ })
++/**
++ * @param {PropertyKey} property
++ * @returns {boolean}
++ */
+ const isArrayIndex = (property) => {
+ 	return typeof property === 'string' && /^(0|[1-9]\d*)$/.test(property)
+ }
+
+exec
+/bin/zsh -lc "sed -n '1,26p' packages/common/src/createCommon.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '36,66p' packages/trie/src/EMPTY_STATE_ROOT.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { createCustomCommon, Mainnet } from '@evmts/zevm/common'
+import { InvalidParamsError } from '@tevm/errors'
+import { createLogger } from '@tevm/logger'
+
+/**
+ * @param {string} hardfork
+ * @returns {string}
+ */
+const normalizeHardfork = (hardfork) =>
+	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
+
+/**
+ * Common is the main representation of chain specific configuration for tevm clients.
+ *
+ * createCommon creates a typesafe Common object used by the EVM
+ * to access chain and hardfork parameters and to provide
+ * a unified and shared view on the network and hardfork state.
+ * Tevm common extends the [viem chain](https://github.com/wevm/viem/blob/main/src/chains/index.ts) interface
+ * @param {import('./CommonOptions.js').CommonOptions} options
+ * @returns {import('./Common.js').Common}
+ * @throws {InvalidParamsError} only if invalid params are passed
+ * @example
+ * ```typescript
+ * import { createCommon } from 'tevm/common'
+ *
+ * const common = createCommon({
+
+ succeeded in 0ms:
+	set: {
+		value() {
+			return throwImmutable()
+		},
+	},
+	sort: {
+		value() {
+			return throwImmutable()
+		},
+	},
+	subarray: {
+		value() {
+			return immutableStateRoot.slice()
+		},
+	},
+})
+/**
+ * @param {PropertyKey} property
+ * @returns {boolean}
+ */
+const isArrayIndex = (property) => {
+	return typeof property === 'string' && /^(0|[1-9]\d*)$/.test(property)
+}
+
+/**
+ * @type {Uint8Array}
+ */
+export const EMPTY_STATE_ROOT = new Proxy(immutableStateRoot, {
+	defineProperty(target, property, descriptor) {
+		if (isArrayIndex(property)) {
+			return throwImmutable()
+
+exec
+/bin/zsh -lc "sed -n '10,120p' bundler-packages/config/src/tsconfig/loadTsConfig.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,80p' .review-slices/_repair1.fix.md" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+# Wave 1 typecheck repair
+
+**Scope:** packages/config, packages/common, packages/trie
+
+## Errors fixed
+- packages/common/src/createCommon.js:5 - added JSDoc parameter/return types for `normalizeHardfork`.
+- bundler-packages/config/src/tsconfig/loadTsConfig.js:87 - aligned `TsConfig` JSDoc with the required `compilerOptions` schema and asserted the explicit Effect type.
+- bundler-packages/config/src/tsconfig/loadTsConfig.js:114 - changed `catchTag` to match `ParseJsonError`.
+- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:36 - fixed via required `compilerOptions` in the loader result type.
+- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:60 - fixed via required `compilerOptions` in the loader result type.
+- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:78 - fixed via required `compilerOptions` in the loader result type.
+- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:125 - fixed via required `compilerOptions` in the loader result type.
+- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:149 - fixed via required `compilerOptions` in the loader result type.
+- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:180 - fixed via required `compilerOptions` in the loader result type.
+- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:181 - fixed via required `compilerOptions` in the loader result type.
+- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:222 - fixed via required `compilerOptions` in the loader result type.
+- packages/trie/src/EMPTY_STATE_ROOT.js:52 - added JSDoc parameter/return types for `isArrayIndex`.
+
+## Errors deferred
+- None.
+
+ succeeded in 0ms:
+} from '@effect/schema/Schema'
+import { parseJson } from '@tevm/effect'
+import { catchTag, fail, flatMap, logDebug, succeed, tap, try as tryEffect } from 'effect/Effect'
+import { match } from 'effect/Either'
+
+/**
+ * Expected shape of tsconfig.json or jsconfig.json
+ * @typedef {{ compilerOptions: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } }} TsConfig
+ * @internal
+ */
+
+export class FailedToReadConfigError extends Error {
+	/**
+	 * @type {'FailedToReadConfigError'}
+	 */
+	_tag = 'FailedToReadConfigError'
+	/**
+	 * @param {string} configFilePath
+	 * @param {object} [options]
+	 * @param {unknown} [options.cause]
+	 */
+	constructor(configFilePath, options) {
+		super(`Failed to find ${configFilePath}/tsconfig.json`, options)
+	}
+}
+
+/**
+ * TypeError thrown when the user provided config factory is incorrectly typed
+ * @internal
+ */
+export class InvalidTsConfigError extends TypeError {
+	/**
+	 * @type {'InvalidConfigError'}
+	 */
+	_tag = 'InvalidConfigError'
+	/**
+	 * @param {object} [options]
+	 * @param {unknown} [options.cause]
+	 */
+	constructor(options) {
+		super('Invalid tsconfig.json detected', options)
+	}
+}
+
+/**
+ * schema for tsconfig shape
+ * @internal
+ */
+const STsConfig = Struct({
+	compilerOptions: Struct({
+		baseUrl: optional(SString),
+		plugins: optional(
+			SArray(
+				Struct({
+					name: SString,
+				}),
+			),
+		),
+		paths: optional(Record({ key: SString, value: SArray(SString) })),
+	}),
+})
+
+/**
+ * @typedef {import("@tevm/effect").ParseJsonError | FailedToReadConfigError | InvalidTsConfigError} LoadTsConfigError
+ * @internal
+ */
+
+/**
+ * Syncronously loads an Tevm config from the given path
+ * @param {string} configFilePath
+ * @returns {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} the contents of the tsconfig.json file
+ * @internal
+ */
+export const loadTsConfig = (configFilePath) => {
+	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
+	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
+
+	return /** @type {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} */ (tryEffect({
+		try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
+		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
+	}).pipe(
+		// parse the json
+		flatMap(parseJson),
+		// parse the tsconfig without plugins
+		flatMap((unvalidatedConfig) => {
+			const res = decodeUnknownEither(STsConfig)(unvalidatedConfig, {
+				errors: 'all',
+				onExcessProperty: 'ignore',
+			})
+			return match(res, {
+				onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
+				onRight: (right) => succeed(right),
+			})
+		}),
+		flatMap((unvalidatedConfig) => {
+			const res = decodeUnknownEither(STsConfig)(unvalidatedConfig, {
+				errors: 'all',
+				onExcessProperty: 'ignore',
+			})
+			return match(res, {
+				onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
+				onRight: (right) => succeed(right),
+			})
+		}),
+		catchTag('ParseJsonError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
+	))
+}
+
+diff --git a/.review-slices/_repair1.fix.md b/.review-slices/_repair1.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..837f7309f11e11898c315f544298ca722f1f51ac
+--- /dev/null
++++ b/.review-slices/_repair1.fix.md
+@@ -0,0 +1,20 @@
++# Wave 1 typecheck repair
++
++**Scope:** packages/config, packages/common, packages/trie
++
++## Errors fixed
++- packages/common/src/createCommon.js:5 - added JSDoc parameter/return types for `normalizeHardfork`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:87 - aligned `TsConfig` JSDoc with the required `compilerOptions` schema and asserted the explicit Effect type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:114 - changed `catchTag` to match `ParseJsonError`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:36 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:60 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:78 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:125 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:149 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:180 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:181 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:222 - fixed via required `compilerOptions` in the loader result type.
++- packages/trie/src/EMPTY_STATE_ROOT.js:52 - added JSDoc parameter/return types for `isArrayIndex`.
++
++## Errors deferred
++- None.
+diff --git a/bundler-packages/config/src/tsconfig/loadTsConfig.js b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+index 33e0f22133370b19dc6ed18164424cb1d2791115..4fb7ad13e27634cf5e572401a8dcae043f9427c5
+--- a/bundler-packages/config/src/tsconfig/loadTsConfig.js
++++ b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+@@ -14,7 +14,7 @@
+ 
+ /**
+  * Expected shape of tsconfig.json or jsconfig.json
+- * @typedef {{ compilerOptions?: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } | undefined }} TsConfig
++ * @typedef {{ compilerOptions: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } }} TsConfig
+  * @internal
+  */
+ 
+@@ -84,7 +84,7 @@
+ 	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
+ 	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
+ 
+-	return tryEffect({
++	return /** @type {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} */ (tryEffect({
+ 		try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
+ 		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
+ 	}).pipe(
+@@ -111,7 +111,7 @@
+ 				onRight: (right) => succeed(right),
+ 			})
+ 		}),
+-		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
++		catchTag('ParseJsonError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+ 		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
+-	)
++	))
+ }
+diff --git a/packages/common/src/createCommon.js b/packages/common/src/createCommon.js
+index 947fbcfd0f9ebedd433a5ac4b4fb9d60c4f4ac85..201f10118450a275f97b83f6d167d11a59554e1a
+--- a/packages/common/src/createCommon.js
++++ b/packages/common/src/createCommon.js
+@@ -2,6 +2,10 @@
+ import { InvalidParamsError } from '@tevm/errors'
+ import { createLogger } from '@tevm/logger'
+ 
++/**
++ * @param {string} hardfork
++ * @returns {string}
++ */
+ const normalizeHardfork = (hardfork) =>
+ 	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
+ 
+diff --git a/packages/trie/src/EMPTY_STATE_ROOT.js b/packages/trie/src/EMPTY_STATE_ROOT.js
+index 524ef9d64566dae5d937798248534a7b2a90fca8..f2cc7479552c6b0ea3cfccab9e2451e996700d45
+--- a/packages/trie/src/EMPTY_STATE_ROOT.js
++++ b/packages/trie/src/EMPTY_STATE_ROOT.js
+@@ -49,6 +49,10 @@
+ 		},
+ 	},
+ })
++/**
++ * @param {PropertyKey} property
++ * @returns {boolean}
++ */
+ const isArrayIndex = (property) => {
+ 	return typeof property === 'string' && /^(0|[1-9]\d*)$/.test(property)
+ }
+
+exec
+/bin/zsh -lc "sed -n '1,80p' packages/effect/src/index.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+export * from './createRequireEffect.js'
+export * from './fileExists.js'
+export * from './logAllErrors.js'
+export * from './parseJson.js'
+export * from './resolve.js'
+
+diff --git a/.review-slices/_repair1.fix.md b/.review-slices/_repair1.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..837f7309f11e11898c315f544298ca722f1f51ac
+--- /dev/null
++++ b/.review-slices/_repair1.fix.md
+@@ -0,0 +1,20 @@
++# Wave 1 typecheck repair
++
++**Scope:** packages/config, packages/common, packages/trie
++
++## Errors fixed
++- packages/common/src/createCommon.js:5 - added JSDoc parameter/return types for `normalizeHardfork`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:87 - aligned `TsConfig` JSDoc with the required `compilerOptions` schema and asserted the explicit Effect type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:114 - changed `catchTag` to match `ParseJsonError`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:36 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:60 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:78 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:125 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:149 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:180 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:181 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:222 - fixed via required `compilerOptions` in the loader result type.
++- packages/trie/src/EMPTY_STATE_ROOT.js:52 - added JSDoc parameter/return types for `isArrayIndex`.
++
++## Errors deferred
++- None.
+diff --git a/bundler-packages/config/src/tsconfig/loadTsConfig.js b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+index 33e0f22133370b19dc6ed18164424cb1d2791115..4fb7ad13e27634cf5e572401a8dcae043f9427c5
+--- a/bundler-packages/config/src/tsconfig/loadTsConfig.js
++++ b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+@@ -14,7 +14,7 @@
+ 
+ /**
+  * Expected shape of tsconfig.json or jsconfig.json
+- * @typedef {{ compilerOptions?: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } | undefined }} TsConfig
++ * @typedef {{ compilerOptions: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } }} TsConfig
+  * @internal
+  */
+ 
+@@ -84,7 +84,7 @@
+ 	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
+ 	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
+ 
+-	return tryEffect({
++	return /** @type {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} */ (tryEffect({
+ 		try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
+ 		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
+ 	}).pipe(
+@@ -111,7 +111,7 @@
+ 				onRight: (right) => succeed(right),
+ 			})
+ 		}),
+-		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
++		catchTag('ParseJsonError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+ 		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
+-	)
++	))
+ }
+diff --git a/packages/common/src/createCommon.js b/packages/common/src/createCommon.js
+index 947fbcfd0f9ebedd433a5ac4b4fb9d60c4f4ac85..201f10118450a275f97b83f6d167d11a59554e1a
+--- a/packages/common/src/createCommon.js
++++ b/packages/common/src/createCommon.js
+@@ -2,6 +2,10 @@
+ import { InvalidParamsError } from '@tevm/errors'
+ import { createLogger } from '@tevm/logger'
+ 
++/**
++ * @param {string} hardfork
++ * @returns {string}
++ */
+ const normalizeHardfork = (hardfork) =>
+ 	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
+ 
+diff --git a/packages/trie/src/EMPTY_STATE_ROOT.js b/packages/trie/src/EMPTY_STATE_ROOT.js
+index 524ef9d64566dae5d937798248534a7b2a90fca8..f2cc7479552c6b0ea3cfccab9e2451e996700d45
+--- a/packages/trie/src/EMPTY_STATE_ROOT.js
++++ b/packages/trie/src/EMPTY_STATE_ROOT.js
+@@ -49,6 +49,10 @@
+ 		},
+ 	},
+ })
++/**
++ * @param {PropertyKey} property
++ * @returns {boolean}
++ */
+ const isArrayIndex = (property) => {
+ 	return typeof property === 'string' && /^(0|[1-9]\d*)$/.test(property)
+ }
+
+codex
+Implemented the requested minimal type repairs.
+
+Changed:
+- [createCommon.js](/Users/williamcory/tevm-monorepo/packages/common/src/createCommon.js): added JSDoc types for `normalizeHardfork`.
+- [EMPTY_STATE_ROOT.js](/Users/williamcory/tevm-monorepo/packages/trie/src/EMPTY_STATE_ROOT.js): added JSDoc types for `isArrayIndex`.
+- [loadTsConfig.js](/Users/williamcory/tevm-monorepo/bundler-packages/config/src/tsconfig/loadTsConfig.js): aligned `TsConfig` with the required schema shape, asserted the explicit `Effect` return type, and fixed the `catchTag` tag to `ParseJsonError`.
+- [repair report](/Users/williamcory/tevm-monorepo/.review-slices/_repair1.fix.md): added the requested fix report.
+
+I did not run typecheck/tests/package tooling per your constraints.
+diff --git a/.review-slices/_repair1.fix.md b/.review-slices/_repair1.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..837f7309f11e11898c315f544298ca722f1f51ac
+--- /dev/null
++++ b/.review-slices/_repair1.fix.md
+@@ -0,0 +1,20 @@
++# Wave 1 typecheck repair
++
++**Scope:** packages/config, packages/common, packages/trie
++
++## Errors fixed
++- packages/common/src/createCommon.js:5 - added JSDoc parameter/return types for `normalizeHardfork`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:87 - aligned `TsConfig` JSDoc with the required `compilerOptions` schema and asserted the explicit Effect type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.js:114 - changed `catchTag` to match `ParseJsonError`.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:36 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:60 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.mocks.spec.ts:78 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:125 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:149 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:180 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:181 - fixed via required `compilerOptions` in the loader result type.
++- bundler-packages/config/src/tsconfig/loadTsConfig.spec.ts:222 - fixed via required `compilerOptions` in the loader result type.
++- packages/trie/src/EMPTY_STATE_ROOT.js:52 - added JSDoc parameter/return types for `isArrayIndex`.
++
++## Errors deferred
++- None.
+diff --git a/bundler-packages/config/src/tsconfig/loadTsConfig.js b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+index 33e0f22133370b19dc6ed18164424cb1d2791115..4fb7ad13e27634cf5e572401a8dcae043f9427c5
+--- a/bundler-packages/config/src/tsconfig/loadTsConfig.js
++++ b/bundler-packages/config/src/tsconfig/loadTsConfig.js
+@@ -14,7 +14,7 @@
+ 
+ /**
+  * Expected shape of tsconfig.json or jsconfig.json
+- * @typedef {{ compilerOptions?: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } | undefined }} TsConfig
++ * @typedef {{ compilerOptions: { plugins?: ReadonlyArray<{ name: string }> | undefined, baseUrl?: string | undefined, paths?: Record<string, ReadonlyArray<string>> | undefined } }} TsConfig
+  * @internal
+  */
+ 
+@@ -84,7 +84,7 @@
+ 	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
+ 	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
+ 
+-	return tryEffect({
++	return /** @type {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} */ (tryEffect({
+ 		try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
+ 		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
+ 	}).pipe(
+@@ -111,7 +111,7 @@
+ 				onRight: (right) => succeed(right),
+ 			})
+ 		}),
+-		catchTag('ParseError', (cause) => fail(new InvalidTsConfigError({ cause }))),
++		catchTag('ParseJsonError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+ 		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
+-	)
++	))
+ }
+diff --git a/packages/common/src/createCommon.js b/packages/common/src/createCommon.js
+index 947fbcfd0f9ebedd433a5ac4b4fb9d60c4f4ac85..201f10118450a275f97b83f6d167d11a59554e1a
+--- a/packages/common/src/createCommon.js
++++ b/packages/common/src/createCommon.js
+@@ -2,6 +2,10 @@
+ import { InvalidParamsError } from '@tevm/errors'
+ import { createLogger } from '@tevm/logger'
+ 
++/**
++ * @param {string} hardfork
++ * @returns {string}
++ */
+ const normalizeHardfork = (hardfork) =>
+ 	hardfork === 'mergeForkIdTransition' || hardfork === 'mergeforkidtransition' ? 'mergeNetsplitBlock' : hardfork
+ 
+diff --git a/packages/trie/src/EMPTY_STATE_ROOT.js b/packages/trie/src/EMPTY_STATE_ROOT.js
+index 524ef9d64566dae5d937798248534a7b2a90fca8..f2cc7479552c6b0ea3cfccab9e2451e996700d45
+--- a/packages/trie/src/EMPTY_STATE_ROOT.js
++++ b/packages/trie/src/EMPTY_STATE_ROOT.js
+@@ -49,6 +49,10 @@
+ 		},
+ 	},
+ })
++/**
++ * @param {PropertyKey} property
++ * @returns {boolean}
++ */
+ const isArrayIndex = (property) => {
+ 	return typeof property === 'string' && /^(0|[1-9]\d*)$/.test(property)
+ }
+
+tokens used
+57,232
+Implemented the requested minimal type repairs.
+
+Changed:
+- [createCommon.js](/Users/williamcory/tevm-monorepo/packages/common/src/createCommon.js): added JSDoc types for `normalizeHardfork`.
+- [EMPTY_STATE_ROOT.js](/Users/williamcory/tevm-monorepo/packages/trie/src/EMPTY_STATE_ROOT.js): added JSDoc types for `isArrayIndex`.
+- [loadTsConfig.js](/Users/williamcory/tevm-monorepo/bundler-packages/config/src/tsconfig/loadTsConfig.js): aligned `TsConfig` with the required schema shape, asserted the explicit `Effect` return type, and fixed the `catchTag` tag to `ParseJsonError`.
+- [repair report](/Users/williamcory/tevm-monorepo/.review-slices/_repair1.fix.md): added the requested fix report.
+
+I did not run typecheck/tests/package tooling per your constraints.

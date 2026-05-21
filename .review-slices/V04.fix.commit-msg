@@ -1,0 +1,12 @@
+🐛 fix(V04): apply review fixes for JSON-RPC debug_* and tevm_* methods slice (4 fixed, 3 deferred)
+
+Slice: V04 (vertical)
+Scope: packages/actions/src/debug packages/actions/src/tevm packages/actions/src/tevm-request-handler packages/procedures/src
+
+
+Addressed 4 real findings with narrow source changes and skipped 3 findings that were already absent in the current code. The fixes focus on returning JSON-RPC errors instead of throwing, replaying historical state for `debug_storageRangeAt`, keeping the debug method request map aligned with implemented methods, and failing modified-account requests when required historical state is unavailable.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

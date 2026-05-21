@@ -1,0 +1,22 @@
+You are fixing 2 unique TypeScript errors (circular type) in @tevm/http-client.
+
+CONSTRAINTS:
+- Modify ONLY files under: packages/http-client.
+- No pnpm/bun/nx/git/tsc/vitest.
+- Minimal-diff.
+
+ERRORS:
+
+@tevm/http-client: src/HttpClient.ts:6:13 - error TS2456: Type alias 'HttpClient' circularly references itself.
+@tevm/http-client: src/createHttpClient.js:8:14 - error TS2577: Return type annotation circularly references itself.
+
+H08 likely introduced a type definition that self-references. Open HttpClient.ts:6 and createHttpClient.js:8 to understand the recursion. Likely fix: change one side to an interface (interfaces support lazy self-reference) or break the cycle with a wrapper type. If it's something like `type HttpClient = SomeOther<HttpClient> & {...}`, change to an `interface HttpClient extends ... {}` declaration.
+
+Write to `.review-slices/_repair10.fix.md`:
+
+# Wave 1 typecheck repair (round 10)
+
+## Errors fixed
+- path:line - <description>
+
+IMPORTANT: write the report at the EXACT path `.review-slices/_repair10.fix.md`.

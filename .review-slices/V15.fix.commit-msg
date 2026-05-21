@@ -1,0 +1,12 @@
+🐛 fix(V15): apply review fixes for Ethers compatibility shim slice (6 fixed, 0 deferred)
+
+Slice: V15 (vertical)
+Scope: extensions/ethers
+
+
+All six findings were verified as real and addressed with scoped changes under `extensions/ethers`. The fixes start the ethers provider lifecycle, widen the compatibility constructor overload, and align typed contract returns/events with ethers v6 runtime shapes. No findings were skipped or deferred.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>

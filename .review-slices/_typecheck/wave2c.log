@@ -1,0 +1,1583 @@
+
+ NX   --skip-nx-cache disables the connection to Nx Cloud for the current run.
+
+The remote cache will not be read from or written to during this run.
+
+
+ NX   Running target typecheck for 38 projects and 86 tasks they depend on:
+
+- @tevm/sync-storage-persister
+- @tevm/receipt-manager
+- @tevm/test-matchers
+- @tevm/webpack-plugin
+- @tevm/memory-client
+- @tevm/client-types
+- @tevm/http-client
+- @tevm/test-node
+- @tevm/blockchain
+- @tevm/decorators
+- @tevm/predeploys
+- @tevm/procedures
+- @tevm/consensus
+- @tevm/memory-client-integration
+- @tevm/test-matchers-integration
+- @tevm/contract
+- @tevm/ethers
+- @tevm/actions
+- @tevm/address
+- @tevm/jsonrpc
+- @tevm/precompiles-integration
+- @tevm/common
+- @tevm/errors
+- @tevm/logger
+- @tevm/server
+- @tevm/txpool
+- @tevm/viem
+- @tevm/block
+- @tevm/state
+- @tevm/utils
+- @tevm/node
+- @tevm/trie
+- @tevm/ts-plugin
+- @tevm/evm
+- @tevm/rlp
+- @tevm/tx
+- @tevm/vm
+- tevm
+
+
+
+> nx run @tevm/tsupconfig:"build:dist"
+
+
+> nx run @tevm/tsupconfig:"build:types"
+
+@tevm/tsupconfig: > @tevm/tsupconfig@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/configs/tsupconfig
+@tevm/tsupconfig: > tsup
+@tevm/tsupconfig: > @tevm/tsupconfig@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/configs/tsupconfig
+@tevm/tsupconfig: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/configs/tsupconfig/tsup.config.ts
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/configs/tsupconfig/tsup.config.ts
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [34mCLI[39m Target: node16
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [34mCJS[39m Build start
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [34mESM[39m Build start
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m1.17 KB[39m
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m3.09 KB[39m
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [32mESM[39m ⚡️ Build success in 31ms
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m1.24 KB[39m
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m3.11 KB[39m
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [32mCJS[39m ⚡️ Build success in 32ms
+
+> nx run @tevm/errors:"build:dist"
+
+
+> nx run @tevm/logger:"build:dist"
+
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [34mDTS[39m Build start
+@tevm/errors: > @tevm/errors@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/errors
+@tevm/errors: > tsup
+@tevm/logger: > @tevm/logger@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/logger
+@tevm/logger: > tsup
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [32mDTS[39m ⚡️ Build success in 307ms
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m464.00 B[39m
+@tevm/tsupconfig: [2m[[22m@TEVM/TSUPCONFIG[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m464.00 B[39m
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/logger/tsup.config.js
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/errors/tsup.config.ts
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [34mCJS[39m Build start
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [34mESM[39m Build start
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [34mCJS[39m Build start
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [34mESM[39m Build start
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m287.00 B[39m
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m703.00 B[39m
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [32mESM[39m ⚡️ Build success in 24ms
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m320.00 B[39m
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m713.00 B[39m
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [32mCJS[39m ⚡️ Build success in 24ms
+
+> nx run @tevm/jsonrpc:"build:dist"
+
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m112.15 KB[39m
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m360.63 KB[39m
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [32mCJS[39m ⚡️ Build success in 114ms
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m106.87 KB[39m
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m360.60 KB[39m
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [32mESM[39m ⚡️ Build success in 115ms
+@tevm/jsonrpc: > @tevm/jsonrpc@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/jsonrpc
+@tevm/jsonrpc: > tsup
+
+> nx run @tevm/utils:"build:dist"
+
+
+> nx run @tevm/errors:"build:types"
+
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/jsonrpc/tsup.config.js
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [34mCJS[39m Build start
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [34mESM[39m Build start
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m1.47 KB[39m
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m3.39 KB[39m
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [32mESM[39m ⚡️ Build success in 29ms
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m1.93 KB[39m
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m3.39 KB[39m
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [32mCJS[39m ⚡️ Build success in 29ms
+
+> nx run @tevm/jsonrpc:"build:types"
+
+@tevm/utils: > @tevm/utils@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/utils
+@tevm/utils: > tsup
+@tevm/errors: > @tevm/errors@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/errors
+@tevm/errors: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/utils/tsup.config.ts
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [34mCJS[39m Build start
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [34mESM[39m Build start
+@tevm/jsonrpc: > @tevm/jsonrpc@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/jsonrpc
+@tevm/jsonrpc: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/errors/tsup.config.ts
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m16.51 KB[39m
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m16.35 KB[39m
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [32mCJS[39m ⚡️ Build success in 47ms
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m7.47 KB[39m
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m16.17 KB[39m
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [32mESM[39m ⚡️ Build success in 47ms
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [34mDTS[39m Build start
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/jsonrpc/tsup.config.js
+
+> nx run @tevm/common:"build:dist"
+
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [34mDTS[39m Build start
+@tevm/common: > @tevm/common@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/common
+@tevm/common: > tsup
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/common/tsup.config.ts
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [34mCJS[39m Build start
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [34mESM[39m Build start
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m52.73 KB[39m
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m359.64 KB[39m
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [32mCJS[39m ⚡️ Build success in 175ms
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m53.12 KB[39m
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m359.39 KB[39m
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [32mESM[39m ⚡️ Build success in 176ms
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [32mDTS[39m ⚡️ Build success in 552ms
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m1.55 KB[39m
+@tevm/jsonrpc: [2m[[22m@TEVM/JSONRPC[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m1.55 KB[39m
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [32mDTS[39m ⚡️ Build success in 841ms
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m342.46 KB[39m
+@tevm/errors: [2m[[22m@TEVM/ERRORS[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m342.46 KB[39m
+
+> nx run @tevm/contract:"build:dist"
+
+@tevm/contract: > @tevm/contract@1.0.0-next.149 build:dist /Users/williamcory/tevm-monorepo/packages/contract
+@tevm/contract: > tsup
+
+> nx run @tevm/address:"build:dist"
+
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/contract/tsup.config.js
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [34mCJS[39m Build start
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [34mESM[39m Build start
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m96.99 KB[39m
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m167.59 KB[39m
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [32mCJS[39m ⚡️ Build success in 53ms
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m96.81 KB[39m
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m167.52 KB[39m
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [32mESM[39m ⚡️ Build success in 53ms
+
+> nx run @tevm/block:"build:dist"
+
+@tevm/address: > @tevm/address@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/address
+@tevm/address: > tsup
+@tevm/block: > @tevm/block@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/block
+@tevm/block: > tsup
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/address/tsup.config.ts
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [34mCJS[39m Build start
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [34mESM[39m Build start
+
+> nx run @tevm/utils:"build:types"
+
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m3.88 KB[39m
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m18.47 KB[39m
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [32mCJS[39m ⚡️ Build success in 42ms
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m3.76 KB[39m
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m18.35 KB[39m
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [32mESM[39m ⚡️ Build success in 42ms
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/block/tsup.config.ts
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [34mCJS[39m Build start
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [34mESM[39m Build start
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m70.50 KB[39m
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m160.41 KB[39m
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [32mESM[39m ⚡️ Build success in 134ms
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m71.45 KB[39m
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m160.85 KB[39m
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [32mCJS[39m ⚡️ Build success in 134ms
+
+> nx run @tevm/logger:"build:types"
+
+
+> nx run @tevm/solc:"build:dist"
+
+@tevm/utils: > @tevm/utils@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/utils
+@tevm/utils: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/utils/tsup.config.ts
+@tevm/logger: > @tevm/logger@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/logger
+@tevm/logger: > tsup --dts-only
+@tevm/solc: > @tevm/solc@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/bundler-packages/solc
+@tevm/solc: > tsup
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [34mDTS[39m Build start
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/logger/tsup.config.js
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/solc/tsup.config.ts
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [34mCLI[39m Target: node16
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [34mCJS[39m Build start
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [34mESM[39m Build start
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m4.98 KB[39m
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m9.29 KB[39m
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [32mESM[39m ⚡️ Build success in 38ms
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m5.20 KB[39m
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m9.30 KB[39m
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [32mCJS[39m ⚡️ Build success in 38ms
+
+> nx run @tevm/predeploys:"build:dist"
+
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [34mDTS[39m Build start
+@tevm/predeploys: > @tevm/predeploys@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/predeploys
+@tevm/predeploys: > tsup
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [32mDTS[39m ⚡️ Build success in 332ms
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m1.45 KB[39m
+@tevm/logger: [2m[[22m@TEVM/LOGGER[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m1.45 KB[39m
+
+> nx run @tevm/solc:"build:types"
+
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/predeploys/tsup.config.js
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [34mCJS[39m Build start
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [34mESM[39m Build start
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m389.00 B[39m
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m1.37 KB[39m
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [32mCJS[39m ⚡️ Build success in 21ms
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m356.00 B[39m
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m1.35 KB[39m
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [32mESM[39m ⚡️ Build success in 22ms
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [32mDTS[39m ⚡️ Build success in 659ms
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m11.46 KB[39m
+@tevm/utils: [2m[[22m@TEVM/UTILS[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m11.46 KB[39m
+
+> nx run @tevm/consensus:"build:types"
+
+@tevm/solc: > @tevm/solc@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/bundler-packages/solc
+@tevm/solc: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/consensus: > @tevm/consensus@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/consensus
+@tevm/consensus: > tsup --dts-only
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/solc/tsup.config.ts
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/consensus/tsup.config.ts
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [34mDTS[39m Build start
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [34mDTS[39m Build start
+
+> nx run @tevm/common:"build:types"
+
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [32mDTS[39m ⚡️ Build success in 388ms
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m16.88 KB[39m
+@tevm/solc: [2m[[22m@TEVM/SOLC[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m16.88 KB[39m
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [32mDTS[39m ⚡️ Build success in 350ms
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m2.80 KB[39m
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m2.80 KB[39m
+
+> nx run @tevm/contract:"build:types"
+
+@tevm/common: > @tevm/common@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/common
+@tevm/common: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/contract: > @tevm/contract@1.0.0-next.149 build:types /Users/williamcory/tevm-monorepo/packages/contract
+@tevm/contract: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+
+> nx run @tevm/address:"build:types"
+
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/common/tsup.config.ts
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/contract/tsup.config.js
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [34mDTS[39m Build start
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [34mDTS[39m Build start
+@tevm/address: > @tevm/address@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/address
+@tevm/address: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/address/tsup.config.ts
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [34mDTS[39m Build start
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [32mDTS[39m ⚡️ Build success in 742ms
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m111.92 KB[39m
+@tevm/contract: [2m[[22m@TEVM/CONTRACT[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m111.92 KB[39m
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [32mDTS[39m ⚡️ Build success in 592ms
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m2.11 KB[39m
+@tevm/address: [2m[[22m@TEVM/ADDRESS[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m2.11 KB[39m
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [32mDTS[39m ⚡️ Build success in 1287ms
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m204.78 KB[39m
+@tevm/common: [2m[[22m@TEVM/COMMON[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m204.78 KB[39m
+
+> nx run @tevm/consensus:"build:dist"
+
+
+> nx run @tevm/predeploys:"build:types"
+
+@tevm/consensus: > @tevm/consensus@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/consensus
+@tevm/consensus: > tsup
+@tevm/predeploys: > @tevm/predeploys@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/predeploys
+@tevm/predeploys: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/consensus/tsup.config.ts
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [34mCJS[39m Build start
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [34mESM[39m Build start
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/predeploys/tsup.config.js
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m1.79 KB[39m
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m3.87 KB[39m
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [32mCJS[39m ⚡️ Build success in 31ms
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m1.70 KB[39m
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m3.87 KB[39m
+@tevm/consensus: [2m[[22m@TEVM/CONSENSUS[2m][22m [32mESM[39m ⚡️ Build success in 31ms
+
+> nx run @tevm/effect:"build:dist"
+
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [34mDTS[39m Build start
+@tevm/effect: > @tevm/effect@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/effect
+@tevm/effect: > tsup
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/effect/tsup.config.js
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [34mCJS[39m Build start
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [34mESM[39m Build start
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m4.56 KB[39m
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m10.83 KB[39m
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [32mCJS[39m ⚡️ Build success in 36ms
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m4.08 KB[39m
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m10.68 KB[39m
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [32mESM[39m ⚡️ Build success in 36ms
+
+> nx run @tevm/config:"build:dist"
+
+
+> nx run @tevm/block:"build:types"
+
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [32mDTS[39m ⚡️ Build success in 604ms
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m2.19 KB[39m
+@tevm/predeploys: [2m[[22m@TEVM/PREDEPLOYS[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m2.19 KB[39m
+@tevm/config: > @tevm/config@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/bundler-packages/config
+@tevm/config: > tsup
+@tevm/block: > @tevm/block@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/block
+@tevm/block: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/config/tsup.config.ts
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [34mCLI[39m Target: node16
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [34mCJS[39m Build start
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [34mESM[39m Build start
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/block/tsup.config.ts
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m21.03 KB[39m
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m46.29 KB[39m
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [32mCJS[39m ⚡️ Build success in 78ms
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m19.54 KB[39m
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m46.07 KB[39m
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [32mESM[39m ⚡️ Build success in 78ms
+
+> nx run @tevm/resolutions:"build:dist"
+
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [34mDTS[39m Build start
+
+> nx run @tevm/tx:"build:types"
+
+@tevm/resolutions: > @tevm/resolutions@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+@tevm/resolutions: > tsup
+@tevm/tx: > @tevm/tx@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/tx
+@tevm/tx: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/resolutions/tsup.config.ts
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [34mCLI[39m Target: node16
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [34mCJS[39m Build start
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [34mESM[39m Build start
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m9.08 KB[39m
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m23.58 KB[39m
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [32mCJS[39m ⚡️ Build success in 50ms
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m8.78 KB[39m
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m23.51 KB[39m
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [32mESM[39m ⚡️ Build success in 50ms
+@tevm/tx: [2m[[22m@TEVM/TX[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/tx: [2m[[22m@TEVM/TX[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/tx: [2m[[22m@TEVM/TX[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/tx: [2m[[22m@TEVM/TX[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/tx/tsup.config.ts
+
+> nx run @tevm/compiler:"build:dist"
+
+@tevm/tx: [2m[[22m@TEVM/TX[2m][22m [34mDTS[39m Build start
+@tevm/compiler: > @tevm/compiler@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/bundler-packages/compiler
+@tevm/compiler: > tsup
+@tevm/tx: [2m[[22m@TEVM/TX[2m][22m [32mDTS[39m ⚡️ Build success in 336ms
+@tevm/tx: [2m[[22m@TEVM/TX[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m954.00 B[39m
+@tevm/tx: [2m[[22m@TEVM/TX[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m954.00 B[39m
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/compiler/tsup.config.ts
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [34mCLI[39m Target: node16
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [34mCJS[39m Build start
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [34mESM[39m Build start
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [32mDTS[39m ⚡️ Build success in 1099ms
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m41.24 KB[39m
+@tevm/block: [2m[[22m@TEVM/BLOCK[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m41.24 KB[39m
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m9.86 KB[39m
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m22.32 KB[39m
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [32mESM[39m ⚡️ Build success in 52ms
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m10.16 KB[39m
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m22.37 KB[39m
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [32mCJS[39m ⚡️ Build success in 52ms
+
+> nx run @tevm/bundler-cache:"build:dist"
+
+
+> nx run @tevm/runtime:"build:dist"
+
+@tevm/bundler-cache: > @tevm/bundler-cache@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/bundler-packages/bundler-cache
+@tevm/bundler-cache: > tsup
+@tevm/runtime: > @tevm/runtime@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+@tevm/runtime: > tsup
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/bundler-cache/tsup.config.ts
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [34mCLI[39m Target: node16
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [34mCJS[39m Build start
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [34mESM[39m Build start
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m15.52 KB[39m
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m44.51 KB[39m
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [32mESM[39m ⚡️ Build success in 52ms
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m16.16 KB[39m
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m44.58 KB[39m
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [32mCJS[39m ⚡️ Build success in 52ms
+
+> nx run @tevm/effect:"build:types"
+
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/runtime/tsup.config.ts
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [34mCLI[39m Target: node16
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [34mCJS[39m Build start
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [34mESM[39m Build start
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m6.97 KB[39m
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m19.70 KB[39m
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [32mESM[39m ⚡️ Build success in 41ms
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m7.03 KB[39m
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m19.72 KB[39m
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [32mCJS[39m ⚡️ Build success in 41ms
+@tevm/effect: > @tevm/effect@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/effect
+@tevm/effect: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+
+> nx run @tevm/base-bundler:"build:dist"
+
+
+> nx run @tevm/resolutions:"build:types"
+
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/effect/tsup.config.js
+@tevm/base-bundler: > @tevm/base-bundler@1.0.0-next.149 build:dist /Users/williamcory/tevm-monorepo/bundler-packages/base-bundler
+@tevm/base-bundler: > tsup
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [34mDTS[39m Build start
+@tevm/resolutions: > @tevm/resolutions@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/bundler-packages/resolutions
+@tevm/resolutions: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/base-bundler/tsup.config.js
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [34mCLI[39m Target: node16
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [34mCJS[39m Build start
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [34mESM[39m Build start
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m12.26 KB[39m
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m42.57 KB[39m
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [32mCJS[39m ⚡️ Build success in 53ms
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m12.22 KB[39m
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m42.46 KB[39m
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [32mESM[39m ⚡️ Build success in 53ms
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/resolutions/tsup.config.ts
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [34mDTS[39m Build start
+
+> nx run @tevm/unplugin:"build:dist"
+
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [32mDTS[39m ⚡️ Build success in 488ms
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m3.01 KB[39m
+@tevm/effect: [2m[[22m@TEVM/EFFECT[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m3.01 KB[39m
+@tevm/unplugin: > @tevm/unplugin@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/bundler-packages/unplugin
+@tevm/unplugin: > tsup
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [32mDTS[39m ⚡️ Build success in 503ms
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m2.83 KB[39m
+@tevm/resolutions: [2m[[22m@TEVM/RESOLUTIONS[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m2.83 KB[39m
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/unplugin/tsup.config.ts
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [34mCLI[39m Target: node16
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [34mCJS[39m Build start
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [34mESM[39m Build start
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m5.84 KB[39m
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m10.79 KB[39m
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [32mCJS[39m ⚡️ Build success in 39ms
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m5.40 KB[39m
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m10.46 KB[39m
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [32mESM[39m ⚡️ Build success in 39ms
+
+> nx run @tevm/ts-plugin:"build:dist"
+
+
+> nx run @tevm/config:"build:types"
+
+@tevm/ts-plugin: > @tevm/ts-plugin@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/lsp/ts-plugin
+@tevm/ts-plugin: > tsup
+@tevm/config: > @tevm/config@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/bundler-packages/config
+@tevm/config: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+
+> nx run @tevm/esbuild-plugin:"build:dist"
+
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [34mCLI[39m Building entry: src/index.ts, src/bin/tevm-gen.ts
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/lsp/ts-plugin/tsup.config.ts
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [34mCLI[39m Target: node16
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [34mCJS[39m Build start
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [34mESM[39m Build start
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/config/tsup.config.ts
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mCJS[39m [1mdist/bin/tevm-gen.cjs     [22m[32m3.05 KB[39m
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mCJS[39m [1mdist/index.cjs            [22m[32m25.62 KB[39m
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mCJS[39m [1mdist/bin/tevm-gen.cjs.map [22m[32m5.52 KB[39m
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mCJS[39m [1mdist/index.cjs.map        [22m[32m58.77 KB[39m
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mCJS[39m ⚡️ Build success in 83ms
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mESM[39m [1mdist/index.js            [22m[32m24.49 KB[39m
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mESM[39m [1mdist/bin/tevm-gen.js     [22m[32m2.27 KB[39m
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mESM[39m [1mdist/index.js.map        [22m[32m58.46 KB[39m
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mESM[39m [1mdist/bin/tevm-gen.js.map [22m[32m5.28 KB[39m
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mESM[39m ⚡️ Build success in 83ms
+
+> nx run @tevm/bun-plugin:"build:dist"
+
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [34mDTS[39m Build start
+@tevm/esbuild-plugin: > @tevm/esbuild-plugin@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/bundler-packages/esbuild
+@tevm/esbuild-plugin: > tsup
+@tevm/bun-plugin: > @tevm/bun-plugin@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/bundler-packages/bun
+@tevm/bun-plugin: > tsup
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/esbuild/tsup.config.ts
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [34mCLI[39m Target: node16
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [34mCJS[39m Build start
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [34mESM[39m Build start
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m252.00 B[39m
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m3.63 KB[39m
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [32mESM[39m ⚡️ Build success in 19ms
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m283.00 B[39m
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m3.66 KB[39m
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [32mCJS[39m ⚡️ Build success in 19ms
+
+> nx run @tevm/test-utils:"build:dist"
+
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/bun/tsup.config.ts
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [34mCLI[39m Target: node16
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [34mCJS[39m Build start
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [34mESM[39m Build start
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m5.59 KB[39m
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m14.53 KB[39m
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [32mESM[39m ⚡️ Build success in 35ms
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m5.93 KB[39m
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m14.79 KB[39m
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [32mCJS[39m ⚡️ Build success in 35ms
+@tevm/test-utils: > @tevm/test-utils@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/test/test-utils
+@tevm/test-utils: > tsup
+
+> nx run @tevm/precompiles:"build:dist"
+
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [32mDTS[39m ⚡️ Build success in 635ms
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m9.06 KB[39m
+@tevm/config: [2m[[22m@TEVM/CONFIG[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m9.06 KB[39m
+@tevm/precompiles: > @tevm/precompiles@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/precompiles
+@tevm/precompiles: > tsup
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/precompiles/tsup.config.js
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [34mCJS[39m Build start
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [34mESM[39m Build start
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/test/test-utils/tsup.config.js
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [34mCJS[39m Build start
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [34mESM[39m Build start
+@tevm/test-utils: proces.cwd() /Users/williamcory/tevm-monorepo/test/test-utils
+@tevm/test-utils: proces.cwd() /Users/williamcory/tevm-monorepo/test/test-utils
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m5.73 KB[39m
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m18.69 KB[39m
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [32mESM[39m ⚡️ Build success in 44ms
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m5.83 KB[39m
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m18.88 KB[39m
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [32mCJS[39m ⚡️ Build success in 44ms
+
+> nx run @tevm/errors:typecheck
+
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m165.31 KB[39m
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m306.12 KB[39m
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [32mESM[39m ⚡️ Build success in 49ms
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m165.55 KB[39m
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m306.17 KB[39m
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [32mCJS[39m ⚡️ Build success in 49ms
+
+> nx run @tevm/state:"build:dist"
+
+@tevm/errors: > @tevm/errors@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/errors
+@tevm/errors: > tsc --noEmit
+
+> nx run @tevm/blockchain:"build:dist"
+
+@tevm/state: > @tevm/state@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/state
+@tevm/state: > tsup
+@tevm/blockchain: > @tevm/blockchain@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/blockchain
+@tevm/blockchain: > tsup
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/state/tsup.config.ts
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [34mCJS[39m Build start
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [34mESM[39m Build start
+@tevm/state: "createAddressFromString" is imported from external module "@tevm/utils" but never used in "dist/index.cjs".
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/blockchain/tsup.config.ts
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [34mCJS[39m Build start
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [34mESM[39m Build start
+@tevm/state: "createAddressFromString" is imported from external module "@tevm/utils" but never used in "dist/index.js".
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m32.97 KB[39m
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m79.49 KB[39m
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [32mCJS[39m ⚡️ Build success in 91ms
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m31.53 KB[39m
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m79.24 KB[39m
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [32mESM[39m ⚡️ Build success in 91ms
+@tevm/blockchain: "Block" is imported from external module "@tevm/block" but never used in "dist/index.js".
+@tevm/blockchain: "Block" is imported from external module "@tevm/block" but never used in "dist/index.cjs".
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m20.06 KB[39m
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m45.99 KB[39m
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [32mESM[39m ⚡️ Build success in 73ms
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m20.43 KB[39m
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m46.22 KB[39m
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [32mCJS[39m ⚡️ Build success in 73ms
+
+> nx run @tevm/compiler:"build:types"
+
+
+> nx run @tevm/sync-storage-persister:"build:dist"
+
+
+> nx run @tevm/evm:"build:dist"
+
+@tevm/sync-storage-persister: > @tevm/sync-storage-persister@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/sync-storage-persister
+@tevm/sync-storage-persister: > tsup
+@tevm/compiler: > @tevm/compiler@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/bundler-packages/compiler
+@tevm/compiler: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/evm: > @tevm/evm@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/evm
+@tevm/evm: > tsup
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/sync-storage-persister/tsup.config.ts
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/compiler/tsup.config.ts
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [34mCJS[39m Build start
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [34mESM[39m Build start
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/evm/tsup.config.js
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [34mCJS[39m Build start
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [34mESM[39m Build start
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m2.63 KB[39m
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m5.69 KB[39m
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [32mESM[39m ⚡️ Build success in 38ms
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m2.70 KB[39m
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m5.69 KB[39m
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [32mCJS[39m ⚡️ Build success in 38ms
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m5.08 KB[39m
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m10.44 KB[39m
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [32mESM[39m ⚡️ Build success in 40ms
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m5.56 KB[39m
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m10.63 KB[39m
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [32mCJS[39m ⚡️ Build success in 40ms
+
+> nx run @tevm/receipt-manager:"build:dist"
+
+
+> nx run @tevm/vm:"build:dist"
+
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [34mDTS[39m Build start
+@tevm/receipt-manager: > @tevm/receipt-manager@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/receipt-manager
+@tevm/receipt-manager: > tsup
+@tevm/vm: > @tevm/vm@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/vm
+@tevm/vm: > tsup
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/receipt-manager/tsup.config.ts
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [34mCJS[39m Build start
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [34mESM[39m Build start
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/vm/tsup.config.ts
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [34mCJS[39m Build start
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [34mESM[39m Build start
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m9.97 KB[39m
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m27.90 KB[39m
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [32mESM[39m ⚡️ Build success in 47ms
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m10.10 KB[39m
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m28.10 KB[39m
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [32mCJS[39m ⚡️ Build success in 47ms
+
+> nx run @tevm/utils:typecheck
+
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m54.72 KB[39m
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m125.93 KB[39m
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [32mCJS[39m ⚡️ Build success in 111ms
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m53.68 KB[39m
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m125.26 KB[39m
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [32mESM[39m ⚡️ Build success in 112ms
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [32mDTS[39m ⚡️ Build success in 592ms
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m2.56 KB[39m
+@tevm/compiler: [2m[[22m@TEVM/COMPILER[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m2.56 KB[39m
+
+> nx run @tevm/txpool:"build:dist"
+
+@tevm/utils: > @tevm/utils@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/utils
+@tevm/utils: > tsc --noEmit
+@tevm/txpool: > @tevm/txpool@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/txpool
+@tevm/txpool: > tsup
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/txpool/tsup.config.ts
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [34mCJS[39m Build start
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [34mESM[39m Build start
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m2.92 KB[39m
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m7.25 KB[39m
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [32mCJS[39m ⚡️ Build success in 36ms
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m2.90 KB[39m
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m7.25 KB[39m
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [32mESM[39m ⚡️ Build success in 36ms
+
+> nx run @tevm/node:"build:dist"
+
+@tevm/node: > @tevm/node@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/node
+@tevm/node: > tsup
+
+> nx run @tevm/bundler-cache:"build:types"
+
+
+> nx run @tevm/runtime:"build:types"
+
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/node/tsup.config.js
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [34mCJS[39m Build start
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [34mESM[39m Build start
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m32.64 KB[39m
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m67.94 KB[39m
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [32mESM[39m ⚡️ Build success in 78ms
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m32.82 KB[39m
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m68.39 KB[39m
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [32mCJS[39m ⚡️ Build success in 78ms
+@tevm/bundler-cache: > @tevm/bundler-cache@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/bundler-packages/bundler-cache
+@tevm/bundler-cache: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/runtime: > @tevm/runtime@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/bundler-packages/runtime
+@tevm/runtime: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+
+> nx run @tevm/actions:"build:dist"
+
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/bundler-cache/tsup.config.ts
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/runtime/tsup.config.ts
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [34mDTS[39m Build start
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [34mDTS[39m Build start
+@tevm/actions: > @tevm/actions@1.0.0-next.149 build:dist /Users/williamcory/tevm-monorepo/packages/actions
+@tevm/actions: > tsup
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/actions/tsup.config.ts
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [34mCJS[39m Build start
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [34mESM[39m Build start
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [32mDTS[39m ⚡️ Build success in 358ms
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m1.05 KB[39m
+@tevm/runtime: [2m[[22m@TEVM/RUNTIME[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m1.05 KB[39m
+@tevm/actions: "EthjsAddress" is imported from external module "@tevm/utils" but never used in "dist/index.js".
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [32mDTS[39m ⚡️ Build success in 520ms
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m2.55 KB[39m
+@tevm/bundler-cache: [2m[[22m@TEVM/BUNDLER-CACHE[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m2.55 KB[39m
+@tevm/actions: "EthjsAddress" is imported from external module "@tevm/utils" but never used in "dist/index.cjs".
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m444.01 KB[39m
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m1.04 MB[39m
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [32mESM[39m ⚡️ Build success in 454ms
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m454.63 KB[39m
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m1.04 MB[39m
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [32mCJS[39m ⚡️ Build success in 455ms
+
+> nx run @tevm/decorators:"build:dist"
+
+
+> nx run @tevm/client-types:"build:dist"
+
+@tevm/decorators: > @tevm/decorators@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/decorators
+@tevm/decorators: > tsup
+
+> nx run @tevm/base-bundler:"build:types"
+
+@tevm/client-types: > @tevm/client-types@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/client-types
+@tevm/client-types: > tsup
+@tevm/decorators: [2m[[22m@TEVM/DECORATORS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/decorators: [2m[[22m@TEVM/DECORATORS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/decorators: [2m[[22m@TEVM/DECORATORS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/decorators: [2m[[22m@TEVM/DECORATORS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/decorators/tsup.config.js
+@tevm/decorators: [2m[[22m@TEVM/DECORATORS[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/decorators: [2m[[22m@TEVM/DECORATORS[2m][22m [34mCJS[39m Build start
+@tevm/decorators: [2m[[22m@TEVM/DECORATORS[2m][22m [34mESM[39m Build start
+@tevm/decorators: [2m[[22m@TEVM/DECORATORS[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m3.33 KB[39m
+@tevm/decorators: [2m[[22m@TEVM/DECORATORS[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m8.94 KB[39m
+@tevm/decorators: [2m[[22m@TEVM/DECORATORS[2m][22m [32mESM[39m ⚡️ Build success in 29ms
+@tevm/decorators: [2m[[22m@TEVM/DECORATORS[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m3.27 KB[39m
+@tevm/decorators: [2m[[22m@TEVM/DECORATORS[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m9.29 KB[39m
+@tevm/decorators: [2m[[22m@TEVM/DECORATORS[2m][22m [32mCJS[39m ⚡️ Build success in 30ms
+
+> nx run @tevm/memory-client:"build:dist"
+
+@tevm/client-types: [2m[[22m@TEVM/CLIENT-TYPES[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/client-types: [2m[[22m@TEVM/CLIENT-TYPES[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/client-types: [2m[[22m@TEVM/CLIENT-TYPES[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/client-types: [2m[[22m@TEVM/CLIENT-TYPES[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/client-types/tsup.config.ts
+@tevm/client-types: [2m[[22m@TEVM/CLIENT-TYPES[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/client-types: [2m[[22m@TEVM/CLIENT-TYPES[2m][22m [34mCJS[39m Build start
+@tevm/client-types: [2m[[22m@TEVM/CLIENT-TYPES[2m][22m [34mESM[39m Build start
+@tevm/client-types: Generated an empty chunk: "index".
+@tevm/client-types: Generated an empty chunk: "index".
+@tevm/client-types: [2m[[22m@TEVM/CLIENT-TYPES[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m84.00 B[39m
+@tevm/client-types: [2m[[22m@TEVM/CLIENT-TYPES[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m70.00 B[39m
+@tevm/client-types: [2m[[22m@TEVM/CLIENT-TYPES[2m][22m [32mCJS[39m ⚡️ Build success in 13ms
+@tevm/client-types: [2m[[22m@TEVM/CLIENT-TYPES[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m68.00 B[39m
+@tevm/client-types: [2m[[22m@TEVM/CLIENT-TYPES[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m69.00 B[39m
+@tevm/client-types: [2m[[22m@TEVM/CLIENT-TYPES[2m][22m [32mESM[39m ⚡️ Build success in 13ms
+
+> nx run @tevm/contract:typecheck
+
+@tevm/base-bundler: > @tevm/base-bundler@1.0.0-next.149 build:types /Users/williamcory/tevm-monorepo/bundler-packages/base-bundler
+@tevm/base-bundler: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/base-bundler/tsup.config.js
+@tevm/memory-client: > @tevm/memory-client@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/memory-client
+@tevm/memory-client: > tsup
+@tevm/contract: > @tevm/contract@1.0.0-next.149 typecheck /Users/williamcory/tevm-monorepo/packages/contract
+@tevm/contract: > tsc --noEmit
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [34mDTS[39m Build start
+@tevm/memory-client: [2m[[22m@TEVM/MEMORY-CLIENT[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/memory-client: [2m[[22m@TEVM/MEMORY-CLIENT[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/memory-client: [2m[[22m@TEVM/MEMORY-CLIENT[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/memory-client: [2m[[22m@TEVM/MEMORY-CLIENT[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/memory-client/tsup.config.js
+@tevm/memory-client: [2m[[22m@TEVM/MEMORY-CLIENT[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/memory-client: [2m[[22m@TEVM/MEMORY-CLIENT[2m][22m [34mCJS[39m Build start
+@tevm/memory-client: [2m[[22m@TEVM/MEMORY-CLIENT[2m][22m [34mESM[39m Build start
+@tevm/memory-client: [2m[[22m@TEVM/MEMORY-CLIENT[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m6.09 KB[39m
+@tevm/memory-client: [2m[[22m@TEVM/MEMORY-CLIENT[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m71.87 KB[39m
+@tevm/memory-client: [2m[[22m@TEVM/MEMORY-CLIENT[2m][22m [32mCJS[39m ⚡️ Build success in 44ms
+@tevm/memory-client: [2m[[22m@TEVM/MEMORY-CLIENT[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m5.47 KB[39m
+@tevm/memory-client: [2m[[22m@TEVM/MEMORY-CLIENT[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m71.58 KB[39m
+@tevm/memory-client: [2m[[22m@TEVM/MEMORY-CLIENT[2m][22m [32mESM[39m ⚡️ Build success in 44ms
+
+> nx run @tevm/server:"build:dist"
+
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [32mDTS[39m ⚡️ Build success in 521ms
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m5.66 KB[39m
+@tevm/base-bundler: [2m[[22m@TEVM/BASE-BUNDLER[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m5.66 KB[39m
+@tevm/server: > @tevm/server@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/packages/server
+@tevm/server: > tsup
+
+> nx run @tevm/logger:typecheck
+
+@tevm/server: [2m[[22m@TEVM/SERVER[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/server: [2m[[22m@TEVM/SERVER[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/server: [2m[[22m@TEVM/SERVER[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/server: [2m[[22m@TEVM/SERVER[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/server/tsup.config.ts
+@tevm/server: [2m[[22m@TEVM/SERVER[2m][22m [34mCLI[39m Target: node16
+@tevm/server: [2m[[22m@TEVM/SERVER[2m][22m [34mCJS[39m Build start
+@tevm/server: [2m[[22m@TEVM/SERVER[2m][22m [34mESM[39m Build start
+@tevm/server: [2m[[22m@TEVM/SERVER[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m12.61 KB[39m
+@tevm/server: [2m[[22m@TEVM/SERVER[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m34.28 KB[39m
+@tevm/server: [2m[[22m@TEVM/SERVER[2m][22m [32mCJS[39m ⚡️ Build success in 57ms
+@tevm/server: [2m[[22m@TEVM/SERVER[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m12.37 KB[39m
+@tevm/server: [2m[[22m@TEVM/SERVER[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m34.17 KB[39m
+@tevm/server: [2m[[22m@TEVM/SERVER[2m][22m [32mESM[39m ⚡️ Build success in 57ms
+@tevm/logger: > @tevm/logger@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/logger
+@tevm/logger: > tsc --noEmit
+
+> nx run @tevm/viem:"build:dist"
+
+
+> nx run @tevm/unplugin:"build:types"
+
+@tevm/viem: > @tevm/viem@1.0.0-next.148 build:dist /Users/williamcory/tevm-monorepo/extensions/viem
+@tevm/viem: > tsup
+
+> nx run @tevm/ts-plugin:"build:types"
+
+@tevm/unplugin: > @tevm/unplugin@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/bundler-packages/unplugin
+@tevm/unplugin: > tsup --dts-only
+@tevm/viem: [2m[[22m@TEVM/VIEM[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/viem: [2m[[22m@TEVM/VIEM[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/viem: [2m[[22m@TEVM/VIEM[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/viem: [2m[[22m@TEVM/VIEM[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/extensions/viem/tsup.config.ts
+@tevm/viem: [2m[[22m@TEVM/VIEM[2m][22m [34mCLI[39m Target: chrome91,firefox90,edge91,safari15,ios15,opera77
+@tevm/viem: [2m[[22m@TEVM/VIEM[2m][22m [34mCJS[39m Build start
+@tevm/viem: [2m[[22m@TEVM/VIEM[2m][22m [34mESM[39m Build start
+@tevm/viem: [2m[[22m@TEVM/VIEM[2m][22m [32mESM[39m [1mdist/index.js     [22m[32m19.25 KB[39m
+@tevm/viem: [2m[[22m@TEVM/VIEM[2m][22m [32mESM[39m [1mdist/index.js.map [22m[32m42.38 KB[39m
+@tevm/viem: [2m[[22m@TEVM/VIEM[2m][22m [32mESM[39m ⚡️ Build success in 60ms
+@tevm/viem: [2m[[22m@TEVM/VIEM[2m][22m [32mCJS[39m [1mdist/index.cjs     [22m[32m19.49 KB[39m
+@tevm/viem: [2m[[22m@TEVM/VIEM[2m][22m [32mCJS[39m [1mdist/index.cjs.map [22m[32m42.57 KB[39m
+@tevm/viem: [2m[[22m@TEVM/VIEM[2m][22m [32mCJS[39m ⚡️ Build success in 60ms
+
+> nx run @tevm/bun-plugin:"build:types"
+
+@tevm/ts-plugin: > @tevm/ts-plugin@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/lsp/ts-plugin
+@tevm/ts-plugin: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/unplugin/tsup.config.ts
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [34mDTS[39m Build start
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [34mCLI[39m Building entry: src/index.ts, src/bin/tevm-gen.ts
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/lsp/ts-plugin/tsup.config.ts
+@tevm/bun-plugin: > @tevm/bun-plugin@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/bundler-packages/bun
+@tevm/bun-plugin: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [34mDTS[39m Build start
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/bun/tsup.config.ts
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [34mDTS[39m Build start
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [32mDTS[39m ⚡️ Build success in 610ms
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m625.00 B[39m
+@tevm/unplugin: [2m[[22m@TEVM/UNPLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m625.00 B[39m
+
+> nx run @tevm/esbuild-plugin:"build:types"
+
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [32mDTS[39m ⚡️ Build success in 592ms
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m2.14 KB[39m
+@tevm/bun-plugin: [2m[[22m@TEVM/BUN-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m2.14 KB[39m
+@tevm/esbuild-plugin: > @tevm/esbuild-plugin@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/bundler-packages/esbuild
+@tevm/esbuild-plugin: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mDTS[39m ⚡️ Build success in 1114ms
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mDTS[39m [1mdist/bin/tevm-gen.d.cts [22m[32m20.00 B[39m
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.cts        [22m[32m889.00 B[39m
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mDTS[39m [1mdist/bin/tevm-gen.d.ts  [22m[32m20.00 B[39m
+@tevm/ts-plugin: [2m[[22m@TEVM/TS-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.ts         [22m[32m889.00 B[39m
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/esbuild/tsup.config.ts
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [34mDTS[39m Build start
+
+> nx run @tevm/vite-plugin:"build:types"
+
+@tevm/vite-plugin: > @tevm/vite-plugin@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/bundler-packages/vite
+@tevm/vite-plugin: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [32mDTS[39m ⚡️ Build success in 450ms
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m3.43 KB[39m
+@tevm/esbuild-plugin: [2m[[22m@TEVM/ESBUILD-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m3.43 KB[39m
+@tevm/vite-plugin: [2m[[22m@TEVM/VITE-PLUGIN[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/vite-plugin: [2m[[22m@TEVM/VITE-PLUGIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/vite-plugin: [2m[[22m@TEVM/VITE-PLUGIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/vite-plugin: [2m[[22m@TEVM/VITE-PLUGIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/vite/tsup.config.js
+@tevm/vite-plugin: [2m[[22m@TEVM/VITE-PLUGIN[2m][22m [34mDTS[39m Build start
+
+> nx run @tevm/precompiles:"build:types"
+
+
+> nx run @tevm/test-utils:"build:types"
+
+@tevm/vite-plugin: [2m[[22m@TEVM/VITE-PLUGIN[2m][22m [32mDTS[39m ⚡️ Build success in 469ms
+@tevm/vite-plugin: [2m[[22m@TEVM/VITE-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m1.92 KB[39m
+@tevm/vite-plugin: [2m[[22m@TEVM/VITE-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m1.92 KB[39m
+@tevm/precompiles: > @tevm/precompiles@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/precompiles
+@tevm/precompiles: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/test-utils: > @tevm/test-utils@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/test/test-utils
+@tevm/test-utils: > tsup --dts-only
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/precompiles/tsup.config.js
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [34mDTS[39m Build start
+
+> nx run @tevm/rollup-plugin:"build:types"
+
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/test/test-utils/tsup.config.js
+@tevm/rollup-plugin: > @tevm/rollup-plugin@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/bundler-packages/rollup
+@tevm/rollup-plugin: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [34mDTS[39m Build start
+@tevm/rollup-plugin: [2m[[22m@TEVM/ROLLUP-PLUGIN[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/rollup-plugin: [2m[[22m@TEVM/ROLLUP-PLUGIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/rollup-plugin: [2m[[22m@TEVM/ROLLUP-PLUGIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/rollup-plugin: [2m[[22m@TEVM/ROLLUP-PLUGIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/rollup/tsup.config.ts
+@tevm/rollup-plugin: [2m[[22m@TEVM/ROLLUP-PLUGIN[2m][22m [34mDTS[39m Build start
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [32mDTS[39m ⚡️ Build success in 959ms
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m8.53 KB[39m
+@tevm/precompiles: [2m[[22m@TEVM/PRECOMPILES[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m8.53 KB[39m
+@tevm/rollup-plugin: [2m[[22m@TEVM/ROLLUP-PLUGIN[2m][22m [32mDTS[39m ⚡️ Build success in 455ms
+@tevm/rollup-plugin: [2m[[22m@TEVM/ROLLUP-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m4.11 KB[39m
+@tevm/rollup-plugin: [2m[[22m@TEVM/ROLLUP-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m4.11 KB[39m
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [32mDTS[39m ⚡️ Build success in 1108ms
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m160.79 KB[39m
+@tevm/test-utils: [2m[[22m@TEVM/TEST-UTILS[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m160.79 KB[39m
+
+> nx run @tevm/state:"build:types"
+
+
+> nx run @tevm/blockchain:"build:types"
+
+@tevm/blockchain: > @tevm/blockchain@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/blockchain
+@tevm/blockchain: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/state: > @tevm/state@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/state
+@tevm/state: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+
+> nx run @tevm/rspack-plugin:"build:types"
+
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/state/tsup.config.ts
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/blockchain/tsup.config.ts
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [34mDTS[39m Build start
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [34mDTS[39m Build start
+@tevm/rspack-plugin: > @tevm/rspack-plugin@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/bundler-packages/rspack
+@tevm/rspack-plugin: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/rspack-plugin: [2m[[22m@TEVM/RSPACK-PLUGIN[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/rspack-plugin: [2m[[22m@TEVM/RSPACK-PLUGIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/rspack-plugin: [2m[[22m@TEVM/RSPACK-PLUGIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/rspack-plugin: [2m[[22m@TEVM/RSPACK-PLUGIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/rspack/tsup.config.ts
+@tevm/rspack-plugin: [2m[[22m@TEVM/RSPACK-PLUGIN[2m][22m [34mDTS[39m Build start
+@tevm/rspack-plugin: [2m[[22m@TEVM/RSPACK-PLUGIN[2m][22m [32mDTS[39m ⚡️ Build success in 451ms
+@tevm/rspack-plugin: [2m[[22m@TEVM/RSPACK-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m4.29 KB[39m
+@tevm/rspack-plugin: [2m[[22m@TEVM/RSPACK-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m4.29 KB[39m
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [32mDTS[39m ⚡️ Build success in 1046ms
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m7.51 KB[39m
+@tevm/blockchain: [2m[[22m@TEVM/BLOCKCHAIN[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m7.51 KB[39m
+@tevm/state: "Address" is imported from external module "@tevm/utils" but never used in "src/state-types/TevmState.ts".
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [32mDTS[39m ⚡️ Build success in 1095ms
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m17.38 KB[39m
+@tevm/state: [2m[[22m@TEVM/STATE[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m17.38 KB[39m
+
+> nx run @tevm/webpack-plugin:"build:types"
+
+@tevm/webpack-plugin: > @tevm/webpack-plugin@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/bundler-packages/webpack
+@tevm/webpack-plugin: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/webpack-plugin: [2m[[22m@TEVM/WEBPACK-PLUGIN[2m][22m [34mCLI[39m Building entry: src/index.js
+@tevm/webpack-plugin: [2m[[22m@TEVM/WEBPACK-PLUGIN[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/webpack-plugin: [2m[[22m@TEVM/WEBPACK-PLUGIN[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/webpack-plugin: [2m[[22m@TEVM/WEBPACK-PLUGIN[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/bundler-packages/webpack/tsup.config.ts
+@tevm/webpack-plugin: [2m[[22m@TEVM/WEBPACK-PLUGIN[2m][22m [34mDTS[39m Build start
+
+> nx run @tevm/receipt-manager:"build:types"
+
+@tevm/webpack-plugin: [2m[[22m@TEVM/WEBPACK-PLUGIN[2m][22m [32mDTS[39m ⚡️ Build success in 478ms
+@tevm/webpack-plugin: [2m[[22m@TEVM/WEBPACK-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m4.88 KB[39m
+@tevm/webpack-plugin: [2m[[22m@TEVM/WEBPACK-PLUGIN[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m4.88 KB[39m
+@tevm/receipt-manager: > @tevm/receipt-manager@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/receipt-manager
+@tevm/receipt-manager: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/receipt-manager/tsup.config.ts
+
+> nx run @tevm/ts-plugin:typecheck
+
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [34mDTS[39m Build start
+@tevm/ts-plugin: > @tevm/ts-plugin@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/lsp/ts-plugin
+@tevm/ts-plugin: > tsc --noEmit
+
+> nx run @tevm/evm:"build:types"
+
+@tevm/evm: > @tevm/evm@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/evm
+@tevm/evm: > tsup --dts-only
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/evm/tsup.config.js
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [34mDTS[39m Build start
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [32mDTS[39m ⚡️ Build success in 990ms
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m11.12 KB[39m
+@tevm/receipt-manager: [2m[[22m@TEVM/RECEIPT-MANAGER[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m11.12 KB[39m
+
+> nx run @tevm/sync-storage-persister:"build:types"
+
+@tevm/sync-storage-persister: > @tevm/sync-storage-persister@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/sync-storage-persister
+@tevm/sync-storage-persister: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/sync-storage-persister/tsup.config.ts
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [34mDTS[39m Build start
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [32mDTS[39m ⚡️ Build success in 1007ms
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m8.55 KB[39m
+@tevm/evm: [2m[[22m@TEVM/EVM[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m8.55 KB[39m
+
+> nx run @tevm/vm:"build:types"
+
+
+> nx run @tevm/common:typecheck
+
+@tevm/vm: > @tevm/vm@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/vm
+@tevm/vm: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/common: > @tevm/common@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/common
+@tevm/common: > tsc --noEmit
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/vm/tsup.config.ts
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [32mDTS[39m ⚡️ Build success in 916ms
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m3.06 KB[39m
+@tevm/sync-storage-persister: [2m[[22m@TEVM/SYNC-STORAGE-PERSISTER[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m3.06 KB[39m
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [34mDTS[39m Build start
+
+> nx run @tevm/address:typecheck
+
+
+> nx run @tevm/block:typecheck
+
+@tevm/address: > @tevm/address@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/address
+@tevm/address: > tsc --noEmit
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [32mDTS[39m ⚡️ Build success in 1188ms
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m32.01 KB[39m
+@tevm/vm: [2m[[22m@TEVM/VM[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m32.01 KB[39m
+@tevm/block: > @tevm/block@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/block
+@tevm/block: > tsc --noEmit
+
+> nx run @tevm/jsonrpc:typecheck
+
+@tevm/jsonrpc: > @tevm/jsonrpc@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/jsonrpc
+@tevm/jsonrpc: > tsc --noEmit
+
+> nx run @tevm/state:typecheck
+
+
+> nx run @tevm/txpool:"build:types"
+
+@tevm/state: > @tevm/state@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/state
+@tevm/state: > tsc --noEmit
+
+> nx run @tevm/blockchain:typecheck
+
+@tevm/txpool: > @tevm/txpool@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/txpool
+@tevm/txpool: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/txpool/tsup.config.ts
+@tevm/blockchain: > @tevm/blockchain@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/blockchain
+@tevm/blockchain: > tsc --noEmit
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [34mDTS[39m Build start
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [32mDTS[39m ⚡️ Build success in 361ms
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m528.00 B[39m
+@tevm/txpool: [2m[[22m@TEVM/TXPOOL[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m528.00 B[39m
+
+> nx run @tevm/predeploys:typecheck
+
+@tevm/predeploys: > @tevm/predeploys@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/predeploys
+@tevm/predeploys: > tsc --noEmit
+
+> nx run @tevm/evm:typecheck
+
+
+> nx run @tevm/node:"build:types"
+
+@tevm/evm: > @tevm/evm@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/evm
+@tevm/evm: > tsc --noEmit
+@tevm/node: > @tevm/node@1.0.0-next.148 build:types /Users/williamcory/tevm-monorepo/packages/node
+@tevm/node: > tsup --dts-only
+
+> nx run @tevm/vm:typecheck
+
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/node/tsup.config.js
+@tevm/vm: > @tevm/vm@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/vm
+@tevm/vm: > tsc --noEmit
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [34mDTS[39m Build start
+
+> nx run @tevm/txpool:typecheck
+
+@tevm/txpool: > @tevm/txpool@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/txpool
+@tevm/txpool: > tsc --noEmit
+
+> nx run @tevm/receipt-manager:typecheck
+
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [32mDTS[39m ⚡️ Build success in 1074ms
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m23.75 KB[39m
+@tevm/node: [2m[[22m@TEVM/NODE[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m23.75 KB[39m
+
+> nx run @tevm/actions:"build:types"
+
+@tevm/receipt-manager: > @tevm/receipt-manager@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/receipt-manager
+@tevm/receipt-manager: > tsc --noEmit
+@tevm/actions: > @tevm/actions@1.0.0-next.149 build:types /Users/williamcory/tevm-monorepo/packages/actions
+@tevm/actions: > tsup --dts-only && tsc --emitDeclarationOnly --declaration
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [34mCLI[39m Building entry: src/index.ts
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [34mCLI[39m Using tsconfig: tsconfig.json
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [34mCLI[39m tsup v8.5.1
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [34mCLI[39m Using tsup config: /Users/williamcory/tevm-monorepo/packages/actions/tsup.config.ts
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [34mDTS[39m Build start
+
+> nx run @tevm/sync-storage-persister:typecheck
+
+@tevm/sync-storage-persister: > @tevm/sync-storage-persister@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/sync-storage-persister
+@tevm/sync-storage-persister: > tsc --noEmit
+
+> nx run @tevm/consensus:typecheck
+
+@tevm/consensus: > @tevm/consensus@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/consensus
+@tevm/consensus: > tsc --noEmit
+
+> nx run @tevm/node:typecheck
+
+
+> nx run @tevm/actions:typecheck
+
+@tevm/node: > @tevm/node@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/node
+@tevm/node: > tsc --noEmit
+@tevm/actions: > @tevm/actions@1.0.0-next.149 typecheck /Users/williamcory/tevm-monorepo/packages/actions
+@tevm/actions: > tsc --noEmit
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [32mDTS[39m ⚡️ Build success in 2347ms
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [32mDTS[39m [1mdist/index.d.cts [22m[32m294.90 KB[39m
+@tevm/actions: [2m[[22m@TEVM/ACTIONS[2m][22m [32mDTS[39m [1mdist/index.d.ts  [22m[32m294.90 KB[39m
+@tevm/node: [96msrc/createTevmNode.js[0m:[93m278[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'blockHash' does not exist on type '{ blockTag: bigint; blockHash: `0x${string}`; } | { blockTag: bigint; }'.
+@tevm/node: [7m278[0m    const { blockTag, blockHash } = await forkAnchorPromise
+@tevm/node: [7m   [0m [91m                     ~~~~~~~~~[0m
+@tevm/node: [96msrc/createTevmNode.js[0m:[93m376[0m:[93m16[0m - [91merror[0m[90m TS2339: [0mProperty 'number' does not exist on type '{}'.
+@tevm/node: [7m376[0m   if (!result?.number || !result.hash) {
+@tevm/node: [7m   [0m [91m               ~~~~~~[0m
+@tevm/node: [96msrc/createTevmNode.js[0m:[93m376[0m:[93m34[0m - [91merror[0m[90m TS2339: [0mProperty 'hash' does not exist on type '{}'.
+@tevm/node: [7m376[0m   if (!result?.number || !result.hash) {
+@tevm/node: [7m   [0m [91m                                 ~~~~[0m
+@tevm/node: [96msrc/createTevmNode.js[0m:[93m380[0m:[93m75[0m - [91merror[0m[90m TS2339: [0mProperty 'number' does not exist on type '{}'.
+@tevm/node: [7m380[0m    blockTag: hexToBigInt(/** @type {import('@tevm/utils').Hex} */ (result.number)),
+@tevm/node: [7m   [0m [91m                                                                          ~~~~~~[0m
+@tevm/node: [96msrc/createTevmNode.js[0m:[93m381[0m:[93m64[0m - [91merror[0m[90m TS2339: [0mProperty 'hash' does not exist on type '{}'.
+@tevm/node: [7m381[0m    blockHash: /** @type {import('@tevm/utils').Hex} */ (result.hash),
+@tevm/node: [7m   [0m [91m                                                               ~~~~[0m
+@tevm/node: [96msrc/createTevmNode.js[0m:[93m432[0m:[93m29[0m - [91merror[0m[90m TS2339: [0mProperty 'blockHash' does not exist on type '{ blockTag: bigint; blockHash: `0x${string}`; } | { blockTag: bigint; }'.
+@tevm/node:   Property 'blockHash' does not exist on type '{ blockTag: bigint; }'.
+@tevm/node: [7m432[0m        blockTag: forkAnchor.blockHash ?? forkAnchor.blockTag,
+@tevm/node: [7m   [0m [91m                            ~~~~~~~~~[0m
+@tevm/node: Found 6 errors in the same file, starting at: src/createTevmNode.js[90m:278[0m
+@tevm/node: [41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 2.[39m
+
+> nx run @tevm/tx:typecheck
+
+@tevm/tx: > @tevm/tx@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/tx
+@tevm/tx: > tsc --noEmit
+
+> nx run @tevm/webpack-plugin:typecheck
+
+@tevm/webpack-plugin: > @tevm/webpack-plugin@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/bundler-packages/webpack
+@tevm/webpack-plugin: > tsc --noEmit
+@tevm/actions: [96msrc/anvil/anvilDropTransactionProcedure.js[0m:[93m27[0m:[93m57[0m - [91merror[0m[90m TS2345: [0mArgument of type 'string' is not assignable to parameter of type '`0x${string}`'.
+@tevm/actions: [7m27[0m   if (/** @type {any[]}*/ (txPool.getByHash([hexToBytes(txHash)])).length > 0) {
+@tevm/actions: [7m  [0m [91m                                                        ~~~~~~[0m
+@tevm/actions: [96msrc/eth/ethGetBlockByHashProcedure.js[0m:[93m10[0m:[93m2[0m - [91merror[0m[90m TS2322: [0mType '(request: EthGetBlockByHashJsonRpcRequest) => Promise<{ id?: string | number | null; method: "eth_getBlockByHash"; result: null; jsonrpc: "2.0"; } | { ...; }>' is not assignable to type 'EthGetBlockByHashJsonRpcProcedure'.
+@tevm/actions:   Type 'Promise<{ id?: string | number | null; method: "eth_getBlockByHash"; result: null; jsonrpc: "2.0"; } | { id?: string | number | null; method: "eth_getBlockByHash"; result: BlockResult; jsonrpc: "2.0"; }>' is not assignable to type 'Promise<EthGetBlockByHashJsonRpcResponse>'.
+@tevm/actions:     Type '{ id?: string | number | null; method: "eth_getBlockByHash"; result: null; jsonrpc: "2.0"; } | { id?: string | number | null; method: "eth_getBlockByHash"; result: BlockResult; jsonrpc: "2.0"; }' is not assignable to type 'EthGetBlockByHashJsonRpcResponse' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+@tevm/actions:       Type '{ id?: string | number | null; method: "eth_getBlockByHash"; result: null; jsonrpc: "2.0"; }' is not assignable to type 'EthGetBlockByHashJsonRpcResponse' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+@tevm/actions:         Property 'error' is missing in type '{ id?: string | number | null; method: "eth_getBlockByHash"; result: null; jsonrpc: "2.0"; }' but required in type '{ jsonrpc: "2.0"; method: "eth_getBlockByHash"; error: { code: string | number; message: string; }; id?: string | number | null; result?: never; }'.
+@tevm/actions: [7m10[0m  return async (request) => {
+@tevm/actions: [7m  [0m [91m ~~~~~~[0m
+@tevm/actions:   [96m../jsonrpc/types/JsonRpcResponse.d.ts[0m:[93m10[0m:[93m5[0m
+@tevm/actions:     [7m10[0m     error: {
+@tevm/actions:     [7m  [0m [96m    ~~~~~[0m
+@tevm/actions:     'error' is declared here.
+@tevm/actions: [96msrc/eth/ethGetTransactionByBlockHashAndIndexProcedure.js[0m:[93m10[0m:[93m2[0m - [91merror[0m[90m TS2322: [0mType '(request: EthGetTransactionByBlockHashAndIndexJsonRpcRequest) => Promise<{ method: "eth_getTransactionByBlockHashAndIndex"; jsonrpc: "2.0"; result: null; id?: string | ... 1 more ... | null; } | { ...; }>' is not assignable to type 'EthGetTransactionByBlockHashAndIndexJsonRpcProcedure'.
+@tevm/actions:   Type 'Promise<{ method: "eth_getTransactionByBlockHashAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; } | { id?: string | number | null; method: "eth_getTransactionByBlockHashAndIndex"; result: TransactionResult; jsonrpc: "2.0"; }>' is not assignable to type 'Promise<EthGetTransactionByBlockHashAndIndexJsonRpcResponse>'.
+@tevm/actions:     Type '{ method: "eth_getTransactionByBlockHashAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; } | { id?: string | number | null; method: "eth_getTransactionByBlockHashAndIndex"; result: TransactionResult; jsonrpc: "2.0"; }' is not assignable to type 'EthGetTransactionByBlockHashAndIndexJsonRpcResponse' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+@tevm/actions:       Type '{ method: "eth_getTransactionByBlockHashAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; }' is not assignable to type 'EthGetTransactionByBlockHashAndIndexJsonRpcResponse' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+@tevm/actions:         Property 'error' is missing in type '{ method: "eth_getTransactionByBlockHashAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; }' but required in type '{ jsonrpc: "2.0"; method: "eth_getTransactionByBlockHashAndIndex"; error: { code: string | number; message: string; }; id?: string | number | null; result?: never; }'.
+@tevm/actions: [7m10[0m  return async (request) => {
+@tevm/actions: [7m  [0m [91m ~~~~~~[0m
+@tevm/actions:   [96m../jsonrpc/types/JsonRpcResponse.d.ts[0m:[93m10[0m:[93m5[0m
+@tevm/actions:     [7m10[0m     error: {
+@tevm/actions:     [7m  [0m [96m    ~~~~~[0m
+@tevm/actions:     'error' is declared here.
+@tevm/actions: [96msrc/eth/ethGetTransactionByBlockNumberAndIndexProcedure.js[0m:[93m10[0m:[93m2[0m - [91merror[0m[90m TS2322: [0mType '(request: EthGetTransactionByBlockNumberAndIndexJsonRpcRequest) => Promise<{ method: "eth_getTransactionByBlockNumberAndIndex"; jsonrpc: "2.0"; result: null; id?: string | ... 1 more ... | null; } | { ...; }>' is not assignable to type 'EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure'.
+@tevm/actions:   Type 'Promise<{ method: "eth_getTransactionByBlockNumberAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; } | { id?: string | number | null; method: "eth_getTransactionByBlockNumberAndIndex"; result: TransactionResult; jsonrpc: "2.0"; }>' is not assignable to type 'Promise<EthGetTransactionByBlockNumberAndIndexJsonRpcResponse>'.
+@tevm/actions:     Type '{ method: "eth_getTransactionByBlockNumberAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; } | { id?: string | number | null; method: "eth_getTransactionByBlockNumberAndIndex"; result: TransactionResult; jsonrpc: "2.0"; }' is not assignable to type 'EthGetTransactionByBlockNumberAndIndexJsonRpcResponse' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+@tevm/actions:       Type '{ method: "eth_getTransactionByBlockNumberAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; }' is not assignable to type 'EthGetTransactionByBlockNumberAndIndexJsonRpcResponse' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+@tevm/actions:         Property 'error' is missing in type '{ method: "eth_getTransactionByBlockNumberAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; }' but required in type '{ jsonrpc: "2.0"; method: "eth_getTransactionByBlockNumberAndIndex"; error: { code: string | number; message: string; }; id?: string | number | null; result?: never; }'.
+@tevm/actions: [7m10[0m  return async (request) => {
+@tevm/actions: [7m  [0m [91m ~~~~~~[0m
+@tevm/actions:   [96m../jsonrpc/types/JsonRpcResponse.d.ts[0m:[93m10[0m:[93m5[0m
+@tevm/actions:     [7m10[0m     error: {
+@tevm/actions:     [7m  [0m [96m    ~~~~~[0m
+@tevm/actions:     'error' is declared here.
+@tevm/actions: [96msrc/eth/ethGetTransactionReceipt.js[0m:[93m26[0m:[93m60[0m - [91merror[0m[90m TS2322: [0mType '(params: EthGetTransactionReceiptParams) => Promise<{ blockHash: any; blockNumber: bigint; cumulativeGasUsed: bigint; effectiveGasPrice: bigint; from: any; ... 10 more ...; logs: any; } | { ...; } | null>' is not assignable to type 'EthGetTransactionReceiptHandler'.
+@tevm/actions:   Type 'Promise<{ blockHash: any; blockNumber: bigint; cumulativeGasUsed: bigint; effectiveGasPrice: bigint; from: any; gasUsed: bigint; to: any; transactionHash: any; transactionIndex: bigint; contractAddress: any; ... 5 more ...; logs: any; } | { ...; } | null>' is not assignable to type 'Promise<EthGetTransactionReceiptResult>'.
+@tevm/actions:     Type '{ blockHash: any; blockNumber: bigint; cumulativeGasUsed: bigint; effectiveGasPrice: bigint; from: any; gasUsed: bigint; to: any; transactionHash: any; transactionIndex: bigint; contractAddress: any; ... 5 more ...; logs: any; } | { ...; } | null' is not assignable to type 'EthGetTransactionReceiptResult'.
+@tevm/actions:       Type '{ blockHash: any; blockNumber: bigint; cumulativeGasUsed: bigint; effectiveGasPrice: bigint; from: any; gasUsed: bigint; to: any; transactionHash: any; transactionIndex: bigint; contractAddress: any; ... 5 more ...; logs: any; }' is not assignable to type 'EthGetTransactionReceiptResult'.
+@tevm/actions:         Types of property 'blobGasUsed' are incompatible.
+@tevm/actions:           Type 'bigint | undefined' is not assignable to type 'bigint'.
+@tevm/actions:             Type 'undefined' is not assignable to type 'bigint'.
+@tevm/actions: [7m26[0m export const ethGetTransactionReceiptHandler = (client) => async (params) => {
+@tevm/actions: [7m  [0m [91m                                                           ~~~~~~~~~~~~~~~~~~~[0m
+@tevm/actions: [96msrc/eth/ethSendRawTransactionProcedure.js[0m:[93m56[0m:[93m13[0m - [91merror[0m[90m TS18048: [0m'error' is possibly 'undefined'.
+@tevm/actions: [7m56[0m       code: error.code,
+@tevm/actions: [7m  [0m [91m            ~~~~~[0m
+@tevm/actions: [96msrc/eth/ethSendRawTransactionProcedure.js[0m:[93m57[0m:[93m16[0m - [91merror[0m[90m TS18048: [0m'error' is possibly 'undefined'.
+@tevm/actions: [7m57[0m       message: error.message,
+@tevm/actions: [7m  [0m [91m               ~~~~~[0m
+@tevm/actions: [96msrc/eth/getBalanceHandler.js[0m:[93m44[0m:[93m70[0m - [91merror[0m[90m TS18048: [0m'block' is possibly 'undefined'.
+@tevm/actions: [7m44[0m    const root = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
+@tevm/actions: [7m  [0m [91m                                                                     ~~~~~[0m
+@tevm/actions: Found 8 errors in 7 files.
+@tevm/actions: Errors  Files
+@tevm/actions:      1  src/anvil/anvilDropTransactionProcedure.js[90m:27[0m
+@tevm/actions:      1  src/eth/ethGetBlockByHashProcedure.js[90m:10[0m
+@tevm/actions:      1  src/eth/ethGetTransactionByBlockHashAndIndexProcedure.js[90m:10[0m
+@tevm/actions:      1  src/eth/ethGetTransactionByBlockNumberAndIndexProcedure.js[90m:10[0m
+@tevm/actions:      1  src/eth/ethGetTransactionReceipt.js[90m:26[0m
+@tevm/actions:      2  src/eth/ethSendRawTransactionProcedure.js[90m:56[0m
+@tevm/actions:      1  src/eth/getBalanceHandler.js[90m:44[0m
+@tevm/actions: [41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 2.[39m
+
+> nx run @tevm/precompiles-integration:typecheck
+
+@tevm/precompiles-integration: > @tevm/precompiles-integration@0.0.0 typecheck /Users/williamcory/tevm-monorepo/test/precompiles
+@tevm/precompiles-integration: > tsc --noEmit
+
+> nx run @tevm/trie:typecheck
+
+@tevm/trie: > @tevm/trie@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/trie
+@tevm/trie: > tsc --noEmit
+
+> nx run @tevm/rlp:typecheck
+
+@tevm/rlp: > @tevm/rlp@1.0.0-next.148 typecheck /Users/williamcory/tevm-monorepo/packages/rlp
+@tevm/rlp: > tsc --noEmit
+@tevm/actions: [96msrc/anvil/anvilDropTransactionProcedure.js[0m:[93m27[0m:[93m57[0m - [91merror[0m[90m TS2345: [0mArgument of type 'string' is not assignable to parameter of type '`0x${string}`'.
+@tevm/actions: [7m27[0m   if (/** @type {any[]}*/ (txPool.getByHash([hexToBytes(txHash)])).length > 0) {
+@tevm/actions: [7m  [0m [91m                                                        ~~~~~~[0m
+@tevm/actions: [96msrc/eth/ethGetBlockByHashProcedure.js[0m:[93m10[0m:[93m2[0m - [91merror[0m[90m TS2322: [0mType '(request: EthGetBlockByHashJsonRpcRequest) => Promise<{ id?: string | number | null; method: "eth_getBlockByHash"; result: null; jsonrpc: "2.0"; } | { ...; }>' is not assignable to type 'EthGetBlockByHashJsonRpcProcedure'.
+@tevm/actions:   Type 'Promise<{ id?: string | number | null; method: "eth_getBlockByHash"; result: null; jsonrpc: "2.0"; } | { id?: string | number | null; method: "eth_getBlockByHash"; result: BlockResult; jsonrpc: "2.0"; }>' is not assignable to type 'Promise<EthGetBlockByHashJsonRpcResponse>'.
+@tevm/actions:     Type '{ id?: string | number | null; method: "eth_getBlockByHash"; result: null; jsonrpc: "2.0"; } | { id?: string | number | null; method: "eth_getBlockByHash"; result: BlockResult; jsonrpc: "2.0"; }' is not assignable to type 'EthGetBlockByHashJsonRpcResponse' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+@tevm/actions:       Type '{ id?: string | number | null; method: "eth_getBlockByHash"; result: null; jsonrpc: "2.0"; }' is not assignable to type 'EthGetBlockByHashJsonRpcResponse' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+@tevm/actions:         Property 'error' is missing in type '{ id?: string | number | null; method: "eth_getBlockByHash"; result: null; jsonrpc: "2.0"; }' but required in type '{ jsonrpc: "2.0"; method: "eth_getBlockByHash"; error: { code: string | number; message: string; }; id?: string | number | null; result?: never; }'.
+@tevm/actions: [7m10[0m  return async (request) => {
+@tevm/actions: [7m  [0m [91m ~~~~~~[0m
+@tevm/actions:   [96m../jsonrpc/types/JsonRpcResponse.d.ts[0m:[93m10[0m:[93m5[0m
+@tevm/actions:     [7m10[0m     error: {
+@tevm/actions:     [7m  [0m [96m    ~~~~~[0m
+@tevm/actions:     'error' is declared here.
+@tevm/actions: [96msrc/eth/ethGetTransactionByBlockHashAndIndexProcedure.js[0m:[93m10[0m:[93m2[0m - [91merror[0m[90m TS2322: [0mType '(request: EthGetTransactionByBlockHashAndIndexJsonRpcRequest) => Promise<{ method: "eth_getTransactionByBlockHashAndIndex"; jsonrpc: "2.0"; result: null; id?: string | ... 1 more ... | null; } | { ...; }>' is not assignable to type 'EthGetTransactionByBlockHashAndIndexJsonRpcProcedure'.
+@tevm/actions:   Type 'Promise<{ method: "eth_getTransactionByBlockHashAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; } | { id?: string | number | null; method: "eth_getTransactionByBlockHashAndIndex"; result: TransactionResult; jsonrpc: "2.0"; }>' is not assignable to type 'Promise<EthGetTransactionByBlockHashAndIndexJsonRpcResponse>'.
+@tevm/actions:     Type '{ method: "eth_getTransactionByBlockHashAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; } | { id?: string | number | null; method: "eth_getTransactionByBlockHashAndIndex"; result: TransactionResult; jsonrpc: "2.0"; }' is not assignable to type 'EthGetTransactionByBlockHashAndIndexJsonRpcResponse' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+@tevm/actions:       Type '{ method: "eth_getTransactionByBlockHashAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; }' is not assignable to type 'EthGetTransactionByBlockHashAndIndexJsonRpcResponse' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+@tevm/actions:         Property 'error' is missing in type '{ method: "eth_getTransactionByBlockHashAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; }' but required in type '{ jsonrpc: "2.0"; method: "eth_getTransactionByBlockHashAndIndex"; error: { code: string | number; message: string; }; id?: string | number | null; result?: never; }'.
+@tevm/actions: [7m10[0m  return async (request) => {
+@tevm/actions: [7m  [0m [91m ~~~~~~[0m
+@tevm/actions:   [96m../jsonrpc/types/JsonRpcResponse.d.ts[0m:[93m10[0m:[93m5[0m
+@tevm/actions:     [7m10[0m     error: {
+@tevm/actions:     [7m  [0m [96m    ~~~~~[0m
+@tevm/actions:     'error' is declared here.
+@tevm/actions: [96msrc/eth/ethGetTransactionByBlockNumberAndIndexProcedure.js[0m:[93m10[0m:[93m2[0m - [91merror[0m[90m TS2322: [0mType '(request: EthGetTransactionByBlockNumberAndIndexJsonRpcRequest) => Promise<{ method: "eth_getTransactionByBlockNumberAndIndex"; jsonrpc: "2.0"; result: null; id?: string | ... 1 more ... | null; } | { ...; }>' is not assignable to type 'EthGetTransactionByBlockNumberAndIndexJsonRpcProcedure'.
+@tevm/actions:   Type 'Promise<{ method: "eth_getTransactionByBlockNumberAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; } | { id?: string | number | null; method: "eth_getTransactionByBlockNumberAndIndex"; result: TransactionResult; jsonrpc: "2.0"; }>' is not assignable to type 'Promise<EthGetTransactionByBlockNumberAndIndexJsonRpcResponse>'.
+@tevm/actions:     Type '{ method: "eth_getTransactionByBlockNumberAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; } | { id?: string | number | null; method: "eth_getTransactionByBlockNumberAndIndex"; result: TransactionResult; jsonrpc: "2.0"; }' is not assignable to type 'EthGetTransactionByBlockNumberAndIndexJsonRpcResponse' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+@tevm/actions:       Type '{ method: "eth_getTransactionByBlockNumberAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; }' is not assignable to type 'EthGetTransactionByBlockNumberAndIndexJsonRpcResponse' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+@tevm/actions:         Property 'error' is missing in type '{ method: "eth_getTransactionByBlockNumberAndIndex"; jsonrpc: "2.0"; result: null; id?: string | number | null; }' but required in type '{ jsonrpc: "2.0"; method: "eth_getTransactionByBlockNumberAndIndex"; error: { code: string | number; message: string; }; id?: string | number | null; result?: never; }'.
+@tevm/actions: [7m10[0m  return async (request) => {
+@tevm/actions: [7m  [0m [91m ~~~~~~[0m
+@tevm/actions:   [96m../jsonrpc/types/JsonRpcResponse.d.ts[0m:[93m10[0m:[93m5[0m
+@tevm/actions:     [7m10[0m     error: {
+@tevm/actions:     [7m  [0m [96m    ~~~~~[0m
+@tevm/actions:     'error' is declared here.
+@tevm/actions: [96msrc/eth/ethGetTransactionReceipt.js[0m:[93m26[0m:[93m60[0m - [91merror[0m[90m TS2322: [0mType '(params: EthGetTransactionReceiptParams) => Promise<{ blockHash: any; blockNumber: bigint; cumulativeGasUsed: bigint; effectiveGasPrice: bigint; from: any; ... 10 more ...; logs: any; } | { ...; } | null>' is not assignable to type 'EthGetTransactionReceiptHandler'.
+@tevm/actions:   Type 'Promise<{ blockHash: any; blockNumber: bigint; cumulativeGasUsed: bigint; effectiveGasPrice: bigint; from: any; gasUsed: bigint; to: any; transactionHash: any; transactionIndex: bigint; contractAddress: any; ... 5 more ...; logs: any; } | { ...; } | null>' is not assignable to type 'Promise<EthGetTransactionReceiptResult>'.
+@tevm/actions:     Type '{ blockHash: any; blockNumber: bigint; cumulativeGasUsed: bigint; effectiveGasPrice: bigint; from: any; gasUsed: bigint; to: any; transactionHash: any; transactionIndex: bigint; contractAddress: any; ... 5 more ...; logs: any; } | { ...; } | null' is not assignable to type 'EthGetTransactionReceiptResult'.
+@tevm/actions:       Type '{ blockHash: any; blockNumber: bigint; cumulativeGasUsed: bigint; effectiveGasPrice: bigint; from: any; gasUsed: bigint; to: any; transactionHash: any; transactionIndex: bigint; contractAddress: any; ... 5 more ...; logs: any; }' is not assignable to type 'EthGetTransactionReceiptResult'.
+@tevm/actions:         Types of property 'blobGasUsed' are incompatible.
+@tevm/actions:           Type 'bigint | undefined' is not assignable to type 'bigint'.
+@tevm/actions:             Type 'undefined' is not assignable to type 'bigint'.
+@tevm/actions: [7m26[0m export const ethGetTransactionReceiptHandler = (client) => async (params) => {
+@tevm/actions: [7m  [0m [91m                                                           ~~~~~~~~~~~~~~~~~~~[0m
+@tevm/actions: [96msrc/eth/ethSendRawTransactionProcedure.js[0m:[93m56[0m:[93m13[0m - [91merror[0m[90m TS18048: [0m'error' is possibly 'undefined'.
+@tevm/actions: [7m56[0m       code: error.code,
+@tevm/actions: [7m  [0m [91m            ~~~~~[0m
+@tevm/actions: [96msrc/eth/ethSendRawTransactionProcedure.js[0m:[93m57[0m:[93m16[0m - [91merror[0m[90m TS18048: [0m'error' is possibly 'undefined'.
+@tevm/actions: [7m57[0m       message: error.message,
+@tevm/actions: [7m  [0m [91m               ~~~~~[0m
+@tevm/actions: [96msrc/eth/getBalanceHandler.js[0m:[93m44[0m:[93m70[0m - [91merror[0m[90m TS18048: [0m'block' is possibly 'undefined'.
+@tevm/actions: [7m44[0m    const root = vm.stateManager._baseState.stateRoots.get(bytesToHex(block.header.stateRoot))
+@tevm/actions: [7m  [0m [91m                                                                     ~~~~~[0m
+@tevm/actions: Found 8 errors in 7 files.
+@tevm/actions: Errors  Files
+@tevm/actions:      1  src/anvil/anvilDropTransactionProcedure.js[90m:27[0m
+@tevm/actions:      1  src/eth/ethGetBlockByHashProcedure.js[90m:10[0m
+@tevm/actions:      1  src/eth/ethGetTransactionByBlockHashAndIndexProcedure.js[90m:10[0m
+@tevm/actions:      1  src/eth/ethGetTransactionByBlockNumberAndIndexProcedure.js[90m:10[0m
+@tevm/actions:      1  src/eth/ethGetTransactionReceipt.js[90m:26[0m
+@tevm/actions:      2  src/eth/ethSendRawTransactionProcedure.js[90m:56[0m
+@tevm/actions:      1  src/eth/getBalanceHandler.js[90m:44[0m
+@tevm/actions: [41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m
+
+
+
+ NX   Running target typecheck for 38 projects and 86 tasks they depend on failed
+
+Tasks not run because their dependencies failed or --nx-bail=true:
+
+- @tevm/test-matchers:typecheck
+- @tevm/memory-client:typecheck
+- @tevm/client-types:typecheck
+- @tevm/http-client:typecheck
+- @tevm/test-node:typecheck
+- @tevm/decorators:typecheck
+- @tevm/procedures:typecheck
+- @tevm/memory-client-integration:typecheck
+- @tevm/test-matchers-integration:typecheck
+- @tevm/ethers:typecheck
+- @tevm/server:typecheck
+- @tevm/viem:typecheck
+- tevm:typecheck
+- @tevm/decorators:build:types
+- @tevm/client-types:build:types
+- @tevm/server:build:types
+- @tevm/memory-client:build:types
+- @tevm/viem:build:types
+- @tevm/test-node:build:types
+- @tevm/test-matchers:build:types
+- @tevm/http-client:build:types
+
+Failed tasks:
+
+- @tevm/node:typecheck
+- @tevm/actions:typecheck
+- @tevm/actions:build:types
+

@@ -43,10 +43,10 @@ export const withEventNamedArgs = <
 		const decodedArgs = decodedLog.args as unknown as Record<string, unknown>
 		actualNamedArgsFromLogs.push(decodedArgs)
 
-			// Check if all expected args match
-			const allArgsMatch = Object.entries(expectedArgs).every(
-				([argName, expectedValue]) => deepEqual(decodedArgs[argName], expectedValue),
-			)
+		// Check if all expected args match
+		const allArgsMatch = Object.entries(expectedArgs).every(([argName, expectedValue]) =>
+			deepEqual(decodedArgs[argName], expectedValue),
+		)
 		if (allArgsMatch) {
 			argsMatched = true
 			break

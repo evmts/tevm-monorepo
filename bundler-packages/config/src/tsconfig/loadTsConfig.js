@@ -84,34 +84,36 @@ export const loadTsConfig = (configFilePath) => {
 	const tsConfigPath = path.join(configFilePath, 'tsconfig.json')
 	const jsConfigPath = path.join(configFilePath, 'jsconfig.json')
 
-	return /** @type {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} */ (tryEffect({
-		try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
-		catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
-	}).pipe(
-		// parse the json
-		flatMap(parseJson),
-		// parse the tsconfig without plugins
-		flatMap((unvalidatedConfig) => {
-			const res = decodeUnknownEither(STsConfig)(unvalidatedConfig, {
-				errors: 'all',
-				onExcessProperty: 'ignore',
-			})
-			return match(res, {
-				onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
-				onRight: (right) => succeed(right),
-			})
-		}),
-		flatMap((unvalidatedConfig) => {
-			const res = decodeUnknownEither(STsConfig)(unvalidatedConfig, {
-				errors: 'all',
-				onExcessProperty: 'ignore',
-			})
-			return match(res, {
-				onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
-				onRight: (right) => succeed(right),
-			})
-		}),
-		catchTag('ParseJsonError', (cause) => fail(new InvalidTsConfigError({ cause }))),
-		tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
-	))
+	return /** @type {import("effect/Effect").Effect<TsConfig, LoadTsConfigError, never>} */ (
+		tryEffect({
+			try: () => (existsSync(jsConfigPath) ? readFileSync(jsConfigPath, 'utf8') : readFileSync(tsConfigPath, 'utf8')),
+			catch: (cause) => new FailedToReadConfigError(configFilePath, { cause }),
+		}).pipe(
+			// parse the json
+			flatMap(parseJson),
+			// parse the tsconfig without plugins
+			flatMap((unvalidatedConfig) => {
+				const res = decodeUnknownEither(STsConfig)(unvalidatedConfig, {
+					errors: 'all',
+					onExcessProperty: 'ignore',
+				})
+				return match(res, {
+					onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
+					onRight: (right) => succeed(right),
+				})
+			}),
+			flatMap((unvalidatedConfig) => {
+				const res = decodeUnknownEither(STsConfig)(unvalidatedConfig, {
+					errors: 'all',
+					onExcessProperty: 'ignore',
+				})
+				return match(res, {
+					onLeft: (left) => fail(new InvalidTsConfigError({ cause: left })),
+					onRight: (right) => succeed(right),
+				})
+			}),
+			catchTag('ParseJsonError', (cause) => fail(new InvalidTsConfigError({ cause }))),
+			tap((tsConfig) => logDebug(`loading tsconfig from ${configFilePath}: ${JSON.stringify(tsConfig)}`)),
+		)
+	)
 }

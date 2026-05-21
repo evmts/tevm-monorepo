@@ -1,9 +1,9 @@
+import { createServer as createNodeHttpServer } from 'node:http'
 import type { CallJsonRpcRequest } from '@tevm/actions'
 import { optimism } from '@tevm/common'
 import { createMemoryClient } from '@tevm/memory-client'
 import { TestERC20, transports } from '@tevm/test-utils'
 import { decodeFunctionResult, encodeFunctionData, hexToBigInt } from '@tevm/utils'
-import { createServer as createNodeHttpServer } from 'node:http'
 import supertest from 'supertest'
 import { describe, expect, it } from 'vitest'
 import { NonceTooLowError } from '../../errors/dist/index.cjs'
@@ -32,9 +32,7 @@ describe('createHttpHandler', () => {
 
 	it('should enforce 431 for oversized headers in compatibility mode', async () => {
 		const tevm = createMemoryClient()
-		const server = createNodeHttpServer(
-			createHttpHandler(tevm, { compatibility: true, maxHeaderSize: 64 }),
-		)
+		const server = createNodeHttpServer(createHttpHandler(tevm, { compatibility: true, maxHeaderSize: 64 }))
 		await supertest(server)
 			.post('/')
 			.set('Content-Type', 'application/json')

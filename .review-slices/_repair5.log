@@ -1,0 +1,1837 @@
+OpenAI Codex v0.132.0
+--------
+workdir: /Users/williamcory/tevm-monorepo
+model: gpt-5.5
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: high
+reasoning summaries: none
+session id: 019e4780-da27-76b2-8af3-c11abf2799b9
+--------
+user
+You are repairing TypeScript type-check failures in @tevm/evm and @tevm/txpool introduced by earlier review fix waves.
+
+CONSTRAINTS:
+- Modify ONLY files under: packages/evm, packages/txpool.
+- Do NOT touch any other package.
+- Do NOT run pnpm, bun, nx, npm, cargo, node, tsc, or vitest.
+- Do NOT run git. The dispatcher will commit.
+- Minimal-diff principle.
+
+TYPE ERRORS TO FIX:
+
+@tevm/txpool: src/TxPool.ts:85:2 - error TS4114: This member must have an 'override' modifier because it overrides a member in the base class 'TxPool'.
+@tevm/evm: src/createEvm.js:78:15 - error TS18048: 'step.opcode.dynamicFee' is possibly 'undefined'.
+@tevm/evm: src/Evm.js:4:28 - error TS7006: Parameter 'precompile' implicitly has an 'any' type.
+@tevm/evm: src/Evm.js:41:9 - error TS2540: Cannot assign to '_customPrecompiles' because it is a read-only property.
+@tevm/evm: src/Evm.js:43:9 - error TS2540: Cannot assign to '_customPrecompiles' because it is a read-only property.
+@tevm/evm: src/Evm.js:65:8 - error TS2540: Cannot assign to '_customPrecompiles' because it is a read-only property.
+
+PROCESS:
+1. For TS4114 (override modifier missing): the base class declares the same member as the subclass — add `override` keyword.
+2. For TS18048 (possibly undefined): use optional chaining `?.` or a nullish check around the access.
+3. For TS7006 (implicit any): add JSDoc `@param` annotation matching the function signature.
+4. For TS2540 (assign to read-only): the field was likely declared as readonly via JSDoc or class field syntax. Either:
+   (a) Remove the readonly modifier in the type declaration (preferred if the H01 fix legitimately needs to mutate it).
+   (b) Use a mutator approach that doesn't reassign — e.g., assign to `/** @type {any} */(this)._customPrecompiles`.
+   Look at the H01 commit to see the intent; if the fix swaps to a per-instance array (the H01 finding was "Custom precompile state is shared and mutated across EVM instances"), the field needs to be mutable on the instance. Make sure the type declaration reflects that.
+
+5. Write a brief fix report to `.review-slices/_repair5.fix.md`:
+
+# Wave 1 typecheck repair (round 5)
+
+**Scope:** packages/evm, packages/txpool
+
+## Errors fixed
+- path:line - <one-line description of fix>
+
+## Errors deferred
+- path:line - <why, if any>
+
+IMPORTANT: write the report at the EXACT path `.review-slices/_repair5.fix.md` from the repo root. Do NOT create new directories.
+
+codex
+I’ll make only the scoped edits under `packages/evm` and `packages/txpool`, plus the requested report file. I’ll inspect the specific files with read-only shell commands and avoid git/package/test commands.
+exec
+/bin/zsh -lc "sed -n '1,140p' packages/txpool/src/TxPool.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,130p' packages/evm/src/createEvm.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { TxPool as ZevmTxPool } from '@evmts/zevm/txpool'
+
+export type {
+	ImpersonatedTx,
+	TxPoolBlock,
+	TxPoolObject,
+	TxPoolOptions,
+	TxPoolTransaction,
+	TxPoolVm,
+} from '@evmts/zevm/txpool'
+
+type FeeMarketLikeTx = {
+	maxFeePerGas: bigint
+	maxPriorityFeePerGas: bigint
+}
+
+type LegacyLikeTx = {
+	gasPrice: bigint
+}
+
+const isFeeMarketLikeTx = (tx: unknown): tx is FeeMarketLikeTx =>
+	typeof tx === 'object' &&
+	tx !== null &&
+	'maxFeePerGas' in tx &&
+	'maxPriorityFeePerGas' in tx &&
+	typeof tx.maxFeePerGas === 'bigint' &&
+	typeof tx.maxPriorityFeePerGas === 'bigint'
+
+const isLegacyLikeTx = (tx: unknown): tx is LegacyLikeTx =>
+	typeof tx === 'object' && tx !== null && 'gasPrice' in tx && typeof tx.gasPrice === 'bigint'
+
+const txType = (tx: unknown) =>
+	typeof tx === 'object' && tx !== null && 'type' in tx ? String(tx.type) : 'unknown'
+
+/**
+ * Tevm txpool facade.
+ *
+ * ZEVM's pool handles the storage and nonce ordering, while this facade broadens
+ * fee classification to all fee-market-shaped transactions, including EIP-7702.
+ */
+export class TxPool extends ZevmTxPool {
+	constructor(...args: ConstructorParameters<typeof ZevmTxPool>) {
+		super(...args)
+
+		const pool = this as unknown as {
+			txGasPrice: (tx: unknown) => { maxFee: bigint; tip: bigint }
+			normalizedGasPrice: (tx: unknown, baseFee?: bigint) => bigint
+		}
+
+		pool.txGasPrice = (tx) => {
+			if (isFeeMarketLikeTx(tx)) {
+				return {
+					maxFee: tx.maxFeePerGas,
+					tip: tx.maxPriorityFeePerGas,
+				}
+			}
+			if (isLegacyLikeTx(tx)) {
+				return {
+					maxFee: tx.gasPrice,
+					tip: tx.gasPrice,
+				}
+			}
+			throw new Error(`tx of type ${txType(tx)} unknown`)
+		}
+
+		pool.normalizedGasPrice = (tx, baseFee) => {
+			if (typeof baseFee === 'bigint' && baseFee !== 0n) {
+				if (isFeeMarketLikeTx(tx)) {
+					const priorityFeeCap = tx.maxFeePerGas - baseFee
+					if (priorityFeeCap <= 0n) {
+						return 0n
+					}
+					return tx.maxPriorityFeePerGas < priorityFeeCap ? tx.maxPriorityFeePerGas : priorityFeeCap
+				}
+				if (isLegacyLikeTx(tx)) {
+					const priorityFee = tx.gasPrice - baseFee
+					return priorityFee > 0n ? priorityFee : 0n
+				}
+				throw new Error(`tx of type ${txType(tx)} unknown`)
+			}
+			return pool.txGasPrice(tx).maxFee
+		}
+	}
+
+	cleanup(): void {
+		const pool = this as unknown as {
+			pool: Map<string, Array<{ hash: string; tx: unknown }>>
+			handled: Map<string, unknown>
+			txsByHash: Map<string, unknown>
+			txsByNonce: Map<string, Map<bigint, unknown>>
+			txsInNonceOrder: Map<string, unknown[]>
+		}
+		const before = new Set([...pool.pool.values()].flatMap((objects) => objects.map((obj) => obj.hash)))
+
+		super.cleanup()
+
+		const liveTxs = new Set<unknown>()
+		const after = new Set<string>()
+		for (const objects of pool.pool.values()) {
+			for (const obj of objects) {
+				after.add(obj.hash)
+				liveTxs.add(obj.tx)
+			}
+		}
+
+		for (const hash of before) {
+			if (!after.has(hash)) {
+				pool.handled.delete(hash)
+			}
+		}
+
+		for (const [hash, tx] of pool.txsByHash) {
+			if (!liveTxs.has(tx)) {
+				pool.txsByHash.delete(hash)
+			}
+		}
+		for (const [address, nonceMap] of pool.txsByNonce) {
+			for (const [nonce, tx] of nonceMap) {
+				if (!liveTxs.has(tx)) {
+					nonceMap.delete(nonce)
+				}
+			}
+			if (nonceMap.size === 0) {
+				pool.txsByNonce.delete(address)
+			}
+		}
+		for (const [address, txs] of pool.txsInNonceOrder) {
+			const live = txs.filter((tx) => liveTxs.has(tx))
+			if (live.length === 0) {
+				pool.txsInNonceOrder.delete(address)
+			} else if (live.length !== txs.length) {
+				pool.txsInNonceOrder.set(address, live)
+			}
+		}
+	}
+}
+
+ succeeded in 0ms:
+import { createLogger } from '@tevm/logger'
+import { createAddressFromString, hexToBytes } from '@tevm/utils'
+import { Evm } from './Evm.js'
+
+/**
+ * Creates the Tevm Evm to execute ethereum bytecode internally.
+ * Wraps [ethereumjs EVM](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/evm)
+ * @example
+ * ```typescript
+ * import { createEvm } from '@tevm/evm'
+ * import { mainnet } from '@tevm/common'
+ * import { createBlockchain } from '@tevm/blockchain'
+ * import { createStateManager } from '@tevm/state-manager'
+ * import { EthjsAddress } from '@tevm/utils'
+ *
+ * const common = mainnet.clone()
+ * const stateManager = createStateManager({ common })
+ * const blockchain = createBlockchain({ common })
+ * const evm = await createEvm({ common, stateManager, blockchain})
+ *
+ * const runCallResult = await evm.runCall({
+ *   to: EthjsAddress.from(`0x${'00'.repeat(20)}`),
+ *   value: 420n,
+ *   skipBalance: true,
+ * })
+ * console.log(runCallResult)
+ * ````
+ * @param {import('./CreateEvmOptions.js').CreateEvmOptions} options
+ * @returns {Promise<import('./EvmType.js').Evm>} A tevm Evm instance with tevm specific defaults
+ */
+export const createEvm = async ({
+	common,
+	stateManager,
+	blockchain,
+	customPrecompiles,
+	customPredeploys,
+	profiler,
+	allowUnlimitedContractSize,
+	loggingLevel,
+}) => {
+	const logger = createLogger({
+		name: '@tevm/evm',
+		level: loggingLevel ?? 'warn',
+	})
+	logger.debug({
+		allowUnlimitedContractSize,
+		profiler,
+		customPrecompiles: customPrecompiles?.map((c) => c.address.toString()),
+		customPredeploys: customPredeploys?.map((p) => p.contract.address),
+	})
+	for (const predeploy of customPredeploys ?? []) {
+		await stateManager.putCode(createAddressFromString(predeploy.contract.address), hexToBytes(predeploy.contract.deployedBytecode))
+	}
+	const evm = await Evm.create({
+		common: common.ethjsCommon,
+		stateManager: /** @type {NonNullable<import('@evmts/zevm/evm').EVMOpts['stateManager']>} */ (
+			/** @type {unknown} */ (stateManager)
+		),
+		blockchain,
+		allowUnlimitedContractSize: allowUnlimitedContractSize ?? false,
+		allowUnlimitedInitCodeSize: false,
+		customOpcodes: [],
+		// TODO uncomment the mapping once we make the api correct
+		// Edit: nvm not letting this block a stable release maybe update it next major
+		// @warning Always pass in an empty array if no precompiles as `addPrecompile` method assumes it's there
+		customPrecompiles: [...(customPrecompiles ?? [])],
+		profiler: {
+			enabled: profiler ?? false,
+		},
+	})
+	if (loggingLevel === 'trace') {
+		evm.events?.on('step', (step) => {
+			logger.trace(
+				{
+					pc: step.pc,
+					op: step.opcode.name,
+					gas: step.gasLeft.toString(),
+					gasCost: step.opcode.dynamicFee.toString(),
+					depth: step.depth,
+				},
+				'EVM step',
+			)
+		})
+	}
+	evm.addCustomPrecompile = evm.addCustomPrecompile?.bind(evm) ?? Evm.prototype.addCustomPrecompile.bind(evm)
+	evm.removeCustomPrecompile = evm.removeCustomPrecompile?.bind(evm) ?? Evm.prototype.removeCustomPrecompile.bind(evm)
+	return evm
+}
+
+exec
+/bin/zsh -lc "sed -n '1,120p' packages/evm/src/Evm.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import { createEVM, EVM, getActivePrecompiles } from '@evmts/zevm/evm'
+import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+
+const precompileAddress = (precompile) => precompile.address.toString().toLowerCase()
+
+/**
+ * The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
+ * The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
+ * provide custom typing to the blockchain or common objects.
+ * @example
+ * ```typescript
+ * import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
+ * import { mainnet } from 'tevm/common'
+ * import { createStateManager } from 'tevm/state'
+ * import { createBlockchain } from 'tevm/blockchain'}
+ * import { EthjsAddress } from 'tevm/utils'
+ *
+ * const evm = createEvm({
+ *   common: mainnet.copy(),
+ *   stateManager: createStateManager(),
+ *   blockchain: createBlockchain(),
+ * })
+ * ```
+ * @see [createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
+ */
+export class Evm extends EVM {
+	/**
+	 * Adds a custom precompile to the EVM.
+	 * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
+	 * @throws {MisconfiguredClientError}
+	 */
+	addCustomPrecompile(precompile) {
+		if (this._customPrecompiles === undefined) {
+			throw new MisconfiguredClientError(
+				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+			)
+		}
+		const address = precompileAddress(precompile)
+		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+		if (index === -1) {
+			this._customPrecompiles = [...this._customPrecompiles, precompile]
+		} else {
+			this._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+		}
+		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
+	}
+
+	/**
+	 * Removes a custom precompile from the EVM.
+	 * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
+	 * @throws {MisconfiguredClientError}
+	 * @throws {InvalidParamsError}
+	 */
+	removeCustomPrecompile(precompile) {
+		if (this._customPrecompiles === undefined) {
+			throw new MisconfiguredClientError(
+				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+			)
+		}
+		const address = precompileAddress(precompile)
+		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+		if (index === -1) {
+			throw new InvalidParamsError('Precompile not found')
+		}
+		this._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
+		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
+	}
+
+	/**
+	 * @param {import('./EvmOpts.js').EVMOpts} [options]
+	 * @returns {Promise<import('./EvmType.js').Evm>}
+	 */
+	static create = async (options) => {
+		const evm = /** @type {any}*/ (
+			await createEVM({
+				...options,
+				customPrecompiles: [...(options?.customPrecompiles ?? [])],
+			})
+		)
+		evm.addCustomPrecompile = Evm.prototype.addCustomPrecompile.bind(evm)
+		evm.removeCustomPrecompile = Evm.prototype.removeCustomPrecompile.bind(evm)
+		return evm
+	}
+}
+
+exec
+/bin/zsh -lc 'rg -n "_customPrecompiles|customPrecompiles|class Evm|class TxPool|override" packages/evm packages/txpool' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+packages/evm/src/createEvm.spec.ts:76:	it('should support customPrecompiles initialization', async () => {
+packages/evm/src/createEvm.spec.ts:94:			customPrecompiles: [customPrecompile],
+packages/evm/src/createEvm.spec.ts:101:	it('should not mutate the customPrecompiles array passed by the caller', async () => {
+packages/evm/src/createEvm.spec.ts:103:		const customPrecompiles = [
+packages/evm/src/createEvm.spec.ts:114:			customPrecompiles,
+packages/evm/src/createEvm.spec.ts:122:		expect(customPrecompiles).toHaveLength(1)
+packages/evm/src/createEvm.spec.ts:160:		it('should throw if _customPrecompiles is undefined', async () => {
+packages/evm/src/createEvm.spec.ts:167:			mutablaleEvm._customPrecompiles = undefined
+packages/evm/src/createEvm.spec.ts:225:			expect((evm as any)._customPrecompiles.filter((precompile: any) => precompile.address.equals(address))).toHaveLength(1)
+packages/evm/src/createEvm.spec.ts:232:				_customPrecompiles: [],
+packages/evm/src/createEvm.spec.ts:286:	it('should throw if _customPrecompiles is undefined', async () => {
+packages/evm/src/createEvm.spec.ts:293:		mutableEvm._customPrecompiles = undefined
+packages/evm/src/CustomPrecompile.ts:23: * const customPrecompiles: CustomPrecompile = definePrecompile({
+packages/evm/src/CustomPrecompile.ts:35: * const memoryClient = createMemoryClient({ customPrecompiles: [customPrecompiles] })
+packages/evm/src/CustomPrecompile.ts:41:export type CustomPrecompile = Exclude<NonNullable<EVMOpts['customPrecompiles']>, undefined>[number]
+packages/evm/src/createEvm.js:35:	customPrecompiles,
+packages/evm/src/createEvm.js:48:		customPrecompiles: customPrecompiles?.map((c) => c.address.toString()),
+packages/evm/src/createEvm.js:66:		customPrecompiles: [...(customPrecompiles ?? [])],
+packages/evm/src/Evm.js:26:export class Evm extends EVM {
+packages/evm/src/Evm.js:33:		if (this._customPrecompiles === undefined) {
+packages/evm/src/Evm.js:39:		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+packages/evm/src/Evm.js:41:			this._customPrecompiles = [...this._customPrecompiles, precompile]
+packages/evm/src/Evm.js:43:			this._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+packages/evm/src/Evm.js:45:		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
+packages/evm/src/Evm.js:55:		if (this._customPrecompiles === undefined) {
+packages/evm/src/Evm.js:61:		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+packages/evm/src/Evm.js:65:		this._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
+packages/evm/src/Evm.js:66:		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
+packages/evm/src/Evm.js:77:				customPrecompiles: [...(options?.customPrecompiles ?? [])],
+packages/txpool/src/TxPool.txsByPrice.spec.ts:54:			override async txsByPriceAndNonce(options?: any) {
+packages/evm/src/CreateEvmOptions.ts:96:	 * const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
+packages/evm/src/CreateEvmOptions.ts:98:	customPrecompiles?: CustomPrecompile[]
+packages/txpool/src/TxPool.ts:41:export class TxPool extends ZevmTxPool {
+packages/evm/docs/functions/getActivePrecompiles.md:9:> **getActivePrecompiles**(`common`, `customPrecompiles?`): `Map`\<`string`, `PrecompileFunc`\>
+packages/evm/docs/functions/getActivePrecompiles.md:19:### customPrecompiles?
+packages/evm/docs/classes/Evm.md:109:### \_customPrecompiles?
+packages/evm/docs/classes/Evm.md:111:> `protected` `readonly` `optional` **\_customPrecompiles?**: `CustomPrecompile`[]
+packages/evm/docs/classes/Evm.md:117:`EVM._customPrecompiles`
+packages/evm/docs/type-aliases/CreateEvmOptions.md:76:### customPrecompiles?
+packages/evm/docs/type-aliases/CreateEvmOptions.md:78:> `optional` **customPrecompiles?**: [`CustomPrecompile`](CustomPrecompile.md)[]
+packages/evm/docs/type-aliases/CreateEvmOptions.md:127:const tevm = createMemoryClient({ customPrecompiles: [fsPrecompile] })
+packages/evm/docs/type-aliases/CustomPrecompile.md:9:> **CustomPrecompile** = `Exclude`\<`NonNullable`\<[`EVMOpts`](EVMOpts.md)\[`"customPrecompiles"`\]\>, `undefined`\>\[`number`\]
+packages/evm/docs/type-aliases/CustomPrecompile.md:29:const customPrecompiles: CustomPrecompile = definePrecompile({
+packages/evm/docs/type-aliases/CustomPrecompile.md:41:const memoryClient = createMemoryClient({ customPrecompiles: [customPrecompiles] })
+
+codex
+The failures line up with the reported locations. I’m going to keep the behavioral change small: mark the txpool cleanup override, make the trace log tolerate a missing dynamic fee, and update the EVM wrapper’s JSDoc/assignment typing without changing the runtime algorithm.
+exec
+/bin/zsh -lc "sed -n '1,140p' packages/evm/src/EvmOpts.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,180p' packages/evm/src/EvmType.ts" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+import type { EVM as EthereumEVM } from '@evmts/zevm/evm'
+import { type StateManager } from '@tevm/state'
+import { type CustomPrecompile } from './CustomPrecompile.js'
+import { type EVMOpts } from './EvmOpts.js'
+
+export type EvmOptions = {
+	common: any
+	stateManager: StateManager
+	blockchain: any
+}
+
+export type Evm = Omit<EthereumEVM, 'stateManager'> & {
+	stateManager: StateManager
+
+	addCustomPrecompile: (precompile: CustomPrecompile) => void
+	removeCustomPrecompile: (precompile: CustomPrecompile) => void
+}
+
+export declare const Evm: {
+	create: (options?: EVMOpts) => Promise<Evm>
+	prototype: Evm
+}
+
+ succeeded in 0ms:
+import type { EVMOpts as EthereumjsEVMOpts } from '@evmts/zevm/evm'
+
+/**
+ * The options available to pass to the EVM. Inferred from ethereumjs/evm
+ * @see https://github.com/ethereumjs/ethereumjs-monorepo/pull/3334
+ * @example
+ * ```typescript
+ * import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
+ * import { mainnet } from 'tevm/common'
+ * import { createStateManager } from 'tevm/state'
+ * import { createBlockchain } from 'tevm/blockchain'}
+ * import { EthjsAddress } from 'tevm/utils'
+ *
+ * const evm: Evm = createEvm({
+ *   common: mainnet.copy(),
+ *   stateManager: createStateManager(),
+ *   blockchain: createBlockchain(),
+ * })
+ * ```
+ */
+export type EVMOpts = EthereumjsEVMOpts
+
+exec
+/bin/zsh -lc 'rg -n "interface Evm|type Evm|_customPrecompiles|readonly" packages/evm/src packages/txpool/src' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+packages/evm/src/createEvm.spec.ts:160:		it('should throw if _customPrecompiles is undefined', async () => {
+packages/evm/src/createEvm.spec.ts:167:			mutablaleEvm._customPrecompiles = undefined
+packages/evm/src/createEvm.spec.ts:225:			expect((evm as any)._customPrecompiles.filter((precompile: any) => precompile.address.equals(address))).toHaveLength(1)
+packages/evm/src/createEvm.spec.ts:232:				_customPrecompiles: [],
+packages/evm/src/createEvm.spec.ts:286:	it('should throw if _customPrecompiles is undefined', async () => {
+packages/evm/src/createEvm.spec.ts:293:		mutableEvm._customPrecompiles = undefined
+packages/evm/src/EvmType.ts:6:export type EvmOptions = {
+packages/evm/src/EvmType.ts:12:export type Evm = Omit<EthereumEVM, 'stateManager'> & {
+packages/evm/src/Evm.js:12: * import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
+packages/evm/src/Evm.js:33:		if (this._customPrecompiles === undefined) {
+packages/evm/src/Evm.js:39:		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+packages/evm/src/Evm.js:41:			this._customPrecompiles = [...this._customPrecompiles, precompile]
+packages/evm/src/Evm.js:43:			this._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+packages/evm/src/Evm.js:45:		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
+packages/evm/src/Evm.js:55:		if (this._customPrecompiles === undefined) {
+packages/evm/src/Evm.js:61:		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+packages/evm/src/Evm.js:65:		this._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
+packages/evm/src/Evm.js:66:		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
+packages/evm/src/EvmOpts.ts:8: * import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
+
+codex
+I found the readonly issue is coming from the inherited ZEVM EVM type rather than a local declaration. Since we can’t change that external type under the scope constraints, I’ll use a local mutable view for `_customPrecompiles` inside the two mutator methods and keep the instance-isolated array behavior intact.
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/packages/evm/src/Evm.js
+/Users/williamcory/tevm-monorepo/packages/evm/src/createEvm.js
+/Users/williamcory/tevm-monorepo/packages/txpool/src/TxPool.ts
+diff --git a/packages/evm/src/Evm.js b/packages/evm/src/Evm.js
+index 17409ba6ef685ee0c1ec07585b50a4300d1f8d96..fb820f7efadf3e55f0965c77d1b495c417881c4d
+--- a/packages/evm/src/Evm.js
++++ b/packages/evm/src/Evm.js
+@@ -1,6 +1,9 @@
+ import { createEVM, EVM, getActivePrecompiles } from '@evmts/zevm/evm'
+ import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+ 
++/**
++ * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
++ */
+ const precompileAddress = (precompile) => precompile.address.toString().toLowerCase()
+ 
+ /**
+@@ -30,19 +33,22 @@
+ 	 * @throws {MisconfiguredClientError}
+ 	 */
+ 	addCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+-			this._customPrecompiles = [...this._customPrecompiles, precompile]
++			evm._customPrecompiles = [...evm._customPrecompiles, precompile]
+ 		} else {
+-			this._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
++			evm._customPrecompiles = evm._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+ 		}
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+@@ -52,18 +58,21 @@
+ 	 * @throws {InvalidParamsError}
+ 	 */
+ 	removeCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+ 			throw new InvalidParamsError('Precompile not found')
+ 		}
+-		this._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		evm._customPrecompiles = evm._customPrecompiles.filter((_, i) => i !== index)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+diff --git a/packages/evm/src/createEvm.js b/packages/evm/src/createEvm.js
+index 3814124d0e4c784c7e710cdbfa94e892392cb757..dfc2536e0d4f57c7b654d6867e76c98fe0a1afcf
+--- a/packages/evm/src/createEvm.js
++++ b/packages/evm/src/createEvm.js
+@@ -75,7 +75,7 @@
+ 					pc: step.pc,
+ 					op: step.opcode.name,
+ 					gas: step.gasLeft.toString(),
+-					gasCost: step.opcode.dynamicFee.toString(),
++					gasCost: step.opcode.dynamicFee?.toString(),
+ 					depth: step.depth,
+ 				},
+ 				'EVM step',
+diff --git a/packages/txpool/src/TxPool.ts b/packages/txpool/src/TxPool.ts
+index b3f4bfdb74b387e2914a2b0f06c46b2155754713..c7dc301ece5aa19598273084cdb7a3a91d78a4fd
+--- a/packages/txpool/src/TxPool.ts
++++ b/packages/txpool/src/TxPool.ts
+@@ -82,7 +82,7 @@
+ 		}
+ 	}
+ 
+-	cleanup(): void {
++	override cleanup(): void {
+ 		const pool = this as unknown as {
+ 			pool: Map<string, Array<{ hash: string; tx: unknown }>>
+ 			handled: Map<string, unknown>
+
+diff --git a/packages/evm/src/Evm.js b/packages/evm/src/Evm.js
+index 17409ba6ef685ee0c1ec07585b50a4300d1f8d96..fb820f7efadf3e55f0965c77d1b495c417881c4d
+--- a/packages/evm/src/Evm.js
++++ b/packages/evm/src/Evm.js
+@@ -1,6 +1,9 @@
+ import { createEVM, EVM, getActivePrecompiles } from '@evmts/zevm/evm'
+ import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+ 
++/**
++ * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
++ */
+ const precompileAddress = (precompile) => precompile.address.toString().toLowerCase()
+ 
+ /**
+@@ -30,19 +33,22 @@
+ 	 * @throws {MisconfiguredClientError}
+ 	 */
+ 	addCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+-			this._customPrecompiles = [...this._customPrecompiles, precompile]
++			evm._customPrecompiles = [...evm._customPrecompiles, precompile]
+ 		} else {
+-			this._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
++			evm._customPrecompiles = evm._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+ 		}
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+@@ -52,18 +58,21 @@
+ 	 * @throws {InvalidParamsError}
+ 	 */
+ 	removeCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+ 			throw new InvalidParamsError('Precompile not found')
+ 		}
+-		this._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		evm._customPrecompiles = evm._customPrecompiles.filter((_, i) => i !== index)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+diff --git a/packages/evm/src/createEvm.js b/packages/evm/src/createEvm.js
+index 3814124d0e4c784c7e710cdbfa94e892392cb757..dfc2536e0d4f57c7b654d6867e76c98fe0a1afcf
+--- a/packages/evm/src/createEvm.js
++++ b/packages/evm/src/createEvm.js
+@@ -75,7 +75,7 @@
+ 					pc: step.pc,
+ 					op: step.opcode.name,
+ 					gas: step.gasLeft.toString(),
+-					gasCost: step.opcode.dynamicFee.toString(),
++					gasCost: step.opcode.dynamicFee?.toString(),
+ 					depth: step.depth,
+ 				},
+ 				'EVM step',
+diff --git a/packages/txpool/src/TxPool.ts b/packages/txpool/src/TxPool.ts
+index b3f4bfdb74b387e2914a2b0f06c46b2155754713..c7dc301ece5aa19598273084cdb7a3a91d78a4fd
+--- a/packages/txpool/src/TxPool.ts
++++ b/packages/txpool/src/TxPool.ts
+@@ -82,7 +82,7 @@
+ 		}
+ 	}
+ 
+-	cleanup(): void {
++	override cleanup(): void {
+ 		const pool = this as unknown as {
+ 			pool: Map<string, Array<{ hash: string; tx: unknown }>>
+ 			handled: Map<string, unknown>
+
+exec
+/bin/zsh -lc "nl -ba packages/txpool/src/TxPool.ts | sed -n '78,90p'" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+    78					}
+    79					throw new Error(`tx of type ${txType(tx)} unknown`)
+    80				}
+    81				return pool.txGasPrice(tx).maxFee
+    82			}
+    83		}
+    84	
+    85		override cleanup(): void {
+    86			const pool = this as unknown as {
+    87				pool: Map<string, Array<{ hash: string; tx: unknown }>>
+    88				handled: Map<string, unknown>
+    89				txsByHash: Map<string, unknown>
+    90				txsByNonce: Map<string, Map<bigint, unknown>>
+
+exec
+/bin/zsh -lc "nl -ba packages/evm/src/createEvm.js | sed -n '72,82p'" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "nl -ba packages/evm/src/Evm.js | sed -n '1,80p'" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+    72			evm.events?.on('step', (step) => {
+    73				logger.trace(
+    74					{
+    75						pc: step.pc,
+    76						op: step.opcode.name,
+    77						gas: step.gasLeft.toString(),
+    78						gasCost: step.opcode.dynamicFee?.toString(),
+    79						depth: step.depth,
+    80					},
+    81					'EVM step',
+    82				)
+
+ succeeded in 0ms:
+     1	import { createEVM, EVM, getActivePrecompiles } from '@evmts/zevm/evm'
+     2	import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+     3	
+     4	/**
+     5	 * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
+     6	 */
+     7	const precompileAddress = (precompile) => precompile.address.toString().toLowerCase()
+     8	
+     9	/**
+    10	 * The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
+    11	 * The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
+    12	 * provide custom typing to the blockchain or common objects.
+    13	 * @example
+    14	 * ```typescript
+    15	 * import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
+    16	 * import { mainnet } from 'tevm/common'
+    17	 * import { createStateManager } from 'tevm/state'
+    18	 * import { createBlockchain } from 'tevm/blockchain'}
+    19	 * import { EthjsAddress } from 'tevm/utils'
+    20	 *
+    21	 * const evm = createEvm({
+    22	 *   common: mainnet.copy(),
+    23	 *   stateManager: createStateManager(),
+    24	 *   blockchain: createBlockchain(),
+    25	 * })
+    26	 * ```
+    27	 * @see [createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
+    28	 */
+    29	export class Evm extends EVM {
+    30		/**
+    31		 * Adds a custom precompile to the EVM.
+    32		 * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
+    33		 * @throws {MisconfiguredClientError}
+    34		 */
+    35		addCustomPrecompile(precompile) {
+    36			const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
+    37				/** @type {unknown} */ (this)
+    38			)
+    39			if (evm._customPrecompiles === undefined) {
+    40				throw new MisconfiguredClientError(
+    41					'Custom precompiles is empty. This is an internal bug as it should always be defined',
+    42				)
+    43			}
+    44			const address = precompileAddress(precompile)
+    45			const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+    46			if (index === -1) {
+    47				evm._customPrecompiles = [...evm._customPrecompiles, precompile]
+    48			} else {
+    49				evm._customPrecompiles = evm._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+    50			}
+    51			this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+    52		}
+    53	
+    54		/**
+    55		 * Removes a custom precompile from the EVM.
+    56		 * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
+    57		 * @throws {MisconfiguredClientError}
+    58		 * @throws {InvalidParamsError}
+    59		 */
+    60		removeCustomPrecompile(precompile) {
+    61			const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
+    62				/** @type {unknown} */ (this)
+    63			)
+    64			if (evm._customPrecompiles === undefined) {
+    65				throw new MisconfiguredClientError(
+    66					'Custom precompiles is empty. This is an internal bug as it should always be defined',
+    67				)
+    68			}
+    69			const address = precompileAddress(precompile)
+    70			const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+    71			if (index === -1) {
+    72				throw new InvalidParamsError('Precompile not found')
+    73			}
+    74			evm._customPrecompiles = evm._customPrecompiles.filter((_, i) => i !== index)
+    75			this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+    76		}
+    77	
+    78		/**
+    79		 * @param {import('./EvmOpts.js').EVMOpts} [options]
+    80		 * @returns {Promise<import('./EvmType.js').Evm>}
+
+exec
+/bin/zsh -lc 'ls .review-slices' in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+H01.codex.log
+H01.fix.changed.txt
+H01.fix.commit
+H01.fix.commit-msg
+H01.fix.log
+H01.fix.md
+H01.fix.out-of-scope.txt
+H01.fix.prompt
+H01.fix.scope.before
+H01.fix.status
+H01.md
+H01.prompt
+H01.status
+H02.codex.log
+H02.fix.changed.txt
+H02.fix.commit
+H02.fix.commit-msg
+H02.fix.log
+H02.fix.md
+H02.fix.out-of-scope.txt
+H02.fix.prompt
+H02.fix.scope.before
+H02.fix.status
+H02.md
+H02.prompt
+H02.status
+H03.codex.log
+H03.fix.changed.txt
+H03.fix.commit
+H03.fix.commit-msg
+H03.fix.log
+H03.fix.md
+H03.fix.out-of-scope.txt
+H03.fix.prompt
+H03.fix.scope.before
+H03.fix.status
+H03.md
+H03.prompt
+H03.status
+H04.codex.log
+H04.fix.changed.txt
+H04.fix.commit
+H04.fix.commit-msg
+H04.fix.log
+H04.fix.md
+H04.fix.out-of-scope.txt
+H04.fix.prompt
+H04.fix.scope.before
+H04.fix.status
+H04.md
+H04.prompt
+H04.status
+H05.codex.log
+H05.fix.changed.txt
+H05.fix.commit
+H05.fix.commit-msg
+H05.fix.log
+H05.fix.md
+H05.fix.out-of-scope.txt
+H05.fix.prompt
+H05.fix.scope.before
+H05.fix.status
+H05.md
+H05.prompt
+H05.status
+H06.codex.log
+H06.fix.changed.txt
+H06.fix.commit
+H06.fix.commit-msg
+H06.fix.log
+H06.fix.md
+H06.fix.out-of-scope.txt
+H06.fix.prompt
+H06.fix.scope.before
+H06.fix.status
+H06.md
+H06.prompt
+H06.status
+H07.codex.log
+H07.fix.changed.txt
+H07.fix.commit
+H07.fix.commit-msg
+H07.fix.log
+H07.fix.md
+H07.fix.out-of-scope.txt
+H07.fix.prompt
+H07.fix.scope.before
+H07.fix.status
+H07.md
+H07.prompt
+H07.status
+H08.codex.log
+H08.fix.changed.txt
+H08.fix.commit
+H08.fix.commit-msg
+H08.fix.log
+H08.fix.md
+H08.fix.out-of-scope.txt
+H08.fix.prompt
+H08.fix.scope.before
+H08.fix.status
+H08.md
+H08.prompt
+H08.status
+H09.codex.log
+H09.fix.changed.txt
+H09.fix.commit
+H09.fix.commit-msg
+H09.fix.log
+H09.fix.md
+H09.fix.out-of-scope.txt
+H09.fix.prompt
+H09.fix.scope.before
+H09.fix.status
+H09.md
+H09.prompt
+H09.status
+H10.codex.log
+H10.fix.changed.txt
+H10.fix.commit
+H10.fix.commit-msg
+H10.fix.log
+H10.fix.md
+H10.fix.out-of-scope.txt
+H10.fix.prompt
+H10.fix.scope.before
+H10.fix.status
+H10.md
+H10.prompt
+H10.status
+H11.codex.log
+H11.fix.changed.txt
+H11.fix.commit
+H11.fix.commit-msg
+H11.fix.log
+H11.fix.md
+H11.fix.out-of-scope.txt
+H11.fix.prompt
+H11.fix.scope.before
+H11.fix.status
+H11.md
+H11.prompt
+H11.status
+H12.codex.log
+H12.fix.changed.txt
+H12.fix.commit
+H12.fix.commit-msg
+H12.fix.log
+H12.fix.md
+H12.fix.out-of-scope.txt
+H12.fix.prompt
+H12.fix.scope.before
+H12.fix.status
+H12.md
+H12.prompt
+H12.status
+H13.codex.log
+H13.fix.changed.txt
+H13.fix.commit
+H13.fix.commit-msg
+H13.fix.log
+H13.fix.md
+H13.fix.out-of-scope.txt
+H13.fix.prompt
+H13.fix.scope.before
+H13.fix.status
+H13.md
+H13.prompt
+H13.status
+H14.codex.log
+H14.fix.changed.txt
+H14.fix.commit
+H14.fix.commit-msg
+H14.fix.log
+H14.fix.md
+H14.fix.out-of-scope.txt
+H14.fix.prompt
+H14.fix.scope.before
+H14.fix.status
+H14.md
+H14.prompt
+H14.status
+H15.codex.log
+H15.fix.changed.txt
+H15.fix.commit
+H15.fix.commit-msg
+H15.fix.log
+H15.fix.md
+H15.fix.out-of-scope.txt
+H15.fix.prompt
+H15.fix.scope.before
+H15.fix.status
+H15.md
+H15.prompt
+H15.status
+H16.codex.log
+H16.fix.changed.txt
+H16.fix.commit
+H16.fix.commit-msg
+H16.fix.log
+H16.fix.md
+H16.fix.out-of-scope.txt
+H16.fix.prompt
+H16.fix.scope.before
+H16.fix.status
+H16.md
+H16.prompt
+H16.status
+V01.codex.log
+V01.md
+V01.prompt
+V01.status
+V02.codex.log
+V02.md
+V02.prompt
+V02.status
+V03.codex.log
+V03.md
+V03.prompt
+V03.status
+V04.codex.log
+V04.md
+V04.prompt
+V04.status
+V05.codex.log
+V05.md
+V05.prompt
+V05.status
+V06.codex.log
+V06.md
+V06.prompt
+V06.status
+V07.codex.log
+V07.md
+V07.prompt
+V07.status
+V08.codex.log
+V08.md
+V08.prompt
+V08.status
+V09.codex.log
+V09.md
+V09.prompt
+V09.status
+V10.codex.log
+V10.md
+V10.prompt
+V10.status
+V11.codex.log
+V11.md
+V11.prompt
+V11.status
+V12.codex.log
+V12.md
+V12.prompt
+V12.status
+V13.codex.log
+V13.md
+V13.prompt
+V13.status
+V14.codex.log
+V14.md
+V14.prompt
+V14.status
+V15.codex.log
+V15.md
+V15.prompt
+V15.status
+V16.codex.log
+V16.md
+V16.prompt
+V16.status
+_aggregate.sh
+_dispatch.log
+_dispatch.sh
+_fix_dispatch.log
+_fix_dispatch.sh
+_repair1.fix.md
+_repair1.log
+_repair1.prompt
+_repair2.fix.md
+_repair2.log
+_repair2.prompt
+_repair3.fix.md
+_repair3.log
+_repair3.prompt
+_repair4.fix.md
+_repair4.log
+_repair4.prompt
+_repair5.log
+_repair5.prompt
+_slices.tsv
+_typecheck
+_wave1.tsv
+_wave2.tsv
+
+diff --git a/packages/evm/src/Evm.js b/packages/evm/src/Evm.js
+index 17409ba6ef685ee0c1ec07585b50a4300d1f8d96..fb820f7efadf3e55f0965c77d1b495c417881c4d
+--- a/packages/evm/src/Evm.js
++++ b/packages/evm/src/Evm.js
+@@ -1,6 +1,9 @@
+ import { createEVM, EVM, getActivePrecompiles } from '@evmts/zevm/evm'
+ import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+ 
++/**
++ * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
++ */
+ const precompileAddress = (precompile) => precompile.address.toString().toLowerCase()
+ 
+ /**
+@@ -30,19 +33,22 @@
+ 	 * @throws {MisconfiguredClientError}
+ 	 */
+ 	addCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+-			this._customPrecompiles = [...this._customPrecompiles, precompile]
++			evm._customPrecompiles = [...evm._customPrecompiles, precompile]
+ 		} else {
+-			this._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
++			evm._customPrecompiles = evm._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+ 		}
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+@@ -52,18 +58,21 @@
+ 	 * @throws {InvalidParamsError}
+ 	 */
+ 	removeCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+ 			throw new InvalidParamsError('Precompile not found')
+ 		}
+-		this._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		evm._customPrecompiles = evm._customPrecompiles.filter((_, i) => i !== index)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+diff --git a/packages/evm/src/createEvm.js b/packages/evm/src/createEvm.js
+index 3814124d0e4c784c7e710cdbfa94e892392cb757..dfc2536e0d4f57c7b654d6867e76c98fe0a1afcf
+--- a/packages/evm/src/createEvm.js
++++ b/packages/evm/src/createEvm.js
+@@ -75,7 +75,7 @@
+ 					pc: step.pc,
+ 					op: step.opcode.name,
+ 					gas: step.gasLeft.toString(),
+-					gasCost: step.opcode.dynamicFee.toString(),
++					gasCost: step.opcode.dynamicFee?.toString(),
+ 					depth: step.depth,
+ 				},
+ 				'EVM step',
+diff --git a/packages/txpool/src/TxPool.ts b/packages/txpool/src/TxPool.ts
+index b3f4bfdb74b387e2914a2b0f06c46b2155754713..c7dc301ece5aa19598273084cdb7a3a91d78a4fd
+--- a/packages/txpool/src/TxPool.ts
++++ b/packages/txpool/src/TxPool.ts
+@@ -82,7 +82,7 @@
+ 		}
+ 	}
+ 
+-	cleanup(): void {
++	override cleanup(): void {
+ 		const pool = this as unknown as {
+ 			pool: Map<string, Array<{ hash: string; tx: unknown }>>
+ 			handled: Map<string, unknown>
+
+apply patch
+patch: completed
+/Users/williamcory/tevm-monorepo/.review-slices/_repair5.fix.md
+diff --git a/.review-slices/_repair5.fix.md b/.review-slices/_repair5.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bd2a5c6d431ed47a4e8d2edc2f85d267de824e6d
+--- /dev/null
++++ b/.review-slices/_repair5.fix.md
+@@ -0,0 +1,14 @@
++# Wave 1 typecheck repair (round 5)
++
++**Scope:** packages/evm, packages/txpool
++
++## Errors fixed
++- packages/txpool/src/TxPool.ts:85 - Added `override` to `cleanup`.
++- packages/evm/src/createEvm.js:78 - Used optional chaining for possibly undefined opcode `dynamicFee`.
++- packages/evm/src/Evm.js:7 - Added JSDoc `@param` type for `precompileAddress`.
++- packages/evm/src/Evm.js:47 - Assigned `_customPrecompiles` through a typed mutable instance view.
++- packages/evm/src/Evm.js:49 - Assigned `_customPrecompiles` through a typed mutable instance view.
++- packages/evm/src/Evm.js:74 - Assigned `_customPrecompiles` through a typed mutable instance view.
++
++## Errors deferred
++- None.
+diff --git a/packages/evm/src/Evm.js b/packages/evm/src/Evm.js
+index 17409ba6ef685ee0c1ec07585b50a4300d1f8d96..fb820f7efadf3e55f0965c77d1b495c417881c4d
+--- a/packages/evm/src/Evm.js
++++ b/packages/evm/src/Evm.js
+@@ -1,6 +1,9 @@
+ import { createEVM, EVM, getActivePrecompiles } from '@evmts/zevm/evm'
+ import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+ 
++/**
++ * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
++ */
+ const precompileAddress = (precompile) => precompile.address.toString().toLowerCase()
+ 
+ /**
+@@ -30,19 +33,22 @@
+ 	 * @throws {MisconfiguredClientError}
+ 	 */
+ 	addCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+-			this._customPrecompiles = [...this._customPrecompiles, precompile]
++			evm._customPrecompiles = [...evm._customPrecompiles, precompile]
+ 		} else {
+-			this._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
++			evm._customPrecompiles = evm._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+ 		}
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+@@ -52,18 +58,21 @@
+ 	 * @throws {InvalidParamsError}
+ 	 */
+ 	removeCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+ 			throw new InvalidParamsError('Precompile not found')
+ 		}
+-		this._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		evm._customPrecompiles = evm._customPrecompiles.filter((_, i) => i !== index)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+diff --git a/packages/evm/src/createEvm.js b/packages/evm/src/createEvm.js
+index 3814124d0e4c784c7e710cdbfa94e892392cb757..dfc2536e0d4f57c7b654d6867e76c98fe0a1afcf
+--- a/packages/evm/src/createEvm.js
++++ b/packages/evm/src/createEvm.js
+@@ -75,7 +75,7 @@
+ 					pc: step.pc,
+ 					op: step.opcode.name,
+ 					gas: step.gasLeft.toString(),
+-					gasCost: step.opcode.dynamicFee.toString(),
++					gasCost: step.opcode.dynamicFee?.toString(),
+ 					depth: step.depth,
+ 				},
+ 				'EVM step',
+diff --git a/packages/txpool/src/TxPool.ts b/packages/txpool/src/TxPool.ts
+index b3f4bfdb74b387e2914a2b0f06c46b2155754713..c7dc301ece5aa19598273084cdb7a3a91d78a4fd
+--- a/packages/txpool/src/TxPool.ts
++++ b/packages/txpool/src/TxPool.ts
+@@ -82,7 +82,7 @@
+ 		}
+ 	}
+ 
+-	cleanup(): void {
++	override cleanup(): void {
+ 		const pool = this as unknown as {
+ 			pool: Map<string, Array<{ hash: string; tx: unknown }>>
+ 			handled: Map<string, unknown>
+
+diff --git a/.review-slices/_repair5.fix.md b/.review-slices/_repair5.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bd2a5c6d431ed47a4e8d2edc2f85d267de824e6d
+--- /dev/null
++++ b/.review-slices/_repair5.fix.md
+@@ -0,0 +1,14 @@
++# Wave 1 typecheck repair (round 5)
++
++**Scope:** packages/evm, packages/txpool
++
++## Errors fixed
++- packages/txpool/src/TxPool.ts:85 - Added `override` to `cleanup`.
++- packages/evm/src/createEvm.js:78 - Used optional chaining for possibly undefined opcode `dynamicFee`.
++- packages/evm/src/Evm.js:7 - Added JSDoc `@param` type for `precompileAddress`.
++- packages/evm/src/Evm.js:47 - Assigned `_customPrecompiles` through a typed mutable instance view.
++- packages/evm/src/Evm.js:49 - Assigned `_customPrecompiles` through a typed mutable instance view.
++- packages/evm/src/Evm.js:74 - Assigned `_customPrecompiles` through a typed mutable instance view.
++
++## Errors deferred
++- None.
+diff --git a/packages/evm/src/Evm.js b/packages/evm/src/Evm.js
+index 17409ba6ef685ee0c1ec07585b50a4300d1f8d96..fb820f7efadf3e55f0965c77d1b495c417881c4d
+--- a/packages/evm/src/Evm.js
++++ b/packages/evm/src/Evm.js
+@@ -1,6 +1,9 @@
+ import { createEVM, EVM, getActivePrecompiles } from '@evmts/zevm/evm'
+ import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+ 
++/**
++ * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
++ */
+ const precompileAddress = (precompile) => precompile.address.toString().toLowerCase()
+ 
+ /**
+@@ -30,19 +33,22 @@
+ 	 * @throws {MisconfiguredClientError}
+ 	 */
+ 	addCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+-			this._customPrecompiles = [...this._customPrecompiles, precompile]
++			evm._customPrecompiles = [...evm._customPrecompiles, precompile]
+ 		} else {
+-			this._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
++			evm._customPrecompiles = evm._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+ 		}
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+@@ -52,18 +58,21 @@
+ 	 * @throws {InvalidParamsError}
+ 	 */
+ 	removeCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+ 			throw new InvalidParamsError('Precompile not found')
+ 		}
+-		this._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		evm._customPrecompiles = evm._customPrecompiles.filter((_, i) => i !== index)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+diff --git a/packages/evm/src/createEvm.js b/packages/evm/src/createEvm.js
+index 3814124d0e4c784c7e710cdbfa94e892392cb757..dfc2536e0d4f57c7b654d6867e76c98fe0a1afcf
+--- a/packages/evm/src/createEvm.js
++++ b/packages/evm/src/createEvm.js
+@@ -75,7 +75,7 @@
+ 					pc: step.pc,
+ 					op: step.opcode.name,
+ 					gas: step.gasLeft.toString(),
+-					gasCost: step.opcode.dynamicFee.toString(),
++					gasCost: step.opcode.dynamicFee?.toString(),
+ 					depth: step.depth,
+ 				},
+ 				'EVM step',
+diff --git a/packages/txpool/src/TxPool.ts b/packages/txpool/src/TxPool.ts
+index b3f4bfdb74b387e2914a2b0f06c46b2155754713..c7dc301ece5aa19598273084cdb7a3a91d78a4fd
+--- a/packages/txpool/src/TxPool.ts
++++ b/packages/txpool/src/TxPool.ts
+@@ -82,7 +82,7 @@
+ 		}
+ 	}
+ 
+-	cleanup(): void {
++	override cleanup(): void {
+ 		const pool = this as unknown as {
+ 			pool: Map<string, Array<{ hash: string; tx: unknown }>>
+ 			handled: Map<string, unknown>
+
+codex
+The report is now written at the requested path. I’m doing a final read-back of the changed snippets and the report only; I’m not running the prohibited package manager, runtime, test, or git commands.
+exec
+/bin/zsh -lc "sed -n '70,82p' packages/evm/src/createEvm.js" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,120p' packages/evm/src/Evm.js" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+	})
+	if (loggingLevel === 'trace') {
+		evm.events?.on('step', (step) => {
+			logger.trace(
+				{
+					pc: step.pc,
+					op: step.opcode.name,
+					gas: step.gasLeft.toString(),
+					gasCost: step.opcode.dynamicFee?.toString(),
+					depth: step.depth,
+				},
+				'EVM step',
+			)
+
+ succeeded in 0ms:
+import { createEVM, EVM, getActivePrecompiles } from '@evmts/zevm/evm'
+import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+
+/**
+ * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
+ */
+const precompileAddress = (precompile) => precompile.address.toString().toLowerCase()
+
+/**
+ * The Tevm EVM is in charge of executing bytecode. It is a very light wrapper around ethereumjs EVM
+ * The Evm class provides tevm specific typing with regard to the custom stateManager. It does not
+ * provide custom typing to the blockchain or common objects.
+ * @example
+ * ```typescript
+ * import { type Evm, createEvm, CreateEvmOptions } from 'tevm/evm'
+ * import { mainnet } from 'tevm/common'
+ * import { createStateManager } from 'tevm/state'
+ * import { createBlockchain } from 'tevm/blockchain'}
+ * import { EthjsAddress } from 'tevm/utils'
+ *
+ * const evm = createEvm({
+ *   common: mainnet.copy(),
+ *   stateManager: createStateManager(),
+ *   blockchain: createBlockchain(),
+ * })
+ * ```
+ * @see [createEvm](https://tevm.sh/reference/tevm/evm/functions/createevm/)
+ */
+export class Evm extends EVM {
+	/**
+	 * Adds a custom precompile to the EVM.
+	 * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
+	 * @throws {MisconfiguredClientError}
+	 */
+	addCustomPrecompile(precompile) {
+		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
+			/** @type {unknown} */ (this)
+		)
+		if (evm._customPrecompiles === undefined) {
+			throw new MisconfiguredClientError(
+				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+			)
+		}
+		const address = precompileAddress(precompile)
+		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+		if (index === -1) {
+			evm._customPrecompiles = [...evm._customPrecompiles, precompile]
+		} else {
+			evm._customPrecompiles = evm._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+		}
+		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+	}
+
+	/**
+	 * Removes a custom precompile from the EVM.
+	 * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
+	 * @throws {MisconfiguredClientError}
+	 * @throws {InvalidParamsError}
+	 */
+	removeCustomPrecompile(precompile) {
+		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
+			/** @type {unknown} */ (this)
+		)
+		if (evm._customPrecompiles === undefined) {
+			throw new MisconfiguredClientError(
+				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+			)
+		}
+		const address = precompileAddress(precompile)
+		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+		if (index === -1) {
+			throw new InvalidParamsError('Precompile not found')
+		}
+		evm._customPrecompiles = evm._customPrecompiles.filter((_, i) => i !== index)
+		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+	}
+
+	/**
+	 * @param {import('./EvmOpts.js').EVMOpts} [options]
+	 * @returns {Promise<import('./EvmType.js').Evm>}
+	 */
+	static create = async (options) => {
+		const evm = /** @type {any}*/ (
+			await createEVM({
+				...options,
+				customPrecompiles: [...(options?.customPrecompiles ?? [])],
+			})
+		)
+		evm.addCustomPrecompile = Evm.prototype.addCustomPrecompile.bind(evm)
+		evm.removeCustomPrecompile = Evm.prototype.removeCustomPrecompile.bind(evm)
+		return evm
+	}
+}
+
+exec
+/bin/zsh -lc "sed -n '82,90p' packages/txpool/src/TxPool.ts" in /Users/williamcory/tevm-monorepo
+exec
+/bin/zsh -lc "sed -n '1,80p' .review-slices/_repair5.fix.md" in /Users/williamcory/tevm-monorepo
+ succeeded in 0ms:
+		}
+	}
+
+	override cleanup(): void {
+		const pool = this as unknown as {
+			pool: Map<string, Array<{ hash: string; tx: unknown }>>
+			handled: Map<string, unknown>
+			txsByHash: Map<string, unknown>
+			txsByNonce: Map<string, Map<bigint, unknown>>
+
+ succeeded in 0ms:
+# Wave 1 typecheck repair (round 5)
+
+**Scope:** packages/evm, packages/txpool
+
+## Errors fixed
+- packages/txpool/src/TxPool.ts:85 - Added `override` to `cleanup`.
+- packages/evm/src/createEvm.js:78 - Used optional chaining for possibly undefined opcode `dynamicFee`.
+- packages/evm/src/Evm.js:7 - Added JSDoc `@param` type for `precompileAddress`.
+- packages/evm/src/Evm.js:47 - Assigned `_customPrecompiles` through a typed mutable instance view.
+- packages/evm/src/Evm.js:49 - Assigned `_customPrecompiles` through a typed mutable instance view.
+- packages/evm/src/Evm.js:74 - Assigned `_customPrecompiles` through a typed mutable instance view.
+
+## Errors deferred
+- None.
+
+diff --git a/.review-slices/_repair5.fix.md b/.review-slices/_repair5.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bd2a5c6d431ed47a4e8d2edc2f85d267de824e6d
+--- /dev/null
++++ b/.review-slices/_repair5.fix.md
+@@ -0,0 +1,14 @@
++# Wave 1 typecheck repair (round 5)
++
++**Scope:** packages/evm, packages/txpool
++
++## Errors fixed
++- packages/txpool/src/TxPool.ts:85 - Added `override` to `cleanup`.
++- packages/evm/src/createEvm.js:78 - Used optional chaining for possibly undefined opcode `dynamicFee`.
++- packages/evm/src/Evm.js:7 - Added JSDoc `@param` type for `precompileAddress`.
++- packages/evm/src/Evm.js:47 - Assigned `_customPrecompiles` through a typed mutable instance view.
++- packages/evm/src/Evm.js:49 - Assigned `_customPrecompiles` through a typed mutable instance view.
++- packages/evm/src/Evm.js:74 - Assigned `_customPrecompiles` through a typed mutable instance view.
++
++## Errors deferred
++- None.
+diff --git a/packages/evm/src/Evm.js b/packages/evm/src/Evm.js
+index 17409ba6ef685ee0c1ec07585b50a4300d1f8d96..fb820f7efadf3e55f0965c77d1b495c417881c4d
+--- a/packages/evm/src/Evm.js
++++ b/packages/evm/src/Evm.js
+@@ -1,6 +1,9 @@
+ import { createEVM, EVM, getActivePrecompiles } from '@evmts/zevm/evm'
+ import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+ 
++/**
++ * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
++ */
+ const precompileAddress = (precompile) => precompile.address.toString().toLowerCase()
+ 
+ /**
+@@ -30,19 +33,22 @@
+ 	 * @throws {MisconfiguredClientError}
+ 	 */
+ 	addCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+-			this._customPrecompiles = [...this._customPrecompiles, precompile]
++			evm._customPrecompiles = [...evm._customPrecompiles, precompile]
+ 		} else {
+-			this._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
++			evm._customPrecompiles = evm._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+ 		}
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+@@ -52,18 +58,21 @@
+ 	 * @throws {InvalidParamsError}
+ 	 */
+ 	removeCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+ 			throw new InvalidParamsError('Precompile not found')
+ 		}
+-		this._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		evm._customPrecompiles = evm._customPrecompiles.filter((_, i) => i !== index)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+diff --git a/packages/evm/src/createEvm.js b/packages/evm/src/createEvm.js
+index 3814124d0e4c784c7e710cdbfa94e892392cb757..dfc2536e0d4f57c7b654d6867e76c98fe0a1afcf
+--- a/packages/evm/src/createEvm.js
++++ b/packages/evm/src/createEvm.js
+@@ -75,7 +75,7 @@
+ 					pc: step.pc,
+ 					op: step.opcode.name,
+ 					gas: step.gasLeft.toString(),
+-					gasCost: step.opcode.dynamicFee.toString(),
++					gasCost: step.opcode.dynamicFee?.toString(),
+ 					depth: step.depth,
+ 				},
+ 				'EVM step',
+diff --git a/packages/txpool/src/TxPool.ts b/packages/txpool/src/TxPool.ts
+index b3f4bfdb74b387e2914a2b0f06c46b2155754713..c7dc301ece5aa19598273084cdb7a3a91d78a4fd
+--- a/packages/txpool/src/TxPool.ts
++++ b/packages/txpool/src/TxPool.ts
+@@ -82,7 +82,7 @@
+ 		}
+ 	}
+ 
+-	cleanup(): void {
++	override cleanup(): void {
+ 		const pool = this as unknown as {
+ 			pool: Map<string, Array<{ hash: string; tx: unknown }>>
+ 			handled: Map<string, unknown>
+
+codex
+Implemented the requested typecheck repairs.
+
+Changed:
+- [TxPool.ts](/Users/williamcory/tevm-monorepo/packages/txpool/src/TxPool.ts:85): added `override` to `cleanup`.
+- [createEvm.js](/Users/williamcory/tevm-monorepo/packages/evm/src/createEvm.js:78): used optional chaining for `dynamicFee`.
+- [Evm.js](/Users/williamcory/tevm-monorepo/packages/evm/src/Evm.js:4): added JSDoc param typing and routed `_customPrecompiles` reassignment through a typed mutable instance view.
+- [.review-slices/_repair5.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/_repair5.fix.md:1): wrote the requested fix report.
+
+I did not run `pnpm`, `bun`, `nx`, `npm`, `cargo`, `node`, `tsc`, `vitest`, or `git`, per your constraints.
+diff --git a/.review-slices/_repair5.fix.md b/.review-slices/_repair5.fix.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bd2a5c6d431ed47a4e8d2edc2f85d267de824e6d
+--- /dev/null
++++ b/.review-slices/_repair5.fix.md
+@@ -0,0 +1,14 @@
++# Wave 1 typecheck repair (round 5)
++
++**Scope:** packages/evm, packages/txpool
++
++## Errors fixed
++- packages/txpool/src/TxPool.ts:85 - Added `override` to `cleanup`.
++- packages/evm/src/createEvm.js:78 - Used optional chaining for possibly undefined opcode `dynamicFee`.
++- packages/evm/src/Evm.js:7 - Added JSDoc `@param` type for `precompileAddress`.
++- packages/evm/src/Evm.js:47 - Assigned `_customPrecompiles` through a typed mutable instance view.
++- packages/evm/src/Evm.js:49 - Assigned `_customPrecompiles` through a typed mutable instance view.
++- packages/evm/src/Evm.js:74 - Assigned `_customPrecompiles` through a typed mutable instance view.
++
++## Errors deferred
++- None.
+diff --git a/packages/evm/src/Evm.js b/packages/evm/src/Evm.js
+index 17409ba6ef685ee0c1ec07585b50a4300d1f8d96..fb820f7efadf3e55f0965c77d1b495c417881c4d
+--- a/packages/evm/src/Evm.js
++++ b/packages/evm/src/Evm.js
+@@ -1,6 +1,9 @@
+ import { createEVM, EVM, getActivePrecompiles } from '@evmts/zevm/evm'
+ import { InvalidParamsError, MisconfiguredClientError } from '@tevm/errors'
+ 
++/**
++ * @param {import('./CustomPrecompile.js').CustomPrecompile} precompile
++ */
+ const precompileAddress = (precompile) => precompile.address.toString().toLowerCase()
+ 
+ /**
+@@ -30,19 +33,22 @@
+ 	 * @throws {MisconfiguredClientError}
+ 	 */
+ 	addCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+-			this._customPrecompiles = [...this._customPrecompiles, precompile]
++			evm._customPrecompiles = [...evm._customPrecompiles, precompile]
+ 		} else {
+-			this._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
++			evm._customPrecompiles = evm._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+ 		}
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+@@ -52,18 +58,21 @@
+ 	 * @throws {InvalidParamsError}
+ 	 */
+ 	removeCustomPrecompile(precompile) {
+-		if (this._customPrecompiles === undefined) {
++		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
++			/** @type {unknown} */ (this)
++		)
++		if (evm._customPrecompiles === undefined) {
+ 			throw new MisconfiguredClientError(
+ 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
+ 			)
+ 		}
+ 		const address = precompileAddress(precompile)
+-		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
++		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+ 		if (index === -1) {
+ 			throw new InvalidParamsError('Precompile not found')
+ 		}
+-		this._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
+-		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
++		evm._customPrecompiles = evm._customPrecompiles.filter((_, i) => i !== index)
++		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+ 	}
+ 
+ 	/**
+diff --git a/packages/evm/src/createEvm.js b/packages/evm/src/createEvm.js
+index 3814124d0e4c784c7e710cdbfa94e892392cb757..dfc2536e0d4f57c7b654d6867e76c98fe0a1afcf
+--- a/packages/evm/src/createEvm.js
++++ b/packages/evm/src/createEvm.js
+@@ -75,7 +75,7 @@
+ 					pc: step.pc,
+ 					op: step.opcode.name,
+ 					gas: step.gasLeft.toString(),
+-					gasCost: step.opcode.dynamicFee.toString(),
++					gasCost: step.opcode.dynamicFee?.toString(),
+ 					depth: step.depth,
+ 				},
+ 				'EVM step',
+diff --git a/packages/txpool/src/TxPool.ts b/packages/txpool/src/TxPool.ts
+index b3f4bfdb74b387e2914a2b0f06c46b2155754713..c7dc301ece5aa19598273084cdb7a3a91d78a4fd
+--- a/packages/txpool/src/TxPool.ts
++++ b/packages/txpool/src/TxPool.ts
+@@ -82,7 +82,7 @@
+ 		}
+ 	}
+ 
+-	cleanup(): void {
++	override cleanup(): void {
+ 		const pool = this as unknown as {
+ 			pool: Map<string, Array<{ hash: string; tx: unknown }>>
+ 			handled: Map<string, unknown>
+
+tokens used
+31,562
+Implemented the requested typecheck repairs.
+
+Changed:
+- [TxPool.ts](/Users/williamcory/tevm-monorepo/packages/txpool/src/TxPool.ts:85): added `override` to `cleanup`.
+- [createEvm.js](/Users/williamcory/tevm-monorepo/packages/evm/src/createEvm.js:78): used optional chaining for `dynamicFee`.
+- [Evm.js](/Users/williamcory/tevm-monorepo/packages/evm/src/Evm.js:4): added JSDoc param typing and routed `_customPrecompiles` reassignment through a typed mutable instance view.
+- [.review-slices/_repair5.fix.md](/Users/williamcory/tevm-monorepo/.review-slices/_repair5.fix.md:1): wrote the requested fix report.
+
+I did not run `pnpm`, `bun`, `nx`, `npm`, `cargo`, `node`, `tsc`, `vitest`, or `git`, per your constraints.

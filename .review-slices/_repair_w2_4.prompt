@@ -1,0 +1,27 @@
+You are fixing 2 unique TypeScript errors in @tevm/memory-client (from V12 fix wave).
+
+CONSTRAINTS:
+- Modify ONLY files under: packages/memory-client.
+- No pnpm/bun/nx/git/tsc/vitest.
+- Minimal-diff.
+
+ERRORS:
+
+@tevm/memory-client: src/createMemoryClient.js:302:36 - error TS7006: Parameter 'options' implicitly has an 'any' type.
+@tevm/memory-client: src/createMemoryClient.js:362:11 - error TS2345: Argument of type '(client: Client<TevmTransport<string>, Chain | undefined, Account | undefined, ...>) => TevmViemActionsApi' is not assignable to parameter of type '(client: Client<Transport, undefined, undefined, ...>) => TevmViemActionsApi'.
+
+For line 302: JSDoc @param annotation for `options`.
+For line 362: type-narrow the function literal at the assignment site by casting it. Look at how viem's `extend` signature wants the client type. Use a `/** @type {(client: ...) => TevmViemActionsApi} */` cast that matches viem's expected signature.
+
+Open the file, read around both lines, and apply minimal fixes.
+
+Write to `.review-slices/_repair_w2_4.fix.md`:
+
+# Wave 2 typecheck repair (round 4)
+
+**Scope:** packages/memory-client
+
+## Errors fixed
+- path:line - <description>
+
+IMPORTANT: write the report at the EXACT path `.review-slices/_repair_w2_4.fix.md`.

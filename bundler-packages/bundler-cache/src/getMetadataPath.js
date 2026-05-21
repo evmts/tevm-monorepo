@@ -38,11 +38,18 @@ export const getMetadataPath = (entryModuleId, cwd, cacheDir) => {
 		: path.resolve(cwd, cacheDir)
 	const entryPath = path.resolve(cwd, entryModuleId)
 	const relativeEntryPath = path.relative(resolvedCwd, entryPath)
-	const isOutsideCwd = relativeEntryPath === '..' || relativeEntryPath.startsWith(`..${path.sep}`) || path.isAbsolute(relativeEntryPath)
-	const normalizedEntryModuleId =
-		isOutsideCwd
-			? path.join('__external__', entryPath.replace(/^[A-Za-z]:/, '').split(path.sep).filter(Boolean).join(path.sep))
-			: relativeEntryPath
+	const isOutsideCwd =
+		relativeEntryPath === '..' || relativeEntryPath.startsWith(`..${path.sep}`) || path.isAbsolute(relativeEntryPath)
+	const normalizedEntryModuleId = isOutsideCwd
+		? path.join(
+				'__external__',
+				entryPath
+					.replace(/^[A-Za-z]:/, '')
+					.split(path.sep)
+					.filter(Boolean)
+					.join(path.sep),
+			)
+		: relativeEntryPath
 
 	const dir = path.resolve(cacheRoot, normalizedEntryModuleId)
 	const resolvedPath = path.join(dir, 'metadata.json')

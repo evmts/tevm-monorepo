@@ -33,22 +33,19 @@ export class Evm extends EVM {
 	 * @throws {MisconfiguredClientError}
 	 */
 	addCustomPrecompile(precompile) {
-		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
-			/** @type {unknown} */ (this)
-		)
-		if (evm._customPrecompiles === undefined) {
+		if (this._customPrecompiles === undefined) {
 			throw new MisconfiguredClientError(
 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
 			)
 		}
 		const address = precompileAddress(precompile)
-		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
 		if (index === -1) {
-			evm._customPrecompiles = [...evm._customPrecompiles, precompile]
+			this._customPrecompiles = [...this._customPrecompiles, precompile]
 		} else {
-			evm._customPrecompiles = evm._customPrecompiles.map((item, i) => (i === index ? precompile : item))
+			this._customPrecompiles = this._customPrecompiles.map((item, i) => (i === index ? precompile : item))
 		}
-		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
 
 	/**
@@ -58,21 +55,18 @@ export class Evm extends EVM {
 	 * @throws {InvalidParamsError}
 	 */
 	removeCustomPrecompile(precompile) {
-		const evm = /** @type {{ _customPrecompiles: import('./CustomPrecompile.js').CustomPrecompile[] | undefined }} */ (
-			/** @type {unknown} */ (this)
-		)
-		if (evm._customPrecompiles === undefined) {
+		if (this._customPrecompiles === undefined) {
 			throw new MisconfiguredClientError(
 				'Custom precompiles is empty. This is an internal bug as it should always be defined',
 			)
 		}
 		const address = precompileAddress(precompile)
-		const index = evm._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
+		const index = this._customPrecompiles.findIndex((item) => precompileAddress(item) === address)
 		if (index === -1) {
 			throw new InvalidParamsError('Precompile not found')
 		}
-		evm._customPrecompiles = evm._customPrecompiles.filter((_, i) => i !== index)
-		this._precompiles = getActivePrecompiles(this.common, evm._customPrecompiles)
+		this._customPrecompiles = this._customPrecompiles.filter((_, i) => i !== index)
+		this._precompiles = getActivePrecompiles(this.common, this._customPrecompiles)
 	}
 
 	/**

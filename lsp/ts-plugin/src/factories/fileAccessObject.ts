@@ -1,8 +1,8 @@
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import type { PathLike, Stats } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { access, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
-import type { FileAccessObject } from '@tevm/base-bundler'
 import path from 'node:path'
+import type { FileAccessObject } from '@tevm/base-bundler'
 import type typescript from 'typescript/lib/tsserverlibrary.js'
 
 const hashText = (text: string): number => {
@@ -13,7 +13,11 @@ const hashText = (text: string): number => {
 	return hash
 }
 
-const getScriptSnapshotText = (lsHost: typescript.LanguageServiceHost, fileName: string, cwd: string): string | undefined => {
+const getScriptSnapshotText = (
+	lsHost: typescript.LanguageServiceHost,
+	fileName: string,
+	cwd: string,
+): string | undefined => {
 	const candidates = [fileName, path.resolve(cwd, fileName)]
 	for (const candidate of candidates) {
 		try {
@@ -28,7 +32,11 @@ const getScriptSnapshotText = (lsHost: typescript.LanguageServiceHost, fileName:
 	return undefined
 }
 
-const getScriptVersion = (lsHost: typescript.LanguageServiceHost, fileName: string, cwd: string): string | undefined => {
+const getScriptVersion = (
+	lsHost: typescript.LanguageServiceHost,
+	fileName: string,
+	cwd: string,
+): string | undefined => {
 	const candidates = [fileName, path.resolve(cwd, fileName)]
 	for (const candidate of candidates) {
 		try {
@@ -43,7 +51,11 @@ const getScriptVersion = (lsHost: typescript.LanguageServiceHost, fileName: stri
 	return undefined
 }
 
-const getVirtualMtimeMs = (lsHost: typescript.LanguageServiceHost, fileName: string, cwd: string): number | undefined => {
+const getVirtualMtimeMs = (
+	lsHost: typescript.LanguageServiceHost,
+	fileName: string,
+	cwd: string,
+): number | undefined => {
 	const snapshotText = getScriptSnapshotText(lsHost, fileName, cwd)
 	const version = getScriptVersion(lsHost, fileName, cwd)
 	if (snapshotText === undefined) {

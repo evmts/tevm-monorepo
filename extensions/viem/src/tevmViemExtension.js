@@ -41,7 +41,9 @@ const formatBlockOverrideSet = (blockOverrideSet) =>
 	blockOverrideSet === undefined
 		? undefined
 		: {
-				...(blockOverrideSet.blobBaseFee !== undefined ? { blobBaseFee: numberToHex(blockOverrideSet.blobBaseFee) } : {}),
+				...(blockOverrideSet.blobBaseFee !== undefined
+					? { blobBaseFee: numberToHex(blockOverrideSet.blobBaseFee) }
+					: {}),
 				...(blockOverrideSet.baseFee !== undefined ? { baseFee: numberToHex(blockOverrideSet.baseFee) } : {}),
 				...(blockOverrideSet.gasLimit !== undefined ? { gasLimit: numberToHex(blockOverrideSet.gasLimit) } : {}),
 				...(blockOverrideSet.coinbase !== undefined ? { coinbase: blockOverrideSet.coinbase } : {}),
@@ -133,16 +135,18 @@ export const tevmViemExtension = () => {
 		 */
 		const getAccount = async (params) => {
 			return formatResult(
-				await request(/** @type {import('@tevm/actions').GetAccountJsonRpcRequest} */ ({
-					method: 'tevm_getAccount',
-					jsonrpc: '2.0',
-					params: [
-						{
-							...params,
-							...(params.blockTag !== undefined ? { blockTag: formatBlockTag(params.blockTag) } : {}),
-						},
-					],
-				})),
+				await request(
+					/** @type {import('@tevm/actions').GetAccountJsonRpcRequest} */ ({
+						method: 'tevm_getAccount',
+						jsonrpc: '2.0',
+						params: [
+							{
+								...params,
+								...(params.blockTag !== undefined ? { blockTag: formatBlockTag(params.blockTag) } : {}),
+							},
+						],
+					}),
+				),
 			)
 		}
 

@@ -1,0 +1,12 @@
+🐛 fix(H01): apply review fixes for EVM core opcodes & execution slice (5 fixed, 0 deferred)
+
+Slice: H01 (horizontal)
+Scope: packages/evm
+
+
+All five findings were verified against the current code and addressed with scoped changes under `packages/evm`. The fixes normalize custom precompile arrays at construction, avoid mutating shared private arrays, route trace logging through a real step-event sink, and correct the public option docs. No findings were deferred.
+
+<prompt>deploy parallel /codex agents to further investigate and fix all issues 16 agents at a time concurrency</prompt>
+
+Co-Authored-By: Codex (GPT-5.5) <noreply@openai.com>
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
