@@ -5,10 +5,61 @@ import { P256_VERIFY_ADDRESS } from '@tevm/precompiles'
 import { definePredeploy } from '@tevm/predeploys'
 import { CacheType, ContractCache, StorageCache } from '@tevm/state'
 import { createSyncStoragePersister } from '@tevm/sync-storage-persister'
-import { SimpleContract, transports } from '@tevm/test-utils'
+import { SimpleContract } from '@tevm/test-utils'
 import { bytesToHex, createAccount, createAddressFromString, type Hex, hexToBytes } from '@tevm/utils'
 import { describe, expect, it, vi } from 'vitest'
 import { createTevmNode } from './createTevmNode.js'
+
+const mockForkBlock = {
+	number: '0x874a823',
+	hash: `0x${'12'.repeat(32)}` as Hex,
+	parentHash: `0x${'00'.repeat(32)}` as Hex,
+	nonce: '0x0000000000000000',
+	sha3Uncles: `0x${'00'.repeat(32)}` as Hex,
+	logsBloom: `0x${'00'.repeat(256)}` as Hex,
+	transactionsRoot: `0x${'00'.repeat(32)}` as Hex,
+	stateRoot: `0x${'00'.repeat(32)}` as Hex,
+	receiptsRoot: `0x${'00'.repeat(32)}` as Hex,
+	miner: '0x4200000000000000000000000000000000000011',
+	difficulty: '0x0',
+	totalDifficulty: '0x0',
+	extraData: '0x',
+	size: '0x1',
+	gasLimit: '0x1c9c380',
+	gasUsed: '0x0',
+	timestamp: '0x1',
+	transactions: [],
+	uncles: [],
+	baseFeePerGas: '0x1',
+	withdrawals: [],
+	withdrawalsRoot: `0x${'00'.repeat(32)}` as Hex,
+	blobGasUsed: '0x0',
+	excessBlobGas: '0x0',
+	parentBeaconBlockRoot: `0x${'00'.repeat(32)}` as Hex,
+	requestsRoot: `0x${'00'.repeat(32)}` as Hex,
+	requests: [],
+}
+
+const createMockForkTransport = (chainId = '0xa') => ({
+	request: vi.fn(async ({ method, params }) => {
+		if (method === 'eth_chainId') {
+			return chainId
+		}
+		if (method === 'eth_blockNumber') {
+			return mockForkBlock.number
+		}
+		if (method === 'eth_getBlockByNumber') {
+			return {
+				...mockForkBlock,
+				number: params?.[0] === 'latest' ? mockForkBlock.number : params?.[0],
+			}
+		}
+		if (method === 'eth_getBlockByHash') {
+			return mockForkBlock
+		}
+		throw new Error(`Unexpected RPC method: ${method}`)
+	}),
+})
 
 describe('createTevmNode with State Persister', () => {
 	it('Restores state correctly from persister', async () => {
@@ -25,7 +76,7 @@ describe('createTevmNode with State Persister', () => {
 
 		const client = createTevmNode({
 			fork: {
-				transport: transports.optimism,
+				transport: createMockForkTransport(),
 				blockTag: 'latest',
 			},
 			persister,
@@ -129,12 +180,13 @@ describe('createTevmNode', () => {
 	})
 
 	it('Handles fork mode with provided transport', async () => {
+		const transport = createMockForkTransport()
 		const forkClient = createTevmNode({
-			fork: { transport: transports.optimism },
+			fork: { transport },
 		})
 		const { mode, forkTransport } = forkClient
 		expect(mode).toBe('fork')
-		expect(forkTransport).toBe(transports.optimism)
+		expect(forkTransport).toBe(transport)
 	})
 
 	it('Uses custom common and state manager options', async () => {
@@ -155,17 +207,11 @@ describe('createTevmNode', () => {
 	})
 
 	describe('fork.chainId override', () => {
-		// These tests need RPC access - skip if env vars not set
-		const hasRpcEnvVars = Boolean(process.env['TEVM_RPC_URLS_OPTIMISM'])
-
 		it('Uses fork.chainId when provided instead of fetching from RPC', async () => {
-			if (!hasRpcEnvVars) {
-				console.log('Skipping: TEVM_RPC_URLS_OPTIMISM not set')
-				return
-			}
+			const transport = createMockForkTransport()
 			const client = createTevmNode({
 				fork: {
-					transport: transports.optimism,
+					transport,
 					chainId: 1337, // Override Optimism's chain ID (10)
 				},
 			})
@@ -173,18 +219,16 @@ describe('createTevmNode', () => {
 			const vm = await client.getVm()
 			// Should use the override chain ID, not Optimism's 10
 			expect(vm.common.id).toBe(1337)
+			expect(transport.request).not.toHaveBeenCalledWith(expect.objectContaining({ method: 'eth_chainId' }))
 		})
 
 		it('fork.chainId takes priority over common.id', async () => {
-			if (!hasRpcEnvVars) {
-				console.log('Skipping: TEVM_RPC_URLS_OPTIMISM not set')
-				return
-			}
+			const transport = createMockForkTransport()
 			const customCommon = createCommon({ ...mainnet, id: 999, hardfork: 'prague', eips: [], loggingLevel: 'warn' })
 			const client = createTevmNode({
 				common: customCommon,
 				fork: {
-					transport: transports.optimism,
+					transport,
 					chainId: 1337, // This should take priority
 				},
 			})
@@ -195,13 +239,9 @@ describe('createTevmNode', () => {
 		})
 
 		it('Uses auto-detected chain ID when fork.chainId is not provided', async () => {
-			if (!hasRpcEnvVars) {
-				console.log('Skipping: TEVM_RPC_URLS_OPTIMISM not set')
-				return
-			}
 			const client = createTevmNode({
 				fork: {
-					transport: transports.optimism,
+					transport: createMockForkTransport(),
 					// No chainId override
 				},
 			})
@@ -286,7 +326,7 @@ describe('createTevmNode', () => {
 
 	it('Fetches latest block number for fork block tag "latest"', async () => {
 		const client = createTevmNode({
-			fork: { transport: transports.optimism, blockTag: 'latest' },
+			fork: { transport: createMockForkTransport(), blockTag: 'latest' },
 		})
 		await client.ready()
 		const { getVm } = client
@@ -347,7 +387,7 @@ describe('createTevmNode', () => {
 
 			// Verify the precompile works and returns valid response
 			expect(result.execResult.returnValue).toHaveLength(32)
-			expect(result.execResult.executionGasUsed).toBe(3450n)
+			expect(result.execResult.executionGasUsed).toBe(6900n)
 		})
 
 		it('Allows user to override p256verify precompile', async () => {
