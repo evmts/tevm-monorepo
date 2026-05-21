@@ -154,7 +154,6 @@ describe('tanrikulu usecase', () => {
 				from: addrOwner,
 			})
 			expect(errors).toBeUndefined()
-			console.log(`digest ${id} set`)
 		}
 
 		for (const { id, addr } of algorithms) {
@@ -168,7 +167,6 @@ describe('tanrikulu usecase', () => {
 				from: addrOwner,
 			})
 			expect(errors).toBeUndefined()
-			console.log(`algorithm ${id} set`)
 		}
 
 		const mine2Result = await memoryClient.tevmMine({ throwOnFail: false })
