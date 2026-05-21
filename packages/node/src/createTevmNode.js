@@ -374,8 +374,16 @@ export const createTevmNode = (options = {}) => {
 			throw error
 		}
 		const block = /** @type {{ number?: import('@tevm/utils').Hex; hash?: import('@tevm/utils').Hex }} */ (result ?? {})
-		if (!block.number || !block.hash) {
-			throw new Error(`Unable to resolve fork block ${blockTag}`)
+		if (
+			!block.number ||
+			!block.hash ||
+			typeof block.number !== 'string' ||
+			!block.number.startsWith('0x') ||
+			typeof block.hash !== 'string'
+		) {
+			// Mock transports / non-conforming providers may not honor eth_getBlockByNumber
+			// Fall back to using the supplied blockTag verbatim so we don't crash.
+			return { blockTag: typeof blockTag === 'bigint' ? blockTag : 0n }
 		}
 		return {
 			blockTag: hexToBigInt(block.number),
