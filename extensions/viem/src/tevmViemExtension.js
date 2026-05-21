@@ -210,7 +210,7 @@ export const tevmViemExtension = () => {
 		const call = async (params) => {
 			const stateOverrideSet = formatStateOverrideSet(params.stateOverrideSet)
 			const blockOverrideSet = formatBlockOverrideSet(params.blockOverrideSet)
-			const rpcParams = [getCallArgs(params)]
+			const rpcParams = /** @type {any[]} */ ([getCallArgs(params)])
 			if (stateOverrideSet !== undefined || blockOverrideSet !== undefined) {
 				rpcParams.push(stateOverrideSet ?? {})
 			}
