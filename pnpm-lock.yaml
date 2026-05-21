@@ -151,11 +151,11 @@ importers:
         specifier: ^4.1.13
         version: 4.1.13
       '@types/node':
-        specifier: ^25.9.1
-        version: 25.9.1
+        specifier: ^22.15.0
+        version: 22.19.19
       typescript:
-        specifier: ^6.0.3
-        version: 6.0.3
+        specifier: ^5.9.0
+        version: 5.9.3
     optionalDependencies:
       '@evmts/zevm-darwin-arm64':
         specifier: 0.0.0
@@ -8090,6 +8090,9 @@ packages:
 
   '@types/node@20.19.41':
     resolution: {integrity: sha512-ECymXOukMnOoVkC2bb1Vc/w/836DXncOg5m8Xj1RH7xSHZJWNYY6Zh7EH477vcnD5egKNNfy2RpNOmuChhFPgQ==}
+
+  '@types/node@22.19.19':
+    resolution: {integrity: sha512-dyh/xO2Fh5bYrfWaaqGrRQQGkNdmYw6AmaAUvYeUMNTWQtvb796ikLdmTchRmOlOiIJ1TDXfWgVx1QkUlQ6Hew==}
 
   '@types/node@22.7.5':
     resolution: {integrity: sha512-jML7s2NAzMWc//QSJ1a3prpk78cOPchGvXJsC3C6R6PSMoooztvRVQEz89gmBTBY1SPMaqo5teB4uNHPdetShQ==}
@@ -25740,6 +25743,10 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
+  '@types/node@22.19.19':
+    dependencies:
+      undici-types: 6.21.0
+
   '@types/node@22.7.5':
     dependencies:
       undici-types: 6.19.8
@@ -25800,7 +25807,7 @@ snapshots:
 
   '@types/readable-stream@2.3.15':
     dependencies:
-      '@types/node': 25.9.1
+      '@types/node': 22.19.19
       safe-buffer: 5.1.2
 
   '@types/resolve@1.20.6': {}
