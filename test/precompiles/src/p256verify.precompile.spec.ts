@@ -28,10 +28,10 @@ describe('p256verify precompile (RIP-7212)', () => {
 		expected[31] = 1
 
 		expect(result.execResult.returnValue).toEqual(expected)
-		expect(result.execResult.executionGasUsed).toBe(3450n)
+		expect(result.execResult.executionGasUsed).toBe(6900n)
 	})
 
-	it('should return padded 0 for an invalid signature', async () => {
+	it('should return empty bytes for an invalid signature', async () => {
 		const node = createTevmNode()
 		const vm = await node.getVm()
 
@@ -48,14 +48,14 @@ describe('p256verify precompile (RIP-7212)', () => {
 			),
 		})
 
-		// Should return 32-byte padded 0 for invalid signature
-		const expected = new Uint8Array(32)
+		// Invalid signatures return empty bytes.
+		const expected = new Uint8Array()
 
 		expect(result.execResult.returnValue).toEqual(expected)
-		expect(result.execResult.executionGasUsed).toBe(3450n)
+		expect(result.execResult.executionGasUsed).toBe(6900n)
 	})
 
-	it('should return padded 0 for incorrect input length', async () => {
+	it('should return empty bytes for incorrect input length', async () => {
 		const node = createTevmNode()
 		const vm = await node.getVm()
 
@@ -73,14 +73,14 @@ describe('p256verify precompile (RIP-7212)', () => {
 			),
 		})
 
-		// Should return 32-byte padded 0 for incorrect input length
-		const expected = new Uint8Array(32)
+		// Incorrect input length returns empty bytes.
+		const expected = new Uint8Array()
 
 		expect(result.execResult.returnValue).toEqual(expected)
-		expect(result.execResult.executionGasUsed).toBe(3450n)
+		expect(result.execResult.executionGasUsed).toBe(6900n)
 	})
 
-	it('should return padded 0 for malformed data', async () => {
+	it('should return empty bytes for malformed data', async () => {
 		const node = createTevmNode()
 		const vm = await node.getVm()
 
@@ -91,10 +91,10 @@ describe('p256verify precompile (RIP-7212)', () => {
 			data: new Uint8Array(160), // All zeros
 		})
 
-		// Should return 32-byte padded 0 for malformed data
-		const expected = new Uint8Array(32)
+		// Malformed inputs return empty bytes.
+		const expected = new Uint8Array()
 
 		expect(result.execResult.returnValue).toEqual(expected)
-		expect(result.execResult.executionGasUsed).toBe(3450n)
+		expect(result.execResult.executionGasUsed).toBe(6900n)
 	})
 })
