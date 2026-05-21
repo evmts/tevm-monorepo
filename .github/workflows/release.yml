@@ -29,8 +29,13 @@ jobs:
         with:
           files: ".changeset/pre.json"
 
-      - name: Set deployment token
-        run: npm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
+      - name: Configure npm registry token
+        run: |
+          if [ -z "${NODE_AUTH_TOKEN}" ]; then
+            echo "::error::NPM_TOKEN is not configured"
+            exit 1
+          fi
+          printf '\n//registry.npmjs.org/:_authToken=%s\n' "${NODE_AUTH_TOKEN}" >> ~/.npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
