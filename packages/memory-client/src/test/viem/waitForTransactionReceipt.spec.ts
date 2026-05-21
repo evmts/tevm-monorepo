@@ -27,13 +27,17 @@ beforeEach(async () => {
 })
 
 describe('waitForTransactionReceipt', () => {
-	it('waitForTransactionReceipt hould work', async () => {
+	it('waitForTransactionReceipt should work', async () => {
 		const { txHash } = await mc.tevmCall({
 			to: c.simpleContract.address,
 			data: encodeFunctionData(c.simpleContract.write.set(69n)),
 			addToBlockchain: true,
 		})
 		if (!txHash) throw new Error('txHash not found')
-		await expect(mc.waitForTransactionReceipt({ hash: txHash })).rejects.toThrow('invalid block stateRoot')
+		await expect(mc.waitForTransactionReceipt({ hash: txHash })).resolves.toMatchObject({
+			root: '0x',
+			status: 'success',
+			transactionHash: txHash,
+		})
 	})
 })
