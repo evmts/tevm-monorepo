@@ -1,6 +1,12 @@
 {
 	"name": "@tevm/runtime-rs-darwin-x64",
 	"version": "1.0.0-rc.151",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "bundler-packages/runtime-rs/npm/darwin-x64"
+	},
 	"os": [
 		"darwin"
 	],
@@ -11,7 +17,6 @@
 	"files": [
 		"tevm_runtime_rs.darwin-x64.node"
 	],
-	"license": "MIT",
 	"engines": {
 		"node": ">= 14"
 	}

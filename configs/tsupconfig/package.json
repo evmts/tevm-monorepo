@@ -1,6 +1,11 @@
 {
 	"name": "@tevm/tsupconfig",
 	"version": "1.0.0-rc.151",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "configs/tsupconfig"
+	},
 	"private": false,
 	"sideEffects": false,
 	"type": "module",

@@ -1,6 +1,11 @@
 {
 	"name": "@tevm/resolutions-rs-linux-arm-gnueabihf",
 	"version": "1.0.0-rc.151",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "bundler-packages/resolutions-rs/npm/linux-arm-gnueabihf"
+	},
 	"cpu": [
 		"arm"
 	],

@@ -1,6 +1,11 @@
 {
 	"name": "@tevm/tsconfig",
 	"version": "1.0.0-rc.151",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "configs/tsconfig"
+	},
 	"private": false,
 	"sideEffects": false,
 	"files": [

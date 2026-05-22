@@ -1,6 +1,12 @@
 {
 	"name": "@tevm/runtime-rs-linux-arm64-gnu",
 	"version": "1.0.0-rc.151",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "bundler-packages/runtime-rs/npm/linux-arm64-gnu"
+	},
 	"os": [
 		"linux"
 	],
@@ -11,7 +17,6 @@
 	"files": [
 		"tevm_runtime_rs.linux-arm64-gnu.node"
 	],
-	"license": "MIT",
 	"engines": {
 		"node": ">= 14"
 	},

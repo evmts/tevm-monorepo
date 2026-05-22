@@ -2,6 +2,11 @@
 	"name": "@tevm/cli",
 	"version": "1.0.0-rc.151",
 	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/evmts/tevm-monorepo.git",
+		"directory": "cli"
+	},
 	"bin": "dist/cli.js",
 	"type": "module",
 	"main": "dist/cli.js",
