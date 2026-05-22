@@ -4,13 +4,13 @@ import { BaseError } from './BaseError.js'
 /**
  * Parameters for constructing an ExecutionError.
  * @typedef {Object} ExecutionErrorParameters
- * @property {string} [docsBaseUrl] - Base URL for the documentation.
- * @property {string} [docsPath] - Path to the documentation.
- * @property {string} [docsSlug] - Slug for the documentation.
- * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {BaseError|import('@evmts/zevm/evm-error').EVMError} [cause] - The cause of the error.
- * @property {string} [details] - Details of the error.
- * @property {object} [meta] - Optional object containing additional information about the error.
+ * @property {string} [docsBaseUrl]
+ * @property {string} [docsPath]
+ * @property {string} [docsSlug]
+ * @property {string[]} [metaMessages]
+ * @property {BaseError|import('@evmts/zevm/evm-error').EVMError} [cause]
+ * @property {string} [details]
+ * @property {object} [meta]
  */
 
 /**
@@ -32,12 +32,6 @@ import { BaseError } from './BaseError.js'
  * @param {string} message - A human-readable error message.
  * @param {ExecutionErrorParameters} [args={}] - Additional parameters for the BaseError.
  * @property {string} _tag - More discriminated version of name. Can be used to discriminate between errors with the same name.
- * @property {string} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code (-32015), a convention for EVM execution errors.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class ExecutionError extends BaseError {
 	/**

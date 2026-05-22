@@ -3,13 +3,13 @@ import { BaseError } from './BaseError.js'
 /**
  * Parameters for constructing a RevertError.
  * @typedef {Object} RevertErrorParameters
- * @property {string} [docsBaseUrl] - Base URL for the documentation.
- * @property {string} [docsPath] - Path to the documentation.
- * @property {string} [docsSlug] - Slug for the documentation.
- * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {import('@evmts/zevm/evm-error').EVMError|BaseError|Error} [cause] - The cause of the error.
- * @property {string} [details] - Details of the error.
- * @property {object} [meta] - Optional object containing additional information about the error.
+ * @property {string} [docsBaseUrl]
+ * @property {string} [docsPath]
+ * @property {string} [docsSlug]
+ * @property {string[]} [metaMessages]
+ * @property {import('@evmts/zevm/evm-error').EVMError|BaseError|Error} [cause]
+ * @property {string} [details]
+ * @property {object} [meta]
  * @property {import('viem').Hex} [raw] - The raw data of the revert.
  */
 
@@ -39,13 +39,6 @@ import { BaseError } from './BaseError.js'
  *
  * @param {string} message - A human-readable error message.
  * @param {RevertErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {string} _tag - Same as name, used internally.
- * @property {string} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code (-32000), standard Ethereum JSON-RPC error code for server errors.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
  * @property {import('viem').Hex} [raw] - The raw data of the revert.
  */
 export class RevertError extends BaseError {

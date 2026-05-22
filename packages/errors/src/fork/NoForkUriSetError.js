@@ -3,13 +3,13 @@ import { BaseError } from '../ethereum/BaseError.js'
 /**
  * Parameters for constructing a NoForkTransportSetError.
  * @typedef {Object} NoForkTransportSetErrorParameters
- * @property {string} [docsBaseUrl] - Base URL for the documentation.
- * @property {string} [docsPath] - Path to the documentation.
- * @property {string} [docsSlug] - Slug for the documentation.
- * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {import('../ethereum/BaseError.js').BaseError|Error} [cause] - The cause of the error.
- * @property {string} [details] - Details of the error.
- * @property {object} [meta] - Optional object containing additional information about the error.
+ * @property {string} [docsBaseUrl]
+ * @property {string} [docsPath]
+ * @property {string} [docsSlug]
+ * @property {string[]} [metaMessages]
+ * @property {import('../ethereum/BaseError.js').BaseError|Error} [cause]
+ * @property {string} [details]
+ * @property {object} [meta]
  */
 
 /**

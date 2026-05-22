@@ -3,13 +3,13 @@ import { InternalError } from '../ethereum/InternalErrorError.js'
 /**
  * Parameters for constructing a {@link DefensiveNullCheckError}.
  * @typedef {Object} DefensiveNullCheckErrorParameters
- * @property {string} [docsBaseUrl] - Base URL for the documentation.
- * @property {string} [docsPath] - Path to the documentation.
- * @property {string} [docsSlug] - Slug for the documentation.
- * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {InternalError|import('@evmts/zevm/evm-error').EVMError} [cause] - The cause of the error.
- * @property {string} [details] - Details of the error.
- * @property {object} [meta] - Optional object containing additional information about the error.
+ * @property {string} [docsBaseUrl]
+ * @property {string} [docsPath]
+ * @property {string} [docsSlug]
+ * @property {string[]} [metaMessages]
+ * @property {InternalError|import('@evmts/zevm/evm-error').EVMError} [cause]
+ * @property {string} [details]
+ * @property {object} [meta]
  */
 
 /**

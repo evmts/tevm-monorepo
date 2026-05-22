@@ -4,13 +4,13 @@ import { GasLimitExceededError } from '../GasLimitExceededError.js'
 /**
  * Parameters for constructing a {@link CodeStoreOutOfGasError}.
  * @typedef {Object} CodeStoreOutOfGasErrorParameters
- * @property {string} [docsBaseUrl] - Base URL for the documentation.
- * @property {string} [docsPath] - Path to the documentation.
- * @property {string} [docsSlug] - Slug for the documentation.
- * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {GasLimitExceededError|import('@evmts/zevm/evm-error').EVMError} [cause] - The cause of the error.
- * @property {string} [details] - Details of the error.
- * @property {object} [meta] - Optional object containing additional information about the error.
+ * @property {string} [docsBaseUrl]
+ * @property {string} [docsPath]
+ * @property {string} [docsSlug]
+ * @property {string[]} [metaMessages]
+ * @property {GasLimitExceededError|import('@evmts/zevm/evm-error').EVMError} [cause]
+ * @property {string} [details]
+ * @property {object} [meta]
  */
 
 /**
@@ -47,32 +47,13 @@ import { GasLimitExceededError } from '../GasLimitExceededError.js'
  *
  * @param {string} [message='Code store out of gas error occurred.'] - A human-readable error message.
  * @param {CodeStoreOutOfGasErrorParameters} [args={}] - Additional parameters for the BaseError.
- * @property {'CodeStoreOutOfGasError'} _tag - Same as name, used internally.
- * @property {'CodeStoreOutOfGasError'} name - The name of the error, used to discriminate errors.
- * @property {string} message - Human-readable error message.
- * @property {object} [meta] - Optional object containing additional information about the error.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
- * @property {string} docsPath - Path to the documentation for this error.
- * @property {string[]} [metaMessages] - Additional meta messages for more context.
  */
 export class CodeStoreOutOfGasError extends GasLimitExceededError {
 	/** @type {string} */ static EVMErrorMessage = EVMError.errorMessages.CODESTORE_OUT_OF_GAS
 	/**
-	 * Constructs a CodeStoreOutOfGasError.
-	 * Represents an error that occurs when a transaction runs out of gas during code storage.
-	 * This error is typically encountered when the gas provided for storing code is insufficient to complete its execution.
-	 * EVM transaction execution metadata level error
-	 *
-	 * Code store out of gas errors can occur due to:
-	 * - Insufficient gas provided for storing large contracts.
-	 * - Incorrect estimation of gas required for storing code.
-	 * - Contracts with high gas consumption during the deployment phase.
-	 * - Non-deterministic gas usage during code storage.
-	 * - If TEVM submitted the transaction using `createTransaction: true` and the account being used runs out of gas.
-	 *
-	 * @param {string} [message='Code store out of gas error occurred.'] - Human-readable error message.
-	 * @param {CodeStoreOutOfGasErrorParameters} [args={}] - Additional parameters for the BaseError.
-	 * @param {string} [tag='CodeStoreOutOfGasError'] - The tag for the error.
+	 * @param {string} [message] - Human-readable error message.
+	 * @param {CodeStoreOutOfGasErrorParameters} [args] - Additional parameters.
+	 * @param {string} [tag] - Internal error tag.
 	 */
 	constructor(message = 'Code store out of gas error occurred.', args = {}, tag = 'CodeStoreOutOfGasError') {
 		super(

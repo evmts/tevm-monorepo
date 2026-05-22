@@ -7,24 +7,20 @@ const getVersion = () => '1.0.0-next.148'
 
 /**
  * @typedef {Object} BaseErrorParameters
- * @property {string} [docsBaseUrl] - Base URL for the documentation.
- * @property {string} [docsPath] - Path to the documentation.
- * @property {string} [docsSlug] - Slug for the documentation.
- * @property {string[]} [metaMessages] - Additional meta messages.
- * @property {BaseError|Error|import('@evmts/zevm/evm-error').EVMError|unknown} [cause] - The cause of the error.
- * @property {string} [details] - Details of the error.
+ * @property {string} [docsBaseUrl]
+ * @property {string} [docsPath]
+ * @property {string} [docsSlug]
+ * @property {string[]} [metaMessages]
+ * @property {BaseError|Error|import('@evmts/zevm/evm-error').EVMError|unknown} [cause]
+ * @property {string} [details]
  */
 
 /**
  * @typedef {Object} BaseErrorType
  * @property {string} _tag - Internal tag for the error.
- * @property {string} name - The name of the error.
- * @property {string} message - Human-readable error message.
  * @property {string} details - Details of the error.
- * @property {string|undefined} [docsPath] - Path to the documentation for this error.
  * @property {string} shortMessage - Short message describing the error.
  * @property {string} version - The version of the library.
- * @property {number} code - Error code, analogous to the code in JSON RPC error.
  * @property {Function} walk - Function to walk through the error chain.
  */
 
