@@ -1,6 +1,8 @@
 import * as chains from 'viem/chains'
 
 /**
+ * Map of known chain IDs to their viem `Chain` configs (for default RPC URL resolution).
+ * @hidden
  * @type {import('./KnownChainsType.js').KnownChainsType}
  */
 export const knownChains = {

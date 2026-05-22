@@ -14,6 +14,7 @@ export class NoForkError extends Error {
 
 /**
  * Creates a viem public client for the fork
+ * @hidden
  * @param {import('../BaseState.js').BaseState} baseState
  * @returns {import('viem').PublicClient}
  */
