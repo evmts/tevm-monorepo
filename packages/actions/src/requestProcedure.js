@@ -3,28 +3,10 @@ import { createHandlers } from './createHandlers.js'
 import { isBlockedMethod, rpcMethodStatusByMethod } from './rpcMethodMatrix.js'
 
 /**
- * Request handler for JSON-RPC requests to Tevm.
- *
- * This implementation of the Tevm requestProcedure spec
- * implements it via the Tevm VM.
+ * Request handler for JSON-RPC requests to Tevm. Dispatches via the Tevm VM.
  *
  * @param {import('@tevm/node').TevmNode} client
  * @returns {import('./tevm-request-handler/TevmJsonRpcRequestHandler.js').TevmJsonRpcRequestHandler}
- * @example
- * ```typescript
- * const blockNumberResponse = await tevm.request({
- *  method: 'eth_blockNumber',
- *  params: []
- *  id: 1
- *  jsonrpc: '2.0'
- * })
- * const accountResponse = await tevm.request({
- *  method: 'tevm_getAccount',
- *  params: [{address: '0x123...'}]
- *  id: 1
- *  jsonrpc: '2.0'
- * })
- * ```
  * @see {@link createHandlers} where handlers are defined
  */
 export const requestProcedure = (client) => {
