@@ -5,11 +5,11 @@ description: ZEVM-backed EVM facade used by Tevm VM, TevmNode, and MemoryClient
 
 # @tevm/evm
 
-The `@tevm/evm` package exposes Tevm's low-level EVM facade. It is backed by `@evmts/zevm/evm` and wrapped with Tevm-specific defaults for state management, blockchain integration, custom precompiles, predeploys, logging, profiling, and unlimited-contract-size testing.
+Tevm's low-level EVM facade. Backed by `@evmts/zevm/evm` and wrapped with Tevm-specific defaults for state, blockchain, precompiles, predeploys, logging, profiling, and unlimited-contract-size testing.
 
-Most applications should use `createMemoryClient`, viem actions, or JSON-RPC. Use `@tevm/evm` directly when building Tevm extensions, debuggers, profilers, or other low-level tooling.
+Most apps should use `createMemoryClient`, viem actions, or JSON-RPC. Use `@tevm/evm` directly when building Tevm extensions, debuggers, or profilers.
 
-> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/evm/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs) folder.
+Full API: [packages/evm/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs).
 
 ## Installation
 
@@ -19,24 +19,21 @@ npm install @tevm/evm
 
 ## API Reference
 
-### Core Exports
-
-- [Evm](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/classes/Evm.md) - Main EVM facade.
-- [createEvm](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/functions/createEvm.md) - Creates an EVM instance for a Tevm VM.
-- [CreateEvmOptions](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/type-aliases/CreateEvmOptions.md) - Options for creating an EVM.
-- [CustomPrecompile](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/type-aliases/CustomPrecompile.md) - Custom precompile definition.
+- [Evm](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/classes/Evm.md) - EVM facade.
+- [createEvm](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/functions/createEvm.md) - creates an EVM for a Tevm VM.
+- [CreateEvmOptions](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/type-aliases/CreateEvmOptions.md)
+- [CustomPrecompile](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/type-aliases/CustomPrecompile.md)
 - [EVMOpts](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/type-aliases/EVMOpts.md) - ZEVM EVM options exposed through Tevm.
-- `EvmError`, `EVMError`, `EvmResult`, `EvmRunCallOpts`, `ExecResult`, `InterpreterStep`, `Log`, `EthjsMessage`, and `PrecompileInput` - Re-exported ZEVM EVM types.
+- Re-exported ZEVM EVM types: `EvmError`, `EVMError`, `EvmResult`, `EvmRunCallOpts`, `ExecResult`, `InterpreterStep`, `Log`, `EthjsMessage`, `PrecompileInput`.
 
 ## Usage Examples
-
-### Creating an EVM Instance
 
 ```typescript
 import { createChain } from '@tevm/blockchain'
 import { mainnet } from '@tevm/common'
 import { createEvm } from '@tevm/evm'
 import { createStateManager } from '@tevm/state'
+import { createAddress } from '@tevm/address'
 
 const common = mainnet.copy()
 const stateManager = createStateManager({ common })
@@ -49,12 +46,6 @@ const evm = await createEvm({
   profiler: false,
   loggingLevel: 'warn',
 })
-```
-
-### Running EVM Calls
-
-```typescript
-import { createAddress } from '@tevm/address'
 
 const result = await evm.runCall({
   to: createAddress('0x1234567890123456789012345678901234567890'),
@@ -64,58 +55,31 @@ const result = await evm.runCall({
   gasLimit: 100000n,
 })
 
-console.log(result.execResult.returnValue)
-console.log(result.execResult.executionGasUsed)
+evm.events?.on('step', (step) => {
+  console.log({ pc: step.pc, opcode: step.opcode.name, gasLeft: step.gasLeft, depth: step.depth })
+})
 ```
 
 ### Custom Precompiles
 
 ```typescript
-import { createMemoryClient } from 'tevm'
-import { createContract } from 'tevm/contract'
-import { defineCall, definePrecompile } from 'tevm/precompiles'
+import { createContract, createMemoryClient, defineCall, definePrecompile, parseAbi } from 'tevm'
 
 const Calculator = createContract({
   name: 'Calculator',
   address: '0x0000000000000000000000000000000000000a11',
-  humanReadableAbi: [
-    'function addTwo(uint256 value) returns (uint256)',
-  ],
+  abi: parseAbi(['function addTwo(uint256 value) returns (uint256)']),
 })
 
 const calculatorPrecompile = definePrecompile({
   contract: Calculator,
   call: defineCall(Calculator.abi, {
-    addTwo: async ({ args }) => ({
-      returnValue: args[0] + 2n,
-      executionGasUsed: 0n,
-    }),
+    addTwo: async ({ args }) => ({ returnValue: args[0] + 2n, executionGasUsed: 0n }),
   }),
 })
 
 const client = createMemoryClient({
-  customPrecompiles: [calculatorPrecompile],
-})
-```
-
-### Tracing and Logging
-
-```typescript
-const evm = await createEvm({
-  common,
-  stateManager,
-  blockchain,
-  loggingLevel: 'trace',
-  profiler: true,
-})
-
-evm.events?.on('step', (step) => {
-  console.log({
-    pc: step.pc,
-    opcode: step.opcode.name,
-    gasLeft: step.gasLeft,
-    depth: step.depth,
-  })
+  customPrecompiles: [calculatorPrecompile.precompile()],
 })
 ```
 
@@ -124,5 +88,5 @@ evm.events?.on('step', (step) => {
 - [VM & Submodules](../api/vm-and-submodules)
 - [EVM Events](../api/evm-events)
 - [Custom Precompiles](../advanced/custom-precompiles)
-- [Tevm State Documentation](https://tevm.sh/reference/tevm/state/)
+- [@tevm/state](https://tevm.sh/reference/tevm/state/)
 - [Full API Reference](https://github.com/evmts/tevm-monorepo/tree/main/packages/evm/docs/globals.md)

@@ -1,9 +1,8 @@
 // @ts-nocheck
 
-import { createMemoryClient, http } from 'tevm'
+import { createMemoryClient, http, PREFUNDED_ACCOUNTS } from 'tevm'
 import { optimism } from 'tevm/common'
 import { ERC20, SimpleContract } from 'tevm/contract'
-import { privateKeyToAccount } from 'viem/accounts'
 import { describe, expect, it } from 'vitest'
 
 describe('Memory Client Documentation Examples', () => {
@@ -28,9 +27,8 @@ describe('Memory Client Documentation Examples', () => {
 
 	describe('Contract Interactions', () => {
 		it('should deploy and interact with SimpleContract', async () => {
-			const signerAccount = privateKeyToAccount('0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
 			const memoryClient = createMemoryClient({
-				account: signerAccount,
+				account: PREFUNDED_ACCOUNTS[0],
 			})
 
 			// Deploy SimpleContract with initial value = 2

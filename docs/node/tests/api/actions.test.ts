@@ -70,7 +70,7 @@ describe('Actions Documentation Examples', () => {
 			})
 
 			// Dump state
-			const state = await dumpStateHandler(node)()
+			const { state } = await dumpStateHandler(node)()
 			expect(state).toBeDefined()
 
 			// Create new node
@@ -96,13 +96,12 @@ describe('Actions Documentation Examples', () => {
 			const node = createTevmNode()
 
 			const result = await callHandler(node)({
-				to: '0x1234567890123456789012345678901234567890',
+				to: '0x123',
 				data: '0x',
-				value: parseEther('1000'), // More than available balance
 				throwOnFail: false,
 			})
 
-			expect(result.errors).toBeDefined()
+			expect(result.errors?.length).toBeGreaterThan(0)
 		})
 	})
 

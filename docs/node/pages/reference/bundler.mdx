@@ -5,15 +5,11 @@ description: A reference guide to Tevm's bundler functionality
 
 # Tevm Contract Bundler
 
-The Tevm Contract Bundler allows you to import Solidity files directly into your TypeScript code, enabling a seamless development experience with type safety and IDE integration.
+Import Solidity files directly into TypeScript with type safety and IDE integration.
 
 :::note
-This page has been split into smaller, more manageable sections. Please visit the new [Bundler Reference](/reference/bundler/) for the updated documentation.
+See the new [Bundler Reference](/reference/bundler/) — this page is preserved for backlink compatibility.
 :::
-
-## Quick Navigation
-
-The bundler documentation is now split into several sections for better organization:
 
 - **[Overview](/reference/bundler/overview)** - Introduction, key benefits, available plugins
 - **[Internals](/reference/bundler/internals)** - How the bundler works under the hood
@@ -22,25 +18,13 @@ The bundler documentation is now split into several sections for better organiza
 
 ## What is the Tevm Bundler?
 
-The Tevm bundler transforms Solidity `.sol` files into TypeScript modules at build time. When you import a contract, the bundler:
+At build time, the bundler reads `.sol` files, runs solc on the dependency graph, extracts ABI and (for `.s.sol`) bytecode, and emits a TypeScript module exporting a [Tevm Contract](/reference/contract) instance.
 
-1. Reads and compiles the Solidity source code
-2. Extracts the ABI, bytecode, and other contract information
-3. Generates a TypeScript module with a [Tevm Contract](/reference/contract) instance
+For a quickstart, see [Bundler Quickstart](/getting-started/bundler).
 
-This means you can interact with your contracts in a fully type-safe way, with editor features like auto-completion, go-to-definition, and inline documentation.
+## Coming Soon
 
-## Getting Started
+- **Inline Solidity with `sol` tag** - inline contracts via template literals
+- **CAIP-10 contract imports** - import contracts from any chain by standardized identifier
 
-For a quick introduction to using the bundler, see the [Bundler Quickstart](/getting-started/bundler) guide.
-
-If you're looking for detailed reference information, explore the sections linked above.
-
-## Coming Soon Features
-
-Tevm is actively developing new bundler features:
-
-- **Inline Solidity with `sol` Tag** - Define contracts directly in your JS/TS using template literals
-- **CAIP-10 Contract Imports** - Import contracts from any chain using standardized identifiers
-
-Learn more about these upcoming features in the [Upcoming Features](/reference/bundler/overview#coming-soon-features) section.
+See [Upcoming Features](/reference/bundler/overview#coming-soon-features).

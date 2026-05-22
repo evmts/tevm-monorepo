@@ -5,22 +5,20 @@ description: Documentation for getAccount and setAccount APIs
 
 # Account Management
 
-Tevm provides two key actions for managing account state: `getAccountHandler` and `setAccountHandler`.
+Two actions manage account state: `getAccountHandler` and `setAccountHandler`.
 
 ## getAccountHandler
 
-The `getAccountHandler` action allows you to retrieve the current state of an account.
+Retrieve the current state of an account.
 
 ### Parameters
 
 ```ts
 type GetAccountParams = {
-  // Required address of the account
   address: Address
-  // Optional block tag to query state from
   blockTag?: 'latest' | 'pending' | 'earliest' | number
-  // Whether to return storage (can be expensive)
-  returnStorage?: boolean
+  returnStorage?: boolean // expensive
+  throwOnFail?: boolean // defaults to true
 }
 ```
 
@@ -28,25 +26,15 @@ type GetAccountParams = {
 
 ```ts
 type GetAccountResult = {
-  // Address of the account
   address: Address
-  // Current nonce
   nonce: bigint
-  // Balance in wei
   balance: bigint
-  // Deployed bytecode (if contract)
   deployedBytecode: Hex
-  // Storage root
   storageRoot: Hex
-  // Code hash
   codeHash: Hex
-  // Whether this is a contract
   isContract: boolean
-  // Whether account is empty
   isEmpty: boolean
-  // Storage (if returnStorage=true)
-  storage?: { [key: Hex]: Hex }
-  // Any errors that occurred
+  storage?: { [key: Hex]: Hex } // when returnStorage=true
   errors?: TevmGetAccountError[]
 }
 ```
@@ -55,12 +43,19 @@ type GetAccountResult = {
 
 ```ts
 import { createTevmNode } from 'tevm'
-import { getAccountHandler } from 'tevm/actions'
+import { getAccountHandler, setAccountHandler } from 'tevm/actions'
+import { parseEther } from 'viem'
 
 const node = createTevmNode()
+const address = '0x1234567890123456789012345678901234567890'
+
+await setAccountHandler(node)({
+  address,
+  balance: parseEther('1')
+})
 
 const account = await getAccountHandler(node)({
-  address: '0x...',
+  address,
   blockTag: 'latest',
   returnStorage: true
 })
@@ -75,22 +70,19 @@ if (account.isContract) {
 
 ## setAccountHandler
 
-The `setAccountHandler` action allows you to modify account state directly.
+Modify account state directly.
 
 ### Parameters
 
 ```ts
 type SetAccountParams = {
-  // Required address to modify
   address: Address
-  // New nonce value
   nonce?: bigint
-  // New balance in wei
   balance?: bigint
-  // New deployed bytecode
   deployedBytecode?: Hex
-  // New storage values
   state?: { [key: Hex]: Hex }
+  stateDiff?: { [key: Hex]: Hex }
+  throwOnFail?: boolean // defaults to true
 }
 ```
 
@@ -98,14 +90,13 @@ type SetAccountParams = {
 
 ```ts
 type SetAccountResult = {
-  // Any errors that occurred
   errors?: TevmSetAccountError[]
 }
 ```
 
 ### Examples
 
-#### 1. Setting Account Balance
+#### Setting Balance
 
 ```ts
 import { setAccountHandler } from 'tevm/actions'
@@ -116,20 +107,19 @@ await setAccountHandler(node)({
 })
 ```
 
-#### 2. Deploying Contract Code
+#### Deploying Contract Code
 
 ```ts
 await setAccountHandler(node)({
   address: contractAddress,
   deployedBytecode: '0x...',
   state: {
-    // Initial storage values
     '0x0000...': '0x0000...'
   }
 })
 ```
 
-#### 3. Modifying Multiple Properties
+#### Modifying Multiple Properties
 
 ```ts
 await setAccountHandler(node)({
@@ -145,39 +135,51 @@ await setAccountHandler(node)({
 
 ## Best Practices
 
-1. **Storage Management**:
-   ```ts
-   // Avoid fetching storage unless needed
-   const account = await getAccountHandler(node)({
-     address: '0x...',
-     returnStorage: false // default
-   })
-   ```
+Skip storage fetches unless needed:
 
-2. **State Consistency**:
-   ```ts
-   // Check account exists before modifying
-   const account = await getAccountHandler(node)({ address })
-   if (!account.isEmpty) {
-     await setAccountHandler(node)({
-       address,
-       balance: account.balance + amount
-     })
-   }
-   ```
+```ts
+const account = await getAccountHandler(node)({
+  address: '0x...',
+  returnStorage: false // default
+})
+```
 
-3. **Error Handling**:
-   ```ts
-   const result = await setAccountHandler(node)({
-     address: '0x...',
-     balance: newBalance,
-     throwOnFail: false
-   })
+Check existence before modifying:
 
-   if (result.errors) {
-     console.error('Failed to set account:', result.errors)
-   }
-   ```
+```ts
+const account = await getAccountHandler(node)({
+  address,
+  throwOnFail: false
+})
+
+if (account.errors) {
+  await setAccountHandler(node)({
+    address,
+    balance: amount
+  })
+} else if (!account.isEmpty) {
+  await setAccountHandler(node)({
+    address,
+    balance: account.balance + amount
+  })
+}
+```
+
+By default, `getAccountHandler` throws when an account is missing. Use `throwOnFail: false` when probing for existence.
+
+Error handling:
+
+```ts
+const result = await setAccountHandler(node)({
+  address: '0x...',
+  balance: newBalance,
+  throwOnFail: false
+})
+
+if (result.errors) {
+  console.error('Failed to set account:', result.errors)
+}
+```
 
 ## Related Topics
 - [State Management](../core/managing-state)

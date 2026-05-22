@@ -5,9 +5,9 @@ description: ZEVM-backed transaction facade, transaction types, and Tevm imperso
 
 # @tevm/tx
 
-The `@tevm/tx` package is Tevm's transaction facade backed by `@evmts/zevm/tx`. It exports typed Ethereum transaction constructors, helpers, type guards, and Tevm's impersonated transaction helper for local execution and fork testing.
+Tevm's transaction facade backed by `@evmts/zevm/tx`. Exports typed Ethereum transaction constructors, helpers, type guards, and Tevm's impersonated transaction helper.
 
-> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/tx/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs) folder.
+Full API: [packages/tx/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs).
 
 ## Installation
 
@@ -19,21 +19,21 @@ npm install @tevm/tx
 
 ### Transaction Types
 
-- [LegacyTransaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/LegacyTransaction.md) - Legacy pre-EIP-2718 transactions.
-- [AccessListEIP2930Transaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/AccessListEIP2930Transaction.md) - EIP-2930 access-list transactions.
-- [FeeMarketEIP1559Transaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/FeeMarketEIP1559Transaction.md) - EIP-1559 fee-market transactions.
-- [BlobEIP4844Transaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/BlobEIP4844Transaction.md) - EIP-4844 blob transactions.
+- [LegacyTransaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/LegacyTransaction.md)
+- [AccessListEIP2930Transaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/AccessListEIP2930Transaction.md)
+- [FeeMarketEIP1559Transaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/FeeMarketEIP1559Transaction.md)
+- [BlobEIP4844Transaction](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/classes/BlobEIP4844Transaction.md)
 - `EOACodeEIP7702Transaction` - EIP-7702 EOA code transactions.
-- [ImpersonatedTx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/interfaces/ImpersonatedTx.md) - Tevm-specific transaction shape for executing as an address without a private key.
+- [ImpersonatedTx](https://github.com/evmts/tevm-monorepo/tree/main/packages/tx/docs/interfaces/ImpersonatedTx.md) - Tevm-specific tx that executes as an address without a private key.
 
 ### Helpers
 
-- `TransactionFactory` - Alias for ZEVM's `createTx` helper.
-- `createTxFromRLP` - Decode a serialized transaction.
-- `createTxFromBlockBodyData` - Create a transaction from block body data.
-- `createImpersonatedTx` - Create an unsigned EIP-1559-shaped transaction that executes as `impersonatedAddress`.
-- `createEOACodeEIP7702Tx`, `createEOACodeEIP7702TxFromBytesArray`, and `createEOACodeEIP7702TxFromRLP` - EIP-7702 helpers.
-- `isLegacyTx`, `isAccessListEIP2930Tx`, `isFeeMarketEIP1559Tx`, `isBlobEIP4844Tx`, and `isEOACodeEIP7702Tx` - Transaction type guards.
+- `TransactionFactory` - alias for ZEVM's `createTx`.
+- `createTxFromRLP` - decode a serialized transaction.
+- `createTxFromBlockBodyData` - create from block body data.
+- `createImpersonatedTx` - unsigned EIP-1559-shaped tx that executes as `impersonatedAddress`.
+- `createEOACodeEIP7702Tx`, `createEOACodeEIP7702TxFromBytesArray`, `createEOACodeEIP7702TxFromRLP`.
+- Type guards: `isLegacyTx`, `isAccessListEIP2930Tx`, `isFeeMarketEIP1559Tx`, `isBlobEIP4844Tx`, `isEOACodeEIP7702Tx`.
 
 ## Creating Transactions
 
@@ -59,13 +59,13 @@ const tx = TransactionFactory({
 const decoded = createTxFromRLP(tx.serialize())
 
 if (isBlobEIP4844Tx(decoded) || isEOACodeEIP7702Tx(decoded)) {
-  // Handle modern typed transaction fields.
+  // typed transaction fields
 }
 ```
 
 ## Impersonated Transactions
 
-Impersonated transactions are a Tevm convenience for simulation, fork testing, and local development. They let the VM execute as an address without requiring a signature from that address.
+Lets the VM execute as an address without a signature. For app-level impersonation, prefer JSON-RPC or MemoryClient helpers (`anvil_impersonateAccount`, `tevm_impersonateAccount`, `setImpersonatedAccount`).
 
 ```typescript
 import { createImpersonatedTx } from '@tevm/tx'
@@ -85,37 +85,16 @@ const vm = await node.getVm()
 const result = await vm.runTx({ tx, skipBalance: true, skipNonce: true })
 ```
 
-For app-level impersonation, prefer the JSON-RPC or MemoryClient helpers such as `anvil_impersonateAccount`, `tevm_impersonateAccount`, and `setImpersonatedAccount`.
+## Transaction Coverage
 
-## Transaction Type Coverage
-
-The package supports:
-
-- Legacy transactions
-- EIP-2930 access-list transactions
-- EIP-1559 fee-market transactions
-- EIP-4844 blob transactions
-- EIP-7702 EOA code transactions
-- Tevm impersonated transactions
+Legacy, EIP-2930, EIP-1559, EIP-4844, EIP-7702, and Tevm impersonated transactions.
 
 ## Common Methods
 
-Typed transaction instances expose the standard transaction helpers from the underlying ZEVM transaction implementation:
-
-- `hash()` - Get the transaction hash.
-- `getBaseFee()` - Get intrinsic gas.
-- `getDataFee()` - Get calldata or blob-related gas cost.
-- `getUpfrontCost()` - Get total required account balance.
-- `isSigned()` - Check whether the transaction is signed.
-- `serialize()` - Return the encoded transaction.
-- `toJSON()` - Return the JSON representation.
+`hash()`, `getBaseFee()`, `getDataFee()`, `getUpfrontCost()`, `isSigned()`, `serialize()`, `toJSON()`.
 
 ## See Also
 
 - [Transaction Pool](../advanced/txpool)
 - [VM & Submodules](../api/vm-and-submodules)
-- [EIP-2718: Typed Transaction Envelope](https://eips.ethereum.org/EIPS/eip-2718)
-- [EIP-2930: Optional access lists](https://eips.ethereum.org/EIPS/eip-2930)
-- [EIP-1559: Fee market change](https://eips.ethereum.org/EIPS/eip-1559)
-- [EIP-4844: Shard Blob Transactions](https://eips.ethereum.org/EIPS/eip-4844)
-- [EIP-7702: Set EOA account code](https://eips.ethereum.org/EIPS/eip-7702)
+- [EIP-2718](https://eips.ethereum.org/EIPS/eip-2718), [EIP-2930](https://eips.ethereum.org/EIPS/eip-2930), [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559), [EIP-4844](https://eips.ethereum.org/EIPS/eip-4844), [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702)

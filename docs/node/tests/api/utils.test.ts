@@ -63,7 +63,7 @@ describe('@tevm/utils', () => {
 			expect(num).toBe(420)
 
 			const hex2 = numberToHex(420)
-			expect(hex2).toBe('0x01a4')
+			expect(hex2).toBe('0x1a4')
 
 			const str = hexToString('0x48656c6c6f')
 			expect(str).toBe('Hello')
@@ -81,10 +81,10 @@ describe('@tevm/utils', () => {
 
 	describe('Unit Conversion', () => {
 		it('should convert between ether units', () => {
-			expect(formatEther(1000000000000000000n)).toBe('1.0')
+			expect(formatEther(1000000000000000000n)).toBe('1')
 			expect(parseEther('1.0')).toBe(1000000000000000000n)
 
-			expect(formatGwei(1000000000n)).toBe('1.0')
+			expect(formatGwei(1000000000n)).toBe('1')
 			expect(parseGwei('1.0')).toBe(1000000000n)
 		})
 	})

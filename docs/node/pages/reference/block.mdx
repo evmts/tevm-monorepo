@@ -5,9 +5,9 @@ description: "The Block class provides functionality for working with Ethereum b
 
 # @tevm/block
 
-The `@tevm/block` package provides functionality for working with Ethereum blocks. It includes classes and utilities for handling block headers, block data, and block-related operations.
+Block, block-header, and RLP/JSON-RPC serialization utilities. Includes Verkle/EIP-6800 payload types only; Tevm does not execute Verkle witnesses.
 
-> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/block/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs) folder.
+Full API: [packages/block/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs).
 
 ## Installation
 
@@ -15,72 +15,47 @@ The `@tevm/block` package provides functionality for working with Ethereum block
 npm install @tevm/block
 ```
 
-## Overview
-
-The `@tevm/block` package provides:
-- Block creation and manipulation
-- Block header management
-- RLP serialization/deserialization
-- JSON-RPC block formatting
-- Verkle witness payload types only; Verkle/EIP-6800 execution is intentionally unsupported
-
 ## API Reference
 
 ### Core Classes
 
-- [Block](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/classes/Block.md) - Main class for Ethereum block operations
-- [BlockHeader](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/classes/BlockHeader.md) - Class for managing block headers
-- [ClRequest](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/classes/ClRequest.md) - Class for client requests
+- [Block](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/classes/Block.md)
+- [BlockHeader](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/classes/BlockHeader.md)
+- [ClRequest](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/classes/ClRequest.md)
 
 ### Interfaces
 
-- [BlockData](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/BlockData.md) - Block data structure
-- [BlockOptions](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/BlockOptions.md) - Options for block creation
-- [HeaderData](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/HeaderData.md) - Block header data structure
-- [JsonBlock](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/JsonBlock.md) - JSON representation of a block
-- [JsonHeader](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/JsonHeader.md) - JSON representation of a header
-- [JsonRpcBlock](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/JsonRpcBlock.md) - JSON-RPC block format
+- [BlockData](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/BlockData.md)
+- [BlockOptions](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/BlockOptions.md)
+- [HeaderData](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/HeaderData.md)
+- [JsonBlock](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/JsonBlock.md)
+- [JsonHeader](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/JsonHeader.md)
+- [JsonRpcBlock](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/JsonRpcBlock.md)
 
 ### Verkle Payload Types
 
-These types model payload shapes only. Tevm does not execute Verkle/EIP-6800
-state-witness blocks.
+Payload shapes only; Tevm does not execute Verkle/EIP-6800 state-witness blocks.
 
-- [VerkleExecutionWitness](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/VerkleExecutionWitness.md) - Verkle witness payload shape
-- [VerkleProof](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/VerkleProof.md) - Verkle proof structure
-- [VerkleStateDiff](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/VerkleStateDiff.md) - Verkle state-diff payload shape
+- [VerkleExecutionWitness](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/VerkleExecutionWitness.md)
+- [VerkleProof](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/VerkleProof.md)
+- [VerkleStateDiff](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/interfaces/VerkleStateDiff.md)
 
 ### Block Types
 
-- [BlockBodyBytes](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/type-aliases/BlockBodyBytes.md) - Block body byte representation
-- [BlockBytes](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/type-aliases/BlockBytes.md) - Full block byte representation
-- [BlockHeaderBytes](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/type-aliases/BlockHeaderBytes.md) - Block header byte representation
-- [ExecutionPayload](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/type-aliases/ExecutionPayload.md) - Execution payload structure
-- [BeaconPayloadJson](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/type-aliases/BeaconPayloadJson.md) - Beacon chain payload JSON
+- [BlockBodyBytes](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/type-aliases/BlockBodyBytes.md)
+- [BlockBytes](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/type-aliases/BlockBytes.md)
+- [BlockHeaderBytes](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/type-aliases/BlockHeaderBytes.md)
+- [ExecutionPayload](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/type-aliases/ExecutionPayload.md)
+- [BeaconPayloadJson](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/type-aliases/BeaconPayloadJson.md)
 
 ### Utility Functions
 
-- [blockFromRpc](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/functions/blockFromRpc.md) - Create block from RPC response
-- [executionPayloadFromBeaconPayload](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/functions/executionPayloadFromBeaconPayload.md) - Convert beacon payload to execution payload
-- [getDifficulty](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/functions/getDifficulty.md) - Calculate block difficulty
-- [valuesArrayToHeaderData](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/functions/valuesArrayToHeaderData.md) - Convert array to header data
+- [blockFromRpc](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/functions/blockFromRpc.md)
+- [executionPayloadFromBeaconPayload](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/functions/executionPayloadFromBeaconPayload.md)
+- [getDifficulty](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/functions/getDifficulty.md)
+- [valuesArrayToHeaderData](https://github.com/evmts/tevm-monorepo/tree/main/packages/block/docs/functions/valuesArrayToHeaderData.md)
 
 ## Usage Examples
-
-### Creating a New Block
-
-```typescript
-import { Block } from '@tevm/block'
-import { createCommon } from '@tevm/common'
-import { mainnet } from 'viem/chains'
-
-// Create a new block
-const block = new Block({
-  common: createCommon({ ...mainnet })
-})
-```
-
-### Creating a Block from Data
 
 ```typescript
 import { Block } from '@tevm/block'
@@ -90,7 +65,9 @@ import { EthjsAddress } from '@tevm/utils'
 
 const common = createCommon({ ...mainnet })
 
-const blockData = {
+const block = new Block({ common })
+
+const fromData = Block.fromBlockData({
   header: {
     parentHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
     uncleHash: '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
@@ -98,45 +75,21 @@ const blockData = {
     stateRoot: '0x0000000000000000000000000000000000000000000000000000000000000000',
     transactionsTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
     receiptTrie: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-    logsBloom: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
     difficulty: 0n,
     number: 0n,
     gasLimit: 30000000n,
     gasUsed: 0n,
     timestamp: BigInt(Math.floor(Date.now() / 1000)),
-    extraData: '0x',
-    mixHash: '0x0000000000000000000000000000000000000000000000000000000000000000',
-    nonce: '0x0000000000000000',
-    baseFeePerGas: 1000000000n
-  }
-}
+    baseFeePerGas: 1000000000n,
+  },
+}, { common })
 
-const block = Block.fromBlockData(blockData, { common })
-```
-
-### Working with Block Headers
-
-```typescript
-// Get block hash
 const hash = block.hash()
-
-// Serialize block
 const serialized = block.serialize()
-
-// Convert to JSON
 const json = block.toJSON()
-```
 
-### Creating from RLP Data
-
-```typescript
-import { Block } from '@tevm/block'
-import { createCommon } from '@tevm/common'
-import { mainnet } from 'viem/chains'
-
-const common = createCommon({ ...mainnet })
-const serializedBlock = new Uint8Array([/* ... */])
-const block = Block.fromRLPSerializedBlock(serializedBlock, { common })
+const fromRlp = Block.fromRLPSerializedBlock(serialized, { common })
+const fromValues = Block.fromValuesArray(block.raw(), { common })
 ```
 
 ## See Also

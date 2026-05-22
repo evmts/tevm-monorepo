@@ -3,36 +3,32 @@ title: Call API
 description: Detailed documentation of the Call action handler
 ---
 
-import { Callout } from 'vocs/components'
-
 # Call API
 
-The Call API is one of the most important APIs in Tevm, covering 90% of use cases along with mining. It provides a powerful interface for executing EVM calls with extensive configuration options.
+The Call API covers ~90% of use cases (with mining) and provides an EVM call interface with extensive configuration.
 
-<Callout type="warning" title="Transaction Inclusion">
-  Remember that Tevm defaults to manual mining mode, which means:
-
-  - When using `addToMempool: true` (or the deprecated `createTransaction: true`), you must manually call `client.tevmMine()` to include the transaction in a block
-  - Use `addToBlockchain: true` for immediate transaction inclusion (automatically mines the transaction)
-  - You cannot use both `addToMempool` and `addToBlockchain` simultaneously
-</Callout>
+:::warning[Transaction Inclusion]
+Tevm defaults to manual mining mode:
+- With `addToMempool: true` (or deprecated `createTransaction: true`), you must call `client.tevmMine()` to include the transaction
+- `addToBlockchain: true` auto-mines for immediate inclusion
+- You cannot use both `addToMempool` and `addToBlockchain`
+:::
 
 ## Basic Usage
 
-Tevm offers two API styles for using the Call API:
+Two API styles:
 
-### Client-based API (batteries included)
+### Client-based API
 
 ```ts
 import { createMemoryClient } from 'tevm'
 
 const client = createMemoryClient()
 
-// Use tevmCall directly on the client object
 const result = await client.tevmCall({
-  from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266', // Default account
-  to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH on mainnet
-  data: '0x' // Empty call
+  from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
+  to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
+  data: '0x'
 })
 ```
 
@@ -44,57 +40,35 @@ import { createTevmTransport } from 'tevm/memory-client'
 import { createTevmNode } from 'tevm/node'
 import { requestEip1193 } from 'tevm/decorators'
 
-// Create Viem client with tevm transport
-const client = createClient({
-  transport: createTevmTransport(),
-})
+const client = createClient({ transport: createTevmTransport() })
 
-// Use the tree-shakable action
 const result = await tevmCall(client, {
-  from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266', // Default account
-  to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH on mainnet
-  data: '0x' // Empty call
+  from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
+  to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
+  data: '0x'
 })
 ```
 
 ## Parameters
 
-The `CallParams` type includes:
-
 ```ts
 type CallParams = {
-  // Required for most calls (except contract deployment)
-  to?: Address
-  // Input data for the call
+  to?: Address                  // required except contract deployment
   data?: Hex
-  // Value in wei to send
-  value?: bigint
-  // Gas limit for the call
+  value?: bigint                // wei
   gas?: bigint
-  // Block tag to execute against
   blockTag?: 'latest' | 'pending' | 'earliest' | number
-  // DEPRECATED: Whether to create a transaction
-  createTransaction?: 'on-success' | 'always' | 'never' | boolean
-  // Whether to add transaction to the mempool (requires mining)
-  addToMempool?: 'on-success' | 'always' | 'never' | boolean
-  // Whether to add transaction to the blockchain (auto-mines)
-  addToBlockchain?: 'on-success' | 'always' | 'never' | boolean
-  // Whether to skip balance checks
+  createTransaction?: 'on-success' | 'always' | 'never' | boolean  // DEPRECATED
+  addToMempool?: 'on-success' | 'always' | 'never' | boolean       // requires mining
+  addToBlockchain?: 'on-success' | 'always' | 'never' | boolean    // auto-mines
   skipBalance?: boolean
-  // Whether to create an access list
   createAccessList?: boolean
-  // Whether to create a debug trace
   createTrace?: boolean
-  // From address (defaults to first account)
-  from?: Address
-  // Gas price settings
+  from?: Address                // defaults to first account
   maxFeePerGas?: bigint
   maxPriorityFeePerGas?: bigint
-  // State overrides
   stateOverrideSet?: StateOverrideSet
-  // Block overrides
   blockOverrideSet?: BlockOverrideSet
-  // Event handlers for EVM execution
   onStep?: (data: InterpreterStep, next?: () => void) => void
   onNewContract?: (data: NewContractEvent, next?: () => void) => void
   onBeforeMessage?: (data: Message, next?: () => void) => void
@@ -104,113 +78,87 @@ type CallParams = {
 
 ## Return Type
 
-The `CallResult` includes:
-
 ```ts
 type CallResult = {
-  // Return data from the call
-  rawData: Hex
-  // Gas used by the EVM
+  rawData: Hex                  // return data
   executionGasUsed: bigint
-  // Total gas including intrinsic costs
-  totalGasSpent?: bigint
-  // Transaction hash if created
+  totalGasSpent?: bigint        // includes intrinsic costs
   txHash?: Hex
-  // Logs emitted
   logs?: Log[]
-  // Created contract address
   createdAddress?: Address
-  // Access list if requested
   accessList?: Record<Address, Set<Hex>>
-  // Debug trace if requested
   trace?: TraceResult
-  // Any errors that occurred
   errors?: TevmCallError[]
 }
 ```
 
 ## Examples
 
-### 1. Simple Contract Call
-
-Using client-based API:
+### Simple Contract Call
 
 ```ts
-import { createMemoryClient } from 'tevm'
+import { createMemoryClient, PREFUNDED_ACCOUNTS } from 'tevm'
+import { ERC20 } from 'tevm/contract'
 import { encodeFunctionData, decodeFunctionResult, parseAbi } from 'viem'
 
-// Example ERC20 ABI for 'balanceOf'
-const abi = parseAbi([
-  'function balanceOf(address account) view returns (uint256 balance)'
-])
+const abi = parseAbi(['function balanceOf(address account) view returns (uint256 balance)'])
 
 const client = createMemoryClient()
 
 const result = await client.tevmCall({
   to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
-  from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
+  from: PREFUNDED_ACCOUNTS[0].address,
+  deployedBytecode: ERC20.deployedBytecode,
   data: encodeFunctionData({
     abi,
     functionName: 'balanceOf',
-    args: ['0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266']
+    args: [PREFUNDED_ACCOUNTS[0].address]
   })
 })
 
-const balance = decodeFunctionResult({
-  abi,
-  functionName: 'balanceOf',
-  data: result.rawData
-})
+const balance = decodeFunctionResult({ abi, functionName: 'balanceOf', data: result.rawData })
 ```
 
-### 2. Contract Deployment
-
-Using client-based API:
+### Contract Deployment
 
 ```ts
-import { createMemoryClient } from 'tevm'
-
-// Simple contract bytecode (returns 42)
-const bytecode = '0x6080604052348015600f57600080fd5b50602a60808190526040516100929190810190830190829052565b604051601f19601f830116810160405280815292829060208401853c80601f830112156100c057600080fd5b505b50505050610047806100d36000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c80632096525514602d575b600080fd5b60336047565b604051603e91906059565b60405180910390f35b602a81565b6000819050919050565b6053816040565b82525050565b6000602082019050606c6000830184604c565b9291505056fea2646970667358221220f1c69e125f1a9f0c5e22a6fb4f9cb134c5b43496922c563e13731844a6e4d12d64736f6c63430008130033'
+import { createMemoryClient, PREFUNDED_ACCOUNTS } from 'tevm'
+import { SimpleContract } from 'tevm/contract'
+import { encodeDeployData } from 'viem'
 
 const client = createMemoryClient()
 
 const result = await client.tevmCall({
-  from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
-  data: bytecode,
-  addToBlockchain: true // Automatically adds to mempool and mines
+  from: PREFUNDED_ACCOUNTS[0].address,
+  data: encodeDeployData(SimpleContract.deploy(2n)),
+  addToBlockchain: true // auto-mines
 })
 
-console.log('Contract deployed at:', result.createdAddress)
+console.log('Deployed at:', result.createdAddress)
 ```
 
-### 3. State Override
-
-Using client-based API:
+### State Override
 
 ```ts
-import { createMemoryClient } from 'tevm'
+import { createMemoryClient, PREFUNDED_ACCOUNTS } from 'tevm'
 
 const client = createMemoryClient()
 
 const result = await client.tevmCall({
-  from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
-  to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
+  from: PREFUNDED_ACCOUNTS[0].address,
+  to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
   data: '0x',
   stateOverrideSet: {
-    ['0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266']: {
-      balance: 4096n, // 0x1000 as bigint
+    [PREFUNDED_ACCOUNTS[0].address]: {
+      balance: 4096n,
       nonce: 2n,
-      code: '0x',
       state: {}
     }
   }
 })
 ```
 
-### 4. Debug Trace
-
-Using client-based API:
+### Debug Trace
 
 ```ts
 import { createMemoryClient } from 'tevm'
@@ -219,12 +167,11 @@ const client = createMemoryClient()
 
 const result = await client.tevmCall({
   from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
-  to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
+  to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
   data: '0x',
   createTrace: true
 })
 
-// Analyze the execution trace
 if (result.trace) {
   result.trace.structLogs.forEach(log => {
     console.log(log.op, log.stack, log.memory)
@@ -232,11 +179,9 @@ if (result.trace) {
 }
 ```
 
-### 5. EVM Event Handlers
+### EVM Event Handlers
 
-You can attach event handlers to monitor EVM execution in real-time.
-
-Using client-based API:
+Monitor execution in real-time:
 
 ```ts
 import { createMemoryClient } from 'tevm'
@@ -244,40 +189,30 @@ import { encodeFunctionData } from 'viem'
 
 const client = createMemoryClient()
 
-// Use EVM event handlers to monitor execution
 const result = await client.tevmCall({
   from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
   to: contractAddress,
-  data: encodeFunctionData({
-    abi,
-    functionName: 'myFunction',
-    args: [arg1, arg2]
-  }),
-  // Monitor each EVM step
+  data: encodeFunctionData({ abi, functionName: 'myFunction', args: [arg1, arg2] }),
   onStep: (step, next) => {
     console.log(
-      `Executing ${step.opcode.name} at PC=${step.pc}`,
-      `Gas left: ${step.gasLeft.toString()}`,
+      `${step.opcode.name} at PC=${step.pc}`,
+      `Gas: ${step.gasLeft.toString()}`,
       `Stack depth: ${step.stack.length}`
     )
-    // Important: Call next to continue execution
     next?.()
   },
-  // Monitor contract creation events
   onNewContract: (data, next) => {
-    console.log(`New contract created at: ${data.address.toString()}`)
+    console.log(`New contract: ${data.address.toString()}`)
     next?.()
   },
-  // Monitor messages (calls) before execution
   onBeforeMessage: (message, next) => {
     console.log(`Call to: ${message.to?.toString()}`,
                 `Value: ${message.value.toString()}`,
                 `Gas limit: ${message.gasLimit.toString()}`)
     next?.()
   },
-  // Monitor messages (calls) after execution
   onAfterMessage: (result, next) => {
-    console.log(`Call result: ${result.execResult.returnValue.toString('hex')}`,
+    console.log(`Result: ${result.execResult.returnValue.toString('hex')}`,
                 `Gas used: ${result.execResult.executionGasUsed.toString()}`)
     if (result.execResult.exceptionError) {
       console.error(`Error: ${result.execResult.exceptionError.error}`)

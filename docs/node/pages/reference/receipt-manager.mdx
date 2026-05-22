@@ -1,6 +1,6 @@
 # @tevm/receipt-manager
 
-The `@tevm/receipt-manager` package provides ZEVM-backed transaction receipt storage and lookup utilities for Tevm. It handles the storage, retrieval, and management of transaction receipts, logs, bloom data, and transaction-hash indexes.
+ZEVM-backed transaction receipt storage and lookup. Powers Tevm's `eth_getTransactionReceipt`, `eth_getBlockReceipts`, `eth_getLogs`, filter, and subscription flows.
 
 ## Installation
 
@@ -8,20 +8,9 @@ The `@tevm/receipt-manager` package provides ZEVM-backed transaction receipt sto
 npm install @tevm/receipt-manager
 ```
 
-## Overview
-
-The receipt manager package is responsible for:
-- Managing transaction receipts and their storage
-- Handling transaction logs and bloom filters
-- Supporting different receipt types (Pre-Byzantium, Post-Byzantium, EIP4844)
-- Providing efficient receipt lookup and retrieval
-- Supporting Tevm's `eth_getTransactionReceipt`, `eth_getBlockReceipts`, `eth_getLogs`, filter, and subscription flows
-
-## Core Components
+## API
 
 ### ReceiptsManager
-
-The main class that handles receipt management operations.
 
 ```typescript
 import { ReceiptsManager } from '@tevm/receipt-manager'
@@ -29,64 +18,46 @@ import { ReceiptsManager } from '@tevm/receipt-manager'
 const receiptsManager = new ReceiptsManager(mapDb, chain)
 ```
 
-#### Key Methods
+Methods:
 
-- `saveReceipts(block, receipts)`: Saves receipts to the database
-- `getReceipts(blockHash)`: Retrieves receipts for a given block hash
-- `getReceiptByTxHash(txHash)`: Gets a receipt by transaction hash
-- `getLogs(from, to, addresses?, topics?)`: Returns logs based on filter criteria
-- `deleteReceipts(block)`: Removes receipts for a given block
+- `saveReceipts(block, receipts)`
+- `getReceipts(blockHash)`
+- `getReceiptByTxHash(txHash)`
+- `getLogs(from, to, addresses?, topics?)`
+- `deleteReceipts(block)`
 
 ### Receipt Types
 
-The package supports multiple receipt types to accommodate different Ethereum protocol versions:
-
-#### BaseTxReceipt
 ```typescript
 interface BaseTxReceipt {
   cumulativeBlockGasUsed: bigint
   bitvector: Uint8Array
   logs: Log[]
 }
-```
 
-#### PreByzantiumTxReceipt
-```typescript
 interface PreByzantiumTxReceipt extends BaseTxReceipt {
   stateRoot: Uint8Array
 }
-```
 
-#### PostByzantiumTxReceipt
-```typescript
 interface PostByzantiumTxReceipt extends BaseTxReceipt {
   status: 0 | 1
 }
-```
 
-#### EIP4844BlobTxReceipt
-```typescript
 interface EIP4844BlobTxReceipt extends PostByzantiumTxReceipt {
   blobGasUsed: bigint
   blobGasPrice: bigint
 }
+
+type TxReceipt = PreByzantiumTxReceipt | PostByzantiumTxReceipt | EIP4844BlobTxReceipt
 ```
 
-## Database Management
-
 ### MapDb
-
-The package includes a MapDb implementation for storing receipt data:
 
 ```typescript
 import { createMapDb } from '@tevm/receipt-manager'
 
-const mapDb = createMapDb({
-  cache: new Map()
-})
+const mapDb = createMapDb({ cache: new Map() })
 ```
-
-### Configuration Options
 
 ```typescript
 interface MetaDBManagerOptions {
@@ -94,69 +65,26 @@ interface MetaDBManagerOptions {
 }
 ```
 
+### Limits
+
+```typescript
+GET_LOGS_LIMIT = 10000
+GET_LOGS_LIMIT_MEGABYTES = 150
+GET_LOGS_BLOCK_RANGE_LIMIT = 2500
+```
+
 ## Usage Examples
 
-### Saving and Retrieving Receipts
-
 ```typescript
-// Save receipts
 await receiptsManager.saveReceipts(block, receipts)
-
-// Retrieve receipts by block hash
 const receipts = await receiptsManager.getReceipts(blockHash)
-
-// Get receipt by transaction hash
 const receipt = await receiptsManager.getReceiptByTxHash(txHash)
+const logs = await receiptsManager.getLogs(fromBlock, toBlock, addresses, topics)
 ```
 
-### Working with Logs
+### DbType
 
 ```typescript
-// Query logs with filters
-const logs = await receiptsManager.getLogs(
-  fromBlock,
-  toBlock,
-  addresses,
-  topics
-)
+type DbType = 'Receipts' | 'TxHash' | 'SkeletonBlock' | 'SkeletonBlockHashToNumber' |
+  'SkeletonStatus' | 'SkeletonUnfinalizedBlockByHash' | 'Preimage'
 ```
-
-## Constants and Limits
-
-The ReceiptsManager includes several important limits:
-
-```typescript
-GET_LOGS_LIMIT = 10000 // Maximum number of logs to return
-GET_LOGS_LIMIT_MEGABYTES = 150 // Size limit for getLogs response
-GET_LOGS_BLOCK_RANGE_LIMIT = 2500 // Block range limit for getLogs
-```
-
-## Error Handling
-
-The package includes proper error handling for common scenarios:
-
-```typescript
-try {
-  const receipt = await receiptsManager.getReceiptByTxHash(txHash)
-  if (!receipt) {
-    // Handle missing receipt
-  }
-} catch (error) {
-  // Handle errors
-}
-```
-
-## Types
-
-The package exports several important types:
-
-```typescript
-type TxReceipt = PreByzantiumTxReceipt | PostByzantiumTxReceipt | EIP4844BlobTxReceipt
-type TxReceiptWithType = PreByzantiumTxReceiptWithType | PostByzantiumTxReceiptWithType
-type DbType = "Receipts" | "TxHash" | "SkeletonBlock" | "SkeletonBlockHashToNumber" |
-  "SkeletonStatus" | "SkeletonUnfinalizedBlockByHash" | "Preimage"
-```
-
-## License
-
-This package is licensed under the MIT License. Check source-level notices for any historical per-file attribution.

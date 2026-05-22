@@ -5,52 +5,42 @@ description: Solutions for common Tevm bundler issues
 
 # Bundler Troubleshooting
 
-This guide addresses common issues that may arise when using the Tevm bundler.
-
 ## Common Issues
 
 ### 1. Missing or Red Underlines in Editor
 
-**Symptoms**: Your editor shows red underlines for Solidity imports, or auto-completion doesn't work.
+Solidity imports show red underlines or no auto-completion.
 
-**Solution**:
-- Confirm you have `"plugins": [{ "name": "@tevm/ts-plugin" }]` in tsconfig.json
-- In VS Code or Cursor, switch to the "workspace version" of TypeScript:
-  1. Open Command Palette (Ctrl+Shift+P or Cmd+Shift+P)
-  2. Type "TypeScript: Select TypeScript Version"
-  3. Select "Use Workspace Version"
-- For Vim, Neovim, and other editors, ensure they're using the workspace TypeScript version
+- Add `"plugins": [{ "name": "@tevm/ts-plugin" }]` to tsconfig.json.
+- In VS Code / Cursor, switch to the workspace TypeScript version: Command Palette → "TypeScript: Select TypeScript Version" → "Use Workspace Version".
+- For Vim/Neovim/other editors, ensure they use the workspace TS version.
 
 ### 2. Type-check Errors with Next.js
 
-**Symptoms**: Your build works, but Next.js type-checking fails with errors about `.sol` imports.
+Build works but Next.js typechecking fails on `.sol` imports.
 
-**Solution**:
-- Next's built-in type checker might not handle dynamic `.sol` imports well
-- Option 1: Disable type-checking in next.config.mjs:
-  ```js
-  // next.config.mjs
-  export default {
-    typescript: {
-      // Typechecking will only be available after the LSP is migrated to volar
-      // Until then typechecking will work in editor but not during a next.js build
-      ignoreBuildErrors: true,
-    }
-  }
-  ```
-- Option 2: Use the [Codegen Approach](#codegen-approach) (recommended for Next.js)
+Option 1 - disable typechecking in `next.config.mjs`:
+
+```js
+export default {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+}
+```
+
+Option 2 - use the [Codegen Approach](#codegen-approach) (recommended for Next.js).
 
 ### 3. "File Not Found" Errors
 
-**Symptoms**: Bundler can't find imported Solidity files, especially with custom paths.
+Bundler can't resolve imports.
 
-**Solution**:
-- Check that your libraries or local imports are accounted for in libs or remappings
-- If you're using Foundry, ensure `foundryProject: true` is set in tevm.config.json
-- For npm packages, verify they're installed and the import path is correct
-- For complex import structures, add explicit remappings:
+- Check libs and remappings.
+- For Foundry projects, set `foundryProject: true` in `tevm.config.json`.
+- For npm packages, verify install and import path.
+- Add explicit remappings:
+
   ```json
-  // tevm.config.json
   {
     "remappings": {
       "@customlib/": "node_modules/@customlib/",
@@ -61,56 +51,50 @@ This guide addresses common issues that may arise when using the Tevm bundler.
 
 ### 4. Cache Stale Issues
 
-**Symptoms**: Changes to Solidity files don't appear to take effect.
+Solidity changes don't take effect.
 
-**Solution**:
-- If a contract's changes don't appear to be recognized, remove the `.tevm` folder and rebuild
-- The `.tevm` directory is ephemeral - you can safely delete it at any time
-- Add `.tevm` to your `.gitignore` to prevent caching issues in version control
+- Delete `.tevm/` and rebuild.
+- Add `.tevm` to `.gitignore`.
 
 ### 5. No Bytecode Available
 
-**Symptoms**: Contract deployment fails with errors about missing bytecode.
+Deployment fails with missing bytecode.
 
-**Solution**:
-- Check that you're using the `.s.sol` extension for contracts you want to deploy
-- Regular `.sol` files only generate ABIs, not deployable bytecode
-- Rename your file from `Contract.sol` to `Contract.s.sol` if you need bytecode
+- Use the `.s.sol` extension for deployable contracts. Regular `.sol` produces ABI only.
 
 ### 6. Deployment Errors
 
-**Symptoms**: Contract deployment fails even with bytecode available.
+Even with bytecode, deployment fails.
 
-**Solution**:
-- Make sure you're calling `.deploy()` with any required constructor arguments:
+- Pass constructor args via `.deploy(...)`:
+
   ```ts
-  // Incorrect (when contract has constructor args)
-  const deployed = await client.deployContract(MyToken)
-
-  // Correct
-  const deployed = await client.deployContract(
-    MyToken.deploy("TokenName", "TKN", 18)
-  )
+  const deployed = await client.deployContract(MyToken.deploy('TokenName', 'TKN', 18))
   ```
 
 ### 7. Test Runner Issues
 
-**Symptoms**: Tests using `.sol` imports fail in Jest or other test runners.
+`.sol` imports fail in tests.
 
-**Solution**:
-- Most test runners (Vitest) work out-of-the-box once the bundler plugin is configured
-- Consider using the bundler that matches your test environment (esbuild for Vitest, etc.)
+- Most runners (Vitest) work once the plugin is configured.
+- Use the bundler matching your test environment (esbuild for Vitest, etc.).
+
+## Codegen Approach
+
+```bash
+npx tevm gen
+```
+
+Generates `.ts` files next to each `.sol`. Recommended when bundler hooks are impractical (e.g., Next.js with strict typechecking).
 
 ## Additional Resources
 
-If you're still experiencing issues:
-
-- Check the [GitHub Issues](https://github.com/evmts/tevm-monorepo/issues) for similar problems and solutions
-- Look at the [Examples](https://github.com/evmts/tevm-monorepo/tree/main/examples) for working configurations
-- For Next.js specific issues, see the [Next.js example](https://github.com/evmts/tevm-monorepo/tree/main/examples/next) in the Tevm repository
+- [GitHub Issues](https://github.com/evmts/tevm-monorepo/issues)
+- [Examples](https://github.com/evmts/tevm-monorepo/tree/main/examples)
+- [Next.js example](https://github.com/evmts/tevm-monorepo/tree/main/examples/next)
 
 ## Further Reading
 
-- [Bundler Overview](/reference/bundler/overview) - Key benefits and features
-- [Bundler Internals](/reference/bundler/internals) - How the bundler works
-- [Methods & Exports](/reference/bundler/methods) - Advanced APIs and utilities
+- [Bundler Overview](/reference/bundler/overview)
+- [Bundler Internals](/reference/bundler/internals)
+- [Methods & Exports](/reference/bundler/methods)

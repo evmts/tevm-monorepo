@@ -1,8 +1,22 @@
+import { setAccountHandler } from 'tevm/actions'
+import { ERC20 } from 'tevm/contract'
 import { requestEip1193 } from 'tevm/decorators'
 import { createTevmNode } from 'tevm/node'
-import { createPublicClient, custom, parseAbi } from 'viem'
+import { type Address, createPublicClient, custom, parseAbi } from 'viem'
 import { mainnet } from 'viem/chains'
 import { describe, expect, it } from 'vitest'
+
+const holderAddress = '0x1234567890123456789012345678901234567890'
+const usdcAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+const usdtAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7'
+
+const installErc20 = async (node: ReturnType<typeof createTevmNode>, address: Address) => {
+	const { errors } = await setAccountHandler(node)({
+		address,
+		deployedBytecode: ERC20.deployedBytecode,
+	})
+	expect(errors).toBeUndefined()
+}
 
 describe('Viem Integration', () => {
 	describe('Basic Setup', () => {
@@ -32,13 +46,13 @@ describe('Viem Integration', () => {
 
 			// Get balance
 			const balance = await client.getBalance({
-				address: '0x1234567890123456789012345678901234567890',
+				address: holderAddress,
 			})
 			expect(balance).toBeDefined()
 
 			// Get transaction count
 			const nonce = await client.getTransactionCount({
-				address: '0x1234567890123456789012345678901234567890',
+				address: holderAddress,
 			})
 			expect(nonce).toBeDefined()
 		})
@@ -56,8 +70,10 @@ describe('Viem Integration', () => {
 				'event Transfer(address indexed from, address indexed to, uint256 value)',
 			])
 
+			await installErc20(node, usdcAddress)
+
 			const tokenContract = {
-				address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+				address: usdcAddress,
 				abi,
 			} as const
 
@@ -65,7 +81,7 @@ describe('Viem Integration', () => {
 				client.readContract({
 					...tokenContract,
 					functionName: 'balanceOf',
-					args: ['0x1234567890123456789012345678901234567890'],
+					args: [holderAddress],
 				}),
 				client.readContract({
 					...tokenContract,
@@ -86,7 +102,7 @@ describe('Viem Integration', () => {
 				transport: custom(node),
 			})
 
-			const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+			const tokenAddress = usdcAddress
 			const transferEvent = parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)'])[0]
 			const logs = await client.getLogs({
 				address: tokenAddress,
@@ -109,7 +125,7 @@ describe('Viem Integration', () => {
 				transport: custom(node),
 			})
 
-			const tokenAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+			const tokenAddress = usdcAddress
 			const transferEvent = parseAbi(['event Transfer(address indexed from, address indexed to, uint256 value)'])[0]
 			const filter = await client.createEventFilter({
 				address: tokenAddress,
@@ -131,9 +147,10 @@ describe('Viem Integration', () => {
 
 			const TOKEN_ABI = parseAbi(['function balanceOf(address) view returns (uint256)'])
 
-			const address = '0x1234567890123456789012345678901234567890'
-			const token1Address = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
-			const token2Address = '0xdac17f958d2ee523a2206206994597c13d831ec7'
+			const address = holderAddress
+			const token1Address = usdcAddress
+			const token2Address = usdtAddress
+			await Promise.all([installErc20(node, token1Address), installErc20(node, token2Address)])
 
 			const results = await Promise.all([
 				client.readContract({
@@ -184,10 +201,10 @@ describe('Viem Integration', () => {
 			const abi = parseAbi(['function transfer(address to, uint256 amount) returns (bool)'])
 
 			const gas = await client.estimateContractGas({
-				address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+				address: usdcAddress,
 				abi,
 				functionName: 'transfer',
-				args: ['0x1234567890123456789012345678901234567890', 1000000n],
+				args: [holderAddress, 1000000n],
 			})
 
 			expect(gas).toBeDefined()
@@ -204,7 +221,7 @@ describe('Viem Integration', () => {
 
 			try {
 				await client.readContract({
-					address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+					address: usdcAddress,
 					abi: parseAbi(['function riskyFunction() view returns (uint256)']),
 					functionName: 'riskyFunction',
 				})
@@ -223,10 +240,10 @@ describe('Viem Integration', () => {
 			const abi = parseAbi(['function transfer(address to, uint256 amount) returns (bool)'])
 
 			const gas = await client.estimateContractGas({
-				address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+				address: usdcAddress,
 				abi,
 				functionName: 'transfer',
-				args: ['0x1234567890123456789012345678901234567890', 1000000n],
+				args: [holderAddress, 1000000n],
 			})
 
 			expect((gas * 120n) / 100n).toBeGreaterThan(gas) // 20% buffer

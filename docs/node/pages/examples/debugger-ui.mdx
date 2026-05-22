@@ -5,18 +5,13 @@ description: Create a minimal EVM debugger interface using Svelte and Tevm Node
 
 # Building a Debugger UI
 
-These docs have not been checked for correctness yet. Use with caution
+:::warning
+These docs have not been checked for correctness yet. Use with caution.
+:::
 
-This example demonstrates how to create a minimal EVM debugger interface using [Svelte](https://svelte.dev) and Tevm Node. The debugger will show:
-- Live opcode execution
-- Stack contents
-- Memory state
-- Error messages
-- Gas usage
+A minimal EVM debugger using [Svelte](https://svelte.dev) and Tevm Node. Shows live opcode execution, stack, memory, errors, and gas usage.
 
 ## Project Setup
-
-First, create a new Svelte project and install dependencies:
 
 ```bash
 npm create vite@latest tevm-debugger -- --template svelte-ts
@@ -26,38 +21,31 @@ npm install tevm tevm/contract
 
 ## Components
 
-### 1. EVMDebugger.svelte
+### EVMDebugger.svelte
+
 ```svelte
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte'
   import { createTevmNode } from 'tevm/node'
+  import { createImpersonatedTx } from 'tevm/tx'
   import type { InterpreterStep } from 'tevm/evm'
 
-  // Store execution state
   let steps: InterpreterStep[] = []
   let currentStep: InterpreterStep | null = null
   let errors: string[] = []
   let gasUsed = 0n
   let isRunning = false
 
-  // Create Tevm Node
   const node = createTevmNode()
   let vm: Awaited<ReturnType<typeof node.getVm>>
 
   onMount(async () => {
     vm = await node.getVm()
-    setupEventListeners()
-  })
-
-  function setupEventListeners() {
-    // Track execution steps
     vm.evm.events?.on('step', (step, next) => {
       currentStep = step
       steps = [...steps, step]
       next?.()
     })
-
-    // Track errors
     vm.evm.events?.on('afterMessage', (result, next) => {
       if (result.execResult.exceptionError) {
         errors = [...errors, result.execResult.exceptionError.error]
@@ -65,32 +53,20 @@ npm install tevm tevm/contract
       gasUsed = result.execResult.executionGasUsed
       next?.()
     })
-  }
-
-  // Clean up
-  onDestroy(() => {
-    vm?.evm.events?.removeAllListeners()
   })
 
-  // Execute sample transaction
+  onDestroy(() => vm?.evm.events?.removeAllListeners())
+
   async function runSampleTx() {
     isRunning = true
     steps = []
     errors = []
-
     try {
-      import { createImpersonatedTx } from 'tevm/tx'
-      
-      const tx = createImpersonatedTx({
-        to: '0x1234...',
-        data: '0x...',  // Your transaction data
-      })
-      
+      const tx = createImpersonatedTx({ to: '0x1234...', data: '0x...' })
       await vm.runTx({ tx })
     } catch (error) {
       errors = [...errors, error.message]
     }
-
     isRunning = false
   }
 </script>
@@ -146,76 +122,21 @@ npm install tevm tevm/contract
 </div>
 
 <style>
-  .debugger {
-    padding: 1rem;
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .controls {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  button {
-    padding: 0.5rem 1rem;
-    background: #4a5568;
-    color: white;
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-  }
-
-  button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .execution, .stack, .errors, .history {
-    background: #2d3748;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    color: #e2e8f0;
-  }
-
-  .stack-items {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .stack-item {
-    font-family: monospace;
-    padding: 0.25rem;
-    background: #4a5568;
-    border-radius: 0.25rem;
-  }
-
-  .error {
-    color: #fc8181;
-    padding: 0.5rem;
-    margin: 0.25rem 0;
-    background: #742a2a;
-    border-radius: 0.25rem;
-  }
-
-  .steps {
-    height: 200px;
-    overflow-y: auto;
-  }
-
-  .history-step {
-    padding: 0.25rem;
-    border-bottom: 1px solid #4a5568;
-    font-family: monospace;
-  }
+  .debugger { padding: 1rem; display: grid; gap: 1rem; grid-template-columns: repeat(2, 1fr); }
+  .controls { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; }
+  button { padding: 0.5rem 1rem; background: #4a5568; color: white; border: none; border-radius: 0.25rem; cursor: pointer; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .execution, .stack, .errors, .history { background: #2d3748; padding: 1rem; border-radius: 0.5rem; color: #e2e8f0; }
+  .stack-items { display: flex; flex-direction: column; gap: 0.5rem; }
+  .stack-item { font-family: monospace; padding: 0.25rem; background: #4a5568; border-radius: 0.25rem; }
+  .error { color: #fc8181; padding: 0.5rem; margin: 0.25rem 0; background: #742a2a; border-radius: 0.25rem; }
+  .steps { height: 200px; overflow-y: auto; }
+  .history-step { padding: 0.25rem; border-bottom: 1px solid #4a5568; font-family: monospace; }
 </style>
 ```
 
-### 2. App.svelte
+### App.svelte
+
 ```svelte
 <script lang="ts">
   import EVMDebugger from './lib/EVMDebugger.svelte'
@@ -227,22 +148,15 @@ npm install tevm tevm/contract
 </main>
 
 <style>
-  main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-
-  h1 {
-    color: #2d3748;
-    margin-bottom: 2rem;
-  }
+  main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+  h1 { color: #2d3748; margin-bottom: 2rem; }
 </style>
 ```
 
 ## Advanced Features
 
 ### Memory Viewer Component
+
 ```svelte
 <script lang="ts">
   export let memory: Uint8Array
@@ -253,78 +167,42 @@ npm install tevm tevm/contract
 
   function chunk(array: Uint8Array, size: number) {
     const chunks = []
-    for (let i = 0; i < array.length; i += size) {
-      chunks.push(array.slice(i, i + size))
-    }
+    for (let i = 0; i < array.length; i += size) chunks.push(array.slice(i, i + size))
     return chunks
   }
-
-  function formatByte(byte: number) {
-    return byte.toString(16).padStart(2, '0')
-  }
-
-  function formatAscii(byte: number) {
-    return byte >= 32 && byte <= 126 ? String.fromCharCode(byte) : '.'
-  }
+  const formatByte = (b: number) => b.toString(16).padStart(2, '0')
+  const formatAscii = (b: number) => (b >= 32 && b <= 126 ? String.fromCharCode(b) : '.')
 </script>
 
 <div class="memory-viewer">
   {#each rows as row, i}
     <div class="memory-row">
-      <span class="offset">
-        {(startOffset + i * bytesPerRow).toString(16).padStart(8, '0')}:
-      </span>
-      <span class="hex">
-        {#each row as byte}
-          {formatByte(byte)}
-        {/each}
-      </span>
-      <span class="ascii">
-        {#each row as byte}
-          {formatAscii(byte)}
-        {/each}
-      </span>
+      <span class="offset">{(startOffset + i * bytesPerRow).toString(16).padStart(8, '0')}:</span>
+      <span class="hex">{#each row as byte}{formatByte(byte)}{/each}</span>
+      <span class="ascii">{#each row as byte}{formatAscii(byte)}{/each}</span>
     </div>
   {/each}
 </div>
 
 <style>
-  .memory-viewer {
-    font-family: monospace;
-    white-space: pre;
-  }
-
-  .memory-row {
-    display: flex;
-    gap: 1rem;
-    padding: 0.25rem 0;
-  }
-
-  .offset {
-    color: #718096;
-  }
-
-  .hex {
-    letter-spacing: 0.1em;
-  }
-
-  .ascii {
-    color: #718096;
-  }
+  .memory-viewer { font-family: monospace; white-space: pre; }
+  .memory-row { display: flex; gap: 1rem; padding: 0.25rem 0; }
+  .offset { color: #718096; }
+  .hex { letter-spacing: 0.1em; }
+  .ascii { color: #718096; }
 </style>
 ```
 
 ### Storage Viewer Component
+
 ```svelte
 <script lang="ts">
   import type { Address } from 'tevm/utils'
   import { createTevmNode } from 'tevm/node'
 
   export let address: Address
-
   let storage = new Map<string, string>()
   let loading = false
-
   const node = createTevmNode()
 
   async function loadStorage() {
@@ -344,7 +222,6 @@ npm install tevm tevm/contract
   <button on:click={loadStorage} disabled={loading}>
     {loading ? 'Loading...' : 'Load Storage'}
   </button>
-
   {#if storage.size > 0}
     <div class="storage-items">
       {#each [...storage] as [slot, value]}
@@ -358,30 +235,17 @@ npm install tevm tevm/contract
 </div>
 
 <style>
-  .storage {
-    padding: 1rem;
-  }
-
-  .storage-items {
-    margin-top: 1rem;
-  }
-
-  .storage-item {
-    display: flex;
-    gap: 1rem;
-    padding: 0.25rem 0;
-    font-family: monospace;
-  }
-
-  .slot {
-    color: #718096;
-  }
+  .storage { padding: 1rem; }
+  .storage-items { margin-top: 1rem; }
+  .storage-item { display: flex; gap: 1rem; padding: 0.25rem 0; font-family: monospace; }
+  .slot { color: #718096; }
 </style>
 ```
 
 ## Usage
 
-1. Create the project structure:
+Project structure:
+
 ```
 tevm-debugger/
 ├── src/
@@ -394,43 +258,27 @@ tevm-debugger/
 └── package.json
 ```
 
-2. Run the development server:
-```bash
-npm run dev
-```
+Run `npm run dev`, then use the debugger:
 
-3. Use the debugger:
 ```ts
-// Example contract deployment
 import { createImpersonatedTx } from 'tevm/tx'
 
-const bytecode = '0x...' // Your contract bytecode
-const deployTx = createImpersonatedTx({
-  data: bytecode
-})
+const deployTx = createImpersonatedTx({ data: bytecode })
 await vm.runTx({ tx: deployTx })
 
-// Example contract interaction
-const callTx = createImpersonatedTx({
-  to: '0x...',    // Contract address
-  data: '0x...',  // Encoded function call
-})
+const callTx = createImpersonatedTx({ to: '0x...', data: '0x...' })
 await vm.runTx({ tx: callTx })
 ```
 
 ## Customization
 
 ### Adding Transaction History
+
 ```svelte
 <script lang="ts">
   import { writable } from 'svelte/store'
 
-  const transactions = writable<{
-    hash: string
-    to: string
-    data: string
-    status: 'success' | 'error'
-  }[]>([])
+  const transactions = writable<{ hash: string; to: string; data: string; status: 'success' | 'error' }[]>([])
 
   vm.evm.events?.on('afterMessage', (result, next) => {
     transactions.update(txs => [...txs, {
@@ -456,19 +304,16 @@ await vm.runTx({ tx: callTx })
 ```
 
 ### Adding Gas Profiling
+
 ```svelte
 <script lang="ts">
-  const gasProfile = new Map<string, { count: number, totalGas: bigint }>()
+  const gasProfile = new Map<string, { count: number; totalGas: bigint }>()
 
   vm.evm.events?.on('step', (step, next) => {
-    const opName = step.opcode.name
-    const gasCost = BigInt(step.opcode.fee)
-
-    const stats = gasProfile.get(opName) ?? { count: 0, totalGas: 0n }
+    const stats = gasProfile.get(step.opcode.name) ?? { count: 0, totalGas: 0n }
     stats.count++
-    stats.totalGas += gasCost
-    gasProfile.set(opName, stats)
-
+    stats.totalGas += BigInt(step.opcode.fee)
+    gasProfile.set(step.opcode.name, stats)
     next?.()
   })
 </script>
@@ -476,26 +321,17 @@ await vm.runTx({ tx: callTx })
 <div class="gas-profile">
   <h3>Gas Profile</h3>
   <table>
-    <thead>
-      <tr>
-        <th>Opcode</th>
-        <th>Count</th>
-        <th>Total Gas</th>
-      </tr>
-    </thead>
+    <thead><tr><th>Opcode</th><th>Count</th><th>Total Gas</th></tr></thead>
     <tbody>
       {#each [...gasProfile] as [opcode, stats]}
-        <tr>
-          <td>{opcode}</td>
-          <td>{stats.count}</td>
-          <td>{stats.totalGas.toString()}</td>
-        </tr>
+        <tr><td>{opcode}</td><td>{stats.count}</td><td>{stats.totalGas.toString()}</td></tr>
       {/each}
     </tbody>
   </table>
 </div>
 ```
 
-## Related Topics
+## Related
+
 - [EVM Events](../api/evm-events)
 - [Performance Profiler](../advanced/performance-profiler)

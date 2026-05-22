@@ -1,4 +1,4 @@
-import { createTevmNode } from 'tevm'
+import { createTevmNode, PREFUNDED_ACCOUNTS } from 'tevm'
 import { callHandler, getAccountHandler, mineHandler } from 'tevm/actions'
 import { describe, expect, it } from 'vitest'
 
@@ -20,7 +20,7 @@ describe('Architecture Overview Examples', () => {
 			await mineHandler(node)()
 
 			// Test account state reading
-			const accountAddress = '0x1234567890123456789012345678901234567890'
+			const accountAddress = PREFUNDED_ACCOUNTS[0].address
 			const account = await getAccountHandler(node)({
 				address: accountAddress,
 			})

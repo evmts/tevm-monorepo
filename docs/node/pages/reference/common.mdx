@@ -5,9 +5,9 @@ description: "Chain-specific configuration and utilities for Tevm clients"
 
 # @tevm/common
 
-The `@tevm/common` package provides chain-specific configuration and utilities for Tevm clients. It combines viem chain definitions with a ZEVM-backed Common instance that the VM uses for hardfork, EIP, consensus, and gas-parameter lookups.
+Chain-specific configuration. Combines viem chain definitions with a ZEVM-backed `Common` instance the VM uses for hardfork, EIP, consensus, and gas-parameter lookups. Includes custom crypto hooks such as KZG for blob transaction testing.
 
-> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/common/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs) folder.
+Full API: [packages/common/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs).
 
 ## Installation
 
@@ -15,162 +15,78 @@ The `@tevm/common` package provides chain-specific configuration and utilities f
 npm install @tevm/common
 ```
 
-## Overview
-
-The `@tevm/common` package provides:
-- Chain configuration management
-- Hardfork settings and EIP support
-- Consensus algorithm configuration
-- Network-specific settings
-- Extensive chain definitions
-- Custom crypto hooks such as KZG support for blob transaction testing
-
 ## API Reference
 
 ### Enumerations
 
-- [ConsensusAlgorithm](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/enumerations/ConsensusAlgorithm.md) - Supported consensus algorithms
-- [ConsensusType](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/enumerations/ConsensusType.md) - Types of consensus mechanisms
+- [ConsensusAlgorithm](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/enumerations/ConsensusAlgorithm.md)
+- [ConsensusType](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/enumerations/ConsensusType.md)
 
 ### Interfaces
 
-- [CustomCrypto](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/interfaces/CustomCrypto.md) - Custom cryptographic implementations
-- [EvmStateManagerInterface](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/interfaces/EvmStateManagerInterface.md) - EVM state manager interface
-- [StorageDump](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/interfaces/StorageDump.md) - Storage dump format
-- [StorageRange](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/interfaces/StorageRange.md) - Storage range specification
+- [CustomCrypto](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/interfaces/CustomCrypto.md)
+- [EvmStateManagerInterface](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/interfaces/EvmStateManagerInterface.md)
+- [StorageDump](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/interfaces/StorageDump.md)
+- [StorageRange](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/interfaces/StorageRange.md)
 
 ### Type Aliases
 
-- [AccountFields](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/type-aliases/AccountFields.md) - Account field definitions
-- [CliqueConfig](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/type-aliases/CliqueConfig.md) - Clique consensus configuration
-- [Common](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/type-aliases/Common.md) - Main chain configuration type
-- [CommonOptions](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/type-aliases/CommonOptions.md) - Configuration options
-- [Hardfork](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/type-aliases/Hardfork.md) - Supported hardforks
-- [MockKzg](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/type-aliases/MockKzg.md) - Mock KZG implementation
+- [AccountFields](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/type-aliases/AccountFields.md)
+- [CliqueConfig](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/type-aliases/CliqueConfig.md)
+- [Common](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/type-aliases/Common.md)
+- [CommonOptions](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/type-aliases/CommonOptions.md)
+- [Hardfork](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/type-aliases/Hardfork.md)
+- [MockKzg](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/type-aliases/MockKzg.md)
 
 ### Functions
 
-- [createCommon](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/functions/createCommon.md) - Create a new Common instance
-- [createMockKzg](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/functions/createMockKzg.md) - Create a mock KZG implementation
+- [createCommon](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/functions/createCommon.md)
+- [createMockKzg](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/functions/createMockKzg.md)
 
 ### Supported Networks
 
-The package includes configurations for numerous networks, including:
+**Layer 1**: [mainnet](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/mainnet.md), [sepolia](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/sepolia.md), [goerli](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/goerli.md), [holesky](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/holesky.md).
 
-#### Layer 1 Networks
-- [mainnet](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/mainnet.md) - Ethereum Mainnet
-- [sepolia](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/sepolia.md) - Sepolia Testnet
-- [goerli](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/goerli.md) - Goerli Testnet
-- [holesky](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/holesky.md) - Holesky Testnet
+**Layer 2**: [arbitrum](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/arbitrum.md), [optimism](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/optimism.md), [base](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/base.md), [zksync](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/zksync.md), [polygon](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/polygon.md), [polygonZkEvm](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/polygonZkEvm.md).
 
-#### Layer 2 Networks
-- [arbitrum](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/arbitrum.md) - Arbitrum One
-- [optimism](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/optimism.md) - Optimism
-- [base](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/base.md) - Base
-- [zksync](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/zksync.md) - zkSync Era
-- [polygon](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/polygon.md) - Polygon PoS
-- [polygonZkEvm](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/polygonZkEvm.md) - Polygon zkEVM
+**Alternative**: [bsc](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/bsc.md), [avalanche](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/avalanche.md), [fantom](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/fantom.md), [gnosis](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/gnosis.md).
 
-#### Alternative Networks
-- [bsc](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/bsc.md) - BNB Smart Chain
-- [avalanche](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/avalanche.md) - Avalanche C-Chain
-- [fantom](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/fantom.md) - Fantom Opera
-- [gnosis](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/gnosis.md) - Gnosis Chain
-
-#### Development Networks
-- [hardhat](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/hardhat.md) - Hardhat Network
-- [foundry](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/foundry.md) - Foundry Network
-- [anvil](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/anvil.md) - Anvil Network
-- [localhost](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/localhost.md) - Local Network
+**Dev**: [hardhat](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/hardhat.md), [foundry](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/foundry.md), [anvil](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/anvil.md), [localhost](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/variables/localhost.md).
 
 ## Usage Examples
 
-### Basic Configuration
-
 ```typescript
-import { createCommon } from '@tevm/common'
-import { mainnet } from '@tevm/common'
+import { createCommon, createMockKzg, mainnet, optimism, arbitrum } from '@tevm/common'
 
-const common = createCommon({
-  ...mainnet,
-  hardfork: 'shanghai'
-})
-```
+const common = createCommon({ ...mainnet, hardfork: 'shanghai' })
 
-### Custom Chain Configuration
-
-```typescript
-import { createCommon } from '@tevm/common'
-
-const common = createCommon({
+const custom = createCommon({
   name: 'Custom Chain',
   id: 1337,
   defaultHardfork: 'shanghai',
   consensus: {
     type: 'poa',
     algorithm: 'clique',
-    clique: {
-      period: 15,
-      epoch: 30000
-    }
-  }
+    clique: { period: 15, epoch: 30000 },
+  },
 })
-```
 
-The returned `Common` object is a viem chain object plus:
-
-- `ethjsCommon` - the ZEVM-backed Common instance used internally by the VM.
-- `copy()` - creates an isolated copy for a new VM or client.
-
-### Using with Custom Crypto
-
-```typescript
-import { createCommon, createMockKzg } from '@tevm/common'
-
-const common = createCommon({
+const withKzg = createCommon({
   ...mainnet,
-  customCrypto: {
-    kzg: createMockKzg()
-  }
-})
-```
-
-### Network-Specific Configuration
-
-```typescript
-import { createCommon, optimism, arbitrum } from '@tevm/common'
-
-// Optimism configuration
-const optimismCommon = createCommon({
-  ...optimism,
-  hardfork: 'bedrock'
+  customCrypto: { kzg: createMockKzg() },
 })
 
-// Arbitrum configuration
-const arbitrumCommon = createCommon({
-  ...arbitrum,
-  hardfork: 'nitro'
-})
+const optimismCommon = createCommon({ ...optimism, hardfork: 'bedrock' })
+const arbitrumCommon = createCommon({ ...arbitrum, hardfork: 'nitro' })
 ```
 
-## Error Handling
+The returned `Common` is a viem chain object plus:
 
-The package throws specific errors for invalid configurations:
-
-```typescript
-try {
-  const common = createCommon({
-    chainId: -1 // Invalid chain ID
-  })
-} catch (error) {
-  if (error.code === 'INVALID_CHAIN_ID') {
-    console.error('Invalid chain ID provided')
-  }
-}
-```
+- `ethjsCommon` - ZEVM-backed Common instance used internally by the VM.
+- `copy()` - isolated copy for a new VM or client.
 
 ## See Also
 
 - [VM & Submodules](../api/vm-and-submodules)
-- [Viem Chains Documentation](https://viem.sh/docs/chains/introduction.html)
+- [Viem Chains](https://viem.sh/docs/chains/introduction.html)
 - [Full API Reference](https://github.com/evmts/tevm-monorepo/tree/main/packages/common/docs/globals.md)

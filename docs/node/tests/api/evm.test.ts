@@ -62,8 +62,9 @@ describe('@tevm/evm', () => {
 				}),
 			})
 
-			evm.addCustomPrecompile(customPrecompile.precompile())
-			expect(evm.getPrecompile(createAddress('0xf2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2f2'))).toBeDefined()
+			const precompile = customPrecompile.precompile()
+			evm.addCustomPrecompile(precompile)
+			expect(evm.getPrecompile(precompile.address)).toBeDefined()
 		})
 	})
 

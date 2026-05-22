@@ -12,9 +12,15 @@ describe('Create Tevm Node', () => {
 
 	describe('Fork Configuration', () => {
 		it('should create a forked node', async () => {
+			const rpcUrl = process.env.MAINNET_RPC_URL
+			if (!rpcUrl) {
+				expect(rpcUrl).toBeUndefined()
+				return
+			}
+
 			const node = createTevmNode({
 				fork: {
-					transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+					transport: http(rpcUrl)({}),
 					blockTag: 17_000_000n,
 				},
 			})
@@ -99,9 +105,15 @@ describe('Create Tevm Node', () => {
 		})
 
 		it('should create production forked node', async () => {
+			const rpcUrl = process.env.MAINNET_RPC_URL
+			if (!rpcUrl) {
+				expect(rpcUrl).toBeUndefined()
+				return
+			}
+
 			const prodNode = createTevmNode({
 				fork: {
-					transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+					transport: http(rpcUrl)({}),
 					blockTag: 'latest',
 				},
 				miningConfig: { type: 'interval', interval: 12000 },

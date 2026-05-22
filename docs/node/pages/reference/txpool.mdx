@@ -1,6 +1,8 @@
 # @tevm/txpool
 
-The `@tevm/txpool` package exposes Tevm's transaction pool facade. It is backed by `@evmts/zevm/txpool` and adds Tevm-specific fee classification for fee-market-shaped transactions, including EIP-7702 and impersonated transactions.
+Transaction pool facade backed by `@evmts/zevm/txpool`. Adds Tevm-specific fee classification for fee-market-shaped transactions, including EIP-7702 and impersonated transactions.
+
+Normally managed by `TevmNode`, `MemoryClient`, and the JSON-RPC layer. Use directly when building custom VM tooling or low-level pending-tx control.
 
 ## Installation
 
@@ -8,17 +10,11 @@ The `@tevm/txpool` package exposes Tevm's transaction pool facade. It is backed 
 npm install @tevm/txpool
 ```
 
-## Overview
-
-The transaction pool stores pending transactions before they are mined. It tracks transactions by sender, nonce, and hash; validates sender nonce and balance against a VM copy; orders transactions by effective gas price; and cleans up stale or already-mined transactions.
-
-Tevm normally manages this for you through `TevmNode`, `MemoryClient`, and the JSON-RPC layer. Use `@tevm/txpool` directly when you are building custom VM tooling or need low-level pending transaction control.
-
 ## API
 
 ### TxPool
 
-[`TxPool`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts) extends the ZEVM txpool implementation.
+[`TxPool`](https://github.com/evmts/tevm-monorepo/blob/main/packages/txpool/src/TxPool.ts) extends the ZEVM txpool.
 
 ```ts
 import { TxPool, type TxPoolOptions } from '@tevm/txpool'
@@ -40,47 +36,40 @@ type TxPoolOptions = {
 }
 ```
 
-- `vm` - VM facade with `blockchain`, `stateManager`, and `deepCopy()` support.
-- `maxSize` - Maximum number of transactions held by the pool.
-- `maxPerSender` - Maximum number of transactions held for one sender.
+- `vm` - VM facade with `blockchain`, `stateManager`, and `deepCopy()`.
+- `maxSize` - max transactions in the pool.
+- `maxPerSender` - max transactions per sender.
 
 ### Methods
 
-- `open()` / `close()` - Open or clear the pool.
-- `start()` / `stop()` - Start or stop background cleanup.
-- `add(tx, requireSignature?, skipBalance?)` - Validate and add a transaction.
-- `addUnverified(tx)` - Add a transaction without validation.
-- `getByHash(hashOrHashes)` - Look up one transaction by hex hash, or many by byte hashes.
-- `removeByHash(hash)` - Remove a transaction from all pool indexes.
-- `txsByPriceAndNonce({ baseFee, allowedBlobs })` - Return transactions ordered for block building.
-- `cleanup()` - Remove stale transactions and synchronize auxiliary indexes.
-- `deepCopy(options)` - Create a copy with another VM/options object.
+- `open()` / `close()` - open or clear the pool.
+- `start()` / `stop()` - background cleanup.
+- `add(tx, requireSignature?, skipBalance?)` - validate and add.
+- `addUnverified(tx)` - add without validation.
+- `getByHash(hashOrHashes)` - look up by hex hash, or many by byte hashes.
+- `removeByHash(hash)` - remove from all indexes.
+- `txsByPriceAndNonce({ baseFee, allowedBlobs })` - ordered for block building.
+- `cleanup()` - drop stale txs and sync indexes.
+- `deepCopy(options)` - copy with another VM/options.
 
 ## JSON-RPC
 
-When used through Tevm's JSON-RPC layer, txpool state is exposed through:
+Exposed via:
 
 - `txpool_content`
 - `txpool_contentFrom`
 - `txpool_inspect`
 - `txpool_status`
 
-Development-node methods such as `anvil_impersonateAccount`, `tevm_impersonateAccount`, and `evm_mine` can all interact with pending transactions managed by the same node.
+Dev methods (`anvil_impersonateAccount`, `tevm_impersonateAccount`, `evm_mine`) interact with the same pending state.
 
 ## Transaction Support
 
-The pool accepts ZEVM transaction objects and Tevm impersonated transactions, including:
-
-- Legacy transactions
-- EIP-2930 access-list transactions
-- EIP-1559 fee-market transactions
-- EIP-4844 blob transactions
-- EIP-7702 EOA-code transactions
-- Tevm impersonated EIP-1559-shaped transactions
+Legacy, EIP-2930, EIP-1559, EIP-4844, EIP-7702, and Tevm impersonated EIP-1559-shaped transactions.
 
 ## Related Packages
 
 - [@tevm/vm](./vm) - VM execution facade
-- [@tevm/tx](./tx) - Transaction constructors and helpers
-- [@tevm/common](./common) - Chain and hardfork configuration
-- [JSON-RPC](../api/json-rpc) - RPC namespace support
+- [@tevm/tx](./tx) - transaction constructors and helpers
+- [@tevm/common](./common) - chain and hardfork configuration
+- [JSON-RPC](../api/json-rpc)

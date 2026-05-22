@@ -8,21 +8,24 @@ authors:
 
 # Using with Ethers.js v6
 
-Tevm works with Ethers.js through Tevm's EIP-1193 provider interface. Use Tevm for local chain control, state setup, and mining, then use ethers for providers, wallets, and contract instances.
+Tevm works with Ethers.js through Tevm's EIP-1193 provider interface. Use Tevm for local chain control, state setup, and mining; use ethers for providers, wallets, and contract instances.
 
 ## Install
 
-```bash
+:::code-group
+```bash [npm]
 npm install tevm ethers
 ```
-
-Using another package manager:
-
-```bash
+```bash [pnpm]
 pnpm add tevm ethers
+```
+```bash [yarn]
 yarn add tevm ethers
+```
+```bash [bun]
 bun add tevm ethers
 ```
+:::
 
 ## Create a Provider
 
@@ -38,28 +41,22 @@ client.transport.tevm.extend(requestEip1193())
 await client.tevmReady()
 
 const provider = new BrowserProvider(client.transport.tevm, undefined, {
-  // Ethers caches JSON-RPC reads briefly by default. Disable that cache for
+  // Ethers caches JSON-RPC reads briefly by default. Disable for
   // deterministic local tests where you manually mine blocks.
   cacheTimeout: -1,
 })
 
-const blockNumber = await provider.getBlockNumber()
-console.log(`Connected to block ${blockNumber}`)
+console.log(`Connected to block ${await provider.getBlockNumber()}`)
 ```
 
 ## Fund a Wallet
-
-Use a normal ethers wallet, then fund it directly with Tevm's test actions.
 
 ```ts
 import { Wallet, formatEther, parseEther } from 'ethers'
 
 const signer = Wallet.createRandom().connect(provider)
 
-await client.setBalance({
-  address: signer.address,
-  value: parseEther('10'),
-})
+await client.setBalance({ address: signer.address, value: parseEther('10') })
 
 const balance = await provider.getBalance(signer.address)
 console.log(`Wallet balance: ${formatEther(balance)} ETH`)
@@ -67,7 +64,7 @@ console.log(`Wallet balance: ${formatEther(balance)} ETH`)
 
 ## Deploy and Call a Contract
 
-This example deploys a small compiled counter contract, mines the deployment, then calls it through an ethers `Contract` instance.
+Deploys a small compiled counter contract, mines the deployment, then calls it through an ethers `Contract` instance.
 
 ```ts
 import { ContractFactory } from 'ethers'
@@ -114,15 +111,10 @@ const client = createMemoryClient()
 client.transport.tevm.extend(requestEip1193())
 await client.tevmReady()
 
-const provider = new BrowserProvider(client.transport.tevm, undefined, {
-  cacheTimeout: -1,
-})
+const provider = new BrowserProvider(client.transport.tevm, undefined, { cacheTimeout: -1 })
 
 const signer = Wallet.createRandom().connect(provider)
-await client.setBalance({
-  address: signer.address,
-  value: parseEther('10'),
-})
+await client.setBalance({ address: signer.address, value: parseEther('10') })
 
 console.log(`Wallet balance: ${formatEther(await provider.getBalance(signer.address))} ETH`)
 
@@ -136,7 +128,6 @@ const counterBytecode =
 
 const factory = new ContractFactory(counterAbi, counterBytecode, signer)
 const deployment = await factory.deploy()
-
 await client.mine({ blocks: 1 })
 
 const counter = await deployment.waitForDeployment()

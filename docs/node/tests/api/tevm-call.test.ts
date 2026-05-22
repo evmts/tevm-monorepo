@@ -1,6 +1,7 @@
 import { createTevmNode, PREFUNDED_ACCOUNTS } from 'tevm'
 import { callHandler } from 'tevm/actions'
-import { decodeFunctionResult, encodeFunctionData } from 'viem'
+import { ERC20, SimpleContract } from 'tevm/contract'
+import { decodeFunctionResult, encodeDeployData, encodeFunctionData } from 'viem'
 import { describe, expect, it } from 'vitest'
 
 describe('Call API Documentation Examples', () => {
@@ -38,6 +39,7 @@ describe('Call API Documentation Examples', () => {
 			const result = await callHandler(node)({
 				to: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
 				from: PREFUNDED_ACCOUNTS[0].address,
+				deployedBytecode: ERC20.deployedBytecode,
 				data: encodeFunctionData({
 					abi,
 					functionName: 'balanceOf',
@@ -59,14 +61,10 @@ describe('Call API Documentation Examples', () => {
 		it('should deploy a contract', async () => {
 			const node = createTevmNode()
 
-			// Simple contract bytecode (returns 42)
-			const bytecode =
-				'0x6080604052348015600f57600080fd5b50602a60808190526040516100929190810190830190829052565b604051601f19601f830116810160405280815292829060208401853c80601f830112156100c057600080fd5b505b50505050610047806100d36000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c80632096525514602d575b600080fd5b60336047565b604051603e91906059565b60405180910390f35b602a81565b6000819050919050565b6053816040565b82525050565b6000602082019050606c6000830184604c565b9291505056fea2646970667358221220f1c69e125f1a9f0c5e22a6fb4f9cb134c5b43496922c563e13731844a6e4d12d64736f6c63430008130033'
-
 			const result = await callHandler(node)({
 				from: PREFUNDED_ACCOUNTS[0].address,
-				data: bytecode,
-				createTransaction: true,
+				data: encodeDeployData(SimpleContract.deploy(2n)),
+				addToBlockchain: true,
 			})
 
 			expect(result).toBeDefined()
@@ -86,7 +84,6 @@ describe('Call API Documentation Examples', () => {
 					[PREFUNDED_ACCOUNTS[0].address]: {
 						balance: 4096n, // 0x1000 as bigint
 						nonce: 2n,
-						code: '0x',
 						state: {},
 					},
 				},

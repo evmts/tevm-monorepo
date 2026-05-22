@@ -1,6 +1,6 @@
 import { createAddress } from 'tevm/address'
 import { createStateManager } from 'tevm/state'
-import { hexToBytes } from 'tevm/utils'
+import { createAccount, hexToBytes } from 'tevm/utils'
 import { describe, expect, it } from 'vitest'
 
 describe('@tevm/state', () => {
@@ -22,61 +22,92 @@ describe('@tevm/state', () => {
 	describe('Account Management', () => {
 		it('should manage account state', async () => {
 			const stateManager = createStateManager({})
+			await stateManager.ready()
 			const address = createAddress('0x1234567890123456789012345678901234567890')
 
-			// Get account state
+			// Missing accounts return undefined
+			expect(await stateManager.getAccount(address)).toBeUndefined()
+
+			// Create or replace account state
+			await stateManager.putAccount(
+				address,
+				createAccount({
+					nonce: 0n,
+					balance: 100n,
+				}),
+			)
+
 			const account = await stateManager.getAccount(address)
-			expect(account).toBeDefined()
-
-			// Update account
-			await stateManager.putAccount(address, account)
-
-			// Delete account
-			await stateManager.deleteAccount(address)
+			expect(account?.balance).toBe(100n)
 
 			// Modify specific account fields
 			await stateManager.modifyAccountFields(address, {
 				nonce: 1n,
-				balance: 100n,
+				balance: 200n,
 			})
+
+			const modifiedAccount = await stateManager.getAccount(address)
+			expect(modifiedAccount?.nonce).toBe(1n)
+			expect(modifiedAccount?.balance).toBe(200n)
+
+			// Delete account
+			await stateManager.deleteAccount(address)
+			expect(await stateManager.getAccount(address)).toBeUndefined()
 		})
 	})
 
 	describe('Contract Management', () => {
 		it('should manage contract code and storage', async () => {
 			const stateManager = createStateManager({})
+			await stateManager.ready()
 			const address = createAddress('0x1234567890123456789012345678901234567890')
 			const key = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001')
 			const value = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002')
 			const code = new Uint8Array([1, 2, 3])
 
 			// Get and set contract code
-			await stateManager.putContractCode(address, code)
-			const retrievedCode = await stateManager.getContractCode(address)
-			expect(retrievedCode).toBeDefined()
+			await stateManager.putCode(address, code)
+			const retrievedCode = await stateManager.getCode(address)
+			expect(retrievedCode).toEqual(code)
 
 			// Get and set contract storage
-			await stateManager.putContractStorage(address, key, value)
-			const retrievedValue = await stateManager.getContractStorage(address, key)
-			expect(retrievedValue).toBeDefined()
+			await stateManager.putStorage(address, key, value)
+			const retrievedValue = await stateManager.getStorage(address, key)
+			expect(retrievedValue).toEqual(new Uint8Array([2]))
 
 			// Clear contract storage
-			await stateManager.clearContractStorage(address)
+			await stateManager.clearStorage(address)
+			expect(await stateManager.getStorage(address, key)).toEqual(new Uint8Array())
 		})
 	})
 
 	describe('State Management', () => {
 		it('should manage state checkpoints and roots', async () => {
 			const stateManager = createStateManager({})
+			await stateManager.ready()
+			const address = createAddress('0x1234567890123456789012345678901234567890')
+
+			await stateManager.putAccount(address, createAccount({ balance: 100n }))
 
 			// Create checkpoint
 			await stateManager.checkpoint()
 
-			// Commit changes
-			await stateManager.commit()
+			await stateManager.modifyAccountFields(address, {
+				balance: 200n,
+			})
 
 			// Revert to last checkpoint
 			await stateManager.revert()
+			expect((await stateManager.getAccount(address))?.balance).toBe(100n)
+
+			await stateManager.checkpoint()
+			await stateManager.modifyAccountFields(address, {
+				balance: 300n,
+			})
+
+			// Commit changes
+			await stateManager.commit()
+			expect((await stateManager.getAccount(address))?.balance).toBe(300n)
 
 			// Get state root
 			const root = await stateManager.getStateRoot()
@@ -94,8 +125,13 @@ describe('@tevm/state', () => {
 	describe('State Dumping and Proofs', () => {
 		it('should dump state and generate proofs', async () => {
 			const stateManager = createStateManager({})
+			await stateManager.ready()
 			const address = createAddress('0x1234567890123456789012345678901234567890')
-			const storageKeys = [hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001')]
+			const storageKey = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001')
+			const storageKeys = [storageKey]
+
+			await stateManager.putCode(address, new Uint8Array([1]))
+			await stateManager.putStorage(address, storageKey, new Uint8Array([1]))
 
 			// Dump canonical genesis state
 			const state = await stateManager.dumpCanonicalGenesis()
@@ -106,18 +142,18 @@ describe('@tevm/state', () => {
 			expect(storage).toBeDefined()
 
 			// Dump storage range
-			const range = await stateManager.dumpStorageRange(address, 4n, 10)
-			expect(range).toBeDefined()
+			const range = await stateManager.dumpStorageRange(address, 0n, 10)
+			expect(range.storage).toBeDefined()
 
-			// Get merkle proof
-			const proof = await stateManager.getProof(address, storageKeys)
-			expect(proof).toBeDefined()
+			// Merkle proofs currently require a forked state manager
+			await expect(stateManager.getProof(address, storageKeys)).rejects.toThrow(/fork mode/)
 		})
 	})
 
 	describe('Cache Management and Copying', () => {
 		it('should manage caches and create copies', async () => {
 			const stateManager = createStateManager({})
+			await stateManager.ready()
 
 			// Clear all caches
 			stateManager.clearCaches()

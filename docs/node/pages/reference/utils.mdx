@@ -5,22 +5,18 @@ description: Core utility functions such as createAddress, createContractAddress
 
 # Utilities & Addresses
 
-Tevm exports a set of lightweight utility functions and classes. Many of these build upon lower-level packages like [`tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils), [`@evmts/zevm`](https://github.com/evmts/zevm), and [`viem`](https://viem.sh) while standardizing usage for Tevm Node. Below are the most commonly used.
+Lightweight utility functions and classes built on [`tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils), [`@evmts/zevm`](https://github.com/evmts/zevm), and [`viem`](https://viem.sh).
 
 ## createAddress
 
-Creates an [Ethereum address](https://ethereum.org/en/developers/docs/accounts/#account-creation) from various input formats:
+Create an Ethereum address from various inputs.
 
 ```ts
 import { createAddress } from 'tevm/address'
 
-// Creates a TEVM-style Address object from various input forms
-let addr = createAddress(`0x${"00".repeat(20)}`)
-// from a hex string
-addr = createAddress(420n)
-// from a bigint
-addr = createAddress(new Uint8Array(20))
-// from a 20-byte array
+createAddress(`0x${'00'.repeat(20)}`)
+createAddress(420n)
+createAddress(new Uint8Array(20))
 ```
 
 ### Signature
@@ -31,70 +27,53 @@ declare function createAddress(
 ): Address
 ```
 
-### Behavior & Notes
-
-- Accepts various input types: [`0x`-prefixed hex strings](https://ethereum.org/en/developers/docs/data-structures-and-encoding/hex/), unprefixed hex, numbers, bigints, `Uint8Array`s, or `EthjsAddress`.
-- Throws `InvalidAddressError` if it can't parse a valid 20-byte address from the input.
+Accepts `0x`-prefixed hex, unprefixed hex, numbers, bigints, `Uint8Array`s, or `EthjsAddress`. Throws `InvalidAddressError` on invalid input.
 
 ## Address Class
 
-A thin wrapper around the ZEVM-compatible `EthjsAddress` utility export offering a simple, consistent shape for Tevm Node. Created by `createAddress` or by constructing your own:
+Thin wrapper around `EthjsAddress`.
 
 ```ts
 import { Address } from 'tevm/address'
 
 const a = new Address(Uint8Array.from([ /* 20 bytes */ ]))
-console.log(a.bytes)  // a raw 20-byte address
-console.log(a.toString()) // 0x....
+a.bytes      // raw 20-byte address
+a.toString() // '0x...'
 ```
 
 ## createContractAddress
 
-Creates a contract address following [EIP-1014](https://eips.ethereum.org/EIPS/eip-1014):
+CREATE address per [EIP-1014](https://eips.ethereum.org/EIPS/eip-1014):
 
 ```ts
 import { createContractAddress } from 'tevm/address'
 
-// from an existing address + nonce, produce the CREATE address
-const from = createAddress("0x1111...1111")
-const nonce = 1n
-const contractAddr = createContractAddress(from, nonce)
+const contractAddr = createContractAddress(createAddress('0x1111...1111'), 1n)
 ```
 
-### Usage
-1. Follows standard Ethereum's [`keccak256(rlp([senderAddress, nonce]))[-20..]`](https://ethereum.org/en/developers/docs/smart-contracts/deploying/#how-to-deploy-a-smart-contract).
-2. Ideal for simulating `CREATE` addresses in test or dev flows.
-
-### Error Handling
-- Throws `InvalidAddressError` if the `from` address is invalid.
+Computes `keccak256(rlp([senderAddress, nonce]))[-20..]`. Throws `InvalidAddressError` if `from` is invalid.
 
 ## Common Errors
 
-- **InvalidAddressError**
-  Thrown when a string/bytes input fails to parse as a valid 20-byte address.
+- `InvalidAddressError` - bytes/string can't parse as a 20-byte address.
+- `UnreachableCodeError` - unexpected code path; usually wrapped into a more descriptive error.
 
-- **UnreachableCodeError**
-  Thrown internally if a code path was unexpectedly reached. Generally wrapped into a more descriptive error.
+## Other Re-exports
 
-## Other Handy Utilities
+Lower-level helpers from [`tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils), ZEVM, or [`viem`](https://viem.sh):
 
-Some additional lower-level utility re-exports from [`tevm/utils`](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils), ZEVM, or [`viem`](https://viem.sh):
+- `hexToBytes(hex)` - hex to raw bytes (with optional size checks).
+- `keccak256(data, 'bytes' | 'hex')` - keccak256 hasher.
+- `encodeFunctionData(...)`, `toRlp(...)` - ABI/RLP encoders.
+- EIP-7702 helpers: `eoaCode7702SignAuthorization`, `eoaCode7702RecoverAuthority`, and authorization-list encoders.
 
-- `hexToBytes(hex: string): Uint8Array`
-  Convert a hex string to raw bytes (with optional size checks).
-- `keccak256(data: Uint8Array | HexString, 'bytes' | 'hex')`
-  A standard [keccak256](https://ethereum.org/en/developers/docs/smart-contracts/security/#keccak256-and-sha-3) hasher.
-- `encodeFunctionData(...)`, `toRlp(...)`, etc.
-  Various encoding helpers used by Tevm Node internally.
-- EIP-7702 helpers such as `eoaCode7702SignAuthorization`, `eoaCode7702RecoverAuthority`, and authorization-list encoders.
-
-> **Tip:** If you are building higher-level code in the browser or Node, you may prefer [`viem`](https://viem.sh)'s standardized utilities for bytes conversions, hashing, and ABIs. Tevm re-exports many of these for convenience.
+:::tip
+Prefer [`viem`](https://viem.sh) utilities for bytes conversion, hashing, and ABIs in browser/Node code. Tevm re-exports many for convenience.
+:::
 
 # @tevm/utils
 
-> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/utils/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils/docs) folder.
-
-The `@tevm/utils` package provides a comprehensive collection of utility functions and types for working with Ethereum data structures, encoding/decoding, and common operations. It combines ZEVM-backed primitives, viem utilities, and Tevm-specific helpers.
+Full API: [packages/utils/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/utils/docs). Combines ZEVM primitives, viem utilities, and Tevm helpers.
 
 ## Installation
 
@@ -104,9 +83,7 @@ npm install @tevm/utils
 
 ## Main Components
 
-### Data Types and Encoding
-
-#### Hex and Bytes Conversion
+### Hex and Bytes Conversion
 
 ```typescript
 import {
@@ -118,77 +95,46 @@ import {
   hexToNumber,
   numberToHex,
   stringToHex,
-  hexToString
+  hexToString,
 } from '@tevm/utils'
 
-// Convert bytes to hex
-const hex = bytesToHex(new Uint8Array([1, 164])) // '0x01a4'
-
-// Convert hex to bytes
-const bytes = hexToBytes('0x01a4') // Uint8Array([1, 164])
-
-// Convert to/from numbers
-const num = hexToNumber('0x01a4') // 420
-const hex2 = numberToHex(420) // '0x01a4'
-
-// String conversion
-const str = hexToString('0x48656c6c6f') // 'Hello'
-const hex3 = stringToHex('Hello') // '0x48656c6c6f'
+bytesToHex(new Uint8Array([1, 164])) // '0x01a4'
+hexToBytes('0x01a4')                  // Uint8Array([1, 164])
+hexToNumber('0x01a4')                 // 420
+numberToHex(420)                      // '0x1a4'
+hexToString('0x48656c6c6f')           // 'Hello'
+stringToHex('Hello')                  // '0x48656c6c6f'
 ```
 
-#### Type Checking
+### Type Checking
 
 ```typescript
 import { isHex, isBytes, isAddress } from '@tevm/utils'
 
-isHex('0x123') // true
-isBytes(new Uint8Array()) // true
-isAddress('0x123...') // true
+isHex('0x123')
+isBytes(new Uint8Array())
+isAddress('0x123...')
 ```
 
-### Ethereum Specific
-
-#### Unit Conversion
+### Unit Conversion
 
 ```typescript
-import {
-  formatEther,
-  parseEther,
-  formatGwei,
-  parseGwei
-} from '@tevm/utils'
+import { formatEther, parseEther, formatGwei, parseGwei } from '@tevm/utils'
 
-// Convert wei to ether
-formatEther(1000000000000000000n) // '1.0'
-
-// Convert ether to wei
-parseEther('1.0') // 1000000000000000000n
-
-// Work with gwei
-formatGwei(1000000000n) // '1.0'
-parseGwei('1.0') // 1000000000n
+formatEther(1000000000000000000n) // '1'
+parseEther('1.0')                  // 1000000000000000000n
+formatGwei(1000000000n)            // '1'
+parseGwei('1.0')                   // 1000000000n
 ```
 
-#### Cryptographic Functions
+### Cryptography
 
 ```typescript
-import {
-  keccak256,
-  ecrecover,
-  ecsign,
-  randomBytes
-} from '@tevm/utils'
+import { keccak256, ecrecover, ecsign, randomBytes } from '@tevm/utils'
 
-// Generate keccak256 hash
 const hash = keccak256('0x1234')
-
-// Sign data
 const signature = ecsign(messageHash, privateKey)
-
-// Recover address from signature
 const address = ecrecover(messageHash, v, r, s)
-
-// Generate random bytes
 const random = randomBytes(32)
 ```
 
@@ -201,39 +147,20 @@ import {
   encodeFunctionData,
   decodeFunctionData,
   encodeEventTopics,
-  decodeEventLog
+  decodeEventLog,
 } from '@tevm/utils'
 
-// Encode function data
-const data = encodeFunctionData({
-  abi: [...],
-  functionName: 'transfer',
-  args: [address, amount]
-})
-
-// Decode function data
-const result = decodeFunctionData({
-  abi: [...],
-  data: '0x...'
-})
-
-// Work with events
-const topics = encodeEventTopics({
-  abi: [...],
-  eventName: 'Transfer',
-  args: [from, to, null]
-})
+const data = encodeFunctionData({ abi: [...], functionName: 'transfer', args: [address, amount] })
+const result = decodeFunctionData({ abi: [...], data: '0x...' })
+const topics = encodeEventTopics({ abi: [...], eventName: 'Transfer', args: [from, to, null] })
 ```
 
-### RLP Encoding/Decoding
+### RLP
 
 ```typescript
 import { toRlp, fromRlp } from '@tevm/utils'
 
-// Encode to RLP
 const rlp = toRlp(['0x123', '0x456'])
-
-// Decode from RLP
 const decoded = fromRlp(rlp)
 ```
 
@@ -242,12 +169,8 @@ const decoded = fromRlp(rlp)
 ```typescript
 import { createMemoryDb } from '@tevm/utils'
 
-// Create an in-memory database
 const db = createMemoryDb()
-
-// Initialize with existing data
-const initialData = new Map()
-const db2 = createMemoryDb(initialData)
+const db2 = createMemoryDb(new Map())
 ```
 
 ### Event Emitter
@@ -256,98 +179,63 @@ const db2 = createMemoryDb(initialData)
 import { AsyncEventEmitter } from '@tevm/utils'
 
 const emitter = new AsyncEventEmitter()
-
-// Add listener
-emitter.on('event', async (data) => {
-  // Handle event
-})
-
-// Emit event
+emitter.on('event', async (data) => { /* ... */ })
 await emitter.emit('event', data)
 ```
 
 ## Types
 
-### Basic Types
+### Basic
 
 ```typescript
-import type {
-  Address,
-  Hex,
-  BlockTag,
-  BlockNumber,
-  BytesLike,
-  BigIntLike
-} from '@tevm/utils'
+import type { Address, Hex, BlockTag, BlockNumber, BytesLike, BigIntLike } from '@tevm/utils'
 
-// Example type usage
 const address: Address = '0x...'
 const hex: Hex = '0x...'
 const blockTag: BlockTag = 'latest'
 ```
 
-### ABI Types
+### ABI
 
 ```typescript
-import type {
-  Abi,
-  AbiFunction,
-  AbiEvent,
-  AbiConstructor,
-  ParseAbi,
-  FormatAbi
-} from '@tevm/utils'
+import type { Abi, AbiFunction, AbiEvent, AbiConstructor, ParseAbi, FormatAbi } from '@tevm/utils'
 
-// Parse ABI
 type ParsedAbi = ParseAbi<typeof abiString>
-
-// Format ABI
 type FormattedAbi = FormatAbi<typeof parsedAbi>
 ```
 
-### Contract Types
+### Contract
 
 ```typescript
 import type {
   ContractFunctionName,
   ContractConstructorArgs,
   ExtractAbiFunction,
-  ExtractAbiEvent
+  ExtractAbiEvent,
 } from '@tevm/utils'
 
-// Extract function from ABI
 type TransferFunction = ExtractAbiFunction<typeof abi, 'transfer'>
-
-// Extract event from ABI
 type TransferEvent = ExtractAbiEvent<typeof abi, 'Transfer'>
 ```
 
 ## Constants
 
 ```typescript
-import {
-  GWEI_TO_WEI,
-  KECCAK256_RLP,
-  KECCAK256_RLP_ARRAY
-} from '@tevm/utils'
+import { GWEI_TO_WEI, KECCAK256_RLP, KECCAK256_RLP_ARRAY } from '@tevm/utils'
 
-// Common conversion factors and constants
-console.log(GWEI_TO_WEI) // 1000000000n
+GWEI_TO_WEI // 1000000000n
 ```
 
 ## Error Handling
 
-The package uses the `@tevm/errors` package for standardized error handling:
-
 ```typescript
 import { invariant } from '@tevm/utils'
 
-// Assert conditions
 invariant(condition, 'Error message')
 ```
 
 ## See Also
 
-- [Viem Documentation](https://viem.sh/docs/utilities/fromBytes)
+- [Viem](https://viem.sh/docs/utilities/fromBytes)
 - [ZEVM](https://github.com/evmts/zevm)
 - [ABI Specification](https://docs.soliditylang.org/en/latest/abi-spec.html)

@@ -5,27 +5,27 @@ description: Overview of the internal EVM, blockchain, state, receipts, transact
 
 # VM & Submodules
 
-[Tevm Node](https://github.com/evmts/tevm-monorepo) is built from small submodules that can be used together as an in-memory Ethereum node or directly by advanced users. The high-level APIs are `createMemoryClient`, viem actions, and JSON-RPC; these modules are the lower-level pieces under those APIs.
+[Tevm Node](https://github.com/evmts/tevm-monorepo) is built from submodules usable together as an in-memory Ethereum node or independently. High-level APIs (`createMemoryClient`, viem actions, JSON-RPC) sit on top of these.
 
 ## Overview
 
-The main runtime submodules are:
+Runtime submodules:
 
-1. **VM** - Coordinates transaction execution, block building, state changes, receipts, and event hooks.
-2. **EVM** - Runs EVM bytecode through Tevm's `@evmts/zevm/evm` facade.
-3. **Blockchain** - Stores local blocks, resolves forked blocks, and tracks canonical heads.
-4. **StateManager** - Manages account state, contract code, storage, snapshots, and fork-backed reads.
-5. **TxPool** - Stores and orders pending transactions, including EIP-4844 and EIP-7702-shaped transactions.
-6. **ReceiptsManager** - Stores receipts and logs for JSON-RPC queries, filters, and subscriptions.
-7. **Common, RLP, Trie, Tx, and Utils** - Tevm facades over ZEVM-compatible primitives used by the VM.
+1. **VM** - Coordinates transaction execution, block building, state changes, receipts, event hooks.
+2. **EVM** - Runs EVM bytecode via `@evmts/zevm/evm`.
+3. **Blockchain** - Local block storage, forked block resolution, canonical heads.
+4. **StateManager** - Accounts, code, storage, snapshots, fork-backed reads.
+5. **TxPool** - Pending transactions including EIP-4844 and EIP-7702 shapes.
+6. **ReceiptsManager** - Receipts and logs for JSON-RPC queries, filters, subscriptions.
+7. **Common, RLP, Trie, Tx, Utils** - Tevm facades over ZEVM-compatible primitives.
 
 ## ZEVM Backing
 
-Tevm migrated its low-level EVM, transaction, receipt, txpool, common, RLP, trie, and utility primitives to `@evmts/zevm`. Tevm keeps its own public package boundaries and viem-style ergonomics, but current low-level docs should be read as Tevm facades over ZEVM-backed primitives rather than as wrappers around the older runtime.
+Tevm migrated its low-level EVM, transaction, receipt, txpool, common, RLP, trie, and utility primitives to `@evmts/zevm`. Tevm retains its own public package boundaries and viem-style ergonomics; low-level docs describe Tevm facades over ZEVM-backed primitives.
 
 ## EVM Module
 
-The EVM module handles bytecode execution and state transitions. It is exported from `tevm/evm` and backed by `@evmts/zevm/evm`.
+The EVM module handles bytecode execution and state transitions. Exported from `tevm/evm`, backed by `@evmts/zevm/evm`.
 
 ```ts
 import { createImpersonatedTx } from 'tevm/tx'
@@ -33,36 +33,30 @@ import { createImpersonatedTx } from 'tevm/tx'
 const vm = await node.getVm()
 const evm = vm.evm
 
-// Direct EVM execution for advanced use cases
-const result = await evm.runCall({
-  to,
-  data,
-  value: 0n,
-  caller,
-})
+// Direct EVM execution
+const result = await evm.runCall({ to, data, value: 0n, caller })
 
-// Full transaction execution through the VM
+// Full transaction via VM
 const tx = createImpersonatedTx({
   impersonatedAddress: caller,
   to,
   data,
   gasLimit: 1_000_000n,
 })
-
 const txResult = await vm.runTx({ tx })
 ```
 
 ### Key Features
 
 - **State management**: Executes against Tevm's account, code, and storage state.
-- **Gas metering**: Tracks execution gas, intrinsic gas, refunds, and fee behavior.
-- **Precompiles**: Supports built-in precompiles and Tevm custom precompiles.
-- **Tracing**: Exposes step, message, call trace, prestate trace, flat trace, mux trace, and four-byte trace paths.
-- **EIP support**: Includes modern transaction support such as EIP-4844 blob transactions and EIP-7702 EOA code transactions through the `tevm/tx` facade.
+- **Gas metering**: Tracks execution gas, intrinsic gas, refunds, fee behavior.
+- **Precompiles**: Built-in plus Tevm custom precompiles.
+- **Tracing**: Step, message, call trace, prestate trace, flat trace, mux trace, four-byte trace.
+- **EIP support**: EIP-4844 blob transactions and EIP-7702 EOA code transactions via `tevm/tx`.
 
 ## Blockchain Module
 
-The blockchain module manages block lookup, canonical heads, forked block resolution, and local block writes. It is a Tevm implementation that works with Tevm block types and ZEVM-compatible constants/utilities.
+Manages block lookup, canonical heads, forked block resolution, local block writes. Tevm implementation working with Tevm block types and ZEVM-compatible constants/utilities.
 
 ```ts
 const chain = (await node.getVm()).blockchain
@@ -80,13 +74,13 @@ await chain.delBlock(blockHash)
 ```ts
 const forkedBlock = await chain.getBlock(blockNumber)
 
-// Local blocks override forked blocks once written.
+// Local blocks override forked blocks once written
 await chain.putBlock(localBlock)
 ```
 
 ## StateManager
 
-The StateManager handles accounts, storage, contract code, state roots, snapshots, and fork-backed reads.
+Accounts, storage, contract code, state roots, snapshots, fork-backed reads.
 
 ```ts
 const state = (await node.getVm()).stateManager
@@ -107,7 +101,7 @@ await state.revert()
 
 ## Transaction Pool
 
-The TxPool manages pending transactions before they are included in blocks. Tevm's txpool facade is backed by `@evmts/zevm/txpool` and broadens fee classification for fee-market-shaped transactions, including EIP-7702.
+Pending transactions before block inclusion. Backed by `@evmts/zevm/txpool`; broadens fee classification for fee-market-shaped transactions including EIP-7702.
 
 ```ts
 const pool = await node.getTxPool()
@@ -118,17 +112,14 @@ await pool.addUnverified(tx)
 const senderTxs = await pool.getBySenderAddress(sender)
 const byHash = pool.getByHash([txHash])
 
-const ordered = await pool.txsByPriceAndNonce({
-  baseFee: 10n,
-  allowedBlobs: 6,
-})
+const ordered = await pool.txsByPriceAndNonce({ baseFee: 10n, allowedBlobs: 6 })
 ```
 
-The JSON-RPC layer also exposes `txpool_content`, `txpool_contentFrom`, `txpool_inspect`, and `txpool_status`.
+JSON-RPC exposes `txpool_content`, `txpool_contentFrom`, `txpool_inspect`, `txpool_status`.
 
 ## ReceiptsManager
 
-The ReceiptsManager handles transaction receipts, block receipt lookup, and event logs.
+Transaction receipts, block receipt lookup, event logs.
 
 ```ts
 const receipts = await node.getReceiptsManager()
@@ -138,25 +129,25 @@ const receiptResult = await receipts.getReceiptByTxHash(txHash)
 const logs = await receipts.getLogs(fromBlock, toBlock, addresses, topics)
 ```
 
-Receipts support pre-Byzantium, post-Byzantium, and EIP-4844 blob receipt shapes.
+Supports pre-Byzantium, post-Byzantium, and EIP-4844 blob receipt shapes.
 
 ## JSON-RPC Integration
 
-The submodules power Tevm's RPC handlers:
+Submodules power Tevm's RPC handlers:
 
-- `eth_*` for standard Ethereum JSON-RPC, including `eth_getProof`, `eth_blobBaseFee`, `eth_simulateV1`, and `eth_simulateV2`.
-- `tevm_*` for Tevm-native calls, account/state management, mining, and light sync status.
-- `debug_*` for trace, raw block/header/receipt/transaction, storage range, preimage, and modified account methods.
-- `anvil_*`, `hardhat_*`, `ganache_*`, and `evm_*` for development-node compatibility.
-- `engine_*` for Engine API payload and forkchoice methods when `engineApi` is enabled.
-- `txpool_*`, `web3_*`, `net_*`, and `rpc_modules` for broader client compatibility.
+- `eth_*` standard JSON-RPC, including `eth_getProof`, `eth_blobBaseFee`, `eth_simulateV1`, `eth_simulateV2`.
+- `tevm_*` native calls, account/state management, mining, light sync status.
+- `debug_*` trace, raw block/header/receipt/transaction, storage range, preimage, modified account methods.
+- `anvil_*`, `hardhat_*`, `ganache_*`, `evm_*` development-node compatibility.
+- `engine_*` Engine API payload and forkchoice methods (when `engineApi` enabled).
+- `txpool_*`, `web3_*`, `net_*`, `rpc_modules` broader client compatibility.
 
 ## Best Practices
 
-1. **Use high-level APIs first**: Prefer `createMemoryClient`, viem actions, or JSON-RPC for application code.
-2. **Drop down deliberately**: Use `vm.runTx`, `evm.runCall`, txpool, or receipts directly when building tooling, debuggers, or Tevm extensions.
-3. **Handle snapshots carefully**: Use checkpoints and `evm_snapshot`/`evm_revert` style flows for test isolation.
-4. **Choose the right trace**: Use `debug_traceCall` or `debug_traceTransaction` for RPC-compatible tracing; use `onStep`, `onBeforeMessage`, and `onAfterMessage` for in-process instrumentation.
+- **Use high-level APIs first**: Prefer `createMemoryClient`, viem actions, or JSON-RPC.
+- **Drop down deliberately**: Use `vm.runTx`, `evm.runCall`, txpool, or receipts directly for tooling, debuggers, or extensions.
+- **Handle snapshots carefully**: Use checkpoints and `evm_snapshot`/`evm_revert` flows for test isolation.
+- **Choose the right trace**: `debug_traceCall`/`debug_traceTransaction` for RPC-compatible tracing; `onStep`, `onBeforeMessage`, `onAfterMessage` for in-process instrumentation.
 
 ## Related Topics
 
@@ -167,8 +158,3 @@ The submodules power Tevm's RPC handlers:
 - [EVM Events](./evm-events)
 - [EVM Opcodes Reference](https://www.evm.codes/)
 - [Ethereum Yellow Paper](https://ethereum.github.io/yellowpaper/paper.pdf)
-
-**Up Next**
-
-- [JSON-RPC Guide](./json-rpc)
-- [Advanced Usage](../advanced/txpool)

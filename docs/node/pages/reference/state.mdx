@@ -1,6 +1,6 @@
 # @tevm/state
 
-The `@tevm/state` package provides a robust state management system for Tevm, handling Ethereum account states, contract storage, and state transitions. It offers both synchronous and asynchronous APIs for managing the EVM state.
+State management for Tevm. Handles account state (balance, nonce, code, storage), state transitions/checkpoints, caching, persistence, and forked chain state.
 
 ## Installation
 
@@ -8,92 +8,109 @@ The `@tevm/state` package provides a robust state management system for Tevm, ha
 npm install @tevm/state
 ```
 
-## Overview
-
-The state package is responsible for:
-- Managing account states (balance, nonce, code, storage)
-- Handling state transitions and checkpoints
-- Caching and persistence of state data
-- Supporting forked chain states
-- Providing efficient state access and modification
-
 ## API Reference
 
 ### Enumerations
 
-- [CacheType](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/enumerations/CacheType.md) - Types of caching mechanisms
+- [CacheType](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/enumerations/CacheType.md)
 
-### Core Types
+### State Management
 
-#### State Management
-- [StateManager](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/interfaces/StateManager.md) - Main interface for state operations
-- [BaseState](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/BaseState.md) - Core state data structure
-- [TevmState](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/TevmState.md) - Tevm-specific state representation
-- [StateAction](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/StateAction.md) - Type for state modification actions
-- [StateOptions](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/StateOptions.md) - State configuration options
-- [StateRoots](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/StateRoots.md) - State roots mapping
-- [ParameterizedTevmState](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/ParameterizedTevmState.md) - Parameterized state type
+- [StateManager](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/interfaces/StateManager.md)
+- [BaseState](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/BaseState.md)
+- [TevmState](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/TevmState.md)
+- [StateAction](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/StateAction.md)
+- [StateOptions](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/StateOptions.md)
+- [StateRoots](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/StateRoots.md)
+- [ParameterizedTevmState](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/ParameterizedTevmState.md)
 
-#### Storage Types
-- [AccountStorage](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/interfaces/AccountStorage.md) - Account storage structure
-- [ParameterizedAccountStorage](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/interfaces/ParameterizedAccountStorage.md) - Parameterized account storage interface
-- [SerializableTevmState](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/SerializableTevmState.md) - Serializable state format
-- [ForkOptions](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/interfaces/ForkOptions.md) - Options for forking state
+### Storage Types
 
-#### Caching
-- [StateCache](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/StateCache.md) - State caching structure
-- [AccountCache](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/classes/AccountCache.md) - Account-level cache
-- [ContractCache](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/classes/ContractCache.md) - Contract-level cache
-- [StorageCache](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/classes/StorageCache.md) - Storage-level cache
+- [AccountStorage](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/interfaces/AccountStorage.md)
+- [ParameterizedAccountStorage](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/interfaces/ParameterizedAccountStorage.md)
+- [SerializableTevmState](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/SerializableTevmState.md)
+- [ForkOptions](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/interfaces/ForkOptions.md)
 
-### Core Functions
+### Caching
 
-#### State Creation and Management
-- [createStateManager](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/createStateManager.md) - Creates a new state manager instance
-- [createBaseState](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/createBaseState.md) - Creates the core state data structure
-- [deepCopy](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/deepCopy.md) - Creates deep copy of state
-- [shallowCopy](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/shallowCopy.md) - Creates shallow copy
+- [StateCache](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/type-aliases/StateCache.md)
+- [AccountCache](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/classes/AccountCache.md)
+- [ContractCache](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/classes/ContractCache.md)
+- [StorageCache](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/classes/StorageCache.md)
 
-#### State Operations
-- [getAccount](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getAccount.md) - Retrieves account state
-- [putAccount](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/putAccount.md) - Updates account state
-- [deleteAccount](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/deleteAccount.md) - Removes an account
-- [getContractCode](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getContractCode.md) - Gets contract bytecode
-- [putContractCode](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/putContractCode.md) - Updates contract bytecode
-- [getContractStorage](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getContractStorage.md) - Gets contract storage
-- [putContractStorage](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/putContractStorage.md) - Updates contract storage
-- [clearContractStorage](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/clearContractStorage.md) - Clears contract storage
-- [getAccountAddresses](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getAccountAddresses.md) - Gets account addresses
-- [getAppliedKey](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getAppliedKey.md) - Gets applied storage key
-- [modifyAccountFields](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/modifyAccountFields.md) - Modifies account fields
+### State Creation and Management
 
-#### State Root Management
-- [getStateRoot](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getStateRoot.md) - Gets current state root
-- [setStateRoot](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/setStateRoot.md) - Sets new state root
-- [hasStateRoot](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/hasStateRoot.md) - Checks if state root exists
+- [createStateManager](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/createStateManager.md)
+- [createBaseState](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/createBaseState.md)
+- [deepCopy](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/deepCopy.md)
+- [shallowCopy](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/shallowCopy.md)
 
-#### Checkpointing and Committing
-- [checkpoint](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/checkpoint.md) - Creates a state checkpoint
-- [commit](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/commit.md) - Commits state changes
-- [revert](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/revert.md) - Reverts to previous checkpoint
+### State Operations
 
-#### Cache Management
-- [clearCaches](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/clearCaches.md) - Clears all state caches
-- [originalStorageCache](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/originalStorageCache.md) - Manages original storage cache
+- [getAccount](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getAccount.md)
+- [putAccount](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/putAccount.md)
+- [deleteAccount](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/deleteAccount.md)
+- `getCode` ([getContractCode](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getContractCode.md))
+- `putCode` ([putContractCode](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/putContractCode.md))
+- `getStorage` ([getContractStorage](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getContractStorage.md))
+- `putStorage` ([putContractStorage](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/putContractStorage.md))
+- `clearStorage`
+- [getAccountAddresses](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getAccountAddresses.md)
+- [getAppliedKey](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getAppliedKey.md)
+- [modifyAccountFields](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/modifyAccountFields.md)
 
-#### Genesis and Forking
-- [dumpCanonicalGenesis](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/dumpCanonicalGenesis.md) - Dumps canonical genesis state
-- [generateCanonicalGenesis](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/generateCanonicalGenesis.md) - Generates canonical genesis
-- [getForkBlockTag](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getForkBlockTag.md) - Gets fork block tag
-- [getForkClient](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getForkClient.md) - Gets fork client
+### State Root Management
 
-#### Storage Operations
-- [dumpStorage](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/dumpStorage.md) - Dumps storage state
-- [dumpStorageRange](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/dumpStorageRange.md) - Dumps storage range
-- [getProof](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getProof.md) - Gets state proof
+- [getStateRoot](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getStateRoot.md)
+- [setStateRoot](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/setStateRoot.md)
+- [hasStateRoot](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/hasStateRoot.md)
+
+### Checkpointing
+
+- [checkpoint](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/checkpoint.md)
+- [commit](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/commit.md)
+- [revert](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/revert.md)
+
+### Cache Management
+
+- [clearCaches](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/clearCaches.md)
+- [originalStorageCache](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/originalStorageCache.md)
+
+### Genesis and Forking
+
+- [dumpCanonicalGenesis](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/dumpCanonicalGenesis.md)
+- [generateCanonicalGenesis](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/generateCanonicalGenesis.md)
+- [getForkBlockTag](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getForkBlockTag.md)
+- [getForkClient](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getForkClient.md)
+
+### Storage Operations
+
+- [dumpStorage](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/dumpStorage.md)
+- [dumpStorageRange](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/dumpStorageRange.md)
+- [getProof](https://github.com/evmts/tevm-monorepo/tree/main/packages/state/docs/functions/getProof.md)
+
+`getProof` requires fork mode because local state managers do not merkleize state.
 
 ## Usage Examples
 
-### Creating a State Manager
+```ts
+import { createAddress } from 'tevm/address'
+import { createStateManager } from 'tevm/state'
+import { createAccount, hexToBytes } from 'tevm/utils'
 
+const stateManager = createStateManager({ loggingLevel: 'info' })
+await stateManager.ready()
+
+const address = createAddress('0x1234567890123456789012345678901234567890')
+
+await stateManager.putAccount(address, createAccount({ nonce: 0n, balance: 100n }))
+await stateManager.modifyAccountFields(address, { nonce: 1n, balance: 200n })
+const account = await stateManager.getAccount(address)
+
+const key = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001')
+await stateManager.putCode(address, new Uint8Array([1, 2, 3]))
+const code = await stateManager.getCode(address)
+await stateManager.putStorage(address, key, new Uint8Array([2]))
+const value = await stateManager.getStorage(address, key)
+await stateManager.clearStorage(address)
 ```

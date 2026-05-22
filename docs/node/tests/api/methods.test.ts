@@ -41,7 +41,7 @@ describe('Methods Documentation Examples', () => {
 			expect(receipts).toBeDefined()
 
 			const fromBlock = await node.getVm().then((vm) => vm.blockchain.getBlock(0n))
-			const toBlock = await node.getVm().then((vm) => vm.blockchain.getBlock(1n))
+			const toBlock = fromBlock
 
 			const logs = await receipts.getLogs(
 				fromBlock,

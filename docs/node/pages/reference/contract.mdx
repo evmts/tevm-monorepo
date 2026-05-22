@@ -1,8 +1,8 @@
 # @tevm/contract
 
-The `@tevm/contract` package provides powerful utilities for working with Ethereum smart contracts, offering type-safe contract interactions and simplified deployment workflows.
+Type-safe contract interactions, deployments, events, and pre-built ERC20/ERC721 contracts.
 
-> **Generated API Documentation**: View the full API documentation in the [evmts/tevm-monorepo/packages/contract/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs) folder.
+Full API: [packages/contract/docs](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs).
 
 ## Installation
 
@@ -10,49 +10,35 @@ The `@tevm/contract` package provides powerful utilities for working with Ethere
 npm install @tevm/contract
 ```
 
-## Overview
-
-The contract package provides:
-- Type-safe contract interactions
-- Support for human-readable and JSON ABIs
-- Contract deployment utilities
-- Read and write method handling
-- Event filtering and subscription
-- Pre-built contract templates (ERC20, ERC721)
-
 ## API Reference
 
 ### Type Aliases
 
-- [Contract](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/Contract.md) - Core contract type definition
-- [CreateContractFn](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/CreateContractFn.md) - Contract creation function type
-- [CreateContractParams](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/CreateContractParams.md) - Parameters for contract creation
-- [EventActionCreator](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/EventActionCreator.md) - Event action creator type
-- [MaybeExtractEventArgsFromAbi](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/MaybeExtractEventArgsFromAbi.md) - Event args extraction utility
-- [ReadActionCreator](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/ReadActionCreator.md) - Read action creator type
-- [ValueOf](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/ValueOf.md) - Utility type for value extraction
-- [WriteActionCreator](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/WriteActionCreator.md) - Write action creator type
+- [Contract](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/Contract.md)
+- [CreateContractFn](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/CreateContractFn.md)
+- [CreateContractParams](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/CreateContractParams.md)
+- [EventActionCreator](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/EventActionCreator.md)
+- [MaybeExtractEventArgsFromAbi](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/MaybeExtractEventArgsFromAbi.md)
+- [ReadActionCreator](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/ReadActionCreator.md)
+- [ValueOf](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/ValueOf.md)
+- [WriteActionCreator](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/type-aliases/WriteActionCreator.md)
 
 ### Functions
 
-- [createContract](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/functions/createContract.md) - Create a new contract instance
+- [createContract](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/functions/createContract.md)
 
 ### Pre-built Contracts
 
-- [ERC20](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/variables/ERC20.md) - Standard ERC20 token implementation
-- [ERC721](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/variables/ERC721.md) - Standard ERC721 NFT implementation
-- [SimpleContract](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/variables/SimpleContract.md) - Basic contract for testing
+- [ERC20](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/variables/ERC20.md)
+- [ERC721](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/variables/ERC721.md)
+- [SimpleContract](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/variables/SimpleContract.md)
 
 ## Usage Examples
 
-### Creating a Contract Instance
-
 ```typescript
-import { createContract } from '@tevm/contract'
+import { createContract, ERC20, ERC721 } from '@tevm/contract'
 
-// Using human-readable ABI
 const contract = createContract({
-  // Use as const for type safety
   humanReadableAbi: [
     'function balanceOf(address) view returns (uint256)',
     'function transfer(address to, uint256 amount) returns (bool)',
@@ -61,40 +47,16 @@ const contract = createContract({
   name: 'MyToken',
 })
 
-// Type-safe read actions
 const readAction = contract.read.balanceOf('0x...')
-
-// Type-safe write actions
 const writeAction = contract.write.transfer('0x...', 1000n)
-```
 
-### Contract with Address
-
-```typescript
 const token = contract.withAddress('0x1234...')
+const balance = token.read.balanceOf('0x...')
 
-// Now includes address in all actions
-const balanceAction = token.read.balanceOf('0x...')
-// balanceAction.to will be set to the token address
-```
+const erc20 = ERC20.withAddress('0x...')
+const nameAction = erc20.read.name()
+const transferAction = erc20.write.transfer('0x...', 1000n)
 
-### Using Standard Contracts
-
-```typescript
-import { ERC20, ERC721 } from '@tevm/contract'
-
-// ERC20 token with all standard methods
-const token = ERC20.withAddress('0x...')
-
-// Read token info
-const nameAction = token.read.name()
-const symbolAction = token.read.symbol()
-const supplyAction = token.read.totalSupply()
-
-// Transfer tokens
-const transferAction = token.write.transfer('0x...', 1000n)
-
-// ERC721 NFT contract
 const nft = ERC721.withAddress('0x...')
 const ownerAction = nft.read.ownerOf(1n)
 ```
@@ -104,82 +66,43 @@ const ownerAction = nft.read.ownerOf(1n)
 ```typescript
 import { ERC20 } from '@tevm/contract'
 
-// Create a script that deploys and initializes a token
 const script = ERC20.script({
-  bytecode: '0x...',  // Contract bytecode
-  args: ['MyToken', 'MTK', 1000000n], // Constructor args
+  bytecode: '0x...',
+  args: ['MyToken', 'MTK', 1000000n],
 })
 
-// Use with any compatible client
 const name = await client.contract(script.read.name())
-const symbol = await client.contract(script.read.symbol())
 ```
 
-### Event Handling
+### Event Filters
 
 ```typescript
-// Create event filter
-const filter = contract.events.Transfer({
-  fromBlock: 'latest',
-})
+const filter = contract.events.Transfer({ fromBlock: 'latest' })
 
-// Process events
 client.watchEvent(filter, (event) => {
-  console.log('Transfer:', {
-    from: event.args.from,
-    to: event.args.to,
-    value: event.args.value,
-  })
+  console.log(event.args.from, event.args.to, event.args.value)
 })
 ```
 
 ## Best Practices
 
-### 1. Type Safety
-
-Always use `as const` with ABIs to get full type inference:
+Use `as const` with ABIs for full type inference:
 
 ```typescript
-const abi = [
-  'function example(uint256 value) returns (bool)',
-] as const
-
-const contract = createContract({
-  humanReadableAbi: abi,
-  name: 'Example',
-})
-// contract.write.example will have proper types
+const abi = ['function example(uint256 value) returns (bool)'] as const
+const contract = createContract({ humanReadableAbi: abi, name: 'Example' })
 ```
 
-### 2. Error Handling
-
-Handle contract errors appropriately:
-
-```typescript
-try {
-  const result = await client.contract(contract.write.transfer('0x...', 1000n))
-} catch (e) {
-  if (e.message.includes('insufficient balance')) {
-    // Handle specific error case
-  }
-  throw e
-}
-```
-
-### 3. Gas Management
-
-Consider gas costs in write operations:
+Set explicit gas for writes that need it:
 
 ```typescript
 const tx = contract.write.complexOperation('0x...', {
-  gas: 500000n,  // Set gas limit
-  maxFeePerGas: 30000000000n,  // Set max fee
+  gas: 500000n,
+  maxFeePerGas: 30000000000n,
 })
 ```
 
-## Contract Types
-
-The package exports useful types for contract development:
+## Exported Types
 
 ```typescript
 import type {
@@ -191,14 +114,12 @@ import type {
   WriteActionCreator,
 } from '@tevm/contract'
 
-// Use with your own contracts
 type MyContract = Contract<typeof myAbi>
 ```
 
 ## See Also
 
-- [ERC-20 Token Standard](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)
-- [ERC-721 NFT Standard](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/)
-- [Solidity Documentation](https://docs.soliditylang.org/)
+- [ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)
+- [ERC-721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/)
 - [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/)
 - [Full API Reference](https://github.com/evmts/tevm-monorepo/tree/main/packages/contract/docs/globals.md)

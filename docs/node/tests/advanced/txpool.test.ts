@@ -1,16 +1,19 @@
-import { createTevmNode } from 'tevm'
+import { createTevmNode, PREFUNDED_ACCOUNTS } from 'tevm'
 import { mineHandler } from 'tevm/actions'
 import { createAddress } from 'tevm/address'
 import { createImpersonatedTx } from 'tevm/tx'
 import { describe, expect, it } from 'vitest'
+
+const senderAddress = createAddress(PREFUNDED_ACCOUNTS[0].address)
+const recipientAddress = createAddress('0x2345678901234567890123456789012345678901')
 
 describe('Transaction Pool', () => {
 	describe('Basic Operations', () => {
 		it('should add transactions to pool', async () => {
 			const node = createTevmNode()
 			const tx = createImpersonatedTx({
-				impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-				to: createAddress('0x2345678901234567890123456789012345678901'),
+				impersonatedAddress: senderAddress,
+				to: recipientAddress,
 				value: 1000000000000000000n, // 1 ETH
 				gasLimit: 21000n,
 				maxFeePerGas: 20000000000n,
@@ -29,8 +32,8 @@ describe('Transaction Pool', () => {
 			const txPool = await node.getTxPool()
 			const txs = [
 				createImpersonatedTx({
-					impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-					to: createAddress('0x2345678901234567890123456789012345678901'),
+					impersonatedAddress: senderAddress,
+					to: recipientAddress,
 					value: 1000000000000000000n,
 					gasLimit: 21000n,
 					maxFeePerGas: 20000000000n,
@@ -38,8 +41,8 @@ describe('Transaction Pool', () => {
 					nonce: 0n,
 				}),
 				createImpersonatedTx({
-					impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-					to: createAddress('0x2345678901234567890123456789012345678901'),
+					impersonatedAddress: senderAddress,
+					to: recipientAddress,
 					value: 2000000000000000000n,
 					gasLimit: 21000n,
 					maxFeePerGas: 20000000000n,
@@ -61,8 +64,8 @@ describe('Transaction Pool', () => {
 			const node = createTevmNode()
 			const txPool = await node.getTxPool()
 			const originalTx = createImpersonatedTx({
-				impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-				to: createAddress('0x2345678901234567890123456789012345678901'),
+				impersonatedAddress: senderAddress,
+				to: recipientAddress,
 				value: 1000000000000000000n,
 				gasLimit: 21000n,
 				maxFeePerGas: 20000000000n,
@@ -71,8 +74,8 @@ describe('Transaction Pool', () => {
 			})
 
 			const replacementTx = createImpersonatedTx({
-				impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-				to: createAddress('0x2345678901234567890123456789012345678901'),
+				impersonatedAddress: senderAddress,
+				to: recipientAddress,
 				value: 1000000000000000000n,
 				gasLimit: 21000n,
 				maxFeePerGas: 30000000000n, // Higher gas price
@@ -91,8 +94,8 @@ describe('Transaction Pool', () => {
 			const node = createTevmNode()
 			const txPool = await node.getTxPool()
 			const tx = createImpersonatedTx({
-				impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-				to: createAddress('0x2345678901234567890123456789012345678901'),
+				impersonatedAddress: senderAddress,
+				to: recipientAddress,
 				value: 1000000000000000000n,
 				gasLimit: 21000n,
 				maxFeePerGas: 20000000000n,
@@ -117,8 +120,8 @@ describe('Transaction Pool', () => {
 			const node = createTevmNode()
 			const txPool = await node.getTxPool()
 			const invalidTx = createImpersonatedTx({
-				impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-				to: createAddress('0x2345678901234567890123456789012345678901'),
+				impersonatedAddress: senderAddress,
+				to: recipientAddress,
 				value: 1000000000000000000000n, // More than account balance
 				gasLimit: 21000n,
 				maxFeePerGas: 20000000000n,
@@ -139,8 +142,8 @@ describe('Transaction Pool', () => {
 			const txPool = await node.getTxPool()
 			const txs = [
 				createImpersonatedTx({
-					impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-					to: createAddress('0x2345678901234567890123456789012345678901'),
+					impersonatedAddress: senderAddress,
+					to: recipientAddress,
 					value: 1000000000000000000n,
 					gasLimit: 21000n,
 					maxFeePerGas: 20000000000n,
@@ -148,8 +151,8 @@ describe('Transaction Pool', () => {
 					nonce: 0n,
 				}),
 				createImpersonatedTx({
-					impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-					to: createAddress('0x2345678901234567890123456789012345678901'),
+					impersonatedAddress: senderAddress,
+					to: recipientAddress,
 					value: 1000000000000000000n,
 					gasLimit: 21000n,
 					maxFeePerGas: 20000000000n,
@@ -172,8 +175,8 @@ describe('Transaction Pool', () => {
 			const txCount = 100
 			const txs = Array.from({ length: txCount }, (_, i) =>
 				createImpersonatedTx({
-					impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-					to: createAddress('0x2345678901234567890123456789012345678901'),
+					impersonatedAddress: senderAddress,
+					to: recipientAddress,
 					value: 1000000000000000000n,
 					gasLimit: 21000n,
 					maxFeePerGas: 20000000000n,
@@ -193,9 +196,9 @@ describe('Transaction Pool', () => {
 			const txCount = 1000
 			const txs = Array.from({ length: txCount }, (_, i) =>
 				createImpersonatedTx({
-					impersonatedAddress: createAddress('0x1234567890123456789012345678901234567890'),
-					to: createAddress('0x2345678901234567890123456789012345678901'),
-					value: 1000000000000000000n,
+					impersonatedAddress: senderAddress,
+					to: recipientAddress,
+					value: 0n,
 					gasLimit: 21000n,
 					maxFeePerGas: 20000000000n,
 					maxPriorityFeePerGas: 20000000000n,

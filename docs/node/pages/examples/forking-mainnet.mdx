@@ -5,59 +5,79 @@ description: Example on forking a live chain
 
 # Forking Mainnet Example
 
-These docs have not been checked for correctness yet. Use with caution
+:::tip
+Set `MAINNET_RPC_URL` to a mainnet RPC endpoint before running these examples.
+:::
 
 ## Basic Fork Setup
 
+Unknown accounts/contracts fetch from the remote on demand and cache locally.
+
 ```ts
-import { createTevmNode } from 'tevm'
-import { http } from 'viem'
+import { createTevmNode, http } from 'tevm'
+
+const rpcUrl = process.env.MAINNET_RPC_URL
+if (!rpcUrl) throw new Error('MAINNET_RPC_URL is required')
 
 const node = createTevmNode({
   fork: {
-    transport: http('https://mainnet.infura.io/v3/<yourkey>'),
-    blockTag: 17_000_000n,
+    transport: http(rpcUrl)({}),
   },
   loggingLevel: 'debug',
 })
 
 await node.ready()
-
-// Now any calls to an unknown account or contract
-// will fetch the data from mainnet, but store the result locally for caching.
 ```
 
 ## Account Impersonation
 
 ```ts
-// Impersonate a whale account
-node.setImpersonatedAccount('0x28C6c06298d514Db089934071355E5743bf21d60') // Binance 14
+import { callHandler } from 'tevm/actions'
 
-// Now you can run transactions "as" that address, no signature needed
-const tx = createImpersonatedTx({
-  to: '0x1234...',
+const result = await callHandler(node)({
+  from: '0x28C6c06298d514Db089934071355E5743bf21d60',
+  to: '0x1234567890123456789012345678901234567890',
   value: 1000000000000000000n, // 1 ETH
+  skipBalance: true,
+  throwOnFail: false,
 })
-
-const vm = await node.getVm()
-await vm.runTx({ tx })
 ```
 
 ## Working with Forked Contracts
 
 ```ts
-// Example: Interacting with USDC on mainnet
+import { callHandler } from 'tevm/actions'
+import { encodeFunctionData, parseAbi } from 'viem'
+
 const USDC_ADDRESS = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+const HOLDER_ADDRESS = '0x47ac0fb4f2d84898e4d9e7b4dab3c24507a6d503'
+const RECIPIENT_ADDRESS = '0x1234567890123456789012345678901234567890'
+const ERC20_ABI = parseAbi([
+  'function balanceOf(address) view returns (uint256)',
+  'function transfer(address to, uint256 amount) returns (bool)',
+])
 
-// Get the contract state from mainnet
-const usdcContract = new Contract(USDC_ADDRESS, USDC_ABI)
-const balance = await usdcContract.read.balanceOf(['0x1234...'])
+const balance = await callHandler(node)({
+  to: USDC_ADDRESS,
+  data: encodeFunctionData({
+    abi: ERC20_ABI,
+    functionName: 'balanceOf',
+    args: [HOLDER_ADDRESS],
+  }),
+})
 
-// Modify state locally
-await usdcContract.write.transfer(['0x5678...', 1000000]) // 1 USDC
-
-// Changes only affect your local fork
-const newBalance = await usdcContract.read.balanceOf(['0x1234...'])
+// Simulate a local write; the remote chain is not affected.
+const transfer = await callHandler(node)({
+  from: HOLDER_ADDRESS,
+  to: USDC_ADDRESS,
+  data: encodeFunctionData({
+    abi: ERC20_ABI,
+    functionName: 'transfer',
+    args: [RECIPIENT_ADDRESS, 1n],
+  }),
+  skipBalance: true,
+  throwOnFail: false,
+})
 ```
 
 ## Fork at Specific Block
@@ -65,29 +85,24 @@ const newBalance = await usdcContract.read.balanceOf(['0x1234...'])
 ```ts
 const node = createTevmNode({
   fork: {
-    transport: http('https://mainnet.infura.io/v3/<yourkey>'),
-    blockTag: 15_000_000n, // Fork from a specific block
+    transport: http(rpcUrl)({}),
+    blockTag: 23_483_670n,
   },
 })
 
-// Test historical state
-const historicalBalance = await getBalance(address)
+const vm = await node.getVm()
+const block = await vm.blockchain.getBlock(23_483_670n)
 ```
 
 ## Multiple Network Support
 
 ```ts
-// Fork from different networks
 const optimismNode = createTevmNode({
-  fork: {
-    transport: http('https://mainnet.optimism.io'),
-  },
+  fork: { transport: http(process.env.OPTIMISM_RPC_URL!)({}) },
 })
 
 const arbitrumNode = createTevmNode({
-  fork: {
-    transport: http('https://arb1.arbitrum.io/rpc'),
-  },
+  fork: { transport: http(process.env.ARBITRUM_RPC_URL!)({}) },
 })
 ```
 

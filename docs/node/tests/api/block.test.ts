@@ -41,19 +41,16 @@ describe('@tevm/block', () => {
 
 		it('should create a block from RLP-serialized data', () => {
 			const common = createCommon({ ...mainnet })
-			const serializedBlock = new Uint8Array([
-				/* example data would go here */
-			])
+			const sourceBlock = new Block({ common })
+			const serializedBlock = sourceBlock.serialize()
 			const block = Block.fromRLPSerializedBlock(serializedBlock, { common })
 			expect(block).toBeDefined()
 		})
 
 		it('should create a block from values array', () => {
 			const common = createCommon({ ...mainnet })
-			const block = Block.fromValuesArray(
-				[[new Uint8Array()], [new Uint8Array()], [[new Uint8Array()]], [new Uint8Array()], [new Uint8Array()]],
-				{ common },
-			)
+			const sourceBlock = new Block({ common })
+			const block = Block.fromValuesArray(sourceBlock.raw(), { common })
 			expect(block).toBeDefined()
 		})
 	})

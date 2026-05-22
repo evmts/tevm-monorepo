@@ -9,6 +9,11 @@ describe('Account Management Documentation Examples', () => {
 			const node = createTevmNode()
 			const address = '0x1234567890123456789012345678901234567890'
 
+			await setAccountHandler(node)({
+				address,
+				balance: parseEther('1'),
+			})
+
 			const account = await getAccountHandler(node)({
 				address,
 				blockTag: 'latest',
@@ -16,9 +21,9 @@ describe('Account Management Documentation Examples', () => {
 			})
 
 			expect(account).toBeDefined()
-			expect(account.balance).toBeDefined()
-			expect(account.nonce).toBeDefined()
-			expect(account.deployedBytecode).toBeDefined()
+			expect(account.balance).toBe(parseEther('1'))
+			expect(account.nonce).toBe(0n)
+			expect(account.deployedBytecode).toBe('0x')
 		})
 
 		it('should set account balance', async () => {
@@ -87,8 +92,13 @@ describe('Account Management Documentation Examples', () => {
 			const address = '0x1234567890123456789012345678901234567890'
 			const amount = parseEther('10')
 
-			const account = await getAccountHandler(node)({ address })
-			if (!account.isEmpty) {
+			const account = await getAccountHandler(node)({ address, throwOnFail: false })
+			if (account.errors) {
+				await setAccountHandler(node)({
+					address,
+					balance: amount,
+				})
+			} else if (!account.isEmpty) {
 				await setAccountHandler(node)({
 					address,
 					balance: account.balance + amount,
@@ -96,7 +106,7 @@ describe('Account Management Documentation Examples', () => {
 			}
 
 			const updatedAccount = await getAccountHandler(node)({ address })
-			expect(updatedAccount.balance).toBeDefined()
+			expect(updatedAccount.balance).toBe(amount)
 		})
 	})
 })

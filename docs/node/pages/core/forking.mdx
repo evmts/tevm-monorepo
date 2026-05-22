@@ -3,23 +3,15 @@ title: Forking & Reforking
 description: How to fork from live networks and other Tevm instances
 ---
 
-import { Callout } from "vocs/components";
-
 # Forking & Reforking
 
-<Callout type="info" emoji="🍴">
-  Tevm's forking capability creates a local blockchain that mirrors the state of
-  any EVM network, allowing you to work with real-world data in an isolated
-  environment.
-</Callout>
+Forking creates a local copy of an Ethereum (or any EVM) network at a point in time. Use it for:
 
-Forking allows you to create a local copy of an Ethereum network (or any EVM-compatible chain) at a specific point in time. This local copy can be modified without affecting the original network, making it perfect for:
-
-- Testing against production smart contracts and state
+- Testing against production contracts and state
 - Debugging complex transactions
 - Developing with real-world data
-- Simulating DeFi protocols and interactions
-- Performing "what-if" analysis and scenario testing
+- Simulating DeFi protocols
+- "What-if" analysis
 
 ## Basic Forking
 
@@ -28,19 +20,14 @@ Forking allows you to create a local copy of an Ethereum network (or any EVM-com
 ```ts
 import { createTevmNode, http } from "tevm";
 
-// Create a node that forks from Ethereum mainnet
 const node = createTevmNode({
   fork: {
     transport: http("https://eth-mainnet.g.alchemy.com/v2/YOUR-API-KEY")({}),
-    blockTag: "latest", // Fork from the latest block
+    blockTag: "latest",
   },
 });
 
-// Always wait for the node to be ready
 await node.ready();
-
-// The node now contains a copy of the entire Ethereum mainnet state
-console.log("Forked node ready!");
 ```
 
 ### Fork from Optimism
@@ -49,93 +36,71 @@ console.log("Forked node ready!");
 import { createTevmNode, http } from "tevm";
 import { optimism } from "tevm/common";
 
-// Create a node that forks from Optimism
 const node = createTevmNode({
   fork: {
     transport: http("https://mainnet.optimism.io")({}),
     blockTag: "latest",
   },
-  common: optimism, // Use Optimism chain configuration
+  common: optimism,
 });
 
 await node.ready();
-console.log("Optimism fork ready!");
 ```
 
-### Fork from Specific Block
+### Fork from a Specific Block
 
 ```ts
 import { createTevmNode, http } from "tevm";
 
-// Create a node that forks from a specific block
 const node = createTevmNode({
   fork: {
     transport: http("https://eth-mainnet.g.alchemy.com/v2/YOUR-API-KEY")({}),
-    blockTag: 17_500_000n, // Specific block number
+    blockTag: 17_500_000n,
   },
 });
 
 await node.ready();
-console.log("Forked from block 17,500,000");
 ```
 
-<Callout type="warning" emoji="⚠️">
-  Remember to call the transport function with an empty object `({})` as shown
-  in the examples above. This is required for the viem transport to be
-  initialized correctly.
-</Callout>
+:::warning
+Call the transport with an empty object `({})` — required for the viem transport to initialize.
+:::
 
 ## Fork Transport Options
 
-<Callout type="tip">
-  Tevm can fork from any EIP-1193 compatible provider, giving you flexibility in
-  where you source your blockchain data.
-</Callout>
-
-### Provider Types
-
-Tevm supports multiple transport types for forking:
+Tevm forks from any EIP-1193 compatible provider:
 
 ```ts
 import { createTevmNode, http } from "tevm";
 import { createPublicClient, http as viemHttp } from "viem";
 import { BrowserProvider } from "ethers";
 
-// 1. Using Tevm's http transport (recommended)
+// 1. Tevm http transport (recommended)
 const tevmNode1 = createTevmNode({
-  fork: {
-    transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}),
-  },
+  fork: { transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}) },
 });
 
-// 2. Using viem's PublicClient
+// 2. viem PublicClient
 const publicClient = createPublicClient({
   transport: viemHttp("https://mainnet.infura.io/v3/YOUR-KEY"),
 });
-
 const tevmNode2 = createTevmNode({
-  fork: {
-    transport: publicClient,
-  },
+  fork: { transport: publicClient },
 });
 
-// 3. Using Ethers.js Provider (must be wrapped to match EIP-1193)
+// 3. Ethers.js Provider (wrap to match EIP-1193)
 const ethersProvider = new BrowserProvider(window.ethereum);
-
 const tevmNode3 = createTevmNode({
   fork: {
     transport: {
-      request: async ({ method, params }) => {
-        return await ethersProvider.send(method, params || []);
-      },
+      request: async ({ method, params }) =>
+        ethersProvider.send(method, params || []),
     },
   },
 });
 ```
 
 ### Provider Selection
-
-Each provider type has different characteristics:
 
 | Provider              | Pros                                     | Cons                             |
 | --------------------- | ---------------------------------------- | -------------------------------- |
@@ -145,29 +110,18 @@ Each provider type has different characteristics:
 | Local Ethereum node   | Full control, no rate limits             | Resource intensive to run        |
 | Another Tevm instance | Memory efficient                         | Adds complexity                  |
 
-<Callout type="info">
-  For best performance with large-scale testing, consider using a dedicated RPC
-  provider like Alchemy or Infura, or running your own Ethereum node.
-</Callout>
+:::note
+For large-scale testing, use a dedicated RPC provider (Alchemy, Infura) or your own node.
+:::
 
 ## How Forking Works
 
-<Callout type="tip" emoji="🧠">
-  Understanding how forking works internally helps you optimize your usage of
-  Tevm.
-</Callout>
+Tevm uses **lazy loading with local caching**:
 
-Tevm implements **lazy loading with local caching** for forked state:
-
-1. **Initial Fork**: When you create a forked node, Tevm doesn't immediately copy the entire blockchain state.
-
-2. **Lazy Loading**: When your code accesses specific accounts or storage slots, Tevm fetches only that data from the remote provider.
-
-3. **Local Cache**: Fetched data is stored in a local cache, so subsequent reads are fast and don't require network requests.
-
-4. **Local Modifications**: Any changes you make (e.g., account balance changes, contract deployments) are stored locally and take precedence over the forked state.
-
-This approach provides the perfect balance between having a complete blockchain copy and efficient memory usage.
+1. **Initial Fork**: no immediate copy of the chain.
+2. **Lazy Loading**: only accessed accounts/slots are fetched from the remote.
+3. **Local Cache**: fetched data is cached locally; subsequent reads skip the network.
+4. **Local Modifications**: writes are stored locally and override forked state.
 
 ```ts
 import { createTevmNode, http } from "tevm";
@@ -175,47 +129,34 @@ import { createAddress } from "tevm/address";
 import { performance } from "node:perf_hooks";
 
 const node = createTevmNode({
-  fork: {
-    transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}),
-  },
+  fork: { transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}) },
 });
 await node.ready();
 
 const vm = await node.getVm();
 const daiAddress = createAddress("0x6B175474E89094C44Da98b954EedeAC495271d0F");
 
-// First access - fetches from remote provider
-console.log("Fetching DAI contract from mainnet...");
 const t0 = performance.now();
 const daiContract = await vm.stateManager.getAccount(daiAddress);
 console.log(`First access: ${performance.now() - t0}ms`);
 
-// Second access - uses local cache
 const t1 = performance.now();
 await vm.stateManager.getAccount(daiAddress);
 console.log(`Cached access: ${performance.now() - t1}ms`);
-
-// The difference in timing demonstrates the caching in action
 ```
 
 ## Reforking Strategies
 
-<Callout type="tip" emoji="🔄">
-  Reforking allows you to create multiple nodes based on the same initial state,
-  perfect for testing different scenarios.
-</Callout>
+Two approaches:
 
-There are two primary approaches to reforking in Tevm:
+### 1. Use a Node as Transport (recommended)
 
-### 1. Using a Node as Transport
-
-This is the recommended approach for most scenarios as it's more memory efficient:
+Memory-efficient — reuses the source's cached state:
 
 ```ts
 import { createTevmNode, http, hexToBigInt } from "tevm";
 import { requestEip1193 } from "tevm/decorators";
 
-// Step 1: Create the source node with EIP-1193 support
 const sourceNode = createTevmNode({
   fork: {
     transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}),
@@ -225,176 +166,115 @@ const sourceNode = createTevmNode({
 
 await sourceNode.ready();
 
-// Step 2: Get the current block number
-const currentBlock = await sourceNode.request({
-  method: "eth_blockNumber",
-});
+const currentBlock = await sourceNode.request({ method: "eth_blockNumber" });
 
-// Step 3: Create a new node that forks from the source node
 const forkNode = createTevmNode({
   fork: {
-    transport: sourceNode, // Use the source node as a transport
+    transport: sourceNode,
     blockTag: hexToBigInt(currentBlock),
   },
 });
 
 await forkNode.ready();
-
-// Now forkNode is a fork of sourceNode
-// Changes in forkNode won't affect sourceNode
+// Changes in forkNode do not affect sourceNode
 ```
 
-This approach has several advantages:
+Advantages: memory-efficient, avoids duplicate fetches, isolated, multi-fork from one source.
 
-- **Memory Efficiency**: Reuses the cached state from the source node
-- **Performance**: Avoids duplicate network requests for the same data
-- **Isolation**: Changes in the new fork don't affect the source node
-- **Flexibility**: Can create multiple forks from the same source
+### 2. Deep Copy
 
-### 2. Using Deep Copy
-
-For complete isolation, you can create an independent copy:
+For full isolation (memory-intensive):
 
 ```ts
 import { createTevmNode, http } from "tevm";
 
-// Step 1: Create the original node
 const originalNode = createTevmNode({
-  fork: {
-    transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}),
-  },
+  fork: { transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}) },
 });
 await originalNode.ready();
 
-// Let the node fetch some state
-// ... perform operations ...
-
-// Step 2: Create a completely independent copy
 const independentNode = await originalNode.deepCopy();
-
-// Now independentNode is a complete copy of originalNode with its own state
-// Changes to either node won't affect the other
 ```
 
-<Callout type="warning">
-  Deep copying duplicates the entire state tree, which can be memory intensive.
-  Use this approach sparingly and prefer using the node as a transport when
-  possible.
-</Callout>
+:::warning
+`deepCopy` duplicates the entire state tree. Prefer using the node as transport when possible.
+:::
 
 ## Working with Forked State
 
-<Callout type="tip" emoji="🔍">
-  Once you have a forked node, you can read from and write to its state just
-  like a regular Ethereum node.
-</Callout>
-
 ### Reading State
-
-Access the state of accounts, contracts, and storage:
 
 ```ts
 import { createTevmNode, http } from "tevm";
 import { createAddress } from "tevm/address";
 import { formatEther, hexToBytes } from "viem";
 
-// Create a node forked from mainnet
 const node = createTevmNode({
-  fork: {
-    transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}),
-  },
+  fork: { transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}) },
 });
 await node.ready();
 
 const vm = await node.getVm();
 
-// 1. Read an EOA (externally owned account) state
-const vitalikAddress = createAddress(
-  "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
-);
+// 1. EOA state
+const vitalikAddress = createAddress("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045");
 const vitalikAccount = await vm.stateManager.getAccount(vitalikAddress);
-
 if (vitalikAccount) {
-  console.log(`Vitalik's balance: ${formatEther(vitalikAccount.balance)} ETH`);
+  console.log(`Balance: ${formatEther(vitalikAccount.balance)} ETH`);
   console.log(`Nonce: ${vitalikAccount.nonce}`);
 }
 
-// 2. Read a contract's code
-const uniswapV2Router = createAddress(
-  "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
-);
-const routerAccount = await vm.stateManager.getAccount(uniswapV2Router);
+// 2. Contract code
+const uniswapV2Router = createAddress("0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D");
 const routerCode = await vm.stateManager.getContractCode(uniswapV2Router);
+console.log(`Code size: ${routerCode.length} bytes`);
 
-console.log(`Uniswap Router code size: ${routerCode.length} bytes`);
-
-// 3. Read contract storage
+// 3. Storage
 const slot0 = await vm.stateManager.getContractStorage(
   uniswapV2Router,
-  hexToBytes(
-    "0x0000000000000000000000000000000000000000000000000000000000000000",
-  ),
+  hexToBytes("0x0000000000000000000000000000000000000000000000000000000000000000"),
 );
 
-console.log(`Storage slot 0: ${slot0}`);
-
-// 4. Execute view function via low-level call
+// 4. Low-level call
 const result = await vm.evm.runCall({
   to: uniswapV2Router,
-  data: hexToBytes("0xc45a0155"), // factory() function selector
+  data: hexToBytes("0xc45a0155"), // factory()
   gasLimit: 100000n,
 });
-
 console.log("Factory address:", result.execResult.returnValue);
 ```
 
 ### Modifying State
 
-Make changes to the forked state:
-
 ```ts
 import { createTevmNode, http } from "tevm";
 import { createAddress } from "tevm/address";
-import { parseEther, formatEther } from "viem";
+import { createImpersonatedTx } from "tevm/tx";
+import { parseEther, formatEther, hexToBytes } from "viem";
 
 const node = createTevmNode({
-  fork: {
-    transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}),
-  },
+  fork: { transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}) },
 });
 await node.ready();
 
 const vm = await node.getVm();
 
-// 1. Modify account balance
+// 1. Modify balance
 const testAddress = createAddress("0x1234567890123456789012345678901234567890");
 let account = await vm.stateManager.getAccount(testAddress);
-
-// If account doesn't exist yet, create it
 if (!account) {
   account = {
     nonce: 0n,
     balance: 0n,
-    storageRoot:
-      "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-    codeHash:
-      "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+    storageRoot: "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+    codeHash: "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
   };
 }
-
-// Add 100 ETH to the account
 account.balance += parseEther("100");
 await vm.stateManager.putAccount(testAddress, account);
 
-// Verify the change
-const updatedAccount = await vm.stateManager.getAccount(testAddress);
-console.log(`New balance: ${formatEther(updatedAccount.balance)} ETH`);
-
-// 2. Impersonate an account
-node.setImpersonatedAccount("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"); // Vitalik
-
-// Now you can send transactions as this account
-import { createImpersonatedTx } from "tevm/tx";
+// 2. Impersonate
+node.setImpersonatedAccount("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045");
 
 const tx = createImpersonatedTx({
   from: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
@@ -404,85 +284,60 @@ const tx = createImpersonatedTx({
 });
 
 const txResult = await vm.runTx({ tx });
-
-console.log(`Transaction success: ${!txResult.execResult.exceptionError}`);
+console.log(`Success: ${!txResult.execResult.exceptionError}`);
 console.log(`Gas used: ${txResult.gasUsed}`);
 
-// 3. Modify contract storage directly
-const uniswapV3Factory = createAddress(
-  "0x1F98431c8aD98523631AE4a59f267346ea31F984",
-);
+// 3. Direct storage write
+const uniswapV3Factory = createAddress("0x1F98431c8aD98523631AE4a59f267346ea31F984");
 await vm.stateManager.putContractStorage(
   uniswapV3Factory,
-  hexToBytes(
-    "0x0000000000000000000000000000000000000000000000000000000000000000",
-  ),
-  hexToBytes(
-    "0x0000000000000000000000001234567890123456789012345678901234567890",
-  ),
+  hexToBytes("0x0000000000000000000000000000000000000000000000000000000000000000"),
+  hexToBytes("0x0000000000000000000000001234567890123456789012345678901234567890"),
 );
 ```
 
 ## Advanced Use Cases
 
-- **🔄 DeFi Protocol Testing** - Test complex DeFi interactions like flash loans, liquidations, and arbitrage
-- **🔒 Vulnerability Analysis** - Analyze smart contract security by manipulating state to trigger edge cases
-- **🗳️ Governance Simulation** - Simulate DAO votes and governance proposals
-- **💰 MEV Strategy Testing** - Develop and test MEV strategies without risking real capital
+- **DeFi protocol testing** — flash loans, liquidations, arbitrage
+- **Vulnerability analysis** — manipulate state to trigger edge cases
+- **Governance simulation** — DAO votes, proposals
+- **MEV strategy testing** — without risking real capital
 
 ### DeFi Protocol Example
-
-Simulate a complex DeFi interaction:
 
 ```ts
 import { createTevmNode, http } from "tevm";
 import { createAddress } from "tevm/address";
+import { createImpersonatedTx } from "tevm/tx";
 import { hexToBytes, parseEther } from "viem";
 
 async function simulateFlashLoan() {
   const node = createTevmNode({
-    fork: {
-      transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}),
-    },
+    fork: { transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}) },
   });
   await node.ready();
 
-  // Setup our test account
   const trader = createAddress("0x1234567890123456789012345678901234567890");
   const vm = await node.getVm();
 
-  // Give account some ETH
   await vm.stateManager.putAccount(trader, {
     nonce: 0n,
     balance: parseEther("10"),
-    storageRoot:
-      "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-    codeHash:
-      "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+    storageRoot: "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+    codeHash: "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
   });
 
-  // AAVE V2 lending pool address
-  const aaveLendingPool = createAddress(
-    "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9",
-  );
-
-  // Encode a flashLoan call (simplified)
-  // In reality you'd need to encode the parameters correctly
+  const aaveLendingPool = createAddress("0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9");
   const flashLoanCalldata = hexToBytes("0xab9c4b5d...");
 
-  // Execute the flash loan
-  import { createImpersonatedTx } from "tevm/tx";
-  
   const tx = createImpersonatedTx({
     from: trader,
     to: aaveLendingPool,
     data: flashLoanCalldata,
     gasLimit: 5000000n,
   });
-  
-  const result = await vm.runTx({ tx });
 
-  console.log("Flash loan simulation result:");
+  const result = await vm.runTx({ tx });
   console.log(`Success: ${!result.execResult.exceptionError}`);
   if (result.execResult.exceptionError) {
     console.log(`Error: ${result.execResult.exceptionError}`);
@@ -490,21 +345,14 @@ async function simulateFlashLoan() {
     console.log(`Gas used: ${result.gasUsed}`);
   }
 
-  // Check ending balance
   const finalAccount = await vm.stateManager.getAccount(trader);
   console.log(`Final balance: ${finalAccount.balance}`);
 }
 
-// Run the simulation
 simulateFlashLoan();
 ```
 
 ## Performance Optimization
-
-<Callout type="tip" emoji="⚡">
-  Optimizing your forking setup can significantly improve performance,
-  especially for complex test suites.
-</Callout>
 
 ### Efficient State Access
 
@@ -512,47 +360,35 @@ simulateFlashLoan();
 import { createTevmNode, http } from "tevm";
 import { createAddress } from "tevm/address";
 
-// Create a forked node
 const node = createTevmNode({
   fork: {
     transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}),
-    // Specify a block to avoid moving target issues
-    blockTag: 17_000_000n,
+    blockTag: 17_000_000n, // Pin block to avoid moving target
   },
 });
 await node.ready();
 
-// Access pattern optimization
 async function optimizedStateAccess() {
   const vm = await node.getVm();
   const stateManager = vm.stateManager;
 
-  // ✅ Batch related state requests
+  // Batch related requests
   const addresses = [
     "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", // USDC
     "0xdAC17F958D2ee523a2206206994597C13D831ec7", // USDT
     "0x6B175474E89094C44Da98b954EedeAC495271d0F", // DAI
   ].map(createAddress);
 
-  // Fetch all in parallel
   const accounts = await Promise.all(
     addresses.map((addr) => stateManager.getAccount(addr)),
   );
 
-  // ✅ Reuse state manager for multiple operations
+  // Parallel code + storage reads
   const usdcAddress = addresses[0];
-
-  // Access code and storage from the same contract
   const [code, slot0, slot1] = await Promise.all([
     stateManager.getContractCode(usdcAddress),
-    stateManager.getContractStorage(
-      usdcAddress,
-      Buffer.from("0".padStart(64, "0"), "hex"),
-    ),
-    stateManager.getContractStorage(
-      usdcAddress,
-      Buffer.from("1".padStart(64, "0"), "hex"),
-    ),
+    stateManager.getContractStorage(usdcAddress, Buffer.from("0".padStart(64, "0"), "hex")),
+    stateManager.getContractStorage(usdcAddress, Buffer.from("1".padStart(64, "0"), "hex")),
   ]);
 
   return { accounts, code, storage: [slot0, slot1] };
@@ -561,16 +397,15 @@ async function optimizedStateAccess() {
 
 ### Selective Forking
 
-For some tests, you might not need the entire state of mainnet:
+Skip forking when you don't need real state:
 
 ```ts
-// Specify chainId for minimal setup when you don't need a full fork
+// Minimal local node
 const lightNode = createTevmNode({
-  // No fork specified - creates a minimal local node
   common: { chainId: 1 },
 });
 
-// Only fork when you need production data
+// Conditional fork
 const conditionalFork =
   process.env.USE_FORK === "true"
     ? {
@@ -579,17 +414,14 @@ const conditionalFork =
       }
     : undefined;
 
-const node = createTevmNode({
-  fork: conditionalFork,
-});
+const node = createTevmNode({ fork: conditionalFork });
 ```
 
 ### Cache Warmer
 
-For critical paths, pre-warm the cache:
+Pre-fetch hot contracts:
 
 ```ts
-// Pre-warm the cache for frequently accessed contracts
 async function warmCache(node) {
   const vm = await node.getVm();
   const contracts = [
@@ -598,40 +430,29 @@ async function warmCache(node) {
     "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D", // UniswapV2Router
   ].map(createAddress);
 
-  console.log("Warming cache...");
   await Promise.all(
     contracts.map((addr) =>
-      vm.stateManager
-        .getAccount(addr)
-        .then((account) => vm.stateManager.getContractCode(addr)),
+      vm.stateManager.getAccount(addr).then(() => vm.stateManager.getContractCode(addr)),
     ),
   );
-  console.log("Cache warmed!");
 }
 ```
 
 ## Best Practices
 
-<Callout type="warning" emoji="⚠️">
-  Following these best practices will help you avoid common pitfalls when
-  working with forked nodes.
-</Callout>
-
 ### 1. RPC Provider Setup
 
 ```ts
-// ✅ Always call http transport with empty object
+// Call http transport with empty object
 const node = createTevmNode({
-  fork: {
-    transport: http("https://ethereum.quicknode.com/YOUR-API-KEY")({}),
-  },
+  fork: { transport: http("https://ethereum.quicknode.com/YOUR-API-KEY")({}) },
 });
 
-// ✅ Specify a block number for deterministic tests
+// Pin a block for deterministic tests
 const node = createTevmNode({
   fork: {
     transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}),
-    blockTag: 17_000_000n, // Fixed block for reproducibility
+    blockTag: 17_000_000n,
   },
 });
 ```
@@ -639,23 +460,18 @@ const node = createTevmNode({
 ### 2. Error Handling
 
 ```ts
-// ✅ Add proper error handling for RPC failures
 try {
   const node = createTevmNode({
-    fork: {
-      transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}),
-    },
+    fork: { transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}) },
   });
   await node.ready();
 } catch (error) {
   if (error.message.includes("rate limit")) {
-    console.error(
-      "RPC rate limit exceeded. Consider using a different provider.",
-    );
+    console.error("RPC rate limit exceeded.");
   } else if (error.message.includes("network")) {
-    console.error("Network error. Check your internet connection.");
+    console.error("Network error.");
   } else {
-    console.error("Fork initialization failed:", error);
+    console.error("Fork init failed:", error);
   }
 }
 ```
@@ -663,46 +479,38 @@ try {
 ### 3. State Handling
 
 ```ts
-// ✅ Use proper null checks
+// Null-check accounts
 const account = await vm.stateManager.getAccount(address);
 if (account) {
-  // Account exists, safe to use
   account.balance += parseEther("1");
   await vm.stateManager.putAccount(address, account);
 }
 
-// ✅ Handle potential RPC failures in state access
+// Handle RPC failures
 try {
   const code = await vm.stateManager.getContractCode(contractAddress);
-  // Use code
 } catch (error) {
   console.error("Failed to fetch contract code:", error);
-  // Implement fallback or retry logic
 }
 ```
 
-### 4. Performance Considerations
+### 4. Performance
 
 ```ts
-// ✅ Choose the right block for your needs
 const node = createTevmNode({
   fork: {
     transport: http("https://mainnet.infura.io/v3/YOUR-KEY")({}),
-    // For recent transactions, use 'latest'
-    // For reproducible tests, use a specific number
-    // For historical analysis, use a past block
+    // 'latest' for recent txs; pinned number for reproducibility
     blockTag: process.env.NODE_ENV === "test" ? 17_000_000n : "latest",
   },
 });
-
-// ✅ Remember that first access is slower (RPC call)
-// but subsequent accesses are fast (from cache)
+// First access: slow (RPC); subsequent: fast (cache).
 ```
 
 ### 5. Testing Setup
 
 ```ts
-// ✅ For test isolation, use a fresh fork for each test
+// Fresh fork per test (isolation)
 beforeEach(async () => {
   node = createTevmNode({
     fork: {
@@ -713,26 +521,17 @@ beforeEach(async () => {
   await node.ready();
 });
 
-// ✅ For test efficiency, reuse the same fork but reset state
+// Or: shared base + deepCopy per test
 let baseNode;
 before(async () => {
-  baseNode = createTevmNode({
-    fork: {
-      /* ... */
-    },
-  });
+  baseNode = createTevmNode({ fork: { /* ... */ } });
   await baseNode.ready();
 });
-
 beforeEach(async () => {
-  // Clone the base node for each test
   node = await baseNode.deepCopy();
 });
 ```
 
 ## Next Steps
 
-- [State Management](/core/managing-state) - Learn more about manipulating blockchain state
-- [Mining Modes](/core/mining-modes) - Configure how transactions are mined in your forked node
-- [Transaction Pool](/advanced/txpool) - Understand how to work with pending transactions
-- [Forking Example](/examples/forking-mainnet) - See a complete example of forking mainnet
+[State Management](/core/managing-state) · [Mining Modes](/core/mining-modes) · [Transaction Pool](/advanced/txpool) · [Forking Example](/examples/forking-mainnet)

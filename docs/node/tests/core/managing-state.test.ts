@@ -1,6 +1,6 @@
 import { createTevmNode, hexToBytes, http } from 'tevm'
 import { createAddress } from 'tevm/address'
-import { EthjsAccount } from 'tevm/utils'
+import { createAccount } from 'tevm/utils'
 import { describe, expect, it } from 'vitest'
 
 describe('Managing State', () => {
@@ -34,11 +34,9 @@ describe('Managing State', () => {
 			// Create or update an account
 			await stateManager.putAccount(
 				address,
-				EthjsAccount.fromAccountData({
+				createAccount({
 					nonce: 0n,
 					balance: 10_000_000n,
-					storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-					codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
 				}),
 			)
 
@@ -55,20 +53,15 @@ describe('Managing State', () => {
 			const address = createAddress('0x1234567890123456789012345678901234567890')
 
 			// Deploy contract bytecode
-			await stateManager.putContractCode(
-				address,
-				new Uint8Array([
-					/* bytecode */
-				]),
-			)
+			await stateManager.putCode(address, new Uint8Array([1, 2, 3]))
 
 			// Verify deployment
-			const code = await stateManager.getContractCode(address)
-			expect(code.length).toBeDefined()
+			const code = await stateManager.getCode(address)
+			expect(code).toEqual(new Uint8Array([1, 2, 3]))
 
 			// Read storage
 			const slot = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000000')
-			const value = await stateManager.getContractStorage(address, slot)
+			const value = await stateManager.getStorage(address, slot)
 			console.log(value)
 
 			// Dump all storage
@@ -78,10 +71,10 @@ describe('Managing State', () => {
 			// Set a storage value
 			const key = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000000')
 			const newValue = hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001')
-			await stateManager.putContractStorage(address, key, newValue)
+			await stateManager.putStorage(address, key, newValue)
 
 			// Clear storage
-			await stateManager.clearContractStorage(address)
+			await stateManager.clearStorage(address)
 		})
 	})
 
@@ -96,16 +89,14 @@ describe('Managing State', () => {
 
 			try {
 				const address = createAddress('0x1234567890123456789012345678901234567890')
-				const account = EthjsAccount.fromAccountData({
+				const account = createAccount({
 					nonce: 0n,
 					balance: 10_000_000n,
-					storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-					codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
 				})
 
 				// Make state changes
 				await stateManager.putAccount(address, account)
-				await stateManager.putContractStorage(
+				await stateManager.putStorage(
 					address,
 					hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001'),
 					hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002'),
@@ -138,9 +129,15 @@ describe('Managing State', () => {
 
 	describe('Fork Mode State', () => {
 		it('should demonstrate lazy loading with caching', async () => {
+			const rpcUrl = process.env.MAINNET_RPC_URL
+			if (!rpcUrl) {
+				expect(rpcUrl).toBeUndefined()
+				return
+			}
+
 			const node = createTevmNode({
 				fork: {
-					transport: http('https://mainnet.infura.io/v3/YOUR-KEY')({}),
+					transport: http(rpcUrl)({}),
 				},
 			})
 
@@ -193,22 +190,18 @@ describe('Managing State', () => {
 
 			await stateManager.checkpoint()
 			try {
-				const account = EthjsAccount.fromAccountData({
+				const account = createAccount({
 					nonce: 0n,
 					balance: 10_000_000n,
-					storageRoot: '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
-					codeHash: '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
 				})
 
 				// Batch multiple state changes
-				await Promise.all([
-					stateManager.putAccount(testAddress, account),
-					stateManager.putContractStorage(
-						testAddress,
-						hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001'),
-						hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002'),
-					),
-				])
+				await stateManager.putAccount(testAddress, account)
+				await stateManager.putStorage(
+					testAddress,
+					hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000001'),
+					hexToBytes('0x0000000000000000000000000000000000000000000000000000000000000002'),
+				)
 				await stateManager.commit()
 			} catch (_error) {
 				await stateManager.revert()
