@@ -4,24 +4,11 @@ import { telcoinTestnet as _telcoinTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the telcoinTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2017
- * Chain Name: Telcoin Adiri Testnet
- * Default Block Explorer: https://telscan.io
- * Default RPC URL: https://rpc.telcoin.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { telcoinTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Telcoin Adiri Testnet (chain ID 2017). Explorer: https://telscan.io. Default RPC: https://rpc.telcoin.network.
  *
- * const client = createMemoryClient({
- *   common: telcoinTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const telcoinTestnet = createCommon({
 	..._telcoinTestnet,

@@ -4,24 +4,11 @@ import { filecoinHyperspace as _filecoinHyperspace } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the filecoinHyperspace chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 3141
- * Chain Name: Filecoin Hyperspace
- * Default Block Explorer: https://hyperspace.filfox.info/en
- * Default RPC URL: https://api.hyperspace.node.glif.io/rpc/v1
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { filecoinHyperspace } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Filecoin Hyperspace (chain ID 3141). Explorer: https://hyperspace.filfox.info/en. Default RPC: https://api.hyperspace.node.glif.io/rpc/v1.
  *
- * const client = createMemoryClient({
- *   common: filecoinHyperspace,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const filecoinHyperspace = createCommon({
 	..._filecoinHyperspace,

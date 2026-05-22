@@ -4,24 +4,11 @@ import { astarZkyoto as _astarZkyoto } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the astarZkyoto chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 6038361
- * Chain Name: Astar zkEVM Testnet zKyoto
- * Default Block Explorer: https://zkyoto.explorer.startale.com
- * Default RPC URL: https://rpc.startale.com/zkyoto
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { astarZkyoto } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Astar zkEVM Testnet zKyoto (chain ID 6038361). Explorer: https://zkyoto.explorer.startale.com. Default RPC: https://rpc.startale.com/zkyoto.
  *
- * const client = createMemoryClient({
- *   common: astarZkyoto,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const astarZkyoto = createCommon({
 	..._astarZkyoto,

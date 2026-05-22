@@ -4,24 +4,11 @@ import { cronoszkEVM as _cronoszkEVM } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the cronoszkEVM chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 388
- * Chain Name: Cronos zkEVM Mainnet
- * Default Block Explorer: https://explorer.zkevm.cronos.org
- * Default RPC URL: https://mainnet.zkevm.cronos.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { cronoszkEVM } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Cronos zkEVM Mainnet (chain ID 388). Explorer: https://explorer.zkevm.cronos.org. Default RPC: https://mainnet.zkevm.cronos.org.
  *
- * const client = createMemoryClient({
- *   common: cronoszkEVM,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const cronoszkEVM = createCommon({
 	..._cronoszkEVM,

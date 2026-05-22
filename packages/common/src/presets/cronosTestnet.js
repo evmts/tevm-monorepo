@@ -4,24 +4,11 @@ import { cronosTestnet as _cronosTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the cronosTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 338
- * Chain Name: Cronos Testnet
- * Default Block Explorer: https://cronos.org/explorer/testnet3
- * Default RPC URL: https://evm-t3.cronos.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { cronosTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Cronos Testnet (chain ID 338). Explorer: https://explorer.cronos.org/testnet. Default RPC: https://evm-t3.cronos.org.
  *
- * const client = createMemoryClient({
- *   common: cronosTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const cronosTestnet = createCommon({
 	..._cronosTestnet,

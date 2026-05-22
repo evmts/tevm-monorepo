@@ -4,24 +4,11 @@ import { assetChainTestnet as _assetChainTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the assetChainTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 42421
- * Chain Name: AssetChain Testnet
- * Default Block Explorer: https://scan-testnet.assetchain.org
- * Default RPC URL: https://enugu-rpc.assetchain.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { assetChainTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for AssetChain Testnet (chain ID 42421). Explorer: https://scan-testnet.assetchain.org. Default RPC: https://enugu-rpc.assetchain.org.
  *
- * const client = createMemoryClient({
- *   common: assetChainTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const assetChainTestnet = createCommon({
 	..._assetChainTestnet,

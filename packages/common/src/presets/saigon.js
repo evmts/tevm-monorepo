@@ -4,24 +4,11 @@ import { saigon as _saigon } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the saigon chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2021
- * Chain Name: Saigon Testnet
- * Default Block Explorer: https://saigon-app.roninchain.com
- * Default RPC URL: https://saigon-testnet.roninchain.com/rpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { saigon } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Ronin Saigon Testnet (chain ID 202601). Explorer: https://saigon-explorer.roninchain.com. Default RPC: https://saigon-testnet.roninchain.com/rpc.
  *
- * const client = createMemoryClient({
- *   common: saigon,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const saigon = createCommon({
 	..._saigon,

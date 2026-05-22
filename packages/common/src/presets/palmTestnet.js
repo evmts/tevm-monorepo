@@ -4,24 +4,11 @@ import { palmTestnet as _palmTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the palmTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 11297108099
- * Chain Name: Palm Testnet
- * Default Block Explorer: https://palm.chainlens.com
- * Default RPC URL: https://palm-mainnet.public.blastapi.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { palmTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Palm Testnet (chain ID 11297108099). Explorer: https://palm.chainlens.com. Default RPC: https://palm-mainnet.public.blastapi.io.
  *
- * const client = createMemoryClient({
- *   common: palmTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const palmTestnet = createCommon({
 	..._palmTestnet,

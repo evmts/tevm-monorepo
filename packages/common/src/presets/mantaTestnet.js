@@ -4,24 +4,11 @@ import { mantaTestnet as _mantaTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the mantaTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 3441005
- * Chain Name: Manta Pacific Testnet
- * Default Block Explorer: https://pacific-explorer.testnet.manta.network
- * Default RPC URL: https://manta-testnet.calderachain.xyz/http
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { mantaTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Manta Pacific Testnet (chain ID 3441005). Explorer: https://pacific-explorer.testnet.manta.network. Default RPC: https://manta-testnet.calderachain.xyz/http.
  *
- * const client = createMemoryClient({
- *   common: mantaTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const mantaTestnet = createCommon({
 	..._mantaTestnet,

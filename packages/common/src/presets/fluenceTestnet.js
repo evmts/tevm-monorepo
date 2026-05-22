@@ -4,24 +4,11 @@ import { fluenceTestnet as _fluenceTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the fluenceTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 52164803
- * Chain Name: Fluence Testnet
- * Default Block Explorer: https://blockscout.testnet.fluence.dev
- * Default RPC URL: https://rpc.testnet.fluence.dev
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { fluenceTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Fluence Testnet (chain ID 52164803). Explorer: https://blockscout.testnet.fluence.dev. Default RPC: https://rpc.testnet.fluence.dev.
  *
- * const client = createMemoryClient({
- *   common: fluenceTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const fluenceTestnet = createCommon({
 	..._fluenceTestnet,

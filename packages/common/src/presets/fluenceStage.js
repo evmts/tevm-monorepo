@@ -4,24 +4,11 @@ import { fluenceStage as _fluenceStage } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the fluenceStage chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 123420000220
- * Chain Name: Fluence Stage
- * Default Block Explorer: https://blockscout.stage.fluence.dev
- * Default RPC URL: https://rpc.stage.fluence.dev
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { fluenceStage } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Fluence Stage (chain ID 123420000220). Explorer: https://blockscout.stage.fluence.dev. Default RPC: https://rpc.stage.fluence.dev.
  *
- * const client = createMemoryClient({
- *   common: fluenceStage,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const fluenceStage = createCommon({
 	..._fluenceStage,

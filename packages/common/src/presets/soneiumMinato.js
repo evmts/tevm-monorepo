@@ -4,24 +4,11 @@ import { soneiumMinato as _soneiumMinato } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the soneiumMinato chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1946
- * Chain Name: Soneium Minato
- * Default Block Explorer: https://explorer-testnet.soneium.org
- * Default RPC URL: https://rpc.minato.soneium.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { soneiumMinato } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Soneium Minato Testnet (chain ID 1946). Explorer: https://soneium-minato.blockscout.com. Default RPC: https://rpc.minato.soneium.org.
  *
- * const client = createMemoryClient({
- *   common: soneiumMinato,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const soneiumMinato = createCommon({
 	..._soneiumMinato,

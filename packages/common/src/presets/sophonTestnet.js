@@ -4,24 +4,11 @@ import { sophonTestnet as _sophonTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the sophonTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 531050104
- * Chain Name: Sophon Testnet
- * Default Block Explorer: https://explorer.testnet.sophon.xyz
- * Default RPC URL: https://rpc.testnet.sophon.xyz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { sophonTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Sophon Testnet (chain ID 531050104). Explorer: https://explorer.testnet.sophon.xyz. Default RPC: https://rpc.testnet.sophon.xyz.
  *
- * const client = createMemoryClient({
- *   common: sophonTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const sophonTestnet = createCommon({
 	..._sophonTestnet,

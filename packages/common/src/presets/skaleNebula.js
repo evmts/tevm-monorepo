@@ -4,24 +4,11 @@ import { skaleNebula as _skaleNebula } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the skaleNebula chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1482601649
- * Chain Name: SKALE | Nebula Gaming Hub
- * Default Block Explorer: https://green-giddy-denebola.explorer.mainnet.skalenodes.com
- * Default RPC URL: https://mainnet.skalenodes.com/v1/green-giddy-denebola
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { skaleNebula } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for SKALE Nebula Hub (chain ID 1482601649). Explorer: https://green-giddy-denebola.explorer.mainnet.skalenodes.com. Default RPC: https://mainnet.skalenodes.com/v1/green-giddy-denebola.
  *
- * const client = createMemoryClient({
- *   common: skaleNebula,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const skaleNebula = createCommon({
 	..._skaleNebula,

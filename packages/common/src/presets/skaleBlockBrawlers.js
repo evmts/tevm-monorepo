@@ -4,24 +4,11 @@ import { skaleBlockBrawlers as _skaleBlockBrawlers } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the skaleBlockBrawlers chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 391845894
- * Chain Name: SKALE | Block Brawlers
- * Default Block Explorer: https://frayed-decent-antares.explorer.mainnet.skalenodes.com
- * Default RPC URL: https://mainnet.skalenodes.com/v1/frayed-decent-antares
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { skaleBlockBrawlers } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for SKALE | Block Brawlers (chain ID 391845894). Explorer: https://frayed-decent-antares.explorer.mainnet.skalenodes.com. Default RPC: https://mainnet.skalenodes.com/v1/frayed-decent-antares.
  *
- * const client = createMemoryClient({
- *   common: skaleBlockBrawlers,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const skaleBlockBrawlers = createCommon({
 	..._skaleBlockBrawlers,

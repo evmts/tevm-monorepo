@@ -4,24 +4,11 @@ import { sei as _sei } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the sei chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1329
- * Chain Name: Sei Network
- * Default Block Explorer: https://seitrace.com
- * Default RPC URL: https://evm-rpc.sei-apis.com/
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { sei } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Sei Network (chain ID 1329). Explorer: https://seiscan.io. Default RPC: https://evm-rpc.sei-apis.com/.
  *
- * const client = createMemoryClient({
- *   common: sei,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const sei = createCommon({
 	..._sei,

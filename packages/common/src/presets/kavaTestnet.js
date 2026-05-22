@@ -4,24 +4,11 @@ import { kavaTestnet as _kavaTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the kavaTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2221
- * Chain Name: Kava EVM Testnet
- * Default Block Explorer: https://testnet.kavascan.com/
- * Default RPC URL: https://evm.testnet.kava.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { kavaTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Kava EVM Testnet (chain ID 2221). Explorer: https://testnet.kavascan.com/. Default RPC: https://evm.testnet.kava.io.
  *
- * const client = createMemoryClient({
- *   common: kavaTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const kavaTestnet = createCommon({
 	..._kavaTestnet,

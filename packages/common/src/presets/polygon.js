@@ -4,24 +4,11 @@ import { polygon as _polygon } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the polygon chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 137
- * Chain Name: Polygon
- * Default Block Explorer: https://polygonscan.com
- * Default RPC URL: https://polygon-rpc.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { polygon } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Polygon (chain ID 137). Explorer: https://polygonscan.com. Default RPC: https://polygon.drpc.org.
  *
- * const client = createMemoryClient({
- *   common: polygon,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const polygon = createCommon({
 	..._polygon,

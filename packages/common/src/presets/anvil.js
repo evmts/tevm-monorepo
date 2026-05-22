@@ -4,24 +4,11 @@ import { anvil as _anvil } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the anvil chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 31337
- * Chain Name: Anvil
- * Default Block Explorer: Not specified
- * Default RPC URL: http://127.0.0.1:8545
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { anvil } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Anvil (chain ID 31337). Explorer: —. Default RPC: http://127.0.0.1:8545.
  *
- * const client = createMemoryClient({
- *   common: anvil,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const anvil = createCommon({
 	..._anvil,

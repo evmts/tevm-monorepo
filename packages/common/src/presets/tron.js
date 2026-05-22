@@ -4,24 +4,11 @@ import { tron as _tron } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the tron chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 728126428
- * Chain Name: Tron
- * Default Block Explorer: https://tronscan.org
- * Default RPC URL: https://api.trongrid.io/jsonrpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { tron } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Tron (chain ID 728126428). Explorer: https://tronscan.org. Default RPC: https://api.trongrid.io/jsonrpc.
  *
- * const client = createMemoryClient({
- *   common: tron,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const tron = createCommon({
 	..._tron,

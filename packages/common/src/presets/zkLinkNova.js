@@ -4,24 +4,11 @@ import { zkLinkNova as _zkLinkNova } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the zkLinkNova chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 810180
- * Chain Name: zkLink Nova
- * Default Block Explorer: https://explorer.zklink.io
- * Default RPC URL: https://rpc.zklink.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { zkLinkNova } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for zkLink Nova (chain ID 810180). Explorer: https://explorer.zklink.io. Default RPC: https://rpc.zklink.io.
  *
- * const client = createMemoryClient({
- *   common: zkLinkNova,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const zkLinkNova = createCommon({
 	..._zkLinkNova,

@@ -4,24 +4,11 @@ import { qTestnet as _qTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the qTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 35443
- * Chain Name: Q Testnet
- * Default Block Explorer: https://explorer.qtestnet.org
- * Default RPC URL: https://rpc.qtestnet.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { qTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Q Testnet (chain ID 35443). Explorer: https://explorer.qtestnet.org. Default RPC: https://rpc.qtestnet.org.
  *
- * const client = createMemoryClient({
- *   common: qTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const qTestnet = createCommon({
 	..._qTestnet,

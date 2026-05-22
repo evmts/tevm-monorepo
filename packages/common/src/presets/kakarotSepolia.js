@@ -4,24 +4,11 @@ import { kakarotSepolia as _kakarotSepolia } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the kakarotSepolia chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1802203764
- * Chain Name: Kakarot Sepolia
- * Default Block Explorer: https://sepolia.kakarotscan.org
- * Default RPC URL: https://sepolia-rpc.kakarot.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { kakarotSepolia } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Kakarot Sepolia (chain ID 1802203764). Explorer: https://sepolia.kakarotscan.org. Default RPC: https://sepolia-rpc.kakarot.org.
  *
- * const client = createMemoryClient({
- *   common: kakarotSepolia,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const kakarotSepolia = createCommon({
 	..._kakarotSepolia,

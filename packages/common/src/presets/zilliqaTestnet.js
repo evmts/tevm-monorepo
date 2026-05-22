@@ -4,24 +4,11 @@ import { zilliqaTestnet as _zilliqaTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the zilliqaTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 33101
- * Chain Name: Zilliqa Testnet
- * Default Block Explorer: https://evmx.testnet.zilliqa.com
- * Default RPC URL: https://dev-api.zilliqa.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { zilliqaTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Zilliqa Testnet (chain ID 33101). Explorer: https://evmx.testnet.zilliqa.com. Default RPC: https://dev-api.zilliqa.com.
  *
- * const client = createMemoryClient({
- *   common: zilliqaTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const zilliqaTestnet = createCommon({
 	..._zilliqaTestnet,

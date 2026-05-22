@@ -4,24 +4,11 @@ import { linea as _linea } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the linea chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 59144
- * Chain Name: Linea Mainnet
- * Default Block Explorer: https://lineascan.build
- * Default RPC URL: https://rpc.linea.build
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { linea } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Linea Mainnet (chain ID 59144). Explorer: https://lineascan.build. Default RPC: https://rpc.linea.build.
  *
- * const client = createMemoryClient({
- *   common: linea,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const linea = createCommon({
 	..._linea,

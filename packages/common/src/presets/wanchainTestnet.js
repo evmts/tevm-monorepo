@@ -4,24 +4,11 @@ import { wanchainTestnet as _wanchainTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the wanchainTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 999
- * Chain Name: Wanchain Testnet
- * Default Block Explorer: https://wanscan.org
- * Default RPC URL: https://gwan-ssl.wandevs.org:46891
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { wanchainTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Wanchain Testnet (chain ID 999). Explorer: https://wanscan.org. Default RPC: https://gwan-ssl.wandevs.org:46891.
  *
- * const client = createMemoryClient({
- *   common: wanchainTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const wanchainTestnet = createCommon({
 	..._wanchainTestnet,

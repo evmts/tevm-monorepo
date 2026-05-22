@@ -4,24 +4,11 @@ import { scroll as _scroll } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the scroll chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 534352
- * Chain Name: Scroll
- * Default Block Explorer: https://scrollscan.com
- * Default RPC URL: https://rpc.scroll.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { scroll } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Scroll (chain ID 534352). Explorer: https://scrollscan.com. Default RPC: https://rpc.scroll.io.
  *
- * const client = createMemoryClient({
- *   common: scroll,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const scroll = createCommon({
 	..._scroll,

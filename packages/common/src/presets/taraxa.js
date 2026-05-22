@@ -4,24 +4,11 @@ import { taraxa as _taraxa } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the taraxa chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 841
- * Chain Name: Taraxa Mainnet
- * Default Block Explorer: https://explorer.mainnet.taraxa.io
- * Default RPC URL: https://rpc.mainnet.taraxa.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { taraxa } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Taraxa Mainnet (chain ID 841). Explorer: https://explorer.mainnet.taraxa.io. Default RPC: https://rpc.mainnet.taraxa.io.
  *
- * const client = createMemoryClient({
- *   common: taraxa,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const taraxa = createCommon({
 	..._taraxa,

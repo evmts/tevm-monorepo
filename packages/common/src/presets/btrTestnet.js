@@ -4,24 +4,11 @@ import { btrTestnet as _btrTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the btrTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 200810
- * Chain Name: Bitlayer Testnet
- * Default Block Explorer: https://testnet.btrscan.com
- * Default RPC URL: https://testnet-rpc.bitlayer.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { btrTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Bitlayer Testnet (chain ID 200810). Explorer: https://testnet.btrscan.com. Default RPC: https://testnet-rpc.bitlayer.org.
  *
- * const client = createMemoryClient({
- *   common: btrTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const btrTestnet = createCommon({
 	..._btrTestnet,

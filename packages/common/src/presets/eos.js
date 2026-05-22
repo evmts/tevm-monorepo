@@ -4,24 +4,11 @@ import { eos as _eos } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the eos chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 17777
- * Chain Name: EOS EVM
- * Default Block Explorer: https://explorer.evm.eosnetwork.com
- * Default RPC URL: https://api.evm.eosnetwork.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { eos } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for EOS EVM (chain ID 17777). Explorer: https://explorer.evm.eosnetwork.com. Default RPC: https://api.evm.eosnetwork.com.
  *
- * const client = createMemoryClient({
- *   common: eos,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const eos = createCommon({
 	..._eos,

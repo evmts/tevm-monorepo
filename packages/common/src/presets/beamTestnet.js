@@ -4,24 +4,11 @@ import { beamTestnet as _beamTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the beamTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 13337
- * Chain Name: Beam Testnet
- * Default Block Explorer: https://subnets-test.avax.network/beam
- * Default RPC URL: https://build.onbeam.com/rpc/testnet
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { beamTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Beam Testnet (chain ID 13337). Explorer: https://subnets-test.avax.network/beam. Default RPC: https://build.onbeam.com/rpc/testnet.
  *
- * const client = createMemoryClient({
- *   common: beamTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const beamTestnet = createCommon({
 	..._beamTestnet,

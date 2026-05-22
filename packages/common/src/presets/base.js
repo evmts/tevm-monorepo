@@ -4,24 +4,11 @@ import { base as _base } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the base chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 8453
- * Chain Name: Base
- * Default Block Explorer: https://basescan.org
- * Default RPC URL: https://mainnet.base.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { base } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Base (chain ID 8453). Explorer: https://basescan.org. Default RPC: https://mainnet.base.org.
  *
- * const client = createMemoryClient({
- *   common: base,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const base = createCommon({
 	..._base,

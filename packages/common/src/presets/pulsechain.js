@@ -4,24 +4,11 @@ import { pulsechain as _pulsechain } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the pulsechain chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 369
- * Chain Name: PulseChain
- * Default Block Explorer: https://scan.pulsechain.com
- * Default RPC URL: https://rpc.pulsechain.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { pulsechain } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for PulseChain (chain ID 369). Explorer: https://ipfs.scan.pulsechain.com. Default RPC: https://rpc.pulsechain.com.
  *
- * const client = createMemoryClient({
- *   common: pulsechain,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const pulsechain = createCommon({
 	..._pulsechain,

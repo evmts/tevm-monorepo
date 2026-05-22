@@ -4,24 +4,11 @@ import { skaleHumanProtocol as _skaleHumanProtocol } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the skaleHumanProtocol chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1273227453
- * Chain Name: SKALE | Human Protocol
- * Default Block Explorer: https://wan-red-ain.explorer.mainnet.skalenodes.com
- * Default RPC URL: https://mainnet.skalenodes.com/v1/wan-red-ain
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { skaleHumanProtocol } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for SKALE | Human Protocol (chain ID 1273227453). Explorer: https://wan-red-ain.explorer.mainnet.skalenodes.com. Default RPC: https://mainnet.skalenodes.com/v1/wan-red-ain.
  *
- * const client = createMemoryClient({
- *   common: skaleHumanProtocol,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const skaleHumanProtocol = createCommon({
 	..._skaleHumanProtocol,

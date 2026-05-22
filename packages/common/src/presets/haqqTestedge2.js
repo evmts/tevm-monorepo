@@ -4,24 +4,11 @@ import { haqqTestedge2 as _haqqTestedge2 } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the haqqTestedge2 chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 54211
- * Chain Name: HAQQ Testedge 2
- * Default Block Explorer: https://explorer.testedge2.haqq.network
- * Default RPC URL: https://rpc.eth.testedge2.haqq.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { haqqTestedge2 } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for HAQQ Testedge 2 (chain ID 54211). Explorer: https://explorer.testedge2.haqq.network. Default RPC: https://rpc.eth.testedge2.haqq.network.
  *
- * const client = createMemoryClient({
- *   common: haqqTestedge2,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const haqqTestedge2 = createCommon({
 	..._haqqTestedge2,

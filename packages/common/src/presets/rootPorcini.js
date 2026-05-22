@@ -4,24 +4,11 @@ import { rootPorcini as _rootPorcini } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the rootPorcini chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 7672
- * Chain Name: The Root Network - Porcini
- * Default Block Explorer: https://porcini.rootscan.io
- * Default RPC URL: https://porcini.rootnet.app/archive
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { rootPorcini } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for The Root Network - Porcini (chain ID 7672). Explorer: https://porcini.rootscan.io. Default RPC: https://porcini.rootnet.app/archive.
  *
- * const client = createMemoryClient({
- *   common: rootPorcini,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const rootPorcini = createCommon({
 	..._rootPorcini,

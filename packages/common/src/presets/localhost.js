@@ -4,24 +4,11 @@ import { localhost as _localhost } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the localhost chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1337
- * Chain Name: Localhost
- * Default Block Explorer: Not specified
- * Default RPC URL: http://127.0.0.1:8545
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { localhost } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Localhost (chain ID 1337). Explorer: —. Default RPC: http://127.0.0.1:8545.
  *
- * const client = createMemoryClient({
- *   common: localhost,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const localhost = createCommon({
 	..._localhost,

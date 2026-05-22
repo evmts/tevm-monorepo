@@ -4,24 +4,11 @@ import { sapphireTestnet as _sapphireTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the sapphireTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 23295
- * Chain Name: Oasis Sapphire Testnet
- * Default Block Explorer: https://explorer.oasis.io/testnet/sapphire
- * Default RPC URL: https://testnet.sapphire.oasis.dev
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { sapphireTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Oasis Sapphire Testnet (chain ID 23295). Explorer: https://explorer.oasis.io/testnet/sapphire. Default RPC: https://testnet.sapphire.oasis.dev.
  *
- * const client = createMemoryClient({
- *   common: sapphireTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const sapphireTestnet = createCommon({
 	..._sapphireTestnet,

@@ -4,24 +4,11 @@ import { tenet as _tenet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the tenet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1559
- * Chain Name: Tenet
- * Default Block Explorer: https://tenetscan.io
- * Default RPC URL: https://rpc.tenet.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { tenet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Tenet (chain ID 1559). Explorer: https://tenetscan.io. Default RPC: https://rpc.tenet.org.
  *
- * const client = createMemoryClient({
- *   common: tenet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const tenet = createCommon({
 	..._tenet,

@@ -4,24 +4,11 @@ import { kcc as _kcc } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the kcc chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 321
- * Chain Name: KCC Mainnet
- * Default Block Explorer: https://explorer.kcc.io
- * Default RPC URL: https://kcc-rpc.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { kcc } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for KCC Mainnet (chain ID 321). Explorer: https://explorer.kcc.io. Default RPC: https://kcc-rpc.com.
  *
- * const client = createMemoryClient({
- *   common: kcc,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const kcc = createCommon({
 	..._kcc,

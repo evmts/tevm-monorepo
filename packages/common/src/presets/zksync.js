@@ -4,24 +4,11 @@ import { zksync as _zksync } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the zksync chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 324
- * Chain Name: ZKsync Era
- * Default Block Explorer: https://era.zksync.network/
- * Default RPC URL: https://mainnet.era.zksync.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { zksync } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for ZKsync Era (chain ID 324). Explorer: https://explorer.zksync.io/. Default RPC: https://mainnet.era.zksync.io.
  *
- * const client = createMemoryClient({
- *   common: zksync,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const zksync = createCommon({
 	..._zksync,

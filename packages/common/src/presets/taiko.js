@@ -4,24 +4,11 @@ import { taiko as _taiko } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the taiko chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 167000
- * Chain Name: Taiko Mainnet
- * Default Block Explorer: https://taikoscan.io
- * Default RPC URL: https://rpc.mainnet.taiko.xyz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { taiko } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Taiko Mainnet (chain ID 167000). Explorer: https://taikoscan.io. Default RPC: https://rpc.mainnet.taiko.xyz.
  *
- * const client = createMemoryClient({
- *   common: taiko,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const taiko = createCommon({
 	..._taiko,

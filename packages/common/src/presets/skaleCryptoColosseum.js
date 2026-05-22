@@ -4,24 +4,11 @@ import { skaleCryptoColosseum as _skaleCryptoColosseum } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the skaleCryptoColosseum chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1032942172
- * Chain Name: SKALE | Crypto Colosseum
- * Default Block Explorer: https://haunting-devoted-deneb.explorer.mainnet.skalenodes.com
- * Default RPC URL: https://mainnet.skalenodes.com/v1/haunting-devoted-deneb
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { skaleCryptoColosseum } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for SKALE | Crypto Colosseum (chain ID 1032942172). Explorer: https://haunting-devoted-deneb.explorer.mainnet.skalenodes.com. Default RPC: https://mainnet.skalenodes.com/v1/haunting-devoted-deneb.
  *
- * const client = createMemoryClient({
- *   common: skaleCryptoColosseum,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const skaleCryptoColosseum = createCommon({
 	..._skaleCryptoColosseum,

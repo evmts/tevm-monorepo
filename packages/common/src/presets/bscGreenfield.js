@@ -4,24 +4,11 @@ import { bscGreenfield as _bscGreenfield } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bscGreenfield chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1017
- * Chain Name: BNB Greenfield Chain
- * Default Block Explorer: https://greenfieldscan.com
- * Default RPC URL: https://greenfield-chain.bnbchain.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bscGreenfield } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for BNB Greenfield Chain (chain ID 1017). Explorer: https://greenfieldscan.com. Default RPC: https://greenfield-chain.bnbchain.org.
  *
- * const client = createMemoryClient({
- *   common: bscGreenfield,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bscGreenfield = createCommon({
 	..._bscGreenfield,

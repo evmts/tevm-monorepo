@@ -4,24 +4,11 @@ import { moonbaseAlpha as _moonbaseAlpha } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the moonbaseAlpha chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1287
- * Chain Name: Moonbase Alpha
- * Default Block Explorer: https://moonbase.moonscan.io
- * Default RPC URL: https://rpc.api.moonbase.moonbeam.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { moonbaseAlpha } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Moonbase Alpha (chain ID 1287). Explorer: https://moonbase.moonscan.io. Default RPC: https://rpc.api.moonbase.moonbeam.network.
  *
- * const client = createMemoryClient({
- *   common: moonbaseAlpha,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const moonbaseAlpha = createCommon({
 	..._moonbaseAlpha,

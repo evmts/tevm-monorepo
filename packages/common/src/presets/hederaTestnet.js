@@ -4,24 +4,11 @@ import { hederaTestnet as _hederaTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the hederaTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 296
- * Chain Name: Hedera Testnet
- * Default Block Explorer: https://hashscan.io/testnet
- * Default RPC URL: https://testnet.hashio.io/api
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { hederaTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Hedera Testnet (chain ID 296). Explorer: https://hashscan.io/testnet. Default RPC: https://testnet.hashio.io/api.
  *
- * const client = createMemoryClient({
- *   common: hederaTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const hederaTestnet = createCommon({
 	..._hederaTestnet,

@@ -4,24 +4,11 @@ import { thaiChain as _thaiChain } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the thaiChain chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 7
- * Chain Name: ThaiChain
- * Default Block Explorer: https://exp.thaichain.org
- * Default RPC URL: https://rpc.thaichain.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { thaiChain } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for ThaiChain (chain ID 7). Explorer: https://exp.thaichain.org. Default RPC: https://rpc.thaichain.org.
  *
- * const client = createMemoryClient({
- *   common: thaiChain,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const thaiChain = createCommon({
 	..._thaiChain,

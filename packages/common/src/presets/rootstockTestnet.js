@@ -4,24 +4,11 @@ import { rootstockTestnet as _rootstockTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the rootstockTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 31
- * Chain Name: Rootstock Testnet
- * Default Block Explorer: https://explorer.testnet.rootstock.io
- * Default RPC URL: https://public-node.testnet.rsk.co
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { rootstockTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Rootstock Testnet (chain ID 31). Explorer: https://explorer.testnet.rootstock.io. Default RPC: https://public-node.testnet.rsk.co.
  *
- * const client = createMemoryClient({
- *   common: rootstockTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const rootstockTestnet = createCommon({
 	..._rootstockTestnet,

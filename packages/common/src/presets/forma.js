@@ -4,24 +4,11 @@ import { forma as _forma } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the forma chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 984122
- * Chain Name: Forma
- * Default Block Explorer: https://explorer.forma.art
- * Default RPC URL: https://rpc.forma.art
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { forma } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Forma (chain ID 984122). Explorer: https://explorer.forma.art. Default RPC: https://rpc.forma.art.
  *
- * const client = createMemoryClient({
- *   common: forma,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const forma = createCommon({
 	..._forma,

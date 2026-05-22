@@ -4,24 +4,11 @@ import { btr as _btr } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the btr chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 200901
- * Chain Name: Bitlayer
- * Default Block Explorer: https://www.btrscan.com
- * Default RPC URL: https://rpc.bitlayer.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { btr } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Bitlayer (chain ID 200901). Explorer: https://www.btrscan.com. Default RPC: https://rpc.bitlayer.org.
  *
- * const client = createMemoryClient({
- *   common: btr,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const btr = createCommon({
 	..._btr,

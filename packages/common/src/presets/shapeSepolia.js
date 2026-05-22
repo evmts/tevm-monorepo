@@ -4,24 +4,11 @@ import { shapeSepolia as _shapeSepolia } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the shapeSepolia chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 11011
- * Chain Name: Shape Sepolia Testnet
- * Default Block Explorer: https://shape-sepolia-explorer.alchemy.com
- * Default RPC URL: https://sepolia.shape.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { shapeSepolia } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Shape Sepolia Testnet (chain ID 11011). Explorer: https://explorer-sepolia.shape.network/. Default RPC: https://sepolia.shape.network.
  *
- * const client = createMemoryClient({
- *   common: shapeSepolia,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const shapeSepolia = createCommon({
 	..._shapeSepolia,

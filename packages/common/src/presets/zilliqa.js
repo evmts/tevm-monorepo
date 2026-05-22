@@ -4,24 +4,11 @@ import { zilliqa as _zilliqa } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the zilliqa chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 32769
- * Chain Name: Zilliqa
- * Default Block Explorer: https://evmx.zilliqa.com
- * Default RPC URL: https://api.zilliqa.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { zilliqa } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Zilliqa (chain ID 32769). Explorer: https://evmx.zilliqa.com. Default RPC: https://api.zilliqa.com.
  *
- * const client = createMemoryClient({
- *   common: zilliqa,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const zilliqa = createCommon({
 	..._zilliqa,

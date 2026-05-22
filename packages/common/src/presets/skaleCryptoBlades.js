@@ -4,24 +4,11 @@ import { skaleCryptoBlades as _skaleCryptoBlades } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the skaleCryptoBlades chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1026062157
- * Chain Name: SKALE | CryptoBlades
- * Default Block Explorer: https://affectionate-immediate-pollux.explorer.mainnet.skalenodes.com
- * Default RPC URL: https://mainnet.skalenodes.com/v1/affectionate-immediate-pollux
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { skaleCryptoBlades } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for SKALE | CryptoBlades (chain ID 1026062157). Explorer: https://affectionate-immediate-pollux.explorer.mainnet.skalenodes.com. Default RPC: https://mainnet.skalenodes.com/v1/affectionate-immediate-pollux.
  *
- * const client = createMemoryClient({
- *   common: skaleCryptoBlades,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const skaleCryptoBlades = createCommon({
 	..._skaleCryptoBlades,

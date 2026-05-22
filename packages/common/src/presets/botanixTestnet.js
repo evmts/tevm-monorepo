@@ -4,24 +4,11 @@ import { botanixTestnet as _botanixTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the botanixTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 3636
- * Chain Name: Botanix Testnet
- * Default Block Explorer: https://blockscout.botanixlabs.dev
- * Default RPC URL: https://poa-node.botanixlabs.dev
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { botanixTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Botanix Testnet (chain ID 3636). Explorer: https://testnet.botanixscan.io. Default RPC: https://node.botanixlabs.dev.
  *
- * const client = createMemoryClient({
- *   common: botanixTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const botanixTestnet = createCommon({
 	..._botanixTestnet,

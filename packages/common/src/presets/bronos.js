@@ -4,24 +4,11 @@ import { bronos as _bronos } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bronos chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1039
- * Chain Name: Bronos
- * Default Block Explorer: https://broscan.bronos.org
- * Default RPC URL: https://evm.bronos.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bronos } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Bronos (chain ID 1039). Explorer: https://broscan.bronos.org. Default RPC: https://evm.bronos.org.
  *
- * const client = createMemoryClient({
- *   common: bronos,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bronos = createCommon({
 	..._bronos,

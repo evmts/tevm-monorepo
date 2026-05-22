@@ -4,24 +4,11 @@ import { gravity as _gravity } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the gravity chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1625
- * Chain Name: Gravity Alpha Mainnet
- * Default Block Explorer: https://explorer.gravity.xyz
- * Default RPC URL: https://rpc.gravity.xyz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { gravity } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Gravity Alpha Mainnet (chain ID 1625). Explorer: https://explorer.gravity.xyz. Default RPC: https://rpc.gravity.xyz.
  *
- * const client = createMemoryClient({
- *   common: gravity,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const gravity = createCommon({
 	..._gravity,

@@ -4,24 +4,11 @@ import { taikoJolnir as _taikoJolnir } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the taikoJolnir chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 167007
- * Chain Name: Taiko Jolnir (Alpha-5 Testnet)
- * Default Block Explorer: https://explorer.jolnir.taiko.xyz
- * Default RPC URL: https://rpc.jolnir.taiko.xyz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { taikoJolnir } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Taiko Jolnir (Alpha-5 Testnet) (chain ID 167007). Explorer: https://explorer.jolnir.taiko.xyz. Default RPC: https://rpc.jolnir.taiko.xyz.
  *
- * const client = createMemoryClient({
- *   common: taikoJolnir,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const taikoJolnir = createCommon({
 	..._taikoJolnir,

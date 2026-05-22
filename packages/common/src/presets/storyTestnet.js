@@ -4,24 +4,11 @@ import { storyTestnet as _storyTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the storyTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1513
- * Chain Name: Story Testnet
- * Default Block Explorer: https://testnet.storyscan.xyz
- * Default RPC URL: https://testnet.storyrpc.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { storyTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Story Testnet (chain ID 1513). Explorer: https://testnet.storyscan.xyz. Default RPC: https://testnet.storyrpc.io.
  *
- * const client = createMemoryClient({
- *   common: storyTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const storyTestnet = createCommon({
 	..._storyTestnet,

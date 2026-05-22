@@ -4,24 +4,11 @@ import { xaiTestnet as _xaiTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the xaiTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 37714555429
- * Chain Name: Xai Testnet
- * Default Block Explorer: https://testnet-explorer-v2.xai-chain.net
- * Default RPC URL: https://testnet-v2.xai-chain.net/rpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { xaiTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Xai Testnet (chain ID 37714555429). Explorer: https://testnet-explorer-v2.xai-chain.net. Default RPC: https://testnet-v2.xai-chain.net/rpc.
  *
- * const client = createMemoryClient({
- *   common: xaiTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const xaiTestnet = createCommon({
 	..._xaiTestnet,

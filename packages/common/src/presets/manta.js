@@ -4,24 +4,11 @@ import { manta as _manta } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the manta chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 169
- * Chain Name: Manta Pacific Mainnet
- * Default Block Explorer: https://pacific-explorer.manta.network
- * Default RPC URL: https://pacific-rpc.manta.network/http
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { manta } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Manta Pacific Mainnet (chain ID 169). Explorer: https://pacific-explorer.manta.network. Default RPC: https://pacific-rpc.manta.network/http.
  *
- * const client = createMemoryClient({
- *   common: manta,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const manta = createCommon({
 	..._manta,

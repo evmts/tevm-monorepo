@@ -4,24 +4,11 @@ import { rollux as _rollux } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the rollux chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 570
- * Chain Name: Rollux Mainnet
- * Default Block Explorer: https://explorer.rollux.com
- * Default RPC URL: https://rpc.rollux.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { rollux } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Rollux Mainnet (chain ID 570). Explorer: https://explorer.rollux.com. Default RPC: https://rpc.rollux.com.
  *
- * const client = createMemoryClient({
- *   common: rollux,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const rollux = createCommon({
 	..._rollux,

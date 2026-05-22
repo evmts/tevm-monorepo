@@ -4,24 +4,11 @@ import { playfiAlbireo as _playfiAlbireo } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the playfiAlbireo chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1612127
- * Chain Name: PlayFi Albireo Testnet
- * Default Block Explorer: https://albireo-explorer.playfi.ai
- * Default RPC URL: https://albireo-rpc.playfi.ai
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { playfiAlbireo } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for PlayFi Albireo Testnet (chain ID 1612127). Explorer: https://albireo-explorer.playfi.ai. Default RPC: https://albireo-rpc.playfi.ai.
  *
- * const client = createMemoryClient({
- *   common: playfiAlbireo,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const playfiAlbireo = createCommon({
 	..._playfiAlbireo,

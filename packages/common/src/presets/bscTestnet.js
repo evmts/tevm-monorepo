@@ -4,24 +4,11 @@ import { bscTestnet as _bscTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bscTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 97
- * Chain Name: Binance Smart Chain Testnet
- * Default Block Explorer: https://testnet.bscscan.com
- * Default RPC URL: https://data-seed-prebsc-1-s1.bnbchain.org:8545
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bscTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for BNB Smart Chain Testnet (chain ID 97). Explorer: https://testnet.bscscan.com. Default RPC: https://data-seed-prebsc-1-s1.bnbchain.org:8545.
  *
- * const client = createMemoryClient({
- *   common: bscTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bscTestnet = createCommon({
 	..._bscTestnet,

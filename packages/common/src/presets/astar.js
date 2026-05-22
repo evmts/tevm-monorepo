@@ -4,24 +4,11 @@ import { astar as _astar } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the astar chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 592
- * Chain Name: Astar
- * Default Block Explorer: https://astar.subscan.io
- * Default RPC URL: https://astar.api.onfinality.io/public
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { astar } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Astar (chain ID 592). Explorer: https://astar.subscan.io. Default RPC: https://astar.api.onfinality.io/public.
  *
- * const client = createMemoryClient({
- *   common: astar,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const astar = createCommon({
 	..._astar,

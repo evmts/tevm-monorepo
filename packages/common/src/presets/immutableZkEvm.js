@@ -4,24 +4,11 @@ import { immutableZkEvm as _immutableZkEvm } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the immutableZkEvm chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 13371
- * Chain Name: Immutable zkEVM
- * Default Block Explorer: https://explorer.immutable.com
- * Default RPC URL: https://rpc.immutable.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { immutableZkEvm } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Immutable zkEVM (chain ID 13371). Explorer: https://explorer.immutable.com. Default RPC: https://rpc.immutable.com.
  *
- * const client = createMemoryClient({
- *   common: immutableZkEvm,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const immutableZkEvm = createCommon({
 	..._immutableZkEvm,

@@ -4,24 +4,11 @@ import { fantom as _fantom } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the fantom chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 250
- * Chain Name: Fantom
- * Default Block Explorer: https://ftmscan.com
- * Default RPC URL: https://rpc.ankr.com/fantom
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { fantom } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Fantom (chain ID 250). Explorer: https://ftmscan.com. Default RPC: https://250.rpc.thirdweb.com.
  *
- * const client = createMemoryClient({
- *   common: fantom,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const fantom = createCommon({
 	..._fantom,

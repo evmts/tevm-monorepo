@@ -4,24 +4,11 @@ import { eon as _eon } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the eon chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 7332
- * Chain Name: Horizen EON
- * Default Block Explorer: https://eon-explorer.horizenlabs.io
- * Default RPC URL: https://eon-rpc.horizenlabs.io/ethv1
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { eon } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Horizen EON (chain ID 7332). Explorer: https://eon-explorer.horizenlabs.io. Default RPC: https://eon-rpc.horizenlabs.io/ethv1.
  *
- * const client = createMemoryClient({
- *   common: eon,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const eon = createCommon({
 	..._eon,

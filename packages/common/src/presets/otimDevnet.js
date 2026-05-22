@@ -4,24 +4,11 @@ import { otimDevnet as _otimDevnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the otimDevnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 41144114
- * Chain Name: Otim Devnet
- * Default Block Explorer: Not specified
- * Default RPC URL: http://devnet.otim.xyz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { otimDevnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Otim Devnet (chain ID 41144114). Explorer: —. Default RPC: http://devnet.otim.xyz.
  *
- * const client = createMemoryClient({
- *   common: otimDevnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const otimDevnet = createCommon({
 	..._otimDevnet,

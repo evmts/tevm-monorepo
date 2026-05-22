@@ -4,24 +4,11 @@ import { auroraTestnet as _auroraTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the auroraTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1313161555
- * Chain Name: Aurora Testnet
- * Default Block Explorer: https://testnet.aurorascan.dev
- * Default RPC URL: https://testnet.aurora.dev
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { auroraTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Aurora Testnet (chain ID 1313161555). Explorer: https://testnet.aurorascan.dev. Default RPC: https://testnet.aurora.dev.
  *
- * const client = createMemoryClient({
- *   common: auroraTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const auroraTestnet = createCommon({
 	..._auroraTestnet,

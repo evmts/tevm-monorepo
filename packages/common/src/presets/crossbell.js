@@ -4,24 +4,11 @@ import { crossbell as _crossbell } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the crossbell chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 3737
- * Chain Name: Crossbell
- * Default Block Explorer: https://scan.crossbell.io
- * Default RPC URL: https://rpc.crossbell.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { crossbell } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Crossbell (chain ID 3737). Explorer: https://scan.crossbell.io. Default RPC: https://rpc.crossbell.io.
  *
- * const client = createMemoryClient({
- *   common: crossbell,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const crossbell = createCommon({
 	..._crossbell,

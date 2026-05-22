@@ -4,24 +4,11 @@ import { flareTestnet as _flareTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the flareTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 114
- * Chain Name: Coston2
- * Default Block Explorer: https://coston2-explorer.flare.network
- * Default RPC URL: https://coston2-api.flare.network/ext/C/rpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { flareTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Flare Testnet Coston2 (chain ID 114). Explorer: https://coston2-explorer.flare.network. Default RPC: https://coston2-api.flare.network/ext/C/rpc.
  *
- * const client = createMemoryClient({
- *   common: flareTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const flareTestnet = createCommon({
 	..._flareTestnet,

@@ -4,24 +4,11 @@ import { l3xTestnet as _l3xTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the l3xTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 12325
- * Chain Name: L3X Protocol Testnet
- * Default Block Explorer: https://explorer-testnet.l3x.com
- * Default RPC URL: https://rpc-testnet.l3x.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { l3xTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for L3X Protocol Testnet (chain ID 12325). Explorer: https://explorer-testnet.l3x.com. Default RPC: https://rpc-testnet.l3x.com.
  *
- * const client = createMemoryClient({
- *   common: l3xTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const l3xTestnet = createCommon({
 	..._l3xTestnet,

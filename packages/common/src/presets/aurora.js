@@ -4,24 +4,11 @@ import { aurora as _aurora } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the aurora chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1313161554
- * Chain Name: Aurora
- * Default Block Explorer: https://aurorascan.dev
- * Default RPC URL: https://mainnet.aurora.dev
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { aurora } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Aurora (chain ID 1313161554). Explorer: https://aurorascan.dev. Default RPC: https://mainnet.aurora.dev.
  *
- * const client = createMemoryClient({
- *   common: aurora,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const aurora = createCommon({
 	..._aurora,

@@ -4,24 +4,11 @@ import { ancient8 as _ancient8 } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the ancient8 chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 888888888
- * Chain Name: Ancient8
- * Default Block Explorer: https://scan.ancient8.gg
- * Default RPC URL: https://rpc.ancient8.gg
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { ancient8 } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Ancient8 (chain ID 888888888). Explorer: https://scan.ancient8.gg. Default RPC: https://rpc.ancient8.gg.
  *
- * const client = createMemoryClient({
- *   common: ancient8,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const ancient8 = createCommon({
 	..._ancient8,

@@ -4,24 +4,11 @@ import { metis as _metis } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the metis chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1088
- * Chain Name: Metis
- * Default Block Explorer: https://explorer.metis.io
- * Default RPC URL: https://andromeda.metis.io/?owner=1088
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { metis } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Metis (chain ID 1088). Explorer: https://explorer.metis.io. Default RPC: https://metis.rpc.hypersync.xyz.
  *
- * const client = createMemoryClient({
- *   common: metis,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const metis = createCommon({
 	..._metis,

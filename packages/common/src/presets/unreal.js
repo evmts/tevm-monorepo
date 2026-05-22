@@ -4,24 +4,11 @@ import { unreal as _unreal } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the unreal chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 18233
- * Chain Name: Unreal
- * Default Block Explorer: https://unreal.blockscout.com
- * Default RPC URL: https://rpc.unreal-orbit.gelato.digital
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { unreal } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Unreal (chain ID 18233). Explorer: https://unreal.blockscout.com. Default RPC: https://rpc.unreal-orbit.gelato.digital.
  *
- * const client = createMemoryClient({
- *   common: unreal,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const unreal = createCommon({
 	..._unreal,

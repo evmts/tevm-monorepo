@@ -4,24 +4,11 @@ import { xai as _xai } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the xai chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 660279
- * Chain Name: Xai Mainnet
- * Default Block Explorer: https://explorer.xai-chain.net
- * Default RPC URL: https://xai-chain.net/rpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { xai } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Xai Mainnet (chain ID 660279). Explorer: https://explorer.xai-chain.net. Default RPC: https://xai-chain.net/rpc.
  *
- * const client = createMemoryClient({
- *   common: xai,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const xai = createCommon({
 	..._xai,

@@ -4,24 +4,11 @@ import { atletaOlympia as _atletaOlympia } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the atletaOlympia chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2340
- * Chain Name: Atleta Olympia
- * Default Block Explorer: https://blockscout.atleta.network
- * Default RPC URL: https://testnet-rpc.atleta.network:9944
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { atletaOlympia } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Atleta Olympia (chain ID 2340). Explorer: https://blockscout.atleta.network. Default RPC: https://testnet-rpc.atleta.network:9944.
  *
- * const client = createMemoryClient({
- *   common: atletaOlympia,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const atletaOlympia = createCommon({
 	..._atletaOlympia,

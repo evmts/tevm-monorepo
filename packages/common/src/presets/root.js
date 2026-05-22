@@ -4,24 +4,11 @@ import { root as _root } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the root chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 7668
- * Chain Name: The Root Network
- * Default Block Explorer: https://rootscan.io
- * Default RPC URL: https://root.rootnet.live/archive
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { root } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for The Root Network (chain ID 7668). Explorer: https://rootscan.io. Default RPC: https://root.rootnet.live/archive.
  *
- * const client = createMemoryClient({
- *   common: root,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const root = createCommon({
 	..._root,

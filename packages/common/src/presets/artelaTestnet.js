@@ -4,24 +4,11 @@ import { artelaTestnet as _artelaTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the artelaTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 11822
- * Chain Name: Artela Testnet
- * Default Block Explorer: https://betanet-scan.artela.network
- * Default RPC URL: https://betanet-rpc1.artela.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { artelaTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Artela Testnet (chain ID 11822). Explorer: https://betanet-scan.artela.network. Default RPC: https://betanet-rpc1.artela.network.
  *
- * const client = createMemoryClient({
- *   common: artelaTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const artelaTestnet = createCommon({
 	..._artelaTestnet,

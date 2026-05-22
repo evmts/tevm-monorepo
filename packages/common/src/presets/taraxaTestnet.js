@@ -4,24 +4,11 @@ import { taraxaTestnet as _taraxaTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the taraxaTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 842
- * Chain Name: Taraxa Testnet
- * Default Block Explorer: https://explorer.testnet.taraxa.io
- * Default RPC URL: https://rpc.testnet.taraxa.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { taraxaTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Taraxa Testnet (chain ID 842). Explorer: https://explorer.testnet.taraxa.io. Default RPC: https://rpc.testnet.taraxa.io.
  *
- * const client = createMemoryClient({
- *   common: taraxaTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const taraxaTestnet = createCommon({
 	..._taraxaTestnet,

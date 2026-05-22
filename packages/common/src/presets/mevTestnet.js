@@ -4,24 +4,11 @@ import { mevTestnet as _mevTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the mevTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 4759
- * Chain Name: MEVerse Chain Testnet
- * Default Block Explorer: https://testnet.meversescan.io/
- * Default RPC URL: https://rpc.meversetestnet.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { mevTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for MEVerse Chain Testnet (chain ID 4759). Explorer: https://testnet.meversescan.io/. Default RPC: https://rpc.meversetestnet.io.
  *
- * const client = createMemoryClient({
- *   common: mevTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const mevTestnet = createCommon({
 	..._mevTestnet,

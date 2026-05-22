@@ -4,24 +4,11 @@ import { mantaSepoliaTestnet as _mantaSepoliaTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the mantaSepoliaTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 3441006
- * Chain Name: Manta Pacific Sepolia Testnet
- * Default Block Explorer: https://pacific-explorer.sepolia-testnet.manta.network
- * Default RPC URL: https://pacific-rpc.sepolia-testnet.manta.network/http
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { mantaSepoliaTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Manta Pacific Sepolia Testnet (chain ID 3441006). Explorer: https://pacific-explorer.sepolia-testnet.manta.network. Default RPC: https://pacific-rpc.sepolia-testnet.manta.network/http.
  *
- * const client = createMemoryClient({
- *   common: mantaSepoliaTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const mantaSepoliaTestnet = createCommon({
 	..._mantaSepoliaTestnet,

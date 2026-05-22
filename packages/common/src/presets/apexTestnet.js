@@ -4,24 +4,11 @@ import { apexTestnet as _apexTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the apexTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 3993
- * Chain Name: APEX Testnet
- * Default Block Explorer: https://exp-testnet.apexlayer.xyz
- * Default RPC URL: https://rpc-testnet.apexlayer.xyz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { apexTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for APEX Testnet (chain ID 3993). Explorer: https://exp-testnet.apexlayer.xyz. Default RPC: https://rpc-testnet.apexlayer.xyz.
  *
- * const client = createMemoryClient({
- *   common: apexTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const apexTestnet = createCommon({
 	..._apexTestnet,

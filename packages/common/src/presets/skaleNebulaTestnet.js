@@ -4,24 +4,11 @@ import { skaleNebulaTestnet as _skaleNebulaTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the skaleNebulaTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 37084624
- * Chain Name: SKALE Nebula Testnet
- * Default Block Explorer: https://lanky-ill-funny-testnet.explorer.testnet.skalenodes.com
- * Default RPC URL: https://testnet.skalenodes.com/v1/lanky-ill-funny-testnet
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { skaleNebulaTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for SKALE Nebula Testnet (chain ID 37084624). Explorer: https://lanky-ill-funny-testnet.explorer.testnet.skalenodes.com. Default RPC: https://testnet.skalenodes.com/v1/lanky-ill-funny-testnet.
  *
- * const client = createMemoryClient({
- *   common: skaleNebulaTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const skaleNebulaTestnet = createCommon({
 	..._skaleNebulaTestnet,

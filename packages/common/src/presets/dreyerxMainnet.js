@@ -4,24 +4,11 @@ import { dreyerxMainnet as _dreyerxMainnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the dreyerxMainnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 23451
- * Chain Name: DreyerX Mainnet
- * Default Block Explorer: https://scan.dreyerx.com
- * Default RPC URL: https://rpc.dreyerx.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { dreyerxMainnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for DreyerX Mainnet (chain ID 23451). Explorer: https://scan.dreyerx.com. Default RPC: https://rpc.dreyerx.com.
  *
- * const client = createMemoryClient({
- *   common: dreyerxMainnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const dreyerxMainnet = createCommon({
 	..._dreyerxMainnet,

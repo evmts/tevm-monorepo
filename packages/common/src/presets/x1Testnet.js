@@ -4,24 +4,11 @@ import { x1Testnet as _x1Testnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the x1Testnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 195
- * Chain Name: X1 Testnet
- * Default Block Explorer: https://www.oklink.com/xlayer-test
- * Default RPC URL: https://xlayertestrpc.okx.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { x1Testnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for X1 Testnet (chain ID 1952). Explorer: https://www.oklink.com/xlayer-test. Default RPC: https://xlayertestrpc.okx.com.
  *
- * const client = createMemoryClient({
- *   common: x1Testnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const x1Testnet = createCommon({
 	..._x1Testnet,

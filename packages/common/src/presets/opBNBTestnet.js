@@ -4,24 +4,11 @@ import { opBNBTestnet as _opBNBTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the opBNBTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 5611
- * Chain Name: opBNB Testnet
- * Default Block Explorer: https://testnet.opbnbscan.com
- * Default RPC URL: https://opbnb-testnet-rpc.bnbchain.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { opBNBTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for opBNB Testnet (chain ID 5611). Explorer: https://testnet.opbnbscan.com. Default RPC: https://opbnb-testnet-rpc.bnbchain.org.
  *
- * const client = createMemoryClient({
- *   common: opBNBTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const opBNBTestnet = createCommon({
 	..._opBNBTestnet,

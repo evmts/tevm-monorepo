@@ -4,24 +4,11 @@ import { lycan as _lycan } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the lycan chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 721
- * Chain Name: Lycan
- * Default Block Explorer: https://explorer.lycanchain.com
- * Default RPC URL: https://rpc.lycanchain.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { lycan } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Lycan (chain ID 721). Explorer: https://explorer.lycanchain.com. Default RPC: https://rpc.lycanchain.com.
  *
- * const client = createMemoryClient({
- *   common: lycan,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const lycan = createCommon({
 	..._lycan,

@@ -4,24 +4,11 @@ import { iota as _iota } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the iota chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 8822
- * Chain Name: IOTA EVM
- * Default Block Explorer: https://explorer.evm.iota.org
- * Default RPC URL: https://json-rpc.evm.iotaledger.net
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { iota } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for IOTA EVM (chain ID 8822). Explorer: https://explorer.evm.iota.org. Default RPC: https://json-rpc.evm.iotaledger.net.
  *
- * const client = createMemoryClient({
- *   common: iota,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const iota = createCommon({
 	..._iota,

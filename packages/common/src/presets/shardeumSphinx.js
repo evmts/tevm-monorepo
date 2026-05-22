@@ -4,24 +4,11 @@ import { shardeumSphinx as _shardeumSphinx } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the shardeumSphinx chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 8082
- * Chain Name: Shardeum Sphinx
- * Default Block Explorer: https://explorer-sphinx.shardeum.org
- * Default RPC URL: https://sphinx.shardeum.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { shardeumSphinx } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Shardeum Sphinx (chain ID 8082). Explorer: https://explorer-sphinx.shardeum.org. Default RPC: https://sphinx.shardeum.org.
  *
- * const client = createMemoryClient({
- *   common: shardeumSphinx,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const shardeumSphinx = createCommon({
 	..._shardeumSphinx,

@@ -4,24 +4,11 @@ import { xLayer as _xLayer } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the xLayer chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 196
- * Chain Name: X Layer Mainnet
- * Default Block Explorer: https://www.oklink.com/xlayer
- * Default RPC URL: https://rpc.xlayer.tech
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { xLayer } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for X Layer Mainnet (chain ID 196). Explorer: https://www.oklink.com/xlayer. Default RPC: https://xlayerrpc.okx.com.
  *
- * const client = createMemoryClient({
- *   common: xLayer,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const xLayer = createCommon({
 	..._xLayer,

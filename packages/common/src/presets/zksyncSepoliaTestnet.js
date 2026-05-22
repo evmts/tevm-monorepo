@@ -4,24 +4,11 @@ import { zksyncSepoliaTestnet as _zksyncSepoliaTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the zksyncSepoliaTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 300
- * Chain Name: ZKsync Sepolia Testnet
- * Default Block Explorer: https://sepolia-era.zksync.network/
- * Default RPC URL: https://sepolia.era.zksync.dev
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { zksyncSepoliaTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for ZKsync Sepolia Testnet (chain ID 300). Explorer: https://sepolia.explorer.zksync.io/. Default RPC: https://sepolia.era.zksync.dev.
  *
- * const client = createMemoryClient({
- *   common: zksyncSepoliaTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const zksyncSepoliaTestnet = createCommon({
 	..._zksyncSepoliaTestnet,

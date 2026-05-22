@@ -4,24 +4,11 @@ import { yooldoVerse as _yooldoVerse } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the yooldoVerse chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 50005
- * Chain Name: Yooldo Verse
- * Default Block Explorer: https://explorer.yooldo-verse.xyz
- * Default RPC URL: https://rpc.yooldo-verse.xyz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { yooldoVerse } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Yooldo Verse (chain ID 50005). Explorer: https://explorer.yooldo-verse.xyz. Default RPC: https://rpc.yooldo-verse.xyz.
  *
- * const client = createMemoryClient({
- *   common: yooldoVerse,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const yooldoVerse = createCommon({
 	..._yooldoVerse,

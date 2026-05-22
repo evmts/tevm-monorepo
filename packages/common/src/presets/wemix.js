@@ -4,24 +4,11 @@ import { wemix as _wemix } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the wemix chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1111
- * Chain Name: WEMIX
- * Default Block Explorer: https://explorer.wemix.com
- * Default RPC URL: https://api.wemix.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { wemix } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for WEMIX (chain ID 1111). Explorer: https://explorer.wemix.com. Default RPC: https://api.wemix.com.
  *
- * const client = createMemoryClient({
- *   common: wemix,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const wemix = createCommon({
 	..._wemix,

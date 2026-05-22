@@ -4,24 +4,11 @@ import { blastSepolia as _blastSepolia } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the blastSepolia chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 168587773
- * Chain Name: Blast Sepolia
- * Default Block Explorer: https://sepolia.blastscan.io
- * Default RPC URL: https://sepolia.blast.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { blastSepolia } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Blast Sepolia (chain ID 168587773). Explorer: https://sepolia.blastscan.io. Default RPC: https://sepolia.blast.io.
  *
- * const client = createMemoryClient({
- *   common: blastSepolia,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const blastSepolia = createCommon({
 	..._blastSepolia,

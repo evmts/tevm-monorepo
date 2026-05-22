@@ -4,24 +4,11 @@ import { bxn as _bxn } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bxn chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 4999
- * Chain Name: BlackFort Exchange Network
- * Default Block Explorer: https://explorer.blackfort.network
- * Default RPC URL: https://mainnet.blackfort.network/rpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bxn } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for BlackFort Exchange Network (chain ID 4999). Explorer: https://explorer.blackfort.network. Default RPC: https://mainnet.blackfort.network/rpc.
  *
- * const client = createMemoryClient({
- *   common: bxn,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bxn = createCommon({
 	..._bxn,

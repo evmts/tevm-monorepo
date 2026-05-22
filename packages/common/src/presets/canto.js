@@ -4,24 +4,11 @@ import { canto as _canto } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the canto chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 7700
- * Chain Name: Canto
- * Default Block Explorer: https://tuber.build
- * Default RPC URL: https://canto.gravitychain.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { canto } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Canto (chain ID 7700). Explorer: https://tuber.build. Default RPC: https://canto.gravitychain.io.
  *
- * const client = createMemoryClient({
- *   common: canto,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const canto = createCommon({
 	..._canto,

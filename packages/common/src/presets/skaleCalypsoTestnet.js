@@ -4,24 +4,11 @@ import { skaleCalypsoTestnet as _skaleCalypsoTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the skaleCalypsoTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 974399131
- * Chain Name: SKALE Calypso Testnet
- * Default Block Explorer: https://giant-half-dual-testnet.explorer.testnet.skalenodes.com
- * Default RPC URL: https://testnet.skalenodes.com/v1/giant-half-dual-testnet
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { skaleCalypsoTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for SKALE Calypso Testnet (chain ID 974399131). Explorer: https://giant-half-dual-testnet.explorer.testnet.skalenodes.com. Default RPC: https://testnet.skalenodes.com/v1/giant-half-dual-testnet.
  *
- * const client = createMemoryClient({
- *   common: skaleCalypsoTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const skaleCalypsoTestnet = createCommon({
 	..._skaleCalypsoTestnet,

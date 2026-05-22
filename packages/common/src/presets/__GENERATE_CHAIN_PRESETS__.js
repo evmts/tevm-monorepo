@@ -1,7 +1,10 @@
 // This script is used to geenrate this folder
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import * as chains from 'viem/chains'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const allChains = {
 	abstractTestnet: chains.abstractTestnet,
@@ -343,24 +346,11 @@ const template = (chainName) => `import { ${chainName} as _${chainName} } from '
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the ${chainName} chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: ${allChains[/** @type {keyof typeof allChains} */ (chainName)].id}
- * Chain Name: ${allChains[/** @type {keyof typeof allChains} */ (chainName)].name}
- * Default Block Explorer: ${allChains[/** @type {keyof typeof allChains} */ (chainName)].blockExplorers?.default?.url || 'Not specified'}
- * Default RPC URL: ${allChains[/** @type {keyof typeof allChains} */ (chainName)].rpcUrls?.default?.http[0] || 'Not specified'}
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { ${chainName} } from 'tevm/common'
- * import { http } from 'tevm'
+ * \`Common\` for ${allChains[/** @type {keyof typeof allChains} */ (chainName)].name} (chain ID ${allChains[/** @type {keyof typeof allChains} */ (chainName)].id}). Explorer: ${allChains[/** @type {keyof typeof allChains} */ (chainName)].blockExplorers?.default?.url || '—'}. Default RPC: ${allChains[/** @type {keyof typeof allChains} */ (chainName)].rpcUrls?.default?.http[0] || '—'}.
  *
- * const client = createMemoryClient({
- *   common: ${chainName},
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as \`common\` to \`createMemoryClient\`. See \`tevmDefault\` and other presets in \`tevm/common\`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const ${chainName} = createCommon({
 	..._${chainName},

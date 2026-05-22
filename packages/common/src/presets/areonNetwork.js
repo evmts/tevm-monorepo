@@ -4,24 +4,11 @@ import { areonNetwork as _areonNetwork } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the areonNetwork chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 463
- * Chain Name: Areon Network
- * Default Block Explorer: https://areonscan.com
- * Default RPC URL: https://mainnet-rpc.areon.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { areonNetwork } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Areon Network (chain ID 463). Explorer: https://areonscan.com. Default RPC: https://mainnet-rpc.areon.network.
  *
- * const client = createMemoryClient({
- *   common: areonNetwork,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const areonNetwork = createCommon({
 	..._areonNetwork,

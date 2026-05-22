@@ -4,24 +4,11 @@ import { goerli as _goerli } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the goerli chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 5
- * Chain Name: Goerli
- * Default Block Explorer: https://goerli.etherscan.io
- * Default RPC URL: https://rpc.ankr.com/eth_goerli
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { goerli } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Goerli (chain ID 5). Explorer: https://goerli.etherscan.io. Default RPC: https://5.rpc.thirdweb.com.
  *
- * const client = createMemoryClient({
- *   common: goerli,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const goerli = createCommon({
 	..._goerli,

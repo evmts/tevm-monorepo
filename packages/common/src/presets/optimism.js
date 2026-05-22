@@ -4,24 +4,11 @@ import { optimism as _optimism } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the optimism chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 10
- * Chain Name: OP Mainnet
- * Default Block Explorer: https://optimistic.etherscan.io
- * Default RPC URL: https://mainnet.optimism.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { optimism } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for OP Mainnet (chain ID 10). Explorer: https://optimistic.etherscan.io. Default RPC: https://mainnet.optimism.io.
  *
- * const client = createMemoryClient({
- *   common: optimism,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const optimism = createCommon({
 	..._optimism,

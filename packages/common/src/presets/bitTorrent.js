@@ -4,24 +4,11 @@ import { bitTorrent as _bitTorrent } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bitTorrent chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 199
- * Chain Name: BitTorrent
- * Default Block Explorer: https://bttcscan.com
- * Default RPC URL: https://rpc.bittorrentchain.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bitTorrent } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for BitTorrent (chain ID 199). Explorer: https://bttcscan.com. Default RPC: https://rpc.bittorrentchain.io.
  *
- * const client = createMemoryClient({
- *   common: bitTorrent,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bitTorrent = createCommon({
 	..._bitTorrent,

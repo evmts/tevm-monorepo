@@ -4,24 +4,11 @@ import { neonMainnet as _neonMainnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the neonMainnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 245022934
- * Chain Name: Neon EVM MainNet
- * Default Block Explorer: https://neonscan.org
- * Default RPC URL: https://neon-proxy-mainnet.solana.p2p.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { neonMainnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Neon EVM MainNet (chain ID 245022934). Explorer: https://neonscan.org. Default RPC: https://neon-proxy-mainnet.solana.p2p.org.
  *
- * const client = createMemoryClient({
- *   common: neonMainnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const neonMainnet = createCommon({
 	..._neonMainnet,

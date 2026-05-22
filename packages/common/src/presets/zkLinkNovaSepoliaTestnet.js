@@ -4,24 +4,11 @@ import { zkLinkNovaSepoliaTestnet as _zkLinkNovaSepoliaTestnet } from 'viem/chai
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the zkLinkNovaSepoliaTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 810181
- * Chain Name: zkLink Nova Sepolia Testnet
- * Default Block Explorer: https://sepolia.explorer.zklink.io
- * Default RPC URL: https://sepolia.rpc.zklink.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { zkLinkNovaSepoliaTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for zkLink Nova Sepolia Testnet (chain ID 810181). Explorer: https://sepolia.explorer.zklink.io. Default RPC: https://sepolia.rpc.zklink.io.
  *
- * const client = createMemoryClient({
- *   common: zkLinkNovaSepoliaTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const zkLinkNovaSepoliaTestnet = createCommon({
 	..._zkLinkNovaSepoliaTestnet,

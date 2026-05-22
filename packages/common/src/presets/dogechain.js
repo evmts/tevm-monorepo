@@ -4,24 +4,11 @@ import { dogechain as _dogechain } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the dogechain chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2000
- * Chain Name: Dogechain
- * Default Block Explorer: https://explorer.dogechain.dog
- * Default RPC URL: https://rpc.dogechain.dog
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { dogechain } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Dogechain (chain ID 2000). Explorer: https://explorer.dogechain.dog. Default RPC: https://rpc.dogechain.dog.
  *
- * const client = createMemoryClient({
- *   common: dogechain,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const dogechain = createCommon({
 	..._dogechain,

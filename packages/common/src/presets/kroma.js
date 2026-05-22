@@ -4,24 +4,11 @@ import { kroma as _kroma } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the kroma chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 255
- * Chain Name: Kroma
- * Default Block Explorer: https://blockscout.kroma.network
- * Default RPC URL: https://api.kroma.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { kroma } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Kroma (chain ID 255). Explorer: https://blockscout.kroma.network. Default RPC: https://api.kroma.network.
  *
- * const client = createMemoryClient({
- *   common: kroma,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const kroma = createCommon({
 	..._kroma,

@@ -4,24 +4,11 @@ import { mev as _mev } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the mev chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 7518
- * Chain Name: MEVerse Chain Mainnet
- * Default Block Explorer: https://www.meversescan.io
- * Default RPC URL: https://rpc.meversemainnet.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { mev } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for MEVerse Chain Mainnet (chain ID 7518). Explorer: https://www.meversescan.io. Default RPC: https://rpc.meversemainnet.io.
  *
- * const client = createMemoryClient({
- *   common: mev,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const mev = createCommon({
 	..._mev,

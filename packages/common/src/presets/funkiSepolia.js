@@ -4,24 +4,11 @@ import { funkiSepolia as _funkiSepolia } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the funkiSepolia chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 3397901
- * Chain Name: Funki Sepolia Sandbox
- * Default Block Explorer: https://sepolia-sandbox.funkichain.com/
- * Default RPC URL: https://funki-testnet.alt.technology
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { funkiSepolia } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Funki Sepolia Sandbox (chain ID 3397901). Explorer: https://sepolia-sandbox.funkichain.com/. Default RPC: https://funki-testnet.alt.technology.
  *
- * const client = createMemoryClient({
- *   common: funkiSepolia,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const funkiSepolia = createCommon({
 	..._funkiSepolia,

@@ -4,24 +4,11 @@ import { metachain as _metachain } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the metachain chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 571
- * Chain Name: MetaChain Mainnet
- * Default Block Explorer: https://explorer.metatime.com
- * Default RPC URL: https://rpc.metatime.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { metachain } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for MetaChain Mainnet (chain ID 571). Explorer: https://explorer.metatime.com. Default RPC: https://rpc.metatime.com.
  *
- * const client = createMemoryClient({
- *   common: metachain,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const metachain = createCommon({
 	..._metachain,

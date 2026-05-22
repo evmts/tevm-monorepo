@@ -4,24 +4,11 @@ import { acala as _acala } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the acala chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 787
- * Chain Name: Acala
- * Default Block Explorer: https://blockscout.acala.network
- * Default RPC URL: https://eth-rpc-acala.aca-api.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { acala } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Acala (chain ID 787). Explorer: https://blockscout.acala.network. Default RPC: https://eth-rpc-acala.aca-api.network.
  *
- * const client = createMemoryClient({
- *   common: acala,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const acala = createCommon({
 	..._acala,

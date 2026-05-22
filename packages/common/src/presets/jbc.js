@@ -4,24 +4,11 @@ import { jbc as _jbc } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the jbc chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 8899
- * Chain Name: JIBCHAIN L1
- * Default Block Explorer: https://exp-l1.jibchain.net
- * Default RPC URL: https://rpc-l1.jibchain.net
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { jbc } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for JB Chain (chain ID 8899). Explorer: https://exp-l1.jibchain.net. Default RPC: https://rpc-l1.jibchain.net.
  *
- * const client = createMemoryClient({
- *   common: jbc,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const jbc = createCommon({
 	..._jbc,

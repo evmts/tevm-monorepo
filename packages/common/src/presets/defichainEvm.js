@@ -4,24 +4,11 @@ import { defichainEvm as _defichainEvm } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the defichainEvm chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1130
- * Chain Name: DeFiChain EVM Mainnet
- * Default Block Explorer: https://meta.defiscan.live
- * Default RPC URL: https://eth.mainnet.ocean.jellyfishsdk.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { defichainEvm } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for DeFiChain EVM Mainnet (chain ID 1130). Explorer: https://meta.defiscan.live. Default RPC: https://eth.mainnet.ocean.jellyfishsdk.com.
  *
- * const client = createMemoryClient({
- *   common: defichainEvm,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const defichainEvm = createCommon({
 	..._defichainEvm,

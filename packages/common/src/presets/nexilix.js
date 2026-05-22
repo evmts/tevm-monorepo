@@ -4,24 +4,11 @@ import { nexilix as _nexilix } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the nexilix chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 240
- * Chain Name: Nexilix Smart Chain
- * Default Block Explorer: https://scan.nexilix.com
- * Default RPC URL: https://rpcurl.pos.nexilix.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { nexilix } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Nexilix Smart Chain (chain ID 240). Explorer: https://scan.nexilix.com. Default RPC: https://rpcurl.pos.nexilix.com.
  *
- * const client = createMemoryClient({
- *   common: nexilix,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const nexilix = createCommon({
 	..._nexilix,

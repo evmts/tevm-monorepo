@@ -4,24 +4,11 @@ import { optimismGoerli as _optimismGoerli } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the optimismGoerli chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 420
- * Chain Name: Optimism Goerli
- * Default Block Explorer: https://goerli-optimism.etherscan.io
- * Default RPC URL: https://goerli.optimism.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { optimismGoerli } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Optimism Goerli (chain ID 420). Explorer: https://goerli-optimism.etherscan.io. Default RPC: https://goerli.optimism.io.
  *
- * const client = createMemoryClient({
- *   common: optimismGoerli,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const optimismGoerli = createCommon({
 	..._optimismGoerli,

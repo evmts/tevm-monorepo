@@ -4,24 +4,11 @@ import { metachainIstanbul as _metachainIstanbul } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the metachainIstanbul chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1453
- * Chain Name: MetaChain Istanbul
- * Default Block Explorer: https://istanbul-explorer.metachain.dev
- * Default RPC URL: https://istanbul-rpc.metachain.dev
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { metachainIstanbul } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for MetaChain Istanbul (chain ID 1453). Explorer: https://istanbul-explorer.metachain.dev. Default RPC: https://istanbul-rpc.metachain.dev.
  *
- * const client = createMemoryClient({
- *   common: metachainIstanbul,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const metachainIstanbul = createCommon({
 	..._metachainIstanbul,

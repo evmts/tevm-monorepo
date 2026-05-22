@@ -4,24 +4,11 @@ import { iotex as _iotex } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the iotex chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 4689
- * Chain Name: IoTeX
- * Default Block Explorer: https://iotexscan.io
- * Default RPC URL: https://babel-api.mainnet.iotex.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { iotex } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for IoTeX (chain ID 4689). Explorer: https://iotexscan.io. Default RPC: https://babel-api.mainnet.iotex.io.
  *
- * const client = createMemoryClient({
- *   common: iotex,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const iotex = createCommon({
 	..._iotex,

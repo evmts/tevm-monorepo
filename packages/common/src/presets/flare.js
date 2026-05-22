@@ -4,24 +4,11 @@ import { flare as _flare } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the flare chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 14
- * Chain Name: Flare Mainnet
- * Default Block Explorer: https://flare-explorer.flare.network
- * Default RPC URL: https://flare-api.flare.network/ext/C/rpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { flare } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Flare Mainnet (chain ID 14). Explorer: https://flare-explorer.flare.network. Default RPC: https://flare-api.flare.network/ext/C/rpc.
  *
- * const client = createMemoryClient({
- *   common: flare,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const flare = createCommon({
 	..._flare,

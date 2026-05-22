@@ -4,24 +4,11 @@ import { wemixTestnet as _wemixTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the wemixTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1112
- * Chain Name: WEMIX Testnet
- * Default Block Explorer: https://testnet.wemixscan.com
- * Default RPC URL: https://api.test.wemix.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { wemixTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for WEMIX Testnet (chain ID 1112). Explorer: https://testnet.wemixscan.com. Default RPC: https://api.test.wemix.com.
  *
- * const client = createMemoryClient({
- *   common: wemixTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const wemixTestnet = createCommon({
 	..._wemixTestnet,

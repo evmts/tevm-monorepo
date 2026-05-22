@@ -4,24 +4,11 @@ import { skaleEuropaTestnet as _skaleEuropaTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the skaleEuropaTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1444673419
- * Chain Name: SKALE Europa Testnet
- * Default Block Explorer: https://juicy-low-small-testnet.explorer.testnet.skalenodes.com
- * Default RPC URL: https://testnet.skalenodes.com/v1/juicy-low-small-testnet
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { skaleEuropaTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for SKALE Europa Testnet (chain ID 1444673419). Explorer: https://juicy-low-small-testnet.explorer.testnet.skalenodes.com. Default RPC: https://testnet.skalenodes.com/v1/juicy-low-small-testnet.
  *
- * const client = createMemoryClient({
- *   common: skaleEuropaTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const skaleEuropaTestnet = createCommon({
 	..._skaleEuropaTestnet,

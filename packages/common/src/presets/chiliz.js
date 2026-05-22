@@ -4,24 +4,11 @@ import { chiliz as _chiliz } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the chiliz chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 88888
- * Chain Name: Chiliz Chain
- * Default Block Explorer: https://scan.chiliz.com
- * Default RPC URL: https://rpc.ankr.com/chiliz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { chiliz } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Chiliz Chain (chain ID 88888). Explorer: https://scan.chiliz.com. Default RPC: https://rpc.chiliz.com.
  *
- * const client = createMemoryClient({
- *   common: chiliz,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const chiliz = createCommon({
 	..._chiliz,

@@ -4,24 +4,11 @@ import { taikoHekla as _taikoHekla } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the taikoHekla chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 167009
- * Chain Name: Taiko Hekla L2
- * Default Block Explorer: https://hekla.taikoscan.network
- * Default RPC URL: https://rpc.hekla.taiko.xyz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { taikoHekla } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Taiko Hekla L2 (chain ID 167009). Explorer: https://hekla.taikoscan.network. Default RPC: https://rpc.hekla.taiko.xyz.
  *
- * const client = createMemoryClient({
- *   common: taikoHekla,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const taikoHekla = createCommon({
 	..._taikoHekla,

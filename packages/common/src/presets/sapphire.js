@@ -4,24 +4,11 @@ import { sapphire as _sapphire } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the sapphire chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 23294
- * Chain Name: Oasis Sapphire
- * Default Block Explorer: https://explorer.oasis.io/mainnet/sapphire
- * Default RPC URL: https://sapphire.oasis.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { sapphire } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Oasis Sapphire (chain ID 23294). Explorer: https://explorer.oasis.io/mainnet/sapphire. Default RPC: https://sapphire.oasis.io.
  *
- * const client = createMemoryClient({
- *   common: sapphire,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const sapphire = createCommon({
 	..._sapphire,

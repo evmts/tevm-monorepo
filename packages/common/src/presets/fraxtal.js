@@ -4,24 +4,11 @@ import { fraxtal as _fraxtal } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the fraxtal chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 252
- * Chain Name: Fraxtal
- * Default Block Explorer: https://fraxscan.com
- * Default RPC URL: https://rpc.frax.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { fraxtal } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Fraxtal (chain ID 252). Explorer: https://fraxscan.com. Default RPC: https://rpc.frax.com.
  *
- * const client = createMemoryClient({
- *   common: fraxtal,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const fraxtal = createCommon({
 	..._fraxtal,

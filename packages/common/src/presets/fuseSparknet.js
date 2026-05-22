@@ -4,24 +4,11 @@ import { fuseSparknet as _fuseSparknet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the fuseSparknet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 123
- * Chain Name: Fuse Sparknet
- * Default Block Explorer: https://explorer.fusespark.io
- * Default RPC URL: https://rpc.fusespark.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { fuseSparknet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Fuse Sparknet (chain ID 123). Explorer: https://explorer.fusespark.io. Default RPC: https://rpc.fusespark.io.
  *
- * const client = createMemoryClient({
- *   common: fuseSparknet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const fuseSparknet = createCommon({
 	..._fuseSparknet,

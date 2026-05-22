@@ -4,24 +4,11 @@ import { songbirdTestnet as _songbirdTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the songbirdTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 16
- * Chain Name: Coston
- * Default Block Explorer: https://coston-explorer.flare.network
- * Default RPC URL: https://coston-api.flare.network/ext/C/rpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { songbirdTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Songbird Testnet Coston (chain ID 16). Explorer: https://coston-explorer.flare.network. Default RPC: https://coston-api.flare.network/ext/C/rpc.
  *
- * const client = createMemoryClient({
- *   common: songbirdTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const songbirdTestnet = createCommon({
 	..._songbirdTestnet,

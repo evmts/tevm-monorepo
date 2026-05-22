@@ -4,24 +4,11 @@ import { ancient8Sepolia as _ancient8Sepolia } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the ancient8Sepolia chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 28122024
- * Chain Name: Ancient8 Testnet
- * Default Block Explorer: https://scanv2-testnet.ancient8.gg
- * Default RPC URL: https://rpcv2-testnet.ancient8.gg
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { ancient8Sepolia } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Ancient8 Testnet (chain ID 28122024). Explorer: https://scanv2-testnet.ancient8.gg. Default RPC: https://rpcv2-testnet.ancient8.gg.
  *
- * const client = createMemoryClient({
- *   common: ancient8Sepolia,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const ancient8Sepolia = createCommon({
 	..._ancient8Sepolia,

@@ -4,24 +4,11 @@ import { satoshiVMTestnet as _satoshiVMTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the satoshiVMTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 3110
- * Chain Name: SatoshiVM Testnet
- * Default Block Explorer: https://testnet.svmscan.io
- * Default RPC URL: https://test-rpc-node-http.svmscan.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { satoshiVMTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for SatoshiVM Testnet (chain ID 3110). Explorer: https://testnet.svmscan.io. Default RPC: https://test-rpc-node-http.svmscan.io.
  *
- * const client = createMemoryClient({
- *   common: satoshiVMTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const satoshiVMTestnet = createCommon({
 	..._satoshiVMTestnet,

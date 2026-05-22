@@ -4,24 +4,11 @@ import { liskSepolia as _liskSepolia } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the liskSepolia chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 4202
- * Chain Name: Lisk Sepolia
- * Default Block Explorer: https://sepolia-blockscout.lisk.com
- * Default RPC URL: https://rpc.sepolia-api.lisk.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { liskSepolia } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Lisk Sepolia (chain ID 4202). Explorer: https://sepolia-blockscout.lisk.com. Default RPC: https://rpc.sepolia-api.lisk.com.
  *
- * const client = createMemoryClient({
- *   common: liskSepolia,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const liskSepolia = createCommon({
 	..._liskSepolia,

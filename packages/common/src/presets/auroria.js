@@ -4,24 +4,11 @@ import { auroria as _auroria } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the auroria chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 205205
- * Chain Name: Auroria Testnet
- * Default Block Explorer: https://auroria.explorer.stratisevm.com
- * Default RPC URL: https://auroria.rpc.stratisevm.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { auroria } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Auroria Testnet (chain ID 205205). Explorer: https://auroria.explorer.stratisevm.com. Default RPC: https://auroria.rpc.stratisevm.com.
  *
- * const client = createMemoryClient({
- *   common: auroria,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const auroria = createCommon({
 	..._auroria,

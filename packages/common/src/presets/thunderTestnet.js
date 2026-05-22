@@ -4,24 +4,11 @@ import { thunderTestnet as _thunderTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the thunderTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 997
- * Chain Name: 5ireChain Thunder Testnet
- * Default Block Explorer: https://explorer.5ire.network
- * Default RPC URL: https://rpc-testnet.5ire.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { thunderTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for 5ireChain Thunder Testnet (chain ID 997). Explorer: https://testnet.5irescan.io/. Default RPC: https://rpc.testnet.5ire.network.
  *
- * const client = createMemoryClient({
- *   common: thunderTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const thunderTestnet = createCommon({
 	..._thunderTestnet,

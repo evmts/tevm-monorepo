@@ -4,24 +4,11 @@ import { redstone as _redstone } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the redstone chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 690
- * Chain Name: Redstone
- * Default Block Explorer: 	https://explorer.redstone.xyz
- * Default RPC URL: https://rpc.redstonechain.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { redstone } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Redstone (chain ID 690). Explorer: https://explorer.redstone.xyz. Default RPC: https://rpc.redstonechain.com.
  *
- * const client = createMemoryClient({
- *   common: redstone,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const redstone = createCommon({
 	..._redstone,

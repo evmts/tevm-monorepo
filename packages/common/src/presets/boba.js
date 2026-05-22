@@ -4,24 +4,11 @@ import { boba as _boba } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the boba chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 288
- * Chain Name: Boba Network
- * Default Block Explorer: https://bobascan.com
- * Default RPC URL: https://mainnet.boba.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { boba } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Boba Network (chain ID 288). Explorer: https://bobascan.com. Default RPC: https://mainnet.boba.network.
  *
- * const client = createMemoryClient({
- *   common: boba,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const boba = createCommon({
 	..._boba,

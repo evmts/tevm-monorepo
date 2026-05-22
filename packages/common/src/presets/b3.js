@@ -4,24 +4,11 @@ import { b3 as _b3 } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the b3 chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 8333
- * Chain Name: B3
- * Default Block Explorer: https://explorer.b3.fun
- * Default RPC URL: https://mainnet-rpc.b3.fun/http
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { b3 } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for B3 (chain ID 8333). Explorer: https://explorer.b3.fun. Default RPC: https://mainnet-rpc.b3.fun/http.
  *
- * const client = createMemoryClient({
- *   common: b3,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const b3 = createCommon({
 	..._b3,

@@ -4,24 +4,11 @@ import { edgeware as _edgeware } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the edgeware chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2021
- * Chain Name: Edgeware EdgeEVM Mainnet
- * Default Block Explorer: https://edgscan.live
- * Default RPC URL: https://edgeware-evm.jelliedowl.net
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { edgeware } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Edgeware EdgeEVM Mainnet (chain ID 2021). Explorer: https://edgscan.live. Default RPC: https://edgeware-evm.jelliedowl.net.
  *
- * const client = createMemoryClient({
- *   common: edgeware,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const edgeware = createCommon({
 	..._edgeware,

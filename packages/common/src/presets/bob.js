@@ -4,24 +4,11 @@ import { bob as _bob } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bob chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 60808
- * Chain Name: BOB
- * Default Block Explorer: https://explorer.gobob.xyz
- * Default RPC URL: https://rpc.gobob.xyz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bob } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for BOB (chain ID 60808). Explorer: https://explorer.gobob.xyz. Default RPC: https://rpc.gobob.xyz.
  *
- * const client = createMemoryClient({
- *   common: bob,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bob = createCommon({
 	..._bob,

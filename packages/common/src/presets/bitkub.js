@@ -4,24 +4,11 @@ import { bitkub as _bitkub } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bitkub chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 96
- * Chain Name: Bitkub
- * Default Block Explorer: https://www.bkcscan.com
- * Default RPC URL: https://rpc.bitkubchain.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bitkub } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for KUB Mainnet (chain ID 96). Explorer: https://www.bkcscan.com. Default RPC: https://rpc.bitkubchain.io.
  *
- * const client = createMemoryClient({
- *   common: bitkub,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bitkub = createCommon({
 	..._bitkub,

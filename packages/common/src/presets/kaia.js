@@ -4,24 +4,11 @@ import { kaia as _kaia } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the kaia chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 8217
- * Chain Name: Kaia
- * Default Block Explorer: https://kaiascope.com
- * Default RPC URL: https://public-en.node.kaia.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { kaia } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Kaia (chain ID 8217). Explorer: https://kaiascan.io. Default RPC: https://public-en.node.kaia.io.
  *
- * const client = createMemoryClient({
- *   common: kaia,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const kaia = createCommon({
 	..._kaia,

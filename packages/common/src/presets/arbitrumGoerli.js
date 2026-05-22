@@ -4,24 +4,11 @@ import { arbitrumGoerli as _arbitrumGoerli } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the arbitrumGoerli chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 421613
- * Chain Name: Arbitrum Goerli
- * Default Block Explorer: https://goerli.arbiscan.io
- * Default RPC URL: https://goerli-rollup.arbitrum.io/rpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { arbitrumGoerli } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Arbitrum Goerli (chain ID 421613). Explorer: https://goerli.arbiscan.io. Default RPC: https://goerli-rollup.arbitrum.io/rpc.
  *
- * const client = createMemoryClient({
- *   common: arbitrumGoerli,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const arbitrumGoerli = createCommon({
 	..._arbitrumGoerli,

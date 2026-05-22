@@ -4,24 +4,11 @@ import { dchain as _dchain } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the dchain chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2716446429837000
- * Chain Name: Dchain
- * Default Block Explorer: https://dchain-2716446429837000-1.sagaexplorer.io
- * Default RPC URL: https://dchain-2716446429837000-1.jsonrpc.sagarpc.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { dchain } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Dchain (chain ID 2716446429837000). Explorer: https://dchain-2716446429837000-1.sagaexplorer.io. Default RPC: https://dchain-2716446429837000-1.jsonrpc.sagarpc.io.
  *
- * const client = createMemoryClient({
- *   common: dchain,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const dchain = createCommon({
 	..._dchain,

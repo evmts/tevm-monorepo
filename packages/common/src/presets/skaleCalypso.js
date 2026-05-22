@@ -4,24 +4,11 @@ import { skaleCalypso as _skaleCalypso } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the skaleCalypso chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1564830818
- * Chain Name: SKALE | Calypso NFT Hub
- * Default Block Explorer: https://honorable-steel-rasalhague.explorer.mainnet.skalenodes.com
- * Default RPC URL: https://mainnet.skalenodes.com/v1/honorable-steel-rasalhague
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { skaleCalypso } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for SKALE Calypso Hub (chain ID 1564830818). Explorer: https://honorable-steel-rasalhague.explorer.mainnet.skalenodes.com. Default RPC: https://mainnet.skalenodes.com/v1/honorable-steel-rasalhague.
  *
- * const client = createMemoryClient({
- *   common: skaleCalypso,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const skaleCalypso = createCommon({
 	..._skaleCalypso,

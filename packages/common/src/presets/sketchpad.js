@@ -4,24 +4,11 @@ import { sketchpad as _sketchpad } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the sketchpad chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 984123
- * Chain Name: Forma Sketchpad
- * Default Block Explorer: https://explorer.sketchpad-1.forma.art
- * Default RPC URL: https://rpc.sketchpad-1.forma.art
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { sketchpad } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Forma Sketchpad (chain ID 984123). Explorer: https://explorer.sketchpad-1.forma.art. Default RPC: https://rpc.sketchpad-1.forma.art.
  *
- * const client = createMemoryClient({
- *   common: sketchpad,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const sketchpad = createCommon({
 	..._sketchpad,

@@ -4,24 +4,11 @@ import { skaleExorde as _skaleExorde } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the skaleExorde chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2139927552
- * Chain Name: SKALE | Exorde
- * Default Block Explorer: https://light-vast-diphda.explorer.mainnet.skalenodes.com
- * Default RPC URL: https://mainnet.skalenodes.com/v1/light-vast-diphda
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { skaleExorde } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Exorde Network (chain ID 2139927552). Explorer: https://light-vast-diphda.explorer.mainnet.skalenodes.com. Default RPC: https://mainnet.skalenodes.com/v1/light-vast-diphda.
  *
- * const client = createMemoryClient({
- *   common: skaleExorde,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const skaleExorde = createCommon({
 	..._skaleExorde,

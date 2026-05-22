@@ -4,24 +4,11 @@ import { okc as _okc } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the okc chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 66
- * Chain Name: OKC
- * Default Block Explorer: https://www.oklink.com/okc
- * Default RPC URL: https://exchainrpc.okex.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { okc } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for OKC (chain ID 66). Explorer: https://www.oklink.com/okc. Default RPC: https://exchainrpc.okex.org.
  *
- * const client = createMemoryClient({
- *   common: okc,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const okc = createCommon({
 	..._okc,

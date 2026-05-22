@@ -4,24 +4,11 @@ import { plumeTestnet as _plumeTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the plumeTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 161221135
- * Chain Name: Plume Testnet
- * Default Block Explorer: https://testnet-explorer.plumenetwork.xyz
- * Default RPC URL: https://testnet-rpc.plumenetwork.xyz/http
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { plumeTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Plume Testnet (Legacy) (chain ID 161221135). Explorer: https://testnet-explorer.plumenetwork.xyz. Default RPC: https://testnet-rpc.plumenetwork.xyz/http.
  *
- * const client = createMemoryClient({
- *   common: plumeTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const plumeTestnet = createCommon({
 	..._plumeTestnet,

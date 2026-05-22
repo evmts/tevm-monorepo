@@ -4,24 +4,11 @@ import { zoraTestnet as _zoraTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the zoraTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 999
- * Chain Name: Zora Goerli Testnet
- * Default Block Explorer: https://testnet.explorer.zora.energy
- * Default RPC URL: https://testnet.rpc.zora.energy
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { zoraTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Zora Goerli Testnet (chain ID 999). Explorer: https://testnet.explorer.zora.energy. Default RPC: https://testnet.rpc.zora.energy.
  *
- * const client = createMemoryClient({
- *   common: zoraTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const zoraTestnet = createCommon({
 	..._zoraTestnet,

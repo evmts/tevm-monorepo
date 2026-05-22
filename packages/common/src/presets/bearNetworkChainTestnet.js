@@ -4,24 +4,11 @@ import { bearNetworkChainTestnet as _bearNetworkChainTestnet } from 'viem/chains
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bearNetworkChainTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 751230
- * Chain Name: Bear Network Chain Testnet
- * Default Block Explorer: https://brnktest-scan.bearnetwork.net
- * Default RPC URL: https://brnkc-test.bearnetwork.net
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bearNetworkChainTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Bear Network Chain Testnet (chain ID 751230). Explorer: https://brnktest-scan.bearnetwork.net. Default RPC: https://brnkc-test.bearnetwork.net.
  *
- * const client = createMemoryClient({
- *   common: bearNetworkChainTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bearNetworkChainTestnet = createCommon({
 	..._bearNetworkChainTestnet,

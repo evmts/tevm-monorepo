@@ -4,24 +4,11 @@ import { lisk as _lisk } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the lisk chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1135
- * Chain Name: Lisk
- * Default Block Explorer: https://blockscout.lisk.com
- * Default RPC URL: https://rpc.api.lisk.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { lisk } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Lisk (chain ID 1135). Explorer: https://blockscout.lisk.com. Default RPC: https://rpc.api.lisk.com.
  *
- * const client = createMemoryClient({
- *   common: lisk,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const lisk = createCommon({
 	..._lisk,

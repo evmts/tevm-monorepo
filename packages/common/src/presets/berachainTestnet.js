@@ -4,24 +4,11 @@ import { berachainTestnet as _berachainTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the berachainTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 80085
- * Chain Name: Berachain Artio
- * Default Block Explorer: https://artio.beratrail.io
- * Default RPC URL: https://artio.rpc.berachain.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { berachainTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Berachain Artio (chain ID 80085). Explorer: https://artio.beratrail.io. Default RPC: https://artio.rpc.berachain.com.
  *
- * const client = createMemoryClient({
- *   common: berachainTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const berachainTestnet = createCommon({
 	..._berachainTestnet,

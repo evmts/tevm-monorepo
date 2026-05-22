@@ -4,24 +4,11 @@ import { classic as _classic } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the classic chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 61
- * Chain Name: Ethereum Classic
- * Default Block Explorer: https://blockscout.com/etc/mainnet
- * Default RPC URL: https://etc.rivet.link
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { classic } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Ethereum Classic (chain ID 61). Explorer: https://blockscout.com/etc/mainnet. Default RPC: https://etc.rivet.link.
  *
- * const client = createMemoryClient({
- *   common: classic,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const classic = createCommon({
 	..._classic,

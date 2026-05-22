@@ -4,24 +4,11 @@ import { polygonMumbai as _polygonMumbai } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the polygonMumbai chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 80001
- * Chain Name: Polygon Mumbai
- * Default Block Explorer: https://mumbai.polygonscan.com
- * Default RPC URL: https://rpc.ankr.com/polygon_mumbai
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { polygonMumbai } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Polygon Mumbai (chain ID 80001). Explorer: https://mumbai.polygonscan.com. Default RPC: https://80001.rpc.thirdweb.com.
  *
- * const client = createMemoryClient({
- *   common: polygonMumbai,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const polygonMumbai = createCommon({
 	..._polygonMumbai,

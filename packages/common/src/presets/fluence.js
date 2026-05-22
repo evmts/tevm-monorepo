@@ -4,24 +4,11 @@ import { fluence as _fluence } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the fluence chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 9999999
- * Chain Name: Fluence
- * Default Block Explorer: https://blockscout.mainnet.fluence.dev
- * Default RPC URL: https://rpc.mainnet.fluence.dev
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { fluence } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Fluence (chain ID 9999999). Explorer: https://blockscout.mainnet.fluence.dev. Default RPC: https://rpc.mainnet.fluence.dev.
  *
- * const client = createMemoryClient({
- *   common: fluence,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const fluence = createCommon({
 	..._fluence,

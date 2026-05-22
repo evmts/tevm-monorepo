@@ -4,24 +4,11 @@ import { holesky as _holesky } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the holesky chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 17000
- * Chain Name: Holesky
- * Default Block Explorer: https://holesky.etherscan.io
- * Default RPC URL: https://ethereum-holesky-rpc.publicnode.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { holesky } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Holesky (chain ID 17000). Explorer: https://holesky.etherscan.io. Default RPC: https://ethereum-holesky-rpc.publicnode.com.
  *
- * const client = createMemoryClient({
- *   common: holesky,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const holesky = createCommon({
 	..._holesky,

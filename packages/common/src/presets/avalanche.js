@@ -4,24 +4,11 @@ import { avalanche as _avalanche } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the avalanche chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 43114
- * Chain Name: Avalanche
- * Default Block Explorer: https://snowtrace.io
- * Default RPC URL: https://api.avax.network/ext/bc/C/rpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { avalanche } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Avalanche (chain ID 43114). Explorer: https://snowtrace.io. Default RPC: https://api.avax.network/ext/bc/C/rpc.
  *
- * const client = createMemoryClient({
- *   common: avalanche,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const avalanche = createCommon({
 	..._avalanche,

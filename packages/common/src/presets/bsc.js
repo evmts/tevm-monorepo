@@ -4,24 +4,11 @@ import { bsc as _bsc } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bsc chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 56
- * Chain Name: BNB Smart Chain
- * Default Block Explorer: https://bscscan.com
- * Default RPC URL: https://rpc.ankr.com/bsc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bsc } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for BNB Smart Chain (chain ID 56). Explorer: https://bscscan.com. Default RPC: https://56.rpc.thirdweb.com.
  *
- * const client = createMemoryClient({
- *   common: bsc,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bsc = createCommon({
 	..._bsc,

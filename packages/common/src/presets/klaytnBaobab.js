@@ -4,24 +4,11 @@ import { klaytnBaobab as _klaytnBaobab } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the klaytnBaobab chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1001
- * Chain Name: Klaytn Baobab Testnet
- * Default Block Explorer: https://baobab.klaytnscope.com
- * Default RPC URL: https://public-en-baobab.klaytn.net
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { klaytnBaobab } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Klaytn Baobab Testnet (chain ID 1001). Explorer: https://baobab.klaytnscope.com. Default RPC: https://public-en-baobab.klaytn.net.
  *
- * const client = createMemoryClient({
- *   common: klaytnBaobab,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const klaytnBaobab = createCommon({
 	..._klaytnBaobab,

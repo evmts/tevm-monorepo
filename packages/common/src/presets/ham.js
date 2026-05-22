@@ -4,24 +4,11 @@ import { ham as _ham } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the ham chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 5112
- * Chain Name: Ham
- * Default Block Explorer: https://explorer.ham.fun
- * Default RPC URL: https://rpc.ham.fun
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { ham } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Ham (chain ID 5112). Explorer: https://explorer.ham.fun. Default RPC: https://rpc.ham.fun.
  *
- * const client = createMemoryClient({
- *   common: ham,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const ham = createCommon({
 	..._ham,

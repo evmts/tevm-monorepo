@@ -4,24 +4,11 @@ import { beam as _beam } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the beam chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 4337
- * Chain Name: Beam
- * Default Block Explorer: https://subnets.avax.network/beam
- * Default RPC URL: https://build.onbeam.com/rpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { beam } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Beam (chain ID 4337). Explorer: https://subnets.avax.network/beam. Default RPC: https://build.onbeam.com/rpc.
  *
- * const client = createMemoryClient({
- *   common: beam,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const beam = createCommon({
 	..._beam,

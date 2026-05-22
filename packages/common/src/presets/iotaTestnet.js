@@ -4,24 +4,11 @@ import { iotaTestnet as _iotaTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the iotaTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1075
- * Chain Name: IOTA EVM Testnet
- * Default Block Explorer: https://explorer.evm.testnet.iotaledger.net
- * Default RPC URL: https://json-rpc.evm.testnet.iotaledger.net
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { iotaTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for IOTA EVM Testnet (chain ID 1075). Explorer: https://explorer.evm.testnet.iotaledger.net. Default RPC: https://json-rpc.evm.testnet.iotaledger.net.
  *
- * const client = createMemoryClient({
- *   common: iotaTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const iotaTestnet = createCommon({
 	..._iotaTestnet,

@@ -4,24 +4,11 @@ import { eosTestnet as _eosTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the eosTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 15557
- * Chain Name: EOS EVM Testnet
- * Default Block Explorer: https://explorer.testnet.evm.eosnetwork.com
- * Default RPC URL: https://api.testnet.evm.eosnetwork.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { eosTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for EOS EVM Testnet (chain ID 15557). Explorer: https://explorer.testnet.evm.eosnetwork.com. Default RPC: https://api.testnet.evm.eosnetwork.com.
  *
- * const client = createMemoryClient({
- *   common: eosTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const eosTestnet = createCommon({
 	..._eosTestnet,

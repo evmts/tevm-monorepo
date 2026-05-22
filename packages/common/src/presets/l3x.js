@@ -4,24 +4,11 @@ import { l3x as _l3x } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the l3x chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 12324
- * Chain Name: L3X Protocol
- * Default Block Explorer: https://explorer.l3x.com
- * Default RPC URL: https://rpc-mainnet.l3x.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { l3x } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for L3X Protocol (chain ID 12324). Explorer: https://explorer.l3x.com. Default RPC: https://rpc-mainnet.l3x.com.
  *
- * const client = createMemoryClient({
- *   common: l3x,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const l3x = createCommon({
 	..._l3x,

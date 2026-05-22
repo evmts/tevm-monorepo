@@ -4,24 +4,11 @@ import { zora as _zora } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the zora chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 7777777
- * Chain Name: Zora
- * Default Block Explorer: https://explorer.zora.energy
- * Default RPC URL: https://rpc.zora.energy
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { zora } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Zora (chain ID 7777777). Explorer: https://explorer.zora.energy. Default RPC: https://rpc.zora.energy.
  *
- * const client = createMemoryClient({
- *   common: zora,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const zora = createCommon({
 	..._zora,

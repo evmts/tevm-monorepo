@@ -4,24 +4,11 @@ import { skaleTitanTestnet as _skaleTitanTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the skaleTitanTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1020352220
- * Chain Name: SKALE Titan Hub
- * Default Block Explorer: https://aware-fake-trim-testnet.explorer.testnet.skalenodes.com
- * Default RPC URL: https://testnet.skalenodes.com/v1/aware-fake-trim-testnet
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { skaleTitanTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for SKALE Titan Testnet (chain ID 1020352220). Explorer: https://aware-fake-trim-testnet.explorer.testnet.skalenodes.com. Default RPC: https://testnet.skalenodes.com/v1/aware-fake-trim-testnet.
  *
- * const client = createMemoryClient({
- *   common: skaleTitanTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const skaleTitanTestnet = createCommon({
 	..._skaleTitanTestnet,

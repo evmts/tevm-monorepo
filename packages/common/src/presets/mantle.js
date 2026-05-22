@@ -4,24 +4,11 @@ import { mantle as _mantle } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the mantle chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 5000
- * Chain Name: Mantle
- * Default Block Explorer: https://mantlescan.xyz/
- * Default RPC URL: https://rpc.mantle.xyz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { mantle } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Mantle (chain ID 5000). Explorer: https://mantlescan.xyz/. Default RPC: https://rpc.mantle.xyz.
  *
- * const client = createMemoryClient({
- *   common: mantle,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const mantle = createCommon({
 	..._mantle,

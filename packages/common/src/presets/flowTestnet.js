@@ -4,24 +4,11 @@ import { flowTestnet as _flowTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the flowTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 545
- * Chain Name: FlowEVM Testnet
- * Default Block Explorer: https://testnet.flowdiver.io
- * Default RPC URL: https://testnet.evm.nodes.onflow.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { flowTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Flow EVM Testnet (chain ID 545). Explorer: https://evm-testnet.flowscan.io. Default RPC: https://testnet.evm.nodes.onflow.org.
  *
- * const client = createMemoryClient({
- *   common: flowTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const flowTestnet = createCommon({
 	..._flowTestnet,

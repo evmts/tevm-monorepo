@@ -4,24 +4,11 @@ import { mode as _mode } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the mode chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 34443
- * Chain Name: Mode Mainnet
- * Default Block Explorer: https://modescan.io
- * Default RPC URL: https://mainnet.mode.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { mode } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Mode Mainnet (chain ID 34443). Explorer: https://modescan.io. Default RPC: https://mainnet.mode.network.
  *
- * const client = createMemoryClient({
- *   common: mode,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const mode = createCommon({
 	..._mode,

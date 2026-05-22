@@ -4,24 +4,11 @@ import { harmonyOne as _harmonyOne } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the harmonyOne chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1666600000
- * Chain Name: Harmony One
- * Default Block Explorer: https://explorer.harmony.one
- * Default RPC URL: https://rpc.ankr.com/harmony
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { harmonyOne } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Harmony One (chain ID 1666600000). Explorer: https://explorer.harmony.one. Default RPC: https://1666600000.rpc.thirdweb.com.
  *
- * const client = createMemoryClient({
- *   common: harmonyOne,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const harmonyOne = createCommon({
 	..._harmonyOne,

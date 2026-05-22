@@ -4,24 +4,11 @@ import { lightlinkPhoenix as _lightlinkPhoenix } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the lightlinkPhoenix chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1890
- * Chain Name: LightLink Phoenix Mainnet
- * Default Block Explorer: https://phoenix.lightlink.io
- * Default RPC URL: https://replicator.phoenix.lightlink.io/rpc/v1
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { lightlinkPhoenix } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for LightLink Phoenix Mainnet (chain ID 1890). Explorer: https://phoenix.lightlink.io. Default RPC: https://replicator.phoenix.lightlink.io/rpc/v1.
  *
- * const client = createMemoryClient({
- *   common: lightlinkPhoenix,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const lightlinkPhoenix = createCommon({
 	..._lightlinkPhoenix,

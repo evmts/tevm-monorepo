@@ -4,24 +4,11 @@ import { hederaPreviewnet as _hederaPreviewnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the hederaPreviewnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 297
- * Chain Name: Hedera Previewnet
- * Default Block Explorer: https://hashscan.io/previewnet
- * Default RPC URL: https://previewnet.hashio.io/api
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { hederaPreviewnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Hedera Previewnet (chain ID 297). Explorer: https://hashscan.io/previewnet. Default RPC: https://previewnet.hashio.io/api.
  *
- * const client = createMemoryClient({
- *   common: hederaPreviewnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const hederaPreviewnet = createCommon({
 	..._hederaPreviewnet,

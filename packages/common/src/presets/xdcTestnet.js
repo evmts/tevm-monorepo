@@ -4,24 +4,11 @@ import { xdcTestnet as _xdcTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the xdcTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 51
- * Chain Name: Apothem Network
- * Default Block Explorer: https://apothem.blocksscan.io
- * Default RPC URL: https://erpc.apothem.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { xdcTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Apothem Network (chain ID 51). Explorer: https://testnet.xdcscan.com. Default RPC: https://erpc.apothem.network.
  *
- * const client = createMemoryClient({
- *   common: xdcTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const xdcTestnet = createCommon({
 	..._xdcTestnet,

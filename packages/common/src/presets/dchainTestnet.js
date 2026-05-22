@@ -4,24 +4,11 @@ import { dchainTestnet as _dchainTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the dchainTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2713017997578000
- * Chain Name: Dchain Testnet
- * Default Block Explorer: https://dchaintestnet-2713017997578000-1.testnet.sagaexplorer.io
- * Default RPC URL: https://dchaintestnet-2713017997578000-1.jsonrpc.testnet.sagarpc.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { dchainTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Dchain Testnet (chain ID 2713017997578000). Explorer: https://dchaintestnet-2713017997578000-1.testnet.sagaexplorer.io. Default RPC: https://dchaintestnet-2713017997578000-1.jsonrpc.testnet.sagarpc.io.
  *
- * const client = createMemoryClient({
- *   common: dchainTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const dchainTestnet = createCommon({
 	..._dchainTestnet,

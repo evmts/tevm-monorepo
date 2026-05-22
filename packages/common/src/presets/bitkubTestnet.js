@@ -4,24 +4,11 @@ import { bitkubTestnet as _bitkubTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bitkubTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 25925
- * Chain Name: Bitkub Testnet
- * Default Block Explorer: https://testnet.bkcscan.com
- * Default RPC URL: https://rpc-testnet.bitkubchain.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bitkubTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Bitkub Testnet (chain ID 25925). Explorer: https://testnet.bkcscan.com. Default RPC: https://rpc-testnet.bitkubchain.io.
  *
- * const client = createMemoryClient({
- *   common: bitkubTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bitkubTestnet = createCommon({
 	..._bitkubTestnet,

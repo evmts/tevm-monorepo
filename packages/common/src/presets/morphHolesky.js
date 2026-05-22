@@ -4,24 +4,11 @@ import { morphHolesky as _morphHolesky } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the morphHolesky chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2810
- * Chain Name: Morph Holesky
- * Default Block Explorer: https://explorer-holesky.morphl2.io
- * Default RPC URL: https://rpc-quicknode-holesky.morphl2.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { morphHolesky } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Morph Holesky (chain ID 2810). Explorer: https://explorer-holesky.morphl2.io. Default RPC: https://rpc-quicknode-holesky.morphl2.io.
  *
- * const client = createMemoryClient({
- *   common: morphHolesky,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const morphHolesky = createCommon({
 	..._morphHolesky,

@@ -4,24 +4,11 @@ import { mainnet as _mainnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the mainnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1
- * Chain Name: Ethereum
- * Default Block Explorer: https://etherscan.io
- * Default RPC URL: https://cloudflare-eth.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { mainnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Ethereum (chain ID 1). Explorer: https://etherscan.io. Default RPC: https://eth.merkle.io.
  *
- * const client = createMemoryClient({
- *   common: mainnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const mainnet = createCommon({
 	..._mainnet,

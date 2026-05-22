@@ -4,24 +4,11 @@ import { crab as _crab } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the crab chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 44
- * Chain Name: Crab Network
- * Default Block Explorer: https://crab-scan.darwinia.network
- * Default RPC URL: https://crab-rpc.darwinia.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { crab } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Crab Network (chain ID 44). Explorer: https://crab-scan.darwinia.network. Default RPC: https://crab-rpc.darwinia.network.
  *
- * const client = createMemoryClient({
- *   common: crab,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const crab = createCommon({
 	..._crab,

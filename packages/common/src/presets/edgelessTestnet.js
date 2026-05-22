@@ -4,24 +4,11 @@ import { edgelessTestnet as _edgelessTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the edgelessTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 202
- * Chain Name: Edgeless Testnet
- * Default Block Explorer: https://testnet.explorer.edgeless.network
- * Default RPC URL: https://edgeless-testnet.rpc.caldera.xyz/http
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { edgelessTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Edgeless Testnet (chain ID 202). Explorer: https://testnet.explorer.edgeless.network. Default RPC: https://edgeless-testnet.rpc.caldera.xyz/http.
  *
- * const client = createMemoryClient({
- *   common: edgelessTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const edgelessTestnet = createCommon({
 	..._edgelessTestnet,

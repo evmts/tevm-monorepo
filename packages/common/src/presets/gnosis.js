@@ -4,24 +4,11 @@ import { gnosis as _gnosis } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the gnosis chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 100
- * Chain Name: Gnosis
- * Default Block Explorer: https://gnosisscan.io
- * Default RPC URL: https://rpc.gnosischain.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { gnosis } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Gnosis (chain ID 100). Explorer: https://gnosisscan.io. Default RPC: https://rpc.gnosischain.com.
  *
- * const client = createMemoryClient({
- *   common: gnosis,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const gnosis = createCommon({
 	..._gnosis,

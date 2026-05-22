@@ -4,24 +4,11 @@ import { scrollSepolia as _scrollSepolia } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the scrollSepolia chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 534351
- * Chain Name: Scroll Sepolia
- * Default Block Explorer: https://sepolia.scrollscan.com
- * Default RPC URL: https://sepolia-rpc.scroll.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { scrollSepolia } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Scroll Sepolia (chain ID 534351). Explorer: https://sepolia.scrollscan.com. Default RPC: https://sepolia-rpc.scroll.io.
  *
- * const client = createMemoryClient({
- *   common: scrollSepolia,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const scrollSepolia = createCommon({
 	..._scrollSepolia,

@@ -4,24 +4,11 @@ import { meterTestnet as _meterTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the meterTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 83
- * Chain Name: Meter Testnet
- * Default Block Explorer: https://scan-warringstakes.meter.io
- * Default RPC URL: https://rpctest.meter.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { meterTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Meter Testnet (chain ID 83). Explorer: https://scan-warringstakes.meter.io. Default RPC: https://rpctest.meter.io.
  *
- * const client = createMemoryClient({
- *   common: meterTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const meterTestnet = createCommon({
 	..._meterTestnet,

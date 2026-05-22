@@ -4,24 +4,11 @@ import { koi as _koi } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the koi chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 701
- * Chain Name: Koi Network
- * Default Block Explorer: https://koi-scan.darwinia.network
- * Default RPC URL: https://koi-rpc.darwinia.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { koi } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Koi Network (chain ID 701). Explorer: https://koi-scan.darwinia.network. Default RPC: https://koi-rpc.darwinia.network.
  *
- * const client = createMemoryClient({
- *   common: koi,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const koi = createCommon({
 	..._koi,

@@ -4,24 +4,11 @@ import { bitTorrentTestnet as _bitTorrentTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bitTorrentTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1028
- * Chain Name: BitTorrent Chain Testnet
- * Default Block Explorer: https://testnet.bttcscan.com
- * Default RPC URL: https://testrpc.bittorrentchain.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bitTorrentTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for BitTorrent Chain Testnet (chain ID 1028). Explorer: https://testnet.bttcscan.com. Default RPC: https://testrpc.bittorrentchain.io.
  *
- * const client = createMemoryClient({
- *   common: bitTorrentTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bitTorrentTestnet = createCommon({
 	..._bitTorrentTestnet,

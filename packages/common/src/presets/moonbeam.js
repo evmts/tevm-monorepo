@@ -4,24 +4,11 @@ import { moonbeam as _moonbeam } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the moonbeam chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1284
- * Chain Name: Moonbeam
- * Default Block Explorer: https://moonscan.io
- * Default RPC URL: https://moonbeam.public.blastapi.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { moonbeam } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Moonbeam (chain ID 1284). Explorer: https://moonscan.io. Default RPC: https://rpc.api.moonbeam.network.
  *
- * const client = createMemoryClient({
- *   common: moonbeam,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const moonbeam = createCommon({
 	..._moonbeam,

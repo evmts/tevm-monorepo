@@ -4,24 +4,11 @@ import { bronosTestnet as _bronosTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bronosTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1038
- * Chain Name: Bronos Testnet
- * Default Block Explorer: https://tbroscan.bronos.org
- * Default RPC URL: https://evm-testnet.bronos.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bronosTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Bronos Testnet (chain ID 1038). Explorer: https://tbroscan.bronos.org. Default RPC: https://evm-testnet.bronos.org.
  *
- * const client = createMemoryClient({
- *   common: bronosTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bronosTestnet = createCommon({
 	..._bronosTestnet,

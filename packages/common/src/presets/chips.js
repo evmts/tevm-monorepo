@@ -4,24 +4,11 @@ import { chips as _chips } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the chips chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2882
- * Chain Name: Chips Network
- * Default Block Explorer: Not specified
- * Default RPC URL: https://node.chips.ooo/wasp/api/v1/chains/iota1pp3d3mnap3ufmgqnjsnw344sqmf5svjh26y2khnmc89sv6788y3r207a8fn/evm
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { chips } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Chips Network (chain ID 2882). Explorer: —. Default RPC: https://node.chips.ooo/wasp/api/v1/chains/iota1pp3d3mnap3ufmgqnjsnw344sqmf5svjh26y2khnmc89sv6788y3r207a8fn/evm.
  *
- * const client = createMemoryClient({
- *   common: chips,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const chips = createCommon({
 	..._chips,

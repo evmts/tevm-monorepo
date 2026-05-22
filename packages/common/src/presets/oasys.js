@@ -4,24 +4,11 @@ import { oasys as _oasys } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the oasys chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 248
- * Chain Name: Oasys
- * Default Block Explorer: https://scan.oasys.games
- * Default RPC URL: https://rpc.mainnet.oasys.games
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { oasys } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Oasys (chain ID 248). Explorer: https://scan.oasys.games. Default RPC: https://rpc.mainnet.oasys.games.
  *
- * const client = createMemoryClient({
- *   common: oasys,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const oasys = createCommon({
 	..._oasys,

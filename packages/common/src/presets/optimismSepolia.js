@@ -4,24 +4,11 @@ import { optimismSepolia as _optimismSepolia } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the optimismSepolia chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 11155420
- * Chain Name: OP Sepolia
- * Default Block Explorer: https://optimism-sepolia.blockscout.com
- * Default RPC URL: https://sepolia.optimism.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { optimismSepolia } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for OP Sepolia (chain ID 11155420). Explorer: https://optimism-sepolia.blockscout.com. Default RPC: https://sepolia.optimism.io.
  *
- * const client = createMemoryClient({
- *   common: optimismSepolia,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const optimismSepolia = createCommon({
 	..._optimismSepolia,

@@ -4,24 +4,11 @@ import { jbcTestnet as _jbcTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the jbcTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 88991
- * Chain Name: Jibchain Testnet
- * Default Block Explorer: https://exp.testnet.jibchain.net
- * Default RPC URL: https://rpc.testnet.jibchain.net
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { jbcTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Jibchain Testnet (chain ID 88991). Explorer: https://exp.testnet.jibchain.net. Default RPC: https://rpc.testnet.jibchain.net.
  *
- * const client = createMemoryClient({
- *   common: jbcTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const jbcTestnet = createCommon({
 	..._jbcTestnet,

@@ -4,24 +4,11 @@ import { polygonZkEvm as _polygonZkEvm } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the polygonZkEvm chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1101
- * Chain Name: Polygon zkEVM
- * Default Block Explorer: https://zkevm.polygonscan.com
- * Default RPC URL: https://zkevm-rpc.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { polygonZkEvm } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Polygon zkEVM (chain ID 1101). Explorer: https://zkevm.polygonscan.com. Default RPC: https://zkevm-rpc.com.
  *
- * const client = createMemoryClient({
- *   common: polygonZkEvm,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const polygonZkEvm = createCommon({
 	..._polygonZkEvm,

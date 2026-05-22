@@ -4,24 +4,11 @@ import { baseSepolia as _baseSepolia } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the baseSepolia chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 84532
- * Chain Name: Base Sepolia
- * Default Block Explorer: https://sepolia.basescan.org
- * Default RPC URL: https://sepolia.base.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { baseSepolia } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Base Sepolia (chain ID 84532). Explorer: https://sepolia.basescan.org. Default RPC: https://sepolia.base.org.
  *
- * const client = createMemoryClient({
- *   common: baseSepolia,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const baseSepolia = createCommon({
 	..._baseSepolia,

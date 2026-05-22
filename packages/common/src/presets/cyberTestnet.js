@@ -4,24 +4,11 @@ import { cyberTestnet as _cyberTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the cyberTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 111557560
- * Chain Name: Cyber Testnet
- * Default Block Explorer: https://testnet.cyberscan.co
- * Default RPC URL: https://cyber-testnet.alt.technology
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { cyberTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Cyber Testnet (chain ID 111557560). Explorer: https://testnet.cyberscan.co. Default RPC: https://cyber-testnet.alt.technology.
  *
- * const client = createMemoryClient({
- *   common: cyberTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const cyberTestnet = createCommon({
 	..._cyberTestnet,

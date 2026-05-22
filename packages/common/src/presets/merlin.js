@@ -4,24 +4,11 @@ import { merlin as _merlin } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the merlin chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 4200
- * Chain Name: Merlin
- * Default Block Explorer: https://scan.merlinchain.io
- * Default RPC URL: https://rpc.merlinchain.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { merlin } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Merlin (chain ID 4200). Explorer: https://scan.merlinchain.io. Default RPC: https://rpc.merlinchain.io.
  *
- * const client = createMemoryClient({
- *   common: merlin,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const merlin = createCommon({
 	..._merlin,

@@ -4,24 +4,11 @@ import { dodochainTestnet as _dodochainTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the dodochainTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 53457
- * Chain Name: DODOchain Testnet
- * Default Block Explorer: https://testnet-scan.dodochain.com
- * Default RPC URL: https://dodochain-testnet.alt.technology
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { dodochainTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for DODOchain Testnet (chain ID 53457). Explorer: https://testnet-scan.dodochain.com. Default RPC: https://dodochain-testnet.alt.technology.
  *
- * const client = createMemoryClient({
- *   common: dodochainTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const dodochainTestnet = createCommon({
 	..._dodochainTestnet,

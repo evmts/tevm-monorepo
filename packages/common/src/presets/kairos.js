@@ -4,24 +4,11 @@ import { kairos as _kairos } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the kairos chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1001
- * Chain Name: Kairos Testnet
- * Default Block Explorer: https://kairos.kaiascope.com
- * Default RPC URL: https://public-en-kairos.node.kaia.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { kairos } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Kairos Testnet (chain ID 1001). Explorer: https://kairos.kaiascan.io. Default RPC: https://public-en-kairos.node.kaia.io.
  *
- * const client = createMemoryClient({
- *   common: kairos,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const kairos = createCommon({
 	..._kairos,

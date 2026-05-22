@@ -4,24 +4,11 @@ import { mandala as _mandala } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the mandala chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 595
- * Chain Name: Mandala TC9
- * Default Block Explorer: https://blockscout.mandala.aca-staging.network
- * Default RPC URL: https://eth-rpc-tc9.aca-staging.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { mandala } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Mandala TC9 (chain ID 595). Explorer: https://blockscout.mandala.aca-staging.network. Default RPC: https://eth-rpc-tc9.aca-staging.network.
  *
- * const client = createMemoryClient({
- *   common: mandala,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const mandala = createCommon({
 	..._mandala,

@@ -4,24 +4,11 @@ import { xdc as _xdc } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the xdc chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 50
- * Chain Name: XinFin Network
- * Default Block Explorer: https://xdc.blocksscan.io
- * Default RPC URL: https://rpc.xinfin.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { xdc } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for XDC Network (chain ID 50). Explorer: https://xdcscan.com. Default RPC: https://rpc.xdcrpc.com.
  *
- * const client = createMemoryClient({
- *   common: xdc,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const xdc = createCommon({
 	..._xdc,

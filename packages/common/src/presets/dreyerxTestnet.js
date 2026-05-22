@@ -4,24 +4,11 @@ import { dreyerxTestnet as _dreyerxTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the dreyerxTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 23452
- * Chain Name: DreyerX Testnet
- * Default Block Explorer: https://testnet-scan.dreyerx.com
- * Default RPC URL: http://testnet-rpc.dreyerx.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { dreyerxTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for DreyerX Testnet (chain ID 23452). Explorer: https://testnet-scan.dreyerx.com. Default RPC: http://testnet-rpc.dreyerx.com.
  *
- * const client = createMemoryClient({
- *   common: dreyerxTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const dreyerxTestnet = createCommon({
 	..._dreyerxTestnet,

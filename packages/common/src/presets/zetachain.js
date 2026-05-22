@@ -4,24 +4,11 @@ import { zetachain as _zetachain } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the zetachain chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 7000
- * Chain Name: ZetaChain
- * Default Block Explorer: https://explorer.zetachain.com
- * Default RPC URL: https://zetachain-evm.blockpi.network/v1/rpc/public
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { zetachain } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for ZetaChain (chain ID 7000). Explorer: https://zetascan.com. Default RPC: https://zetachain-evm.blockpi.network/v1/rpc/public.
  *
- * const client = createMemoryClient({
- *   common: zetachain,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const zetachain = createCommon({
 	..._zetachain,

@@ -4,24 +4,11 @@ import { etherlinkTestnet as _etherlinkTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the etherlinkTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 128123
- * Chain Name: Etherlink Testnet
- * Default Block Explorer: https://testnet-explorer.etherlink.com
- * Default RPC URL: https://node.ghostnet.etherlink.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { etherlinkTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Etherlink Testnet (chain ID 128123). Explorer: https://testnet.explorer.etherlink.com. Default RPC: https://node.ghostnet.etherlink.com.
  *
- * const client = createMemoryClient({
- *   common: etherlinkTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const etherlinkTestnet = createCommon({
 	..._etherlinkTestnet,

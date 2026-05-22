@@ -4,24 +4,11 @@ import { reyaNetwork as _reyaNetwork } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the reyaNetwork chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1729
- * Chain Name: Reya Network
- * Default Block Explorer: https://explorer.reya.network
- * Default RPC URL: https://rpc.reya.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { reyaNetwork } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Reya Network (chain ID 1729). Explorer: https://explorer.reya.network. Default RPC: https://rpc.reya.network.
  *
- * const client = createMemoryClient({
- *   common: reyaNetwork,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const reyaNetwork = createCommon({
 	..._reyaNetwork,

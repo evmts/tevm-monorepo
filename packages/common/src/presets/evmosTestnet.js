@@ -4,24 +4,11 @@ import { evmosTestnet as _evmosTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the evmosTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 9000
- * Chain Name: Evmos Testnet
- * Default Block Explorer: https://evm.evmos.dev/
- * Default RPC URL: https://eth.bd.evmos.dev:8545
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { evmosTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Evmos Testnet (chain ID 9000). Explorer: https://evm.evmos.dev/. Default RPC: https://eth.bd.evmos.dev:8545.
  *
- * const client = createMemoryClient({
- *   common: evmosTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const evmosTestnet = createCommon({
 	..._evmosTestnet,

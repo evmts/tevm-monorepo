@@ -4,24 +4,11 @@ import { zkFair as _zkFair } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the zkFair chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 42766
- * Chain Name: ZKFair Mainnet
- * Default Block Explorer: https://scan.zkfair.io
- * Default RPC URL: https://rpc.zkfair.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { zkFair } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for ZKFair Mainnet (chain ID 42766). Explorer: https://scan.zkfair.io. Default RPC: https://rpc.zkfair.io.
  *
- * const client = createMemoryClient({
- *   common: zkFair,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const zkFair = createCommon({
 	..._zkFair,

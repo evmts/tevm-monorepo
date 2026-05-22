@@ -4,24 +4,11 @@ import { bearNetworkChainMainnet as _bearNetworkChainMainnet } from 'viem/chains
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bearNetworkChainMainnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 641230
- * Chain Name: Bear Network Chain Mainnet
- * Default Block Explorer: https://brnkscan.bearnetwork.net
- * Default RPC URL: https://brnkc-mainnet.bearnetwork.net
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bearNetworkChainMainnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Bear Network Chain Mainnet (chain ID 641230). Explorer: https://brnkscan.bearnetwork.net. Default RPC: https://brnkc-mainnet.bearnetwork.net.
  *
- * const client = createMemoryClient({
- *   common: bearNetworkChainMainnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bearNetworkChainMainnet = createCommon({
 	..._bearNetworkChainMainnet,

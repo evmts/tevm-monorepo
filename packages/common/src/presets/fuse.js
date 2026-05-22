@@ -4,24 +4,11 @@ import { fuse as _fuse } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the fuse chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 122
- * Chain Name: Fuse
- * Default Block Explorer: https://explorer.fuse.io
- * Default RPC URL: https://rpc.fuse.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { fuse } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Fuse (chain ID 122). Explorer: https://explorer.fuse.io. Default RPC: https://rpc.fuse.io.
  *
- * const client = createMemoryClient({
- *   common: fuse,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const fuse = createCommon({
 	..._fuse,

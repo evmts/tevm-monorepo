@@ -4,24 +4,11 @@ import { arbitrum as _arbitrum } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the arbitrum chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 42161
- * Chain Name: Arbitrum One
- * Default Block Explorer: https://arbiscan.io
- * Default RPC URL: https://arb1.arbitrum.io/rpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { arbitrum } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Arbitrum One (chain ID 42161). Explorer: https://arbiscan.io. Default RPC: https://arb1.arbitrum.io/rpc.
  *
- * const client = createMemoryClient({
- *   common: arbitrum,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const arbitrum = createCommon({
 	..._arbitrum,

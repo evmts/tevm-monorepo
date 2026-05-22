@@ -4,24 +4,11 @@ import { neonDevnet as _neonDevnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the neonDevnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 245022926
- * Chain Name: Neon EVM DevNet
- * Default Block Explorer: https://devnet.neonscan.org
- * Default RPC URL: https://devnet.neonevm.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { neonDevnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Neon EVM DevNet (chain ID 245022926). Explorer: https://devnet.neonscan.org. Default RPC: https://devnet.neonevm.org.
  *
- * const client = createMemoryClient({
- *   common: neonDevnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const neonDevnet = createCommon({
 	..._neonDevnet,

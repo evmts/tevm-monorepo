@@ -4,24 +4,11 @@ import { shimmer as _shimmer } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the shimmer chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 148
- * Chain Name: Shimmer
- * Default Block Explorer: https://explorer.evm.shimmer.network
- * Default RPC URL: https://json-rpc.evm.shimmer.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { shimmer } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Shimmer (chain ID 148). Explorer: https://explorer.evm.shimmer.network. Default RPC: https://json-rpc.evm.shimmer.network.
  *
- * const client = createMemoryClient({
- *   common: shimmer,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const shimmer = createCommon({
 	..._shimmer,

@@ -4,24 +4,11 @@ import { flowPreviewnet as _flowPreviewnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the flowPreviewnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 646
- * Chain Name: FlowEVM Previewnet
- * Default Block Explorer: https://previewnet.flowdiver.io
- * Default RPC URL: https://previewnet.evm.nodes.onflow.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { flowPreviewnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Flow EVM Previewnet (chain ID 646). Explorer: https://previewnet.flowdiver.io. Default RPC: https://previewnet.evm.nodes.onflow.org.
  *
- * const client = createMemoryClient({
- *   common: flowPreviewnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const flowPreviewnet = createCommon({
 	..._flowPreviewnet,

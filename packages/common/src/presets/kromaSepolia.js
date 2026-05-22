@@ -4,24 +4,11 @@ import { kromaSepolia as _kromaSepolia } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the kromaSepolia chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2358
- * Chain Name: Kroma Sepolia
- * Default Block Explorer: https://blockscout.sepolia.kroma.network
- * Default RPC URL: https://api.sepolia.kroma.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { kromaSepolia } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Kroma Sepolia (chain ID 2358). Explorer: https://blockscout.sepolia.kroma.network. Default RPC: https://api.sepolia.kroma.network.
  *
- * const client = createMemoryClient({
- *   common: kromaSepolia,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const kromaSepolia = createCommon({
 	..._kromaSepolia,

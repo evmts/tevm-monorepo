@@ -4,24 +4,11 @@ import { confluxESpace as _confluxESpace } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the confluxESpace chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1030
- * Chain Name: Conflux eSpace
- * Default Block Explorer: https://evm.confluxscan.io
- * Default RPC URL: https://evm.confluxrpc.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { confluxESpace } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Conflux eSpace (chain ID 1030). Explorer: https://evm.confluxscan.org. Default RPC: https://evm.confluxrpc.com.
  *
- * const client = createMemoryClient({
- *   common: confluxESpace,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const confluxESpace = createCommon({
 	..._confluxESpace,

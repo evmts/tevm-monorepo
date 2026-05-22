@@ -4,24 +4,11 @@ import { abstractTestnet as _abstractTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the abstractTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 11124
- * Chain Name: Abstract Testnet
- * Default Block Explorer: https://explorer.testnet.abs.xyz
- * Default RPC URL: https://api.testnet.abs.xyz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { abstractTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Abstract Testnet (chain ID 11124). Explorer: https://sepolia.abscan.org. Default RPC: https://api.testnet.abs.xyz.
  *
- * const client = createMemoryClient({
- *   common: abstractTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const abstractTestnet = createCommon({
 	..._abstractTestnet,

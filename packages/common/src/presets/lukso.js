@@ -4,24 +4,11 @@ import { lukso as _lukso } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the lukso chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 42
- * Chain Name: LUKSO
- * Default Block Explorer: https://explorer.execution.mainnet.lukso.network
- * Default RPC URL: https://rpc.mainnet.lukso.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { lukso } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for LUKSO (chain ID 42). Explorer: https://explorer.execution.mainnet.lukso.network. Default RPC: https://rpc.mainnet.lukso.network.
  *
- * const client = createMemoryClient({
- *   common: lukso,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const lukso = createCommon({
 	..._lukso,

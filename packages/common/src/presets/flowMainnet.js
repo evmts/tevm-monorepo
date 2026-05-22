@@ -4,24 +4,11 @@ import { flowMainnet as _flowMainnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the flowMainnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 747
- * Chain Name: FlowEVM Mainnet
- * Default Block Explorer: https://flowdiver.io
- * Default RPC URL: https://mainnet.evm.nodes.onflow.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { flowMainnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Flow EVM Mainnet (chain ID 747). Explorer: https://evm.flowscan.io. Default RPC: https://mainnet.evm.nodes.onflow.org.
  *
- * const client = createMemoryClient({
- *   common: flowMainnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const flowMainnet = createCommon({
 	..._flowMainnet,

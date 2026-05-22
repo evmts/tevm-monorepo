@@ -4,24 +4,11 @@ import { fibo as _fibo } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the fibo chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 12306
- * Chain Name: Fibo Chain
- * Default Block Explorer: https://scan.fibochain.org
- * Default RPC URL: https://network.hzroc.art
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { fibo } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Fibo Chain (chain ID 12306). Explorer: https://scan.fibochain.org. Default RPC: https://network.hzroc.art.
  *
- * const client = createMemoryClient({
- *   common: fibo,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const fibo = createCommon({
 	..._fibo,

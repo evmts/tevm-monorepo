@@ -4,24 +4,11 @@ import { degen as _degen } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the degen chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 666666666
- * Chain Name: Degen
- * Default Block Explorer: https://explorer.degen.tips
- * Default RPC URL: https://rpc.degen.tips
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { degen } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Degen (chain ID 666666666). Explorer: https://explorer.degen.tips. Default RPC: https://rpc.degen.tips.
  *
- * const client = createMemoryClient({
- *   common: degen,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const degen = createCommon({
 	..._degen,

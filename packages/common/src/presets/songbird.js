@@ -4,24 +4,11 @@ import { songbird as _songbird } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the songbird chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 19
- * Chain Name: Songbird Mainnet
- * Default Block Explorer: https://songbird-explorer.flare.network
- * Default RPC URL: https://songbird-api.flare.network/ext/C/rpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { songbird } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Songbird Canary-Network (chain ID 19). Explorer: https://songbird-explorer.flare.network. Default RPC: https://songbird-api.flare.network/ext/C/rpc.
  *
- * const client = createMemoryClient({
- *   common: songbird,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const songbird = createCommon({
 	..._songbird,

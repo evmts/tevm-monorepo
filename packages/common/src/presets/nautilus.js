@@ -4,24 +4,11 @@ import { nautilus as _nautilus } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the nautilus chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 22222
- * Chain Name: Nautilus Mainnet
- * Default Block Explorer: https://nautscan.com
- * Default RPC URL: https://api.nautilus.nautchain.xyz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { nautilus } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Nautilus Mainnet (chain ID 22222). Explorer: https://nautscan.com. Default RPC: https://api.nautilus.nautchain.xyz.
  *
- * const client = createMemoryClient({
- *   common: nautilus,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const nautilus = createCommon({
 	..._nautilus,

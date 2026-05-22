@@ -4,24 +4,11 @@ import { curtis as _curtis } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the curtis chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 33111
- * Chain Name: Curtis
- * Default Block Explorer: https://explorer.curtis.apechain.com
- * Default RPC URL: https://rpc.curtis.apechain.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { curtis } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Curtis (chain ID 33111). Explorer: https://explorer.curtis.apechain.com. Default RPC: https://rpc.curtis.apechain.com.
  *
- * const client = createMemoryClient({
- *   common: curtis,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const curtis = createCommon({
 	..._curtis,

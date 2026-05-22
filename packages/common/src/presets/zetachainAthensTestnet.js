@@ -4,24 +4,11 @@ import { zetachainAthensTestnet as _zetachainAthensTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the zetachainAthensTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 7001
- * Chain Name: ZetaChain Athens Testnet
- * Default Block Explorer: https://athens.explorer.zetachain.com
- * Default RPC URL: https://zetachain-athens-evm.blockpi.network/v1/rpc/public
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { zetachainAthensTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for ZetaChain Athens Testnet (chain ID 7001). Explorer: https://testnet.zetascan.com. Default RPC: https://zetachain-athens-evm.blockpi.network/v1/rpc/public.
  *
- * const client = createMemoryClient({
- *   common: zetachainAthensTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const zetachainAthensTestnet = createCommon({
 	..._zetachainAthensTestnet,

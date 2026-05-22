@@ -4,24 +4,11 @@ import { zoraSepolia as _zoraSepolia } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the zoraSepolia chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 999999999
- * Chain Name: Zora Sepolia
- * Default Block Explorer: https://sepolia.explorer.zora.energy/
- * Default RPC URL: https://sepolia.rpc.zora.energy
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { zoraSepolia } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Zora Sepolia (chain ID 999999999). Explorer: https://sepolia.explorer.zora.energy/. Default RPC: https://sepolia.rpc.zora.energy.
  *
- * const client = createMemoryClient({
- *   common: zoraSepolia,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const zoraSepolia = createCommon({
 	..._zoraSepolia,

@@ -4,24 +4,11 @@ import { karura as _karura } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the karura chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 686
- * Chain Name: Karura
- * Default Block Explorer: https://blockscout.karura.network
- * Default RPC URL: https://eth-rpc-karura.aca-api.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { karura } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Karura (chain ID 686). Explorer: https://blockscout.karura.network. Default RPC: https://eth-rpc-karura.aca-api.network.
  *
- * const client = createMemoryClient({
- *   common: karura,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const karura = createCommon({
 	..._karura,

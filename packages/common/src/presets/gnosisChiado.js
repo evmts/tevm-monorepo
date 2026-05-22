@@ -4,24 +4,11 @@ import { gnosisChiado as _gnosisChiado } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the gnosisChiado chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 10200
- * Chain Name: Gnosis Chiado
- * Default Block Explorer: https://blockscout.chiadochain.net
- * Default RPC URL: https://rpc.chiadochain.net
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { gnosisChiado } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Gnosis Chiado (chain ID 10200). Explorer: https://blockscout.chiadochain.net. Default RPC: https://rpc.chiadochain.net.
  *
- * const client = createMemoryClient({
- *   common: gnosisChiado,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const gnosisChiado = createCommon({
 	..._gnosisChiado,

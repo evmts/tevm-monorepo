@@ -4,24 +4,11 @@ import { klaytn as _klaytn } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the klaytn chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 8217
- * Chain Name: Klaytn
- * Default Block Explorer: https://scope.klaytn.com
- * Default RPC URL: https://public-en-cypress.klaytn.net
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { klaytn } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Klaytn (chain ID 8217). Explorer: https://scope.klaytn.com. Default RPC: https://public-en-cypress.klaytn.net.
  *
- * const client = createMemoryClient({
- *   common: klaytn,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const klaytn = createCommon({
 	..._klaytn,

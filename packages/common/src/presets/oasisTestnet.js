@@ -4,24 +4,11 @@ import { oasisTestnet as _oasisTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the oasisTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 4090
- * Chain Name: Oasis Testnet
- * Default Block Explorer: https://oasis.ftnscan.com
- * Default RPC URL: https://rpc1.oasis.bahamutchain.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { oasisTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Oasis Testnet (chain ID 4090). Explorer: https://oasis.ftnscan.com. Default RPC: https://rpc1.oasis.bahamutchain.com.
  *
- * const client = createMemoryClient({
- *   common: oasisTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const oasisTestnet = createCommon({
 	..._oasisTestnet,

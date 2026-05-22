@@ -4,24 +4,11 @@ import { celoAlfajores as _celoAlfajores } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the celoAlfajores chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 44787
- * Chain Name: Alfajores
- * Default Block Explorer: https://explorer.celo.org/alfajores
- * Default RPC URL: https://alfajores-forno.celo-testnet.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { celoAlfajores } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Alfajores (chain ID 44787). Explorer: https://celo-alfajores.blockscout.com. Default RPC: https://alfajores-forno.celo-testnet.org.
  *
- * const client = createMemoryClient({
- *   common: celoAlfajores,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const celoAlfajores = createCommon({
 	..._celoAlfajores,

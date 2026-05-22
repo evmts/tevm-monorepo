@@ -4,24 +4,11 @@ import { pgn as _pgn } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the pgn chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 424
- * Chain Name: PGN
- * Default Block Explorer: https://explorer.publicgoods.network
- * Default RPC URL: https://rpc.publicgoods.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { pgn } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for PGN (chain ID 424). Explorer: https://explorer.publicgoods.network. Default RPC: https://rpc.publicgoods.network.
  *
- * const client = createMemoryClient({
- *   common: pgn,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const pgn = createCommon({
 	..._pgn,

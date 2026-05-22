@@ -4,24 +4,11 @@ import { moonriver as _moonriver } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the moonriver chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1285
- * Chain Name: Moonriver
- * Default Block Explorer: https://moonriver.moonscan.io
- * Default RPC URL: https://moonriver.public.blastapi.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { moonriver } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Moonriver (chain ID 1285). Explorer: https://moonriver.moonscan.io. Default RPC: https://rpc.api.moonriver.moonbeam.network.
  *
- * const client = createMemoryClient({
- *   common: moonriver,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const moonriver = createCommon({
 	..._moonriver,

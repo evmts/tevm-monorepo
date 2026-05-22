@@ -4,24 +4,11 @@ import { filecoinCalibration as _filecoinCalibration } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the filecoinCalibration chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 314159
- * Chain Name: Filecoin Calibration
- * Default Block Explorer: https://calibration.filscan.io
- * Default RPC URL: https://api.calibration.node.glif.io/rpc/v1
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { filecoinCalibration } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Filecoin Calibration (chain ID 314159). Explorer: https://calibration.filscan.io. Default RPC: https://api.calibration.node.glif.io/rpc/v1.
  *
- * const client = createMemoryClient({
- *   common: filecoinCalibration,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const filecoinCalibration = createCommon({
 	..._filecoinCalibration,

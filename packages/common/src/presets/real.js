@@ -4,24 +4,11 @@ import { real as _real } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the real chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 111188
- * Chain Name: re.al
- * Default Block Explorer: https://explorer.re.al
- * Default RPC URL: https://real.drpc.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { real } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for re.al (chain ID 111188). Explorer: https://explorer.re.al. Default RPC: https://rpc.realforreal.gelato.digital.
  *
- * const client = createMemoryClient({
- *   common: real,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const real = createCommon({
 	..._real,

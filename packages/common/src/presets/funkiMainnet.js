@@ -4,24 +4,11 @@ import { funkiMainnet as _funkiMainnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the funkiMainnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 33979
- * Chain Name: Funki
- * Default Block Explorer: https://funkiscan.io
- * Default RPC URL: https://rpc-mainnet.funkichain.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { funkiMainnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Funki (chain ID 33979). Explorer: https://funkiscan.io. Default RPC: https://rpc-mainnet.funkichain.com.
  *
- * const client = createMemoryClient({
- *   common: funkiMainnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const funkiMainnet = createCommon({
 	..._funkiMainnet,

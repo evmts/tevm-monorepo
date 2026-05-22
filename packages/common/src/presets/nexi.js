@@ -4,24 +4,11 @@ import { nexi as _nexi } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the nexi chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 4242
- * Chain Name: Nexi
- * Default Block Explorer: https://www.nexiscan.com
- * Default RPC URL: https://rpc.chain.nexi.technology
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { nexi } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Nexi (chain ID 4242). Explorer: https://www.nexiscan.com. Default RPC: https://rpc.chain.nexi.technology.
  *
- * const client = createMemoryClient({
- *   common: nexi,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const nexi = createCommon({
 	..._nexi,

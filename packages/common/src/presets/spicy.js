@@ -4,24 +4,11 @@ import { spicy as _spicy } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the spicy chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 88882
- * Chain Name: Chiliz Spicy Testnet
- * Default Block Explorer: http://spicy-explorer.chiliz.com
- * Default RPC URL: https://spicy-rpc.chiliz.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { spicy } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Chiliz Spicy Testnet (chain ID 88882). Explorer: http://spicy-explorer.chiliz.com. Default RPC: https://spicy-rpc.chiliz.com.
  *
- * const client = createMemoryClient({
- *   common: spicy,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const spicy = createCommon({
 	..._spicy,

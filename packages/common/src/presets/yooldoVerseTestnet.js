@@ -4,24 +4,11 @@ import { yooldoVerseTestnet as _yooldoVerseTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the yooldoVerseTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 50006
- * Chain Name: Yooldo Verse Testnet
- * Default Block Explorer: https://explorer.testnet.yooldo-verse.xyz
- * Default RPC URL: https://rpc.testnet.yooldo-verse.xyz
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { yooldoVerseTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Yooldo Verse Testnet (chain ID 50006). Explorer: https://explorer.testnet.yooldo-verse.xyz. Default RPC: https://rpc.testnet.yooldo-verse.xyz.
  *
- * const client = createMemoryClient({
- *   common: yooldoVerseTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const yooldoVerseTestnet = createCommon({
 	..._yooldoVerseTestnet,

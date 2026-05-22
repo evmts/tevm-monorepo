@@ -4,24 +4,11 @@ import { edgeless as _edgeless } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the edgeless chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2026
- * Chain Name: Edgeless Network
- * Default Block Explorer: https://explorer.edgeless.network
- * Default RPC URL: https://rpc.edgeless.network/http
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { edgeless } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Edgeless Network (chain ID 2026). Explorer: https://explorer.edgeless.network. Default RPC: https://rpc.edgeless.network/http.
  *
- * const client = createMemoryClient({
- *   common: edgeless,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const edgeless = createCommon({
 	..._edgeless,

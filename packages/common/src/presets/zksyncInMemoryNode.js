@@ -4,24 +4,11 @@ import { zksyncInMemoryNode as _zksyncInMemoryNode } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the zksyncInMemoryNode chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 260
- * Chain Name: ZKsync InMemory Node
- * Default Block Explorer: Not specified
- * Default RPC URL: http://localhost:8011
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { zksyncInMemoryNode } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for ZKsync InMemory Node (chain ID 260). Explorer: —. Default RPC: http://localhost:8011.
  *
- * const client = createMemoryClient({
- *   common: zksyncInMemoryNode,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const zksyncInMemoryNode = createCommon({
 	..._zksyncInMemoryNode,

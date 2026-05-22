@@ -4,24 +4,11 @@ import { skaleEuropa as _skaleEuropa } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the skaleEuropa chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 2046399126
- * Chain Name: SKALE | Europa Liquidity Hub
- * Default Block Explorer: https://elated-tan-skat.explorer.mainnet.skalenodes.com
- * Default RPC URL: https://mainnet.skalenodes.com/v1/elated-tan-skat
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { skaleEuropa } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for SKALE Europa Hub (chain ID 2046399126). Explorer: https://elated-tan-skat.explorer.mainnet.skalenodes.com. Default RPC: https://mainnet.skalenodes.com/v1/elated-tan-skat.
  *
- * const client = createMemoryClient({
- *   common: skaleEuropa,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const skaleEuropa = createCommon({
 	..._skaleEuropa,

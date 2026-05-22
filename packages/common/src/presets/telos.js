@@ -4,24 +4,11 @@ import { telos as _telos } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the telos chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 40
- * Chain Name: Telos
- * Default Block Explorer: https://www.teloscan.io/
- * Default RPC URL: https://mainnet.telos.net/evm
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { telos } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Telos (chain ID 40). Explorer: https://www.teloscan.io/. Default RPC: https://rpc.telos.net.
  *
- * const client = createMemoryClient({
- *   common: telos,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const telos = createCommon({
 	..._telos,

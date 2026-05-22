@@ -4,24 +4,11 @@ import { coreDao as _coreDao } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the coreDao chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1116
- * Chain Name: Core Dao
- * Default Block Explorer: https://scan.coredao.org
- * Default RPC URL: https://rpc.coredao.org
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { coreDao } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Core Dao (chain ID 1116). Explorer: https://scan.coredao.org. Default RPC: https://rpc.coredao.org.
  *
- * const client = createMemoryClient({
- *   common: coreDao,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const coreDao = createCommon({
 	..._coreDao,

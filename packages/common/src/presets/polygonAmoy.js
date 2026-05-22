@@ -4,24 +4,11 @@ import { polygonAmoy as _polygonAmoy } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the polygonAmoy chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 80002
- * Chain Name: Polygon Amoy
- * Default Block Explorer: https://amoy.polygonscan.com
- * Default RPC URL: https://rpc-amoy.polygon.technology
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { polygonAmoy } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Polygon Amoy (chain ID 80002). Explorer: https://amoy.polygonscan.com. Default RPC: https://rpc-amoy.polygon.technology.
  *
- * const client = createMemoryClient({
- *   common: polygonAmoy,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const polygonAmoy = createCommon({
 	..._polygonAmoy,

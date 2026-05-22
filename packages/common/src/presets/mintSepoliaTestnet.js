@@ -4,24 +4,11 @@ import { mintSepoliaTestnet as _mintSepoliaTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the mintSepoliaTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1686
- * Chain Name: Mint Sepolia Testnet
- * Default Block Explorer: https://testnet-explorer.mintchain.io
- * Default RPC URL: https://testnet-rpc.mintchain.io
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { mintSepoliaTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Mint Sepolia Testnet (chain ID 1686). Explorer: https://testnet-explorer.mintchain.io. Default RPC: https://testnet-rpc.mintchain.io.
  *
- * const client = createMemoryClient({
- *   common: mintSepoliaTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const mintSepoliaTestnet = createCommon({
 	..._mintSepoliaTestnet,

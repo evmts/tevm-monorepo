@@ -4,24 +4,11 @@ import { luksoTestnet as _luksoTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the luksoTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 4201
- * Chain Name: LUKSO Testnet
- * Default Block Explorer: https://explorer.execution.testnet.lukso.network
- * Default RPC URL: https://rpc.testnet.lukso.network
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { luksoTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for LUKSO Testnet (chain ID 4201). Explorer: https://explorer.execution.testnet.lukso.network. Default RPC: https://rpc.testnet.lukso.network.
  *
- * const client = createMemoryClient({
- *   common: luksoTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const luksoTestnet = createCommon({
 	..._luksoTestnet,

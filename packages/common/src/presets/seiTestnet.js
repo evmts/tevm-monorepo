@@ -4,24 +4,11 @@ import { seiTestnet as _seiTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the seiTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 1328
- * Chain Name: Sei Testnet
- * Default Block Explorer: https://seitrace.com
- * Default RPC URL: https://evm-rpc-testnet.sei-apis.com
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { seiTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Sei Testnet (chain ID 1328). Explorer: https://testnet.seiscan.io. Default RPC: https://evm-rpc-testnet.sei-apis.com.
  *
- * const client = createMemoryClient({
- *   common: seiTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const seiTestnet = createCommon({
 	..._seiTestnet,

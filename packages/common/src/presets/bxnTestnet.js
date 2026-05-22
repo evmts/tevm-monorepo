@@ -4,24 +4,11 @@ import { bxnTestnet as _bxnTestnet } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the bxnTestnet chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 4777
- * Chain Name: BlackFort Exchange Network Testnet
- * Default Block Explorer: https://testnet-explorer.blackfort.network
- * Default RPC URL: https://testnet.blackfort.network/rpc
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { bxnTestnet } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for BlackFort Exchange Network Testnet (chain ID 4777). Explorer: https://testnet-explorer.blackfort.network. Default RPC: https://testnet.blackfort.network/rpc.
  *
- * const client = createMemoryClient({
- *   common: bxnTestnet,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const bxnTestnet = createCommon({
 	..._bxnTestnet,

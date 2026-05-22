@@ -4,24 +4,11 @@ import { lyra as _lyra } from 'viem/chains'
 import { createCommon } from '../createCommon.js'
 
 /**
- * Creates a common configuration for the lyra chain.
- * @type {import('../Common.js').Common}
- * @description
- * Chain ID: 957
- * Chain Name: Lyra Chain
- * Default Block Explorer: https://explorer.lyra.finance
- * Default RPC URL: https://rpc.lyra.finance
- * @example
- * import { createMemoryClient } from 'tevm'
- * import { lyra } from 'tevm/common'
- * import { http } from 'tevm'
+ * `Common` for Lyra Chain (chain ID 957). Explorer: https://explorer.lyra.finance. Default RPC: https://rpc.lyra.finance.
  *
- * const client = createMemoryClient({
- *   common: lyra,
- *   fork: {
- *     transport: http({ url: 'https://example.com' })({})
- *   },
- * })
+ * Usage: pass as `common` to `createMemoryClient`. See `tevmDefault` and other presets in `tevm/common`.
+ * @hidden
+ * @type {import('../Common.js').Common}
  */
 export const lyra = createCommon({
 	..._lyra,
